@@ -1,0 +1,384 @@
+---- 02/01/2013   CarDriving 6.0.7
+
+Fixed point selection bug for the shading view in the object editor.
+
+Now showing axes in the shading too.
+
+---- 01/01/2013   CarDriving 6.0.6
+
+A reorganization of the rendering classes.
+
+Fixed a big mess in the axonometric calculations of the ObjectEditor.
+
+Now you can select the shading view in the ObjectEditor: use the menu edit-> Show Shading.
+
+Created the copy selection function in the ObjectEditor, use the menu edit->Copy selection.
+
+Now in the ObjectEditor you can select polygon with the mouse in all the views!
+
+New rotation angle teta: press keys a and s. Now use t for select all.
+
+A little but useful clarification on how to select elements in the RoadEditor,
+ see the program Help
+
+---- 08/12/2012    CarDriving 6.0.5
+ 
+Bug fixed: now in the ObjectEditor 3D PolygonDetail show z value.
+
+Fixed bug for the reflection operation in the object editor: now reflected polygons got
+the correct points order.
+
+Now in the ObjectEditor 3D view you can select polygon with the mouse!
+
+Added in the ObjectEditor a check so you can't insert the same point more than one time.
+
+----------  26/10/2012    CarDriving 6.0.4
+
+Added the BendBuilder to help build more easily curves. Avoid double points!
+
+Added the invertSelectedRoadPolygon function with key "<"
+
+Enhanced the RoadEditorPolygonDetail in the RoadEditor.
+
+Improvements of the CubicEditor,BlockEditor,IperviewEditor.
+
+
+
+----------  18/10/2012    CarDriving 6.0.3
+
+First introduction of the Autocar, see my Driving2D project for instructions and editors. 
+
+Revision of the speed calculus.
+
+First revision of the scale used for the rendering of everything.
+
+
+----------  16/09/2012    CarDriving 6.0.2
+
+Now the object editor can read point with an extra string data 
+beside spatial coordinates.
+Added a little help menu to the Object Editor.
+Improved the EditorPreviewPanel.
+
+Some changes apply to the IperviewEditor.
+
+Fixed bugs in the object editor in the mesh loading.
+
+Now in the RoadEditor you can move objects and road point without deselecting
+them, which is a faster editing way.
+
+---------- CarDriving 6.0.1
+
+
+Using arrays of Polygon3D to slightly speed up Shadow Volumes application. 
+
+A new tree texture.
+
+Some corrections of objects_default map.
+
+--------30/05/2012  CarDriving 6.0.0
+
+
+Introduction of the shadow volumes with z-fail test, discarding the shadow map.
+
+Total revision of the perspective system and key class re-organization.
+
+
+-------25/04/2012  CarDriving 5.0.1
+
+Fixed the bug which didn't show shadows in rear view.
+
+Fixed the bug on the vertical car positioning.
+
+
+-------25/04/2012  CarDriving 5.0.0
+
+Major changes in the perspective calculations and a first introduction of the shadow map.
+Further improvement of the technique in future releases.
+Code a bit messy, need cleaning.
+
+A more realistic version of the curves in the road defaults.
+
+---07/04/2012  CarDriving 4.0.2
+
+Added the "Polygon detail" feature in the ObjectEditor
+
+Fixed bugs in the RoadEditor
+
+A more realistic version of the curves in the road defaults.
+
+Documentation improved
+
+---- 02/04/2012  CarDriving 4.0.1
+
+Fixed problems in road texturing.
+
+---- 01/04/2012  CarDriving 4.0.0   
+
+A total change in the road structure, which now is like a mesh:changes in the main
+program (Road class) and the RoadEditor class.
+Old road format migrated to the new one.
+
+Fixed the translation slowness in the Road Preview panel in the Road Editor.
+
+Changed the road_default to create more realistic road curves.
+
+Lowered the car speed
+
+Fixed key listener bug in the RoadEditor
+
+---- CarDriving 3.3.6
+
+Added in the RoadEditor the menu 
+
+Other->new grid 
+
+and the new class com/editors/road/RoadEditorGridManager
+
+Made other display changes in the RoadEditor class.
+
+---- CarDriving 3.3.5
+
+Changed tree Object (object3D_7) with a true 3D tree.
+
+Added in the ObjectEditor the Rescale Selected Option
+
+Now in the Mould you can choose the points/profile color to read.
+
+Dropped the zoom-in limitation in the ObjectEditor and IperviewEditor.
+
+
+---- CarDriving 3.3.4
+
+Upgraded the 6 cars set.
+
+Fixed bug of wrong image orientation in the Save Base Texture of the Object Editor.
+Fixed numerous bug in the car loading of the main program.
+Fixed bug for y<0 in the Object Editor Preview Panel.
+
+Added the Mould Editor to build objects by rotation of a red line profile:
+
+	*  to launch the Mould editor use the command:
+	*
+	* java -classpath Driving.jar    com.editors.others.Mould
+
+----  CarDriving 3.3.3
+
+ Added the BlockEditor
+
+  	* to launch the bloc editor use the command:
+	*
+	* java -classpath Driving.jar    com.editors.block.BlockEditor
+
+
+ The CubeEditor revised, and so the other editors, fixed numerous bugs.
+ Added the plane template in the ObjectEditor, how to build polygons made clearer.
+ Now the cube and block editors got better undo functions.
+ Now you can drag the mouse to select the points.
+ 
+ IperView Editor:better move and drag behavior.
+ 
+ ObjectEditor: enhancement of the "Save base texture" function, with the object structure.
+  
+
+----  CarDriving 3.3.2
+
+  A new organization for the editor classes, added the CubicEditor
+  
+  New Editor launch commands:
+  
+  	* to launch the road editor use the command:
+	*
+	* java -classpath Driving.jar    com.editors.road.RoadEditor
+	*
+	* to launch the object editor use the command:
+	*
+	* java -classpath Driving.jar    com.editors.object.ObjectEditor
+	*
+	* to launch the cubic editor use the command:
+	*
+	* java -classpath Driving.jar    com.editors.cubic.CubicEditor
+	*
+	* to launch the ipreview editor use the command:
+	*
+	* java -classpath Driving.jar    com.editors.iperview.IperviewEditor
+
+---- CarDriving 3.3.1
+
+  Increased the screen width to 800 pixels,enlarged the background images.
+
+
+
+----CarDriving 3.3.0
+
+  A new faster way to calculate texture coordinates using perspective correct texturing interpolation .
+
+  In the object editor reactivated the "Insert template" which was lost
+  in previous versions.Eliminated the limitation of the zoom-in function.
+
+  Some simple modifications in the code to avoid some useless runtime processing
+  and avoiding cloning
+
+
+
+----CarDriving 3.2.12
+
+ New re-organization of the editors code.
+
+ Added the preview to the ObjectEditor
+ 
+ Added the new IperviewEditor.To launch it:
+ 
+ java -classpath Driving.jar    com.editors.iperview.IperviewEditor
+
+
+
+---CarDriving  3.2.11
+
+Added the new Menu Voice Change->Transform the new Transform panel to perform
+useful global transformations.  
+
+---CarDriving 3.2.10
+
+A total,more rational reorganization of the code.
+These are the new command to launch the program and the editors:
+
+java -Xms128m -Xmx256m  -classpath Driving.jar   com.main.CarFrame
+
+java -classpath Driving.jar    com.editors.ObjectEditor
+
+java -classpath Driving.jar    com.editors.RoadEditor
+
+
+A complete revision and expansion of the object editor.
+
+Fixed bug in object editor:error building a polygon using points selected by the
+points list.Also fixed other minor point selection and data refresh bug.
+
+
+---CarDriving 3.2.9
+
+Changed the background image type to jpg to improve quality.
+
+A first rudimentary version of shadowing.
+
+---CarDriving 3.2.8
+
+Disabled a pause in the game engine used to slow down the drawing process,
+to show the full speed of the program.
+
+Fixed a bug (not road drawing) introduced in the rear view (Z key).
+
+---CarDriving 3.2.7
+
+A little increase in the performances adding the method isFacing
+to avoid scanning polygons which are not facing the point of view camera ,
+so they are not visible.
+
+Review of the tree object (number 7 in the objects list)
+
+Fine tuning for the performances,removing some unnecessary casts and 
+using arrays instead of vectors,with very small results.
+
+
+
+
+---CarDriving 3.2.6
+
+Fixed a big bug about texture object usage:there was an inversion in the front face!
+
+Made a modification about the background color identification with the filterBackground
+function in the texture class,taking into account small differences in the textures due to editor image
+imprecision .
+
+Introduced a tree object,first example of partially transparent (like green screen effect) object.
+
+---CarDriving 3.2.5
+
+Fixed 2 big bugs for objects with more than 15 polygon and for the cube back texture.
+
+Made some correction in the building of the polygon meshes for the objects,
+considering negatives coordinates to translate into positive.
+
+changed in particular the method in the CubicMesh:
+CubicMesh loadMeshFromFile(File file)
+
+Added as example a prism tower.
+
+
+Changes in the ObjectEditor:
+added the panel to create box,prism,sphere template.
+added the show normals function.
+considering negative coordinates in the base texture generation.
+
+
+
+---CarDriving 3.2.4
+
+A faster version thanks to substituting 
+
+	buf.setRGB(0,0,WIDTH,HEIGHT,rgb,0,WIDTH);
+
+with
+
+ 	buf.getRaster().setDataElements( 0,0,WIDTH,HEIGHT,rgb);
+	   
+---CarDriving CarDriving 3.2.3
+
+Changed the requested dimensions of the background images :now the height is the double.
+
+A first implementation of driver's position camera (press keys 1-2).
+
+Corrected the steering,the back view (which showed the car).
+
+
+---CarDriving 3.2.2 
+
+Added the new RoadAltimetryPanel for managing altimetry in a better way.This new panel,
+the RoadEditor and RoadEditorPreviewPanel are Synchronized
+
+---CarDriving 3.2.1 and previous versions
+
+ATTENTION:increased the heap memory need,see README for instructions (added the java VM arguments -Xms128m -Xmx256m). 
+
+Corrected a very important orientation problem for the objects in the road editor.
+
+A change in the road textures size,now almost doubled but with lower resolution.An attempt to create a
+more interesting environment. 
+
+The RoadEditor now remember last directory used for load and save.
+
+Now using real 3D object and associated cubic texture that you can build with the object editor !
+
+Removed the use in the main program and in the RoadEditor of the NUM_OBJECTS and NUM__WORLD_IMAGES parameters.
+Now these programs evaluate the number of elements to load,so you can add them without modifying the code.
+Renamed the road textures,now distinguished only by the cardinal number. 
+
+Correct a serious bug on the calculation of the y direction for
+the road textures.
+
+Farther enhancements of the RoadEditor (with multiple objects selection) and of the ObjectEditor (with points translations).
+
+In the RoadEditor now you can select with the mouse an area and so the points inside to modify.
+Also made a distinction in two panels between function to manage object and those to manage road components.
+
+Fixed a bug of the steering at high speed.
+
+Introduced the polygon mesh to manage the car building.
+
+Performed a new change in the cardefault3D files,now using the topologic (o mesh) format,
+which can be loaded and saved by the object editor,so that the latter is even more integrated to the game.
+
+Eliminated the parameters DELTAX,DELTAY,DELTAZ,now calculated internally by the program,and the [OBJECT-INDEX],now no more necessary.
+
+Corrected a bug in the polygons textures creation,now the movements are more credible.
+
+A new review on the use of textures:now you can choose (in the editor) the textures for the object3D,which are treated in the same way than the ones for object2D.The transparent colors is now  the pure green for everything.Changed also the creation process of the car image ,now real time,for future improvements.
+
+Added the rear view:press Z key !
+
+Changed the sound production creating the AdvancedGameSound class,added a new car,again a review of the editors (added the undo).Now there are also textures for the 90° curves!
+
+----------
+
+I remember that the program can be launched directly using the jar file (after extracting the lib folder!) and the java command (read the README.txt).

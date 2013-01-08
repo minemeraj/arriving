@@ -1,0 +1,290 @@
+	**********************
+	*  READ ME CARDRIVING VERSION   6.0.3
+	*
+	*  by Piazza Francesco Giovanni 
+	*  Tecnes Milano ,Italy http://www.tecnes.com ; Tel.: +39.02.67101036
+	*	
+	**********************
+		
+	Java version:1.7.0_02
+	Edited using Eclipse Platform Version 3.7.0
+	
+	************
+	*
+	* REFERENCE BOOK :
+	* Developing Games In Java - Book
+	* By David Brackeen, Bret Barker, Laurence Vanhelsuwé 
+	* 
+	* SEE FOR TEXTURE MAPPING ALSO THE ARTICLES BY 
+	* Rosalee Wolfe
+	* 
+	*********************
+	*
+	* to launch from command line extract the lib directory from the jar 
+	* in the same directory and write :
+	*
+	* java -Xms128m -Xmx256m  -classpath Driving.jar   com.main.CarFrame
+	*
+	* to launch the road editor use the command:
+	*
+	* java -classpath Driving.jar    com.editors.road.RoadEditor
+	*
+	* to launch the object editor use the command:
+	*
+	* java -classpath Driving.jar    com.editors.object.ObjectEditor
+	*
+	*
+	* To launch oOther experimental editors:
+	*
+	* to launch the cubic editor use the command:
+	*
+	* java -classpath Driving.jar    com.editors.cubic.CubicEditor
+	*
+	* to launch the bloc editor use the command:
+	*
+	* java -classpath Driving.jar    com.editors.block.BlockEditor
+	*
+	*  to launch the object iperview editor use the command:
+	*
+	* java -classpath Driving.jar    com.editors.iperview.IperviewEditor
+	*
+	*
+	*  to launch the Mould editor use the command:
+	*
+	* java -classpath Driving.jar    com.editors.others.Mould
+	*
+	*********************
+	
+	Main Game short keys:
+	
+	To change car: c key
+	To change gear: up arrow key,down arrow key.
+	To brake: F key
+	To steer left,right: left arrow key,right arrow key.
+	To change the background: b key
+	To restart: press the button "Reset car".
+	Horn :press H key.
+	Rear view: keep pressing Z key.
+	External camera: 1 key
+	Driver camera: 2 key
+
+    Note that in the lib folder you will find couples of files of the type:
+    
+	car_texture_t0.gif
+	cardefault3D_0 (see section OBJECTS 3D AND CARS FORMAT)
+		
+	which are respectively the texture and the 3D data to draw the car. 
+	The pure green in textures is the totally transparent color.	  
+	
+	You can also add your personal background going to the lib directory and 
+	adding an image file named background_NUMBER_OF_IMAGE.gif, where NUMBER_OF_IMAGE
+	is an integer starting from 1.
+	The height should be 500 pixels, the width at least 1000 pixels.
+	The blue is the transparent color.
+	
+	To add your personal object open the lib directory and create three files for each object: 
+	
+	a) object_NUMBER_OF_OBJECT.gif : image displayed in the RoadEditor
+	b) object3D_NUMBER_OF_OBJECT.gif: file of the 3D object mesh (see section OBJECTS 3D AND CARS FORMAT)
+	c) object3D_texture_NUMBER_OF_OBJECT.jpg: file of the object cubic texture.
+	
+	Both b) and 3) files can be generated via the ObjectEditor.
+	
+	*************************
+	---ABOUT THE POLYGONS :
+	
+	A polygon with its vertices appearing in counterclockwise order is the "front" of the polygon.
+	REFERENCE BOOK,chapter 7. Use only convex polygons!
+	
+	---ROAD FORMAT:
+	
+	Is a succession of two linear sections sections  :
+	
+	1-Points coordinates (separated by "_")
+	
+	P=x0,y0,z0_x1,y1,z1_....
+	
+	2-Polygons (lines) (separated by "_")
+		
+	L=T<NUMTEXTURE>,C<HEXCOLOR>,POINT0_INDEX,POINT1_INDEX..._
+	
+	where HEXCOLOR is a string rgb color in the hex representation, e.g. for white :FFFFFF.
+	and NUMTEXTURE is the index number of the texture associated, as found in the RoadEditor.
+	HEXCOLOR is used if you don't want to sue textures.
+	
+	if you don't want to use textures, create a file driving.properties in the lib directory and
+	write in: ISUSETEXTURE=false
+	
+	-- OBJECT LIST FORMAT:
+	
+	X_Y_Z_DX_DY_DZ_OBJECT-INDEX_HEXCOLOR
+	
+	where X,Y,Z are the object location,(DX,DY,DZ are mandatory but used only for the 2D game),
+	OBJECT-INDEX is the index identifier of the type of object,	HEXCOLOR is a string rgb color in the hex
+	representation, e.g. for white :FFFFFF.
+	
+	if you don't want to use textures create a file driving.properties in the lib directory and
+	write in: ISUSETEXTURE=false
+	
+	
+	---OBJECTS 3D AND CARS FORMAT:
+	
+    every object is defined by two files:
+    
+    object3D_[num_object] which define the object mesh
+    object3D_texture_[num_object].jpg which define the cubic texture for the object
+    
+    in the same way every car is composed by two files:
+    
+    cardefault3D_[num_car] which define the object mesh
+  	car_texture_t[num_car].gif which define the cubic texture for the object
+    
+    every mesh files is composed by two lines:
+    
+    a) P=the sequence of vertices in the format (separated by "_")
+    
+     x0,y0,z0_x1,y1,y2_...  =P[i=0,1...]
+    
+    b) L=the sequence of convex polygons composing the object in the format 
+    
+    I00,I01,I02_I10,II2,I13,II4_...
+    
+    the "_" separates different polygon sequences, where Iij is the index of the j vertex of the i polygon ,
+    i.e. the point P[Iij] is the i vertex of the j polygon.       
+     
+
+	*************
+
+	ROAD EDITOR
+
+    Road and objects are loaded and saved separately in the load and save menu.
+   
+    The game uses the files in the lib directory named 
+    road_default and objects_default.
+    
+    Select tiles with left mouse button in the area, select object by clicking on the number.
+   
+    Select object and road part, then to modify them type new coordinates and press 
+    "Change Point".
+    You can also keep the mouse pressed and select a rectangular region o points/objects.
+   
+    To select a road polygon press in his inner space with the left mouse button.After selecting 
+    a polygon press the "Polygon detail" button to see the ordered list of points composing it.
+
+    Editor short keys:
+
+        a: add new row
+        d: delete last row
+        i: insert object
+        b: change selected object 
+        p: change selected point
+        y: change selected polygon
+        n: start build polygon
+        l: build polygon
+        e: deselect all
+        f1: zoom in
+        f2  zoom out
+        < to invert polygon
+        
+    To insert a road point press the right button of the mouse in the location where you want
+    to insert it. 
+    
+    To insert an object press the button "insert object" to have it in a fixed starting point, or type the coordinates
+    of the new object and then press the button "insert object".
+    
+    To create a new polygon press "Start polygon points sequence", select the sequence of points part of
+    the polygon (in a counterclockwise order), then press "Build polygon". The option "Multiple selection" must be checked.
+    
+    If you don't want to clean up some text boxes after every insertion (to reuse their values) check 
+    the case at the right of them.
+        
+    To move objects and road points use also the panel with the arrows at the cardinal points,
+    putting in the central text field the quantity by which you want to move them.
+    
+    The file object_[NUM_OBJECT].gif is the image to display in the panel to choose the object type to
+    insert/modify in the road. 
+    
+    Choose the menu View->Preview to see a 3D grey scale preview of the road, without objects.
+    
+    **************
+    
+    OBJECT EDITOR
+    
+    You can select a point or a line using the lists or the mouse (only for the points).
+    After selecting a polygon press the "Polygon detail" button to see the ordered list of points composing it.
+    
+    Using the x,y,z fields you can also change the values for all the selected points.
+   
+    Object Editor short keys:
+    
+    Arrow keys left and right: move y0 origin.
+    Arrow keys up and down : move z0 origin.
+    Keys page up and page down : move x0 origin.
+    Key c: change selected point.
+    key j: join selected points
+    key p: build polygon
+    key i: insert point
+    Key e: deselect all
+    Key t: select all
+    Key d: delete selected point or line
+    Key F3-F4: enable or disable multiple selection. 
+    Key F1 and F2 : zoom in and out
+    Page up and down:move lines up and down the list
+    Key less: invert line point order.
+    
+    key q,w,a,s : rotate axes
+    
+    
+    You can save an object in the standard editor format via the menu Save->Save lines 
+
+    To load an object file go to menu Load->Load lines or drag in the file.
+    
+    Use menu Save->Save base texture to save a basic cubic trace for the object texture.
+    
+    You can also save in a format useful for the old versions of the 
+    Driving program via Save->Save poly format (note that you can't load from
+    this type of format).
+    
+    To create a new polygon press "Start polygon points sequence", select the sequence of points part of
+    the polygon, then press "Build polygon".
+    
+    Change view mode choosing from the View menu:3D,Top,Left,Front view are available.
+    
+    Choose the menu View->Preview to see a 3D grey scale preview of the object.
+    
+    
+    --- EXPERIMENTAL EDITOR:
+    
+    IPERVIEW EDITOR
+    
+    To move points with mouse,disable Multiple selection,select a point 
+    with the left mouse button,keep CTRL pressed add drag it into a new position.
+    
+    MOULD EDITOR
+    
+    Rotator:
+    Create a profile using an image of HALF your object with 
+    WHITE background and RED outline.The radius is the y-coordinate of the image.
+    Save as Polygon Mesh.
+    
+    
+   ********* AUTOCARS
+   
+   See my Driving2D project for instructions and editors. 
+    
+   **************
+   
+   
+    Notes
+    
+   	The actual drawing operation takes about 34 ms per frame (29 fps).
+   	
+   	
+   	************ SCALE NOTE
+   	
+   	Roughly one can estimates the scale conversion 1m = 26px
+   	
+   	So, a speed of 1px/frame is circa 1/26 m * 1000/34= 1000/884 m/s = 1.13 m/s
+    
+	
+	
