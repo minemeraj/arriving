@@ -1,3 +1,7 @@
+-----
+
+Now objects and road data are finally in the same file: landscape_default
+
 ---- 02/01/2013   CarDriving 6.0.7
 
 Fixed point selection bug for the shading view in the object editor.
