@@ -114,7 +114,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private JFileChooser fc;
 	private JMenuBar jmb;
-	private JMenu jm;
+	private JMenu jm_file;
 	private JMenuItem jmt11;
 	private JPanel right;
 	private JTextField coordinatesx;
@@ -128,9 +128,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton addObject;
 	private JButton delObject;
 	private AbstractButton jmt12;
-	private JMenuItem jmt21;
-	private JMenuItem jmt22;
-	private JMenu jm2;
 	private JMenu jm5;
 	private JMenuItem jmt51;
 
@@ -217,6 +214,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton deselectAllObjects;
 	private JMenu help_jm;
 	private AbstractButton jmt54;
+	private JMenuItem jmt_load_landscape;
+	private JMenuItem jmt_save_landscape;
 	
 
 	public RoadEditor(String title){
@@ -791,30 +790,25 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void buildMenuBar() {
 		jmb=new JMenuBar();
-		jm=new JMenu("Load");
-		jm.addMenuListener(this);
-		jmb.add(jm);
+		jm_file=new JMenu("File");
+		jm_file.addMenuListener(this);
+		jmb.add(jm_file);
+		
+		jmt_load_landscape = new JMenuItem("Load landscape");
+		jmt_load_landscape.addActionListener(this);
+		jm_file.add(jmt_load_landscape);
+		
+		jmt_save_landscape = new JMenuItem("Save landscape");
+		jmt_save_landscape.addActionListener(this);
+		jm_file.add(jmt_save_landscape);
 
 		jmt11 = new JMenuItem("Load road");
 		jmt11.addActionListener(this);
-		jm.add(jmt11);
+		jm_file.add(jmt11);
 
 		jmt12 = new JMenuItem("Load objects");
 		jmt12.addActionListener(this);
-		jm.add(jmt12);
-
-		jm2=new JMenu("Save");
-		jm2.addMenuListener(this);
-
-		jmt21 = new JMenuItem("Save road");
-		jmt21.addActionListener(this);
-		jm2.add(jmt21);
-
-		jmt22 = new JMenuItem("Save objects");
-		jmt22.addActionListener(this);
-		jm2.add(jmt22);
-
-		jmb.add(jm2);
+		jm_file.add(jmt12);
 
 		jm3=new JMenu("Textures");
 		jm3.addMenuListener(this);
@@ -1873,17 +1867,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 
-
-
-
-	private void saveRoad() {
-
-          saveLines();
-
-
-	}
-
-	public void saveObjects(){
+	public void saveObjects() throws FileNotFoundException{
 		fc = new JFileChooser();
 		fc.setDialogType(JFileChooser.SAVE_DIALOG);
 		fc.setDialogTitle("Save objects");
@@ -1894,16 +1878,18 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			currentDirectory=fc.getCurrentDirectory();
 			File file = fc.getSelectedFile();
-			saveObjects(file);
+			PrintWriter pr = new PrintWriter(new FileOutputStream(file));
+			saveObjects(pr);
+			pr.close(); 
 
 		} 
 	}
 
-	private void saveObjects(File file) {
-		PrintWriter pr;
+	private void saveObjects(PrintWriter pr) {
+		
 		try {
-			pr = new PrintWriter(new FileOutputStream(file));
 
+            pr.println("<objects>");			 
 			for(int i=0;i<drawObjects.size();i++){
 
 				DrawObject dro=(DrawObject) drawObjects.elementAt(i);
@@ -1911,10 +1897,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				dro.getDx()+"_"+dro.getDy()+"_"+dro.getDz()+"_"+dro.getIndex()+"_"+dro.getHexColor();
 				pr.println(str);
 			}
+			pr.println("</objects>");
+				
 
-			pr.close(); 	
-
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
@@ -1937,6 +1923,65 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 		}
+	}
+	
+	
+
+	private void saveLandscape()  {
+		
+		fc = new JFileChooser();
+		fc.setDialogType(JFileChooser.SAVE_DIALOG);
+		fc.setDialogTitle("Save landscape");
+		if(currentDirectory!=null)
+			fc.setCurrentDirectory(currentDirectory);
+		if(currentFile!=null)
+			fc.setSelectedFile(currentFile);
+		
+		int returnVal = fc.showOpenDialog(null);
+
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File file = fc.getSelectedFile();
+			
+			currentDirectory=fc.getCurrentDirectory();
+			currentFile=fc.getSelectedFile();
+			
+			try{			
+				PrintWriter pr = new PrintWriter(new FileOutputStream(file));
+				saveLines(pr);
+				saveObjects(pr);
+				pr.close();
+			
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		
+	}
+
+
+
+	private void loadLanscape() {
+		
+		fc=new JFileChooser();
+		fc.setDialogType(JFileChooser.OPEN_DIALOG);
+		fc.setDialogTitle("Load landscape ");
+		if(currentDirectory!=null)
+			fc.setCurrentDirectory(currentDirectory);
+		if(currentFile!=null)
+			fc.setSelectedFile(currentFile);
+
+		int returnVal = fc.showOpenDialog(null);
+
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			currentDirectory=fc.getCurrentDirectory();
+			currentFile=fc.getSelectedFile();
+			File file = fc.getSelectedFile();
+			loadPointsFromFile(file);			
+            loadObjectsFromFile(file); 
+
+		}
+		
 	}
 	
 
@@ -2024,12 +2069,22 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));
 
+			boolean read=false;
 
 			String str=null;
-			int rows=0;
+
 			while((str=br.readLine())!=null){
 				if(str.indexOf("#")>=0 || str.length()==0)
 					continue;
+				
+				if(str.indexOf("objects")>=0){
+					read=!read;
+				    continue;
+				}	
+				
+				if(!read)
+					continue;
+				
 				DrawObject dro=buildDrawObject(str);
 				drawObjects.add(dro);
 
@@ -2083,12 +2138,15 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				loadObjectsFromFile();
 			displayAll();
 		}
-		else if(o==jmt21){
-			saveRoad();
+		else if(o==jmt_load_landscape){
+			
+			loadLanscape();
 		}
-		else if(o==jmt22){
-			saveObjects();
-		}
+		else if(o==jmt_save_landscape){
+			
+				saveLandscape();
+
+		}		
 		else if(o==jmt31){
 
 			isUseTextures=jmt31.isSelected();
@@ -2257,10 +2315,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		}
 	}
-
-
-
-
 
 
 

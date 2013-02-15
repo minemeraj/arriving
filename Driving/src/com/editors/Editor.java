@@ -38,7 +38,7 @@ public class Editor extends JFrame implements MenuListener{
 	
 	public JFileChooser fc= new JFileChooser();
 	public File currentDirectory=null;
-	private File currentFile=null;
+	public File currentFile=null;
 	
 	public void buildPoints(Vector points, String str) {
 
@@ -123,8 +123,22 @@ public class Editor extends JFrame implements MenuListener{
 
 			String str=null;
 			int rows=0;
+			
+			boolean read=false;
+			
 			while((str=br.readLine())!=null){
+				
+				
+				
 				if(str.indexOf("#")>=0 || str.length()==0)
+					continue;
+				
+				if(str.indexOf("lines")>=0){
+					read=!read;
+				    continue;
+				}	
+				
+				if(!read)
 					continue;
 
 				if(str.startsWith("P="))
@@ -186,22 +200,29 @@ public class Editor extends JFrame implements MenuListener{
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
 			
+			
 			currentDirectory=fc.getCurrentDirectory();
 			currentFile=fc.getSelectedFile();
-			saveLines(file);
-
+			try{
+				PrintWriter pr = new PrintWriter(new FileOutputStream(file));
+				saveLines(pr);
+	            pr.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 		} 
 
 
 	}
 
-	public void saveLines(File file) {
+	public void saveLines(PrintWriter pr) {
 
 
 
-		PrintWriter pr;
+		
 		try {
-			pr = new PrintWriter(new FileOutputStream(file));
+			
+			pr.println("<lines>");
 			pr.print("P=");
 
 			for(int i=0;i<points.size();i++){
@@ -223,10 +244,10 @@ public class Editor extends JFrame implements MenuListener{
 				if(i<lines.size()-1)
 					pr.print("_");
 			}	
+			pr.println("\n</lines>");
+				
 
-			pr.close(); 	
-
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
