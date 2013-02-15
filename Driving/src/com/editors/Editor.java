@@ -87,7 +87,11 @@ public class Editor extends JFrame implements MenuListener{
 
 	}
 	
+	boolean forceReading=false;
+	
 	public void loadPointsFromFile(){	
+		
+		forceReading=true;
 
 		fc=new JFileChooser();
 		fc.setDialogType(JFileChooser.OPEN_DIALOG);
@@ -124,7 +128,7 @@ public class Editor extends JFrame implements MenuListener{
 			String str=null;
 			int rows=0;
 			
-			boolean read=false;
+			boolean read=forceReading;
 			
 			while((str=br.readLine())!=null){
 				

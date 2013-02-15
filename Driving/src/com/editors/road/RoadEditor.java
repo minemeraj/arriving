@@ -1853,10 +1853,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 
-	private void loadRoadFromFile(File file) {
-		loadPointsFromFile(file);
-		
-	}
 
 	public void saveObjects() throws FileNotFoundException{
 		fc = new JFileChooser();
@@ -1974,13 +1970,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		
 	}
-	
 
-	public void loadRoadFromFile(){	
-
-            loadPointsFromFile();
-
-	}
 	
 	public void buildPoints(Vector points, String str) {
 
