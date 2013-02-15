@@ -154,10 +154,19 @@ public class Road extends Shader{
 				new Point3D(0,1,0)
 		);
 		
+	
+		try {
+			File file=new File("lib/landscape_default");
+			
+			loadPointsFromFile(file);		
+			loadObjectsFromFile(file);			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		loadRoadFromFile(new File("lib/road_default"));
-		
-		loadObjectsFromFile(new File("lib/objects_default"));
+
 		
 		
 		calculateShadowCosines();
@@ -812,29 +821,6 @@ public class Road extends Shader{
 
 	}
 
-
-	public void loadRoadFromFile(){	
-
-		fc=new JFileChooser();
-		fc.setDialogType(JFileChooser.OPEN_DIALOG);
-		fc.setDialogTitle("Load lines ");
-
-
-		int returnVal = fc.showOpenDialog(null);
-
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-			loadPointsFromFile(file);
-
-
-		}
-	}
-	
-	private void loadRoadFromFile(File file) {
-		
-		loadPointsFromFile(file);
-		
-	}
 	
 	public void loadPointsFromFile(File file){
 
@@ -845,13 +831,24 @@ public class Road extends Shader{
 		
 
 		try {
+			
 			BufferedReader br=new BufferedReader(new FileReader(file));
-
+			
+			boolean read=false;
 
 			String str=null;
 			int rows=0;
+			
 			while((str=br.readLine())!=null){
 				if(str.indexOf("#")>=0 || str.length()==0)
+					continue;
+				
+				if(str.indexOf("lines")>=0){
+					read=!read;
+				    continue;
+				}	
+				
+				if(!read)
 					continue;
 
 				if(str.startsWith("P="))
@@ -861,10 +858,8 @@ public class Road extends Shader{
 
 
 			}
+            br.close();
 
-			br.close();
-			
-			
 			
 			oldPoints=clonePoints(points);
 			oldLines=cloneLineData(lines);
@@ -1011,20 +1006,6 @@ public class Road extends Shader{
 		
 	}
 
-	public void loadObjectsFromFile(){	
-
-		fc=new JFileChooser();
-		fc.setDialogType(JFileChooser.OPEN_DIALOG);
-
-		int returnVal = fc.showOpenDialog(null);
-
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-			loadObjectsFromFile(file);
-
-
-		}
-	}
 
 	public static  CarData loadCarFromFile(File file) {
 		
@@ -1085,12 +1066,22 @@ public class Road extends Shader{
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));
 
-
+			boolean read=false;
+			
 			String str=null;
 			int rows=0;
 			while((str=br.readLine())!=null ){
 				if(str.indexOf("#")>=0 || str.length()==0)
 					continue;
+				
+				if(str.indexOf("objects")>=0){
+					read=!read;
+				    continue;
+				}	
+				
+				if(!read)
+					continue;
+				
 				DrawObject dro=buildDrawObject(str);
 				
 				buildRectanglePolygons(dro.getPolygons(),dro.x,dro.y,dro.z,dro.dx,dro.dy,dro.dz);
@@ -1111,7 +1102,6 @@ public class Road extends Shader{
 				
 
 			}
-
 			br.close();
 			
 			drawObjects=new DrawObject[vdrawObjects.size()];

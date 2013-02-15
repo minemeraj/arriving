@@ -115,7 +115,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JFileChooser fc;
 	private JMenuBar jmb;
 	private JMenu jm_file;
-	private JMenuItem jmt11;
 	private JPanel right;
 	private JTextField coordinatesx;
 	private JTextField coordinatesy;
@@ -127,7 +126,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JTextField colorRoadChoice;
 	private JButton addObject;
 	private JButton delObject;
-	private AbstractButton jmt12;
 	private JMenu jm5;
 	private JMenuItem jmt51;
 
@@ -802,13 +800,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		jmt_save_landscape.addActionListener(this);
 		jm_file.add(jmt_save_landscape);
 
-		jmt11 = new JMenuItem("Load road");
-		jmt11.addActionListener(this);
-		jm_file.add(jmt11);
-
-		jmt12 = new JMenuItem("Load objects");
-		jmt12.addActionListener(this);
-		jm_file.add(jmt12);
 
 		jm3=new JMenu("Textures");
 		jm3.addMenuListener(this);
@@ -2123,24 +2114,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public void actionPerformed(ActionEvent arg0) {
 		Object o=arg0.getSource();
 
-		if(o==jmt11){
-
-			if(ISDEBUG)
-				loadRoadFromFile(new File("lib/road_default"));
-			else
-				loadRoadFromFile();
-			displayAll();
-		}
-		if(o==jmt12){
-			if(ISDEBUG)
-				loadObjectsFromFile(new File("lib/objects_default"));
-			else
-				loadObjectsFromFile();
-			displayAll();
-		}
-		else if(o==jmt_load_landscape){
+		if(o==jmt_load_landscape){
 			
-			loadLanscape();
+				loadLanscape();
 		}
 		else if(o==jmt_save_landscape){
 			
