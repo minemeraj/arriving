@@ -1,4 +1,4 @@
------
+----- 15/02/2013   CarDriving 6.0.8
 
 Now objects and road data are finally in the same file: landscape_default
 
