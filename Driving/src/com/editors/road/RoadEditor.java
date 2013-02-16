@@ -34,6 +34,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Hashtable;
 import java.util.Stack;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -1696,7 +1697,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			if(ld.isSelected())
 				continue;
 			LineData newLd = new LineData();
-			
+			boolean insertedFirst=false;
 
 			for(int j=0;j<ld.size();j++){
 
@@ -1707,13 +1708,20 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 						Point3D np=(Point3D) newPoints.elementAt(k);
 						if(np.equals(p0))
 						{
+							
 							newLd.addIndex(k);
 							break;
 						}
 					}
-				else
+				else{
+					//cause using simple net polygon a point can't appear more than one time
+					if(insertedFirst)
+						continue;
+					
 					newLd.addIndex(firstPoint);
-
+					
+					insertedFirst=true;
+				}
 			}
 			if(newLd.size()>1 )
 				newLines.add(newLd);
