@@ -88,7 +88,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 	private JPanel center;
-	int HEIGHT=600;
+	int HEIGHT=640;
 	int WIDTH=700;
 	int LEFT_BORDER=240;
 	int RIGHT_BORDER=240;
@@ -214,6 +214,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private AbstractButton jmt54;
 	private JMenuItem jmt_load_landscape;
 	private JMenuItem jmt_save_landscape;
+	private JButton mergeSelectedPoints;
 	
 
 	public RoadEditor(String title){
@@ -1298,7 +1299,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		deleteSelection.setBounds(5,r,150,20);
 		right.add(deleteSelection);
 
-	
+		r+=30;
+		
+		mergeSelectedPoints=new JButton(header+"<u>M</u>erge selected<br/>points"+footer);
+		mergeSelectedPoints.addActionListener(this);
+		mergeSelectedPoints.addKeyListener(this);
+		mergeSelectedPoints.setFocusable(false);
+		mergeSelectedPoints.setBounds(5,r,150,35);
+		right.add(mergeSelectedPoints);
 
 		add(right);
 
@@ -1653,7 +1661,75 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 
+	private void mergeSelectedPoints() {
+	
+		prepareUndoRoad();
+		
+		Vector newPoints=new Vector();
+		Vector newLines=new Vector();
 
+		
+		int firstPoint=-1;
+		
+		for(int i=0;i<points.size();i++){
+
+			Point3D p=(Point3D) points.elementAt(i);
+			if(!p.isSelected()) 
+				newPoints.add(p);
+			else if(firstPoint==-1){
+				firstPoint=newPoints.size();
+				newPoints.add(p);
+			}
+			else{
+				
+				
+				
+			}
+				
+
+		}
+
+
+		for(int i=0;i<lines.size();i++){
+
+			LineData ld=(LineData)lines.elementAt(i);
+			if(ld.isSelected())
+				continue;
+			LineData newLd = new LineData();
+			
+
+			for(int j=0;j<ld.size();j++){
+
+				Point3D p0=(Point3D) points.elementAt(ld.getIndex(j));
+				if(!p0.isSelected()) 
+					for(int k=0;k<newPoints.size();k++){
+
+						Point3D np=(Point3D) newPoints.elementAt(k);
+						if(np.equals(p0))
+						{
+							newLd.addIndex(k);
+							break;
+						}
+					}
+				else
+					newLd.addIndex(firstPoint);
+
+			}
+			if(newLd.size()>1 )
+				newLines.add(newLd);
+
+
+
+
+		}
+
+		points=newPoints;
+		lines=newLines;
+        deselectAll();
+		
+		displayAll();
+	}
+	
 
 	private void deleteSelection() {
 		
@@ -2148,6 +2224,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		else if(o==addPoint){
 			addPoint();
 			displayAll();
+		}
+		else if(o==mergeSelectedPoints){
+			
+			
+			mergeSelectedPoints();
+			
 		}
 		else if(o==changePoint){
 			changeSelectedRoadPoint();

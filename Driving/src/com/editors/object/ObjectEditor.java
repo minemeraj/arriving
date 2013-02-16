@@ -70,7 +70,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 	public static int HEIGHT=700;
 	public static int WIDTH=800;
 
-	public int RIGHT_BORDER=320;
+	public int RIGHT_BORDER=330;
 	public int BOTTOM_BORDER=100;
 	public int NX=4;
 	public int NY=0;
