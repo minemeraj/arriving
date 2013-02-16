@@ -1714,7 +1714,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 						}
 					}
 				else{
-					//cause using simple net polygon a point can't appear more than one time
+					//cause using convex net polygons a point can't appear more than one time
 					if(insertedFirst)
 						continue;
 					

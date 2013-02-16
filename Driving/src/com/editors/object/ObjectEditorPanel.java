@@ -611,7 +611,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 				continue;
 			LineData newLd = new LineData();
 			
-
+			boolean insertedFirst=false;
 			for(int j=0;j<ld.size();j++){
 
 				Point3D p0=(Point3D) oe.points.elementAt(ld.getIndex(j));
@@ -625,8 +625,15 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 							break;
 						}
 					}
-				else
+				else{
+					//cause using convex net polygons a point can't appear more than one time
+					if(insertedFirst)
+						continue;
+					
 					newLd.addIndex(firstPoint);
+					
+					insertedFirst=true;
+				}
 
 			}
 			if(newLd.size()>1 )
