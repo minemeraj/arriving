@@ -1,5 +1,5 @@
 	**********************
-	*  READ ME CARDRIVING VERSION   6.0.3
+	*  READ ME CARDRIVING VERSION   6.0.8
 	*
 	*  by Piazza Francesco Giovanni 
 	*  Tecnes Milano ,Italy http://www.tecnes.com ; Tel.: +39.02.67101036
@@ -159,8 +159,8 @@
 
     Road and objects are loaded and saved separately in the load and save menu.
    
-    The game uses the files in the lib directory named 
-    road_default and objects_default.
+    The game uses the file in the lib directory named 
+    landscape_default.
     
     Select tiles with left mouse button in the area, select object by clicking on the number.
    
