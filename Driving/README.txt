@@ -162,7 +162,7 @@
     The game uses the file in the lib directory named 
     landscape_default.
     
-    Select tiles with left mouse button in the area, select object by clicking on the number.
+    Select tiles with left mouse button in the area, select object by clicking in the inner area.
    
     Select object and road part, then to modify them type new coordinates and press 
     "Change Point".

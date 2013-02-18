@@ -217,7 +217,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JMenuItem jmt_save_landscape;
 	private JButton mergeSelectedPoints;
 	
-
+	Color alphaRed=new Color(Color.RED.getRed(),0,0,100);
+	
 	public RoadEditor(String title){
 		
 		setTitle(title);
@@ -493,6 +494,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		bufGraphics.fillRect(0,0,WIDTH,HEIGHT);
 		
 		int lsize=lines.size();
+		
 
 		for(int j=0;j<lsize;j++){
 			
@@ -500,44 +502,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			LineData ld=(LineData) lines.elementAt(j);
 
 			drawPolygon(ld,bufGraphics,buf);
-				
-				
+			
+	
+
 
 		} 
 		
-		for(int j=0;j<lsize;j++){
-			
-			
-			LineData ld=(LineData) lines.elementAt(j);
-
-			
-			if(ld.isSelected()){
-				bufGraphics.setColor(Color.RED);
-				
-				int size=ld.size();
-				
-				for(int i=0;i<ld.size();i++){
-
-
-					int num0=ld.getIndex(i);
-					int num1=ld.getIndex((i+1)%size);
-					Point4D p0=(Point4D) points.elementAt(num0);
-					Point4D p1=(Point4D) points.elementAt(num1);
-					
-				
-					bufGraphics.drawLine(
-								convertX(p0.x),
-								convertY(p0.y),
-								convertX(p1.x),
-								convertY(p1.y)
-					);
-
-					
-				}	
-				
-			}	
-
-		} 
+		
 
 		
 		//mark row angles
@@ -627,6 +598,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			bufGraphics.drawImage(DrawObject.fromImageToBufferedImage(objectImages[dro.index],Color.WHITE)
 					,cx[0],cy[0],cx[2]-cx[0],cy[2]-cy[0],null);
 		}
+		if(dro.isSelected())
+		{
+			bufGraphics.setColor(Color.RED);
+			bufGraphics.draw(pTot);
+		}
 	}
 
 
@@ -692,7 +668,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			bufGraphics.setColor(ZBuffer.fromHexToColor(ld.getHexColor()));
 			bufGraphics.fill(partialArea); 
 		}
-
+		if(ld.isSelected()){
+			
+			bufGraphics.setColor(alphaRed);
+			bufGraphics.fill(partialArea); 
+		}
 
 	}
 
@@ -2713,16 +2693,32 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 		//select object
 
-		for(int i=0;i<drawObjects.size();i++){
+		for(int i=0;i<drawObjects.size() && !found;i++){
 
 			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
 			if(!checkMultipleObjectsSelection.isSelected())
 				dro.setSelected(false);
 			
-			int yo=convertY(dro.y)+5;
-			int xo=convertX(dro.x)-5;
-			Rectangle rect=new Rectangle(xo,yo-10,10,10);
-			if(rect.contains(x,y))
+			
+			int[] cx=new int[4];
+			int[] cy=new int[4];
+			
+			int versus=1;
+			if(!DrawObject.IS_3D)
+				versus=-1;
+
+			cx[0]=convertX(dro.x);
+			cy[0]=convertY(dro.y);
+			cx[1]=convertX(dro.x);
+			cy[1]=convertY(dro.y+versus*dro.dy);
+			cx[2]=convertX(dro.x+dro.dx);
+			cy[2]=convertY(dro.y+versus*dro.dy);
+			cx[3]=convertX(dro.x+dro.dx);
+			cy[3]=convertY(dro.y);
+
+			Polygon p_in=new Polygon(cx,cy,4);
+			
+			if(p_in.contains(x,y))
 			{
 				dro.setSelected(true);
 				if(!objcheckCoordinatesx.isSelected())
@@ -2758,6 +2754,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		//select polygon
 		int sizel=lines.size();
+
 		for(int j=0;j<sizel;j++){
 			
 			
