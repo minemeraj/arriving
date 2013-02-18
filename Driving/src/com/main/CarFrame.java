@@ -303,7 +303,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 			road=new Road(WIDTH,HEIGHT);
 			road.initCar();
 			
-			
+			hornSound = new GameSound(hornFile,true);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -661,8 +661,8 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 
 		try {
 
-			GameSound hornSound = new GameSound(hornFile,true);
-			hornSound.start();
+			
+			hornSound.makeSound();
 			
 		} catch (Exception e) {
 

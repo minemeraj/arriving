@@ -160,14 +160,26 @@ public class GameSound extends Thread{
 	}
 
 
-
-
-
-
-
-
-
-
-
+	public void makeSound() {
+		
+		
+	    if (clip.isRunning())
+	    	clip.stop();
+		
+	    clip.setFramePosition(0); 
+	    clip.start();
+		
+		
+	}
 	
+	public void makeSoundLoop(int loop) {
+		
+	    if (clip.isRunning())
+	    	clip.stop();
+		
+	    clip.setFramePosition(0); 
+	    clip.loop(loop);
+		
+	}
+
 }
