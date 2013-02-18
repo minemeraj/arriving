@@ -1,6 +1,8 @@
 
 Changes in the selection of objects and road tiles in the RoadEditor.
 
+Fixed bug in the deselect all objects.
+
 Added the "Merge selected points" function to the RoadEditor
 
 ----- 16/02/2013   CarDriving 6.0.8
