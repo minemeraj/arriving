@@ -2857,6 +2857,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		if(!checkObjColor.isSelected())checkObjColor.setBackground(ZBuffer.fromHexToColor("FFFFFF"));
 		
 		deselectAllObjects();
+		displayAll();
 	}
 	
 	public void cleanPoints(){
