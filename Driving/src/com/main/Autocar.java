@@ -18,6 +18,13 @@ public class Autocar extends Thread{
 	
 	Road road;
 	
+	public Autocar(int car_width, int car_length,int car_type_index) {
+		super();
+		this.car_width = car_width;
+		this.car_length = car_length;
+		this.car_type_index = car_type_index;
+	}
+	
 	public Autocar(int car_width, int car_length) {
 		super();
 		this.car_width = car_width;
@@ -47,6 +54,8 @@ public class Autocar extends Thread{
 	
 	public Texture texture=null;
 	
+	int car_type_index=0;
+	
 	public void init(double x,double y,double u,double nu,double fi,double steering,double linePosition,Point3D[] car_road){
 		
 	
@@ -59,7 +68,7 @@ public class Autocar extends Thread{
 		this.linePosition=linePosition;
 		this.car_road=car_road;
 		
-		this.carData=Road.loadCarFromFile(new File("lib/cardefault3D_0"));
+		this.carData=Road.loadCarFromFile(new File("lib/cardefault3D_"+car_type_index));
 		
 		this.car_width=this.carData.getDeltaX2()-this.carData.getDeltaX();
 		this.car_length=this.carData.getDeltaY2()-this.carData.getDeltaY();
@@ -76,7 +85,7 @@ public class Autocar extends Thread{
 		this.fi=fi;
 		this.steering=steering;
 		this.linePosition=linePosition;
-		this.carData=Road.loadCarFromFile(new File("lib/cardefault3D_0"));
+		this.carData=Road.loadCarFromFile(new File("lib/cardefault3D_"+car_type_index));
 		
 		this.car_width=this.carData.getDeltaX2()-this.carData.getDeltaX();
 		this.car_length=this.carData.getDeltaY2()-this.carData.getDeltaY();
@@ -282,10 +291,12 @@ public class Autocar extends Thread{
 					
 					String[] vals=str.split(",");
 					
-					int car_width=Integer.parseInt(vals[0]);
-					int car_length=Integer.parseInt(vals[1]);
-					
-					Autocar car=new Autocar(car_width,car_length);
+
+					int type=Integer.parseInt(vals[0]);
+					int car_width=Integer.parseInt(vals[1]);
+					int car_length=Integer.parseInt(vals[2]);
+										
+					Autocar car=new Autocar(car_width,car_length,type);
 					
 					autocars.add(car);
 				}

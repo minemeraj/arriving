@@ -1253,7 +1253,7 @@ public class Road extends Shader{
 				
 				Autocar autoCar=autocars[i];
 				
-				autoCar.texture=CarFrame.carTextures[0];
+				autoCar.texture=CarFrame.carTextures[autoCar.car_type_index];
 								
 				autoCar.setRoad(this);
 				
