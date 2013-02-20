@@ -16,6 +16,8 @@ import com.Texture;
 
 public class Autocar extends Thread{
 	
+	public static int MAX_AUTOCARS_TYPES=6;
+	
 	Road road;
 	
 	public Autocar(int car_width, int car_length,int car_type_index) {
@@ -295,6 +297,9 @@ public class Autocar extends Thread{
 					int type=Integer.parseInt(vals[0]);
 					int car_width=Integer.parseInt(vals[1]);
 					int car_length=Integer.parseInt(vals[2]);
+					
+					if(type>=MAX_AUTOCARS_TYPES)
+						type=0;
 										
 					Autocar car=new Autocar(car_width,car_length,type);
 					
