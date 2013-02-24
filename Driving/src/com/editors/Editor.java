@@ -109,7 +109,7 @@ public class Editor extends JFrame implements MenuListener{
 
 	}
 	
-	boolean forceReading=false;
+	public boolean forceReading=false;
 	
 	public void loadPointsFromFile(){	
 		

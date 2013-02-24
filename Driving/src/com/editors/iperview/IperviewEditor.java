@@ -1640,6 +1640,8 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	}
 
 	public void loadPointsFromFile(boolean withBorder){	
+		
+		forceReading=true;
 
 		fc=new JFileChooser();
 		fc.setDialogType(JFileChooser.OPEN_DIALOG);

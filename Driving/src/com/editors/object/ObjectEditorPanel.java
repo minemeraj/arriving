@@ -885,10 +885,10 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 	}
 	
 	public void swapLines(Vector lines, int i1, int i2) {
-		LineData ld1=(LineData) oe.lines[0].elementAt(i1);
-		LineData ld2=(LineData) oe.lines[0].elementAt(i2);
-		oe.lines[0].setElementAt(ld1,i2);
-		oe.lines[0].setElementAt(ld2,i1);
+		LineData ld1=(LineData) lines.elementAt(i1);
+		LineData ld2=(LineData) lines.elementAt(i2);
+		lines.setElementAt(ld1,i2);
+		lines.setElementAt(ld2,i1);
 	}
 
 	public void invertSelectedLine(){
