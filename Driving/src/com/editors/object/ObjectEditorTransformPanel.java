@@ -215,8 +215,8 @@ public class ObjectEditorTransformPanel extends JDialog implements ActionListene
 		double refY=Double.parseDouble(referencey.getText());
 		double refZ=Double.parseDouble(referencez.getText());
 
-		Vector points = editor.points;
-		Vector lines = editor.lines;
+		Vector points = editor.points[0];
+		Vector lines = editor.lines[0];
 
 
 

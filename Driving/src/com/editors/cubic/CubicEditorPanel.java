@@ -182,7 +182,7 @@ public class CubicEditorPanel extends JPanel implements MouseListener{
 		}
 
 		
-		displayPoints(bufGraphics,cubicEditor.points);
+		displayPoints(bufGraphics,cubicEditor.points[0]);
 	}
 
 	public void displayCubeUnit(double x, double y, double z, double dx,
@@ -390,9 +390,9 @@ public class CubicEditorPanel extends JPanel implements MouseListener{
 
 	private void selectPoint(int x, int y) {
 	
-		for(int c=0;c<cubicEditor.points.size();c++){
+		for(int c=0;c<cubicEditor.points[0].size();c++){
 
-			Point3D p=(Point3D) cubicEditor.points.elementAt(c);
+			Point3D p=(Point3D) cubicEditor.points[0].elementAt(c);
 
 
 

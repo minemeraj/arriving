@@ -45,8 +45,8 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 		editor.addPropertyChangeListener(this);
 		this.editor=editor;
 		
-		this.points=editor.points;
-		this.lines=editor.lines;
+		this.points=editor.points[0];
+		this.lines=editor.lines[0];
 		
 		deltay=1;
 		deltax=1;
@@ -175,8 +175,8 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 			 "ObjectEditorUpdate".equals(evt.getPropertyName())
 		)
 		{
-			this.points=editor.points;
-			this.lines=editor.lines;
+			this.points=editor.points[0];
+			this.lines=editor.lines[0];
 			
 			PolygonMesh pm=new PolygonMesh(points,lines);
 			this.polygons = PolygonMesh.getBodyPolygons(pm);

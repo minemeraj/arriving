@@ -24,8 +24,8 @@ import com.Polygon3D;
 
 public class Editor extends JFrame implements MenuListener{
 	
-	public Vector points=null;
-	public Vector lines=null;
+	public Vector[] points=null;
+	public Vector[] lines=null;
 	
 	public Stack oldPoints=null;
 	public Stack oldLines=null;
@@ -42,11 +42,24 @@ public class Editor extends JFrame implements MenuListener{
 	
 	public Editor(){
 		
-		points=new Vector();
-		lines=new Vector();
+		
+		points=new Vector[1];
+		lines=new  Vector[1];
+		
 		
 		oldPoints=new Stack();
 		oldLines=new Stack();
+		
+		for (int i = 0; i < 1; i++) {
+			
+			
+			points[i]=new  Vector();
+			lines[i]=new  Vector();
+
+			
+		}
+		
+	
 	}
 	
 	public void buildPoints(Vector points, String str) {
@@ -124,8 +137,8 @@ public class Editor extends JFrame implements MenuListener{
 	
 	public void loadPointsFromFile(File file){
 
-		points=new Vector(); 
-		lines=new Vector();
+		points[0]=new  Vector();
+		lines[0]=new  Vector();
 		
 		oldPoints=new Stack();
 		oldLines=new Stack();
@@ -155,9 +168,9 @@ public class Editor extends JFrame implements MenuListener{
 					continue;
 
 				if(str.startsWith("P="))
-					buildPoints(points,str.substring(2));
+					buildPoints(points[0],str.substring(2));
 				else if(str.startsWith("L="))
-					buildLines(lines,str.substring(2));
+					buildLines(lines[0],str.substring(2));
 
 
 			}
@@ -238,23 +251,23 @@ public class Editor extends JFrame implements MenuListener{
 			pr.println("<lines>");
 			pr.print("P=");
 
-			for(int i=0;i<points.size();i++){
+			for(int i=0;i<points[0].size();i++){
 
-				Point3D p=(Point3D) points.elementAt(i);
+				Point3D p=(Point3D) points[0].elementAt(i);
 
 				pr.print(decomposePoint(p));
-				if(i<points.size()-1)
+				if(i<points[0].size()-1)
 					pr.print("_");
 			}	
 
 			pr.print("\nL=");
 
-			for(int i=0;i<lines.size();i++){
+			for(int i=0;i<lines[0].size();i++){
 
-				LineData ld=(LineData) lines.elementAt(i);
+				LineData ld=(LineData) lines[0].elementAt(i);
 
 				pr.print(decomposeLineData(ld));
-				if(i<lines.size()-1)
+				if(i<lines[0].size()-1)
 					pr.print("_");
 			}	
 			pr.println("\n</lines>");
@@ -304,16 +317,16 @@ public class Editor extends JFrame implements MenuListener{
 			oldPoints.removeElementAt(0);
 			oldLines.removeElementAt(0);
 		}
-		oldPoints.push(clonePoints(points));
-		oldLines.push(cloneLineData(lines));
+		oldPoints.push(clonePoints(points[0]));
+		oldLines.push(cloneLineData(lines[0]));
 	}
 	
 	public void undo() {
 		
 		if(oldPoints.size()>0)
-			points=(Vector) oldPoints.pop();
+			points[0]=(Vector) oldPoints.pop();
 		if(oldLines.size()>0)
-			lines=(Vector) oldLines.pop();
+			lines[0]=(Vector) oldLines.pop();
 		
 	}
 	

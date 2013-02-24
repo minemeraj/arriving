@@ -170,9 +170,9 @@ public class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 		int sel=pointList.getSelectedIndex();
 		
 
-		for(int i=0;i<oe.points.size();i++){
+		for(int i=0;i<oe.points[0].size();i++){
 
-			Point3D p=(Point3D) oe.points.elementAt(i);
+			Point3D p=(Point3D) oe.points[0].elementAt(i);
 		    dlm.addElement(new PointListItem(p,i)) ; 
 		}
 		
@@ -187,9 +187,9 @@ public class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 		int selec=lineList.getSelectedIndex();
 		
 
-		for(int i=0;i<oe.lines.size();i++){
+		for(int i=0;i<oe.lines[0].size();i++){
 
-			LineData ld=(LineData) oe.lines.elementAt(i);
+			LineData ld=(LineData) oe.lines[0].elementAt(i);
 			dflm.addElement(ld) ; 
 		}
 		
@@ -209,9 +209,9 @@ public class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 
 
 
-		for(int i=0;i<oe.lines.size();i++){
+		for(int i=0;i<oe.lines[0].size();i++){
 
-			LineData ld=(LineData) oe.lines.elementAt(i);
+			LineData ld=(LineData) oe.lines[0].elementAt(i);
 			int numLInes=1;
 			if(ld.size()>2)
 				numLInes=ld.size();
@@ -222,20 +222,20 @@ public class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 
 			for(int j=0;j<numLInes;j++){
 
-				Point3D p0=(Point3D)oe.points.elementAt(ld.getIndex(j));
-				Point3D p1=(Point3D)oe.points.elementAt(ld.getIndex((j+1)%ld.size()));
+				Point3D p0=(Point3D)oe.points[0].elementAt(ld.getIndex(j));
+				Point3D p1=(Point3D)oe.points[0].elementAt(ld.getIndex((j+1)%ld.size()));
 
 
 				bufGraphics.drawLine(calcAssX(p0),calcAssY(p0),calcAssX(p1),calcAssY(p1));
 			}
 			if(oe.jmt_show_normals.isSelected())
-				showNormals(oe.points,ld,bufGraphics);
+				showNormals(oe.points[0],ld,bufGraphics);
 
 		}	
 
-		for(int i=0;i<oe.lines.size();i++){
+		for(int i=0;i<oe.lines[0].size();i++){
 
-			LineData ld=(LineData) oe.lines.elementAt(i);
+			LineData ld=(LineData) oe.lines[0].elementAt(i);
 			int numLInes=1;
 			if(ld.size()>2)
 				numLInes=ld.size();
@@ -247,8 +247,8 @@ public class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 
 			for(int j=0;j<numLInes;j++){
 
-				Point3D p0=(Point3D)oe.points.elementAt(ld.getIndex(j));
-				Point3D p1=(Point3D)oe.points.elementAt(ld.getIndex((j+1)%ld.size()));
+				Point3D p0=(Point3D)oe.points[0].elementAt(ld.getIndex(j));
+				Point3D p1=(Point3D)oe.points[0].elementAt(ld.getIndex((j+1)%ld.size()));
 
 
 				bufGraphics.drawLine(calcAssX(p0),calcAssY(p0),calcAssX(p1),calcAssY(p1));
@@ -276,7 +276,7 @@ public class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 		
 		for(int j=0;j<numLInes;j++){
 
-			Point3D p0=(Point3D)oe.points.elementAt(ld.getIndex(j));
+			Point3D p0=(Point3D)oe.points[0].elementAt(ld.getIndex(j));
 			p3d.addPoint(p0);
 		}
 		
@@ -291,9 +291,9 @@ public class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 
 	private void displayPoints(Graphics2D bufGraphics) {
 
-		for(int i=0;i<oe.points.size();i++){
+		for(int i=0;i<oe.points[0].size();i++){
 
-			Point3D p=(Point3D) oe.points.elementAt(i);
+			Point3D p=(Point3D) oe.points[0].elementAt(i);
 
 			if(p.isSelected())
 				bufGraphics.setColor(Color.RED);
@@ -618,9 +618,9 @@ public class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 					polygon=new LineData();
 				
 				int index=pointList.getSelectedIndex();
-				for(int i=0;i<oe.points.size();i++){
+				for(int i=0;i<oe.points[0].size();i++){
 
-					Point3D p=(Point3D) oe.points.elementAt(i);
+					Point3D p=(Point3D) oe.points[0].elementAt(i);
 					if(index==i){
 						selectPoint(p);
 						polygon.addIndex(i);
@@ -649,9 +649,9 @@ public class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 			public void mouseClicked(MouseEvent e){
 
 				int index=lineList.getSelectedIndex();
-				for(int i=0;i<oe.lines.size();i++){
+				for(int i=0;i<oe.lines[0].size();i++){
 
-					LineData ld=(LineData) oe.lines.elementAt(i);
+					LineData ld=(LineData) oe.lines[0].elementAt(i);
 					if(index==i)
 						ld.setSelected(true);
 					else 
@@ -702,9 +702,9 @@ public class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 		//select point from lines
 		if(!checkMultipleSelection.isSelected()) 
 			polygon=new LineData();
-		for(int i=0;i<oe.points.size();i++){
+		for(int i=0;i<oe.points[0].size();i++){
 
-			Point3D p=(Point3D) oe.points.elementAt(i);
+			Point3D p=(Point3D) oe.points[0].elementAt(i);
 
 
 
@@ -747,9 +747,9 @@ public class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 		int y0=Math.min(currentRect.y,currentRect.y+currentRect.height);
 		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
         
-        for (int i = 0; i < oe.points.size(); i++) {
+        for (int i = 0; i < oe.points[0].size(); i++) {
         
-    	Point3D p = (Point3D) oe.points.elementAt(i);
+    	Point3D p = (Point3D) oe.points[0].elementAt(i);
 
 
     	int x=calcAssX(p);
@@ -862,8 +862,8 @@ public class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 		
 	public void checkNormals(){ 
 		
-		for(int i=0;i<oe.lines.size();i++){
-			LineData ld=(LineData) oe.lines.elementAt(i);
+		for(int i=0;i<oe.lines[0].size();i++){
+			LineData ld=(LineData) oe.lines[0].elementAt(i);
 			Polygon3D pol=getBodyPolygon(ld);
 			//System.out.println(i+": "+Road.findBoxFace(pol));
 		}
@@ -877,7 +877,7 @@ public class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 		
 		for(int i=0;i<ld.size();i++){
 			int index=ld.getIndex(i);
-			Point3D p=(Point3D) oe.points.elementAt(index);			
+			Point3D p=(Point3D) oe.points[0].elementAt(index);			
 			pol.xpoints[i]=(int) p.x;
 			pol.ypoints[i]=(int) p.y;
 			pol.zpoints[i]=(int) p.z;
