@@ -24,11 +24,11 @@ import com.Polygon3D;
 
 public class Editor extends JFrame implements MenuListener{
 	
-	public Vector points=new Vector();
-	public Vector lines=new Vector();
+	public Vector points=null;
+	public Vector lines=null;
 	
-	public Stack oldPoints=new Stack();
-	public Stack oldLines=new Stack();
+	public Stack oldPoints=null;
+	public Stack oldLines=null;
 	
 	public LineData polygon=new LineData();
 	
@@ -39,6 +39,15 @@ public class Editor extends JFrame implements MenuListener{
 	public JFileChooser fc= new JFileChooser();
 	public File currentDirectory=null;
 	public File currentFile=null;
+	
+	public Editor(){
+		
+		points=new Vector();
+		lines=new Vector();
+		
+		oldPoints=new Stack();
+		oldLines=new Stack();
+	}
 	
 	public void buildPoints(Vector points, String str) {
 
