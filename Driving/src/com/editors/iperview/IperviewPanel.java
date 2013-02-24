@@ -476,6 +476,8 @@ private void displayAxes(Graphics2D bufGraphics) {
 		int button=arg0.getButton();
 
 		if(button==MouseEvent.BUTTON3){
+			
+			iperviewEditor.prepareUndo();			
 
 			Point3D p3d=null;
 			if(type==TYPE_FRONT)
