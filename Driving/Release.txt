@@ -1,3 +1,11 @@
+
+Changed the program's components organization: now the Road is a mesh independent from the ground.
+Consequent main changes to the RoadEditor.
+
+A major cleaning of the code
+
+Added a new object, an industrial steel shed.
+
 ----- 20/02/2013   CarDriving 6.0.9
 
 Add the car_type_index to the Autocar object to diversify the type of Autocar.
