@@ -770,17 +770,6 @@ public class ObjectEditor extends Editor implements ActionListener{
 		
 	}
 
-	public void checkNormals(){ 
-		
-		for(int i=0;i<lines[0].size();i++){
-			LineData ld=(LineData) lines[0].elementAt(i);
-			Polygon3D pol=getBodyPolygon(ld);
-			//System.out.println(i+": "+Road.findBoxFace(pol));
-		}
-		
-		
-	}
-
 	public Polygon3D getBodyPolygon(LineData ld) {
 		
 		Polygon3D pol=new Polygon3D(ld.size());

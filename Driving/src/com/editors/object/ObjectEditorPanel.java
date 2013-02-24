@@ -5,6 +5,7 @@ package com.editors.object;
  *
  */
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
@@ -14,6 +15,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -28,6 +30,7 @@ import java.util.Comparator;
 import java.util.Locale;
 import java.util.Vector;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -35,7 +38,9 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import com.LineData;
 import com.Point3D;
@@ -141,6 +146,367 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		addMouseMotionListener(this);
 
 
+
+	}
+	
+	public void buildRightPanel() {
+		
+		String header="<html><body>";
+		String footer="</body></html>";
+
+		right=new JPanel();
+		right.setBounds(WIDTH,0,RIGHT_BORDER,HEIGHT);
+		right.setLayout(null);
+
+		int r=5;
+
+		JLabel lx=new JLabel("x:");
+		lx.setBounds(5,r,20,20);
+		right.add(lx);
+		coordinatesx=new DoubleTextField(8);
+		coordinatesx.setBounds(30,r,150,20);
+		coordinatesx.addKeyListener(this);
+		right.add(coordinatesx);
+		checkCoordinatesx=new JCheckBox();
+		checkCoordinatesx.setBounds(200,r,30,20);
+		checkCoordinatesx.addKeyListener(this);
+		right.add(checkCoordinatesx);
+	
+	
+
+		r+=30;
+
+		JLabel ly=new JLabel("y:");
+		ly.setBounds(5,r,20,20);
+		right.add(ly);
+		coordinatesy=new DoubleTextField(8);
+		coordinatesy.setBounds(30,r,150,20);
+		coordinatesy.addKeyListener(this);
+		right.add(coordinatesy);
+		checkCoordinatesy=new JCheckBox();
+		checkCoordinatesy.setBounds(200,r,30,20);
+		checkCoordinatesy.addKeyListener(this);
+		right.add(checkCoordinatesy);
+		
+
+		r+=30;
+
+		JLabel lz=new JLabel("z:");
+		lz.setBounds(5,r,20,20);
+		right.add(lz);
+		coordinatesz=new DoubleTextField(8);
+		coordinatesz.setBounds(30,r,150,20);
+		coordinatesz.addKeyListener(this);
+		right.add(coordinatesz);
+		checkCoordinatesz=new JCheckBox();
+		checkCoordinatesz.setBounds(200,r,30,20);
+		checkCoordinatesz.addKeyListener(this);
+		right.add(checkCoordinatesz);
+		
+		
+		r+=30;
+
+		JLabel ed=new JLabel("Ex:");
+		ed.setBounds(5,r,20,20);
+		right.add(ed);
+		extraData=new JTextField();
+		extraData.setBounds(30,r,150,20);
+		extraData.addKeyListener(this);
+		extraData.setToolTipText("Optional extra value");
+		right.add(extraData);
+		checkExtraData=new JCheckBox();
+		checkExtraData.setBounds(200,r,30,20);
+		checkExtraData.addKeyListener(this);		
+		right.add(checkExtraData);
+
+		r+=30;
+
+		JLabel lmul=new JLabel("Multiple selection:");
+		lmul.setBounds(5,r,150,20);
+		right.add(lmul);		
+		checkMultipleSelection=new JCheckBox();
+		checkMultipleSelection.setSelected(true);
+		checkMultipleSelection.addKeyListener(this);
+		checkMultipleSelection.setBounds(160,r,20,20);
+		right.add(checkMultipleSelection);
+
+
+
+
+		r+=30;
+
+		addPoint=new JButton(header+"<u>I</u>nsert point"+footer);
+		addPoint.addKeyListener(this);
+		addPoint.addActionListener(this);
+		addPoint.setFocusable(false);
+		addPoint.setBounds(5,r,150,20);
+		right.add(addPoint);
+		
+		rescale=new JButton(header+"<u>R</u>escale all"+footer);
+		rescale.addKeyListener(this);
+		rescale.addActionListener(this);
+		rescale.setFocusable(false);
+		rescale.setBounds(160,r,150,20);
+		right.add(rescale);
+		
+		rescaleValue=new DoubleTextField();
+		rescaleValue.setBounds(200,r+30,70,20);
+		rescaleValue.addKeyListener(this);
+		rescaleValue.setToolTipText("Scale factor");
+		right.add(rescaleValue);
+
+		r+=30;
+
+		/*joinPoints=new JButton(header+"<u>J</u>oin sel points"+footer);
+		joinPoints.addActionListener(this);
+		joinPoints.addKeyListener(this);
+		joinPoints.setFocusable(false);
+		joinPoints.setBounds(5,r,150,20);
+		right.add(joinPoints);*/
+
+		startBuildPolygon=new JButton(header+"Start polygo<u>n</u> <br/> points sequence"+footer);
+		startBuildPolygon.addActionListener(this);
+		startBuildPolygon.addKeyListener(this);
+		startBuildPolygon.setFocusable(false);
+		startBuildPolygon.setBounds(5,r,150,35);
+		right.add(startBuildPolygon);
+
+		r+=45;
+			
+		buildPolygon=new JButton(header+"Build <u>p</u>olygon"+footer);
+		buildPolygon.addActionListener(this);
+		buildPolygon.addKeyListener(this);
+		buildPolygon.setFocusable(false);
+		buildPolygon.setBounds(5,r,150,20);
+		right.add(buildPolygon);
+		
+		r+=30;
+		
+		polygonDetail=new JButton(header+"Polygon detail"+footer);
+		polygonDetail.addActionListener(this);
+		polygonDetail.addKeyListener(this);
+		polygonDetail.setFocusable(false);
+		polygonDetail.setBounds(5,r,150,20);
+		right.add(polygonDetail);
+		
+		JPanel movePanel=buildPointsMovePanel(185,r);
+		right.add(movePanel);
+
+		r+=30;
+
+		deleteSelection=new JButton(header+"<u>D</u>elete selection"+footer);
+		deleteSelection.addActionListener(this);
+		deleteSelection.addKeyListener(this);
+		deleteSelection.setFocusable(false);
+		deleteSelection.setBounds(5,r,150,20);
+		right.add(deleteSelection);
+
+
+
+		r+=30;
+
+		changePoint=new JButton(header+"<u>C</u>hange sel Point"+footer);
+		changePoint.addActionListener(this);
+		changePoint.addKeyListener(this);
+		changePoint.setFocusable(false);
+		changePoint.setBounds(5,r,150,20);
+		right.add(changePoint);
+
+
+		r+=30;
+
+		deselectAll=new JButton(header+"D<u>e</u>select all"+footer);
+		deselectAll.addActionListener(this);
+		deselectAll.addKeyListener(this);
+		deselectAll.setFocusable(false);
+		deselectAll.setBounds(5,r,100,20);
+		right.add(deselectAll);
+		
+		r+=30;
+		
+		selectAll=new JButton(header+"Selec<u>t</u> all"+footer);
+		selectAll.addActionListener(this);
+		selectAll.addKeyListener(this);
+		selectAll.setFocusable(false);
+		selectAll.setBounds(5,r,100,20);
+		right.add(selectAll);
+		
+	
+		mergeSelectedPoints=new JButton(header+"<u>M</u>erge selected<br/>points"+footer);
+		mergeSelectedPoints.addActionListener(this);
+		mergeSelectedPoints.addKeyListener(this);
+		mergeSelectedPoints.setFocusable(false);
+		mergeSelectedPoints.setBounds(160,r,150,35);
+		right.add(mergeSelectedPoints);
+
+		r+=35;
+	
+		right.add(buildLowerRightPanel(r));
+		
+
+
+		add(right);
+
+ 
+	}
+	
+	public void buildBottomPanel() {
+		bottom=new JPanel();
+		bottom.setBounds(0,HEIGHT,WIDTH+RIGHT_BORDER,BOTTOM_BORDER);
+		bottom.setLayout(null);
+		JLabel lscreenpoint = new JLabel();
+		lscreenpoint.setText("Position x,y,z: ");
+		lscreenpoint.setBounds(2,2,100,20);
+		bottom.add(lscreenpoint);
+		screenPoint=new JLabel();
+		screenPoint.setText(",");
+		screenPoint.setBounds(120,2,300,20);
+		bottom.add(screenPoint);
+		add(bottom);
+	}
+	
+	public Component buildLowerRightPanel(int r) {
+		pointList=new JList();
+        JScrollPane jsp=new JScrollPane(pointList);
+        JPanel lowpane=new JPanel();
+        lowpane.setBounds(5,r,300,220);        
+		right.add(lowpane);
+		
+		lowpane.setLayout(null);
+		JLabel jlb=new JLabel("Points:");
+		jlb.setBounds(20,0,100,20);
+		lowpane.add(jlb);
+		jsp.setBounds(0,25,140,180);
+		lowpane.add(jsp);
+
+		pointList.addMouseListener(new MouseAdapter(){
+			
+			
+			public void mouseClicked(MouseEvent e){
+
+				if(!checkMultipleSelection.isSelected()) 
+					polygon=new LineData();
+				
+				int index=pointList.getSelectedIndex();
+				for(int i=0;i<oe.points[0].size();i++){
+
+					Point3D p=(Point3D) oe.points[0].elementAt(i);
+					if(index==i){
+						selectPoint(p);
+						polygon.addIndex(i);
+					}
+					else if(!checkMultipleSelection.isSelected())
+						p.setSelected(false);
+					
+				}
+				
+				displayAll();
+
+
+			}
+			
+		
+		}
+		); 
+		pointList.setFocusable(false);
+
+		
+		lineList=new JList();
+		
+		lineList.addMouseListener(new MouseAdapter(){
+			
+			
+			public void mouseClicked(MouseEvent e){
+
+				int index=lineList.getSelectedIndex();
+				for(int i=0;i<oe.lines[0].size();i++){
+
+					LineData ld=(LineData) oe.lines[0].elementAt(i);
+					if(index==i)
+						ld.setSelected(true);
+					else 
+						ld.setSelected(false);
+					
+				}
+				deselectAllPoints();
+				displayAll();
+
+
+			}
+			
+		
+		}
+		); 
+		lineList.setFocusable(false);
+		
+		JScrollPane jscp=new JScrollPane(lineList);
+		jlb=new JLabel("Lines:");
+		jlb.setBounds(170,0,100,20);
+		lowpane.add(jlb);
+		jscp.setBounds(150,25,150,180);
+		lowpane.add(jscp);
+		
+		return lowpane;
+	}
+
+	public JPanel buildPointsMovePanel(int i, int r) {
+
+		JPanel move=new JPanel();
+		move.setBounds(i,r,100,100);
+		move.setLayout(null);
+
+		Border border = BorderFactory.createEtchedBorder();
+		move.setBorder(border);
+		
+		objMove=new DoubleTextField();
+		objMove.setBounds(30,40,40,20);
+		objMove.setToolTipText("Position increment");
+		move.add(objMove);
+		objMove.addKeyListener(this);
+
+		movePointUp=new JButton("+Z");
+		movePointUp.setBorder(null);
+		movePointUp.setBounds(40,10,20,20);
+		movePointUp.addActionListener(this);
+		movePointUp.setFocusable(false);
+		move.add(movePointUp);
+		
+		movePointDown=new JButton("-Z");
+		movePointDown.setBorder(null);
+		movePointDown.setBounds(40,70,20,20);
+		movePointDown.addActionListener(this);
+		movePointDown.setFocusable(false);
+		move.add(movePointDown);
+		
+		movePointLeft=new JButton("-Y");
+		movePointLeft.setBorder(null);
+		movePointLeft.setBounds(5,40,20,20);
+		movePointLeft.addActionListener(this);
+		movePointLeft.setFocusable(false);
+		move.add(movePointLeft);
+		
+		movePointRight=new JButton("+Y");
+		movePointRight.setBorder(null);
+		movePointRight.setBounds(75,40,20,20);
+		movePointRight.addActionListener(this);
+		movePointRight.setFocusable(false);
+		move.add(movePointRight);
+		
+		movePointTop=new JButton("+X");
+		movePointTop.setBorder(null);
+		movePointTop.setBounds(5,70,20,20);
+		movePointTop.addActionListener(this);
+		movePointTop.setFocusable(false);
+		move.add(movePointTop);
+		
+		movePointBottom=new JButton("-X");
+		movePointBottom.setBorder(null);
+		movePointBottom.setBounds(75,70,20,20);
+		movePointBottom.addActionListener(this);
+		movePointBottom.setFocusable(false);
+		move.add(movePointBottom);
+
+		return move;
 
 	}
 	
@@ -517,7 +883,21 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		
 	}
 
-
+	public Polygon3D getBodyPolygon(LineData ld) {
+		
+		Polygon3D pol=new Polygon3D(ld.size());
+		
+		for(int i=0;i<ld.size();i++){
+			int index=ld.getIndex(i);
+			Point3D p=(Point3D) oe.points[0].elementAt(index);			
+			pol.xpoints[i]=(int) p.x;
+			pol.ypoints[i]=(int) p.y;
+			pol.zpoints[i]=(int) p.z;
+		} 
+		
+		return pol;
+		
+	}
 
 	public void delete() {
 
@@ -1089,11 +1469,6 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		// TODO Auto-generated method stub
 		
 	}
-
-	public void moveCenter(int dx,int dy) {
-		// TODO Auto-generated method stub
-	}
-
 
 	public void itemStateChanged(ItemEvent arg0) {
 		// TODO Auto-generated method stub
