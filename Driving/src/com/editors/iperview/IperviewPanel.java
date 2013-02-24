@@ -603,7 +603,9 @@ private void displayAxes(Graphics2D bufGraphics) {
 		}
 	
 		public boolean importData(JComponent comp, Transferable t) {
-		
+			
+			iperviewEditor.forceReading=true;
+			
 			try {
 				List list=(List) t.getTransferData(DataFlavor.javaFileListFlavor);
 				Iterator itera = list.iterator();
@@ -613,7 +615,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 					if(!(o instanceof File))
 						continue;
 					File file=(File) o;
-					iperviewEditor.loadPointsFromFile(file);
+					iperviewEditor.loadPointsFromFile(file,0);
 					iperviewEditor.reloadPanels();
 					iperviewEditor.draw();
 				}

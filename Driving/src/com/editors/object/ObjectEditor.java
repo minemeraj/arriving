@@ -692,8 +692,8 @@ public class ObjectEditor extends Editor implements ActionListener{
 	
 
 	public void undo() {
-		super.undo();
-		if(oldPoints.size()==0)
+		super.undo(0);
+		if(oldPoints[0].size()==0)
 			jmt_undo_last.setEnabled(false);
 		
 		firePropertyChange("ObjectEditorUndo",false,true);
@@ -701,7 +701,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 	
 	public void prepareUndo() {
 		jmt_undo_last.setEnabled(true);
-		super.prepareUndo();
+		super.prepareUndo(0);
 		
 		
 	}
@@ -758,7 +758,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 						continue;
 					File file=(File) o;
 					currentDirectory=file.getParentFile();
-					loadPointsFromFile(file);
+					loadPointsFromFile(file,0);
 					getCenter().displayAll();
 				}
 

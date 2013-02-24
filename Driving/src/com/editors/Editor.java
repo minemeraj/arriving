@@ -27,8 +27,8 @@ public class Editor extends JFrame implements MenuListener{
 	public Vector[] points=null;
 	public Vector[] lines=null;
 	
-	public Stack oldPoints=null;
-	public Stack oldLines=null;
+	public Stack[] oldPoints=null;
+	public Stack[] oldLines=null;
 	
 	public LineData polygon=new LineData();
 	
@@ -42,20 +42,22 @@ public class Editor extends JFrame implements MenuListener{
 	
 	public Editor(){
 		
+		int num=2;
 		
-		points=new Vector[1];
-		lines=new  Vector[1];
+		points=new Vector[num];
+		lines=new  Vector[num];
 		
 		
-		oldPoints=new Stack();
-		oldLines=new Stack();
+		oldPoints=new Stack[num];
+		oldLines=new Stack[num];
 		
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < num; i++) {
 			
 			
 			points[i]=new  Vector();
 			lines[i]=new  Vector();
-
+			oldPoints[i]=new Stack();
+			oldLines[i]=new Stack();
 			
 		}
 		
@@ -129,19 +131,19 @@ public class Editor extends JFrame implements MenuListener{
 			currentDirectory=fc.getCurrentDirectory();
 			currentFile=fc.getSelectedFile();
 			File file = fc.getSelectedFile();
-			loadPointsFromFile(file);
+			loadPointsFromFile(file,0);
 
 
 		}
 	}
 	
-	public void loadPointsFromFile(File file){
+	public void loadPointsFromFile(File file,int index){
 
-		points[0]=new  Vector();
-		lines[0]=new  Vector();
+		points[index]=new  Vector();
+		lines[index]=new  Vector();
 		
-		oldPoints=new Stack();
-		oldLines=new Stack();
+		oldPoints[index]=new Stack();
+		oldLines[index]=new Stack();
 
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));
@@ -168,9 +170,9 @@ public class Editor extends JFrame implements MenuListener{
 					continue;
 
 				if(str.startsWith("P="))
-					buildPoints(points[0],str.substring(2));
+					buildPoints(points[index],str.substring(2));
 				else if(str.startsWith("L="))
-					buildLines(lines[0],str.substring(2));
+					buildLines(lines[index],str.substring(2));
 
 
 			}
@@ -231,7 +233,7 @@ public class Editor extends JFrame implements MenuListener{
 			currentFile=fc.getSelectedFile();
 			try{
 				PrintWriter pr = new PrintWriter(new FileOutputStream(file));
-				saveLines(pr);
+				saveLines(pr,0);
 	            pr.close();
 			}catch (Exception e) {
 				e.printStackTrace();
@@ -241,7 +243,7 @@ public class Editor extends JFrame implements MenuListener{
 
 	}
 
-	public void saveLines(PrintWriter pr) {
+	public void saveLines(PrintWriter pr,int index) {
 
 
 
@@ -251,23 +253,23 @@ public class Editor extends JFrame implements MenuListener{
 			pr.println("<lines>");
 			pr.print("P=");
 
-			for(int i=0;i<points[0].size();i++){
+			for(int i=0;i<points[index].size();i++){
 
-				Point3D p=(Point3D) points[0].elementAt(i);
+				Point3D p=(Point3D) points[index].elementAt(i);
 
 				pr.print(decomposePoint(p));
-				if(i<points[0].size()-1)
+				if(i<points[index].size()-1)
 					pr.print("_");
 			}	
 
 			pr.print("\nL=");
 
-			for(int i=0;i<lines[0].size();i++){
+			for(int i=0;i<lines[index].size();i++){
 
-				LineData ld=(LineData) lines[0].elementAt(i);
+				LineData ld=(LineData) lines[index].elementAt(i);
 
 				pr.print(decomposeLineData(ld));
-				if(i<lines[0].size()-1)
+				if(i<lines[index].size()-1)
 					pr.print("_");
 			}	
 			pr.println("\n</lines>");
@@ -310,23 +312,23 @@ public class Editor extends JFrame implements MenuListener{
 		return newLineData;
 	}
 	
-	public void prepareUndo() {
+	public void prepareUndo(int index) {
 		
-		if(oldPoints.size()==MAX_STACK_SIZE){
+		if(oldPoints[index].size()==MAX_STACK_SIZE){
 			
-			oldPoints.removeElementAt(0);
-			oldLines.removeElementAt(0);
+			oldPoints[index].removeElementAt(0);
+			oldLines[index].removeElementAt(0);
 		}
-		oldPoints.push(clonePoints(points[0]));
-		oldLines.push(cloneLineData(lines[0]));
+		oldPoints[index].push(clonePoints(points[index]));
+		oldLines[index].push(cloneLineData(lines[index]));
 	}
 	
-	public void undo() {
+	public void undo(int index) {
 		
-		if(oldPoints.size()>0)
-			points[0]=(Vector) oldPoints.pop();
-		if(oldLines.size()>0)
-			lines[0]=(Vector) oldLines.pop();
+		if(oldPoints[index].size()>0)
+			points[index]=(Vector) oldPoints[index].pop();
+		if(oldLines[index].size()>0)
+			lines[index]=(Vector) oldLines[index].pop();
 		
 	}
 	

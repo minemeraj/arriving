@@ -960,13 +960,13 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	
 	public void prepareUndo() {
 		jmt31.setEnabled(true);
-	    super.prepareUndo();
+	    super.prepareUndo(0);
 	}
 
 
 	public void undo() {
-		super.undo();
-		if(oldPoints.size()==0)
+		super.undo(0);
+		if(oldPoints[0].size()==0)
 			jmt31.setEnabled(false);
 		resetLists();
 	}
@@ -1571,8 +1571,8 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		Vector transpoints=new Vector();
 		Vector translines=new Vector();
 		
-		oldPoints=new Stack();
-		oldLines=new Stack();
+		oldPoints[0]=new Stack();
+		oldLines[0]=new Stack();
 
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));
@@ -1654,7 +1654,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			currentDirectory=fc.getCurrentDirectory();
 			File file = fc.getSelectedFile();
-			loadPointsFromFile(file);
+			loadPointsFromFile(file,0);
 			
 			reloadPanels();
 

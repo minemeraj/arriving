@@ -916,8 +916,8 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 		points[0]=new Vector();
 		lines[0]=new Vector();
 
-		oldPoints=new Stack();
-		oldLines=new Stack();
+		oldPoints[0]=new Stack();
+		oldLines[0]=new Stack();
 
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));
@@ -1578,11 +1578,11 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 	public void prepareUndo() {
 		jmt21.setEnabled(true);
 		
-		super.prepareUndo();
+		super.prepareUndo(0);
 		
 		try {
 			
-			if(oldPoints.size()==MAX_STACK_SIZE){
+			if(oldPoints[0].size()==MAX_STACK_SIZE){
 				
 				oldCubeData.removeElementAt(0);
 			
@@ -1596,7 +1596,7 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 	
 
 	public void undo() {
-		super.undo();
+		super.undo(0);
 		
 		if(oldCubeData.size()>0)
 			cubeData=(CubeData) oldCubeData.pop();

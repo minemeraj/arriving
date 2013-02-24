@@ -1689,7 +1689,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void undoRoad() {
 
-		super.undo();
+		super.undo(0);
 		
 		firePropertyChange("RoadEditorUndo", false, true);
 	}
@@ -1702,7 +1702,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private void prepareUndoRoad() {
 		jmt42.setEnabled(true);
 		
-		super.prepareUndo();
+		super.prepareUndo(0);
 
 
 	}
@@ -2257,7 +2257,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			try{			
 				PrintWriter pr = new PrintWriter(new FileOutputStream(file));
-				saveLines(pr);
+				saveLines(pr,0);
 				saveObjects(pr);
 				pr.close();
 			
@@ -2287,7 +2287,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			currentDirectory=fc.getCurrentDirectory();
 			currentFile=fc.getSelectedFile();
 			File file = fc.getSelectedFile();
-			loadPointsFromFile(file);			
+			loadPointsFromFile(file,0);			
             loadObjectsFromFile(file); 
 
 		}
