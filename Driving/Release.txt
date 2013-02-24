@@ -2,7 +2,9 @@
 Changed the program's components organization: now the Road is a mesh independent from the ground.
 Consequent main changes to the RoadEditor.
 
-A major cleaning of the code
+A major cleaning of the code.
+
+Fixed loading bugs in the IperviewEditor.
 
 Added a new object, an industrial steel shed.
 
