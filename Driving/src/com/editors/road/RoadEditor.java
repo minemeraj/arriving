@@ -144,6 +144,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton[] deselectAll;
 	private JLabel[] textureLabel;
 	
+	private DoubleTextField[] roadMove;
+	private JButton[] moveRoadUp;
+	private JButton[] moveRoadDown;
+	private JButton[] moveRoadRight;
+	private JButton[] moveRoadLeft;
+	private JButton[] moveRoadTop;
+	private JButton[] moveRoadBottom;
+	
 	private JButton deselectAllObjects;
 	
 	private JButton addObject;
@@ -194,13 +202,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JCheckBox objcheckCoordinatesdz;
 	private Rectangle currentRect;
 	private boolean isDrawCurrentRect=false;
-	private DoubleTextField roadMove;
-	private JButton moveRoadUp;
-	private JButton moveRoadDown;
-	private JButton moveRoadRight;
-	private JButton moveRoadLeft;
-	private JButton moveRoadTop;
-	private JButton moveRoadBottom;
 	private DoubleTextField objMove;
 	private JButton moveObjUp;
 	private JButton moveObjDown;
@@ -274,8 +275,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		add(right);
 		
 		buildFieldsArrays();
-		buildRightRoadPanel();
-		buildRightGroundPanel();
+		buildRightPanel(0); 
+		buildRightPanel(1); 
 		
 		buildBottomPanel();
 
@@ -329,6 +330,15 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		deselectAll=new JButton[2];
 		textureLabel=new JLabel[2];
+		
+		roadMove=new DoubleTextField[2];
+		moveRoadUp=new JButton[2];
+		moveRoadDown=new JButton[2];
+		moveRoadRight=new JButton[2];
+		moveRoadLeft=new JButton[2];
+		moveRoadTop=new JButton[2];
+		moveRoadBottom=new JButton[2];
+		
 		
 		
 	}
@@ -1125,7 +1135,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 
-	private void buildRightRoadPanel() {
+	private void buildRightPanel(int index) {
 
 		String header="<html><body>";
 		String footer="</body></html>";
@@ -1140,80 +1150,80 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		int r=25;
 
-		checkMultiplePointsSelection[0]=new JCheckBox("Multiple selection");
-		checkMultiplePointsSelection[0].setBounds(30,r,150,20);
-		checkMultiplePointsSelection[0].addKeyListener(this);
-		panel.add(checkMultiplePointsSelection[0]);
+		checkMultiplePointsSelection[index]=new JCheckBox("Multiple selection");
+		checkMultiplePointsSelection[index].setBounds(30,r,150,20);
+		checkMultiplePointsSelection[index].addKeyListener(this);
+		panel.add(checkMultiplePointsSelection[index]);
 
 		r+=30;
 
 		JLabel lx=new JLabel("x:");
 		lx.setBounds(5,r,20,20);
 		panel.add(lx);
-		coordinatesx[0]=new DoubleTextField(8);
-		coordinatesx[0].setBounds(30,r,120,20);
-		coordinatesx[0].addKeyListener(this);
-		panel.add(coordinatesx[0]);
-		checkCoordinatesx[0]=new JCheckBox();
-		checkCoordinatesx[0].setBounds(180,r,30,20);
-		checkCoordinatesx[0].addKeyListener(this);
-		panel.add(checkCoordinatesx[0]);
+		coordinatesx[index]=new DoubleTextField(8);
+		coordinatesx[index].setBounds(30,r,120,20);
+		coordinatesx[index].addKeyListener(this);
+		panel.add(coordinatesx[index]);
+		checkCoordinatesx[index]=new JCheckBox();
+		checkCoordinatesx[index].setBounds(180,r,30,20);
+		checkCoordinatesx[index].addKeyListener(this);
+		panel.add(checkCoordinatesx[index]);
 
 		r+=30;
 
 		JLabel ly=new JLabel("y:");
 		ly.setBounds(5,r,20,20);
 		panel.add(ly);
-		coordinatesy[0]=new DoubleTextField(8);
-		coordinatesy[0].setBounds(30,r,120,20);
-		coordinatesy[0].addKeyListener(this);
-		panel.add(coordinatesy[0]);
-		checkCoordinatesy[0]=new JCheckBox();
-		checkCoordinatesy[0].setBounds(180,r,30,20);
-		checkCoordinatesy[0].addKeyListener(this);
-		panel.add(checkCoordinatesy[0]);
+		coordinatesy[index]=new DoubleTextField(8);
+		coordinatesy[index].setBounds(30,r,120,20);
+		coordinatesy[index].addKeyListener(this);
+		panel.add(coordinatesy[index]);
+		checkCoordinatesy[index]=new JCheckBox();
+		checkCoordinatesy[index].setBounds(180,r,30,20);
+		checkCoordinatesy[index].addKeyListener(this);
+		panel.add(checkCoordinatesy[index]);
 
 		r+=30;
 
 		JLabel lz=new JLabel("z:");
 		lz.setBounds(5,r,20,20);
 		panel.add(lz);
-		coordinatesz[0]=new DoubleTextField(8);
-		coordinatesz[0].setBounds(30,r,120,20);
-		coordinatesz[0].addKeyListener(this);
-		panel.add(coordinatesz[0]);
-		checkCoordinatesz[0]=new JCheckBox();
-		checkCoordinatesz[0].setBounds(180,r,30,20);
-		checkCoordinatesz[0].addKeyListener(this);
-		panel.add(checkCoordinatesz[0]);
+		coordinatesz[index]=new DoubleTextField(8);
+		coordinatesz[index].setBounds(30,r,120,20);
+		coordinatesz[index].addKeyListener(this);
+		panel.add(coordinatesz[index]);
+		checkCoordinatesz[index]=new JCheckBox();
+		checkCoordinatesz[index].setBounds(180,r,30,20);
+		checkCoordinatesz[index].addKeyListener(this);
+		panel.add(checkCoordinatesz[index]);
 
 		r+=30;
 
 
 
-		chooseTexture[0]=new JComboBox();
-		chooseTexture[0].addItem(new ValuePair("",""));
+		chooseTexture[index]=new JComboBox();
+		chooseTexture[index].addItem(new ValuePair("",""));
 		/*chooseTexture.setBounds(35,r,50,20);*/
-		chooseTexture[0].addItemListener(this);
-		chooseTexture[0].addKeyListener(this);
+		chooseTexture[index].addItemListener(this);
+		chooseTexture[index].addKeyListener(this);
 		/*panel.add(chooseTexture);*/
 
-		choosePanelTexture[0]=new JButton("Texture");
-		choosePanelTexture[0].setBounds(5,r,100,20);
-		choosePanelTexture[0].addActionListener(this);
-		choosePanelTexture[0].addKeyListener(this);
-		panel.add(choosePanelTexture[0]);
+		choosePanelTexture[index]=new JButton("Texture");
+		choosePanelTexture[index].setBounds(5,r,100,20);
+		choosePanelTexture[index].addActionListener(this);
+		choosePanelTexture[index].addKeyListener(this);
+		panel.add(choosePanelTexture[index]);
 		
 		r+=30;
 
-		textureLabel[0]=new JLabel();
-		textureLabel[0].setFocusable(false);
-		textureLabel[0].setBounds(5,r,100,100);
+		textureLabel[index]=new JLabel();
+		textureLabel[index].setFocusable(false);
+		textureLabel[index].setBounds(5,r,100,100);
 		Border border=BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
-		textureLabel[0].setBorder(border);
-		panel.add(textureLabel[0]);
+		textureLabel[index].setBorder(border);
+		panel.add(textureLabel[index]);
 
-		JPanel moveRoad=buildRoadMovePanel(120,r);
+		JPanel moveRoad=buildRoadMovePanel(120,r,index);
 		panel.add(moveRoad);
 
 		r+=100;
@@ -1234,11 +1244,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		r+=30;
 
-		colorRoadChoice[0]=new JTextField();
-		colorRoadChoice[0].setBounds(30,r,120,20);
-		colorRoadChoice[0].addKeyListener(this);
-		colorRoadChoice[0].setToolTipText("Opt. background color");
-		panel.add(colorRoadChoice[0]);
+		colorRoadChoice[index]=new JTextField();
+		colorRoadChoice[index].setBounds(30,r,120,20);
+		colorRoadChoice[index].addKeyListener(this);
+		colorRoadChoice[index].setToolTipText("Opt. background color");
+		panel.add(colorRoadChoice[index]);
+		
+		final JTextField crc=colorRoadChoice[index];
+		
 		JButton cho = new JButton(">");
 		cho.setBorder(new LineBorder(Color.gray,1));
 		cho.addActionListener(
@@ -1247,7 +1260,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					public void actionPerformed(ActionEvent e) {
 						Color tcc = JColorChooser.showDialog(null,"Choose color",null);
 						if(tcc!=null) {
-							colorRoadChoice[0].setBackground(tcc);
+							crc.setBackground(tcc);
 						}
 
 					}
@@ -1258,94 +1271,94 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		cho.addKeyListener(this);
 		cho.setBounds(5,r,20,20);
 		panel.add(cho);
-		checkRoadColor[0]=new JCheckBox();
-		checkRoadColor[0].setBounds(180,r,30,20);
-		checkRoadColor[0].addKeyListener(this);
-		checkRoadColor[0].setOpaque(false);
-		panel.add(checkRoadColor[0]);
+		checkRoadColor[index]=new JCheckBox();
+		checkRoadColor[index].setBounds(180,r,30,20);
+		checkRoadColor[index].addKeyListener(this);
+		checkRoadColor[index].setOpaque(false);
+		panel.add(checkRoadColor[index]);
 
 		r+=30;
 
-		addPoint[0]=new JButton(header+"Insert point"+footer);
-		addPoint[0].addActionListener(this);
-		addPoint[0].setFocusable(false);
-		addPoint[0].setBounds(5,r,150,20);
-		panel.add(addPoint[0]);
+		addPoint[index]=new JButton(header+"Insert point"+footer);
+		addPoint[index].addActionListener(this);
+		addPoint[index].setFocusable(false);
+		addPoint[index].setBounds(5,r,150,20);
+		panel.add(addPoint[index]);
 
 		r+=30;
 
-		changePoint[0]=new JButton(header+"Change <u>P</u>oint"+footer);
-		changePoint[0].addActionListener(this);
-		changePoint[0].setFocusable(false);
-		changePoint[0].setBounds(5,r,150,20);
-		panel.add(changePoint[0]);
-
-		r+=30;
-		
-
-		changePolygon[0]=new JButton(header+"Change Pol<u>y</u>gon"+footer);
-		changePolygon[0].addActionListener(this);
-		changePolygon[0].setFocusable(false);
-		changePolygon[0].setBounds(5,r,150,20);
-		panel.add(changePolygon[0]);
+		changePoint[index]=new JButton(header+"Change <u>P</u>oint"+footer);
+		changePoint[index].addActionListener(this);
+		changePoint[index].setFocusable(false);
+		changePoint[index].setBounds(5,r,150,20);
+		panel.add(changePoint[index]);
 
 		r+=30;
 		
-		startBuildPolygon[0]=new JButton(header+"Start polygo<u>n</u> <br/> points sequence"+footer);
-		startBuildPolygon[0].addActionListener(this);
-		startBuildPolygon[0].addKeyListener(this);
-		startBuildPolygon[0].setFocusable(false);
-		startBuildPolygon[0].setBounds(5,r,150,35);
-		panel.add(startBuildPolygon[0]);
+
+		changePolygon[index]=new JButton(header+"Change Pol<u>y</u>gon"+footer);
+		changePolygon[index].addActionListener(this);
+		changePolygon[index].setFocusable(false);
+		changePolygon[index].setBounds(5,r,150,20);
+		panel.add(changePolygon[index]);
+
+		r+=30;
+		
+		startBuildPolygon[index]=new JButton(header+"Start polygo<u>n</u> <br/> points sequence"+footer);
+		startBuildPolygon[index].addActionListener(this);
+		startBuildPolygon[index].addKeyListener(this);
+		startBuildPolygon[index].setFocusable(false);
+		startBuildPolygon[index].setBounds(5,r,150,35);
+		panel.add(startBuildPolygon[index]);
 
 		r+=45;
 			
-		buildPolygon[0]=new JButton(header+"Bui<u>l</u>d polygon"+footer);
-		buildPolygon[0].addActionListener(this);
-		buildPolygon[0].addKeyListener(this);
-		buildPolygon[0].setFocusable(false);
-		buildPolygon[0].setBounds(5,r,150,20);
-		panel.add(buildPolygon[0]);
+		buildPolygon[index]=new JButton(header+"Bui<u>l</u>d polygon"+footer);
+		buildPolygon[index].addActionListener(this);
+		buildPolygon[index].addKeyListener(this);
+		buildPolygon[index].setFocusable(false);
+		buildPolygon[index].setBounds(5,r,150,20);
+		panel.add(buildPolygon[index]);
 		
 
 		r+=30;
 		
-		polygonDetail[0]=new JButton(header+"Polygon detail"+footer);
-		polygonDetail[0].addActionListener(this);
-		polygonDetail[0].addKeyListener(this);
-		polygonDetail[0].setFocusable(false);
-		polygonDetail[0].setBounds(5,r,150,20);
-		panel.add(polygonDetail[0]);
+		polygonDetail[index]=new JButton(header+"Polygon detail"+footer);
+		polygonDetail[index].addActionListener(this);
+		polygonDetail[index].addKeyListener(this);
+		polygonDetail[index].setFocusable(false);
+		polygonDetail[index].setBounds(5,r,150,20);
+		panel.add(polygonDetail[index]);
 		
 
 		r+=30;
 
 	
 
-		deselectAll[0]=new JButton(header+"D<u>e</u>select all"+footer);
-		deselectAll[0].addActionListener(this);
-		deselectAll[0].setFocusable(false);
-		deselectAll[0].setBounds(5,r,150,20);
-		panel.add(deselectAll[0]);
+		deselectAll[index]=new JButton(header+"D<u>e</u>select all"+footer);
+		deselectAll[index].addActionListener(this);
+		deselectAll[index].setFocusable(false);
+		deselectAll[index].setBounds(5,r,150,20);
+		panel.add(deselectAll[index]);
 		
 		
 		r+=30;
 		
-		deleteSelection[0]=new JButton(header+"<u>D</u>elete selection"+footer);
-		deleteSelection[0].addActionListener(this);
-		deleteSelection[0].addKeyListener(this);
-		deleteSelection[0].setFocusable(false);
-		deleteSelection[0].setBounds(5,r,150,20);
-		panel.add(deleteSelection[0]);
+		deleteSelection[index]=new JButton(header+"<u>D</u>elete selection"+footer);
+		deleteSelection[index].addActionListener(this);
+		deleteSelection[index].addKeyListener(this);
+		deleteSelection[index].setFocusable(false);
+		deleteSelection[index].setBounds(5,r,150,20);
+		panel.add(deleteSelection[index]);
 
 		r+=30;
 		
-		mergeSelectedPoints[0]=new JButton(header+"<u>M</u>erge selected<br/>points"+footer);
-		mergeSelectedPoints[0].addActionListener(this);
-		mergeSelectedPoints[0].addKeyListener(this);
-		mergeSelectedPoints[0].setFocusable(false);
-		mergeSelectedPoints[0].setBounds(5,r,150,35);
-		panel.add(mergeSelectedPoints[0]);
+		mergeSelectedPoints[index]=new JButton(header+"<u>M</u>erge selected<br/>points"+footer);
+		mergeSelectedPoints[index].addActionListener(this);
+		mergeSelectedPoints[index].addKeyListener(this);
+		mergeSelectedPoints[index].setFocusable(false);
+		mergeSelectedPoints[index].setBounds(5,r,150,35);
+		panel.add(mergeSelectedPoints[index]);
 
 		right.add("Road",panel);
 	  
@@ -1353,234 +1366,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 	
-	private void buildRightGroundPanel() {
-
-		String header="<html><body>";
-		String footer="</body></html>";
-		
-		JPanel panel=new JPanel();
-
-		panel.setBounds(WIDTH+LEFT_BORDER,0,RIGHT_BORDER,HEIGHT);
-		panel.setLayout(null);
-		
-		Border leftBorder=BorderFactory.createTitledBorder("Road");
-		panel.setBorder(leftBorder);
-
-		int r=25;
-
-		checkMultiplePointsSelection[1]=new JCheckBox("Multiple selection");
-		checkMultiplePointsSelection[1].setBounds(30,r,150,20);
-		checkMultiplePointsSelection[1].addKeyListener(this);
-		panel.add(checkMultiplePointsSelection[1]);
-
-		r+=30;
-
-		JLabel lx=new JLabel("x:");
-		lx.setBounds(5,r,20,20);
-		panel.add(lx);
-		coordinatesx[1]=new DoubleTextField(8);
-		coordinatesx[1].setBounds(30,r,120,20);
-		coordinatesx[1].addKeyListener(this);
-		panel.add(coordinatesx[1]);
-		checkCoordinatesx[1]=new JCheckBox();
-		checkCoordinatesx[1].setBounds(180,r,30,20);
-		checkCoordinatesx[1].addKeyListener(this);
-		panel.add(checkCoordinatesx[1]);
-
-		r+=30;
-
-		JLabel ly=new JLabel("y:");
-		ly.setBounds(5,r,20,20);
-		panel.add(ly);
-		coordinatesy[1]=new DoubleTextField(8);
-		coordinatesy[1].setBounds(30,r,120,20);
-		coordinatesy[1].addKeyListener(this);
-		panel.add(coordinatesy[1]);
-		checkCoordinatesy[1]=new JCheckBox();
-		checkCoordinatesy[1].setBounds(180,r,30,20);
-		checkCoordinatesy[1].addKeyListener(this);
-		panel.add(checkCoordinatesy[1]);
-
-		r+=30;
-
-		JLabel lz=new JLabel("z:");
-		lz.setBounds(5,r,20,20);
-		panel.add(lz);
-		coordinatesz[1]=new DoubleTextField(8);
-		coordinatesz[1].setBounds(30,r,120,20);
-		coordinatesz[1].addKeyListener(this);
-		panel.add(coordinatesz[1]);
-		checkCoordinatesz[1]=new JCheckBox();
-		checkCoordinatesz[1].setBounds(180,r,30,20);
-		checkCoordinatesz[1].addKeyListener(this);
-		panel.add(checkCoordinatesz[1]);
-
-		r+=30;
-
-
-
-		chooseTexture[1]=new JComboBox();
-		chooseTexture[1].addItem(new ValuePair("",""));
-		/*chooseTexture.setBounds(35,r,50,20);*/
-		chooseTexture[1].addItemListener(this);
-		chooseTexture[1].addKeyListener(this);
-		/*panel.add(chooseTexture);*/
-
-		choosePanelTexture[1]=new JButton("Texture");
-		choosePanelTexture[1].setBounds(5,r,100,20);
-		choosePanelTexture[1].addActionListener(this);
-		choosePanelTexture[1].addKeyListener(this);
-		panel.add(choosePanelTexture[1]);
-		
-		r+=30;
-
-		textureLabel[1]=new JLabel();
-		textureLabel[1].setFocusable(false);
-		textureLabel[1].setBounds(5,r,100,100);
-		Border border=BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
-		textureLabel[1].setBorder(border);
-		panel.add(textureLabel[1]);
-
-		/*JPanel moveRoad=buildRoadMovePanel(120,r);
-		panel.add(moveRoad);*/
-
-		r+=100;
-		
-		choosePrevTexture[1]=new JButton("<");
-		choosePrevTexture[1].setBounds(5,r,50,20);
-		choosePrevTexture[1].addActionListener(this);
-		choosePrevTexture[1].addKeyListener(this);
-		panel.add(choosePrevTexture[1]);
-
-		chooseNextTexture[1]=new JButton(">");
-		chooseNextTexture[1].setBounds(55,r,50,20);
-		chooseNextTexture[1].addActionListener(this);
-		chooseNextTexture[1].addKeyListener(this);
-		panel.add(chooseNextTexture[1]);
-		
-	
-		
-		r+=30;
-
-		colorRoadChoice[1]=new JTextField();
-		colorRoadChoice[1].setBounds(30,r,120,20);
-		colorRoadChoice[1].addKeyListener(this);
-		colorRoadChoice[1].setToolTipText("Opt. background color");
-		panel.add(colorRoadChoice[1]);
-		JButton cho = new JButton(">");
-		cho.setBorder(new LineBorder(Color.gray,1));
-		cho.addActionListener(
-				new ActionListener(){
-
-					public void actionPerformed(ActionEvent e) {
-						Color tcc = JColorChooser.showDialog(null,"Choose color",null);
-						if(tcc!=null) {
-							colorRoadChoice[1].setBackground(tcc);
-						}
-
-					}
-
-
-				}
-		);
-		cho.addKeyListener(this);
-		cho.setBounds(5,r,20,20);
-		panel.add(cho);
-		checkRoadColor[1]=new JCheckBox();
-		checkRoadColor[1].setBounds(180,r,30,20);
-		checkRoadColor[1].addKeyListener(this);
-		checkRoadColor[1].setOpaque(false);
-		panel.add(checkRoadColor[1]);
-
-		r+=30;
-
-		addPoint[1]=new JButton(header+"Insert point"+footer);
-		addPoint[1].addActionListener(this);
-		addPoint[1].setFocusable(false);
-		addPoint[1].setBounds(5,r,150,20);
-		panel.add(addPoint[1]);
-
-		r+=30;
-
-		changePoint[1]=new JButton(header+"Change <u>P</u>oint"+footer);
-		changePoint[1].addActionListener(this);
-		changePoint[1].setFocusable(false);
-		changePoint[1].setBounds(5,r,150,20);
-		panel.add(changePoint[1]);
-
-		r+=30;
-		
-
-		changePolygon[1]=new JButton(header+"Change Pol<u>y</u>gon"+footer);
-		changePolygon[1].addActionListener(this);
-		changePolygon[1].setFocusable(false);
-		changePolygon[1].setBounds(5,r,150,20);
-		panel.add(changePolygon[1]);
-
-		r+=30;
-		
-		startBuildPolygon[1]=new JButton(header+"Start polygo<u>n</u> <br/> points sequence"+footer);
-		startBuildPolygon[1].addActionListener(this);
-		startBuildPolygon[1].addKeyListener(this);
-		startBuildPolygon[1].setFocusable(false);
-		startBuildPolygon[1].setBounds(5,r,150,35);
-		panel.add(startBuildPolygon[1]);
-
-		r+=45;
-			
-		buildPolygon[1]=new JButton(header+"Bui<u>l</u>d polygon"+footer);
-		buildPolygon[1].addActionListener(this);
-		buildPolygon[1].addKeyListener(this);
-		buildPolygon[1].setFocusable(false);
-		buildPolygon[1].setBounds(5,r,150,20);
-		panel.add(buildPolygon[1]);
-		
-
-		r+=30;
-		
-		polygonDetail[1]=new JButton(header+"Polygon detail"+footer);
-		polygonDetail[1].addActionListener(this);
-		polygonDetail[1].addKeyListener(this);
-		polygonDetail[1].setFocusable(false);
-		polygonDetail[1].setBounds(5,r,150,20);
-		panel.add(polygonDetail[1]);
-		
-
-		r+=30;
-
 	
 
-		deselectAll[1]=new JButton(header+"D<u>e</u>select all"+footer);
-		deselectAll[1].addActionListener(this);
-		deselectAll[1].setFocusable(false);
-		deselectAll[1].setBounds(5,r,150,20);
-		panel.add(deselectAll[1]);
-		
-		
-		r+=30;
-		
-		deleteSelection[1]=new JButton(header+"<u>D</u>elete selection"+footer);
-		deleteSelection[1].addActionListener(this);
-		deleteSelection[1].addKeyListener(this);
-		deleteSelection[1].setFocusable(false);
-		deleteSelection[1].setBounds(5,r,150,20);
-		panel.add(deleteSelection[1]);
-
-		r+=30;
-		
-		mergeSelectedPoints[1]=new JButton(header+"<u>M</u>erge selected<br/>points"+footer);
-		mergeSelectedPoints[1].addActionListener(this);
-		mergeSelectedPoints[1].addKeyListener(this);
-		mergeSelectedPoints[1].setFocusable(false);
-		mergeSelectedPoints[1].setBounds(5,r,150,35);
-		panel.add(mergeSelectedPoints[1]);
-
-		right.add("Ground",panel);
-
-
-	}
-
-	private JPanel buildRoadMovePanel(int i, int r) {
+	private JPanel buildRoadMovePanel(int i, int r, int index) {
 
 		JPanel move=new JPanel();
 		move.setBounds(i,r,100,100);
@@ -1589,47 +1377,47 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		Border border = BorderFactory.createEtchedBorder();
 		move.setBorder(border);
 		
-		roadMove=new DoubleTextField();
-		roadMove.setBounds(30,40,40,20);
-		roadMove.setToolTipText("Position increment");
-		move.add(roadMove);
-		roadMove.addKeyListener(this);
+		roadMove[index]=new DoubleTextField();
+		roadMove[index].setBounds(30,40,40,20);
+		roadMove[index].setToolTipText("Position increment");
+		move.add(roadMove[index]);
+		roadMove[index].addKeyListener(this);
 		
-		moveRoadUp=new JButton(new ImageIcon("lib/trianglen.jpg"));
-		moveRoadUp.setBounds(40,10,20,20);
-		moveRoadUp.addActionListener(this);
-		moveRoadUp.setFocusable(false);
-		move.add(moveRoadUp);
+		moveRoadUp[index]=new JButton(new ImageIcon("lib/trianglen.jpg"));
+		moveRoadUp[index].setBounds(40,10,20,20);
+		moveRoadUp[index].addActionListener(this);
+		moveRoadUp[index].setFocusable(false);
+		move.add(moveRoadUp[index]);
 		
-		moveRoadDown=new JButton(new ImageIcon("lib/triangles.jpg"));
-		moveRoadDown.setBounds(40,70,20,20);
-		moveRoadDown.addActionListener(this);
-		moveRoadDown.setFocusable(false);
-		move.add(moveRoadDown);
+		moveRoadDown[index]=new JButton(new ImageIcon("lib/triangles.jpg"));
+		moveRoadDown[index].setBounds(40,70,20,20);
+		moveRoadDown[index].addActionListener(this);
+		moveRoadDown[index].setFocusable(false);
+		move.add(moveRoadDown[index]);
 		
-		moveRoadLeft=new JButton(new ImageIcon("lib/triangleo.jpg"));
-		moveRoadLeft.setBounds(5,40,20,20);
-		moveRoadLeft.addActionListener(this);
-		moveRoadLeft.setFocusable(false);
-		move.add(moveRoadLeft);
+		moveRoadLeft[index]=new JButton(new ImageIcon("lib/triangleo.jpg"));
+		moveRoadLeft[index].setBounds(5,40,20,20);
+		moveRoadLeft[index].addActionListener(this);
+		moveRoadLeft[index].setFocusable(false);
+		move.add(moveRoadLeft[index]);
 		
-		moveRoadRight=new JButton(new ImageIcon("lib/trianglee.jpg"));
-		moveRoadRight.setBounds(75,40,20,20);
-		moveRoadRight.addActionListener(this);
-		moveRoadRight.setFocusable(false);
-		move.add(moveRoadRight);
+		moveRoadRight[index]=new JButton(new ImageIcon("lib/trianglee.jpg"));
+		moveRoadRight[index].setBounds(75,40,20,20);
+		moveRoadRight[index].addActionListener(this);
+		moveRoadRight[index].setFocusable(false);
+		move.add(moveRoadRight[index]);
 		
-		moveRoadTop=new JButton(new ImageIcon("lib/up.jpg"));
-		moveRoadTop.setBounds(5,70,20,20);
-		moveRoadTop.addActionListener(this);
-		moveRoadTop.setFocusable(false);
-		move.add(moveRoadTop);
+		moveRoadTop[index]=new JButton(new ImageIcon("lib/up.jpg"));
+		moveRoadTop[index].setBounds(5,70,20,20);
+		moveRoadTop[index].addActionListener(this);
+		moveRoadTop[index].setFocusable(false);
+		move.add(moveRoadTop[index]);
 		
-		moveRoadBottom=new JButton(new ImageIcon("lib/down.jpg"));
-		moveRoadBottom.setBounds(75,70,20,20);
-		moveRoadBottom.addActionListener(this);
-		moveRoadBottom.setFocusable(false);
-		move.add(moveRoadBottom);
+		moveRoadBottom[index]=new JButton(new ImageIcon("lib/down.jpg"));
+		moveRoadBottom[index].setBounds(75,70,20,20);
+		moveRoadBottom[index].addActionListener(this);
+		moveRoadBottom[index].setFocusable(false);
+		move.add(moveRoadBottom[index]);
 
 		return move;
 
@@ -2070,7 +1858,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private void moveSelectedRoadPoints(int dx, int dy,int dk) {
 
-		String sqty=roadMove.getText();
+		String sqty=roadMove[ACTIVE_RPANEL].getText();
 
 		if(sqty==null || sqty.equals(""))
 			return;
@@ -2539,7 +2327,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		else if(o==deselectAllObjects){
 			cleanObjects();
 		}
-		else if(o==choosePanelTexture){
+		else if(o==choosePanelTexture[ACTIVE_RPANEL]){
 			
 			TexturesPanel tp=new TexturesPanel(worldImages,100,100);
 			
@@ -2548,7 +2336,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				chooseTexture[ACTIVE_RPANEL].setSelectedIndex(indx+1);
 			
 		}
-		else if(o==chooseNextTexture){
+		else if(o==chooseNextTexture[ACTIVE_RPANEL]){
 			int indx=chooseTexture[ACTIVE_RPANEL].getSelectedIndex();
 			if(indx<chooseTexture[ACTIVE_RPANEL].getItemCount()-1)
 				chooseTexture[ACTIVE_RPANEL].setSelectedIndex(indx+1);
@@ -2561,7 +2349,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			if(indx!=-1)
 				chooseObject.setSelectedIndex(indx+1);
 		}
-		else if(o==choosePrevTexture){
+		else if(o==choosePrevTexture[ACTIVE_RPANEL]){
 			int indx=chooseTexture[ACTIVE_RPANEL].getSelectedIndex();
 			if(indx>0)
 				chooseTexture[ACTIVE_RPANEL].setSelectedIndex(indx-1);
@@ -2576,32 +2364,32 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			if(indx>0)
 				chooseObject.setSelectedIndex(indx-1);
 		}
-		else if(o==moveRoadUp){
+		else if(o==moveRoadUp[ACTIVE_RPANEL]){
 
 			moveSelectedRoadPoints(0,1,0);
 
 		}
-		else if(o==moveRoadDown){
+		else if(o==moveRoadDown[ACTIVE_RPANEL]){
 
 			moveSelectedRoadPoints(0,-1,0);
 
 		}
-		else if(o==moveRoadLeft){
+		else if(o==moveRoadLeft[ACTIVE_RPANEL]){
 
 			moveSelectedRoadPoints(-1,0,0);
 
 		}
-		else if(o==moveRoadRight){
+		else if(o==moveRoadRight[ACTIVE_RPANEL]){
 
 			moveSelectedRoadPoints(+1,0,0);
 
 		}
-		else if(o==moveRoadTop){
+		else if(o==moveRoadTop[ACTIVE_RPANEL]){
 
 			moveSelectedRoadPoints(0,0,1);
 
 		}
-		else if(o==moveRoadBottom){
+		else if(o==moveRoadBottom[ACTIVE_RPANEL]){
 
 			moveSelectedRoadPoints(0,0,-1);
 
