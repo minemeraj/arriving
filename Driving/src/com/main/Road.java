@@ -40,6 +40,7 @@ import com.Polygon3D;
 import com.PolygonMesh;
 import com.Texture;
 import com.ZBuffer;
+import com.editors.Editor;
 
 
 
@@ -158,7 +159,7 @@ public class Road extends Shader{
 		try {
 			File file=new File("lib/landscape_default");
 			
-			loadPointsFromFile(file);		
+			loadPointsFromFile(file,0);		
 			loadObjectsFromFile(file);			
 			
 		} catch (Exception e) {
@@ -822,7 +823,7 @@ public class Road extends Shader{
 	}
 
 	
-	public void loadPointsFromFile(File file){
+	public void loadPointsFromFile(File file,int index){
 
 		points=new Vector();
 		lines=new Vector();
@@ -843,7 +844,7 @@ public class Road extends Shader{
 				if(str.indexOf("#")>=0 || str.length()==0)
 					continue;
 				
-				if(str.indexOf("lines")>=0){
+				if(str.indexOf(Editor.TAGS[index])>=0){
 					read=!read;
 				    continue;
 				}	

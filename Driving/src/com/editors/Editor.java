@@ -40,6 +40,8 @@ public class Editor extends JFrame implements MenuListener{
 	public File currentDirectory=null;
 	public File currentFile=null;
 	
+	public static String[] TAGS={"road","ground"};
+	
 	public Editor(){
 		
 		int num=2;
@@ -161,7 +163,7 @@ public class Editor extends JFrame implements MenuListener{
 				if(str.indexOf("#")>=0 || str.length()==0)
 					continue;
 				
-				if(str.indexOf("lines")>=0){
+				if(str.indexOf(TAGS[index])>=0){
 					read=!read;
 				    continue;
 				}	
@@ -245,12 +247,12 @@ public class Editor extends JFrame implements MenuListener{
 
 	public void saveLines(PrintWriter pr,int index) {
 
-
+       
 
 		
 		try {
 			
-			pr.println("<lines>");
+			pr.println("<"+TAGS[index]+">");
 			pr.print("P=");
 
 			for(int i=0;i<points[index].size();i++){
@@ -272,7 +274,7 @@ public class Editor extends JFrame implements MenuListener{
 				if(i<lines[index].size()-1)
 					pr.print("_");
 			}	
-			pr.println("\n</lines>");
+			pr.println("\n</"+TAGS[index]+">");
 				
 
 		} catch (Exception e) {

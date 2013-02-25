@@ -2078,6 +2078,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			try{			
 				PrintWriter pr = new PrintWriter(new FileOutputStream(file));
 				saveLines(pr,0);
+				saveLines(pr,1);
+				
 				saveObjects(pr);
 				pr.close();
 			
