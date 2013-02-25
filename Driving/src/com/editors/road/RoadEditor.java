@@ -554,8 +554,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		bufGraphics.setColor(BACKGROUND_COLOR);
 		bufGraphics.fillRect(0,0,WIDTH,HEIGHT);
 
-		displayRoad(bufGraphics,buf,0);
+		//draw first the ground and the road above
 		displayRoad(bufGraphics,buf,1);
+		displayRoad(bufGraphics,buf,0);
 		displayObjects(bufGraphics);
 
 		g2.drawImage(buf,0,0,WIDTH,HEIGHT,null);
@@ -2490,6 +2491,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			double dx=roadEGM.DX;
 			double dy=roadEGM.DY;
 			
+			double x_0=roadEGM.X0;
+			double y_0=roadEGM.Y0;
+			
 			int tot=numx*numy;
 			
 			points[index]=new Vector();
@@ -2502,7 +2506,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				for(int j=0;j<numy;j++)
 				{
 					
-					Point4D p=new Point4D(i*dx,j*dy,z_value);
+					Point4D p=new Point4D(i*dx+x_0,j*dy+y_0,z_value);
 				
 					points[index].setElementAt(p,i+j*numx);
 
@@ -2518,8 +2522,17 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					int pl2=i+numx*(j+1);
 					int pl3=i+1+numx*(j+1);
 					int pl4=i+1+numx*j;
-										
-					lines[index].add(new LineData(pl1, pl4, pl3, pl2));
+					
+					LineData ld=new LineData(pl1, pl4, pl3, pl2);
+					
+					if(index==ACTIVE_ROAD_RPANEL)
+						ld.setTexture_index(0);
+					else if(index==ACTIVE_GROUND_RPANEL)
+						ld.setTexture_index(2);
+					
+					lines[index].add(ld);
+					
+					
 					
 				}
 			
@@ -2941,7 +2954,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	public void cleanPoints(){
 		
-		if(!checkCoordinatesx[ACTIVE_RPANEL].isSelected())	coordinatesx[ACTIVE_RPANEL].setText("");
+		if(!checkCoordinatesx[ACTIVE_RPANEL].isSelected())coordinatesx[ACTIVE_RPANEL].setText("");
 		if(!checkCoordinatesy[ACTIVE_RPANEL].isSelected())coordinatesy[ACTIVE_RPANEL].setText("");
 		if(!checkCoordinatesz[ACTIVE_RPANEL].isSelected())coordinatesz[ACTIVE_RPANEL].setText("");
 		

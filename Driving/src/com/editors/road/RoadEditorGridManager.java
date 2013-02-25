@@ -23,10 +23,16 @@ public class RoadEditorGridManager extends JDialog implements ActionListener{
 	double DX=200;
 	double DY=200;
 	
+	double X0=0;
+	double Y0=0;
+	
 	int WIDTH=200;
-	int HEIGHT=200;
+	int HEIGHT=260;
 	private DoubleTextField NX_Field;
 	private DoubleTextField NY_Field;
+	
+	private DoubleTextField X0_Field; 
+	private DoubleTextField Y0_Field;
 	
 	private Object returnValue=null;
 	
@@ -102,6 +108,29 @@ public class RoadEditorGridManager extends JDialog implements ActionListener{
 		
 		r+=30;
 		
+		jlb=new JLabel("X0:");
+		jlb.setBounds(10,r,30,20);
+		center.add(jlb);
+		
+		X0_Field=new DoubleTextField();
+		X0_Field.setBounds(50,r,100,20);
+		center.add(X0_Field);
+		
+		r+=30;
+		
+		jlb=new JLabel("Y0:");
+		jlb.setBounds(10,r,30,20);
+		center.add(jlb);
+		
+		Y0_Field=new DoubleTextField();
+		Y0_Field.setBounds(50,r,100,20);
+		center.add(Y0_Field);
+		
+		X0_Field.setText(0);
+		Y0_Field.setText(0);
+		
+		r+=30;
+		
 		update=new JButton("Update");
 		update.setBounds(10,r,80,20);
 		center.add(update);
@@ -150,6 +179,9 @@ public class RoadEditorGridManager extends JDialog implements ActionListener{
 		
 			DX= DX_Field.getvalue();
 			DY= DY_Field.getvalue();
+						
+			X0= X0_Field.getvalue();
+			Y0= Y0_Field.getvalue();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -213,6 +245,30 @@ public class RoadEditorGridManager extends JDialog implements ActionListener{
 
 	public void setDY(double dY) {
 		DY = dY;
+	}
+
+
+
+	public double getX0() {
+		return X0;
+	}
+
+
+
+	public void setX0(double x0) {
+		X0 = x0;
+	}
+
+
+
+	public double getY0() {
+		return Y0;
+	}
+
+
+
+	public void setY0(double y0) {
+		Y0 = y0;
 	}
 	
 	
