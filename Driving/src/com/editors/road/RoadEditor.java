@@ -409,11 +409,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				for(int i=0;i<vRoadTextures.size();i++){
 					
 					worldImages[i]=ImageIO.read(new File("lib/road_texture_"+i+".jpg"));
-					chooseTexture[ACTIVE_RPANEL].addItem(new ValuePair(""+i,""+i));
+					
+					
+					for (int j = 0; j < 2; j++) {
+						chooseTexture[j].addItem(new ValuePair(""+i,""+i));
+					}
+					
 				}
-				
-				
-				
+
 				
 				if(isUseTextures){
 					
@@ -1360,8 +1363,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		mergeSelectedPoints[index].setBounds(5,r,150,35);
 		panel.add(mergeSelectedPoints[index]);
 
-		right.add("Road",panel);
-	  
+		if(index==ACTIVE_ROAD_RPANEL)
+			right.add("Road",panel);
+		else if(index==ACTIVE_GROUND_RPANEL)
+			right.add("Ground",panel);
 
 	}
 
@@ -3223,7 +3228,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public void itemStateChanged(ItemEvent arg0) {
 
 		Object o=arg0.getSource();
-		if(o==chooseTexture){
+		if(o==chooseTexture[ACTIVE_RPANEL]){
 
 			ValuePair val=(ValuePair) chooseTexture[ACTIVE_RPANEL].getSelectedItem();
 			if(!val.getId().equals("")){
