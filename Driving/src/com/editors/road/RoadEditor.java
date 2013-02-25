@@ -578,7 +578,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			LineData ld=(LineData) lines[index].elementAt(j);
 
-			drawPolygon(ld,points[index],bufGraphics,buf);
+			drawPolygon(ld,points[index],bufGraphics,buf,index);
 
 		} 
 
@@ -677,7 +677,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 
-	private void drawPolygon(LineData ld,Vector points,Graphics2D bufGraphics,BufferedImage buf) {
+	private void drawPolygon(LineData ld,Vector points,Graphics2D bufGraphics,BufferedImage buf,int indx) {
 
 
 		Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
@@ -741,7 +741,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		if(ld.isSelected()){
 			
-			bufGraphics.setColor(alphaRed);
+			if(indx<0 || indx==ACTIVE_RPANEL)
+				bufGraphics.setColor(alphaRed);
 			bufGraphics.fill(partialArea); 
 		}
 
