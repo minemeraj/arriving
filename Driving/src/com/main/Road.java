@@ -193,19 +193,23 @@ public class Road extends Shader{
 	public void calculateShadowMap() {
 
 		isShadowMap=true;
+		
+		for (int index = 0; index < 2; index++) {
+			
+			int size=lines[index].size();
 
-		int size=lines[0].size();
+			for(int j=0;j<size;j++){
 
-		for(int j=0;j<size;j++){
+				LineData ld=(LineData) lines[index].elementAt(j);
 
-			LineData ld=(LineData) lines[0].elementAt(j);
-
-			Polygon3D p3D=buildLightTransformedPolygon3D(ld,points[0]);
+				Polygon3D p3D=buildLightTransformedPolygon3D(ld,index);
 
 
-			decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],lightZbuffer);
+				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],lightZbuffer);
 
 
+			}
+			
 		}
 
 		for(int ii=0;ii<drawObjects.length;ii++){
@@ -486,7 +490,7 @@ public class Road extends Shader{
 	
 
 	
-	private Polygon3D buildLightTransformedPolygon3D(LineData ld, Vector points2) {
+	private Polygon3D buildLightTransformedPolygon3D(LineData ld,int index) {
 		
 
 		int size=ld.size();
@@ -501,7 +505,7 @@ public class Road extends Shader{
 
 			int num=ld.getIndex(i);
 
-			Point4D p=(Point4D) points[0].elementAt(num);
+			Point4D p=(Point4D) points[index].elementAt(num);
 
 			Point4D p_light=calculateLightTransformedPoint(p,true);
 				
@@ -780,7 +784,7 @@ public class Road extends Shader{
 			e.printStackTrace();
 		}
 
-		resetRoadData();
+		resetRoadData(0);
 		drawObjects=DrawObject.cloneObjectsArray(oldDrawObjects);
 		
 		lightPoint=new LightSource(
@@ -1005,10 +1009,10 @@ public class Road extends Shader{
 		return newLineData;
 	}
 	
-	private void resetRoadData() {
+	private void resetRoadData(int index) {
 		
-		points[0]=clonePoints(oldPoints);
-		lines[0]=cloneLineData(oldLines);
+		points[index]=clonePoints(oldPoints);
+		lines[index]=cloneLineData(oldLines);
 		
 	}
 
