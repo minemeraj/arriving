@@ -88,8 +88,8 @@ public class Road extends Shader{
 	public Vector[] points=new Vector[2];
 	public Vector[] lines=new Vector[2];
 	
-	public Vector oldPoints=new Vector();
-	public Vector oldLines=new Vector();
+	public Vector[] oldPoints=new Vector[2];
+	public Vector[] oldLines=new Vector[2];
 	
    
 	//public static String[] hexRoadColors={"888888","888888","888888","CCCCCC"};
@@ -871,8 +871,8 @@ public class Road extends Shader{
             br.close();
 
 			
-			oldPoints=clonePoints(points[index]);
-			oldLines=cloneLineData(lines[index]);
+			oldPoints[index]=clonePoints(points[index]);
+			oldLines[index]=cloneLineData(lines[index]);
 			
 			//checkNormals();
 		} catch (Exception e) {
@@ -1011,8 +1011,8 @@ public class Road extends Shader{
 	
 	private void resetRoadData(int index) {
 		
-		points[index]=clonePoints(oldPoints);
-		lines[index]=cloneLineData(oldLines);
+		points[index]=clonePoints(oldPoints[index]);
+		lines[index]=cloneLineData(oldLines[index]);
 		
 	}
 
