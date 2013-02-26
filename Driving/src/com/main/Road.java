@@ -85,8 +85,8 @@ public class Road extends Shader{
 	int TILE_SIDE=4;
 	CarData carData=null;
 		
-	public Vector points=new Vector();
-	public Vector lines=new Vector();
+	public Vector[] points=new Vector[2];
+	public Vector[] lines=new Vector[2];
 	
 	public Vector oldPoints=new Vector();
 	public Vector oldLines=new Vector();
@@ -160,6 +160,7 @@ public class Road extends Shader{
 			File file=new File("lib/landscape_default");
 			
 			loadPointsFromFile(file,0);		
+			loadPointsFromFile(file,1);	
 			loadObjectsFromFile(file);			
 			
 		} catch (Exception e) {
@@ -193,13 +194,13 @@ public class Road extends Shader{
 
 		isShadowMap=true;
 
-		int size=lines.size();
+		int size=lines[0].size();
 
 		for(int j=0;j<size;j++){
 
-			LineData ld=(LineData) lines.elementAt(j);
+			LineData ld=(LineData) lines[0].elementAt(j);
 
-			Polygon3D p3D=buildLightTransformedPolygon3D(ld,points);
+			Polygon3D p3D=buildLightTransformedPolygon3D(ld,points[0]);
 
 
 			decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],lightZbuffer);
@@ -413,59 +414,63 @@ public class Road extends Shader{
 
 		int PARTIAL_MOVZ=-YFOCUS;
 		
-		int size=lines.size();
-
-		for(int j=0;j<size;j++){
-
-			LineData ld=(LineData) lines.elementAt(j);
-
-			Polygon3D p3D=buildTransformedPolygon3D(ld,points);
-
-				if(p3D.contains(start_car_x,start_car_y)){
-
-					
-					PARTIAL_MOVZ=-((int)interpolate(start_car_x,start_car_y,p3D)+YFOCUS);
-					//break;
-
-				}
-				
-				if(autocars!=null){
-					
-					
-					for (int i = 0; i < autocars.length; i++) {
+		for (int k = 0; k <2 ; k++) {
+		
+			int size=lines[k].size();
+	
+			for(int j=0;j<size;j++){
+	
+				LineData ld=(LineData) lines[k].elementAt(j);
+	
+				Polygon3D p3D=buildTransformedPolygon3D(ld,points[k]);
+	
+					if(p3D.contains(start_car_x,start_car_y)){
+	
 						
-						Point3D transformedCenter=buildTransformedPoint(autocars[i].center);
-					
-						if(p3D.contains(transformedCenter.x,transformedCenter.y)){
-							
-						    int posz=(int)interpolate(transformedCenter.x,transformedCenter.y,p3D);
-							
-							autocars[i].center.z=autocars[i].car_height*0.5+
-									(posz);
-							
-							//if(i==1)
-							//	System.out.println(autocars[i].center.x+","+autocars[i].center.y+","+autocars[i].center.z);
-						}
+						PARTIAL_MOVZ=-((int)interpolate(start_car_x,start_car_y,p3D)+YFOCUS);
+						//break;
+	
 					}
 					
-				}
-
-		}
-
-		MOVZ=PARTIAL_MOVZ;
-		for(int j=0;j<size;j++){
+					if(autocars!=null){
+						
+						
+						for (int i = 0; i < autocars.length; i++) {
+							
+							Point3D transformedCenter=buildTransformedPoint(autocars[i].center);
+						
+							if(p3D.contains(transformedCenter.x,transformedCenter.y)){
+								
+							    int posz=(int)interpolate(transformedCenter.x,transformedCenter.y,p3D);
+								
+								autocars[i].center.z=autocars[i].car_height*0.5+
+										(posz);
+								
+								//if(i==1)
+								//	System.out.println(autocars[i].center.x+","+autocars[i].center.y+","+autocars[i].center.z);
+							}
+						}
+						
+					}
+	
+			}
 			
-		
-			LineData ld=(LineData) lines.elementAt(j);
+			MOVZ=PARTIAL_MOVZ;
+			for(int j=0;j<size;j++){
+				
+			
+				LineData ld=(LineData) lines[k].elementAt(j);
 
-			Polygon3D p3D=buildTransformedPolygon3D(ld,points);
+				Polygon3D p3D=buildTransformedPolygon3D(ld,points[k]);
 
 
-			if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty())
-					decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],roadZbuffer);
-		
-		
+				if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty())
+						decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],roadZbuffer);
+			
+			
+			}
 		}
+
 
 
 		drawCar();
@@ -496,7 +501,7 @@ public class Road extends Shader{
 
 			int num=ld.getIndex(i);
 
-			Point4D p=(Point4D) points.elementAt(num);
+			Point4D p=(Point4D) points[0].elementAt(num);
 
 			Point4D p_light=calculateLightTransformedPoint(p,true);
 				
@@ -825,8 +830,8 @@ public class Road extends Shader{
 	
 	public void loadPointsFromFile(File file,int index){
 
-		points=new Vector();
-		lines=new Vector();
+		points[index]=new Vector();
+		lines[index]=new Vector();
 		
 
 		
@@ -853,17 +858,17 @@ public class Road extends Shader{
 					continue;
 
 				if(str.startsWith("P="))
-					buildPoints(points,str.substring(2));
+					buildPoints(points[index],str.substring(2));
 				else if(str.startsWith("L="))
-					buildLines(lines,str.substring(2));
+					buildLines(lines[index],str.substring(2));
 
 
 			}
             br.close();
 
 			
-			oldPoints=clonePoints(points);
-			oldLines=cloneLineData(lines);
+			oldPoints=clonePoints(points[index]);
+			oldLines=cloneLineData(lines[index]);
 			
 			//checkNormals();
 		} catch (Exception e) {
@@ -1002,8 +1007,8 @@ public class Road extends Shader{
 	
 	private void resetRoadData() {
 		
-		points=clonePoints(oldPoints);
-		lines=cloneLineData(oldLines);
+		points[0]=clonePoints(oldPoints);
+		lines[0]=cloneLineData(oldLines);
 		
 	}
 
