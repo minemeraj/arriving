@@ -266,6 +266,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				@Override
 				public void stateChanged(ChangeEvent arg0) {
 					ACTIVE_RPANEL=right.getSelectedIndex();
+					displayAll();
 				}
 			}	
 		);
