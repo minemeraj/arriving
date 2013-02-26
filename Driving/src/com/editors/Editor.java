@@ -40,7 +40,7 @@ public class Editor extends JFrame implements MenuListener{
 	public File currentDirectory=null;
 	public File currentFile=null;
 	
-	public static String[] TAGS={"road","ground"};
+	public static String[] TAGS={"ground","road"};
 	
 	public Editor(){
 		
