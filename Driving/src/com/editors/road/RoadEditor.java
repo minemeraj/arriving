@@ -223,9 +223,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JMenuItem jmt_load_landscape;
 	private JMenuItem jmt_save_landscape;
 
-	
-	int ACTIVE_ROAD_RPANEL=0; 
-	int ACTIVE_GROUND_RPANEL=1;
+	int ACTIVE_GROUND_RPANEL=0;
+	int ACTIVE_ROAD_RPANEL=1; 	
 	int ACTIVE_RPANEL=ACTIVE_ROAD_RPANEL;
 	
 	Color alphaRed=new Color(Color.RED.getRed(),0,0,100);
@@ -555,8 +554,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		bufGraphics.fillRect(0,0,WIDTH,HEIGHT);
 
 		//draw first the ground and the road above
-		displayRoad(bufGraphics,buf,1);
-		displayRoad(bufGraphics,buf,0);
+		displayRoad(bufGraphics,buf,ACTIVE_GROUND_RPANEL);
+		displayRoad(bufGraphics,buf,ACTIVE_ROAD_RPANEL);
 		displayObjects(bufGraphics);
 
 		g2.drawImage(buf,0,0,WIDTH,HEIGHT,null);
@@ -741,9 +740,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		if(ld.isSelected()){
 			
-			if(indx<0 || indx==ACTIVE_RPANEL)
+			if(indx<0 || indx==ACTIVE_RPANEL){
 				bufGraphics.setColor(alphaRed);
-			bufGraphics.fill(partialArea); 
+				bufGraphics.fill(partialArea); 
+			}
 		}
 
 	}
@@ -2110,7 +2110,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			currentDirectory=fc.getCurrentDirectory();
 			currentFile=fc.getSelectedFile();
 			File file = fc.getSelectedFile();
-			loadPointsFromFile(file,0);			
+			loadPointsFromFile(file,ACTIVE_ROAD_RPANEL);	
+			loadPointsFromFile(file,ACTIVE_GROUND_RPANEL);	
             loadObjectsFromFile(file); 
 
 		}
