@@ -179,9 +179,9 @@ private void displayAxes(Graphics2D bufGraphics) {
 		
 		
 
-		for (int i = 0; i < iperviewEditor.points[0].size(); i++) {
+		for (int i = 0; i < iperviewEditor.points.size(); i++) {
 			
-			Point3D p3d = (Point3D) iperviewEditor.points[0].elementAt(i);
+			Point3D p3d = (Point3D) iperviewEditor.points.elementAt(i);
 			if(p3d.isSelected())
 				bufGraphics.setColor(Color.RED);
 			else
@@ -200,9 +200,9 @@ private void displayAxes(Graphics2D bufGraphics) {
 
 
 
-		for(int i=0;i<iperviewEditor.lines[0].size();i++){
+		for(int i=0;i<iperviewEditor.lines.size();i++){
 
-			LineData ld=(LineData) iperviewEditor.lines[0].elementAt(i);
+			LineData ld=(LineData) iperviewEditor.lines.elementAt(i);
 			int numLInes=1;
 			if(ld.size()>2)
 				numLInes=ld.size();
@@ -213,21 +213,21 @@ private void displayAxes(Graphics2D bufGraphics) {
 
 			for(int j=0;j<numLInes;j++){
 
-				Point3D p0=(Point3D)iperviewEditor.points[0].elementAt(ld.getIndex(j));
-				Point3D p1=(Point3D)iperviewEditor.points[0].elementAt(ld.getIndex((j+1)%ld.size()));
+				Point3D p0=(Point3D)iperviewEditor.points.elementAt(ld.getIndex(j));
+				Point3D p1=(Point3D)iperviewEditor.points.elementAt(ld.getIndex((j+1)%ld.size()));
 
 
 				bufGraphics.drawLine(calcAssX(p0),calcAssY(p0),calcAssX(p1),calcAssY(p1));
 			}
 			
 			//if(jmt42.isSelected())
-			//	showNormals(points[0],ld,bufGraphics);
+			//	showNormals(points,ld,bufGraphics);
 			
 		}	
 
-		for(int i=0;i<iperviewEditor.lines[0].size();i++){
+		for(int i=0;i<iperviewEditor.lines.size();i++){
 
-			LineData ld=(LineData) iperviewEditor.lines[0].elementAt(i);
+			LineData ld=(LineData) iperviewEditor.lines.elementAt(i);
 			int numLInes=1;
 			if(ld.size()>2)
 				numLInes=ld.size();
@@ -239,8 +239,8 @@ private void displayAxes(Graphics2D bufGraphics) {
 
 			for(int j=0;j<numLInes;j++){
 
-				Point3D p0=(Point3D)iperviewEditor.points[0].elementAt(ld.getIndex(j));
-				Point3D p1=(Point3D)iperviewEditor.points[0].elementAt(ld.getIndex((j+1)%ld.size()));
+				Point3D p0=(Point3D)iperviewEditor.points.elementAt(ld.getIndex(j));
+				Point3D p1=(Point3D)iperviewEditor.points.elementAt(ld.getIndex((j+1)%ld.size()));
 
 
 				bufGraphics.drawLine(calcAssX(p0),calcAssY(p0),calcAssX(p1),calcAssY(p1));
@@ -492,15 +492,15 @@ private void displayAxes(Graphics2D bufGraphics) {
 			/*if(iperviewEditor.ACTIVE_KEY==KeyEvent.VK_CONTROL && !iperviewEditor.checkMultipleSelection.isSelected())
 				iperviewEditor.moveSelectedPointWithMouse(p3d,type);
 			else*/
-				iperviewEditor.points[0].add(p3d);
+				iperviewEditor.points.add(p3d);
 
 				iperviewEditor.displayAll();
 			return;
 		}	
 
-		for (int i = 0; i < iperviewEditor.points[0].size(); i++) {
+		for (int i = 0; i < iperviewEditor.points.size(); i++) {
 
-			Point3D p3d = (Point3D) iperviewEditor.points[0].elementAt(i);
+			Point3D p3d = (Point3D) iperviewEditor.points.elementAt(i);
 
 
 			int x=calcAssX(p3d);
@@ -560,9 +560,9 @@ private void displayAxes(Graphics2D bufGraphics) {
 		int y0=Math.min(currentRect.y,currentRect.y+currentRect.height);
 		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
         
-        for (int i = 0; i < iperviewEditor.points[0].size(); i++) {
+        for (int i = 0; i < iperviewEditor.points.size(); i++) {
         
-    	Point3D p3d = (Point3D) iperviewEditor.points[0].elementAt(i);
+    	Point3D p3d = (Point3D) iperviewEditor.points.elementAt(i);
 
 
 			int x=calcAssX(p3d);
@@ -617,7 +617,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 					if(!(o instanceof File))
 						continue;
 					File file=(File) o;
-					iperviewEditor.loadPointsFromFile(file,0);
+					iperviewEditor.loadPointsFromFile(file);
 					iperviewEditor.reloadPanels();
 					iperviewEditor.draw();
 				}
@@ -673,12 +673,12 @@ private void displayAxes(Graphics2D bufGraphics) {
 	}
 
 	public void setPoints(Vector points) {
-		this.iperviewEditor.points[0]=points;
+		this.iperviewEditor.points=points;
 		
 	}
 
 	public void setLines(Vector lines) {
-		this.iperviewEditor.lines[0]=lines;
+		this.iperviewEditor.lines=lines;
 		
 	}
 

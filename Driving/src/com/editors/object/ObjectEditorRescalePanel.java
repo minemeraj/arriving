@@ -173,8 +173,8 @@ public class ObjectEditorRescalePanel extends JDialog implements ActionListener{
 		
 		
 
-		Vector points = editor.points[0];
-		Vector lines = editor.lines[0];
+		Vector points = editor.points;
+		Vector lines = editor.lines;
 
 
 		for(int i=0;i<points.size();i++){

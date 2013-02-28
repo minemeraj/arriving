@@ -922,8 +922,8 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		BlockEditor ce=new BlockEditor();
 		PolygonMesh pm = buildSurface();
 		
-		ce.points[0]=PolygonMesh.fromArrayToVector(pm.points);
-		ce.lines[0]=pm.polygonData;
+		ce.points=PolygonMesh.fromArrayToVector(pm.points);
+		ce.lines=pm.polygonData;
 		
 		ObjectEditorPreviewPanel oepp=new ObjectEditorPreviewPanel(ce);
 	}
@@ -982,15 +982,15 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 	
 			pr.print("\nM=");
 
-			for(int i=0;i<points[0].size();i++){
+			for(int i=0;i<points.size();i++){
 
-				Point3D p0=(Point3D) points[0].elementAt(i);
+				Point3D p0=(Point3D) points.elementAt(i);
 				int i0=(int)p0.p_x;
 				int j0=(int)p0.p_y;
 				int k0=(int)p0.p_z;	
 				
 				pr.print(blockData.selectionMask[i0][j0][k0]);
-				if(i<points[0].size()-1)
+				if(i<points.size()-1)
 					pr.print("_");
 			}
 
@@ -1004,11 +1004,11 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 	
 	public void loadPointsFromFile(File file){
 
-		points[0]=new Vector();
-		lines[0]=new Vector();
+		points=new Vector();
+		lines=new Vector();
 
-		oldPoints[0]=new Stack();
-		oldLines[0]=new Stack();
+		oldPoints=new Stack();
+		oldLines=new Stack();
 
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));
@@ -1106,7 +1106,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 				Point3D p=pm.points[i];
 				pr.print(decomposePoint(p));
-				if(i<points[0].size()-1)
+				if(i<points.size()-1)
 					pr.print("_");
 			}	
 
@@ -1143,7 +1143,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 
 		//create new points
-		Point3D[] newArrPoints = PolygonMesh.fromVectorToArray(points[0]);
+		Point3D[] newArrPoints = PolygonMesh.fromVectorToArray(points);
 
 
 		//create new line data
@@ -1241,10 +1241,10 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		double dy=LY/NY;
 		double dz=LZ/NZ;
 
-		points[0]=new Vector();
-		lines[0]=new Vector();
+		points=new Vector();
+		lines=new Vector();
 
-		points[0].setSize(NX*NY*NZ);
+		points.setSize(NX*NY*NZ);
 
 		for(int i=0;i<NX;i++)
 			for(int j=0;j<NY;j++){
@@ -1256,7 +1256,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 					double z=dz*k;
 
 					int pos=pos(i,j,k,NX,NY,NZ);
-					points[0].setElementAt(new Point3D(x,y,z,i,j,k),pos);
+					points.setElementAt(new Point3D(x,y,z,i,j,k),pos);
 				}
 			}
 		
@@ -1678,11 +1678,11 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 	public void prepareUndo() {
 		jmt21.setEnabled(true);
 		
-		super.prepareUndo(0);
+		super.prepareUndo();
 		
 		try {
 			
-			if(oldPoints[0].size()==MAX_STACK_SIZE){
+			if(oldPoints.size()==MAX_STACK_SIZE){
 				
 				oldBlockData.removeElementAt(0);
 			
@@ -1698,7 +1698,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 	
 
 	public void undo() {
-		super.undo(0);
+		super.undo();
 		
 		if(oldBlockData.size()>0)
 			blockData=(BlockData) oldBlockData.pop();

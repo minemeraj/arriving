@@ -129,9 +129,9 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 
 
 
-		for(int i=0;i<oe.lines[0].size();i++){
+		for(int i=0;i<oe.lines.size();i++){
 
-			LineData ld=(LineData) oe.lines[0].elementAt(i);
+			LineData ld=(LineData) oe.lines.elementAt(i);
 			int numLInes=1;
 			if(ld.size()>2)
 				numLInes=ld.size();
@@ -142,20 +142,20 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 
 			for(int j=0;j<numLInes;j++){
 
-				Point3D p0=(Point3D)oe.points[0].elementAt(ld.getIndex(j));
-				Point3D p1=(Point3D)oe.points[0].elementAt(ld.getIndex((j+1)%ld.size()));
+				Point3D p0=(Point3D)oe.points.elementAt(ld.getIndex(j));
+				Point3D p1=(Point3D)oe.points.elementAt(ld.getIndex((j+1)%ld.size()));
 
 
 				bufGraphics.drawLine(calcAssX(p0),calcAssY(p0),calcAssX(p1),calcAssY(p1));
 			}
 			if(oe.jmt_show_normals.isSelected())
-				showNormals(oe.points[0],ld,bufGraphics);
+				showNormals(oe.points,ld,bufGraphics);
 
 		}	
 
-		for(int i=0;i<oe.lines[0].size();i++){
+		for(int i=0;i<oe.lines.size();i++){
 
-			LineData ld=(LineData) oe.lines[0].elementAt(i);
+			LineData ld=(LineData) oe.lines.elementAt(i);
 			int numLInes=1;
 			if(ld.size()>2)
 				numLInes=ld.size();
@@ -167,8 +167,8 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 
 			for(int j=0;j<numLInes;j++){
 
-				Point3D p0=(Point3D)oe.points[0].elementAt(ld.getIndex(j));
-				Point3D p1=(Point3D)oe.points[0].elementAt(ld.getIndex((j+1)%ld.size()));
+				Point3D p0=(Point3D)oe.points.elementAt(ld.getIndex(j));
+				Point3D p1=(Point3D)oe.points.elementAt(ld.getIndex((j+1)%ld.size()));
 
 
 				bufGraphics.drawLine(calcAssX(p0),calcAssY(p0),calcAssX(p1),calcAssY(p1));
@@ -196,7 +196,7 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 		
 		for(int j=0;j<numLInes;j++){
 
-			Point3D p0=(Point3D)oe.points[0].elementAt(ld.getIndex(j));
+			Point3D p0=(Point3D)oe.points.elementAt(ld.getIndex(j));
 			p3d.addPoint(p0);
 		}
 		
@@ -211,9 +211,9 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 
 	private void displayPoints(Graphics2D bufGraphics) {
 
-		for(int i=0;i<oe.points[0].size();i++){
+		for(int i=0;i<oe.points.size();i++){
 
-			Point3D p=(Point3D) oe.points[0].elementAt(i);
+			Point3D p=(Point3D) oe.points.elementAt(i);
 
 			if(p.isSelected())
 				bufGraphics.setColor(Color.RED);
@@ -242,9 +242,9 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 		//select point from lines
 		if(!checkMultipleSelection.isSelected()) 
 			polygon=new LineData();
-		for(int i=0;i<oe.points[0].size();i++){
+		for(int i=0;i<oe.points.size();i++){
 
-			Point3D p=(Point3D) oe.points[0].elementAt(i);
+			Point3D p=(Point3D) oe.points.elementAt(i);
 
 
 
@@ -293,9 +293,9 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 		int y0=Math.min(currentRect.y,currentRect.y+currentRect.height);
 		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
 
-		for (int i = 0; i < oe.points[0].size(); i++) {
+		for (int i = 0; i < oe.points.size(); i++) {
 
-			Point3D p = (Point3D) oe.points[0].elementAt(i);
+			Point3D p = (Point3D) oe.points.elementAt(i);
 
 
 			int x=calcAssX(p);

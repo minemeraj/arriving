@@ -389,9 +389,9 @@ public class BlockEditorPanel extends JPanel implements MouseListener{
 
 	private void selectPoint(int x, int y) {
 	
-		for(int c=0;c<blockEditor.points[0].size();c++){
+		for(int c=0;c<blockEditor.points.size();c++){
 
-			Point3D p=(Point3D) blockEditor.points[0].elementAt(c);
+			Point3D p=(Point3D) blockEditor.points.elementAt(c);
 
 
 

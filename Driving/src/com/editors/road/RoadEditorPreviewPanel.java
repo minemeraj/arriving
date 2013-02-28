@@ -51,8 +51,8 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 		super();
 		this.roadEditor=roadEditor;
 	
-		this.lines=roadEditor.lines[0];
-		this.points=roadEditor.points[0];
+		this.lines=roadEditor.lines;
+		this.points=roadEditor.points;
 		
 		this.roadEditor=roadEditor;
 		roadEditor.addPropertyChangeListener(this);
@@ -243,8 +243,8 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 				|| "RoadEditorUpdate".equals(evt.getPropertyName())
 		)
 		{
-			this.lines=roadEditor.lines[0];
-			this.points=roadEditor.points[0];
+			this.lines=roadEditor.lines;
+			this.points=roadEditor.points;
 			draw();
 		}
 		

@@ -457,11 +457,11 @@ public class ObjectEditor extends Editor implements ActionListener{
 		PolygonMesh pm=oetp.getTemplate();
 		
 		if(pm!=null){
-			points[0]=new Vector();
+			points=new Vector();
 			for (int i = 0; i < pm.points.length; i++) {
-				points[0].add(pm.points[i]);
+				points.add(pm.points[i]);
 			}
-			lines[0]=pm.polygonData;
+			lines=pm.polygonData;
 			getCenter().displayAll();
 		}
 		
@@ -472,16 +472,16 @@ public class ObjectEditor extends Editor implements ActionListener{
 		
 		prepareUndo();
 		
-		ObjectEditorCopyPanel oetp=new ObjectEditorCopyPanel(points[0],lines[0]);
+		ObjectEditorCopyPanel oetp=new ObjectEditorCopyPanel(points,lines);
 		
 		PolygonMesh pm=oetp.getCopy();
 		
 		if(pm!=null){
-			points[0]=new Vector();
+			points=new Vector();
 			for (int i = 0; i < pm.points.length; i++) {
-				points[0].add(pm.points[i]);
+				points.add(pm.points[i]);
 			}
-			lines[0]=pm.polygonData;
+			lines=pm.polygonData;
 			getCenter().displayAll();
 		}
 		
@@ -528,9 +528,9 @@ public class ObjectEditor extends Editor implements ActionListener{
 		try {
 			pr = new PrintWriter(new FileOutputStream(file));
 		
-			for(int i=0;i<lines[0].size();i++){
+			for(int i=0;i<lines.size();i++){
 
-				LineData ld=(LineData) lines[0].elementAt(i);
+				LineData ld=(LineData) lines.elementAt(i);
 
 				pr.println(decomposePolyFormat(ld));
 			
@@ -594,9 +594,9 @@ public class ObjectEditor extends Editor implements ActionListener{
 		
 		
 	      //find maxs
-		for(int j=0;j<points[0].size();j++){
+		for(int j=0;j<points.size();j++){
 			
-			Point3D point= (Point3D) points[0].elementAt(j);
+			Point3D point= (Point3D) points.elementAt(j);
 			
 			if(j==0){
 				
@@ -655,15 +655,15 @@ public class ObjectEditor extends Editor implements ActionListener{
 			
 			bufGraphics.setColor(new Color(0,0,0));
 			bufGraphics.setStroke(new BasicStroke(0.1f));
-			for(int j=0;j<lines[0].size();j++){
+			for(int j=0;j<lines.size();j++){
 				
-				LineData ld=(LineData) lines[0].elementAt(j);
+				LineData ld=(LineData) lines.elementAt(j);
 				
 				for (int k = 0; k < ld.size(); k++) {
 			
 				
-					Point3D point0= (Point3D) points[0].elementAt(ld.getIndex(k));
-					Point3D point1= (Point3D) points[0].elementAt(ld.getIndex((k+1)%ld.size()));
+					Point3D point0= (Point3D) points.elementAt(ld.getIndex(k));
+					Point3D point1= (Point3D) points.elementAt(ld.getIndex((k+1)%ld.size()));
 					//top
 					bufGraphics.drawLine((int)(point0.x-minx+deltaX),(int)(-point0.y+maxy+deltaX),(int)(point1.x-minx+deltaX),(int)(-point1.y+maxy+deltaX));
 					//front
@@ -692,8 +692,8 @@ public class ObjectEditor extends Editor implements ActionListener{
 	
 
 	public void undo() {
-		super.undo(0);
-		if(oldPoints[0].size()==0)
+		super.undo();
+		if(oldPoints.size()==0)
 			jmt_undo_last.setEnabled(false);
 		
 		firePropertyChange("ObjectEditorUndo",false,true);
@@ -701,7 +701,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 	
 	public void prepareUndo() {
 		jmt_undo_last.setEnabled(true);
-		super.prepareUndo(0);
+		super.prepareUndo();
 		
 		
 	}
@@ -714,7 +714,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 
 			if(j>0)
 				str+="_";
-			Point3D p=(Point3D) points[0].elementAt(ld.getIndex(j));
+			Point3D p=(Point3D) points.elementAt(ld.getIndex(j));
 			str+=p.x+","+p.y+","+p.z;
 
 		}
@@ -758,7 +758,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 						continue;
 					File file=(File) o;
 					currentDirectory=file.getParentFile();
-					loadPointsFromFile(file,0);
+					loadPointsFromFile(file);
 					getCenter().displayAll();
 				}
 
@@ -776,7 +776,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 		
 		for(int i=0;i<ld.size();i++){
 			int index=ld.getIndex(i);
-			Point3D p=(Point3D) points[0].elementAt(index);			
+			Point3D p=(Point3D) points.elementAt(index);			
 			pol.xpoints[i]=(int) p.x;
 			pol.ypoints[i]=(int) p.y;
 			pol.zpoints[i]=(int) p.z;
