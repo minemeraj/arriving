@@ -1,6 +1,4 @@
 
-Changed the program's components organization: now the Road is a mesh independent from the ground.
-Consequent main changes to the RoadEditor.
 
 A major cleaning of the code.
 
