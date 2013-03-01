@@ -2568,35 +2568,35 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			PolygonMesh bm=bb.getBendMesh();
 			
-			///delete point in the bend area
+			///delete points in the bend area
 			
 			double lineWidth=bb.getLineWidth();
 			double innerRadius=bb.getInnerRadius();
-			double teta=bb.getTeta();
+			/*double teta=bb.getTeta();
 			
 			double sinTeta=Math.sin(teta);
-			double cosTeta=Math.cos(teta);
+			double cosTeta=Math.cos(teta);*/
 			
 			deselectAll();
+			
+			int prevOriginPos=originPos;
 			
 			for (int i = 0; i < points.size(); i++) {
 				
 				Point3D point = (Point3D) points.elementAt(i);
 				double distance =Point3D.distance(point,origin);
 				
-				if(i==originPos)
+				if(i==prevOriginPos)
 					continue;
 				
-				double sinus=(point.y-origin.y)/distance;
-				double cosinus=(point.x-origin.x)/distance;
+				//double sinus=(point.y-origin.y)/distance;
+				//double cosinus=(point.x-origin.x)/distance;
 				
 							
-				if((sinTeta*sinus>=0) && 
-					(cosTeta*cosinus>=0) &&
-					 distance<=lineWidth+2*innerRadius){
+				if( distance<=lineWidth+2*innerRadius){
 					point.setSelected(true);
 				    
-					if(originPos>i)
+					if(prevOriginPos>i)
 						originPos--;
 				}	
 			}
