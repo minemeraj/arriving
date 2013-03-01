@@ -2564,12 +2564,52 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		if(bb.getBendMesh()!=null){
 			
+			//////////////
+			
 			PolygonMesh bm=bb.getBendMesh();
+			
+			///delete point in the bend area
+			
+			double lineWidth=bb.getLineWidth();
+			double innerRadius=bb.getInnerRadius();
+			double teta=bb.getTeta();
+			
+			double sinTeta=Math.sin(teta);
+			double cosTeta=Math.cos(teta);
+			
+			deselectAll();
+			
+			for (int i = 0; i < points.size(); i++) {
+				
+				Point3D point = (Point3D) points.elementAt(i);
+				double distance =Point3D.distance(point,origin);
+				
+				if(i==originPos)
+					continue;
+				
+				double sinus=(point.y-origin.y)/distance;
+				double cosinus=(point.x-origin.x)/distance;
+				
+							
+				if((sinTeta*sinus>=0) && 
+					(cosTeta*cosinus>=0) &&
+					 distance<=lineWidth+2*innerRadius){
+					point.setSelected(true);
+				    
+					if(originPos>i)
+						originPos--;
+				}	
+			}
+			
+			deleteSelection();
+			
+			///////////
+			
 			
 			int base=points.size()-1;
 			
-			//do no double the origin!
-			for (int i = 1; i < bm.points.length; i++) {
+			//do not recreate the origin!
+			for (int i =1; i < bm.points.length; i++) {
 				
 				Point4D p=(Point4D) bm.points[i];
 								
@@ -2584,7 +2624,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				for (int j = 0; j < ld.size(); j++) {
 					
 					int index=ld.getIndex(j);
-					
 					if(index==0)
 						index=originPos;
 					else

@@ -194,29 +194,8 @@ public class BendBuilder extends JDialog implements ActionListener{
 			
 			double radius=innerRadius.getvalue();
 			
-			double teta0=0;
+			double teta0=getTeta();
 			
-			
-			ComboElement ce = (ComboElement)direction.getSelectedItem();
-			
-			if(DIRECTION_NW.equals(ce.getCode())){
-				
-				teta0=0;
-			}
-			else if(DIRECTION_NE.equals(ce.getCode())){
-				
-				teta0=pi*0.5;
-			}
-			else if(DIRECTION_SE.equals(ce.getCode())){
-				
-				teta0=pi;
-			}
-
-			else if(DIRECTION_SW.equals(ce.getCode())){
-				
-				teta0=pi*1.5;
-				
-			}
 	
 			//createBend(sectors_number+1,line_width,radius,x0,y0,ns,we);
 			createMesh(sectors_number+1,line_width,radius,x0,y0,teta0);
@@ -620,5 +599,45 @@ public class BendBuilder extends JDialog implements ActionListener{
 	public PolygonMesh getBendMesh() {
 		return pm;
 	}
+	
+	public double getLineWidth(){
+		
+		return lineWidth.getvalue();
+		
+	}
 
+	public double getInnerRadius(){
+		
+		return innerRadius.getvalue();
+		
+	}
+	
+	public double getTeta(){
+		
+		double teta0=0;
+		
+		ComboElement ce = (ComboElement)direction.getSelectedItem();
+		
+		if(DIRECTION_NW.equals(ce.getCode())){
+			
+			teta0=0;
+		}
+		else if(DIRECTION_NE.equals(ce.getCode())){
+			
+			teta0=pi*0.5;
+		}
+		else if(DIRECTION_SE.equals(ce.getCode())){
+			
+			teta0=pi;
+		}
+
+		else if(DIRECTION_SW.equals(ce.getCode())){
+			
+			teta0=pi*1.5;
+			
+		}
+		
+		return teta0;
+		
+	}
 }
