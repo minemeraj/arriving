@@ -120,9 +120,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JMenuBar jmb;
 	private JMenu jm_file;
 	private JTabbedPane right;
-	private JTextField[] coordinatesx;
-	private JTextField[] coordinatesy;
-	private JTextField[] coordinatesz;
+	private DoubleTextField[] coordinatesx;
+	private DoubleTextField[] coordinatesy;
+	private DoubleTextField[] coordinatesz;
 	private JCheckBox[] checkCoordinatesx;
 	private JCheckBox[] checkCoordinatesy;
 	private JCheckBox[] checkCoordinatesz;
@@ -289,9 +289,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void buildFieldsArrays() {
 
-		coordinatesx=new JTextField[1];
-		coordinatesy=new JTextField[1];
-		coordinatesz=new JTextField[1];
+		coordinatesx=new DoubleTextField[1];
+		coordinatesy=new DoubleTextField[1];
+		coordinatesz=new DoubleTextField[1];
 
 		checkCoordinatesx=new JCheckBox[1];
 		checkCoordinatesy=new JCheckBox[1];
@@ -2749,11 +2749,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				if(rect.contains(x,y)){
 
 					if(!checkCoordinatesx[ACTIVE_RPANEL].isSelected())
-						coordinatesx[ACTIVE_RPANEL].setText(""+p.x);
+						coordinatesx[ACTIVE_RPANEL].setText(p.x);
 					if(!checkCoordinatesy[ACTIVE_RPANEL].isSelected())
-						coordinatesy[ACTIVE_RPANEL].setText(""+p.y);
+						coordinatesy[ACTIVE_RPANEL].setText(p.y);
 					if(!checkCoordinatesz[ACTIVE_RPANEL].isSelected())
-						coordinatesz[ACTIVE_RPANEL].setText(""+p.z);
+						coordinatesz[ACTIVE_RPANEL].setText(p.z);
 				
 
 					p.setSelected(true);

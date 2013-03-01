@@ -3,6 +3,10 @@ package com.editors;
  * @author Piazza Francesco Giovanni ,Tecnes Milano http://www.tecnes.com
  *
  */
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
 import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -13,12 +17,27 @@ import javax.swing.text.PlainDocument;
 public class DoubleTextField extends JTextField{
 	
 	
+	private DecimalFormat dfc;
+
+	
+	
 	public DoubleTextField(int cols) {
 		super(cols);
+		setFormat();
+
 	}
 	
+	private void setFormat() {
+		DecimalFormatSymbols dfs=new DecimalFormatSymbols(Locale.UK);
+		dfc=new DecimalFormat(".#########");
+		dfc.setDecimalFormatSymbols(dfs);
+		
+	}
+
 	public DoubleTextField() {
 			super();
+			setFormat();
+			
 		}
 	
 	protected Document createDefaultModel() {
@@ -52,7 +71,7 @@ public class DoubleTextField extends JTextField{
 	
 	public void setText(double d){
 		
-		setText(""+d);
+		setText(dfc.format(d));
 	}
 	
 	public double getvalue(){

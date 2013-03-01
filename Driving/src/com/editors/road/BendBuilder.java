@@ -174,7 +174,6 @@ public class BendBuilder extends JDialog implements ActionListener{
 		
 	
 		BendBuilder bd=new BendBuilder(null);
-		
 
 	}
 	
@@ -332,24 +331,22 @@ public class BendBuilder extends JDialog implements ActionListener{
 
 			double teta=i*pi/2.0/(sectors_number-1)+teta0;
 			
-			double x=x0+radius*Math.cos(teta);
-			double y=y0+radius*Math.sin(teta);
-			
-			
-			double x1=x0+(radius+dr)*Math.cos(teta);
-			double y1=y0+(radius+dr)*Math.sin(teta);
-			
-			double x2=x0+(radius+2*dr)*Math.cos(teta);
-			double y2=y0+(radius+2*dr)*Math.sin(teta);
-			
-			Point4D p0=new Point4D(x,y,0);
-			Point4D p1=new Point4D(x1,y1,0);
-			Point4D p2=new Point4D(x2,y2,0);
-			
-			
-			
+
 			if(i==0){
 				
+				double x=x0+radius*Math.cos(teta);
+				double y=y0+radius*Math.sin(teta);
+				
+				
+				double x1=x0+(radius+line_width)*Math.cos(teta);
+				double y1=y0+(radius+line_width)*Math.sin(teta);
+				
+				double x2=x0+(radius+2*line_width)*Math.cos(teta);
+				double y2=y0+(radius+2*line_width)*Math.sin(teta);
+				
+				Point4D p0=new Point4D(x,y,0);
+				Point4D p1=new Point4D(x1,y1,0);
+				Point4D p2=new Point4D(x2,y2,0);				
 						
 				double xx1=x0+(radius+dr_border*Math.cos(beta));
 				double yy1=y0+(dr_border*Math.sin(beta));
@@ -374,6 +371,20 @@ public class BendBuilder extends JDialog implements ActionListener{
 			
 			else if(i==sectors_number-1){
 				
+				double x=x0+radius*Math.cos(teta);
+				double y=y0+radius*Math.sin(teta);
+				
+				
+				double x1=x0+(radius+line_width)*Math.cos(teta);
+				double y1=y0+(radius+line_width)*Math.sin(teta);
+				
+				double x2=x0+(radius+2*line_width)*Math.cos(teta);
+				double y2=y0+(radius+2*line_width)*Math.sin(teta);
+				
+				Point4D p0=new Point4D(x,y,0);
+				Point4D p1=new Point4D(x1,y1,0);
+				Point4D p2=new Point4D(x2,y2,0);
+				
 						
 				double xx1=x0+(dr_border*Math.sin(beta));
 				double yy1=y0+(radius+dr_border*Math.cos(beta));
@@ -397,6 +408,20 @@ public class BendBuilder extends JDialog implements ActionListener{
 			
 			}
 			else {
+				
+				double x=x0+radius*Math.cos(teta);
+				double y=y0+radius*Math.sin(teta);
+				
+				
+				double x1=x0+(radius+dr)*Math.cos(teta);
+				double y1=y0+(radius+dr)*Math.sin(teta);
+				
+				double x2=x0+(radius+2*dr)*Math.cos(teta);
+				double y2=y0+(radius+2*dr)*Math.sin(teta);
+				
+				Point4D p0=new Point4D(x,y,0);
+				Point4D p1=new Point4D(x1,y1,0);
+				Point4D p2=new Point4D(x2,y2,0);
 								
 				v_points.add(p0);
 				v_points.add(p1);
@@ -406,6 +431,10 @@ public class BendBuilder extends JDialog implements ActionListener{
 		}
 		
 
+		/*for (int j = 0; j < v_points.size(); j++) {
+			Point3D p = (Point3D) v_points.elementAt(j);
+			System.out.println(p);
+		}*/
 		
 		pm.points=PolygonMesh.fromVectorToArray(v_points);
 		
