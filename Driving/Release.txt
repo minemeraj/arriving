@@ -1,4 +1,9 @@
+------
 
+Some corrections to he Add Bend feature, which now destroy points covered by the bend,
+to avoid possible double points. 
+
+DoubleTextField modified with DecimalFormat.
 
 A major cleaning of the code.
 
