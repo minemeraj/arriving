@@ -1,7 +1,7 @@
 ------
 
 Some corrections to he Add Bend feature, which now destroy points covered by the bend,
-to avoid possible double points. 
+to avoid possible double points.Very rough, but indispensable.
 
 DoubleTextField modified with DecimalFormat.
 

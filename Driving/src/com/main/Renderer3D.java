@@ -46,7 +46,6 @@ public class Renderer3D implements AbstractRenderer3D{
 	
 	
 	
-	//public int MOVX=50;
 
 	public static ZBuffer[] roadZbuffer;
 
@@ -623,7 +622,7 @@ public class Renderer3D implements AbstractRenderer3D{
 	public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer[] zbuffer,
 			Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY){
 
-		Polygon3D clippedPolygon=Polygon3D.clipPolygon3DInY(p3d,(int) SCREEN_DISTANCE);
+		Polygon3D clippedPolygon=Polygon3D.clipPolygon3DInY(p3d,(int) (SCREEN_DISTANCE*2.0/3.0));
 
 		if(clippedPolygon.npoints==0)
 			return ;

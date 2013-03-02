@@ -160,9 +160,9 @@ public class BendBuilder extends JDialog implements ActionListener{
 		
 		//centerX.setText(100);
 		//centerY.setText(100);
-		lineWidth.setText(100);
+		lineWidth.setText(200);
 		sectorsNum.setText(3);
-		innerRadius.setText(100);
+		innerRadius.setText(200);
 	}
 
 	/**
