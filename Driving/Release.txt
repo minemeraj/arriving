@@ -1,5 +1,7 @@
 ------
 
+Solved a major bug in the RoadEditor objects management.
+
 Some corrections to he Add Bend feature, which now destroy points covered by the bend,
 to avoid possible double points.Very rough, but indispensable.
 
