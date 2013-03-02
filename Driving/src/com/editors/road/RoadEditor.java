@@ -194,9 +194,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JTextField colorObjChoice;
 	private JCheckBox checkObjColor;
 	
-	private JTextField objcoordinatesdx;
-	private JTextField objcoordinatesdy;
-	private JTextField objcoordinatesdz;
+	private DoubleTextField objcoordinatesdx;
+	private DoubleTextField objcoordinatesdy;
+	private DoubleTextField objcoordinatesdz;
 	private JCheckBox objcheckCoordinatesdx;
 	private JCheckBox objcheckCoordinatesdy;
 	private JCheckBox objcheckCoordinatesdz;
@@ -1902,37 +1902,28 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 
+
 	private void addObject() {
-
-
-		int index=0;
-		int x=invertX(100);
-		int y=invertY(400);
-		int z=0;
-		int dx=deltax;
-		int dy=deltay;
-		int dz=100;
-
-		addObject(x,y,z,dx,dy,dz,index);
-
-	}
-
-
-	private void addObject(MouseEvent arg0) {
-		Point p=arg0.getPoint();
-
-		int x=invertX((int)p.getX());
-		int y=invertY((int)p.getY());
+	
+		double x=objcoordinatesx.getvalue();
+		double y=objcoordinatesy.getvalue();
+		double z=objcoordinatesz.getvalue();
+		
 		cleanObjects();
 		int index=0;
 		ValuePair vp=(ValuePair) chooseObject.getSelectedItem();
 		if(vp!=null && !vp.getValue().equals(""))
 			index=Integer.parseInt(vp.getId());
-		addObject(x,y,0,deltax,deltay,100,index);
+		
+		int dim_x=objectMeshes[index].getDeltaX2()-objectMeshes[index].getDeltaX();
+		int dim_y=objectMeshes[index].getDeltaY2()-objectMeshes[index].getDeltaY();
+		int dim_z=objectMeshes[index].getDeltaX();
+		
+		addObject(x,y,z,dim_x,dim_y,dim_z,index);
 
 	}
 
-	private void addObject(int x, int y, int z, int dx, int dy, int dz,int index) {
+	private void addObject(double x, double y, double z, int dx, int dy, int dz,int index) {
 
 		prepareUndoObjects();
 
@@ -3297,6 +3288,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				ImageIcon ii=new ImageIcon(icon);
 				objectLabel.setIcon(ii);	
 				
+				int dim_x=objectMeshes[num].getDeltaX2()-objectMeshes[num].getDeltaX();
+				int dim_y=objectMeshes[num].getDeltaY2()-objectMeshes[num].getDeltaY();
+				int dim_z=objectMeshes[num].getDeltaX();
+				
+				objcoordinatesdx.setText(dim_x);
+				objcoordinatesdy.setText(dim_y);
+				objcoordinatesdz.setText(dim_z);
 
 			}
 			else
