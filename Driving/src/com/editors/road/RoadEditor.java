@@ -2572,10 +2572,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			double lineWidth=bb.getLineWidth();
 			double innerRadius=bb.getInnerRadius();
-			/*double teta=bb.getTeta();
+			double teta=bb.getTeta();
 			
 			double sinTeta=Math.sin(teta);
-			double cosTeta=Math.cos(teta);*/
+			double cosTeta=Math.cos(teta);
 			
 			deselectAll();
 			
@@ -2589,11 +2589,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				if(i==prevOriginPos)
 					continue;
 				
-				//double sinus=(point.y-origin.y)/distance;
-				//double cosinus=(point.x-origin.x)/distance;
+				double sinus=(point.y-origin.y)/distance;
+				double cosinus=(point.x-origin.x)/distance;
 				
-							
-				if( distance<=lineWidth+2*innerRadius){
+						
+				if( (sinus*sinTeta>=-.1 && cosinus*cosTeta>=-.1 ) 
+						&& distance<=lineWidth+2*innerRadius){
 					point.setSelected(true);
 				    
 					if(prevOriginPos>i)
