@@ -436,6 +436,8 @@ public class Shader extends Renderer3D{
 		}
 
 		//BUILD FRONT CAP
+		
+		double average_y=0;
 
 		for (int i = 0; i < allTriangles.size(); i++) {
 			
@@ -443,11 +445,18 @@ public class Shader extends Renderer3D{
 			LineData triangle0 = (LineData) allTriangles.elementAt(i);
 			Polygon3D polTriangle0=PolygonMesh.getBodyPolygon(cm.points,triangle0);
 
-			if(isFacing(polTriangle0,Polygon3D.findNormal(polTriangle0),lightPoint.position))
+			if(isFacing(polTriangle0,Polygon3D.findNormal(polTriangle0),lightPoint.position)){
 				shadowVolume.addToFrontCap(polTriangle0);
+				average_y+=Polygon3D.findCentroid(polTriangle0) .y;
+			}	
 		}	
-
-		double  extrusion=2.0;
+			
+		//double  extrusion=2.0;
+		
+		average_y=average_y/shadowVolume.frontCap.size();
+		double  extrusion=(1000+average_y-lightPoint.position.y)/(average_y-lightPoint.position.y);
+		
+		//System.out.println(average_y+" "+extrusion+" "+(average_y-lightPoint.position.y));
 
 		//BUILD BACK CAP
 
