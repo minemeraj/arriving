@@ -1,3 +1,6 @@
+Some correction on the calculus of the extrusion parameter for the shadow volumes,
+in order to speed up a very slow algorithm.
+
 ------ 02/03/2013   CarDriving 6.0.10
 
 Solved major bugs in the RoadEditor adding objects management.
