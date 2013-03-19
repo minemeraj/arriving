@@ -73,7 +73,6 @@ public class Renderer3D implements AbstractRenderer3D{
 
 
 
-
 	public void buildNewZBuffers() {
 
 		setViewDirection(0);
@@ -251,9 +250,12 @@ public class Renderer3D implements AbstractRenderer3D{
 		Point3D lowP=points[lower];
 		Point3D upP=points[upper];
 		Point3D midP=points[middle];
+		
+		int j0=midP.y>0?(int)midP.y:0;
+		int j1=upP.y<HEIGHT?(int)upP.y:HEIGHT;
 
-		for(int j=(int) points[middle].y;j<upP.y;j++){
-
+		for(int j=j0;j<j1;j++){
+	
 
 			double middlex=Point3D.foundXIntersection(upP,lowP,j);
 			Point3D intersects = Point3D.foundPX_PY_PZ_TEXTURE_Intersection(upP,lowP,j);
@@ -280,13 +282,12 @@ public class Renderer3D implements AbstractRenderer3D{
 			double inverse=1.0/(end-start);
 			double i_pstart_p_y=1.0/(pstart.p_y);
 			double i_end_p_y=1.0/(pend.p_y);
+			
+			int i0=start>0?start:0;
 
-			for(int i=start;i<end;i++){
+			for(int i=i0;i<end;i++){
 
-				if(i<0 || j<0 )
-					continue;
-
-				if(i>=WIDTH || j>= HEIGHT)
+				if(i>=WIDTH)
 					break;
 
 				int tot=WIDTH*j+i;
@@ -327,7 +328,12 @@ public class Renderer3D implements AbstractRenderer3D{
 
 		}
 		//LOWER TRIANGLE
-		for(int j=(int) points[lower].y;j<midP.y;j++){
+		
+		j0=lowP.y>0?(int)lowP.y:0;
+		j1=midP.y<HEIGHT?(int)midP.y:HEIGHT;
+		
+		for(int j=j0;j<j1;j++){
+	
 
 			double middlex=Point3D.foundXIntersection(upP,lowP,j);
 			
@@ -359,12 +365,12 @@ public class Renderer3D implements AbstractRenderer3D{
 			double i_end_p_y=1.0/(pend.p_y);
 
 
-			for(int i=start;i<end;i++){
-
-				if(i<0 || j<0 )
-					continue;
-
-				if(i>=WIDTH || j>= HEIGHT)
+			int i0=start>0?start:0;
+			
+			
+			for(int i=i0;i<end;i++){
+	
+				if(i>=WIDTH)
 					break;
 
 				int tot=WIDTH*j+i;
