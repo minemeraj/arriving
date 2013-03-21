@@ -201,14 +201,18 @@ public class Renderer3D implements AbstractRenderer3D{
 		double y2=(int)calculPerspY(p2);
 		double z2=p2.y;
 
-		/*double maxX=Math.max(x0,x1);
+		//check if triangle is visible
+		double maxX=Math.max(x0,x1);
 		maxX=Math.max(x2,maxX);
 		double maxY=Math.max(y0,y1);
 		maxY=Math.max(y2,maxY);
 		double minX=Math.min(x0,x1);
 		minX=Math.min(x2,minX);
 		double minY=Math.min(y0,y1);
-		minY=Math.min(y2,minY);*/
+		minY=Math.min(y2,minY);
+		
+		if(maxX<0 || minX>WIDTH || maxY<0 || minY>HEIGHT)
+			return;
 
 		Point3D[] points=new Point3D[3];
 
