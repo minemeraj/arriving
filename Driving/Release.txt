@@ -1,5 +1,7 @@
-Some correction on the calculus of the extrusion parameter for the shadow volumes,
-in order to speed up a very slow algorithm.
+------ 21/03/2013   CarDriving 6.0.11
+
+Some corrections to the Renderer3D rendering algorithm and on the calculus 
+of the extrusion parameter for the shadow volumes, in order to speed up a very slow algorithm.
 
 ------ 02/03/2013   CarDriving 6.0.10
 
