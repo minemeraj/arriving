@@ -224,6 +224,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JMenuItem jmt_save_landscape;
 
 	int ACTIVE_RPANEL=0;
+	int numPanels=2;
+	
+	String[] panelsTitles={"Terrain","Road"};
 	
 	Color alphaRed=new Color(Color.RED.getRed(),0,0,100);
 	
@@ -263,6 +266,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		buildFieldsArrays();
 		buildRightPanel(0); 
+		buildRightPanel(1); 
 		
 		buildBottomPanel();
 
@@ -289,41 +293,41 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void buildFieldsArrays() {
 
-		coordinatesx=new DoubleTextField[1];
-		coordinatesy=new DoubleTextField[1];
-		coordinatesz=new DoubleTextField[1];
+		coordinatesx=new DoubleTextField[numPanels];
+		coordinatesy=new DoubleTextField[numPanels];
+		coordinatesz=new DoubleTextField[numPanels];
 
-		checkCoordinatesx=new JCheckBox[1];
-		checkCoordinatesy=new JCheckBox[1];
-		checkCoordinatesz=new JCheckBox[1];
+		checkCoordinatesx=new JCheckBox[numPanels];
+		checkCoordinatesy=new JCheckBox[numPanels];
+		checkCoordinatesz=new JCheckBox[numPanels];
 
-		changePoint=new JButton[1];		
-		colorRoadChoice= new  JTextField[1];
-		checkRoadColor= new JCheckBox[1];
-		checkMultiplePointsSelection= new JCheckBox[1];
-		mergeSelectedPoints=new JButton[1];
-		changePolygon=new JButton[1];	
-		startBuildPolygon=new JButton[1];	
-		buildPolygon=new JButton[1];	
-		deleteSelection=new JButton[1];	
-		addPoint=new JButton[1];	
-		polygonDetail=new JButton[1];	
+		changePoint=new JButton[numPanels];		
+		colorRoadChoice= new  JTextField[numPanels];
+		checkRoadColor= new JCheckBox[numPanels];
+		checkMultiplePointsSelection= new JCheckBox[numPanels];
+		mergeSelectedPoints=new JButton[numPanels];
+		changePolygon=new JButton[numPanels];	
+		startBuildPolygon=new JButton[numPanels];	
+		buildPolygon=new JButton[numPanels];	
+		deleteSelection=new JButton[numPanels];	
+		addPoint=new JButton[numPanels];	
+		polygonDetail=new JButton[numPanels];	
 		
-		chooseTexture=new JComboBox[1];	
-		choosePanelTexture=new JButton[1];		
-		chooseNextTexture=new JButton[1];
-		choosePrevTexture=new JButton[1];
+		chooseTexture=new JComboBox[numPanels];	
+		choosePanelTexture=new JButton[numPanels];		
+		chooseNextTexture=new JButton[numPanels];
+		choosePrevTexture=new JButton[numPanels];
 		
-		deselectAll=new JButton[1];
-		textureLabel=new JLabel[1];
+		deselectAll=new JButton[numPanels];
+		textureLabel=new JLabel[numPanels];
 		
-		roadMove=new DoubleTextField[1];
-		moveRoadUp=new JButton[1];
-		moveRoadDown=new JButton[1];
-		moveRoadRight=new JButton[1];
-		moveRoadLeft=new JButton[1];
-		moveRoadTop=new JButton[1];
-		moveRoadBottom=new JButton[1];
+		roadMove=new DoubleTextField[numPanels];
+		moveRoadUp=new JButton[numPanels];
+		moveRoadDown=new JButton[numPanels];
+		moveRoadRight=new JButton[numPanels];
+		moveRoadLeft=new JButton[numPanels];
+		moveRoadTop=new JButton[numPanels];
+		moveRoadBottom=new JButton[numPanels];
 		
 		
 		
@@ -1136,7 +1140,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		panel.setBounds(WIDTH+LEFT_BORDER,0,RIGHT_BORDER,HEIGHT);
 		panel.setLayout(null);
 		
-		Border leftBorder=BorderFactory.createTitledBorder("Road");
+		Border leftBorder=BorderFactory.createTitledBorder(panelsTitles[index]);
 		panel.setBorder(leftBorder);
 
 		int r=25;
@@ -1352,7 +1356,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		panel.add(mergeSelectedPoints[index]);
 
 		
-		right.add("Road",panel);
+		right.add(panelsTitles[index],panel);
 
 
 	}
