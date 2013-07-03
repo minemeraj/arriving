@@ -259,6 +259,21 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		buildLeftObjectPanel();
 		
 		right=new JTabbedPane();
+		right.addChangeListener(
+				
+			new ChangeListener() {
+				
+				public void stateChanged(ChangeEvent arg0) {
+					
+					ACTIVE_PANEL=right.getSelectedIndex();
+					
+				}
+			}
+				
+		);
+		
+		
+		
 		right.setBounds(WIDTH+LEFT_BORDER,0,RIGHT_BORDER,HEIGHT);
 		
 		add(right);

@@ -852,7 +852,7 @@ public class Road extends Shader{
 				if(str.indexOf("#")>=0 || str.length()==0)
 					continue;
 				
-				if(str.indexOf(Editor.TAG)>=0){
+				if(str.indexOf(Editor.TAG[0])>=0){
 					read=!read;
 				    continue;
 				}	

@@ -43,7 +43,7 @@ public class Editor extends JFrame implements MenuListener{
 	public File currentDirectory=null;
 	public File currentFile=null;
 	
-	public static String TAG="road";
+	public static String TAG[]={"terrain","road"};
 	
 	public Editor(){
 		
@@ -167,7 +167,7 @@ public class Editor extends JFrame implements MenuListener{
 				if(str.indexOf("#")>=0 || str.length()==0)
 					continue;
 				
-				if(str.indexOf(TAG)>=0){
+				if(str.indexOf(TAG[ACTIVE_PANEL])>=0){
 					read=!read;
 				    continue;
 				}	
