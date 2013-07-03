@@ -85,11 +85,11 @@ public class Road extends Shader{
 	int TILE_SIDE=4;
 	CarData carData=null;
 		
-	public Vector points=new Vector();
-	public Vector lines=new Vector();
+	public Vector[] points=new Vector[2];
+	public Vector[] lines=new Vector[2];
 	
-	public Vector oldPoints=new Vector();
-	public Vector oldLines=new Vector();
+	public Vector[] oldPoints=new Vector[2];
+	public Vector[] oldLines=new Vector[2];
 	
    
 	//public static String[] hexRoadColors={"888888","888888","888888","CCCCCC"};
@@ -160,7 +160,7 @@ public class Road extends Shader{
 			File file=new File("lib/landscape_default");
 			
 			loadPointsFromFile(file,0);		
-			loadPointsFromFile(file,1);	
+			//loadPointsFromFile(file,1);	
 			loadObjectsFromFile(file);			
 			
 		} catch (Exception e) {
@@ -196,11 +196,11 @@ public class Road extends Shader{
 		
 		for (int index = 0; index < 2; index++) {
 			
-			int size=lines.size();
+			int size=lines[0].size();
 
 			for(int j=0;j<size;j++){
 
-				LineData ld=(LineData) lines.elementAt(j);
+				LineData ld=(LineData) lines[0].elementAt(j);
 
 				Polygon3D p3D=buildLightTransformedPolygon3D(ld,index);
 
@@ -419,13 +419,13 @@ public class Road extends Shader{
 		int PARTIAL_MOVZ=-YFOCUS;
 	
 		
-			int size=lines.size();
+			int size=lines[0].size();
 	
 			for(int j=0;j<size;j++){
 	
-				LineData ld=(LineData) lines.elementAt(j);
+				LineData ld=(LineData) lines[0].elementAt(j);
 	
-				Polygon3D p3D=buildTransformedPolygon3D(ld,points);
+				Polygon3D p3D=buildTransformedPolygon3D(ld,points[0]);
 	
 					if(p3D.contains(start_car_x,start_car_y)){
 	
@@ -462,9 +462,9 @@ public class Road extends Shader{
 			for(int j=0;j<size;j++){
 				
 			
-				LineData ld=(LineData) lines.elementAt(j);
+				LineData ld=(LineData) lines[0].elementAt(j);
 
-				Polygon3D p3D=buildTransformedPolygon3D(ld,points);
+				Polygon3D p3D=buildTransformedPolygon3D(ld,points[0]);
 
 
 				if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty())
@@ -504,7 +504,7 @@ public class Road extends Shader{
 
 			int num=ld.getIndex(i);
 
-			Point4D p=(Point4D) points.elementAt(num);
+			Point4D p=(Point4D) points[0].elementAt(num);
 
 			Point4D p_light=calculateLightTransformedPoint(p,true);
 				
@@ -833,8 +833,8 @@ public class Road extends Shader{
 	
 	public void loadPointsFromFile(File file,int index){
 
-		points=new Vector();
-		lines=new Vector();
+		points[0]=new Vector();
+		lines[0]=new Vector();
 		
 
 		
@@ -852,7 +852,7 @@ public class Road extends Shader{
 				if(str.indexOf("#")>=0 || str.length()==0)
 					continue;
 				
-				if(str.indexOf(Editor.TAG[0])>=0){
+				if(str.indexOf(Editor.TAG[index])>=0){
 					read=!read;
 				    continue;
 				}	
@@ -861,17 +861,17 @@ public class Road extends Shader{
 					continue;
 
 				if(str.startsWith("P="))
-					buildPoints(points,str.substring(2));
+					buildPoints(points[0],str.substring(2));
 				else if(str.startsWith("L="))
-					buildLines(lines,str.substring(2));
+					buildLines(lines[0],str.substring(2));
 
 
 			}
             br.close();
 
 			
-			oldPoints=clonePoints(points);
-			oldLines=cloneLineData(lines);
+			oldPoints[0]=clonePoints(points[0]);
+			oldLines[0]=cloneLineData(lines[0]);
 			
 			//checkNormals();
 		} catch (Exception e) {
@@ -1010,8 +1010,8 @@ public class Road extends Shader{
 	
 	private void resetRoadData(int index) {
 		
-		points=clonePoints(oldPoints);
-		lines=cloneLineData(oldLines);
+		points[0]=clonePoints(oldPoints[0]);
+		lines[0]=cloneLineData(oldLines[0]);
 		
 	}
 
