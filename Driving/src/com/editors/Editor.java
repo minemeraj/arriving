@@ -256,7 +256,7 @@ public class Editor extends JFrame implements MenuListener{
 		
 		try {
 			
-			pr.println("<"+TAG+">");
+			pr.println("<"+TAG[ACTIVE_PANEL]+">");
 			pr.print("P=");
 
 			for(int i=0;i<points[ACTIVE_PANEL].size();i++){
@@ -278,7 +278,7 @@ public class Editor extends JFrame implements MenuListener{
 				if(i<lines[ACTIVE_PANEL].size()-1)
 					pr.print("_");
 			}	
-			pr.println("\n</"+TAG+">");
+			pr.println("\n</"+TAG[ACTIVE_PANEL]+">");
 				
 
 		} catch (Exception e) {
@@ -358,6 +358,14 @@ public class Editor extends JFrame implements MenuListener{
 	public Polygon3D buildPolygon(LineData ld, Vector points2, boolean b) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public int getACTIVE_PANEL() {
+		return ACTIVE_PANEL;
+	}
+
+	public void setACTIVE_PANEL(int aCTIVE_PANEL) {
+		ACTIVE_PANEL = aCTIVE_PANEL;
 	}
 
 

@@ -2072,9 +2072,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			try{			
 				PrintWriter pr = new PrintWriter(new FileOutputStream(file));
+				
+				setACTIVE_PANEL(0);
+				saveLines(pr);
+				setACTIVE_PANEL(1);
 				saveLines(pr);
 				
+				setACTIVE_PANEL(right.getSelectedIndex());
+				
 				saveObjects(pr);
+				
 				pr.close();
 			
 			}catch (Exception e) {
@@ -2103,7 +2110,15 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			currentDirectory=fc.getCurrentDirectory();
 			currentFile=fc.getSelectedFile();
 			File file = fc.getSelectedFile();
+			
+			setACTIVE_PANEL(0);
 			loadPointsFromFile(file);	
+			setACTIVE_PANEL(1);
+			loadPointsFromFile(file);			
+			setACTIVE_PANEL(0);
+			
+			right.setSelectedIndex(0);
+			
             loadObjectsFromFile(file); 
 
 		}
