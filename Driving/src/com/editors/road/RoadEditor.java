@@ -560,6 +560,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		//draw first the ground and the road above
 		displayRoad(bufGraphics,buf,0);
+		displayRoad(bufGraphics,buf,1);
 		displayObjects(bufGraphics);
 
 		g2.drawImage(buf,0,0,WIDTH,HEIGHT,null);
@@ -571,27 +572,26 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void displayRoad(Graphics2D bufGraphics,BufferedImage buf,int index) {
 
-
-		
-		int lsize=lines[ACTIVE_PANEL].size();
+				
+		int lsize=lines[index].size();
 		
 
 		for(int j=0;j<lsize;j++){
 			
 			
-			LineData ld=(LineData) lines[ACTIVE_PANEL].elementAt(j);
+			LineData ld=(LineData) lines[index].elementAt(j);
 
-			drawPolygon(ld,points[ACTIVE_PANEL],bufGraphics,buf,index);
+			drawPolygon(ld,points[index],bufGraphics,buf,index);
 
 		} 
 
 		//mark row angles
 		
-		int size=points[ACTIVE_PANEL].size();
+		int size=points[index].size();
 		for(int j=0;j<size;j++){
 
 
-		    Point4D p=(Point4D) points[ACTIVE_PANEL].elementAt(j);
+		    Point4D p=(Point4D) points[index].elementAt(j);
 
 				int xo=convertX(p.x);
 				int yo=convertY(p.y);
