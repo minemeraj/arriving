@@ -126,8 +126,8 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 		setTitle("Advanced Altimetry");
 		setLayout(null);
 		this.roadEditor=roadEditor;		
-		this.lines=roadEditor.lines;
-		this.points=roadEditor.points;;
+		this.lines=roadEditor.lines[roadEditor.ACTIVE_PANEL];
+		this.points=roadEditor.points[roadEditor.ACTIVE_PANEL];
 
 		setSize(WIDTH+RIGHT_BORDER,HEIGHT+BOTTOM_HEIGHT);
 		center=new JPanel();
@@ -1141,8 +1141,8 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 				)
 		{
 
-			this.lines=roadEditor.lines;
-			this.points=roadEditor.points;
+			this.lines=roadEditor.lines[roadEditor.ACTIVE_PANEL];
+			this.points=roadEditor.points[roadEditor.ACTIVE_PANEL];
 			drawRoad();
 		}
 

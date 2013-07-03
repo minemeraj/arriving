@@ -24,11 +24,14 @@ import com.Polygon3D;
 
 public class Editor extends JFrame implements MenuListener{
 	
-	public Vector points=null;
-	public Vector lines=null;
+	public int ACTIVE_PANEL=0; 
+	public int numPanels=2;
 	
-	public Stack oldPoints=null;
-	public Stack oldLines=null;
+	public Vector[] points=null;
+	public Vector[] lines=null;
+	
+	public Stack[] oldPoints=null;
+	public Stack[] oldLines=null;
 	
 	public LineData polygon=new LineData();
 	
@@ -45,12 +48,23 @@ public class Editor extends JFrame implements MenuListener{
 	public Editor(){
 		
 		
-		points=new Vector();
-		lines=new  Vector();
+		points=new Vector[numPanels];
+		lines=new  Vector[numPanels];
 		
 		
-		oldPoints=new Stack();
-		oldLines=new Stack();
+		oldPoints=new Stack[numPanels];
+		oldLines=new Stack[numPanels];
+		
+		for (int i = 0; i < numPanels; i++) {
+			
+			
+			points[i]=new Vector();
+			lines[i]=new  Vector();
+			
+			
+			oldPoints[i]=new Stack();
+			oldLines[i]=new Stack();
+		}
 		
 		
 	
@@ -131,11 +145,11 @@ public class Editor extends JFrame implements MenuListener{
 	
 	public void loadPointsFromFile(File file){
 
-		points=new  Vector();
-		lines=new  Vector();
+		points[ACTIVE_PANEL]=new  Vector();
+		lines[ACTIVE_PANEL]=new  Vector();
 		
-		oldPoints=new Stack();
-		oldLines=new Stack();
+		oldPoints[ACTIVE_PANEL]=new Stack();
+		oldLines[ACTIVE_PANEL]=new Stack();
 
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));
@@ -162,9 +176,9 @@ public class Editor extends JFrame implements MenuListener{
 					continue;
 
 				if(str.startsWith("P="))
-					buildPoints(points,str.substring(2));
+					buildPoints(points[ACTIVE_PANEL],str.substring(2));
 				else if(str.startsWith("L="))
-					buildLines(lines,str.substring(2));
+					buildLines(lines[ACTIVE_PANEL],str.substring(2));
 
 
 			}
@@ -245,23 +259,23 @@ public class Editor extends JFrame implements MenuListener{
 			pr.println("<"+TAG+">");
 			pr.print("P=");
 
-			for(int i=0;i<points.size();i++){
+			for(int i=0;i<points[ACTIVE_PANEL].size();i++){
 
-				Point3D p=(Point3D) points.elementAt(i);
+				Point3D p=(Point3D) points[ACTIVE_PANEL].elementAt(i);
 
 				pr.print(decomposePoint(p));
-				if(i<points.size()-1)
+				if(i<points[ACTIVE_PANEL].size()-1)
 					pr.print("_");
 			}	
 
 			pr.print("\nL=");
 
-			for(int i=0;i<lines.size();i++){
+			for(int i=0;i<lines[ACTIVE_PANEL].size();i++){
 
-				LineData ld=(LineData) lines.elementAt(i);
+				LineData ld=(LineData) lines[ACTIVE_PANEL].elementAt(i);
 
 				pr.print(decomposeLineData(ld));
-				if(i<lines.size()-1)
+				if(i<lines[ACTIVE_PANEL].size()-1)
 					pr.print("_");
 			}	
 			pr.println("\n</"+TAG+">");
@@ -306,21 +320,21 @@ public class Editor extends JFrame implements MenuListener{
 	
 	public void prepareUndo() {
 		
-		if(oldPoints.size()==MAX_STACK_SIZE){
+		if(oldPoints[ACTIVE_PANEL].size()==MAX_STACK_SIZE){
 			
-			oldPoints.removeElementAt(0);
-			oldLines.removeElementAt(0);
+			oldPoints[ACTIVE_PANEL].removeElementAt(0);
+			oldLines[ACTIVE_PANEL].removeElementAt(0);
 		}
-		oldPoints.push(clonePoints(points));
-		oldLines.push(cloneLineData(lines));
+		oldPoints[ACTIVE_PANEL].push(clonePoints(points[ACTIVE_PANEL]));
+		oldLines[ACTIVE_PANEL].push(cloneLineData(lines[ACTIVE_PANEL]));
 	}
 	
 	public void undo() {
 		
-		if(oldPoints.size()>0)
-			points=(Vector) oldPoints.pop();
-		if(oldLines.size()>0)
-			lines=(Vector) oldLines.pop();
+		if(oldPoints[ACTIVE_PANEL].size()>0)
+			points[ACTIVE_PANEL]=(Vector) oldPoints[ACTIVE_PANEL].pop();
+		if(oldLines[ACTIVE_PANEL].size()>0)
+			lines[ACTIVE_PANEL]=(Vector) oldLines[ACTIVE_PANEL].pop();
 		
 	}
 	

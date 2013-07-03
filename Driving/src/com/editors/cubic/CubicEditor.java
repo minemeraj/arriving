@@ -824,8 +824,8 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 		CubicEditor ce=new CubicEditor();
 		PolygonMesh pm = buildSurface();
 		
-		ce.points=PolygonMesh.fromArrayToVector(pm.points);
-		ce.lines=pm.polygonData;
+		ce.points[ACTIVE_PANEL]=PolygonMesh.fromArrayToVector(pm.points);
+		ce.lines[ACTIVE_PANEL]=pm.polygonData;
 		
 		ObjectEditorPreviewPanel oepp=new ObjectEditorPreviewPanel(ce);
 	}
@@ -891,15 +891,15 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 	
 			pr.print("\nM=");
 
-			for(int i=0;i<points.size();i++){
+			for(int i=0;i<points[ACTIVE_PANEL].size();i++){
 
-				Point3D p0=(Point3D) points.elementAt(i);
+				Point3D p0=(Point3D) points[ACTIVE_PANEL].elementAt(i);
 				int i0=(int)p0.p_x;
 				int j0=(int)p0.p_y;
 				int k0=(int)p0.p_z;	
 				
 				pr.print(cubeData.selectionMask[i0][j0][k0]);
-				if(i<points.size()-1)
+				if(i<points[ACTIVE_PANEL].size()-1)
 					pr.print("_");
 			}
 
@@ -913,11 +913,11 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 	
 	public void loadPointsFromFile(File file){
 
-		points=new Vector();
-		lines=new Vector();
+		points[ACTIVE_PANEL]=new Vector();
+		lines[ACTIVE_PANEL]=new Vector();
 
-		oldPoints=new Stack();
-		oldLines=new Stack();
+		oldPoints[ACTIVE_PANEL]=new Stack();
+		oldLines[ACTIVE_PANEL]=new Stack();
 
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));
@@ -1015,7 +1015,7 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 				Point3D p=pm.points[i];
 				pr.print(decomposePoint(p));
-				if(i<points.size()-1)
+				if(i<points[ACTIVE_PANEL].size()-1)
 					pr.print("_");
 			}	
 
@@ -1052,7 +1052,7 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 
 		//create new points[0]
-		Point3D[] newArrPoints = PolygonMesh.fromVectorToArray(points);
+		Point3D[] newArrPoints = PolygonMesh.fromVectorToArray(points[ACTIVE_PANEL]);
 
 
 		//create new line data
@@ -1133,10 +1133,10 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 		double dy=LY/NY;
 		double dz=LZ/NZ;
 
-		points=new Vector();
-		lines=new Vector();
+		points[ACTIVE_PANEL]=new Vector();
+		lines[ACTIVE_PANEL]=new Vector();
 
-		points.setSize(NX*NY*NZ);
+		points[ACTIVE_PANEL].setSize(NX*NY*NZ);
 
 		for(int i=0;i<NX;i++)
 			for(int j=0;j<NY;j++){
@@ -1148,7 +1148,7 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 					double z=dz*k;
 
 					int pos=pos(i,j,k,NX,NY,NZ);
-					points.setElementAt(new Point3D(x,y,z,i,j,k),pos);
+					points[ACTIVE_PANEL].setElementAt(new Point3D(x,y,z,i,j,k),pos);
 				}
 			}
 		setcomboData(xCUbe,NX);
@@ -1582,7 +1582,7 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 		
 		try {
 			
-			if(oldPoints.size()==MAX_STACK_SIZE){
+			if(oldPoints[ACTIVE_PANEL].size()==MAX_STACK_SIZE){
 				
 				oldCubeData.removeElementAt(0);
 			

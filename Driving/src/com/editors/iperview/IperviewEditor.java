@@ -153,7 +153,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 		setTitle("Iperview 1.0.0");
 		
-		points=new Vector();
+		points[ACTIVE_PANEL]=new Vector();
 	
 		setSize(LEFT_BORDER+CENTER_WIDTH+RIGHT_BORDER,CENTER_HEIGHT+BOTTOM_BORDER);
 		setLocation(10, 50);
@@ -162,22 +162,22 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 		leftPanel=new IperviewPanel(this,IperviewPanel.TYPE_LEFT,LEFT_BORDER,CENTER_HEIGHT);
 		leftPanel.setBounds(0, 0, LEFT_BORDER, CENTER_HEIGHT);
-		leftPanel.setPoints(points);
-		leftPanel.setLines(lines);
+		leftPanel.setPoints(points[ACTIVE_PANEL]);
+		leftPanel.setLines(lines[ACTIVE_PANEL]);
 		leftPanel.setBackground(Color.GRAY);
 		add(leftPanel);
 		
 		centerPanel=new IperviewPanel(this,IperviewPanel.TYPE_FRONT,CENTER_WIDTH,CENTER_HEIGHT);
 		centerPanel.setBounds(LEFT_BORDER, 0, CENTER_WIDTH, CENTER_HEIGHT);
-		centerPanel.setPoints(points);
-		centerPanel.setLines(lines);
+		centerPanel.setPoints(points[ACTIVE_PANEL]);
+		centerPanel.setLines(lines[ACTIVE_PANEL]);
 		centerPanel.setBackground(Color.BLACK);
 		add(centerPanel);
 		
 		rightPanel=new IperviewPanel(this,IperviewPanel.TYPE_TOP,RIGHT_BORDER,CENTER_HEIGHT);
 		rightPanel.setBounds(LEFT_BORDER+CENTER_WIDTH, 0, RIGHT_BORDER, CENTER_HEIGHT);
-		rightPanel.setPoints(points);
-		rightPanel.setLines(lines);
+		rightPanel.setPoints(points[ACTIVE_PANEL]);
+		rightPanel.setLines(lines[ACTIVE_PANEL]);
 		rightPanel.setBackground(Color.GRAY);
 		add(rightPanel);
 	
@@ -496,7 +496,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 			deselectAll();
 			return;
 		}	
-        lines.add(polygon);
+        lines[ACTIVE_PANEL].add(polygon);
         deselectAll();
 
 		
@@ -717,9 +717,9 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 		int firstPoint=-1;
 		
-		for(int i=0;i<points.size();i++){
+		for(int i=0;i<points[ACTIVE_PANEL].size();i++){
 
-			Point3D p=(Point3D) points.elementAt(i);
+			Point3D p=(Point3D) points[ACTIVE_PANEL].elementAt(i);
 			if(!p.isSelected()) 
 				newPoints.add(p);
 			else if(firstPoint==-1){
@@ -736,9 +736,9 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		}
 
 
-		for(int i=0;i<lines.size();i++){
+		for(int i=0;i<lines[ACTIVE_PANEL].size();i++){
 
-			LineData ld=(LineData) lines.elementAt(i);
+			LineData ld=(LineData) lines[ACTIVE_PANEL].elementAt(i);
 			if(ld.isSelected())
 				continue;
 			LineData newLd = new LineData();
@@ -746,7 +746,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 
 			for(int j=0;j<ld.size();j++){
 
-				Point3D p0=(Point3D) points.elementAt(ld.getIndex(j));
+				Point3D p0=(Point3D) points[ACTIVE_PANEL].elementAt(ld.getIndex(j));
 				if(!p0.isSelected()) 
 					for(int k=0;k<newPoints.size();k++){
 
@@ -769,8 +769,8 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 
 		}
 
-		points=newPoints;
-		lines=newLines;
+		points[ACTIVE_PANEL]=newPoints;
+		lines[ACTIVE_PANEL]=newLines;
         deselectAll();
 		
 		displayAll();
@@ -966,7 +966,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 
 	public void undo() {
 		super.undo();
-		if(oldPoints.size()==0)
+		if(oldPoints[ACTIVE_PANEL].size()==0)
 			jmt31.setEnabled(false);
 		resetLists();
 	}
@@ -977,17 +977,17 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		Vector newPoints=new Vector();
 		Vector newLines=new Vector();
 
-		for(int i=0;i<points.size();i++){
+		for(int i=0;i<points[ACTIVE_PANEL].size();i++){
 
-			Point3D p=(Point3D) points.elementAt(i);
+			Point3D p=(Point3D) points[ACTIVE_PANEL].elementAt(i);
 			if(!p.isSelected()) 
 				newPoints.add(p);
 
 		}
 
-		for(int i=0;i<lines.size();i++){
+		for(int i=0;i<lines[ACTIVE_PANEL].size();i++){
 
-			LineData ld=(LineData) lines.elementAt(i);
+			LineData ld=(LineData) lines[ACTIVE_PANEL].elementAt(i);
 			if(ld.isSelected())
 				continue;
 			LineData newLd = new LineData();
@@ -996,7 +996,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 
 			for(int j=0;j<ld.size();j++){
 
-				Point3D p0=(Point3D) points.elementAt(ld.getIndex(j));
+				Point3D p0=(Point3D) points[ACTIVE_PANEL].elementAt(ld.getIndex(j));
 				if(!p0.isSelected()) 
 					for(int k=0;k<newPoints.size();k++){
 
@@ -1019,8 +1019,8 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 
 		}
 
-		points=newPoints;
-		lines=newLines;
+		points[ACTIVE_PANEL]=newPoints;
+		lines[ACTIVE_PANEL]=newLines;
         deselectAll();
 		
 
@@ -1029,20 +1029,20 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	}
 	
 	public void joinSelectedPoints() {
-		for(int i=0;i<points.size();i++){
+		for(int i=0;i<points[ACTIVE_PANEL].size();i++){
 
-			Point3D p0=(Point3D) points.elementAt(i);
+			Point3D p0=(Point3D) points[ACTIVE_PANEL].elementAt(i);
 
-			for(int j=0;j<points.size();j++){
+			for(int j=0;j<points[ACTIVE_PANEL].size();j++){
 
-				Point3D p1=(Point3D) points.elementAt(j);
+				Point3D p1=(Point3D) points[ACTIVE_PANEL].elementAt(j);
 
 				if(p0.isSelected() && p1.isSelected() && i<j)
 				{
 					LineData ld=new LineData();
 					ld.addIndex(i);
 					ld.addIndex(j);
-					lines.add(ld);
+					lines[ACTIVE_PANEL].add(ld);
 
 				}
 
@@ -1102,7 +1102,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		if(!"".equals(extraData.getText()))
 			p.setData(extraData.getText());
 		
-		points.add(p);
+		points[ACTIVE_PANEL].add(p);
         
 		deselectAll();
 		displayAll();
@@ -1124,9 +1124,9 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 			return;
 		}	
 		double val=Double.parseDouble(txt);
-		for(int i=0;i<points.size();i++){
+		for(int i=0;i<points[ACTIVE_PANEL].size();i++){
 
-			Point3D p=(Point3D) points.elementAt(i);
+			Point3D p=(Point3D) points[ACTIVE_PANEL].elementAt(i);
 		    p.x=Math.round(p.x *val);
 		    p.y=Math.round(p.y *val);
 		    p.z=Math.round(p.z *val);
@@ -1136,9 +1136,9 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	
 	public void changeSelectedPoint() {
 
-		for(int i=0;i<points.size();i++){
+		for(int i=0;i<points[ACTIVE_PANEL].size();i++){
 
-			Point3D p=(Point3D) points.elementAt(i);
+			Point3D p=(Point3D) points[ACTIVE_PANEL].elementAt(i);
 
 			if(p.isSelected()){
 
@@ -1163,9 +1163,9 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	
 	public void moveSelectedPointWithMouse(Point3D p3d, int type) {
 
-		for(int i=0;i<points.size();i++){
+		for(int i=0;i<points[ACTIVE_PANEL].size();i++){
 
-			Point3D p=(Point3D) points.elementAt(i);
+			Point3D p=(Point3D) points[ACTIVE_PANEL].elementAt(i);
 
 			if(p.isSelected()){
 				prepareUndo();
@@ -1187,7 +1187,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 					p3d.setZ(p.getZ());
 				}
 				
-				points.setElementAt(p3d,i);
+				points[ACTIVE_PANEL].setElementAt(p3d,i);
 				return;
 			}
 		}	
@@ -1203,9 +1203,9 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 		double qty=Double.parseDouble(sqty);
 		
-		for(int i=0;i<points.size();i++){
+		for(int i=0;i<points[ACTIVE_PANEL].size();i++){
 
-			Point3D p=(Point3D) points.elementAt(i);
+			Point3D p=(Point3D) points[ACTIVE_PANEL].elementAt(i);
 
 			if(p.isSelected()){
 
@@ -1245,9 +1245,9 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 
 	public void deselectAllPoints() {
 		
-		for(int i=0;i<points.size();i++){
+		for(int i=0;i<points[ACTIVE_PANEL].size();i++){
 
-			Point3D p=(Point3D) points.elementAt(i);
+			Point3D p=(Point3D) points[ACTIVE_PANEL].elementAt(i);
 			p.setSelected(false);
 		}
 		
@@ -1255,9 +1255,9 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	
 	public void selectAllPoints() {
 		
-		for(int i=0;i<points.size();i++){
+		for(int i=0;i<points[ACTIVE_PANEL].size();i++){
 
-			Point3D p=(Point3D) points.elementAt(i);
+			Point3D p=(Point3D) points[ACTIVE_PANEL].elementAt(i);
 			p.setSelected(true);
 		}
 		
@@ -1266,9 +1266,9 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 
 	public void deselectAllLines() {
 		
-		for(int i=0;i<lines.size();i++){
+		for(int i=0;i<lines[ACTIVE_PANEL].size();i++){
 
-			LineData ld=(LineData) lines.elementAt(i);
+			LineData ld=(LineData) lines[ACTIVE_PANEL].elementAt(i);
 			ld.setSelected(false);
 		}
 		
@@ -1323,9 +1323,9 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 					polygon=new LineData();
 				
 				int index=pointList.getSelectedIndex();
-				for(int i=0;i<points.size();i++){
+				for(int i=0;i<points[ACTIVE_PANEL].size();i++){
 
-					Point3D p=(Point3D) points.elementAt(i);
+					Point3D p=(Point3D) points[ACTIVE_PANEL].elementAt(i);
 					if(index==i){
 						selectPoint(p);
 						polygon.addIndex(i);
@@ -1354,9 +1354,9 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 			public void mouseClicked(MouseEvent e){
 
 				int index=lineList.getSelectedIndex();
-				for(int i=0;i<lines.size();i++){
+				for(int i=0;i<lines[ACTIVE_PANEL].size();i++){
 
-					LineData ld=(LineData) lines.elementAt(i);
+					LineData ld=(LineData) lines[ACTIVE_PANEL].elementAt(i);
 					if(index==i)
 						ld.setSelected(true);
 					else 
@@ -1400,9 +1400,9 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		int sel=pointList.getSelectedIndex();
 		
 
-		for(int i=0;i<points.size();i++){
+		for(int i=0;i<points[ACTIVE_PANEL].size();i++){
 
-			Point3D p=(Point3D) points.elementAt(i);
+			Point3D p=(Point3D) points[ACTIVE_PANEL].elementAt(i);
 		    dlm.addElement(new PointListItem(p,i)) ; 
 		}
 		
@@ -1417,9 +1417,9 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		int selec=lineList.getSelectedIndex();
 		
 
-		for(int i=0;i<lines.size();i++){
+		for(int i=0;i<lines[ACTIVE_PANEL].size();i++){
 
-			LineData ld=(LineData) lines.elementAt(i);
+			LineData ld=(LineData) lines[ACTIVE_PANEL].elementAt(i);
 			dflm.addElement(ld) ; 
 		}
 		
@@ -1433,16 +1433,16 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	
 	private void moveSelectedLine(int direction) {
 		
-		for(int i=0;i<lines.size();i++){
+		for(int i=0;i<lines[ACTIVE_PANEL].size();i++){
 
-			LineData ld=(LineData) lines.elementAt(i);
-			if(ld.isSelected() && direction>0 && i<lines.size()-1 ){
-					swapLines(lines,i+1,i);	
+			LineData ld=(LineData) lines[ACTIVE_PANEL].elementAt(i);
+			if(ld.isSelected() && direction>0 && i<lines[ACTIVE_PANEL].size()-1 ){
+					swapLines(lines[ACTIVE_PANEL],i+1,i);	
 					lineList.setSelectedIndex(lineList.getSelectedIndex()+1);
 					break;
 			}
 			else if(ld.isSelected() && direction<0 && i>0){
-					swapLines(lines,i,i-1);	
+					swapLines(lines[ACTIVE_PANEL],i,i-1);	
 					lineList.setSelectedIndex(lineList.getSelectedIndex()-1);
 					break;
 			}
@@ -1460,9 +1460,9 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	
 	public void invertSelectedLine(){
 		
-		for(int i=0;i<lines.size();i++){
+		for(int i=0;i<lines[ACTIVE_PANEL].size();i++){
 
-			LineData ld=(LineData) lines.elementAt(i);
+			LineData ld=(LineData) lines[ACTIVE_PANEL].elementAt(i);
 			if(ld.isSelected()){
 				
 				LineData invertedLd=new LineData();
@@ -1470,7 +1470,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 				for (int j = ld.size()-1; j >=0; j--) {
 					invertedLd.addIndex(ld.getIndex(j));
 				}
-				lines.setElementAt(invertedLd,i);
+				lines[ACTIVE_PANEL].setElementAt(invertedLd,i);
 			}
 			
 		
@@ -1507,23 +1507,23 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 			pr = new PrintWriter(new FileOutputStream(file));
 			pr.print("P=");
 
-			for(int i=0;i<points.size();i++){
+			for(int i=0;i<points[ACTIVE_PANEL].size();i++){
 
-				Point3D p=(Point3D) points.elementAt(i);
+				Point3D p=(Point3D) points[ACTIVE_PANEL].elementAt(i);
 
 				pr.print(decomposePoint(p,withBorder));
-				if(i<points.size()-1)
+				if(i<points[ACTIVE_PANEL].size()-1)
 					pr.print("_");
 			}	
 
 			pr.print("\nL=");
 
-			for(int i=0;i<lines.size();i++){
+			for(int i=0;i<lines[ACTIVE_PANEL].size();i++){
 
-				LineData ld=(LineData) lines.elementAt(i);
+				LineData ld=(LineData) lines[ACTIVE_PANEL].elementAt(i);
 
 				pr.print(decomposeLineData(ld));
-				if(i<lines.size()-1)
+				if(i<lines[ACTIVE_PANEL].size()-1)
 					pr.print("_");
 			}	
 
@@ -1571,8 +1571,8 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		Vector transpoints=new Vector();
 		Vector translines=new Vector();
 		
-		oldPoints=new Stack();
-		oldLines=new Stack();
+		oldPoints[ACTIVE_PANEL]=new Stack();
+		oldLines[ACTIVE_PANEL]=new Stack();
 
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));
@@ -1594,7 +1594,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 
 			br.close();
 			
-            appendPoints(points,lines,transpoints,translines);
+            appendPoints(points[ACTIVE_PANEL],lines[ACTIVE_PANEL],transpoints,translines);
 			
 			
 			//checkNormals();
@@ -1664,12 +1664,12 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	
 	void reloadPanels() {
 		
-		centerPanel.setPoints(points);
-		centerPanel.setLines(lines);
-		leftPanel.setPoints(points);
-		leftPanel.setLines(lines);
-		rightPanel.setPoints(points);
-		rightPanel.setLines(lines);
+		centerPanel.setPoints(points[ACTIVE_PANEL]);
+		centerPanel.setLines(lines[ACTIVE_PANEL]);
+		leftPanel.setPoints(points[ACTIVE_PANEL]);
+		leftPanel.setLines(lines[ACTIVE_PANEL]);
+		rightPanel.setPoints(points[ACTIVE_PANEL]);
+		rightPanel.setLines(lines[ACTIVE_PANEL]);
 		
 	}
 
@@ -1716,11 +1716,11 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		PolygonMesh pm=oetp.getTemplate();
 		
 		if(pm!=null){
-			points=new Vector();
+			points[ACTIVE_PANEL]=new Vector();
 			for (int i = 0; i < pm.points.length; i++) {
-				points.add(pm.points[i]);
+				points[ACTIVE_PANEL].add(pm.points[i]);
 			}
-			lines=pm.polygonData;
+			lines[ACTIVE_PANEL]=pm.polygonData;
 			displayAll();
 		}
 		

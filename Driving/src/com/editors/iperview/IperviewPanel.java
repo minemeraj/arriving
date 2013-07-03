@@ -179,9 +179,9 @@ private void displayAxes(Graphics2D bufGraphics) {
 		
 		
 
-		for (int i = 0; i < iperviewEditor.points.size(); i++) {
+		for (int i = 0; i < iperviewEditor.points[iperviewEditor.ACTIVE_PANEL].size(); i++) {
 			
-			Point3D p3d = (Point3D) iperviewEditor.points.elementAt(i);
+			Point3D p3d = (Point3D) iperviewEditor.points[iperviewEditor.ACTIVE_PANEL].elementAt(i);
 			if(p3d.isSelected())
 				bufGraphics.setColor(Color.RED);
 			else
@@ -200,9 +200,9 @@ private void displayAxes(Graphics2D bufGraphics) {
 
 
 
-		for(int i=0;i<iperviewEditor.lines.size();i++){
+		for(int i=0;i<iperviewEditor.lines[iperviewEditor.ACTIVE_PANEL].size();i++){
 
-			LineData ld=(LineData) iperviewEditor.lines.elementAt(i);
+			LineData ld=(LineData) iperviewEditor.lines[iperviewEditor.ACTIVE_PANEL].elementAt(i);
 			int numLInes=1;
 			if(ld.size()>2)
 				numLInes=ld.size();
@@ -213,8 +213,8 @@ private void displayAxes(Graphics2D bufGraphics) {
 
 			for(int j=0;j<numLInes;j++){
 
-				Point3D p0=(Point3D)iperviewEditor.points.elementAt(ld.getIndex(j));
-				Point3D p1=(Point3D)iperviewEditor.points.elementAt(ld.getIndex((j+1)%ld.size()));
+				Point3D p0=(Point3D)iperviewEditor.points[iperviewEditor.ACTIVE_PANEL].elementAt(ld.getIndex(j));
+				Point3D p1=(Point3D)iperviewEditor.points[iperviewEditor.ACTIVE_PANEL].elementAt(ld.getIndex((j+1)%ld.size()));
 
 
 				bufGraphics.drawLine(calcAssX(p0),calcAssY(p0),calcAssX(p1),calcAssY(p1));
@@ -225,9 +225,9 @@ private void displayAxes(Graphics2D bufGraphics) {
 			
 		}	
 
-		for(int i=0;i<iperviewEditor.lines.size();i++){
+		for(int i=0;i<iperviewEditor.lines[iperviewEditor.ACTIVE_PANEL].size();i++){
 
-			LineData ld=(LineData) iperviewEditor.lines.elementAt(i);
+			LineData ld=(LineData) iperviewEditor.lines[iperviewEditor.ACTIVE_PANEL].elementAt(i);
 			int numLInes=1;
 			if(ld.size()>2)
 				numLInes=ld.size();
@@ -239,8 +239,8 @@ private void displayAxes(Graphics2D bufGraphics) {
 
 			for(int j=0;j<numLInes;j++){
 
-				Point3D p0=(Point3D)iperviewEditor.points.elementAt(ld.getIndex(j));
-				Point3D p1=(Point3D)iperviewEditor.points.elementAt(ld.getIndex((j+1)%ld.size()));
+				Point3D p0=(Point3D)iperviewEditor.points[iperviewEditor.ACTIVE_PANEL].elementAt(ld.getIndex(j));
+				Point3D p1=(Point3D)iperviewEditor.points[iperviewEditor.ACTIVE_PANEL].elementAt(ld.getIndex((j+1)%ld.size()));
 
 
 				bufGraphics.drawLine(calcAssX(p0),calcAssY(p0),calcAssX(p1),calcAssY(p1));
@@ -492,15 +492,15 @@ private void displayAxes(Graphics2D bufGraphics) {
 			/*if(iperviewEditor.ACTIVE_KEY==KeyEvent.VK_CONTROL && !iperviewEditor.checkMultipleSelection.isSelected())
 				iperviewEditor.moveSelectedPointWithMouse(p3d,type);
 			else*/
-				iperviewEditor.points.add(p3d);
+				iperviewEditor.points[iperviewEditor.ACTIVE_PANEL].add(p3d);
 
 				iperviewEditor.displayAll();
 			return;
 		}	
 
-		for (int i = 0; i < iperviewEditor.points.size(); i++) {
+		for (int i = 0; i < iperviewEditor.points[iperviewEditor.ACTIVE_PANEL].size(); i++) {
 
-			Point3D p3d = (Point3D) iperviewEditor.points.elementAt(i);
+			Point3D p3d = (Point3D) iperviewEditor.points[iperviewEditor.ACTIVE_PANEL].elementAt(i);
 
 
 			int x=calcAssX(p3d);
@@ -560,9 +560,9 @@ private void displayAxes(Graphics2D bufGraphics) {
 		int y0=Math.min(currentRect.y,currentRect.y+currentRect.height);
 		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
         
-        for (int i = 0; i < iperviewEditor.points.size(); i++) {
+        for (int i = 0; i < iperviewEditor.points[iperviewEditor.ACTIVE_PANEL].size(); i++) {
         
-    	Point3D p3d = (Point3D) iperviewEditor.points.elementAt(i);
+    	Point3D p3d = (Point3D) iperviewEditor.points[iperviewEditor.ACTIVE_PANEL].elementAt(i);
 
 
 			int x=calcAssX(p3d);
@@ -673,12 +673,12 @@ private void displayAxes(Graphics2D bufGraphics) {
 	}
 
 	public void setPoints(Vector points) {
-		this.iperviewEditor.points=points;
+		this.iperviewEditor.points[iperviewEditor.ACTIVE_PANEL]=points;
 		
 	}
 
 	public void setLines(Vector lines) {
-		this.iperviewEditor.lines=lines;
+		this.iperviewEditor.lines[iperviewEditor.ACTIVE_PANEL]=lines;
 		
 	}
 
