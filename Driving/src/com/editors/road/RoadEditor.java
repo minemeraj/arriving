@@ -414,9 +414,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					
 					worldImages[i]=ImageIO.read(new File("lib/road_texture_"+i+".jpg"));
 					
-					
+					for (int j = 0; j < numPanels; j++) {
+						chooseTexture[j].addItem(new ValuePair(""+i,""+i));
+					}
 				
-					chooseTexture[0].addItem(new ValuePair(""+i,""+i));
+					
 					
 					
 				}
