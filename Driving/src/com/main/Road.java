@@ -873,7 +873,7 @@ public class Road extends Shader{
 				if(str.startsWith("P="))
 					buildPoints(points[index],str.substring(2),index);
 				else if(str.startsWith("L="))
-					buildLines(lines[index],str.substring(2));
+					buildLines(lines[index],str.substring(2),index);
 
 
 			}
@@ -952,7 +952,7 @@ public class Road extends Shader{
 		return str;
 	}
 	
-	public void buildLines(Vector lines, String str) {
+	public void buildLines(Vector lines, String str,int index) {
 
 		StringTokenizer sttoken=new StringTokenizer(str,"_");
 
