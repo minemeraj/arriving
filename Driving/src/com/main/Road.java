@@ -871,7 +871,7 @@ public class Road extends Shader{
 					continue;
 
 				if(str.startsWith("P="))
-					buildPoints(points[index],str.substring(2));
+					buildPoints(points[index],str.substring(2),index);
 				else if(str.startsWith("L="))
 					buildLines(lines[index],str.substring(2));
 
@@ -905,7 +905,7 @@ public class Road extends Shader{
 	}
 
 
-	public void buildPoints(Vector points, String str) {
+	public void buildPoints(Vector points, String str,int index) {
 
 		StringTokenizer sttoken=new StringTokenizer(str,"_");
 
@@ -921,6 +921,9 @@ public class Road extends Shader{
 			p.x=Double.parseDouble(vals[0])-XFOCUS;
 			p.y=Double.parseDouble(vals[1])+SCREEN_DISTANCE;
 			p.z=Double.parseDouble(vals[2])-YFOCUS;
+			
+			if (index==1)
+				p.z+=20;
 
 			points.add(p);
 		}
