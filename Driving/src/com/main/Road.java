@@ -416,9 +416,10 @@ public class Road extends Shader{
 		
 		MOVZ=0;
 
-        int index=0; 
-
+     
 		int PARTIAL_MOVZ=-YFOCUS;
+		
+		for(int index=0;index<2;index++){
 	
 		
 			int size=lines[index].size();
@@ -460,22 +461,29 @@ public class Road extends Shader{
 	
 			}
 			
+		}
+			
 			MOVZ=PARTIAL_MOVZ;
-			for(int j=0;j<size;j++){
+			
+			for(int index=0;index<2;index++){
 				
+				int size=lines[index].size();
 			
-				LineData ld=(LineData) lines[index].elementAt(j);
-
-				Polygon3D p3D=buildTransformedPolygon3D(ld,points[index]);
-
-
-				if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty())
-						decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],roadZbuffer);
-			
-			
-			}
+				for(int j=0;j<size;j++){
+					
+				
+					LineData ld=(LineData) lines[index].elementAt(j);
+	
+					Polygon3D p3D=buildTransformedPolygon3D(ld,points[index]);
+	
+	
+					if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty())
+							decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],roadZbuffer);
+				
+				
+				}
 		
-
+			}
 
 
 		drawCar();
