@@ -2538,9 +2538,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					
 					LineData ld=new LineData(pl1, pl4, pl3, pl2);
 					
-					
-					ld.setTexture_index(0);
-
+					if(ACTIVE_PANEL==1)
+						ld.setTexture_index(0);
+					else
+						ld.setTexture_index(2);
 					
 					lines[ACTIVE_PANEL].add(ld);
 					
