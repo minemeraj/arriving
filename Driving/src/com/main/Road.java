@@ -478,24 +478,27 @@ public class Road extends Shader{
 					Polygon3D p3D=buildTransformedPolygon3D(ld,points[index]);
 	
 	
-					if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty())
+					if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
 							decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],roadZbuffer);
 				
-				    if(index==1){
-				    	
-				    	//build road polgyons
-				    	
-				    	Vector polygons=buildRoadPolygons(p3D);
-				    	
-				    	for (int i = 0; i < polygons.size(); i++) {
-							Polygon3D p3Dp = (Polygon3D) polygons.elementAt(i);
-							if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty())
-								decomposeClippedPolygonIntoZBuffer(p3Dp,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],roadZbuffer);
-						}
-				    	
-				    }
+							
+						    if(index==1){
+						    	
+						    	//build road polgyons
+						    	
+						    	Vector polygons=buildAdditionalRoadPolygons(p3D);
+						    	
+						    	for (int i = 0; i < polygons.size(); i++) {
+									Polygon3D p3Dp = (Polygon3D) polygons.elementAt(i);
+										decomposeClippedPolygonIntoZBuffer(p3Dp,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],roadZbuffer);
+								}
+						    	
+						    }
+					}		
+							
+
 					
-				}
+				} 
 		
 			}
 
@@ -513,7 +516,7 @@ public class Road extends Shader{
 	
 
 	
-	private Vector buildRoadPolygons(Polygon3D p3d) {
+	private Vector buildAdditionalRoadPolygons(Polygon3D p3d) {
 		
 		Vector pols=new Vector();
 		
