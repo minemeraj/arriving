@@ -490,7 +490,7 @@ public class Road extends Shader{
 						    	
 						    	for (int i = 0; i < polygons.size(); i++) {
 									Polygon3D p3Dp = (Polygon3D) polygons.elementAt(i);
-										decomposeClippedPolygonIntoZBuffer(p3Dp,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],roadZbuffer);
+										decomposeClippedPolygonIntoZBuffer(p3Dp,Color.DARK_GRAY,null,roadZbuffer);
 								}
 						    	
 						    }
