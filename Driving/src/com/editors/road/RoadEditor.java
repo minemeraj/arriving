@@ -2559,6 +2559,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void addBendMesh() {
 		
+		if(ACTIVE_PANEL==0){
+			
+			JOptionPane.showMessageDialog(this,"Select road panel to add a bend");
+			return;
+		}
+		
 		
 		prepareUndo();
 		
