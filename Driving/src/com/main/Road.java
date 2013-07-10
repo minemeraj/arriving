@@ -70,6 +70,7 @@ public class Road extends Shader{
 	int dy=3000/NYVISIBLE;//600 orig
 
 	int ROAD_LENGHT=600;
+	int ROAD_THICKNESS=20;
 
 	int CAR_WIDTH=100;
 	
@@ -480,7 +481,20 @@ public class Road extends Shader{
 					if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty())
 							decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],roadZbuffer);
 				
-				
+				    if(index==1){
+				    	
+				    	//build road polgyons
+				    	
+				    	Vector polygons=buildRoadPolygons(p3D);
+				    	
+				    	for (int i = 0; i < polygons.size(); i++) {
+							Polygon3D p3Dp = (Polygon3D) polygons.elementAt(i);
+							if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty())
+								decomposeClippedPolygonIntoZBuffer(p3Dp,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],roadZbuffer);
+						}
+				    	
+				    }
+					
 				}
 		
 			}
@@ -499,6 +513,26 @@ public class Road extends Shader{
 	
 
 	
+	private Vector buildRoadPolygons(Polygon3D p3d) {
+		
+		Vector pols=new Vector();
+		
+		for(int i=0;i<p3d.npoints;i++){
+			
+			Polygon3D pol=new Polygon3D();
+			
+			pol.addPoint(p3d.xpoints[i],p3d.ypoints[i],p3d.zpoints[i]);
+			pol.addPoint(p3d.xpoints[(i+1)%p3d.npoints],p3d.ypoints[(i+1)%p3d.npoints],p3d.zpoints[(i+1)%p3d.npoints]);
+			pol.addPoint(p3d.xpoints[(i+1)%p3d.npoints],p3d.ypoints[(i+1)%p3d.npoints],p3d.zpoints[(i+1)%p3d.npoints]-ROAD_THICKNESS);
+			pol.addPoint(p3d.xpoints[i],p3d.ypoints[i],p3d.zpoints[i]-ROAD_THICKNESS);
+								
+			pols.add(pol);
+			
+		}
+		
+		return pols;
+	}
+
 	private Polygon3D buildLightTransformedPolygon3D(LineData ld,int index) {
 		
 
@@ -923,7 +957,7 @@ public class Road extends Shader{
 			p.z=Double.parseDouble(vals[2])-YFOCUS;
 			
 			if (index==1)
-				p.z+=20;
+				p.z+=ROAD_THICKNESS;
 
 			points.add(p);
 		}
