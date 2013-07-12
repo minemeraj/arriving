@@ -126,6 +126,9 @@ public class Road extends Shader{
 	
 	public static Autocar[] autocars=null;
     double pi_2=Math.PI/2.0;
+    
+	int PARTIAL_MOVZ=0;
+    boolean initMOVZ=true;
 
 		 
 	public Road(){}
@@ -418,7 +421,7 @@ public class Road extends Shader{
 		MOVZ=0;
 
      
-		int PARTIAL_MOVZ=-YFOCUS;
+	    int TRANSZ=0;
 		
 		for(int index=0;index<2;index++){
 	
@@ -433,8 +436,17 @@ public class Road extends Shader{
 	
 					if(p3D.contains(start_car_x,start_car_y)){
 	
-						
-						PARTIAL_MOVZ=-((int)interpolate(start_car_x,start_car_y,p3D)+YFOCUS);
+						int zz=(int)interpolate(start_car_x,start_car_y,p3D);
+						if(initMOVZ){							
+					
+							TRANSZ=zz;
+							PARTIAL_MOVZ=zz;
+							initMOVZ=false;
+						} 						
+						else if(zz<=PARTIAL_MOVZ+ROAD_THICKNESS){
+							TRANSZ=zz;
+							
+						}	
 						//break;
 	
 					}
@@ -463,8 +475,8 @@ public class Road extends Shader{
 			}
 			
 		}
-			
-			MOVZ=PARTIAL_MOVZ;
+			PARTIAL_MOVZ=TRANSZ;
+			MOVZ=-(PARTIAL_MOVZ+YFOCUS);
 			
 			for(int index=0;index<2;index++){
 				
