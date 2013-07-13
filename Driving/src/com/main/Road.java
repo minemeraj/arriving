@@ -74,7 +74,7 @@ public class Road extends Shader{
 
 	int CAR_WIDTH=100;
 	
-	double TURNING_RADIUS=200;
+	double TURNING_RADIUS=100;
 	
 	public static int FORWARD=1;
 	
@@ -485,7 +485,11 @@ public class Road extends Shader{
 			}
 			
 		}
-			PARTIAL_MOVZ=TRANSZ;
+		    if(TRANSZ>=PARTIAL_MOVZ-ROAD_THICKNESS)
+		    	PARTIAL_MOVZ=TRANSZ;
+		    else
+		    	PARTIAL_MOVZ=PARTIAL_MOVZ-ROAD_THICKNESS;
+		    
 			MOVZ=-(PARTIAL_MOVZ+YFOCUS);
 			
 			for(int index=0;index<2;index++){
