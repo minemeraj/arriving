@@ -422,7 +422,7 @@ public class Road extends Shader{
 
      
 	    int TRANSZ=PARTIAL_MOVZ;
-	    boolean start_calculus=true;
+	    boolean start_max_calculus=true;
 		
 		for(int index=0;index<2;index++){
 	
@@ -438,19 +438,20 @@ public class Road extends Shader{
 					if(p3D.contains(start_car_x,start_car_y)){
 	
 						int zz=(int)interpolate(start_car_x,start_car_y,p3D);
+						
 						if(initMOVZ){							
 					
 							TRANSZ=zz;
 							PARTIAL_MOVZ=zz;
 							
 							initMOVZ=false;
-							start_calculus=false;
+							start_max_calculus=false;
 						} 						
 						else if(zz<=PARTIAL_MOVZ+ROAD_THICKNESS){
 							
-							if(start_calculus){
+							if(start_max_calculus){
 								TRANSZ=zz;
-								start_calculus=false;
+								start_max_calculus=false;
 							}
 							else if(zz>=TRANSZ)
 								TRANSZ=zz;
