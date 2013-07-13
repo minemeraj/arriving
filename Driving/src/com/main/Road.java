@@ -421,7 +421,8 @@ public class Road extends Shader{
 		MOVZ=0;
 
      
-	    int TRANSZ=0;
+	    int TRANSZ=PARTIAL_MOVZ;
+	    boolean start_calculus=true;
 		
 		for(int index=0;index<2;index++){
 	
@@ -441,10 +442,18 @@ public class Road extends Shader{
 					
 							TRANSZ=zz;
 							PARTIAL_MOVZ=zz;
+							
 							initMOVZ=false;
+							start_calculus=false;
 						} 						
 						else if(zz<=PARTIAL_MOVZ+ROAD_THICKNESS){
-							TRANSZ=zz;
+							
+							if(start_calculus){
+								TRANSZ=zz;
+								start_calculus=false;
+							}
+							else if(zz>=TRANSZ)
+								TRANSZ=zz;
 							
 						}	
 						//break;
