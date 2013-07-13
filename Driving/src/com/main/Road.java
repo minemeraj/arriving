@@ -512,11 +512,10 @@ public class Road extends Shader{
 						    	
 						    	//build road polgyons
 						    	
-						    	Vector polygons=buildAdditionalRoadPolygons(p3D);
+						    	Polygon3D[] polygons=buildAdditionalRoadPolygons(p3D);
 						    	
-						    	for (int i = 0; i < polygons.size(); i++) {
-									Polygon3D p3Dp = (Polygon3D) polygons.elementAt(i);
-										decomposeClippedPolygonIntoZBuffer(p3Dp,Color.DARK_GRAY,null,roadZbuffer);
+						    	for (int i = 0; i < polygons.length; i++) {
+										decomposeClippedPolygonIntoZBuffer(polygons[i],Color.DARK_GRAY,null,roadZbuffer);
 								}
 						    	
 						    }
@@ -542,20 +541,19 @@ public class Road extends Shader{
 	
 
 	
-	private Vector buildAdditionalRoadPolygons(Polygon3D p3d) {
+	private Polygon3D[] buildAdditionalRoadPolygons(Polygon3D p3d) {
 		
-		Vector pols=new Vector();
+		Polygon3D[] pols=new Polygon3D[p3d.npoints];
 		
 		for(int i=0;i<p3d.npoints;i++){
 			
-			Polygon3D pol=new Polygon3D();
+			pols[i]=new Polygon3D();
 			
-			pol.addPoint(p3d.xpoints[i],p3d.ypoints[i],p3d.zpoints[i]);
-			pol.addPoint(p3d.xpoints[i],p3d.ypoints[i],p3d.zpoints[i]-ROAD_THICKNESS);
-			pol.addPoint(p3d.xpoints[(i+1)%p3d.npoints],p3d.ypoints[(i+1)%p3d.npoints],p3d.zpoints[(i+1)%p3d.npoints]-ROAD_THICKNESS);
-			pol.addPoint(p3d.xpoints[(i+1)%p3d.npoints],p3d.ypoints[(i+1)%p3d.npoints],p3d.zpoints[(i+1)%p3d.npoints]);
-								
-			pols.add(pol);
+			pols[i].addPoint(p3d.xpoints[i],p3d.ypoints[i],p3d.zpoints[i]);
+			pols[i].addPoint(p3d.xpoints[i],p3d.ypoints[i],p3d.zpoints[i]-ROAD_THICKNESS);
+			pols[i].addPoint(p3d.xpoints[(i+1)%p3d.npoints],p3d.ypoints[(i+1)%p3d.npoints],p3d.zpoints[(i+1)%p3d.npoints]-ROAD_THICKNESS);
+			pols[i].addPoint(p3d.xpoints[(i+1)%p3d.npoints],p3d.ypoints[(i+1)%p3d.npoints],p3d.zpoints[(i+1)%p3d.npoints]);
+
 			
 		}
 		
