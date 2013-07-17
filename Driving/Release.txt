@@ -1,3 +1,8 @@
+
+
+Add the function Other->Add grid to add grid to the map. Use combined with the Merge Seleceted
+Points to seam different grid in one.
+
 ------ 13/07/2013   CarDriving 7.0.0
 
 Major change in the program: now the road is a complex object distinguished from the
