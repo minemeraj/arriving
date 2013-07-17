@@ -229,6 +229,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	Color alphaRed=new Color(Color.RED.getRed(),0,0,100);
 	private JMenuItem jmtAddGrid;
+	private JMenu jmSpecial;
+	private JMenuItem jmEqualizeRoadTerrain;
+	private JMenuItem jmEqualizeTerrainRoad;
 	
 	public RoadEditor(String title){
 		
@@ -885,7 +888,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		jmb.add(jm4);
 		
-		jm5=new JMenu("Other");
+		jm5=new JMenu("Editing");
 		jm5.addMenuListener(this);
 		
 		jmtBuildNewGrid = new JMenuItem("New Grid");
@@ -912,7 +915,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		
 
-		
+		jm5.addSeparator();
 		
 		jmtAddBendMesh = new JMenuItem("Add bend");
 		jmtAddBendMesh.addActionListener(this);
@@ -920,6 +923,18 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		
 		jmb.add(jm5);
+		
+		jmSpecial=new JMenu("Special");
+		jmSpecial.addMenuListener(this);		
+		jmb.add(jmSpecial);
+		
+		jmEqualizeRoadTerrain=new JMenuItem("Equalize road->ground");
+		jmEqualizeRoadTerrain.addActionListener(this);		
+		jmSpecial.add(jmEqualizeRoadTerrain);
+		
+		jmEqualizeTerrainRoad=new JMenuItem("Equalize ground->road");
+		jmEqualizeTerrainRoad.addActionListener(this);		
+		jmSpecial.add(jmEqualizeTerrainRoad);
 		
 		help_jm=new JMenu("Help");
 		help_jm.addMenuListener(this);		

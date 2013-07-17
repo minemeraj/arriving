@@ -1,7 +1,9 @@
 
 
-Add the function Other->Add grid to add grid to the map. Use combined with the Merge Seleceted
+Add the function Editing->Add grid to add grid to the map. Use combined with the Merge Selected
 Points to seam different grid in one.
+
+Improvements in the RoadAltimetryPanel and RoadEditorPreviewPanel .
 
 ------ 13/07/2013   CarDriving 7.0.0
 
