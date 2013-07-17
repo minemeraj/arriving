@@ -228,6 +228,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	String[] panelsTitles={"Terrain","Road"};
 	
 	Color alphaRed=new Color(Color.RED.getRed(),0,0,100);
+	private JMenuItem jmtAddGrid;
 	
 	public RoadEditor(String title){
 		
@@ -891,6 +892,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		jmtBuildNewGrid.addActionListener(this);
 		jm5.add(jmtBuildNewGrid);
 		
+		jm5.addSeparator();
+		
+		jmtAddGrid = new JMenuItem("Add grid");
+		jmtAddGrid.addActionListener(this);
+		jm5.add(jmtAddGrid);
+		
+		jm5.addSeparator();
+		
 		if(DrawObject.IS_3D)
 		{
 			jmtPreview = new JMenuItem("Preview");
@@ -901,6 +910,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			jmtShowAltimetry.addActionListener(this);
 			jm5.add(jmtShowAltimetry);
 		}
+		
+
 		
 		
 		jmtAddBendMesh = new JMenuItem("Add bend");
@@ -1762,6 +1773,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			if(ld.isSelected())
 				continue;
 			LineData newLd = new LineData();
+			newLd.setTexture_index(ld.getTexture_index());
 			boolean insertedFirst=false;
 
 			for(int j=0;j<ld.size();j++){
@@ -2289,7 +2301,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			showAltimetry();
 		}
 		else if(o==jmtBuildNewGrid){
-			buildNewGrid(ACTIVE_PANEL);
+			buildNewGrid();
+		}
+		else if(o==jmtAddGrid){
+			addGrid();
 		}
 		else if(o==jmtAddBendMesh){
 			addBendMesh();
@@ -2448,6 +2463,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
+
+
 	public void menuCanceled(MenuEvent e) {
 		// TODO Auto-generated method stub
 
@@ -2485,7 +2502,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 	
 	
-	private void buildNewGrid(int index) { 
+	private void buildNewGrid() { 
 		
 		RoadEditorGridManager regm=new RoadEditorGridManager(null);
 		
@@ -2535,6 +2552,77 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					int pl2=i+numx*(j+1);
 					int pl3=i+1+numx*(j+1);
 					int pl4=i+1+numx*j;
+					
+					LineData ld=new LineData(pl1, pl4, pl3, pl2);
+					
+					if(ACTIVE_PANEL==1)
+						ld.setTexture_index(0);
+					else
+						ld.setTexture_index(2);
+					
+					lines[ACTIVE_PANEL].add(ld);
+					
+					
+					
+				}
+			
+			
+		}
+		
+		displayAll();
+		
+	}
+	
+	private void addGrid() { 
+		
+		RoadEditorGridManager regm=new RoadEditorGridManager(null);
+		
+		if(regm.getReturnValue()!=null){
+			
+			RoadEditorGridManager roadEGM=(RoadEditorGridManager) regm.getReturnValue();
+			
+
+
+			
+			double z_value=0;
+			
+			int numx=roadEGM.NX;
+			int numy=roadEGM.NY;
+			
+			double dx=roadEGM.DX;
+			double dy=roadEGM.DY;
+			
+			double x_0=roadEGM.X0;
+			double y_0=roadEGM.Y0;
+			
+			int tot=numx*numy;
+			
+			int sz=points[ACTIVE_PANEL].size();
+			
+
+			points[ACTIVE_PANEL].setSize(sz+numy*numx);
+			
+			
+			for(int i=0;i<numx;i++)
+				for(int j=0;j<numy;j++)
+				{
+					
+					Point4D p=new Point4D(i*dx+x_0,j*dy+y_0,z_value);
+				
+					points[ACTIVE_PANEL].setElementAt(p,sz+i+j*numx);
+
+				}
+
+			
+			for(int i=0;i<numx-1;i++)
+				for(int j=0;j<numy-1;j++){
+
+	
+					//lower base
+					int pl1=sz+i+numx*j;
+					int pl2=sz+i+numx*(j+1);
+					int pl3=sz+i+1+numx*(j+1);
+					int pl4=sz+i+1+numx*j;
 					
 					LineData ld=new LineData(pl1, pl4, pl3, pl2);
 					
