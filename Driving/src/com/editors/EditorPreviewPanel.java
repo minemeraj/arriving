@@ -91,7 +91,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 		bottom.setBounds(0,HEIGHT,WIDTH,BOTTOM_HEIGHT);
 		
 		JLabel usage=new JLabel();
-		usage.setText("Move with arrow keys,zoom with F1,F2;rotate q,w and a,s");
+		usage.setText("Move with arrow keys,zoom with F1,F2");
 		bottom.add(usage);
 		add(bottom);
 	}
