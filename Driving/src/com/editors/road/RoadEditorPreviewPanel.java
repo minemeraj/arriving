@@ -67,6 +67,11 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 
 		super.initialize();
 
+		deltax=4;
+		deltay=4;
+		
+		POSX=0;
+		POSY=1000;
 
 		try {
 

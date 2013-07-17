@@ -418,7 +418,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 			//System.out.println(xp+" "+yp);
 
 			if(xp>=0 && xp<WIDTH && yp>=0 && yp<HEIGHT)
-				g2.fillOval(xp-1, yp-1,2,2);
+				g2.fillOval(xp-2, yp-2,5,5);
 
 		}
 
