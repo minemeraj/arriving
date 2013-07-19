@@ -70,6 +70,7 @@ import javax.swing.event.MenuListener;
 import com.CubicMesh;
 import com.DrawObject;
 import com.LineData;
+import com.Plain;
 import com.Point3D;
 import com.Point4D;
 import com.Polygon3D;
@@ -230,8 +231,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	Color alphaRed=new Color(Color.RED.getRed(),0,0,100);
 	private JMenuItem jmtAddGrid;
 	private JMenu jmSpecial;
-	private JMenuItem jmEqualizeRoadTerrain;
-	private JMenuItem jmEqualizeTerrainRoad;
+	private JMenuItem jmtLevelRoadTerrain;
+	private JMenuItem jmLevelTerrainRoad;
 	
 	public RoadEditor(String title){
 		
@@ -928,13 +929,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		jmSpecial.addMenuListener(this);		
 		jmb.add(jmSpecial);
 		
-		jmEqualizeRoadTerrain=new JMenuItem("Equalize road->ground");
-		jmEqualizeRoadTerrain.addActionListener(this);		
-		jmSpecial.add(jmEqualizeRoadTerrain);
+		jmtLevelRoadTerrain=new JMenuItem("Level road->ground");
+		jmtLevelRoadTerrain.addActionListener(this);		
+		jmSpecial.add(jmtLevelRoadTerrain);
 		
-		jmEqualizeTerrainRoad=new JMenuItem("Equalize ground->road");
-		jmEqualizeTerrainRoad.addActionListener(this);		
-		jmSpecial.add(jmEqualizeTerrainRoad);
+		jmLevelTerrainRoad=new JMenuItem("Level ground->road");
+		jmLevelTerrainRoad.addActionListener(this);		
+		jmSpecial.add(jmLevelTerrainRoad);
 		
 		help_jm=new JMenu("Help");
 		help_jm.addMenuListener(this);		
@@ -2473,7 +2474,20 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			moveSelectedObject(0,0,-1);
 
 		}
+		else if(o==jmtLevelRoadTerrain){
+
+			levelRoadTerrain(1);
+
+		}
+		else if(o==jmLevelTerrainRoad){
+
+			levelRoadTerrain(-1);
+
+		}
+		
+		
 	}
+
 
 
 
@@ -2659,6 +2673,121 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 	
+
+	private void levelRoadTerrain(int action) {
+
+		//jmtLevelRoadTerrain
+		int from=0;
+		int to=1;
+		//jmtLevelTerrainRoad
+
+		if(action<0){
+
+			from=1;
+			to=0;
+
+		}	
+
+
+
+
+		for (int i = 0; i < points[from].size(); i++) {
+
+			Point3D point=(Point3D)points[from].elementAt(i);
+			
+			if(!point.isSelected)
+				continue;
+
+			int lsize=lines[to].size();
+
+
+			for(int j=0;j<lsize;j++){
+
+
+				LineData ld=(LineData) lines[to].elementAt(j);
+
+				Polygon3D p3D=levelGetPolygon(ld,points[to]);
+
+				if(p3D.contains(point.x,point.y)){
+					
+					int posz=(int)interpolate(point.x,point.y,p3D);
+					point.z=posz;
+					
+				}
+
+
+			} 
+
+
+		}
+
+	}
+	
+	protected double interpolate(double px, double py, Polygon3D p3d) {
+	       
+		/*Plain plain=Plain.calculatePlain(p3d);
+		return plain.calculateZ(px,py);
+
+		 */
+		Polygon3D p1=Polygon3D.extractSubPolygon3D(p3d,3,0);
+
+		if(p1.hasInsidePoint(px,py)){
+
+			Plain plane1=Plain.calculatePlain(p1);
+
+			return plane1.calculateZ(px,py);
+
+		}
+
+		Polygon3D p2=Polygon3D.extractSubPolygon3D(p3d,3,2);
+
+		if(p2.hasInsidePoint(px,py)){
+
+			Plain plane2=Plain.calculatePlain(p2);
+
+			return plane2.calculateZ(px,py);
+
+		}
+
+
+		return 0;
+	}
+	
+
+	private Polygon3D levelGetPolygon(LineData ld, Vector points) {
+		
+	
+
+		int size=ld.size();
+
+		int[] cx=new int[size];
+		int[] cy=new int[size];
+		int[] cz=new int[size];
+
+
+		for(int i=0;i<size;i++){
+
+
+			int num=ld.getIndex(i);
+
+			Point4D p=(Point4D) points.elementAt(num);
+			
+
+
+			//bufGraphics.setColor(ZBuffer.fromHexToColor(is[i].getHexColor()));
+
+			cx[i]=(int)p.x;
+			cy[i]=(int)p.y;
+			cz[i]=(int)p.z;
+
+	
+
+		}
+
+		Polygon3D p_in=new Polygon3D(ld.size(),cx,cy,cz);
+		
+		return p_in;
+	}
 
 	private void addBendMesh() {
 		
