@@ -1,9 +1,16 @@
+--------
 
+"Other" menu "renamed" as Editing.
 
-Add the function Editing->Add grid to add grid to the map. Use combined with the Merge Selected
+Added the function Editing->Add grid to add grid to the map. Use combined with the Merge Selected
 Points to seam different grid in one.
 
-Improvements in the RoadAltimetryPanel and RoadEditorPreviewPanel .
+Improvements in the RoadAltimetryPanel and RoadEditorPreviewPanel.
+
+Added the "Special" menu with functions
+
+special-> Level road->ground
+special-> Level ground->road
 
 ------ 13/07/2013   CarDriving 7.0.0
 
