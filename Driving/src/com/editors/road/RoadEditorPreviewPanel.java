@@ -2,6 +2,8 @@ package com.editors.road;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -27,7 +29,7 @@ import com.main.Road;
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
 
-public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyListener, PropertyChangeListener{
+public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyListener, PropertyChangeListener,MouseWheelListener{
 
 
 
@@ -60,6 +62,7 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 		roadEditor.addPropertyChangeListener(this);
 		
 		addKeyListener(this);
+		addMouseWheelListener(this);
 		setVisible(true);
 		initialize();
 	}
@@ -251,6 +254,29 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 		
 	
 
+		
+	}
+
+
+	
+	public void mouseWheelMoved(MouseWheelEvent arg0) {
+		
+		int pix=arg0.getUnitsToScroll();
+		if(pix>0) up();
+		else down();
+		
+		draw();
+	}
+
+
+	private void down() {
+		y0+=5;
+		
+	}
+
+
+	private void up() {
+		y0-=5;
 		
 	}
 
