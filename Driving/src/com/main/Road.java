@@ -70,7 +70,7 @@ public class Road extends Shader{
 	int dy=3000/NYVISIBLE;//600 orig
 
 	int ROAD_LENGHT=600;
-	int ROAD_THICKNESS=20;
+	public static int ROAD_THICKNESS=20;
 
 	int CAR_WIDTH=100;
 	
@@ -541,7 +541,7 @@ public class Road extends Shader{
 	
 
 	
-	private Polygon3D[] buildAdditionalRoadPolygons(Polygon3D p3d) {
+	public static Polygon3D[] buildAdditionalRoadPolygons(Polygon3D p3d) {
 		
 		Polygon3D[] pols=new Polygon3D[p3d.npoints];
 		

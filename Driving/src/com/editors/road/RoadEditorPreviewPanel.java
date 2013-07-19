@@ -1,4 +1,5 @@
 package com.editors.road;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -15,6 +16,7 @@ import com.Polygon3D;
 import com.Texture;
 import com.ZBuffer;
 import com.editors.EditorPreviewPanel;
+import com.main.Road;
 
 
 
@@ -139,9 +141,21 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 	
 				LineData ld=(LineData) lines[index].elementAt(j);
 	
-				Polygon3D p3D=buildTranslatedPolygon3D(ld,points[index]);
+				Polygon3D p3D=buildTranslatedPolygon3D(ld,points[index],index);
 	
 				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),worldTextures[p3D.getIndex()],roadZbuffer);
+				
+			    if(index==1){
+			    	
+			    	//build road polgyons
+			    	
+			    	Polygon3D[] polygons=Road.buildAdditionalRoadPolygons(p3D);
+			    	
+			    	for (int i = 0; i < polygons.length; i++) {
+							decomposeClippedPolygonIntoZBuffer(polygons[i],Color.DARK_GRAY,null,roadZbuffer);
+					}
+			    	
+			    }
 	
 	
 			}
@@ -179,36 +193,11 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 		}
 	}
 	
-	/*public Polygon3D buildTranslatedPolygon3D(int i,Point4D[] is,  Point4D[] is2){
-
-		int[] cx=new int[4];
-		int[] cy=new int[4];
-		int[] cz=new int[4];	
-
-		cx[0]=(int) (is[i].x-POSX);
-		cy[0]=(int) (is[i].y-POSY);
-		cz[0]=(int) (is[i].z+MOVZ);
-		cx[1]=(int) (is[i+1].x-POSX);
-		cy[1]=(int) (is[i+1].y-POSY);
-		cz[1]=(int) (is[i+1].z+MOVZ);
-		cx[2]=(int) (is2[i+1].x-POSX);
-		cy[2]=(int) (is2[i+1].y-POSY);
-		cz[2]=(int) (is2[i+1].z+MOVZ);
-		cx[3]=(int) (is2[i].x-POSX);
-		cy[3]=(int) (is2[i].y-POSY);
-		cz[3]=(int) (is2[i].z+MOVZ);
-		
-		Polygon3D p3D=new Polygon3D(4,cx,cy,cz);
-
-		p3D.setHexColor(is[i].getHexColor());
-		p3D.setIndex(is[i].getIndex());
-		
-		return p3D;
-	}*/
 
 
 
-	private Polygon3D buildTranslatedPolygon3D(LineData ld,Vector points) {
+
+	private Polygon3D buildTranslatedPolygon3D(LineData ld,Vector points,int index) {
 
 
 
@@ -231,6 +220,9 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 			cxr[i]=(int)(p.x)-POSX;
 			cyr[i]=(int)(p.y)-POSY;
 			czr[i]=(int)(p.z)+MOVZ;
+			
+			if(index==1)
+				czr[i]+=Road.ROAD_THICKNESS;
 
 		}
 
