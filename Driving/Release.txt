@@ -1,6 +1,6 @@
 --------
 
-"Other" menu "renamed" as Editing.
+"Other" menu renamed as "Editing".
 
 Added the function Editing->Add grid to add grid to the map. Use combined with the Merge Selected
 Points to seam different grid in one.
@@ -11,6 +11,8 @@ Added the "Special" menu with functions
 
 special-> Level road->ground
 special-> Level ground->road
+
+Now the preview panel shows both the road and the terrain at the same time.
 
 ------ 13/07/2013   CarDriving 7.0.0
 
