@@ -2677,14 +2677,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private void levelRoadTerrain(int action) {
 
 		//jmtLevelRoadTerrain
-		int from=0;
-		int to=1;
+		int from=1;
+		int to=0;
 		//jmtLevelTerrainRoad
 
 		if(action<0){
 
-			from=1;
-			to=0;
+			from=0;
+			to=1;
 
 		}	
 
@@ -2697,6 +2697,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			if(!point.isSelected)
 				continue;
+			
+			
 
 			int lsize=lines[to].size();
 
@@ -2712,7 +2714,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					
 					int posz=(int)interpolate(point.x,point.y,p3D);
 					point.z=posz;
-					
+					System.out.println(posz);
 				}
 
 
