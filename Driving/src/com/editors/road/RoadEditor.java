@@ -2714,7 +2714,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					
 					int posz=(int)interpolate(point.x,point.y,p3D);
 					point.z=posz;
-					System.out.println(posz);
+					
 				}
 
 
