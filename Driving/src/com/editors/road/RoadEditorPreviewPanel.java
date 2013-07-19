@@ -42,8 +42,8 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 	public int POSY=0;
 	public int MOVZ=0;
 	
-	public Vector points=new Vector();
-	public Vector lines=new Vector();
+	public Vector[] points=new Vector[2];
+	public Vector[] lines=new Vector[2];
 	
 	
 	public RoadEditorPreviewPanel( RoadEditor roadEditor) {
@@ -51,8 +51,8 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 		super();
 		this.roadEditor=roadEditor;
 	
-		this.lines=roadEditor.lines[roadEditor.ACTIVE_PANEL];
-		this.points=roadEditor.points[roadEditor.ACTIVE_PANEL];
+		this.lines=roadEditor.lines;
+		this.points=roadEditor.points;
 		
 		this.roadEditor=roadEditor;
 		roadEditor.addPropertyChangeListener(this);
@@ -130,18 +130,22 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 
 	private void drawRoad(BufferedImage buf) {
 		
-		int sizel=lines.size();
-
-		for(int j=0;j<sizel;j++){
-
-
-			LineData ld=(LineData) lines.elementAt(j);
-
-			Polygon3D p3D=buildTranslatedPolygon3D(ld,points);
-
-			decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),worldTextures[p3D.getIndex()],roadZbuffer);
-
-
+		for(int index=0;index<2;index++){
+		
+			int sizel=lines[index].size();
+	
+			for(int j=0;j<sizel;j++){
+	
+	
+				LineData ld=(LineData) lines[index].elementAt(j);
+	
+				Polygon3D p3D=buildTranslatedPolygon3D(ld,points[index]);
+	
+				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),worldTextures[p3D.getIndex()],roadZbuffer);
+	
+	
+			}
+		
 		}
 
 		buildScreen(buf); 
@@ -248,8 +252,8 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 				|| "RoadEditorUpdate".equals(evt.getPropertyName())
 		)
 		{
-			this.lines=roadEditor.lines[roadEditor.ACTIVE_PANEL];
-			this.points=roadEditor.points[roadEditor.ACTIVE_PANEL];
+			this.lines=roadEditor.lines;
+			this.points=roadEditor.points;
 			draw();
 		}
 		
