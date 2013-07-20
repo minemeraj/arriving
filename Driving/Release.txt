@@ -1,9 +1,9 @@
---------
+-------- 20/07/2013   CarDriving 7.0.1
 
 "Other" menu renamed as "Editing".
 
 Added the function Editing->Add grid to add grid to the map. Use combined with the Merge Selected
-Points to seam different grid in one.
+Points to seam different grids in one.
 
 Improvements in the RoadAltimetryPanel and RoadEditorPreviewPanel.
 
@@ -14,7 +14,7 @@ special-> Level ground->road
 
 Now the preview panel shows both the road and the terrain at the same time.
 
-Now in the preview panel use the mouse wheel to move the landscape up and down.
+Now, in the preview panel, use the mouse wheel to move the landscape up and down.
 
 ------ 13/07/2013   CarDriving 7.0.0
 
