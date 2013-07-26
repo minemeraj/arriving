@@ -79,6 +79,7 @@ import com.Texture;
 import com.ZBuffer;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
+import com.main.CarFrame;
 import com.main.HelpPanel;
 
 
@@ -234,6 +235,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JMenuItem jmtLevelRoadTerrain;
 	private JMenuItem jmLevelTerrainRoad;
 	
+	public static ZBuffer[] landscapeZbuffer;
+	public int blackRgb= Color.BLACK.getRGB();
+	public int[] rgb=null;
+	public Color selectionColor=null;
+	
 	public RoadEditor(String title){
 		
 		setTitle(title);
@@ -358,7 +364,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	 */
 	public void initialize() {
 
-
+		landscapeZbuffer=new ZBuffer[WIDTH*HEIGHT];
+		rgb=new int[WIDTH*HEIGHT];
+		buildNewZBuffers();
+		selectionColor=new Color(255,0,0,127);
+		
 		g2=(Graphics2D) center.getGraphics();
 		g2Alias=(Graphics2D) center.getGraphics();
 		g2Alias.setColor(Color.GRAY);
@@ -475,10 +485,45 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 
+	public void buildNewZBuffers() {
 
 
+		for(int i=0;i<landscapeZbuffer.length;i++){
 
-	private void displayObjects(Graphics2D bufGraphics) {
+			landscapeZbuffer[i]=new ZBuffer(blackRgb,0);
+            
+
+		}
+	
+
+	}
+	
+	public void buildScreen(BufferedImage buf) {
+
+		int length=rgb.length;
+		
+		for(int i=0;i<length;i++){
+
+
+			ZBuffer zb=landscapeZbuffer[i];
+			//set
+			rgb[i]=zb.getRgbColor(); 
+			
+			//clean
+			zb.set(0,0,0,blackRgb);
+              
+		
+
+		}
+		
+		buf.getRaster().setDataElements( 0,0,WIDTH,HEIGHT,rgb);
+		//buf.setRGB(0,0,WIDTH,HEIGHT,rgb,0,WIDTH);
+
+
+	}
+
+
+	private void displayObjects(ZBuffer[] landscapeZbuffer) {
 
 		Rectangle totalVisibleField=new Rectangle(0,0,WIDTH,HEIGHT);
 
@@ -499,12 +544,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					!totalVisibleField.contains(x,y)	)
 				continue;
 
-			if(dro.isSelected())
+			/*if(dro.isSelected())
 				bufGraphics.setColor(Color.RED);
 			else
 				bufGraphics.setColor(Color.WHITE);
-			bufGraphics.drawString(""+index,x-5,y+5);
-			drawObject(bufGraphics,dro);
+			bufGraphics.drawString(""+index,x-5,y+5);*/
+			drawObject(landscapeZbuffer,dro);
 
 		}	
 	}
@@ -566,9 +611,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		bufGraphics.fillRect(0,0,WIDTH,HEIGHT);
 
 		//draw first the ground and the road above
-		displayRoad(bufGraphics,buf,0);
-		displayRoad(bufGraphics,buf,1);
-		displayObjects(bufGraphics);
+		displayRoad(landscapeZbuffer,0);
+		displayRoad(landscapeZbuffer,1);
+		displayObjects(landscapeZbuffer);
+		
+		buildScreen(buf);
 
 		g2.drawImage(buf,0,0,WIDTH,HEIGHT,null);
 
@@ -577,7 +624,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
-	private void displayRoad(Graphics2D bufGraphics,BufferedImage buf,int index) {
+	private void displayRoad(ZBuffer[] landscapeZbuffer,int index) {
 
 				
 		int lsize=lines[index].size();
@@ -588,7 +635,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			LineData ld=(LineData) lines[index].elementAt(j);
 
-			drawPolygon(ld,points[index],bufGraphics,buf,index);
+			drawPolygon(ld,points[index],landscapeZbuffer,index);
 
 		} 
 
@@ -598,24 +645,24 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		for(int j=0;j<size;j++){
 
 
-		    Point4D p=(Point4D) points[index].elementAt(j);
+		   /* Point4D p=(Point4D) points[index].elementAt(j);
 
 				int xo=convertX(p.x);
 				int yo=convertY(p.y);
 
 				if(p.isSelected()){
-					bufGraphics.setColor(Color.RED);
+					landscapeZbuffer.setColor(Color.RED);
 
 				}	
 				else
-					bufGraphics.setColor(Color.white);
+					landscapeZbuffer.setColor(Color.white);
 	
-				bufGraphics.fillOval(xo-2,yo-2,5,5);
+				landscapeZbuffer.fillOval(xo-2,yo-2,5,5);*/
 
 			}
 		
 		
-		drawCurrentRect(bufGraphics);
+		//drawCurrentRect(landscapeZbuffer);
 	}
 
 	private int convertX(double i) {
@@ -643,7 +690,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		displayAll();
 	}
 
-	private void drawObject(Graphics2D bufGraphics, DrawObject dro) {
+	private void drawObject(ZBuffer[] landscapeZbuffer, DrawObject dro) {
 
 		int[] cx=new int[4];
 		int[] cy=new int[4];
@@ -671,10 +718,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		Polygon pTot=Polygon3D.fromAreaToPolygon2D(partialArea);
 		//if(cy[0]<0 || cy[0]>HEIGHT || cx[0]<0 || cx[0]>WIDTH) return;
-		bufGraphics.setColor(ZBuffer.fromHexToColor(dro.getHexColor()));
-		bufGraphics.drawPolygon(pTot);
 		
-		if(!DrawObject.IS_3D){
+		//bufGraphics.setColor(ZBuffer.fromHexToColor(dro.getHexColor()));
+		drawPolygon(landscapeZbuffer,pTot,ZBuffer.fromHexToColor(dro.getHexColor()));
+		
+		/*if(!DrawObject.IS_3D){
 	
 			bufGraphics.drawImage(DrawObject.fromImageToBufferedImage(objectImages[dro.index],Color.WHITE)
 					,cx[0],cy[0],cx[2]-cx[0],cy[2]-cy[0],null);
@@ -683,11 +731,107 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		{
 			bufGraphics.setColor(Color.RED);
 			bufGraphics.draw(pTot);
-		}
+		}*/
 	}
 
 
-	private void drawPolygon(LineData ld,Vector points,Graphics2D bufGraphics,BufferedImage buf,int indx) {
+	private void drawPolygon(ZBuffer[] landscapeZbuffer, Polygon pTot, Color color) {
+		
+		int rgbColor = color.getRGB();
+		
+		for (int n = 0; n < pTot.npoints; n++) {
+			
+			int i=pTot.xpoints[n];
+			int j=pTot.ypoints[n];
+			
+			int ii=pTot.xpoints[(n+1)%pTot.npoints];
+			int jj=pTot.ypoints[(n+1)%pTot.npoints];
+			
+			drawLine(landscapeZbuffer,i,j,ii,jj,rgbColor);
+			
+			
+		
+		}
+		
+	}
+
+	private void drawLine(ZBuffer[] landscapeZbuffer2, int i, int j, int ii,
+			int jj, int rgbColor) {
+		
+		int mini=i;
+		int maxi=ii;
+		
+		int minj=j;
+		int maxj=jj;
+		
+		if(ii<i){
+			
+			mini=ii;
+			maxi=i;
+			
+		}
+		
+		if(jj<j){
+			
+			minj=jj;
+			maxj=j;
+			
+		}
+		
+		if(j==jj){			
+			
+			for (int k = mini; k < maxi; k++) {
+				
+				int tot=k+j*WIDTH;
+				
+				landscapeZbuffer[tot].setRgbColor(rgbColor);
+				
+			}
+		}
+		else if(i==ii){
+			
+			for (int k = minj; k < maxj; k++) {
+					
+					int tot=i+k*WIDTH;
+					
+					landscapeZbuffer[tot].setRgbColor(rgbColor);
+					
+				}
+				
+		}
+		else{
+			
+			for (int k = mini; k < maxi; k++) {
+				
+				double l=(i-mini)/(maxi-mini);
+				
+				
+				if(ii>i)
+				{
+					double y=(1-l)*j+l*jj;
+					int tot=(int)(k+y*WIDTH);
+					landscapeZbuffer[tot].setRgbColor(rgbColor);
+					
+				}	
+				else{
+					
+					double y=(1-l)*jj+l*j;
+					int tot=(int)(k+y*WIDTH);
+					landscapeZbuffer[tot].setRgbColor(rgbColor);
+					
+				}
+				
+				
+				
+				
+			}
+			
+			
+		}
+		
+	}
+
+	private void drawPolygon(LineData ld,Vector points,ZBuffer[] landscapeZbuffer,int indx) {
 
 
 		Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
@@ -737,29 +881,32 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		if(isUseTextures){
 
-			//Rectangle rect = p_in.getBounds();
+			
 
 			int index=ld.getTexture_index();//????
-			//bufGraphics.setClip(partialArea);
-			//bufGraphics.drawImage(worldImages[index],rect.x,rect.y,rect.width,rect.height,null);
-			drawTexture(worldTextures[index],p3d,p3dr,buf);
-			//bufGraphics.setClip(null);
+			Color selected=null;
+			
+			if(ld.isSelected()){
+				
+				if(indx<0 || indx==ACTIVE_PANEL){
+					selected=selectionColor;
+				}
+			}
+			
+
+
+			drawTexture(worldTextures[index],p3d,p3dr,landscapeZbuffer,selected);
+			
 		}
 		else{
-			bufGraphics.setColor(ZBuffer.fromHexToColor(ld.getHexColor()));
-			bufGraphics.fill(partialArea); 
+			/*bufGraphics.setColor(ZBuffer.fromHexToColor(ld.getHexColor()));
+			bufGraphics.fill(partialArea); */
 		}
-		if(ld.isSelected()){
-			
-			if(indx<0 || indx==ACTIVE_PANEL){
-				bufGraphics.setColor(alphaRed);
-				bufGraphics.fill(partialArea); 
-			}
-		}
+
 
 	}
 
-	private void drawTexture(Texture texture,  Polygon3D p3d, Polygon3D p3dr, BufferedImage buf) {
+	private void drawTexture(Texture texture,  Polygon3D p3d, Polygon3D p3dr,ZBuffer[] landscapeZbuffe, Color selected) {
 
 		Point3D normal=Polygon3D.findNormal(p3dr);
 
@@ -797,6 +944,22 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			System.out.println(xDirection.x+" "+xDirection.y);
 			System.out.println(yDirection.x+" "+yDirection.y);*/
 
+			
+			int mask = 0xFF;
+			double a1=0.6;
+			double a2=1.0-a1;
+			
+			double rr=0;
+			double gg=0;
+			double bb=0;
+			if(selected!=null){
+				
+				int rgbSelection=selected.getRGB();
+				rr=a2*(rgbSelection>>16 & mask);
+				gg=a2*(rgbSelection>>8 & mask);
+				bb=a2*(rgbSelection & mask);
+			}
+			
 			for(int i=i0;i<i1;i++){
 				
 				//how to calculate the real limits?
@@ -811,12 +974,25 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 						int ii=invertX(i);
 						int jj=invertY(j);
 				
-						if(i>=0 && i<buf.getWidth() && j>=0 && j<buf.getHeight()){
-						
+						if(i>=0 && i<WIDTH && j>=0 && j<HEIGHT){
+							
+							int tot=i+j*WIDTH;											
 
 							int rgbColor = ZBuffer.pickRGBColorFromTexture(texture,ii,jj,p3d.zpoints[0],xDirection,yDirection,p0r,0,0);
+							
+							if(selected!=null){
+								
+								
+								
+							    //int a=(int) (a1*(rgbColor>>32 & mask)+a2*(rgbSelection>>32 & mask));
+							    int r=(int) (a1*(rgbColor>>16 & mask)+rr);
+							    int g=(int) (a1*(rgbColor>>8 & mask)+gg);
+							    int b=(int) (a1*(rgbColor & mask)+bb);
+								
+								rgbColor= (255 << 32) + (r << 16) + (g << 8) + b;
+							}
 
-							buf.setRGB(i,j,rgbColor);
+							landscapeZbuffer[tot].setRgbColor(rgbColor);
 				
 						}
 						
