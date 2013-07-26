@@ -719,25 +719,47 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		Polygon pTot=Polygon3D.fromAreaToPolygon2D(partialArea);
 		//if(cy[0]<0 || cy[0]>HEIGHT || cx[0]<0 || cx[0]>WIDTH) return;
 		
-		//bufGraphics.setColor(ZBuffer.fromHexToColor(dro.getHexColor()));
-		drawPolygon(landscapeZbuffer,pTot,ZBuffer.fromHexToColor(dro.getHexColor()));
 		
-		/*if(!DrawObject.IS_3D){
-	
-			bufGraphics.drawImage(DrawObject.fromImageToBufferedImage(objectImages[dro.index],Color.WHITE)
-					,cx[0],cy[0],cx[2]-cx[0],cy[2]-cy[0],null);
-		}
+		Color pColor=ZBuffer.fromHexToColor(dro.getHexColor());
+		
+		
 		if(dro.isSelected())
 		{
-			bufGraphics.setColor(Color.RED);
-			bufGraphics.draw(pTot);
-		}*/
+			pColor=Color.RED;
+			
+		}
+		int rgbColor = pColor.getRGB();
+		drawPolygon(landscapeZbuffer,pTot,rgbColor);
+		
+		if(!DrawObject.IS_3D){
+	
+			drawImage(landscapeZbuffer,DrawObject.fromImageToBufferedImage(objectImages[dro.index],Color.WHITE)
+					,cx[0],cy[0],cx[2]-cx[0],cy[2]-cy[0],null);
+		}
+		
+
 	}
 
 
-	private void drawPolygon(ZBuffer[] landscapeZbuffer, Polygon pTot, Color color) {
+	private void drawImage(ZBuffer[] landscapeZbuffer2,
+			BufferedImage bufferedImage, int x, int y, int dx, int dy,
+			Object object) {
+	
+		for(int i=x;i<dx+x;i++)
+			for(int j=y;j<dy+y;j++){
+				
+				int rgbColor=bufferedImage.getRGB(i,j);
+				
+				int tot=(int)(x+y*WIDTH);
+				landscapeZbuffer[tot].setRgbColor(rgbColor);
+			}
 		
-		int rgbColor = color.getRGB();
+		
+	}
+
+	private void drawPolygon(ZBuffer[] landscapeZbuffer, Polygon pTot, int rgbColor) {
+		
+		
 		
 		for (int n = 0; n < pTot.npoints; n++) {
 			
