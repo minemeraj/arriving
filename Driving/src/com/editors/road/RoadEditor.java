@@ -216,6 +216,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public static Texture[] worldTextures;
 	public static BufferedImage[] worldImages;
 	public static BufferedImage[] objectImages;
+	public static BufferedImage[] objectIndexes;
+	
+	int indexWidth=40;
+	int indexHeight=18;
 
 	public static Color BACKGROUND_COLOR=new Color(0,0,0);
 	private JMenuItem jmtShowAltimetry;
@@ -460,6 +464,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			objectImages=new BufferedImage[vObjects.size()];
 			objectMeshes=new CubicMesh[vObjects.size()];
+			objectIndexes=new BufferedImage[vObjects.size()];
 			
 			for(int i=0;i<vObjects.size();i++){
 				
@@ -472,7 +477,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				}
 				
 					
-					
+				objectIndexes[i]=new BufferedImage(indexWidth,indexHeight,BufferedImage.TYPE_INT_RGB);
+				objectIndexes[i].getGraphics().setColor(Color.white);
+				objectIndexes[i].getGraphics().drawString(""+i,0,indexHeight);
 					
 				
 			}
@@ -544,11 +551,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					!totalVisibleField.contains(x,y)	)
 				continue;
 
-			/*if(dro.isSelected())
-				bufGraphics.setColor(Color.RED);
-			else
-				bufGraphics.setColor(Color.WHITE);
-			bufGraphics.drawString(""+index,x-5,y+5);*/
+		
+			
 			drawObject(landscapeZbuffer,dro);
 
 		}	
@@ -731,6 +735,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		int rgbColor = pColor.getRGB();
 		drawPolygon(landscapeZbuffer,pTot,rgbColor);
 		
+	
+				
+		drawImage(landscapeZbuffer,objectIndexes[dro.getIndex()]
+						,cx[0]-5,cy[0]-5,indexWidth,indexHeight,Color.BLACK);		
+		
 		if(!DrawObject.IS_3D){
 	
 			drawImage(landscapeZbuffer,DrawObject.fromImageToBufferedImage(objectImages[dro.index],Color.WHITE)
@@ -742,15 +751,25 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 	private void drawImage(ZBuffer[] landscapeZbuffer2,
-			BufferedImage bufferedImage, int x, int y, int dx, int dy,
-			Object object) {
+			BufferedImage bufferedImage, int x, int y, int dx, int dy,Color transparentColor) {
+		
+		
+		double alfax=bufferedImage.getWidth()*1.0/dx;
+		double alfay=bufferedImage.getHeight()*1.0/dy;
 	
-		for(int i=x;i<dx+x;i++)
-			for(int j=y;j<dy+y;j++){
+		for(int i=0;i<dx;i++)
+			for(int j=0;j<dy;j++){
 				
-				int rgbColor=bufferedImage.getRGB(i,j);
+				if(i+x<0 || i+x>=WIDTH || j+y<0 || j+y>=HEIGHT)
+					continue;
 				
-				int tot=(int)(x+y*WIDTH);
+				int rgbColor=bufferedImage.getRGB((int)(alfax*i),(int)(alfay*j));
+				
+				if(transparentColor!=null && transparentColor.getRGB()==rgbColor)
+					continue;
+				
+				int tot=(int)(i+x+(j+y)*WIDTH);
+				
 				landscapeZbuffer[tot].setRgbColor(rgbColor);
 			}
 		
