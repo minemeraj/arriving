@@ -823,43 +823,51 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			for (int k = mini; k < maxi; k++) {
 				
-				int tot=k+j*WIDTH;
+				if(k>=0 && k<WIDTH && j>=0 && j<HEIGHT){
 				
-				landscapeZbuffer[tot].setRgbColor(rgbColor);
-				
+					int tot=k+j*WIDTH;
+					landscapeZbuffer[tot].setRgbColor(rgbColor);
+				}
 			}
 		}
 		else if(i==ii){
 			
 			for (int k = minj; k < maxj; k++) {
+				if(i>=0 && i<WIDTH && k>=0 && k<HEIGHT){
 					
 					int tot=i+k*WIDTH;
 					
 					landscapeZbuffer[tot].setRgbColor(rgbColor);
-					
 				}
+			}
 				
 		}
 		else{
 			
 			for (int k = mini; k < maxi; k++) {
 				
-				double l=(i-mini)/(maxi-mini);
+				double l=(k-mini)/(maxi-mini);
 				
 				
 				if(ii>i)
 				{
 					double y=(1-l)*j+l*jj;
-					int tot=(int)(k+y*WIDTH);
-					landscapeZbuffer[tot].setRgbColor(rgbColor);
 					
+					if(k>=0 && k<WIDTH && y>=0 && y<HEIGHT){
+						
+						int tot=(int)(k+y*WIDTH);
+					
+						landscapeZbuffer[tot].setRgbColor(rgbColor);
+					}
 				}	
 				else{
 					
 					double y=(1-l)*jj+l*j;
-					int tot=(int)(k+y*WIDTH);
-					landscapeZbuffer[tot].setRgbColor(rgbColor);
 					
+					if(k>=0 && k<WIDTH && y>=0 && y<HEIGHT){
+						int tot=(int)(k+y*WIDTH);
+						landscapeZbuffer[tot].setRgbColor(rgbColor);
+					}
 				}
 				
 				
