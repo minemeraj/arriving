@@ -547,8 +547,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			int dh=(int) (dro.dy/dy);
 
 
-			if(!totalVisibleField.intersects(new Rectangle(x,y,dw,dh)) && 
-					!totalVisibleField.contains(x,y)	)
+			if(!totalVisibleField.intersects(new Rectangle(x,y,dw,dh))
+				
+				)
 				continue;
 
 		
@@ -717,8 +718,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
 		Area partialArea = clipPolygonToArea2D( p_in,totArea);
 
-		if(partialArea.isEmpty())
+		if(partialArea.isEmpty()){
+			
 			return;
+		}	
 
 		Polygon pTot=Polygon3D.fromAreaToPolygon2D(partialArea);
 		//if(cy[0]<0 || cy[0]>HEIGHT || cx[0]<0 || cx[0]>WIDTH) return;
@@ -734,11 +737,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		int rgbColor = pColor.getRGB();
 		drawPolygon(landscapeZbuffer,pTot,rgbColor);
-		
-	
 				
-		drawImage(landscapeZbuffer,objectIndexes[dro.getIndex()]
-						,cx[0]-5,cy[0]-5,indexWidth,indexHeight,Color.BLACK);		
+		drawTextImage(landscapeZbuffer,objectIndexes[dro.getIndex()]
+						,cx[0]-5,cy[0]-5,indexWidth,indexHeight,Color.BLACK,pColor);		
 		
 		if(!DrawObject.IS_3D){
 	
@@ -749,6 +750,37 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 
+
+	private void drawTextImage(ZBuffer[] landscapeZbuffer2,
+			BufferedImage bufferedImage, int x, int y, int indexWidth2,
+			int indexHeight2, Color transparentColor, Color fixedColor) {
+		
+		double alfax=bufferedImage.getWidth()*1.0/dx;
+		double alfay=bufferedImage.getHeight()*1.0/dy;
+	
+		for(int i=0;i<dx;i++)
+			for(int j=0;j<dy;j++){
+				
+				if(i+x<0 || i+x>=WIDTH || j+y<0 || j+y>=HEIGHT)
+					continue;
+				
+				int rgbColor=bufferedImage.getRGB((int)(alfax*i),(int)(alfay*j));
+				
+				if(transparentColor!=null && transparentColor.getRGB()==rgbColor)
+					continue;
+				
+				if(fixedColor!=null){
+					
+					
+					rgbColor=fixedColor.getRGB();
+				}
+								
+				int tot=(int)(i+x+(j+y)*WIDTH);
+				
+				landscapeZbuffer[tot].setRgbColor(rgbColor);
+			}
+		
+	}
 
 	private void drawImage(ZBuffer[] landscapeZbuffer2,
 			BufferedImage bufferedImage, int x, int y, int dx, int dy,Color transparentColor) {
@@ -767,7 +799,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				
 				if(transparentColor!=null && transparentColor.getRGB()==rgbColor)
 					continue;
-				
+		
 				int tot=(int)(i+x+(j+y)*WIDTH);
 				
 				landscapeZbuffer[tot].setRgbColor(rgbColor);
