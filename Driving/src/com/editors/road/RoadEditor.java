@@ -547,11 +547,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			int dh=(int) (dro.dy/dy);
 
 
-			if(!totalVisibleField.intersects(new Rectangle(x,y,dw,dh))
+			if(!totalVisibleField.intersects(new Rectangle(x,y-dh,dw,dh))){
 				
-				)
+				//System.out.println(totalVisibleField+" "+new Rectangle(x,y,dw,dh));
+				
 				continue;
-
+			}
 		
 			
 			drawObject(landscapeZbuffer,dro);
