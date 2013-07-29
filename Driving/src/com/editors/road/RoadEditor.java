@@ -752,9 +752,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 
-	private void drawTextImage(ZBuffer[] landscapeZbuffer2,
-			BufferedImage bufferedImage, int x, int y, int indexWidth2,
-			int indexHeight2, Color transparentColor, Color fixedColor) {
+	private void drawTextImage(ZBuffer[] landscapeZbuffer,
+			BufferedImage bufferedImage, int x, int y, int dx,
+			int dy, Color transparentColor, Color fixedColor) {
 		
 		double alfax=bufferedImage.getWidth()*1.0/dx;
 		double alfay=bufferedImage.getHeight()*1.0/dy;
@@ -783,7 +783,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 
-	private void drawImage(ZBuffer[] landscapeZbuffer2,
+	private void drawImage(ZBuffer[] landscapeZbuffer,
 			BufferedImage bufferedImage, int x, int y, int dx, int dy,Color transparentColor) {
 		
 		
