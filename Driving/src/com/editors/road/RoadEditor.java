@@ -665,7 +665,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				}	
 	
 	
-			    fillOval(landscapeZbuffer,xo-2,yo-2,5,5,rgbColor);
+			    fillOval(landscapeZbuffer,xo,yo,2,2,rgbColor);
 
 			}
 		
@@ -832,15 +832,18 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 	
-	private void fillOval(ZBuffer[] landscapeZbuffer2, int x, int y, int dx,
+	private void fillOval(ZBuffer[] landscapeZbuffer2, int cx, int cy, int dx,
 			int dy, int rgbColor) {
 		
-		int xx=x+dx;
-		int yy=y+dy;
+		int x=cx-dx;		
+		int xx=cx+dx;
 		
-		for (int i = x; i < xx; i++) {
+		int y=cy-dy;
+		int yy=cy+dy;
 		
-			for (int j = y; j < yy; j++) {
+		for (int i = x; i <= xx; i++) {
+		
+			for (int j = y; j <= yy; j++) {
 				
 				
 				if(i>=0 && i<WIDTH && j>=0 && j<HEIGHT){
