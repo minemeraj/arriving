@@ -1,3 +1,8 @@
+
+Deep code modification in the RoadEditor to display landscape parts according
+to the respective altitude (z-coordinate)
+
+
 -------- 20/07/2013   CarDriving 7.0.1
 
 "Other" menu renamed as "Editing".
