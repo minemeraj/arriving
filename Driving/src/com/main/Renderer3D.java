@@ -99,7 +99,7 @@ public class Renderer3D implements AbstractRenderer3D{
 			rgb[i]=zb.getRgbColor(); 
 			
 			//clean
-			zb.set(0,0,0,greenRgb);
+			zb.set(0,0,0,greenRgb,true);
               
 		
 
@@ -325,7 +325,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 				//System.out.println(x+" "+y+" "+tot);    			
 
-				zb.set(xi,yi,zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor));
+				zb.set(xi,yi,zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),false);
 				
 			}
 
@@ -413,7 +413,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 
 			
-				zb.set(xi,yi,zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor));
+				zb.set(xi,yi,zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),false);
 	
 			}
 
@@ -465,7 +465,7 @@ public class Renderer3D implements AbstractRenderer3D{
 					if(!zb.isToUpdate(yi))
 						continue;			
 
-					zb.set(xx,yi,yy,rgbColor);
+					zb.set(xx,yi,yy,rgbColor,false);
 				}
 			else
 				for (int yy = yy2; yy <= yy1; yy++) {
@@ -490,7 +490,7 @@ public class Renderer3D implements AbstractRenderer3D{
 						continue;			
 
 
-					zb.set(xx,yi,yy,rgbColor);
+					zb.set(xx,yi,yy,rgbColor,false);
 				}
 
 		}
@@ -520,7 +520,7 @@ public class Renderer3D implements AbstractRenderer3D{
 						continue;
 
 
-					zb.set(xx,yi,yy,rgbColor);
+					zb.set(xx,yi,yy,rgbColor,false);
 				}
 			else
 				for (int xx = xx2; xx <= xx1; xx++) {
@@ -544,7 +544,7 @@ public class Renderer3D implements AbstractRenderer3D{
 						continue;
 
 
-					zb.set(xx,yi,yy,rgbColor);
+					zb.set(xx,yi,yy,rgbColor,false);
 				}
 
 		}
@@ -564,7 +564,7 @@ public class Renderer3D implements AbstractRenderer3D{
 				return;
 
 
-			zb.set(xx1,y1,yy1,rgbColor);
+			zb.set(xx1,y1,yy1,rgbColor,false);
 
 		}
 

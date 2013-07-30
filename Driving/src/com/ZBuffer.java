@@ -18,6 +18,8 @@ public class ZBuffer{
 		public double p_z=0;
 		
 		public double[] pcf_values=null;
+		
+		boolean empty=true;
 
 		
 		public int getRgbColor() {
@@ -187,10 +189,10 @@ public class ZBuffer{
 		public boolean isToUpdate(double ys){
 
 
-			return getZ()==0 ||  getZ()>ys;
+			return isEmpty() ||  getZ()>ys;
 		}	
 
-		public void set(double xs,double ys,double zs, int rgbColor) {
+		public void set(double xs,double ys,double zs, int rgbColor,boolean empty) {
 
 			setZ(ys);
 			setRgbColor(rgbColor);
@@ -198,6 +200,17 @@ public class ZBuffer{
 			p_x=xs;
 			p_y=ys;
 			p_z=zs;
+			
+			this.empty=empty;
 		}
+		
+		public boolean isEmpty() {
+			return empty;
+		}
+		public void setEmpty(boolean empty) {
+			this.empty = empty;
+		}
+		
+		
 
 }

@@ -913,7 +913,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 					if(!zb.isToUpdate(yi))
 						continue;			
 
-					zb.set(xx,yi,yy,rgbColor);
+					zb.set(xx,yi,yy,rgbColor,false);
 				}
 			else
 				for (int yy = yy2; yy <= yy1; yy++) {
@@ -938,7 +938,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 						continue;			
 
 
-					zb.set(xx,yi,yy,rgbColor);
+					zb.set(xx,yi,yy,rgbColor,false);
 				}
 
 		}
@@ -968,7 +968,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 						continue;
 
 
-					zb.set(xx,yi,yy,rgbColor);
+					zb.set(xx,yi,yy,rgbColor,false);
 				}
 			else
 				for (int xx = xx2; xx <= xx1; xx++) {
@@ -992,7 +992,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 						continue;
 
 
-					zb.set(xx,yi,yy,rgbColor);
+					zb.set(xx,yi,yy,rgbColor,false);
 				}
 
 		}
@@ -1012,7 +1012,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 				return;
 
 
-			zb.set(xx1,y1,yy1,rgbColor);
+			zb.set(xx1,y1,yy1,rgbColor,false);
 
 		}
 
@@ -1049,7 +1049,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 				   //set
 			 	   rgb[i]=zb.getRgbColor(); 
 				   //clean
-				   zb.set(0,0,0,greenRgb);
+				   zb.set(0,0,0,greenRgb,true);
 				  
  
 		 }	   

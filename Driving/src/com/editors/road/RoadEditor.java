@@ -81,6 +81,7 @@ import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.main.CarFrame;
 import com.main.HelpPanel;
+import com.main.Road;
 
 
 
@@ -517,7 +518,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			rgb[i]=zb.getRgbColor(); 
 			
 			//clean
-			zb.set(0,0,0,blackRgb);
+			zb.set(0,0,0,blackRgb,true);
               
 		
 
@@ -940,12 +941,18 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 			cx[i]=convertX(p.x);
 			cy[i]=convertY(p.y);
-
+			cz[i]=(int)p.z;
 
 			//real coordinates
 			cxr[i]=(int)(p.x);
 			cyr[i]=(int)(p.y);
-
+			czr[i]=(int)p.z;
+			
+			if(indx==1){
+				
+				cz[i]+=Road.ROAD_THICKNESS;
+				czr[i]+=Road.ROAD_THICKNESS;
+			}
 
 		}
 

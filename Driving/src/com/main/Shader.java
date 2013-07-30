@@ -39,7 +39,7 @@ public class Shader extends Renderer3D{
 			else
 				rgb[i]=zb.getRgbColor();
 			//clean
-			zb.set(0,0,0,greenRgb);
+			zb.set(0,0,0,greenRgb,true);
 			stencilZbuffer[i]=0;   
 
 

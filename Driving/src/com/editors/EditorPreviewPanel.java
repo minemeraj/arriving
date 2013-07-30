@@ -456,7 +456,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 				   //set
 			 	   rgb[i]=zb.getRgbColor(); 
 				   //clean
-				   zb.set(0,0,0,greenRgb);
+				   zb.set(0,0,0,greenRgb,false);
 				  
  
 		 }	   
