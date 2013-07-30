@@ -652,25 +652,27 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		for(int j=0;j<size;j++){
 
 
-		   /* Point4D p=(Point4D) points[index].elementAt(j);
+		    Point4D p=(Point4D) points[index].elementAt(j);
 
 				int xo=convertX(p.x);
 				int yo=convertY(p.y);
+				
+				int rgbColor=Color.white.getRGB();
 
 				if(p.isSelected()){
-					landscapeZbuffer.setColor(Color.RED);
+					rgbColor=Color.RED.getRGB();
 
 				}	
-				else
-					landscapeZbuffer.setColor(Color.white);
 	
-				landscapeZbuffer.fillOval(xo-2,yo-2,5,5);*/
+	
+			    fillOval(landscapeZbuffer,xo-2,yo-2,5,5,rgbColor);
 
 			}
 		
 		
 		//drawCurrentRect(landscapeZbuffer);
 	}
+
 
 	private int convertX(double i) {
 
@@ -829,6 +831,29 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		
 	}
+	
+	private void fillOval(ZBuffer[] landscapeZbuffer2, int x, int y, int dx,
+			int dy, int rgbColor) {
+		
+		int xx=x+dx;
+		int yy=y+dy;
+		
+		for (int i = x; i < xx; i++) {
+		
+			for (int j = y; j < yy; j++) {
+				
+				
+				if(i>=0 && i<WIDTH && j>=0 && j<HEIGHT){
+					
+					int tot=i+j*WIDTH;
+					landscapeZbuffer[tot].setRgbColor(rgbColor);
+				}
+				
+			}
+		
+		}
+	}
+
 
 	private void drawLine(ZBuffer[] landscapeZbuffer2, int i, int j, int ii,
 			int jj, int rgbColor) {
