@@ -841,9 +841,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		int y=cy-dy;
 		int yy=cy+dy;
 		
+		double r=(dx+dy)/2.0+0.5;
+		
 		for (int i = x; i <= xx; i++) {
 		
 			for (int j = y; j <= yy; j++) {
+				
+				double d=Point3D.distance(cx,cy,0,i,j,0);
+				
+				if(d>r)
+					continue;
 				
 				
 				if(i>=0 && i<WIDTH && j>=0 && j<HEIGHT){
