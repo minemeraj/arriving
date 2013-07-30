@@ -173,7 +173,7 @@ public class ZBuffer{
 		public void update(double xs,double ys,double zs, int rgbColor) {
 			
 			
-			if(getZ()==0 ||  getZ()>ys ){
+			if(isEmpty()  ||  getZ()>ys ){
 
 				setZ(ys);
 				setRgbColor(rgbColor);
@@ -181,6 +181,8 @@ public class ZBuffer{
 				p_x=xs;
 				p_y=ys;
 				p_z=zs;
+				
+				empty=false;
 
 			}
 
