@@ -670,7 +670,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			}
 		
 		
-		//drawCurrentRect(landscapeZbuffer);
+		drawCurrentRect(landscapeZbuffer);
 	}
 
 
@@ -3787,7 +3787,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 	
-	private void drawCurrentRect(Graphics2D bufGraphics) {
+	private void drawCurrentRect(ZBuffer[] landscapeZbuffer) {
 		
 		if(!isDrawCurrentRect)
 			return;
@@ -3797,9 +3797,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		int y0=Math.min(currentRect.y,currentRect.y+currentRect.height);
 		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
 		
-		bufGraphics.setColor(Color.WHITE);
-		bufGraphics.drawRect(x0,y0,x1-x0,y1-y0);
-		
+		int rgbColor=Color.WHITE.getRGB();
+	
+		drawLine(landscapeZbuffer,x0,y0,x1,y0,rgbColor);
+		drawLine(landscapeZbuffer,x0,y1,x1,y1,rgbColor);
+		drawLine(landscapeZbuffer,x0,y0,x0,y1,rgbColor);
+		drawLine(landscapeZbuffer,x1,y0,x1,y1,rgbColor);
 	}
 
 	
