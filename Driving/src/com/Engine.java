@@ -18,26 +18,51 @@ public class Engine extends Thread{
 		this.carFrame = carFrame;
 	}
 
-	public void run() {
 	
-		while(true){
-			
-			carFrame.up();
-			try {
-				//if(CarFrame.CAR_SPEED==0)
-				//	break;
-				//pause used to slow down the drawing process
-				//Thread.sleep(25);
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-			}
-		
-		
-				
-		}
-		
-	}
+	 private int startTime;  
+     private int endTime;  
+     private int frameTimes = 0;  
+     private short frames = 0;  
+	    
+     public void run() {
+
+    	 startTime = (int) System.currentTimeMillis(); 
+
+    	 while(true){
+
+
+
+    		 carFrame.up();
+
+    		 endTime = (int) System.currentTimeMillis();  
+
+    		 frameTimes = frameTimes + endTime - startTime;  
+    		 startTime=endTime;
+    		 frames++;  
+
+    		 if(frameTimes >= 1000)  
+    		 {  
+  
+    			 System.out.println("FPS:"+Long.toString(frames));  
+    			 frames = 0;  
+    			 frameTimes = 0;  
+    		 } 
+
+    		 try {
+    			 //if(CarFrame.CAR_SPEED==0)
+    			 //	break;
+    			 //pause used to slow down the drawing process
+    			 //Thread.sleep(25);
+    		 } catch (Exception e) {
+
+    			 e.printStackTrace();
+    		 }
+
+
+
+    	 }
+
+     }
 
 	
 
