@@ -277,7 +277,7 @@
    
     Notes
     
-   	The actual drawing operation takes about 34 ms per frame (29 fps).
+   	The actual drawing operation reaches a maximum of 28 fps,  with a minimum of 17 fps.
    	
    	
    	************ SCALE NOTE
