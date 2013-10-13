@@ -580,9 +580,8 @@ public class Renderer3D implements AbstractRenderer3D{
 
 	public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs) {
 
-
-		double factor=(lightIntensity*(0.75+0.25*cosin));
-				
+		//double factor=(lightIntensity*(0.25+0.5*Math.exp(-yi*0.001)+0.25*cosin));
+		double factor=(lightIntensity*(0.75+0.25*cosin));		
 
 		
 		int alphas=0xff & (argbs>>24);

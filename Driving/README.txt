@@ -1,5 +1,5 @@
 	**********************
-	*  READ ME CARDRIVING VERSION   6.0.8
+	*  READ ME CARDRIVING VERSION   7.0.2
 	*
 	*  by Piazza Francesco Giovanni 
 	*  Tecnes Milano ,Italy http://www.tecnes.com ; Tel.: +39.02.67101036
@@ -60,13 +60,14 @@
 	To change car: c key
 	To change gear: up arrow key,down arrow key.
 	To brake: F key
-	To steer left,right: left arrow key,right arrow key.
+	To steer left,right: left arrow key,right arrow key or wasd.
 	To change the background: b key
 	To restart: press the button "Reset car".
 	Horn :press H key.
 	Rear view: keep pressing Z key.
 	External camera: 1 key
 	Driver camera: 2 key
+	To change engine rotation : N and M keys
 
     Note that in the lib folder you will find couples of files of the type:
     

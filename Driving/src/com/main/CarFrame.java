@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -41,7 +42,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 
 	
     int counter=0;
-	String VERSION="CarDriving 7.0.1";
+	String VERSION="CarDriving 7.0.2";
 	
 	JPanel center=null;
 	private Graphics2D graphics2D;
@@ -353,7 +354,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 
 		if(code==KeyEvent.VK_R) 
 			reset();
-		else if(code==KeyEvent.VK_UP)
+		else if(code==KeyEvent.VK_UP || code==KeyEvent.VK_W)
 		{	
 			if(getcarSpeed()==0){
 				road.start();
@@ -363,7 +364,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 			isBraking=false;
 
 		}
-		else if(code==KeyEvent.VK_DOWN)
+		else if(code==KeyEvent.VK_DOWN || code==KeyEvent.VK_S)
 		{			
 			setTorque(-2.0);
 			isBraking=false;
@@ -373,14 +374,14 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 			setTorque(-1.0);
 				isBraking=true;
 		}
-		else if(code==KeyEvent.VK_LEFT)
+		else if(code==KeyEvent.VK_LEFT || code==KeyEvent.VK_A) 
 		{			
 			//left();
 			
 			rotate(-1);
 			
 		}
-		else if(code==KeyEvent.VK_RIGHT)
+		else if(code==KeyEvent.VK_RIGHT|| code==KeyEvent.VK_D)
 		{			
 			//right();
 			
@@ -424,12 +425,12 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 			reset();
 
 		}
-		else if(code==KeyEvent.VK_A)
+		else if(code==KeyEvent.VK_N)
 		{			
 			Road.FORWARD=1;
 			forward.setText("(F)");
 		}
-		else if(code==KeyEvent.VK_S)
+		else if(code==KeyEvent.VK_M)
 		{			
 			Road.FORWARD=-1;
 			forward.setText("(R)");
@@ -589,7 +590,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 		int code=arg0.getKeyCode();
 		
 		
-		if(code==KeyEvent.VK_LEFT ||code==KeyEvent.VK_RIGHT )
+		if(code==KeyEvent.VK_LEFT ||code==KeyEvent.VK_RIGHT || code==KeyEvent.VK_A ||code==KeyEvent.VK_D)
 		{			
 			
 			Road.steer=false;
@@ -602,7 +603,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 			Road.VIEW_TYPE=Road.FRONT_VIEW;
 			
 		}
-		else if(code==KeyEvent.VK_UP ||code==KeyEvent.VK_DOWN )
+		else if(code==KeyEvent.VK_UP ||code==KeyEvent.VK_DOWN || code==KeyEvent.VK_W ||code==KeyEvent.VK_S)
 		{			
 			
 			Road.steer=false;
@@ -622,6 +623,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 		
 		buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 		road.reset(graphics2D);
+	
 		
 		setCarSpeed(0);
 		torque=0;
