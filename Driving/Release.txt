@@ -1,6 +1,8 @@
 
-Added wasd key sequence for movements. Now use N and M instead to reverse engine
+Added wasd keys sequence for movements. Now use N and M instead to reverse engine
 rotation.
+
+Press Esc to exit program.
 
 Added a fps (frams per seconds) counter to measure performances.
 

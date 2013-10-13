@@ -457,6 +457,10 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 			road.changeCamera(1);
 			 drawRoad();
 		}
+		else if(code==KeyEvent.VK_ESCAPE)
+		{
+			System.exit(0);
+		}
 	}
 
 	private Image loadImage(String string) throws IOException {

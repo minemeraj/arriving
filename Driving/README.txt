@@ -60,7 +60,7 @@
 	To change car: c key
 	To change gear: up arrow key,down arrow key.
 	To brake: F key
-	To steer left,right: left arrow key,right arrow key or wasd.
+	To steer left,right: left arrow key,right arrow key or wasd sequence.
 	To change the background: b key
 	To restart: press the button "Reset car".
 	Horn :press H key.
@@ -68,6 +68,8 @@
 	External camera: 1 key
 	Driver camera: 2 key
 	To change engine rotation : N and M keys
+	
+	Press Esc to exit program.
 
     Note that in the lib folder you will find couples of files of the type:
     
