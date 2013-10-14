@@ -2284,7 +2284,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
 		
-		for(int j=0;j<mesh.points.length;j++){
+		for(int j=0;mesh.points!=null && j<mesh.points.length;j++){
 
 
 			    Point4D p=(Point4D)mesh.points[j];

@@ -751,8 +751,8 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 	
 		
-		int sizel=mesh.points.length;
-		for(int i=0;i<sizel;i++){
+		
+		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			LineData ld=(LineData) mesh.polygonData.elementAt(i);
 			if(!ld.isSelected())
@@ -1083,7 +1083,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		
 		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 		
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
 			p.setSelected(false);
