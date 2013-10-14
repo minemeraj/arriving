@@ -75,6 +75,7 @@ import com.Point3D;
 import com.Point4D;
 import com.Polygon3D;
 import com.PolygonMesh;
+import com.SquareMesh;
 import com.Texture;
 import com.ZBuffer;
 import com.editors.DoubleTextField;
@@ -3280,6 +3281,17 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				}
 			
 			
+			if(mesh instanceof SquareMesh){
+				
+				((SquareMesh)mesh).setNumx(numx);
+				((SquareMesh)mesh).setNumy(numy);
+				((SquareMesh)mesh).setX0(x_0);
+				((SquareMesh)mesh).setY0(y_0);
+				((SquareMesh)mesh).setDx((int)dx);
+				((SquareMesh)mesh).setDy((int)dy);
+			}
+			
+			
 		}
 		
 		displayAll();
@@ -3353,6 +3365,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					
 					
 				}
+			
+			if(mesh instanceof SquareMesh){
+				
+				((SquareMesh)mesh).setNumx(numx+((SquareMesh)mesh).getNumx());
+				((SquareMesh)mesh).setNumy(numy+((SquareMesh)mesh).getNumy());
+				((SquareMesh)mesh).setX0(x_0);
+				((SquareMesh)mesh).setY0(y_0);
+				((SquareMesh)mesh).setDx((int)dx);
+				((SquareMesh)mesh).setDy((int)dy);
+			}
 			
 			
 		}

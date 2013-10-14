@@ -8,7 +8,8 @@ public class SquareMesh extends PolygonMesh {
 
 	int numx=0;
 	int numy=0;	
-	int side=0;		
+	int dx=0;
+	int dy=0;
 	double x0=0;
 	double y0=0;
 	
@@ -17,33 +18,28 @@ public class SquareMesh extends PolygonMesh {
 		super(points, lines);
 	}
 	
-	public SquareMesh(Vector points, Vector lines,int numx, int numy, int side, double x0, double y0) {
+	public SquareMesh(Vector points, Vector lines,int numx, int numy, int dx,int dy,double x0, double y0) {
 		super(points, lines);
 		this.numx = numx;
 		this.numy = numy;
-		this.side = side;
+		this.dx = dx;
+		this.dy = dy;
 		this.x0 = x0;
 		this.y0 = y0;
 	}
 	
-	public SquareMesh(int numx, int numy, int side, double x0, double y0) {
+	public SquareMesh(int numx, int numy, int dx,int dy, double x0, double y0) {
 		super();
 		this.numx = numx;
 		this.numy = numy;
-		this.side = side;
+		this.dx = dx;
+		this.dy = dy;
 		this.x0 = x0;
 		this.y0 = y0;
 	}
 	
 	public SquareMesh() {
 		// TODO Auto-generated constructor stub
-	}
-
-	public int getSide() {
-		return side;
-	}
-	public void setSide(int side) {
-		this.side = side;
 	}
 	public int getNumx() {
 		return numx;
@@ -69,6 +65,22 @@ public class SquareMesh extends PolygonMesh {
 	public void setY0(double y0) {
 		this.y0 = y0;
 	}
+
+	public int getDx() {
+		return dx;
+	}
+
+	public void setDx(int dx) {
+		this.dx = dx;
+	}
+
+	public int getDy() {
+		return dy;
+	}
+
+	public void setDy(int dy) {
+		this.dy = dy;
+	}
 	
 	@Override
 	public SquareMesh clone() {
@@ -92,12 +104,14 @@ public class SquareMesh extends PolygonMesh {
 		}
 		pm.setNumx(getNumx());
 		pm.setNumy(getNumy());
-		pm.setSide(getSide());
+		pm.setDx(getDx());
+		pm.setDy(getDy());
 		pm.setX0(getX0());
 		pm.setY0(getY0());
 		
 		return pm;
 	}
+
 	
 
 }

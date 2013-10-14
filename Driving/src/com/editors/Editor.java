@@ -39,6 +39,9 @@ public class Editor extends JFrame implements MenuListener{
 	public File currentDirectory=null;
 	public File currentFile=null;
 	
+	int TERRAIN_INDEX=0;
+	int ROAD_INDEX=1;
+	
 	public static String TAG[]={"terrain","road"};
 	
 	public Editor(){
@@ -51,8 +54,10 @@ public class Editor extends JFrame implements MenuListener{
 			
 		for (int i = 0; i < numPanels; i++) {
 			
-			
-			meshes[i]=new PolygonMesh();
+			if(i==TERRAIN_INDEX)
+				meshes[i]=new SquareMesh();
+			else
+				meshes[i]=new PolygonMesh();
 
 			oldMeshes[i]=new Stack();
 		}
@@ -205,7 +210,8 @@ public class Editor extends JFrame implements MenuListener{
 			
 			int nx=0;
 			int ny=0;
-			int side=0;
+			int dx=0;
+			int dy=0;
 			double x0=0;
 			double y0=0;
 			
@@ -232,8 +238,10 @@ public class Editor extends JFrame implements MenuListener{
 					nx=Integer.parseInt(str.substring(3)); 
 				else if(str.startsWith("NY="))					
 					ny=Integer.parseInt(str.substring(3)); 
-				else if(str.startsWith("SIDE="))					
-					side=Integer.parseInt(str.substring(5)); 
+				else if(str.startsWith("DX="))					
+					dx=Integer.parseInt(str.substring(3)); 
+				else if(str.startsWith("DY="))					
+					dy=Integer.parseInt(str.substring(3)); 
 				else if(str.startsWith("X0="))					
 					x0=Double.parseDouble(str.substring(3)); 
 				else if(str.startsWith("Y0="))					
@@ -246,7 +254,8 @@ public class Editor extends JFrame implements MenuListener{
 				
 				((SquareMesh)meshes[ACTIVE_PANEL]).setNumx(nx); 
 				((SquareMesh)meshes[ACTIVE_PANEL]).setNumy(ny); 
-				((SquareMesh)meshes[ACTIVE_PANEL]).setSide(side); 
+				((SquareMesh)meshes[ACTIVE_PANEL]).setDx(dx);
+				((SquareMesh)meshes[ACTIVE_PANEL]).setDy(dy);
 				((SquareMesh)meshes[ACTIVE_PANEL]).setX0(x0); 
 				((SquareMesh)meshes[ACTIVE_PANEL]).setY0(y0); 
 				
@@ -335,10 +344,10 @@ public class Editor extends JFrame implements MenuListener{
 			if(mesh instanceof SquareMesh){
 				
 				SquareMesh sm = (SquareMesh)mesh;
-				pr.println();
 				pr.println("NX="+sm.getNumx());
 				pr.println("NY="+sm.getNumy());
-				pr.println("SIDE="+sm.getSide());
+				pr.println("DX="+sm.getDx());
+				pr.println("DY="+sm.getDy());
 				pr.println("X0="+sm.getX0());
 				pr.println("Y0="+sm.getY0());
 			}
