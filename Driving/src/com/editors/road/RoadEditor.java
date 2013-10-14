@@ -634,7 +634,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void displayRoad(ZBuffer[] landscapeZbuffer,int index) {
 
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		PolygonMesh mesh=meshes[index];
 		
 		if(mesh.points==null)
 			return;

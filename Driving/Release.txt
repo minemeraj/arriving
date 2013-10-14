@@ -1,3 +1,8 @@
+New deep revision of the code, to manage directly meshes instead of vectors of points and lines.
+
+Transforming the terrain in a SquareMesh, a much more rigid object which is a squares net
+when user can't add or delete points or change polygons.
+This provides an easy way to expand actual landscapes.
 
 Added wasd keys sequence for movements. Now use N and M instead to reverse engine
 rotation.
