@@ -390,7 +390,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 					polygon=new LineData();
 				
 				int index=pointList.getSelectedIndex();
-				for(int i=0;i<mesh.points.length;i++){
+				for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 					Point3D p=mesh.points[i];
 					if(index==i){
@@ -673,7 +673,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		
 		double qty=Double.parseDouble(sqty);
 		
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
 
@@ -708,7 +708,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 			return;
 		}	
 		double val=Double.parseDouble(txt);
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
 		    p.x=Math.round(p.x *val);
@@ -724,7 +724,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		
 		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 		
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
 			p.setSelected(true);
@@ -779,7 +779,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		
 		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 		
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p0=mesh.points[i];
 			
@@ -938,7 +938,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		
 		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
 			if(!p.isSelected()) 
@@ -1001,7 +1001,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		
 		int firstPoint=-1;
 		
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
 			if(!p.isSelected()) 

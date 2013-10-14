@@ -717,7 +717,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 		int firstPoint=-1;
 		
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
 			if(!p.isSelected()) 
@@ -978,7 +978,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 		 PolygonMesh mesh = meshes[ACTIVE_PANEL];
 
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
 			if(!p.isSelected()) 
@@ -1034,11 +1034,11 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		PolygonMesh mesh = meshes[ACTIVE_PANEL];
 		 
 		 
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p0=mesh.points[i];
 
-			for(int j=0;j<mesh.points.length;j++){
+			for(int j=0;mesh.points!=null && j<mesh.points.length;j++){
 
 				Point3D p1=mesh.points[j];
 
@@ -1131,7 +1131,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 			return;
 		}	
 		double val=Double.parseDouble(txt);
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
 		    p.x=Math.round(p.x *val);
@@ -1145,7 +1145,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 		PolygonMesh mesh = meshes[ACTIVE_PANEL];
 
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
 
@@ -1174,7 +1174,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 		PolygonMesh mesh = meshes[ACTIVE_PANEL];
 
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
 
@@ -1216,7 +1216,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 		double qty=Double.parseDouble(sqty);
 		
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
 
@@ -1260,7 +1260,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 		PolygonMesh mesh = meshes[ACTIVE_PANEL];
 		
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
 			p.setSelected(false);
@@ -1272,7 +1272,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 		PolygonMesh mesh = meshes[ACTIVE_PANEL];
 		
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
 			p.setSelected(true);
@@ -1344,7 +1344,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 					polygon=new LineData();
 				
 				int index=pointList.getSelectedIndex();
-				for(int i=0;i<mesh.points.length;i++){
+				for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 					Point3D p=mesh.points[i];
 					if(index==i){
@@ -1423,7 +1423,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		int sel=pointList.getSelectedIndex();
 		
 
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
 		    dlm.addElement(new PointListItem(p,i)) ; 
@@ -1534,7 +1534,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 			pr = new PrintWriter(new FileOutputStream(file));
 			pr.print("P=");
 
-			for(int i=0;i<mesh.points.length;i++){
+			for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 				Point3D p=mesh.points[i];
 

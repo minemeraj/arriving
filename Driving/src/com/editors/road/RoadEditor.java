@@ -2387,7 +2387,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		int firstPoint=-1;
 		
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p= mesh.points[i];
 			if(!p.isSelected()) 
@@ -2464,7 +2464,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		Vector newPoints=new Vector();
 		Vector newLines=new Vector();
 
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
 			if(!p.isSelected()) 
@@ -3484,7 +3484,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	
 		
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
 			if(p.isSelected()) 
