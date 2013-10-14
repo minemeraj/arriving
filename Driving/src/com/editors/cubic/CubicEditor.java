@@ -892,7 +892,7 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 	
 			pr.print("\nM=");
 
-			for(int i=0;i<mesh.points.length;i++){
+			for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 				Point3D p0=mesh.points[i];
 				int i0=(int)p0.p_x;

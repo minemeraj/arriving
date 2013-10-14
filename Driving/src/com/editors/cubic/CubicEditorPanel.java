@@ -393,7 +393,7 @@ public class CubicEditorPanel extends JPanel implements MouseListener{
 		
 		PolygonMesh mesh = cubicEditor.meshes[cubicEditor.ACTIVE_PANEL];
 	
-		for(int c=0;c<mesh.points.length;c++){
+		for(int c=0;mesh.points!=null && c<mesh.points.length;c++){
 
 			Point3D p=mesh.points[c];
 
