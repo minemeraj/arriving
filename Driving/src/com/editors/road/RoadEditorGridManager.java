@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.Point4D;
+import com.SquareMesh;
 import com.editors.DoubleTextField;
 
 public class RoadEditorGridManager extends JDialog implements ActionListener{
@@ -26,7 +27,7 @@ public class RoadEditorGridManager extends JDialog implements ActionListener{
 	double X0=0;
 	double Y0=0;
 	
-	int WIDTH=200;
+	int WIDTH=230;
 	int HEIGHT=260;
 	private DoubleTextField NX_Field;
 	private DoubleTextField NY_Field;
@@ -40,19 +41,23 @@ public class RoadEditorGridManager extends JDialog implements ActionListener{
 	JButton cancel=null;
 	private DoubleTextField DX_Field;
 	private DoubleTextField DY_Field;
-			
+	
+	SquareMesh squareMesh=null;
+	
+	boolean is_expand_mode=false;
+	
 
-	public RoadEditorGridManager(Point4D[][] roadData){
+	public RoadEditorGridManager(SquareMesh squareMesh){
+		
+		if(squareMesh!=null){
+			is_expand_mode=true;
+			this.squareMesh=squareMesh;
+		}
 		
 		setTitle("Create new grid");
 		setLayout(null);
 
-		if(roadData!=null){
-		
-			NY=roadData.length;
-			NY=roadData[0].length;
-			setTitle("Grid manager");
-		}
+
 		setSize(WIDTH,HEIGHT);
 		setModal(true);
 		center=new JPanel(null);
@@ -69,15 +74,29 @@ public class RoadEditorGridManager extends JDialog implements ActionListener{
 		NX_Field.setBounds(50,r,100,20);
 		center.add(NX_Field);
 		
+		if(is_expand_mode){
+			
+			jlb=new JLabel(">"+squareMesh.getNumx());
+			jlb.setBounds(160, r, 100, 20);
+			center.add(jlb);
+		}
+		
 		r+=30;
 		
 		jlb=new JLabel("NY:");
 		jlb.setBounds(10,r,30,20);
 		center.add(jlb);
-		
+				
 		NY_Field=new DoubleTextField();
 		NY_Field.setBounds(50,r,100,20);
 		center.add(NY_Field);
+		
+		if(is_expand_mode){
+			
+			jlb=new JLabel(">"+squareMesh.getNumy());
+			jlb.setBounds(160, r, 100, 20);
+			center.add(jlb);
+		}
 		
 		NX_Field.setText(NX);
 		NY_Field.setText(NY);
@@ -128,6 +147,25 @@ public class RoadEditorGridManager extends JDialog implements ActionListener{
 		
 		X0_Field.setText(0);
 		Y0_Field.setText(0);
+		
+		
+		if(squareMesh!=null){
+			
+			NX_Field.setText(squareMesh.getNumx());
+			NY_Field.setText(squareMesh.getNumy());
+			X0_Field.setText(squareMesh.getX0());
+			Y0_Field.setText(squareMesh.getY0());
+			DX_Field.setText(squareMesh.getDx());
+			DY_Field.setText(squareMesh.getDy());
+			setTitle("Expand terrain grid");
+			
+			
+			
+			X0_Field.setEditable(false);
+			Y0_Field.setEditable(false);
+			DX_Field.setEditable(false);
+			DY_Field.setEditable(false);
+		}
 		
 		r+=30;
 		

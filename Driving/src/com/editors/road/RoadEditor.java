@@ -245,6 +245,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public int blackRgb= Color.BLACK.getRGB();
 	public int[] rgb=null;
 	public Color selectionColor=null;
+	private JMenuItem jmtExpandGrid;
 	
 	public RoadEditor(String title){
 		
@@ -1518,6 +1519,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		jm5.addSeparator();
 		
+		jmtExpandGrid = new JMenuItem("Expand grid(T)");
+		jmtExpandGrid.addActionListener(this);
+		jm5.add(jmtExpandGrid);
+		
+		jm5.addSeparator();
+		
 		jmtAddGrid = new JMenuItem("Add grid");
 		jmtAddGrid.addActionListener(this);
 		jm5.add(jmtAddGrid);
@@ -1538,7 +1545,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		jm5.addSeparator();
 		
-		jmtAddBendMesh = new JMenuItem("Add bend");
+		jmtAddBendMesh = new JMenuItem("Add bend (R)");
 		jmtAddBendMesh.addActionListener(this);
 		jm5.add(jmtAddBendMesh);
 		
@@ -3004,6 +3011,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		else if(o==jmtBuildNewGrid){
 			buildNewGrid();
 		}
+		else if(o==jmtExpandGrid){
+			expandGrid();
+		}
 		else if(o==jmtAddGrid){
 			addGrid();
 		}
@@ -3174,11 +3184,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 
-
-
-
-
-
 	public void menuCanceled(MenuEvent e) {
 		// TODO Auto-generated method stub
 
@@ -3213,6 +3218,99 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		RoadEditor re=new RoadEditor("New road editor");
 		re.initialize();
+	}
+	
+	private void expandGrid() {
+ 
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		if(mesh.points==null)
+			return; 
+		
+		if(!(mesh instanceof SquareMesh))
+		{
+			
+			JOptionPane.showMessageDialog(this,"Can't expand road grid");
+			return;
+		}	
+		
+		RoadEditorGridManager regm=new RoadEditorGridManager((SquareMesh)mesh);
+		
+		if(regm.getReturnValue()!=null){
+			
+			RoadEditorGridManager roadEGM=(RoadEditorGridManager) regm.getReturnValue();
+
+			
+			double z_value=0;
+			
+			int numx=roadEGM.NX;
+			int numy=roadEGM.NY;
+			
+			double dx=roadEGM.DX;
+			double dy=roadEGM.DY;
+			
+			double x_0=roadEGM.X0;
+			double y_0=roadEGM.Y0;
+			
+			int tot=numx*numy;
+			
+		
+			mesh.polygonData=new Vector();
+			
+			mesh.points=new Point3D[numy*numx];
+			
+			
+			for(int i=0;i<numx;i++)
+				for(int j=0;j<numy;j++)
+				{
+					
+					Point4D p=new Point4D(i*dx+x_0,j*dy+y_0,z_value);
+				
+					mesh.points[i+j*numx]=p;
+
+				}
+
+			
+			for(int i=0;i<numx-1;i++)
+				for(int j=0;j<numy-1;j++){
+
+	
+					//lower base
+					int pl1=i+numx*j;
+					int pl2=i+numx*(j+1);
+					int pl3=i+1+numx*(j+1);
+					int pl4=i+1+numx*j;
+					
+					LineData ld=new LineData(pl1, pl4, pl3, pl2);
+					
+					if(ACTIVE_PANEL==1)
+						ld.setTexture_index(0);
+					else
+						ld.setTexture_index(2);
+					
+					mesh.polygonData.add(ld);
+					
+					
+					
+				}
+			
+			
+			if(mesh instanceof SquareMesh){
+				
+				((SquareMesh)mesh).setNumx(numx);
+				((SquareMesh)mesh).setNumy(numy);
+				((SquareMesh)mesh).setX0(x_0);
+				((SquareMesh)mesh).setY0(y_0);
+				((SquareMesh)mesh).setDx((int)dx);
+				((SquareMesh)mesh).setDy((int)dy);
+			}
+			
+			
+		}
+		
+		displayAll();
+		
+	
+		
 	}
 	
 	
