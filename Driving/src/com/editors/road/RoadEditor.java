@@ -3302,8 +3302,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			
             int sz= mesh.points.length;
-			mesh.points=new Point3D[sz+numy*numx];
+            Point3D[] newPoints = new Point3D[sz+numy*numx];
 			
+            
+            for (int i = 0; i < sz; i++) {
+            	newPoints[i]=mesh.points[i];
+			}
 			
 			for(int i=0;i<numx;i++)
 				for(int j=0;j<numy;j++)
@@ -3311,10 +3315,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					
 					Point4D p=new Point4D(i*dx+x_0,j*dy+y_0,z_value);
 				
-					mesh.points[sz+i+j*numx]=p;
+					newPoints[sz+i+j*numx]=p;
 
 				}
 
+			mesh.points=newPoints;
 			
 			for(int i=0;i<numx-1;i++)
 				for(int j=0;j<numy-1;j++){
