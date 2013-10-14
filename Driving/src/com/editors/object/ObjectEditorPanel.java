@@ -807,6 +807,9 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 	public void changeSelectedPoint() {
 		
 		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		
+		if(mesh.points==null)
+			return; 
 
 		for(int i=0;i<mesh.points.length;i++){
 
@@ -865,7 +868,10 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		if(!"".equals(extraData.getText()))
 			p.setData(extraData.getText());
 
-		int sz= mesh.points.length;
+		int sz= 0;
+		if(mesh.points!=null)
+			sz=mesh.points.length;
+		
 		for (int i = 0; i <sz; i++) {
 			Point3D old_p = mesh.points[i];
 			

@@ -418,6 +418,8 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		boolean found=false;
 		
 		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		if(mesh.points==null)
+			return; 
 		
 		for(int i=0;i<mesh.points.length;i++){
 
@@ -485,14 +487,16 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
 		
 		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
-        
-        for (int i = 0; i <mesh.points.length; i++) {
-        
-    	Point3D p = (Point3D) mesh.points[i];
+		if(mesh.points==null)
+			return; 
+		
+		for (int i = 0; i <mesh.points.length; i++) {
+
+			Point3D p = (Point3D) mesh.points[i];
 
 
-    	int x=calcAssX(p);
-		int y=calcAssY(p);
+			int x=calcAssX(p);
+			int y=calcAssY(p);
 
 			if(x>=x0 && x<=x1 && y>=y0 && y<=y1  ){
 
