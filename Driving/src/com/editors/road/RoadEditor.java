@@ -2802,6 +2802,30 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 	
+	public void buildPoints(PolygonMesh mesh, String str) {
+		
+		Vector vPoints=new Vector();
+
+		StringTokenizer sttoken=new StringTokenizer(str,"_");
+
+		while(sttoken.hasMoreElements()){
+
+			String[] vals = sttoken.nextToken().split(",");
+
+			Point4D p=new Point4D();
+			
+			p.x=Double.parseDouble(vals[0]);
+			p.y=Double.parseDouble(vals[1]);
+			p.z=Double.parseDouble(vals[2]);
+
+			vPoints.add(p);
+		}
+		mesh.setPoints(vPoints);
+
+
+
+	}
+	
 	public String decomposeLineData(LineData ld) {
 
 		String str="";
@@ -2841,6 +2865,32 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 			lines.add(ld);
+		}
+
+
+
+
+	}
+	
+	public void buildLines(PolygonMesh mesh, String str) {
+
+		StringTokenizer sttoken=new StringTokenizer(str,"_");
+
+		while(sttoken.hasMoreElements()){
+
+			String[] vals = sttoken.nextToken().split(",");
+
+			LineData ld=new LineData();
+
+			ld.texture_index=Integer.parseInt(vals[0].substring(1));
+			
+			ld.hexColor=vals[1].substring(1);
+			
+			for(int i=2;i<vals.length;i++)
+				ld.addIndex(Integer.parseInt(vals[i]));
+
+
+			mesh.polygonData.add(ld);
 		}
 
 
