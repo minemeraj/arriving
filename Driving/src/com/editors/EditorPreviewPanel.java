@@ -73,8 +73,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 	double costeta=Math.cos(teta);
 	double sinteta=Math.sin(teta);
 	
-	public Vector points=null;
-	public Vector lines=null;
+	public PolygonMesh mesh=null;
 	public Vector polygons;	
 	public Vector clonedPoints=null;
 	
@@ -397,13 +396,13 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 	
 
 	
-	public Vector clonePoints(Vector points) {
+	public Vector clonePoints(Point3D[] points) {
 		
 		Vector clonePoints=new Vector();
 		
-		for (int i = 0; i < points.size(); i++) {
+		for (int i = 0; i < points.length; i++) {
 			
-			Point3D p = (Point3D) points.elementAt(i);
+			Point3D p = points[i];
 			
 		
 			double xx=(cosf*(p.x)-sinf*(p.y));
@@ -561,8 +560,8 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 		cosf=Math.cos(fi);
 		sinf=Math.sin(fi);
 		
-		clonedPoints=clonePoints(points);
-		PolygonMesh pm=new PolygonMesh(clonedPoints,lines);
+		clonedPoints=clonePoints(mesh.points);
+		PolygonMesh pm=new PolygonMesh(clonedPoints,mesh.polygonData);
 		polygons = PolygonMesh.getBodyPolygons(pm);
 	}
 	
@@ -572,8 +571,8 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 		costeta=Math.cos(teta);
 		sinteta=Math.sin(teta);
 		
-		clonedPoints=clonePoints(points);
-		PolygonMesh pm=new PolygonMesh(clonedPoints,lines);
+		clonedPoints=clonePoints(mesh.points);
+		PolygonMesh pm=new PolygonMesh(clonedPoints,mesh.polygonData);
 		polygons = PolygonMesh.getBodyPolygons(pm);
 	}
 	
@@ -583,8 +582,8 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 		cosf=Math.cos(fi);
 		cosf=Math.sin(fi);
 		
-		clonedPoints=clonePoints(points);
-		PolygonMesh pm=new PolygonMesh(clonedPoints,lines);
+		clonedPoints=clonePoints(mesh.points);
+		PolygonMesh pm=new PolygonMesh(clonedPoints,mesh.polygonData);
 		polygons = PolygonMesh.getBodyPolygons(pm);
 	}
 	
@@ -594,8 +593,8 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 		costeta=Math.cos(fi);
 		sinteta=Math.sin(fi);
 		
-		clonedPoints=clonePoints(points);
-		PolygonMesh pm=new PolygonMesh(clonedPoints,lines);
+		clonedPoints=clonePoints(mesh.points);
+		PolygonMesh pm=new PolygonMesh(clonedPoints,mesh.polygonData);
 		polygons = PolygonMesh.getBodyPolygons(pm);
 	}
 

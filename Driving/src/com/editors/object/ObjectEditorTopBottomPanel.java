@@ -30,6 +30,7 @@ import javax.swing.border.Border;
 import com.LineData;
 import com.Point3D;
 import com.Polygon3D;
+import com.PolygonMesh;
 import com.editors.DoubleTextField;
 
 
@@ -127,11 +128,11 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 
 	private void displayLines(Graphics2D bufGraphics) {
 
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 
+		for(int i=0;i<mesh.polygonData.size();i++){
 
-		for(int i=0;i<oe.lines[oe.ACTIVE_PANEL].size();i++){
-
-			LineData ld=(LineData) oe.lines[oe.ACTIVE_PANEL].elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.elementAt(i);
 			int numLInes=1;
 			if(ld.size()>2)
 				numLInes=ld.size();
@@ -142,20 +143,20 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 
 			for(int j=0;j<numLInes;j++){
 
-				Point3D p0=(Point3D)oe.points[oe.ACTIVE_PANEL].elementAt(ld.getIndex(j));
-				Point3D p1=(Point3D)oe.points[oe.ACTIVE_PANEL].elementAt(ld.getIndex((j+1)%ld.size()));
+				Point3D p0=mesh.points[ld.getIndex(j)];
+				Point3D p1=mesh.points[ld.getIndex((j+1)%ld.size())];
 
 
 				bufGraphics.drawLine(calcAssX(p0),calcAssY(p0),calcAssX(p1),calcAssY(p1));
 			}
 			if(oe.jmt_show_normals.isSelected())
-				showNormals(oe.points[oe.ACTIVE_PANEL],ld,bufGraphics);
+				showNormals(mesh.points,ld,bufGraphics);
 
 		}	
 
-		for(int i=0;i<oe.lines[oe.ACTIVE_PANEL].size();i++){
+		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData) oe.lines[oe.ACTIVE_PANEL].elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.elementAt(i);
 			int numLInes=1;
 			if(ld.size()>2)
 				numLInes=ld.size();
@@ -167,8 +168,8 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 
 			for(int j=0;j<numLInes;j++){
 
-				Point3D p0=(Point3D)oe.points[oe.ACTIVE_PANEL].elementAt(ld.getIndex(j));
-				Point3D p1=(Point3D)oe.points[oe.ACTIVE_PANEL].elementAt(ld.getIndex((j+1)%ld.size()));
+				Point3D p0=mesh.points[ld.getIndex(j)];;
+				Point3D p1=mesh.points[ld.getIndex((j+1)%ld.size())];
 
 
 				bufGraphics.drawLine(calcAssX(p0),calcAssY(p0),calcAssX(p1),calcAssY(p1));
@@ -186,7 +187,7 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 
 
 
-	private void showNormals(Vector points, LineData ld, Graphics2D bufGraphics) {
+	private void showNormals(Point3D[] points, LineData ld, Graphics2D bufGraphics) {
 		
 		Polygon3D p3d=new Polygon3D();
 		int numLInes=ld.size();
@@ -194,9 +195,10 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 		if(numLInes<3)
 			return;
 		
+			
 		for(int j=0;j<numLInes;j++){
 
-			Point3D p0=(Point3D)oe.points[oe.ACTIVE_PANEL].elementAt(ld.getIndex(j));
+			Point3D p0=points[ld.getIndex(j)];
 			p3d.addPoint(p0);
 		}
 		
@@ -210,10 +212,12 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 	}
 
 	private void displayPoints(Graphics2D bufGraphics) {
+		
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 
-		for(int i=0;i<oe.points[oe.ACTIVE_PANEL].size();i++){
+		for(int i=0;i<mesh.points.length;i++){
 
-			Point3D p=(Point3D) oe.points[oe.ACTIVE_PANEL].elementAt(i);
+			Point3D p=mesh.points[i];
 
 			if(p.isSelected())
 				bufGraphics.setColor(Color.RED);
@@ -239,12 +243,14 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 
 		boolean found=false;
 		
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		
 		//select point from lines
 		if(!checkMultipleSelection.isSelected()) 
 			polygon=new LineData();
-		for(int i=0;i<oe.points[oe.ACTIVE_PANEL].size();i++){
+		for(int i=0;i<mesh.points.length;i++){
 
-			Point3D p=(Point3D) oe.points[oe.ACTIVE_PANEL].elementAt(i);
+			Point3D p=mesh.points[i];
 
 
 
@@ -292,10 +298,12 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 		int x1=Math.max(currentRect.x,currentRect.x+currentRect.width);
 		int y0=Math.min(currentRect.y,currentRect.y+currentRect.height);
 		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
+		
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 
-		for (int i = 0; i < oe.points[oe.ACTIVE_PANEL].size(); i++) {
+		for (int i = 0; i < mesh.points.length; i++) {
 
-			Point3D p = (Point3D) oe.points[oe.ACTIVE_PANEL].elementAt(i);
+			Point3D p = mesh.points[i];
 
 
 			int x=calcAssX(p);

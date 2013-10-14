@@ -42,6 +42,7 @@ import com.LineData;
 import com.Point3D;
 import com.Point4D;
 import com.Polygon3D;
+import com.PolygonMesh;
 import com.ZBuffer;
 import com.editors.ComboElement;
 import com.editors.DoubleTextField;
@@ -108,26 +109,27 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 	private JMenuItem jmt11;
 
 
-	Stack oldLines=new Stack();
-	Stack oldPoints=new Stack();
+	Stack oldMeshes=new Stack();
+
 	int MAX_STACK_SIZE=10;
 	private JMenuBar jmb;
 	private JMenu jm1;
 	private boolean redrawAfterMenu;
 	private JLabel screenPoint;
 
-	public Vector points=new Vector();
-	public Vector lines=new Vector();
+	public PolygonMesh mesh;
 
 
 	public RoadAltimetryPanel(RoadEditor roadEditor) {
 		super();
+		
+		this.mesh=roadEditor.meshes[roadEditor.ACTIVE_PANEL];
 
+		
 		setTitle("Advanced Altimetry");
 		setLayout(null);
 		this.roadEditor=roadEditor;		
-		this.lines=roadEditor.lines[roadEditor.ACTIVE_PANEL];
-		this.points=roadEditor.points[roadEditor.ACTIVE_PANEL];
+		
 
 		setSize(WIDTH+RIGHT_BORDER,HEIGHT+BOTTOM_HEIGHT);
 		center=new JPanel();
@@ -385,23 +387,21 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 		Graphics2D g2 = (Graphics2D) buf.getGraphics();
 
-		for(int j=0;j<lines.size();j++){
+		for(int j=0;j<mesh.polygonData.size();j++){
 
 
-			LineData ld=(LineData) lines.elementAt(j);
+			LineData ld=(LineData) mesh.polygonData.elementAt(j);
 
-			drawPolygon(ld,points,g2);
+			drawPolygon(ld,mesh.points,g2);
 
 		} 
 
 		g2.setColor(Color.WHITE);
-
-		int size=points.size();
 		
-		for(int j=0;j<size;j++){
+		for(int j=0;j<mesh.points.length;j++){
 
 
-			Point4D p=(Point4D) points.elementAt(j);
+			Point4D p=(Point4D)mesh.points[j];
 
 
 
@@ -429,7 +429,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 	}
 
-	private void drawPolygon(LineData ld,Vector points, Graphics2D bufGraphics) {
+	private void drawPolygon(LineData ld,Point3D[] points, Graphics2D bufGraphics) {
 		
 
 
@@ -446,7 +446,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 				int num=ld.getIndex(i);
 
-				Point4D p=(Point4D) points.elementAt(num);
+				Point4D p=(Point4D) mesh.points[num];
 
 
 
@@ -537,12 +537,11 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 	private void deformPlan(double altitude) {
 
-		int size=points.size();
 
-		for(int j=0;j<size;j++){
+		for(int j=0;j<mesh.points.length;j++){
 
 
-			Point4D p=(Point4D) points.elementAt(j);
+			Point4D p=(Point4D) mesh.points[j];
 
 			if(p.isSelected()){
 
@@ -565,12 +564,11 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 		double deltaX=(bounds.getMaxX()-bounds.getMinX());
 		double deltaY=(bounds.getMaxY()-bounds.getMinY());	
 		
-		int size=points.size();
+	
+		for(int j=0;j<mesh.points.length;j++){
 
-		for(int j=0;j<size;j++){
 
-
-			Point4D p=(Point4D) points.elementAt(j);
+			Point4D p=(Point4D)mesh.points[j];
 
 
 			if(p.isSelected()){
@@ -617,12 +615,11 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 		prepareUndo();
 		
-		int size=points.size();
+	
+		for(int j=0;j<mesh.points.length;j++){
 
-		for(int j=0;j<size;j++){
 
-
-			Point4D p=(Point4D) points.elementAt(j);
+			Point4D p=(Point4D)mesh.points[j];
 
 			if(p.isSelected()){
 
@@ -659,12 +656,11 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 		double factorx=Math.PI/(2*deltaX);
 		double factory=Math.PI/(2*deltaY);
 
-		int size=points.size();
 		
-		for(int j=0;j<size;j++){
+		for(int j=0;j<mesh.points.length;j++){
 
 
-			Point4D p=(Point4D) points.elementAt(j);
+			Point4D p=(Point4D) mesh.points[j];
 
 
 			if(p.isSelected()){
@@ -688,12 +684,11 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 		Bounds bounds=new Bounds();
 		boolean first=true;
 
-		int size=points.size();
 		
-		for(int j=0;j<size;j++){
+		for(int j=0;j<mesh.points.length;j++){
 
 
-			Point4D p=(Point4D) points.elementAt(j);
+			Point4D p=(Point4D) mesh.points[j];
 
 			if(p.isSelected()){
 
@@ -788,12 +783,12 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 	private void deselectAll() {
 
-		int size=points.size();
-
-		for(int j=0;j<size;j++){
 
 
-			Point4D p=(Point4D) points.elementAt(j);
+		for(int j=0;j<mesh.points.length;j++){
+
+
+			Point4D p=(Point4D) mesh.points[j];
 
 
 			p.setSelected(false);
@@ -881,12 +876,11 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 		//select point from road
 		
-		int size=points.size();
 
-		for(int j=0;j<size;j++){
+		for(int j=0;j<mesh.points.length;j++){
 
 
-			Point4D p=(Point4D) points.elementAt(j);
+			Point4D p=(Point4D)mesh.points[j];
 
 			int xo=convertX(p.x);
 			int yo=convertY(p.y);
@@ -950,63 +944,30 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 	private void prepareUndoRoad() {
 		jmt11.setEnabled(true);
-		if(oldLines.size()==MAX_STACK_SIZE){
+		if(oldMeshes.size()==MAX_STACK_SIZE){
 
-			oldLines.removeElementAt(0);
-
-		}
-		if(oldPoints.size()==MAX_STACK_SIZE){
-
-			oldPoints.removeElementAt(0);
+			oldMeshes.removeElementAt(0);
 
 		}
-		oldLines.push(cloneLineData(lines));
-		oldPoints.push(clonePoints(points));
+		oldMeshes.push(mesh.clone());
+	
 
 	}
 
-	public Vector clonePoints(Vector oldPoints) {
-
-		Vector newPoints=new Vector();
-
-		for(int i=0;i<oldPoints.size();i++){
-
-			Point3D p=(Point3D) oldPoints.elementAt(i);
-			newPoints.add(p.clone());
-		}
-
-		return newPoints;
-	}
-
-	public Vector cloneLineData(Vector oldLines) {
-
-		Vector newLineData=new Vector();
-
-		for(int i=0;i<oldLines.size();i++){
-
-			LineData ld=(LineData) oldLines.elementAt(i);
-
-
-			newLineData.add(ld.clone());
-
-
-		}
-		return newLineData;
-	}
 
 
 
 	private void undoRoad() {
 
-		lines= (Vector) oldLines.pop();
-		points= (Vector) oldPoints.pop();
+		mesh= (PolygonMesh) oldMeshes.pop();
+	
 
 
-		if(oldLines.size()==0 && oldPoints.size()==0)
+		if(oldMeshes.size()==0)
 			jmt11.setEnabled(false);
 
 
-		roadEditor.setRoadData("RoadAltimetryUndo",lines,points); 
+		roadEditor.setRoadData("RoadAltimetryUndo",mesh); 
 
 
 
@@ -1043,12 +1004,11 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 		//select point from road
 		boolean found=false;
 		
-		int size=points.size();
 
-		for(int j=0;j<size;j++){
+		for(int j=0;j<mesh.points.length;j++){
 
 
-			Point4D p=(Point4D) points.elementAt(j);
+			Point4D p=(Point4D)mesh.points[j];
 
 			int xo=convertX(p.x);
 			int yo=convertY(p.y);
@@ -1141,8 +1101,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 				)
 		{
 
-			this.lines=roadEditor.lines[roadEditor.ACTIVE_PANEL];
-			this.points=roadEditor.points[roadEditor.ACTIVE_PANEL];
+			this.mesh=roadEditor.meshes[roadEditor.ACTIVE_PANEL];
 			drawRoad();
 		}
 

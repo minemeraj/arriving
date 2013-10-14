@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import com.LineData;
 import com.Point3D;
 import com.Polygon3D;
+import com.PolygonMesh;
 import com.editors.cubic.CubicEditor.CubeData;
 import com.editors.cubic.CubicEditor.CubeListItem;
 
@@ -181,8 +182,8 @@ public class CubicEditorPanel extends JPanel implements MouseListener{
 			
 		}
 
-		
-		displayPoints(bufGraphics,cubicEditor.points[cubicEditor.ACTIVE_PANEL]);
+		PolygonMesh mesh = cubicEditor.meshes[cubicEditor.ACTIVE_PANEL];
+		displayPoints(bufGraphics,mesh.points);
 	}
 
 	public void displayCubeUnit(double x, double y, double z, double dx,
@@ -224,11 +225,11 @@ public class CubicEditorPanel extends JPanel implements MouseListener{
 		bufGraphics.drawLine(calcAssX(p3),calcAssY(p3),calcAssX(p0),calcAssY(p0));
 	}
 	
-	private void displayPoints(Graphics2D bufGraphics,Vector points) {
+	private void displayPoints(Graphics2D bufGraphics,Point3D[] points) {
 		
-		for (int pos = 0; pos < points.size(); pos++) {
+		for (int pos = 0; pos < points.length; pos++) {
 			
-			Point3D p = (Point3D) points.elementAt(pos);
+			Point3D p =points[pos];
 			
 			int i=(int)p.p_x;
 			int j=(int)p.p_y;
@@ -389,12 +390,12 @@ public class CubicEditorPanel extends JPanel implements MouseListener{
 	}
 
 	private void selectPoint(int x, int y) {
+		
+		PolygonMesh mesh = cubicEditor.meshes[cubicEditor.ACTIVE_PANEL];
 	
-		for(int c=0;c<cubicEditor.points[cubicEditor.ACTIVE_PANEL].size();c++){
+		for(int c=0;c<mesh.points.length;c++){
 
-			Point3D p=(Point3D) cubicEditor.points[cubicEditor.ACTIVE_PANEL].elementAt(c);
-
-
+			Point3D p=mesh.points[c];
 
 			int xo=calcAssX(p);
 			int yo=calcAssY(p);

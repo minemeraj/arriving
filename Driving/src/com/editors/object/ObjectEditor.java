@@ -456,12 +456,17 @@ public class ObjectEditor extends Editor implements ActionListener{
 		
 		PolygonMesh pm=oetp.getTemplate();
 		
+				
 		if(pm!=null){
-			points[ACTIVE_PANEL]=new Vector();
+			
+			PolygonMesh mesh=meshes[ACTIVE_PANEL];
+			
+			Vector vPoints=new Vector();
 			for (int i = 0; i < pm.points.length; i++) {
-				points[ACTIVE_PANEL].add(pm.points[i]);
+				vPoints.add(pm.points[i]);
 			}
-			lines[ACTIVE_PANEL]=pm.polygonData;
+			mesh.setPoints(vPoints);
+			mesh.polygonData=pm.polygonData;
 			getCenter().displayAll();
 		}
 		
@@ -472,16 +477,19 @@ public class ObjectEditor extends Editor implements ActionListener{
 		
 		prepareUndo();
 		
-		ObjectEditorCopyPanel oetp=new ObjectEditorCopyPanel(points[ACTIVE_PANEL],lines[ACTIVE_PANEL]);
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		
+		ObjectEditorCopyPanel oetp=new ObjectEditorCopyPanel(mesh.points,mesh.polygonData);
 		
 		PolygonMesh pm=oetp.getCopy();
 		
 		if(pm!=null){
-			points[ACTIVE_PANEL]=new Vector();
+			Vector vPoints=new Vector();
 			for (int i = 0; i < pm.points.length; i++) {
-				points[ACTIVE_PANEL].add(pm.points[i]);
+				vPoints.add(pm.points[i]);
 			}
-			lines[ACTIVE_PANEL]=pm.polygonData;
+			mesh.setPoints(vPoints);
+			mesh.polygonData=pm.polygonData;
 			getCenter().displayAll();
 		}
 		
@@ -522,15 +530,15 @@ public class ObjectEditor extends Editor implements ActionListener{
 	
 	private void savePolyFormat(File file) {
 
-
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 
 		PrintWriter pr;
 		try {
 			pr = new PrintWriter(new FileOutputStream(file));
 		
-			for(int i=0;i<lines[ACTIVE_PANEL].size();i++){
+			for(int i=0;i<mesh.polygonData.size();i++){
 
-				LineData ld=(LineData) lines[ACTIVE_PANEL].elementAt(i);
+				LineData ld=(LineData) mesh.polygonData.elementAt(i);
 
 				pr.println(decomposePolyFormat(ld));
 			
@@ -570,6 +578,8 @@ public class ObjectEditor extends Editor implements ActionListener{
 
 	private void saveBaseCubicTexture(File file) {
 		
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		
 		Color backgroundColor=Color.green;
 		Color back_color=Color.BLUE;
 		Color top_color=Color.RED;
@@ -594,9 +604,9 @@ public class ObjectEditor extends Editor implements ActionListener{
 		
 		
 	      //find maxs
-		for(int j=0;j<points[ACTIVE_PANEL].size();j++){
+		for(int j=0;j<mesh.points.length;j++){
 			
-			Point3D point= (Point3D) points[ACTIVE_PANEL].elementAt(j);
+			Point3D point=mesh.points[j];
 			
 			if(j==0){
 				
@@ -655,15 +665,15 @@ public class ObjectEditor extends Editor implements ActionListener{
 			
 			bufGraphics.setColor(new Color(0,0,0));
 			bufGraphics.setStroke(new BasicStroke(0.1f));
-			for(int j=0;j<lines[ACTIVE_PANEL].size();j++){
+			for(int j=0;j<mesh.polygonData.size();j++){
 				
-				LineData ld=(LineData) lines[ACTIVE_PANEL].elementAt(j);
+				LineData ld=(LineData) mesh.polygonData.elementAt(j);
 				
 				for (int k = 0; k < ld.size(); k++) {
 			
 				
-					Point3D point0= (Point3D) points[ACTIVE_PANEL].elementAt(ld.getIndex(k));
-					Point3D point1= (Point3D) points[ACTIVE_PANEL].elementAt(ld.getIndex((k+1)%ld.size()));
+					Point3D point0=  mesh.points[ld.getIndex(k)];
+					Point3D point1=  mesh.points[ld.getIndex((k+1)%ld.size())];
 					//top
 					bufGraphics.drawLine((int)(point0.x-minx+deltaX),(int)(-point0.y+maxy+deltaX),(int)(point1.x-minx+deltaX),(int)(-point1.y+maxy+deltaX));
 					//front
@@ -693,7 +703,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 
 	public void undo() {
 		super.undo();
-		if(oldPoints[ACTIVE_PANEL].size()==0)
+		if(oldMeshes[ACTIVE_PANEL].size()==0)
 			jmt_undo_last.setEnabled(false);
 		
 		firePropertyChange("ObjectEditorUndo",false,true);
@@ -707,6 +717,8 @@ public class ObjectEditor extends Editor implements ActionListener{
 	}
 	
 	private String decomposePolyFormat(LineData ld) {
+		
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 
 		String str="";
 
@@ -714,7 +726,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 
 			if(j>0)
 				str+="_";
-			Point3D p=(Point3D) points[ACTIVE_PANEL].elementAt(ld.getIndex(j));
+			Point3D p=mesh.points[ld.getIndex(j)];
 			str+=p.x+","+p.y+","+p.z;
 
 		}
@@ -772,11 +784,13 @@ public class ObjectEditor extends Editor implements ActionListener{
 
 	public Polygon3D getBodyPolygon(LineData ld) {
 		
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		
 		Polygon3D pol=new Polygon3D(ld.size());
 		
 		for(int i=0;i<ld.size();i++){
 			int index=ld.getIndex(i);
-			Point3D p=(Point3D) points[ACTIVE_PANEL].elementAt(index);			
+			Point3D p=mesh.points[index];		
 			pol.xpoints[i]=(int) p.x;
 			pol.ypoints[i]=(int) p.y;
 			pol.zpoints[i]=(int) p.z;

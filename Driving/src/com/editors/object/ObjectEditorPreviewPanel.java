@@ -45,14 +45,13 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 		editor.addPropertyChangeListener(this);
 		this.editor=editor;
 		
-		this.points=editor.points[editor.ACTIVE_PANEL];
-		this.lines=editor.lines[editor.ACTIVE_PANEL];
+		this.mesh=editor.meshes[editor.ACTIVE_PANEL];
 		
 		deltay=1;
 		deltax=1;
 		
-		clonedPoints=clonePoints(points);
-		PolygonMesh pm=new PolygonMesh(clonedPoints,lines);
+		clonedPoints=clonePoints(mesh.points);
+		PolygonMesh pm=new PolygonMesh(clonedPoints,mesh.polygonData);
 		polygons = PolygonMesh.getBodyPolygons(pm);
 	
 		
@@ -175,10 +174,7 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 			 "ObjectEditorUpdate".equals(evt.getPropertyName())
 		)
 		{
-			this.points=editor.points[editor.ACTIVE_PANEL];
-			this.lines=editor.lines[editor.ACTIVE_PANEL];
-			
-			PolygonMesh pm=new PolygonMesh(points,lines);
+			PolygonMesh pm=editor.meshes[editor.ACTIVE_PANEL];
 			this.polygons = PolygonMesh.getBodyPolygons(pm);
 			
 			draw();

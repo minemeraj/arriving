@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 import com.LineData;
 import com.Point3D;
+import com.PolygonMesh;
 import com.editors.block.BlockEditor.BlockData;
 import com.editors.block.BlockEditor.BlockListItem;
 
@@ -388,10 +389,12 @@ public class BlockEditorPanel extends JPanel implements MouseListener{
 	}
 
 	private void selectPoint(int x, int y) {
+		
+		PolygonMesh mesh = blockEditor.meshes[blockEditor.ACTIVE_PANEL];
 	
-		for(int c=0;c<blockEditor.points[blockEditor.ACTIVE_PANEL].size();c++){
+		for(int c=0;c<mesh.points.length;c++){
 
-			Point3D p=(Point3D) blockEditor.points[blockEditor.ACTIVE_PANEL].elementAt(c);
+			Point3D p=mesh.points[c];
 
 
 

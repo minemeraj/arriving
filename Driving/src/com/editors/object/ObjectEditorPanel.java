@@ -384,13 +384,15 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 			
 			public void mouseClicked(MouseEvent e){
 
+				PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+				
 				if(!checkMultipleSelection.isSelected()) 
 					polygon=new LineData();
 				
 				int index=pointList.getSelectedIndex();
-				for(int i=0;i<oe.points[oe.ACTIVE_PANEL].size();i++){
+				for(int i=0;i<mesh.points.length;i++){
 
-					Point3D p=(Point3D) oe.points[oe.ACTIVE_PANEL].elementAt(i);
+					Point3D p=mesh.points[i];
 					if(index==i){
 						selectPoint(p);
 						polygon.addIndex(i);
@@ -417,11 +419,13 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 			
 			
 			public void mouseClicked(MouseEvent e){
+				
+				PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 
 				int index=lineList.getSelectedIndex();
-				for(int i=0;i<oe.lines[oe.ACTIVE_PANEL].size();i++){
+				for(int i=0;i<mesh.polygonData.size();i++){
 
-					LineData ld=(LineData) oe.lines[oe.ACTIVE_PANEL].elementAt(i);
+					LineData ld=(LineData) mesh.polygonData.elementAt(i);
 					if(index==i)
 						ld.setSelected(true);
 					else 
@@ -544,7 +548,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 
 	}
 	
-	public static Polygon3D buildPolygon(LineData ld,Vector points) {
+	public static Polygon3D buildPolygon(LineData ld,Point3D[] points) {
 
 
 
@@ -560,7 +564,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 
 			int num=ld.getIndex(i);
 
-			Point3D p=(Point3D) points.elementAt(num);
+			Point3D p=points[num];
 
 
 			//real coordinates
@@ -665,11 +669,13 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		if(sqty==null || sqty.equals(""))
 			return;
 		
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		
 		double qty=Double.parseDouble(sqty);
 		
-		for(int i=0;i<oe.points[oe.ACTIVE_PANEL].size();i++){
+		for(int i=0;i<mesh.points.length;i++){
 
-			Point3D p=(Point3D) oe.points[oe.ACTIVE_PANEL].elementAt(i);
+			Point3D p=mesh.points[i];
 
 			if(p.isSelected()){
 
@@ -692,6 +698,8 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 
 	public void rescaleAllPoints() {
 		
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		
 		String txt=rescaleValue.getText();
 		
 		if(txt==null || txt.equals("")){
@@ -700,9 +708,9 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 			return;
 		}	
 		double val=Double.parseDouble(txt);
-		for(int i=0;i<oe.points[oe.ACTIVE_PANEL].size();i++){
+		for(int i=0;i<mesh.points.length;i++){
 
-			Point3D p=(Point3D) oe.points[oe.ACTIVE_PANEL].elementAt(i);
+			Point3D p=mesh.points[i];
 		    p.x=Math.round(p.x *val);
 		    p.y=Math.round(p.y *val);
 		    p.z=Math.round(p.z *val);
@@ -714,33 +722,39 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 	
 	public void selectAllPoints() {
 		
-		for(int i=0;i<oe.points[oe.ACTIVE_PANEL].size();i++){
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		
+		for(int i=0;i<mesh.points.length;i++){
 
-			Point3D p=(Point3D) oe.points[oe.ACTIVE_PANEL].elementAt(i);
+			Point3D p=mesh.points[i];
 			p.setSelected(true);
 		}
 		
 	}
 
 	public void buildPolygon() {
+		
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 
 		if(polygon.lineDatas.size()<3){
 			deselectAll();
 			return;
 		}	
-        oe.lines[oe.ACTIVE_PANEL].add(polygon);
+        mesh.polygonData.add(polygon);
 
 		deselectAll();
 
 	}
 	
 	private void polygonDetail() {
+		
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 	
 		
-		int sizel=oe.lines[oe.ACTIVE_PANEL].size();
+		int sizel=mesh.points.length;
 		for(int i=0;i<sizel;i++){
 
-			LineData ld=(LineData) oe.lines[oe.ACTIVE_PANEL].elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.elementAt(i);
 			if(!ld.isSelected())
 				continue;
 			
@@ -748,7 +762,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 	
 			if(repd.getModifiedLineData()!=null){
 				
-				oe.lines[oe.ACTIVE_PANEL].setElementAt(repd.getModifiedLineData(),i);
+				mesh.polygonData.setElementAt(repd.getModifiedLineData(),i);
 				
 			}
 			
@@ -762,20 +776,23 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 
 
 	public void joinSelectedPoints() {
-		for(int i=0;i<oe.points[oe.ACTIVE_PANEL].size();i++){
+		
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		
+		for(int i=0;i<mesh.points.length;i++){
 
-			Point3D p0=(Point3D) oe.points[oe.ACTIVE_PANEL].elementAt(i);
+			Point3D p0=mesh.points[i];
+			
+			for(int j=0;j<mesh.points.length;j++){
 
-			for(int j=0;j<oe.points[oe.ACTIVE_PANEL].size();j++){
-
-				Point3D p1=(Point3D) oe.points[oe.ACTIVE_PANEL].elementAt(j);
+				Point3D p1=mesh.points[j];
 
 				if(p0.isSelected() && p1.isSelected() && i<j)
 				{
 					LineData ld=new LineData();
 					ld.addIndex(i);
 					ld.addIndex(j);
-					oe.lines[oe.ACTIVE_PANEL].add(ld);
+					mesh.polygonData.add(ld);
 
 				}
 
@@ -788,10 +805,12 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 
 
 	public void changeSelectedPoint() {
+		
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 
-		for(int i=0;i<oe.points[oe.ACTIVE_PANEL].size();i++){
+		for(int i=0;i<mesh.points.length;i++){
 
-			Point3D p=(Point3D) oe.points[oe.ACTIVE_PANEL].elementAt(i);
+			Point3D p=mesh.points[i];
 
 			if(p.isSelected()){
 
@@ -831,6 +850,8 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 	}
 	
 	public void addPoint(double x, double y, double z) {
+		
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 
 		if(!"".equals(coordinatesx.getText()))
 			x=Double.parseDouble(coordinatesx.getText());
@@ -844,9 +865,9 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		if(!"".equals(extraData.getText()))
 			p.setData(extraData.getText());
 
-		int sz= oe.points[oe.ACTIVE_PANEL].size();
+		int sz= mesh.points.length;
 		for (int i = 0; i <sz; i++) {
-			Point3D old_p = (Point3D) oe.points[oe.ACTIVE_PANEL].elementAt(i);
+			Point3D old_p = mesh.points[i];
 			
 			if(old_p.x==p.x && old_p.y==p.y && old_p.z==p.z){
 				
@@ -857,7 +878,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 			}
 		}
 		
-		oe.points[oe.ACTIVE_PANEL].add(p);
+		mesh.addPoint(p);
         
 		deselectAll();
 		displayAll();
@@ -872,12 +893,15 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		
 		PolygonMesh pm=oetp.getTemplate();
 		
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		
 		if(pm!=null){
-			oe.points[oe.ACTIVE_PANEL]=new Vector();
+			Vector vPoints=new Vector();
 			for (int i = 0; i < pm.points.length; i++) {
-				oe.points[oe.ACTIVE_PANEL].add(pm.points[i]);
+				vPoints.add(pm.points[i]);
 			}
-			oe.lines[oe.ACTIVE_PANEL]=pm.polygonData;
+			mesh.setPoints(vPoints);
+			mesh.polygonData=pm.polygonData;
 			displayAll();
 		}
 		
@@ -885,11 +909,13 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 
 	public Polygon3D getBodyPolygon(LineData ld) {
 		
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		
 		Polygon3D pol=new Polygon3D(ld.size());
 		
 		for(int i=0;i<ld.size();i++){
 			int index=ld.getIndex(i);
-			Point3D p=(Point3D) oe.points[oe.ACTIVE_PANEL].elementAt(index);			
+			Point3D p=mesh.points[index];		
 			pol.xpoints[i]=(int) p.x;
 			pol.ypoints[i]=(int) p.y;
 			pol.zpoints[i]=(int) p.z;
@@ -903,18 +929,20 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 
 		Vector newPoints=new Vector();
 		Vector newLines=new Vector();
+		
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 
-		for(int i=0;i<oe.points[oe.ACTIVE_PANEL].size();i++){
+		for(int i=0;i<mesh.points.length;i++){
 
-			Point3D p=(Point3D) oe.points[oe.ACTIVE_PANEL].elementAt(i);
+			Point3D p=mesh.points[i];
 			if(!p.isSelected()) 
 				newPoints.add(p);
 
 		}
 
-		for(int i=0;i<oe.lines[oe.ACTIVE_PANEL].size();i++){
+		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData) oe.lines[oe.ACTIVE_PANEL].elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.elementAt(i);
 			if(ld.isSelected())
 				continue;
 			LineData newLd = new LineData();
@@ -923,7 +951,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 			
 			for(int j=0;j<ld.size();j++){
 
-				Point3D p0=(Point3D) oe.points[oe.ACTIVE_PANEL].elementAt(ld.getIndex(j));
+				Point3D p0=mesh.points[ld.getIndex(j)];
 				if(!p0.isSelected()) 
 					for(int k=0;k<newPoints.size();k++){
 
@@ -947,8 +975,8 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 
 		}
 
-		oe.points[oe.ACTIVE_PANEL]=newPoints;
-		oe.lines[oe.ACTIVE_PANEL]=newLines;
+		mesh.setPoints(newPoints);
+		mesh.polygonData=newLines;
         deselectAll();
 		
 
@@ -961,13 +989,15 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		
 		Vector newPoints=new Vector();
 		Vector newLines=new Vector();
+		
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 
 		
 		int firstPoint=-1;
 		
-		for(int i=0;i<oe.points[oe.ACTIVE_PANEL].size();i++){
+		for(int i=0;i<mesh.points.length;i++){
 
-			Point3D p=(Point3D) oe.points[oe.ACTIVE_PANEL].elementAt(i);
+			Point3D p=mesh.points[i];
 			if(!p.isSelected()) 
 				newPoints.add(p);
 			else if(firstPoint==-1){
@@ -984,9 +1014,9 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		}
 
 
-		for(int i=0;i<oe.lines[oe.ACTIVE_PANEL].size();i++){
+		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData) oe.lines[oe.ACTIVE_PANEL].elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.elementAt(i);
 			if(ld.isSelected())
 				continue;
 			LineData newLd = new LineData();
@@ -994,7 +1024,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 			boolean insertedFirst=false;
 			for(int j=0;j<ld.size();j++){
 
-				Point3D p0=(Point3D) oe.points[oe.ACTIVE_PANEL].elementAt(ld.getIndex(j));
+				Point3D p0=mesh.points[ld.getIndex(j)];
 				if(!p0.isSelected()) 
 					for(int k=0;k<newPoints.size();k++){
 
@@ -1024,8 +1054,8 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 
 		}
 
-		oe.points[oe.ACTIVE_PANEL]=newPoints;
-		oe.lines[oe.ACTIVE_PANEL]=newLines;
+		mesh.setPoints(newPoints);
+		mesh.polygonData=newLines;
         deselectAll();
 		
 		displayAll();
@@ -1045,9 +1075,11 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 
 	public void deselectAllPoints() {
 		
-		for(int i=0;i<oe.points[oe.ACTIVE_PANEL].size();i++){
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		
+		for(int i=0;i<mesh.points.length;i++){
 
-			Point3D p=(Point3D) oe.points[oe.ACTIVE_PANEL].elementAt(i);
+			Point3D p=mesh.points[i];
 			p.setSelected(false);
 		}
 		
@@ -1055,9 +1087,11 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 	
 	public void deselectAllLines() {
 		
-		for(int i=0;i<oe.lines[oe.ACTIVE_PANEL].size();i++){
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		
+		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData) oe.lines[oe.ACTIVE_PANEL].elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.elementAt(i);
 			ld.setSelected(false);
 		}
 		
@@ -1246,16 +1280,18 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 
 	public void moveSelectedLine(int direction) {
 		
-		for(int i=0;i<oe.lines[oe.ACTIVE_PANEL].size();i++){
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		
+		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData) oe.lines[oe.ACTIVE_PANEL].elementAt(i);
-			if(ld.isSelected() && direction>0 && i<oe.lines[oe.ACTIVE_PANEL].size()-1 ){
-					swapLines(oe.lines[oe.ACTIVE_PANEL],i+1,i);	
+			LineData ld=(LineData) mesh.polygonData.elementAt(i);
+			if(ld.isSelected() && direction>0 && i<mesh.polygonData.size()-1 ){
+					swapLines(mesh.polygonData,i+1,i);	
 					lineList.setSelectedIndex(lineList.getSelectedIndex()+1);
 					break;
 			}
 			else if(ld.isSelected() && direction<0 && i>0){
-					swapLines(oe.lines[oe.ACTIVE_PANEL],i,i-1);	
+					swapLines(mesh.polygonData,i,i-1);	
 					lineList.setSelectedIndex(lineList.getSelectedIndex()-1);
 					break;
 			}
@@ -1273,9 +1309,11 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 
 	public void invertSelectedLine(){
 		
-		for(int i=0;i<oe.lines[oe.ACTIVE_PANEL].size();i++){
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		
+		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData) oe.lines[oe.ACTIVE_PANEL].elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.elementAt(i);
 			if(ld.isSelected()){
 				
 				LineData invertedLd=new LineData();
@@ -1283,7 +1321,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 				for (int j = ld.size()-1; j >=0; j--) {
 					invertedLd.addIndex(ld.getIndex(j));
 				}
-				oe.lines[oe.ACTIVE_PANEL].setElementAt(invertedLd,i);
+				mesh.polygonData.setElementAt(invertedLd,i);
 			}
 			
 		
@@ -1294,13 +1332,15 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 	
 	public void resetLists() {
 		
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		
 		DefaultListModel dlm=new DefaultListModel();
 		int sel=pointList.getSelectedIndex();
 		
 
-		for(int i=0;i<oe.points[oe.ACTIVE_PANEL].size();i++){
+		for(int i=0;i<mesh.points.length;i++){
 
-			Point3D p=(Point3D) oe.points[oe.ACTIVE_PANEL].elementAt(i);
+			Point3D p=mesh.points[i];
 		    dlm.addElement(new PointListItem(p,i)) ; 
 		}
 		
@@ -1315,9 +1355,9 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		int selec=lineList.getSelectedIndex();
 		
 
-		for(int i=0;i<oe.lines[oe.ACTIVE_PANEL].size();i++){
+		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData) oe.lines[oe.ACTIVE_PANEL].elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.elementAt(i);
 			dflm.addElement(ld) ; 
 		}
 		
@@ -1586,16 +1626,18 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 
 	public void selectPolygon(int x, int y) {
 		
+		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		
 		Vector polygonsInLine=new Vector();
 	
 		
-		for(int i=0;i<oe.lines[oe.ACTIVE_PANEL].size();i++){
+		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData) oe.lines[oe.ACTIVE_PANEL].elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.elementAt(i);
 		
 			if(ld.size()>2){
 				
-				Polygon3D p3d=buildPolygon(ld,oe.points[oe.ACTIVE_PANEL]);
+				Polygon3D p3d=buildPolygon(ld,mesh.points);
 	
 				Polygon poly=buildProjection(p3d);
 

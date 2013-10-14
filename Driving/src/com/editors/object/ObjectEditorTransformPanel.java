@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 
 import com.LineData;
 import com.Point3D;
+import com.PolygonMesh;
 import com.editors.DoubleTextField;
 
 public class ObjectEditorTransformPanel extends JDialog implements ActionListener{
@@ -215,8 +216,7 @@ public class ObjectEditorTransformPanel extends JDialog implements ActionListene
 		double refY=Double.parseDouble(referencey.getText());
 		double refZ=Double.parseDouble(referencez.getText());
 
-		Vector points = editor.points[editor.ACTIVE_PANEL];
-		Vector lines = editor.lines[editor.ACTIVE_PANEL];
+		PolygonMesh mesh=editor.meshes[editor.ACTIVE_PANEL];
 
 
 
@@ -237,15 +237,15 @@ public class ObjectEditorTransformPanel extends JDialog implements ActionListene
 			}
 
 			double[][] matrix = ObjectEditor.getRotationMatrix(versus,rotation);
-			ObjectEditor.rotate(points,matrix,refX,refY,refZ);
+			ObjectEditor.rotate(mesh.points,matrix,refX,refY,refZ);
 
 		}
 		else if(operationReflect.isSelected() ){
 
 
-			for(int i=0;i<points.size();i++){
+			for(int i=0;i<mesh.points.length;i++){
 
-				Point3D p=(Point3D) points.elementAt(i);
+				Point3D p=mesh.points[i];
 
 				if(axisX.isSelected()){
 
@@ -259,10 +259,10 @@ public class ObjectEditorTransformPanel extends JDialog implements ActionListene
 				}
 			}
 			
-			for (int i = 0; i < lines.size(); i++) {
-				LineData ld = (LineData) lines.elementAt(i);
+			for (int i = 0; i < mesh.polygonData.size(); i++) {
+				LineData ld = (LineData) mesh.polygonData.elementAt(i);
 				ld=invertLineData(ld);
-				lines.setElementAt(ld,i);
+				mesh.polygonData.setElementAt(ld,i);
 			}
 		}
 

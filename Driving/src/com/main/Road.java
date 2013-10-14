@@ -86,11 +86,9 @@ public class Road extends Shader{
 	int TILE_SIDE=4;
 	CarData carData=null;
 		
-	public Vector[] points=new Vector[2];
-	public Vector[] lines=new Vector[2];
+	public PolygonMesh[] meshes=new PolygonMesh[2];
 	
-	public Vector[] oldPoints=new Vector[2];
-	public Vector[] oldLines=new Vector[2];
+	public PolygonMesh[] oldMeshes=new PolygonMesh[2];
 	
    
 	//public static String[] hexRoadColors={"888888","888888","888888","CCCCCC"};
@@ -202,11 +200,11 @@ public class Road extends Shader{
 		
 		for (int ii = 0; ii < 2; ii++) {
 			
-			int size=lines[index].size();
+			int size=meshes[index].polygonData.size();
 
 			for(int j=0;j<size;j++){
 
-				LineData ld=(LineData) lines[index].elementAt(j);
+				LineData ld=(LineData) meshes[index].polygonData.elementAt(j);
 
 				Polygon3D p3D=buildLightTransformedPolygon3D(ld,ii);
 
@@ -426,14 +424,17 @@ public class Road extends Shader{
 		
 		for(int index=0;index<2;index++){
 	
-		
-			int size=lines[index].size();
+			PolygonMesh mesh=meshes[index];
+			
+			int size=mesh.polygonData.size();
 	
 			for(int j=0;j<size;j++){
+				
+				
 	
-				LineData ld=(LineData) lines[index].elementAt(j);
+				LineData ld=(LineData) meshes[index].polygonData.elementAt(j);
 	
-				Polygon3D p3D=buildTransformedPolygon3D(ld,points[index]);
+				Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points);
 	
 					if(p3D.contains(start_car_x,start_car_y)){
 	
@@ -494,14 +495,15 @@ public class Road extends Shader{
 			
 			for(int index=0;index<2;index++){
 				
-				int size=lines[index].size();
+				PolygonMesh mesh=meshes[index];
+				int size=mesh.polygonData.size();
 			
 				for(int j=0;j<size;j++){
 					
 				
-					LineData ld=(LineData) lines[index].elementAt(j);
+					LineData ld=(LineData) mesh.polygonData.elementAt(j);
 	
-					Polygon3D p3D=buildTransformedPolygon3D(ld,points[index]);
+					Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points);
 	
 	
 					if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
@@ -569,13 +571,14 @@ public class Road extends Shader{
 		int[] cyr=new int[size];
 		int[] czr=new int[size];
 
-
+		PolygonMesh mesh=meshes[index];
+		
 		for(int i=0;i<size;i++){
 
 
 			int num=ld.getIndex(i);
 
-			Point4D p=(Point4D) points[index].elementAt(num);
+			Point4D p=(Point4D) mesh.points[num];
 
 			Point4D p_light=calculateLightTransformedPoint(p,true);
 				
@@ -904,9 +907,7 @@ public class Road extends Shader{
 	
 	public void loadPointsFromFile(File file,int index){
 
-		points[index]=new Vector();
-		lines[index]=new Vector();
-		
+		meshes[index]=new PolygonMesh();		
 
 		
 
@@ -932,17 +933,17 @@ public class Road extends Shader{
 					continue;
 
 				if(str.startsWith("P="))
-					buildPoints(points[index],str.substring(2),index);
+					buildPoints(meshes[index],str.substring(2),index);
 				else if(str.startsWith("L="))
-					buildLines(lines[index],str.substring(2),index);
+					buildLines(meshes[index],str.substring(2),index);
 
 
 			}
             br.close();
 
 			
-			oldPoints[index]=clonePoints(points[index]);
-			oldLines[index]=cloneLineData(lines[index]);
+			oldMeshes[index]=cloneMesh(meshes[index]);
+		
 			
 			//checkNormals();
 		} catch (Exception e) {
@@ -952,6 +953,11 @@ public class Road extends Shader{
 	}
 	
 	
+	private PolygonMesh cloneMesh(PolygonMesh polygonMesh) {
+		
+		return polygonMesh.clone();
+	}
+
 	private void calculateShadowCosines() {
 	
 		
@@ -966,9 +972,11 @@ public class Road extends Shader{
 	}
 
 
-	public void buildPoints(Vector points, String str,int index) {
+	public void buildPoints(PolygonMesh mesh, String str,int index) {
 
 		StringTokenizer sttoken=new StringTokenizer(str,"_");
+		
+		Vector vPoints=new Vector();
 
 		while(sttoken.hasMoreElements()){
 
@@ -986,9 +994,11 @@ public class Road extends Shader{
 			if (index==1)
 				p.z+=ROAD_THICKNESS;
 
-			points.add(p);
+			vPoints.add(p);
 		}
 
+		mesh.setPoints(vPoints);
+		
 	}
 	
 	public String decomposeLineData(LineData ld) {
@@ -1013,7 +1023,7 @@ public class Road extends Shader{
 		return str;
 	}
 	
-	public void buildLines(Vector lines, String str,int index) {
+	public void buildLines(PolygonMesh meshes, String str,int index) {
 
 		StringTokenizer sttoken=new StringTokenizer(str,"_");
 
@@ -1031,7 +1041,7 @@ public class Road extends Shader{
 				ld.addIndex(Integer.parseInt(vals[i]));
 
 
-			lines.add(ld);
+			meshes.polygonData.add(ld);
 		}
 
 
@@ -1084,8 +1094,8 @@ public class Road extends Shader{
 	
 	private void resetRoadData(int index) {
 		
-		points[index]=clonePoints(oldPoints[index]);
-		lines[index]=cloneLineData(oldLines[index]);
+		meshes[index]=cloneMesh(oldMeshes[index]);
+	
 		
 	}
 

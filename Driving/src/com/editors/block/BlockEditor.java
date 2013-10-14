@@ -922,8 +922,8 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		BlockEditor ce=new BlockEditor();
 		PolygonMesh pm = buildSurface();
 		
-		ce.points[ACTIVE_PANEL]=PolygonMesh.fromArrayToVector(pm.points);
-		ce.lines[ACTIVE_PANEL]=pm.polygonData;
+		ce.meshes[ACTIVE_PANEL]=new PolygonMesh(pm.points,pm.polygonData);
+		
 		
 		ObjectEditorPreviewPanel oepp=new ObjectEditorPreviewPanel(ce);
 	}
@@ -971,6 +971,8 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 
         if(blockData==null)
         	return;
+        
+    	PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
 		PrintWriter pr; 
 		try {
@@ -982,15 +984,15 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 	
 			pr.print("\nM=");
 
-			for(int i=0;i<points[ACTIVE_PANEL].size();i++){
+			for(int i=0;i<mesh.points.length;i++){
 
-				Point3D p0=(Point3D) points[ACTIVE_PANEL].elementAt(i);
+				Point3D p0=mesh.points[i];
 				int i0=(int)p0.p_x;
 				int j0=(int)p0.p_y;
 				int k0=(int)p0.p_z;	
 				
 				pr.print(blockData.selectionMask[i0][j0][k0]);
-				if(i<points[ACTIVE_PANEL].size()-1)
+				if(i<mesh.points.length-1)
 					pr.print("_");
 			}
 
@@ -1004,11 +1006,9 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 	
 	public void loadPointsFromFile(File file){
 
-		points[ACTIVE_PANEL]=new Vector();
-		lines[ACTIVE_PANEL]=new Vector();
+		meshes[ACTIVE_PANEL]=new PolygonMesh();
+		oldMeshes[ACTIVE_PANEL]=new Stack();
 
-		oldPoints[ACTIVE_PANEL]=new Stack();
-		oldLines[ACTIVE_PANEL]=new Stack();
 
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));
@@ -1095,7 +1095,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 	public void saveLines(File file,PolygonMesh pm) {
 
 
-		
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 
 		PrintWriter pr;
 		try {
@@ -1106,7 +1106,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 				Point3D p=pm.points[i];
 				pr.print(decomposePoint(p));
-				if(i<points[ACTIVE_PANEL].size()-1)
+				if(i<mesh.points.length-1)
 					pr.print("_");
 			}	
 
@@ -1133,6 +1133,8 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 	}
 
 	private PolygonMesh buildSurface() {
+		
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 
 		PolygonMesh newPolygonMesh=new PolygonMesh();
 
@@ -1142,9 +1144,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		int NZ=blockData.NZ;
 
 
-		//create new points
-		Point3D[] newArrPoints = PolygonMesh.fromVectorToArray(points[ACTIVE_PANEL]);
-
+	
 
 		//create new line data
 
@@ -1170,7 +1170,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 		
 
-		newPolygonMesh.points=newArrPoints;
+		newPolygonMesh.points=mesh.points;
 		newPolygonMesh.polygonData=newPolygonData;
 
 
@@ -1240,11 +1240,13 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		double dx=LX/NX;
 		double dy=LY/NY;
 		double dz=LZ/NZ;
+		
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 
-		points[ACTIVE_PANEL]=new Vector();
-		lines[ACTIVE_PANEL]=new Vector();
+		meshes[ACTIVE_PANEL]=new PolygonMesh();
+		
 
-		points[ACTIVE_PANEL].setSize(NX*NY*NZ);
+		meshes[ACTIVE_PANEL].points=new Point3D[NX*NY*NZ];
 
 		for(int i=0;i<NX;i++)
 			for(int j=0;j<NY;j++){
@@ -1256,7 +1258,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 					double z=dz*k;
 
 					int pos=pos(i,j,k,NX,NY,NZ);
-					points[ACTIVE_PANEL].setElementAt(new Point3D(x,y,z,i,j,k),pos);
+					meshes[ACTIVE_PANEL].points[pos]=new Point3D(x,y,z,i,j,k);
 				}
 			}
 		
@@ -1682,7 +1684,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		
 		try {
 			
-			if(oldPoints[ACTIVE_PANEL].size()==MAX_STACK_SIZE){
+			if(oldBlockData.size()==MAX_STACK_SIZE){
 				
 				oldBlockData.removeElementAt(0);
 			

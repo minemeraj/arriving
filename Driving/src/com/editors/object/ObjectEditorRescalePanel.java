@@ -16,6 +16,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import com.Point3D;
+import com.PolygonMesh;
 import com.editors.DoubleTextField;
 
 public class ObjectEditorRescalePanel extends JDialog implements ActionListener{
@@ -173,13 +174,12 @@ public class ObjectEditorRescalePanel extends JDialog implements ActionListener{
 		
 		
 
-		Vector points = editor.points[editor.ACTIVE_PANEL];
-		Vector lines = editor.lines[editor.ACTIVE_PANEL];
+		PolygonMesh mesh=editor.meshes[editor.ACTIVE_PANEL];
 
 
-		for(int i=0;i<points.size();i++){
+		for(int i=0;i<mesh.points.length;i++){
 			
-			Point3D p=(Point3D) points.elementAt(i);
+			Point3D p=mesh.points[i];
 			
 			if(!p.isSelected())
 				continue;

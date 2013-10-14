@@ -35,7 +35,7 @@ public class ObjectEditorCopyPanel extends JDialog implements ActionListener {
 	private DoubleTextField translate_dz;
 	private JCheckBox invert_polygons;
 
-	public ObjectEditorCopyPanel(Vector points, Vector lines) {
+	public ObjectEditorCopyPanel(Point3D[] points, Vector lines) {
 		
 		
 		setSize(WIDTH,HEIGHT+BOTTOM_HEIGHT);

@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.LineData;
 import com.Polygon3D;
+import com.PolygonMesh;
 import com.editors.Editor;
 
 public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
@@ -93,8 +94,9 @@ public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 
 	private DefaultTableModel buildTableModel(LineData ld) {
 		
+		PolygonMesh mesh=editor.meshes[editor.ACTIVE_PANEL];
 		
-		Polygon3D polygon3d = editor.buildPolygon(ld,editor.points[editor.ACTIVE_PANEL],true);
+		Polygon3D polygon3d = editor.buildPolygon(ld,mesh.points,true);
 
 		
 		DefaultTableModel model=new DefaultTableModel();

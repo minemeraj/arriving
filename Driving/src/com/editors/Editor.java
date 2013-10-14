@@ -1,10 +1,7 @@
 package com.editors;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.PrintWriter;
@@ -16,22 +13,20 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
-import javax.swing.filechooser.FileView;
 
 import com.LineData;
 import com.Point3D;
 import com.Polygon3D;
+import com.PolygonMesh;
 
 public class Editor extends JFrame implements MenuListener{
 	
 	public int ACTIVE_PANEL=0; 
 	public int numPanels=2;
 	
-	public Vector[] points=null;
-	public Vector[] lines=null;
-	
-	public Stack[] oldPoints=null;
-	public Stack[] oldLines=null;
+	public PolygonMesh[] meshes=null;	
+	public Stack[] oldMeshes=null;
+
 	
 	public LineData polygon=new LineData();
 	
@@ -48,29 +43,27 @@ public class Editor extends JFrame implements MenuListener{
 	public Editor(){
 		
 		
-		points=new Vector[numPanels];
-		lines=new  Vector[numPanels];
+		meshes=new PolygonMesh[numPanels];
 		
 		
-		oldPoints=new Stack[numPanels];
-		oldLines=new Stack[numPanels];
-		
+		oldMeshes=new Stack[numPanels];
+			
 		for (int i = 0; i < numPanels; i++) {
 			
 			
-			points[i]=new Vector();
-			lines[i]=new  Vector();
-			
-			
-			oldPoints[i]=new Stack();
-			oldLines[i]=new Stack();
+			meshes[i]=new PolygonMesh();
+
+			oldMeshes[i]=new Stack();
 		}
 		
 		
 	
 	}
 	
-	public void buildPoints(Vector points, String str) {
+	public void buildPoints(PolygonMesh mesh, String str) {
+		
+		Vector vPoints=new Vector();
+
 
 		StringTokenizer sttoken=new StringTokenizer(str,"_");
 
@@ -87,7 +80,54 @@ public class Editor extends JFrame implements MenuListener{
 			if(vals.length==4)
 				p.data=vals[3];
 
-			points.add(p);
+			vPoints.add(p);
+		}
+
+
+		mesh.setPoints(vPoints);
+
+	}
+	
+	public void buildPoints(Vector vPoints, String str) {
+		
+
+
+		StringTokenizer sttoken=new StringTokenizer(str,"_");
+
+		while(sttoken.hasMoreElements()){
+
+			String[] vals = sttoken.nextToken().split(",");
+
+			Point3D p=new Point3D();
+
+			p.x=Double.parseDouble(vals[0]);
+			p.y=Double.parseDouble(vals[1]);
+			p.z=Double.parseDouble(vals[2]);
+			
+			if(vals.length==4)
+				p.data=vals[3];
+
+			vPoints.add(p);
+		}
+
+
+	}
+	
+	public void buildLines(PolygonMesh mesh, String str) {
+
+		StringTokenizer sttoken=new StringTokenizer(str,"_");
+
+		while(sttoken.hasMoreElements()){
+
+			String[] vals = sttoken.nextToken().split(",");
+
+			LineData ld=new LineData();
+
+			for(int i=0;i<vals.length;i++)
+				ld.addIndex(Integer.parseInt(vals[i]));
+
+
+			mesh.polygonData.add(ld);
 		}
 
 
@@ -145,11 +185,9 @@ public class Editor extends JFrame implements MenuListener{
 	
 	public void loadPointsFromFile(File file){
 
-		points[ACTIVE_PANEL]=new  Vector();
-		lines[ACTIVE_PANEL]=new  Vector();
-		
-		oldPoints[ACTIVE_PANEL]=new Stack();
-		oldLines[ACTIVE_PANEL]=new Stack();
+		meshes[ACTIVE_PANEL]=new  PolygonMesh();			
+		oldMeshes[ACTIVE_PANEL]=new Stack();
+	
 
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));
@@ -159,6 +197,12 @@ public class Editor extends JFrame implements MenuListener{
 			int rows=0;
 			
 			boolean read=forceReading;
+			
+			int nx=0;
+			int ny=0;
+			int side=0;
+			double x0=0;
+			double y0=0;
 			
 			while((str=br.readLine())!=null){
 				
@@ -176,9 +220,19 @@ public class Editor extends JFrame implements MenuListener{
 					continue;
 
 				if(str.startsWith("P="))
-					buildPoints(points[ACTIVE_PANEL],str.substring(2));
+					buildPoints(meshes[ACTIVE_PANEL],str.substring(2));
 				else if(str.startsWith("L="))
-					buildLines(lines[ACTIVE_PANEL],str.substring(2));
+					buildLines(meshes[ACTIVE_PANEL],str.substring(2));
+				else if(str.startsWith("NX="))					
+					nx=Integer.parseInt(str.substring(3)); 
+				else if(str.startsWith("NY="))					
+					ny=Integer.parseInt(str.substring(3)); 
+				else if(str.startsWith("SIDE="))					
+					side=Integer.parseInt(str.substring(5)); 
+				else if(str.startsWith("X0="))					
+					x0=Double.parseDouble(str.substring(3)); 
+				else if(str.startsWith("Y0="))					
+					y0=Double.parseDouble(str.substring(3)); 
 
 
 			}
@@ -256,26 +310,38 @@ public class Editor extends JFrame implements MenuListener{
 		
 		try {
 			
+			PolygonMesh mesh=meshes[ACTIVE_PANEL];
+			
 			pr.println("<"+TAG[ACTIVE_PANEL]+">");
+			/*if(pm instanceof SquareMesh){
+				
+				SquareMesh sm = (SquareMesh)pm;
+				pr.println();
+				pr.println("NX="+sm.getNumx());
+				pr.println("NY="+sm.getNumy());
+				pr.println("SIDE="+sm.getSide());
+				pr.println("X0="+sm.getX0());
+				pr.println("Y0="+sm.getY0());
+			}*/
 			pr.print("P=");
 
-			for(int i=0;i<points[ACTIVE_PANEL].size();i++){
+			for(int i=0;i<mesh.points.length;i++){
 
-				Point3D p=(Point3D) points[ACTIVE_PANEL].elementAt(i);
+				Point3D p=mesh.points[i];
 
 				pr.print(decomposePoint(p));
-				if(i<points[ACTIVE_PANEL].size()-1)
+				if(i<mesh.points.length-1)
 					pr.print("_");
 			}	
 
 			pr.print("\nL=");
 
-			for(int i=0;i<lines[ACTIVE_PANEL].size();i++){
+			for(int i=0;i<mesh.polygonData.size();i++){
 
-				LineData ld=(LineData) lines[ACTIVE_PANEL].elementAt(i);
+				LineData ld=(LineData) mesh.polygonData.elementAt(i);
 
 				pr.print(decomposeLineData(ld));
-				if(i<lines[ACTIVE_PANEL].size()-1)
+				if(i<mesh.polygonData.size()-1)
 					pr.print("_");
 			}	
 			pr.println("\n</"+TAG[ACTIVE_PANEL]+">");
@@ -320,21 +386,19 @@ public class Editor extends JFrame implements MenuListener{
 	
 	public void prepareUndo() {
 		
-		if(oldPoints[ACTIVE_PANEL].size()==MAX_STACK_SIZE){
+		if(oldMeshes[ACTIVE_PANEL].size()==MAX_STACK_SIZE){
 			
-			oldPoints[ACTIVE_PANEL].removeElementAt(0);
-			oldLines[ACTIVE_PANEL].removeElementAt(0);
+			oldMeshes[ACTIVE_PANEL].removeElementAt(0);
 		}
-		oldPoints[ACTIVE_PANEL].push(clonePoints(points[ACTIVE_PANEL]));
-		oldLines[ACTIVE_PANEL].push(cloneLineData(lines[ACTIVE_PANEL]));
+		oldMeshes[ACTIVE_PANEL].push(meshes[ACTIVE_PANEL].clone());
+	
 	}
 	
 	public void undo() {
 		
-		if(oldPoints[ACTIVE_PANEL].size()>0)
-			points[ACTIVE_PANEL]=(Vector) oldPoints[ACTIVE_PANEL].pop();
-		if(oldLines[ACTIVE_PANEL].size()>0)
-			lines[ACTIVE_PANEL]=(Vector) oldLines[ACTIVE_PANEL].pop();
+		if(oldMeshes[ACTIVE_PANEL].size()>0)
+			meshes[ACTIVE_PANEL]=(PolygonMesh) oldMeshes[ACTIVE_PANEL].pop();
+
 		
 	}
 	
@@ -355,7 +419,7 @@ public class Editor extends JFrame implements MenuListener{
 
 	}
 
-	public Polygon3D buildPolygon(LineData ld, Vector points2, boolean b) {
+	public Polygon3D buildPolygon(LineData ld, Point3D[] points, boolean b) {
 		// TODO Auto-generated method stub
 		return null;
 	}

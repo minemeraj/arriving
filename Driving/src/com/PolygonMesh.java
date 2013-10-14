@@ -103,7 +103,7 @@ public class PolygonMesh implements Cloneable{
 		polygonData.add(polygon);		
 	}
 	
-	protected PolygonMesh clone() {
+	public PolygonMesh clone() {
 		
 		PolygonMesh pm=new PolygonMesh();
 		pm.points=new Point3D[this.points.length];
@@ -366,6 +366,32 @@ public class PolygonMesh implements Cloneable{
 
 	public void setPolygonData(Vector<LineData> polygonData) {
 		this.polygonData = polygonData;
+	}
+
+	public void setPoints(Vector points) {
+		
+		if(points!=null){
+			this.points=new Point3D[points.size()];
+			for(int i=0;i<points.size();i++)
+				this.points[i] = (Point3D) points.elementAt(i);
+		}	
+		else
+			this.points= null;
+		
+	}
+
+	public void addPoint(Point3D point) {
+
+		Point3D[] newPoints=new Point3D[points.length+1];
+
+		for (int i = 0; i < points.length; i++) {
+			newPoints[i]=points[i];
+		}
+
+		newPoints[points.length]=point;
+		
+		points=newPoints;
+
 	}
 
 

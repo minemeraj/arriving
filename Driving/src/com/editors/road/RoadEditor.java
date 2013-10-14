@@ -584,11 +584,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private void polygonDetail() {
 	
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
-		int sizel=lines[ACTIVE_PANEL].size();
+		int sizel=mesh.polygonData.size();
 		for(int i=0;i<sizel;i++){
 
-			LineData ld=(LineData) lines[ACTIVE_PANEL].elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.elementAt(i);
 			if(!ld.isSelected())
 				continue;
 			
@@ -597,7 +598,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			if(repd.getModifiedLineData()!=null){
 				
-				lines[ACTIVE_PANEL].setElementAt(repd.getModifiedLineData(),i);
+				mesh.polygonData.setElementAt(repd.getModifiedLineData(),i);
 				
 			}
 			
@@ -633,26 +634,27 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void displayRoad(ZBuffer[] landscapeZbuffer,int index) {
 
-				
-		int lsize=lines[index].size();
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		
+		int lsize=mesh.polygonData.size();
 		
 
 		for(int j=0;j<lsize;j++){
 			
 			
-			LineData ld=(LineData) lines[index].elementAt(j);
+			LineData ld=(LineData) mesh.polygonData.elementAt(j);
 
-			drawPolygon(ld,points[index],landscapeZbuffer,index);
+			drawPolygon(ld,mesh.points,landscapeZbuffer,index);
 
 		} 
 
 		//mark row angles
 		
-		int size=points[index].size();
+		int size=mesh.points.length;
 		for(int j=0;j<size;j++){
 
 
-		    Point4D p=(Point4D) points[index].elementAt(j);
+		    Point4D p=(Point4D) mesh.points[j];
 
 				int xo=convertX(p.x);
 				int yo=convertY(p.y);
@@ -949,7 +951,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 
-	private void drawPolygon(LineData ld,Vector points,ZBuffer[] landscapeZbuffer,int indx) {
+	private void drawPolygon(LineData ld,Point3D[] points,ZBuffer[] landscapeZbuffer,int indx) {
 
 
 		Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
@@ -970,7 +972,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 			int num=ld.getIndex(i);
 
-			Point4D p=(Point4D) points.elementAt(num);
+			Point4D p=(Point4D) points[num];
 
 			//bufGraphics.setColor(ZBuffer.fromHexToColor(is[i].getHexColor()));
 
@@ -2276,13 +2278,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private void changeSelectedRoadPoint() {
 
 		prepareUndoRoad();
-
-		int size=points[ACTIVE_PANEL].size();
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
-		for(int j=0;j<size;j++){
+		
+		for(int j=0;j<mesh.points.length;j++){
 
 
-			    Point4D p=(Point4D) points[ACTIVE_PANEL].elementAt(j);
+			    Point4D p=(Point4D)mesh.points[j];
 
 				if(p.isSelected()){
 
@@ -2312,12 +2314,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private void changeSelectedRoadPolygon() {
 		
 		prepareUndoRoad();
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
-		int sizel=lines[ACTIVE_PANEL].size();
+		int sizel=mesh.polygonData.size();
 		for(int j=0;j<sizel;j++){
 			
 			
-			LineData ld=(LineData) lines[ACTIVE_PANEL].elementAt(j);
+			LineData ld=(LineData)mesh.polygonData.elementAt(j);
 		    
 		    
 		    if(ld.isSelected){
@@ -2345,12 +2348,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private void invertSelectedRoadPolygon() {
 		
 		prepareUndoRoad();
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
-		int sizel=lines[ACTIVE_PANEL].size();
+		int sizel=mesh.polygonData.size();
 		for(int i=0;i<sizel;i++){
 			
 			
-			LineData ld=(LineData) lines[ACTIVE_PANEL].elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.elementAt(i);
 		    
 		    
 		    if(ld.isSelected){
@@ -2360,7 +2364,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				for (int j = ld.size()-1; j >=0; j--) {
 					invertedLd.addIndex(ld.getIndex(j));
 				}
-				lines[ACTIVE_PANEL].setElementAt(invertedLd,i);
+				mesh.polygonData.setElementAt(invertedLd,i);
 		    	
 		    }
 			
@@ -2372,15 +2376,17 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 		prepareUndoRoad();
 		
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		
 		Vector newPoints=new Vector();
 		Vector newLines=new Vector();
 
 		
 		int firstPoint=-1;
 		
-		for(int i=0;i<points[ACTIVE_PANEL].size();i++){
+		for(int i=0;i<mesh.points.length;i++){
 
-			Point3D p=(Point3D) points[ACTIVE_PANEL].elementAt(i);
+			Point3D p= mesh.points[i];
 			if(!p.isSelected()) 
 				newPoints.add(p);
 			else if(firstPoint==-1){
@@ -2397,9 +2403,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 
 
-		for(int i=0;i<lines[ACTIVE_PANEL].size();i++){
+		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData)lines[ACTIVE_PANEL].elementAt(i);
+			LineData ld=(LineData)mesh.polygonData.elementAt(i);
 			if(ld.isSelected())
 				continue;
 			LineData newLd = new LineData();
@@ -2408,7 +2414,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 			for(int j=0;j<ld.size();j++){
 
-				Point3D p0=(Point3D) points[ACTIVE_PANEL].elementAt(ld.getIndex(j));
+				Point3D p0= mesh.points[ld.getIndex(j)];
 				if(!p0.isSelected()) 
 					for(int k=0;k<newPoints.size();k++){
 
@@ -2438,8 +2444,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		}
 
-		points[ACTIVE_PANEL]=newPoints;
-		lines[ACTIVE_PANEL]=newLines;
+		mesh.setPoints(newPoints);
+		mesh.polygonData=newLines;
         deselectAll();
 		
 	
@@ -2450,24 +2456,24 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		prepareUndo();
 		
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		
 		Vector newPoints=new Vector();
 		Vector newLines=new Vector();
 
-		int size=points[ACTIVE_PANEL].size();
-		
-		for(int i=0;i<size;i++){
+		for(int i=0;i<mesh.points.length;i++){
 
-			Point3D p=(Point3D) points[ACTIVE_PANEL].elementAt(i);
+			Point3D p=mesh.points[i];
 			if(!p.isSelected()) 
 				newPoints.add(p);
 
 		}
 
 		
-		int sizel=lines[ACTIVE_PANEL].size();
+		int sizel=mesh.polygonData.size();
 		for(int i=0;i<sizel;i++){
 
-			LineData ld=(LineData) lines[ACTIVE_PANEL].elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.elementAt(i);
 			if(ld.isSelected())
 				continue;
 			LineData newLd = new LineData();
@@ -2476,7 +2482,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			for(int j=0;j<ld.size();j++){
 
-				Point3D p0=(Point3D) points[ACTIVE_PANEL].elementAt(ld.getIndex(j));
+				Point3D p0=mesh.points[ld.getIndex(j)];
 				if(!p0.isSelected()) 
 					for(int k=0;k<newPoints.size();k++){
 
@@ -2503,14 +2509,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		}
 
-		points[ACTIVE_PANEL]=newPoints;
-		lines[ACTIVE_PANEL]=newLines;
+		mesh.setPoints(newPoints);
+		mesh.polygonData=newLines;
         deselectAll();
 	
 		
 	}
 	
 	private void moveSelectedRoadPoints(int dx, int dy,int dk) {
+		
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 
 		String sqty=roadMove[ACTIVE_PANEL].getText();
 
@@ -2523,11 +2531,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		prepareUndoRoad();
 
-		int size=points[ACTIVE_PANEL].size();
-		for(int j=0;j<size;j++){
+		for(int j=0;j<mesh.points.length;j++){
 
 
-			Point4D p=(Point4D) points[ACTIVE_PANEL].elementAt(j);
+			Point4D p=(Point4D) mesh.points[j];
 
 			if(p.isSelected()){
 
@@ -3153,7 +3160,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			RoadEditorGridManager roadEGM=(RoadEditorGridManager) regm.getReturnValue();
 			
-
+			PolygonMesh mesh=meshes[ACTIVE_PANEL];
 
 			
 			double z_value=0;
@@ -3169,10 +3176,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			int tot=numx*numy;
 			
-			points[ACTIVE_PANEL]=new Vector();
-			lines[ACTIVE_PANEL]=new Vector();
+		
+			mesh.polygonData=new Vector();
 			
-			points[ACTIVE_PANEL].setSize(numy*numx);
+			mesh.points=new Point3D[numy*numx];
 			
 			
 			for(int i=0;i<numx;i++)
@@ -3181,7 +3188,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					
 					Point4D p=new Point4D(i*dx+x_0,j*dy+y_0,z_value);
 				
-					points[ACTIVE_PANEL].setElementAt(p,i+j*numx);
+					mesh.points[i+j*numx]=p;
 
 				}
 
@@ -3203,7 +3210,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					else
 						ld.setTexture_index(2);
 					
-					lines[ACTIVE_PANEL].add(ld);
+					mesh.polygonData.add(ld);
 					
 					
 					
@@ -3224,7 +3231,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			RoadEditorGridManager roadEGM=(RoadEditorGridManager) regm.getReturnValue();
 			
-
+			PolygonMesh mesh=meshes[ACTIVE_PANEL];
 
 			
 			double z_value=0;
@@ -3240,10 +3247,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			int tot=numx*numy;
 			
-			int sz=points[ACTIVE_PANEL].size();
 			
-
-			points[ACTIVE_PANEL].setSize(sz+numy*numx);
+            int sz= mesh.points.length;
+			mesh.points=new Point3D[sz+numy*numx];
 			
 			
 			for(int i=0;i<numx;i++)
@@ -3252,7 +3258,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					
 					Point4D p=new Point4D(i*dx+x_0,j*dy+y_0,z_value);
 				
-					points[ACTIVE_PANEL].setElementAt(p,sz+i+j*numx);
+					mesh.points[sz+i+j*numx]=p;
 
 				}
 
@@ -3274,7 +3280,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					else
 						ld.setTexture_index(2);
 					
-					lines[ACTIVE_PANEL].add(ld);
+					mesh.polygonData.add(ld);
 					
 					
 					
@@ -3289,6 +3295,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 
 	private void levelRoadTerrain(int action) {
+		
+	
 
 		//jmtLevelRoadTerrain
 		int from=1;
@@ -3305,24 +3313,24 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
-		for (int i = 0; i < points[from].size(); i++) {
+		for (int i = 0; i < meshes[from].points.length;  i++) {
 
-			Point3D point=(Point3D)points[from].elementAt(i);
+			Point3D point=meshes[from].points[i];
 			
 			if(!point.isSelected)
 				continue;
 			
 			
 
-			int lsize=lines[to].size();
+			int lsize=meshes[to].polygonData.size();
 
 
 			for(int j=0;j<lsize;j++){
 
 
-				LineData ld=(LineData) lines[to].elementAt(j);
+				LineData ld=(LineData) meshes[to].polygonData.elementAt(j);
 
-				Polygon3D p3D=levelGetPolygon(ld,points[to]);
+				Polygon3D p3D=levelGetPolygon(ld,meshes[to].points);
 
 				if(p3D.contains(point.x,point.y)){
 					
@@ -3370,7 +3378,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 	
 
-	private Polygon3D levelGetPolygon(LineData ld, Vector points) {
+	private Polygon3D levelGetPolygon(LineData ld, Point3D[] points) {
 		
 	
 
@@ -3386,7 +3394,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 			int num=ld.getIndex(i);
 
-			Point4D p=(Point4D) points.elementAt(num);
+			Point4D p=(Point4D) points[num];
 			
 
 
@@ -3416,15 +3424,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		prepareUndo();
 		
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
 		Point3D origin=null;
 		int originPos=-1;
 		
-		int size=points[ACTIVE_PANEL].size();
+	
 		
-		for(int i=0;i<size;i++){
+		for(int i=0;i<mesh.points.length;i++){
 
-			Point3D p=(Point3D) points[ACTIVE_PANEL].elementAt(i);
+			Point3D p=mesh.points[i];
 			if(p.isSelected()) 
 				{	
 					origin=p;
@@ -3462,9 +3471,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			int prevOriginPos=originPos;
 			
-			for (int i = 0; i < points[ACTIVE_PANEL].size(); i++) {
+			for (int i = 0; i < mesh.points.length; i++) {
 				
-				Point3D point = (Point3D) points[ACTIVE_PANEL].elementAt(i);
+				Point3D point = mesh.points[i];
 				double distance =Point3D.distance(point,origin);
 				
 				if(i==prevOriginPos)
@@ -3488,14 +3497,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			///////////
 			
 			
-			int base=points[ACTIVE_PANEL].size()-1;
+			int base=mesh.points.length-1;
 			
 			//do not recreate the origin!
 			for (int i =1; i < bm.points.length; i++) {
 				
 				Point4D p=(Point4D) bm.points[i];
 								
-				points[ACTIVE_PANEL].add(p);
+				mesh.addPoint(p);
 				
 				
 			}
@@ -3514,7 +3523,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					ld.setIndex(j,index);
 				}
 				
-				lines[ACTIVE_PANEL].add(ld);
+				mesh.polygonData.add(ld);
 			}
 			
 			displayAll();
@@ -3526,19 +3535,24 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public void buildPolygon() {
 		
 		prepareUndo();
+		
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 
 		if(polygon.lineDatas.size()<3){
 			deselectAll();
 			return;
 		}	
-       lines[ACTIVE_PANEL].add(polygon);
+       mesh.polygonData.add(polygon);
 
 		deselectAll();
 
 	}
 	
 	private void showPreview() {
-		if(points[ACTIVE_PANEL].size()==0)
+		
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		
+		if(mesh.points.length==0)
 			return;
 		RoadEditorPreviewPanel preview=new RoadEditorPreviewPanel(this);
 		
@@ -3546,7 +3560,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private void showAltimetry() {
 		
-		if(points[ACTIVE_PANEL].size()==0)
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		
+		if(mesh.points.length==0)
 			return;
 		RoadAltimetryPanel altimetry=new RoadAltimetryPanel(this);
 	}
@@ -3569,6 +3585,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		prepareUndo();
 		
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		
 		Point p=arg0.getPoint();
 
 		int x=invertX((int)p.getX());
@@ -3582,7 +3600,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			index=0;
 		
 		Point4D point=new Point4D(x,y,0,LineData.GREEN_HEX,index);
-		points[ACTIVE_PANEL].add(point);
+		mesh.addPoint(point);
 		
 
 	}
@@ -3591,7 +3609,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public void addPoint() {
 		
 		prepareUndo();
-			
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];	
 
 		if("".equals(coordinatesx[ACTIVE_PANEL].getText()) |
 				"".equals(coordinatesy[ACTIVE_PANEL].getText()) |
@@ -3610,27 +3628,28 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			index=0;
 		
 		Point4D point=new Point4D(x,y,0,LineData.GREEN_HEX,index);
-		points[ACTIVE_PANEL].add(point);
+		mesh.addPoint(point);
 
 	}
 
 	private void deselectAllPoints(){
-
 		
-		int size=points[ACTIVE_PANEL].size();
-		for(int j=0;j<size;j++){
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		
+	
+		for(int j=0;j<mesh.points.length;j++){
 
 
-		    Point4D p=(Point4D) points[ACTIVE_PANEL].elementAt(j);
+		    Point4D p=(Point4D) mesh.points[j];
 
 			p.setSelected(false);
 				
 		}	
-		int sizel=lines[ACTIVE_PANEL].size();
+		int sizel=mesh.polygonData.size();
 		for(int j=0;j<sizel;j++){
 			
 			
-			LineData ld=(LineData) lines[ACTIVE_PANEL].elementAt(j);
+			LineData ld=(LineData) mesh.polygonData.elementAt(j);
 		    ld.setSelected(false);	
 		}
 
@@ -3638,11 +3657,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void deselectAllLines(){
 		
-		int sizel=lines[ACTIVE_PANEL].size();
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		
+		int sizel=mesh.polygonData.size();
 		for(int j=0;j<sizel;j++){
 			
 			
-			LineData ld=(LineData) lines[ACTIVE_PANEL].elementAt(j);
+			LineData ld=(LineData) mesh.polygonData.elementAt(j);
 		    ld.setSelected(false);	
 		}
 	}
@@ -3650,18 +3671,19 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void selectPoint(int x, int y) {
 		
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		
 		if(!checkMultiplePointsSelection[ACTIVE_PANEL].isSelected()) 
 			polygon=new LineData();
 
 		//select point from road
 		boolean found=false;
 		
-		int size=points[ACTIVE_PANEL].size();
-		
-		for(int j=0;j<size;j++){
+			
+		for(int j=0;j<mesh.points.length;j++){
 
 
-		    Point4D p=(Point4D) points[ACTIVE_PANEL].elementAt(j);
+		    Point4D p=(Point4D) mesh.points[j];
 
 				int xo=convertX(p.x);
 				int yo=convertY(p.y);
@@ -3752,13 +3774,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		
 		//select polygon
-		int sizel=lines[ACTIVE_PANEL].size();
+		int sizel=mesh.polygonData.size();
 
 		for(int j=0;j<sizel;j++){
 			
 			
-			LineData ld=(LineData) lines[ACTIVE_PANEL].elementAt(j);
-		    Polygon3D pol=buildPolygon(ld,points[ACTIVE_PANEL],false);
+			LineData ld=(LineData) mesh.polygonData.elementAt(j);
+		    Polygon3D pol=buildPolygon(ld,mesh.points,false);
 		    
 		    if(pol.contains(x,y)){
 		    	
@@ -3787,7 +3809,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 	
-	public Polygon3D buildPolygon(LineData ld,Vector points, boolean isReal) {
+	public Polygon3D buildPolygon(LineData ld,Point3D[] points, boolean isReal) {
 
 
 
@@ -3803,7 +3825,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 			int num=ld.getIndex(i);
 
-			Point4D p=(Point4D) points.elementAt(num);
+			Point4D p=(Point4D) points[num];
 
 
 			if(isReal){
@@ -3912,13 +3934,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		//select point from road
 		boolean found=false;
-
-		int size=points[ACTIVE_PANEL].size();
 		
-		for(int j=0;j<size;j++){
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+
+		
+		for(int j=0;j<mesh.points.length;j++){
 
 
-			Point4D p=(Point4D) points[ACTIVE_PANEL].elementAt(j);
+			Point4D p=(Point4D) mesh.points[j];
 
 			int xo=convertX(p.x);
 			int yo=convertY(p.y);
@@ -4394,11 +4417,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
-	public void setRoadData(String string, Vector lines, Vector points) {
+	public void setRoadData(String string, PolygonMesh pMesh) {
 		
-		
-		this.lines[ACTIVE_PANEL]=lines;
-		this.points[ACTIVE_PANEL]=points;
+		meshes[ACTIVE_PANEL]=pMesh;
 		
 		displayAll();
 		

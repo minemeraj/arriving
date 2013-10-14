@@ -961,7 +961,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 
 	}
 	
-	public Polygon3D buildTransformedPolygon3D(LineData ld,Vector points) { 
+	public Polygon3D buildTransformedPolygon3D(LineData ld,Point3D[] points) { 
 
 
 
@@ -976,7 +976,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 
 			int num=ld.getIndex(i);
 
-			Point4D p=(Point4D) points.elementAt(num);
+			Point4D p=(Point4D) points[num];
 
 
 			cxr[i]=(int)(p.x);
