@@ -3315,8 +3315,15 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 						LineData oldLineData=pm.polygonData.elementAt(count++);
 						ld.setTexture_index(oldLineData.getTexture_index());
 					}
-					else
-						ld.setTexture_index((i+j)%2);
+					else{
+						
+						if(ACTIVE_PANEL==1)
+							ld.setTexture_index(0);
+						else
+							ld.setTexture_index(2);
+						
+					}
+						
 				}
 			}	
 			//pm=(SquareMesh) PolygonMesh.simplifyMesh(npm);
@@ -3334,7 +3341,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private int pos(int i, int j,  int numx, int numy) {
 		
-		return (i*numy+j);
+		return (i+j*numx);
 	}	
 	
 	
