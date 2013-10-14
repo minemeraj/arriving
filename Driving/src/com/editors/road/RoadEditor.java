@@ -3237,6 +3237,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		if(regm.getReturnValue()!=null){
 			
+			
+            SquareMesh pm=(SquareMesh) mesh;
+			
 			RoadEditorGridManager roadEGM=(RoadEditorGridManager) regm.getReturnValue();
 
 			
@@ -3251,58 +3254,74 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			double x_0=roadEGM.X0;
 			double y_0=roadEGM.Y0;
 			
-			int tot=numx*numy;
+			
+			if(numx<pm.getNumx() || numy<pm.getNumy()){
+				
+				JOptionPane.showMessageDialog(this,"Can't shrink the original map!","Error",JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			
+			//create a SquareMesh
+			SquareMesh npm=new SquareMesh(numx,numy,pm.getDx(),pm.getDy(),pm.getX0(),pm.getY0());
+			
+			npm.points=new Point4D[numx*numy];
+			
+			
+			for (int i = 0; i < numx; i++) {
+				
+				for (int j = 0; j < numy; j++) {
+					
+					int pos=pos(i,j,numx,numy);
+					
+					if(i<pm.getNumx() && j<pm.getNumy()){
+						
+						int oldPos=pos(i,j,pm.getNumx(),pm.getNumy());
+						npm.points[pos]=pm.points[oldPos];
+						
+					}
+					else
+						npm.points[pos]=new Point4D(pm.getX0()+i*dx,pm.getY0()+j*dy,0);
+		
+				}
+				
+			}
 			
 		
-			mesh.polygonData=new Vector();
 			
-			mesh.points=new Point3D[numy*numx];
+			int count=0;
 			
-			
-			for(int i=0;i<numx;i++)
-				for(int j=0;j<numy;j++)
-				{
-					
-					Point4D p=new Point4D(i*dx+x_0,j*dy+y_0,z_value);
+			for (int i = 0; i < numx-1; i++) {
 				
-					mesh.points[i+j*numx]=p;
-
-				}
-
-			
-			for(int i=0;i<numx-1;i++)
-				for(int j=0;j<numy-1;j++){
-
-	
-					//lower base
-					int pl1=i+numx*j;
-					int pl2=i+numx*(j+1);
-					int pl3=i+1+numx*(j+1);
-					int pl4=i+1+numx*j;
+				for (int j = 0; j < numy-1; j++) {
 					
-					LineData ld=new LineData(pl1, pl4, pl3, pl2);
 					
-					if(ACTIVE_PANEL==1)
-						ld.setTexture_index(0);
+					//base z=0
+					
+					int pos0=pos(i,j,numx,numy);
+					int pos1=pos(i+1,j,numx,numy);
+					int pos2=pos(i+1,j+1,numx,numy);
+					int pos3=pos(i,j+1,numx,numy);
+					
+					LineData ld=new LineData();
+					ld.addIndex(pos0);
+					ld.addIndex(pos1);
+					ld.addIndex(pos2);
+					ld.addIndex(pos3);
+					
+					npm.polygonData.add(ld);
+					
+					if(i<pm.getNumx()-1 && j<pm.getNumy()-1){
+						
+						LineData oldLineData=pm.polygonData.elementAt(count++);
+						ld.setTexture_index(oldLineData.getTexture_index());
+					}
 					else
-						ld.setTexture_index(2);
-					
-					mesh.polygonData.add(ld);
-					
-					
-					
+						ld.setTexture_index((i+j)%2);
 				}
-			
-			
-			if(mesh instanceof SquareMesh){
-				
-				((SquareMesh)mesh).setNumx(numx);
-				((SquareMesh)mesh).setNumy(numy);
-				((SquareMesh)mesh).setX0(x_0);
-				((SquareMesh)mesh).setY0(y_0);
-				((SquareMesh)mesh).setDx((int)dx);
-				((SquareMesh)mesh).setDy((int)dy);
-			}
+			}	
+			//pm=(SquareMesh) PolygonMesh.simplifyMesh(npm);
+			meshes[ACTIVE_PANEL]=npm;
+		
 			
 			
 		}
@@ -3312,6 +3331,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 		
 	}
+	
+	private int pos(int i, int j,  int numx, int numy) {
+		
+		return (i*numy+j);
+	}	
 	
 	
 	private void buildNewGrid() { 
