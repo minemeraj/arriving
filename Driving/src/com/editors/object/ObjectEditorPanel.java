@@ -1334,6 +1334,9 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		
 		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 		
+		if(mesh.points==null)
+			return;
+		
 		DefaultListModel dlm=new DefaultListModel();
 		int sel=pointList.getSelectedIndex();
 		
