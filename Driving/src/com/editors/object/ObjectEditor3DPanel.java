@@ -382,6 +382,9 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 	private void displayPoints(Graphics2D bufGraphics) {
 		
 		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		
+		if(mesh.points==null)
+			return;
 
 		for(int i=0;i<mesh.points.length;i++){
 

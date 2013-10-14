@@ -636,6 +636,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
+		if(mesh.points==null)
+			return;
+		
 		int lsize=mesh.polygonData.size();
 		
 

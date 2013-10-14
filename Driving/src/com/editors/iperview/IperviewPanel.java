@@ -179,7 +179,9 @@ private void displayAxes(Graphics2D bufGraphics) {
 		
 		 PolygonMesh mesh = iperviewEditor.meshes[iperviewEditor.ACTIVE_PANEL];	
 		
-
+		if(mesh.points==null)
+			return;
+			
 		for (int i = 0; i < mesh.points.length; i++) {
 			
 			Point3D p3d = mesh.points[i];
