@@ -1933,15 +1933,19 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		checkRoadColor[index].addKeyListener(this);
 		checkRoadColor[index].setOpaque(false);
 		panel.add(checkRoadColor[index]);
+		
+		if(index==1){
 
-		r+=30;
+			r+=30;
+	
+			addPoint[index]=new JButton(header+"Insert point"+footer);
+			addPoint[index].addActionListener(this);
+			addPoint[index].setFocusable(false);
+			addPoint[index].setBounds(5,r,150,20);
+			panel.add(addPoint[index]);
 
-		addPoint[index]=new JButton(header+"Insert point"+footer);
-		addPoint[index].addActionListener(this);
-		addPoint[index].setFocusable(false);
-		addPoint[index].setBounds(5,r,150,20);
-		panel.add(addPoint[index]);
-
+		}
+		
 		r+=30;
 
 		changePoint[index]=new JButton(header+"Change <u>P</u>oint"+footer);
@@ -1958,27 +1962,31 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		changePolygon[index].setFocusable(false);
 		changePolygon[index].setBounds(5,r,150,20);
 		panel.add(changePolygon[index]);
-
-		r+=30;
 		
-		startBuildPolygon[index]=new JButton(header+"Start polygo<u>n</u> <br/> points sequence"+footer);
-		startBuildPolygon[index].addActionListener(this);
-		startBuildPolygon[index].addKeyListener(this);
-		startBuildPolygon[index].setFocusable(false);
-		startBuildPolygon[index].setBounds(5,r,150,35);
-		panel.add(startBuildPolygon[index]);
+		if(index==1){
 
-		r+=45;
+			r+=30;
 			
-		buildPolygon[index]=new JButton(header+"Bui<u>l</u>d polygon"+footer);
-		buildPolygon[index].addActionListener(this);
-		buildPolygon[index].addKeyListener(this);
-		buildPolygon[index].setFocusable(false);
-		buildPolygon[index].setBounds(5,r,150,20);
-		panel.add(buildPolygon[index]);
+			startBuildPolygon[index]=new JButton(header+"Start polygo<u>n</u> <br/> points sequence"+footer);
+			startBuildPolygon[index].addActionListener(this);
+			startBuildPolygon[index].addKeyListener(this);
+			startBuildPolygon[index].setFocusable(false);
+			startBuildPolygon[index].setBounds(5,r,150,35);
+			panel.add(startBuildPolygon[index]);
+	
+			r+=45;
+				
+			buildPolygon[index]=new JButton(header+"Bui<u>l</u>d polygon"+footer);
+			buildPolygon[index].addActionListener(this);
+			buildPolygon[index].addKeyListener(this);
+			buildPolygon[index].setFocusable(false);
+			buildPolygon[index].setBounds(5,r,150,20);
+			panel.add(buildPolygon[index]);
+			
+	
+			r+=30;
 		
-
-		r+=30;
+		}
 		
 		polygonDetail[index]=new JButton(header+"Polygon detail"+footer);
 		polygonDetail[index].addActionListener(this);
@@ -1998,25 +2006,27 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		deselectAll[index].setBounds(5,r,150,20);
 		panel.add(deselectAll[index]);
 		
+		if(index==1){		
 		
-		r+=30;
-		
-		deleteSelection[index]=new JButton(header+"<u>D</u>elete selection"+footer);
-		deleteSelection[index].addActionListener(this);
-		deleteSelection[index].addKeyListener(this);
-		deleteSelection[index].setFocusable(false);
-		deleteSelection[index].setBounds(5,r,150,20);
-		panel.add(deleteSelection[index]);
+			r+=30;
+			
+			deleteSelection[index]=new JButton(header+"<u>D</u>elete selection"+footer);
+			deleteSelection[index].addActionListener(this);
+			deleteSelection[index].addKeyListener(this);
+			deleteSelection[index].setFocusable(false);
+			deleteSelection[index].setBounds(5,r,150,20);
+			panel.add(deleteSelection[index]);
+	
+			r+=30;
+			
+			mergeSelectedPoints[index]=new JButton(header+"<u>M</u>erge selected<br/>points"+footer);
+			mergeSelectedPoints[index].addActionListener(this);
+			mergeSelectedPoints[index].addKeyListener(this);
+			mergeSelectedPoints[index].setFocusable(false);
+			mergeSelectedPoints[index].setBounds(5,r,150,35);
+			panel.add(mergeSelectedPoints[index]);
 
-		r+=30;
-		
-		mergeSelectedPoints[index]=new JButton(header+"<u>M</u>erge selected<br/>points"+footer);
-		mergeSelectedPoints[index].addActionListener(this);
-		mergeSelectedPoints[index].addKeyListener(this);
-		mergeSelectedPoints[index].setFocusable(false);
-		mergeSelectedPoints[index].setBounds(5,r,150,35);
-		panel.add(mergeSelectedPoints[index]);
-
+		}
 		
 		right.add(panelsTitles[index],panel);
 

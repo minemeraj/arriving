@@ -1,0 +1,103 @@
+package com;
+
+import java.util.Vector;
+
+public class SquareMesh extends PolygonMesh {
+	
+
+
+	int numx=0;
+	int numy=0;	
+	int side=0;		
+	double x0=0;
+	double y0=0;
+	
+	
+	public SquareMesh(Vector points, Vector lines) {
+		super(points, lines);
+	}
+	
+	public SquareMesh(Vector points, Vector lines,int numx, int numy, int side, double x0, double y0) {
+		super(points, lines);
+		this.numx = numx;
+		this.numy = numy;
+		this.side = side;
+		this.x0 = x0;
+		this.y0 = y0;
+	}
+	
+	public SquareMesh(int numx, int numy, int side, double x0, double y0) {
+		super();
+		this.numx = numx;
+		this.numy = numy;
+		this.side = side;
+		this.x0 = x0;
+		this.y0 = y0;
+	}
+	
+	public SquareMesh() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public int getSide() {
+		return side;
+	}
+	public void setSide(int side) {
+		this.side = side;
+	}
+	public int getNumx() {
+		return numx;
+	}
+	public void setNumx(int numx) {
+		this.numx = numx;
+	}
+	public int getNumy() {
+		return numy;
+	}
+	public void setNumy(int numy) {
+		this.numy = numy;
+	}
+	public double getX0() {
+		return x0;
+	}
+	public void setX0(double x0) {
+		this.x0 = x0;
+	}
+	public double getY0() {
+		return y0;
+	}
+	public void setY0(double y0) {
+		this.y0 = y0;
+	}
+	
+	@Override
+	public SquareMesh clone() {
+		
+		SquareMesh pm=new SquareMesh();
+		pm.points=new Point3D[this.points.length];
+		
+		for(int i=0;i<this.points.length;i++){
+	
+			pm.points[i]=points[i].clone();
+			
+		}
+		
+		for(int i=0;i<this.polygonData.size();i++){
+
+			pm.addPolygonData(polygonData.elementAt(i).clone());
+		}
+		for(int i=0;i<this.normals.size();i++){
+
+			pm.normals.add(normals.elementAt(i).clone());
+		}
+		pm.setNumx(getNumx());
+		pm.setNumy(getNumy());
+		pm.setSide(getSide());
+		pm.setX0(getX0());
+		pm.setY0(getY0());
+		
+		return pm;
+	}
+	
+
+}

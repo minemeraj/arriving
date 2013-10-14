@@ -18,6 +18,7 @@ import com.LineData;
 import com.Point3D;
 import com.Polygon3D;
 import com.PolygonMesh;
+import com.SquareMesh;
 
 public class Editor extends JFrame implements MenuListener{
 	
@@ -185,7 +186,11 @@ public class Editor extends JFrame implements MenuListener{
 	
 	public void loadPointsFromFile(File file){
 
-		meshes[ACTIVE_PANEL]=new  PolygonMesh();			
+		if(ACTIVE_PANEL==0)
+			meshes[ACTIVE_PANEL]=new  SquareMesh();
+		else	
+			meshes[ACTIVE_PANEL]=new  PolygonMesh();
+		
 		oldMeshes[ACTIVE_PANEL]=new Stack();
 	
 
@@ -235,6 +240,16 @@ public class Editor extends JFrame implements MenuListener{
 					y0=Double.parseDouble(str.substring(3)); 
 
 
+			}
+			
+			if(meshes[ACTIVE_PANEL] instanceof SquareMesh){
+				
+				((SquareMesh)meshes[ACTIVE_PANEL]).setNumx(nx); 
+				((SquareMesh)meshes[ACTIVE_PANEL]).setNumy(ny); 
+				((SquareMesh)meshes[ACTIVE_PANEL]).setSide(side); 
+				((SquareMesh)meshes[ACTIVE_PANEL]).setX0(x0); 
+				((SquareMesh)meshes[ACTIVE_PANEL]).setY0(y0); 
+				
 			}
 
 			br.close();
@@ -312,17 +327,21 @@ public class Editor extends JFrame implements MenuListener{
 			
 			PolygonMesh mesh=meshes[ACTIVE_PANEL];
 			
+			if(mesh.points==null)
+				return; 
+			
 			pr.println("<"+TAG[ACTIVE_PANEL]+">");
-			/*if(pm instanceof SquareMesh){
+			
+			if(mesh instanceof SquareMesh){
 				
-				SquareMesh sm = (SquareMesh)pm;
+				SquareMesh sm = (SquareMesh)mesh;
 				pr.println();
 				pr.println("NX="+sm.getNumx());
 				pr.println("NY="+sm.getNumy());
 				pr.println("SIDE="+sm.getSide());
 				pr.println("X0="+sm.getX0());
 				pr.println("Y0="+sm.getY0());
-			}*/
+			}
 			pr.print("P=");
 
 			for(int i=0;i<mesh.points.length;i++){
