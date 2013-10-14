@@ -3689,7 +3689,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
-	
+		if(mesh.points==null)
+			return; 
+		
 		for(int j=0;j<mesh.points.length;j++){
 
 
@@ -3733,7 +3735,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		boolean found=false;
 		
 			
-		for(int j=0;j<mesh.points.length;j++){
+		for(int j=0;mesh.points!=null && j<mesh.points.length;j++){
 
 
 		    Point4D p=(Point4D) mesh.points[j];
@@ -3972,6 +3974,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 	private void selectPointsWithRectangle() {
+		
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+
+		if(mesh.points==null)
+			return;
 
 		int x0=Math.min(currentRect.x,currentRect.x+currentRect.width);
 		int x1=Math.max(currentRect.x,currentRect.x+currentRect.width);
@@ -3988,9 +3995,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		//select point from road
 		boolean found=false;
 		
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 
-		
 		for(int j=0;j<mesh.points.length;j++){
 
 

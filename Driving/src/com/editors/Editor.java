@@ -386,6 +386,10 @@ public class Editor extends JFrame implements MenuListener{
 	
 	public void prepareUndo() {
 		
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		if(mesh.points==null)
+			return; 
+		
 		if(oldMeshes[ACTIVE_PANEL].size()==MAX_STACK_SIZE){
 			
 			oldMeshes[ACTIVE_PANEL].removeElementAt(0);

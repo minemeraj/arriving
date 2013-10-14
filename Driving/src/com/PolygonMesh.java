@@ -381,14 +381,18 @@ public class PolygonMesh implements Cloneable{
 	}
 
 	public void addPoint(Point3D point) {
+		
+		int len=0;
+		if(points!=null)
+			len=points.length;
 
-		Point3D[] newPoints=new Point3D[points.length+1];
+		Point3D[] newPoints=new Point3D[len+1];
 
-		for (int i = 0; i < points.length; i++) {
+		for (int i = 0; points!=null && i < points.length; i++) {
 			newPoints[i]=points[i];
 		}
 
-		newPoints[points.length]=point;
+		newPoints[len]=point;
 		
 		points=newPoints;
 
