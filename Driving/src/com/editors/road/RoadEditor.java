@@ -73,14 +73,13 @@ import com.LineData;
 import com.Plain;
 import com.Point3D;
 import com.Point4D;
-import com.Polygon3D;
+import com.Polygon3D; 
 import com.PolygonMesh;
 import com.SquareMesh;
 import com.Texture;
 import com.ZBuffer;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
-import com.main.CarFrame;
 import com.main.HelpPanel;
 import com.main.Road;
 
@@ -550,11 +549,24 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			int dh=(int) (dro.dy/dy);
 
 
-			if(!totalVisibleField.intersects(new Rectangle(x,y-dh,dw,dh))){
+			if(DrawObject.IS_3D){
+			
+				if(!totalVisibleField.intersects(new Rectangle(x,y-dh,dw,dh))){
+					
+					//System.out.println(totalVisibleField+" "+new Rectangle(x,y,dw,dh));
+					
+					continue;
+				}
+			
+			}else{
 				
-				//System.out.println(totalVisibleField+" "+new Rectangle(x,y,dw,dh));
+				if(!totalVisibleField.intersects(new Rectangle(x,y,dw,dh))){
+					
+					//System.out.println(totalVisibleField+" "+new Rectangle(x,y,dw,dh));
+					
+					continue;
+				}
 				
-				continue;
 			}
 		
 			
@@ -625,7 +637,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		displayRoad(landscapeZbuffer,1);
 		displayObjects(landscapeZbuffer);
 		
-		buildScreen(buf);
+		buildScreen(buf); 
 
 		g2.drawImage(buf,0,0,WIDTH,HEIGHT,null);
 
@@ -4429,7 +4441,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				objectLabel.setIcon(ii);	
 				
 				if(DrawObject.IS_3D){
-					
+				
 					int dim_x=objectMeshes[num].getDeltaX2()-objectMeshes[num].getDeltaX();
 					int dim_y=objectMeshes[num].getDeltaY2()-objectMeshes[num].getDeltaY();
 					int dim_z=objectMeshes[num].getDeltaX();
@@ -4446,7 +4458,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					objcoordinatesdy.setText(dro.getDy());
 					objcoordinatesdz.setText(dro.getDz());
 				}
-
+				
 			}
 			else
 				{
