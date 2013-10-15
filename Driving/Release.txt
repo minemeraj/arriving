@@ -2,7 +2,7 @@ New deep revision of the code, to manage directly meshes instead of vectors of p
 
 Transforming the terrain in a SquareMesh, a much more rigid object which is a squares net
 when user can't add or delete points or change polygons.
-This provides an easy way to expand actual landscapes.
+This provides an easy way to expand actual terrain, using the menu Editing->Expand grid(T).
 
 Added wasd keys sequence for movements. Now use N and M instead to reverse engine
 rotation.

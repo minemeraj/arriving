@@ -4440,9 +4440,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 				}else{
 					
-					objcoordinatesdx.setText(objectImages[num].getWidth());
-					objcoordinatesdy.setText(objectImages[num].getHeight());
+					DrawObject dro=(DrawObject) drawObjects.elementAt(num);
 					
+					objcoordinatesdx.setText(dro.getDx());
+					objcoordinatesdy.setText(dro.getDy());
+					objcoordinatesdz.setText(dro.getDz());
 				}
 
 			}
