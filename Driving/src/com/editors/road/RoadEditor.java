@@ -766,8 +766,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		if(!DrawObject.IS_3D){
 	
-			drawImage(landscapeZbuffer,DrawObject.fromImageToBufferedImage(objectImages[dro.index],Color.WHITE)
-					,cx[0],cy[0],cx[2]-cx[0],cy[2]-cy[0],null);
+			drawImage(landscapeZbuffer,DrawObject.fromImageToBufferedImage(objectImages[dro.index],null)
+					,cx[0],cy[0],cx[2]-cx[0],cy[2]-cy[0],Color.WHITE);
 		}
 		
 
