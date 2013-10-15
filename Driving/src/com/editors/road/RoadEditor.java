@@ -4428,13 +4428,22 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				ImageIcon ii=new ImageIcon(icon);
 				objectLabel.setIcon(ii);	
 				
-				int dim_x=objectMeshes[num].getDeltaX2()-objectMeshes[num].getDeltaX();
-				int dim_y=objectMeshes[num].getDeltaY2()-objectMeshes[num].getDeltaY();
-				int dim_z=objectMeshes[num].getDeltaX();
-				
-				objcoordinatesdx.setText(dim_x);
-				objcoordinatesdy.setText(dim_y);
-				objcoordinatesdz.setText(dim_z);
+				if(DrawObject.IS_3D){
+					
+					int dim_x=objectMeshes[num].getDeltaX2()-objectMeshes[num].getDeltaX();
+					int dim_y=objectMeshes[num].getDeltaY2()-objectMeshes[num].getDeltaY();
+					int dim_z=objectMeshes[num].getDeltaX();
+					
+					objcoordinatesdx.setText(dim_x);
+					objcoordinatesdy.setText(dim_y);
+					objcoordinatesdz.setText(dim_z);
+
+				}else{
+					
+					objcoordinatesdx.setText(objectImages[num].getWidth());
+					objcoordinatesdy.setText(objectImages[num].getHeight());
+					
+				}
 
 			}
 			else
