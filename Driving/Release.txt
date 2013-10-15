@@ -1,3 +1,5 @@
+-------- 15/10/2013   CarDriving 7.0.3
+
 New deep revision of the code, to manage directly meshes instead of vectors of points and lines.
 
 Transforming the terrain in a SquareMesh, a much more rigid object which is a squares net
@@ -8,6 +10,8 @@ Added wasd keys sequence for movements. Now use N and M instead to reverse engin
 rotation.
 
 Press Esc to exit program.
+
+Solved the "jumping" of the objects while car is changing altitude.
 
 Added a fps (frams per seconds) counter to measure performances.
 

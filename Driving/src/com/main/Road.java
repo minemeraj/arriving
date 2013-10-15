@@ -406,15 +406,8 @@ public class Road extends Shader{
 
 
 		//cleanZBuffer();
-
 		drawSky();
-		drawObjects(drawObjects,totalVisibleField,roadZbuffer);
 
-		if(autocars!=null){
-			
-			drawAutocars(autocars,totalVisibleField,roadZbuffer);
-			
-		}
 		
 		MOVZ=0;
 
@@ -492,6 +485,15 @@ public class Road extends Shader{
 		    	PARTIAL_MOVZ=PARTIAL_MOVZ-ROAD_THICKNESS;
 		    
 			MOVZ=-(PARTIAL_MOVZ+YFOCUS);
+			
+			
+			drawObjects(drawObjects,totalVisibleField,roadZbuffer);
+
+			if(autocars!=null){
+				
+				drawAutocars(autocars,totalVisibleField,roadZbuffer);
+				
+			}
 			
 			for(int index=0;index<2;index++){
 				
