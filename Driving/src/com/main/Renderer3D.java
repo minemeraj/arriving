@@ -694,8 +694,7 @@ public class Renderer3D implements AbstractRenderer3D{
 		
 		
 		
-		Point3D xDirection=null;
-		Point3D yDirection=null;		
+			
 		
 		Point3D zVersor=new Point3D(0,0,1);
 		Point3D zMinusVersor=new Point3D(0,0,-1);
@@ -722,86 +721,105 @@ public class Renderer3D implements AbstractRenderer3D{
 		int polSize=cm.polygonData.size();	
 		for(int i=0;i<polSize;i++){
 			
-			Point3D rotateOrigin=cm.point000;
-			rotateOrigin=buildTransformedPoint(rotateOrigin);
+	
 			
-			LineData ld=cm.polygonData.elementAt(i);
-			
-			//Point3D normal= cm.normals.elementAt(i).clone();
-			
-			int deltaWidth=0;
-			int deltaHeight=cm.getDeltaY();
-			
-			int due=(int)(255-i%15);
+			int due=(int)(255-i%15);			
 			Color col=new Color(due,0,0);
 			
+			LineData ld=cm.polygonData.elementAt(i);
 			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld);
 			polRotate.setShadowCosin(ld.getShadowCosin());
 			
-			//int face=findBoxFace(normal,xVersor0,yVersor0,zVersor);
+		
 			int face=cm.boxFaces[i];
 			buildTransformedPolygon(polRotate);
 			
-		
+			Point3D rotateOrigin=cm.point000;
+			rotateOrigin=buildTransformedPoint(rotateOrigin);
 			
-            //System.out.println(i+" "+face);
-			if(face==CAR_BOTTOM )
-				continue;
 			if(face==CAR_FRONT){
 				
 				rotateOrigin=cm.point011;
 				rotateOrigin=buildTransformedPoint(rotateOrigin);
+
+			}	
+			else if(face==CAR_RIGHT){
 				
-				 deltaWidth=cm.getDeltaX();
-				 deltaHeight=cm.getDeltaY2();
-				 xDirection=xVersor;
-				 yDirection=zMinusVersor;
-
-
-			}
-			else if(face==CAR_BACK){
-				 deltaWidth=cm.getDeltaX();
-				 deltaHeight=0;
-				 xDirection=xVersor;
-				 yDirection=zVersor;
-
-
-			}
-			else if(face==CAR_TOP){
-				 deltaWidth=cm.getDeltaX();
-				 xDirection=xVersor;
-				 yDirection=yVersor;
-
-
-			}
-			else if(face==CAR_LEFT) {
-				
-				xDirection=zVersor;
-				yDirection=yVersor;
-				
-
-	
-	
-			}
-			else if(face==CAR_RIGHT) {
-				
-				xDirection=zMinusVersor;
-				yDirection=yVersor;
-				
-
 				rotateOrigin=cm.point001;
 				rotateOrigin=buildTransformedPoint(rotateOrigin);
-				
-				deltaWidth=cm.getDeltaX2();
-			}
+
+			}	
 			
 			
+			decomposeCubiMeshPolygon(polRotate,rotateOrigin,xVersor,yVersor,zVersor,zMinusVersor,cm,face,col,texture,zBuffer);
 			
-			decomposeClippedPolygonIntoZBuffer(polRotate,col,texture,zBuffer,xDirection,yDirection,rotateOrigin,deltaWidth,deltaHeight);
+          
 				
 		}
 		
 	
+	}
+	
+	public void decomposeCubiMeshPolygon(
+			Polygon3D polRotate, Point3D rotateOrigin, 
+			Point3D xVersor, Point3D yVersor, Point3D zVersor, Point3D zMinusVersor,
+			CubicMesh cm, 
+			int face, 
+			Color col, 
+			Texture texture, 
+			ZBuffer[] zBuffer
+			){
+		
+		Point3D xDirection=null;
+		Point3D yDirection=null;
+		
+		int deltaWidth=0;
+		int deltaHeight=cm.getDeltaY();
+		
+	 	if(face==CAR_BOTTOM )
+			return;
+		if(face==CAR_FRONT){
+
+			
+			 deltaWidth=cm.getDeltaX();
+			 deltaHeight=cm.getDeltaY2();
+			 xDirection=xVersor;
+			 yDirection=zMinusVersor;
+
+
+		}
+		else if(face==CAR_BACK){
+			 deltaWidth=cm.getDeltaX();
+			 deltaHeight=0;
+			 xDirection=xVersor;
+			 yDirection=zVersor;
+
+
+		}
+		else if(face==CAR_TOP){
+			 deltaWidth=cm.getDeltaX();
+			 xDirection=xVersor;
+			 yDirection=yVersor;
+
+
+		}
+		else if(face==CAR_LEFT) {
+			
+			xDirection=zVersor;
+			yDirection=yVersor;
+
+		}
+		else if(face==CAR_RIGHT) {
+			
+			xDirection=zMinusVersor;
+			yDirection=yVersor;
+
+			deltaWidth=cm.getDeltaX2();
+		}
+		
+		
+		
+		decomposeClippedPolygonIntoZBuffer(polRotate,col,texture,zBuffer,xDirection,yDirection,rotateOrigin,deltaWidth,deltaHeight);
 	}
 
 	public static boolean isFacing(Polygon3D pol,Point3D normal,Point3D observer){
