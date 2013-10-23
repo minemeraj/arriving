@@ -724,24 +724,19 @@ public class Renderer3D implements AbstractRenderer3D{
 			
 		
 			int face=cm.boxFaces[i];
+			
 			buildTransformedPolygon(polRotate);
 			
-			Point3D rotateOrigin=buildTransformedPoint(cm.point000);
-			
-			if(face==CAR_FRONT){
-				
+			Point3D point000=buildTransformedPoint(cm.point000);				
 
-				rotateOrigin=buildTransformedPoint(cm.point011);
+			Point3D point011=buildTransformedPoint(cm.point011);
 
-			}	
-			else if(face==CAR_RIGHT){
+			Point3D point001=buildTransformedPoint(cm.point001);
 
-				rotateOrigin=buildTransformedPoint(cm.point001);
-
-			}	
 			
 			
-			decomposeCubiMeshPolygon(polRotate,rotateOrigin,xVersor,yVersor,zVersor,zMinusVersor,cm,face,col,texture,zBuffer);
+			
+			decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,point000,point011,point001,face,col,texture,zBuffer);
 			
           
 				
@@ -752,12 +747,14 @@ public class Renderer3D implements AbstractRenderer3D{
 	
 	public void decomposeCubiMeshPolygon(
 			Polygon3D polRotate, 
-			Point3D rotateOrigin, 
 			Point3D xVersor, 
 			Point3D yVersor, 
 			Point3D zVersor, 
 			Point3D zMinusVersor,
 			CubicMesh cm, 
+			Point3D point000, 
+			Point3D point011, 
+			Point3D point001,
 			int face, 
 			Color col, 
 			Texture texture, 
@@ -766,6 +763,8 @@ public class Renderer3D implements AbstractRenderer3D{
 		
 		Point3D xDirection=null;
 		Point3D yDirection=null;
+		
+		Point3D rotateOrigin=point000;
 		
 		int deltaWidth=0;
 		int deltaHeight=cm.getDeltaY();
@@ -779,6 +778,8 @@ public class Renderer3D implements AbstractRenderer3D{
 			 deltaHeight=cm.getDeltaY2();
 			 xDirection=xVersor;
 			 yDirection=zMinusVersor;
+			 
+			 rotateOrigin=point011;
 
 
 		}
@@ -809,6 +810,7 @@ public class Renderer3D implements AbstractRenderer3D{
 			yDirection=yVersor;
 
 			deltaWidth=cm.getDeltaX2();
+			rotateOrigin=point001;
 		}
 		
 		

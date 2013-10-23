@@ -244,8 +244,6 @@ public class Road extends Shader{
 
 			for(int i=0;i<polSize;i++){
 
-				Point3D rotateOrigin=cm.point000;
-				rotateOrigin=calculateLightTransformedPoint(rotateOrigin,true);
 
 				LineData ld=cm.polygonData.elementAt(i);
 
@@ -263,23 +261,15 @@ public class Road extends Shader{
 				int face=cm.boxFaces[i];
 
 
-				//System.out.println(i+" "+face);
-				if(face==CAR_BOTTOM )
-					continue;
-				if(face==CAR_FRONT){
+				
+				Point3D point000=calculateLightTransformedPoint(cm.point000,true);				
 
-					rotateOrigin=cm.point011;
-					rotateOrigin=calculateLightTransformedPoint(rotateOrigin,true);
-				}
-				else if(face==CAR_RIGHT) {
+				Point3D point011=calculateLightTransformedPoint(cm.point011,true);
 
-					rotateOrigin=cm.point001;
-					rotateOrigin=calculateLightTransformedPoint(rotateOrigin,true);
-
-				}
+				Point3D point001=calculateLightTransformedPoint(cm.point001,true);
 
 
-				decomposeCubiMeshPolygon(polRotate,rotateOrigin,xVersor,yVersor,zVersor,zMinusVersor,cm,face,col,texture,lightZbuffer);
+				decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,point000,point011,point001,face,col,texture,lightZbuffer);
 				
 			}	
 
@@ -378,32 +368,21 @@ public class Road extends Shader{
 		
 			int face=cm.boxFaces[i];
 			
-			Point3D rotateOrigin=cm.point000.clone();
-			
-			if(face==CAR_FRONT){
-				
+		
+			Point3D point000=cm.point000.clone();				
 
-				rotateOrigin=cm.point011.clone();
+			Point3D point011=cm.point011.clone();	
 
-			}	
-			else if(face==CAR_RIGHT){
-
-				rotateOrigin=cm.point001.clone();
-
-			}	
+			Point3D point001=cm.point001.clone();	
 			
 			
-			decomposeCubiMeshPolygon(polRotate,rotateOrigin,xVersor,yVersor,zVersor,zMinusVersor,cm,face,col,carTexture,roadZbuffer);
+			decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,point000,point011,point001,face,col,carTexture,roadZbuffer);
 			
           
 				
 		}
 		
-	
-	
-				
-	
-		
+
 	
 	}
 
