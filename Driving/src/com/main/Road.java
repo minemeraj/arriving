@@ -222,15 +222,21 @@ public class Road extends Shader{
 
 			CubicMesh cm = (CubicMesh) dro.getMesh();
 	
+			
+			Point3D point000=calculateLightTransformedPoint(cm.point000,true);				
 
-			Point3D zVersor=new Point3D(0,0,1);
-			Point3D zMinusVersor=new Point3D(0,0,-1);
+			Point3D point011=calculateLightTransformedPoint(cm.point011,true);
 
-			//to calculate
+			Point3D point001=calculateLightTransformedPoint(cm.point001,true);
+			
 
 			Point3D xVersor=cm.getXAxis();
 			Point3D yVersor=cm.getYAxis();
 			
+			Point3D zVersor=new Point3D(0,0,1);
+			Point3D zMinusVersor=new Point3D(0,0,-1);
+
+
 			//////
 			
 			if(VIEW_TYPE==REAR_VIEW){
@@ -261,12 +267,7 @@ public class Road extends Shader{
 				int face=cm.boxFaces[i];
 
 
-				
-				Point3D point000=calculateLightTransformedPoint(cm.point000,true);				
 
-				Point3D point011=calculateLightTransformedPoint(cm.point011,true);
-
-				Point3D point001=calculateLightTransformedPoint(cm.point001,true);
 
 
 				decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,point000,point011,point001,face,col,texture,lightZbuffer);
@@ -339,12 +340,18 @@ public class Road extends Shader{
         //fake steering: eliminate?
 		cm.rotate(steeringCenter.x,steeringCenter.y,Math.cos(directionAngle),Math.sin(directionAngle));		
 		
-		Point3D zVersor=new Point3D(0,0,1);
-		Point3D zMinusVersor=new Point3D(0,0,-1);
-	
-	
+		Point3D point000=cm.point000.clone();				
+
+		Point3D point011=cm.point011.clone();	
+
+		Point3D point001=cm.point001.clone();
+		
+
 		Point3D xVersor=cm.getXAxis();
 		Point3D yVersor=cm.getYAxis();
+		
+		Point3D zVersor=new Point3D(0,0,1);
+		Point3D zMinusVersor=new Point3D(0,0,-1);
 		
 		//////
 		
@@ -369,11 +376,7 @@ public class Road extends Shader{
 			int face=cm.boxFaces[i];
 			
 		
-			Point3D point000=cm.point000.clone();				
-
-			Point3D point011=cm.point011.clone();	
-
-			Point3D point001=cm.point001.clone();	
+	
 			
 			
 			decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,point000,point011,point001,face,col,carTexture,roadZbuffer);

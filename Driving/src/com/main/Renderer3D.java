@@ -694,15 +694,18 @@ public class Renderer3D implements AbstractRenderer3D{
 		
 		
 		
+		Point3D point000=buildTransformedPoint(cm.point000);				
+
+		Point3D point011=buildTransformedPoint(cm.point011);
+
+		Point3D point001=buildTransformedPoint(cm.point001);
 			
-		
-		Point3D zVersor=new Point3D(0,0,1);
-		Point3D zMinusVersor=new Point3D(0,0,-1);
-	
-		
 		Point3D xVersor=buildTransformedVersor(cm.getXAxis());
 		Point3D yVersor=buildTransformedVersor(cm.getYAxis());
 		
+		Point3D zVersor=new Point3D(0,0,1);
+		Point3D zMinusVersor=new Point3D(0,0,-1);
+
 		//////
 		
 		if(VIEW_TYPE==REAR_VIEW){
@@ -710,6 +713,8 @@ public class Renderer3D implements AbstractRenderer3D{
 			yVersor=new Point3D(-yVersor.x,-yVersor.y,yVersor.z);
 			xVersor=new Point3D(-xVersor.x,-xVersor.y,xVersor.z);
 		}
+
+		
 		int polSize=cm.polygonData.size();	
 		for(int i=0;i<polSize;i++){
 			
@@ -727,11 +732,7 @@ public class Renderer3D implements AbstractRenderer3D{
 			
 			buildTransformedPolygon(polRotate);
 			
-			Point3D point000=buildTransformedPoint(cm.point000);				
 
-			Point3D point011=buildTransformedPoint(cm.point011);
-
-			Point3D point001=buildTransformedPoint(cm.point001);
 
 			
 			
