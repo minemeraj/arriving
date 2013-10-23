@@ -342,16 +342,67 @@ public class Road extends Shader{
 
 	public void buildCar(double directionAngle){
 		
-		Point3D steeringCenter=new Point3D(start_car_x+POSX, start_car_y+POSY,-YFOCUS);
-		steeringCenter.rotate(POSX, POSY,viewDirectionCos,viewDirectionSin);
+		Point3D steeringCenter=new Point3D(start_car_x, start_car_y,-YFOCUS);
+
 		//putting the car right in front of the view point
 		CubicMesh cm = carData.getCarMesh().clone();
-		cm.translate(POSX,POSY,-MOVZ);
-		cm.rotate(POSX, POSY,viewDirectionCos,viewDirectionSin);
+        //fake steering: eliminate?
+		cm.rotate(steeringCenter.x,steeringCenter.y,Math.cos(directionAngle),Math.sin(directionAngle));		
 		
-		cm.rotate(steeringCenter.x,steeringCenter.y,Math.cos(directionAngle),Math.sin(directionAngle));
+		Point3D zVersor=new Point3D(0,0,1);
+		Point3D zMinusVersor=new Point3D(0,0,-1);
+	
+		Point3D xVersor0=cm.getXAxis();
+		Point3D yVersor0=cm.getYAxis();
 		
-		decomposeCubicMesh(cm,carTexture,roadZbuffer);
+		Point3D xVersor=cm.getXAxis();
+		Point3D yVersor=cm.getYAxis();
+		
+		//////
+		
+		if(VIEW_TYPE==REAR_VIEW){
+			///???
+			yVersor=new Point3D(-yVersor0.x,-yVersor0.y,yVersor0.z);
+			xVersor=new Point3D(-xVersor0.x,-xVersor0.y,xVersor0.z);
+		}
+		int polSize=cm.polygonData.size();	
+		for(int i=0;i<polSize;i++){
+			
+	
+			
+			int due=(int)(255-i%15);			
+			Color col=new Color(due,0,0);
+			
+			LineData ld=cm.polygonData.elementAt(i);
+			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld);
+			polRotate.setShadowCosin(ld.getShadowCosin());
+			
+		
+			int face=cm.boxFaces[i];
+			
+			Point3D rotateOrigin=cm.point000.clone();
+			
+			if(face==CAR_FRONT){
+				
+
+				rotateOrigin=cm.point011.clone();
+
+			}	
+			else if(face==CAR_RIGHT){
+
+				rotateOrigin=cm.point001.clone();
+
+			}	
+			
+			
+			decomposeCubiMeshPolygon(polRotate,rotateOrigin,xVersor,yVersor,zVersor,zMinusVersor,cm,face,col,carTexture,roadZbuffer);
+			
+          
+				
+		}
+		
+	
+	
 				
 	
 		
