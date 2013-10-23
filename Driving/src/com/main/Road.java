@@ -340,11 +340,11 @@ public class Road extends Shader{
         //fake steering: eliminate?
 		cm.rotate(steeringCenter.x,steeringCenter.y,Math.cos(directionAngle),Math.sin(directionAngle));		
 		
-		Point3D point000=cm.point000.clone();				
+		Point3D point000=cm.point000;				
 
-		Point3D point011=cm.point011.clone();	
+		Point3D point011=cm.point011;
 
-		Point3D point001=cm.point001.clone();
+		Point3D point001=cm.point001;
 		
 
 		Point3D xVersor=cm.getXAxis();
