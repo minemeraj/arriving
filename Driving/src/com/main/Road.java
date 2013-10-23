@@ -220,11 +220,8 @@ public class Road extends Shader{
 
 			DrawObject dro=drawObjects[ii];
 
-
 			CubicMesh cm = (CubicMesh) dro.getMesh();
-
-			Point3D xDirection=null;
-			Point3D yDirection=null;		
+	
 
 			Point3D zVersor=new Point3D(0,0,1);
 			Point3D zMinusVersor=new Point3D(0,0,-1);
@@ -254,8 +251,6 @@ public class Road extends Shader{
 
 				//Point3D normal= cm.normals.elementAt(i).clone();
 
-				int deltaWidth=0;
-				int deltaHeight=cm.getDeltaY();
 
 				int due=(int)(255-i%15);
 				Color col=new Color(due,0,0);
@@ -275,53 +270,17 @@ public class Road extends Shader{
 
 					rotateOrigin=cm.point011;
 					rotateOrigin=calculateLightTransformedPoint(rotateOrigin,true);
-
-					deltaWidth=cm.getDeltaX();
-					deltaHeight=cm.getDeltaY2();
-					xDirection=xVersor;
-					yDirection=zMinusVersor;
-
-
-				}
-				else if(face==CAR_BACK){
-					deltaWidth=cm.getDeltaX();
-					deltaHeight=0;
-					xDirection=xVersor;
-					yDirection=zVersor;
-
-
-				}
-				else if(face==CAR_TOP){
-					deltaWidth=cm.getDeltaX();
-					xDirection=xVersor;
-					yDirection=yVersor;
-
-
-				}
-				else if(face==CAR_LEFT) {
-
-					xDirection=zVersor;
-					yDirection=yVersor;
-
-
-
-
 				}
 				else if(face==CAR_RIGHT) {
-
-					xDirection=zMinusVersor;
-					yDirection=yVersor;
-
 
 					rotateOrigin=cm.point001;
 					rotateOrigin=calculateLightTransformedPoint(rotateOrigin,true);
 
-					deltaWidth=cm.getDeltaX2();
 				}
 
 
-
-				decomposeClippedPolygonIntoZBuffer(polRotate,col,texture,lightZbuffer,xDirection,yDirection,rotateOrigin,deltaWidth,deltaHeight);
+				decomposeCubiMeshPolygon(polRotate,rotateOrigin,xVersor,yVersor,zVersor,zMinusVersor,cm,face,col,texture,lightZbuffer);
+				
 			}	
 
 
@@ -385,7 +344,7 @@ public class Road extends Shader{
 		
 		Point3D steeringCenter=new Point3D(start_car_x+POSX, start_car_y+POSY,-YFOCUS);
 		steeringCenter.rotate(POSX, POSY,viewDirectionCos,viewDirectionSin);
-	
+		//putting the car right in front of the view point
 		CubicMesh cm = carData.getCarMesh().clone();
 		cm.translate(POSX,POSY,-MOVZ);
 		cm.rotate(POSX, POSY,viewDirectionCos,viewDirectionSin);

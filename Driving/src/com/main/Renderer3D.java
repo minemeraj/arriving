@@ -705,11 +705,6 @@ public class Renderer3D implements AbstractRenderer3D{
 		
 		Point3D xVersor=buildTransformedVersor(cm.getXAxis());
 		Point3D yVersor=buildTransformedVersor(cm.getYAxis());
-		/*
-		rotatePoint(xVersor0,0,0,viewDirectionCos,viewDirectionSin);
-		rotatePoint(yVersor0,0,0,viewDirectionCos,viewDirectionSin);
-		rotatePoint(xVersor,0,0,viewDirectionCos,viewDirectionSin);
-		rotatePoint(yVersor,0,0,viewDirectionCos,viewDirectionSin);*/
 		
 		//////
 		
@@ -734,19 +729,17 @@ public class Renderer3D implements AbstractRenderer3D{
 			int face=cm.boxFaces[i];
 			buildTransformedPolygon(polRotate);
 			
-			Point3D rotateOrigin=cm.point000;
-			rotateOrigin=buildTransformedPoint(rotateOrigin);
+			Point3D rotateOrigin=buildTransformedPoint(cm.point000);
 			
 			if(face==CAR_FRONT){
 				
-				rotateOrigin=cm.point011;
-				rotateOrigin=buildTransformedPoint(rotateOrigin);
+
+				rotateOrigin=buildTransformedPoint(cm.point011);
 
 			}	
 			else if(face==CAR_RIGHT){
-				
-				rotateOrigin=cm.point001;
-				rotateOrigin=buildTransformedPoint(rotateOrigin);
+
+				rotateOrigin=buildTransformedPoint(cm.point001);
 
 			}	
 			
@@ -761,8 +754,12 @@ public class Renderer3D implements AbstractRenderer3D{
 	}
 	
 	public void decomposeCubiMeshPolygon(
-			Polygon3D polRotate, Point3D rotateOrigin, 
-			Point3D xVersor, Point3D yVersor, Point3D zVersor, Point3D zMinusVersor,
+			Polygon3D polRotate, 
+			Point3D rotateOrigin, 
+			Point3D xVersor, 
+			Point3D yVersor, 
+			Point3D zVersor, 
+			Point3D zMinusVersor,
 			CubicMesh cm, 
 			int face, 
 			Color col, 
