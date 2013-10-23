@@ -699,9 +699,6 @@ public class Renderer3D implements AbstractRenderer3D{
 		Point3D zVersor=new Point3D(0,0,1);
 		Point3D zMinusVersor=new Point3D(0,0,-1);
 	
-		//versors to transform in the system:
-		Point3D xVersor0=buildTransformedVersor(cm.getXAxis());
-		Point3D yVersor0=buildTransformedVersor(cm.getYAxis());
 		
 		Point3D xVersor=buildTransformedVersor(cm.getXAxis());
 		Point3D yVersor=buildTransformedVersor(cm.getYAxis());
@@ -710,8 +707,8 @@ public class Renderer3D implements AbstractRenderer3D{
 		
 		if(VIEW_TYPE==REAR_VIEW){
 			///???
-			yVersor=new Point3D(-yVersor0.x,-yVersor0.y,yVersor0.z);
-			xVersor=new Point3D(-xVersor0.x,-xVersor0.y,xVersor0.z);
+			yVersor=new Point3D(-yVersor.x,-yVersor.y,yVersor.z);
+			xVersor=new Point3D(-xVersor.x,-xVersor.y,xVersor.z);
 		}
 		int polSize=cm.polygonData.size();	
 		for(int i=0;i<polSize;i++){

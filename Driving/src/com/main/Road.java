@@ -227,16 +227,16 @@ public class Road extends Shader{
 			Point3D zMinusVersor=new Point3D(0,0,-1);
 
 			//to calculate
-			Point3D xVersor0=cm.getXAxis();
-			Point3D yVersor0=cm.getYAxis();
 
 			Point3D xVersor=cm.getXAxis();
 			Point3D yVersor=cm.getYAxis();
-
+			
+			//////
+			
 			if(VIEW_TYPE==REAR_VIEW){
 				///???
-				yVersor=new Point3D(-yVersor0.x,-yVersor0.y,yVersor0.z);
-				xVersor=new Point3D(-xVersor0.x,-xVersor0.y,xVersor0.z);
+				yVersor=new Point3D(-yVersor.x,-yVersor.y,yVersor.z);
+				xVersor=new Point3D(-xVersor.x,-xVersor.y,xVersor.z);
 			}
 			int polSize=cm.polygonData.size();	
 
@@ -352,9 +352,7 @@ public class Road extends Shader{
 		Point3D zVersor=new Point3D(0,0,1);
 		Point3D zMinusVersor=new Point3D(0,0,-1);
 	
-		Point3D xVersor0=cm.getXAxis();
-		Point3D yVersor0=cm.getYAxis();
-		
+	
 		Point3D xVersor=cm.getXAxis();
 		Point3D yVersor=cm.getYAxis();
 		
@@ -362,8 +360,8 @@ public class Road extends Shader{
 		
 		if(VIEW_TYPE==REAR_VIEW){
 			///???
-			yVersor=new Point3D(-yVersor0.x,-yVersor0.y,yVersor0.z);
-			xVersor=new Point3D(-xVersor0.x,-xVersor0.y,xVersor0.z);
+			yVersor=new Point3D(-yVersor.x,-yVersor.y,yVersor.z);
+			xVersor=new Point3D(-xVersor.x,-xVersor.y,xVersor.z);
 		}
 		int polSize=cm.polygonData.size();	
 		for(int i=0;i<polSize;i++){
