@@ -5,6 +5,7 @@ package com.main;
  */
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
@@ -127,7 +128,9 @@ public class Road extends Shader{
     
 	int PARTIAL_MOVZ=0;
     boolean initMOVZ=true;
-
+    
+    Point3D terrainNormal=null;
+    double[][] rot=new double[3][3];
 		 
 	public Road(){}
 
@@ -338,7 +341,7 @@ public class Road extends Shader{
 		//putting the car right in front of the view point
 		CubicMesh cm = carData.getCarMesh().clone();
         //fake steering: eliminate?
-		cm.rotate(steeringCenter.x,steeringCenter.y,Math.cos(directionAngle),Math.sin(directionAngle));		
+		//cm.rotate(steeringCenter.x,steeringCenter.y,Math.cos(directionAngle),Math.sin(directionAngle));		
 		
 		Point3D point000=cm.point000;				
 
@@ -360,6 +363,46 @@ public class Road extends Shader{
 			yVersor=new Point3D(-yVersor.x,-yVersor.y,yVersor.z);
 			xVersor=new Point3D(-xVersor.x,-xVersor.y,xVersor.z);
 		}
+		
+		double dx=WIDTH/2-CAR_WIDTH/2-XFOCUS;
+		double dy=y_edge;
+		double dz=-YFOCUS;
+		
+	    //apply terrain following
+        if(terrainNormal!=null){
+        	
+        	double a=terrainNormal.x;
+        	double b=terrainNormal.y;
+        	double c=terrainNormal.z;
+        	
+        	double i_v1=1.0/Math.sqrt(a*a+b*b+c*c);
+        	double v2=Math.sqrt(a*a+c*c);
+        	
+        	
+        	
+        	rot[0][0]=c/v2;
+			rot[0][1]=-b*a*i_v1/v2;
+			rot[0][2]=a*i_v1;
+			rot[1][0]=0;
+			rot[1][1]=v2*i_v1;
+			rot[1][2]=b*i_v1;
+			rot[2][0]=-a/v2;
+			rot[2][1]=-b*c*i_v1/v2;
+			rot[2][2]=c*i_v1;
+        	
+			point000=rotoTranslate(rot,point000,dx,dy,dz);
+        	point011=rotoTranslate(rot,point011,dx,dy,dz);
+        	point001=rotoTranslate(rot,point001,dx,dy,dz);
+        	
+        	xVersor=rotate(rot,xVersor);
+        	yVersor=rotate(rot,yVersor);
+        	zVersor=rotate(rot,zVersor);
+        	zMinusVersor=rotate(rot,zMinusVersor);
+        	
+        	
+        } 
+        
+        
 		int polSize=cm.polygonData.size();	
 		for(int i=0;i<polSize;i++){
 			
@@ -375,8 +418,12 @@ public class Road extends Shader{
 		
 			int face=cm.boxFaces[i];
 			
-		
-	
+		    //apply terrain following
+	         if(terrainNormal!=null){
+	        	
+	        	rototranslate(polRotate,rot,dx,dy,dz);
+	        	
+	        }   
 			
 			
 			decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,point000,point011,point001,face,col,carTexture,roadZbuffer);
@@ -391,6 +438,73 @@ public class Road extends Shader{
 
 
 
+
+	private Point3D rotoTranslate(double[][] rot, Point3D point, double dx,
+			
+			double dy, double dz) {
+		
+		double[] p={point.x-dx,point.y-dy,point.z-dz};
+		
+	
+		double[] res=rotate(rot,p);
+		
+		return new Point3D(res[0]+dx,res[1]+dy,res[2]+dz);
+	}
+	
+	double[] pRot=new double[3];
+
+	private void rototranslate(Polygon3D polRotate, double[][] rot,double dx, double dy,double dz) {
+
+    	for(int l=0;l<polRotate.npoints;l++){
+    		
+    		pRot[0]=polRotate.xpoints[l]-dx;
+    		pRot[1]=polRotate.ypoints[l]-dy;
+    		pRot[2]=polRotate.zpoints[l]-dz;
+    		
+            pRot=rotate(rot,pRot);    
+    		
+            polRotate.xpoints[l]=(int)(pRot[0]+dx);
+            polRotate.ypoints[l]=(int)(pRot[1]+dy);
+            polRotate.zpoints[l]=(int)(pRot[2]+dz);
+ 
+    	}
+		
+	}
+
+	private Point3D rotate(double[][] rot, Point3D point) {
+		
+		pRot[0]=point.x;
+		pRot[1]=point.y;
+		pRot[2]=point.z;
+		
+		double[] res=new double[3];
+		
+		for (int i = 0; i < res.length; i++) {
+			
+			for (int j = 0; j < res.length; j++) {
+				res[i]+=rot[i][j]*pRot[j];
+			}
+			
+		}
+		
+		return new Point3D(res[0],res[1],res[2]);
+	}
+
+	private double[]  rotate(double[][] rot,  double[] p) {
+		
+		
+		double[] res=new double[3];
+		
+		for (int i = 0;i < res.length; i++) {
+			
+			for (int j = 0; j < res.length; j++) {
+				res[i]+=rot[i][j]*p[j];
+			}
+			
+		}
+	    
+		return res;
+	}
 
 	public void drawRoad(BufferedImage buf){
 
@@ -422,6 +536,7 @@ public class Road extends Shader{
 					if(p3D.contains(start_car_x,start_car_y)){
 	
 						int zz=(int)interpolate(start_car_x,start_car_y,p3D);
+						terrainNormal=Polygon3D.findNormal(p3D);
 						
 						if(initMOVZ){							
 					
@@ -430,6 +545,7 @@ public class Road extends Shader{
 							
 							initMOVZ=false;
 							start_max_calculus=false;
+							
 						} 						
 						else if(zz<=PARTIAL_MOVZ+ROAD_THICKNESS){
 							
@@ -469,6 +585,8 @@ public class Road extends Shader{
 			}
 			
 		}
+			//changing altitutude with the movements
+		
 		    if(TRANSZ>=PARTIAL_MOVZ-ROAD_THICKNESS)
 		    	PARTIAL_MOVZ=TRANSZ;
 		    else

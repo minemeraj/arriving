@@ -42,10 +42,7 @@ public class Renderer3D implements AbstractRenderer3D{
 	public int MOVZ=0;
 	public double viewDirection=0;	
 	public double viewDirectionCos=1.0;
-	public double viewDirectionSin=0.0;
-	
-	
-	
+	public double viewDirectionSin=0.0;	
 
 	public static ZBuffer[] roadZbuffer;
 

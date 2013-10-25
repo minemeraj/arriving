@@ -1,3 +1,6 @@
+
+Added the terrain following for the main car.
+
 -------- 15/10/2013   CarDriving 7.0.3
 
 New deep revision of the code, to manage directly meshes instead of vectors of points and lines.
