@@ -538,6 +538,7 @@ public class Road extends Shader{
 						int zz=(int)interpolate(start_car_x,start_car_y,p3D);
 						terrainNormal=Polygon3D.findNormal(p3D);
 						
+						//find max possible z altitude
 						if(initMOVZ){							
 					
 							TRANSZ=zz;
@@ -585,11 +586,10 @@ public class Road extends Shader{
 			}
 			
 		}
-			//changing altitutude with the movements
-		
+			//changing altitutude with the movements		
 		    if(TRANSZ>=PARTIAL_MOVZ-ROAD_THICKNESS)
 		    	PARTIAL_MOVZ=TRANSZ;
-		    else
+		    else //minus to simulate gravitational fall
 		    	PARTIAL_MOVZ=PARTIAL_MOVZ-ROAD_THICKNESS;
 		    
 			MOVZ=-(PARTIAL_MOVZ+YFOCUS);
