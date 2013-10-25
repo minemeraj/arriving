@@ -536,7 +536,7 @@ public class Road extends Shader{
 					if(p3D.contains(start_car_x,start_car_y)){
 	
 						int zz=(int)interpolate(start_car_x,start_car_y,p3D);
-						terrainNormal=Polygon3D.findNormal(p3D);
+						
 						
 						//find max possible z altitude
 						if(initMOVZ){							
@@ -546,16 +546,19 @@ public class Road extends Shader{
 							
 							initMOVZ=false;
 							start_max_calculus=false;
-							
+							terrainNormal=Polygon3D.findNormal(p3D);
 						} 						
 						else if(zz<=PARTIAL_MOVZ+ROAD_THICKNESS){
 							
 							if(start_max_calculus){
 								TRANSZ=zz;
 								start_max_calculus=false;
+								terrainNormal=Polygon3D.findNormal(p3D);
 							}
-							else if(zz>=TRANSZ)
+							else if(zz>=TRANSZ){
 								TRANSZ=zz;
+								terrainNormal=Polygon3D.findNormal(p3D);
+							}	
 							
 						}	
 						//break;
