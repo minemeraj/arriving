@@ -809,11 +809,11 @@ public class Road extends Shader{
 		APOSX+=(int) (-dTeta*CarFrame.background.getWidth());
 			
 	
-		double xo=POSX+viewDirectionCos;
+		double xo=POSX+viewDirectionCos*TURNING_RADIUS;
 		//if(turningAngle*FORWARD>0) xo=POSX+WIDTH-XFOCUS;
 		//double yo=POSY+y_edge;
 		
-		double yo=POSY+viewDirectionSin;
+		double yo=POSY+viewDirectionSin*TURNING_RADIUS;
 		
 		/*if(CAMERA_TYPE==DRIVER_CAMERA){
 			
