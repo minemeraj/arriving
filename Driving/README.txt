@@ -287,7 +287,7 @@
    	
    	Roughly one can estimates the scale conversion 1m = 26px
    	
-   	So, a speed of 1px/frame is circa 1/26 m * 1000/34= 1000/884 m/s = 1.13 m/s
+   	So, a speed of 100px/frame is circa 100/26 m / (1000/28 s)=  2800/2600 m/s = 1.08 m/s
     
 	
 	

@@ -1,4 +1,5 @@
-A much more massive car, easier to control. A slightly better steering.
+A much more massive car, easier to control. A slightly better steering, without
+fake animation.
 
 Added the terrain following for the main car.
 
