@@ -913,7 +913,7 @@ public class Road extends Shader{
 	}
 
 
-
+    //used for read view
 	public void rotateSky(double rotationAngle){
 		APOSX+=(int) (-rotationAngle/(Math.PI*2)*CarFrame.background.getWidth());
 	}
