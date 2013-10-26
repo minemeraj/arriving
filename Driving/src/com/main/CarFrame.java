@@ -109,7 +109,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 	
 	boolean isBraking=false;
 	double torque=0;
-	double inverse_car_mass=1.0;
+	double inverse_car_mass=0.05;
 	
 	 public static void main(String[] args) {
 		CarFrame ff=new CarFrame();

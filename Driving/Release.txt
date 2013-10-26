@@ -1,3 +1,4 @@
+A much more massive car, easier to control. A slightly better steering.
 
 Added the terrain following for the main car.
 
