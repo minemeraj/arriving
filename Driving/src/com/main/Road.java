@@ -807,14 +807,13 @@ public class Road extends Shader{
 		double dTeta=turningAngle/(Math.PI*2);
 
 		APOSX+=(int) (-dTeta*CarFrame.background.getWidth());
-		
-		double CURRENT_TURNING_RADIUS=TURNING_RADIUS*CarFrame.CAR_SPEED*SPEED_SCALE/100.0;
-		
-		double xo=POSX+CURRENT_TURNING_RADIUS*viewDirectionCos;
+			
+	
+		double xo=POSX+viewDirectionCos;
 		//if(turningAngle*FORWARD>0) xo=POSX+WIDTH-XFOCUS;
 		//double yo=POSY+y_edge;
 		
-		double yo=POSY+CURRENT_TURNING_RADIUS*viewDirectionSin;
+		double yo=POSY+viewDirectionSin;
 		
 		/*if(CAMERA_TYPE==DRIVER_CAMERA){
 			
