@@ -1321,6 +1321,11 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 
 	public void setViewDirection(double observerDirection) {
 		
+		if(observerDirection<0)
+			observerDirection+=2*Math.PI;
+		else if(observerDirection>Math.PI*2)
+			observerDirection-=2*Math.PI;
+		
 		this.viewDirection = observerDirection;
 		viewDirectionCos=Math.cos(observerDirection);
 		viewDirectionSin=Math.sin(observerDirection);

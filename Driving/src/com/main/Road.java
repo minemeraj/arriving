@@ -99,11 +99,6 @@ public class Road extends Shader{
 
 	private JFileChooser fc;
 	boolean start=true;
-	
-
-	
-	private int APOSX;
-
 
 	public static double turningAngle=0;
 	public static double dTurningAngle=0.1;
@@ -125,6 +120,7 @@ public class Road extends Shader{
 	
 	public static Autocar[] autocars=null;
     double pi_2=Math.PI/2.0;
+    double i_2pi=1.0/(Math.PI*2.0);
     
 	int PARTIAL_MOVZ=0;
     boolean initMOVZ=true;
@@ -806,7 +802,6 @@ public class Road extends Shader{
 		
 		double dTeta=turningAngle/(Math.PI*2);
 
-		APOSX+=(int) (-dTeta*CarFrame.background.getWidth());
 			
 	
 		double xo=POSX+viewDirectionCos*TURNING_RADIUS;
@@ -915,7 +910,7 @@ public class Road extends Shader{
 
     //used for read view
 	public void rotateSky(double rotationAngle){
-		APOSX+=(int) (-rotationAngle/(Math.PI*2)*CarFrame.background.getWidth());
+		//APOSX+=(int) (-rotationAngle/(Math.PI*2)*CarFrame.background.getWidth());
 	}
 	
 	public void drawSky() {
@@ -924,26 +919,31 @@ public class Road extends Shader{
 		//g2.fillRect(0,0,WIDTH,HEIGHT-YFOCUS);
 
 		int dw=CarFrame.background.getWidth();
-		int dh=CarFrame.HEIGHT-YFOCUS;
+		int dh=CarFrame.background.getHeight();
 		
-		int height=CarFrame.background.getHeight();
+		int deltah=dh-YFOCUS;
+		
+		double inv_distance=1.0/SCREEN_DISTANCE;
 		
 		//System.out.println(APOSX);
-		for(int i=0;i<dw;i++){
-
-			int i_set=(i+APOSX)%dw;
-			if(i_set<0) i_set=i_set+dw;
-
-			if(i_set>=CarFrame.WIDTH)
-				continue;
+		for(int i=0;i<WIDTH;i++){
 			
-			
-			
-			for(int j=height-dh;j<height;j++){
+			double teta=Math.atan((i-XFOCUS)*inv_distance)-viewDirection;
 
-				int tot=(dh+j-height)*WIDTH+i_set;
-									
-				int rgb=CarFrame.background.getRGB(i,j);
+			if(teta<0)
+				teta=teta+2*Math.PI;
+			if(teta>2*Math.PI)
+				teta=teta-2*Math.PI;
+           
+			int i_set=(int) (dw*teta*i_2pi);
+			
+			for(int j=0;j<YFOCUS;j++){
+
+				int tot=i+j*WIDTH;
+				
+				int j_set=j+deltah;
+													
+				int rgb=CarFrame.background.getRGB(i_set,j_set);
 				roadZbuffer[tot].setRgbColor(rgb);
 				
 
@@ -961,7 +961,7 @@ public class Road extends Shader{
 		steer=false;
 		POSX=0;
 		POSY=0;
-		APOSX=0;
+	
 		
 		//loadRoad();
 		
