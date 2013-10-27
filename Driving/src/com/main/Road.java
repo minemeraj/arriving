@@ -922,19 +922,19 @@ public class Road extends Shader{
 		int dh=CarFrame.background.getHeight();
 		
 		int deltah=dh-YFOCUS;
-		
-		double inv_distance=1.0/SCREEN_DISTANCE;
+			
+		double eta=Math.PI*2.0/dw;
 		
 		//System.out.println(APOSX);
 		for(int i=0;i<WIDTH;i++){
 			
-			double teta=Math.atan((i-XFOCUS)*inv_distance)-viewDirection;
+			double teta=i*eta-viewDirection;
 
 			if(teta<0)
 				teta=teta+2*Math.PI;
 			if(teta>2*Math.PI)
 				teta=teta-2*Math.PI;
-           
+
 			int i_set=(int) (dw*teta*i_2pi);
 			
 			for(int j=0;j<YFOCUS;j++){
