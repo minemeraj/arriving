@@ -922,8 +922,10 @@ public class Road extends Shader{
 		int dh=CarFrame.background.getHeight();
 		
 		int deltah=dh-YFOCUS;
+		
+		double alfa=0.5;
 			
-		double eta=Math.PI*2.0/dw;
+		double eta=alfa*Math.PI*2.0/dw;
 		
 		//System.out.println(APOSX);
 		for(int i=0;i<WIDTH;i++){
@@ -941,7 +943,7 @@ public class Road extends Shader{
 
 				int tot=i+j*WIDTH;
 				
-				int j_set=j+deltah;
+				int j_set=(int) (alfa*j)+deltah;
 													
 				int rgb=CarFrame.background.getRGB(i_set,j_set);
 				roadZbuffer[tot].setRgbColor(rgb);
