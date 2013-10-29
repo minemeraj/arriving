@@ -921,13 +921,17 @@ public class Road extends Shader{
 		int dw=CarFrame.background.getWidth();
 		int dh=CarFrame.background.getHeight();
 		
-		int deltah=dh-YFOCUS;
+		
 		
 
 		//actual value: 0,738
 		double alfa=Math.atan(WIDTH/(2.0*SCREEN_DISTANCE))*dw/(Math.PI*WIDTH);
-			
+		
+		int deltah=(int) (dh*(1-alfa)+YFOCUS*alfa);
+		
 		double eta=alfa*Math.PI*2.0/dw;
+		
+		
 		
 		//System.out.println(APOSX);
 		for(int i=0;i<WIDTH;i++){
