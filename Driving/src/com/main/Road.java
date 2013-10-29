@@ -923,9 +923,9 @@ public class Road extends Shader{
 		
 		int deltah=dh-YFOCUS;
 		
-		double alfa=0.5;
-		//real value:
-		//alfa=Math.atan(WIDTH*1.0/dw)*dw/(Math.PI*WIDTH);
+
+		//actual value: 0,738
+		double alfa=Math.atan(WIDTH/(2.0*SCREEN_DISTANCE))*dw/(Math.PI*WIDTH);
 			
 		double eta=alfa*Math.PI*2.0/dw;
 		

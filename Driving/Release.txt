@@ -1,5 +1,5 @@
 
-Changing the messy background drawing in a kind of sky dome.
+Changing the messy background drawing with a simplified sky dome.
 
 -------- 26/10/2013   CarDriving 7.0.3
 
