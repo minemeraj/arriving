@@ -75,7 +75,7 @@ public class Road extends Shader{
 
 	int CAR_WIDTH=100;
 	
-	double TURNING_RADIUS=100;
+	public static double TURNING_RADIUS=400;
 	
 	public static int FORWARD=1;
 	
@@ -831,6 +831,8 @@ public class Road extends Shader{
 		double DPOSX=((POSX-xo)*ct+(POSY-yo)*st+xo)-POSX;
 		double DPOSY=(-(POSX-xo)*st+(POSY-yo)*ct+yo)-POSY;
 		
+		
+		//System.out.println(Math.sqrt(DPOSX*DPOSX+DPOSY*DPOSY)+":"+CarFrame.CAR_SPEED*SPEED_SCALE+":"+(turningAngle*TURNING_RADIUS));
 		
 		POSX+=DPOSX;
 		POSY+=DPOSY;

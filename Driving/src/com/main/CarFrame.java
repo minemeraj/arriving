@@ -64,7 +64,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 	public static int RIGHTBORDER=0;
 	
 	public static Color BACKGROUND_COLOR=Color.GREEN;
-	public static double CURVATURE_RADIUS = WIDTH/2;
+	//public static double CURVATURE_RADIUS = WIDTH/2;
 	
 	int CAR_X=150;
 	int CAR_Y=150;
@@ -573,7 +573,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 	
 	
 	public void rotate(int sign) {
-		Road.turningAngle=CarFrame.CAR_SPEED*sign/CarFrame.CURVATURE_RADIUS*Road.SPEED_SCALE;
+		Road.turningAngle=CarFrame.CAR_SPEED*sign/Road.TURNING_RADIUS*Road.SPEED_SCALE;
 		Road.steer=true;
 		setSteeringAngle();
 		//road.rotate();
