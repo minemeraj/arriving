@@ -1,7 +1,9 @@
+-------- 01/11/2013   CarDriving 7.0.5
 
-Changing the messy background drawing with a simplified sky dome.
+Changing the messy background drawing with a simplified sky dome. Enlarging and reviewing the 
+backgrounds.
 
--------- 26/10/2013   CarDriving 7.0.3
+-------- 26/10/2013   CarDriving 7.0.4
 
 A much more massive car, easier to control. A slightly better steering, without
 fake animation.

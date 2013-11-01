@@ -448,6 +448,7 @@ public class Road extends Shader{
 	}
 	
 	double[] pRot=new double[3];
+	private double rearAngle;
 
 	private void rototranslate(Polygon3D polRotate, double[][] rot,double dx, double dy,double dz) {
 
@@ -910,7 +911,7 @@ public class Road extends Shader{
 
     //used for read view
 	public void rotateSky(double rotationAngle){
-		//APOSX+=(int) (-rotationAngle/(Math.PI*2)*CarFrame.background.getWidth());
+		rearAngle=rotationAngle;
 	}
 	
 	public void drawSky() {
@@ -936,7 +937,7 @@ public class Road extends Shader{
 		//System.out.println(APOSX);
 		for(int i=0;i<WIDTH;i++){
 			
-			double teta=i*eta-viewDirection;
+			double teta=i*eta-viewDirection-rearAngle;
 
 			if(teta<0)
 				teta=teta+2*Math.PI;

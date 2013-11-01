@@ -42,7 +42,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 
 	
     int counter=0;
-	String VERSION="CarDriving 7.0.4";
+	String VERSION="CarDriving 7.0.5";
 	
 	JPanel center=null;
 	private Graphics2D graphics2D;
@@ -603,7 +603,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 		else if(code==KeyEvent.VK_Z){
 			
 			if(Road.VIEW_TYPE==Road.REAR_VIEW)
-				road.rotateSky(Math.PI);
+				road.rotateSky(0);
 			Road.VIEW_TYPE=Road.FRONT_VIEW;
 			
 		}
