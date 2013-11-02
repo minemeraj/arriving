@@ -902,7 +902,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 		}
     }
 
-    public Polygon3D buildPolygon(LineData ld,Vector points, boolean isReal) {
+    public Polygon3D buildPolygon(LineData ld,Point3D[] points, boolean isReal) {
 
 
 
@@ -918,7 +918,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 
 			int num=ld.getIndex(i);
 
-			Point3D p=(Point3D) points.elementAt(num);
+			Point3D p= points[num];
 
 
 			if(isReal){
