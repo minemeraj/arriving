@@ -305,20 +305,17 @@ public class Shader extends Renderer3D{
 		for(int i=0;i<drawObjects.length;i++){
 
 			DrawObject dro=drawObjects[i];
-			shadowVolumes[i]=buildShadowVolumeBox(dro);
+			shadowVolumes[i]=buildShadowVolumeBox((CubicMesh)dro.getMesh());
 		}	
 
 
 	}
 
-	public  ShadowVolume buildShadowVolumeBox(DrawObject dro) {
+	public  ShadowVolume buildShadowVolumeBox(CubicMesh cm) {
 
 		ShadowVolume shadowVolume=new ShadowVolume();
 
-		CubicMesh cm= (CubicMesh)dro.getMesh();
-
-		int polSize=cm.polygonData.size();	
-
+		int polSize=cm.polygonData.size();
 
 		Vector edges=new Vector();
 

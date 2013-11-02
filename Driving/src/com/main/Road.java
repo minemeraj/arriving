@@ -127,6 +127,7 @@ public class Road extends Shader{
     
     Point3D terrainNormal=null;
     double[][] rot=new double[3][3];
+    private double rearAngle;
 		 
 	public Road(){}
 
@@ -332,7 +333,7 @@ public class Road extends Shader{
 
 	public void buildCar(double directionAngle){
 		
-		Point3D steeringCenter=new Point3D(start_car_x, start_car_y,-YFOCUS);
+		//Point3D steeringCenter=new Point3D(start_car_x, start_car_y,-YFOCUS);
 
 		//putting the car right in front of the view point
 		CubicMesh cm = carData.getCarMesh().clone();
@@ -395,7 +396,9 @@ public class Road extends Shader{
         	zVersor=rotate(rot,zVersor);
         	zMinusVersor=rotate(rot,zMinusVersor);
         	
-        	
+        	for (int i = 0; i < cm.points.length; i++) {
+				cm.points[i]=rotoTranslate(rot,cm.points[i],dx,dy,dz);
+			}
         } 
         
         
@@ -413,14 +416,6 @@ public class Road extends Shader{
 			
 		
 			int face=cm.boxFaces[i];
-			
-		    //apply terrain following
-	         if(terrainNormal!=null){
-	        	
-	        	rototranslate(polRotate,rot,dx,dy,dz);
-	        	
-	        }   
-			
 			
 			decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,point000,point011,point001,face,col,carTexture,roadZbuffer);
 			
@@ -448,25 +443,7 @@ public class Road extends Shader{
 	}
 	
 	double[] pRot=new double[3];
-	private double rearAngle;
-
-	private void rototranslate(Polygon3D polRotate, double[][] rot,double dx, double dy,double dz) {
-
-    	for(int l=0;l<polRotate.npoints;l++){
-    		
-    		pRot[0]=polRotate.xpoints[l]-dx;
-    		pRot[1]=polRotate.ypoints[l]-dy;
-    		pRot[2]=polRotate.zpoints[l]-dz;
-    		
-            pRot=rotate(rot,pRot);    
-    		
-            polRotate.xpoints[l]=(int)(pRot[0]+dx);
-            polRotate.ypoints[l]=(int)(pRot[1]+dy);
-            polRotate.zpoints[l]=(int)(pRot[2]+dz);
- 
-    	}
-		
-	}
+	
 
 	private Point3D rotate(double[][] rot, Point3D point) {
 		
