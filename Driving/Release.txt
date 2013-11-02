@@ -1,3 +1,4 @@
+Added car shadow volume.
 
 Finally a manageable steering!
 

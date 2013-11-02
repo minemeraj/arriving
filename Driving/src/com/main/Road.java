@@ -194,6 +194,10 @@ public class Road extends Shader{
 
 	}
 
+	/**
+	 * Unused method
+	 * 
+	 */
 	public void calculateShadowMap() {
 
 		isShadowMap=true;
@@ -426,9 +430,9 @@ public class Road extends Shader{
 				
 		}
 		
-		 /*cm.translate(POSX,POSY,-MOVZ);
+		 cm.translate(POSX,POSY,-MOVZ);
 		 cm.rotate(POSX, POSY,viewDirectionCos,viewDirectionSin);
-		 carShadowVolume=buildShadowVolumeBox(cm);*/
+		 carShadowVolume=buildShadowVolumeBox(cm);
 	}
 
 
@@ -636,7 +640,7 @@ public class Road extends Shader{
 
 		super.calculateStencilBuffer();
 		
-		if(carShadowVolume==null)
+		if(carShadowVolume==null || rearAngle!=0)
 			return;
 
 		isStencilBuffer=true;
