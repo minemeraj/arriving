@@ -42,6 +42,7 @@ import com.PolygonMesh;
 import com.Texture;
 import com.ZBuffer;
 import com.editors.Editor;
+import com.main.Shader.ShadowVolume;
 
 
 
@@ -128,6 +129,7 @@ public class Road extends Shader{
     Point3D terrainNormal=null;
     double[][] rot=new double[3][3];
     private double rearAngle;
+    ShadowVolume carShadowVolume=null;
 		 
 	public Road(){}
 
@@ -401,6 +403,7 @@ public class Road extends Shader{
 			}
         } 
         
+        carShadowVolume=buildShadowVolumeBox(cm);
         
 		int polSize=cm.polygonData.size();	
 		for(int i=0;i<polSize;i++){
@@ -627,7 +630,27 @@ public class Road extends Shader{
 	}
 	
 
-	
+	public void calculateStencilBuffer() {
+
+		super.calculateStencilBuffer();
+		
+		/*if(carShadowVolume==null)
+			return;
+
+		isStencilBuffer=true;
+
+
+		for (int j = 0; j < carShadowVolume.allPolygons.length; j++) {
+
+			Polygon3D pol = carShadowVolume.allPolygons[j];
+
+			decomposeClippedPolygonIntoZBuffer(pol,Color.red,null,roadZbuffer);
+		
+		}
+
+
+		isStencilBuffer=false;*/
+	}
 
 	
 	public static Polygon3D[] buildAdditionalRoadPolygons(Polygon3D p3d) {
