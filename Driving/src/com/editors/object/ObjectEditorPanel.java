@@ -733,14 +733,72 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 	}
 
 	public void buildPolygon() {
-		
+
 		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 
 		if(polygon.lineDatas.size()<3){
 			deselectAll();
 			return;
 		}	
-        mesh.polygonData.add(polygon);
+
+
+
+		int sz=mesh.polygonData.size();
+
+		//check if a polygon is already present
+
+		for (int i = 0; i < sz ; i++) {
+			
+			LineData ld = (LineData)  mesh.polygonData.elementAt(i);
+
+			if(polygon.size()==ld.size()){	
+				
+				boolean present=false;
+
+				for (int j = 0; j < ld.size(); j++) {
+
+					int n=ld.getIndex(j);
+
+					boolean found=false;
+
+					for (int k = 0; k < polygon.size(); k++) {
+						int m = polygon.getIndex(k);
+
+						if(m==n){
+
+							found=true;
+							break;
+						}
+
+					}
+
+                    if(found) {
+                    	present=true;        
+
+                    }else{
+                    	
+                    	present=false;
+                    	break;
+                    }	
+                    
+				} 
+
+
+				if(present){
+					JOptionPane.showMessageDialog(this,"Polygon already present!");
+					polygon=new LineData();
+					deselectAll();
+					return;
+				}
+
+
+			}
+
+		}
+
+
+
+		mesh.polygonData.add(polygon);
 
 		deselectAll();
 

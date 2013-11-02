@@ -1,6 +1,14 @@
 
 Finally a manageable steering!
 
+Several bugs fixed in the object editor:
+
+now you can drag the file to load in the editor, as before.
+
+polygon detail working back to working.
+
+now in the build polygon checks if a polygon is already present
+
 -------- 01/11/2013   CarDriving 7.0.5
 
 Changing the messy background drawing with a simplified sky dome. Enlarging and reviewing the 
