@@ -403,7 +403,7 @@ public class Road extends Shader{
 			}
         } 
         
-        carShadowVolume=buildShadowVolumeBox(cm);
+       
         
 		int polSize=cm.polygonData.size();	
 		for(int i=0;i<polSize;i++){
@@ -426,8 +426,9 @@ public class Road extends Shader{
 				
 		}
 		
-
-	
+		 /*cm.translate(POSX,POSY,-MOVZ);
+		 cm.rotate(POSX, POSY,viewDirectionCos,viewDirectionSin);
+		 carShadowVolume=buildShadowVolumeBox(cm);*/
 	}
 
 
@@ -597,7 +598,8 @@ public class Road extends Shader{
 	
 	
 					if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
-							decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],roadZbuffer);
+							
+						decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],roadZbuffer);
 				
 							
 						    if(index==1){
@@ -634,7 +636,7 @@ public class Road extends Shader{
 
 		super.calculateStencilBuffer();
 		
-		/*if(carShadowVolume==null)
+		if(carShadowVolume==null)
 			return;
 
 		isStencilBuffer=true;
@@ -643,13 +645,13 @@ public class Road extends Shader{
 		for (int j = 0; j < carShadowVolume.allPolygons.length; j++) {
 
 			Polygon3D pol = carShadowVolume.allPolygons[j];
-
+			buildTransformedPolygon(pol);
 			decomposeClippedPolygonIntoZBuffer(pol,Color.red,null,roadZbuffer);
 		
 		}
 
 
-		isStencilBuffer=false;*/
+		isStencilBuffer=false;
 	}
 
 	
