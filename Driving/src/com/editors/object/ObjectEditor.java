@@ -770,6 +770,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 						continue;
 					File file=(File) o;
 					currentDirectory=file.getParentFile();
+					forceReading=true;
 					loadPointsFromFile(file);
 					getCenter().displayAll();
 				}
