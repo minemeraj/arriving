@@ -218,7 +218,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 			for(int j=0;j<numLInes;j++){
 
 				Point3D p0=mesh.points[ld.getIndex(j)];
-				Point3D p1=mesh.points[(j+1)%ld.size()];
+				Point3D p1=mesh.points[ld.getIndex((j+1)%numLInes)];
 
 
 				bufGraphics.drawLine(calcAssX(p0),calcAssY(p0),calcAssX(p1),calcAssY(p1));

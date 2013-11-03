@@ -14,6 +14,8 @@ polygon detail working back to working.
 
 now in the build polygon checks if a polygon is already present
 
+Fixed the iperview editor.
+
 -------- 01/11/2013   CarDriving 7.0.5
 
 Changing the messy background drawing with a simplified sky dome. Enlarging and reviewing the 

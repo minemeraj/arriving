@@ -113,8 +113,8 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	private JList lineList;
 	private JList pointList=null;
 	private JMenu jm1;
-	private JMenuItem jmt11;
-	private JMenuItem jmt12;
+	private JMenuItem jmt_load_mesh;
+	private JMenuItem jmt_save_mesh;
 	private JMenuItem jmt13;
 	private JMenuItem jmt14;
 	private JMenu jm4;
@@ -134,7 +134,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	
 	int ACTIVE_KEY=-1;
 	boolean isControlMode=false;
-	private JMenuItem jmt15;
+	private JMenuItem jmt_append_lines;
 	Point3D selectedPoint=null;
 
 	
@@ -526,20 +526,20 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		jmt11.addActionListener(this);
 		jm.add(jmt11);*/
 
-		jmt11 = new JMenuItem("Load lines");
-		jmt11.addActionListener(this);
-		jm1.add(jmt11);
+		jmt_load_mesh = new JMenuItem("Load lines");
+		jmt_load_mesh.addActionListener(this);
+		jm1.add(jmt_load_mesh);
 
-		jmt12 = new JMenuItem("Save lines");
-		jmt12.addActionListener(this);
-		jm1.add(jmt12);
+		jmt_save_mesh = new JMenuItem("Save lines");
+		jmt_save_mesh.addActionListener(this);
+		jm1.add(jmt_save_mesh);
 		
 		jm1.addSeparator();
 		
 		
-		jmt15 = new JMenuItem("Append lines");  
-		jmt15.addActionListener(this);
-		jm1.add(jmt15);
+		jmt_append_lines = new JMenuItem("Append lines");  
+		jmt_append_lines.addActionListener(this);
+		jm1.add(jmt_append_lines);
 		
 		
 		jm3=new JMenu("Change");
@@ -671,11 +671,11 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 			mergeSelectedPoints();
 			
 		}		
-		else if(o==jmt11) {
+		else if(o==jmt_load_mesh) {
 			loadPointsFromFile(false);
 			resetLists();
 		}
-		else if(o==jmt12) {
+		else if(o==jmt_save_mesh) {
 			saveLines(false);
 			
 		}
@@ -683,7 +683,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 			loadPointsFromFile(true);
 			resetLists();
 		}
-		else if(o==jmt15) {
+		else if(o==jmt_append_lines) {
 			appendPointsFromFile(true);
 			resetLists();
 		}
@@ -1683,6 +1683,8 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			currentDirectory=fc.getCurrentDirectory();
 			File file = fc.getSelectedFile();
+			currentFile=file;
+			
 			loadPointsFromFile(file);
 			
 			reloadPanels();
