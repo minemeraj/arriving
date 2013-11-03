@@ -180,6 +180,8 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 		addKeyListener(this);
 		addMouseWheelListener(this);
 		
+		forceReading=true;
+		
 		addMenuBar();
 	}
 

@@ -1,6 +1,6 @@
 -------- 03/11/2013   CarDriving 7.0.6
 
-Added car shadow volume.
+Added a car shadow volume.
 
 Finally a manageable steering!
 
