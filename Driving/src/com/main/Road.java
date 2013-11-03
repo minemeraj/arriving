@@ -641,19 +641,28 @@ public class Road extends Shader{
 
 		super.calculateStencilBuffer();
 		
-		if(carShadowVolume==null || rearAngle!=0)
-			return;
+		
 
 		isStencilBuffer=true;
 
 
-		for (int j = 0; j < carShadowVolume.allPolygons.length; j++) {
+		if(carShadowVolume==null || rearAngle!=0)
+		{
+			//do nothing
+			
+		}else{
+			
+			for (int j = 0; j < carShadowVolume.allPolygons.length; j++) {
 
-			Polygon3D pol = carShadowVolume.allPolygons[j];
-			buildTransformedPolygon(pol);
-			decomposeClippedPolygonIntoZBuffer(pol,Color.red,null,roadZbuffer);
+				Polygon3D pol = carShadowVolume.allPolygons[j];
+				buildTransformedPolygon(pol);
+				decomposeClippedPolygonIntoZBuffer(pol,Color.red,null,roadZbuffer);
+			
+			}
+			
+			
+		}	
 		
-		}
 
 		for (int i = 0; i < autocarShadowVolume.length; i++) {
 			
