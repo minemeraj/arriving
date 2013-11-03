@@ -195,7 +195,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 		);
 		
 		currentDirectory=new File("lib");
-		
+		forceReading=true;
 		setVisible(true);
 		initialize();
 
@@ -770,7 +770,8 @@ public class ObjectEditor extends Editor implements ActionListener{
 						continue;
 					File file=(File) o;
 					currentDirectory=file.getParentFile();
-					forceReading=true;
+					currentFile=file;
+					
 					loadPointsFromFile(file);
 					getCenter().displayAll();
 				}

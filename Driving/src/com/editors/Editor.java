@@ -339,7 +339,8 @@ public class Editor extends JFrame implements MenuListener{
 			if(mesh.points==null)
 				return; 
 			
-			pr.println("<"+TAG[ACTIVE_PANEL]+">");
+			if(!forceReading)
+				pr.println("<"+TAG[ACTIVE_PANEL]+">");
 			
 			if(mesh instanceof SquareMesh){
 				
@@ -372,7 +373,8 @@ public class Editor extends JFrame implements MenuListener{
 				if(i<mesh.polygonData.size()-1)
 					pr.print("_");
 			}	
-			pr.println("\n</"+TAG[ACTIVE_PANEL]+">");
+			if(!forceReading)
+				pr.println("\n</"+TAG[ACTIVE_PANEL]+">");
 				
 
 		} catch (Exception e) {

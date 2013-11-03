@@ -1,8 +1,12 @@
+-------- 03/11/2013   CarDriving 7.0.6
+
 Added car shadow volume.
 
 Finally a manageable steering!
 
 Several bugs fixed in the object editor:
+
+now objects are saved in the correct format tag free
 
 now you can drag the file to load in the editor, as before.
 
