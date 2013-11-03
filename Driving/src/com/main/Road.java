@@ -1458,29 +1458,23 @@ public class Road extends Shader{
 	}
 
 	private void drawAutocars(Autocar[] autocars, Area totalVisibleField2,
-			ZBuffer[] roadZbuffer) {
-		
+			ZBuffer[] roadZbuffer) {		
 		
 		
 		for (int i = 0; i < autocars.length; i++) {
 			
+			Autocar autocar=autocars[i];
 			
-			drawAutocar(autocars[i],roadZbuffer,i);
+			CubicMesh cm=autocar.carData.carMesh.clone();
+			
+			cm.translate(autocar.center.x-autocar.car_width*0.5,autocar.center.y-autocar.car_length*0.5,autocar.center.z-autocar.car_height*0.5);
+			cm.rotate(autocar.center.x,autocar.center.y,Math.cos(autocar.fi-pi_2),Math.sin(autocar.fi-pi_2));
+			decomposeCubicMesh(cm,autocar.texture,roadZbuffer);
+			
+			autocarShadowVolume[i]=buildShadowVolumeBox(cm);
 			
 		}
 		
-	}
-
-	private void drawAutocar(Autocar autocar, ZBuffer[] roadZbuffer, int i) {
-		
-		CubicMesh cm=autocar.carData.carMesh.clone();
-		
-		cm.translate(autocar.center.x-autocar.car_width*0.5,autocar.center.y-autocar.car_length*0.5,autocar.center.z-autocar.car_height*0.5);
-		cm.rotate(autocar.center.x,autocar.center.y,Math.cos(autocar.fi-pi_2),Math.sin(autocar.fi-pi_2));
-		decomposeCubicMesh(cm,autocar.texture,roadZbuffer);
-		
-		autocarShadowVolume[i]=buildShadowVolumeBox(cm);
-
 	}
 
 	private void loadAutocars(File file) {
