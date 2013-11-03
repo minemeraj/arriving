@@ -1,3 +1,6 @@
+
+Added autocar shadow volumes.
+
 -------- 03/11/2013   CarDriving 7.0.6
 
 Added a car shadow volume.

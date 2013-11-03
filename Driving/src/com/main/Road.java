@@ -130,6 +130,7 @@ public class Road extends Shader{
     double[][] rot=new double[3][3];
     private double rearAngle;
     ShadowVolume carShadowVolume=null;
+    ShadowVolume[] autocarShadowVolume=null;
 		 
 	public Road(){}
 
@@ -654,6 +655,19 @@ public class Road extends Shader{
 		
 		}
 
+		for (int i = 0; i < autocarShadowVolume.length; i++) {
+			
+			for (int j = 0; j < autocarShadowVolume[i].allPolygons.length; j++) {
+
+				Polygon3D pol = autocarShadowVolume[i].allPolygons[j];
+				buildTransformedPolygon(pol);
+				decomposeClippedPolygonIntoZBuffer(pol,Color.red,null,roadZbuffer);
+			
+			}
+			
+		}
+		
+	
 
 		isStencilBuffer=false;
 	}
@@ -1446,16 +1460,18 @@ public class Road extends Shader{
 	private void drawAutocars(Autocar[] autocars, Area totalVisibleField2,
 			ZBuffer[] roadZbuffer) {
 		
+		
+		
 		for (int i = 0; i < autocars.length; i++) {
 			
 			
-			drawAutocar(autocars[i],roadZbuffer);
+			drawAutocar(autocars[i],roadZbuffer,i);
 			
 		}
 		
 	}
 
-	private void drawAutocar(Autocar autocar, ZBuffer[] roadZbuffer) {
+	private void drawAutocar(Autocar autocar, ZBuffer[] roadZbuffer, int i) {
 		
 		CubicMesh cm=autocar.carData.carMesh.clone();
 		
@@ -1463,7 +1479,7 @@ public class Road extends Shader{
 		cm.rotate(autocar.center.x,autocar.center.y,Math.cos(autocar.fi-pi_2),Math.sin(autocar.fi-pi_2));
 		decomposeCubicMesh(cm,autocar.texture,roadZbuffer);
 		
-		
+		autocarShadowVolume[i]=buildShadowVolumeBox(cm);
 
 	}
 
@@ -1501,6 +1517,8 @@ public class Road extends Shader{
 			}
 			
 		}
+		
+		autocarShadowVolume=new ShadowVolume[autocars.length];
 		
 	}
 	
