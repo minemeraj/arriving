@@ -125,10 +125,17 @@ public class Road extends Shader{
     
 	int PARTIAL_MOVZ=0;
     boolean initMOVZ=true;
-    
-    Point3D terrainNormal=null;
-    double[][] rot=new double[3][3];
+        
     private double rearAngle;
+    
+    double[][] carRot=new double[3][3];
+    double[][] autocarRot=new double[3][3];
+    double[][] autocarRo=new double[3][3];
+    double[][] autocarMinusRo=new double[3][3];
+    
+    Point3D carTerrainNormal=null; 
+    Point3D[] autocarTerrainNormal=null;
+    
     ShadowVolume carShadowVolume=null;
     ShadowVolume[] autocarShadowVolume=null;
 		 
@@ -301,6 +308,7 @@ public class Road extends Shader{
 	
 	public void initCar(){
 		
+			
 			initCar(0);
 		
 		
@@ -373,38 +381,38 @@ public class Road extends Shader{
 		double dz=-YFOCUS;
 		
 	    //apply terrain following
-        if(terrainNormal!=null){
+        if(carTerrainNormal!=null){
         	
-        	double a=terrainNormal.x;
-        	double b=terrainNormal.y;
-        	double c=terrainNormal.z;
+        	double a=carTerrainNormal.x;
+        	double b=carTerrainNormal.y;
+        	double c=carTerrainNormal.z;
         	
         	double i_v1=1.0/Math.sqrt(a*a+b*b+c*c);
         	double v2=Math.sqrt(a*a+c*c);
         	
         	
+        	//rotate to align the normal
+        	carRot[0][0]=c/v2;
+			carRot[0][1]=-b*a*i_v1/v2;
+			carRot[0][2]=a*i_v1;
+			carRot[1][0]=0;
+			carRot[1][1]=v2*i_v1;
+			carRot[1][2]=b*i_v1;
+			carRot[2][0]=-a/v2;
+			carRot[2][1]=-b*c*i_v1/v2;
+			carRot[2][2]=c*i_v1;
         	
-        	rot[0][0]=c/v2;
-			rot[0][1]=-b*a*i_v1/v2;
-			rot[0][2]=a*i_v1;
-			rot[1][0]=0;
-			rot[1][1]=v2*i_v1;
-			rot[1][2]=b*i_v1;
-			rot[2][0]=-a/v2;
-			rot[2][1]=-b*c*i_v1/v2;
-			rot[2][2]=c*i_v1;
+			point000=rotoTranslate(carRot,point000,dx,dy,dz);
+        	point011=rotoTranslate(carRot,point011,dx,dy,dz);
+        	point001=rotoTranslate(carRot,point001,dx,dy,dz);
         	
-			point000=rotoTranslate(rot,point000,dx,dy,dz);
-        	point011=rotoTranslate(rot,point011,dx,dy,dz);
-        	point001=rotoTranslate(rot,point001,dx,dy,dz);
-        	
-        	xVersor=rotate(rot,xVersor);
-        	yVersor=rotate(rot,yVersor);
-        	zVersor=rotate(rot,zVersor);
-        	zMinusVersor=rotate(rot,zMinusVersor);
+        	xVersor=rotate(carRot,xVersor);
+        	yVersor=rotate(carRot,yVersor);
+        	zVersor=rotate(carRot,zVersor);
+        	zMinusVersor=rotate(carRot,zMinusVersor);
         	
         	for (int i = 0; i < cm.points.length; i++) {
-				cm.points[i]=rotoTranslate(rot,cm.points[i],dx,dy,dz);
+				cm.points[i]=rotoTranslate(carRot,cm.points[i],dx,dy,dz);
 			}
         } 
         
@@ -488,6 +496,27 @@ public class Road extends Shader{
 	    
 		return res;
 	}
+	
+	private double[][]  rotate(double[][] p0,  double[][] p1) {
+		
+		
+		double[][] res=new double[3][3];
+		
+		for (int i = 0;i < res.length; i++) {
+			
+			for (int j = 0; j < res.length; j++) {
+				
+				for (int k = 0; k < res.length; k++) {
+					
+					res[i][j]+=p0[i][k]*p1[k][j];
+					
+				}
+			}
+			
+		}
+	    
+		return res;
+	}
 
 	public void drawRoad(BufferedImage buf){
 
@@ -529,18 +558,18 @@ public class Road extends Shader{
 							
 							initMOVZ=false;
 							start_max_calculus=false;
-							terrainNormal=Polygon3D.findNormal(p3D);
+							carTerrainNormal=Polygon3D.findNormal(p3D);
 						} 						
 						else if(zz<=PARTIAL_MOVZ+ROAD_THICKNESS){
 							
 							if(start_max_calculus){
 								TRANSZ=zz;
 								start_max_calculus=false;
-								terrainNormal=Polygon3D.findNormal(p3D);
+								carTerrainNormal=Polygon3D.findNormal(p3D);
 							}
 							else if(zz>=TRANSZ){
 								TRANSZ=zz;
-								terrainNormal=Polygon3D.findNormal(p3D);
+								carTerrainNormal=Polygon3D.findNormal(p3D);
 							}	
 							
 						}	
@@ -562,6 +591,7 @@ public class Road extends Shader{
 								autocars[i].center.z=autocars[i].car_height*0.5+
 										(posz);
 								
+								autocarTerrainNormal[i]=Polygon3D.findNormal(p3D);
 								//if(i==1)
 								//	System.out.println(autocars[i].center.x+","+autocars[i].center.y+","+autocars[i].center.z);
 							}
@@ -1476,8 +1506,64 @@ public class Road extends Shader{
 			
 			CubicMesh cm=autocar.carData.carMesh.clone();
 			
+			double cosRo=Math.cos(autocar.fi-pi_2);
+			double sinRo=Math.sin(autocar.fi-pi_2); 
+			
 			cm.translate(autocar.center.x-autocar.car_width*0.5,autocar.center.y-autocar.car_length*0.5,autocar.center.z-autocar.car_height*0.5);
-			cm.rotate(autocar.center.x,autocar.center.y,Math.cos(autocar.fi-pi_2),Math.sin(autocar.fi-pi_2));
+			cm.rotate(autocar.center.x,autocar.center.y,cosRo,sinRo);
+			
+			if(autocarTerrainNormal[i]!=null){
+				
+				//transforming the coordinate system
+		      	autocarRo[0][0]=cosRo; 
+	        	autocarRo[0][1]=-sinRo; 
+	        	autocarRo[0][2]=0; 
+	        	autocarRo[1][0]=sinRo; 
+	        	autocarRo[1][1]=cosRo; 
+	        	autocarRo[1][2]=0; 
+	        	autocarRo[2][0]=0; 
+	        	autocarRo[2][1]=0; 
+	        	autocarRo[2][2]=1; 
+	        	
+	        	//transforming back the coordinate system
+	        	autocarMinusRo[0][0]=cosRo; 
+	        	autocarMinusRo[0][1]=+sinRo; 
+	        	autocarMinusRo[0][2]=0; 
+	        	autocarMinusRo[1][0]=-sinRo; 
+	        	autocarMinusRo[1][1]=cosRo; 
+	        	autocarMinusRo[1][2]=0; 
+	        	autocarMinusRo[2][0]=0; 
+	        	autocarMinusRo[2][1]=0; 
+	        	autocarMinusRo[2][2]=1; 
+	        	
+	        	Point3D autocarNormal=rotate(autocarRo,autocarTerrainNormal[i]);
+	        	
+				
+	        	double a=autocarNormal.x;
+	        	double b=autocarNormal.y;
+	        	double c=autocarNormal.z;
+	        	
+	        	double i_v1=1.0/Math.sqrt(a*a+b*b+c*c);
+	        	double v2=Math.sqrt(a*a+c*c);	        	
+	        	
+	        	//rotate to align the normal
+	        	autocarRot[0][0]=c/v2;
+	        	autocarRot[0][1]=-b*a*i_v1/v2;
+	        	autocarRot[0][2]=a*i_v1;
+	        	autocarRot[1][0]=0;
+	        	autocarRot[1][1]=v2*i_v1;
+	        	autocarRot[1][2]=b*i_v1;
+	        	autocarRot[2][0]=-a/v2;
+	        	autocarRot[2][1]=-b*c*i_v1/v2;
+	        	autocarRot[2][2]=c*i_v1;
+	        	
+	  
+				
+			}
+			
+			double[][] aRotation=rotate(autocarRot,autocarRo);
+			aRotation=rotate(autocarMinusRo,aRotation);
+			
 			decomposeCubicMesh(cm,autocar.texture,roadZbuffer);
 			
 			autocarShadowVolume[i]=buildShadowVolumeBox(cm);
@@ -1522,7 +1608,7 @@ public class Road extends Shader{
 		}
 		
 		autocarShadowVolume=new ShadowVolume[autocars.length];
-		
+		autocarTerrainNormal=new Point3D[autocars.length];
 	}
 	
 
