@@ -1509,10 +1509,33 @@ public class Road extends Shader{
 			double cosRo=Math.cos(autocar.fi-pi_2);
 			double sinRo=Math.sin(autocar.fi-pi_2); 
 			
-			cm.translate(autocar.center.x-autocar.car_width*0.5,autocar.center.y-autocar.car_length*0.5,autocar.center.z-autocar.car_height*0.5);
+			double dx=autocar.center.x-autocar.car_width*0.5;
+			double dy=autocar.center.y-autocar.car_length*0.5;
+			double dz=autocar.center.z-autocar.car_height*0.5;
+			
+			cm.translate(dx,dy,dz);
 			cm.rotate(autocar.center.x,autocar.center.y,cosRo,sinRo);
 			
-			if(autocarTerrainNormal[i]!=null){
+			Point3D point000=cm.point000;				
+
+			Point3D point011=cm.point011;
+
+			Point3D point001=cm.point001;
+			
+
+			Point3D xVersor=cm.getXAxis();
+			Point3D yVersor=cm.getYAxis();
+			
+			Point3D zVersor=new Point3D(0,0,1);
+			Point3D zMinusVersor=new Point3D(0,0,-1);
+			
+			if(VIEW_TYPE==REAR_VIEW){
+				///???
+				yVersor=new Point3D(-yVersor.x,-yVersor.y,yVersor.z);
+				xVersor=new Point3D(-xVersor.x,-xVersor.y,xVersor.z);
+			}
+			
+			/*if(autocarTerrainNormal[i]!=null){
 				
 				//transforming the coordinate system
 		      	autocarRo[0][0]=cosRo; 
@@ -1555,16 +1578,47 @@ public class Road extends Shader{
 	        	autocarRot[1][2]=b*i_v1;
 	        	autocarRot[2][0]=-a/v2;
 	        	autocarRot[2][1]=-b*c*i_v1/v2;
-	        	autocarRot[2][2]=c*i_v1;
-	        	
+	        	autocarRot[2][2]=c*i_v1;	        	
 	  
+	        	double[][] aRotation=rotate(autocarRot,autocarRo);
+				aRotation=rotate(autocarMinusRo,aRotation);
 				
-			}
-			
-			double[][] aRotation=rotate(autocarRot,autocarRo);
-			aRotation=rotate(autocarMinusRo,aRotation);
+				point000=rotoTranslate(aRotation,point000,dx,dy,dz);
+	        	point011=rotoTranslate(aRotation,point011,dx,dy,dz);
+	        	point001=rotoTranslate(aRotation,point001,dx,dy,dz);
+	        	
+	        	xVersor=rotate(aRotation,xVersor);
+	        	yVersor=rotate(aRotation,yVersor);
+	        	zVersor=rotate(aRotation,zVersor);
+	        	zMinusVersor=rotate(aRotation,zMinusVersor);
+				
+		      	for (int j = 0; j < cm.points.length; j++) {
+					cm.points[i]=rotoTranslate(aRotation,cm.points[i],dx,dy,dz);
+				}
+			}*/
 			
 			decomposeCubicMesh(cm,autocar.texture,roadZbuffer);
+			
+			/*int polSize=cm.polygonData.size();	
+			for(int j=0;j<polSize;j++){
+				
+		
+				
+				int due=(int)(255-j%15);			
+				Color col=new Color(due,0,0);
+				
+				LineData ld=cm.polygonData.elementAt(j);
+				Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld);
+				polRotate.setShadowCosin(ld.getShadowCosin());
+				
+			
+				int face=cm.boxFaces[i];
+				
+				decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,point000,point011,point001,face,col,autocar.texture,roadZbuffer);
+				
+	          
+					
+			}*/
 			
 			autocarShadowVolume[i]=buildShadowVolumeBox(cm);
 			
