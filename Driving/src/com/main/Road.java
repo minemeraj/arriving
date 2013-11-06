@@ -1528,6 +1528,7 @@ public class Road extends Shader{
 			
 			Point3D zVersor=new Point3D(0,0,1);
 			Point3D zMinusVersor=new Point3D(0,0,-1);
+	
 			
 			if(VIEW_TYPE==REAR_VIEW){
 				///???
@@ -1535,7 +1536,7 @@ public class Road extends Shader{
 				xVersor=new Point3D(-xVersor.x,-xVersor.y,xVersor.z);
 			}
 			
-			/*if( autocarTerrainNormal[i]!=null){
+			if(false && autocarTerrainNormal[i]!=null){
 				
 				//transforming the coordinate system
 		      	autocarRo[0][0]=cosRo; 
@@ -1581,7 +1582,7 @@ public class Road extends Shader{
 	        	autocarRot[2][2]=c*i_v1;	        	
 	  
 	        	double[][] aRotation=rotate(autocarRot,autocarRo);
-				aRotation=rotate(autocarMinusRo,aRotation);
+				aRotation=rotate(autocarMinusRo,autocarRot);
 				
 				point000=rotoTranslate(aRotation,point000,dx,dy,dz);
 				point011=rotoTranslate(aRotation,point011,dx,dy,dz);
@@ -1595,11 +1596,11 @@ public class Road extends Shader{
 		      	for (int j = 0; j < cm.points.length; j++) {
 					cm.points[i]=rotoTranslate(aRotation,cm.points[i],dx,dy,dz);
 				}
-			}*/
+			}
 			
-			decomposeCubicMesh(cm,autocar.texture,roadZbuffer);
+			//decomposeCubicMesh(cm,autocar.texture,roadZbuffer);
 			
-			/*int polSize=cm.polygonData.size();	
+			int polSize=cm.polygonData.size();	
 			for(int j=0;j<polSize;j++){
 				
 		
@@ -1612,11 +1613,11 @@ public class Road extends Shader{
 				polRotate.setShadowCosin(ld.getShadowCosin());
 				
 			
-				int face=cm.boxFaces[i];
+				int face=cm.boxFaces[j];
 				buildTransformedPolygon(polRotate);
 				decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,point000,point011,point001,face,col,autocar.texture,roadZbuffer);
 								
-			}*/
+			}
 			
 			autocarShadowVolume[i]=buildShadowVolumeBox(cm);
 			
