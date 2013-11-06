@@ -1515,16 +1515,16 @@ public class Road extends Shader{
 			
 			cm.translate(dx,dy,dz);
 			cm.rotate(autocar.center.x,autocar.center.y,cosRo,sinRo);
+
 			
-			Point3D point000=cm.point000;				
+			Point3D point000=buildTransformedPoint(cm.point000);				
 
-			Point3D point011=cm.point011;
+			Point3D point011=buildTransformedPoint(cm.point011);
 
-			Point3D point001=cm.point001;
-			
-
-			Point3D xVersor=cm.getXAxis();
-			Point3D yVersor=cm.getYAxis();
+			Point3D point001=buildTransformedPoint(cm.point001);
+				
+			Point3D xVersor=buildTransformedVersor(cm.getXAxis());
+			Point3D yVersor=buildTransformedVersor(cm.getYAxis());
 			
 			Point3D zVersor=new Point3D(0,0,1);
 			Point3D zMinusVersor=new Point3D(0,0,-1);
@@ -1535,7 +1535,7 @@ public class Road extends Shader{
 				xVersor=new Point3D(-xVersor.x,-xVersor.y,xVersor.z);
 			}
 			
-			/*if(autocarTerrainNormal[i]!=null){
+			/*if( autocarTerrainNormal[i]!=null){
 				
 				//transforming the coordinate system
 		      	autocarRo[0][0]=cosRo; 
@@ -1584,8 +1584,8 @@ public class Road extends Shader{
 				aRotation=rotate(autocarMinusRo,aRotation);
 				
 				point000=rotoTranslate(aRotation,point000,dx,dy,dz);
-	        	point011=rotoTranslate(aRotation,point011,dx,dy,dz);
-	        	point001=rotoTranslate(aRotation,point001,dx,dy,dz);
+				point011=rotoTranslate(aRotation,point011,dx,dy,dz);
+				point001=rotoTranslate(aRotation,point001,dx,dy,dz);
 	        	
 	        	xVersor=rotate(aRotation,xVersor);
 	        	yVersor=rotate(aRotation,yVersor);
@@ -1613,11 +1613,9 @@ public class Road extends Shader{
 				
 			
 				int face=cm.boxFaces[i];
-				
+				buildTransformedPolygon(polRotate);
 				decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,point000,point011,point001,face,col,autocar.texture,roadZbuffer);
-				
-	          
-					
+								
 			}*/
 			
 			autocarShadowVolume[i]=buildShadowVolumeBox(cm);
