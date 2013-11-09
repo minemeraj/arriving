@@ -1581,6 +1581,7 @@ public class Road extends Shader{
 
 			cm.point001=buildTransformedPoint(cm.point001);
 				
+
 			xVersor=buildTransformedVersor(xVersor);
 			yVersor=buildTransformedVersor(yVersor);
 			zVersor=buildTransformedVersor(zVersor);
@@ -1591,9 +1592,8 @@ public class Road extends Shader{
 				yVersor=new Point3D(-yVersor.x,-yVersor.y,yVersor.z);
 				xVersor=new Point3D(-xVersor.x,-xVersor.y,xVersor.z);
 				zVersor=new Point3D(-zVersor.x,-zVersor.y,zVersor.z);
-				zVersor=new Point3D(-zMinusVersor.x,-zMinusVersor.y,zMinusVersor.z);
+				zMinusVersor=new Point3D(-zMinusVersor.x,-zMinusVersor.y,zMinusVersor.z);
 			}
-		
 		
 			
 			//decomposeCubicMesh(cm,autocar.texture,roadZbuffer);
