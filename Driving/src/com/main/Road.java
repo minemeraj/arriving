@@ -1574,48 +1574,9 @@ public class Road extends Shader{
 					
 		 
 			}
-			
-			cm.point000=buildTransformedPoint(cm.point000);				
 
-			cm.point011=buildTransformedPoint(cm.point011);
+			decomposeCubicMesh(cm,autocar.texture,roadZbuffer);
 
-			cm.point001=buildTransformedPoint(cm.point001);
-				
-
-			xVersor=buildTransformedVersor(xVersor);
-			yVersor=buildTransformedVersor(yVersor);
-			zVersor=buildTransformedVersor(zVersor);
-			zMinusVersor=buildTransformedVersor(zMinusVersor);
-			
-			if(VIEW_TYPE==REAR_VIEW){
-				///???
-				yVersor=new Point3D(-yVersor.x,-yVersor.y,yVersor.z);
-				xVersor=new Point3D(-xVersor.x,-xVersor.y,xVersor.z);
-				zVersor=new Point3D(-zVersor.x,-zVersor.y,zVersor.z);
-				zMinusVersor=new Point3D(-zMinusVersor.x,-zMinusVersor.y,zMinusVersor.z);
-			}
-		
-			
-			//decomposeCubicMesh(cm,autocar.texture,roadZbuffer);
-			
-			int polSize=cm.polygonData.size();	
-			for(int j=0;j<polSize;j++){
-				
-		
-				
-				int due=(int)(255-j%15);			
-				Color col=new Color(due,0,0);
-				
-				LineData ld=cm.polygonData.elementAt(j);
-				Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld);
-				polRotate.setShadowCosin(ld.getShadowCosin());
-				
-			
-				int face=cm.boxFaces[j];
-				buildTransformedPolygon(polRotate);
-				decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,cm.point000,cm.point011,cm.point001,face,col,autocar.texture,roadZbuffer);
-								
-			}
 			
 			autocarShadowVolume[i]=buildShadowVolumeBox(cm);
 			
