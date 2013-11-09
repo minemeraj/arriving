@@ -355,12 +355,6 @@ public class Road extends Shader{
         //fake steering: eliminate?
 		//cm.rotate(steeringCenter.x,steeringCenter.y,Math.cos(directionAngle),Math.sin(directionAngle));		
 		
-		Point3D point000=cm.point000;				
-
-		Point3D point011=cm.point011;
-
-		Point3D point001=cm.point001;
-		
 
 		Point3D xVersor=cm.getXAxis();
 		Point3D yVersor=cm.getYAxis();
@@ -402,18 +396,12 @@ public class Road extends Shader{
 			carRot[2][1]=-b*c*i_v1/v2;
 			carRot[2][2]=c*i_v1;
         	
-			point000=rotoTranslate(carRot,point000,dx,dy,dz);
-        	point011=rotoTranslate(carRot,point011,dx,dy,dz);
-        	point001=rotoTranslate(carRot,point001,dx,dy,dz);
-        	
         	xVersor=rotate(carRot,xVersor);
         	yVersor=rotate(carRot,yVersor);
         	zVersor=rotate(carRot,zVersor);
         	zMinusVersor=rotate(carRot,zMinusVersor);
         	
-        	for (int i = 0; i < cm.points.length; i++) {
-				cm.points[i]=rotoTranslate(carRot,cm.points[i],dx,dy,dz);
-			}
+        	rotoTranslate(carRot,cm,dx,dy,dz);
         } 
         
        
@@ -433,7 +421,7 @@ public class Road extends Shader{
 		
 			int face=cm.boxFaces[i];
 			
-			decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,point000,point011,point001,face,col,carTexture,roadZbuffer);
+			decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,cm.point000,cm.point011,cm.point001,face,col,carTexture,roadZbuffer);
 			
           
 				
@@ -1516,18 +1504,12 @@ public class Road extends Shader{
 			cm.translate(dx,dy,dz);
 			cm.rotate(autocar.center.x,autocar.center.y,cosRo,sinRo);
 
-			
-			Point3D point000=cm.point000;				
-
-			Point3D point011=cm.point011;
-
-			Point3D point001=cm.point001;
 				
 			Point3D xVersor=cm.getXAxis();
 			Point3D yVersor=cm.getYAxis();
 			
-			Point3D zVersor=new Point3D(0,0,1);
-			Point3D zMinusVersor=new Point3D(0,0,-1);
+			Point3D zVersor=cm.getZAxis();
+			Point3D zMinusVersor=new Point3D(-zVersor.x,-zVersor.y,-zVersor.z);
 	
 			
 
@@ -1581,25 +1563,23 @@ public class Road extends Shader{
 				aRotation=rotate(autocarMinusRo,aRotation);
 				//double[][] aRotation=autocarRot;
 			
-				point000=rotoTranslate(aRotation,point000,dx,dy,dz);
-				point011=rotoTranslate(aRotation,point011,dx,dy,dz);				
-				point001=rotoTranslate(aRotation,point001,dx,dy,dz);
+		
 
 				xVersor=rotate(aRotation,xVersor);
 	        	yVersor=rotate(aRotation,yVersor);
 	        	zVersor=rotate(aRotation,zVersor);
 	        	zMinusVersor=rotate(aRotation,zMinusVersor);
+	        	
+	        	rotoTranslate(aRotation,cm,dx,dy,dz);
 					
-		      	for (int j = 0; j < cm.points.length; j++) {
-					cm.points[j]=rotoTranslate(aRotation,cm.points[j],dx,dy,dz);
-				}
+		 
 			}
 			
-			point000=buildTransformedPoint(point000);				
+			cm.point000=buildTransformedPoint(cm.point000);				
 
-			point011=buildTransformedPoint(point011);
+			cm.point011=buildTransformedPoint(cm.point011);
 
-			point001=buildTransformedPoint(point001);
+			cm.point001=buildTransformedPoint(cm.point001);
 				
 			xVersor=buildTransformedVersor(xVersor);
 			yVersor=buildTransformedVersor(yVersor);
@@ -1633,7 +1613,7 @@ public class Road extends Shader{
 			
 				int face=cm.boxFaces[j];
 				buildTransformedPolygon(polRotate);
-				decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,point000,point011,point001,face,col,autocar.texture,roadZbuffer);
+				decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,cm.point000,cm.point011,cm.point001,face,col,autocar.texture,roadZbuffer);
 								
 			}
 			
@@ -1641,6 +1621,18 @@ public class Road extends Shader{
 			
 		}
 		
+	}
+
+	private void rotoTranslate(double[][] aRotation, CubicMesh cm, double dx,
+			double dy, double dz) {
+		
+		cm.point000=rotoTranslate(aRotation,cm.point000,dx,dy,dz);
+		cm.point011=rotoTranslate(aRotation,cm.point011,dx,dy,dz);				
+		cm.point001=rotoTranslate(aRotation,cm.point001,dx,dy,dz);
+		
+     	for (int j = 0; j < cm.points.length; j++) {
+				cm.points[j]=rotoTranslate(aRotation,cm.points[j],dx,dy,dz);
+		}
 	}
 
 	private void loadAutocars(File file) {
