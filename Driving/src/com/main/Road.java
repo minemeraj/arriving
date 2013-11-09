@@ -1629,6 +1629,11 @@ public class Road extends Shader{
 		cm.point000=rotoTranslate(aRotation,cm.point000,dx,dy,dz);
 		cm.point011=rotoTranslate(aRotation,cm.point011,dx,dy,dz);				
 		cm.point001=rotoTranslate(aRotation,cm.point001,dx,dy,dz);
+		cm.point101=rotoTranslate(aRotation,cm.point101,dx,dy,dz);
+		cm.point110=rotoTranslate(aRotation,cm.point110,dx,dy,dz);
+		cm.point100=rotoTranslate(aRotation,cm.point100,dx,dy,dz);
+		cm.point010=rotoTranslate(aRotation,cm.point010,dx,dy,dz);
+		cm.point111=rotoTranslate(aRotation,cm.point111,dx,dy,dz);
 		
      	for (int j = 0; j < cm.points.length; j++) {
 				cm.points[j]=rotoTranslate(aRotation,cm.points[j],dx,dy,dz);

@@ -700,8 +700,8 @@ public class Renderer3D implements AbstractRenderer3D{
 		Point3D xVersor=buildTransformedVersor(cm.getXAxis());
 		Point3D yVersor=buildTransformedVersor(cm.getYAxis());
 		
-		Point3D zVersor=new Point3D(0,0,1);
-		Point3D zMinusVersor=new Point3D(0,0,-1);
+		Point3D zVersor=buildTransformedVersor(cm.getZAxis());
+		Point3D zMinusVersor=new Point3D(-zVersor.x,-zVersor.y,-zVersor.z);
 
 		//////
 		
@@ -709,6 +709,8 @@ public class Renderer3D implements AbstractRenderer3D{
 			///???
 			yVersor=new Point3D(-yVersor.x,-yVersor.y,yVersor.z);
 			xVersor=new Point3D(-xVersor.x,-xVersor.y,xVersor.z);
+			zVersor=new Point3D(-zVersor.x,-zVersor.y,zVersor.z);
+			zMinusVersor=new Point3D(-zMinusVersor.x,-zMinusVersor.y,zMinusVersor.z);
 		}
 
 		
