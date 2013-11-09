@@ -1017,10 +1017,11 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 			
 		double x=point.x;
 		double y=point.y;
+		double z=point.z;
 			
 		newPoint.x= (viewDirectionCos*x+viewDirectionSin*y);
 		newPoint.y= (viewDirectionCos*y-viewDirectionSin*x);	
-			
+		newPoint.z=z;
 
 		return newPoint;
 	}
