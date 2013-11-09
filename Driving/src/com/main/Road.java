@@ -694,7 +694,7 @@ public class Road extends Shader{
 		}	
 		
 
-		for (int i = 0; i < autocarShadowVolume.length; i++) {
+		for (int i = 0;i < autocarShadowVolume.length; i++) {
 			
 			for (int j = 0; j < autocarShadowVolume[i].allPolygons.length; j++) {
 
@@ -1512,31 +1512,27 @@ public class Road extends Shader{
 			double dx=autocar.center.x-autocar.car_width*0.5;
 			double dy=autocar.center.y-autocar.car_length*0.5;
 			double dz=autocar.center.z-autocar.car_height*0.5;
-			
+
 			cm.translate(dx,dy,dz);
 			cm.rotate(autocar.center.x,autocar.center.y,cosRo,sinRo);
 
 			
-			Point3D point000=buildTransformedPoint(cm.point000);				
+			Point3D point000=cm.point000;				
 
-			Point3D point011=buildTransformedPoint(cm.point011);
+			Point3D point011=cm.point011;
 
-			Point3D point001=buildTransformedPoint(cm.point001);
+			Point3D point001=cm.point001;
 				
-			Point3D xVersor=buildTransformedVersor(cm.getXAxis());
-			Point3D yVersor=buildTransformedVersor(cm.getYAxis());
+			Point3D xVersor=cm.getXAxis();
+			Point3D yVersor=cm.getYAxis();
 			
 			Point3D zVersor=new Point3D(0,0,1);
 			Point3D zMinusVersor=new Point3D(0,0,-1);
 	
 			
-			if(VIEW_TYPE==REAR_VIEW){
-				///???
-				yVersor=new Point3D(-yVersor.x,-yVersor.y,yVersor.z);
-				xVersor=new Point3D(-xVersor.x,-xVersor.y,xVersor.z);
-			}
+
 			
-			if(false && autocarTerrainNormal[i]!=null){
+			if(autocarTerrainNormal[i]!=null){
 				
 				//transforming the coordinate system
 		      	autocarRo[0][0]=cosRo; 
@@ -1560,8 +1556,8 @@ public class Road extends Shader{
 	        	autocarMinusRo[2][1]=0; 
 	        	autocarMinusRo[2][2]=1; 
 	        	
+	        	//Point3D autocarNormal=new Point3D(0,Math.sin(-0.2),Math.cos(-0.2));
 	        	Point3D autocarNormal=rotate(autocarRo,autocarTerrainNormal[i]);
-	        	
 				
 	        	double a=autocarNormal.x;
 	        	double b=autocarNormal.y;
@@ -1582,21 +1578,40 @@ public class Road extends Shader{
 	        	autocarRot[2][2]=c*i_v1;	        	
 	  
 	        	double[][] aRotation=rotate(autocarRot,autocarRo);
-				aRotation=rotate(autocarMinusRo,autocarRot);
-				
+				aRotation=rotate(autocarMinusRo,aRotation);
+				//double[][] aRotation=autocarRot;
+			
 				point000=rotoTranslate(aRotation,point000,dx,dy,dz);
-				point011=rotoTranslate(aRotation,point011,dx,dy,dz);
+				point011=rotoTranslate(aRotation,point011,dx,dy,dz);				
 				point001=rotoTranslate(aRotation,point001,dx,dy,dz);
-	        	
-	        	xVersor=rotate(aRotation,xVersor);
+
+				xVersor=rotate(aRotation,xVersor);
 	        	yVersor=rotate(aRotation,yVersor);
 	        	zVersor=rotate(aRotation,zVersor);
 	        	zMinusVersor=rotate(aRotation,zMinusVersor);
-				
+					
 		      	for (int j = 0; j < cm.points.length; j++) {
-					cm.points[i]=rotoTranslate(aRotation,cm.points[i],dx,dy,dz);
+					cm.points[j]=rotoTranslate(aRotation,cm.points[j],dx,dy,dz);
 				}
 			}
+			
+			point000=buildTransformedPoint(point000);				
+
+			point011=buildTransformedPoint(point011);
+
+			point001=buildTransformedPoint(point001);
+				
+			xVersor=buildTransformedVersor(xVersor);
+			yVersor=buildTransformedVersor(yVersor);
+			
+			if(VIEW_TYPE==REAR_VIEW){
+				///???
+				yVersor=new Point3D(-yVersor.x,-yVersor.y,yVersor.z);
+				xVersor=new Point3D(-xVersor.x,-xVersor.y,xVersor.z);
+			}
+			
+			zVersor=buildTransformedVersor(zVersor);
+			zMinusVersor=buildTransformedVersor(zMinusVersor);
 			
 			//decomposeCubicMesh(cm,autocar.texture,roadZbuffer);
 			

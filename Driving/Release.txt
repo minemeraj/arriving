@@ -1,3 +1,4 @@
+Added autocars terrain following.
 
 Added autocars shadow volumes.
 
