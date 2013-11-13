@@ -1,3 +1,6 @@
+
+Fixed bug on the autocars terrain following algorithm
+
 -------- 09/11/2013   CarDriving 7.0.7
 
 Added autocars terrain following.
