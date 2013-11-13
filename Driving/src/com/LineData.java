@@ -177,6 +177,45 @@ public class LineData implements Cloneable{
 
 		}
 		
+		public static Polygon3D buildPolygon(LineData ld,Point3D[] points) {
+
+
+
+			int size=ld.size();
+
+			int[] cxr=new int[size];
+			int[] cyr=new int[size];
+			int[] czr=new int[size];
+
+
+			for(int i=0;i<size;i++){
+
+
+				int num=ld.getIndex(i);
+
+				Point3D p=points[num];
+
+
+				
+
+				//real coordinates
+				cxr[i]=(int)(p.x);
+				cyr[i]=(int)(p.y);
+				czr[i]=(int)(p.z);
+				
+
+				
+
+
+			}
+
+
+			Polygon3D p3dr=new Polygon3D(size,cxr,cyr,czr);
+
+	        return p3dr;
+
+		}
+		
 		public static LineData[] divideIntoTriangles(LineData ld){
 			
 			if(ld.size()<3)
