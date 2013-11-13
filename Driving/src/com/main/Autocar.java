@@ -16,7 +16,7 @@ import com.Texture;
 
 public class Autocar extends Thread{
 	
-	public static int MAX_AUTOCARS_TYPES=6;
+
 	
 	Road road;
 	
@@ -298,7 +298,9 @@ public class Autocar extends Thread{
 					int car_width=Integer.parseInt(vals[1]);
 					int car_length=Integer.parseInt(vals[2]);
 					
-					if(type>=MAX_AUTOCARS_TYPES)
+					File carFile=new File("lib/cardefault3D_"+type);
+					
+					if(!carFile.exists())
 						type=0;
 										
 					Autocar car=new Autocar(car_width,car_length,type);
