@@ -28,6 +28,7 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
+import javax.security.auth.Subject;
 import javax.swing.JFileChooser;
 import javax.swing.RepaintManager;
 
@@ -531,6 +532,8 @@ public class Road extends Shader{
 	
 				LineData ld=(LineData) meshes[index].polygonData.elementAt(j);
 	
+				Polygon3D realP3D=LineData.buildPolygon(ld,mesh.points);
+				
 				Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points);
 	
 					if(p3D.contains(start_car_x,start_car_y)){
@@ -579,9 +582,7 @@ public class Road extends Shader{
 								autocars[i].center.z=autocars[i].car_height*0.5+
 										(posz);
 								
-								autocarTerrainNormal[i]=Polygon3D.findNormal(p3D);
-								//if(i==1)
-								//	System.out.println(autocars[i].center.x+","+autocars[i].center.y+","+autocars[i].center.z);
+								autocarTerrainNormal[i]=Polygon3D.findNormal(realP3D);
 							}
 						}
 						
@@ -1538,9 +1539,9 @@ public class Road extends Shader{
 	        	autocarMinusRo[2][1]=0; 
 	        	autocarMinusRo[2][2]=1; 
 	        	
-	        	//Point3D autocarNormal=new Point3D(0,Math.sin(-0.2),Math.cos(-0.2));
+	        	//Point3D autocarNormal=rotate(autocarRo,new Point3D(-0.19611613513818402, 0.0, 0.9805806756909201));
 	        	Point3D autocarNormal=rotate(autocarRo,autocarTerrainNormal[i]);
-				
+	        	
 	        	double a=autocarNormal.x;
 	        	double b=autocarNormal.y;
 	        	double c=autocarNormal.z;
@@ -1571,8 +1572,8 @@ public class Road extends Shader{
 	        	zMinusVersor=rotate(aRotation,zMinusVersor);
 	        	
 	        	rotoTranslate(aRotation,cm,dx,dy,dz);
-					
-		 
+	        	
+	
 			}
 
 			decomposeCubicMesh(cm,autocar.texture,roadZbuffer);
