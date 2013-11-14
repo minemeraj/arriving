@@ -1,5 +1,8 @@
+-------- 13/11/2013   CarDriving 7.0.8
 
-Fixed bug on the autocars terrain following algorithm
+Fixed bug on the autocars terrain following algorithm.
+
+Deleted parameter MAX_AUTOCARS_TYPES in Autocar class.
 
 -------- 09/11/2013   CarDriving 7.0.7
 
