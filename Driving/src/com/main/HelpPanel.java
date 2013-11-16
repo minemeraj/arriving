@@ -13,6 +13,12 @@ import javax.swing.JScrollPane;
 
 public class HelpPanel extends JDialog implements ActionListener{
 	
+	public static String AUTOCAR_EDITOR_HELP_TEXT="<html><body>" +
+			
+	    	"<h3>Autocar Editor</h3>"+
+            "<p>The cyan point is the center starting position of the auotcar</p>"+ 
+		"</body></html>";
+	
 	public static String OBJECT_EDITOR_HELP_TEXT="<html><body>" +
 	
 	    	"Editor short keys:"+

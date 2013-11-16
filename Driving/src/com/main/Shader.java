@@ -491,16 +491,17 @@ public class Shader extends Renderer3D{
 			Point3D p0=cm.points[edge.getIndex(1)];
 			Point3D p1=cm.points[edge.getIndex(0)];
 
+			//cast to int the points cause the front cap triangles are build with integer coordinates
 			Point3D p2=new Point3D(
-					extrusion*(p1.x-lightPoint.position.x)+lightPoint.position.x,
-					extrusion*(p1.y-lightPoint.position.y)+lightPoint.position.y,
-					extrusion*(p1.z-lightPoint.position.z)+lightPoint.position.z
+					extrusion*((int)p1.x-lightPoint.position.x)+lightPoint.position.x,
+					extrusion*((int)p1.y-lightPoint.position.y)+lightPoint.position.y,
+					extrusion*((int)p1.z-lightPoint.position.z)+lightPoint.position.z
 					);
 
 			Point3D p3=new Point3D(
-					extrusion*(p0.x-lightPoint.position.x)+lightPoint.position.x,
-					extrusion*(p0.y-lightPoint.position.y)+lightPoint.position.y,
-					extrusion*(p0.z-lightPoint.position.z)+lightPoint.position.z
+					extrusion*((int)p0.x-lightPoint.position.x)+lightPoint.position.x,
+					extrusion*((int)p0.y-lightPoint.position.y)+lightPoint.position.y,
+					extrusion*((int)p0.z-lightPoint.position.z)+lightPoint.position.z
 					);
 
 			facePoints.add(p0);
