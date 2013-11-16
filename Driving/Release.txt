@@ -1,3 +1,8 @@
+-------- 16/11/2013   CarDriving 7.0.9
+
+Fixed a major bug in the shadow volumes calculation, which resulted in the appearance
+of ghostly outlines. 
+
 -------- 13/11/2013   CarDriving 7.0.8
 
 Fixed bug on the autocars terrain following algorithm.
