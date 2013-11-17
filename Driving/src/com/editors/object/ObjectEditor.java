@@ -464,7 +464,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 
 	private void dischargeTexture() {
 		
-		
+		jmt_show_texture.setSelected(false);
 		currentTexture=null;
 		
 	}
