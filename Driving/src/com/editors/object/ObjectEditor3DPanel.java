@@ -29,6 +29,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import com.CubicMesh;
 import com.LineData;
 import com.Point3D;
 import com.Point4D;
@@ -38,6 +39,7 @@ import com.Texture;
 import com.ZBuffer;
 import com.editors.DoubleTextField;
 import com.main.AbstractRenderer3D;
+import com.main.Renderer3D;
 
 
 
@@ -159,8 +161,11 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 		
 		Vector clonedPoints=clonePoints(mesh.points);
+		
 		PolygonMesh pm=new PolygonMesh(clonedPoints,mesh.polygonData);
-		Vector polygons = PolygonMesh.getBodyPolygons(pm);
+		CubicMesh cm=CubicMesh.buildCubicMesh(pm);
+		//Vector polygons = PolygonMesh.getBodyPolygons(cm);
+		
 		
 		Texture texture=null;
 		if(oe.jmt_show_texture.isSelected()){
@@ -173,23 +178,83 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 			}
 			
 		}
+		Point3D rotateOrigin=cm.point000; 
 		
-		for(int i=0;i<mesh.polygonData.size();i++){
+		Point3D xVersor=cm.getXAxis();
+		Point3D yVersor=cm.getYAxis();
+		
+		Point3D zVersor=new Point3D(0,0,1);
+		Point3D zMinusVersor=new Point3D(0,0,-1);
+		
+		for(int i=0;i<cm.polygonData.size();i++){
 			
 			Point3D xDirection=null;
 			Point3D yDirection=null;
-			int deltaX=0;
-			int deltaY=0;			
+			
+			int deltaWidth=0;
+			int deltaHeight=cm.getDeltaY();		
 
-			LineData ld=(LineData) mesh.polygonData.elementAt(i);
+			LineData ld=(LineData) cm.polygonData.elementAt(i);
 			Polygon3D p3D=LineData.buildPolygon(ld,clonedPoints);
 			Color col=Color.GRAY;
 			
 			if(ld.isSelected)
 				col=Color.RED;
-		
-			Point3D origin=new Point3D(p3D.xpoints[0],p3D.ypoints[0],p3D.zpoints[0]);
-	    	decomposeClippedPolygonIntoZBuffer(p3D, col, texture,roadZbuffer,xDirection,yDirection,origin,deltaX,deltaY);
+			
+			
+			
+			if(oe.jmt_show_texture.isSelected()){
+			
+				
+				int face=cm.boxFaces[i];
+				
+			 	if(face==Renderer3D.CAR_BOTTOM )
+					continue;
+				if(face==Renderer3D.CAR_FRONT){
+
+					
+					 deltaWidth=cm.getDeltaX();
+					 deltaHeight=cm.getDeltaY2();
+					 xDirection=xVersor;
+					 yDirection=zMinusVersor;
+					 
+					 rotateOrigin=cm.point011;
+
+
+				}
+				else if(face==Renderer3D.CAR_BACK){
+					 deltaWidth=cm.getDeltaX();
+					 deltaHeight=0;
+					 xDirection=xVersor;
+					 yDirection=zVersor;
+
+
+				}
+				else if(face==Renderer3D.CAR_TOP){
+					 deltaWidth=cm.getDeltaX();
+					 xDirection=xVersor;
+					 yDirection=yVersor;
+
+
+				}
+				else if(face==Renderer3D.CAR_LEFT) {
+					
+					xDirection=zVersor;
+					yDirection=yVersor;
+
+				}
+				else if(face==Renderer3D.CAR_RIGHT) {
+					
+					xDirection=zMinusVersor;
+					yDirection=yVersor;
+
+					deltaWidth=cm.getDeltaX2();
+					rotateOrigin=cm.point001;
+				}
+			}
+			
+			
+	    	decomposeClippedPolygonIntoZBuffer(p3D, col, texture,roadZbuffer,xDirection,yDirection,rotateOrigin,deltaWidth,deltaHeight);
 		}	
 		
 		int length=60;

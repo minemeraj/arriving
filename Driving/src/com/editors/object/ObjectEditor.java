@@ -255,6 +255,18 @@ public class ObjectEditor extends Editor implements ActionListener{
 		jmt_load_mesh = new JMenuItem("Load Mesh");
 		jmt_load_mesh.addActionListener(this);
 		jm_load.add(jmt_load_mesh);
+		
+		jm_load.addSeparator();
+		
+		jmt_load_texture=new JMenuItem("Load texture");
+		jmt_load_texture.addActionListener(this);		
+		jm_load.add(jmt_load_texture);
+		
+		jmt_discharge_texture=new JMenuItem("Discharge texture");
+		jmt_discharge_texture.addActionListener(this);		
+		jm_load.add(jmt_discharge_texture);
+		
+		
 
 		jm_save=new JMenu("Save");
 		jm_save.addMenuListener(this);
@@ -349,16 +361,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 		jmt_other.addMenuListener(this);	
 		
 		jmb.add(jmt_other);
-		
-		jmt_load_texture=new JMenuItem("Load texture");
-		jmt_load_texture.addActionListener(this);		
-		jmt_other.add(jmt_load_texture);
-		
-		jmt_discharge_texture=new JMenuItem("Discharge texture");
-		jmt_discharge_texture.addActionListener(this);		
-		jmt_other.add(jmt_discharge_texture);
-		
-		jmt_other.addSeparator();
+
 		
 		jmt_help=new JMenuItem("Help");
 		jmt_help.addActionListener(this);		
