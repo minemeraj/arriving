@@ -137,7 +137,8 @@ public class ObjectEditor extends Editor implements ActionListener{
 	private JMenuItem jmt_load_texture;
 	private JMenuItem jmt_discharge_texture; 
 	
-	Texture currentTexture=null;
+	public Texture currentTexture=null;
+	public JCheckBoxMenuItem jmt_show_texture;
 	
 
 	public static void main(String[] args) {
@@ -310,6 +311,11 @@ public class ObjectEditor extends Editor implements ActionListener{
 		jmt_show_normals.setState(false);
 		jmt_show_normals.addActionListener(this);
 		jm_edit.add(jmt_show_normals);
+		
+		jmt_show_texture = new JCheckBoxMenuItem("Show texture");
+		jmt_show_texture.setState(false);
+		jmt_show_texture.addActionListener(this);
+		jm_edit.add(jmt_show_texture);
 		 
 		jmb.add(jm_edit);
 		

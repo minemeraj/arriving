@@ -114,7 +114,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		
 		buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 		
-		if(oe.jmt_show_shading.isSelected()){
+		if(oe.jmt_show_shading.isSelected() || oe.jmt_show_texture.isSelected() ){
 			
 			buildShading(buf);
 			
@@ -169,8 +169,10 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 			
 			if(ld.isSelected)
 				col=Color.RED;
-			
-			decomposeClippedPolygonIntoZBuffer(p3D,col,null,roadZbuffer);
+			Texture texture=null;
+			if(oe.jmt_show_texture.isSelected())
+				texture=oe.currentTexture;
+			decomposeClippedPolygonIntoZBuffer(p3D,col,texture,roadZbuffer);
 		}	
 		
 		int length=60;

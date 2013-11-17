@@ -5,6 +5,7 @@ Changes in the Object Editor:
 
 -Under the "Other" menu added the feature load  and discharge texture, to see how
 a selected texture is applied to the object; it can generate error if the tetxure is not suited.
+Then select "show texture" to see the texture applied to the object.
 
 -------- 16/11/2013   CarDriving 7.0.9
 
