@@ -81,7 +81,8 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 	public double lightIntensity=1.0;
 	
 	
-	public int greenRgb= Color.BLACK.getRGB();
+	public int greenRgb= Color.GREEN.getRGB();
+	private int blackRgb= Color.BLACK.getRGB();
 
 
 	public ObjectEditor3DPanel(ObjectEditor oe){
@@ -1155,7 +1156,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		
 		for(int i=0;i<roadZbuffer.length;i++){
 			
-			roadZbuffer[i]=new ZBuffer(greenRgb,0);
+			roadZbuffer[i]=new ZBuffer(blackRgb,0);
 			
 			
 		}
@@ -1177,7 +1178,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 				   //set
 			 	   rgb[i]=zb.getRgbColor(); 
 				   //clean
-				   zb.set(0,0,0,greenRgb,true);
+				   zb.set(0,0,0,blackRgb,true);
 				  
  
 		 }	   
