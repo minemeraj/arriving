@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -161,6 +162,18 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		PolygonMesh pm=new PolygonMesh(clonedPoints,mesh.polygonData);
 		Vector polygons = PolygonMesh.getBodyPolygons(pm);
 		
+		Texture texture=null;
+		if(oe.jmt_show_texture.isSelected()){
+			
+			texture=oe.currentTexture;
+			if(texture==null){
+				oe.jmt_show_texture.setSelected(false);
+				JOptionPane.showMessageDialog(this,"No texture loaded","Error",JOptionPane.ERROR_MESSAGE);				
+				return;
+			}
+			
+		}
+		
 		for(int i=0;i<mesh.polygonData.size();i++){
 
 			LineData ld=(LineData) mesh.polygonData.elementAt(i);
@@ -169,9 +182,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 			
 			if(ld.isSelected)
 				col=Color.RED;
-			Texture texture=null;
-			if(oe.jmt_show_texture.isSelected())
-				texture=oe.currentTexture;
+		
 			decomposeClippedPolygonIntoZBuffer(p3D,col,texture,roadZbuffer);
 		}	
 		
