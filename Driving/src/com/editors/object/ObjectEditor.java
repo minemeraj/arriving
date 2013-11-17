@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
@@ -49,6 +50,7 @@ import com.LineData;
 import com.Point3D;
 import com.Polygon3D;
 import com.PolygonMesh;
+import com.Texture;
 import com.editors.Editor;
 import com.main.HelpPanel;
 
@@ -128,9 +130,14 @@ public class ObjectEditor extends Editor implements ActionListener{
 	int VIEW_TYPE=VIEW_TYPE_3D;
 	public JMenuItem hmt_preview;
 	public JMenuItem jmt_rescale_selected;
-	public JMenu jmt_help;
 	public JMenuItem jmt_copy_selection;
-	public JCheckBoxMenuItem jmt_show_shading; 
+	public JCheckBoxMenuItem jmt_show_shading;
+	private JMenu jmt_other;
+	private JMenuItem jmt_help;
+	private JMenuItem jmt_load_texture;
+	private JMenuItem jmt_discharge_texture; 
+	
+	Texture currentTexture=null;
 	
 
 	public static void main(String[] args) {
@@ -332,10 +339,24 @@ public class ObjectEditor extends Editor implements ActionListener{
 		
 		jmb.add(jm_view);
 		
+		jmt_other=new JMenu("Other");
+		jmt_other.addMenuListener(this);	
 		
-		jmt_help=new JMenu("Help");
-		jmt_help.addMenuListener(this);		
-		jmb.add(jmt_help);
+		jmb.add(jmt_other);
+		
+		jmt_load_texture=new JMenuItem("Load texture");
+		jmt_load_texture.addActionListener(this);		
+		jmt_other.add(jmt_load_texture);
+		
+		jmt_discharge_texture=new JMenuItem("Discharge texture");
+		jmt_discharge_texture.addActionListener(this);		
+		jmt_other.add(jmt_discharge_texture);
+		
+		jmt_other.addSeparator();
+		
+		jmt_help=new JMenuItem("Help");
+		jmt_help.addActionListener(this);		
+		jmt_other.add(jmt_help);
 		
 		
 		
@@ -364,6 +385,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 			saveBaseCubicTexture();
 		}
 		else if(o==jmt_load_mesh){
+			currentTexture=null;
 			loadPointsFromFile();
 		}
 		else if(o==jmt_undo_last){
@@ -400,7 +422,23 @@ public class ObjectEditor extends Editor implements ActionListener{
 			
 			preview();
 		}
+		else if(o==jmt_help){
+			
+			help();
+			
+		}
+		else if(o==jmt_load_texture){
+			
+			loadTexture();
+			
+		}
+		else if(o==jmt_discharge_texture){
+			
+			dischargeTexture();
+			
+		}
 	}
+
 
 
 
@@ -411,6 +449,49 @@ public class ObjectEditor extends Editor implements ActionListener{
 		
 		
 		ObjectEditorPreviewPanel oepp=new ObjectEditorPreviewPanel(this);
+		
+	}
+	
+
+	private void dischargeTexture() {
+		
+		
+		currentTexture=null;
+		
+	}
+
+	private void loadTexture() {
+		
+		fc=new JFileChooser();
+		fc.setDialogType(JFileChooser.OPEN_DIALOG);
+		fc.setDialogTitle("Load texture");
+		if(currentDirectory!=null)
+			fc.setCurrentDirectory(currentDirectory);
+		if(currentFile!=null)
+			fc.setSelectedFile(currentFile);
+
+		int returnVal = fc.showOpenDialog(null);
+
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			currentDirectory=fc.getCurrentDirectory();
+			currentFile=fc.getSelectedFile();
+			File file = fc.getSelectedFile();
+			loadTexture(file);
+
+
+		}
+		
+	}
+
+	private void loadTexture(File file) {
+		
+		try {
+			
+			currentTexture=new Texture(ImageIO.read(file));
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -896,11 +977,7 @@ public class ObjectEditor extends Editor implements ActionListener{
     	
     	Object o = arg0.getSource();
     	
-		if(o==jmt_help){
-			
-			help();
-			
-		}
+
     }
 
     public Polygon3D buildPolygon(LineData ld,Point3D[] points, boolean isReal) {
