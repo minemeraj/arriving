@@ -394,6 +394,8 @@ public class ObjectEditor extends Editor implements ActionListener{
 			saveBaseCubicTexture();
 		}
 		else if(o==jmt_load_mesh){
+			
+			jmt_show_texture.setSelected(false);
 			currentTexture=null;
 			loadPointsFromFile();
 		}
