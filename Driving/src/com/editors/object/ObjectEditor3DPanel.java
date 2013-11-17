@@ -181,7 +181,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		
 		
 		
-		Point3D rotateOrigin=cm.point000; 
+		
 		
 		Point3D xVersor=cm.getXAxis();
 		Point3D yVersor=cm.getYAxis();
@@ -190,6 +190,8 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		Point3D zMinusVersor=new Point3D(-zVersor.x,-zVersor.y,-zVersor.z);
 		
 		for(int i=0;i<cm.polygonData.size();i++){
+			
+			Point3D rotateOrigin=cm.point000; 
 			
 			Point3D xDirection=null;
 			Point3D yDirection=null;
