@@ -186,8 +186,8 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		Point3D xVersor=cm.getXAxis();
 		Point3D yVersor=cm.getYAxis();
 		
-		Point3D zVersor=new Point3D(0,0,1);
-		Point3D zMinusVersor=new Point3D(0,0,-1);
+		Point3D zVersor=cm.getZAxis();
+		Point3D zMinusVersor=new Point3D(-zVersor.x,-zVersor.y,-zVersor.z);
 		
 		for(int i=0;i<cm.polygonData.size();i++){
 			
