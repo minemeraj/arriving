@@ -175,6 +175,11 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		}
 		
 		for(int i=0;i<mesh.polygonData.size();i++){
+			
+			Point3D xDirection=null;
+			Point3D yDirection=null;
+			int deltaX=0;
+			int deltaY=0;			
 
 			LineData ld=(LineData) mesh.polygonData.elementAt(i);
 			Polygon3D p3D=LineData.buildPolygon(ld,clonedPoints);
@@ -183,7 +188,8 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 			if(ld.isSelected)
 				col=Color.RED;
 		
-			decomposeClippedPolygonIntoZBuffer(p3D,col,texture,roadZbuffer);
+			Point3D origin=new Point3D(p3D.xpoints[0],p3D.ypoints[0],p3D.zpoints[0]);
+	    	decomposeClippedPolygonIntoZBuffer(p3D, col, texture,roadZbuffer,xDirection,yDirection,origin,deltaX,deltaY);
 		}	
 		
 		int length=60;
@@ -640,8 +646,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 	public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d, Color color,
 			Texture texture, ZBuffer[] zbuffer) {
 		
-	  	Point3D origin=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
-    	decomposeClippedPolygonIntoZBuffer(p3d, color, texture,zbuffer,null,null,origin,0,0);
+	  
 		
 	}
 
