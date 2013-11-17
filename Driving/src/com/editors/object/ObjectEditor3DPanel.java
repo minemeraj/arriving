@@ -160,11 +160,11 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		
 		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 		
-		Vector clonedPoints=clonePoints(mesh.points);
+	
 		
-		PolygonMesh pm=new PolygonMesh(clonedPoints,mesh.polygonData);
-		CubicMesh cm=CubicMesh.buildCubicMesh(pm);
-		//Vector polygons = PolygonMesh.getBodyPolygons(cm);
+		PolygonMesh pm=new PolygonMesh(mesh.points,mesh.polygonData);
+		CubicMesh cm=CubicMesh.buildCubicMesh(pm).clone();
+		rotateMesh(cm);
 		
 		
 		Texture texture=null;
@@ -178,6 +178,9 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 			}
 			
 		}
+		
+		
+		
 		Point3D rotateOrigin=cm.point000; 
 		
 		Point3D xVersor=cm.getXAxis();
@@ -195,7 +198,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 			int deltaHeight=cm.getDeltaY();		
 
 			LineData ld=(LineData) cm.polygonData.elementAt(i);
-			Polygon3D p3D=LineData.buildPolygon(ld,clonedPoints);
+			Polygon3D p3D=LineData.buildPolygon(ld,cm.points);
 			Color col=Color.GRAY;
 			
 			if(ld.isSelected)
@@ -265,9 +268,9 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		decomposeLine(0,0,0,0,length,0,roadZbuffer,clr.getRGB()); 
 		decomposeLine(0,0,0,0,0,length,roadZbuffer,clr.getRGB()); 
 
-		for(int i=0;i<clonedPoints.size();i++){
+		for(int i=0;i<cm.points.length;i++){
 
-			Point3D p=(Point3D) clonedPoints.elementAt(i);
+			Point3D p= cm.points[i];
 			
 			Color col=Color.white;
 
@@ -283,6 +286,24 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		
 	}
 	
+	private void rotateMesh(CubicMesh cm) {
+		
+		cm.point000=rotatePoint(cm.point000);
+		cm.point001=rotatePoint(cm.point001);
+		cm.point010=rotatePoint(cm.point010);
+		cm.point100=rotatePoint(cm.point100);
+		cm.point110=rotatePoint(cm.point110);
+		cm.point011=rotatePoint(cm.point011);
+		cm.point101=rotatePoint(cm.point101);
+		cm.point111=rotatePoint(cm.point111);
+		
+		for (int i = 0; i < cm.points.length; i++) {
+			cm.points[i]=rotatePoint(cm.points[i]);
+		}
+		
+		
+	}
+
 	private void decomposePointIntoZBfuffer(Point3D p, int radius, Color col, ZBuffer[] zbuffer) {
 		
 				
@@ -313,7 +334,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		
 	}
 
-	public Vector clonePoints(Point3D[] points) {
+	public Vector rotatePoints(Point3D[] points) {
 		
 		Vector clonePoints=new Vector();
 		
@@ -322,27 +343,34 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 			Point3D p = points[i];
 			
 		
-			double xx=(cosf*(p.x)-sinf*(p.y));
-			double yy=(cosf*(p.y)+sinf*(p.x));
-			double zz=p.z;
+
 			
-		
-			double xxx=(zz)*sinteta+(xx)*costeta;
-			double yyy= yy;
-			double zzz=(zz)*costeta-(xx)*sinteta;
-			
-			Point3D pp=new Point3D(xxx,yyy,zzz);
-			pp.setSelected(p.isSelected());
-			
+			Point3D pp=rotatePoint(p);
 			clonePoints.add(pp);
 
 			
 		}
-		
-	
+
 		
 		return clonePoints;
 	
+	}
+
+	private Point3D rotatePoint(Point3D p) {
+		
+		double xx=(cosf*(p.x)-sinf*(p.y));
+		double yy=(cosf*(p.y)+sinf*(p.x));
+		double zz=p.z;
+		
+	
+		double xxx=(zz)*sinteta+(xx)*costeta;
+		double yyy= yy;
+		double zzz=(zz)*costeta-(xx)*sinteta;
+		
+		Point3D pp=new Point3D(xxx,yyy,zzz);
+		pp.setSelected(p.isSelected());
+		
+		return pp;
 	}
 
 	public void draw3Daxis(Graphics2D graphics2D, int i, int j) {
