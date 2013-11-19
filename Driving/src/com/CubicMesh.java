@@ -92,11 +92,11 @@ public class CubicMesh extends PolygonMesh{
 		dx=maxx-minx;
 		dy=maxy-miny;
 		dz=maxz-minz;
-		
+		//starting points on the car texture
 		cm.setDeltaX((int) dz+1);
-		cm.setDeltaX2((int) (dx+dz)+1);
+		cm.setDeltaX2((int) (dx+dz+2));
 		cm.setDeltaY((int) dz+1);
-		cm.setDeltaY2((int) (dy+dz)+1);
+		cm.setDeltaY2((int) (dy+dz+2));
 
 		cm.point000=new Point3D(0,0,0);
 		cm.point100=new Point3D(dx,0,0);
