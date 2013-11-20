@@ -158,9 +158,9 @@ public class ZBuffer{
 			if(y>=h) y=h-1;*/
 
 			//border periodic condition
-			if(x<0) x=w+x%w;
+			if(x<0) x=w-1+x%w;
 			if(x>=w) x=x%w;
-			if(y<0)	y=h+y%h;
+			if(y<0)	y=h-1+y%h;
 			if(y>=h) y=y%h;
 
 			
