@@ -87,16 +87,16 @@ public class ZBuffer{
 			if(origin!=null){
 				
 
-				 x=(int) Point3D.calculateDotProduct(px-origin.x,py-origin.y, pz-origin.z,xDirection)+deltaX;
-				 y=(int) Point3D.calculateDotProduct(px-origin.x,py-origin.y, pz-origin.z,yDirection)+deltaY;
+				 x=(int) Math.round(Point3D.calculateDotProduct(px-origin.x,py-origin.y, pz-origin.z,xDirection))+deltaX;
+				 y=(int) Math.round(Point3D.calculateDotProduct(px-origin.x,py-origin.y, pz-origin.z,yDirection))+deltaY;
 				 
 				 
 			}
 			else
 			{
 				
-				  x=(int) Point3D.calculateDotProduct(px,py, pz,xDirection)+deltaX;
-				  y=(int) Point3D.calculateDotProduct(px,py, pz,yDirection)+deltaY;
+				  x=(int) Math.round(Point3D.calculateDotProduct(px,py, pz,xDirection))+deltaX;
+				  y=(int) Math.round(Point3D.calculateDotProduct(px,py, pz,yDirection))+deltaY;
 	
 			}	
 			
@@ -111,10 +111,12 @@ public class ZBuffer{
 			if(y>=h) y=h-1;*/
 			
 			//border periodic condition
-			if(x<0) x=w+x%w;
+			if(x<0) x=w-1+x%w;
 			if(x>=w) x=x%w;
-			if(y<0) y=h+y%h;
+			if(y<0) y=h-1+y%h;
 			if(y>=h) y=y%h;
+			
+		
 			
 			int argb= texture.getRGB(x, h-y-1);
 			

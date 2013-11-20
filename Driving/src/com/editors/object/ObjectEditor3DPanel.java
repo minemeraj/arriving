@@ -207,12 +207,12 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 			if(ld.isSelected)
 				col=Color.RED;
 			
-			
+			int face=cm.boxFaces[i];
 			
 			if(oe.jmt_show_texture.isSelected()){
 			
 				
-				int face=cm.boxFaces[i];
+				
 				
 			 	if(face==Renderer3D.CAR_BOTTOM )
 					continue;
@@ -261,6 +261,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 			
 			
 	    	decomposeClippedPolygonIntoZBuffer(p3D, col, texture,roadZbuffer,xDirection,yDirection,rotateOrigin,deltaWidth,deltaHeight);
+		   
 		}	
 		
 		int length=60;

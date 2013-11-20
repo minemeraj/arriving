@@ -1,3 +1,4 @@
+Corrections for more precise texturing calculations.
 
 Changes in the Object Editor:
 
