@@ -1,4 +1,4 @@
------
+-----21/11/2013   CarDriving 7.0.10
 
 Corrections for more precise texturing calculations, taking into consideration 
 integer truncation problems.
