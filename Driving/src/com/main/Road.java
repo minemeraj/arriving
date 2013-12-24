@@ -64,7 +64,6 @@ public class Road extends Shader{
 	int y_edge=5+SCREEN_DISTANCE;
 	int NX=2;
 	int NY=80;
-
 	
 	int NXVISIBLE=NX;
 	int NYVISIBLE=20;//20 orig
@@ -982,13 +981,14 @@ public class Road extends Shader{
 		
 		double eta=tetam*2.0/WIDTH;
 		
-		
+		double i_d=1.0/SCREEN_DISTANCE;
 		
 		//System.out.println(APOSX);
 		for(int i=0;i<WIDTH;i++){
 			
 			double teta=i*eta-viewDirection-rearAngle;
-
+			//double teta=(tetam-Math.atan((WIDTH/2.0-i)*i_d))-viewDirection-rearAngle; 
+			
 			if(teta<0)
 				teta=teta+2*Math.PI;
 			if(teta>2*Math.PI)
