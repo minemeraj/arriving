@@ -21,6 +21,8 @@ public class Polygon3D  extends Polygon{
 	public int index=0;
 	
 	public double shadowCosin=1;
+	
+	public String data=null;
 
 
 	public Polygon3D(int npoints, int[] xpoints, int[] ypoints, int[] zpoints) {
@@ -813,6 +815,14 @@ public class Polygon3D  extends Polygon{
 
 	public void setShadowCosin(double shadowCosin) {
 		this.shadowCosin = shadowCosin;
+	}
+
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
 	}
 
 }

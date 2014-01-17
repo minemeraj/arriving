@@ -106,6 +106,7 @@ public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 		columns.add("X");
 		columns.add("Y");
 		columns.add("Z");
+		
 
 		Vector data=new Vector();
 		
@@ -117,6 +118,7 @@ public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 			record.add(" "+polygon3d.xpoints[i]);
 			record.add(" "+polygon3d.ypoints[i]);
 			record.add(" "+polygon3d.zpoints[i]);
+			
 			
 			data.add(record);
 		}

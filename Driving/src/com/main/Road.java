@@ -46,11 +46,6 @@ import com.editors.Editor;
 import com.main.Shader.ShadowVolume;
 
 
-
-
-
-
-
 /*
  * Created on 12/apr/08
  *
