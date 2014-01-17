@@ -1,3 +1,8 @@
+
+
+Big change in the LineData format, to prepare for future improvements in texture usage.
+Road and objects files are changed, see README.txt for the new formats.
+
 -----21/11/2013   CarDriving 7.0.10
 
 Corrections for more precise texturing calculations, taking into consideration 
