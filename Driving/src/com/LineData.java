@@ -110,6 +110,7 @@ public class LineData implements Cloneable{
 			}
 			ldnew.texture_index=texture_index;
 			ldnew.shadowCosin=shadowCosin;
+			ldnew.data=data;
 			
 			return ldnew;
 		}

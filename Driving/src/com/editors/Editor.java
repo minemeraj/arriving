@@ -197,7 +197,7 @@ public class Editor extends JFrame implements MenuListener{
 			currentFile=fc.getSelectedFile();
 			File file = fc.getSelectedFile();
 			loadPointsFromFile(file);
-
+            setTitle(file.getName());
 
 		}
 	}
@@ -387,11 +387,11 @@ public class Editor extends JFrame implements MenuListener{
 				
 				//for the transaction phase:
 				
-				Point3D normal = PolygonMesh.getNormal(0,ld,mesh.points);	
+				/*Point3D normal = PolygonMesh.getNormal(0,ld,mesh.points);	
 				
 				int boxFace=Renderer3D.findBoxFace(normal);
 				
-				ld.setData(""+boxFace);
+				ld.setData(""+boxFace);*/
 				
 				////////////
 

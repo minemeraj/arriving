@@ -65,12 +65,12 @@ public class PolygonMesh implements Cloneable{
 
 			Point3D normal = getNormal(0,ld,points);
 			normals.add(normal);
-			if(ld.getData()!=null){
+			//if(ld.getData()!=null){
 				
 				boxFaces[l]=Integer.parseInt(ld.getData());
-			}
+			/*}
 			else
-				boxFaces[l]=Renderer3D.findBoxFace(normal);
+				boxFaces[l]=Renderer3D.findBoxFace(normal);*/
 			
 		}
 		

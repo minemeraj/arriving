@@ -1,7 +1,9 @@
 
 
 Big change in the LineData format, to prepare for future improvements in texture usage.
-Road and objects files are changed, see README.txt for the new formats.
+Car and objects files are changed, see README.txt for the new formats.
+
+Now the title of the ObjectEditor shows the name of the opened file.
 
 -----21/11/2013   CarDriving 7.0.10
 

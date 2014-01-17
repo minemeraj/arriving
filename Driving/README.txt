@@ -150,7 +150,9 @@
     
     b) L=the sequence of convex polygons composing the object in the format 
     
-    I00,I01,I02_I10,II2,I13,II4_...
+    [DATA]I00,I01,I02_I10,II2,I13,II4_...
+    
+    the [DATA] parts contains infos about the cubic face to use in texturing.
     
     the "_" separates different polygon sequences, where Iij is the index of the j vertex of the i polygon ,
     i.e. the point P[Iij] is the i vertex of the j polygon.       
