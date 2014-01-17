@@ -19,6 +19,7 @@ import com.Point3D;
 import com.Polygon3D;
 import com.PolygonMesh;
 import com.SquareMesh;
+import com.main.Renderer3D;
 
 public class Editor extends JFrame implements MenuListener{
 	
@@ -124,10 +125,22 @@ public class Editor extends JFrame implements MenuListener{
 		StringTokenizer sttoken=new StringTokenizer(str,"_");
 
 		while(sttoken.hasMoreElements()){
-
-			String[] vals = sttoken.nextToken().split(",");
-
+			
+			String token=sttoken.nextToken();
+			
 			LineData ld=new LineData();
+			
+			if(token.indexOf("]")>0){
+				
+				String extraData=token.substring(token.indexOf("[")+1,token.indexOf("]"));
+				token=token.substring(token.indexOf("]")+1);
+				ld.setData(extraData);
+				
+			}
+
+			String[] vals = token.split(",");
+
+			
 
 			for(int i=0;i<vals.length;i++)
 				ld.addIndex(Integer.parseInt(vals[i]));
@@ -285,6 +298,9 @@ public class Editor extends JFrame implements MenuListener{
 	public String decomposeLineData(LineData ld) {
 
 		String str="";
+		
+		if(ld.data!=null)
+			str+="["+ld.data+"]";
 
 		for(int j=0;j<ld.size();j++){
 
@@ -368,6 +384,16 @@ public class Editor extends JFrame implements MenuListener{
 			for(int i=0;i<mesh.polygonData.size();i++){
 
 				LineData ld=(LineData) mesh.polygonData.elementAt(i);
+				
+				//for the transaction phase:
+				
+				Point3D normal = PolygonMesh.getNormal(0,ld,mesh.points);	
+				
+				int boxFace=Renderer3D.findBoxFace(normal);
+				
+				ld.setData(""+boxFace);
+				
+				////////////
 
 				pr.print(decomposeLineData(ld));
 				if(i<mesh.polygonData.size()-1)

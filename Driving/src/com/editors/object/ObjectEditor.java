@@ -275,10 +275,6 @@ public class ObjectEditor extends Editor implements ActionListener{
 		jmt_save_mesh.addActionListener(this);
 		jm_save.add(jmt_save_mesh); 
 
-		/*jmt22 = new JMenuItem("Save poly format");
-		jmt22.addActionListener(this);
-		jm2.add(jmt22);*/
-
 		jmt_save_base_texture = new JMenuItem("Save base texture");
 		jmt_save_base_texture.addActionListener(this);
 		jm_save.add(jmt_save_base_texture);
@@ -386,9 +382,6 @@ public class ObjectEditor extends Editor implements ActionListener{
 
 		if(o==jmt_save_mesh){
 			saveLines();
-		}
-		else if(o==jmt22){
-			savePolyFormat();
 		}
 		else if(o==jmt_save_base_texture){
 			saveBaseCubicTexture();
@@ -602,7 +595,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 	}
 
 
-	public void savePolyFormat() {
+	/*public void savePolyFormat() {
 		
 		fc = new JFileChooser();
 		fc.setDialogType(JFileChooser.SAVE_DIALOG);
@@ -643,7 +636,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 			e.printStackTrace();
 		}
 	}
-
+*/
 
 
 

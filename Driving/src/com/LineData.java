@@ -12,12 +12,17 @@ public class LineData implements Cloneable{
 
 		public Vector lineDatas=new Vector();
 		public boolean isSelected=false;
-		public int texture_index=0;
-		public String hexColor=GREEN_HEX;
-
-		public static String GREEN_HEX="00FF00";
-
+		
 		public double shadowCosin=1;
+		
+		public String data=null;
+		
+		public int texture_index=0;
+		public String hexColor=GREEN_HEX;	
+		
+		public static String GREEN_HEX="00FF00";
+				
+		public int face=0;
 
 		public int size(){
 
@@ -56,6 +61,13 @@ public class LineData implements Cloneable{
 
 		public void setTexture_index(int texture_index) {
 			this.texture_index = texture_index;
+		}
+		public String getData() {
+			return data;
+		}
+
+		public void setData(String data) {
+			this.data = data;
 		}
 
 		public LineData(){}
@@ -106,9 +118,14 @@ public class LineData implements Cloneable{
 
 			String str="";
 			
+			if(data!=null)
+				str+="["+data+"]";
+			
 			int size=ld.size();
 
 			for(int j=0;j<size;j++){
+				
+
 
 				if(j>0)
 					str+=",";
@@ -246,6 +263,8 @@ public class LineData implements Cloneable{
 			return triangles;
 			
 		}
+
+
 		
 
 		

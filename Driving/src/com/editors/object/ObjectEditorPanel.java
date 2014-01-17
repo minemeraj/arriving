@@ -49,6 +49,7 @@ import com.PolygonMesh;
 import com.editors.DoubleTextField;
 import com.editors.EditorPanel;
 import com.editors.road.RoadEditorPolygonDetail;
+import com.main.Renderer3D;
 
 public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,KeyListener, ItemListener,MouseListener,MouseWheelListener,MouseMotionListener{
 
@@ -796,7 +797,13 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 
 		}
 
-
+		//here assign a face to the polygon
+		
+		Point3D normal = PolygonMesh.getNormal(0,polygon,mesh.points);	
+			
+		int boxFace=Renderer3D.findBoxFace(normal);
+		
+		polygon.setData(""+boxFace);
 
 		mesh.polygonData.add(polygon);
 

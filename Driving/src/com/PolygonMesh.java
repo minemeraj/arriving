@@ -65,13 +65,18 @@ public class PolygonMesh implements Cloneable{
 
 			Point3D normal = getNormal(0,ld,points);
 			normals.add(normal);
-			boxFaces[l]=Renderer3D.findBoxFace(normal);
-
+			if(ld.getData()!=null){
+				
+				boxFaces[l]=Integer.parseInt(ld.getData());
+			}
+			else
+				boxFaces[l]=Renderer3D.findBoxFace(normal);
+			
 		}
 		
 	}
 	
-	private static Point3D getNormal(int position, LineData ld,
+	public static Point3D getNormal(int position, LineData ld,
 			Point3D[] points) {
 
 		int n=ld.size();
@@ -195,10 +200,22 @@ public class PolygonMesh implements Cloneable{
 		StringTokenizer sttoken=new StringTokenizer(str,"_");
 
 		while(sttoken.hasMoreElements()){
-
-			String[] vals = sttoken.nextToken().split(",");
-
+			
+			String token=sttoken.nextToken();
+			
 			LineData ld=new LineData();
+
+			if(token.indexOf("]")>0){
+				
+				String extraData=token.substring(token.indexOf("[")+1,token.indexOf("]"));
+				token=token.substring(token.indexOf("]")+1);
+				ld.setData(extraData);
+				
+			}
+			
+			String[] vals = token.split(",");
+
+			
 
 			for(int i=0;i<vals.length;i++)
 				ld.addIndex(Integer.parseInt(vals[i]));
