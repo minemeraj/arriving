@@ -159,10 +159,20 @@ public class Editor extends JFrame implements MenuListener{
 		StringTokenizer sttoken=new StringTokenizer(str,"_");
 
 		while(sttoken.hasMoreElements()){
-
-			String[] vals = sttoken.nextToken().split(",");
-
+			
+			String token=sttoken.nextToken();
+			
 			LineData ld=new LineData();
+			
+			if(token.indexOf("]")>0){
+				
+				String extraData=token.substring(token.indexOf("[")+1,token.indexOf("]"));
+				token=token.substring(token.indexOf("]")+1);
+				ld.setData(extraData);
+				
+			}
+
+			String[] vals = token.split(",");
 
 			for(int i=0;i<vals.length;i++)
 				ld.addIndex(Integer.parseInt(vals[i]));
@@ -387,11 +397,11 @@ public class Editor extends JFrame implements MenuListener{
 				
 				//for the transaction phase:
 				
-				/*Point3D normal = PolygonMesh.getNormal(0,ld,mesh.points);	
+				Point3D normal = PolygonMesh.getNormal(0,ld,mesh.points);	
 				
 				int boxFace=Renderer3D.findBoxFace(normal);
 				
-				ld.setData(""+boxFace);*/
+				ld.setData(""+boxFace);
 				
 				////////////
 
