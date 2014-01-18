@@ -61,6 +61,13 @@ public class Renderer3D implements AbstractRenderer3D{
 	public static final int CAR_RIGHT=3;
 	public static final int CAR_FRONT=4;
 	
+	public static final int CAR_BOTTOM_2=5;
+	public static final int CAR_BACK_2=6;
+	public static final int CAR_TOP_2=7;
+	public static final int CAR_LEFT_2=8;
+	public static final int CAR_RIGHT_2=9;
+	public static final int CAR_FRONT_2=10;
+	
 
 	boolean isShadowMap=false;
 	boolean isStencilBuffer=false;
@@ -769,9 +776,14 @@ public class Renderer3D implements AbstractRenderer3D{
 		int deltaWidth=0;
 		int deltaHeight=cm.getDeltaY();
 		
-	 	if(face==CAR_BOTTOM )
+		int deltaTexture=0;
+		
+		if(face==CAR_BOTTOM_2 || face==CAR_FRONT_2  ||face==CAR_BACK_2  ||face==CAR_TOP_2  || face==CAR_LEFT_2 || face==CAR_RIGHT_2)
+			deltaTexture=cm.getDeltaX()+cm.getDeltaX2();
+		
+	 	if(face==CAR_BOTTOM || face==CAR_BOTTOM_2)
 			return;
-		if(face==CAR_FRONT){
+		if(face==CAR_FRONT || face==CAR_FRONT_2 ){
 
 			
 			 deltaWidth=cm.getDeltaX();
@@ -783,7 +795,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 
 		}
-		else if(face==CAR_BACK){
+		else if(face==CAR_BACK || face==CAR_BACK_2){
 			 deltaWidth=cm.getDeltaX();
 			 deltaHeight=0;
 			 xDirection=xVersor;
@@ -791,20 +803,20 @@ public class Renderer3D implements AbstractRenderer3D{
 
 
 		}
-		else if(face==CAR_TOP){
+		else if(face==CAR_TOP || face==CAR_TOP_2){
 			 deltaWidth=cm.getDeltaX();
 			 xDirection=xVersor;
 			 yDirection=yVersor;
 
 
 		}
-		else if(face==CAR_LEFT) {
+		else if(face==CAR_LEFT || face==CAR_LEFT_2 ) {
 			
 			xDirection=zVersor;
 			yDirection=yVersor;
 
 		}
-		else if(face==CAR_RIGHT) {
+		else if(face==CAR_RIGHT || face==CAR_RIGHT_2 ) {
 			
 			xDirection=zMinusVersor;
 			yDirection=yVersor;
@@ -815,7 +827,7 @@ public class Renderer3D implements AbstractRenderer3D{
 		
 		
 		
-		decomposeClippedPolygonIntoZBuffer(polRotate,col,texture,zBuffer,xDirection,yDirection,rotateOrigin,deltaWidth,deltaHeight);
+		decomposeClippedPolygonIntoZBuffer(polRotate,col,texture,zBuffer,xDirection,yDirection,rotateOrigin,deltaTexture+deltaWidth,deltaHeight);
 	}
 
 	public static boolean isFacing(Polygon3D pol,Point3D normal,Point3D observer){

@@ -209,14 +209,20 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 			
 			int face=cm.boxFaces[i];
 			
+			int deltaTexture=0;
+			
 			if(oe.jmt_show_texture.isSelected()){
 			
 				
 				
+				if(face==Renderer3D.CAR_BOTTOM_2 || face==Renderer3D.CAR_FRONT_2  ||face==Renderer3D.CAR_BACK_2 
+						||face==Renderer3D.CAR_TOP_2  || face==Renderer3D.CAR_LEFT_2 || face==Renderer3D.CAR_RIGHT_2)
+					deltaTexture=cm.getDeltaX()+cm.getDeltaX2();
 				
-			 	if(face==Renderer3D.CAR_BOTTOM )
+				
+			 	if(face==Renderer3D.CAR_BOTTOM || face==Renderer3D.CAR_BOTTOM_2)
 					continue;
-				if(face==Renderer3D.CAR_FRONT){
+				if(face==Renderer3D.CAR_FRONT || face==Renderer3D.CAR_FRONT_2 ){
 
 					
 					 deltaWidth=cm.getDeltaX();
@@ -228,7 +234,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 
 				}
-				else if(face==Renderer3D.CAR_BACK){
+				else if(face==Renderer3D.CAR_BACK || face==Renderer3D.CAR_BACK_2){
 					 deltaWidth=cm.getDeltaX();
 					 deltaHeight=0;
 					 xDirection=xVersor;
@@ -236,20 +242,20 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 
 				}
-				else if(face==Renderer3D.CAR_TOP){
+				else if(face==Renderer3D.CAR_TOP || face==Renderer3D.CAR_TOP_2 ){
 					 deltaWidth=cm.getDeltaX();
 					 xDirection=xVersor;
 					 yDirection=yVersor;
 
 
 				}
-				else if(face==Renderer3D.CAR_LEFT) {
+				else if(face==Renderer3D.CAR_LEFT || face==Renderer3D.CAR_LEFT_2 ) {
 					
 					xDirection=zVersor;
 					yDirection=yVersor;
 
 				}
-				else if(face==Renderer3D.CAR_RIGHT) {
+				else if(face==Renderer3D.CAR_RIGHT || face==Renderer3D.CAR_RIGHT_2 ) {
 					
 					xDirection=zMinusVersor;
 					yDirection=yVersor;
@@ -260,7 +266,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 			}
 			
 			
-	    	decomposeClippedPolygonIntoZBuffer(p3D, col, texture,roadZbuffer,xDirection,yDirection,rotateOrigin,deltaWidth,deltaHeight);
+	    	decomposeClippedPolygonIntoZBuffer(p3D, col, texture,roadZbuffer,xDirection,yDirection,rotateOrigin,deltaTexture+deltaWidth,deltaHeight);
 		   
 		}	
 		
