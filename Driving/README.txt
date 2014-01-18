@@ -158,7 +158,7 @@
     i.e. the point P[Iij] is the i vertex of the j polygon.  
     
     
-    ******** CUBIC TEXTURES
+    ******** CUBIC TEXTURE
     
     Here the face numbers for the cubic textures:
     
@@ -212,8 +212,29 @@
 	OBJECT_HEIGHT  = deltaX = deltaY = maxZ-minZ
 	
 	
+	****** DOUBLE CUBIC TEXTURE
+	
+	CUBE_BOTTOM_2=5;
+	CUBE_BACK_2=6;
+	CUBE_TOP_2=7;
+	CUBE_LEFT_2=8;
+	CUBE_RIGHT_2=9;
+	CUBE_FRONT_2=10;
 
-		
+	--------------------------------------------------------- 
+	|		|      		 | 		|		|      		 | 		|
+	|		|     4   	 |		|		|     10   	 |		| 
+	|       |      		 | 		|       |      		 | 		|	
+	----------------------------------------------------------
+	|       | 	         |      |       | 	         |      |  
+	|   2   |	  1      |  3   |   8   |	  7      |  9   | 
+	|       | 	         |      |       | 	         |      | 
+	|       | 	         |      |       | 	         |      | 
+	----------------------------------------------------------   
+    | 		|            |		| 		|            |		|
+	|		|     0      |	    |		|     6      |	    |
+	|		|            | 	    |		|            | 	    |
+	---------------------------------------------------------		
 
 	*************
 
