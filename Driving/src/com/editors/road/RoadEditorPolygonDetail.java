@@ -79,10 +79,10 @@ public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 		
 		chooseFace=new JComboBox(); 
 		chooseFace.setBounds(270,r,50,20);
-		for (int i = 1; i <=6 ; i++) {
+		for (int i = -1; i <=4 ; i++) {
 			chooseFace.addItem(new ValuePair(""+i,""+i));
 		}
-		chooseFace.setSelectedIndex(Integer.parseInt(ld.getData()));
+		chooseFace.setSelectedIndex(1+Integer.parseInt(ld.getData()));
 		add(chooseFace);
 		
 		save=new JButton("Save");

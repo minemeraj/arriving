@@ -231,7 +231,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		lmul.setBounds(5,r,150,20);
 		right.add(lmul);		
 		checkMultipleSelection=new JCheckBox();
-		checkMultipleSelection.setSelected(true);
+		checkMultipleSelection.setSelected(false);
 		checkMultipleSelection.addKeyListener(this);
 		checkMultipleSelection.setBounds(160,r,20,20);
 		right.add(checkMultipleSelection);
@@ -294,7 +294,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		
 		chooseFace=new JComboBox(); 
 		chooseFace.setBounds(200,r,50,20); 
-		for (int i = 1; i <=6 ; i++) {
+		for (int i = -1; i <=4 ; i++) {
 			chooseFace.addItem(new ValuePair(""+i,""+i));
 		}
 		chooseFace.addItemListener(this);
@@ -1766,7 +1766,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
      
 			LineData ld=((LineDataWithDistance)polygonsInLine.lastElement()).getLine_data();
 			ld.setSelected(true);
-			chooseFace.setSelectedIndex(Integer.parseInt(ld.getData()));
+			chooseFace.setSelectedIndex(1+Integer.parseInt(ld.getData()));
 		}
 		
 	}

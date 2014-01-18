@@ -155,8 +155,65 @@
     the [DATA] parts contains infos about the cubic face to use in texturing.
     
     the "_" separates different polygon sequences, where Iij is the index of the j vertex of the i polygon ,
-    i.e. the point P[Iij] is the i vertex of the j polygon.       
-     
+    i.e. the point P[Iij] is the i vertex of the j polygon.  
+    
+    
+    ******** CUBIC TEXTURES
+    
+    Here the face numbers for the cubic textures:
+    
+    CUBE_BOTTOM=-1;
+	CUBE_BACK=0;
+	CUBE_TOP=1;
+	CUBE_LEFT=2;
+	CUBE_RIGHT=3;
+	CUBE_FRONT=4; 
+	
+	Cubic Mesh schema (Bottom not used):
+	
+	
+	-----------------------------
+	|		|      		 | 		|
+	|		|     4   	 |		| 
+	|       |      		 | 		|	
+	-----------------------------
+	|       | 	         |      |  
+	|   2   |	  1      |  3   | 
+	|       | 	         |      | 
+	|       | 	         |      | 
+	-----------------------------    
+    | 		|            |		|
+	|		|     0      |	    |
+	|		|            | 	    |
+	-----------------------------	
+	
+	y
+	^
+	|
+	|
+	0--->x	
+	
+	4 parameters to navigate the texture, from left to right and bottom to top:
+	
+	deltaX,deltaX2
+	deltaY,deltaY2
+	
+	TEXTURE_WIDTH  = deltaX+deltaX2
+	TEXTURE_HEIGHT = deltaY+deltaY2
+	
+	deltaX=deltaY=OBJECT_HEIGHT
+	deltaX2=OBJECT_WIDTH+OBJECT_HEIGHT
+	deltaY2=OBJECT_LENGTH+OBJECT_HEIGHT
+	
+	so:
+	
+	OBJECT_LENGTH  = deltaY2-deltaY = maxY-minY
+	OBJECT_WIDTH   = deltaX2-deltaX = maxX-minX
+	OBJECT_HEIGHT  = deltaX = deltaY = maxZ-minZ
+	
+	
+
+		
 
 	*************
 
