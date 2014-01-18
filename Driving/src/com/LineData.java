@@ -21,8 +21,6 @@ public class LineData implements Cloneable{
 		public String hexColor=GREEN_HEX;	
 		
 		public static String GREEN_HEX="00FF00";
-				
-		public int face=0;
 
 		public int size(){
 

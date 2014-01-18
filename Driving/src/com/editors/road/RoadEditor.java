@@ -80,6 +80,7 @@ import com.Texture;
 import com.ZBuffer;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
+import com.editors.ValuePair;
 import com.main.HelpPanel;
 import com.main.Road;
 
@@ -4484,39 +4485,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 
-	public class ValuePair{
-
-
-		String id;
-		String value;
-
-		public String getId() {
-			return id;
-		}
-		public void setId(String id) {
-			this.id = id;
-		}
-		public String getValue() {
-			return value;
-		}
-		public void setValue(String value) {
-			this.value = value;
-		}
-
-		public ValuePair(String id, String value) {
-			super();
-			this.id = id;
-			this.value = value;
-		}
-
-
-		public String toString() {
-
-			return this.value;
-		}
-
-
-	}
 
 	/**
 	 * 

@@ -34,6 +34,7 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -48,6 +49,7 @@ import com.Polygon3D;
 import com.PolygonMesh;
 import com.editors.DoubleTextField;
 import com.editors.EditorPanel;
+import com.editors.ValuePair;
 import com.editors.road.RoadEditorPolygonDetail;
 import com.main.Renderer3D;
 
@@ -132,6 +134,9 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 	public double teta;
 	double costeta=Math.cos(teta);
 	double sinteta=Math.sin(teta);
+
+
+	private JComboBox chooseFace;
 
 
 
@@ -280,6 +285,20 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		buildPolygon.setFocusable(false);
 		buildPolygon.setBounds(5,r,150,20);
 		right.add(buildPolygon);
+		
+		
+	
+		JLabel jlFace=new JLabel("Face:");
+		jlFace.setBounds(160,r,50,20);
+		right.add(jlFace);
+		
+		chooseFace=new JComboBox(); 
+		chooseFace.setBounds(200,r,50,20); 
+		for (int i = 1; i <=6 ; i++) {
+			chooseFace.addItem(new ValuePair(""+i,""+i));
+		}
+		chooseFace.addItemListener(this);
+		right.add(chooseFace);
 		
 		r+=30;
 		
@@ -526,6 +545,8 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		DecimalFormatSymbols dfs=new DecimalFormatSymbols(Locale.UK);
 		dfc=new DecimalFormat("###.##");
 		dfc.setDecimalFormatSymbols(dfs);
+		
+
 		
 
 	}
@@ -797,7 +818,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 
 		}
 
-		//here assign a face to the polygon
+		
 		
 		Point3D normal = PolygonMesh.getNormal(0,polygon,mesh.points);	
 			
@@ -1585,7 +1606,13 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 	}
 
 	public void itemStateChanged(ItemEvent arg0) {
-		// TODO Auto-generated method stub
+		
+		Object obj=arg0.getSource();
+		
+		if(obj==chooseFace){
+			
+			
+		}
 
 	}
 
@@ -1739,6 +1766,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
      
 			LineData ld=((LineDataWithDistance)polygonsInLine.lastElement()).getLine_data();
 			ld.setSelected(true);
+			chooseFace.setSelectedIndex(Integer.parseInt(ld.getData()));
 		}
 		
 	}
@@ -1798,6 +1826,5 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 
 }

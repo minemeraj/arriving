@@ -5,8 +5,10 @@ import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -15,10 +17,12 @@ import com.LineData;
 import com.Polygon3D;
 import com.PolygonMesh;
 import com.editors.Editor;
+import com.editors.ValuePair;
+
 
 public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 
-	int WIDTH=340;
+	int WIDTH=440;
 	int HEIGHT=300;
 	
 	LineData modifiedLineData=null;
@@ -30,6 +34,7 @@ public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 	
 	private boolean saved=false;
 	private JButton save;
+	private JComboBox chooseFace;
 
 	
 	public RoadEditorPolygonDetail(Editor roadEditor, LineData ld) {
@@ -48,7 +53,7 @@ public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
-			
+			 
 		};
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -68,8 +73,20 @@ public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 		invertPoints.addActionListener(this);
 		add(invertPoints);
 		
+		JLabel jlFace=new JLabel("Face:");
+		jlFace.setBounds(230,r,40,20);
+		add(jlFace);
+		
+		chooseFace=new JComboBox(); 
+		chooseFace.setBounds(270,r,50,20);
+		for (int i = 1; i <=6 ; i++) {
+			chooseFace.addItem(new ValuePair(""+i,""+i));
+		}
+		chooseFace.setSelectedIndex(Integer.parseInt(ld.getData()));
+		add(chooseFace);
+		
 		save=new JButton("Save");
-		save.setBounds(230,r,80,20);
+		save.setBounds(330,r,80,20);
 		save.addActionListener(this);
 		add(save);
 		
@@ -77,7 +94,7 @@ public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 		
 		JScrollPane jscp=new JScrollPane(table); 
 		
-		jscp.setBounds(10,r,300,200);
+		jscp.setBounds(10,r,400,200);
 		add(jscp);
 		
 		
@@ -153,6 +170,10 @@ public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 	}
 
 	private void savePoints() {
+		
+		ValuePair vp=(ValuePair) chooseFace.getSelectedItem();
+		
+		modifiedLineData.setData(vp.getId());
 		
 		saved=true;
 		dispose();
