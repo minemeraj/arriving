@@ -68,6 +68,17 @@ public class Renderer3D implements AbstractRenderer3D{
 	public static final int CAR_RIGHT_2=9;
 	public static final int CAR_FRONT_2=10;
 	
+	public static final int[] faceIndexes={
+		CAR_BOTTOM,CAR_BACK,CAR_TOP,CAR_LEFT,CAR_RIGHT,CAR_FRONT,
+		CAR_BOTTOM_2,CAR_BACK_2,CAR_TOP_2,CAR_LEFT_2,CAR_RIGHT_2,CAR_FRONT_2
+	};
+	
+	
+	public static final String[] faceDesc={
+		"Bo","Ba","To","Le","Ri","Fr",
+		"Bo2","Ba2","To2","Le2","Ri2","Fr2"
+	};
+	
 
 	boolean isShadowMap=false;
 	boolean isStencilBuffer=false;

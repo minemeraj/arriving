@@ -294,8 +294,10 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		
 		chooseFace=new JComboBox(); 
 		chooseFace.setBounds(200,r,50,20); 
-		for (int i = -1; i <=4 ; i++) {
-			chooseFace.addItem(new ValuePair(""+i,""+i));
+		for (int i =0; i< Renderer3D.faceIndexes.length; i++) {
+			int val=Renderer3D.faceIndexes[i];
+			String desc=Renderer3D.faceDesc[i];
+			chooseFace.addItem(new ValuePair(""+val,""+desc));
 		}
 		chooseFace.addItemListener(this);
 		right.add(chooseFace);

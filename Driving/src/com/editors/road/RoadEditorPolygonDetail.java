@@ -18,6 +18,7 @@ import com.Polygon3D;
 import com.PolygonMesh;
 import com.editors.Editor;
 import com.editors.ValuePair;
+import com.main.Renderer3D;
 
 
 public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
@@ -79,8 +80,10 @@ public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 		
 		chooseFace=new JComboBox(); 
 		chooseFace.setBounds(270,r,50,20);
-		for (int i = -1; i <=4 ; i++) {
-			chooseFace.addItem(new ValuePair(""+i,""+i));
+		for (int i =0; i< Renderer3D.faceIndexes.length; i++) {
+			int val=Renderer3D.faceIndexes[i];
+			String desc=Renderer3D.faceDesc[i];
+			chooseFace.addItem(new ValuePair(""+val,""+desc));
 		}
 		chooseFace.setSelectedIndex(1+Integer.parseInt(ld.getData()));
 		add(chooseFace);
