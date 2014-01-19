@@ -1,11 +1,10 @@
+-----19/01/2014   CarDriving 7.0.11
 
-
-Big change in the LineData format, to prepare for future improvements in texture usage.
+Big changes in the LineData format, to prepare for future improvements in texture usage.
 Now the use of the cubic faces 1->6 for texturing is explicit. In the ObjectEditor-> Polygon detail
 you can change the cubic face of a polygon. Car and objects files are changed.
 
 See README.txt for details about the cubic texture and the new formats.
-
 
 Now the title of the ObjectEditor shows the name of the opened file.
 
