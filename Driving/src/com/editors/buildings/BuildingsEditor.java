@@ -3,16 +3,21 @@ package com.editors.buildings;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.RepaintManager;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
-public class BuildingsEditor extends JFrame implements MenuListener, ActionListener{
+public class BuildingsEditor extends JFrame implements MenuListener,MouseWheelListener, ActionListener, KeyListener{
 	
 	public static int HEIGHT=700;
 	public static int WIDTH=800;
@@ -24,6 +29,10 @@ public class BuildingsEditor extends JFrame implements MenuListener, ActionListe
 	private JMenu jm_file;
 	private JMenuItem jmt_load_file;
 	private JMenuItem jmt_save_file;
+	private JMenu jm_outline;
+	private JMenuItem jmt_add_outline;
+	
+	public boolean redrawAfterMenu=false;
 	
 	
 	public BuildingsEditor(){
@@ -39,7 +48,26 @@ public class BuildingsEditor extends JFrame implements MenuListener, ActionListe
 		
 		buildMenuBar();
 		
+		addKeyListener(this);
+		addMouseWheelListener(this);
+		
 		setVisible(true);
+		
+		RepaintManager.setCurrentManager( 
+				new RepaintManager(){
+
+					public void paintDirtyRegions() {
+
+
+						super.paintDirtyRegions();
+						if(redrawAfterMenu ) {
+							center.draw();
+							redrawAfterMenu=false;						    
+						}
+					}
+
+				}				
+		);
 		
 		initialize();
 	}
@@ -60,6 +88,13 @@ public class BuildingsEditor extends JFrame implements MenuListener, ActionListe
 		jmt_save_file.addActionListener(this);
 		jm_file.add(jmt_save_file);
 		
+		jm_outline=new JMenu("Outline");
+		jm_outline.addMenuListener(this);
+		jmb.add(jm_outline);
+		
+		jmt_add_outline = new JMenuItem("Add outline");
+		jmt_add_outline.addActionListener(this);
+		jm_outline.add(jmt_add_outline);
 		
 		
 		setJMenuBar(jmb);
@@ -88,14 +123,24 @@ public class BuildingsEditor extends JFrame implements MenuListener, ActionListe
 		}else if(obj==jmt_save_file){
 			
 			
+		}else if(obj==jmt_add_outline){
+			
+			addOutline();
 		}
 		
 	}
 	
+	private void addOutline() {
+		
+		OutlinePanel op=new OutlinePanel();
+		
+	}
+
 	public void paint(Graphics arg0) {
 		super.paint(arg0);
 		center.draw();
 	}
+	
 
 	@Override
 	public void menuCanceled(MenuEvent arg0) {
@@ -105,13 +150,57 @@ public class BuildingsEditor extends JFrame implements MenuListener, ActionListe
 
 	@Override
 	public void menuDeselected(MenuEvent arg0) {
-		// TODO Auto-generated method stub
+		redrawAfterMenu=true;
 		
 	}
 
 	@Override
 	public void menuSelected(MenuEvent arg0) {
+		redrawAfterMenu=false;
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		
+		int code=arg0.getKeyCode();
+		
+		
+		if(code==KeyEvent.VK_LEFT)
+			center.translate(+1,0);
+		else if(code==KeyEvent.VK_RIGHT)
+			center.translate(-1,0);
+		else if(code==KeyEvent.VK_UP)
+			center.translate(0,-1);
+		else if(code==KeyEvent.VK_DOWN)
+			center.translate(0,+1);
+		else if(code==KeyEvent.VK_F1)
+			center.zoom(+1);		
+		else if(code==KeyEvent.VK_F2)
+			center.zoom(-1);
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent arg0) {
+		
+		
+		if(arg0.getUnitsToScroll()<0)
+			center.translate(0,-1);
+		else
+			center.translate(0,1);
 		
 	}
 
