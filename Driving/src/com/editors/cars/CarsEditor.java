@@ -1,28 +1,28 @@
-package com.editors.buildings;
+package com.editors.cars;
 
 import java.awt.Graphics;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class BuildingsEditor extends JFrame{
+public class CarsEditor extends JFrame{
 	
 	public static int HEIGHT=700;
 	public static int WIDTH=800;
 	public int RIGHT_BORDER=330;
 	public int BOTTOM_BORDER=100;
 
-	BuildingJPanel center=null;
+	CarsEditorJPanel center=null;
 	
 	
-	public BuildingsEditor(){
+	public CarsEditor(){
 		
 		setTitle("Buildings editor");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
 		setSize(WIDTH+RIGHT_BORDER,HEIGHT+BOTTOM_BORDER);
 		
-		center=new BuildingJPanel();
+		center=new CarsEditorJPanel();
 		center.setBounds(0,0,WIDTH,HEIGHT);
 		add(center);
 		
@@ -38,7 +38,7 @@ public class BuildingsEditor extends JFrame{
 
 	public static void main(String[] args) {
 		
-		BuildingsEditor be=new BuildingsEditor();
+		CarsEditor be=new CarsEditor();
 	}
 	
 	

@@ -1,4 +1,4 @@
-package com.editors.buildings;
+package com.editors.cars;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
-public class BuildingJPanel extends JPanel{
+public class CarsEditorJPanel extends JPanel{
 
 	private static final Color BACKGROUND = Color.BLACK;
 	private Graphics2D graph;

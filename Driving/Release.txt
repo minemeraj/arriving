@@ -1,3 +1,6 @@
+
+Adding custom editors  to build objects and textures in a more powerful way.
+
 -----19/01/2014   CarDriving 7.0.11
 
 Big changes in the LineData format, to prepare for future improvements in texture usage.
