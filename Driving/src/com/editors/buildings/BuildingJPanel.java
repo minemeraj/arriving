@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import com.editors.buildings.data.BuildingCell;
+
 public class BuildingJPanel extends JPanel{
 
 	private static final Color BACKGROUND = Color.BLACK;
@@ -32,7 +34,7 @@ public class BuildingJPanel extends JPanel{
 	}
 	
 
-	public void draw() {
+	public void draw(BuildingCell centerCell) {
 		
 		if(graph==null)
 			return;
@@ -45,6 +47,20 @@ public class BuildingJPanel extends JPanel{
 		graph.drawLine((int)calcX(0,0),(int)calcY(0,0),(int)calcX(100,0),(int)calcY(100,0));
 		graph.drawLine((int)calcX(0,0),(int)calcY(0,0),(int)calcX(0,100),(int)calcY(0,100));
 		
+		if(centerCell==null)
+			return;
+		
+		double x0=centerCell.getNw_x();
+		double y0=centerCell.getNw_y();		
+		double xside=centerCell.getX_side();
+		double yside=centerCell.getY_side();
+		
+		graph.setColor(Color.RED);
+		
+		graph.drawLine((int)calcX(x0,y0),(int)calcY(x0,y0),(int)calcX(x0+xside,y0),(int)calcY(x0+xside,y0));
+		graph.drawLine((int)calcX(x0+xside,y0),(int)calcY(x0+xside,y0),(int)calcX(x0+xside,y0+yside),(int)calcY(x0+xside,y0+yside));
+		graph.drawLine((int)calcX(x0+xside,y0+yside),(int)calcY(x0+xside,y0+yside),(int)calcX(x0,y0+yside),(int)calcY(x0,y0+yside));		
+		graph.drawLine((int)calcX(x0,y0+yside),(int)calcY(x0,y0+yside),(int)calcX(x0,y0),(int)calcY(x0,y0));
 	}
 	
 	double calcX(double x,double y){
@@ -67,7 +83,7 @@ public class BuildingJPanel extends JPanel{
 		else
 			dx=dy=dx*2.0;
 		
-		draw();
+		
 	}
 	
 	public void translate(int i, int j) {
@@ -76,7 +92,7 @@ public class BuildingJPanel extends JPanel{
 		x0+=i*deltax;
 		y0+=j*deltay;
 		
-		draw();
+		
 	}
 
 }

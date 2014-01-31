@@ -7,15 +7,23 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.PrintWriter;
 
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.RepaintManager;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
+
+import com.editors.Editor;
+import com.editors.buildings.data.BuildingCell;
 
 public class BuildingsEditor extends JFrame implements MenuListener,MouseWheelListener, ActionListener, KeyListener{
 	
@@ -29,10 +37,15 @@ public class BuildingsEditor extends JFrame implements MenuListener,MouseWheelLi
 	private JMenu jm_file;
 	private JMenuItem jmt_load_file;
 	private JMenuItem jmt_save_file;
-	private JMenu jm_outline;
-	private JMenuItem jmt_add_outline;
+	private JMenu jm_cell;
+	private JMenuItem jmt_add_cell;
 	
 	public boolean redrawAfterMenu=false;
+	
+	public BuildingCell centerCell=null;
+	
+	JFileChooser fc = new JFileChooser();
+	File currentDirectory=new File("lib");
 	
 	
 	public BuildingsEditor(){
@@ -61,7 +74,7 @@ public class BuildingsEditor extends JFrame implements MenuListener,MouseWheelLi
 
 						super.paintDirtyRegions();
 						if(redrawAfterMenu ) {
-							center.draw();
+							center.draw(centerCell);
 							redrawAfterMenu=false;						    
 						}
 					}
@@ -88,13 +101,13 @@ public class BuildingsEditor extends JFrame implements MenuListener,MouseWheelLi
 		jmt_save_file.addActionListener(this);
 		jm_file.add(jmt_save_file);
 		
-		jm_outline=new JMenu("Outline");
-		jm_outline.addMenuListener(this);
-		jmb.add(jm_outline);
+		jm_cell=new JMenu("Cell");
+		jm_cell.addMenuListener(this);
+		jmb.add(jm_cell);
 		
-		jmt_add_outline = new JMenuItem("Add outline");
-		jmt_add_outline.addActionListener(this);
-		jm_outline.add(jmt_add_outline);
+		jmt_add_cell = new JMenuItem("Add cell");
+		jmt_add_cell.addActionListener(this);
+		jm_cell.add(jmt_add_cell);
 		
 		
 		setJMenuBar(jmb);
@@ -120,25 +133,46 @@ public class BuildingsEditor extends JFrame implements MenuListener,MouseWheelLi
 		
 		if(obj==jmt_load_file){
 			
+			loadData();
+			
+			
+			
 		}else if(obj==jmt_save_file){
 			
+			saveData();
 			
-		}else if(obj==jmt_add_outline){
+		}else if(obj==jmt_add_cell){
 			
-			addOutline();
+			addCell();
 		}
 		
 	}
 	
-	private void addOutline() {
+
+
+	private void addCell() {
 		
-		OutlinePanel op=new OutlinePanel();
+		CellPanel op=new CellPanel();
+		
+		BuildingCell newCell = op.getNewCell();
+		if(newCell!=null)
+		{
+			
+			centerCell=newCell;
+		}
+		draw();
+		
+		
+	}
+
+	private void draw() {
+		center.draw(centerCell);
 		
 	}
 
 	public void paint(Graphics arg0) {
 		super.paint(arg0);
-		center.draw();
+		draw();
 	}
 	
 
@@ -179,6 +213,8 @@ public class BuildingsEditor extends JFrame implements MenuListener,MouseWheelLi
 		else if(code==KeyEvent.VK_F2)
 			center.zoom(-1);
 		
+		draw();
+		
 	}
 
 	@Override
@@ -201,6 +237,99 @@ public class BuildingsEditor extends JFrame implements MenuListener,MouseWheelLi
 			center.translate(0,-1);
 		else
 			center.translate(0,1);
+		
+		draw();
+		
+	}
+	
+	private void loadData() {
+
+		fc.setDialogType(JFileChooser.SAVE_DIALOG);
+		fc.setDialogTitle("Load Track");
+		if(currentDirectory!=null)
+			fc.setCurrentDirectory(currentDirectory);
+		
+		int returnVal = fc.showOpenDialog(this);
+		
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File file = fc.getSelectedFile();
+			loadData(file);
+			draw();	
+			currentDirectory=new File(file.getParent());
+		} 
+		
+	}
+
+	private void loadData(File file) {
+		
+		BufferedReader br;
+		try {
+			br = new BufferedReader(new FileReader(file));
+
+			String str=null;
+			
+			if((str=br.readLine())!=null){
+				
+				buildCenterCell(str);
+			}
+			br.close();
+			
+		} catch (Exception e) { 
+		
+			e.printStackTrace();
+		}
+		
+	}
+
+	private void buildCenterCell(String str) {
+		
+		String[] vals = str.split(",");
+		
+		double nw_x =Double.parseDouble(vals[0]);
+		double nw_y = Double.parseDouble(vals[1]);
+		double x_side =Double.parseDouble(vals[2]);
+		double y_side = Double.parseDouble(vals[3]);
+		
+		centerCell=new BuildingCell(nw_x,nw_y,x_side,y_side);
+		
+		
+		
+
+	}
+
+	private void saveData() {
+		fc.setDialogType(JFileChooser.SAVE_DIALOG);
+		fc.setDialogTitle("Save data");
+		if(currentDirectory!=null)
+			fc.setCurrentDirectory(currentDirectory);
+		int returnVal = fc.showOpenDialog(this);
+		
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File file = fc.getSelectedFile();
+			saveData(file);
+			currentDirectory=new File(file.getParent());
+		} 
+		
+	}
+
+	private void saveData(File file) {
+		
+		
+		if(centerCell==null)
+			return;
+		
+		PrintWriter pw;
+		try {
+			pw = new PrintWriter(file);			
+
+			pw.println(centerCell.toString());
+			
+			pw.close();
+						
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 
