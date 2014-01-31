@@ -42,27 +42,49 @@ public class BuildingJPanel extends JPanel{
 		graph.setColor(BACKGROUND);
 		graph.fillRect(0,0,WIDTH,HEIGHT);
 		
-		graph.setColor(Color.WHITE);
 		
+		graph.setColor(Color.GREEN);
 		graph.drawLine((int)calcX(0,0),(int)calcY(0,0),(int)calcX(100,0),(int)calcY(100,0));
+		graph.setColor(Color.YELLOW);
 		graph.drawLine((int)calcX(0,0),(int)calcY(0,0),(int)calcX(0,100),(int)calcY(0,100));
 		
 		if(centerCell==null)
 			return;
 		
-		double x0=centerCell.getNw_x();
-		double y0=centerCell.getNw_y();		
-		double xside=centerCell.getX_side();
-		double yside=centerCell.getY_side();
+		drawCell(centerCell);
+			
+	}
+	
+	
+	private void drawCell(BuildingCell cell) {
+	
+		double x0=cell.getNw_x();
+		double y0=cell.getNw_y();		
+		double xside=cell.getX_side();
+		double yside=cell.getY_side();
 		
-		graph.setColor(Color.RED);
-		
+		graph.setColor(Color.WHITE);
+			
 		graph.drawLine((int)calcX(x0,y0),(int)calcY(x0,y0),(int)calcX(x0+xside,y0),(int)calcY(x0+xside,y0));
 		graph.drawLine((int)calcX(x0+xside,y0),(int)calcY(x0+xside,y0),(int)calcX(x0+xside,y0+yside),(int)calcY(x0+xside,y0+yside));
 		graph.drawLine((int)calcX(x0+xside,y0+yside),(int)calcY(x0+xside,y0+yside),(int)calcX(x0,y0+yside),(int)calcY(x0,y0+yside));		
 		graph.drawLine((int)calcX(x0,y0+yside),(int)calcY(x0,y0+yside),(int)calcX(x0,y0),(int)calcY(x0,y0));
+		
+		if(cell.getNorthCell()!=null)
+			drawCell(cell.getNorthCell());
+		
+		if(cell.getSouthCell()!=null)
+			drawCell(cell.getSouthCell());
+		
+		if(cell.getWesthCell()!=null)
+			drawCell(cell.getWesthCell());
+		
+		if(cell.getEastCell()!=null)
+			drawCell(cell.getEastCell());
+		
 	}
-	
+
+
 	double calcX(double x,double y){
 		
 		return x0+x/dx;

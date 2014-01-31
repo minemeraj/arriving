@@ -9,10 +9,17 @@ public class BuildingCell {
 	double x_side=0;
 	double y_side=0;
 	
+	public static int CENTER=0;
+	public static int NORTH=1;
+	public static int SOUTH=2;
+	public static int WEST=3;
+	public static int EAST=4;
+	
 	BuildingCell northCell=null;
 	BuildingCell southCell=null;
 	BuildingCell eastCell=null;
 	BuildingCell westhCell=null;
+
 	
 	public BuildingCell(double nw_x, double nw_y, double x_side, double y_side) {
 		super();
@@ -92,5 +99,32 @@ public class BuildingCell {
 	
 		return nw_x+","+nw_y+","+x_side+","+y_side;
 	}
+
+	public void addCell(int position) {
+		
+		if(position==NORTH && getNorthCell()==null){
+			
+			BuildingCell nCell=new BuildingCell(nw_x,nw_y+y_side,x_side,y_side);
+			setNorthCell(nCell);
+			
+		}else if(position==SOUTH && getSouthCell()==null){
+			
+			BuildingCell nCell=new BuildingCell(nw_x,nw_y-y_side,x_side,y_side);
+			setSouthCell(nCell);
+			
+		}else if(position==EAST && getEastCell()==null){
+			
+			BuildingCell nCell=new BuildingCell(nw_x+x_side,nw_y,x_side,y_side);
+			setEastCell(nCell);
+			
+		}else if(position==WEST && getWesthCell()==null){
+			
+			BuildingCell nCell=new BuildingCell(nw_x-x_side,nw_y,x_side,y_side);
+			setWesthCell(nCell);
+			
+		}
+		
+	}
+
 
 }

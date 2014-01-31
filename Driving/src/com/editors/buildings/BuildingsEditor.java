@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.RepaintManager;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
@@ -38,14 +39,20 @@ public class BuildingsEditor extends JFrame implements MenuListener,MouseWheelLi
 	private JMenuItem jmt_load_file;
 	private JMenuItem jmt_save_file;
 	private JMenu jm_cell;
-	private JMenuItem jmt_add_cell;
+	private JMenuItem jmt_add_center_cell;
+	private JMenuItem jmt_add_north_cell;
+	private JMenuItem jmt_add_south_cell;
+	private JMenuItem jmt_add_west_cell;
+	private JMenuItem jmt_add_east_cell;
 	
 	public boolean redrawAfterMenu=false;
 	
-	public BuildingCell centerCell=null;
+	public BuildingCell centerCell=null;	
+	public BuildingCell selectedCell=null;
 	
 	JFileChooser fc = new JFileChooser();
 	File currentDirectory=new File("lib");
+
 	
 	
 	public BuildingsEditor(){
@@ -105,10 +112,27 @@ public class BuildingsEditor extends JFrame implements MenuListener,MouseWheelLi
 		jm_cell.addMenuListener(this);
 		jmb.add(jm_cell);
 		
-		jmt_add_cell = new JMenuItem("Add cell");
-		jmt_add_cell.addActionListener(this);
-		jm_cell.add(jmt_add_cell);
+		jmt_add_center_cell = new JMenuItem("Add center cell");
+		jmt_add_center_cell.addActionListener(this);
+		jm_cell.add(jmt_add_center_cell);
 		
+		jm_cell.addSeparator();
+		
+		jmt_add_north_cell = new JMenuItem("Add north cell");
+		jmt_add_north_cell.addActionListener(this);
+		jm_cell.add(jmt_add_north_cell);
+		
+		jmt_add_south_cell = new JMenuItem("Add south cell");
+		jmt_add_south_cell.addActionListener(this);
+		jm_cell.add(jmt_add_south_cell);
+		
+		jmt_add_west_cell = new JMenuItem("Add west cell");
+		jmt_add_west_cell.addActionListener(this);
+		jm_cell.add(jmt_add_west_cell);
+		
+		jmt_add_east_cell = new JMenuItem("Add east cell");
+		jmt_add_east_cell.addActionListener(this);
+		jm_cell.add(jmt_add_east_cell);
 		
 		setJMenuBar(jmb);
 		
@@ -141,28 +165,65 @@ public class BuildingsEditor extends JFrame implements MenuListener,MouseWheelLi
 			
 			saveData();
 			
-		}else if(obj==jmt_add_cell){
+		}else if(obj==jmt_add_center_cell){
 			
-			addCell();
+			addCell(BuildingCell.CENTER);
 		}
-		
+		else if(obj==jmt_add_north_cell){
+			
+			addCell(BuildingCell.NORTH);
+		}
+		else if(obj==jmt_add_south_cell){
+			
+			addCell(BuildingCell.SOUTH);
+		}
+		else if(obj==jmt_add_east_cell){
+			
+			addCell(BuildingCell.EAST);
+		}
+		else if(obj==jmt_add_west_cell){
+			
+			addCell(BuildingCell.WEST);
+		}
 	}
 	
 
 
-	private void addCell() {
+	private void addCell(int position) {
+
 		
-		CellPanel op=new CellPanel();
-		
-		BuildingCell newCell = op.getNewCell();
-		if(newCell!=null)
-		{
-			
-			centerCell=newCell;
+		if(position!=BuildingCell.CENTER && centerCell==null){
+			JOptionPane.showMessageDialog(this,"First add a center!","Error",JOptionPane.ERROR_MESSAGE);
+			return;
 		}
+		
+
+		if(position!=BuildingCell.CENTER && selectedCell==null){
+
+			JOptionPane.showMessageDialog(this,"Select a cell to add!","Error",JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+
+		if(position==BuildingCell.CENTER){
+			
+			CellPanel op=new CellPanel();
+			
+			BuildingCell newCell = op.getNewCell();
+			if(newCell!=null )
+			{
+				centerCell=newCell;
+				jmt_add_center_cell.setEnabled(false);
+				selectedCell=centerCell;
+			}
+
+		}else {
+			
+			centerCell.addCell(position);
+		}
+		
 		draw();
-		
-		
+
 	}
 
 	private void draw() {
@@ -291,8 +352,8 @@ public class BuildingsEditor extends JFrame implements MenuListener,MouseWheelLi
 		double y_side = Double.parseDouble(vals[3]);
 		
 		centerCell=new BuildingCell(nw_x,nw_y,x_side,y_side);
-		
-		
+		jmt_add_center_cell.setEnabled(false);
+		selectedCell=centerCell;
 		
 
 	}
