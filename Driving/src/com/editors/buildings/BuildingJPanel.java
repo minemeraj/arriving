@@ -99,8 +99,8 @@ public class BuildingJPanel extends JPanel{
 		if(cell.getSouthCell()!=null)
 			drawCell(cell.getSouthCell());
 		
-		if(cell.getWesthCell()!=null)
-			drawCell(cell.getWesthCell());
+		if(cell.getWestCell()!=null)
+			drawCell(cell.getWestCell());
 		
 		if(cell.getEastCell()!=null)
 			drawCell(cell.getEastCell());

@@ -18,7 +18,7 @@ public class BuildingCell {
 	BuildingCell northCell=null;
 	BuildingCell southCell=null;
 	BuildingCell eastCell=null;
-	BuildingCell westhCell=null;
+	BuildingCell westCell=null;
 	
 	   
     boolean selected=false;
@@ -88,12 +88,12 @@ public class BuildingCell {
 		this.eastCell = eastCell;
 	}
 
-	public BuildingCell getWesthCell() {
-		return westhCell;
+	public BuildingCell getWestCell() {
+		return westCell;
 	}
 
-	public void setWesthCell(BuildingCell westhCell) {
-		this.westhCell = westhCell;
+	public void setWestCell(BuildingCell westCell) {
+		this.westCell = westCell;
 	}
 
 
@@ -120,10 +120,10 @@ public class BuildingCell {
 			BuildingCell nCell=new BuildingCell(nw_x+x_side,nw_y,x_side,y_side);
 			setEastCell(nCell);
 			
-		}else if(position==WEST && getWesthCell()==null){
+		}else if(position==WEST && getWestCell()==null){
 			
 			BuildingCell nCell=new BuildingCell(nw_x-x_side,nw_y,x_side,y_side);
-			setWesthCell(nCell);
+			setWestCell(nCell);
 			
 		}
 		
