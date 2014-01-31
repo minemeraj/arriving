@@ -48,7 +48,6 @@ public class BuildingsEditor extends JFrame implements MenuListener,MouseWheelLi
 	public boolean redrawAfterMenu=false;
 	
 	public BuildingCell centerCell=null;	
-	public BuildingCell selectedCell=null;
 	
 	JFileChooser fc = new JFileChooser();
 	File currentDirectory=new File("lib");
@@ -198,7 +197,7 @@ public class BuildingsEditor extends JFrame implements MenuListener,MouseWheelLi
 		}
 		
 
-		if(position!=BuildingCell.CENTER && selectedCell==null){
+		if(position!=BuildingCell.CENTER && !centerCell.isSelected()){
 
 			JOptionPane.showMessageDialog(this,"Select a cell to add!","Error",JOptionPane.ERROR_MESSAGE);
 			return;
@@ -214,7 +213,7 @@ public class BuildingsEditor extends JFrame implements MenuListener,MouseWheelLi
 			{
 				centerCell=newCell;
 				jmt_add_center_cell.setEnabled(false);
-				selectedCell=centerCell;
+				centerCell.setSelected(true);
 			}
 
 		}else {
@@ -353,7 +352,7 @@ public class BuildingsEditor extends JFrame implements MenuListener,MouseWheelLi
 		
 		centerCell=new BuildingCell(nw_x,nw_y,x_side,y_side);
 		jmt_add_center_cell.setEnabled(false);
-		selectedCell=centerCell;
+		centerCell.setSelected(true);
 		
 
 	}

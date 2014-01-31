@@ -24,6 +24,9 @@ public class BuildingJPanel extends JPanel{
 	
     int WIDTH=0;
     int HEIGHT=0;
+    
+    public BuildingCell selectedCell=null;
+ 
 
 	public void initialize() {
 		
@@ -35,6 +38,8 @@ public class BuildingJPanel extends JPanel{
 	
 
 	public void draw(BuildingCell centerCell) {
+		
+		selectedCell=null;
 		
 		if(graph==null)
 			return;
@@ -51,20 +56,37 @@ public class BuildingJPanel extends JPanel{
 		if(centerCell==null)
 			return;
 		
+		graph.setColor(Color.WHITE);
 		drawCell(centerCell);
+		
+		if(selectedCell!=null){
+			
+			graph.setColor(Color.RED);
+			
+			double x0=selectedCell.getNw_x();
+			double y0=selectedCell.getNw_y();		
+			double xside=selectedCell.getX_side();
+			double yside=selectedCell.getY_side();
+
+			graph.drawLine((int)calcX(x0,y0),(int)calcY(x0,y0),(int)calcX(x0+xside,y0),(int)calcY(x0+xside,y0));
+			graph.drawLine((int)calcX(x0+xside,y0),(int)calcY(x0+xside,y0),(int)calcX(x0+xside,y0+yside),(int)calcY(x0+xside,y0+yside));
+			graph.drawLine((int)calcX(x0+xside,y0+yside),(int)calcY(x0+xside,y0+yside),(int)calcX(x0,y0+yside),(int)calcY(x0,y0+yside));		
+			graph.drawLine((int)calcX(x0,y0+yside),(int)calcY(x0,y0+yside),(int)calcX(x0,y0),(int)calcY(x0,y0));
+		}
 			
 	}
 	
 	
 	private void drawCell(BuildingCell cell) {
+		
+		if(cell.isSelected())
+			selectedCell=cell;
 	
 		double x0=cell.getNw_x();
 		double y0=cell.getNw_y();		
 		double xside=cell.getX_side();
 		double yside=cell.getY_side();
-		
-		graph.setColor(Color.WHITE);
-			
+
 		graph.drawLine((int)calcX(x0,y0),(int)calcY(x0,y0),(int)calcX(x0+xside,y0),(int)calcY(x0+xside,y0));
 		graph.drawLine((int)calcX(x0+xside,y0),(int)calcY(x0+xside,y0),(int)calcX(x0+xside,y0+yside),(int)calcY(x0+xside,y0+yside));
 		graph.drawLine((int)calcX(x0+xside,y0+yside),(int)calcY(x0+xside,y0+yside),(int)calcX(x0,y0+yside),(int)calcY(x0,y0+yside));		
@@ -116,5 +138,6 @@ public class BuildingJPanel extends JPanel{
 		
 		
 	}
+
 
 }

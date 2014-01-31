@@ -19,6 +19,9 @@ public class BuildingCell {
 	BuildingCell southCell=null;
 	BuildingCell eastCell=null;
 	BuildingCell westhCell=null;
+	
+	   
+    boolean selected=false;
 
 	
 	public BuildingCell(double nw_x, double nw_y, double x_side, double y_side) {
@@ -124,6 +127,14 @@ public class BuildingCell {
 			
 		}
 		
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 
 
