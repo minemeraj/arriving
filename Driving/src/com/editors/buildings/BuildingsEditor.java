@@ -65,6 +65,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	private DoubleTextField y_side;
 	private JButton emptyCell; 
 	private JButton fillCell;
+	private JMenuItem jmt_expand_grid;
 
 	
 	public BuildingsEditor(){
@@ -233,6 +234,10 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		jmt_add_grid = new JMenuItem("Add grid");
 		jmt_add_grid.addActionListener(this);
 		jm_cell.add(jmt_add_grid);
+		
+		jmt_expand_grid = new JMenuItem("Expand grid");
+		jmt_expand_grid.addActionListener(this);
+		jm_cell.add(jmt_expand_grid);
 
 		
 		setJMenuBar(jmb);
@@ -269,7 +274,11 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		}else if(obj==jmt_add_grid){
 			
 			addGrid();
-		}		
+		}	
+		else if(obj==jmt_expand_grid){
+			
+			expandGrid();
+		}	
 		else if(obj==jmt_new){
 			
 			grid=null;
@@ -287,6 +296,8 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		}
 	}
 	
+
+
 
 	private void fillSelected(boolean b) {
 		
@@ -307,7 +318,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	private void addGrid() {
 
 
-		GridPanel op=new GridPanel();
+		GridPanel op=new GridPanel(null);
 
 		BuildingGrid newGrid = op.getNewGrid();
 		if(newGrid!=null)
@@ -321,7 +332,18 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 
 	}
 
+	private void expandGrid() {
+		
+		GridPanel op=new GridPanel(grid);
 
+		BuildingGrid newGrid = op.getNewGrid();
+		if(newGrid!=null)
+		{
+			grid=newGrid;
+
+		}
+		draw();
+	}
 	
 
 	private void draw() {
@@ -425,7 +447,6 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		try {
 			br = new BufferedReader(new FileReader(file));
 
-			Hashtable rects=new Hashtable();
 			
 			String str=null;
 			

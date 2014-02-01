@@ -33,7 +33,14 @@ public class GridPanel extends JDialog implements ActionListener {
 	
 	BuildingGrid newGrid=null;
 	
-	public GridPanel(){
+	boolean isExpand=false;
+	
+	public GridPanel(BuildingGrid grid){
+		
+		if(grid!=null)
+			isExpand=true;
+		
+		newGrid=grid;
 		
 		setTitle("Cell");
 		setLocation(50,50);
@@ -107,7 +114,7 @@ public class GridPanel extends JDialog implements ActionListener {
 		
 		r+=30;
 		
-        generate=new JButton("add grid");
+        generate=new JButton(isExpand?"expand":"add grid");
         generate.setBounds(10,r,100,20);
         generate.addActionListener(this);
         center.add(generate);
@@ -116,18 +123,32 @@ public class GridPanel extends JDialog implements ActionListener {
         delete.addActionListener(this);
         center.add(delete);
 				
-		initData();
+		initData(newGrid);
         
 		setVisible(true);
 	}
 
-	private void initData() {
-		nw_x.setText(100);
-		nw_y.setText(100);
-		x_side.setText(100);
-		y_side.setText(200);
-		xnumber.setText(5);
-		ynumber.setText(4);
+	private void initData(BuildingGrid bg) {
+		
+		if(bg!=null){
+			
+			nw_x.setText(bg.getNw_x());
+			nw_y.setText(bg.getNw_y());
+			x_side.setText(bg.getX_side());
+			y_side.setText(bg.getY_side());
+			xnumber.setText(bg.getXnum());
+			ynumber.setText(bg.getYnum());
+			
+		}else{
+		
+			nw_x.setText(100);
+			nw_y.setText(100);
+			x_side.setText(100);
+			y_side.setText(200);
+			xnumber.setText(5);
+			ynumber.setText(4);
+		
+		}
 	}
 
 	@Override
@@ -136,17 +157,49 @@ public class GridPanel extends JDialog implements ActionListener {
 
 		if(o==generate){
 			
-			double nwx=nw_x.getvalue();
-			double nwy=nw_y.getvalue();			
-			double xside=x_side.getvalue();
-			double yside=y_side.getvalue();
-		    int xnum=xnumber.getvalue();
-		    int ynum=ynumber.getvalue();
+			if(isExpand){
+				
+				double nwx=nw_x.getvalue();
+				double nwy=nw_y.getvalue();			
+				double xside=x_side.getvalue();
+				double yside=y_side.getvalue();
+			    int xnum=xnumber.getvalue();
+			    int ynum=ynumber.getvalue();
+				
+			    BuildingGrid expGrid = new BuildingGrid(nwx,nwy,xside,yside,xnum,ynum);
+				
+				
+				for (int i = 0; i < xnum; i++) {
+					
+					for (int j = 0; j <ynum; j++) {
+						
+						if(i<newGrid.getXnum() && j<newGrid.getYnum())
+							expGrid.cells[i][j].setFilled(newGrid.cells[i][j].isFilled());
+					}
+					
+				}
+				newGrid=expGrid;
+				
+				dispose();	
+				
+				
+			}else{
+				
+				double nwx=nw_x.getvalue();
+				double nwy=nw_y.getvalue();			
+				double xside=x_side.getvalue();
+				double yside=y_side.getvalue();
+			    int xnum=xnumber.getvalue();
+			    int ynum=ynumber.getvalue();
+				
+				
+				
+				
+				dispose();	
+				
+			}
 			
-			newGrid=new BuildingGrid(nwx,nwy,xside,yside,xnum,ynum);
-			
-			
-			dispose();	
+		
 		}
 		else if(o==delete){
 

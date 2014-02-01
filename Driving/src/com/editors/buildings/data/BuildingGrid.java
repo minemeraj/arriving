@@ -13,6 +13,8 @@ public class BuildingGrid {
 	
 	public BuildingCell[][] cells=null;
 	
+	public BuildingGrid(){}
+	
 	public BuildingGrid(double nw_x, double nw_y, double x_side, double y_side,
 			int xnum, int ynum) {
 		super();
@@ -90,6 +92,14 @@ public class BuildingGrid {
 		BuildingGrid grid=new BuildingGrid(nw_x,nw_y,x_side,y_side,xnum,ynum);
 	
 		return grid;
+	}
+
+	public BuildingCell[][] getCells() {
+		return cells;
+	}
+
+	public void setCells(BuildingCell[][] cells) {
+		this.cells = cells;
 	}
 
 }
