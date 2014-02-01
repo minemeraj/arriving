@@ -431,27 +431,28 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			
 			while((str=br.readLine())!=null){
 				
-				int indx=str.indexOf("=");
-				String tag=str.substring(0,indx);
-				String value=str.substring(indx+1);
+				int indx=str.indexOf("G=");
+				if(indx>=0){
+					
+					String value=str.substring(indx+2);
+					grid=BuildingGrid.buildGrid(value);
+					
+				}else{
+					
+					String[] vals = str.split(",");
+					int i=Integer.parseInt(vals[0]);
+					int j=Integer.parseInt(vals[1]);
+					boolean filled=Boolean.parseBoolean(vals[2]);
+					
+					grid.cells[i][j].setFilled(filled);
+				}
 				
-				//rects.put(tag,buildCell(value));
 				
 				
 			}
 			br.close();
 			
-			
-			/*String tag=BuildingCell.CENTER_TAG;
-			centerCell=(BuildingCell) rects.get(tag);
-			if(centerCell==null)
-				return;
-			
-			jmt_add_grid.setEnabled(false);
-			centerCell.setSelected(true);
-			setRightData(centerCell);
-			
-			buildTree(rects,tag,centerCell);*/
+
 			
 		} catch (Exception e) { 
 		
@@ -489,8 +490,19 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			pw = new PrintWriter(file);			
 
 			
-			/*String tag=BuildingCell.CENTER_TAG;
-			saveCell(centerCell,tag,pw);*/
+			
+			pw.println("G="+grid.toString());
+			
+			for (int i = 0; i < grid.getXnum(); i++) {
+				
+				for (int j = 0; j < grid.getYnum(); j++) {
+					BuildingCell bc=grid.cells[i][j];				
+					pw.println(bc.toString());
+						
+				}
+				
+			}
+			
 			
 			pw.close();
 						

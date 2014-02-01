@@ -145,15 +145,6 @@ public class GridPanel extends JDialog implements ActionListener {
 			
 			newGrid=new BuildingGrid(nwx,nwy,xside,yside,xnum,ynum);
 			
-			newGrid.cells=new BuildingCell[xnum][ynum];
-			
-			for (int i = 0; i < newGrid.getXnum(); i++) {
-				
-				for (int j = 0; j <newGrid.getYnum(); j++) {
-					newGrid.cells[i][j]=new BuildingCell(nwx+(i-1)*xside,nwy+(j-1)*yside,xside,yside,i,j);
-				}
-				
-			}
 			
 			dispose();	
 		}

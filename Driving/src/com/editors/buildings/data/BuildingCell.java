@@ -66,7 +66,7 @@ public class BuildingCell {
 	
 	public String toString() {
 	
-		return nw_x+","+nw_y+","+x_side+","+y_side;
+		return i+","+j+","+isFilled();
 	}
 
 	public boolean isSelected() {

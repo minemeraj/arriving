@@ -22,6 +22,16 @@ public class BuildingGrid {
 		this.y_side = y_side;
 		this.xnum = xnum;
 		this.ynum = ynum;
+		
+		cells=new BuildingCell[xnum][ynum];
+		
+		for (int i = 0; i < xnum; i++) {
+			
+			for (int j = 0; j <ynum; j++) {
+				cells[i][j]=new BuildingCell(nw_x+(i-1)*x_side,nw_y+(j-1)*y_side,x_side,y_side,i,j);
+			}
+			
+		}
 	}
 	
 	public double getNw_x() {
@@ -59,6 +69,27 @@ public class BuildingGrid {
 	}
 	public void setYnum(int ynum) {
 		this.ynum = ynum;
+	}
+
+	public String toString() {
+		
+		return nw_x+","+nw_y+","+x_side+","+y_side+","+xnum+","+ynum;
+	}
+	
+	public static BuildingGrid buildGrid(String str) {
+		
+		String[] vals = str.split(",");
+		
+		double nw_x =Double.parseDouble(vals[0]);
+		double nw_y = Double.parseDouble(vals[1]);
+		double x_side =Double.parseDouble(vals[2]);
+		double y_side = Double.parseDouble(vals[3]);
+		int xnum = Integer.parseInt(vals[4]);
+		int ynum =  Integer.parseInt(vals[5]);
+		
+		BuildingGrid grid=new BuildingGrid(nw_x,nw_y,x_side,y_side,xnum,ynum);
+	
+		return grid;
 	}
 
 }
