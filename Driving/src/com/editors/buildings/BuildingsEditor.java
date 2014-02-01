@@ -1,10 +1,14 @@
 package com.editors.buildings;
 
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.BufferedReader;
@@ -26,7 +30,7 @@ import javax.swing.event.MenuListener;
 import com.editors.Editor;
 import com.editors.buildings.data.BuildingCell;
 
-public class BuildingsEditor extends JFrame implements MenuListener,MouseWheelListener, ActionListener, KeyListener{
+public class BuildingsEditor extends JFrame implements MenuListener, MouseListener, MouseWheelListener, ActionListener, KeyListener{
 	
 	public static int HEIGHT=700;
 	public static int WIDTH=800;
@@ -64,6 +68,7 @@ public class BuildingsEditor extends JFrame implements MenuListener,MouseWheelLi
 		center=new BuildingJPanel();
 		center.setBounds(0,0,WIDTH,HEIGHT);
 		add(center);
+		center.addMouseListener(this);
 		
 		buildMenuBar();
 		
@@ -390,6 +395,69 @@ public class BuildingsEditor extends JFrame implements MenuListener,MouseWheelLi
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		
+		Point p=e.getPoint();
+		
+		
+		if(centerCell!=null){
+			
+			Point pt=new Point((int)center.invertX(p.x,p.y),(int)center.invertY(p.x,p.y));
+			clickCell(centerCell,pt);
+			
+			draw();
+		}
+		
+	}
+
+	private void clickCell(BuildingCell cell, Point p) {
+
+		
+		if(cell.contains(p))
+			cell.setSelected(true);
+		else
+			cell.setSelected(false);
+
+		
+		if(cell.getNorthCell()!=null)
+			clickCell(cell.getNorthCell(),p);
+		
+		if(cell.getSouthCell()!=null)
+			clickCell(cell.getSouthCell(),p);
+		
+		if(cell.getWestCell()!=null)
+			clickCell(cell.getWestCell(),p);
+		
+		if(cell.getEastCell()!=null)
+			clickCell(cell.getEastCell(),p);
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 

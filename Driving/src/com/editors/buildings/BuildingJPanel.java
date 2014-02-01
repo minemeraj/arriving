@@ -108,15 +108,27 @@ public class BuildingJPanel extends JPanel{
 	}
 
 
-	double calcX(double x,double y){
+	public double calcX(double x,double y){
 		
 		return x0+x/dx;
 		
 	}
 	
-	double calcY(double x,double y){
+	public double calcY(double x,double y){
 		
 		return HEIGHT-y0-y/dy;
+		
+	}
+	
+	public double invertX(double x,double y){
+		
+		return (-x0+x)*dx;
+		
+	}
+	
+	public double invertY(double x,double y){
+		
+		return (-y+HEIGHT-y0)*dy;
 		
 	}
 	

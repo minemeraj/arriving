@@ -1,5 +1,8 @@
 package com.editors.buildings.data;
 
+import java.awt.Point;
+import java.awt.Rectangle;
+
 import com.editors.DoubleTextField;
 
 public class BuildingCell {
@@ -135,6 +138,18 @@ public class BuildingCell {
 
 	public void setSelected(boolean selected) {
 		this.selected = selected;
+	}
+
+	public boolean contains(Point pt) {
+	
+
+		Rectangle rect=new Rectangle((int)getNw_x(),(int)getNw_y(),(int)getX_side(),(int)getY_side());
+		
+		//System.out.println("["+pt.x+" "+pt.y+"]"+rect.x+" "+rect.y+" "+rect.width+" "+rect.height+"="+rect.contains(pt));
+
+		
+		
+		return rect.contains(pt);
 	}
 
 
