@@ -192,7 +192,7 @@ public class GridPanel extends JDialog implements ActionListener {
 			    int xnum=xnumber.getvalue();
 			    int ynum=ynumber.getvalue();
 				
-				
+			    newGrid = new BuildingGrid(nwx,nwy,xside,yside,xnum,ynum);
 				
 				
 				dispose();	
