@@ -18,10 +18,10 @@ public class BuildingCell {
 	public static int WEST=3;
 	public static int EAST=4;
 	
-	BuildingCell northCell=null;
-	BuildingCell southCell=null;
-	BuildingCell eastCell=null;
-	BuildingCell westCell=null;
+	public BuildingCell northCell=null;
+	public BuildingCell southCell=null;
+	public BuildingCell eastCell=null;
+	public BuildingCell westCell=null;
 	
 	   
     boolean selected=false;
@@ -73,6 +73,7 @@ public class BuildingCell {
 
 	public void setNorthCell(BuildingCell northCell) {
 		this.northCell = northCell;
+		//northCell.southCell=this;
 	}
 
 	public BuildingCell getSouthCell() {
@@ -81,6 +82,7 @@ public class BuildingCell {
 
 	public void setSouthCell(BuildingCell southCell) {
 		this.southCell = southCell;
+		//southCell.northCell=this;
 	}
 
 	public BuildingCell getEastCell() {
@@ -89,6 +91,7 @@ public class BuildingCell {
 
 	public void setEastCell(BuildingCell eastCell) {
 		this.eastCell = eastCell;
+		//eastCell.westCell=this;
 	}
 
 	public BuildingCell getWestCell() {
@@ -97,6 +100,7 @@ public class BuildingCell {
 
 	public void setWestCell(BuildingCell westCell) {
 		this.westCell = westCell;
+		//westCell.eastCell=this;
 	}
 
 
