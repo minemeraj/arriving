@@ -18,10 +18,15 @@ public class BuildingCell {
 	public static int WEST=3;
 	public static int EAST=4;
 	
-	public BuildingCell northCell=null;
-	public BuildingCell southCell=null;
-	public BuildingCell eastCell=null;
-	public BuildingCell westCell=null;
+	BuildingCell northCell=null;
+	BuildingCell southCell=null;
+	BuildingCell eastCell=null;
+	BuildingCell westCell=null;
+	
+	BuildingCell northParent=null;
+	BuildingCell southParent=null;
+	BuildingCell eastParent=null;
+	BuildingCell westParent=null;
 	
 	   
     boolean selected=false;
@@ -72,8 +77,12 @@ public class BuildingCell {
 	}
 
 	public void setNorthCell(BuildingCell northCell) {
+		
+		if(northParent!=null)
+			return;
+		
 		this.northCell = northCell;
-		//northCell.southCell=this;
+		northCell.southParent=this;
 	}
 
 	public BuildingCell getSouthCell() {
@@ -81,8 +90,12 @@ public class BuildingCell {
 	}
 
 	public void setSouthCell(BuildingCell southCell) {
+		
+		if(southParent!=null)
+			return;
+		
 		this.southCell = southCell;
-		//southCell.northCell=this;
+		southCell.northParent=this;
 	}
 
 	public BuildingCell getEastCell() {
@@ -90,8 +103,12 @@ public class BuildingCell {
 	}
 
 	public void setEastCell(BuildingCell eastCell) {
+		
+		if(eastParent!=null)
+			return;
+		
 		this.eastCell = eastCell;
-		//eastCell.westCell=this;
+		eastCell.westParent=this;
 	}
 
 	public BuildingCell getWestCell() {
@@ -99,8 +116,12 @@ public class BuildingCell {
 	}
 
 	public void setWestCell(BuildingCell westCell) {
+		
+		if(westParent!=null)
+			return;
+		
 		this.westCell = westCell;
-		//westCell.eastCell=this;
+		westCell.eastParent=this;
 	}
 
 
