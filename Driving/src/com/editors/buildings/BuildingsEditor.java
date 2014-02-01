@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
+import java.util.Hashtable;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -375,6 +376,8 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		try {
 			br = new BufferedReader(new FileReader(file));
 
+			Hashtable rects=new Hashtable();
+			
 			String str=null;
 			
 			while((str=br.readLine())!=null){
@@ -383,10 +386,22 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 				String tag=str.substring(0,indx);
 				String value=str.substring(indx+1);
 				
-				if("C".equals(tag))
-					buildCenterCell(value);
+				rects.put(tag,buildCell(value));
+				
+				
 			}
 			br.close();
+			
+			
+			String tag=BuildingCell.CENTER_TAG;
+			centerCell=(BuildingCell) rects.get(tag);
+			if(centerCell==null)
+				return;
+			
+			jmt_add_center_cell.setEnabled(false);
+			centerCell.setSelected(true);
+			
+			buildTree(rects,tag,centerCell);
 			
 		} catch (Exception e) { 
 		
@@ -395,8 +410,43 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		
 	}
 
-	private void buildCenterCell(String str) {
+	private void buildTree(Hashtable rects, String tag,BuildingCell cell) {
 		
+		if(rects.get(tag+BuildingCell.NORTH_TAG)!=null){
+			
+			BuildingCell bCell=(BuildingCell) rects.get(tag+BuildingCell.NORTH_TAG);
+			cell.setNorthCell(bCell);
+			buildTree(rects,tag+BuildingCell.NORTH_TAG,bCell);
+			
+		}
+		
+		if(rects.get(tag+BuildingCell.SOUTH_TAG)!=null){
+			
+			BuildingCell bCell=(BuildingCell) rects.get(tag+BuildingCell.SOUTH_TAG);
+			cell.setSouthCell(bCell);
+			buildTree(rects,tag+BuildingCell.SOUTH_TAG,bCell);
+			
+		}
+		
+		if(rects.get(tag+BuildingCell.EAST_TAG)!=null){
+			
+			BuildingCell bCell=(BuildingCell) rects.get(tag+BuildingCell.EAST_TAG);
+			cell.setEastCell(bCell);
+			buildTree(rects,tag+BuildingCell.EAST_TAG,bCell);
+			
+		}
+		
+		if(rects.get(tag+BuildingCell.WEST_TAG)!=null){
+			
+			BuildingCell bCell=(BuildingCell) rects.get(tag+BuildingCell.WEST_TAG);
+			cell.setWestCell(bCell);
+			buildTree(rects,tag+BuildingCell.WEST_TAG,bCell);
+			
+		}
+		
+	}
+
+	private BuildingCell buildCell(String str) {
 		String[] vals = str.split(",");
 		
 		double nw_x =Double.parseDouble(vals[0]);
@@ -404,12 +454,11 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		double x_side =Double.parseDouble(vals[2]);
 		double y_side = Double.parseDouble(vals[3]);
 		
-		centerCell=new BuildingCell(nw_x,nw_y,x_side,y_side);
-		jmt_add_center_cell.setEnabled(false);
-		centerCell.setSelected(true);
+		BuildingCell cell=new BuildingCell(nw_x,nw_y,x_side,y_side);
 		
-
+		return cell;
 	}
+
 
 	private void saveData() {
 		fc.setDialogType(JFileChooser.SAVE_DIALOG);
