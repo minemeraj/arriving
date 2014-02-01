@@ -15,19 +15,24 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
+import java.lang.management.GarbageCollectorMXBean;
 import java.util.Hashtable;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.RepaintManager;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
+import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.buildings.data.BuildingCell;
 
@@ -49,6 +54,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	private JMenuItem jmt_add_south_cell;
 	private JMenuItem jmt_add_west_cell;
 	private JMenuItem jmt_add_east_cell;
+	private JMenuItem jmt_new;
 	
 	public boolean redrawAfterMenu=false;
 	
@@ -56,6 +62,12 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	
 	JFileChooser fc = new JFileChooser();
 	File currentDirectory=new File("lib");
+	private DoubleTextField nw_x;
+	private DoubleTextField nw_y;
+	private DoubleTextField x_side;
+	private DoubleTextField y_side;
+	private JButton deleteCell;
+	
 
 	
 	
@@ -72,6 +84,8 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		center.addMouseListener(this);
 		
 		buildMenuBar();
+		
+		buildRightPanel();
 		
 		addKeyListener(this);
 		addMouseWheelListener(this);
@@ -97,6 +111,82 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		initialize();
 	}
 	
+	private void buildRightPanel() {
+		
+		
+		JPanel right=new JPanel(null);
+		
+		right.setBounds(WIDTH,0,RIGHT_BORDER,HEIGHT);
+		
+		int r=10;
+		
+		int column=100;
+		
+		JLabel jlb=new JLabel("NW X");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+
+		nw_x=new DoubleTextField();
+		nw_x.setBounds(column, r, 100, 20);
+		nw_x.setEditable(false);
+		nw_x.addKeyListener(this);
+		right.add(nw_x);
+
+		r+=30;
+		
+		jlb=new JLabel("NW Y");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+
+		nw_y=new DoubleTextField();
+		nw_y.setBounds(column, r, 100, 20);
+		nw_y.setEditable(false);
+		nw_y.addKeyListener(this);
+		right.add(nw_y);
+		
+		r+=30;
+
+		jlb=new JLabel("X side");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		x_side=new DoubleTextField();
+		x_side.setBounds(column, r, 100, 20);
+		x_side.setEditable(false);
+		x_side.addKeyListener(this);
+		right.add(x_side);
+
+		r+=30;
+		
+		jlb=new JLabel("Y side");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		y_side=new DoubleTextField();
+		y_side.setBounds(column, r, 100, 20);
+		y_side.setEditable(false);
+		y_side.addKeyListener(this);
+		right.add(y_side);
+		
+		r+=30;
+		
+        deleteCell=new JButton("Delete cell");
+        deleteCell.setBounds(10,r,100,20);
+        deleteCell.addActionListener(this);
+        deleteCell.addKeyListener(this);
+        right.add(deleteCell);
+		
+		add(right);
+		
+	}
+	
+
+	private void setRightData(BuildingCell cell) {
+		nw_x.setText(cell.getNw_x());
+		nw_y.setText(cell.getNw_y());
+		x_side.setText(cell.getX_side());
+		y_side.setText(cell.getY_side());
+		
+	}
+
 	private void buildMenuBar() {
 	
 		jmb=new JMenuBar();
@@ -112,6 +202,12 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		jmt_save_file = new JMenuItem("Save file");
 		jmt_save_file.addActionListener(this);
 		jm_file.add(jmt_save_file);
+		
+		jm_file.addSeparator();
+		
+		jmt_new = new JMenuItem("New");
+		jmt_new.addActionListener(this);
+		jm_file.add(jmt_new);
 		
 		jm_cell=new JMenu("Cell");
 		jm_cell.addMenuListener(this);
@@ -190,8 +286,63 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			
 			addCell(BuildingCell.WEST);
 		}
+		else if(obj==jmt_new){
+			
+			centerCell=null;
+			addCell(BuildingCell.CENTER);
+		}else if (obj==deleteCell){
+			
+			deleteSelectedCell(centerCell);
+			System.gc();
+			draw();
+			
+		}
 	}
 	
+
+	private void deleteSelectedCell(BuildingCell cell) {
+
+
+
+		if(cell.getNorthCell()!=null ){
+
+			if(cell.getNorthCell().isSelected())
+				cell.setNorthCell(null);
+			else
+				deleteSelectedCell(cell.getNorthCell());
+		}	
+
+		if(cell.getSouthCell()!=null){
+
+
+			if(cell.getSouthCell().isSelected())
+				cell.setSouthCell(null);
+			else
+				deleteSelectedCell(cell.getSouthCell());
+		}	
+
+		if(cell.getWestCell()!=null){
+
+
+			if(cell.getWestCell().isSelected())
+				cell.setWestCell(null);
+			else
+				deleteSelectedCell(cell.getWestCell());
+		}	
+
+		if(cell.getEastCell()!=null){
+
+
+			if(cell.getEastCell().isSelected())
+				cell.setEastCell(null);
+			else
+				deleteSelectedCell(cell.getEastCell());
+		}	
+
+
+
+
+	}
 
 
 	private void addCell(int position) {
@@ -222,6 +373,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 				centerCell=newCell;
 				jmt_add_center_cell.setEnabled(false);
 				centerCell.setSelected(true);
+				setRightData(centerCell);
 			}
 
 		}else {
@@ -400,6 +552,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			
 			jmt_add_center_cell.setEnabled(false);
 			centerCell.setSelected(true);
+			setRightData(centerCell);
 			
 			buildTree(rects,tag,centerCell);
 			
@@ -535,8 +688,10 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	private void clickCell(BuildingCell cell, Point p) {
 
 		
-		if(cell.contains(p))
+		if(cell.contains(p)){
 			cell.setSelected(true);
+			setRightData(cell);
+		}	
 		else
 			cell.setSelected(false);
 
@@ -554,6 +709,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			clickCell(cell.getEastCell(),p);
 		
 	}
+
 
 	@Override
 	public void mouseEntered(MouseEvent e) {

@@ -89,7 +89,8 @@ public class BuildingCell {
 			return;
 		
 		this.northCell = northCell;
-		northCell.southParent=this;
+		if(northCell!=null)
+			northCell.southParent=this;
 	}
 
 	public BuildingCell getSouthCell() {
@@ -102,7 +103,8 @@ public class BuildingCell {
 			return;
 		
 		this.southCell = southCell;
-		southCell.northParent=this;
+		if(southCell!=null)
+			southCell.northParent=this;
 	}
 
 	public BuildingCell getEastCell() {
@@ -115,7 +117,8 @@ public class BuildingCell {
 			return;
 		
 		this.eastCell = eastCell;
-		eastCell.westParent=this;
+		if(eastCell!=null)
+			eastCell.westParent=this;
 	}
 
 	public BuildingCell getWestCell() {
@@ -128,7 +131,8 @@ public class BuildingCell {
 			return;
 		
 		this.westCell = westCell;
-		westCell.eastParent=this;
+		if(westCell!=null)
+			westCell.eastParent=this;
 	}
 
 
