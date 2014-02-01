@@ -377,9 +377,14 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 
 			String str=null;
 			
-			if((str=br.readLine())!=null){
+			while((str=br.readLine())!=null){
 				
-				buildCenterCell(str);
+				int indx=str.indexOf("=");
+				String tag=str.substring(0,indx);
+				String value=str.substring(indx+1);
+				
+				if("C".equals(tag))
+					buildCenterCell(value);
 			}
 			br.close();
 			
@@ -431,7 +436,9 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		try {
 			pw = new PrintWriter(file);			
 
-			pw.println(centerCell.toString());
+			
+			String tag=BuildingCell.CENTER_TAG;
+			saveCell(centerCell,tag,pw);
 			
 			pw.close();
 						
@@ -439,6 +446,24 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+	}
+
+	private void saveCell(BuildingCell cell, String tag, PrintWriter pw) {
+		
+		pw.println(tag+"="+cell.toString());
+		
+		if(cell.getNorthCell()!=null)
+			saveCell(cell.getNorthCell(),tag+BuildingCell.NORTH_TAG,pw);
+		
+		if(cell.getSouthCell()!=null)
+			saveCell(cell.getSouthCell(),tag+BuildingCell.SOUTH_TAG,pw);
+		
+		if(cell.getWestCell()!=null)
+			saveCell(cell.getWestCell(),tag+BuildingCell.WEST_TAG,pw);
+		
+		if(cell.getEastCell()!=null)
+			saveCell(cell.getEastCell(),tag+BuildingCell.EAST_TAG,pw);
 		
 	}
 

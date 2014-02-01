@@ -12,6 +12,13 @@ public class BuildingCell {
 	double x_side=0;
 	double y_side=0;
 	
+	
+	public static String CENTER_TAG="C";
+	public static String NORTH_TAG="N";
+	public static String SOUTH_TAG="S";
+	public static String WEST_TAG="W";
+	public static String EAST_TAG="E";
+	
 	public static int CENTER=0;
 	public static int NORTH=1;
 	public static int SOUTH=2;
