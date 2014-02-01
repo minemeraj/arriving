@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import com.editors.buildings.data.BuildingCell;
+import com.editors.buildings.data.BuildingGrid;
 
 public class BuildingJPanel extends JPanel{
 
@@ -37,7 +38,7 @@ public class BuildingJPanel extends JPanel{
 	}
 	
 
-	public void draw(BuildingCell centerCell) {
+	public void draw(BuildingGrid bg) {
 		
 		selectedCell=null;
 		
@@ -50,11 +51,20 @@ public class BuildingJPanel extends JPanel{
 		
 
 		
-		if(centerCell!=null){
+		if(bg!=null){
 		
 		
 			graph.setColor(Color.WHITE);
-			drawCell(centerCell);
+			
+			for (int i = 0; i < bg.getXnum(); i++) {
+				
+				for (int j = 0; j < bg.getYnum(); j++) {
+					drawCell(bg.cells[i][j]);
+				}
+				
+			}
+			
+			
 			
 			if(selectedCell!=null){
 				
@@ -95,18 +105,6 @@ public class BuildingJPanel extends JPanel{
 			selectedCell=cell;
 	
 		drawCellData(cell);
-		
-		if(cell.getNorthCell()!=null)
-			drawCell(cell.getNorthCell());
-		
-		if(cell.getSouthCell()!=null)
-			drawCell(cell.getSouthCell());
-		
-		if(cell.getWestCell()!=null)
-			drawCell(cell.getWestCell());
-		
-		if(cell.getEastCell()!=null)
-			drawCell(cell.getEastCell());
 		
 	}
 

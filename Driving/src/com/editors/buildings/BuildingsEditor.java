@@ -35,6 +35,7 @@ import javax.swing.event.MenuListener;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.buildings.data.BuildingCell;
+import com.editors.buildings.data.BuildingGrid;
 
 public class BuildingsEditor extends JFrame implements MenuListener, MouseListener, MouseWheelListener, ActionListener, KeyListener{
 	
@@ -49,16 +50,12 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	private JMenuItem jmt_load_file;
 	private JMenuItem jmt_save_file;
 	private JMenu jm_cell;
-	private JMenuItem jmt_add_center_cell;
-	private JMenuItem jmt_add_north_cell;
-	private JMenuItem jmt_add_south_cell;
-	private JMenuItem jmt_add_west_cell;
-	private JMenuItem jmt_add_east_cell;
+	private JMenuItem jmt_add_grid;
 	private JMenuItem jmt_new;
 	
 	public boolean redrawAfterMenu=false;
 	
-	public BuildingCell centerCell=null;	
+	public BuildingGrid grid =null;	
 	
 	JFileChooser fc = new JFileChooser();
 	File currentDirectory=new File("lib");
@@ -67,9 +64,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	private DoubleTextField x_side;
 	private DoubleTextField y_side;
 	private JButton deleteCell;
-	
 
-	
 	
 	public BuildingsEditor(){
 		
@@ -100,7 +95,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 
 						super.paintDirtyRegions();
 						if(redrawAfterMenu ) {
-							center.draw(centerCell);
+							center.draw(grid);
 							redrawAfterMenu=false;						    
 						}
 					}
@@ -220,31 +215,14 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		jmt_new.addActionListener(this);
 		jm_file.add(jmt_new);
 		
-		jm_cell=new JMenu("Cell");
+		jm_cell=new JMenu("Grid");
 		jm_cell.addMenuListener(this);
 		jmb.add(jm_cell);
 		
-		jmt_add_center_cell = new JMenuItem("Add center cell");
-		jmt_add_center_cell.addActionListener(this);
-		jm_cell.add(jmt_add_center_cell);
-		
-		jm_cell.addSeparator();
-		
-		jmt_add_north_cell = new JMenuItem("Add north cell");
-		jmt_add_north_cell.addActionListener(this);
-		jm_cell.add(jmt_add_north_cell);
-		
-		jmt_add_south_cell = new JMenuItem("Add south cell");
-		jmt_add_south_cell.addActionListener(this);
-		jm_cell.add(jmt_add_south_cell);
-		
-		jmt_add_west_cell = new JMenuItem("Add west cell");
-		jmt_add_west_cell.addActionListener(this);
-		jm_cell.add(jmt_add_west_cell);
-		
-		jmt_add_east_cell = new JMenuItem("Add east cell");
-		jmt_add_east_cell.addActionListener(this);
-		jm_cell.add(jmt_add_east_cell);
+		jmt_add_grid = new JMenuItem("Add grid");
+		jmt_add_grid.addActionListener(this);
+		jm_cell.add(jmt_add_grid);
+
 		
 		setJMenuBar(jmb);
 		
@@ -277,33 +255,16 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			
 			saveData();
 			
-		}else if(obj==jmt_add_center_cell){
+		}else if(obj==jmt_add_grid){
 			
-			addCell(BuildingCell.CENTER);
-		}
-		else if(obj==jmt_add_north_cell){
-			
-			addCell(BuildingCell.NORTH);
-		}
-		else if(obj==jmt_add_south_cell){
-			
-			addCell(BuildingCell.SOUTH);
-		}
-		else if(obj==jmt_add_east_cell){
-			
-			addCell(BuildingCell.EAST);
-		}
-		else if(obj==jmt_add_west_cell){
-			
-			addCell(BuildingCell.WEST);
-		}
+			addGrid();
+		}		
 		else if(obj==jmt_new){
 			
-			centerCell=null;
-			addCell(BuildingCell.CENTER);
+			grid=null;
+			addGrid();
 		}else if (obj==deleteCell){
 			
-			deleteSelectedCell(centerCell);
 			System.gc();
 			draw();
 			
@@ -311,135 +272,31 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	}
 	
 
-	private void deleteSelectedCell(BuildingCell cell) {
+	private void deleteSelectedCell(BuildingCell cell) {}
 
 
-
-		if(cell.getNorthCell()!=null ){
-
-			if(cell.getNorthCell().isSelected())
-				cell.setNorthCell(null);
-			else
-				deleteSelectedCell(cell.getNorthCell());
-		}	
-
-		if(cell.getSouthCell()!=null){
+	private void addGrid() {
 
 
-			if(cell.getSouthCell().isSelected())
-				cell.setSouthCell(null);
-			else
-				deleteSelectedCell(cell.getSouthCell());
-		}	
+		GridPanel op=new GridPanel();
 
-		if(cell.getWestCell()!=null){
+		BuildingGrid newGrid = op.getNewGrid();
+		if(newGrid!=null)
+		{
+			grid=newGrid;
 
-
-			if(cell.getWestCell().isSelected())
-				cell.setWestCell(null);
-			else
-				deleteSelectedCell(cell.getWestCell());
-		}	
-
-		if(cell.getEastCell()!=null){
-
-
-			if(cell.getEastCell().isSelected())
-				cell.setEastCell(null);
-			else
-				deleteSelectedCell(cell.getEastCell());
-		}	
-
-
-
-
-	}
-
-
-	private void addCell(int position) {
-
-		
-		if(position!=BuildingCell.CENTER && centerCell==null){
-			JOptionPane.showMessageDialog(this,"First add a center!","Error",JOptionPane.ERROR_MESSAGE);
-			return;
-		}
-		
-		BuildingCell selCell=getSelectedCell();
-		
-
-		if(position!=BuildingCell.CENTER && selCell==null){
-
-			JOptionPane.showMessageDialog(this,"Select a cell to add!","Error",JOptionPane.ERROR_MESSAGE);
-			return;
 		}
 
 
-		if(position==BuildingCell.CENTER){
-			
-			CellPanel op=new CellPanel();
-			
-			BuildingCell newCell = op.getNewCell();
-			if(newCell!=null )
-			{
-				centerCell=newCell;
-				jmt_add_center_cell.setEnabled(false);
-				centerCell.setSelected(true);
-				setRightData(centerCell);
-			}
-
-		}else {
-			
-			selCell.addCell(position);
-		}
-		
 		draw();
 
 	}
 
-	private BuildingCell getSelectedCell() {
-		
-		if(centerCell==null)
-			return null;
-		
-		return findSelectedCell(centerCell);
-		
+
 	
-	}
-
-	private BuildingCell findSelectedCell(BuildingCell cell) {
-		
-		if(cell.isSelected())
-			return cell;
-
-		BuildingCell selCell=null;
-		
-		if(cell.getNorthCell()!=null)
-			selCell=findSelectedCell(cell.getNorthCell());
-		if(selCell!=null)
-			return selCell;
-		
-		
-		if(cell.getSouthCell()!=null)
-			selCell=findSelectedCell(cell.getSouthCell());
-		if(selCell!=null)
-			return selCell;
-		
-		if(cell.getWestCell()!=null)
-			selCell=findSelectedCell(cell.getWestCell());
-		if(selCell!=null)
-			return selCell;
-		
-		if(cell.getEastCell()!=null)
-			selCell=findSelectedCell(cell.getEastCell());
-		if(selCell!=null)
-			return selCell;
-		
-		return null;
-		
-	}
 
 	private void draw() {
-		center.draw(centerCell);
+		center.draw(grid);
 		
 	}
 
@@ -549,23 +406,23 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 				String tag=str.substring(0,indx);
 				String value=str.substring(indx+1);
 				
-				rects.put(tag,buildCell(value));
+				//rects.put(tag,buildCell(value));
 				
 				
 			}
 			br.close();
 			
 			
-			String tag=BuildingCell.CENTER_TAG;
+			/*String tag=BuildingCell.CENTER_TAG;
 			centerCell=(BuildingCell) rects.get(tag);
 			if(centerCell==null)
 				return;
 			
-			jmt_add_center_cell.setEnabled(false);
+			jmt_add_grid.setEnabled(false);
 			centerCell.setSelected(true);
 			setRightData(centerCell);
 			
-			buildTree(rects,tag,centerCell);
+			buildTree(rects,tag,centerCell);*/
 			
 		} catch (Exception e) { 
 		
@@ -574,54 +431,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		
 	}
 
-	private void buildTree(Hashtable rects, String tag,BuildingCell cell) {
-		
-		if(rects.get(tag+BuildingCell.NORTH_TAG)!=null){
-			
-			BuildingCell bCell=(BuildingCell) rects.get(tag+BuildingCell.NORTH_TAG);
-			cell.setNorthCell(bCell);
-			buildTree(rects,tag+BuildingCell.NORTH_TAG,bCell);
-			
-		}
-		
-		if(rects.get(tag+BuildingCell.SOUTH_TAG)!=null){
-			
-			BuildingCell bCell=(BuildingCell) rects.get(tag+BuildingCell.SOUTH_TAG);
-			cell.setSouthCell(bCell);
-			buildTree(rects,tag+BuildingCell.SOUTH_TAG,bCell);
-			
-		}
-		
-		if(rects.get(tag+BuildingCell.EAST_TAG)!=null){
-			
-			BuildingCell bCell=(BuildingCell) rects.get(tag+BuildingCell.EAST_TAG);
-			cell.setEastCell(bCell);
-			buildTree(rects,tag+BuildingCell.EAST_TAG,bCell);
-			
-		}
-		
-		if(rects.get(tag+BuildingCell.WEST_TAG)!=null){
-			
-			BuildingCell bCell=(BuildingCell) rects.get(tag+BuildingCell.WEST_TAG);
-			cell.setWestCell(bCell);
-			buildTree(rects,tag+BuildingCell.WEST_TAG,bCell);
-			
-		}
-		
-	}
 
-	private BuildingCell buildCell(String str) {
-		String[] vals = str.split(",");
-		
-		double nw_x =Double.parseDouble(vals[0]);
-		double nw_y = Double.parseDouble(vals[1]);
-		double x_side =Double.parseDouble(vals[2]);
-		double y_side = Double.parseDouble(vals[3]);
-		
-		BuildingCell cell=new BuildingCell(nw_x,nw_y,x_side,y_side);
-		
-		return cell;
-	}
 
 
 	private void saveData() {
@@ -642,7 +452,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	private void saveData(File file) {
 		
 		
-		if(centerCell==null)
+		if(grid==null)
 			return;
 		
 		PrintWriter pw;
@@ -650,8 +460,8 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			pw = new PrintWriter(file);			
 
 			
-			String tag=BuildingCell.CENTER_TAG;
-			saveCell(centerCell,tag,pw);
+			/*String tag=BuildingCell.CENTER_TAG;
+			saveCell(centerCell,tag,pw);*/
 			
 			pw.close();
 						
@@ -662,23 +472,6 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		
 	}
 
-	private void saveCell(BuildingCell cell, String tag, PrintWriter pw) {
-		
-		pw.println(tag+"="+cell.toString());
-		
-		if(cell.getNorthCell()!=null)
-			saveCell(cell.getNorthCell(),tag+BuildingCell.NORTH_TAG,pw);
-		
-		if(cell.getSouthCell()!=null)
-			saveCell(cell.getSouthCell(),tag+BuildingCell.SOUTH_TAG,pw);
-		
-		if(cell.getWestCell()!=null)
-			saveCell(cell.getWestCell(),tag+BuildingCell.WEST_TAG,pw);
-		
-		if(cell.getEastCell()!=null)
-			saveCell(cell.getEastCell(),tag+BuildingCell.EAST_TAG,pw);
-		
-	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -686,42 +479,17 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		Point p=e.getPoint();
 		
 		
-		if(centerCell!=null){
+		if(grid!=null){
 			
 			cleanRightData();
-			Point pt=new Point((int)center.invertX(p.x,p.y),(int)center.invertY(p.x,p.y));
-			clickCell(centerCell,pt);
+			/*Point pt=new Point((int)center.invertX(p.x,p.y),(int)center.invertY(p.x,p.y));
+			clickCell(centerCell,pt);*/
 			
 			draw();
 		}
 		
 	}
 
-	private void clickCell(BuildingCell cell, Point p) {
-
-		
-		
-		if(cell.contains(p)){
-			cell.setSelected(true);
-			setRightData(cell);
-		}	
-		else
-			cell.setSelected(false);
-
-		
-		if(cell.getNorthCell()!=null)
-			clickCell(cell.getNorthCell(),p);
-		
-		if(cell.getSouthCell()!=null)
-			clickCell(cell.getSouthCell(),p);
-		
-		if(cell.getWestCell()!=null)
-			clickCell(cell.getWestCell(),p);
-		
-		if(cell.getEastCell()!=null)
-			clickCell(cell.getEastCell(),p);
-		
-	}
 
 
 
