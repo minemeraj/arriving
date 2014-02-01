@@ -201,8 +201,10 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			return;
 		}
 		
+		BuildingCell selCell=getSelectedCell();
+		
 
-		if(position!=BuildingCell.CENTER && !centerCell.isSelected()){
+		if(position!=BuildingCell.CENTER && selCell==null){
 
 			JOptionPane.showMessageDialog(this,"Select a cell to add!","Error",JOptionPane.ERROR_MESSAGE);
 			return;
@@ -223,11 +225,53 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 
 		}else {
 			
-			centerCell.addCell(position);
+			selCell.addCell(position);
 		}
 		
 		draw();
 
+	}
+
+	private BuildingCell getSelectedCell() {
+		
+		if(centerCell==null)
+			return null;
+		
+		return findSelectedCell(centerCell);
+		
+	
+	}
+
+	private BuildingCell findSelectedCell(BuildingCell cell) {
+		
+		if(cell.isSelected())
+			return cell;
+
+		BuildingCell selCell=null;
+		
+		if(cell.getNorthCell()!=null)
+			selCell=findSelectedCell(cell.getNorthCell());
+		if(selCell!=null)
+			return selCell;
+		
+		
+		if(cell.getSouthCell()!=null)
+			selCell=findSelectedCell(cell.getSouthCell());
+		if(selCell!=null)
+			return selCell;
+		
+		if(cell.getWestCell()!=null)
+			selCell=findSelectedCell(cell.getWestCell());
+		if(selCell!=null)
+			return selCell;
+		
+		if(cell.getEastCell()!=null)
+			selCell=findSelectedCell(cell.getEastCell());
+		if(selCell!=null)
+			return selCell;
+		
+		return null;
+		
 	}
 
 	private void draw() {
