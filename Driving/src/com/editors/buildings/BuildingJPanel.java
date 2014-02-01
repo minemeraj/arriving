@@ -3,9 +3,11 @@ package com.editors.buildings;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 import javax.swing.JPanel;
 
+import com.Polygon3D;
 import com.editors.buildings.data.BuildingCell;
 import com.editors.buildings.data.BuildingGrid;
 
@@ -90,11 +92,24 @@ public class BuildingJPanel extends JPanel{
 		double y0=cell.getNw_y();		
 		double xside=cell.getX_side();
 		double yside=cell.getY_side();
+		
+		Polygon3D pol=new Polygon3D();
+		pol.addPoint((int)calcX(x0,y0),(int)calcY(x0,y0),0);
+		pol.addPoint((int)calcX(x0+xside,y0),(int)calcY(x0+xside,y0),0);
+		pol.addPoint((int)calcX(x0+xside,y0+yside),(int)calcY(x0+xside,y0+yside),0);
+		pol.addPoint((int)calcX(x0,y0+yside),(int)calcY(x0,y0+yside),0);
+		
+		if(cell.isFilled()){
+			
+			graph.fill(pol);
+			
+		}else{
+			
+			graph.draw(pol);
+			
+		}
 
-		graph.drawLine((int)calcX(x0,y0),(int)calcY(x0,y0),(int)calcX(x0+xside,y0),(int)calcY(x0+xside,y0));
-		graph.drawLine((int)calcX(x0+xside,y0),(int)calcY(x0+xside,y0),(int)calcX(x0+xside,y0+yside),(int)calcY(x0+xside,y0+yside));
-		graph.drawLine((int)calcX(x0+xside,y0+yside),(int)calcY(x0+xside,y0+yside),(int)calcX(x0,y0+yside),(int)calcY(x0,y0+yside));		
-		graph.drawLine((int)calcX(x0,y0+yside),(int)calcY(x0,y0+yside),(int)calcX(x0,y0),(int)calcY(x0,y0));
+
 		
 	}
 

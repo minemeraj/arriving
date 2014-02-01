@@ -14,7 +14,8 @@ public class BuildingCell {
 	
     int i=0;
     int j=0;
-	
+    
+    boolean filled=false;	
 	   
     boolean selected=false;
 
@@ -87,7 +88,15 @@ public class BuildingCell {
 		
 		return rect.contains(pt);
 	}
-	
+
+	public boolean isFilled() {
+		return filled;
+	}
+
+	public void setFilled(boolean filled) {
+		this.filled = filled;
+	}
+
 	
 
 	/*private BuildingCell buildCell(String str) {

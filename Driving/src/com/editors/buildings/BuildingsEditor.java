@@ -63,7 +63,8 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	private DoubleTextField nw_y;
 	private DoubleTextField x_side;
 	private DoubleTextField y_side;
-	private JButton deleteCell;
+	private JButton emptyCell; 
+	private JButton fillCell;
 
 	
 	public BuildingsEditor(){
@@ -163,11 +164,21 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		
 		r+=30;
 		
-        deleteCell=new JButton("Delete cell");
-        deleteCell.setBounds(10,r,100,20);
-        deleteCell.addActionListener(this);
-        deleteCell.addKeyListener(this);
-        right.add(deleteCell);
+        fillCell=new JButton("Fill cell");
+        fillCell.setBounds(10,r,100,20);
+        fillCell.addActionListener(this);
+        fillCell.addKeyListener(this);
+        right.add(fillCell);
+		
+		r+=30;
+		
+        emptyCell=new JButton("Empty cell");
+        emptyCell.setBounds(10,r,100,20);
+        emptyCell.addActionListener(this);
+        emptyCell.addKeyListener(this);
+        right.add(emptyCell);
+        
+
 		
 		add(right);
 		
@@ -263,16 +274,34 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			
 			grid=null;
 			addGrid();
-		}else if (obj==deleteCell){
+		}else if (obj==emptyCell){
 			
-			System.gc();
+			fillSelected(false);
+			draw();
+			
+		}else if (obj==fillCell){
+			
+			fillSelected(true);
 			draw();
 			
 		}
 	}
 	
 
-	private void deleteSelectedCell(BuildingCell cell) {}
+	private void fillSelected(boolean b) {
+		
+		for (int i = 0; i < grid.getXnum(); i++) {
+			
+			for (int j = 0; j < grid.getYnum(); j++) {
+				BuildingCell bc=grid.cells[i][j];
+			    if(bc.isSelected())
+			    	bc.setFilled(b);
+					
+			}
+			
+		}
+		
+	}
 
 
 	private void addGrid() {
@@ -482,8 +511,22 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		if(grid!=null){
 			
 			cleanRightData();
-			/*Point pt=new Point((int)center.invertX(p.x,p.y),(int)center.invertY(p.x,p.y));
-			clickCell(centerCell,pt);*/
+			Point pt=new Point((int)center.invertX(p.x,p.y),(int)center.invertY(p.x,p.y));
+			
+			for (int i = 0; i < grid.getXnum(); i++) {
+				
+				for (int j = 0; j < grid.getYnum(); j++) {
+					BuildingCell bc=grid.cells[i][j];
+					if(bc.contains(pt)){
+						bc.setSelected(true);
+						setRightData(bc);
+					}	
+					else
+						bc.setSelected(false);
+						
+				}
+				
+			}
 			
 			draw();
 		}
