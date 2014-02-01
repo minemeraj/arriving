@@ -187,6 +187,17 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		
 	}
 
+	
+
+	private void cleanRightData() {
+		
+		nw_x.setText("");
+		nw_y.setText("");
+		x_side.setText("");
+		y_side.setText("");
+		
+	}
+	
 	private void buildMenuBar() {
 	
 		jmb=new JMenuBar();
@@ -677,6 +688,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		
 		if(centerCell!=null){
 			
+			cleanRightData();
 			Point pt=new Point((int)center.invertX(p.x,p.y),(int)center.invertY(p.x,p.y));
 			clickCell(centerCell,pt);
 			
@@ -687,6 +699,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 
 	private void clickCell(BuildingCell cell, Point p) {
 
+		
 		
 		if(cell.contains(p)){
 			cell.setSelected(true);
@@ -709,6 +722,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			clickCell(cell.getEastCell(),p);
 		
 	}
+
 
 
 	@Override

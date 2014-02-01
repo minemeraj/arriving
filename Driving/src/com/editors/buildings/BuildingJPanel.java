@@ -48,25 +48,28 @@ public class BuildingJPanel extends JPanel{
 		graph.fillRect(0,0,WIDTH,HEIGHT);
 		
 		
+
+		
+		if(centerCell!=null){
+		
+		
+			graph.setColor(Color.WHITE);
+			drawCell(centerCell);
+			
+			if(selectedCell!=null){
+				
+				graph.setColor(Color.RED);
+				
+				drawCellData(selectedCell);
+				
+		
+			}
+			
+		}
 		graph.setColor(Color.GREEN);
 		graph.drawLine((int)calcX(0,0),(int)calcY(0,0),(int)calcX(100,0),(int)calcY(100,0));
 		graph.setColor(Color.YELLOW);
 		graph.drawLine((int)calcX(0,0),(int)calcY(0,0),(int)calcX(0,100),(int)calcY(0,100));
-		
-		if(centerCell==null)
-			return;
-		
-		graph.setColor(Color.WHITE);
-		drawCell(centerCell);
-		
-		if(selectedCell!=null){
-			
-			graph.setColor(Color.RED);
-			
-			drawCellData(selectedCell);
-			
-	
-		}
 			
 	}
 	
