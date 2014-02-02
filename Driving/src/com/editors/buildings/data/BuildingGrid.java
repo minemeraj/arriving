@@ -130,50 +130,98 @@ public class BuildingGrid {
 	}
 	
 	public PolygonMesh buildMesh(){
-		
-		
-		
+
+
+
 		Vector points=new Vector();
-		points.setSize(xnum*ynum);
-		
+		points.setSize(xnum*ynum*2);
+
 		Vector polyData=new Vector();
-		
-		for (int i = 0; i < xnum; i++) {
-			
-			for (int j = 0; j <ynum; j++) {
-				
-				Point3D p=new Point3D(i*x_side,j*y_side,0);
-				points.setElementAt(p,pos(i,j));
-			}
-			
-		}
-		
-		for (int i = 0; i < xnum-1; i++) {
-				
-				for (int j = 0; j <ynum-1; j++) {
-					
-					LineData ld=new LineData();
-					ld.addIndex(pos(i,j));
-					ld.addIndex(pos(i+1,j));
-					ld.addIndex(pos(i+1,j+1));
-					ld.addIndex(pos(i,j+1));
-					polyData.add(ld);
-					
+
+		for (int k = 0; k < 2; k++) {
+
+			for (int i = 0; i < xnum; i++) {
+
+				for (int j = 0; j <ynum; j++) {
+
+					Point3D p=new Point3D(i*x_side,j*y_side,k*z_side);
+					points.setElementAt(p,pos(i,j,k));
 				}
+
+			}
+
+		}
+
+
+		for (int i = 0; i < xnum-1; i++) {
+
+			for (int j = 0; j <ynum-1; j++) {
+
+
+
+				//if(!cells[i][j].isFilled())
+				//	continue;
+
+				LineData uld=new LineData();
+				uld.addIndex(pos(i,j,1));
+				uld.addIndex(pos(i+1,j,1));					
+				uld.addIndex(pos(i+1,j+1,1));
+				uld.addIndex(pos(i,j+1,1));						
+				polyData.add(uld);
+
+
+				LineData dld=new LineData();
+				dld.addIndex(pos(i,j,0));
+				dld.addIndex(pos(i,j+1,0));					
+				dld.addIndex(pos(i+1,j+1,0));
+				dld.addIndex(pos(i+1,j,0));
+				polyData.add(dld);
+				
+				LineData backld=new LineData();
+				backld.addIndex(pos(i,j,0));
+				backld.addIndex(pos(i,j+1,0));					
+				backld.addIndex(pos(i,j+1,1));
+				backld.addIndex(pos(i,j,1));				
+				polyData.add(backld);
+				
+				
+				LineData frontld=new LineData();
+				frontld.addIndex(pos(i+1,j,0));
+				frontld.addIndex(pos(i+1,j,1));					
+				frontld.addIndex(pos(i+1,j+1,1));
+				frontld.addIndex(pos(i+1,j+1,0));
+				polyData.add(frontld);
+				
+				
+				LineData leftld=new LineData();
+				leftld.addIndex(pos(i,j,0));
+				leftld.addIndex(pos(i+1,j,0));					
+				leftld.addIndex(pos(i+1,j,1));
+				leftld.addIndex(pos(i,j,1));				
+				polyData.add(leftld);
+				
+				LineData rightld=new LineData();
+				rightld.addIndex(pos(i,j+1,0));
+				rightld.addIndex(pos(i,j+1,1));					
+				rightld.addIndex(pos(i+1,j+1,1));
+				rightld.addIndex(pos(i+1,j+1,0));								
+				polyData.add(rightld);
+
+			}
 		}	
-		
-	
-		
+
+
+
 		PolygonMesh pm=new PolygonMesh(points,polyData);
-		
+
 		return pm;
-		
-		
+
+
 	}
 	
-	public int pos(int i, int j){
+	public int pos(int i, int j, int k){
 		
-		return i+xnum*j;
+		return (i+xnum*j)*2+k;
 	}
 
 }
