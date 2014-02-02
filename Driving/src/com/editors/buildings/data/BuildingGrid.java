@@ -38,6 +38,22 @@ public class BuildingGrid {
 		}
 	}
 	
+	public Object clone(){
+		
+		BuildingGrid grid=new BuildingGrid(nw_x,nw_y,x_side,y_side,z_side,xnum,ynum);
+		
+		for (int i = 0; i < xnum; i++) {
+			
+			for (int j = 0; j <ynum; j++) {
+				grid.cells[i][j].setFilled(cells[i][j].isFilled());
+			}
+			
+		}
+		
+		return grid;
+		
+	}
+	
 	public double getNw_x() {
 		return nw_x;
 	}

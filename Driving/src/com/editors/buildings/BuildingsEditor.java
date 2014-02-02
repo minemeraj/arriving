@@ -17,6 +17,7 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 import java.lang.management.GarbageCollectorMXBean;
 import java.util.Hashtable;
+import java.util.Stack;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -31,11 +32,14 @@ import javax.swing.JPanel;
 import javax.swing.RepaintManager;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
+import javax.xml.crypto.dsig.spec.HMACParameterSpec;
 
+import com.PolygonMesh;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.buildings.data.BuildingCell;
 import com.editors.buildings.data.BuildingGrid;
+import com.editors.object.ObjectEditorPreviewPanel;
 
 public class BuildingsEditor extends JFrame implements MenuListener, MouseListener, MouseWheelListener, ActionListener, KeyListener{
 	
@@ -49,9 +53,14 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	private JMenu jm_file;
 	private JMenuItem jmt_load_file;
 	private JMenuItem jmt_save_file;
-	private JMenu jm_cell;
+	private JMenu jm_grid;
 	private JMenuItem jmt_add_grid;
-	private JMenuItem jmt_new;
+	private JMenuItem jmt_new_grid;
+	private JMenuItem jmt_expand_grid;
+	private JMenu jm_view;
+	private JMenuItem jmt_preview;
+	private JMenu jm_change;
+	private JMenuItem jmt_undo_last;
 	
 	public boolean redrawAfterMenu=false;
 	
@@ -66,9 +75,9 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	private DoubleTextField z_side;
 	private JButton emptyCell; 
 	private JButton fillCell;
-	private JMenuItem jmt_expand_grid;
-	
 
+	public Stack oldGrid=null;
+	int max_stack_size=10;
 	
 	public BuildingsEditor(){
 		
@@ -236,21 +245,39 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		
 		jm_file.addSeparator();
 		
-		jmt_new = new JMenuItem("New");
-		jmt_new.addActionListener(this);
-		jm_file.add(jmt_new);
+		jmt_new_grid = new JMenuItem("New");
+		jmt_new_grid.addActionListener(this);
+		jm_file.add(jmt_new_grid);
 		
-		jm_cell=new JMenu("Grid");
-		jm_cell.addMenuListener(this);
-		jmb.add(jm_cell);
+		jm_grid=new JMenu("Grid");
+		jm_grid.addMenuListener(this);
+		jmb.add(jm_grid);
 		
 		jmt_add_grid = new JMenuItem("Add grid");
 		jmt_add_grid.addActionListener(this);
-		jm_cell.add(jmt_add_grid);
+		jm_grid.add(jmt_add_grid);
 		
 		jmt_expand_grid = new JMenuItem("Expand grid");
 		jmt_expand_grid.addActionListener(this);
-		jm_cell.add(jmt_expand_grid);
+		jm_grid.add(jmt_expand_grid);
+		
+		jm_change=new JMenu("Change");
+		jm_change.addMenuListener(this);
+		jmb.add(jm_change);
+		
+		jmt_undo_last = new JMenuItem("Undo last");
+		jmt_undo_last.setEnabled(false);
+		jmt_undo_last.addActionListener(this);
+		jm_change.add(jmt_undo_last);
+		
+		
+		jm_view=new JMenu("View");
+		jm_view.addMenuListener(this);
+		jmb.add(jm_view);
+		
+		jmt_preview = new JMenuItem("Preview");
+		jmt_preview.addActionListener(this);
+		jm_view.add(jmt_preview);
 
 		
 		setJMenuBar(jmb);
@@ -260,6 +287,8 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	private void initialize() {
 		
 		center.initialize();
+		
+		oldGrid=new Stack();
 	}
 
 	public static void main(String[] args) {
@@ -292,16 +321,27 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			
 			expandGrid();
 		}	
-		else if(obj==jmt_new){
+		else if(obj==jmt_new_grid){
 			
 			grid=null;
 			addGrid();
-		}else if (obj==emptyCell){
+		}
+		else if(obj==jmt_preview){
+			
+			grid=null;
+			preview();
+		}else if (obj==jmt_undo_last){
+			
+			undo();
+			
+		}
+		else if (obj==emptyCell){
 			
 			fillSelected(false);
 			draw();
 			
-		}else if (obj==fillCell){
+		}
+		else if (obj==fillCell){
 			
 			fillSelected(true);
 			draw();
@@ -313,6 +353,11 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 
 
 	private void fillSelected(boolean b) {
+		
+		if(grid==null)
+			return;
+		
+		prepareUndo();
 		
 		for (int i = 0; i < grid.getXnum(); i++) {
 			
@@ -579,7 +624,12 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		
 	}
 
-
+	public void preview() {
+		
+		
+		//ObjectEditorPreviewPanel oepp=new ObjectEditorPreviewPanel(this);
+		
+	}
 
 
 	@Override
@@ -603,6 +653,29 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	public void undo() {
+
+		if(oldGrid.size()>0)
+			grid=(BuildingGrid) oldGrid.pop();
+		
+		if(oldGrid.size()==0)
+			jmt_undo_last.setEnabled(false);
+		
+		draw();
+	}
+	
+	public void prepareUndo() {
+		
+		jmt_undo_last.setEnabled(true);
+		
+		if(oldGrid.size()>=max_stack_size)
+			oldGrid.removeElementAt(0);
+		
+		oldGrid.push(grid.clone());
+		
 		
 	}
 
