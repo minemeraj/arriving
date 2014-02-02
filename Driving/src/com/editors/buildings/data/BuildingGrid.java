@@ -1,5 +1,13 @@
 package com.editors.buildings.data;
 
+import java.util.Vector;
+
+import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
+
+import com.LineData;
+import com.Point3D;
+import com.PolygonMesh;
+
 public class BuildingGrid {
 	
 
@@ -119,6 +127,53 @@ public class BuildingGrid {
 
 	public void setCells(BuildingCell[][] cells) {
 		this.cells = cells;
+	}
+	
+	public PolygonMesh buildMesh(){
+		
+		
+		
+		Vector points=new Vector();
+		points.setSize(xnum*ynum);
+		
+		Vector polyData=new Vector();
+		
+		for (int i = 0; i < xnum; i++) {
+			
+			for (int j = 0; j <ynum; j++) {
+				
+				Point3D p=new Point3D(i*x_side,j*y_side,0);
+				points.setElementAt(p,pos(i,j));
+			}
+			
+		}
+		
+		for (int i = 0; i < xnum-1; i++) {
+				
+				for (int j = 0; j <ynum-1; j++) {
+					
+					LineData ld=new LineData();
+					ld.addIndex(pos(i,j));
+					ld.addIndex(pos(i+1,j));
+					ld.addIndex(pos(i+1,j+1));
+					ld.addIndex(pos(i,j+1));
+					polyData.add(ld);
+					
+				}
+		}	
+		
+	
+		
+		PolygonMesh pm=new PolygonMesh(points,polyData);
+		
+		return pm;
+		
+		
+	}
+	
+	public int pos(int i, int j){
+		
+		return i+xnum*j;
 	}
 
 }

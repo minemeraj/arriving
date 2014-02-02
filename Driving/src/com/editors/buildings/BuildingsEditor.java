@@ -328,8 +328,8 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		}
 		else if(obj==jmt_preview){
 			
-			grid=null;
 			preview();
+			
 		}else if (obj==jmt_undo_last){
 			
 			undo();
@@ -626,8 +626,13 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 
 	public void preview() {
 		
+		if(grid==null)
+			return;
 		
-		//ObjectEditorPreviewPanel oepp=new ObjectEditorPreviewPanel(this);
+		Editor editor=new Editor();
+		editor.meshes[0]=grid.buildMesh();
+		
+		ObjectEditorPreviewPanel oepp=new ObjectEditorPreviewPanel(editor);
 		
 	}
 
