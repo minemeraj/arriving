@@ -13,6 +13,8 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.lang.management.GarbageCollectorMXBean;
@@ -61,6 +63,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	private JMenuItem jmt_preview;
 	private JMenu jm_change;
 	private JMenuItem jmt_undo_last;
+	private JMenuItem jmt_save_mesh;
 	
 	public boolean redrawAfterMenu=false;
 	
@@ -78,6 +81,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 
 	public Stack oldGrid=null;
 	int max_stack_size=10;
+	
 	
 	public BuildingsEditor(){
 		
@@ -249,6 +253,12 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		jmt_new_grid.addActionListener(this);
 		jm_file.add(jmt_new_grid);
 		
+		jm_file.addSeparator();
+		
+		jmt_save_mesh = new JMenuItem("Save mesh");
+		jmt_save_mesh.addActionListener(this);
+		jm_file.add(jmt_save_mesh);
+		
 		jm_grid=new JMenu("Grid");
 		jm_grid.addMenuListener(this);
 		jmb.add(jm_grid);
@@ -313,7 +323,12 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			
 			saveData();
 			
-		}else if(obj==jmt_add_grid){
+		}else if(obj==jmt_save_mesh){
+			
+			saveMesh();
+			
+		}
+		else if(obj==jmt_add_grid){
 			
 			addGrid();
 		}	
@@ -349,6 +364,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		}
 	}
 	
+
 
 
 
@@ -541,7 +557,46 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	}
 
 
+	private void saveMesh() {
+		
+		fc.setDialogType(JFileChooser.SAVE_DIALOG);
+		fc.setDialogTitle("Save mesh");
+		if(currentDirectory!=null)
+			fc.setCurrentDirectory(currentDirectory);
+		int returnVal = fc.showOpenDialog(this);
+		
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File file = fc.getSelectedFile();
+			saveMesh(file);
+			currentDirectory=new File(file.getParent());
+		} 
+		
+	}
 
+
+	private void saveMesh(File file) {
+		
+		
+		if(grid==null)
+			return;
+		
+	
+		PrintWriter pw;
+		try {
+			Editor editor=new Editor();
+			editor.meshes[0]=grid.buildMesh();
+			pw = new PrintWriter(new FileOutputStream(file));
+			editor.saveLines(pw);
+			pw.close();
+			
+		} catch (Exception e) { 
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+
+		
+	}
 
 	private void saveData() {
 		fc.setDialogType(JFileChooser.SAVE_DIALOG);
