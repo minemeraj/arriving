@@ -159,8 +159,8 @@ public class BuildingGrid {
 
 
 
-				//if(!cells[i][j].isFilled())
-				//	continue;
+				if(!cells[i][j].isFilled())
+					continue;
 
 				LineData uld=new LineData();
 				uld.addIndex(pos(i,j,1));
@@ -214,7 +214,8 @@ public class BuildingGrid {
 
 		PolygonMesh pm=new PolygonMesh(points,polyData);
 
-		return pm;
+		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
+		return spm;
 
 
 	}
