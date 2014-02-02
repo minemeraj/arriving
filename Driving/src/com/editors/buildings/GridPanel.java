@@ -24,6 +24,7 @@ public class GridPanel extends JDialog implements ActionListener {
 	private DoubleTextField nw_y;
 	private DoubleTextField x_side;
 	private DoubleTextField y_side;
+	private DoubleTextField z_side;
 	
 	private IntegerTextField xnumber;
 	private IntegerTextField ynumber;
@@ -34,6 +35,7 @@ public class GridPanel extends JDialog implements ActionListener {
 	BuildingGrid newGrid=null;
 	
 	boolean isExpand=false;
+	
 	
 	public GridPanel(BuildingGrid grid){
 		
@@ -96,6 +98,15 @@ public class GridPanel extends JDialog implements ActionListener {
 		
 		r+=30;
 		
+		jlb=new JLabel("Z side");
+		jlb.setBounds(5, r, 100, 20);
+		center.add(jlb);
+		z_side=new DoubleTextField();
+		z_side.setBounds(column, r, 100, 20);
+		center.add(z_side);
+		
+		r+=30;
+		
 		jlb=new JLabel("Num X");
 		jlb.setBounds(5, r, 100, 20);
 		center.add(jlb);
@@ -145,6 +156,7 @@ public class GridPanel extends JDialog implements ActionListener {
 			nw_y.setText(100);
 			x_side.setText(100);
 			y_side.setText(200);
+			z_side.setText(100);
 			xnumber.setText(5);
 			ynumber.setText(4);
 		
@@ -163,10 +175,11 @@ public class GridPanel extends JDialog implements ActionListener {
 				double nwy=nw_y.getvalue();			
 				double xside=x_side.getvalue();
 				double yside=y_side.getvalue();
+				double zside=z_side.getvalue();
 			    int xnum=xnumber.getvalue();
 			    int ynum=ynumber.getvalue();
 				
-			    BuildingGrid expGrid = new BuildingGrid(nwx,nwy,xside,yside,xnum,ynum);
+			    BuildingGrid expGrid = new BuildingGrid(nwx,nwy,xside,yside,zside,xnum,ynum);
 				
 				
 				for (int i = 0; i < xnum; i++) {
@@ -189,10 +202,11 @@ public class GridPanel extends JDialog implements ActionListener {
 				double nwy=nw_y.getvalue();			
 				double xside=x_side.getvalue();
 				double yside=y_side.getvalue();
+				double zside=z_side.getvalue();
 			    int xnum=xnumber.getvalue();
 			    int ynum=ynumber.getvalue();
 				
-			    newGrid = new BuildingGrid(nwx,nwy,xside,yside,xnum,ynum);
+			    newGrid = new BuildingGrid(nwx,nwy,xside,yside,zside,xnum,ynum);
 				
 				
 				dispose();	

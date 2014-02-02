@@ -11,6 +11,7 @@ public class BuildingCell {
 	double nw_y=0;
 	double x_side=0;
 	double y_side=0;
+	double z_side=0;
 	
     int i=0;
     int j=0;
@@ -20,12 +21,13 @@ public class BuildingCell {
     boolean selected=false;
 
 	
-	public BuildingCell(double nw_x, double nw_y, double x_side, double y_side, int i,int j) {
+	public BuildingCell(double nw_x, double nw_y, double x_side, double y_side,double z_side, int i,int j) {
 		super();
 		this.nw_x = nw_x;
 		this.nw_y = nw_y;
 		this.x_side = x_side;
 		this.y_side = y_side;
+		this.z_side = z_side;
 		this.i = i;
 		this.j = j;
 	}
@@ -95,6 +97,14 @@ public class BuildingCell {
 
 	public void setFilled(boolean filled) {
 		this.filled = filled;
+	}
+
+	public double getZ_side() {
+		return z_side;
+	}
+
+	public void setZ_side(double z_side) {
+		this.z_side = z_side;
 	}
 
 	

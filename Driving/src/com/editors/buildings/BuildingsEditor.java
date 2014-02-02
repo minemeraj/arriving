@@ -63,9 +63,11 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	private DoubleTextField nw_y;
 	private DoubleTextField x_side;
 	private DoubleTextField y_side;
+	private DoubleTextField z_side;
 	private JButton emptyCell; 
 	private JButton fillCell;
 	private JMenuItem jmt_expand_grid;
+	
 
 	
 	public BuildingsEditor(){
@@ -165,6 +167,17 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		
 		r+=30;
 		
+		jlb=new JLabel("Z side");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		z_side=new DoubleTextField();
+		z_side.setBounds(column, r, 100, 20);
+		z_side.setEditable(false);
+		z_side.addKeyListener(this);
+		right.add(z_side);
+		
+		r+=30;
+		
         fillCell=new JButton("Fill cell");
         fillCell.setBounds(10,r,100,20);
         fillCell.addActionListener(this);
@@ -191,7 +204,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		nw_y.setText(cell.getNw_y());
 		x_side.setText(cell.getX_side());
 		y_side.setText(cell.getY_side());
-		
+		z_side.setText(cell.getZ_side());
 	}
 
 	
