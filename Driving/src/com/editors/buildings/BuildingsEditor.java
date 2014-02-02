@@ -586,6 +586,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			Editor editor=new Editor();
 			editor.meshes[0]=grid.buildMesh();
 			pw = new PrintWriter(new FileOutputStream(file));
+			editor.forceReading=true;
 			editor.saveLines(pw);
 			pw.close();
 			
