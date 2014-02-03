@@ -163,57 +163,60 @@ public class BuildingGrid {
 				if(!cells[i][j].isFilled())
 					continue;
 
-				LineData uld=new LineData();
-				uld.addIndex(pos(i,j,1));
-				uld.addIndex(pos(i+1,j,1));					
-				uld.addIndex(pos(i+1,j+1,1));
-				uld.addIndex(pos(i,j+1,1));	
-				uld.setData(""+Renderer3D.CAR_TOP);
-				polyData.add(uld);
+				LineData topLD=new LineData();
+				topLD.addIndex(pos(i,j,1));
+				topLD.addIndex(pos(i+1,j,1));					
+				topLD.addIndex(pos(i+1,j+1,1));
+				topLD.addIndex(pos(i,j+1,1));	
+				topLD.setData(""+Renderer3D.CAR_TOP);
+				polyData.add(topLD);
 
 
-				LineData dld=new LineData();
-				dld.addIndex(pos(i,j,0));
-				dld.addIndex(pos(i,j+1,0));					
-				dld.addIndex(pos(i+1,j+1,0));
-				dld.addIndex(pos(i+1,j,0));
-				dld.setData(""+Renderer3D.CAR_BOTTOM);
-				polyData.add(dld);
+				LineData bottomLD=new LineData();
+				bottomLD.addIndex(pos(i,j,0));
+				bottomLD.addIndex(pos(i,j+1,0));					
+				bottomLD.addIndex(pos(i+1,j+1,0));
+				bottomLD.addIndex(pos(i+1,j,0));
+				bottomLD.setData(""+Renderer3D.CAR_BOTTOM);
+				polyData.add(bottomLD);
 				
-				LineData frontld=new LineData();
-				frontld.addIndex(pos(i,j,0));
-				frontld.addIndex(pos(i,j,1));								
-				frontld.addIndex(pos(i,j+1,1));
-				frontld.addIndex(pos(i,j+1,0));		
-				dld.setData(""+Renderer3D.CAR_LEFT);
-				polyData.add(frontld);
-				
-				
-				LineData backld=new LineData();
-				backld.addIndex(pos(i+1,j,0));
-				backld.addIndex(pos(i+1,j+1,0));					
-				backld.addIndex(pos(i+1,j+1,1));
-				backld.addIndex(pos(i+1,j,1));
-				
-				dld.setData(""+Renderer3D.CAR_RIGHT);
-				polyData.add(backld);
+				LineData leftLD=new LineData();
+				leftLD.addIndex(pos(i,j,0));
+				leftLD.addIndex(pos(i,j,1));								
+				leftLD.addIndex(pos(i,j+1,1));
+				leftLD.addIndex(pos(i,j+1,0));		
+				leftLD.setData(""+Renderer3D.CAR_LEFT);
+				if(i==0 || !cells[i-1][j].isFilled())
+					polyData.add(leftLD);
 				
 				
-				LineData leftld=new LineData();
-				leftld.addIndex(pos(i,j,0));
-				leftld.addIndex(pos(i+1,j,0));					
-				leftld.addIndex(pos(i+1,j,1));
-				leftld.addIndex(pos(i,j,1));
-				dld.setData(""+Renderer3D.CAR_BACK);
-				polyData.add(leftld);
+				LineData rightLD=new LineData();
+				rightLD.addIndex(pos(i+1,j,0));
+				rightLD.addIndex(pos(i+1,j+1,0));					
+				rightLD.addIndex(pos(i+1,j+1,1));
+				rightLD.addIndex(pos(i+1,j,1));	
+				rightLD.setData(""+Renderer3D.CAR_RIGHT);
+				if(i==xnum-1 || !cells[i+1][j].isFilled())				
+					polyData.add(rightLD);
 				
-				LineData rightld=new LineData();
-				rightld.addIndex(pos(i,j+1,0));
-				rightld.addIndex(pos(i,j+1,1));					
-				rightld.addIndex(pos(i+1,j+1,1));
-				rightld.addIndex(pos(i+1,j+1,0));	
-				dld.setData(""+Renderer3D.CAR_FRONT);
-				polyData.add(rightld);
+				
+				LineData backLD=new LineData();
+				backLD.addIndex(pos(i,j,0));
+				backLD.addIndex(pos(i+1,j,0));					
+				backLD.addIndex(pos(i+1,j,1));
+				backLD.addIndex(pos(i,j,1));
+				backLD.setData(""+Renderer3D.CAR_BACK);	
+				if(j==0 || !cells[i][j-1].isFilled())				
+					polyData.add(backLD);
+				
+				LineData frontLD=new LineData();
+				frontLD.addIndex(pos(i,j+1,0));
+				frontLD.addIndex(pos(i,j+1,1));					
+				frontLD.addIndex(pos(i+1,j+1,1));
+				frontLD.addIndex(pos(i+1,j+1,0));	
+				frontLD.setData(""+Renderer3D.CAR_FRONT);
+				if(j==ynum-1 || !cells[i][j+1].isFilled())				
+					polyData.add(frontLD);
 
 			}
 		}	
