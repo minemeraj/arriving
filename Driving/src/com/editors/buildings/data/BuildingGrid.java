@@ -135,15 +135,15 @@ public class BuildingGrid {
 
 
 		Vector points=new Vector();
-		points.setSize(xnum*ynum*2);
+		points.setSize((xnum+1)*(ynum+1)*2);
 
 		Vector polyData=new Vector();
 
 		for (int k = 0; k < 2; k++) {
 
-			for (int i = 0; i < xnum; i++) {
+			for (int i = 0; i < xnum+1; i++) {
 
-				for (int j = 0; j <ynum; j++) {
+				for (int j = 0; j <ynum+1; j++) {
 
 					Point3D p=new Point3D(i*x_side,j*y_side,k*z_side);
 					points.setElementAt(p,pos(i,j,k));
@@ -154,9 +154,9 @@ public class BuildingGrid {
 		}
 
 
-		for (int i = 0; i < xnum-1; i++) {
+		for (int i = 0; i < xnum; i++) {
 
-			for (int j = 0; j <ynum-1; j++) {
+			for (int j = 0; j <ynum; j++) {
 
 
 
@@ -233,7 +233,7 @@ public class BuildingGrid {
 	
 	public int pos(int i, int j, int k){
 		
-		return (i+xnum*j)*2+k;
+		return (i+(xnum+1)*j)*2+k;
 	}
 
 }
