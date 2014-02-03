@@ -7,6 +7,7 @@ import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
 import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
+import com.main.Renderer3D;
 
 public class BuildingGrid {
 	
@@ -166,7 +167,8 @@ public class BuildingGrid {
 				uld.addIndex(pos(i,j,1));
 				uld.addIndex(pos(i+1,j,1));					
 				uld.addIndex(pos(i+1,j+1,1));
-				uld.addIndex(pos(i,j+1,1));						
+				uld.addIndex(pos(i,j+1,1));	
+				uld.setData(""+Renderer3D.CAR_TOP);
 				polyData.add(uld);
 
 
@@ -175,36 +177,42 @@ public class BuildingGrid {
 				dld.addIndex(pos(i,j+1,0));					
 				dld.addIndex(pos(i+1,j+1,0));
 				dld.addIndex(pos(i+1,j,0));
+				dld.setData(""+Renderer3D.CAR_BOTTOM);
 				polyData.add(dld);
 				
-				LineData backld=new LineData();
-				backld.addIndex(pos(i,j,0));
-				backld.addIndex(pos(i,j+1,0));					
-				backld.addIndex(pos(i,j+1,1));
-				backld.addIndex(pos(i,j,1));				
-				polyData.add(backld);
-				
-				
 				LineData frontld=new LineData();
-				frontld.addIndex(pos(i+1,j,0));
-				frontld.addIndex(pos(i+1,j,1));					
-				frontld.addIndex(pos(i+1,j+1,1));
-				frontld.addIndex(pos(i+1,j+1,0));
+				frontld.addIndex(pos(i,j,0));
+				frontld.addIndex(pos(i,j,1));								
+				frontld.addIndex(pos(i,j+1,1));
+				frontld.addIndex(pos(i,j+1,0));		
+				dld.setData(""+Renderer3D.CAR_LEFT);
 				polyData.add(frontld);
+				
+				
+				LineData backld=new LineData();
+				backld.addIndex(pos(i+1,j,0));
+				backld.addIndex(pos(i+1,j+1,0));					
+				backld.addIndex(pos(i+1,j+1,1));
+				backld.addIndex(pos(i+1,j,1));
+				
+				dld.setData(""+Renderer3D.CAR_RIGHT);
+				polyData.add(backld);
 				
 				
 				LineData leftld=new LineData();
 				leftld.addIndex(pos(i,j,0));
 				leftld.addIndex(pos(i+1,j,0));					
 				leftld.addIndex(pos(i+1,j,1));
-				leftld.addIndex(pos(i,j,1));				
+				leftld.addIndex(pos(i,j,1));
+				dld.setData(""+Renderer3D.CAR_BACK);
 				polyData.add(leftld);
 				
 				LineData rightld=new LineData();
 				rightld.addIndex(pos(i,j+1,0));
 				rightld.addIndex(pos(i,j+1,1));					
 				rightld.addIndex(pos(i+1,j+1,1));
-				rightld.addIndex(pos(i+1,j+1,0));								
+				rightld.addIndex(pos(i+1,j+1,0));	
+				dld.setData(""+Renderer3D.CAR_FRONT);
 				polyData.add(rightld);
 
 			}

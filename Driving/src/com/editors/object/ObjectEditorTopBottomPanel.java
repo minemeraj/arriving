@@ -106,8 +106,8 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 		graphics2D.setColor(Color.white);
 		
 		// x axis
-        int x1=(int) (calcAssX(-length,0,0));
-        int y1=(int)(calcAssY(-length,0,0));
+        int x1=(int) (calcAssX(0,0,0));
+        int y1=(int)(calcAssY(0,0,0));
         int x2=(int)(calcAssX(length,0,0));
         int y2=(int)(calcAssY(length,0,0));
 	
@@ -115,8 +115,8 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 		 graphics2D.drawLine(x1,y1,x2,y2);
 		
 		//y axis
-		 x1=(int)(calcAssX(0,-length,0));
-		 y1=(int)(calcAssY(0,-length,0));
+		 x1=(int)(calcAssX(0,0,0));
+		 y1=(int)(calcAssY(0,0,0));
 		 x2=(int)(calcAssX(0,length,0));
 		 y2=(int)(calcAssY(0,length,0));
 		 
