@@ -16,7 +16,7 @@ public class PlanPanel extends JDialog implements ActionListener {
 	
 	
 	int WIDTH=250;
-	int HEIGHT=310;
+	int HEIGHT=230;
 	private JPanel center;
 	private DoubleTextField x_side;
 	private DoubleTextField y_side;
@@ -40,7 +40,7 @@ public class PlanPanel extends JDialog implements ActionListener {
 		
 		newPlan=plan;
 		
-		setTitle("Cell");
+		setTitle("Plan");
 		setLocation(50,50);
 		setSize(WIDTH,HEIGHT);
 		setLayout(null);
@@ -169,7 +169,7 @@ public class PlanPanel extends JDialog implements ActionListener {
 				double nwx=nw_x.getvalue();
 				double nwy=nw_y.getvalue();
 				
-			    newPlan = new BuildingPlan(xside,yside,zside,nwx,nwy);
+			    newPlan = new BuildingPlan(nwx,nwy,xside,yside,zside);
 				
 				
 				dispose();	
