@@ -17,21 +17,21 @@ public class BuildingPlan {
 	double y_side=0;
 	double z_side=0;
 	
-	int xnum=0;
-	int ynum=0;
+	double nw_x=0;
+	double nw_y=0;
 
 	
 	public BuildingPlan(){}
 	
 	public BuildingPlan( double x_side, double y_side,double z_side,
-			int xnum, int ynum) {
+			double nw_x, double nw_y) {
 		super();
 
 		this.x_side = x_side;
 		this.y_side = y_side;
 		this.z_side = z_side;
-		this.xnum = xnum;
-		this.ynum = ynum;
+		this.nw_x = nw_x;
+		this.nw_y = nw_y;
 		
 		/*cells=new BuildingCell[xnum][ynum];
 		
@@ -73,18 +73,7 @@ public class BuildingPlan {
 	public void setY_side(double y_side) {
 		this.y_side = y_side;
 	}
-	public int getXnum() {
-		return xnum;
-	}
-	public void setXnum(int xnum) {
-		this.xnum = xnum;
-	}
-	public int getYnum() {
-		return ynum;
-	}
-	public void setYnum(int ynum) {
-		this.ynum = ynum;
-	}
+
 
 	/*public String toString() {
 		
@@ -120,7 +109,7 @@ public class BuildingPlan {
 
 
 
-		Vector points=new Vector();
+		/*Vector points=new Vector();
 		points.setSize((xnum+1)*(ynum+1)*2);
 
 		Vector polyData=new Vector();
@@ -137,7 +126,7 @@ public class BuildingPlan {
 
 			}
 
-		}
+		}*/
 
 
 		/*for (int i = 0; i < xnum; i++) {
@@ -217,10 +206,34 @@ public class BuildingPlan {
 		return null;
 
 	}
+
+	public double getZ_side() {
+		return z_side;
+	}
+
+	public void setZ_side(double z_side) {
+		this.z_side = z_side;
+	}
+
+	public double getNw_x() {
+		return nw_x;
+	}
+
+	public void setNw_x(double nw_x) {
+		this.nw_x = nw_x;
+	}
+
+	public double getNw_y() {
+		return nw_y;
+	}
+
+	public void setNw_y(double nw_y) {
+		this.nw_y = nw_y;
+	}
 	
-	public int pos(int i, int j, int k){
+	/*public int pos(int i, int j, int k){
 		
 		return (i+(xnum+1)*j)*2+k;
-	}
+	}*/
 
 }

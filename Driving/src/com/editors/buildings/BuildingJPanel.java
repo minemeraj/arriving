@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import com.Polygon3D;
-import com.editors.buildings.data.BuildingCell;
 import com.editors.buildings.data.BuildingPlan;
 
 public class BuildingJPanel extends JPanel{
@@ -26,7 +25,6 @@ public class BuildingJPanel extends JPanel{
     int WIDTH=0;
     int HEIGHT=0;
     
-    public BuildingCell selectedCell=null;
  
 
 	public void initialize() {
@@ -38,9 +36,9 @@ public class BuildingJPanel extends JPanel{
 	}
 	
 
-	public void draw(BuildingPlan bg) {
+	public void draw(BuildingPlan plan) {
 		
-		selectedCell=null;
+	
 		
 		if(graph==null)
 			return;
@@ -51,31 +49,13 @@ public class BuildingJPanel extends JPanel{
 		
 
 		
-	/*	if(bg!=null){
+		if(plan!=null){
 		
 		
 			graph.setColor(Color.WHITE);
+			drawPlanData(plan);
 			
-			for (int i = 0; i < bg.getXnum(); i++) {
-				
-				for (int j = 0; j < bg.getYnum(); j++) {
-					drawCell(bg.cells[i][j]);
-				}
-				
-			}
-			
-			
-			
-			if(selectedCell!=null){
-				
-				graph.setColor(Color.RED);
-				
-				drawCellData(selectedCell);
-				
-		
-			}
-			
-		}*/
+		}
 		graph.setColor(Color.GREEN);
 		graph.drawLine((int)calcX(0,0),(int)calcY(0,0),(int)calcX(100,0),(int)calcY(100,0));
 		graph.setColor(Color.YELLOW);
@@ -84,7 +64,7 @@ public class BuildingJPanel extends JPanel{
 	}
 	
 	
-	private void drawCellData(BuildingCell cell) { 
+	private void drawPlanData(BuildingPlan cell) { 
 		
 		double x0=cell.getNw_x();
 		double y0=cell.getNw_y();		
@@ -96,30 +76,24 @@ public class BuildingJPanel extends JPanel{
 		pol.addPoint((int)calcX(x0+xside,y0),(int)calcY(x0+xside,y0),0);
 		pol.addPoint((int)calcX(x0+xside,y0+yside),(int)calcY(x0+xside,y0+yside),0);
 		pol.addPoint((int)calcX(x0,y0+yside),(int)calcY(x0,y0+yside),0);
-		
-		if(cell.isFilled()){
+	
 			
-			graph.fill(pol);
-			
-		}else{
-			
-			graph.draw(pol);
-			
-		}
+		graph.draw(pol);
+	
 
 
 		
 	}
 
 
-	private void drawCell(BuildingCell cell) {
+	/*private void drawCell(BuildingCell cell) {
 		
 		if(cell.isSelected())
 			selectedCell=cell;
 	
 		drawCellData(cell);
 		
-	}
+	}*/
 
 
 	public double calcX(double x,double y){
