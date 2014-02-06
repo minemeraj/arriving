@@ -1,15 +1,13 @@
 package com.editors.buildings;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 
 import javax.swing.JPanel;
 
 import com.Polygon3D;
 import com.editors.buildings.data.BuildingCell;
-import com.editors.buildings.data.BuildingGrid;
+import com.editors.buildings.data.BuildingPlan;
 
 public class BuildingJPanel extends JPanel{
 
@@ -40,7 +38,7 @@ public class BuildingJPanel extends JPanel{
 	}
 	
 
-	public void draw(BuildingGrid bg) {
+	public void draw(BuildingPlan bg) {
 		
 		selectedCell=null;
 		
@@ -53,7 +51,7 @@ public class BuildingJPanel extends JPanel{
 		
 
 		
-		if(bg!=null){
+	/*	if(bg!=null){
 		
 		
 			graph.setColor(Color.WHITE);
@@ -77,7 +75,7 @@ public class BuildingJPanel extends JPanel{
 		
 			}
 			
-		}
+		}*/
 		graph.setColor(Color.GREEN);
 		graph.drawLine((int)calcX(0,0),(int)calcY(0,0),(int)calcX(100,0),(int)calcY(100,0));
 		graph.setColor(Color.YELLOW);

@@ -2,7 +2,6 @@ package com.editors.buildings;
 
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -13,15 +12,11 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.PrintWriter;
-import java.lang.management.GarbageCollectorMXBean;
-import java.util.Hashtable;
 import java.util.Stack;
 
-import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -29,18 +24,15 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.RepaintManager;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
-import javax.xml.crypto.dsig.spec.HMACParameterSpec;
 
-import com.PolygonMesh;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.buildings.data.BuildingCell;
-import com.editors.buildings.data.BuildingGrid;
+import com.editors.buildings.data.BuildingPlan;
 import com.editors.object.ObjectEditorPreviewPanel;
 
 public class BuildingsEditor extends JFrame implements MenuListener, MouseListener, MouseWheelListener, ActionListener, KeyListener{
@@ -67,7 +59,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	
 	public boolean redrawAfterMenu=false;
 	
-	public BuildingGrid grid =null;	
+	public BuildingPlan grid =null;	
 	
 	JFileChooser fc = new JFileChooser();
 	File currentDirectory=new File("lib");
@@ -375,7 +367,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		
 		prepareUndo();
 		
-		for (int i = 0; i < grid.getXnum(); i++) {
+		/*for (int i = 0; i < grid.getXnum(); i++) {
 			
 			for (int j = 0; j < grid.getYnum(); j++) {
 				BuildingCell bc=grid.cells[i][j];
@@ -384,7 +376,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 					
 			}
 			
-		}
+		}*/
 		
 	}
 
@@ -392,14 +384,14 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	private void addGrid() {
 
 
-		GridPanel op=new GridPanel(null);
+		PlanPanel op=new PlanPanel(null);
 
-		BuildingGrid newGrid = op.getNewGrid();
+		/*BuildingGrid newGrid = op.getNewGrid();
 		if(newGrid!=null)
 		{
 			grid=newGrid;
 
-		}
+		}*/
 
 
 		draw();
@@ -408,14 +400,14 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 
 	private void expandGrid() {
 		
-		GridPanel op=new GridPanel(grid);
+		PlanPanel op=new PlanPanel(grid);
 
-		BuildingGrid newGrid = op.getNewGrid();
+		/*BuildingGrid newGrid = op.getNewGrid();
 		if(newGrid!=null)
 		{
 			grid=newGrid;
 
-		}
+		}*/
 		draw();
 	}
 	
@@ -527,7 +519,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			while((str=br.readLine())!=null){
 				
 				int indx=str.indexOf("G=");
-				if(indx>=0){
+				/*if(indx>=0){
 					
 					String value=str.substring(indx+2);
 					grid=BuildingGrid.buildGrid(value);
@@ -540,7 +532,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 					boolean filled=Boolean.parseBoolean(vals[2]);
 					
 					grid.cells[i][j].setFilled(filled);
-				}
+				}*/
 				
 				
 				
@@ -628,7 +620,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			
 			pw.println("G="+grid.toString());
 			
-			for (int i = 0; i < grid.getXnum(); i++) {
+			/*for (int i = 0; i < grid.getXnum(); i++) {
 				
 				for (int j = 0; j < grid.getYnum(); j++) {
 					BuildingCell bc=grid.cells[i][j];				
@@ -636,7 +628,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 						
 				}
 				
-			}
+			}*/
 			
 			
 			pw.close();
@@ -660,7 +652,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			cleanRightData();
 			Point pt=new Point((int)center.invertX(p.x,p.y),(int)center.invertY(p.x,p.y));
 			
-			for (int i = 0; i < grid.getXnum(); i++) {
+			/*for (int i = 0; i < grid.getXnum(); i++) {
 				
 				for (int j = 0; j < grid.getYnum(); j++) {
 					BuildingCell bc=grid.cells[i][j];
@@ -673,7 +665,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 						
 				}
 				
-			}
+			}*/
 			
 			draw();
 		}
@@ -719,11 +711,11 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	
 	public void undo() {
 
-		if(oldGrid.size()>0)
+		/*if(oldGrid.size()>0)
 			grid=(BuildingGrid) oldGrid.pop();
 		
 		if(oldGrid.size()==0)
-			jmt_undo_last.setEnabled(false);
+			jmt_undo_last.setEnabled(false);*/
 		
 		draw();
 	}

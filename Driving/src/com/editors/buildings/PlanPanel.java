@@ -2,7 +2,6 @@ package com.editors.buildings;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.peer.PanelPeer;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -11,10 +10,9 @@ import javax.swing.JPanel;
 
 import com.editors.DoubleTextField;
 import com.editors.IntegerTextField;
-import com.editors.buildings.data.BuildingCell;
-import com.editors.buildings.data.BuildingGrid;
+import com.editors.buildings.data.BuildingPlan;
 
-public class GridPanel extends JDialog implements ActionListener {
+public class PlanPanel extends JDialog implements ActionListener {
 	
 	
 	int WIDTH=250;
@@ -32,12 +30,12 @@ public class GridPanel extends JDialog implements ActionListener {
 	JButton generate=null;
 	JButton delete=null;
 	
-	BuildingGrid newGrid=null;
+	BuildingPlan newGrid=null;
 	
 	boolean isExpand=false;
 	
 	
-	public GridPanel(BuildingGrid grid){
+	public PlanPanel(BuildingPlan grid){
 		
 		if(grid!=null)
 			isExpand=true;
@@ -134,12 +132,12 @@ public class GridPanel extends JDialog implements ActionListener {
         delete.addActionListener(this);
         center.add(delete);
 				
-		initData(newGrid);
+		//initData(newGrid);
         
 		setVisible(true);
 	}
 
-	private void initData(BuildingGrid bg) {
+	/*private void initData(BuildingGrid bg) {
 		
 		if(bg!=null){
 			
@@ -161,7 +159,7 @@ public class GridPanel extends JDialog implements ActionListener {
 			ynumber.setText(4);
 		
 		}
-	}
+	}*/
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
@@ -179,7 +177,7 @@ public class GridPanel extends JDialog implements ActionListener {
 			    int xnum=xnumber.getvalue();
 			    int ynum=ynumber.getvalue();
 				
-			    BuildingGrid expGrid = new BuildingGrid(nwx,nwy,xside,yside,zside,xnum,ynum);
+			    /*BuildingGrid expGrid = new BuildingGrid(nwx,nwy,xside,yside,zside,xnum,ynum);
 				
 				
 				for (int i = 0; i < xnum; i++) {
@@ -191,14 +189,14 @@ public class GridPanel extends JDialog implements ActionListener {
 					}
 					
 				}
-				newGrid=expGrid;
+				newGrid=expGrid;*/
 				
 				dispose();	
 				
 				
 			}else{
 				
-				double nwx=nw_x.getvalue();
+				/*double nwx=nw_x.getvalue();
 				double nwy=nw_y.getvalue();			
 				double xside=x_side.getvalue();
 				double yside=y_side.getvalue();
@@ -206,7 +204,7 @@ public class GridPanel extends JDialog implements ActionListener {
 			    int xnum=xnumber.getvalue();
 			    int ynum=ynumber.getvalue();
 				
-			    newGrid = new BuildingGrid(nwx,nwy,xside,yside,zside,xnum,ynum);
+			    newGrid = new BuildingGrid(nwx,nwy,xside,yside,zside,xnum,ynum);*/
 				
 				
 				dispose();	
@@ -223,7 +221,7 @@ public class GridPanel extends JDialog implements ActionListener {
 		
 	}
 
-	public BuildingGrid getNewGrid() {
+	public BuildingPlan getNewGrid() {
 		return newGrid;
 	}
 
