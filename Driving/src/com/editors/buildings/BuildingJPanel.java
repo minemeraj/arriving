@@ -86,16 +86,6 @@ public class BuildingJPanel extends JPanel{
 	}
 
 
-	/*private void drawCell(BuildingCell cell) {
-		
-		if(cell.isSelected())
-			selectedCell=cell;
-	
-		drawCellData(cell);
-		
-	}*/
-
-
 	public double calcX(double x,double y){
 		
 		return x0+x/dx;

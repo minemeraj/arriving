@@ -33,30 +33,14 @@ public class BuildingPlan {
 		this.nw_x = nw_x;
 		this.nw_y = nw_y;
 		
-		/*cells=new BuildingCell[xnum][ynum];
-		
-		for (int i = 0; i < xnum; i++) {
-			
-			for (int j = 0; j <ynum; j++) {
-				cells[i][j]=new BuildingCell(nw_x+(i-1)*x_side,nw_y+(j-1)*y_side,x_side,y_side,z_side,i,j);
-			}
-			
-		}*/
+
 	}
 	
 	public Object clone(){
 		
-		/*BuildingGrid grid=new BuildingGrid(nw_x,nw_y,x_side,y_side,z_side,xnum,ynum);
-		
-		for (int i = 0; i < xnum; i++) {
-			
-			for (int j = 0; j <ynum; j++) {
-				grid.cells[i][j].setFilled(cells[i][j].isFilled());
-			}
-			
-		}*/
-		
-		return null;
+		BuildingPlan grid=new BuildingPlan(nw_x,nw_y,x_side,y_side,z_side);
+
+		return grid;
 		
 	}
 	
@@ -96,19 +80,15 @@ public class BuildingPlan {
 		return grid;
 	}
 
-	/*public BuildingCell[][] getCells() {
-		return cells;
-	}
 
-	public void setCells(BuildingCell[][] cells) {
-		this.cells = cells;
-	}*/
 	
 	public PolygonMesh buildMesh(){
 
+		int xnum=1;
+		int ynum=1;
 
 
-		/*Vector points=new Vector();
+		Vector points=new Vector();
 		points.setSize((xnum+1)*(ynum+1)*2);
 
 		Vector polyData=new Vector();
@@ -125,17 +105,13 @@ public class BuildingPlan {
 
 			}
 
-		}*/
+		}
 
 
-		/*for (int i = 0; i < xnum; i++) {
+		for (int i = 0; i < xnum; i++) {
 
 			for (int j = 0; j <ynum; j++) {
 
-
-
-				if(!cells[i][j].isFilled())
-					continue;
 
 				LineData topLD=new LineData();
 				topLD.addIndex(pos(i,j,1));
@@ -160,8 +136,7 @@ public class BuildingPlan {
 				leftLD.addIndex(pos(i,j+1,1));
 				leftLD.addIndex(pos(i,j+1,0));		
 				leftLD.setData(""+Renderer3D.CAR_LEFT);
-				if(i==0 || !cells[i-1][j].isFilled())
-					polyData.add(leftLD);
+				polyData.add(leftLD);
 				
 				
 				LineData rightLD=new LineData();
@@ -169,9 +144,8 @@ public class BuildingPlan {
 				rightLD.addIndex(pos(i+1,j+1,0));					
 				rightLD.addIndex(pos(i+1,j+1,1));
 				rightLD.addIndex(pos(i+1,j,1));	
-				rightLD.setData(""+Renderer3D.CAR_RIGHT);
-				if(i==xnum-1 || !cells[i+1][j].isFilled())				
-					polyData.add(rightLD);
+				rightLD.setData(""+Renderer3D.CAR_RIGHT);				
+				polyData.add(rightLD);
 				
 				
 				LineData backLD=new LineData();
@@ -180,8 +154,7 @@ public class BuildingPlan {
 				backLD.addIndex(pos(i+1,j,1));
 				backLD.addIndex(pos(i,j,1));
 				backLD.setData(""+Renderer3D.CAR_BACK);	
-				if(j==0 || !cells[i][j-1].isFilled())				
-					polyData.add(backLD);
+				polyData.add(backLD);
 				
 				LineData frontLD=new LineData();
 				frontLD.addIndex(pos(i,j+1,0));
@@ -189,8 +162,7 @@ public class BuildingPlan {
 				frontLD.addIndex(pos(i+1,j+1,1));
 				frontLD.addIndex(pos(i+1,j+1,0));	
 				frontLD.setData(""+Renderer3D.CAR_FRONT);
-				if(j==ynum-1 || !cells[i][j+1].isFilled())				
-					polyData.add(frontLD);
+				polyData.add(frontLD);
 
 			}
 		}	
@@ -200,9 +172,8 @@ public class BuildingPlan {
 		PolygonMesh pm=new PolygonMesh(points,polyData);
 
 		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
-		return spm;*/
+		return spm;
 
-		return null;
 
 	}
 
@@ -230,9 +201,9 @@ public class BuildingPlan {
 		this.nw_y = nw_y;
 	}
 	
-	/*public int pos(int i, int j, int k){
+	public int pos(int i, int j, int k){
 		
-		return (i+(xnum+1)*j)*2+k;
-	}*/
+		return (i+(1+1)*j)*2+k;
+	}
 
 }

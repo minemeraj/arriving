@@ -33,12 +33,12 @@ public class PlanPanel extends JDialog implements ActionListener {
 	boolean isExpand=false;
 	
 	
-	public PlanPanel(BuildingPlan grid){
+	public PlanPanel(BuildingPlan plan){
 		
-		if(grid!=null)
+		if(plan!=null)
 			isExpand=true;
 		
-		newPlan=grid;
+		newPlan=plan;
 		
 		setTitle("Cell");
 		setLocation(50,50);
@@ -102,7 +102,7 @@ public class PlanPanel extends JDialog implements ActionListener {
 		
 		r+=30;
 		
-        generate=new JButton(isExpand?"expand":"add grid");
+        generate=new JButton(isExpand?"expand":"add plan");
         generate.setBounds(10,r,100,20);
         generate.addActionListener(this);
         center.add(generate);
@@ -124,7 +124,7 @@ public class PlanPanel extends JDialog implements ActionListener {
 			nw_y.setText(bp.getNw_y());
 			x_side.setText(bp.getX_side());
 			y_side.setText(bp.getY_side());
-
+			z_side.setText(bp.getZ_side());
 			
 		}else{
 		
@@ -153,19 +153,9 @@ public class PlanPanel extends JDialog implements ActionListener {
 				double nwx=nw_x.getvalue();
 				double nwy=nw_y.getvalue();
 				
-			    /*BuildingGrid expGrid = new BuildingGrid(nwx,nwy,xside,yside,zside,xnum,ynum);
-				
-				
-				for (int i = 0; i < xnum; i++) {
-					
-					for (int j = 0; j <ynum; j++) {
-						
-						if(i<newGrid.getXnum() && j<newGrid.getYnum())
-							expGrid.cells[i][j].setFilled(newGrid.cells[i][j].isFilled());
-					}
-					
-				}
-				newGrid=expGrid;*/
+			    BuildingPlan expPlan = new BuildingPlan(nwx,nwy,xside,yside,zside);
+							
+				newPlan=expPlan;
 				
 				dispose();	
 				
