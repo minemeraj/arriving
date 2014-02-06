@@ -202,7 +202,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		nw_y.setText("");
 		x_side.setText("");
 		y_side.setText("");
-		
+		z_side.setText("");
 	}
 	
 	private void buildMenuBar() {
@@ -313,6 +313,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		else if(obj==jmt_new_plan){
 			
 			plan=null;
+			cleanRightData();
 			addPlan();
 		}
 		else if(obj==jmt_preview){
