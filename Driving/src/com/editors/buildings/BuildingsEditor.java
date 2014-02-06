@@ -468,20 +468,13 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			while((str=br.readLine())!=null){
 				
 				int indx=str.indexOf("G=");
-				/*if(indx>=0){
+				if(indx>=0){
 					
 					String value=str.substring(indx+2);
-					plan=Buildingplan.buildplan(value);
+					plan=BuildingPlan.buildPlan(value);
 					
-				}else{
-					
-					String[] vals = str.split(",");
-					int i=Integer.parseInt(vals[0]);
-					int j=Integer.parseInt(vals[1]);
-					boolean filled=Boolean.parseBoolean(vals[2]);
-					
-					plan.cells[i][j].setFilled(filled);
-				}*/
+					setRightData(plan);
+				}
 				
 				
 				
@@ -568,17 +561,6 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			
 			
 			pw.println("G="+plan.toString());
-			
-			/*for (int i = 0; i < plan.getXnum(); i++) {
-				
-				for (int j = 0; j < plan.getYnum(); j++) {
-					BuildingCell bc=plan.cells[i][j];				
-					pw.println(bc.toString());
-						
-				}
-				
-			}*/
-			
 			
 			pw.close();
 						

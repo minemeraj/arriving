@@ -64,12 +64,12 @@ public class BuildingJPanel extends JPanel{
 	}
 	
 	
-	private void drawPlanData(BuildingPlan cell) { 
+	private void drawPlanData(BuildingPlan plan) { 
 		
-		double x0=cell.getNw_x();
-		double y0=cell.getNw_y();		
-		double xside=cell.getX_side();
-		double yside=cell.getY_side();
+		double x0=plan.getNw_x();
+		double y0=plan.getNw_y();		
+		double xside=plan.getX_side();
+		double yside=plan.getY_side();
 		
 		Polygon3D pol=new Polygon3D();
 		pol.addPoint((int)calcX(x0,y0),(int)calcY(x0,y0),0);

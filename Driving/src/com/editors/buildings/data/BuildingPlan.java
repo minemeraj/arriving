@@ -23,8 +23,8 @@ public class BuildingPlan {
 	
 	public BuildingPlan(){}
 	
-	public BuildingPlan( double x_side, double y_side,double z_side,
-			double nw_x, double nw_y) {
+	public BuildingPlan( double nw_x, double nw_y,double x_side, double y_side,double z_side
+			) {
 		super();
 
 		this.x_side = x_side;
@@ -75,12 +75,12 @@ public class BuildingPlan {
 	}
 
 
-	/*public String toString() {
+	public String toString() {
 		
-		return nw_x+","+nw_y+","+x_side+","+y_side+","+z_side+","+xnum+","+ynum;
-	}*/
+		return nw_x+","+nw_y+","+x_side+","+y_side+","+z_side;
+	}
 	
-	/*public static BuildingGrid buildGrid(String str) {
+	public static BuildingPlan buildPlan(String str) {
 		
 		String[] vals = str.split(",");
 		
@@ -89,13 +89,12 @@ public class BuildingPlan {
 		double x_side =Double.parseDouble(vals[2]);
 		double y_side = Double.parseDouble(vals[3]);
 		double z_side = Double.parseDouble(vals[4]);
-		int xnum = Integer.parseInt(vals[5]);
-		int ynum =  Integer.parseInt(vals[6]);
+
 		
-		BuildingGrid grid=new BuildingGrid(nw_x,nw_y,x_side,y_side,z_side,xnum,ynum);
+		BuildingPlan grid=new BuildingPlan(nw_x,nw_y,x_side,y_side,z_side);
 	
 		return grid;
-	}*/
+	}
 
 	/*public BuildingCell[][] getCells() {
 		return cells;
