@@ -92,82 +92,47 @@ public class BuildingPlan {
 		points.setSize((xnum+1)*(ynum+1)*2);
 
 		Vector polyData=new Vector();
+		
+		BPoint p000=new BPoint(0,0,0,0);
+		BPoint p100=new BPoint(x_side,0,0,1);
+		BPoint p010=new BPoint(0,y_side,0,2);
+		BPoint p001=new BPoint(0,0,z_side,3);
+		BPoint p110=new BPoint(x_side,y_side,0,4);
+		BPoint p011=new BPoint(0,y_side,z_side,5);
+		BPoint p101=new BPoint(x_side,0,z_side,6);
+		BPoint p111=new BPoint(x_side,y_side,z_side,7);
 
-		for (int k = 0; k < 2; k++) {
+		points.setElementAt(p000,p000.getIndex());
+		points.setElementAt(p100,p100.getIndex());
+		points.setElementAt(p010,p010.getIndex());
+		points.setElementAt(p001,p001.getIndex());
+		points.setElementAt(p110,p110.getIndex());
+		points.setElementAt(p011,p011.getIndex());
+		points.setElementAt(p101,p101.getIndex());
+		points.setElementAt(p111,p111.getIndex());
 
-			for (int i = 0; i < xnum+1; i++) {
-
-				for (int j = 0; j <ynum+1; j++) {
-
-					Point3D p=new Point3D(i*x_side,j*y_side,k*z_side);
-					points.setElementAt(p,pos(i,j,k));
-				}
-
-			}
-
-		}
-
-
-		for (int i = 0; i < xnum; i++) {
-
-			for (int j = 0; j <ynum; j++) {
-
-
-				LineData topLD=new LineData();
-				topLD.addIndex(pos(i,j,1));
-				topLD.addIndex(pos(i+1,j,1));					
-				topLD.addIndex(pos(i+1,j+1,1));
-				topLD.addIndex(pos(i,j+1,1));	
-				topLD.setData(""+Renderer3D.CAR_TOP);
-				polyData.add(topLD);
+       //basic sides:
+		
+		LineData topLD=buildLine(p001,p101,p111,p011,Renderer3D.CAR_TOP);
+		polyData.add(topLD);
 
 
-				LineData bottomLD=new LineData();
-				bottomLD.addIndex(pos(i,j,0));
-				bottomLD.addIndex(pos(i,j+1,0));					
-				bottomLD.addIndex(pos(i+1,j+1,0));
-				bottomLD.addIndex(pos(i+1,j,0));
-				bottomLD.setData(""+Renderer3D.CAR_BOTTOM);
-				polyData.add(bottomLD);
-				
-				LineData leftLD=new LineData();
-				leftLD.addIndex(pos(i,j,0));
-				leftLD.addIndex(pos(i,j,1));								
-				leftLD.addIndex(pos(i,j+1,1));
-				leftLD.addIndex(pos(i,j+1,0));		
-				leftLD.setData(""+Renderer3D.CAR_LEFT);
-				polyData.add(leftLD);
-				
-				
-				LineData rightLD=new LineData();
-				rightLD.addIndex(pos(i+1,j,0));
-				rightLD.addIndex(pos(i+1,j+1,0));					
-				rightLD.addIndex(pos(i+1,j+1,1));
-				rightLD.addIndex(pos(i+1,j,1));	
-				rightLD.setData(""+Renderer3D.CAR_RIGHT);				
-				polyData.add(rightLD);
-				
-				
-				LineData backLD=new LineData();
-				backLD.addIndex(pos(i,j,0));
-				backLD.addIndex(pos(i+1,j,0));					
-				backLD.addIndex(pos(i+1,j,1));
-				backLD.addIndex(pos(i,j,1));
-				backLD.setData(""+Renderer3D.CAR_BACK);	
-				polyData.add(backLD);
-				
-				LineData frontLD=new LineData();
-				frontLD.addIndex(pos(i,j+1,0));
-				frontLD.addIndex(pos(i,j+1,1));					
-				frontLD.addIndex(pos(i+1,j+1,1));
-				frontLD.addIndex(pos(i+1,j+1,0));	
-				frontLD.setData(""+Renderer3D.CAR_FRONT);
-				polyData.add(frontLD);
-
-			}
-		}	
-
-
+		LineData bottomLD=buildLine(p000,p010,p110,p100,Renderer3D.CAR_TOP);
+		polyData.add(bottomLD);
+		
+		LineData leftLD=buildLine(p000,p001,p011,p010,Renderer3D.CAR_LEFT);
+		polyData.add(leftLD);
+		
+		
+		LineData rightLD=buildLine(p100,p110,p111,p101,Renderer3D.CAR_RIGHT);
+		polyData.add(rightLD);
+		
+		
+		LineData backLD=buildLine(p000,p100,p101,p001,Renderer3D.CAR_BACK);
+		polyData.add(backLD);
+		
+		LineData frontLD=buildLine(p010,p011,p111,p110,Renderer3D.CAR_FRONT);
+		polyData.add(frontLD);
 
 		PolygonMesh pm=new PolygonMesh(points,polyData);
 
@@ -175,6 +140,20 @@ public class BuildingPlan {
 		return spm;
 
 
+	}
+
+	private LineData buildLine(BPoint p0, BPoint p1, BPoint p2,
+			BPoint p3, int face) {
+		
+		LineData ld=new LineData();
+		
+		ld.addIndex(p0.getIndex());
+		ld.addIndex(p1.getIndex());					
+		ld.addIndex(p2.getIndex());
+		ld.addIndex(p3.getIndex());	
+		ld.setData(""+face);
+		
+		return ld;
 	}
 
 	public double getZ_side() {
@@ -205,5 +184,25 @@ public class BuildingPlan {
 		
 		return (i+(1+1)*j)*2+k;
 	}
+	
+	 class BPoint extends Point3D{
+		 
+		 public BPoint(double x, double y, double z, int index) {
+			super(x, y, z);
+			this.index = index;
+		}
+
+		int index=-1;
+
+		public int getIndex() {
+			return index;
+		}
+
+		public void setIndex(int index) {
+			this.index = index;
+		}
+		 
+		 
+	 }
 
 }
