@@ -93,14 +93,14 @@ public class BuildingPlan {
 
 		Vector polyData=new Vector();
 		
-		BPoint p000=new BPoint(0,0,0,0);
-		BPoint p100=new BPoint(x_side,0,0,1);
-		BPoint p010=new BPoint(0,y_side,0,2);
-		BPoint p001=new BPoint(0,0,z_side,3);
-		BPoint p110=new BPoint(x_side,y_side,0,4);
-		BPoint p011=new BPoint(0,y_side,z_side,5);
-		BPoint p101=new BPoint(x_side,0,z_side,6);
-		BPoint p111=new BPoint(x_side,y_side,z_side,7);
+		BPoint p000=new BPoint(nw_x,nw_y,0,0);
+		BPoint p100=new BPoint(nw_x+x_side,nw_y,0,1);
+		BPoint p010=new BPoint(nw_x,nw_y+y_side,0,2);
+		BPoint p001=new BPoint(nw_x,nw_y,z_side,3);
+		BPoint p110=new BPoint(nw_x+x_side,nw_y+y_side,0,4);
+		BPoint p011=new BPoint(nw_x,nw_y+y_side,z_side,5);
+		BPoint p101=new BPoint(nw_x+x_side,nw_y,z_side,6);
+		BPoint p111=new BPoint(nw_x+x_side,nw_y+y_side,z_side,7);
 
 		points.setElementAt(p000,p000.getIndex());
 		points.setElementAt(p100,p100.getIndex());
