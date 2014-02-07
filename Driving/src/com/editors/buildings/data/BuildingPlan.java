@@ -89,18 +89,20 @@ public class BuildingPlan {
 
 
 		Vector points=new Vector();
-		points.setSize((xnum+1)*(ynum+1)*2);
+		points.setSize(10);
 
 		Vector polyData=new Vector();
 		
-		BPoint p000=new BPoint(nw_x,nw_y,0,0);
-		BPoint p100=new BPoint(nw_x+x_side,nw_y,0,1);
-		BPoint p010=new BPoint(nw_x,nw_y+y_side,0,2);
-		BPoint p001=new BPoint(nw_x,nw_y,z_side,3);
-		BPoint p110=new BPoint(nw_x+x_side,nw_y+y_side,0,4);
-		BPoint p011=new BPoint(nw_x,nw_y+y_side,z_side,5);
-		BPoint p101=new BPoint(nw_x+x_side,nw_y,z_side,6);
-		BPoint p111=new BPoint(nw_x+x_side,nw_y+y_side,z_side,7);
+		 //basic sides:
+				
+		BPoint p000=new BPoint(0,0,0,0);
+		BPoint p100=new BPoint(x_side,0,0,1);
+		BPoint p010=new BPoint(0,y_side,0,2);
+		BPoint p001=new BPoint(0,0,z_side,3);
+		BPoint p110=new BPoint(x_side,y_side,0,4);
+		BPoint p011=new BPoint(0,y_side,z_side,5);
+		BPoint p101=new BPoint(x_side,0,z_side,6);
+		BPoint p111=new BPoint(x_side,y_side,z_side,7);
 
 		points.setElementAt(p000,p000.getIndex());
 		points.setElementAt(p100,p100.getIndex());
@@ -110,15 +112,14 @@ public class BuildingPlan {
 		points.setElementAt(p011,p011.getIndex());
 		points.setElementAt(p101,p101.getIndex());
 		points.setElementAt(p111,p111.getIndex());
-
-       //basic sides:
+     
 		
 		LineData topLD=buildLine(p001,p101,p111,p011,Renderer3D.CAR_TOP);
 		polyData.add(topLD);
 
 
 		LineData bottomLD=buildLine(p000,p010,p110,p100,Renderer3D.CAR_TOP);
-		polyData.add(bottomLD);
+		//polyData.add(bottomLD);
 		
 		LineData leftLD=buildLine(p000,p001,p011,p010,Renderer3D.CAR_LEFT);
 		polyData.add(leftLD);
@@ -133,6 +134,27 @@ public class BuildingPlan {
 		
 		LineData frontLD=buildLine(p010,p011,p111,p110,Renderer3D.CAR_FRONT);
 		polyData.add(frontLD);
+		
+		//roof:
+		 
+		BPoint pr001=new BPoint((p001.x+p101.x)/2.0,(p001.y+p101.y)/2.0,30+(p001.z+p101.z)/2.0,8);
+		BPoint pr011=new BPoint((p011.x+p111.x)/2.0,(p011.y+p111.y)/2.0,30+(p011.z+p111.z)/2.0,9);
+		
+		points.setElementAt(pr001,pr001.getIndex());
+		points.setElementAt(pr011,pr011.getIndex());
+		
+		LineData backRoof=buildLine(p001,p101,pr001,null,Renderer3D.CAR_BACK);
+		polyData.add(backRoof);
+		LineData frontRoof=buildLine(p011,pr011,p111,null,Renderer3D.CAR_FRONT);
+		polyData.add(frontRoof);
+		LineData topRoof1=buildLine(p001,pr001,pr011,p011,Renderer3D.CAR_TOP);
+		polyData.add(topRoof1);
+		LineData topRoof2=buildLine(p101,p111,pr011,pr001,Renderer3D.CAR_TOP);
+		polyData.add(topRoof2);
+		
+		///////////////
+		
+		translatePoints(points,nw_x,nw_y);
 
 		PolygonMesh pm=new PolygonMesh(points,polyData);
 
@@ -140,6 +162,15 @@ public class BuildingPlan {
 		return spm;
 
 
+	}
+
+	private void translatePoints(Vector points, double dx, double dy) { 
+		
+		for (int i = 0; i < points.size(); i++) {
+			BPoint point = (BPoint) points.elementAt(i);
+			point.translate(dx,dy,0);
+		}
+		
 	}
 
 	private LineData buildLine(BPoint p0, BPoint p1, BPoint p2,
@@ -150,7 +181,8 @@ public class BuildingPlan {
 		ld.addIndex(p0.getIndex());
 		ld.addIndex(p1.getIndex());					
 		ld.addIndex(p2.getIndex());
-		ld.addIndex(p3.getIndex());	
+		if(p3!=null)
+			ld.addIndex(p3.getIndex());	
 		ld.setData(""+face);
 		
 		return ld;
