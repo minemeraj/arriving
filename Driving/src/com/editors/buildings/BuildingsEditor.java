@@ -319,7 +319,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			
 		}else if(obj==jmt_save_mesh){
 			
-			saveMesh();
+			saveMesh(); 
 			
 		}
 		else if(obj==jmt_preview){

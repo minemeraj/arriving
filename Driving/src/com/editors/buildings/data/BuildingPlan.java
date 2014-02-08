@@ -79,7 +79,7 @@ public class BuildingPlan {
 		double nw_y = Double.parseDouble(vals[1]);
 		double x_side =Double.parseDouble(vals[2]);
 		double y_side = Double.parseDouble(vals[3]);
-		double z_side = Double.parseDouble(vals[4]);
+		double z_side = Double.parseDouble(vals[4]); 
 
 		
 		BuildingPlan grid=new BuildingPlan(nw_x,nw_y,x_side,y_side,z_side);

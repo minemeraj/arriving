@@ -23,7 +23,7 @@ public class BuildingJPanel extends JPanel{
 	int deltay=10;
 	
     int WIDTH=0;
-    int HEIGHT=0;
+    int HEIGHT=0; 
     
  
 
