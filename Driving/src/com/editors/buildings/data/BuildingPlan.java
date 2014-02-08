@@ -19,7 +19,14 @@ public class BuildingPlan {
 	
 	double nw_x=0;
 	double nw_y=0;
-
+	
+	public static int ROOF_TYPE_FLAT=0;
+	public static int ROOF_TYPE_GABLE=1;
+	public static int ROOF_TYPE_HIP=2;
+	public static int ROOF_TYPE_SHED=3;
+	public static int ROOF_TYPE_GAMBREL=4;
+	
+	public int roof_type=ROOF_TYPE_GABLE;
 	
 	public BuildingPlan(){}
 	
@@ -118,8 +125,7 @@ public class BuildingPlan {
 		polyData.add(topLD);
 
 
-		LineData bottomLD=buildLine(p000,p010,p110,p100,Renderer3D.CAR_TOP);
-		//polyData.add(bottomLD);
+		
 		
 		LineData leftLD=buildLine(p000,p001,p011,p010,Renderer3D.CAR_LEFT);
 		polyData.add(leftLD);
@@ -136,22 +142,30 @@ public class BuildingPlan {
 		polyData.add(frontLD);
 		
 		//roof:
+		
+		if(roof_type==ROOF_TYPE_FLAT){
+			
+			LineData bottomLD=buildLine(p000,p010,p110,p100,Renderer3D.CAR_TOP);
+			polyData.add(bottomLD);
+			
+		}else if(roof_type==ROOF_TYPE_GABLE){
 		 
-		BPoint pr001=new BPoint((p001.x+p101.x)/2.0,(p001.y+p101.y)/2.0,30+(p001.z+p101.z)/2.0,8);
-		BPoint pr011=new BPoint((p011.x+p111.x)/2.0,(p011.y+p111.y)/2.0,30+(p011.z+p111.z)/2.0,9);
+			BPoint pr001=new BPoint((p001.x+p101.x)/2.0,(p001.y+p101.y)/2.0,30+(p001.z+p101.z)/2.0,8);
+			BPoint pr011=new BPoint((p011.x+p111.x)/2.0,(p011.y+p111.y)/2.0,30+(p011.z+p111.z)/2.0,9);
+			
+			points.setElementAt(pr001,pr001.getIndex());
+			points.setElementAt(pr011,pr011.getIndex());
+			
+			LineData backRoof=buildLine(p001,p101,pr001,null,Renderer3D.CAR_BACK);
+			polyData.add(backRoof);
+			LineData frontRoof=buildLine(p011,pr011,p111,null,Renderer3D.CAR_FRONT);
+			polyData.add(frontRoof);
+			LineData topRoof1=buildLine(p001,pr001,pr011,p011,Renderer3D.CAR_TOP);
+			polyData.add(topRoof1);
+			LineData topRoof2=buildLine(p101,p111,pr011,pr001,Renderer3D.CAR_TOP);
+			polyData.add(topRoof2);
 		
-		points.setElementAt(pr001,pr001.getIndex());
-		points.setElementAt(pr011,pr011.getIndex());
-		
-		LineData backRoof=buildLine(p001,p101,pr001,null,Renderer3D.CAR_BACK);
-		polyData.add(backRoof);
-		LineData frontRoof=buildLine(p011,pr011,p111,null,Renderer3D.CAR_FRONT);
-		polyData.add(frontRoof);
-		LineData topRoof1=buildLine(p001,pr001,pr011,p011,Renderer3D.CAR_TOP);
-		polyData.add(topRoof1);
-		LineData topRoof2=buildLine(p101,p111,pr011,pr001,Renderer3D.CAR_TOP);
-		polyData.add(topRoof2);
-		
+		}
 		///////////////
 		
 		translatePoints(points,nw_x,nw_y);
