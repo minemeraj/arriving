@@ -48,10 +48,6 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	private JMenu jm_file;
 	private JMenuItem jmt_load_file;
 	private JMenuItem jmt_save_file;
-	private JMenu jm_plan;
-	private JMenuItem jmt_add_plan;
-	private JMenuItem jmt_new_plan;
-	private JMenuItem jmt_modify_plan;
 	private JMenu jm_view;
 	private JMenuItem jmt_preview;
 	private JMenu jm_change;
@@ -73,6 +69,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	
 	public Stack oldPlan=null;
 	int max_stack_size=10;
+	private JButton generate;
 	
 	
 	
@@ -133,7 +130,6 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 
 		nw_x=new DoubleTextField();
 		nw_x.setBounds(column, r, 100, 20);
-		nw_x.setEditable(false);
 		nw_x.addKeyListener(this);
 		right.add(nw_x);
 
@@ -145,7 +141,6 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 
 		nw_y=new DoubleTextField();
 		nw_y.setBounds(column, r, 100, 20);
-		nw_y.setEditable(false);
 		nw_y.addKeyListener(this);
 		right.add(nw_y);
 		
@@ -156,7 +151,6 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		right.add(jlb);
 		x_side=new DoubleTextField();
 		x_side.setBounds(column, r, 100, 20);
-		x_side.setEditable(false);
 		x_side.addKeyListener(this);
 		right.add(x_side);
 
@@ -167,7 +161,6 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		right.add(jlb);
 		y_side=new DoubleTextField();
 		y_side.setBounds(column, r, 100, 20);
-		y_side.setEditable(false);
 		y_side.addKeyListener(this);
 		right.add(y_side);
 		
@@ -178,7 +171,6 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		right.add(jlb);
 		z_side=new DoubleTextField();
 		z_side.setBounds(column, r, 100, 20);
-		z_side.setEditable(false);
 		z_side.addKeyListener(this);
 		right.add(z_side);
 		
@@ -197,10 +189,29 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		chooseRoof.setSelectedIndex(0);
 		right.add(chooseRoof);
 		
+		r+=30;
+		
+        generate=new JButton("Update");
+        generate.setBounds(10,r,100,20);
+        generate.addActionListener(this);
+        right.add(generate);
+		
 		add(right);
+		
+		initRightData();
 		
 	}
 	
+
+	private void initRightData() {
+		
+		nw_x.setText(100);
+		nw_y.setText(100);
+		x_side.setText(100);
+		y_side.setText(200);
+		z_side.setText(100);
+		
+	}
 
 	private void setRightData(BuildingPlan plan) {
 		nw_x.setText(plan.getNw_x());
@@ -248,27 +259,11 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		
 		jm_file.addSeparator();
 		
-		jmt_new_plan = new JMenuItem("New");
-		jmt_new_plan.addActionListener(this);
-		jm_file.add(jmt_new_plan);
-		
-		jm_file.addSeparator();
+
 		
 		jmt_save_mesh = new JMenuItem("Save mesh");
 		jmt_save_mesh.addActionListener(this);
 		jm_file.add(jmt_save_mesh);
-		
-		jm_plan=new JMenu("Plan");
-		jm_plan.addMenuListener(this);
-		jmb.add(jm_plan);
-		
-		jmt_add_plan = new JMenuItem("Add plan");
-		jmt_add_plan.addActionListener(this);
-		jm_plan.add(jmt_add_plan);
-		
-		jmt_modify_plan = new JMenuItem("Modify plan");
-		jmt_modify_plan.addActionListener(this);
-		jm_plan.add(jmt_modify_plan);
 		
 		jm_change=new JMenu("Change");
 		jm_change.addMenuListener(this);
@@ -327,20 +322,6 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			saveMesh();
 			
 		}
-		else if(obj==jmt_add_plan){
-			
-			addPlan();
-		}	
-		else if(obj==jmt_modify_plan){
-			
-			modifyPlan();
-		}	
-		else if(obj==jmt_new_plan){
-			
-			plan=null;
-			cleanRightData();
-			addPlan();
-		}
 		else if(obj==jmt_preview){
 			
 			preview();
@@ -349,6 +330,9 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			
 			undo();
 			
+		}else if(obj==generate){
+			
+			generate();
 		}
 
 	}
@@ -356,36 +340,56 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 
 
 
-	private void addPlan() {
-
-
-		PlanPanel op=new PlanPanel(null);
-
-		BuildingPlan newPlan = op.getNewPlan();
-		if(newPlan!=null)
-		{
-			plan=newPlan;
-			setRightData(plan);
-		}
-
-
-		draw();
-
-	}
-
-	private void modifyPlan() {
+	private void generate() {
 		
-		PlanPanel op=new PlanPanel(plan);
-
-		BuildingPlan newplan = op.getNewPlan();
-		if(newplan!=null)
-		{
-			plan=newplan;
-            setRightData(plan);
+		if(plan==null){
+			
+			
+			double xside=x_side.getvalue();
+			double yside=y_side.getvalue();
+			double zside=z_side.getvalue();
+			double nwx=nw_x.getvalue();
+			double nwy=nw_y.getvalue();
+			
+		    BuildingPlan expPlan = new BuildingPlan(nwx,nwy,xside,yside,zside);
+		    
+		    ValuePair vp= (ValuePair)chooseRoof.getSelectedItem();
+		    
+		    int val=Integer.parseInt(vp.getId());
+		    if(val>=0)
+		    	expPlan.setRoof_type(val);	
+						
+		    plan=expPlan;
+			
+				
+			
+			
+		}else{
+			
+				
+			double xside=x_side.getvalue();
+			double yside=y_side.getvalue();
+			double zside=z_side.getvalue();
+			double nwx=nw_x.getvalue();
+			double nwy=nw_y.getvalue();
+			
+			plan = new BuildingPlan(nwx,nwy,xside,yside,zside);
+		    
+		    ValuePair vp= (ValuePair)chooseRoof.getSelectedItem();
+		    
+		    int val=Integer.parseInt(vp.getId());
+		    if(val>=0)
+		    	plan.setRoof_type(val);			
+			
+			
+			
 		}
 		draw();
+		setRightData(plan);
+		
 	}
-	
+
+
 
 	private void draw() {
 		center.draw(plan);
