@@ -501,9 +501,11 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 					
 					setRightData(plan);
 				}
-				
-				
-				
+				int indx2=str.indexOf("R=");
+				if(indx2>=0){
+					String value=str.substring(indx2+2);
+					plan.setRoof_type(Integer.parseInt(value));
+				}
 			}
 			br.close();
 			
@@ -587,7 +589,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			
 			
 			pw.println("G="+plan.toString());
-			
+			pw.println("R="+plan.getRoof_type());
 			pw.close();
 						
 			
