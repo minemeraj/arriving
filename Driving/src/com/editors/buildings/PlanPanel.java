@@ -4,19 +4,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.editors.DoubleTextField;
 import com.editors.IntegerTextField;
+import com.editors.ValuePair;
 import com.editors.buildings.data.BuildingPlan;
 
 public class PlanPanel extends JDialog implements ActionListener {
 	
 	
 	int WIDTH=250;
-	int HEIGHT=230;
+	int HEIGHT=270;
 	private JPanel center;
 	private DoubleTextField x_side;
 	private DoubleTextField y_side;
@@ -30,13 +32,14 @@ public class PlanPanel extends JDialog implements ActionListener {
 	
 	BuildingPlan newPlan=null;
 	
-	boolean isExpand=false;
+	boolean isModify=false;
+	private JComboBox chooseRoof;
 	
 	
 	public PlanPanel(BuildingPlan plan){
 		
 		if(plan!=null)
-			isExpand=true;
+			isModify=true;
 		
 		newPlan=plan;
 		
@@ -102,7 +105,21 @@ public class PlanPanel extends JDialog implements ActionListener {
 		
 		r+=30;
 		
-        generate=new JButton(isExpand?"expand":"add plan");
+		jlb=new JLabel("Roof type:");
+		jlb.setBounds(5, r, 120, 20);
+		center.add(jlb);
+
+		chooseRoof=new JComboBox();
+		chooseRoof.setBounds(column, r, 100, 20);
+		chooseRoof.addItem(new ValuePair("-1",""));
+		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_FLAT,"Flat"));
+		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_GABLE,"Gable"));
+		chooseRoof.setSelectedIndex(0);
+		center.add(chooseRoof);
+		
+		r+=30;
+		
+        generate=new JButton(isModify?"modify":"add plan");
         generate.setBounds(10,r,100,20);
         generate.addActionListener(this);
         center.add(generate);
@@ -126,6 +143,15 @@ public class PlanPanel extends JDialog implements ActionListener {
 			y_side.setText(bp.getY_side());
 			z_side.setText(bp.getZ_side());
 			
+			for (int i = 0; i < chooseRoof.getItemCount(); i++) {
+				ValuePair vp= (ValuePair) chooseRoof.getItemAt(i);
+				if(vp.getId().equals(""+bp.getRoof_type()))
+				{
+					chooseRoof.setSelectedIndex(i);
+					break;
+				}	
+			}
+			
 		}else{
 		
 			nw_x.setText(100);
@@ -144,7 +170,7 @@ public class PlanPanel extends JDialog implements ActionListener {
 
 		if(o==generate){
 			
-			if(isExpand){
+			if(isModify){
 				
 					
 				double xside=x_side.getvalue();
@@ -154,6 +180,12 @@ public class PlanPanel extends JDialog implements ActionListener {
 				double nwy=nw_y.getvalue();
 				
 			    BuildingPlan expPlan = new BuildingPlan(nwx,nwy,xside,yside,zside);
+			    
+			    ValuePair vp= (ValuePair)chooseRoof.getSelectedItem();
+			    
+			    int val=Integer.parseInt(vp.getId());
+			    if(val>=0)
+			    	expPlan.setRoof_type(val);	
 							
 				newPlan=expPlan;
 				
@@ -170,7 +202,12 @@ public class PlanPanel extends JDialog implements ActionListener {
 				double nwy=nw_y.getvalue();
 				
 			    newPlan = new BuildingPlan(nwx,nwy,xside,yside,zside);
-				
+			    
+			    ValuePair vp= (ValuePair)chooseRoof.getSelectedItem();
+			    
+			    int val=Integer.parseInt(vp.getId());
+			    if(val>=0)
+			    	newPlan.setRoof_type(val);			
 				
 				dispose();	
 				

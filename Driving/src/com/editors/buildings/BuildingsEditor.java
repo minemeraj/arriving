@@ -18,6 +18,7 @@ import java.io.PrintWriter;
 import java.util.Stack;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,6 +32,7 @@ import javax.swing.event.MenuListener;
 
 import com.editors.DoubleTextField;
 import com.editors.Editor;
+import com.editors.ValuePair;
 import com.editors.buildings.data.BuildingPlan;
 import com.editors.object.ObjectEditorPreviewPanel;
 
@@ -49,7 +51,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	private JMenu jm_plan;
 	private JMenuItem jmt_add_plan;
 	private JMenuItem jmt_new_plan;
-	private JMenuItem jmt_expand_plan;
+	private JMenuItem jmt_modify_plan;
 	private JMenu jm_view;
 	private JMenuItem jmt_preview;
 	private JMenu jm_change;
@@ -67,9 +69,11 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	private DoubleTextField x_side;
 	private DoubleTextField y_side;
 	private DoubleTextField z_side;
-
+	private JComboBox chooseRoof;
+	
 	public Stack oldPlan=null;
 	int max_stack_size=10;
+	
 	
 	
 	public BuildingsEditor(){
@@ -178,8 +182,20 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		z_side.addKeyListener(this);
 		right.add(z_side);
 		
-    
+		r+=30;
+		
+		jlb=new JLabel("Roof type:");
+		jlb.setBounds(5, r, 120, 20);
+		right.add(jlb);
 
+		chooseRoof=new JComboBox();
+		chooseRoof.setBounds(column, r, 100, 20);
+		chooseRoof.addKeyListener(this);
+		chooseRoof.addItem(new ValuePair("-1",""));
+		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_FLAT,"Flat"));
+		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_GABLE,"Gable"));
+		chooseRoof.setSelectedIndex(0);
+		right.add(chooseRoof);
 		
 		add(right);
 		
@@ -192,6 +208,15 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		x_side.setText(plan.getX_side());
 		y_side.setText(plan.getY_side());
 		z_side.setText(plan.getZ_side());
+		
+		for (int i = 0; i < chooseRoof.getItemCount(); i++) {
+			ValuePair vp= (ValuePair) chooseRoof.getItemAt(i);
+			if(vp.getId().equals(""+plan.getRoof_type()))
+			{
+				chooseRoof.setSelectedIndex(i);
+				break;
+			}	
+		}
 	}
 
 	
@@ -241,9 +266,9 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		jmt_add_plan.addActionListener(this);
 		jm_plan.add(jmt_add_plan);
 		
-		jmt_expand_plan = new JMenuItem("Expand plan");
-		jmt_expand_plan.addActionListener(this);
-		jm_plan.add(jmt_expand_plan);
+		jmt_modify_plan = new JMenuItem("Modify plan");
+		jmt_modify_plan.addActionListener(this);
+		jm_plan.add(jmt_modify_plan);
 		
 		jm_change=new JMenu("Change");
 		jm_change.addMenuListener(this);
@@ -306,9 +331,9 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			
 			addPlan();
 		}	
-		else if(obj==jmt_expand_plan){
+		else if(obj==jmt_modify_plan){
 			
-			expandPlan();
+			modifyPlan();
 		}	
 		else if(obj==jmt_new_plan){
 			
@@ -348,7 +373,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 
 	}
 
-	private void expandPlan() {
+	private void modifyPlan() {
 		
 		PlanPanel op=new PlanPanel(plan);
 
@@ -356,7 +381,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		if(newplan!=null)
 		{
 			plan=newplan;
-
+            setRightData(plan);
 		}
 		draw();
 	}

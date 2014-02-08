@@ -46,7 +46,7 @@ public class BuildingPlan {
 	public Object clone(){
 		
 		BuildingPlan grid=new BuildingPlan(nw_x,nw_y,x_side,y_side,z_side);
-
+		grid.setRoof_type(getRoof_type());
 		return grid;
 		
 	}
@@ -182,6 +182,8 @@ public class BuildingPlan {
 		
 		for (int i = 0; i < points.size(); i++) {
 			BPoint point = (BPoint) points.elementAt(i);
+			if(point==null)
+				continue;
 			point.translate(dx,dy,0);
 		}
 		
@@ -250,5 +252,13 @@ public class BuildingPlan {
 		 
 		 
 	 }
+
+	public int getRoof_type() {
+		return roof_type;
+	}
+
+	public void setRoof_type(int roof_type) {
+		this.roof_type = roof_type;
+	}
 
 }
