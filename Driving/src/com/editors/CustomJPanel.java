@@ -2,8 +2,14 @@ package com.editors;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.Vector;
 
 import javax.swing.JPanel;
+
+import com.LineData;
+import com.Point3D;
+import com.Polygon3D;
+import com.PolygonMesh;
 
 public class CustomJPanel extends JPanel{
 	
@@ -90,6 +96,33 @@ public class CustomJPanel extends JPanel{
 		x0+=i*deltax;
 		y0+=j*deltay;
 		
+		
+	}
+	
+
+	public void draw(PolygonMesh mesh) {
+		
+		Vector<LineData> poly = mesh.getPolygonData();
+		Point3D[] points = mesh.points;
+		
+		for (int i = 0; i < poly.size(); i++) {
+			LineData ld = (LineData) poly.elementAt(i);
+			Polygon3D pol=LineData.buildPolygon(ld,points);
+			
+			
+			for (int j = 0; j < pol.npoints; j++) {				
+								
+				drawLine(pol.xpoints[j],pol.ypoints[j],pol.zpoints[j],pol.xpoints[(j+1)% pol.npoints],pol.ypoints[(j+1)% pol.npoints],pol.zpoints[(j+1)% pol.npoints]);
+				
+			}
+		}
+		
+	}
+
+
+	private void drawLine(double x0,double y0,double z0,double x1,double y1,double z1) {
+		
+		graph.drawLine(calcX(x0,y0,z0),calcY(x0,y0,z0),calcX(x1,y1,z1),calcY(x1,y1,z1));
 		
 	}
 }

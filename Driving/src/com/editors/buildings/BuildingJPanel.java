@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import com.Polygon3D;
+import com.PolygonMesh;
 import com.editors.CustomJPanel;
 import com.editors.buildings.data.BuildingPlan;
 
@@ -53,14 +54,18 @@ public class BuildingJPanel extends CustomJPanel{
 		pol.addPoint((int)calcX(x0+xside,y0,0),(int)calcY(x0+xside,y0,0),0);
 		pol.addPoint((int)calcX(x0+xside,y0+yside,0),(int)calcY(x0+xside,y0+yside,0),0);
 		pol.addPoint((int)calcX(x0,y0+yside,0),(int)calcY(x0,y0+yside,0),0);
-	
+		
+		PolygonMesh mesh = plan.buildMesh();
 			
-		graph.draw(pol);
+			
+		draw(mesh);
 	
 
 
 		
 	}
+
+
 
 
 

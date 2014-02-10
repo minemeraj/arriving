@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import com.Polygon3D;
+import com.PolygonMesh;
 import com.editors.CustomJPanel;
 import com.editors.forniture.data.Forniture;
 
@@ -53,7 +54,8 @@ public class FornitureJPanel extends CustomJPanel{
 		pol.addPoint((int)calcX(x0,y0+yside,0),(int)calcY(x0,y0+yside,0),0);
 	
 			
-		graph.draw(pol);
+		PolygonMesh mesh = forniture.buildMesh();		
+		draw(mesh);
 	
 		
 	}
