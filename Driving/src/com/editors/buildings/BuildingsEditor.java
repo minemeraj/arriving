@@ -66,12 +66,13 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	private DoubleTextField y_side;
 	private DoubleTextField z_side;
 	private JComboBox chooseRoof;
+	private DoubleTextField roof_top_height;
+	private DoubleTextField roof_top_width;
 	
 	public Stack oldPlan=null;
 	int max_stack_size=10;
 	private JButton generate;
-	private DoubleTextField roof_top_height;
-	private DoubleTextField roof_top_width;
+
 	
 	
 	
@@ -218,6 +219,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
         generate=new JButton("Update");
         generate.setBounds(10,r,100,20);
         generate.addActionListener(this);
+        generate.addKeyListener(this);
         right.add(generate);
 		
 		add(right);
