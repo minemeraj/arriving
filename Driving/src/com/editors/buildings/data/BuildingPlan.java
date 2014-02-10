@@ -180,7 +180,7 @@ public class BuildingPlan {
 
 
 		Vector points=new Vector();
-		points.setSize(10);
+		points.setSize(14);
 
 		Vector polyData=new Vector();
 		
@@ -264,6 +264,60 @@ public class BuildingPlan {
 			LineData topRoof2=buildLine(p101,p111,pr011,pr001,Renderer3D.CAR_TOP);
 			polyData.add(topRoof2);
 		
+		}else if( roof_type==ROOF_TYPE_GAMBREL){
+			
+			double teta=Math.PI/4.0;
+			
+			BPoint pr001=null;
+			BPoint pr101=null;
+			BPoint pr201=null;
+	
+			BPoint pr011=null;
+			BPoint pr111=null;
+			BPoint pr211=null;
+			
+			double r=Math.abs((p001.x-p101.x)/2.0);
+			
+			double xc=(p001.x+p101.x)/2.0;
+			double yc=(p001.y+p101.y)/2.0;
+			double zc=(p001.z+p101.z)/2.0;
+			
+			pr001=new BPoint(xc-r*Math.cos(teta),yc,zc+r*Math.sin(teta),8);
+			pr101=new BPoint(xc-r*Math.cos(2*teta),yc,zc+r*Math.sin(2*teta),9);
+			pr201=new BPoint(xc-r*Math.cos(3*teta),yc,zc+r*Math.sin(3*teta),10);
+			
+			points.setElementAt(pr001,pr001.getIndex());
+			points.setElementAt(pr101,pr101.getIndex());
+			points.setElementAt(pr201,pr201.getIndex());
+			
+			xc=(p011.x+p111.x)/2.0;
+			yc=(p011.y+p111.y)/2.0;
+			zc=(p011.z+p111.z)/2.0;
+			
+			pr011=new BPoint(xc-r*Math.cos(teta),yc,zc+r*Math.sin(teta),11);
+			pr111=new BPoint(xc-r*Math.cos(2*teta),yc,zc+r*Math.sin(2*teta),12);
+			pr211=new BPoint(xc-r*Math.cos(3*teta),yc,zc+r*Math.sin(3*teta),13);
+			
+			points.setElementAt(pr011,pr011.getIndex());
+			points.setElementAt(pr111,pr111.getIndex());
+			points.setElementAt(pr211,pr211.getIndex());
+			
+			LineData backRoof=buildLine(p001,p101,pr201,pr101,Renderer3D.CAR_BACK);
+			backRoof.addIndex(pr001.getIndex());
+			polyData.add(backRoof);
+			LineData frontRoof=buildLine(p011,pr011,pr111,pr211,Renderer3D.CAR_FRONT);
+			frontRoof.addIndex(p111.getIndex());
+			polyData.add(frontRoof);
+			
+			LineData topRoof1=buildLine(p001,pr001,pr011,p011,Renderer3D.CAR_TOP);
+			polyData.add(topRoof1);	
+			LineData topRoof2=buildLine(pr001,pr101,pr111,pr011,Renderer3D.CAR_TOP);
+			polyData.add(topRoof2);
+			LineData topRoof3=buildLine(pr101,pr201,pr211,pr111,Renderer3D.CAR_TOP);
+			polyData.add(topRoof3);
+			LineData topRoof4=buildLine(p101,p111,pr211,pr201,Renderer3D.CAR_TOP);
+			polyData.add(topRoof4);
+			
 		}
 		
 		translatePoints(points,nw_x,nw_y);
