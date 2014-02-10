@@ -320,7 +320,7 @@ public class BuildingPlan {
 			
 		}
 		
-		translatePoints(points,nw_x,nw_y);
+		//translatePoints(points,nw_x,nw_y);
 
 		PolygonMesh pm=new PolygonMesh(points,polyData);
 
