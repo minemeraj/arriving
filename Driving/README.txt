@@ -1,5 +1,5 @@
 	**********************
-	*  READ ME CARDRIVING VERSION   7.0.11
+	*  READ ME CARDRIVING VERSION   7.0.12
 	*
 	*  by Piazza Francesco Giovanni 
 	*  Tecnes Milano ,Italy http://www.tecnes.com ; Tel.: +39.02.67101036
@@ -32,24 +32,28 @@
 	* to launch the object editor use the command:
 	*
 	* java -classpath Driving.jar    com.editors.object.ObjectEditor
+    *
+	*
+	* to launch the object iperview editor use the command:
+	*
+	* java -classpath Driving.jar    com.editors.iperview.IperviewEditor
+	*
+	* to launch the Bulidings editor use the command:
+	*
+	* java -classpath Driving.jar    com.editors.buildings.BuildingsEditor
 	*
 	*
-	* To launch oOther experimental editors:
+	* To launch other experimental editors:
 	*
 	* to launch the cubic editor use the command:
 	*
 	* java -classpath Driving.jar    com.editors.cubic.CubicEditor
-	*
+	*	
 	* to launch the bloc editor use the command:
 	*
 	* java -classpath Driving.jar    com.editors.block.BlockEditor
 	*
-	*  to launch the object iperview editor use the command:
-	*
-	* java -classpath Driving.jar    com.editors.iperview.IperviewEditor
-	*
-	*
-	*  to launch the Mould editor use the command:
+	* to launch the Mould editor use the command:
 	*
 	* java -classpath Driving.jar    com.editors.others.Mould
 	*

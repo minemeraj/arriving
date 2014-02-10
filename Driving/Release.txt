@@ -1,5 +1,6 @@
 
 Adding custom editors  to build objects and textures in a more powerful way.
+See README.txt
 
 Now the coordinates axes are more clear in the Object Editor.
 
