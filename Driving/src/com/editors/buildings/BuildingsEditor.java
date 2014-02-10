@@ -30,13 +30,14 @@ import javax.swing.RepaintManager;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
+import com.editors.CustomEditor;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.ValuePair;
 import com.editors.buildings.data.BuildingPlan;
 import com.editors.object.ObjectEditorPreviewPanel;
 
-public class BuildingsEditor extends JFrame implements MenuListener, MouseListener, MouseWheelListener, ActionListener, KeyListener{
+public class BuildingsEditor extends CustomEditor implements MenuListener, MouseListener, MouseWheelListener, ActionListener, KeyListener{
 	
 	public static int HEIGHT=700;
 	public static int WIDTH=800;

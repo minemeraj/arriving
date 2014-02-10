@@ -4,12 +4,14 @@ import java.util.Vector;
 
 import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
 
+import com.BPoint;
+import com.CustomData;
 import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
 import com.main.Renderer3D;
 
-public class Forniture {
+public class Forniture extends CustomData{
 
 
 
@@ -172,18 +174,18 @@ public class Forniture {
 		
 		//legs:	
 		//backLeftLeg
-		n=buildLeg(0,0,0,points,polyData,n,leg_side,leg_lenght);
+		n=buildBox(0,0,0,points,polyData,n,leg_side,leg_lenght);
 		
 		//backRightLeg
-		n=buildLeg(x_side-leg_side,0,0,points,polyData,n,leg_side,leg_lenght);
+		n=buildBox(x_side-leg_side,0,0,points,polyData,n,leg_side,leg_lenght);
 		
 		
 		//frontLeftLeg
-		n=buildLeg(0,y_side-leg_side,0,points,polyData,n,leg_side,leg_lenght);
+		n=buildBox(0,y_side-leg_side,0,points,polyData,n,leg_side,leg_lenght);
 		
 	
 		//frontRightLeg
-		n=buildLeg(x_side-leg_side,y_side-leg_side,0,points,polyData,n,leg_side,leg_lenght);
+		n=buildBox(x_side-leg_side,y_side-leg_side,0,points,polyData,n,leg_side,leg_lenght);
 		
 		
 		
@@ -199,92 +201,10 @@ public class Forniture {
 
 	}
 
-	private int buildLeg(double x , double y, double z, Vector points, Vector polyData,
-			int n, double leg_side, double leg_lenght) {
-		
-		BPoint pLeg000=new BPoint(x,y,z,n++);
-		BPoint pLeg100=new BPoint(x+leg_side,y,z,n++);
-		BPoint pLeg110=new BPoint(x+leg_side,y+leg_side,z,n++);
-		BPoint pLeg010=new BPoint(x,y+leg_side,z,n++);
-		
-		points.setElementAt(pLeg000,pLeg000.getIndex());
-		points.setElementAt(pLeg100,pLeg100.getIndex());
-		points.setElementAt(pLeg110,pLeg110.getIndex());
-		points.setElementAt(pLeg010,pLeg010.getIndex());
-		
-		LineData Leg=buildLine(pLeg000,pLeg010,pLeg110,pLeg100,Renderer3D.CAR_BOTTOM);
-		polyData.add(Leg);
-		
-		
-		BPoint pLeg001=new BPoint(x,y,z+leg_lenght,n++);
-		BPoint pLeg101=new BPoint(x+leg_side,y,leg_lenght,n++);
-		BPoint pLeg111=new BPoint(x+leg_side,y+leg_side,z+leg_lenght,n++);
-		BPoint pLeg011=new BPoint(x,y+leg_side,z+leg_lenght,n++);
-		
-		points.setElementAt(pLeg001,pLeg001.getIndex());
-		points.setElementAt(pLeg101,pLeg101.getIndex());
-		points.setElementAt(pLeg111,pLeg111.getIndex());
-		points.setElementAt(pLeg011,pLeg011.getIndex());
-		
-		LineData LegS0=buildLine(pLeg000,pLeg001,pLeg011,pLeg010,Renderer3D.CAR_LEFT);
-		polyData.add(LegS0);
-		LineData LegS1=buildLine(pLeg010,pLeg011,pLeg111,pLeg110,Renderer3D.CAR_FRONT);
-		polyData.add(LegS1);
-		LineData LegS2=buildLine(pLeg110,pLeg111,pLeg101,pLeg100,Renderer3D.CAR_RIGHT);
-		polyData.add(LegS2);
-		LineData LegS3=buildLine(pLeg100,pLeg101,pLeg001,pLeg000,Renderer3D.CAR_BACK);
-		polyData.add(LegS3);
-		
-		return n;
-	}
-
-	private void translatePoints(Vector points, double dx, double dy) { 
-
-		for (int i = 0; i < points.size(); i++) {
-			BPoint point = (BPoint) points.elementAt(i);
-			if(point==null)
-				continue;
-			point.translate(dx,dy,0);
-		}
-
-	}
-
-	private LineData buildLine(BPoint p0, BPoint p1, BPoint p2,
-			BPoint p3, int face) {
-
-		LineData ld=new LineData();
-
-		ld.addIndex(p0.getIndex());
-		ld.addIndex(p1.getIndex());					
-		ld.addIndex(p2.getIndex());
-		if(p3!=null)
-			ld.addIndex(p3.getIndex());	
-		ld.setData(""+face);
-
-		return ld;
-	}
 
 
 
-	class BPoint extends Point3D{
 
-		public BPoint(double x, double y, double z, int index) {
-			super(x, y, z);
-			this.index = index;
-		}
-
-		int index=-1;
-
-		public int getIndex() {
-			return index;
-		}
-
-		public void setIndex(int index) {
-			this.index = index;
-		}
-
-
-	}
 
 
 

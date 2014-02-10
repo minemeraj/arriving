@@ -25,12 +25,13 @@ import javax.swing.JPanel;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
+import com.editors.CustomEditor;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.animals.data.Animal;
 import com.editors.object.ObjectEditorPreviewPanel;
 
-public class AnimalsEditor extends JFrame implements MenuListener, ActionListener, KeyListener, MouseWheelListener{
+public class AnimalsEditor extends CustomEditor implements MenuListener, ActionListener, KeyListener, MouseWheelListener{
 	
 	public static int HEIGHT=700;
 	public static int WIDTH=800;

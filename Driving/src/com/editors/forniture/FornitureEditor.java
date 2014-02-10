@@ -26,13 +26,14 @@ import javax.swing.RepaintManager;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
+import com.editors.CustomEditor;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.buildings.data.BuildingPlan;
 import com.editors.forniture.data.Forniture;
 import com.editors.object.ObjectEditorPreviewPanel;
 
-public class FornitureEditor extends JFrame implements MenuListener, ActionListener, KeyListener, MouseWheelListener{
+public class FornitureEditor extends CustomEditor implements MenuListener, ActionListener, KeyListener, MouseWheelListener{
 	
 	public static int HEIGHT=700;
 	public static int WIDTH=800;

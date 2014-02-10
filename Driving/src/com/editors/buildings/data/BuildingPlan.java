@@ -4,12 +4,14 @@ import java.util.Vector;
 
 import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
 
+import com.BPoint;
+import com.CustomData;
 import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
 import com.main.Renderer3D;
 
-public class BuildingPlan {
+public class BuildingPlan extends CustomData{
 
 
 
@@ -330,53 +332,6 @@ public class BuildingPlan {
 
 	}
 
-	private void translatePoints(Vector points, double dx, double dy) { 
-
-		for (int i = 0; i < points.size(); i++) {
-			BPoint point = (BPoint) points.elementAt(i);
-			if(point==null)
-				continue;
-			point.translate(dx,dy,0);
-		}
-
-	}
-
-	private LineData buildLine(BPoint p0, BPoint p1, BPoint p2,
-			BPoint p3, int face) {
-
-		LineData ld=new LineData();
-
-		ld.addIndex(p0.getIndex());
-		ld.addIndex(p1.getIndex());					
-		ld.addIndex(p2.getIndex());
-		if(p3!=null)
-			ld.addIndex(p3.getIndex());	
-		ld.setData(""+face);
-
-		return ld;
-	}
-
-
-
-	class BPoint extends Point3D{
-
-		public BPoint(double x, double y, double z, int index) {
-			super(x, y, z);
-			this.index = index;
-		}
-
-		int index=-1;
-
-		public int getIndex() {
-			return index;
-		}
-
-		public void setIndex(int index) {
-			this.index = index;
-		}
-
-
-	}
 
 
 
