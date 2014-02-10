@@ -60,6 +60,18 @@ public class CustomData {
 		}
 
 	}
+	
+	
+	public void translatePoints(Point3D[] points, double dx, double dy) { 
+
+		for (int i = 0; i < points.length; i++) {
+			Point3D point = points[i];
+			if(point==null)
+				continue;
+			point.translate(dx,dy,0);
+		}
+
+	}
 
 	public LineData buildLine(BPoint p0, BPoint p1, BPoint p2,
 			BPoint p3, int face) {

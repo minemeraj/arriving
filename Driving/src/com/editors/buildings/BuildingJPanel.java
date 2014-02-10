@@ -56,8 +56,7 @@ public class BuildingJPanel extends CustomJPanel{
 		pol.addPoint((int)calcX(x0,y0+yside,0),(int)calcY(x0,y0+yside,0),0);
 		
 		PolygonMesh mesh = plan.buildMesh();
-			
-			
+		plan.translatePoints(mesh.points,plan.getNw_x(),plan.getNw_y());		
 		draw(mesh);
 	
 
