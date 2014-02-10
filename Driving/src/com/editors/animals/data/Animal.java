@@ -134,58 +134,23 @@ public class Animal extends CustomData{
 
 		//basic sides:
 
-		BPoint p000=new BPoint(0,0,leg_lenght,n++);
-		BPoint p100=new BPoint(x_side,0,leg_lenght,n++);
-		BPoint p010=new BPoint(0,y_side,leg_lenght,n++);
-		BPoint p001=new BPoint(0,0,leg_lenght+z_side,n++);
-		BPoint p110=new BPoint(x_side,y_side,leg_lenght,n++);
-		BPoint p011=new BPoint(0,y_side,leg_lenght+z_side,n++);
-		BPoint p101=new BPoint(x_side,0,leg_lenght+z_side,n++);
-		BPoint p111=new BPoint(x_side,y_side,leg_lenght+z_side,n++);
-
-		points.setElementAt(p000,p000.getIndex());
-		points.setElementAt(p100,p100.getIndex());
-		points.setElementAt(p010,p010.getIndex());
-		points.setElementAt(p001,p001.getIndex());
-		points.setElementAt(p110,p110.getIndex());
-		points.setElementAt(p011,p011.getIndex());
-		points.setElementAt(p101,p101.getIndex());
-		points.setElementAt(p111,p111.getIndex());
-
-
-		LineData topLD=buildLine(p001,p101,p111,p011,Renderer3D.CAR_TOP);
-		polyData.add(topLD);
-
-
-		LineData leftLD=buildLine(p000,p001,p011,p010,Renderer3D.CAR_LEFT);
-		polyData.add(leftLD);
-
-
-		LineData rightLD=buildLine(p100,p110,p111,p101,Renderer3D.CAR_RIGHT);
-		polyData.add(rightLD);
-
-
-		LineData backLD=buildLine(p000,p100,p101,p001,Renderer3D.CAR_BACK);
-		polyData.add(backLD);
-
-		LineData frontLD=buildLine(p010,p011,p111,p110,Renderer3D.CAR_FRONT);
-		polyData.add(frontLD);
+		n=buildBox(0,0,leg_lenght,points,polyData,n,x_side,y_side,z_side);
 		
 		
 		//legs:	
 		//backLeftLeg
-		n=buildBox(0,0,0,points,polyData,n,leg_side,leg_lenght);
+		n=buildBox(0,0,0,points,polyData,n,leg_side,leg_side,leg_lenght);
 		
 		//backRightLeg
-		n=buildBox(x_side-leg_side,0,0,points,polyData,n,leg_side,leg_lenght);
+		n=buildBox(x_side-leg_side,0,0,points,polyData,n,leg_side,leg_side,leg_lenght);
 		
 		
 		//frontLeftLeg
-		n=buildBox(0,y_side-leg_side,0,points,polyData,n,leg_side,leg_lenght);
+		n=buildBox(0,y_side-leg_side,0,points,polyData,n,leg_side,leg_side,leg_lenght);
 		
 	
 		//frontRightLeg
-		n=buildBox(x_side-leg_side,y_side-leg_side,0,points,polyData,n,leg_side,leg_lenght);
+		n=buildBox(x_side-leg_side,y_side-leg_side,0,points,polyData,n,leg_side,leg_side,leg_lenght);
 		
 		
 		

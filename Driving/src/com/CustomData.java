@@ -5,32 +5,37 @@ import java.util.Vector;
 import com.main.Renderer3D;
 
 public class CustomData {
+	
 	public int buildBox(double x , double y, double z, Vector points, Vector polyData,
-			int n, double x_side, double z_side) {
+			int n, double x_side,double y_side, double z_side) {
 		
 		BPoint pLeg000=new BPoint(x,y,z,n++);
 		BPoint pLeg100=new BPoint(x+x_side,y,z,n++);
-		BPoint pLeg110=new BPoint(x+x_side,y+x_side,z,n++);
-		BPoint pLeg010=new BPoint(x,y+x_side,z,n++);
+		BPoint pLeg110=new BPoint(x+x_side,y+y_side,z,n++);
+		BPoint pLeg010=new BPoint(x,y+y_side,z,n++);
 		
 		points.setElementAt(pLeg000,pLeg000.getIndex());
 		points.setElementAt(pLeg100,pLeg100.getIndex());
 		points.setElementAt(pLeg110,pLeg110.getIndex());
 		points.setElementAt(pLeg010,pLeg010.getIndex());
 		
-		LineData Leg=buildLine(pLeg000,pLeg010,pLeg110,pLeg100,Renderer3D.CAR_BOTTOM);
-		polyData.add(Leg);
+		LineData bottom=buildLine(pLeg000,pLeg010,pLeg110,pLeg100,Renderer3D.CAR_BOTTOM);
+		polyData.add(bottom);
 		
 		
 		BPoint pLeg001=new BPoint(x,y,z+z_side,n++);
-		BPoint pLeg101=new BPoint(x+x_side,y,z_side,n++);
-		BPoint pLeg111=new BPoint(x+x_side,y+x_side,z+z_side,n++);
-		BPoint pLeg011=new BPoint(x,y+x_side,z+z_side,n++);
+		BPoint pLeg101=new BPoint(x+x_side,y,z+z_side,n++);
+		BPoint pLeg111=new BPoint(x+x_side,y+y_side,z+z_side,n++);
+		BPoint pLeg011=new BPoint(x,y+y_side,z+z_side,n++);
 		
 		points.setElementAt(pLeg001,pLeg001.getIndex());
 		points.setElementAt(pLeg101,pLeg101.getIndex());
 		points.setElementAt(pLeg111,pLeg111.getIndex());
 		points.setElementAt(pLeg011,pLeg011.getIndex());
+		
+		
+		LineData top=buildLine(pLeg001,pLeg101,pLeg111,pLeg011,Renderer3D.CAR_BOTTOM);
+		polyData.add(top);
 		
 		LineData LegS0=buildLine(pLeg000,pLeg001,pLeg011,pLeg010,Renderer3D.CAR_LEFT);
 		polyData.add(LegS0);
