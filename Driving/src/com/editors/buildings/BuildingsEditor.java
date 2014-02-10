@@ -117,7 +117,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		initialize();
 	}
 	
-	private void buildRightPanel() {
+	public void buildRightPanel() {
 		
 		
 		JPanel right=new JPanel(null);
@@ -230,7 +230,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 	}
 	
 
-	private void initRightData() {
+	public void initRightData() {
 		
 		nw_x.setText(100);
 		nw_y.setText(100);
@@ -275,7 +275,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		chooseRoof.setSelectedIndex(0);
 	}
 	
-	private void buildMenuBar() {
+	public void buildMenuBar() {
 	
 		jmb=new JMenuBar();
 		
@@ -322,7 +322,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		
 	}
 
-	private void initialize() {
+	public void initialize() {
 		
 		center.initialize();
 		
@@ -374,7 +374,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 
 
 
-	private void generate() {
+	public void generate() {
 		
 		double xside=x_side.getvalue();
 		double yside=y_side.getvalue();
@@ -505,7 +505,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		
 	}
 	
-	private void loadData() {
+	public void loadData() {
 
 		fc.setDialogType(JFileChooser.SAVE_DIALOG);
 		fc.setDialogTitle("Load Track");
@@ -523,7 +523,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		
 	}
 
-	private void loadData(File file) {
+	public void loadData(File file) {
 		
 		BufferedReader br;
 		try {
@@ -578,7 +578,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 	}
 
 
-	private void saveMesh(File file) {
+	public void saveMesh(File file) {
 		
 		
 		if(plan==null)
@@ -603,7 +603,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		
 	}
 
-	private void saveData() {
+	public void saveData() {
 		fc.setDialogType(JFileChooser.SAVE_DIALOG);
 		fc.setDialogTitle("Save data");
 		if(currentDirectory!=null)
@@ -618,7 +618,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		
 	}
 
-	private void saveData(File file) {
+	public void saveData(File file) {
 		
 		
 		if(plan==null)

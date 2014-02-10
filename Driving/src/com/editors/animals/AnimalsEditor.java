@@ -91,7 +91,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		initialize();
 	}
 	
-	private void initialize() {
+	public void initialize() {
 		
 		center.initialize();
 	}
@@ -113,7 +113,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		
 	}
 	
-private void buildRightPanel() {
+	public void buildRightPanel() {
 		
 		
 		JPanel right=new JPanel(null);
@@ -189,7 +189,7 @@ private void buildRightPanel() {
 	}
 	
 
-	private void initRightData() {
+	public void initRightData() {
 		
 		nw_x.setText(100);
 		nw_y.setText(100);
@@ -208,7 +208,7 @@ private void buildRightPanel() {
 	}
 
 	
-	private void buildMenuBar() {
+	public void buildMenuBar() {
 		
 		jmb=new JMenuBar();
 		
@@ -304,7 +304,7 @@ private void buildRightPanel() {
 		
 	}
 	
-	private void generate() {
+	public void generate() {
 			
 			double xside=x_side.getvalue();
 			double yside=y_side.getvalue();
@@ -327,7 +327,7 @@ private void buildRightPanel() {
 			setRightData(animal);
 	}
 	
-	private void loadData() {
+	public void loadData() {
 
 		fc.setDialogType(JFileChooser.SAVE_DIALOG);
 		fc.setDialogTitle("Load Track");
@@ -345,7 +345,7 @@ private void buildRightPanel() {
 		
 	}
 
-	private void loadData(File file) {
+	public void loadData(File file) {
 		
 		BufferedReader br;
 		try {
@@ -395,7 +395,7 @@ private void buildRightPanel() {
 	}
 
 
-	private void saveMesh(File file) {
+	public void saveMesh(File file) {
 		
 		
 		if(animal==null)
@@ -420,7 +420,7 @@ private void buildRightPanel() {
 		
 	}
 
-	private void saveData() {
+	public void saveData() {
 		fc.setDialogType(JFileChooser.SAVE_DIALOG);
 		fc.setDialogTitle("Save data");
 		if(currentDirectory!=null)
@@ -435,7 +435,7 @@ private void buildRightPanel() {
 		
 	}
 
-	private void saveData(File file) {
+	public void saveData(File file) {
 		
 		
 		if(animal==null)

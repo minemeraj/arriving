@@ -6,34 +6,11 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import com.Polygon3D;
+import com.editors.CustomJPanel;
 import com.editors.buildings.data.BuildingPlan;
 
-public class BuildingJPanel extends JPanel{
+public class BuildingJPanel extends CustomJPanel{
 
-	private static final Color BACKGROUND = Color.BLACK;
-	private Graphics2D graph;
-	
-	int x0=200;
-	int y0=200;
-	
-	double dy=1.0;
-	double dx=1.0; 
-	
-	int deltax=10;
-	int deltay=10;
-	
-    int WIDTH=0;
-    int HEIGHT=0; 
-    
- 
-
-	public void initialize() {
-		
-		graph=(Graphics2D)getGraphics();
-		WIDTH=getWidth();
-		HEIGHT=getHeight();
-		
-	}
 	
 
 	public void draw(BuildingPlan plan) {
@@ -86,49 +63,6 @@ public class BuildingJPanel extends JPanel{
 	}
 
 
-	public double calcX(double x,double y){
-		
-		return x0+x/dx;
-		
-	}
-	
-	public double calcY(double x,double y){
-		
-		return HEIGHT-y0-y/dy;
-		
-	}
-	
-	public double invertX(double x,double y){
-		
-		return (-x0+x)*dx;
-		
-	}
-	
-	public double invertY(double x,double y){
-		
-		return (-y+HEIGHT-y0)*dy;
-		
-	}
-	
-	public void zoom(int i) {
-		
-		
-		if(i>0)
-			dx=dy=dx/2.0;
-		else
-			dx=dy=dx*2.0;
-		
-		
-	}
-	
-	public void translate(int i, int j) {
-		
-		
-		x0+=i*deltax;
-		y0+=j*deltay;
-		
-		
-	}
 
 
 }
