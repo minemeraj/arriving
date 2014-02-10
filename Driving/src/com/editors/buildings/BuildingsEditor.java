@@ -70,6 +70,8 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 	public Stack oldPlan=null;
 	int max_stack_size=10;
 	private JButton generate;
+	private DoubleTextField roof_top_height;
+	private DoubleTextField roof_top_width;
 	
 	
 	
@@ -186,8 +188,29 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		chooseRoof.addItem(new ValuePair("-1",""));
 		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_FLAT,"Flat"));
 		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_GABLE,"Gable"));
+		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_HIP,"Hip"));
 		chooseRoof.setSelectedIndex(0);
 		right.add(chooseRoof);
+		
+		r+=30;
+		
+		jlb=new JLabel("Roof top height");
+		jlb.setBounds(5, r, 150, 20);
+		right.add(jlb);
+		roof_top_height=new DoubleTextField();
+		roof_top_height.setBounds(column, r, 160, 20);
+		roof_top_height.addKeyListener(this);
+		right.add(roof_top_height);
+		
+		r+=30;
+		
+		jlb=new JLabel("Roof top width");
+		jlb.setBounds(5, r, 150, 20);
+		right.add(jlb);
+		roof_top_width=new DoubleTextField();
+		roof_top_width.setBounds(column, r, 160, 20);
+		roof_top_width.addKeyListener(this);
+		right.add(roof_top_width);
 		
 		r+=30;
 		
@@ -210,7 +233,8 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		x_side.setText(100);
 		y_side.setText(200);
 		z_side.setText(100);
-		
+		roof_top_height.setText(30);
+		roof_top_width.setText(100);
 	}
 
 	private void setRightData(BuildingPlan plan) {
@@ -228,6 +252,9 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 				break;
 			}	
 		}
+		
+		roof_top_height.setText(""+plan.getRoof_top_height());
+		roof_top_width.setText(""+plan.getRoof_top_width());
 	}
 
 	
@@ -239,6 +266,9 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		x_side.setText("");
 		y_side.setText("");
 		z_side.setText("");
+		roof_top_height.setText("");
+		roof_top_width.setText("");
+		chooseRoof.setSelectedIndex(0);
 	}
 	
 	private void buildMenuBar() {
@@ -342,15 +372,18 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 
 	private void generate() {
 		
+		double xside=x_side.getvalue();
+		double yside=y_side.getvalue();
+		double zside=z_side.getvalue();
+		double nwx=nw_x.getvalue();
+		double nwy=nw_y.getvalue();
+		double roofHeight=roof_top_height.getvalue();       
+		double roofWidth= roof_top_width.getvalue();
+		
 		if(plan==null){
 			
 			
-			double xside=x_side.getvalue();
-			double yside=y_side.getvalue();
-			double zside=z_side.getvalue();
-			double nwx=nw_x.getvalue();
-			double nwy=nw_y.getvalue();
-			
+				
 		    BuildingPlan expPlan = new BuildingPlan(nwx,nwy,xside,yside,zside);
 		    
 		    ValuePair vp= (ValuePair)chooseRoof.getSelectedItem();
@@ -358,6 +391,9 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		    int val=Integer.parseInt(vp.getId());
 		    if(val>=0)
 		    	expPlan.setRoof_type(val);	
+		    
+		    expPlan.setRoof_top_height(roofHeight);
+		    expPlan.setRoof_top_width(roofWidth);
 						
 		    plan=expPlan;
 			
@@ -367,11 +403,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		}else{
 			
 				
-			double xside=x_side.getvalue();
-			double yside=y_side.getvalue();
-			double zside=z_side.getvalue();
-			double nwx=nw_x.getvalue();
-			double nwy=nw_y.getvalue();
+
 			
 			plan = new BuildingPlan(nwx,nwy,xside,yside,zside);
 		    
@@ -381,7 +413,8 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		    if(val>=0)
 		    	plan.setRoof_type(val);			
 			
-			
+		    plan.setRoof_top_height(roofHeight);
+		    plan.setRoof_top_width(roofWidth);
 			
 		}
 		draw();
@@ -503,12 +536,13 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 					String value=str.substring(indx+2);
 					plan=BuildingPlan.buildPlan(value);
 					
-					setRightData(plan);
+					
 				}
 				int indx2=str.indexOf("R=");
 				if(indx2>=0){
 					String value=str.substring(indx2+2);
-					plan.setRoof_type(Integer.parseInt(value));
+					plan.buildRoof(value);
+					setRightData(plan);
 				}
 			}
 			br.close();
@@ -593,7 +627,7 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 			
 			
 			pw.println("G="+plan.toString());
-			pw.println("R="+plan.getRoof_type());
+			pw.println("R="+plan.getRoofData());
 			pw.close();
 						
 			

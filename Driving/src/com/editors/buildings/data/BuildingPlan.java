@@ -28,6 +28,9 @@ public class BuildingPlan {
 	
 	public int roof_type=ROOF_TYPE_GABLE;
 	
+	double roof_top_height=0;
+	double roof_top_width=0;
+	
 	public BuildingPlan(){}
 	
 	public BuildingPlan( double nw_x, double nw_y,double x_side, double y_side,double z_side
@@ -85,6 +88,88 @@ public class BuildingPlan {
 		BuildingPlan grid=new BuildingPlan(nw_x,nw_y,x_side,y_side,z_side);
 	
 		return grid;
+	}
+	
+	public String getRoofData() {
+		String str=getRoof_type()+","+getRoof_top_height()+","+getRoof_top_width();
+		return str;
+	}
+	
+	
+	public void buildRoof(String str) {
+		
+		String[] vals = str.split(",");
+		
+		int roType= Integer.parseInt(vals[0]);
+		double rooHeight = Double.parseDouble(vals[1]);
+		double rooWidth =Double.parseDouble(vals[2]);
+		
+		setRoof(roType,rooHeight,rooWidth);
+	}
+
+	public double getZ_side() {
+		return z_side;
+	}
+
+	public void setZ_side(double z_side) {
+		this.z_side = z_side;
+	}
+
+	public double getNw_x() {
+		return nw_x;
+	}
+
+	public void setNw_x(double nw_x) {
+		this.nw_x = nw_x;
+	}
+
+	public double getNw_y() {
+		return nw_y;
+	}
+
+	public void setNw_y(double nw_y) {
+		this.nw_y = nw_y;
+	}
+	
+	public int pos(int i, int j, int k){
+		
+		return (i+(1+1)*j)*2+k;
+	}
+	
+	
+
+	public int getRoof_type() {
+		return roof_type;
+	}
+
+	public void setRoof_type(int roof_type) {
+		this.roof_type = roof_type;
+	}
+	
+	
+	public void setRoof(int roof_type,double roof_top_height,double roof_top_width){
+		
+		this.roof_type = roof_type;
+		this.roof_top_height = roof_top_height;
+		this.roof_top_width = roof_top_width;
+	}
+
+
+
+	public double getRoof_top_height() {
+		return roof_top_height;
+	}
+
+	public void setRoof_top_height(double roof_top_height) {
+		this.roof_top_height = roof_top_height;
+	}
+
+	public double getRoof_top_width() {
+		return roof_top_width;
+	}
+
+	public void setRoof_top_width(double roof_top_width) {
+		this.roof_top_width = roof_top_width;
 	}
 
 
@@ -148,10 +233,15 @@ public class BuildingPlan {
 			LineData bottomLD=buildLine(p000,p010,p110,p100,Renderer3D.CAR_TOP);
 			polyData.add(bottomLD);
 			
-		}else if(roof_type==ROOF_TYPE_GABLE){
+		}else if(roof_type==ROOF_TYPE_GABLE || roof_type==ROOF_TYPE_HIP){
+			
+			double y_indentation=0;
+			
+			if(roof_type==ROOF_TYPE_HIP)
+				y_indentation=(getY_side()-getRoof_top_width())/2.0;
 		 
-			BPoint pr001=new BPoint((p001.x+p101.x)/2.0,(p001.y+p101.y)/2.0,30+(p001.z+p101.z)/2.0,8);
-			BPoint pr011=new BPoint((p011.x+p111.x)/2.0,(p011.y+p111.y)/2.0,30+(p011.z+p111.z)/2.0,9);
+			BPoint pr001=new BPoint((p001.x+p101.x)/2.0,(p001.y+p101.y)/2.0+y_indentation,roof_top_height+(p001.z+p101.z)/2.0,8);
+			BPoint pr011=new BPoint((p011.x+p111.x)/2.0,(p011.y+p111.y)/2.0-y_indentation,roof_top_height+(p011.z+p111.z)/2.0,9);
 			
 			points.setElementAt(pr001,pr001.getIndex());
 			points.setElementAt(pr011,pr011.getIndex());
@@ -166,7 +256,6 @@ public class BuildingPlan {
 			polyData.add(topRoof2);
 		
 		}
-		///////////////
 		
 		translatePoints(points,nw_x,nw_y);
 
@@ -203,37 +292,10 @@ public class BuildingPlan {
 		
 		return ld;
 	}
-
-	public double getZ_side() {
-		return z_side;
-	}
-
-	public void setZ_side(double z_side) {
-		this.z_side = z_side;
-	}
-
-	public double getNw_x() {
-		return nw_x;
-	}
-
-	public void setNw_x(double nw_x) {
-		this.nw_x = nw_x;
-	}
-
-	public double getNw_y() {
-		return nw_y;
-	}
-
-	public void setNw_y(double nw_y) {
-		this.nw_y = nw_y;
-	}
 	
-	public int pos(int i, int j, int k){
-		
-		return (i+(1+1)*j)*2+k;
-	}
+
 	
-	 class BPoint extends Point3D{
+ class BPoint extends Point3D{
 		 
 		 public BPoint(double x, double y, double z, int index) {
 			super(x, y, z);
@@ -253,12 +315,7 @@ public class BuildingPlan {
 		 
 	 }
 
-	public int getRoof_type() {
-		return roof_type;
-	}
 
-	public void setRoof_type(int roof_type) {
-		this.roof_type = roof_type;
-	}
 
-}
+
+ }	
