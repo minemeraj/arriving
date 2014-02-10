@@ -1,6 +1,10 @@
 
 Adding custom editors  to build objects and textures in a more powerful way.
 
+Now the coordinates axes are more clear in the Object Editor.
+
+Added Mouse Wheel listener in the PreviewPanel
+
 -----19/01/2014   CarDriving 7.0.11
 
 Big changes in the LineData format, to prepare for future improvements in texture usage.
