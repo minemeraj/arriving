@@ -21,12 +21,11 @@ public class BuildingPlan {
 	double nw_y=0;
 	
 	public static int ROOF_TYPE_FLAT=0;
-	public static int ROOF_TYPE_GABLE=1;
-	public static int ROOF_TYPE_HIP=2;
-	public static int ROOF_TYPE_SHED=3;
-	public static int ROOF_TYPE_GAMBREL=4;
+	public static int ROOF_TYPE_HIP=1;
+	public static int ROOF_TYPE_SHED=2;
+	public static int ROOF_TYPE_GAMBREL=3;
 	
-	public int roof_type=ROOF_TYPE_GABLE;
+	public int roof_type=ROOF_TYPE_HIP;
 	
 	double roof_top_height=0;
 	double roof_top_width=0;
@@ -233,15 +232,25 @@ public class BuildingPlan {
 			LineData bottomLD=buildLine(p000,p010,p110,p100,Renderer3D.CAR_TOP);
 			polyData.add(bottomLD);
 			
-		}else if(roof_type==ROOF_TYPE_GABLE || roof_type==ROOF_TYPE_HIP){
+		}else if( roof_type==ROOF_TYPE_HIP || roof_type==ROOF_TYPE_SHED){
 			
-			double y_indentation=0;
+				
 			
-			if(roof_type==ROOF_TYPE_HIP)
-				y_indentation=(getY_side()-getRoof_top_width())/2.0;
+			double y_indentation=(getY_side()-getRoof_top_width())/2.0;
 		 
-			BPoint pr001=new BPoint((p001.x+p101.x)/2.0,(p001.y+p101.y)/2.0+y_indentation,roof_top_height+(p001.z+p101.z)/2.0,8);
-			BPoint pr011=new BPoint((p011.x+p111.x)/2.0,(p011.y+p111.y)/2.0-y_indentation,roof_top_height+(p011.z+p111.z)/2.0,9);
+			BPoint pr001=null;
+			BPoint pr011=null;
+			
+			if(roof_type==ROOF_TYPE_HIP){
+				pr001=new BPoint((p001.x+p101.x)/2.0,(p001.y+p101.y)/2.0+y_indentation,roof_top_height+(p001.z+p101.z)/2.0,8);
+				pr011=new BPoint((p011.x+p111.x)/2.0,(p011.y+p111.y)/2.0-y_indentation,roof_top_height+(p011.z+p111.z)/2.0,9);
+			}
+			else if(roof_type==ROOF_TYPE_SHED){
+				
+				pr001=new BPoint(p001.x,(p001.y+p101.y)/2.0+y_indentation,roof_top_height+(p001.z+p101.z)/2.0,8);
+				pr011=new BPoint(p011.x,(p011.y+p111.y)/2.0-y_indentation,roof_top_height+(p011.z+p111.z)/2.0,9);
+				
+			}
 			
 			points.setElementAt(pr001,pr001.getIndex());
 			points.setElementAt(pr011,pr011.getIndex());

@@ -187,8 +187,8 @@ public class BuildingsEditor extends JFrame implements MenuListener, MouseListen
 		chooseRoof.addKeyListener(this);
 		chooseRoof.addItem(new ValuePair("-1",""));
 		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_FLAT,"Flat"));
-		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_GABLE,"Gable"));
 		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_HIP,"Hip"));
+		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_SHED,"Shed"));
 		chooseRoof.setSelectedIndex(0);
 		right.add(chooseRoof);
 		
