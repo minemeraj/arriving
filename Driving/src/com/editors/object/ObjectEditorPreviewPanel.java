@@ -2,6 +2,8 @@ package com.editors.object;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -25,7 +27,7 @@ import com.editors.EditorPreviewPanel;
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
 
-public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyListener, PropertyChangeListener{
+public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyListener, PropertyChangeListener,MouseWheelListener {
 
 
 	
@@ -55,6 +57,7 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 		polygons = PolygonMesh.getBodyPolygons(pm);
 	
 		
+		addMouseWheelListener(this);
 		addKeyListener(this);
 		setVisible(true);
 		initialize();
@@ -212,6 +215,21 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 			y0-=5/deltax;
 			draw();
 		}
+	}
+
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent arg0) {
+	
+		int pix=arg0.getUnitsToScroll();
+		if(pix>0) 
+			y0-=5/deltax;
+		else 
+			y0+=5/deltax;
+			
+		
+		draw();
+		
 	}	
 
 }
