@@ -206,11 +206,8 @@ public class BuildingPlan extends CustomData{
 		points.setElementAt(p101,p101.getIndex());
 		points.setElementAt(p111,p111.getIndex());
 
-
-		LineData topLD=buildLine(p001,p101,p111,p011,Renderer3D.CAR_TOP);
-		polyData.add(topLD);
-
-
+		LineData bottomLD=buildLine(p000,p010,p110,p100,Renderer3D.CAR_BOTTOM);
+		polyData.add(bottomLD);
 
 
 		LineData leftLD=buildLine(p000,p001,p011,p010,Renderer3D.CAR_LEFT);
@@ -231,8 +228,8 @@ public class BuildingPlan extends CustomData{
 
 			if(roof_type==ROOF_TYPE_FLAT){
 
-				LineData bottomLD=buildLine(p000,p010,p110,p100,Renderer3D.CAR_TOP);
-				polyData.add(bottomLD);
+				LineData topLD=buildLine(p001,p101,p111,p011,Renderer3D.CAR_TOP);
+				polyData.add(topLD);
 
 			}else if( roof_type==ROOF_TYPE_HIP || roof_type==ROOF_TYPE_SHED){
 

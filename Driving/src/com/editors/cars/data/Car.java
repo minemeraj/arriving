@@ -152,7 +152,8 @@ public class Car extends CustomData {
 		polyData.add(topLD);
 
 
-
+		LineData bottomLD=buildLine(p000,p010,p110,p100,Renderer3D.CAR_BOTTOM);
+		polyData.add(bottomLD);
 
 		LineData leftLD=buildLine(p000,p001,p011,p010,Renderer3D.CAR_LEFT);
 		polyData.add(leftLD);

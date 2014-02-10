@@ -34,7 +34,7 @@ public class CustomData {
 		points.setElementAt(pLeg011,pLeg011.getIndex());
 		
 		
-		LineData top=buildLine(pLeg001,pLeg101,pLeg111,pLeg011,Renderer3D.CAR_BOTTOM);
+		LineData top=buildLine(pLeg001,pLeg101,pLeg111,pLeg011,Renderer3D.CAR_TOP);
 		polyData.add(top);
 		
 		LineData LegS0=buildLine(pLeg000,pLeg001,pLeg011,pLeg010,Renderer3D.CAR_LEFT);
