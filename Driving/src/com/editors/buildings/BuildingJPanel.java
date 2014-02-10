@@ -34,9 +34,9 @@ public class BuildingJPanel extends CustomJPanel{
 			
 		}
 		graph.setColor(Color.GREEN);
-		graph.drawLine((int)calcX(0,0),(int)calcY(0,0),(int)calcX(100,0),(int)calcY(100,0));
+		graph.drawLine((int)calcX(0,0,0),(int)calcY(0,0,0),(int)calcX(100,0,0),(int)calcY(100,0,0));
 		graph.setColor(Color.YELLOW);
-		graph.drawLine((int)calcX(0,0),(int)calcY(0,0),(int)calcX(0,100),(int)calcY(0,100));
+		graph.drawLine((int)calcX(0,0,0),(int)calcY(0,0,0),(int)calcX(0,100,0),(int)calcY(0,100,0));
 			
 	}
 	
@@ -49,10 +49,10 @@ public class BuildingJPanel extends CustomJPanel{
 		double yside=plan.getY_side();
 		
 		Polygon3D pol=new Polygon3D();
-		pol.addPoint((int)calcX(x0,y0),(int)calcY(x0,y0),0);
-		pol.addPoint((int)calcX(x0+xside,y0),(int)calcY(x0+xside,y0),0);
-		pol.addPoint((int)calcX(x0+xside,y0+yside),(int)calcY(x0+xside,y0+yside),0);
-		pol.addPoint((int)calcX(x0,y0+yside),(int)calcY(x0,y0+yside),0);
+		pol.addPoint((int)calcX(x0,y0,0),(int)calcY(x0,y0,0),0);
+		pol.addPoint((int)calcX(x0+xside,y0,0),(int)calcY(x0+xside,y0,0),0);
+		pol.addPoint((int)calcX(x0+xside,y0+yside,0),(int)calcY(x0+xside,y0+yside,0),0);
+		pol.addPoint((int)calcX(x0,y0+yside,0),(int)calcY(x0,y0+yside,0),0);
 	
 			
 		graph.draw(pol);

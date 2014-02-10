@@ -651,7 +651,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		if(plan!=null){
 			
 			//cleanRightData();
-			Point pt=new Point((int)center.invertX(p.x,p.y),(int)center.invertY(p.x,p.y));
+			//Point pt=new Point((int)center.invertX(p.x,p.y),(int)center.invertY(p.x,p.y));
 			
 			/*for (int i = 0; i < plan.getXnum(); i++) {
 				
