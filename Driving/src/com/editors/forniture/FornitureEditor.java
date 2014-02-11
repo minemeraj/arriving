@@ -210,7 +210,7 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 		nw_y.setText(100);
 		x_side.setText(100);
 		y_side.setText(200);
-		z_side.setText(100);
+		z_side.setText(50);
 	}
 	
 	private void setRightData(Forniture forniture) {

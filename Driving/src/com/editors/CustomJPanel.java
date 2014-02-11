@@ -1,7 +1,9 @@
 package com.editors;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.Vector;
 
 import javax.swing.JPanel;
@@ -14,7 +16,7 @@ import com.PolygonMesh;
 public class CustomJPanel extends JPanel{
 	
 	public static final Color BACKGROUND = Color.BLACK;
-	public Graphics2D graph;
+	
 	
 	public int x0=400;
 	public int y0=500;
@@ -32,12 +34,18 @@ public class CustomJPanel extends JPanel{
 	public double cosAlfa=Math.cos(alfa);
 	public double sinAlfa=Math.sin(alfa);
 	
+	public Graphics2D graph=null;
+	public BufferedImage buf=null;
+	public Graphics2D buffGraph;
+	
 
 	public void initialize() {
 		
 		graph=(Graphics2D)getGraphics();
 		WIDTH=getWidth();
 		HEIGHT=getHeight();
+		buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
+		buffGraph = (Graphics2D) buf.getGraphics();
 	}
 
 
@@ -99,8 +107,32 @@ public class CustomJPanel extends JPanel{
 		
 	}
 	
+	public void drawBasic(){
+		
+		if(buf==null)
+			return;
+		
+		
+		buffGraph.setColor(BACKGROUND);
+		buffGraph.fillRect(0,0,getWidth(),getHeight());
+		
+	}
+	
+	public void drawAxes(){
+		
+		buffGraph.setColor(Color.GREEN);
+		buffGraph.drawLine((int)calcX(0,0,0),(int)calcY(0,0,0),(int)calcX(100,0,0),(int)calcY(100,0,0));
+		buffGraph.setColor(Color.YELLOW);
+		buffGraph.drawLine((int)calcX(0,0,0),(int)calcY(0,0,0),(int)calcX(0,100,0),(int)calcY(0,100,0));
+
+		
+	}
 
 	public void draw(PolygonMesh mesh) {
+		
+		if(buf==null)
+			return;
+		Graphics buffGraph = buf.getGraphics();
 		
 		Vector<LineData> poly = mesh.getPolygonData();
 		Point3D[] points = mesh.points;
@@ -112,17 +144,19 @@ public class CustomJPanel extends JPanel{
 			
 			for (int j = 0; j < pol.npoints; j++) {				
 								
-				drawLine(pol.xpoints[j],pol.ypoints[j],pol.zpoints[j],pol.xpoints[(j+1)% pol.npoints],pol.ypoints[(j+1)% pol.npoints],pol.zpoints[(j+1)% pol.npoints]);
+				drawLine(buffGraph,pol.xpoints[j],pol.ypoints[j],pol.zpoints[j],pol.xpoints[(j+1)% pol.npoints],pol.ypoints[(j+1)% pol.npoints],pol.zpoints[(j+1)% pol.npoints]);
 				
 			}
 		}
 		
+		
+		
 	}
 
 
-	private void drawLine(double x0,double y0,double z0,double x1,double y1,double z1) {
+	private void drawLine(Graphics buffGraph, double x0,double y0,double z0,double x1,double y1,double z1) {
 		
-		graph.drawLine(calcX(x0,y0,z0),calcY(x0,y0,z0),calcX(x1,y1,z1),calcY(x1,y1,z1));
+		buffGraph.drawLine(calcX(x0,y0,z0),calcY(x0,y0,z0),calcX(x1,y1,z1),calcY(x1,y1,z1));
 		
 	}
 }

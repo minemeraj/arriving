@@ -14,34 +14,25 @@ import com.editors.cars.data.Car;
 public class CarsEditorJPanel extends CustomJPanel{
 
 
-	public void initialize() {
-		
-		graph=(Graphics2D)getGraphics();
-		WIDTH=getWidth();
-		HEIGHT=getHeight();
-	}
 	
 
 	public void draw(Car car) { 
 		
-		if(graph==null)
+		if(buffGraph==null)
 			return;
 		
-		graph.setColor(BACKGROUND);
-		graph.fillRect(0,0,getWidth(),getHeight());
+		drawBasic();
 		
 		if(car!=null){
 			
 			
-			graph.setColor(Color.WHITE);
+			buffGraph.setColor(Color.WHITE);
 			drawCarData(car);
 			
 		}
-		graph.setColor(Color.GREEN);
-		graph.drawLine((int)calcX(0,0,0),(int)calcY(0,0,0),(int)calcX(100,0,0),(int)calcY(100,0,0));
-		graph.setColor(Color.YELLOW);
-		graph.drawLine((int)calcX(0,0,0),(int)calcY(0,0,0),(int)calcX(0,100,0),(int)calcY(0,100,0));
+		drawAxes();
 		
+		graph.drawImage(buf,0,0,null);
 	}
 
 
