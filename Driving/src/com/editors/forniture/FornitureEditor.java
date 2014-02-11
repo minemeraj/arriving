@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 import java.util.Stack;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,7 +30,7 @@ import javax.swing.event.MenuListener;
 import com.editors.CustomEditor;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
-import com.editors.buildings.data.BuildingPlan;
+import com.editors.ValuePair;
 import com.editors.forniture.data.Forniture;
 import com.editors.object.ObjectEditorPreviewPanel;
 
@@ -67,6 +68,7 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 	int max_stack_size=10;
 	
 	Forniture forniture=null;
+	private JComboBox chooseForniture;
 	
 	
 	public FornitureEditor(){
@@ -171,6 +173,23 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 		right.add(z_side);
 		
 		r+=30;
+		
+		jlb=new JLabel("Forniture type:");
+		jlb.setBounds(5, r, 120, 20);
+		right.add(jlb);
+
+		chooseForniture=new JComboBox();
+		chooseForniture.setBounds(column, r, 100, 20);
+		chooseForniture.addKeyListener(this);
+		chooseForniture.addItem(new ValuePair("-1",""));
+		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_TABLE,"Table"));
+		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_CHAIR,"Chair"));
+		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_BED,"Bed"));
+		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_SOFA,"Sofa"));
+		chooseForniture.setSelectedIndex(0);
+		right.add(chooseForniture);
+		
+		r+=30;
 			
         generate=new JButton("Update");
         generate.setBounds(10,r,100,20);
@@ -200,6 +219,15 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 		x_side.setText(forniture.getX_side());
 		y_side.setText(forniture.getY_side());
 		z_side.setText(forniture.getZ_side());
+		
+		for (int i = 0; i < chooseForniture.getItemCount(); i++) {
+			ValuePair vp= (ValuePair) chooseForniture.getItemAt(i);
+			if(vp.getId().equals(""+forniture.getForniture_type()))
+			{
+				chooseForniture.setSelectedIndex(i);
+				break;
+			}	
+		}
 
 	}
 
@@ -316,13 +344,20 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 			double nwx=nw_x.getvalue();
 			double nwy=nw_y.getvalue();
 			
+			 ValuePair vp= (ValuePair)chooseForniture.getSelectedItem();
+			 
+			 int val=Integer.parseInt(vp.getId());
+			    if(val<0)
+			    	val=Forniture.FORNITURE_TYPE_TABLE;
+		
+			
 			if(forniture==null){
+								
+				forniture=new Forniture(nwx,nwy,xside,yside,zside,val);
 				
-				forniture=new Forniture(nwx,nwy,xside,yside,zside);
+			}else{				
 				
-			}else{
-				
-				Forniture expForniture = new Forniture(nwx,nwy,xside,yside,zside);
+				Forniture expForniture = new Forniture(nwx,nwy,xside,yside,zside,val);
 				
 				forniture=expForniture;
 			}
@@ -375,8 +410,8 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 				if(indx>=0){
 					
 					String value=str.substring(indx+2);
-					//plan=BuildingPlan.buildPlan(value);
-					
+					forniture=Forniture.buildForniture(value);
+					setRightData(forniture);
 					
 				}
 	
@@ -460,7 +495,7 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 		try {
 			pw = new PrintWriter(file);			
 
-			
+			pw.println(forniture.toString());
 			
 			pw.close();
 						
