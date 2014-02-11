@@ -124,7 +124,8 @@ public class CustomJPanel extends JPanel{
 		buffGraph.drawLine((int)calcX(0,0,0),(int)calcY(0,0,0),(int)calcX(100,0,0),(int)calcY(100,0,0));
 		buffGraph.setColor(Color.YELLOW);
 		buffGraph.drawLine((int)calcX(0,0,0),(int)calcY(0,0,0),(int)calcX(0,100,0),(int)calcY(0,100,0));
-
+		buffGraph.setColor(Color.BLUE);
+		buffGraph.drawLine((int)calcX(0,0,0),(int)calcY(0,0,0),(int)calcX(0,0,100),(int)calcY(0,0,100));
 		
 	}
 
