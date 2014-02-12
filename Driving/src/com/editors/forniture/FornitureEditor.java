@@ -58,8 +58,6 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 	private DoubleTextField leg_length;
 	private DoubleTextField leg_side;
 	private DoubleTextField back_length;
-	private DoubleTextField nw_x;
-	private DoubleTextField nw_y;
 	private DoubleTextField x_side;
 	private DoubleTextField y_side;
 	private DoubleTextField z_side;
@@ -126,29 +124,8 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 		
 		int column=100;
 		
-		JLabel jlb=new JLabel("NW X");
-		jlb.setBounds(5, r, 100, 20);
-		right.add(jlb);
 
-		nw_x=new DoubleTextField();
-		nw_x.setBounds(column, r, 100, 20);
-		nw_x.addKeyListener(this);
-		right.add(nw_x);
-
-		r+=30;
-		
-		jlb=new JLabel("NW Y");
-		jlb.setBounds(5, r, 100, 20);
-		right.add(jlb);
-
-		nw_y=new DoubleTextField();
-		nw_y.setBounds(column, r, 100, 20);
-		nw_y.addKeyListener(this);
-		right.add(nw_y);
-		
-		r+=30;
-
-		jlb=new JLabel("X side");
+		JLabel jlb=new JLabel("X side");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
 		x_side=new DoubleTextField();
@@ -241,8 +218,7 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 
 	public void initRightData() {
 		
-		nw_x.setText(100);
-		nw_y.setText(100);
+
 		x_side.setText(100);
 		y_side.setText(200);
 		z_side.setText(50);
@@ -253,8 +229,7 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 	}
 	
 	private void setRightData(Forniture forniture) {
-		nw_x.setText(forniture.getNw_x());
-		nw_y.setText(forniture.getNw_y());
+
 		x_side.setText(forniture.getX_side());
 		y_side.setText(forniture.getY_side());
 		z_side.setText(forniture.getZ_side());
@@ -383,8 +358,6 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 			double xside=x_side.getvalue();
 			double yside=y_side.getvalue();
 			double zside=z_side.getvalue();
-			double nwx=nw_x.getvalue();
-			double nwy=nw_y.getvalue();
 			double legSide=leg_side.getvalue();
 			double legLength=leg_length.getvalue();
 			double backLength=back_length.getvalue();
@@ -398,12 +371,12 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 			
 			if(forniture==null){
 								
-				forniture=new Forniture(nwx,nwy,xside,yside,zside,val,legLength,legSide,backLength);
+				forniture=new Forniture(xside,yside,zside,val,legLength,legSide,backLength);
 			
 				
 			}else{				
 				
-				Forniture expForniture = new Forniture(nwx,nwy,xside,yside,zside,val,legLength,legSide,backLength);
+				Forniture expForniture = new Forniture(xside,yside,zside,val,legLength,legSide,backLength);
 				
 				
 				forniture=expForniture;

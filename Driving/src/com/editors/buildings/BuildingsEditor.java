@@ -61,8 +61,6 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 	
 	JFileChooser fc = new JFileChooser();
 	File currentDirectory=new File("lib");
-	private DoubleTextField nw_x;
-	private DoubleTextField nw_y;
 	private DoubleTextField x_side;
 	private DoubleTextField y_side;
 	private DoubleTextField z_side;
@@ -128,29 +126,8 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		
 		int column=100;
 		
-		JLabel jlb=new JLabel("NW X");
-		jlb.setBounds(5, r, 100, 20);
-		right.add(jlb);
 
-		nw_x=new DoubleTextField();
-		nw_x.setBounds(column, r, 100, 20);
-		nw_x.addKeyListener(this);
-		right.add(nw_x);
-
-		r+=30;
-		
-		jlb=new JLabel("NW Y");
-		jlb.setBounds(5, r, 100, 20);
-		right.add(jlb);
-
-		nw_y=new DoubleTextField();
-		nw_y.setBounds(column, r, 100, 20);
-		nw_y.addKeyListener(this);
-		right.add(nw_y);
-		
-		r+=30;
-
-		jlb=new JLabel("X side");
+		JLabel jlb=new JLabel("X side");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
 		x_side=new DoubleTextField();
@@ -232,8 +209,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 
 	public void initRightData() {
 		
-		nw_x.setText(100);
-		nw_y.setText(100);
+
 		x_side.setText(100);
 		y_side.setText(200);
 		z_side.setText(100);
@@ -242,8 +218,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 	}
 
 	private void setRightData(BuildingPlan plan) {
-		nw_x.setText(plan.getNw_x());
-		nw_y.setText(plan.getNw_y());
+	
 		x_side.setText(plan.getX_side());
 		y_side.setText(plan.getY_side());
 		z_side.setText(plan.getZ_side());
@@ -265,8 +240,6 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 
 	private void cleanRightData() {
 		
-		nw_x.setText("");
-		nw_y.setText("");
 		x_side.setText("");
 		y_side.setText("");
 		z_side.setText("");
@@ -379,8 +352,6 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		double xside=x_side.getvalue();
 		double yside=y_side.getvalue();
 		double zside=z_side.getvalue();
-		double nwx=nw_x.getvalue();
-		double nwy=nw_y.getvalue();
 		double roofHeight=roof_top_height.getvalue();       
 		double roofWidth= roof_top_width.getvalue();
 		
@@ -388,7 +359,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 			
 			
 				
-		    BuildingPlan expPlan = new BuildingPlan(nwx,nwy,xside,yside,zside);
+		    BuildingPlan expPlan = new BuildingPlan(xside,yside,zside);
 		    
 		    ValuePair vp= (ValuePair)chooseRoof.getSelectedItem();
 		    
@@ -409,7 +380,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 				
 
 			
-			plan = new BuildingPlan(nwx,nwy,xside,yside,zside);
+			plan = new BuildingPlan(xside,yside,zside);
 		    
 		    ValuePair vp= (ValuePair)chooseRoof.getSelectedItem();
 		    

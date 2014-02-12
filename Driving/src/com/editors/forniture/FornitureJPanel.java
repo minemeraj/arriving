@@ -40,8 +40,9 @@ public class FornitureJPanel extends CustomJPanel{
 	private void drawFornitureData(Forniture forniture) {
 
 
-		double x0=forniture.getNw_x();
-		double y0=forniture.getNw_y();		
+		double x0=0;
+		double y0=0;
+		
 		double xside=forniture.getX_side();
 		double yside=forniture.getY_side();
 		

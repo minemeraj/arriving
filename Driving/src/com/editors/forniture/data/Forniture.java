@@ -12,9 +12,6 @@ public class Forniture extends CustomData{
 	double x_side=0;
 	double y_side=0;
 	double z_side=0;
-
-	double nw_x=0;
-	double nw_y=0;
 		
 	public static int FORNITURE_TYPE_TABLE=0;
 	public static int FORNITURE_TYPE_CHAIR=1;
@@ -29,7 +26,7 @@ public class Forniture extends CustomData{
 
 	public Forniture(){}
 
-	public Forniture( double nw_x, double nw_y,double x_side, double y_side,double z_side,int forniture_type,
+	public Forniture( double x_side, double y_side,double z_side,int forniture_type,
 			double legLength, double legSide, double backLength
 			) {
 		super();
@@ -37,8 +34,6 @@ public class Forniture extends CustomData{
 		this.x_side = x_side;
 		this.y_side = y_side;
 		this.z_side = z_side;
-		this.nw_x = nw_x;
-		this.nw_y = nw_y;
 		this.forniture_type = forniture_type;
 		this.leg_length = legLength;
 		this.leg_side = legSide;
@@ -49,7 +44,7 @@ public class Forniture extends CustomData{
 
 	public Object clone(){
 
-		Forniture grid=new Forniture(nw_x,nw_y,x_side,y_side,z_side,forniture_type,leg_length,leg_side,back_length);
+		Forniture grid=new Forniture(x_side,y_side,z_side,forniture_type,leg_length,leg_side,back_length);
 		return grid;
 
 	}
@@ -71,7 +66,7 @@ public class Forniture extends CustomData{
 
 	public String toString() {
 
-		String ret="F="+ nw_x+","+nw_y+","+x_side+","+y_side+","+z_side+","+forniture_type;
+		String ret="F="+x_side+","+y_side+","+z_side+","+forniture_type;
 		ret+=","+leg_length+","+leg_side+","+back_length;
 				
 		return ret;
@@ -91,7 +86,7 @@ public class Forniture extends CustomData{
 		double legSide = Double.parseDouble(vals[7]); 
 		double backLength = Double.parseDouble(vals[8]); 
 
-		Forniture grid=new Forniture(nw_x,nw_y,x_side,y_side,z_side,forniture_type,legLength,legSide,backLength);
+		Forniture grid=new Forniture(x_side,y_side,z_side,forniture_type,legLength,legSide,backLength);
 
 		return grid;
 	}
@@ -106,21 +101,6 @@ public class Forniture extends CustomData{
 		this.z_side = z_side;
 	}
 
-	public double getNw_x() {
-		return nw_x;
-	}
-
-	public void setNw_x(double nw_x) {
-		this.nw_x = nw_x;
-	}
-
-	public double getNw_y() {
-		return nw_y;
-	}
-
-	public void setNw_y(double nw_y) {
-		this.nw_y = nw_y;
-	}
 	
 
 	public int getForniture_type() {
