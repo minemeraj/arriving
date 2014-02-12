@@ -59,10 +59,10 @@ public class Car extends CustomData {
 
 	public String toString() {
 
-		return x_side+","+y_side+","+z_side;
+		return "C="+x_side+","+y_side+","+z_side;
 	}
 
-	public static Car buildPlan(String str) {
+	public static Car buildCar(String str) {
 
 		String[] vals = str.split(",");
 

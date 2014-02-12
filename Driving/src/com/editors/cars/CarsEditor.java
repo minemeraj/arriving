@@ -332,11 +332,11 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 			
 			while((str=br.readLine())!=null){
 				
-				int indx=str.indexOf("F=");
+				int indx=str.indexOf("C=");
 				if(indx>=0){
 					
 					String value=str.substring(indx+2);
-					//plan=BuildingPlan.buildPlan(value);
+					car=Car.buildCar(value);
 					
 					
 				}
@@ -421,7 +421,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		try {
 			pw = new PrintWriter(file);			
 
-			
+			pw.println(car.toString());
 			
 			pw.close();
 						
