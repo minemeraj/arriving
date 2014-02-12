@@ -76,15 +76,13 @@ public class Forniture extends CustomData{
 
 		String[] vals = str.split(",");
 
-		double nw_x =Double.parseDouble(vals[0]);
-		double nw_y = Double.parseDouble(vals[1]);
-		double x_side =Double.parseDouble(vals[2]);
-		double y_side = Double.parseDouble(vals[3]);
-		double z_side = Double.parseDouble(vals[4]); 
-		int forniture_type=Integer.parseInt(vals[5]);
-		double legLength = Double.parseDouble(vals[6]); 
-		double legSide = Double.parseDouble(vals[7]); 
-		double backLength = Double.parseDouble(vals[8]); 
+		double x_side =Double.parseDouble(vals[0]);
+		double y_side = Double.parseDouble(vals[1]);
+		double z_side = Double.parseDouble(vals[2]); 
+		int forniture_type=Integer.parseInt(vals[3]);
+		double legLength = Double.parseDouble(vals[4]); 
+		double legSide = Double.parseDouble(vals[5]); 
+		double backLength = Double.parseDouble(vals[6]); 
 
 		Forniture grid=new Forniture(x_side,y_side,z_side,forniture_type,legLength,legSide,backLength);
 

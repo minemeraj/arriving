@@ -19,28 +19,25 @@ public class Car extends CustomData {
 	double y_side=0;
 	double z_side=0;
 
-	double nw_x=0;
-	double nw_y=0;
 
 
 	public Car(){}
 
-	public Car( double nw_x, double nw_y,double x_side, double y_side,double z_side
+	public Car( double x_side, double y_side,double z_side
 			) {
 		super();
 
 		this.x_side = x_side;
 		this.y_side = y_side;
 		this.z_side = z_side;
-		this.nw_x = nw_x;
-		this.nw_y = nw_y;
+	
 
 
 	}
 
 	public Object clone(){
 
-		Car grid=new Car(nw_x,nw_y,x_side,y_side,z_side);
+		Car grid=new Car(x_side,y_side,z_side);
 		return grid;
 
 	}
@@ -62,21 +59,20 @@ public class Car extends CustomData {
 
 	public String toString() {
 
-		return nw_x+","+nw_y+","+x_side+","+y_side+","+z_side;
+		return x_side+","+y_side+","+z_side;
 	}
 
 	public static Car buildPlan(String str) {
 
 		String[] vals = str.split(",");
 
-		double nw_x =Double.parseDouble(vals[0]);
-		double nw_y = Double.parseDouble(vals[1]);
-		double x_side =Double.parseDouble(vals[2]);
-		double y_side = Double.parseDouble(vals[3]);
-		double z_side = Double.parseDouble(vals[4]); 
+
+		double x_side =Double.parseDouble(vals[0]);
+		double y_side = Double.parseDouble(vals[1]);
+		double z_side = Double.parseDouble(vals[2]); 
 
 
-		Car grid=new Car(nw_x,nw_y,x_side,y_side,z_side);
+		Car grid=new Car(x_side,y_side,z_side);
 
 		return grid;
 	}
@@ -91,21 +87,6 @@ public class Car extends CustomData {
 		this.z_side = z_side;
 	}
 
-	public double getNw_x() {
-		return nw_x;
-	}
-
-	public void setNw_x(double nw_x) {
-		this.nw_x = nw_x;
-	}
-
-	public double getNw_y() {
-		return nw_y;
-	}
-
-	public void setNw_y(double nw_y) {
-		this.nw_y = nw_y;
-	}
 
 	public int pos(int i, int j, int k){
 
@@ -114,12 +95,9 @@ public class Car extends CustomData {
 
 
 
-	
-
 	public PolygonMesh buildMesh(){
 
-		int xnum=1;
-		int ynum=1;
+
 
 
 		Vector points=new Vector();

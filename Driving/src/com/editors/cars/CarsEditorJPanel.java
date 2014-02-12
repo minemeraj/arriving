@@ -39,8 +39,8 @@ public class CarsEditorJPanel extends CustomJPanel{
 	private void drawCarData(Car car) {
 
 
-		double x0=car.getNw_x();
-		double y0=car.getNw_y();		
+		double x0=0;
+		double y0=0;		
 		double xside=car.getX_side();
 		double yside=car.getY_side();
 		

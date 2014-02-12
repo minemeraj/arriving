@@ -75,11 +75,10 @@ public class BuildingPlan extends CustomData{
 
 		String[] vals = str.split(",");
 
-		double nw_x =Double.parseDouble(vals[0]);
-		double nw_y = Double.parseDouble(vals[1]);
-		double x_side =Double.parseDouble(vals[2]);
-		double y_side = Double.parseDouble(vals[3]);
-		double z_side = Double.parseDouble(vals[4]); 
+
+		double x_side =Double.parseDouble(vals[0]);
+		double y_side = Double.parseDouble(vals[1]);
+		double z_side = Double.parseDouble(vals[2]); 
 
 
 		BuildingPlan grid=new BuildingPlan(x_side,y_side,z_side);

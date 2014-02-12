@@ -51,9 +51,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 	private JMenu jm_change;
 	private JMenuItem jmt_undo_last;
 	private JMenuItem jmt_save_mesh;
-	
-	private DoubleTextField nw_x;
-	private DoubleTextField nw_y;
+
 	private DoubleTextField x_side;
 	private DoubleTextField y_side;
 	private DoubleTextField z_side;
@@ -123,29 +121,8 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		
 		int column=100;
 		
-		JLabel jlb=new JLabel("NW X");
-		jlb.setBounds(5, r, 100, 20);
-		right.add(jlb);
 
-		nw_x=new DoubleTextField();
-		nw_x.setBounds(column, r, 100, 20);
-		nw_x.addKeyListener(this);
-		right.add(nw_x);
-
-		r+=30;
-		
-		jlb=new JLabel("NW Y");
-		jlb.setBounds(5, r, 100, 20);
-		right.add(jlb);
-
-		nw_y=new DoubleTextField();
-		nw_y.setBounds(column, r, 100, 20);
-		nw_y.addKeyListener(this);
-		right.add(nw_y);
-		
-		r+=30;
-
-		jlb=new JLabel("X side");
+		JLabel jlb=new JLabel("X side");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
 		x_side=new DoubleTextField();
@@ -190,16 +167,14 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 
 	public void initRightData() {
 		
-		nw_x.setText(100);
-		nw_y.setText(100);
+	
 		x_side.setText(100);
 		y_side.setText(200);
 		z_side.setText(100);
 	}
 	
 	private void setRightData(Car car) {
-		nw_x.setText(car.getNw_x());
-		nw_y.setText(car.getNw_y());
+	
 		x_side.setText(car.getX_side());
 		y_side.setText(car.getY_side());
 		z_side.setText(car.getZ_side());
@@ -311,16 +286,15 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 			double xside=x_side.getvalue();
 			double yside=y_side.getvalue();
 			double zside=z_side.getvalue();
-			double nwx=nw_x.getvalue();
-			double nwy=nw_y.getvalue();
+	
 			
 			if(car==null){
 				
-				car=new Car(nwx,nwy,xside,yside,zside);
+				car=new Car(xside,yside,zside);
 				
 			}else{
 				
-				Car expCar = new Car(nwx,nwy,xside,yside,zside);
+				Car expCar = new Car(xside,yside,zside);
 				
 				car=expCar;
 			}
