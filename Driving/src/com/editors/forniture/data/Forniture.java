@@ -23,13 +23,14 @@ public class Forniture extends CustomData{
 	
 	public int forniture_type=FORNITURE_TYPE_TABLE;
 	
-	double leg_side=10;
-	double leg_length=100;
-	double back_length=100;
+	double leg_side=0;
+	double leg_length=0;
+	double back_length=0;
 
 	public Forniture(){}
 
-	public Forniture( double nw_x, double nw_y,double x_side, double y_side,double z_side,int forniture_type
+	public Forniture( double nw_x, double nw_y,double x_side, double y_side,double z_side,int forniture_type,
+			double legLength, double legSide, double backLength
 			) {
 		super();
 
@@ -39,12 +40,16 @@ public class Forniture extends CustomData{
 		this.nw_x = nw_x;
 		this.nw_y = nw_y;
 		this.forniture_type = forniture_type;
+		this.leg_length = legLength;
+		this.leg_side = legSide;
+		this.back_length = backLength;
 
 	}
+	
 
 	public Object clone(){
 
-		Forniture grid=new Forniture(nw_x,nw_y,x_side,y_side,z_side,forniture_type);
+		Forniture grid=new Forniture(nw_x,nw_y,x_side,y_side,z_side,forniture_type,leg_length,leg_side,back_length);
 		return grid;
 
 	}
@@ -66,7 +71,10 @@ public class Forniture extends CustomData{
 
 	public String toString() {
 
-		return "F="+ nw_x+","+nw_y+","+x_side+","+y_side+","+z_side+","+forniture_type;
+		String ret="F="+ nw_x+","+nw_y+","+x_side+","+y_side+","+z_side+","+forniture_type;
+		ret+=","+leg_length+","+leg_side+","+back_length;
+				
+		return ret;
 	}
 
 	public static Forniture buildForniture(String str) {
@@ -79,8 +87,11 @@ public class Forniture extends CustomData{
 		double y_side = Double.parseDouble(vals[3]);
 		double z_side = Double.parseDouble(vals[4]); 
 		int forniture_type=Integer.parseInt(vals[5]);
+		double legLength = Double.parseDouble(vals[6]); 
+		double legSide = Double.parseDouble(vals[7]); 
+		double backLength = Double.parseDouble(vals[8]); 
 
-		Forniture grid=new Forniture(nw_x,nw_y,x_side,y_side,z_side,forniture_type);
+		Forniture grid=new Forniture(nw_x,nw_y,x_side,y_side,z_side,forniture_type,legLength,legSide,backLength);
 
 		return grid;
 	}
@@ -109,6 +120,39 @@ public class Forniture extends CustomData{
 
 	public void setNw_y(double nw_y) {
 		this.nw_y = nw_y;
+	}
+	
+
+	public int getForniture_type() {
+		return forniture_type;
+	}
+
+	public void setForniture_type(int forniture_type) {
+		this.forniture_type = forniture_type;
+	}
+
+	public double getLeg_side() {
+		return leg_side;
+	}
+
+	public void setLeg_side(double leg_side) {
+		this.leg_side = leg_side;
+	}
+
+	public double getLeg_length() {
+		return leg_length;
+	}
+
+	public void setLeg_length(double leg_length) {
+		this.leg_length = leg_length;
+	}
+
+	public double getBack_length() {
+		return back_length;
+	}
+
+	public void setBack_length(double back_length) {
+		this.back_length = back_length;
 	}
 
 	public int pos(int i, int j, int k){
@@ -302,13 +346,7 @@ public class Forniture extends CustomData{
 		return spm;
 	}
 
-	public int getForniture_type() {
-		return forniture_type;
-	}
 
-	public void setForniture_type(int forniture_type) {
-		this.forniture_type = forniture_type;
-	}
 
 
 

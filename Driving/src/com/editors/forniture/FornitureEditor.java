@@ -54,6 +54,10 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 	private JMenuItem jmt_undo_last;
 	private JMenuItem jmt_save_mesh;
 	
+	private JComboBox chooseForniture;
+	private DoubleTextField leg_length;
+	private DoubleTextField leg_side;
+	private DoubleTextField back_length;
 	private DoubleTextField nw_x;
 	private DoubleTextField nw_y;
 	private DoubleTextField x_side;
@@ -68,7 +72,7 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 	int max_stack_size=10;
 	
 	Forniture forniture=null;
-	private JComboBox chooseForniture;
+
 	
 	
 	public FornitureEditor(){
@@ -190,6 +194,37 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 		right.add(chooseForniture);
 		
 		r+=30;
+		
+		jlb=new JLabel("Leg length");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		leg_length=new DoubleTextField();
+		leg_length.setBounds(column, r, 100, 20);
+		leg_length.addKeyListener(this);
+		right.add(leg_length);
+		
+		r+=30;
+		
+		jlb=new JLabel("Leg side");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		leg_side=new DoubleTextField();
+		leg_side.setBounds(column, r, 100, 20);
+		leg_side.addKeyListener(this);
+		right.add(leg_side);
+		
+		r+=30;
+		
+		jlb=new JLabel("Back length");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		back_length=new DoubleTextField();
+		back_length.setBounds(column, r, 100, 20);
+		back_length.addKeyListener(this);
+		right.add(back_length);
+		
+		
+		r+=30;
 			
         generate=new JButton("Update");
         generate.setBounds(10,r,100,20);
@@ -211,6 +246,10 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 		x_side.setText(100);
 		y_side.setText(200);
 		z_side.setText(50);
+		
+		leg_length.setText(100);
+		leg_side.setText(10);
+		back_length.setText(100);
 	}
 	
 	private void setRightData(Forniture forniture) {
@@ -219,6 +258,9 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 		x_side.setText(forniture.getX_side());
 		y_side.setText(forniture.getY_side());
 		z_side.setText(forniture.getZ_side());
+		leg_length.setText(forniture.getLeg_length());
+		leg_side.setText(forniture.getLeg_side());
+		back_length.setText(forniture.getBack_length());
 		
 		for (int i = 0; i < chooseForniture.getItemCount(); i++) {
 			ValuePair vp= (ValuePair) chooseForniture.getItemAt(i);
@@ -343,6 +385,9 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 			double zside=z_side.getvalue();
 			double nwx=nw_x.getvalue();
 			double nwy=nw_y.getvalue();
+			double legSide=leg_side.getvalue();
+			double legLength=leg_length.getvalue();
+			double backLength=back_length.getvalue();
 			
 			 ValuePair vp= (ValuePair)chooseForniture.getSelectedItem();
 			 
@@ -353,11 +398,13 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 			
 			if(forniture==null){
 								
-				forniture=new Forniture(nwx,nwy,xside,yside,zside,val);
+				forniture=new Forniture(nwx,nwy,xside,yside,zside,val,legLength,legSide,backLength);
+			
 				
 			}else{				
 				
-				Forniture expForniture = new Forniture(nwx,nwy,xside,yside,zside,val);
+				Forniture expForniture = new Forniture(nwx,nwy,xside,yside,zside,val,legLength,legSide,backLength);
+				
 				
 				forniture=expForniture;
 			}
