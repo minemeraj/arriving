@@ -98,7 +98,8 @@ public class Car extends CustomData {
 	public PolygonMesh buildMesh(){
 
 
-
+        double front_length=50;
+        double back_length=30;
 
 		Vector points=new Vector();
 		points.setSize(50);
@@ -150,16 +151,26 @@ public class Car extends CustomData {
 		
 		//roof:
 		
-		int roof_height=100;
+		double roof_height=100.0;
+		
+		double yy0Dw=back_length;
+		double yy1Dw=y_side-front_length;
 
-		BPoint pr000=new BPoint(0,0,z_side,n++);
-		BPoint pr100=new BPoint(x_side,0,z_side,n++);
-		BPoint pr010=new BPoint(0,y_side,z_side,n++);
-		BPoint pr001=new BPoint(0,0,z_side+roof_height,n++);
-		BPoint pr110=new BPoint(x_side,y_side,z_side,n++);
-		BPoint pr011=new BPoint(0,y_side,z_side+roof_height,n++);
-		BPoint pr101=new BPoint(x_side,0,z_side+roof_height,n++);
-		BPoint pr111=new BPoint(x_side,y_side,z_side+roof_height,n++);
+		BPoint pr000=new BPoint(0,yy0Dw,z_side,n++);
+		BPoint pr100=new BPoint(x_side,yy0Dw,z_side,n++);
+		BPoint pr110=new BPoint(x_side,yy1Dw,z_side,n++);
+		BPoint pr010=new BPoint(0,yy1Dw,z_side,n++);	
+		
+		double yy0Up=back_length+10;
+		double yy1Up=y_side-front_length-10;
+		
+		BPoint pr001=new BPoint(0,yy0Up,z_side+roof_height,n++);	
+		BPoint pr101=new BPoint(x_side,yy0Up,z_side+roof_height,n++);
+		BPoint pr111=new BPoint(x_side,yy1Up,z_side+roof_height,n++);
+		BPoint pr011=new BPoint(0,yy1Up,z_side+roof_height,n++);	
+		
+		
+		
 		
 		points.setElementAt(pr000,pr000.getIndex());
 		points.setElementAt(pr100,pr100.getIndex());
