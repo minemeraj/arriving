@@ -137,16 +137,24 @@ public class Car extends CustomData {
 
 		//basic sides:
 		
+		//double front_height=z_side;
+		//double back_height=z_side;
+		
 		int n=0;
+		
+		
+		//main body:
 
 		BPoint p000=new BPoint(0,0,0,n++);
 		BPoint p100=new BPoint(x_side,0,0,n++);
-		BPoint p010=new BPoint(0,y_side,0,n++);
-		BPoint p001=new BPoint(0,0,z_side,n++);
 		BPoint p110=new BPoint(x_side,y_side,0,n++);
-		BPoint p011=new BPoint(0,y_side,z_side,n++);
+		BPoint p010=new BPoint(0,y_side,0,n++);
+		
+		BPoint p001=new BPoint(0,0,z_side,n++);	
 		BPoint p101=new BPoint(x_side,0,z_side,n++);
 		BPoint p111=new BPoint(x_side,y_side,z_side,n++);
+		BPoint p011=new BPoint(0,y_side,z_side,n++);		
+		
 
 		points.setElementAt(p000,p000.getIndex());
 		points.setElementAt(p100,p100.getIndex());
@@ -172,26 +180,75 @@ public class Car extends CustomData {
 		LineData rightLD=buildLine(p100,p110,p111,p101,Renderer3D.CAR_RIGHT);
 		polyData.add(rightLD);
 
-		LineData backLD=buildLine(p000,p100,p101,p001,Renderer3D.CAR_BACK);
+		/*LineData backLD=buildLine(p000,p100,p101,p001,Renderer3D.CAR_BACK);
 		polyData.add(backLD);
 
 		LineData frontLD=buildLine(p010,p011,p111,p110,Renderer3D.CAR_FRONT);
-		polyData.add(frontLD);
+		polyData.add(frontLD);*/
+		
+		
+		//back part:
+		BPoint pBack000=new BPoint(0,-back_length,0,n++);
+		BPoint pBack100=new BPoint(x_side,-back_length,0,n++);
+		BPoint pBack101=new BPoint(x_side,-back_length,z_side,n++);
+		BPoint pBack001=new BPoint(0,-back_length,z_side,n++);
+		
+		points.setElementAt(pBack000,pBack000.getIndex());
+		points.setElementAt(pBack100,pBack100.getIndex());
+		points.setElementAt(pBack101,pBack101.getIndex());
+		points.setElementAt(pBack001,pBack001.getIndex());
+		
+		LineData backMask=buildLine(pBack000,pBack100,pBack101,pBack001,Renderer3D.CAR_RIGHT);
+		polyData.add(backMask);
+		
+		LineData backTop=buildLine(pBack001,pBack101,p101,p001,Renderer3D.CAR_TOP);
+		polyData.add(backTop);
+		
+		LineData backLeft=buildLine(pBack000,pBack001,p001,p000,Renderer3D.CAR_TOP);
+		polyData.add(backLeft);
+		
+		LineData backRight=buildLine(pBack101,pBack100,p100,p101,Renderer3D.CAR_TOP);
+		polyData.add(backRight);
+		
+	
+		//front:		
+		BPoint pFront000=new BPoint(0,y_side+front_length,0,n++);
+		BPoint pFront100=new BPoint(x_side,y_side+front_length,0,n++);
+		BPoint pFront101=new BPoint(x_side,y_side+front_length,z_side,n++);
+		BPoint pFront001=new BPoint(0,y_side+front_length,z_side,n++);
+		
+		
+		points.setElementAt(pFront000,pFront000.getIndex());
+		points.setElementAt(pFront100,pFront100.getIndex());
+		points.setElementAt(pFront101,pFront101.getIndex());
+		points.setElementAt(pFront001,pFront001.getIndex());
+		
+		LineData frontMask=buildLine(pFront000,pFront001,pFront101,pFront100,Renderer3D.CAR_RIGHT);
+		polyData.add(frontMask);
+		
+		LineData frontTop=buildLine(p011,p111,pFront101,pFront001,Renderer3D.CAR_TOP);
+		polyData.add(frontTop);
+		
+		LineData frontLeft=buildLine(p010,p011,pFront001,pFront000,Renderer3D.CAR_TOP);
+		polyData.add(frontLeft);
+		
+		LineData frontRight=buildLine(p111,p110,pFront100,pFront101,Renderer3D.CAR_TOP);
+		polyData.add(frontRight);
 		
 		//roof:
 		
 		
 		
-		double yy0Dw=back_length;
-		double yy1Dw=y_side-front_length;
+		double yy0Dw=0;
+		double yy1Dw=y_side;
 
 		BPoint pr000=new BPoint(0,yy0Dw,z_side,n++);
 		BPoint pr100=new BPoint(x_side,yy0Dw,z_side,n++);
 		BPoint pr110=new BPoint(x_side,yy1Dw,z_side,n++);
 		BPoint pr010=new BPoint(0,yy1Dw,z_side,n++);	
 		
-		double yy0Up=back_length+10;
-		double yy1Up=y_side-front_length-10;
+		double yy0Up=10;
+		double yy1Up=y_side-10;
 		
 		BPoint pr001=new BPoint(0,yy0Up,z_side+roof_height,n++);	
 		BPoint pr101=new BPoint(x_side,yy0Up,z_side+roof_height,n++);
