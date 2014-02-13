@@ -204,10 +204,13 @@ public class Car extends CustomData {
 		LineData backTop=buildLine(pBack001,pBack101,p101,p001,Renderer3D.CAR_TOP);
 		polyData.add(backTop);
 		
-		LineData backLeft=buildLine(pBack000,pBack001,p001,p000,Renderer3D.CAR_TOP);
+		LineData backBottom=buildLine(pBack100,pBack000,p000,p100,Renderer3D.CAR_BOTTOM);
+		polyData.add(backBottom);
+		
+		LineData backLeft=buildLine(pBack000,pBack001,p001,p000,Renderer3D.CAR_LEFT);
 		polyData.add(backLeft);
 		
-		LineData backRight=buildLine(pBack101,pBack100,p100,p101,Renderer3D.CAR_TOP);
+		LineData backRight=buildLine(pBack101,pBack100,p100,p101,Renderer3D.CAR_RIGHT);
 		polyData.add(backRight);
 		
 	
@@ -229,10 +232,13 @@ public class Car extends CustomData {
 		LineData frontTop=buildLine(p011,p111,pFront101,pFront001,Renderer3D.CAR_TOP);
 		polyData.add(frontTop);
 		
-		LineData frontLeft=buildLine(p010,p011,pFront001,pFront000,Renderer3D.CAR_TOP);
+		LineData frontBottom=buildLine(p110,p010,pFront000,pFront100,Renderer3D.CAR_BOTTOM);
+		polyData.add(frontBottom);
+		
+		LineData frontLeft=buildLine(p010,p011,pFront001,pFront000,Renderer3D.CAR_LEFT);
 		polyData.add(frontLeft);
 		
-		LineData frontRight=buildLine(p111,p110,pFront100,pFront101,Renderer3D.CAR_TOP);
+		LineData frontRight=buildLine(p111,p110,pFront100,pFront101,Renderer3D.CAR_RIGHT);
 		polyData.add(frontRight);
 		
 		//roof:
