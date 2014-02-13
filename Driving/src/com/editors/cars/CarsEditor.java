@@ -55,6 +55,9 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 	private DoubleTextField x_side;
 	private DoubleTextField y_side;
 	private DoubleTextField z_side;
+	private DoubleTextField back_length;
+	private DoubleTextField front_length;
+	private DoubleTextField roof_height;
 	private JButton generate;
 	
 	JFileChooser fc = new JFileChooser();
@@ -64,6 +67,8 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 	int max_stack_size=10;
 	
 	Car car=null;
+	
+
 	
 	
 	public CarsEditor(){
@@ -151,6 +156,36 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		right.add(z_side);
 		
 		r+=30;
+		
+		jlb=new JLabel("Back length");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		back_length=new DoubleTextField();
+		back_length.setBounds(column, r, 100, 20);
+		back_length.addKeyListener(this);
+		right.add(back_length);
+		
+		r+=30;
+		
+		jlb=new JLabel("Front length");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		front_length=new DoubleTextField();
+		front_length.setBounds(column, r, 100, 20);
+		front_length.addKeyListener(this);
+		right.add(front_length);
+		
+		r+=30;
+		
+		jlb=new JLabel("Roof height");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		roof_height=new DoubleTextField();
+		roof_height.setBounds(column, r, 100, 20);
+		roof_height.addKeyListener(this);
+		right.add(roof_height);
+		
+		r+=30;
 			
         generate=new JButton("Update");
         generate.setBounds(10,r,100,20);
@@ -171,6 +206,9 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		x_side.setText(100);
 		y_side.setText(200);
 		z_side.setText(100);
+		back_length.setText(30);
+		front_length.setText(50);
+		roof_height.setText(60);
 	}
 	
 	private void setRightData(Car car) {
@@ -178,7 +216,9 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		x_side.setText(car.getX_side());
 		y_side.setText(car.getY_side());
 		z_side.setText(car.getZ_side());
-
+		back_length.setText(car.getBack_length());
+		front_length.setText(car.getFront_length());
+		roof_height.setText(car.getRoof_height());
 	}
 
 	
@@ -286,15 +326,17 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 			double xside=x_side.getvalue();
 			double yside=y_side.getvalue();
 			double zside=z_side.getvalue();
-	
+			double backLength=back_length.getvalue();
+			double frontLength=front_length.getvalue();
+			double roofHeight=roof_height.getvalue();
 			
 			if(car==null){
 				
-				car=new Car(xside,yside,zside);
+				car=new Car(xside,yside,zside,frontLength,backLength,roofHeight);
 				
 			}else{
 				
-				Car expCar = new Car(xside,yside,zside);
+				Car expCar = new Car(xside,yside,zside,frontLength,backLength,roofHeight);
 				
 				car=expCar;
 			}

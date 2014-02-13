@@ -20,24 +20,28 @@ public class Car extends CustomData {
 	double z_side=0;
 
 
+    double front_length=0;
+    double back_length=0;
+    double roof_height=0;
 
 	public Car(){}
 
-	public Car( double x_side, double y_side,double z_side
+	public Car( double x_side, double y_side,double z_side, double front_length,double back_length,double roof_height
 			) {
 		super();
 
 		this.x_side = x_side;
 		this.y_side = y_side;
 		this.z_side = z_side;
-	
-
+		this.front_length = front_length;
+		this.back_length = back_length;
+		this.roof_height = roof_height;
 
 	}
 
 	public Object clone(){
 
-		Car grid=new Car(x_side,y_side,z_side);
+		Car grid=new Car(x_side,y_side,z_side,front_length,back_length,roof_height);
 		return grid;
 
 	}
@@ -59,7 +63,7 @@ public class Car extends CustomData {
 
 	public String toString() {
 
-		return "C="+x_side+","+y_side+","+z_side;
+		return "C="+x_side+","+y_side+","+z_side+","+back_length+","+front_length+","+roof_height;
 	}
 
 	public static Car buildCar(String str) {
@@ -70,9 +74,11 @@ public class Car extends CustomData {
 		double x_side =Double.parseDouble(vals[0]);
 		double y_side = Double.parseDouble(vals[1]);
 		double z_side = Double.parseDouble(vals[2]); 
+		double back_length= Double.parseDouble(vals[3]); 
+		double front_length= Double.parseDouble(vals[4]);		
+		double roof_height= Double.parseDouble(vals[5]); 
 
-
-		Car grid=new Car(x_side,y_side,z_side);
+		Car grid=new Car(x_side,y_side,z_side,front_length,back_length,roof_height);
 
 		return grid;
 	}
@@ -86,6 +92,31 @@ public class Car extends CustomData {
 	public void setZ_side(double z_side) {
 		this.z_side = z_side;
 	}
+	
+	public double getFront_length() {
+		return front_length;
+	}
+
+	public void setFront_length(double front_length) {
+		this.front_length = front_length;
+	}
+
+	public double getBack_length() {
+		return back_length;
+	}
+
+	public void setBack_length(double back_length) {
+		this.back_length = back_length;
+	}
+	
+
+	public double getRoof_height() {
+		return roof_height;
+	}
+
+	public void setRoof_height(double roof_height) {
+		this.roof_height = roof_height;
+	}
 
 
 	public int pos(int i, int j, int k){
@@ -98,8 +129,6 @@ public class Car extends CustomData {
 	public PolygonMesh buildMesh(){
 
 
-        double front_length=50;
-        double back_length=30;
 
 		Vector points=new Vector();
 		points.setSize(50);
@@ -151,7 +180,7 @@ public class Car extends CustomData {
 		
 		//roof:
 		
-		double roof_height=100.0;
+		
 		
 		double yy0Dw=back_length;
 		double yy1Dw=y_side-front_length;
@@ -209,6 +238,9 @@ public class Car extends CustomData {
 
 
 	}
+
+
+
 
 
 
