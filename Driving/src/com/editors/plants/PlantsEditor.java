@@ -193,9 +193,9 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 		
 		nw_x.setText(100);
 		nw_y.setText(100);
-		x_side.setText(100);
-		y_side.setText(200);
-		z_side.setText(100);
+		x_side.setText(50);
+		y_side.setText(50);
+		z_side.setText(200);
 	}
 	
 	private void setRightData(Plant plant) {
@@ -360,7 +360,7 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 				if(indx>=0){
 					
 					String value=str.substring(indx+2);
-					//plan=BuildingPlan.buildPlan(value);
+					plant=Plant.buildPlan(value);
 					
 					
 				}
@@ -445,7 +445,7 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 		try {
 			pw = new PrintWriter(file);			
 
-			
+			pw.println(plant.toString());
 			
 			pw.close();
 						
