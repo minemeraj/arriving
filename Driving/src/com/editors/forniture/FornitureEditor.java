@@ -364,19 +364,19 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 			
 			 ValuePair vp= (ValuePair)chooseForniture.getSelectedItem();
 			 
-			 int val=Integer.parseInt(vp.getId());
-			    if(val<0)
-			    	val=Forniture.FORNITURE_TYPE_TABLE;
+			 int type=Integer.parseInt(vp.getId());
+			    if(type<0)
+			    	type=Forniture.FORNITURE_TYPE_TABLE;
 		
 			
 			if(forniture==null){
 								
-				forniture=new Forniture(xside,yside,zside,val,legLength,legSide,backLength);
+				forniture=new Forniture(xside,yside,zside,type,legLength,legSide,backLength);
 			
 				
 			}else{				
 				
-				Forniture expForniture = new Forniture(xside,yside,zside,val,legLength,legSide,backLength);
+				Forniture expForniture = new Forniture(xside,yside,zside,type,legLength,legSide,backLength);
 				
 				
 				forniture=expForniture;

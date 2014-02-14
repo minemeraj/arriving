@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 import java.util.Stack;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,7 +29,9 @@ import javax.swing.event.MenuListener;
 import com.editors.CustomEditor;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
+import com.editors.ValuePair;
 import com.editors.animals.data.Animal;
+import com.editors.forniture.data.Forniture;
 import com.editors.object.ObjectEditorPreviewPanel;
 
 public class AnimalsEditor extends CustomEditor implements MenuListener, ActionListener, KeyListener, MouseWheelListener{
@@ -57,6 +60,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	private DoubleTextField x_side;
 	private DoubleTextField y_side;
 	private DoubleTextField z_side;
+	private JComboBox animal_type;
 	private JButton generate;
 	
 	JFileChooser fc = new JFileChooser();
@@ -66,6 +70,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	int max_stack_size=10;
 	
 	Animal animal=null;
+	
 	
 	
 	public AnimalsEditor(){
@@ -175,6 +180,22 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		right.add(z_side);
 		
 		r+=30;
+		
+		jlb=new JLabel("Forniture type:");
+		jlb.setBounds(5, r, 120, 20);
+		right.add(jlb);
+
+		animal_type=new JComboBox();
+		animal_type.setBounds(column, r, 100, 20);
+		animal_type.addKeyListener(this);
+		animal_type.addItem(new ValuePair("-1",""));
+		animal_type.addItem(new ValuePair(""+Animal.ANIMAL_TYPE_QUADRUPED,"Quadruped"));
+		animal_type.addItem(new ValuePair(""+Animal.ANIMAL_TYPE_HUMAN,"Human"));
+
+		animal_type.setSelectedIndex(0);
+		right.add(animal_type);
+		
+		r+=30;
 			
         generate=new JButton("Update");
         generate.setBounds(10,r,100,20);
@@ -204,6 +225,15 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		x_side.setText(animal.getX_side());
 		y_side.setText(animal.getY_side());
 		z_side.setText(animal.getZ_side());
+		
+		for (int i = 0; i < animal_type.getItemCount(); i++) {
+			ValuePair vp= (ValuePair) animal_type.getItemAt(i);
+			if(vp.getId().equals(""+animal.getAnimal_type()))
+			{
+				animal_type.setSelectedIndex(i);
+				break;
+			}	
+		}
 
 	}
 
@@ -312,13 +342,19 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 			double nwx=nw_x.getvalue();
 			double nwy=nw_y.getvalue();
 			
+			 ValuePair vp= (ValuePair)animal_type.getSelectedItem();
+			
+			 int type=Integer.parseInt(vp.getId());
+			    if(type<0)
+			    	type=Forniture.FORNITURE_TYPE_TABLE;
+			
 			if(animal==null){
 				
-				animal=new Animal(nwx,nwy,xside,yside,zside);
+				animal=new Animal(nwx,nwy,xside,yside,zside,type);
 				
 			}else{
 				
-				Animal expAnimal = new Animal(nwx,nwy,xside,yside,zside);
+				Animal expAnimal = new Animal(nwx,nwy,xside,yside,zside,type);
 				
 				animal=expAnimal;
 			}
