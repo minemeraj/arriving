@@ -91,7 +91,7 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 		addKeyListener(this);
 		addMouseWheelListener(this);
 		
-		setVisible(true);
+		
 		
 		RepaintManager.setCurrentManager( 
 				new RepaintManager(){
@@ -108,7 +108,7 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 
 				}				
 		);
-		
+		setVisible(true);
 		initialize();
 	}
 	

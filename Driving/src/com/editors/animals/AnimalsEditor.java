@@ -3,6 +3,8 @@ package com.editors.animals;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseWheelEvent;
@@ -23,6 +25,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.RepaintManager;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
@@ -31,10 +34,9 @@ import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.ValuePair;
 import com.editors.animals.data.Animal;
-import com.editors.forniture.data.Forniture;
 import com.editors.object.ObjectEditorPreviewPanel;
 
-public class AnimalsEditor extends CustomEditor implements MenuListener, ActionListener, KeyListener, MouseWheelListener{
+public class AnimalsEditor extends CustomEditor implements MenuListener, ActionListener, KeyListener, MouseWheelListener, ItemListener{
 	
 	public static int HEIGHT=700;
 	public static int WIDTH=800;
@@ -55,8 +57,6 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	private JMenuItem jmt_undo_last;
 	private JMenuItem jmt_save_mesh;
 	
-	private DoubleTextField nw_x;
-	private DoubleTextField nw_y;
 	private DoubleTextField x_side;
 	private DoubleTextField y_side;
 	private DoubleTextField z_side;
@@ -90,6 +90,22 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		
 		addKeyListener(this);
 		addMouseWheelListener(this);
+		
+		RepaintManager.setCurrentManager( 
+				new RepaintManager(){
+
+					public void paintDirtyRegions() {
+
+
+						super.paintDirtyRegions();
+						if(redrawAfterMenu ) {
+							draw();
+							redrawAfterMenu=false;						    
+						}
+					}
+
+				}				
+		);
 		
 		setVisible(true);
 		
@@ -129,29 +145,8 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		
 		int column=100;
 		
-		JLabel jlb=new JLabel("NW X");
-		jlb.setBounds(5, r, 100, 20);
-		right.add(jlb);
 
-		nw_x=new DoubleTextField();
-		nw_x.setBounds(column, r, 100, 20);
-		nw_x.addKeyListener(this);
-		right.add(nw_x);
-
-		r+=30;
-		
-		jlb=new JLabel("NW Y");
-		jlb.setBounds(5, r, 100, 20);
-		right.add(jlb);
-
-		nw_y=new DoubleTextField();
-		nw_y.setBounds(column, r, 100, 20);
-		nw_y.addKeyListener(this);
-		right.add(nw_y);
-		
-		r+=30;
-
-		jlb=new JLabel("X side");
+		JLabel jlb=new JLabel("X side");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
 		x_side=new DoubleTextField();
@@ -191,7 +186,8 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		animal_type.addItem(new ValuePair("-1",""));
 		animal_type.addItem(new ValuePair(""+Animal.ANIMAL_TYPE_QUADRUPED,"Quadruped"));
 		animal_type.addItem(new ValuePair(""+Animal.ANIMAL_TYPE_HUMAN,"Human"));
-
+		animal_type.addItemListener(this);
+		
 		animal_type.setSelectedIndex(0);
 		right.add(animal_type);
 		
@@ -205,23 +201,29 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		
 		add(right);
 		
-		initRightData();
+		initRightDataHuman();
 		
 	}
 	
 
-	public void initRightData() {
+	public void initRightDataHuman() {
 		
-		nw_x.setText(100);
-		nw_y.setText(100);
+
+		x_side.setText(100);
+		y_side.setText(20);
+		z_side.setText(200);
+	}
+	
+	public void initRightDataQuadruped() {
+		
+	
 		x_side.setText(100);
 		y_side.setText(200);
 		z_side.setText(100);
 	}
 	
 	private void setRightData(Animal animal) {
-		nw_x.setText(animal.getNw_x());
-		nw_y.setText(animal.getNw_y());
+	
 		x_side.setText(animal.getX_side());
 		y_side.setText(animal.getY_side());
 		z_side.setText(animal.getZ_side());
@@ -339,22 +341,21 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 			double xside=x_side.getvalue();
 			double yside=y_side.getvalue();
 			double zside=z_side.getvalue();
-			double nwx=nw_x.getvalue();
-			double nwy=nw_y.getvalue();
+
 			
 			 ValuePair vp= (ValuePair)animal_type.getSelectedItem();
 			
 			 int type=Integer.parseInt(vp.getId());
 			    if(type<0)
-			    	type=Forniture.FORNITURE_TYPE_TABLE;
+			    	type=Animal.ANIMAL_TYPE_HUMAN;
 			
 			if(animal==null){
 				
-				animal=new Animal(nwx,nwy,xside,yside,zside,type);
+				animal=new Animal(xside,yside,zside,type);
 				
 			}else{
 				
-				Animal expAnimal = new Animal(nwx,nwy,xside,yside,zside,type);
+				Animal expAnimal = new Animal(xside,yside,zside,type);
 				
 				animal=expAnimal;
 			}
@@ -392,11 +393,11 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 			
 			while((str=br.readLine())!=null){
 				
-				int indx=str.indexOf("F=");
+				int indx=str.indexOf("A=");
 				if(indx>=0){
 					
 					String value=str.substring(indx+2);
-					//plan=BuildingPlan.buildPlan(value);
+					animal=Animal.buildAnimal(value);
 					
 					
 				}
@@ -481,7 +482,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		try {
 			pw = new PrintWriter(file);			
 
-			
+			pw.println(animal.toString());
 			
 			pw.close();
 						
@@ -580,6 +581,28 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent arg0) {
+		
+		Object obj = arg0.getSource();
+		
+		if(obj==animal_type){
+			
+			 ValuePair vp= (ValuePair)animal_type.getSelectedItem();
+				
+			 int type=Integer.parseInt(vp.getId());
+			   if(type<0)
+			    	type=Animal.ANIMAL_TYPE_HUMAN;
+			   
+			   if(type==Animal.ANIMAL_TYPE_HUMAN)
+				   initRightDataHuman();
+			   else if(type==Animal.ANIMAL_TYPE_QUADRUPED)
+				   initRightDataQuadruped();
+			
+		}
 		
 	}
 }

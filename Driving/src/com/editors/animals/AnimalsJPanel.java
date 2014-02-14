@@ -39,8 +39,8 @@ public class AnimalsJPanel extends CustomJPanel{
 	private void drawAnimalData(Animal animal) {
 
 
-		double x0=animal.getNw_x();
-		double y0=animal.getNw_y();		
+		double x0=0;
+		double y0=0;		
 		double xside=animal.getX_side();
 		double yside=animal.getY_side();
 		
