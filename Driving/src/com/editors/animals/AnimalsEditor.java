@@ -78,9 +78,6 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	
 	Animal animal=null;
 
-
-	
-	
 	
 	public AnimalsEditor(){
 		
@@ -124,6 +121,8 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	public void initialize() {
 		
 		center.initialize();
+		
+		oldAnimal=new Stack();
 	}
 
 	public static void main(String[] args) {
@@ -433,6 +432,8 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	}
 	
 	public void generate() {
+		
+			prepareUndo();
 			
 			double xside=x_side.getvalue();
 			double yside=y_side.getvalue();
@@ -596,16 +597,19 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	
 	public void undo() {
 
-		/*if(oldplan.size()>0)
-			plan=(Buildingplan) oldplan.pop();
+		if(oldAnimal.size()>0)
+			animal=(Animal) oldAnimal.pop();
 		
-		if(oldplan.size()==0)
-			jmt_undo_last.setEnabled(false);*/
+		if(oldAnimal.size()==0)
+			jmt_undo_last.setEnabled(false);
 		
 		draw();
 	}
 	
 	public void prepareUndo() {
+		
+		if(animal==null)
+			return;
 		
 		jmt_undo_last.setEnabled(true);
 		

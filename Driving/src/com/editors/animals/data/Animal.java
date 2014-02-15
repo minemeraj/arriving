@@ -386,7 +386,7 @@ public class Animal extends CustomData{
 		//Left arm
 		
 		double ax=2*leg_side;
-		double az=leg_length;
+		double az=leg_length+z_side-arm_length;
 
 		BPoint pFrontLeftArm000=new BPoint(-ax,y_side-leg_side,az,n++);
 		BPoint pFrontLeftArm100=new BPoint(-ax+leg_side,y_side-leg_side,az,n++);
@@ -401,10 +401,10 @@ public class Animal extends CustomData{
 		LineData bottomLeftArm=buildLine(pFrontLeftArm000,pFrontLeftArm010,pFrontLeftArm110,pFrontLeftArm100,Renderer3D.CAR_BOTTOM);
 		polyData.add(bottomLeftArm);
 		
-		BPoint pFrontLeftArm001=new BPoint(-ax,y_side-leg_side,az+z_side,n++);
-		BPoint pFrontLeftArm101=new BPoint(-ax+leg_side,y_side-leg_side,az+z_side,n++);
-		BPoint pFrontLeftArm111=new BPoint(-ax+leg_side,y_side,az+z_side,n++);
-		BPoint pFrontLeftArm011=new BPoint(-ax,y_side,az+z_side,n++);
+		BPoint pFrontLeftArm001=new BPoint(-ax,y_side-leg_side,az+arm_length,n++);
+		BPoint pFrontLeftArm101=new BPoint(-ax+leg_side,y_side-leg_side,az+arm_length,n++);
+		BPoint pFrontLeftArm111=new BPoint(-ax+leg_side,y_side,az+arm_length,n++);
+		BPoint pFrontLeftArm011=new BPoint(-ax,y_side,az+arm_length,n++);
 		
 		points.setElementAt(pFrontLeftArm001,pFrontLeftArm001.getIndex());
 		points.setElementAt(pFrontLeftArm101,pFrontLeftArm101.getIndex());
@@ -439,10 +439,10 @@ public class Animal extends CustomData{
 		polyData.add(FrontRightArm);
 
 		
-		BPoint pFrontRightArm001=new BPoint(ax+x_side-leg_side,y_side-leg_side,az+z_side,n++);
-		BPoint pFrontRightArm101=new BPoint(ax+x_side,y_side-leg_side,az+z_side,n++);
-		BPoint pFrontRightArm111=new BPoint(ax+x_side,y_side,az+z_side,n++);
-		BPoint pFrontRightArm011=new BPoint(ax+x_side-leg_side,y_side,az+z_side,n++);
+		BPoint pFrontRightArm001=new BPoint(ax+x_side-leg_side,y_side-leg_side,az+arm_length,n++);
+		BPoint pFrontRightArm101=new BPoint(ax+x_side,y_side-leg_side,az+arm_length,n++);
+		BPoint pFrontRightArm111=new BPoint(ax+x_side,y_side,az+arm_length,n++);
+		BPoint pFrontRightArm011=new BPoint(ax+x_side-leg_side,y_side,az+arm_length,n++);
 		
 		points.setElementAt(pFrontRightArm001,pFrontRightArm001.getIndex());
 		points.setElementAt(pFrontRightArm101,pFrontRightArm101.getIndex());
@@ -468,10 +468,10 @@ public class Animal extends CustomData{
 		
 		//left shoulder
 		
-		BPoint pFrontLeftSho000=new BPoint(-sx,y_side-leg_side,az+z_side-shDZ,n++);
-		BPoint pFrontLeftSho100=new BPoint(-sx+leg_side,y_side-leg_side,az+z_side-shDZ,n++);
-		BPoint pFrontLeftSho110=new BPoint(-sx+leg_side,y_side,az+z_side-shDZ,n++);
-		BPoint pFrontLeftSho010=new BPoint(-sx,y_side,az+z_side-shDZ,n++);
+		BPoint pFrontLeftSho000=new BPoint(-sx,y_side-leg_side,az+arm_length-shDZ,n++);
+		BPoint pFrontLeftSho100=new BPoint(-sx+leg_side,y_side-leg_side,az+arm_length-shDZ,n++);
+		BPoint pFrontLeftSho110=new BPoint(-sx+leg_side,y_side,az+arm_length-shDZ,n++);
+		BPoint pFrontLeftSho010=new BPoint(-sx,y_side,az+arm_length-shDZ,n++);
 		
 		points.setElementAt(pFrontLeftSho000,pFrontLeftSho000.getIndex());
 		points.setElementAt(pFrontLeftSho100,pFrontLeftSho100.getIndex());
@@ -482,10 +482,10 @@ public class Animal extends CustomData{
 		polyData.add(FrontLeftSho);
 
 		
-		BPoint pFrontLeftSho001=new BPoint(-sx,y_side-leg_side,az+z_side,n++);
-		BPoint pFrontLeftSho101=new BPoint(-sx+leg_side,y_side-leg_side,az+z_side,n++);
-		BPoint pFrontLeftSho111=new BPoint(-sx+leg_side,y_side,az+z_side,n++);
-		BPoint pFrontLeftSho011=new BPoint(-sx,y_side,az+z_side,n++);
+		BPoint pFrontLeftSho001=new BPoint(-sx,y_side-leg_side,az+arm_length,n++);
+		BPoint pFrontLeftSho101=new BPoint(-sx+leg_side,y_side-leg_side,az+arm_length,n++);
+		BPoint pFrontLeftSho111=new BPoint(-sx+leg_side,y_side,az+arm_length,n++);
+		BPoint pFrontLeftSho011=new BPoint(-sx,y_side,az+arm_length,n++);
 		
 		points.setElementAt(pFrontLeftSho001,pFrontLeftSho001.getIndex());
 		points.setElementAt(pFrontLeftSho101,pFrontLeftSho101.getIndex());
@@ -506,10 +506,10 @@ public class Animal extends CustomData{
 		
 		//Right shoulder
 		
-		BPoint pFrontRightSho000=new BPoint(sx+x_side-leg_side,y_side-leg_side,az+z_side-shDZ,n++);
-		BPoint pFrontRightSho100=new BPoint(sx+x_side,y_side-leg_side,az+z_side-shDZ,n++);
-		BPoint pFrontRightSho110=new BPoint(sx+x_side,y_side,az+z_side-shDZ,n++);
-		BPoint pFrontRightSho010=new BPoint(sx+x_side-leg_side,y_side,az+z_side-shDZ,n++);
+		BPoint pFrontRightSho000=new BPoint(sx+x_side-leg_side,y_side-leg_side,az+arm_length-shDZ,n++);
+		BPoint pFrontRightSho100=new BPoint(sx+x_side,y_side-leg_side,az+arm_length-shDZ,n++);
+		BPoint pFrontRightSho110=new BPoint(sx+x_side,y_side,az+arm_length-shDZ,n++);
+		BPoint pFrontRightSho010=new BPoint(sx+x_side-leg_side,y_side,az+arm_length-shDZ,n++);
 		
 		points.setElementAt(pFrontRightSho000,pFrontRightSho000.getIndex());
 		points.setElementAt(pFrontRightSho100,pFrontRightSho100.getIndex());
@@ -520,10 +520,10 @@ public class Animal extends CustomData{
 		polyData.add(FrontRightSho);
 
 		
-		BPoint pFrontRightSho001=new BPoint(sx+x_side-leg_side,y_side-leg_side,az+z_side,n++);
-		BPoint pFrontRightSho101=new BPoint(sx+x_side,y_side-leg_side,az+z_side,n++);
-		BPoint pFrontRightSho111=new BPoint(sx+x_side,y_side,az+z_side,n++);
-		BPoint pFrontRightSho011=new BPoint(sx+x_side-leg_side,y_side,az+z_side,n++);
+		BPoint pFrontRightSho001=new BPoint(sx+x_side-leg_side,y_side-leg_side,az+arm_length,n++);
+		BPoint pFrontRightSho101=new BPoint(sx+x_side,y_side-leg_side,az+arm_length,n++);
+		BPoint pFrontRightSho111=new BPoint(sx+x_side,y_side,az+arm_length,n++);
+		BPoint pFrontRightSho011=new BPoint(sx+x_side-leg_side,y_side,az+arm_length,n++);
 		
 		points.setElementAt(pFrontRightSho001,pFrontRightSho001.getIndex());
 		points.setElementAt(pFrontRightSho101,pFrontRightSho101.getIndex());
