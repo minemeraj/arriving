@@ -137,67 +137,67 @@ public class Plant extends CustomData{
 		
 		//foliage:
 		
-		BPoint[] uFoliagePoints=new BPoint[nBase];
-		BPoint[] bFoliagePoints=new BPoint[nBase];
+		int levels_numer=5;
 		
+		BPoint[][] foliagePoints=new BPoint[levels_numer][nBase];
 		
-		for (int i = 0; i < nBase; i++) {
+		double dzf=foliage_length/(levels_numer-1);
+		
+		for (int k = 0; k < levels_numer; k++) {
 			
-			double x=foliage_radius*Math.cos(2*Math.PI/nBase*i);
-			double y=foliage_radius*Math.sin(2*Math.PI/nBase*i);
+			double zf=dzf*k;
 			
-			uFoliagePoints[i]=new BPoint(x,y,trunk_lenght+foliage_length,n++);
-			points.setElementAt(uFoliagePoints[i],uFoliagePoints[i].getIndex());
+			foliagePoints[k]=new BPoint[nBase];
+			
+			for (int i = 0; i < nBase; i++) {
+				
+				double r=ff(zf);
+				
+				double x=r*Math.cos(2*Math.PI/nBase*i);
+				double y=r*Math.sin(2*Math.PI/nBase*i);
+				
+				foliagePoints[k][i]=new BPoint(x,y,trunk_lenght+zf,n++);
+				points.setElementAt(foliagePoints[k][i],foliagePoints[k][i].getIndex());
+				
+			}
 			
 		}
-
+			
 
 		LineData topFoliage=new LineData();
 		
 		for (int i = 0; i < nBase; i++) {
 			
-			topFoliage.addIndex(uFoliagePoints[i].getIndex());
+			topFoliage.addIndex(foliagePoints[levels_numer-1][i].getIndex());
 			
 		}
-		
 		polyData.add(topFoliage);
 		
-		for (int i = 0; i < nBase; i++) {
-			
-			double x=foliage_radius*Math.cos(2*Math.PI/nBase*i);
-			double y=foliage_radius*Math.sin(2*Math.PI/nBase*i);
-			
-			bFoliagePoints[i]=new BPoint(x,y,trunk_lenght,n++);
-			points.setElementAt(bFoliagePoints[i],bFoliagePoints[i].getIndex());
-			
-		}
-
-
 		LineData bottomFoliage=new LineData();
 		
-		for (int i = nBase-1; i >=0; i--) {
+		for (int i = nBase-1; i>=0; i--) {
 			
-			bottomFoliage.addIndex(bFoliagePoints[i].getIndex());
+			bottomFoliage.addIndex(foliagePoints[0][i].getIndex());
 			
 		}
-		
 		polyData.add(bottomFoliage);
 		
+		for (int k = 0; k < levels_numer-1; k++) {
 		
 		
-		for (int i = 0; i < nBase; i++) {
-			
-			LineData sideLD=new LineData();
-			
-			sideLD.addIndex(bFoliagePoints[i].getIndex());
-			sideLD.addIndex(bFoliagePoints[(i+1)%nBase].getIndex());
-			sideLD.addIndex(uFoliagePoints[(i+1)%nBase].getIndex());
-			sideLD.addIndex(uFoliagePoints[i].getIndex());			
-			polyData.add(sideLD);
-			
-		}
+			for (int i = 0; i < nBase; i++) {
+				
+				LineData sideLD=new LineData();
+				
+				sideLD.addIndex(foliagePoints[k][i].getIndex());
+				sideLD.addIndex(foliagePoints[k][(i+1)%nBase].getIndex());
+				sideLD.addIndex(foliagePoints[k+1][(i+1)%nBase].getIndex());
+				sideLD.addIndex(foliagePoints[k+1][i].getIndex());			
+				polyData.add(sideLD);
+				
+			}
 	
-		
+		}
 		/////////
 
 		//translatePoints(points,nw_x,nw_y);
@@ -244,7 +244,20 @@ public class Plant extends CustomData{
 
 	
 
-	
+	public double ff(double x){
+		
+		if(foliage_length==0)
+			return 0;
+		
+		double a=-4*(foliage_radius-trunk_radius);
+		double b=4*(foliage_radius-trunk_radius);
+		double c=trunk_radius;
+		
+		double xr=x/foliage_length;
+		
+		return a*xr*xr+b*xr+c;
+		
+	}
 
 
 
