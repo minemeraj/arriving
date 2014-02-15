@@ -37,20 +37,7 @@ public class CarsEditorJPanel extends CustomJPanel{
 
 
 	private void drawCarData(Car car) {
-
-
-		double x0=0;
-		double y0=0;		
-		double xside=car.getX_side();
-		double yside=car.getY_side();
 		
-		Polygon3D pol=new Polygon3D();
-		pol.addPoint((int)calcX(x0,y0,0),(int)calcY(x0,y0,0),0);
-		pol.addPoint((int)calcX(x0+xside,y0,0),(int)calcY(x0+xside,y0,0),0);
-		pol.addPoint((int)calcX(x0+xside,y0+yside,0),(int)calcY(x0+xside,y0+yside,0),0);
-		pol.addPoint((int)calcX(x0,y0+yside,0),(int)calcY(x0,y0+yside,0),0);
-	
-			
 		PolygonMesh mesh = car.buildMesh();		
 		draw(mesh);
 	

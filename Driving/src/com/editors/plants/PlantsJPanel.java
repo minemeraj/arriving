@@ -37,18 +37,6 @@ public class PlantsJPanel extends CustomJPanel{
 
 
 	private void drawPlantData(Plant plant) {
-
-
-		double x0=plant.getNw_x();
-		double y0=plant.getNw_y();		
-		double xside=plant.getX_side();
-		double yside=plant.getY_side();
-		
-		Polygon3D pol=new Polygon3D();
-		pol.addPoint((int)calcX(x0,y0,0),(int)calcY(x0,y0,0),0);
-		pol.addPoint((int)calcX(x0+xside,y0,0),(int)calcY(x0+xside,y0,0),0);
-		pol.addPoint((int)calcX(x0+xside,y0+yside,0),(int)calcY(x0+xside,y0+yside,0),0);
-		pol.addPoint((int)calcX(x0,y0+yside,0),(int)calcY(x0,y0+yside,0),0);
 	
 			
 		PolygonMesh mesh = plant.buildMesh();

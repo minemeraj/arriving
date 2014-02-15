@@ -2,114 +2,58 @@ package com.editors.plants.data;
 
 import java.util.Vector;
 
-import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
-
 import com.BPoint;
 import com.CustomData;
 import com.LineData;
-import com.Point3D;
 import com.PolygonMesh;
-import com.main.Renderer3D;
 
 public class Plant extends CustomData{
 
-
-
-	double x_side=0;
-	double y_side=0;
-	double z_side=0;
-
-	double nw_x=0;
-	double nw_y=0;
-
+	double trunk_lenght=0; 
+	double trunk_radius=0;
+	double foliage_length=0;
+	double foliage_radius=0;
 
 	public Plant(){}
 
-	public Plant( double nw_x, double nw_y,double x_side, double y_side,double z_side
-			) {
+	public Plant(double trunk_lenght, double trunk_radius,
+			double foliage_length, double foliage_radius) {
 		super();
-
-		this.x_side = x_side;
-		this.y_side = y_side;
-		this.z_side = z_side;
-		this.nw_x = nw_x;
-		this.nw_y = nw_y;
-
-
+		this.trunk_lenght = trunk_lenght;
+		this.trunk_radius = trunk_radius;
+		this.foliage_length = foliage_length;
+		this.foliage_radius = foliage_radius;
 	}
+
 
 	public Object clone(){
 
-		Plant grid=new Plant(nw_x,nw_y,x_side,y_side,z_side);
+		Plant grid=new Plant(trunk_lenght,trunk_radius,foliage_length,foliage_radius);
 		return grid;
 
 	}
 
 
-	public double getX_side() {
-		return x_side;
-	}
-	public void setX_side(double x_side) {
-		this.x_side = x_side;
-	}
-	public double getY_side() {
-		return y_side;
-	}
-	public void setY_side(double y_side) {
-		this.y_side = y_side;
-	}
 
 
 	public String toString() {
 
-		return "F="+nw_x+","+nw_y+","+x_side+","+y_side+","+z_side;
+		return "F="+trunk_lenght+","+trunk_radius+","+foliage_length+","+foliage_radius;
 	}
 
-	public static Plant buildPlan(String str) {
+	public static Plant buildPlant(String str) {
 
 		String[] vals = str.split(",");
 
-		double nw_x =Double.parseDouble(vals[0]);
-		double nw_y = Double.parseDouble(vals[1]);
-		double x_side =Double.parseDouble(vals[2]);
-		double y_side = Double.parseDouble(vals[3]);
-		double z_side = Double.parseDouble(vals[4]); 
+	
+		double trunk_lenght =Double.parseDouble(vals[0]);
+		double trunk_radius = Double.parseDouble(vals[1]);
+		double foliage_length = Double.parseDouble(vals[2]);  
+		double foliage_radius = Double.parseDouble(vals[3]); 
 
-
-		Plant grid=new Plant(nw_x,nw_y,x_side,y_side,z_side);
+		Plant grid=new Plant(trunk_lenght,trunk_radius,foliage_length,foliage_radius);
 
 		return grid;
-	}
-
-
-
-	public double getZ_side() {
-		return z_side;
-	}
-
-	public void setZ_side(double z_side) {
-		this.z_side = z_side;
-	}
-
-	public double getNw_x() {
-		return nw_x;
-	}
-
-	public void setNw_x(double nw_x) {
-		this.nw_x = nw_x;
-	}
-
-	public double getNw_y() {
-		return nw_y;
-	}
-
-	public void setNw_y(double nw_y) {
-		this.nw_y = nw_y;
-	}
-
-	public int pos(int i, int j, int k){
-
-		return (i+(1+1)*j)*2+k;
 	}
 
 
@@ -120,31 +64,28 @@ public class Plant extends CustomData{
 
 
 		Vector points=new Vector();
-		points.setSize(50);
+		points.setSize(100);
 
 		Vector polyData=new Vector();
 		
 		int nBase=12;
 		
 		int n=0;
-		
-		double leg_side=10;
-		double leg_lenght=100;
 
-		//basic sides:
+
+		//trunk:
 		
-		BPoint[] upoints=new BPoint[nBase];
-		BPoint[] bpoints=new BPoint[nBase];
+		BPoint[] uTrunkpoints=new BPoint[nBase];
+		BPoint[] bTrunkpoints=new BPoint[nBase];
 		
-		double r=50;
 		
 		for (int i = 0; i < nBase; i++) {
 			
-			double x=r*Math.cos(2*Math.PI/nBase*i);
-			double y=r*Math.sin(2*Math.PI/nBase*i);
+			double x=trunk_radius*Math.cos(2*Math.PI/nBase*i);
+			double y=trunk_radius*Math.sin(2*Math.PI/nBase*i);
 			
-			upoints[i]=new BPoint(x,y,200,n++);
-			points.setElementAt(upoints[i],upoints[i].getIndex());
+			uTrunkpoints[i]=new BPoint(x,y,trunk_lenght,n++);
+			points.setElementAt(uTrunkpoints[i],uTrunkpoints[i].getIndex());
 			
 		}
 
@@ -153,7 +94,7 @@ public class Plant extends CustomData{
 		
 		for (int i = 0; i < nBase; i++) {
 			
-			topLD.addIndex(upoints[i].getIndex());
+			topLD.addIndex(uTrunkpoints[i].getIndex());
 			
 		}
 		
@@ -161,11 +102,11 @@ public class Plant extends CustomData{
 		
 		for (int i = 0; i < nBase; i++) {
 			
-			double x=r*Math.cos(2*Math.PI/nBase*i);
-			double y=r*Math.sin(2*Math.PI/nBase*i);
+			double x=trunk_radius*Math.cos(2*Math.PI/nBase*i);
+			double y=trunk_radius*Math.sin(2*Math.PI/nBase*i);
 			
-			bpoints[i]=new BPoint(x,y,0,n++);
-			points.setElementAt(bpoints[i],bpoints[i].getIndex());
+			bTrunkpoints[i]=new BPoint(x,y,0,n++);
+			points.setElementAt(bTrunkpoints[i],bTrunkpoints[i].getIndex());
 			
 		}
 
@@ -174,7 +115,7 @@ public class Plant extends CustomData{
 		
 		for (int i = nBase-1; i >=0; i--) {
 			
-			bottomLD.addIndex(bpoints[i].getIndex());
+			bottomLD.addIndex(bTrunkpoints[i].getIndex());
 			
 		}
 		
@@ -186,15 +127,75 @@ public class Plant extends CustomData{
 			
 			LineData sideLD=new LineData();
 			
-			sideLD.addIndex(bpoints[i].getIndex());
-			sideLD.addIndex(bpoints[(i+1)%nBase].getIndex());
-			sideLD.addIndex(upoints[(i+1)%nBase].getIndex());
-			sideLD.addIndex(upoints[i].getIndex());			
+			sideLD.addIndex(bTrunkpoints[i].getIndex());
+			sideLD.addIndex(bTrunkpoints[(i+1)%nBase].getIndex());
+			sideLD.addIndex(uTrunkpoints[(i+1)%nBase].getIndex());
+			sideLD.addIndex(uTrunkpoints[i].getIndex());			
 			polyData.add(sideLD);
 			
 		}
 		
+		//foliage:
 		
+		BPoint[] uFoliagePoints=new BPoint[nBase];
+		BPoint[] bFoliagePoints=new BPoint[nBase];
+		
+		
+		for (int i = 0; i < nBase; i++) {
+			
+			double x=foliage_radius*Math.cos(2*Math.PI/nBase*i);
+			double y=foliage_radius*Math.sin(2*Math.PI/nBase*i);
+			
+			uFoliagePoints[i]=new BPoint(x,y,trunk_lenght+foliage_length,n++);
+			points.setElementAt(uFoliagePoints[i],uFoliagePoints[i].getIndex());
+			
+		}
+
+
+		LineData topFoliage=new LineData();
+		
+		for (int i = 0; i < nBase; i++) {
+			
+			topFoliage.addIndex(uFoliagePoints[i].getIndex());
+			
+		}
+		
+		polyData.add(topFoliage);
+		
+		for (int i = 0; i < nBase; i++) {
+			
+			double x=foliage_radius*Math.cos(2*Math.PI/nBase*i);
+			double y=foliage_radius*Math.sin(2*Math.PI/nBase*i);
+			
+			bFoliagePoints[i]=new BPoint(x,y,trunk_lenght,n++);
+			points.setElementAt(bFoliagePoints[i],bFoliagePoints[i].getIndex());
+			
+		}
+
+
+		LineData bottomFoliage=new LineData();
+		
+		for (int i = nBase-1; i >=0; i--) {
+			
+			bottomFoliage.addIndex(bFoliagePoints[i].getIndex());
+			
+		}
+		
+		polyData.add(bottomFoliage);
+		
+		
+		
+		for (int i = 0; i < nBase; i++) {
+			
+			LineData sideLD=new LineData();
+			
+			sideLD.addIndex(bFoliagePoints[i].getIndex());
+			sideLD.addIndex(bFoliagePoints[(i+1)%nBase].getIndex());
+			sideLD.addIndex(uFoliagePoints[(i+1)%nBase].getIndex());
+			sideLD.addIndex(uFoliagePoints[i].getIndex());			
+			polyData.add(sideLD);
+			
+		}
 	
 		
 		/////////
@@ -207,6 +208,38 @@ public class Plant extends CustomData{
 		return spm;
 
 
+	}
+
+	public double getTrunk_lenght() {
+		return trunk_lenght;
+	}
+
+	public void setTrunk_lenght(double trunk_lenght) {
+		this.trunk_lenght = trunk_lenght;
+	}
+
+	public double getTrunk_radius() {
+		return trunk_radius;
+	}
+
+	public void setTrunk_radius(double trunk_radius) {
+		this.trunk_radius = trunk_radius;
+	}
+
+	public double getFoliage_length() {
+		return foliage_length;
+	}
+
+	public void setFoliage_length(double foliage_length) {
+		this.foliage_length = foliage_length;
+	}
+
+	public double getFoliage_radius() {
+		return foliage_radius;
+	}
+
+	public void setFoliage_radius(double foliage_radius) {
+		this.foliage_radius = foliage_radius;
 	}
 
 	

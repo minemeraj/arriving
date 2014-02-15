@@ -39,16 +39,6 @@ public class BuildingJPanel extends CustomJPanel{
 	
 	private void drawPlanData(BuildingPlan plan) { 
 		
-		double x0=0;
-		double y0=0;		
-		double xside=plan.getX_side();
-		double yside=plan.getY_side();
-		
-		Polygon3D pol=new Polygon3D();
-		pol.addPoint((int)calcX(x0,y0,0),(int)calcY(x0,y0,0),0);
-		pol.addPoint((int)calcX(x0+xside,y0,0),(int)calcY(x0+xside,y0,0),0);
-		pol.addPoint((int)calcX(x0+xside,y0+yside,0),(int)calcY(x0+xside,y0+yside,0),0);
-		pol.addPoint((int)calcX(x0,y0+yside,0),(int)calcY(x0,y0+yside,0),0);
 		
 		PolygonMesh mesh = plan.buildMesh();
 		draw(mesh);

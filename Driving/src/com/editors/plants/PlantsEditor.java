@@ -52,11 +52,11 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 	private JMenuItem jmt_undo_last;
 	private JMenuItem jmt_save_mesh;
 	
-	private DoubleTextField nw_x;
-	private DoubleTextField nw_y;
-	private DoubleTextField x_side;
-	private DoubleTextField y_side;
-	private DoubleTextField z_side;
+	private DoubleTextField trunck_length;
+	private DoubleTextField trunk_radius;
+	private DoubleTextField foliage_length;
+	private DoubleTextField foliage_radius;
+	
 	private JButton generate;
 	
 	JFileChooser fc = new JFileChooser();
@@ -66,6 +66,7 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 	int max_stack_size=10;
 	
 	Plant plant=null;
+	
 	
 	
 	public PlantsEditor(){
@@ -124,55 +125,44 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 		
 		int column=100;
 		
-		JLabel jlb=new JLabel("NW X");
+
+		JLabel jlb=new JLabel("Trunk len");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
-
-		nw_x=new DoubleTextField();
-		nw_x.setBounds(column, r, 100, 20);
-		nw_x.addKeyListener(this);
-		right.add(nw_x);
-
-		r+=30;
-		
-		jlb=new JLabel("NW Y");
-		jlb.setBounds(5, r, 100, 20);
-		right.add(jlb);
-
-		nw_y=new DoubleTextField();
-		nw_y.setBounds(column, r, 100, 20);
-		nw_y.addKeyListener(this);
-		right.add(nw_y);
-		
-		r+=30;
-
-		jlb=new JLabel("X side");
-		jlb.setBounds(5, r, 100, 20);
-		right.add(jlb);
-		x_side=new DoubleTextField();
-		x_side.setBounds(column, r, 100, 20);
-		x_side.addKeyListener(this);
-		right.add(x_side);
+		trunck_length=new DoubleTextField();
+		trunck_length.setBounds(column, r, 100, 20);
+		trunck_length.addKeyListener(this);
+		right.add(trunck_length);
 
 		r+=30;
 		
-		jlb=new JLabel("Y side");
+		jlb=new JLabel("Trunk rad");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
-		y_side=new DoubleTextField();
-		y_side.setBounds(column, r, 100, 20);
-		y_side.addKeyListener(this);
-		right.add(y_side);
+		trunk_radius=new DoubleTextField();
+		trunk_radius.setBounds(column, r, 100, 20);
+		trunk_radius.addKeyListener(this);
+		right.add(trunk_radius);
 		
 		r+=30;
 		
-		jlb=new JLabel("Z side");
+		jlb=new JLabel("Foliage len");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
-		z_side=new DoubleTextField();
-		z_side.setBounds(column, r, 100, 20);
-		z_side.addKeyListener(this);
-		right.add(z_side);
+		foliage_length=new DoubleTextField();
+		foliage_length.setBounds(column, r, 100, 20);
+		foliage_length.addKeyListener(this);
+		right.add(foliage_length);
+		
+		r+=30;
+		
+		jlb=new JLabel("Foliage rad");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		foliage_radius=new DoubleTextField();
+		foliage_radius.setBounds(column, r, 100, 20);
+		foliage_radius.addKeyListener(this);
+		right.add(foliage_radius);
 		
 		r+=30;
 			
@@ -190,21 +180,19 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 	
 
 	public void initRightData() {
-		
-		nw_x.setText(100);
-		nw_y.setText(100);
-		x_side.setText(50);
-		y_side.setText(50);
-		z_side.setText(200);
+	
+		trunck_length.setText(200);
+		trunk_radius.setText(50);
+		foliage_length.setText(200);
+		foliage_radius.setText(100);
 	}
 	
 	private void setRightData(Plant plant) {
-		nw_x.setText(plant.getNw_x());
-		nw_y.setText(plant.getNw_y());
-		x_side.setText(plant.getX_side());
-		y_side.setText(plant.getY_side());
-		z_side.setText(plant.getZ_side());
-
+	
+		trunck_length.setText(plant.getTrunk_lenght());
+		trunk_radius.setText(plant.getTrunk_radius());
+		foliage_length.setText(plant.getFoliage_length());
+		foliage_radius.setText(plant.getFoliage_radius());
 	}
 
 	
@@ -306,19 +294,18 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 	
 	public void generate() {
 			
-			double xside=x_side.getvalue();
-			double yside=y_side.getvalue();
-			double zside=z_side.getvalue();
-			double nwx=nw_x.getvalue();
-			double nwy=nw_y.getvalue();
+			double trunckLength=trunck_length.getvalue();
+			double trunkRadius=trunk_radius.getvalue();
+			double foliageLength=foliage_length.getvalue();
+			double foliageRadius=foliage_radius.getvalue();
 			
 			if(plant==null){
 				
-				plant=new Plant(nwx,nwy,xside,yside,zside);
+				plant=new Plant(trunckLength,trunkRadius,foliageLength,foliageRadius);
 				
 			}else{
 				
-				Plant expPlant = new Plant(nwx,nwy,xside,yside,zside);
+				Plant expPlant = new Plant(trunckLength,trunkRadius,foliageLength,foliageRadius);
 				
 				plant=expPlant;
 			} 
@@ -360,7 +347,7 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 				if(indx>=0){
 					
 					String value=str.substring(indx+2);
-					plant=Plant.buildPlan(value);
+					plant=Plant.buildPlant(value);
 					
 					
 				}
