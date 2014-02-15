@@ -63,6 +63,11 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	private JComboBox animal_type;
 	private DoubleTextField leg_length;
 	private DoubleTextField leg_side;
+	private DoubleTextField head_length;
+	private DoubleTextField head_side;
+	private DoubleTextField neck_length;
+	private DoubleTextField arm_length;
+	
 	private JButton generate;
 	
 	JFileChooser fc = new JFileChooser();
@@ -72,6 +77,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	int max_stack_size=10;
 	
 	Animal animal=null;
+
 
 	
 	
@@ -149,7 +155,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		int column=100;
 		
 
-		JLabel jlb=new JLabel("X side");
+		JLabel jlb=new JLabel("Body DX");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
 		x_side=new DoubleTextField();
@@ -159,7 +165,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 
 		r+=30;
 		
-		jlb=new JLabel("Y side");
+		jlb=new JLabel("Body DY");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
 		y_side=new DoubleTextField();
@@ -169,7 +175,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		
 		r+=30;
 		
-		jlb=new JLabel("Z side");
+		jlb=new JLabel("Body DZ");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
 		z_side=new DoubleTextField();
@@ -216,7 +222,45 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		
 		r+=30;
 		
+		jlb=new JLabel("Head len");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		head_length=new DoubleTextField();
+		head_length.setBounds(column, r, 100, 20);
+		head_length.addKeyListener(this);
+		right.add(head_length);
 		
+		r+=30;
+		
+		jlb=new JLabel("Head side");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		head_side=new DoubleTextField();
+		head_side.setBounds(column, r, 100, 20);
+		head_side.addKeyListener(this);
+		right.add(head_side);
+		
+		r+=30;
+		
+		jlb=new JLabel("Neck len");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		neck_length=new DoubleTextField();
+		neck_length.setBounds(column, r, 100, 20);
+		neck_length.addKeyListener(this);
+		right.add(neck_length);
+		
+		r+=30;
+		
+		jlb=new JLabel("Arm length");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		arm_length=new DoubleTextField();
+		arm_length.setBounds(column, r, 100, 20);
+		arm_length.addKeyListener(this);
+		right.add(arm_length);
+		
+		r+=30;
 			
         generate=new JButton("Update");
         generate.setBounds(10,r,100,20);
@@ -239,6 +283,10 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		z_side.setText(150);
 		leg_length.setText(150);
 		leg_side.setText(20);
+		arm_length.setText(150);
+		neck_length.setText(50);
+		head_length.setText(50);
+		head_side.setText(50);
 	}
 	
 	public void initRightDataQuadruped() {
@@ -249,6 +297,10 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		z_side.setText(100);
 		leg_length.setText(100);
 		leg_side.setText(20);
+		arm_length.setText(150);
+		neck_length.setText(100);
+		head_length.setText(50);
+		head_side.setText(80);
 	}
 	
 	private void setRightData(Animal animal) {
@@ -374,6 +426,10 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 			double zside=z_side.getvalue();
 			double legLength=leg_length.getvalue();
 			double legSide=leg_side.getvalue();
+			double headLength = head_length.getvalue();
+			double headSide = head_side.getvalue(); 
+			double neckLength= neck_length.getvalue();
+			double armLength = arm_length.getvalue();
 			
 			 ValuePair vp= (ValuePair)animal_type.getSelectedItem();
 			
@@ -383,11 +439,11 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 			
 			if(animal==null){
 				
-				animal=new Animal(xside,yside,zside,type,legLength,legSide);
+				animal=new Animal(xside,yside,zside,type,legLength,legSide,headLength,headSide,neckLength,armLength);
 				
 			}else{
 				
-				Animal expAnimal = new Animal(xside,yside,zside,type,legLength,legSide);
+				Animal expAnimal = new Animal(xside,yside,zside,type,legLength,legSide,headLength,headSide,neckLength,armLength);
 				
 				animal=expAnimal;
 			}

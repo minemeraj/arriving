@@ -3,6 +3,8 @@ package com.editors.forniture;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseWheelEvent;
@@ -34,7 +36,7 @@ import com.editors.ValuePair;
 import com.editors.forniture.data.Forniture;
 import com.editors.object.ObjectEditorPreviewPanel;
 
-public class FornitureEditor extends CustomEditor implements MenuListener, ActionListener, KeyListener, MouseWheelListener{
+public class FornitureEditor extends CustomEditor implements MenuListener, ActionListener, KeyListener, MouseWheelListener, ItemListener{
 	
 	public static int HEIGHT=700;
 	public static int WIDTH=800;
@@ -167,6 +169,8 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_CHAIR,"Chair"));
 		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_BED,"Bed"));
 		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_SOFA,"Sofa"));
+		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_WARDROBE,"Wardrobe"));
+		chooseForniture.addItemListener(this);
 		chooseForniture.setSelectedIndex(0);
 		right.add(chooseForniture);
 		
@@ -211,12 +215,12 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 		
 		add(right);
 		
-		initRightData();
+		initRightTableData();
 		
 	}
 	
 
-	public void initRightData() {
+	public void initRightTableData() {
 		
 
 		x_side.setText(100);
@@ -226,6 +230,20 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 		leg_length.setText(100);
 		leg_side.setText(10);
 		back_length.setText(100);
+	}
+	
+
+
+	private void initRightWardrobeData() {
+		
+		x_side.setText(100);
+		y_side.setText(200);
+		z_side.setText(300);
+		
+		leg_length.setText(0);
+		leg_side.setText(0);
+		back_length.setText(0);
+		
 	}
 	
 	private void setRightData(Forniture forniture) {
@@ -618,5 +636,33 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	@Override
+	public void itemStateChanged(ItemEvent arg0) {
+		Object obj = arg0.getSource();
+		
+		if(obj==chooseForniture){
+			
+			 ValuePair vp= (ValuePair)chooseForniture.getSelectedItem();
+				
+			 int type=Integer.parseInt(vp.getId());
+			   if(type<0)
+			    	type=Forniture.FORNITURE_TYPE_TABLE;
+			   
+			   if(type==Forniture.FORNITURE_TYPE_TABLE)
+				   initRightTableData();
+			   else if(type==Forniture.FORNITURE_TYPE_CHAIR)
+				   initRightTableData();
+			   else if(type==Forniture.FORNITURE_TYPE_SOFA)
+				   initRightTableData();
+			   else if(type==Forniture.FORNITURE_TYPE_BED)
+				   initRightTableData();
+			   else if(type==Forniture.FORNITURE_TYPE_WARDROBE)
+				   initRightWardrobeData();			   
+		}
+		
+	}
+
 
 }

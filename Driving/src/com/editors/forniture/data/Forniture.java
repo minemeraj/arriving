@@ -17,6 +17,7 @@ public class Forniture extends CustomData{
 	public static int FORNITURE_TYPE_CHAIR=1;
 	public static int FORNITURE_TYPE_BED=2;
 	public static int FORNITURE_TYPE_SOFA=3;
+	public static int FORNITURE_TYPE_WARDROBE=4;
 	
 	public int forniture_type=FORNITURE_TYPE_TABLE;
 	
@@ -161,10 +162,40 @@ public class Forniture extends CustomData{
 			return buildSofaMesh();
 			
 		}
+		else if(FORNITURE_TYPE_WARDROBE==forniture_type){			
+			
+			return buildWardrobeMesh();
+			
+		}
 		else
 			return null;
 
 
+	}
+
+	private PolygonMesh buildWardrobeMesh() {
+
+		Vector points=new Vector();
+		points.setSize(50);
+
+		Vector polyData=new Vector();
+		
+		int n=0;
+		
+	
+
+		//basic sides:
+		n=buildBox(0,0,0,points,polyData,n,x_side,y_side,z_side);
+	
+		
+		/////////
+
+		//translatePoints(points,nw_x,nw_y);
+
+		PolygonMesh pm=new PolygonMesh(points,polyData);
+
+		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
+		return spm;
 	}
 
 	private PolygonMesh buildSofaMesh() {
