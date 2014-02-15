@@ -600,6 +600,8 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		if(oldAnimal.size()>0)
 			animal=(Animal) oldAnimal.pop();
 		
+		setRightData(animal);
+		
 		if(oldAnimal.size()==0)
 			jmt_undo_last.setEnabled(false);
 		
