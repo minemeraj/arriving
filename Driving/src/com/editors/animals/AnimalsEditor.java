@@ -275,6 +275,19 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	}
 	
 
+	public void initRightData() {
+
+		if(animal==null)
+			return;
+
+		int type=animal.getAnimal_type();
+
+		if(type==Animal.ANIMAL_TYPE_HUMAN)
+			initRightDataHuman();
+		else if(type==Animal.ANIMAL_TYPE_QUADRUPED)
+			initRightDataQuadruped();
+	}
+
 	public void initRightDataHuman() {
 		
 
@@ -486,7 +499,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 					
 					String value=str.substring(indx+2);
 					animal=Animal.buildAnimal(value);
-					
+					setRightData(animal);
 					
 				}
 	

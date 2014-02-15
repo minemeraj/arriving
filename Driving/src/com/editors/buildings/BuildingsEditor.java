@@ -94,7 +94,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		addKeyListener(this);
 		addMouseWheelListener(this);
 		
-		setVisible(true);
+		
 		
 		RepaintManager.setCurrentManager( 
 				new RepaintManager(){
@@ -112,6 +112,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 				}				
 		);
 		
+		setVisible(true);
 		initialize();
 	}
 	

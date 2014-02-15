@@ -22,6 +22,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.RepaintManager;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
@@ -86,6 +87,22 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 		
 		addKeyListener(this);
 		addMouseWheelListener(this);
+		
+		RepaintManager.setCurrentManager( 
+				new RepaintManager(){
+
+					public void paintDirtyRegions() {
+
+
+						super.paintDirtyRegions();
+						if(redrawAfterMenu ) {
+							center.draw(plant);
+							redrawAfterMenu=false;						    
+						}
+					}
+
+				}				
+		);
 		
 		setVisible(true);
 		
