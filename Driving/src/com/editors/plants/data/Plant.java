@@ -64,11 +64,12 @@ public class Plant extends CustomData{
 
 
 		Vector points=new Vector();
-		points.setSize(100);
+		points.setSize(200);
 
 		Vector polyData=new Vector();
 		
 		int nBase=12;
+		int levels_numer=10;
 		
 		int n=0;
 
@@ -137,7 +138,7 @@ public class Plant extends CustomData{
 		
 		//foliage:
 		
-		int levels_numer=5;
+	
 		
 		BPoint[][] foliagePoints=new BPoint[levels_numer][nBase];
 		

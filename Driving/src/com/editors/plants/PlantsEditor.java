@@ -201,7 +201,7 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 		trunck_length.setText(200);
 		trunk_radius.setText(50);
 		foliage_length.setText(200);
-		foliage_radius.setText(100);
+		foliage_radius.setText(200);
 	}
 	
 	private void setRightData(Plant plant) {
