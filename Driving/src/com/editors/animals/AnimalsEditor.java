@@ -179,7 +179,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		
 		r+=30;
 		
-		jlb=new JLabel("Forniture type:");
+		jlb=new JLabel("Animal type:");
 		jlb.setBounds(5, r, 120, 20);
 		right.add(jlb);
 
