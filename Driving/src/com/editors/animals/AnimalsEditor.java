@@ -61,6 +61,8 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	private DoubleTextField y_side;
 	private DoubleTextField z_side;
 	private JComboBox animal_type;
+	private DoubleTextField leg_length;
+	private DoubleTextField leg_side;
 	private JButton generate;
 	
 	JFileChooser fc = new JFileChooser();
@@ -70,6 +72,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	int max_stack_size=10;
 	
 	Animal animal=null;
+
 	
 	
 	
@@ -192,6 +195,28 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		right.add(animal_type);
 		
 		r+=30;
+		
+		jlb=new JLabel("Leg length");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		leg_length=new DoubleTextField();
+		leg_length.setBounds(column, r, 100, 20);
+		leg_length.addKeyListener(this);
+		right.add(leg_length);
+		
+		r+=30;
+		
+		jlb=new JLabel("Leg side");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		leg_side=new DoubleTextField();
+		leg_side.setBounds(column, r, 100, 20);
+		leg_side.addKeyListener(this);
+		right.add(leg_side);
+		
+		r+=30;
+		
+		
 			
         generate=new JButton("Update");
         generate.setBounds(10,r,100,20);
@@ -210,8 +235,10 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		
 
 		x_side.setText(100);
-		y_side.setText(20);
-		z_side.setText(200);
+		y_side.setText(40);
+		z_side.setText(150);
+		leg_length.setText(150);
+		leg_side.setText(20);
 	}
 	
 	public void initRightDataQuadruped() {
@@ -220,6 +247,8 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		x_side.setText(100);
 		y_side.setText(200);
 		z_side.setText(100);
+		leg_length.setText(100);
+		leg_side.setText(20);
 	}
 	
 	private void setRightData(Animal animal) {
@@ -227,6 +256,8 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		x_side.setText(animal.getX_side());
 		y_side.setText(animal.getY_side());
 		z_side.setText(animal.getZ_side());
+		leg_side.setText(animal.getLeg_side());
+		leg_length.setText(animal.getLeg_length());
 		
 		for (int i = 0; i < animal_type.getItemCount(); i++) {
 			ValuePair vp= (ValuePair) animal_type.getItemAt(i);
@@ -341,7 +372,8 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 			double xside=x_side.getvalue();
 			double yside=y_side.getvalue();
 			double zside=z_side.getvalue();
-
+			double legLength=leg_length.getvalue();
+			double legSide=leg_side.getvalue();
 			
 			 ValuePair vp= (ValuePair)animal_type.getSelectedItem();
 			
@@ -351,11 +383,11 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 			
 			if(animal==null){
 				
-				animal=new Animal(xside,yside,zside,type);
+				animal=new Animal(xside,yside,zside,type,legLength,legSide);
 				
 			}else{
 				
-				Animal expAnimal = new Animal(xside,yside,zside,type);
+				Animal expAnimal = new Animal(xside,yside,zside,type,legLength,legSide);
 				
 				animal=expAnimal;
 			}
