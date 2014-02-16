@@ -57,7 +57,9 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 	private DoubleTextField y_side;
 	private DoubleTextField z_side;
 	private DoubleTextField back_length;
-	private DoubleTextField front_length;
+	private DoubleTextField back_height;
+	private DoubleTextField front_length;	
+	private DoubleTextField front_height;
 	private DoubleTextField roof_height;
 	private JButton generate;
 	
@@ -68,6 +70,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 	int max_stack_size=10;
 	
 	Car car=null;
+
 	
 
 	
@@ -144,7 +147,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		int column=100;
 		
 
-		JLabel jlb=new JLabel("X side");
+		JLabel jlb=new JLabel("Body DX");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
 		x_side=new DoubleTextField();
@@ -154,7 +157,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 
 		r+=30;
 		
-		jlb=new JLabel("Y side");
+		jlb=new JLabel("Body DY");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
 		y_side=new DoubleTextField();
@@ -164,7 +167,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		
 		r+=30;
 		
-		jlb=new JLabel("Z side");
+		jlb=new JLabel("Body DZ");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
 		z_side=new DoubleTextField();
@@ -184,6 +187,16 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		
 		r+=30;
 		
+		jlb=new JLabel("Back height");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		back_height=new DoubleTextField();
+		back_height.setBounds(column, r, 100, 20);
+		back_height.addKeyListener(this);
+		right.add(back_height);
+		
+		r+=30;
+		
 		jlb=new JLabel("Front length");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
@@ -191,6 +204,16 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		front_length.setBounds(column, r, 100, 20);
 		front_length.addKeyListener(this);
 		right.add(front_length);
+		
+		r+=30;
+		
+		jlb=new JLabel("Front height");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		front_height=new DoubleTextField();
+		front_height.setBounds(column, r, 100, 20);
+		front_height.addKeyListener(this);
+		right.add(front_height);
 		
 		r+=30;
 		
@@ -224,7 +247,9 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		y_side.setText(200);
 		z_side.setText(100);
 		back_length.setText(30);
+		back_height.setText(80);
 		front_length.setText(50);
+		front_height.setText(80);
 		roof_height.setText(60);
 	}
 	
@@ -234,7 +259,9 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		y_side.setText(car.getY_side());
 		z_side.setText(car.getZ_side());
 		back_length.setText(car.getBack_length());
+		back_height.setText(car.getBack_height());
 		front_length.setText(car.getFront_length());
+		front_height.setText(car.getFront_height());
 		roof_height.setText(car.getRoof_height());
 	}
 
@@ -344,16 +371,18 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 			double yside=y_side.getvalue();
 			double zside=z_side.getvalue();
 			double backLength=back_length.getvalue();
+			double backHeight=back_height.getvalue();
 			double frontLength=front_length.getvalue();
+			double frontHeight=front_height.getvalue();
 			double roofHeight=roof_height.getvalue();
 			
 			if(car==null){
 				
-				car=new Car(xside,yside,zside,frontLength,backLength,roofHeight);
+				car=new Car(xside,yside,zside,frontLength,frontHeight,backLength,backHeight,roofHeight);
 				
 			}else{
 				
-				Car expCar = new Car(xside,yside,zside,frontLength,backLength,roofHeight);
+				Car expCar = new Car(xside,yside,zside,frontLength,frontHeight,backLength,backHeight,roofHeight);
 				
 				car=expCar;
 			}
@@ -396,7 +425,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 					
 					String value=str.substring(indx+2);
 					car=Car.buildCar(value);
-					
+					setRightData(car);
 					
 				}
 	

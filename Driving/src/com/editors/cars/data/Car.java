@@ -21,12 +21,14 @@ public class Car extends CustomData {
 
 
     double front_length=0;
+    double front_height=0;
     double back_length=0;
+    double back_height=0;
     double roof_height=0;
 
 	public Car(){}
 
-	public Car( double x_side, double y_side,double z_side, double front_length,double back_length,double roof_height
+	public Car( double x_side, double y_side,double z_side, double front_length,double front_height,double back_length,double back_height,double roof_height
 			) {
 		super();
 
@@ -34,14 +36,17 @@ public class Car extends CustomData {
 		this.y_side = y_side;
 		this.z_side = z_side;
 		this.front_length = front_length;
+		this.front_height = front_height;
 		this.back_length = back_length;
+		this.back_height = back_height;
+		
 		this.roof_height = roof_height;
 
 	}
 
 	public Object clone(){
 
-		Car grid=new Car(x_side,y_side,z_side,front_length,back_length,roof_height);
+		Car grid=new Car(x_side,y_side,z_side,front_length,front_height,back_length,back_height,roof_height);
 		return grid;
 
 	}
@@ -63,7 +68,7 @@ public class Car extends CustomData {
 
 	public String toString() {
 
-		return "C="+x_side+","+y_side+","+z_side+","+back_length+","+front_length+","+roof_height;
+		return "C="+x_side+","+y_side+","+z_side+","+front_length+","+front_height+","+back_length+","+back_height+","+roof_height;
 	}
 
 	public static Car buildCar(String str) {
@@ -74,11 +79,13 @@ public class Car extends CustomData {
 		double x_side =Double.parseDouble(vals[0]);
 		double y_side = Double.parseDouble(vals[1]);
 		double z_side = Double.parseDouble(vals[2]); 
-		double back_length= Double.parseDouble(vals[3]); 
-		double front_length= Double.parseDouble(vals[4]);		
-		double roof_height= Double.parseDouble(vals[5]); 
+		double front_length= Double.parseDouble(vals[3]);
+		double front_height= Double.parseDouble(vals[4]);
+		double back_length= Double.parseDouble(vals[5]); 
+		double back_height= Double.parseDouble(vals[6]); 		
+		double roof_height= Double.parseDouble(vals[7]); 
 
-		Car grid=new Car(x_side,y_side,z_side,front_length,back_length,roof_height);
+		Car grid=new Car(x_side,y_side,z_side,front_length,front_height,back_length,back_height,roof_height);
 
 		return grid;
 	}
@@ -118,10 +125,20 @@ public class Car extends CustomData {
 		this.roof_height = roof_height;
 	}
 
+	public double getFront_height() {
+		return front_height;
+	}
 
-	public int pos(int i, int j, int k){
+	public void setFront_height(double front_height) {
+		this.front_height = front_height;
+	}
 
-		return (i+(1+1)*j)*2+k;
+	public double getBack_height() {
+		return back_height;
+	}
+
+	public void setBack_height(double back_height) {
+		this.back_height = back_height;
 	}
 
 
@@ -190,8 +207,8 @@ public class Car extends CustomData {
 		//back part:
 		BPoint pBack000=new BPoint(0,0,0,n++);
 		BPoint pBack100=new BPoint(x_side,0,0,n++);
-		BPoint pBack101=new BPoint(x_side,0,z_side,n++);
-		BPoint pBack001=new BPoint(0,0,z_side,n++);
+		BPoint pBack101=new BPoint(x_side,0,back_height,n++);
+		BPoint pBack001=new BPoint(0,0,back_height,n++);
 		
 		points.setElementAt(pBack000,pBack000.getIndex());
 		points.setElementAt(pBack100,pBack100.getIndex());
@@ -214,11 +231,11 @@ public class Car extends CustomData {
 		polyData.add(backRight);
 		
 	
-		//front:		
+		//front part:		
 		BPoint pFront000=new BPoint(0,back_length+y_side+front_length,0,n++);
 		BPoint pFront100=new BPoint(x_side,back_length+y_side+front_length,0,n++);
-		BPoint pFront101=new BPoint(x_side,back_length+y_side+front_length,z_side,n++);
-		BPoint pFront001=new BPoint(0,back_length+y_side+front_length,z_side,n++);
+		BPoint pFront101=new BPoint(x_side,back_length+y_side+front_length,front_height,n++);
+		BPoint pFront001=new BPoint(0,back_length+y_side+front_length,front_height,n++);
 		
 		
 		points.setElementAt(pFront000,pFront000.getIndex());
@@ -298,6 +315,8 @@ public class Car extends CustomData {
 
 
 	}
+
+
 
 
 
