@@ -68,8 +68,8 @@ public class Plant extends CustomData{
 
 		Vector polyData=new Vector();
 		
-		int nBase=12;
-		int levels_numer=10;
+		int nBase=16;
+		int levels_numer=8;
 		
 		int n=0;
 
@@ -152,10 +152,12 @@ public class Plant extends CustomData{
 			
 			for (int i = 0; i < nBase; i++) {
 				
-				double r=ff(zf);
+				double teta=2*Math.PI/nBase*i;
 				
-				double x=r*Math.cos(2*Math.PI/nBase*i);
-				double y=r*Math.sin(2*Math.PI/nBase*i);
+				double r=ff(zf)*rr(teta);
+				
+				double x=r*Math.cos(teta);
+				double y=r*Math.sin(teta);
 				
 				foliagePoints[k][i]=new BPoint(x,y,trunk_lenght+zf,n++);
 				points.setElementAt(foliagePoints[k][i],foliagePoints[k][i].getIndex());
@@ -255,8 +257,20 @@ public class Plant extends CustomData{
 		double c=trunk_radius;
 		
 		double xr=x/foliage_length;
+
 		
 		return a*xr*xr+b*xr+c;
+		
+	}
+	
+	public double rr(double teta){
+		
+		double n=2.0;
+		double alfa=0.9;
+		
+		double rad=(alfa+(1.0-alfa)*Math.cos(n*teta));
+		
+		return rad;
 		
 	}
 
