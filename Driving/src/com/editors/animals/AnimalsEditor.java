@@ -67,6 +67,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	private DoubleTextField head_DY;
 	private DoubleTextField head_DX;
 	private DoubleTextField neck_length;
+	private DoubleTextField neck_side;
 	private DoubleTextField arm_length;
 	
 	private JButton generate;
@@ -78,6 +79,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	int max_stack_size=10;
 	
 	Animal animal=null;
+	
 
 
 	
@@ -263,6 +265,16 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		
 		r+=30;
 		
+		jlb=new JLabel("Neck side");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		neck_side=new DoubleTextField();
+		neck_side.setBounds(column, r, 100, 20);
+		neck_side.addKeyListener(this);
+		right.add(neck_side);
+		
+		r+=30;
+		
 		jlb=new JLabel("Arm length");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
@@ -309,6 +321,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		leg_side.setText(20);
 		arm_length.setText(150);
 		neck_length.setText(20);
+		neck_side.setText(40);
 		head_DZ.setText(50);
 		head_DX.setText(50);
 		head_DY.setText(50);
@@ -324,6 +337,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		leg_side.setText(20);
 		arm_length.setText(150);
 		neck_length.setText(100);
+		neck_side.setText(50);
 		head_DZ.setText(50);
 		head_DX.setText(80);
 		head_DY.setText(80);
@@ -341,6 +355,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		head_DX.setText(animal.getHead_DX());
 		head_DY.setText(animal.getHead_DY());
 		neck_length.setText(animal.getNeck_length());
+		neck_side.setText(animal.getNeck_side());
 		arm_length.setText(animal.getArm_length());
 		
 		for (int i = 0; i < animal_type.getItemCount(); i++) {
@@ -464,6 +479,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 			double headDX = head_DX.getvalue(); 
 			double headDY = head_DY.getvalue(); 
 			double neckLength= neck_length.getvalue();
+			double neckSide= neck_side.getvalue();
 			double armLength = arm_length.getvalue();
 			
 			 ValuePair vp= (ValuePair)animal_type.getSelectedItem();
@@ -474,11 +490,11 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 			
 			if(animal==null){
 				
-				animal=new Animal(xside,yside,zside,type,legLength,legSide,headDZ,headDX,headDY,neckLength,armLength);
+				animal=new Animal(xside,yside,zside,type,legLength,legSide,headDZ,headDX,headDY,neckLength,neckSide,armLength);
 				
 			}else{
 				
-				Animal expAnimal = new Animal(xside,yside,zside,type,legLength,legSide,headDZ,headDX,headDY,neckLength,armLength);
+				Animal expAnimal = new Animal(xside,yside,zside,type,legLength,legSide,headDZ,headDX,headDY,neckLength,neckSide,armLength);
 				
 				animal=expAnimal;
 			}
