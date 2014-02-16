@@ -183,8 +183,8 @@ public class Car extends CustomData {
 		points.setElementAt(p111,p111.getIndex());
 
 
-		LineData topLD=buildLine(p001,p101,p111,p011,Renderer3D.CAR_TOP);
-		polyData.add(topLD);
+		//LineData topLD=buildLine(p001,p101,p111,p011,Renderer3D.CAR_TOP);
+		//polyData.add(topLD);
 
 
 		LineData bottomLD=buildLine(p000,p010,p110,p100,Renderer3D.CAR_BOTTOM);

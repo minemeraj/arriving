@@ -29,7 +29,7 @@
 	*
 	* java -classpath Driving.jar    com.editors.road.RoadEditor
 	*
-	* to launch the object editor use the command:
+	*** to launch the object editor use the command:
 	*
 	* java -classpath Driving.jar    com.editors.object.ObjectEditor
     *
@@ -38,12 +38,22 @@
 	*
 	* java -classpath Driving.jar    com.editors.iperview.IperviewEditor
 	*
-	* to launch the Bulidings editor use the command:
+	*
+	***** To launch custom editors:
+	*
 	*
 	* java -classpath Driving.jar    com.editors.buildings.BuildingsEditor
 	*
+	* java -classpath Driving.jar    com.editors.animals.AnimalsEditor
 	*
-	* To launch other experimental editors:
+	* java -classpath Driving.jar    com.editors.forniture.FornitureEditor
+	*
+	* java -classpath Driving.jar    com.editors.plants.PlantsEditor
+	*
+	* java -classpath Driving.jar    com.editors.cars.CarsEditor
+	*
+	*
+	**** To launch other experimental editors:
 	*
 	* to launch the cubic editor use the command:
 	*

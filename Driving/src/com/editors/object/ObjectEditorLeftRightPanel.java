@@ -124,9 +124,10 @@ public class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 		Graphics2D bufGraphics=(Graphics2D)buf.getGraphics();
         
 
-		draw2Daxis(bufGraphics,WIDTH,HEIGHT);
+		
 		displayPoints(bufGraphics);
 		displayLines(bufGraphics);
+		draw2Daxis(bufGraphics,WIDTH,HEIGHT);
 		displayCurrentRect(bufGraphics);
 		
 		if(g2==null)
@@ -141,9 +142,10 @@ public class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 	public void draw2Daxis(Graphics2D graphics2D, int i, int j) {
 		
 		int length=60;
-		graphics2D.setColor(Color.white);
+	
 		
 		// z axis
+		graphics2D.setColor(Color.BLUE);
         int x1=(int) (calcAssX(0,0,0));
         int y1=(int)(calcAssY(0,0,0));
         int x2=(int)(calcAssX(0,0,length));
@@ -153,6 +155,7 @@ public class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 		 graphics2D.drawLine(x1,y1,x2,y2);
 		
 		//y axis
+        graphics2D.setColor(Color.YELLOW);
 		 x1=(int)(calcAssX(0,0,0));
 		 y1=(int)(calcAssY(0,0,0));
 		 x2=(int)(calcAssX(0,length,0));
