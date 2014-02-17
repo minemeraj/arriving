@@ -170,6 +170,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_HIP,"Hip"));
 		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_SHED,"Shed"));
 		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_GAMBREL,"Gambrel"));
+		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_MANSARD,"Mansard"));
 		chooseRoof.setSelectedIndex(0);
 		right.add(chooseRoof);
 		

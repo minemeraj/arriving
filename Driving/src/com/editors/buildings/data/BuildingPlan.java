@@ -23,6 +23,7 @@ public class BuildingPlan extends CustomData{
 	public static int ROOF_TYPE_HIP=1;
 	public static int ROOF_TYPE_SHED=2;
 	public static int ROOF_TYPE_GAMBREL=3;
+	public static int ROOF_TYPE_MANSARD=4;
 
 	public int roof_type=ROOF_TYPE_HIP;
 
@@ -165,17 +166,19 @@ public class BuildingPlan extends CustomData{
 		points.setSize(14);
 
 		Vector polyData=new Vector();
+		
+		int n=0;
 
 		//basic sides:
 
-		BPoint p000=new BPoint(0,0,0,0);
-		BPoint p100=new BPoint(x_side,0,0,1);
-		BPoint p010=new BPoint(0,y_side,0,2);
-		BPoint p001=new BPoint(0,0,z_side,3);
-		BPoint p110=new BPoint(x_side,y_side,0,4);
-		BPoint p011=new BPoint(0,y_side,z_side,5);
-		BPoint p101=new BPoint(x_side,0,z_side,6);
-		BPoint p111=new BPoint(x_side,y_side,z_side,7);
+		BPoint p000=new BPoint(0,0,0,n++);
+		BPoint p100=new BPoint(x_side,0,0,n++);
+		BPoint p010=new BPoint(0,y_side,0,n++);
+		BPoint p001=new BPoint(0,0,z_side,n++);
+		BPoint p110=new BPoint(x_side,y_side,0,n++);
+		BPoint p011=new BPoint(0,y_side,z_side,n++);
+		BPoint p101=new BPoint(x_side,0,z_side,n++);
+		BPoint p111=new BPoint(x_side,y_side,z_side,n++);
 
 		points.setElementAt(p000,p000.getIndex());
 		points.setElementAt(p100,p100.getIndex());
@@ -221,13 +224,13 @@ public class BuildingPlan extends CustomData{
 				BPoint pr011=null;
 
 				if(roof_type==ROOF_TYPE_HIP){
-					pr001=new BPoint((p001.x+p101.x)/2.0,(p001.y+p101.y)/2.0+y_indentation,roof_top_height+(p001.z+p101.z)/2.0,8);
-					pr011=new BPoint((p011.x+p111.x)/2.0,(p011.y+p111.y)/2.0-y_indentation,roof_top_height+(p011.z+p111.z)/2.0,9);
+					pr001=new BPoint((p001.x+p101.x)/2.0,(p001.y+p101.y)/2.0+y_indentation,roof_top_height+(p001.z+p101.z)/2.0,n++);
+					pr011=new BPoint((p011.x+p111.x)/2.0,(p011.y+p111.y)/2.0-y_indentation,roof_top_height+(p011.z+p111.z)/2.0,n++);
 				}
 				else if(roof_type==ROOF_TYPE_SHED){
 
-					pr001=new BPoint(p001.x,(p001.y+p101.y)/2.0+y_indentation,roof_top_height+(p001.z+p101.z)/2.0,8);
-					pr011=new BPoint(p011.x,(p011.y+p111.y)/2.0-y_indentation,roof_top_height+(p011.z+p111.z)/2.0,9);
+					pr001=new BPoint(p001.x,(p001.y+p101.y)/2.0+y_indentation,roof_top_height+(p001.z+p101.z)/2.0,n++);
+					pr011=new BPoint(p011.x,(p011.y+p111.y)/2.0-y_indentation,roof_top_height+(p011.z+p111.z)/2.0,n++);
 
 				}
 
@@ -261,9 +264,9 @@ public class BuildingPlan extends CustomData{
 				double yc=(p001.y+p101.y)/2.0;
 				double zc=(p001.z+p101.z)/2.0;
 
-				pr001=new BPoint(xc-r*Math.cos(teta),yc,zc+r*Math.sin(teta),8);
-				pr101=new BPoint(xc-r*Math.cos(2*teta),yc,zc+r*Math.sin(2*teta),9);
-				pr201=new BPoint(xc-r*Math.cos(3*teta),yc,zc+r*Math.sin(3*teta),10);
+				pr001=new BPoint(xc-r*Math.cos(teta),yc,zc+r*Math.sin(teta),n++);
+				pr101=new BPoint(xc-r*Math.cos(2*teta),yc,zc+r*Math.sin(2*teta),n++);
+				pr201=new BPoint(xc-r*Math.cos(3*teta),yc,zc+r*Math.sin(3*teta),n++);
 
 				points.setElementAt(pr001,pr001.getIndex());
 				points.setElementAt(pr101,pr101.getIndex());
@@ -273,9 +276,9 @@ public class BuildingPlan extends CustomData{
 				yc=(p011.y+p111.y)/2.0;
 				zc=(p011.z+p111.z)/2.0;
 
-				pr011=new BPoint(xc-r*Math.cos(teta),yc,zc+r*Math.sin(teta),11);
-				pr111=new BPoint(xc-r*Math.cos(2*teta),yc,zc+r*Math.sin(2*teta),12);
-				pr211=new BPoint(xc-r*Math.cos(3*teta),yc,zc+r*Math.sin(3*teta),13);
+				pr011=new BPoint(xc-r*Math.cos(teta),yc,zc+r*Math.sin(teta),n++);
+				pr111=new BPoint(xc-r*Math.cos(2*teta),yc,zc+r*Math.sin(2*teta),n++);
+				pr211=new BPoint(xc-r*Math.cos(3*teta),yc,zc+r*Math.sin(3*teta),n++);
 
 				points.setElementAt(pr011,pr011.getIndex());
 				points.setElementAt(pr111,pr111.getIndex());
@@ -297,6 +300,52 @@ public class BuildingPlan extends CustomData{
 				LineData topRoof4=buildLine(p101,p111,pr211,pr201,Renderer3D.CAR_TOP);
 				polyData.add(topRoof4);
 
+			}else if( roof_type==ROOF_TYPE_MANSARD){
+				
+				double indentation=(getY_side()-getRoof_top_width())/2.0;
+				
+				BPoint pr001=new BPoint(p001.x+indentation,p001.y+indentation,p001.z+roof_top_height,n++);
+				BPoint pr101=new BPoint(p101.x-indentation,p101.y+indentation,p101.z+roof_top_height,n++);
+				BPoint pr111=new BPoint(p111.x-indentation,p111.y-indentation,p111.z+roof_top_height,n++);
+				BPoint pr011=new BPoint(p011.x+indentation,p011.y-indentation,p011.z+roof_top_height,n++);
+				
+				points.setElementAt(pr001,pr001.getIndex());
+				points.setElementAt(pr101,pr101.getIndex());
+				points.setElementAt(pr111,pr111.getIndex());
+				points.setElementAt(pr011,pr011.getIndex());
+				
+				LineData topRoof=buildLine(pr001,pr101,pr111,pr011,Renderer3D.CAR_TOP);
+				polyData.add(topRoof);
+				
+				
+				LineData topRoof1=buildLine(p001,pr001,pr011,p011,Renderer3D.CAR_TOP);
+				polyData.add(topRoof1);	
+				
+				LineData topRoof2=buildLine(p001,p101,pr101,pr001,Renderer3D.CAR_TOP);
+				polyData.add(topRoof2);	
+				
+				LineData topRoof3=buildLine(p101,p111,pr111,pr101,Renderer3D.CAR_TOP);
+				polyData.add(topRoof3);	
+				
+				LineData topRoof4=buildLine(p111,p011,pr011,pr111,Renderer3D.CAR_TOP);
+				polyData.add(topRoof4);	
+				
+				BPoint pr002=new BPoint((pr001.x+pr101.x)/2.0,(pr001.y+pr101.y)/2.0+indentation,roof_top_height*0.5+(pr001.z+pr101.z)/2.0,n++);
+				BPoint pr012=new BPoint((pr011.x+pr111.x)/2.0,(pr011.y+pr111.y)/2.0-indentation,roof_top_height*0.5+(pr011.z+pr111.z)/2.0,n++);
+				
+				
+				points.setElementAt(pr002,pr002.getIndex());
+				points.setElementAt(pr012,pr012.getIndex());
+
+				LineData backRoof00=buildLine(pr001,pr101,pr002,null,Renderer3D.CAR_BACK); 
+				polyData.add(backRoof00);
+				LineData frontRoof01=buildLine(pr011,pr012,pr111,null,Renderer3D.CAR_FRONT);
+				polyData.add(frontRoof01);
+				LineData topRoof01=buildLine(pr001,pr002,pr012,pr011,Renderer3D.CAR_TOP);
+				polyData.add(topRoof01);
+				LineData topRoof02=buildLine(pr101,pr111,pr012,pr002,Renderer3D.CAR_TOP);
+				polyData.add(topRoof02);
+				
 			}
 
 			//translatePoints(points,nw_x,nw_y);
