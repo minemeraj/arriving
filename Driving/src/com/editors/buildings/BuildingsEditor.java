@@ -66,7 +66,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 	private DoubleTextField z_side;
 	private JComboBox chooseRoof;
 	private DoubleTextField roof_top_height;
-	private DoubleTextField roof_top_width;
+	private DoubleTextField roof_top_length;
 	
 	public Stack oldPlan=null;
 	int max_stack_size=10;
@@ -186,13 +186,13 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		
 		r+=30;
 		
-		jlb=new JLabel("Roof top width");
+		jlb=new JLabel("Roof top length");
 		jlb.setBounds(5, r, 150, 20);
 		right.add(jlb);
-		roof_top_width=new DoubleTextField();
-		roof_top_width.setBounds(column, r, 160, 20);
-		roof_top_width.addKeyListener(this);
-		right.add(roof_top_width);
+		roof_top_length=new DoubleTextField();
+		roof_top_length.setBounds(column, r, 160, 20);
+		roof_top_length.addKeyListener(this);
+		right.add(roof_top_length);
 		
 		r+=30;
 		
@@ -216,7 +216,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		y_side.setText(200);
 		z_side.setText(100);
 		roof_top_height.setText(30);
-		roof_top_width.setText(100);
+		roof_top_length.setText(100);
 	}
 
 	private void setRightData(BuildingPlan plan) {
@@ -235,7 +235,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		}
 		
 		roof_top_height.setText(""+plan.getRoof_top_height());
-		roof_top_width.setText(""+plan.getRoof_top_width());
+		roof_top_length.setText(""+plan.getRoof_top_length());
 	}
 
 	
@@ -246,7 +246,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		y_side.setText("");
 		z_side.setText("");
 		roof_top_height.setText("");
-		roof_top_width.setText("");
+		roof_top_length.setText("");
 		chooseRoof.setSelectedIndex(0);
 	}
 	
@@ -355,7 +355,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		double yside=y_side.getvalue();
 		double zside=z_side.getvalue();
 		double roofHeight=roof_top_height.getvalue();       
-		double roofWidth= roof_top_width.getvalue();
+		double roofLength= roof_top_length.getvalue();
 		
 		if(plan==null){
 			
@@ -370,7 +370,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		    	expPlan.setRoof_type(val);	
 		    
 		    expPlan.setRoof_top_height(roofHeight);
-		    expPlan.setRoof_top_width(roofWidth);
+		    expPlan.setRoof_top_length(roofLength);
 						
 		    plan=expPlan;
 			
@@ -391,7 +391,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		    	plan.setRoof_type(val);			
 			
 		    plan.setRoof_top_height(roofHeight);
-		    plan.setRoof_top_width(roofWidth);
+		    plan.setRoof_top_length(roofLength);
 			
 		}
 		draw();

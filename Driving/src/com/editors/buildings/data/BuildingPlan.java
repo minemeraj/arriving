@@ -28,7 +28,7 @@ public class BuildingPlan extends CustomData{
 	public int roof_type=ROOF_TYPE_HIP;
 
 	double roof_top_height=0;
-	double roof_top_width=0;
+	double roof_top_length=0;
 
 	public BuildingPlan(){}
 
@@ -88,7 +88,7 @@ public class BuildingPlan extends CustomData{
 	}
 
 	public String getRoofData() {
-		String str=getRoof_type()+","+getRoof_top_height()+","+getRoof_top_width();
+		String str=getRoof_type()+","+getRoof_top_height()+","+getRoof_top_length();
 		return str;
 	}
 
@@ -97,11 +97,11 @@ public class BuildingPlan extends CustomData{
 
 		String[] vals = str.split(",");
 
-		int roType= Integer.parseInt(vals[0]);
+		int rooType= Integer.parseInt(vals[0]);
 		double rooHeight = Double.parseDouble(vals[1]);
-		double rooWidth =Double.parseDouble(vals[2]);
+		double rooLength =Double.parseDouble(vals[2]);
 
-		setRoof(roType,rooHeight,rooWidth);
+		setRoof(rooType,rooHeight,rooLength);
 	}
 
 	public double getZ_side() {
@@ -129,11 +129,11 @@ public class BuildingPlan extends CustomData{
 	}
 
 
-	public void setRoof(int roof_type,double roof_top_height,double roof_top_width){
+	public void setRoof(int roof_type,double roof_top_height,double roof_top_length){
 
 		this.roof_type = roof_type;
 		this.roof_top_height = roof_top_height;
-		this.roof_top_width = roof_top_width;
+		this.roof_top_length = roof_top_length;
 	}
 
 
@@ -146,12 +146,12 @@ public class BuildingPlan extends CustomData{
 		this.roof_top_height = roof_top_height;
 	}
 
-	public double getRoof_top_width() {
-		return roof_top_width;
+	public double getRoof_top_length() {
+		return roof_top_length;
 	}
 
-	public void setRoof_top_width(double roof_top_width) {
-		this.roof_top_width = roof_top_width;
+	public void setRoof_top_length(double roof_top_length) {
+		this.roof_top_length = roof_top_length;
 	}
 
 
@@ -218,7 +218,7 @@ public class BuildingPlan extends CustomData{
 
 
 
-				double y_indentation=(getY_side()-getRoof_top_width())/2.0;
+				double y_indentation=(getY_side()-getRoof_top_length())/2.0;
 
 				BPoint pr001=null;
 				BPoint pr011=null;
@@ -302,7 +302,7 @@ public class BuildingPlan extends CustomData{
 
 			}else if( roof_type==ROOF_TYPE_MANSARD){
 				
-				double indentation=(getY_side()-getRoof_top_width())/2.0;
+				double indentation=(getY_side()-getRoof_top_length())/2.0;
 				
 				BPoint pr001=new BPoint(p001.x+indentation,p001.y+indentation,p001.z+roof_top_height,n++);
 				BPoint pr101=new BPoint(p101.x-indentation,p101.y+indentation,p101.z+roof_top_height,n++);
