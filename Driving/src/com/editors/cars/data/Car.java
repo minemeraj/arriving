@@ -25,6 +25,9 @@ public class Car extends CustomData {
     double back_width=0;
     double back_length=0;
     double back_height=0;
+    
+    double roof_width=0;
+    double roof_length=0;
     double roof_height=0;
 
 	public Car(){}
@@ -32,27 +35,35 @@ public class Car extends CustomData {
 	public Car( double x_side, double y_side,double z_side,
 			double front_width,double front_length,double front_height,
 			double back_width,double back_length,double back_height,
-			double roof_height
+			 double roof_width,double roof_length,double roof_height
 			) {
 		super();
 
 		this.x_side = x_side;
 		this.y_side = y_side;
 		this.z_side = z_side;
+		
 		this.front_width = front_width;
 		this.front_length = front_length;
 		this.front_height = front_height;
+		
 		this.back_width = back_width;
 		this.back_length = back_length;
 		this.back_height = back_height;
 		
+		this.roof_width = roof_width;
+		this.roof_length = roof_length;
 		this.roof_height = roof_height;
 
 	}
 
 	public Object clone(){
 
-		Car grid=new Car(x_side,y_side,z_side,front_width,front_length,front_height,back_width,back_length,back_height,roof_height);
+		Car grid=new Car(
+				x_side,y_side,z_side,
+				front_width,front_length,front_height,
+				back_width,back_length,back_height,
+				roof_width,roof_length,roof_height);
 		return grid;
 
 	}
@@ -63,7 +74,7 @@ public class Car extends CustomData {
 		return "C="+x_side+","+y_side+","+z_side+","
 		+front_width+","+front_length+","+front_height+","
 		+back_width+","+back_length+","+back_height+
-		","+roof_height;
+		","+roof_width+","+roof_length+","+roof_height;
 	}
 
 	public static Car buildCar(String str) {
@@ -80,9 +91,14 @@ public class Car extends CustomData {
 		double back_length= Double.parseDouble(vals[6]); 
 		double back_width= Double.parseDouble(vals[7]); 
 		double back_height= Double.parseDouble(vals[8]); 		
-		double roof_height= Double.parseDouble(vals[9]); 
+		double roof_width= Double.parseDouble(vals[9]); 
+		double roof_length= Double.parseDouble(vals[10]); 
+		double roof_height= Double.parseDouble(vals[11]); 
 
-		Car grid=new Car(x_side,y_side,z_side,front_width,front_length,front_height,back_width,back_length,back_height,roof_height);
+		Car grid=new Car(x_side,y_side,z_side,
+				front_width,front_length,front_height,
+				back_width,back_length,back_height,
+				roof_width,roof_length,roof_height);
 
 		return grid;
 	}
@@ -166,7 +182,23 @@ public class Car extends CustomData {
 		this.back_height = back_height;
 	}
 
+	public double getRoof_width() {
+		return roof_width;
+	}
 
+	public void setRoof_width(double roof_width) {
+		this.roof_width = roof_width;
+	}
+
+	public double getRoof_length() {
+		return roof_length;
+	}
+
+	public void setRoof_length(double roof_length) {
+		this.roof_length = roof_length;
+	}
+
+	
 	public PolygonMesh buildMesh(){
 
 
@@ -227,14 +259,14 @@ public class Car extends CustomData {
 		LineData frontLD=buildLine(p010,p011,p111,p110,Renderer3D.CAR_FRONT);
 		polyData.add(frontLD);*/
 		
-		double bDX=(x_side-back_width)/2.0;
+		double backDX=(x_side-back_width)/2.0;
 		
 		
 		//back part:
-		BPoint pBack000=new BPoint(bDX,0,0,n++);
-		BPoint pBack100=new BPoint(x_side-bDX,0,0,n++);
-		BPoint pBack101=new BPoint(x_side-bDX,0,back_height,n++);
-		BPoint pBack001=new BPoint(bDX,0,back_height,n++);
+		BPoint pBack000=new BPoint(backDX,0,0,n++);
+		BPoint pBack100=new BPoint(x_side-backDX,0,0,n++);
+		BPoint pBack101=new BPoint(x_side-backDX,0,back_height,n++);
+		BPoint pBack001=new BPoint(backDX,0,back_height,n++);
 		
 		points.setElementAt(pBack000,pBack000.getIndex());
 		points.setElementAt(pBack100,pBack100.getIndex());
@@ -258,14 +290,14 @@ public class Car extends CustomData {
 		
 		
 
-		double fDX=(x_side-front_width)/2.0;
+		double frontDX=(x_side-front_width)/2.0;
 		
 	
 		//front part:		
-		BPoint pFront000=new BPoint(fDX,back_length+y_side+front_length,0,n++);
-		BPoint pFront100=new BPoint(x_side-fDX,back_length+y_side+front_length,0,n++);
-		BPoint pFront101=new BPoint(x_side-fDX,back_length+y_side+front_length,front_height,n++);
-		BPoint pFront001=new BPoint(fDX,back_length+y_side+front_length,front_height,n++);
+		BPoint pFront000=new BPoint(frontDX,back_length+y_side+front_length,0,n++);
+		BPoint pFront100=new BPoint(x_side-frontDX,back_length+y_side+front_length,0,n++);
+		BPoint pFront101=new BPoint(x_side-frontDX,back_length+y_side+front_length,front_height,n++);
+		BPoint pFront001=new BPoint(frontDX,back_length+y_side+front_length,front_height,n++);
 		
 		
 		points.setElementAt(pFront000,pFront000.getIndex());
@@ -297,13 +329,13 @@ public class Car extends CustomData {
 		BPoint pr110=new BPoint(x_side,back_length+y_side,z_side,n++);
 		BPoint pr010=new BPoint(0,back_length+y_side,z_side,n++);	
 		
-		double yy0Up=back_length+10;
-		double yy1Up=back_length+y_side-10;
+		double roofDX=(x_side-roof_width)/2.0;
+		double roofDY=(y_side-roof_length)/2.0;
 		
-		BPoint pr001=new BPoint(0,yy0Up,z_side+roof_height,n++);	
-		BPoint pr101=new BPoint(x_side,yy0Up,z_side+roof_height,n++);
-		BPoint pr111=new BPoint(x_side,yy1Up,z_side+roof_height,n++);
-		BPoint pr011=new BPoint(0,yy1Up,z_side+roof_height,n++);	
+		BPoint pr001=new BPoint(roofDX,roofDY+back_length,z_side+roof_height,n++);	
+		BPoint pr101=new BPoint(x_side-roofDX,roofDY+back_length,z_side+roof_height,n++);
+		BPoint pr111=new BPoint(x_side-roofDX,y_side+back_length-roofDY,z_side+roof_height,n++);
+		BPoint pr011=new BPoint(roofDX,y_side+back_length-roofDY,z_side+roof_height,n++);	
 		
 		
 		
@@ -345,6 +377,7 @@ public class Car extends CustomData {
 
 
 	}
+
 
 
 
