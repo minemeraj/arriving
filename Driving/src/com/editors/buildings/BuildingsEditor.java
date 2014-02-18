@@ -66,11 +66,13 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 	private DoubleTextField z_side;
 	private JComboBox chooseRoof;
 	private DoubleTextField roof_top_height;
+	private DoubleTextField roof_top_width;
 	private DoubleTextField roof_top_length;
 	
 	public Stack oldPlan=null;
 	int max_stack_size=10;
 	private JButton generate;
+	
 
 	
 	
@@ -186,6 +188,16 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		
 		r+=30;
 		
+		jlb=new JLabel("Roof top width");
+		jlb.setBounds(5, r, 150, 20);
+		right.add(jlb);
+		roof_top_width=new DoubleTextField();
+		roof_top_width.setBounds(column, r, 160, 20);
+		roof_top_width.addKeyListener(this);
+		right.add(roof_top_width);
+		
+		r+=30;
+		
 		jlb=new JLabel("Roof top length");
 		jlb.setBounds(5, r, 150, 20);
 		right.add(jlb);
@@ -217,6 +229,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		z_side.setText(100);
 		roof_top_height.setText(30);
 		roof_top_length.setText(100);
+		roof_top_width.setText(100);
 	}
 
 	private void setRightData(BuildingPlan plan) {
@@ -236,6 +249,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		
 		roof_top_height.setText(""+plan.getRoof_top_height());
 		roof_top_length.setText(""+plan.getRoof_top_length());
+		roof_top_width.setText(""+plan.getRoof_top_width());
 	}
 
 	
@@ -356,6 +370,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		double zside=z_side.getvalue();
 		double roofHeight=roof_top_height.getvalue();       
 		double roofLength= roof_top_length.getvalue();
+		double roofWidth=roof_top_width.getvalue(); 
 		
 		if(plan==null){
 			
@@ -371,7 +386,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 		    
 		    expPlan.setRoof_top_height(roofHeight);
 		    expPlan.setRoof_top_length(roofLength);
-						
+		    expPlan.setRoof_top_width(roofWidth);		
 		    plan=expPlan;
 			
 				
@@ -392,6 +407,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 			
 		    plan.setRoof_top_height(roofHeight);
 		    plan.setRoof_top_length(roofLength);
+		    plan.setRoof_top_width(roofWidth);	
 			
 		}
 		draw();

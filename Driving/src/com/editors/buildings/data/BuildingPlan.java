@@ -28,6 +28,7 @@ public class BuildingPlan extends CustomData{
 	public int roof_type=ROOF_TYPE_HIP;
 
 	double roof_top_height=0;
+	double roof_top_width=0;
 	double roof_top_length=0;
 
 	public BuildingPlan(){}
@@ -88,7 +89,8 @@ public class BuildingPlan extends CustomData{
 	}
 
 	public String getRoofData() {
-		String str=getRoof_type()+","+getRoof_top_height()+","+getRoof_top_length();
+		String str=getRoof_type()+","+
+				getRoof_top_height()+","+getRoof_top_width()+","+getRoof_top_length();
 		return str;
 	}
 
@@ -99,9 +101,10 @@ public class BuildingPlan extends CustomData{
 
 		int rooType= Integer.parseInt(vals[0]);
 		double rooHeight = Double.parseDouble(vals[1]);
-		double rooLength =Double.parseDouble(vals[2]);
+		double rooWidth =Double.parseDouble(vals[2]);
+		double rooLength =Double.parseDouble(vals[3]);
 
-		setRoof(rooType,rooHeight,rooLength);
+		setRoof(rooType,rooHeight,rooWidth,rooLength);
 	}
 
 	public double getZ_side() {
@@ -129,10 +132,11 @@ public class BuildingPlan extends CustomData{
 	}
 
 
-	public void setRoof(int roof_type,double roof_top_height,double roof_top_length){
+	public void setRoof(int roof_type,double roof_top_height,double roof_top_width,double roof_top_length){
 
 		this.roof_type = roof_type;
 		this.roof_top_height = roof_top_height;
+		this.roof_top_width = roof_top_width;
 		this.roof_top_length = roof_top_length;
 	}
 
@@ -154,7 +158,13 @@ public class BuildingPlan extends CustomData{
 		this.roof_top_length = roof_top_length;
 	}
 
+	public double getRoof_top_width() {
+		return roof_top_width;
+	}
 
+	public void setRoof_top_width(double roof_top_width) {
+		this.roof_top_width = roof_top_width;
+	}
 
 	public PolygonMesh buildMesh(){
 
@@ -302,12 +312,13 @@ public class BuildingPlan extends CustomData{
 
 			}else if( roof_type==ROOF_TYPE_MANSARD){
 				
-				double indentation=(getY_side()-getRoof_top_length())/2.0;
+				double roofDY=(getY_side()-getRoof_top_length())/2.0; 
+				double roofDX=(getX_side()-getRoof_top_width())/2.0; 
 				
-				BPoint pr001=new BPoint(p001.x+indentation,p001.y+indentation,p001.z+roof_top_height,n++);
-				BPoint pr101=new BPoint(p101.x-indentation,p101.y+indentation,p101.z+roof_top_height,n++);
-				BPoint pr111=new BPoint(p111.x-indentation,p111.y-indentation,p111.z+roof_top_height,n++);
-				BPoint pr011=new BPoint(p011.x+indentation,p011.y-indentation,p011.z+roof_top_height,n++);
+				BPoint pr001=new BPoint(p001.x+roofDX,p001.y+roofDY,p001.z+roof_top_height,n++);
+				BPoint pr101=new BPoint(p101.x-roofDX,p101.y+roofDY,p101.z+roof_top_height,n++);
+				BPoint pr111=new BPoint(p111.x-roofDX,p111.y-roofDY,p111.z+roof_top_height,n++);
+				BPoint pr011=new BPoint(p011.x+roofDX,p011.y-roofDY,p011.z+roof_top_height,n++);
 				
 				points.setElementAt(pr001,pr001.getIndex());
 				points.setElementAt(pr101,pr101.getIndex());
@@ -330,8 +341,8 @@ public class BuildingPlan extends CustomData{
 				LineData topRoof4=buildLine(p111,p011,pr011,pr111,Renderer3D.CAR_TOP);
 				polyData.add(topRoof4);	
 				
-				BPoint pr002=new BPoint((pr001.x+pr101.x)/2.0,(pr001.y+pr101.y)/2.0+indentation,roof_top_height*0.5+(pr001.z+pr101.z)/2.0,n++);
-				BPoint pr012=new BPoint((pr011.x+pr111.x)/2.0,(pr011.y+pr111.y)/2.0-indentation,roof_top_height*0.5+(pr011.z+pr111.z)/2.0,n++);
+				BPoint pr002=new BPoint((pr001.x+pr101.x)/2.0,(pr001.y+pr101.y)/2.0+roofDY,roof_top_height*0.5+(pr001.z+pr101.z)/2.0,n++);
+				BPoint pr012=new BPoint((pr011.x+pr111.x)/2.0,(pr011.y+pr111.y)/2.0-roofDY,roof_top_height*0.5+(pr011.z+pr111.z)/2.0,n++);
 				
 				
 				points.setElementAt(pr002,pr002.getIndex());
@@ -357,6 +368,8 @@ public class BuildingPlan extends CustomData{
 
 
 	}
+
+
 
 
 
