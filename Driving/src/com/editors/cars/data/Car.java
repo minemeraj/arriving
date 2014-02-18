@@ -85,11 +85,11 @@ public class Car extends CustomData {
 		double x_side =Double.parseDouble(vals[0]);
 		double y_side = Double.parseDouble(vals[1]);
 		double z_side = Double.parseDouble(vals[2]); 
-		double front_length= Double.parseDouble(vals[3]);
-		double front_width= Double.parseDouble(vals[4]);
+		double front_width= Double.parseDouble(vals[3]);
+		double front_length= Double.parseDouble(vals[4]);		
 		double front_height= Double.parseDouble(vals[5]);
-		double back_length= Double.parseDouble(vals[6]); 
-		double back_width= Double.parseDouble(vals[7]); 
+		double back_width= Double.parseDouble(vals[6]);
+		double back_length= Double.parseDouble(vals[7]);		 
 		double back_height= Double.parseDouble(vals[8]); 		
 		double roof_width= Double.parseDouble(vals[9]); 
 		double roof_length= Double.parseDouble(vals[10]); 
