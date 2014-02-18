@@ -365,6 +365,8 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 
 	public void generate() {
 		
+		prepareUndo();
+		
 		double xside=x_side.getvalue();
 		double yside=y_side.getvalue();
 		double zside=z_side.getvalue();
@@ -701,16 +703,19 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 	
 	public void undo() {
 
-		/*if(oldplan.size()>0)
-			plan=(Buildingplan) oldplan.pop();
+		if(oldPlan.size()>0)
+			plan=(BuildingPlan) oldPlan.pop();
 		
-		if(oldplan.size()==0)
-			jmt_undo_last.setEnabled(false);*/
+		if(oldPlan.size()==0)
+			jmt_undo_last.setEnabled(false);
 		
 		draw();
 	}
 	
 	public void prepareUndo() {
+		
+		if(plan==null)
+			return;
 		
 		jmt_undo_last.setEnabled(true);
 		

@@ -49,6 +49,7 @@ public class BuildingPlan extends CustomData{
 
 		BuildingPlan grid=new BuildingPlan(x_side,y_side,z_side);
 		grid.setRoof_type(getRoof_type());
+		grid.setRoof(roof_type,roof_top_height,roof_top_width,roof_top_length);
 		return grid;
 
 	}
