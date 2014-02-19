@@ -29,6 +29,7 @@ import javax.swing.event.MenuListener;
 import com.editors.CustomEditor;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
+import com.editors.IntegerTextField;
 import com.editors.object.ObjectEditorPreviewPanel;
 import com.editors.plants.data.Plant;
 
@@ -56,7 +57,10 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 	private DoubleTextField trunck_length;
 	private DoubleTextField trunk_radius;
 	private DoubleTextField foliage_length;
-	private DoubleTextField foliage_radius;
+	private DoubleTextField foliage_radius;	
+	private IntegerTextField foliage_meridians;
+	private IntegerTextField foliage_parallels;
+	private IntegerTextField foliage_lobes;
 	
 	private JButton generate;
 	
@@ -67,6 +71,7 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 	int max_stack_size=10;
 	
 	Plant plant=null;
+
 	
 	
 	
@@ -112,6 +117,8 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 	public void initialize() {
 		
 		center.initialize();
+		
+		oldPlant=new Stack();
 	}
 
 	public static void main(String[] args) {
@@ -182,6 +189,36 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 		right.add(foliage_radius);
 		
 		r+=30;
+		
+		jlb=new JLabel("Foliage merid");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		foliage_meridians=new IntegerTextField();
+		foliage_meridians.setBounds(column, r, 100, 20);
+		foliage_meridians.addKeyListener(this);
+		right.add(foliage_meridians);
+		
+		r+=30;
+		
+		jlb=new JLabel("Foliage parall");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		foliage_parallels=new IntegerTextField();
+		foliage_parallels.setBounds(column, r, 100, 20);
+		foliage_parallels.addKeyListener(this);
+		right.add(foliage_parallels);
+		
+		r+=30;
+		
+		jlb=new JLabel("Foliage lobes");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		foliage_lobes=new IntegerTextField();
+		foliage_lobes.setBounds(column, r, 100, 20);
+		foliage_lobes.addKeyListener(this);
+		right.add(foliage_lobes);
+		
+		r+=30;
 			
         generate=new JButton("Update");
         generate.setBounds(10,r,100,20);
@@ -202,6 +239,9 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 		trunk_radius.setText(50);
 		foliage_length.setText(200);
 		foliage_radius.setText(200);
+		foliage_meridians.setText(12);
+		foliage_parallels.setText(8);
+		foliage_lobes.setText(0);
 	}
 	
 	private void setRightData(Plant plant) {
@@ -210,6 +250,10 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 		trunk_radius.setText(plant.getTrunk_radius());
 		foliage_length.setText(plant.getFoliage_length());
 		foliage_radius.setText(plant.getFoliage_radius());
+		
+		foliage_meridians.setText(plant.getFoliage_meridians());
+		foliage_parallels.setText(plant.getFoliage_parallels());
+		foliage_lobes.setText(plant.getFoliage_lobes());
 	}
 
 	
@@ -310,19 +354,28 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 	}
 	
 	public void generate() {
+		
+			prepareUndo();
 			
 			double trunckLength=trunck_length.getvalue();
 			double trunkRadius=trunk_radius.getvalue();
 			double foliageLength=foliage_length.getvalue();
 			double foliageRadius=foliage_radius.getvalue();
+			int foliageParallels=foliage_parallels.getvalue();
+			int foliageMeridians=foliage_meridians.getvalue();
+			int foliageLobes=foliage_lobes.getvalue();
 			
 			if(plant==null){
 				
-				plant=new Plant(trunckLength,trunkRadius,foliageLength,foliageRadius);
+				plant=new Plant(trunckLength,trunkRadius,foliageLength,foliageRadius,
+						foliageMeridians,foliageParallels,foliageLobes
+						);
 				
 			}else{
 				
-				Plant expPlant = new Plant(trunckLength,trunkRadius,foliageLength,foliageRadius);
+				Plant expPlant = new Plant(trunckLength,trunkRadius,foliageLength,foliageRadius,
+						foliageMeridians,foliageParallels,foliageLobes
+						);
 				
 				plant=expPlant;
 			} 
@@ -366,6 +419,7 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 					String value=str.substring(indx+2);
 					plant=Plant.buildPlant(value);
 					
+					setRightData(plant);
 					
 				}
 	
@@ -462,16 +516,19 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 	
 	public void undo() {
 
-		/*if(oldplan.size()>0)
-			plan=(Buildingplan) oldplan.pop();
+		if(oldPlant.size()>0)
+			plant=(Plant) oldPlant.pop();
 		
-		if(oldplan.size()==0)
-			jmt_undo_last.setEnabled(false);*/
+		if(oldPlant.size()==0)
+			jmt_undo_last.setEnabled(false);
 		
 		draw();
 	}
 	
 	public void prepareUndo() {
+		
+		if(plant==null)
+			return;
 		
 		jmt_undo_last.setEnabled(true);
 		

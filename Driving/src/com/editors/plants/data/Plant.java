@@ -13,22 +13,33 @@ public class Plant extends CustomData{
 	double trunk_radius=0;
 	double foliage_length=0;
 	double foliage_radius=0;
+		
+	int foliage_meridians=0;
+	int foliage_parallels=0;
+	int foliage_lobes=0;
 
 	public Plant(){}
 
 	public Plant(double trunk_lenght, double trunk_radius,
-			double foliage_length, double foliage_radius) {
+			double foliage_length, double foliage_radius,
+			int foliage_meridians,int foliage_parallels,int foliage_lobes
+			) {
 		super();
 		this.trunk_lenght = trunk_lenght;
 		this.trunk_radius = trunk_radius;
 		this.foliage_length = foliage_length;
 		this.foliage_radius = foliage_radius;
+		
+		this.foliage_meridians = foliage_meridians;
+		this.foliage_parallels = foliage_parallels;
+		this.foliage_lobes = foliage_lobes;
 	}
 
 
 	public Object clone(){
 
-		Plant grid=new Plant(trunk_lenght,trunk_radius,foliage_length,foliage_radius);
+		Plant grid=new Plant(trunk_lenght,trunk_radius,foliage_length,foliage_radius,
+				foliage_meridians,foliage_parallels,foliage_lobes);
 		return grid;
 
 	}
@@ -38,7 +49,8 @@ public class Plant extends CustomData{
 
 	public String toString() {
 
-		return "F="+trunk_lenght+","+trunk_radius+","+foliage_length+","+foliage_radius;
+		return "F="+trunk_lenght+","+trunk_radius+","+foliage_length+","+foliage_radius+","+
+				foliage_meridians+","+foliage_parallels+","+foliage_lobes;
 	}
 
 	public static Plant buildPlant(String str) {
@@ -50,8 +62,13 @@ public class Plant extends CustomData{
 		double trunk_radius = Double.parseDouble(vals[1]);
 		double foliage_length = Double.parseDouble(vals[2]);  
 		double foliage_radius = Double.parseDouble(vals[3]); 
+		int foliageMeridians=Integer.parseInt(vals[4]);
+		int foliageParallels=Integer.parseInt(vals[5]);
+		int foliageLobes=Integer.parseInt(vals[6]);
 
-		Plant grid=new Plant(trunk_lenght,trunk_radius,foliage_length,foliage_radius);
+		Plant grid=new Plant(trunk_lenght,trunk_radius,foliage_length,foliage_radius,
+				foliageMeridians,foliageParallels,foliageLobes
+				);
 
 		return grid;
 	}
@@ -68,22 +85,20 @@ public class Plant extends CustomData{
 
 		Vector polyData=new Vector();
 		
-		int nBase=16;
-		int levels_numer=8;
 		
 		int n=0;
 
 
 		//trunk:
 		
-		BPoint[] uTrunkpoints=new BPoint[nBase];
-		BPoint[] bTrunkpoints=new BPoint[nBase];
+		BPoint[] uTrunkpoints=new BPoint[foliage_meridians];
+		BPoint[] bTrunkpoints=new BPoint[foliage_meridians];
 		
 		
-		for (int i = 0; i < nBase; i++) {
+		for (int i = 0; i < foliage_meridians; i++) {
 			
-			double x=trunk_radius*Math.cos(2*Math.PI/nBase*i);
-			double y=trunk_radius*Math.sin(2*Math.PI/nBase*i);
+			double x=trunk_radius*Math.cos(2*Math.PI/foliage_meridians*i);
+			double y=trunk_radius*Math.sin(2*Math.PI/foliage_meridians*i);
 			
 			uTrunkpoints[i]=new BPoint(x,y,trunk_lenght,n++);
 			points.setElementAt(uTrunkpoints[i],uTrunkpoints[i].getIndex());
@@ -93,7 +108,7 @@ public class Plant extends CustomData{
 
 		LineData topLD=new LineData();
 		
-		for (int i = 0; i < nBase; i++) {
+		for (int i = 0; i < foliage_meridians; i++) {
 			
 			topLD.addIndex(uTrunkpoints[i].getIndex());
 			
@@ -101,10 +116,10 @@ public class Plant extends CustomData{
 		
 		polyData.add(topLD);
 		
-		for (int i = 0; i < nBase; i++) {
+		for (int i = 0; i < foliage_meridians; i++) {
 			
-			double x=trunk_radius*Math.cos(2*Math.PI/nBase*i);
-			double y=trunk_radius*Math.sin(2*Math.PI/nBase*i);
+			double x=trunk_radius*Math.cos(2*Math.PI/foliage_meridians*i);
+			double y=trunk_radius*Math.sin(2*Math.PI/foliage_meridians*i);
 			
 			bTrunkpoints[i]=new BPoint(x,y,0,n++);
 			points.setElementAt(bTrunkpoints[i],bTrunkpoints[i].getIndex());
@@ -114,7 +129,7 @@ public class Plant extends CustomData{
 
 		LineData bottomLD=new LineData();
 		
-		for (int i = nBase-1; i >=0; i--) {
+		for (int i = foliage_meridians-1; i >=0; i--) {
 			
 			bottomLD.addIndex(bTrunkpoints[i].getIndex());
 			
@@ -124,13 +139,13 @@ public class Plant extends CustomData{
 		
 		
 		
-		for (int i = 0; i < nBase; i++) {
+		for (int i = 0; i < foliage_meridians; i++) {
 			
 			LineData sideLD=new LineData();
 			
 			sideLD.addIndex(bTrunkpoints[i].getIndex());
-			sideLD.addIndex(bTrunkpoints[(i+1)%nBase].getIndex());
-			sideLD.addIndex(uTrunkpoints[(i+1)%nBase].getIndex());
+			sideLD.addIndex(bTrunkpoints[(i+1)%foliage_meridians].getIndex());
+			sideLD.addIndex(uTrunkpoints[(i+1)%foliage_meridians].getIndex());
 			sideLD.addIndex(uTrunkpoints[i].getIndex());			
 			polyData.add(sideLD);
 			
@@ -140,19 +155,19 @@ public class Plant extends CustomData{
 		
 	
 		
-		BPoint[][] foliagePoints=new BPoint[levels_numer][nBase];
+		BPoint[][] foliagePoints=new BPoint[foliage_parallels][foliage_meridians];
 		
-		double dzf=foliage_length/(levels_numer-1);
+		double dzf=foliage_length/(foliage_parallels-1);
 		
-		for (int k = 0; k < levels_numer; k++) {
+		for (int k = 0; k < foliage_parallels; k++) {
 			
 			double zf=dzf*k;
 			
-			foliagePoints[k]=new BPoint[nBase];
+			foliagePoints[k]=new BPoint[foliage_meridians];
 			
-			for (int i = 0; i < nBase; i++) {
+			for (int i = 0; i < foliage_meridians; i++) {
 				
-				double teta=2*Math.PI/nBase*i;
+				double teta=2*Math.PI/foliage_meridians*i;
 				
 				double r=ff(zf)*rr(teta);
 				
@@ -169,32 +184,32 @@ public class Plant extends CustomData{
 
 		LineData topFoliage=new LineData();
 		
-		for (int i = 0; i < nBase; i++) {
+		for (int i = 0; i < foliage_meridians; i++) {
 			
-			topFoliage.addIndex(foliagePoints[levels_numer-1][i].getIndex());
+			topFoliage.addIndex(foliagePoints[foliage_parallels-1][i].getIndex());
 			
 		}
 		polyData.add(topFoliage);
 		
 		LineData bottomFoliage=new LineData();
 		
-		for (int i = nBase-1; i>=0; i--) {
+		for (int i = foliage_meridians-1; i>=0; i--) {
 			
 			bottomFoliage.addIndex(foliagePoints[0][i].getIndex());
 			
 		}
 		polyData.add(bottomFoliage);
 		
-		for (int k = 0; k < levels_numer-1; k++) {
+		for (int k = 0; k < foliage_parallels-1; k++) {
 		
 		
-			for (int i = 0; i < nBase; i++) {
+			for (int i = 0; i < foliage_meridians; i++) {
 				
 				LineData sideLD=new LineData();
 				
 				sideLD.addIndex(foliagePoints[k][i].getIndex());
-				sideLD.addIndex(foliagePoints[k][(i+1)%nBase].getIndex());
-				sideLD.addIndex(foliagePoints[k+1][(i+1)%nBase].getIndex());
+				sideLD.addIndex(foliagePoints[k][(i+1)%foliage_meridians].getIndex());
+				sideLD.addIndex(foliagePoints[k+1][(i+1)%foliage_meridians].getIndex());
 				sideLD.addIndex(foliagePoints[k+1][i].getIndex());			
 				polyData.add(sideLD);
 				
@@ -245,7 +260,30 @@ public class Plant extends CustomData{
 		this.foliage_radius = foliage_radius;
 	}
 
-	
+
+	public int getFoliage_meridians() {
+		return foliage_meridians;
+	}
+
+	public void setFoliage_meridians(int foliage_meridians) {
+		this.foliage_meridians = foliage_meridians;
+	}
+
+	public int getFoliage_parallels() {
+		return foliage_parallels;
+	}
+
+	public void setFoliage_parallels(int foliage_parallels) {
+		this.foliage_parallels = foliage_parallels;
+	}
+
+	public int getFoliage_lobes() {
+		return foliage_lobes;
+	}
+
+	public void setFoliage_lobes(int foliage_lobes) {
+		this.foliage_lobes = foliage_lobes;
+	}
 
 	public double ff(double x){
 		
@@ -265,14 +303,14 @@ public class Plant extends CustomData{
 	
 	public double rr(double teta){
 		
-		double n=2.0;
-		double alfa=0.9;
+		double alfa=0.8;
 		
-		double rad=(alfa+(1.0-alfa)*Math.cos(n*teta));
+		double rad=(alfa+(1.0-alfa)*Math.abs(Math.cos(foliage_lobes*teta/2.0)));
 		
 		return rad;
 		
 	}
+
 
 
 
