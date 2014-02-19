@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 
 import com.BPoint;
 import com.LineData;
+import com.Point3D;
+import com.PolygonMesh;
 import com.main.Renderer3D;
 
 public class CustomEditor extends JFrame {
@@ -43,4 +45,6 @@ public class CustomEditor extends JFrame {
 	}
 	
 	public void loadData(File file) {}
+	
+
 }

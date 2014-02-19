@@ -88,4 +88,17 @@ public class CustomData {
 		return ld;
 	}
 	
+
+	public int getFace(LineData ld,Vector points){
+		
+		Point3D[]  aPoints= PolygonMesh.fromVectorToArray(points);
+		
+		Point3D normal = PolygonMesh.getNormal(0,ld,aPoints);	
+		
+		int boxFace=Renderer3D.findBoxFace(normal);
+		
+		return boxFace;
+		
+	}
+	
 }

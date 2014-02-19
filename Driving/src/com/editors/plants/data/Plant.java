@@ -5,6 +5,7 @@ import java.util.Vector;
 import com.BPoint;
 import com.CustomData;
 import com.LineData;
+import com.Point3D;
 import com.PolygonMesh;
 import com.main.Renderer3D;
 
@@ -148,7 +149,7 @@ public class Plant extends CustomData{
 			sideLD.addIndex(bTrunkpoints[(i+1)%foliage_meridians].getIndex());
 			sideLD.addIndex(uTrunkpoints[(i+1)%foliage_meridians].getIndex());
 			sideLD.addIndex(uTrunkpoints[i].getIndex());	
-			sideLD.setData(""+Renderer3D.CAR_RIGHT);
+			sideLD.setData(""+getFace(sideLD,points));
 			polyData.add(sideLD);
 			
 		}
@@ -199,9 +200,10 @@ public class Plant extends CustomData{
 		for (int i = foliage_meridians-1; i>=0; i--) {
 			
 			bottomFoliage.addIndex(foliagePoints[0][i].getIndex());
-			bottomFoliage.setData(""+Renderer3D.CAR_BOTTOM);
+			
 			
 		}
+		bottomFoliage.setData(""+getFace(bottomFoliage,points));
 		polyData.add(bottomFoliage);
 		
 		for (int k = 0; k < foliage_parallels-1; k++) {
@@ -215,7 +217,7 @@ public class Plant extends CustomData{
 				sideLD.addIndex(foliagePoints[k][(i+1)%foliage_meridians].getIndex());
 				sideLD.addIndex(foliagePoints[k+1][(i+1)%foliage_meridians].getIndex());
 				sideLD.addIndex(foliagePoints[k+1][i].getIndex());	
-				sideLD.setData(""+Renderer3D.CAR_RIGHT);
+				sideLD.setData(""+getFace(sideLD,points));
 				polyData.add(sideLD);
 				
 			}
@@ -232,6 +234,10 @@ public class Plant extends CustomData{
 
 
 	}
+	
+	
+	
+
 
 	public double getTrunk_lenght() {
 		return trunk_lenght;
