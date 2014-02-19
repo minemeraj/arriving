@@ -18,7 +18,7 @@ public class PolygonMesh implements Cloneable{
 	public Point3D[] points=null;
 	public Vector <LineData>polygonData=null;
 	public Vector <Point3D>normals=null;
-	public int[] boxFaces=null;
+	public int[] boxFaces=null; 
 
 
 

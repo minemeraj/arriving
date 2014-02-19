@@ -23,7 +23,7 @@ public class PlantsJPanel extends CustomJPanel{
 		
 		drawBasic();
 		
-		if(plant!=null){
+		if(plant!=null){ 
 			
 			
 			buffGraph.setColor(Color.WHITE);

@@ -238,7 +238,7 @@ public class Plant extends CustomData{
 	}
 
 	public void setTrunk_lenght(double trunk_lenght) {
-		this.trunk_lenght = trunk_lenght;
+		this.trunk_lenght = trunk_lenght; 
 	}
 
 	public double getTrunk_radius() {

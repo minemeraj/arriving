@@ -460,7 +460,7 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 			return;
 		
 	
-		PrintWriter pw;
+		PrintWriter pw; 
 		try {
 			Editor editor=new Editor();
 			editor.meshes[0]=plant.buildMesh();
