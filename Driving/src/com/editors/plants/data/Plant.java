@@ -6,6 +6,7 @@ import com.BPoint;
 import com.CustomData;
 import com.LineData;
 import com.PolygonMesh;
+import com.main.Renderer3D;
 
 public class Plant extends CustomData{
 
@@ -113,7 +114,7 @@ public class Plant extends CustomData{
 			topLD.addIndex(uTrunkpoints[i].getIndex());
 			
 		}
-		
+		topLD.setData(""+Renderer3D.CAR_TOP);
 		polyData.add(topLD);
 		
 		for (int i = 0; i < foliage_meridians; i++) {
@@ -134,7 +135,7 @@ public class Plant extends CustomData{
 			bottomLD.addIndex(bTrunkpoints[i].getIndex());
 			
 		}
-		
+		bottomLD.setData(""+Renderer3D.CAR_BOTTOM);
 		polyData.add(bottomLD);
 		
 		
@@ -146,7 +147,8 @@ public class Plant extends CustomData{
 			sideLD.addIndex(bTrunkpoints[i].getIndex());
 			sideLD.addIndex(bTrunkpoints[(i+1)%foliage_meridians].getIndex());
 			sideLD.addIndex(uTrunkpoints[(i+1)%foliage_meridians].getIndex());
-			sideLD.addIndex(uTrunkpoints[i].getIndex());			
+			sideLD.addIndex(uTrunkpoints[i].getIndex());	
+			sideLD.setData(""+Renderer3D.CAR_RIGHT);
 			polyData.add(sideLD);
 			
 		}
@@ -189,6 +191,7 @@ public class Plant extends CustomData{
 			topFoliage.addIndex(foliagePoints[foliage_parallels-1][i].getIndex());
 			
 		}
+		topFoliage.setData(""+Renderer3D.CAR_TOP);
 		polyData.add(topFoliage);
 		
 		LineData bottomFoliage=new LineData();
@@ -196,6 +199,7 @@ public class Plant extends CustomData{
 		for (int i = foliage_meridians-1; i>=0; i--) {
 			
 			bottomFoliage.addIndex(foliagePoints[0][i].getIndex());
+			bottomFoliage.setData(""+Renderer3D.CAR_BOTTOM);
 			
 		}
 		polyData.add(bottomFoliage);
@@ -210,7 +214,8 @@ public class Plant extends CustomData{
 				sideLD.addIndex(foliagePoints[k][i].getIndex());
 				sideLD.addIndex(foliagePoints[k][(i+1)%foliage_meridians].getIndex());
 				sideLD.addIndex(foliagePoints[k+1][(i+1)%foliage_meridians].getIndex());
-				sideLD.addIndex(foliagePoints[k+1][i].getIndex());			
+				sideLD.addIndex(foliagePoints[k+1][i].getIndex());	
+				sideLD.setData(""+Renderer3D.CAR_RIGHT);
 				polyData.add(sideLD);
 				
 			}
