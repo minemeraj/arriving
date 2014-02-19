@@ -91,13 +91,20 @@ public class CustomData {
 
 	public int getFace(LineData ld,Vector points){
 		
-		Point3D[]  aPoints= PolygonMesh.fromVectorToArray(points);
+		int n=ld.size();
 		
-		Point3D normal = PolygonMesh.getNormal(0,ld,aPoints);	
+		Point3D p0=(Point3D)points.elementAt(ld.getIndex((n+0-1)%n));
+		Point3D p1=(Point3D)points.elementAt(ld.getIndex(0));
+		Point3D p2=(Point3D)points.elementAt(ld.getIndex((1+0)%n));
+
+		Point3D normal=Point3D.calculateCrossProduct(p1.substract(p0),p2.substract(p1));
+
+		normal=normal.calculateVersor();
 		
 		int boxFace=Renderer3D.findBoxFace(normal);
-		
 		return boxFace;
+
+		
 		
 	}
 	
