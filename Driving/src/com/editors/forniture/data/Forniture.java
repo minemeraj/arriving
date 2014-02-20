@@ -226,7 +226,7 @@ public class Forniture extends CustomData{
 		n=buildBox(x_side-leg_side,y_side-leg_side,0,points,polyData,n,leg_side,leg_side,leg_length);
 		
 		//sofa back:
-		n=buildBox(0,0,leg_length+z_side,points,polyData,n,x_side,leg_side,leg_length);
+		n=buildBox(0,0,leg_length+z_side,points,polyData,n,x_side,leg_side,back_length);
 		
 		/////////
 

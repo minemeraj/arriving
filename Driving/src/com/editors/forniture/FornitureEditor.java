@@ -220,6 +220,31 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 	}
 	
 
+	private void initRightBedData() {
+		
+		x_side.setText(100);
+		y_side.setText(200);
+		z_side.setText(50);
+		
+		leg_length.setText(50);
+		leg_side.setText(10);
+		back_length.setText(100);
+		
+	}
+
+
+	private void initRightSofaData() {
+		
+		x_side.setText(200);
+		y_side.setText(100);
+		z_side.setText(80);
+		
+		leg_length.setText(70);
+		leg_side.setText(10);
+		back_length.setText(100);
+		
+	}
+
 	public void initRightTableData() {
 		
 
@@ -232,6 +257,18 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 		back_length.setText(100);
 	}
 	
+	private void initRightChairData() {
+		
+		x_side.setText(100);
+		y_side.setText(100);
+		z_side.setText(50);
+		
+		leg_length.setText(100);
+		leg_side.setText(10);
+		back_length.setText(100);
+		
+	}
+
 
 
 	private void initRightWardrobeData() {
@@ -317,6 +354,8 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 	public void initialize() {
 		
 		center.initialize();
+		
+		oldForniture=new Stack();
 	}
 
 	public static void main(String[] args) {
@@ -372,6 +411,8 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 	}
 	
 	public void generate() {
+		
+			prepareUndo();
 			
 			double xside=x_side.getvalue();
 			double yside=y_side.getvalue();
@@ -546,16 +587,19 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 	
 	public void undo() {
 
-		/*if(oldplan.size()>0)
-			plan=(Buildingplan) oldplan.pop();
+		if(oldForniture.size()>0)
+			forniture=(Forniture) oldForniture.pop();
 		
-		if(oldplan.size()==0)
-			jmt_undo_last.setEnabled(false);*/
+		if(oldForniture.size()==0)
+			jmt_undo_last.setEnabled(false);
 		
 		draw();
 	}
 	
 	public void prepareUndo() {
+		
+		if(forniture==null)
+			return;
 		
 		jmt_undo_last.setEnabled(true);
 		
@@ -653,16 +697,20 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 			   if(type==Forniture.FORNITURE_TYPE_TABLE)
 				   initRightTableData();
 			   else if(type==Forniture.FORNITURE_TYPE_CHAIR)
-				   initRightTableData();
+				   initRightChairData();
 			   else if(type==Forniture.FORNITURE_TYPE_SOFA)
-				   initRightTableData();
+				   initRightSofaData();
 			   else if(type==Forniture.FORNITURE_TYPE_BED)
-				   initRightTableData();
+				   initRightBedData();
 			   else if(type==Forniture.FORNITURE_TYPE_WARDROBE)
 				   initRightWardrobeData();			   
 		}
 		
 	}
+
+
+
+
 
 
 }
