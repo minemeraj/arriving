@@ -273,6 +273,8 @@ public class Animal extends CustomData{
 	}
 
 	private PolygonMesh buildHumanMesh() {
+		
+		double q_angle=12*2*Math.PI/360.0;
 
 		Vector points=new Vector();
 		points.setSize(100);
