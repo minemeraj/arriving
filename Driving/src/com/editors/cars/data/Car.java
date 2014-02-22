@@ -29,16 +29,23 @@ public class Car extends CustomData {
     double roof_width=0;
     double roof_length=0;
     double roof_height=0;
+    
+    public static int CAR_TYPE_CAR=0;
+    public static int CAR_TYPE_TRUCK=1;
+    
+    public int car_type=CAR_TYPE_CAR;
 
 	public Car(){}
 
-	public Car( double x_side, double y_side,double z_side,
+	public Car(int car_type, double x_side, double y_side,double z_side,
 			double front_width,double front_length,double front_height,
 			double back_width,double back_length,double back_height,
 			 double roof_width,double roof_length,double roof_height
 			) {
 		super();
 
+		this.car_type = car_type;
+		
 		this.x_side = x_side;
 		this.y_side = y_side;
 		this.z_side = z_side;
@@ -60,6 +67,7 @@ public class Car extends CustomData {
 	public Object clone(){
 
 		Car grid=new Car(
+				car_type,
 				x_side,y_side,z_side,
 				front_width,front_length,front_height,
 				back_width,back_length,back_height,
@@ -71,7 +79,7 @@ public class Car extends CustomData {
 
 	public String toString() {
 
-		return "C="+x_side+","+y_side+","+z_side+","
+		return "C="+car_type+","+x_side+","+y_side+","+z_side+","
 		+front_width+","+front_length+","+front_height+","
 		+back_width+","+back_length+","+back_height+
 		","+roof_width+","+roof_length+","+roof_height;
@@ -82,20 +90,22 @@ public class Car extends CustomData {
 		String[] vals = str.split(",");
 
 
-		double x_side =Double.parseDouble(vals[0]);
-		double y_side = Double.parseDouble(vals[1]);
-		double z_side = Double.parseDouble(vals[2]); 
-		double front_width= Double.parseDouble(vals[3]);
-		double front_length= Double.parseDouble(vals[4]);		
-		double front_height= Double.parseDouble(vals[5]);
-		double back_width= Double.parseDouble(vals[6]);
-		double back_length= Double.parseDouble(vals[7]);		 
-		double back_height= Double.parseDouble(vals[8]); 		
-		double roof_width= Double.parseDouble(vals[9]); 
-		double roof_length= Double.parseDouble(vals[10]); 
-		double roof_height= Double.parseDouble(vals[11]); 
+		int car_type=Integer.parseInt(vals[0]);
+		double x_side =Double.parseDouble(vals[1]);
+		double y_side = Double.parseDouble(vals[2]);
+		double z_side = Double.parseDouble(vals[3]); 
+		double front_width= Double.parseDouble(vals[4]);
+		double front_length= Double.parseDouble(vals[5]);		
+		double front_height= Double.parseDouble(vals[6]);
+		double back_width= Double.parseDouble(vals[7]);
+		double back_length= Double.parseDouble(vals[8]);		 
+		double back_height= Double.parseDouble(vals[9]); 		
+		double roof_width= Double.parseDouble(vals[10]); 
+		double roof_length= Double.parseDouble(vals[11]); 
+		double roof_height= Double.parseDouble(vals[12]); 
 
-		Car grid=new Car(x_side,y_side,z_side,
+		Car grid=new Car(car_type,
+				x_side,y_side,z_side,
 				front_width,front_length,front_height,
 				back_width,back_length,back_height,
 				roof_width,roof_length,roof_height);
@@ -198,11 +208,31 @@ public class Car extends CustomData {
 		this.roof_length = roof_length;
 	}
 
+	public int getCar_type() {
+		return car_type;
+	}
+
+	public void setCar_type(int car_type) {
+		this.car_type = car_type;
+	}
+
 	
 	public PolygonMesh buildMesh(){
 
 
+		if(car_type==CAR_TYPE_CAR)
+			return buildCarMesh();
+		else if(car_type==CAR_TYPE_TRUCK)
+			return buildCarMesh();
+		else
+			return buildCarMesh();
+		
 
+
+	}
+
+	private PolygonMesh buildCarMesh() {
+		
 		Vector points=new Vector();
 		points.setSize(50);
 
@@ -374,9 +404,8 @@ public class Car extends CustomData {
 
 		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
 		return spm;
-
-
 	}
+
 
 
 

@@ -4,6 +4,8 @@ import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseWheelEvent;
@@ -16,6 +18,7 @@ import java.io.PrintWriter;
 import java.util.Stack;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -30,10 +33,11 @@ import javax.swing.event.MenuListener;
 import com.editors.CustomEditor;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
+import com.editors.ValuePair;
 import com.editors.cars.data.Car;
 import com.editors.object.ObjectEditorPreviewPanel;
 
-public class CarsEditor extends CustomEditor implements MenuListener, ActionListener, KeyListener, MouseWheelListener{
+public class CarsEditor extends CustomEditor implements MenuListener, ActionListener, KeyListener, MouseWheelListener, ItemListener{
 	
 	public static int HEIGHT=700;
 	public static int WIDTH=800;
@@ -76,6 +80,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 	int max_stack_size=10;
 	
 	Car car=null;
+	private JComboBox car_type;
 
 	
 	
@@ -151,8 +156,25 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		
 		int column=100;
 		
+		JLabel jlb=new JLabel("Animal type:");
+		jlb.setBounds(5, r, 120, 20);
+		right.add(jlb);
+		
+		car_type=new JComboBox();
+		car_type.setBounds(column, r, 100, 20);
+		car_type.addKeyListener(this);
+		car_type.addItem(new ValuePair("-1",""));
+		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_CAR,"Car"));
+		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_TRUCK,"Truck"));
+		car_type.addItemListener(this);
+		
+		car_type.setSelectedIndex(0);
+		right.add(car_type);
+		
+		r+=30;
+		
 
-		JLabel jlb=new JLabel("Body DX");
+		jlb=new JLabel("Body DX");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
 		x_side=new DoubleTextField();
@@ -286,12 +308,31 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		
 		add(right);
 		
-		initRightData();
+		initRightCarData();
 		
 	}
 	
 
-	public void initRightData() {
+	public void initRightCarData() { 
+		
+	
+		x_side.setText(100);
+		y_side.setText(200);
+		z_side.setText(100);
+		back_width.setText(80);
+		back_length.setText(30);
+		back_height.setText(80);
+		front_width.setText(80);
+		front_length.setText(50);
+		front_height.setText(80);
+		
+		roof_width.setText(80);
+		roof_length.setText(180);
+		roof_height.setText(60);
+	}
+	
+
+	public void initRightTruckData() { 
 		
 	
 		x_side.setText(100);
@@ -310,6 +351,15 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 	}
 	
 	private void setRightData(Car car) {
+		
+		for (int i = 0; i < car_type.getItemCount(); i++) {
+			ValuePair vp= (ValuePair) car_type.getItemAt(i);
+			if(vp.getId().equals(""+car.getCar_type()))
+			{
+				car_type.setSelectedIndex(i);
+				break;
+			}	
+		}
 	
 		x_side.setText(car.getX_side());
 		y_side.setText(car.getY_side());
@@ -412,7 +462,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		}else if(obj==restoreDefault){
 			
 		
-			initRightData();
+			initRightCarData();
 			generate();
 		}
 			
@@ -447,9 +497,16 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 			double roofLength=roof_length.getvalue();
 			double roofHeight=roof_height.getvalue();
 			
+			 ValuePair vp= (ValuePair)car_type.getSelectedItem();
+				
+			 int type=Integer.parseInt(vp.getId());
+			    if(type<0)
+			    	type=Car.CAR_TYPE_CAR;
+			
 			if(car==null){
 				
 				car=new Car(
+						type,
 						xside,yside,zside,
 						frontWidth,frontLength,frontHeight,
 						backWidth,backLength,backHeight,
@@ -458,6 +515,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 			}else{
 				
 				Car expCar =new Car(
+						type,
 						xside,yside,zside,
 						frontWidth,frontLength,frontHeight,
 						backWidth,backLength,backHeight,
@@ -690,6 +748,29 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void itemStateChanged(ItemEvent arg0) {
+		Object obj = arg0.getSource();
+		
+		if(obj==car_type){
+			
+			 ValuePair vp= (ValuePair)car_type.getSelectedItem();
+				
+			 int type=Integer.parseInt(vp.getId());
+			   if(type<0)
+			    	type=Car.CAR_TYPE_CAR;
+			   
+			   if(type==Car.CAR_TYPE_CAR)
+				   initRightCarData();
+			   else 
+				   initRightTruckData();
+			
+		}
+
 		
 	}
 
