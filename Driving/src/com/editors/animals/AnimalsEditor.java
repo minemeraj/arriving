@@ -61,14 +61,22 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	private DoubleTextField y_side;
 	private DoubleTextField z_side;
 	private JComboBox animal_type;
-	private DoubleTextField leg_length;
-	private DoubleTextField leg_side;
+
 	private DoubleTextField head_DZ;
 	private DoubleTextField head_DY;
 	private DoubleTextField head_DX;
+	
 	private DoubleTextField neck_length;
 	private DoubleTextField neck_side;
-	private DoubleTextField arm_length;
+	
+	private DoubleTextField humerus_length;
+	private DoubleTextField radius_length;
+	
+	private DoubleTextField femur_length;
+	private DoubleTextField shinbone_length;
+	private DoubleTextField foot_length;
+	
+	private DoubleTextField leg_side;
 	
 	private JButton generate;
 	
@@ -79,6 +87,8 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	int max_stack_size=10;
 	
 	Animal animal=null;
+	
+	
 	
 
 
@@ -157,8 +167,25 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		
 		int column=100;
 		
+		JLabel jlb=new JLabel("Animal type:");
+		jlb.setBounds(5, r, 120, 20);
+		right.add(jlb);
 
-		JLabel jlb=new JLabel("Body DX");
+		animal_type=new JComboBox();
+		animal_type.setBounds(column, r, 100, 20);
+		animal_type.addKeyListener(this);
+		animal_type.addItem(new ValuePair("-1",""));
+		animal_type.addItem(new ValuePair(""+Animal.ANIMAL_TYPE_QUADRUPED,"Quadruped"));
+		animal_type.addItem(new ValuePair(""+Animal.ANIMAL_TYPE_HUMAN,"Human"));
+		animal_type.addItemListener(this);
+		
+		animal_type.setSelectedIndex(0);
+		right.add(animal_type);
+		
+		r+=30;
+		
+
+		jlb=new JLabel("Body DX");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
 		x_side=new DoubleTextField();
@@ -186,44 +213,8 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		z_side.addKeyListener(this);
 		right.add(z_side);
 		
-		r+=30;
+		r+=30;		
 		
-		jlb=new JLabel("Animal type:");
-		jlb.setBounds(5, r, 120, 20);
-		right.add(jlb);
-
-		animal_type=new JComboBox();
-		animal_type.setBounds(column, r, 100, 20);
-		animal_type.addKeyListener(this);
-		animal_type.addItem(new ValuePair("-1",""));
-		animal_type.addItem(new ValuePair(""+Animal.ANIMAL_TYPE_QUADRUPED,"Quadruped"));
-		animal_type.addItem(new ValuePair(""+Animal.ANIMAL_TYPE_HUMAN,"Human"));
-		animal_type.addItemListener(this);
-		
-		animal_type.setSelectedIndex(0);
-		right.add(animal_type);
-		
-		r+=30;
-		
-		jlb=new JLabel("Leg length");
-		jlb.setBounds(5, r, 100, 20);
-		right.add(jlb);
-		leg_length=new DoubleTextField();
-		leg_length.setBounds(column, r, 100, 20);
-		leg_length.addKeyListener(this);
-		right.add(leg_length);
-		
-		r+=30;
-		
-		jlb=new JLabel("Leg side");
-		jlb.setBounds(5, r, 100, 20);
-		right.add(jlb);
-		leg_side=new DoubleTextField();
-		leg_side.setBounds(column, r, 100, 20);
-		leg_side.addKeyListener(this);
-		right.add(leg_side);
-		
-		r+=30;
 		
 		jlb=new JLabel("Head DZ");
 		jlb.setBounds(5, r, 100, 20);
@@ -275,13 +266,63 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		
 		r+=30;
 		
-		jlb=new JLabel("Arm length");
+		jlb=new JLabel("Humerus length");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
-		arm_length=new DoubleTextField();
-		arm_length.setBounds(column, r, 100, 20);
-		arm_length.addKeyListener(this);
-		right.add(arm_length);
+		humerus_length=new DoubleTextField();
+		humerus_length.setBounds(column, r, 100, 20);
+		humerus_length.addKeyListener(this);
+		right.add(humerus_length);
+		
+		r+=30;
+		
+		jlb=new JLabel("Radius length");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		radius_length=new DoubleTextField(); 
+		radius_length.setBounds(column, r, 100, 20);
+		radius_length.addKeyListener(this);
+		right.add(radius_length);
+		
+		r+=30;
+		
+		jlb=new JLabel("Femur length");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		femur_length=new DoubleTextField();
+		femur_length.setBounds(column, r, 100, 20);
+		femur_length.addKeyListener(this);
+		right.add(femur_length);
+		
+		r+=30;
+		
+		jlb=new JLabel("Shinbone length");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		shinbone_length=new DoubleTextField();
+		shinbone_length.setBounds(column, r, 100, 20);
+		shinbone_length.addKeyListener(this);
+		right.add(shinbone_length);
+		
+		r+=30;
+		
+		jlb=new JLabel("Foot length");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		foot_length=new DoubleTextField();
+		foot_length.setBounds(column, r, 100, 20);
+		foot_length.addKeyListener(this);
+		right.add(foot_length);
+		
+		r+=30;
+		
+		jlb=new JLabel("Leg side");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		leg_side=new DoubleTextField();
+		leg_side.setBounds(column, r, 100, 20);
+		leg_side.addKeyListener(this);
+		right.add(leg_side);
 		
 		r+=30;
 			
@@ -317,14 +358,24 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		x_side.setText(100);
 		y_side.setText(40);
 		z_side.setText(130);
-		leg_length.setText(200);
-		leg_side.setText(20);
-		arm_length.setText(150);
-		neck_length.setText(20);
-		neck_side.setText(40);
+	
+		
 		head_DZ.setText(50);
 		head_DX.setText(50);
 		head_DY.setText(50);
+		
+		neck_length.setText(20);
+		neck_side.setText(40);
+		
+		
+		leg_side.setText(20);
+		humerus_length.setText(100);
+		radius_length.setText(50);
+		
+		femur_length.setText(100);
+		shinbone_length.setText(100);
+		
+		foot_length.setText(30);
 	}
 	
 	public void initRightDataQuadruped() {
@@ -333,30 +384,24 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		x_side.setText(100);
 		y_side.setText(200);
 		z_side.setText(100);
-		leg_length.setText(100);
-		leg_side.setText(20);
-		arm_length.setText(150);
+		
 		neck_length.setText(100);
 		neck_side.setText(50);
 		head_DZ.setText(50);
 		head_DX.setText(80);
 		head_DY.setText(80);
+		
+		femur_length.setText(100);
+		shinbone_length.setText(100);
+		leg_side.setText(20);
+		
+		humerus_length.setText(100);
+		radius_length.setText(100);
+				
+		foot_length.setText(30);
 	}
 	
 	private void setRightData(Animal animal) {
-	
-		x_side.setText(animal.getX_side());
-		y_side.setText(animal.getY_side());
-		z_side.setText(animal.getZ_side());
-		leg_side.setText(animal.getLeg_side());
-		leg_length.setText(animal.getLeg_length());
-		
-		head_DZ.setText(animal.getHead_DZ());
-		head_DX.setText(animal.getHead_DX());
-		head_DY.setText(animal.getHead_DY());
-		neck_length.setText(animal.getNeck_length());
-		neck_side.setText(animal.getNeck_side());
-		arm_length.setText(animal.getArm_length());
 		
 		for (int i = 0; i < animal_type.getItemCount(); i++) {
 			ValuePair vp= (ValuePair) animal_type.getItemAt(i);
@@ -366,6 +411,26 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 				break;
 			}	
 		}
+	
+		x_side.setText(animal.getX_side());
+		y_side.setText(animal.getY_side());
+		z_side.setText(animal.getZ_side());
+		
+		head_DZ.setText(animal.getHead_DZ());
+		head_DX.setText(animal.getHead_DX());
+		head_DY.setText(animal.getHead_DY());
+		neck_length.setText(animal.getNeck_length());
+		neck_side.setText(animal.getNeck_side());
+		
+		leg_side.setText(animal.getLeg_side());
+		femur_length.setText(animal.getFemur_length());
+		shinbone_length.setText(animal.getShinbone_length());
+			
+		humerus_length.setText(animal.getHumerus_length());
+		radius_length.setText(animal.getRadius_length());		
+		foot_length.setText(animal.getFoot_length());
+		
+
 
 	}
 
@@ -473,14 +538,21 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 			double xside=x_side.getvalue();
 			double yside=y_side.getvalue();
 			double zside=z_side.getvalue();
-			double legLength=leg_length.getvalue();
-			double legSide=leg_side.getvalue();
+		
 			double headDZ = head_DZ.getvalue();
 			double headDX = head_DX.getvalue(); 
 			double headDY = head_DY.getvalue(); 
 			double neckLength= neck_length.getvalue();
 			double neckSide= neck_side.getvalue();
-			double armLength = arm_length.getvalue();
+			
+			double humerusLength = humerus_length.getvalue();
+			double radiusLength = radius_length.getvalue();
+			
+			double femurLength=femur_length.getvalue();
+			double shinboneLength=shinbone_length.getvalue();
+			double legSide=leg_side.getvalue();
+			
+			double footLength=foot_length.getvalue();
 			
 			 ValuePair vp= (ValuePair)animal_type.getSelectedItem();
 			
@@ -490,11 +562,17 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 			
 			if(animal==null){
 				
-				animal=new Animal(xside,yside,zside,type,legLength,legSide,headDZ,headDX,headDY,neckLength,neckSide,armLength);
+				animal=new Animal(xside,yside,zside,type,
+						femurLength,shinboneLength,legSide,
+						headDZ,headDX,headDY,neckLength,neckSide,
+						humerusLength,radiusLength,footLength);
 				
 			}else{
 				
-				Animal expAnimal = new Animal(xside,yside,zside,type,legLength,legSide,headDZ,headDX,headDY,neckLength,neckSide,armLength);
+				Animal expAnimal = new Animal(xside,yside,zside,type,
+						femurLength,shinboneLength,legSide,
+						headDZ,headDX,headDY,neckLength,neckSide,
+						humerusLength,radiusLength,footLength);
 				
 				animal=expAnimal;
 			}

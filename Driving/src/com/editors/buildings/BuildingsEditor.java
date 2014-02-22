@@ -233,10 +233,7 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 	}
 
 	private void setRightData(BuildingPlan plan) {
-	
-		x_side.setText(plan.getX_side());
-		y_side.setText(plan.getY_side());
-		z_side.setText(plan.getZ_side());
+
 		
 		for (int i = 0; i < chooseRoof.getItemCount(); i++) {
 			ValuePair vp= (ValuePair) chooseRoof.getItemAt(i);
@@ -246,6 +243,11 @@ public class BuildingsEditor extends CustomEditor implements MenuListener, Mouse
 				break;
 			}	
 		}
+		
+		
+		x_side.setText(plan.getX_side());
+		y_side.setText(plan.getY_side());
+		z_side.setText(plan.getZ_side());
 		
 		roof_top_height.setText(""+plan.getRoof_top_height());
 		roof_top_length.setText(""+plan.getRoof_top_length());

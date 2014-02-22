@@ -285,12 +285,7 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 	
 	private void setRightData(Forniture forniture) {
 
-		x_side.setText(forniture.getX_side());
-		y_side.setText(forniture.getY_side());
-		z_side.setText(forniture.getZ_side());
-		leg_length.setText(forniture.getLeg_length());
-		leg_side.setText(forniture.getLeg_side());
-		back_length.setText(forniture.getBack_length());
+
 		
 		for (int i = 0; i < chooseForniture.getItemCount(); i++) {
 			ValuePair vp= (ValuePair) chooseForniture.getItemAt(i);
@@ -301,6 +296,12 @@ public class FornitureEditor extends CustomEditor implements MenuListener, Actio
 			}	
 		}
 
+		x_side.setText(forniture.getX_side());
+		y_side.setText(forniture.getY_side());
+		z_side.setText(forniture.getZ_side());
+		leg_length.setText(forniture.getLeg_length());
+		leg_side.setText(forniture.getLeg_side());
+		back_length.setText(forniture.getBack_length());
 	}
 
 	
