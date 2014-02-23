@@ -519,14 +519,14 @@ public class Car extends CustomData {
 		double ROOF_DX=(x_side-roof_width)/2.0; 
 		
 		BPoint pRoof000=new BPoint(ROOF_DX,0,z_side,n++);
-		BPoint pRoof100=new BPoint(ROOF_DX+back_width,0,z_side,n++);
-		BPoint pRoof110=new BPoint(ROOF_DX+back_width,back_length,z_side,n++);
-		BPoint pRoof010=new BPoint(ROOF_DX,back_length,z_side,n++);
+		BPoint pRoof100=new BPoint(ROOF_DX+roof_width,0,z_side,n++);
+		BPoint pRoof110=new BPoint(ROOF_DX+roof_width,roof_length,z_side,n++);
+		BPoint pRoof010=new BPoint(ROOF_DX,roof_length,z_side,n++);
 		
-		BPoint pRoof001=new BPoint(ROOF_DX,0,z_side+back_height,n++);	
-		BPoint pRoof101=new BPoint(ROOF_DX+back_width,0,z_side+back_height,n++);
-		BPoint pRoof111=new BPoint(ROOF_DX+back_width,back_length,z_side+back_height,n++);
-		BPoint pRoof011=new BPoint(ROOF_DX,back_length,z_side+back_height,n++);		
+		BPoint pRoof001=new BPoint(ROOF_DX,0,z_side+roof_height,n++);	
+		BPoint pRoof101=new BPoint(ROOF_DX+roof_width,0,z_side+roof_height,n++);
+		BPoint pRoof111=new BPoint(ROOF_DX+roof_width,roof_length,z_side+roof_height,n++);
+		BPoint pRoof011=new BPoint(ROOF_DX,roof_length,z_side+roof_height,n++);		
 		
 
 		points.setElementAt(pRoof000,pRoof000.getIndex());
