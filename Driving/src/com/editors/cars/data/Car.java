@@ -514,50 +514,50 @@ public class Car extends CustomData {
 		polyData.add(frontLD);		
 		
 		
-		//back:
+		//roof:
 		
-		double BACK_DX=(x_side-back_width)/2.0;
+		double ROOF_DX=(x_side-roof_width)/2.0; 
 		
-		BPoint pBack000=new BPoint(BACK_DX,0,z_side,n++);
-		BPoint pBack100=new BPoint(BACK_DX+back_width,0,z_side,n++);
-		BPoint pBack110=new BPoint(BACK_DX+back_width,back_length,z_side,n++);
-		BPoint pBack010=new BPoint(BACK_DX,back_length,z_side,n++);
+		BPoint pRoof000=new BPoint(ROOF_DX,0,z_side,n++);
+		BPoint pRoof100=new BPoint(ROOF_DX+back_width,0,z_side,n++);
+		BPoint pRoof110=new BPoint(ROOF_DX+back_width,back_length,z_side,n++);
+		BPoint pRoof010=new BPoint(ROOF_DX,back_length,z_side,n++);
 		
-		BPoint pBack001=new BPoint(BACK_DX,0,z_side+back_height,n++);	
-		BPoint pBack101=new BPoint(BACK_DX+back_width,0,z_side+back_height,n++);
-		BPoint pBack111=new BPoint(BACK_DX+back_width,back_length,z_side+back_height,n++);
-		BPoint pBack011=new BPoint(BACK_DX,back_length,z_side+back_height,n++);		
+		BPoint pRoof001=new BPoint(ROOF_DX,0,z_side+back_height,n++);	
+		BPoint pRoof101=new BPoint(ROOF_DX+back_width,0,z_side+back_height,n++);
+		BPoint pRoof111=new BPoint(ROOF_DX+back_width,back_length,z_side+back_height,n++);
+		BPoint pRoof011=new BPoint(ROOF_DX,back_length,z_side+back_height,n++);		
 		
 
-		points.setElementAt(pBack000,pBack000.getIndex());
-		points.setElementAt(pBack100,pBack100.getIndex());
-		points.setElementAt(pBack010,pBack010.getIndex());
-		points.setElementAt(pBack001,pBack001.getIndex());
-		points.setElementAt(pBack110,pBack110.getIndex());
-		points.setElementAt(pBack011,pBack011.getIndex());
-		points.setElementAt(pBack101,pBack101.getIndex());
-		points.setElementAt(pBack111,pBack111.getIndex());
+		points.setElementAt(pRoof000,pRoof000.getIndex());
+		points.setElementAt(pRoof100,pRoof100.getIndex());
+		points.setElementAt(pRoof010,pRoof010.getIndex());
+		points.setElementAt(pRoof001,pRoof001.getIndex());
+		points.setElementAt(pRoof110,pRoof110.getIndex());
+		points.setElementAt(pRoof011,pRoof011.getIndex());
+		points.setElementAt(pRoof101,pRoof101.getIndex());
+		points.setElementAt(pRoof111,pRoof111.getIndex());
 
 
-		LineData topBackLD=buildLine(pBack001,pBack101,pBack111,pBack011,Renderer3D.CAR_TOP);
-		polyData.add(topBackLD);
+		LineData topRoofLD=buildLine(pRoof001,pRoof101,pRoof111,pRoof011,Renderer3D.CAR_TOP);
+		polyData.add(topRoofLD);
 
 
-		LineData bottomBackLD=buildLine(pBack000,pBack010,pBack110,pBack100,Renderer3D.CAR_BOTTOM);
-		polyData.add(bottomBackLD);
+		LineData bottomRoofLD=buildLine(pRoof000,pRoof010,pRoof110,pRoof100,Renderer3D.CAR_BOTTOM);
+		polyData.add(bottomRoofLD);
 
-		LineData leftBackLD=buildLine(pBack000,pBack001,pBack011,pBack010,Renderer3D.CAR_LEFT);
-		polyData.add(leftBackLD);
+		LineData leftRoofLD=buildLine(pRoof000,pRoof001,pRoof011,pRoof010,Renderer3D.CAR_LEFT);
+		polyData.add(leftRoofLD);
 
 
-		LineData rightBackLD=buildLine(pBack100,pBack110,pBack111,pBack101,Renderer3D.CAR_RIGHT);
-		polyData.add(rightBackLD);
+		LineData rightRoofLD=buildLine(pRoof100,pRoof110,pRoof111,pRoof101,Renderer3D.CAR_RIGHT);
+		polyData.add(rightRoofLD);
 
-		LineData backBackLD=buildLine(pBack000,pBack100,pBack101,pBack001,Renderer3D.CAR_BACK);
-		polyData.add(backBackLD);
+		LineData backRoofLD=buildLine(pRoof000,pRoof100,pRoof101,pRoof001,Renderer3D.CAR_BACK);
+		polyData.add(backRoofLD);
 
-		LineData frontBackLD=buildLine(pBack010,pBack011,pBack111,pBack110,Renderer3D.CAR_FRONT);
-		polyData.add(frontBackLD);
+		LineData frontRoofLD=buildLine(pRoof010,pRoof011,pRoof111,pRoof110,Renderer3D.CAR_FRONT);
+		polyData.add(frontRoofLD);
 		
 		/////////
 		
