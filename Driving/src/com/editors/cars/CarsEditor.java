@@ -58,6 +58,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 	private JMenuItem jmt_undo_last;
 	private JMenuItem jmt_save_mesh;
 
+	private JComboBox car_type;
 	private DoubleTextField x_side;
 	private DoubleTextField y_side;
 	private DoubleTextField z_side;
@@ -80,7 +81,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 	int max_stack_size=10;
 	
 	Car car=null;
-	private JComboBox car_type;
+	
 
 	
 	
@@ -337,11 +338,13 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 	
 		x_side.setText(100);
 		y_side.setText(200);
-		z_side.setText(100);
-		back_width.setText(80);
-		back_length.setText(30);
-		back_height.setText(80);
-		front_width.setText(80);
+		z_side.setText(50);
+		
+		back_width.setText(120);
+		back_length.setText(150);
+		back_height.setText(100);
+		
+		front_width.setText(120);
 		front_length.setText(50);
 		front_height.setText(80);
 		
