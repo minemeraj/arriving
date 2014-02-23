@@ -337,7 +337,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		
 	
 		x_side.setText(100);
-		y_side.setText(200);
+		y_side.setText(150);
 		z_side.setText(50);
 		
 		back_width.setText(120);
@@ -346,7 +346,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		
 		front_width.setText(120);
 		front_length.setText(50);
-		front_height.setText(80);
+		front_height.setText(130);
 		
 		roof_width.setText(120);
 		roof_length.setText(150);

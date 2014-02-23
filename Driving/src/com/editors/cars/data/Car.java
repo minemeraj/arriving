@@ -428,15 +428,15 @@ public class Car extends CustomData {
 		
 		double FRONT_DX=(x_side-front_width)/2.0;
 		
-		BPoint pFront000=new BPoint(FRONT_DX,back_length,z_side,n++);
-		BPoint pFront100=new BPoint(FRONT_DX+front_width,back_length,z_side,n++);
-		BPoint pFront110=new BPoint(FRONT_DX+front_width,back_length+front_length,z_side,n++);
-		BPoint pFront010=new BPoint(FRONT_DX,back_length+front_length,z_side,n++);
+		BPoint pFront000=new BPoint(FRONT_DX,back_length,0,n++);
+		BPoint pFront100=new BPoint(FRONT_DX+front_width,back_length,0,n++);
+		BPoint pFront110=new BPoint(FRONT_DX+front_width,back_length+front_length,0,n++);
+		BPoint pFront010=new BPoint(FRONT_DX,back_length+front_length,0,n++);
 		
-		BPoint pFront001=new BPoint(FRONT_DX,back_length,z_side+front_height,n++);	
-		BPoint pFront101=new BPoint(FRONT_DX+front_width,back_length,z_side+front_height,n++);
-		BPoint pFront111=new BPoint(FRONT_DX+front_width,back_length+front_length,z_side+front_height,n++);
-		BPoint pFront011=new BPoint(FRONT_DX,back_length+front_length,z_side+front_height,n++);		
+		BPoint pFront001=new BPoint(FRONT_DX,back_length,front_height,n++);	
+		BPoint pFront101=new BPoint(FRONT_DX+front_width,back_length,front_height,n++);
+		BPoint pFront111=new BPoint(FRONT_DX+front_width,back_length+front_length,front_height,n++);
+		BPoint pFront011=new BPoint(FRONT_DX,back_length+front_length,front_height,n++);		
 		
 
 		points.setElementAt(pFront000,pFront000.getIndex());
