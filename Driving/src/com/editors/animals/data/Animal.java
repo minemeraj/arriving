@@ -375,17 +375,25 @@ public class Animal extends CustomData{
 		
 		//neck:
 
-		double nx=(x_side-neck_side)/2.0;
+		double nx0=(x_side-neck_side*2)/2.0;
+		double nx1=(x_side-neck_side)/2.0;
+		double nz=femur_length+shinbone_length+z_side;
 
-		BPoint neck000=new BPoint(nx,0,femur_length+shinbone_length+z_side,n++);
-		BPoint neck100=new BPoint(nx+neck_side,0,femur_length+shinbone_length+z_side,n++);
-		BPoint neck010=new BPoint(nx,y_side,femur_length+shinbone_length+z_side,n++);
-		BPoint neck110=new BPoint(nx+neck_side,y_side,femur_length+shinbone_length+z_side,n++);
+		BPoint neck000=new BPoint(nx0,0,nz,n++);
+		BPoint neck100=new BPoint(nx0+neck_side*2,0,nz,n++);
+		BPoint neck010=new BPoint(nx0,y_side,nz,n++);
+		BPoint neck110=new BPoint(nx0+neck_side*2,y_side,nz,n++);
 
-		BPoint neck011=new BPoint(nx,y_side,femur_length+shinbone_length+z_side+neck_length,n++);
-		BPoint neck101=new BPoint(nx+neck_side,0,femur_length+shinbone_length+z_side+neck_length,n++);
-		BPoint neck111=new BPoint(nx+neck_side,y_side,femur_length+shinbone_length+z_side+neck_length,n++);
-		BPoint neck001=new BPoint(nx,0,femur_length+shinbone_length+z_side+neck_length,n++);
+		BPoint neck011=new BPoint(nx1,y_side,nz+neck_length/2.0,n++);
+		BPoint neck101=new BPoint(nx1+neck_side,0,nz+neck_length/2.0,n++);
+		BPoint neck111=new BPoint(nx1+neck_side,y_side,nz+neck_length/2.0,n++);
+		BPoint neck001=new BPoint(nx1,0,nz+neck_length/2.0,n++);
+		
+
+		BPoint neck012=new BPoint(nx1,y_side,nz+neck_length,n++);
+		BPoint neck102=new BPoint(nx1+neck_side,0,nz+neck_length,n++);
+		BPoint neck112=new BPoint(nx1+neck_side,y_side,nz+neck_length,n++);
+		BPoint neck002=new BPoint(nx1,0,nz+neck_length,n++);
 
 		points.setElementAt(neck000,neck000.getIndex());
 		points.setElementAt(neck100,neck100.getIndex());
@@ -394,11 +402,15 @@ public class Animal extends CustomData{
 		points.setElementAt(neck110,neck110.getIndex());
 		points.setElementAt(neck011,neck011.getIndex());
 		points.setElementAt(neck101,neck101.getIndex());
-		points.setElementAt(neck111,neck111.getIndex());
+		points.setElementAt(neck111,neck111.getIndex());		
+		points.setElementAt(neck012,neck012.getIndex());
+		points.setElementAt(neck102,neck102.getIndex());
+		points.setElementAt(neck112,neck112.getIndex());
+		points.setElementAt(neck002,neck002.getIndex());
 
 
-		LineData topneckLD=buildLine(neck001,neck101,neck111,neck011,Renderer3D.CAR_TOP);
-		polyData.add(topneckLD);
+		//LineData topneckLD=buildLine(neck001,neck101,neck111,neck011,Renderer3D.CAR_TOP);
+		//polyData.add(topneckLD);
 
 		LineData bottomneckLD=buildLine(neck000,neck010,neck110,neck100,Renderer3D.CAR_BOTTOM);
 		polyData.add(bottomneckLD);
@@ -416,6 +428,29 @@ public class Animal extends CustomData{
 
 		LineData frontneckLD=buildLine(neck010,neck011,neck111,neck110,Renderer3D.CAR_FRONT);
 		polyData.add(frontneckLD);
+		
+		
+		
+		
+		LineData topneck1LD=buildLine(neck002,neck102,neck112,neck012,Renderer3D.CAR_TOP);
+		polyData.add(topneck1LD);
+
+		//LineData bottomneck1LD=buildLine(neck001,neck011,neck111,neck101,Renderer3D.CAR_BOTTOM);
+		//polyData.add(bottomneck1LD);
+
+		LineData leftneck1LD=buildLine(neck001,neck002,neck012,neck011,Renderer3D.CAR_LEFT);
+		polyData.add(leftneck1LD);
+
+
+		LineData rightneck1LD=buildLine(neck101,neck111,neck112,neck102,Renderer3D.CAR_RIGHT);
+		polyData.add(rightneck1LD);
+
+
+		LineData backneck1LD=buildLine(neck001,neck101,neck102,neck002,Renderer3D.CAR_BACK);
+		polyData.add(backneck1LD);
+
+		LineData frontneck1LD=buildLine(neck011,neck012,neck112,neck111,Renderer3D.CAR_FRONT);
+		polyData.add(frontneck1LD);
 
 		//legs:	
 		
