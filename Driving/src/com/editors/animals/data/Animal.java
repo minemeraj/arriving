@@ -277,7 +277,7 @@ public class Animal extends CustomData{
 		double q_angle=12*2*Math.PI/360.0;
 
 		Vector points=new Vector();
-		points.setSize(100);
+		points.setSize(200);
 
 		Vector polyData=new Vector();
 
@@ -287,41 +287,116 @@ public class Animal extends CustomData{
 		//body:
 		
 		double bz0=femur_length+shinbone_length;
-		double bz1=femur_length+shinbone_length+z_side;
+		double bz1=femur_length+shinbone_length+z_side/4.0;
+		double bz2=femur_length+shinbone_length+z_side/2.0;
+		double bz3=femur_length+shinbone_length+z_side*3.0/4.0;
+		double bz4=femur_length+shinbone_length+z_side;
+		
+		BPoint[][][] body=new BPoint[2][2][5];
 
-		BPoint body000=new BPoint(0,0,bz0,n++);
-		BPoint body100=new BPoint(x_side,0,bz0,n++);
-		BPoint body010=new BPoint(0,y_side,bz0,n++);
-		BPoint body110=new BPoint(x_side,y_side,bz0,n++);
+		body[0][0][0]=new BPoint(0,0,bz0,n++);
+		body[1][0][0]=new BPoint(x_side,0,bz0,n++);
+		body[0][1][0]=new BPoint(0,y_side,bz0,n++);
+		body[1][1][0]=new BPoint(x_side,y_side,bz0,n++);
 
-		BPoint body011=new BPoint(0,y_side,bz1,n++);
-		BPoint body101=new BPoint(x_side,0,bz1,n++);
-		BPoint body111=new BPoint(x_side,y_side,bz1,n++);
-		BPoint body001=new BPoint(0,0,bz1,n++);
+		body[0][1][1]=new BPoint(0,y_side,bz1,n++);
+		body[1][0][1]=new BPoint(x_side,0,bz1,n++);
+		body[1][1][1]=new BPoint(x_side,y_side,bz1,n++);
+		body[0][0][1]=new BPoint(0,0,bz1,n++);
+		
+		body[0][1][2]=new BPoint(0,y_side,bz2,n++);
+		body[1][0][2]=new BPoint(x_side,0,bz2,n++);
+		body[1][1][2]=new BPoint(x_side,y_side,bz2,n++);
+		body[0][0][2]=new BPoint(0,0,bz2,n++);
+		
+		body[0][1][3]=new BPoint(0,y_side,bz3,n++);
+		body[1][0][3]=new BPoint(x_side,0,bz3,n++);
+		body[1][1][3]=new BPoint(x_side,y_side,bz3,n++);
+		body[0][0][3]=new BPoint(0,0,bz3,n++);
+		
+		body[0][1][4]=new BPoint(0,y_side,bz4,n++);
+		body[1][0][4]=new BPoint(x_side,0,bz4,n++);
+		body[1][1][4]=new BPoint(x_side,y_side,bz4,n++);
+		body[0][0][4]=new BPoint(0,0,bz4,n++);
 
-		points.setElementAt(body000,body000.getIndex());
-		points.setElementAt(body100,body100.getIndex());
-		points.setElementAt(body010,body010.getIndex());
-		points.setElementAt(body001,body001.getIndex());
-		points.setElementAt(body110,body110.getIndex());
-		points.setElementAt(body011,body011.getIndex());
-		points.setElementAt(body101,body101.getIndex());
-		points.setElementAt(body111,body111.getIndex());
+		points.setElementAt(body[0][0][0],body[0][0][0].getIndex());
+		points.setElementAt(body[1][0][0],body[1][0][0].getIndex());
+		points.setElementAt(body[0][1][0],body[0][1][0].getIndex());
+		points.setElementAt(body[1][1][0],body[1][1][0].getIndex());
+		points.setElementAt(body[0][0][1],body[0][0][1].getIndex());		
+		points.setElementAt(body[0][1][1],body[0][1][1].getIndex());
+		points.setElementAt(body[1][0][1],body[1][0][1].getIndex());
+		points.setElementAt(body[1][1][1],body[1][1][1].getIndex());
+		points.setElementAt(body[0][0][2],body[0][0][2].getIndex());		
+		points.setElementAt(body[0][1][2],body[0][1][2].getIndex());
+		points.setElementAt(body[1][0][2],body[1][0][2].getIndex());
+		points.setElementAt(body[1][1][2],body[1][1][2].getIndex());
+		points.setElementAt(body[0][0][3],body[0][0][3].getIndex());		
+		points.setElementAt(body[0][1][3],body[0][1][3].getIndex());
+		points.setElementAt(body[1][0][3],body[1][0][3].getIndex());
+		points.setElementAt(body[1][1][3],body[1][1][3].getIndex());
+		points.setElementAt(body[0][0][4],body[0][0][4].getIndex());		
+		points.setElementAt(body[0][1][4],body[0][1][4].getIndex());
+		points.setElementAt(body[1][0][4],body[1][0][4].getIndex());
+		points.setElementAt(body[1][1][4],body[1][1][4].getIndex());
 
 
-		addLine(polyData,body001,body101,body111,body011,Renderer3D.CAR_TOP);
 
-		addLine(polyData,body000,body010,body110,body100,Renderer3D.CAR_BOTTOM);
+		//addLine(polyData,body[0][0][1],body[1][0][1],body[1][1][1],body[0][1][1],Renderer3D.CAR_TOP);
 
-		addLine(polyData,body000,body001,body011,body010,Renderer3D.CAR_LEFT);
+		addLine(polyData,body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0],Renderer3D.CAR_BOTTOM);
 
-		addLine(polyData,body100,body110,body111,body101,Renderer3D.CAR_RIGHT);
+		addLine(polyData,body[0][0][0],body[0][0][1],body[0][1][1],body[0][1][0],Renderer3D.CAR_LEFT);
 
-		addLine(polyData,body000,body100,body101,body001,Renderer3D.CAR_BACK);
+		addLine(polyData,body[1][0][0],body[1][1][0],body[1][1][1],body[1][0][1],Renderer3D.CAR_RIGHT);
 
-		addLine(polyData,body010,body011,body111,body110,Renderer3D.CAR_FRONT);
+		addLine(polyData,body[0][0][0],body[1][0][0],body[1][0][1],body[0][0][1],Renderer3D.CAR_BACK);
+
+		addLine(polyData,body[0][1][0],body[0][1][1],body[1][1][1],body[1][1][0],Renderer3D.CAR_FRONT);
+		
+	
+		
+		//addLine(polyData,body[0][0][2],body[1][0][2],body[1][1][2],body[0][1][2],Renderer3D.CAR_TOP);
+
+		//addLine(polyData,body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0],Renderer3D.CAR_BOTTOM);
+
+		addLine(polyData,body[0][0][1],body[0][0][2],body[0][1][2],body[0][1][1],Renderer3D.CAR_LEFT);
+
+		addLine(polyData,body[1][0][1],body[1][1][1],body[1][1][2],body[1][0][2],Renderer3D.CAR_RIGHT);
+
+		addLine(polyData,body[0][0][1],body[1][0][1],body[1][0][2],body[0][0][2],Renderer3D.CAR_BACK);
+
+		addLine(polyData,body[0][1][1],body[0][1][2],body[1][1][2],body[1][1][1],Renderer3D.CAR_FRONT);
+		
+		
+		//addLine(polyData,body[0][0][2],body[1][0][2],body[1][1][2],body[0][1][2],Renderer3D.CAR_TOP);
+
+		//addLine(polyData,body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0],Renderer3D.CAR_BOTTOM);
+
+		addLine(polyData,body[0][0][2],body[0][0][3],body[0][1][3],body[0][1][2],Renderer3D.CAR_LEFT);
+
+		addLine(polyData,body[1][0][2],body[1][1][2],body[1][1][3],body[1][0][3],Renderer3D.CAR_RIGHT);
+
+		addLine(polyData,body[0][0][2],body[1][0][2],body[1][0][3],body[0][0][3],Renderer3D.CAR_BACK);
+
+		addLine(polyData,body[0][1][2],body[0][1][3],body[1][1][3],body[1][1][2],Renderer3D.CAR_FRONT);
+		
+		
+		
+		addLine(polyData,body[0][0][4],body[1][0][4],body[1][1][4],body[0][1][4],Renderer3D.CAR_TOP);
+
+		//addLine(polyData,body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0],Renderer3D.CAR_BOTTOM);
+
+		addLine(polyData,body[0][0][3],body[0][0][4],body[0][1][4],body[0][1][3],Renderer3D.CAR_LEFT);
+
+		addLine(polyData,body[1][0][3],body[1][1][3],body[1][1][4],body[1][0][4],Renderer3D.CAR_RIGHT);
+
+		addLine(polyData,body[0][0][3],body[1][0][3],body[1][0][4],body[0][0][4],Renderer3D.CAR_BACK);
+
+		addLine(polyData,body[0][1][3],body[0][1][4],body[1][1][4],body[1][1][3],Renderer3D.CAR_FRONT);
 
 
+		///////////
 		//head:
 		
 		
@@ -794,44 +869,46 @@ public class Animal extends CustomData{
 		
 		double bz0=femur_length+shinbone_length;
 		double bz1=femur_length+shinbone_length+z_side;
+		
+		BPoint[][][] body=new BPoint[2][2][2]; 
 
-		BPoint p000=new BPoint(0,0,bz0,n++);
-		BPoint p100=new BPoint(x_side,0,bz0,n++);
-		BPoint p010=new BPoint(0,y_side,bz0,n++);
-		BPoint p001=new BPoint(0,0,bz1,n++);
-		BPoint p110=new BPoint(x_side,y_side,bz0,n++);
-		BPoint p011=new BPoint(0,y_side,bz1,n++);
-		BPoint p101=new BPoint(x_side,0,bz1,n++);
-		BPoint p111=new BPoint(x_side,y_side,bz1,n++);
+		body[0][0][0]=new BPoint(0,0,bz0,n++);
+		body[1][0][0]=new BPoint(x_side,0,bz0,n++);
+		body[0][1][0]=new BPoint(0,y_side,bz0,n++);
+		body[0][0][1]=new BPoint(0,0,bz1,n++);
+		body[1][1][0]=new BPoint(x_side,y_side,bz0,n++);
+		body[0][1][1]=new BPoint(0,y_side,bz1,n++);
+		body[1][0][1]=new BPoint(x_side,0,bz1,n++);
+		body[1][1][1]=new BPoint(x_side,y_side,bz1,n++);
 
-		points.setElementAt(p000,p000.getIndex());
-		points.setElementAt(p100,p100.getIndex());
-		points.setElementAt(p010,p010.getIndex());
-		points.setElementAt(p001,p001.getIndex());
-		points.setElementAt(p110,p110.getIndex());
-		points.setElementAt(p011,p011.getIndex());
-		points.setElementAt(p101,p101.getIndex());
-		points.setElementAt(p111,p111.getIndex());
+		points.setElementAt(body[0][0][0],body[0][0][0].getIndex());
+		points.setElementAt(body[1][0][0],body[1][0][0].getIndex());
+		points.setElementAt(body[0][1][0],body[0][1][0].getIndex());
+		points.setElementAt(body[0][0][1],body[0][0][1].getIndex());
+		points.setElementAt(body[1][1][0],body[1][1][0].getIndex());
+		points.setElementAt(body[0][1][1],body[0][1][1].getIndex());
+		points.setElementAt(body[1][0][1],body[1][0][1].getIndex());
+		points.setElementAt(body[1][1][1],body[1][1][1].getIndex());
 
 
-		LineData topLD=buildLine(p001,p101,p111,p011,Renderer3D.CAR_TOP);
+		LineData topLD=buildLine(body[0][0][1],body[1][0][1],body[1][1][1],body[0][1][1],Renderer3D.CAR_TOP);
 		polyData.add(topLD);
 		
-		LineData bottomLD=buildLine(p000,p010,p110,p100,Renderer3D.CAR_BOTTOM);
+		LineData bottomLD=buildLine(body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0],Renderer3D.CAR_BOTTOM);
 		polyData.add(bottomLD);
 
-		LineData leftLD=buildLine(p000,p001,p011,p010,Renderer3D.CAR_LEFT);
+		LineData leftLD=buildLine(body[0][0][0],body[0][0][1],body[0][1][1],body[0][1][0],Renderer3D.CAR_LEFT);
 		polyData.add(leftLD);
 
 
-		LineData rightLD=buildLine(p100,p110,p111,p101,Renderer3D.CAR_RIGHT);
+		LineData rightLD=buildLine(body[1][0][0],body[1][1][0],body[1][1][1],body[1][0][1],Renderer3D.CAR_RIGHT);
 		polyData.add(rightLD);
 
 
-		LineData backLD=buildLine(p000,p100,p101,p001,Renderer3D.CAR_BACK);
+		LineData backLD=buildLine(body[0][0][0],body[1][0][0],body[1][0][1],body[0][0][1],Renderer3D.CAR_BACK);
 		polyData.add(backLD);
 
-		LineData frontLD=buildLine(p010,p011,p111,p110,Renderer3D.CAR_FRONT);
+		LineData frontLD=buildLine(body[0][1][0],body[0][1][1],body[1][1][1],body[1][1][0],Renderer3D.CAR_FRONT);
 		polyData.add(frontLD);
 		
 		//head:
