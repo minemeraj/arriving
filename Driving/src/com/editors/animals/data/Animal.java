@@ -770,10 +770,6 @@ public class Animal extends CustomData{
 		points.setElementAt(pFrontLeftSho110,pFrontLeftSho110.getIndex());
 		points.setElementAt(pFrontLeftSho010,pFrontLeftSho010.getIndex());
 		
-		LineData FrontLeftSho=buildLine(pFrontLeftSho000,pFrontLeftSho010,pFrontLeftSho110,pFrontLeftSho100,Renderer3D.CAR_BOTTOM);
-		polyData.add(FrontLeftSho);
-
-		
 		BPoint pFrontLeftSho001=new BPoint(-sx,ay,sz1,n++);
 		BPoint pFrontLeftSho101=new BPoint(-sx+leg_side,ay,sz1,n++);
 		BPoint pFrontLeftSho111=new BPoint(-sx+leg_side,ay+leg_side,sz1,n++);
@@ -784,7 +780,10 @@ public class Animal extends CustomData{
 		points.setElementAt(pFrontLeftSho111,pFrontLeftSho111.getIndex());
 		points.setElementAt(pFrontLeftSho011,pFrontLeftSho011.getIndex());
 		
-		LineData TopLeftSho=buildLine(pFrontLeftSho001,pFrontLeftSho101,pFrontLeftSho111,pFrontLeftSho011,Renderer3D.CAR_BOTTOM);
+		LineData FrontLeftSho=buildLine(pFrontLeftSho000,pFrontLeftSho010,pFrontLeftSho110,pFrontLeftSho100,Renderer3D.CAR_BOTTOM);
+		polyData.add(FrontLeftSho);
+		
+		LineData TopLeftSho=buildLine(pFrontLeftSho001,pFrontLeftSho101,pFrontLeftSho111,pFrontLeftSho011,Renderer3D.CAR_TOP);
 		polyData.add(TopLeftSho);
 		
 		LineData FrontLeftShoS0=buildLine(pFrontLeftSho000,pFrontLeftSho001,pFrontLeftSho011,pFrontLeftSho010,Renderer3D.CAR_LEFT);
@@ -808,10 +807,6 @@ public class Animal extends CustomData{
 		points.setElementAt(pFrontRightSho110,pFrontRightSho110.getIndex());
 		points.setElementAt(pFrontRightSho010,pFrontRightSho010.getIndex());
 		
-		LineData FrontRightSho=buildLine(pFrontRightSho000,pFrontRightSho010,pFrontRightSho110,pFrontRightSho100,Renderer3D.CAR_BOTTOM);
-		polyData.add(FrontRightSho);
-
-		
 		BPoint pFrontRightSho001=new BPoint(sx+x_side-leg_side,ay,sz1,n++);
 		BPoint pFrontRightSho101=new BPoint(sx+x_side,ay,sz1,n++);
 		BPoint pFrontRightSho111=new BPoint(sx+x_side,ay+leg_side,sz1,n++);
@@ -821,6 +816,9 @@ public class Animal extends CustomData{
 		points.setElementAt(pFrontRightSho101,pFrontRightSho101.getIndex());
 		points.setElementAt(pFrontRightSho111,pFrontRightSho111.getIndex());
 		points.setElementAt(pFrontRightSho011,pFrontRightSho011.getIndex());
+		
+		LineData FrontRightSho=buildLine(pFrontRightSho000,pFrontRightSho010,pFrontRightSho110,pFrontRightSho100,Renderer3D.CAR_BOTTOM);
+		polyData.add(FrontRightSho);
 		
 		LineData topRightSho=buildLine(pFrontRightSho001,pFrontRightSho101,pFrontRightSho111,pFrontRightSho011,Renderer3D.CAR_TOP);
 		polyData.add(topRightSho);
@@ -990,25 +988,17 @@ public class Animal extends CustomData{
 		points.setElementAt(head111,head111.getIndex());
 
 
-		LineData topHeadLD=buildLine(head001,head101,head111,head011,Renderer3D.CAR_TOP);
-		polyData.add(topHeadLD);
+		addLine(polyData,head001,head101,head111,head011,Renderer3D.CAR_TOP);
 
-		LineData bottomHeadLD=buildLine(head000,head010,head110,head100,Renderer3D.CAR_BOTTOM);
-		polyData.add(bottomHeadLD);
+		addLine(polyData,head000,head010,head110,head100,Renderer3D.CAR_BOTTOM);
 
-		LineData leftHeadLD=buildLine(head000,head001,head011,head010,Renderer3D.CAR_LEFT);
-		polyData.add(leftHeadLD);
+		addLine(polyData,head000,head001,head011,head010,Renderer3D.CAR_LEFT);
 
+		addLine(polyData,head100,head110,head111,head101,Renderer3D.CAR_RIGHT);
 
-		LineData rightHeadLD=buildLine(head100,head110,head111,head101,Renderer3D.CAR_RIGHT);
-		polyData.add(rightHeadLD);
+		addLine(polyData,head000,head100,head101,head001,Renderer3D.CAR_BACK);
 
-
-		LineData backHeadLD=buildLine(head000,head100,head101,head001,Renderer3D.CAR_BACK);
-		polyData.add(backHeadLD);
-
-		LineData frontHeadLD=buildLine(head010,head011,head111,head110,Renderer3D.CAR_FRONT);
-		polyData.add(frontHeadLD);
+		addLine(polyData,head010,head011,head111,head110,Renderer3D.CAR_FRONT);
 		
 		//neck:
 		
@@ -1037,26 +1027,18 @@ public class Animal extends CustomData{
 		points.setElementAt(neck101,neck101.getIndex());
 		points.setElementAt(neck111,neck111.getIndex());
 
+		addLine(polyData,neck001,neck101,neck111,neck011,Renderer3D.CAR_TOP);
 
-		LineData topNeckLD=buildLine(neck001,neck101,neck111,neck011,Renderer3D.CAR_TOP);
-		polyData.add(topNeckLD);
+		addLine(polyData,neck000,neck010,neck110,neck100,Renderer3D.CAR_BOTTOM);
 
-		LineData bottomNeckLD=buildLine(neck000,neck010,neck110,neck100,Renderer3D.CAR_BOTTOM);
-		polyData.add(bottomNeckLD);
+		addLine(polyData,neck000,neck001,neck011,neck010,Renderer3D.CAR_LEFT);
 
-		LineData leftNeckLD=buildLine(neck000,neck001,neck011,neck010,Renderer3D.CAR_LEFT);
-		polyData.add(leftNeckLD);
+		addLine(polyData,neck100,neck110,neck111,neck101,Renderer3D.CAR_RIGHT);
 
+		addLine(polyData,neck000,neck100,neck101,neck001,Renderer3D.CAR_BACK);
 
-		LineData rightNeckLD=buildLine(neck100,neck110,neck111,neck101,Renderer3D.CAR_RIGHT);
-		polyData.add(rightNeckLD);
+		addLine(polyData,neck010,neck011,neck111,neck110,Renderer3D.CAR_FRONT);
 
-
-		LineData backNeckLD=buildLine(neck000,neck100,neck101,neck001,Renderer3D.CAR_BACK);
-		polyData.add(backNeckLD);
-
-		LineData frontNeckLD=buildLine(neck010,neck011,neck111,neck110,Renderer3D.CAR_FRONT);
-		polyData.add(frontNeckLD);
 		
 		//neck:
 		
