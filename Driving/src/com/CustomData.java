@@ -73,14 +73,15 @@ public class CustomData {
 
 	}
 	
-	public BPoint addBPoint(Vector points,double x, double y, double z, int index){
+	public BPoint addBPoint(double x, double y, double z, int index,Vector points){
 		
 		BPoint point=new BPoint(x, y, z, index);
+		points.setElementAt(point,point.getIndex());
 		return point;
 		
 	}
 	
-	public void  addLine(Vector polyData,BPoint p0, BPoint p1, BPoint p2,
+	public LineData  addLine(Vector polyData,BPoint p0, BPoint p1, BPoint p2,
 			BPoint p3, int face) {
 
 		LineData ld=new LineData();
@@ -93,6 +94,8 @@ public class CustomData {
 		ld.setData(""+face);
 
 		polyData.add(ld);
+		
+		return ld;
 	}
 
 	public LineData buildLine(BPoint p0, BPoint p1, BPoint p2,
