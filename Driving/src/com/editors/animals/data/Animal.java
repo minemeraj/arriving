@@ -375,7 +375,7 @@ public class Animal extends CustomData{
 		
 		
 		
-		addLine(polyData,body[0][0][4],body[1][0][4],body[1][1][4],body[0][1][4],Renderer3D.CAR_TOP);
+		//addLine(polyData,body[0][0][4],body[1][0][4],body[1][1][4],body[0][1][4],Renderer3D.CAR_TOP);
 
 		//addLine(polyData,body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0],Renderer3D.CAR_BOTTOM);
 
@@ -471,7 +471,7 @@ public class Animal extends CustomData{
 		addLine(polyData,body[0][1][4],neck010,neck110,body[1][1][4],Renderer3D.CAR_FRONT);
 		
 		
-		addLine(polyData,neck001,neck101,neck111,neck011,Renderer3D.CAR_TOP);
+		//addLine(polyData,neck001,neck101,neck111,neck011,Renderer3D.CAR_TOP);
 
 		//LineData bottomneck1LD=buildLine(neck001,neck011,neck111,neck101,Renderer3D.CAR_BOTTOM);
 		//polyData.add(bottomneck1LD);
