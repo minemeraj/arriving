@@ -73,6 +73,13 @@ public class CustomData {
 
 	}
 	
+	public BPoint addBPoint(Vector points,double x, double y, double z, int index){
+		
+		BPoint point=new BPoint(x, y, z, index);
+		return point;
+		
+	}
+	
 	public void  addLine(Vector polyData,BPoint p0, BPoint p1, BPoint p2,
 			BPoint p3, int face) {
 
