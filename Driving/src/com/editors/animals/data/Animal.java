@@ -732,6 +732,8 @@ public class Animal extends CustomData{
 		double bz0=femur_length+shinbone_length;
 		double bz1=femur_length+shinbone_length+z_side;
 		
+		double bfz0=radius_length+humerus_length;
+		
 		double by0=0;
 		double by1=y_side/4.0;
 		double by2=y_side/2.0;
@@ -759,13 +761,13 @@ public class Animal extends CustomData{
 		body[0][2][1]=addBPoint(0,by2,bz1);		
 		body[1][2][1]=addBPoint(x_side,by2,bz1);		
 		
-		body[0][3][0]=addBPoint(0,by3,bz0);
-		body[1][3][0]=addBPoint(x_side,by3,bz0);			
+		body[0][3][0]=addBPoint(0,by3,bfz0);
+		body[1][3][0]=addBPoint(x_side,by3,bfz0);			
 		body[0][3][1]=addBPoint(0,by3,bz1);		
 		body[1][3][1]=addBPoint(x_side,by3,bz1);
 		
-		body[0][4][0]=addBPoint(0,by4,bz0);
-		body[1][4][0]=addBPoint(x_side,by4,bz0);			
+		body[0][4][0]=addBPoint(0,by4,bfz0);
+		body[1][4][0]=addBPoint(x_side,by4,bfz0);			
 		body[0][4][1]=addBPoint(0,by4,bz1);		
 		body[1][4][1]=addBPoint(x_side,by4,bz1);
 
@@ -812,7 +814,7 @@ public class Animal extends CustomData{
 		
 		
 		
-		addLine(body[0][3][1],body[1][3][1],body[1][4][1],body[0][4][1],Renderer3D.CAR_TOP);
+		//addLine(body[0][3][1],body[1][3][1],body[1][4][1],body[0][4][1],Renderer3D.CAR_TOP);
 		
 		addLine(body[0][3][0],body[0][4][0],body[1][4][0],body[1][3][0],Renderer3D.CAR_BOTTOM);
 
@@ -836,37 +838,46 @@ public class Animal extends CustomData{
 		//neck:
 		
 		
-		double nz0=femur_length+shinbone_length+z_side;
+		double nz0=femur_length+shinbone_length+z_side+neck_length/2.0;
 		double nz1=femur_length+shinbone_length+z_side+neck_length;
 		double nx=(x_side-neck_side)/2.0;
 		double ny=y_side-neck_side;
+		
+		BPoint[][][] neck=new BPoint[2][2][2];
 	
-		BPoint neck000=addBPoint(nx,ny,nz0);
-		BPoint neck100=addBPoint(nx+neck_side,ny,nz0);
-		BPoint neck010=addBPoint(nx,ny+neck_side,nz0);
-		BPoint neck110=addBPoint(nx+neck_side,ny+neck_side,nz0);
+		neck[0][0][0]=addBPoint(nx,ny,nz0);
+		neck[1][0][0]=addBPoint(nx+neck_side,ny,nz0);
+		neck[0][1][0]=addBPoint(nx,ny+neck_side,nz0);
+		neck[1][1][0]=addBPoint(nx+neck_side,ny+neck_side,nz0);
 
-		BPoint neck011=addBPoint(nx,ny+neck_side,nz1);
-		BPoint neck101=addBPoint(nx+neck_side,ny,nz1);
-		BPoint neck111=addBPoint(nx+neck_side,ny+neck_side,nz1);
-		BPoint neck001=addBPoint(nx,ny,nz1);
-
-		addLine(neck001,neck101,neck111,neck011,Renderer3D.CAR_TOP);
-
-		addLine(neck000,neck010,neck110,neck100,Renderer3D.CAR_BOTTOM);
-
-		addLine(neck000,neck001,neck011,neck010,Renderer3D.CAR_LEFT);
-
-		addLine(neck100,neck110,neck111,neck101,Renderer3D.CAR_RIGHT);
-
-		addLine(neck000,neck100,neck101,neck001,Renderer3D.CAR_BACK);
-
-		addLine(neck010,neck011,neck111,neck110,Renderer3D.CAR_FRONT);
-
+		neck[0][1][1]=addBPoint(nx,ny+neck_side,nz1);
+		neck[1][0][1]=addBPoint(nx+neck_side,ny,nz1);
+		neck[1][1][1]=addBPoint(nx+neck_side,ny+neck_side,nz1);
+		neck[0][0][1]=addBPoint(nx,ny,nz1);
 		
-		//neck:
+	
+		addLine(body[0][4][1],neck[0][1][0],neck[0][0][0],body[0][3][1],Renderer3D.CAR_LEFT);
+
+		addLine(body[1][3][1],body[1][4][1],neck[1][1][0],neck[1][0][0],Renderer3D.CAR_RIGHT);
+
+		addLine(body[0][3][1],body[1][3][1],neck[1][0][0],neck[0][0][0],Renderer3D.CAR_BACK);
+
+		addLine(body[0][4][1],neck[0][1][0],neck[1][1][0],body[1][4][1],Renderer3D.CAR_FRONT);
 		
-		
+		///
+
+		addLine(neck[0][0][1],neck[1][0][1],neck[1][1][1],neck[0][1][1],Renderer3D.CAR_TOP);
+
+		addLine(neck[0][0][0],neck[0][1][0],neck[1][1][0],neck[1][0][0],Renderer3D.CAR_BOTTOM);
+
+		addLine(neck[0][0][0],neck[0][0][1],neck[0][1][1],neck[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(neck[1][0][0],neck[1][1][0],neck[1][1][1],neck[1][0][1],Renderer3D.CAR_RIGHT);
+
+		addLine(neck[0][0][0],neck[1][0][0],neck[1][0][1],neck[0][0][1],Renderer3D.CAR_BACK);
+
+		addLine(neck[0][1][0],neck[0][1][1],neck[1][1][1],neck[1][1][0],Renderer3D.CAR_FRONT);
+
 		//legs:	
 		
 		//backLeftLeg
