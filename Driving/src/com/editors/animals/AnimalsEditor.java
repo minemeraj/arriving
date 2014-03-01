@@ -380,7 +380,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	
 	public void initRightDataQuadruped() {
 		
-	
+	 
 		x_side.setText(100);
 		y_side.setText(200);
 		z_side.setText(100);
