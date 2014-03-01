@@ -175,17 +175,17 @@ public class Forniture extends CustomData{
 
 	private PolygonMesh buildWardrobeMesh() {
 
-		Vector points=new Vector();
+		points=new Vector();
 		points.setSize(50);
 
-		Vector polyData=new Vector();
+		polyData=new Vector();
 		
-		int n=0;
+		n=0;
 		
 	
 
 		//basic sides:
-		n=buildBox(0,0,0,points,polyData,n,x_side,y_side,z_side);
+		buildBox(0,0,0,x_side,y_side,z_side);
 	
 		
 		/////////
@@ -200,33 +200,33 @@ public class Forniture extends CustomData{
 
 	private PolygonMesh buildSofaMesh() {
 
-		Vector points=new Vector();
+		points=new Vector();
 		points.setSize(50);
 
-		Vector polyData=new Vector();
+		polyData=new Vector();
 		
-		int n=0;
+		n= 0;
 
 		//basic sides:
-		n=buildBox(0,0,leg_length,points,polyData,n,x_side,y_side,z_side);
+		buildBox(0,0,leg_length,x_side,y_side,z_side);
 		
 		//legs:	
 		//backLeftLeg
-		n=buildBox(0,0,0,points,polyData,n,leg_side,leg_side,leg_length);
+		buildBox(0,0,0,leg_side,leg_side,leg_length);
 		
 		//backRightLeg
-		n=buildBox(x_side-leg_side,0,0,points,polyData,n,leg_side,leg_side,leg_length);
+		buildBox(x_side-leg_side,0,0,leg_side,leg_side,leg_length);
 		
 		
 		//frontLeftLeg
-		n=buildBox(0,y_side-leg_side,0,points,polyData,n,leg_side,leg_side,leg_length);
+		buildBox(0,y_side-leg_side,0,leg_side,leg_side,leg_length);
 		
 	
 		//frontRightLeg
-		n=buildBox(x_side-leg_side,y_side-leg_side,0,points,polyData,n,leg_side,leg_side,leg_length);
+		buildBox(x_side-leg_side,y_side-leg_side,0,leg_side,leg_side,leg_length);
 		
 		//sofa back:
-		n=buildBox(0,0,leg_length+z_side,points,polyData,n,x_side,leg_side,back_length);
+		buildBox(0,0,leg_length+z_side,x_side,leg_side,back_length);
 		
 		/////////
 
@@ -240,26 +240,26 @@ public class Forniture extends CustomData{
 
 	private PolygonMesh buildBedMesh() {
 
-		Vector points=new Vector();
+		points=new Vector();
 		points.setSize(50);
 
-		Vector polyData=new Vector();
+		polyData=new Vector();
 		
-		int n=0;
+		n= 0;
 		
 	
 
 		//basic sides:
-		n=buildBox(0,0,leg_length,points,polyData,n,x_side,y_side,z_side);
+		buildBox(0,0,leg_length,x_side,y_side,z_side);
 		
 	
 		//back Edge
-		n=buildBox(0,0,0,points,polyData,n,x_side,leg_side,leg_length);
+		buildBox(0,0,0,x_side,leg_side,leg_length);
 
 		
 		
 		//front Edge
-		n=buildBox(0,y_side-leg_side,0,points,polyData,n,x_side,leg_side,leg_length);
+		buildBox(0,y_side-leg_side,0,x_side,leg_side,leg_length);
 		
 		
 		
@@ -277,33 +277,33 @@ public class Forniture extends CustomData{
 	private PolygonMesh buildChairMesh() {
 
 
-		Vector points=new Vector();
+		points=new Vector();
 		points.setSize(50);
 
-		Vector polyData=new Vector();
+		polyData=new Vector();
 		
-		int n=0;
+		n=0;
 
 		//basic sides:
-		n=buildBox(0,0,leg_length,points,polyData,n,x_side,y_side,z_side);
+		buildBox(0,0,leg_length,x_side,y_side,z_side);
 		
 		//legs:	
 		//backLeftLeg
-		n=buildBox(0,0,0,points,polyData,n,leg_side,leg_side,leg_length);
+		buildBox(0,0,0,leg_side,leg_side,leg_length);
 		
 		//backRightLeg
-		n=buildBox(x_side-leg_side,0,0,points,polyData,n,leg_side,leg_side,leg_length);
+		buildBox(x_side-leg_side,0,0,leg_side,leg_side,leg_length);
 		
 		
 		//frontLeftLeg
-		n=buildBox(0,y_side-leg_side,0,points,polyData,n,leg_side,leg_side,leg_length);
+		buildBox(0,y_side-leg_side,0,leg_side,leg_side,leg_length);
 		
 	
 		//frontRightLeg
-		n=buildBox(x_side-leg_side,y_side-leg_side,0,points,polyData,n,leg_side,leg_side,leg_length);
+		buildBox(x_side-leg_side,y_side-leg_side,0,leg_side,leg_side,leg_length);
 		
 		//chair back:
-		n=buildBox(0,0,leg_length+z_side,points,polyData,n,x_side,leg_side,back_length);
+		buildBox(0,0,leg_length+z_side,x_side,leg_side,back_length);
 		
 		/////////
 
@@ -318,30 +318,30 @@ public class Forniture extends CustomData{
 	private PolygonMesh buildTableMesh() {
 
 
-		Vector points=new Vector();
+		points=new Vector();
 		points.setSize(50);
 
-		Vector polyData=new Vector();
+		polyData=new Vector();
 		
-		int n=0;
+		n=0;
 
 		//basic sides:
-		n=buildBox(0,0,leg_length,points,polyData,n,x_side,y_side,z_side);
+		buildBox(0,0,leg_length,x_side,y_side,z_side);
 		
 		//legs:	
 		//backLeftLeg
-		n=buildBox(0,0,0,points,polyData,n,leg_side,leg_side,leg_length);
+		buildBox(0,0,0,leg_side,leg_side,leg_length);
 		
 		//backRightLeg
-		n=buildBox(x_side-leg_side,0,0,points,polyData,n,leg_side,leg_side,leg_length);
+		buildBox(x_side-leg_side,0,0,leg_side,leg_side,leg_length);
 		
 		
 		//frontLeftLeg
-		n=buildBox(0,y_side-leg_side,0,points,polyData,n,leg_side,leg_side,leg_length);
+		buildBox(0,y_side-leg_side,0,leg_side,leg_side,leg_length);
 		
 	
 		//frontRightLeg
-		n=buildBox(x_side-leg_side,y_side-leg_side,0,points,polyData,n,leg_side,leg_side,leg_length);
+		buildBox(x_side-leg_side,y_side-leg_side,0,leg_side,leg_side,leg_length);
 		
 		
 		

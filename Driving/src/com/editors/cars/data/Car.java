@@ -234,17 +234,17 @@ public class Car extends CustomData {
 
 	private PolygonMesh buildCarMesh() {
 		
-		Vector points=new Vector();
+		points=new Vector();
 		points.setSize(50);
 
-		Vector polyData=new Vector();
+		polyData=new Vector();
 
 		//basic sides:
 		
 		//double front_height=z_side;
 		//double back_height=z_side;
 		
-		int n=0;
+		n=0;
 		
 		
 		//main body:
@@ -411,17 +411,17 @@ public class Car extends CustomData {
 
 	private PolygonMesh buildTruckMesh() {
 		
-		Vector points=new Vector();
+		points=new Vector();
 		points.setSize(50);
 
-		Vector polyData=new Vector();
+		polyData=new Vector();
 
 		//basic sides:
 		
 		//double front_height=z_side;
 		//double back_height=z_side;
 		
-		int n=0;
+		n=0;
 		
 		
 		//front:

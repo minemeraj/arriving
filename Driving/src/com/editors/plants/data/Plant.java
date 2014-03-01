@@ -82,13 +82,13 @@ public class Plant extends CustomData{
 
 
 
-		Vector points=new Vector();
+		points=new Vector();
 		points.setSize(200);
 
-		Vector polyData=new Vector();
+		polyData=new Vector();
 		
 		
-		int n=0;
+		n=0;
 
 
 		//trunk:
@@ -102,7 +102,7 @@ public class Plant extends CustomData{
 			double x=trunk_radius*Math.cos(2*Math.PI/foliage_meridians*i);
 			double y=trunk_radius*Math.sin(2*Math.PI/foliage_meridians*i);
 			
-			uTrunkpoints[i]=addBPoint(x,y,trunk_lenght,n++,points);
+			uTrunkpoints[i]=addBPoint(x,y,trunk_lenght);
 			
 			
 		}
@@ -123,7 +123,7 @@ public class Plant extends CustomData{
 			double x=trunk_radius*Math.cos(2*Math.PI/foliage_meridians*i);
 			double y=trunk_radius*Math.sin(2*Math.PI/foliage_meridians*i);
 			
-			bTrunkpoints[i]=addBPoint(x,y,0,n++,points);
+			bTrunkpoints[i]=addBPoint(x,y,0);
 			
 		}
 
@@ -176,7 +176,7 @@ public class Plant extends CustomData{
 				double x=r*Math.cos(teta);
 				double y=r*Math.sin(teta);
 				
-				foliagePoints[k][i]=addBPoint(x,y,trunk_lenght+zf,n++,points);
+				foliagePoints[k][i]=addBPoint(x,y,trunk_lenght+zf);
 				
 			}
 			
