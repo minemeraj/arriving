@@ -385,37 +385,7 @@ public class Animal extends CustomData{
 		///////////
 		//head:
 		
-		
-		double hx=(x_side-head_DX)/2.0;
-		double hy=(y_side-head_DY)/2.0;
-		double hz0=femur_length+shinbone_length+z_side+neck_length;
-		double hz1=femur_length+shinbone_length+z_side+neck_length+head_DZ;
-		
-		BPoint[][][] head=new BPoint[2][2][2];
-
-		head[0][0][0]=addBPoint(hx,hy,hz0);
-		head[1][0][0]=addBPoint(hx+head_DX,hy,hz0);
-		head[0][1][0]=addBPoint(hx,hy+head_DY,hz0);
-		head[1][1][0]=addBPoint(hx+head_DX,hy+head_DY,hz0);
-
-		head[0][1][1]=addBPoint(hx,hy+head_DY,hz1);
-		head[1][0][1]=addBPoint(hx+head_DX,hy,hz1);
-		head[1][1][1]=addBPoint(hx+head_DX,hy+head_DY,hz1);
-		head[0][0][1]=addBPoint(hx,hy,hz1);
-
-
-		addLine(head[0][0][1],head[1][0][1],head[1][1][1],head[0][1][1],Renderer3D.CAR_TOP);
-
-		addLine(head[0][0][0],head[0][1][0],head[1][1][0],head[1][0][0],Renderer3D.CAR_BOTTOM);
-
-		addLine(head[0][0][0],head[0][0][1],head[0][1][1],head[0][1][0],Renderer3D.CAR_LEFT);
-
-		addLine(head[1][0][0],head[1][1][0],head[1][1][1],head[1][0][1],Renderer3D.CAR_RIGHT);
-
-		addLine(head[0][0][0],head[1][0][0],head[1][0][1],head[0][0][1],Renderer3D.CAR_BACK);
-
-		addLine(head[0][1][0],head[0][1][1],head[1][1][1],head[1][1][0],Renderer3D.CAR_FRONT);
-
+		BPoint[][][] head=buildHumanHeadMesh();
 		
 		//neck:
 
@@ -563,7 +533,7 @@ public class Animal extends CustomData{
 
 		
 		addLine(pFrontLeftForearm000,pFrontLeftForearm010,pFrontLeftForearm110,pFrontLeftForearm100,Renderer3D.CAR_BOTTOM);
-;
+
 		
 		BPoint pFrontLeftForearm001=addBPoint(-ax,ay,az+radius_length);
 		BPoint pFrontLeftForearm101=addBPoint(-ax+leg_side,ay,az+radius_length);
@@ -648,6 +618,101 @@ public class Animal extends CustomData{
 
 		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
 		return spm;
+	}
+
+	private BPoint[][][] buildHumanHeadMesh() {
+		
+		double hx=(x_side-head_DX)/2.0;
+		double hy=(y_side-head_DY)/2.0;
+		double hz0=femur_length+shinbone_length+z_side+neck_length;
+		double hz1=femur_length+shinbone_length+z_side+neck_length+head_DZ/4.0;
+		double hz2=femur_length+shinbone_length+z_side+neck_length+head_DZ/2.0;
+		double hz3=femur_length+shinbone_length+z_side+neck_length+head_DZ*3.0/4.0;
+		double hz4=femur_length+shinbone_length+z_side+neck_length+head_DZ;
+		
+		BPoint[][][] head=new BPoint[2][2][5];
+
+		head[0][0][0]=addBPoint(hx,hy,hz0);
+		head[1][0][0]=addBPoint(hx+head_DX,hy,hz0);
+		head[0][1][0]=addBPoint(hx,hy+head_DY,hz0);
+		head[1][1][0]=addBPoint(hx+head_DX,hy+head_DY,hz0);
+
+		head[0][1][1]=addBPoint(hx,hy+head_DY,hz1);
+		head[1][0][1]=addBPoint(hx+head_DX,hy,hz1);
+		head[1][1][1]=addBPoint(hx+head_DX,hy+head_DY,hz1);
+		head[0][0][1]=addBPoint(hx,hy,hz1);
+		
+		head[0][1][2]=addBPoint(hx,hy+head_DY,hz2);
+		head[1][0][2]=addBPoint(hx+head_DX,hy,hz2);
+		head[1][1][2]=addBPoint(hx+head_DX,hy+head_DY,hz2);
+		head[0][0][2]=addBPoint(hx,hy,hz2);
+		
+		head[0][1][3]=addBPoint(hx,hy+head_DY,hz3);
+		head[1][0][3]=addBPoint(hx+head_DX,hy,hz3);
+		head[1][1][3]=addBPoint(hx+head_DX,hy+head_DY,hz3);
+		head[0][0][3]=addBPoint(hx,hy,hz3);
+		
+		head[0][1][4]=addBPoint(hx,hy+head_DY,hz4);
+		head[1][0][4]=addBPoint(hx+head_DX,hy,hz4);
+		head[1][1][4]=addBPoint(hx+head_DX,hy+head_DY,hz4);
+		head[0][0][4]=addBPoint(hx,hy,hz4);
+
+		//addLine(head[0][0][1],head[1][0][1],head[1][1][1],head[0][1][1],Renderer3D.CAR_TOP);
+
+		addLine(head[0][0][0],head[0][1][0],head[1][1][0],head[1][0][0],Renderer3D.CAR_BOTTOM);
+
+		addLine(head[0][0][0],head[0][0][1],head[0][1][1],head[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(head[1][0][0],head[1][1][0],head[1][1][1],head[1][0][1],Renderer3D.CAR_RIGHT);
+
+		addLine(head[0][0][0],head[1][0][0],head[1][0][1],head[0][0][1],Renderer3D.CAR_BACK);
+
+		addLine(head[0][1][0],head[0][1][1],head[1][1][1],head[1][1][0],Renderer3D.CAR_FRONT);
+		
+		////
+		
+		//addLine(head[0][0][1],head[1][0][1],head[1][1][1],head[0][1][1],Renderer3D.CAR_TOP);
+
+		//addLine(head[0][0][0],head[0][1][0],head[1][1][0],head[1][0][0],Renderer3D.CAR_BOTTOM);
+
+		addLine(head[0][0][1],head[0][0][2],head[0][1][2],head[0][1][1],Renderer3D.CAR_LEFT);
+
+		addLine(head[1][0][1],head[1][1][1],head[1][1][2],head[1][0][2],Renderer3D.CAR_RIGHT);
+
+		addLine(head[0][0][1],head[1][0][1],head[1][0][2],head[0][0][2],Renderer3D.CAR_BACK);
+
+		addLine(head[0][1][1],head[0][1][2],head[1][1][2],head[1][1][1],Renderer3D.CAR_FRONT);
+		
+		
+		///
+		
+		//addLine(head[0][0][3],head[1][0][3],head[1][1][3],head[0][1][3],Renderer3D.CAR_TOP);
+
+		//addLine(head[0][0][2],head[0][1][2],head[1][1][2],head[1][0][2],Renderer3D.CAR_BOTTOM);
+
+		addLine(head[0][0][2],head[0][0][3],head[0][1][3],head[0][1][2],Renderer3D.CAR_LEFT);
+
+		addLine(head[1][0][2],head[1][1][2],head[1][1][3],head[1][0][3],Renderer3D.CAR_RIGHT);
+
+		addLine(head[0][0][2],head[1][0][2],head[1][0][3],head[0][0][3],Renderer3D.CAR_BACK);
+
+		addLine(head[0][1][2],head[0][1][3],head[1][1][3],head[1][1][2],Renderer3D.CAR_FRONT);
+		
+		///
+		
+		addLine(head[0][0][4],head[1][0][4],head[1][1][4],head[0][1][4],Renderer3D.CAR_TOP);
+
+		//addLine(head[0][0][0],head[0][1][0],head[1][1][0],head[1][0][0],Renderer3D.CAR_BOTTOM);
+
+		addLine(head[0][0][3],head[0][0][4],head[0][1][4],head[0][1][3],Renderer3D.CAR_LEFT);
+
+		addLine(head[1][0][3],head[1][1][3],head[1][1][4],head[1][0][4],Renderer3D.CAR_RIGHT);
+
+		addLine(head[0][0][3],head[1][0][3],head[1][0][4],head[0][0][4],Renderer3D.CAR_BACK);
+
+		addLine(head[0][1][3],head[0][1][4],head[1][1][4],head[1][1][3],Renderer3D.CAR_FRONT);
+		
+		return head;
 	}
 
 	private PolygonMesh buildQuadrupedMesh() {
@@ -763,34 +828,10 @@ public class Animal extends CustomData{
 		
 		/////////head:		
 		
+
 		
-		double hx=(x_side-head_DX)/2.0;
-		double hy=(y_side-neck_side);			
-		double hz=femur_length+shinbone_length+z_side+neck_length;
+		BPoint[][][] head=buildQuadrupedHeadMesh();
 		
-		BPoint[][][] head=new BPoint[2][2][2];
-
-		head[0][0][0]=addBPoint(hx,hy,hz);
-		head[1][0][0]=addBPoint(hx+head_DX,hy,hz);
-		head[0][1][0]=addBPoint(hx,hy+head_DY,hz);
-		head[1][1][0]=addBPoint(hx+head_DX,hy+head_DY,hz);
-
-		head[0][1][1]=addBPoint(hx,hy+head_DY,hz+head_DZ);
-		head[1][0][1]=addBPoint(hx+head_DX,hy,hz+head_DZ);
-		head[1][1][1]=addBPoint(hx+head_DX,hy+head_DY,hz+head_DZ);
-		head[0][0][1]=addBPoint(hx,hy,hz+head_DZ);
-
-		addLine(head[0][0][1],head[1][0][1],head[1][1][1],head[0][1][1],Renderer3D.CAR_TOP);
-
-		addLine(head[0][0][0],head[0][1][0],head[1][1][0],head[1][0][0],Renderer3D.CAR_BOTTOM);
-
-		addLine(head[0][0][0],head[0][0][1],head[0][1][1],head[0][1][0],Renderer3D.CAR_LEFT);
-
-		addLine(head[1][0][0],head[1][1][0],head[1][1][1],head[1][0][1],Renderer3D.CAR_RIGHT);
-
-		addLine(head[0][0][0],head[1][0][0],head[1][0][1],head[0][0][1],Renderer3D.CAR_BACK);
-
-		addLine(head[0][1][0],head[0][1][1],head[1][1][1],head[1][1][0],Renderer3D.CAR_FRONT);
 		
 		//neck:
 		
@@ -961,7 +1002,7 @@ public class Animal extends CustomData{
 		BPoint pFrontRightForearm010=addBPoint(x_side-leg_side,y_side,0);
 		
 		LineData FrontRightForearm=addLine(pFrontRightForearm000,pFrontRightForearm010,pFrontRightForearm110,pFrontRightForearm100,Renderer3D.CAR_FRONT);
-	;
+	
 
 		
 		BPoint pFrontRightForearm001=addBPoint(x_side-leg_side,y_side-leg_side,radius_length);
@@ -971,7 +1012,7 @@ public class Animal extends CustomData{
 
 		
 		LineData frontRightForearmS0=addLine(pFrontRightForearm000,pFrontRightForearm001,pFrontRightForearm011,pFrontRightForearm010,Renderer3D.CAR_LEFT);
-;
+
 		LineData frontRightForearmS1=addLine(pFrontRightForearm010,pFrontRightForearm011,pFrontRightForearm111,pFrontRightForearm110,Renderer3D.CAR_FRONT);
 
 		LineData frontRightForearmS2=addLine(pFrontRightForearm110,pFrontRightForearm111,pFrontRightForearm101,pFrontRightForearm100,Renderer3D.CAR_RIGHT);
@@ -987,8 +1028,7 @@ public class Animal extends CustomData{
 		BPoint pFrontRightArm111=addBPoint(x_side,y_side,radius_length+humerus_length);
 		BPoint pFrontRightArm011=addBPoint(x_side-leg_side,y_side,radius_length+humerus_length);
 		
-		LineData topRightArm=addLine(pFrontRightArm001,pFrontRightArm101,pFrontRightArm111,pFrontRightArm011,Renderer3D.CAR_TOP);
-	
+		LineData topRightArm=addLine(pFrontRightArm001,pFrontRightArm101,pFrontRightArm111,pFrontRightArm011,Renderer3D.CAR_TOP);	
 		
 		LineData frontRightArmS0=addLine(pFrontRightForearm000,pFrontRightArm001,pFrontRightArm011,pFrontRightForearm010,Renderer3D.CAR_LEFT);
 	
@@ -1007,6 +1047,103 @@ public class Animal extends CustomData{
 
 		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
 		return spm;
+	}
+
+	private BPoint[][][] buildQuadrupedHeadMesh() {
+		
+		
+		double hx=(x_side-head_DX)/2.0;
+		double hy0=y_side-neck_side;			
+		double hy1=y_side-neck_side+head_DY/4.0;
+		double hy2=y_side-neck_side+head_DY/2.0;
+		double hy3=y_side-neck_side+head_DY*3.0/4.0;
+		double hy4=y_side-neck_side+head_DY;
+		double hz=femur_length+shinbone_length+z_side+neck_length;
+
+		BPoint[][][] head=new BPoint[2][5][2];
+
+		head[0][0][0]=addBPoint(hx,hy0,hz);
+		head[1][0][0]=addBPoint(hx+head_DX,hy0,hz);
+		head[1][0][1]=addBPoint(hx+head_DX,hy0,hz+head_DZ);
+		head[0][0][1]=addBPoint(hx,hy0,hz+head_DZ);
+		
+		head[0][1][0]=addBPoint(hx,hy1,hz);
+		head[1][1][0]=addBPoint(hx+head_DX,hy1,hz);
+		head[1][1][1]=addBPoint(hx+head_DX,hy1,hz+head_DZ);
+		head[0][1][1]=addBPoint(hx,hy1,hz+head_DZ);		
+		
+		head[0][2][0]=addBPoint(hx,hy2,hz);
+		head[1][2][0]=addBPoint(hx+head_DX,hy2,hz);
+		head[1][2][1]=addBPoint(hx+head_DX,hy2,hz+head_DZ);
+		head[0][2][1]=addBPoint(hx,hy2,hz+head_DZ);	
+		
+		head[0][3][0]=addBPoint(hx,hy3,hz);
+		head[1][3][0]=addBPoint(hx+head_DX,hy3,hz);
+		head[1][3][1]=addBPoint(hx+head_DX,hy3,hz+head_DZ);
+		head[0][3][1]=addBPoint(hx,hy3,hz+head_DZ);	
+		
+		head[0][4][0]=addBPoint(hx,hy4,hz);
+		head[1][4][0]=addBPoint(hx+head_DX,hy4,hz);
+		head[1][4][1]=addBPoint(hx+head_DX,hy4,hz+head_DZ);
+		head[0][4][1]=addBPoint(hx,hy4,hz+head_DZ);	
+
+		addLine(head[0][0][1],head[1][0][1],head[1][1][1],head[0][1][1],Renderer3D.CAR_TOP);
+
+		addLine(head[0][0][0],head[0][1][0],head[1][1][0],head[1][0][0],Renderer3D.CAR_BOTTOM);
+
+		addLine(head[0][0][0],head[0][0][1],head[0][1][1],head[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(head[1][0][0],head[1][1][0],head[1][1][1],head[1][0][1],Renderer3D.CAR_RIGHT);
+
+		addLine(head[0][0][0],head[1][0][0],head[1][0][1],head[0][0][1],Renderer3D.CAR_BACK);
+
+		//addLine(head[0][1][0],head[0][1][1],head[1][1][1],head[1][1][0],Renderer3D.CAR_FRONT);
+		
+		////
+		
+		addLine(head[0][1][1],head[1][1][1],head[1][2][1],head[0][2][1],Renderer3D.CAR_TOP);
+
+		addLine(head[0][1][0],head[0][2][0],head[1][2][0],head[1][1][0],Renderer3D.CAR_BOTTOM);
+
+		addLine(head[0][1][0],head[0][1][1],head[0][2][1],head[0][2][0],Renderer3D.CAR_LEFT);
+
+		addLine(head[1][1][0],head[1][2][0],head[1][2][1],head[1][1][1],Renderer3D.CAR_RIGHT);
+
+		//addLine(head[0][0][0],head[1][0][0],head[1][0][1],head[0][0][1],Renderer3D.CAR_BACK);
+
+		//addLine(head[0][1][0],head[0][1][1],head[1][1][1],head[1][1][0],Renderer3D.CAR_FRONT);
+		
+		////
+		
+		addLine(head[0][2][1],head[1][2][1],head[1][3][1],head[0][3][1],Renderer3D.CAR_TOP);
+
+		addLine(head[0][2][0],head[0][3][0],head[1][3][0],head[1][2][0],Renderer3D.CAR_BOTTOM);
+
+		addLine(head[0][2][0],head[0][2][1],head[0][3][1],head[0][3][0],Renderer3D.CAR_LEFT);
+
+		addLine(head[1][2][0],head[1][3][0],head[1][3][1],head[1][2][1],Renderer3D.CAR_RIGHT);
+
+		//addLine(head[0][0][0],head[1][0][0],head[1][0][1],head[0][0][1],Renderer3D.CAR_BACK);
+
+		//addLine(head[0][1][0],head[0][1][1],head[1][1][1],head[1][1][0],Renderer3D.CAR_FRONT);
+		
+		////
+		
+		addLine(head[0][3][1],head[1][3][1],head[1][4][1],head[0][4][1],Renderer3D.CAR_TOP);
+
+		addLine(head[0][3][0],head[0][4][0],head[1][4][0],head[1][3][0],Renderer3D.CAR_BOTTOM);
+
+		addLine(head[0][3][0],head[0][3][1],head[0][4][1],head[0][4][0],Renderer3D.CAR_LEFT);
+
+		addLine(head[1][3][0],head[1][4][0],head[1][4][1],head[1][3][1],Renderer3D.CAR_RIGHT);
+
+		//addLine(head[0][0][0],head[1][0][0],head[1][0][1],head[0][0][1],Renderer3D.CAR_BACK);
+
+		addLine(head[0][4][0],head[0][4][1],head[1][4][1],head[1][4][0],Renderer3D.CAR_FRONT);
+		
+		////
+		
+		return head;
 	}
 
 
