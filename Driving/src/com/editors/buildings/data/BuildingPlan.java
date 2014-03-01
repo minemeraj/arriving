@@ -192,30 +192,23 @@ public class BuildingPlan extends CustomData{
 		BPoint p111=addBPoint(x_side,y_side,z_side);
 
 
-		LineData bottomLD=buildLine(p000,p010,p110,p100,Renderer3D.CAR_BOTTOM);
-		polyData.add(bottomLD);
+		LineData bottomLD=addLine(p000,p010,p110,p100,Renderer3D.CAR_BOTTOM);
 
+		LineData leftLD=addLine(p000,p001,p011,p010,Renderer3D.CAR_LEFT);
 
-		LineData leftLD=buildLine(p000,p001,p011,p010,Renderer3D.CAR_LEFT);
-		polyData.add(leftLD);
+		LineData rightLD=addLine(p100,p110,p111,p101,Renderer3D.CAR_RIGHT);
 
+		LineData backLD=addLine(p000,p100,p101,p001,Renderer3D.CAR_BACK);
 
-		LineData rightLD=buildLine(p100,p110,p111,p101,Renderer3D.CAR_RIGHT);
-		polyData.add(rightLD);
+		LineData frontLD=addLine(p010,p011,p111,p110,Renderer3D.CAR_FRONT);
 
-
-		LineData backLD=buildLine(p000,p100,p101,p001,Renderer3D.CAR_BACK);
-		polyData.add(backLD);
-
-		LineData frontLD=buildLine(p010,p011,p111,p110,Renderer3D.CAR_FRONT);
-		polyData.add(frontLD);
 
 		//roof:
 
 			if(roof_type==ROOF_TYPE_FLAT){
 
-				LineData topLD=buildLine(p001,p101,p111,p011,Renderer3D.CAR_TOP);
-				polyData.add(topLD);
+				LineData topLD=addLine(p001,p101,p111,p011,Renderer3D.CAR_TOP);
+	
 
 			}else if( roof_type==ROOF_TYPE_HIP || roof_type==ROOF_TYPE_SHED){
 
@@ -237,14 +230,14 @@ public class BuildingPlan extends CustomData{
 
 				}
 
-				LineData backRoof=buildLine(p001,p101,pr001,null,Renderer3D.CAR_BACK);
-				polyData.add(backRoof);
-				LineData frontRoof=buildLine(p011,pr011,p111,null,Renderer3D.CAR_FRONT);
-				polyData.add(frontRoof);
-				LineData topRoof1=buildLine(p001,pr001,pr011,p011,Renderer3D.CAR_TOP);
-				polyData.add(topRoof1);
-				LineData topRoof2=buildLine(p101,p111,pr011,pr001,Renderer3D.CAR_TOP);
-				polyData.add(topRoof2);
+				LineData backRoof=addLine(p001,p101,pr001,null,Renderer3D.CAR_BACK);
+
+				LineData frontRoof=addLine(p011,pr011,p111,null,Renderer3D.CAR_FRONT);
+
+				LineData topRoof1=addLine(p001,pr001,pr011,p011,Renderer3D.CAR_TOP);
+
+				LineData topRoof2=addLine(p101,p111,pr011,pr001,Renderer3D.CAR_TOP);
+
 
 			}else if( roof_type==ROOF_TYPE_GAMBREL){
 
@@ -285,14 +278,14 @@ public class BuildingPlan extends CustomData{
 				frontRoof.addIndex(p111.getIndex());
 				polyData.add(frontRoof);
 
-				LineData topRoof1=buildLine(p001,pr001,pr011,p011,Renderer3D.CAR_TOP);
-				polyData.add(topRoof1);	
-				LineData topRoof2=buildLine(pr001,pr101,pr111,pr011,Renderer3D.CAR_TOP);
-				polyData.add(topRoof2);
-				LineData topRoof3=buildLine(pr101,pr201,pr211,pr111,Renderer3D.CAR_TOP);
-				polyData.add(topRoof3);
-				LineData topRoof4=buildLine(p101,p111,pr211,pr201,Renderer3D.CAR_TOP);
-				polyData.add(topRoof4);
+				LineData topRoof1=addLine(p001,pr001,pr011,p011,Renderer3D.CAR_TOP);
+			
+				LineData topRoof2=addLine(pr001,pr101,pr111,pr011,Renderer3D.CAR_TOP);
+		
+				LineData topRoof3=addLine(pr101,pr201,pr211,pr111,Renderer3D.CAR_TOP);
+
+				LineData topRoof4=addLine(p101,p111,pr211,pr201,Renderer3D.CAR_TOP);
+	
 
 			}else if( roof_type==ROOF_TYPE_MANSARD){
 				
@@ -304,34 +297,29 @@ public class BuildingPlan extends CustomData{
 				BPoint pr111=addBPoint(p111.x-roofDX,p111.y-roofDY,p111.z+roof_top_height);
 				BPoint pr011=addBPoint(p011.x+roofDX,p011.y-roofDY,p011.z+roof_top_height);
 				
-				LineData topRoof=buildLine(pr001,pr101,pr111,pr011,Renderer3D.CAR_TOP);
-				polyData.add(topRoof);
+				LineData topRoof=addLine(pr001,pr101,pr111,pr011,Renderer3D.CAR_TOP);
 				
+				LineData topRoof1=addLine(p001,pr001,pr011,p011,Renderer3D.CAR_TOP);
+
+				LineData topRoof2=addLine(p001,p101,pr101,pr001,Renderer3D.CAR_TOP);
+
 				
-				LineData topRoof1=buildLine(p001,pr001,pr011,p011,Renderer3D.CAR_TOP);
-				polyData.add(topRoof1);	
+				LineData topRoof3=addLine(p101,p111,pr111,pr101,Renderer3D.CAR_TOP);
 				
-				LineData topRoof2=buildLine(p001,p101,pr101,pr001,Renderer3D.CAR_TOP);
-				polyData.add(topRoof2);	
-				
-				LineData topRoof3=buildLine(p101,p111,pr111,pr101,Renderer3D.CAR_TOP);
-				polyData.add(topRoof3);	
-				
-				LineData topRoof4=buildLine(p111,p011,pr011,pr111,Renderer3D.CAR_TOP);
-				polyData.add(topRoof4);	
+				LineData topRoof4=addLine(p111,p011,pr011,pr111,Renderer3D.CAR_TOP);
+
 				
 				BPoint pr002=addBPoint((pr001.x+pr101.x)/2.0,(pr001.y+pr101.y)/2.0+roofDY,roof_top_height*0.5+(pr001.z+pr101.z)/2.0);
 				BPoint pr012=addBPoint((pr011.x+pr111.x)/2.0,(pr011.y+pr111.y)/2.0-roofDY,roof_top_height*0.5+(pr011.z+pr111.z)/2.0);
 
+				LineData backRoof00=addLine(pr001,pr101,pr002,null,Renderer3D.CAR_BACK); 
 
-				LineData backRoof00=buildLine(pr001,pr101,pr002,null,Renderer3D.CAR_BACK); 
-				polyData.add(backRoof00);
-				LineData frontRoof01=buildLine(pr011,pr012,pr111,null,Renderer3D.CAR_FRONT);
-				polyData.add(frontRoof01);
-				LineData topRoof01=buildLine(pr001,pr002,pr012,pr011,Renderer3D.CAR_TOP);
-				polyData.add(topRoof01);
-				LineData topRoof02=buildLine(pr101,pr111,pr012,pr002,Renderer3D.CAR_TOP);
-				polyData.add(topRoof02);
+				LineData frontRoof01=addLine(pr011,pr012,pr111,null,Renderer3D.CAR_FRONT);
+
+				LineData topRoof01=addLine(pr001,pr002,pr012,pr011,Renderer3D.CAR_TOP);
+				
+				LineData topRoof02=addLine(pr101,pr111,pr012,pr002,Renderer3D.CAR_TOP);
+
 				
 			}
 
