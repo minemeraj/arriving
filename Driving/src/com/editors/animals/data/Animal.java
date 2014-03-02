@@ -636,7 +636,7 @@ public class Animal extends CustomData{
 		BPoint[][][] head=new BPoint[2][2][5];
 
 		head[0][0][0]=addBPoint(xc-neck_side*0.5,yc-y_side*0.5,hz0);
-		head[1][0][0]=addBPoint(xc+neck_side*0.5,yc-y_side*0.55,hz0);
+		head[1][0][0]=addBPoint(xc+neck_side*0.5,yc-y_side*0.5,hz0);
 		head[0][1][0]=addBPoint(xc-neck_side*0.5,yc+y_side*0.5,hz0);
 		head[1][1][0]=addBPoint(xc+neck_side*0.5,yc+y_side*0.5,hz0);
 

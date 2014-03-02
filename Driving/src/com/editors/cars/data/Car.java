@@ -241,23 +241,22 @@ public class Car extends CustomData {
 
 		//basic sides:
 		
-		//double front_height=z_side;
-		//double back_height=z_side;
+		double xc=x_side*0.5;
 		
 		n=0;
 		
 		
 		//main body:
 
-		BPoint p000=addBPoint(0,back_length,0);
-		BPoint p100=addBPoint(x_side,back_length,0);
-		BPoint p110=addBPoint(x_side,back_length+y_side,0);
-		BPoint p010=addBPoint(0,back_length+y_side,0);
+		BPoint p000=addBPoint(xc-x_side*0.5,back_length,0);
+		BPoint p100=addBPoint(xc+x_side*0.5,back_length,0);
+		BPoint p110=addBPoint(xc+x_side*0.5,back_length+y_side,0);
+		BPoint p010=addBPoint(xc-x_side*0.5,back_length+y_side,0);
 		
-		BPoint p001=addBPoint(0,back_length,z_side);	
-		BPoint p101=addBPoint(x_side,back_length,z_side);
-		BPoint p111=addBPoint(x_side,back_length+y_side,z_side);
-		BPoint p011=addBPoint(0,back_length+y_side,z_side);		
+		BPoint p001=addBPoint(xc-x_side*0.5,back_length,z_side);	
+		BPoint p101=addBPoint(xc+x_side*0.5,back_length,z_side);
+		BPoint p111=addBPoint(xc+x_side*0.5,back_length+y_side,z_side);
+		BPoint p011=addBPoint(xc-x_side*0.5,back_length+y_side,z_side);		
 
 
 		//LineData topLD=addLine(p001,p101,p111,p011,Renderer3D.CAR_TOP);
@@ -265,7 +264,6 @@ public class Car extends CustomData {
 
 
 		LineData bottomLD=addLine(p000,p010,p110,p100,Renderer3D.CAR_BOTTOM);
-
 
 		LineData leftLD=addLine(p000,p001,p011,p010,Renderer3D.CAR_LEFT);
 
@@ -278,14 +276,12 @@ public class Car extends CustomData {
 		LineData frontLD=addLine(p010,p011,p111,p110,Renderer3D.CAR_FRONT);
 		polyData.add(frontLD);*/
 		
-		double backDX=(x_side-back_width)/2.0;
-		
 		
 		//back part:
-		BPoint pBack000=addBPoint(backDX,0,0);
-		BPoint pBack100=addBPoint(x_side-backDX,0,0);
-		BPoint pBack101=addBPoint(x_side-backDX,0,back_height);
-		BPoint pBack001=addBPoint(backDX,0,back_height);
+		BPoint pBack000=addBPoint(xc-back_width*0.5,0,0);
+		BPoint pBack100=addBPoint(xc+back_width*0.5,0,0);
+		BPoint pBack101=addBPoint(xc+back_width*0.5,0,back_height);
+		BPoint pBack001=addBPoint(xc-back_width*0.5,0,back_height);
 		
 		LineData backMask=addLine(pBack000,pBack100,pBack101,pBack001,Renderer3D.CAR_RIGHT);
 		
@@ -296,64 +292,49 @@ public class Car extends CustomData {
 		LineData backLeft=addLine(pBack000,pBack001,p001,p000,Renderer3D.CAR_LEFT);
 		
 		LineData backRight=addLine(pBack101,pBack100,p100,p101,Renderer3D.CAR_RIGHT);
-		
-		
 
-		double frontDX=(x_side-front_width)/2.0;
-		
-	
 		//front part:		
-		BPoint pFront000=addBPoint(frontDX,back_length+y_side+front_length,0);
-		BPoint pFront100=addBPoint(x_side-frontDX,back_length+y_side+front_length,0);
-		BPoint pFront101=addBPoint(x_side-frontDX,back_length+y_side+front_length,front_height);
-		BPoint pFront001=addBPoint(frontDX,back_length+y_side+front_length,front_height);
+		BPoint pFront000=addBPoint(xc-front_width*0.5,back_length+y_side+front_length,0);
+		BPoint pFront100=addBPoint(xc+front_width*0.5,back_length+y_side+front_length,0);
+		BPoint pFront101=addBPoint(xc+front_width*0.5,back_length+y_side+front_length,front_height);
+		BPoint pFront001=addBPoint(xc-front_width*0.5,back_length+y_side+front_length,front_height);
 
 		
 		LineData frontMask=addLine(pFront000,pFront001,pFront101,pFront100,Renderer3D.CAR_RIGHT);
-
 		
 		LineData frontTop=addLine(p011,p111,pFront101,pFront001,Renderer3D.CAR_TOP);
 		
 		LineData frontBottom=addLine(p110,p010,pFront000,pFront100,Renderer3D.CAR_BOTTOM);
 
 		LineData frontLeft=addLine(p010,p011,pFront001,pFront000,Renderer3D.CAR_LEFT);
-
 		
 		LineData frontRight=addLine(p111,p110,pFront100,pFront101,Renderer3D.CAR_RIGHT);
-
 		
-		//roof:
-		
-		
+		//roof:		
 		
 		BPoint pr000=addBPoint(0,back_length,z_side);
 		BPoint pr100=addBPoint(x_side,back_length,z_side);
 		BPoint pr110=addBPoint(x_side,back_length+y_side,z_side);
 		BPoint pr010=addBPoint(0,back_length+y_side,z_side);	
 		
-		double roofDX=(x_side-roof_width)/2.0;
 		double roofDY=(y_side-roof_length)/2.0;
 		
-		BPoint pr001=addBPoint(roofDX,roofDY+back_length,z_side+roof_height);	
-		BPoint pr101=addBPoint(x_side-roofDX,roofDY+back_length,z_side+roof_height);
-		BPoint pr111=addBPoint(x_side-roofDX,y_side+back_length-roofDY,z_side+roof_height);
-		BPoint pr011=addBPoint(roofDX,y_side+back_length-roofDY,z_side+roof_height);	
+		BPoint pr001=addBPoint(xc-roof_width*0.5,roofDY+back_length,z_side+roof_height);	
+		BPoint pr101=addBPoint(xc+roof_width*0.5,roofDY+back_length,z_side+roof_height);
+		BPoint pr111=addBPoint(xc+roof_width*0.5,y_side+back_length-roofDY,z_side+roof_height);
+		BPoint pr011=addBPoint(xc-roof_width*0.5,y_side+back_length-roofDY,z_side+roof_height);	
 
 		
 		LineData topRLD=addLine(pr001,pr101,pr111,pr011,Renderer3D.CAR_TOP);
-
 
 		//LineData bottomRLD=addLine(pr000,pr010,pr1addLineRenderer3D.CAR_BOTTOM);
 		//polyData.add(bottomRLD);
 
 		LineData leftRLD=addLine(pr000,pr001,pr011,pr010,Renderer3D.CAR_LEFT);
 
-
 		LineData rightRLD=addLine(pr100,pr110,pr111,pr101,Renderer3D.CAR_RIGHT);
 
-
 		LineData backRLD=addLine(pr000,pr100,pr101,pr001,Renderer3D.CAR_BACK);
-
 
 		LineData frontRLD=addLine(pr010,pr011,pr111,pr110,Renderer3D.CAR_FRONT);
 
@@ -384,17 +365,17 @@ public class Car extends CustomData {
 		
 		//front:
 		
-		double FRONT_DX=(x_side-front_width)/2.0;
+		double xc=x_side*0.5;
 		
-		BPoint pFront000=addBPoint(FRONT_DX,back_length+y_side,0);
-		BPoint pFront100=addBPoint(FRONT_DX+front_width,back_length+y_side,0);
-		BPoint pFront110=addBPoint(FRONT_DX+front_width,back_length+y_side+front_length,0);
-		BPoint pFront010=addBPoint(FRONT_DX,back_length+y_side+front_length,0);
+		BPoint pFront000=addBPoint(xc-front_width*0.5,back_length+y_side,0);
+		BPoint pFront100=addBPoint(xc+front_width*0.5,back_length+y_side,0);
+		BPoint pFront110=addBPoint(xc+front_width*0.5,back_length+y_side+front_length,0);
+		BPoint pFront010=addBPoint(xc-front_width*0.5,back_length+y_side+front_length,0);
 		
-		BPoint pFront001=addBPoint(FRONT_DX,back_length+y_side,front_height);	
-		BPoint pFront101=addBPoint(FRONT_DX+front_width,back_length+y_side,front_height);
-		BPoint pFront111=addBPoint(FRONT_DX+front_width,back_length+y_side+front_length,front_height);
-		BPoint pFront011=addBPoint(FRONT_DX,back_length+y_side+front_length,front_height);		
+		BPoint pFront001=addBPoint(xc-front_width*0.5,back_length+y_side,front_height);	
+		BPoint pFront101=addBPoint(xc+front_width*0.5,back_length+y_side,front_height);
+		BPoint pFront111=addBPoint(xc+front_width*0.5,back_length+y_side+front_length,front_height);
+		BPoint pFront011=addBPoint(xc-front_width*0.5,back_length+y_side+front_length,front_height);	
 
 
 
@@ -414,106 +395,78 @@ public class Car extends CustomData {
 		
 		//main body:
 
-		BPoint p000=addBPoint(0,back_length,0);
-		BPoint p100=addBPoint(x_side,back_length,0);
-		BPoint p110=addBPoint(x_side,back_length+y_side,0);
-		BPoint p010=addBPoint(0,back_length+y_side,0);
+		BPoint p000=addBPoint(xc-x_side*0.5,back_length,0);
+		BPoint p100=addBPoint(xc+x_side*0.5,back_length,0);
+		BPoint p110=addBPoint(xc+x_side*0.5,back_length+y_side,0);
+		BPoint p010=addBPoint(xc-x_side*0.5,back_length+y_side,0);
 		
-		BPoint p001=addBPoint(0,back_length,z_side);	
-		BPoint p101=addBPoint(x_side,back_length,z_side);
-		BPoint p111=addBPoint(x_side,back_length+y_side,z_side);
-		BPoint p011=addBPoint(0,back_length+y_side,z_side);		
+		BPoint p001=addBPoint(xc-x_side*0.5,back_length,z_side);	
+		BPoint p101=addBPoint(xc+x_side*0.5,back_length,z_side);
+		BPoint p111=addBPoint(xc+x_side*0.5,back_length+y_side,z_side);
+		BPoint p011=addBPoint(xc-x_side*0.5,back_length+y_side,z_side);		
 
 
 		LineData topLD=addLine(p001,p101,p111,p011,Renderer3D.CAR_TOP);
 
-
 		LineData bottomLD=addLine(p000,p010,p110,p100,Renderer3D.CAR_BOTTOM);
-
 
 		LineData leftLD=addLine(p000,p001,p011,p010,Renderer3D.CAR_LEFT);
 
-
-
 		LineData rightLD=addLine(p100,p110,p111,p101,Renderer3D.CAR_RIGHT);
-
 
 		LineData backLD=addLine(p000,p100,p101,p001,Renderer3D.CAR_BACK);
 
-
-		LineData frontLD=addLine(p010,p011,p111,p110,Renderer3D.CAR_FRONT);
+		LineData frontLD=addLine(p010,p011,p111,p110,Renderer3D.CAR_FRONT);		
 		
+		//roof:		
 		
+		BPoint pRoof000=addBPoint(xc-roof_width*0.5,back_length,z_side);
+		BPoint pRoof100=addBPoint(xc+roof_width*0.5,back_length,z_side);
+		BPoint pRoof110=addBPoint(xc+roof_width*0.5,back_length+roof_length,z_side);
+		BPoint pRoof010=addBPoint(xc-roof_width*0.5,back_length+roof_length,z_side);
 		
-		//roof:
-		
-		double ROOF_DX=(x_side-roof_width)/2.0; 
-		
-		BPoint pRoof000=addBPoint(ROOF_DX,back_length,z_side);
-		BPoint pRoof100=addBPoint(ROOF_DX+roof_width,back_length,z_side);
-		BPoint pRoof110=addBPoint(ROOF_DX+roof_width,back_length+roof_length,z_side);
-		BPoint pRoof010=addBPoint(ROOF_DX,back_length+roof_length,z_side);
-		
-		BPoint pRoof001=addBPoint(ROOF_DX,back_length,z_side+roof_height);	
-		BPoint pRoof101=addBPoint(ROOF_DX+roof_width,back_length,z_side+roof_height);
-		BPoint pRoof111=addBPoint(ROOF_DX+roof_width,back_length+roof_length,z_side+roof_height);
-		BPoint pRoof011=addBPoint(ROOF_DX,back_length+roof_length,z_side+roof_height);		
+		BPoint pRoof001=addBPoint(xc-roof_width*0.5,back_length,z_side+roof_height);	
+		BPoint pRoof101=addBPoint(xc+roof_width*0.5,back_length,z_side+roof_height);
+		BPoint pRoof111=addBPoint(xc+roof_width*0.5,back_length+roof_length,z_side+roof_height);
+		BPoint pRoof011=addBPoint(xc-roof_width*0.5,back_length+roof_length,z_side+roof_height);		
 
 
 		LineData topRoofLD=addLine(pRoof001,pRoof101,pRoof111,pRoof011,Renderer3D.CAR_TOP);
 
-
-
 		LineData bottomRoofLD=addLine(pRoof000,pRoof010,pRoof110,pRoof100,Renderer3D.CAR_BOTTOM);
-
 
 		LineData leftRoofLD=addLine(pRoof000,pRoof001,pRoof011,pRoof010,Renderer3D.CAR_LEFT);
 
-
-
 		LineData rightRoofLD=addLine(pRoof100,pRoof110,pRoof111,pRoof101,Renderer3D.CAR_RIGHT);
-
 
 		LineData backRoofLD=addLine(pRoof000,pRoof100,pRoof101,pRoof001,Renderer3D.CAR_BACK);
 
-
-		LineData frontRoofLD=addLine(pRoof010,pRoof011,pRoof111,pRoof110,Renderer3D.CAR_FRONT);
-		
+		LineData frontRoofLD=addLine(pRoof010,pRoof011,pRoof111,pRoof110,Renderer3D.CAR_FRONT);		
 
 		//back:
 
-		double BACK_DX=(x_side-back_width)/2.0;
+		BPoint pBack000=addBPoint(xc-back_width*0.5,0,0);
+		BPoint pBack100=addBPoint(xc+back_width*0.5,0,0);
+		BPoint pBack110=addBPoint(xc+back_width*0.5,back_length,0);
+		BPoint pBack010=addBPoint(xc-back_width*0.5,back_length,0);
 
-		BPoint pBack000=addBPoint(BACK_DX,0,0);
-		BPoint pBack100=addBPoint(BACK_DX+back_width,0,0);
-		BPoint pBack110=addBPoint(BACK_DX+back_width,back_length,0);
-		BPoint pBack010=addBPoint(BACK_DX,back_length,0);
-
-		BPoint pBack001=addBPoint(BACK_DX,0,back_height);	
-		BPoint pBack101=addBPoint(BACK_DX+back_width,0,back_height);
-		BPoint pBack111=addBPoint(BACK_DX+back_width,back_length,back_height);
-		BPoint pBack011=addBPoint(BACK_DX,back_length,back_height);		
+		BPoint pBack001=addBPoint(xc-back_width*0.5,0,back_height);	
+		BPoint pBack101=addBPoint(xc+back_width*0.5,0,back_height);
+		BPoint pBack111=addBPoint(xc+back_width*0.5,back_length,back_height);
+		BPoint pBack011=addBPoint(xc-back_width*0.5,back_length,back_height);		
 
 
 		LineData topBackLD=addLine(pBack001,pBack101,pBack111,pBack011,Renderer3D.CAR_TOP);
 
-
-
 		LineData bottomBackLD=addLine(pBack000,pBack010,pBack110,pBack100,Renderer3D.CAR_BOTTOM);
-
 
 		LineData leftBackLD=addLine(pBack000,pBack001,pBack011,pBack010,Renderer3D.CAR_LEFT);
 
-
-
 		LineData rightBackLD=addLine(pBack100,pBack110,pBack111,pBack101,Renderer3D.CAR_RIGHT);
-
 
 		LineData backBackLD=addLine(pBack000,pBack100,pBack101,pBack001,Renderer3D.CAR_BACK);
 
-
 		LineData frontBackLD=addLine(pBack010,pBack011,pBack111,pBack110,Renderer3D.CAR_FRONT);
-
 
 		/////////
 		
