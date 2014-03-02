@@ -283,6 +283,8 @@ public class Animal extends CustomData{
 
 		n=0;
 
+		double xc=x_side/2.0;
+		double yc=y_side/2.0;
 
 		//body:
 		
@@ -301,30 +303,30 @@ public class Animal extends CustomData{
 		
 		BPoint[][][] body=new BPoint[numx][numy][numz]; 
 
-		body[0][0][0]=addBPoint(0,0,bz0);
-		body[1][0][0]=addBPoint(x_side,0,bz0);
-		body[0][1][0]=addBPoint(0,y_side,bz0);
-		body[1][1][0]=addBPoint(x_side,y_side,bz0);
+		body[0][0][0]=addBPoint(xc-x_side*0.5,yc-y_side*0.5,bz0);
+		body[1][0][0]=addBPoint(xc+x_side*0.5,yc-y_side*0.5,bz0);
+		body[0][1][0]=addBPoint(xc-x_side*0.5,yc+y_side*0.5,bz0);
+		body[1][1][0]=addBPoint(xc+x_side*0.5,yc+y_side*0.5,bz0);
 
-		body[0][1][1]=addBPoint(0,y_side,bz1);
-		body[1][0][1]=addBPoint(x_side,0,bz1);
-		body[1][1][1]=addBPoint(x_side,y_side,bz1);
-		body[0][0][1]=addBPoint(0,0,bz1);
+		body[0][1][1]=addBPoint(xc-x_side*0.5,yc+y_side*0.5,bz1);
+		body[1][0][1]=addBPoint(xc+x_side*0.5,yc-y_side*0.5,bz1);
+		body[1][1][1]=addBPoint(xc+x_side*0.5,yc+y_side*0.5,bz1);
+		body[0][0][1]=addBPoint(xc-x_side*0.5,yc-y_side*0.5,bz1);
 		
-		body[0][1][2]=addBPoint(WAIST_DX,y_side,bz2);
-		body[1][0][2]=addBPoint(x_side-WAIST_DX,0,bz2);
-		body[1][1][2]=addBPoint(x_side-WAIST_DX,y_side,bz2);
-		body[0][0][2]=addBPoint(WAIST_DX,0,bz2);
+		body[0][1][2]=addBPoint(xc-(x_side*0.5-WAIST_DX),yc+y_side*0.5,bz2);
+		body[1][0][2]=addBPoint(xc+(x_side*0.5-WAIST_DX),yc-y_side*0.5,bz2);
+		body[1][1][2]=addBPoint(xc+(x_side*0.5-WAIST_DX),yc+y_side*0.5,bz2);
+		body[0][0][2]=addBPoint(xc-(x_side*0.5-WAIST_DX),yc-y_side*0.5,bz2);
 		
-		body[0][1][3]=addBPoint(-SHOULDER_DX,y_side,bz3);
-		body[1][0][3]=addBPoint(x_side+SHOULDER_DX,0,bz3);
-		body[1][1][3]=addBPoint(x_side+SHOULDER_DX,y_side,bz3);
-		body[0][0][3]=addBPoint(-SHOULDER_DX,0,bz3);
+		body[0][1][3]=addBPoint(xc-(x_side*0.5+SHOULDER_DX),yc+y_side*0.5,bz3);
+		body[1][0][3]=addBPoint(xc+(x_side*0.5+SHOULDER_DX),yc-y_side*0.5,bz3);
+		body[1][1][3]=addBPoint(xc+(x_side*0.5+SHOULDER_DX),yc+y_side*0.5,bz3);
+		body[0][0][3]=addBPoint(xc-(x_side*0.5+SHOULDER_DX),yc-y_side*0.5,bz3);
 		
-		body[0][1][4]=addBPoint(-SHOULDER_DX,y_side,bz4);
-		body[1][0][4]=addBPoint(x_side+SHOULDER_DX,0,bz4);
-		body[1][1][4]=addBPoint(x_side+SHOULDER_DX,y_side,bz4);
-		body[0][0][4]=addBPoint(-SHOULDER_DX,0,bz4);
+		body[0][1][4]=addBPoint(xc-(x_side*0.5+SHOULDER_DX),yc+y_side*0.5,bz4);
+		body[1][0][4]=addBPoint(xc+(x_side*0.5+SHOULDER_DX),yc-y_side*0.5,bz4);
+		body[1][1][4]=addBPoint(xc+(x_side*0.5+SHOULDER_DX),yc+y_side*0.5,bz4);
+		body[0][0][4]=addBPoint(xc-(x_side*0.5+SHOULDER_DX),yc-y_side*0.5,bz4);
 		
 
 
@@ -389,22 +391,22 @@ public class Animal extends CustomData{
 		
 		//neck:
 
-		double nx1=(x_side-neck_side)/2.0;
+		
 		double nz0=femur_length+shinbone_length+z_side+neck_length/2.0;
 		double nz1=femur_length+shinbone_length+z_side+neck_length;
 		
 		BPoint[][][] neck=new BPoint[2][2][2];
 
-		neck[0][1][0]=addBPoint(nx1,y_side,nz0);
-		neck[1][0][0]=addBPoint(nx1+neck_side,0,nz0);
-		neck[1][1][0]=addBPoint(nx1+neck_side,y_side,nz0);
-		neck[0][0][0]=addBPoint(nx1,0,nz0);
+		neck[0][1][0]=addBPoint(xc-neck_side*0.5,yc+y_side*0.5,nz0);
+		neck[1][0][0]=addBPoint(xc+neck_side*0.5,yc-y_side*0.5,nz0);
+		neck[1][1][0]=addBPoint(xc+neck_side*0.5,yc+y_side*0.5,nz0);
+		neck[0][0][0]=addBPoint(xc-neck_side*0.5,yc-y_side*0.5,nz0);
 		
 
-		neck[0][1][1]=addBPoint(nx1,y_side,nz1);
-		neck[1][0][1]=addBPoint(nx1+neck_side,0,nz1);
-		neck[1][1][1]=addBPoint(nx1+neck_side,y_side,nz1);
-		neck[0][0][1]=addBPoint(nx1,0,nz1);
+		neck[0][1][1]=addBPoint(xc-neck_side*0.5,yc+y_side*0.5,nz1);
+		neck[1][0][1]=addBPoint(xc+neck_side*0.5,yc-y_side*0.5,nz1);
+		neck[1][1][1]=addBPoint(xc+neck_side*0.5,yc+y_side*0.5,nz1);
+		neck[0][0][1]=addBPoint(xc-neck_side*0.5,yc-y_side*0.5,nz1);
 
 
 		//LineData topneckLD=addLine(neck[0][0][1],neck[1][0][1],neck[1][1][1],neck[0][1][1],Renderer3D.CAR_TOP);
@@ -622,8 +624,9 @@ public class Animal extends CustomData{
 
 	private BPoint[][][] buildHumanHeadMesh() {
 		
-		double hx=(x_side-head_DX)/2.0;
-		double hy=(y_side-head_DY)/2.0;
+		double xc=x_side/2.0;
+		double yc=y_side/2.0;
+
 		double hz0=femur_length+shinbone_length+z_side+neck_length;
 		double hz1=femur_length+shinbone_length+z_side+neck_length+head_DZ/4.0;
 		double hz2=femur_length+shinbone_length+z_side+neck_length+head_DZ/2.0;
@@ -632,30 +635,30 @@ public class Animal extends CustomData{
 		
 		BPoint[][][] head=new BPoint[2][2][5];
 
-		head[0][0][0]=addBPoint(hx,hy,hz0);
-		head[1][0][0]=addBPoint(hx+head_DX,hy,hz0);
-		head[0][1][0]=addBPoint(hx,hy+head_DY,hz0);
-		head[1][1][0]=addBPoint(hx+head_DX,hy+head_DY,hz0);
+		head[0][0][0]=addBPoint(xc-neck_side*0.5,yc-y_side*0.5,hz0);
+		head[1][0][0]=addBPoint(xc+neck_side*0.5,yc-y_side*0.55,hz0);
+		head[0][1][0]=addBPoint(xc-neck_side*0.5,yc+y_side*0.5,hz0);
+		head[1][1][0]=addBPoint(xc+neck_side*0.5,yc+y_side*0.5,hz0);
 
-		head[0][1][1]=addBPoint(hx,hy+head_DY,hz1);
-		head[1][0][1]=addBPoint(hx+head_DX,hy,hz1);
-		head[1][1][1]=addBPoint(hx+head_DX,hy+head_DY,hz1);
-		head[0][0][1]=addBPoint(hx,hy,hz1);
+		head[0][1][1]=addBPoint(xc-head_DX*0.5*0.85,yc+head_DY*0.5*0.85,hz1);
+		head[1][0][1]=addBPoint(xc+head_DX*0.5*0.85,yc-head_DY*0.5*0.85,hz1);
+		head[1][1][1]=addBPoint(xc+head_DX*0.5*0.85,yc+head_DY*0.5*0.85,hz1);
+		head[0][0][1]=addBPoint(xc-head_DX*0.5*0.85,yc-head_DY*0.5*0.85,hz1);
 		
-		head[0][1][2]=addBPoint(hx,hy+head_DY,hz2);
-		head[1][0][2]=addBPoint(hx+head_DX,hy,hz2);
-		head[1][1][2]=addBPoint(hx+head_DX,hy+head_DY,hz2);
-		head[0][0][2]=addBPoint(hx,hy,hz2);
+		head[0][1][2]=addBPoint(xc-head_DX*0.5,yc+head_DY*0.5,hz2);
+		head[1][0][2]=addBPoint(xc+head_DX*0.5,yc-head_DY*0.5,hz2);
+		head[1][1][2]=addBPoint(xc+head_DX*0.5,yc+head_DY*0.5,hz2);
+		head[0][0][2]=addBPoint(xc-head_DX*0.5,yc-head_DY*0.5,hz2);
 		
-		head[0][1][3]=addBPoint(hx,hy+head_DY,hz3);
-		head[1][0][3]=addBPoint(hx+head_DX,hy,hz3);
-		head[1][1][3]=addBPoint(hx+head_DX,hy+head_DY,hz3);
-		head[0][0][3]=addBPoint(hx,hy,hz3);
+		head[0][1][3]=addBPoint(xc-head_DX*0.5,yc+head_DY*0.5,hz3);
+		head[1][0][3]=addBPoint(xc+head_DX*0.5,yc-head_DY*0.5,hz3);
+		head[1][1][3]=addBPoint(xc+head_DX*0.5,yc+head_DY*0.5,hz3);
+		head[0][0][3]=addBPoint(xc-head_DX*0.5,yc-head_DY*0.5,hz3);
 		
-		head[0][1][4]=addBPoint(hx,hy+head_DY,hz4);
-		head[1][0][4]=addBPoint(hx+head_DX,hy,hz4);
-		head[1][1][4]=addBPoint(hx+head_DX,hy+head_DY,hz4);
-		head[0][0][4]=addBPoint(hx,hy,hz4);
+		head[0][1][4]=addBPoint(xc-head_DX*0.5*0.75,yc+head_DY*0.5*0.75,hz4);
+		head[1][0][4]=addBPoint(xc+head_DX*0.5*0.75,yc-head_DY*0.5*0.75,hz4);
+		head[1][1][4]=addBPoint(xc+head_DX*0.5*0.75,yc+head_DY*0.5*0.75,hz4);
+		head[0][0][4]=addBPoint(xc-head_DX*0.5*0.75,yc-head_DY*0.5*0.75,hz4);
 
 		//addLine(head[0][0][1],head[1][0][1],head[1][1][1],head[0][1][1],Renderer3D.CAR_TOP);
 
@@ -811,7 +814,7 @@ public class Animal extends CustomData{
 		//addLine(body[0][0][0],body[1][0][0],body[1][0][1],body[0][0][1],Renderer3D.CAR_BACK);
 
 		//addLine(body[0][1][0],body[0][1][1],body[1][1][1],body[1][1][0],Renderer3D.CAR_FRONT);	
-		 
+		  
 		
 		
 		//addLine(body[0][3][1],body[1][3][1],body[1][4][1],body[0][4][1],Renderer3D.CAR_TOP);
@@ -856,7 +859,7 @@ public class Animal extends CustomData{
 		neck[0][0][1]=addBPoint(nx,ny,nz1);
 		
 	
-		addLine(body[0][4][1],neck[0][1][0],neck[0][0][0],body[0][3][1],Renderer3D.CAR_LEFT);
+		addLine(body[0][3][1],neck[0][0][0],neck[0][1][0],body[0][4][1],Renderer3D.CAR_LEFT);
 
 		addLine(body[1][3][1],body[1][4][1],neck[1][1][0],neck[1][0][0],Renderer3D.CAR_RIGHT);
 
@@ -1062,8 +1065,8 @@ public class Animal extends CustomData{
 
 	private BPoint[][][] buildQuadrupedHeadMesh() {
 		
+		double xc=x_side*0.5;
 		
-		double hx=(x_side-head_DX)/2.0;
 		double hy0=y_side-neck_side;			
 		double hy1=y_side-neck_side+head_DY/4.0;
 		double hy2=y_side-neck_side+head_DY/2.0;
@@ -1073,30 +1076,30 @@ public class Animal extends CustomData{
 
 		BPoint[][][] head=new BPoint[2][5][2];
 
-		head[0][0][0]=addBPoint(hx,hy0,hz);
-		head[1][0][0]=addBPoint(hx+head_DX,hy0,hz);
-		head[1][0][1]=addBPoint(hx+head_DX,hy0,hz+head_DZ);
-		head[0][0][1]=addBPoint(hx,hy0,hz+head_DZ);
+		head[0][0][0]=addBPoint(xc-head_DX*0.5,hy0,hz);
+		head[1][0][0]=addBPoint(xc+head_DX*0.5,hy0,hz);
+		head[1][0][1]=addBPoint(xc+head_DX*0.5,hy0,hz+head_DZ);
+		head[0][0][1]=addBPoint(xc-head_DX*0.5,hy0,hz+head_DZ);
 		
-		head[0][1][0]=addBPoint(hx,hy1,hz);
-		head[1][1][0]=addBPoint(hx+head_DX,hy1,hz);
-		head[1][1][1]=addBPoint(hx+head_DX,hy1,hz+head_DZ);
-		head[0][1][1]=addBPoint(hx,hy1,hz+head_DZ);		
+		head[0][1][0]=addBPoint(xc-head_DX*0.5,hy1,hz);
+		head[1][1][0]=addBPoint(xc+head_DX*0.5,hy1,hz);
+		head[1][1][1]=addBPoint(xc+head_DX*0.5,hy1,hz+head_DZ);
+		head[0][1][1]=addBPoint(xc-head_DX*0.5,hy1,hz+head_DZ);		
 		
-		head[0][2][0]=addBPoint(hx,hy2,hz);
-		head[1][2][0]=addBPoint(hx+head_DX,hy2,hz);
-		head[1][2][1]=addBPoint(hx+head_DX,hy2,hz+head_DZ);
-		head[0][2][1]=addBPoint(hx,hy2,hz+head_DZ);	
+		head[0][2][0]=addBPoint(xc-head_DX*0.5,hy2,hz);
+		head[1][2][0]=addBPoint(xc+head_DX*0.5,hy2,hz);
+		head[1][2][1]=addBPoint(xc+head_DX*0.5,hy2,hz+head_DZ);
+		head[0][2][1]=addBPoint(xc-head_DX*0.5,hy2,hz+head_DZ);	
 		
-		head[0][3][0]=addBPoint(hx,hy3,hz);
-		head[1][3][0]=addBPoint(hx+head_DX,hy3,hz);
-		head[1][3][1]=addBPoint(hx+head_DX,hy3,hz+head_DZ);
-		head[0][3][1]=addBPoint(hx,hy3,hz+head_DZ);	
+		head[0][3][0]=addBPoint(xc-head_DX*0.5,hy3,hz);
+		head[1][3][0]=addBPoint(xc+head_DX*0.5,hy3,hz);
+		head[1][3][1]=addBPoint(xc+head_DX*0.5,hy3,hz+head_DZ);
+		head[0][3][1]=addBPoint(xc-head_DX*0.5,hy3,hz+head_DZ);	
 		
-		head[0][4][0]=addBPoint(hx,hy4,hz);
-		head[1][4][0]=addBPoint(hx+head_DX,hy4,hz);
-		head[1][4][1]=addBPoint(hx+head_DX,hy4,hz+head_DZ);
-		head[0][4][1]=addBPoint(hx,hy4,hz+head_DZ);	
+		head[0][4][0]=addBPoint(xc-head_DX*0.5,hy4,hz);
+		head[1][4][0]=addBPoint(xc+head_DX*0.5,hy4,hz);
+		head[1][4][1]=addBPoint(xc+head_DX*0.5,hy4,hz+head_DZ);
+		head[0][4][1]=addBPoint(xc-head_DX*0.5,hy4,hz+head_DZ);	
 
 		addLine(head[0][0][1],head[1][0][1],head[1][1][1],head[0][1][1],Renderer3D.CAR_TOP);
 

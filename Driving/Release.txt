@@ -1,4 +1,8 @@
 
+Using symmetry properties to improve custom editors.
+
+-----01/03/2014   CarDriving 7.0.14
+
 Improving and simplifying the code of the custom editors.
 
 -----22/02/2014   CarDriving 7.0.13
