@@ -297,63 +297,80 @@ public class Animal extends CustomData{
 		double SHOULDER_DX=10;		
 		double WAIST_DX=x_side*0.1;
 		
-		int numx=2;
+		int numx=3;
 		int numy=2;
 		int numz=7;
 		
 		BPoint[][][] body=new BPoint[numx][numy][numz]; 
 
 		body[0][0][0]=addBPoint(xc-x_side*0.5,yc-y_side*0.5,bz0);
-		body[1][0][0]=addBPoint(xc+x_side*0.5,yc-y_side*0.5,bz0);
+		body[1][0][0]=addBPoint(xc,yc-y_side*0.5,bz0);
+		body[2][0][0]=addBPoint(xc+x_side*0.5,yc-y_side*0.5,bz0);
 		body[0][1][0]=addBPoint(xc-x_side*0.5,yc+y_side*0.5,bz0);
-		body[1][1][0]=addBPoint(xc+x_side*0.5,yc+y_side*0.5,bz0);
-
-		body[0][1][1]=addBPoint(xc-x_side*0.5,yc+y_side*0.5,bz1);
-		body[1][0][1]=addBPoint(xc+x_side*0.5,yc-y_side*0.5,bz1);
-		body[1][1][1]=addBPoint(xc+x_side*0.5,yc+y_side*0.5,bz1);
+		body[1][1][0]=addBPoint(xc,yc+y_side*0.5,bz0);
+		body[2][1][0]=addBPoint(xc+x_side*0.5,yc+y_side*0.5,bz0);		
+		
 		body[0][0][1]=addBPoint(xc-x_side*0.5,yc-y_side*0.5,bz1);
+		body[1][0][1]=addBPoint(xc,yc-y_side*0.5,bz1);
+		body[2][0][1]=addBPoint(xc+x_side*0.5,yc-y_side*0.5,bz1);		
+		body[0][1][1]=addBPoint(xc-x_side*0.5,yc+y_side*0.5,bz1);
+		body[1][1][1]=addBPoint(xc,yc+y_side*0.5,bz1);
+		body[2][1][1]=addBPoint(xc+x_side*0.5,yc+y_side*0.5,bz1);
 		
-		body[0][1][2]=addBPoint(xc-(x_side*0.5-WAIST_DX),yc+y_side*0.5,bz2);
-		body[1][0][2]=addBPoint(xc+(x_side*0.5-WAIST_DX),yc-y_side*0.5,bz2);
-		body[1][1][2]=addBPoint(xc+(x_side*0.5-WAIST_DX),yc+y_side*0.5,bz2);
 		body[0][0][2]=addBPoint(xc-(x_side*0.5-WAIST_DX),yc-y_side*0.5,bz2);
+		body[1][0][2]=addBPoint(xc,yc-y_side*0.5,bz2);
+		body[2][0][2]=addBPoint(xc+(x_side*0.5-WAIST_DX),yc-y_side*0.5,bz2);		
+		body[0][1][2]=addBPoint(xc-(x_side*0.5-WAIST_DX),yc+y_side*0.5,bz2);
+		body[1][1][2]=addBPoint(xc,yc+y_side*0.5,bz2);
+		body[2][1][2]=addBPoint(xc+(x_side*0.5-WAIST_DX),yc+y_side*0.5,bz2);
 		
-		body[0][1][3]=addBPoint(xc-(x_side*0.5+SHOULDER_DX),yc+y_side*0.5,bz3);
-		body[1][0][3]=addBPoint(xc+(x_side*0.5+SHOULDER_DX),yc-y_side*0.5,bz3);
-		body[1][1][3]=addBPoint(xc+(x_side*0.5+SHOULDER_DX),yc+y_side*0.5,bz3);
 		body[0][0][3]=addBPoint(xc-(x_side*0.5+SHOULDER_DX),yc-y_side*0.5,bz3);
+		body[1][0][3]=addBPoint(xc,yc-y_side*0.5,bz3);
+		body[2][0][3]=addBPoint(xc+(x_side*0.5+SHOULDER_DX),yc-y_side*0.5,bz3);
+		body[0][1][3]=addBPoint(xc-(x_side*0.5+SHOULDER_DX),yc+y_side*0.5,bz3);
+		body[1][1][3]=addBPoint(xc,yc+y_side*0.5,bz3);
+		body[2][1][3]=addBPoint(xc+(x_side*0.5+SHOULDER_DX),yc+y_side*0.5,bz3);		
 		
-		body[0][1][4]=addBPoint(xc-(x_side*0.5+SHOULDER_DX),yc+y_side*0.5,bz4);
-		body[1][0][4]=addBPoint(xc+(x_side*0.5+SHOULDER_DX),yc-y_side*0.5,bz4);
-		body[1][1][4]=addBPoint(xc+(x_side*0.5+SHOULDER_DX),yc+y_side*0.5,bz4);
 		body[0][0][4]=addBPoint(xc-(x_side*0.5+SHOULDER_DX),yc-y_side*0.5,bz4);
+		body[1][0][4]=addBPoint(xc,yc-y_side*0.5,bz4);
+		body[2][0][4]=addBPoint(xc+(x_side*0.5+SHOULDER_DX),yc-y_side*0.5,bz4);		
+		body[0][1][4]=addBPoint(xc-(x_side*0.5+SHOULDER_DX),yc+y_side*0.5,bz4);
+		body[1][1][4]=addBPoint(xc,yc+y_side*0.5,bz4);
+		body[2][1][4]=addBPoint(xc+(x_side*0.5+SHOULDER_DX),yc+y_side*0.5,bz4);
 		
 		double nz0=femur_length+shinbone_length+z_side+neck_length/2.0;
 		double nz1=femur_length+shinbone_length+z_side+neck_length;		
 
+		body[0][0][5]=addBPoint(xc-neck_side*0.5,yc-y_side*0.5,nz0);
+		body[1][0][5]=addBPoint(xc,yc-y_side*0.5,nz0);
+		body[2][0][5]=addBPoint(xc+neck_side*0.5,yc-y_side*0.5,nz0);		
 		body[0][1][5]=addBPoint(xc-neck_side*0.5,yc+y_side*0.5,nz0);
-		body[1][0][5]=addBPoint(xc+neck_side*0.5,yc-y_side*0.5,nz0);
-		body[1][1][5]=addBPoint(xc+neck_side*0.5,yc+y_side*0.5,nz0);
-		body[0][0][5]=addBPoint(xc-neck_side*0.5,yc-y_side*0.5,nz0);		
+		body[1][1][5]=addBPoint(xc,yc+y_side*0.5,nz0);
+		body[2][1][5]=addBPoint(xc+neck_side*0.5,yc+y_side*0.5,nz0);
 
-		body[0][1][6]=addBPoint(xc-neck_side*0.5,yc+y_side*0.5,nz1);
-		body[1][0][6]=addBPoint(xc+neck_side*0.5,yc-y_side*0.5,nz1);
-		body[1][1][6]=addBPoint(xc+neck_side*0.5,yc+y_side*0.5,nz1);
 		body[0][0][6]=addBPoint(xc-neck_side*0.5,yc-y_side*0.5,nz1);
+		body[1][0][6]=addBPoint(xc,yc-y_side*0.5,nz1);
+		body[2][0][6]=addBPoint(xc+neck_side*0.5,yc-y_side*0.5,nz1);
+		body[0][1][6]=addBPoint(xc-neck_side*0.5,yc+y_side*0.5,nz1);		
+		body[1][1][6]=addBPoint(xc,yc+y_side*0.5,nz1);
+		body[2][1][6]=addBPoint(xc+neck_side*0.5,yc+y_side*0.5,nz1);
 
-
-		for(int k=0;k<6;k++){
+		for(int k=0;k<numz-1;k++){
 			
 			if(k==0)
-				addLine(body[0][0][k],body[0][1][k],body[1][1][k],body[1][0][k],Renderer3D.CAR_BOTTOM);
+				addLine(body[0][0][k],body[0][1][k],body[1][1][k],body[1][0][k],Renderer3D.CAR_BOTTOM);			
 		
 			addLine(body[0][0][k],body[0][0][k+1],body[0][1][k+1],body[0][1][k],Renderer3D.CAR_LEFT);
 	
-			addLine(body[1][0][k],body[1][1][k],body[1][1][k+1],body[1][0][k+1],Renderer3D.CAR_RIGHT);
+			addLine(body[numx-1][0][k],body[numx-1][1][k],body[numx-1][1][k+1],body[numx-1][0][k+1],Renderer3D.CAR_RIGHT);
+			
+			for(int i=0;i<numx-1;i++){
 	
-			addLine(body[0][0][k],body[1][0][k],body[1][0][k+1],body[0][0][k+1],Renderer3D.CAR_BACK);
-	
-			addLine(body[0][1][k],body[0][1][k+1],body[1][1][k+1],body[1][1][k],Renderer3D.CAR_FRONT);
+				addLine(body[i][0][k],body[i+1][0][k],body[i+1][0][k+1],body[i][0][k+1],Renderer3D.CAR_BACK);
+		
+				addLine(body[i][1][k],body[i][1][k+1],body[i+1][1][k+1],body[i+1][1][k],Renderer3D.CAR_FRONT);
+			
+			}
 		
 		}
 
