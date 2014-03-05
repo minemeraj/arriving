@@ -591,31 +591,31 @@ public class Animal extends CustomData{
 		head[1][1][0]=addBPoint(xc,yc+y_side*0.5,hz0);
 		head[2][1][0]=addBPoint(xc+neck_side*0.5,yc+y_side*0.5,hz0);
 
-		head[0][1][1]=addBPoint(xc-head_DX*0.5*0.85,yc+head_DY*0.5*0.85,hz1);
-		head[1][0][1]=addBPoint(xc,yc-head_DY*0.5*0.85,hz1);
-		head[2][0][1]=addBPoint(xc+head_DX*0.5*0.85,yc-head_DY*0.5*0.85,hz1);
 		head[0][0][1]=addBPoint(xc-head_DX*0.5*0.85,yc-head_DY*0.5*0.85,hz1);
+		head[1][0][1]=addBPoint(xc,yc-head_DY*0.5*0.85,hz1);
+		head[2][0][1]=addBPoint(xc+head_DX*0.5*0.85,yc-head_DY*0.5*0.85,hz1);		
+		head[0][1][1]=addBPoint(xc-head_DX*0.5*0.85,yc+head_DY*0.5*0.85,hz1);
 		head[1][1][1]=addBPoint(xc,yc+head_DY*0.5*0.85,hz1);
 		head[2][1][1]=addBPoint(xc+head_DX*0.5*0.85,yc+head_DY*0.5*0.85,hz1);
 		
-		head[0][1][2]=addBPoint(xc-head_DX*0.5,yc+head_DY*0.5,hz2);
-		head[1][0][2]=addBPoint(xc,yc-head_DY*0.5,hz2);
-		head[2][0][2]=addBPoint(xc+head_DX*0.5,yc-head_DY*0.5,hz2);
 		head[0][0][2]=addBPoint(xc-head_DX*0.5,yc-head_DY*0.5,hz2);
+		head[1][0][2]=addBPoint(xc,yc-head_DY*0.5,hz2);
+		head[2][0][2]=addBPoint(xc+head_DX*0.5,yc-head_DY*0.5,hz2);		
+		head[0][1][2]=addBPoint(xc-head_DX*0.5,yc+head_DY*0.5,hz2);
 		head[1][1][2]=addBPoint(xc,yc+head_DY*0.5,hz2);
-		head[2][1][2]=addBPoint(xc+head_DX*0.5,yc+head_DY*0.5,hz2);
+		head[2][1][2]=addBPoint(xc+head_DX*0.5,yc+head_DY*0.5,hz2);		
 		
-		head[0][1][3]=addBPoint(xc-head_DX*0.5,yc+head_DY*0.5,hz3);
 		head[1][0][3]=addBPoint(xc,yc-head_DY*0.5,hz3);
 		head[2][0][3]=addBPoint(xc+head_DX*0.5,yc-head_DY*0.5,hz3);
 		head[0][0][3]=addBPoint(xc-head_DX*0.5,yc-head_DY*0.5,hz3);
+		head[0][1][3]=addBPoint(xc-head_DX*0.5,yc+head_DY*0.5,hz3);
 		head[1][1][3]=addBPoint(xc,yc+head_DY*0.5,hz3);
-		head[2][1][3]=addBPoint(xc+head_DX*0.5,yc+head_DY*0.5,hz3);
+		head[2][1][3]=addBPoint(xc+head_DX*0.5,yc+head_DY*0.5,hz3);		
 		
-		head[0][1][4]=addBPoint(xc-head_DX*0.5*0.75,yc+head_DY*0.5*0.75,hz4);
+		head[0][0][4]=addBPoint(xc-head_DX*0.5*0.75,yc-head_DY*0.5*0.75,hz4);
 		head[1][0][4]=addBPoint(xc,yc-head_DY*0.5*0.75,hz4);
 		head[2][0][4]=addBPoint(xc+head_DX*0.5*0.75,yc-head_DY*0.5*0.75,hz4);		
-		head[0][0][4]=addBPoint(xc-head_DX*0.5*0.75,yc-head_DY*0.5*0.75,hz4);
+		head[0][1][4]=addBPoint(xc-head_DX*0.5*0.75,yc+head_DY*0.5*0.75,hz4);
 		head[1][1][4]=addBPoint(xc,yc+head_DY*0.5*0.75,hz4);
 		head[2][1][4]=addBPoint(xc+head_DX*0.5*0.75,yc+head_DY*0.5*0.75,hz4);
 
