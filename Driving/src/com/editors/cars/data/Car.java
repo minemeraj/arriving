@@ -248,7 +248,11 @@ public class Car extends CustomData {
 		
 		//main body:
 		
-		BPoint[][][] p=new BPoint[2][2][2];
+		int pnx=2;
+		int pny=2;
+		int pnz=2;
+		
+		BPoint[][][] p=new BPoint[pnx][pny][pnz];
 
 		p[0][0][0]=addBPoint(xc-x_side*0.5,back_length,0);
 		p[1][0][0]=addBPoint(xc+x_side*0.5,back_length,0);
@@ -261,58 +265,109 @@ public class Car extends CustomData {
 		p[0][1][1]=addBPoint(xc-x_side*0.5,back_length+y_side,z_side);		
 
 
+        for(int j=0;j<pny-1;j++){ 
 
+			LineData bottomLD=addLine(p[0][j][0],p[0][j+1][0],p[1][j+1][0],p[1][j][0],Renderer3D.CAR_BOTTOM);
+	
+			LineData leftLD=addLine(p[0][j][0],p[0][j][1],p[0][j+1][1],p[0][j+1][0],Renderer3D.CAR_LEFT);
+	
+			LineData rightLD=addLine(p[1][j][0],p[1][1][0],p[1][j+1][1],p[1][j][1],Renderer3D.CAR_RIGHT);
 
-		LineData bottomLD=addLine(p[0][0][0],p[0][1][0],p[1][1][0],p[1][0][0],Renderer3D.CAR_BOTTOM);
-
-		LineData leftLD=addLine(p[0][0][0],p[0][0][1],p[0][1][1],p[0][1][0],Renderer3D.CAR_LEFT);
-
-		LineData rightLD=addLine(p[1][0][0],p[1][1][0],p[1][1][1],p[1][0][1],Renderer3D.CAR_RIGHT);
-
+        }
 
 		
 		//back part:
+        
+    	int bnx=2;
+		int bny=2;
+		int bnz=2;
 		
-		BPoint[][][] pBack=new BPoint[2][2][2];
+		BPoint[][][] pBack=new BPoint[bnx][bny][bnz];
 		
 		pBack[0][0][0]=addBPoint(xc-back_width*0.5,0,0);
 		pBack[1][0][0]=addBPoint(xc+back_width*0.5,0,0);
 		pBack[1][0][1]=addBPoint(xc+back_width*0.5,0,back_height);
 		pBack[0][0][1]=addBPoint(xc-back_width*0.5,0,back_height);
 		
-		LineData backMask=addLine(pBack[0][0][0],pBack[1][0][0],pBack[1][0][1],pBack[0][0][1],Renderer3D.CAR_RIGHT);
+		pBack[0][1][0]=addBPoint(xc-back_width*0.5,back_length*0.5,0);
+		pBack[1][1][0]=addBPoint(xc+back_width*0.5,back_length*0.5,0);
+		pBack[1][1][1]=addBPoint(xc+back_width*0.5,back_length*0.5,back_height);
+		pBack[0][1][1]=addBPoint(xc-back_width*0.5,back_length*0.5,back_height);
 		
-		LineData backTop=addLine(pBack[0][0][1],pBack[1][0][1],p[1][0][1],p[0][0][1],Renderer3D.CAR_TOP);
+		LineData backMask=addLine(pBack[0][0][0],pBack[1][0][0],pBack[1][0][1],pBack[0][0][1],Renderer3D.CAR_BACK);		
+
+	
+		LineData backTop=addLine(pBack[0][bny-1][1],pBack[1][bny-1][1],p[1][0][1],p[0][0][1],Renderer3D.CAR_TOP);
 		
-		LineData backBottom=addLine(pBack[1][0][0],pBack[0][0][0],p[0][0][0],p[1][0][0],Renderer3D.CAR_BOTTOM);
+		LineData backBottom=addLine(pBack[1][bny-1][0],pBack[0][bny-1][0],p[0][0][0],p[1][0][0],Renderer3D.CAR_BOTTOM);
 		
-		LineData backLeft=addLine(pBack[0][0][0],pBack[0][0][1],p[0][0][1],p[0][0][0],Renderer3D.CAR_LEFT);
+		LineData backLeft=addLine(pBack[0][bny-1][0],pBack[0][bny-1][1],p[0][0][1],p[0][0][0],Renderer3D.CAR_LEFT);
 		
-		LineData backRight=addLine(pBack[1][0][1],pBack[1][0][0],p[1][0][0],p[1][0][1],Renderer3D.CAR_RIGHT);
+		LineData backRight=addLine(pBack[1][bny-1][1],pBack[1][bny-1][0],p[1][0][0],p[1][0][1],Renderer3D.CAR_RIGHT);
+		
+		for (int j = 0; j < bny-1; j++) {
+			
+			addLine(pBack[0][j][1],pBack[1][j][1],pBack[1][j+1][1],pBack[0][j+1][1],Renderer3D.CAR_TOP);
+			
+			addLine(pBack[1][j][0],pBack[0][j][0],pBack[0][j+1][0],pBack[1][j+1][0],Renderer3D.CAR_BOTTOM);
+			
+			addLine(pBack[0][j][0],pBack[0][j][1],pBack[0][j+1][1],pBack[0][j+1][0],Renderer3D.CAR_LEFT);
+			
+			addLine(pBack[1][j][0],pBack[1][j+1][0],pBack[1][j+1][1],pBack[1][j][1],Renderer3D.CAR_RIGHT);
+			
+		}
+
 
 		//front part:	
 		
-		BPoint[][][] pFront=new BPoint[2][2][2];
+		int fnx=2;
+		int fny=2;
+		int fnz=2;
 		
-		pFront[0][0][0]=addBPoint(xc-front_width*0.5,back_length+y_side+front_length,0);
-		pFront[1][0][0]=addBPoint(xc+front_width*0.5,back_length+y_side+front_length,0);
-		pFront[1][0][1]=addBPoint(xc+front_width*0.5,back_length+y_side+front_length,front_height);
-		pFront[0][0][1]=addBPoint(xc-front_width*0.5,back_length+y_side+front_length,front_height);
+		BPoint[][][] pFront=new BPoint[fnx][fny][fnz];
+		
+		pFront[0][0][0]=addBPoint(xc-front_width*0.5,back_length+y_side+front_length*0.5,0);
+		pFront[1][0][0]=addBPoint(xc+front_width*0.5,back_length+y_side+front_length*0.5,0);
+		pFront[1][0][1]=addBPoint(xc+front_width*0.5,back_length+y_side+front_length*0.5,front_height);
+		pFront[0][0][1]=addBPoint(xc-front_width*0.5,back_length+y_side+front_length*0.5,front_height);
+		
+		pFront[0][1][0]=addBPoint(xc-front_width*0.5,back_length+y_side+front_length,0);
+		pFront[1][1][0]=addBPoint(xc+front_width*0.5,back_length+y_side+front_length,0);
+		pFront[1][1][1]=addBPoint(xc+front_width*0.5,back_length+y_side+front_length,front_height);
+		pFront[0][1][1]=addBPoint(xc-front_width*0.5,back_length+y_side+front_length,front_height);
 
-		
-		LineData frontMask=addLine(pFront[0][0][0],pFront[0][0][1],pFront[1][0][1],pFront[1][0][0],Renderer3D.CAR_RIGHT);
-		
-		LineData frontTop=addLine(p[0][1][1],p[1][1][1],pFront[1][0][1],pFront[0][0][1],Renderer3D.CAR_TOP);
-		
-		LineData frontBottom=addLine(p[1][1][0],p[0][1][0],pFront[0][0][0],pFront[1][0][0],Renderer3D.CAR_BOTTOM);
+						
+			
+		LineData frontTop=addLine(p[0][pny-1][1],p[1][pny-1][1],pFront[1][0][1],pFront[0][0][1],Renderer3D.CAR_TOP);
+			
+		LineData frontBottom=addLine(p[1][pny-1][0],p[0][pny-1][0],pFront[0][0][0],pFront[1][0][0],Renderer3D.CAR_BOTTOM);
 
-		LineData frontLeft=addLine(p[0][1][0],p[0][1][1],pFront[0][0][1],pFront[0][0][0],Renderer3D.CAR_LEFT);
+		LineData frontLeft=addLine(p[0][pny-1][0],p[0][pny-1][1],pFront[0][0][1],pFront[0][0][0],Renderer3D.CAR_LEFT);
 		
-		LineData frontRight=addLine(p[1][1][1],p[1][1][0],pFront[1][0][0],pFront[1][0][1],Renderer3D.CAR_RIGHT);
+		LineData frontRight=addLine(p[1][pny-1][1],p[1][pny-1][0],pFront[1][0][0],pFront[1][0][1],Renderer3D.CAR_RIGHT);
 		
+		for (int j = 0; j < fny-1; j++) {
+			
+			addLine(pFront[0][j][1],pFront[1][j][1],pFront[1][j+1][1],pFront[0][j+1][1],Renderer3D.CAR_TOP);
+			
+			addLine(pFront[1][j][0],pFront[0][j][0],pFront[0][j+1][0],pFront[1][j+1][0],Renderer3D.CAR_BOTTOM);
+			
+			addLine(pFront[0][j][0],pFront[0][j][1],pFront[0][j+1][1],pFront[0][j+1][0],Renderer3D.CAR_LEFT);
+			
+			addLine(pFront[1][j][0],pFront[1][j+1][0],pFront[1][j+1][1],pFront[1][j][1],Renderer3D.CAR_RIGHT);
+			
+		}
+		
+		LineData frontMask=addLine(pFront[0][fny-1][0],pFront[0][fny-1][1],pFront[1][fny-1][1],pFront[1][fny-1][0],Renderer3D.CAR_FRONT);		
+		
+
 		//roof:	
 		
-		BPoint[][][] pr=new BPoint[2][2][2];
+		int rnx=2;
+		int rny=2;
+		int rnz=2;
+		
+		BPoint[][][] pr=new BPoint[rnx][rny][rnz];
 		
 		pr[0][0][0]=addBPoint(0,back_length,z_side);
 		pr[1][0][0]=addBPoint(x_side,back_length,z_side);
@@ -325,19 +380,20 @@ public class Car extends CustomData {
 		pr[1][0][1]=addBPoint(xc+roof_width*0.5,roofDY+back_length,z_side+roof_height);
 		pr[1][1][1]=addBPoint(xc+roof_width*0.5,y_side+back_length-roofDY,z_side+roof_height);
 		pr[0][1][1]=addBPoint(xc-roof_width*0.5,y_side+back_length-roofDY,z_side+roof_height);	
-
 		
-		LineData topRLD=addLine(pr[0][0][1],pr[1][0][1],pr[1][1][1],pr[0][1][1],Renderer3D.CAR_TOP);
-
-
-
-		LineData leftRLD=addLine(pr[0][0][0],pr[0][0][1],pr[0][1][1],pr[0][1][0],Renderer3D.CAR_LEFT);
-
-		LineData rightRLD=addLine(pr[1][0][0],pr[1][1][0],pr[1][1][1],pr[1][0][1],Renderer3D.CAR_RIGHT);
-
+		
 		LineData backRLD=addLine(pr[0][0][0],pr[1][0][0],pr[1][0][1],pr[0][0][1],Renderer3D.CAR_BACK);
 
-		LineData frontRLD=addLine(pr[0][1][0],pr[0][1][1],pr[1][1][1],pr[1][1][0],Renderer3D.CAR_FRONT);
+		for (int j = 0; j < rny-1; j++) {
+			
+			LineData topRLD=addLine(pr[0][j][1],pr[1][j][1],pr[1][j+1][1],pr[0][j+1][1],Renderer3D.CAR_TOP);
+			
+			LineData leftRLD=addLine(pr[0][j][0],pr[0][j][1],pr[0][j+1][1],pr[0][j+1][0],Renderer3D.CAR_LEFT);
+
+			LineData rightRLD=addLine(pr[1][j][0],pr[1][j+1][0],pr[1][j+1][1],pr[1][j][1],Renderer3D.CAR_RIGHT);
+		}
+
+		LineData frontRLD=addLine(pr[0][rny-1][0],pr[0][rny-1][1],pr[1][rny-1][1],pr[1][rny-1][0],Renderer3D.CAR_FRONT);	
 
 		
 

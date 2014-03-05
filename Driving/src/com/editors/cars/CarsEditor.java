@@ -157,7 +157,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		
 		int column=100;
 		
-		JLabel jlb=new JLabel("Animal type:");
+		JLabel jlb=new JLabel("Car type:");
 		jlb.setBounds(5, r, 120, 20);
 		right.add(jlb);
 		
