@@ -167,6 +167,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		car_type.addItem(new ValuePair("-1",""));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_CAR,"Car"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_TRUCK,"Truck"));
+		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_BYKE,"Byke"));
 		car_type.addItemListener(this);
 		
 		car_type.setSelectedIndex(0);
@@ -336,6 +337,26 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 	public void initRightTruckData() { 
 		
 	
+		x_side.setText(100);
+		y_side.setText(150);
+		z_side.setText(50);
+		
+		back_width.setText(120);
+		back_length.setText(50);
+		back_height.setText(100);
+		
+		front_width.setText(120);
+		front_length.setText(50);
+		front_height.setText(130);
+		
+		roof_width.setText(120);
+		roof_length.setText(150);
+		roof_height.setText(100);
+	}
+	
+	public void initRightBykeData() { 
+		
+		
 		x_side.setText(100);
 		y_side.setText(150);
 		z_side.setText(50);
@@ -769,8 +790,10 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 			   
 			   if(type==Car.CAR_TYPE_CAR)
 				   initRightCarData();
-			   else 
+			   else if(type==Car.CAR_TYPE_TRUCK)
 				   initRightTruckData();
+			   else
+				   initRightBykeData();
 			
 		}
 

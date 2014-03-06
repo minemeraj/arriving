@@ -32,6 +32,7 @@ public class Car extends CustomData {
     
     public static int CAR_TYPE_CAR=0;
     public static int CAR_TYPE_TRUCK=1;
+    public static int CAR_TYPE_BYKE=2;
     
     public int car_type=CAR_TYPE_CAR;
 
@@ -225,11 +226,13 @@ public class Car extends CustomData {
 		else if(car_type==CAR_TYPE_TRUCK)
 			return buildTruckMesh();
 		else
-			return buildCarMesh();
+			return buildBykeMesh();
 		
 
 
 	}
+
+
 
 
 	private PolygonMesh buildCarMesh() {
@@ -284,15 +287,18 @@ public class Car extends CustomData {
 		
 		BPoint[][][] pBack=new BPoint[bnx][bny][bnz];
 		
+		double back_width1=back_width*(1-0.5)+x_side*0.5; 
+		double back_height1=back_height*(1-0.75)+z_side*0.75; 
+		
 		pBack[0][0][0]=addBPoint(xc-back_width*0.5,0,0);
 		pBack[1][0][0]=addBPoint(xc+back_width*0.5,0,0);
 		pBack[1][0][1]=addBPoint(xc+back_width*0.5,0,back_height);
 		pBack[0][0][1]=addBPoint(xc-back_width*0.5,0,back_height);
 		
-		pBack[0][1][0]=addBPoint(xc-back_width*0.5,back_length*0.5,0);
-		pBack[1][1][0]=addBPoint(xc+back_width*0.5,back_length*0.5,0);
-		pBack[1][1][1]=addBPoint(xc+back_width*0.5,back_length*0.5,back_height);
-		pBack[0][1][1]=addBPoint(xc-back_width*0.5,back_length*0.5,back_height);
+		pBack[0][1][0]=addBPoint(xc-back_width1*0.5,back_length*0.5,0);
+		pBack[1][1][0]=addBPoint(xc+back_width1*0.5,back_length*0.5,0);
+		pBack[1][1][1]=addBPoint(xc+back_width1*0.5,back_length*0.5,back_height1);
+		pBack[0][1][1]=addBPoint(xc-back_width1*0.5,back_length*0.5,back_height1);
 		
 		LineData backMask=addLine(pBack[0][0][0],pBack[1][0][0],pBack[1][0][1],pBack[0][0][1],Renderer3D.CAR_BACK);		
 
@@ -326,10 +332,13 @@ public class Car extends CustomData {
 		
 		BPoint[][][] pFront=new BPoint[fnx][fny][fnz];
 		
-		pFront[0][0][0]=addBPoint(xc-front_width*0.5,back_length+y_side+front_length*0.5,0);
-		pFront[1][0][0]=addBPoint(xc+front_width*0.5,back_length+y_side+front_length*0.5,0);
-		pFront[1][0][1]=addBPoint(xc+front_width*0.5,back_length+y_side+front_length*0.5,front_height);
-		pFront[0][0][1]=addBPoint(xc-front_width*0.5,back_length+y_side+front_length*0.5,front_height);
+		double front_width0=front_width*(1-0.5)+x_side*0.5;  
+		double front_heigh0=front_height*(1-0.75)+z_side*0.75;
+		
+		pFront[0][0][0]=addBPoint(xc-front_width0*0.5,back_length+y_side+front_length*0.5,0);
+		pFront[1][0][0]=addBPoint(xc+front_width0*0.5,back_length+y_side+front_length*0.5,0);
+		pFront[1][0][1]=addBPoint(xc+front_width0*0.5,back_length+y_side+front_length*0.5,front_heigh0);
+		pFront[0][0][1]=addBPoint(xc-front_width0*0.5,back_length+y_side+front_length*0.5,front_heigh0);
 		
 		pFront[0][1][0]=addBPoint(xc-front_width*0.5,back_length+y_side+front_length,0);
 		pFront[1][1][0]=addBPoint(xc+front_width*0.5,back_length+y_side+front_length,0);
@@ -413,9 +422,6 @@ public class Car extends CustomData {
 		polyData=new Vector();
 
 		//basic sides:
-		
-		//double front_height=z_side;
-		//double back_height=z_side;
 		
 		n=0;
 		
@@ -542,6 +548,141 @@ public class Car extends CustomData {
 		return spm;
 	}
 
+	private PolygonMesh buildBykeMesh() {
+		
+		points=new Vector();
+		points.setSize(100);
 
+		polyData=new Vector();
+
+		//basic sides:
+		
+		n=0;
+		
+		double r=50;
+		double track=20;
+		
+		buildWheel(0,back_length,r,r,track);
+		buildWheel(0,back_length+y_side,r,r,track);
+		
+		
+		BPoint[][][] leftFrame=new BPoint[2][2][2];
+		
+		
+		double frame_side=30;
+		double xc=-frame_side*0.5;
+
+		leftFrame[0][0][0]=addBPoint(xc-frame_side*0.5,back_length,r);
+		leftFrame[1][0][0]=addBPoint(xc+frame_side*0.5,back_length,r);
+		leftFrame[1][1][0]=addBPoint(xc+frame_side*0.5,back_length+y_side,r);
+		leftFrame[0][1][0]=addBPoint(xc-frame_side*0.5,back_length+y_side,r);
+		
+		leftFrame[0][0][1]=addBPoint(xc-frame_side*0.5,back_length,r+z_side);	
+		leftFrame[1][0][1]=addBPoint(xc+frame_side*0.5,back_length,r+z_side);
+		leftFrame[1][1][1]=addBPoint(xc+frame_side*0.5,back_length+y_side,r+z_side);
+		leftFrame[0][1][1]=addBPoint(xc-frame_side*0.5,back_length+y_side,r+z_side);		
+
+
+		addLine(leftFrame[0][0][1],leftFrame[1][0][1],leftFrame[1][1][1],leftFrame[0][1][1],Renderer3D.CAR_TOP);
+
+		addLine(leftFrame[0][0][0],leftFrame[0][1][0],leftFrame[1][1][0],leftFrame[1][0][0],Renderer3D.CAR_BOTTOM);
+
+		addLine(leftFrame[0][0][0],leftFrame[0][0][1],leftFrame[0][1][1],leftFrame[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(leftFrame[1][0][0],leftFrame[1][1][0],leftFrame[1][1][1],leftFrame[1][0][1],Renderer3D.CAR_RIGHT);
+
+		addLine(leftFrame[0][0][0],leftFrame[1][0][0],leftFrame[1][0][1],leftFrame[0][0][1],Renderer3D.CAR_BACK);
+
+		addLine(leftFrame[0][1][0],leftFrame[0][1][1],leftFrame[1][1][1],leftFrame[1][1][0],Renderer3D.CAR_FRONT);		
+
+		
+		BPoint[][][] rightFrame=new BPoint[2][2][2];
+		
+		
+	
+		xc=track+frame_side*0.5;
+
+		rightFrame[0][0][0]=addBPoint(xc-frame_side*0.5,back_length,r);
+		rightFrame[1][0][0]=addBPoint(xc+frame_side*0.5,back_length,r);
+		rightFrame[1][1][0]=addBPoint(xc+frame_side*0.5,back_length+y_side,r);
+		rightFrame[0][1][0]=addBPoint(xc-frame_side*0.5,back_length+y_side,r);
+		
+		rightFrame[0][0][1]=addBPoint(xc-frame_side*0.5,back_length,r+z_side);	
+		rightFrame[1][0][1]=addBPoint(xc+frame_side*0.5,back_length,r+z_side);
+		rightFrame[1][1][1]=addBPoint(xc+frame_side*0.5,back_length+y_side,r+z_side);
+		rightFrame[0][1][1]=addBPoint(xc-frame_side*0.5,back_length+y_side,r+z_side);		
+
+
+		addLine(rightFrame[0][0][1],rightFrame[1][0][1],rightFrame[1][1][1],rightFrame[0][1][1],Renderer3D.CAR_TOP);
+
+		addLine(rightFrame[0][0][0],rightFrame[0][1][0],rightFrame[1][1][0],rightFrame[1][0][0],Renderer3D.CAR_BOTTOM);
+
+		addLine(rightFrame[0][0][0],rightFrame[0][0][1],rightFrame[0][1][1],rightFrame[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(rightFrame[1][0][0],rightFrame[1][1][0],rightFrame[1][1][1],rightFrame[1][0][1],Renderer3D.CAR_RIGHT);
+
+		addLine(rightFrame[0][0][0],rightFrame[1][0][0],rightFrame[1][0][1],rightFrame[0][0][1],Renderer3D.CAR_BACK);
+
+		addLine(rightFrame[0][1][0],rightFrame[0][1][1],rightFrame[1][1][1],rightFrame[1][1][0],Renderer3D.CAR_FRONT);		
+
+		
+		PolygonMesh pm=new PolygonMesh(points,polyData);
+
+		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
+		return spm;
+	}
+
+	private void buildWheel(double rxc, double ryc, double rzc,double r, double track) {
+		
+			
+		int raysNumber=10;
+		
+		//back wheel
+		
+				BPoint[] lRearWheel=new BPoint[raysNumber];
+				BPoint[] rRearWheel=new BPoint[raysNumber];
+
+				
+				for(int i=0;i<raysNumber;i++){
+					
+					double teta=i*2*Math.PI/(raysNumber);
+					
+					double x=rxc;
+					double y=ryc+r*Math.sin(teta);
+					double z=rzc+r*Math.cos(teta);
+					
+					lRearWheel[i]=addBPoint(x,y,z);
+					rRearWheel[i]=addBPoint(x+track,y,z);
+				}
+				
+				LineData leftRearWheel=new LineData();
+				LineData rightRearWheel=new LineData();
+				
+				for(int i=0;i<raysNumber;i++){
+					
+					leftRearWheel.addIndex(lRearWheel[i].getIndex());
+					rightRearWheel.addIndex(rRearWheel[raysNumber-1-i].getIndex());
+					
+				}
+				leftRearWheel.setData(""+Renderer3D.CAR_LEFT);
+				polyData.add(leftRearWheel);
+				rightRearWheel.setData(""+Renderer3D.CAR_RIGHT);
+				polyData.add(rightRearWheel);
+				
+				
+				for(int i=0;i<raysNumber;i++){
+					
+					LineData tyreRearWheel=new LineData();
+					tyreRearWheel.addIndex(lRearWheel[i].getIndex());
+					tyreRearWheel.addIndex(rRearWheel[i].getIndex());
+					tyreRearWheel.addIndex(rRearWheel[(i+1)%raysNumber].getIndex());
+					tyreRearWheel.addIndex(lRearWheel[(i+1)%raysNumber].getIndex());
+					
+					
+					polyData.add(tyreRearWheel);
+				}		
+			
+		
+	}
 
 }	
