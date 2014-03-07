@@ -168,6 +168,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_CAR,"Car"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_TRUCK,"Truck"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_BYKE,"Byke"));
+		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_TRACTOR,"Tractor"));
 		car_type.addItemListener(this);
 		
 		car_type.setSelectedIndex(0);
@@ -329,7 +330,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		front_height.setText(80);
 		
 		roof_width.setText(80);
-		roof_length.setText(180);
+		roof_length.setText(150);
 		roof_height.setText(60);
 	}
 	
@@ -372,6 +373,29 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		roof_width.setText(120);
 		roof_length.setText(150);
 		roof_height.setText(100);
+	}
+	
+	private void initRightTractorData() {
+ 
+		
+		
+		x_side.setText(100);
+		y_side.setText(150);
+		z_side.setText(50);
+		
+		back_width.setText(90);
+		back_length.setText(80);
+		back_height.setText(100);
+		
+		front_width.setText(80);
+		front_length.setText(70);
+		front_height.setText(50);
+		
+		roof_width.setText(120);
+		roof_length.setText(150);
+		roof_height.setText(100);
+	
+		
 	}
 	
 	private void setRightData(Car car) {
@@ -792,12 +816,17 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 				   initRightCarData();
 			   else if(type==Car.CAR_TYPE_TRUCK)
 				   initRightTruckData();
-			   else
+			   else if(type==Car.CAR_TYPE_BYKE)
 				   initRightBykeData();
+			   else
+				   initRightTractorData();
 			
 		}
 
 		
 	}
+
+
+
 
 }
