@@ -240,7 +240,7 @@ public class Car extends CustomData {
 	private PolygonMesh buildCarMesh() {
 		
 		points=new Vector();
-		points.setSize(100);
+		points.setSize(200);
 
 		polyData=new Vector();
 
@@ -254,7 +254,7 @@ public class Car extends CustomData {
 		//main body:
 		
 		int pnx=5;
-		int pny=2;
+		int pny=5;
 		int pnz=2;
 		
 		BPoint[][][] p=new BPoint[pnx][pny][pnz];
@@ -270,17 +270,51 @@ public class Car extends CustomData {
 		p[3][0][1]=addBPoint(xc+x_side*0.25,back_length,z_side);	
 		p[4][0][1]=addBPoint(xc+x_side*0.5,back_length,z_side);		
 		
+		p[0][1][0]=addBPoint(xc-x_side*0.5,back_length+y_side*0.25,0);	
+		p[1][1][0]=addBPoint(xc-x_side*0.25,back_length+y_side*0.25,0);
+		p[2][1][0]=addBPoint(xc,back_length+y_side*0.25,0);
+		p[3][1][0]=addBPoint(xc+x_side*0.25,back_length+y_side*0.25,0);
+		p[4][1][0]=addBPoint(xc+x_side*0.5,back_length+y_side*0.25,0);		
+		p[0][1][1]=addBPoint(xc-x_side*0.5,back_length+y_side*0.25,z_side);
+		p[1][1][1]=addBPoint(xc-x_side*0.25,back_length+y_side*0.25,z_side);
+		p[2][1][1]=addBPoint(xc,back_length+y_side*0.25,z_side);
+		p[3][1][1]=addBPoint(xc+x_side*0.25,back_length+y_side*0.25,z_side);
+		p[4][1][1]=addBPoint(xc+x_side*0.5,back_length+y_side*0.25,z_side);
 		
-		p[0][1][0]=addBPoint(xc-x_side*0.5,back_length+y_side,0);	
-		p[1][1][0]=addBPoint(xc-x_side*0.25,back_length+y_side,0);
-		p[2][1][0]=addBPoint(xc,back_length+y_side,0);
-		p[3][1][0]=addBPoint(xc+x_side*0.25,back_length+y_side,0);
-		p[4][1][0]=addBPoint(xc+x_side*0.5,back_length+y_side,0);		
-		p[0][1][1]=addBPoint(xc-x_side*0.5,back_length+y_side,z_side);
-		p[1][1][1]=addBPoint(xc-x_side*0.25,back_length+y_side,z_side);
-		p[2][1][1]=addBPoint(xc,back_length+y_side,z_side);
-		p[3][1][1]=addBPoint(xc+x_side*0.25,back_length+y_side,z_side);
-		p[4][1][1]=addBPoint(xc+x_side*0.5,back_length+y_side,z_side);
+		
+		p[0][2][0]=addBPoint(xc-x_side*0.5,back_length+y_side*0.5,0);	
+		p[1][2][0]=addBPoint(xc-x_side*0.25,back_length+y_side*0.5,0);
+		p[2][2][0]=addBPoint(xc,back_length+y_side*0.5,0);
+		p[3][2][0]=addBPoint(xc+x_side*0.25,back_length+y_side*0.5,0);
+		p[4][2][0]=addBPoint(xc+x_side*0.5,back_length+y_side*0.5,0);		
+		p[0][2][1]=addBPoint(xc-x_side*0.5,back_length+y_side*0.5,z_side);
+		p[1][2][1]=addBPoint(xc-x_side*0.25,back_length+y_side*0.5,z_side);
+		p[2][2][1]=addBPoint(xc,back_length+y_side*0.5,z_side);
+		p[3][2][1]=addBPoint(xc+x_side*0.25,back_length+y_side*0.5,z_side);
+		p[4][2][1]=addBPoint(xc+x_side*0.5,back_length+y_side*0.5,z_side);
+		
+		p[0][3][0]=addBPoint(xc-x_side*0.5,back_length+y_side*0.75,0);	
+		p[1][3][0]=addBPoint(xc-x_side*0.25,back_length+y_side*0.75,0);
+		p[2][3][0]=addBPoint(xc,back_length+y_side*0.75,0);
+		p[3][3][0]=addBPoint(xc+x_side*0.25,back_length+y_side*0.75,0);
+		p[4][3][0]=addBPoint(xc+x_side*0.5,back_length+y_side*0.75,0);		
+		p[0][3][1]=addBPoint(xc-x_side*0.5,back_length+y_side*0.75,z_side);
+		p[1][3][1]=addBPoint(xc-x_side*0.25,back_length+y_side*0.75,z_side);
+		p[2][3][1]=addBPoint(xc,back_length+y_side*0.75,z_side);
+		p[3][3][1]=addBPoint(xc+x_side*0.25,back_length+y_side*0.75,z_side);
+		p[4][3][1]=addBPoint(xc+x_side*0.5,back_length+y_side*0.75,z_side);
+		
+		
+		p[0][4][0]=addBPoint(xc-x_side*0.5,back_length+y_side,0);	
+		p[1][4][0]=addBPoint(xc-x_side*0.25,back_length+y_side,0);
+		p[2][4][0]=addBPoint(xc,back_length+y_side,0);
+		p[3][4][0]=addBPoint(xc+x_side*0.25,back_length+y_side,0);
+		p[4][4][0]=addBPoint(xc+x_side*0.5,back_length+y_side,0);		
+		p[0][4][1]=addBPoint(xc-x_side*0.5,back_length+y_side,z_side);
+		p[1][4][1]=addBPoint(xc-x_side*0.25,back_length+y_side,z_side);
+		p[2][4][1]=addBPoint(xc,back_length+y_side,z_side);
+		p[3][4][1]=addBPoint(xc+x_side*0.25,back_length+y_side,z_side);
+		p[4][4][1]=addBPoint(xc+x_side*0.5,back_length+y_side,z_side);
 		
 		for(int i=0;i<pnx;i++){
 
@@ -300,7 +334,7 @@ public class Car extends CustomData {
 	        	
 	        	if(i==pnx-1){
 	        		
-	        		LineData rightLD=addLine(p[i][j][0],p[i][1][0],p[i][j+1][1],p[i][j][1],Renderer3D.CAR_RIGHT);
+	        		LineData rightLD=addLine(p[i][j][0],p[i][j+1][0],p[i][j+1][1],p[i][j][1],Renderer3D.CAR_RIGHT);
 	        	}
 	
 	
@@ -489,11 +523,9 @@ public class Car extends CustomData {
 
 		//roof:	
 		
-		
-		int rny=2;
 		int rnz=2;
 		
-		BPoint[][][] pr=new BPoint[pnx][rny][rnz];
+		BPoint[][][] pr=new BPoint[pnx][pny][rnz];
 		
 		pr[0][0][0]=addBPoint(xc-x_side*0.5,back_length,z_side);
 		pr[1][0][0]=addBPoint(xc-x_side*0.25,back_length,z_side);
@@ -501,11 +533,29 @@ public class Car extends CustomData {
 		pr[3][0][0]=addBPoint(xc+x_side*0.25,back_length,z_side);
 		pr[4][0][0]=addBPoint(xc+x_side*0.5,back_length,z_side);
 		
-		pr[0][1][0]=addBPoint(xc-x_side*0.5,back_length+y_side,z_side);	
-		pr[1][1][0]=addBPoint(xc-x_side*0.25,back_length+y_side,z_side);	
-		pr[2][1][0]=addBPoint(xc,back_length+y_side,z_side);	
-		pr[3][1][0]=addBPoint(xc+x_side*0.25,back_length+y_side,z_side);			
-		pr[4][1][0]=addBPoint(xc+x_side*0.5,back_length+y_side,z_side);
+		pr[0][1][0]=addBPoint(xc-x_side*0.5,back_length+y_side*0.25,z_side);	
+		pr[1][1][0]=addBPoint(xc-x_side*0.25,back_length+y_side*0.25,z_side);	
+		pr[2][1][0]=addBPoint(xc,back_length+y_side*0.25,z_side);	
+		pr[3][1][0]=addBPoint(xc+x_side*0.25,back_length+y_side*0.25,z_side);			
+		pr[4][1][0]=addBPoint(xc+x_side*0.5,back_length+y_side*0.25,z_side);
+		
+		pr[0][2][0]=addBPoint(xc-x_side*0.5,back_length+y_side*0.5,z_side);	
+		pr[1][2][0]=addBPoint(xc-x_side*0.25,back_length+y_side*0.5,z_side);	
+		pr[2][2][0]=addBPoint(xc,back_length+y_side*0.5,z_side);	
+		pr[3][2][0]=addBPoint(xc+x_side*0.25,back_length+y_side*0.5,z_side);			
+		pr[4][2][0]=addBPoint(xc+x_side*0.5,back_length+y_side*0.5,z_side);
+		
+		pr[0][3][0]=addBPoint(xc-x_side*0.5,back_length+y_side*0.75,z_side);	
+		pr[1][3][0]=addBPoint(xc-x_side*0.25,back_length+y_side*0.75,z_side);	
+		pr[2][3][0]=addBPoint(xc,back_length+y_side*0.75,z_side);	
+		pr[3][3][0]=addBPoint(xc+x_side*0.25,back_length+y_side*0.75,z_side);			
+		pr[4][3][0]=addBPoint(xc+x_side*0.5,back_length+y_side*0.75,z_side);
+		
+		pr[0][4][0]=addBPoint(xc-x_side*0.5,back_length+y_side,z_side);	
+		pr[1][4][0]=addBPoint(xc-x_side*0.25,back_length+y_side,z_side);	
+		pr[2][4][0]=addBPoint(xc,back_length+y_side,z_side);	
+		pr[3][4][0]=addBPoint(xc+x_side*0.25,back_length+y_side,z_side);			
+		pr[4][4][0]=addBPoint(xc+x_side*0.5,back_length+y_side,z_side);
 		
 		double roofDY=(y_side-roof_length)/2.0;
 		
@@ -515,23 +565,40 @@ public class Car extends CustomData {
 		pr[3][0][1]=addBPoint(xc+roof_width*0.25,roofDY+back_length,z_side+roof_height);	
 		pr[4][0][1]=addBPoint(xc+roof_width*0.5,roofDY+back_length,z_side+roof_height);
 		
-		pr[0][1][1]=addBPoint(xc-roof_width*0.5,y_side+back_length-roofDY,z_side+roof_height);	
-		pr[1][1][1]=addBPoint(xc-roof_width*0.25,y_side+back_length-roofDY,z_side+roof_height);	
-		pr[2][1][1]=addBPoint(xc,y_side+back_length-roofDY,z_side+roof_height);	
-		pr[3][1][1]=addBPoint(xc+roof_width*0.25,y_side+back_length-roofDY,z_side+roof_height);	
-		pr[4][1][1]=addBPoint(xc+roof_width*0.5,y_side+back_length-roofDY,z_side+roof_height);
+		pr[0][1][1]=addBPoint(xc-roof_width*0.5,y_side*0.25+back_length-roofDY,z_side+roof_height);	
+		pr[1][1][1]=addBPoint(xc-roof_width*0.25,y_side*0.25+back_length-roofDY,z_side+roof_height);	
+		pr[2][1][1]=addBPoint(xc,y_side*0.25+back_length-roofDY,z_side+roof_height);	
+		pr[3][1][1]=addBPoint(xc+roof_width*0.25,y_side*0.25+back_length-roofDY,z_side+roof_height);	
+		pr[4][1][1]=addBPoint(xc+roof_width*0.5,y_side*0.25+back_length-roofDY,z_side+roof_height);
 		
+		pr[0][2][1]=addBPoint(xc-roof_width*0.5,y_side*0.5+back_length-roofDY,z_side+roof_height);	
+		pr[1][2][1]=addBPoint(xc-roof_width*0.25,y_side*0.5+back_length-roofDY,z_side+roof_height);	
+		pr[2][2][1]=addBPoint(xc,y_side*0.5+back_length-roofDY,z_side+roof_height);	
+		pr[3][2][1]=addBPoint(xc+roof_width*0.25,y_side*0.5+back_length-roofDY,z_side+roof_height);	
+		pr[4][2][1]=addBPoint(xc+roof_width*0.5,y_side*0.5+back_length-roofDY,z_side+roof_height);
 		
+		pr[0][3][1]=addBPoint(xc-roof_width*0.5,y_side*0.75+back_length-roofDY,z_side+roof_height);	
+		pr[1][3][1]=addBPoint(xc-roof_width*0.25,y_side*0.75+back_length-roofDY,z_side+roof_height);	
+		pr[2][3][1]=addBPoint(xc,y_side*0.75+back_length-roofDY,z_side+roof_height);	
+		pr[3][3][1]=addBPoint(xc+roof_width*0.25,y_side*0.75+back_length-roofDY,z_side+roof_height);	
+		pr[4][3][1]=addBPoint(xc+roof_width*0.5,y_side*0.75+back_length-roofDY,z_side+roof_height);
+		
+		pr[0][4][1]=addBPoint(xc-roof_width*0.5,y_side+back_length-roofDY,z_side+roof_height);	
+		pr[1][4][1]=addBPoint(xc-roof_width*0.25,y_side+back_length-roofDY,z_side+roof_height);	
+		pr[2][4][1]=addBPoint(xc,y_side+back_length-roofDY,z_side+roof_height);	
+		pr[3][4][1]=addBPoint(xc+roof_width*0.25,y_side+back_length-roofDY,z_side+roof_height);	
+		pr[4][4][1]=addBPoint(xc+roof_width*0.5,y_side+back_length-roofDY,z_side+roof_height);
 		
 		for (int i = 0; i < pnx; i++) {
 			
 			
 
-			for (int j = 0; j < rny-1; j++) {
+			for (int j = 0; j < pny-1; j++) {
 				
 				if(i==0){
 					
-					LineData leftRLD=addLine(pr[i][j][0],pr[i][j][1],pr[i][j+1][1],pr[i][j+1][0],Renderer3D.CAR_LEFT);
+						LineData leftRLD=addLine(pr[i][j+1][1],pr[i][j+1][0],pr[i][j][0],pr[i][j][1],Renderer3D.CAR_LEFT);
+						
 				}
 				
 				if(i>=0 && i<pnx-1){
@@ -542,7 +609,7 @@ public class Car extends CustomData {
 					
 					LineData topRLD=addLine(pr[i][j][1],pr[i+1][j][1],pr[i+1][j+1][1],pr[i][j+1][1],Renderer3D.CAR_TOP);
 					
-					if(j+1==rny-1){
+					if(j+1==pny-1){
 						
 						LineData frontRLD=addLine(pr[i][j+1][0],pr[i][j+1][1],pr[i+1][j+1][1],pr[i+1][j+1][0],Renderer3D.CAR_FRONT);	
 					}
@@ -550,7 +617,7 @@ public class Car extends CustomData {
 				
 				if(i==pnx-1){
 					
-					LineData rightRLD=addLine(pr[i][j][0],pr[i][j+1][0],pr[i][j+1][1],pr[i][j][1],Renderer3D.CAR_RIGHT);
+						LineData rightRLD=addLine(pr[i][j][0],pr[i][j+1][0],pr[i][j+1][1],pr[i][j][1],Renderer3D.CAR_RIGHT);
 					
 				}
 
