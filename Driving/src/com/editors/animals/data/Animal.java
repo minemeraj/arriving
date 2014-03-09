@@ -670,92 +670,91 @@ public class Animal extends CustomData{
 		double by3=y_side*3.0/4.0;
 		double by4=y_side;
 		
-		int numx=2;
+		int numx=3;
 		int numy=5;
 		int numz=2;
 		
 		BPoint[][][] body=new BPoint[numx][numy][numz]; 
 
 		body[0][0][0]=addBPoint(0,by0,bz0);
-		body[1][0][0]=addBPoint(x_side,by0,bz0);
+		body[1][0][0]=addBPoint(x_side*0.5,by0,bz0);
+		body[2][0][0]=addBPoint(x_side,by0,bz0);
 		body[0][0][1]=addBPoint(0,by0,bz1);	
-		body[1][0][1]=addBPoint(x_side,by0,bz1);
+		body[1][0][1]=addBPoint(x_side*0.5,by0,bz1);
+		body[2][0][1]=addBPoint(x_side,by0,bz1);
 		
 		body[0][1][0]=addBPoint(0,by1,bz0);
-		body[1][1][0]=addBPoint(x_side,by1,bz0);			
+		body[1][1][0]=addBPoint(x_side*0.5,by1,bz0);
+		body[2][1][0]=addBPoint(x_side,by1,bz0);	
 		body[0][1][1]=addBPoint(0,by1,bz1);		
-		body[1][1][1]=addBPoint(x_side,by1,bz1);
-
+		body[1][1][1]=addBPoint(x_side*0.5,by1,bz1);
+		body[2][1][1]=addBPoint(x_side,by1,bz1);
+		
 		body[0][2][0]=addBPoint(0,by2,bz0);
-		body[1][2][0]=addBPoint(x_side,by2,bz0);			
+		body[1][2][0]=addBPoint(x_side*0.5,by2,bz0);
+		body[2][2][0]=addBPoint(x_side,by2,bz0);
 		body[0][2][1]=addBPoint(0,by2,bz1);		
-		body[1][2][1]=addBPoint(x_side,by2,bz1);		
+		body[1][2][1]=addBPoint(x_side*0.5,by2,bz1);	
+		body[2][2][1]=addBPoint(x_side,by2,bz1);
 		
 		body[0][3][0]=addBPoint(0,by3,bfz0);
-		body[1][3][0]=addBPoint(x_side,by3,bfz0);			
+		body[1][3][0]=addBPoint(x_side*0.5,by3,bfz0);	
+		body[2][3][0]=addBPoint(x_side,by3,bfz0);
 		body[0][3][1]=addBPoint(0,by3,bz1);		
-		body[1][3][1]=addBPoint(x_side,by3,bz1);
+		body[1][3][1]=addBPoint(x_side*0.5,by3,bz1);
+		body[2][3][1]=addBPoint(x_side,by3,bz1);
 		
 		body[0][4][0]=addBPoint(0,by4,bfz0);
-		body[1][4][0]=addBPoint(x_side,by4,bfz0);			
+		body[1][4][0]=addBPoint(x_side*0.5,by4,bfz0);		
+		body[2][4][0]=addBPoint(x_side,by4,bfz0);	
 		body[0][4][1]=addBPoint(0,by4,bz1);		
-		body[1][4][1]=addBPoint(x_side,by4,bz1);
-
-
-
-		addLine(body[0][0][1],body[1][0][1],body[1][1][1],body[0][1][1],Renderer3D.CAR_TOP);
+		body[1][4][1]=addBPoint(x_side*0.5,by4,bz1);
+		body[2][4][1]=addBPoint(x_side,by4,bz1);
 		
-		addLine(body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0],Renderer3D.CAR_BOTTOM);
-
-		addLine(body[0][0][0],body[0][0][1],body[0][1][1],body[0][1][0],Renderer3D.CAR_LEFT);
-
-		addLine(body[1][0][0],body[1][1][0],body[1][1][1],body[1][0][1],Renderer3D.CAR_RIGHT);
-
-		addLine(body[0][0][0],body[1][0][0],body[1][0][1],body[0][0][1],Renderer3D.CAR_BACK);
-
-		//addLine(body[0][1][0],body[0][1][1],body[1][1][1],body[1][1][0],Renderer3D.CAR_FRONT);		
+		for (int i = 0; i < numx; i++) {
+			
 		
 		
+			for (int j = 0; j < numy; j++) {
+			
+				if(j==0){
+					
+					if(i>=0 && i<numx-1){
+						addLine(body[i][j][0],body[i+1][j][0],body[i+1][j][1],body[i][j][1],Renderer3D.CAR_BACK);
+					}
+				}
+				
+				if(j>=0 && j<numy-1){
+					
+					if(i==0)	
+						addLine(body[i][j][0],body[i][j][1],body[i][j+1][1],body[i][j+1][0],Renderer3D.CAR_LEFT);
+					
+					if(i>=0 && i<numx-1){
+						addLine(body[i][j][1],body[i+1][j][1],body[i+1][j+1][1],body[i][j+1][1],Renderer3D.CAR_TOP);
+						
+						addLine(body[i][j][0],body[i][j+1][0],body[i+1][j+1][0],body[i+1][j][0],Renderer3D.CAR_BOTTOM);
+					}
+					
+				
+	
+					if(i==numx-1)
+						addLine(body[i][j][0],body[i][j+1][0],body[i][j+1][1],body[i][j][1],Renderer3D.CAR_RIGHT);
+					
+				}
+				
+				if(j==numy-1){
+					if(i>=0 && i<numx-1){
+						addLine(body[i][j][0],body[i][j][1],body[i+1][j][1],body[i+1][j][0],Renderer3D.CAR_FRONT);
+					}
+				}
+			
+			}
+			
+		}
+
+
+
 		
-		addLine(body[0][1][1],body[1][1][1],body[1][2][1],body[0][2][1],Renderer3D.CAR_TOP);
-		
-		addLine(body[0][1][0],body[0][2][0],body[1][2][0],body[1][1][0],Renderer3D.CAR_BOTTOM);
-
-		addLine(body[0][1][0],body[0][1][1],body[0][2][1],body[0][2][0],Renderer3D.CAR_LEFT);
-
-		addLine(body[1][1][0],body[1][2][0],body[1][2][1],body[1][1][1],Renderer3D.CAR_RIGHT);
-
-		//addLine(body[0][0][0],body[1][0][0],body[1][0][1],body[0][0][1],Renderer3D.CAR_BACK);
-
-		//addLine(body[0][1][0],body[0][1][1],body[1][1][1],body[1][1][0],Renderer3D.CAR_FRONT);	
-		
-		
-		
-		addLine(body[0][2][1],body[1][2][1],body[1][3][1],body[0][3][1],Renderer3D.CAR_TOP);
-		
-		addLine(body[0][2][0],body[0][3][0],body[1][3][0],body[1][2][0],Renderer3D.CAR_BOTTOM);
-
-		addLine(body[0][2][0],body[0][2][1],body[0][3][1],body[0][3][0],Renderer3D.CAR_LEFT);
-
-		addLine(body[1][2][0],body[1][3][0],body[1][3][1],body[1][2][1],Renderer3D.CAR_RIGHT);
-
-		//addLine(body[0][0][0],body[1][0][0],body[1][0][1],body[0][0][1],Renderer3D.CAR_BACK);
-
-		//addLine(body[0][1][0],body[0][1][1],body[1][1][1],body[1][1][0],Renderer3D.CAR_FRONT);	
-		  
-		
-		
-		//addLine(body[0][3][1],body[1][3][1],body[1][4][1],body[0][4][1],Renderer3D.CAR_TOP);
-		
-		addLine(body[0][3][0],body[0][4][0],body[1][4][0],body[1][3][0],Renderer3D.CAR_BOTTOM);
-
-		addLine(body[0][3][0],body[0][3][1],body[0][4][1],body[0][4][0],Renderer3D.CAR_LEFT);
-
-		addLine(body[1][3][0],body[1][4][0],body[1][4][1],body[1][3][1],Renderer3D.CAR_RIGHT);
-
-		//addLine(body[0][0][0],body[1][0][0],body[1][0][1],body[0][0][1],Renderer3D.CAR_BACK);
-
-		addLine(body[0][4][0],body[0][4][1],body[1][4][1],body[1][4][0],Renderer3D.CAR_FRONT);
 		
 		/////////head:		
 		
@@ -786,11 +785,11 @@ public class Animal extends CustomData{
 	
 		addLine(body[0][3][1],neck[0][0][0],neck[0][1][0],body[0][4][1],Renderer3D.CAR_LEFT);
 
-		addLine(body[1][3][1],body[1][4][1],neck[1][1][0],neck[1][0][0],Renderer3D.CAR_RIGHT);
+		addLine(body[numx-1][3][1],body[numx-1][4][1],neck[1][1][0],neck[1][0][0],Renderer3D.CAR_RIGHT);
 
-		addLine(body[0][3][1],body[1][3][1],neck[1][0][0],neck[0][0][0],Renderer3D.CAR_BACK);
+		addLine(body[0][3][1],body[numx-1][3][1],neck[1][0][0],neck[0][0][0],Renderer3D.CAR_BACK);
 
-		addLine(body[0][4][1],neck[0][1][0],neck[1][1][0],body[1][4][1],Renderer3D.CAR_FRONT);
+		addLine(body[0][4][1],neck[0][1][0],neck[1][1][0],body[numx-1][4][1],Renderer3D.CAR_FRONT);
 		
 		///
 
@@ -1001,87 +1000,84 @@ public class Animal extends CustomData{
 		double hy3=y_side-neck_side+head_DY*3.0/4.0;
 		double hy4=y_side-neck_side+head_DY;
 		double hz=femur_length+shinbone_length+z_side+neck_length;
+		
+		int hnx=3;
+		int hny=5;
+		int hnz=2;
 
-		BPoint[][][] head=new BPoint[2][5][2];
+		BPoint[][][] head=new BPoint[hnx][hny][hnz];
 
 		head[0][0][0]=addBPoint(xc-head_DX*0.5,hy0,hz);
-		head[1][0][0]=addBPoint(xc+head_DX*0.5,hy0,hz);
-		head[1][0][1]=addBPoint(xc+head_DX*0.5,hy0,hz+head_DZ);
+		head[1][0][0]=addBPoint(xc,hy0,hz);		
+		head[2][0][0]=addBPoint(xc+head_DX*0.5,hy0,hz);	
 		head[0][0][1]=addBPoint(xc-head_DX*0.5,hy0,hz+head_DZ);
+		head[1][0][1]=addBPoint(xc,hy0,hz+head_DZ);
+		head[2][0][1]=addBPoint(xc+head_DX*0.5,hy0,hz+head_DZ);
 		
 		head[0][1][0]=addBPoint(xc-head_DX*0.5,hy1,hz);
-		head[1][1][0]=addBPoint(xc+head_DX*0.5,hy1,hz);
-		head[1][1][1]=addBPoint(xc+head_DX*0.5,hy1,hz+head_DZ);
-		head[0][1][1]=addBPoint(xc-head_DX*0.5,hy1,hz+head_DZ);		
+		head[1][1][0]=addBPoint(xc,hy1,hz);		
+		head[2][1][0]=addBPoint(xc+head_DX*0.5,hy1,hz);	
+		head[0][1][1]=addBPoint(xc-head_DX*0.5,hy1,hz+head_DZ);	
+		head[1][1][1]=addBPoint(xc,hy1,hz+head_DZ);
+		head[2][1][1]=addBPoint(xc+head_DX*0.5,hy1,hz+head_DZ);
 		
 		head[0][2][0]=addBPoint(xc-head_DX*0.5,hy2,hz);
-		head[1][2][0]=addBPoint(xc+head_DX*0.5,hy2,hz);
-		head[1][2][1]=addBPoint(xc+head_DX*0.5,hy2,hz+head_DZ);
+		head[1][2][0]=addBPoint(xc,hy2,hz);	
+		head[2][2][0]=addBPoint(xc+head_DX*0.5,hy2,hz);	
 		head[0][2][1]=addBPoint(xc-head_DX*0.5,hy2,hz+head_DZ);	
+		head[1][2][1]=addBPoint(xc,hy2,hz+head_DZ);
+		head[2][2][1]=addBPoint(xc+head_DX*0.5,hy2,hz+head_DZ);
 		
 		head[0][3][0]=addBPoint(xc-head_DX*0.5,hy3,hz);
-		head[1][3][0]=addBPoint(xc+head_DX*0.5,hy3,hz);
-		head[1][3][1]=addBPoint(xc+head_DX*0.5,hy3,hz+head_DZ);
+		head[1][3][0]=addBPoint(xc,hy3,hz);		
+		head[2][3][0]=addBPoint(xc+head_DX*0.5,hy3,hz);	
 		head[0][3][1]=addBPoint(xc-head_DX*0.5,hy3,hz+head_DZ);	
+		head[1][3][1]=addBPoint(xc,hy3,hz+head_DZ);
+		head[2][3][1]=addBPoint(xc+head_DX*0.5,hy3,hz+head_DZ);
 		
 		head[0][4][0]=addBPoint(xc-head_DX*0.5,hy4,hz);
-		head[1][4][0]=addBPoint(xc+head_DX*0.5,hy4,hz);
-		head[1][4][1]=addBPoint(xc+head_DX*0.5,hy4,hz+head_DZ);
+		head[1][4][0]=addBPoint(xc,hy4,hz);		
+		head[2][4][0]=addBPoint(xc+head_DX*0.5,hy4,hz);	
 		head[0][4][1]=addBPoint(xc-head_DX*0.5,hy4,hz+head_DZ);	
-
-		addLine(head[0][0][1],head[1][0][1],head[1][1][1],head[0][1][1],Renderer3D.CAR_TOP);
-
-		addLine(head[0][0][0],head[0][1][0],head[1][1][0],head[1][0][0],Renderer3D.CAR_BOTTOM);
-
-		addLine(head[0][0][0],head[0][0][1],head[0][1][1],head[0][1][0],Renderer3D.CAR_LEFT);
-
-		addLine(head[1][0][0],head[1][1][0],head[1][1][1],head[1][0][1],Renderer3D.CAR_RIGHT);
-
-		addLine(head[0][0][0],head[1][0][0],head[1][0][1],head[0][0][1],Renderer3D.CAR_BACK);
-
-		//addLine(head[0][1][0],head[0][1][1],head[1][1][1],head[1][1][0],Renderer3D.CAR_FRONT);
+		head[1][4][1]=addBPoint(xc,hy4,hz+head_DZ);
+		head[2][4][1]=addBPoint(xc+head_DX*0.5,hy4,hz+head_DZ);
 		
-		////
+		for (int i = 0; i < hnx; i++) {			
 		
-		addLine(head[0][1][1],head[1][1][1],head[1][2][1],head[0][2][1],Renderer3D.CAR_TOP);
-
-		addLine(head[0][1][0],head[0][2][0],head[1][2][0],head[1][1][0],Renderer3D.CAR_BOTTOM);
-
-		addLine(head[0][1][0],head[0][1][1],head[0][2][1],head[0][2][0],Renderer3D.CAR_LEFT);
-
-		addLine(head[1][1][0],head[1][2][0],head[1][2][1],head[1][1][1],Renderer3D.CAR_RIGHT);
-
-		//addLine(head[0][0][0],head[1][0][0],head[1][0][1],head[0][0][1],Renderer3D.CAR_BACK);
-
-		//addLine(head[0][1][0],head[0][1][1],head[1][1][1],head[1][1][0],Renderer3D.CAR_FRONT);
 		
-		////
+			for (int j = 0; j < hny; j++) {
+				
+				if(j==0){
+					
+					if(i>=0 && i<hnx-1)
+						addLine(head[i][j][0],head[i+1][j][0],head[i+1][j][1],head[i][j][1],Renderer3D.CAR_BACK);
+				}
+				
+				if(j>=0 && j<hny-1){
+					
+					if(i>=0 && i<hnx-1){
+						addLine(head[i][j][1],head[i+1][j][1],head[i+1][j+1][1],head[i][j+1][1],Renderer3D.CAR_TOP);
 		
-		addLine(head[0][2][1],head[1][2][1],head[1][3][1],head[0][3][1],Renderer3D.CAR_TOP);
+						addLine(head[i][j][0],head[i][j+1][0],head[i+1][j+1][0],head[i+1][j][0],Renderer3D.CAR_BOTTOM);
+					}
+					if(i==0)
+						addLine(head[i][j][0],head[i][j][1],head[i][j+1][1],head[i][j+1][0],Renderer3D.CAR_LEFT);
+	
+					if(i==hnx-1)
+						addLine(head[i][j][0],head[i][j+1][0],head[i][j+1][1],head[i][j][1],Renderer3D.CAR_RIGHT);
+				}
+				
+				if(j==hny-1){
+					if(i>=0 && i<hnx-1){
+						addLine(head[i][j][0],head[i][j][1],head[i+1][j][1],head[i+1][j][0],Renderer3D.CAR_FRONT);
+					}
+				}
+				
+			}
 
-		addLine(head[0][2][0],head[0][3][0],head[1][3][0],head[1][2][0],Renderer3D.CAR_BOTTOM);
 
-		addLine(head[0][2][0],head[0][2][1],head[0][3][1],head[0][3][0],Renderer3D.CAR_LEFT);
+		}
 
-		addLine(head[1][2][0],head[1][3][0],head[1][3][1],head[1][2][1],Renderer3D.CAR_RIGHT);
-
-		//addLine(head[0][0][0],head[1][0][0],head[1][0][1],head[0][0][1],Renderer3D.CAR_BACK);
-
-		//addLine(head[0][1][0],head[0][1][1],head[1][1][1],head[1][1][0],Renderer3D.CAR_FRONT);
-		
-		////
-		
-		addLine(head[0][3][1],head[1][3][1],head[1][4][1],head[0][4][1],Renderer3D.CAR_TOP);
-
-		addLine(head[0][3][0],head[0][4][0],head[1][4][0],head[1][3][0],Renderer3D.CAR_BOTTOM);
-
-		addLine(head[0][3][0],head[0][3][1],head[0][4][1],head[0][4][0],Renderer3D.CAR_LEFT);
-
-		addLine(head[1][3][0],head[1][4][0],head[1][4][1],head[1][3][1],Renderer3D.CAR_RIGHT);
-
-		//addLine(head[0][0][0],head[1][0][0],head[1][0][1],head[0][0][1],Renderer3D.CAR_BACK);
-
-		addLine(head[0][4][0],head[0][4][1],head[1][4][1],head[1][4][0],Renderer3D.CAR_FRONT);
 		
 		////
 		
