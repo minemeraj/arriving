@@ -578,53 +578,73 @@ public class Animal extends CustomData{
 		double hz3=femur_length+shinbone_length+z_side+neck_length+head_DZ*3.0/4.0;
 		double hz4=femur_length+shinbone_length+z_side+neck_length+head_DZ;
 		
-		int numx=3;
+		int numx=5;
 		int numy=2;
 		int numz=5;
 		
 		BPoint[][][] head=new BPoint[numx][numy][numz];
 
 		head[0][0][0]=addBPoint(xc-neck_side*0.5,yc-y_side*0.5,hz0);
-		head[1][0][0]=addBPoint(xc,yc-y_side*0.5,hz0);
-		head[2][0][0]=addBPoint(xc+neck_side*0.5,yc-y_side*0.5,hz0);
+		head[1][0][0]=addBPoint(xc-neck_side*0.25,yc-y_side*0.5,hz0);
+		head[2][0][0]=addBPoint(xc,yc-y_side*0.5,hz0);
+		head[3][0][0]=addBPoint(xc+neck_side*0.25,yc-y_side*0.5,hz0);
+		head[4][0][0]=addBPoint(xc+neck_side*0.5,yc-y_side*0.5,hz0);
 		head[0][1][0]=addBPoint(xc-neck_side*0.5,yc+y_side*0.5,hz0);
-		head[1][1][0]=addBPoint(xc,yc+y_side*0.5,hz0);
-		head[2][1][0]=addBPoint(xc+neck_side*0.5,yc+y_side*0.5,hz0);
+		head[1][1][0]=addBPoint(xc-neck_side*0.25,yc+y_side*0.5,hz0);
+		head[2][1][0]=addBPoint(xc,yc+y_side*0.5,hz0);
+		head[3][1][0]=addBPoint(xc+neck_side*0.25,yc+y_side*0.5,hz0);
+		head[4][1][0]=addBPoint(xc+neck_side*0.5,yc+y_side*0.5,hz0);
 
 		head[0][0][1]=addBPoint(xc-head_DX*0.5*0.85,yc-head_DY*0.5*0.85,hz1);
-		head[1][0][1]=addBPoint(xc,yc-head_DY*0.5*0.85,hz1);
-		head[2][0][1]=addBPoint(xc+head_DX*0.5*0.85,yc-head_DY*0.5*0.85,hz1);		
+		head[1][0][1]=addBPoint(xc-head_DX*0.25*0.85,yc-head_DY*0.5*0.85,hz1);
+		head[2][0][1]=addBPoint(xc,yc-head_DY*0.5*0.85,hz1);
+		head[3][0][1]=addBPoint(xc+head_DX*0.25*0.85,yc-head_DY*0.5*0.85,hz1);
+		head[4][0][1]=addBPoint(xc+head_DX*0.5*0.85,yc-head_DY*0.5*0.85,hz1);		
 		head[0][1][1]=addBPoint(xc-head_DX*0.5*0.85,yc+head_DY*0.5*0.85,hz1);
-		head[1][1][1]=addBPoint(xc,yc+head_DY*0.5*0.85,hz1);
-		head[2][1][1]=addBPoint(xc+head_DX*0.5*0.85,yc+head_DY*0.5*0.85,hz1);
+		head[1][1][1]=addBPoint(xc-head_DX*0.25*0.85,yc+head_DY*0.5*0.85,hz1);
+		head[2][1][1]=addBPoint(xc,yc+head_DY*0.5*0.85,hz1);
+		head[3][1][1]=addBPoint(xc+head_DX*0.25*0.85,yc+head_DY*0.5*0.85,hz1);
+		head[4][1][1]=addBPoint(xc+head_DX*0.5*0.85,yc+head_DY*0.5*0.85,hz1);
 		
 		head[0][0][2]=addBPoint(xc-head_DX*0.5,yc-head_DY*0.5,hz2);
-		head[1][0][2]=addBPoint(xc,yc-head_DY*0.5,hz2);
-		head[2][0][2]=addBPoint(xc+head_DX*0.5,yc-head_DY*0.5,hz2);		
+		head[1][0][2]=addBPoint(xc-head_DX*0.25,yc-head_DY*0.5,hz2);
+		head[2][0][2]=addBPoint(xc,yc-head_DY*0.5,hz2);
+		head[3][0][2]=addBPoint(xc+head_DX*0.25,yc-head_DY*0.5,hz2);	
+		head[4][0][2]=addBPoint(xc+head_DX*0.5,yc-head_DY*0.5,hz2);		
 		head[0][1][2]=addBPoint(xc-head_DX*0.5,yc+head_DY*0.5,hz2);
-		head[1][1][2]=addBPoint(xc,yc+head_DY*0.5,hz2);
-		head[2][1][2]=addBPoint(xc+head_DX*0.5,yc+head_DY*0.5,hz2);		
-		
-		head[1][0][3]=addBPoint(xc,yc-head_DY*0.5,hz3);
-		head[2][0][3]=addBPoint(xc+head_DX*0.5,yc-head_DY*0.5,hz3);
+		head[1][1][2]=addBPoint(xc-head_DX*0.25,yc+head_DY*0.5,hz2);
+		head[2][1][2]=addBPoint(xc,yc+head_DY*0.5,hz2);
+		head[3][1][2]=addBPoint(xc+head_DX*0.25,yc+head_DY*0.5,hz2);	
+		head[4][1][2]=addBPoint(xc+head_DX*0.5,yc+head_DY*0.5,hz2);		
+	
 		head[0][0][3]=addBPoint(xc-head_DX*0.5,yc-head_DY*0.5,hz3);
+		head[1][0][3]=addBPoint(xc-head_DX*0.25,yc-head_DY*0.5,hz3);
+		head[2][0][3]=addBPoint(xc,yc-head_DY*0.5,hz3);
+		head[3][0][3]=addBPoint(xc+head_DX*0.25,yc-head_DY*0.5,hz3);
+		head[4][0][3]=addBPoint(xc+head_DX*0.5,yc-head_DY*0.5,hz3);
 		head[0][1][3]=addBPoint(xc-head_DX*0.5,yc+head_DY*0.5,hz3);
-		head[1][1][3]=addBPoint(xc,yc+head_DY*0.5,hz3);
-		head[2][1][3]=addBPoint(xc+head_DX*0.5,yc+head_DY*0.5,hz3);		
+		head[1][1][3]=addBPoint(xc-head_DX*0.25,yc+head_DY*0.5,hz3);
+		head[2][1][3]=addBPoint(xc,yc+head_DY*0.5,hz3);
+		head[3][1][3]=addBPoint(xc+head_DX*0.25,yc+head_DY*0.5,hz3);	
+		head[4][1][3]=addBPoint(xc+head_DX*0.5,yc+head_DY*0.5,hz3);		
 		
 		head[0][0][4]=addBPoint(xc-head_DX*0.5*0.75,yc-head_DY*0.5*0.75,hz4);
-		head[1][0][4]=addBPoint(xc,yc-head_DY*0.5*0.75,hz4);
-		head[2][0][4]=addBPoint(xc+head_DX*0.5*0.75,yc-head_DY*0.5*0.75,hz4);		
+		head[1][0][4]=addBPoint(xc-head_DX*0.25*0.75,yc-head_DY*0.5*0.75,hz4);
+		head[2][0][4]=addBPoint(xc,yc-head_DY*0.5*0.75,hz4);
+		head[3][0][4]=addBPoint(xc+head_DX*0.25*0.75,yc-head_DY*0.5*0.75,hz4);	
+		head[4][0][4]=addBPoint(xc+head_DX*0.5*0.75,yc-head_DY*0.5*0.75,hz4);		
 		head[0][1][4]=addBPoint(xc-head_DX*0.5*0.75,yc+head_DY*0.5*0.75,hz4);
-		head[1][1][4]=addBPoint(xc,yc+head_DY*0.5*0.75,hz4);
-		head[2][1][4]=addBPoint(xc+head_DX*0.5*0.75,yc+head_DY*0.5*0.75,hz4);
+		head[1][1][4]=addBPoint(xc-head_DX*0.25*0.75,yc+head_DY*0.5*0.75,hz4);
+		head[2][1][4]=addBPoint(xc,yc+head_DY*0.5*0.75,hz4);
+		head[3][1][4]=addBPoint(xc+head_DX*0.25*0.75,yc+head_DY*0.5*0.75,hz4);
+		head[4][1][4]=addBPoint(xc+head_DX*0.5*0.75,yc+head_DY*0.5*0.75,hz4);
 
 
 		for(int k=0;k<numz-1;k++){			
 
 			addLine(head[0][0][k],head[0][0][k+1],head[0][1][k+1],head[0][1][k],Renderer3D.CAR_LEFT);
 
-			addLine(head[2][0][k],head[2][1][k],head[2][1][k+1],head[2][0][k+1],Renderer3D.CAR_RIGHT);
+			addLine(head[numx-1][0][k],head[numx-1][1][k],head[numx-1][1][k+1],head[numx-1][0][k+1],Renderer3D.CAR_RIGHT);
 			
 			for(int i=0;i<numx-1;i++){
 
