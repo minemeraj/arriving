@@ -763,49 +763,78 @@ public class Animal extends CustomData{
 		BPoint[][][] head=buildQuadrupedHeadMesh();
 		
 		//neck:
-		
-		
+
+		int ney=2;
+		int nez=2;
+
 		double nz0=femur_length+shinbone_length+z_side+neck_length/2.0;
 		double nz1=femur_length+shinbone_length+z_side+neck_length;
 		double nx=(x_side-neck_side)/2.0;
 		double ny=y_side-neck_side;
 		
-		BPoint[][][] neck=new BPoint[2][2][2];
+		BPoint[][][] neck=new BPoint[numx][ney][nez];
 	
 		neck[0][0][0]=addBPoint(nx,ny,nz0);
-		neck[1][0][0]=addBPoint(nx+neck_side,ny,nz0);
+		neck[1][0][0]=addBPoint(nx+neck_side*0.5,ny,nz0);
+		neck[2][0][0]=addBPoint(nx+neck_side,ny,nz0);
 		neck[0][1][0]=addBPoint(nx,ny+neck_side,nz0);
-		neck[1][1][0]=addBPoint(nx+neck_side,ny+neck_side,nz0);
-
-		neck[0][1][1]=addBPoint(nx,ny+neck_side,nz1);
-		neck[1][0][1]=addBPoint(nx+neck_side,ny,nz1);
-		neck[1][1][1]=addBPoint(nx+neck_side,ny+neck_side,nz1);
+		neck[1][1][0]=addBPoint(nx+neck_side*0.5,ny+neck_side,nz0);
+		neck[2][1][0]=addBPoint(nx+neck_side,ny+neck_side,nz0);		
+		
 		neck[0][0][1]=addBPoint(nx,ny,nz1);
+		neck[1][0][1]=addBPoint(nx+neck_side*0.5,ny,nz1);
+		neck[2][0][1]=addBPoint(nx+neck_side,ny,nz1);		
+		neck[0][1][1]=addBPoint(nx,ny+neck_side,nz1);
+		neck[1][1][1]=addBPoint(nx+neck_side*0.5,ny+neck_side,nz1);
+		neck[2][1][1]=addBPoint(nx+neck_side,ny+neck_side,nz1);
 		
+		
+		for (int i = 0; i < numx; i++) {
 	
-		addLine(body[0][3][1],neck[0][0][0],neck[0][1][0],body[0][4][1],Renderer3D.CAR_LEFT);
-
-		addLine(body[numx-1][3][1],body[numx-1][4][1],neck[1][1][0],neck[1][0][0],Renderer3D.CAR_RIGHT);
-
-		addLine(body[0][3][1],body[numx-1][3][1],neck[1][0][0],neck[0][0][0],Renderer3D.CAR_BACK);
-
-		addLine(body[0][4][1],neck[0][1][0],neck[1][1][0],body[numx-1][4][1],Renderer3D.CAR_FRONT);
+			if(i==0){
+				addLine(body[0][3][1],neck[0][0][0],neck[0][1][0],body[0][4][1],Renderer3D.CAR_LEFT);
+			}
+			
+			
+			if(i>=0 && i<numx-1){
+				
+				addLine(body[i][3][1],body[i+1][3][1],neck[i+1][0][0],neck[i][0][0],Renderer3D.CAR_BACK);
 		
+				addLine(body[i][4][1],neck[i][1][0],neck[i+1][1][0],body[i+1][4][1],Renderer3D.CAR_FRONT);
+			}
+			
+			if(i==numx-1){
+				addLine(body[numx-1][3][1],body[numx-1][4][1],neck[i][1][0],neck[i][0][0],Renderer3D.CAR_RIGHT);
+			}
+		}
 		///
+		
+		for (int i = 0; i < numx; i++) {
+			
+			if(i==0){
+				
+				addLine(neck[i][0][0],neck[i][0][1],neck[i][1][1],neck[i][1][0],Renderer3D.CAR_LEFT);
+			}
+			
+			if(i>=0 && i<numx-1){
+				
+				addLine(neck[i][0][1],neck[i+1][0][1],neck[i+1][1][1],neck[i][1][1],Renderer3D.CAR_TOP);
 
-		addLine(neck[0][0][1],neck[1][0][1],neck[1][1][1],neck[0][1][1],Renderer3D.CAR_TOP);
+				addLine(neck[i][0][0],neck[i][1][0],neck[i+1][1][0],neck[i+1][0][0],Renderer3D.CAR_BOTTOM);
 
-		addLine(neck[0][0][0],neck[0][1][0],neck[1][1][0],neck[1][0][0],Renderer3D.CAR_BOTTOM);
+				addLine(neck[i][0][0],neck[i+1][0][0],neck[i+1][0][1],neck[i][0][1],Renderer3D.CAR_BACK);
 
-		addLine(neck[0][0][0],neck[0][0][1],neck[0][1][1],neck[0][1][0],Renderer3D.CAR_LEFT);
+				addLine(neck[i][1][0],neck[i][1][1],neck[i+1][1][1],neck[i+1][1][0],Renderer3D.CAR_FRONT);
+			}
+			
+			if(i==numx-1){
+				
+				addLine(neck[i][0][0],neck[i][1][0],neck[i][1][1],neck[i][0][1],Renderer3D.CAR_RIGHT);
+			}
 
-		addLine(neck[1][0][0],neck[1][1][0],neck[1][1][1],neck[1][0][1],Renderer3D.CAR_RIGHT);
 
-		addLine(neck[0][0][0],neck[1][0][0],neck[1][0][1],neck[0][0][1],Renderer3D.CAR_BACK);
-
-		addLine(neck[0][1][0],neck[0][1][1],neck[1][1][1],neck[1][1][0],Renderer3D.CAR_FRONT);
-
-
+			
+		}
 
 
 		//legs:	
@@ -1031,16 +1060,16 @@ public class Animal extends CustomData{
 		head[0][3][0]=addBPoint(xc-head_DX*0.5,hy3,hz);
 		head[1][3][0]=addBPoint(xc,hy3,hz);		
 		head[2][3][0]=addBPoint(xc+head_DX*0.5,hy3,hz);	
-		head[0][3][1]=addBPoint(xc-head_DX*0.5,hy3,hz+head_DZ);	
+		head[0][3][1]=addBPoint(xc-head_DX*0.5,hy3,hz+head_DZ*0.5);	
 		head[1][3][1]=addBPoint(xc,hy3,hz+head_DZ);
-		head[2][3][1]=addBPoint(xc+head_DX*0.5,hy3,hz+head_DZ);
+		head[2][3][1]=addBPoint(xc+head_DX*0.5,hy3,hz+head_DZ*0.5);
 		
-		head[0][4][0]=addBPoint(xc-head_DX*0.5,hy4,hz);
+		head[0][4][0]=addBPoint(xc-head_DX*0.25,hy4,hz);
 		head[1][4][0]=addBPoint(xc,hy4,hz);		
-		head[2][4][0]=addBPoint(xc+head_DX*0.5,hy4,hz);	
-		head[0][4][1]=addBPoint(xc-head_DX*0.5,hy4,hz+head_DZ);	
+		head[2][4][0]=addBPoint(xc+head_DX*0.25,hy4,hz);	
+		head[0][4][1]=addBPoint(xc-head_DX*0.25,hy4,hz+head_DZ*0.5);	
 		head[1][4][1]=addBPoint(xc,hy4,hz+head_DZ);
-		head[2][4][1]=addBPoint(xc+head_DX*0.5,hy4,hz+head_DZ);
+		head[2][4][1]=addBPoint(xc+head_DX*0.25,hy4,hz+head_DZ*0.5);
 		
 		for (int i = 0; i < hnx; i++) {			
 		
