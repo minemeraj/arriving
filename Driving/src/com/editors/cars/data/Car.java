@@ -259,16 +259,16 @@ public class Car extends CustomData {
 		
 		BPoint[][][] p=new BPoint[pnx][pny][pnz];
 
-		p[0][0][0]=addBPoint(xc-x_side*0.5,back_length,0);
+		p[0][0][0]=addBPoint(xc-x_side*0.5,back_length*1.1,0);
 		p[1][0][0]=addBPoint(xc-x_side*0.25,back_length,0);
 		p[2][0][0]=addBPoint(xc,back_length,0);
 		p[3][0][0]=addBPoint(xc+x_side*0.25,back_length,0);
-		p[4][0][0]=addBPoint(xc+x_side*0.5,back_length,0);
-		p[0][0][1]=addBPoint(xc-x_side*0.5,back_length,z_side);	
+		p[4][0][0]=addBPoint(xc+x_side*0.5,back_length*1.1,0);
+		p[0][0][1]=addBPoint(xc-x_side*0.5,back_length*1.1,z_side);	
 		p[1][0][1]=addBPoint(xc-x_side*0.25,back_length,z_side);	
 		p[2][0][1]=addBPoint(xc,back_length,z_side);	
 		p[3][0][1]=addBPoint(xc+x_side*0.25,back_length,z_side);	
-		p[4][0][1]=addBPoint(xc+x_side*0.5,back_length,z_side);		
+		p[4][0][1]=addBPoint(xc+x_side*0.5,back_length*1.1,z_side);		
 		
 		p[0][1][0]=addBPoint(xc-x_side*0.5,back_length+y_side*0.25,0);	
 		p[1][1][0]=addBPoint(xc-x_side*0.25,back_length+y_side*0.25,0);
@@ -352,27 +352,27 @@ public class Car extends CustomData {
 		double back_width1=back_width*(1-0.5)+x_side*0.5; 
 		double back_height1=back_height*(1-0.75)+z_side*0.75; 
 		
-		pBack[0][0][0]=addBPoint(xc-back_width*0.5,0,0);
+		pBack[0][0][0]=addBPoint(xc-back_width*0.5,back_length*0.1,0);
 		pBack[1][0][0]=addBPoint(xc-back_width*0.25,0,0);
 		pBack[2][0][0]=addBPoint(xc,0,0);
 		pBack[3][0][0]=addBPoint(xc+back_width*0.25,0,0);
-		pBack[4][0][0]=addBPoint(xc+back_width*0.5,0,0);
-		pBack[0][0][1]=addBPoint(xc-back_width*0.5,0,back_height);
+		pBack[4][0][0]=addBPoint(xc+back_width*0.5,back_length*0.1,0);
+		pBack[0][0][1]=addBPoint(xc-back_width*0.5,back_length*0.1,back_height*0.9);
 		pBack[1][0][1]=addBPoint(xc-back_width*0.25,0,back_height);
 		pBack[2][0][1]=addBPoint(xc,0,back_height);
 		pBack[3][0][1]=addBPoint(xc+back_width*0.25,0,back_height);
-		pBack[4][0][1]=addBPoint(xc+back_width*0.5,0,back_height);
+		pBack[4][0][1]=addBPoint(xc+back_width*0.5,back_length*0.1,back_height*0.9);
 		
 		pBack[0][1][0]=addBPoint(xc-back_width1*0.5,back_length*0.5,0);
 		pBack[1][1][0]=addBPoint(xc-back_width1*0.25,back_length*0.5,0);
 		pBack[2][1][0]=addBPoint(xc,back_length*0.5,0);	
 		pBack[3][1][0]=addBPoint(xc+back_width1*0.25,back_length*0.5,0);	
 		pBack[4][1][0]=addBPoint(xc+back_width1*0.5,back_length*0.5,0);	
-		pBack[0][1][1]=addBPoint(xc-back_width1*0.5,back_length*0.5,back_height1);
+		pBack[0][1][1]=addBPoint(xc-back_width1*0.5,back_length*0.5,back_height1*0.9);
 		pBack[1][1][1]=addBPoint(xc-back_width1*0.25,back_length*0.5,back_height1);
 		pBack[2][1][1]=addBPoint(xc,back_length*0.5,back_height1);
 		pBack[3][1][1]=addBPoint(xc+back_width1*0.25,back_length*0.5,back_height1);
-		pBack[4][1][1]=addBPoint(xc+back_width1*0.5,back_length*0.5,back_height1);
+		pBack[4][1][1]=addBPoint(xc+back_width1*0.5,back_length*0.5,back_height1*0.9);
 		
 
 		for(int i=0;i<pnx;i++){
@@ -440,27 +440,27 @@ public class Car extends CustomData {
 		double front_width0=front_width*(1-0.5)+x_side*0.5;  
 		double front_heigh0=front_height*(1-0.75)+z_side*0.75;
 		
-		pFront[0][0][0]=addBPoint(xc-front_width0*0.5,back_length+y_side+front_length*0.5,0);
+		pFront[0][0][0]=addBPoint(xc-front_width0*0.5,back_length+y_side+front_length*0.5*0.9,0);
 		pFront[1][0][0]=addBPoint(xc-front_width0*0.25,back_length+y_side+front_length*0.5,0);
 		pFront[2][0][0]=addBPoint(xc,back_length+y_side+front_length*0.5,0);
 		pFront[3][0][0]=addBPoint(xc+front_width0*0.25,back_length+y_side+front_length*0.5,0);
-		pFront[4][0][0]=addBPoint(xc+front_width0*0.5,back_length+y_side+front_length*0.5,0);		
-		pFront[0][0][1]=addBPoint(xc-front_width0*0.5,back_length+y_side+front_length*0.5,front_heigh0);
+		pFront[4][0][0]=addBPoint(xc+front_width0*0.5,back_length+y_side+front_length*0.5*0.9,0);		
+		pFront[0][0][1]=addBPoint(xc-front_width0*0.5,back_length+y_side+front_length*0.5*0.9,front_heigh0*0.9);
 		pFront[1][0][1]=addBPoint(xc-front_width0*0.25,back_length+y_side+front_length*0.5,front_heigh0);
 		pFront[2][0][1]=addBPoint(xc,back_length+y_side+front_length*0.5,front_heigh0);
 		pFront[3][0][1]=addBPoint(xc+front_width0*0.25,back_length+y_side+front_length*0.5,front_heigh0);
-		pFront[4][0][1]=addBPoint(xc+front_width0*0.5,back_length+y_side+front_length*0.5,front_heigh0);
+		pFront[4][0][1]=addBPoint(xc+front_width0*0.5,back_length+y_side+front_length*0.5*0.9,front_heigh0*0.9);
 		
-		pFront[0][1][0]=addBPoint(xc-front_width*0.5,back_length+y_side+front_length,0);
+		pFront[0][1][0]=addBPoint(xc-front_width*0.5,back_length+y_side+front_length*0.9,0);
 		pFront[1][1][0]=addBPoint(xc-front_width*0.25,back_length+y_side+front_length,0);
 		pFront[2][1][0]=addBPoint(xc,back_length+y_side+front_length,0);
 		pFront[3][1][0]=addBPoint(xc+front_width*0.25,back_length+y_side+front_length,0);
-		pFront[4][1][0]=addBPoint(xc+front_width*0.5,back_length+y_side+front_length,0);		
-		pFront[0][1][1]=addBPoint(xc-front_width*0.5,back_length+y_side+front_length,front_height);
+		pFront[4][1][0]=addBPoint(xc+front_width*0.5,back_length+y_side+front_length*0.9,0);		
+		pFront[0][1][1]=addBPoint(xc-front_width*0.5,back_length+y_side+front_length*0.9,front_height*0.9);
 		pFront[1][1][1]=addBPoint(xc-front_width*0.25,back_length+y_side+front_length,front_height);
 		pFront[2][1][1]=addBPoint(xc,back_length+y_side+front_length,front_height);
 		pFront[3][1][1]=addBPoint(xc+front_width*0.25,back_length+y_side+front_length,front_height);
-		pFront[4][1][1]=addBPoint(xc+front_width*0.5,back_length+y_side+front_length,front_height);
+		pFront[4][1][1]=addBPoint(xc+front_width*0.5,back_length+y_side+front_length*0.9,front_height*0.9);
 						
 
 		for(int i=0;i<pnx;i++){
@@ -527,11 +527,11 @@ public class Car extends CustomData {
 		
 		BPoint[][][] pr=new BPoint[pnx][pny][rnz];
 		
-		pr[0][0][0]=addBPoint(xc-x_side*0.5,back_length,z_side);
+		pr[0][0][0]=addBPoint(xc-x_side*0.5,back_length*1.1,z_side);
 		pr[1][0][0]=addBPoint(xc-x_side*0.25,back_length,z_side);
 		pr[2][0][0]=addBPoint(xc,back_length,z_side);
 		pr[3][0][0]=addBPoint(xc+x_side*0.25,back_length,z_side);
-		pr[4][0][0]=addBPoint(xc+x_side*0.5,back_length,z_side);
+		pr[4][0][0]=addBPoint(xc+x_side*0.5,back_length*1.1,z_side);
 		
 		pr[0][1][0]=addBPoint(xc-x_side*0.5,back_length+y_side*0.25,z_side);	
 		pr[1][1][0]=addBPoint(xc-x_side*0.25,back_length+y_side*0.25,z_side);	
@@ -559,35 +559,35 @@ public class Car extends CustomData {
 		
 		double roofDY=(y_side-roof_length)/2.0;
 		
-		pr[0][0][1]=addBPoint(xc-roof_width*0.5,roofDY+back_length,z_side+roof_height);	
+		pr[0][0][1]=addBPoint(xc-roof_width*0.5,roofDY+back_length,z_side+roof_height*0.9);	
 		pr[1][0][1]=addBPoint(xc-roof_width*0.25,roofDY+back_length,z_side+roof_height);	
 		pr[2][0][1]=addBPoint(xc,roofDY+back_length,z_side+roof_height);	
 		pr[3][0][1]=addBPoint(xc+roof_width*0.25,roofDY+back_length,z_side+roof_height);	
-		pr[4][0][1]=addBPoint(xc+roof_width*0.5,roofDY+back_length,z_side+roof_height);
+		pr[4][0][1]=addBPoint(xc+roof_width*0.5,roofDY+back_length,z_side+roof_height*0.9);
 		
-		pr[0][1][1]=addBPoint(xc-roof_width*0.5,y_side*0.25+back_length-roofDY,z_side+roof_height);	
-		pr[1][1][1]=addBPoint(xc-roof_width*0.25,y_side*0.25+back_length-roofDY,z_side+roof_height);	
-		pr[2][1][1]=addBPoint(xc,y_side*0.25+back_length-roofDY,z_side+roof_height);	
-		pr[3][1][1]=addBPoint(xc+roof_width*0.25,y_side*0.25+back_length-roofDY,z_side+roof_height);	
-		pr[4][1][1]=addBPoint(xc+roof_width*0.5,y_side*0.25+back_length-roofDY,z_side+roof_height);
+		pr[0][1][1]=addBPoint(xc-roof_width*0.5,roof_length*0.25+back_length+roofDY,z_side+roof_height*0.9);	
+		pr[1][1][1]=addBPoint(xc-roof_width*0.25,roof_length*0.25+back_length+roofDY,z_side+roof_height);	
+		pr[2][1][1]=addBPoint(xc,roof_length*0.25+back_length+roofDY,z_side+roof_height);	
+		pr[3][1][1]=addBPoint(xc+roof_width*0.25,roof_length*0.25+back_length+roofDY,z_side+roof_height);	
+		pr[4][1][1]=addBPoint(xc+roof_width*0.5,roof_length*0.25+back_length+roofDY,z_side+roof_height*0.9);
 		
-		pr[0][2][1]=addBPoint(xc-roof_width*0.5,y_side*0.5+back_length-roofDY,z_side+roof_height);	
-		pr[1][2][1]=addBPoint(xc-roof_width*0.25,y_side*0.5+back_length-roofDY,z_side+roof_height);	
-		pr[2][2][1]=addBPoint(xc,y_side*0.5+back_length-roofDY,z_side+roof_height);	
-		pr[3][2][1]=addBPoint(xc+roof_width*0.25,y_side*0.5+back_length-roofDY,z_side+roof_height);	
-		pr[4][2][1]=addBPoint(xc+roof_width*0.5,y_side*0.5+back_length-roofDY,z_side+roof_height);
+		pr[0][2][1]=addBPoint(xc-roof_width*0.5,roof_length*0.5+back_length+roofDY,z_side+roof_height*0.9);	
+		pr[1][2][1]=addBPoint(xc-roof_width*0.25,roof_length*0.5+back_length+roofDY,z_side+roof_height);	
+		pr[2][2][1]=addBPoint(xc,roof_length*0.5+back_length+roofDY,z_side+roof_height);	
+		pr[3][2][1]=addBPoint(xc+roof_width*0.25,roof_length*0.5+back_length+roofDY,z_side+roof_height);	
+		pr[4][2][1]=addBPoint(xc+roof_width*0.5,roof_length*0.5+back_length+roofDY,z_side+roof_height*0.9);
 		
-		pr[0][3][1]=addBPoint(xc-roof_width*0.5,y_side*0.75+back_length-roofDY,z_side+roof_height);	
-		pr[1][3][1]=addBPoint(xc-roof_width*0.25,y_side*0.75+back_length-roofDY,z_side+roof_height);	
-		pr[2][3][1]=addBPoint(xc,y_side*0.75+back_length-roofDY,z_side+roof_height);	
-		pr[3][3][1]=addBPoint(xc+roof_width*0.25,y_side*0.75+back_length-roofDY,z_side+roof_height);	
-		pr[4][3][1]=addBPoint(xc+roof_width*0.5,y_side*0.75+back_length-roofDY,z_side+roof_height);
+		pr[0][3][1]=addBPoint(xc-roof_width*0.5,roof_length*0.75+back_length+roofDY,z_side+roof_height*0.9);	
+		pr[1][3][1]=addBPoint(xc-roof_width*0.25,roof_length*0.75+back_length+roofDY,z_side+roof_height);	
+		pr[2][3][1]=addBPoint(xc,roof_length*0.75+back_length+roofDY,z_side+roof_height);	
+		pr[3][3][1]=addBPoint(xc+roof_width*0.25,roof_length*0.75+back_length+roofDY,z_side+roof_height);	
+		pr[4][3][1]=addBPoint(xc+roof_width*0.5,roof_length*0.75+back_length+roofDY,z_side+roof_height*0.9);
 		
-		pr[0][4][1]=addBPoint(xc-roof_width*0.5,y_side+back_length-roofDY,z_side+roof_height);	
-		pr[1][4][1]=addBPoint(xc-roof_width*0.25,y_side+back_length-roofDY,z_side+roof_height);	
-		pr[2][4][1]=addBPoint(xc,y_side+back_length-roofDY,z_side+roof_height);	
-		pr[3][4][1]=addBPoint(xc+roof_width*0.25,y_side+back_length-roofDY,z_side+roof_height);	
-		pr[4][4][1]=addBPoint(xc+roof_width*0.5,y_side+back_length-roofDY,z_side+roof_height);
+		pr[0][4][1]=addBPoint(xc-roof_width*0.5,roof_length+back_length+roofDY,z_side+roof_height*0.9);	
+		pr[1][4][1]=addBPoint(xc-roof_width*0.25,roof_length+back_length+roofDY,z_side+roof_height);	
+		pr[2][4][1]=addBPoint(xc,roof_length+back_length+roofDY,z_side+roof_height);	
+		pr[3][4][1]=addBPoint(xc+roof_width*0.25,roof_length+back_length+roofDY,z_side+roof_height);	
+		pr[4][4][1]=addBPoint(xc+roof_width*0.5,roof_length+back_length+roofDY,z_side+roof_height*0.9);
 		
 		for (int i = 0; i < pnx; i++) {
 			
