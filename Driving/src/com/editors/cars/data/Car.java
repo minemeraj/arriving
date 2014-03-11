@@ -306,14 +306,14 @@ public class Car extends CustomData {
 		
 		
 		p[0][4][0]=addBPoint(xc-x_side*0.5,back_length+y_side,0);	
-		p[1][4][0]=addBPoint(xc-x_side*0.25,back_length+y_side,0);
-		p[2][4][0]=addBPoint(xc,back_length+y_side,0);
-		p[3][4][0]=addBPoint(xc+x_side*0.25,back_length+y_side,0);
+		p[1][4][0]=addBPoint(xc-x_side*0.25,back_length+y_side+front_length*0.1,0);
+		p[2][4][0]=addBPoint(xc,back_length+y_side+front_length*0.1,0);
+		p[3][4][0]=addBPoint(xc+x_side*0.25,back_length+y_side+front_length*0.1,0);
 		p[4][4][0]=addBPoint(xc+x_side*0.5,back_length+y_side,0);		
 		p[0][4][1]=addBPoint(xc-x_side*0.5,back_length+y_side,z_side);
-		p[1][4][1]=addBPoint(xc-x_side*0.25,back_length+y_side,z_side);
-		p[2][4][1]=addBPoint(xc,back_length+y_side,z_side);
-		p[3][4][1]=addBPoint(xc+x_side*0.25,back_length+y_side,z_side);
+		p[1][4][1]=addBPoint(xc-x_side*0.25,back_length+y_side+front_length*0.1,z_side);
+		p[2][4][1]=addBPoint(xc,back_length+y_side+front_length*0.1,z_side);
+		p[3][4][1]=addBPoint(xc+x_side*0.25,back_length+y_side+front_length*0.1,z_side);
 		p[4][4][1]=addBPoint(xc+x_side*0.5,back_length+y_side,z_side);
 		
 		for(int i=0;i<pnx;i++){
