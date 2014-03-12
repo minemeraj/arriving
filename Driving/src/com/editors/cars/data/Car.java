@@ -559,35 +559,49 @@ public class Car extends CustomData {
 		
 		double roofDY=(y_side-roof_length)/2.0;
 		
-		pr[0][0][0]=addBPoint(xc-roof_width*0.5,roofDY+back_length,z_side+roof_height*0.9);	
-		pr[1][0][0]=addBPoint(xc-roof_width*0.25,roofDY+back_length,z_side+roof_height);	
-		pr[2][0][0]=addBPoint(xc,roofDY+back_length,z_side+roof_height);	
-		pr[3][0][0]=addBPoint(xc+roof_width*0.25,roofDY+back_length,z_side+roof_height);	
-		pr[4][0][0]=addBPoint(xc+roof_width*0.5,roofDY+back_length,z_side+roof_height*0.9);
+		double rx0=xc-roof_width*0.5;
+		double rx1=xc-roof_width*0.25;
+		double rx2=xc;
+		double rx3=xc+roof_width*0.25;
+		double rx4=xc+roof_width*0.5;
 		
-		pr[0][1][0]=addBPoint(xc-roof_width*0.5,roof_length*0.25+back_length+roofDY,z_side+roof_height*0.9);	
-		pr[1][1][0]=addBPoint(xc-roof_width*0.25,roof_length*0.25+back_length+roofDY,z_side+roof_height);	
-		pr[2][1][0]=addBPoint(xc,roof_length*0.25+back_length+roofDY,z_side+roof_height);	
-		pr[3][1][0]=addBPoint(xc+roof_width*0.25,roof_length*0.25+back_length+roofDY,z_side+roof_height);	
-		pr[4][1][0]=addBPoint(xc+roof_width*0.5,roof_length*0.25+back_length+roofDY,z_side+roof_height*0.9);
+		double ry0=roofDY+back_length;
+		double ry1=roofDY+back_length+roof_length*0.25;
+		double ry2=roofDY+back_length+roof_length*0.5;
+		double ry3=roofDY+back_length+roof_length*0.75;
+		double ry4=roofDY+back_length+roof_length;
 		
-		pr[0][2][0]=addBPoint(xc-roof_width*0.5,roof_length*0.5+back_length+roofDY,z_side+roof_height*0.9);	
-		pr[1][2][0]=addBPoint(xc-roof_width*0.25,roof_length*0.5+back_length+roofDY,z_side+roof_height);	
-		pr[2][2][0]=addBPoint(xc,roof_length*0.5+back_length+roofDY,z_side+roof_height);	
-		pr[3][2][0]=addBPoint(xc+roof_width*0.25,roof_length*0.5+back_length+roofDY,z_side+roof_height);	
-		pr[4][2][0]=addBPoint(xc+roof_width*0.5,roof_length*0.5+back_length+roofDY,z_side+roof_height*0.9);
+		double rz0=z_side+roof_height;
 		
-		pr[0][3][0]=addBPoint(xc-roof_width*0.5,roof_length*0.75+back_length+roofDY,z_side+roof_height*0.9);	
-		pr[1][3][0]=addBPoint(xc-roof_width*0.25,roof_length*0.75+back_length+roofDY,z_side+roof_height);	
-		pr[2][3][0]=addBPoint(xc,roof_length*0.75+back_length+roofDY,z_side+roof_height);	
-		pr[3][3][0]=addBPoint(xc+roof_width*0.25,roof_length*0.75+back_length+roofDY,z_side+roof_height);	
-		pr[4][3][0]=addBPoint(xc+roof_width*0.5,roof_length*0.75+back_length+roofDY,z_side+roof_height*0.9);
+		pr[0][0][0]=addBPoint(rx0,ry0,rz0-roof_height*0.1);	
+		pr[1][0][0]=addBPoint(rx1,ry0,rz0);	
+		pr[2][0][0]=addBPoint(rx2,ry0,rz0);	
+		pr[3][0][0]=addBPoint(rx3,ry0,rz0);	
+		pr[4][0][0]=addBPoint(rx4,ry0,rz0-roof_height*0.1);
 		
-		pr[0][4][0]=addBPoint(xc-roof_width*0.5,roof_length+back_length+roofDY,z_side+roof_height*0.9);	
-		pr[1][4][0]=addBPoint(xc-roof_width*0.25,roof_length+back_length+roofDY,z_side+roof_height);	
-		pr[2][4][0]=addBPoint(xc,roof_length+back_length+roofDY,z_side+roof_height);	
-		pr[3][4][0]=addBPoint(xc+roof_width*0.25,roof_length+back_length+roofDY,z_side+roof_height);	
-		pr[4][4][0]=addBPoint(xc+roof_width*0.5,roof_length+back_length+roofDY,z_side+roof_height*0.9);
+		pr[0][1][0]=addBPoint(rx0,ry1,rz0-roof_height*0.1);	
+		pr[1][1][0]=addBPoint(rx1,ry1,rz0);	
+		pr[2][1][0]=addBPoint(rx2,ry1,rz0);	
+		pr[3][1][0]=addBPoint(rx3,ry1,rz0);	
+		pr[4][1][0]=addBPoint(rx4,ry1,rz0-roof_height*0.1);
+		
+		pr[0][2][0]=addBPoint(rx0,ry2,rz0-roof_height*0.1);	
+		pr[1][2][0]=addBPoint(rx1,ry2,rz0);	
+		pr[2][2][0]=addBPoint(rx2,ry2,rz0);	
+		pr[3][2][0]=addBPoint(rx3,ry2,rz0);	
+		pr[4][2][0]=addBPoint(rx4,ry2,rz0-roof_height*0.1);
+		
+		pr[0][3][0]=addBPoint(rx0,ry3,rz0-roof_height*0.1);	
+		pr[1][3][0]=addBPoint(rx1,ry3,rz0);	
+		pr[2][3][0]=addBPoint(rx2,ry3,rz0);	
+		pr[3][3][0]=addBPoint(rx3,ry3,rz0);	
+		pr[4][3][0]=addBPoint(rx4,ry3,rz0-roof_height*0.1);
+		
+		pr[0][4][0]=addBPoint(rx0,ry4,rz0-roof_height*0.1);	
+		pr[1][4][0]=addBPoint(rx1,ry4,rz0);	
+		pr[2][4][0]=addBPoint(rx2,ry4,rz0);	
+		pr[3][4][0]=addBPoint(rx3,ry4,rz0);	
+		pr[4][4][0]=addBPoint(rx4,ry4,rz0-roof_height*0.1);
 		
 		for (int i = 0; i < pnx; i++) {
 			
