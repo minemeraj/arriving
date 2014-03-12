@@ -288,14 +288,26 @@ public class Animal extends CustomData{
 
 		//body:
 		
+	
+		double SHOULDER_DX=10;	
+		double SHOULDER_WIDTH=SHOULDER_DX+x_side*0.5;		
+		double WAIST_DX=x_side*0.1;
+		double WAIST_WIDTH=x_side*0.5-WAIST_DX;
+		
+		double bx0=xc-x_side*0.5;
+		double bx1=xc-x_side*0.25;
+		double bx2=xc;
+		double bx3=xc+x_side*0.25;
+		double bx4=xc+x_side*0.5;
+		
+		double by0=yc-y_side*0.5;
+		double by1=yc+y_side*0.5;
+		
 		double bz0=femur_length+shinbone_length;
 		double bz1=femur_length+shinbone_length+z_side/4.0;
 		double bz2=femur_length+shinbone_length+z_side/2.0;
 		double bz3=femur_length+shinbone_length+z_side*3.0/4.0;
 		double bz4=femur_length+shinbone_length+z_side;
-		
-		double SHOULDER_DX=10;		
-		double WAIST_DX=x_side*0.1;
 		
 		int numx=5;
 		int numy=2;
@@ -303,85 +315,91 @@ public class Animal extends CustomData{
 		
 		BPoint[][][] body=new BPoint[numx][numy][numz]; 
 
-		body[0][0][0]=addBPoint(xc-x_side*0.5,yc-y_side*0.5,bz0);
-		body[1][0][0]=addBPoint(xc-x_side*0.25,yc-y_side*0.5,bz0);
-		body[2][0][0]=addBPoint(xc,yc-y_side*0.5,bz0);
-		body[3][0][0]=addBPoint(xc+x_side*0.25,yc-y_side*0.5,bz0);
-		body[4][0][0]=addBPoint(xc+x_side*0.5,yc-y_side*0.5,bz0);
-		body[0][1][0]=addBPoint(xc-x_side*0.5,yc+y_side*0.5,bz0);
-		body[1][1][0]=addBPoint(xc-x_side*0.25,yc+y_side*0.5,bz0);
-		body[2][1][0]=addBPoint(xc,yc+y_side*0.5,bz0);
-		body[3][1][0]=addBPoint(xc+x_side*0.25,yc+y_side*0.5,bz0);	
-		body[4][1][0]=addBPoint(xc+x_side*0.5,yc+y_side*0.5,bz0);		
+		body[0][0][0]=addBPoint(bx0,by0,bz0);
+		body[1][0][0]=addBPoint(bx1,by0,bz0);
+		body[2][0][0]=addBPoint(bx2,by0,bz0);
+		body[3][0][0]=addBPoint(bx3,by0,bz0);
+		body[4][0][0]=addBPoint(bx4,by0,bz0);
+		body[0][1][0]=addBPoint(bx0,by1,bz0);
+		body[1][1][0]=addBPoint(bx1,by1,bz0);
+		body[2][1][0]=addBPoint(bx2,by1,bz0);
+		body[3][1][0]=addBPoint(bx3,by1,bz0);	
+		body[4][1][0]=addBPoint(bx4,by1,bz0);		
 		
-		body[0][0][1]=addBPoint(xc-x_side*0.5,yc-y_side*0.5,bz1);
-		body[1][0][1]=addBPoint(xc-x_side*0.25,yc-y_side*0.5,bz1);
-		body[2][0][1]=addBPoint(xc,yc-y_side*0.5,bz1);
-		body[3][0][1]=addBPoint(xc+x_side*0.25,yc-y_side*0.5,bz1);
-		body[4][0][1]=addBPoint(xc+x_side*0.5,yc-y_side*0.5,bz1);		
-		body[0][1][1]=addBPoint(xc-x_side*0.5,yc+y_side*0.5,bz1);
-		body[1][1][1]=addBPoint(xc-x_side*0.25,yc+y_side*0.5,bz1);
-		body[2][1][1]=addBPoint(xc,yc+y_side*0.5,bz1);
-		body[3][1][1]=addBPoint(xc+x_side*0.25,yc+y_side*0.5,bz1);
-		body[4][1][1]=addBPoint(xc+x_side*0.5,yc+y_side*0.5,bz1);
+		body[0][0][1]=addBPoint(bx0,by0,bz1);
+		body[1][0][1]=addBPoint(bx1,by0,bz1);
+		body[2][0][1]=addBPoint(bx2,by0,bz1);
+		body[3][0][1]=addBPoint(bx3,by0,bz1);
+		body[4][0][1]=addBPoint(bx4,by0,bz1);		
+		body[0][1][1]=addBPoint(bx0,by1,bz1);
+		body[1][1][1]=addBPoint(bx1,by1,bz1);
+		body[2][1][1]=addBPoint(bx2,by1,bz1);
+		body[3][1][1]=addBPoint(bx3,by1,bz1);
+		body[4][1][1]=addBPoint(bx4,by1,bz1);
 		
-		body[0][0][2]=addBPoint(xc-(xc+x_side*0.5-WAIST_DX),yc-y_side*0.5,bz2);
-		body[1][0][2]=addBPoint(xc-(x_side*0.5-WAIST_DX)*0.5,yc-y_side*0.5,bz2);
-		body[2][0][2]=addBPoint(xc,yc-y_side*0.5,bz2);
-		body[3][0][2]=addBPoint(xc+(x_side*0.5-WAIST_DX)*0.5,yc-y_side*0.5,bz2);
-		body[4][0][2]=addBPoint(xc+(x_side*0.5-WAIST_DX),yc-y_side*0.5,bz2);		
-		body[0][1][2]=addBPoint(xc-(x_side*0.5-WAIST_DX),yc+y_side*0.5,bz2);
-		body[1][1][2]=addBPoint(xc-(x_side*0.5-WAIST_DX)*0.5,yc+y_side*0.5,bz2);
-		body[2][1][2]=addBPoint(xc,yc+y_side*0.5,bz2);
-		body[3][1][2]=addBPoint(xc+(x_side*0.5-WAIST_DX)*0.5,yc+y_side*0.5,bz2);
-		body[4][1][2]=addBPoint(xc+(x_side*0.5-WAIST_DX),yc+y_side*0.5,bz2);
+		body[0][0][2]=addBPoint(xc-WAIST_WIDTH,by0,bz2);
+		body[1][0][2]=addBPoint(xc-WAIST_WIDTH*0.5,by0,bz2);
+		body[2][0][2]=addBPoint(bx2,by0,bz2);
+		body[3][0][2]=addBPoint(xc+WAIST_WIDTH*0.5,by0,bz2);
+		body[4][0][2]=addBPoint(xc+WAIST_WIDTH,by0,bz2);		
+		body[0][1][2]=addBPoint(xc-WAIST_WIDTH,by1,bz2);
+		body[1][1][2]=addBPoint(xc-WAIST_WIDTH*0.5,by1,bz2);
+		body[2][1][2]=addBPoint(bx2,by1,bz2);
+		body[3][1][2]=addBPoint(xc+WAIST_WIDTH*0.5,by1,bz2);
+		body[4][1][2]=addBPoint(xc+WAIST_WIDTH,by1,bz2);
 		
-		body[0][0][3]=addBPoint(xc-(x_side*0.5+SHOULDER_DX),yc-y_side*0.5,bz3);
-		body[1][0][3]=addBPoint(xc-(x_side*0.5+SHOULDER_DX)*0.5,yc-y_side*0.5,bz3);
-		body[2][0][3]=addBPoint(xc,yc-y_side*0.5,bz3);
-		body[3][0][3]=addBPoint(xc+(x_side*0.5+SHOULDER_DX)*0.5,yc-y_side*0.5,bz3);
-		body[4][0][3]=addBPoint(xc+(x_side*0.5+SHOULDER_DX),yc-y_side*0.5,bz3);
-		body[0][1][3]=addBPoint(xc-(x_side*0.5+SHOULDER_DX),yc+y_side*0.5,bz3);
-		body[1][1][3]=addBPoint(xc-(x_side*0.5+SHOULDER_DX)*0.5,yc+y_side*0.5,bz3);
-		body[2][1][3]=addBPoint(xc,yc+y_side*0.5,bz3);
-		body[3][1][3]=addBPoint(xc+(x_side*0.5+SHOULDER_DX)*0.5,yc+y_side*0.5,bz3);	
-		body[4][1][3]=addBPoint(xc+(x_side*0.5+SHOULDER_DX),yc+y_side*0.5,bz3);		
+		body[0][0][3]=addBPoint(xc-SHOULDER_WIDTH,by0,bz3);
+		body[1][0][3]=addBPoint(xc-SHOULDER_WIDTH*0.5,by0,bz3);
+		body[2][0][3]=addBPoint(bx2,by0,bz3);
+		body[3][0][3]=addBPoint(xc+SHOULDER_WIDTH*0.5,by0,bz3);
+		body[4][0][3]=addBPoint(xc+SHOULDER_WIDTH,by0,bz3);
+		body[0][1][3]=addBPoint(xc-SHOULDER_WIDTH,by1,bz3);
+		body[1][1][3]=addBPoint(xc-SHOULDER_WIDTH*0.5,by1,bz3);
+		body[2][1][3]=addBPoint(bx2,by1,bz3);
+		body[3][1][3]=addBPoint(xc+SHOULDER_WIDTH*0.5,by1,bz3);	
+		body[4][1][3]=addBPoint(xc+SHOULDER_WIDTH,by1,bz3);		
 		
-		body[0][0][4]=addBPoint(xc-(x_side*0.5+SHOULDER_DX),yc-y_side*0.5,bz4);
-		body[1][0][4]=addBPoint(xc-(x_side*0.5+SHOULDER_DX)*0.5,yc-y_side*0.5,bz4);
-		body[2][0][4]=addBPoint(xc,yc-y_side*0.5,bz4);
-		body[3][0][4]=addBPoint(xc+(x_side*0.5+SHOULDER_DX)*0.5,yc-y_side*0.5,bz4);	
-		body[4][0][4]=addBPoint(xc+(x_side*0.5+SHOULDER_DX),yc-y_side*0.5,bz4);		
-		body[0][1][4]=addBPoint(xc-(x_side*0.5+SHOULDER_DX),yc+y_side*0.5,bz4);
-		body[1][1][4]=addBPoint(xc-(x_side*0.5+SHOULDER_DX)*0.5,yc+y_side*0.5,bz4);
-		body[2][1][4]=addBPoint(xc,yc+y_side*0.5,bz4);
-		body[3][1][4]=addBPoint(xc+(x_side*0.5+SHOULDER_DX)*0.5,yc+y_side*0.5,bz4);
-		body[4][1][4]=addBPoint(xc+(x_side*0.5+SHOULDER_DX),yc+y_side*0.5,bz4);
+		body[0][0][4]=addBPoint(xc-SHOULDER_WIDTH,by0,bz4);
+		body[1][0][4]=addBPoint(xc-SHOULDER_WIDTH*0.5,by0,bz4);
+		body[2][0][4]=addBPoint(bx2,by0,bz4);
+		body[3][0][4]=addBPoint(xc+SHOULDER_WIDTH*0.5,by0,bz4);	
+		body[4][0][4]=addBPoint(xc+SHOULDER_WIDTH,by0,bz4);		
+		body[0][1][4]=addBPoint(xc-SHOULDER_WIDTH,by1,bz4);
+		body[1][1][4]=addBPoint(xc-SHOULDER_WIDTH*0.5,by1,bz4);
+		body[2][1][4]=addBPoint(bx2,by1,bz4);
+		body[3][1][4]=addBPoint(xc+SHOULDER_WIDTH*0.5,by1,bz4);
+		body[4][1][4]=addBPoint(xc+SHOULDER_WIDTH,by1,bz4);
 		
 		double nz0=femur_length+shinbone_length+z_side+neck_length/2.0;
 		double nz1=femur_length+shinbone_length+z_side+neck_length;		
+		
+		double nx0=xc-neck_side*0.5;
+		double nx1=xc-neck_side*0.25;
+		double nx2=bx2;
+		double nx3=xc+neck_side*0.25;
+		double nx4=xc+neck_side*0.5;
 
-		body[0][0][5]=addBPoint(xc-neck_side*0.5,yc-y_side*0.5,nz0);
-		body[1][0][5]=addBPoint(xc-neck_side*0.25,yc-y_side*0.5,nz0);
-		body[2][0][5]=addBPoint(xc,yc-y_side*0.5,nz0);
-		body[3][0][5]=addBPoint(xc+neck_side*0.25,yc-y_side*0.5,nz0);	
-		body[4][0][5]=addBPoint(xc+neck_side*0.5,yc-y_side*0.5,nz0);
-		body[0][1][5]=addBPoint(xc-neck_side*0.5,yc+y_side*0.5,nz0);
-		body[1][1][5]=addBPoint(xc-neck_side*0.25,yc+y_side*0.5,nz0);
-		body[2][1][5]=addBPoint(xc,yc+y_side*0.5,nz0);
-		body[3][1][5]=addBPoint(xc+neck_side*0.25,yc+y_side*0.5,nz0);
-		body[4][1][5]=addBPoint(xc+neck_side*0.5,yc+y_side*0.5,nz0);
+		body[0][0][5]=addBPoint(nx0,by0,nz0);
+		body[1][0][5]=addBPoint(nx1,by0,nz0);
+		body[2][0][5]=addBPoint(nx2,by0,nz0);
+		body[3][0][5]=addBPoint(nx3,by0,nz0);	
+		body[4][0][5]=addBPoint(nx4,by0,nz0);
+		body[0][1][5]=addBPoint(nx0,by1,nz0);
+		body[1][1][5]=addBPoint(nx1,by1,nz0);
+		body[2][1][5]=addBPoint(nx2,by1,nz0);
+		body[3][1][5]=addBPoint(nx3,by1,nz0);
+		body[4][1][5]=addBPoint(nx4,by1,nz0);
 
-		body[0][0][6]=addBPoint(xc-neck_side*0.5,yc-y_side*0.5,nz1);
-		body[1][0][6]=addBPoint(xc-neck_side*0.25,yc-y_side*0.5,nz1);
-		body[2][0][6]=addBPoint(xc,yc-y_side*0.5,nz1);
-		body[3][0][6]=addBPoint(xc+neck_side*0.25,yc-y_side*0.5,nz1);
-		body[4][0][6]=addBPoint(xc+neck_side*0.5,yc-y_side*0.5,nz1);
-		body[0][1][6]=addBPoint(xc-neck_side*0.5,yc+y_side*0.5,nz1);	
-		body[1][1][6]=addBPoint(xc-neck_side*0.25,yc+y_side*0.5,nz1);	
-		body[2][1][6]=addBPoint(xc,yc+y_side*0.5,nz1);
-		body[3][1][6]=addBPoint(xc+neck_side*0.25,yc+y_side*0.5,nz1);
-		body[4][1][6]=addBPoint(xc+neck_side*0.5,yc+y_side*0.5,nz1);
+		body[0][0][6]=addBPoint(nx0,by0,nz1);
+		body[1][0][6]=addBPoint(nx1,by0,nz1);
+		body[2][0][6]=addBPoint(nx2,by0,nz1);
+		body[3][0][6]=addBPoint(nx3,by0,nz1);
+		body[4][0][6]=addBPoint(nx4,by0,nz1);
+		body[0][1][6]=addBPoint(nx0,by1,nz1);	
+		body[1][1][6]=addBPoint(nx1,by1,nz1);	
+		body[2][1][6]=addBPoint(nx2,by1,nz1);
+		body[3][1][6]=addBPoint(nx3,by1,nz1);
+		body[4][1][6]=addBPoint(nx4,by1,nz1);
 
 		for(int k=0;k<numz-1;k++){
 			
@@ -606,6 +624,8 @@ public class Animal extends CustomData{
 		double hz3=femur_length+shinbone_length+z_side+neck_length+head_DZ*3.0/4.0;
 		double hz4=femur_length+shinbone_length+z_side+neck_length+head_DZ;
 		
+		double HEAD_DEPTH=head_DY*0.5;
+		
 		int numx=5;
 		int numy=2;
 		int numz=5;
@@ -623,49 +643,49 @@ public class Animal extends CustomData{
 		head[3][1][0]=addBPoint(xc+neck_side*0.25,yc+y_side*0.5,hz0);
 		head[4][1][0]=addBPoint(xc+neck_side*0.5,yc+y_side*0.5,hz0);
 
-		head[0][0][1]=addBPoint(xc-head_DX*0.5*0.85,yc-head_DY*0.5*0.85,hz1);
-		head[1][0][1]=addBPoint(xc-head_DX*0.25*0.85,yc-head_DY*0.5*0.85,hz1);
-		head[2][0][1]=addBPoint(xc,yc-head_DY*0.5*0.85,hz1);
-		head[3][0][1]=addBPoint(xc+head_DX*0.25*0.85,yc-head_DY*0.5*0.85,hz1);
-		head[4][0][1]=addBPoint(xc+head_DX*0.5*0.85,yc-head_DY*0.5*0.85,hz1);		
-		head[0][1][1]=addBPoint(xc-head_DX*0.5*0.85,yc+head_DY*0.5*0.85,hz1);
-		head[1][1][1]=addBPoint(xc-head_DX*0.25*0.85,yc+head_DY*0.5*0.85,hz1);
-		head[2][1][1]=addBPoint(xc,yc+head_DY*0.5*0.85,hz1);
-		head[3][1][1]=addBPoint(xc+head_DX*0.25*0.85,yc+head_DY*0.5*0.85,hz1);
-		head[4][1][1]=addBPoint(xc+head_DX*0.5*0.85,yc+head_DY*0.5*0.85,hz1);
+		head[0][0][1]=addBPoint(xc-head_DX*0.5*0.85,yc-HEAD_DEPTH*0.85,hz1);
+		head[1][0][1]=addBPoint(xc-head_DX*0.25*0.85,yc-HEAD_DEPTH*0.85,hz1);
+		head[2][0][1]=addBPoint(xc,yc-HEAD_DEPTH*0.85,hz1);
+		head[3][0][1]=addBPoint(xc+head_DX*0.25*0.85,yc-HEAD_DEPTH*0.85,hz1);
+		head[4][0][1]=addBPoint(xc+head_DX*0.5*0.85,yc-HEAD_DEPTH*0.85,hz1);		
+		head[0][1][1]=addBPoint(xc-head_DX*0.5*0.85,yc+HEAD_DEPTH*0.85,hz1);
+		head[1][1][1]=addBPoint(xc-head_DX*0.25*0.85,yc+HEAD_DEPTH*0.85,hz1);
+		head[2][1][1]=addBPoint(xc,yc+HEAD_DEPTH*0.85,hz1);
+		head[3][1][1]=addBPoint(xc+head_DX*0.25*0.85,yc+HEAD_DEPTH*0.85,hz1);
+		head[4][1][1]=addBPoint(xc+head_DX*0.5*0.85,yc+HEAD_DEPTH*0.85,hz1);
 		
-		head[0][0][2]=addBPoint(xc-head_DX*0.5,yc-head_DY*0.5,hz2);
-		head[1][0][2]=addBPoint(xc-head_DX*0.25,yc-head_DY*0.5,hz2);
-		head[2][0][2]=addBPoint(xc,yc-head_DY*0.5,hz2);
-		head[3][0][2]=addBPoint(xc+head_DX*0.25,yc-head_DY*0.5,hz2);	
-		head[4][0][2]=addBPoint(xc+head_DX*0.5,yc-head_DY*0.5,hz2);		
-		head[0][1][2]=addBPoint(xc-head_DX*0.5,yc+head_DY*0.5,hz2);
-		head[1][1][2]=addBPoint(xc-head_DX*0.25,yc+head_DY*0.5,hz2);
-		head[2][1][2]=addBPoint(xc,yc+head_DY*0.5,hz2);
-		head[3][1][2]=addBPoint(xc+head_DX*0.25,yc+head_DY*0.5,hz2);	
-		head[4][1][2]=addBPoint(xc+head_DX*0.5,yc+head_DY*0.5,hz2);		
+		head[0][0][2]=addBPoint(xc-head_DX*0.5,yc-HEAD_DEPTH,hz2);
+		head[1][0][2]=addBPoint(xc-head_DX*0.25,yc-HEAD_DEPTH,hz2);
+		head[2][0][2]=addBPoint(xc,yc-HEAD_DEPTH,hz2);
+		head[3][0][2]=addBPoint(xc+head_DX*0.25,yc-HEAD_DEPTH,hz2);	
+		head[4][0][2]=addBPoint(xc+head_DX*0.5,yc-HEAD_DEPTH,hz2);		
+		head[0][1][2]=addBPoint(xc-head_DX*0.5,yc+HEAD_DEPTH,hz2);
+		head[1][1][2]=addBPoint(xc-head_DX*0.25,yc+HEAD_DEPTH,hz2);
+		head[2][1][2]=addBPoint(xc,yc+HEAD_DEPTH,hz2);
+		head[3][1][2]=addBPoint(xc+head_DX*0.25,yc+HEAD_DEPTH,hz2);	
+		head[4][1][2]=addBPoint(xc+head_DX*0.5,yc+HEAD_DEPTH,hz2);		
 	
-		head[0][0][3]=addBPoint(xc-head_DX*0.5,yc-head_DY*0.5,hz3);
-		head[1][0][3]=addBPoint(xc-head_DX*0.25,yc-head_DY*0.5,hz3);
-		head[2][0][3]=addBPoint(xc,yc-head_DY*0.5,hz3);
-		head[3][0][3]=addBPoint(xc+head_DX*0.25,yc-head_DY*0.5,hz3);
-		head[4][0][3]=addBPoint(xc+head_DX*0.5,yc-head_DY*0.5,hz3);
-		head[0][1][3]=addBPoint(xc-head_DX*0.5,yc+head_DY*0.5,hz3);
-		head[1][1][3]=addBPoint(xc-head_DX*0.25,yc+head_DY*0.5,hz3);
-		head[2][1][3]=addBPoint(xc,yc+head_DY*0.5,hz3);
-		head[3][1][3]=addBPoint(xc+head_DX*0.25,yc+head_DY*0.5,hz3);	
-		head[4][1][3]=addBPoint(xc+head_DX*0.5,yc+head_DY*0.5,hz3);		
+		head[0][0][3]=addBPoint(xc-head_DX*0.5,yc-HEAD_DEPTH,hz3);
+		head[1][0][3]=addBPoint(xc-head_DX*0.25,yc-HEAD_DEPTH,hz3);
+		head[2][0][3]=addBPoint(xc,yc-HEAD_DEPTH,hz3);
+		head[3][0][3]=addBPoint(xc+head_DX*0.25,yc-HEAD_DEPTH,hz3);
+		head[4][0][3]=addBPoint(xc+head_DX*0.5,yc-HEAD_DEPTH,hz3);
+		head[0][1][3]=addBPoint(xc-head_DX*0.5,yc+HEAD_DEPTH,hz3);
+		head[1][1][3]=addBPoint(xc-head_DX*0.25,yc+HEAD_DEPTH,hz3);
+		head[2][1][3]=addBPoint(xc,yc+HEAD_DEPTH,hz3);
+		head[3][1][3]=addBPoint(xc+head_DX*0.25,yc+HEAD_DEPTH,hz3);	
+		head[4][1][3]=addBPoint(xc+head_DX*0.5,yc+HEAD_DEPTH,hz3);		
 		
-		head[0][0][4]=addBPoint(xc-head_DX*0.5*0.75,yc-head_DY*0.5*0.75,hz4);
-		head[1][0][4]=addBPoint(xc-head_DX*0.25*0.75,yc-head_DY*0.5*0.75,hz4);
-		head[2][0][4]=addBPoint(xc,yc-head_DY*0.5*0.75,hz4);
-		head[3][0][4]=addBPoint(xc+head_DX*0.25*0.75,yc-head_DY*0.5*0.75,hz4);	
-		head[4][0][4]=addBPoint(xc+head_DX*0.5*0.75,yc-head_DY*0.5*0.75,hz4);		
-		head[0][1][4]=addBPoint(xc-head_DX*0.5*0.75,yc+head_DY*0.5*0.75,hz4);
-		head[1][1][4]=addBPoint(xc-head_DX*0.25*0.75,yc+head_DY*0.5*0.75,hz4);
-		head[2][1][4]=addBPoint(xc,yc+head_DY*0.5*0.75,hz4);
-		head[3][1][4]=addBPoint(xc+head_DX*0.25*0.75,yc+head_DY*0.5*0.75,hz4);
-		head[4][1][4]=addBPoint(xc+head_DX*0.5*0.75,yc+head_DY*0.5*0.75,hz4);
+		head[0][0][4]=addBPoint(xc-head_DX*0.5*0.75,yc-HEAD_DEPTH*0.75,hz4);
+		head[1][0][4]=addBPoint(xc-head_DX*0.25*0.75,yc-HEAD_DEPTH*0.75,hz4);
+		head[2][0][4]=addBPoint(xc,yc-HEAD_DEPTH*0.75,hz4);
+		head[3][0][4]=addBPoint(xc+head_DX*0.25*0.75,yc-HEAD_DEPTH*0.75,hz4);	
+		head[4][0][4]=addBPoint(xc+head_DX*0.5*0.75,yc-HEAD_DEPTH*0.75,hz4);		
+		head[0][1][4]=addBPoint(xc-head_DX*0.5*0.75,yc+HEAD_DEPTH*0.75,hz4);
+		head[1][1][4]=addBPoint(xc-head_DX*0.25*0.75,yc+HEAD_DEPTH*0.75,hz4);
+		head[2][1][4]=addBPoint(xc,yc+HEAD_DEPTH*0.75,hz4);
+		head[3][1][4]=addBPoint(xc+head_DX*0.25*0.75,yc+HEAD_DEPTH*0.75,hz4);
+		head[4][1][4]=addBPoint(xc+head_DX*0.5*0.75,yc+HEAD_DEPTH*0.75,hz4);
 
 
 		for(int k=0;k<numz-1;k++){			
@@ -708,6 +728,12 @@ public class Animal extends CustomData{
 
 		//main body:
 		
+		double bx0=xc-x_side*0.5;
+		double bx1=xc-x_side*0.25;
+		double bx2=xc;
+		double bx3=xc+x_side*0.25;
+		double bx4=xc+x_side*0.5;
+		
 		double bz0=femur_length+shinbone_length;
 		double bz1=femur_length+shinbone_length+z_side;
 		
@@ -725,60 +751,60 @@ public class Animal extends CustomData{
 		
 		BPoint[][][] body=new BPoint[numx][numy][numz]; 
 
-		body[0][0][0]=addBPoint(xc-x_side*0.5,by0,bz0);
-		body[1][0][0]=addBPoint(xc-x_side*0.25,by0,bz0);
-		body[2][0][0]=addBPoint(xc,by0,bz0);
-		body[3][0][0]=addBPoint(xc+x_side*0.25,by0,bz0);
-		body[4][0][0]=addBPoint(xc+x_side*0.5,by0,bz0);
-		body[0][0][1]=addBPoint(xc-x_side*0.5,by0,bz1);	
-		body[1][0][1]=addBPoint(xc-x_side*0.25,by0,bz1);
-		body[2][0][1]=addBPoint(xc,by0,bz1);
-		body[3][0][1]=addBPoint(xc+x_side*0.25,by0,bz1);
-		body[4][0][1]=addBPoint(xc+x_side*0.5,by0,bz1);
+		body[0][0][0]=addBPoint(bx0,by0,bz0);
+		body[1][0][0]=addBPoint(bx1,by0,bz0);
+		body[2][0][0]=addBPoint(bx2,by0,bz0);
+		body[3][0][0]=addBPoint(bx3,by0,bz0);
+		body[4][0][0]=addBPoint(bx4,by0,bz0);
+		body[0][0][1]=addBPoint(bx0,by0,bz1);	
+		body[1][0][1]=addBPoint(bx1,by0,bz1);
+		body[2][0][1]=addBPoint(bx2,by0,bz1);
+		body[3][0][1]=addBPoint(bx3,by0,bz1);
+		body[4][0][1]=addBPoint(bx4,by0,bz1);
 		
-		body[0][1][0]=addBPoint(xc-x_side*0.5,by1,bz0);
-		body[1][1][0]=addBPoint(xc-x_side*0.25,by1,bz0);
-		body[2][1][0]=addBPoint(xc,by1,bz0);
-		body[3][1][0]=addBPoint(xc+x_side*0.25,by1,bz0);
-		body[4][1][0]=addBPoint(xc+x_side*0.5,by1,bz0);	
-		body[0][1][1]=addBPoint(xc-x_side*0.5,by1,bz1);	
-		body[1][1][1]=addBPoint(xc-x_side*0.25,by1,bz1);
-		body[2][1][1]=addBPoint(xc,by1,bz1);
-		body[3][1][1]=addBPoint(xc+x_side*0.25,by1,bz1);
-		body[4][1][1]=addBPoint(xc+x_side*0.5,by1,bz1);
+		body[0][1][0]=addBPoint(bx0,by1,bz0);
+		body[1][1][0]=addBPoint(bx1,by1,bz0);
+		body[2][1][0]=addBPoint(bx2,by1,bz0);
+		body[3][1][0]=addBPoint(bx3,by1,bz0);
+		body[4][1][0]=addBPoint(bx4,by1,bz0);	
+		body[0][1][1]=addBPoint(bx0,by1,bz1);	
+		body[1][1][1]=addBPoint(bx1,by1,bz1);
+		body[2][1][1]=addBPoint(bx2,by1,bz1);
+		body[3][1][1]=addBPoint(bx3,by1,bz1);
+		body[4][1][1]=addBPoint(bx4,by1,bz1);
 		
-		body[0][2][0]=addBPoint(xc-x_side*0.5,by2,bz0);
-		body[1][2][0]=addBPoint(xc-x_side*0.25,by2,bz0);
-		body[2][2][0]=addBPoint(xc,by2,bz0);
-		body[3][2][0]=addBPoint(xc+x_side*0.25,by2,bz0);
-		body[4][2][0]=addBPoint(xc+x_side*0.5,by2,bz0);
-		body[0][2][1]=addBPoint(xc-x_side*0.5,by2,bz1);	
-		body[1][2][1]=addBPoint(xc-x_side*0.25,by2,bz1);
-		body[2][2][1]=addBPoint(xc,by2,bz1);
-		body[3][2][1]=addBPoint(xc+x_side*0.25,by2,bz1);
-		body[4][2][1]=addBPoint(xc+x_side*0.5,by2,bz1);
+		body[0][2][0]=addBPoint(bx0,by2,bz0);
+		body[1][2][0]=addBPoint(bx1,by2,bz0);
+		body[2][2][0]=addBPoint(bx2,by2,bz0);
+		body[3][2][0]=addBPoint(bx3,by2,bz0);
+		body[4][2][0]=addBPoint(bx4,by2,bz0);
+		body[0][2][1]=addBPoint(bx0,by2,bz1);	
+		body[1][2][1]=addBPoint(bx1,by2,bz1);
+		body[2][2][1]=addBPoint(bx2,by2,bz1);
+		body[3][2][1]=addBPoint(bx3,by2,bz1);
+		body[4][2][1]=addBPoint(bx4,by2,bz1);
 		
-		body[0][3][0]=addBPoint(xc-x_side*0.5,by3,bfz0);
-		body[1][3][0]=addBPoint(xc-x_side*0.25,by3,bfz0);
-		body[2][3][0]=addBPoint(xc,by3,bfz0);	
-		body[3][3][0]=addBPoint(xc+x_side*0.25,by3,bfz0);
-		body[4][3][0]=addBPoint(xc+x_side*0.5,by3,bfz0);
-		body[0][3][1]=addBPoint(xc-x_side*0.5,by3,bz1);		
-		body[1][3][1]=addBPoint(xc-x_side*0.25,by3,bz1);
-		body[2][3][1]=addBPoint(xc,by3,bz1);
-		body[3][3][1]=addBPoint(xc+x_side*0.25,by3,bz1);
-		body[4][3][1]=addBPoint(xc+x_side*0.5,by3,bz1);
+		body[0][3][0]=addBPoint(bx0,by3,bfz0);
+		body[1][3][0]=addBPoint(bx1,by3,bfz0);
+		body[2][3][0]=addBPoint(bx2,by3,bfz0);	
+		body[3][3][0]=addBPoint(bx3,by3,bfz0);
+		body[4][3][0]=addBPoint(bx4,by3,bfz0);
+		body[0][3][1]=addBPoint(bx0,by3,bz1);		
+		body[1][3][1]=addBPoint(bx1,by3,bz1);
+		body[2][3][1]=addBPoint(bx2,by3,bz1);
+		body[3][3][1]=addBPoint(bx3,by3,bz1);
+		body[4][3][1]=addBPoint(bx4,by3,bz1);
 		
-		body[0][4][0]=addBPoint(xc-x_side*0.5,by4,bfz0);
-		body[1][4][0]=addBPoint(xc-x_side*0.25,by4,bfz0);	
-		body[2][4][0]=addBPoint(xc,by4,bfz0);	
-		body[3][4][0]=addBPoint(xc+x_side*0.25,by4,bfz0);		
-		body[4][4][0]=addBPoint(xc+x_side*0.5,by4,bfz0);	
-		body[0][4][1]=addBPoint(xc-x_side*0.5,by4,bz1);		
-		body[1][4][1]=addBPoint(xc-x_side*0.25,by4,bz1);
-		body[2][4][1]=addBPoint(xc,by4,bz1);
-		body[3][4][1]=addBPoint(xc+x_side*0.25,by4,bz1);
-		body[4][4][1]=addBPoint(xc+x_side*0.5,by4,bz1);
+		body[0][4][0]=addBPoint(bx0,by4,bfz0);
+		body[1][4][0]=addBPoint(bx1,by4,bfz0);	
+		body[2][4][0]=addBPoint(bx2,by4,bfz0);	
+		body[3][4][0]=addBPoint(bx3,by4,bfz0);		
+		body[4][4][0]=addBPoint(bx4,by4,bfz0);	
+		body[0][4][1]=addBPoint(bx0,by4,bz1);		
+		body[1][4][1]=addBPoint(bx1,by4,bz1);
+		body[2][4][1]=addBPoint(bx2,by4,bz1);
+		body[3][4][1]=addBPoint(bx3,by4,bz1);
+		body[4][4][1]=addBPoint(bx4,by4,bz1);
 		
 		for (int i = 0; i < numx; i++) {
 			
@@ -826,35 +852,42 @@ public class Animal extends CustomData{
 
 		int ney=2;
 		int nez=2;
+		
+		double nx0=xc-neck_side*0.5;
+		double nx1=xc-neck_side*0.25;
+		double nx2=xc;
+		double nx3=xc+neck_side*0.25;
+		double nx4=xc+neck_side*0.5;
 
 		double nz0=femur_length+shinbone_length+z_side+neck_length/2.0;
 		double nz1=femur_length+shinbone_length+z_side+neck_length;
 
-		double ny=y_side-neck_side;
+		double ny0=y_side-neck_side;
+		double ny1=y_side;
 		
 		BPoint[][][] neck=new BPoint[numx][ney][nez];
 	
-		neck[0][0][0]=addBPoint(xc-neck_side*0.5,ny,nz0);
-		neck[1][0][0]=addBPoint(xc-neck_side*0.25,ny,nz0);
-		neck[2][0][0]=addBPoint(xc,ny,nz0);
-		neck[3][0][0]=addBPoint(xc+neck_side*0.25,ny,nz0);
-		neck[4][0][0]=addBPoint(xc+neck_side*0.5,ny,nz0);
-		neck[0][1][0]=addBPoint(xc-neck_side*0.5,ny+neck_side,nz0);
-		neck[1][1][0]=addBPoint(xc-neck_side*0.25,ny+neck_side,nz0);
-		neck[2][1][0]=addBPoint(xc,ny+neck_side,nz0);
-		neck[3][1][0]=addBPoint(xc+neck_side*0.25,ny+neck_side,nz0);
-		neck[4][1][0]=addBPoint(xc+neck_side*0.5,ny+neck_side,nz0);		
+		neck[0][0][0]=addBPoint(nx0,ny0,nz0);
+		neck[1][0][0]=addBPoint(nx1,ny0,nz0);
+		neck[2][0][0]=addBPoint(nx2,ny0,nz0);
+		neck[3][0][0]=addBPoint(nx3,ny0,nz0);
+		neck[4][0][0]=addBPoint(nx4,ny0,nz0);
+		neck[0][1][0]=addBPoint(nx0,ny1,nz0);
+		neck[1][1][0]=addBPoint(nx1,ny1,nz0);
+		neck[2][1][0]=addBPoint(nx2,ny1,nz0);
+		neck[3][1][0]=addBPoint(nx3,ny1,nz0);
+		neck[4][1][0]=addBPoint(nx4,ny1,nz0);		
 		
-		neck[0][0][1]=addBPoint(xc-neck_side*0.5,ny,nz1);
-		neck[1][0][1]=addBPoint(xc-neck_side*0.25,ny,nz1);
-		neck[2][0][1]=addBPoint(xc,ny,nz1);
-		neck[3][0][1]=addBPoint(xc+neck_side*0.25,ny,nz1);
-		neck[4][0][1]=addBPoint(xc+neck_side*0.5,ny,nz1);		
-		neck[0][1][1]=addBPoint(xc-neck_side*0.5,ny+neck_side,nz1);
-		neck[1][1][1]=addBPoint(xc-neck_side*0.25,ny+neck_side,nz1);
-		neck[2][1][1]=addBPoint(xc,ny+neck_side,nz1);
-		neck[3][1][1]=addBPoint(xc+neck_side*0.25,ny+neck_side,nz1);				
-		neck[4][1][1]=addBPoint(xc+neck_side*0.5,ny+neck_side,nz1);
+		neck[0][0][1]=addBPoint(nx0,ny0,nz1);
+		neck[1][0][1]=addBPoint(nx1,ny0,nz1);
+		neck[2][0][1]=addBPoint(nx2,ny0,nz1);
+		neck[3][0][1]=addBPoint(nx3,ny0,nz1);
+		neck[4][0][1]=addBPoint(nx4,ny0,nz1);		
+		neck[0][1][1]=addBPoint(nx0,ny1,nz1);
+		neck[1][1][1]=addBPoint(nx1,ny1,nz1);
+		neck[2][1][1]=addBPoint(nx2,ny1,nz1);
+		neck[3][1][1]=addBPoint(nx3,ny1,nz1);				
+		neck[4][1][1]=addBPoint(nx4,ny1,nz1);
 		
 		
 		for (int i = 0; i < numx; i++) {
