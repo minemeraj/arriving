@@ -374,8 +374,8 @@ public class Car extends CustomData {
 		double back_width1=back_width*(1-0.5)+x_side*0.5; 
 		double back_height1=back_height*(1-0.75)+z_side*0.75; 
 		
-		Segments b0=new Segments(xc,0,0,back_width,0,0);
-		Segments b1=new Segments(xc,0,0,back_width1,0,0);
+		Segments b0=new Segments(xc,back_width,0,0,0,0);
+		Segments b1=new Segments(xc,back_width1,0,0,0,0);
 		
 		pBack[0][0][0]=addBPoint(b0.x(-0.5),by0+back_length*0.1,bz0);
 		pBack[1][0][0]=addBPoint(b0.x(-0.25),by0,bz0);
@@ -456,9 +456,7 @@ public class Car extends CustomData {
 
 
 		//front part:	
-		
-		double fy0=back_length+y_side+front_length*0.5;
-		double fy1=back_length+y_side+front_length;
+
 		
 		int fny=2;
 		int fnz=2;
@@ -466,32 +464,32 @@ public class Car extends CustomData {
 		BPoint[][][] pFront=new BPoint[pnx][fny][fnz];
 		
 		double front_width0=front_width*(1-0.5)+x_side*0.5;  
-		double front_heigth0=front_height*(1-0.75)+z_side*0.75;
+		double front_height0=front_height*(1-0.75)+z_side*0.75;
 		
-		Segments f0=new Segments(xc,0,0,front_width0,0,0);
-		Segments f1=new Segments(xc,0,0,front_width,0,0);
-		
-		pFront[0][0][0]=addBPoint(f0.x(-0.5),fy0-front_length*0.1,0);
-		pFront[1][0][0]=addBPoint(f0.x(-0.25),fy0,0);
-		pFront[2][0][0]=addBPoint(f0.x(0),fy0,0);
-		pFront[3][0][0]=addBPoint(f0.x(0.25),fy0,0);
-		pFront[4][0][0]=addBPoint(f0.x(0.5),fy0-front_length*0.1,0);		
-		pFront[0][0][1]=addBPoint(f0.x(-0.5),fy0-front_length*0.1,front_heigth0*0.9);
-		pFront[1][0][1]=addBPoint(f0.x(-0.25),fy0,front_heigth0);
-		pFront[2][0][1]=addBPoint(f0.x(0.0),fy0,front_heigth0);
-		pFront[3][0][1]=addBPoint(f0.x(0.25),fy0,front_heigth0);
-		pFront[4][0][1]=addBPoint(f0.x(0.5),fy0-front_length*0.1,front_heigth0*0.9);
+		Segments f0=new Segments(xc,front_width0,back_length+y_side,front_length,0,front_height0);
+		Segments f1=new Segments(xc,front_width,back_length+y_side,front_length,0,front_height);
+		 
+		pFront[0][0][0]=addBPoint(f0,-0.5,0.4,0.0);
+		pFront[1][0][0]=addBPoint(f0,-0.25,0.5,0.0);
+		pFront[2][0][0]=addBPoint(f0,0,0.5,0.0);
+		pFront[3][0][0]=addBPoint(f0,0.25,0.5,0.0);
+		pFront[4][0][0]=addBPoint(f0,0.5,0.4,0.0);		
+		pFront[0][0][1]=addBPoint(f0,-0.5,0.4,0.9);
+		pFront[1][0][1]=addBPoint(f0,-0.25,0.5,1.0);
+		pFront[2][0][1]=addBPoint(f0,0.0,0.5,1.0);
+		pFront[3][0][1]=addBPoint(f0,0.25,0.5,1.0);
+		pFront[4][0][1]=addBPoint(f0,0.5,0.4,0.9);
 				
-		pFront[0][1][0]=addBPoint(f1.x(-0.5),fy1-front_length*0.1,0);
-		pFront[1][1][0]=addBPoint(f1.x(-0.25),fy1,0);
-		pFront[2][1][0]=addBPoint(f1.x(0.0),fy1,0);
-		pFront[3][1][0]=addBPoint(f1.x(0.25),fy1,0);
-		pFront[4][1][0]=addBPoint(f1.x(0.5),fy1-front_length*0.1,0);		
-		pFront[0][1][1]=addBPoint(f1.x(-0.5),fy1-front_length*0.1,front_height*0.9);
-		pFront[1][1][1]=addBPoint(f1.x(-0.25),fy1,front_height);
-		pFront[2][1][1]=addBPoint(f1.x(0.0),fy1,front_height);
-		pFront[3][1][1]=addBPoint(f1.x(0.25),fy1,front_height);
-		pFront[4][1][1]=addBPoint(f1.x(0.5),fy1-front_length*0.1,front_height*0.9);
+		pFront[0][1][0]=addBPoint(f1,-0.5,0.9,0.0);
+		pFront[1][1][0]=addBPoint(f1,-0.25,1.0,0.0);
+		pFront[2][1][0]=addBPoint(f1,0.0,1.0,0.0);
+		pFront[3][1][0]=addBPoint(f1,0.25,1.0,0.0);
+		pFront[4][1][0]=addBPoint(f1,0.5,0.9,0.0);		
+		pFront[0][1][1]=addBPoint(f1,-0.5,0.9,0.9);
+		pFront[1][1][1]=addBPoint(f1,-0.25,1.0,1.0);
+		pFront[2][1][1]=addBPoint(f1,0.0,1.0,1.0);
+		pFront[3][1][1]=addBPoint(f1,0.25,1.0,1.0);
+		pFront[4][1][1]=addBPoint(f1,0.5,0.9,0.9);
 						
 
 		for(int i=0;i<pnx;i++){

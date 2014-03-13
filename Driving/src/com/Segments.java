@@ -10,7 +10,7 @@ public class Segments {
 	public double dy;
 	public double dz;
 	
-	public Segments(double xc, double yc, double zc, double dx, double dy,
+	public Segments(double xc,double dx, double yc,double dy, double zc,  
 			double dz) {
 
 		this.xc = xc;
