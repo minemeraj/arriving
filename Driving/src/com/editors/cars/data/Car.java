@@ -359,12 +359,6 @@ public class Car extends CustomData {
 		}
 		
 		//back part:
-
-		double by0=0;
-		double by1=back_length*0.5;
-		
-		double bz0=0;
-		double bz1=back_height;
         
 		int bny=2;
 		int bnz=2;
@@ -374,30 +368,30 @@ public class Car extends CustomData {
 		double back_width1=back_width*(1-0.5)+x_side*0.5; 
 		double back_height1=back_height*(1-0.75)+z_side*0.75; 
 		
-		Segments b0=new Segments(xc,back_width,0,0,0,0);
-		Segments b1=new Segments(xc,back_width1,0,0,0,0);
+		Segments b0=new Segments(xc,back_width,0,back_length,0,back_height);
+		Segments b1=new Segments(xc,back_width1,0,back_length,0,back_height1);
 		
-		pBack[0][0][0]=addBPoint(b0.x(-0.5),by0+back_length*0.1,bz0);
-		pBack[1][0][0]=addBPoint(b0.x(-0.25),by0,bz0);
-		pBack[2][0][0]=addBPoint(b0.x(0.0),by0,bz0);
-		pBack[3][0][0]=addBPoint(b0.x(0.25),by0,bz0);
-		pBack[4][0][0]=addBPoint(b0.x(0.5),by0+back_length*0.1,bz0);
-		pBack[0][0][1]=addBPoint(b0.x(-0.5),by0+back_length*0.1,bz1*0.9);
-		pBack[1][0][1]=addBPoint(b0.x(-0.25),by0,bz1);
-		pBack[2][0][1]=addBPoint(b0.x(0.0),by0,bz1);
-		pBack[3][0][1]=addBPoint(b0.x(0.25),by0,bz1);
-		pBack[4][0][1]=addBPoint(b0.x(0.5),by0+back_length*0.1,bz1*0.9);
+		pBack[0][0][0]=addBPoint(-0.5,0.1,0,b0);
+		pBack[1][0][0]=addBPoint(-0.25,0,0,b0);
+		pBack[2][0][0]=addBPoint(0.0,0,0,b0);
+		pBack[3][0][0]=addBPoint(0.25,0,0,b0);
+		pBack[4][0][0]=addBPoint(0.5,0.1,0,b0);
+		pBack[0][0][1]=addBPoint(-0.5,0.1,0.9,b0);
+		pBack[1][0][1]=addBPoint(-0.25,0,1.0,b0);
+		pBack[2][0][1]=addBPoint(0.0,0,1.0,b0);
+		pBack[3][0][1]=addBPoint(0.25,0,1.0,b0);
+		pBack[4][0][1]=addBPoint(0.5,0.1,0.9,b0);
 		
-		pBack[0][1][0]=addBPoint(b1.x(-0.5),back_length*0.5,bz0);
-		pBack[1][1][0]=addBPoint(b1.x(-0.25),back_length*0.5,bz0);
-		pBack[2][1][0]=addBPoint(b1.x(0.0),back_length*0.5,bz0);	
-		pBack[3][1][0]=addBPoint(b1.x(0.25),back_length*0.5,bz0);	
-		pBack[4][1][0]=addBPoint(b1.x(0.5),back_length*0.5,bz0);	
-		pBack[0][1][1]=addBPoint(b1.x(-0.5),back_length*0.5,back_height1*0.9);
-		pBack[1][1][1]=addBPoint(b1.x(-0.25),back_length*0.5,back_height1);
-		pBack[2][1][1]=addBPoint(b1.x(0.0),back_length*0.5,back_height1);
-		pBack[3][1][1]=addBPoint(b1.x(0.25),back_length*0.5,back_height1);
-		pBack[4][1][1]=addBPoint(b1.x(0.5),back_length*0.5,back_height1*0.9);
+		pBack[0][1][0]=addBPoint(-0.5,0.5,0,b1);
+		pBack[1][1][0]=addBPoint(-0.25,0.5,0,b1);
+		pBack[2][1][0]=addBPoint(0.0,0.5,0,b1);	
+		pBack[3][1][0]=addBPoint(0.25,0.5,0,b1);	
+		pBack[4][1][0]=addBPoint(0.5,0.5,0,b1);	
+		pBack[0][1][1]=addBPoint(-0.5,0.5,0.9,b1);
+		pBack[1][1][1]=addBPoint(-0.25,0.5,1.0,b1);
+		pBack[2][1][1]=addBPoint(0.0,0.5,1.0,b1);
+		pBack[3][1][1]=addBPoint(0.25,0.5,1.0,b1);
+		pBack[4][1][1]=addBPoint(0.5,0.5,0.9,b1);
 		
 
 		for(int i=0;i<pnx;i++){
@@ -670,31 +664,33 @@ public class Car extends CustomData {
 		
 		BPoint[][][] pFront=new BPoint[fnx][fny][fnz];
 		
-		pFront[0][0][0]=addBPoint(xc-front_width*0.5,back_length+y_side,0);
-		pFront[1][0][0]=addBPoint(xc-front_width*0.25,back_length+y_side,0);
-		pFront[2][0][0]=addBPoint(xc,back_length+y_side,0);
-		pFront[3][0][0]=addBPoint(xc+front_width*0.25,back_length+y_side,0);	
-		pFront[4][0][0]=addBPoint(xc+front_width*0.5,back_length+y_side,0);
-		pFront[0][1][0]=addBPoint(xc-front_width*0.5,back_length+y_side+front_length*0.25,0);
-		pFront[1][1][0]=addBPoint(xc-front_width*0.25,back_length+y_side+front_length*0.25,0);
-		pFront[2][1][0]=addBPoint(xc,back_length+y_side+front_length*0.25,0);
-		pFront[3][1][0]=addBPoint(xc+front_width*0.25,back_length+y_side+front_length*0.25,0);
-		pFront[4][1][0]=addBPoint(xc+front_width*0.5,back_length+y_side+front_length*0.25,0);
-		pFront[0][2][0]=addBPoint(xc-front_width*0.5,back_length+y_side+front_length*0.5,0);
-		pFront[1][2][0]=addBPoint(xc-front_width*0.25,back_length+y_side+front_length*0.5,0);
-		pFront[2][2][0]=addBPoint(xc,back_length+y_side+front_length*0.5,0);
-		pFront[3][2][0]=addBPoint(xc+front_width*0.25,back_length+y_side+front_length*0.5,0);
-		pFront[4][2][0]=addBPoint(xc+front_width*0.5,back_length+y_side+front_length*0.5,0);
-		pFront[0][3][0]=addBPoint(xc-front_width*0.5,back_length+y_side+front_length*0.75,0);
-		pFront[1][3][0]=addBPoint(xc-front_width*0.25,back_length+y_side+front_length*0.75,0);
-		pFront[2][3][0]=addBPoint(xc,back_length+y_side+front_length*0.75,0);
-		pFront[3][3][0]=addBPoint(xc+front_width*0.25,back_length+y_side+front_length*0.75,0);
-		pFront[4][3][0]=addBPoint(xc+front_width*0.5,back_length+y_side+front_length*0.75,0);
-		pFront[0][4][0]=addBPoint(xc-front_width*0.5,back_length+y_side+front_length,0);
-		pFront[1][4][0]=addBPoint(xc-front_width*0.25,back_length+y_side+front_length,0);
-		pFront[2][4][0]=addBPoint(xc,back_length+y_side+front_length,0);
-		pFront[3][4][0]=addBPoint(xc+front_width*0.25,back_length+y_side+front_length,0);
-		pFront[4][4][0]=addBPoint(xc+front_width*0.5,back_length+y_side+front_length,0);
+		Segments b0=new Segments(xc,front_width,back_length+y_side,front_length,0,front_height);
+		
+		pFront[0][0][0]=addBPoint(-0.5,0,0,b0);
+		pFront[1][0][0]=addBPoint(-0.25,0,0,b0);
+		pFront[2][0][0]=addBPoint(0.0,0.0,0,b0);
+		pFront[3][0][0]=addBPoint(0.25,0,0,b0);	
+		pFront[4][0][0]=addBPoint(0.5,0,0,b0);
+		pFront[0][1][0]=addBPoint(-0.5,0.25,0,b0);
+		pFront[1][1][0]=addBPoint(-0.25,0.25,0,b0);
+		pFront[2][1][0]=addBPoint(0.0,0.25,0,b0);
+		pFront[3][1][0]=addBPoint(0.25,0.25,0,b0);
+		pFront[4][1][0]=addBPoint(0.5,0.25,0,b0);
+		pFront[0][2][0]=addBPoint(-0.5,0.5,0,b0);
+		pFront[1][2][0]=addBPoint(-0.25,0.5,0,b0);
+		pFront[2][2][0]=addBPoint(0.0,0.5,0,b0);
+		pFront[3][2][0]=addBPoint(0.25,0.5,0,b0);
+		pFront[4][2][0]=addBPoint(0.5,0.5,0,b0);
+		pFront[0][3][0]=addBPoint(-0.5,0.75,0,b0);
+		pFront[1][3][0]=addBPoint(-0.25,0.75,0,b0);
+		pFront[2][3][0]=addBPoint(0.0,0.75,0,b0);
+		pFront[3][3][0]=addBPoint(0.25,0.75,0,b0);
+		pFront[4][3][0]=addBPoint(0.5,0.75,0,b0);
+		pFront[0][4][0]=addBPoint(-0.5,1.0,0,b0);
+		pFront[1][4][0]=addBPoint(-0.25,1.0,0,b0);
+		pFront[2][4][0]=addBPoint(0.0,1.0,0,b0);
+		pFront[3][4][0]=addBPoint(0.25,1.0,0,b0);
+		pFront[4][4][0]=addBPoint(0.5,1.0,0,b0);
 		
 		pFront[0][0][1]=addBPoint(xc-front_width*0.5,back_length+y_side,front_height);	
 		pFront[1][0][1]=addBPoint(xc-front_width*0.25,back_length+y_side,front_height);	

@@ -9,6 +9,7 @@ import com.CustomData;
 import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
+import com.Segments;
 import com.main.Renderer3D;
 
 public class BuildingPlan extends CustomData{
@@ -181,15 +182,17 @@ public class BuildingPlan extends CustomData{
 		n=0;
 
 		//basic sides:
+		
+		Segments p=new Segments(0,x_side,0,y_side,0,z_side);
 
-		BPoint p000=addBPoint(0,0,0);
-		BPoint p100=addBPoint(x_side,0,0);
-		BPoint p010=addBPoint(0,y_side,0);
-		BPoint p001=addBPoint(0,0,z_side);
-		BPoint p110=addBPoint(x_side,y_side,0);
-		BPoint p011=addBPoint(0,y_side,z_side);
-		BPoint p101=addBPoint(x_side,0,z_side);
-		BPoint p111=addBPoint(x_side,y_side,z_side);
+		BPoint p000=addBPoint(0,0,0,p);
+		BPoint p100=addBPoint(1.0,0,0,p);
+		BPoint p010=addBPoint(0,1.0,0,p);
+		BPoint p001=addBPoint(0,0,1.0,p);
+		BPoint p110=addBPoint(1.0,1.0,0,p);
+		BPoint p011=addBPoint(0,1.0,1.0,p);
+		BPoint p101=addBPoint(1.0,0,1.0,p);
+		BPoint p111=addBPoint(1.0,1.0,1.0,p);
 
 
 		LineData bottomLD=addLine(p000,p010,p110,p100,Renderer3D.CAR_BOTTOM);
