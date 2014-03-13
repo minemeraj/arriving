@@ -9,6 +9,7 @@ import com.CustomData;
 import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
+import com.Segments;
 import com.main.Renderer3D;
 
 public class Car extends CustomData {
@@ -358,13 +359,7 @@ public class Car extends CustomData {
 		}
 		
 		//back part:
-		
-		double bx0=xc-back_width*0.5;
-		double bx1=xc-back_width*0.25;
-		double bx2=xc;
-		double bx3=xc+back_width*0.25;
-		double bx4=xc+back_width*0.5;
-		
+
 		double by0=0;
 		double by1=back_length*0.5;
 		
@@ -379,27 +374,30 @@ public class Car extends CustomData {
 		double back_width1=back_width*(1-0.5)+x_side*0.5; 
 		double back_height1=back_height*(1-0.75)+z_side*0.75; 
 		
-		pBack[0][0][0]=addBPoint(bx0,by0+back_length*0.1,bz0);
-		pBack[1][0][0]=addBPoint(bx1,by0,bz0);
-		pBack[2][0][0]=addBPoint(bx2,by0,bz0);
-		pBack[3][0][0]=addBPoint(bx3,by0,bz0);
-		pBack[4][0][0]=addBPoint(bx4,by0+back_length*0.1,bz0);
-		pBack[0][0][1]=addBPoint(bx0,by0+back_length*0.1,bz1*0.9);
-		pBack[1][0][1]=addBPoint(bx1,by0,bz1);
-		pBack[2][0][1]=addBPoint(bx2,by0,bz1);
-		pBack[3][0][1]=addBPoint(bx3,by0,bz1);
-		pBack[4][0][1]=addBPoint(bx4,by0+back_length*0.1,bz1*0.9);
+		Segments b0=new Segments(xc,0,0,back_width,0,0);
+		Segments b1=new Segments(xc,0,0,back_width1,0,0);
 		
-		pBack[0][1][0]=addBPoint(xc-back_width1*0.5,back_length*0.5,bz0);
-		pBack[1][1][0]=addBPoint(xc-back_width1*0.25,back_length*0.5,bz0);
-		pBack[2][1][0]=addBPoint(xc,back_length*0.5,bz0);	
-		pBack[3][1][0]=addBPoint(xc+back_width1*0.25,back_length*0.5,bz0);	
-		pBack[4][1][0]=addBPoint(xc+back_width1*0.5,back_length*0.5,bz0);	
-		pBack[0][1][1]=addBPoint(xc-back_width1*0.5,back_length*0.5,back_height1*0.9);
-		pBack[1][1][1]=addBPoint(xc-back_width1*0.25,back_length*0.5,back_height1);
-		pBack[2][1][1]=addBPoint(xc,back_length*0.5,back_height1);
-		pBack[3][1][1]=addBPoint(xc+back_width1*0.25,back_length*0.5,back_height1);
-		pBack[4][1][1]=addBPoint(xc+back_width1*0.5,back_length*0.5,back_height1*0.9);
+		pBack[0][0][0]=addBPoint(b0.x(-0.5),by0+back_length*0.1,bz0);
+		pBack[1][0][0]=addBPoint(b0.x(-0.25),by0,bz0);
+		pBack[2][0][0]=addBPoint(b0.x(0.0),by0,bz0);
+		pBack[3][0][0]=addBPoint(b0.x(0.25),by0,bz0);
+		pBack[4][0][0]=addBPoint(b0.x(0.5),by0+back_length*0.1,bz0);
+		pBack[0][0][1]=addBPoint(b0.x(-0.5),by0+back_length*0.1,bz1*0.9);
+		pBack[1][0][1]=addBPoint(b0.x(-0.25),by0,bz1);
+		pBack[2][0][1]=addBPoint(b0.x(0.0),by0,bz1);
+		pBack[3][0][1]=addBPoint(b0.x(0.25),by0,bz1);
+		pBack[4][0][1]=addBPoint(b0.x(0.5),by0+back_length*0.1,bz1*0.9);
+		
+		pBack[0][1][0]=addBPoint(b1.x(-0.5),back_length*0.5,bz0);
+		pBack[1][1][0]=addBPoint(b1.x(-0.25),back_length*0.5,bz0);
+		pBack[2][1][0]=addBPoint(b1.x(0.0),back_length*0.5,bz0);	
+		pBack[3][1][0]=addBPoint(b1.x(0.25),back_length*0.5,bz0);	
+		pBack[4][1][0]=addBPoint(b1.x(0.5),back_length*0.5,bz0);	
+		pBack[0][1][1]=addBPoint(b1.x(-0.5),back_length*0.5,back_height1*0.9);
+		pBack[1][1][1]=addBPoint(b1.x(-0.25),back_length*0.5,back_height1);
+		pBack[2][1][1]=addBPoint(b1.x(0.0),back_length*0.5,back_height1);
+		pBack[3][1][1]=addBPoint(b1.x(0.25),back_length*0.5,back_height1);
+		pBack[4][1][1]=addBPoint(b1.x(0.5),back_length*0.5,back_height1*0.9);
 		
 
 		for(int i=0;i<pnx;i++){
@@ -470,27 +468,30 @@ public class Car extends CustomData {
 		double front_width0=front_width*(1-0.5)+x_side*0.5;  
 		double front_heigth0=front_height*(1-0.75)+z_side*0.75;
 		
-		pFront[0][0][0]=addBPoint(xc-front_width0*0.5,fy0-front_length*0.1,0);
-		pFront[1][0][0]=addBPoint(xc-front_width0*0.25,fy0,0);
-		pFront[2][0][0]=addBPoint(xc,fy0,0);
-		pFront[3][0][0]=addBPoint(xc+front_width0*0.25,fy0,0);
-		pFront[4][0][0]=addBPoint(xc+front_width0*0.5,fy0-front_length*0.1,0);		
-		pFront[0][0][1]=addBPoint(xc-front_width0*0.5,fy0-front_length*0.1,front_heigth0*0.9);
-		pFront[1][0][1]=addBPoint(xc-front_width0*0.25,fy0,front_heigth0);
-		pFront[2][0][1]=addBPoint(xc,fy0,front_heigth0);
-		pFront[3][0][1]=addBPoint(xc+front_width0*0.25,fy0,front_heigth0);
-		pFront[4][0][1]=addBPoint(xc+front_width0*0.5,fy0-front_length*0.1,front_heigth0*0.9);
+		Segments f0=new Segments(xc,0,0,front_width0,0,0);
+		Segments f1=new Segments(xc,0,0,front_width,0,0);
 		
-		pFront[0][1][0]=addBPoint(xc-front_width*0.5,fy1-front_length*0.1,0);
-		pFront[1][1][0]=addBPoint(xc-front_width*0.25,fy1,0);
-		pFront[2][1][0]=addBPoint(xc,fy1,0);
-		pFront[3][1][0]=addBPoint(xc+front_width*0.25,fy1,0);
-		pFront[4][1][0]=addBPoint(xc+front_width*0.5,fy1-front_length*0.1,0);		
-		pFront[0][1][1]=addBPoint(xc-front_width*0.5,fy1-front_length*0.1,front_height*0.9);
-		pFront[1][1][1]=addBPoint(xc-front_width*0.25,fy1,front_height);
-		pFront[2][1][1]=addBPoint(xc,fy1,front_height);
-		pFront[3][1][1]=addBPoint(xc+front_width*0.25,fy1,front_height);
-		pFront[4][1][1]=addBPoint(xc+front_width*0.5,fy1-front_length*0.1,front_height*0.9);
+		pFront[0][0][0]=addBPoint(f0.x(-0.5),fy0-front_length*0.1,0);
+		pFront[1][0][0]=addBPoint(f0.x(-0.25),fy0,0);
+		pFront[2][0][0]=addBPoint(f0.x(0),fy0,0);
+		pFront[3][0][0]=addBPoint(f0.x(0.25),fy0,0);
+		pFront[4][0][0]=addBPoint(f0.x(0.5),fy0-front_length*0.1,0);		
+		pFront[0][0][1]=addBPoint(f0.x(-0.5),fy0-front_length*0.1,front_heigth0*0.9);
+		pFront[1][0][1]=addBPoint(f0.x(-0.25),fy0,front_heigth0);
+		pFront[2][0][1]=addBPoint(f0.x(0.0),fy0,front_heigth0);
+		pFront[3][0][1]=addBPoint(f0.x(0.25),fy0,front_heigth0);
+		pFront[4][0][1]=addBPoint(f0.x(0.5),fy0-front_length*0.1,front_heigth0*0.9);
+				
+		pFront[0][1][0]=addBPoint(f1.x(-0.5),fy1-front_length*0.1,0);
+		pFront[1][1][0]=addBPoint(f1.x(-0.25),fy1,0);
+		pFront[2][1][0]=addBPoint(f1.x(0.0),fy1,0);
+		pFront[3][1][0]=addBPoint(f1.x(0.25),fy1,0);
+		pFront[4][1][0]=addBPoint(f1.x(0.5),fy1-front_length*0.1,0);		
+		pFront[0][1][1]=addBPoint(f1.x(-0.5),fy1-front_length*0.1,front_height*0.9);
+		pFront[1][1][1]=addBPoint(f1.x(-0.25),fy1,front_height);
+		pFront[2][1][1]=addBPoint(f1.x(0.0),fy1,front_height);
+		pFront[3][1][1]=addBPoint(f1.x(0.25),fy1,front_height);
+		pFront[4][1][1]=addBPoint(f1.x(0.5),fy1-front_length*0.1,front_height*0.9);
 						
 
 		for(int i=0;i<pnx;i++){
