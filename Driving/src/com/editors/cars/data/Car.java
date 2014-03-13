@@ -469,27 +469,27 @@ public class Car extends CustomData {
 		Segments f0=new Segments(xc,front_width0,back_length+y_side,front_length,0,front_height0);
 		Segments f1=new Segments(xc,front_width,back_length+y_side,front_length,0,front_height);
 		 
-		pFront[0][0][0]=addBPoint(f0,-0.5,0.4,0.0);
-		pFront[1][0][0]=addBPoint(f0,-0.25,0.5,0.0);
-		pFront[2][0][0]=addBPoint(f0,0,0.5,0.0);
-		pFront[3][0][0]=addBPoint(f0,0.25,0.5,0.0);
-		pFront[4][0][0]=addBPoint(f0,0.5,0.4,0.0);		
-		pFront[0][0][1]=addBPoint(f0,-0.5,0.4,0.9);
-		pFront[1][0][1]=addBPoint(f0,-0.25,0.5,1.0);
-		pFront[2][0][1]=addBPoint(f0,0.0,0.5,1.0);
-		pFront[3][0][1]=addBPoint(f0,0.25,0.5,1.0);
-		pFront[4][0][1]=addBPoint(f0,0.5,0.4,0.9);
+		pFront[0][0][0]=addBPoint(-0.5,0.4,0.0,f0);
+		pFront[1][0][0]=addBPoint(-0.25,0.5,0.0,f0);
+		pFront[2][0][0]=addBPoint(0,0.5,0.0,f0);
+		pFront[3][0][0]=addBPoint(0.25,0.5,0.0,f0);
+		pFront[4][0][0]=addBPoint(0.5,0.4,0.0,f0);		
+		pFront[0][0][1]=addBPoint(-0.5,0.4,0.9,f0);
+		pFront[1][0][1]=addBPoint(-0.25,0.5,1.0,f0);
+		pFront[2][0][1]=addBPoint(0.0,0.5,1.0,f0);
+		pFront[3][0][1]=addBPoint(0.25,0.5,1.0,f0);
+		pFront[4][0][1]=addBPoint(0.5,0.4,0.9,f0);
 				
-		pFront[0][1][0]=addBPoint(f1,-0.5,0.9,0.0);
-		pFront[1][1][0]=addBPoint(f1,-0.25,1.0,0.0);
-		pFront[2][1][0]=addBPoint(f1,0.0,1.0,0.0);
-		pFront[3][1][0]=addBPoint(f1,0.25,1.0,0.0);
-		pFront[4][1][0]=addBPoint(f1,0.5,0.9,0.0);		
-		pFront[0][1][1]=addBPoint(f1,-0.5,0.9,0.9);
-		pFront[1][1][1]=addBPoint(f1,-0.25,1.0,1.0);
-		pFront[2][1][1]=addBPoint(f1,0.0,1.0,1.0);
-		pFront[3][1][1]=addBPoint(f1,0.25,1.0,1.0);
-		pFront[4][1][1]=addBPoint(f1,0.5,0.9,0.9);
+		pFront[0][1][0]=addBPoint(-0.5,0.9,0.0,f1);
+		pFront[1][1][0]=addBPoint(-0.25,1.0,0.0,f1);
+		pFront[2][1][0]=addBPoint(0.0,1.0,0.0,f1);
+		pFront[3][1][0]=addBPoint(0.25,1.0,0.0,f1);
+		pFront[4][1][0]=addBPoint(0.5,0.9,0.0,f1);		
+		pFront[0][1][1]=addBPoint(-0.5,0.9,0.9,f1);
+		pFront[1][1][1]=addBPoint(-0.25,1.0,1.0,f1);
+		pFront[2][1][1]=addBPoint(0.0,1.0,1.0,f1);
+		pFront[3][1][1]=addBPoint(0.25,1.0,1.0,f1);
+		pFront[4][1][1]=addBPoint(0.5,0.9,0.9,f1);
 						
 
 		for(int i=0;i<pnx;i++){

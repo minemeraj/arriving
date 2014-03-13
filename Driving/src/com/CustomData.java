@@ -73,7 +73,7 @@ public class CustomData {
 		
 	}
 
-	public BPoint addBPoint(Segments s, double x, double y, double z){
+	public BPoint addBPoint( double x, double y, double z,Segments s){
 		
 		BPoint point=new BPoint(s.x(x), s.y(y), s.z(z), n++);
 		points.setElementAt(point,point.getIndex());
