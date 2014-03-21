@@ -238,7 +238,7 @@ public class Car extends CustomData {
 	private PolygonMesh buildCarMesh() {
 		
 		points=new Vector();
-		points.setSize(200);
+		points.setSize(300);
 
 		polyData=new Vector();
 
@@ -373,7 +373,7 @@ public class Car extends CustomData {
 		
 		//back part:
         
-		int bny=2;
+		int bny=3;
 		
 		BPoint[][][] pBack=new BPoint[pnx][bny][pnz];
 		
@@ -382,6 +382,8 @@ public class Car extends CustomData {
 		
 		Segments b0=new Segments(xc,back_width,0,back_length,0,back_height);
 		Segments b1=new Segments(xc,back_width1,0,back_length,0,back_height1);
+		
+	
 		
 		pBack[0][0][0]=addBPoint(-0.5,0.1,0,b0);
 		pBack[1][0][0]=addBPoint(-0.25,0,0,b0);
@@ -415,34 +417,23 @@ public class Car extends CustomData {
 		pBack[3][1][2]=addBPoint(0.25,0.5,1.0,b1);
 		pBack[4][1][2]=addBPoint(0.5,0.5,0.9,b1);
 		
-
-		for(int i=0;i<pnx-1;i++){
-
-			for (int k = 0; k < pnz-1; k++) {
-
-				if(i==0){
-
-					LineData backLeft=addLine(pBack[i][bny-1][k],pBack[i][bny-1][k+1],p[0][0][k+1],p[0][0][k],Renderer3D.CAR_LEFT);
-
-				}
-				
-				if(i+1==pnx-1){
-
-					LineData backRight=addLine(pBack[i+1][bny-1][k+1],pBack[i+1][bny-1][k],p[i+1][0][k],p[i+1][0][k+1],Renderer3D.CAR_RIGHT);
-				}
-			
-				if(k==0){
-					LineData backBottom=addLine(pBack[i+1][bny-1][k],pBack[i][bny-1][k],p[i][0][k],p[i+1][0][k],Renderer3D.CAR_BOTTOM);
-				}
-				
-				if(k+1==pnz-1){
-					LineData backTop=addLine(pBack[i][bny-1][k+1],pBack[i+1][bny-1][k+1],p[i+1][0][k+1],p[i][0][k+1],Renderer3D.CAR_TOP);
-				}
-
-	
-
-			}
-		}
+		
+		pBack[0][2][0]=p[0][0][0];
+		pBack[1][2][0]=p[1][0][0];
+		pBack[2][2][0]=p[2][0][0];
+		pBack[3][2][0]=p[3][0][0];
+		pBack[4][2][0]=p[4][0][0];
+		pBack[0][2][1]=p[0][0][1];
+		pBack[1][2][1]=p[1][0][1];
+		pBack[2][2][1]=p[2][0][1];
+		pBack[3][2][1]=p[3][0][1];
+		pBack[4][2][1]=p[4][0][1];
+		pBack[0][2][2]=p[0][0][2];
+		pBack[1][2][2]=p[1][0][2];
+		pBack[2][2][2]=p[2][0][2];
+		pBack[3][2][2]=p[3][0][2];
+		pBack[4][2][2]=p[4][0][2];	
+		
 
 		for(int i=0;i<pnx-1;i++){
 
@@ -483,7 +474,7 @@ public class Car extends CustomData {
 		//front part:	
 
 		
-		int fny=2;
+		int fny=3;
 		
 		BPoint[][][] pFront=new BPoint[pnx][fny][pnz];
 		
@@ -493,66 +484,56 @@ public class Car extends CustomData {
 		Segments f0=new Segments(xc,front_width0,back_length+y_side,front_length,0,front_height0);
 		Segments f1=new Segments(xc,front_width,back_length+y_side,front_length,0,front_height);
 		 
-		pFront[0][0][0]=addBPoint(-0.5,0.4,0.0,f0);
-		pFront[1][0][0]=addBPoint(-0.25,0.5,0.0,f0);
-		pFront[2][0][0]=addBPoint(0,0.5,0.0,f0);
-		pFront[3][0][0]=addBPoint(0.25,0.5,0.0,f0);
-		pFront[4][0][0]=addBPoint(0.5,0.4,0.0,f0);	
-		pFront[0][0][1]=addBPoint(-0.5,0.4,0.5,f0);
-		pFront[1][0][1]=addBPoint(-0.25,0.5,0.5,f0);
-		pFront[2][0][1]=addBPoint(0,0.5,0.5,f0);
-		pFront[3][0][1]=addBPoint(0.25,0.5,0.5,f0);
-		pFront[4][0][1]=addBPoint(0.5,0.4,0.5,f0);
-		pFront[0][0][2]=addBPoint(-0.5,0.4,0.9,f0);
-		pFront[1][0][2]=addBPoint(-0.25,0.5,1.0,f0);
-		pFront[2][0][2]=addBPoint(0.0,0.5,1.0,f0);
-		pFront[3][0][2]=addBPoint(0.25,0.5,1.0,f0);
-		pFront[4][0][2]=addBPoint(0.5,0.4,0.9,f0);
+		pFront[0][0][0]=p[0][pny-1][0];
+		pFront[1][0][0]=p[1][pny-1][0];
+		pFront[2][0][0]=p[2][pny-1][0];
+		pFront[3][0][0]=p[3][pny-1][0];
+		pFront[4][0][0]=p[4][pny-1][0];
+		pFront[0][0][1]=p[0][pny-1][1];
+		pFront[1][0][1]=p[1][pny-1][1];
+		pFront[2][0][1]=p[2][pny-1][1];
+		pFront[3][0][1]=p[3][pny-1][1];
+		pFront[4][0][1]=p[4][pny-1][1];
+		pFront[0][0][2]=p[0][pny-1][2];
+		pFront[1][0][2]=p[1][pny-1][2];
+		pFront[2][0][2]=p[2][pny-1][2];
+		pFront[3][0][2]=p[3][pny-1][2];
+		pFront[4][0][2]=p[4][pny-1][2];
 				
-		pFront[0][1][0]=addBPoint(-0.5,0.9,0.0,f1);
-		pFront[1][1][0]=addBPoint(-0.25,1.0,0.0,f1);
-		pFront[2][1][0]=addBPoint(0.0,1.0,0.0,f1);
-		pFront[3][1][0]=addBPoint(0.25,1.0,0.0,f1);
-		pFront[4][1][0]=addBPoint(0.5,0.9,0.0,f1);	
-		pFront[0][1][1]=addBPoint(-0.5,0.9,0.5,f1);
-		pFront[1][1][1]=addBPoint(-0.25,1.0,0.5,f1);
-		pFront[2][1][1]=addBPoint(0.0,1.0,0.5,f1);
-		pFront[3][1][1]=addBPoint(0.25,1.0,0.5,f1);
-		pFront[4][1][1]=addBPoint(0.5,0.9,0.5,f1);	
-		pFront[0][1][2]=addBPoint(-0.5,0.9,0.9,f1);
-		pFront[1][1][2]=addBPoint(-0.25,1.0,1.0,f1);
-		pFront[2][1][2]=addBPoint(0.0,1.0,1.0,f1);
-		pFront[3][1][2]=addBPoint(0.25,1.0,1.0,f1);
-		pFront[4][1][2]=addBPoint(0.5,0.9,0.9,f1);
+		
+		pFront[0][1][0]=addBPoint(-0.5,0.4,0.0,f0);
+		pFront[1][1][0]=addBPoint(-0.25,0.5,0.0,f0);
+		pFront[2][1][0]=addBPoint(0,0.5,0.0,f0);
+		pFront[3][1][0]=addBPoint(0.25,0.5,0.0,f0);
+		pFront[4][1][0]=addBPoint(0.5,0.4,0.0,f0);	
+		pFront[0][1][1]=addBPoint(-0.5,0.4,0.5,f0);
+		pFront[1][1][1]=addBPoint(-0.25,0.5,0.5,f0);
+		pFront[2][1][1]=addBPoint(0,0.5,0.5,f0);
+		pFront[3][1][1]=addBPoint(0.25,0.5,0.5,f0);
+		pFront[4][1][1]=addBPoint(0.5,0.4,0.5,f0);
+		pFront[0][1][2]=addBPoint(-0.5,0.4,0.9,f0);
+		pFront[1][1][2]=addBPoint(-0.25,0.5,1.0,f0);
+		pFront[2][1][2]=addBPoint(0.0,0.5,1.0,f0);
+		pFront[3][1][2]=addBPoint(0.25,0.5,1.0,f0);
+		pFront[4][1][2]=addBPoint(0.5,0.4,0.9,f0);
+		
+		pFront[0][2][0]=addBPoint(-0.5,0.9,0.0,f1);
+		pFront[1][2][0]=addBPoint(-0.25,1.0,0.0,f1);
+		pFront[2][2][0]=addBPoint(0.0,1.0,0.0,f1);
+		pFront[3][2][0]=addBPoint(0.25,1.0,0.0,f1);
+		pFront[4][2][0]=addBPoint(0.5,0.9,0.0,f1);	
+		pFront[0][2][1]=addBPoint(-0.5,0.9,0.5,f1);
+		pFront[1][2][1]=addBPoint(-0.25,1.0,0.5,f1);
+		pFront[2][2][1]=addBPoint(0.0,1.0,0.5,f1);
+		pFront[3][2][1]=addBPoint(0.25,1.0,0.5,f1);
+		pFront[4][2][1]=addBPoint(0.5,0.9,0.5,f1);	
+		pFront[0][2][2]=addBPoint(-0.5,0.9,0.9,f1);
+		pFront[1][2][2]=addBPoint(-0.25,1.0,1.0,f1);
+		pFront[2][2][2]=addBPoint(0.0,1.0,1.0,f1);
+		pFront[3][2][2]=addBPoint(0.25,1.0,1.0,f1);
+		pFront[4][2][2]=addBPoint(0.5,0.9,0.9,f1);
 						
 
-		for(int i=0;i<pnx-1;i++){
-			
-			for (int k = 0; k < pnz-1; k++) {
-
-				if(i==0){
-					
-					LineData frontLeft=addLine(p[0][pny-1][k],p[0][pny-1][k+1],pFront[0][0][k+1],pFront[0][0][k],Renderer3D.CAR_LEFT);
-				}				
-
-					
-				if(k==0){
-					LineData frontBottom=addLine(p[i+1][pny-1][k],p[i][pny-1][k],pFront[i][0][k],pFront[i+1][0][k],Renderer3D.CAR_BOTTOM);
-				}
-				
-				if(k+1==pnz-1){
-					LineData frontTop=addLine(p[i][pny-1][k+1],p[i+1][pny-1][k+1],pFront[i+1][0][k+1],pFront[i][0][k+1],Renderer3D.CAR_TOP);
-				}
-		
-
-				
-				if(i+1==pnx-1){
-					
-					LineData frontRight=addLine(p[i+1][pny-1][k+1],p[i+1][pny-1][k],pFront[i+1][0][k],pFront[i+1][0][k+1],Renderer3D.CAR_RIGHT);
-				}
-			
-			}
-		}
 
 		for(int i=0;i<pnx-1;i++){
 
@@ -595,7 +576,7 @@ public class Car extends CustomData {
 
 		//roof:	
 		
-		int rnz=2;
+		int rnz=3;
 		
 		BPoint[][][] pr=new BPoint[pnx][pny][rnz];
 		
@@ -604,101 +585,90 @@ public class Car extends CustomData {
 		Segments r0=new Segments(xc,roof_width,roofDY+back_length,roof_length,z_side,roof_height);
 		
 		
-		pr[0][0][0]=addBPoint(-0.5,0.0,0.75,r0);	
-		pr[1][0][0]=addBPoint(-0.25,0.0,0.75,r0);	
-		pr[2][0][0]=addBPoint(0.0,0.0,0.75,r0);	
-		pr[3][0][0]=addBPoint(0.25,0.0,0.75,r0);	
-		pr[4][0][0]=addBPoint(0.5,0.0,0.75,r0);
-		
-		pr[0][1][0]=addBPoint(-0.5,0.25,0.75,r0);	
-		pr[1][1][0]=addBPoint(-0.25,0.25,0.75,r0);	
-		pr[2][1][0]=addBPoint(-0.0,0.25,0.75,r0);	
-		pr[3][1][0]=addBPoint(0.25,0.25,0.75,r0);	
-		pr[4][1][0]=addBPoint(0.5,0.25,0.75,r0);
-		
-		pr[0][2][0]=addBPoint(-0.5,0.5,0.75,r0);	
-		pr[1][2][0]=addBPoint(-0.25,0.5,0.75,r0);	
-		pr[2][2][0]=addBPoint(0.0,0.5,0.75,r0);	
-		pr[3][2][0]=addBPoint(0.25,0.5,0.75,r0);	
-		pr[4][2][0]=addBPoint(0.5,0.5,0.75,r0);
-		
-		pr[0][3][0]=addBPoint(-0.5,0.75,0.75,r0);	
-		pr[1][3][0]=addBPoint(-0.25,0.75,0.75,r0);	
-		pr[2][3][0]=addBPoint(0.0,0.75,0.75,r0);	
-		pr[3][3][0]=addBPoint(0.25,0.75,0.75,r0);	
-		pr[4][3][0]=addBPoint(0.5,0.75,0.75,r0);
-		
-		pr[0][4][0]=addBPoint(-0.5,1.0,0.75,r0);	
-		pr[1][4][0]=addBPoint(-0.25,1.0,0.75,r0);	
-		pr[2][4][0]=addBPoint(0.0,1.0,0.75,r0);	
-		pr[3][4][0]=addBPoint(0.25,1.0,0.75,r0);	
-		pr[4][4][0]=addBPoint(0.5,1.0,0.75,r0);
+		pr[0][0][0]=p[0][0][pnz-1];	
+		pr[1][0][0]=p[1][0][pnz-1];	
+		pr[2][0][0]=p[2][0][pnz-1];	
+		pr[3][0][0]=p[3][0][pnz-1];		
+		pr[4][0][0]=p[4][0][pnz-1];			
+		pr[0][1][0]=p[0][1][pnz-1];	
+		pr[1][1][0]=p[1][1][pnz-1];	
+		pr[2][1][0]=p[2][1][pnz-1];	
+		pr[3][1][0]=p[3][1][pnz-1];	
+		pr[4][1][0]=p[4][1][pnz-1];		
+		pr[0][2][0]=p[0][2][pnz-1];		
+		pr[1][2][0]=p[1][2][pnz-1];		
+		pr[2][2][0]=p[2][2][pnz-1];	
+		pr[3][2][0]=p[3][2][pnz-1];		
+		pr[4][2][0]=p[4][2][pnz-1];		
+		pr[0][3][0]=p[0][3][pnz-1];	
+		pr[1][3][0]=p[1][3][pnz-1];	
+		pr[2][3][0]=p[2][3][pnz-1];	
+		pr[3][3][0]=p[3][3][pnz-1];		
+		pr[4][3][0]=p[4][3][pnz-1];			
+		pr[0][4][0]=p[0][4][pnz-1];	
+		pr[1][4][0]=p[1][4][pnz-1];	
+		pr[2][4][0]=p[2][4][pnz-1];	
+		pr[3][4][0]=p[3][4][pnz-1];	
+		pr[4][4][0]=p[4][4][pnz-1];	
 		
 		
-		pr[0][0][1]=addBPoint(-0.5,0.0,0.9,r0);	
-		pr[1][0][1]=addBPoint(-0.25,0.0,1.0,r0);	
-		pr[2][0][1]=addBPoint(0.0,0.0,1.0,r0);	
-		pr[3][0][1]=addBPoint(0.25,0.0,1.0,r0);	
-		pr[4][0][1]=addBPoint(0.5,0.0,0.9,r0);
 		
-		pr[0][1][1]=addBPoint(-0.5,0.25,0.9,r0);	
-		pr[1][1][1]=addBPoint(-0.25,0.25,1.0,r0);	
-		pr[2][1][1]=addBPoint(-0.0,0.25,1.0,r0);	
-		pr[3][1][1]=addBPoint(0.25,0.25,1.0,r0);	
-		pr[4][1][1]=addBPoint(0.5,0.25,0.9,r0);
+		pr[0][0][1]=addBPoint(-0.5,0.0,0.75,r0);	
+		pr[1][0][1]=addBPoint(-0.25,0.0,0.75,r0);	
+		pr[2][0][1]=addBPoint(0.0,0.0,0.75,r0);	
+		pr[3][0][1]=addBPoint(0.25,0.0,0.75,r0);	
+		pr[4][0][1]=addBPoint(0.5,0.0,0.75,r0);		
+		pr[0][1][1]=addBPoint(-0.5,0.25,0.75,r0);	
+		pr[1][1][1]=addBPoint(-0.25,0.25,0.75,r0);	
+		pr[2][1][1]=addBPoint(-0.0,0.25,0.75,r0);	
+		pr[3][1][1]=addBPoint(0.25,0.25,0.75,r0);	
+		pr[4][1][1]=addBPoint(0.5,0.25,0.75,r0);		
+		pr[0][2][1]=addBPoint(-0.5,0.5,0.75,r0);	
+		pr[1][2][1]=addBPoint(-0.25,0.5,0.75,r0);	
+		pr[2][2][1]=addBPoint(0.0,0.5,0.75,r0);	
+		pr[3][2][1]=addBPoint(0.25,0.5,0.75,r0);	
+		pr[4][2][1]=addBPoint(0.5,0.5,0.75,r0);		
+		pr[0][3][1]=addBPoint(-0.5,0.75,0.75,r0);	
+		pr[1][3][1]=addBPoint(-0.25,0.75,0.75,r0);	
+		pr[2][3][1]=addBPoint(0.0,0.75,0.75,r0);	
+		pr[3][3][1]=addBPoint(0.25,0.75,0.75,r0);	
+		pr[4][3][1]=addBPoint(0.5,0.75,0.75,r0);		
+		pr[0][4][1]=addBPoint(-0.5,1.0,0.75,r0);	
+		pr[1][4][1]=addBPoint(-0.25,1.0,0.75,r0);	
+		pr[2][4][1]=addBPoint(0.0,1.0,0.75,r0);	
+		pr[3][4][1]=addBPoint(0.25,1.0,0.75,r0);	
+		pr[4][4][1]=addBPoint(0.5,1.0,0.75,r0);
 		
-		pr[0][2][1]=addBPoint(-0.5,0.5,0.9,r0);	
-		pr[1][2][1]=addBPoint(-0.25,0.5,1.0,r0);	
-		pr[2][2][1]=addBPoint(0.0,0.5,1.0,r0);	
-		pr[3][2][1]=addBPoint(0.25,0.5,1.0,r0);	
-		pr[4][2][1]=addBPoint(0.5,0.5,0.9,r0);
 		
-		pr[0][3][1]=addBPoint(-0.5,0.75,0.9,r0);	
-		pr[1][3][1]=addBPoint(-0.25,0.75,1.0,r0);	
-		pr[2][3][1]=addBPoint(0.0,0.75,1.0,r0);	
-		pr[3][3][1]=addBPoint(0.25,0.75,1.0,r0);	
-		pr[4][3][1]=addBPoint(0.5,0.75,0.9,r0);
 		
-		pr[0][4][1]=addBPoint(-0.5,1.0,0.9,r0);	
-		pr[1][4][1]=addBPoint(-0.25,1.0,1.0,r0);	
-		pr[2][4][1]=addBPoint(0.0,1.0,1.0,r0);	
-		pr[3][4][1]=addBPoint(0.25,1.0,1.0,r0);	
-		pr[4][4][1]=addBPoint(0.5,1.0,0.9,r0);
-
-		for (int i = 0; i < pnx-1; i++) {
-
-
-
-			for (int j = 0; j < pny-1; j++) {
-
-
-					if(i==0){
-
-						LineData leftRLD=addLine(pr[i][j+1][0],p[i][j+1][pnz-1],p[i][j][pnz-1],pr[i][j][0],Renderer3D.CAR_LEFT);
-
-					}
-
-					if(j==0){
-						LineData backRLD=addLine(p[i][j][pnz-1],p[i+1][j][pnz-1],pr[i+1][j][0],pr[i][j][0],Renderer3D.CAR_BACK);
-					}
-					
-						
-					if(j+1==pny-1){
-
-						LineData frontRLD=addLine(p[i][j+1][pnz-1],pr[i][j+1][0],pr[i+1][j+1][0],p[i+1][j+1][pnz-1],Renderer3D.CAR_FRONT);	
-					}
+		
+		pr[0][0][2]=addBPoint(-0.5,0.0,0.9,r0);	
+		pr[1][0][2]=addBPoint(-0.25,0.0,1.0,r0);	
+		pr[2][0][2]=addBPoint(0.0,0.0,1.0,r0);	
+		pr[3][0][2]=addBPoint(0.25,0.0,1.0,r0);	
+		pr[4][0][2]=addBPoint(0.5,0.0,0.9,r0);		
+		pr[0][1][2]=addBPoint(-0.5,0.25,0.9,r0);	
+		pr[1][1][2]=addBPoint(-0.25,0.25,1.0,r0);	
+		pr[2][1][2]=addBPoint(-0.0,0.25,1.0,r0);	
+		pr[3][1][2]=addBPoint(0.25,0.25,1.0,r0);	
+		pr[4][1][2]=addBPoint(0.5,0.25,0.9,r0);		
+		pr[0][2][2]=addBPoint(-0.5,0.5,0.9,r0);	
+		pr[1][2][2]=addBPoint(-0.25,0.5,1.0,r0);	
+		pr[2][2][2]=addBPoint(0.0,0.5,1.0,r0);	
+		pr[3][2][2]=addBPoint(0.25,0.5,1.0,r0);	
+		pr[4][2][2]=addBPoint(0.5,0.5,0.9,r0);		
+		pr[0][3][2]=addBPoint(-0.5,0.75,0.9,r0);	
+		pr[1][3][2]=addBPoint(-0.25,0.75,1.0,r0);	
+		pr[2][3][2]=addBPoint(0.0,0.75,1.0,r0);	
+		pr[3][3][2]=addBPoint(0.25,0.75,1.0,r0);	
+		pr[4][3][2]=addBPoint(0.5,0.75,0.9,r0);		
+		pr[0][4][2]=addBPoint(-0.5,1.0,0.9,r0);	
+		pr[1][4][2]=addBPoint(-0.25,1.0,1.0,r0);	
+		pr[2][4][2]=addBPoint(0.0,1.0,1.0,r0);	
+		pr[3][4][2]=addBPoint(0.25,1.0,1.0,r0);	
+		pr[4][4][2]=addBPoint(0.5,1.0,0.9,r0);
 
 
-					if(i+1==pnx-1){
-
-						LineData rightRLD=addLine(p[i+1][j][pnz-1],p[i+1][j+1][pnz-1],pr[i+1][j+1][0],pr[i+1][j][0],Renderer3D.CAR_RIGHT);
-
-					}
-
-				
-			}
-
-		}
 		
 		for (int i = 0; i < pnx-1; i++) {
 
