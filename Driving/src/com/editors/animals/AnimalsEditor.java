@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 import java.util.Stack;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -35,6 +36,7 @@ import com.editors.Editor;
 import com.editors.ValuePair;
 import com.editors.animals.data.Animal;
 import com.editors.object.ObjectEditorPreviewPanel;
+import com.main.Renderer3D;
 
 public class AnimalsEditor extends CustomEditor implements MenuListener, ActionListener, KeyListener, MouseWheelListener, ItemListener{
 	
@@ -87,11 +89,8 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	int max_stack_size=10;
 	
 	Animal animal=null;
-	
-	
-	
-
-
+	private JMenu jm_filter;
+	private JCheckBoxMenuItem[] jm_filters;
 	
 	public AnimalsEditor(){
 		
@@ -476,7 +475,43 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		jmt_preview = new JMenuItem("Preview");
 		jmt_preview.addActionListener(this);
 		jm_view.add(jmt_preview);
+		
+		
+		jm_filter=new JMenu("Filter");
+		jm_filter.addMenuListener(this);
+		jmb.add(jm_filter);
+		
+		jm_filters=new JCheckBoxMenuItem[6];
+		
+		jm_filters[0] = new JCheckBoxMenuItem("Filter back");
+		jm_filters[0].addActionListener(this);
+		jm_filters[0].setActionCommand(""+Renderer3D.CAR_BACK);
+		jm_filter.add(jm_filters[0]);
 
+		jm_filters[1] = new JCheckBoxMenuItem("Filter front");
+		jm_filters[1].addActionListener(this);
+		jm_filters[1].setActionCommand(""+Renderer3D.CAR_FRONT);
+		jm_filter.add(jm_filters[1]);
+		
+		jm_filters[2] = new JCheckBoxMenuItem("Filter top");
+		jm_filters[2].addActionListener(this);
+		jm_filters[2].setActionCommand(""+Renderer3D.CAR_TOP);
+		jm_filter.add(jm_filters[2]);
+		
+		jm_filters[3] = new JCheckBoxMenuItem("Filter bottom");
+		jm_filters[3].addActionListener(this);
+		jm_filters[3].setActionCommand(""+Renderer3D.CAR_BOTTOM);
+		jm_filter.add(jm_filters[3]);
+		
+		jm_filters[4] = new JCheckBoxMenuItem("Filter left");
+		jm_filters[4].addActionListener(this);
+		jm_filters[4].setActionCommand(""+Renderer3D.CAR_LEFT);
+		jm_filter.add(jm_filters[4]);
+		
+		jm_filters[5]= new JCheckBoxMenuItem("Filter right");
+		jm_filters[5].addActionListener(this);
+		jm_filters[5].setActionCommand(""+Renderer3D.CAR_RIGHT);
+		jm_filter.add(jm_filters[5]);
 		
 		setJMenuBar(jmb);
 		
@@ -515,8 +550,31 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		}else if(obj==generate){
 			
 			generate();
-		}
+		}else{
+			
+			boolean found=false;
 		
+			for (int i = 0; i < jm_filters.length; i++) {
+				
+				
+				if(obj==jm_filters[i]){
+					
+				
+					if(jm_filters[i].isSelected()){
+						center.setFilter(jm_filters[i].getActionCommand());
+					    found=true;
+					}	
+					else
+						center.setFilter(null);
+				}else{
+					
+					jm_filters[i].setSelected(false);
+				}		
+	
+				
+			}
+			draw();
+		}
 	}
 	
 	public void preview() {

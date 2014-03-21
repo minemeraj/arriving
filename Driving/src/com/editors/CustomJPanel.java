@@ -38,6 +38,8 @@ public class CustomJPanel extends JPanel{
 	public BufferedImage buf=null;
 	public Graphics2D buffGraph;
 	
+	String filter=null;
+	
 
 	public void initialize() {
 		
@@ -144,7 +146,10 @@ public class CustomJPanel extends JPanel{
 			
 			
 			for (int j = 0; j < pol.npoints; j++) {				
-								
+					
+				if(filter!=null && ! filter.equals(ld.getData()))
+					continue;
+				
 				drawLine(buffGraph,pol.xpoints[j],pol.ypoints[j],pol.zpoints[j],pol.xpoints[(j+1)% pol.npoints],pol.ypoints[(j+1)% pol.npoints],pol.zpoints[(j+1)% pol.npoints]);
 				
 			}
@@ -160,4 +165,15 @@ public class CustomJPanel extends JPanel{
 		buffGraph.drawLine(calcX(x0,y0,z0),calcY(x0,y0,z0),calcX(x1,y1,z1),calcY(x1,y1,z1));
 		
 	}
+
+
+	public String getFilter() {
+		return filter;
+	}
+
+
+	public void setFilter(String filter) {
+		this.filter = filter;
+	}
+
 }
