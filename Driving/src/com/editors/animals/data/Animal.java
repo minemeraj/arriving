@@ -1013,7 +1013,7 @@ public class Animal extends CustomData{
 		//neck:
 
 		int ney=2;
-		int nez=2;
+		int nez=3;
 		
 		double nx0=xc-neck_side*0.5;
 		double nx1=xc-neck_side*0.25;
@@ -1029,70 +1029,63 @@ public class Animal extends CustomData{
 		
 		BPoint[][][] neck=new BPoint[numx][ney][nez];
 	
-		neck[0][0][0]=addBPoint(nx0,ny0,nz0);
-		neck[1][0][0]=addBPoint(nx1,ny0,nz0);
-		neck[2][0][0]=addBPoint(nx2,ny0,nz0);
-		neck[3][0][0]=addBPoint(nx3,ny0,nz0);
-		neck[4][0][0]=addBPoint(nx4,ny0,nz0);
-		neck[0][1][0]=addBPoint(nx0,ny1,nz0);
-		neck[1][1][0]=addBPoint(nx1,ny1,nz0);
-		neck[2][1][0]=addBPoint(nx2,ny1,nz0);
-		neck[3][1][0]=addBPoint(nx3,ny1,nz0);
-		neck[4][1][0]=addBPoint(nx4,ny1,nz0);		
+		neck[0][0][0]=body[0][3][numz-1];
+		neck[1][0][0]=body[1][3][numz-1];
+		neck[2][0][0]=body[2][3][numz-1];
+		neck[3][0][0]=body[3][3][numz-1];
+		neck[4][0][0]=body[4][3][numz-1];
+		neck[0][1][0]=body[0][4][numz-1];
+		neck[1][1][0]=body[1][4][numz-1];
+		neck[2][1][0]=body[2][4][numz-1];
+		neck[3][1][0]=body[3][4][numz-1];
+		neck[4][1][0]=body[4][4][numz-1];
 		
-		neck[0][0][1]=addBPoint(nx0,ny0,nz1);
-		neck[1][0][1]=addBPoint(nx1,ny0,nz1);
-		neck[2][0][1]=addBPoint(nx2,ny0,nz1);
-		neck[3][0][1]=addBPoint(nx3,ny0,nz1);
-		neck[4][0][1]=addBPoint(nx4,ny0,nz1);		
-		neck[0][1][1]=addBPoint(nx0,ny1,nz1);
-		neck[1][1][1]=addBPoint(nx1,ny1,nz1);
-		neck[2][1][1]=addBPoint(nx2,ny1,nz1);
-		neck[3][1][1]=addBPoint(nx3,ny1,nz1);				
-		neck[4][1][1]=addBPoint(nx4,ny1,nz1);
+		neck[0][0][1]=addBPoint(nx0,ny0,nz0);
+		neck[1][0][1]=addBPoint(nx1,ny0,nz0);
+		neck[2][0][1]=addBPoint(nx2,ny0,nz0);
+		neck[3][0][1]=addBPoint(nx3,ny0,nz0);
+		neck[4][0][1]=addBPoint(nx4,ny0,nz0);
+		neck[0][1][1]=addBPoint(nx0,ny1,nz0);
+		neck[1][1][1]=addBPoint(nx1,ny1,nz0);
+		neck[2][1][1]=addBPoint(nx2,ny1,nz0);
+		neck[3][1][1]=addBPoint(nx3,ny1,nz0);
+		neck[4][1][1]=addBPoint(nx4,ny1,nz0);
 		
+		neck[0][0][2]=addBPoint(nx0,ny0,nz1);
+		neck[1][0][2]=addBPoint(nx1,ny0,nz1);
+		neck[2][0][2]=addBPoint(nx2,ny0,nz1);
+		neck[3][0][2]=addBPoint(nx3,ny0,nz1);
+		neck[4][0][2]=addBPoint(nx4,ny0,nz1);		
+		neck[0][1][2]=addBPoint(nx0,ny1,nz1);
+		neck[1][1][2]=addBPoint(nx1,ny1,nz1);
+		neck[2][1][2]=addBPoint(nx2,ny1,nz1);
+		neck[3][1][2]=addBPoint(nx3,ny1,nz1);				
+		neck[4][1][2]=addBPoint(nx4,ny1,nz1);
 		
-		for (int i = 0; i < numx-1; i++) {
-	
-			if(i==0){
-				addLine(body[i][3][numz-1],neck[i][0][0],neck[i][1][0],body[i][4][numz-1],Renderer3D.CAR_LEFT);
-			}
 
-				
-			addLine(body[i][3][numz-1],body[i+1][3][numz-1],neck[i+1][0][0],neck[i][0][0],Renderer3D.CAR_BACK);
-	
-			addLine(body[i][4][numz-1],neck[i][1][0],neck[i+1][1][0],body[i+1][4][numz-1],Renderer3D.CAR_FRONT);
-		
-			
-			if(i+1==numx-1){
-				addLine(body[i+1][3][numz-1],body[i+1][4][numz-1],neck[i+1][1][0],neck[i+1][0][0],Renderer3D.CAR_RIGHT);
-			}
-		}
-		///
 		
 		for (int i = 0; i < numx-1; i++) {
 			
-			if(i==0){
-				
-				addLine(neck[i][0][0],neck[i][0][1],neck[i][1][1],neck[i][1][0],Renderer3D.CAR_LEFT);
-			}
-
-				
-			addLine(neck[i][0][1],neck[i+1][0][1],neck[i+1][1][1],neck[i][1][1],Renderer3D.CAR_TOP);
-
-			addLine(neck[i][0][0],neck[i][1][0],neck[i+1][1][0],neck[i+1][0][0],Renderer3D.CAR_BOTTOM);
-
-			addLine(neck[i][0][0],neck[i+1][0][0],neck[i+1][0][1],neck[i][0][1],Renderer3D.CAR_BACK);
-
-			addLine(neck[i][1][0],neck[i][1][1],neck[i+1][1][1],neck[i+1][1][0],Renderer3D.CAR_FRONT);
 			
-			
-			if(i+1==numx-1){
+			for (int k = 0; k < nez-1; k++) {
+							
+				if(i==0){
+					
+					addLine(neck[i][0][k],neck[i][0][k+1],neck[i][1][k+1],neck[i][1][k],Renderer3D.CAR_LEFT);
+				}
+	
 				
-				addLine(neck[i+1][0][0],neck[i+1][1][0],neck[i+1][1][1],neck[i+1][0][1],Renderer3D.CAR_RIGHT);
+				addLine(neck[i][0][k],neck[i+1][0][k],neck[i+1][0][k+1],neck[i][0][k+1],Renderer3D.CAR_BACK);
+	
+				addLine(neck[i][1][k],neck[i][1][k+1],neck[i+1][1][k+1],neck[i+1][1][k],Renderer3D.CAR_FRONT);
+				
+				
+				if(i+1==numx-1){
+					
+					addLine(neck[i+1][0][k],neck[i+1][1][k],neck[i+1][1][k+1],neck[i+1][0][k+1],Renderer3D.CAR_RIGHT);
+				}
+
 			}
-
-
 			
 		}
 		
