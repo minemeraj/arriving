@@ -369,40 +369,41 @@ public class Animal extends CustomData{
 		body[4][4][2]=addBPoint(wr,0.5,0.5,b0);
 		
 		double sr=SHOULDER_WIDTH/x_side;
+		double sw=leg_side/y_side;
 		
-		body[0][0][3]=addBPoint(-sr,-0.5,0.75,b0);
+		body[0][0][3]=addBPoint(-sr,-sw*0.5,0.75,b0);
 		body[1][0][3]=addBPoint(-sr*0.5,-0.5,0.75,b0);
 		body[2][0][3]=addBPoint(0.0,-0.5,0.75,b0);
 		body[3][0][3]=addBPoint(sr*0.5,-0.5,0.75,b0);
-		body[4][0][3]=addBPoint(sr,-0.5,0.75,b0);
-		body[0][1][3]=addBPoint(-sr,-0.25,0.75,b0);		
-		body[4][1][3]=addBPoint(sr,-0.25,0.75,b0);
+		body[4][0][3]=addBPoint(sr,-sw*0.5,0.75,b0);
+		body[0][1][3]=addBPoint(-sr,-sw*0.25,0.75,b0);		
+		body[4][1][3]=addBPoint(sr,-sw*0.25,0.75,b0);
 		body[0][2][3]=addBPoint(-sr,0.0,0.75,b0);	
 		body[4][2][3]=addBPoint(sr,0.0,0.75,b0);
-		body[0][3][3]=addBPoint(-sr,0.25,0.75,b0);		
-		body[4][3][3]=addBPoint(sr,0.25,0.75,b0);
-		body[0][4][3]=addBPoint(-sr,0.5,0.75,b0);
+		body[0][3][3]=addBPoint(-sr,sw*0.25,0.75,b0);		
+		body[4][3][3]=addBPoint(sr,sw*0.25,0.75,b0);
+		body[0][4][3]=addBPoint(-sr,sw*0.5,0.75,b0);
 		body[1][4][3]=addBPoint(-sr*0.5,0.5,0.75,b0);
 		body[2][4][3]=addBPoint(0.0,0.5,0.75,b0);
 		body[3][4][3]=addBPoint(sr*0.5,0.5,0.75,b0);
-		body[4][4][3]=addBPoint(sr,0.5,0.75,b0);
+		body[4][4][3]=addBPoint(sr,sw*0.5,0.75,b0);
 		
-		body[0][0][4]=addBPoint(-sr,-0.5,1.0,b0);
+		body[0][0][4]=addBPoint(-sr,-sw*0.5,1.0,b0);
 		body[1][0][4]=addBPoint(-sr*0.5,-0.5,1.0,b0);
 		body[2][0][4]=addBPoint(0.0,-0.5,1.0,b0);
 		body[3][0][4]=addBPoint(sr*0.5,-0.5,1.0,b0);
-		body[4][0][4]=addBPoint(sr,-0.5,1.0,b0);
-		body[0][1][4]=addBPoint(-sr,-0.25,1.0,b0);		
-		body[4][1][4]=addBPoint(sr,-0.25,1.0,b0);
+		body[4][0][4]=addBPoint(sr,-sw*0.5,1.0,b0);
+		body[0][1][4]=addBPoint(-sr,-sw*0.25,1.0,b0);		
+		body[4][1][4]=addBPoint(sr,-sw*0.25,1.0,b0);
 		body[0][2][4]=addBPoint(-sr,0.0,1.0,b0);		
 		body[4][2][4]=addBPoint(sr,0.0,1.0,b0);
-		body[0][3][4]=addBPoint(-sr,0.25,1.0,b0);		
-		body[4][3][4]=addBPoint(sr,0.25,1.0,b0);
-		body[0][4][4]=addBPoint(-sr,0.5,1.0,b0);
+		body[0][3][4]=addBPoint(-sr,sw*0.25,1.0,b0);		
+		body[4][3][4]=addBPoint(sr,sw*0.25,1.0,b0);
+		body[0][4][4]=addBPoint(-sr,sw*0.5,1.0,b0);
 		body[1][4][4]=addBPoint(-sr*0.5,0.5,1.0,b0);
 		body[2][4][4]=addBPoint(0.0,0.5,1.0,b0);
 		body[3][4][4]=addBPoint(sr*0.5,0.5,1.0,b0);
-		body[4][4][4]=addBPoint(sr,0.5,1.0,b0);
+		body[4][4][4]=addBPoint(sr,sw*0.5,1.0,b0);
 		
 		///////////
 		//head:
