@@ -504,10 +504,11 @@ public class Animal extends CustomData{
 		
 		//left thigh
 
-		BPoint pBackLeftThigh001=addBPoint(0,LEG_DY,femur_length+shinbone_length);
-		BPoint pBackLeftThigh101=addBPoint(thigh_side,LEG_DY,femur_length+shinbone_length);
-		BPoint pBackLeftThigh111=addBPoint(thigh_side,LEG_DY+leg_side,femur_length+shinbone_length);
-		BPoint pBackLeftThigh011=addBPoint(0,LEG_DY+leg_side,femur_length+shinbone_length);
+		
+		BPoint pBackLeftThigh001=body[0][0][0];
+		BPoint pBackLeftThigh101=body[1][0][0];
+		BPoint pBackLeftThigh111=body[1][numy-1][0];
+		BPoint pBackLeftThigh011=body[0][numy-1][0];
 
 		addLine(pBackLeftLeg001,pBackLeftThigh001,pBackLeftThigh011,pBackLeftLeg011,Renderer3D.CAR_LEFT);
 
@@ -543,10 +544,10 @@ public class Animal extends CustomData{
 		
 		//right thigh
 		
-		BPoint pBackRightThigh001=addBPoint(x_side-thigh_side,LEG_DY,femur_length+shinbone_length);
-		BPoint pBackRightThigh101=addBPoint(x_side,LEG_DY,femur_length+shinbone_length);
-		BPoint pBackRightThigh111=addBPoint(x_side,LEG_DY+leg_side,femur_length+shinbone_length);
-		BPoint pBackRightThigh011=addBPoint(x_side-thigh_side,LEG_DY+leg_side,femur_length+shinbone_length);
+		BPoint pBackRightThigh001=body[numx-2][0][0];
+		BPoint pBackRightThigh101=body[numx-1][0][0];
+		BPoint pBackRightThigh111=body[numx-1][numy-1][0];
+		BPoint pBackRightThigh011=body[numx-2][numy-1][0];
 
 		addLine(pBackRightLeg001,pBackRightThigh001,pBackRightThigh011,pBackRightLeg011,Renderer3D.CAR_LEFT);
 	
