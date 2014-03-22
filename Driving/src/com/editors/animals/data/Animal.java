@@ -480,83 +480,93 @@ public class Animal extends CustomData{
 		double LEG_DY=(y_side-leg_side)/2.0;
 
 		//LeftLeg
+		
+		
+		BPoint[][][] pBackLeftLeg=new BPoint[2][2][2];
 
-		BPoint pBackLeftLeg000=addBPoint(thigh_indentation,LEG_DY,0);
-		BPoint pBackLeftLeg100=addBPoint(thigh_indentation+leg_side,LEG_DY,0);
-		BPoint pBackLeftLeg110=addBPoint(thigh_indentation+leg_side,leg_side+LEG_DY,0);
-		BPoint pBackLeftLeg010=addBPoint(thigh_indentation,leg_side+LEG_DY,0);
+		pBackLeftLeg[0][0][0]=addBPoint(thigh_indentation,LEG_DY,0);
+		pBackLeftLeg[1][0][0]=addBPoint(thigh_indentation+leg_side,LEG_DY,0);
+		pBackLeftLeg[1][1][0]=addBPoint(thigh_indentation+leg_side,leg_side+LEG_DY,0);
+		pBackLeftLeg[0][1][0]=addBPoint(thigh_indentation,leg_side+LEG_DY,0);
 
-		addLine(pBackLeftLeg000,pBackLeftLeg010,pBackLeftLeg110,pBackLeftLeg100,Renderer3D.CAR_FRONT);
-
-
-		BPoint pBackLeftLeg001=addBPoint(thigh_indentation,LEG_DY,shinbone_length);
-		BPoint pBackLeftLeg101=addBPoint(thigh_indentation+leg_side,LEG_DY,shinbone_length);
-		BPoint pBackLeftLeg111=addBPoint(thigh_indentation+leg_side,LEG_DY+leg_side,shinbone_length);
-		BPoint pBackLeftLeg011=addBPoint(thigh_indentation,LEG_DY+leg_side,shinbone_length);
+		addLine(pBackLeftLeg[0][0][0],pBackLeftLeg[0][1][0],pBackLeftLeg[1][1][0],pBackLeftLeg[1][0][0],Renderer3D.CAR_FRONT);
 
 
-		addLine(pBackLeftLeg000,pBackLeftLeg001,pBackLeftLeg011,pBackLeftLeg010,Renderer3D.CAR_LEFT);
+		pBackLeftLeg[0][0][1]=addBPoint(thigh_indentation,LEG_DY,shinbone_length);
+		pBackLeftLeg[1][0][1]=addBPoint(thigh_indentation+leg_side,LEG_DY,shinbone_length);
+		pBackLeftLeg[1][1][1]=addBPoint(thigh_indentation+leg_side,LEG_DY+leg_side,shinbone_length);
+		pBackLeftLeg[0][1][1]=addBPoint(thigh_indentation,LEG_DY+leg_side,shinbone_length);
 
-		addLine(pBackLeftLeg010,pBackLeftLeg011,pBackLeftLeg111,pBackLeftLeg110,Renderer3D.CAR_FRONT);
 
-		addLine(pBackLeftLeg110,pBackLeftLeg111,pBackLeftLeg101,pBackLeftLeg100,Renderer3D.CAR_RIGHT);
+		addLine(pBackLeftLeg[0][0][0],pBackLeftLeg[0][0][1],pBackLeftLeg[0][1][1],pBackLeftLeg[0][1][0],Renderer3D.CAR_LEFT);
 
-		addLine(pBackLeftLeg100,pBackLeftLeg101,pBackLeftLeg001,pBackLeftLeg000,Renderer3D.CAR_BACK);
+		addLine(pBackLeftLeg[0][1][0],pBackLeftLeg[0][1][1],pBackLeftLeg[1][1][1],pBackLeftLeg[1][1][0],Renderer3D.CAR_FRONT);
+
+		addLine(pBackLeftLeg[1][1][0],pBackLeftLeg[1][1][1],pBackLeftLeg[1][0][1],pBackLeftLeg[1][0][0],Renderer3D.CAR_RIGHT);
+
+		addLine(pBackLeftLeg[1][0][0],pBackLeftLeg[1][0][1],pBackLeftLeg[0][0][1],pBackLeftLeg[0][0][0],Renderer3D.CAR_BACK);
 		
 		//left thigh
+		
+		
+		BPoint[][][] pBackLeftThigh=new BPoint[2][2][1];
 
 		
-		BPoint pBackLeftThigh001=body[0][0][0];
-		BPoint pBackLeftThigh101=body[1][0][0];
-		BPoint pBackLeftThigh111=body[1][numy-1][0];
-		BPoint pBackLeftThigh011=body[0][numy-1][0];
+		pBackLeftThigh[0][0][0]=body[0][0][0];
+		pBackLeftThigh[1][0][0]=body[1][0][0];
+		pBackLeftThigh[1][1][0]=body[1][numy-1][0];
+		pBackLeftThigh[0][1][0]=body[0][numy-1][0];
 
-		addLine(pBackLeftLeg001,pBackLeftThigh001,pBackLeftThigh011,pBackLeftLeg011,Renderer3D.CAR_LEFT);
+		addLine(pBackLeftLeg[0][0][1],pBackLeftThigh[0][0][0],pBackLeftThigh[0][1][0],pBackLeftLeg[0][1][1],Renderer3D.CAR_LEFT);
 
-		addLine(pBackLeftLeg011,pBackLeftThigh011,pBackLeftThigh111,pBackLeftLeg111,Renderer3D.CAR_FRONT);
+		addLine(pBackLeftLeg[0][1][1],pBackLeftThigh[0][1][0],pBackLeftThigh[1][1][0],pBackLeftLeg[1][1][1],Renderer3D.CAR_FRONT);
 
-		addLine(pBackLeftLeg111,pBackLeftThigh111,pBackLeftThigh101,pBackLeftLeg101,Renderer3D.CAR_RIGHT);
+		addLine(pBackLeftLeg[1][1][1],pBackLeftThigh[1][1][0],pBackLeftThigh[1][0][0],pBackLeftLeg[1][0][1],Renderer3D.CAR_RIGHT);
 
-		addLine(pBackLeftLeg101,pBackLeftThigh101,pBackLeftThigh001,pBackLeftLeg001,Renderer3D.CAR_BACK);
+		addLine(pBackLeftLeg[1][0][1],pBackLeftThigh[1][0][0],pBackLeftThigh[0][0][0],pBackLeftLeg[0][0][1],Renderer3D.CAR_BACK);
 
 
 		///RightLeg
-
-		BPoint pBackRightLeg000=addBPoint(x_side-leg_side-thigh_indentation,LEG_DY,0);
-		BPoint pBackRightLeg100=addBPoint(x_side-thigh_indentation,LEG_DY,0);
-		BPoint pBackRightLeg110=addBPoint(x_side-thigh_indentation,LEG_DY+leg_side,0);
-		BPoint pBackRightLeg010=addBPoint(x_side-leg_side-thigh_indentation,LEG_DY+leg_side,0);
-
-		addLine(pBackRightLeg000,pBackRightLeg010,pBackRightLeg110,pBackRightLeg100,Renderer3D.CAR_FRONT);
-
-		BPoint pBackRightLeg001=addBPoint(x_side-leg_side-thigh_indentation,LEG_DY,shinbone_length);
-		BPoint pBackRightLeg101=addBPoint(x_side-thigh_indentation,LEG_DY,shinbone_length);
-		BPoint pBackRightLeg111=addBPoint(x_side-thigh_indentation,LEG_DY+leg_side,shinbone_length);
-		BPoint pBackRightLeg011=addBPoint(x_side-leg_side-thigh_indentation,LEG_DY+leg_side,shinbone_length);
-
-		addLine(pBackRightLeg000,pBackRightLeg001,pBackRightLeg011,pBackRightLeg010,Renderer3D.CAR_LEFT);
-	
-		addLine(pBackRightLeg010,pBackRightLeg011,pBackRightLeg111,pBackRightLeg110,Renderer3D.CAR_FRONT);
-	
-		addLine(pBackRightLeg110,pBackRightLeg111,pBackRightLeg101,pBackRightLeg100,Renderer3D.CAR_RIGHT);
 		
-		addLine(pBackRightLeg100,pBackRightLeg101,pBackRightLeg001,pBackRightLeg000,Renderer3D.CAR_BACK);
+		BPoint[][][] pBackRightLeg=new BPoint[2][2][2];
+
+		pBackRightLeg[0][0][0]=addBPoint(x_side-leg_side-thigh_indentation,LEG_DY,0);
+		pBackRightLeg[1][0][0]=addBPoint(x_side-thigh_indentation,LEG_DY,0);
+		pBackRightLeg[1][1][0]=addBPoint(x_side-thigh_indentation,LEG_DY+leg_side,0);
+		pBackRightLeg[0][1][0]=addBPoint(x_side-leg_side-thigh_indentation,LEG_DY+leg_side,0);
+
+		addLine(pBackRightLeg[0][0][0],pBackRightLeg[0][1][0],pBackRightLeg[1][1][0],pBackRightLeg[1][0][0],Renderer3D.CAR_FRONT);
+
+		pBackRightLeg[0][0][1]=addBPoint(x_side-leg_side-thigh_indentation,LEG_DY,shinbone_length);
+		pBackRightLeg[1][0][1]=addBPoint(x_side-thigh_indentation,LEG_DY,shinbone_length);
+		pBackRightLeg[1][1][1]=addBPoint(x_side-thigh_indentation,LEG_DY+leg_side,shinbone_length);
+		pBackRightLeg[0][1][1]=addBPoint(x_side-leg_side-thigh_indentation,LEG_DY+leg_side,shinbone_length);
+
+		addLine(pBackRightLeg[0][0][0],pBackRightLeg[0][0][1],pBackRightLeg[0][1][1],pBackRightLeg[0][1][0],Renderer3D.CAR_LEFT);
+	
+		addLine(pBackRightLeg[0][1][0],pBackRightLeg[0][1][1],pBackRightLeg[1][1][1],pBackRightLeg[1][1][0],Renderer3D.CAR_FRONT);
+	
+		addLine(pBackRightLeg[1][1][0],pBackRightLeg[1][1][1],pBackRightLeg[1][0][1],pBackRightLeg[1][0][0],Renderer3D.CAR_RIGHT);
+		
+		addLine(pBackRightLeg[1][0][0],pBackRightLeg[1][0][1],pBackRightLeg[0][0][1],pBackRightLeg[0][0][0],Renderer3D.CAR_BACK);
 	
 		
 		//right thigh
 		
-		BPoint pBackRightThigh001=body[numx-2][0][0];
-		BPoint pBackRightThigh101=body[numx-1][0][0];
-		BPoint pBackRightThigh111=body[numx-1][numy-1][0];
-		BPoint pBackRightThigh011=body[numx-2][numy-1][0];
+		BPoint[][][] pBackRightThigh=new BPoint[2][2][1];
+		
+		pBackRightThigh[0][0][0]=body[numx-2][0][0];
+		pBackRightThigh[1][0][0]=body[numx-1][0][0];
+		pBackRightThigh[1][1][0]=body[numx-1][numy-1][0];
+		pBackRightThigh[0][1][0]=body[numx-2][numy-1][0];
 
-		addLine(pBackRightLeg001,pBackRightThigh001,pBackRightThigh011,pBackRightLeg011,Renderer3D.CAR_LEFT);
+		addLine(pBackRightLeg[0][0][1],pBackRightThigh[0][0][0],pBackRightThigh[0][1][0],pBackRightLeg[0][1][1],Renderer3D.CAR_LEFT);
 	
-		addLine(pBackRightLeg011,pBackRightThigh011,pBackRightThigh111,pBackRightLeg111,Renderer3D.CAR_FRONT);
+		addLine(pBackRightLeg[0][1][1],pBackRightThigh[0][1][0],pBackRightThigh[1][1][0],pBackRightLeg[1][1][1],Renderer3D.CAR_FRONT);
 	
-		addLine(pBackRightLeg111,pBackRightThigh111,pBackRightThigh101,pBackRightLeg101,Renderer3D.CAR_RIGHT);
+		addLine(pBackRightLeg[1][1][1],pBackRightThigh[1][1][0],pBackRightThigh[1][0][0],pBackRightLeg[1][0][1],Renderer3D.CAR_RIGHT);
 	
-		addLine(pBackRightLeg101,pBackRightThigh101,pBackRightThigh001,pBackRightLeg001,Renderer3D.CAR_BACK);
+		addLine(pBackRightLeg[1][0][1],pBackRightThigh[1][0][0],pBackRightThigh[0][0][0],pBackRightLeg[0][0][1],Renderer3D.CAR_BACK);
 	
 		
 		//Arms:
@@ -567,93 +577,133 @@ public class Animal extends CustomData{
 		double az=femur_length+shinbone_length+z_side-humerus_length-radius_length;
 		double ay=(y_side-leg_side)/2.0;
 		
-		BPoint pFrontLeftForearm000=addBPoint(-ax,ay,az);
-		BPoint pFrontLeftForearm100=addBPoint(-ax+leg_side,ay,az);
-		BPoint pFrontLeftForearm110=addBPoint(-ax+leg_side,ay+leg_side,az);
-		BPoint pFrontLeftForearm010=addBPoint(-ax,ay+leg_side,az);
+		
+		BPoint[][][] pFrontLeftForearm=new BPoint[2][2][2];
+		
+		pFrontLeftForearm[0][0][0]=addBPoint(-ax,ay,az);
+		pFrontLeftForearm[1][0][0]=addBPoint(-ax+leg_side,ay,az);
+		pFrontLeftForearm[1][1][0]=addBPoint(-ax+leg_side,ay+leg_side,az);
+		pFrontLeftForearm[0][1][0]=addBPoint(-ax,ay+leg_side,az);
 
 		
-		addLine(pFrontLeftForearm000,pFrontLeftForearm010,pFrontLeftForearm110,pFrontLeftForearm100,Renderer3D.CAR_BOTTOM);
+		addLine(pFrontLeftForearm[0][0][0],pFrontLeftForearm[0][1][0],pFrontLeftForearm[1][1][0],pFrontLeftForearm[1][0][0],Renderer3D.CAR_BOTTOM);
 
 		
-		BPoint pFrontLeftForearm001=addBPoint(-ax,ay,az+radius_length);
-		BPoint pFrontLeftForearm101=addBPoint(-ax+leg_side,ay,az+radius_length);
-		BPoint pFrontLeftForearm111=addBPoint(-ax+leg_side,ay+leg_side,az+radius_length);
-		BPoint pFrontLeftForearm011=addBPoint(-ax,ay+leg_side,az+radius_length);
+		pFrontLeftForearm[0][0][1]=addBPoint(-ax,ay,az+radius_length);
+		pFrontLeftForearm[1][0][1]=addBPoint(-ax+leg_side,ay,az+radius_length);
+		pFrontLeftForearm[1][1][1]=addBPoint(-ax+leg_side,ay+leg_side,az+radius_length);
+		pFrontLeftForearm[0][1][1]=addBPoint(-ax,ay+leg_side,az+radius_length);
 		
-		//LineData topLeftForearm=addLine(pFrontLeftForearm001,pFrontLeftForearm101,pFrontLeftForearm111,pFrontLeftForearm011,Renderer3D.CAR_TOP);
-		//polyData.add(topLeftForearm);
+
 		
-		addLine(pFrontLeftForearm000,pFrontLeftForearm001,pFrontLeftForearm011,pFrontLeftForearm010,Renderer3D.CAR_LEFT);
+		addLine(pFrontLeftForearm[0][0][0],pFrontLeftForearm[0][0][1],pFrontLeftForearm[0][1][1],pFrontLeftForearm[0][1][0],Renderer3D.CAR_LEFT);
 
-		addLine(pFrontLeftForearm010,pFrontLeftForearm011,pFrontLeftForearm111,pFrontLeftForearm110,Renderer3D.CAR_FRONT);
+		addLine(pFrontLeftForearm[0][1][0],pFrontLeftForearm[0][1][1],pFrontLeftForearm[1][1][1],pFrontLeftForearm[1][1][0],Renderer3D.CAR_FRONT);
 
-		addLine(pFrontLeftForearm110,pFrontLeftForearm111,pFrontLeftForearm101,pFrontLeftForearm100,Renderer3D.CAR_RIGHT);
+		addLine(pFrontLeftForearm[1][1][0],pFrontLeftForearm[1][1][1],pFrontLeftForearm[1][0][1],pFrontLeftForearm[1][0][0],Renderer3D.CAR_RIGHT);
 
-		addLine(pFrontLeftForearm100,pFrontLeftForearm101,pFrontLeftForearm001,pFrontLeftForearm000,Renderer3D.CAR_BACK);
+		addLine(pFrontLeftForearm[1][0][0],pFrontLeftForearm[1][0][1],pFrontLeftForearm[0][0][1],pFrontLeftForearm[0][0][0],Renderer3D.CAR_BACK);
 		
 		
 		//left arm
 		
-		BPoint pFrontLeftArm001=addBPoint(-ax,ay,az+humerus_length+radius_length);
-		BPoint pFrontLeftArm101=addBPoint(-ax+leg_side,ay,az+humerus_length+radius_length);
-		BPoint pFrontLeftArm111=addBPoint(-ax+leg_side,ay+leg_side,az+humerus_length+radius_length);
-		BPoint pFrontLeftArm011=addBPoint(-ax,ay+leg_side,az+humerus_length+radius_length);
+		BPoint[][][] pFrontLeftArm=new BPoint[2][2][2];
 		
-		addLine(pFrontLeftArm001,pFrontLeftArm101,pFrontLeftArm111,pFrontLeftArm011,Renderer3D.CAR_TOP);
+		pFrontLeftArm[0][0][0]=addBPoint(-ax,ay,body[0][0][3].z);
+		pFrontLeftArm[1][0][0]=addBPoint(-ax+leg_side,ay,body[0][0][3].z);
+		pFrontLeftArm[1][1][0]=addBPoint(-ax+leg_side,ay+leg_side,body[0][0][3].z);
+		pFrontLeftArm[0][1][0]=addBPoint(-ax,ay+leg_side,body[0][0][3].z);
 		
-		addLine(pFrontLeftForearm001,pFrontLeftArm001,pFrontLeftArm011,pFrontLeftForearm011,Renderer3D.CAR_LEFT);
+		
+		pFrontLeftArm[0][0][1]=addBPoint(-ax,ay,body[0][0][4].z);
+		pFrontLeftArm[1][0][1]=addBPoint(-ax+leg_side,ay,body[0][0][4].z);
+		pFrontLeftArm[1][1][1]=addBPoint(-ax+leg_side,ay+leg_side,body[0][0][4].z);
+		pFrontLeftArm[0][1][1]=addBPoint(-ax,ay+leg_side,body[0][0][4].z);
+			
+		addLine(pFrontLeftForearm[0][0][1],pFrontLeftArm[0][0][0],pFrontLeftArm[0][1][0],pFrontLeftForearm[0][1][1],Renderer3D.CAR_LEFT);
 
-		addLine(pFrontLeftForearm011,pFrontLeftArm011,pFrontLeftArm111,pFrontLeftForearm111,Renderer3D.CAR_FRONT);
+		addLine(pFrontLeftForearm[0][1][1],pFrontLeftArm[0][1][0],pFrontLeftArm[1][1][0],pFrontLeftForearm[1][1][1],Renderer3D.CAR_FRONT);
 
-		addLine(pFrontLeftForearm111,pFrontLeftArm111,pFrontLeftArm101,pFrontLeftForearm101,Renderer3D.CAR_RIGHT);
+		addLine(pFrontLeftForearm[1][1][1],pFrontLeftArm[1][1][0],pFrontLeftArm[1][0][0],pFrontLeftForearm[1][0][1],Renderer3D.CAR_RIGHT);
 
-		addLine(pFrontLeftForearm101,pFrontLeftArm101,pFrontLeftArm001,pFrontLeftForearm001,Renderer3D.CAR_BACK);
+		addLine(pFrontLeftForearm[1][0][1],pFrontLeftArm[1][0][0],pFrontLeftArm[0][0][0],pFrontLeftForearm[0][0][1],Renderer3D.CAR_BACK);
+		
+		
+		addLine(pFrontLeftArm[0][0][1],pFrontLeftArm[1][0][1],pFrontLeftArm[1][1][1],pFrontLeftArm[0][1][1],Renderer3D.CAR_TOP);
+		
+		
+		addLine(pFrontLeftArm[0][0][0],pFrontLeftArm[0][0][1],pFrontLeftArm[0][1][1],pFrontLeftArm[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(pFrontLeftArm[0][1][0],pFrontLeftArm[0][1][1],pFrontLeftArm[1][1][1],pFrontLeftArm[1][1][0],Renderer3D.CAR_FRONT);
+
+		addLine(pFrontLeftArm[1][1][0],pFrontLeftArm[1][1][1],pFrontLeftArm[1][0][1],pFrontLeftArm[1][0][0],Renderer3D.CAR_RIGHT);
+
+		addLine(pFrontLeftArm[1][0][0],pFrontLeftArm[1][0][1],pFrontLeftArm[0][0][1],pFrontLeftArm[0][0][0],Renderer3D.CAR_BACK);
 	
 		
 		//Right forearm
 		
-		BPoint pFrontRightForearm000=addBPoint(ax+x_side-leg_side,ay,az);
-		BPoint pFrontRightForearm100=addBPoint(ax+x_side,ay,az);
-		BPoint pFrontRightForearm110=addBPoint(ax+x_side,ay+leg_side,az);
-		BPoint pFrontRightForearm010=addBPoint(ax+x_side-leg_side,ay+leg_side,az);
+		
+		BPoint[][][] pFrontRightForearm=new BPoint[2][2][2];
+		
+		pFrontRightForearm[0][0][0]=addBPoint(ax+x_side-leg_side,ay,az);
+		pFrontRightForearm[1][0][0]=addBPoint(ax+x_side,ay,az);
+		pFrontRightForearm[1][1][0]=addBPoint(ax+x_side,ay+leg_side,az);
+		pFrontRightForearm[0][1][0]=addBPoint(ax+x_side-leg_side,ay+leg_side,az);
 
-		addLine(pFrontRightForearm000,pFrontRightForearm010,pFrontRightForearm110,pFrontRightForearm100,Renderer3D.CAR_BOTTOM);
+		addLine(pFrontRightForearm[0][0][0],pFrontRightForearm[0][1][0],pFrontRightForearm[1][1][0],pFrontRightForearm[1][0][0],Renderer3D.CAR_BOTTOM);
 
 		
-		BPoint pFrontRightForearm001=addBPoint(ax+x_side-leg_side,ay,az+radius_length);
-		BPoint pFrontRightForearm101=addBPoint(ax+x_side,ay,az+radius_length);
-		BPoint pFrontRightForearm111=addBPoint(ax+x_side,ay+leg_side,az+radius_length);
-		BPoint pFrontRightForearm011=addBPoint(ax+x_side-leg_side,ay+leg_side,az+radius_length);
-		
-		//LineData topRightForearm=addLine(pFrontRightForearm001,pFrontRightForearm101,pFrontRightForearm111,pFrontRightForearm011,Renderer3D.CAR_TOP);
-		//polyData.add(topRightForearm);
-		
-		addLine(pFrontRightForearm000,pFrontRightForearm001,pFrontRightForearm011,pFrontRightForearm010,Renderer3D.CAR_LEFT);
+		pFrontRightForearm[0][0][1]=addBPoint(ax+x_side-leg_side,ay,az+radius_length);
+		pFrontRightForearm[1][0][1]=addBPoint(ax+x_side,ay,az+radius_length);
+		pFrontRightForearm[1][1][1]=addBPoint(ax+x_side,ay+leg_side,az+radius_length);
+		pFrontRightForearm[0][1][1]=addBPoint(ax+x_side-leg_side,ay+leg_side,az+radius_length);
 
-		addLine(pFrontRightForearm010,pFrontRightForearm011,pFrontRightForearm111,pFrontRightForearm110,Renderer3D.CAR_FRONT);
 		
-		addLine(pFrontRightForearm110,pFrontRightForearm111,pFrontRightForearm101,pFrontRightForearm100,Renderer3D.CAR_RIGHT);
+		addLine(pFrontRightForearm[0][0][0],pFrontRightForearm[0][0][1],pFrontRightForearm[0][1][1],pFrontRightForearm[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(pFrontRightForearm[0][1][0],pFrontRightForearm[0][1][1],pFrontRightForearm[1][1][1],pFrontRightForearm[1][1][0],Renderer3D.CAR_FRONT);
+		
+		addLine(pFrontRightForearm[1][1][0],pFrontRightForearm[1][1][1],pFrontRightForearm[1][0][1],pFrontRightForearm[1][0][0],Renderer3D.CAR_RIGHT);
 	
-		addLine(pFrontRightForearm100,pFrontRightForearm101,pFrontRightForearm001,pFrontRightForearm000,Renderer3D.CAR_BACK);
+		addLine(pFrontRightForearm[1][0][0],pFrontRightForearm[1][0][1],pFrontRightForearm[0][0][1],pFrontRightForearm[0][0][0],Renderer3D.CAR_BACK);
 
 		
 		//right arm
 		
-		BPoint pFrontRightArm001=addBPoint(ax+x_side-leg_side,ay,az+radius_length+humerus_length);
-		BPoint pFrontRightArm101=addBPoint(ax+x_side,ay,az+radius_length+humerus_length);
-		BPoint pFrontRightArm111=addBPoint(ax+x_side,ay+leg_side,az+radius_length+humerus_length);
-		BPoint pFrontRightArm011=addBPoint(ax+x_side-leg_side,ay+leg_side,az+radius_length+humerus_length);
+		BPoint[][][] pFrontRightArm=new BPoint[2][2][2];
 		
-		addLine(pFrontRightArm001,pFrontRightArm101,pFrontRightArm111,pFrontRightArm011,Renderer3D.CAR_TOP);
-			
-		addLine(pFrontRightForearm001,pFrontRightArm001,pFrontRightArm011,pFrontRightForearm011,Renderer3D.CAR_LEFT);
+		pFrontRightArm[0][0][0]=addBPoint(ax+x_side-leg_side,ay,body[0][0][3].z);
+		pFrontRightArm[1][0][0]=addBPoint(ax+x_side,ay,body[0][0][3].z);
+		pFrontRightArm[1][1][0]=addBPoint(ax+x_side,ay+leg_side,body[0][0][3].z);
+		pFrontRightArm[0][1][0]=addBPoint(ax+x_side-leg_side,ay+leg_side,body[0][0][3].z);
+		
+		
+		pFrontRightArm[0][0][1]=addBPoint(ax+x_side-leg_side,ay,body[0][0][4].z);
+		pFrontRightArm[1][0][1]=addBPoint(ax+x_side,ay,body[0][0][4].z);
+		pFrontRightArm[1][1][1]=addBPoint(ax+x_side,ay+leg_side,body[0][0][4].z);
+		pFrontRightArm[0][1][1]=addBPoint(ax+x_side-leg_side,ay+leg_side,body[0][0][4].z);
+					
+		addLine(pFrontRightForearm[0][0][1],pFrontRightArm[0][0][0],pFrontRightArm[0][1][0],pFrontRightForearm[0][1][1],Renderer3D.CAR_LEFT);
 
-		addLine(pFrontRightForearm011,pFrontRightArm011,pFrontRightArm111,pFrontRightForearm111,Renderer3D.CAR_FRONT);
+		addLine(pFrontRightForearm[0][1][1],pFrontRightArm[0][1][0],pFrontRightArm[1][1][0],pFrontRightForearm[1][1][1],Renderer3D.CAR_FRONT);
 	
-		addLine(pFrontRightForearm111,pFrontRightArm111,pFrontRightArm101,pFrontRightForearm101,Renderer3D.CAR_RIGHT);
+		addLine(pFrontRightForearm[1][1][1],pFrontRightArm[1][1][0],pFrontRightArm[1][0][0],pFrontRightForearm[1][0][1],Renderer3D.CAR_RIGHT);
 		
-		addLine(pFrontRightForearm101,pFrontRightArm101,pFrontRightArm001,pFrontRightForearm001,Renderer3D.CAR_BACK);
+		addLine(pFrontRightForearm[1][0][1],pFrontRightArm[1][0][0],pFrontRightArm[0][0][0],pFrontRightForearm[0][0][1],Renderer3D.CAR_BACK);
+		
+		
+		addLine(pFrontRightArm[0][0][1],pFrontRightArm[1][0][1],pFrontRightArm[1][1][1],pFrontRightArm[0][1][1],Renderer3D.CAR_TOP);
+		
+		
+		addLine(pFrontRightArm[0][0][0],pFrontRightArm[0][0][1],pFrontRightArm[0][1][1],pFrontRightArm[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(pFrontRightArm[0][1][0],pFrontRightArm[0][1][1],pFrontRightArm[1][1][1],pFrontRightArm[1][1][0],Renderer3D.CAR_FRONT);
+	
+		addLine(pFrontRightArm[1][1][0],pFrontRightArm[1][1][1],pFrontRightArm[1][0][1],pFrontRightArm[1][0][0],Renderer3D.CAR_RIGHT);
+		
+		addLine(pFrontRightArm[1][0][0],pFrontRightArm[1][0][1],pFrontRightArm[0][0][1],pFrontRightArm[0][0][0],Renderer3D.CAR_BACK);
+		
 
 		PolygonMesh pm=new PolygonMesh(points,polyData);
 
@@ -1104,172 +1154,191 @@ public class Animal extends CustomData{
 		
 		double lgx=-leg_side;
 		
-		BPoint pBackLeftLeg000=addBPoint(lgx,0,0);
-		BPoint pBackLeftLeg100=addBPoint(lgx+leg_side,0,0);
-		BPoint pBackLeftLeg110=addBPoint(lgx+leg_side,leg_side,0);
-		BPoint pBackLeftLeg010=addBPoint(lgx,leg_side,0);
+		BPoint[][][] pBackLeftLeg=new BPoint[2][2][2];
+		
+		pBackLeftLeg[0][0][0]=addBPoint(lgx,0,0);
+		pBackLeftLeg[1][0][0]=addBPoint(lgx+leg_side,0,0);
+		pBackLeftLeg[1][1][0]=addBPoint(lgx+leg_side,leg_side,0);
+		pBackLeftLeg[0][1][0]=addBPoint(lgx,leg_side,0);
 
 		
-		LineData backLeftLeg=addLine(pBackLeftLeg000,pBackLeftLeg010,pBackLeftLeg110,pBackLeftLeg100,Renderer3D.CAR_FRONT);
+		LineData backLeftLeg=addLine(pBackLeftLeg[0][0][0],pBackLeftLeg[0][1][0],pBackLeftLeg[1][1][0],pBackLeftLeg[1][0][0],Renderer3D.CAR_FRONT);
 		
-		BPoint pBackLeftLeg001=addBPoint(lgx,0,shinbone_length);
-		BPoint pBackLeftLeg101=addBPoint(lgx+leg_side,0,shinbone_length);
-		BPoint pBackLeftLeg111=addBPoint(lgx+leg_side,leg_side,shinbone_length);
-		BPoint pBackLeftLeg011=addBPoint(lgx,leg_side,shinbone_length);
+		pBackLeftLeg[0][0][1]=addBPoint(lgx,0,shinbone_length);
+		pBackLeftLeg[1][0][1]=addBPoint(lgx+leg_side,0,shinbone_length);
+		pBackLeftLeg[1][1][1]=addBPoint(lgx+leg_side,leg_side,shinbone_length);
+		pBackLeftLeg[0][1][1]=addBPoint(lgx,leg_side,shinbone_length);
 		
-		LineData backLeftLegS0=addLine(pBackLeftLeg000,pBackLeftLeg001,pBackLeftLeg011,pBackLeftLeg010,Renderer3D.CAR_LEFT);
+		LineData backLeftLegS0=addLine(pBackLeftLeg[0][0][0],pBackLeftLeg[0][0][1],pBackLeftLeg[0][1][1],pBackLeftLeg[0][1][0],Renderer3D.CAR_LEFT);
 
-		LineData backLeftLegS1=addLine(pBackLeftLeg010,pBackLeftLeg011,pBackLeftLeg111,pBackLeftLeg110,Renderer3D.CAR_FRONT);
+		LineData backLeftLegS1=addLine(pBackLeftLeg[0][1][0],pBackLeftLeg[0][1][1],pBackLeftLeg[1][1][1],pBackLeftLeg[1][1][0],Renderer3D.CAR_FRONT);
 	
-		LineData backLeftLegS2=addLine(pBackLeftLeg110,pBackLeftLeg111,pBackLeftLeg101,pBackLeftLeg100,Renderer3D.CAR_RIGHT);
+		LineData backLeftLegS2=addLine(pBackLeftLeg[1][1][0],pBackLeftLeg[1][1][1],pBackLeftLeg[1][0][1],pBackLeftLeg[1][0][0],Renderer3D.CAR_RIGHT);
 	
-		LineData backLeftLegS3=addLine(pBackLeftLeg100,pBackLeftLeg101,pBackLeftLeg001,pBackLeftLeg000,Renderer3D.CAR_BACK);
+		LineData backLeftLegS3=addLine(pBackLeftLeg[1][0][0],pBackLeftLeg[1][0][1],pBackLeftLeg[0][0][1],pBackLeftLeg[0][0][0],Renderer3D.CAR_BACK);
 	
 		
 		//back left thigh
 		
-		BPoint pBackLeftThigh001=addBPoint(lgx,0,femur_length+shinbone_length);
-		BPoint pBackLeftThigh101=addBPoint(lgx+leg_side,0,femur_length+shinbone_length);
-		BPoint pBackLeftThigh111=addBPoint(lgx+leg_side,leg_side,femur_length+shinbone_length);
-		BPoint pBackLeftThigh011=addBPoint(lgx,leg_side,femur_length+shinbone_length);
+		BPoint[][][] pBackLeftThigh=new BPoint[2][2][1];
+		
+		pBackLeftThigh[0][0][0]=addBPoint(lgx,0,femur_length+shinbone_length);
+		pBackLeftThigh[1][0][0]=addBPoint(lgx+leg_side,0,femur_length+shinbone_length);
+		pBackLeftThigh[1][1][0]=addBPoint(lgx+leg_side,leg_side,femur_length+shinbone_length);
+		pBackLeftThigh[0][1][0]=addBPoint(lgx,leg_side,femur_length+shinbone_length);
 
-		LineData backLeftThighS0=addLine(pBackLeftLeg001,pBackLeftThigh001,pBackLeftThigh011,pBackLeftLeg011,Renderer3D.CAR_LEFT);
+		LineData backLeftThighS0=addLine(pBackLeftLeg[0][0][1],pBackLeftThigh[0][0][0],pBackLeftThigh[0][1][0],pBackLeftLeg[0][1][1],Renderer3D.CAR_LEFT);
 	
-		LineData backLeftThighS1=addLine(pBackLeftLeg011,pBackLeftThigh011,pBackLeftThigh111,pBackLeftLeg111,Renderer3D.CAR_FRONT);
+		LineData backLeftThighS1=addLine(pBackLeftLeg[0][1][1],pBackLeftThigh[0][1][0],pBackLeftThigh[1][1][0],pBackLeftLeg[1][1][1],Renderer3D.CAR_FRONT);
 	
-		LineData backLeftThighS2=addLine(pBackLeftLeg111,pBackLeftThigh111,pBackLeftThigh101,pBackLeftLeg101,Renderer3D.CAR_RIGHT);
+		LineData backLeftThighS2=addLine(pBackLeftLeg[1][1][1],pBackLeftThigh[1][1][0],pBackLeftThigh[1][0][0],pBackLeftLeg[1][0][1],Renderer3D.CAR_RIGHT);
 
-		LineData backLeftThighS3=addLine(pBackLeftLeg101,pBackLeftThigh101,pBackLeftThigh001,pBackLeftLeg001,Renderer3D.CAR_BACK);
+		LineData backLeftThighS3=addLine(pBackLeftLeg[1][0][1],pBackLeftThigh[1][0][0],pBackLeftThigh[0][0][0],pBackLeftLeg[0][0][1],Renderer3D.CAR_BACK);
 
-		LineData backLeftTopThigh=addLine(pBackLeftThigh001,pBackLeftThigh101,pBackLeftThigh111,pBackLeftThigh011,Renderer3D.CAR_TOP);
+		LineData backLeftTopThigh=addLine(pBackLeftThigh[0][0][0],pBackLeftThigh[1][0][0],pBackLeftThigh[1][1][0],pBackLeftThigh[0][1][0],Renderer3D.CAR_TOP);
 		//backRightLeg
 		
-		BPoint pBackRightLeg000=addBPoint(-lgx+x_side-leg_side,0,0);
-		BPoint pBackRightLeg100=addBPoint(-lgx+x_side,0,0);
-		BPoint pBackRightLeg110=addBPoint(-lgx+x_side,leg_side,0);
-		BPoint pBackRightLeg010=addBPoint(-lgx+x_side-leg_side,leg_side,0);
 		
-		LineData backRightLeg=addLine(pBackRightLeg000,pBackRightLeg010,pBackRightLeg110,pBackRightLeg100,Renderer3D.CAR_FRONT);
+		BPoint[][][] pBackRightLeg=new BPoint[2][2][2];
+		
+		pBackRightLeg[0][0][0]=addBPoint(-lgx+x_side-leg_side,0,0);
+		pBackRightLeg[1][0][0]=addBPoint(-lgx+x_side,0,0);
+		pBackRightLeg[1][1][0]=addBPoint(-lgx+x_side,leg_side,0);
+		pBackRightLeg[0][1][0]=addBPoint(-lgx+x_side-leg_side,leg_side,0);
+		
+		LineData backRightLeg=addLine(pBackRightLeg[0][0][0],pBackRightLeg[0][1][0],pBackRightLeg[1][1][0],pBackRightLeg[1][0][0],Renderer3D.CAR_FRONT);
 
 
 		
-		BPoint pBackRightLeg001=addBPoint(-lgx+x_side-leg_side,0,shinbone_length);
-		BPoint pBackRightLeg101=addBPoint(-lgx+x_side,0,shinbone_length);
-		BPoint pBackRightLeg111=addBPoint(-lgx+x_side,leg_side,shinbone_length);
-		BPoint pBackRightLeg011=addBPoint(-lgx+x_side-leg_side,leg_side,shinbone_length);
+		pBackRightLeg[0][0][1]=addBPoint(-lgx+x_side-leg_side,0,shinbone_length);
+		pBackRightLeg[1][0][1]=addBPoint(-lgx+x_side,0,shinbone_length);
+		pBackRightLeg[1][1][1]=addBPoint(-lgx+x_side,leg_side,shinbone_length);
+		pBackRightLeg[0][1][1]=addBPoint(-lgx+x_side-leg_side,leg_side,shinbone_length);
 
 		
-		LineData backRightLegS0=addLine(pBackRightLeg000,pBackRightLeg001,pBackRightLeg011,pBackRightLeg010,Renderer3D.CAR_LEFT);
+		LineData backRightLegS0=addLine(pBackRightLeg[0][0][0],pBackRightLeg[0][0][1],pBackRightLeg[0][1][1],pBackRightLeg[0][1][0],Renderer3D.CAR_LEFT);
 	
-		LineData backRightLegS1=addLine(pBackRightLeg010,pBackRightLeg011,pBackRightLeg111,pBackRightLeg110,Renderer3D.CAR_FRONT);
+		LineData backRightLegS1=addLine(pBackRightLeg[0][1][0],pBackRightLeg[0][1][1],pBackRightLeg[1][1][1],pBackRightLeg[1][1][0],Renderer3D.CAR_FRONT);
 	
-		LineData backRightLegS2=addLine(pBackRightLeg110,pBackRightLeg111,pBackRightLeg101,pBackRightLeg100,Renderer3D.CAR_RIGHT);
+		LineData backRightLegS2=addLine(pBackRightLeg[1][1][0],pBackRightLeg[1][1][1],pBackRightLeg[1][0][1],pBackRightLeg[1][0][0],Renderer3D.CAR_RIGHT);
 	
-		LineData backRightLegS3=addLine(pBackRightLeg100,pBackRightLeg101,pBackRightLeg001,pBackRightLeg000,Renderer3D.CAR_BACK);
+		LineData backRightLegS3=addLine(pBackRightLeg[1][0][0],pBackRightLeg[1][0][1],pBackRightLeg[0][0][1],pBackRightLeg[0][0][0],Renderer3D.CAR_BACK);
 	
 		
 		//back right thigh
 		
-		BPoint pBackRightThigh001=addBPoint(-lgx+x_side-leg_side,0,femur_length+shinbone_length);
-		BPoint pBackRightThigh101=addBPoint(-lgx+x_side,0,femur_length+shinbone_length);
-		BPoint pBackRightThigh111=addBPoint(-lgx+x_side,leg_side,femur_length+shinbone_length);
-		BPoint pBackRightThigh011=addBPoint(-lgx+x_side-leg_side,leg_side,femur_length+shinbone_length);
+		
+		BPoint[][][] pBackRightThigh=new BPoint[2][2][1];
+		
+		pBackRightThigh[0][0][0]=addBPoint(-lgx+x_side-leg_side,0,femur_length+shinbone_length);
+		pBackRightThigh[1][0][0]=addBPoint(-lgx+x_side,0,femur_length+shinbone_length);
+		pBackRightThigh[1][1][0]=addBPoint(-lgx+x_side,leg_side,femur_length+shinbone_length);
+		pBackRightThigh[0][1][0]=addBPoint(-lgx+x_side-leg_side,leg_side,femur_length+shinbone_length);
 
-		LineData backRightThighS0=addLine(pBackRightLeg001,pBackRightThigh001,pBackRightThigh011,pBackRightLeg011,Renderer3D.CAR_LEFT);
+		LineData backRightThighS0=addLine(pBackRightLeg[0][0][1],pBackRightThigh[0][0][0],pBackRightThigh[0][1][0],pBackRightLeg[0][1][1],Renderer3D.CAR_LEFT);
 	
-		LineData backRightThighS1=addLine(pBackRightLeg011,pBackRightThigh011,pBackRightThigh111,pBackRightLeg111,Renderer3D.CAR_FRONT);
+		LineData backRightThighS1=addLine(pBackRightLeg[0][1][1],pBackRightThigh[0][1][0],pBackRightThigh[1][1][0],pBackRightLeg[1][1][1],Renderer3D.CAR_FRONT);
 
-		LineData backRightThighS2=addLine(pBackRightLeg111,pBackRightThigh111,pBackRightThigh101,pBackRightLeg101,Renderer3D.CAR_RIGHT);
+		LineData backRightThighS2=addLine(pBackRightLeg[1][1][1],pBackRightThigh[1][1][0],pBackRightThigh[1][0][0],pBackRightLeg[1][0][1],Renderer3D.CAR_RIGHT);
 	
-		LineData backRightThighS3=addLine(pBackRightLeg101,pBackRightThigh101,pBackRightThigh001,pBackRightLeg001,Renderer3D.CAR_BACK);
+		LineData backRightThighS3=addLine(pBackRightLeg[1][0][1],pBackRightThigh[1][0][0],pBackRightThigh[0][0][0],pBackRightLeg[0][0][1],Renderer3D.CAR_BACK);
 
-		LineData backRightTopThigh=addLine(pBackRightThigh001,pBackRightThigh101,pBackRightThigh111,pBackRightThigh011,Renderer3D.CAR_TOP);
+		LineData backRightTopThigh=addLine(pBackRightThigh[0][0][0],pBackRightThigh[1][0][0],pBackRightThigh[1][1][0],pBackRightThigh[0][1][0],Renderer3D.CAR_TOP);
 		//frontLeftLeg
 		
-		BPoint pFrontLeftForearm000=addBPoint(lgx,y_side-leg_side,0);
-		BPoint pFrontLeftForearm100=addBPoint(lgx+leg_side,y_side-leg_side,0);
-		BPoint pFrontLeftForearm110=addBPoint(lgx+leg_side,y_side,0);
-		BPoint pFrontLeftForearm010=addBPoint(lgx,y_side,0);
+		BPoint[][][] pFrontLeftForearm=new BPoint[2][2][2];
 		
-		LineData FrontLeftForearm=addLine(pFrontLeftForearm000,pFrontLeftForearm010,pFrontLeftForearm110,pFrontLeftForearm100,Renderer3D.CAR_FRONT);
+		pFrontLeftForearm[0][0][0]=addBPoint(lgx,y_side-leg_side,0);
+		pFrontLeftForearm[1][0][0]=addBPoint(lgx+leg_side,y_side-leg_side,0);
+		pFrontLeftForearm[1][1][0]=addBPoint(lgx+leg_side,y_side,0);
+		pFrontLeftForearm[0][1][0]=addBPoint(lgx,y_side,0);
+		
+		LineData FrontLeftForearm=addLine(pFrontLeftForearm[0][0][0],pFrontLeftForearm[0][1][0],pFrontLeftForearm[1][1][0],pFrontLeftForearm[1][0][0],Renderer3D.CAR_FRONT);
 
 		
-		BPoint pFrontLeftForearm001=addBPoint(lgx,y_side-leg_side,radius_length);
-		BPoint pFrontLeftForearm101=addBPoint(lgx+leg_side,y_side-leg_side,radius_length);
-		BPoint pFrontLeftForearm111=addBPoint(lgx+leg_side,y_side,radius_length);
-		BPoint pFrontLeftForearm011=addBPoint(lgx,y_side,radius_length);
+		pFrontLeftForearm[0][0][1]=addBPoint(lgx,y_side-leg_side,radius_length);
+		pFrontLeftForearm[1][0][1]=addBPoint(lgx+leg_side,y_side-leg_side,radius_length);
+		pFrontLeftForearm[1][1][1]=addBPoint(lgx+leg_side,y_side,radius_length);
+		pFrontLeftForearm[0][1][1]=addBPoint(lgx,y_side,radius_length);
 		
-		LineData FrontLeftForearmS0=addLine(pFrontLeftForearm000,pFrontLeftForearm001,pFrontLeftForearm011,pFrontLeftForearm010,Renderer3D.CAR_LEFT);
+		LineData FrontLeftForearmS0=addLine(pFrontLeftForearm[0][0][0],pFrontLeftForearm[0][0][1],pFrontLeftForearm[0][1][1],pFrontLeftForearm[0][1][0],Renderer3D.CAR_LEFT);
 	
-		LineData FrontLeftForearmS1=addLine(pFrontLeftForearm010,pFrontLeftForearm011,pFrontLeftForearm111,pFrontLeftForearm110,Renderer3D.CAR_FRONT);
+		LineData FrontLeftForearmS1=addLine(pFrontLeftForearm[0][1][0],pFrontLeftForearm[0][1][1],pFrontLeftForearm[1][1][1],pFrontLeftForearm[1][1][0],Renderer3D.CAR_FRONT);
 
-		LineData FrontLeftForearmS2=addLine(pFrontLeftForearm110,pFrontLeftForearm111,pFrontLeftForearm101,pFrontLeftForearm100,Renderer3D.CAR_RIGHT);
+		LineData FrontLeftForearmS2=addLine(pFrontLeftForearm[1][1][0],pFrontLeftForearm[1][1][1],pFrontLeftForearm[1][0][1],pFrontLeftForearm[1][0][0],Renderer3D.CAR_RIGHT);
 	
-		LineData FrontLeftForearmS3=addLine(pFrontLeftForearm100,pFrontLeftForearm101,pFrontLeftForearm001,pFrontLeftForearm000,Renderer3D.CAR_BACK);
+		LineData FrontLeftForearmS3=addLine(pFrontLeftForearm[1][0][0],pFrontLeftForearm[1][0][1],pFrontLeftForearm[0][0][1],pFrontLeftForearm[0][0][0],Renderer3D.CAR_BACK);
 	
 		
 		//left arm
 		
-		BPoint pFrontLeftArm001=addBPoint(lgx,y_side-leg_side,radius_length+humerus_length);
-		BPoint pFrontLeftArm101=addBPoint(lgx+leg_side,y_side-leg_side,radius_length+humerus_length);
-		BPoint pFrontLeftArm111=addBPoint(lgx+leg_side,y_side,radius_length+humerus_length);
-		BPoint pFrontLeftArm011=addBPoint(lgx,y_side,radius_length+humerus_length);
 		
-		LineData topLeftArm=addLine(pFrontLeftArm001,pFrontLeftArm101,pFrontLeftArm111,pFrontLeftArm011,Renderer3D.CAR_TOP);
+		BPoint[][][] pFrontLeftArm=new BPoint[2][2][1];
+		
+		pFrontLeftArm[0][0][0]=addBPoint(lgx,y_side-leg_side,radius_length+humerus_length);
+		pFrontLeftArm[1][0][0]=addBPoint(lgx+leg_side,y_side-leg_side,radius_length+humerus_length);
+		pFrontLeftArm[1][1][0]=addBPoint(lgx+leg_side,y_side,radius_length+humerus_length);
+		pFrontLeftArm[0][1][0]=addBPoint(lgx,y_side,radius_length+humerus_length);
+		
+		LineData topLeftArm=addLine(pFrontLeftArm[0][0][0],pFrontLeftArm[1][0][0],pFrontLeftArm[1][1][0],pFrontLeftArm[0][1][0],Renderer3D.CAR_TOP);
 	
 		
-		LineData FrontLeftArmS0=addLine(pFrontLeftForearm001,pFrontLeftArm001,pFrontLeftArm011,pFrontLeftForearm011,Renderer3D.CAR_LEFT);
+		LineData FrontLeftArmS0=addLine(pFrontLeftForearm[0][0][1],pFrontLeftArm[0][0][0],pFrontLeftArm[0][1][0],pFrontLeftForearm[0][1][1],Renderer3D.CAR_LEFT);
 
-		LineData FrontLeftArmS1=addLine(pFrontLeftForearm011,pFrontLeftArm011,pFrontLeftArm111,pFrontLeftForearm111,Renderer3D.CAR_FRONT);
+		LineData FrontLeftArmS1=addLine(pFrontLeftForearm[0][1][1],pFrontLeftArm[0][1][0],pFrontLeftArm[1][1][0],pFrontLeftForearm[1][1][1],Renderer3D.CAR_FRONT);
 	
-		LineData FrontLeftArmS2=addLine(pFrontLeftForearm111,pFrontLeftArm111,pFrontLeftArm101,pFrontLeftForearm101,Renderer3D.CAR_RIGHT);
+		LineData FrontLeftArmS2=addLine(pFrontLeftForearm[1][1][1],pFrontLeftArm[1][1][0],pFrontLeftArm[1][0][0],pFrontLeftForearm[1][0][1],Renderer3D.CAR_RIGHT);
 
-		LineData FrontLeftArmS3=addLine(pFrontLeftForearm101,pFrontLeftArm101,pFrontLeftArm001,pFrontLeftForearm001,Renderer3D.CAR_BACK);
+		LineData FrontLeftArmS3=addLine(pFrontLeftForearm[1][0][1],pFrontLeftArm[1][0][0],pFrontLeftArm[0][0][0],pFrontLeftForearm[0][0][1],Renderer3D.CAR_BACK);
 	
 		
 		//frontRightLeg
 		
-		BPoint pFrontRightForearm000=addBPoint(-lgx+x_side-leg_side,y_side-leg_side,0);
-		BPoint pFrontRightForearm100=addBPoint(-lgx+x_side,y_side-leg_side,0);
-		BPoint pFrontRightForearm110=addBPoint(-lgx+x_side,y_side,0);
-		BPoint pFrontRightForearm010=addBPoint(-lgx+x_side-leg_side,y_side,0);
+		BPoint[][][] pFrontRightForearm=new BPoint[2][2][2];
 		
-		LineData FrontRightForearm=addLine(pFrontRightForearm000,pFrontRightForearm010,pFrontRightForearm110,pFrontRightForearm100,Renderer3D.CAR_FRONT);
+		pFrontRightForearm[0][0][0]=addBPoint(-lgx+x_side-leg_side,y_side-leg_side,0);
+		pFrontRightForearm[1][0][0]=addBPoint(-lgx+x_side,y_side-leg_side,0);
+		pFrontRightForearm[1][1][0]=addBPoint(-lgx+x_side,y_side,0);
+		pFrontRightForearm[0][1][0]=addBPoint(-lgx+x_side-leg_side,y_side,0);
+		
+		LineData FrontRightForearm=addLine(pFrontRightForearm[0][0][0],pFrontRightForearm[0][1][0],pFrontRightForearm[1][1][0],pFrontRightForearm[1][0][0],Renderer3D.CAR_FRONT);
 	
 
 		
-		BPoint pFrontRightForearm001=addBPoint(-lgx+x_side-leg_side,y_side-leg_side,radius_length);
-		BPoint pFrontRightForearm101=addBPoint(-lgx+x_side,y_side-leg_side,radius_length);
-		BPoint pFrontRightForearm111=addBPoint(-lgx+x_side,y_side,radius_length);
-		BPoint pFrontRightForearm011=addBPoint(-lgx+x_side-leg_side,y_side,radius_length);
+		pFrontRightForearm[0][0][1]=addBPoint(-lgx+x_side-leg_side,y_side-leg_side,radius_length);
+		pFrontRightForearm[1][0][1]=addBPoint(-lgx+x_side,y_side-leg_side,radius_length);
+		pFrontRightForearm[1][1][1]=addBPoint(-lgx+x_side,y_side,radius_length);
+		pFrontRightForearm[0][1][1]=addBPoint(-lgx+x_side-leg_side,y_side,radius_length);
 
 		
-		LineData frontRightForearmS0=addLine(pFrontRightForearm000,pFrontRightForearm001,pFrontRightForearm011,pFrontRightForearm010,Renderer3D.CAR_LEFT);
+		LineData frontRightForearmS0=addLine(pFrontRightForearm[0][0][0],pFrontRightForearm[0][0][1],pFrontRightForearm[0][1][1],pFrontRightForearm[0][1][0],Renderer3D.CAR_LEFT);
 
-		LineData frontRightForearmS1=addLine(pFrontRightForearm010,pFrontRightForearm011,pFrontRightForearm111,pFrontRightForearm110,Renderer3D.CAR_FRONT);
+		LineData frontRightForearmS1=addLine(pFrontRightForearm[0][1][0],pFrontRightForearm[0][1][1],pFrontRightForearm[1][1][1],pFrontRightForearm[1][1][0],Renderer3D.CAR_FRONT);
 
-		LineData frontRightForearmS2=addLine(pFrontRightForearm110,pFrontRightForearm111,pFrontRightForearm101,pFrontRightForearm100,Renderer3D.CAR_RIGHT);
+		LineData frontRightForearmS2=addLine(pFrontRightForearm[1][1][0],pFrontRightForearm[1][1][1],pFrontRightForearm[1][0][1],pFrontRightForearm[1][0][0],Renderer3D.CAR_RIGHT);
 	
-		LineData frontRightForearmS3=addLine(pFrontRightForearm100,pFrontRightForearm101,pFrontRightForearm001,pFrontRightForearm000,Renderer3D.CAR_BACK);
+		LineData frontRightForearmS3=addLine(pFrontRightForearm[1][0][0],pFrontRightForearm[1][0][1],pFrontRightForearm[0][0][1],pFrontRightForearm[0][0][0],Renderer3D.CAR_BACK);
 	
 		
 
 		//right arm
 		
-		BPoint pFrontRightArm001=addBPoint(-lgx+x_side-leg_side,y_side-leg_side,radius_length+humerus_length);
-		BPoint pFrontRightArm101=addBPoint(-lgx+x_side,y_side-leg_side,radius_length+humerus_length);
-		BPoint pFrontRightArm111=addBPoint(-lgx+x_side,y_side,radius_length+humerus_length);
-		BPoint pFrontRightArm011=addBPoint(-lgx+x_side-leg_side,y_side,radius_length+humerus_length);
+		BPoint[][][] pFrontRightArm=new BPoint[2][2][1];
 		
-		LineData topRightArm=addLine(pFrontRightArm001,pFrontRightArm101,pFrontRightArm111,pFrontRightArm011,Renderer3D.CAR_TOP);	
+		pFrontRightArm[0][0][0]=addBPoint(-lgx+x_side-leg_side,y_side-leg_side,radius_length+humerus_length);
+		pFrontRightArm[1][0][0]=addBPoint(-lgx+x_side,y_side-leg_side,radius_length+humerus_length);
+		pFrontRightArm[1][1][0]=addBPoint(-lgx+x_side,y_side,radius_length+humerus_length);
+		pFrontRightArm[0][1][0]=addBPoint(-lgx+x_side-leg_side,y_side,radius_length+humerus_length);
 		
-		LineData frontRightArmS0=addLine(pFrontRightForearm001,pFrontRightArm001,pFrontRightArm011,pFrontRightForearm011,Renderer3D.CAR_LEFT);
+		LineData topRightArm=addLine(pFrontRightArm[0][0][0],pFrontRightArm[1][0][0],pFrontRightArm[1][1][0],pFrontRightArm[0][1][0],Renderer3D.CAR_TOP);	
+		
+		LineData frontRightArmS0=addLine(pFrontRightForearm[0][0][1],pFrontRightArm[0][0][0],pFrontRightArm[0][1][0],pFrontRightForearm[0][1][1],Renderer3D.CAR_LEFT);
 	
-		LineData frontRightArmS1=addLine(pFrontRightForearm011,pFrontRightArm011,pFrontRightArm111,pFrontRightForearm111,Renderer3D.CAR_FRONT);
+		LineData frontRightArmS1=addLine(pFrontRightForearm[0][1][1],pFrontRightArm[0][1][0],pFrontRightArm[1][1][0],pFrontRightForearm[1][1][1],Renderer3D.CAR_FRONT);
 	
-		LineData frontRightArmS2=addLine(pFrontRightForearm111,pFrontRightArm111,pFrontRightArm101,pFrontRightForearm101,Renderer3D.CAR_RIGHT);
+		LineData frontRightArmS2=addLine(pFrontRightForearm[1][1][1],pFrontRightArm[1][1][0],pFrontRightArm[1][0][0],pFrontRightForearm[1][0][1],Renderer3D.CAR_RIGHT);
 	
-		LineData frontRightArmS3=addLine(pFrontRightForearm101,pFrontRightArm101,pFrontRightArm001,pFrontRightForearm001,Renderer3D.CAR_BACK);
+		LineData frontRightArmS3=addLine(pFrontRightForearm[1][0][1],pFrontRightArm[1][0][0],pFrontRightArm[0][0][0],pFrontRightForearm[0][0][1],Renderer3D.CAR_BACK);
 	
 		
 		/////////
