@@ -81,6 +81,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 	int max_stack_size=10;
 	
 	Car car=null;
+	private DoubleTextField wheel_radius;
 	
 
 	
@@ -296,6 +297,16 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		right.add(roof_height);
 		
 		r+=30;
+		
+		jlb=new JLabel("Wheel radius");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		wheel_radius=new DoubleTextField();
+		wheel_radius.setBounds(column, r, 100, 20);
+		wheel_radius.addKeyListener(this);
+		right.add(wheel_radius);
+		
+		r+=30;
 			
         generate=new JButton("Update");
         generate.setBounds(10,r,100,20);
@@ -332,6 +343,8 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		roof_width.setText(80);
 		roof_length.setText(130);
 		roof_height.setText(60);
+		
+		wheel_radius.setText(50);
 	}
 	
 
@@ -353,6 +366,8 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		roof_width.setText(120);
 		roof_length.setText(150);
 		roof_height.setText(100);
+		
+		wheel_radius.setText(50);
 	}
 	
 	public void initRightBykeData() { 
@@ -373,6 +388,8 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		roof_width.setText(120);
 		roof_length.setText(150);
 		roof_height.setText(100);
+		
+		wheel_radius.setText(50);
 	}
 	
 	private void initRightTractorData() {
@@ -394,6 +411,8 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		roof_width.setText(120);
 		roof_length.setText(150);
 		roof_height.setText(100);
+		
+		wheel_radius.setText(50);
 	
 		
 	}
@@ -544,6 +563,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 			double roofWidth=roof_width.getvalue();
 			double roofLength=roof_length.getvalue();
 			double roofHeight=roof_height.getvalue();
+			double wheelRadius=wheel_radius.getvalue();
 			
 			 ValuePair vp= (ValuePair)car_type.getSelectedItem();
 				
@@ -558,7 +578,8 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 						xside,yside,zside,
 						frontWidth,frontLength,frontHeight,
 						backWidth,backLength,backHeight,
-						roofWidth,roofLength,roofHeight);
+						roofWidth,roofLength,roofHeight,
+						wheelRadius);
 				
 			}else{
 				
@@ -567,7 +588,8 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 						xside,yside,zside,
 						frontWidth,frontLength,frontHeight,
 						backWidth,backLength,backHeight,
-						roofWidth,roofLength,roofHeight);
+						roofWidth,roofLength,roofHeight,
+						wheelRadius);
 				
 				car=expCar;
 			}
