@@ -1186,7 +1186,7 @@ public class Car extends CustomData {
 		BPoint[][][] leftFrame=new BPoint[2][2][2];
 		
 		
-		double frame_side=30;
+		double frame_side=15;
 		double xc=-frame_side*0.5;
 		
 		Segments lf=new Segments(xc,frame_side,back_length,y_side,wheel_radius,2*z_side);
