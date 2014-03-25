@@ -1221,7 +1221,7 @@ public class Car extends CustomData {
 	
 		xc=track+frame_side*0.5;
 		
-		Segments rf=new Segments(xc,frame_side,back_length,y_side,wheel_radius,2*z_side);
+		Segments rf=new Segments(xc,frame_side,back_length,y_side,wheel_radius,wheel_radius+z_side);
 
 		rightFrame[0][0][0]=addBPoint(-0.5,0.0,0,rf);
 		rightFrame[1][0][0]=addBPoint(0.5,0.0,0,rf);
