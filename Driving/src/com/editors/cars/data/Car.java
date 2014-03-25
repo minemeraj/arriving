@@ -1193,13 +1193,13 @@ public class Car extends CustomData {
 
 		leftFrame[0][0][0]=addBPoint(-0.5,0.0,0,lf);
 		leftFrame[1][0][0]=addBPoint(0.5,0.0,0,lf);
-		leftFrame[1][1][0]=addBPoint(0.5,1.0,0,lf);
-		leftFrame[0][1][0]=addBPoint(-0.5,1.0,0,lf);
+		leftFrame[1][1][0]=addBPoint(0.5,0.25,0,lf);
+		leftFrame[0][1][0]=addBPoint(-0.5,0.25,0,lf);
 		
 		leftFrame[0][0][1]=addBPoint(-0.5,0.25,1.0,lf);
 		leftFrame[1][0][1]=addBPoint(0.5,0.25,1.0,lf);
-		leftFrame[0][1][1]=addBPoint(-0.5,0.75,1.0,lf);
-		leftFrame[1][1][1]=addBPoint(0.5,0.75,1.0,lf);	
+		leftFrame[0][1][1]=addBPoint(-0.5,0.5,1.0,lf);
+		leftFrame[1][1][1]=addBPoint(0.5,0.5,1.0,lf);	
 			
 
 
@@ -1216,8 +1216,7 @@ public class Car extends CustomData {
 		addLine(leftFrame[0][1][0],leftFrame[0][1][1],leftFrame[1][1][1],leftFrame[1][1][0],Renderer3D.CAR_FRONT);		
 
 		
-		BPoint[][][] rightFrame=new BPoint[2][2][2];
-		
+		BPoint[][][] rightFrame=new BPoint[2][2][2];		
 		
 	
 		xc=track+frame_side*0.5;
@@ -1226,14 +1225,13 @@ public class Car extends CustomData {
 
 		rightFrame[0][0][0]=addBPoint(-0.5,0.0,0,rf);
 		rightFrame[1][0][0]=addBPoint(0.5,0.0,0,rf);
-		rightFrame[1][1][0]=addBPoint(0.5,1.0,0,rf);
-		rightFrame[0][1][0]=addBPoint(-0.5,1.0,0,rf);
+		rightFrame[1][1][0]=addBPoint(0.5,0.25,0,rf);
+		rightFrame[0][1][0]=addBPoint(-0.5,0.25,0,rf);
 				
 		rightFrame[0][0][1]=addBPoint(-0.5,0.25,1.0,rf);	
 		rightFrame[1][0][1]=addBPoint(0.5,0.25,1.0,rf);
-		rightFrame[0][1][1]=addBPoint(-0.5,0.75,1.0,rf);		
-		rightFrame[1][1][1]=addBPoint(0.5,0.75,1.0,rf);	
-		
+		rightFrame[0][1][1]=addBPoint(-0.5,0.5,1.0,rf);		
+		rightFrame[1][1][1]=addBPoint(0.5,0.5,1.0,rf);		
 
 
 		addLine(rightFrame[0][0][1],rightFrame[1][0][1],rightFrame[1][1][1],rightFrame[0][1][1],Renderer3D.CAR_TOP);
@@ -1246,7 +1244,117 @@ public class Car extends CustomData {
 
 		addLine(rightFrame[0][0][0],rightFrame[1][0][0],rightFrame[1][0][1],rightFrame[0][0][1],Renderer3D.CAR_BACK);
 
-		addLine(rightFrame[0][1][0],rightFrame[0][1][1],rightFrame[1][1][1],rightFrame[1][1][0],Renderer3D.CAR_FRONT);		
+		addLine(rightFrame[0][1][0],rightFrame[0][1][1],rightFrame[1][1][1],rightFrame[1][1][0],Renderer3D.CAR_FRONT);	
+		
+		
+		
+		BPoint[][][] leftFork=new BPoint[2][2][2];	
+		
+		leftFork[0][0][0]=addBPoint(-0.5,0.8,0,lf);
+		leftFork[1][0][0]=addBPoint(0.5,0.8,0,lf);
+		leftFork[1][1][0]=addBPoint(0.5,1.0,0,lf);
+		leftFork[0][1][0]=addBPoint(-0.5,1.0,0,lf);
+				
+		leftFork[0][0][1]=addBPoint(-0.5,0.5,1.0,lf);	
+		leftFork[1][0][1]=addBPoint(0.5,0.5,1.0,lf);
+		leftFork[0][1][1]=addBPoint(-0.5,0.8,1.0,lf);		
+		leftFork[1][1][1]=addBPoint(0.5,0.8,1.0,lf);		
+
+
+		addLine(leftFork[0][0][1],leftFork[1][0][1],leftFork[1][1][1],leftFork[0][1][1],Renderer3D.CAR_TOP);
+
+		addLine(leftFork[0][0][0],leftFork[0][1][0],leftFork[1][1][0],leftFork[1][0][0],Renderer3D.CAR_BOTTOM);
+
+		addLine(leftFork[0][0][0],leftFork[0][0][1],leftFork[0][1][1],leftFork[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(leftFork[1][0][0],leftFork[1][1][0],leftFork[1][1][1],leftFork[1][0][1],Renderer3D.CAR_RIGHT);
+
+		addLine(leftFork[0][0][0],leftFork[1][0][0],leftFork[1][0][1],leftFork[0][0][1],Renderer3D.CAR_BACK);
+
+		addLine(leftFork[0][1][0],leftFork[0][1][1],leftFork[1][1][1],leftFork[1][1][0],Renderer3D.CAR_FRONT);
+		
+		
+		BPoint[][][] rightFork=new BPoint[2][2][2];	
+		
+		rightFork[0][0][0]=addBPoint(-0.5,0.8,0,rf);
+		rightFork[1][0][0]=addBPoint(0.5,0.8,0,rf);
+		rightFork[1][1][0]=addBPoint(0.5,1.0,0,rf);
+		rightFork[0][1][0]=addBPoint(-0.5,1.0,0,rf);
+				
+		rightFork[0][0][1]=addBPoint(-0.5,0.5,1.0,rf);	
+		rightFork[1][0][1]=addBPoint(0.5,0.5,1.0,rf);
+		rightFork[0][1][1]=addBPoint(-0.5,0.8,1.0,rf);		
+		rightFork[1][1][1]=addBPoint(0.5,0.8,1.0,rf);		
+
+
+		addLine(rightFork[0][0][1],rightFork[1][0][1],rightFork[1][1][1],rightFork[0][1][1],Renderer3D.CAR_TOP);
+
+		addLine(rightFork[0][0][0],rightFork[0][1][0],rightFork[1][1][0],rightFork[1][0][0],Renderer3D.CAR_BOTTOM);
+
+		addLine(rightFork[0][0][0],rightFork[0][0][1],rightFork[0][1][1],rightFork[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(rightFork[1][0][0],rightFork[1][1][0],rightFork[1][1][1],rightFork[1][0][1],Renderer3D.CAR_RIGHT);
+
+		addLine(rightFork[0][0][0],rightFork[1][0][0],rightFork[1][0][1],rightFork[0][0][1],Renderer3D.CAR_BACK);
+
+		addLine(rightFork[0][1][0],rightFork[0][1][1],rightFork[1][1][1],rightFork[1][1][0],Renderer3D.CAR_FRONT);
+		
+		xc=track/2.0;
+		
+		Segments bd=new Segments(xc,track,back_length,y_side,2*wheel_radius,z_side);
+		
+		BPoint[][][] body=new BPoint[2][2][2];	
+		
+		body[0][0][0]=addBPoint(-0.5,0.0,0,bd);
+		body[1][0][0]=addBPoint(0.5,0.0,0,bd);
+		body[1][1][0]=addBPoint(0.5,1.0,0,bd);
+		body[0][1][0]=addBPoint(-0.5,1.0,0,bd);
+				
+		body[0][0][1]=addBPoint(-0.5,0.0,1.0,bd);	
+		body[1][0][1]=addBPoint(0.5,0.0,1.0,bd);
+		body[0][1][1]=addBPoint(-0.5,1.0,1.0,bd);		
+		body[1][1][1]=addBPoint(0.5,1.0,1.0,bd);		
+
+
+		addLine(body[0][0][1],body[1][0][1],body[1][1][1],body[0][1][1],Renderer3D.CAR_TOP);
+
+		addLine(body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0],Renderer3D.CAR_BOTTOM);
+
+		addLine(body[0][0][0],body[0][0][1],body[0][1][1],body[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(body[1][0][0],body[1][1][0],body[1][1][1],body[1][0][1],Renderer3D.CAR_RIGHT);
+
+		addLine(body[0][0][0],body[1][0][0],body[1][0][1],body[0][0][1],Renderer3D.CAR_BACK);
+
+		addLine(body[0][1][0],body[0][1][1],body[1][1][1],body[1][1][0],Renderer3D.CAR_FRONT);
+		
+		
+		BPoint[][][] handlebar=new BPoint[2][2][2];	
+		
+		Segments hb=new Segments(xc,front_width,back_length+y_side*0.75,y_side*0.25,2*wheel_radius+z_side,z_side);
+		
+		handlebar[0][0][0]=addBPoint(-0.5,0.0,0,hb);
+		handlebar[1][0][0]=addBPoint(0.5,0.0,0,hb);
+		handlebar[1][1][0]=addBPoint(0.5,1.0,0,hb);
+		handlebar[0][1][0]=addBPoint(-0.5,1.0,0,hb);
+				
+		handlebar[0][0][1]=addBPoint(-0.5,0.0,1.0,hb);	
+		handlebar[1][0][1]=addBPoint(0.5,0.0,1.0,hb);
+		handlebar[0][1][1]=addBPoint(-0.5,1.0,1.0,hb);		
+		handlebar[1][1][1]=addBPoint(0.5,1.0,1.0,hb);		
+
+
+		addLine(handlebar[0][0][1],handlebar[1][0][1],handlebar[1][1][1],handlebar[0][1][1],Renderer3D.CAR_TOP);
+
+		addLine(handlebar[0][0][0],handlebar[0][1][0],handlebar[1][1][0],handlebar[1][0][0],Renderer3D.CAR_BOTTOM);
+
+		addLine(handlebar[0][0][0],handlebar[0][0][1],handlebar[0][1][1],handlebar[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(handlebar[1][0][0],handlebar[1][1][0],handlebar[1][1][1],handlebar[1][0][1],Renderer3D.CAR_RIGHT);
+
+		addLine(handlebar[0][0][0],handlebar[1][0][0],handlebar[1][0][1],handlebar[0][0][1],Renderer3D.CAR_BACK);
+
+		addLine(handlebar[0][1][0],handlebar[0][1][1],handlebar[1][1][1],handlebar[1][1][0],Renderer3D.CAR_FRONT);
 
 		
 		PolygonMesh pm=new PolygonMesh(points,polyData);
