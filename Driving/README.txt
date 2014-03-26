@@ -52,6 +52,8 @@
 	*
 	* java -classpath Driving.jar    com.editors.cars.CarsEditor
 	*
+	* java -classpath Driving.jar    com.editors.weapons.WeaponsEditor
+	*
 	*
 	**** To launch other experimental editors:
 	*
