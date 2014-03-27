@@ -12,15 +12,15 @@ import com.main.Renderer3D;
 public class Weapon extends CustomData{
 
 	double barrel_lenght=0; 
-	double barrel_radius=0;
-		
+	double barrel_radius=0;		
 	int barrel_meridians=0;
-	int barrel_parallels=0;
 	
-	
+		
 	public static int WEAPON_TYPE_SHOTGUN=0;
 	public int weapon_type=WEAPON_TYPE_SHOTGUN;
 	
+	
+	int barrel_parallels=0;
 	double foliage_length=0;
 	double foliage_radius=0;
 	int foliage_lobes=0;
@@ -100,13 +100,13 @@ public class Weapon extends CustomData{
 		BPoint[] uTrunkpoints=new BPoint[barrel_meridians];
 		BPoint[] bTrunkpoints=new BPoint[barrel_meridians];
 		
-		
 		for (int i = 0; i < barrel_meridians; i++) {
+		
 			
 			double x=barrel_radius*Math.cos(2*Math.PI/barrel_meridians*i);
-			double y=barrel_radius*Math.sin(2*Math.PI/barrel_meridians*i);
+			double z=barrel_radius*Math.sin(2*Math.PI/barrel_meridians*i);
 			
-			uTrunkpoints[i]=addBPoint(x,y,barrel_lenght);
+			uTrunkpoints[i]=addBPoint(x,barrel_lenght,z);
 			
 			
 		}
@@ -114,7 +114,9 @@ public class Weapon extends CustomData{
 
 		LineData topLD=new LineData();
 		
-		for (int i = 0; i < barrel_meridians; i++) {
+		
+			
+			for (int i = barrel_meridians-1; i >=0; i--) {
 			
 			topLD.addIndex(uTrunkpoints[i].getIndex());
 			
@@ -125,16 +127,16 @@ public class Weapon extends CustomData{
 		for (int i = 0; i < barrel_meridians; i++) {
 			
 			double x=barrel_radius*Math.cos(2*Math.PI/barrel_meridians*i);
-			double y=barrel_radius*Math.sin(2*Math.PI/barrel_meridians*i);
+			double z=barrel_radius*Math.sin(2*Math.PI/barrel_meridians*i);
 			
-			bTrunkpoints[i]=addBPoint(x,y,0);
+			bTrunkpoints[i]=addBPoint(x,0,z);
 			
 		}
 
 
 		LineData bottomLD=new LineData();
 		
-		for (int i = barrel_meridians-1; i >=0; i--) {
+		for (int i = 0; i < barrel_meridians; i++) {
 			
 			bottomLD.addIndex(bTrunkpoints[i].getIndex());
 			
@@ -148,10 +150,11 @@ public class Weapon extends CustomData{
 			
 			LineData sideLD=new LineData();
 			
-			sideLD.addIndex(bTrunkpoints[i].getIndex());
+			
 			sideLD.addIndex(bTrunkpoints[(i+1)%barrel_meridians].getIndex());
+			sideLD.addIndex(bTrunkpoints[i].getIndex());
+			sideLD.addIndex(uTrunkpoints[i].getIndex());
 			sideLD.addIndex(uTrunkpoints[(i+1)%barrel_meridians].getIndex());
-			sideLD.addIndex(uTrunkpoints[i].getIndex());	
 			sideLD.setData(""+getFace(sideLD,points));
 			polyData.add(sideLD);
 			

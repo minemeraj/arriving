@@ -1186,7 +1186,7 @@ public class Car extends CustomData {
 		BPoint[][][] leftFrame=new BPoint[2][2][2];
 		
 		
-		double frame_side=15;
+		double frame_side=(x_side-track)*0.5;
 		double xc=-frame_side*0.5;
 		
 		Segments lf=new Segments(xc,frame_side,back_length,y_side,wheel_radius,2*z_side);
@@ -1250,10 +1250,10 @@ public class Car extends CustomData {
 		
 		BPoint[][][] leftFork=new BPoint[2][2][2];	
 		
-		leftFork[0][0][0]=addBPoint(-0.5,0.82,0,lf);
-		leftFork[1][0][0]=addBPoint(0.5,0.82,0,lf);		
-		leftFork[0][1][0]=addBPoint(-0.5,1.0,0,lf);
-		leftFork[1][1][0]=addBPoint(0.5,1.0,0,lf);
+		leftFork[0][0][0]=addBPoint(-0.5,0.91,0,lf);
+		leftFork[1][0][0]=addBPoint(0.5,0.91,0,lf);		
+		leftFork[0][1][0]=addBPoint(-0.5,1.09,0,lf);
+		leftFork[1][1][0]=addBPoint(0.5,1.09,0,lf);
 				
 		leftFork[0][0][1]=addBPoint(-0.5,0.82,1.0,lf);	
 		leftFork[1][0][1]=addBPoint(0.5,0.82,1.0,lf);
@@ -1276,10 +1276,10 @@ public class Car extends CustomData {
 		
 		BPoint[][][] rightFork=new BPoint[2][2][2];	
 		
-		rightFork[0][0][0]=addBPoint(-0.5,0.82,0,rf);
-		rightFork[1][0][0]=addBPoint(0.5,0.82,0,rf);	
-		rightFork[0][1][0]=addBPoint(-0.5,1.0,0,rf);
-		rightFork[1][1][0]=addBPoint(0.5,1.0,0,rf);
+		rightFork[0][0][0]=addBPoint(-0.5,0.91,0,rf);
+		rightFork[1][0][0]=addBPoint(0.5,0.91,0,rf);	
+		rightFork[0][1][0]=addBPoint(-0.5,1.09,0,rf);
+		rightFork[1][1][0]=addBPoint(0.5,1.09,0,rf);
 				
 		rightFork[0][0][1]=addBPoint(-0.5,0.82,1.0,rf);	
 		rightFork[1][0][1]=addBPoint(0.5,0.82,1.0,rf);

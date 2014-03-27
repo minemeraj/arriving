@@ -373,7 +373,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 	public void initRightBykeData() { 
 		
 		
-		x_side.setText(100);
+		x_side.setText(50);
 		y_side.setText(150);
 		z_side.setText(50);
 		
