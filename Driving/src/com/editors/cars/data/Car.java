@@ -1193,13 +1193,13 @@ public class Car extends CustomData {
 
 		leftFrame[0][0][0]=addBPoint(-0.5,0.0,0,lf);
 		leftFrame[1][0][0]=addBPoint(0.5,0.0,0,lf);
-		leftFrame[1][1][0]=addBPoint(0.5,0.25,0,lf);
-		leftFrame[0][1][0]=addBPoint(-0.5,0.25,0,lf);
+		leftFrame[1][1][0]=addBPoint(0.5,0.42,0,lf);
+		leftFrame[0][1][0]=addBPoint(-0.5,0.42,0,lf);
 		
-		leftFrame[0][0][1]=addBPoint(-0.5,0.25,1.0,lf);
-		leftFrame[1][0][1]=addBPoint(0.5,0.25,1.0,lf);
-		leftFrame[0][1][1]=addBPoint(-0.5,0.5,1.0,lf);
-		leftFrame[1][1][1]=addBPoint(0.5,0.5,1.0,lf);	
+		leftFrame[0][0][1]=addBPoint(-0.5,0.26,1.0,lf);
+		leftFrame[1][0][1]=addBPoint(0.5,0.26,1.0,lf);
+		leftFrame[0][1][1]=addBPoint(-0.5,0.82,1.0,lf);
+		leftFrame[1][1][1]=addBPoint(0.5,0.82,1.0,lf);	
 			
 
 
@@ -1225,13 +1225,13 @@ public class Car extends CustomData {
 
 		rightFrame[0][0][0]=addBPoint(-0.5,0.0,0,rf);
 		rightFrame[1][0][0]=addBPoint(0.5,0.0,0,rf);
-		rightFrame[1][1][0]=addBPoint(0.5,0.25,0,rf);
-		rightFrame[0][1][0]=addBPoint(-0.5,0.25,0,rf);
+		rightFrame[1][1][0]=addBPoint(0.5,0.42,0,rf);
+		rightFrame[0][1][0]=addBPoint(-0.5,0.42,0,rf);
 				
-		rightFrame[0][0][1]=addBPoint(-0.5,0.25,1.0,rf);	
-		rightFrame[1][0][1]=addBPoint(0.5,0.25,1.0,rf);
-		rightFrame[0][1][1]=addBPoint(-0.5,0.5,1.0,rf);		
-		rightFrame[1][1][1]=addBPoint(0.5,0.5,1.0,rf);		
+		rightFrame[0][0][1]=addBPoint(-0.5,0.26,1.0,rf);	
+		rightFrame[1][0][1]=addBPoint(0.5,0.26,1.0,rf);
+		rightFrame[0][1][1]=addBPoint(-0.5,0.82,1.0,rf);		
+		rightFrame[1][1][1]=addBPoint(0.5,0.82,1.0,rf);		
 
 
 		addLine(rightFrame[0][0][1],rightFrame[1][0][1],rightFrame[1][1][1],rightFrame[0][1][1],Renderer3D.CAR_TOP);
@@ -1250,15 +1250,15 @@ public class Car extends CustomData {
 		
 		BPoint[][][] leftFork=new BPoint[2][2][2];	
 		
-		leftFork[0][0][0]=addBPoint(-0.5,0.8,0,lf);
-		leftFork[1][0][0]=addBPoint(0.5,0.8,0,lf);
-		leftFork[1][1][0]=addBPoint(0.5,1.0,0,lf);
+		leftFork[0][0][0]=addBPoint(-0.5,0.82,0,lf);
+		leftFork[1][0][0]=addBPoint(0.5,0.82,0,lf);		
 		leftFork[0][1][0]=addBPoint(-0.5,1.0,0,lf);
+		leftFork[1][1][0]=addBPoint(0.5,1.0,0,lf);
 				
-		leftFork[0][0][1]=addBPoint(-0.5,0.5,1.0,lf);	
-		leftFork[1][0][1]=addBPoint(0.5,0.5,1.0,lf);
-		leftFork[0][1][1]=addBPoint(-0.5,0.8,1.0,lf);		
-		leftFork[1][1][1]=addBPoint(0.5,0.8,1.0,lf);		
+		leftFork[0][0][1]=addBPoint(-0.5,0.82,1.0,lf);	
+		leftFork[1][0][1]=addBPoint(0.5,0.82,1.0,lf);
+		leftFork[0][1][1]=addBPoint(-0.5,1.0,1.0,lf);		
+		leftFork[1][1][1]=addBPoint(0.5,1.0,1.0,lf);		
 
 
 		addLine(leftFork[0][0][1],leftFork[1][0][1],leftFork[1][1][1],leftFork[0][1][1],Renderer3D.CAR_TOP);
@@ -1276,15 +1276,15 @@ public class Car extends CustomData {
 		
 		BPoint[][][] rightFork=new BPoint[2][2][2];	
 		
-		rightFork[0][0][0]=addBPoint(-0.5,0.8,0,rf);
-		rightFork[1][0][0]=addBPoint(0.5,0.8,0,rf);
-		rightFork[1][1][0]=addBPoint(0.5,1.0,0,rf);
+		rightFork[0][0][0]=addBPoint(-0.5,0.82,0,rf);
+		rightFork[1][0][0]=addBPoint(0.5,0.82,0,rf);	
 		rightFork[0][1][0]=addBPoint(-0.5,1.0,0,rf);
+		rightFork[1][1][0]=addBPoint(0.5,1.0,0,rf);
 				
-		rightFork[0][0][1]=addBPoint(-0.5,0.5,1.0,rf);	
-		rightFork[1][0][1]=addBPoint(0.5,0.5,1.0,rf);
-		rightFork[0][1][1]=addBPoint(-0.5,0.8,1.0,rf);		
-		rightFork[1][1][1]=addBPoint(0.5,0.8,1.0,rf);		
+		rightFork[0][0][1]=addBPoint(-0.5,0.82,1.0,rf);	
+		rightFork[1][0][1]=addBPoint(0.5,0.82,1.0,rf);
+		rightFork[0][1][1]=addBPoint(-0.5,1.0,1.0,rf);		
+		rightFork[1][1][1]=addBPoint(0.5,1.0,1.0,rf);		
 
 
 		addLine(rightFork[0][0][1],rightFork[1][0][1],rightFork[1][1][1],rightFork[0][1][1],Renderer3D.CAR_TOP);
@@ -1331,7 +1331,7 @@ public class Car extends CustomData {
 		
 		BPoint[][][] handlebar=new BPoint[2][2][2];	
 		
-		Segments hb=new Segments(xc,front_width,back_length+y_side*0.75,y_side*0.25,2*wheel_radius+z_side,z_side);
+		Segments hb=new Segments(xc,front_width,back_length+y_side*0.75,y_side*0.25,2*wheel_radius+z_side,front_height);
 		
 		handlebar[0][0][0]=addBPoint(-0.5,0.0,0,hb);
 		handlebar[1][0][0]=addBPoint(0.5,0.0,0,hb);
