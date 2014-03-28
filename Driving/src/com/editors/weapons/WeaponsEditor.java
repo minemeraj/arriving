@@ -1,5 +1,6 @@
 package com.editors.weapons;
 
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -62,11 +63,14 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 	private DoubleTextField barrel_length;
 	private DoubleTextField barrel_radius;
 	private IntegerTextField barrel_meridians;
-	private IntegerTextField barrel_parallels;
 	
-	private DoubleTextField foliage_length;
-	private DoubleTextField foliage_radius;	
-	private IntegerTextField foliage_lobes;
+	private DoubleTextField breech_length;
+	private DoubleTextField breech_width;
+	private DoubleTextField breech_height;
+	private DoubleTextField butt_length;
+	private DoubleTextField butt_width;
+	private DoubleTextField butt_height;
+
 	
 	private JButton generate;
 	
@@ -78,6 +82,7 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 	
 	Weapon weapon=null;
 	private JComboBox weapon_type;
+
 
 	
 	
@@ -165,6 +170,7 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		weapon_type.addKeyListener(this);
 		weapon_type.addItem(new ValuePair("-1",""));
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_SHOTGUN,"Shotgun"));
+		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_GUN,"Gun"));
 		weapon_type.addItemListener(this);
 		
 		weapon_type.setSelectedIndex(0);
@@ -190,25 +196,6 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		barrel_radius.addKeyListener(this);
 		right.add(barrel_radius);
 		
-		r+=30;
-		
-		jlb=new JLabel("");
-		jlb.setBounds(5, r, 100, 20);
-		right.add(jlb);
-		foliage_length=new DoubleTextField();
-		foliage_length.setBounds(column, r, 100, 20);
-		foliage_length.addKeyListener(this);
-		right.add(foliage_length);
-		
-		r+=30;
-		
-		jlb=new JLabel("");
-		jlb.setBounds(5, r, 100, 20);
-		right.add(jlb);
-		foliage_radius=new DoubleTextField();
-		foliage_radius.setBounds(column, r, 100, 20);
-		foliage_radius.addKeyListener(this);
-		right.add(foliage_radius);
 		
 		r+=30;
 		
@@ -222,23 +209,65 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		
 		r+=30;
 		
-		jlb=new JLabel("Barrel parall");
+		jlb=new JLabel("breech_length");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
-		barrel_parallels=new IntegerTextField();
-		barrel_parallels.setBounds(column, r, 100, 20);
-		barrel_parallels.addKeyListener(this);
-		right.add(barrel_parallels);
+		breech_length=new DoubleTextField();
+		breech_length.setBounds(column, r, 100, 20);
+		breech_length.addKeyListener(this);
+		right.add(breech_length);
 		
 		r+=30;
 		
-		jlb=new JLabel("");
+		jlb=new JLabel("breech_width");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
-		foliage_lobes=new IntegerTextField();
-		foliage_lobes.setBounds(column, r, 100, 20);
-		foliage_lobes.addKeyListener(this);
-		right.add(foliage_lobes);
+		breech_width=new DoubleTextField();
+		breech_width.setBounds(column, r, 100, 20);
+		breech_width.addKeyListener(this);
+		right.add(breech_width);
+
+		
+		r+=30;
+		
+		jlb=new JLabel("breech_height");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		breech_height=new DoubleTextField();
+		breech_height.setBounds(column, r, 100, 20);
+		breech_height.addKeyListener(this);
+		right.add(breech_height);
+		
+		r+=30;
+		
+		jlb=new JLabel("butt_length");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		butt_length=new DoubleTextField();
+		butt_length.setBounds(column, r, 100, 20);
+		butt_length.addKeyListener(this);
+		right.add(butt_length);
+		
+		r+=30;
+		
+		jlb=new JLabel("butt_width");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		butt_width=new DoubleTextField();
+		butt_width.setBounds(column, r, 100, 20);
+		butt_width.addKeyListener(this);
+		right.add(butt_width);
+		
+		r+=30;
+		
+		jlb=new JLabel("butt_height");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		butt_height=new DoubleTextField();
+		butt_height.setBounds(column, r, 100, 20);
+		butt_height.addKeyListener(this);
+		right.add(butt_height);
+
 		
 		r+=30;
 			
@@ -266,33 +295,58 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		barrel_length.setText(200);
 		barrel_radius.setText(50);	
 		barrel_meridians.setText(12);
-		barrel_parallels.setText(8);
+
+		breech_length.setText(100);
+		breech_width.setText(100);
+		breech_height.setText(100);
 		
-		foliage_length.setText(200);
-		foliage_radius.setText(200);
-	
-		foliage_lobes.setText(0);
+		butt_length.setText(50);
+		butt_width.setText(100);
+		butt_height.setText(200);
+		
+
 	}
 	
-	private void setRightData(Weapon plant) {
+	public void initRightGunData() {
+		
+		barrel_length.setText(200);
+		barrel_radius.setText(50);	
+		barrel_meridians.setText(12);
+
+		breech_length.setText(100);
+		breech_width.setText(100);
+		breech_height.setText(100);
+		
+		butt_length.setText(50);
+		butt_width.setText(100);
+		butt_height.setText(200);
+		
+
+	}
+	
+	private void setRightData(Weapon weapon) {
 		
 		for (int i = 0; i < weapon_type.getItemCount(); i++) {
 			ValuePair vp= (ValuePair) weapon_type.getItemAt(i);
-			if(vp.getId().equals(""+plant.getWeapon_type()))
+			if(vp.getId().equals(""+weapon.getWeapon_type()))
 			{
 				weapon_type.setSelectedIndex(i);
 				break;
 			}	
 		}
 	
-		barrel_length.setText(plant.getBarrel_lenght());
-		barrel_radius.setText(plant.getBarrel_radius());
-		barrel_meridians.setText(plant.getBarrel_meridians());
-		barrel_parallels.setText(plant.getBarrel_parallels());
+		barrel_length.setText(weapon.getBarrel_lenght());
+		barrel_radius.setText(weapon.getBarrel_radius());
+		barrel_meridians.setText(weapon.getBarrel_meridians());
 		
-		foliage_length.setText(plant.getBarrel_length());
-		foliage_radius.setText(plant.getFoliage_radius());
-		foliage_lobes.setText(plant.getFoliage_lobes());
+		breech_length.setText(weapon.getBreech_length());
+		breech_width.setText(weapon.getBreech_width());
+		breech_height.setText(weapon.getBreech_height());
+		
+		butt_length.setText(weapon.getButt_length());
+		butt_width.setText(weapon.getButt_width());
+		butt_height.setText(weapon.getButt_height());
+
 	}
 
 	
@@ -403,24 +457,35 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 			    	type=Weapon.WEAPON_TYPE_SHOTGUN;
 			
 			
-			double trunckLength=barrel_length.getvalue();
-			double trunkRadius=barrel_radius.getvalue();
-			double foliageLength=foliage_length.getvalue();
-			double foliageRadius=foliage_radius.getvalue();
-			int foliageParallels=barrel_parallels.getvalue();
-			int foliageMeridians=barrel_meridians.getvalue();
-			int foliageLobes=foliage_lobes.getvalue();
+			double barrelLength=barrel_length.getvalue();
+			double barrelRadius=barrel_radius.getvalue();
+			int barrelMeridians=barrel_meridians.getvalue();
 			
+			double breechLength=breech_length.getvalue();
+			double breechWidth=breech_width.getvalue();
+			double breechHeight=breech_height.getvalue();
+			
+			double buttLength=butt_length.getvalue();
+			double buttWidth=butt_width.getvalue();
+			double buttHeight=butt_height.getvalue();
+
+	
 			if(weapon==null){
 				
-				weapon=new Weapon(trunckLength,trunkRadius,foliageLength,foliageRadius,
-						foliageMeridians,foliageParallels,foliageLobes
+				weapon=new Weapon(
+							type,
+							barrelLength,barrelRadius,barrelMeridians,
+							breechLength,breechWidth,breechHeight,
+							buttLength,buttWidth,buttHeight
 						);
 				
 			}else{
 				
-				Weapon expWeapon = new Weapon(trunckLength,trunkRadius,foliageLength,foliageRadius,
-						foliageMeridians,foliageParallels,foliageLobes
+				Weapon expWeapon = new Weapon(
+							type,
+							barrelLength,barrelRadius,barrelMeridians,
+							breechLength,breechWidth,breechHeight,
+							buttLength,buttWidth,buttHeight
 						);
 				
 				weapon=expWeapon;
@@ -669,7 +734,7 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 			   if(type==Weapon.WEAPON_TYPE_SHOTGUN)
 				   initRightShotgunData();
 			   else
-				   initRightShotgunData();
+				   initRightGunData();
 			
 		}
 
