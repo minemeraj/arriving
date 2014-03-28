@@ -16,10 +16,9 @@ public class Weapon extends CustomData{
 	double barrel_radius=0;		
 	int barrel_meridians=0;
 	
-		
-	public static int WEAPON_TYPE_SHOTGUN=0;
-	public static int WEAPON_TYPE_GUN=1;
-	public int weapon_type=WEAPON_TYPE_SHOTGUN;
+	public static int WEAPON_TYPE_GUN=0;	
+	public static int WEAPON_TYPE_SHOTGUN=1;	
+	public int weapon_type=WEAPON_TYPE_GUN;
 	
 	
 	
@@ -312,63 +311,63 @@ public class Weapon extends CustomData{
 		int bny=5;
 		int bnz=2;
 		
-		BPoint[][][] p=new BPoint[bnx][bny][bnz];
+		BPoint[][][] breech=new BPoint[bnx][bny][bnz];
 		
 		double xc=0.0;
 		
-		Segments b0=new Segments(xc,breech_width,butt_length,butt_length,0,breech_height);
+		Segments b0=new Segments(xc,breech_width,0,breech_length,0,breech_height);
 
-		p[0][0][0]=addBPoint(-0.5,0,0,b0);
-		p[1][0][0]=addBPoint(-0.25,0.0,0,b0);
-		p[2][0][0]=addBPoint(0.0,0.0,0,b0);
-		p[3][0][0]=addBPoint(0.25,0.0,0,b0);
-		p[4][0][0]=addBPoint(0.5,0.0,0,b0);
-		p[0][1][0]=addBPoint(-0.5,0.25,0,b0);
-		p[1][1][0]=addBPoint(-0.25,0.25,0,b0);
-		p[2][1][0]=addBPoint(0.0,0.25,0,b0);
-		p[3][1][0]=addBPoint(0.25,0.25,0,b0);
-		p[4][1][0]=addBPoint(0.5,0.25,0,b0);
-		p[0][2][0]=addBPoint(-0.5,0.5,0,b0);
-		p[1][2][0]=addBPoint(-0.25,0.5,0,b0);
-		p[2][2][0]=addBPoint(0.0,0.5,0,b0);
-		p[3][2][0]=addBPoint(0.25,0.5,0,b0);
-		p[4][2][0]=addBPoint(0.5,0.5,0,b0);
-		p[0][3][0]=addBPoint(-0.5,0.75,0,b0);
-		p[1][3][0]=addBPoint(-0.25,0.75,0,b0);
-		p[2][3][0]=addBPoint(0.0,0.75,0,b0);
-		p[3][3][0]=addBPoint(0.25,0.75,0,b0);
-		p[4][3][0]=addBPoint(0.5,0.75,0,b0);
-		p[0][4][0]=addBPoint(-0.5,1.0,0,b0);
-		p[1][4][0]=addBPoint(-0.25,1.0,0,b0);
-		p[2][4][0]=addBPoint(0.0,1.0,0,b0);
-		p[3][4][0]=addBPoint(0.25,1.0,0,b0);
-		p[4][4][0]=addBPoint(0.5,1.0,0,b0);
+		breech[0][0][0]=addBPoint(-0.5,0,0,b0);
+		breech[1][0][0]=addBPoint(-0.25,0.0,0,b0);
+		breech[2][0][0]=addBPoint(0.0,0.0,0,b0);
+		breech[3][0][0]=addBPoint(0.25,0.0,0,b0);
+		breech[4][0][0]=addBPoint(0.5,0.0,0,b0);
+		breech[0][1][0]=addBPoint(-0.5,0.25,0,b0);
+		breech[1][1][0]=addBPoint(-0.25,0.25,0,b0);
+		breech[2][1][0]=addBPoint(0.0,0.25,0,b0);
+		breech[3][1][0]=addBPoint(0.25,0.25,0,b0);
+		breech[4][1][0]=addBPoint(0.5,0.25,0,b0);
+		breech[0][2][0]=addBPoint(-0.5,0.5,0,b0);
+		breech[1][2][0]=addBPoint(-0.25,0.5,0,b0);
+		breech[2][2][0]=addBPoint(0.0,0.5,0,b0);
+		breech[3][2][0]=addBPoint(0.25,0.5,0,b0);
+		breech[4][2][0]=addBPoint(0.5,0.5,0,b0);
+		breech[0][3][0]=addBPoint(-0.5,0.75,0,b0);
+		breech[1][3][0]=addBPoint(-0.25,0.75,0,b0);
+		breech[2][3][0]=addBPoint(0.0,0.75,0,b0);
+		breech[3][3][0]=addBPoint(0.25,0.75,0,b0);
+		breech[4][3][0]=addBPoint(0.5,0.75,0,b0);
+		breech[0][4][0]=addBPoint(-0.5,1.0,0,b0);
+		breech[1][4][0]=addBPoint(-0.25,1.0,0,b0);
+		breech[2][4][0]=addBPoint(0.0,1.0,0,b0);
+		breech[3][4][0]=addBPoint(0.25,1.0,0,b0);
+		breech[4][4][0]=addBPoint(0.5,1.0,0,b0);
 		
-		p[0][0][1]=addBPoint(-0.5,0.0,1.0,b0);	
-		p[1][0][1]=addBPoint(-0.25,0.0,1.0,b0);	
-		p[2][0][1]=addBPoint(0.0,0.0,1.0,b0);
-		p[3][0][1]=addBPoint(0.25,0.0,1.0,b0);	
-		p[4][0][1]=addBPoint(0.5,0.0,1.0,b0);		
-		p[0][1][1]=addBPoint(-0.5,0.25,1.0,b0);	
-		p[1][1][1]=addBPoint(-0.25,0.25,1.0,b0);
-		p[2][1][1]=addBPoint(0.0,0.25,1.0,b0);
-		p[3][1][1]=addBPoint(0.25,0.25,1.0,b0);
-		p[4][1][1]=addBPoint(0.5,0.25,1.0,b0);
-		p[0][2][1]=addBPoint(-0.5,0.5,1.0,b0);
-		p[1][2][1]=addBPoint(-0.25,0.5,1.0,b0);	
-		p[2][2][1]=addBPoint(0.0,0.5,1.0,b0);
-		p[3][2][1]=addBPoint(0.25,0.5,1.0,b0);
-		p[4][2][1]=addBPoint(0.5,0.5,1.0,b0);
-		p[0][3][1]=addBPoint(-0.5,0.75,1.0,b0);	
-		p[1][3][1]=addBPoint(-0.25,0.75,1.0,b0);
-		p[2][3][1]=addBPoint(0.0,0.75,1.0,b0);
-		p[3][3][1]=addBPoint(0.25,0.75,1.0,b0);
-		p[4][3][1]=addBPoint(0.5,0.75,1.0,b0);
-		p[0][4][1]=addBPoint(-0.5,1.0,1.0,b0);
-		p[1][4][1]=addBPoint(-0.25,1.0,1.0,b0);	
-		p[2][4][1]=addBPoint(0.0,1.0,1.0,b0);
-		p[3][4][1]=addBPoint(0.25,1.0,1.0,b0);
-		p[4][4][1]=addBPoint(0.5,1.0,1.0,b0);
+		breech[0][0][1]=addBPoint(-0.5,0.0,1.0,b0);	
+		breech[1][0][1]=addBPoint(-0.25,0.0,1.0,b0);	
+		breech[2][0][1]=addBPoint(0.0,0.0,1.0,b0);
+		breech[3][0][1]=addBPoint(0.25,0.0,1.0,b0);	
+		breech[4][0][1]=addBPoint(0.5,0.0,1.0,b0);		
+		breech[0][1][1]=addBPoint(-0.5,0.25,1.0,b0);	
+		breech[1][1][1]=addBPoint(-0.25,0.25,1.0,b0);
+		breech[2][1][1]=addBPoint(0.0,0.25,1.0,b0);
+		breech[3][1][1]=addBPoint(0.25,0.25,1.0,b0);
+		breech[4][1][1]=addBPoint(0.5,0.25,1.0,b0);
+		breech[0][2][1]=addBPoint(-0.5,0.5,1.0,b0);
+		breech[1][2][1]=addBPoint(-0.25,0.5,1.0,b0);	
+		breech[2][2][1]=addBPoint(0.0,0.5,1.0,b0);
+		breech[3][2][1]=addBPoint(0.25,0.5,1.0,b0);
+		breech[4][2][1]=addBPoint(0.5,0.5,1.0,b0);
+		breech[0][3][1]=addBPoint(-0.5,0.75,1.0,b0);	
+		breech[1][3][1]=addBPoint(-0.25,0.75,1.0,b0);
+		breech[2][3][1]=addBPoint(0.0,0.75,1.0,b0);
+		breech[3][3][1]=addBPoint(0.25,0.75,1.0,b0);
+		breech[4][3][1]=addBPoint(0.5,0.75,1.0,b0);
+		breech[0][4][1]=addBPoint(-0.5,1.0,1.0,b0);
+		breech[1][4][1]=addBPoint(-0.25,1.0,1.0,b0);	
+		breech[2][4][1]=addBPoint(0.0,1.0,1.0,b0);
+		breech[3][4][1]=addBPoint(0.25,1.0,1.0,b0);
+		breech[4][4][1]=addBPoint(0.5,1.0,1.0,b0);
 		
 		for (int i = 0; i < bnx-1; i++) {
 
@@ -382,32 +381,32 @@ public class Weapon extends CustomData{
 
 					if(i==0){
 
-						addLine(p[i][j][k],p[i][j][k+1],p[i][j+1][k+1],p[i][j+1][k],Renderer3D.CAR_LEFT);
+						addLine(breech[i][j][k],breech[i][j][k+1],breech[i][j+1][k+1],breech[i][j+1][k],Renderer3D.CAR_LEFT);
 					}
 
 				
 						
 					if(k==0){
 
-						addLine(p[i][j][k],p[i][j+1][k],p[i+1][j+1][k],p[i+1][j][k],Renderer3D.CAR_BOTTOM);
+						addLine(breech[i][j][k],breech[i][j+1][k],breech[i+1][j+1][k],breech[i+1][j][k],Renderer3D.CAR_BOTTOM);
 					
 					}
 					
 					if(k+1==bnz-1){
-						addLine(p[i][j][k+1],p[i+1][j][k+1],p[i+1][j+1][k+1],p[i][j+1][k+1],Renderer3D.CAR_TOP);
+						addLine(breech[i][j][k+1],breech[i+1][j][k+1],breech[i+1][j+1][k+1],breech[i][j+1][k+1],Renderer3D.CAR_TOP);
 					}
 					
 					if(j==0){
-						addLine(p[i][j][k],p[i+1][j][k],p[i+1][j][k+1],p[i][j][k+1],Renderer3D.CAR_BACK);
+						addLine(breech[i][j][k],breech[i+1][j][k],breech[i+1][j][k+1],breech[i][j][k+1],Renderer3D.CAR_BACK);
 					}
 					if(j+1==bny-1){
-						addLine(p[i][j+1][k],p[i][j+1][k+1],p[i+1][j+1][k+1],p[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+						addLine(breech[i][j+1][k],breech[i][j+1][k+1],breech[i+1][j+1][k+1],breech[i+1][j+1][k],Renderer3D.CAR_FRONT);	
 					}
 				
 
 					if(i+1==bnx-1){
 
-						addLine(p[i+1][j][k],p[i+1][j+1][k],p[i+1][j+1][k+1],p[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+						addLine(breech[i+1][j][k],breech[i+1][j+1][k],breech[i+1][j+1][k+1],breech[i+1][j][k+1],Renderer3D.CAR_RIGHT);
 
 					}
 				}
@@ -423,7 +422,7 @@ public class Weapon extends CustomData{
 		
 		BPoint[][][] butt=new BPoint[pnx][pny][pnz];
 		
-		Segments p0=new Segments(xc,butt_width,0,butt_length,breech_height-butt_height,butt_height);
+		Segments p0=new Segments(xc,butt_width,0,butt_length,-butt_height,butt_height);
 
 		butt[0][0][0]=addBPoint(-0.5,0,0,p0);
 		butt[1][0][0]=addBPoint(-0.25,0.0,0,p0);
@@ -619,63 +618,63 @@ public class Weapon extends CustomData{
 		int bny=5;
 		int bnz=2;
 		
-		BPoint[][][] p=new BPoint[bnx][bny][bnz];
+		BPoint[][][] breech=new BPoint[bnx][bny][bnz];
 		
 		double xc=0.0;
 		
-		Segments b0=new Segments(xc,breech_width,butt_length,butt_length,0,breech_height);
+		Segments b0=new Segments(xc,breech_width,0,breech_length,0,breech_height);
 
-		p[0][0][0]=addBPoint(-0.5,0,0,b0);
-		p[1][0][0]=addBPoint(-0.25,0.0,0,b0);
-		p[2][0][0]=addBPoint(0.0,0.0,0,b0);
-		p[3][0][0]=addBPoint(0.25,0.0,0,b0);
-		p[4][0][0]=addBPoint(0.5,0.0,0,b0);
-		p[0][1][0]=addBPoint(-0.5,0.25,0,b0);
-		p[1][1][0]=addBPoint(-0.25,0.25,0,b0);
-		p[2][1][0]=addBPoint(0.0,0.25,0,b0);
-		p[3][1][0]=addBPoint(0.25,0.25,0,b0);
-		p[4][1][0]=addBPoint(0.5,0.25,0,b0);
-		p[0][2][0]=addBPoint(-0.5,0.5,0,b0);
-		p[1][2][0]=addBPoint(-0.25,0.5,0,b0);
-		p[2][2][0]=addBPoint(0.0,0.5,0,b0);
-		p[3][2][0]=addBPoint(0.25,0.5,0,b0);
-		p[4][2][0]=addBPoint(0.5,0.5,0,b0);
-		p[0][3][0]=addBPoint(-0.5,0.75,0,b0);
-		p[1][3][0]=addBPoint(-0.25,0.75,0,b0);
-		p[2][3][0]=addBPoint(0.0,0.75,0,b0);
-		p[3][3][0]=addBPoint(0.25,0.75,0,b0);
-		p[4][3][0]=addBPoint(0.5,0.75,0,b0);
-		p[0][4][0]=addBPoint(-0.5,1.0,0,b0);
-		p[1][4][0]=addBPoint(-0.25,1.0,0,b0);
-		p[2][4][0]=addBPoint(0.0,1.0,0,b0);
-		p[3][4][0]=addBPoint(0.25,1.0,0,b0);
-		p[4][4][0]=addBPoint(0.5,1.0,0,b0);
+		breech[0][0][0]=addBPoint(-0.5,0,0,b0);
+		breech[1][0][0]=addBPoint(-0.25,0.0,0,b0);
+		breech[2][0][0]=addBPoint(0.0,0.0,0,b0);
+		breech[3][0][0]=addBPoint(0.25,0.0,0,b0);
+		breech[4][0][0]=addBPoint(0.5,0.0,0,b0);
+		breech[0][1][0]=addBPoint(-0.5,0.25,0,b0);
+		breech[1][1][0]=addBPoint(-0.25,0.25,0,b0);
+		breech[2][1][0]=addBPoint(0.0,0.25,0,b0);
+		breech[3][1][0]=addBPoint(0.25,0.25,0,b0);
+		breech[4][1][0]=addBPoint(0.5,0.25,0,b0);
+		breech[0][2][0]=addBPoint(-0.5,0.5,0,b0);
+		breech[1][2][0]=addBPoint(-0.25,0.5,0,b0);
+		breech[2][2][0]=addBPoint(0.0,0.5,0,b0);
+		breech[3][2][0]=addBPoint(0.25,0.5,0,b0);
+		breech[4][2][0]=addBPoint(0.5,0.5,0,b0);
+		breech[0][3][0]=addBPoint(-0.5,0.75,0,b0);
+		breech[1][3][0]=addBPoint(-0.25,0.75,0,b0);
+		breech[2][3][0]=addBPoint(0.0,0.75,0,b0);
+		breech[3][3][0]=addBPoint(0.25,0.75,0,b0);
+		breech[4][3][0]=addBPoint(0.5,0.75,0,b0);
+		breech[0][4][0]=addBPoint(-0.5,1.0,0,b0);
+		breech[1][4][0]=addBPoint(-0.25,1.0,0,b0);
+		breech[2][4][0]=addBPoint(0.0,1.0,0,b0);
+		breech[3][4][0]=addBPoint(0.25,1.0,0,b0);
+		breech[4][4][0]=addBPoint(0.5,1.0,0,b0);
 		
-		p[0][0][1]=addBPoint(-0.5,0.0,1.0,b0);	
-		p[1][0][1]=addBPoint(-0.25,0.0,1.0,b0);	
-		p[2][0][1]=addBPoint(0.0,0.0,1.0,b0);
-		p[3][0][1]=addBPoint(0.25,0.0,1.0,b0);	
-		p[4][0][1]=addBPoint(0.5,0.0,1.0,b0);		
-		p[0][1][1]=addBPoint(-0.5,0.25,1.0,b0);	
-		p[1][1][1]=addBPoint(-0.25,0.25,1.0,b0);
-		p[2][1][1]=addBPoint(0.0,0.25,1.0,b0);
-		p[3][1][1]=addBPoint(0.25,0.25,1.0,b0);
-		p[4][1][1]=addBPoint(0.5,0.25,1.0,b0);
-		p[0][2][1]=addBPoint(-0.5,0.5,1.0,b0);
-		p[1][2][1]=addBPoint(-0.25,0.5,1.0,b0);	
-		p[2][2][1]=addBPoint(0.0,0.5,1.0,b0);
-		p[3][2][1]=addBPoint(0.25,0.5,1.0,b0);
-		p[4][2][1]=addBPoint(0.5,0.5,1.0,b0);
-		p[0][3][1]=addBPoint(-0.5,0.75,1.0,b0);	
-		p[1][3][1]=addBPoint(-0.25,0.75,1.0,b0);
-		p[2][3][1]=addBPoint(0.0,0.75,1.0,b0);
-		p[3][3][1]=addBPoint(0.25,0.75,1.0,b0);
-		p[4][3][1]=addBPoint(0.5,0.75,1.0,b0);
-		p[0][4][1]=addBPoint(-0.5,1.0,1.0,b0);
-		p[1][4][1]=addBPoint(-0.25,1.0,1.0,b0);	
-		p[2][4][1]=addBPoint(0.0,1.0,1.0,b0);
-		p[3][4][1]=addBPoint(0.25,1.0,1.0,b0);
-		p[4][4][1]=addBPoint(0.5,1.0,1.0,b0);
+		breech[0][0][1]=addBPoint(-0.5,0.0,1.0,b0);	
+		breech[1][0][1]=addBPoint(-0.25,0.0,1.0,b0);	
+		breech[2][0][1]=addBPoint(0.0,0.0,1.0,b0);
+		breech[3][0][1]=addBPoint(0.25,0.0,1.0,b0);	
+		breech[4][0][1]=addBPoint(0.5,0.0,1.0,b0);		
+		breech[0][1][1]=addBPoint(-0.5,0.25,1.0,b0);	
+		breech[1][1][1]=addBPoint(-0.25,0.25,1.0,b0);
+		breech[2][1][1]=addBPoint(0.0,0.25,1.0,b0);
+		breech[3][1][1]=addBPoint(0.25,0.25,1.0,b0);
+		breech[4][1][1]=addBPoint(0.5,0.25,1.0,b0);
+		breech[0][2][1]=addBPoint(-0.5,0.5,1.0,b0);
+		breech[1][2][1]=addBPoint(-0.25,0.5,1.0,b0);	
+		breech[2][2][1]=addBPoint(0.0,0.5,1.0,b0);
+		breech[3][2][1]=addBPoint(0.25,0.5,1.0,b0);
+		breech[4][2][1]=addBPoint(0.5,0.5,1.0,b0);
+		breech[0][3][1]=addBPoint(-0.5,0.75,1.0,b0);	
+		breech[1][3][1]=addBPoint(-0.25,0.75,1.0,b0);
+		breech[2][3][1]=addBPoint(0.0,0.75,1.0,b0);
+		breech[3][3][1]=addBPoint(0.25,0.75,1.0,b0);
+		breech[4][3][1]=addBPoint(0.5,0.75,1.0,b0);
+		breech[0][4][1]=addBPoint(-0.5,1.0,1.0,b0);
+		breech[1][4][1]=addBPoint(-0.25,1.0,1.0,b0);	
+		breech[2][4][1]=addBPoint(0.0,1.0,1.0,b0);
+		breech[3][4][1]=addBPoint(0.25,1.0,1.0,b0);
+		breech[4][4][1]=addBPoint(0.5,1.0,1.0,b0);
 		
 		for (int i = 0; i < bnx-1; i++) {
 
@@ -689,32 +688,32 @@ public class Weapon extends CustomData{
 
 					if(i==0){
 
-						addLine(p[i][j][k],p[i][j][k+1],p[i][j+1][k+1],p[i][j+1][k],Renderer3D.CAR_LEFT);
+						addLine(breech[i][j][k],breech[i][j][k+1],breech[i][j+1][k+1],breech[i][j+1][k],Renderer3D.CAR_LEFT);
 					}
 
 				
 						
 					if(k==0){
 
-						addLine(p[i][j][k],p[i][j+1][k],p[i+1][j+1][k],p[i+1][j][k],Renderer3D.CAR_BOTTOM);
+						addLine(breech[i][j][k],breech[i][j+1][k],breech[i+1][j+1][k],breech[i+1][j][k],Renderer3D.CAR_BOTTOM);
 					
 					}
 					
 					if(k+1==bnz-1){
-						addLine(p[i][j][k+1],p[i+1][j][k+1],p[i+1][j+1][k+1],p[i][j+1][k+1],Renderer3D.CAR_TOP);
+						addLine(breech[i][j][k+1],breech[i+1][j][k+1],breech[i+1][j+1][k+1],breech[i][j+1][k+1],Renderer3D.CAR_TOP);
 					}
 					
 					if(j==0){
-						addLine(p[i][j][k],p[i+1][j][k],p[i+1][j][k+1],p[i][j][k+1],Renderer3D.CAR_BACK);
+						addLine(breech[i][j][k],breech[i+1][j][k],breech[i+1][j][k+1],breech[i][j][k+1],Renderer3D.CAR_BACK);
 					}
 					if(j+1==bny-1){
-						addLine(p[i][j+1][k],p[i][j+1][k+1],p[i+1][j+1][k+1],p[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+						addLine(breech[i][j+1][k],breech[i][j+1][k+1],breech[i+1][j+1][k+1],breech[i+1][j+1][k],Renderer3D.CAR_FRONT);	
 					}
 				
 
 					if(i+1==bnx-1){
 
-						addLine(p[i+1][j][k],p[i+1][j+1][k],p[i+1][j+1][k+1],p[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+						addLine(breech[i+1][j][k],breech[i+1][j+1][k],breech[i+1][j+1][k+1],breech[i+1][j][k+1],Renderer3D.CAR_RIGHT);
 
 					}
 				}
@@ -730,7 +729,7 @@ public class Weapon extends CustomData{
 		
 		BPoint[][][] butt=new BPoint[pnx][pny][pnz];
 		
-		Segments p0=new Segments(xc,butt_width,0,butt_length,breech_height-butt_height,butt_height);
+		Segments p0=new Segments(xc,butt_width,0,butt_length,-butt_height,butt_height);
 
 		butt[0][0][0]=addBPoint(-0.5,0,0,p0);
 		butt[1][0][0]=addBPoint(-0.25,0.0,0,p0);

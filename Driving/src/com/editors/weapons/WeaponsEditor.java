@@ -169,8 +169,8 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		weapon_type.setBounds(column, r, 100, 20);
 		weapon_type.addKeyListener(this);
 		weapon_type.addItem(new ValuePair("-1",""));
-		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_SHOTGUN,"Shotgun"));
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_GUN,"Gun"));
+		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_SHOTGUN,"Shotgun"));		
 		weapon_type.addItemListener(this);
 		
 		weapon_type.setSelectedIndex(0);
@@ -454,7 +454,7 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 				
 			 int type=Integer.parseInt(vp.getId());
 			    if(type<0)
-			    	type=Weapon.WEAPON_TYPE_SHOTGUN;
+			    	type=Weapon.WEAPON_TYPE_GUN;
 			
 			
 			double barrelLength=barrel_length.getvalue();
