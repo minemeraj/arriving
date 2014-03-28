@@ -235,7 +235,7 @@ public class Weapon extends CustomData{
 		n=0;
 		
 		double bax0=0;
-		double bay0=butt_length+butt_length;
+		double bay0=breech_length;
 		double baz0=breech_height*0.5;
 
 		//barrel:
@@ -542,7 +542,7 @@ public class Weapon extends CustomData{
 		n=0;
 		
 		double bax0=0;
-		double bay0=butt_length+butt_length;
+		double bay0=breech_length;
 		double baz0=breech_height*0.5;
 
 		//barrel:
