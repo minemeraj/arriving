@@ -17,7 +17,9 @@ public class Weapon extends CustomData{
 	int barrel_meridians=0;
 	
 	public static int WEAPON_TYPE_GUN=0;	
-	public static int WEAPON_TYPE_SHOTGUN=1;	
+	public static int WEAPON_TYPE_SHOTGUN=1;
+	public static int WEAPON_TYPE_REVOLVER=2;
+	public static int WEAPON_TYPE_CHAINGUN=3;
 	public int weapon_type=WEAPON_TYPE_GUN;
 	
 	
@@ -30,6 +32,9 @@ public class Weapon extends CustomData{
 	double butt_width=0;
 	double butt_height=0;
 
+	double butt_end_length=0;
+	double butt_end_width=0;
+	double butt_end_height=0;
 
 	public Weapon(){}
 
@@ -46,12 +51,15 @@ public class Weapon extends CustomData{
 			double breech_height,
 
 			double butt_length,
-			double butt_width,
-			double butt_height
+			double butt_width,			
+			double butt_height,
+			
+			double butt_end_length,
+			double butt_end_width,
+			double butt_end_height
 			) 
 	{
-		
-				super();
+
 								
 				this.weapon_type = weapon_type;
 								
@@ -64,8 +72,12 @@ public class Weapon extends CustomData{
 				this.breech_height = breech_height;
 		
 				this.butt_length = butt_length;
-				this.butt_width = butt_width;
+				this.butt_width = butt_width;				
 				this.butt_height = butt_height;
+				
+				this.butt_end_length = butt_end_length;
+				this.butt_end_width = butt_end_width;
+				this.butt_end_height = butt_end_height;
 	}
 
 
@@ -75,7 +87,8 @@ public class Weapon extends CustomData{
 				weapon_type,
 				barrel_lenght,barrel_radius,barrel_meridians,
 				breech_length,breech_width,breech_height,
-				butt_length,butt_width,butt_height
+				butt_length,butt_width,butt_height,
+				butt_end_length,butt_end_width,butt_end_height
 		
 				);
 		return grid;
@@ -90,7 +103,8 @@ public class Weapon extends CustomData{
 		return "F="+weapon_type+","+
 				barrel_lenght+","+barrel_radius+","+barrel_meridians+","+
 				breech_length+","+breech_width+","+breech_height+","+
-				butt_length+","+butt_width+","+butt_height;
+				butt_length+","+butt_width+","+butt_height+","+
+				butt_end_length+","+butt_width+","+butt_end_height;
 	}
 
 	public static Weapon buildWeapon(String str) {
@@ -109,15 +123,19 @@ public class Weapon extends CustomData{
 		double breech_height =Double.parseDouble(vals[6]);
 		
 		double butt_length =Double.parseDouble(vals[7]);
-		double butt_width =Double.parseDouble(vals[8]);
+		double butt_width =Double.parseDouble(vals[8]); 		
 		double butt_height =Double.parseDouble(vals[9]);
-
+		
+		double butt_end_length =Double.parseDouble(vals[10]);
+		double butt_end_width =Double.parseDouble(vals[11]);
+		double butt_end_height =Double.parseDouble(vals[12]);
 
 		Weapon grid=new Weapon(
 				weaponType,
 				barrel_lenght,barrel_radius,barrel_meridians,
 				breech_length,breech_width,breech_height,
-				butt_length,butt_width,butt_height
+				butt_length,butt_width,butt_height,
+				butt_end_length,butt_end_width,butt_end_height
 				);
 
 		return grid;
@@ -187,13 +205,6 @@ public class Weapon extends CustomData{
 		this.butt_length = butt_length;
 	}
 
-	public double getButt_width() {
-		return butt_width;
-	}
-
-	public void setButt_width(double butt_width) {
-		this.butt_width = butt_width;
-	}
 
 	public double getButt_height() {
 		return butt_height;
@@ -203,7 +214,6 @@ public class Weapon extends CustomData{
 		this.butt_height = butt_height;
 	}
 
-
 	public int getWeapon_type() {
 		return weapon_type;
 	}
@@ -212,11 +222,50 @@ public class Weapon extends CustomData{
 		this.weapon_type = weapon_type;
 	}
 
+	public double getButt_end_width() {
+		return butt_end_width;
+	}
+
+	public void setButt_end_width(double butt_end_width) {
+		this.butt_end_width = butt_end_width;
+	}
+	
+	public double getButt_width() {
+		return butt_width;
+	}
+
+	public void setButt_width(double butt_width) {
+		this.butt_width = butt_width;
+	}
+	
+
+	public double getButt_end_length() {
+		return butt_end_length;
+	}
+
+	public void setButt_end_length(double butt_end_length) {
+		this.butt_end_length = butt_end_length;
+	}
+
+	public double getButt_end_height() {
+		return butt_end_height;
+	}
+
+	public void setButt_end_height(double butt_end_height) {
+		this.butt_end_height = butt_end_height;
+	}
+
 	
 	public PolygonMesh buildMesh(){
 
 		if(weapon_type==WEAPON_TYPE_SHOTGUN)
 			return buildShotGunMesh();
+		if(weapon_type==WEAPON_TYPE_GUN)
+			return buildGunMesh();
+		if(weapon_type==WEAPON_TYPE_REVOLVER)
+			return buildRevolverMesh();
+		if(weapon_type==WEAPON_TYPE_CHAINGUN)
+			return buildChaingunMesh();
 		else
 			return buildGunMesh();
 		
@@ -224,6 +273,8 @@ public class Weapon extends CustomData{
 
 	}
 	
+
+
 
 	private PolygonMesh buildGunMesh() {
 		points=new Vector();
@@ -841,6 +892,619 @@ public class Weapon extends CustomData{
 
 	
 
+	private PolygonMesh buildChaingunMesh() {
+		points=new Vector();
+		points.setSize(200);
+
+		polyData=new Vector();
+		
+		
+		n=0;
+		
+		double bax0=0;
+		double bay0=breech_length;
+		double baz0=breech_height*0.5;
+
+		//barrel:
+		
+		BPoint[] uTrunkpoints=new BPoint[barrel_meridians];
+		BPoint[] bTrunkpoints=new BPoint[barrel_meridians];
+		
+		for (int i = 0; i < barrel_meridians; i++) {
+		
+			
+			double x=bax0+barrel_radius*Math.cos(2*Math.PI/barrel_meridians*i);
+			double z=baz0+barrel_radius*Math.sin(2*Math.PI/barrel_meridians*i);
+			
+			uTrunkpoints[i]=addBPoint(x,bay0+barrel_lenght,z);
+			
+			
+		}
+
+
+		LineData topLD=new LineData();
+		
+		
+			
+			for (int i = barrel_meridians-1; i >=0; i--) {
+			
+			topLD.addIndex(uTrunkpoints[i].getIndex());
+			
+		}
+		topLD.setData(""+Renderer3D.CAR_TOP);
+		polyData.add(topLD);
+		
+		for (int i = 0; i < barrel_meridians; i++) {
+			
+			double x=bax0+barrel_radius*Math.cos(2*Math.PI/barrel_meridians*i);
+			double z=baz0+barrel_radius*Math.sin(2*Math.PI/barrel_meridians*i);
+			
+			bTrunkpoints[i]=addBPoint(x,bay0,z);
+			
+		}
+
+
+		LineData bottomLD=new LineData();
+		
+		for (int i = 0; i < barrel_meridians; i++) {
+			
+			bottomLD.addIndex(bTrunkpoints[i].getIndex());
+			
+		}
+		bottomLD.setData(""+Renderer3D.CAR_BOTTOM);
+		polyData.add(bottomLD);
+		
+		
+		
+		for (int i = 0; i < barrel_meridians; i++) {
+			
+			LineData sideLD=new LineData();
+			
+			
+			sideLD.addIndex(bTrunkpoints[(i+1)%barrel_meridians].getIndex());
+			sideLD.addIndex(bTrunkpoints[i].getIndex());
+			sideLD.addIndex(uTrunkpoints[i].getIndex());
+			sideLD.addIndex(uTrunkpoints[(i+1)%barrel_meridians].getIndex());
+			sideLD.setData(""+getFace(sideLD,points));
+			polyData.add(sideLD);
+			
+		}
+		
+		//breech
+		
+		//main body
+		
+		int bnx=5;
+		int bny=5;
+		int bnz=2;
+		
+		BPoint[][][] breech=new BPoint[bnx][bny][bnz];
+		
+		double xc=0.0;
+		
+		Segments b0=new Segments(xc,breech_width,0,breech_length,0,breech_height);
+
+		breech[0][0][0]=addBPoint(-0.5,0,0,b0);
+		breech[1][0][0]=addBPoint(-0.25,0.0,0,b0);
+		breech[2][0][0]=addBPoint(0.0,0.0,0,b0);
+		breech[3][0][0]=addBPoint(0.25,0.0,0,b0);
+		breech[4][0][0]=addBPoint(0.5,0.0,0,b0);
+		breech[0][1][0]=addBPoint(-0.5,0.25,0,b0);
+		breech[1][1][0]=addBPoint(-0.25,0.25,0,b0);
+		breech[2][1][0]=addBPoint(0.0,0.25,0,b0);
+		breech[3][1][0]=addBPoint(0.25,0.25,0,b0);
+		breech[4][1][0]=addBPoint(0.5,0.25,0,b0);
+		breech[0][2][0]=addBPoint(-0.5,0.5,0,b0);
+		breech[1][2][0]=addBPoint(-0.25,0.5,0,b0);
+		breech[2][2][0]=addBPoint(0.0,0.5,0,b0);
+		breech[3][2][0]=addBPoint(0.25,0.5,0,b0);
+		breech[4][2][0]=addBPoint(0.5,0.5,0,b0);
+		breech[0][3][0]=addBPoint(-0.5,0.75,0,b0);
+		breech[1][3][0]=addBPoint(-0.25,0.75,0,b0);
+		breech[2][3][0]=addBPoint(0.0,0.75,0,b0);
+		breech[3][3][0]=addBPoint(0.25,0.75,0,b0);
+		breech[4][3][0]=addBPoint(0.5,0.75,0,b0);
+		breech[0][4][0]=addBPoint(-0.5,1.0,0,b0);
+		breech[1][4][0]=addBPoint(-0.25,1.0,0,b0);
+		breech[2][4][0]=addBPoint(0.0,1.0,0,b0);
+		breech[3][4][0]=addBPoint(0.25,1.0,0,b0);
+		breech[4][4][0]=addBPoint(0.5,1.0,0,b0);
+		
+		breech[0][0][1]=addBPoint(-0.5,0.0,1.0,b0);	
+		breech[1][0][1]=addBPoint(-0.25,0.0,1.0,b0);	
+		breech[2][0][1]=addBPoint(0.0,0.0,1.0,b0);
+		breech[3][0][1]=addBPoint(0.25,0.0,1.0,b0);	
+		breech[4][0][1]=addBPoint(0.5,0.0,1.0,b0);		
+		breech[0][1][1]=addBPoint(-0.5,0.25,1.0,b0);	
+		breech[1][1][1]=addBPoint(-0.25,0.25,1.0,b0);
+		breech[2][1][1]=addBPoint(0.0,0.25,1.0,b0);
+		breech[3][1][1]=addBPoint(0.25,0.25,1.0,b0);
+		breech[4][1][1]=addBPoint(0.5,0.25,1.0,b0);
+		breech[0][2][1]=addBPoint(-0.5,0.5,1.0,b0);
+		breech[1][2][1]=addBPoint(-0.25,0.5,1.0,b0);	
+		breech[2][2][1]=addBPoint(0.0,0.5,1.0,b0);
+		breech[3][2][1]=addBPoint(0.25,0.5,1.0,b0);
+		breech[4][2][1]=addBPoint(0.5,0.5,1.0,b0);
+		breech[0][3][1]=addBPoint(-0.5,0.75,1.0,b0);	
+		breech[1][3][1]=addBPoint(-0.25,0.75,1.0,b0);
+		breech[2][3][1]=addBPoint(0.0,0.75,1.0,b0);
+		breech[3][3][1]=addBPoint(0.25,0.75,1.0,b0);
+		breech[4][3][1]=addBPoint(0.5,0.75,1.0,b0);
+		breech[0][4][1]=addBPoint(-0.5,1.0,1.0,b0);
+		breech[1][4][1]=addBPoint(-0.25,1.0,1.0,b0);	
+		breech[2][4][1]=addBPoint(0.0,1.0,1.0,b0);
+		breech[3][4][1]=addBPoint(0.25,1.0,1.0,b0);
+		breech[4][4][1]=addBPoint(0.5,1.0,1.0,b0);
+		
+		for (int i = 0; i < bnx-1; i++) {
+
+
+			for (int j = 0; j < bny-1; j++) {
+
+				for (int k = 0; k < bnz-1; k++) {
+
+
+
+
+					if(i==0){
+
+						addLine(breech[i][j][k],breech[i][j][k+1],breech[i][j+1][k+1],breech[i][j+1][k],Renderer3D.CAR_LEFT);
+					}
+
+				
+						
+					if(k==0){
+
+						addLine(breech[i][j][k],breech[i][j+1][k],breech[i+1][j+1][k],breech[i+1][j][k],Renderer3D.CAR_BOTTOM);
+					
+					}
+					
+					if(k+1==bnz-1){
+						addLine(breech[i][j][k+1],breech[i+1][j][k+1],breech[i+1][j+1][k+1],breech[i][j+1][k+1],Renderer3D.CAR_TOP);
+					}
+					
+					if(j==0){
+						addLine(breech[i][j][k],breech[i+1][j][k],breech[i+1][j][k+1],breech[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+					if(j+1==bny-1){
+						addLine(breech[i][j+1][k],breech[i][j+1][k+1],breech[i+1][j+1][k+1],breech[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+					}
+				
+
+					if(i+1==bnx-1){
+
+						addLine(breech[i+1][j][k],breech[i+1][j+1][k],breech[i+1][j+1][k+1],breech[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+					}
+				}
+			}
+
+		}
+		
+		//butt
+		
+		int pnx=5;
+		int pny=5;
+		int pnz=2;
+		
+		BPoint[][][] butt=new BPoint[pnx][pny][pnz];
+		
+		Segments p0=new Segments(xc,butt_width,0,butt_length,-butt_height,butt_height);
+
+		butt[0][0][0]=addBPoint(-0.5,0,0,p0);
+		butt[1][0][0]=addBPoint(-0.25,0.0,0,p0);
+		butt[2][0][0]=addBPoint(0.0,0.0,0,p0);
+		butt[3][0][0]=addBPoint(0.25,0.0,0,p0);
+		butt[4][0][0]=addBPoint(0.5,0.0,0,p0);
+		butt[0][1][0]=addBPoint(-0.5,0.25,0,p0);
+		butt[1][1][0]=addBPoint(-0.25,0.25,0,p0);
+		butt[2][1][0]=addBPoint(0.0,0.25,0,p0);
+		butt[3][1][0]=addBPoint(0.25,0.25,0,p0);
+		butt[4][1][0]=addBPoint(0.5,0.25,0,p0);
+		butt[0][2][0]=addBPoint(-0.5,0.5,0,p0);
+		butt[1][2][0]=addBPoint(-0.25,0.5,0,p0);
+		butt[2][2][0]=addBPoint(0.0,0.5,0,p0);
+		butt[3][2][0]=addBPoint(0.25,0.5,0,p0);
+		butt[4][2][0]=addBPoint(0.5,0.5,0,p0);
+		butt[0][3][0]=addBPoint(-0.5,0.75,0,p0);
+		butt[1][3][0]=addBPoint(-0.25,0.75,0,p0);
+		butt[2][3][0]=addBPoint(0.0,0.75,0,p0);
+		butt[3][3][0]=addBPoint(0.25,0.75,0,p0);
+		butt[4][3][0]=addBPoint(0.5,0.75,0,p0);
+		butt[0][4][0]=addBPoint(-0.5,1.0,0,p0);
+		butt[1][4][0]=addBPoint(-0.25,1.0,0,p0);
+		butt[2][4][0]=addBPoint(0.0,1.0,0,p0);
+		butt[3][4][0]=addBPoint(0.25,1.0,0,p0);
+		butt[4][4][0]=addBPoint(0.5,1.0,0,p0);
+		
+		butt[0][0][1]=addBPoint(-0.5,0.0,1.0,p0);	
+		butt[1][0][1]=addBPoint(-0.25,0.0,1.0,p0);	
+		butt[2][0][1]=addBPoint(0.0,0.0,1.0,p0);
+		butt[3][0][1]=addBPoint(0.25,0.0,1.0,p0);	
+		butt[4][0][1]=addBPoint(0.5,0.0,1.0,p0);		
+		butt[0][1][1]=addBPoint(-0.5,0.25,1.0,p0);	
+		butt[1][1][1]=addBPoint(-0.25,0.25,1.0,p0);
+		butt[2][1][1]=addBPoint(0.0,0.25,1.0,p0);
+		butt[3][1][1]=addBPoint(0.25,0.25,1.0,p0);
+		butt[4][1][1]=addBPoint(0.5,0.25,1.0,p0);
+		butt[0][2][1]=addBPoint(-0.5,0.5,1.0,p0);
+		butt[1][2][1]=addBPoint(-0.25,0.5,1.0,p0);	
+		butt[2][2][1]=addBPoint(0.0,0.5,1.0,p0);
+		butt[3][2][1]=addBPoint(0.25,0.5,1.0,p0);
+		butt[4][2][1]=addBPoint(0.5,0.5,1.0,p0);
+		butt[0][3][1]=addBPoint(-0.5,0.75,1.0,p0);	
+		butt[1][3][1]=addBPoint(-0.25,0.75,1.0,p0);
+		butt[2][3][1]=addBPoint(0.0,0.75,1.0,p0);
+		butt[3][3][1]=addBPoint(0.25,0.75,1.0,p0);
+		butt[4][3][1]=addBPoint(0.5,0.75,1.0,p0);
+		butt[0][4][1]=addBPoint(-0.5,1.0,1.0,p0);
+		butt[1][4][1]=addBPoint(-0.25,1.0,1.0,p0);	
+		butt[2][4][1]=addBPoint(0.0,1.0,1.0,p0);
+		butt[3][4][1]=addBPoint(0.25,1.0,1.0,p0);
+		butt[4][4][1]=addBPoint(0.5,1.0,1.0,p0);
+		
+		for (int i = 0; i < pnx-1; i++) {
+
+
+			for (int j = 0; j < pny-1; j++) {
+
+				for (int k = 0; k < pnz-1; k++) {
+
+
+
+
+					if(i==0){
+
+						addLine(butt[i][j][k],butt[i][j][k+1],butt[i][j+1][k+1],butt[i][j+1][k],Renderer3D.CAR_LEFT);
+					}
+
+				
+						
+					if(k==0){
+
+						addLine(butt[i][j][k],butt[i][j+1][k],butt[i+1][j+1][k],butt[i+1][j][k],Renderer3D.CAR_BOTTOM);
+					
+					}
+					
+					if(k+1==pnz-1){
+						addLine(butt[i][j][k+1],butt[i+1][j][k+1],butt[i+1][j+1][k+1],butt[i][j+1][k+1],Renderer3D.CAR_TOP);
+					}
+					
+					if(j==0){
+						addLine(butt[i][j][k],butt[i+1][j][k],butt[i+1][j][k+1],butt[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+					if(j+1==pny-1){
+						addLine(butt[i][j+1][k],butt[i][j+1][k+1],butt[i+1][j+1][k+1],butt[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+					}
+				
+
+					if(i+1==pnx-1){
+
+						addLine(butt[i+1][j][k],butt[i+1][j+1][k],butt[i+1][j+1][k+1],butt[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+					}
+				}
+			}
+
+		}
+		
+		/////////
+
+		//translatePoints(points,nw_x,nw_y);
+
+		PolygonMesh pm=new PolygonMesh(points,polyData);
+
+		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
+		return spm;
+
+	}
+
+	private PolygonMesh buildRevolverMesh() {
+		points=new Vector();
+		points.setSize(200);
+
+		polyData=new Vector();
+		
+		
+		n=0;
+		
+		double bax0=0;
+		double bay0=breech_length;
+		double baz0=breech_height*0.5;
+
+		//barrel:
+		
+		BPoint[] uTrunkpoints=new BPoint[barrel_meridians];
+		BPoint[] bTrunkpoints=new BPoint[barrel_meridians];
+		
+		for (int i = 0; i < barrel_meridians; i++) {
+		
+			
+			double x=bax0+barrel_radius*Math.cos(2*Math.PI/barrel_meridians*i);
+			double z=baz0+barrel_radius*Math.sin(2*Math.PI/barrel_meridians*i);
+			
+			uTrunkpoints[i]=addBPoint(x,bay0+barrel_lenght,z);
+			
+			
+		}
+
+
+		LineData topLD=new LineData();
+		
+		
+			
+			for (int i = barrel_meridians-1; i >=0; i--) {
+			
+			topLD.addIndex(uTrunkpoints[i].getIndex());
+			
+		}
+		topLD.setData(""+Renderer3D.CAR_TOP);
+		polyData.add(topLD);
+		
+		for (int i = 0; i < barrel_meridians; i++) {
+			
+			double x=bax0+barrel_radius*Math.cos(2*Math.PI/barrel_meridians*i);
+			double z=baz0+barrel_radius*Math.sin(2*Math.PI/barrel_meridians*i);
+			
+			bTrunkpoints[i]=addBPoint(x,bay0,z);
+			
+		}
+
+
+		LineData bottomLD=new LineData();
+		
+		for (int i = 0; i < barrel_meridians; i++) {
+			
+			bottomLD.addIndex(bTrunkpoints[i].getIndex());
+			
+		}
+		bottomLD.setData(""+Renderer3D.CAR_BOTTOM);
+		polyData.add(bottomLD);
+		
+		
+		
+		for (int i = 0; i < barrel_meridians; i++) {
+			
+			LineData sideLD=new LineData();
+			
+			
+			sideLD.addIndex(bTrunkpoints[(i+1)%barrel_meridians].getIndex());
+			sideLD.addIndex(bTrunkpoints[i].getIndex());
+			sideLD.addIndex(uTrunkpoints[i].getIndex());
+			sideLD.addIndex(uTrunkpoints[(i+1)%barrel_meridians].getIndex());
+			sideLD.setData(""+getFace(sideLD,points));
+			polyData.add(sideLD);
+			
+		}
+		
+		//breech
+		
+		//main body
+		
+		int bnx=5;
+		int bny=5;
+		int bnz=2;
+		
+		BPoint[][][] breech=new BPoint[bnx][bny][bnz];
+		
+		double xc=0.0;
+		
+		Segments b0=new Segments(xc,breech_width,0,breech_length,0,breech_height);
+
+		breech[0][0][0]=addBPoint(-0.5,0,0,b0);
+		breech[1][0][0]=addBPoint(-0.25,0.0,0,b0);
+		breech[2][0][0]=addBPoint(0.0,0.0,0,b0);
+		breech[3][0][0]=addBPoint(0.25,0.0,0,b0);
+		breech[4][0][0]=addBPoint(0.5,0.0,0,b0);
+		breech[0][1][0]=addBPoint(-0.5,0.25,0,b0);
+		breech[1][1][0]=addBPoint(-0.25,0.25,0,b0);
+		breech[2][1][0]=addBPoint(0.0,0.25,0,b0);
+		breech[3][1][0]=addBPoint(0.25,0.25,0,b0);
+		breech[4][1][0]=addBPoint(0.5,0.25,0,b0);
+		breech[0][2][0]=addBPoint(-0.5,0.5,0,b0);
+		breech[1][2][0]=addBPoint(-0.25,0.5,0,b0);
+		breech[2][2][0]=addBPoint(0.0,0.5,0,b0);
+		breech[3][2][0]=addBPoint(0.25,0.5,0,b0);
+		breech[4][2][0]=addBPoint(0.5,0.5,0,b0);
+		breech[0][3][0]=addBPoint(-0.5,0.75,0,b0);
+		breech[1][3][0]=addBPoint(-0.25,0.75,0,b0);
+		breech[2][3][0]=addBPoint(0.0,0.75,0,b0);
+		breech[3][3][0]=addBPoint(0.25,0.75,0,b0);
+		breech[4][3][0]=addBPoint(0.5,0.75,0,b0);
+		breech[0][4][0]=addBPoint(-0.5,1.0,0,b0);
+		breech[1][4][0]=addBPoint(-0.25,1.0,0,b0);
+		breech[2][4][0]=addBPoint(0.0,1.0,0,b0);
+		breech[3][4][0]=addBPoint(0.25,1.0,0,b0);
+		breech[4][4][0]=addBPoint(0.5,1.0,0,b0);
+		
+		breech[0][0][1]=addBPoint(-0.5,0.0,1.0,b0);	
+		breech[1][0][1]=addBPoint(-0.25,0.0,1.0,b0);	
+		breech[2][0][1]=addBPoint(0.0,0.0,1.0,b0);
+		breech[3][0][1]=addBPoint(0.25,0.0,1.0,b0);	
+		breech[4][0][1]=addBPoint(0.5,0.0,1.0,b0);		
+		breech[0][1][1]=addBPoint(-0.5,0.25,1.0,b0);	
+		breech[1][1][1]=addBPoint(-0.25,0.25,1.0,b0);
+		breech[2][1][1]=addBPoint(0.0,0.25,1.0,b0);
+		breech[3][1][1]=addBPoint(0.25,0.25,1.0,b0);
+		breech[4][1][1]=addBPoint(0.5,0.25,1.0,b0);
+		breech[0][2][1]=addBPoint(-0.5,0.5,1.0,b0);
+		breech[1][2][1]=addBPoint(-0.25,0.5,1.0,b0);	
+		breech[2][2][1]=addBPoint(0.0,0.5,1.0,b0);
+		breech[3][2][1]=addBPoint(0.25,0.5,1.0,b0);
+		breech[4][2][1]=addBPoint(0.5,0.5,1.0,b0);
+		breech[0][3][1]=addBPoint(-0.5,0.75,1.0,b0);	
+		breech[1][3][1]=addBPoint(-0.25,0.75,1.0,b0);
+		breech[2][3][1]=addBPoint(0.0,0.75,1.0,b0);
+		breech[3][3][1]=addBPoint(0.25,0.75,1.0,b0);
+		breech[4][3][1]=addBPoint(0.5,0.75,1.0,b0);
+		breech[0][4][1]=addBPoint(-0.5,1.0,1.0,b0);
+		breech[1][4][1]=addBPoint(-0.25,1.0,1.0,b0);	
+		breech[2][4][1]=addBPoint(0.0,1.0,1.0,b0);
+		breech[3][4][1]=addBPoint(0.25,1.0,1.0,b0);
+		breech[4][4][1]=addBPoint(0.5,1.0,1.0,b0);
+		
+		for (int i = 0; i < bnx-1; i++) {
+
+
+			for (int j = 0; j < bny-1; j++) {
+
+				for (int k = 0; k < bnz-1; k++) {
+
+
+
+
+					if(i==0){
+
+						addLine(breech[i][j][k],breech[i][j][k+1],breech[i][j+1][k+1],breech[i][j+1][k],Renderer3D.CAR_LEFT);
+					}
+
+				
+						
+					if(k==0){
+
+						addLine(breech[i][j][k],breech[i][j+1][k],breech[i+1][j+1][k],breech[i+1][j][k],Renderer3D.CAR_BOTTOM);
+					
+					}
+					
+					if(k+1==bnz-1){
+						addLine(breech[i][j][k+1],breech[i+1][j][k+1],breech[i+1][j+1][k+1],breech[i][j+1][k+1],Renderer3D.CAR_TOP);
+					}
+					
+					if(j==0){
+						addLine(breech[i][j][k],breech[i+1][j][k],breech[i+1][j][k+1],breech[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+					if(j+1==bny-1){
+						addLine(breech[i][j+1][k],breech[i][j+1][k+1],breech[i+1][j+1][k+1],breech[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+					}
+				
+
+					if(i+1==bnx-1){
+
+						addLine(breech[i+1][j][k],breech[i+1][j+1][k],breech[i+1][j+1][k+1],breech[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+					}
+				}
+			}
+
+		}
+		
+		//butt
+		
+		int pnx=5;
+		int pny=5;
+		int pnz=2;
+		
+		BPoint[][][] butt=new BPoint[pnx][pny][pnz];
+		
+		Segments p0=new Segments(xc,butt_width,0,butt_length,-butt_height,butt_height);
+
+		butt[0][0][0]=addBPoint(-0.5,0,0,p0);
+		butt[1][0][0]=addBPoint(-0.25,0.0,0,p0);
+		butt[2][0][0]=addBPoint(0.0,0.0,0,p0);
+		butt[3][0][0]=addBPoint(0.25,0.0,0,p0);
+		butt[4][0][0]=addBPoint(0.5,0.0,0,p0);
+		butt[0][1][0]=addBPoint(-0.5,0.25,0,p0);
+		butt[1][1][0]=addBPoint(-0.25,0.25,0,p0);
+		butt[2][1][0]=addBPoint(0.0,0.25,0,p0);
+		butt[3][1][0]=addBPoint(0.25,0.25,0,p0);
+		butt[4][1][0]=addBPoint(0.5,0.25,0,p0);
+		butt[0][2][0]=addBPoint(-0.5,0.5,0,p0);
+		butt[1][2][0]=addBPoint(-0.25,0.5,0,p0);
+		butt[2][2][0]=addBPoint(0.0,0.5,0,p0);
+		butt[3][2][0]=addBPoint(0.25,0.5,0,p0);
+		butt[4][2][0]=addBPoint(0.5,0.5,0,p0);
+		butt[0][3][0]=addBPoint(-0.5,0.75,0,p0);
+		butt[1][3][0]=addBPoint(-0.25,0.75,0,p0);
+		butt[2][3][0]=addBPoint(0.0,0.75,0,p0);
+		butt[3][3][0]=addBPoint(0.25,0.75,0,p0);
+		butt[4][3][0]=addBPoint(0.5,0.75,0,p0);
+		butt[0][4][0]=addBPoint(-0.5,1.0,0,p0);
+		butt[1][4][0]=addBPoint(-0.25,1.0,0,p0);
+		butt[2][4][0]=addBPoint(0.0,1.0,0,p0);
+		butt[3][4][0]=addBPoint(0.25,1.0,0,p0);
+		butt[4][4][0]=addBPoint(0.5,1.0,0,p0);
+		
+		butt[0][0][1]=addBPoint(-0.5,0.0,1.0,p0);	
+		butt[1][0][1]=addBPoint(-0.25,0.0,1.0,p0);	
+		butt[2][0][1]=addBPoint(0.0,0.0,1.0,p0);
+		butt[3][0][1]=addBPoint(0.25,0.0,1.0,p0);	
+		butt[4][0][1]=addBPoint(0.5,0.0,1.0,p0);		
+		butt[0][1][1]=addBPoint(-0.5,0.25,1.0,p0);	
+		butt[1][1][1]=addBPoint(-0.25,0.25,1.0,p0);
+		butt[2][1][1]=addBPoint(0.0,0.25,1.0,p0);
+		butt[3][1][1]=addBPoint(0.25,0.25,1.0,p0);
+		butt[4][1][1]=addBPoint(0.5,0.25,1.0,p0);
+		butt[0][2][1]=addBPoint(-0.5,0.5,1.0,p0);
+		butt[1][2][1]=addBPoint(-0.25,0.5,1.0,p0);	
+		butt[2][2][1]=addBPoint(0.0,0.5,1.0,p0);
+		butt[3][2][1]=addBPoint(0.25,0.5,1.0,p0);
+		butt[4][2][1]=addBPoint(0.5,0.5,1.0,p0);
+		butt[0][3][1]=addBPoint(-0.5,0.75,1.0,p0);	
+		butt[1][3][1]=addBPoint(-0.25,0.75,1.0,p0);
+		butt[2][3][1]=addBPoint(0.0,0.75,1.0,p0);
+		butt[3][3][1]=addBPoint(0.25,0.75,1.0,p0);
+		butt[4][3][1]=addBPoint(0.5,0.75,1.0,p0);
+		butt[0][4][1]=addBPoint(-0.5,1.0,1.0,p0);
+		butt[1][4][1]=addBPoint(-0.25,1.0,1.0,p0);	
+		butt[2][4][1]=addBPoint(0.0,1.0,1.0,p0);
+		butt[3][4][1]=addBPoint(0.25,1.0,1.0,p0);
+		butt[4][4][1]=addBPoint(0.5,1.0,1.0,p0);
+		
+		for (int i = 0; i < pnx-1; i++) {
+
+
+			for (int j = 0; j < pny-1; j++) {
+
+				for (int k = 0; k < pnz-1; k++) {
+
+
+
+
+					if(i==0){
+
+						addLine(butt[i][j][k],butt[i][j][k+1],butt[i][j+1][k+1],butt[i][j+1][k],Renderer3D.CAR_LEFT);
+					}
+
+				
+						
+					if(k==0){
+
+						addLine(butt[i][j][k],butt[i][j+1][k],butt[i+1][j+1][k],butt[i+1][j][k],Renderer3D.CAR_BOTTOM);
+					
+					}
+					
+					if(k+1==pnz-1){
+						addLine(butt[i][j][k+1],butt[i+1][j][k+1],butt[i+1][j+1][k+1],butt[i][j+1][k+1],Renderer3D.CAR_TOP);
+					}
+					
+					if(j==0){
+						addLine(butt[i][j][k],butt[i+1][j][k],butt[i+1][j][k+1],butt[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+					if(j+1==pny-1){
+						addLine(butt[i][j+1][k],butt[i][j+1][k+1],butt[i+1][j+1][k+1],butt[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+					}
+				
+
+					if(i+1==pnx-1){
+
+						addLine(butt[i+1][j][k],butt[i+1][j+1][k],butt[i+1][j+1][k+1],butt[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+					}
+				}
+			}
+
+		}
+		
+		/////////
+
+		//translatePoints(points,nw_x,nw_y);
+
+		PolygonMesh pm=new PolygonMesh(points,polyData);
+
+		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
+		return spm;
+
+	}
 
 
 

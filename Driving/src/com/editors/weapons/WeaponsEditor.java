@@ -70,7 +70,9 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 	private DoubleTextField butt_length;
 	private DoubleTextField butt_width;
 	private DoubleTextField butt_height;
-
+	private DoubleTextField butt_end_width;
+	private DoubleTextField butt_end_length;
+	private DoubleTextField butt_end_height;
 	
 	private JButton generate;
 	
@@ -83,10 +85,6 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 	Weapon weapon=null;
 	private JComboBox weapon_type;
 
-
-	
-	
-	
 	public WeaponsEditor(){
 		
 		setTitle("Weapon editor");
@@ -171,6 +169,8 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		weapon_type.addItem(new ValuePair("-1",""));
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_GUN,"Gun"));
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_SHOTGUN,"Shotgun"));		
+		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_REVOLVER,"Revolver"));
+		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_SHOTGUN,"Chaingun"));
 		weapon_type.addItemListener(this);
 		
 		weapon_type.setSelectedIndex(0);
@@ -250,7 +250,7 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		
 		r+=30;
 		
-		jlb=new JLabel("butt_width");
+		jlb=new JLabel("butt width");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
 		butt_width=new DoubleTextField();
@@ -267,7 +267,36 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		butt_height.setBounds(column, r, 100, 20);
 		butt_height.addKeyListener(this);
 		right.add(butt_height);
-
+		
+		r+=30;
+		
+		jlb=new JLabel("butt end length");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		butt_end_length=new DoubleTextField();
+		butt_end_length.setBounds(column, r, 100, 20);
+		butt_end_length.addKeyListener(this);
+		right.add(butt_end_length);
+		
+		r+=30;
+		
+		jlb=new JLabel("butt end width");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		butt_end_width=new DoubleTextField();
+		butt_end_width.setBounds(column, r, 100, 20);
+		butt_end_width.addKeyListener(this);
+		right.add(butt_end_width);
+		
+		r+=30;
+		
+		jlb=new JLabel("butt end height");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		butt_end_height=new DoubleTextField();
+		butt_end_height.setBounds(column, r, 100, 20);
+		butt_end_height.addKeyListener(this);
+		right.add(butt_end_height);
 		
 		r+=30;
 			
@@ -301,9 +330,12 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		breech_height.setText(100);
 		
 		butt_length.setText(50);
-		butt_width.setText(100);
-		butt_height.setText(200);
+		butt_width.setText(100);		
+		butt_height.setText(200);		
 		
+		butt_end_length.setText(100);
+		butt_end_width.setText(100);
+		butt_end_height.setText(100);
 
 	}
 	
@@ -318,10 +350,57 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		breech_height.setText(100);
 		
 		butt_length.setText(50);
+		butt_width.setText(100);		
+		butt_height.setText(200);
+		
+		butt_end_length.setText(100);
+		butt_end_width.setText(100);
+		butt_end_height.setText(100);
+
+	}
+	
+	private void initRightChaingunData() {
+
+		
+		barrel_length.setText(200);
+		barrel_radius.setText(50);	
+		barrel_meridians.setText(12);
+
+		breech_length.setText(100);
+		breech_width.setText(100);
+		breech_height.setText(100);
+		
+		butt_length.setText(50);
 		butt_width.setText(100);
 		butt_height.setText(200);
 		
+		butt_end_length.setText(100);
+		butt_end_width.setText(100);
+		butt_end_height.setText(100);
+		
+		
+	}
 
+	private void initRightRevolverData() {
+	
+		
+		barrel_length.setText(200);
+		barrel_radius.setText(50);	
+		barrel_meridians.setText(12);
+
+		breech_length.setText(100);
+		breech_width.setText(100);
+		breech_height.setText(100);
+		
+		butt_length.setText(50);
+		butt_width.setText(100);
+		butt_height.setText(200);
+		
+		butt_end_length.setText(100);
+		butt_end_width.setText(100);
+		butt_end_height.setText(100);
+		
+		
 	}
 	
 	private void setRightData(Weapon weapon) {
@@ -466,9 +545,12 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 			double breechHeight=breech_height.getvalue();
 			
 			double buttLength=butt_length.getvalue();
-			double buttWidth=butt_width.getvalue();
+			double buttWidth=butt_width.getvalue();			
 			double buttHeight=butt_height.getvalue();
-
+			
+			double buttEndLength=butt_end_length.getvalue();
+			double buttEndWidth=butt_end_width.getvalue();
+			double buttEndHeight=butt_end_height.getvalue();
 	
 			if(weapon==null){
 				
@@ -476,7 +558,8 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 							type,
 							barrelLength,barrelRadius,barrelMeridians,
 							breechLength,breechWidth,breechHeight,
-							buttLength,buttWidth,buttHeight
+							buttLength,buttWidth,buttHeight,
+							buttEndLength,buttEndWidth,buttEndHeight
 						);
 				
 			}else{
@@ -485,7 +568,8 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 							type,
 							barrelLength,barrelRadius,barrelMeridians,
 							breechLength,breechWidth,breechHeight,
-							buttLength,buttWidth,buttHeight
+							buttLength,buttWidth,buttHeight,
+							buttEndLength,buttEndWidth,buttEndHeight
 						);
 				
 				weapon=expWeapon;
@@ -733,11 +817,19 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 			   
 			   if(type==Weapon.WEAPON_TYPE_SHOTGUN)
 				   initRightShotgunData();
-			   else
+			   else if(type==Weapon.WEAPON_TYPE_GUN)
 				   initRightGunData();
+			   else if(type==Weapon.WEAPON_TYPE_REVOLVER)
+				   initRightRevolverData();
+			   else if(type==Weapon.WEAPON_TYPE_CHAINGUN)
+				   initRightChaingunData();
+			   else
+				   initRightGunData(); 
 			
 		}
 
 		
 	}
+
+
 }
