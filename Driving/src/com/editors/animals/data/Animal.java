@@ -1533,7 +1533,7 @@ public class Animal extends CustomData{
 		double xc=x_side/2.0;
 		double yc=y_side/2.0;
 	
-		Segments n0=new Segments(xc,head_DX*0.5,yc,y_side,0,head_DZ);
+		Segments n0=new Segments(xc,head_DX*0.5,yc,head_DY,0,head_DZ);
 		Segments h0=new Segments(xc,head_DX*0.5,yc,head_DY*0.5,0,head_DZ);
 		
 		
