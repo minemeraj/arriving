@@ -176,6 +176,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		animal_type.addItem(new ValuePair("-1",""));
 		animal_type.addItem(new ValuePair(""+Animal.ANIMAL_TYPE_QUADRUPED,"Quadruped"));
 		animal_type.addItem(new ValuePair(""+Animal.ANIMAL_TYPE_HUMAN,"Human"));
+		animal_type.addItem(new ValuePair(""+Animal.ANIMAL_TYPE_MANHEAD,"Man head"));
 		animal_type.addItemListener(this);
 		
 		animal_type.setSelectedIndex(0);
@@ -398,6 +399,32 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		radius_length.setText(50);
 				
 		foot_length.setText(30);
+	}
+	
+	private void initRightDataManHead() {
+		
+		x_side.setText(0);
+		y_side.setText(0);
+		z_side.setText(0);
+	
+		
+		head_DZ.setText(400);
+		head_DX.setText(400);
+		head_DY.setText(400);
+		
+		neck_length.setText(200);
+		neck_side.setText(400);
+		
+		
+		leg_side.setText(20);
+		humerus_length.setText(100);
+		radius_length.setText(50);
+		
+		femur_length.setText(100);
+		shinbone_length.setText(100);
+		
+		foot_length.setText(30);
+		
 	}
 	
 	private void setRightData(Animal animal) {
@@ -881,8 +908,12 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 				   initRightDataHuman();
 			   else if(type==Animal.ANIMAL_TYPE_QUADRUPED)
 				   initRightDataQuadruped();
+			   else if(type==Animal.ANIMAL_TYPE_MANHEAD)
+				   initRightDataManHead();
 			
 		}
 		
 	}
+
+
 }
