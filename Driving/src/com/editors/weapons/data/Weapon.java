@@ -597,8 +597,9 @@ public class Weapon extends CustomData{
 		butt[3][4][0]=addBPoint(0.25,1.0,0,p0);
 		butt[4][4][0]=addBPoint(0.5,1.0,0,p0);
 		
+		double yButt=breech_length-butt_length;
 		
-		Segments p1=new Segments(xc,butt_width,0,butt_length,-butt_height,butt_height);
+		Segments p1=new Segments(xc,butt_width,yButt,butt_length,-butt_height,butt_height);
 		
 		butt[0][0][1]=addBPoint(-0.5,0.0,1.0,p1);	
 		butt[1][0][1]=addBPoint(-0.25,0.0,1.0,p1);	
