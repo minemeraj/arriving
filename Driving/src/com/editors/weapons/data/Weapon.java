@@ -287,71 +287,165 @@ public class Weapon extends CustomData{
 		
 		double bax0=0;
 		double bay0=breech_length;
-		double baz0=breech_height*0.5;
+		double baz0=breech_height-2*barrel_radius;
 
 		//barrel:
 		
-		BPoint[] uTrunkpoints=new BPoint[barrel_meridians];
-		BPoint[] bTrunkpoints=new BPoint[barrel_meridians];
+		int fnx=5;
+		int fny=5;
+		int fnz=5;
 		
-		for (int i = 0; i < barrel_meridians; i++) {
+		BPoint[][][] p=new BPoint[fnx][fny][fnz];
 		
-			
-			double x=bax0+barrel_radius*Math.cos(2*Math.PI/barrel_meridians*i);
-			double z=baz0+barrel_radius*Math.sin(2*Math.PI/barrel_meridians*i);
-			
-			uTrunkpoints[i]=addBPoint(x,bay0+barrel_lenght,z);
-			
-			
-		}
+		Segments f0=new Segments(bax0,barrel_radius*2,bay0,barrel_lenght,baz0,barrel_radius*2);
+
+		p[0][0][0]=addBPoint(-0.5,0,0,f0);
+		p[1][0][0]=addBPoint(-0.25,0.0,0,f0);
+		p[2][0][0]=addBPoint(0.0,0.0,0,f0);
+		p[3][0][0]=addBPoint(0.25,0.0,0,f0);
+		p[4][0][0]=addBPoint(0.5,0.0,0,f0);
+		p[0][1][0]=addBPoint(-0.5,0.25,0,f0);
+		p[1][1][0]=addBPoint(-0.25,0.25,0,f0);
+		p[2][1][0]=addBPoint(0.0,0.25,0,f0);
+		p[3][1][0]=addBPoint(0.25,0.25,0,f0);
+		p[4][1][0]=addBPoint(0.5,0.25,0,f0);
+		p[0][2][0]=addBPoint(-0.5,0.5,0,f0);
+		p[1][2][0]=addBPoint(-0.25,0.5,0,f0);
+		p[2][2][0]=addBPoint(0.0,0.5,0,f0);
+		p[3][2][0]=addBPoint(0.25,0.5,0,f0);
+		p[4][2][0]=addBPoint(0.5,0.5,0,f0);
+		p[0][3][0]=addBPoint(-0.5,0.75,0,f0);
+		p[1][3][0]=addBPoint(-0.25,0.75,0,f0);
+		p[2][3][0]=addBPoint(0.0,0.75,0,f0);
+		p[3][3][0]=addBPoint(0.25,0.75,0,f0);
+		p[4][3][0]=addBPoint(0.5,0.75,0,f0);
+		p[0][4][0]=addBPoint(-0.5,1.0,0,f0);
+		p[1][4][0]=addBPoint(-0.25,1.0,0,f0);
+		p[2][4][0]=addBPoint(0.0,1.0,0,f0);
+		p[3][4][0]=addBPoint(0.25,1.0,0,f0);
+		p[4][4][0]=addBPoint(0.5,1.0,0,f0);
+		
+		
+		p[0][0][1]=addBPoint(-0.5,0,0.25,f0);
+		p[1][0][1]=addBPoint(-0.25,0.0,0.25,f0);
+		p[2][0][1]=addBPoint(0.0,0.0,0.25,f0);
+		p[3][0][1]=addBPoint(0.25,0.0,0.25,f0);
+		p[4][0][1]=addBPoint(0.5,0.0,0.25,f0);
+		p[0][1][1]=addBPoint(-0.5,0.25,0.25,f0);	
+		p[4][1][1]=addBPoint(0.5,0.25,0.25,f0);
+		p[0][2][1]=addBPoint(-0.5,0.5,0.25,f0);	
+		p[4][2][1]=addBPoint(0.5,0.5,0.25,f0);
+		p[0][3][1]=addBPoint(-0.5,0.75,0.25,f0);	
+		p[4][3][1]=addBPoint(0.5,0.75,0.25,f0);
+		p[0][4][1]=addBPoint(-0.5,1.0,0.25,f0);
+		p[1][4][1]=addBPoint(-0.25,1.0,0.25,f0);
+		p[2][4][1]=addBPoint(0.0,1.0,0.25,f0);
+		p[3][4][1]=addBPoint(0.25,1.0,0.25,f0);
+		p[4][4][1]=addBPoint(0.5,1.0,0.25,f0);
+		
+		p[0][0][2]=addBPoint(-0.5,0,0.5,f0);
+		p[1][0][2]=addBPoint(-0.25,0.0,0.5,f0);
+		p[2][0][2]=addBPoint(0.0,0.0,0.5,f0);
+		p[3][0][2]=addBPoint(0.25,0.0,0.5,f0);
+		p[4][0][2]=addBPoint(0.5,0.0,0.5,f0);
+		p[0][1][2]=addBPoint(-0.5,0.25,0.5,f0);	
+		p[4][1][2]=addBPoint(0.5,0.25,0.5,f0);
+		p[0][2][2]=addBPoint(-0.5,0.5,0.5,f0);	
+		p[4][2][2]=addBPoint(0.5,0.5,0.5,f0);
+		p[0][3][2]=addBPoint(-0.5,0.75,0.5,f0);	
+		p[4][3][2]=addBPoint(0.5,0.75,0.5,f0);
+		p[0][4][2]=addBPoint(-0.5,1.0,0.5,f0);
+		p[1][4][2]=addBPoint(-0.25,1.0,0.5,f0);
+		p[2][4][2]=addBPoint(0.0,1.0,0.5,f0);
+		p[3][4][2]=addBPoint(0.25,1.0,0.5,f0);
+		p[4][4][2]=addBPoint(0.5,1.0,0.5,f0);
+		
+		p[0][0][3]=addBPoint(-0.5,0,0.75,f0);
+		p[1][0][3]=addBPoint(-0.25,0.0,0.75,f0);
+		p[2][0][3]=addBPoint(0.0,0.0,0.75,f0);
+		p[3][0][3]=addBPoint(0.25,0.0,0.75,f0);
+		p[4][0][3]=addBPoint(0.5,0.0,0.75,f0);
+		p[0][1][3]=addBPoint(-0.5,0.25,0.75,f0);	
+		p[4][1][3]=addBPoint(0.5,0.25,0.75,f0);
+		p[0][2][3]=addBPoint(-0.5,0.5,0.75,f0);	
+		p[4][2][3]=addBPoint(0.5,0.5,0.75,f0);
+		p[0][3][3]=addBPoint(-0.5,0.75,0.75,f0);	
+		p[4][3][3]=addBPoint(0.5,0.75,0.75,f0);
+		p[0][4][3]=addBPoint(-0.5,1.0,0.75,f0);
+		p[1][4][3]=addBPoint(-0.25,1.0,0.75,f0);
+		p[2][4][3]=addBPoint(0.0,1.0,0.75,f0);
+		p[3][4][3]=addBPoint(0.25,1.0,0.75,f0);
+		p[4][4][3]=addBPoint(0.5,1.0,0.75,f0);
+		
+		p[0][0][4]=addBPoint(-0.5,0.0,1.0,f0);	
+		p[1][0][4]=addBPoint(-0.25,0.0,1.0,f0);	
+		p[2][0][4]=addBPoint(0.0,0.0,1.0,f0);
+		p[3][0][4]=addBPoint(0.25,0.0,1.0,f0);	
+		p[4][0][4]=addBPoint(0.5,0.0,1.0,f0);		
+		p[0][1][4]=addBPoint(-0.5,0.25,1.0,f0);	
+		p[1][1][4]=addBPoint(-0.25,0.25,1.0,f0);
+		p[2][1][4]=addBPoint(0.0,0.25,1.0,f0);
+		p[3][1][4]=addBPoint(0.25,0.25,1.0,f0);
+		p[4][1][4]=addBPoint(0.5,0.25,1.0,f0);
+		p[0][2][4]=addBPoint(-0.5,0.5,1.0,f0);
+		p[1][2][4]=addBPoint(-0.25,0.5,1.0,f0);	
+		p[2][2][4]=addBPoint(0.0,0.5,1.0,f0);
+		p[3][2][4]=addBPoint(0.25,0.5,1.0,f0);
+		p[4][2][4]=addBPoint(0.5,0.5,1.0,f0);
+		p[0][3][4]=addBPoint(-0.5,0.75,1.0,f0);	
+		p[1][3][4]=addBPoint(-0.25,0.75,1.0,f0);
+		p[2][3][4]=addBPoint(0.0,0.75,1.0,f0);
+		p[3][3][4]=addBPoint(0.25,0.75,1.0,f0);
+		p[4][3][4]=addBPoint(0.5,0.75,1.0,f0);
+		p[0][4][4]=addBPoint(-0.5,1.0,1.0,f0);
+		p[1][4][4]=addBPoint(-0.25,1.0,1.0,f0);	
+		p[2][4][4]=addBPoint(0.0,1.0,1.0,f0);
+		p[3][4][4]=addBPoint(0.25,1.0,1.0,f0);
+		p[4][4][4]=addBPoint(0.5,1.0,1.0,f0);
+		
+		for (int i = 0; i < fnx-1; i++) {
 
 
-		LineData topLD=new LineData();
-		
-		
-			
-			for (int i = barrel_meridians-1; i >=0; i--) {
-			
-			topLD.addIndex(uTrunkpoints[i].getIndex());
-			
-		}
-		topLD.setData(""+Renderer3D.CAR_TOP);
-		polyData.add(topLD);
-		
-		for (int i = 0; i < barrel_meridians; i++) {
-			
-			double x=bax0+barrel_radius*Math.cos(2*Math.PI/barrel_meridians*i);
-			double z=baz0+barrel_radius*Math.sin(2*Math.PI/barrel_meridians*i);
-			
-			bTrunkpoints[i]=addBPoint(x,bay0,z);
-			
-		}
+			for (int j = 0; j < fny-1; j++) {
+
+				for (int k = 0; k < fnz-1; k++) {
 
 
-		LineData bottomLD=new LineData();
-		
-		for (int i = 0; i < barrel_meridians; i++) {
-			
-			bottomLD.addIndex(bTrunkpoints[i].getIndex());
-			
-		}
-		bottomLD.setData(""+Renderer3D.CAR_BOTTOM);
-		polyData.add(bottomLD);
-		
-		
-		
-		for (int i = 0; i < barrel_meridians; i++) {
-			
-			LineData sideLD=new LineData();
-			
-			
-			sideLD.addIndex(bTrunkpoints[(i+1)%barrel_meridians].getIndex());
-			sideLD.addIndex(bTrunkpoints[i].getIndex());
-			sideLD.addIndex(uTrunkpoints[i].getIndex());
-			sideLD.addIndex(uTrunkpoints[(i+1)%barrel_meridians].getIndex());
-			sideLD.setData(""+getFace(sideLD,points));
-			polyData.add(sideLD);
-			
+
+
+					if(i==0){
+
+						LineData leftLD=addLine(p[i][j][k],p[i][j][k+1],p[i][j+1][k+1],p[i][j+1][k],Renderer3D.CAR_LEFT);
+					}
+
+				
+						
+					if(k==0){
+
+						LineData bottomLD=addLine(p[i][j][k],p[i][j+1][k],p[i+1][j+1][k],p[i+1][j][k],Renderer3D.CAR_BOTTOM);
+					
+					}
+					
+					if(k+1==fnz-1){
+						LineData topLD=addLine(p[i][j][k+1],p[i+1][j][k+1],p[i+1][j+1][k+1],p[i][j+1][k+1],Renderer3D.CAR_TOP);
+					}
+					
+					if(j==0){
+						LineData backLD=addLine(p[i][j][k],p[i+1][j][k],p[i+1][j][k+1],p[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+					if(j+1==fny-1){
+						LineData frontLD=addLine(p[i][j+1][k],p[i][j+1][k+1],p[i+1][j+1][k+1],p[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+					}
+				
+
+					if(i+1==fnx-1){
+
+						LineData rightLD=addLine(p[i+1][j][k],p[i+1][j+1][k],p[i+1][j+1][k+1],p[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+					}
+				}
+			}
+
 		}
 		
 		//breech
@@ -473,7 +567,9 @@ public class Weapon extends CustomData{
 		
 		BPoint[][][] butt=new BPoint[pnx][pny][pnz];
 		
-		Segments p0=new Segments(xc,butt_width,0,butt_length,-butt_height,butt_height);
+		
+		
+		Segments p0=new Segments(xc,butt_width,0,butt_end_length,-butt_height,butt_height);
 
 		butt[0][0][0]=addBPoint(-0.5,0,0,p0);
 		butt[1][0][0]=addBPoint(-0.25,0.0,0,p0);
@@ -501,31 +597,34 @@ public class Weapon extends CustomData{
 		butt[3][4][0]=addBPoint(0.25,1.0,0,p0);
 		butt[4][4][0]=addBPoint(0.5,1.0,0,p0);
 		
-		butt[0][0][1]=addBPoint(-0.5,0.0,1.0,p0);	
-		butt[1][0][1]=addBPoint(-0.25,0.0,1.0,p0);	
-		butt[2][0][1]=addBPoint(0.0,0.0,1.0,p0);
-		butt[3][0][1]=addBPoint(0.25,0.0,1.0,p0);	
-		butt[4][0][1]=addBPoint(0.5,0.0,1.0,p0);		
-		butt[0][1][1]=addBPoint(-0.5,0.25,1.0,p0);	
-		butt[1][1][1]=addBPoint(-0.25,0.25,1.0,p0);
-		butt[2][1][1]=addBPoint(0.0,0.25,1.0,p0);
-		butt[3][1][1]=addBPoint(0.25,0.25,1.0,p0);
-		butt[4][1][1]=addBPoint(0.5,0.25,1.0,p0);
-		butt[0][2][1]=addBPoint(-0.5,0.5,1.0,p0);
-		butt[1][2][1]=addBPoint(-0.25,0.5,1.0,p0);	
-		butt[2][2][1]=addBPoint(0.0,0.5,1.0,p0);
-		butt[3][2][1]=addBPoint(0.25,0.5,1.0,p0);
-		butt[4][2][1]=addBPoint(0.5,0.5,1.0,p0);
-		butt[0][3][1]=addBPoint(-0.5,0.75,1.0,p0);	
-		butt[1][3][1]=addBPoint(-0.25,0.75,1.0,p0);
-		butt[2][3][1]=addBPoint(0.0,0.75,1.0,p0);
-		butt[3][3][1]=addBPoint(0.25,0.75,1.0,p0);
-		butt[4][3][1]=addBPoint(0.5,0.75,1.0,p0);
-		butt[0][4][1]=addBPoint(-0.5,1.0,1.0,p0);
-		butt[1][4][1]=addBPoint(-0.25,1.0,1.0,p0);	
-		butt[2][4][1]=addBPoint(0.0,1.0,1.0,p0);
-		butt[3][4][1]=addBPoint(0.25,1.0,1.0,p0);
-		butt[4][4][1]=addBPoint(0.5,1.0,1.0,p0);
+		
+		Segments p1=new Segments(xc,butt_width,0,butt_length,-butt_height,butt_height);
+		
+		butt[0][0][1]=addBPoint(-0.5,0.0,1.0,p1);	
+		butt[1][0][1]=addBPoint(-0.25,0.0,1.0,p1);	
+		butt[2][0][1]=addBPoint(0.0,0.0,1.0,p1);
+		butt[3][0][1]=addBPoint(0.25,0.0,1.0,p1);	
+		butt[4][0][1]=addBPoint(0.5,0.0,1.0,p1);		
+		butt[0][1][1]=addBPoint(-0.5,0.25,1.0,p1);	
+		butt[1][1][1]=addBPoint(-0.25,0.25,1.0,p1);
+		butt[2][1][1]=addBPoint(0.0,0.25,1.0,p1);
+		butt[3][1][1]=addBPoint(0.25,0.25,1.0,p1);
+		butt[4][1][1]=addBPoint(0.5,0.25,1.0,p1);
+		butt[0][2][1]=addBPoint(-0.5,0.5,1.0,p1);
+		butt[1][2][1]=addBPoint(-0.25,0.5,1.0,p1);	
+		butt[2][2][1]=addBPoint(0.0,0.5,1.0,p1);
+		butt[3][2][1]=addBPoint(0.25,0.5,1.0,p1);
+		butt[4][2][1]=addBPoint(0.5,0.5,1.0,p1);
+		butt[0][3][1]=addBPoint(-0.5,0.75,1.0,p1);	
+		butt[1][3][1]=addBPoint(-0.25,0.75,1.0,p1);
+		butt[2][3][1]=addBPoint(0.0,0.75,1.0,p1);
+		butt[3][3][1]=addBPoint(0.25,0.75,1.0,p1);
+		butt[4][3][1]=addBPoint(0.5,0.75,1.0,p1);
+		butt[0][4][1]=addBPoint(-0.5,1.0,1.0,p1);
+		butt[1][4][1]=addBPoint(-0.25,1.0,1.0,p1);	
+		butt[2][4][1]=addBPoint(0.0,1.0,1.0,p1);
+		butt[3][4][1]=addBPoint(0.25,1.0,1.0,p1);
+		butt[4][4][1]=addBPoint(0.5,1.0,1.0,p1);
 		
 		for (int i = 0; i < pnx-1; i++) {
 
@@ -594,7 +693,7 @@ public class Weapon extends CustomData{
 		
 		double bax0=0;
 		double bay0=breech_length;
-		double baz0=breech_height*0.5;
+		double baz0=breech_height-barrel_radius;
 
 		//barrel:
 		
@@ -775,64 +874,40 @@ public class Weapon extends CustomData{
 		//butt
 		
 		int pnx=5;
-		int pny=5;
+		int pny=2;
 		int pnz=2;
 		
 		BPoint[][][] butt=new BPoint[pnx][pny][pnz];
 		
-		Segments p0=new Segments(xc,butt_width,0,butt_length,-butt_height,butt_height);
-
+		
+		double zEnd=(butt_height-butt_end_height);
+				
+		Segments p0=new Segments(xc,butt_width,-butt_length,butt_length,zEnd,butt_end_height);	
+		
 		butt[0][0][0]=addBPoint(-0.5,0,0,p0);
 		butt[1][0][0]=addBPoint(-0.25,0.0,0,p0);
 		butt[2][0][0]=addBPoint(0.0,0.0,0,p0);
 		butt[3][0][0]=addBPoint(0.25,0.0,0,p0);
 		butt[4][0][0]=addBPoint(0.5,0.0,0,p0);
-		butt[0][1][0]=addBPoint(-0.5,0.25,0,p0);
-		butt[1][1][0]=addBPoint(-0.25,0.25,0,p0);
-		butt[2][1][0]=addBPoint(0.0,0.25,0,p0);
-		butt[3][1][0]=addBPoint(0.25,0.25,0,p0);
-		butt[4][1][0]=addBPoint(0.5,0.25,0,p0);
-		butt[0][2][0]=addBPoint(-0.5,0.5,0,p0);
-		butt[1][2][0]=addBPoint(-0.25,0.5,0,p0);
-		butt[2][2][0]=addBPoint(0.0,0.5,0,p0);
-		butt[3][2][0]=addBPoint(0.25,0.5,0,p0);
-		butt[4][2][0]=addBPoint(0.5,0.5,0,p0);
-		butt[0][3][0]=addBPoint(-0.5,0.75,0,p0);
-		butt[1][3][0]=addBPoint(-0.25,0.75,0,p0);
-		butt[2][3][0]=addBPoint(0.0,0.75,0,p0);
-		butt[3][3][0]=addBPoint(0.25,0.75,0,p0);
-		butt[4][3][0]=addBPoint(0.5,0.75,0,p0);
-		butt[0][4][0]=addBPoint(-0.5,1.0,0,p0);
-		butt[1][4][0]=addBPoint(-0.25,1.0,0,p0);
-		butt[2][4][0]=addBPoint(0.0,1.0,0,p0);
-		butt[3][4][0]=addBPoint(0.25,1.0,0,p0);
-		butt[4][4][0]=addBPoint(0.5,1.0,0,p0);
-		
 		butt[0][0][1]=addBPoint(-0.5,0.0,1.0,p0);	
 		butt[1][0][1]=addBPoint(-0.25,0.0,1.0,p0);	
 		butt[2][0][1]=addBPoint(0.0,0.0,1.0,p0);
 		butt[3][0][1]=addBPoint(0.25,0.0,1.0,p0);	
-		butt[4][0][1]=addBPoint(0.5,0.0,1.0,p0);		
-		butt[0][1][1]=addBPoint(-0.5,0.25,1.0,p0);	
-		butt[1][1][1]=addBPoint(-0.25,0.25,1.0,p0);
-		butt[2][1][1]=addBPoint(0.0,0.25,1.0,p0);
-		butt[3][1][1]=addBPoint(0.25,0.25,1.0,p0);
-		butt[4][1][1]=addBPoint(0.5,0.25,1.0,p0);
-		butt[0][2][1]=addBPoint(-0.5,0.5,1.0,p0);
-		butt[1][2][1]=addBPoint(-0.25,0.5,1.0,p0);	
-		butt[2][2][1]=addBPoint(0.0,0.5,1.0,p0);
-		butt[3][2][1]=addBPoint(0.25,0.5,1.0,p0);
-		butt[4][2][1]=addBPoint(0.5,0.5,1.0,p0);
-		butt[0][3][1]=addBPoint(-0.5,0.75,1.0,p0);	
-		butt[1][3][1]=addBPoint(-0.25,0.75,1.0,p0);
-		butt[2][3][1]=addBPoint(0.0,0.75,1.0,p0);
-		butt[3][3][1]=addBPoint(0.25,0.75,1.0,p0);
-		butt[4][3][1]=addBPoint(0.5,0.75,1.0,p0);
-		butt[0][4][1]=addBPoint(-0.5,1.0,1.0,p0);
-		butt[1][4][1]=addBPoint(-0.25,1.0,1.0,p0);	
-		butt[2][4][1]=addBPoint(0.0,1.0,1.0,p0);
-		butt[3][4][1]=addBPoint(0.25,1.0,1.0,p0);
-		butt[4][4][1]=addBPoint(0.5,1.0,1.0,p0);
+		butt[4][0][1]=addBPoint(0.5,0.0,1.0,p0);	
+		
+		Segments p1=new Segments(xc,butt_width,-butt_length,butt_length,0,butt_height);
+
+
+		butt[0][1][0]=addBPoint(-0.5,1.0,0,p1);
+		butt[1][1][0]=addBPoint(-0.25,1.0,0,p1);
+		butt[2][1][0]=addBPoint(0.0,1.0,0,p1);
+		butt[3][1][0]=addBPoint(0.25,1.0,0,p1);
+		butt[4][1][0]=addBPoint(0.5,1.0,0,p1);
+		butt[0][1][1]=addBPoint(-0.5,1.0,1.0,p1);
+		butt[1][1][1]=addBPoint(-0.25,1.0,1.0,p1);	
+		butt[2][1][1]=addBPoint(0.0,1.0,1.0,p1);
+		butt[3][1][1]=addBPoint(0.25,1.0,1.0,p1);
+		butt[4][1][1]=addBPoint(0.5,1.0,1.0,p1);
 		
 		for (int i = 0; i < pnx-1; i++) {
 
@@ -903,7 +978,7 @@ public class Weapon extends CustomData{
 		
 		double bax0=0;
 		double bay0=breech_length;
-		double baz0=breech_height*0.5;
+		double baz0=breech_height-barrel_radius;
 
 		//barrel:
 		
@@ -1084,64 +1159,40 @@ public class Weapon extends CustomData{
 		//butt
 		
 		int pnx=5;
-		int pny=5;
+		int pny=2;
 		int pnz=2;
 		
 		BPoint[][][] butt=new BPoint[pnx][pny][pnz];
 		
-		Segments p0=new Segments(xc,butt_width,0,butt_length,-butt_height,butt_height);
-
+		
+		double zEnd=(butt_height-butt_end_height);
+				
+		Segments p0=new Segments(xc,butt_width,-butt_length,butt_length,zEnd,butt_end_height);	
+		
 		butt[0][0][0]=addBPoint(-0.5,0,0,p0);
 		butt[1][0][0]=addBPoint(-0.25,0.0,0,p0);
 		butt[2][0][0]=addBPoint(0.0,0.0,0,p0);
 		butt[3][0][0]=addBPoint(0.25,0.0,0,p0);
 		butt[4][0][0]=addBPoint(0.5,0.0,0,p0);
-		butt[0][1][0]=addBPoint(-0.5,0.25,0,p0);
-		butt[1][1][0]=addBPoint(-0.25,0.25,0,p0);
-		butt[2][1][0]=addBPoint(0.0,0.25,0,p0);
-		butt[3][1][0]=addBPoint(0.25,0.25,0,p0);
-		butt[4][1][0]=addBPoint(0.5,0.25,0,p0);
-		butt[0][2][0]=addBPoint(-0.5,0.5,0,p0);
-		butt[1][2][0]=addBPoint(-0.25,0.5,0,p0);
-		butt[2][2][0]=addBPoint(0.0,0.5,0,p0);
-		butt[3][2][0]=addBPoint(0.25,0.5,0,p0);
-		butt[4][2][0]=addBPoint(0.5,0.5,0,p0);
-		butt[0][3][0]=addBPoint(-0.5,0.75,0,p0);
-		butt[1][3][0]=addBPoint(-0.25,0.75,0,p0);
-		butt[2][3][0]=addBPoint(0.0,0.75,0,p0);
-		butt[3][3][0]=addBPoint(0.25,0.75,0,p0);
-		butt[4][3][0]=addBPoint(0.5,0.75,0,p0);
-		butt[0][4][0]=addBPoint(-0.5,1.0,0,p0);
-		butt[1][4][0]=addBPoint(-0.25,1.0,0,p0);
-		butt[2][4][0]=addBPoint(0.0,1.0,0,p0);
-		butt[3][4][0]=addBPoint(0.25,1.0,0,p0);
-		butt[4][4][0]=addBPoint(0.5,1.0,0,p0);
-		
 		butt[0][0][1]=addBPoint(-0.5,0.0,1.0,p0);	
 		butt[1][0][1]=addBPoint(-0.25,0.0,1.0,p0);	
 		butt[2][0][1]=addBPoint(0.0,0.0,1.0,p0);
 		butt[3][0][1]=addBPoint(0.25,0.0,1.0,p0);	
-		butt[4][0][1]=addBPoint(0.5,0.0,1.0,p0);		
-		butt[0][1][1]=addBPoint(-0.5,0.25,1.0,p0);	
-		butt[1][1][1]=addBPoint(-0.25,0.25,1.0,p0);
-		butt[2][1][1]=addBPoint(0.0,0.25,1.0,p0);
-		butt[3][1][1]=addBPoint(0.25,0.25,1.0,p0);
-		butt[4][1][1]=addBPoint(0.5,0.25,1.0,p0);
-		butt[0][2][1]=addBPoint(-0.5,0.5,1.0,p0);
-		butt[1][2][1]=addBPoint(-0.25,0.5,1.0,p0);	
-		butt[2][2][1]=addBPoint(0.0,0.5,1.0,p0);
-		butt[3][2][1]=addBPoint(0.25,0.5,1.0,p0);
-		butt[4][2][1]=addBPoint(0.5,0.5,1.0,p0);
-		butt[0][3][1]=addBPoint(-0.5,0.75,1.0,p0);	
-		butt[1][3][1]=addBPoint(-0.25,0.75,1.0,p0);
-		butt[2][3][1]=addBPoint(0.0,0.75,1.0,p0);
-		butt[3][3][1]=addBPoint(0.25,0.75,1.0,p0);
-		butt[4][3][1]=addBPoint(0.5,0.75,1.0,p0);
-		butt[0][4][1]=addBPoint(-0.5,1.0,1.0,p0);
-		butt[1][4][1]=addBPoint(-0.25,1.0,1.0,p0);	
-		butt[2][4][1]=addBPoint(0.0,1.0,1.0,p0);
-		butt[3][4][1]=addBPoint(0.25,1.0,1.0,p0);
-		butt[4][4][1]=addBPoint(0.5,1.0,1.0,p0);
+		butt[4][0][1]=addBPoint(0.5,0.0,1.0,p0);	
+		
+		Segments p1=new Segments(xc,butt_width,-butt_length,butt_length,0,butt_height);
+
+
+		butt[0][1][0]=addBPoint(-0.5,1.0,0,p1);
+		butt[1][1][0]=addBPoint(-0.25,1.0,0,p1);
+		butt[2][1][0]=addBPoint(0.0,1.0,0,p1);
+		butt[3][1][0]=addBPoint(0.25,1.0,0,p1);
+		butt[4][1][0]=addBPoint(0.5,1.0,0,p1);
+		butt[0][1][1]=addBPoint(-0.5,1.0,1.0,p1);
+		butt[1][1][1]=addBPoint(-0.25,1.0,1.0,p1);	
+		butt[2][1][1]=addBPoint(0.0,1.0,1.0,p1);
+		butt[3][1][1]=addBPoint(0.25,1.0,1.0,p1);
+		butt[4][1][1]=addBPoint(0.5,1.0,1.0,p1);
 		
 		for (int i = 0; i < pnx-1; i++) {
 
@@ -1210,7 +1261,7 @@ public class Weapon extends CustomData{
 		
 		double bax0=0;
 		double bay0=breech_length;
-		double baz0=breech_height*0.5;
+		double baz0=breech_height-barrel_radius;
 
 		//barrel:
 		
@@ -1288,6 +1339,7 @@ public class Weapon extends CustomData{
 		BPoint[][][] breech=new BPoint[bnx][bny][bnz];
 		
 		double xc=0.0;
+
 		
 		Segments b0=new Segments(xc,breech_width,0,breech_length,0,breech_height);
 
@@ -1391,64 +1443,40 @@ public class Weapon extends CustomData{
 		//butt
 		
 		int pnx=5;
-		int pny=5;
+		int pny=2;
 		int pnz=2;
 		
 		BPoint[][][] butt=new BPoint[pnx][pny][pnz];
 		
-		Segments p0=new Segments(xc,butt_width,0,butt_length,-butt_height,butt_height);
+		double zButt=-butt_height+breech_height*0.5;
+		
+		
+		
+		Segments p0=new Segments(xc,butt_width,-butt_end_length,butt_end_length,zButt,butt_height);
 
 		butt[0][0][0]=addBPoint(-0.5,0,0,p0);
 		butt[1][0][0]=addBPoint(-0.25,0.0,0,p0);
 		butt[2][0][0]=addBPoint(0.0,0.0,0,p0);
 		butt[3][0][0]=addBPoint(0.25,0.0,0,p0);
 		butt[4][0][0]=addBPoint(0.5,0.0,0,p0);
-		butt[0][1][0]=addBPoint(-0.5,0.25,0,p0);
-		butt[1][1][0]=addBPoint(-0.25,0.25,0,p0);
-		butt[2][1][0]=addBPoint(0.0,0.25,0,p0);
-		butt[3][1][0]=addBPoint(0.25,0.25,0,p0);
-		butt[4][1][0]=addBPoint(0.5,0.25,0,p0);
-		butt[0][2][0]=addBPoint(-0.5,0.5,0,p0);
-		butt[1][2][0]=addBPoint(-0.25,0.5,0,p0);
-		butt[2][2][0]=addBPoint(0.0,0.5,0,p0);
-		butt[3][2][0]=addBPoint(0.25,0.5,0,p0);
-		butt[4][2][0]=addBPoint(0.5,0.5,0,p0);
-		butt[0][3][0]=addBPoint(-0.5,0.75,0,p0);
-		butt[1][3][0]=addBPoint(-0.25,0.75,0,p0);
-		butt[2][3][0]=addBPoint(0.0,0.75,0,p0);
-		butt[3][3][0]=addBPoint(0.25,0.75,0,p0);
-		butt[4][3][0]=addBPoint(0.5,0.75,0,p0);
-		butt[0][4][0]=addBPoint(-0.5,1.0,0,p0);
-		butt[1][4][0]=addBPoint(-0.25,1.0,0,p0);
-		butt[2][4][0]=addBPoint(0.0,1.0,0,p0);
-		butt[3][4][0]=addBPoint(0.25,1.0,0,p0);
-		butt[4][4][0]=addBPoint(0.5,1.0,0,p0);
+		butt[0][1][0]=addBPoint(-0.5,1.0,0,p0);
+		butt[1][1][0]=addBPoint(-0.25,1.0,0,p0);
+		butt[2][1][0]=addBPoint(0.0,1.0,0,p0);
+		butt[3][1][0]=addBPoint(0.25,1.0,0,p0);
+		butt[4][1][0]=addBPoint(0.5,1.0,0,p0);
 		
-		butt[0][0][1]=addBPoint(-0.5,0.0,1.0,p0);	
-		butt[1][0][1]=addBPoint(-0.25,0.0,1.0,p0);	
-		butt[2][0][1]=addBPoint(0.0,0.0,1.0,p0);
-		butt[3][0][1]=addBPoint(0.25,0.0,1.0,p0);	
-		butt[4][0][1]=addBPoint(0.5,0.0,1.0,p0);		
-		butt[0][1][1]=addBPoint(-0.5,0.25,1.0,p0);	
-		butt[1][1][1]=addBPoint(-0.25,0.25,1.0,p0);
-		butt[2][1][1]=addBPoint(0.0,0.25,1.0,p0);
-		butt[3][1][1]=addBPoint(0.25,0.25,1.0,p0);
-		butt[4][1][1]=addBPoint(0.5,0.25,1.0,p0);
-		butt[0][2][1]=addBPoint(-0.5,0.5,1.0,p0);
-		butt[1][2][1]=addBPoint(-0.25,0.5,1.0,p0);	
-		butt[2][2][1]=addBPoint(0.0,0.5,1.0,p0);
-		butt[3][2][1]=addBPoint(0.25,0.5,1.0,p0);
-		butt[4][2][1]=addBPoint(0.5,0.5,1.0,p0);
-		butt[0][3][1]=addBPoint(-0.5,0.75,1.0,p0);	
-		butt[1][3][1]=addBPoint(-0.25,0.75,1.0,p0);
-		butt[2][3][1]=addBPoint(0.0,0.75,1.0,p0);
-		butt[3][3][1]=addBPoint(0.25,0.75,1.0,p0);
-		butt[4][3][1]=addBPoint(0.5,0.75,1.0,p0);
-		butt[0][4][1]=addBPoint(-0.5,1.0,1.0,p0);
-		butt[1][4][1]=addBPoint(-0.25,1.0,1.0,p0);	
-		butt[2][4][1]=addBPoint(0.0,1.0,1.0,p0);
-		butt[3][4][1]=addBPoint(0.25,1.0,1.0,p0);
-		butt[4][4][1]=addBPoint(0.5,1.0,1.0,p0);
+		Segments p1=new Segments(xc,butt_width,-butt_length,butt_length,zButt,butt_height);
+		
+		butt[0][0][1]=addBPoint(-0.5,0.0,1.0,p1);	
+		butt[1][0][1]=addBPoint(-0.25,0.0,1.0,p1);	
+		butt[2][0][1]=addBPoint(0.0,0.0,1.0,p1);
+		butt[3][0][1]=addBPoint(0.25,0.0,1.0,p1);	
+		butt[4][0][1]=addBPoint(0.5,0.0,1.0,p1);		
+		butt[0][1][1]=addBPoint(-0.5,1.0,1.0,p1);
+		butt[1][1][1]=addBPoint(-0.25,1.0,1.0,p1);	
+		butt[2][1][1]=addBPoint(0.0,1.0,1.0,p1);
+		butt[3][1][1]=addBPoint(0.25,1.0,1.0,p1);
+		butt[4][1][1]=addBPoint(0.5,1.0,1.0,p1);
 		
 		for (int i = 0; i < pnx-1; i++) {
 

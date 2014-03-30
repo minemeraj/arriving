@@ -314,7 +314,7 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 
 	public void initRightData() {
 		
-		initRightShotgunData();
+		initRightGunData();
 	
 	}
 	
@@ -322,18 +322,18 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 	public void initRightShotgunData() {
 	
 		barrel_length.setText(200);
-		barrel_radius.setText(50);	
+		barrel_radius.setText(40);	
 		barrel_meridians.setText(12);
 
 		breech_length.setText(100);
-		breech_width.setText(100);
+		breech_width.setText(80);
 		breech_height.setText(100);
 		
-		butt_length.setText(50);
-		butt_width.setText(100);		
-		butt_height.setText(200);		
+		butt_length.setText(200);
+		butt_width.setText(80);		
+		butt_height.setText(50);		
 		
-		butt_end_length.setText(100);
+		butt_end_length.setText(200);
 		butt_end_width.setText(100);
 		butt_end_height.setText(100);
 
@@ -342,20 +342,20 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 	public void initRightGunData() {
 		
 		barrel_length.setText(200);
-		barrel_radius.setText(50);	
+		barrel_radius.setText(27);	
 		barrel_meridians.setText(12);
 
-		breech_length.setText(100);
-		breech_width.setText(100);
-		breech_height.setText(100);
+		breech_length.setText(115);
+		breech_width.setText(80);
+		breech_height.setText(54);
 		
-		butt_length.setText(50);
-		butt_width.setText(100);		
-		butt_height.setText(200);
+		butt_length.setText(115);
+		butt_width.setText(80);		
+		butt_height.setText(125);
 		
-		butt_end_length.setText(100);
-		butt_end_width.setText(100);
-		butt_end_height.setText(100);
+		butt_end_length.setText(80);
+		butt_end_width.setText(80);
+		butt_end_height.setText(125);
 
 	}
 	
@@ -363,18 +363,18 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 
 		
 		barrel_length.setText(200);
-		barrel_radius.setText(50);	
+		barrel_radius.setText(40);	
 		barrel_meridians.setText(12);
 
 		breech_length.setText(100);
-		breech_width.setText(100);
+		breech_width.setText(80);
 		breech_height.setText(100);
 		
-		butt_length.setText(50);
-		butt_width.setText(100);
-		butt_height.setText(200);
+		butt_length.setText(200);
+		butt_width.setText(80);		
+		butt_height.setText(50);		
 		
-		butt_end_length.setText(100);
+		butt_end_length.setText(200);
 		butt_end_width.setText(100);
 		butt_end_height.setText(100);
 		
@@ -385,20 +385,20 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 	
 		
 		barrel_length.setText(200);
-		barrel_radius.setText(50);	
+		barrel_radius.setText(40);	
 		barrel_meridians.setText(12);
 
 		breech_length.setText(100);
-		breech_width.setText(100);
+		breech_width.setText(80);
 		breech_height.setText(100);
 		
 		butt_length.setText(50);
-		butt_width.setText(100);
+		butt_width.setText(80);
 		butt_height.setText(200);
 		
-		butt_end_length.setText(100);
+		butt_end_length.setText(80);
 		butt_end_width.setText(100);
-		butt_end_height.setText(100);
+		butt_end_height.setText(200);
 		
 		
 	}
