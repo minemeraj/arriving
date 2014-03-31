@@ -735,9 +735,9 @@ public class Animal extends CustomData{
 		BPoint[][][] head=new BPoint[numx][numy][numz];
 
 		head[0][0][0]=addBPoint(-e2.x*1.0,-e2.y*0.5,0.0,n0);
-		head[1][0][0]=addBPoint(-e3.x*0.5,-e3.y*0.5,0.0,n0);
+		head[1][0][0]=addBPoint(-e3.x,-e3.y*0.5,0.0,n0);
 		head[2][0][0]=addBPoint(e4.x,-e4.y*0.5,0.0,n0);
-		head[3][0][0]=addBPoint(e3.x*0.5,-e3.y*0.5,0.0,n0);
+		head[3][0][0]=addBPoint(e3.x,-e3.y*0.5,0.0,n0);
 		head[4][0][0]=addBPoint(e2.x,-e2.y*0.5,0.0,n0);
 		head[0][1][0]=addBPoint(-e1.x,-e2.y*0.25,0.0,n0);		
 		head[4][1][0]=addBPoint(e1.x,-e2.y*0.25,0.0,n0);
@@ -1550,9 +1550,9 @@ public class Animal extends CustomData{
 		BPoint[][][] head=new BPoint[numx][numy][numz];
 
 		head[0][0][0]=addBPoint(-e2.x*1.0,-e2.y*0.5,0.0,n0);
-		head[1][0][0]=addBPoint(-e3.x*0.5,-e3.y*0.5,0.0,n0);
+		head[1][0][0]=addBPoint(-e3.x,-e3.y*0.5,0.0,n0);
 		head[2][0][0]=addBPoint(e4.x,-e4.y*0.5,0.0,n0);
-		head[3][0][0]=addBPoint(e3.x*0.5,-e3.y*0.5,0.0,n0);
+		head[3][0][0]=addBPoint(e3.x,-e3.y*0.5,0.0,n0);
 		head[4][0][0]=addBPoint(e2.x,-e2.y*0.5,0.0,n0);
 		head[0][1][0]=addBPoint(-e1.x,-e2.y*0.25,0.0,n0);		
 		head[4][1][0]=addBPoint(e1.x,-e2.y*0.25,0.0,n0);
