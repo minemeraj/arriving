@@ -367,7 +367,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		roof_length.setText(150);
 		roof_height.setText(100);
 		
-		wheel_radius.setText(50);
+		wheel_radius.setText(15);
 	}
 	
 	public void initRightBykeData() { 
