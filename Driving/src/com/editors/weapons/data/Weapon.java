@@ -778,6 +778,8 @@ public class Weapon extends CustomData{
 		double xc=0.0;
 		
 		Segments b0=new Segments(xc,breech_width,0,breech_length,0,breech_height);
+		
+		double wr=(breech_height-2*barrel_radius)/breech_height;
 
 		breech[0][0][0]=addBPoint(-0.5,0,0,b0);
 		breech[1][0][0]=addBPoint(-0.25,0.0,0,b0);
@@ -799,12 +801,12 @@ public class Weapon extends CustomData{
 		breech[2][3][0]=addBPoint(0.0,0.75,0,b0);
 		breech[3][3][0]=addBPoint(0.25,0.75,0,b0);
 		breech[4][3][0]=addBPoint(0.5,0.75,0,b0);
-		breech[0][4][0]=addBPoint(-0.5,1.0,0,b0);
-		breech[1][4][0]=addBPoint(-0.25,1.0,0,b0);
-		breech[2][4][0]=addBPoint(0.0,1.0,0,b0);
-		breech[3][4][0]=addBPoint(0.25,1.0,0,b0);
-		breech[4][4][0]=addBPoint(0.5,1.0,0,b0);
-		
+		breech[0][4][0]=addBPoint(-0.5,1.0,wr,b0);
+		breech[1][4][0]=addBPoint(-0.25,1.0,wr,b0);
+		breech[2][4][0]=addBPoint(0.0,1.0,wr,b0);
+		breech[3][4][0]=addBPoint(0.25,1.0,wr,b0);
+		breech[4][4][0]=addBPoint(0.5,1.0,wr,b0);
+
 		breech[0][0][1]=addBPoint(-0.5,0.0,1.0,b0);	
 		breech[1][0][1]=addBPoint(-0.25,0.0,1.0,b0);	
 		breech[2][0][1]=addBPoint(0.0,0.0,1.0,b0);
@@ -1075,6 +1077,8 @@ public class Weapon extends CustomData{
 		double xc=0.0;
 		
 		Segments b0=new Segments(xc,breech_width,0,breech_length,0,breech_height);
+		
+		double wr=(breech_height-2*barrel_radius)/breech_height;
 
 		breech[0][0][0]=addBPoint(-0.5,0,0,b0);
 		breech[1][0][0]=addBPoint(-0.25,0.0,0,b0);
@@ -1096,11 +1100,11 @@ public class Weapon extends CustomData{
 		breech[2][3][0]=addBPoint(0.0,0.75,0,b0);
 		breech[3][3][0]=addBPoint(0.25,0.75,0,b0);
 		breech[4][3][0]=addBPoint(0.5,0.75,0,b0);
-		breech[0][4][0]=addBPoint(-0.5,1.0,0,b0);
-		breech[1][4][0]=addBPoint(-0.25,1.0,0,b0);
-		breech[2][4][0]=addBPoint(0.0,1.0,0,b0);
-		breech[3][4][0]=addBPoint(0.25,1.0,0,b0);
-		breech[4][4][0]=addBPoint(0.5,1.0,0,b0);
+		breech[0][4][0]=addBPoint(-0.5,1.0,wr,b0);
+		breech[1][4][0]=addBPoint(-0.25,1.0,wr,b0);
+		breech[2][4][0]=addBPoint(0.0,1.0,wr,b0);
+		breech[3][4][0]=addBPoint(0.25,1.0,wr,b0);
+		breech[4][4][0]=addBPoint(0.5,1.0,wr,b0);
 		
 		breech[0][0][1]=addBPoint(-0.5,0.0,1.0,b0);	
 		breech[1][0][1]=addBPoint(-0.25,0.0,1.0,b0);	
@@ -1358,6 +1362,8 @@ public class Weapon extends CustomData{
 		double xc=0.0;
 		
 		Segments b0=new Segments(xc,breech_width,0,breech_length,0,breech_height);
+		
+		double wr=(breech_height-2*barrel_radius)/breech_height;
 
 		breech[0][0][0]=addBPoint(-0.5,0,0,b0);
 		breech[1][0][0]=addBPoint(-0.25,0.0,0,b0);
@@ -1379,11 +1385,11 @@ public class Weapon extends CustomData{
 		breech[2][3][0]=addBPoint(0.0,0.75,0,b0);
 		breech[3][3][0]=addBPoint(0.25,0.75,0,b0);
 		breech[4][3][0]=addBPoint(0.5,0.75,0,b0);
-		breech[0][4][0]=addBPoint(-0.5,1.0,0,b0);
-		breech[1][4][0]=addBPoint(-0.25,1.0,0,b0);
-		breech[2][4][0]=addBPoint(0.0,1.0,0,b0);
-		breech[3][4][0]=addBPoint(0.25,1.0,0,b0);
-		breech[4][4][0]=addBPoint(0.5,1.0,0,b0);
+		breech[0][4][0]=addBPoint(-0.5,1.0,wr,b0);
+		breech[1][4][0]=addBPoint(-0.25,1.0,wr,b0);
+		breech[2][4][0]=addBPoint(0.0,1.0,wr,b0);
+		breech[3][4][0]=addBPoint(0.25,1.0,wr,b0);
+		breech[4][4][0]=addBPoint(0.5,1.0,wr,b0);
 		
 		breech[0][0][1]=addBPoint(-0.5,0.0,1.0,b0);	
 		breech[1][0][1]=addBPoint(-0.25,0.0,1.0,b0);	

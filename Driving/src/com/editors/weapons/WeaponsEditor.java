@@ -323,7 +323,7 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 	public void initRightShotgunData() {
 	
 		barrel_length.setText(200);
-		barrel_radius.setText(40);	
+		barrel_radius.setText(30);	
 		barrel_meridians.setText(12);
 
 		breech_length.setText(100);
