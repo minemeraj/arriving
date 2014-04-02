@@ -164,11 +164,12 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		right.add(jlb);
 		
 		weapon_type=new JComboBox();
-		weapon_type.setBounds(column, r, 100, 20);
+		weapon_type.setBounds(column, r, 180, 20);
 		weapon_type.addKeyListener(this);
 		weapon_type.addItem(new ValuePair("-1",""));
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_GUN,"Gun"));
-		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_SHOTGUN,"Shotgun"));		
+		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_SHOTGUN,"Shotgun"));	
+		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_DOUBLE_BARREL_SHOTGUN,"Double barrel Shotgun"));
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_REVOLVER,"Revolver"));
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_SHOTGUN,"Chaingun"));
 		weapon_type.addItemListener(this);
@@ -337,6 +338,29 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		butt_end_width.setText(100);
 		butt_end_height.setText(100);
 
+	}
+	
+	private void initRightDoubleBarrelShotgunData() {
+
+		
+		barrel_length.setText(200);
+		barrel_radius.setText(20);	
+		barrel_meridians.setText(12);
+
+		breech_length.setText(100);
+		breech_width.setText(80);
+		breech_height.setText(100);
+		
+		butt_length.setText(200);
+		butt_width.setText(80);		
+		butt_height.setText(50);		
+		
+		butt_end_length.setText(200);
+		butt_end_width.setText(100);
+		butt_end_height.setText(100);
+
+	
+		
 	}
 	
 	public void initRightGunData() {
@@ -817,6 +841,8 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 			   
 			   if(type==Weapon.WEAPON_TYPE_SHOTGUN)
 				   initRightShotgunData();
+			   if(type==Weapon.WEAPON_TYPE_DOUBLE_BARREL_SHOTGUN)
+				   initRightDoubleBarrelShotgunData();
 			   else if(type==Weapon.WEAPON_TYPE_GUN)
 				   initRightGunData();
 			   else if(type==Weapon.WEAPON_TYPE_REVOLVER)
@@ -830,6 +856,8 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 
 		
 	}
+
+
 
 
 }
