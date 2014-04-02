@@ -171,7 +171,7 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_SHOTGUN,"Shotgun"));	
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_DOUBLE_BARREL_SHOTGUN,"Double barrel Shotgun"));
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_REVOLVER,"Revolver"));
-		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_SHOTGUN,"Chaingun"));
+		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_CHAINGUN,"Chaingun"));
 		weapon_type.addItemListener(this);
 		
 		weapon_type.setSelectedIndex(0);
@@ -841,7 +841,7 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 			   
 			   if(type==Weapon.WEAPON_TYPE_SHOTGUN)
 				   initRightShotgunData();
-			   if(type==Weapon.WEAPON_TYPE_DOUBLE_BARREL_SHOTGUN)
+			   else if(type==Weapon.WEAPON_TYPE_DOUBLE_BARREL_SHOTGUN)
 				   initRightDoubleBarrelShotgunData();
 			   else if(type==Weapon.WEAPON_TYPE_GUN)
 				   initRightGunData();
