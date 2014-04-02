@@ -1088,6 +1088,7 @@ public class Car extends CustomData {
 		pRoof[3][4][2]=addBPoint(0.25,1.0,1.0,r0);
 		pRoof[4][4][2]=addBPoint(0.5,1.0,1.0,r0);
 
+
 		for (int i = 0; i < rnx-1; i++) {
 
 
@@ -1128,10 +1129,14 @@ public class Car extends CustomData {
 		//back:
 		
 		int bnx=5;
-		int bny=5;
+		int bny=6;
 		int bnz=5;
 		
 		BPoint[][][] pBack=new BPoint[bnx][bny][bnz];
+		
+		lw=(wheel_radius*2.0/Math.sqrt(3))/back_length;
+		zw=wheel_radius/back_height;
+		yw=0.5;
 		
 		Segments b0=new Segments(xc,back_width,0,back_length,0,back_height);
 
@@ -1140,104 +1145,123 @@ public class Car extends CustomData {
 		pBack[2][0][0]=addBPoint(0.0,0.0,0.0,b0);
 		pBack[3][0][0]=addBPoint(0.25,0,0,b0);
 		pBack[4][0][0]=addBPoint(0.5,0.1,0,b0);		
-		pBack[0][1][0]=addBPoint(-0.5,0.25,0,b0);
-		pBack[1][1][0]=addBPoint(-0.25,0.25,0,b0);
-		pBack[2][1][0]=addBPoint(0.0,0.25,0,b0);
-		pBack[3][1][0]=addBPoint(0.25,0.25,0,b0);
-		pBack[4][1][0]=addBPoint(0.5,0.25,0,b0);
-		pBack[0][2][0]=addBPoint(-0.5,0.5,0,b0);
-		pBack[1][2][0]=addBPoint(-0.25,0.5,0,b0);
-		pBack[2][2][0]=addBPoint(0.0,0.5,0,b0);
-		pBack[3][2][0]=addBPoint(0.25,0.5,0,b0);
-		pBack[4][2][0]=addBPoint(0.5,0.5,0,b0);
-		pBack[0][3][0]=addBPoint(-0.5,0.75,0,b0);
-		pBack[1][3][0]=addBPoint(-0.25,0.75,0,b0);
-		pBack[2][3][0]=addBPoint(0.0,0.75,0,b0);
-		pBack[3][3][0]=addBPoint(0.25,0.75,0,b0);
-		pBack[4][3][0]=addBPoint(0.5,0.75,0,b0);
-		pBack[0][4][0]=addBPoint(-0.5,1.0,0,b0);
-		pBack[1][4][0]=addBPoint(-0.25,1.0,0,b0);
-		pBack[2][4][0]=addBPoint(0.0,1.0,0,b0);
-		pBack[3][4][0]=addBPoint(0.25,1.0,0,b0);
-		pBack[4][4][0]=addBPoint(0.5,1.0,0,b0);
+		pBack[0][1][0]=addBPoint(-0.5,yw-lw,0,b0);
+		pBack[1][1][0]=addBPoint(-0.25,yw-lw,0,b0);
+		pBack[2][1][0]=addBPoint(0.0,yw-lw,0,b0);
+		pBack[3][1][0]=addBPoint(0.25,yw-lw,0,b0);
+		pBack[4][1][0]=addBPoint(0.5,yw-lw,0,b0);
+		pBack[0][2][0]=addBPoint(-0.5,yw-lw*0.5,zw,b0);
+		pBack[1][2][0]=addBPoint(-0.25,yw-lw*0.5,zw,b0);
+		pBack[2][2][0]=addBPoint(0.0,yw-lw*0.5,zw,b0);
+		pBack[3][2][0]=addBPoint(0.25,yw-lw*0.5,zw,b0);
+		pBack[4][2][0]=addBPoint(0.5,yw-lw*0.5,zw,b0);
+		pBack[0][3][0]=addBPoint(-0.5,yw+lw*0.5,zw,b0);
+		pBack[1][3][0]=addBPoint(-0.25,yw+lw*0.5,zw,b0);
+		pBack[2][3][0]=addBPoint(0.0,yw+lw*0.5,zw,b0);
+		pBack[3][3][0]=addBPoint(0.25,yw+lw*0.5,zw,b0);
+		pBack[4][3][0]=addBPoint(0.5,yw+lw*0.5,zw,b0);
+		pBack[0][4][0]=addBPoint(-0.5,yw+lw,0,b0);
+		pBack[1][4][0]=addBPoint(-0.25,yw+lw,0,b0);
+		pBack[2][4][0]=addBPoint(0.0,yw+lw,0,b0);
+		pBack[3][4][0]=addBPoint(0.25,yw+lw,0,b0);
+		pBack[4][4][0]=addBPoint(0.5,yw+lw,0,b0);
+		pBack[0][5][0]=addBPoint(-0.5,1.0,0,b0);
+		pBack[1][5][0]=addBPoint(-0.25,1.0,0,b0);
+		pBack[2][5][0]=addBPoint(0.0,1.0,0,b0);
+		pBack[3][5][0]=addBPoint(0.25,1.0,0,b0);
+		pBack[4][5][0]=addBPoint(0.5,1.0,0,b0);
 
 		pBack[0][0][1]=addBPoint(-0.5,0.1,0.25,b0);	
 		pBack[1][0][1]=addBPoint(-0.25,0,0.25,b0);
 		pBack[2][0][1]=addBPoint(0.0,0,0.25,b0);
 		pBack[3][0][1]=addBPoint(0.25,0,0.25,b0);	
 		pBack[4][0][1]=addBPoint(0.5,0.1,0.25,b0);
-		pBack[0][1][1]=addBPoint(-0.5,0.25,0.25,b0);		
-		pBack[4][1][1]=addBPoint(0.5,0.25,0.25,b0);
-		pBack[0][2][1]=addBPoint(-0.5,0.5,0.25,b0);			
-		pBack[4][2][1]=addBPoint(0.5,0.5,0.25,b0);
-		pBack[0][3][1]=addBPoint(-0.5,0.75,0.25,b0);		
-		pBack[4][3][1]=addBPoint(0.5,0.75,0.25,b0);
-		pBack[0][4][1]=addBPoint(-0.5,1.0,0.25,b0);
-		pBack[1][4][1]=addBPoint(-0.25,1.0,0.25,b0);		
-		pBack[2][4][1]=addBPoint(0.0,1.0,0.25,b0);
-		pBack[3][4][1]=addBPoint(0.25,1.0,0.25,b0);
-		pBack[4][4][1]=addBPoint(0.5,1.0,0.25,b0);
+		pBack[0][1][1]=addBPoint(-0.5,0.2,0.25,b0);		
+		pBack[4][1][1]=addBPoint(0.5,0.2,0.25,b0);
+		pBack[0][2][1]=addBPoint(-0.5,0.4,0.25,b0);			
+		pBack[4][2][1]=addBPoint(0.5,0.4,0.25,b0);
+		pBack[0][3][1]=addBPoint(-0.5,0.6,0.25,b0);		
+		pBack[4][3][1]=addBPoint(0.5,0.6,0.25,b0);
+		pBack[0][4][1]=addBPoint(-0.5,0.8,0.25,b0);
+		pBack[4][4][1]=addBPoint(0.5,0.8,0.25,b0);
+		pBack[0][5][1]=addBPoint(-0.5,1.0,0.25,b0);
+		pBack[1][5][1]=addBPoint(-0.25,1.0,0.25,b0);		
+		pBack[2][5][1]=addBPoint(0.0,1.0,0.25,b0);
+		pBack[3][5][1]=addBPoint(0.25,1.0,0.25,b0);
+		pBack[4][5][1]=addBPoint(0.5,1.0,0.25,b0);
 		
 		pBack[0][0][2]=addBPoint(-0.5,0.1,0.5,b0);	
 		pBack[1][0][2]=addBPoint(-0.25,0,0.5,b0);
 		pBack[2][0][2]=addBPoint(0.0,0,0.5,b0);
 		pBack[3][0][2]=addBPoint(0.25,0,0.5,b0);	
 		pBack[4][0][2]=addBPoint(0.5,0.1,0.5,b0);
-		pBack[0][1][2]=addBPoint(-0.5,0.25,0.5,b0);		
-		pBack[4][1][2]=addBPoint(0.5,0.25,0.5,b0);
-		pBack[0][2][2]=addBPoint(-0.5,0.5,0.5,b0);			
-		pBack[4][2][2]=addBPoint(0.5,0.5,0.5,b0);
-		pBack[0][3][2]=addBPoint(-0.5,0.75,0.5,b0);		
-		pBack[4][3][2]=addBPoint(0.5,0.75,0.5,b0);
-		pBack[0][4][2]=addBPoint(-0.5,1.0,0.5,b0);
-		pBack[1][4][2]=addBPoint(-0.25,1.0,0.5,b0);		
-		pBack[2][4][2]=addBPoint(0.0,1.0,0.5,b0);
-		pBack[3][4][2]=addBPoint(0.25,1.0,0.5,b0);
-		pBack[4][4][2]=addBPoint(0.5,1.0,0.5,b0);
+		pBack[0][1][2]=addBPoint(-0.5,0.2,0.5,b0);		
+		pBack[4][1][2]=addBPoint(0.5,0.2,0.5,b0);
+		pBack[0][2][2]=addBPoint(-0.5,0.4,0.5,b0);			
+		pBack[4][2][2]=addBPoint(0.5,0.4,0.5,b0);
+		pBack[0][3][2]=addBPoint(-0.5,0.6,0.5,b0);		
+		pBack[4][3][2]=addBPoint(0.5,0.6,0.5,b0);
+		pBack[0][4][2]=addBPoint(-0.5,0.8,0.5,b0);
+		pBack[4][4][2]=addBPoint(0.5,0.8,0.5,b0);
+		pBack[0][5][2]=addBPoint(-0.5,1.0,0.5,b0);
+		pBack[1][5][2]=addBPoint(-0.25,1.0,0.5,b0);		
+		pBack[2][5][2]=addBPoint(0.0,1.0,0.5,b0);
+		pBack[3][5][2]=addBPoint(0.25,1.0,0.5,b0);
+		pBack[4][5][2]=addBPoint(0.5,1.0,0.5,b0);
 		
 		pBack[0][0][3]=addBPoint(-0.5,0.1,0.75,b0);	
 		pBack[1][0][3]=addBPoint(-0.25,0,0.75,b0);
 		pBack[2][0][3]=addBPoint(0.0,0,0.75,b0);
 		pBack[3][0][3]=addBPoint(0.25,0,0.75,b0);	
 		pBack[4][0][3]=addBPoint(0.5,0.1,0.75,b0);
-		pBack[0][1][3]=addBPoint(-0.5,0.25,0.75,b0);		
-		pBack[4][1][3]=addBPoint(0.5,0.25,0.75,b0);
-		pBack[0][2][3]=addBPoint(-0.5,0.5,0.75,b0);			
-		pBack[4][2][3]=addBPoint(0.5,0.5,0.75,b0);
-		pBack[0][3][3]=addBPoint(-0.5,0.75,0.75,b0);		
-		pBack[4][3][3]=addBPoint(0.5,0.75,0.75,b0);
-		pBack[0][4][3]=addBPoint(-0.5,1.0,0.75,b0);
-		pBack[1][4][3]=addBPoint(-0.25,1.0,0.75,b0);		
-		pBack[2][4][3]=addBPoint(0.0,1.0,0.75,b0);
-		pBack[3][4][3]=addBPoint(0.25,1.0,0.75,b0);
-		pBack[4][4][3]=addBPoint(0.5,1.0,0.75,b0);
-		
+		pBack[0][1][3]=addBPoint(-0.5,0.2,0.75,b0);		
+		pBack[4][1][3]=addBPoint(0.5,0.2,0.75,b0);
+		pBack[0][2][3]=addBPoint(-0.5,0.4,0.75,b0);			
+		pBack[4][2][3]=addBPoint(0.5,0.4,0.75,b0);
+		pBack[0][3][3]=addBPoint(-0.5,0.6,0.75,b0);		
+		pBack[4][3][3]=addBPoint(0.5,0.6,0.75,b0);
+		pBack[0][4][3]=addBPoint(-0.5,0.8,0.75,b0);
+		pBack[4][4][3]=addBPoint(0.5,0.8,0.75,b0);
+		pBack[0][5][3]=addBPoint(-0.5,1.0,0.75,b0);
+		pBack[1][5][3]=addBPoint(-0.25,1.0,0.75,b0);		
+		pBack[2][5][3]=addBPoint(0.0,1.0,0.75,b0);
+		pBack[3][5][3]=addBPoint(0.25,1.0,0.75,b0);
+		pBack[4][5][3]=addBPoint(0.5,1.0,0.75,b0);
 		
 		pBack[0][0][4]=addBPoint(-0.5,0.1,1.0,b0);	
 		pBack[1][0][4]=addBPoint(-0.25,0,1.0,b0);
 		pBack[2][0][4]=addBPoint(0.0,0,1.0,b0);
 		pBack[3][0][4]=addBPoint(0.25,0,1.0,b0);	
 		pBack[4][0][4]=addBPoint(0.5,0.1,1.0,b0);
-		pBack[0][1][4]=addBPoint(-0.5,0.25,1.0,b0);	
-		pBack[1][1][4]=addBPoint(-0.25,0.25,1.0,b0);
-		pBack[2][1][4]=addBPoint(0.0,0.25,1.0,b0);
-		pBack[3][1][4]=addBPoint(0.25,0.25,1.0,b0);
-		pBack[4][1][4]=addBPoint(0.5,0.25,1.0,b0);
-		pBack[0][2][4]=addBPoint(-0.5,0.5,1.0,b0);	
-		pBack[1][2][4]=addBPoint(-0.25,0.5,1.0,b0);
-		pBack[2][2][4]=addBPoint(0.0,0.5,1.0,b0);
-		pBack[3][2][4]=addBPoint(0.25,0.5,1.0,b0);
-		pBack[4][2][4]=addBPoint(0.5,0.5,1.0,b0);
-		pBack[0][3][4]=addBPoint(-0.5,0.75,1.0,b0);	
-		pBack[1][3][4]=addBPoint(-0.25,0.75,1.0,b0);
-		pBack[2][3][4]=addBPoint(0.0,0.75,1.0,b0);
-		pBack[3][3][4]=addBPoint(0.25,0.75,1.0,b0);
-		pBack[4][3][4]=addBPoint(0.5,0.75,1.0,b0);
-		pBack[0][4][4]=addBPoint(-0.5,1.0,1.0,b0);
-		pBack[1][4][4]=addBPoint(-0.25,1.0,1.0,b0);		
-		pBack[2][4][4]=addBPoint(0.0,1.0,1.0,b0);
-		pBack[3][4][4]=addBPoint(0.25,1.0,1.0,b0);
-		pBack[4][4][4]=addBPoint(0.5,1.0,1.0,b0);
+		pBack[0][1][4]=addBPoint(-0.5,0.2,1.0,b0);	
+		pBack[1][1][4]=addBPoint(-0.25,0.2,1.0,b0);
+		pBack[2][1][4]=addBPoint(0.0,0.2,1.0,b0);
+		pBack[3][1][4]=addBPoint(0.25,0.2,1.0,b0);
+		pBack[4][1][4]=addBPoint(0.5,0.2,1.0,b0);
+		pBack[0][2][4]=addBPoint(-0.5,0.4,1.0,b0);	
+		pBack[1][2][4]=addBPoint(-0.25,0.4,1.0,b0);
+		pBack[2][2][4]=addBPoint(0.0,0.4,1.0,b0);
+		pBack[3][2][4]=addBPoint(0.25,0.4,1.0,b0);
+		pBack[4][2][4]=addBPoint(0.5,0.4,1.0,b0);
+		pBack[0][3][4]=addBPoint(-0.5,0.6,1.0,b0);	
+		pBack[1][3][4]=addBPoint(-0.25,0.6,1.0,b0);
+		pBack[2][3][4]=addBPoint(0.0,0.6,1.0,b0);
+		pBack[3][3][4]=addBPoint(0.25,0.6,1.0,b0);
+		pBack[4][3][4]=addBPoint(0.5,0.6,1.0,b0);
+		pBack[0][4][4]=addBPoint(-0.5,0.8,1.0,b0);
+		pBack[1][4][4]=addBPoint(-0.25,0.8,1.0,b0);		
+		pBack[2][4][4]=addBPoint(0.0,0.8,1.0,b0);
+		pBack[3][4][4]=addBPoint(0.25,0.8,1.0,b0);
+		pBack[4][4][4]=addBPoint(0.5,0.8,1.0,b0);
+		pBack[0][5][4]=addBPoint(-0.5,1.0,1.0,b0);
+		pBack[1][5][4]=addBPoint(-0.25,1.0,1.0,b0);		
+		pBack[2][5][4]=addBPoint(0.0,1.0,1.0,b0);
+		pBack[3][5][4]=addBPoint(0.25,1.0,1.0,b0);
+		pBack[4][5][4]=addBPoint(0.5,1.0,1.0,b0);
+		
+		
+		buildWheel(b0.x(-0.5),b0.y(0.5),0,wheel_radius,track);
+		buildWheel(b0.x(+0.5-track/back_width),b0.y(0.5),0,wheel_radius,track);
 
 		for (int i = 0; i < bnx-1; i++) {
 
