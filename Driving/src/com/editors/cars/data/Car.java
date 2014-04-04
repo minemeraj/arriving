@@ -1,7 +1,6 @@
 package com.editors.cars.data;
 
 import java.util.Vector;
-
 import com.BPoint;
 import com.CustomData;
 import com.LineData;
@@ -251,7 +250,7 @@ public class Car extends CustomData {
 	private PolygonMesh buildCarMesh() {
 		
 		points=new Vector();
-		points.setSize(300);
+		points.setSize(400);
 
 		polyData=new Vector();
 
@@ -266,7 +265,7 @@ public class Car extends CustomData {
 		
 		int pnx=5;
 		int bny=2;
-		int pny=5;
+		int pny=9;
 		int fny=5;
 		int pnz=3;
 		
@@ -323,12 +322,16 @@ public class Car extends CustomData {
 		//main body:	
 		
 		Segments p0=new Segments(xc,x_side,back_length,y_side,0,z_side);
+		
+		double lw=(wheel_radius*2.0/Math.sqrt(3))/y_side;
+		double zw=wheel_radius/z_side;
+		double yw=0.1875;
 
-		p[0][bny][0]=addBPoint(-0.5,0.05,0,p0);
-		p[1][bny][0]=addBPoint(-0.25,0.0,0,p0);
-		p[2][bny][0]=addBPoint(0,0.0,0,p0);
-		p[3][bny][0]=addBPoint(0.25,0.0,0,p0);
-		p[4][bny][0]=addBPoint(0.5,0.05,0,p0);
+		p[0][bny][0]=addBPoint(-0.5,yw-lw,0,p0);
+		p[1][bny][0]=addBPoint(-0.25,yw-lw,0,p0);
+		p[2][bny][0]=addBPoint(0,yw-lw,0,p0);
+		p[3][bny][0]=addBPoint(0.25,yw-lw,0,p0);
+		p[4][bny][0]=addBPoint(0.5,yw-lw,0,p0);
 		p[0][bny][1]=addBPoint(-0.5,0.05,0.5,p0);	
 		p[1][bny][1]=addBPoint(-0.25,0.0,0.5,p0);	
 		p[2][bny][1]=addBPoint(0,0.0,0.5,p0);	
@@ -340,129 +343,142 @@ public class Car extends CustomData {
 		p[3][bny][2]=addBPoint(0.25,0.0,1.0,p0);	
 		p[4][bny][2]=addBPoint(0.5,0.05,1.0,p0);	
 		
-		p[0][bny+1][0]=addBPoint(-0.5,0.25,0,p0);	
-		p[1][bny+1][0]=addBPoint(-0.25,0.25,0,p0);
-		p[2][bny+1][0]=addBPoint(0,0.25,0,p0);
-		p[3][bny+1][0]=addBPoint(0.25,0.25,0,p0);
-		p[4][bny+1][0]=addBPoint(0.5,0.25,0,p0);		
-		p[0][bny+1][1]=addBPoint(-0.5,0.25,0.5,p0);
-		p[1][bny+1][1]=addBPoint(-0.25,0.25,0.5,p0);
-		p[2][bny+1][1]=addBPoint(0,0.25,0.5,p0);
-		p[3][bny+1][1]=addBPoint(0.25,0.25,0.5,p0);
-		p[4][bny+1][1]=addBPoint(0.5,0.25,0.5,p0);
-		p[0][bny+1][2]=addBPoint(-0.5,0.25,1.0,p0);
-		p[1][bny+1][2]=addBPoint(-0.25,0.25,1.0,p0);
-		p[2][bny+1][2]=addBPoint(0,0.25,1.0,p0);
-		p[3][bny+1][2]=addBPoint(0.25,0.25,1.0,p0);
-		p[4][bny+1][2]=addBPoint(0.5,0.25,1.0,p0);
+		p[0][bny+1][0]=addBPoint(-0.5,yw-lw*0.5,zw,p0);	
+		p[1][bny+1][0]=addBPoint(-0.25,yw-lw*0.5,zw,p0);
+		p[2][bny+1][0]=addBPoint(0,yw-lw*0.5,zw,p0);
+		p[3][bny+1][0]=addBPoint(0.25,yw-lw*0.5,zw,p0);
+		p[4][bny+1][0]=addBPoint(0.5,yw-lw*0.5,zw,p0);		
+		p[0][bny+1][1]=addBPoint(-0.5,0.125,0.5,p0);
+		p[1][bny+1][1]=addBPoint(-0.25,0.125,0.5,p0);
+		p[2][bny+1][1]=addBPoint(0,0.125,0.5,p0);
+		p[3][bny+1][1]=addBPoint(0.25,0.125,0.5,p0);
+		p[4][bny+1][1]=addBPoint(0.5,0.125,0.5,p0);
+		p[0][bny+1][2]=addBPoint(-0.5,0.125,1.0,p0);
+		p[1][bny+1][2]=addBPoint(-0.25,0.125,1.0,p0);
+		p[2][bny+1][2]=addBPoint(0,0.125,1.0,p0);
+		p[3][bny+1][2]=addBPoint(0.25,0.125,1.0,p0);
+		p[4][bny+1][2]=addBPoint(0.5,0.125,1.0,p0);
 		
 		
-		p[0][bny+2][0]=addBPoint(-0.5,0.5,0,p0);	
-		p[1][bny+2][0]=addBPoint(-0.25,0.5,0,p0);
-		p[2][bny+2][0]=addBPoint(0,0.5,0,p0);
-		p[3][bny+2][0]=addBPoint(0.25,0.5,0,p0);
-		p[4][bny+2][0]=addBPoint(0.5,0.5,0,p0);		
-		p[0][bny+2][1]=addBPoint(-0.5,0.5,0.5,p0);
-		p[1][bny+2][1]=addBPoint(-0.25,0.5,0.5,p0);
-		p[2][bny+2][1]=addBPoint(0,0.5,0.5,p0);
-		p[3][bny+2][1]=addBPoint(0.25,0.5,0.5,p0);
-		p[4][bny+2][1]=addBPoint(0.5,0.5,0.5,p0);
-		p[0][bny+2][2]=addBPoint(-0.5,0.5,1.0,p0);
-		p[1][bny+2][2]=addBPoint(-0.25,0.5,1.0,p0);
-		p[2][bny+2][2]=addBPoint(0,0.5,1.0,p0);
-		p[3][bny+2][2]=addBPoint(0.25,0.5,1.0,p0);
-		p[4][bny+2][2]=addBPoint(0.5,0.5,1.0,p0);
+		p[0][bny+2][0]=addBPoint(-0.5,yw+lw*0.5,zw,p0);	
+		p[1][bny+2][0]=addBPoint(-0.25,yw+lw*0.5,zw,p0);
+		p[2][bny+2][0]=addBPoint(0,yw+lw*0.5,zw,p0);
+		p[3][bny+2][0]=addBPoint(0.25,yw+lw*0.5,zw,p0);
+		p[4][bny+2][0]=addBPoint(0.5,yw+lw*0.5,zw,p0);		
+		p[0][bny+2][1]=addBPoint(-0.5,0.25,0.5,p0);
+		p[1][bny+2][1]=addBPoint(-0.25,0.25,0.5,p0);
+		p[2][bny+2][1]=addBPoint(0,0.25,0.5,p0);
+		p[3][bny+2][1]=addBPoint(0.25,0.25,0.5,p0);
+		p[4][bny+2][1]=addBPoint(0.5,0.25,0.5,p0);
+		p[0][bny+2][2]=addBPoint(-0.5,0.25,1.0,p0);
+		p[1][bny+2][2]=addBPoint(-0.25,0.25,1.0,p0);
+		p[2][bny+2][2]=addBPoint(0,0.25,1.0,p0);
+		p[3][bny+2][2]=addBPoint(0.25,0.25,1.0,p0);
+		p[4][bny+2][2]=addBPoint(0.5,0.25,1.0,p0);
 		
-		p[0][bny+3][0]=addBPoint(-0.5,0.75,0,p0);	
-		p[1][bny+3][0]=addBPoint(-0.25,0.75,0,p0);
-		p[2][bny+3][0]=addBPoint(0,0.75,0,p0);
-		p[3][bny+3][0]=addBPoint(0.25,0.75,0,p0);
-		p[4][bny+3][0]=addBPoint(0.5,0.75,0,p0);		
-		p[0][bny+3][1]=addBPoint(-0.5,0.75,0.5,p0);
-		p[1][bny+3][1]=addBPoint(-0.25,0.75,0.5,p0);
-		p[2][bny+3][1]=addBPoint(0,0.75,0.5,p0);
-		p[3][bny+3][1]=addBPoint(0.25,0.75,0.5,p0);
-		p[4][bny+3][1]=addBPoint(0.5,0.75,0.5,p0);
-		p[0][bny+3][2]=addBPoint(-0.5,0.75,1.0,p0);
-		p[1][bny+3][2]=addBPoint(-0.25,0.75,1.0,p0);
-		p[2][bny+3][2]=addBPoint(0,0.75,1.0,p0);
-		p[3][bny+3][2]=addBPoint(0.25,0.75,1.0,p0);
-		p[4][bny+3][2]=addBPoint(0.5,0.75,1.0,p0);
+		p[0][bny+3][0]=addBPoint(-0.5,yw+lw,0,p0);	
+		p[1][bny+3][0]=addBPoint(-0.25,yw+lw,0,p0);
+		p[2][bny+3][0]=addBPoint(0,yw+lw,0,p0);
+		p[3][bny+3][0]=addBPoint(0.25,yw+lw,0,p0);
+		p[4][bny+3][0]=addBPoint(0.5,yw+lw,0,p0);		
+		p[0][bny+3][1]=addBPoint(-0.5,0.375,0.5,p0);
+		p[1][bny+3][1]=addBPoint(-0.25,0.375,0.5,p0);
+		p[2][bny+3][1]=addBPoint(0,0.5,0.375,p0);
+		p[3][bny+3][1]=addBPoint(0.25,0.375,0.5,p0);
+		p[4][bny+3][1]=addBPoint(0.5,0.375,0.5,p0);
+		p[0][bny+3][2]=addBPoint(-0.5,0.375,1.0,p0);
+		p[1][bny+3][2]=addBPoint(-0.25,0.375,1.0,p0);
+		p[2][bny+3][2]=addBPoint(0,0.375,1.0,p0);
+		p[3][bny+3][2]=addBPoint(0.25,0.375,1.0,p0);
+		p[4][bny+3][2]=addBPoint(0.5,0.375,1.0,p0);
 		
 		
-		p[0][bny+4][0]=addBPoint(-0.5,0.995,0,p0);	
-		p[1][bny+4][0]=addBPoint(-0.25,1.0,0,p0);
-		p[2][bny+4][0]=addBPoint(0,1.0,0,p0);
-		p[3][bny+4][0]=addBPoint(0.25,1.0,0,p0);
-		p[4][bny+4][0]=addBPoint(0.5,0.995,0,p0);		
-		p[0][bny+4][1]=addBPoint(-0.5,0.995,0.5,p0);
-		p[1][bny+4][1]=addBPoint(-0.25,1.0,0.5,p0);
-		p[2][bny+4][1]=addBPoint(0,1.0,0.5,p0);
-		p[3][bny+4][1]=addBPoint(0.25,1.0,0.5,p0);
-		p[4][bny+4][1]=addBPoint(0.5,0.995,0.5,p0);
-		p[0][bny+4][2]=addBPoint(-0.5,0.995,1.0,p0);
-		p[1][bny+4][2]=addBPoint(-0.25,1.0,1.0,p0);
-		p[2][bny+4][2]=addBPoint(0,1.0,1.0,p0);
-		p[3][bny+4][2]=addBPoint(0.25,1.0,1.0,p0);
-		p[4][bny+4][2]=addBPoint(0.5,0.995,1.0,p0);
+		p[0][bny+4][0]=addBPoint(-0.5,0.5,0,p0);	
+		p[1][bny+4][0]=addBPoint(-0.25,0.5,0,p0);
+		p[2][bny+4][0]=addBPoint(0,0.5,0,p0);
+		p[3][bny+4][0]=addBPoint(0.25,0.5,0,p0);
+		p[4][bny+4][0]=addBPoint(0.5,0.5,0,p0);		
+		p[0][bny+4][1]=addBPoint(-0.5,0.5,0.5,p0);
+		p[1][bny+4][1]=addBPoint(-0.25,0.5,0.5,p0);
+		p[2][bny+4][1]=addBPoint(0,0.5,0.5,p0);
+		p[3][bny+4][1]=addBPoint(0.25,0.5,0.5,p0);
+		p[4][bny+4][1]=addBPoint(0.5,0.5,0.5,p0);
+		p[0][bny+4][2]=addBPoint(-0.5,0.5,1.0,p0);
+		p[1][bny+4][2]=addBPoint(-0.25,0.5,1.0,p0);
+		p[2][bny+4][2]=addBPoint(0,0.5,1.0,p0);
+		p[3][bny+4][2]=addBPoint(0.25,0.5,1.0,p0);
+		p[4][bny+4][2]=addBPoint(0.5,0.5,1.0,p0);
 		
-		p[0][bny+5][0]=addBPoint(-0.5,0.995,0,p0);	
-		p[1][bny+5][0]=addBPoint(-0.25,1.0,0,p0);
-		p[2][bny+5][0]=addBPoint(0,1.0,0,p0);
-		p[3][bny+5][0]=addBPoint(0.25,1.0,0,p0);
-		p[4][bny+5][0]=addBPoint(0.5,0.995,0,p0);		
-		p[0][bny+5][1]=addBPoint(-0.5,0.995,0.5,p0);
-		p[1][bny+5][1]=addBPoint(-0.25,1.0,0.5,p0);
-		p[2][bny+5][1]=addBPoint(0,1.0,0.5,p0);
-		p[3][bny+5][1]=addBPoint(0.25,1.0,0.5,p0);
-		p[4][bny+5][1]=addBPoint(0.5,0.995,0.5,p0);
-		p[0][bny+5][2]=addBPoint(-0.5,0.995,1.0,p0);
-		p[1][bny+5][2]=addBPoint(-0.25,1.0,1.0,p0);
-		p[2][bny+5][2]=addBPoint(0,1.0,1.0,p0);
-		p[3][bny+5][2]=addBPoint(0.25,1.0,1.0,p0);
-		p[4][bny+5][2]=addBPoint(0.5,0.995,1.0,p0);
+		p[0][bny+5][0]=addBPoint(-0.5,0.625,0,p0);	
+		p[1][bny+5][0]=addBPoint(-0.25,0.625,0,p0);
+		p[2][bny+5][0]=addBPoint(0,0.625,0,p0);
+		p[3][bny+5][0]=addBPoint(0.25,0.625,0,p0);
+		p[4][bny+5][0]=addBPoint(0.5,0.625,0,p0);		
+		p[0][bny+5][1]=addBPoint(-0.5,0.625,0.5,p0);
+		p[1][bny+5][1]=addBPoint(-0.25,0.625,0.5,p0);
+		p[2][bny+5][1]=addBPoint(0,0.625,0.5,p0);
+		p[3][bny+5][1]=addBPoint(0.25,0.625,0.5,p0);
+		p[4][bny+5][1]=addBPoint(0.5,0.625,0.5,p0);
+		p[0][bny+5][2]=addBPoint(-0.5,0.625,1.0,p0);
+		p[1][bny+5][2]=addBPoint(-0.25,0.625,1.0,p0);
+		p[2][bny+5][2]=addBPoint(0,0.625,1.0,p0);
+		p[3][bny+5][2]=addBPoint(0.25,0.625,1.0,p0);
+		p[4][bny+5][2]=addBPoint(0.5,0.625,1.0,p0);
 		
-		p[0][bny+6][0]=addBPoint(-0.5,0.995,0,p0);	
-		p[1][bny+6][0]=addBPoint(-0.25,1.0,0,p0);
-		p[2][bny+6][0]=addBPoint(0,1.0,0,p0);
-		p[3][bny+6][0]=addBPoint(0.25,1.0,0,p0);
-		p[4][bny+6][0]=addBPoint(0.5,0.995,0,p0);		
-		p[0][bny+6][1]=addBPoint(-0.5,0.995,0.5,p0);
-		p[1][bny+6][1]=addBPoint(-0.25,1.0,0.5,p0);
-		p[2][bny+6][1]=addBPoint(0,1.0,0.5,p0);
-		p[3][bny+6][1]=addBPoint(0.25,1.0,0.5,p0);
-		p[4][bny+6][1]=addBPoint(0.5,0.995,0.5,p0);
-		p[0][bny+6][2]=addBPoint(-0.5,0.995,1.0,p0);
-		p[1][bny+6][2]=addBPoint(-0.25,1.0,1.0,p0);
-		p[2][bny+6][2]=addBPoint(0,1.0,1.0,p0);
-		p[3][bny+6][2]=addBPoint(0.25,1.0,1.0,p0);
-		p[4][bny+6][2]=addBPoint(0.5,0.995,1.0,p0);
+		p[0][bny+6][0]=addBPoint(-0.5,0.750,0,p0);	
+		p[1][bny+6][0]=addBPoint(-0.25,0.750,0,p0);
+		p[2][bny+6][0]=addBPoint(0,0.750,0,p0);
+		p[3][bny+6][0]=addBPoint(0.25,0.750,0,p0);
+		p[4][bny+6][0]=addBPoint(0.5,0.750,0,p0);		
+		p[0][bny+6][1]=addBPoint(-0.5,0.750,0.5,p0);
+		p[1][bny+6][1]=addBPoint(-0.25,0.750,0.5,p0);
+		p[2][bny+6][1]=addBPoint(0,0.750,0.5,p0);
+		p[3][bny+6][1]=addBPoint(0.25,0.750,0.5,p0);
+		p[4][bny+6][1]=addBPoint(0.5,0.750,0.5,p0);
+		p[0][bny+6][2]=addBPoint(-0.5,0.750,1.0,p0);
+		p[1][bny+6][2]=addBPoint(-0.25,0.750,1.0,p0);
+		p[2][bny+6][2]=addBPoint(0,1.0,0.750,p0);
+		p[3][bny+6][2]=addBPoint(0.25,0.750,1.0,p0);
+		p[4][bny+6][2]=addBPoint(0.5,0.750,1.0,p0);
 		
-
+		p[0][bny+7][0]=addBPoint(-0.5,0.875,0,p0);	
+		p[1][bny+7][0]=addBPoint(-0.25,0.875,0,p0);
+		p[2][bny+7][0]=addBPoint(0,0.875,0,p0);
+		p[3][bny+7][0]=addBPoint(0.25,0.875,0,p0);
+		p[4][bny+7][0]=addBPoint(0.5,0.875,0,p0);		
+		p[0][bny+7][1]=addBPoint(-0.5,0.875,0.5,p0);
+		p[1][bny+7][1]=addBPoint(-0.25,0.875,0.5,p0);
+		p[2][bny+7][1]=addBPoint(0,1.0,0.875,p0);
+		p[3][bny+7][1]=addBPoint(0.25,0.875,0.5,p0);
+		p[4][bny+7][1]=addBPoint(0.5,0.875,0.5,p0);
+		p[0][bny+7][2]=addBPoint(-0.5,0.875,1.0,p0);
+		p[1][bny+7][2]=addBPoint(-0.25,0.875,1.0,p0);
+		p[2][bny+7][2]=addBPoint(0,1.0,0.875,p0);
+		p[3][bny+7][2]=addBPoint(0.25,0.875,1.0,p0);
+		p[4][bny+7][2]=addBPoint(0.5,0.875,1.0,p0);
 		
-		p[0][bny+7][0]=addBPoint(-0.5,0.995,0,p0);	
-		p[1][bny+7][0]=addBPoint(-0.25,1.0,0,p0);
-		p[2][bny+7][0]=addBPoint(0,1.0,0,p0);
-		p[3][bny+7][0]=addBPoint(0.25,1.0,0,p0);
-		p[4][bny+7][0]=addBPoint(0.5,0.995,0,p0);		
-		p[0][bny+7][1]=addBPoint(-0.5,0.995,0.5,p0);
-		p[1][bny+7][1]=addBPoint(-0.25,1.0,0.5,p0);
-		p[2][bny+7][1]=addBPoint(0,1.0,0.5,p0);
-		p[3][bny+7][1]=addBPoint(0.25,1.0,0.5,p0);
-		p[4][bny+7][1]=addBPoint(0.5,0.995,0.5,p0);
-		p[0][bny+7][2]=addBPoint(-0.5,0.995,1.0,p0);
-		p[1][bny+7][2]=addBPoint(-0.25,1.0,1.0,p0);
-		p[2][bny+7][2]=addBPoint(0,1.0,1.0,p0);
-		p[3][bny+7][2]=addBPoint(0.25,1.0,1.0,p0);
-		p[4][bny+7][2]=addBPoint(0.5,0.995,1.0,p0);
-		
+		p[0][bny+8][0]=addBPoint(-0.5,0.995,0,p0);	
+		p[1][bny+8][0]=addBPoint(-0.25,1.0,0,p0);
+		p[2][bny+8][0]=addBPoint(0,1.0,0,p0);
+		p[3][bny+8][0]=addBPoint(0.25,1.0,0,p0);
+		p[4][bny+8][0]=addBPoint(0.5,0.995,0,p0);		
+		p[0][bny+8][1]=addBPoint(-0.5,0.995,0.5,p0);
+		p[1][bny+8][1]=addBPoint(-0.25,1.0,0.5,p0);
+		p[2][bny+8][1]=addBPoint(0,1.0,0.5,p0);
+		p[3][bny+8][1]=addBPoint(0.25,1.0,0.5,p0);
+		p[4][bny+8][1]=addBPoint(0.5,0.995,0.5,p0);
+		p[0][bny+8][2]=addBPoint(-0.5,0.995,1.0,p0);
+		p[1][bny+8][2]=addBPoint(-0.25,1.0,1.0,p0);
+		p[2][bny+8][2]=addBPoint(0,1.0,1.0,p0);
+		p[3][bny+8][2]=addBPoint(0.25,1.0,1.0,p0);
+		p[4][bny+8][2]=addBPoint(0.5,0.995,1.0,p0);
 
 		//front part:
 		
 		
-		double lw=(wheel_radius*2.0/Math.sqrt(3))/front_length;
-		double zw=wheel_radius/front_height;
-		double yw=0.5;
+		lw=(wheel_radius*2.0/Math.sqrt(3))/front_length;
+		zw=wheel_radius/front_height;
+		yw=0.5;
 		
 		double front_width0=front_width*(1-0.85)+x_side*0.85;  
 		double front_width1=front_width*(1-0.75)+x_side*0.75; 
@@ -629,26 +645,24 @@ public class Car extends CustomData {
 		pr[3][0][0]=p[3][bny][pnz-1];		
 		pr[4][0][0]=p[4][bny][pnz-1];			
 		pr[0][1][0]=p[0][bny+1][pnz-1];	
-		pr[1][1][0]=p[1][bny+1][pnz-1];	
-		pr[2][1][0]=p[2][bny+1][pnz-1];	
-		pr[3][1][0]=p[3][bny+1][pnz-1];	
 		pr[4][1][0]=p[4][bny+1][pnz-1];		
 		pr[0][2][0]=p[0][bny+2][pnz-1];		
-		pr[1][2][0]=p[1][bny+2][pnz-1];		
-		pr[2][2][0]=p[2][bny+2][pnz-1];	
-		pr[3][2][0]=p[3][bny+2][pnz-1];		
 		pr[4][2][0]=p[4][bny+2][pnz-1];		
-		pr[0][3][0]=p[0][bny+3][pnz-1];	
-		pr[1][3][0]=p[1][bny+3][pnz-1];	
-		pr[2][3][0]=p[2][bny+3][pnz-1];	
-		pr[3][3][0]=p[3][bny+3][pnz-1];		
+		pr[0][3][0]=p[0][bny+3][pnz-1];			
 		pr[4][3][0]=p[4][bny+3][pnz-1];			
-		pr[0][4][0]=p[0][bny+4][pnz-1];	
-		pr[1][4][0]=p[1][bny+4][pnz-1];	
-		pr[2][4][0]=p[2][bny+4][pnz-1];	
-		pr[3][4][0]=p[3][bny+4][pnz-1];	
+		pr[0][4][0]=p[0][bny+4][pnz-1];			
 		pr[4][4][0]=p[4][bny+4][pnz-1];	
-
+		pr[0][5][0]=p[0][bny+5][pnz-1];		
+		pr[4][5][0]=p[4][bny+5][pnz-1];	
+		pr[0][6][0]=p[0][bny+6][pnz-1];		
+		pr[4][6][0]=p[4][bny+6][pnz-1];	
+		pr[0][7][0]=p[0][bny+7][pnz-1];		
+		pr[4][7][0]=p[4][bny+7][pnz-1];	
+		pr[0][8][0]=p[0][bny+8][pnz-1];	
+		pr[1][8][0]=p[1][bny+8][pnz-1];	
+		pr[2][8][0]=p[2][bny+8][pnz-1];	
+		pr[3][8][0]=p[3][bny+8][pnz-1];	
+		pr[4][8][0]=p[4][bny+8][pnz-1];	
 		
 		
 		pr[0][0][1]=addBPoint(-0.5,0.0,0.75,r0);	
@@ -656,26 +670,25 @@ public class Car extends CustomData {
 		pr[2][0][1]=addBPoint(0.0,0.0,0.75,r0);	
 		pr[3][0][1]=addBPoint(0.25,0.0,0.75,r0);	
 		pr[4][0][1]=addBPoint(0.5,0.0,0.75,r0);		
-		pr[0][1][1]=addBPoint(-0.5,0.25,0.75,r0);	
-		pr[1][1][1]=addBPoint(-0.25,0.25,0.75,r0);	
-		pr[2][1][1]=addBPoint(-0.0,0.25,0.75,r0);	
-		pr[3][1][1]=addBPoint(0.25,0.25,0.75,r0);	
-		pr[4][1][1]=addBPoint(0.5,0.25,0.75,r0);		
-		pr[0][2][1]=addBPoint(-0.5,0.5,0.75,r0);	
-		pr[1][2][1]=addBPoint(-0.25,0.5,0.75,r0);	
-		pr[2][2][1]=addBPoint(0.0,0.5,0.75,r0);	
-		pr[3][2][1]=addBPoint(0.25,0.5,0.75,r0);	
-		pr[4][2][1]=addBPoint(0.5,0.5,0.75,r0);		
-		pr[0][3][1]=addBPoint(-0.5,0.75,0.75,r0);	
-		pr[1][3][1]=addBPoint(-0.25,0.75,0.75,r0);	
-		pr[2][3][1]=addBPoint(0.0,0.75,0.75,r0);	
-		pr[3][3][1]=addBPoint(0.25,0.75,0.75,r0);	
-		pr[4][3][1]=addBPoint(0.5,0.75,0.75,r0);		
-		pr[0][4][1]=addBPoint(-0.5,1.0,0.75,r0);	
-		pr[1][4][1]=addBPoint(-0.25,1.0,0.75,r0);	
-		pr[2][4][1]=addBPoint(0.0,1.0,0.75,r0);	
-		pr[3][4][1]=addBPoint(0.25,1.0,0.75,r0);	
-		pr[4][4][1]=addBPoint(0.5,1.0,0.75,r0);
+		pr[0][1][1]=addBPoint(-0.5,0.125,0.75,r0);		
+		pr[4][1][1]=addBPoint(0.5,0.125,0.75,r0);		
+		pr[0][2][1]=addBPoint(-0.5,0.25,0.75,r0);			
+		pr[4][2][1]=addBPoint(0.5,0.25,0.75,r0);		
+		pr[0][3][1]=addBPoint(-0.5,0.375,0.75,r0);	
+		pr[4][3][1]=addBPoint(0.5,0.375,0.75,r0);		
+		pr[0][4][1]=addBPoint(-0.5,0.5,0.75,r0);		
+		pr[4][4][1]=addBPoint(0.5,0.5,0.75,r0);
+		pr[0][5][1]=addBPoint(-0.5,0.625,0.75,r0);		
+		pr[4][5][1]=addBPoint(0.5,0.625,0.75,r0);
+		pr[0][6][1]=addBPoint(-0.5,0.75,0.75,r0);	
+		pr[4][6][1]=addBPoint(0.5,0.75,0.75,r0);
+		pr[0][7][1]=addBPoint(-0.5,0.875,0.75,r0);	
+		pr[4][7][1]=addBPoint(0.5,0.875,0.75,r0);
+		pr[0][8][1]=addBPoint(-0.5,1.0,0.75,r0);	
+		pr[1][8][1]=addBPoint(-0.25,1.0,0.75,r0);	
+		pr[2][8][1]=addBPoint(0.0,1.0,0.75,r0);	
+		pr[3][8][1]=addBPoint(0.25,1.0,0.75,r0);	
+		pr[4][8][1]=addBPoint(0.5,1.0,0.75,r0);
 		
 		
 		pr[0][0][2]=addBPoint(-0.5,0.0,0.9,r0);	
@@ -683,26 +696,46 @@ public class Car extends CustomData {
 		pr[2][0][2]=addBPoint(0.0,0.0,1.0,r0);	
 		pr[3][0][2]=addBPoint(0.25,0.0,1.0,r0);	
 		pr[4][0][2]=addBPoint(0.5,0.0,0.9,r0);		
-		pr[0][1][2]=addBPoint(-0.5,0.25,0.9,r0);	
-		pr[1][1][2]=addBPoint(-0.25,0.25,1.0,r0);	
-		pr[2][1][2]=addBPoint(-0.0,0.25,1.0,r0);	
-		pr[3][1][2]=addBPoint(0.25,0.25,1.0,r0);	
-		pr[4][1][2]=addBPoint(0.5,0.25,0.9,r0);		
-		pr[0][2][2]=addBPoint(-0.5,0.5,0.9,r0);	
-		pr[1][2][2]=addBPoint(-0.25,0.5,1.0,r0);	
-		pr[2][2][2]=addBPoint(0.0,0.5,1.0,r0);	
-		pr[3][2][2]=addBPoint(0.25,0.5,1.0,r0);	
-		pr[4][2][2]=addBPoint(0.5,0.5,0.9,r0);		
-		pr[0][3][2]=addBPoint(-0.5,0.75,0.9,r0);	
-		pr[1][3][2]=addBPoint(-0.25,0.75,1.0,r0);	
-		pr[2][3][2]=addBPoint(0.0,0.75,1.0,r0);	
-		pr[3][3][2]=addBPoint(0.25,0.75,1.0,r0);	
-		pr[4][3][2]=addBPoint(0.5,0.75,0.9,r0);		
-		pr[0][4][2]=addBPoint(-0.5,1.0,0.9,r0);	
-		pr[1][4][2]=addBPoint(-0.25,1.0,1.0,r0);	
-		pr[2][4][2]=addBPoint(0.0,1.0,1.0,r0);	
-		pr[3][4][2]=addBPoint(0.25,1.0,1.0,r0);	
-		pr[4][4][2]=addBPoint(0.5,1.0,0.9,r0);
+		pr[0][1][2]=addBPoint(-0.5,0.125,0.9,r0);	
+		pr[1][1][2]=addBPoint(-0.25,0.125,1.0,r0);	
+		pr[2][1][2]=addBPoint(-0.0,0.125,1.0,r0);	
+		pr[3][1][2]=addBPoint(0.25,0.125,1.0,r0);	
+		pr[4][1][2]=addBPoint(0.5,0.125,0.9,r0);		
+		pr[0][2][2]=addBPoint(-0.5,0.25,0.9,r0);	
+		pr[1][2][2]=addBPoint(-0.25,0.25,1.0,r0);	
+		pr[2][2][2]=addBPoint(0.0,0.25,1.0,r0);	
+		pr[3][2][2]=addBPoint(0.25,0.25,1.0,r0);	
+		pr[4][2][2]=addBPoint(0.5,0.25,0.9,r0);		
+		pr[0][3][2]=addBPoint(-0.5,0.375,0.9,r0);	
+		pr[1][3][2]=addBPoint(-0.25,0.375,1.0,r0);	
+		pr[2][3][2]=addBPoint(0.0,0.375,1.0,r0);	
+		pr[3][3][2]=addBPoint(0.25,0.375,1.0,r0);	
+		pr[4][3][2]=addBPoint(0.5,0.375,0.9,r0);		
+		pr[0][4][2]=addBPoint(-0.5,0.5,0.9,r0);	
+		pr[1][4][2]=addBPoint(-0.25,0.5,1.0,r0);	
+		pr[2][4][2]=addBPoint(0.0,0.5,1.0,r0);	
+		pr[3][4][2]=addBPoint(0.25,0.5,1.0,r0);	
+		pr[4][4][2]=addBPoint(0.5,0.5,0.9,r0);
+		pr[0][5][2]=addBPoint(-0.5,0.625,0.9,r0);	
+		pr[1][5][2]=addBPoint(-0.25,0.625,1.0,r0);	
+		pr[2][5][2]=addBPoint(0.0,0.625,1.0,r0);	
+		pr[3][5][2]=addBPoint(0.25,0.625,1.0,r0);	
+		pr[4][5][2]=addBPoint(0.5,0.625,0.9,r0);
+		pr[0][6][2]=addBPoint(-0.5,0.75,0.9,r0);	
+		pr[1][6][2]=addBPoint(-0.25,0.75,1.0,r0);	
+		pr[2][6][2]=addBPoint(0.0,0.75,1.0,r0);	
+		pr[3][6][2]=addBPoint(0.25,0.75,1.0,r0);	
+		pr[4][6][2]=addBPoint(0.5,0.75,0.9,r0);
+		pr[0][7][2]=addBPoint(-0.5,0.875,0.9,r0);	
+		pr[1][7][2]=addBPoint(-0.25,0.875,1.0,r0);	
+		pr[2][7][2]=addBPoint(0.0,0.875,1.0,r0);	
+		pr[3][7][2]=addBPoint(0.25,0.875,1.0,r0);	
+		pr[4][7][2]=addBPoint(0.5,0.875,0.9,r0);
+		pr[0][8][2]=addBPoint(-0.5,1.0,0.9,r0);	
+		pr[1][8][2]=addBPoint(-0.25,1.0,1.0,r0);	
+		pr[2][8][2]=addBPoint(0.0,1.0,1.0,r0);	
+		pr[3][8][2]=addBPoint(0.25,1.0,1.0,r0);	
+		pr[4][8][2]=addBPoint(0.5,1.0,0.9,r0);
 
 		
 		for (int i = 0; i < pnx-1; i++) {
