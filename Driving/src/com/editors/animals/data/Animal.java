@@ -42,6 +42,7 @@ public class Animal extends CustomData{
 	public static int ANIMAL_TYPE_QUADRUPED=0;
 	public static int ANIMAL_TYPE_HUMAN=1;
 	public static int ANIMAL_TYPE_MANHEAD=2;
+	public static int ANIMAL_TYPE_MANHAND=3;
 	
 	public int animal_type=ANIMAL_TYPE_HUMAN;
 
@@ -267,13 +268,19 @@ public class Animal extends CustomData{
 			return buildQuadrupedMesh();
 			
 		}
+		else if(ANIMAL_TYPE_MANHEAD==animal_type){			
+			
+			return  buildManHeadMesh();
+			
+		}
 		else
-			return buildManHeadMesh();
+			return buildManHandMesh();
 
 		
 
 
 	}
+
 
 
 	private PolygonMesh buildHumanMesh() {
@@ -308,31 +315,31 @@ public class Animal extends CustomData{
 		
 		BPoint[][][] body=new BPoint[numx][numy][numz]; 
 
-		body[0][0][0]=addBPoint(-0.5,-0.5,0.0,b0);
+		body[0][0][0]=addBPoint(-0.5,-0.5,0.1,b0);
 		body[1][0][0]=addBPoint(-0.25,-0.5,0.0,b0);
 		body[2][0][0]=addBPoint(0.0,-0.5,0.0,b0);
 		body[3][0][0]=addBPoint(0.25,-0.5,0.0,b0);
-		body[4][0][0]=addBPoint(0.5,-0.5,0.0,b0);
-		body[0][1][0]=addBPoint(-0.5,-0.25,0.0,b0);
+		body[4][0][0]=addBPoint(0.5,-0.5,0.1,b0);
+		body[0][1][0]=addBPoint(-0.5,-0.25,0.1,b0);
 		body[1][1][0]=addBPoint(-0.25,-0.25,0.0,b0);
 		body[2][1][0]=addBPoint(0.0,-0.25,0.0,b0);
 		body[3][1][0]=addBPoint(0.25,-0.25,0.0,b0);
-		body[4][1][0]=addBPoint(0.5,-0.25,0.0,b0);	
-		body[0][2][0]=addBPoint(-0.5,0.0,0.0,b0);
+		body[4][1][0]=addBPoint(0.5,-0.25,0.1,b0);	
+		body[0][2][0]=addBPoint(-0.5,0.0,0.1,b0);
 		body[1][2][0]=addBPoint(-0.25,0.0,0.0,b0);
 		body[2][2][0]=addBPoint(0.0,0.0,0.0,b0);
 		body[3][2][0]=addBPoint(0.25,0.0,0.0,b0);
-		body[4][2][0]=addBPoint(0.5,0.0,0.0,b0);
-		body[0][3][0]=addBPoint(-0.5,0.25,0.0,b0);
+		body[4][2][0]=addBPoint(0.5,0.0,0.1,b0);
+		body[0][3][0]=addBPoint(-0.5,0.25,0.1,b0);
 		body[1][3][0]=addBPoint(-0.25,0.25,0.0,b0);
 		body[2][3][0]=addBPoint(0.0,0.25,0.0,b0);
 		body[3][3][0]=addBPoint(0.25,0.25,0.0,b0);
-		body[4][3][0]=addBPoint(0.5,0.25,0.0,b0);
-		body[0][4][0]=addBPoint(-0.5,0.5,0.0,b0);
+		body[4][3][0]=addBPoint(0.5,0.25,0.1,b0);
+		body[0][4][0]=addBPoint(-0.5,0.5,0.1,b0);
 		body[1][4][0]=addBPoint(-0.25,0.5,0.0,b0);
 		body[2][4][0]=addBPoint(0.0,0.5,0.0,b0);
 		body[3][4][0]=addBPoint(0.25,0.5,0.0,b0);
-		body[4][4][0]=addBPoint(0.5,0.5,0.0,b0);
+		body[4][4][0]=addBPoint(0.5,0.5,0.1,b0);
 		
 		body[0][0][1]=addBPoint(-0.5,-0.5,0.25,b0);
 		body[1][0][1]=addBPoint(-0.25,-0.5,0.25,b0);
@@ -1687,7 +1694,501 @@ public class Animal extends CustomData{
 	}
 	
 
-	
+	private PolygonMesh buildManHandMesh() {
+		
+		points=new Vector();
+		points.setSize(400);
+
+		polyData=new Vector();
+
+		n=0;
+		
+		
+		
+		int pnx=9;
+		int pny=5;
+		int pnz=2;
+		
+		BPoint[][][] palm=new BPoint[pnx][pny][pnz];
+		
+		double xc=0;
+		
+		Segments p0=new Segments(xc,x_side,0,y_side,0,z_side);
+
+		palm[0][0][0]=addBPoint(0.0,0,0,p0);
+		palm[1][0][0]=addBPoint(0.125,0.0,0,p0);
+		palm[2][0][0]=addBPoint(0.25,0.0,0,p0);
+		palm[3][0][0]=addBPoint(0.375,0.0,0,p0);
+		palm[4][0][0]=addBPoint(0.5,0.0,0,p0);
+		palm[5][0][0]=addBPoint(0.625,0.0,0,p0);
+		palm[6][0][0]=addBPoint(0.75,0.0,0,p0);
+		palm[7][0][0]=addBPoint(0.875,0.0,0,p0);
+		palm[8][0][0]=addBPoint(1.0,0.0,0,p0);
+		palm[0][1][0]=addBPoint(0.0,0.25,0,p0);
+		palm[1][1][0]=addBPoint(0.125,0.25,0,p0);
+		palm[2][1][0]=addBPoint(0.25,0.25,0,p0);
+		palm[3][1][0]=addBPoint(0.375,0.25,0,p0);
+		palm[4][1][0]=addBPoint(0.5,0.25,0,p0);
+		palm[5][1][0]=addBPoint(0.625,0.25,0,p0);
+		palm[6][1][0]=addBPoint(0.75,0.25,0,p0);
+		palm[7][1][0]=addBPoint(0.875,0.25,0,p0);
+		palm[8][1][0]=addBPoint(1.0,0.25,0,p0);
+		palm[0][2][0]=addBPoint(0.0,0.5,0,p0);
+		palm[1][2][0]=addBPoint(0.125,0.5,0,p0);
+		palm[2][2][0]=addBPoint(0.25,0.5,0,p0);
+		palm[3][2][0]=addBPoint(0.375,0.5,0,p0);
+		palm[4][2][0]=addBPoint(0.5,0.5,0,p0);
+		palm[5][2][0]=addBPoint(0.625,0.5,0,p0);
+		palm[6][2][0]=addBPoint(0.75,0.5,0,p0);
+		palm[7][2][0]=addBPoint(0.875,0.5,0,p0);
+		palm[8][2][0]=addBPoint(1.0,0.5,0,p0);
+		palm[0][3][0]=addBPoint(0.0,0.75,0,p0);
+		palm[1][3][0]=addBPoint(0.125,0.75,0,p0);
+		palm[2][3][0]=addBPoint(0.25,0.75,0,p0);
+		palm[3][3][0]=addBPoint(0.375,0.75,0,p0);
+		palm[4][3][0]=addBPoint(0.5,0.75,0,p0);
+		palm[5][3][0]=addBPoint(0.625,0.75,0,p0);
+		palm[6][3][0]=addBPoint(0.75,0.75,0,p0);
+		palm[7][3][0]=addBPoint(0.875,0.75,0,p0);
+		palm[8][3][0]=addBPoint(1.0,0.75,0,p0);
+		palm[0][4][0]=addBPoint(0.0,1.0,0,p0);
+		palm[1][4][0]=addBPoint(0.125,1.0,0,p0);
+		palm[2][4][0]=addBPoint(0.25,1.0,0,p0);
+		palm[3][4][0]=addBPoint(0.375,1.0,0,p0);
+		palm[4][4][0]=addBPoint(0.5,1.0,0,p0);
+		palm[5][4][0]=addBPoint(0.625,1.0,0,p0);
+		palm[6][4][0]=addBPoint(0.75,1.0,0,p0);
+		palm[7][4][0]=addBPoint(0.875,1.0,0,p0);
+		palm[8][4][0]=addBPoint(1.0,1.0,0,p0);
+		
+		palm[0][0][1]=addBPoint(0.0,0,1.0,p0);
+		palm[1][0][1]=addBPoint(0.125,0.0,1.0,p0);
+		palm[2][0][1]=addBPoint(0.25,0.0,1.0,p0);
+		palm[3][0][1]=addBPoint(0.375,0.0,1.0,p0);
+		palm[4][0][1]=addBPoint(0.5,0.0,1.0,p0);
+		palm[5][0][1]=addBPoint(0.625,0.0,1.0,p0);
+		palm[6][0][1]=addBPoint(0.75,0.0,1.0,p0);
+		palm[7][0][1]=addBPoint(0.875,0.0,1.0,p0);
+		palm[8][0][1]=addBPoint(1.0,0.0,1.0,p0);
+		palm[0][1][1]=addBPoint(0.0,0.25,1.0,p0);
+		palm[1][1][1]=addBPoint(0.125,0.25,1.0,p0);
+		palm[2][1][1]=addBPoint(0.25,0.25,1.0,p0);
+		palm[3][1][1]=addBPoint(0.375,0.25,1.0,p0);
+		palm[4][1][1]=addBPoint(0.5,0.25,1.0,p0);
+		palm[5][1][1]=addBPoint(0.625,0.25,1.0,p0);
+		palm[6][1][1]=addBPoint(0.75,0.25,1.0,p0);
+		palm[7][1][1]=addBPoint(0.875,0.25,1.0,p0);
+		palm[8][1][1]=addBPoint(1.0,0.25,1.0,p0);
+		palm[0][2][1]=addBPoint(0.0,0.5,1.0,p0);
+		palm[1][2][1]=addBPoint(0.125,0.5,1.0,p0);
+		palm[2][2][1]=addBPoint(0.25,0.5,1.0,p0);
+		palm[3][2][1]=addBPoint(0.375,0.5,1.0,p0);
+		palm[4][2][1]=addBPoint(0.5,0.5,1.0,p0);
+		palm[5][2][1]=addBPoint(0.625,0.5,1.0,p0);
+		palm[6][2][1]=addBPoint(0.75,0.5,1.0,p0);
+		palm[7][2][1]=addBPoint(0.875,0.5,1.0,p0);
+		palm[8][2][1]=addBPoint(1.0,0.5,1.0,p0);
+		palm[0][3][1]=addBPoint(0.0,0.75,1.0,p0);
+		palm[1][3][1]=addBPoint(0.125,0.75,1.0,p0);
+		palm[2][3][1]=addBPoint(0.25,0.75,1.0,p0);
+		palm[3][3][1]=addBPoint(0.375,0.75,1.0,p0);
+		palm[4][3][1]=addBPoint(0.5,0.75,1.0,p0);
+		palm[5][3][1]=addBPoint(0.625,0.75,1.0,p0);
+		palm[6][3][1]=addBPoint(0.75,0.75,1.0,p0);
+		palm[7][3][1]=addBPoint(0.875,0.75,1.0,p0);
+		palm[8][3][1]=addBPoint(1.0,0.75,1.0,p0);
+		palm[0][4][1]=addBPoint(0.0,1.0,1.0,p0);
+		palm[1][4][1]=addBPoint(0.125,1.0,1.0,p0);
+		palm[2][4][1]=addBPoint(0.25,1.0,1.0,p0);
+		palm[3][4][1]=addBPoint(0.375,1.0,1.0,p0);
+		palm[4][4][1]=addBPoint(0.5,1.0,1.0,p0);
+		palm[5][4][1]=addBPoint(0.625,1.0,1.0,p0);
+		palm[6][4][1]=addBPoint(0.75,1.0,1.0,p0);
+		palm[7][4][1]=addBPoint(0.875,1.0,1.0,p0);
+		palm[8][4][1]=addBPoint(1.0,1.0,1.0,p0);
+
+		
+		
+		for (int i = 0; i < pnx-1; i++) {
+
+
+			for (int j = 0; j < pny-1; j++) {
+
+				for (int k = 0; k < pnz-1; k++) {
+
+
+
+
+					if(i==0){
+
+						LineData leftLD=addLine(palm[i][j][k],palm[i][j][k+1],palm[i][j+1][k+1],palm[i][j+1][k],Renderer3D.CAR_LEFT);
+					}
+
+				
+						
+					if(k==0){
+
+						LineData bottomLD=addLine(palm[i][j][k],palm[i][j+1][k],palm[i+1][j+1][k],palm[i+1][j][k],Renderer3D.CAR_BOTTOM);
+					
+					}
+					
+					if(k+1==pnz-1){
+						LineData topLD=addLine(palm[i][j][k+1],palm[i+1][j][k+1],palm[i+1][j+1][k+1],palm[i][j+1][k+1],Renderer3D.CAR_TOP);
+					}
+					
+					if(j==0){
+						LineData backLD=addLine(palm[i][j][k],palm[i+1][j][k],palm[i+1][j][k+1],palm[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+					if(j+1==pny-1){
+						LineData frontLD=addLine(palm[i][j+1][k],palm[i][j+1][k+1],palm[i+1][j+1][k+1],palm[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+					}
+				
+
+					if(i+1==pnx-1){
+
+						LineData rightLD=addLine(palm[i+1][j][k],palm[i+1][j+1][k],palm[i+1][j+1][k+1],palm[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+					}
+				}
+			}
+
+		}
+		
+		int ffnx=2;
+		int ffny=2;
+		int ffnz=2;
+		
+		BPoint[][][] foreFinger=new BPoint[ffnx][ffny][ffnz];
+		
+		Segments ff0=new Segments(x_side*0.125,x_side*0.125,y_side,150,0,z_side);
+		
+		foreFinger[0][0][0]=palm[1][pny-1][0];
+		foreFinger[1][0][0]=palm[2][pny-1][0];
+		foreFinger[0][0][1]=palm[1][pny-1][1];
+		foreFinger[1][0][1]=palm[2][pny-1][1];
+		
+		foreFinger[0][1][0]=addBPoint(0.0,1.0,0,ff0);
+		foreFinger[1][1][0]=addBPoint(1.0,1.0,0,ff0);
+		foreFinger[0][1][1]=addBPoint(0.0,1.0,1.0,ff0);
+		foreFinger[1][1][1]=addBPoint(1.0,1.0,1.0,ff0);
+		
+		
+		
+		for (int i = 0; i < ffnx-1; i++) {
+
+
+			for (int j = 0; j < ffny-1; j++) {
+
+				for (int k = 0; k < ffnz-1; k++) {
+
+
+
+
+					if(i==0){
+
+						LineData leftLD=addLine(foreFinger[i][j][k],foreFinger[i][j][k+1],foreFinger[i][j+1][k+1],foreFinger[i][j+1][k],Renderer3D.CAR_LEFT);
+					}
+
+				
+						
+					if(k==0){
+
+						LineData bottomLD=addLine(foreFinger[i][j][k],foreFinger[i][j+1][k],foreFinger[i+1][j+1][k],foreFinger[i+1][j][k],Renderer3D.CAR_BOTTOM);
+					
+					}
+					
+					if(k+1==ffnz-1){
+						LineData topLD=addLine(foreFinger[i][j][k+1],foreFinger[i+1][j][k+1],foreFinger[i+1][j+1][k+1],foreFinger[i][j+1][k+1],Renderer3D.CAR_TOP);
+					}
+					
+					if(j==0){
+						LineData backLD=addLine(foreFinger[i][j][k],foreFinger[i+1][j][k],foreFinger[i+1][j][k+1],foreFinger[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+					if(j+1==ffny-1){
+						LineData frontLD=addLine(foreFinger[i][j+1][k],foreFinger[i][j+1][k+1],foreFinger[i+1][j+1][k+1],foreFinger[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+					}
+				
+
+					if(i+1==ffnx-1){
+
+						LineData rightLD=addLine(foreFinger[i+1][j][k],foreFinger[i+1][j+1][k],foreFinger[i+1][j+1][k+1],foreFinger[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+					}
+				}
+			}
+
+		}
+
+		
+		int mfnx=2;
+		int mfny=2;
+		int mfnz=2;
+		
+		BPoint[][][] middleFinger=new BPoint[mfnx][mfny][mfnz];
+		
+		Segments mf0=new Segments(xc+x_side*0.375,x_side*0.125,y_side,200,0,z_side);
+		
+		middleFinger[0][0][0]=palm[3][pny-1][0];
+		middleFinger[1][0][0]=palm[4][pny-1][0];
+		middleFinger[0][0][1]=palm[3][pny-1][1];
+		middleFinger[1][0][1]=palm[4][pny-1][1];
+		
+		middleFinger[0][1][0]=addBPoint(0.0,1.0,0,mf0);
+		middleFinger[1][1][0]=addBPoint(1.0,1.0,0,mf0);
+		middleFinger[0][1][1]=addBPoint(0.0,1.0,1.0,mf0);
+		middleFinger[1][1][1]=addBPoint(1.0,1.0,1.0,mf0);
+		
+		
+		
+		for (int i = 0; i < mfnx-1; i++) {
+
+
+			for (int j = 0; j < mfny-1; j++) {
+
+				for (int k = 0; k < mfnz-1; k++) {
+
+
+
+
+					if(i==0){
+
+						LineData leftLD=addLine(middleFinger[i][j][k],middleFinger[i][j][k+1],middleFinger[i][j+1][k+1],middleFinger[i][j+1][k],Renderer3D.CAR_LEFT);
+					}
+
+				
+						
+					if(k==0){
+
+						LineData bottomLD=addLine(middleFinger[i][j][k],middleFinger[i][j+1][k],middleFinger[i+1][j+1][k],middleFinger[i+1][j][k],Renderer3D.CAR_BOTTOM);
+					
+					}
+					
+					if(k+1==mfnz-1){
+						LineData topLD=addLine(middleFinger[i][j][k+1],middleFinger[i+1][j][k+1],middleFinger[i+1][j+1][k+1],middleFinger[i][j+1][k+1],Renderer3D.CAR_TOP);
+					}
+					
+					if(j==0){
+						LineData backLD=addLine(middleFinger[i][j][k],middleFinger[i+1][j][k],middleFinger[i+1][j][k+1],middleFinger[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+					if(j+1==mfny-1){
+						LineData frontLD=addLine(middleFinger[i][j+1][k],middleFinger[i][j+1][k+1],middleFinger[i+1][j+1][k+1],middleFinger[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+					}
+				
+
+					if(i+1==mfnx-1){
+
+						LineData rightLD=addLine(middleFinger[i+1][j][k],middleFinger[i+1][j+1][k],middleFinger[i+1][j+1][k+1],middleFinger[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+					}
+				}
+			}
+
+		}
+		
+		
+		int rfnx=2;
+		int rfny=2;
+		int rfnz=2;
+		
+		BPoint[][][] ringFinger=new BPoint[rfnx][rfny][rfnz];
+		
+		Segments rf0=new Segments(xc+x_side*0.625,x_side*0.125,y_side,150,0,z_side);
+		
+		ringFinger[0][0][0]=palm[5][pny-1][0];
+		ringFinger[1][0][0]=palm[6][pny-1][0];
+		ringFinger[0][0][1]=palm[5][pny-1][1];
+		ringFinger[1][0][1]=palm[6][pny-1][1];
+		
+		ringFinger[0][1][0]=addBPoint(0.0,1.0,0,rf0);
+		ringFinger[1][1][0]=addBPoint(1.0,1.0,0,rf0);
+		ringFinger[0][1][1]=addBPoint(0.0,1.0,1.0,rf0);
+		ringFinger[1][1][1]=addBPoint(1.0,1.0,1.0,rf0);
+		
+		
+		
+		for (int i = 0; i < rfnx-1; i++) {
+
+
+			for (int j = 0; j < rfny-1; j++) {
+
+				for (int k = 0; k < rfnz-1; k++) {
+
+
+
+
+					if(i==0){
+
+						LineData leftLD=addLine(ringFinger[i][j][k],ringFinger[i][j][k+1],ringFinger[i][j+1][k+1],ringFinger[i][j+1][k],Renderer3D.CAR_LEFT);
+					}
+
+				
+						
+					if(k==0){
+
+						LineData bottomLD=addLine(ringFinger[i][j][k],ringFinger[i][j+1][k],ringFinger[i+1][j+1][k],ringFinger[i+1][j][k],Renderer3D.CAR_BOTTOM);
+					
+					}
+					
+					if(k+1==rfnz-1){
+						LineData topLD=addLine(ringFinger[i][j][k+1],ringFinger[i+1][j][k+1],ringFinger[i+1][j+1][k+1],ringFinger[i][j+1][k+1],Renderer3D.CAR_TOP);
+					}
+					
+					if(j==0){
+						LineData backLD=addLine(ringFinger[i][j][k],ringFinger[i+1][j][k],ringFinger[i+1][j][k+1],ringFinger[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+					if(j+1==rfny-1){
+						LineData frontLD=addLine(ringFinger[i][j+1][k],ringFinger[i][j+1][k+1],ringFinger[i+1][j+1][k+1],ringFinger[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+					}
+				
+
+					if(i+1==rfnx-1){
+
+						LineData rightLD=addLine(ringFinger[i+1][j][k],ringFinger[i+1][j+1][k],ringFinger[i+1][j+1][k+1],ringFinger[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+					}
+				}
+			}
+
+		}
+		
+		
+		int lfnx=2;
+		int lfny=2;
+		int lfnz=2;
+		
+		BPoint[][][] littleFinger=new BPoint[lfnx][lfny][lfnz];
+		
+		Segments lf0=new Segments(xc+x_side*0.875,x_side*0.125,y_side,100,0,z_side);
+		
+		littleFinger[0][0][0]=palm[7][pny-1][0];
+		littleFinger[1][0][0]=palm[8][pny-1][0];
+		littleFinger[0][0][1]=palm[7][pny-1][1];
+		littleFinger[1][0][1]=palm[8][pny-1][1];
+		
+		littleFinger[0][1][0]=addBPoint(0.0,1.0,0,lf0);
+		littleFinger[1][1][0]=addBPoint(1.0,1.0,0,lf0);
+		littleFinger[0][1][1]=addBPoint(0.0,1.0,1.0,lf0);
+		littleFinger[1][1][1]=addBPoint(1.0,1.0,1.0,lf0);
+		
+		
+		
+		for (int i = 0; i < rfnx-1; i++) {
+
+
+			for (int j = 0; j < rfny-1; j++) {
+
+				for (int k = 0; k < rfnz-1; k++) {
+
+
+
+
+					if(i==0){
+
+						LineData leftLD=addLine(littleFinger[i][j][k],littleFinger[i][j][k+1],littleFinger[i][j+1][k+1],littleFinger[i][j+1][k],Renderer3D.CAR_LEFT);
+					}
+
+				
+						
+					if(k==0){
+
+						LineData bottomLD=addLine(littleFinger[i][j][k],littleFinger[i][j+1][k],littleFinger[i+1][j+1][k],littleFinger[i+1][j][k],Renderer3D.CAR_BOTTOM);
+					
+					}
+					
+					if(k+1==rfnz-1){
+						LineData topLD=addLine(littleFinger[i][j][k+1],littleFinger[i+1][j][k+1],littleFinger[i+1][j+1][k+1],littleFinger[i][j+1][k+1],Renderer3D.CAR_TOP);
+					}
+					
+					if(j==0){
+						LineData backLD=addLine(littleFinger[i][j][k],littleFinger[i+1][j][k],littleFinger[i+1][j][k+1],littleFinger[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+					if(j+1==rfny-1){
+						LineData frontLD=addLine(littleFinger[i][j+1][k],littleFinger[i][j+1][k+1],littleFinger[i+1][j+1][k+1],littleFinger[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+					}
+				
+
+					if(i+1==rfnx-1){
+
+						LineData rightLD=addLine(littleFinger[i+1][j][k],littleFinger[i+1][j+1][k],littleFinger[i+1][j+1][k+1],littleFinger[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+					}
+				}
+			}
+
+		}
+		
+		int tnx=2;
+		int tny=2;
+		int tnz=2;
+		
+		BPoint[][][] thumb=new BPoint[tnx][tny][tnz];
+		
+		Segments tf0=new Segments(xc-100,100,0,20,0,z_side);
+		
+		thumb[0][0][0]=addBPoint(0.0,0.0,0,tf0);		
+		thumb[0][0][1]=addBPoint(0.0,0.0,1.0,tf0);
+		thumb[0][1][0]=addBPoint(0.0,1.0,0,tf0);
+		thumb[0][1][1]=addBPoint(0.0,1.0,1.0,tf0);
+		
+		thumb[1][0][0]=addBPoint(1.0,0.0,0,tf0);
+		thumb[1][0][1]=addBPoint(1.0,0.0,1.0,tf0);		
+		thumb[1][1][0]=addBPoint(1.0,1.0,0,tf0);		
+		thumb[1][1][1]=addBPoint(1.0,1.0,1.0,tf0);
+		
+		
+		
+		for (int i = 0; i < tnx-1; i++) {
+
+
+			for (int j = 0; j < tny-1; j++) {
+
+				for (int k = 0; k < tnz-1; k++) {
+
+
+
+
+					if(i==0){
+
+						LineData leftLD=addLine(thumb[i][j][k],thumb[i][j][k+1],thumb[i][j+1][k+1],thumb[i][j+1][k],Renderer3D.CAR_LEFT);
+					}
+
+				
+						
+					if(k==0){
+
+						LineData bottomLD=addLine(thumb[i][j][k],thumb[i][j+1][k],thumb[i+1][j+1][k],thumb[i+1][j][k],Renderer3D.CAR_BOTTOM);
+					
+					}
+					
+					if(k+1==tnz-1){
+						LineData topLD=addLine(thumb[i][j][k+1],thumb[i+1][j][k+1],thumb[i+1][j+1][k+1],thumb[i][j+1][k+1],Renderer3D.CAR_TOP);
+					}
+					
+					if(j==0){
+						LineData backLD=addLine(thumb[i][j][k],thumb[i+1][j][k],thumb[i+1][j][k+1],thumb[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+					if(j+1==tny-1){
+						LineData frontLD=addLine(thumb[i][j+1][k],thumb[i][j+1][k+1],thumb[i+1][j+1][k+1],thumb[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+					}
+				
+
+					if(i+1==tnx-1){
+
+						LineData rightLD=addLine(thumb[i+1][j][k],thumb[i+1][j+1][k],thumb[i+1][j+1][k+1],thumb[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+					}
+				}
+			}
+
+		}
+		
+		
+		PolygonMesh pm=new PolygonMesh(points,polyData);
+		
+		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
+		return spm;
+	}
+
 
 
 
