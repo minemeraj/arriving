@@ -652,7 +652,7 @@ public class Car extends CustomData {
 		pr[4][3][0]=p[4][bny+3][pnz-1];			
 		pr[0][4][0]=p[0][bny+4][pnz-1];			
 		pr[4][4][0]=p[4][bny+4][pnz-1];	
-		pr[0][5][0]=p[0][bny+5][pnz-1];		
+		pr[0][5][0]=p[0][bny+5][pnz-1];	
 		pr[4][5][0]=p[4][bny+5][pnz-1];	
 		pr[0][6][0]=p[0][bny+6][pnz-1];		
 		pr[4][6][0]=p[4][bny+6][pnz-1];	

@@ -890,94 +890,94 @@ public class Animal extends CustomData{
 		Segments pb0=new Segments(xc,x_side,0,y_side,femur_length+shinbone_length,z_side);
 		Segments pf0=new Segments(xc,x_side,0,y_side,radius_length+humerus_length,z_side+dz);
 
-		body[0][0][0]=addBPoint(-0.5,0.0,0.0,pb0);
+		body[0][0][0]=addBPoint(-0.5,0.0,0.4,pb0);
 		body[1][0][0]=addBPoint(-0.25,0.0,0.0,pb0);
 		body[2][0][0]=addBPoint(0.0,0.0,0.0,pb0);
 		body[3][0][0]=addBPoint(0.25,0.0,0.0,pb0);
-		body[4][0][0]=addBPoint(0.5,0.0,0.0,pb0);
-		body[0][0][1]=addBPoint(-0.5,0.0,0.25,pb0);	
+		body[4][0][0]=addBPoint(0.5,0.0,0.4,pb0);
+		body[0][0][1]=addBPoint(-0.5,0.0,0.45,pb0);	
 		body[1][0][1]=addBPoint(-0.25,0.0,0.25,pb0);
 		body[2][0][1]=addBPoint(0.0,0.0,0.25,pb0);
 		body[3][0][1]=addBPoint(0.25,0.0,0.25,pb0);
-		body[4][0][1]=addBPoint(0.5,0.0,0.25,pb0);
+		body[4][0][1]=addBPoint(0.5,0.0,0.45,pb0);
 		body[0][0][2]=addBPoint(-0.5,0.0,0.5,pb0);	
 		body[1][0][2]=addBPoint(-0.25,0.0,0.5,pb0);
 		body[2][0][2]=addBPoint(0.0,0.0,0.5,pb0);
 		body[3][0][2]=addBPoint(0.25,0.0,0.5,pb0);
 		body[4][0][2]=addBPoint(0.5,0.0,0.5,pb0);
-		body[0][0][3]=addBPoint(-0.5,0.0,0.75,pb0);	
+		body[0][0][3]=addBPoint(-0.5,0.0,0.55,pb0);	
 		body[1][0][3]=addBPoint(-0.25,0.0,0.75,pb0);
 		body[2][0][3]=addBPoint(0.0,0.0,0.75,pb0);
 		body[3][0][3]=addBPoint(0.25,0.0,0.75,pb0);
-		body[4][0][3]=addBPoint(0.5,0.0,0.75,pb0);
-		body[0][0][4]=addBPoint(-0.5,0.0,1.0,pb0);	
+		body[4][0][3]=addBPoint(0.5,0.0,0.55,pb0);
+		body[0][0][4]=addBPoint(-0.5,0.0,0.7,pb0);	
 		body[1][0][4]=addBPoint(-0.25,0.0,1.0,pb0);
 		body[2][0][4]=addBPoint(0.0,0.0,1.0,pb0);
 		body[3][0][4]=addBPoint(0.25,0.0,1.0,pb0);
-		body[4][0][4]=addBPoint(0.5,0.0,1.0,pb0);
+		body[4][0][4]=addBPoint(0.5,0.0,0.7,pb0);
 		
-		body[0][1][0]=addBPoint(-0.5,0.25,0.0,pb0);
+		body[0][1][0]=addBPoint(-0.5,0.25,0.4,pb0);
 		body[1][1][0]=addBPoint(-0.25,0.25,0.0,pb0);
 		body[2][1][0]=addBPoint(0.0,0.25,0.0,pb0);
 		body[3][1][0]=addBPoint(0.25,0.25,0.0,pb0);
-		body[4][1][0]=addBPoint(0.5,0.25,0.0,pb0);	
-		body[0][1][1]=addBPoint(-0.5,0.25,0.25,pb0);	
+		body[4][1][0]=addBPoint(0.5,0.25,0.4,pb0);	
+		body[0][1][1]=addBPoint(-0.5,0.25,0.45,pb0);	
 		body[1][1][1]=addBPoint(-0.25,0.25,0.25,pb0);
 		body[2][1][1]=addBPoint(0.0,0.25,0.25,pb0);
 		body[3][1][1]=addBPoint(0.25,0.25,0.25,pb0);
-		body[4][1][1]=addBPoint(0.5,0.25,0.25,pb0);
+		body[4][1][1]=addBPoint(0.5,0.25,0.45,pb0);
 		body[0][1][2]=addBPoint(-0.5,0.25,0.5,pb0);	
 		body[1][1][2]=addBPoint(-0.25,0.25,0.5,pb0);
 		body[2][1][2]=addBPoint(0.0,0.25,0.5,pb0);
 		body[3][1][2]=addBPoint(0.25,0.25,0.5,pb0);
 		body[4][1][2]=addBPoint(0.5,0.25,0.5,pb0);
-		body[0][1][3]=addBPoint(-0.5,0.25,0.75,pb0);	
+		body[0][1][3]=addBPoint(-0.5,0.25,0.55,pb0);	
 		body[1][1][3]=addBPoint(-0.25,0.25,0.75,pb0);
 		body[2][1][3]=addBPoint(0.0,0.25,0.75,pb0);
 		body[3][1][3]=addBPoint(0.25,0.25,0.75,pb0);
-		body[4][1][3]=addBPoint(0.5,0.25,0.75,pb0);
-		body[0][1][4]=addBPoint(-0.5,0.25,1.0,pb0);	
+		body[4][1][3]=addBPoint(0.5,0.25,0.55,pb0);
+		body[0][1][4]=addBPoint(-0.5,0.25,0.7,pb0);	
 		body[1][1][4]=addBPoint(-0.25,0.25,1.0,pb0);
 		body[2][1][4]=addBPoint(0.0,0.25,1.0,pb0);
 		body[3][1][4]=addBPoint(0.25,0.25,1.0,pb0);
-		body[4][1][4]=addBPoint(0.5,0.25,1.0,pb0);
+		body[4][1][4]=addBPoint(0.5,0.25,0.7,pb0);
 		
-		body[0][2][0]=addBPoint(-0.5,0.5,0.0,pb0);
+		body[0][2][0]=addBPoint(-0.5,0.5,0.4,pb0);
 		body[1][2][0]=addBPoint(-0.25,0.5,0.0,pb0);
 		body[2][2][0]=addBPoint(0.0,0.5,0.0,pb0);
 		body[3][2][0]=addBPoint(0.25,0.5,0.0,pb0);
-		body[4][2][0]=addBPoint(0.5,0.5,0.0,pb0);
-		body[0][2][1]=addBPoint(-0.5,0.5,0.25,pb0);	
+		body[4][2][0]=addBPoint(0.5,0.5,0.4,pb0);
+		body[0][2][1]=addBPoint(-0.5,0.5,0.45,pb0);	
 		body[1][2][1]=addBPoint(-0.25,0.5,0.25,pb0);
 		body[2][2][1]=addBPoint(0.0,0.5,0.25,pb0);
 		body[3][2][1]=addBPoint(0.25,0.5,0.25,pb0);
-		body[4][2][1]=addBPoint(0.5,0.5,0.25,pb0);
+		body[4][2][1]=addBPoint(0.5,0.5,0.45,pb0);
 		body[0][2][2]=addBPoint(-0.5,0.5,0.5,pb0);	
 		body[1][2][2]=addBPoint(-0.25,0.5,0.5,pb0);
 		body[2][2][2]=addBPoint(0.0,0.5,0.5,pb0);
 		body[3][2][2]=addBPoint(0.25,0.5,0.5,pb0);
 		body[4][2][2]=addBPoint(0.5,0.5,0.5,pb0);
-		body[0][2][3]=addBPoint(-0.5,0.5,0.75,pb0);	
+		body[0][2][3]=addBPoint(-0.5,0.5,0.55,pb0);	
 		body[1][2][3]=addBPoint(-0.25,0.5,0.75,pb0);
 		body[2][2][3]=addBPoint(0.0,0.5,0.75,pb0);
 		body[3][2][3]=addBPoint(0.25,0.5,0.75,pb0);
-		body[4][2][3]=addBPoint(0.5,0.5,0.75,pb0);
-		body[0][2][4]=addBPoint(-0.5,0.5,1.0,pb0);	
+		body[4][2][3]=addBPoint(0.5,0.5,0.55,pb0);
+		body[0][2][4]=addBPoint(-0.5,0.5,0.7,pb0);	
 		body[1][2][4]=addBPoint(-0.25,0.5,1.0,pb0);
 		body[2][2][4]=addBPoint(0.0,0.5,1.0,pb0);
 		body[3][2][4]=addBPoint(0.25,0.5,1.0,pb0);
-		body[4][2][4]=addBPoint(0.5,0.5,1.0,pb0);
+		body[4][2][4]=addBPoint(0.5,0.5,0.7,pb0);
 		
-		body[0][3][0]=addBPoint(-0.5,0.75,0.0,pf0);
+		body[0][3][0]=addBPoint(-0.5,0.75,0.4,pf0);
 		body[1][3][0]=addBPoint(-0.25,0.75,0.0,pf0);
 		body[2][3][0]=addBPoint(0.0,0.75,0.0,pf0);	
 		body[3][3][0]=addBPoint(0.25,0.75,0.0,pf0);
-		body[4][3][0]=addBPoint(0.5,0.75,0.0,pf0);
-		body[0][3][1]=addBPoint(-0.5,0.75,0.25,pf0);		
+		body[4][3][0]=addBPoint(0.5,0.75,0.4,pf0);
+		body[0][3][1]=addBPoint(-0.5,0.75,0.45,pf0);		
 		body[1][3][1]=addBPoint(-0.25,0.75,0.25,pf0);
 		body[2][3][1]=addBPoint(0.0,0.75,0.25,pf0);
 		body[3][3][1]=addBPoint(0.25,0.75,0.25,pf0);
-		body[4][3][1]=addBPoint(0.5,0.75,0.25,pf0);
+		body[4][3][1]=addBPoint(0.5,0.75,0.45,pf0);
 		body[0][3][2]=addBPoint(-0.5,0.75,0.5,pf0);		
 		body[1][3][2]=addBPoint(-0.25,0.75,0.5,pf0);
 		body[2][3][2]=addBPoint(0.0,0.75,0.5,pf0);
@@ -994,16 +994,16 @@ public class Animal extends CustomData{
 		body[3][3][4]=addBPoint(0.25,0.75,1.0,pf0);
 		body[4][3][4]=addBPoint(0.5,0.75,1.0,pf0);
 		
-		body[0][4][0]=addBPoint(-0.5,1.0,0.0,pf0);
+		body[0][4][0]=addBPoint(-0.5,1.0,0.4,pf0);
 		body[1][4][0]=addBPoint(-0.25,1.0,0.0,pf0);	
 		body[2][4][0]=addBPoint(0.0,1.0,0.0,pf0);	
 		body[3][4][0]=addBPoint(0.25,1.0,0.0,pf0);		
-		body[4][4][0]=addBPoint(0.5,1.0,0.0,pf0);	
-		body[0][4][1]=addBPoint(-0.5,1.0,0.25,pf0);		
+		body[4][4][0]=addBPoint(0.5,1.0,0.4,pf0);	
+		body[0][4][1]=addBPoint(-0.5,1.0,0.45,pf0);		
 		body[1][4][1]=addBPoint(-0.25,1.0,0.25,pf0);
 		body[2][4][1]=addBPoint(0.0,1.0,0.25,pf0);
 		body[3][4][1]=addBPoint(0.25,1.0,0.25,pf0);
-		body[4][4][1]=addBPoint(0.5,1.0,0.25,pf0);
+		body[4][4][1]=addBPoint(0.5,1.0,0.45,pf0);
 		body[0][4][2]=addBPoint(-0.5,1.0,0.5,pf0);		
 		body[1][4][2]=addBPoint(-0.25,1.0,0.5,pf0);
 		body[2][4][2]=addBPoint(0.0,1.0,0.5,pf0);
@@ -1196,7 +1196,7 @@ public class Animal extends CustomData{
 
 		LineData backLeftThighS3=addLine(pBackLeftLeg[1][0][1],pBackLeftThigh[1][0][0],pBackLeftThigh[0][0][0],pBackLeftLeg[0][0][1],Renderer3D.CAR_BACK);
 
-		LineData backLeftTopThigh=addLine(pBackLeftThigh[0][0][0],pBackLeftThigh[1][0][0],pBackLeftThigh[1][1][0],pBackLeftThigh[0][1][0],Renderer3D.CAR_TOP);
+		//LineData backLeftTopThigh=addLine(pBackLeftThigh[0][0][0],pBackLeftThigh[1][0][0],pBackLeftThigh[1][1][0],pBackLeftThigh[0][1][0],Renderer3D.CAR_TOP);
 		//backRightLeg
 		
 		
@@ -1244,7 +1244,7 @@ public class Animal extends CustomData{
 	
 		LineData backRightThighS3=addLine(pBackRightLeg[1][0][1],pBackRightThigh[1][0][0],pBackRightThigh[0][0][0],pBackRightLeg[0][0][1],Renderer3D.CAR_BACK);
 
-		LineData backRightTopThigh=addLine(pBackRightThigh[0][0][0],pBackRightThigh[1][0][0],pBackRightThigh[1][1][0],pBackRightThigh[0][1][0],Renderer3D.CAR_TOP);
+		//LineData backRightTopThigh=addLine(pBackRightThigh[0][0][0],pBackRightThigh[1][0][0],pBackRightThigh[1][1][0],pBackRightThigh[0][1][0],Renderer3D.CAR_TOP);
 		
 		//frontLeftLeg
 		
@@ -1342,7 +1342,7 @@ public class Animal extends CustomData{
 	
 		LineData frontRightArmS3=addLine(pFrontRightForearm[1][0][1],pFrontRightArm[1][0][0],pFrontRightArm[0][0][0],pFrontRightForearm[0][0][1],Renderer3D.CAR_BACK);
 	
-		
+	
 		/////////
 
 		//translatePoints(points,nw_x,nw_y);
