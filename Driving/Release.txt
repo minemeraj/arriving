@@ -2,6 +2,8 @@
 Improving custom editors to build more complex objects.
 Adding filters to better check figures visualization, mainly for temporary debug purpose.
 
+Car proportions based on BMW 5 Series Sedan.
+
 Added weapons custom editor.
 
 -----15/03/2014   CarDriving 7.0.15
