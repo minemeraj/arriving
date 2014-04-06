@@ -547,7 +547,26 @@ public class Polygon3D  extends Polygon{
 		
 
 		Point3D normal=Point3D.calculateCrossProduct(vector1,vector2);
+		
+		/*
+		if(Point3D.calculateNorm(normal)==0){
+			
+			
+			p0=new Point3D(pol.xpoints[1],pol.ypoints[1],pol.zpoints[1]);
 
+			p1=new Point3D(pol.xpoints[2],pol.ypoints[2],pol.zpoints[2]);
+			p2=new Point3D(pol.xpoints[0],pol.ypoints[0],pol.zpoints[0]);
+
+			vector1=p1.substract(p0); 
+			vector2=p2.substract(p0);
+
+			
+
+			normal=Point3D.calculateCrossProduct(vector1,vector2);
+			
+			
+		}
+		 */
 		
 
 		return normal;

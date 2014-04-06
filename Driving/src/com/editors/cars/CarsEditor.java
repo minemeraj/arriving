@@ -163,13 +163,15 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		right.add(jlb);
 		
 		car_type=new JComboBox();
-		car_type.setBounds(column, r, 100, 20);
+		car_type.setBounds(column, r, 110, 20);
 		car_type.addKeyListener(this);
 		car_type.addItem(new ValuePair("-1",""));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_CAR,"Car"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_TRUCK,"Truck"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_BYKE,"Byke"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_TRACTOR,"Tractor"));
+		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_RAILROAD_CAR,"Railroad car"));
+		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_AIRPLANE,"Airplane"));
 		car_type.addItemListener(this);
 		
 		car_type.setSelectedIndex(0);
@@ -414,6 +416,47 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		
 		wheel_radius.setText(50);
 	
+		
+	}
+	
+	private void initRightAirplaneData() {
+		
+		x_side.setText(130);
+		y_side.setText(200);
+		z_side.setText(72);
+		back_width.setText(114);
+		back_length.setText(43);
+		back_height.setText(76);
+		front_width.setText(110);
+		front_length.setText(100);
+		front_height.setText(54);
+		
+		roof_width.setText(75);
+		roof_length.setText(118);
+		roof_height.setText(34);
+		
+		wheel_radius.setText(22);
+		
+	}
+
+
+	private void initRightRailroadCarData() {
+		
+		x_side.setText(130);
+		y_side.setText(200);
+		z_side.setText(72);
+		back_width.setText(114);
+		back_length.setText(43);
+		back_height.setText(76);
+		front_width.setText(110);
+		front_length.setText(100);
+		front_height.setText(54);
+		
+		roof_width.setText(75);
+		roof_length.setText(118);
+		roof_height.setText(34);
+		
+		wheel_radius.setText(22);
 		
 	}
 	
@@ -840,13 +883,20 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 				   initRightTruckData();
 			   else if(type==Car.CAR_TYPE_BYKE)
 				   initRightBykeData();
-			   else
+			   else if(type==Car.CAR_TYPE_TRACTOR)
 				   initRightTractorData();
+			   else if(type==Car.CAR_TYPE_RAILROAD_CAR)
+				   initRightRailroadCarData();
+			   else if(type==Car.CAR_TYPE_AIRPLANE)
+				   initRightAirplaneData();
 			
 		}
 
 		
 	}
+
+
+
 
 
 
