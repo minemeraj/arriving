@@ -421,19 +421,20 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 	
 	private void initRightAirplaneData() {
 		
-		x_side.setText(130);
+		x_side.setText(80);
 		y_side.setText(200);
-		z_side.setText(72);
-		back_width.setText(114);
-		back_length.setText(43);
-		back_height.setText(76);
-		front_width.setText(110);
-		front_length.setText(100);
-		front_height.setText(54);
+		z_side.setText(80);
 		
-		roof_width.setText(75);
-		roof_length.setText(118);
-		roof_height.setText(34);
+		back_width.setText(80);
+		back_length.setText(50);
+		back_height.setText(60);
+		front_width.setText(80);
+		front_length.setText(50);
+		front_height.setText(60);
+		
+		roof_width.setText(200);
+		roof_length.setText(100);
+		roof_height.setText(30);
 		
 		wheel_radius.setText(22);
 		
@@ -442,19 +443,19 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 
 	private void initRightRailroadCarData() {
 		
-		x_side.setText(130);
+		x_side.setText(80);
 		y_side.setText(200);
-		z_side.setText(72);
-		back_width.setText(114);
-		back_length.setText(43);
-		back_height.setText(76);
-		front_width.setText(110);
-		front_length.setText(100);
-		front_height.setText(54);
+		z_side.setText(50);
+		back_width.setText(80);
+		back_length.setText(50);
+		back_height.setText(60);
+		front_width.setText(80);
+		front_length.setText(50);
+		front_height.setText(60);
 		
-		roof_width.setText(75);
-		roof_length.setText(118);
-		roof_height.setText(34);
+		roof_width.setText(80);
+		roof_length.setText(150);
+		roof_height.setText(100);
 		
 		wheel_radius.setText(22);
 		

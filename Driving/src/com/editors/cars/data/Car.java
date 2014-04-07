@@ -1974,8 +1974,224 @@ public class Car extends CustomData {
 		
 		n=0;
 		
-		PolygonMesh pm=new PolygonMesh(points,polyData);
+		
+		
+		int pnx=2;
+		int bny=1;
+		int pny=2;
+		int fny=1;
+		int pnz=2;
+		
+		int numy=bny+pny+fny;
+		
+		BPoint[][][] body=new BPoint[pnx][numy][pnz];
+		
+		Segments b0=new Segments(0,x_side,0,back_length,0,z_side);
+		
+		body[0][0][0]=addBPoint(-0.5,0.0,0,b0);
+		body[1][0][0]=addBPoint(0.5,0.0,0,b0);
+		body[0][0][1]=addBPoint(-0.5,0.0,1.0,b0);
+		body[1][0][1]=addBPoint(0.5,0.0,1.0,b0);
 
+		
+		Segments p0=new Segments(0,x_side,back_length,y_side,0,z_side);
+		
+		body[0][bny][0]=addBPoint(-0.5,0.0,0,p0);
+		body[1][bny][0]=addBPoint(0.5,0.0,0,p0);
+		body[0][bny][1]=addBPoint(-0.5,0.0,1.0,p0);
+		body[1][bny][1]=addBPoint(0.5,0.0,1.0,p0);
+		
+		body[0][bny+1][0]=addBPoint(-0.5,1.0,0,p0);
+		body[1][bny+1][0]=addBPoint(0.5,1.0,0,p0);
+		body[0][bny+1][1]=addBPoint(-0.5,1.0,1.0,p0);
+		body[1][bny+1][1]=addBPoint(0.5,1.0,1.0,p0);
+		
+		Segments f0=new Segments(0,x_side,back_length+y_side,front_length,0,z_side);
+		
+		body[0][bny+pny][0]=addBPoint(-0.5,1.0,0,f0);
+		body[1][bny+pny][0]=addBPoint(0.5,1.0,0,f0);
+		body[0][bny+pny][1]=addBPoint(-0.5,1.0,1.0,f0);
+		body[1][bny+pny][1]=addBPoint(0.5,1.0,1.0,f0);
+
+		
+		
+		for (int i = 0; i < pnx-1; i++) {
+
+
+			for (int j = 0; j < numy-1; j++) {
+
+				for (int k = 0; k < pnz-1; k++) {
+
+
+
+
+					if(i==0){
+
+						LineData leftLD=addLine(body[i][j][k],body[i][j][k+1],body[i][j+1][k+1],body[i][j+1][k],Renderer3D.CAR_LEFT);
+					}
+
+				
+						
+					if(k==0){
+
+						LineData bottomLD=addLine(body[i][j][k],body[i][j+1][k],body[i+1][j+1][k],body[i+1][j][k],Renderer3D.CAR_BOTTOM);
+					
+					}
+					
+					if(k+1==pnz-1){
+						LineData topLD=addLine(body[i][j][k+1],body[i+1][j][k+1],body[i+1][j+1][k+1],body[i][j+1][k+1],Renderer3D.CAR_TOP);
+					}
+					
+					if(j==0){
+						LineData backLD=addLine(body[i][j][k],body[i+1][j][k],body[i+1][j][k+1],body[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+					if(j+1==numy-1){
+						LineData frontLD=addLine(body[i][j+1][k],body[i][j+1][k+1],body[i+1][j+1][k+1],body[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+					}
+				
+
+					if(i+1==pnx-1){
+
+						LineData rightLD=addLine(body[i+1][j][k],body[i+1][j+1][k],body[i+1][j+1][k+1],body[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+					}
+				}
+			}
+
+		}
+		
+		int rnx=2;
+		int rny=2;
+		int rnz=2;
+		
+		double dry=back_length+y_side*0.25;
+	
+		BPoint[][][] rightWing=new BPoint[rnx][rny][rnz];
+	
+		
+		Segments rWing0=new Segments(x_side*0.5,roof_width,dry,roof_length,0,roof_height);
+		
+		rightWing[0][0][0]=addBPoint(0,0.0,0,rWing0);
+		rightWing[1][0][0]=addBPoint(1.0,0.0,0,rWing0);
+		rightWing[0][0][1]=addBPoint(0.0,0.0,1.0,rWing0);
+		rightWing[1][0][1]=addBPoint(1.0,0.0,1.0,rWing0);
+		
+		rightWing[0][1][0]=addBPoint(0.0,1.0,0,rWing0);
+		rightWing[1][1][0]=addBPoint(1.0,1.0,0,rWing0);
+		rightWing[0][1][1]=addBPoint(0.0,1.0,1.0,rWing0);
+		rightWing[1][1][1]=addBPoint(1.0,1.0,1.0,rWing0);
+		
+		
+		
+		for (int i = 0; i < rnx-1; i++) {
+
+
+			for (int j = 0; j < rny-1; j++) {
+
+				for (int k = 0; k < rnz-1; k++) {
+
+
+
+
+					if(i==0){
+
+						LineData leftLD=addLine(rightWing[i][j][k],rightWing[i][j][k+1],rightWing[i][j+1][k+1],rightWing[i][j+1][k],Renderer3D.CAR_LEFT);
+					}
+
+				
+						
+					if(k==0){
+
+						LineData bottomLD=addLine(rightWing[i][j][k],rightWing[i][j+1][k],rightWing[i+1][j+1][k],rightWing[i+1][j][k],Renderer3D.CAR_BOTTOM);
+					
+					}
+					
+					if(k+1==rnz-1){
+						LineData topLD=addLine(rightWing[i][j][k+1],rightWing[i+1][j][k+1],rightWing[i+1][j+1][k+1],rightWing[i][j+1][k+1],Renderer3D.CAR_TOP);
+					}
+					
+					if(j==0){
+						LineData backLD=addLine(rightWing[i][j][k],rightWing[i+1][j][k],rightWing[i+1][j][k+1],rightWing[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+					if(j+1==rny-1){
+						LineData roofLD=addLine(rightWing[i][j+1][k],rightWing[i][j+1][k+1],rightWing[i+1][j+1][k+1],rightWing[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+					}
+				
+
+					if(i+1==rnx-1){
+
+						LineData rightLD=addLine(rightWing[i+1][j][k],rightWing[i+1][j+1][k],rightWing[i+1][j+1][k+1],rightWing[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+					}
+				}
+			}
+
+		}
+		
+		
+		BPoint[][][] leftWing=new BPoint[rnx][rny][rnz];
+		
+		Segments lWing0=new Segments(-roof_width-x_side*0.5,roof_width,dry,roof_length,0,roof_height);
+		
+		leftWing[0][0][0]=addBPoint(0.0,0.0,0,lWing0);
+		leftWing[1][0][0]=addBPoint(1.0,0.0,0,lWing0);
+		leftWing[0][0][1]=addBPoint(0.0,0.0,1.0,lWing0);
+		leftWing[1][0][1]=addBPoint(1.0,0.0,1.0,lWing0);
+		
+		leftWing[0][1][0]=addBPoint(0.0,1.0,0,lWing0);
+		leftWing[1][1][0]=addBPoint(1.0,1.0,0,lWing0);
+		leftWing[0][1][1]=addBPoint(0.0,1.0,1.0,lWing0);
+		leftWing[1][1][1]=addBPoint(1.0,1.0,1.0,lWing0);
+		
+		
+		
+		for (int i = 0; i < rnx-1; i++) {
+
+
+			for (int j = 0; j < rny-1; j++) {
+
+				for (int k = 0; k < rnz-1; k++) {
+
+
+
+
+					if(i==0){
+
+						LineData leftLD=addLine(leftWing[i][j][k],leftWing[i][j][k+1],leftWing[i][j+1][k+1],leftWing[i][j+1][k],Renderer3D.CAR_LEFT);
+					}
+
+				
+						
+					if(k==0){
+
+						LineData bottomLD=addLine(leftWing[i][j][k],leftWing[i][j+1][k],leftWing[i+1][j+1][k],leftWing[i+1][j][k],Renderer3D.CAR_BOTTOM);
+					
+					}
+					
+					if(k+1==rnz-1){
+						LineData topLD=addLine(leftWing[i][j][k+1],leftWing[i+1][j][k+1],leftWing[i+1][j+1][k+1],leftWing[i][j+1][k+1],Renderer3D.CAR_TOP);
+					}
+					
+					if(j==0){
+						LineData backLD=addLine(leftWing[i][j][k],leftWing[i+1][j][k],leftWing[i+1][j][k+1],leftWing[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+					if(j+1==rny-1){
+						LineData roofLD=addLine(leftWing[i][j+1][k],leftWing[i][j+1][k+1],leftWing[i+1][j+1][k+1],leftWing[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+					}
+				
+
+					if(i+1==rnx-1){
+
+						LineData rightLD=addLine(leftWing[i+1][j][k],leftWing[i+1][j+1][k],leftWing[i+1][j+1][k+1],leftWing[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+					}
+				}
+			}
+
+		}
+		
+		PolygonMesh pm=new PolygonMesh(points,polyData);
+		
 		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
 		return spm;
 	}
@@ -1991,6 +2207,268 @@ public class Car extends CustomData {
 		
 		n=0;
 		
+		int pnx=2;
+		int pny=2;
+		int pnz=2;
+		
+		BPoint[][][] body=new BPoint[pnx][pny][pnz];
+		
+		Segments p0=new Segments(0,x_side,0,y_side,back_height,z_side);
+		
+		body[0][0][0]=addBPoint(-0.5,0.0,0,p0);
+		body[1][0][0]=addBPoint(0.5,0.0,0,p0);
+		body[0][0][1]=addBPoint(-0.5,0.0,1.0,p0);
+		body[1][0][1]=addBPoint(0.5,0.0,1.0,p0);
+		
+		body[0][1][0]=addBPoint(-0.5,1.0,0,p0);
+		body[1][1][0]=addBPoint(0.5,1.0,0,p0);
+		body[0][1][1]=addBPoint(-0.5,1.0,1.0,p0);
+		body[1][1][1]=addBPoint(0.5,1.0,1.0,p0);
+		
+		
+		
+		for (int i = 0; i < pnx-1; i++) {
+
+
+			for (int j = 0; j < pny-1; j++) {
+
+				for (int k = 0; k < pnz-1; k++) {
+
+
+
+
+					if(i==0){
+
+						LineData leftLD=addLine(body[i][j][k],body[i][j][k+1],body[i][j+1][k+1],body[i][j+1][k],Renderer3D.CAR_LEFT);
+					}
+
+				
+						
+					if(k==0){
+
+						LineData bottomLD=addLine(body[i][j][k],body[i][j+1][k],body[i+1][j+1][k],body[i+1][j][k],Renderer3D.CAR_BOTTOM);
+					
+					}
+					
+					if(k+1==pnz-1){
+						LineData topLD=addLine(body[i][j][k+1],body[i+1][j][k+1],body[i+1][j+1][k+1],body[i][j+1][k+1],Renderer3D.CAR_TOP);
+					}
+					
+					if(j==0){
+						LineData backLD=addLine(body[i][j][k],body[i+1][j][k],body[i+1][j][k+1],body[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+					if(j+1==pny-1){
+						LineData frontLD=addLine(body[i][j+1][k],body[i][j+1][k+1],body[i+1][j+1][k+1],body[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+					}
+				
+
+					if(i+1==pnx-1){
+
+						LineData rightLD=addLine(body[i+1][j][k],body[i+1][j+1][k],body[i+1][j+1][k+1],body[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+					}
+				}
+			}
+
+		}
+		
+		int bnx=2;
+		int bny=2;
+		int bnz=2;
+		
+		BPoint[][][] back=new BPoint[bnx][bny][bnz];
+		
+		Segments b0=new Segments(0,back_width,0,back_length,0,back_height);
+		
+		back[0][0][0]=addBPoint(-0.5,0.0,0,b0);
+		back[1][0][0]=addBPoint(0.5,0.0,0,b0);
+		back[0][0][1]=addBPoint(-0.5,0.0,1.0,b0);
+		back[1][0][1]=addBPoint(0.5,0.0,1.0,b0);
+		
+		back[0][1][0]=addBPoint(-0.5,1.0,0,b0);
+		back[1][1][0]=addBPoint(0.5,1.0,0,b0);
+		back[0][1][1]=addBPoint(-0.5,1.0,1.0,b0);
+		back[1][1][1]=addBPoint(0.5,1.0,1.0,b0);
+		
+		
+		
+		for (int i = 0; i < bnx-1; i++) {
+
+
+			for (int j = 0; j < bny-1; j++) {
+
+				for (int k = 0; k < bnz-1; k++) {
+
+
+
+
+					if(i==0){
+
+						LineData leftLD=addLine(back[i][j][k],back[i][j][k+1],back[i][j+1][k+1],back[i][j+1][k],Renderer3D.CAR_LEFT);
+					}
+
+				
+						
+					if(k==0){
+
+						LineData bottomLD=addLine(back[i][j][k],back[i][j+1][k],back[i+1][j+1][k],back[i+1][j][k],Renderer3D.CAR_BOTTOM);
+					
+					}
+					
+					if(k+1==bnz-1){
+						LineData topLD=addLine(back[i][j][k+1],back[i+1][j][k+1],back[i+1][j+1][k+1],back[i][j+1][k+1],Renderer3D.CAR_TOP);
+					}
+					
+					if(j==0){
+						LineData backLD=addLine(back[i][j][k],back[i+1][j][k],back[i+1][j][k+1],back[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+					if(j+1==bny-1){
+						LineData frontLD=addLine(back[i][j+1][k],back[i][j+1][k+1],back[i+1][j+1][k+1],back[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+					}
+				
+
+					if(i+1==bnx-1){
+
+						LineData rightLD=addLine(back[i+1][j][k],back[i+1][j+1][k],back[i+1][j+1][k+1],back[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+					}
+				}
+			}
+
+		}
+		
+		int fnx=2;
+		int fny=2;
+		int fnz=2;
+		
+		BPoint[][][] front=new BPoint[fnx][fny][fnz];
+		
+		Segments f0=new Segments(0,x_side,y_side-front_length,front_length,0,front_height);
+		
+		front[0][0][0]=addBPoint(-0.5,0.0,0,f0);
+		front[1][0][0]=addBPoint(0.5,0.0,0,f0);
+		front[0][0][1]=addBPoint(-0.5,0.0,1.0,f0);
+		front[1][0][1]=addBPoint(0.5,0.0,1.0,f0);
+		
+		front[0][1][0]=addBPoint(-0.5,1.0,0,f0);
+		front[1][1][0]=addBPoint(0.5,1.0,0,f0);
+		front[0][1][1]=addBPoint(-0.5,1.0,1.0,f0);
+		front[1][1][1]=addBPoint(0.5,1.0,1.0,f0);
+		
+		
+		
+		for (int i = 0; i < fnx-1; i++) {
+
+
+			for (int j = 0; j < fny-1; j++) {
+
+				for (int k = 0; k < fnz-1; k++) {
+
+
+
+
+					if(i==0){
+
+						LineData leftLD=addLine(front[i][j][k],front[i][j][k+1],front[i][j+1][k+1],front[i][j+1][k],Renderer3D.CAR_LEFT);
+					}
+
+				
+						
+					if(k==0){
+
+						LineData bottomLD=addLine(front[i][j][k],front[i][j+1][k],front[i+1][j+1][k],front[i+1][j][k],Renderer3D.CAR_BOTTOM);
+					
+					}
+					
+					if(k+1==fnz-1){
+						LineData topLD=addLine(front[i][j][k+1],front[i+1][j][k+1],front[i+1][j+1][k+1],front[i][j+1][k+1],Renderer3D.CAR_TOP);
+					}
+					
+					if(j==0){
+						LineData backLD=addLine(front[i][j][k],front[i+1][j][k],front[i+1][j][k+1],front[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+					if(j+1==fny-1){
+						LineData frontLD=addLine(front[i][j+1][k],front[i][j+1][k+1],front[i+1][j+1][k+1],front[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+					}
+				
+
+					if(i+1==fnx-1){
+
+						LineData rightLD=addLine(front[i+1][j][k],front[i+1][j+1][k],front[i+1][j+1][k+1],front[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+					}
+				}
+			}
+
+		}
+		
+		
+		int rnx=2;
+		int rny=2;
+		int rnz=2;
+		
+		BPoint[][][] roof=new BPoint[rnx][rny][rnz];
+		
+		double rdy=(y_side-roof_length)*0.5;
+		
+		Segments r0=new Segments(0,x_side,rdy,roof_length,back_height+z_side,roof_height);
+		
+		roof[0][0][0]=addBPoint(-0.5,0.0,0,r0);
+		roof[1][0][0]=addBPoint(0.5,0.0,0,r0);
+		roof[0][0][1]=addBPoint(-0.5,0.0,1.0,r0);
+		roof[1][0][1]=addBPoint(0.5,0.0,1.0,r0);
+		
+		roof[0][1][0]=addBPoint(-0.5,1.0,0,r0);
+		roof[1][1][0]=addBPoint(0.5,1.0,0,r0);
+		roof[0][1][1]=addBPoint(-0.5,1.0,1.0,r0);
+		roof[1][1][1]=addBPoint(0.5,1.0,1.0,r0);
+		
+		
+		
+		for (int i = 0; i < pnx-1; i++) {
+
+
+			for (int j = 0; j < pny-1; j++) {
+
+				for (int k = 0; k < pnz-1; k++) {
+
+
+
+
+					if(i==0){
+
+						LineData leftLD=addLine(roof[i][j][k],roof[i][j][k+1],roof[i][j+1][k+1],roof[i][j+1][k],Renderer3D.CAR_LEFT);
+					}
+
+				
+						
+					if(k==0){
+
+						LineData bottomLD=addLine(roof[i][j][k],roof[i][j+1][k],roof[i+1][j+1][k],roof[i+1][j][k],Renderer3D.CAR_BOTTOM);
+					
+					}
+					
+					if(k+1==pnz-1){
+						LineData topLD=addLine(roof[i][j][k+1],roof[i+1][j][k+1],roof[i+1][j+1][k+1],roof[i][j+1][k+1],Renderer3D.CAR_TOP);
+					}
+					
+					if(j==0){
+						LineData backLD=addLine(roof[i][j][k],roof[i+1][j][k],roof[i+1][j][k+1],roof[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+					if(j+1==pny-1){
+						LineData roofLD=addLine(roof[i][j+1][k],roof[i][j+1][k+1],roof[i+1][j+1][k+1],roof[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+					}
+				
+
+					if(i+1==pnx-1){
+
+						LineData rightLD=addLine(roof[i+1][j][k],roof[i+1][j+1][k],roof[i+1][j+1][k+1],roof[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+					}
+				}
+			}
+
+		}
 		
 		PolygonMesh pm=new PolygonMesh(points,polyData);
 
