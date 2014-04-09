@@ -387,12 +387,12 @@
    	
    	************* NOTES  ON CUSTOM EDITORS
    	
-   	Car proportions based on BMW 5 Series Sedan.
+   	Car proportions based on BMW 5 Series Sedan (length=4907mm).
 
-	Truck proportions based on Iveco New Eurocargo Euro VI
+	Truck proportions based on Iveco New Eurocargo Euro VI (length=8692mm).
 	
 	Railroad car proportions based on Sgmns-w by Kockums Industrier, 1435 mm gauge,
-	with a 40 X 8 X 8 feet container.
+	with a 40 X 8 X 8 feet container, length=14000mm.
     
 	
 	
