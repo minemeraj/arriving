@@ -2272,7 +2272,7 @@ public class Car extends CustomData {
 
 		}
 		
-		double track=20;
+		double track=10;
 		
 		int bnx=2;
 		int bny=2;

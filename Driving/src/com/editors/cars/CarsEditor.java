@@ -346,7 +346,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		roof_length.setText(118);
 		roof_height.setText(34);
 		
-		wheel_radius.setText(22);
+		wheel_radius.setText(25);
 	}
 	
 
@@ -443,21 +443,21 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 
 	private void initRightRailroadCarData() {
 		
-		x_side.setText(120);
-		y_side.setText(300);
-		z_side.setText(20);
-		back_width.setText(80);
-		back_length.setText(50);
-		back_height.setText(40);
-		front_width.setText(80);
-		front_length.setText(50);
-		front_height.setText(40);
+		x_side.setText(69);
+		y_side.setText(400);
+		z_side.setText(4);
+		back_width.setText(51);
+		back_length.setText(39);
+		back_height.setText(16);
+		front_width.setText(51);
+		front_length.setText(39);
+		front_height.setText(16);
 		
-		roof_width.setText(80);
-		roof_length.setText(150);
-		roof_height.setText(100);
+		roof_width.setText(70);
+		roof_length.setText(348);
+		roof_height.setText(70);
 		
-		wheel_radius.setText(22);
+		wheel_radius.setText(13);
 		
 	}
 	

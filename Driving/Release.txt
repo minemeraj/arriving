@@ -6,6 +6,9 @@ Car proportions based on BMW 5 Series Sedan.
 
 Truck proportions based on Iveco New Eurocargo Euro VI
 
+Railroad car proportions based on Sgmns-w by Kockums Industrier, 1435 mm gauge,
+with a 40 X 8 X 8 feet container.
+
 Added weapons custom editor.
 
 -----15/03/2014   CarDriving 7.0.15
