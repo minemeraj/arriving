@@ -384,6 +384,15 @@
    	Roughly one can estimates the scale conversion 1m = 26px
    	
    	So, a speed of 100px/frame is circa 100/26 m / (1000/28 s)=  2800/2600 m/s = 1.08 m/s
+   	
+   	************* NOTES  ON CUSTOM EDITORS
+   	
+   	Car proportions based on BMW 5 Series Sedan.
+
+	Truck proportions based on Iveco New Eurocargo Euro VI
+	
+	Railroad car proportions based on Sgmns-w by Kockums Industrier, 1435 mm gauge,
+	with a 40 X 8 X 8 feet container.
     
 	
 	
