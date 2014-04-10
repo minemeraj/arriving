@@ -14,7 +14,11 @@ import com.editors.cars.data.Car;
 public class CarsEditorJPanel extends CustomJPanel{
 
 
-	
+	public CarsEditorJPanel(){
+		
+		super();
+		x0=500;
+	}
 
 	public void draw(Car car) { 
 		

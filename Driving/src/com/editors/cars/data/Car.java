@@ -1977,21 +1977,47 @@ public class Car extends CustomData {
 		
 		
 		int pnx=2;
-		int bny=1;
+		int bny=4;
 		int pny=2;
-		int fny=1;
+		int fny=4;
 		int pnz=2;
 		
 		int numy=bny+pny+fny;
 		
 		BPoint[][][] body=new BPoint[pnx][numy][pnz];
 		
-		Segments b0=new Segments(0,x_side,0,back_length,0,z_side);
+		double back_width1=back_width*(1-0.65)+x_side*0.6; 
+		double back_width2=back_width*(1-0.7)+x_side*0.7; 
+		double back_width3=back_width*(1-0.75)+x_side*0.75; 
+		
+		double back_height1=back_height*(1-0.65)+z_side*0.65; 
+		double back_height2=back_height*(1-0.7)+z_side*0.7; 
+		double back_height3=back_height*(1-0.75)+z_side*0.75; 		
+		
+		Segments b0=new Segments(0,back_width,0,back_length,0,back_height);
+		Segments b1=new Segments(0,back_width1,0,back_length,0,back_height1);
+		Segments b2=new Segments(0,back_width2,0,back_length,0,back_height2);
+		Segments b3=new Segments(0,back_width3,0,back_length,0,back_height3);
 		
 		body[0][0][0]=addBPoint(-0.5,0.0,0,b0);
 		body[1][0][0]=addBPoint(0.5,0.0,0,b0);
 		body[0][0][1]=addBPoint(-0.5,0.0,1.0,b0);
 		body[1][0][1]=addBPoint(0.5,0.0,1.0,b0);
+		
+		body[0][1][0]=addBPoint(-0.5,0.25,0,b1);
+		body[1][1][0]=addBPoint(0.5,0.25,0,b1);
+		body[0][1][1]=addBPoint(-0.5,0.25,1.0,b1);
+		body[1][1][1]=addBPoint(0.5,0.25,1.0,b1);
+		
+		body[0][2][0]=addBPoint(-0.5,0.5,0,b2);
+		body[1][2][0]=addBPoint(0.5,0.5,0,b2);
+		body[0][2][1]=addBPoint(-0.5,0.5,1.0,b2);
+		body[1][2][1]=addBPoint(0.5,0.5,1.0,b2);
+		
+		body[0][3][0]=addBPoint(-0.5,0.75,0,b3);
+		body[1][3][0]=addBPoint(0.5,0.75,0,b3);
+		body[0][3][1]=addBPoint(-0.5,0.75,1.0,b3);
+		body[1][3][1]=addBPoint(0.5,0.75,1.0,b3);
 
 		
 		Segments p0=new Segments(0,x_side,back_length,y_side,0,z_side);
@@ -2006,13 +2032,40 @@ public class Car extends CustomData {
 		body[0][bny+1][1]=addBPoint(-0.5,1.0,1.0,p0);
 		body[1][bny+1][1]=addBPoint(0.5,1.0,1.0,p0);
 		
-		Segments f0=new Segments(0,x_side,back_length+y_side,front_length,0,z_side);
+		double front_width0=front_width*(1-0.75)+x_side*0.75; 
+		double front_width1=front_width*(1-0.7)+x_side*0.7; 
+		double front_width2=front_width*(1-0.65)+x_side*0.65; 
+ 
+		double front_height0=front_height*(1-0.75)+z_side*0.75; 
+		double front_height1=front_height*(1-0.7)+z_side*0.7; 
+		double front_height2=front_height*(1-0.65)+z_side*0.65; 			
 		
-		body[0][bny+pny][0]=addBPoint(-0.5,1.0,0,f0);
-		body[1][bny+pny][0]=addBPoint(0.5,1.0,0,f0);
-		body[0][bny+pny][1]=addBPoint(-0.5,1.0,1.0,f0);
-		body[1][bny+pny][1]=addBPoint(0.5,1.0,1.0,f0);
+		Segments f0=new Segments(0,front_width0,back_length+y_side,front_length,0,front_height0);
+		Segments f1=new Segments(0,front_width1,back_length+y_side,front_length,0,front_height1);
+		Segments f2=new Segments(0,front_width2,back_length+y_side,front_length,0,front_height2);
+		Segments f3=new Segments(0,front_width,back_length+y_side,front_length,0,front_height);
+		
+		
+		body[0][bny+pny][0]=addBPoint(-0.5,0.25,0,f0);
+		body[1][bny+pny][0]=addBPoint(0.5,0.25,0,f0);
+		body[0][bny+pny][1]=addBPoint(-0.5,0.25,1.0,f0);
+		body[1][bny+pny][1]=addBPoint(0.5,0.25,1.0,f0);
 
+		body[0][bny+pny+1][0]=addBPoint(-0.5,0.5,0,f1);
+		body[1][bny+pny+1][0]=addBPoint(0.5,0.5,0,f1);
+		body[0][bny+pny+1][1]=addBPoint(-0.5,0.5,1.0,f1);
+		body[1][bny+pny+1][1]=addBPoint(0.5,0.5,1.0,f1);
+		
+		body[0][bny+pny+2][0]=addBPoint(-0.5,0.75,0,f2);
+		body[1][bny+pny+2][0]=addBPoint(0.5,0.75,0,f2);
+		body[0][bny+pny+2][1]=addBPoint(-0.5,0.75,1.0,f2);
+		body[1][bny+pny+2][1]=addBPoint(0.5,0.75,1.0,f2);
+		
+		body[0][bny+pny+3][0]=addBPoint(-0.5,1.0,0,f3);
+		body[1][bny+pny+3][0]=addBPoint(0.5,1.0,0,f3);
+		body[0][bny+pny+3][1]=addBPoint(-0.5,1.0,1.0,f3);
+		body[1][bny+pny+3][1]=addBPoint(0.5,1.0,1.0,f3);
+		
 		
 		
 		for (int i = 0; i < pnx-1; i++) {
@@ -2064,12 +2117,11 @@ public class Car extends CustomData {
 		int rny=2;
 		int rnz=2;
 		
-		double dry=back_length+y_side*0.25;
 	
 		BPoint[][][] rightWing=new BPoint[rnx][rny][rnz];
 	
 		
-		Segments rWing0=new Segments(x_side*0.5,roof_width,dry,roof_length,0,roof_height);
+		Segments rWing0=new Segments(x_side*0.5,roof_width,back_length,roof_length,0,roof_height);
 		
 		rightWing[0][0][0]=addBPoint(0,0.0,0,rWing0);
 		rightWing[1][0][0]=addBPoint(1.0,0.0,0,rWing0);
@@ -2077,9 +2129,9 @@ public class Car extends CustomData {
 		rightWing[1][0][1]=addBPoint(1.0,0.0,1.0,rWing0);
 		
 		rightWing[0][1][0]=addBPoint(0.0,1.0,0,rWing0);
-		rightWing[1][1][0]=addBPoint(1.0,1.0,0,rWing0);
+		rightWing[1][1][0]=addBPoint(1.0,0.5,0,rWing0);
 		rightWing[0][1][1]=addBPoint(0.0,1.0,1.0,rWing0);
-		rightWing[1][1][1]=addBPoint(1.0,1.0,1.0,rWing0);
+		rightWing[1][1][1]=addBPoint(1.0,0.5,1.0,rWing0);
 		
 		
 		
@@ -2131,16 +2183,16 @@ public class Car extends CustomData {
 		
 		BPoint[][][] leftWing=new BPoint[rnx][rny][rnz];
 		
-		Segments lWing0=new Segments(-roof_width-x_side*0.5,roof_width,dry,roof_length,0,roof_height);
+		Segments lWing0=new Segments(-roof_width-x_side*0.5,roof_width,back_length,roof_length,0,roof_height);
 		
 		leftWing[0][0][0]=addBPoint(0.0,0.0,0,lWing0);
 		leftWing[1][0][0]=addBPoint(1.0,0.0,0,lWing0);
 		leftWing[0][0][1]=addBPoint(0.0,0.0,1.0,lWing0);
 		leftWing[1][0][1]=addBPoint(1.0,0.0,1.0,lWing0);
 		
-		leftWing[0][1][0]=addBPoint(0.0,1.0,0,lWing0);
+		leftWing[0][1][0]=addBPoint(0.0,0.5,0,lWing0);
 		leftWing[1][1][0]=addBPoint(1.0,1.0,0,lWing0);
-		leftWing[0][1][1]=addBPoint(0.0,1.0,1.0,lWing0);
+		leftWing[0][1][1]=addBPoint(0.0,0.5,1.0,lWing0);
 		leftWing[1][1][1]=addBPoint(1.0,1.0,1.0,lWing0);
 		
 		
