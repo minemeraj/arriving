@@ -2282,7 +2282,7 @@ public class Car extends CustomData {
 		double sq1=sq*roof_width/roof_height;
 	
 		BPoint[][][] rightWing=new BPoint[wnx][wny][wnz];
-		Segments rWing0=new Segments(x_side*0.5,roof_width,back_length,roof_length,0,roof_height);
+		Segments rWing0=new Segments(x_side*0.5,roof_width/cq,back_length,roof_length,0,roof_height);
 		
 		rightWing[0][0][0]=addBPoint(0,0.0,0,rWing0);
 		rightWing[1][0][0]=addBPoint(cq,0.0,sq1,rWing0);
@@ -2344,7 +2344,7 @@ public class Car extends CustomData {
 		
 		BPoint[][][] leftWing=new BPoint[wnx][wny][wnz];
 		
-		Segments lWing0=new Segments(-x_side*0.5,roof_width,back_length,roof_length,0,roof_height);
+		Segments lWing0=new Segments(-x_side*0.5,roof_width/cq,back_length,roof_length,0,roof_height);
 		
 		leftWing[0][0][0]=addBPoint(-cq,0.0,sq1,lWing0);
 		leftWing[1][0][0]=addBPoint(0.0,0.0,0,lWing0);
