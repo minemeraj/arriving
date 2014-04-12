@@ -1986,13 +1986,13 @@ public class Car extends CustomData {
 		
 		BPoint[][][] body=new BPoint[pnx][numy][pnz];
 		
-		double back_width1=back_width*(1-0.65)+x_side*0.6; 
-		double back_width2=back_width*(1-0.7)+x_side*0.7; 
-		double back_width3=back_width*(1-0.75)+x_side*0.75; 
+		double back_width1=back_width*(1-0.3)+x_side*0.3; 
+		double back_width2=back_width*(1-0.6)+x_side*0.6; 
+		double back_width3=back_width*(1-0.9)+x_side*0.9; 
 		
-		double back_height1=back_height*(1-0.65)+z_side*0.65; 
-		double back_height2=back_height*(1-0.7)+z_side*0.7; 
-		double back_height3=back_height*(1-0.75)+z_side*0.75; 		
+		double back_height1=back_height*(1-0.3)+z_side*0.3; 
+		double back_height2=back_height*(1-0.6)+z_side*0.6; 
+		double back_height3=back_height*(1-0.9)+z_side*0.9; 		
 		
 		Segments b0=new Segments(0,back_width,0,back_length,0,back_height);
 		Segments b1=new Segments(0,back_width1,0,back_length,0,back_height1);
@@ -2122,7 +2122,7 @@ public class Car extends CustomData {
 	
 		BPoint[][][] tailRightWing=new BPoint[twnx][twny][twnz];	
 
-		Segments trWing0=new Segments(0,back_width*2,0,back_length*0.25,0,30);
+		Segments trWing0=new Segments(0,back_width*2,0,back_length*0.125,0,30);
 
 		tailRightWing[0][0][0]=body[1][0][0];
 		tailRightWing[1][0][0]=addBPoint(1.0,0.0,0.0,trWing0);
@@ -2182,7 +2182,7 @@ public class Car extends CustomData {
 	
 		BPoint[][][] tailLeftWing=new BPoint[twnx][twny][twnz];		
 		
-		Segments tlWing0=new Segments(0,back_width*2,0,back_length*0.25,0,30);
+		Segments tlWing0=new Segments(0,back_width*2,0,back_length*0.125,0,30);
 		
 		tailLeftWing[0][0][0]=addBPoint(-1.0,0,0,tlWing0);
 		tailLeftWing[1][0][0]=body[0][0][0];
@@ -2246,64 +2246,28 @@ public class Car extends CustomData {
 	
 		BPoint[][][] tailRudder=new BPoint[trnx][trny][trnz];	
 		
-		Segments rudder0=new Segments(0,back_width,0,back_length*0.25,0,back_height*2.0);
+		Segments rudder0=new Segments(0,back_width,0,back_length*0.25,0,back_height+50);
 		
 		tailRudder[0][0][0]=body[0][0][1];
 		tailRudder[1][0][0]=body[1][0][1];
-		tailRudder[0][0][1]=addBPoint(-0.5,0.0,1.0,rudder0);
-		tailRudder[1][0][1]=addBPoint(0.5,0.0,1.0,rudder0);
-		
 		tailRudder[0][1][0]=body[0][1][1];
 		tailRudder[1][1][0]=body[1][1][1];
-		tailRudder[0][1][1]=addBPoint(-0.5,1.0,1.0,rudder0);
-		tailRudder[1][1][1]=addBPoint(0.5,1.0,1.0,rudder0);	
 		
 		
-		for (int i = 0; i < trnx-1; i++) {
+		tailRudder[0][0][1]=addBPoint(-0.5,0.0,1.0,rudder0);
+		tailRudder[1][0][1]=addBPoint(0.5,0.0,1.0,rudder0);
+
+		addLine(tailRudder[0][0][0],tailRudder[0][0][1],tailRudder[0][1][0],null,Renderer3D.CAR_LEFT);
+
+		addLine(tailRudder[0][0][0],tailRudder[0][1][0],tailRudder[1][1][0],tailRudder[1][0][0],Renderer3D.CAR_BOTTOM);	
+
+		addLine(tailRudder[0][0][0],tailRudder[1][0][0],tailRudder[1][0][1],tailRudder[0][0][1],Renderer3D.CAR_BACK);
+	
+		addLine(tailRudder[0][1][0],tailRudder[0][0][1],tailRudder[1][0][1],tailRudder[1][1][0],Renderer3D.CAR_FRONT);	
+
+		addLine(tailRudder[1][0][0],tailRudder[1][1][0],tailRudder[1][0][1],null,Renderer3D.CAR_RIGHT);
 
 
-			for (int j = 0; j < trny-1; j++) {
-
-				for (int k = 0; k < trnz-1; k++) {
-
-
-
-
-					if(i==0){
-
-						addLine(tailRudder[i][j][k],tailRudder[i][j][k+1],tailRudder[i][j+1][k+1],tailRudder[i][j+1][k],Renderer3D.CAR_LEFT);
-					}
-
-				
-						
-					if(k==0){
-
-						addLine(tailRudder[i][j][k],tailRudder[i][j+1][k],tailRudder[i+1][j+1][k],tailRudder[i+1][j][k],Renderer3D.CAR_BOTTOM);
-					
-					}
-					
-					if(k+1==trnz-1){
-						addLine(tailRudder[i][j][k+1],tailRudder[i+1][j][k+1],tailRudder[i+1][j+1][k+1],tailRudder[i][j+1][k+1],Renderer3D.CAR_TOP);
-					}
-					
-					if(j==0){
-						addLine(tailRudder[i][j][k],tailRudder[i+1][j][k],tailRudder[i+1][j][k+1],tailRudder[i][j][k+1],Renderer3D.CAR_BACK);
-					}
-					if(j+1==trny-1){
-						addLine(tailRudder[i][j+1][k],tailRudder[i][j+1][k+1],tailRudder[i+1][j+1][k+1],tailRudder[i+1][j+1][k],Renderer3D.CAR_FRONT);	
-					}
-				
-
-					if(i+1==trnx-1){
-
-						addLine(tailRudder[i+1][j][k],tailRudder[i+1][j+1][k],tailRudder[i+1][j+1][k+1],tailRudder[i+1][j][k+1],Renderer3D.CAR_RIGHT);
-
-					}
-				}
-			}
-
-		}
-		
 		
 		//////wings
 		
@@ -2311,21 +2275,24 @@ public class Car extends CustomData {
 		int wny=2;
 		int wnz=2;
 		
+		double q=Math.PI*15.0/180.0;
+		double sq=Math.sin(q);
+		double cq=Math.cos(q);
+		
+		double sq1=sq*roof_width/roof_height;
 	
 		BPoint[][][] rightWing=new BPoint[wnx][wny][wnz];
-	
-		
 		Segments rWing0=new Segments(x_side*0.5,roof_width,back_length,roof_length,0,roof_height);
 		
 		rightWing[0][0][0]=addBPoint(0,0.0,0,rWing0);
-		rightWing[1][0][0]=addBPoint(1.0,0.0,0,rWing0);
+		rightWing[1][0][0]=addBPoint(cq,0.0,sq1,rWing0);
 		rightWing[0][0][1]=addBPoint(0.0,0.0,1.0,rWing0);
-		rightWing[1][0][1]=addBPoint(1.0,0.0,1.0,rWing0);
+		rightWing[1][0][1]=addBPoint(cq,0.0,1.0+sq1,rWing0);
 		
 		rightWing[0][1][0]=addBPoint(0.0,1.0,0,rWing0);
-		rightWing[1][1][0]=addBPoint(1.0,0.5,0,rWing0);
+		rightWing[1][1][0]=addBPoint(cq,0.5,sq1,rWing0);
 		rightWing[0][1][1]=addBPoint(0.0,1.0,1.0,rWing0);
-		rightWing[1][1][1]=addBPoint(1.0,0.5,1.0,rWing0);
+		rightWing[1][1][1]=addBPoint(cq,0.5,1.0+sq1,rWing0);
 		
 		
 		
@@ -2377,17 +2344,17 @@ public class Car extends CustomData {
 		
 		BPoint[][][] leftWing=new BPoint[wnx][wny][wnz];
 		
-		Segments lWing0=new Segments(-roof_width-x_side*0.5,roof_width,back_length,roof_length,0,roof_height);
+		Segments lWing0=new Segments(-x_side*0.5,roof_width,back_length,roof_length,0,roof_height);
 		
-		leftWing[0][0][0]=addBPoint(0.0,0.0,0,lWing0);
-		leftWing[1][0][0]=addBPoint(1.0,0.0,0,lWing0);
-		leftWing[0][0][1]=addBPoint(0.0,0.0,1.0,lWing0);
-		leftWing[1][0][1]=addBPoint(1.0,0.0,1.0,lWing0);
+		leftWing[0][0][0]=addBPoint(-cq,0.0,sq1,lWing0);
+		leftWing[1][0][0]=addBPoint(0.0,0.0,0,lWing0);
+		leftWing[0][0][1]=addBPoint(-cq,0.0,1.0+sq1,lWing0);
+		leftWing[1][0][1]=addBPoint(0.0,0.0,1.0,lWing0);
 		
-		leftWing[0][1][0]=addBPoint(0.0,0.5,0,lWing0);
-		leftWing[1][1][0]=addBPoint(1.0,1.0,0,lWing0);
-		leftWing[0][1][1]=addBPoint(0.0,0.5,1.0,lWing0);
-		leftWing[1][1][1]=addBPoint(1.0,1.0,1.0,lWing0);
+		leftWing[0][1][0]=addBPoint(-cq,0.5,sq1,lWing0);
+		leftWing[1][1][0]=addBPoint(0.0,1.0,0,lWing0);
+		leftWing[0][1][1]=addBPoint(-cq,0.5,1.0+sq1,lWing0);
+		leftWing[1][1][1]=addBPoint(0.0,1.0,1.0,lWing0);
 		
 		
 		
