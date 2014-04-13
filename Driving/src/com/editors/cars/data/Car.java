@@ -1994,10 +1994,10 @@ public class Car extends CustomData {
 		double back_height2=back_height*(1-0.6)+z_side*0.6; 
 		double back_height3=back_height*(1-0.9)+z_side*0.9; 		
 		
-		Segments b0=new Segments(0,back_width,0,back_length,0,back_height);
-		Segments b1=new Segments(0,back_width1,0,back_length,0,back_height1);
-		Segments b2=new Segments(0,back_width2,0,back_length,0,back_height2);
-		Segments b3=new Segments(0,back_width3,0,back_length,0,back_height3);
+		Segments b0=new Segments(0,back_width,0,back_length,z_side-back_height,back_height);
+		Segments b1=new Segments(0,back_width1,0,back_length,z_side-back_height1,back_height1);
+		Segments b2=new Segments(0,back_width2,0,back_length,z_side-back_height2,back_height2);
+		Segments b3=new Segments(0,back_width3,0,back_length,z_side-back_height3,back_height3);
 		
 		body[0][0][0]=addBPoint(-0.5,0.0,0,b0);
 		body[1][0][0]=addBPoint(0.5,0.0,0,b0);
@@ -2122,7 +2122,7 @@ public class Car extends CustomData {
 	
 		BPoint[][][] tailRightWing=new BPoint[twnx][twny][twnz];	
 
-		Segments trWing0=new Segments(0,back_width*2,0,back_length*0.125,0,30);
+		Segments trWing0=new Segments(0,back_width*2,0,back_length*0.125,z_side-back_height,30);
 
 		tailRightWing[0][0][0]=body[1][0][0];
 		tailRightWing[1][0][0]=addBPoint(1.0,0.0,0.0,trWing0);
@@ -2182,7 +2182,7 @@ public class Car extends CustomData {
 	
 		BPoint[][][] tailLeftWing=new BPoint[twnx][twny][twnz];		
 		
-		Segments tlWing0=new Segments(0,back_width*2,0,back_length*0.125,0,30);
+		Segments tlWing0=new Segments(0,back_width*2,0,back_length*0.125,z_side-back_height,30);
 		
 		tailLeftWing[0][0][0]=addBPoint(-1.0,0,0,tlWing0);
 		tailLeftWing[1][0][0]=body[0][0][0];
@@ -2246,7 +2246,7 @@ public class Car extends CustomData {
 	
 		BPoint[][][] tailRudder=new BPoint[trnx][trny][trnz];	
 		
-		Segments rudder0=new Segments(0,back_width,0,back_length*0.25,0,back_height+50);
+		Segments rudder0=new Segments(0,back_width,0,back_length*0.25,z_side-back_height,back_height+50);
 		
 		tailRudder[0][0][0]=body[0][0][1];
 		tailRudder[1][0][0]=body[1][0][1];
@@ -2254,18 +2254,18 @@ public class Car extends CustomData {
 		tailRudder[1][1][0]=body[1][1][1];
 		
 		
-		tailRudder[0][0][1]=addBPoint(-0.5,0.0,1.0,rudder0);
-		tailRudder[1][0][1]=addBPoint(0.5,0.0,1.0,rudder0);
+		tailRudder[0][0][1]=addBPoint(0,0.0,1.0,rudder0);
+		tailRudder[0][1][1]=addBPoint(0.0,1.0,1.0,rudder0);
 
-		addLine(tailRudder[0][0][0],tailRudder[0][0][1],tailRudder[0][1][0],null,Renderer3D.CAR_LEFT);
+		addLine(tailRudder[0][0][0],tailRudder[0][0][1],tailRudder[0][1][1],tailRudder[0][1][0],Renderer3D.CAR_LEFT);
 
-		addLine(tailRudder[0][0][0],tailRudder[0][1][0],tailRudder[1][1][0],tailRudder[1][0][0],Renderer3D.CAR_BOTTOM);	
+		//addLine(tailRudder[0][0][0],tailRudder[0][1][0],tailRudder[1][1][0],tailRudder[1][0][0],Renderer3D.CAR_BOTTOM);	
 
-		addLine(tailRudder[0][0][0],tailRudder[1][0][0],tailRudder[1][0][1],tailRudder[0][0][1],Renderer3D.CAR_BACK);
+		addLine(tailRudder[0][0][0],tailRudder[1][0][0],tailRudder[0][0][1],null,Renderer3D.CAR_BACK);
 	
-		addLine(tailRudder[0][1][0],tailRudder[0][0][1],tailRudder[1][0][1],tailRudder[1][1][0],Renderer3D.CAR_FRONT);	
+		addLine(tailRudder[0][1][0],tailRudder[0][1][1],tailRudder[1][1][0],null,Renderer3D.CAR_FRONT);	
 
-		addLine(tailRudder[1][0][0],tailRudder[1][1][0],tailRudder[1][0][1],null,Renderer3D.CAR_RIGHT);
+		addLine(tailRudder[1][0][0],tailRudder[1][1][0],tailRudder[0][1][1],tailRudder[0][0][1],Renderer3D.CAR_RIGHT);
 
 
 		
