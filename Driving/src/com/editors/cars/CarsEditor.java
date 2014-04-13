@@ -421,20 +421,20 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 	
 	private void initRightAirplaneData() {
 		
-		x_side.setText(80);
-		y_side.setText(200);
-		z_side.setText(80);
+		x_side.setText(48);
+		y_side.setText(250);
+		z_side.setText(45);
 		
-		back_width.setText(40);
-		back_length.setText(150);
-		back_height.setText(40);
-		front_width.setText(50);
-		front_length.setText(100);
-		front_height.setText(60);
+		back_width.setText(21);
+		back_length.setText(143);
+		back_height.setText(13);
+		front_width.setText(25);
+		front_length.setText(57);
+		front_height.setText(25);
 		
-		roof_width.setText(200);
-		roof_length.setText(100);
-		roof_height.setText(30);
+		roof_width.setText(181);
+		roof_length.setText(119);
+		roof_height.setText(29);
 		
 		wheel_radius.setText(22);
 		

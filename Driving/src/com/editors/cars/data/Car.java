@@ -2118,11 +2118,13 @@ public class Car extends CustomData {
 		
 		int twnx=2;
 		int twny=2;
-		int twnz=2;		
+		int twnz=2;	
+		
+		double twDX=65;
 	
 		BPoint[][][] tailRightWing=new BPoint[twnx][twny][twnz];	
 
-		Segments trWing0=new Segments(0,back_width*2,0,back_length*0.125,z_side-back_height,30);
+		Segments trWing0=new Segments(0,twDX,0,back_length*0.125,z_side-back_height,back_height);
 
 		tailRightWing[0][0][0]=body[1][0][0];
 		tailRightWing[1][0][0]=addBPoint(1.0,0.0,0.0,trWing0);
@@ -2182,7 +2184,7 @@ public class Car extends CustomData {
 	
 		BPoint[][][] tailLeftWing=new BPoint[twnx][twny][twnz];		
 		
-		Segments tlWing0=new Segments(0,back_width*2,0,back_length*0.125,z_side-back_height,30);
+		Segments tlWing0=new Segments(0,twDX,0,back_length*0.125,z_side-back_height,back_height);
 		
 		tailLeftWing[0][0][0]=addBPoint(-1.0,0,0,tlWing0);
 		tailLeftWing[1][0][0]=body[0][0][0];
@@ -2246,7 +2248,7 @@ public class Car extends CustomData {
 	
 		BPoint[][][] tailRudder=new BPoint[trnx][trny][trnz];	
 		
-		Segments rudder0=new Segments(0,back_width,0,back_length*0.25,z_side-back_height,back_height+50);
+		Segments rudder0=new Segments(0,back_width,0,back_length*0.25,z_side-back_height,back_height+71);
 		
 		tailRudder[0][0][0]=body[0][0][1];
 		tailRudder[1][0][0]=body[1][0][1];
@@ -2275,14 +2277,15 @@ public class Car extends CustomData {
 		int wny=2;
 		int wnz=2;
 		
-		double q=Math.PI*15.0/180.0;
+		double q=Math.PI*10.0/180.0;
 		double sq=Math.sin(q);
 		double cq=Math.cos(q);
 		
 		double sq1=sq*roof_width/roof_height;
+		double ry=back_length+0.2*y_side;
 	
 		BPoint[][][] rightWing=new BPoint[wnx][wny][wnz];
-		Segments rWing0=new Segments(x_side*0.5,roof_width/cq,back_length,roof_length,0,roof_height);
+		Segments rWing0=new Segments(x_side*0.5,roof_width/cq,ry,roof_length,0,roof_height);
 		
 		rightWing[0][0][0]=addBPoint(0,0.0,0,rWing0);
 		rightWing[1][0][0]=addBPoint(cq,0.0,sq1,rWing0);
@@ -2344,7 +2347,7 @@ public class Car extends CustomData {
 		
 		BPoint[][][] leftWing=new BPoint[wnx][wny][wnz];
 		
-		Segments lWing0=new Segments(-x_side*0.5,roof_width/cq,back_length,roof_length,0,roof_height);
+		Segments lWing0=new Segments(-x_side*0.5,roof_width/cq,ry,roof_length,0,roof_height);
 		
 		leftWing[0][0][0]=addBPoint(-cq,0.0,sq1,lWing0);
 		leftWing[1][0][0]=addBPoint(0.0,0.0,0,lWing0);

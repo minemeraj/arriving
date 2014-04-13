@@ -393,6 +393,8 @@
 	
 	Railroad car proportions based on Sgmns-w by Kockums Industrier, 1435 mm gauge,
 	with a 40 X 8 X 8 feet container, length=14000mm.
+	
+	Airplane proportions based on Airbus A320 (length=37.57m).
     
 	
 	
