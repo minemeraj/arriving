@@ -1852,6 +1852,63 @@ public class Car extends CustomData {
 		}
 
 		
+		int fcnumx=2;
+		int fcnumy=2;
+		int fcnumz=2;
+		
+		BPoint[][][] pFrontCarriage=new BPoint[fcnumx][fcnumy][fcnumz]; 
+		
+		
+			
+		Segments fc0=new Segments(xc,x_side,y_side-fr,2*fr,fr,rr-fr);
+		
+		pFrontCarriage[0][0][0]=addBPoint(-0.5,0.0,0.0,fc0);
+		pFrontCarriage[1][0][0]=addBPoint(0.5,0.0,0.0,fc0);
+		pFrontCarriage[0][0][1]=addBPoint(-0.5,0.0,1.0,fc0);	
+		pFrontCarriage[1][0][1]=addBPoint(0.5,0.0,1.0,fc0);	
+		pFrontCarriage[0][1][0]=addBPoint(-0.5,1.0,0.0,fc0);
+		pFrontCarriage[1][1][0]=addBPoint(0.5,1.0,0.0,fc0);
+		pFrontCarriage[0][1][1]=addBPoint(-0.5,1.0,1.0,fc0);	
+		pFrontCarriage[1][1][1]=addBPoint(0.5,1.0,1.0,fc0);	
+		
+		for (int i = 0; i < fcnumx-1; i++) {
+			
+			for (int j = 0; j < fcnumy-1; j++) {		
+			
+				
+				if(i==0){
+					
+					addLine(pFrontCarriage[i][j][0],pFrontCarriage[i][j][1],pFrontCarriage[i][j+1][1],pFrontCarriage[i][j+1][0],Renderer3D.CAR_LEFT);
+					
+				}
+
+					
+					
+				if(j==0){
+					
+					addLine(pFrontCarriage[i][j][0],pFrontCarriage[i+1][j][0],pFrontCarriage[i+1][j][1],pFrontCarriage[i][j][1],Renderer3D.CAR_BACK);
+				}
+				
+				addLine(pFrontCarriage[i][j][1],pFrontCarriage[i+1][j][1],pFrontCarriage[i+1][j+1][1],pFrontCarriage[i][j+1][1],Renderer3D.CAR_TOP);
+				
+				addLine(pFrontCarriage[i][j][0],pFrontCarriage[i][j+1][0],pFrontCarriage[i+1][j+1][0],pFrontCarriage[i+1][j][0],Renderer3D.CAR_BOTTOM);
+				
+				if(j+1==fcnumy-1){
+					
+					addLine(pFrontCarriage[i][j+1][0],pFrontCarriage[i][j+1][1],pFrontCarriage[i+1][j+1][1],pFrontCarriage[i+1][j+1][0],Renderer3D.CAR_FRONT);
+				}
+
+	
+				if(i+1==fcnumx-1){
+					
+					addLine(pFrontCarriage[i+1][j][0],pFrontCarriage[i+1][j+1][0],pFrontCarriage[i+1][j+1][1],pFrontCarriage[i+1][j][1],Renderer3D.CAR_RIGHT);
+				}
+			
+			}
+			
+		
+		}
+		
 		int bnumx=5;
 		int bnumy=5;
 		int bnumz=2;
