@@ -391,6 +391,8 @@
 
 	Truck proportions based on Iveco New Eurocargo Euro VI (length=8692mm).
 	
+	Tractor proportions based on John Deer 6105R ( wheelbase=2580mm)
+	
 	Railroad car proportions based on Sgmns-w by Kockums Industrier, 1435 mm gauge,
 	with a 40 X 8 X 8 feet container, length=14000mm.
 	

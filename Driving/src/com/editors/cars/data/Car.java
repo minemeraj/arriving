@@ -1634,10 +1634,10 @@ public class Car extends CustomData {
 		
 		n=0;
 		
-		double rr=50;
-		double fr=25;
+		double rr=wheel_radius;
+		double fr=65;
 		
-		double track=20;
+		double track=52;
 		
 		buildWheel(-track,0,rr,rr,track);
 		buildWheel(x_side,0,rr,rr,track);
@@ -1940,16 +1940,16 @@ public class Car extends CustomData {
 		pBack[3][1][1]=addBPoint(0.25,0.25,1.0,b0);
 		pBack[4][1][1]=addBPoint(0.5,0.25,1.0,b0);	
 		
-		pBack[0][2][0]=addBPoint(-0.5,0.5,0.65,b0);
-		pBack[1][2][0]=addBPoint(-0.25,0.5,0.65,b0);
-		pBack[2][2][0]=addBPoint(0.0,0.5,0.65,b0);
-		pBack[3][2][0]=addBPoint(0.25,0.5,0.65,b0);
-		pBack[4][2][0]=addBPoint(0.5,0.5,0.65,b0);		
-		pBack[0][2][1]=addBPoint(-0.5,0.5,0.75,b0);
-		pBack[1][2][1]=addBPoint(-0.25,0.5,0.75,b0);
-		pBack[2][2][1]=addBPoint(0.0,0.5,0.75,b0);
-		pBack[3][2][1]=addBPoint(0.25,0.5,0.75,b0);
-		pBack[4][2][1]=addBPoint(0.5,0.5,0.75,b0);	
+		pBack[0][2][0]=addBPoint(-0.5,0.5,0.75,b0);
+		pBack[1][2][0]=addBPoint(-0.25,0.5,0.75,b0);
+		pBack[2][2][0]=addBPoint(0.0,0.5,0.75,b0);
+		pBack[3][2][0]=addBPoint(0.25,0.5,0.75,b0);
+		pBack[4][2][0]=addBPoint(0.5,0.5,0.75,b0);		
+		pBack[0][2][1]=addBPoint(-0.5,0.5,0.85,b0);
+		pBack[1][2][1]=addBPoint(-0.25,0.5,0.85,b0);
+		pBack[2][2][1]=addBPoint(0.0,0.5,0.85,b0);
+		pBack[3][2][1]=addBPoint(0.25,0.5,0.85,b0);
+		pBack[4][2][1]=addBPoint(0.5,0.5,0.85,b0);	
 		
 		pBack[0][3][0]=addBPoint(-0.5,0.75,0.0,b0);
 		pBack[1][3][0]=addBPoint(-0.25,0.75,0.0,b0);
