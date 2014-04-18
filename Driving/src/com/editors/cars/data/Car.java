@@ -2018,7 +2018,7 @@ public class Car extends CustomData {
 		
 		BPoint[][][] roof=new BPoint[rnumx][rnumy][rnumz]; 
 		
-		Segments r0=new Segments(xc,roof_width,-rr,roof_length,rr+z_side,roof_height);
+		Segments r0=new Segments(xc,roof_width,-rr+back_length-roof_length,roof_length,rr+z_side,roof_height);
 		
 		
 		roof[0][0][0]=pBack[1][0][1];
