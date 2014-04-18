@@ -1941,27 +1941,27 @@ public class Car extends CustomData {
 		pBack[3][1][1]=addBPoint(0.25,0.25,1.0,b0);
 		pBack[4][1][1]=addBPoint(0.5,0.25,1.0,b0);	
 		
-		pBack[0][2][0]=addBPoint(-0.5,0.5,0.8,b0);
-		pBack[1][2][0]=addBPoint(-0.25,0.5,0.8,b0);
-		pBack[2][2][0]=addBPoint(0.0,0.5,0.8,b0);
-		pBack[3][2][0]=addBPoint(0.25,0.5,0.8,b0);
-		pBack[4][2][0]=addBPoint(0.5,0.5,0.8,b0);		
-		pBack[0][2][1]=addBPoint(-0.5,0.5,0.9,b0);
-		pBack[1][2][1]=addBPoint(-0.25,0.5,0.9,b0);
-		pBack[2][2][1]=addBPoint(0.0,0.5,0.9,b0);
-		pBack[3][2][1]=addBPoint(0.25,0.5,0.9,b0);
-		pBack[4][2][1]=addBPoint(0.5,0.5,0.9,b0);	
+		pBack[0][2][0]=addBPoint(-0.5,0.55,0.9,b0);
+		pBack[1][2][0]=addBPoint(-0.25,0.55,0.9,b0);
+		pBack[2][2][0]=addBPoint(0.0,0.55,0.9,b0);
+		pBack[3][2][0]=addBPoint(0.25,0.55,0.9,b0);
+		pBack[4][2][0]=addBPoint(0.5,0.55,0.9,b0);		
+		pBack[0][2][1]=addBPoint(-0.5,0.55,1.0,b0);
+		pBack[1][2][1]=addBPoint(-0.25,0.55,1.0,b0);
+		pBack[2][2][1]=addBPoint(0.0,0.55,1.0,b0);
+		pBack[3][2][1]=addBPoint(0.25,0.55,1.0,b0);
+		pBack[4][2][1]=addBPoint(0.5,0.55,1.0,b0);	
 		
-		pBack[0][3][0]=addBPoint(-0.5,0.75,0.0,b0);
-		pBack[1][3][0]=addBPoint(-0.25,0.75,0.0,b0);
-		pBack[2][3][0]=addBPoint(0.0,0.75,0.0,b0);
-		pBack[3][3][0]=addBPoint(0.25,0.75,0.0,b0);
-		pBack[4][3][0]=addBPoint(0.5,0.75,0.0,b0);		
-		pBack[0][3][1]=addBPoint(-0.5,0.75,0.25,b0);
-		pBack[1][3][1]=addBPoint(-0.25,0.75,0.25,b0);
-		pBack[2][3][1]=addBPoint(0.0,0.75,0.25,b0);
-		pBack[3][3][1]=addBPoint(0.25,0.75,0.25,b0);
-		pBack[4][3][1]=addBPoint(0.5,0.75,0.25,b0);	
+		pBack[0][3][0]=addBPoint(-0.5,0.8,0.0,b0);
+		pBack[1][3][0]=addBPoint(-0.25,0.8,0.0,b0);
+		pBack[2][3][0]=addBPoint(0.0,0.8,0.0,b0);
+		pBack[3][3][0]=addBPoint(0.25,0.8,0.0,b0);
+		pBack[4][3][0]=addBPoint(0.5,0.8,0.0,b0);		
+		pBack[0][3][1]=addBPoint(-0.5,0.8,0.25,b0);
+		pBack[1][3][1]=addBPoint(-0.25,0.8,0.25,b0);
+		pBack[2][3][1]=addBPoint(0.0,0.8,0.25,b0);
+		pBack[3][3][1]=addBPoint(0.25,0.8,0.25,b0);
+		pBack[4][3][1]=addBPoint(0.5,0.8,0.25,b0);	
 		
 		pBack[0][4][0]=addBPoint(-0.5,1.0,0.0,b0);
 		pBack[1][4][0]=addBPoint(-0.25,1.0,0.0,b0);
