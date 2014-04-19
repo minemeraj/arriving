@@ -1919,16 +1919,16 @@ public class Car extends CustomData {
 		Segments b0=new Segments(xc,back_width,-rr,back_length,rr+z_side,back_height);
 		
 		
-		pBack[0][0][0]=addBPoint(-0.5,0,0.9,b0);
-		pBack[1][0][0]=addBPoint(-0.25,0,0.9,b0);
-		pBack[2][0][0]=addBPoint(0.0,0,0.9,b0);
-		pBack[3][0][0]=addBPoint(0.25,0,0.9,b0);
-		pBack[4][0][0]=addBPoint(0.5,0,0.9,b0);		
-		pBack[0][0][1]=addBPoint(-0.5,0,1.0,b0);
-		pBack[1][0][1]=addBPoint(-0.25,0,1.0,b0);
-		pBack[2][0][1]=addBPoint(0.0,0,1.0,b0);
-		pBack[3][0][1]=addBPoint(0.25,0,1.0,b0);
-		pBack[4][0][1]=addBPoint(0.5,0,1.0,b0);	
+		pBack[0][0][0]=addBPoint(-0.5,0,0.8,b0);
+		pBack[1][0][0]=addBPoint(-0.25,0,0.8,b0);
+		pBack[2][0][0]=addBPoint(0.0,0,0.8,b0);
+		pBack[3][0][0]=addBPoint(0.25,0,0.8,b0);
+		pBack[4][0][0]=addBPoint(0.5,0,0.8,b0);		
+		pBack[0][0][1]=addBPoint(-0.5,0,0.9,b0);
+		pBack[1][0][1]=addBPoint(-0.25,0,0.9,b0);
+		pBack[2][0][1]=addBPoint(0.0,0,0.9,b0);
+		pBack[3][0][1]=addBPoint(0.25,0,0.9,b0);
+		pBack[4][0][1]=addBPoint(0.5,0,0.9,b0);	
 		
 		pBack[0][1][0]=addBPoint(-0.5,0.25,0.9,b0);
 		pBack[1][1][0]=addBPoint(-0.25,0.25,0.9,b0);
@@ -2013,7 +2013,7 @@ public class Car extends CustomData {
 		}
 
 		int rnumx=3;
-		int rnumy=5;
+		int rnumy=4;
 		int rnumz=2;
 		
 		BPoint[][][] roof=new BPoint[rnumx][rnumy][rnumz]; 
@@ -2021,40 +2021,34 @@ public class Car extends CustomData {
 		Segments r0=new Segments(xc,roof_width,-rr+back_length-roof_length,roof_length,rr+z_side,roof_height);
 		
 		
-		roof[0][0][0]=pBack[1][0][1];
-		roof[1][0][0]=pBack[2][0][1];
-		roof[2][0][0]=pBack[3][0][1];	
+		roof[0][0][0]=pBack[1][1][1];
+		roof[1][0][0]=pBack[2][1][1];
+		roof[2][0][0]=pBack[3][1][1];	
 		roof[0][0][1]=addBPoint(-0.5,0,1.0,r0);
 		roof[1][0][1]=addBPoint(0.0,0,1.0,r0);
 		roof[2][0][1]=addBPoint(0.5,0,1.0,r0);	
 		
-		roof[0][1][0]=pBack[1][1][1];
-		roof[1][1][0]=pBack[2][1][1];
-		roof[2][1][0]=pBack[3][1][1];		
-		roof[0][1][1]=addBPoint(-0.5,0.25,1.0,r0);
-		roof[1][1][1]=addBPoint(0.0,0.25,1.0,r0);
-		roof[2][1][1]=addBPoint(0.5,0.25,1.0,r0);	
+		roof[0][1][0]=pBack[1][2][1];
+		roof[1][1][0]=pBack[2][2][1];
+		roof[2][1][0]=pBack[3][2][1];		
+		roof[0][1][1]=addBPoint(-0.5,0.33,1.0,r0);
+		roof[1][1][1]=addBPoint(0.0,0.33,1.0,r0);
+		roof[2][1][1]=addBPoint(0.5,0.33,1.0,r0);	
 		
-		roof[0][2][0]=pBack[1][2][1];
-		roof[1][2][0]=pBack[2][2][1];
-		roof[2][2][0]=pBack[3][2][1];		
-		roof[0][2][1]=addBPoint(-0.5,0.5,1.0,r0);
-		roof[1][2][1]=addBPoint(0.0,0.5,1.0,r0);
-		roof[2][2][1]=addBPoint(0.5,0.5,1.0,r0);	
+		roof[0][2][0]=pBack[1][3][1];
+		roof[1][2][0]=pBack[2][3][1];
+		roof[2][2][0]=pBack[3][3][1];		
+		roof[0][2][1]=addBPoint(-0.5,0.66,1.0,r0);
+		roof[1][2][1]=addBPoint(0.0,0.66,1.0,r0);
+		roof[2][2][1]=addBPoint(0.5,0.66,1.0,r0);	
 		
-		roof[0][3][0]=pBack[1][3][1];
-		roof[1][3][0]=pBack[2][3][1];
-		roof[2][3][0]=pBack[3][3][1];	
-		roof[0][3][1]=addBPoint(-0.5,0.75,1.0,r0);
-		roof[1][3][1]=addBPoint(0.0,0.75,1.0,r0);
-		roof[2][3][1]=addBPoint(0.5,0.75,1.0,r0);	
-		
-		roof[0][4][0]=pBack[1][4][1];
-		roof[1][4][0]=pBack[2][4][1];
-		roof[2][4][0]=pBack[3][4][1];
-		roof[0][4][1]=addBPoint(-0.5,1.0,1.0,r0);	
-		roof[1][4][1]=addBPoint(0.0,1.0,1.0,r0);	
-		roof[2][4][1]=addBPoint(0.5,1.0,1.0,r0);
+
+		roof[0][3][0]=pBack[1][4][1];
+		roof[1][3][0]=pBack[2][4][1];
+		roof[2][3][0]=pBack[3][4][1];		
+		roof[0][3][1]=addBPoint(-0.5,1.0,1.0,r0);
+		roof[1][3][1]=addBPoint(0.0,1.0,1.0,r0);
+		roof[2][3][1]=addBPoint(0.5,1.0,1.0,r0);
 		
 		
 		for (int i = 0; i < rnumx-1; i++) {
