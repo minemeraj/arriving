@@ -2685,7 +2685,7 @@ public class Car extends CustomData {
 				
 		BPoint[][][] back=new BPoint[bnx][bny][bnz];
 		
-		Segments b0=new Segments(0,back_width,0,back_length,0,back_height);
+		Segments b0=new Segments(0,back_width,rear_overhang,back_length,0,back_height);
 		
 		back[0][0][0]=addBPoint(-0.5,0.0,0,b0);
 		back[1][0][0]=addBPoint(0.5,0.0,0,b0);
@@ -2697,11 +2697,11 @@ public class Car extends CustomData {
 		back[0][1][1]=addBPoint(-0.5,1.0,1.0,b0);
 		back[1][1][1]=addBPoint(0.5,1.0,1.0,b0);		
 		
-		buildWheel(-back_width*0.5-wheel_width,0,0,wheel_radius,wheel_width);
-		buildWheel(back_width*0.5,0,0,wheel_radius,wheel_width);
+		buildWheel(-back_width*0.5-wheel_width,rear_overhang,0,wheel_radius,wheel_width);
+		buildWheel(back_width*0.5,rear_overhang,0,wheel_radius,wheel_width);
 		
-		buildWheel(-back_width*0.5-wheel_width,back_length,0,wheel_radius,wheel_width);
-		buildWheel(back_width*0.5,back_length,0,wheel_radius,wheel_width);
+		buildWheel(-back_width*0.5-wheel_width,rear_overhang+back_length,0,wheel_radius,wheel_width);
+		buildWheel(back_width*0.5,rear_overhang+back_length,0,wheel_radius,wheel_width);
 		
 		for (int i = 0; i < bnx-1; i++) {
 
@@ -2754,7 +2754,7 @@ public class Car extends CustomData {
 		
 		BPoint[][][] front=new BPoint[fnx][fny][fnz];
 		
-		double fy=y_side-front_length;
+		double fy=y_side-front_length-front_overhang;
 		
 		Segments f0=new Segments(0,front_width,fy,front_length,0,front_height);
 		

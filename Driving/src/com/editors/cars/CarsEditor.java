@@ -476,7 +476,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		wheel_width.setText(58);
 		
 		front_overhang.setText(0);
-		wheel_base.setText(0);
+		wheel_base.setText(250);
 		rear_overhang.setText(0);
 
 		
@@ -509,17 +509,17 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 	}
 
 
-	private void initRightRailroadCarData() {
+	private void initRightRailroadCarData0() {
 		
 		x_side.setText(69);
 		y_side.setText(400);
 		z_side.setText(4);
-		back_width.setText(51);
-		back_length.setText(39);
-		back_height.setText(16);
-		front_width.setText(51);
-		front_length.setText(39);
-		front_height.setText(16);
+		back_width.setText(41);
+		back_length.setText(51);
+		back_height.setText(17);
+		front_width.setText(41);
+		front_length.setText(51);
+		front_height.setText(17);
 		
 		roof_width.setText(70);
 		roof_length.setText(348);
@@ -528,9 +528,9 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		wheel_radius.setText(13);
 		wheel_width.setText(10);
 		
-		front_overhang.setText(0);
-		wheel_base.setText(0);
-		rear_overhang.setText(0);
+		front_overhang.setText(29);
+		wheel_base.setText(291);
+		rear_overhang.setText(29);
 
 		
 	}
@@ -970,7 +970,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 			   else if(type==Car.CAR_TYPE_TRACTOR)
 				   initRightTractorData();
 			   else if(type==Car.CAR_TYPE_RAILROAD_CAR_0)
-				   initRightRailroadCarData();
+				   initRightRailroadCarData0();
 			   else if(type==Car.CAR_TYPE_AIRPLANE)
 				   initRightAirplaneData();
 			

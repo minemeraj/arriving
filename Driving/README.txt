@@ -1,5 +1,5 @@
 	**********************
-	*  READ ME CARDRIVING VERSION   7.0.12
+	*  READ ME CARDRIVING VERSION   7.0.16
 	*
 	*  by Piazza Francesco Giovanni 
 	*  Tecnes Milano ,Italy http://www.tecnes.com ; Tel.: +39.02.67101036
@@ -393,7 +393,7 @@
 	
 	Tractor proportions based on John Deer 6105R ( wheelbase=2580mm)
 	
-	Railroad car proportions based on Sgmns-w by Kockums Industrier, 1435 mm gauge,
+	Railroad car 0 proportions based on Sgmns-w by Kockums Industrier, 1435 mm gauge,
 	with a 40 X 8 X 8 feet container, length=14000mm.
 	
 	Airplane proportions based on Airbus A320 (length=37.57m).
