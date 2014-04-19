@@ -71,6 +71,12 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 	private DoubleTextField roof_width;
 	private DoubleTextField roof_length;
 	private DoubleTextField roof_height;
+	private DoubleTextField wheel_radius;
+	private DoubleTextField wheel_width;
+	private DoubleTextField front_overhang;
+	private DoubleTextField wheel_base;
+	private DoubleTextField rear_overhang;
+	
 	private JButton generate;
 	private JButton restoreDefault;
 	
@@ -81,7 +87,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 	int max_stack_size=10;
 	
 	Car car=null;
-	private DoubleTextField wheel_radius;
+
 	
 
 	
@@ -170,7 +176,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_TRUCK,"Truck"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_BYKE,"Byke"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_TRACTOR,"Tractor"));
-		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_RAILROAD_CAR,"Railroad car"));
+		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_RAILROAD_CAR_0,"Railroad car 0"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_AIRPLANE,"Airplane"));
 		car_type.addItemListener(this);
 		
@@ -220,7 +226,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		
 		r+=30;
 		
-		jlb=new JLabel("Back length");
+		jlb=new JLabel("Rear length");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
 		back_length=new DoubleTextField();
@@ -230,7 +236,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		
 		r+=30;
 		
-		jlb=new JLabel("Back height");
+		jlb=new JLabel("Rear height");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
 		back_height=new DoubleTextField();
@@ -240,7 +246,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		
 		r+=30;
 		
-		jlb=new JLabel("Front width");
+		jlb=new JLabel("Rear width");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
 		front_width=new DoubleTextField();
@@ -309,6 +315,46 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		right.add(wheel_radius);
 		
 		r+=30;
+		
+		jlb=new JLabel("Wheel width");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		wheel_width=new DoubleTextField();
+		wheel_width.setBounds(column, r, 100, 20);
+		wheel_width.addKeyListener(this);
+		right.add(wheel_width);
+		
+		r+=30;
+		
+		jlb=new JLabel("Front overhang");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		front_overhang=new DoubleTextField();
+		front_overhang.setBounds(column, r, 100, 20);
+		front_overhang.addKeyListener(this);
+		right.add(front_overhang);
+		
+		r+=30;
+		
+		jlb=new JLabel("Wheel base");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		wheel_base=new DoubleTextField();
+		wheel_base.setBounds(column, r, 100, 20);
+		wheel_base.addKeyListener(this);
+		right.add(wheel_base);
+		
+		r+=30;
+		
+		jlb=new JLabel("Rear overhang");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		rear_overhang=new DoubleTextField();
+		rear_overhang.setBounds(column, r, 100, 20);
+		rear_overhang.addKeyListener(this);
+		right.add(rear_overhang);
+		
+		r+=30;
 			
         generate=new JButton("Update");
         generate.setBounds(10,r,100,20);
@@ -347,6 +393,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		roof_height.setText(34);
 		
 		wheel_radius.setText(25);
+		wheel_width.setText(18);
 	}
 	
 
@@ -370,6 +417,11 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		roof_height.setText(116);
 		
 		wheel_radius.setText(19);
+		wheel_width.setText(12);
+		
+		front_overhang.setText(0);
+		wheel_base.setText(0);
+		rear_overhang.setText(0);
 	}
 	
 	public void initRightBykeData() { 
@@ -392,6 +444,12 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		roof_height.setText(100);
 		
 		wheel_radius.setText(50);
+		wheel_width.setText(20);
+		
+		front_overhang.setText(0);
+		wheel_base.setText(0);
+		rear_overhang.setText(0);
+	
 	}
 	
 	private void initRightTractorData() {
@@ -415,7 +473,12 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		roof_height.setText(155);
 		
 		wheel_radius.setText(86);
-	
+		wheel_width.setText(58);
+		
+		front_overhang.setText(0);
+		wheel_base.setText(0);
+		rear_overhang.setText(0);
+
 		
 	}
 	
@@ -437,6 +500,11 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		roof_height.setText(29);
 		
 		wheel_radius.setText(22);
+		wheel_width.setText(0);
+		
+		front_overhang.setText(0);
+		wheel_base.setText(0);
+		rear_overhang.setText(0);
 		
 	}
 
@@ -458,6 +526,12 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		roof_height.setText(70);
 		
 		wheel_radius.setText(13);
+		wheel_width.setText(10);
+		
+		front_overhang.setText(0);
+		wheel_base.setText(0);
+		rear_overhang.setText(0);
+
 		
 	}
 	
@@ -608,6 +682,10 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 			double roofLength=roof_length.getvalue();
 			double roofHeight=roof_height.getvalue();
 			double wheelRadius=wheel_radius.getvalue();
+			double wheelWidth=wheel_width.getvalue();
+			double frontOverhang=front_overhang.getvalue();
+			double wheelBase=wheel_base.getvalue();
+			double rearOverhang=rear_overhang.getvalue();
 			
 			 ValuePair vp= (ValuePair)car_type.getSelectedItem();
 				
@@ -623,7 +701,10 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 						frontWidth,frontLength,frontHeight,
 						backWidth,backLength,backHeight,
 						roofWidth,roofLength,roofHeight,
-						wheelRadius);
+						wheelRadius,wheelWidth,
+						frontOverhang,wheelBase,rearOverhang
+						
+						);
 				
 			}else{
 				
@@ -633,7 +714,9 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 						frontWidth,frontLength,frontHeight,
 						backWidth,backLength,backHeight,
 						roofWidth,roofLength,roofHeight,
-						wheelRadius);
+						wheelRadius,wheelWidth,
+						frontOverhang,wheelBase,rearOverhang
+						);
 				
 				car=expCar;
 			}
@@ -886,7 +969,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 				   initRightBykeData();
 			   else if(type==Car.CAR_TYPE_TRACTOR)
 				   initRightTractorData();
-			   else if(type==Car.CAR_TYPE_RAILROAD_CAR)
+			   else if(type==Car.CAR_TYPE_RAILROAD_CAR_0)
 				   initRightRailroadCarData();
 			   else if(type==Car.CAR_TYPE_AIRPLANE)
 				   initRightAirplaneData();

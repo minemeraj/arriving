@@ -28,12 +28,17 @@ public class Car extends CustomData {
     double roof_height=0;
     
     double wheel_radius=0;
+    double wheel_width=0;
+    
+    double front_overhang=0;
+    double wheel_base=0;    
+    double rear_overhang=0;
     
     public static int CAR_TYPE_CAR=0;
     public static int CAR_TYPE_TRUCK=1;
     public static int CAR_TYPE_BYKE=2;
     public static int CAR_TYPE_TRACTOR=3;
-    public static int CAR_TYPE_RAILROAD_CAR=4;
+    public static int CAR_TYPE_RAILROAD_CAR_0=4;
     public static int CAR_TYPE_AIRPLANE=5;
     
     public int car_type=CAR_TYPE_CAR;
@@ -43,7 +48,9 @@ public class Car extends CustomData {
 	public Car(int car_type, double x_side, double y_side,double z_side,
 			double front_width,double front_length,double front_height,
 			double back_width,double back_length,double back_height,
-			 double roof_width,double roof_length,double roof_height,double wheel_radius
+			 double roof_width,double roof_length,double roof_height,
+			 double wheel_radius,double wheel_width,
+			 double front_overhang,double wheel_base, double rear_overhang
 			) {
 		super();
 
@@ -64,7 +71,13 @@ public class Car extends CustomData {
 		this.roof_width = roof_width;
 		this.roof_length = roof_length;
 		this.roof_height = roof_height;
+		
 		this.wheel_radius = wheel_radius;
+		this.wheel_width = wheel_width;
+		
+		this.front_overhang = front_overhang;
+		this.wheel_base = wheel_base;
+		this.rear_overhang = rear_overhang;
 	}
 
 	public Object clone(){
@@ -75,7 +88,10 @@ public class Car extends CustomData {
 				front_width,front_length,front_height,
 				back_width,back_length,back_height,
 				roof_width,roof_length,roof_height,
-				wheel_radius);
+				wheel_radius,wheel_width,
+				front_overhang,wheel_base,rear_overhang
+				
+				);
 		return grid;
 
 	}
@@ -86,7 +102,9 @@ public class Car extends CustomData {
 		return "C="+car_type+","+x_side+","+y_side+","+z_side+","
 		+front_width+","+front_length+","+front_height+","
 		+back_width+","+back_length+","+back_height+
-		","+roof_width+","+roof_length+","+roof_height+","+wheel_radius;
+		","+roof_width+","+roof_length+","+roof_height+"," +
+		wheel_radius+","+wheel_width+","+
+		front_overhang+","+wheel_base+","+rear_overhang;
 	}
 
 	public static Car buildCar(String str) {
@@ -108,13 +126,20 @@ public class Car extends CustomData {
 		double roof_length= Double.parseDouble(vals[11]); 
 		double roof_height= Double.parseDouble(vals[12]); 
 		double wheel_radius= Double.parseDouble(vals[13]); 
+		double wheel_width= Double.parseDouble(vals[13]);
+		double front_overhang= Double.parseDouble(vals[13]);
+		double wheel_base= Double.parseDouble(vals[13]);
+		double rear_overhang= Double.parseDouble(vals[13]);
 		
 		Car grid=new Car(car_type,
 				x_side,y_side,z_side,
 				front_width,front_length,front_height,
 				back_width,back_length,back_height,
 				roof_width,roof_length,roof_height,
-				wheel_radius);
+				wheel_radius,wheel_width,
+				front_overhang,wheel_base,rear_overhang
+				
+				);
 
 		return grid;
 	}
@@ -230,6 +255,38 @@ public class Car extends CustomData {
 		this.wheel_radius = wheel_radius;
 	}
 
+
+	public double getWheel_width() {
+		return wheel_width;
+	}
+
+	public void setWheel_width(double wheel_width) {
+		this.wheel_width = wheel_width;
+	}
+
+	public double getFront_overhang() {
+		return front_overhang;
+	}
+
+	public void setFront_overhang(double front_overhang) {
+		this.front_overhang = front_overhang;
+	}
+
+	public double getWheel_base() {
+		return wheel_base;
+	}
+
+	public void setWheel_base(double wheel_base) {
+		this.wheel_base = wheel_base;
+	}
+
+	public double getRear_overhang() {
+		return rear_overhang;
+	}
+
+	public void setRear_overhang(double rear_overhang) {
+		this.rear_overhang = rear_overhang;
+	}
 	
 	public PolygonMesh buildMesh(){
 
@@ -242,7 +299,7 @@ public class Car extends CustomData {
 			return buildBykeMesh();		
 		else if(car_type==CAR_TYPE_TRACTOR)
 			return buildTractorMesh();
-		else if(car_type==CAR_TYPE_RAILROAD_CAR)
+		else if(car_type==CAR_TYPE_RAILROAD_CAR_0)
 			return buildRailroadCarMesh();
 		else 
 			return buildAirplaneMesh();
@@ -819,8 +876,6 @@ public class Car extends CustomData {
 		
 		double xc=x_side*0.5;
 		
-		double track=20;
-		
 		double lw=(wheel_radius*2.0/Math.sqrt(3))/front_length;
 		double zw=wheel_radius/front_height;
 		double yw=0.5;
@@ -950,8 +1005,8 @@ public class Car extends CustomData {
 		
 		
 		
-		buildWheel(f0.x(-0.5),f0.y(0.5),0,wheel_radius,track);
-		buildWheel(f0.x(+0.5-track/front_width),f0.y(0.5),0,wheel_radius,track);
+		buildWheel(f0.x(-0.5),f0.y(0.5),0,wheel_radius,wheel_width);
+		buildWheel(f0.x(+0.5-wheel_width/front_width),f0.y(0.5),0,wheel_radius,wheel_width);
 		
 		for (int i = 0; i < fnx-1; i++) {
 
@@ -1374,8 +1429,8 @@ public class Car extends CustomData {
 		pBack[4][5][2]=addBPoint(0.5,1.0,1.0,b0);
 		
 		
-		buildWheel(b0.x(-0.5),b0.y(0.5),0,wheel_radius,track);
-		buildWheel(b0.x(+0.5-track/back_width),b0.y(0.5),0,wheel_radius,track);
+		buildWheel(b0.x(-0.5),b0.y(0.5),0,wheel_radius,wheel_width);
+		buildWheel(b0.x(+0.5-wheel_width/back_width),b0.y(0.5),0,wheel_radius,wheel_width);
 
 		for (int i = 0; i < bnx-1; i++) {
 
@@ -1436,16 +1491,15 @@ public class Car extends CustomData {
 		n=0;
 		
 
-		double track=20;
 		
-		buildWheel(0,back_length,wheel_radius,wheel_radius,track);
-		buildWheel(0,back_length+y_side,wheel_radius,wheel_radius,track);
+		buildWheel(0,back_length,wheel_radius,wheel_radius,wheel_width);
+		buildWheel(0,back_length+y_side,wheel_radius,wheel_radius,wheel_width);
 		
 		
 		BPoint[][][] leftFrame=new BPoint[2][2][2];
 		
 		
-		double frame_side=(x_side-track)*0.5;
+		double frame_side=(x_side-wheel_width)*0.5;
 		double xc=-frame_side*0.5;
 		
 		Segments lf=new Segments(xc,frame_side,back_length,y_side,wheel_radius,2*z_side);
@@ -1478,7 +1532,7 @@ public class Car extends CustomData {
 		BPoint[][][] rightFrame=new BPoint[2][2][2];		
 		
 	
-		xc=track+frame_side*0.5;
+		xc=wheel_width+frame_side*0.5;
 		
 		Segments rf=new Segments(xc,frame_side,back_length,y_side,wheel_radius,wheel_radius+z_side);
 
@@ -1558,9 +1612,9 @@ public class Car extends CustomData {
 
 		addLine(rightFork[0][1][0],rightFork[0][1][1],rightFork[1][1][1],rightFork[1][1][0],Renderer3D.CAR_FRONT);
 		
-		xc=track/2.0;
+		xc=wheel_width/2.0;
 		
-		Segments bd=new Segments(xc,track,back_length,y_side,2*wheel_radius,z_side);
+		Segments bd=new Segments(xc,wheel_width,back_length,y_side,2*wheel_radius,z_side);
 		
 		BPoint[][][] body=new BPoint[2][2][2];	
 		
@@ -1637,14 +1691,15 @@ public class Car extends CustomData {
 		double rr=wheel_radius;
 		double fr=65;
 		
-		double ftrack=52;
-		double rtrack=58;
+		double ftyre_width=wheel_width*0.753;
+		double rtyre_width=wheel_width;
 		
-		buildWheel(-rtrack,0,rr,rr,rtrack);
-		buildWheel(x_side,0,rr,rr,rtrack);
 		
-		buildWheel(-ftrack,y_side,fr,fr,ftrack);
-		buildWheel(x_side,y_side,fr,fr,ftrack);
+		buildWheel(-rtyre_width,0,rr,rr,rtyre_width);
+		buildWheel(x_side,0,rr,rr,rtyre_width);
+		
+		buildWheel(-ftyre_width,y_side,fr,fr,ftyre_width);
+		buildWheel(x_side,y_side,fr,fr,ftyre_width);
 		
 		double xc=x_side*0.5;
 		
@@ -2622,7 +2677,7 @@ public class Car extends CustomData {
 
 		}
 		
-		double track=10;
+		
 		
 		int bnx=2;
 		int bny=2;
@@ -2642,11 +2697,11 @@ public class Car extends CustomData {
 		back[0][1][1]=addBPoint(-0.5,1.0,1.0,b0);
 		back[1][1][1]=addBPoint(0.5,1.0,1.0,b0);		
 		
-		buildWheel(-back_width*0.5-track,0,0,wheel_radius,track);
-		buildWheel(back_width*0.5,0,0,wheel_radius,track);
+		buildWheel(-back_width*0.5-wheel_width,0,0,wheel_radius,wheel_width);
+		buildWheel(back_width*0.5,0,0,wheel_radius,wheel_width);
 		
-		buildWheel(-back_width*0.5-track,back_length,0,wheel_radius,track);
-		buildWheel(back_width*0.5,back_length,0,wheel_radius,track);
+		buildWheel(-back_width*0.5-wheel_width,back_length,0,wheel_radius,wheel_width);
+		buildWheel(back_width*0.5,back_length,0,wheel_radius,wheel_width);
 		
 		for (int i = 0; i < bnx-1; i++) {
 
@@ -2713,11 +2768,11 @@ public class Car extends CustomData {
 		front[0][1][1]=addBPoint(-0.5,1.0,1.0,f0);
 		front[1][1][1]=addBPoint(0.5,1.0,1.0,f0);
 		
-		buildWheel(-front_width*0.5-track,fy,0,wheel_radius,track);
-		buildWheel(front_width*0.5,fy,0,wheel_radius,track);
+		buildWheel(-front_width*0.5-wheel_width,fy,0,wheel_radius,wheel_width);
+		buildWheel(front_width*0.5,fy,0,wheel_radius,wheel_width);
 		
-		buildWheel(-front_width*0.5-track,fy+front_length,0,wheel_radius,track);
-		buildWheel(front_width*0.5,fy+front_length,0,wheel_radius,track);
+		buildWheel(-front_width*0.5-wheel_width,fy+front_length,0,wheel_radius,wheel_width);
+		buildWheel(front_width*0.5,fy+front_length,0,wheel_radius,wheel_width);
 		
 		for (int i = 0; i < fnx-1; i++) {
 
@@ -2838,7 +2893,7 @@ public class Car extends CustomData {
 		return spm;
 	}
 
-	private void buildWheel(double rxc, double ryc, double rzc,double r, double track) {
+	private void buildWheel(double rxc, double ryc, double rzc,double r, double wheel_width) {
 		
 			
 		int raysNumber=10;
@@ -2858,7 +2913,7 @@ public class Car extends CustomData {
 					double z=rzc+r*Math.cos(teta);
 					
 					lRearWheel[i]=addBPoint(x,y,z);
-					rRearWheel[i]=addBPoint(x+track,y,z);
+					rRearWheel[i]=addBPoint(x+wheel_width,y,z);
 				}
 				
 				LineData leftRearWheel=new LineData();
@@ -2890,5 +2945,6 @@ public class Car extends CustomData {
 			
 		
 	}
+
 
 }	
