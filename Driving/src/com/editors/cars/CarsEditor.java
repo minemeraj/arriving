@@ -647,7 +647,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		}else if(obj==restoreDefault){
 			
 		
-			initRightCarData();
+			initRightData();
 			generate();
 		}
 			
