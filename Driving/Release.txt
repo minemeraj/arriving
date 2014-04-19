@@ -1,3 +1,6 @@
+
+New progress in the custom editor to add more and better objects.
+
 -----19/04/2014   CarDriving 7.0.16
 
 Improving custom editors to build more complex objects.
