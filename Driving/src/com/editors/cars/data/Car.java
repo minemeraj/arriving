@@ -39,6 +39,7 @@ public class Car extends CustomData {
     public static int CAR_TYPE_BYKE=2;
     public static int CAR_TYPE_TRACTOR=3;
     public static int CAR_TYPE_RAILROAD_CAR_0=4;
+    public static int CAR_TYPE_RAILROAD_CAR_1=41;
     public static int CAR_TYPE_AIRPLANE=5;
     
     public int car_type=CAR_TYPE_CAR;
@@ -299,7 +300,9 @@ public class Car extends CustomData {
 			return buildBykeMesh();		
 		else if(car_type==CAR_TYPE_TRACTOR)
 			return buildTractorMesh();
-		else if(car_type==CAR_TYPE_RAILROAD_CAR_0)
+		else if(car_type==CAR_TYPE_RAILROAD_CAR_0 ||
+				car_type==CAR_TYPE_RAILROAD_CAR_1 
+				)
 			return buildRailroadCarMesh();
 		else 
 			return buildAirplaneMesh();
