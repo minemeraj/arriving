@@ -1689,9 +1689,9 @@ public class Car extends CustomData {
 		n=0;
 		
 		double rr=wheel_radius;
-		double fr=65;
+		double fr=wheel_radius*0.753;
 		
-		double ftyre_width=wheel_width*0.753;
+		double ftyre_width=wheel_width;
 		double rtyre_width=wheel_width;
 		
 		
