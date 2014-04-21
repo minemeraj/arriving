@@ -2822,78 +2822,161 @@ public class Car extends CustomData {
 
 		}
 		
-		
-		int rnx=2;
-		int rny=2;
-		int rnz=2;
-		
-		BPoint[][][] roof=new BPoint[rnx][rny][rnz];
-		
-		double rdy=(y_side-roof_length)*0.5;
-		
-		Segments r0=new Segments(0,roof_width,rdy,roof_length,back_height+z_side,roof_height);
-		
-		roof[0][0][0]=addBPoint(-0.5,0.0,0,r0);
-		roof[1][0][0]=addBPoint(0.5,0.0,0,r0);
-		roof[0][0][1]=addBPoint(-0.5,0.0,1.0,r0);
-		roof[1][0][1]=addBPoint(0.5,0.0,1.0,r0);
-		
-		roof[0][1][0]=addBPoint(-0.5,1.0,0,r0);
-		roof[1][1][0]=addBPoint(0.5,1.0,0,r0);
-		roof[0][1][1]=addBPoint(-0.5,1.0,1.0,r0);
-		roof[1][1][1]=addBPoint(0.5,1.0,1.0,r0);
-		
-		
-		
-		for (int i = 0; i < pnx-1; i++) {
+		if(car_type==CAR_TYPE_RAILROAD_CAR_0){
 
+			int rnx=2;
+			int rny=2;
+			int rnz=2;
 
-			for (int j = 0; j < pny-1; j++) {
+			BPoint[][][] roof=new BPoint[rnx][rny][rnz];
 
-				for (int k = 0; k < pnz-1; k++) {
+			double rdy=(y_side-roof_length)*0.5;
+
+			Segments r0=new Segments(0,roof_width,rdy,roof_length,back_height+z_side,roof_height);
+
+			roof[0][0][0]=addBPoint(-0.5,0.0,0,r0);
+			roof[1][0][0]=addBPoint(0.5,0.0,0,r0);
+			roof[0][0][1]=addBPoint(-0.5,0.0,1.0,r0);
+			roof[1][0][1]=addBPoint(0.5,0.0,1.0,r0);
+
+			roof[0][1][0]=addBPoint(-0.5,1.0,0,r0);
+			roof[1][1][0]=addBPoint(0.5,1.0,0,r0);
+			roof[0][1][1]=addBPoint(-0.5,1.0,1.0,r0);
+			roof[1][1][1]=addBPoint(0.5,1.0,1.0,r0);
 
 
 
+			for (int i = 0; i < pnx-1; i++) {
 
-					if(i==0){
 
-						LineData leftLD=addLine(roof[i][j][k],roof[i][j][k+1],roof[i][j+1][k+1],roof[i][j+1][k],Renderer3D.CAR_LEFT);
-					}
+				for (int j = 0; j < pny-1; j++) {
 
-				
-						
-					if(k==0){
+					for (int k = 0; k < pnz-1; k++) {
 
-						LineData bottomLD=addLine(roof[i][j][k],roof[i][j+1][k],roof[i+1][j+1][k],roof[i+1][j][k],Renderer3D.CAR_BOTTOM);
-					
-					}
-					
-					if(k+1==pnz-1){
-						LineData topLD=addLine(roof[i][j][k+1],roof[i+1][j][k+1],roof[i+1][j+1][k+1],roof[i][j+1][k+1],Renderer3D.CAR_TOP);
-					}
-					
-					if(j==0){
-						LineData backLD=addLine(roof[i][j][k],roof[i+1][j][k],roof[i+1][j][k+1],roof[i][j][k+1],Renderer3D.CAR_BACK);
-					}
-					if(j+1==pny-1){
-						LineData roofLD=addLine(roof[i][j+1][k],roof[i][j+1][k+1],roof[i+1][j+1][k+1],roof[i+1][j+1][k],Renderer3D.CAR_FRONT);	
-					}
-				
 
-					if(i+1==pnx-1){
 
-						LineData rightLD=addLine(roof[i+1][j][k],roof[i+1][j+1][k],roof[i+1][j+1][k+1],roof[i+1][j][k+1],Renderer3D.CAR_RIGHT);
 
+						if(i==0){
+
+							LineData leftLD=addLine(roof[i][j][k],roof[i][j][k+1],roof[i][j+1][k+1],roof[i][j+1][k],Renderer3D.CAR_LEFT);
+						}
+
+
+
+						if(k==0){
+
+							LineData bottomLD=addLine(roof[i][j][k],roof[i][j+1][k],roof[i+1][j+1][k],roof[i+1][j][k],Renderer3D.CAR_BOTTOM);
+
+						}
+
+						if(k+1==pnz-1){
+							LineData topLD=addLine(roof[i][j][k+1],roof[i+1][j][k+1],roof[i+1][j+1][k+1],roof[i][j+1][k+1],Renderer3D.CAR_TOP);
+						}
+
+						if(j==0){
+							LineData backLD=addLine(roof[i][j][k],roof[i+1][j][k],roof[i+1][j][k+1],roof[i][j][k+1],Renderer3D.CAR_BACK);
+						}
+						if(j+1==pny-1){
+							LineData roofLD=addLine(roof[i][j+1][k],roof[i][j+1][k+1],roof[i+1][j+1][k+1],roof[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+						}
+
+
+						if(i+1==pnx-1){
+
+							LineData rightLD=addLine(roof[i+1][j][k],roof[i+1][j+1][k],roof[i+1][j+1][k+1],roof[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+						}
 					}
 				}
+
 			}
 
+		}else{
+			
+			double rdy=(y_side-roof_length)*0.5;
+			
+			double radius=roof_width*0.5;
+			
+			addCylinder(0,rdy,back_height+z_side+radius,radius,roof_length);
+			
 		}
 		
 		PolygonMesh pm=new PolygonMesh(points,polyData);
 
 		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
 		return spm;
+	}
+	
+	
+	
+	public void addCylinder(double cyx0, double cyy0,double cyz0,
+			double cylinder_radius,double cylinder_lenght){
+		
+		    int barrel_meridians=20;
+	
+			BPoint[] uTrunkpoints=new BPoint[barrel_meridians];
+			BPoint[] bTrunkpoints=new BPoint[barrel_meridians];
+			
+			for (int i = 0; i < barrel_meridians; i++) {
+			
+				
+				double x=cyx0+cylinder_radius*Math.cos(2*Math.PI/barrel_meridians*i);
+				double z=cyz0+cylinder_radius*Math.sin(2*Math.PI/barrel_meridians*i);
+				
+				uTrunkpoints[i]=addBPoint(x,cyy0+cylinder_lenght,z);
+				
+				
+			}
+
+
+			LineData topLD=new LineData();
+			
+			
+				
+				for (int i = barrel_meridians-1; i >=0; i--) {
+				
+				topLD.addIndex(uTrunkpoints[i].getIndex());
+				
+			}
+			topLD.setData(""+Renderer3D.CAR_TOP);
+			polyData.add(topLD);
+			
+			for (int i = 0; i < barrel_meridians; i++) {
+				
+				double x=cyx0+cylinder_radius*Math.cos(2*Math.PI/barrel_meridians*i);
+				double z=cyz0+cylinder_radius*Math.sin(2*Math.PI/barrel_meridians*i);
+				
+				bTrunkpoints[i]=addBPoint(x,cyy0,z);
+				
+			}
+
+
+			LineData bottomLD=new LineData();
+			
+			for (int i = 0; i < barrel_meridians; i++) {
+				
+				bottomLD.addIndex(bTrunkpoints[i].getIndex());
+				
+			}
+			bottomLD.setData(""+Renderer3D.CAR_BOTTOM);
+			polyData.add(bottomLD);
+			
+			
+			
+			for (int i = 0; i < barrel_meridians; i++) {
+				
+				LineData sideLD=new LineData();
+				
+				
+				sideLD.addIndex(bTrunkpoints[(i+1)%barrel_meridians].getIndex());
+				sideLD.addIndex(bTrunkpoints[i].getIndex());
+				sideLD.addIndex(uTrunkpoints[i].getIndex());
+				sideLD.addIndex(uTrunkpoints[(i+1)%barrel_meridians].getIndex());
+				sideLD.setData(""+getFace(sideLD,points));
+				polyData.add(sideLD);
+				
+			}
+			
 	}
 
 	private void buildWheel(double rxc, double ryc, double rzc,double r, double wheel_width) {

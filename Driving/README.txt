@@ -387,14 +387,17 @@
    	
    	************* NOTES  ON CUSTOM EDITORS
    	
-   	Car proportions based on BMW 5 Series Sedan (length=4907mm).
+   	Car proportions based on BMW 5 Series Sedan (length=4907 mm, wheelbase=2968 mm).
 
-	Truck proportions based on Iveco New Eurocargo Euro VI (length=8692mm).
+	Truck proportions based on Iveco New Eurocargo Euro VI ( length=8692mm).
 	
 	Tractor proportions based on John Deer 6105R ( wheelbase=2580mm)
 	
 	Railroad car 0 proportions based on Sgmns-w by Kockums Industrier, 1435 mm gauge,
-	with a 40 X 8 X 8 feet container, length=14000mm.
+	with a 40 X 8 X 8 feet container, length=14000 mm, distance of boogie centers=10200 mm.
+	
+	Railroad car 1 proportions based on 70m3 4-axle Tank Car for Chemical Products
+	by Greenbrier Companies, 1435 mm gauge,	length=14260 mm, distance of boogie centers=10460 mm.
 	
 	Airplane proportions based on Airbus A320 (length=37.57m).
     
