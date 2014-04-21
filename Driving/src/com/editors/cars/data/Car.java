@@ -2914,76 +2914,7 @@ public class Car extends CustomData {
 	
 	
 	
-	public void addCylinder(double cyx0, double cyy0,double cyz0,
-			double cylinder_radius,double cylinder_lenght){
-		
-		    int barrel_meridians=20;
 	
-			BPoint[] uTrunkpoints=new BPoint[barrel_meridians];
-			BPoint[] bTrunkpoints=new BPoint[barrel_meridians];
-			
-			for (int i = 0; i < barrel_meridians; i++) {
-			
-				
-				double x=cyx0+cylinder_radius*Math.cos(2*Math.PI/barrel_meridians*i);
-				double z=cyz0+cylinder_radius*Math.sin(2*Math.PI/barrel_meridians*i);
-				
-				uTrunkpoints[i]=addBPoint(x,cyy0+cylinder_lenght,z);
-				
-				
-			}
-
-
-			LineData topLD=new LineData();
-			
-			
-				
-				for (int i = barrel_meridians-1; i >=0; i--) {
-				
-				topLD.addIndex(uTrunkpoints[i].getIndex());
-				
-			}
-			topLD.setData(""+Renderer3D.CAR_TOP);
-			polyData.add(topLD);
-			
-			for (int i = 0; i < barrel_meridians; i++) {
-				
-				double x=cyx0+cylinder_radius*Math.cos(2*Math.PI/barrel_meridians*i);
-				double z=cyz0+cylinder_radius*Math.sin(2*Math.PI/barrel_meridians*i);
-				
-				bTrunkpoints[i]=addBPoint(x,cyy0,z);
-				
-			}
-
-
-			LineData bottomLD=new LineData();
-			
-			for (int i = 0; i < barrel_meridians; i++) {
-				
-				bottomLD.addIndex(bTrunkpoints[i].getIndex());
-				
-			}
-			bottomLD.setData(""+Renderer3D.CAR_BOTTOM);
-			polyData.add(bottomLD);
-			
-			
-			
-			for (int i = 0; i < barrel_meridians; i++) {
-				
-				LineData sideLD=new LineData();
-				
-				
-				sideLD.addIndex(bTrunkpoints[(i+1)%barrel_meridians].getIndex());
-				sideLD.addIndex(bTrunkpoints[i].getIndex());
-				sideLD.addIndex(uTrunkpoints[i].getIndex());
-				sideLD.addIndex(uTrunkpoints[(i+1)%barrel_meridians].getIndex());
-				sideLD.setData(""+getFace(sideLD,points));
-				polyData.add(sideLD);
-				
-			}
-			
-	}
-
 	private void buildWheel(double rxc, double ryc, double rzc,double r, double wheel_width) {
 		
 			
