@@ -40,6 +40,7 @@ public class Car extends CustomData {
     public static int CAR_TYPE_TRACTOR=3;
     public static int CAR_TYPE_RAILROAD_CAR_0=4;
     public static int CAR_TYPE_RAILROAD_CAR_1=41;
+    public static int CAR_TYPE_RAILROAD_CAR_2=42;
     public static int CAR_TYPE_AIRPLANE=5;
     
     public int car_type=CAR_TYPE_CAR;
@@ -301,7 +302,8 @@ public class Car extends CustomData {
 		else if(car_type==CAR_TYPE_TRACTOR)
 			return buildTractorMesh();
 		else if(car_type==CAR_TYPE_RAILROAD_CAR_0 ||
-				car_type==CAR_TYPE_RAILROAD_CAR_1 
+				car_type==CAR_TYPE_RAILROAD_CAR_1 ||
+				car_type==CAR_TYPE_RAILROAD_CAR_2
 				)
 			return buildRailroadCarMesh();
 		else 
@@ -2891,14 +2893,17 @@ public class Car extends CustomData {
 
 			}
 
-		}else{
+		}else if(car_type==CAR_TYPE_RAILROAD_CAR_1){
 			
 			double rdy=(y_side-roof_length)*0.5;
 			
 			double radius=roof_width*0.5;
 			
 			addCylinder(0,rdy,back_height+z_side+radius,radius,roof_length);
-			
+		
+		}else if(car_type==CAR_TYPE_RAILROAD_CAR_2){
+				
+						
 		}
 		
 		PolygonMesh pm=new PolygonMesh(points,polyData);
