@@ -2942,30 +2942,30 @@ public class Car extends CustomData {
 			
 			Prism prismBack=new Prism(4);			
 			
-			prismBack.lowerBase[0]=addBPoint(-0.5+dx,0,0,r0);
+			prismBack.lowerBase[0]=addBPoint(-(0.5-dx),0,0,r0);
 			prismBack.lowerBase[1]=addBPoint(0.5-dx,0,0,r0);
 			prismBack.lowerBase[2]=addBPoint(0.5-dx,dy,0,r0);
-			prismBack.lowerBase[3]=addBPoint(-0.5+dx,dy,0,r0);
+			prismBack.lowerBase[3]=addBPoint(-(0.5-dx),dy,0,r0);
 			
-			prismBack.upperBase[0]=addBPoint(-0.5+dx,0,1.0,r0);
+			prismBack.upperBase[0]=addBPoint(-(0.5-dx),0,1.0,r0);
 			prismBack.upperBase[1]=addBPoint(0.5-dx,0,1.0,r0);
 			prismBack.upperBase[2]=addBPoint(0.5-dx,dy,1.0,r0);
-			prismBack.upperBase[3]=addBPoint(-0.5+dx,dy,1.0,r0);
+			prismBack.upperBase[3]=addBPoint(-(0.5-dx),dy,1.0,r0);
 		
 			addPrism(prismBack);
 			
 			
 			Prism prismFront=new Prism(4);			
 			
-			prismFront.lowerBase[0]=addBPoint(-0.5+dx,1-dy,0,r0);
+			prismFront.lowerBase[0]=addBPoint(-(0.5-dx),1-dy,0,r0);
 			prismFront.lowerBase[1]=addBPoint(0.5-dx,1-dy,0,r0);
 			prismFront.lowerBase[2]=addBPoint(0.5-dx,1.0,0,r0);
-			prismFront.lowerBase[3]=addBPoint(-0.5+dx,1.0,0,r0);
+			prismFront.lowerBase[3]=addBPoint(-(0.5-dx),1.0,0,r0);
 			
-			prismFront.upperBase[0]=addBPoint(-0.5+dx,1-dy,1.0,r0);
+			prismFront.upperBase[0]=addBPoint(-(0.5-dx),1-dy,1.0,r0);
 			prismFront.upperBase[1]=addBPoint(0.5-dx,1-dy,1.0,r0);
 			prismFront.upperBase[2]=addBPoint(0.5-dx,1.0,1.0,r0);
-			prismFront.upperBase[3]=addBPoint(-0.5+dx,1.0,1.0,r0);
+			prismFront.upperBase[3]=addBPoint(-(0.5-dx),1.0,1.0,r0);
 		
 			addPrism(prismFront);
 		}
