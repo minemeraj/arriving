@@ -5,6 +5,7 @@ import com.BPoint;
 import com.CustomData;
 import com.LineData;
 import com.PolygonMesh;
+import com.Prism;
 import com.Segments;
 import com.main.Renderer3D;
 
@@ -2902,8 +2903,71 @@ public class Car extends CustomData {
 			addCylinder(0,rdy,back_height+z_side+radius,radius,roof_length);
 		
 		}else if(car_type==CAR_TYPE_RAILROAD_CAR_2){
+			
+			double rdy=(y_side-roof_length)*0.5;
+
+			Segments r0=new Segments(0,roof_width,rdy,roof_length,back_height+z_side,roof_height);
+			
+			double dy=10.0/roof_length;
+			double dx=10.0/roof_width;
 				
-						
+			Prism prismRight=new Prism(4);			
+			
+			prismRight.lowerBase[0]=addBPoint(0.5-dx,0,0,r0);
+			prismRight.lowerBase[1]=addBPoint(0.5,0,0,r0);
+			prismRight.lowerBase[2]=addBPoint(0.5,1.0,0,r0);
+			prismRight.lowerBase[3]=addBPoint(0.5-dx,1.0,0,r0);
+			
+			prismRight.upperBase[0]=addBPoint(0.5-dx,0,1.0,r0);
+			prismRight.upperBase[1]=addBPoint(0.5,0,1.0,r0);
+			prismRight.upperBase[2]=addBPoint(0.5,1.0,1.0,r0);
+			prismRight.upperBase[3]=addBPoint(0.5-dx,1.0,1.0,r0);
+		
+			addPrism(prismRight);
+			
+			
+			Prism prismLeft=new Prism(4);			
+			
+			prismLeft.lowerBase[0]=addBPoint(-0.5,0,0,r0);
+			prismLeft.lowerBase[1]=addBPoint(-0.5+dx,0,0,r0);
+			prismLeft.lowerBase[2]=addBPoint(-0.5+dx,1.0,0,r0);
+			prismLeft.lowerBase[3]=addBPoint(-0.5,1.0,0,r0);
+			
+			prismLeft.upperBase[0]=addBPoint(-0.5,0,1.0,r0);
+			prismLeft.upperBase[1]=addBPoint(-0.5+dx,0,1.0,r0);
+			prismLeft.upperBase[2]=addBPoint(-0.5+dx,1.0,1.0,r0);
+			prismLeft.upperBase[3]=addBPoint(-0.5,1.0,1.0,r0);
+		
+			addPrism(prismLeft);			
+			
+			Prism prismBack=new Prism(4);			
+			
+			prismBack.lowerBase[0]=addBPoint(-0.5+dx,0,0,r0);
+			prismBack.lowerBase[1]=addBPoint(0.5-dx,0,0,r0);
+			prismBack.lowerBase[2]=addBPoint(0.5-dx,dy,0,r0);
+			prismBack.lowerBase[3]=addBPoint(-0.5+dx,dy,0,r0);
+			
+			prismBack.upperBase[0]=addBPoint(-0.5+dx,0,1.0,r0);
+			prismBack.upperBase[1]=addBPoint(0.5-dx,0,1.0,r0);
+			prismBack.upperBase[2]=addBPoint(0.5-dx,dy,1.0,r0);
+			prismBack.upperBase[3]=addBPoint(-0.5+dx,dy,1.0,r0);
+		
+			addPrism(prismBack);
+			
+			
+			Prism prismFront=new Prism(4);			
+			
+			prismFront.lowerBase[0]=addBPoint(-0.5+dx,1-dy,0,r0);
+			prismFront.lowerBase[1]=addBPoint(0.5-dx,1-dy,0,r0);
+			prismFront.lowerBase[2]=addBPoint(0.5-dx,1.0,0,r0);
+			prismFront.lowerBase[3]=addBPoint(-0.5+dx,1.0,0,r0);
+			
+			prismFront.upperBase[0]=addBPoint(-0.5+dx,1-dy,1.0,r0);
+			prismFront.upperBase[1]=addBPoint(0.5-dx,1-dy,1.0,r0);
+			prismFront.upperBase[2]=addBPoint(0.5-dx,1.0,1.0,r0);
+			prismFront.upperBase[3]=addBPoint(-0.5+dx,1.0,1.0,r0);
+		
+			addPrism(prismFront);
 		}
 		
 		PolygonMesh pm=new PolygonMesh(points,polyData);

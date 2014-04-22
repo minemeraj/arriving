@@ -213,8 +213,8 @@ public class CustomData {
 			LineData topLD=new LineData();
 			
 			
-				
-			for (int i = size-1; i >=0; i--) {
+			for (int i = 0; i < size; i++) {	
+			
 				
 				topLD.addIndex(((BPoint) prism.upperBase[i]).getIndex());
 				
@@ -224,7 +224,9 @@ public class CustomData {
 			
 			LineData bottomLD=new LineData();
 			
-			for (int i = 0; i < size; i++) {
+			
+				
+			for (int i = size-1; i >=0; i--) {	
 				
 				bottomLD.addIndex(((BPoint) prism.lowerBase[i]).getIndex());
 				
@@ -239,10 +241,11 @@ public class CustomData {
 				LineData sideLD=new LineData();
 				
 				
-				sideLD.addIndex(((BPoint) prism.lowerBase[(i+1)%size]).getIndex());
+				
 				sideLD.addIndex(((BPoint) prism.lowerBase[i]).getIndex());
-				sideLD.addIndex(((BPoint) prism.upperBase[i]).getIndex());
+				sideLD.addIndex(((BPoint) prism.lowerBase[(i+1)%size]).getIndex());
 				sideLD.addIndex(((BPoint) prism.upperBase[(i+1)%size]).getIndex());
+				sideLD.addIndex(((BPoint) prism.upperBase[i]).getIndex());				
 				sideLD.setData(""+getFace(sideLD,points));
 				polyData.add(sideLD);
 				
