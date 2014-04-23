@@ -385,7 +385,7 @@
    	
    	So, a speed of 100px/frame is circa 100/26 m / (1000/28 s)=  2800/2600 m/s = 1.08 m/s
    	
-   	************* NOTES  ON CUSTOM EDITORS
+   	************* NOTES ON CUSTOM EDITORS MODELS
    	
    	Car proportions based on BMW 5 Series Sedan (length=4907 mm, wheelbase=2968 mm).
 
@@ -399,7 +399,10 @@
 	Railroad car 1 proportions based on 70m3 4-axle Tank Car for Chemical Products
 	by Greenbrier Companies, 1435 mm gauge,	length=14260 mm, distance of boogie centers=10460 mm.
 	
-	Airplane proportions based on Airbus A320 (length=37.57m).
+	Railroad car 2 proportions based on 102t 60m3 4-axle  Box Wagon
+	by Greenbrier Companies, 1435 mm gauge,	length=12730 mm, distance of boogie centers=8520 mm.
+	
+	Airplane proportions based on Airbus A320 (length=37.57m, wing span 34.10M).
     
 	
 	

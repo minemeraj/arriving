@@ -2908,8 +2908,8 @@ public class Car extends CustomData {
 
 			Segments r0=new Segments(0,roof_width,rdy,roof_length,back_height+z_side,roof_height);
 			
-			double dy=10.0/roof_length;
-			double dx=10.0/roof_width;
+			double dy=4.0/roof_length;
+			double dx=4.0/roof_width;
 				
 			Prism prismRight=new Prism(4);			
 			
