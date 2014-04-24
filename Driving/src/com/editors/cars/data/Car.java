@@ -42,6 +42,8 @@ public class Car extends CustomData {
     public static int CAR_TYPE_RAILROAD_CAR_0=4;
     public static int CAR_TYPE_RAILROAD_CAR_1=41;
     public static int CAR_TYPE_RAILROAD_CAR_2=42;
+    public static int CAR_TYPE_RAILROAD_CAR_3=43;
+    public static int CAR_TYPE_RAILROAD_CAR_4=44;
     public static int CAR_TYPE_AIRPLANE=5;
     
     public int car_type=CAR_TYPE_CAR;
@@ -304,8 +306,10 @@ public class Car extends CustomData {
 			return buildTractorMesh();
 		else if(car_type==CAR_TYPE_RAILROAD_CAR_0 ||
 				car_type==CAR_TYPE_RAILROAD_CAR_1 ||
-				car_type==CAR_TYPE_RAILROAD_CAR_2
-				)
+				car_type==CAR_TYPE_RAILROAD_CAR_2 ||
+				car_type==CAR_TYPE_RAILROAD_CAR_3 ||
+				car_type==CAR_TYPE_RAILROAD_CAR_4
+			)
 			return buildRailroadCarMesh();
 		else 
 			return buildAirplaneMesh();
@@ -2968,6 +2972,83 @@ public class Car extends CustomData {
 			prismFront.upperBase[3]=addBPoint(-(0.5-dx),1.0,1.0,r0);
 		
 			addPrism(prismFront);
+			
+		}else if(car_type==CAR_TYPE_RAILROAD_CAR_3){
+			
+			
+			double urdy=(y_side-roof_length)*0.5;
+			
+			double lry_side=y_side-front_length-back_length;
+            double lrdy=(y_side-lry_side)*0.5;
+			
+			Segments lr=new Segments(0,x_side,lrdy,lry_side,back_height+z_side,roof_height);
+			
+			Segments ur=new Segments(0,roof_width,urdy,roof_length,back_height+z_side,roof_height);
+			
+			double dy=8.0/roof_length;
+			double dx=8.0/roof_width;
+				
+			Prism prismRight=new Prism(4);			
+			
+			prismRight.lowerBase[0]=addBPoint(0.5-dx,0,0,lr);
+			prismRight.lowerBase[1]=addBPoint(0.5,0,0,lr);
+			prismRight.lowerBase[2]=addBPoint(0.5,1.0,0,lr);
+			prismRight.lowerBase[3]=addBPoint(0.5-dx,1.0,0,lr);
+			
+			prismRight.upperBase[0]=addBPoint(0.5-dx,0,1.0,ur);
+			prismRight.upperBase[1]=addBPoint(0.5,0,1.0,ur);
+			prismRight.upperBase[2]=addBPoint(0.5,1.0,1.0,ur);
+			prismRight.upperBase[3]=addBPoint(0.5-dx,1.0,1.0,ur);
+		
+			addPrism(prismRight);
+			
+			
+			Prism prismLeft=new Prism(4);			
+			
+			prismLeft.lowerBase[0]=addBPoint(-0.5,0,0,lr);
+			prismLeft.lowerBase[1]=addBPoint(-0.5+dx,0,0,lr);
+			prismLeft.lowerBase[2]=addBPoint(-0.5+dx,1.0,0,lr);
+			prismLeft.lowerBase[3]=addBPoint(-0.5,1.0,0,lr);
+			
+			prismLeft.upperBase[0]=addBPoint(-0.5,0,1.0,ur);
+			prismLeft.upperBase[1]=addBPoint(-0.5+dx,0,1.0,ur);
+			prismLeft.upperBase[2]=addBPoint(-0.5+dx,1.0,1.0,ur);
+			prismLeft.upperBase[3]=addBPoint(-0.5,1.0,1.0,ur);
+		
+			addPrism(prismLeft);			
+			
+			Prism prismBack=new Prism(4);			
+			
+			prismBack.lowerBase[0]=addBPoint(-(0.5-dx),0,0,lr);
+			prismBack.lowerBase[1]=addBPoint(0.5-dx,0,0,lr);
+			prismBack.lowerBase[2]=addBPoint(0.5-dx,dy,0,lr);
+			prismBack.lowerBase[3]=addBPoint(-(0.5-dx),dy,0,lr);
+			
+			prismBack.upperBase[0]=addBPoint(-(0.5-dx),0,1.0,ur);
+			prismBack.upperBase[1]=addBPoint(0.5-dx,0,1.0,ur);
+			prismBack.upperBase[2]=addBPoint(0.5-dx,dy,1.0,ur);
+			prismBack.upperBase[3]=addBPoint(-(0.5-dx),dy,1.0,ur);
+		
+			addPrism(prismBack);
+			
+			
+			Prism prismFront=new Prism(4);			
+			
+			prismFront.lowerBase[0]=addBPoint(-(0.5-dx),1-dy,0,lr);
+			prismFront.lowerBase[1]=addBPoint(0.5-dx,1-dy,0,lr);
+			prismFront.lowerBase[2]=addBPoint(0.5-dx,1.0,0,lr);
+			prismFront.lowerBase[3]=addBPoint(-(0.5-dx),1.0,0,lr);
+			
+			prismFront.upperBase[0]=addBPoint(-(0.5-dx),1-dy,1.0,ur);
+			prismFront.upperBase[1]=addBPoint(0.5-dx,1-dy,1.0,ur);
+			prismFront.upperBase[2]=addBPoint(0.5-dx,1.0,1.0,ur);
+			prismFront.upperBase[3]=addBPoint(-(0.5-dx),1.0,1.0,ur);
+		
+			addPrism(prismFront);
+			
+		}else if(car_type==CAR_TYPE_RAILROAD_CAR_4){
+			
+			
 		}
 		
 		PolygonMesh pm=new PolygonMesh(points,polyData);

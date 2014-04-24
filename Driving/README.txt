@@ -402,6 +402,9 @@
 	Railroad car 2 proportions based on 102t 60m3 4-axle  Box Wagon
 	by Greenbrier Companies, 1435 mm gauge,	length=12730 mm, distance of boogie centers=8520 mm.
 	
+	Railroad car 3 proportions based on Fammoorr 31 tonnes Ore Wagon by Kockums Industrier,1435 mm gauge,
+ 	length=9220 mm, distance of boogie centers=6744 mm.
+	
 	Airplane proportions based on Airbus A320 (length=37.57m, wing span 34.10M).
     
 	

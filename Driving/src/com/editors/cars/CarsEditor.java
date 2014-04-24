@@ -179,6 +179,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_RAILROAD_CAR_0,"Railroad car 0"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_RAILROAD_CAR_1,"Railroad car 1"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_RAILROAD_CAR_2,"Railroad car 2"));
+		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_RAILROAD_CAR_3,"Railroad car 3"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_AIRPLANE,"Airplane"));
 		car_type.addItemListener(this);
 		
@@ -585,7 +586,57 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 			rear_overhang.setText(32);
 			
 			
+		}else if(type==Car.CAR_TYPE_RAILROAD_CAR_3 ){
+			
+			x_side.setText(63);
+			y_side.setText(263);
+			z_side.setText(13);
+			back_width.setText(41);
+			back_length.setText(51);
+			back_height.setText(16);
+			front_width.setText(41);
+			front_length.setText(51);
+			front_height.setText(16);
+			
+			roof_width.setText(100);
+			roof_length.setText(263);
+			roof_height.setText(61);
+			
+			wheel_radius.setText(13);
+			wheel_width.setText(4);
+			
+			front_overhang.setText(0);
+			wheel_base.setText(193);
+			rear_overhang.setText(0);
+			
+			
+		}else if(type==Car.CAR_TYPE_RAILROAD_CAR_4 ){
+			
+			x_side.setText(78);
+			y_side.setText(364);
+			z_side.setText(6);
+			back_width.setText(41);
+			back_length.setText(57);
+			back_height.setText(16);
+			front_width.setText(41);
+			front_length.setText(57);
+			front_height.setText(16);
+			
+			roof_width.setText(78);
+			roof_length.setText(364);
+			roof_height.setText(56);
+			
+			wheel_radius.setText(13);
+			wheel_width.setText(4);
+			
+			front_overhang.setText(32);
+			wheel_base.setText(243);
+			rear_overhang.setText(32);
+			
+			
 		}
+
+
 
 
 		
@@ -1027,7 +1078,9 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 				   initRightTractorData();
 			   else if(type==Car.CAR_TYPE_RAILROAD_CAR_0 || 
 					   type==Car.CAR_TYPE_RAILROAD_CAR_1 ||
-					   type==Car.CAR_TYPE_RAILROAD_CAR_2 
+					   type==Car.CAR_TYPE_RAILROAD_CAR_2 ||
+					   type==Car.CAR_TYPE_RAILROAD_CAR_3 ||
+					   type==Car.CAR_TYPE_RAILROAD_CAR_4 
 					   )
 				   initRightRailroadCarData(type); 
 			   else if(type==Car.CAR_TYPE_AIRPLANE)
