@@ -180,6 +180,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_RAILROAD_CAR_1,"Railroad car 1"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_RAILROAD_CAR_2,"Railroad car 2"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_RAILROAD_CAR_3,"Railroad car 3"));
+		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_RAILROAD_CAR_4,"Railroad car 4"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_AIRPLANE,"Airplane"));
 		car_type.addItemListener(this);
 		
@@ -614,7 +615,7 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 			
 			x_side.setText(78);
 			y_side.setText(364);
-			z_side.setText(6);
+			z_side.setText(100);
 			back_width.setText(41);
 			back_length.setText(57);
 			back_height.setText(16);

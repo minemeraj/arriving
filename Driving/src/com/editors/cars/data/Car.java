@@ -3048,6 +3048,46 @@ public class Car extends CustomData {
 			
 		}else if(car_type==CAR_TYPE_RAILROAD_CAR_4){
 			
+			Segments r0=new Segments(0,roof_width,0,roof_length,back_height+z_side,roof_height);
+			
+			double h=roof_height;
+			double l=roof_width*0.5;
+			
+			double r=h-l*l/(2.0*h);
+			double yc=h*0.5-l*l/(2.0*h);
+			
+			int rnumx=3;
+			int rnumy=2;
+			
+			BPoint[][] roof=new BPoint[rnumx][rnumy];
+			
+			roof[0][0]=body[0][0][pnz-1];
+			roof[1][0]=addBPoint(0,0,1.0,r0);
+			roof[2][0]=body[pnx-1][0][pnz-1];
+			
+			roof[0][1]=body[0][pny-1][pnz-1];
+			roof[1][1]=addBPoint(0,1.0,1.0,r0);
+			roof[2][1]=body[pnx-1][pny-1][pnz-1];
+			
+			
+			for(int i=0;i<rnumx-1;i++){
+				
+				
+				addLine(roof[i][0],roof[i+1][0],roof[i+1][1],roof[i][1],Renderer3D.CAR_TOP);
+				
+			}
+			
+			LineData backRoof=new LineData();
+			for(int i=rnumx-1;i>=0;i--){
+				backRoof.addIndex(roof[i][0].getIndex());
+			}
+			polyData.add(backRoof);
+			
+			LineData frontRoof=new LineData();
+			for(int i=0;i<rnumx;i++){
+				frontRoof.addIndex(roof[i][1].getIndex());
+			}
+			polyData.add(frontRoof);
 			
 		}
 		
