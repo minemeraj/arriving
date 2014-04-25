@@ -613,26 +613,26 @@ public class CarsEditor extends CustomEditor implements MenuListener, ActionList
 			
 		}else if(type==Car.CAR_TYPE_RAILROAD_CAR_4 ){
 			
-			x_side.setText(78);
-			y_side.setText(364);
-			z_side.setText(100);
+			x_side.setText(80);
+			y_side.setText(746);
+			z_side.setText(70);
 			back_width.setText(41);
-			back_length.setText(57);
-			back_height.setText(16);
+			back_length.setText(71);
+			back_height.setText(18);
 			front_width.setText(41);
-			front_length.setText(57);
-			front_height.setText(16);
+			front_length.setText(71);
+			front_height.setText(18);
 			
-			roof_width.setText(78);
-			roof_length.setText(364);
-			roof_height.setText(20);
+			roof_width.setText(80);
+			roof_length.setText(746);
+			roof_height.setText(14);
 			
 			wheel_radius.setText(13);
 			wheel_width.setText(4);
 			
-			front_overhang.setText(32);
-			wheel_base.setText(243);
-			rear_overhang.setText(32);
+			front_overhang.setText(64);
+			wheel_base.setText(543);
+			rear_overhang.setText(64);
 			
 			
 		}

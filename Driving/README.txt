@@ -404,6 +404,9 @@
 	
 	Railroad car 3 proportions based on Fammoorr 31 tonnes Ore Wagon by Kockums Industrier,1435 mm gauge,
  	length=9220 mm, distance of boogie centers=6744 mm.
+ 	
+ 	Railroad car 4 proportions based on TC trailer car of Viaggio Light by Siemens AG, 1435 mm gauge,
+ 	length=26100 mm, distance of boogie centers=19000 mm.
 	
 	Airplane proportions based on Airbus A320 (length=37.57m, wing span 34.10M).
     
