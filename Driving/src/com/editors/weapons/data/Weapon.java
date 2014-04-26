@@ -36,6 +36,8 @@ public class Weapon extends CustomData{
 	double butt_end_length=0;
 	double butt_end_width=0;
 	double butt_end_height=0;
+	
+	double rear_overhang=0;
 
 	public Weapon(){}
 
@@ -57,7 +59,9 @@ public class Weapon extends CustomData{
 			
 			double butt_end_length,
 			double butt_end_width,
-			double butt_end_height
+			double butt_end_height,
+			
+			double rear_overhang
 			) 
 	{
 
@@ -79,6 +83,8 @@ public class Weapon extends CustomData{
 				this.butt_end_length = butt_end_length;
 				this.butt_end_width = butt_end_width;
 				this.butt_end_height = butt_end_height;
+				
+				this.rear_overhang = rear_overhang;
 	}
 
 
@@ -89,8 +95,8 @@ public class Weapon extends CustomData{
 				barrel_lenght,barrel_radius,barrel_meridians,
 				breech_length,breech_width,breech_height,
 				butt_length,butt_width,butt_height,
-				butt_end_length,butt_end_width,butt_end_height
-		
+				butt_end_length,butt_end_width,butt_end_height,
+				rear_overhang
 				);
 		return grid;
 
@@ -105,7 +111,8 @@ public class Weapon extends CustomData{
 				barrel_lenght+","+barrel_radius+","+barrel_meridians+","+
 				breech_length+","+breech_width+","+breech_height+","+
 				butt_length+","+butt_width+","+butt_height+","+
-				butt_end_length+","+butt_width+","+butt_end_height;
+				butt_end_length+","+butt_width+","+butt_end_height+","+
+				rear_overhang;
 	}
 
 	public static Weapon buildWeapon(String str) {
@@ -130,13 +137,17 @@ public class Weapon extends CustomData{
 		double butt_end_length =Double.parseDouble(vals[10]);
 		double butt_end_width =Double.parseDouble(vals[11]);
 		double butt_end_height =Double.parseDouble(vals[12]);
+		
+		double rear_overhang =Double.parseDouble(vals[13]);
+		
 
 		Weapon grid=new Weapon(
 				weaponType,
 				barrel_lenght,barrel_radius,barrel_meridians,
 				breech_length,breech_width,breech_height,
 				butt_length,butt_width,butt_height,
-				butt_end_length,butt_end_width,butt_end_height
+				butt_end_length,butt_end_width,butt_end_height,
+				rear_overhang
 				);
 
 		return grid;
@@ -290,7 +301,7 @@ public class Weapon extends CustomData{
 		n=0;
 		
 		double bax0=0;
-		double bay0=breech_length;
+		double bay0=breech_length+rear_overhang;
 		double baz0=breech_height-2*barrel_radius;
 
 		//barrel:
@@ -464,7 +475,7 @@ public class Weapon extends CustomData{
 		
 		double xc=0.0;
 		
-		Segments b0=new Segments(xc,breech_width,0,breech_length,0,breech_height);
+		Segments b0=new Segments(xc,breech_width,rear_overhang,breech_length,0,breech_height);
 
 		breech[0][0][0]=addBPoint(-0.5,0,0,b0);
 		breech[1][0][0]=addBPoint(-0.25,0.0,0,b0);
@@ -601,9 +612,8 @@ public class Weapon extends CustomData{
 		butt[3][4][0]=addBPoint(0.25,1.0,0,p0);
 		butt[4][4][0]=addBPoint(0.5,1.0,0,p0);
 		
-		double yButt=breech_length-butt_length;
-		
-		Segments p1=new Segments(xc,butt_width,yButt,butt_length,-butt_height,butt_height);
+			
+		Segments p1=new Segments(xc,butt_width,rear_overhang,butt_length,-butt_height,butt_height);
 		
 		butt[0][0][1]=addBPoint(-0.5,0.0,1.0,p1);	
 		butt[1][0][1]=addBPoint(-0.25,0.0,1.0,p1);	
