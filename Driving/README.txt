@@ -409,6 +409,9 @@
  	length=26100 mm, distance of boogie centers=19000 mm.
 	
 	Airplane proportions based on Airbus A320 (length=37.57m, wing span 34.10M).
+	
+	Weapon gun measures based on Colt 45 MK IV series 70 Government model,
+	length= 210 mm, barrel length=127mm.
     
 	
 	

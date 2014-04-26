@@ -312,7 +312,7 @@ public class Weapon extends CustomData{
 		
 		BPoint[][][] p=new BPoint[fnx][fny][fnz];
 		
-		Segments f0=new Segments(bax0,barrel_radius*2,bay0,barrel_lenght,baz0,barrel_radius*2);
+		Segments f0=new Segments(bax0,breech_width,bay0,barrel_lenght,baz0,barrel_radius*2);
 
 		p[0][0][0]=addBPoint(-0.5,0,0,f0);
 		p[1][0][0]=addBPoint(-0.25,0.0,0,f0);
