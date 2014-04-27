@@ -7,6 +7,7 @@ import com.CustomData;
 import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
+import com.Prism;
 import com.Segments;
 import com.main.Renderer3D;
 
@@ -38,6 +39,9 @@ public class Weapon extends CustomData{
 	double butt_end_height=0;
 	
 	double rear_overhang=0;
+	
+	double trigger_length=0;
+	double trigger_height=0;
 
 	public Weapon(){}
 
@@ -61,7 +65,11 @@ public class Weapon extends CustomData{
 			double butt_end_width,
 			double butt_end_height,
 			
-			double rear_overhang
+			double rear_overhang,
+			
+			double trigger_length,
+			double trigger_height
+			
 			) 
 	{
 
@@ -85,6 +93,9 @@ public class Weapon extends CustomData{
 				this.butt_end_height = butt_end_height;
 				
 				this.rear_overhang = rear_overhang;
+				
+				this.trigger_length = trigger_length;
+				this.trigger_height = trigger_height;
 	}
 
 
@@ -96,7 +107,8 @@ public class Weapon extends CustomData{
 				breech_length,breech_width,breech_height,
 				butt_length,butt_width,butt_height,
 				butt_end_length,butt_end_width,butt_end_height,
-				rear_overhang
+				rear_overhang,
+				trigger_length,trigger_height
 				);
 		return grid;
 
@@ -112,7 +124,8 @@ public class Weapon extends CustomData{
 				breech_length+","+breech_width+","+breech_height+","+
 				butt_length+","+butt_width+","+butt_height+","+
 				butt_end_length+","+butt_width+","+butt_end_height+","+
-				rear_overhang;
+				rear_overhang+","+
+				trigger_length+","+trigger_height;
 	}
 
 	public static Weapon buildWeapon(String str) {
@@ -140,6 +153,8 @@ public class Weapon extends CustomData{
 		
 		double rear_overhang =Double.parseDouble(vals[13]);
 		
+		double trigger_length =Double.parseDouble(vals[14]);
+		double trigger_height =Double.parseDouble(vals[15]);
 
 		Weapon grid=new Weapon(
 				weaponType,
@@ -147,7 +162,8 @@ public class Weapon extends CustomData{
 				breech_length,breech_width,breech_height,
 				butt_length,butt_width,butt_height,
 				butt_end_length,butt_end_width,butt_end_height,
-				rear_overhang
+				rear_overhang,
+				trigger_length,trigger_height
 				);
 
 		return grid;
@@ -267,6 +283,30 @@ public class Weapon extends CustomData{
 		this.butt_end_height = butt_end_height;
 	}
 
+
+	public double getRear_overhang() {
+		return rear_overhang;
+	}
+
+	public void setRear_overhang(double rear_overhang) {
+		this.rear_overhang = rear_overhang;
+	}
+
+	public double getTrigger_length() {
+		return trigger_length;
+	}
+
+	public void setTrigger_length(double trigger_length) {
+		this.trigger_length = trigger_length;
+	}
+
+	public double getTrigger_height() {
+		return trigger_height;
+	}
+
+	public void setTrigger_height(double trigger_height) {
+		this.trigger_height = trigger_height;
+	}
 	
 	public PolygonMesh buildMesh(){
 
@@ -293,7 +333,7 @@ public class Weapon extends CustomData{
 
 	private PolygonMesh buildGunMesh() {
 		points=new Vector();
-		points.setSize(200);
+		points.setSize(300);
 
 		polyData=new Vector();
 		
@@ -685,6 +725,44 @@ public class Weapon extends CustomData{
 			}
 
 		}
+		
+		////trigger
+		
+		Segments tr0=new Segments(xc,breech_width,rear_overhang+breech_length,trigger_length,0,trigger_height);
+				
+		
+		Prism prismFront=new Prism(4);	
+		
+		double dy1=10/trigger_length;
+				
+		prismFront.lowerBase[0]=addBPoint(-0.5,1.0-dy1,-1,tr0);
+		prismFront.lowerBase[1]=addBPoint(0.5,1.0-dy1,-1,tr0);
+		prismFront.lowerBase[2]=addBPoint(0.5,1.0,-1,tr0);
+		prismFront.lowerBase[3]=addBPoint(-0.5,1.0,-1,tr0);
+		
+		prismFront.upperBase[0]=addBPoint(-0.5,1.0-dy1,0.0,tr0);
+		prismFront.upperBase[1]=addBPoint(0.5,1.0-dy1,0.0,tr0);
+		prismFront.upperBase[2]=addBPoint(0.5,1.0,0.0,tr0);
+		prismFront.upperBase[3]=addBPoint(-0.5,1.0,0.0,tr0);
+		
+		addPrism(prismFront);
+		
+		Prism prismBottom=new Prism(4);			
+		
+		double dz=10/trigger_height;
+		double dy0=(trigger_height*rear_overhang/butt_height)/trigger_length;
+		
+		prismBottom.lowerBase[0]=addBPoint(-0.5,-dy0,-1,tr0);
+		prismBottom.lowerBase[1]=addBPoint(0.5,-dy0,-1,tr0);
+		prismBottom.lowerBase[2]=addBPoint(0.5,1.0-dy1,-1,tr0);
+		prismBottom.lowerBase[3]=addBPoint(-0.5,1.0-dy1,-1,tr0);
+		
+		prismBottom.upperBase[0]=addBPoint(-0.5,-dy0,-1.0+dz,tr0);
+		prismBottom.upperBase[1]=addBPoint(0.5,-dy0,-1.0+dz,tr0);
+		prismBottom.upperBase[2]=addBPoint(0.5,1.0-dy1,-1.0+dz,tr0);
+		prismBottom.upperBase[3]=addBPoint(-0.5,1.0-dy1,-1.0+dz,tr0);
+	
+		addPrism(prismBottom);
 		
 		/////////
 
@@ -1851,6 +1929,7 @@ public class Weapon extends CustomData{
 		return spm;
 
 	}
+
 
 
 

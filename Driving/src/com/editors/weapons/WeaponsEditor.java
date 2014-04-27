@@ -73,6 +73,10 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 	private DoubleTextField butt_end_width;
 	private DoubleTextField butt_end_length;
 	private DoubleTextField butt_end_height;
+	private DoubleTextField rear_overhang;
+	private DoubleTextField trigger_length;
+	private DoubleTextField trigger_height;
+
 	
 	private JButton generate;
 	
@@ -84,7 +88,6 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 	
 	Weapon weapon=null;
 	private JComboBox weapon_type;
-	private DoubleTextField rear_overhang;
 
 	public WeaponsEditor(){
 		
@@ -311,6 +314,26 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		right.add(rear_overhang);
 		
 		r+=30;
+		
+		jlb=new JLabel("Trigger length");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		trigger_length=new DoubleTextField();
+		trigger_length.setBounds(column, r, 100, 20);
+		trigger_length.addKeyListener(this);
+		right.add(trigger_length);
+		
+		r+=30;
+		
+		jlb=new JLabel("Trigger height");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		trigger_height=new DoubleTextField();
+		trigger_height.setBounds(column, r, 100, 20);
+		trigger_height.addKeyListener(this);
+		right.add(trigger_height);
+		
+		r+=30;
 			
         generate=new JButton("Update");
         generate.setBounds(10,r,100,20);
@@ -393,6 +416,9 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		butt_end_height.setText(125);
 
 		rear_overhang.setText(49);
+		
+		trigger_length.setText(64);
+		trigger_height.setText(41);
 	}
 	
 	private void initRightChaingunData() {
@@ -590,6 +616,8 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 			
 			double rearOverhang=rear_overhang.getvalue();
 			
+			double triggerLength=trigger_length.getvalue();
+			double triggerHeight=trigger_height.getvalue();
 	
 			if(weapon==null){
 				
@@ -599,7 +627,8 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 							breechLength,breechWidth,breechHeight,
 							buttLength,buttWidth,buttHeight,
 							buttEndLength,buttEndWidth,buttEndHeight,
-							rearOverhang
+							rearOverhang,
+							triggerLength,triggerHeight
 						);
 				
 			}else{
@@ -610,7 +639,8 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 							breechLength,breechWidth,breechHeight,
 							buttLength,buttWidth,buttHeight,
 							buttEndLength,buttEndWidth,buttEndHeight,
-							rearOverhang
+							rearOverhang,
+							triggerLength,triggerHeight
 						);
 				
 				weapon=expWeapon;
