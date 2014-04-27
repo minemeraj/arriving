@@ -88,6 +88,7 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 	
 	Weapon weapon=null;
 	private JComboBox weapon_type;
+	private DoubleTextField trigger_width;
 
 	public WeaponsEditor(){
 		
@@ -325,6 +326,16 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		
 		r+=30;
 		
+		jlb=new JLabel("Trigger width");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		trigger_width=new DoubleTextField();
+		trigger_width.setBounds(column, r, 100, 20);
+		trigger_width.addKeyListener(this);
+		right.add(trigger_width);
+		
+		r+=30;
+		
 		jlb=new JLabel("Trigger height");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
@@ -418,6 +429,7 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		rear_overhang.setText(49);
 		
 		trigger_length.setText(64);
+		trigger_width.setText(32);
 		trigger_height.setText(41);
 	}
 	
@@ -617,6 +629,7 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 			double rearOverhang=rear_overhang.getvalue();
 			
 			double triggerLength=trigger_length.getvalue();
+			double triggerWidth=trigger_width.getvalue();
 			double triggerHeight=trigger_height.getvalue();
 	
 			if(weapon==null){
@@ -628,7 +641,7 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 							buttLength,buttWidth,buttHeight,
 							buttEndLength,buttEndWidth,buttEndHeight,
 							rearOverhang,
-							triggerLength,triggerHeight
+							triggerLength,triggerWidth,triggerHeight
 						);
 				
 			}else{
@@ -640,7 +653,7 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 							buttLength,buttWidth,buttHeight,
 							buttEndLength,buttEndWidth,buttEndHeight,
 							rearOverhang,
-							triggerLength,triggerHeight
+							triggerLength,triggerWidth,triggerHeight
 						);
 				
 				weapon=expWeapon;
