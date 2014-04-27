@@ -381,15 +381,15 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		barrel_meridians.setText(12);
 
 		breech_length.setText(68);
-		breech_width.setText(36);
+		breech_width.setText(32);
 		breech_height.setText(54);
 		
 		butt_length.setText(68);
-		butt_width.setText(46);		
+		butt_width.setText(41);		
 		butt_height.setText(125);
 		
 		butt_end_length.setText(81);
-		butt_end_width.setText(46);
+		butt_end_width.setText(41);
 		butt_end_height.setText(125);
 
 		rear_overhang.setText(49);
