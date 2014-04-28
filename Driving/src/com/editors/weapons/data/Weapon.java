@@ -43,6 +43,10 @@ public class Weapon extends CustomData{
 	double trigger_length=0;
 	double trigger_width=0;
 	double trigger_height=0;
+	
+	double forearm_length=0;
+	double forearm_width=0;
+	double forearm_height=0;
 
 	public Weapon(){}
 
@@ -70,7 +74,11 @@ public class Weapon extends CustomData{
 			
 			double trigger_length,
 			double trigger_width,			
-			double trigger_height
+			double trigger_height,
+			
+			double forearm_length,
+			double forearm_width,
+			double forearm_height
 			
 			) 
 	{
@@ -99,6 +107,11 @@ public class Weapon extends CustomData{
 				this.trigger_length = trigger_length;
 				this.trigger_width = trigger_width;
 				this.trigger_height = trigger_height;
+				
+				this.forearm_length = forearm_length;
+				this.forearm_width = forearm_width;
+				this.forearm_height = forearm_height;
+
 	}
 
 
@@ -111,7 +124,8 @@ public class Weapon extends CustomData{
 				butt_length,butt_width,butt_height,
 				butt_end_length,butt_end_width,butt_end_height,
 				rear_overhang,
-				trigger_length,trigger_width,trigger_height
+				trigger_length,trigger_width,trigger_height,
+				forearm_length,forearm_width,forearm_height
 				);
 		return grid;
 
@@ -128,7 +142,8 @@ public class Weapon extends CustomData{
 				butt_length+","+butt_width+","+butt_height+","+
 				butt_end_length+","+butt_width+","+butt_end_height+","+
 				rear_overhang+","+
-				trigger_length+","+trigger_width+","+trigger_height;
+				trigger_length+","+trigger_width+","+trigger_height+
+				forearm_length+","+forearm_width+","+forearm_height;
 	}
 
 	public static Weapon buildWeapon(String str) {
@@ -159,6 +174,11 @@ public class Weapon extends CustomData{
 		double trigger_length =Double.parseDouble(vals[14]);
 		double trigger_width =Double.parseDouble(vals[15]);
 		double trigger_height =Double.parseDouble(vals[16]);
+		
+		double forearm_length =Double.parseDouble(vals[17]);
+		double forearm_width =Double.parseDouble(vals[18]);
+		double forearm_height =Double.parseDouble(vals[19]);
+
 
 		Weapon grid=new Weapon(
 				weaponType,
@@ -167,7 +187,8 @@ public class Weapon extends CustomData{
 				butt_length,butt_width,butt_height,
 				butt_end_length,butt_end_width,butt_end_height,
 				rear_overhang,
-				trigger_length,trigger_width,trigger_height
+				trigger_length,trigger_width,trigger_height,
+				forearm_length,forearm_width,forearm_height
 				);
 
 		return grid;
@@ -318,6 +339,31 @@ public class Weapon extends CustomData{
 
 	public void setTrigger_width(double trigger_width) {
 		this.trigger_width = trigger_width;
+	}
+	
+
+	public double getForearm_length() {
+		return forearm_length;
+	}
+
+	public void setForearm_length(double forearm_length) {
+		this.forearm_length = forearm_length;
+	}
+
+	public double getForearm_width() {
+		return forearm_width;
+	}
+
+	public void setForearm_width(double forearm_width) {
+		this.forearm_width = forearm_width;
+	}
+
+	public double getForearm_height() {
+		return forearm_height;
+	}
+
+	public void setForearm_height(double forearm_height) {
+		this.forearm_height = forearm_height;
 	}
 	
 	public PolygonMesh buildMesh(){
@@ -1941,13 +1987,6 @@ public class Weapon extends CustomData{
 		return spm;
 
 	}
-
-
-
-
-
-
-
 
 
 
