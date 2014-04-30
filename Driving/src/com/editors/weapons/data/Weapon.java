@@ -913,8 +913,6 @@ public class Weapon extends CustomData{
 		
 		//breech
 		
-		//main body
-		
 		int bnx=5;
 		int bny=5;
 		int bnz=2;
@@ -925,7 +923,7 @@ public class Weapon extends CustomData{
 		
 		Segments b0=new Segments(xc,breech_width,0,breech_length,0,breech_height);
 		
-		double wr=(breech_height-2*barrel_radius)/breech_height;
+		//double wr=(breech_height-2*barrel_radius)/breech_height;
 
 		breech[0][0][0]=addBPoint(-0.5,0,0,b0);
 		breech[1][0][0]=addBPoint(-0.25,0.0,0,b0);
@@ -947,11 +945,11 @@ public class Weapon extends CustomData{
 		breech[2][3][0]=addBPoint(0.0,0.75,0,b0);
 		breech[3][3][0]=addBPoint(0.25,0.75,0,b0);
 		breech[4][3][0]=addBPoint(0.5,0.75,0,b0);
-		breech[0][4][0]=addBPoint(-0.5,1.0,wr,b0);
-		breech[1][4][0]=addBPoint(-0.25,1.0,wr,b0);
-		breech[2][4][0]=addBPoint(0.0,1.0,wr,b0);
-		breech[3][4][0]=addBPoint(0.25,1.0,wr,b0);
-		breech[4][4][0]=addBPoint(0.5,1.0,wr,b0);
+		breech[0][4][0]=addBPoint(-0.5,1.0,0,b0);
+		breech[1][4][0]=addBPoint(-0.25,1.0,0,b0);
+		breech[2][4][0]=addBPoint(0.0,1.0,0,b0);
+		breech[3][4][0]=addBPoint(0.25,1.0,0,b0);
+		breech[4][4][0]=addBPoint(0.5,1.0,0,b0);
 
 		breech[0][0][1]=addBPoint(-0.5,0.0,1.0,b0);	
 		breech[1][0][1]=addBPoint(-0.25,0.0,1.0,b0);	
@@ -1024,6 +1022,117 @@ public class Weapon extends CustomData{
 
 		}
 		
+		
+		//forearm
+		
+		int fanx=5;
+		int fany=5;
+		int fanz=2;
+		
+		BPoint[][][] forearm=new BPoint[fanx][fany][fanz];
+
+		
+		Segments fa0=new Segments(xc,forearm_width,breech_length,forearm_length,0,forearm_height);
+		
+		//double wr=(breech_height-2*barrel_radius)/breech_height;
+
+		forearm[0][0][0]=addBPoint(-0.5,0,0,fa0);
+		forearm[1][0][0]=addBPoint(-0.25,0.0,0,fa0);
+		forearm[2][0][0]=addBPoint(0.0,0.0,0,fa0);
+		forearm[3][0][0]=addBPoint(0.25,0.0,0,fa0);
+		forearm[4][0][0]=addBPoint(0.5,0.0,0,fa0);
+		forearm[0][1][0]=addBPoint(-0.5,0.25,0,fa0);
+		forearm[1][1][0]=addBPoint(-0.25,0.25,0,fa0);
+		forearm[2][1][0]=addBPoint(0.0,0.25,0,fa0);
+		forearm[3][1][0]=addBPoint(0.25,0.25,0,fa0);
+		forearm[4][1][0]=addBPoint(0.5,0.25,0,fa0);
+		forearm[0][2][0]=addBPoint(-0.5,0.5,0,fa0);
+		forearm[1][2][0]=addBPoint(-0.25,0.5,0,fa0);
+		forearm[2][2][0]=addBPoint(0.0,0.5,0,fa0);
+		forearm[3][2][0]=addBPoint(0.25,0.5,0,fa0);
+		forearm[4][2][0]=addBPoint(0.5,0.5,0,fa0);
+		forearm[0][3][0]=addBPoint(-0.5,0.75,0,fa0);
+		forearm[1][3][0]=addBPoint(-0.25,0.75,0,fa0);
+		forearm[2][3][0]=addBPoint(0.0,0.75,0,fa0);
+		forearm[3][3][0]=addBPoint(0.25,0.75,0,fa0);
+		forearm[4][3][0]=addBPoint(0.5,0.75,0,fa0);
+		forearm[0][4][0]=addBPoint(-0.5,1.0,0,fa0);
+		forearm[1][4][0]=addBPoint(-0.25,1.0,0,fa0);
+		forearm[2][4][0]=addBPoint(0.0,1.0,0,fa0);
+		forearm[3][4][0]=addBPoint(0.25,1.0,0,fa0);
+		forearm[4][4][0]=addBPoint(0.5,1.0,0,fa0);
+
+		forearm[0][0][1]=addBPoint(-0.5,0.0,1.0,fa0);	
+		forearm[1][0][1]=addBPoint(-0.25,0.0,1.0,fa0);	
+		forearm[2][0][1]=addBPoint(0.0,0.0,1.0,fa0);
+		forearm[3][0][1]=addBPoint(0.25,0.0,1.0,fa0);	
+		forearm[4][0][1]=addBPoint(0.5,0.0,1.0,fa0);		
+		forearm[0][1][1]=addBPoint(-0.5,0.25,1.0,fa0);	
+		forearm[1][1][1]=addBPoint(-0.25,0.25,1.0,fa0);
+		forearm[2][1][1]=addBPoint(0.0,0.25,1.0,fa0);
+		forearm[3][1][1]=addBPoint(0.25,0.25,1.0,fa0);
+		forearm[4][1][1]=addBPoint(0.5,0.25,1.0,fa0);
+		forearm[0][2][1]=addBPoint(-0.5,0.5,1.0,fa0);
+		forearm[1][2][1]=addBPoint(-0.25,0.5,1.0,fa0);	
+		forearm[2][2][1]=addBPoint(0.0,0.5,1.0,fa0);
+		forearm[3][2][1]=addBPoint(0.25,0.5,1.0,fa0);
+		forearm[4][2][1]=addBPoint(0.5,0.5,1.0,fa0);
+		forearm[0][3][1]=addBPoint(-0.5,0.75,1.0,fa0);	
+		forearm[1][3][1]=addBPoint(-0.25,0.75,1.0,fa0);
+		forearm[2][3][1]=addBPoint(0.0,0.75,1.0,fa0);
+		forearm[3][3][1]=addBPoint(0.25,0.75,1.0,fa0);
+		forearm[4][3][1]=addBPoint(0.5,0.75,1.0,fa0);
+		forearm[0][4][1]=addBPoint(-0.5,1.0,1.0,fa0);
+		forearm[1][4][1]=addBPoint(-0.25,1.0,1.0,fa0);	
+		forearm[2][4][1]=addBPoint(0.0,1.0,1.0,fa0);
+		forearm[3][4][1]=addBPoint(0.25,1.0,1.0,fa0);
+		forearm[4][4][1]=addBPoint(0.5,1.0,1.0,fa0);
+		
+		for (int i = 0; i < fanx-1; i++) {
+
+
+			for (int j = 0; j < fany-1; j++) {
+
+				for (int k = 0; k < fanz-1; k++) {
+
+
+
+
+					if(i==0){
+
+						addLine(forearm[i][j][k],forearm[i][j][k+1],forearm[i][j+1][k+1],forearm[i][j+1][k],Renderer3D.CAR_LEFT);
+					}
+
+				
+						
+					if(k==0){
+
+						addLine(forearm[i][j][k],forearm[i][j+1][k],forearm[i+1][j+1][k],forearm[i+1][j][k],Renderer3D.CAR_BOTTOM);
+					
+					}
+					
+					if(k+1==fanz-1){
+						addLine(forearm[i][j][k+1],forearm[i+1][j][k+1],forearm[i+1][j+1][k+1],forearm[i][j+1][k+1],Renderer3D.CAR_TOP);
+					}
+					
+					if(j==0){
+						addLine(forearm[i][j][k],forearm[i+1][j][k],forearm[i+1][j][k+1],forearm[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+					if(j+1==fany-1){
+						addLine(forearm[i][j+1][k],forearm[i][j+1][k+1],forearm[i+1][j+1][k+1],forearm[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+					}
+				
+
+					if(i+1==fanx-1){
+
+						addLine(forearm[i+1][j][k],forearm[i+1][j+1][k],forearm[i+1][j+1][k+1],forearm[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+					}
+				}
+			}
+
+		}
+		
 		//butt
 		
 		int pnx=5;
@@ -1032,9 +1141,8 @@ public class Weapon extends CustomData{
 		
 		BPoint[][][] butt=new BPoint[pnx][pny][pnz];
 		
-		
-		double zEnd=(butt_height-butt_end_height);
-				
+		double zEnd=breech_height-butt_end_height-rear_overhang;
+	
 		Segments p0=new Segments(xc,butt_width,-butt_length,butt_length,zEnd,butt_end_height);	
 		
 		butt[0][0][0]=addBPoint(-0.5,0,0,p0);
@@ -1106,6 +1214,46 @@ public class Weapon extends CustomData{
 			}
 
 		}
+		
+		////trigger
+		
+			Segments tr0=new Segments(xc,trigger_width,0,trigger_length,0,trigger_height);
+					
+			
+			Prism triggerFront=new Prism(4);	
+			
+			double dy1=2/trigger_length;
+					
+			triggerFront.lowerBase[0]=addBPoint(-0.5,1.0-dy1,-1,tr0);
+			triggerFront.lowerBase[1]=addBPoint(0.5,1.0-dy1,-1,tr0);
+			triggerFront.lowerBase[2]=addBPoint(0.5,1.0,-1,tr0);
+			triggerFront.lowerBase[3]=addBPoint(-0.5,1.0,-1,tr0);
+			
+			triggerFront.upperBase[0]=addBPoint(-0.5,1.0-dy1,0.0,tr0);
+			triggerFront.upperBase[1]=addBPoint(0.5,1.0-dy1,0.0,tr0);
+			triggerFront.upperBase[2]=addBPoint(0.5,1.0,0.0,tr0);
+			triggerFront.upperBase[3]=addBPoint(-0.5,1.0,0.0,tr0);
+			
+			addPrism(triggerFront);
+			
+			Prism triggerBottom=new Prism(4);			
+			
+			double dz=2/trigger_height;
+			double dy0=0;//double dy0=(-trigger_height*butt_length/zEnd)/trigger_length;
+			
+			triggerBottom.lowerBase[0]=addBPoint(-0.5,-dy0,-1,tr0);
+			triggerBottom.lowerBase[1]=addBPoint(0.5,-dy0,-1,tr0);
+			triggerBottom.lowerBase[2]=addBPoint(0.5,1.0-dy1,-1,tr0);
+			triggerBottom.lowerBase[3]=addBPoint(-0.5,1.0-dy1,-1,tr0);
+			
+			triggerBottom.upperBase[0]=addBPoint(-0.5,-dy0,-1.0+dz,tr0);
+			triggerBottom.upperBase[1]=addBPoint(0.5,-dy0,-1.0+dz,tr0);
+			triggerBottom.upperBase[2]=addBPoint(0.5,1.0-dy1,-1.0+dz,tr0);
+			triggerBottom.upperBase[3]=addBPoint(-0.5,1.0-dy1,-1.0+dz,tr0);
+		
+			addPrism(triggerBottom);
+			
+			/////////
 		
 		/////////
 

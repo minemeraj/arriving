@@ -412,6 +412,9 @@
 	
 	Weapon gun measures based on Colt 45 MK IV series 70 Government model,
 	length= 210 mm, barrel length=127 mm.
+	
+	Weapon shotgun measures based on Remington Model 870 American Classic Pump  12 gauge,
+	length 123 mm, barrel length= 71 mm; 
     
 	
 	
