@@ -432,25 +432,32 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 	private void initRightDoubleBarrelShotgunData() {
 
 		
-		barrel_length.setText(200);
-		barrel_radius.setText(20);	
+		barrel_length.setText(400);
+		barrel_radius.setText(8);	
 		barrel_meridians.setText(12);
 
-		breech_length.setText(100);
-		breech_width.setText(80);
-		breech_height.setText(100);
+		breech_length.setText(104);
+		breech_width.setText(28);
+		breech_height.setText(40);
 		
-		butt_length.setText(200);
-		butt_width.setText(80);		
-		butt_height.setText(50);		
+		butt_length.setText(186);
+		butt_width.setText(28);		
+		butt_height.setText(40);		
 		
-		butt_end_length.setText(200);
-		butt_end_width.setText(100);
-		butt_end_height.setText(100);
+		butt_end_length.setText(186);
+		butt_end_width.setText(28);
+		butt_end_height.setText(69);
+		
+		forearm_length.setText(161);
+		forearm_width.setText(28);
+		forearm_height.setText(28);
+		
+		trigger_length.setText(46);
+		trigger_width.setText(28);
+		trigger_height.setText(17);
+		
+		rear_overhang.setText(33);
 
-		forearm_length.setText(0);
-		forearm_width.setText(0);
-		forearm_height.setText(0);
 		
 	}
 	
@@ -486,26 +493,31 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 	private void initRightChaingunData() {
 
 		
-		barrel_length.setText(200);
-		barrel_radius.setText(40);	
+		barrel_length.setText(400);
+		barrel_radius.setText(8);	
 		barrel_meridians.setText(12);
 
-		breech_length.setText(100);
-		breech_width.setText(80);
-		breech_height.setText(100);
+		breech_length.setText(104);
+		breech_width.setText(28);
+		breech_height.setText(40);
 		
-		butt_length.setText(200);
-		butt_width.setText(80);		
-		butt_height.setText(50);		
+		butt_length.setText(186);
+		butt_width.setText(28);		
+		butt_height.setText(40);		
 		
-		butt_end_length.setText(200);
-		butt_end_width.setText(100);
-		butt_end_height.setText(100);
+		butt_end_length.setText(186);
+		butt_end_width.setText(28);
+		butt_end_height.setText(69);
 		
-		forearm_length.setText(0);
-		forearm_width.setText(0);
-		forearm_height.setText(0);
+		forearm_length.setText(161);
+		forearm_width.setText(28);
+		forearm_height.setText(28);
 		
+		trigger_length.setText(46);
+		trigger_width.setText(28);
+		trigger_height.setText(17);
+		
+		rear_overhang.setText(33);
 		
 	}
 
