@@ -532,7 +532,7 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		breech_width.setText(18);
 		breech_height.setText(66);
 		
-		butt_length.setText(74);
+		butt_length.setText(32);
 		butt_width.setText(18);
 		butt_height.setText(75);
 		
@@ -544,7 +544,7 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		forearm_width.setText(0);
 		forearm_height.setText(0);
 		
-		
+		rear_overhang.setText(42);
 	}
 	
 	private void setRightData(Weapon weapon) {
