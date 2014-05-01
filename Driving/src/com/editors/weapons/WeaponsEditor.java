@@ -432,31 +432,31 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 	private void initRightDoubleBarrelShotgunData() {
 
 		
-		barrel_length.setText(400);
-		barrel_radius.setText(8);	
+		barrel_length.setText(284);
+		barrel_radius.setText(7);	
 		barrel_meridians.setText(12);
 
-		breech_length.setText(104);
+		breech_length.setText(46);
 		breech_width.setText(28);
-		breech_height.setText(40);
+		breech_height.setText(41);
 		
-		butt_length.setText(186);
+		butt_length.setText(177);
 		butt_width.setText(28);		
-		butt_height.setText(40);		
+		butt_height.setText(22);		
 		
-		butt_end_length.setText(186);
+		butt_end_length.setText(177);
 		butt_end_width.setText(28);
 		butt_end_height.setText(69);
 		
-		forearm_length.setText(161);
+		forearm_length.setText(159);
 		forearm_width.setText(28);
-		forearm_height.setText(28);
+		forearm_height.setText(23);
 		
 		trigger_length.setText(46);
 		trigger_width.setText(28);
-		trigger_height.setText(17);
+		trigger_height.setText(15);
 		
-		rear_overhang.setText(33);
+		rear_overhang.setText(34);
 
 		
 	}
