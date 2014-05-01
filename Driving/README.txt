@@ -415,6 +415,8 @@
 	
 	Weapon shotgun measures based on Remington Model 870 American Classic Pump  12 gauge,
 	length 123 mm, barrel length= 71 mm; 
+	
+	Weapon revolver measures based on Colt Walker 1847, length 395 mm, barrel length= 229 mm; 
     
 	
 	

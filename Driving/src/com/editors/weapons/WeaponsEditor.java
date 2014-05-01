@@ -525,20 +525,20 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 	
 		
 		barrel_length.setText(200);
-		barrel_radius.setText(40);	
+		barrel_radius.setText(8);	
 		barrel_meridians.setText(12);
 
-		breech_length.setText(100);
-		breech_width.setText(80);
-		breech_height.setText(100);
+		breech_length.setText(77);
+		breech_width.setText(18);
+		breech_height.setText(66);
 		
-		butt_length.setText(50);
-		butt_width.setText(80);
-		butt_height.setText(200);
+		butt_length.setText(74);
+		butt_width.setText(18);
+		butt_height.setText(75);
 		
-		butt_end_length.setText(80);
-		butt_end_width.setText(100);
-		butt_end_height.setText(200);
+		butt_end_length.setText(74);
+		butt_end_width.setText(18);
+		butt_end_height.setText(75);
 		
 		forearm_length.setText(0);
 		forearm_width.setText(0);
