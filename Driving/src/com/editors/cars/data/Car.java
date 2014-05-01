@@ -2904,7 +2904,7 @@ public class Car extends CustomData {
 			
 			double radius=roof_width*0.5;
 			
-			addCylinder(0,rdy,back_height+z_side+radius,radius,roof_length);
+			addCylinder(0,rdy,back_height+z_side+radius,radius,roof_length,20);
 		
 		}else if(car_type==CAR_TYPE_RAILROAD_CAR_2){
 			

@@ -2148,69 +2148,9 @@ public class Weapon extends CustomData{
 
 		//barrel:
 		
-		BPoint[] uTrunkpoints=new BPoint[barrel_meridians];
-		BPoint[] bTrunkpoints=new BPoint[barrel_meridians];
+		addCylinder(bax0,bay0,baz0,barrel_radius,barrel_lenght,barrel_meridians);
 		
-		for (int i = 0; i < barrel_meridians; i++) {
-		
-			
-			double x=bax0+barrel_radius*Math.cos(2*Math.PI/barrel_meridians*i);
-			double z=baz0+barrel_radius*Math.sin(2*Math.PI/barrel_meridians*i);
-			
-			uTrunkpoints[i]=addBPoint(x,bay0+barrel_lenght,z);
-			
-			
-		}
-
-
-		LineData topLD=new LineData();
-		
-		
-			
-			for (int i = barrel_meridians-1; i >=0; i--) {
-			
-			topLD.addIndex(uTrunkpoints[i].getIndex());
-			
-		}
-		topLD.setData(""+Renderer3D.CAR_TOP);
-		polyData.add(topLD);
-		
-		for (int i = 0; i < barrel_meridians; i++) {
-			
-			double x=bax0+barrel_radius*Math.cos(2*Math.PI/barrel_meridians*i);
-			double z=baz0+barrel_radius*Math.sin(2*Math.PI/barrel_meridians*i);
-			
-			bTrunkpoints[i]=addBPoint(x,bay0,z);
-			
-		}
-
-
-		LineData bottomLD=new LineData();
-		
-		for (int i = 0; i < barrel_meridians; i++) {
-			
-			bottomLD.addIndex(bTrunkpoints[i].getIndex());
-			
-		}
-		bottomLD.setData(""+Renderer3D.CAR_BOTTOM);
-		polyData.add(bottomLD);
-		
-		
-		
-		for (int i = 0; i < barrel_meridians; i++) {
-			
-			LineData sideLD=new LineData();
-			
-			
-			sideLD.addIndex(bTrunkpoints[(i+1)%barrel_meridians].getIndex());
-			sideLD.addIndex(bTrunkpoints[i].getIndex());
-			sideLD.addIndex(uTrunkpoints[i].getIndex());
-			sideLD.addIndex(uTrunkpoints[(i+1)%barrel_meridians].getIndex());
-			sideLD.setData(""+getFace(sideLD,points));
-			polyData.add(sideLD);
-			
-		}
-		
+				
 		//breech
 		
 		//main body
@@ -2324,6 +2264,14 @@ public class Weapon extends CustomData{
 			}
 
 		}
+		//cylinder
+		
+		
+		double cyx0=0;
+		double cyy0=breech_length-forearm_length;
+		double cyz0=breech_height-forearm_width*0.5;
+		
+		addCylinder(cyx0,cyy0,cyz0,forearm_width*0.5,forearm_length,barrel_meridians);
 		
 		//butt
 		

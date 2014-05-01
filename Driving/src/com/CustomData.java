@@ -134,9 +134,7 @@ public class CustomData {
 	}
 	
 	public void addCylinder(double cyx0, double cyy0,double cyz0,
-			double cylinder_radius,double cylinder_lenght){
-		
-		    int barrel_meridians=20;
+			double cylinder_radius,double cylinder_lenght,int barrel_meridians){
 	
 			BPoint[] uTrunkpoints=new BPoint[barrel_meridians];
 			BPoint[] bTrunkpoints=new BPoint[barrel_meridians];

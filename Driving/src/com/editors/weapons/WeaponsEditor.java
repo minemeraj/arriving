@@ -540,9 +540,9 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		butt_end_width.setText(18);
 		butt_end_height.setText(75);
 		
-		forearm_length.setText(0);
-		forearm_width.setText(0);
-		forearm_height.setText(0);
+		forearm_length.setText(54);
+		forearm_width.setText(42);
+		forearm_height.setText(42);
 		
 		rear_overhang.setText(42);
 	}
