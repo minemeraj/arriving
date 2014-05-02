@@ -436,8 +436,8 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	
 	private void initRightDataManHand() {
 		
-		x_side.setText(100);
-		y_side.setText(100);
+		x_side.setText(160);
+		y_side.setText(200);
 		z_side.setText(20);
 	
 		

@@ -1855,22 +1855,32 @@ public class Animal extends CustomData{
 		}
 		
 		int ffnx=2;
-		int ffny=2;
+		int ffny=4;
 		int ffnz=2;
 		
 		BPoint[][][] foreFinger=new BPoint[ffnx][ffny][ffnz];
 		
-		Segments ff0=new Segments(x_side*0.125,x_side*0.125,y_side,150,0,z_side);
+		Segments ff0=new Segments(x_side*0.125,x_side*0.125,y_side,y_side*0.9,0,z_side);
 		
 		foreFinger[0][0][0]=palm[1][pny-1][0];
 		foreFinger[1][0][0]=palm[2][pny-1][0];
 		foreFinger[0][0][1]=palm[1][pny-1][1];
 		foreFinger[1][0][1]=palm[2][pny-1][1];
 		
-		foreFinger[0][1][0]=addBPoint(0.0,1.0,0,ff0);
-		foreFinger[1][1][0]=addBPoint(1.0,1.0,0,ff0);
-		foreFinger[0][1][1]=addBPoint(0.0,1.0,1.0,ff0);
-		foreFinger[1][1][1]=addBPoint(1.0,1.0,1.0,ff0);
+		foreFinger[0][1][0]=addBPoint(0.0,0.5,0,ff0);
+		foreFinger[1][1][0]=addBPoint(1.0,0.5,0,ff0);
+		foreFinger[0][1][1]=addBPoint(0.0,0.5,1.0,ff0);
+		foreFinger[1][1][1]=addBPoint(1.0,0.5,1.0,ff0);
+		
+		foreFinger[0][2][0]=addBPoint(0.0,0.75,0,ff0);
+		foreFinger[1][2][0]=addBPoint(1.0,0.75,0,ff0);
+		foreFinger[0][2][1]=addBPoint(0.0,0.75,1.0,ff0);
+		foreFinger[1][2][1]=addBPoint(1.0,0.75,1.0,ff0);
+		
+		foreFinger[0][3][0]=addBPoint(0.0,1.0,0,ff0);
+		foreFinger[1][3][0]=addBPoint(1.0,1.0,0,ff0);
+		foreFinger[0][3][1]=addBPoint(0.0,1.0,1.0,ff0);
+		foreFinger[1][3][1]=addBPoint(1.0,1.0,1.0,ff0);
 		
 		
 		
@@ -1921,24 +1931,32 @@ public class Animal extends CustomData{
 
 		
 		int mfnx=2;
-		int mfny=2;
+		int mfny=4;
 		int mfnz=2;
 		
 		BPoint[][][] middleFinger=new BPoint[mfnx][mfny][mfnz];
 		
-		Segments mf0=new Segments(xc+x_side*0.375,x_side*0.125,y_side,200,0,z_side);
+		Segments mf0=new Segments(xc+x_side*0.375,x_side*0.125,y_side,y_side,0,z_side);
 		
 		middleFinger[0][0][0]=palm[3][pny-1][0];
 		middleFinger[1][0][0]=palm[4][pny-1][0];
 		middleFinger[0][0][1]=palm[3][pny-1][1];
 		middleFinger[1][0][1]=palm[4][pny-1][1];
 		
-		middleFinger[0][1][0]=addBPoint(0.0,1.0,0,mf0);
-		middleFinger[1][1][0]=addBPoint(1.0,1.0,0,mf0);
-		middleFinger[0][1][1]=addBPoint(0.0,1.0,1.0,mf0);
-		middleFinger[1][1][1]=addBPoint(1.0,1.0,1.0,mf0);
+		middleFinger[0][1][0]=addBPoint(0.0,0.5,0,mf0);
+		middleFinger[1][1][0]=addBPoint(1.0,0.5,0,mf0);
+		middleFinger[0][1][1]=addBPoint(0.0,0.5,1.0,mf0);
+		middleFinger[1][1][1]=addBPoint(1.0,0.5,1.0,mf0);
 		
+		middleFinger[0][2][0]=addBPoint(0.0,0.75,0,mf0);
+		middleFinger[1][2][0]=addBPoint(1.0,0.75,0,mf0);
+		middleFinger[0][2][1]=addBPoint(0.0,0.75,1.0,mf0);
+		middleFinger[1][2][1]=addBPoint(1.0,0.75,1.0,mf0);
 		
+		middleFinger[0][3][0]=addBPoint(0.0,1.0,0,mf0);
+		middleFinger[1][3][0]=addBPoint(1.0,1.0,0,mf0);
+		middleFinger[0][3][1]=addBPoint(0.0,1.0,1.0,mf0);
+		middleFinger[1][3][1]=addBPoint(1.0,1.0,1.0,mf0);
 		
 		for (int i = 0; i < mfnx-1; i++) {
 
@@ -1987,24 +2005,32 @@ public class Animal extends CustomData{
 		
 		
 		int rfnx=2;
-		int rfny=2;
+		int rfny=4;
 		int rfnz=2;
 		
 		BPoint[][][] ringFinger=new BPoint[rfnx][rfny][rfnz];
 		
-		Segments rf0=new Segments(xc+x_side*0.625,x_side*0.125,y_side,150,0,z_side);
+		Segments rf0=new Segments(xc+x_side*0.625,x_side*0.125,y_side,y_side*0.8,0,z_side);
 		
 		ringFinger[0][0][0]=palm[5][pny-1][0];
 		ringFinger[1][0][0]=palm[6][pny-1][0];
 		ringFinger[0][0][1]=palm[5][pny-1][1];
 		ringFinger[1][0][1]=palm[6][pny-1][1];
 		
-		ringFinger[0][1][0]=addBPoint(0.0,1.0,0,rf0);
-		ringFinger[1][1][0]=addBPoint(1.0,1.0,0,rf0);
-		ringFinger[0][1][1]=addBPoint(0.0,1.0,1.0,rf0);
-		ringFinger[1][1][1]=addBPoint(1.0,1.0,1.0,rf0);
+		ringFinger[0][1][0]=addBPoint(0.0,0.5,0,rf0);
+		ringFinger[1][1][0]=addBPoint(1.0,0.5,0,rf0);
+		ringFinger[0][1][1]=addBPoint(0.0,0.5,1.0,rf0);
+		ringFinger[1][1][1]=addBPoint(1.0,0.5,1.0,rf0);
+
+		ringFinger[0][2][0]=addBPoint(0.0,0.75,0,rf0);
+		ringFinger[1][2][0]=addBPoint(1.0,0.75,0,rf0);
+		ringFinger[0][2][1]=addBPoint(0.0,0.75,1.0,rf0);
+		ringFinger[1][2][1]=addBPoint(1.0,0.75,1.0,rf0);
 		
-		
+		ringFinger[0][3][0]=addBPoint(0.0,1.0,0,rf0);
+		ringFinger[1][3][0]=addBPoint(1.0,1.0,0,rf0);
+		ringFinger[0][3][1]=addBPoint(0.0,1.0,1.0,rf0);
+		ringFinger[1][3][1]=addBPoint(1.0,1.0,1.0,rf0);
 		
 		for (int i = 0; i < rfnx-1; i++) {
 
@@ -2053,23 +2079,32 @@ public class Animal extends CustomData{
 		
 		
 		int lfnx=2;
-		int lfny=2;
+		int lfny=4;
 		int lfnz=2;
 		
 		BPoint[][][] littleFinger=new BPoint[lfnx][lfny][lfnz];
 		
-		Segments lf0=new Segments(xc+x_side*0.875,x_side*0.125,y_side,100,0,z_side);
+		Segments lf0=new Segments(xc+x_side*0.875,x_side*0.125,y_side,y_side*0.7,0,z_side);
 		
 		littleFinger[0][0][0]=palm[7][pny-1][0];
 		littleFinger[1][0][0]=palm[8][pny-1][0];
 		littleFinger[0][0][1]=palm[7][pny-1][1];
 		littleFinger[1][0][1]=palm[8][pny-1][1];
 		
-		littleFinger[0][1][0]=addBPoint(0.0,1.0,0,lf0);
-		littleFinger[1][1][0]=addBPoint(1.0,1.0,0,lf0);
-		littleFinger[0][1][1]=addBPoint(0.0,1.0,1.0,lf0);
-		littleFinger[1][1][1]=addBPoint(1.0,1.0,1.0,lf0);
+		littleFinger[0][1][0]=addBPoint(0.0,0.5,0,lf0);
+		littleFinger[1][1][0]=addBPoint(1.0,0.5,0,lf0);
+		littleFinger[0][1][1]=addBPoint(0.0,0.5,1.0,lf0);
+		littleFinger[1][1][1]=addBPoint(1.0,0.5,1.0,lf0);
 		
+		littleFinger[0][2][0]=addBPoint(0.0,0.75,0,lf0);
+		littleFinger[1][2][0]=addBPoint(1.0,0.75,0,lf0);
+		littleFinger[0][2][1]=addBPoint(0.0,0.75,1.0,lf0);
+		littleFinger[1][2][1]=addBPoint(1.0,0.75,1.0,lf0);
+		
+		littleFinger[0][3][0]=addBPoint(0.0,1.0,0,lf0);
+		littleFinger[1][3][0]=addBPoint(1.0,1.0,0,lf0);
+		littleFinger[0][3][1]=addBPoint(0.0,1.0,1.0,lf0);
+		littleFinger[1][3][1]=addBPoint(1.0,1.0,1.0,lf0);
 		
 		
 		for (int i = 0; i < rfnx-1; i++) {
@@ -2118,24 +2153,43 @@ public class Animal extends CustomData{
 		}
 		
 		int tnx=2;
-		int tny=2;
+		int tny=5;
 		int tnz=2;
 		
 		BPoint[][][] thumb=new BPoint[tnx][tny][tnz];
 		
-		Segments tf0=new Segments(xc-100,100,0,20,0,z_side);
+		double thumb_dy=1.125*y_side;
 		
-		thumb[0][0][0]=addBPoint(0.0,0.0,0,tf0);		
-		thumb[0][0][1]=addBPoint(0.0,0.0,1.0,tf0);
-		thumb[0][1][0]=addBPoint(0.0,1.0,0,tf0);
-		thumb[0][1][1]=addBPoint(0.0,1.0,1.0,tf0);
+		Segments tf0=new Segments(xc,40,y_side*0.25,thumb_dy,0,z_side);
 		
-		thumb[1][0][0]=addBPoint(1.0,0.0,0,tf0);
-		thumb[1][0][1]=addBPoint(1.0,0.0,1.0,tf0);		
-		thumb[1][1][0]=addBPoint(1.0,1.0,0,tf0);		
-		thumb[1][1][1]=addBPoint(1.0,1.0,1.0,tf0);
+		double thumb_y0=-y_side*0.25/thumb_dy;
 		
 		
+		thumb[0][0][0]=addBPoint(-0.5,thumb_y0,0,tf0);		
+		thumb[1][0][0]=addBPoint(0.0,thumb_y0,0.0,tf0);
+		thumb[0][0][1]=addBPoint(-0.5,thumb_y0,1.0,tf0);
+		thumb[1][0][1]=addBPoint(0.0,thumb_y0,1.0,tf0);
+		
+		thumb[0][1][0]=addBPoint(-0.5,0.0,0,tf0);		
+		thumb[1][1][0]=addBPoint(0.0,0.0,0.0,tf0);
+		thumb[0][1][1]=addBPoint(-0.5,0.0,1.0,tf0);
+		thumb[1][1][1]=addBPoint(0.0,0.0,1.0,tf0);
+		
+		thumb[0][2][0]=addBPoint(-1.0,0.5,0,tf0);		
+		thumb[1][2][0]=addBPoint(-0.5,0.5,0.0,tf0);
+		thumb[0][2][1]=addBPoint(-1.0,0.5,1.0,tf0);
+		thumb[1][2][1]=addBPoint(-0.5,0.5,1.0,tf0);
+		
+		thumb[0][3][0]=addBPoint(-1.0,0.75,0,tf0);		
+		thumb[1][3][0]=addBPoint(-0.5,0.75,0.0,tf0);
+		thumb[0][3][1]=addBPoint(-1.0,0.75,1.0,tf0);
+		thumb[1][3][1]=addBPoint(-0.5,0.75,1.0,tf0);
+		
+		thumb[0][4][0]=addBPoint(-1.0,1.0,0,tf0);		
+		thumb[1][4][0]=addBPoint(-0.5,1.0,0.0,tf0);
+		thumb[0][4][1]=addBPoint(-1.0,1.0,1.0,tf0);
+		thumb[1][4][1]=addBPoint(-0.5,1.0,1.0,tf0);
+
 		
 		for (int i = 0; i < tnx-1; i++) {
 
