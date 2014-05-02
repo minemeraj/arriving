@@ -461,6 +461,9 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		
 		rear_overhang.setText(33);
 
+		magazine_length.setText(0);
+		magazine_width.setText(0);
+		magazine_height.setText(0);
 	}
 	
 	private void initRightDoubleBarrelShotgunData() {
@@ -491,6 +494,10 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		trigger_height.setText(15);
 		
 		rear_overhang.setText(34);
+		
+		magazine_length.setText(0);
+		magazine_width.setText(0);
+		magazine_height.setText(0);
 
 		
 	}
@@ -522,36 +529,44 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		forearm_length.setText(0);
 		forearm_width.setText(0);
 		forearm_height.setText(0);
+		
+		magazine_length.setText(0);
+		magazine_width.setText(0);
+		magazine_height.setText(0);
 	}
 	
-	private void initRightChaingunData() {
+	private void initRightSubmachineGunData() {
 
 		
-		barrel_length.setText(400);
-		barrel_radius.setText(8);	
+		barrel_length.setText(141);
+		barrel_radius.setText(6);	
 		barrel_meridians.setText(12);
 
-		breech_length.setText(104);
-		breech_width.setText(28);
-		breech_height.setText(40);
+		breech_length.setText(204);
+		breech_width.setText(21);
+		breech_height.setText(44);
 		
-		butt_length.setText(186);
-		butt_width.setText(28);		
-		butt_height.setText(40);		
+		butt_length.setText(126);
+		butt_width.setText(27);		
+		butt_height.setText(16);		
 		
-		butt_end_length.setText(186);
-		butt_end_width.setText(28);
-		butt_end_height.setText(69);
+		butt_end_length.setText(126);
+		butt_end_width.setText(33);
+		butt_end_height.setText(63);
 		
-		forearm_length.setText(161);
-		forearm_width.setText(28);
-		forearm_height.setText(28);
+		forearm_length.setText(51);
+		forearm_width.setText(18);
+		forearm_height.setText(56);
 		
-		trigger_length.setText(46);
-		trigger_width.setText(28);
-		trigger_height.setText(17);
+		trigger_length.setText(0);
+		trigger_width.setText(0);
+		trigger_height.setText(0);
 		
-		rear_overhang.setText(33);
+		rear_overhang.setText(13);
+		
+		magazine_length.setText(25);
+		magazine_width.setText(14);
+		magazine_height.setText(104);
 		
 	}
 
@@ -1029,7 +1044,7 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 			   else if(type==Weapon.WEAPON_TYPE_REVOLVER)
 				   initRightRevolverData();
 			   else if(type==Weapon.WEAPON_TYPE_SUBMACHINEGUN)
-				   initRightChaingunData();
+				   initRightSubmachineGunData();
 			   else
 				   initRightGunData(); 
 			
