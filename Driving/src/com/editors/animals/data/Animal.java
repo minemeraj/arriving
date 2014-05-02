@@ -1884,10 +1884,10 @@ public class Animal extends CustomData{
 		foreFinger[0][2][1]=addBPoint(-0.5,0.75,1.0,ff0);
 		foreFinger[1][2][1]=addBPoint(0.5,0.75,1.0,ff0);
 		
-		foreFinger[0][3][0]=addBPoint(-0.5,1.0,0,ff0);
-		foreFinger[1][3][0]=addBPoint(0.5,1.0,0,ff0);
-		foreFinger[0][3][1]=addBPoint(-0.5,1.0,1.0,ff0);
-		foreFinger[1][3][1]=addBPoint(0.5,1.0,1.0,ff0);
+		foreFinger[0][3][0]=addBPoint(-0.4,1.0,0,ff0);
+		foreFinger[1][3][0]=addBPoint(0.4,1.0,0,ff0);
+		foreFinger[0][3][1]=addBPoint(-0.4,1.0,1.0,ff0);
+		foreFinger[1][3][1]=addBPoint(0.4,1.0,1.0,ff0);
 		
 		
 		
@@ -1960,10 +1960,10 @@ public class Animal extends CustomData{
 		middleFinger[0][2][1]=addBPoint(-0.5,0.75,1.0,mf0);
 		middleFinger[1][2][1]=addBPoint(0.5,0.75,1.0,mf0);
 		
-		middleFinger[0][3][0]=addBPoint(-0.5,1.0,0,mf0);
-		middleFinger[1][3][0]=addBPoint(0.5,1.0,0,mf0);
-		middleFinger[0][3][1]=addBPoint(-0.5,1.0,1.0,mf0);
-		middleFinger[1][3][1]=addBPoint(0.5,1.0,1.0,mf0);
+		middleFinger[0][3][0]=addBPoint(-0.4,1.0,0,mf0);
+		middleFinger[1][3][0]=addBPoint(0.4,1.0,0,mf0);
+		middleFinger[0][3][1]=addBPoint(-0.4,1.0,1.0,mf0);
+		middleFinger[1][3][1]=addBPoint(0.4,1.0,1.0,mf0);
 		
 		for (int i = 0; i < mfnx-1; i++) {
 
@@ -2034,10 +2034,10 @@ public class Animal extends CustomData{
 		ringFinger[0][2][1]=addBPoint(-0.5,0.75,1.0,rf0);
 		ringFinger[1][2][1]=addBPoint(0.5,0.75,1.0,rf0);
 		
-		ringFinger[0][3][0]=addBPoint(-0.5,1.0,0,rf0);
-		ringFinger[1][3][0]=addBPoint(0.5,1.0,0,rf0);
-		ringFinger[0][3][1]=addBPoint(-0.5,1.0,1.0,rf0);
-		ringFinger[1][3][1]=addBPoint(0.5,1.0,1.0,rf0);
+		ringFinger[0][3][0]=addBPoint(-0.4,1.0,0,rf0);
+		ringFinger[1][3][0]=addBPoint(0.4,1.0,0,rf0);
+		ringFinger[0][3][1]=addBPoint(-0.4,1.0,1.0,rf0);
+		ringFinger[1][3][1]=addBPoint(0.4,1.0,1.0,rf0);
 		
 		for (int i = 0; i < rfnx-1; i++) {
 
@@ -2108,18 +2108,18 @@ public class Animal extends CustomData{
 		littleFinger[0][2][1]=addBPoint(-0.5,0.75,1.0,lf0);
 		littleFinger[1][2][1]=addBPoint(0.5,0.75,1.0,lf0);
 		
-		littleFinger[0][3][0]=addBPoint(-0.5,1.0,0,lf0);
-		littleFinger[1][3][0]=addBPoint(0.5,1.0,0,lf0);
-		littleFinger[0][3][1]=addBPoint(-0.5,1.0,1.0,lf0);
-		littleFinger[1][3][1]=addBPoint(0.5,1.0,1.0,lf0);
+		littleFinger[0][3][0]=addBPoint(-0.4,1.0,0,lf0);
+		littleFinger[1][3][0]=addBPoint(0.4,1.0,0,lf0);
+		littleFinger[0][3][1]=addBPoint(-0.4,1.0,1.0,lf0);
+		littleFinger[1][3][1]=addBPoint(0.4,1.0,1.0,lf0);
 		
 		
-		for (int i = 0; i < rfnx-1; i++) {
+		for (int i = 0; i < lfnx-1; i++) {
 
 
-			for (int j = 0; j < rfny-1; j++) {
+			for (int j = 0; j < lfny-1; j++) {
 
-				for (int k = 0; k < rfnz-1; k++) {
+				for (int k = 0; k < lfnz-1; k++) {
 
 
 
@@ -2137,19 +2137,19 @@ public class Animal extends CustomData{
 					
 					}
 					
-					if(k+1==rfnz-1){
+					if(k+1==lfnz-1){
 						LineData topLD=addLine(littleFinger[i][j][k+1],littleFinger[i+1][j][k+1],littleFinger[i+1][j+1][k+1],littleFinger[i][j+1][k+1],Renderer3D.CAR_TOP);
 					}
 					
 					if(j==0){
 						LineData backLD=addLine(littleFinger[i][j][k],littleFinger[i+1][j][k],littleFinger[i+1][j][k+1],littleFinger[i][j][k+1],Renderer3D.CAR_BACK);
 					}
-					if(j+1==rfny-1){
+					if(j+1==lfny-1){
 						LineData frontLD=addLine(littleFinger[i][j+1][k],littleFinger[i][j+1][k+1],littleFinger[i+1][j+1][k+1],littleFinger[i+1][j+1][k],Renderer3D.CAR_FRONT);	
 					}
 				
 
-					if(i+1==rfnx-1){
+					if(i+1==lfnx-1){
 
 						LineData rightLD=addLine(littleFinger[i+1][j][k],littleFinger[i+1][j+1][k],littleFinger[i+1][j+1][k+1],littleFinger[i+1][j][k+1],Renderer3D.CAR_RIGHT);
 
@@ -2165,7 +2165,14 @@ public class Animal extends CustomData{
 		
 		BPoint[][][] thumb=new BPoint[tnx][tny][tnz];
 		
-		double thumb_dy=1.125*y_side;
+		
+		double dl0=1.125*y_side*0.5;
+		double dl1=1.125*y_side*0.5;
+		double dl1p=Math.sqrt(dl1*dl1-(df*x_side)*(df*x_side));
+		
+		
+		double thumb_dy=dl0+dl1p;
+		double df1=dl1p/thumb_dy;
 		
 		Segments tf0=new Segments(xc,df*2*x_side,y_side*0.25,thumb_dy,0,z_side);
 		
@@ -2182,10 +2189,10 @@ public class Animal extends CustomData{
 		thumb[0][1][1]=addBPoint(-0.5,0.0,1.0,tf0);
 		thumb[1][1][1]=addBPoint(0.0,0.0,1.0,tf0);
 		
-		thumb[0][2][0]=addBPoint(-1.0,0.5,0,tf0);		
-		thumb[1][2][0]=addBPoint(-0.5,0.5,0.0,tf0);
-		thumb[0][2][1]=addBPoint(-1.0,0.5,1.0,tf0);
-		thumb[1][2][1]=addBPoint(-0.5,0.5,1.0,tf0);
+		thumb[0][2][0]=addBPoint(-1.0,df1,0,tf0);		
+		thumb[1][2][0]=addBPoint(-0.5,df1,0.0,tf0);
+		thumb[0][2][1]=addBPoint(-1.0,df1,1.0,tf0);
+		thumb[1][2][1]=addBPoint(-0.5,df1,1.0,tf0);
 		
 		thumb[0][3][0]=addBPoint(-1.0,0.75,0,tf0);		
 		thumb[1][3][0]=addBPoint(-0.5,0.75,0.0,tf0);
@@ -2235,14 +2242,18 @@ public class Animal extends CustomData{
 
 					if(i+1==tnx-1){
 
-						LineData rightLD=addLine(thumb[i+1][j][k],thumb[i+1][j+1][k],thumb[i+1][j+1][k+1],thumb[i+1][j][k+1],Renderer3D.CAR_RIGHT);
-
+						if(j>=2){
+							LineData rightLD=addLine(thumb[i+1][j][k],thumb[i+1][j+1][k],thumb[i+1][j+1][k+1],thumb[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+						}
 					}
 				}
 			}
 
 		}
-		
+		//additional thumb polygons:
+		addLine(thumb[1][1][0],thumb[1][2][0],palm[0][3][0],null,Renderer3D.CAR_BOTTOM);		
+		addLine(thumb[1][2][0],thumb[1][2][1],palm[0][3][1],palm[0][3][0],Renderer3D.CAR_FRONT);
+		addLine(palm[0][3][1],thumb[1][2][1],thumb[1][1][1],null,Renderer3D.CAR_TOP);
 		
 		PolygonMesh pm=new PolygonMesh(points,polyData);
 		
