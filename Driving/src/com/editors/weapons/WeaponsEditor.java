@@ -41,7 +41,7 @@ import com.editors.weapons.data.Weapon;
 
 public class WeaponsEditor extends CustomEditor implements MenuListener, ActionListener, KeyListener, MouseWheelListener, ItemListener{
 	
-	public static int HEIGHT=700;
+	public static int HEIGHT=800;
 	public static int WIDTH=800;
 	public int RIGHT_BORDER=330;
 	public int BOTTOM_BORDER=100;
@@ -80,6 +80,9 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 	private DoubleTextField forearm_length;
 	private DoubleTextField forearm_width;
 	private DoubleTextField forearm_height;
+	private DoubleTextField magazine_length;
+	private DoubleTextField magazine_width;
+	private DoubleTextField magazine_height;
 
 	
 	private JButton generate;
@@ -92,6 +95,7 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 	
 	Weapon weapon=null;
 	private JComboBox weapon_type;
+
 
 
 	public WeaponsEditor(){
@@ -180,7 +184,7 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_SHOTGUN,"Shotgun"));	
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_DOUBLE_BARREL_SHOTGUN,"Double barrel Shotgun"));
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_REVOLVER,"Revolver"));
-		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_CHAINGUN,"Chaingun"));
+		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_SUBMACHINEGUN,"Submachine gun"));
 		weapon_type.addItemListener(this);
 		
 		weapon_type.setSelectedIndex(0);
@@ -277,6 +281,36 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		breech_height.setBounds(column, r, 100, 20);
 		breech_height.addKeyListener(this);
 		right.add(breech_height);
+		
+		r+=30;
+		
+		jlb=new JLabel("Magazine length");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		magazine_length=new DoubleTextField();
+		magazine_length.setBounds(column, r, 100, 20);
+		magazine_length.addKeyListener(this);
+		right.add(magazine_length);
+		
+		r+=30;
+		
+		jlb=new JLabel("Magazine width");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		magazine_width=new DoubleTextField();
+		magazine_width.setBounds(column, r, 100, 20);
+		magazine_width.addKeyListener(this);
+		right.add(magazine_width);
+		
+		r+=30;
+		
+		jlb=new JLabel("Magazine height");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		magazine_height=new DoubleTextField();
+		magazine_height.setBounds(column, r, 100, 20);
+		magazine_height.addKeyListener(this);
+		right.add(magazine_height);
 		
 		r+=30;
 		
@@ -540,9 +574,13 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		butt_end_width.setText(18);
 		butt_end_height.setText(75);
 		
-		forearm_length.setText(54);
-		forearm_width.setText(42);
-		forearm_height.setText(42);
+		forearm_length.setText(190);
+		forearm_width.setText(10);
+		forearm_height.setText(9);
+		
+		magazine_length.setText(54);
+		magazine_width.setText(42);
+		magazine_height.setText(42);
 		
 		rear_overhang.setText(42);
 	}
@@ -705,6 +743,11 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 			double forearmLength=forearm_length.getvalue();
 			double forearmWidth=forearm_width.getvalue();
 			double forearmHeight=forearm_height.getvalue();
+			
+			double magazineLength=magazine_length.getvalue();
+			double magazineWidth=magazine_width.getvalue();
+			double magazineHeight=magazine_height.getvalue();
+
 	
 			if(weapon==null){
 				
@@ -716,7 +759,8 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 							buttEndLength,buttEndWidth,buttEndHeight,
 							rearOverhang,
 							triggerLength,triggerWidth,triggerHeight,
-							forearmLength,forearmWidth,forearmHeight
+							forearmLength,forearmWidth,forearmHeight,
+							magazineLength,magazineWidth,magazineHeight
 						);
 				
 			}else{
@@ -729,7 +773,8 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 							buttEndLength,buttEndWidth,buttEndHeight,
 							rearOverhang,
 							triggerLength,triggerWidth,triggerHeight,
-							forearmLength,forearmWidth,forearmHeight
+							forearmLength,forearmWidth,forearmHeight,
+							magazineLength,magazineWidth,magazineHeight
 						);
 				
 				weapon=expWeapon;
@@ -983,7 +1028,7 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 				   initRightGunData();
 			   else if(type==Weapon.WEAPON_TYPE_REVOLVER)
 				   initRightRevolverData();
-			   else if(type==Weapon.WEAPON_TYPE_CHAINGUN)
+			   else if(type==Weapon.WEAPON_TYPE_SUBMACHINEGUN)
 				   initRightChaingunData();
 			   else
 				   initRightGunData(); 

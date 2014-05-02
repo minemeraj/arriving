@@ -414,11 +414,13 @@
 	length= 210 mm, barrel length=127 mm.
 	
 	Weapon shotgun measures based on Remington Model 870 American Classic Pump  12 gauge,
-	length 1230 mm, barrel length= 710 mm; 
+	length= 1230 mm, barrel length= 710 mm; 
 	
 	Weapon shotgun measures based on Stoeger Coach Gun Supreme Shotgun  12 gauge,
 	length 927 mm, barrel length= 508 mm; 
 	
+	Weapon submachine gun measures based on Maschinenpistole (MP) 40,
+	length=  833 mm  stock extended,  630 mm stock folded, barrel length=251 mm; 
 	
 	Weapon revolver measures based on Colt Walker 1847, length 395 mm, barrel length= 229 mm; 
     
