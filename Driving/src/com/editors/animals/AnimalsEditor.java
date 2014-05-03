@@ -415,9 +415,9 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		z_side.setText(0);
 	
 		
-		head_DZ.setText(400);
-		head_DX.setText(400);
-		head_DY.setText(400);
+		head_DZ.setText(200);
+		head_DX.setText(200);
+		head_DY.setText(200);
 		
 		neck_length.setText(200);
 		neck_side.setText(400);
