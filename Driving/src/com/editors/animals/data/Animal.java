@@ -1721,6 +1721,35 @@ public class Animal extends CustomData{
 			}
 
 		}
+		
+		//noze
+		
+		int nox=3;
+		int noz=3;
+
+		
+		BPoint[][] noze=new BPoint[nox][noz];
+		
+		noze[0][0]=head[1][2][3];
+		noze[1][0]=addBPoint(0.0,0.537,0.361,n0);
+		noze[2][0]=head[3][2][3];
+		noze[0][1]=head[1][2][4];
+		noze[1][1]=addBPoint(0.0,0.463,0.5,n0);
+		noze[2][1]=head[3][2][4];
+		
+		noze[1][2]=head[2][2][5];
+		
+		//base
+		addLine(noze[0][0],noze[1][0],noze[2][0],null,Renderer3D.CAR_FRONT);
+		//lower		
+		addLine(noze[0][0],noze[0][1],noze[1][1],noze[1][0],Renderer3D.CAR_FRONT);	
+		addLine(noze[1][0],noze[1][1],noze[2][1],noze[2][0],Renderer3D.CAR_FRONT);	
+		//upper
+		addLine(noze[0][1],noze[1][2],noze[1][1],null,Renderer3D.CAR_FRONT);
+		addLine(noze[1][1],noze[1][2],noze[2][1],null,Renderer3D.CAR_FRONT);
+		
+		//////////
+		
 		/* 
 		//previous schema:
 		
