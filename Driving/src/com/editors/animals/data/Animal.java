@@ -1614,9 +1614,9 @@ public class Animal extends CustomData{
 		head[0][1][4]=addBPoint(-0.5,0.0,0.471,n0);
 		head[4][1][4]=addBPoint(0.5,0.0,0.471,n0);
 		head[0][2][4]=addBPoint(-0.5,0.28,0.471,n0);
-		head[1][2][4]=addBPoint(-0.114,0.361,0.471,n0);
+		head[1][2][4]=addBPoint(-0.06,0.361,0.471,n0);
 		head[2][2][4]=addBPoint(0.0,0.373,0.471,n0);
-		head[3][2][4]=addBPoint(0.114,0.361,0.471,n0);
+		head[3][2][4]=addBPoint(0.06,0.361,0.471,n0);
 		head[4][2][4]=addBPoint(0.5,0.28,0.471,n0);
 		
 		head[0][0][5]=addBPoint(-0.5,-0.375,0.625,n0);
