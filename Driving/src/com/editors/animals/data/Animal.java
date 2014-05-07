@@ -1544,185 +1544,284 @@ public class Animal extends CustomData{
 		Segments h0=new Segments(xc,head_DX,yc,head_DY,0,head_DZ);
 		
 
-		int numx=5;
+		int numx=9;
 		int numy=5;
 		int numz=9;
 		
 		BPoint[][][] head=new BPoint[numx][numy][numz];
 		
+		
+
 		head[0][0][0]=addBPoint(-0.02,-0.358,0.0,n0);
-		head[1][0][0]=addBPoint(-0.01,-0.358,0.0,n0);
-		head[2][0][0]=addBPoint(0.0,-0.358,0.0,n0);
-		head[3][0][0]=addBPoint(0.01,-0.358,0.0,n0);
-		head[4][0][0]=addBPoint(0.02,-0.358,0.0,n0);
+		head[1][0][0]=addBPoint(-0.015,-0.358,0.0,n0);
+		head[2][0][0]=addBPoint(-0.01,-0.358,0.0,n0);
+		head[3][0][0]=addBPoint(-0.005,-0.358,0.0,n0);
+		head[4][0][0]=addBPoint(0.0,-0.358,0.0,n0);
+		head[5][0][0]=addBPoint(0.005,-0.358,0.0,n0);
+		head[6][0][0]=addBPoint(0.01,-0.358,0.0,n0);
+		head[7][0][0]=addBPoint(0.015,-0.358,0.0,n0);
+		head[8][0][0]=addBPoint(0.02,-0.358,0.0,n0);
 		head[0][1][0]=addBPoint(-0.02,-0.179,0.0,n0);
-		head[1][1][0]=addBPoint(-0.01,-0.179,0.0,n0);
-		head[2][1][0]=addBPoint(0.0,-0.179,0.0,n0);
-		head[3][1][0]=addBPoint(0.01,-0.179,0.0,n0);
-		head[4][1][0]=addBPoint(0.02,-0.179,0.0,n0);
+		head[1][1][0]=addBPoint(-0.015,-0.179,0.0,n0);
+		head[2][1][0]=addBPoint(-0.01,-0.179,0.0,n0);
+		head[3][1][0]=addBPoint(-0.005,-0.179,0.0,n0);
+		head[4][1][0]=addBPoint(0.0,-0.179,0.0,n0);
+		head[5][1][0]=addBPoint(0.005,-0.179,0.0,n0);
+		head[6][1][0]=addBPoint(0.01,-0.179,0.0,n0);
+		head[7][1][0]=addBPoint(0.015,-0.179,0.0,n0);
+		head[8][1][0]=addBPoint(0.02,-0.179,0.0,n0);
 		head[0][2][0]=addBPoint(-0.02,0.0,0.0,n0);
-		head[1][2][0]=addBPoint(-0.01,0.0,0.0,n0);
-		head[2][2][0]=addBPoint(0.0,0.0,0.0,n0);
-		head[3][2][0]=addBPoint(0.01,0.0,0.0,n0);
-		head[4][2][0]=addBPoint(0.02,0.0,0.0,n0);
+		head[1][2][0]=addBPoint(-0.015,0.0,0.0,n0);
+		head[2][2][0]=addBPoint(-0.01,0.0,0.0,n0);
+		head[3][2][0]=addBPoint(-0.005,0.0,0.0,n0);
+		head[4][2][0]=addBPoint(0.0,0.0,0.0,n0);
+		head[5][2][0]=addBPoint(0.005,0.0,0.0,n0);
+		head[6][2][0]=addBPoint(0.01,0.0,0.0,n0);
+		head[7][2][0]=addBPoint(0.015,0.0,0.0,n0);
+		head[8][2][0]=addBPoint(0.02,0.0,0.0,n0);
 		head[0][3][0]=addBPoint(-0.02,0.209,0.0,n0);
-		head[1][3][0]=addBPoint(-0.01,0.209,0.0,n0);
-		head[2][3][0]=addBPoint(0.0,0.209,0.0,n0);
-		head[3][3][0]=addBPoint(0.01,0.209,0.0,n0);
-		head[4][3][0]=addBPoint(0.02,0.209,0.0,n0);
+		head[1][3][0]=addBPoint(-0.015,0.209,0.0,n0);
+		head[2][3][0]=addBPoint(-0.01,0.209,0.0,n0);
+		head[3][3][0]=addBPoint(-0.005,0.209,0.0,n0);
+		head[4][3][0]=addBPoint(0.0,0.209,0.0,n0);
+		head[5][3][0]=addBPoint(0.005,0.209,0.0,n0);
+		head[6][3][0]=addBPoint(0.01,0.209,0.0,n0);
+		head[7][3][0]=addBPoint(0.015,0.209,0.0,n0);
+		head[8][3][0]=addBPoint(0.02,0.209,0.0,n0);
 		head[0][4][0]=addBPoint(-0.02,0.418,0.0,n0);
-		head[1][4][0]=addBPoint(-0.01,0.418,0.0,n0);
-		head[2][4][0]=addBPoint(0.0,0.418,0.0,n0);
-		head[3][4][0]=addBPoint(0.01,0.418,0.0,n0);
-		head[4][4][0]=addBPoint(0.02,0.418,0.0,n0);
+		head[1][4][0]=addBPoint(-0.015,0.418,0.0,n0);
+		head[2][4][0]=addBPoint(-0.01,0.418,0.0,n0);
+		head[3][4][0]=addBPoint(-0.005,0.418,0.0,n0);
+		head[4][4][0]=addBPoint(0.0,0.418,0.0,n0);
+		head[5][4][0]=addBPoint(0.005,0.418,0.0,n0);
+		head[6][4][0]=addBPoint(0.01,0.418,0.0,n0);
+		head[7][4][0]=addBPoint(0.015,0.418,0.0,n0);
+		head[8][4][0]=addBPoint(0.02,0.418,0.0,n0);
 
 		head[0][0][1]=addBPoint(-0.153,-0.347,0.022,n0);
-		head[1][0][1]=addBPoint(-0.077,-0.35,0.022,n0);
-		head[2][0][1]=addBPoint(0.0,-0.351,0.022,n0);
-		head[3][0][1]=addBPoint(0.077,-0.35,0.022,n0);
-		head[4][0][1]=addBPoint(0.153,-0.347,0.022,n0);
+		head[1][0][1]=addBPoint(-0.115,-0.348,0.022,n0);
+		head[2][0][1]=addBPoint(-0.077,-0.35,0.022,n0);
+		head[3][0][1]=addBPoint(-0.038,-0.35,0.022,n0);
+		head[4][0][1]=addBPoint(0.0,-0.351,0.022,n0);
+		head[5][0][1]=addBPoint(0.039,-0.35,0.022,n0);
+		head[6][0][1]=addBPoint(0.077,-0.35,0.022,n0);
+		head[7][0][1]=addBPoint(0.115,-0.348,0.022,n0);
+		head[8][0][1]=addBPoint(0.153,-0.347,0.022,n0);
 		head[0][1][1]=addBPoint(-0.153,-0.173,0.022,n0);
-		head[4][1][1]=addBPoint(0.153,-0.173,0.022,n0);
+		head[8][1][1]=addBPoint(0.153,-0.173,0.022,n0);
 		head[0][2][1]=addBPoint(-0.153,0.0,0.022,n0);
-		head[4][2][1]=addBPoint(0.153,0.0,0.022,n0);
+		head[8][2][1]=addBPoint(0.153,0.0,0.022,n0);
 		head[0][3][1]=addBPoint(-0.153,0.225,0.022,n0);
-		head[4][3][1]=addBPoint(0.153,0.225,0.022,n0);
+		head[8][3][1]=addBPoint(0.153,0.225,0.022,n0);
 		head[0][4][1]=addBPoint(-0.153,0.45,0.022,n0);
-		head[1][4][1]=addBPoint(-0.077,0.454,0.022,n0);
-		head[2][4][1]=addBPoint(0.0,0.455,0.022,n0);
-		head[3][4][1]=addBPoint(0.077,0.454,0.022,n0);
-		head[4][4][1]=addBPoint(0.153,0.45,0.022,n0);
+		head[1][4][1]=addBPoint(-0.115,0.452,0.022,n0);
+		head[2][4][1]=addBPoint(-0.077,0.454,0.022,n0);
+		head[3][4][1]=addBPoint(-0.038,0.455,0.022,n0);
+		head[4][4][1]=addBPoint(0.0,0.455,0.022,n0);
+		head[5][4][1]=addBPoint(0.039,0.455,0.022,n0);
+		head[6][4][1]=addBPoint(0.077,0.454,0.022,n0);
+		head[7][4][1]=addBPoint(0.115,0.452,0.022,n0);
+		head[8][4][1]=addBPoint(0.153,0.45,0.022,n0);
 
 		head[0][0][2]=addBPoint(-0.337,-0.307,0.11,n0);
-		head[1][0][2]=addBPoint(-0.169,-0.323,0.11,n0);
-		head[2][0][2]=addBPoint(0.0,-0.328,0.11,n0);
-		head[3][0][2]=addBPoint(0.169,-0.323,0.11,n0);
-		head[4][0][2]=addBPoint(0.337,-0.307,0.11,n0);
+		head[1][0][2]=addBPoint(-0.253,-0.315,0.11,n0);
+		head[2][0][2]=addBPoint(-0.169,-0.323,0.11,n0);
+		head[3][0][2]=addBPoint(-0.084,-0.326,0.11,n0);
+		head[4][0][2]=addBPoint(0.0,-0.328,0.11,n0);
+		head[5][0][2]=addBPoint(0.085,-0.326,0.11,n0);
+		head[6][0][2]=addBPoint(0.169,-0.323,0.11,n0);
+		head[7][0][2]=addBPoint(0.253,-0.315,0.11,n0);
+		head[8][0][2]=addBPoint(0.337,-0.307,0.11,n0);
 		head[0][1][2]=addBPoint(-0.337,-0.153,0.11,n0);
-		head[4][1][2]=addBPoint(0.337,-0.153,0.11,n0);
+		head[8][1][2]=addBPoint(0.337,-0.153,0.11,n0);
 		head[0][2][2]=addBPoint(-0.337,0.0,0.11,n0);
-		head[4][2][2]=addBPoint(0.337,0.0,0.11,n0);
+		head[8][2][2]=addBPoint(0.337,0.0,0.11,n0);
 		head[0][3][2]=addBPoint(-0.337,0.213,0.11,n0);
-		head[4][3][2]=addBPoint(0.337,0.213,0.11,n0);
+		head[8][3][2]=addBPoint(0.337,0.213,0.11,n0);
 		head[0][4][2]=addBPoint(-0.337,0.425,0.11,n0);
-		head[1][4][2]=addBPoint(-0.169,0.448,0.11,n0);
-		head[2][4][2]=addBPoint(0.0,0.455,0.11,n0);
-		head[3][4][2]=addBPoint(0.169,0.448,0.11,n0);
-		head[4][4][2]=addBPoint(0.337,0.425,0.11,n0);
+		head[1][4][2]=addBPoint(-0.253,0.437,0.11,n0);
+		head[2][4][2]=addBPoint(-0.169,0.448,0.11,n0);
+		head[3][4][2]=addBPoint(-0.084,0.452,0.11,n0);
+		head[4][4][2]=addBPoint(0.0,0.455,0.11,n0);
+		head[5][4][2]=addBPoint(0.085,0.452,0.11,n0);
+		head[6][4][2]=addBPoint(0.169,0.448,0.11,n0);
+		head[7][4][2]=addBPoint(0.253,0.437,0.11,n0);
+		head[8][4][2]=addBPoint(0.337,0.425,0.11,n0);
 
 		head[0][0][3]=addBPoint(-0.462,-0.309,0.287,n0);
-		head[1][0][3]=addBPoint(-0.231,-0.356,0.287,n0);
-		head[2][0][3]=addBPoint(0.0,-0.366,0.287,n0);
-		head[3][0][3]=addBPoint(0.231,-0.356,0.287,n0);
-		head[4][0][3]=addBPoint(0.462,-0.309,0.287,n0);
+		head[1][0][3]=addBPoint(-0.347,-0.332,0.287,n0);
+		head[2][0][3]=addBPoint(-0.231,-0.356,0.287,n0);
+		head[3][0][3]=addBPoint(-0.115,-0.361,0.287,n0);
+		head[4][0][3]=addBPoint(0.0,-0.366,0.287,n0);
+		head[5][0][3]=addBPoint(0.116,-0.361,0.287,n0);
+		head[6][0][3]=addBPoint(0.231,-0.356,0.287,n0);
+		head[7][0][3]=addBPoint(0.347,-0.332,0.287,n0);
+		head[8][0][3]=addBPoint(0.462,-0.309,0.287,n0);
 		head[0][1][3]=addBPoint(-0.462,-0.154,0.287,n0);
-		head[4][1][3]=addBPoint(0.462,-0.154,0.287,n0);
+		head[8][1][3]=addBPoint(0.462,-0.154,0.287,n0);
 		head[0][2][3]=addBPoint(-0.462,0.0,0.287,n0);
-		head[4][2][3]=addBPoint(0.462,0.0,0.287,n0);
+		head[8][2][3]=addBPoint(0.462,0.0,0.287,n0);
 		head[0][3][3]=addBPoint(-0.462,0.212,0.287,n0);
-		head[4][3][3]=addBPoint(0.462,0.212,0.287,n0);
+		head[8][3][3]=addBPoint(0.462,0.212,0.287,n0);
 		head[0][4][3]=addBPoint(-0.462,0.423,0.287,n0);
-		head[1][4][3]=addBPoint(-0.114,0.486,0.287,n0);
-		head[2][4][3]=addBPoint(0.0,0.5,0.287,n0);
-		head[3][4][3]=addBPoint(0.114,0.486,0.287,n0);
-		head[4][4][3]=addBPoint(0.462,0.423,0.287,n0);
+		head[1][4][3]=addBPoint(-0.288,0.455,0.287,n0);
+		head[2][4][3]=addBPoint(-0.114,0.486,0.287,n0);
+		head[3][4][3]=addBPoint(-0.057,0.493,0.287,n0);
+		head[4][4][3]=addBPoint(0.0,0.5,0.287,n0);
+		head[5][4][3]=addBPoint(0.057,0.493,0.287,n0);
+		head[6][4][3]=addBPoint(0.114,0.486,0.287,n0);
+		head[7][4][3]=addBPoint(0.288,0.455,0.287,n0);
+		head[8][4][3]=addBPoint(0.462,0.423,0.287,n0);
 
 		head[0][0][4]=addBPoint(-0.5,-0.352,0.471,n0);
-		head[1][0][4]=addBPoint(-0.25,-0.454,0.471,n0);
-		head[2][0][4]=addBPoint(0.0,-0.47,0.471,n0);
-		head[3][0][4]=addBPoint(0.25,-0.454,0.471,n0);
-		head[4][0][4]=addBPoint(0.5,-0.352,0.471,n0);
+		head[1][0][4]=addBPoint(-0.375,-0.403,0.471,n0);
+		head[2][0][4]=addBPoint(-0.25,-0.454,0.471,n0);
+		head[3][0][4]=addBPoint(-0.125,-0.462,0.471,n0);
+		head[4][0][4]=addBPoint(0.0,-0.47,0.471,n0);
+		head[5][0][4]=addBPoint(0.125,-0.462,0.471,n0);
+		head[6][0][4]=addBPoint(0.25,-0.454,0.471,n0);
+		head[7][0][4]=addBPoint(0.375,-0.403,0.471,n0);
+		head[8][0][4]=addBPoint(0.5,-0.352,0.471,n0);
 		head[0][1][4]=addBPoint(-0.5,-0.176,0.471,n0);
-		head[4][1][4]=addBPoint(0.5,-0.176,0.471,n0);
+		head[8][1][4]=addBPoint(0.5,-0.176,0.471,n0);
 		head[0][2][4]=addBPoint(-0.5,0.0,0.471,n0);
-		head[4][2][4]=addBPoint(0.5,0.0,0.471,n0);
+		head[8][2][4]=addBPoint(0.5,0.0,0.471,n0);
 		head[0][3][4]=addBPoint(-0.5,0.14,0.471,n0);
-		head[4][3][4]=addBPoint(0.5,0.14,0.471,n0);
+		head[8][3][4]=addBPoint(0.5,0.14,0.471,n0);
 		head[0][4][4]=addBPoint(-0.5,0.28,0.471,n0);
-		head[1][4][4]=addBPoint(-0.06,0.361,0.471,n0);
-		head[2][4][4]=addBPoint(0.0,0.373,0.471,n0);
-		head[3][4][4]=addBPoint(0.06,0.361,0.471,n0);
-		head[4][4][4]=addBPoint(0.5,0.28,0.471,n0);
+		head[1][4][4]=addBPoint(-0.28,0.321,0.471,n0);
+		head[2][4][4]=addBPoint(-0.06,0.361,0.471,n0);
+		head[3][4][4]=addBPoint(-0.03,0.367,0.471,n0);
+		head[4][4][4]=addBPoint(0.0,0.373,0.471,n0);
+		head[5][4][4]=addBPoint(0.03,0.367,0.471,n0);
+		head[6][4][4]=addBPoint(0.06,0.361,0.471,n0);
+		head[7][4][4]=addBPoint(0.28,0.321,0.471,n0);
+		head[8][4][4]=addBPoint(0.5,0.28,0.471,n0);
 
 		head[0][0][5]=addBPoint(-0.5,-0.375,0.625,n0);
-		head[1][0][5]=addBPoint(-0.25,-0.483,0.625,n0);
-		head[2][0][5]=addBPoint(0.0,-0.5,0.625,n0);
-		head[3][0][5]=addBPoint(0.25,-0.483,0.625,n0);
-		head[4][0][5]=addBPoint(0.5,-0.375,0.625,n0);
+		head[1][0][5]=addBPoint(-0.375,-0.429,0.625,n0);
+		head[2][0][5]=addBPoint(-0.25,-0.483,0.625,n0);
+		head[3][0][5]=addBPoint(-0.125,-0.491,0.625,n0);
+		head[4][0][5]=addBPoint(0.0,-0.5,0.625,n0);
+		head[5][0][5]=addBPoint(0.125,-0.491,0.625,n0);
+		head[6][0][5]=addBPoint(0.25,-0.483,0.625,n0);
+		head[7][0][5]=addBPoint(0.375,-0.429,0.625,n0);
+		head[8][0][5]=addBPoint(0.5,-0.375,0.625,n0);
 		head[0][1][5]=addBPoint(-0.5,-0.187,0.625,n0);
-		head[4][1][5]=addBPoint(0.5,-0.187,0.625,n0);
+		head[8][1][5]=addBPoint(0.5,-0.187,0.625,n0);
 		head[0][2][5]=addBPoint(-0.5,0.0,0.625,n0);
-		head[4][2][5]=addBPoint(0.5,0.0,0.625,n0);
+		head[8][2][5]=addBPoint(0.5,0.0,0.625,n0);
 		head[0][3][5]=addBPoint(-0.5,0.168,0.625,n0);
-		head[4][3][5]=addBPoint(0.5,0.168,0.625,n0);
+		head[8][3][5]=addBPoint(0.5,0.168,0.625,n0);
 		head[0][4][5]=addBPoint(-0.5,0.336,0.551,n0);
-		head[1][4][5]=addBPoint(-0.25,0.433,0.625,n0);
-		head[2][4][5]=addBPoint(0.0,0.448,0.625,n0);
-		head[3][4][5]=addBPoint(0.25,0.433,0.625,n0);
-		head[4][4][5]=addBPoint(0.5,0.336,0.551,n0);
+		head[1][4][5]=addBPoint(-0.375,0.385,0.588,n0);
+		head[2][4][5]=addBPoint(-0.25,0.433,0.625,n0);
+		head[3][4][5]=addBPoint(-0.125,0.44,0.625,n0);
+		head[4][4][5]=addBPoint(0.0,0.448,0.625,n0);
+		head[5][4][5]=addBPoint(0.125,0.44,0.625,n0);
+		head[6][4][5]=addBPoint(0.25,0.433,0.625,n0);
+		head[7][4][5]=addBPoint(0.375,0.385,0.588,n0);
+		head[8][4][5]=addBPoint(0.5,0.336,0.551,n0);
 
 		head[0][0][6]=addBPoint(-0.462,-0.392,0.779,n0);
-		head[1][0][6]=addBPoint(-0.231,-0.45,0.779,n0);
-		head[2][0][6]=addBPoint(0.0,-0.463,0.779,n0);
-		head[3][0][6]=addBPoint(0.231,-0.45,0.779,n0);
-		head[4][0][6]=addBPoint(0.462,-0.392,0.779,n0);
+		head[1][0][6]=addBPoint(-0.347,-0.421,0.779,n0);
+		head[2][0][6]=addBPoint(-0.231,-0.45,0.779,n0);
+		head[3][0][6]=addBPoint(-0.115,-0.457,0.779,n0);
+		head[4][0][6]=addBPoint(0.0,-0.463,0.779,n0);
+		head[5][0][6]=addBPoint(0.116,-0.457,0.779,n0);
+		head[6][0][6]=addBPoint(0.231,-0.45,0.779,n0);
+		head[7][0][6]=addBPoint(0.347,-0.421,0.779,n0);
+		head[8][0][6]=addBPoint(0.462,-0.392,0.779,n0);
 		head[0][1][6]=addBPoint(-0.462,-0.196,0.779,n0);
-		head[4][1][6]=addBPoint(0.462,-0.196,0.779,n0);
+		head[8][1][6]=addBPoint(0.462,-0.196,0.779,n0);
 		head[0][2][6]=addBPoint(-0.462,0.0,0.779,n0);
-		head[4][2][6]=addBPoint(0.462,0.0,0.779,n0);
+		head[8][2][6]=addBPoint(0.462,0.0,0.779,n0);
 		head[0][3][6]=addBPoint(-0.462,0.168,0.779,n0);
-		head[4][3][6]=addBPoint(0.462,0.168,0.779,n0);
+		head[8][3][6]=addBPoint(0.462,0.168,0.779,n0);
 		head[0][4][6]=addBPoint(-0.462,0.335,0.779,n0);
-		head[1][4][6]=addBPoint(-0.231,0.385,0.779,n0);
-		head[2][4][6]=addBPoint(0.0,0.396,0.779,n0);
-		head[3][4][6]=addBPoint(0.231,0.385,0.779,n0);
-		head[4][4][6]=addBPoint(0.462,0.335,0.779,n0);
+		head[1][4][6]=addBPoint(-0.347,0.36,0.779,n0);
+		head[2][4][6]=addBPoint(-0.231,0.385,0.779,n0);
+		head[3][4][6]=addBPoint(-0.115,0.39,0.779,n0);
+		head[4][4][6]=addBPoint(0.0,0.396,0.779,n0);
+		head[5][4][6]=addBPoint(0.116,0.39,0.779,n0);
+		head[6][4][6]=addBPoint(0.231,0.385,0.779,n0);
+		head[7][4][6]=addBPoint(0.347,0.36,0.779,n0);
+		head[8][4][6]=addBPoint(0.462,0.335,0.779,n0);
 
 		head[0][0][7]=addBPoint(-0.277,-0.264,0.956,n0);
-		head[1][0][7]=addBPoint(-0.139,-0.273,0.956,n0);
-		head[2][0][7]=addBPoint(0.0,-0.276,0.956,n0);
-		head[3][0][7]=addBPoint(0.139,-0.273,0.956,n0);
-		head[4][0][7]=addBPoint(0.277,-0.264,0.956,n0);
+		head[1][0][7]=addBPoint(-0.208,-0.268,0.956,n0);
+		head[2][0][7]=addBPoint(-0.139,-0.273,0.956,n0);
+		head[3][0][7]=addBPoint(-0.069,-0.274,0.956,n0);
+		head[4][0][7]=addBPoint(0.0,-0.276,0.956,n0);
+		head[5][0][7]=addBPoint(0.07,-0.274,0.956,n0);
+		head[6][0][7]=addBPoint(0.139,-0.273,0.956,n0);
+		head[7][0][7]=addBPoint(0.208,-0.268,0.956,n0);
+		head[8][0][7]=addBPoint(0.277,-0.264,0.956,n0);
 		head[0][1][7]=addBPoint(-0.277,-0.132,0.956,n0);
-		head[4][1][7]=addBPoint(0.277,-0.132,0.956,n0);
+		head[8][1][7]=addBPoint(0.277,-0.132,0.956,n0);
 		head[0][2][7]=addBPoint(-0.277,0.0,0.956,n0);
-		head[4][2][7]=addBPoint(0.277,0.0,0.956,n0);
+		head[8][2][7]=addBPoint(0.277,0.0,0.956,n0);
 		head[0][3][7]=addBPoint(-0.277,0.1,0.956,n0);
-		head[4][3][7]=addBPoint(0.277,0.1,0.956,n0);
+		head[8][3][7]=addBPoint(0.277,0.1,0.956,n0);
 		head[0][4][7]=addBPoint(-0.277,0.2,0.956,n0);
-		head[1][4][7]=addBPoint(-0.139,0.207,0.956,n0);
-		head[2][4][7]=addBPoint(0.0,0.209,0.956,n0);
-		head[3][4][7]=addBPoint(0.139,0.207,0.956,n0);
-		head[4][4][7]=addBPoint(0.277,0.2,0.956,n0);
+		head[1][4][7]=addBPoint(-0.208,0.204,0.956,n0);
+		head[2][4][7]=addBPoint(-0.139,0.207,0.956,n0);
+		head[3][4][7]=addBPoint(-0.069,0.208,0.956,n0);
+		head[4][4][7]=addBPoint(0.0,0.209,0.956,n0);
+		head[5][4][7]=addBPoint(0.07,0.208,0.956,n0);
+		head[6][4][7]=addBPoint(0.139,0.207,0.956,n0);
+		head[7][4][7]=addBPoint(0.208,0.204,0.956,n0);
+		head[8][4][7]=addBPoint(0.277,0.2,0.956,n0);
 
 		head[0][0][8]=addBPoint(-0.141,-0.147,0.993,n0);
-		head[1][0][8]=addBPoint(-0.071,-0.149,0.993,n0);
-		head[2][0][8]=addBPoint(0.0,-0.149,0.993,n0);
-		head[3][0][8]=addBPoint(0.071,-0.149,0.993,n0);
-		head[4][0][8]=addBPoint(0.141,-0.147,0.993,n0);
+		head[1][0][8]=addBPoint(-0.106,-0.148,0.993,n0);
+		head[2][0][8]=addBPoint(-0.071,-0.149,0.993,n0);
+		head[3][0][8]=addBPoint(-0.035,-0.149,0.993,n0);
+		head[4][0][8]=addBPoint(0.0,-0.149,0.993,n0);
+		head[5][0][8]=addBPoint(0.036,-0.149,0.993,n0);
+		head[6][0][8]=addBPoint(0.071,-0.149,0.993,n0);
+		head[7][0][8]=addBPoint(0.106,-0.148,0.993,n0);
+		head[8][0][8]=addBPoint(0.141,-0.147,0.993,n0);
 		head[0][1][8]=addBPoint(-0.141,-0.073,1.0,n0);
-		head[1][1][8]=addBPoint(-0.071,-0.074,1.0,n0);
-		head[2][1][8]=addBPoint(0.0,-0.074,1.0,n0);
-		head[3][1][8]=addBPoint(0.071,-0.074,1.0,n0);
-		head[4][1][8]=addBPoint(0.141,-0.073,1.0,n0);
+		head[1][1][8]=addBPoint(-0.106,-0.073,1.0,n0);
+		head[2][1][8]=addBPoint(-0.071,-0.074,1.0,n0);
+		head[3][1][8]=addBPoint(-0.035,-0.074,1.0,n0);
+		head[4][1][8]=addBPoint(0.0,-0.074,1.0,n0);
+		head[5][1][8]=addBPoint(0.036,-0.074,1.0,n0);
+		head[6][1][8]=addBPoint(0.071,-0.074,1.0,n0);
+		head[7][1][8]=addBPoint(0.106,-0.073,1.0,n0);
+		head[8][1][8]=addBPoint(0.141,-0.073,1.0,n0);
 		head[0][2][8]=addBPoint(-0.141,0.0,1.0,n0);
-		head[1][2][8]=addBPoint(-0.071,0.0,1.0,n0);
-		head[2][2][8]=addBPoint(0.0,0.0,1.0,n0);
-		head[3][2][8]=addBPoint(0.071,0.0,1.0,n0);
-		head[4][2][8]=addBPoint(0.141,0.0,1.0,n0);
+		head[1][2][8]=addBPoint(-0.106,0.0,1.0,n0);
+		head[2][2][8]=addBPoint(-0.071,0.0,1.0,n0);
+		head[3][2][8]=addBPoint(-0.035,0.0,1.0,n0);
+		head[4][2][8]=addBPoint(0.0,0.0,1.0,n0);
+		head[5][2][8]=addBPoint(0.036,0.0,1.0,n0);
+		head[6][2][8]=addBPoint(0.071,0.0,1.0,n0);
+		head[7][2][8]=addBPoint(0.106,0.0,1.0,n0);
+		head[8][2][8]=addBPoint(0.141,0.0,1.0,n0);
 		head[0][3][8]=addBPoint(-0.141,0.056,1.0,n0);
-		head[1][3][8]=addBPoint(-0.071,0.056,1.0,n0);
-		head[2][3][8]=addBPoint(0.0,0.056,1.0,n0);
-		head[3][3][8]=addBPoint(0.071,0.056,1.0,n0);
-		head[4][3][8]=addBPoint(0.141,0.056,1.0,n0);
+		head[1][3][8]=addBPoint(-0.106,0.056,1.0,n0);
+		head[2][3][8]=addBPoint(-0.071,0.056,1.0,n0);
+		head[3][3][8]=addBPoint(-0.035,0.056,1.0,n0);
+		head[4][3][8]=addBPoint(0.0,0.056,1.0,n0);
+		head[5][3][8]=addBPoint(0.036,0.056,1.0,n0);
+		head[6][3][8]=addBPoint(0.071,0.056,1.0,n0);
+		head[7][3][8]=addBPoint(0.106,0.056,1.0,n0);
+		head[8][3][8]=addBPoint(0.141,0.056,1.0,n0);
 		head[0][4][8]=addBPoint(-0.141,0.111,0.993,n0);
-		head[1][4][8]=addBPoint(-0.071,0.112,0.993,n0);
-		head[2][4][8]=addBPoint(0.0,0.112,0.993,n0);
-		head[3][4][8]=addBPoint(0.071,0.112,0.993,n0);
-		head[4][4][8]=addBPoint(0.141,0.111,0.993,n0);
+		head[1][4][8]=addBPoint(-0.106,0.112,0.993,n0);
+		head[2][4][8]=addBPoint(-0.071,0.112,0.993,n0);
+		head[3][4][8]=addBPoint(-0.035,0.112,0.993,n0);
+		head[4][4][8]=addBPoint(0.0,0.112,0.993,n0);
+		head[5][4][8]=addBPoint(0.036,0.112,0.993,n0);
+		head[6][4][8]=addBPoint(0.071,0.112,0.993,n0);
+		head[7][4][8]=addBPoint(0.106,0.112,0.993,n0);
+		head[8][4][8]=addBPoint(0.141,0.111,0.993,n0);
+
+/*
+
 		
-			
-		/*
 		
 			//////////
 		
@@ -1731,51 +1830,35 @@ public class Animal extends CustomData{
 			for (int j = 0; j < numy; j++) {
 
 
-				int indexY=j;
-				if(j==1)
-					indexY=2;
-				else if(j==2)
-					indexY=4;
-
-				if(j==1){
-
-					for (int i = 0; i < numx; i++) {
-
-
-						if(head[i][j][k]!=null) {
-
-							double x=head[i][j][k].x;
-							double y=head[i][j][k].y;
-							double z=head[i][j][k].z;
-
-							double y1=(head[i][j-1][k].y+head[i][j][k].y)*0.5;
-
-							System.out.println("head["+i+"]["+(indexY-1)+"]["+k+"]=" +
-									"addBPoint("
-											+Math.round(x/head_DX*1000)/1000.0+","
-													+Math.round(y1/head_DY*1000)/1000.0+","
-															+Math.round(z/head_DZ*1000)/1000.0+",n0);");
-						}
-
-					}
-				}
-
+	
 				for (int i = 0; i < numx; i++) {
-
-
+					
+					
+			
 					if(head[i][j][k]!=null) {
-
+						
+						int xIndex=i*2;
+								
 						double x=head[i][j][k].x;
 						double y=head[i][j][k].y;
 						double z=head[i][j][k].z;
+						
+						if(i>0 && head[i-1][j][k]!=null){ 
+							
+							double xx=(head[i-1][j][k].x+head[i][j][k].x)*0.5;
+							double yy=(head[i-1][j][k].y+head[i][j][k].y)*0.5;
+							
+							System.out.println("head["+(xIndex-1)+"]["+j+"]["+k+"]=" +
+									"addBPoint("
+											+Math.round(xx/head_DX*1000)/1000.0+","
+											+Math.round(yy/head_DY*1000)/1000.0+","
+											+Math.round(z/head_DZ*1000)/1000.0+",n0);");
+				
+							
+							
+						}
 
-
-
-
-
-
-
-						System.out.println("head["+i+"]["+indexY+"]["+k+"]=" +
+						System.out.println("head["+xIndex+"]["+j+"]["+k+"]=" +
 								"addBPoint("
 										+Math.round(x/head_DX*1000)/1000.0+","
 										+Math.round(y/head_DY*1000)/1000.0+","
@@ -1785,37 +1868,13 @@ public class Animal extends CustomData{
 					}
 				}
 
-				if(j==1){
-
-					for (int i = 0; i < numx; i++) {
-
-
-						if(head[i][j][k]!=null) {
-
-							double x=head[i][j][k].x;
-							double y=head[i][j][k].y;
-							double z=head[i][j][k].z;
-
-							double y2=(head[i][j][k].y+head[i][j+1][k].y)*0.5;
-
-							System.out.println("head["+i+"]["+(indexY+1)+"]["+k+"]=" +
-									"addBPoint("
-											+Math.round(x/head_DX*1000)/1000.0+","
-													+Math.round(y2/head_DY*1000)/1000.0+","
-													+Math.round(z/head_DZ*1000)/1000.0+",n0);");
-
-						}
-					}
-
-				}
-
+				
 
 			}
 			System.out.println();
-		}*/
+		}
 
-
-		
+*/
 
 		
 		for (int i = 0; i < numx-1; i++) {
@@ -1870,14 +1929,14 @@ public class Animal extends CustomData{
 		
 		BPoint[][] noze=new BPoint[nox][noz];
 		
-		noze[0][0]=head[1][4][3];
+		noze[0][0]=head[2][4][3];
 		noze[1][0]=addBPoint(0.0,0.537,0.361,n0);
-		noze[2][0]=head[3][4][3];
-		noze[0][1]=head[1][4][4];
+		noze[2][0]=head[6][4][3];
+		noze[0][1]=head[2][4][4];
 		noze[1][1]=addBPoint(0.0,0.463,0.5,n0);
-		noze[2][1]=head[3][4][4];
+		noze[2][1]=head[6][4][4];
 		
-		noze[1][2]=head[2][4][5];
+		noze[1][2]=head[4][4][5];
 		
 		//base
 		addLine(noze[0][0],noze[1][0],noze[2][0],null,Renderer3D.CAR_FRONT);
@@ -1887,12 +1946,7 @@ public class Animal extends CustomData{
 		//upper
 		addLine(noze[0][1],noze[1][2],noze[1][1],null,Renderer3D.CAR_FRONT);
 		addLine(noze[1][1],noze[1][2],noze[2][1],null,Renderer3D.CAR_FRONT);
-		
-	
 
-
-
-			
 		PolygonMesh pm=new PolygonMesh(points,polyData);
 
 		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
