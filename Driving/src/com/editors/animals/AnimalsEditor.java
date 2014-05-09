@@ -78,6 +78,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	private DoubleTextField shinbone_length;
 	private DoubleTextField foot_length;
 	
+	private DoubleTextField hand_length;
 	private DoubleTextField leg_side;
 	
 	private JButton generate;
@@ -91,6 +92,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	Animal animal=null;
 	private JMenu jm_filter;
 	private JCheckBoxMenuItem[] jm_filters;
+	
 	
 	public AnimalsEditor(){
 		
@@ -287,6 +289,15 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		
 		r+=30;
 		
+		jlb=new JLabel("Hand length");
+		jlb.setBounds(5, r, 100, 20);
+		hand_length=new DoubleTextField(); 
+		hand_length.setBounds(column, r, 100, 20);
+		hand_length.addKeyListener(this);
+		right.add(hand_length);
+		
+		r+=30;
+		
 		jlb=new JLabel("Femur length");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
@@ -404,7 +415,8 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		
 		humerus_length.setText(100);
 		radius_length.setText(50);
-				
+		hand_length.setText(30);
+		
 		foot_length.setText(30);
 	}
 	
@@ -670,6 +682,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 			double shinboneLength=shinbone_length.getvalue();
 			double legSide=leg_side.getvalue();
 			
+			double handLength=hand_length.getvalue();
 			double footLength=foot_length.getvalue();
 			
 			 ValuePair vp= (ValuePair)animal_type.getSelectedItem();
@@ -683,14 +696,14 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 				animal=new Animal(xside,yside,zside,type,
 						femurLength,shinboneLength,legSide,
 						headDZ,headDX,headDY,neckLength,neckSide,
-						humerusLength,radiusLength,footLength);
+						humerusLength,radiusLength,handLength,footLength);
 				
 			}else{
 				
 				Animal expAnimal = new Animal(xside,yside,zside,type,
 						femurLength,shinboneLength,legSide,
 						headDZ,headDX,headDY,neckLength,neckSide,
-						humerusLength,radiusLength,footLength);
+						humerusLength,radiusLength,handLength,footLength);
 				
 				animal=expAnimal;
 			}
