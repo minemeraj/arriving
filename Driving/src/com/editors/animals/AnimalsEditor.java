@@ -291,6 +291,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		
 		jlb=new JLabel("Hand length");
 		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
 		hand_length=new DoubleTextField(); 
 		hand_length.setBounds(column, r, 100, 20);
 		hand_length.addKeyListener(this);
