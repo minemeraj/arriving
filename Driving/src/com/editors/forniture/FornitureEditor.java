@@ -468,6 +468,8 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		
 		if(obj==chooseForniture){
 			
+			center.setTeta(0);
+			
 			 ValuePair vp= (ValuePair)chooseForniture.getSelectedItem();
 				
 			 int type=Integer.parseInt(vp.getId());

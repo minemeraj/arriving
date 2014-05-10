@@ -812,6 +812,8 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		
 		if(obj==weapon_type){
 			
+			center.setTeta(0);
+			
 			 ValuePair vp= (ValuePair)weapon_type.getSelectedItem();
 				
 			 int type=Integer.parseInt(vp.getId());

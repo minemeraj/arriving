@@ -839,6 +839,8 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 		
 		if(obj==car_type){
 			
+			 center.setTeta(0);
+			
 			 ValuePair vp= (ValuePair)car_type.getSelectedItem();
 				
 			 int type=Integer.parseInt(vp.getId());

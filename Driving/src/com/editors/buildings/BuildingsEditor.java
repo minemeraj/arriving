@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -37,7 +39,7 @@ import com.editors.ValuePair;
 import com.editors.buildings.data.BuildingPlan;
 import com.editors.object.ObjectEditorPreviewPanel;
 
-public class BuildingsEditor extends CustomEditor implements  MouseListener{
+public class BuildingsEditor extends CustomEditor implements  MouseListener, ItemListener{
 	
 	public static int HEIGHT=700;
 	public static int WIDTH=800;
@@ -155,6 +157,8 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener{
 		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_MANSARD,"Mansard"));
 		chooseRoof.setSelectedIndex(0);
 		right.add(chooseRoof);
+		
+		chooseRoof.addItemListener(this);
 		
 		r+=30;
 		
@@ -506,6 +510,16 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener{
 		
 		
 	}
+	
+	@Override
+	public void itemStateChanged(ItemEvent arg0) {
+		Object obj = arg0.getSource();
+		
+		if(obj==chooseRoof){
+			
+			center.setTeta(0);
+			
+		}	
 
-
+	}
 }

@@ -675,6 +675,8 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 		
 		if(obj==animal_type){
 			
+			 center.setTeta(0);
+			
 			 ValuePair vp= (ValuePair)animal_type.getSelectedItem();
 				
 			 int type=Integer.parseInt(vp.getId());
