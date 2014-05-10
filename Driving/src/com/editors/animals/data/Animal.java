@@ -1341,6 +1341,10 @@ public class Animal extends CustomData{
 		LineData backRightLegS2=addLine(pBackRightLeg[1][1][0],pBackRightLeg[1][1][1],pBackRightLeg[1][0][1],pBackRightLeg[1][0][0],Renderer3D.CAR_RIGHT);
 	
 		LineData backRightLegS3=addLine(pBackRightLeg[1][0][0],pBackRightLeg[1][0][1],pBackRightLeg[0][0][1],pBackRightLeg[0][0][0],Renderer3D.CAR_BACK);
+		
+		LineData backRightKnee0=addLine(pBackRightThigh[0][1][0],pBackRightThigh[1][1][0],pBackRightLeg[1][1][1],pBackRightLeg[0][1][1],Renderer3D.CAR_FRONT);
+		LineData backRightKnee1=addLine(pBackRightThigh[0][0][0],pBackRightThigh[0][1][0],pBackRightLeg[0][1][1],null,Renderer3D.CAR_LEFT);
+		LineData backRightKnee2=addLine(pBackRightThigh[1][1][0],pBackRightThigh[1][0][0],pBackRightLeg[1][1][1],null,Renderer3D.CAR_RIGHT);
 	
 		//back Right Foot
 		
@@ -1371,7 +1375,9 @@ public class Animal extends CustomData{
 	
 		LineData backRightFootS3=addLine(pBackRightFoot[1][0][0],pBackRightFoot[1][0][1],pBackRightFoot[0][0][1],pBackRightFoot[0][0][0],Renderer3D.CAR_BACK);
 		
-		
+		LineData backRightAnkle0=addLine(pBackRightFoot[0][0][1],pBackRightFoot[1][0][1],pBackRightLeg[1][0][0],pBackRightLeg[0][0][0],Renderer3D.CAR_BACK);
+		LineData backRightAnkle1=addLine(pBackRightLeg[0][0][0],pBackRightLeg[0][1][0],pBackRightFoot[0][0][1],null,Renderer3D.CAR_LEFT);
+		LineData backRightAnkle2=addLine( pBackRightFoot[1][0][1],pBackRightLeg[1][1][0],pBackRightLeg[1][0][0],null,Renderer3D.CAR_RIGHT);
 
 
 		//left arm
