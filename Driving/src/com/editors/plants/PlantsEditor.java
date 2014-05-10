@@ -33,26 +33,12 @@ import com.editors.IntegerTextField;
 import com.editors.object.ObjectEditorPreviewPanel;
 import com.editors.plants.data.Plant;
 
-public class PlantsEditor extends CustomEditor implements MenuListener, ActionListener, KeyListener, MouseWheelListener{
+public class PlantsEditor extends CustomEditor {
 	
 	public static int HEIGHT=700;
 	public static int WIDTH=800;
 	public int RIGHT_BORDER=330;
 	public int BOTTOM_BORDER=100;
-
-	PlantsJPanel center=null;
-	
-	public boolean redrawAfterMenu=false;
-
-	private JMenuBar jmb;
-	private JMenu jm_file;
-	private JMenuItem jmt_load_file;
-	private JMenuItem jmt_save_file;
-	private JMenu jm_view;
-	private JMenuItem jmt_preview;
-	private JMenu jm_change;
-	private JMenuItem jmt_undo_last;
-	private JMenuItem jmt_save_mesh;
 	
 	private DoubleTextField trunck_length;
 	private DoubleTextField trunk_radius;
@@ -61,11 +47,6 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 	private IntegerTextField foliage_meridians;
 	private IntegerTextField foliage_parallels;
 	private IntegerTextField foliage_lobes;
-	
-	private JButton generate;
-	
-	JFileChooser fc = new JFileChooser();
-	File currentDirectory=new File("lib");
 	
 	public Stack oldPlant=null;
 	int max_stack_size=10;
@@ -132,7 +113,7 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 		draw();
 	}
 
-	private void draw() {
+	public void draw() {
 		
 		center.draw(plant);
 		
@@ -257,90 +238,6 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 	}
 
 	
-	public void buildMenuBar() {
-		
-		jmb=new JMenuBar();
-		
-		jm_file=new JMenu("File");
-		jm_file.addMenuListener(this);
-		jmb.add(jm_file);
-		
-		jmt_load_file = new JMenuItem("Load file");
-		jmt_load_file.addActionListener(this);
-		jm_file.add(jmt_load_file);
-		
-		jmt_save_file = new JMenuItem("Save file");
-		jmt_save_file.addActionListener(this);
-		jm_file.add(jmt_save_file);
-		
-		jm_file.addSeparator();
-		
-
-		
-		jmt_save_mesh = new JMenuItem("Save mesh");
-		jmt_save_mesh.addActionListener(this);
-		jm_file.add(jmt_save_mesh);
-		
-		jm_change=new JMenu("Change");
-		jm_change.addMenuListener(this);
-		jmb.add(jm_change);
-		
-		jmt_undo_last = new JMenuItem("Undo last");
-		jmt_undo_last.setEnabled(false);
-		jmt_undo_last.addActionListener(this);
-		jm_change.add(jmt_undo_last);
-		
-		
-		jm_view=new JMenu("View");
-		jm_view.addMenuListener(this);
-		jmb.add(jm_view);
-		
-		jmt_preview = new JMenuItem("Preview");
-		jmt_preview.addActionListener(this);
-		jm_view.add(jmt_preview);
-
-		
-		setJMenuBar(jmb);
-		
-	}
-	
-
-	
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		
-		Object obj = arg0.getSource();
-		
-		if(obj==jmt_load_file){
-			
-			loadData();
-			
-			
-			
-		}else if(obj==jmt_save_file){
-			
-			saveData();
-			
-		}else if(obj==jmt_save_mesh){
-			
-			saveMesh(); 
-			
-		}
-		else if(obj==jmt_preview){
-			
-			preview();
-			
-		}else if (obj==jmt_undo_last){
-			
-			undo();
-			
-		}else if(obj==generate){
-			
-			generate();
-		}
-		
-	}
-	
 	public void preview() {
 		
 		if(plant==null)
@@ -384,24 +281,6 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 			setRightData(plant);
 	}
 	
-	public void loadData() {
-
-		fc.setDialogType(JFileChooser.SAVE_DIALOG);
-		fc.setDialogTitle("Load Track");
-		if(currentDirectory!=null)
-			fc.setCurrentDirectory(currentDirectory);
-		
-		int returnVal = fc.showOpenDialog(this);
-		
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-			loadData(file);
-			draw();	
-			currentDirectory=new File(file.getParent());
-		} 
-		
-	}
-
 	public void loadData(File file) {
 		
 		BufferedReader br;
@@ -435,24 +314,6 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 		
 	}
 
-
-	private void saveMesh() {
-		
-		fc.setDialogType(JFileChooser.SAVE_DIALOG);
-		fc.setDialogTitle("Save mesh");
-		if(currentDirectory!=null)
-			fc.setCurrentDirectory(currentDirectory);
-		int returnVal = fc.showOpenDialog(this);
-		
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-			saveMesh(file);
-			currentDirectory=new File(file.getParent());
-		} 
-		
-	}
-
-
 	public void saveMesh(File file) {
 		
 		
@@ -475,21 +336,6 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 		}
 	
 
-		
-	}
-
-	public void saveData() {
-		fc.setDialogType(JFileChooser.SAVE_DIALOG);
-		fc.setDialogTitle("Save data");
-		if(currentDirectory!=null)
-			fc.setCurrentDirectory(currentDirectory);
-		int returnVal = fc.showOpenDialog(this);
-		
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-			saveData(file);
-			currentDirectory=new File(file.getParent());
-		} 
 		
 	}
 
@@ -540,71 +386,5 @@ public class PlantsEditor extends CustomEditor implements MenuListener, ActionLi
 		
 	}
 	
-	@Override
-	public void menuCanceled(MenuEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void menuDeselected(MenuEvent arg0) {
-		redrawAfterMenu=true;
-		
-	}
-
-	@Override
-	public void menuSelected(MenuEvent arg0) {
-		redrawAfterMenu=false;
-		
-	}
-
-
-	@Override
-	public void mouseWheelMoved(MouseWheelEvent arg0) {
-		
-		if(arg0.getUnitsToScroll()<0)
-			center.translate(0,-1);
-		else
-			center.translate(0,1);
-		
-		draw();
-		
-	}
-	
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-		
-		int code=arg0.getKeyCode();
-		
-		
-		if(code==KeyEvent.VK_LEFT)
-			center.translate(+1,0);
-		else if(code==KeyEvent.VK_RIGHT)
-			center.translate(-1,0);
-		else if(code==KeyEvent.VK_UP)
-			center.translate(0,-1);
-		else if(code==KeyEvent.VK_DOWN)
-			center.translate(0,+1);
-		else if(code==KeyEvent.VK_F1)
-			center.zoom(+1);		
-		else if(code==KeyEvent.VK_F2)
-			center.zoom(-1);
-		
-		draw();
-		
-	}
-
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 }

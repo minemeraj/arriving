@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import com.CustomData;
 import com.Polygon3D;
 import com.PolygonMesh;
 import com.editors.CustomJPanel;
@@ -17,7 +18,9 @@ public class WeaponsJPanel extends CustomJPanel{
 
 	
 
-	public void draw(Weapon weapon) {
+	public void draw(CustomData data) {
+		
+		 Weapon weapon=(Weapon) data;
 		
 		if(buffGraph==null)
 			return;

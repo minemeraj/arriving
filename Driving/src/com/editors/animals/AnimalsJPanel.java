@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import com.CustomData;
 import com.Polygon3D;
 import com.PolygonMesh;
 import com.editors.CustomJPanel;
@@ -16,7 +17,9 @@ public class AnimalsJPanel extends CustomJPanel{
 
 	
 
-	public void draw(Animal animal) {
+	public void draw(CustomData data) {
+		
+		Animal animal=(Animal)data;
 		
 		if(buffGraph==null)
 			return;

@@ -1,4 +1,8 @@
 
+Source code re-organization and simplification.
+
+Now in the custom Editors press q and w to rotate the objects.
+
 New progress in the custom editor to add more and better objects.
 
 -----19/04/2014   CarDriving 7.0.16

@@ -1,24 +1,57 @@
 package com.editors;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.io.File;
 import java.util.Vector;
 
+import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 
 import com.BPoint;
 import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
+import com.editors.animals.AnimalsJPanel;
 import com.main.Renderer3D;
 
-public class CustomEditor extends JFrame {
+public class CustomEditor extends JFrame implements  MouseWheelListener,KeyListener, ActionListener, MenuListener{
+	
+	public JMenuBar jmb;
+	public JMenu jm_file;
+	public JMenuItem jmt_load_file;
+	public JMenuItem jmt_save_file;
+	public JMenu jm_view;
+	public JMenuItem jmt_preview;
+	public JMenu jm_change;
+	public JMenuItem jmt_undo_last;
+	public JMenuItem jmt_save_mesh;
+	
+	public boolean redrawAfterMenu=false;
+	
+	public JMenu jm_filter;
+	public JCheckBoxMenuItem[] jm_filters;
+	
+	public JButton generate;	
+	public JFileChooser fc = new JFileChooser();
+	public File currentDirectory=new File("lib");
+	
+	public CustomJPanel center=null;
 
 	public void buildRightPanel(){}
 	
 	public void initRightData() {}
-	
-	public void buildMenuBar() {}
-	
 	
 	public void initialize() {
 		
@@ -32,7 +65,21 @@ public class CustomEditor extends JFrame {
 	
 	public void prepareUndo() {}
 	
-	public void saveData() {}
+	public void saveData() {
+		fc.setDialogType(JFileChooser.SAVE_DIALOG);
+		fc.setDialogTitle("Save data");
+		if(currentDirectory!=null)
+			fc.setCurrentDirectory(currentDirectory);
+		int returnVal = fc.showOpenDialog(this);
+		
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File file = fc.getSelectedFile();
+			saveData(file);
+			currentDirectory=new File(file.getParent());
+		} 
+		
+	}
+
 	
 	public void saveData(File file)  {}
 	
@@ -41,10 +88,259 @@ public class CustomEditor extends JFrame {
 	}
 	
 	public void loadData() {
+
+		fc.setDialogType(JFileChooser.SAVE_DIALOG);
+		fc.setDialogTitle("Load data");
+		if(currentDirectory!=null)
+			fc.setCurrentDirectory(currentDirectory);
+		
+		int returnVal = fc.showOpenDialog(this);
+		
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File file = fc.getSelectedFile();
+			loadData(file);
+			draw();	
+			currentDirectory=new File(file.getParent());
+		} 
 		
 	}
 	
 	public void loadData(File file) {}
 	
+	public void rotate(double dTeta) {}
+	
+	public void buildMenuBar() {
+		
+		jmb=new JMenuBar();
+		
+		jm_file=new JMenu("File");
+		jm_file.addMenuListener(this);
+		jmb.add(jm_file);
+		
+		jmt_load_file = new JMenuItem("Load file");
+		jmt_load_file.addActionListener(this);
+		jm_file.add(jmt_load_file);
+		
+		jmt_save_file = new JMenuItem("Save file");
+		jmt_save_file.addActionListener(this);
+		jm_file.add(jmt_save_file);
+		
+		jm_file.addSeparator();
+		
+
+		
+		jmt_save_mesh = new JMenuItem("Save mesh");
+		jmt_save_mesh.addActionListener(this);
+		jm_file.add(jmt_save_mesh);
+		
+		jm_change=new JMenu("Change");
+		jm_change.addMenuListener(this);
+		jmb.add(jm_change);
+		
+		jmt_undo_last = new JMenuItem("Undo last");
+		jmt_undo_last.setEnabled(false);
+		jmt_undo_last.addActionListener(this);
+		jm_change.add(jmt_undo_last);
+		
+		
+		jm_view=new JMenu("View");
+		jm_view.addMenuListener(this);
+		jmb.add(jm_view);
+		
+		jmt_preview = new JMenuItem("Preview");
+		jmt_preview.addActionListener(this);
+		jm_view.add(jmt_preview);
+		
+		
+		jm_filter=new JMenu("Filter");
+		jm_filter.addMenuListener(this);
+		jmb.add(jm_filter);
+		
+		jm_filters=new JCheckBoxMenuItem[6];
+		
+		jm_filters[0] = new JCheckBoxMenuItem("Filter back");
+		jm_filters[0].addActionListener(this);
+		jm_filters[0].setActionCommand(""+Renderer3D.CAR_BACK);
+		jm_filter.add(jm_filters[0]);
+
+		jm_filters[1] = new JCheckBoxMenuItem("Filter front");
+		jm_filters[1].addActionListener(this);
+		jm_filters[1].setActionCommand(""+Renderer3D.CAR_FRONT);
+		jm_filter.add(jm_filters[1]);
+		
+		jm_filters[2] = new JCheckBoxMenuItem("Filter top");
+		jm_filters[2].addActionListener(this);
+		jm_filters[2].setActionCommand(""+Renderer3D.CAR_TOP);
+		jm_filter.add(jm_filters[2]);
+		
+		jm_filters[3] = new JCheckBoxMenuItem("Filter bottom");
+		jm_filters[3].addActionListener(this);
+		jm_filters[3].setActionCommand(""+Renderer3D.CAR_BOTTOM);
+		jm_filter.add(jm_filters[3]);
+		
+		jm_filters[4] = new JCheckBoxMenuItem("Filter left");
+		jm_filters[4].addActionListener(this);
+		jm_filters[4].setActionCommand(""+Renderer3D.CAR_LEFT);
+		jm_filter.add(jm_filters[4]);
+		
+		jm_filters[5]= new JCheckBoxMenuItem("Filter right");
+		jm_filters[5].addActionListener(this);
+		jm_filters[5].setActionCommand(""+Renderer3D.CAR_RIGHT);
+		jm_filter.add(jm_filters[5]);
+		
+		setJMenuBar(jmb);
+		
+	}
+	
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		
+		int code=arg0.getKeyCode();
+		
+		
+		if(code==KeyEvent.VK_LEFT)
+			center.translate(+1,0);
+		else if(code==KeyEvent.VK_RIGHT)
+			center.translate(-1,0);
+		else if(code==KeyEvent.VK_UP)
+			center.translate(0,-1);
+		else if(code==KeyEvent.VK_DOWN)
+			center.translate(0,+1);
+		else if(code==KeyEvent.VK_F1)
+			center.zoom(+1);		
+		else if(code==KeyEvent.VK_F2)
+			center.zoom(-1);
+		else if(code==KeyEvent.VK_Q)
+			center.rotate(0.1);
+		else if(code==KeyEvent.VK_W)
+			center.rotate(-0.1);
+		draw();
+		
+	}
+
+	public void saveMesh() {
+		
+		fc.setDialogType(JFileChooser.SAVE_DIALOG);
+		fc.setDialogTitle("Save mesh");
+		if(currentDirectory!=null)
+			fc.setCurrentDirectory(currentDirectory);
+		int returnVal = fc.showOpenDialog(this);
+		
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File file = fc.getSelectedFile();
+			saveMesh(file);
+			currentDirectory=new File(file.getParent());
+		} 
+		
+	}
+
+
+	public void draw() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent arg0) {
+		
+		if(arg0.getUnitsToScroll()<0)
+			center.translate(0,-1);
+		else
+			center.translate(0,1);
+		
+		draw();
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		
+		
+		Object obj = arg0.getSource();
+		
+		if(obj==jmt_load_file){
+			
+			loadData();
+			
+			
+			
+		}else if(obj==jmt_save_file){
+			
+			saveData();
+			
+		}else if(obj==jmt_save_mesh){
+			
+			saveMesh(); 
+			
+		}
+		else if(obj==jmt_preview){
+			
+			preview();
+			
+		}else if (obj==jmt_undo_last){
+			
+			undo();
+			
+		}else if(obj==generate){
+			
+			generate();
+		}else{
+			
+			boolean found=false;
+		
+			for (int i = 0;jm_filters!=null && i < jm_filters.length; i++) {
+				
+				
+				if(obj==jm_filters[i]){
+					
+				
+					if(jm_filters[i].isSelected()){
+						center.setFilter(jm_filters[i].getActionCommand());
+					    found=true;
+					}	
+					else
+						center.setFilter(null);
+				}else{
+					
+					jm_filters[i].setSelected(false);
+				}		
+	
+				
+			}
+		}
+	}
+	
+	
+	@Override
+	public void menuCanceled(MenuEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void menuDeselected(MenuEvent arg0) {
+		redrawAfterMenu=true;
+		
+	}
+
+	@Override
+	public void menuSelected(MenuEvent arg0) {
+		redrawAfterMenu=false;
+		
+	}
 
 }

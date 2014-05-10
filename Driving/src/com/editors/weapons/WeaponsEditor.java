@@ -39,27 +39,13 @@ import com.editors.object.ObjectEditorPreviewPanel;
 import com.editors.weapons.data.Weapon;
 
 
-public class WeaponsEditor extends CustomEditor implements MenuListener, ActionListener, KeyListener, MouseWheelListener, ItemListener{
+public class WeaponsEditor extends CustomEditor implements ItemListener{
 	
 	public static int HEIGHT=800;
 	public static int WIDTH=800;
 	public int RIGHT_BORDER=330;
 	public int BOTTOM_BORDER=100;
 
-	WeaponsJPanel center=null;
-	
-	public boolean redrawAfterMenu=false;
-
-	private JMenuBar jmb;
-	private JMenu jm_file;
-	private JMenuItem jmt_load_file;
-	private JMenuItem jmt_save_file;
-	private JMenu jm_view;
-	private JMenuItem jmt_preview;
-	private JMenu jm_change;
-	private JMenuItem jmt_undo_last;
-	private JMenuItem jmt_save_mesh;
-	
 	private DoubleTextField barrel_length;
 	private DoubleTextField barrel_radius;
 	private IntegerTextField barrel_meridians;
@@ -83,12 +69,8 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 	private DoubleTextField magazine_length;
 	private DoubleTextField magazine_width;
 	private DoubleTextField magazine_height;
+	
 
-	
-	private JButton generate;
-	
-	JFileChooser fc = new JFileChooser();
-	File currentDirectory=new File("lib");
 	
 	public Stack oldWeapon=null;
 	int max_stack_size=10;
@@ -155,7 +137,7 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		draw();
 	}
 
-	private void draw() {
+	public void draw() {
 		
 		center.draw(weapon);
 		
@@ -626,90 +608,6 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 	}
 
 	
-	public void buildMenuBar() {
-		
-		jmb=new JMenuBar();
-		
-		jm_file=new JMenu("File");
-		jm_file.addMenuListener(this);
-		jmb.add(jm_file);
-		
-		jmt_load_file = new JMenuItem("Load file");
-		jmt_load_file.addActionListener(this);
-		jm_file.add(jmt_load_file);
-		
-		jmt_save_file = new JMenuItem("Save file");
-		jmt_save_file.addActionListener(this);
-		jm_file.add(jmt_save_file);
-		
-		jm_file.addSeparator();
-		
-
-		
-		jmt_save_mesh = new JMenuItem("Save mesh");
-		jmt_save_mesh.addActionListener(this);
-		jm_file.add(jmt_save_mesh);
-		
-		jm_change=new JMenu("Change");
-		jm_change.addMenuListener(this);
-		jmb.add(jm_change);
-		
-		jmt_undo_last = new JMenuItem("Undo last");
-		jmt_undo_last.setEnabled(false);
-		jmt_undo_last.addActionListener(this);
-		jm_change.add(jmt_undo_last);
-		
-		
-		jm_view=new JMenu("View");
-		jm_view.addMenuListener(this);
-		jmb.add(jm_view);
-		
-		jmt_preview = new JMenuItem("Preview");
-		jmt_preview.addActionListener(this);
-		jm_view.add(jmt_preview);
-
-		
-		setJMenuBar(jmb);
-		
-	}
-	
-
-	
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		
-		Object obj = arg0.getSource();
-		
-		if(obj==jmt_load_file){
-			
-			loadData();
-			
-			
-			
-		}else if(obj==jmt_save_file){
-			
-			saveData();
-			
-		}else if(obj==jmt_save_mesh){
-			
-			saveMesh(); 
-			
-		}
-		else if(obj==jmt_preview){
-			
-			preview();
-			
-		}else if (obj==jmt_undo_last){
-			
-			undo();
-			
-		}else if(obj==generate){
-			
-			generate();
-		}
-		
-	}
-	
 	public void preview() {
 		
 		if(weapon==null)
@@ -799,23 +697,6 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 			setRightData(weapon);
 	}
 	
-	public void loadData() {
-
-		fc.setDialogType(JFileChooser.SAVE_DIALOG);
-		fc.setDialogTitle("Load Track");
-		if(currentDirectory!=null)
-			fc.setCurrentDirectory(currentDirectory);
-		
-		int returnVal = fc.showOpenDialog(this);
-		
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-			loadData(file);
-			draw();	
-			currentDirectory=new File(file.getParent());
-		} 
-		
-	}
 
 	public void loadData(File file) {
 		
@@ -851,21 +732,6 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 	}
 
 
-	private void saveMesh() {
-		
-		fc.setDialogType(JFileChooser.SAVE_DIALOG);
-		fc.setDialogTitle("Save mesh");
-		if(currentDirectory!=null)
-			fc.setCurrentDirectory(currentDirectory);
-		int returnVal = fc.showOpenDialog(this);
-		
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-			saveMesh(file);
-			currentDirectory=new File(file.getParent());
-		} 
-		
-	}
 
 
 	public void saveMesh(File file) {
@@ -890,21 +756,6 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		}
 	
 
-		
-	}
-
-	public void saveData() {
-		fc.setDialogType(JFileChooser.SAVE_DIALOG);
-		fc.setDialogTitle("Save data");
-		if(currentDirectory!=null)
-			fc.setCurrentDirectory(currentDirectory);
-		int returnVal = fc.showOpenDialog(this);
-		
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-			saveData(file);
-			currentDirectory=new File(file.getParent());
-		} 
 		
 	}
 
@@ -952,74 +803,6 @@ public class WeaponsEditor extends CustomEditor implements MenuListener, ActionL
 		
 		oldWeapon.push(weapon.clone());
 		
-		
-	}
-	
-	@Override
-	public void menuCanceled(MenuEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void menuDeselected(MenuEvent arg0) {
-		redrawAfterMenu=true;
-		
-	}
-
-	@Override
-	public void menuSelected(MenuEvent arg0) {
-		redrawAfterMenu=false;
-		
-	}
-
-
-	@Override
-	public void mouseWheelMoved(MouseWheelEvent arg0) {
-		
-		if(arg0.getUnitsToScroll()<0)
-			center.translate(0,-1);
-		else
-			center.translate(0,1);
-		
-		draw();
-		
-	}
-	
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-		
-		int code=arg0.getKeyCode();
-		
-		
-		if(code==KeyEvent.VK_LEFT)
-			center.translate(+1,0);
-		else if(code==KeyEvent.VK_RIGHT)
-			center.translate(-1,0);
-		else if(code==KeyEvent.VK_UP)
-			center.translate(0,-1);
-		else if(code==KeyEvent.VK_DOWN)
-			center.translate(0,+1);
-		else if(code==KeyEvent.VK_F1)
-			center.zoom(+1);		
-		else if(code==KeyEvent.VK_F2)
-			center.zoom(-1);
-		
-		draw();
-		
-	}
-
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 	

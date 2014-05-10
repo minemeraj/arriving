@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import com.CustomData;
 import com.Polygon3D;
 import com.PolygonMesh;
 import com.editors.CustomJPanel;
@@ -16,7 +17,9 @@ public class PlantsJPanel extends CustomJPanel{
 
 	
 
-	public void draw(Plant plant) {
+	public void draw(CustomData data ) {
+		
+		Plant plant=(Plant) data;
 		
 		if(buffGraph==null)
 			return;

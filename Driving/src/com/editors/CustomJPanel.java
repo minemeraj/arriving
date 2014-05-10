@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
+import com.CustomData;
 import com.LineData;
 import com.Point3D;
 import com.Polygon3D;
@@ -40,6 +41,10 @@ public class CustomJPanel extends JPanel{
 	
 	String filter=null;
 	
+	double teta=0;
+	double ct=Math.cos(teta);
+	double st=Math.sin(teta);
+	
 
 	public void initialize() {
 		
@@ -65,29 +70,6 @@ public class CustomJPanel extends JPanel{
 		return y0-(int) ((sz+sy*cosAlfa+sx*cosAlfa)/dy);
 	}
 	
-	/*public double calcX(double x,double y){
-		
-		return x0+x/dx;
-		
-	}
-	
-	public double calcY(double x,double y){
-		
-		return HEIGHT-y0-y/dy;
-		
-	}
-	
-	public double invertX(double x,double y){
-		
-		return (-x0+x)*dx;
-		
-	}
-	
-	public double invertY(double x,double y){
-		
-		return (-y+HEIGHT-y0)*dy;
-		
-	}*/
 	
 	public void zoom(int i) {
 		
@@ -159,12 +141,25 @@ public class CustomJPanel extends JPanel{
 		
 	}
 
+	public void draw(CustomData data) {
+		
+		
+	}
 
 	private void drawLine(Graphics buffGraph, double x0,double y0,double z0,double x1,double y1,double z1) {
 		
-		buffGraph.drawLine(calcX(x0,y0,z0),calcY(x0,y0,z0),calcX(x1,y1,z1),calcY(x1,y1,z1));
+		
+		double xx0=ct*x0+st*y0;
+		double yy0=-st*x0+ct*y0;
+		
+		double xx1=ct*x1+st*y1;
+		double yy1=-st*x1+ct*y1;
+		
+		buffGraph.drawLine(calcX(xx0,yy0,z0),calcY(xx0,yy0,z0),calcX(xx1,yy1,z1),calcY(xx1,yy1,z1));
 		
 	}
+	
+
 
 
 	public String getFilter() {
@@ -174,6 +169,26 @@ public class CustomJPanel extends JPanel{
 
 	public void setFilter(String filter) {
 		this.filter = filter;
+	}
+
+
+	public double getTeta() {
+		return teta;
+	}
+
+
+	public void setTeta(double teta) {
+		this.teta = teta;
+		ct=Math.cos(teta);
+		st=Math.sin(teta);
+	}
+	
+	public void rotate(double dTeta){
+		
+		teta+=dTeta;
+		
+		ct=Math.cos(teta);
+		st=Math.sin(teta);
 	}
 
 }

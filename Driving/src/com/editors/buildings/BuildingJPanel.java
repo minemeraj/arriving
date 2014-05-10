@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+import com.CustomData;
 import com.Polygon3D;
 import com.PolygonMesh;
 import com.editors.CustomJPanel;
@@ -15,9 +16,9 @@ public class BuildingJPanel extends CustomJPanel{
 
 
 
-	public void draw(BuildingPlan plan) {
+	public void draw(CustomData data ) {
 		
-	
+		BuildingPlan plan=(BuildingPlan) data;
 		
 		if(buffGraph==null)
 			return;

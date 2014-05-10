@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import com.CustomData;
 import com.Polygon3D;
 import com.PolygonMesh;
 import com.editors.CustomJPanel;
@@ -20,7 +21,9 @@ public class CarsEditorJPanel extends CustomJPanel{
 		x0=500;
 	}
 
-	public void draw(Car car) { 
+	public void draw(CustomData data ) { 
+		
+		Car car=(Car) data;
 		
 		if(buffGraph==null)
 			return;

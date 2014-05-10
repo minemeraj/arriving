@@ -38,27 +38,13 @@ import com.editors.animals.data.Animal;
 import com.editors.object.ObjectEditorPreviewPanel;
 import com.main.Renderer3D;
 
-public class AnimalsEditor extends CustomEditor implements MenuListener, ActionListener, KeyListener, MouseWheelListener, ItemListener{
+public class AnimalsEditor extends CustomEditor implements ItemListener{
 	
 	public static int HEIGHT=700;
 	public static int WIDTH=800;
 	public int RIGHT_BORDER=330;
 	public int BOTTOM_BORDER=100;
 
-	AnimalsJPanel center=null;
-	
-	public boolean redrawAfterMenu=false;
-
-	private JMenuBar jmb;
-	private JMenu jm_file;
-	private JMenuItem jmt_load_file;
-	private JMenuItem jmt_save_file;
-	private JMenu jm_view;
-	private JMenuItem jmt_preview;
-	private JMenu jm_change;
-	private JMenuItem jmt_undo_last;
-	private JMenuItem jmt_save_mesh;
-	
 	private DoubleTextField x_side;
 	private DoubleTextField y_side;
 	private DoubleTextField z_side;
@@ -81,17 +67,11 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	private DoubleTextField hand_length;
 	private DoubleTextField leg_side;
 	
-	private JButton generate;
-	
-	JFileChooser fc = new JFileChooser();
-	File currentDirectory=new File("lib");
-	
 	public Stack oldAnimal=null;
 	int max_stack_size=10;
 	
 	Animal animal=null;
-	private JMenu jm_filter;
-	private JCheckBoxMenuItem[] jm_filters;
+
 	
 	
 	public AnimalsEditor(){
@@ -151,7 +131,7 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		draw();
 	}
 
-	private void draw() {
+	public void draw() {
 		
 		center.draw(animal);
 		
@@ -353,6 +333,8 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	
 
 	public void initRightData() {
+		
+		center.setTeta(0);
 
 		if(animal==null)
 			return;
@@ -507,148 +489,9 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 	}
 
 	
-	public void buildMenuBar() {
-		
-		jmb=new JMenuBar();
-		
-		jm_file=new JMenu("File");
-		jm_file.addMenuListener(this);
-		jmb.add(jm_file);
-		
-		jmt_load_file = new JMenuItem("Load file");
-		jmt_load_file.addActionListener(this);
-		jm_file.add(jmt_load_file);
-		
-		jmt_save_file = new JMenuItem("Save file");
-		jmt_save_file.addActionListener(this);
-		jm_file.add(jmt_save_file);
-		
-		jm_file.addSeparator();
-		
-
-		
-		jmt_save_mesh = new JMenuItem("Save mesh");
-		jmt_save_mesh.addActionListener(this);
-		jm_file.add(jmt_save_mesh);
-		
-		jm_change=new JMenu("Change");
-		jm_change.addMenuListener(this);
-		jmb.add(jm_change);
-		
-		jmt_undo_last = new JMenuItem("Undo last");
-		jmt_undo_last.setEnabled(false);
-		jmt_undo_last.addActionListener(this);
-		jm_change.add(jmt_undo_last);
-		
-		
-		jm_view=new JMenu("View");
-		jm_view.addMenuListener(this);
-		jmb.add(jm_view);
-		
-		jmt_preview = new JMenuItem("Preview");
-		jmt_preview.addActionListener(this);
-		jm_view.add(jmt_preview);
-		
-		
-		jm_filter=new JMenu("Filter");
-		jm_filter.addMenuListener(this);
-		jmb.add(jm_filter);
-		
-		jm_filters=new JCheckBoxMenuItem[6];
-		
-		jm_filters[0] = new JCheckBoxMenuItem("Filter back");
-		jm_filters[0].addActionListener(this);
-		jm_filters[0].setActionCommand(""+Renderer3D.CAR_BACK);
-		jm_filter.add(jm_filters[0]);
-
-		jm_filters[1] = new JCheckBoxMenuItem("Filter front");
-		jm_filters[1].addActionListener(this);
-		jm_filters[1].setActionCommand(""+Renderer3D.CAR_FRONT);
-		jm_filter.add(jm_filters[1]);
-		
-		jm_filters[2] = new JCheckBoxMenuItem("Filter top");
-		jm_filters[2].addActionListener(this);
-		jm_filters[2].setActionCommand(""+Renderer3D.CAR_TOP);
-		jm_filter.add(jm_filters[2]);
-		
-		jm_filters[3] = new JCheckBoxMenuItem("Filter bottom");
-		jm_filters[3].addActionListener(this);
-		jm_filters[3].setActionCommand(""+Renderer3D.CAR_BOTTOM);
-		jm_filter.add(jm_filters[3]);
-		
-		jm_filters[4] = new JCheckBoxMenuItem("Filter left");
-		jm_filters[4].addActionListener(this);
-		jm_filters[4].setActionCommand(""+Renderer3D.CAR_LEFT);
-		jm_filter.add(jm_filters[4]);
-		
-		jm_filters[5]= new JCheckBoxMenuItem("Filter right");
-		jm_filters[5].addActionListener(this);
-		jm_filters[5].setActionCommand(""+Renderer3D.CAR_RIGHT);
-		jm_filter.add(jm_filters[5]);
-		
-		setJMenuBar(jmb);
-		
-	}
-	
 
 	
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		
-		Object obj = arg0.getSource();
-		
-		if(obj==jmt_load_file){
-			
-			loadData();
-			
-			
-			
-		}else if(obj==jmt_save_file){
-			
-			saveData();
-			
-		}else if(obj==jmt_save_mesh){
-			
-			saveMesh(); 
-			
-		}
-		else if(obj==jmt_preview){
-			
-			preview();
-			
-		}else if (obj==jmt_undo_last){
-			
-			undo();
-			
-		}else if(obj==generate){
-			
-			generate();
-		}else{
-			
-			boolean found=false;
-		
-			for (int i = 0; i < jm_filters.length; i++) {
-				
-				
-				if(obj==jm_filters[i]){
-					
-				
-					if(jm_filters[i].isSelected()){
-						center.setFilter(jm_filters[i].getActionCommand());
-					    found=true;
-					}	
-					else
-						center.setFilter(null);
-				}else{
-					
-					jm_filters[i].setSelected(false);
-				}		
-	
-				
-			}
-			draw();
-		}
-	}
+
 	
 	public void preview() {
 		
@@ -712,24 +555,6 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 			draw();
 			setRightData(animal);
 	}
-	
-	public void loadData() {
-
-		fc.setDialogType(JFileChooser.SAVE_DIALOG);
-		fc.setDialogTitle("Load Track");
-		if(currentDirectory!=null)
-			fc.setCurrentDirectory(currentDirectory);
-		
-		int returnVal = fc.showOpenDialog(this);
-		
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-			loadData(file);
-			draw();	
-			currentDirectory=new File(file.getParent());
-		} 
-		
-	}
 
 	public void loadData(File file) {
 		
@@ -763,24 +588,6 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		
 	}
 
-
-	private void saveMesh() {
-		
-		fc.setDialogType(JFileChooser.SAVE_DIALOG);
-		fc.setDialogTitle("Save mesh");
-		if(currentDirectory!=null)
-			fc.setCurrentDirectory(currentDirectory);
-		int returnVal = fc.showOpenDialog(this);
-		
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-			saveMesh(file);
-			currentDirectory=new File(file.getParent());
-		} 
-		
-	}
-
-
 	public void saveMesh(File file) {
 		
 		
@@ -806,20 +613,6 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		
 	}
 
-	public void saveData() {
-		fc.setDialogType(JFileChooser.SAVE_DIALOG);
-		fc.setDialogTitle("Save data");
-		if(currentDirectory!=null)
-			fc.setCurrentDirectory(currentDirectory);
-		int returnVal = fc.showOpenDialog(this);
-		
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-			saveData(file);
-			currentDirectory=new File(file.getParent());
-		} 
-		
-	}
 
 	public void saveData(File file) {
 		
@@ -869,74 +662,11 @@ public class AnimalsEditor extends CustomEditor implements MenuListener, ActionL
 		
 		
 	}
+
+
+
 	
-	@Override
-	public void menuCanceled(MenuEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void menuDeselected(MenuEvent arg0) {
-		redrawAfterMenu=true;
-		
-	}
-
-	@Override
-	public void menuSelected(MenuEvent arg0) {
-		redrawAfterMenu=false;
-		
-	}
-
-
-	@Override
-	public void mouseWheelMoved(MouseWheelEvent arg0) {
-		
-		if(arg0.getUnitsToScroll()<0)
-			center.translate(0,-1);
-		else
-			center.translate(0,1);
-		
-		draw();
-		
-	}
 	
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-		
-		int code=arg0.getKeyCode();
-		
-		
-		if(code==KeyEvent.VK_LEFT)
-			center.translate(+1,0);
-		else if(code==KeyEvent.VK_RIGHT)
-			center.translate(-1,0);
-		else if(code==KeyEvent.VK_UP)
-			center.translate(0,-1);
-		else if(code==KeyEvent.VK_DOWN)
-			center.translate(0,+1);
-		else if(code==KeyEvent.VK_F1)
-			center.zoom(+1);		
-		else if(code==KeyEvent.VK_F2)
-			center.zoom(-1);
-		
-		draw();
-		
-	}
-
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void itemStateChanged(ItemEvent arg0) {

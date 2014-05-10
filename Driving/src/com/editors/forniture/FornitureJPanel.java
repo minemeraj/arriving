@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import com.CustomData;
 import com.Polygon3D;
 import com.PolygonMesh;
 import com.editors.CustomJPanel;
@@ -16,7 +17,9 @@ public class FornitureJPanel extends CustomJPanel{
 
 	
 
-	public void draw(Forniture forniture) {
+	public void draw(CustomData data ) {
+		 
+		Forniture forniture=(Forniture) data;
 		
 		if(buffGraph==null)
 			return;
