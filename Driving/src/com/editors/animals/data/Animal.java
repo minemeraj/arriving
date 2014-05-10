@@ -1435,6 +1435,10 @@ public class Animal extends CustomData{
 	
 		LineData FrontLeftForearmS3=addLine(pFrontLeftForearm[1][0][0],pFrontLeftForearm[1][0][1],pFrontLeftForearm[0][0][1],pFrontLeftForearm[0][0][0],Renderer3D.CAR_BACK);
 	
+		LineData backLeftElbow0=addLine(pFrontLeftForearm[0][0][1],pFrontLeftForearm[1][0][1],pFrontLeftArm[1][0][0],pFrontLeftArm[0][0][0],Renderer3D.CAR_BACK);
+		LineData backLeftElbow1=addLine(pFrontLeftArm[0][0][0],pFrontLeftArm[0][1][0],pFrontLeftForearm[0][0][1],null,Renderer3D.CAR_LEFT);
+		LineData backLeftElbow2=addLine( pFrontLeftForearm[1][0][1],pFrontLeftArm[1][1][0],pFrontLeftArm[1][0][0],null,Renderer3D.CAR_RIGHT);
+		
 		//frontLeft Hand
 		
 		BPoint[][][] pFrontLeftHand=new BPoint[2][2][2];
@@ -1463,7 +1467,10 @@ public class Animal extends CustomData{
 	
 		LineData FrontLeftHandS3=addLine(pFrontLeftHand[1][0][0],pFrontLeftHand[1][0][1],pFrontLeftHand[0][0][1],pFrontLeftHand[0][0][0],Renderer3D.CAR_BACK);
 		
-
+		LineData backLeftWrist0=addLine(pFrontLeftHand[0][0][1],pFrontLeftHand[1][0][1],pFrontLeftForearm[1][0][0],pFrontLeftForearm[0][0][0],Renderer3D.CAR_BACK);
+		LineData backLeftWrist1=addLine(pFrontLeftForearm[0][0][0],pFrontLeftForearm[0][1][0],pFrontLeftHand[0][0][1],null,Renderer3D.CAR_LEFT);
+		LineData backLeftWrist2=addLine( pFrontLeftHand[1][0][1],pFrontLeftForearm[1][1][0],pFrontLeftForearm[1][0][0],null,Renderer3D.CAR_RIGHT);
+		
 		//right arm
 		
 		BPoint[][][] pFrontRightArm=new BPoint[2][2][2];
@@ -1519,6 +1526,11 @@ public class Animal extends CustomData{
 	
 		LineData frontRightForearmS3=addLine(pFrontRightForearm[1][0][0],pFrontRightForearm[1][0][1],pFrontRightForearm[0][0][1],pFrontRightForearm[0][0][0],Renderer3D.CAR_BACK);
 			
+		
+		LineData backRightElbow0=addLine(pFrontRightForearm[0][0][1],pFrontRightForearm[1][0][1],pFrontRightArm[1][0][0],pFrontRightArm[0][0][0],Renderer3D.CAR_BACK);
+		LineData backRightElbow1=addLine(pFrontRightArm[0][0][0],pFrontRightArm[0][1][0],pFrontRightForearm[0][0][1],null,Renderer3D.CAR_LEFT);
+		LineData backRightElbow2=addLine( pFrontRightForearm[1][0][1],pFrontRightArm[1][1][0],pFrontRightArm[1][0][0],null,Renderer3D.CAR_RIGHT);
+		
 		//frontRight Hand
 		
 		BPoint[][][] pFrontRightHand=new BPoint[2][2][2];
@@ -1547,6 +1559,10 @@ public class Animal extends CustomData{
 		LineData frontRightHandS2=addLine(pFrontRightHand[1][1][0],pFrontRightHand[1][1][1],pFrontRightHand[1][0][1],pFrontRightHand[1][0][0],Renderer3D.CAR_RIGHT);
 	
 		LineData frontRightHandS3=addLine(pFrontRightHand[1][0][0],pFrontRightHand[1][0][1],pFrontRightHand[0][0][1],pFrontRightHand[0][0][0],Renderer3D.CAR_BACK);
+		
+		LineData backRightWrist0=addLine(pFrontRightHand[0][0][1],pFrontRightHand[1][0][1],pFrontRightForearm[1][0][0],pFrontRightForearm[0][0][0],Renderer3D.CAR_BACK);
+		LineData backRightWrist1=addLine(pFrontRightForearm[0][0][0],pFrontRightForearm[0][1][0],pFrontRightHand[0][0][1],null,Renderer3D.CAR_LEFT);
+		LineData backRightWrist2=addLine( pFrontRightHand[1][0][1],pFrontRightForearm[1][1][0],pFrontRightForearm[1][0][0],null,Renderer3D.CAR_RIGHT);
 	
 		/////////
 
