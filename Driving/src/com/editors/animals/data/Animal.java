@@ -12,12 +12,6 @@ import com.main.Renderer3D;
 
 public class Animal extends CustomData{
 
-
-
-
-
-
-
 	double x_side=0;
 	double y_side=0;
 	double z_side=0;	
@@ -1254,6 +1248,10 @@ public class Animal extends CustomData{
 	
 		LineData backLeftLegS3=addLine(pBackLeftLeg[1][0][0],pBackLeftLeg[1][0][1],pBackLeftLeg[0][0][1],pBackLeftLeg[0][0][0],Renderer3D.CAR_BACK);
 		
+		LineData backLeftKnee0=addLine(pBackLeftThigh[0][1][0],pBackLeftThigh[1][1][0],pBackLeftLeg[1][1][1],pBackLeftLeg[0][1][1],Renderer3D.CAR_FRONT);
+		LineData backLeftKnee1=addLine(pBackLeftThigh[0][0][0],pBackLeftThigh[0][1][0],pBackLeftLeg[0][1][1],null,Renderer3D.CAR_LEFT);
+		LineData backLeftKnee2=addLine(pBackLeftThigh[1][1][0],pBackLeftThigh[1][0][0],pBackLeftLeg[1][1][1],null,Renderer3D.CAR_RIGHT);
+		
 		//back left foot
 		
 		BPoint[][][] pBackLeftFoot=new BPoint[2][2][2];
@@ -1281,7 +1279,10 @@ public class Animal extends CustomData{
 		LineData backLeftFootS2=addLine(pBackLeftFoot[1][1][0],pBackLeftFoot[1][1][1],pBackLeftFoot[1][0][1],pBackLeftFoot[1][0][0],Renderer3D.CAR_RIGHT);
 	
 		LineData backLeftFootS3=addLine(pBackLeftFoot[1][0][0],pBackLeftFoot[1][0][1],pBackLeftFoot[0][0][1],pBackLeftFoot[0][0][0],Renderer3D.CAR_BACK);
-	
+		
+		LineData backLeftAnkle0=addLine(pBackLeftFoot[0][0][1],pBackLeftFoot[1][0][1],pBackLeftLeg[1][0][0],pBackLeftLeg[0][0][0],Renderer3D.CAR_BACK);
+		LineData backLeftAnkle1=addLine(pBackLeftLeg[0][0][0],pBackLeftLeg[0][1][0],pBackLeftFoot[0][0][1],null,Renderer3D.CAR_LEFT);
+		LineData backLeftAnkle2=addLine( pBackLeftFoot[1][0][1],pBackLeftLeg[1][1][0],pBackLeftLeg[1][0][0],null,Renderer3D.CAR_RIGHT);
 
 		//back right thigh
 		
@@ -1308,6 +1309,8 @@ public class Animal extends CustomData{
 	
 		LineData backRightThighS3=addLine(pBackRightThigh[1][0][0],pBackRightThigh[1][0][1],pBackRightThigh[0][0][1],pBackRightThigh[0][0][0],Renderer3D.CAR_BACK);
 
+				
+		
 		//LineData backRightTopThigh=addLine(pBackRightThigh[0][0][0],pBackRightThigh[1][0][0],pBackRightThigh[1][1][0],pBackRightThigh[0][1][0],Renderer3D.CAR_TOP);
 		
 		
