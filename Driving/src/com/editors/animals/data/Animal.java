@@ -1213,7 +1213,7 @@ public class Animal extends CustomData{
 		pBackLeftThigh[1][1][1]=body[1][1][0];
 		pBackLeftThigh[0][1][1]=body[0][1][0];
 		
-		rotateYZ(pBackLeftThigh,pBackLeftThigh[0][0][1].y,pBackLeftThigh[0][0][1].z,bq0);
+		rotateYZ(pBackLeftThigh,pBackLeftThigh[0][1][1].y,pBackLeftThigh[0][1][1].z,bq0);
 
 		LineData backLeftThighS0=addLine(pBackLeftThigh[0][0][0],pBackLeftThigh[0][0][1],pBackLeftThigh[0][1][1],pBackLeftThigh[0][1][0],Renderer3D.CAR_LEFT);
 	
@@ -1240,7 +1240,7 @@ public class Animal extends CustomData{
 		pBackLeftLeg[1][1][1]=addBPoint(1.0,1.0,1.0,leflegShin0);
 		pBackLeftLeg[0][1][1]=addBPoint(0,1.0,1.0,leflegShin0);
 		
-		rotateYZ(pBackLeftLeg,pBackLeftThigh[0][0][1].y,pBackLeftThigh[0][0][1].z,bq0);
+		rotateYZ(pBackLeftLeg,pBackLeftThigh[0][1][1].y,pBackLeftThigh[0][1][1].z,bq0);
 		rotateYZ(pBackLeftLeg,pBackLeftLeg[0][0][1].y,pBackLeftLeg[0][0][1].z,bq1);
 
 		
@@ -1268,7 +1268,7 @@ public class Animal extends CustomData{
 		pBackLeftFoot[1][1][1]=addBPoint(1.0,1.0,1.0,lefLegFoot0);
 		pBackLeftFoot[0][1][1]=addBPoint(0,1.0,1.0,lefLegFoot0);
 		
-		rotateYZ(pBackLeftFoot,pBackLeftThigh[0][0][1].y,pBackLeftThigh[0][0][1].z,bq0);
+		rotateYZ(pBackLeftFoot,pBackLeftThigh[0][1][1].y,pBackLeftThigh[0][1][1].z,bq0);
 		rotateYZ(pBackLeftFoot,pBackLeftLeg[0][0][1].y,pBackLeftLeg[0][0][1].z,bq1);
 		rotateYZ(pBackLeftFoot,pBackLeftFoot[0][1][1].y,pBackLeftFoot[0][1][1].z,bq2);
 		
@@ -1298,8 +1298,7 @@ public class Animal extends CustomData{
 		pBackRightThigh[1][1][1]=body[numx-1][1][0];
 		pBackRightThigh[0][1][1]=body[numx-2][1][0];
 		
-		rotateYZ(pBackRightThigh,pBackRightThigh[0][0][1].y,pBackRightThigh[0][0][1].z,bq0);
-		
+		rotateYZ(pBackRightThigh,pBackRightThigh[1][1][1].y,pBackRightThigh[1][1][1].z,bq0);
 
 		LineData backRightThighS0=addLine(pBackRightThigh[0][0][0],pBackRightThigh[0][0][1],pBackRightThigh[0][1][1],pBackRightThigh[0][1][0],Renderer3D.CAR_LEFT);
 	
@@ -1327,7 +1326,7 @@ public class Animal extends CustomData{
 		pBackRightLeg[1][1][1]=addBPoint(1.0,1.0,1.0,rigLegShin0);
 		pBackRightLeg[0][1][1]=addBPoint(0,1.0,1.0,rigLegShin0);
 		
-		rotateYZ(pBackRightLeg,pBackRightThigh[0][0][1].y,pBackRightThigh[0][0][1].z,bq0);
+		rotateYZ(pBackRightLeg,pBackRightThigh[1][1][1].y,pBackRightThigh[1][1][1].z,bq0);
 		rotateYZ(pBackRightLeg,pBackRightLeg[0][0][1].y,pBackRightLeg[0][0][1].z,bq1);
 		
 		LineData backRightLeg=addLine(pBackRightLeg[0][0][0],pBackRightLeg[0][1][0],pBackRightLeg[1][1][0],pBackRightLeg[1][0][0],Renderer3D.CAR_BOTTOM);
@@ -1355,7 +1354,7 @@ public class Animal extends CustomData{
 		pBackRightFoot[1][1][1]=addBPoint(1.0,1.0,1,rigLegFoot0);
 		pBackRightFoot[0][1][1]=addBPoint(0,1.0,1,rigLegFoot0);
 		
-		rotateYZ(pBackRightFoot,pBackRightThigh[0][0][1].y,pBackRightThigh[0][0][1].z,bq0);
+		rotateYZ(pBackRightFoot,pBackRightThigh[1][1][1].y,pBackRightThigh[1][1][1].z,bq0);
 		rotateYZ(pBackRightFoot,pBackRightLeg[0][0][1].y,pBackRightLeg[0][0][1].z,bq1);
 		rotateYZ(pBackRightFoot,pBackRightFoot[0][1][1].y,pBackRightFoot[0][1][1].z,bq2);
 		
