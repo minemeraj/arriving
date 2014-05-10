@@ -1469,7 +1469,7 @@ public class Animal extends CustomData{
 		pFrontRightArm[1][1][1]=body[numx-1][numy-1][0];
 		pFrontRightArm[0][1][1]=body[numx-2][numy-1][0];
 		
-		rotateYZ(pFrontRightArm,pFrontRightArm[0][0][1].y,pFrontRightArm[0][0][1].z,fq0);
+		rotateYZ(pFrontRightArm,pFrontRightArm[1][0][1].y,pFrontRightArm[1][0][1].z,fq0);
 		
 		LineData bottomRightArm=addLine(pFrontRightArm[0][0][0],pFrontRightArm[0][1][0],pFrontRightArm[1][1][0],pFrontRightArm[1][0][0],Renderer3D.CAR_BOTTOM);	
 		
