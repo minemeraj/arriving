@@ -387,6 +387,8 @@
    	
    	************* NOTES ON CUSTOM EDITORS MODELS
    	
+   	Use f1,f2 to zoom-in/out, q and w keys to rotate.
+   	
    	Car proportions based on BMW 5 Series Sedan (length=4907 mm, wheelbase=2968 mm).
 
 	Truck proportions based on Iveco New Eurocargo Euro VI ( length=8692mm).

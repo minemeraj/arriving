@@ -388,9 +388,9 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 		
 		neck_length.setText(100);
 		neck_side.setText(50);
-		head_DZ.setText(50);
-		head_DX.setText(80);
-		head_DY.setText(80);
+		head_DZ.setText(67);
+		head_DX.setText(70);
+		head_DY.setText(120);
 		
 		femur_length.setText(100);
 		shinbone_length.setText(100);
