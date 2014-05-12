@@ -1085,18 +1085,9 @@ public class Animal extends CustomData{
 
 		int ney=2;
 		int nez=3;
-		
-		double nx0=xc-neck_side*0.5;
-		double nx1=xc-neck_side*0.25;
-		double nx2=xc;
-		double nx3=xc+neck_side*0.25;
-		double nx4=xc+neck_side*0.5;
 
-		double nz0=foot_length+femur_length+shinbone_length+z_side+neck_length/2.0;
-		double nz1=foot_length+femur_length+shinbone_length+z_side+neck_length;
-
-		double ny0=y_side-neck_side;
-		double ny1=y_side;
+		double nz0=foot_length+femur_length+shinbone_length+z_side;
+		Segments n0=new Segments(xc,neck_side,y_side-neck_side,neck_side,nz0,neck_length);
 		
 		BPoint[][][] neck=new BPoint[numx][ney][nez];
 	
@@ -1111,27 +1102,27 @@ public class Animal extends CustomData{
 		neck[3][1][0]=body[3][4][numz-1];
 		neck[4][1][0]=body[4][4][numz-1];
 		
-		neck[0][0][1]=addBPoint(nx0,ny0,nz0);
-		neck[1][0][1]=addBPoint(nx1,ny0,nz0);
-		neck[2][0][1]=addBPoint(nx2,ny0,nz0);
-		neck[3][0][1]=addBPoint(nx3,ny0,nz0);
-		neck[4][0][1]=addBPoint(nx4,ny0,nz0);
-		neck[0][1][1]=addBPoint(nx0,ny1,nz0);
-		neck[1][1][1]=addBPoint(nx1,ny1,nz0);
-		neck[2][1][1]=addBPoint(nx2,ny1,nz0);
-		neck[3][1][1]=addBPoint(nx3,ny1,nz0);
-		neck[4][1][1]=addBPoint(nx4,ny1,nz0);
+		neck[0][0][1]=addBPoint(-0.5,0.0,0.5,n0);
+		neck[1][0][1]=addBPoint(-0.25,0.0,0.5,n0);
+		neck[2][0][1]=addBPoint(0.0,0.0,0.5,n0);
+		neck[3][0][1]=addBPoint(0.25,0.0,0.5,n0);
+		neck[4][0][1]=addBPoint(0.5,0.0,0.5,n0);
+		neck[0][1][1]=addBPoint(-0.5,1.0,0.5,n0);
+		neck[1][1][1]=addBPoint(-0.25,1.0,0.5,n0);
+		neck[2][1][1]=addBPoint(0.0,1.0,0.5,n0);
+		neck[3][1][1]=addBPoint(0.25,1.0,0.5,n0);
+		neck[4][1][1]=addBPoint(0.5,1.0,0.5,n0);
 		
-		neck[0][0][2]=addBPoint(nx0,ny0,nz1);
-		neck[1][0][2]=addBPoint(nx1,ny0,nz1);
-		neck[2][0][2]=addBPoint(nx2,ny0,nz1);
-		neck[3][0][2]=addBPoint(nx3,ny0,nz1);
-		neck[4][0][2]=addBPoint(nx4,ny0,nz1);		
-		neck[0][1][2]=addBPoint(nx0,ny1,nz1);
-		neck[1][1][2]=addBPoint(nx1,ny1,nz1);
-		neck[2][1][2]=addBPoint(nx2,ny1,nz1);
-		neck[3][1][2]=addBPoint(nx3,ny1,nz1);				
-		neck[4][1][2]=addBPoint(nx4,ny1,nz1);
+		neck[0][0][2]=addBPoint(-0.5,0.0,1.0,n0);
+		neck[1][0][2]=addBPoint(-0.25,0.0,1.0,n0);
+		neck[2][0][2]=addBPoint(0.0,0.0,1.0,n0);
+		neck[3][0][2]=addBPoint(0.25,0.0,1.0,n0);
+		neck[4][0][2]=addBPoint(0.5,0.0,1.0,n0);		
+		neck[0][1][2]=addBPoint(-0.5,1.0,1.0,n0);
+		neck[1][1][2]=addBPoint(-0.25,1.0,1.0,n0);
+		neck[2][1][2]=addBPoint(0.0,1.0,1.0,n0);
+		neck[3][1][2]=addBPoint(0.25,1.0,1.0,n0);				
+		neck[4][1][2]=addBPoint(0.5,1.0,1.0,n0);
 		
 
 		
