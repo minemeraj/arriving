@@ -912,7 +912,7 @@ public class Animal extends CustomData{
 		//System.out.println("front:"+(radius_length+humerus_length+hand_length)+","+frontZ);
 		//main body:
 		
-		double dz=foot_length+femur_length+shinbone_length-(radius_length+humerus_length+hand_length);
+		double dz=rearZ-(frontZ);
 		
 		int numx=5;
 		int numy=6;
@@ -920,8 +920,8 @@ public class Animal extends CustomData{
 		
 		BPoint[][][] body=new BPoint[numx][numy][numz]; 
 		
-		Segments pb0=new Segments(xc,x_side,0,y_side,foot_length+femur_length+shinbone_length,z_side);
-		Segments pf0=new Segments(xc,x_side,0,y_side,hand_length+radius_length+humerus_length,z_side+dz);
+		Segments pb0=new Segments(xc,x_side,0,y_side,rearZ,z_side);
+		Segments pf0=new Segments(xc,x_side,0,y_side,frontZ,z_side+dz);
 
 		body[0][0][0]=addBPoint(-0.5,0.0,0.4,pb0);
 		body[1][0][0]=addBPoint(-0.25,0.0,0.0,pb0);
@@ -1122,16 +1122,15 @@ public class Animal extends CustomData{
 			
 		}
 
-		/////////head:		
-
-		BPoint[][][] head=buildQuadrupedHeadMesh();
-
-		//neck:
+		/////////head and neck:		
+		
+		double nz0=frontZ+z_side+dz;		
+		
+		BPoint[][][] head=buildQuadrupedHeadMesh(nz0+neck_length);		
 
 		int ney=3;
-		int nez=3;
-
-		double nz0=foot_length+femur_length+shinbone_length+z_side;
+		int nez=3;		
+		
 		Segments n0=new Segments(xc,neck_side,y_side-neck_side,neck_side,nz0,neck_length);
 		
 		BPoint[][][] neck=new BPoint[numx][ney][nez];
@@ -1660,11 +1659,9 @@ public class Animal extends CustomData{
 		
 	}
 
-	private BPoint[][][] buildQuadrupedHeadMesh() {
+	private BPoint[][][] buildQuadrupedHeadMesh(double hz) {
 		
 		double xc=x_side*0.5;
-		
-		double hz=foot_length+femur_length+shinbone_length+z_side+neck_length;
 		
 		double height0=head_DZ;		
 		double height1=head_DZ;
