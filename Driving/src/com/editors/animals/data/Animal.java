@@ -893,7 +893,21 @@ public class Animal extends CustomData{
 		
 
 		double xc=x_side*0.5;
+		
+		//legs angles
+		
+		double bq0=-0.1;
+		double bq1=0.5;
+		double bq2=-0.4;
+		
+		double fq0=0.2;
+		double fq1=-0.2;
+		double fq2=-Math.PI/4;
 
+		
+		double rearZ=foot_length*Math.cos(bq0)+femur_length*Math.cos(bq0+bq1)+shinbone_length*Math.cos(bq0+bq1+bq2);
+		double frontZ=hand_length*Math.cos(fq0)+humerus_length*Math.cos(fq0+fq1)+radius_length*Math.cos(fq0+fq1+fq2);
+		
 		//main body:
 		
 		double dz=foot_length+femur_length+shinbone_length-(radius_length+humerus_length+hand_length);
@@ -1226,13 +1240,7 @@ public class Animal extends CustomData{
 		
 		//legs:	
 
-		double bq0=-0.1;
-		double bq1=0.5;
-		double bq2=-0.4;
-		
-		double fq0=0.2;
-		double fq1=-0.2;
-		double fq2=-Math.PI/4;
+
 		
 		//back left thigh
 		
