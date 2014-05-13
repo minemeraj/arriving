@@ -905,9 +905,11 @@ public class Animal extends CustomData{
 		double fq2=-Math.PI/4;
 
 		
-		double rearZ=foot_length*Math.cos(bq0)+femur_length*Math.cos(bq0+bq1)+shinbone_length*Math.cos(bq0+bq1+bq2);
-		double frontZ=hand_length*Math.cos(fq0)+humerus_length*Math.cos(fq0+fq1)+radius_length*Math.cos(fq0+fq1+fq2);
+		double rearZ=femur_length*Math.cos(bq0)+shinbone_length*Math.cos(bq0+bq1)+foot_length*Math.cos(bq0+bq1+bq2);
+		double frontZ=humerus_length*Math.cos(fq0)+radius_length*Math.cos(fq0+fq1)+hand_length*Math.cos(fq0+fq1+fq2);
 		
+		//System.out.println("rear:"+(foot_length+femur_length+shinbone_length)+","+rearZ);
+		//System.out.println("front:"+(radius_length+humerus_length+hand_length)+","+frontZ);
 		//main body:
 		
 		double dz=foot_length+femur_length+shinbone_length-(radius_length+humerus_length+hand_length);
