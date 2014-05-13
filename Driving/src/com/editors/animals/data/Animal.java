@@ -1106,6 +1106,9 @@ public class Animal extends CustomData{
 			
 		}
 
+		/////////head:		
+
+		BPoint[][][] head=buildQuadrupedHeadMesh();
 
 		//neck:
 
@@ -1149,21 +1152,21 @@ public class Animal extends CustomData{
 		neck[3][2][1]=addBPoint(0.25,1.0,0.5,n0);
 		neck[4][2][1]=addBPoint(0.5,1.0,0.5,n0);
 		
-		neck[0][0][2]=addBPoint(-0.5,0.0,1.0,n0);
-		neck[1][0][2]=addBPoint(-0.25,0.0,1.0,n0);
-		neck[2][0][2]=addBPoint(0.0,0.0,1.0,n0);
-		neck[3][0][2]=addBPoint(0.25,0.0,1.0,n0);
-		neck[4][0][2]=addBPoint(0.5,0.0,1.0,n0);		
-		neck[0][1][2]=addBPoint(-0.5,0.5,1.0,n0);
-		neck[1][1][2]=addBPoint(-0.25,0.5,1.0,n0);
-		neck[2][1][2]=addBPoint(0.0,0.5,1.0,n0);
-		neck[3][1][2]=addBPoint(0.25,0.5,1.0,n0);				
-		neck[4][1][2]=addBPoint(0.5,0.5,1.0,n0);
-		neck[0][2][2]=addBPoint(-0.5,1.0,1.0,n0);
-		neck[1][2][2]=addBPoint(-0.25,1.0,1.0,n0);
-		neck[2][2][2]=addBPoint(0.0,1.0,1.0,n0);
-		neck[3][2][2]=addBPoint(0.25,1.0,1.0,n0);				
-		neck[4][2][2]=addBPoint(0.5,1.0,1.0,n0);
+		neck[0][0][2]=head[0][0][0];
+		neck[1][0][2]=head[1][0][0];
+		neck[2][0][2]=head[2][0][0];
+		neck[3][0][2]=head[3][0][0];
+		neck[4][0][2]=head[4][0][0];		
+		neck[0][1][2]=head[0][1][0];
+		neck[1][1][2]=head[1][1][0];
+		neck[2][1][2]=head[2][1][0];
+		neck[3][1][2]=head[3][1][0];			
+		neck[4][1][2]=head[4][1][0];
+		neck[0][2][2]=head[0][2][0];
+		neck[1][2][2]=head[1][2][0];
+		neck[2][2][2]=head[2][2][0];
+		neck[3][2][2]=head[3][2][0];			
+		neck[4][2][2]=head[4][2][0];
 
 		
 		for (int i = 0; i < numx-1; i++) {
@@ -1201,9 +1204,7 @@ public class Animal extends CustomData{
 		}
 		
 		
-		/////////head:		
-
-		BPoint[][][] head=buildQuadrupedHeadMesh();
+	
 		
 		//limbs:
 		
