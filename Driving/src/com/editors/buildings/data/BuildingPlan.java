@@ -225,18 +225,21 @@ public class BuildingPlan extends CustomData{
 				
 
 				if(roof_type==ROOF_TYPE_HIP){			
-							
+						
 					
+					double dz00=-roof_top_height*roof_rim/p001.x;
+					double dy00=0;
+					
+					if(y_indentation>0)
+						dy00=y_indentation*dz00/roof_top_height;
+					
+					pr[0][0]=addBPoint(p001.x-roof_rim,p001.y-dy00,p001.z-dz00);
 					pr[1][0]=addBPoint((p001.x+p101.x)/2.0,(p001.y+p101.y)/2.0+y_indentation,roof_top_height+(p001.z+p101.z)/2.0);
+					pr[2][0]=addBPoint(p101.x+roof_rim,p101.y-dy00,p101.z-dz00);
 					
-					//double d00=Point3D.distance(pr[1][0],p000);
-							
-					pr[0][0]=addBPoint(p001.x-roof_rim,p001.y,p001.z);
-					pr[2][0]=addBPoint(p101.x+roof_rim,p101.y,p101.z);
-					
+					pr[0][1]=addBPoint(p011.x-roof_rim,p011.y+dy00,p011.z-dz00);
 					pr[1][1]=addBPoint((p011.x+p111.x)/2.0,(p011.y+p111.y)/2.0-y_indentation,roof_top_height+(p011.z+p111.z)/2.0);
-					pr[0][1]=addBPoint(p011.x-roof_rim,p011.y,p011.z);
-					pr[2][1]=addBPoint(p111.x+roof_rim,p111.y,p111.z);
+					pr[2][1]=addBPoint(p111.x+roof_rim,p111.y+dy00,p111.z-dz00);
 				}
 				else if(roof_type==ROOF_TYPE_SHED){
 
@@ -258,14 +261,7 @@ public class BuildingPlan extends CustomData{
 				LineData backRoof=addLine(p001,p101,pr[1][0],null,Renderer3D.CAR_BACK);
 
 				LineData frontRoof=addLine(p011,pr[1][1],p111,null,Renderer3D.CAR_FRONT);
-				
-				
-				
-
-				
-
 		
-
 
 			}else if( roof_type==ROOF_TYPE_GAMBREL){
 
