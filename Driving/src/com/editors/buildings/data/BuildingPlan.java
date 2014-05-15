@@ -30,7 +30,9 @@ public class BuildingPlan extends CustomData{
 
 	double roof_top_height=0;
 	double roof_top_width=0;
-	double roof_top_length=0;
+	double roof_top_length=0;	
+	
+	double roof_rim=0;
 
 	public BuildingPlan(){}
 
@@ -50,7 +52,7 @@ public class BuildingPlan extends CustomData{
 
 		BuildingPlan grid=new BuildingPlan(x_side,y_side,z_side);
 		grid.setRoof_type(getRoof_type());
-		grid.setRoof(roof_type,roof_top_height,roof_top_width,roof_top_length);
+		grid.setRoof(roof_type,roof_top_height,roof_top_width,roof_top_length,roof_rim);
 		return grid;
 
 	}
@@ -92,7 +94,7 @@ public class BuildingPlan extends CustomData{
 
 	public String getRoofData() {
 		String str=getRoof_type()+","+
-				getRoof_top_height()+","+getRoof_top_width()+","+getRoof_top_length();
+				getRoof_top_height()+","+getRoof_top_width()+","+getRoof_top_length()+","+roof_rim;
 		return str;
 	}
 
@@ -105,8 +107,9 @@ public class BuildingPlan extends CustomData{
 		double rooHeight = Double.parseDouble(vals[1]);
 		double rooWidth =Double.parseDouble(vals[2]);
 		double rooLength =Double.parseDouble(vals[3]);
+		double roofRim =Double.parseDouble(vals[4]);
 
-		setRoof(rooType,rooHeight,rooWidth,rooLength);
+		setRoof(rooType,rooHeight,rooWidth,rooLength,roofRim);
 	}
 
 	public double getZ_side() {
@@ -134,12 +137,13 @@ public class BuildingPlan extends CustomData{
 	}
 
 
-	public void setRoof(int roof_type,double roof_top_height,double roof_top_width,double roof_top_length){
+	public void setRoof(int roof_type,double roof_top_height,double roof_top_width,double roof_top_length,double roof_rim){
 
 		this.roof_type = roof_type;
 		this.roof_top_height = roof_top_height;
 		this.roof_top_width = roof_top_width;
 		this.roof_top_length = roof_top_length;
+		this.roof_rim = roof_rim;
 	}
 
 
@@ -167,6 +171,15 @@ public class BuildingPlan extends CustomData{
 	public void setRoof_top_width(double roof_top_width) {
 		this.roof_top_width = roof_top_width;
 	}
+	
+	public double getRoof_rim() {
+		return roof_rim;
+	}
+
+	public void setRoof_rim(double roof_rim) {
+		this.roof_rim = roof_rim;
+	}
+
 
 	public PolygonMesh buildMesh(){
 
@@ -193,8 +206,7 @@ public class BuildingPlan extends CustomData{
 		BPoint p011=addBPoint(-0.5,1.0,1.0,p);
 		BPoint p101=addBPoint(0.5,0,1.0,p);
 		BPoint p111=addBPoint(0.5,1.0,1.0,p);
-		
-		double roof_rim=0;
+
 
 
 		LineData bottomLD=addLine(p000,p010,p110,p100,Renderer3D.CAR_BOTTOM);
@@ -240,6 +252,22 @@ public class BuildingPlan extends CustomData{
 					pr[0][1]=addBPoint(p011.x-roof_rim,p011.y+dy00,p011.z-dz00);
 					pr[1][1]=addBPoint((p011.x+p111.x)/2.0,(p011.y+p111.y)/2.0-y_indentation,roof_top_height+(p011.z+p111.z)/2.0);
 					pr[2][1]=addBPoint(p111.x+roof_rim,p111.y+dy00,p111.z-dz00);
+					
+					if(y_indentation>0){
+						
+						LineData backRoof=addLine(pr[0][0],pr[2][0],pr[1][0],null,Renderer3D.CAR_BACK);
+
+						LineData frontRoof=addLine(pr[0][1],pr[1][1],pr[2][1],null,Renderer3D.CAR_FRONT);
+						
+					}else{
+						
+						LineData backRoof=addLine(p001,p101,pr[1][0],null,Renderer3D.CAR_BACK);
+
+						LineData frontRoof=addLine(p011,pr[1][1],p111,null,Renderer3D.CAR_FRONT);
+						
+					}
+					
+				
 				}
 				else if(roof_type==ROOF_TYPE_SHED){
 
@@ -249,6 +277,11 @@ public class BuildingPlan extends CustomData{
 					pr[0][1]=addBPoint(p011.x,p011.y,p011.z);
 					pr[1][1]=addBPoint(p011.x,(p011.y+p111.y)/2.0-y_indentation,roof_top_height+(p011.z+p111.z)/2.0);
 					pr[2][1]=addBPoint(p111.x,p011.y,p111.z);
+					
+					
+					LineData backRoof=addLine(p001,p101,pr[1][0],null,Renderer3D.CAR_BACK);
+
+					LineData frontRoof=addLine(p011,pr[1][1],p111,null,Renderer3D.CAR_FRONT);
 
 				}
 
@@ -257,10 +290,7 @@ public class BuildingPlan extends CustomData{
 					LineData topRoof1=addLine(pr[i][0],pr[i+1][0],pr[i+1][1],pr[i][1],Renderer3D.CAR_TOP);
 					
 				}
-				
-				LineData backRoof=addLine(p001,p101,pr[1][0],null,Renderer3D.CAR_BACK);
-
-				LineData frontRoof=addLine(p011,pr[1][1],p111,null,Renderer3D.CAR_FRONT);
+		
 		
 
 			}else if( roof_type==ROOF_TYPE_GAMBREL){
@@ -356,6 +386,7 @@ public class BuildingPlan extends CustomData{
 
 
 	}
+
 
 
 

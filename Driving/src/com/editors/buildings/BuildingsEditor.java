@@ -2,16 +2,10 @@ package com.editors.buildings;
 
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -21,16 +15,10 @@ import java.util.Stack;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.RepaintManager;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 
 import com.editors.CustomEditor;
 import com.editors.DoubleTextField;
@@ -58,6 +46,7 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 	
 	public Stack oldPlan=null;
 	int max_stack_size=10;
+	private DoubleTextField roof_rim;
 	
 	public BuildingsEditor(){
 		
@@ -192,6 +181,18 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 		
 		r+=30;
 		
+		jlb=new JLabel("Roof rim");
+		jlb.setBounds(5, r, 150, 20);
+		right.add(jlb);
+		roof_rim=new DoubleTextField();
+		roof_rim.setBounds(column, r, 160, 20);
+		roof_rim.addKeyListener(this);
+		right.add(roof_rim);
+		
+		r+=30;
+		
+		
+		
         generate=new JButton("Update");
         generate.setBounds(10,r,100,20);
         generate.addActionListener(this);
@@ -214,6 +215,7 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 		roof_top_height.setText(30);
 		roof_top_length.setText(100);
 		roof_top_width.setText(100);
+		roof_rim.setText(20);
 	}
 
 	private void setRightData(BuildingPlan plan) {
@@ -272,7 +274,9 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 		double zside=z_side.getvalue();
 		double roofHeight=roof_top_height.getvalue();       
 		double roofLength= roof_top_length.getvalue();
-		double roofWidth=roof_top_width.getvalue(); 
+		double roofWidth=roof_top_width.getvalue();
+		double roofRim=roof_rim.getvalue();
+		
 		
 		if(plan==null){
 			
@@ -286,9 +290,7 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 		    if(val>=0)
 		    	expPlan.setRoof_type(val);	
 		    
-		    expPlan.setRoof_top_height(roofHeight);
-		    expPlan.setRoof_top_length(roofLength);
-		    expPlan.setRoof_top_width(roofWidth);		
+		    expPlan.setRoof(val,roofHeight,roofWidth,roofLength,roofRim);
 		    plan=expPlan;
 			
 				
@@ -307,9 +309,7 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 		    if(val>=0)
 		    	plan.setRoof_type(val);			
 			
-		    plan.setRoof_top_height(roofHeight);
-		    plan.setRoof_top_length(roofLength);
-		    plan.setRoof_top_width(roofWidth);	
+		    plan.setRoof(val,roofHeight,roofWidth,roofLength,roofRim);
 			
 		}
 		draw();
