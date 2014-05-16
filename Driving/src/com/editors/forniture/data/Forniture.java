@@ -2,8 +2,12 @@ package com.editors.forniture.data;
 
 import java.util.Vector;
 
+import com.BPoint;
 import com.CustomData;
+import com.Point3D;
 import com.PolygonMesh;
+import com.Segments;
+import com.main.Renderer3D;
 
 public class Forniture extends CustomData{
 
@@ -210,6 +214,106 @@ public class Forniture extends CustomData{
 
 		polyData=new Vector();
 		
+		n=0;
+		
+		Segments b0=new Segments(0,100,0,100,0,200);
+		
+		int lev=3;
+		int shz=lev*2;
+		
+		BPoint[][][] shelves=new BPoint[4][4][shz];
+		
+		double rz0=0.1;
+		double rz1=(1.0-lev*rz0)/(lev-1);
+		
+		for (int i = 0; i < shz; i=i+2) {
+			
+		
+			double rz=(rz0+rz1)*(i/2);
+			
+			shelves[0][0][i]=addBPoint(-0.5,0,rz,b0);
+			shelves[1][0][i]=addBPoint(-0.4,0,rz,b0);
+			shelves[2][0][i]=addBPoint(0.4,0,rz,b0);
+			shelves[3][0][i]=addBPoint(0.5,0,rz,b0);
+			
+			shelves[0][1][i]=addBPoint(-0.5,0.1,rz,b0);
+			shelves[1][1][i]=addBPoint(-0.4,0.1,rz,b0);
+			shelves[2][1][i]=addBPoint(0.4,0.1,rz,b0);
+			shelves[3][1][i]=addBPoint(0.5,0.1,rz,b0);
+			
+			shelves[0][2][i]=addBPoint(-0.5,0.9,rz,b0);
+			shelves[1][2][i]=addBPoint(-0.4,0.9,rz,b0);
+			shelves[2][2][i]=addBPoint(0.4,0.9,rz,b0);
+			shelves[3][2][i]=addBPoint(0.5,0.9,rz,b0);
+			
+			shelves[0][3][i]=addBPoint(-0.5,1.0,rz,b0);
+			shelves[1][3][i]=addBPoint(-0.4,1.0,rz,b0);
+			shelves[2][3][i]=addBPoint(0.4,1.0,rz,b0);
+			shelves[3][3][i]=addBPoint(0.5,1.0,rz,b0);	
+			
+			
+			shelves[0][0][i+1]=addBPoint(-0.5,0,rz+rz0,b0);
+			shelves[1][0][i+1]=addBPoint(-0.4,0,rz+rz0,b0);
+			shelves[2][0][i+1]=addBPoint(0.4,0,rz+rz0,b0);
+			shelves[3][0][i+1]=addBPoint(0.5,0,rz+rz0,b0);
+			
+			shelves[0][1][i+1]=addBPoint(-0.5,0.1,rz+rz0,b0);
+			shelves[1][1][i+1]=addBPoint(-0.4,0.1,rz+rz0,b0);
+			shelves[2][1][i+1]=addBPoint(0.4,0.1,rz+rz0,b0);
+			shelves[3][1][i+1]=addBPoint(0.5,0.1,rz+rz0,b0);
+			
+			shelves[0][2][i+1]=addBPoint(-0.5,0.9,rz+rz0,b0);
+			shelves[1][2][i+1]=addBPoint(-0.4,0.9,rz+rz0,b0);
+			shelves[2][2][i+1]=addBPoint(0.4,0.9,rz+rz0,b0);
+			shelves[3][2][i+1]=addBPoint(0.5,0.9,rz+rz0,b0);
+			
+			shelves[0][3][i+1]=addBPoint(-0.5,1.0,rz+rz0,b0);
+			shelves[1][3][i+1]=addBPoint(-0.4,1.0,rz+rz0,b0);
+			shelves[2][3][i+1]=addBPoint(0.4,1.0,rz+rz0,b0);
+			shelves[3][3][i+1]=addBPoint(0.5,1.0,rz+rz0,b0);	
+		}
+		
+		for (int i = 0; i < shz; i++) {
+			
+			if(i%2==0){
+			
+				addLine(shelves[0][0][i],shelves[0][3][i],shelves[3][3][i],shelves[3][0][i],Renderer3D.CAR_BOTTOM);
+				addLine(shelves[0][0][i+1],shelves[0][3][i+1],shelves[3][3][i+1],shelves[3][0][i+1],Renderer3D.CAR_TOP);
+			
+	
+				addLine(shelves[0][0][i],shelves[0][0][i+1],shelves[0][3][i+1],shelves[0][3][i],Renderer3D.CAR_LEFT);				
+
+				addLine(shelves[3][0][i],shelves[3][3][i],shelves[3][3][i+1],shelves[3][0][i+1],Renderer3D.CAR_RIGHT);
+				
+				addLine(shelves[0][3][i],shelves[0][3][i+1],shelves[3][3][i+1],shelves[3][3][i],Renderer3D.CAR_FRONT);
+				
+				addLine(shelves[0][0][i],shelves[3][0][i],shelves[3][0][i+1],shelves[0][0][i+1],Renderer3D.CAR_BACK);
+			
+			}
+			
+			if(i%2==1 && i<shz-1){
+				
+				//front panel
+				addLine(shelves[0][3][i],shelves[0][3][i+1],shelves[3][3][i+1],shelves[3][3][i],Renderer3D.CAR_FRONT);
+				addLine(shelves[1][2][i],shelves[2][2][i],shelves[2][2][i+1],shelves[1][2][i+1],Renderer3D.CAR_BACK);
+				
+				//left panel
+				addLine(shelves[1][0][i],shelves[1][2][i],shelves[1][2][i+1],shelves[1][0][i+1],Renderer3D.CAR_RIGHT);
+				addLine(shelves[0][0][i],shelves[0][0][i+1],shelves[0][3][i+1],shelves[0][3][i],Renderer3D.CAR_LEFT);
+				
+				//back panel left
+				addLine(shelves[0][0][i],shelves[1][0][i],shelves[1][0][i+1],shelves[0][0][i+1],Renderer3D.CAR_BACK);
+				
+				//right panel
+				addLine(shelves[3][0][i],shelves[3][3][i],shelves[3][3][i+1],shelves[3][0][i+1],Renderer3D.CAR_RIGHT);
+				addLine(shelves[2][0][i],shelves[2][0][i+1],shelves[2][2][i+1],shelves[2][2][i],Renderer3D.CAR_LEFT);
+				
+				//back panel right
+				addLine(shelves[2][0][i],shelves[3][0][i],shelves[3][0][i+1],shelves[2][0][i+1],Renderer3D.CAR_BACK);
+				
+			}
+
+		}
 		
 		PolygonMesh pm=new PolygonMesh(points,polyData);
 
