@@ -216,7 +216,7 @@ public class Forniture extends CustomData{
 		
 		n=0;
 		
-		Segments b0=new Segments(0,100,0,100,0,200);
+		Segments b0=new Segments(0,x_side,0,y_side,0,z_side);
 		
 		int lev=3;
 		int shz=lev*2;
