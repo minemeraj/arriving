@@ -2,8 +2,6 @@ package com.editors.buildings.data;
 
 import java.util.Vector;
 
-import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
-
 import com.BPoint;
 import com.CustomData;
 import com.LineData;
@@ -25,6 +23,7 @@ public class BuildingPlan extends CustomData{
 	public static int ROOF_TYPE_SHED=2;
 	public static int ROOF_TYPE_GAMBREL=3;
 	public static int ROOF_TYPE_MANSARD=4;
+	public static int ROOF_TYPE_GABLE=5;
 
 	public int roof_type=ROOF_TYPE_HIP;
 
@@ -188,7 +187,7 @@ public class BuildingPlan extends CustomData{
 
 
 		points=new Vector();
-		points.setSize(14);
+		points.setSize(30);
 
 		polyData=new Vector();
 		
@@ -227,7 +226,7 @@ public class BuildingPlan extends CustomData{
 				LineData topLD=addLine(p001,p101,p111,p011,Renderer3D.CAR_TOP);
 	
 
-			}else if( roof_type==ROOF_TYPE_HIP || roof_type==ROOF_TYPE_SHED){
+			}else if( roof_type==ROOF_TYPE_HIP || roof_type==ROOF_TYPE_SHED ||  roof_type==ROOF_TYPE_GABLE){
 
 
 
@@ -242,8 +241,8 @@ public class BuildingPlan extends CustomData{
 					double dz00=-roof_top_height*roof_rim/p001.x;
 					double dy00=0;
 					
-					if(y_indentation>0)
-						dy00=y_indentation*dz00/roof_top_height;
+					if(y_indentation!=0)
+						dy00=-y_indentation*roof_rim/p001.x;
 					
 					pr[0][0]=addBPoint(p001.x-roof_rim,p001.y-dy00,p001.z-dz00);
 					pr[1][0]=addBPoint((p001.x+p101.x)/2.0,(p001.y+p101.y)/2.0+y_indentation,roof_top_height+(p001.z+p101.z)/2.0);
@@ -253,7 +252,7 @@ public class BuildingPlan extends CustomData{
 					pr[1][1]=addBPoint((p011.x+p111.x)/2.0,(p011.y+p111.y)/2.0-y_indentation,roof_top_height+(p011.z+p111.z)/2.0);
 					pr[2][1]=addBPoint(p111.x+roof_rim,p111.y+dy00,p111.z-dz00);
 					
-					if(y_indentation>0){
+					if(y_indentation!=0){
 						
 						LineData backRoof=addLine(pr[0][0],pr[2][0],pr[1][0],null,Renderer3D.CAR_BACK);
 
@@ -269,11 +268,36 @@ public class BuildingPlan extends CustomData{
 					
 				
 				}
+				else if(roof_type==ROOF_TYPE_GABLE){			
+						
+					
+					double dz00=-roof_top_height*roof_rim/p001.x;
+					double dy00=roof_rim;					
+					
+					pr[0][0]=addBPoint(p001.x-roof_rim,p001.y-dy00,p001.z-dz00);
+					pr[1][0]=addBPoint((p001.x+p101.x)/2.0,(p001.y+p101.y)/2.0-dy00,roof_top_height+(p001.z+p101.z)/2.0);
+					pr[2][0]=addBPoint(p101.x+roof_rim,p101.y-dy00,p101.z-dz00);
+					
+					pr[0][1]=addBPoint(p011.x-roof_rim,p011.y+dy00,p011.z-dz00);
+					pr[1][1]=addBPoint((p011.x+p111.x)/2.0,(p011.y+p111.y)/2.0+dy00,roof_top_height+(p011.z+p111.z)/2.0);
+					pr[2][1]=addBPoint(p111.x+roof_rim,p111.y+dy00,p111.z-dz00);
+					
+					BPoint pr10=addBPoint((p001.x+p101.x)/2.0,(p001.y+p101.y)/2.0,roof_top_height+(p001.z+p101.z)/2.0);
+					BPoint pr11=addBPoint((p011.x+p111.x)/2.0,(p011.y+p111.y)/2.0,roof_top_height+(p011.z+p111.z)/2.0);
+						
+					LineData backGable=addLine(p001,p101,pr10,null,Renderer3D.CAR_BACK);
+					LineData frontGable=addLine(p011,pr11,p111,null,Renderer3D.CAR_FRONT);
+				
+					
+				
+				}
 				else if(roof_type==ROOF_TYPE_SHED){
-
+									
+					
 					pr[0][0]=addBPoint(p001.x,p001.y,p001.z);
 					pr[1][0]=addBPoint(p001.x,(p001.y+p101.y)/2.0+y_indentation,roof_top_height+(p001.z+p101.z)/2.0);
 					pr[2][0]=addBPoint(p101.x,p101.y,p101.z);
+					
 					pr[0][1]=addBPoint(p011.x,p011.y,p011.z);
 					pr[1][1]=addBPoint(p011.x,(p011.y+p111.y)/2.0-y_indentation,roof_top_height+(p011.z+p111.z)/2.0);
 					pr[2][1]=addBPoint(p111.x,p011.y,p111.z);
@@ -282,6 +306,11 @@ public class BuildingPlan extends CustomData{
 					LineData backRoof=addLine(p001,p101,pr[1][0],null,Renderer3D.CAR_BACK);
 
 					LineData frontRoof=addLine(p011,pr[1][1],p111,null,Renderer3D.CAR_FRONT);
+					
+					BPoint sh10=addBPoint(pr[2][0].x+roof_rim,pr[2][0].y,pr[2][0].z);
+					BPoint sh11=addBPoint(pr[2][1].x+roof_rim,pr[2][1].y,pr[2][1].z);
+					
+					LineData rim=addLine(pr[2][1],pr[2][0],sh10,sh11,Renderer3D.CAR_FRONT);
 
 				}
 

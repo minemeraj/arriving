@@ -139,11 +139,13 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 		chooseRoof.setBounds(column, r, 100, 20);
 		chooseRoof.addKeyListener(this);
 		chooseRoof.addItem(new ValuePair("-1",""));
-		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_FLAT,"Flat"));
-		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_HIP,"Hip"));
-		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_SHED,"Shed"));
+		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_FLAT,"Flat"));		
+		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_GABLE,"Gable"));
 		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_GAMBREL,"Gambrel"));
+		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_HIP,"Hip"));
 		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_MANSARD,"Mansard"));
+		chooseRoof.addItem(new ValuePair(""+BuildingPlan.ROOF_TYPE_SHED,"Shed"));
+		
 		chooseRoof.setSelectedIndex(0);
 		right.add(chooseRoof);
 		
@@ -287,8 +289,8 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 		    ValuePair vp= (ValuePair)chooseRoof.getSelectedItem();
 		    
 		    int val=Integer.parseInt(vp.getId());
-		    if(val>=0)
-		    	expPlan.setRoof_type(val);	
+		    if(val<0)
+		    	val=BuildingPlan.ROOF_TYPE_HIP;
 		    
 		    expPlan.setRoof(val,roofHeight,roofWidth,roofLength,roofRim);
 		    plan=expPlan;
@@ -306,8 +308,8 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 		    ValuePair vp= (ValuePair)chooseRoof.getSelectedItem();
 		    
 		    int val=Integer.parseInt(vp.getId());
-		    if(val>=0)
-		    	plan.setRoof_type(val);			
+		    if(val<0)
+		    	val=BuildingPlan.ROOF_TYPE_HIP;
 			
 		    plan.setRoof(val,roofHeight,roofWidth,roofLength,roofRim);
 			
