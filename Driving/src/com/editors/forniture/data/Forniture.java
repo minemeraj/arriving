@@ -199,7 +199,127 @@ public class Forniture extends CustomData{
 
 		polyData=new Vector();
 		
-		n=0;		
+		n=0;	
+		
+		Segments b0=new Segments(0,x_side,0,y_side,0,z_side);
+		
+		BPoint[][][] body=new BPoint[2][2][2];
+		
+		body[0][0][0]=addBPoint(0,0,0,b0);
+		body[1][0][0]=addBPoint(1.0,0,0,b0);
+		body[1][1][0]=addBPoint(1.0,1.0,0,b0);
+		body[0][1][0]=addBPoint(0,1.0,0,b0);
+		
+		body[0][0][1]=addBPoint(0,0,0.5,b0);
+		body[1][0][1]=addBPoint(1.0,0,0.5,b0);
+		body[1][1][1]=addBPoint(1.0,1.0,0.5,b0);
+		body[0][1][1]=addBPoint(0,1.0,0.5,b0);
+		
+		addLine(body[0][0][1],body[1][0][1],body[1][1][1],body[0][1][1],Renderer3D.CAR_TOP);
+		
+
+		addLine(body[0][0][0],body[0][0][1],body[0][1][1],body[0][1][0],Renderer3D.CAR_LEFT);				
+
+		addLine(body[1][0][0],body[1][1][0],body[1][1][1],body[1][0][1],Renderer3D.CAR_RIGHT);
+		
+		addLine(body[0][1][0],body[0][1][1],body[1][1][1],body[1][1][0],Renderer3D.CAR_FRONT);
+		
+		addLine(body[0][0][0],body[1][0][0],body[1][0][1],body[0][0][1],Renderer3D.CAR_BACK);
+		
+		addLine(body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0],Renderer3D.CAR_BOTTOM);
+		
+		
+		
+		BPoint[][][] leftColumn=new BPoint[2][2][2];
+		
+		leftColumn[0][0][0]=addBPoint(0,0.2,0.5,b0);
+		leftColumn[1][0][0]=addBPoint(0.1,0.2,0.5,b0);
+		leftColumn[1][1][0]=addBPoint(0.1,0.4,0.5,b0);
+		leftColumn[0][1][0]=addBPoint(0,0.4,0.5,b0);
+		
+		leftColumn[0][0][1]=addBPoint(0,0.2,0.75,b0);
+		leftColumn[1][0][1]=addBPoint(0.1,0.2,0.75,b0);
+		leftColumn[1][1][1]=addBPoint(0.1,0.4,0.75,b0);
+		leftColumn[0][1][1]=addBPoint(0,0.4,0.75,b0);
+
+		addLine(leftColumn[0][0][0],leftColumn[0][0][1],leftColumn[0][1][1],leftColumn[0][1][0],Renderer3D.CAR_LEFT);				
+
+		addLine(leftColumn[1][0][0],leftColumn[1][1][0],leftColumn[1][1][1],leftColumn[1][0][1],Renderer3D.CAR_RIGHT);
+		
+		addLine(leftColumn[0][1][0],leftColumn[0][1][1],leftColumn[1][1][1],leftColumn[1][1][0],Renderer3D.CAR_FRONT);
+		
+		addLine(leftColumn[0][0][0],leftColumn[1][0][0],leftColumn[1][0][1],leftColumn[0][0][1],Renderer3D.CAR_BACK);
+		
+		
+		
+		BPoint[][][] rightColumn=new BPoint[2][2][2];
+		
+		rightColumn[0][0][0]=addBPoint(0.9,0.2,0.5,b0);
+		rightColumn[1][0][0]=addBPoint(1.0,0.2,0.5,b0);
+		rightColumn[1][1][0]=addBPoint(1.0,0.4,0.5,b0);
+		rightColumn[0][1][0]=addBPoint(0.9,0.4,0.5,b0);
+		
+		rightColumn[0][0][1]=addBPoint(0.9,0.2,0.75,b0);
+		rightColumn[1][0][1]=addBPoint(1.0,0.2,0.75,b0);
+		rightColumn[1][1][1]=addBPoint(1.0,0.4,0.75,b0);
+		rightColumn[0][1][1]=addBPoint(0.9,0.4,0.75,b0);
+
+		addLine(rightColumn[0][0][0],rightColumn[0][0][1],rightColumn[0][1][1],rightColumn[0][1][0],Renderer3D.CAR_LEFT);				
+
+		addLine(rightColumn[1][0][0],rightColumn[1][1][0],rightColumn[1][1][1],rightColumn[1][0][1],Renderer3D.CAR_RIGHT);
+		
+		addLine(rightColumn[0][1][0],rightColumn[0][1][1],rightColumn[1][1][1],rightColumn[1][1][0],Renderer3D.CAR_FRONT);
+		
+		addLine(rightColumn[0][0][0],rightColumn[1][0][0],rightColumn[1][0][1],rightColumn[0][0][1],Renderer3D.CAR_BACK);
+		
+		
+		BPoint[][][] backPanel=new BPoint[2][2][2];
+		
+		backPanel[0][0][0]=addBPoint(0.0,0.9,0.5,b0);
+		backPanel[1][0][0]=addBPoint(1.0,0.9,0.5,b0);
+		backPanel[1][1][0]=addBPoint(1.0,1.0,0.5,b0);
+		backPanel[0][1][0]=addBPoint(0.0,1.0,0.5,b0);
+		
+		backPanel[0][0][1]=addBPoint(0.0,0.9,0.75,b0);
+		backPanel[1][0][1]=addBPoint(1.0,0.9,0.75,b0);
+		backPanel[1][1][1]=addBPoint(1.0,1.0,0.75,b0);
+		backPanel[0][1][1]=addBPoint(0.0,1.0,0.75,b0);
+
+		addLine(backPanel[0][0][0],backPanel[0][0][1],backPanel[0][1][1],backPanel[0][1][0],Renderer3D.CAR_LEFT);				
+
+		addLine(backPanel[1][0][0],backPanel[1][1][0],backPanel[1][1][1],backPanel[1][0][1],Renderer3D.CAR_RIGHT);
+		
+		addLine(backPanel[0][1][0],backPanel[0][1][1],backPanel[1][1][1],backPanel[1][1][0],Renderer3D.CAR_FRONT);
+		
+		addLine(backPanel[0][0][0],backPanel[1][0][0],backPanel[1][0][1],backPanel[0][0][1],Renderer3D.CAR_BACK);
+	
+		
+		
+		BPoint[][][] upper=new BPoint[2][2][2];
+		
+		upper[0][0][0]=addBPoint(0,0.2,0.75,b0);
+		upper[1][0][0]=addBPoint(1.0,0.2,0.75,b0);
+		upper[1][1][0]=addBPoint(1.0,1.0,0.75,b0);
+		upper[0][1][0]=addBPoint(0,1.0,0.75,b0);
+		
+		upper[0][0][1]=addBPoint(0,0.2,1.0,b0);
+		upper[1][0][1]=addBPoint(1.0,0.2,1.0,b0);
+		upper[1][1][1]=addBPoint(1.0,1.0,1.0,b0);
+		upper[0][1][1]=addBPoint(0,1.0,1.0,b0);
+		
+		addLine(upper[0][0][1],upper[1][0][1],upper[1][1][1],upper[0][1][1],Renderer3D.CAR_TOP);
+		
+
+		addLine(upper[0][0][0],upper[0][0][1],upper[0][1][1],upper[0][1][0],Renderer3D.CAR_LEFT);				
+
+		addLine(upper[1][0][0],upper[1][1][0],upper[1][1][1],upper[1][0][1],Renderer3D.CAR_RIGHT);
+		
+		addLine(upper[0][1][0],upper[0][1][1],upper[1][1][1],upper[1][1][0],Renderer3D.CAR_FRONT);
+		
+		addLine(upper[0][0][0],upper[1][0][0],upper[1][0][1],upper[0][0][1],Renderer3D.CAR_BACK);
+		
+		addLine(upper[0][0][0],upper[0][1][0],upper[1][1][0],upper[1][0][0],Renderer3D.CAR_BOTTOM);
+		
 		
 		PolygonMesh pm=new PolygonMesh(points,polyData);
 
