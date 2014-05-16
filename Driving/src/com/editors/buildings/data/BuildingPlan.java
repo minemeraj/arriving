@@ -372,6 +372,13 @@ public class BuildingPlan extends CustomData{
 
 			}else if( roof_type==ROOF_TYPE_MANSARD){
 				
+				BPoint[][] pr=new BPoint[2][2];
+				
+				pr[0][0]=addBPoint(p001.x-roof_rim,p001.y-roof_rim,p001.z);
+				pr[1][0]=addBPoint(p101.x+roof_rim,p101.y-roof_rim,p101.z);
+				pr[0][1]=addBPoint(p011.x-roof_rim,p011.y+roof_rim,p011.z);
+				pr[1][1]=addBPoint(p111.x+roof_rim,p111.y+roof_rim,p111.z);
+				
 				double roofDY=(getY_side()-getRoof_top_length())/2.0; 
 				double roofDX=(getX_side()-getRoof_top_width())/2.0; 
 				
@@ -380,16 +387,23 @@ public class BuildingPlan extends CustomData{
 				BPoint pr111=addBPoint(p111.x-roofDX,p111.y-roofDY,p111.z+roof_top_height);
 				BPoint pr011=addBPoint(p011.x+roofDX,p011.y-roofDY,p011.z+roof_top_height);
 				
-				LineData topRoof=addLine(pr001,pr101,pr111,pr011,Renderer3D.CAR_TOP);
+				//LineData topRoof=addLine(pr001,pr101,pr111,pr011,Renderer3D.CAR_TOP);
 				
 				LineData topRoof1=addLine(p001,pr001,pr011,p011,Renderer3D.CAR_TOP);
 
 				LineData topRoof2=addLine(p001,p101,pr101,pr001,Renderer3D.CAR_TOP);
-
 				
 				LineData topRoof3=addLine(p101,p111,pr111,pr101,Renderer3D.CAR_TOP);
 				
 				LineData topRoof4=addLine(p111,p011,pr011,pr111,Renderer3D.CAR_TOP);
+				
+				/*LineData topRoof1=addLine(pr[0][0],pr001,pr011,pr[0][1],Renderer3D.CAR_TOP);
+
+				LineData topRoof2=addLine(pr[0][0],pr[1][0],pr101,pr001,Renderer3D.CAR_TOP);
+				
+				LineData topRoof3=addLine(pr[1][0],pr[1][1],pr111,pr101,Renderer3D.CAR_TOP);
+				
+				LineData topRoof4=addLine(pr[1][1],pr[0][1],pr011,pr111,Renderer3D.CAR_TOP);*/
 
 				
 				BPoint pr002=addBPoint((pr001.x+pr101.x)/2.0,(pr001.y+pr101.y)/2.0+roofDY,roof_top_height*0.5+(pr001.z+pr101.z)/2.0);
@@ -399,7 +413,7 @@ public class BuildingPlan extends CustomData{
 
 				LineData frontRoof01=addLine(pr011,pr012,pr111,null,Renderer3D.CAR_FRONT);
 
-				LineData topRoof01=addLine(pr001,pr002,pr012,pr011,Renderer3D.CAR_TOP);
+				LineData topRoof01=addLine(pr011,pr001,pr002,pr012,Renderer3D.CAR_TOP);
 				
 				LineData topRoof02=addLine(pr101,pr111,pr012,pr002,Renderer3D.CAR_TOP);
 
