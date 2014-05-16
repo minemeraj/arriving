@@ -44,7 +44,7 @@ public class FornitureJPanel extends CustomJPanel{
 
 
 		
-		PolygonMesh mesh = forniture.buildMesh();		
+		PolygonMesh mesh = forniture.buildMesh();	
 		draw(mesh);
 	
 		

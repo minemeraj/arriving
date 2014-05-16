@@ -147,10 +147,14 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		chooseForniture.setBounds(column, r, 100, 20);
 		chooseForniture.addKeyListener(this);
 		chooseForniture.addItem(new ValuePair("-1",""));
-		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_TABLE,"Table"));
-		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_CHAIR,"Chair"));
+		
 		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_BED,"Bed"));
+		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_BOOKCASE,"Bookcase"));
+		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_CHAIR,"Chair"));	
+		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_CUPBOARD,"Cupboard"));		
 		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_SOFA,"Sofa"));
+		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_TABLE,"Table"));
+		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_TOILET,"Toilet"));
 		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_WARDROBE,"Wardrobe"));
 		chooseForniture.addItemListener(this);
 		chooseForniture.setSelectedIndex(0);
@@ -352,6 +356,7 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 	}
 
 	public void draw() {
+		
 		
 		center.draw(forniture);
 		

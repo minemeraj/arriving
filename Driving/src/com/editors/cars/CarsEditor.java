@@ -154,16 +154,20 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 		car_type.setBounds(column, r, 110, 20);
 		car_type.addKeyListener(this);
 		car_type.addItem(new ValuePair("-1",""));
-		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_CAR,"Car"));
-		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_TRUCK,"Truck"));
+		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_AIRPLANE,"Airplane"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_BYKE,"Byke"));
-		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_TRACTOR,"Tractor"));
+		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_CAR,"Car"));		
+		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_F1_CAR,"F1 Car"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_RAILROAD_CAR_0,"Railroad car 0"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_RAILROAD_CAR_1,"Railroad car 1"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_RAILROAD_CAR_2,"Railroad car 2"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_RAILROAD_CAR_3,"Railroad car 3"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_RAILROAD_CAR_4,"Railroad car 4"));
-		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_AIRPLANE,"Airplane"));
+		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_SHIP,"Ship"));
+		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_STARSHIP,"Starship"));
+		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_TRACTOR,"Tractor"));
+		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_TRUCK,"Truck"));
+		
 		car_type.addItemListener(this);
 		
 		car_type.setSelectedIndex(0);
@@ -382,6 +386,26 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 		wheel_width.setText(18);
 	}
 	
+	public void initRightStarshipData() { 
+		
+		
+		x_side.setText(60);
+		y_side.setText(150);
+		z_side.setText(60);
+		back_width.setText(114);
+		back_length.setText(43);
+		back_height.setText(76);
+		front_width.setText(110);
+		front_length.setText(100);
+		front_height.setText(54);
+		
+		roof_width.setText(50);
+		roof_length.setText(200);
+		roof_height.setText(50);
+		
+		wheel_radius.setText(25);
+		wheel_width.setText(18);
+	}
 
 	public void initRightTruckData() { 
 		
@@ -864,6 +888,10 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 				   initRightRailroadCarData(type); 
 			   else if(type==Car.CAR_TYPE_AIRPLANE)
 				   initRightAirplaneData();
+			   else if(type==Car.CAR_TYPE_STARSHIP)
+				   initRightStarshipData();
+			   
+			   
 			
 		}
 

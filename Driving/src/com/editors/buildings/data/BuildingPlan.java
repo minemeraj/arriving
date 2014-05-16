@@ -389,21 +389,23 @@ public class BuildingPlan extends CustomData{
 				
 				//LineData topRoof=addLine(pr001,pr101,pr111,pr011,Renderer3D.CAR_TOP);
 				
-				LineData topRoof1=addLine(p001,pr001,pr011,p011,Renderer3D.CAR_TOP);
+				/*LineData topRoof1=addLine(p001,pr001,pr011,p011,Renderer3D.CAR_TOP);
 
 				LineData topRoof2=addLine(p001,p101,pr101,pr001,Renderer3D.CAR_TOP);
 				
 				LineData topRoof3=addLine(p101,p111,pr111,pr101,Renderer3D.CAR_TOP);
 				
-				LineData topRoof4=addLine(p111,p011,pr011,pr111,Renderer3D.CAR_TOP);
+				LineData topRoof4=addLine(p111,p011,pr011,pr111,Renderer3D.CAR_TOP);*/
 				
-				/*LineData topRoof1=addLine(pr[0][0],pr001,pr011,pr[0][1],Renderer3D.CAR_TOP);
+				LineData topRoof=addLine(pr[0][0],pr[1][0],pr[1][1],pr[0][1],Renderer3D.CAR_TOP);
+				
+				LineData topRoof1=addLine(pr[0][0],pr001,pr011,pr[0][1],Renderer3D.CAR_TOP);
 
 				LineData topRoof2=addLine(pr[0][0],pr[1][0],pr101,pr001,Renderer3D.CAR_TOP);
 				
 				LineData topRoof3=addLine(pr[1][0],pr[1][1],pr111,pr101,Renderer3D.CAR_TOP);
 				
-				LineData topRoof4=addLine(pr[1][1],pr[0][1],pr011,pr111,Renderer3D.CAR_TOP);*/
+				LineData topRoof4=addLine(pr[1][1],pr[0][1],pr011,pr111,Renderer3D.CAR_TOP);
 
 				
 				BPoint pr002=addBPoint((pr001.x+pr101.x)/2.0,(pr001.y+pr101.y)/2.0+roofDY,roof_top_height*0.5+(pr001.z+pr101.z)/2.0);

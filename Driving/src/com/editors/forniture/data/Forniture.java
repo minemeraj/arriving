@@ -18,6 +18,9 @@ public class Forniture extends CustomData{
 	public static int FORNITURE_TYPE_BED=2;
 	public static int FORNITURE_TYPE_SOFA=3;
 	public static int FORNITURE_TYPE_WARDROBE=4;
+	public static int FORNITURE_TYPE_BOOKCASE=5;
+	public static int FORNITURE_TYPE_TOILET=6;
+	public static int FORNITURE_TYPE_CUPBOARD=7;
 	
 	public int forniture_type=FORNITURE_TYPE_TABLE;
 	
@@ -167,10 +170,67 @@ public class Forniture extends CustomData{
 			return buildWardrobeMesh();
 			
 		}
+		else if(FORNITURE_TYPE_TOILET==forniture_type){
+			
+			return buildToiletMesh();
+		}
+		else if(FORNITURE_TYPE_BOOKCASE==forniture_type){
+			
+			return buildBookcaseMesh();
+		}
+		else if(FORNITURE_TYPE_CUPBOARD==forniture_type){
+			
+			return buildCupboardMesh();
+		}
 		else
-			return null;
+			return buildWardrobeMesh();
 
 
+	}
+
+	private PolygonMesh buildCupboardMesh() {
+		
+		points=new Vector();
+		points.setSize(400);
+
+		polyData=new Vector();
+		
+		n=0;		
+		
+		PolygonMesh pm=new PolygonMesh(points,polyData);
+
+		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
+		return spm;
+	}
+
+	private PolygonMesh buildBookcaseMesh() {
+		
+		points=new Vector();
+		points.setSize(400);
+
+		polyData=new Vector();
+		
+		
+		PolygonMesh pm=new PolygonMesh(points,polyData);
+
+		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
+		return spm;
+	}
+
+	private PolygonMesh buildToiletMesh() { 
+		
+		points=new Vector();
+		points.setSize(400);
+
+		polyData=new Vector();
+		
+		n=0;
+		
+		
+		PolygonMesh pm=new PolygonMesh(points,polyData);
+
+		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
+		return spm;
 	}
 
 	private PolygonMesh buildWardrobeMesh() {
