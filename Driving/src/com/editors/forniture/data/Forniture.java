@@ -251,19 +251,19 @@ public class Forniture extends CustomData{
 		
 		addLine(body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0],Renderer3D.CAR_BOTTOM);
 		
-		
+		Segments lcol0=new Segments(0,side_width,0.2*y_side,side_length,z_side*0.5,z_side*0.25);
 		
 		BPoint[][][] leftColumn=new BPoint[2][2][2];
 		
-		leftColumn[0][0][0]=addBPoint(0,0.2,0.5,b0);
-		leftColumn[1][0][0]=addBPoint(0.1,0.2,0.5,b0);
-		leftColumn[1][1][0]=addBPoint(0.1,0.4,0.5,b0);
-		leftColumn[0][1][0]=addBPoint(0,0.4,0.5,b0);
+		leftColumn[0][0][0]=addBPoint(0,0.0,0.0,lcol0);
+		leftColumn[1][0][0]=addBPoint(1.0,0.0,0.0,lcol0);
+		leftColumn[1][1][0]=addBPoint(1.0,1.0,0.0,lcol0);
+		leftColumn[0][1][0]=addBPoint(0,1.0,0.0,lcol0);
 		
-		leftColumn[0][0][1]=addBPoint(0,0.2,0.75,b0);
-		leftColumn[1][0][1]=addBPoint(0.1,0.2,0.75,b0);
-		leftColumn[1][1][1]=addBPoint(0.1,0.4,0.75,b0);
-		leftColumn[0][1][1]=addBPoint(0,0.4,0.75,b0);
+		leftColumn[0][0][1]=addBPoint(0,0.0,1,lcol0);
+		leftColumn[1][0][1]=addBPoint(1,0.0,1,lcol0);
+		leftColumn[1][1][1]=addBPoint(1,1.0,1,lcol0);
+		leftColumn[0][1][1]=addBPoint(0,1,1,lcol0);
 
 		addLine(leftColumn[0][0][0],leftColumn[0][0][1],leftColumn[0][1][1],leftColumn[0][1][0],Renderer3D.CAR_LEFT);				
 
@@ -275,17 +275,20 @@ public class Forniture extends CustomData{
 		
 		
 		
+		Segments rcol0=new Segments(x_side-side_width,side_width,0.2*y_side,side_length,z_side*0.5,z_side*0.25);
+		
 		BPoint[][][] rightColumn=new BPoint[2][2][2];
 		
-		rightColumn[0][0][0]=addBPoint(0.9,0.2,0.5,b0);
-		rightColumn[1][0][0]=addBPoint(1.0,0.2,0.5,b0);
-		rightColumn[1][1][0]=addBPoint(1.0,0.4,0.5,b0);
-		rightColumn[0][1][0]=addBPoint(0.9,0.4,0.5,b0);
+		rightColumn[0][0][0]=addBPoint(0.0,0.0,0.0,rcol0);
+		rightColumn[1][0][0]=addBPoint(1.0,0.0,0.0,rcol0);
+		rightColumn[1][1][0]=addBPoint(1.0,1.0,0.0,rcol0);
+		rightColumn[0][1][0]=addBPoint(0.0,1.0,0.0,rcol0);
 		
-		rightColumn[0][0][1]=addBPoint(0.9,0.2,0.75,b0);
-		rightColumn[1][0][1]=addBPoint(1.0,0.2,0.75,b0);
-		rightColumn[1][1][1]=addBPoint(1.0,0.4,0.75,b0);
-		rightColumn[0][1][1]=addBPoint(0.9,0.4,0.75,b0);
+		rightColumn[0][0][1]=addBPoint(0.0,0.0,1.0,rcol0);
+		rightColumn[1][0][1]=addBPoint(1.0,0.0,1.0,rcol0);
+		rightColumn[1][1][1]=addBPoint(1.0,1.0,1.0,rcol0);
+		rightColumn[0][1][1]=addBPoint(0.0,1.0,1.0,rcol0);
+		
 
 		addLine(rightColumn[0][0][0],rightColumn[0][0][1],rightColumn[0][1][1],rightColumn[0][1][0],Renderer3D.CAR_LEFT);				
 

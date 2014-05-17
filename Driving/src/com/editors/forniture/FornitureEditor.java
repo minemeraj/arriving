@@ -309,7 +309,7 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		
 		leg_length.setText(100);
 		leg_side.setText(10);
-		back_height.setText(100);
+		back_height.setText(130);
 		front_height.setText(0);
 		
 		side_width.setText(0);
@@ -364,8 +364,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		leg_side.setText(0);
 		back_height.setText(0);
 		
-		side_width.setText(0);
-		side_length.setText(0);
+		
+		side_width.setText(10);
+		side_length.setText(20);
 		side_height.setText(0);
 		
 	}
