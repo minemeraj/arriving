@@ -31,12 +31,13 @@ public class Forniture extends CustomData{
 	
 	double leg_side=0;
 	double leg_length=0;
-	double back_length=0;
+	double back_height=0;
+	double front_height=0;
 
 	public Forniture(){}
 
 	public Forniture( double x_side, double y_side,double z_side,int forniture_type,
-			double legLength, double legSide, double backLength
+			double legLength, double legSide,double frontHeight, double backHeight
 			) {
 		super();
 
@@ -46,14 +47,16 @@ public class Forniture extends CustomData{
 		this.forniture_type = forniture_type;
 		this.leg_length = legLength;
 		this.leg_side = legSide;
-		this.back_length = backLength;
-
+		this.back_height = backHeight;
+		this.front_height = frontHeight;
 	}
 	
 
 	public Object clone(){
 
-		Forniture grid=new Forniture(x_side,y_side,z_side,forniture_type,leg_length,leg_side,back_length);
+		Forniture grid=new Forniture(x_side,y_side,z_side,forniture_type,
+				leg_length,leg_side,
+				front_height,back_height);
 		return grid;
 
 	}
@@ -76,7 +79,7 @@ public class Forniture extends CustomData{
 	public String toString() {
 
 		String ret="F="+x_side+","+y_side+","+z_side+","+forniture_type;
-		ret+=","+leg_length+","+leg_side+","+back_length;
+		ret+=","+leg_length+","+leg_side+","+front_height+","+back_height;
 				
 		return ret;
 	}
@@ -91,9 +94,12 @@ public class Forniture extends CustomData{
 		int forniture_type=Integer.parseInt(vals[3]);
 		double legLength = Double.parseDouble(vals[4]); 
 		double legSide = Double.parseDouble(vals[5]); 
-		double backLength = Double.parseDouble(vals[6]); 
+		double frontHeight = Double.parseDouble(vals[6]); 
+		double backHeight = Double.parseDouble(vals[6]); 
 
-		Forniture grid=new Forniture(x_side,y_side,z_side,forniture_type,legLength,legSide,backLength);
+		Forniture grid=new Forniture(x_side,y_side,z_side,forniture_type,
+				legLength,legSide,
+				frontHeight,backHeight);
 
 		return grid;
 	}
@@ -134,12 +140,12 @@ public class Forniture extends CustomData{
 		this.leg_length = leg_length;
 	}
 
-	public double getBack_length() {
-		return back_length;
+	public double getBack_height() {
+		return back_height;
 	}
 
-	public void setBack_length(double back_length) {
-		this.back_length = back_length;
+	public void setBack_height(double back_length) {
+		this.back_height = back_length;
 	}
 
 	public int pos(int i, int j, int k){
@@ -635,7 +641,7 @@ public class Forniture extends CustomData{
 
 				
 		//chair back: 
-		Segments sofa_back=new Segments(0,x_side,0,leg_side,leg_length+z_side,back_length);
+		Segments sofa_back=new Segments(0,x_side,0,leg_side,leg_length+z_side,back_height);
 		
 		BPoint[][][] back0=new BPoint[2][2][2];
 		
@@ -677,31 +683,218 @@ public class Forniture extends CustomData{
 
 	private PolygonMesh buildBedMesh() {
 
+
 		points=new Vector();
-		points.setSize(50);
+		points.setSize(100);
 
 		polyData=new Vector();
-		
-		n= 0;
-		
-	
 
-		//basic sides:
-		buildBox(0,0,leg_length,x_side,y_side,z_side);
-		
-	
-		//back Edge
-		buildBox(0,0,0,x_side,leg_side,leg_length);
+		n=0;
 
-		
-		
-		//front Edge
-		buildBox(0,y_side-leg_side,0,x_side,leg_side,leg_length);
-		
-		
-		
-		
+		Segments b0=new Segments(0,x_side,0,y_side,leg_length,z_side);
+
+		BPoint[][][] body=new BPoint[2][2][2];
+
+		body[0][0][0]=addBPoint(0,0,0,b0);
+		body[1][0][0]=addBPoint(1.0,0,0,b0);
+		body[1][1][0]=addBPoint(1.0,1.0,0,b0);
+		body[0][1][0]=addBPoint(0,1.0,0,b0);
+
+		body[0][0][1]=addBPoint(0,0,1.0,b0);
+		body[1][0][1]=addBPoint(1.0,0,1.0,b0);
+		body[1][1][1]=addBPoint(1.0,1.0,1.0,b0);
+		body[0][1][1]=addBPoint(0,1.0,1.0,b0);
+
+		addLine(body[0][0][1],body[1][0][1],body[1][1][1],body[0][1][1],Renderer3D.CAR_TOP);		
+
+		addLine(body[0][0][0],body[0][0][1],body[0][1][1],body[0][1][0],Renderer3D.CAR_LEFT);				
+
+		addLine(body[1][0][0],body[1][1][0],body[1][1][1],body[1][0][1],Renderer3D.CAR_RIGHT);
+
+		addLine(body[0][1][0],body[0][1][1],body[1][1][1],body[1][1][0],Renderer3D.CAR_FRONT);
+
+		addLine(body[0][0][0],body[1][0][0],body[1][0][1],body[0][0][1],Renderer3D.CAR_BACK);
+
+		addLine(body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0],Renderer3D.CAR_BOTTOM);
+
+		/// footboard
+
+		Segments footEdge=new Segments(0,x_side,-leg_side,leg_side,leg_length,front_height);
+
+		BPoint[][][] footboard=new BPoint[2][2][2];
+
+		footboard[0][0][0]=addBPoint(0,0,0,footEdge);
+		footboard[1][0][0]=addBPoint(1,0,0,footEdge);
+		footboard[1][1][0]=addBPoint(1,1,0,footEdge);
+		footboard[0][1][0]=addBPoint(0,1,0,footEdge);
+
+
+		addLine(footboard[0][0][0],footboard[0][1][0],footboard[1][1][0],footboard[1][0][0],Renderer3D.CAR_BOTTOM);
+
+
+		footboard[0][0][1]=addBPoint(0,0,1,footEdge);
+		footboard[1][0][1]=addBPoint(1,0,1,footEdge);
+		footboard[1][1][1]=addBPoint(1,1,1,footEdge);
+		footboard[0][1][1]=addBPoint(0,1,1,footEdge);
+
+		addLine(footboard[0][0][0],footboard[0][0][1],footboard[0][1][1],footboard[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(footboard[0][1][0],footboard[0][1][1],footboard[1][1][1],footboard[1][1][0],Renderer3D.CAR_FRONT);
+
+		addLine(footboard[1][1][0],footboard[1][1][1],footboard[1][0][1],footboard[1][0][0],Renderer3D.CAR_RIGHT);
+
+		addLine(footboard[1][0][0],footboard[1][0][1],footboard[0][0][1],footboard[0][0][0],Renderer3D.CAR_BACK);
+
+		addLine(footboard[0][0][1],footboard[1][0][1],footboard[1][1][1],footboard[0][1][1],Renderer3D.CAR_TOP);	
+
+
+
+
+		/// back left leg
+
+		Segments balLeg=new Segments(0,leg_side,-leg_side,leg_side,0,leg_length);
+
+		BPoint[][][] blLeg=new BPoint[2][2][2];
+
+		blLeg[0][0][0]=addBPoint(0,0,0,balLeg);
+		blLeg[1][0][0]=addBPoint(1,0,0,balLeg);
+		blLeg[1][1][0]=addBPoint(1,1,0,balLeg);
+		blLeg[0][1][0]=addBPoint(0,1,0,balLeg);
+
+
+		addLine(blLeg[0][0][0],blLeg[0][1][0],blLeg[1][1][0],blLeg[1][0][0],Renderer3D.CAR_BOTTOM);
+
+
+		blLeg[0][0][1]=addBPoint(0,0,1,balLeg);
+		blLeg[1][0][1]=addBPoint(1,0,1,balLeg);
+		blLeg[1][1][1]=addBPoint(1,1,1,balLeg);
+		blLeg[0][1][1]=addBPoint(0,1,1,balLeg);
+
+		addLine(blLeg[0][0][0],blLeg[0][0][1],blLeg[0][1][1],blLeg[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(blLeg[0][1][0],blLeg[0][1][1],blLeg[1][1][1],blLeg[1][1][0],Renderer3D.CAR_FRONT);
+
+		addLine(blLeg[1][1][0],blLeg[1][1][1],blLeg[1][0][1],blLeg[1][0][0],Renderer3D.CAR_RIGHT);
+
+		addLine(blLeg[1][0][0],blLeg[1][0][1],blLeg[0][0][1],blLeg[0][0][0],Renderer3D.CAR_BACK);
+
+		/// back right leg
+
+		Segments barLeg=new Segments(x_side-leg_side,leg_side,-leg_side,leg_side,0,leg_length);
+
+		BPoint[][][] brLeg=new BPoint[2][2][2];
+
+		brLeg[0][0][0]=addBPoint(0,0,0,barLeg);
+		brLeg[1][0][0]=addBPoint(1,0,0,barLeg);
+		brLeg[1][1][0]=addBPoint(1,1,0,barLeg);
+		brLeg[0][1][0]=addBPoint(0,1,0,barLeg);
+
+
+		addLine(brLeg[0][0][0],brLeg[0][1][0],brLeg[1][1][0],brLeg[1][0][0],Renderer3D.CAR_BOTTOM);
+
+		brLeg[0][0][1]=addBPoint(0,0,1,barLeg);
+		brLeg[1][0][1]=addBPoint(1,0,1,barLeg);
+		brLeg[1][1][1]=addBPoint(1,1,1,barLeg);
+		brLeg[0][1][1]=addBPoint(0,1,1,barLeg);
+
+		addLine(brLeg[0][0][0],brLeg[0][0][1],brLeg[0][1][1],brLeg[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(brLeg[0][1][0],brLeg[0][1][1],brLeg[1][1][1],brLeg[1][1][0],Renderer3D.CAR_FRONT);
+
+		addLine(brLeg[1][1][0],brLeg[1][1][1],brLeg[1][0][1],brLeg[1][0][0],Renderer3D.CAR_RIGHT);
+
+		addLine(brLeg[1][0][0],brLeg[1][0][1],brLeg[0][0][1],brLeg[0][0][0],Renderer3D.CAR_BACK);
+
+
+		/// headboard
+
+		Segments headEdge=new Segments(0,x_side,y_side,leg_side,leg_length,back_height);
+
+		BPoint[][][] headboard=new BPoint[2][2][2];
+
+		headboard[0][0][0]=addBPoint(0,0,0,headEdge);
+		headboard[1][0][0]=addBPoint(1,0,0,headEdge);
+		headboard[1][1][0]=addBPoint(1,1,0,headEdge);
+		headboard[0][1][0]=addBPoint(0,1,0,headEdge);
+
+
+		addLine(headboard[0][0][0],headboard[0][1][0],headboard[1][1][0],headboard[1][0][0],Renderer3D.CAR_BOTTOM);
+
+
+		headboard[0][0][1]=addBPoint(0,0,1,headEdge);
+		headboard[1][0][1]=addBPoint(1,0,1,headEdge);
+		headboard[1][1][1]=addBPoint(1,1,1,headEdge);
+		headboard[0][1][1]=addBPoint(0,1,1,headEdge);
+
+		addLine(headboard[0][0][0],headboard[0][0][1],headboard[0][1][1],headboard[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(headboard[0][1][0],headboard[0][1][1],headboard[1][1][1],headboard[1][1][0],Renderer3D.CAR_FRONT);
+
+		addLine(headboard[1][1][0],headboard[1][1][1],headboard[1][0][1],headboard[1][0][0],Renderer3D.CAR_RIGHT);
+
+		addLine(headboard[1][0][0],headboard[1][0][1],headboard[0][0][1],headboard[0][0][0],Renderer3D.CAR_BACK);
+
+		addLine(headboard[0][0][1],headboard[1][0][1],headboard[1][1][1],headboard[0][1][1],Renderer3D.CAR_TOP);	
+
+
+		/// front left leg
+
+		Segments frlLeg=new Segments(0,leg_side,y_side,leg_side,0,leg_length);
+
+		BPoint[][][] flLeg=new BPoint[2][2][2];
+
+		flLeg[0][0][0]=addBPoint(0,0,0,frlLeg);
+		flLeg[1][0][0]=addBPoint(1,0,0,frlLeg);
+		flLeg[1][1][0]=addBPoint(1,1,0,frlLeg);
+		flLeg[0][1][0]=addBPoint(0,1,0,frlLeg);
+
+
+		addLine(flLeg[0][0][0],flLeg[0][1][0],flLeg[1][1][0],flLeg[1][0][0],Renderer3D.CAR_BOTTOM);
+
+
+		flLeg[0][0][1]=addBPoint(0,0,1,frlLeg);
+		flLeg[1][0][1]=addBPoint(1,0,1,frlLeg);
+		flLeg[1][1][1]=addBPoint(1,1,1,frlLeg);
+		flLeg[0][1][1]=addBPoint(0,1,1,frlLeg);
+
+		addLine(flLeg[0][0][0],flLeg[0][0][1],flLeg[0][1][1],flLeg[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(flLeg[0][1][0],flLeg[0][1][1],flLeg[1][1][1],flLeg[1][1][0],Renderer3D.CAR_FRONT);
+
+		addLine(flLeg[1][1][0],flLeg[1][1][1],flLeg[1][0][1],flLeg[1][0][0],Renderer3D.CAR_RIGHT);
+
+		addLine(flLeg[1][0][0],flLeg[1][0][1],flLeg[0][0][1],flLeg[0][0][0],Renderer3D.CAR_BACK);
+
+		/// front right leg
+
+		Segments frrLeg=new Segments(x_side-leg_side,leg_side,y_side,leg_side,0,leg_length);
+
+		BPoint[][][] frLeg=new BPoint[2][2][2];
+
+		frLeg[0][0][0]=addBPoint(0,0,0,frrLeg);
+		frLeg[1][0][0]=addBPoint(1,0,0,frrLeg);
+		frLeg[1][1][0]=addBPoint(1,1,0,frrLeg);
+		frLeg[0][1][0]=addBPoint(0,1,0,frrLeg);
+
+
+		addLine(frLeg[0][0][0],frLeg[0][1][0],frLeg[1][1][0],frLeg[1][0][0],Renderer3D.CAR_BOTTOM);
+
+
+		frLeg[0][0][1]=addBPoint(0,0,1,frrLeg);
+		frLeg[1][0][1]=addBPoint(1,0,1,frrLeg);
+		frLeg[1][1][1]=addBPoint(1,1,1,frrLeg);
+		frLeg[0][1][1]=addBPoint(0,1,1,frrLeg);
+
+		addLine(frLeg[0][0][0],frLeg[0][0][1],frLeg[0][1][1],frLeg[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(frLeg[0][1][0],frLeg[0][1][1],frLeg[1][1][1],frLeg[1][1][0],Renderer3D.CAR_FRONT);
+
+		addLine(frLeg[1][1][0],frLeg[1][1][1],frLeg[1][0][1],frLeg[1][0][0],Renderer3D.CAR_RIGHT);
+
+		addLine(frLeg[1][0][0],frLeg[1][0][1],frLeg[0][0][1],frLeg[0][0][0],Renderer3D.CAR_BACK);
+
 		/////////
+
 
 		//translatePoints(points,nw_x,nw_y);
 
@@ -863,7 +1056,7 @@ public class Forniture extends CustomData{
 
 				
 		//chair back:
-		Segments chair_back=new Segments(0,x_side,0,leg_side,leg_length+z_side,back_length);
+		Segments chair_back=new Segments(0,x_side,0,leg_side,leg_length+z_side,back_height);
 		
 		BPoint[][][] back0=new BPoint[2][2][2];
 		

@@ -46,7 +46,8 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 	private JComboBox chooseForniture;
 	private DoubleTextField leg_length;
 	private DoubleTextField leg_side;
-	private DoubleTextField back_length;
+	private DoubleTextField front_height;
+	private DoubleTextField back_height;
 	private DoubleTextField x_side;
 	private DoubleTextField y_side;
 	private DoubleTextField z_side;
@@ -54,6 +55,7 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 	int max_stack_size=10;
 	
 	Forniture forniture=null;
+	
 
 	
 	
@@ -180,15 +182,26 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		leg_side.addKeyListener(this);
 		right.add(leg_side);
 		
+		
 		r+=30;
 		
-		jlb=new JLabel("Back length");
+		jlb=new JLabel("Front height");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
-		back_length=new DoubleTextField();
-		back_length.setBounds(column, r, 100, 20);
-		back_length.addKeyListener(this);
-		right.add(back_length);
+		front_height=new DoubleTextField();
+		front_height.setBounds(column, r, 100, 20);
+		front_height.addKeyListener(this);
+		right.add(front_height);
+		
+		r+=30;
+		
+		jlb=new JLabel("Back height");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		back_height=new DoubleTextField();
+		back_height.setBounds(column, r, 100, 20);
+		back_height.addKeyListener(this);
+		right.add(back_height);
 		
 		
 		r+=30;
@@ -214,8 +227,8 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		
 		leg_length.setText(50);
 		leg_side.setText(10);
-		back_length.setText(100);
-		
+		back_height.setText(110);
+		front_height.setText(70);
 	}
 
 
@@ -227,8 +240,8 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		
 		leg_length.setText(70);
 		leg_side.setText(10);
-		back_length.setText(100);
-		
+		back_height.setText(100);
+		front_height.setText(0);
 	}
 
 	public void initRightTableData() {
@@ -240,7 +253,8 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		
 		leg_length.setText(100);
 		leg_side.setText(10);
-		back_length.setText(100);
+		back_height.setText(100);
+		front_height.setText(0);
 	}
 	
 	private void initRightChairData() {
@@ -251,7 +265,8 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		
 		leg_length.setText(100);
 		leg_side.setText(10);
-		back_length.setText(100);
+		back_height.setText(100);
+		front_height.setText(0);
 		
 	}
 
@@ -265,7 +280,7 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		
 		leg_length.setText(0);
 		leg_side.setText(0);
-		back_length.setText(0);
+		back_height.setText(0);
 		
 	}
 	
@@ -278,7 +293,7 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		
 		leg_length.setText(0);
 		leg_side.setText(0);
-		back_length.setText(0);
+		back_height.setText(0);
 		
 	}
 	
@@ -292,7 +307,7 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		
 		leg_length.setText(0);
 		leg_side.setText(0);
-		back_length.setText(0);
+		back_height.setText(0);
 		
 	}
 
@@ -315,7 +330,7 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		z_side.setText(forniture.getZ_side());
 		leg_length.setText(forniture.getLeg_length());
 		leg_side.setText(forniture.getLeg_side());
-		back_length.setText(forniture.getBack_length());
+		back_height.setText(forniture.getBack_height());
 	}
 
 	
@@ -352,7 +367,8 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 			double zside=z_side.getvalue();
 			double legSide=leg_side.getvalue();
 			double legLength=leg_length.getvalue();
-			double backLength=back_length.getvalue();
+			double frontHeight=front_height.getvalue();
+			double backHeight=back_height.getvalue();
 			
 			 ValuePair vp= (ValuePair)chooseForniture.getSelectedItem();
 			 
@@ -363,12 +379,16 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 			
 			if(forniture==null){
 								
-				forniture=new Forniture(xside,yside,zside,type,legLength,legSide,backLength);
+				forniture=new Forniture(xside,yside,zside,type,
+						legLength,legSide,
+						frontHeight,backHeight);
 			
 				
 			}else{				
 				
-				Forniture expForniture = new Forniture(xside,yside,zside,type,legLength,legSide,backLength);
+				Forniture expForniture = new Forniture(xside,yside,zside,type,
+						legLength,legSide,
+						frontHeight,backHeight);
 				
 				
 				forniture=expForniture;
