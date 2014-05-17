@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import com.BPoint;
 import com.CustomData;
+import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
 import com.Segments;
@@ -608,26 +609,149 @@ public class Forniture extends CustomData{
 		polyData=new Vector();
 		
 		n=0;
+		
+		Segments b0=new Segments(0,x_side,0,y_side,leg_length,z_side);
+		
+		BPoint[][][] body=new BPoint[2][2][2];
+		
+		body[0][0][0]=addBPoint(0,0,0,b0);
+		body[1][0][0]=addBPoint(1.0,0,0,b0);
+		body[1][1][0]=addBPoint(1.0,1.0,0,b0);
+		body[0][1][0]=addBPoint(0,1.0,0,b0);
+		
+		body[0][0][1]=addBPoint(0,0,0.5,b0);
+		body[1][0][1]=addBPoint(1.0,0,0.5,b0);
+		body[1][1][1]=addBPoint(1.0,1.0,0.5,b0);
+		body[0][1][1]=addBPoint(0,1.0,0.5,b0);
+		
+		addLine(body[0][0][1],body[1][0][1],body[1][1][1],body[0][1][1],Renderer3D.CAR_TOP);		
 
-		//basic sides:
-		buildBox(0,0,leg_length,x_side,y_side,z_side);
+		addLine(body[0][0][0],body[0][0][1],body[0][1][1],body[0][1][0],Renderer3D.CAR_LEFT);				
+
+		addLine(body[1][0][0],body[1][1][0],body[1][1][1],body[1][0][1],Renderer3D.CAR_RIGHT);
 		
-		//legs:	
-		//backLeftLeg
-		buildBox(0,0,0,leg_side,leg_side,leg_length);
+		addLine(body[0][1][0],body[0][1][1],body[1][1][1],body[1][1][0],Renderer3D.CAR_FRONT);
 		
-		//backRightLeg
-		buildBox(x_side-leg_side,0,0,leg_side,leg_side,leg_length);
+		addLine(body[0][0][0],body[1][0][0],body[1][0][1],body[0][0][1],Renderer3D.CAR_BACK);
 		
+		addLine(body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0],Renderer3D.CAR_BOTTOM);
 		
-		//frontLeftLeg
-		buildBox(0,y_side-leg_side,0,leg_side,leg_side,leg_length);
+				
+		/// back left leg
+		
+		Segments balLeg=new Segments(0,leg_side,0,leg_side,0,leg_length);
+		
+		BPoint[][][] blLeg=new BPoint[2][2][2];
+				
+		blLeg[0][0][0]=addBPoint(0,0,0,balLeg);
+		blLeg[1][0][0]=addBPoint(1,0,0,balLeg);
+		blLeg[1][1][0]=addBPoint(1,1,0,balLeg);
+		blLeg[0][1][0]=addBPoint(0,1,0,balLeg);
 		
 	
-		//frontRightLeg
-		buildBox(x_side-leg_side,y_side-leg_side,0,leg_side,leg_side,leg_length);
+		LineData bottom=buildLine(blLeg[0][0][0],blLeg[0][1][0],blLeg[1][1][0],blLeg[1][0][0],Renderer3D.CAR_BOTTOM);
+		polyData.add(bottom);
 		
 		
+		blLeg[0][0][1]=addBPoint(0,0,1,balLeg);
+		blLeg[1][0][1]=addBPoint(1,0,1,balLeg);
+		blLeg[1][1][1]=addBPoint(1,1,1,balLeg);
+		blLeg[0][1][1]=addBPoint(0,1,1,balLeg);
+		
+		addLine(blLeg[0][0][0],blLeg[0][0][1],blLeg[0][1][1],blLeg[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(blLeg[0][1][0],blLeg[0][1][1],blLeg[1][1][1],blLeg[1][1][0],Renderer3D.CAR_FRONT);
+
+		addLine(blLeg[1][1][0],blLeg[1][1][1],blLeg[1][0][1],blLeg[1][0][0],Renderer3D.CAR_RIGHT);
+
+		addLine(blLeg[1][0][0],blLeg[1][0][1],blLeg[0][0][1],blLeg[0][0][0],Renderer3D.CAR_BACK);
+		
+		/// back right leg
+		
+		Segments barLeg=new Segments(x_side-leg_side,leg_side,0,leg_side,0,leg_length);
+		
+		BPoint[][][] brLeg=new BPoint[2][2][2];
+		
+		brLeg[0][0][0]=addBPoint(0,0,0,barLeg);
+		brLeg[1][0][0]=addBPoint(1,0,0,barLeg);
+		brLeg[1][1][0]=addBPoint(1,1,0,barLeg);
+		brLeg[0][1][0]=addBPoint(0,1,0,barLeg);
+		
+	
+		buildLine(brLeg[0][0][0],brLeg[0][1][0],brLeg[1][1][0],brLeg[1][0][0],Renderer3D.CAR_BOTTOM);
+		polyData.add(bottom);
+		
+		
+		brLeg[0][0][1]=addBPoint(0,0,1,barLeg);
+		brLeg[1][0][1]=addBPoint(1,0,1,barLeg);
+		brLeg[1][1][1]=addBPoint(1,1,1,barLeg);
+		brLeg[0][1][1]=addBPoint(0,1,1,barLeg);
+		
+		addLine(brLeg[0][0][0],brLeg[0][0][1],brLeg[0][1][1],brLeg[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(brLeg[0][1][0],brLeg[0][1][1],brLeg[1][1][1],brLeg[1][1][0],Renderer3D.CAR_FRONT);
+
+		addLine(brLeg[1][1][0],brLeg[1][1][1],brLeg[1][0][1],brLeg[1][0][0],Renderer3D.CAR_RIGHT);
+
+		addLine(brLeg[1][0][0],brLeg[1][0][1],brLeg[0][0][1],brLeg[0][0][0],Renderer3D.CAR_BACK);
+		
+		/// front left leg
+		
+		Segments frlLeg=new Segments(0,leg_side,y_side-leg_side,leg_side,0,leg_length);
+		
+		BPoint[][][] flLeg=new BPoint[2][2][2];
+		
+		flLeg[0][0][0]=addBPoint(0,0,0,frlLeg);
+		flLeg[1][0][0]=addBPoint(1,0,0,frlLeg);
+		flLeg[1][1][0]=addBPoint(1,1,0,frlLeg);
+		flLeg[0][1][0]=addBPoint(0,1,0,frlLeg);
+		
+	
+		buildLine(flLeg[0][0][0],flLeg[0][1][0],flLeg[1][1][0],flLeg[1][0][0],Renderer3D.CAR_BOTTOM);
+		polyData.add(bottom);
+		
+		
+		flLeg[0][0][1]=addBPoint(0,0,1,frlLeg);
+		flLeg[1][0][1]=addBPoint(1,0,1,frlLeg);
+		flLeg[1][1][1]=addBPoint(1,1,1,frlLeg);
+		flLeg[0][1][1]=addBPoint(0,1,1,frlLeg);
+		
+		addLine(flLeg[0][0][0],flLeg[0][0][1],flLeg[0][1][1],flLeg[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(flLeg[0][1][0],flLeg[0][1][1],flLeg[1][1][1],flLeg[1][1][0],Renderer3D.CAR_FRONT);
+
+		addLine(flLeg[1][1][0],flLeg[1][1][1],flLeg[1][0][1],flLeg[1][0][0],Renderer3D.CAR_RIGHT);
+
+		addLine(flLeg[1][0][0],flLeg[1][0][1],flLeg[0][0][1],flLeg[0][0][0],Renderer3D.CAR_BACK);
+		
+		/// front right leg
+		
+		Segments frrLeg=new Segments(x_side-leg_side,leg_side,y_side-leg_side,leg_side,0,leg_length);
+		
+		BPoint[][][] frLeg=new BPoint[2][2][2];
+		
+		frLeg[0][0][0]=addBPoint(0,0,0,frrLeg);
+		frLeg[1][0][0]=addBPoint(1,0,0,frrLeg);
+		frLeg[1][1][0]=addBPoint(1,1,0,frrLeg);
+		frLeg[0][1][0]=addBPoint(0,1,0,frrLeg);
+		
+	
+		buildLine(frLeg[0][0][0],frLeg[0][1][0],frLeg[1][1][0],frLeg[1][0][0],Renderer3D.CAR_BOTTOM);
+		polyData.add(bottom);
+		
+		
+		frLeg[0][0][1]=addBPoint(0,0,1,frrLeg);
+		frLeg[1][0][1]=addBPoint(1,0,1,frrLeg);
+		frLeg[1][1][1]=addBPoint(1,1,1,frrLeg);
+		frLeg[0][1][1]=addBPoint(0,1,1,frrLeg);
+		
+		addLine(frLeg[0][0][0],frLeg[0][0][1],frLeg[0][1][1],frLeg[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(frLeg[0][1][0],frLeg[0][1][1],frLeg[1][1][1],frLeg[1][1][0],Renderer3D.CAR_FRONT);
+
+		addLine(frLeg[1][1][0],frLeg[1][1][1],frLeg[1][0][1],frLeg[1][0][0],Renderer3D.CAR_RIGHT);
+
+		addLine(frLeg[1][0][0],frLeg[1][0][1],frLeg[0][0][1],frLeg[0][0][0],Renderer3D.CAR_BACK);
 		
 		/////////
 
