@@ -48,6 +48,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 	private DoubleTextField leg_side;
 	private DoubleTextField front_height;
 	private DoubleTextField back_height;
+	private DoubleTextField side_width;
+	private DoubleTextField side_length;
+	private DoubleTextField side_height;
 	private DoubleTextField x_side;
 	private DoubleTextField y_side;
 	private DoubleTextField z_side;
@@ -55,6 +58,7 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 	int max_stack_size=10;
 	
 	Forniture forniture=null;
+
 	
 
 	
@@ -203,6 +207,37 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		back_height.addKeyListener(this);
 		right.add(back_height);
 		
+		r+=30;
+		
+		jlb=new JLabel("Side width");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		side_width=new DoubleTextField();
+		side_width.setBounds(column, r, 100, 20);
+		side_width.addKeyListener(this);
+		right.add(side_width);
+		
+		r+=30;
+		
+		jlb=new JLabel("Side length");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		side_length=new DoubleTextField();
+		side_length.setBounds(column, r, 100, 20);
+		side_length.addKeyListener(this);
+		right.add(side_length);
+		
+		r+=30;
+		
+		jlb=new JLabel("side height");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		side_height=new DoubleTextField();
+		side_height.setBounds(column, r, 100, 20);
+		side_height.addKeyListener(this);
+		right.add(side_height);
+
+		
 		
 		r+=30;
 			
@@ -234,14 +269,19 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 
 	private void initRightSofaData() {
 		
-		x_side.setText(200);
+		x_side.setText(250);
 		y_side.setText(100);
-		z_side.setText(80);
+		z_side.setText(70);
 		
-		leg_length.setText(70);
+		leg_length.setText(50);
 		leg_side.setText(10);
 		back_height.setText(100);
 		front_height.setText(0);
+		
+		side_width.setText(20);
+		side_length.setText(90);
+		side_height.setText(50);
+		
 	}
 
 	public void initRightTableData() {
@@ -255,6 +295,10 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		leg_side.setText(10);
 		back_height.setText(100);
 		front_height.setText(0);
+		
+		side_width.setText(0);
+		side_length.setText(0);
+		side_height.setText(0);
 	}
 	
 	private void initRightChairData() {
@@ -267,6 +311,10 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		leg_side.setText(10);
 		back_height.setText(100);
 		front_height.setText(0);
+		
+		side_width.setText(0);
+		side_length.setText(0);
+		side_height.setText(0);
 		
 	}
 
@@ -282,6 +330,10 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		leg_side.setText(0);
 		back_height.setText(0);
 		
+		side_width.setText(0);
+		side_length.setText(0);
+		side_height.setText(0);
+		
 	}
 	
 
@@ -295,6 +347,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		leg_side.setText(0);
 		back_height.setText(0);
 		
+		side_width.setText(0);
+		side_length.setText(0);
+		side_height.setText(0);
 	}
 	
 	
@@ -308,6 +363,10 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		leg_length.setText(0);
 		leg_side.setText(0);
 		back_height.setText(0);
+		
+		side_width.setText(0);
+		side_length.setText(0);
+		side_height.setText(0);
 		
 	}
 
@@ -369,6 +428,10 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 			double legLength=leg_length.getvalue();
 			double frontHeight=front_height.getvalue();
 			double backHeight=back_height.getvalue();
+			double sideWidth=side_width.getvalue();
+			double sideLength=side_length.getvalue();
+			double sideHeight=side_height.getvalue();
+
 			
 			 ValuePair vp= (ValuePair)chooseForniture.getSelectedItem();
 			 
@@ -381,14 +444,18 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 								
 				forniture=new Forniture(xside,yside,zside,type,
 						legLength,legSide,
-						frontHeight,backHeight);
+						frontHeight,backHeight,
+						sideWidth,sideLength,sideHeight
+						);
 			
 				
 			}else{				
 				
 				Forniture expForniture = new Forniture(xside,yside,zside,type,
 						legLength,legSide,
-						frontHeight,backHeight);
+						frontHeight,backHeight,
+						sideWidth,sideLength,sideHeight
+						);
 				
 				
 				forniture=expForniture;

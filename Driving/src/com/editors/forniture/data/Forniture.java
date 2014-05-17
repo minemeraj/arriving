@@ -33,11 +33,16 @@ public class Forniture extends CustomData{
 	double leg_length=0;
 	double back_height=0;
 	double front_height=0;
+	double side_width=0;
+	double side_length=0;
+	double side_height=0;
+	
 
 	public Forniture(){}
 
 	public Forniture( double x_side, double y_side,double z_side,int forniture_type,
-			double legLength, double legSide,double frontHeight, double backHeight
+			double legLength, double legSide,double frontHeight, double backHeight,
+			double side_width,double side_length, double side_height
 			) {
 		super();
 
@@ -49,6 +54,10 @@ public class Forniture extends CustomData{
 		this.leg_side = legSide;
 		this.back_height = backHeight;
 		this.front_height = frontHeight;
+		
+		this.side_width = side_width;
+		this.side_length = side_length;
+		this.side_height = side_height;
 	}
 	
 
@@ -56,7 +65,9 @@ public class Forniture extends CustomData{
 
 		Forniture grid=new Forniture(x_side,y_side,z_side,forniture_type,
 				leg_length,leg_side,
-				front_height,back_height);
+				front_height,back_height,
+				side_width, side_length,side_height
+				);
 		return grid;
 
 	}
@@ -79,7 +90,8 @@ public class Forniture extends CustomData{
 	public String toString() {
 
 		String ret="F="+x_side+","+y_side+","+z_side+","+forniture_type;
-		ret+=","+leg_length+","+leg_side+","+front_height+","+back_height;
+		ret+=","+leg_length+","+leg_side+","+front_height+","+back_height
+				+","+side_width+","+side_length+","+side_height;
 				
 		return ret;
 	}
@@ -95,11 +107,15 @@ public class Forniture extends CustomData{
 		double legLength = Double.parseDouble(vals[4]); 
 		double legSide = Double.parseDouble(vals[5]); 
 		double frontHeight = Double.parseDouble(vals[6]); 
-		double backHeight = Double.parseDouble(vals[6]); 
+		double backHeight = Double.parseDouble(vals[7]); 
+		double side_width = Double.parseDouble(vals[8]); 
+		double side_length = Double.parseDouble(vals[9]); 
+		double side_height = Double.parseDouble(vals[10]); 
 
 		Forniture grid=new Forniture(x_side,y_side,z_side,forniture_type,
 				legLength,legSide,
-				frontHeight,backHeight);
+				frontHeight,backHeight,
+				side_width, side_length,side_height);
 
 		return grid;
 	}
@@ -493,7 +509,7 @@ public class Forniture extends CustomData{
 
 
 		points=new Vector();
-		points.setSize(50);
+		points.setSize(100);
 
 		polyData=new Vector();
 		
@@ -671,6 +687,68 @@ public class Forniture extends CustomData{
 		addLine(back0[1][0][0],back0[1][0][1],back0[0][0][1],back0[0][0][0],Renderer3D.CAR_BACK);
 
 		
+		
+		//left_side: 
+		Segments leftSide=new Segments(0,side_width,leg_side,side_length,leg_length+z_side,side_height);
+		
+		BPoint[][][] left_side=new BPoint[2][2][2];
+		
+		left_side[0][0][0]=addBPoint(0,0,0,leftSide);
+		left_side[1][0][0]=addBPoint(1,0,0,leftSide);
+		left_side[1][1][0]=addBPoint(1,1,0,leftSide);
+		left_side[0][1][0]=addBPoint(0,1,0,leftSide);
+		
+	
+		addLine(left_side[0][0][0],left_side[0][1][0],left_side[1][1][0],left_side[1][0][0],Renderer3D.CAR_BOTTOM);
+
+		
+		left_side[0][0][1]=addBPoint(0,0,1,leftSide);
+		left_side[1][0][1]=addBPoint(1,0,1,leftSide);
+		left_side[1][1][1]=addBPoint(1,1,1,leftSide);
+		left_side[0][1][1]=addBPoint(0,1,1,leftSide);
+		
+		
+		addLine(left_side[0][0][1],left_side[1][0][1],left_side[1][1][1],left_side[0][1][1],Renderer3D.CAR_TOP);
+		
+		addLine(left_side[0][0][0],left_side[0][0][1],left_side[0][1][1],left_side[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(left_side[0][1][0],left_side[0][1][1],left_side[1][1][1],left_side[1][1][0],Renderer3D.CAR_FRONT);
+
+		addLine(left_side[1][1][0],left_side[1][1][1],left_side[1][0][1],left_side[1][0][0],Renderer3D.CAR_RIGHT);
+
+		addLine(left_side[1][0][0],left_side[1][0][1],left_side[0][0][1],left_side[0][0][0],Renderer3D.CAR_BACK);
+		
+		
+		//right_side: 
+		Segments rightSide=new Segments(x_side-side_width,side_width,leg_side,side_length,leg_length+z_side,side_height);
+		
+		BPoint[][][] right_side=new BPoint[2][2][2];
+		
+		right_side[0][0][0]=addBPoint(0,0,0,rightSide);
+		right_side[1][0][0]=addBPoint(1,0,0,rightSide);
+		right_side[1][1][0]=addBPoint(1,1,0,rightSide);
+		right_side[0][1][0]=addBPoint(0,1,0,rightSide);
+		
+	
+		addLine(right_side[0][0][0],right_side[0][1][0],right_side[1][1][0],right_side[1][0][0],Renderer3D.CAR_BOTTOM);
+
+		
+		right_side[0][0][1]=addBPoint(0,0,1,rightSide);
+		right_side[1][0][1]=addBPoint(1,0,1,rightSide);
+		right_side[1][1][1]=addBPoint(1,1,1,rightSide);
+		right_side[0][1][1]=addBPoint(0,1,1,rightSide);
+		
+		
+		addLine(right_side[0][0][1],right_side[1][0][1],right_side[1][1][1],right_side[0][1][1],Renderer3D.CAR_TOP);
+		
+		addLine(right_side[0][0][0],right_side[0][0][1],right_side[0][1][1],right_side[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(right_side[0][1][0],right_side[0][1][1],right_side[1][1][1],right_side[1][1][0],Renderer3D.CAR_FRONT);
+
+		addLine(right_side[1][1][0],right_side[1][1][1],right_side[1][0][1],right_side[1][0][0],Renderer3D.CAR_RIGHT);
+
+		addLine(right_side[1][0][0],right_side[1][0][1],right_side[0][0][1],right_side[0][0][0],Renderer3D.CAR_BACK);
+
 		/////////
 
 		//translatePoints(points,nw_x,nw_y);
