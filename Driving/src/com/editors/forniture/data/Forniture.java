@@ -377,45 +377,48 @@ public class Forniture extends CustomData{
 		
 			double rz=(rz0+rz1)*(i/2);
 			
+			double dx=(x_side*0.5-leg_side)/x_side;
+			double dy=(leg_side)/y_side;
+			
 			shelves[0][0][i]=addBPoint(-0.5,0,rz,b0);
-			shelves[1][0][i]=addBPoint(-0.4,0,rz,b0);
-			shelves[2][0][i]=addBPoint(0.4,0,rz,b0);
+			shelves[1][0][i]=addBPoint(-dx,0,rz,b0);
+			shelves[2][0][i]=addBPoint(dx,0,rz,b0);
 			shelves[3][0][i]=addBPoint(0.5,0,rz,b0);
 			
-			shelves[0][1][i]=addBPoint(-0.5,0.1,rz,b0);
-			shelves[1][1][i]=addBPoint(-0.4,0.1,rz,b0);
-			shelves[2][1][i]=addBPoint(0.4,0.1,rz,b0);
-			shelves[3][1][i]=addBPoint(0.5,0.1,rz,b0);
+			shelves[0][1][i]=addBPoint(-0.5,dy,rz,b0);
+			shelves[1][1][i]=addBPoint(-dx,dy,rz,b0);
+			shelves[2][1][i]=addBPoint(dx,dy,rz,b0);
+			shelves[3][1][i]=addBPoint(0.5,dy,rz,b0);
 			
-			shelves[0][2][i]=addBPoint(-0.5,0.9,rz,b0);
-			shelves[1][2][i]=addBPoint(-0.4,0.9,rz,b0);
-			shelves[2][2][i]=addBPoint(0.4,0.9,rz,b0);
-			shelves[3][2][i]=addBPoint(0.5,0.9,rz,b0);
+			shelves[0][2][i]=addBPoint(-0.5,1.0-dy,rz,b0);
+			shelves[1][2][i]=addBPoint(-dx,1.0-dy,rz,b0);
+			shelves[2][2][i]=addBPoint(dx,1.0-dy,rz,b0);
+			shelves[3][2][i]=addBPoint(0.5,1.0-dy,rz,b0);
 			
 			shelves[0][3][i]=addBPoint(-0.5,1.0,rz,b0);
-			shelves[1][3][i]=addBPoint(-0.4,1.0,rz,b0);
-			shelves[2][3][i]=addBPoint(0.4,1.0,rz,b0);
+			shelves[1][3][i]=addBPoint(-dx,1.0,rz,b0);
+			shelves[2][3][i]=addBPoint(dx,1.0,rz,b0);
 			shelves[3][3][i]=addBPoint(0.5,1.0,rz,b0);	
 			
 			
 			shelves[0][0][i+1]=addBPoint(-0.5,0,rz+rz0,b0);
-			shelves[1][0][i+1]=addBPoint(-0.4,0,rz+rz0,b0);
-			shelves[2][0][i+1]=addBPoint(0.4,0,rz+rz0,b0);
+			shelves[1][0][i+1]=addBPoint(-dx,0,rz+rz0,b0);
+			shelves[2][0][i+1]=addBPoint(dx,0,rz+rz0,b0);
 			shelves[3][0][i+1]=addBPoint(0.5,0,rz+rz0,b0);
 			
-			shelves[0][1][i+1]=addBPoint(-0.5,0.1,rz+rz0,b0);
-			shelves[1][1][i+1]=addBPoint(-0.4,0.1,rz+rz0,b0);
-			shelves[2][1][i+1]=addBPoint(0.4,0.1,rz+rz0,b0);
-			shelves[3][1][i+1]=addBPoint(0.5,0.1,rz+rz0,b0);
+			shelves[0][1][i+1]=addBPoint(-0.5,dy,rz+rz0,b0);
+			shelves[1][1][i+1]=addBPoint(-dx,dy,rz+rz0,b0);
+			shelves[2][1][i+1]=addBPoint(dx,dy,rz+rz0,b0);
+			shelves[3][1][i+1]=addBPoint(0.5,dy,rz+rz0,b0);
 			
-			shelves[0][2][i+1]=addBPoint(-0.5,0.9,rz+rz0,b0);
-			shelves[1][2][i+1]=addBPoint(-0.4,0.9,rz+rz0,b0);
-			shelves[2][2][i+1]=addBPoint(0.4,0.9,rz+rz0,b0);
-			shelves[3][2][i+1]=addBPoint(0.5,0.9,rz+rz0,b0);
+			shelves[0][2][i+1]=addBPoint(-0.5,1.0-dy,rz+rz0,b0);
+			shelves[1][2][i+1]=addBPoint(-dx,1.0-dy,rz+rz0,b0);
+			shelves[2][2][i+1]=addBPoint(dx,1.0-dy,rz+rz0,b0);
+			shelves[3][2][i+1]=addBPoint(0.5,1.0-dy,rz+rz0,b0);
 			
 			shelves[0][3][i+1]=addBPoint(-0.5,1.0,rz+rz0,b0);
-			shelves[1][3][i+1]=addBPoint(-0.4,1.0,rz+rz0,b0);
-			shelves[2][3][i+1]=addBPoint(0.4,1.0,rz+rz0,b0);
+			shelves[1][3][i+1]=addBPoint(-dx,1.0,rz+rz0,b0);
+			shelves[2][3][i+1]=addBPoint(dx,1.0,rz+rz0,b0);
 			shelves[3][3][i+1]=addBPoint(0.5,1.0,rz+rz0,b0);	
 		}
 		

@@ -344,7 +344,7 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		z_side.setText(300);
 		
 		leg_length.setText(0);
-		leg_side.setText(0);
+		leg_side.setText(10);
 		back_height.setText(0);
 		
 		side_width.setText(0);
