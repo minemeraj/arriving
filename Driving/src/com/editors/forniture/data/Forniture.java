@@ -479,6 +479,166 @@ public class Forniture extends CustomData{
 		
 		n=0;
 		
+		int hnx=5;
+		int hny=5;
+		int hnz=5;
+
+		BPoint[][][] body=new BPoint[hnx][hny][hnz];
+		
+		double xc=0;
+		
+		Segments h0=new Segments(xc,x_side,0,y_side,0,z_side);
+		Segments h1=new Segments(xc,x_side,0,y_side,0,z_side);
+		Segments h2=new Segments(xc,x_side,0,y_side,0,z_side);
+		Segments h3=new Segments(xc,x_side,0,y_side,0,z_side);
+		Segments h4=new Segments(xc,x_side,0,y_side,0,z_side);
+
+		body[0][0][0]=addBPoint(-0.5,0.0,0,h0);
+		body[1][0][0]=addBPoint(-0.25,0.0,0,h0);
+		body[2][0][0]=addBPoint(0.0,0.0,0,h0);	
+		body[3][0][0]=addBPoint(0.25,0.0,0,h0);	
+		body[4][0][0]=addBPoint(0.5,0.0,0,h0);	
+		body[0][0][1]=addBPoint(-0.5,0.0,0.25,h0);
+		body[1][0][1]=addBPoint(-0.25,0.0,0.25,h0);
+		body[2][0][1]=addBPoint(0.0,0.0,0.25,h0);
+		body[3][0][1]=addBPoint(0.25,0.0,0.25,h0);
+		body[4][0][1]=addBPoint(0.5,0.0,0.25,h0);
+		body[0][0][2]=addBPoint(-0.5,0.0,0.5,h0);
+		body[1][0][2]=addBPoint(-0.25,0.0,0.5,h0);
+		body[2][0][2]=addBPoint(0.0,0.0,0.5,h0);
+		body[3][0][2]=addBPoint(0.25,0.0,0.5,h0);
+		body[4][0][2]=addBPoint(0.5,0.0,0.5,h0);
+		body[0][0][3]=addBPoint(-0.5,0.0,0.75,h0);
+		body[1][0][3]=addBPoint(-0.25,0.0,0.75,h0);
+		body[2][0][3]=addBPoint(0.0,0.0,0.75,h0);
+		body[3][0][3]=addBPoint(0.25,0.0,0.75,h0);
+		body[4][0][3]=addBPoint(0.5,0.0,0.75,h0);
+		body[0][0][4]=addBPoint(-0.5,0.0,1.0,h0);
+		body[1][0][4]=addBPoint(-0.25,0.0,1.0,h0);
+		body[2][0][4]=addBPoint(0.0,0.0,1.0,h0);
+		body[3][0][4]=addBPoint(0.25,0.0,1.0,h0);
+		body[4][0][4]=addBPoint(0.5,0.0,1.0,h0);
+		
+		body[0][1][0]=addBPoint(-0.5,.25,0,h1);
+		body[1][1][0]=addBPoint(-0.25,.25,0,h1);
+		body[2][1][0]=addBPoint(0.0,.25,0,h1);		
+		body[3][1][0]=addBPoint(0.25,.25,0,h1);	
+		body[4][1][0]=addBPoint(0.5,.25,0,h1);
+		body[0][1][1]=addBPoint(-0.5,.25,0.25,h1);
+		body[4][1][1]=addBPoint(0.5,.25,0.25,h1);
+		body[0][1][2]=addBPoint(-0.5,.25,0.5,h1);		
+		body[4][1][2]=addBPoint(0.5,.25,0.5,h1);
+		body[0][1][3]=addBPoint(-0.5,.25,0.75,h1);		
+		body[4][1][3]=addBPoint(0.5,.25,0.75,h1);
+		body[0][1][4]=addBPoint(-0.5,.25,1.0,h1);	
+		body[1][1][4]=addBPoint(-0.25,.25,1.0,h1);		
+		body[2][1][4]=addBPoint(0.0,.25,1.0,h1);	
+		body[3][1][4]=addBPoint(0.25,.25,1.0,h1);	
+		body[4][1][4]=addBPoint(0.5,.25,1.0,h1);	
+		
+		body[0][2][0]=addBPoint(-0.5,0.5,0,h2);
+		body[1][2][0]=addBPoint(-0.25,0.5,0,h2);
+		body[2][2][0]=addBPoint(0.0,0.5,0,h2);	
+		body[3][2][0]=addBPoint(0.25,0.5,0,h2);
+		body[4][2][0]=addBPoint(0.5,0.5,0,h2);
+		body[0][2][1]=addBPoint(-0.5,0.5,0.25,h2);		
+		body[4][2][1]=addBPoint(0.5,0.5,0.25,h2);
+		body[0][2][2]=addBPoint(-0.5,0.5,0.5,h2);		
+		body[4][2][2]=addBPoint(0.5,0.5,0.5,h2);
+		body[0][2][3]=addBPoint(-0.5,0.5,0.75,h2);		
+		body[4][2][3]=addBPoint(0.5,0.5,0.75,h2);
+		body[0][2][4]=addBPoint(-0.5,0.5,1.0,h2);	
+		body[1][2][4]=addBPoint(-0.25,0.5,1.0,h2);	
+		body[2][2][4]=addBPoint(0.0,0.5,1.0,h2);
+		body[3][2][4]=addBPoint(0.25,0.5,1.0,h2);
+		body[4][2][4]=addBPoint(0.5,0.5,1.0,h2);
+		
+		body[0][3][0]=addBPoint(-0.5,0.75,0,h3);
+		body[1][3][0]=addBPoint(-0.25,0.75,0,h3);
+		body[2][3][0]=addBPoint(0.0,0.75,0,h3);
+		body[3][3][0]=addBPoint(0.25,0.75,0,h3);
+		body[4][3][0]=addBPoint(0.5,0.75,0,h3);
+		body[0][3][1]=addBPoint(-0.5,0.75,0.25,h3);
+		body[4][3][1]=addBPoint(0.5,0.75,0.25,h3);
+		body[0][3][2]=addBPoint(-0.5,0.75,0.5,h3);
+		body[4][3][2]=addBPoint(0.5,0.75,0.5,h3);
+		body[0][3][3]=addBPoint(-0.5,0.75,0.75,h3);
+		body[4][3][3]=addBPoint(0.5,0.75,0.75,h3);
+		body[0][3][4]=addBPoint(-0.5,0.75,1.0,h3);	
+		body[1][3][4]=addBPoint(-0.25,0.75,1.0,h3);	
+		body[2][3][4]=addBPoint(0.0,0.75,1.0,h3);	
+		body[3][3][4]=addBPoint(0.25,0.75,1.0,h3);	
+		body[4][3][4]=addBPoint(0.5,0.75,1.0,h3);	
+		
+		body[0][4][0]=addBPoint(-0.5,1.0,0.0,h4);
+		body[1][4][0]=addBPoint(-0.25,1.0,0.0,h4);
+		body[2][4][0]=addBPoint(0.0,1.0,0.0,h4);
+		body[3][4][0]=addBPoint(0.25,1.0,0.0,h4);
+		body[4][4][0]=addBPoint(0.5,1.0,0.0,h4);
+		body[0][4][1]=addBPoint(-0.5,1.0,0.25,h4);
+		body[1][4][1]=addBPoint(-0.25,1.0,0.25,h4);
+		body[2][4][1]=addBPoint(0.0,1.0,0.25,h4);
+		body[3][4][1]=addBPoint(0.25,1.0,0.25,h4);
+		body[4][4][1]=addBPoint(0.5,1.0,0.25,h4);
+		body[0][4][2]=addBPoint(-0.5,1.0,0.5,h4);
+		body[1][4][2]=addBPoint(-0.25,1.0,0.5,h4);
+		body[2][4][2]=addBPoint(0.0,1.0,0.5,h4);
+		body[3][4][2]=addBPoint(0.25,1.0,0.5,h4);
+		body[4][4][2]=addBPoint(0.5,1.0,0.5,h4);
+		body[0][4][3]=addBPoint(-0.5,1.0,0.75,h4);
+		body[1][4][3]=addBPoint(-0.25,1.0,0.75,h4);
+		body[2][4][3]=addBPoint(0.0,1.0,0.75,h4);
+		body[3][4][3]=addBPoint(0.25,1.0,0.75,h4);
+		body[4][4][3]=addBPoint(0.5,1.0,0.75,h4);
+		body[0][4][4]=addBPoint(-0.5,1.0,1.0,h4);
+		body[1][4][4]=addBPoint(-0.25,1.0,1.0,h4);
+		body[2][4][4]=addBPoint(0.0,1.0,1.0,h4);
+		body[3][4][4]=addBPoint(0.25,1.0,1.0,h4);
+		body[4][4][4]=addBPoint(0.5,1.0,1.0,h4);
+
+		for (int i = 0; i < hnx-1; i++) {			
+
+
+			for (int j = 0; j < hny-1; j++) {
+
+				for (int k = 0; k < hnz-1; k++) {				
+
+					if(j==0){
+
+
+						addLine(body[i][j][k],body[i+1][j][k],body[i+1][j][k+1],body[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+
+
+
+
+
+					if(k+1==hnz-1)
+						addLine(body[i][j][k+1],body[i+1][j][k+1],body[i+1][j+1][k+1],body[i][j+1][k+1],Renderer3D.CAR_TOP);
+
+					if(k==0)
+						addLine(body[i][j][k],body[i][j+1][k],body[i+1][j+1][k],body[i+1][j][k],Renderer3D.CAR_BOTTOM);
+
+					if(i==0)
+						addLine(body[i][j][k],body[i][j][k+1],body[i][j+1][k+1],body[i][j+1][k],Renderer3D.CAR_LEFT);
+
+					if(i+1==hnx-1)
+						addLine(body[i+1][j][k],body[i+1][j+1][k],body[i+1][j+1][k+1],body[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+
+					if(j+1==hny-1){
+
+						addLine(body[i][j+1][k],body[i][j+1][k+1],body[i+1][j+1][k+1],body[i+1][j+1][k],Renderer3D.CAR_FRONT);
+
+					}
+
+				}
+
+			}
+
+
+		}
+		
 		
 		PolygonMesh pm=new PolygonMesh(points,polyData);
 

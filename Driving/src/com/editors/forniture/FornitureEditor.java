@@ -370,6 +370,22 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		side_height.setText(0);
 		
 	}
+	
+	private void initRightToiletData() {
+		x_side.setText(200);
+		y_side.setText(200);
+		z_side.setText(200);
+		
+		leg_length.setText(0);
+		leg_side.setText(0);
+		back_height.setText(0);
+		
+		
+		side_width.setText(0);
+		side_length.setText(0);
+		side_height.setText(0);
+		
+	}
 
 	
 	private void setRightData(Forniture forniture) {
@@ -611,9 +627,14 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 				   initRightBookcaseData();	
 			   else if(type==Forniture.FORNITURE_TYPE_CUPBOARD)
 				   initRightCupboardData();	
+			   else if(type==Forniture.FORNITURE_TYPE_TOILET)
+				   initRightToiletData();	
 		}
 		
 	}
+
+
+
 
 
 
