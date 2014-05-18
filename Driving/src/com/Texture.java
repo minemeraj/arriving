@@ -220,6 +220,12 @@ public class Texture {
 		scanImagePoints(bi,Color.RED);
 	}
 	
+	/**
+	 * 
+	 * Use big but no too big marker points
+	 * @param bi
+	 * @param filter
+	 */
 	private static void scanImagePoints(BufferedImage bi,Color filter) {
 		
 		int filterRGB=filter.getRGB();
@@ -233,16 +239,23 @@ public class Texture {
 			
 			boolean found=false;
 			
+			boolean reading=false;
+			
 			for(int i=0;i<WIDTH;i++){ 
 			
 							
 				int rgb=bi.getRGB(i,j);
               
-				if(rgb==filterRGB){
+				if(rgb==filterRGB ){
 					
-					System.out.print(i+","+j+"\t");
-				    found=true;
-				}
+					
+					if(!reading){
+						System.out.print(i+","+j+"\t");
+					    found=true;
+					    reading=true;
+					}
+				}else
+					reading=false;
 				
 			}
 			if(found)
