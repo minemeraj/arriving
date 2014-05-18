@@ -110,9 +110,10 @@ public class Texture {
 	public static void main(String[] args) throws IOException {
 		String fileBackground=null;
 		//fileBackground="C:\\Documents and Settings\\Compaq_Proprietario\\workspace\\Driving\\lib\\road_texture_2.jpg";
-		String fileOrig="C:\\Documents and Settings\\Compaq_Proprietario\\Desktop\\new textures\\background_.jpg";
-		transformTexture(fileOrig,fileBackground);
+		//String fileOrig="C:\\Documents and Settings\\Compaq_Proprietario\\Desktop\\new textures\\background_.jpg";
+		//transformTexture(fileOrig,fileBackground);
 		//analyzeImage(fileOrig);
+		scanImagePoints("C:\\Users\\francescopiazza\\Desktop\\spec.GIF");
 		
 		
 	}
@@ -213,7 +214,42 @@ public class Texture {
 		return newI;
 	}
 
+	public static void scanImagePoints(String name) throws IOException{
+		
+		BufferedImage bi=ImageIO.read(new File(name));
+		scanImagePoints(bi,Color.RED);
+	}
 	
+	private static void scanImagePoints(BufferedImage bi,Color filter) {
+		
+		int filterRGB=filter.getRGB();
+		
+		int HEIGHT=bi.getHeight();
+		int WIDTH=bi.getWidth();
+		
+	
+
+		for(int j=0;j<HEIGHT;j++){
+			
+			boolean found=false;
+			
+			for(int i=0;i<WIDTH;i++){ 
+			
+							
+				int rgb=bi.getRGB(i,j);
+              
+				if(rgb==filterRGB){
+					
+					System.out.print(i+","+j+"\t");
+				    found=true;
+				}
+				
+			}
+			if(found)
+				System.out.println();
+		}	
+	}
+
 	public static void analyzeImage(String name) throws IOException{
 		
 		BufferedImage bi=ImageIO.read(new File(name));

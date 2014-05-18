@@ -5,6 +5,8 @@ Now in the custom Editors press q and w to rotate the objects.
 
 New progress in the custom editor to add more and better objects.
 
+Added the scanImagePoints to the Texture class to help gathering object data.
+
 -----19/04/2014   CarDriving 7.0.16
 
 Improving custom editors to build more complex objects.
