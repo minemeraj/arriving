@@ -229,6 +229,10 @@ public class Texture {
 	private static void scanImagePoints(BufferedImage bi,Color filter) {
 
 		int filterRGB=filter.getRGB();
+		
+		int red=filter.getRed();
+		int green=filter.getGreen();
+		int blue=filter.getBlue();
 
 		int HEIGHT=bi.getHeight();
 		int WIDTH=bi.getWidth();
@@ -251,10 +255,13 @@ public class Texture {
 
 			for(int i=0;i<WIDTH;i++){ 
 
-
-				int rgb=bi.getRGB(i,j);
-
-				if(rgb==filterRGB ){
+                Color col=new Color(bi.getRGB(i,j)); 
+				
+                if(Math.abs(red-col.getRed())<50 && 
+                	Math.abs(green-col.getGreen())<50 && 
+                	Math.abs(blue-col.getBlue())<50 
+                		
+                ){
 
 
 					if(!reading){
