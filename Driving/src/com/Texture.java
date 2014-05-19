@@ -240,7 +240,7 @@ public class Texture {
 		Vector rows=new Vector();
 		
 
-		int tolerance=50;
+		int tolerance=20;
 
 		System.out.println("\n********** FOUND DATA (x,y) WITH tolerance="+tolerance+"\n");
 		System.out.println("WIDTH="+WIDTH);
@@ -494,6 +494,24 @@ public class Texture {
 				rgbs [i+WIDTH*j]=val;
 			}*/
 	  
+		
+		
+	}
+	
+	public static void interpolate0(double a, double b, int n){
+		
+		
+		double dx=(b-a)/(n-1);
+		
+		for (int i = 0; i < n; i++) {
+			
+			double x=a+i*dx;
+			
+			System.out.println(Math.round(x*1000.0)/1000.0);
+			
+		}
+		
+		
 		
 		
 	}
