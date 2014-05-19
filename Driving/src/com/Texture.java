@@ -239,12 +239,15 @@ public class Texture {
 
 		Vector rows=new Vector();
 		
-	
 
-		System.out.println("\n********** FOUND DATA (x,y)\n");
+		int tolerance=50;
+
+		System.out.println("\n********** FOUND DATA (x,y) WITH tolerance="+tolerance+"\n");
 		System.out.println("WIDTH="+WIDTH);
 		System.out.println("HEIGHT="+HEIGHT);
 		System.out.println("");
+		
+		int tot=0;
 		
 		for(int j=0;j<HEIGHT;j++){
 
@@ -257,9 +260,9 @@ public class Texture {
 
                 Color col=new Color(bi.getRGB(i,j)); 
 				
-                if(Math.abs(red-col.getRed())<50 && 
-                	Math.abs(green-col.getGreen())<50 && 
-                	Math.abs(blue-col.getBlue())<50 
+                if(Math.abs(red-col.getRed())<tolerance && 
+                	Math.abs(green-col.getGreen())<tolerance && 
+                	Math.abs(blue-col.getBlue())<tolerance 
                 		
                 ){
 
@@ -270,7 +273,7 @@ public class Texture {
 						Point3D p=new Point3D(i,HEIGHT-j,0);
 
 						row.add(p);
-
+						tot++;
 						reading=true;
 					}
 				}else
@@ -283,7 +286,8 @@ public class Texture {
 
 			}	
 		}	
-
+		System.out.println("\nTotal number="+tot);
+		
 
 		System.out.println("\n********** ANALISYS\n");
 	
