@@ -227,41 +227,136 @@ public class Texture {
 	 * @param filter
 	 */
 	private static void scanImagePoints(BufferedImage bi,Color filter) {
-		
+
 		int filterRGB=filter.getRGB();
-		
+
 		int HEIGHT=bi.getHeight();
 		int WIDTH=bi.getWidth();
+
+		Vector rows=new Vector();
 		
 	
 
+		System.out.println("\n********** FOUND DATA (x,y)\n");
+		System.out.println("WIDTH="+WIDTH);
+		System.out.println("HEIGHT="+HEIGHT);
+		System.out.println("");
+		
 		for(int j=0;j<HEIGHT;j++){
-			
-			boolean found=false;
-			
+
+
 			boolean reading=false;
-			
+
+			Vector row=new Vector();
+
 			for(int i=0;i<WIDTH;i++){ 
-			
-							
+
+
 				int rgb=bi.getRGB(i,j);
-              
+
 				if(rgb==filterRGB ){
-					
-					
+
+
 					if(!reading){
 						System.out.print(i+","+j+"\t");
-					    found=true;
-					    reading=true;
+
+						Point3D p=new Point3D(i,HEIGHT-j,0);
+
+						row.add(p);
+
+						reading=true;
 					}
 				}else
 					reading=false;
-				
+
 			}
-			if(found)
+			if(row.size()>0){
+				rows.add(row);
 				System.out.println();
+
+			}	
 		}	
+
+
+		System.out.println("\n********** ANALISYS\n");
+	
+		
+		double minX=-1;
+		double maxX=-1;
+
+		double minY=-1;
+		double maxY=-1;
+
+		double realWidth=0;
+		double realHeight=0;
+
+		boolean first=true;
+
+		for (int i = 0; i < rows.size(); i++) {
+
+			Vector row = (Vector) rows.elementAt(i);
+
+			for (int k = 0; k < row.size(); k++) {
+				Point3D p = (Point3D) row.elementAt(k);
+
+				if(first){
+
+					minX=p.x;
+					maxX=p.x;
+					minY=p.y;
+					maxY=p.y;
+
+					first=false;
+				}else{
+
+					if(minX>p.x)
+						minX=p.x;
+					if(maxX<p.x)
+						maxX=p.x;
+
+					if(minY>p.y)
+						minY=p.y;
+					if(maxY<p.y)
+						maxY=p.y;
+				}
+
+			}
+
+		}
+
+		realWidth=maxX-minX;
+		realHeight=maxY-minY;
+
+		System.out.println("minX="+minX);
+		System.out.println("maxX="+maxX);
+		System.out.println("minY="+minY);
+		System.out.println("maxY="+maxY);
+		System.out.println("realWidth="+realWidth);
+		System.out.println("realHeight="+realHeight);
+
+		System.out.println("\n********** REDUCED DATA (x,y)\n");
+
+
+		for (int i = 0; i < rows.size(); i++) {
+
+			Vector row = (Vector) rows.elementAt(i);
+
+			for (int k = 0; k < row.size(); k++) {
+				Point3D p = (Point3D) row.elementAt(k);
+
+				String val=Math.round((p.x-minX)/realWidth*1000)/1000.0+","
+						+Math.round((p.y-minY)/realHeight*1000)/1000.0;
+
+				System.out.print(val+"\t");
+
+			}
+			System.out.println();
+
+		}
 	}
+	
+	
+	
 
 	public static void analyzeImage(String name) throws IOException{
 		
