@@ -217,7 +217,7 @@ public class Texture {
 	public static void scanImagePoints(String name) throws IOException{
 		
 		BufferedImage bi=ImageIO.read(new File(name));
-		scanImagePoints(bi,Color.RED);
+		scanImagePoints(bi,Color.BLACK);
 	}
 	
 	/**
@@ -228,7 +228,7 @@ public class Texture {
 	 */
 	private static void scanImagePoints(BufferedImage bi,Color filter) {
 
-		int filterRGB=filter.getRGB();
+		//int filterRGB=filter.getRGB();
 		
 		int red=filter.getRed();
 		int green=filter.getGreen();
