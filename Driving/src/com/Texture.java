@@ -113,8 +113,8 @@ public class Texture {
 		//String fileOrig="C:\\Documents and Settings\\Compaq_Proprietario\\Desktop\\new textures\\background_.jpg";
 		//transformTexture(fileOrig,fileBackground);
 		//analyzeImage(fileOrig);
-		scanImagePoints("C:\\Users\\francescopiazza\\Desktop\\spec.GIF");
-		
+		//scanImagePoints("C:\\Users\\francescopiazza\\Desktop\\spec.GIF");
+		//interpolate0(0.0,1.0,9);
 		
 	}
 	
@@ -507,7 +507,7 @@ public class Texture {
 			
 			double x=a+i*dx;
 			
-			System.out.println(Math.round(x*1000.0)/1000.0);
+			System.out.print(Math.round(x*1000.0)/1000.0+"\t");
 			
 		}
 		
