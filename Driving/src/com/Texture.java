@@ -114,7 +114,7 @@ public class Texture {
 		//transformTexture(fileOrig,fileBackground);
 		//analyzeImage(fileOrig);
 		//scanImagePoints("C:\\Users\\francescopiazza\\Desktop\\spec.GIF");
-		//interpolate0(0.0,1.0,9);
+		interpolate0(-0.451,0.451,9);
 		
 	}
 	
