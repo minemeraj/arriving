@@ -934,25 +934,47 @@ public class Forniture extends CustomData{
 		}
 		
 		
-		/*for (int j = 0; j < 9; j++) {
+		//////////
+		
+		
+		/*for (int j = 0; j < hny; j++) {
 
-			for (int k = 0; k < 9; k++) {
+
+			for (int k = 0; k < hnx; k++) {
+
+				for (int i = 0; i < hnz; i++) {
+
+					if(body[i][j][k]!=null) {
+
+						double xx=body[i][j][k].x;
+						double yy=body[i][j][k].y;
+						double zz=body[i][j][k].z;
+
+						double w=body[8][j][k].x;
+						double l=body[8][8][k].y;
+
+						double lp=l-Math.sqrt(w*w-xx*xx);
+
+						double alpha=lp/l;
+						
+						if(k<3)
+							alpha=1.0;
+
+						//System.out.println(alfa);
+
+						System.out.println("body["+i+"]["+j+"]["+k+"]=" +
+								"addBPoint("
+								+Math.round(xx/x_side*1000)/1000.0+","
+								+Math.round(alpha*yy/y_side*1000)/1000.0+","
+								+Math.round(zz/z_side*1000)/1000.0+",h0);");
 
 
 
-				for (int i = 0; i < 9; i++) {
 
-					double x=1.0*i/8.0;
-					double y=1.0*j/8.0;
-					double z=1.0*k/8.0;
-
-					System.out.println("body["+(i)+"]["+j+"]["+k+"]=" +
-							"addBPoint("
-							+Math.round(x*1000)/1000.0+","
-							+Math.round(y*1000)/1000.0+","
-							+Math.round(z*1000)/1000.0+",h0);");
-
+					}
 				}
+
+
 
 			}
 			System.out.println();
