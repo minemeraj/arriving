@@ -372,9 +372,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 	}
 	
 	private void initRightToiletData() {
-		x_side.setText(200);
+		x_side.setText(104);
 		y_side.setText(200);
-		z_side.setText(200);
+		z_side.setText(106);
 		
 		leg_length.setText(0);
 		leg_side.setText(0);
