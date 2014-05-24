@@ -666,11 +666,11 @@ public class Forniture extends CustomData{
 		body[8][3][7]=addBPoint(0.481,0.287,0.907,h0);
 		body[0][3][8]=addBPoint(-0.5,0.278,1.0,h0);
 		body[1][3][8]=addBPoint(-0.375,0.342,1.0,h0);
-		body[2][3][8]=addBPoint(-0.25,0.362,1.0,h0);
-		body[3][3][8]=addBPoint(-0.125,0.372,1.0,h0);
-		body[4][3][8]=addBPoint(0.0,0.375,1.0,h0);
-		body[5][3][8]=addBPoint(0.125,0.372,1.0,h0);
-		body[6][3][8]=addBPoint(0.25,0.362,1.0,h0);
+		body[2][3][8]=addBPoint(-0.25,0.362,0.5,h0);
+		body[3][3][8]=addBPoint(-0.125,0.372,0.5,h0);
+		body[4][3][8]=addBPoint(0.0,0.375,0.5,h0);
+		body[5][3][8]=addBPoint(0.125,0.372,0.5,h0);
+		body[6][3][8]=addBPoint(0.25,0.362,0.5,h0);
 		body[7][3][8]=addBPoint(0.375,0.342,1.0,h0);
 		body[8][3][8]=addBPoint(0.5,0.278,1.0,h0);
 
@@ -699,11 +699,11 @@ public class Forniture extends CustomData{
 		body[8][4][7]=addBPoint(0.481,0.375,0.907,h0);
 		body[0][4][8]=addBPoint(-0.5,0.37,1.0,h0);
 		body[1][4][8]=addBPoint(-0.375,0.456,1.0,h0);
-		body[2][4][8]=addBPoint(-0.25,0.483,1.0,h0);
-		body[3][4][8]=addBPoint(-0.125,0.496,1.0,h0);
-		body[4][4][8]=addBPoint(0.0,0.5,1.0,h0);
-		body[5][4][8]=addBPoint(0.125,0.496,1.0,h0);
-		body[6][4][8]=addBPoint(0.25,0.483,1.0,h0);
+		body[2][4][8]=addBPoint(-0.25,0.483,0.25,h0);
+		body[3][4][8]=addBPoint(-0.125,0.496,0.25,h0);
+		body[4][4][8]=addBPoint(0.0,0.5,0.25,h0);
+		body[5][4][8]=addBPoint(0.125,0.496,0.25,h0);
+		body[6][4][8]=addBPoint(0.25,0.483,0.25,h0);
 		body[7][4][8]=addBPoint(0.375,0.456,1.0,h0);
 		body[8][4][8]=addBPoint(0.5,0.37,1.0,h0);
 
@@ -732,11 +732,11 @@ public class Forniture extends CustomData{
 		body[8][5][7]=addBPoint(0.481,0.463,0.907,h0);
 		body[0][5][8]=addBPoint(-0.5,0.463,1.0,h0);
 		body[1][5][8]=addBPoint(-0.375,0.57,1.0,h0);
-		body[2][5][8]=addBPoint(-0.25,0.603,1.0,h0);
-		body[3][5][8]=addBPoint(-0.125,0.62,1.0,h0);
-		body[4][5][8]=addBPoint(0.0,0.625,1.0,h0);
-		body[5][5][8]=addBPoint(0.125,0.62,1.0,h0);
-		body[6][5][8]=addBPoint(0.25,0.603,1.0,h0);
+		body[2][5][8]=addBPoint(-0.25,0.603,0.25,h0);
+		body[3][5][8]=addBPoint(-0.125,0.62,0.25,h0);
+		body[4][5][8]=addBPoint(0.0,0.625,0.25,h0);
+		body[5][5][8]=addBPoint(0.125,0.62,0.25,h0);
+		body[6][5][8]=addBPoint(0.25,0.603,0.25,h0);
 		body[7][5][8]=addBPoint(0.375,0.57,1.0,h0);
 		body[8][5][8]=addBPoint(0.5,0.463,1.0,h0);
 
@@ -765,11 +765,11 @@ public class Forniture extends CustomData{
 		body[8][6][7]=addBPoint(0.481,0.55,0.907,h0);
 		body[0][6][8]=addBPoint(-0.5,0.555,1.0,h0);
 		body[1][6][8]=addBPoint(-0.375,0.684,1.0,h0);
-		body[2][6][8]=addBPoint(-0.25,0.724,1.0,h0);
-		body[3][6][8]=addBPoint(-0.125,0.744,1.0,h0);
-		body[4][6][8]=addBPoint(0.0,0.75,1.0,h0);
-		body[5][6][8]=addBPoint(0.125,0.744,1.0,h0);
-		body[6][6][8]=addBPoint(0.25,0.724,1.0,h0);
+		body[2][6][8]=addBPoint(-0.25,0.724,0.75,h0);
+		body[3][6][8]=addBPoint(-0.125,0.744,0.75,h0);
+		body[4][6][8]=addBPoint(0.0,0.75,0.75,h0);
+		body[5][6][8]=addBPoint(0.125,0.744,0.75,h0);
+		body[6][6][8]=addBPoint(0.25,0.724,0.75,h0);
 		body[7][6][8]=addBPoint(0.375,0.684,1.0,h0);
 		body[8][6][8]=addBPoint(0.5,0.555,1.0,h0);
 
@@ -888,12 +888,17 @@ public class Forniture extends CustomData{
 		body[7][8][8]=addBPoint(0.375,0.912,1.0,h0);
 		body[8][8][8]=addBPoint(0.5,0.74,1.0,h0);
 
+		//**********
+		
 
+		for (int i = 0;  i < hnx-1; i++) {			
 
-		for (int i = 0; i < hnx-1; i++) {			
-
+		
 
 			for (int j = 0; j < hny-1; j++) {
+				
+				if(j!=3)
+					continue;
 
 				for (int k = 0; k < hnz-1; k++) {				
 
@@ -905,7 +910,7 @@ public class Forniture extends CustomData{
 
 
 
-
+                   // System.out.println(i+" "+j+" "+k); 
 
 					if(k+1==hnz-1)
 						addLine(body[i][j][k+1],body[i+1][j][k+1],body[i+1][j+1][k+1],body[i][j+1][k+1],Renderer3D.CAR_TOP);
@@ -934,54 +939,7 @@ public class Forniture extends CustomData{
 		}
 		
 		
-		//////////
-		
-		
-		/*for (int j = 0; j < hny; j++) {
-
-
-			for (int k = 0; k < hnx; k++) {
-
-				for (int i = 0; i < hnz; i++) {
-
-					if(body[i][j][k]!=null) {
-
-						double xx=body[i][j][k].x;
-						double yy=body[i][j][k].y;
-						double zz=body[i][j][k].z;
-
-						double y0=body[i][0][k].y;
-						
-						double w=body[8][j][k].x;
-						double ym=body[8][8][k].y;
-
-						double ymp=ym-(w-Math.sqrt(w*w-xx*xx));
-
-						double alpha=(ymp-y0)/(ym-y0);
-						
-						yy=y0+alpha*(yy-y0);
-						
-						if(j< 3)
-							alpha=1.0;
-
-						System.out.println("body["+i+"]["+j+"]["+k+"]=" +
-								"addBPoint("
-								+Math.round(xx/x_side*1000)/1000.0+","
-								+Math.round(yy/y_side*1000)/1000.0+","
-								+Math.round(zz/z_side*1000)/1000.0+",h0);");
-
-
-
-
-					}
-				}
-
-
-
-			}
-			System.out.println();
-		}*/
-
+	
 
 		PolygonMesh pm=new PolygonMesh(points,polyData);
 
