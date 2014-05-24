@@ -701,7 +701,7 @@ public class Forniture extends CustomData{
 		body[1][4][8]=addBPoint(-0.375,0.456,1.0,h0);
 		body[2][4][8]=addBPoint(-0.25,0.408,0.7,h0);
 		body[3][4][8]=addBPoint(-0.125,0.408,0.25,h0);
-		body[4][4][8]=addBPoint(0.0,0.408,0.3,h0);
+		body[4][4][8]=addBPoint(0.0,0.408,0.25,h0);
 		body[5][4][8]=addBPoint(0.125,0.408,0.25,h0);
 		body[6][4][8]=addBPoint(0.25,0.408,0.7,h0);
 		body[7][4][8]=addBPoint(0.375,0.456,1.0,h0);
