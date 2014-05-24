@@ -426,5 +426,16 @@
 	
 	Weapon revolver measures based on Colt Walker 1847, length 395 mm, barrel length= 229 mm; 
     
+	Forniture real measures:
 	
+	bed height with mattress: 52cm 
+	bed height no mattress: 34 cm
+	bed total lenght: 201 cm
+	bookcase height:
+	chair seat height: 48 cm
+	cupboard total height: 206 cm
+	sofa seat height: 45 cm
+	table height: 79 cm
+	toilet length: 69 cm
+	wardrobe height:
 	
