@@ -256,14 +256,14 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 
 	private void initRightBedData() {
 		
-		x_side.setText(100);
+		x_side.setText(89);
 		y_side.setText(200);
-		z_side.setText(50);
+		z_side.setText(19);
 		
-		leg_length.setText(50);
-		leg_side.setText(10);
-		back_height.setText(110);
-		front_height.setText(70);
+		leg_length.setText(34);
+		leg_side.setText(6);
+		back_height.setText(49);
+		front_height.setText(35);
 	}
 
 
@@ -287,13 +287,13 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 	public void initRightTableData() {
 		
 
-		x_side.setText(100);
+		x_side.setText(113);
 		y_side.setText(200);
-		z_side.setText(50);
+		z_side.setText(9);
 		
-		leg_length.setText(100);
-		leg_side.setText(10);
-		back_height.setText(100);
+		leg_length.setText(106);
+		leg_side.setText(9);
+		back_height.setText(0);
 		front_height.setText(0);
 		
 		side_width.setText(0);
@@ -303,13 +303,13 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 	
 	private void initRightChairData() {
 		
-		x_side.setText(100);
-		y_side.setText(100);
-		z_side.setText(50);
+		x_side.setText(84);
+		y_side.setText(92);
+		z_side.setText(14);
 		
 		leg_length.setText(100);
-		leg_side.setText(10);
-		back_height.setText(130);
+		leg_side.setText(7);
+		back_height.setText(104);
 		front_height.setText(0);
 		
 		side_width.setText(0);
@@ -356,8 +356,8 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 
 	private void initRightCupboardData() {
 		
-		x_side.setText(100);
-		y_side.setText(100);
+		x_side.setText(163);
+		y_side.setText(72);
 		z_side.setText(300);
 		
 		leg_length.setText(0);

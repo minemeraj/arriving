@@ -430,12 +430,12 @@
 	
 	bed height with mattress: 52cm 
 	bed height no mattress: 34 cm
-	bed total lenght: 201 cm
+	bed total LxW: 201 cm x 87cm
 	bookcase height:
 	chair seat height: 48 cm
-	cupboard total height: 206 cm
+	cupboard LxWxH: 111.5 cm x 49.5 cm x 206 cm
 	sofa seat height: 45 cm
-	table height: 79 cm
-	toilet length: 69 cm
+	table LxWxH:  140 cm x  79cm x 79 cm
+	toilet LxWxH: 69 cm X 36 cm x 36.5 cm
 	wardrobe height:
 	
