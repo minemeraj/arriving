@@ -666,11 +666,11 @@ public class Forniture extends CustomData{
 		body[8][3][7]=addBPoint(0.481,0.287,0.907,h0);
 		body[0][3][8]=addBPoint(-0.5,0.278,1.0,h0);
 		body[1][3][8]=addBPoint(-0.375,0.342,1.0,h0);
-		body[2][3][8]=addBPoint(-0.25,0.362,0.5,h0);
+		body[2][3][8]=addBPoint(-0.25,0.362,0.6,h0);
 		body[3][3][8]=addBPoint(-0.125,0.372,0.5,h0);
 		body[4][3][8]=addBPoint(0.0,0.375,0.5,h0);
 		body[5][3][8]=addBPoint(0.125,0.372,0.5,h0);
-		body[6][3][8]=addBPoint(0.25,0.362,0.5,h0);
+		body[6][3][8]=addBPoint(0.25,0.362,0.6,h0);
 		body[7][3][8]=addBPoint(0.375,0.342,1.0,h0);
 		body[8][3][8]=addBPoint(0.5,0.278,1.0,h0);
 
@@ -699,11 +699,11 @@ public class Forniture extends CustomData{
 		body[8][4][7]=addBPoint(0.481,0.375,0.907,h0);
 		body[0][4][8]=addBPoint(-0.5,0.37,1.0,h0);
 		body[1][4][8]=addBPoint(-0.375,0.456,1.0,h0);
-		body[2][4][8]=addBPoint(-0.25,0.483,0.25,h0);
-		body[3][4][8]=addBPoint(-0.125,0.496,0.25,h0);
-		body[4][4][8]=addBPoint(0.0,0.5,0.25,h0);
-		body[5][4][8]=addBPoint(0.125,0.496,0.25,h0);
-		body[6][4][8]=addBPoint(0.25,0.483,0.25,h0);
+		body[2][4][8]=addBPoint(-0.25,0.483,0.7,h0);
+		body[3][4][8]=addBPoint(-0.125,0.496,0.45,h0);
+		body[4][4][8]=addBPoint(0.0,0.5,0.3,h0);
+		body[5][4][8]=addBPoint(0.125,0.496,0.45,h0);
+		body[6][4][8]=addBPoint(0.25,0.483,0.7,h0);
 		body[7][4][8]=addBPoint(0.375,0.456,1.0,h0);
 		body[8][4][8]=addBPoint(0.5,0.37,1.0,h0);
 
@@ -732,11 +732,11 @@ public class Forniture extends CustomData{
 		body[8][5][7]=addBPoint(0.481,0.463,0.907,h0);
 		body[0][5][8]=addBPoint(-0.5,0.463,1.0,h0);
 		body[1][5][8]=addBPoint(-0.375,0.57,1.0,h0);
-		body[2][5][8]=addBPoint(-0.25,0.603,0.25,h0);
+		body[2][5][8]=addBPoint(-0.25,0.603,0.7,h0);
 		body[3][5][8]=addBPoint(-0.125,0.62,0.25,h0);
 		body[4][5][8]=addBPoint(0.0,0.625,0.25,h0);
 		body[5][5][8]=addBPoint(0.125,0.62,0.25,h0);
-		body[6][5][8]=addBPoint(0.25,0.603,0.25,h0);
+		body[6][5][8]=addBPoint(0.25,0.603,0.7,h0);
 		body[7][5][8]=addBPoint(0.375,0.57,1.0,h0);
 		body[8][5][8]=addBPoint(0.5,0.463,1.0,h0);
 
@@ -897,10 +897,10 @@ public class Forniture extends CustomData{
 
 			for (int j = 0; j < hny-1; j++) {
 				
-				if(j!=3)
-					continue;
-
-				for (int k = 0; k < hnz-1; k++) {				
+		
+				for (int k = 0; k < hnz-1; k++) {			
+					
+					//if(k!=7) continue;
 
 					if(j==0){
 
