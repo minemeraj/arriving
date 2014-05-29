@@ -2322,24 +2322,24 @@ public class Animal extends CustomData{
 		palm[6][2][0]=addBPoint(x[6],0.5,0.4,p0);
 		palm[7][2][0]=addBPoint(x[7],0.5,0,p0);
 		palm[8][2][0]=addBPoint(x[8],0.5,0,p0);
-		palm[0][3][0]=addBPoint(x[0],0.75,0,p0);
-		palm[1][3][0]=addBPoint(x[1],0.75,0.4,p0);
-		palm[2][3][0]=addBPoint(x[2],0.75,0.4,p0);
-		palm[3][3][0]=addBPoint(x[3],0.75,0.6,p0);
-		palm[4][3][0]=addBPoint(x[4],0.75,0.6,p0);
-		palm[5][3][0]=addBPoint(x[5],0.75,0.4,p0);
-		palm[6][3][0]=addBPoint(x[6],0.75,0.4,p0);
-		palm[7][3][0]=addBPoint(x[7],0.75,0,p0);
-		palm[8][3][0]=addBPoint(x[8],0.75,0,p0);
-		palm[0][4][0]=addBPoint(x[0],1.0,0,p0);
-		palm[1][4][0]=addBPoint(x[1],1.0,0.4,p0);
-		palm[2][4][0]=addBPoint(x[2],1.0,0.4,p0);
-		palm[3][4][0]=addBPoint(x[3],1.0,0.6,p0);
-		palm[4][4][0]=addBPoint(x[4],1.0,0.6,p0);
-		palm[5][4][0]=addBPoint(x[5],1.0,0.4,p0);
-		palm[6][4][0]=addBPoint(x[6],1.0,0.4,p0);
-		palm[7][4][0]=addBPoint(x[7],1.0,0,p0);
-		palm[8][4][0]=addBPoint(x[8],1.0,0,p0);
+		palm[0][3][0]=addBPoint(x[0],0.75,0.5,p0);
+		palm[1][3][0]=addBPoint(x[1],0.75,0.9,p0);
+		palm[2][3][0]=addBPoint(x[2],0.75,0.9,p0);
+		palm[3][3][0]=addBPoint(x[3],0.75,1.1,p0);
+		palm[4][3][0]=addBPoint(x[4],0.75,1.1,p0);
+		palm[5][3][0]=addBPoint(x[5],0.75,0.9,p0);
+		palm[6][3][0]=addBPoint(x[6],0.75,0.9,p0);
+		palm[7][3][0]=addBPoint(x[7],0.75,0.5,p0);
+		palm[8][3][0]=addBPoint(x[8],0.75,0.5,p0);
+		palm[0][4][0]=addBPoint(x[0],1.0,1.0,p0);
+		palm[1][4][0]=addBPoint(x[1],1.0,1.4,p0);
+		palm[2][4][0]=addBPoint(x[2],1.0,1.4,p0);
+		palm[3][4][0]=addBPoint(x[3],1.0,1.6,p0);
+		palm[4][4][0]=addBPoint(x[4],1.0,1.6,p0);
+		palm[5][4][0]=addBPoint(x[5],1.0,1.4,p0);
+		palm[6][4][0]=addBPoint(x[6],1.0,1.4,p0);
+		palm[7][4][0]=addBPoint(x[7],1.0,1.0,p0);
+		palm[8][4][0]=addBPoint(x[8],1.0,1.0,p0);
 		
 		palm[0][0][1]=addBPoint(x[0],0,1.0,p0);
 		palm[1][0][1]=addBPoint(x[1],0.0,1.4,p0);
@@ -2368,24 +2368,24 @@ public class Animal extends CustomData{
 		palm[6][2][1]=addBPoint(x[6],0.5,1.4,p0);
 		palm[7][2][1]=addBPoint(x[7],0.5,1.0,p0);
 		palm[8][2][1]=addBPoint(x[8],0.5,1.0,p0);
-		palm[0][3][1]=addBPoint(x[0],0.75,1.0,p0);
-		palm[1][3][1]=addBPoint(x[1],0.75,1.4,p0);
-		palm[2][3][1]=addBPoint(x[2],0.75,1.4,p0);
-		palm[3][3][1]=addBPoint(x[3],0.75,1.6,p0);
-		palm[4][3][1]=addBPoint(x[4],0.75,1.6,p0);
-		palm[5][3][1]=addBPoint(x[5],0.75,1.4,p0);
-		palm[6][3][1]=addBPoint(x[6],0.75,1.4,p0);
-		palm[7][3][1]=addBPoint(x[7],0.75,1.0,p0);
-		palm[8][3][1]=addBPoint(x[8],0.75,1.0,p0);
-		palm[0][4][1]=addBPoint(x[0],1.0,1.0,p0);
-		palm[1][4][1]=addBPoint(x[1],1.0,1.4,p0);
-		palm[2][4][1]=addBPoint(x[2],1.0,1.4,p0);
-		palm[3][4][1]=addBPoint(x[3],1.0,1.6,p0);
-		palm[4][4][1]=addBPoint(x[4],1.0,1.6,p0);
-		palm[5][4][1]=addBPoint(x[5],1.0,1.4,p0);
-		palm[6][4][1]=addBPoint(x[6],1.0,1.4,p0);
-		palm[7][4][1]=addBPoint(x[7],1.0,1.0,p0);
-		palm[8][4][1]=addBPoint(x[8],1.0,1.0,p0);
+		palm[0][3][1]=addBPoint(x[0],0.75,1.5,p0);
+		palm[1][3][1]=addBPoint(x[1],0.75,1.9,p0);
+		palm[2][3][1]=addBPoint(x[2],0.75,1.9,p0);
+		palm[3][3][1]=addBPoint(x[3],0.75,2.1,p0);
+		palm[4][3][1]=addBPoint(x[4],0.75,2.1,p0);
+		palm[5][3][1]=addBPoint(x[5],0.75,1.9,p0);
+		palm[6][3][1]=addBPoint(x[6],0.75,1.9,p0);
+		palm[7][3][1]=addBPoint(x[7],0.75,1.5,p0);
+		palm[8][3][1]=addBPoint(x[8],0.75,1.5,p0);
+		palm[0][4][1]=addBPoint(x[0],1.0,2.0,p0);
+		palm[1][4][1]=addBPoint(x[1],1.0,2.4,p0);
+		palm[2][4][1]=addBPoint(x[2],1.0,2.4,p0);
+		palm[3][4][1]=addBPoint(x[3],1.0,2.6,p0);
+		palm[4][4][1]=addBPoint(x[4],1.0,2.6,p0);
+		palm[5][4][1]=addBPoint(x[5],1.0,2.4,p0);
+		palm[6][4][1]=addBPoint(x[6],1.0,2.4,p0);
+		palm[7][4][1]=addBPoint(x[7],1.0,2.0,p0);
+		palm[8][4][1]=addBPoint(x[8],1.0,2.0,p0);
 
 		
 		
@@ -2440,7 +2440,7 @@ public class Animal extends CustomData{
 		
 		BPoint[][][] foreFinger=new BPoint[ffnx][ffny][ffnz];
 		
-		Segments ff0=new Segments(mx[0]*x_side,df*x_side,y_side,y_side*0.9,0,z_side);
+		Segments ff0=new Segments(mx[0]*x_side,df*x_side,y_side,y_side*0.9,z_side,z_side);
 		
 		foreFinger[0][0][0]=palm[1][pny-1][0];
 		foreFinger[1][0][0]=palm[2][pny-1][0];
@@ -2516,7 +2516,7 @@ public class Animal extends CustomData{
 		
 		BPoint[][][] middleFinger=new BPoint[mfnx][mfny][mfnz];
 		
-		Segments mf0=new Segments(mx[1]*x_side,df*x_side,y_side,y_side,0,z_side);
+		Segments mf0=new Segments(mx[1]*x_side,df*x_side,y_side,y_side,z_side,z_side);
 		
 		middleFinger[0][0][0]=palm[3][pny-1][0];
 		middleFinger[1][0][0]=palm[4][pny-1][0];
@@ -2590,7 +2590,7 @@ public class Animal extends CustomData{
 		
 		BPoint[][][] ringFinger=new BPoint[rfnx][rfny][rfnz];
 		
-		Segments rf0=new Segments(mx[2]*x_side,df*x_side,y_side,y_side*0.8,0,z_side);
+		Segments rf0=new Segments(mx[2]*x_side,df*x_side,y_side,y_side*0.8,z_side,z_side);
 		
 		ringFinger[0][0][0]=palm[5][pny-1][0];
 		ringFinger[1][0][0]=palm[6][pny-1][0];
@@ -2664,7 +2664,7 @@ public class Animal extends CustomData{
 		
 		BPoint[][][] littleFinger=new BPoint[lfnx][lfny][lfnz];
 		
-		Segments lf0=new Segments(mx[3]*x_side,df*x_side,y_side,y_side*0.7,0,z_side);
+		Segments lf0=new Segments(mx[3]*x_side,df*x_side,y_side,y_side*0.7,z_side,z_side);
 		
 		littleFinger[0][0][0]=palm[7][pny-1][0];
 		littleFinger[1][0][0]=palm[8][pny-1][0];
