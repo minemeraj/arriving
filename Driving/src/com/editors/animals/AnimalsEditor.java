@@ -376,7 +376,7 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 		femur_length.setText(100);
 		shinbone_length.setText(100);
 		
-		foot_length.setText(30);
+		foot_length.setText(50);
 	}
 	
 	public void initRightDataQuadruped() { 
