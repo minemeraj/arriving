@@ -1437,6 +1437,74 @@ public class Forniture extends CustomData{
 		addLine(frLeg[1][1][0],frLeg[1][1][1],frLeg[1][0][1],frLeg[1][0][0],Renderer3D.CAR_RIGHT);
 
 		addLine(frLeg[1][0][0],frLeg[1][0][1],frLeg[0][0][1],frLeg[0][0][0],Renderer3D.CAR_BACK);
+		
+		
+		//pillow
+		
+		double pillow_lenght=45;
+		double pillow_width=x_side-10;
+		double pillow_height=15;
+		
+		Segments p0=new Segments(x_side*0.5,pillow_width,y_side-pillow_lenght,pillow_lenght,leg_length+z_side,pillow_height);
+
+		int pnumx=2;
+		int pnumy=2;
+		int pnumz=2;
+		
+		BPoint[][][] pillow=new BPoint[pnumx][pnumy][pnumz];
+
+		pillow[0][0][0]=addBPoint(-0.5,0,0,p0);
+		pillow[1][0][0]=addBPoint(0.5,0,0,p0);
+		pillow[1][1][0]=addBPoint(0.5,1.0,0,p0);
+		pillow[0][1][0]=addBPoint(-0.5,1.0,0,p0);
+
+		pillow[0][0][1]=addBPoint(-0.5,0,1.0,p0);
+		pillow[1][0][1]=addBPoint(0.5,0,1.0,p0);
+		pillow[1][1][1]=addBPoint(0.5,1.0,1.0,p0);
+		pillow[0][1][1]=addBPoint(-0.5,1.0,1.0,p0);
+
+		for (int i = 0; i < pnumx-1; i++) {
+
+
+			for (int j = 0; j < pnumy-1; j++) {	
+
+				for (int k = 0; k < pnumz-1; k++) {
+
+
+					if(i==0){
+
+						LineData leftFrontLD=addLine(pillow[i][j][k],pillow[i][j][k+1],pillow[i][j+1][k+1],pillow[i][j+1][k],Renderer3D.CAR_LEFT);
+					}
+
+
+
+					if(k+1==pnumz-1){
+						LineData topillowLD=addLine(pillow[i][j][k+1],pillow[i+1][j][k+1],pillow[i+1][j+1][k+1],pillow[i][j+1][k+1],Renderer3D.CAR_TOP);
+					}
+					if(k==0){
+						LineData bottomFrontLD=addLine(pillow[i][j][k],pillow[i][j+1][k],pillow[i+1][j+1][k],pillow[i+1][j][k],Renderer3D.CAR_BOTTOM);
+					}
+					
+					if(j==0){
+						LineData backFrontLD=addLine(pillow[i][j][k],pillow[i+1][j][k],pillow[i+1][j][k+1],pillow[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+					if(j+1==pnumy-1){
+						LineData frontFrontLD=addLine(pillow[i][j+1][k],pillow[i][j+1][k+1],pillow[i+1][j+1][k+1],pillow[i+1][j+1][k],Renderer3D.CAR_FRONT);
+					}
+
+
+					if(i+1==pnumx-1){
+
+						LineData rightFrontLD=addLine(pillow[i+1][j][k],pillow[i+1][j+1][k],pillow[i+1][j+1][k+1],pillow[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+					}
+
+				}
+
+			}
+
+		}
+		
 
 		/////////
 
