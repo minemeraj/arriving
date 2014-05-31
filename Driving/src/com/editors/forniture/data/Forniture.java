@@ -1441,9 +1441,9 @@ public class Forniture extends CustomData{
 		
 		//pillow
 		
-		double pillow_lenght=45;
 		double pillow_width=x_side-10;
-		double pillow_height=15;
+		double pillow_lenght=pillow_width*0.571;		
+		double pillow_height=pillow_width*0.186;
 		
 		Segments p0=new Segments(x_side*0.5,pillow_width,y_side-pillow_lenght,pillow_lenght,leg_length+z_side,pillow_height);
 
