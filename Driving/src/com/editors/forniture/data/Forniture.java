@@ -26,6 +26,7 @@ public class Forniture extends CustomData{
 	public static int FORNITURE_TYPE_BOOKCASE=5;
 	public static int FORNITURE_TYPE_TOILET=6;
 	public static int FORNITURE_TYPE_CUPBOARD=7;
+	public static int FORNITURE_TYPE_STREETLIGHT=8;
 	
 	public int forniture_type=FORNITURE_TYPE_TABLE;
 	
@@ -209,11 +210,15 @@ public class Forniture extends CustomData{
 			
 			return buildCupboardMesh();
 		}
-		else
+		else if(FORNITURE_TYPE_STREETLIGHT==forniture_type){
+			return buildStreetLighteMesh();	
+		}
+		else	
 			return buildWardrobeMesh();
 
 
 	}
+
 
 	private PolygonMesh buildCupboardMesh() {
 		
@@ -1867,14 +1872,82 @@ public class Forniture extends CustomData{
 		return spm;
 	}
 
+	private PolygonMesh buildStreetLighteMesh() {
+		
+		points=new Vector();
+		points.setSize(50);
+
+		polyData=new Vector();
+		
+		n=0;
+		
+		int trunk_meridians=10;
+		int trunk_parallels=2;
+		double trunk_radius=x_side*0.5;
+		double trunk_lenght=z_side;
+		
+		//trunk: 
+		
+		BPoint[][] trunkpoints=new BPoint[trunk_meridians][trunk_parallels];
+		
+		for (int k = 0; k < trunk_parallels; k++) {
+			
+			
+			for (int i = 0; i < trunk_meridians; i++) {
+				
+				double x=trunk_radius*Math.cos(2*Math.PI/trunk_meridians*i);
+				double y=trunk_radius*Math.sin(2*Math.PI/trunk_meridians*i);
+				double z=trunk_lenght/(trunk_parallels-1.0)*k;
+				
+				trunkpoints[i][k]=addBPoint(x,y,z);
+				
+			}
+			
+		}
+		
+
+
+		LineData topLD=new LineData();
+		
+		for (int i = 0; i < trunk_meridians; i++) {
+			
+			topLD.addIndex(trunkpoints[i][trunk_parallels-1].getIndex());
+			
+		}
+		topLD.setData(""+Renderer3D.CAR_TOP);
+		polyData.add(topLD);
+		
 
 
 
+		LineData bottomLD=new LineData();
+		
+		for (int i = trunk_meridians-1; i >=0; i--) {
+			
+			bottomLD.addIndex(trunkpoints[i][0].getIndex());
+			
+		}
+		bottomLD.setData(""+Renderer3D.CAR_BOTTOM);
+		polyData.add(bottomLD);
+		
+		for (int i = 0; i < trunk_meridians; i++) {
+			
+			LineData sideLD=new LineData();
+			
+			sideLD.addIndex(trunkpoints[i][0].getIndex());
+			sideLD.addIndex(trunkpoints[(i+1)%trunk_meridians][0].getIndex());
+			sideLD.addIndex(trunkpoints[(i+1)%trunk_meridians][trunk_parallels-1].getIndex());
+			sideLD.addIndex(trunkpoints[i][trunk_parallels-1].getIndex());	
+			sideLD.setData(""+getFace(sideLD,points));
+			polyData.add(sideLD);
+			
+		}
 
+		PolygonMesh pm=new PolygonMesh(points,polyData);
 
-
-
-
+		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
+		return spm;
+	}
 
 
 }	

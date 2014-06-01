@@ -93,61 +93,59 @@ public class Plant extends CustomData{
 
 		//trunk:
 		
-		BPoint[] uTrunkpoints=new BPoint[foliage_meridians];
-		BPoint[] bTrunkpoints=new BPoint[foliage_meridians];
+		int trunk_parallels=2;
+		int trunk_meridians=10;
 		
+	    BPoint[][] trunkpoints=new BPoint[trunk_meridians][trunk_parallels];
 		
-		for (int i = 0; i < foliage_meridians; i++) {
+		for (int k = 0; k < trunk_parallels; k++) {
 			
-			double x=trunk_radius*Math.cos(2*Math.PI/foliage_meridians*i);
-			double y=trunk_radius*Math.sin(2*Math.PI/foliage_meridians*i);
 			
-			uTrunkpoints[i]=addBPoint(x,y,trunk_lenght);
-			
+			for (int i = 0; i < trunk_meridians; i++) {
+				
+				double x=trunk_radius*Math.cos(2*Math.PI/trunk_meridians*i);
+				double y=trunk_radius*Math.sin(2*Math.PI/trunk_meridians*i);
+				double z=trunk_lenght/(trunk_parallels-1.0)*k;
+				
+				trunkpoints[i][k]=addBPoint(x,y,z);
+				
+			}
 			
 		}
+		
 
 
 		LineData topLD=new LineData();
 		
-		for (int i = 0; i < foliage_meridians; i++) {
+		for (int i = 0; i < trunk_meridians; i++) {
 			
-			topLD.addIndex(uTrunkpoints[i].getIndex());
+			topLD.addIndex(trunkpoints[i][trunk_parallels-1].getIndex());
 			
 		}
 		topLD.setData(""+Renderer3D.CAR_TOP);
 		polyData.add(topLD);
 		
-		for (int i = 0; i < foliage_meridians; i++) {
-			
-			double x=trunk_radius*Math.cos(2*Math.PI/foliage_meridians*i);
-			double y=trunk_radius*Math.sin(2*Math.PI/foliage_meridians*i);
-			
-			bTrunkpoints[i]=addBPoint(x,y,0);
-			
-		}
+
 
 
 		LineData bottomLD=new LineData();
 		
-		for (int i = foliage_meridians-1; i >=0; i--) {
+		for (int i = trunk_meridians-1; i >=0; i--) {
 			
-			bottomLD.addIndex(bTrunkpoints[i].getIndex());
+			bottomLD.addIndex(trunkpoints[i][0].getIndex());
 			
 		}
 		bottomLD.setData(""+Renderer3D.CAR_BOTTOM);
 		polyData.add(bottomLD);
 		
-		
-		
-		for (int i = 0; i < foliage_meridians; i++) {
+		for (int i = 0; i < trunk_meridians; i++) {
 			
 			LineData sideLD=new LineData();
 			
-			sideLD.addIndex(bTrunkpoints[i].getIndex());
-			sideLD.addIndex(bTrunkpoints[(i+1)%foliage_meridians].getIndex());
-			sideLD.addIndex(uTrunkpoints[(i+1)%foliage_meridians].getIndex());
-			sideLD.addIndex(uTrunkpoints[i].getIndex());	
+			sideLD.addIndex(trunkpoints[i][0].getIndex());
+			sideLD.addIndex(trunkpoints[(i+1)%trunk_meridians][0].getIndex());
+			sideLD.addIndex(trunkpoints[(i+1)%trunk_meridians][trunk_parallels-1].getIndex());
+			sideLD.addIndex(trunkpoints[i][trunk_parallels-1].getIndex());	
 			sideLD.setData(""+getFace(sideLD,points));
 			polyData.add(sideLD);
 			
