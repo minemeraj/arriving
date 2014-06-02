@@ -58,6 +58,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 	int max_stack_size=10;
 	
 	Forniture forniture=null;
+	private DoubleTextField upper_width;
+	private DoubleTextField upper_length;
+	private DoubleTextField upper_height;
 
 	
 
@@ -230,7 +233,7 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		
 		r+=30;
 		
-		jlb=new JLabel("side height");
+		jlb=new JLabel("Side height");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
 		side_height=new DoubleTextField();
@@ -239,7 +242,36 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		right.add(side_height);
 
 		
+		r+=30;
 		
+		jlb=new JLabel("Upper width");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		upper_width=new DoubleTextField();
+		upper_width.setBounds(column, r, 100, 20);
+		upper_width.addKeyListener(this);
+		right.add(upper_width);
+		
+		r+=30;
+		
+		jlb=new JLabel("Upper length");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		upper_length=new DoubleTextField();
+		upper_length.setBounds(column, r, 100, 20);
+		upper_length.addKeyListener(this);
+		right.add(upper_length);
+		
+		r+=30;
+		
+		jlb=new JLabel("Upper height");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		upper_height=new DoubleTextField();
+		upper_height.setBounds(column, r, 100, 20);
+		upper_height.addKeyListener(this);
+		right.add(upper_height);
+
 		r+=30;
 			
         generate=new JButton("Update");
@@ -265,6 +297,15 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		leg_side.setText(6);
 		back_height.setText(49);
 		front_height.setText(35);
+		
+		side_width.setText(0);
+		side_length.setText(0);
+		side_height.setText(0);
+		
+		upper_width.setText(0);
+		upper_length.setText(0);
+		upper_height.setText(0);
+
 	}
 
 
@@ -283,6 +324,10 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		side_length.setText(90);
 		side_height.setText(50);
 		
+		upper_width.setText(0);
+		upper_length.setText(0);
+		upper_height.setText(0);
+		
 	}
 
 	public void initRightTableData() {
@@ -300,6 +345,10 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		side_width.setText(0);
 		side_length.setText(0);
 		side_height.setText(0);
+		
+		upper_width.setText(0);
+		upper_length.setText(0);
+		upper_height.setText(0);
 	}
 	
 	private void initRightChairData() {
@@ -316,6 +365,10 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		side_width.setText(0);
 		side_length.setText(0);
 		side_height.setText(0);
+		
+		upper_width.setText(0);
+		upper_length.setText(0);
+		upper_height.setText(0);
 		
 	}
 
@@ -335,6 +388,10 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		side_length.setText(0);
 		side_height.setText(0);
 		
+		upper_width.setText(0);
+		upper_length.setText(0);
+		upper_height.setText(0);
+		
 	}
 	
 
@@ -351,6 +408,10 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		side_width.setText(0);
 		side_length.setText(0);
 		side_height.setText(0);
+		
+		upper_width.setText(0);
+		upper_length.setText(0);
+		upper_height.setText(0);
 	}
 	
 	
@@ -359,7 +420,7 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		
 		x_side.setText(163);
 		y_side.setText(72);
-		z_side.setText(300);
+		z_side.setText(150);
 		
 		leg_length.setText(0);
 		leg_side.setText(0);
@@ -368,7 +429,11 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		
 		side_width.setText(10);
 		side_length.setText(20);
-		side_height.setText(0);
+		side_height.setText(80);
+		
+		upper_width.setText(163);
+		upper_length.setText(60);
+		upper_height.setText(80);
 		
 	}
 	
@@ -386,6 +451,10 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		side_length.setText(0);
 		side_height.setText(0);
 		
+		upper_width.setText(0);
+		upper_length.setText(0);
+		upper_height.setText(0);
+		
 	}
 	
 	private void initRightStretLightData() {
@@ -402,6 +471,10 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		side_width.setText(0);
 		side_length.setText(0);
 		side_height.setText(0);
+		
+		upper_width.setText(20);
+		upper_length.setText(50);
+		upper_height.setText(20);
 		
 	}
 	
@@ -465,7 +538,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 			double sideWidth=side_width.getvalue();
 			double sideLength=side_length.getvalue();
 			double sideHeight=side_height.getvalue();
-
+			double upperWidth=upper_width.getvalue();
+			double upperLength=upper_length.getvalue();
+			double upperHeight=upper_height.getvalue();
 			
 			 ValuePair vp= (ValuePair)chooseForniture.getSelectedItem();
 			 
@@ -479,7 +554,8 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 				forniture=new Forniture(xside,yside,zside,type,
 						legLength,legSide,
 						frontHeight,backHeight,
-						sideWidth,sideLength,sideHeight
+						sideWidth,sideLength,sideHeight,
+						upperWidth,upperLength,upperHeight
 						);
 			
 				
@@ -488,7 +564,8 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 				Forniture expForniture = new Forniture(xside,yside,zside,type,
 						legLength,legSide,
 						frontHeight,backHeight,
-						sideWidth,sideLength,sideHeight
+						sideWidth,sideLength,sideHeight,
+						upperWidth,upperLength,upperHeight
 						);
 				
 				

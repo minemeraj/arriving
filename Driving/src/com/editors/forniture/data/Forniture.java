@@ -34,16 +34,22 @@ public class Forniture extends CustomData{
 	double leg_length=0;
 	double back_height=0;
 	double front_height=0;
+	
 	double side_width=0;
 	double side_length=0;
 	double side_height=0;
+	
+	double upper_width=0;
+	double upper_length=0;
+	double upper_height=0;
 	
 
 	public Forniture(){}
 
 	public Forniture( double x_side, double y_side,double z_side,int forniture_type,
 			double legLength, double legSide,double frontHeight, double backHeight,
-			double side_width,double side_length, double side_height
+			double side_width,double side_length, double side_height,
+			double upper_width,double upper_length, double upper_height
 			) {
 		super();
 
@@ -59,6 +65,10 @@ public class Forniture extends CustomData{
 		this.side_width = side_width;
 		this.side_length = side_length;
 		this.side_height = side_height;
+		
+		this.upper_width = upper_width;
+		this.upper_length = upper_length;
+		this.upper_height = upper_height;
 	}
 	
 
@@ -67,7 +77,8 @@ public class Forniture extends CustomData{
 		Forniture grid=new Forniture(x_side,y_side,z_side,forniture_type,
 				leg_length,leg_side,
 				front_height,back_height,
-				side_width, side_length,side_height
+				side_width, side_length,side_height,
+				upper_width, upper_length, upper_height
 				);
 		return grid;
 
@@ -92,8 +103,8 @@ public class Forniture extends CustomData{
 
 		String ret="F="+x_side+","+y_side+","+z_side+","+forniture_type;
 		ret+=","+leg_length+","+leg_side+","+front_height+","+back_height
-				+","+side_width+","+side_length+","+side_height;
-				
+				+","+side_width+","+side_length+","+side_height
+				+","+upper_width+","+upper_length+","+upper_height;
 		return ret;
 	}
 
@@ -111,12 +122,16 @@ public class Forniture extends CustomData{
 		double backHeight = Double.parseDouble(vals[7]); 
 		double side_width = Double.parseDouble(vals[8]); 
 		double side_length = Double.parseDouble(vals[9]); 
-		double side_height = Double.parseDouble(vals[10]); 
+		double side_height = Double.parseDouble(vals[10]); 		
+		double upper_width=Double.parseDouble(vals[11]); 
+		double upper_length=Double.parseDouble(vals[12]); 
+		double upper_height=Double.parseDouble(vals[13]); 
 
 		Forniture grid=new Forniture(x_side,y_side,z_side,forniture_type,
 				legLength,legSide,
 				frontHeight,backHeight,
-				side_width, side_length,side_height);
+				side_width, side_length,side_height,
+				upper_width,upper_length,upper_height);
 
 		return grid;
 	}
@@ -238,10 +253,10 @@ public class Forniture extends CustomData{
 		body[1][1][0]=addBPoint(1.0,1.0,0,b0);
 		body[0][1][0]=addBPoint(0,1.0,0,b0);
 		
-		body[0][0][1]=addBPoint(0,0,0.5,b0);
-		body[1][0][1]=addBPoint(1.0,0,0.5,b0);
-		body[1][1][1]=addBPoint(1.0,1.0,0.5,b0);
-		body[0][1][1]=addBPoint(0,1.0,0.5,b0);
+		body[0][0][1]=addBPoint(0,0,1.0,b0);
+		body[1][0][1]=addBPoint(1.0,0,1.0,b0);
+		body[1][1][1]=addBPoint(1.0,1.0,1.0,b0);
+		body[0][1][1]=addBPoint(0,1.0,1.0,b0);
 		
 		addLine(body[0][0][1],body[1][0][1],body[1][1][1],body[0][1][1],Renderer3D.CAR_TOP);
 		
@@ -256,7 +271,7 @@ public class Forniture extends CustomData{
 		
 		addLine(body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0],Renderer3D.CAR_BOTTOM);
 		
-		Segments lcol0=new Segments(0,side_width,0.2*y_side,side_length,z_side*0.5,z_side*0.25);
+		Segments lcol0=new Segments((x_side-upper_width)*0.5,side_width,y_side-upper_length,side_length,z_side,side_height);
 		
 		BPoint[][][] leftColumn=new BPoint[2][2][2];
 		
@@ -280,7 +295,7 @@ public class Forniture extends CustomData{
 		
 		
 		
-		Segments rcol0=new Segments(x_side-side_width,side_width,0.2*y_side,side_length,z_side*0.5,z_side*0.25);
+		Segments rcol0=new Segments((x_side+upper_width)*0.5-side_width,side_width,y_side-upper_length,side_length,z_side,side_height);
 		
 		BPoint[][][] rightColumn=new BPoint[2][2][2];
 		
@@ -303,18 +318,19 @@ public class Forniture extends CustomData{
 		
 		addLine(rightColumn[0][0][0],rightColumn[1][0][0],rightColumn[1][0][1],rightColumn[0][0][1],Renderer3D.CAR_BACK);
 		
+		Segments back0=new Segments(0,x_side,0.8*y_side,0.2*y_side,z_side,side_height);
 		
 		BPoint[][][] backPanel=new BPoint[2][2][2];
 		
-		backPanel[0][0][0]=addBPoint(0.0,0.9,0.5,b0);
-		backPanel[1][0][0]=addBPoint(1.0,0.9,0.5,b0);
-		backPanel[1][1][0]=addBPoint(1.0,1.0,0.5,b0);
-		backPanel[0][1][0]=addBPoint(0.0,1.0,0.5,b0);
+		backPanel[0][0][0]=addBPoint(0.0,0.0,0.0,back0);
+		backPanel[1][0][0]=addBPoint(1.0,0.0,0.0,back0);
+		backPanel[1][1][0]=addBPoint(1.0,1.0,0.0,back0);
+		backPanel[0][1][0]=addBPoint(0.0,1.0,0.0,back0);
 		
-		backPanel[0][0][1]=addBPoint(0.0,0.9,0.75,b0);
-		backPanel[1][0][1]=addBPoint(1.0,0.9,0.75,b0);
-		backPanel[1][1][1]=addBPoint(1.0,1.0,0.75,b0);
-		backPanel[0][1][1]=addBPoint(0.0,1.0,0.75,b0);
+		backPanel[0][0][1]=addBPoint(0.0,0.0,1.0,back0);
+		backPanel[1][0][1]=addBPoint(1.0,0.0,1.0,back0);
+		backPanel[1][1][1]=addBPoint(1.0,1.0,1.0,back0);
+		backPanel[0][1][1]=addBPoint(0.0,1.0,1.0,back0);
 
 		addLine(backPanel[0][0][0],backPanel[0][0][1],backPanel[0][1][1],backPanel[0][1][0],Renderer3D.CAR_LEFT);				
 
@@ -324,19 +340,19 @@ public class Forniture extends CustomData{
 		
 		addLine(backPanel[0][0][0],backPanel[1][0][0],backPanel[1][0][1],backPanel[0][0][1],Renderer3D.CAR_BACK);
 	
-		
+		Segments u0=new Segments((x_side-upper_width)*0.5,upper_width,y_side-upper_length,upper_length,z_side+side_height,upper_height);
 		
 		BPoint[][][] upper=new BPoint[2][2][2];
 		
-		upper[0][0][0]=addBPoint(0,0.2,0.75,b0);
-		upper[1][0][0]=addBPoint(1.0,0.2,0.75,b0);
-		upper[1][1][0]=addBPoint(1.0,1.0,0.75,b0);
-		upper[0][1][0]=addBPoint(0,1.0,0.75,b0);
+		upper[0][0][0]=addBPoint(0,0.0,0.0,u0);
+		upper[1][0][0]=addBPoint(1.0,0.0,0.0,u0);
+		upper[1][1][0]=addBPoint(1.0,1.0,0.0,u0);
+		upper[0][1][0]=addBPoint(0,1.0,0.0,u0);
 		
-		upper[0][0][1]=addBPoint(0,0.2,1.0,b0);
-		upper[1][0][1]=addBPoint(1.0,0.2,1.0,b0);
-		upper[1][1][1]=addBPoint(1.0,1.0,1.0,b0);
-		upper[0][1][1]=addBPoint(0,1.0,1.0,b0);
+		upper[0][0][1]=addBPoint(0,0.0,1.0,u0);
+		upper[1][0][1]=addBPoint(1.0,0.0,1.0,u0);
+		upper[1][1][1]=addBPoint(1.0,1.0,1.0,u0);
+		upper[0][1][1]=addBPoint(0,1.0,1.0,u0);
 		
 		addLine(upper[0][0][1],upper[1][0][1],upper[1][1][1],upper[0][1][1],Renderer3D.CAR_TOP);
 		
@@ -1963,11 +1979,8 @@ public class Forniture extends CustomData{
 		
 		//lamp
 
-		double lamp_width=x_side;
-		double lamp_lenght=x_side;		
-		double pillow_height=50;
 
-		Segments l0=new Segments(0,lamp_width,0,lamp_lenght,z_side,pillow_height);
+		Segments l0=new Segments(0,upper_width,0,upper_height,z_side,upper_length);
 
 		int pnumx=2;
 		int pnumy=2;
