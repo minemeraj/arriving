@@ -1882,7 +1882,7 @@ public class Forniture extends CustomData{
 		n=0;
 		
 		int trunk_meridians=10;
-		int trunk_parallels=6;
+		int trunk_parallels=10;
 		double trunk_radius=x_side*0.5;
 		double trunk_lenght=z_side;
 		
@@ -1897,7 +1897,22 @@ public class Forniture extends CustomData{
 				
 				double x=trunk_radius*Math.cos(2*Math.PI/trunk_meridians*i);
 				double y=trunk_radius*Math.sin(2*Math.PI/trunk_meridians*i);
-				double z=trunk_lenght/(trunk_parallels-1.0)*k;
+				
+				double z=0;
+				
+				double dz0=trunk_lenght*2.0/3.0;
+				double dz1=(trunk_lenght-dz0);
+				
+				if(k<2){
+					
+					z=dz0*k;
+				}
+				else{
+					
+					z=dz0+dz1/(trunk_parallels-2.0)*(k-1);
+				}
+				
+								
 				trunkpoints[k][i]=addBPoint(x,y,z);
 				
 			}
@@ -1951,11 +1966,17 @@ public class Forniture extends CustomData{
 		//bending of the lamp
 		
 		double[] q=new double[trunk_parallels];
-		q[0]=0;
-		q[2]=0.2;
-		q[3]=0.3;
+		
+		q[1]=0.2;
+		q[2]=0.4;
+		q[3]=0.4;
 		q[4]=0.4;
-		q[5]=0.0;
+		q[5]=0.2;
+		q[6]=0.0;
+		q[7]=0.0;
+		q[8]=0.0;
+	
+
 		
 		for (int i = 0; i < q.length; i++) {
 			
