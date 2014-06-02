@@ -418,8 +418,8 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 
 	private void initRightCupboardData() {
 		
-		x_side.setText(163);
-		y_side.setText(72);
+		x_side.setText(171);
+		y_side.setText(76);
 		z_side.setText(150);
 		
 		leg_length.setText(0);
@@ -429,11 +429,11 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		
 		side_width.setText(10);
 		side_length.setText(20);
-		side_height.setText(80);
+		side_height.setText(46);
 		
-		upper_width.setText(163);
-		upper_length.setText(60);
-		upper_height.setText(80);
+		upper_width.setText(156);
+		upper_length.setText(55);
+		upper_height.setText(119);
 		
 	}
 	
