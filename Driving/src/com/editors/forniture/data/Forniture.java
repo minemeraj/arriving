@@ -1961,9 +1961,79 @@ public class Forniture extends CustomData{
 			
 		}
 		
+		//lamp
+
+		double lamp_width=x_side;
+		double lamp_lenght=x_side;		
+		double pillow_height=50;
+
+		Segments l0=new Segments(0,lamp_width,0,lamp_lenght,z_side,pillow_height);
+
+		int pnumx=2;
+		int pnumy=2;
+		int pnumz=2;
+
+		BPoint[][][] lamp=new BPoint[pnumx][pnumy][pnumz];
+
+		lamp[0][0][0]=addBPoint(-0.5,-0.5,0,l0);
+		lamp[1][0][0]=addBPoint(0.5,-0.5,0,l0);
+		lamp[1][1][0]=addBPoint(0.5,0.5,0,l0);
+		lamp[0][1][0]=addBPoint(-0.5,0.5,0,l0);
+
+		lamp[0][0][1]=addBPoint(-0.5,-0.5,1.0,l0);
+		lamp[1][0][1]=addBPoint(0.5,-0.5,1.0,l0);
+		lamp[1][1][1]=addBPoint(0.5,0.5,1.0,l0);
+		lamp[0][1][1]=addBPoint(-0.5,0.5,1.0,l0);
+
+		for (int i = 0; i < pnumx-1; i++) {
+
+
+			for (int j = 0; j < pnumy-1; j++) {	
+
+				for (int k = 0; k < pnumz-1; k++) {
+
+
+					if(i==0){
+
+						LineData leftFrontLD=addLine(lamp[i][j][k],lamp[i][j][k+1],lamp[i][j+1][k+1],lamp[i][j+1][k],Renderer3D.CAR_LEFT);
+					}
+
+
+
+					if(k+1==pnumz-1){
+						LineData topillowLD=addLine(lamp[i][j][k+1],lamp[i+1][j][k+1],lamp[i+1][j+1][k+1],lamp[i][j+1][k+1],Renderer3D.CAR_TOP);
+					}
+					if(k==0){
+						LineData bottomFrontLD=addLine(lamp[i][j][k],lamp[i][j+1][k],lamp[i+1][j+1][k],lamp[i+1][j][k],Renderer3D.CAR_BOTTOM);
+					}
+
+					if(j==0){
+						LineData backFrontLD=addLine(lamp[i][j][k],lamp[i+1][j][k],lamp[i+1][j][k+1],lamp[i][j][k+1],Renderer3D.CAR_BACK);
+					}
+					if(j+1==pnumy-1){
+						LineData frontFrontLD=addLine(lamp[i][j+1][k],lamp[i][j+1][k+1],lamp[i+1][j+1][k+1],lamp[i+1][j+1][k],Renderer3D.CAR_FRONT);
+					}
+
+
+					if(i+1==pnumx-1){
+
+						LineData rightFrontLD=addLine(lamp[i+1][j][k],lamp[i+1][j+1][k],lamp[i+1][j+1][k+1],lamp[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+
+					}
+
+				}
+
+			}
+
+		}
+
+
+		/////////
+
+
 
 		
-		//bending of the lamp
+		//bending of the streetlight
 		
 		double[] q=new double[trunk_parallels];
 		
@@ -1986,6 +2056,8 @@ public class Forniture extends CustomData{
 			BPoint[] refSlice = trunkpoints[i];
 			BPoint p0= refSlice[0];
 			
+			rotateYZ(lamp,  p0.y,  p0.z,  q[i]);
+			
 			for (int k = 0; k < trunk_parallels; k++) {
 				
 				if(k<=i)
@@ -1994,6 +2066,8 @@ public class Forniture extends CustomData{
 				BPoint[] slice = trunkpoints[k];
 				
 				rotateYZ(slice,  p0.y,  p0.z,  q[i]);
+				
+				
 				
 			}
 			
