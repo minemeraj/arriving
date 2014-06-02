@@ -1667,40 +1667,7 @@ public class Animal extends CustomData{
 		return spm;
 	}
 
-	private void rotateYZ(BPoint[][][] element, double y0, double z0, double teta) {
-		
-		double st=Math.sin(teta);
-		double ct=Math.cos(teta);
-		
-		for (int i = 0; i < element.length; i++) {
-			
-			BPoint[][] ele1 = element[i];
-			 
-			for (int j = 0; j < ele1.length; j++) {
-				
-				BPoint[] ele2 = ele1[j];
-				
-				for (int k = 0; k < ele2.length; k++) {
-					
-					BPoint bp=ele2[k];
-					
-					double xx=bp.x;
-					double yy=bp.y;
-					double zz=bp.z;
-					
-					bp.x=xx;
-					bp.y=(zz-z0)*st+(yy-y0)*ct+y0;
-					bp.z=-(yy-y0)*st+(zz-z0)*ct+z0;
-					
-					
-				}
-				
-			}
-			
-		}
-		
-		
-	}
+
 
 	private BPoint[][][] buildQuadrupedHeadMesh(double hz) {
 		

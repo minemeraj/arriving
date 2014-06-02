@@ -96,7 +96,7 @@ public class Plant extends CustomData{
 		int trunk_parallels=2;
 		int trunk_meridians=10;
 		
-	    BPoint[][] trunkpoints=new BPoint[trunk_meridians][trunk_parallels];
+	    BPoint[][] trunkpoints=new BPoint[trunk_parallels][trunk_meridians];
 		
 		for (int k = 0; k < trunk_parallels; k++) {
 			
@@ -107,7 +107,7 @@ public class Plant extends CustomData{
 				double y=trunk_radius*Math.sin(2*Math.PI/trunk_meridians*i);
 				double z=trunk_lenght/(trunk_parallels-1.0)*k;
 				
-				trunkpoints[i][k]=addBPoint(x,y,z);
+				trunkpoints[k][i]=addBPoint(x,y,z);
 				
 			}
 			
@@ -119,7 +119,7 @@ public class Plant extends CustomData{
 		
 		for (int i = 0; i < trunk_meridians; i++) {
 			
-			topLD.addIndex(trunkpoints[i][trunk_parallels-1].getIndex());
+			topLD.addIndex(trunkpoints[trunk_parallels-1][i].getIndex());
 			
 		}
 		topLD.setData(""+Renderer3D.CAR_TOP);
@@ -132,25 +132,28 @@ public class Plant extends CustomData{
 		
 		for (int i = trunk_meridians-1; i >=0; i--) {
 			
-			bottomLD.addIndex(trunkpoints[i][0].getIndex());
+			bottomLD.addIndex(trunkpoints[0][i].getIndex());
 			
 		}
 		bottomLD.setData(""+Renderer3D.CAR_BOTTOM);
 		polyData.add(bottomLD);
 		
-		for (int i = 0; i < trunk_meridians; i++) {
-			
-			LineData sideLD=new LineData();
-			
-			sideLD.addIndex(trunkpoints[i][0].getIndex());
-			sideLD.addIndex(trunkpoints[(i+1)%trunk_meridians][0].getIndex());
-			sideLD.addIndex(trunkpoints[(i+1)%trunk_meridians][trunk_parallels-1].getIndex());
-			sideLD.addIndex(trunkpoints[i][trunk_parallels-1].getIndex());	
-			sideLD.setData(""+getFace(sideLD,points));
-			polyData.add(sideLD);
-			
-		}
+		for (int k = 0; k < trunk_parallels-1; k++) {
 		
+			for (int i = 0; i < trunk_meridians; i++) {
+				
+				LineData sideLD=new LineData();
+				
+				sideLD.addIndex(trunkpoints[k][i].getIndex());
+				sideLD.addIndex(trunkpoints[k][(i+1)%trunk_meridians].getIndex());
+				sideLD.addIndex(trunkpoints[k+1][(i+1)%trunk_meridians].getIndex());
+				sideLD.addIndex(trunkpoints[k+1][i].getIndex());	
+				sideLD.setData(""+getFace(sideLD,points));
+				polyData.add(sideLD);
+				
+				
+			}
+		}
 		//foliage:
 		
 	
