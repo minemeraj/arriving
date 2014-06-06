@@ -435,6 +435,8 @@
 	chair seat height: 48 cm
 	cupboard LxWxH: 111.5 cm x 49.5 cm x 206 cm
 	sofa seat height: 45 cm
+	street light: total straightened length: 6367 mm, actual max height: 5361 mm
+				 base dimater: 121 mm, light lamp length:588mm
 	table LxWxH:  140 cm x  79cm x 79 cm
 	toilet LxWxH: 69 cm X 36 cm x 36.5 cm
 	wardrobe height:

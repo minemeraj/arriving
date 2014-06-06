@@ -2051,13 +2051,13 @@ public class Forniture extends CustomData{
 		double[] q=new double[trunk_parallels];
 		
 		q[1]=0.2;
-		q[2]=0.4;
-		q[3]=0.4;
-		q[4]=0.4;
+		q[2]=0.2;
+		q[3]=0.2;
+		q[4]=0.2;
 		q[5]=0.2;
-		q[6]=0.0;
-		q[7]=0.0;
-		q[8]=0.0;
+		q[6]=0.2;
+		q[7]=0.2;
+		q[8]=0.2;
 	
 
 		
@@ -2080,12 +2080,11 @@ public class Forniture extends CustomData{
 				
 				rotateYZ(slice,  p0.y,  p0.z,  q[i]);
 				
-				
-				
+			
 			}
 			
 		}
-
+        
 		PolygonMesh pm=new PolygonMesh(points,polyData);
 
 		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);

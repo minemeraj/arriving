@@ -459,9 +459,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 	
 	private void initRightStretLightData() {
 		
-		x_side.setText(20);
-		y_side.setText(20);
-		z_side.setText(400);
+		x_side.setText(12);
+		y_side.setText(0);
+		z_side.setText(600);
 		
 		leg_length.setText(0);
 		leg_side.setText(0);
@@ -472,9 +472,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		side_length.setText(0);
 		side_height.setText(0);
 		
-		upper_width.setText(20);
-		upper_length.setText(50);
-		upper_height.setText(20);
+		upper_width.setText(38);
+		upper_length.setText(66);
+		upper_height.setText(19);
 		
 	}
 	
