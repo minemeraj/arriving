@@ -1980,7 +1980,7 @@ public class Forniture extends CustomData{
 		//lamp
 
 
-		Segments l0=new Segments(0,upper_width,0,upper_height,z_side,upper_length);
+		Segments l0=new Segments(0,upper_width,-0.540*upper_height,upper_height,z_side,upper_length);
 
 		int pnumx=2;
 		int pnumy=2;
@@ -1988,55 +1988,55 @@ public class Forniture extends CustomData{
 
 		BPoint[][][] lamp=new BPoint[pnumx][pnumy][pnumz];
 
-		lamp[0][0][0]=addBPoint(-0.116,-0.5,0,l0);
-		lamp[1][0][0]=addBPoint(0.116,-0.5,0,l0);		
-		lamp[0][1][0]=addBPoint(-0.116,0.5,0,l0);
-		lamp[1][1][0]=addBPoint(0.116,0.5,0,l0);
+		lamp[0][0][0]=addBPoint(-0.116,0.301,0,l0);
+		lamp[1][0][0]=addBPoint(0.116,0.301,0,l0);		
+		lamp[0][1][0]=addBPoint(-0.116,0.785,0,l0);
+		lamp[1][1][0]=addBPoint(0.116,0.785,0,l0);
 		
-		lamp[0][0][1]=addBPoint(-0.113,-0.5,0.156,l0);
-		lamp[1][0][1]=addBPoint(0.113,-0.5,0.156,l0);		
-		lamp[0][1][1]=addBPoint(-0.113,0.5,0.156,l0);
-		lamp[1][1][1]=addBPoint(0.113,0.5,0.156,l0);
+		lamp[0][0][1]=addBPoint(-0.113,0.301,0.156,l0);
+		lamp[1][0][1]=addBPoint(0.113,0.301,0.156,l0);		
+		lamp[0][1][1]=addBPoint(-0.113,0.779,0.156,l0);
+		lamp[1][1][1]=addBPoint(0.113,0.779,0.156,l0);
 		
-		lamp[0][0][2]=addBPoint(-0.175,-0.5,0.192,l0);
-		lamp[1][0][2]=addBPoint(0.175,-0.5,0.192,l0);		
-		lamp[0][1][2]=addBPoint(-0.175,0.5,0.192,l0);
-		lamp[1][1][2]=addBPoint(0.175,0.5,0.192,l0);
+		lamp[0][0][2]=addBPoint(-0.175,0.0,0.192,l0);
+		lamp[1][0][2]=addBPoint(0.175,0.0,0.192,l0);		
+		lamp[0][1][2]=addBPoint(-0.175,0.798,0.192,l0);
+		lamp[1][1][2]=addBPoint(0.175,0.798,0.192,l0);
 		
-		lamp[0][0][3]=addBPoint(-0.322,-0.5,0.259,l0);
-		lamp[1][0][3]=addBPoint(0.322,-0.5,0.259,l0);		
-		lamp[0][1][3]=addBPoint(-0.322,0.5,0.259,l0);
-		lamp[1][1][3]=addBPoint(0.322,0.5,0.259,l0);
+		lamp[0][0][3]=addBPoint(-0.322,0.0,0.259,l0);
+		lamp[1][0][3]=addBPoint(0.322,0.0,0.259,l0);		
+		lamp[0][1][3]=addBPoint(-0.322,0.84,0.259,l0);
+		lamp[1][1][3]=addBPoint(0.322,0.84,0.259,l0);
 		
-		lamp[0][0][4]=addBPoint(-0.472,-0.5,0.44,l0);
-		lamp[1][0][4]=addBPoint(0.472,-0.5,0.44,l0);		
-		lamp[0][1][4]=addBPoint(-0.472,0.5,0.44,l0);
-		lamp[1][1][4]=addBPoint(0.472,0.5,0.44,l0);
+		lamp[0][0][4]=addBPoint(-0.472,0.0,0.44,l0);
+		lamp[1][0][4]=addBPoint(0.472,0.0,0.44,l0);		
+		lamp[0][1][4]=addBPoint(-0.472,0.951,0.44,l0);
+		lamp[1][1][4]=addBPoint(0.472,0.951,0.44,l0);
 		
-		lamp[0][0][5]=addBPoint(-0.5,-0.5,0.578,l0);
-		lamp[1][0][5]=addBPoint(0.5,-0.5,0.578,l0);		
-		lamp[0][1][5]=addBPoint(-0.5,0.5,0.578,l0);
-		lamp[1][1][5]=addBPoint(0.5,0.5,0.578,l0);
+		lamp[0][0][5]=addBPoint(-0.5,0.0,0.578,l0);
+		lamp[1][0][5]=addBPoint(0.5,0.0,0.578,l0);		
+		lamp[0][1][5]=addBPoint(-0.5,1.0,0.578,l0);
+		lamp[1][1][5]=addBPoint(0.5,1.0,0.578,l0);
 		
-		lamp[0][0][6]=addBPoint(-0.463,-0.5,0.748,l0);
-		lamp[1][0][6]=addBPoint(0.463,-0.5,0.748,l0);		
-		lamp[0][1][6]=addBPoint(-0.463,0.5,0.748,l0);
-		lamp[1][1][6]=addBPoint(0.463,0.5,0.748,l0);
+		lamp[0][0][6]=addBPoint(-0.463,0.0,0.748,l0);
+		lamp[1][0][6]=addBPoint(0.463,0.0,0.748,l0);		
+		lamp[0][1][6]=addBPoint(-0.463,0.926,0.748,l0);
+		lamp[1][1][6]=addBPoint(0.463,0.926,0.748,l0);
 		
-		lamp[0][0][7]=addBPoint(-0.391,-0.5,0.846,l0);
-		lamp[1][0][7]=addBPoint(0.391,-0.5,0.846,l0);		
-		lamp[0][1][7]=addBPoint(-0.391,0.5,0.846,l0);
-		lamp[1][1][7]=addBPoint(0.391,0.5,0.846,l0);
+		lamp[0][0][7]=addBPoint(-0.391,0.0,0.846,l0);
+		lamp[1][0][7]=addBPoint(0.391,0.0,0.846,l0);		
+		lamp[0][1][7]=addBPoint(-0.391,0.779,0.846,l0);
+		lamp[1][1][7]=addBPoint(0.391,0.779,0.846,l0);
 		
-		lamp[0][0][8]=addBPoint(-0.307,-0.5,0.918,l0);
-		lamp[1][0][8]=addBPoint(0.307,-0.5,0.918,l0);		
-		lamp[0][1][8]=addBPoint(-0.307,0.5,0.918,l0);
-		lamp[1][1][8]=addBPoint(0.307,0.5,0.918,l0);
+		lamp[0][0][8]=addBPoint(-0.307,0.0,0.918,l0);
+		lamp[1][0][8]=addBPoint(0.307,0.0,0.918,l0);		
+		lamp[0][1][8]=addBPoint(-0.307,0.583,0.918,l0);
+		lamp[1][1][8]=addBPoint(0.307,0.583,0.918,l0);
 		
-		lamp[0][0][9]=addBPoint(-0.163,-0.5,0.98,l0);
-		lamp[1][0][9]=addBPoint(0.163,-0.5,0.98,l0);		
-		lamp[0][1][9]=addBPoint(-0.163,0.5,0.98,l0);
-		lamp[1][1][9]=addBPoint(0.163,0.5,0.98,l0);
+		lamp[0][0][9]=addBPoint(-0.163,0.0,0.98,l0);
+		lamp[1][0][9]=addBPoint(0.163,0.0,0.98,l0);		
+		lamp[0][1][9]=addBPoint(-0.163,0.294,0.98,l0);
+		lamp[1][1][9]=addBPoint(0.163,0.294,0.98,l0);
 
 
 		for (int i = 0; i < pnumx-1; i++) {
