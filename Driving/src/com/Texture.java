@@ -113,8 +113,8 @@ public class Texture {
 		//String fileOrig="C:\\Documents and Settings\\Compaq_Proprietario\\Desktop\\new textures\\background_.jpg";
 		//transformTexture(fileOrig,fileBackground);
 		//analyzeImage(fileOrig);
-		//scanImagePoints("C:\\Users\\francescopiazza\\Desktop\\spec.GIF");
-		interpolate0(-0.451,0.451,9);
+		scanImagePoints("C:\\Users\\francescopiazza\\Desktop\\monza.gif");
+		//interpolate0(-0.451,0.451,9);
 		
 	}
 	
@@ -221,7 +221,7 @@ public class Texture {
 	}
 	
 	/**
-	 * 
+	 * Use gif images
 	 * Use big but no too big marker points
 	 * @param bi
 	 * @param filter
