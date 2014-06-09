@@ -2703,9 +2703,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			for(int i=0;i<drawObjects.size();i++){
 
 				DrawObject dro=(DrawObject) drawObjects.elementAt(i);
-				String str=dro.getX()+"_"+dro.getY()+"_"+dro.getZ()+"_"+
-				dro.getDx()+"_"+dro.getDy()+"_"+dro.getDz()+"_"+dro.getIndex()+"_"+dro.getHexColor();
-				pr.println(str);
+
+				pr.println(dro.toString());
 			}
 			pr.println("</objects>");
 				
@@ -2975,16 +2974,25 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private DrawObject buildDrawObject(String str) {
 		DrawObject dro=new DrawObject();
+		
+		String properties0=str.substring(0,str.indexOf("["));
+		String properties1=str.substring(str.indexOf("[")+1,str.indexOf("]"));
 
-		StringTokenizer tok=new StringTokenizer(str,"_");
-		dro.x=Double.parseDouble(tok.nextToken());
-		dro.y=Double.parseDouble(tok.nextToken());
-		dro.z=Double.parseDouble(tok.nextToken());
-		dro.dx=Double.parseDouble(tok.nextToken());
-		dro.dy=Double.parseDouble(tok.nextToken());
-		dro.dz=Double.parseDouble(tok.nextToken());
-		dro.index=Integer.parseInt(tok.nextToken());
-		dro.hexColor=tok.nextToken();
+		StringTokenizer tok0=new StringTokenizer(properties0,"_"); 
+		
+		dro.x=Double.parseDouble(tok0.nextToken());
+		dro.y=Double.parseDouble(tok0.nextToken());
+		dro.z=Double.parseDouble(tok0.nextToken());
+		
+		dro.dx=Double.parseDouble(tok0.nextToken());
+		dro.dy=Double.parseDouble(tok0.nextToken());
+		dro.dz=Double.parseDouble(tok0.nextToken());
+		dro.index=Integer.parseInt(tok0.nextToken());
+		
+		
+		StringTokenizer tok1=new StringTokenizer(properties1,"_"); 
+		dro.rotation_angle=Double.parseDouble(tok1.nextToken());
+		dro.hexColor=tok1.nextToken();
 		return dro;
 	}
 
@@ -3815,6 +3823,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private void addPoint(MouseEvent arg0) {
 		
+		if(ACTIVE_PANEL==0)
+			return;
+		
 		prepareUndo();
 		
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
@@ -3841,6 +3852,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public void addPoint() {
 		
 		prepareUndo();
+		
+	
+		
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];	
 
 		if("".equals(coordinatesx[ACTIVE_PANEL].getText()) |

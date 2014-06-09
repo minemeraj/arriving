@@ -1384,19 +1384,26 @@ public class Road extends Shader{
 
 	private DrawObject buildDrawObject(String str) {
 		DrawObject dro=new DrawObject();
+		
+		String properties0=str.substring(0,str.indexOf("["));
+		String properties1=str.substring(str.indexOf("[")+1,str.indexOf("]"));
 
-		StringTokenizer tok=new StringTokenizer(str,"_");
+		StringTokenizer tok0=new StringTokenizer(properties0,"_"); 
 		
 		//translate world in the point (XFOCUS,SCREEN_DISTANCE,YFOCUS)
-		dro.x=Double.parseDouble(tok.nextToken())-XFOCUS;
-		dro.y=Double.parseDouble(tok.nextToken())+SCREEN_DISTANCE;
-		dro.z=Double.parseDouble(tok.nextToken())-YFOCUS;
+		dro.x=Double.parseDouble(tok0.nextToken())-XFOCUS;
+		dro.y=Double.parseDouble(tok0.nextToken())+SCREEN_DISTANCE;
+		dro.z=Double.parseDouble(tok0.nextToken())-YFOCUS;
 		
-		dro.dx=Double.parseDouble(tok.nextToken());
-		dro.dy=Double.parseDouble(tok.nextToken());
-		dro.dz=Double.parseDouble(tok.nextToken());
-		dro.index=Integer.parseInt(tok.nextToken());
-		dro.hexColor=tok.nextToken();
+		dro.dx=Double.parseDouble(tok0.nextToken());
+		dro.dy=Double.parseDouble(tok0.nextToken());
+		dro.dz=Double.parseDouble(tok0.nextToken());
+		dro.index=Integer.parseInt(tok0.nextToken());
+		
+		
+		StringTokenizer tok1=new StringTokenizer(properties1,"_"); 
+		dro.rotation_angle=Double.parseDouble(tok1.nextToken());
+		dro.hexColor=tok1.nextToken();
 		return dro;
 	}
 

@@ -136,7 +136,7 @@
 	
 	-- OBJECT LIST FORMAT:
 	
-	X_Y_Z_DX_DY_DZ_OBJECT-INDEX_HEXCOLOR
+	X_Y_Z_DX_DY_DZ_OBJECT-INDEX[ROTATION_ANGLE,HEXCOLOR]
 	
 	where X,Y,Z are the object location,(DX,DY,DZ are mandatory but used only for the 2D game),
 	OBJECT-INDEX is the index identifier of the type of object,	HEXCOLOR is a string rgb color in the hex
