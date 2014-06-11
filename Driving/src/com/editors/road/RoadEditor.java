@@ -740,6 +740,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		cy[3]=convertY(dro.y);
 
 		Polygon p_in=new Polygon(cx,cy,4);
+		
+		Point3D center=Polygon3D.findCentroid(p_in);
+		Polygon3D.rotate(p_in,center,dro.rotation_angle);
+	
 
 		Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
 		Area partialArea = clipPolygonToArea2D( p_in,totArea);
@@ -889,86 +893,115 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void drawLine(ZBuffer[] landscapeZbuffer2, int i, int j, int ii,
 			int jj, int rgbColor) {
-		
+
 		int mini=i;
 		int maxi=ii;
-		
+
 		int minj=j;
 		int maxj=jj;
-		
+
 		if(ii<i){
-			
+
 			mini=ii;
 			maxi=i;
-			
+
 		}
-		
+
 		if(jj<j){
-			
+
 			minj=jj;
 			maxj=j;
-			
+
 		}
-		
+
 		if(j==jj){			
-			
+
 			for (int k = mini; k < maxi; k++) {
-				
+
 				if(k>=0 && k<WIDTH && j>=0 && j<HEIGHT){
-				
+
 					int tot=k+j*WIDTH;
 					landscapeZbuffer[tot].setRgbColor(rgbColor);
 				}
 			}
 		}
 		else if(i==ii){
-			
+
 			for (int k = minj; k < maxj; k++) {
 				if(i>=0 && i<WIDTH && k>=0 && k<HEIGHT){
-					
+
 					int tot=i+k*WIDTH;
-					
+
 					landscapeZbuffer[tot].setRgbColor(rgbColor);
 				}
 			}
-				
+
 		}
 		else{
-			
-			for (int k = mini; k < maxi; k++) {
-				
-				double l=(k-mini)/(maxi-mini);
-				
-				
-				if(ii>i)
-				{
-					double y=(1-l)*j+l*jj;
-					
-					if(k>=0 && k<WIDTH && y>=0 && y<HEIGHT){
-						
-						int tot=(int)(k+y*WIDTH);
-					
-						landscapeZbuffer[tot].setRgbColor(rgbColor);
-					}
-				}	
-				else{
-					
-					double y=(1-l)*jj+l*j;
-					
-					if(k>=0 && k<WIDTH && y>=0 && y<HEIGHT){
-						int tot=(int)(k+y*WIDTH);
-						landscapeZbuffer[tot].setRgbColor(rgbColor);
-					}
+
+			//use coordinate with more points:
+			if(Math.abs(ii-i)>Math.abs(jj-j)){
+
+				double dy=(jj-j)*1.0/(ii-i);
+
+				if(ii>i){
+					for (int k = i; k < ii; k++) {
+
+						int y=(int) (dy*(k-i)+j);
+
+						if(k>=0 && k<WIDTH && y>=0 && y<HEIGHT){
+							int tot=(k+y*WIDTH);					
+							landscapeZbuffer[tot].setRgbColor(rgbColor);
+						}
+					}	
 				}
+				else{
+					for (int k = ii; k < i; k++) {
+
+						int y=(int) (dy*(k-i)+j);
+
+						if(k>=0 && k<WIDTH && y>=0 && y<HEIGHT){
+							int tot=(k+y*WIDTH);					
+							landscapeZbuffer[tot].setRgbColor(rgbColor);
+						}
+					}			
+
+				}
+
+
+			}else{
 				
-				
-				
+				double dx=(ii-i)*1.0/(jj-j);
+
+				if(jj>j){
+					for (int q = j; q < jj; q++) {
+
+						int x=(int) (dx*(q-j)+i);
+
+						if(x>=0 && x<WIDTH && q>=0 && q<HEIGHT){
+							int tot=(x+q*WIDTH);					
+							landscapeZbuffer[tot].setRgbColor(rgbColor);
+						}
+					}	
+				}
+				else{
+					for (int q = jj; q < j; q++) {
+
+						int x=(int) (dx*(q-j)+i);
+
+						if(x>=0 && x<WIDTH && q>=0 && q<HEIGHT){
+							int tot=(x+q*WIDTH);					
+							landscapeZbuffer[tot].setRgbColor(rgbColor);
+						}
+					}			
+
+				}
+
 				
 			}
-			
-			
+
 		}
-		
+
 	}
 
 	private void drawPolygon(LineData ld,Point3D[] points,ZBuffer[] landscapeZbuffer,int indx) {

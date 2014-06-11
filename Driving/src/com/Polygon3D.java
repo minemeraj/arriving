@@ -827,6 +827,44 @@ public class Polygon3D  extends Polygon{
         return new Point3D(x/n,y/n,z/n);
 
 	}
+	
+	
+	public static Point3D findCentroid(Polygon p3d) {
+		
+		
+		double x=0;
+		double y=0;
+		double z=0;
+
+		int n=p3d.npoints;
+		for (int i = 0; i <n;  i++) {
+           x+=p3d.xpoints[i];	
+           y+=p3d.ypoints[i];	
+
+		}
+
+        return new Point3D(x/n,y/n,z/n);
+
+	}
+	
+	public static void rotate(Polygon p3d, Point3D p0,
+			double rotation_angle) {
+
+		int n=p3d.npoints;
+		
+		double ct=Math.cos(rotation_angle);
+		double st=Math.sin(rotation_angle);
+		
+		for (int i = 0; i <n;  i++) {
+	           double xx=p3d.xpoints[i];
+	           double yy=p3d.ypoints[i];
+	           
+	           p3d.xpoints[i]=(int) (ct*(xx-p0.x)-st*(yy-p0.y)+p0.x);
+	           p3d.ypoints[i]=(int) (st*(xx-p0.x)+ct*(yy-p0.y)+p0.y);	
+
+			}
+		
+	}
 
 	public double getShadowCosin() {
 		return shadowCosin;
@@ -843,5 +881,7 @@ public class Polygon3D  extends Polygon{
 	public void setData(String data) {
 		this.data = data;
 	}
+
+
 
 }
