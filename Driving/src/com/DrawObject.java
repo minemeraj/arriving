@@ -223,7 +223,7 @@ public class DrawObject {
 		String rot=""+Math.round(rotation_angle*1000)/1000.0;
 		
 		String str=getX()+"_"+getY()+"_"+getZ()+"_"+
-		getDx()+"_"+getDy()+"_"+getDz()+"_"+getIndex()+"_["+rot+"_"+getHexColor()+"]";
+		getDx()+"_"+getDy()+"_"+getDz()+"_"+getIndex()+"["+rot+"_"+getHexColor()+"]";
 		
 		return str;
 	}

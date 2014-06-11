@@ -1359,6 +1359,11 @@ public class Road extends Shader{
 				
 				cm.translate(dx,dy,dz);
 				
+				Point3D center=cm.findCentroid();
+				
+				if(dro.rotation_angle!=0)
+					cm.rotate(center.x,center.y,Math.cos(dro.rotation_angle),Math.sin(dro.rotation_angle));
+				
 				dro.setMesh(cm);
 				
 

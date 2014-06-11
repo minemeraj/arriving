@@ -248,4 +248,15 @@ public class CubicMesh extends PolygonMesh{
 	
 	}
 
+	public Point3D findCentroid() {
+		
+
+	
+		double x=(point000.x+point100.x+point010.x+point110.x)*0.25;	
+		double y=(point000.y+point100.y+point010.y+point110.y)*0.25;	
+		
+
+        return new Point3D(x,y,0);
+	}
+
 }
