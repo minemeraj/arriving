@@ -139,7 +139,8 @@
 	X_Y_Z_DX_DY_DZ_OBJECT-INDEX[ROTATION_ANGLE,HEXCOLOR]
 	
 	where X,Y,Z are the object location,(DX,DY,DZ are mandatory but used only for the 2D game),
-	OBJECT-INDEX is the index identifier of the type of object,	HEXCOLOR is a string rgb color in the hex
+	OBJECT-INDEX is the index identifier of the type of object,ROTATION_ANGLE is the rotation angle around
+	the center with respect to the standard position, HEXCOLOR is a string rgb color in the hex
 	representation, e.g. for white :FFFFFF.
 	
 	if you don't want to use textures create a file driving.properties in the lib directory and
