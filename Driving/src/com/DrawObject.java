@@ -48,6 +48,7 @@ public class DrawObject {
 		dro.setDz(getDz());
 		dro.setIndex(getIndex());
 		dro.setHexColor(getHexColor());
+		dro.rotation_angle=rotation_angle;
 
 		//polygons vector!
 		for(int i=0;i<polygons.size();i++){
