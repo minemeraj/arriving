@@ -772,9 +772,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 						,cx[0]-5,cy[0]-5,indexWidth,indexHeight,Color.BLACK,pColor);		
 		
 		if(!DrawObject.IS_3D){
+			
+			Point3D xDirection=new Point3D(p_in.xpoints[3]-p_in.xpoints[0],p_in.ypoints[3]-p_in.ypoints[0],0);
+			Point3D yDirection=new Point3D(p_in.xpoints[1]-p_in.xpoints[0],p_in.ypoints[1]-p_in.ypoints[0],0);
 	
 			drawImage(landscapeZbuffer,DrawObject.fromImageToBufferedImage(objectImages[dro.index],null)
-					,cx[0],cy[0],cx[2]-cx[0],cy[2]-cy[0],Color.WHITE);
+					,p_in.xpoints[0],p_in.ypoints[0],xDirection,yDirection,Color.WHITE);
 		}
 		
 
@@ -813,24 +816,37 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 	private void drawImage(ZBuffer[] landscapeZbuffer,
-			BufferedImage bufferedImage, int x, int y, int dx, int dy,Color transparentColor) {
+			BufferedImage bufferedImage, int x, int y, Point3D xDirection, Point3D yDirection,Color transparentColor) {
 		
+		int dx=(int) Point3D.calculateNorm(xDirection);
+		int dy=(int) Point3D.calculateNorm(yDirection);
 		
-		double alfax=bufferedImage.getWidth()*1.0/dx;
-		double alfay=bufferedImage.getHeight()*1.0/dy;
+		Point3D xVersor=xDirection.calculateVersor();
+		Point3D yVersor=yDirection.calculateVersor();
+
+		int w=bufferedImage.getWidth();
+		int h=bufferedImage.getHeight();
+		
+		double alfax=w*1.0/dx;
+		double alfay=h*1.0/dy;
+		
 	
 		for(int i=0;i<dx;i++)
 			for(int j=0;j<dy;j++){
 				
-				if(i+x<0 || i+x>=WIDTH || j+y<0 || j+y>=HEIGHT)
-					continue;
 				
+				int ix=(int) (i*xVersor.x+j*yVersor.x);
+				int jy=(int) (i*xVersor.y+j*yVersor.y);
+				
+				if(ix+x<0 || ix+x>=WIDTH || jy+y<0 || jy+y>=HEIGHT)
+					continue;
+              
 				int rgbColor=bufferedImage.getRGB((int)(alfax*i),(int)(alfay*j));
 				
 				if(transparentColor!=null && transparentColor.getRGB()==rgbColor)
 					continue;
 		
-				int tot=(int)(i+x+(j+y)*WIDTH);
+				int tot=(int)(ix+x+(jy+y)*WIDTH);
 				
 				landscapeZbuffer[tot].setRgbColor(rgbColor);
 			}
@@ -4517,11 +4533,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 				}else{
 					
-					DrawObject dro=(DrawObject) drawObjects.elementAt(num);
-					
-					objcoordinatesdx.setText(dro.getDx());
-					objcoordinatesdy.setText(dro.getDy());
-					objcoordinatesdz.setText(dro.getDz());
+		
 				}
 				
 			}
