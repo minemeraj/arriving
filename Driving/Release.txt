@@ -2,7 +2,7 @@
 Adding a rotation angle to objects, so they can have different orientations. New
 OBJECT LIST FORMAT, see README.txt.
 
-Revising the never ending problem of the steering dynamics.
+Revising the never ending problem of the steering kinetics.
 
 -----07/06/2014   CarDriving 7.0.17
 

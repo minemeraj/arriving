@@ -378,14 +378,14 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 		{			
 			//left();
 			
-			rotate(-1);
+			rotate(+1);
 			
 		}
 		else if(code==KeyEvent.VK_RIGHT|| code==KeyEvent.VK_D)
 		{			
 			//right();
 			
-			rotate(+1);
+			rotate(-1);
 		}
 		else if(code==KeyEvent.VK_C)
 		{

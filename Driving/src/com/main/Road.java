@@ -71,7 +71,7 @@ public class Road extends Shader{
 
 	int CAR_WIDTH=100;
 	
-	public static double TURNING_RADIUS=400;
+	public static double TURNING_RADIUS=700;
 	
 	public static int FORWARD=1;
 	
@@ -846,33 +846,39 @@ public class Road extends Shader{
 
 		//double dTeta=turningAngle;
 		double dTeta=Math.signum(turningAngle)*CarFrame.CAR_SPEED*SPEED_SCALE/TURNING_RADIUS;	
-	
-		double xo=POSX+viewDirectionCos*TURNING_RADIUS;
-		//if(turningAngle*FORWARD>0) xo=POSX+WIDTH-XFOCUS;
-		//double yo=POSY+y_edge;
+	    //System.out.println(dTeta+" "+turningAngle);
 		
+		double xo=POSX+viewDirectionCos*TURNING_RADIUS;
 		double yo=POSY+viewDirectionSin*TURNING_RADIUS;
+		
+		if(dTeta>0){
+			
+			xo=POSX-viewDirectionCos*TURNING_RADIUS;
+			yo=POSY-viewDirectionSin*TURNING_RADIUS;
+			
+		}
+		//System.out.println(viewDirectionCos+","+viewDirectionSin);
+
 		
 		/*if(CAMERA_TYPE==DRIVER_CAMERA){
 			
 			yo=POSY-SCREEN_DISTANCE;
 		}*/
 		
-		double ct=Math.cos(-dTeta);
-		double st=Math.sin(-dTeta);	
+		if(FORWARD<0)
+			dTeta=-dTeta;
 		
-		if(turningAngle*FORWARD>0)
-			st=-st;
+		double ct=Math.cos(dTeta);
+		double st=Math.sin(dTeta);	
 		
-		double obsTeta=getViewDirection()-dTeta;
+		double obsTeta=getViewDirection()+dTeta;
 		
 		setViewDirection(obsTeta);
 		
-
+		double DPOSX=((POSX-xo)*ct-(POSY-yo)*st+xo)-POSX;
+		double DPOSY=(+(POSX-xo)*st+(POSY-yo)*ct+yo)-POSY;
 		
-		double DPOSX=((POSX-xo)*ct+(POSY-yo)*st+xo)-POSX;
-		double DPOSY=(-(POSX-xo)*st+(POSY-yo)*ct+yo)-POSY;
-		
+		//System.out.println(DPOSX+" ->"+xo+","+yo+" + "+((POSX-xo)*ct)+" "+(-(POSY-yo)*st)+" "+st);
 		
 		//System.out.println(Math.sqrt(DPOSX*DPOSX+DPOSY*DPOSY)+":"+CarFrame.CAR_SPEED*SPEED_SCALE+":"+(turningAngle*TURNING_RADIUS));
 		
@@ -1475,13 +1481,13 @@ public class Road extends Shader{
 
 	public void changeCamera(int camera_type) {
 		
-		if(camera_type==EXTERNAL_CAMERA){
+		if(camera_type==EXTERNAL_CAMERA && CAMERA_TYPE!=EXTERNAL_CAMERA){
 			
 			CAMERA_TYPE=EXTERNAL_CAMERA;
 			POSY=POSY-(int) SCREEN_DISTANCE;
 			YFOCUS=HEIGHT/2;
 		}
-		else if(camera_type==DRIVER_CAMERA){
+		else if(camera_type==DRIVER_CAMERA && CAMERA_TYPE!=DRIVER_CAMERA){
 			
 			CAMERA_TYPE=DRIVER_CAMERA;
 			POSY= POSY+(int)SCREEN_DISTANCE;
