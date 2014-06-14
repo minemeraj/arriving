@@ -2333,7 +2333,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			dro.setHexColor(ZBuffer.fromColorToHex(colorObjChoice.getBackground()));
 			dro.setRotation_angle(rotation_angle.getvalue());
 			
-			dro.setSelected(false);
+			//dro.setSelected(false);
 		}
 
 		cleanObjects();

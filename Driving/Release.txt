@@ -1,6 +1,7 @@
-
 Adding a rotation angle to objects, so they can have different orientations. New
 OBJECT LIST FORMAT, see README.txt.
+
+Now in the RoadEditor the selected object remains selected after modification.
 
 Revising the never ending problem of the steering kinetics.
 
