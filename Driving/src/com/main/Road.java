@@ -843,9 +843,9 @@ public class Road extends Shader{
 			return;
 		}
 		
-		double dTeta=turningAngle/(Math.PI*2);
 
-			
+		//double dTeta=turningAngle;
+		double dTeta=Math.signum(turningAngle)*CarFrame.CAR_SPEED*SPEED_SCALE/TURNING_RADIUS;	
 	
 		double xo=POSX+viewDirectionCos*TURNING_RADIUS;
 		//if(turningAngle*FORWARD>0) xo=POSX+WIDTH-XFOCUS;
@@ -858,13 +858,13 @@ public class Road extends Shader{
 			yo=POSY-SCREEN_DISTANCE;
 		}*/
 		
-		double ct=Math.cos(-turningAngle);
-		double st=Math.sin(-turningAngle);	
+		double ct=Math.cos(-dTeta);
+		double st=Math.sin(-dTeta);	
 		
 		if(turningAngle*FORWARD>0)
 			st=-st;
 		
-		double obsTeta=getViewDirection()-turningAngle;
+		double obsTeta=getViewDirection()-dTeta;
 		
 		setViewDirection(obsTeta);
 		
