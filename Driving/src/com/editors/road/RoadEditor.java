@@ -4048,7 +4048,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			cx[3]=convertX(dro.x+dro.dx);
 			cy[3]=convertY(dro.y);
 
-			Polygon p_in=new Polygon(cx,cy,4);
+			Polygon p_in=new Polygon(cx,cy,4);			
+			Point3D center=Polygon3D.findCentroid(p_in);
+			Polygon3D.rotate(p_in,center,dro.rotation_angle);
 			
 			if(p_in.contains(x,y))
 			{
