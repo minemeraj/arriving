@@ -107,9 +107,10 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 	private Date t;
 	private BufferedImage buf;
 	
-	boolean isBraking=false;
-	double torque=0;
 	double inverse_car_mass=0.05;
+	
+	//steering angle,positive anti-clockwise
+    double delta=0.30;
 	
 	 public static void main(String[] args) {
 		CarFrame ff=new CarFrame();
@@ -301,7 +302,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 			graphics2D=(Graphics2D) center.getGraphics();
 			transparency=new Transparency();
 			setCarSpeed(0);
-			road=new Road(WIDTH,HEIGHT);
+			road=new Road(WIDTH,HEIGHT,this);
 			road.initCar();
 			
 			hornSound = new GameSound(hornFile,true);
@@ -360,38 +361,31 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 				road.start();
 			}
 
-			setTorque(3.0);
-			isBraking=false;
+			road.setAccelerationVersus(1);
+
 
 		}
 		else if(code==KeyEvent.VK_DOWN || code==KeyEvent.VK_S)
 		{			
-			setTorque(-2.0);
-			isBraking=false;
-		}
-		else if(code==KeyEvent.VK_F)
-		{			
-			setTorque(-1.0);
-				isBraking=true;
+			road.setIsBraking(true);
+
 		}
 		else if(code==KeyEvent.VK_LEFT || code==KeyEvent.VK_A) 
 		{			
-			//left();
-			
-			rotate(+1);
-			
+				
+			//rotate(+1);
+			steer(-delta);
 		}
 		else if(code==KeyEvent.VK_RIGHT|| code==KeyEvent.VK_D)
 		{			
-			//right();
 			
-			rotate(-1);
+			//rotate(-1);
+			steer(+delta);
 		}
 		else if(code==KeyEvent.VK_C)
 		{
 			  setCarSpeed(0);
-			  torque=0;
-			  
+				  
               road.selectNextCar();
               drawRoad();
 		}
@@ -476,7 +470,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 
 
 	
-	private void calculateSpeed(){
+	/*private void calculateSpeed(){
 		
 		if(isBraking){
 			
@@ -496,7 +490,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 		setCarSpeed(CAR_SPEED);
 		
 		
-	}
+	}*/
 
 	private double getEngineModulation(){
 		
@@ -515,13 +509,13 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 		return CAR_SPEED;
 	}
 	
-	private void setCarSpeed(double d) {
+	public void setCarSpeed(double d) { 
 		
 		CAR_SPEED=d;
 		if(CAR_SPEED<0)
 			CAR_SPEED=0;
-		
-		speedometer.setText(df.format(3.6*CAR_SPEED*Road.SPEED_SCALE));
+
+		speedometer.setText(df.format(CAR_SPEED*Road.SPEED_SCALE/Road.SPEED_SCALE));
 		
 		try {
 			
@@ -544,26 +538,26 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 		
 	}
 	
-	public void setTorque(double val){
+	/*public void setTorque(double val){
 		
 		torque=val;
-	}
+	}*/
 
 
 	public void up() {
 		
-		calculateSpeed();
+		//calculateSpeed();
 		road.up(graphics2D);
 		
 		drawRoad();
-		/*if(counter==0)
-			t = new Date();*/
+
+	}
+	
+	public void steer(double angle) {
 		
-		//if(counter++%30==0){
-		//	Road.showMemoryUsage();
-		/*System.out.println("1-"+((new Date()).getTime()-t.getTime()));
-			t = new Date();*/
-		//}
+		road.setSteerAngle(angle);
+	
+	
 	}
 	
 	public void down() {
@@ -571,19 +565,10 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 		drawRoad(); 
 	}
 	
-	
-	public void rotate(int sign) {
-		Road.turningAngle=CarFrame.CAR_SPEED*sign/Road.TURNING_RADIUS*Road.SPEED_SCALE;
-		Road.steer=true;
-		setSteeringAngle();
-		//road.rotate();
-		//drawRoad(); 
-	}
-	
 	public static void setSteeringAngle() {
 		
 		DecimalFormat df=new DecimalFormat("##.##");
-		steerAngle.setText(df.format(Road.turningAngle));
+		steerAngle.setText(df.format(0));
 		
 	}
 
@@ -597,7 +582,8 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 		if(code==KeyEvent.VK_LEFT ||code==KeyEvent.VK_RIGHT || code==KeyEvent.VK_A ||code==KeyEvent.VK_D)
 		{			
 			
-			Road.steer=false;
+		
+			steer(0);
 			
 		}
 		else if(code==KeyEvent.VK_Z){
@@ -610,8 +596,9 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 		else if(code==KeyEvent.VK_UP ||code==KeyEvent.VK_DOWN || code==KeyEvent.VK_W ||code==KeyEvent.VK_S)
 		{			
 			
-			Road.steer=false;
-			torque=0;
+			
+			steer(0);			
+
 		}
 	}
 
@@ -630,10 +617,6 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 	
 		
 		setCarSpeed(0);
-		torque=0;
-		isBraking=false;
-
-		steerAngle.setText(""+Road.turningAngle);
 
 		drawRoad();
 	}

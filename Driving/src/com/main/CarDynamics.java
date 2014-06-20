@@ -1,6 +1,5 @@
 package com.main;
 
-
 import java.text.DecimalFormat;
 
 
@@ -103,9 +102,8 @@ public class CarDynamics {
 	
 	static DecimalFormat df=null;
 	
-	private int Fx2Signum=0;
+	private byte Fx2Signum=0;
 	private boolean isBraking=false;
-	
 	
 	//MATH CONSTANTS
 	
@@ -115,12 +113,14 @@ public class CarDynamics {
 		
 	    double dt=0.01;
 	    df=new DecimalFormat("##.###");	
-		
-		CarDynamics cd=new CarDynamics(1000,1.2,1.4,1,1,1,0,1680,100000,100000);
+	  
+	    CarDynamics cd=new CarDynamics(1000,1.2,1.4,1,1,1,0,1680,100000,100000);
 		cd.setAerodynamics(1.3, 1.8, 0.35);
 		cd.setForces(3000, 3000);
-		cd.setInitvalues(0, 0, 0, 0);
-		cd.setFx2(280);
+		  //linear motion
+		//cd.setInitvalues(0, 1, 0, 0);
+		 //steering 
+		cd.setInitvalues(0.30, 1, 0, 0);
 		cd.setFx2Versus(1);
 		
 		//System.out.println("\t"+df.format(0)+"\t "+cd);
@@ -132,7 +132,7 @@ public class CarDynamics {
 			cd.move(dt);
 			//System.out.println("\t"+df.format(t)+"\t "+cd);
 			//System.out.println("\t"+df.format(t)+"\t "+cd.printForces());
-			
+		
 		}
 		
 		System.out.println(System.currentTimeMillis()-time);
@@ -140,7 +140,7 @@ public class CarDynamics {
 	
 	void move(double dt) {
 		
-		double sgn=Math.signum(u);
+		int sgn=(int) Math.signum(u);
 		
 		//calculate lateral forces:
 		calculateFy1(dt);
@@ -151,37 +151,44 @@ public class CarDynamics {
 		//Fx2=m*(0-nu*r)+Fy1*delta1+0.5*ro*S*Cx*u*u;
               
         
-		double du=i_m*(Fx1+Fx2-Fy1*sgn*delta1-Fy2*sgn*delta2-0.5*ro*S*Cx*u*u*sgn)+nu*r;
-        double dnu=i_m*(Fy1*sgn+Fy2*sgn+Fx1*delta1+Fx2*delta2)-u*r;
-		double dr=i_Jz*(Fy1*sgn*a1-Fy2*sgn*a2+Fx1*a1*delta1-Fx2*a2*delta2);
+		double du=i_m*(Fx1+Fx2-sgn*(Fy1*delta1+Fy2*delta2+0.5*ro*S*Cx*u*u))+nu*r;
+        double dnu=i_m*(sgn*(Fy1+Fy2)+Fx1*delta1+Fx2*delta2)-u*r;
+		double dr=i_Jz*(sgn*(Fy1*a1-Fy2*a2)+Fx1*a1*delta1-Fx2*a2*delta2);
 		
+	
+		//System.out.println(printForces());
 		//System.out.println(toString());
 		//System.out.println(du+" "+dnu+" "+dr);
-		
+		//System.out.println(du*dt+" "+dnu*dt+" "+dr*dt);
 		
 		u+=du*dt;
 		nu+=dnu*dt;
 		r+=dr*dt;
 		
 		calculateCoordinatesIncrements(dt);
-		//System.out.println(dx+" "+dy+" "+psi);
+		
 		
 		//ay=dnu/dt+u*r;
 		
 	
 	}
+	
+	
+
+              
+       
 
 	private void calculateAutomaticTorque() {
 		
-	   
-	
+		
 	   if(!isBraking)	
 		    Fx2=Fx2Signum*torque_force*Math.exp(-0.15*Math.abs(u));
 	   else if(isBraking)
 		    Fx2=-brakingForce*Math.signum(u);
 		
 	}
-
+	
+	
 	/**
 	 * REAR LATERAL FORCE
 	 * 
@@ -199,6 +206,9 @@ public class CarDynamics {
 		Fy2= C2*alfa2*(1.0-Math.exp(-Math.abs(u)*dt/d));
 		
 	}
+	
+	
+	
 	/**
 	 * FRONT LATERAL FORCE
 	 * 
@@ -214,9 +224,8 @@ public class CarDynamics {
 		//double dFy1= (C1*alfa1-Fy1)*u/d;
 		//Fy1+=dt*dFy1;
 		Fy1= C1*alfa1*(1.0-Math.exp(-Math.abs(u)*dt/d));
-		
 	}
-
+	
 	public String toString() {
 		
 		String str=" nu= "+nu+ " ,r= "+r+ " ,u= "+u+" ,alfa1= "+alfa1+" ,alfa2= "+alfa2;
@@ -277,10 +286,11 @@ public class CarDynamics {
 		double cosPsi=Math.cos(psi);
 		double sinPsi=Math.sin(psi);
 		
-		dx=dt*(u*cosPsi-nu*sinPsi);
-		dy=dt*(u*sinPsi+nu*cosPsi);
+		dy=dt*(u*cosPsi-nu*sinPsi);
+		dx=dt*(u*sinPsi+nu*cosPsi);
 	}
-
+	
+	
 	public void setInitvalues(double delta, double u, double r, double nu) {
 		
 		this.delta = delta;
@@ -292,17 +302,6 @@ public class CarDynamics {
 		delta2=chi*tau*delta;
 		
 	}
-	
-	public void setForces(double torque_force,double brakingForce){
-		
-		
-		this.torque_force=torque_force;
-		this.brakingForce=brakingForce;
-		
-	}
-	
-	
-	
 	
 	/**
 	 * FRONT TRACTIVE FORCE
@@ -324,7 +323,7 @@ public class CarDynamics {
 
 	public void setFx2Versus(int i) {
 		
-		Fx2Signum=i;
+		Fx2Signum=(byte) i;
 		
 	}
 	
@@ -338,6 +337,14 @@ public class CarDynamics {
 	
 	public double getTorque_force() {
 		return torque_force;
+	}
+	
+	public void setForces(double torque_force,double brakingForce){
+		
+		
+		this.torque_force=torque_force;
+		this.brakingForce=brakingForce;
+		
 	}
 
 	public void setTorque_force(double torqueForce) {

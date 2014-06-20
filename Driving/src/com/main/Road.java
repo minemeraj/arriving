@@ -5,37 +5,23 @@ package com.main;
  */
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
-import java.awt.geom.PathIterator;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.management.ManagementFactory;
-import java.lang.management.MemoryMXBean;
-import java.lang.management.MemoryUsage;
 import java.util.Date;
-import java.util.Stack;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import javax.imageio.ImageIO;
-import javax.security.auth.Subject;
 import javax.swing.JFileChooser;
-import javax.swing.RepaintManager;
 
 import com.CubicMesh;
 import com.DrawObject;
+import com.Engine;
 import com.LineData;
-import com.Plain;
 import com.Point3D;
 import com.Point4D;
 import com.Polygon3D;
@@ -43,7 +29,6 @@ import com.PolygonMesh;
 import com.Texture;
 import com.ZBuffer;
 import com.editors.Editor;
-import com.main.Shader.ShadowVolume;
 
 
 /*
@@ -70,6 +55,7 @@ public class Road extends Shader{
 	public static int ROAD_THICKNESS=20;
 
 	int CAR_WIDTH=100;
+	int CAR_LENGTH=100;
 	
 	public static double TURNING_RADIUS=700;
 	
@@ -96,10 +82,8 @@ public class Road extends Shader{
 	private JFileChooser fc;
 	boolean start=true;
 
-	public static double turningAngle=0;
-	public static double dTurningAngle=0.1;
 	public static boolean steer=false;
-	public static double SPACE_SCALE_FACTOR=26.0;
+	public static double SPACE_SCALE_FACTOR=60.0;
 	public static double SPEED_SCALE=1.0/1.13;
 
 	
@@ -133,10 +117,13 @@ public class Road extends Shader{
     
     ShadowVolume carShadowVolume=null;
     ShadowVolume[] autocarShadowVolume=null;
-		 
-	public Road(){}
+    
+	public CarDynamics carDynamics=null;	
+	public CarFrame carFrame=null;
 
-	public Road(int WITDH,int HEIGHT){
+	public Road(int WITDH,int HEIGHT, CarFrame carFrame){
+		
+		this.carFrame=carFrame;
 
 		dx=WITDH/(NXVISIBLE-1);
 		//dy=HEIGHT/(NYVISIBLE-1);
@@ -189,12 +176,31 @@ public class Road extends Shader{
 		//calculateShadowMap();
 		calculateShadowVolumes(drawObjects);
 		
+		initializaCarDynamics();
+		
 		loadAutocars(new File("lib/autocars"));
 		
 		//showMemoryUsage();
 		//buildDefaultRoad(); 
 		
 
+	}
+	
+	/**
+	 * SCALING VALUES:
+	 * 
+	 * L=2.6 METRES =160 px
+	 * REAL TIME dt=0.05 sec.
+	 * 
+	 */
+	private void initializaCarDynamics() {
+		
+		carDynamics=new CarDynamics(1000,1.2,1.4,1,1,1,0,1680,100000,100000);
+		carDynamics.setAerodynamics(1.3, 1.8, 0.35);
+		carDynamics.setForces(3000, 3000);
+		carDynamics.setInitvalues(0, 0, 0, 0);
+		
+			
 	}
 
 	/**
@@ -295,9 +301,9 @@ public class Road extends Shader{
 	private void loadCar(int k) {
 
 			carData=loadCarFromFile(new File("lib/cardefault3D_"+k));
-			CAR_WIDTH=carData.carMesh.deltaX2-carData.carMesh.deltaY;
+			CAR_WIDTH=carData.carMesh.deltaX2-carData.carMesh.deltaX;
+			CAR_LENGTH=carData.carMesh.deltaY2-carData.carMesh.deltaY;
 			carData.getCarMesh().translate(WIDTH/2-CAR_WIDTH/2-XFOCUS,y_edge,-YFOCUS);
-
 
 	}
 	
@@ -756,30 +762,11 @@ public class Road extends Shader{
 	
 		if(VIEW_TYPE==REAR_VIEW || CAMERA_TYPE==DRIVER_CAMERA)
 			return;
-		if(!steer){
+		
 
-			buildCar(0);
+		buildCar(0);
 		
-		}
-		else {
-		
-			if(turningAngle==0){
-				
-				
-				return;
-			}
-			else
-				buildCar(-dTurningAngle*Math.signum(turningAngle));
-		
-		} 
 
-		if(turningAngle!=0 && !steer )
-		{   turningAngle=0;
-			buildCar(0);
-			CarFrame.setSteeringAngle();
-		    
-		}
-		
 	}
 
 
@@ -835,128 +822,6 @@ public class Road extends Shader{
 		return false;
 	}
 
-	public void rotate(){
-		
-		if(turningAngle==0){
-			
-			
-			return;
-		}
-		
-
-		//double dTeta=turningAngle;
-		double dTeta=Math.signum(turningAngle)*CarFrame.CAR_SPEED*SPEED_SCALE/TURNING_RADIUS;	
-	    //System.out.println(dTeta+" "+turningAngle);
-		
-		double xo=POSX+viewDirectionCos*TURNING_RADIUS;
-		double yo=POSY+viewDirectionSin*TURNING_RADIUS;
-		
-		if(dTeta>0){
-			
-			xo=POSX-viewDirectionCos*TURNING_RADIUS;
-			yo=POSY-viewDirectionSin*TURNING_RADIUS;
-			
-		}
-		//System.out.println(viewDirectionCos+","+viewDirectionSin);
-
-		
-		/*if(CAMERA_TYPE==DRIVER_CAMERA){
-			
-			yo=POSY-SCREEN_DISTANCE;
-		}*/
-		
-		if(FORWARD<0)
-			dTeta=-dTeta;
-		
-		double ct=Math.cos(dTeta);
-		double st=Math.sin(dTeta);	
-		
-		double obsTeta=getViewDirection()+dTeta;
-		
-		setViewDirection(obsTeta);
-		
-		double DPOSX=((POSX-xo)*ct-(POSY-yo)*st+xo)-POSX;
-		double DPOSY=(+(POSX-xo)*st+(POSY-yo)*ct+yo)-POSY;
-		
-		//System.out.println(DPOSX+" ->"+xo+","+yo+" + "+((POSX-xo)*ct)+" "+(-(POSY-yo)*st)+" "+st);
-		
-		//System.out.println(Math.sqrt(DPOSX*DPOSX+DPOSY*DPOSY)+":"+CarFrame.CAR_SPEED*SPEED_SCALE+":"+(turningAngle*TURNING_RADIUS));
-		
-		POSX+=DPOSX;
-		POSY+=DPOSY;
-				
-		/*
-		 * int size=points.size();
-		 * 
-		 * for(int j=0;j<size;j++){
-
-
-		    Point4D p=(Point4D) points.elementAt(j);
-
-
-
-				double x=p.x;
-				double y=p.y;
-				
-
-				p.x=xo+(x-xo)*ct-(y-yo)*st;
-				p.y=yo+(y-yo)*ct+(x-xo)*st;
-		
-
-
-		}
-		
-		//rotate objects
-
-		for(int i=0;i<drawObjects.length;i++){
-
-			DrawObject dro=drawObjects[i];
-
-			double x=dro.x;
-			double y=dro.y;	
-
-			dro.x=xo+(x-xo)*ct-(y-yo)*st;
-			dro.y=yo+(y-yo)*ct+(x-xo)*st;
-
-			rotatePolygon(dro,xo,yo,ct,st);
-			rotateMesh((CubicMesh) dro.getMesh(),xo,yo,ct,st);
-
-		}
-		
-		//rotate light
-				
-		double obx=lightPoint.position.x;
-		double oby=lightPoint.position.y;
-		
-
-		lightPoint.position.x=xo+(obx-xo)*ct-(oby-yo)*st;
-		lightPoint.position.y=yo+(oby-yo)*ct+(obx-xo)*st;
-		
-		double ayx=lightPoint.yAxis.x;
-		double ayy=lightPoint.yAxis.y;
-		
-		
-		lightPoint.yAxis.x=ayx*ct-ayy*st;
-		lightPoint.yAxis.y=ayy*ct+ayx*st;
-		
-		lightPoint.calculateLightAxes();
-		
-		//rotate shadow volumes
-		
-		for (int i = 0; i < shadowVolumes.length; i++) {
-	
-			for (int j = 0; j < shadowVolumes[i].allPolygons.size(); j++) {
-				Polygon3D sv = (Polygon3D) shadowVolumes[i].allPolygons.elementAt(j);
-				
-				rotatePolygon(sv,xo,yo,ct,st);
-				
-			}
-			
-			
-			
-		}*/
- 
-	}
 
 
     //used for read view
@@ -1014,10 +879,10 @@ public class Road extends Shader{
 
 	public void reset(Graphics2D g2) {
 		
-		CarFrame.CAR_SPEED=0;
+		carFrame.setCarSpeed(0);
 		g2.setColor(CarFrame.BACKGROUND_COLOR);
 		g2.fillRect(0,YFOCUS,WIDTH,HEIGHT-YFOCUS);
-		Road.turningAngle=0;
+
 		steer=false;
 		POSX=0;
 		POSY=0;
@@ -1044,7 +909,7 @@ public class Road extends Shader{
 
 
 
-	public void up(Graphics2D graphics2D) {
+	/*public void up(Graphics2D graphics2D) {
 
         
 		if(!steer){
@@ -1052,9 +917,7 @@ public class Road extends Shader{
 			
 			POSY=(int) (POSY+FORWARD*CarFrame.CAR_SPEED*SPEED_SCALE*viewDirectionCos);
 			POSX=(int) (POSX-FORWARD*CarFrame.CAR_SPEED*SPEED_SCALE*viewDirectionSin);
-			//debug
-			//if(POSY>4000)
-           	//System.out.println("1-"+(System.currentTimeMillis()-time.getTime()));
+
 		}
 		else {
 			rotate();
@@ -1062,13 +925,75 @@ public class Road extends Shader{
 		} 
 
 
-	}
-	public void start(){
-		//for debug
-		//time=new Date();
+	}*/
+	
+	public void up(Graphics2D graphics2D) {
+		
+		carDynamics.move(Engine.dtt);
+		//from m/s to km/s
+		carFrame.setCarSpeed(3.6*Math.abs(carDynamics.u));
+
+		//cast this way to cut off very small speeds
+		int NEW_POSY=POSY+(int)( FORWARD*SPACE_SCALE_FACTOR*carDynamics.dy);
+		int NEW_POSX=POSX+(int)( FORWARD*SPACE_SCALE_FACTOR*carDynamics.dx);
+
+	    setViewDirection(getViewDirection()-carDynamics.dpsi);
+	    carFrame.setSteeringAngle();
+		
+		if(!checkIsWayFree(NEW_POSX,NEW_POSY,-1))
+		{	
+
+			return;
+		}
+		
+		
+		
+		//System.out.println(NEW_POSX+" "+NEW_POSY);	
+
+
+		POSY=NEW_POSY;
+		POSX=NEW_POSX;
+		
+		
 
 	}
 	
+	
+	public void start(){
+		//for debug
+
+	}
+	
+	
+	public void setSteerAngle(double angle) {
+		
+		carDynamics.setDelta(angle);
+		
+	}
+
+	public void setAccelerationVersus(int i) {
+		
+		
+		
+		carDynamics.setIsbraking(false);
+		
+		if(i>0){
+			carDynamics.setFx2Versus(FORWARD);
+			
+		}
+		else
+			carDynamics.setFx2Versus(0);
+			
+		
+	}
+
+	public void setIsBraking(boolean b) {
+		
+		if(b)
+			carDynamics.setFx2Versus(0);
+		carDynamics.setIsbraking(b);
+		
+	}
 
 	public void down(Graphics2D graphics2D) {
 
@@ -1664,9 +1589,9 @@ public class Road extends Shader{
 			
 		// car points of border to detect collisions
 
-	/*	Polygon CAR_BORDER=Autocar.buildCarBox(xCarCenter,yCarCenter,CAR_WIDTH,CAR_WIDTH,turningAngle); 
+		/*Polygon CAR_BORDER=Autocar.buildCarBox(xCarCenter,yCarCenter,CAR_WIDTH,CAR_LENGTH,turningAngle); 
 		
-		for(int i=0;i<drawObjects.length;i++){
+	for(int i=0;i<drawObjects.length;i++){
 
 			
 			if(autocar_index<0){
@@ -1693,9 +1618,9 @@ public class Road extends Shader{
 		     	}	
 			}
     	
-		}
+		}*/
     	
-
+/*
 		if(autocars!=null){
 
 

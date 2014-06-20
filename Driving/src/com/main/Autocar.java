@@ -128,7 +128,7 @@ public class Autocar extends Thread{
 		Polygon polyCar=buildCarBox((int)center.x,(int)center.y,(int)center.z);
 		
 		double position=calculateLinePosition(polyCar);
-	
+
 		if(position/car_width>=0.25 && position/car_width<=0.75){
 
 			linePosition=position;
@@ -155,7 +155,7 @@ public class Autocar extends Thread{
 		}else{
 			
 			
-			fi+=steering*dt*u/10;
+			fi+=steering*dt*u;
 			
 		}
 		
