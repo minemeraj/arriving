@@ -1659,13 +1659,129 @@ public class Road extends Shader{
 		autocarTerrainNormal=new Point3D[autocars.length];
 	}
 
-	public boolean checkIsWayFree(int x, int y, int autocar_index) {
+	public boolean checkIsWayFree(int new_posx, int new_posy,  int autocar_index) {
 		
+			
+		// car points of border to detect collisions
+
+	/*	Polygon CAR_BORDER=Autocar.buildCarBox(xCarCenter,yCarCenter,CAR_WIDTH,CAR_WIDTH,turningAngle); 
+		
+		for(int i=0;i<drawObjects.length;i++){
+
+			
+			if(autocar_index<0){
+			
+				DrawObject dro=drawObjects[i];
+		    	 			    	
+		     				     
+		    	Polygon3D objBorder= dro.getBorder().clone();
+		    	
+		    	for (int j = 0; j < objBorder.npoints; j++) {
+		    		
+		    		int xx=objBorder.xpoints[j];
+		    		int yy=objBorder.ypoints[j];
+		    		
+		    		objBorder.xpoints[j]=convertX(xx,new_posx);
+		    		objBorder.ypoints[j]=convertY(yy,new_posy);
+				}
+		    	Point3D center=Polygon3D.findCentroid(objBorder);
+				Polygon3D.rotate(objBorder,center,dro.rotation_angle);
+				
+							    			    	
+		     	if(getIntersection(objBorder,CAR_BORDER)!=null){
+    				return false;
+		     	}	
+			}
+    	
+		}
+    	
+
+		if(autocars!=null){
+
+
+			for (int l = 0; l < autocars.length; l++) {
+
+				Polygon polyCar = autocars[l].buildCarBox((int)autocars[l].center.x,(int)autocars[l].center.y,(int)autocars[l].center.z);
+
+				if(autocar_index>=0 && l!=autocar_index)
+					continue;
+
+				for (int j = 0; j < polyCar.npoints; j++) {
+
+					double xx=0;
+					double yy=0;
+
+					//distinguish to avoid stalemate 
+					if(autocar_index<0){
+
+						xx=convertX(polyCar.xpoints[j],new_posx);
+						yy=convertY(polyCar.ypoints[j],new_posy);
+					}
+					else{
+
+						xx=convertX(polyCar.xpoints[j]);
+						yy=convertY(polyCar.ypoints[j]);
+
+					}
+
+
+					polyCar.xpoints[j]=(int) xx;
+					polyCar.ypoints[j]=(int) yy;
+
+				}
+
+				if(getIntersection(polyCar,CAR_BORDER)!=null){
+					return false;
+				}
+			}
+
+
+
+
+		}*/
+
+
+
+
+
 		return true;
-		
 	}
 	
 
+	/***
+	 * 
+	 * calculate the intersections between two polygons border
+	 * 
+	 * 
+	 * @param polyCar
+	 * @param carBorder
+	 * @return
+	 */
+	private Point3D getIntersection(Polygon polyCar, Polygon carBorder) {
+		
 	
+		
+		for (int i = 0; i < polyCar.npoints; i++) {
+			
+			Point3D poly0=new Point3D(polyCar.xpoints[i],polyCar.ypoints[i],0);
+			Point3D poly1=new Point3D(polyCar.xpoints[(i+1)%polyCar.npoints],polyCar.ypoints[(i+1)%polyCar.npoints],0);
+			
+			for (int j = 0; j < carBorder.npoints; j++) {
+				
+				Point3D carP0=new Point3D(carBorder.xpoints[j],carBorder.ypoints[j],0);
+				Point3D carP1=new Point3D(carBorder.xpoints[(j+1)%carBorder.npoints],carBorder.ypoints[(j+1)%carBorder.npoints],0);
+				
+				Point3D pInter=Autocar.calculateLineIntersection(poly0,poly1,carP0,carP1);
+				
+				if(pInter!=null)
+					return pInter;
+				
+			}
+			
+			
+		}
+		
+		return null;
+	}
 
 }
