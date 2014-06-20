@@ -423,11 +423,13 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 		{			
 			Road.FORWARD=1;
 			forward.setText("(F)");
+			road.setAccelerationVersus(1);
 		}
 		else if(code==KeyEvent.VK_M)
 		{			
 			Road.FORWARD=-1;
 			forward.setText("(R)");
+			road.setAccelerationVersus(1);
 		}
 		else if(code==KeyEvent.VK_H)
 		{			
@@ -565,10 +567,10 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 		drawRoad(); 
 	}
 	
-	public static void setSteeringAngle() {
+	public static void setSteeringAngle(double d) {
 		
 		DecimalFormat df=new DecimalFormat("##.##");
-		steerAngle.setText(df.format(0));
+		steerAngle.setText(df.format(d));
 		
 	}
 
