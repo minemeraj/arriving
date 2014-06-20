@@ -423,13 +423,13 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 		{			
 			Road.FORWARD=1;
 			forward.setText("(F)");
-			road.setAccelerationVersus(1);
+			//road.setAccelerationVersus(1);
 		}
 		else if(code==KeyEvent.VK_M)
 		{			
 			Road.FORWARD=-1;
 			forward.setText("(R)");
-			road.setAccelerationVersus(1);
+			//road.setAccelerationVersus(1);
 		}
 		else if(code==KeyEvent.VK_H)
 		{			
