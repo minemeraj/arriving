@@ -621,6 +621,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 	
 		
 		setCarSpeed(0);
+		setSteeringAngle(0);
 
 		drawRoad();
 	}

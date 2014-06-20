@@ -886,6 +886,8 @@ public class Road extends Shader{
 		steer=false;
 		POSX=0;
 		POSY=0;
+		
+		initializaCarDynamics();
 	
 		
 		//loadRoad();
