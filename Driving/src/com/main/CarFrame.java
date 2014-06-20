@@ -590,18 +590,20 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 		}
 		else if(code==KeyEvent.VK_Z){
 			
+						
 			if(Road.VIEW_TYPE==Road.REAR_VIEW)
 				road.rotateSky(0);
 			Road.VIEW_TYPE=Road.FRONT_VIEW;
 			
 		}
-		else if(code==KeyEvent.VK_UP ||code==KeyEvent.VK_DOWN || code==KeyEvent.VK_W ||code==KeyEvent.VK_S)
+		else if((code==KeyEvent.VK_UP ||code==KeyEvent.VK_DOWN || code==KeyEvent.VK_W ||code==KeyEvent.VK_S) && engine!=null)
 		{			
-			
+			road.setAccelerationVersus(0);
 			
 			steer(0);			
 
 		}
+
 	}
 
 
