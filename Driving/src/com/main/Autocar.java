@@ -1,22 +1,21 @@
 package com.main;
 
 
+import java.awt.Dimension;
 import java.awt.Polygon;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.Date;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
 import com.Engine;
 import com.Point3D;
-import com.Point4D;
 import com.Polygon3D;
 import com.Texture;
 
 public class Autocar extends Thread{
-	
-
 	
 	Road road;
 	
@@ -33,7 +32,6 @@ public class Autocar extends Thread{
 		this.car_length = car_length;
 	}
 	
-
 	Point3D center=null;
 
 	double fi=0; 
@@ -58,6 +56,14 @@ public class Autocar extends Thread{
 	
 	int car_type_index=0;
 	
+	boolean isParked=false;
+
+	Date stopTime=null;
+	int TIME_OUT=3000;
+	
+	int autocar_index=-1;
+
+
 	public void init(double x,double y,double u,double nu,double fi,double steering,double linePosition,Point3D[] car_road){
 		
 	
@@ -75,7 +81,7 @@ public class Autocar extends Thread{
 		this.car_width=this.carData.getDeltaX2()-this.carData.getDeltaX();
 		this.car_length=this.carData.getDeltaY2()-this.carData.getDeltaY();
 		this.car_height=this.carData.getDeltaY();
-	}
+}
 	
 	public void init(double x,double y,double u,double nu,double fi,double steering,double linePosition){
 		
@@ -94,19 +100,37 @@ public class Autocar extends Thread{
 		this.car_height=this.carData.getDeltaY();
 
 	}
-	
+
 	public void move(double dt){
 		
-		//if(road!=null && !road.checkIsWayFree((int)center.x,(int)center.y,true))
-		//	return;
+		if(stopTime!=null){
+			
+			
+			long currTime=System.currentTimeMillis();
+			
+			if(currTime-stopTime.getTime()<TIME_OUT){
+				return;
+			}else{
+				
+				
+				stopTime=null;
+			}
+			
+		}
+	
+		
+		if(road!=null && !road.checkIsWayFree((int)center.x,(int)center.y,autocar_index)){
+			stopTime=new Date();
+			return;
+		}
+	
 
 		Polygon polyCar=buildCarBox((int)center.x,(int)center.y,(int)center.z);
 		
 		double position=calculateLinePosition(polyCar);
-		
+	
 		if(position/car_width>=0.25 && position/car_width<=0.75){
-			
-			//System.out.println(position);
+
 			linePosition=position;
 			
 			steering=0;
@@ -143,10 +167,17 @@ public class Autocar extends Thread{
 		center.y= (center.y+vy*dt*Road.SPACE_SCALE_FACTOR/Road.SPEED_SCALE);
 		center.x= (center.x+vx*dt*Road.SPACE_SCALE_FACTOR/Road.SPEED_SCALE);
 
-		
 	}
 	
 	
+	public int getAutocar_index() {
+		return autocar_index;
+	}
+
+	public void setAutocar_index(int autocar_index) {
+		this.autocar_index = autocar_index;
+	}
+
 	public Polygon3D buildCarBox(int xx0, int yy0, int zz0) {
 		
 		return buildCarBox( xx0,  yy0,zz0,car_length,car_width,fi);
@@ -199,7 +230,6 @@ public class Autocar extends Thread{
 	
 		
 	}
-
 	
 	private double calculateLinePosition(Polygon p) {
 		
@@ -215,14 +245,15 @@ public class Autocar extends Thread{
 			Point3D p2=car_road[(j+1)%car_road.length];				
 			
 			Point3D intersection=calculateLineIntersection(p1,p2,p3,p4);
-			
+		
 			//System.out.println(p1+","+p2);
 			
 			if(intersection!=null){
 				
 				pos=distance(p3.x,p3.y,intersection.x,intersection.y);
 				//System.out.println(intersection.x+","+intersection.y);
-				
+
+			
 			}
 			
 		}
@@ -238,7 +269,7 @@ public class Autocar extends Thread{
 		return Math.sqrt((x0-x1)*(x0-x1)+(y0-y1)*(y0-y1));
 	}
 	
-	private Point3D calculateLineIntersection(Point3D p1,Point3D p2,Point3D p3,Point3D p4) {
+	public static Point3D calculateLineIntersection(Point3D p1,Point3D p2,Point3D p3,Point3D p4) {
 		
 		
 		double det=(p4.y-p3.y)*(p2.x-p1.x)-(p4.x-p3.x)*(p2.y-p1.y);
@@ -272,10 +303,15 @@ public class Autocar extends Thread{
 	}
 
 	public static Autocar[] buildAutocars(File file) {
+
 		
 		Vector autocars=new Vector();
 	
 		try {
+			
+			
+			Vector roads=new Vector();
+			
 			BufferedReader br=new BufferedReader(new FileReader(file));
 
 
@@ -293,17 +329,14 @@ public class Autocar extends Thread{
 					
 					String[] vals=str.split(",");
 					
-
 					int type=Integer.parseInt(vals[0]);
-					int car_width=Integer.parseInt(vals[1]);
-					int car_length=Integer.parseInt(vals[2]);
 					
 					File carFile=new File("lib/cardefault3D_"+type);
 					
 					if(!carFile.exists())
 						type=0;
 										
-					Autocar car=new Autocar(car_width,car_length,type);
+					Autocar car=new Autocar(0,0,type);
 					
 					autocars.add(car);
 				}
@@ -323,9 +356,21 @@ public class Autocar extends Thread{
 					double steering=Double.parseDouble(vals[5]);
 					double linePosition=-1;
 					
-					car.init( x, y, u, nu, fi, steering, linePosition);
-						
+					int autoline_index=Integer.parseInt(vals[6]);
 					
+					car.init( x, y, u, nu, fi, steering, linePosition);
+
+					if(autoline_index>=0){
+					
+						Point3D[] car_road=(Point3D[]) roads.elementAt(autoline_index);
+						car.setCar_road(car_road);
+						car.isParked=false;
+						
+					}else{
+						
+						car.isParked=true;
+						
+					}
 				}				
 				else if(str.startsWith("ROAD")){
 					
@@ -354,9 +399,8 @@ public class Autocar extends Thread{
 					for (int i = 0; i < road_points.size(); i++) {
 						car_road[i]=(Point3D) road_points.elementAt(i);
 					}
-					
-					Autocar car=(Autocar) autocars.lastElement();
-					car.setCar_road(car_road);
+					roads.add(car_road);
+	
 					
 					
 				}
@@ -380,6 +424,7 @@ public class Autocar extends Thread{
 		
 		for (int i = 0; i < autocars.size(); i++) {
 			acars[i]=(Autocar) autocars.elementAt(i);
+			acars[i].setAutocar_index(i);
 		}
 		
 		return acars;
@@ -421,7 +466,7 @@ public class Autocar extends Thread{
 	public void setRoad(Road road) {
 		this.road = road;
 	}
-
+	
 	public CarData getCarData() {
 		return carData;
 	}
@@ -430,7 +475,21 @@ public class Autocar extends Thread{
 		this.carData = carData;
 	}
 
+	public int getCar_type_index() {
+		return car_type_index;
+	}
 
+	public void setCar_type_index(int car_type_index) {
+		this.car_type_index = car_type_index;
+	}
+	
+	public boolean isParked() {
+		return isParked;
+	}
+
+	public void setParked(boolean isParked) {
+		this.isParked = isParked;
+	}
 	
 	
 }

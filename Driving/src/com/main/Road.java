@@ -1635,14 +1635,19 @@ public class Road extends Shader{
 				autoCar.center.y=autoCar.center.y+SCREEN_DISTANCE;
 				autoCar.center.z=autoCar.center.z+autoCar.car_height*0.5-YFOCUS;
 				
+				Point3D[] newCar_road=new Point3D[autoCar.car_road.length];
+				
 				for (int j = 0; j < autoCar.car_road.length; j++) {
 					
+					newCar_road[j]=new Point3D();
 					
-					autoCar.car_road[j].x=autoCar.car_road[j].x-XFOCUS;
-					autoCar.car_road[j].y=autoCar.car_road[j].y+SCREEN_DISTANCE;
-					autoCar.car_road[j].z=autoCar.car_road[j].z-YFOCUS;
+					newCar_road[j].x=autoCar.car_road[j].x-XFOCUS;
+					newCar_road[j].y=autoCar.car_road[j].y+SCREEN_DISTANCE;
+					newCar_road[j].z=autoCar.car_road[j].z-YFOCUS;
 					
 				}
+				
+				autoCar.setCar_road(newCar_road);
 				
 				autocars[i].start();
 				
@@ -1652,6 +1657,12 @@ public class Road extends Shader{
 		
 		autocarShadowVolume=new ShadowVolume[autocars.length];
 		autocarTerrainNormal=new Point3D[autocars.length];
+	}
+
+	public boolean checkIsWayFree(int x, int y, int autocar_index) {
+		
+		return true;
+		
 	}
 	
 

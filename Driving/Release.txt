@@ -1,3 +1,11 @@
+More cars on the road!
+
+New Autocars managements, which allow to use more than one Autocar on a single Autoline.
+Added parked Autocars too.
+
+Added stop and start behaviour to the autocars when they meet an obstacle.
+
+
 ----- 15/06/2014 CarDriving 7.0.18
 
 Adding a rotation angle to objects, so they can have different orientations. New
