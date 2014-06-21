@@ -1640,8 +1640,13 @@ public class Road extends Shader{
 
 				if(autocar_index>=0 && l!=autocar_index)
 					continue;
-				//System.out.println(autocars[l].center.z+" "+(YFOCUS+MOVZ));
-				if(Math.abs(autocars[l].center.z+YFOCUS+MOVZ)>2*ROAD_THICKNESS)
+				
+				double cz=autocars[l].center.z-autocars[l].car_height*0.5;
+				
+				//if(autocar_index==9)
+				//	System.out.println(cz+" "+(YFOCUS+MOVZ));
+	
+				if(Math.abs(cz+YFOCUS+MOVZ)>2*ROAD_THICKNESS)
 					continue;
 
 
