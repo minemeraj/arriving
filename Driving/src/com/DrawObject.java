@@ -24,18 +24,26 @@ public class DrawObject {
 	public double rotation_angle=0;
 	
 
-
 	public String hexColor=null;
 	public boolean selected=false;
 	
 	public Vector polygons=new Vector();
 	public PolygonMesh mesh=new PolygonMesh();
-	
+
+
 	public int deltaX=0;
 	public int deltaY=0;  
 	public int deltaX2=0;
 	
+	public Polygon3D base=null;
 
+	public Polygon3D getBase() {
+		return base;
+	}
+
+	public void setBase(Polygon3D base) {
+		this.base = base;
+	}
 
 	public Object clone()  {
 		DrawObject dro=new DrawObject();
@@ -57,7 +65,8 @@ public class DrawObject {
 			dro.addPolygon(polig.clone());
 		}
 		dro.setMesh(getMesh().clone());
-
+		
+		dro.calculateBase();
 		return dro;
 	}
 	
@@ -277,5 +286,30 @@ public class DrawObject {
 	public void setDeltaX2(int deltaX2) {
 		this.deltaX2 = deltaX2;
 	}
+	
+	public void calculateBase(){
+
+		int[] cx=new int[4];
+		int[] cy=new int[4];
+		int[] cz=new int[4];
+
+		cx[0]=(int) x;
+		cy[0]=(int) y;
+		cz[0]=(int) z;
+		cx[1]=(int) (x+dx);
+		cy[1]=(int) y;
+		cz[1]=(int) z;
+		cx[2]=(int) (x+dx);
+		cy[2]=(int) (y+dy);
+		cz[2]=(int) z;
+		cx[3]=(int) x;
+		cy[3]=(int) (y+dy);
+		cz[3]=(int) z;
+
+		base=new Polygon3D(4,cx,cy,cz);
+
+
+	}
+	
 
 }

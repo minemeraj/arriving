@@ -70,6 +70,15 @@ public class Polygon3D  extends Polygon{
 		addPoint((int)p.x,(int)p.y,(int)p.z);
 	}
 	
+	public Point3D getPoint(int index){
+		
+		if(index>=npoints)
+			return null;
+		
+		return new Point3D(xpoints[index],ypoints[index],zpoints[index]);
+		
+	}
+	
 	public void addPoint(int x, int y,int z) {
 		
 		Polygon3D new_pol=new Polygon3D(this.npoints+1);

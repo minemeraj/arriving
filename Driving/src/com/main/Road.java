@@ -1342,6 +1342,8 @@ public class Road extends Shader{
 		StringTokenizer tok1=new StringTokenizer(properties1,"_"); 
 		dro.rotation_angle=Double.parseDouble(tok1.nextToken());
 		dro.hexColor=tok1.nextToken();
+		dro.calculateBase();
+		
 		return dro;
 	}
 
@@ -1599,7 +1601,7 @@ public class Road extends Shader{
 
 		Polygon3D.rotate(CAR_BORDER,new Point3D(POSX,POSY,0),viewDirection);
 
-		/*for(int i=0;i<drawObjects.length;i++){
+		for(int i=0;i<drawObjects.length;i++){
 
 
 			if(autocar_index<0){
@@ -1607,26 +1609,17 @@ public class Road extends Shader{
 				DrawObject dro=drawObjects[i];
 
 
-		    	Polygon3D objBorder= dro.getBorder().clone();
+		    	Polygon3D objBorder= dro.getBase().clone();
 
-		    	for (int j = 0; j < objBorder.npoints; j++) {
-
-		    		int xx=objBorder.xpoints[j];
-		    		int yy=objBorder.ypoints[j];
-
-		    		objBorder.xpoints[j]=convertX(xx,new_posx);
-		    		objBorder.ypoints[j]=convertY(yy,new_posy);
-				}
 		    	Point3D center=Polygon3D.findCentroid(objBorder);
 				Polygon3D.rotate(objBorder,center,dro.rotation_angle);
-
-
-		     	if(getIntersection(objBorder,CAR_BORDER)!=null){
+				
+				if(getIntersection(objBorder,CAR_BORDER)!=null){
     				return false;
 		     	}	
 			}
 
-		}*/
+		}
 
 
 		//System.out.println(CAR_BORDER);
