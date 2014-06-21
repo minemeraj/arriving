@@ -14,28 +14,28 @@ import java.text.DecimalFormat;
 public class CarDynamics {
 	
 
-	//STRUCTURAL VARIABLES
+	/** STRUCTURAL VARIABLES **/
 	double a1=0;
 	double a2=0;	
 	double tau=1;
 	double chi=0;
-	//wheelbase
+	/** wheelbase **/
 	double l=0;
-	//front and rear track
+	/** front and rear track **/
 	double t1=0;
 	double t2=0;
 
-	//moment of inerzia
+	/** moment of inerzia  **/
 	double Jz=0;
 	double i_Jz=0;
 	
-	//vehicle mass
+	/** vehicle mass  **/
 	double m=0;
 	double i_m=0;
 
-	//DYNAMIC VARIABLES
+	//DYNAMIC VARIABLES  
 	
-	//front steering angles 1=front,2=rear
+	/** front steering angles 1=front,2=rear**/
 	double delta1=0;
 	double delta2=0;
 	
@@ -52,49 +52,49 @@ public class CarDynamics {
 		delta2=chi*tau*delta;
 	}
 
-	// longitudinal  velocity
+	/** longitudinal  velocity**/
 	double u=0;
-	// yaw  velocity
+	/**  yaw  velocity**/
 	double r=0;
-	// lateral  velocity
+	/** lateral  velocity**/
 	double nu=0;
 	
-	//tire slip angles
+	/** tire slip angles**/
 	double alfa1=0;
 	double alfa2=0;
 	
-	//side slip angles
+	/** side slip angles **/
 	double beta1=0;
 	double beta2=0;
 	
-	//cornering stiffness
+	/** cornering stiffness **/
 	double C1=0;
 	double C2=0;
 	
-	//relaxation lenght
+	/** relaxation lenght **/
 	double d=0.25;
 	
-	//tractive forces
+	/** tractive forces **/
 	double Fx1=0;
 	double Fx2=0;
-	//lateral forces
+	/** lateral forces**/
 	private double Fy1;
 	private double Fy2;
-	//torque force
+	/** torque force **/
 	double torque_force=0;
-	//braking force
+	/** braking force **/
 	double brakingForce=0;
 		
     //DRAG PROPERTIES
-	//air density
+	/** air density **/
 	double ro=0;
 	double S=0;
 	double Cx=0;
 	
-	//Centripetal Force
+	/** Centripetal Force  **/
 	double ay=0;
 	
-	//COORDINATES INCREMENTS
+	/** COORDINATES INCREMENTS**/
 	double dx=0;
 	double dy=0;
 	double dpsi=0;
@@ -357,6 +357,13 @@ public class CarDynamics {
 
 	public void setBrakingForce(double brakingForce) {
 		this.brakingForce = brakingForce;
+	}
+
+	public void stop() {
+		u=0;
+		r=0;
+		nu=0;
+		
 	}
 
 

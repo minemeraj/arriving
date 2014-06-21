@@ -1,5 +1,5 @@
 
-Introduced collision detection between main car and other objects, al so collisions with autocars.
+Introduced collision detection between main car and other objects, and collisions with autocars.
 
 ----- 20/06/2014 CarDriving 7.0.19
 

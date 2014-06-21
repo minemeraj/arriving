@@ -1615,6 +1615,7 @@ public class Road extends Shader{
 				Polygon3D.rotate(objBorder,center,dro.rotation_angle);
 				
 				if(getIntersection(objBorder,CAR_BORDER)!=null){
+					//carDynamics.stop();
     				return false;
 		     	}	
 			}
@@ -1644,6 +1645,11 @@ public class Road extends Shader{
 
 
 				if(getIntersection(polyCar,CAR_BORDER)!=null){
+					
+					if(autocar_index<0){
+						//carDynamics.stop();
+					}
+					
 					return false;
 				}
 			}
