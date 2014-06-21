@@ -1640,9 +1640,9 @@ public class Road extends Shader{
 
 				if(autocar_index>=0 && l!=autocar_index)
 					continue;
-				
-				//if(Math.abs(autocars[l].center.z-MOVZ)>2*ROAD_THICKNESS)
-				//	continue;
+				//System.out.println(autocars[l].center.z+" "+(YFOCUS+MOVZ));
+				if(Math.abs(autocars[l].center.z+YFOCUS+MOVZ)>2*ROAD_THICKNESS)
+					continue;
 
 
 				if(getIntersection(polyCar,CAR_BORDER)!=null){
