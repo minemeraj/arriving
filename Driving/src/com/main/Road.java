@@ -1643,7 +1643,7 @@ public class Road extends Shader{
 				
 				double cz=autocars[l].center.z-autocars[l].car_height*0.5;
 				
-				//if(autocar_index==9)
+				//if(autocar_index==1)
 				//	System.out.println(cz+" "+(YFOCUS+MOVZ));
 	
 				if(Math.abs(cz+YFOCUS+MOVZ)>2*ROAD_THICKNESS)
@@ -1702,17 +1702,6 @@ public class Road extends Shader{
 		}
 		
 		return null;
-	}
-	
-
-	
-	private int convertX(double i,int POSX) {
-
-		return (int) (i-POSX);
-	}
-	private int convertY(double j,int POSY) {
-
-		return (int) (j-POSY);
 	}
 
 
