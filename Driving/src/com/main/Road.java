@@ -1587,42 +1587,50 @@ public class Road extends Shader{
 	}
 
 	public boolean checkIsWayFree(int new_posx, int new_posy,  int autocar_index) {
-		
-			
+
+
 		// car points of border to detect collisions
 
-		/*Polygon CAR_BORDER=Autocar.buildCarBox(xCarCenter,yCarCenter,CAR_WIDTH,CAR_LENGTH,turningAngle); 
-		
-	for(int i=0;i<drawObjects.length;i++){
+		Polygon CAR_BORDER=Autocar.buildCarBox(
+				start_car_x+POSX,
+				(int) (POSY+start_car_y+CAR_LENGTH*0.5),
+				+MOVZ,
+				CAR_WIDTH,CAR_LENGTH,0); 
 
-			
+		Polygon3D.rotate(CAR_BORDER,new Point3D(POSX,POSY,0),viewDirection);
+
+		/*for(int i=0;i<drawObjects.length;i++){
+
+
 			if(autocar_index<0){
-			
+
 				DrawObject dro=drawObjects[i];
-		    	 			    	
-		     				     
+
+
 		    	Polygon3D objBorder= dro.getBorder().clone();
-		    	
+
 		    	for (int j = 0; j < objBorder.npoints; j++) {
-		    		
+
 		    		int xx=objBorder.xpoints[j];
 		    		int yy=objBorder.ypoints[j];
-		    		
+
 		    		objBorder.xpoints[j]=convertX(xx,new_posx);
 		    		objBorder.ypoints[j]=convertY(yy,new_posy);
 				}
 		    	Point3D center=Polygon3D.findCentroid(objBorder);
 				Polygon3D.rotate(objBorder,center,dro.rotation_angle);
-				
-							    			    	
+
+
 		     	if(getIntersection(objBorder,CAR_BORDER)!=null){
     				return false;
 		     	}	
 			}
-    	
+
 		}*/
-    	
-/*
+
+
+		//System.out.println(CAR_BORDER);
+
 		if(autocars!=null){
 
 
@@ -1632,30 +1640,10 @@ public class Road extends Shader{
 
 				if(autocar_index>=0 && l!=autocar_index)
 					continue;
+				
+				//if(Math.abs(autocars[l].center.z-MOVZ)>2*ROAD_THICKNESS)
+				//	continue;
 
-				for (int j = 0; j < polyCar.npoints; j++) {
-
-					double xx=0;
-					double yy=0;
-
-					//distinguish to avoid stalemate 
-					if(autocar_index<0){
-
-						xx=convertX(polyCar.xpoints[j],new_posx);
-						yy=convertY(polyCar.ypoints[j],new_posy);
-					}
-					else{
-
-						xx=convertX(polyCar.xpoints[j]);
-						yy=convertY(polyCar.ypoints[j]);
-
-					}
-
-
-					polyCar.xpoints[j]=(int) xx;
-					polyCar.ypoints[j]=(int) yy;
-
-				}
 
 				if(getIntersection(polyCar,CAR_BORDER)!=null){
 					return false;
@@ -1665,7 +1653,7 @@ public class Road extends Shader{
 
 
 
-		}*/
+		}
 
 
 
@@ -1710,5 +1698,17 @@ public class Road extends Shader{
 		
 		return null;
 	}
+	
+
+	
+	private int convertX(double i,int POSX) {
+
+		return (int) (i-POSX);
+	}
+	private int convertY(double j,int POSY) {
+
+		return (int) (j-POSY);
+	}
+
 
 }
