@@ -939,17 +939,17 @@ public class Road extends Shader{
 		int NEW_POSY=POSY+(int)( SPACE_SCALE_FACTOR*carDynamics.dy);
 		int NEW_POSX=POSX+(int)( SPACE_SCALE_FACTOR*carDynamics.dx);
 		
-		double newDirection = getViewDirection()-carDynamics.dpsi;
+	
+		setViewDirection(getViewDirection()-carDynamics.dpsi);
+		carFrame.setSteeringAngle(getViewDirection());
 
-
-		if(!checkIsWayFree(NEW_POSX,NEW_POSY,newDirection,-1))
+		if(!checkIsWayFree(NEW_POSX,NEW_POSY,getViewDirection(),-1))
 		{	
 
 			
 			return;
 		}
-		setViewDirection(newDirection);
-		carFrame.setSteeringAngle(getViewDirection());
+	
 		
 		//System.out.println(NEW_POSX+" "+NEW_POSY);	
 
