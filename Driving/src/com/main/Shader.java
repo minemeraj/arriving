@@ -339,9 +339,9 @@ public class Shader extends Renderer3D{
 		}
 
 
+        int aSize= allTriangles.size(); 
 
-
-		for (int i = 0; i < allTriangles.size(); i++) {
+		for (int i = 0; i <aSize; i++) {
 			
 
 
@@ -356,7 +356,7 @@ public class Shader extends Renderer3D{
 
 			Vector adjacentTriangles=new Vector();
 
-			for (int j = 0; j < allTriangles.size(); j++) {
+			for (int j = 0; j <aSize; j++) {
 
 				if(j==i)
 					continue;
@@ -364,8 +364,10 @@ public class Shader extends Renderer3D{
 				int commonVertices=0;
 
 				LineData triangle1 = (LineData) allTriangles.elementAt(j);
+				
+				int iSize=triangle1.size();
 
-				for (int k = 0; k < triangle1.size(); k++) {
+				for (int k = 0; k < iSize; k++) {
 
 					if(
 							triangle0.getIndex(0)==triangle1.getIndex(k) || 
@@ -374,17 +376,24 @@ public class Shader extends Renderer3D{
 
 							)
 						commonVertices++;
+					
+					if(k==iSize-2 && commonVertices<1)
+						break;	
+
 				}
 
 
 
 				if(commonVertices==2)	
 					adjacentTriangles.add(triangle1);
+				
+				//can't have more than 3 adjacent triangles?
+
 
 			}
 			//FINDING EDGES
 
-
+            
 
 			for (int j = 0; j < adjacentTriangles.size(); j++) {
 				LineData triangle1 =  (LineData) adjacentTriangles.elementAt(j);
