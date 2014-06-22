@@ -938,17 +938,18 @@ public class Road extends Shader{
 		//cast this way to cut off very small speeds
 		int NEW_POSY=POSY+(int)( SPACE_SCALE_FACTOR*carDynamics.dy);
 		int NEW_POSX=POSX+(int)( SPACE_SCALE_FACTOR*carDynamics.dx);
-
-	    setViewDirection(getViewDirection()-carDynamics.dpsi);
-	    carFrame.setSteeringAngle(getViewDirection());
 		
-		if(!checkIsWayFree(NEW_POSX,NEW_POSY,-1))
+		double newDirection = getViewDirection()-carDynamics.dpsi;
+
+
+		if(!checkIsWayFree(NEW_POSX,NEW_POSY,newDirection,-1))
 		{	
 
+			
 			return;
 		}
-		
-		
+		setViewDirection(newDirection);
+		carFrame.setSteeringAngle(getViewDirection());
 		
 		//System.out.println(NEW_POSX+" "+NEW_POSY);	
 
@@ -1588,18 +1589,33 @@ public class Road extends Shader{
 		autocarTerrainNormal=new Point3D[autocars.length];
 	}
 
-	public boolean checkIsWayFree(int new_posx, int new_posy,  int autocar_index) {
+	public boolean checkIsWayFree(int new_posx, int new_posy,double newViewDirection,  int autocar_index) {
 
 
 		// car points of border to detect collisions
 
-		Polygon CAR_BORDER=Autocar.buildCarBox(
-				start_car_x+POSX,
-				(int) (POSY+start_car_y+CAR_LENGTH*0.5),
-				+MOVZ,
-				CAR_WIDTH,CAR_LENGTH,0); 
+		Polygon CAR_BORDER=null;
+		
+		if(autocar_index<0){
+			
+			CAR_BORDER=Autocar.buildCarBox(
+					start_car_x+new_posx,
+					(int) (new_posy+start_car_y+CAR_LENGTH*0.5),
+					+MOVZ,
+					CAR_WIDTH,CAR_LENGTH,0); 
+			Polygon3D.rotate(CAR_BORDER,new Point3D(new_posx,new_posy,0),newViewDirection);
+			
+		}else{
+			
+			CAR_BORDER=Autocar.buildCarBox(
+					start_car_x+POSX,
+					(int) (POSY+start_car_y+CAR_LENGTH*0.5),
+					+MOVZ,
+					CAR_WIDTH,CAR_LENGTH,0); 
+			Polygon3D.rotate(CAR_BORDER,new Point3D(POSX,POSY,0),viewDirection);
+			
+		}
 
-		Polygon3D.rotate(CAR_BORDER,new Point3D(POSX,POSY,0),viewDirection);
 
 		for(int i=0;i<drawObjects.length;i++){
 

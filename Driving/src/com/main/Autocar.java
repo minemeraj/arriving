@@ -119,7 +119,7 @@ public class Autocar extends Thread{
 		}
 	
 		
-		if(road!=null && !road.checkIsWayFree((int)center.x,(int)center.y,autocar_index)){
+		if(road!=null && !road.checkIsWayFree((int)center.x,(int)center.y,fi,autocar_index)){
 			stopTime=new Date();
 			return;
 		}
