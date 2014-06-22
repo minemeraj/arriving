@@ -378,14 +378,16 @@ public class Shader extends Renderer3D{
 						commonVertices++;
 					
 					if(k==iSize-2 && commonVertices<1)
-						break;	
+						break;
+					
+					if(commonVertices==2){
+						adjacentTriangles.add(triangle1);
+						break;
+					}
 
 				}
 
-
-
-				if(commonVertices==2)	
-					adjacentTriangles.add(triangle1);
+					
 				
 				//can't have more than 3 adjacent triangles?
 
