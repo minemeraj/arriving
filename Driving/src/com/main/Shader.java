@@ -310,19 +310,23 @@ public class Shader extends Renderer3D{
 
 
 	}
-
+	
 	public  ShadowVolume buildShadowVolumeBox(CubicMesh cm) {
+		
+		ShadowVolume shadowVolume=initShadowVolume(cm);
+		buildShadowVolumeBox(shadowVolume,cm);
+		
+		return shadowVolume;
+		
+	}
+
+	public ShadowVolume initShadowVolume(CubicMesh cm) {
 
 		ShadowVolume shadowVolume=new ShadowVolume();
+		shadowVolume.allTriangles=new Vector();
 
 		int polSize=cm.polygonData.size();
 
-		Vector edges=new Vector();
-
-
-		////////////FIND SILHOUETTE
-
-		Vector allTriangles=new Vector();
 
 
 		for(int i=0;i<polSize;i++){
@@ -333,24 +337,22 @@ public class Shader extends Renderer3D{
 
 			for (int j = 0; j < triangles.length; j++) {
 
-				allTriangles.add(triangles[j]);
+
+				ShadowTriangle st=new ShadowTriangle(triangles[j]);
+
+				shadowVolume.allTriangles.add(st);
 			}		
 
 		}
 
-
-        int aSize= allTriangles.size(); 
+		int aSize= shadowVolume.allTriangles.size(); 
 
 		for (int i = 0; i <aSize; i++) {
-			
 
 
-			LineData triangle0 = (LineData) allTriangles.elementAt(i);
 
-			Polygon3D polTriangle0=PolygonMesh.getBodyPolygon(cm.points,triangle0);
+			ShadowTriangle triangle0 = (ShadowTriangle) shadowVolume.allTriangles.elementAt(i);
 
-			if(!isFacing(polTriangle0,Polygon3D.findNormal(polTriangle0),lightPoint.position))
-				continue;
 
 			//ADJACENT TRIANGLES
 
@@ -363,8 +365,8 @@ public class Shader extends Renderer3D{
 
 				int commonVertices=0;
 
-				LineData triangle1 = (LineData) allTriangles.elementAt(j);
-				
+				LineData triangle1 = (LineData) shadowVolume.allTriangles.elementAt(j);
+
 				int iSize=triangle1.size();
 
 				for (int k = 0; k < iSize; k++) {
@@ -376,29 +378,62 @@ public class Shader extends Renderer3D{
 
 							)
 						commonVertices++;
-					
+
 					if(k==iSize-2 && commonVertices<1)
 						break;
-					
+
 					if(commonVertices==2){
-						adjacentTriangles.add(triangle1);
+						adjacentTriangles.add(new Integer(j));
 						break;
 					}
 
 				}
 
-					
-				
+
+
 				//can't have more than 3 adjacent triangles?
 
 
 			}
+
+			if(adjacentTriangles.size()>0)
+				triangle0.setAdjacentTriangles(adjacentTriangles);
+		}	
+
+
+		return shadowVolume;
+	}
+
+	public  ShadowVolume buildShadowVolumeBox(ShadowVolume shadowVolume,CubicMesh cm) {
+
+		shadowVolume.initFaces();
+
+		Vector edges=new Vector();
+
+        int aSize= shadowVolume.allTriangles.size(); 
+
+		for (int i = 0; i <aSize; i++) {
+			
+
+
+			ShadowTriangle triangle0 = (ShadowTriangle) shadowVolume.allTriangles.elementAt(i);
+
+			Polygon3D polTriangle0=PolygonMesh.getBodyPolygon(cm.points,triangle0);
+
+			if(!isFacing(polTriangle0,Polygon3D.findNormal(polTriangle0),lightPoint.position))
+				continue;
+
+			//ADJACENT TRIANGLES
+
+			int[] adjacentTriangles = triangle0.getAdjacentTriangles();
+
+			
 			//FINDING EDGES
 
             
 
-			for (int j = 0; j < adjacentTriangles.size(); j++) {
-				LineData triangle1 =  (LineData) adjacentTriangles.elementAt(j);
+			for (int j = 0; j < adjacentTriangles.length; j++) {
+				LineData triangle1 =  (LineData) shadowVolume.allTriangles.elementAt(adjacentTriangles[j]);
 				Polygon3D adjPolTriangle=PolygonMesh.getBodyPolygon(cm.points,triangle1);
 
 				if(
@@ -447,10 +482,10 @@ public class Shader extends Renderer3D{
 		
 		double average_y=0;
 
-		for (int i = 0; i < allTriangles.size(); i++) {
+		for (int i = 0; i < shadowVolume.allTriangles.size(); i++) {
 			
 
-			LineData triangle0 = (LineData) allTriangles.elementAt(i);
+			LineData triangle0 = (LineData) shadowVolume.allTriangles.elementAt(i);
 			Polygon3D polTriangle0=PolygonMesh.getBodyPolygon(cm.points,triangle0);
 
 			if(isFacing(polTriangle0,Polygon3D.findNormal(polTriangle0),lightPoint.position)){
@@ -590,9 +625,11 @@ public class Shader extends Renderer3D{
 
 	public class ShadowVolume{
 
-		public Vector frontCap=new Vector();
-		public Vector backCap=new Vector();
-		public Vector faces=new Vector();
+		public Vector frontCap=null;
+		public Vector backCap=null;
+		public Vector faces=null;
+		
+		public Vector allTriangles=null;
 
 		public Polygon3D[] allPolygons=null;
 
@@ -614,29 +651,49 @@ public class Shader extends Renderer3D{
 		
 		}
 		
+		public void initFaces(){
+			
+			frontCap=new Vector();
+			backCap=new Vector();
+			faces=new Vector();
+			
+			
+		}
+		
 		public void buildPolygonsArray(){
 			
 			int size=frontCap.size()+backCap.size()+faces.size();
-			allPolygons=new Polygon3D[size];
+			
+			Vector vAllpolygons=new Vector();
 			
 			int counter=0;
 			
 			for (int i = 0; i < frontCap.size(); i++) {
 				Polygon3D pol = (Polygon3D) frontCap.elementAt(i);
-				allPolygons[counter]=pol;
+				//allPolygons[counter]=pol;
+				vAllpolygons.add(pol);
 				counter++;
 			}
 			
 			for (int i = 0; i < faces.size(); i++) {
 				Polygon3D pol = (Polygon3D) faces.elementAt(i);
-				allPolygons[counter]=pol;
+				vAllpolygons.add(pol);
+				//allPolygons[counter]=pol;
 				counter++;
 			}
 			
 			for (int i = 0; i < backCap.size(); i++) {
 				Polygon3D pol = (Polygon3D) backCap.elementAt(i);
-				allPolygons[counter]=pol;
+				vAllpolygons.add(pol);
+				//allPolygons[counter]=pol;
 				counter++;
+			}
+			
+						
+			allPolygons=new Polygon3D[vAllpolygons.size()];
+			
+			for (int i = 0; i < vAllpolygons.size(); i++) {
+				allPolygons[i]= (Polygon3D) vAllpolygons.elementAt(i);
 			}
 			
 		}
@@ -649,6 +706,41 @@ public class Shader extends Renderer3D{
 			this.allPolygons = allPolygons;
 		}
 
+	}
+	
+	public class ShadowTriangle extends LineData {
+		
+		public ShadowTriangle(LineData ld) {
+			
+			
+			for(int i=0;i<ld.size();i++){
+				
+	
+				
+				addIndex(ld.getIndex(i));
+
+				
+			}
+		}
+
+		public void setAdjacentTriangles(Vector vAdjacentTriangles) {
+			
+			adjacentTriangles=new int[vAdjacentTriangles.size()];
+			
+			for (int i = 0; i < vAdjacentTriangles.size(); i++) {
+				adjacentTriangles[i]= ((Integer) vAdjacentTriangles.elementAt(i)).intValue();
+			}
+			
+		}
+
+		public int[] getAdjacentTriangles() {
+			return adjacentTriangles;
+		}
+
+
+
+		int[] adjacentTriangles=null;
+		
 	}
 
 }

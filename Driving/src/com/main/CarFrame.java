@@ -384,10 +384,10 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 		}
 		else if(code==KeyEvent.VK_C)
 		{
-			  setCarSpeed(0);
+
+			setCarSpeed(0);
 				  
-              road.selectNextCar();
-              drawRoad();
+             road.selectNextCar();
 		}
 		else if(code==KeyEvent.VK_B)
 		{
