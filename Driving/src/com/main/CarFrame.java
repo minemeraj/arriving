@@ -111,6 +111,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 	
 	//steering angle,positive anti-clockwise
     double delta=0.30;
+	private boolean isProgramPaused=true;
 	
 	 public static void main(String[] args) {
 		CarFrame ff=new CarFrame();
@@ -384,14 +385,19 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 		}
 		else if(code==KeyEvent.VK_C)
 		{
-
+			isProgramPaused=true;
+			
 			setCarSpeed(0);
-				  
-             road.selectNextCar();
+			
+            road.selectNextCar();
+            
+            isProgramPaused=false;
 		}
 		else if(code==KeyEvent.VK_B)
 		{
 
+			isProgramPaused=true;
+			
 			back_num=back_num+1;
 			try{
 
@@ -416,6 +422,8 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 			catch (Exception e) {
 				e.printStackTrace();
 			}
+			
+			
 			reset();
 
 		}
@@ -548,6 +556,9 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 
 	public void up() {
 		
+		if(isProgramPaused)
+			return;
+		
 		//calculateSpeed();
 		road.up(graphics2D);
 		
@@ -616,6 +627,8 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 
 	public void reset(){
 		
+		isProgramPaused=true;
+		
 		buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 		road.reset(graphics2D);
 	
@@ -623,6 +636,8 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 		setCarSpeed(0);
 		setSteeringAngle(0);
 
+		isProgramPaused=false;
+		
 		drawRoad();
 	}
 
@@ -669,6 +684,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 		engine=new Engine(this);
 		engine.start();	
 		
+		isProgramPaused=false;
 	}
 
 
