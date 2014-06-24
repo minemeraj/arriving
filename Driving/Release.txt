@@ -1,6 +1,8 @@
 Introduced collision detection between main car and other objects, and collisions with autocars.
 
-An improvement to the shadow volumes calculation speed.
+An improvement to the shadow volumes calculation speed, for a more solid program.
+
+Added farm tractor vehicle.
 
 ----- 20/06/2014 CarDriving 7.0.19
 
