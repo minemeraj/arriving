@@ -87,6 +87,7 @@ public class Point3D {
 
 		Point3D p=new Point3D(this.x,this.y,this.z,this.p_x,this.p_y,this.p_z,this.texture_x,this.texture_y);
 		p.setData(getData());
+		p.setSelected(isSelected());
 		return p;
 	}
 	
