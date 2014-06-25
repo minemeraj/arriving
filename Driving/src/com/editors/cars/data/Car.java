@@ -2609,8 +2609,10 @@ public class Car extends CustomData {
 		
 		for (int i = 0; i < bnumx-1; i++) {
 			
-			for (int j = 0; j < bnumy-1; j++) {		
-			
+			for (int j = 0; j < bnumy-1; j++) {	
+				
+				
+							
 				
 				if(i==0){
 					
@@ -2624,7 +2626,12 @@ public class Car extends CustomData {
 					addLine(pBack[i][j][0],pBack[i+1][j][0],pBack[i+1][j][1],pBack[i][j][1],Renderer3D.CAR_BACK);
 				}
 				
-				addLine(pBack[i][j][1],pBack[i+1][j][1],pBack[i+1][j+1][1],pBack[i][j+1][1],Renderer3D.CAR_TOP);
+				//exclude the part covered by the roof to have a closed form:
+				
+				if((i==1 || i==2) && (j>0))
+					;
+				else
+					addLine(pBack[i][j][1],pBack[i+1][j][1],pBack[i+1][j+1][1],pBack[i][j+1][1],Renderer3D.CAR_TOP);
 				
 				addLine(pBack[i][j][0],pBack[i][j+1][0],pBack[i+1][j+1][0],pBack[i+1][j][0],Renderer3D.CAR_BOTTOM);
 				
