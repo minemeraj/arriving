@@ -15,7 +15,7 @@ import com.Point3D;
 import com.Polygon3D;
 import com.Texture;
 
-public class Autocar extends Thread{
+public class Autocar {
 	
 	Road road;
 	
@@ -438,7 +438,7 @@ public class Autocar extends Thread{
 		this.car_road = car_road;
 	}
 	
-	public void run() {
+	/*public void run() {
 	
 		
 		while(true){
@@ -457,7 +457,7 @@ public class Autocar extends Thread{
 				
 		}
 		
-	}
+	}*/
 
 	public Road getRoad() {
 		return road;

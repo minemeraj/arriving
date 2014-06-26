@@ -1,3 +1,6 @@
+Now auotcars are no more threads independent from the rest of the program, in order to have a more 
+uniform runtime updating.
+
 Introduced collision detection between main car and other objects, and collisions with autocars.
 
 An improvement to the shadow volumes calculation speed, for a more solid program.

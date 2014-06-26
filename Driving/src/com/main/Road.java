@@ -937,6 +937,7 @@ public class Road extends Shader{
 	
 	public void up(Graphics2D graphics2D) {
 		
+
 		carDynamics.move(Engine.dtt);
 		//from m/s to km/s
 		carFrame.setCarSpeed(3.6*Math.abs(carDynamics.u));
@@ -953,17 +954,26 @@ public class Road extends Shader{
 		{	
 
 			
-			return;
-		}
+			
+		}else{
 	
 		
-		//System.out.println(NEW_POSX+" "+NEW_POSY);	
-
-
-		POSY=NEW_POSY;
-		POSX=NEW_POSX;
+			//System.out.println(NEW_POSX+" "+NEW_POSY);	
+	
+	
+			POSY=NEW_POSY;
+			POSX=NEW_POSX;
 		
+		}
 		
+		if(autocars!=null){
+
+			for (int i = 0;i < autocars.length; i++) {
+				
+				autocars[i].move(Engine.dtt);
+				
+			}
+		}
 
 	}
 	
@@ -1587,7 +1597,7 @@ public class Road extends Shader{
 				
 				autoCar.setCar_road(newCar_road);
 				
-				autocars[i].start();
+			
 				
 			}
 			
