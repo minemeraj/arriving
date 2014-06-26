@@ -657,7 +657,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 	public void paint(Graphics g) {
 		
 		super.paint(g);
-		drawRoad();
+		//drawRoad();
 		
 	}
 
