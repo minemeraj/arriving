@@ -2483,7 +2483,6 @@ public class Car extends CustomData {
 			
 		
 		}
-
 		
 		int fcnumx=2;
 		int fcnumy=2;
@@ -2709,7 +2708,8 @@ public class Car extends CustomData {
 				
 				addLine(roof[i][j][1],roof[i+1][j][1],roof[i+1][j+1][1],roof[i][j+1][1],Renderer3D.CAR_TOP);
 				
-				addLine(roof[i][j][0],roof[i][j+1][0],roof[i+1][j+1][0],roof[i+1][j][0],Renderer3D.CAR_BOTTOM);
+		
+				//addLine(roof[i][j][0],roof[i][j+1][0],roof[i+1][j+1][0],roof[i+1][j][0],Renderer3D.CAR_BOTTOM);
 				
 				if(j+1==rnumy-1){
 					
