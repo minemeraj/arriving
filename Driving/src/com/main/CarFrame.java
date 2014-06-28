@@ -267,6 +267,16 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 				
 			}
 			
+			Vector vCarData=new Vector();
+			
+			for(int i=0;i<files.length;i++){
+				if(files[i].getName().startsWith("cardefault3D_")){
+					
+					vCarData.add(files[i]);
+					
+				}		
+			}
+			
 			
 			Vector v3DObjects=new Vector();
 			
@@ -304,7 +314,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 			transparency=new Transparency();
 			setCarSpeed(0);
 			road=new Road(WIDTH,HEIGHT,this);
-			road.initCar();
+			road.initCar(vCarData);
 			
 			hornSound = new GameSound(hornFile,true);
 			

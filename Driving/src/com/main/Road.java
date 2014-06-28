@@ -67,7 +67,8 @@ public class Road extends Shader{
 	
 		
 	int TILE_SIDE=4;
-	CarData carData=null;
+	CarData[] carData=null;
+	ShadowVolume[] carShadowVolume=null;
 		
 	public PolygonMesh[] meshes=new PolygonMesh[2];
 	
@@ -115,7 +116,7 @@ public class Road extends Shader{
     Point3D carTerrainNormal=null; 
     Point3D[] autocarTerrainNormal=null;
     
-    ShadowVolume carShadowVolume=null;
+    
     ShadowVolume[] autocarShadowVolume=null;
     
 	public CarDynamics carDynamics=null;	
@@ -298,48 +299,59 @@ public class Road extends Shader{
 
 
 
-	private void loadCar(int k) {
-
-
-
-		carData=loadCarFromFile(new File("lib/cardefault3D_"+k));
-		CAR_WIDTH=carData.carMesh.deltaX2-carData.carMesh.deltaX;
-		CAR_LENGTH=carData.carMesh.deltaY2-carData.carMesh.deltaY;
-		carData.getCarMesh().translate(WIDTH/2-CAR_WIDTH/2-XFOCUS,y_edge,-YFOCUS);
-
-
-		carShadowVolume=initShadowVolume(carData.carMesh);
-
+	private void loadCars(Vector vCarData) {
 		
-
-	}
-	
-	public void initCar(){
 		
+		carData=new CarData[vCarData.size()];
+		carShadowVolume=new ShadowVolume[vCarData.size()] ; 
+
+		for (int i = 0; i < vCarData.size(); i++) {
+			File file = (File) vCarData.elementAt(i);
 			
-			initCar(0);
+			carData[i]=loadCarFromFile(new File("lib/cardefault3D_"+i));
+			CAR_WIDTH=carData[i].carMesh.deltaX2-carData[i].carMesh.deltaX;
+			CAR_LENGTH=carData[i].carMesh.deltaY2-carData[i].carMesh.deltaY;
+			carData[i].getCarMesh().translate(WIDTH/2-CAR_WIDTH/2-XFOCUS,y_edge,-YFOCUS);
+
+
+			carShadowVolume[i]=initShadowVolume(carData[i].carMesh);
+			
+			
+		}
+
 		
+
 		
+
 	}
+
 	
 	public void selectNextCar() {
 		
-		SELECTED_CAR+=1;
+		
+		if(SELECTED_CAR+1<carData.length)
+			SELECTED_CAR+=1;
+		else
+			SELECTED_CAR=0;
+		
 		if(!(new File("lib/cardefault3D_"+SELECTED_CAR)).exists())
 			SELECTED_CAR=0;
 	
-			initCar(SELECTED_CAR);
-		
+			
+		carTexture=CarFrame.carTextures[SELECTED_CAR];
 		
 	}
 
-	public void initCar(int k) {
+	public void initCar(Vector vCarData) {
+		
+		SELECTED_CAR=0;
 
-		loadCar(k);
+		loadCars(vCarData);
+		
 		carTexture =null;
 		
 		
-		carTexture=CarFrame.carTextures[k];
+		carTexture=CarFrame.carTextures[SELECTED_CAR];
 
 		/*carZbuffer=new ZBuffer[WIDTH*HEIGHT];
 		for(int i=0;i<WIDTH*HEIGHT;i++){
@@ -357,7 +369,7 @@ public class Road extends Shader{
 		//Point3D steeringCenter=new Point3D(start_car_x, start_car_y,-YFOCUS);
 
 		//putting the car right in front of the view point
-		CubicMesh cm = carData.getCarMesh().clone();
+		CubicMesh cm = carData[SELECTED_CAR].getCarMesh().clone();
         //fake steering: eliminate?
 		//cm.rotate(steeringCenter.x,steeringCenter.y,Math.cos(directionAngle),Math.sin(directionAngle));		
 		
@@ -435,7 +447,7 @@ public class Road extends Shader{
 		
 		 cm.translate(POSX,POSY,-MOVZ);
 		 cm.rotate(POSX, POSY,viewDirectionCos,viewDirectionSin);
-		 buildShadowVolumeBox(carShadowVolume,cm);
+		 buildShadowVolumeBox(carShadowVolume[SELECTED_CAR],cm);
 
 	}
 
@@ -670,15 +682,15 @@ public class Road extends Shader{
 		isStencilBuffer=true;
 
 
-		if(carShadowVolume==null || carShadowVolume.allPolygons==null || rearAngle!=0)
+		if(carShadowVolume[SELECTED_CAR]==null || carShadowVolume[SELECTED_CAR].allPolygons==null || rearAngle!=0)
 		{
 			//do nothing
 			
 		}else{
 			
-			for (int j = 0; j < carShadowVolume.allPolygons.length; j++) {
+			for (int j = 0; j < carShadowVolume[SELECTED_CAR].allPolygons.length; j++) {
 
-				Polygon3D pol = carShadowVolume.allPolygons[j];
+				Polygon3D pol = carShadowVolume[SELECTED_CAR].allPolygons[j];
 				buildTransformedPolygon(pol);
 				decomposeClippedPolygonIntoZBuffer(pol,Color.red,null,roadZbuffer);
 			
