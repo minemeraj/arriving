@@ -334,10 +334,6 @@ public class Road extends Shader{
 		else
 			SELECTED_CAR=0;
 		
-		if(!(new File("lib/cardefault3D_"+SELECTED_CAR)).exists())
-			SELECTED_CAR=0;
-	
-			
 		carTexture=CarFrame.carTextures[SELECTED_CAR];
 		
 	}
