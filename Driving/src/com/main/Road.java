@@ -338,7 +338,7 @@ public class Road extends Shader{
 		
 	}
 
-	public void initCar(Vector vCarData) {
+	public void initCars(Vector vCarData) {
 		
 		SELECTED_CAR=0;
 
@@ -444,6 +444,7 @@ public class Road extends Shader{
 		 cm.translate(POSX,POSY,-MOVZ);
 		 cm.rotate(POSX, POSY,viewDirectionCos,viewDirectionSin);
 		 buildShadowVolumeBox(carShadowVolume[SELECTED_CAR],cm);
+		
 
 	}
 

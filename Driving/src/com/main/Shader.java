@@ -2,6 +2,7 @@ package com.main;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.util.Hashtable;
 import java.util.Vector;
 
 import com.CubicMesh;
@@ -411,6 +412,8 @@ public class Shader extends Renderer3D{
 		Vector edges=new Vector();
 
         int aSize= shadowVolume.allTriangles.size(); 
+        
+        Hashtable hEdges=new Hashtable();
 
 		for (int i = 0; i <aSize; i++) {
 			
@@ -442,7 +445,7 @@ public class Shader extends Renderer3D{
 
 						){
 
-					LineData edge=new LineData();
+					
 
 
 					for (int k = 0; k < triangle0.size(); k++) {
@@ -462,9 +465,21 @@ public class Shader extends Renderer3D{
 								)
 
 							){
+							
+								LineData edge=new LineData();
+							
 								edge.addIndex(triangle0.getIndex(k));
 								edge.addIndex(triangle0.getIndex((k+1)%3));
-								edges.add(edge);
+								
+								String key0=edge.getIndex(0)+"_"+edge.getIndex(1);
+								String key1=edge.getIndex(1)+"_"+edge.getIndex(0);
+								if(hEdges.get(key0)==null && hEdges.get(key1)==null ){
+									
+									edges.add(edge);
+									
+									hEdges.put(key0,"");
+									hEdges.put(key1,"");
+								}
 							}
 					}
 

@@ -314,7 +314,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 			transparency=new Transparency();
 			setCarSpeed(0);
 			road=new Road(WIDTH,HEIGHT,this);
-			road.initCar(vCarData);
+			road.initCars(vCarData);
 			
 			hornSound = new GameSound(hornFile,true);
 			
