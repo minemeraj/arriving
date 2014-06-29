@@ -543,7 +543,9 @@ public class Shader extends Renderer3D{
 
 		//BUILD FACES
 
-		for (int j = 0; j < edges.size(); j++) {
+		int eSize=edges.size();
+		
+		for (int j = 0; j < eSize; j++) {
 
 			LineData edge = (LineData) edges.elementAt(j);
 
