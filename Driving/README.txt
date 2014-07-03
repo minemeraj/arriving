@@ -432,7 +432,7 @@
 	bed height with mattress: 52cm 
 	bed height no mattress: 34 cm
 	bed total LxW: 201 cm x 87cm
-	bookcase height:
+	bookcase 3 shelters L X W X H =34.3 cm x 45.2 cm x 99.9 cm 
 	chair seat height: 48 cm
 	cupboard LxWxH: 111.5 cm x 49.5 cm x 206 cm
 	sofa seat height: 45 cm
