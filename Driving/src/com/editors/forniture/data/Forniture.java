@@ -385,13 +385,17 @@ public class Forniture extends CustomData{
 		
 		Segments b0=new Segments(0,x_side,0,y_side,0,z_side);
 		
-		int lev=3;
+		int lev=4;
+		double alfa=0.1;
 		int shz=lev*2;
+		
+		
+		double rz1=1.0/(lev*(alfa+1)-1);
+		double rz0=alfa*rz1;
 		
 		BPoint[][][] shelves=new BPoint[4][4][shz];
 		
-		double rz0=0.1;
-		double rz1=(1.0-lev*rz0)/(lev-1);
+		
 		
 		for (int i = 0; i < shz; i=i+2) {
 			

@@ -397,9 +397,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 
 	private void initRightBookcaseData() {
 		
-		x_side.setText(100);
-		y_side.setText(100);
-		z_side.setText(300);
+		x_side.setText(69);
+		y_side.setText(52);
+		z_side.setText(153);
 		
 		leg_length.setText(0);
 		leg_side.setText(10);
