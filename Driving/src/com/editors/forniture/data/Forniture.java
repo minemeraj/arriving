@@ -383,7 +383,34 @@ public class Forniture extends CustomData{
 		
 		n=0;
 		
-		Segments b0=new Segments(0,x_side,0,y_side,0,z_side);
+		Segments u0=new Segments(0,x_side,0,y_side,0,leg_length);
+		
+		BPoint[][][] body=new BPoint[2][2][2];
+		
+		body[0][0][0]=addBPoint(-0.5,0.0,0,u0);
+		body[1][0][0]=addBPoint(0.5,0.0,0,u0);
+		body[1][1][0]=addBPoint(0.5,1.0,0,u0);
+		body[0][1][0]=addBPoint(-0.5,1.0,0,u0);
+		
+		body[0][0][1]=addBPoint(-0.5,0.0,1.0,u0);
+		body[1][0][1]=addBPoint(0.5,0.0,1.0,u0);
+		body[1][1][1]=addBPoint(0.5,1.0,1.0,u0);
+		body[0][1][1]=addBPoint(-0.5,1.0,1.0,u0);
+		
+		addLine(body[0][0][1],body[1][0][1],body[1][1][1],body[0][1][1],Renderer3D.CAR_TOP);		
+
+		addLine(body[0][0][0],body[0][0][1],body[0][1][1],body[0][1][0],Renderer3D.CAR_LEFT);				
+
+		addLine(body[1][0][0],body[1][1][0],body[1][1][1],body[1][0][1],Renderer3D.CAR_RIGHT);
+		
+		addLine(body[0][1][0],body[0][1][1],body[1][1][1],body[1][1][0],Renderer3D.CAR_FRONT);
+		
+		addLine(body[0][0][0],body[1][0][0],body[1][0][1],body[0][0][1],Renderer3D.CAR_BACK);
+		
+		addLine(body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0],Renderer3D.CAR_BOTTOM);
+		
+		
+		Segments b0=new Segments(0,x_side,0,y_side,leg_length,z_side);
 		
 		int lev=4;
 		double alfa=0.1;
