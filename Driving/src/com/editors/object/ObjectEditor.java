@@ -753,7 +753,8 @@ public class ObjectEditor extends Editor implements ActionListener{
 
 				bufGraphics.setColor(backgroundColor);
 				bufGraphics.fillRect(DX+0,0,IMG_WIDTH,IMG_HEIGHT);
-				bufGraphics.setColor(front_color);
+				
+				/*bufGraphics.setColor(front_color);
 				bufGraphics.fillRect(DX+deltaX,0,deltaX2-deltaX,deltaX);
 				bufGraphics.setColor(top_color);
 				bufGraphics.fillRect(DX+deltaX,deltaX,deltaX2-deltaX,deltaY);
@@ -762,7 +763,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 				bufGraphics.setColor(right_color);
 				bufGraphics.fillRect(DX+deltaX2,deltaX,deltaX,deltaY);
 				bufGraphics.setColor(back_color);
-				bufGraphics.fillRect(DX+deltaX,deltaY+deltaX,deltaX2-deltaX,deltaX);
+				bufGraphics.fillRect(DX+deltaX,deltaY+deltaX,deltaX2-deltaX,deltaX);*/
 
 
 				//draw lines for reference
@@ -779,14 +780,19 @@ public class ObjectEditor extends Editor implements ActionListener{
 						Point3D point0=  mesh.points[ld.getIndex(k)];
 						Point3D point1=  mesh.points[ld.getIndex((k+1)%ld.size())];
 						//top
+						bufGraphics.setColor(top_color);
 						bufGraphics.drawLine(DX+(int)(point0.x-minx+deltaX),(int)(-point0.y+maxy+deltaX),DX+(int)(point1.x-minx+deltaX),(int)(-point1.y+maxy+deltaX));
 						//front
+						bufGraphics.setColor(front_color);
 						bufGraphics.drawLine(DX+(int)(point0.x-minx+deltaX),(int)(point0.z-minz),DX+(int)(point1.x-minx+deltaX),(int)(point1.z-minz));
 						//left
+						bufGraphics.setColor(left_color);
 						bufGraphics.drawLine(DX+(int)(point0.z-minz),(int)(-point0.y+maxy+deltaX),DX+(int)(point1.z-minz),(int)(-point1.y+maxy+deltaX));
 						//right
+						bufGraphics.setColor(right_color);
 						bufGraphics.drawLine(DX+(int)(-point0.z+maxz+deltaX2),(int)(-point0.y+maxy+deltaX),DX+(int)(-point1.z+maxz+deltaX2),(int)(-point1.y+maxy+deltaX));
 						//back
+						bufGraphics.setColor(back_color);
 						bufGraphics.drawLine(DX+(int)(point0.x-minx+deltaX),(int)(-point0.z+maxz+deltaY+deltaX),DX+(int)(point1.x-minx+deltaX),(int)(-point1.z+maxz+deltaY+deltaX));
 
 					}
