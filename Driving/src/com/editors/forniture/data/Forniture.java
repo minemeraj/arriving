@@ -478,7 +478,7 @@ public class Forniture extends CustomData{
 			
 			if(i%2==0){
 			
-				addLine(shelves[0][0][i],shelves[0][3][i],shelves[3][3][i],shelves[3][0][i],Renderer3D.CAR_BOTTOM);
+				addLine(shelves[0][0][i],shelves[3][0][i],shelves[3][3][i],shelves[0][3][i],Renderer3D.CAR_BOTTOM);
 				addLine(shelves[0][0][i+1],shelves[0][3][i+1],shelves[3][3][i+1],shelves[3][0][i+1],Renderer3D.CAR_TOP);
 			
 	
