@@ -1,3 +1,5 @@
+A better object collision detection.
+
 Improving bookcase object in FurnitureEditor.
 
 ----- 29/06/2014 CarDriving 7.0.20

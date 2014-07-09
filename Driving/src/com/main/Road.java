@@ -1657,7 +1657,7 @@ public class Road extends Shader{
 				DrawObject dro=drawObjects[i];
 
 
-		    	Polygon3D objBorder= dro.getBase().clone();
+		    	Polygon3D objBorder= dro.getBorder().clone();
 
 		    	Point3D center=Polygon3D.findCentroid(objBorder);
 				Polygon3D.rotate(objBorder,center,dro.rotation_angle);

@@ -36,14 +36,8 @@ public class DrawObject {
 	public int deltaX2=0;
 	
 	public Polygon3D base=null;
+	public Polygon3D border=null;
 
-	public Polygon3D getBase() {
-		return base;
-	}
-
-	public void setBase(Polygon3D base) {
-		this.base = base;
-	}
 
 	public Object clone()  {
 		DrawObject dro=new DrawObject();
@@ -64,9 +58,9 @@ public class DrawObject {
 			Polygon3D polig=(Polygon3D) polygons.elementAt(i);
 			dro.addPolygon(polig.clone());
 		}
-		dro.setMesh(getMesh().clone());
-		
+		dro.setMesh(getMesh().clone());		
 		dro.calculateBase();
+		
 		return dro;
 	}
 	
@@ -261,6 +255,7 @@ public class DrawObject {
 
 	public void setMesh(PolygonMesh mesh) {
 		this.mesh = mesh;
+		calculateBorder();
 	}
 	
 	public int getDeltaX() {
@@ -287,6 +282,15 @@ public class DrawObject {
 		this.deltaX2 = deltaX2;
 	}
 	
+
+	public Polygon3D getBorder() {
+		return border;
+	}
+
+	public void setBorder(Polygon3D border) {
+		this.border = border;
+	}
+	
 	public void calculateBase(){
 
 		int[] cx=new int[4];
@@ -309,6 +313,80 @@ public class DrawObject {
 		base=new Polygon3D(4,cx,cy,cz);
 
 
+	}
+	
+	public void calculateBorder() {
+		
+		
+		if(mesh==null || mesh.points==null)
+			return;
+		
+		double maxX=0;
+		double minX=0;
+		double maxY=0;
+		double minY=0;
+		
+		
+		boolean start=true;
+		
+		for(int i=0;i<mesh.points.length;i++){
+			
+			
+			Point3D point= mesh.points[i];
+			
+			if(point.z-z>1)
+				continue;
+			
+			if(start){
+				
+				maxX=point.x;
+				minX=point.x;
+				maxY=point.y;
+				minY=point.y;
+				
+				start=false;
+				continue;
+			}
+			
+			maxX=Math.max(point.x,maxX);
+			minX=Math.min(point.x,minX);
+			maxY=Math.max(point.y,maxY);
+			minY=Math.min(point.y,minY);
+				
+
+		}
+
+		double dx=maxX-minX;
+		double dy=maxY-minY;
+		
+		
+		int[] cx=new int[4];
+		int[] cy=new int[4];
+		int[] cz=new int[4];
+
+		cx[0]=(int) minX;
+		cy[0]=(int) minY;
+		cz[0]=(int) z;
+		cx[1]=(int) (minX+dx);
+		cy[1]=(int) minY;
+		cz[1]=(int) z;
+		cx[2]=(int) (minX+dx);
+		cy[2]=(int) (minY+dy);
+		cz[2]=(int) z;
+		cx[3]=(int) minX;
+		cy[3]=(int) (minY+dy);
+		cz[3]=(int) z;
+
+		border=new Polygon3D(4,cx,cy,cz);
+		
+	}
+
+	public Polygon3D getBase() {
+		return base;
+	}
+
+	public void setBase(Polygon3D base) {
+		this.base = base;
 	}
 	
 
