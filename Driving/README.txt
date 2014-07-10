@@ -441,5 +441,5 @@
 				 base dimater: 121 mm, light lamp length:588mm
 	table LxWxH:  140 cm x  79cm x 79 cm
 	toilet LxWxH: 69 cm X 36 cm x 36.5 cm
-	wardrobe height:
+	wardrobe LxWxH: 58 cm X 89.4 cm X 260 cm
 	
