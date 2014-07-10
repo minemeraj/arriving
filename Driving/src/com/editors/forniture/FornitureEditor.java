@@ -376,9 +376,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 
 	private void initRightWardrobeData() {
 		
-		x_side.setText(100);
-		y_side.setText(200);
-		z_side.setText(300);
+		x_side.setText(137);
+		y_side.setText(89);
+		z_side.setText(398);
 		
 		leg_length.setText(0);
 		leg_side.setText(0);
@@ -418,9 +418,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 
 	private void initRightCupboardData() {
 		
-		x_side.setText(137);
-		y_side.setText(89);
-		z_side.setText(398);
+		x_side.setText(171);
+		y_side.setText(76);
+		z_side.setText(150);
 		
 		leg_length.setText(0);
 		leg_side.setText(0);
