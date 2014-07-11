@@ -10,6 +10,8 @@ Added object: street light lamp.
 
 Added "put in cell" button to RaodEditor, for a faster object insertion.
 
+iIn RaodEditor rotation angle is copied from field in insertion.
+
 A better object collision detection.
 
 Changed textures generation in the ObjectEditor

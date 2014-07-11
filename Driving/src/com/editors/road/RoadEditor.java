@@ -2370,10 +2370,43 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			dro.setY(dro.getY()+dy*qty);
 			dro.setZ(dro.getZ()+dk*qty);
 			//dro.setSelected(false);
+			
+			if(!checkMultipleObjectsSelection.isSelected()){
+			
+				setObjectData(dro);					
+	
+			
+			}
+			
 		}
-
+       
 		//cleanObjects();
 		displayAll();
+		
+	}
+
+	private void setObjectData(DrawObject dro) { 
+		
+		if(!objcheckCoordinatesx.isSelected())
+			objcoordinatesx.setText(""+dro.x);
+		if(!objcheckCoordinatesy.isSelected())
+			objcoordinatesy.setText(""+dro.y);
+		if(!objcheckCoordinatesz.isSelected())
+			objcoordinatesz.setText(""+dro.z);
+		if(!objcheckCoordinatesdx.isSelected())
+			objcoordinatesdx.setText(""+dro.dx);
+		if(!objcheckCoordinatesdy.isSelected())
+			objcoordinatesdy.setText(""+dro.dy);
+		if(!objcheckCoordinatesdz.isSelected())
+			objcoordinatesdz.setText(""+dro.dz);
+		for(int k=0;k<chooseObject.getItemCount();k++){
+
+			ValuePair vp=(ValuePair) chooseObject.getItemAt(k);
+			if(vp.getId().equals(""+dro.index) )
+				chooseObject.setSelectedItem(vp);
+		}
+		colorObjChoice.setBackground(ZBuffer.fromHexToColor(dro.hexColor));
+		rotation_angle.setText(dro.rotation_angle);
 		
 	}
 
@@ -2680,7 +2713,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		double y=objcoordinatesy.getvalue();
 		double z=objcoordinatesz.getvalue();
 		
-		cleanObjects();
+		
 		int index=0;
 		ValuePair vp=(ValuePair) chooseObject.getSelectedItem();
 		if(vp!=null && !vp.getValue().equals(""))
@@ -2690,7 +2723,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		int dim_y=objectMeshes[index].getDeltaY2()-objectMeshes[index].getDeltaY();
 		int dim_z=objectMeshes[index].getDeltaX();
 		
-		addObject(x,y,z,dim_x,dim_y,dim_z,index);
+		double rot_angle=rotation_angle.getvalue();rotation_angle.getText();
+		
+		cleanObjects();
+		
+		addObject(x,y,z,dim_x,dim_y,dim_z,index,rot_angle);
 
 	}
 
@@ -2726,14 +2763,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				int dim_y=objectMeshes[index].getDeltaY2()-objectMeshes[index].getDeltaY();
 				int dim_z=objectMeshes[index].getDeltaX();
 				
-				addObject(x,y,z,dim_x,dim_y,dim_z,index);
+				double rot_angle=rotation_angle.getvalue();
+				
+				addObject(x,y,z,dim_x,dim_y,dim_z,index,rot_angle);
 				break;
 			}	
 		}
 	
 	}
 	
-	private void addObject(double x, double y, double z, int dx, int dy, int dz,int index) {
+	private void addObject(double x, double y, double z, int dx, int dy, int dz,int index,double rot_angle) {
 
 		prepareUndoObjects();
 
@@ -2746,7 +2785,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		dro.dy=dy;
 		dro.dz=dz;
 		dro.setHexColor("FFFFFF");
-		dro.setRotation_angle(0);
+		dro.setRotation_angle(rot_angle);
 
 
 		if(!"".equals(objcoordinatesx.getText()))
@@ -2777,7 +2816,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			dro.setMesh(mesh);
 		}
 		dro.setHexColor(ZBuffer.fromColorToHex(colorObjChoice.getBackground()));
-		dro.setRotation_angle(rotation_angle.getvalue());
+		dro.setRotation_angle(rot_angle);
 		drawObjects.add(dro);
 
 
@@ -4103,26 +4142,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			if(p_in.contains(x,y))
 			{
 				dro.setSelected(true);
-				if(!objcheckCoordinatesx.isSelected())
-					objcoordinatesx.setText(""+dro.x);
-				if(!objcheckCoordinatesy.isSelected())
-					objcoordinatesy.setText(""+dro.y);
-				if(!objcheckCoordinatesz.isSelected())
-					objcoordinatesz.setText(""+dro.z);
-				if(!objcheckCoordinatesdx.isSelected())
-					objcoordinatesdx.setText(""+dro.dx);
-				if(!objcheckCoordinatesdy.isSelected())
-					objcoordinatesdy.setText(""+dro.dy);
-				if(!objcheckCoordinatesdz.isSelected())
-					objcoordinatesdz.setText(""+dro.dz);
-				for(int k=0;k<chooseObject.getItemCount();k++){
-
-					ValuePair vp=(ValuePair) chooseObject.getItemAt(k);
-					if(vp.getId().equals(""+dro.index) )
-						chooseObject.setSelectedItem(vp);
-				}
-				colorObjChoice.setBackground(ZBuffer.fromHexToColor(dro.hexColor));
-				rotation_angle.setText(dro.rotation_angle);
+				setObjectData(dro);
+				
+	
 				if(checkMultipleObjectsSelection.isSelected()){
 					found=true;
 					break;
