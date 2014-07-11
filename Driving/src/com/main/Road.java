@@ -122,6 +122,7 @@ public class Road extends Shader{
 	public CarDynamics carDynamics=null;	
 	public CarFrame carFrame=null;
 
+
 	public Road(int WITDH,int HEIGHT, CarFrame carFrame){
 		
 		this.carFrame=carFrame;
@@ -134,7 +135,6 @@ public class Road extends Shader{
 		YFOCUS=HEIGHT/2;
 		XFOCUS=WITDH/2;
 		loadRoad();
-		
 		totalVisibleField=buildVisibileArea(SCREEN_DISTANCE,NYVISIBLE*dy+SCREEN_DISTANCE);
 		
 		
@@ -174,8 +174,8 @@ public class Road extends Shader{
 		buildNewZBuffers();	    
 		
 		
-		//calculateShadowMap();
-		calculateShadowVolumes(drawObjects);
+		if(!carFrame.skipShading)
+			calculateShadowVolumes(drawObjects);
 		
 		initialiazeCarDynamics();
 		
@@ -303,8 +303,9 @@ public class Road extends Shader{
 		
 		
 		carData=new CarData[vCarData.size()];
+		
 		carShadowVolume=new ShadowVolume[vCarData.size()] ; 
-
+		
 		for (int i = 0; i < vCarData.size(); i++) {
 			File file = (File) vCarData.elementAt(i);
 			
@@ -313,9 +314,9 @@ public class Road extends Shader{
 			CAR_LENGTH=carData[i].carMesh.deltaY2-carData[i].carMesh.deltaY;
 			carData[i].getCarMesh().translate(WIDTH/2-CAR_WIDTH/2-XFOCUS,y_edge,-YFOCUS);
 
-
-			carShadowVolume[i]=initShadowVolume(carData[i].carMesh);
-			
+			if(!carFrame.skipShading){
+				carShadowVolume[i]=initShadowVolume(carData[i].carMesh);
+			}
 			
 		}
 
@@ -443,8 +444,9 @@ public class Road extends Shader{
 		
 		 cm.translate(POSX,POSY,-MOVZ);
 		 cm.rotate(POSX, POSY,viewDirectionCos,viewDirectionSin);
-		 buildShadowVolumeBox(carShadowVolume[SELECTED_CAR],cm);
-		
+		 if(!carFrame.skipShading){
+			 buildShadowVolumeBox(carShadowVolume[SELECTED_CAR],cm);
+		 }
 
 	}
 
@@ -663,8 +665,9 @@ public class Road extends Shader{
 
 		drawCar();
 
-		
-		calculateStencilBuffer();
+		if(!carFrame.skipShading){
+			calculateStencilBuffer();
+		}
 		buildScreen(buf); 
 		//showMemoryUsage();
 
@@ -1546,8 +1549,8 @@ public class Road extends Shader{
 
 			decomposeCubicMesh(cm,autocar.texture,roadZbuffer);
 
-			
-			buildShadowVolumeBox(autocarShadowVolume[i],cm);
+			if(!carFrame.skipShading)
+				buildShadowVolumeBox(autocarShadowVolume[i],cm);
 			
 			
 
@@ -1614,10 +1617,13 @@ public class Road extends Shader{
 		
 		autocarShadowVolume=new ShadowVolume[autocars.length];
 		
-		for (int i = 0; i < autocarShadowVolume.length; i++) {
-			autocarShadowVolume[i]=initShadowVolume(autocars[i].carData.carMesh);
-		}
+		if(!carFrame.skipShading){
+			
+			for (int i = 0; i < autocarShadowVolume.length; i++) {
+				autocarShadowVolume[i]=initShadowVolume(autocars[i].carData.carMesh);
+			}
 		
+		}
 		autocarTerrainNormal=new Point3D[autocars.length];
 	}
 

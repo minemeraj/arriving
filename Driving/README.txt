@@ -1,5 +1,5 @@
 	**********************
-	*  READ ME CARDRIVING VERSION   7.0.18
+	*  READ ME CARDRIVING VERSION   7.0.21
 	*
 	*  by Piazza Francesco Giovanni 
 	*  Tecnes Milano ,Italy http://www.tecnes.com ; Tel.: +39.02.67101036
@@ -24,6 +24,10 @@
 	* in the same directory and write :
 	*
 	* java -Xms128m -Xmx256m  -classpath Driving.jar   com.main.CarFrame
+	*
+	* to launch without shading, to lower the load, use command:
+	*
+	* java -Xms128m -Xmx256m  -classpath Driving.jar   com.main.CarFrame -s
 	*
 	* to launch the road editor use the command:
 	*

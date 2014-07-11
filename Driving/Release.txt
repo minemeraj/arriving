@@ -1,3 +1,10 @@
+
+Added optional parameter -s, to launch program without shading:
+	
+java -Xms128m -Xmx256m  -classpath Driving.jar   com.main.CarFrame -s
+
+This is in order to lower the load for less powerful machines. See README.txt
+
 A better object collision detection.
 
 Changed textures generation in the ObjectEditor

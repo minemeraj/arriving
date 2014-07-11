@@ -113,16 +113,28 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
     double delta=0.30;
 	private boolean isProgramPaused=true;
 	
+	
+	public boolean skipShading=false;
+	
 	 public static void main(String[] args) {
-		CarFrame ff=new CarFrame();
+		 
+		boolean  skipShading=false;
+		
+		if(args.length==1)
+			skipShading="-s".equals(args[0]);
+		 
+		CarFrame ff=new CarFrame(skipShading);
 		//ff.initialize();
 	
 	}
 	 
 	 
-	public CarFrame(){
-	
-	 super(); 
+	public CarFrame(boolean skipShading){
+		
+	 super();
+	 
+	 this.skipShading=skipShading;	
+	 
 	 setTitle(VERSION);
 	 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	 setLayout(null);
