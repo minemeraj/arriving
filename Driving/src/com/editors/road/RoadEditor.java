@@ -84,9 +84,6 @@ import com.editors.ValuePair;
 import com.main.HelpPanel;
 import com.main.Road;
 
-
-
-
 /**
  * @author Piazza Francesco Giovanni ,Tecnes Milano http://www.tecnes.com
  *
@@ -247,6 +244,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public int[] rgb=null;
 	public Color selectionColor=null;
 	private JMenuItem jmtExpandGrid;
+	private JButton put_object;
 
 	
 	public RoadEditor(String title){
@@ -1869,6 +1867,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		left.add(deselectAllObjects);
 
 		r+=30;
+		
+		put_object=new JButton("Put in cell");
+		put_object.setBounds(5,r,100,20);
+		put_object.addActionListener(this);
+		put_object.addKeyListener(this);
+		left.add(put_object);
+		
+		r+=30;
 
 		add(left);
 
@@ -2688,6 +2694,45 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 
+	private void putObjectInCell() {
+		
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+
+		if(mesh==null || mesh.polygonData==null)
+			return;
+
+
+		int sizel=mesh.polygonData.size();
+		for(int j=0;j<sizel;j++){
+			
+			
+			LineData ld=(LineData)mesh.polygonData.elementAt(j);
+
+			if(ld.isSelected()){
+				
+				Point3D p=mesh.points[ld.getIndex(0)];
+
+				double x=p.x;
+				double y=p.y;
+				double z=p.z;
+				
+				cleanObjects();
+				int index=0;
+				ValuePair vp=(ValuePair) chooseObject.getSelectedItem();
+				if(vp!=null && !vp.getValue().equals(""))
+					index=Integer.parseInt(vp.getId());
+				
+				int dim_x=objectMeshes[index].getDeltaX2()-objectMeshes[index].getDeltaX();
+				int dim_y=objectMeshes[index].getDeltaY2()-objectMeshes[index].getDeltaY();
+				int dim_z=objectMeshes[index].getDeltaX();
+				
+				addObject(x,y,z,dim_x,dim_y,dim_z,index);
+				break;
+			}	
+		}
+	
+	}
+	
 	private void addObject(double x, double y, double z, int dx, int dy, int dz,int index) {
 
 		prepareUndoObjects();
@@ -3155,6 +3200,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		else if(o==deselectAllObjects){
 			cleanObjects();
+		}
+		else if(o==put_object){
+			putObjectInCell();
 		}
 		else if(o==choosePanelTexture[ACTIVE_PANEL]){
 			

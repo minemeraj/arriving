@@ -8,6 +8,8 @@ This is in order to lower the load for less powerful machines. See README.txt
 
 Added object: street light lamp.
 
+Added "put in cell" button to RaodEditor, for a faster object insertion.
+
 A better object collision detection.
 
 Changed textures generation in the ObjectEditor
