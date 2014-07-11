@@ -376,11 +376,8 @@
    
    See my Driving2D project for instructions and editors. 
     
-   **************
+   ************** PERFORMANCE NOTES   
    
-   
-    Notes
-    
    	The actual drawing operation reaches a maximum of 28 fps,  with a minimum of 17 fps.
    	
    	

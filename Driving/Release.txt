@@ -5,6 +5,9 @@ java -Xms128m -Xmx256m  -classpath Driving.jar   com.main.CarFrame -s
 
 This is in order to lower the load for less powerful machines. See README.txt
 
+
+Added object: street light lamp.
+
 A better object collision detection.
 
 Changed textures generation in the ObjectEditor
