@@ -674,8 +674,7 @@ public class Animal extends CustomData{
 		pFrontLeftForearm[1][1][0]=addBPoint(xc-ax+leg_side,ay+leg_side,az,LEFT_RADIUS);
 		pFrontLeftForearm[0][1][0]=addBPoint(xc-ax,ay+leg_side,az,LEFT_RADIUS);
 
-		
-		addLine(pFrontLeftForearm[0][0][0],pFrontLeftForearm[0][1][0],pFrontLeftForearm[1][1][0],pFrontLeftForearm[1][0][0],Renderer3D.CAR_BOTTOM);
+	
 
 		
 		pFrontLeftForearm[0][0][1]=addBPoint(xc-ax,ay,az+radius_length,LEFT_RADIUS);
@@ -729,6 +728,29 @@ public class Animal extends CustomData{
 
 		addLine(pFrontLeftArm[1][0][0],pFrontLeftArm[1][0][1],pFrontLeftArm[0][0][1],pFrontLeftArm[0][0][0],Renderer3D.CAR_BACK);
 	
+		//left hand
+		
+		BPoint[][][] pLeftHand=new BPoint[2][2][2];	
+		
+		pLeftHand[0][0][1]=pFrontLeftForearm[0][0][0];
+		pLeftHand[1][0][1]=pFrontLeftForearm[1][0][0];
+		pLeftHand[1][1][1]=pFrontLeftForearm[1][1][0];
+		pLeftHand[0][1][1]=pFrontLeftForearm[0][1][0];
+		
+		pLeftHand[0][0][0]=addBPoint(pLeftHand[0][0][1].x,pLeftHand[0][0][1].y,pLeftHand[0][0][1].z-hand_length,LEFT_RADIUS);
+		pLeftHand[1][0][0]=addBPoint(pLeftHand[1][0][1].x,pLeftHand[1][0][1].y,pLeftHand[1][0][1].z-hand_length,LEFT_RADIUS);
+		pLeftHand[1][1][0]=addBPoint(pLeftHand[1][1][1].x,pLeftHand[1][1][1].y,pLeftHand[1][1][1].z-hand_length,LEFT_RADIUS);
+		pLeftHand[0][1][0]=addBPoint(pLeftHand[0][1][1].x,pLeftHand[0][1][1].y,pLeftHand[0][1][1].z-hand_length,LEFT_RADIUS);
+		
+		addLine(pLeftHand[0][0][0],pLeftHand[0][0][1],pLeftHand[0][1][1],pLeftHand[0][1][0],Renderer3D.CAR_LEFT);
+
+		addLine(pLeftHand[0][1][0],pLeftHand[0][1][1],pLeftHand[1][1][1],pLeftHand[1][1][0],Renderer3D.CAR_FRONT);
+
+		addLine(pLeftHand[1][1][0],pLeftHand[1][1][1],pLeftHand[1][0][1],pLeftHand[1][0][0],Renderer3D.CAR_RIGHT);
+
+		addLine(pLeftHand[1][0][0],pLeftHand[1][0][1],pLeftHand[0][0][1],pLeftHand[0][0][0],Renderer3D.CAR_BACK);		
+		
+		addLine(pLeftHand[0][0][0],pLeftHand[0][1][0],pLeftHand[1][1][0],pLeftHand[1][0][0],Renderer3D.CAR_BOTTOM);
 		
 		//Right forearm
 		
@@ -792,6 +814,31 @@ public class Animal extends CustomData{
 		addLine(pFrontRightArm[1][1][0],pFrontRightArm[1][1][1],pFrontRightArm[1][0][1],pFrontRightArm[1][0][0],Renderer3D.CAR_RIGHT);
 		
 		addLine(pFrontRightArm[1][0][0],pFrontRightArm[1][0][1],pFrontRightArm[0][0][1],pFrontRightArm[0][0][0],Renderer3D.CAR_BACK);
+		
+		
+		//left hand
+		
+		BPoint[][][] pRightHand=new BPoint[2][2][2];	
+		
+		pRightHand[0][0][1]=pFrontRightForearm[0][0][0];
+		pRightHand[1][0][1]=pFrontRightForearm[1][0][0];
+		pRightHand[1][1][1]=pFrontRightForearm[1][1][0];
+		pRightHand[0][1][1]=pFrontRightForearm[0][1][0];
+		
+		pRightHand[0][0][0]=addBPoint(pRightHand[0][0][1].x,pRightHand[0][0][1].y,pRightHand[0][0][1].z-hand_length,RIGHT_RADIUS);
+		pRightHand[1][0][0]=addBPoint(pRightHand[1][0][1].x,pRightHand[1][0][1].y,pRightHand[1][0][1].z-hand_length,RIGHT_RADIUS);
+		pRightHand[1][1][0]=addBPoint(pRightHand[1][1][1].x,pRightHand[1][1][1].y,pRightHand[1][1][1].z-hand_length,RIGHT_RADIUS);
+		pRightHand[0][1][0]=addBPoint(pRightHand[0][1][1].x,pRightHand[0][1][1].y,pRightHand[0][1][1].z-hand_length,RIGHT_RADIUS);
+		
+		addLine(pRightHand[0][0][0],pRightHand[0][0][1],pRightHand[0][1][1],pRightHand[0][1][0],Renderer3D.CAR_RIGHT);
+
+		addLine(pRightHand[0][1][0],pRightHand[0][1][1],pRightHand[1][1][1],pRightHand[1][1][0],Renderer3D.CAR_FRONT);
+
+		addLine(pRightHand[1][1][0],pRightHand[1][1][1],pRightHand[1][0][1],pRightHand[1][0][0],Renderer3D.CAR_RIGHT);
+
+		addLine(pRightHand[1][0][0],pRightHand[1][0][1],pRightHand[0][0][1],pRightHand[0][0][0],Renderer3D.CAR_BACK);		
+		
+		addLine(pRightHand[0][0][0],pRightHand[0][1][0],pRightHand[1][1][0],pRightHand[1][0][0],Renderer3D.CAR_BOTTOM);
 		
 
 		PolygonMesh pm=new PolygonMesh(points,polyData);

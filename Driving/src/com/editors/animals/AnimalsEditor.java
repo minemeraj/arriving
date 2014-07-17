@@ -370,8 +370,9 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 		
 		
 		leg_side.setText(17);
-		humerus_length.setText(100);
-		radius_length.setText(50);
+		humerus_length.setText(74);
+		radius_length.setText(53);
+		hand_length.setText(41);
 		
 		femur_length.setText(100);
 		shinbone_length.setText(100);
