@@ -1,5 +1,5 @@
 Animal custom editor modified to produce meshes with points marked as body parts, to be used 
-within my projects Manikin.
+within my projects Manikin. Review of proportions
 
 Fixed Bookcase forniture object.
 

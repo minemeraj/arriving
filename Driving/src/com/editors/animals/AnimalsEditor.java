@@ -356,7 +356,7 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 	public void initRightDataHuman() {
 		
 
-		x_side.setText(100);
+		x_side.setText(86);
 		y_side.setText(40);
 		z_side.setText(130);
 	
@@ -369,7 +369,7 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 		neck_side.setText(40);
 		
 		
-		leg_side.setText(20);
+		leg_side.setText(17);
 		humerus_length.setText(100);
 		radius_length.setText(50);
 		

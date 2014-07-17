@@ -337,7 +337,7 @@ public class Animal extends CustomData{
 		//body:
 		
 	
-		double SHOULDER_DX=10;	
+		double SHOULDER_DX=leg_side*0.5;	
 		double SHOULDER_WIDTH=SHOULDER_DX+x_side*0.5;		
 		double WAIST_DX=x_side*0.1;
 		double WAIST_WIDTH=x_side*0.5-WAIST_DX;
