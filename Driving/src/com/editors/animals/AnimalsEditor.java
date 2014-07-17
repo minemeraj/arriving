@@ -383,9 +383,9 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 	public void initRightDataQuadruped() { 
 		
 	 
-		x_side.setText(100);
-		y_side.setText(200);
-		z_side.setText(100);
+		x_side.setText(150);
+		y_side.setText(364);
+		z_side.setText(123);
 		
 		neck_length.setText(100);
 		neck_side.setText(50);
@@ -393,12 +393,12 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 		head_DX.setText(70);
 		head_DY.setText(120);
 		
-		femur_length.setText(100);
-		shinbone_length.setText(100);
+		femur_length.setText(113);
+		shinbone_length.setText(110);
 		leg_side.setText(20);
 		
-		humerus_length.setText(100);
-		radius_length.setText(50);
+		humerus_length.setText(120);
+		radius_length.setText(70);
 		hand_length.setText(30);
 		
 		foot_length.setText(30);
