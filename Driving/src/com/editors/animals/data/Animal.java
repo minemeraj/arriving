@@ -332,7 +332,7 @@ public class Animal extends CustomData{
 		n=0;
 
 		double xc=0.0;
-		double yc=y_side*0.5;
+		double yc=0;//=y_side*0.5;
 
 		//body:
 		
@@ -523,7 +523,7 @@ public class Animal extends CustomData{
 		
 		double thigh_indentation=femur_length*Math.sin(q_angle);
 		double thigh_side=leg_side+thigh_indentation;
-		double LEG_DY=(y_side-leg_side)/2.0;
+		double LEG_DY=(-leg_side)/2.0;
 
 		//LeftLeg
 		
@@ -664,7 +664,7 @@ public class Animal extends CustomData{
 		
 		double ax=x_side*0.5+SHOULDER_DX+leg_side;
 		double az=femur_length+shinbone_length+z_side-humerus_length-radius_length;
-		double ay=(y_side-leg_side)/2.0;
+		double ay=(-leg_side)/2.0;
 		
 		
 		BPoint[][][] pFrontLeftForearm=new BPoint[2][2][2];
@@ -849,7 +849,7 @@ public class Animal extends CustomData{
 
 	private BPoint[][][] buildHumanHeadMesh(double xc) {
 	
-		double yc=y_side/2.0;
+		double yc=0;
 	
 		Segments n0=new Segments(xc,neck_side*0.5,yc,y_side,femur_length+shinbone_length+z_side+neck_length,head_DZ);
 		Segments h0=new Segments(xc,head_DX*0.5,yc,head_DY*0.5,femur_length+shinbone_length+z_side+neck_length,head_DZ);
