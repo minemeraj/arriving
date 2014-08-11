@@ -530,10 +530,10 @@ public class Animal extends CustomData{
 		
 		BPoint[][][] pBackLeftLeg=new BPoint[2][2][2];
 
-		pBackLeftLeg[0][0][0]=addBPoint(xc-x_side*0.5+thigh_indentation,LEG_DY,0,LEFT_HOMERUS);
-		pBackLeftLeg[1][0][0]=addBPoint(xc-x_side*0.5+thigh_indentation+leg_side,LEG_DY,0,LEFT_HOMERUS);
-		pBackLeftLeg[1][1][0]=addBPoint(xc-x_side*0.5+thigh_indentation+leg_side,leg_side+LEG_DY,0,LEFT_HOMERUS);
-		pBackLeftLeg[0][1][0]=addBPoint(xc-x_side*0.5+thigh_indentation,leg_side+LEG_DY,0,LEFT_HOMERUS);
+		pBackLeftLeg[0][0][0]=addBPoint(xc-x_side*0.5+thigh_indentation,LEG_DY,0,LEFT_SHINBONE);
+		pBackLeftLeg[1][0][0]=addBPoint(xc-x_side*0.5+thigh_indentation+leg_side,LEG_DY,0,LEFT_SHINBONE);
+		pBackLeftLeg[1][1][0]=addBPoint(xc-x_side*0.5+thigh_indentation+leg_side,leg_side+LEG_DY,0,LEFT_SHINBONE);
+		pBackLeftLeg[0][1][0]=addBPoint(xc-x_side*0.5+thigh_indentation,leg_side+LEG_DY,0,LEFT_SHINBONE);
 
 		addLine(pBackLeftLeg[0][0][0],pBackLeftLeg[0][1][0],pBackLeftLeg[1][1][0],pBackLeftLeg[1][0][0],Renderer3D.CAR_FRONT);
 
@@ -597,10 +597,10 @@ public class Animal extends CustomData{
 		
 		BPoint[][][] pBackRightLeg=new BPoint[2][2][2];
 
-		pBackRightLeg[0][0][0]=addBPoint(xc+x_side*0.5-leg_side-thigh_indentation,LEG_DY,0,RIGHT_FEMUR);
-		pBackRightLeg[1][0][0]=addBPoint(xc+x_side*0.5-thigh_indentation,LEG_DY,0,RIGHT_FEMUR);
-		pBackRightLeg[1][1][0]=addBPoint(xc+x_side*0.5-thigh_indentation,LEG_DY+leg_side,0,RIGHT_FEMUR);
-		pBackRightLeg[0][1][0]=addBPoint(xc+x_side*0.5-leg_side-thigh_indentation,LEG_DY+leg_side,0,RIGHT_FEMUR);
+		pBackRightLeg[0][0][0]=addBPoint(xc+x_side*0.5-leg_side-thigh_indentation,LEG_DY,0,RIGHT_SHINBONE);
+		pBackRightLeg[1][0][0]=addBPoint(xc+x_side*0.5-thigh_indentation,LEG_DY,0,RIGHT_SHINBONE);
+		pBackRightLeg[1][1][0]=addBPoint(xc+x_side*0.5-thigh_indentation,LEG_DY+leg_side,0,RIGHT_SHINBONE);
+		pBackRightLeg[0][1][0]=addBPoint(xc+x_side*0.5-leg_side-thigh_indentation,LEG_DY+leg_side,0,RIGHT_SHINBONE);
 
 		addLine(pBackRightLeg[0][0][0],pBackRightLeg[0][1][0],pBackRightLeg[1][1][0],pBackRightLeg[1][0][0],Renderer3D.CAR_FRONT);
 
