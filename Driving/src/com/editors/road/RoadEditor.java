@@ -245,6 +245,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public Color selectionColor=null;
 	private JMenuItem jmtExpandGrid;
 	private JButton put_object;
+	private JMenuItem jmtBuildCity;
 
 	
 	public RoadEditor(String title){
@@ -1590,6 +1591,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		jmtAddGrid = new JMenuItem("Add grid");
 		jmtAddGrid.addActionListener(this);
 		jm5.add(jmtAddGrid);
+		
+		jm5.addSeparator();
+		
+		jmtBuildCity = new JMenuItem("Build Custom city");
+		jmtBuildCity.addActionListener(this);
+		jm5.add(jmtBuildCity);
 		
 		jm5.addSeparator();
 		
@@ -3185,6 +3192,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		else if(o==jmtAddGrid){
 			addGrid();
 		}
+		else if(o==jmtBuildCity){
+			buildCity();
+		}		
 		else if(o==jmtAddBendMesh){
 			addBendMesh();
 		}
@@ -3353,6 +3363,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		
 	}
+
+
 
 
 	public void menuCanceled(MenuEvent e) {
@@ -3683,7 +3695,17 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 	
-
+	private void buildCity() {
+		
+		RoadEditorCityManager regm=new RoadEditorCityManager(null);
+		
+		if(regm.getReturnValue()!=null){
+			
+			RoadEditorCityManager roadECM=(RoadEditorCityManager) regm.getReturnValue();
+		}
+		
+	}
+	
 	private void levelRoadTerrain(int action) {
 		
 	

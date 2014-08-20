@@ -1,3 +1,7 @@
+Added new object: passerby.
+
+Added in the editor the feature Editing->Build Custom city
+
 Animal custom editor modified to produce meshes with points marked as body parts, to be used 
 within my projects Manikin. Review of proportions for man and quadruped.
 
