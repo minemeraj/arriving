@@ -2,12 +2,17 @@ package com.editors.road;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.LineData;
+import com.Point3D;
+import com.Point4D;
+import com.PolygonMesh;
 import com.SquareMesh;
 import com.editors.DoubleTextField;
 
@@ -108,6 +113,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 		
 		DX_Field=new DoubleTextField();
 		DX_Field.setBounds(50,r,100,20);
+		DX_Field.setEnabled(false);
 		center.add(DX_Field);
 		
 		r+=30;
@@ -118,6 +124,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 		
 		DY_Field=new DoubleTextField();
 		DY_Field.setBounds(50,r,100,20);
+		DY_Field.setEnabled(false);
 		center.add(DY_Field);
 		
 		DX_Field.setText(DX);
@@ -305,6 +312,69 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 
 	public void setY0(double y0) {
 		Y0 = y0;
+	}
+
+
+
+	public static void buildCustomCity1(PolygonMesh polygonMesh,
+			RoadEditorCityManager roadECM) {
+	
+		int numx=roadECM.NX;
+		int numy=roadECM.NY;
+		
+		double dx=roadECM.DX;
+		double dy=roadECM.DY;
+		
+		double x_0=roadECM.X0;
+		double y_0=roadECM.Y0;
+		
+		polygonMesh.polygonData=new Vector();
+		
+		Point4D[] newPoints = new Point4D[numy*numx];
+		 
+		for(int i=0;i<numx;i++){
+			for(int j=0;j<numy;j++){
+				
+				int tot=i+j*numx;
+				
+				double x=x_0+dx*i;
+				double y=y_0+dy*j;
+				
+				newPoints[tot]=new Point4D(x,y,0);
+				
+			}
+
+		}
+		
+		polygonMesh.points=newPoints;
+		
+		for(int i=0;i<numx-1;i++){
+			for(int j=0;j<numy-1;j++){
+				
+				int tot=i+j*numx;
+				
+				double x=x_0+dx*i;
+				double y=y_0+dy*j;
+				
+				newPoints[tot]=new Point4D(x,y,0);
+				
+				int pl1=i+numx*j;
+				int pl2=i+numx*(j+1);
+				int pl3=i+1+numx*(j+1);
+				int pl4=i+1+numx*j;
+				
+				LineData ld=new LineData(pl1, pl4, pl3, pl2);
+				
+				
+				ld.setTexture_index(0);
+
+				
+				polygonMesh.polygonData.add(ld);
+				
+			}
+
+		}
+		
 	}
 	
 	

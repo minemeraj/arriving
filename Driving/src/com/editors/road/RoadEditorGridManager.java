@@ -109,6 +109,7 @@ public class RoadEditorGridManager extends JDialog implements ActionListener{
 		center.add(jlb);
 		
 		DX_Field=new DoubleTextField();
+		DX_Field.setEnabled(false);
 		DX_Field.setBounds(50,r,100,20);
 		center.add(DX_Field);
 		
@@ -120,6 +121,7 @@ public class RoadEditorGridManager extends JDialog implements ActionListener{
 		
 		DY_Field=new DoubleTextField();
 		DY_Field.setBounds(50,r,100,20);
+		DY_Field.setEnabled(false);
 		center.add(DY_Field);
 		
 		DX_Field.setText(DX);
