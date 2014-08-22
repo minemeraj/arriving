@@ -246,6 +246,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JMenuItem jmtExpandGrid;
 	private JButton put_object;
 	private JMenuItem jmtBuildCity;
+	private JMenuItem help_jmt;
 
 	
 	public RoadEditor(String title){
@@ -1637,6 +1638,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		help_jm=new JMenu("Help");
 		help_jm.addMenuListener(this);		
 		jmb.add(help_jm);
+		
+		help_jmt=new JMenuItem("Help");
+		help_jmt.addActionListener(this);		
+		help_jm.add(help_jmt);
 
 		setJMenuBar(jmb);
 	}
@@ -3360,7 +3365,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 			levelRoadTerrain(-1);
 
-		}
+		}else if(o==help_jmt){
+			help();
+		}	
 		
 		
 	}
@@ -3384,11 +3391,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
     	
     	Object o = arg0.getSource();
     	
-		if(o==help_jm){
-			
-			help();
-			
-		}
+
     }
     
 	private void help() {
