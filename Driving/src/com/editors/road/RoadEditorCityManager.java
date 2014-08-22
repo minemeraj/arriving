@@ -31,7 +31,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 	double Y0=0;
 	
 	int WIDTH=230;
-	int HEIGHT=260;
+	int HEIGHT=230;
 	private DoubleTextField NX_Field;
 	private DoubleTextField NY_Field;
 	
@@ -42,8 +42,6 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 	
 	JButton update=null;
 	JButton cancel=null;
-	private DoubleTextField DX_Field;
-	private DoubleTextField DY_Field;
 	
 	SquareMesh squareMesh=null;
 	
@@ -75,6 +73,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 		
 		NX_Field=new DoubleTextField();
 		NX_Field.setBounds(50,r,100,20);
+		NX_Field.setToolTipText("NX Blocks");
 		center.add(NX_Field);
 		
 		if(is_expand_mode){
@@ -92,6 +91,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 				
 		NY_Field=new DoubleTextField();
 		NY_Field.setBounds(50,r,100,20);
+		NY_Field.setToolTipText("NY Blocks");
 		center.add(NY_Field);
 		
 		if(is_expand_mode){
@@ -104,31 +104,6 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 		NX_Field.setText(NX);
 		NY_Field.setText(NY);
 
-		
-		r+=30;
-		
-		jlb=new JLabel("DX:");
-		jlb.setBounds(10,r,30,20);
-		center.add(jlb);
-		
-		DX_Field=new DoubleTextField();
-		DX_Field.setBounds(50,r,100,20);
-		DX_Field.setEnabled(false);
-		center.add(DX_Field);
-		
-		r+=30;
-		
-		jlb=new JLabel("DY:");
-		jlb.setBounds(10,r,30,20);
-		center.add(jlb);
-		
-		DY_Field=new DoubleTextField();
-		DY_Field.setBounds(50,r,100,20);
-		DY_Field.setEnabled(false);
-		center.add(DY_Field);
-		
-		DX_Field.setText(DX);
-		DY_Field.setText(DY);
 		
 		r+=30;
 		
@@ -160,16 +135,12 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 			NY_Field.setText(squareMesh.getNumy());
 			X0_Field.setText(squareMesh.getX0());
 			Y0_Field.setText(squareMesh.getY0());
-			DX_Field.setText(squareMesh.getDx());
-			DY_Field.setText(squareMesh.getDy());
 			setTitle("Expand terrain grid");
 			
 			
 			
 			X0_Field.setEditable(false);
 			Y0_Field.setEditable(false);
-			DX_Field.setEditable(false);
-			DY_Field.setEditable(false);
 		}
 		
 		r+=30;
@@ -219,9 +190,6 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 			
 			NX=(int) NX_Field.getvalue();
 			NY=(int) NY_Field.getvalue();
-		
-			DX= DX_Field.getvalue();
-			DY= DY_Field.getvalue();
 						
 			X0= X0_Field.getvalue();
 			Y0= Y0_Field.getvalue();
@@ -316,11 +284,18 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 
 
 
-	public static void buildCustomCity1(PolygonMesh polygonMesh,
+	public static void buildCustomCity1(PolygonMesh terrainMesh, PolygonMesh roadMesh,
 			RoadEditorCityManager roadECM) {
 	
-		int numx=roadECM.NX;
-		int numy=roadECM.NY;
+		int nx_blocks=roadECM.NX;
+		int ny_blocks=roadECM.NY;
+		
+		int road_textures=2;
+		int block_xtextures=2;
+		int block_ytextures=3;
+		
+		int numx=nx_blocks*block_xtextures+(nx_blocks+1)*road_textures;
+		int numy=ny_blocks*block_ytextures+(ny_blocks+1)*road_textures;
 		
 		double dx=roadECM.DX;
 		double dy=roadECM.DY;
@@ -328,7 +303,9 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 		double x_0=roadECM.X0;
 		double y_0=roadECM.Y0;
 		
-		polygonMesh.polygonData=new Vector();
+		//new road
+		
+		roadMesh.polygonData=new Vector();
 		
 		Point4D[] newPoints = new Point4D[numy*numx];
 		 
@@ -346,10 +323,16 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 
 		}
 		
-		polygonMesh.points=newPoints;
+		roadMesh.points=newPoints;
 		
 		for(int i=0;i<numx-1;i++){
 			for(int j=0;j<numy-1;j++){
+				
+				if(i%(block_xtextures+road_textures)>road_textures-1
+						
+				&& 	j%(block_ytextures+road_textures)>road_textures-1	
+						)
+					continue;
 				
 				int tot=i+j*numx;
 				
@@ -369,11 +352,55 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 				ld.setTexture_index(0);
 
 				
-				polygonMesh.polygonData.add(ld);
+				roadMesh.polygonData.add(ld);
 				
 			}
 
 		}
+		
+		///// new terrain
+		
+		double gapX=-dx;
+		double gapY=-dy;
+
+        int numRoadx=numx+2;
+        int numRoady=numy+2;
+		
+        Point3D[] newRoadPoints = new Point3D[numRoadx*numRoady];
+
+		
+		for(int i=0;i<numRoadx;i++)
+			for(int j=0;j<numRoady;j++)
+			{
+				
+				Point4D p=new Point4D(i*dx+x_0+gapX,j*dy+y_0+gapY,0);
+			
+				newRoadPoints[i+j*numRoadx]=p;
+
+			}
+
+		terrainMesh.points=newRoadPoints;
+		terrainMesh.polygonData=new Vector();
+		
+		for(int i=0;i<numRoadx-1;i++)
+			for(int j=0;j<numRoady-1;j++){
+
+
+				//lower base
+				int pl1=i+numRoadx*j;
+				int pl2=i+numRoadx*(j+1);
+				int pl3=i+1+numRoadx*(j+1);
+				int pl4=i+1+numRoadx*j;
+				
+				LineData ld=new LineData(pl1, pl4, pl3, pl2);
+				
+				ld.setTexture_index(2);
+				
+				terrainMesh.polygonData.add(ld);
+				
+				
+				
+			}
 		
 	}
 	

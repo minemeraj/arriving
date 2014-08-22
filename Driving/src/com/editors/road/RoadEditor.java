@@ -3702,7 +3702,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		if(regm.getReturnValue()!=null){
 			
 			RoadEditorCityManager roadECM=(RoadEditorCityManager) regm.getReturnValue();
-			RoadEditorCityManager.buildCustomCity1(meshes[1],roadECM);
+			RoadEditorCityManager.buildCustomCity1(meshes[0],meshes[1],roadECM);
+			meshes[1]=PolygonMesh.simplifyMesh(meshes[1]);
 			
 			displayAll();
 		}
