@@ -9,6 +9,8 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.CubicMesh;
+import com.DrawObject;
 import com.LineData;
 import com.Point3D;
 import com.Point4D;
@@ -285,7 +287,9 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 
 
 	public static void buildCustomCity1(PolygonMesh terrainMesh, PolygonMesh roadMesh,
-			RoadEditorCityManager roadECM) {
+			RoadEditorCityManager roadECM, Vector drawObjects, CubicMesh[] objectMeshes) {
+		
+		
 	
 		int nx_blocks=roadECM.NX;
 		int ny_blocks=roadECM.NY;
@@ -402,6 +406,41 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 				
 			}
 		
+		//add objects
+		
+		drawObjects.clear();
+		
+		for(int i=0;i<numx-1;i++){
+			for(int j=0;j<numy-1;j++){
+				
+				if(i%(block_xtextures+road_textures)==road_textures
+						
+				&& 	j%(block_ytextures+road_textures)==road_textures	
+						)
+					{
+					
+						int tot=i+j*numx;
+					    Point3D p = newRoadPoints[tot];
+					    
+					    //set object=4 w=200px,l=600px
+					    
+					    double dpx=(block_xtextures*dx-200)*0.5;
+					    double dpy=(block_ytextures*dy-600)*0.5;
+					    
+					    DrawObject dro=new DrawObject();
+					    dro.setX(p.x+dpx);
+					    dro.setY(p.y+dpy);
+					    dro.setIndex(4);
+					    drawObjects.add(dro);
+					    
+						if(DrawObject.IS_3D){
+							CubicMesh mesh=objectMeshes[dro.getIndex()].clone();
+							dro.setMesh(mesh);
+						}
+					
+					}
+			}
+		}	
 	}
 	
 	
