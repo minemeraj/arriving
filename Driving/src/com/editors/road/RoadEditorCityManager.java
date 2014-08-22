@@ -420,7 +420,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 					{
 					
 						int tot=i+j*numx;
-					    Point3D p = newRoadPoints[tot];
+					    Point3D p = newPoints[tot];
 					    
 					    //set object=4 w=200px,l=600px
 					    
