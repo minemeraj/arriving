@@ -47,6 +47,8 @@ public class ZBuffer{
 		public static Color  fromHexToColor(String col){
 
 
+			if(col==null || col.equals(""))
+				return Color.WHITE;
 
 			int r=Integer.parseInt(col.substring(0,2),16);
 			int g=Integer.parseInt(col.substring(2,4),16);
