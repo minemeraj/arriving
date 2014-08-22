@@ -355,8 +355,10 @@ public class PolygonMesh implements Cloneable{
 				 Integer index=(Integer) ld.lineDatas.elementAt(j);
 				 Integer newIndex=(Integer)transformFunction.get(index);
 				 newLd.addIndex(newIndex.intValue());
+				 
 			}
 			newLd.setData(ld.getData());
+			newLd.setTexture_index(ld.getTexture_index());
 			newPolygonData.add(newLd);
 			
 		}	

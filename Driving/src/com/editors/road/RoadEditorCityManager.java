@@ -352,8 +352,10 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 				
 				LineData ld=new LineData(pl1, pl4, pl3, pl2);
 				
-				
-				ld.setTexture_index(0);
+				if(i%(block_xtextures+road_textures)>road_textures-1)
+					ld.setTexture_index(3);
+				else
+					ld.setTexture_index(0);
 
 				
 				roadMesh.polygonData.add(ld);
