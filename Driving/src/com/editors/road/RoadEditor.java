@@ -641,7 +641,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		buildScreen(buf); 
 
-		g2.drawImage(buf,0,0,WIDTH,HEIGHT,null);
+		if(g2!=null)
+			g2.drawImage(buf,0,0,WIDTH,HEIGHT,null);
 
 	}
 
