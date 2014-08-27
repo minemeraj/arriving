@@ -891,22 +891,22 @@ public class ObjectEditor extends Editor implements ActionListener{
 		
 			//back
 			pr.print("\nvt=");
-			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(-p.z+maxz+deltaY+deltaX));
+			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(p.z-minz));					
 			//top
 			pr.print("\nvt=");
-			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(-p.y+maxy+deltaX));
+			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(p.y-miny+deltaX));
 			//left
 			pr.print("\nvt=");
-			pr.print(DX+(int)(p.z-minz)+" "+(int)(-p.y+maxy+deltaX));			
+			pr.print(DX+(int)(p.z-minz)+" "+(int)(p.y-miny+deltaX));			
 			//right
 			pr.print("\nvt=");
-			pr.print(DX+(int)(-p.z+maxz+deltaX2)+" "+(int)(-p.y+maxy+deltaX));		
+			pr.print(DX+(int)(-p.z+maxz+deltaX2)+" "+(int)(p.y-miny+deltaX));		
 			//front
 			pr.print("\nvt=");
-			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(p.z-minz));
+			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(-p.z+maxz+deltaY+deltaX));	
 			//bottom
 			pr.print("\nvt=");
-			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(-p.y+maxy+deltaX));
+			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(p.y-miny+deltaX));
 
 		}	
 		
