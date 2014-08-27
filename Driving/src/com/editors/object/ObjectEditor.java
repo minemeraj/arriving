@@ -900,7 +900,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 			pr.print(DX+(int)(p.z-minz)+" "+(int)(p.y-miny+deltaX));			
 			//right
 			pr.print("\nvt=");
-			pr.print(DX+(int)(-p.z+maxz+deltaX2)+" "+(int)(p.y-miny+deltaX));		
+			pr.print(DX+(int)(-p.z+maxz+deltaX2+deltaX)+" "+(int)(p.y-miny+deltaX));		
 			//front
 			pr.print("\nvt=");
 			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(-p.z+maxz+deltaY+deltaX));	
