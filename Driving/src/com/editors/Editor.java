@@ -67,7 +67,7 @@ public class Editor extends JFrame implements MenuListener{
 	
 	}
 	
-	public Point3D buildPoint(String str) {
+	public void buildPoint(Vector vPoints,String str) {
 		
 
 			String[] vals =str.split(" ");
@@ -81,53 +81,14 @@ public class Editor extends JFrame implements MenuListener{
 			if(vals.length==4)
 				p.data=vals[3];
 
-          return p;
+			vPoints.add(p);
 		
 
 	}
 	
 
 	
-	public void buildLine(PolygonMesh mesh, String token, Vector vTerxturePoints) {
 
-
-			
-			LineData ld=new LineData();
-			
-			if(token.indexOf("]")>0){
-				
-				String extraData=token.substring(token.indexOf("[")+1,token.indexOf("]"));
-				token=token.substring(token.indexOf("]")+1);
-				ld.setData(extraData);
-				
-			}
-
-			String[] vals = token.split(" ");
-
-			
-
-			for(int i=0;i<vals.length;i++){
-				
-				String val=vals[i];
-				if(val.indexOf("/")>0){
-					
-				
-					String val0=val.substring(0,val.indexOf("/"));
-					String val1=val.substring(1+val.indexOf("/"));
-					
-					int indx1=Integer.parseInt(val1);
-					
-					
-					ld.addIndex(Integer.parseInt(val0),indx1);
-				}
-				else
-					ld.addIndex(Integer.parseInt(val));
-			}
-
-			mesh.polygonData.add(ld);
-
-
-	}
 	
 	public void buildLines(Vector lines, String str) {
 
@@ -214,7 +175,7 @@ public class Editor extends JFrame implements MenuListener{
 			double y0=0;
 			
 			Vector vPoints=new Vector();
-			Vector vTerxturePoints=new Vector();
+			Vector vTexturePoints=new Vector();
 			
 			while((str=br.readLine())!=null){
 				
@@ -234,11 +195,11 @@ public class Editor extends JFrame implements MenuListener{
 				
 
 				if(str.startsWith("v="))
-					vPoints.add(buildPoint(str.substring(2)));
-				else if(str.startsWith("ft="))
-					vTerxturePoints.add(buildTexturePoint(str.substring(2)));
+					buildPoint(vPoints,str.substring(2));
+				else if(str.startsWith("vt="))
+					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(2));
 				else if(str.startsWith("f="))
-					buildLine(meshes[ACTIVE_PANEL],str.substring(2),vTerxturePoints);
+					PolygonMesh.buildLine(meshes[ACTIVE_PANEL].polygonData,str.substring(2),vTexturePoints);
 				else if(str.startsWith("NX="))					
 					nx=Integer.parseInt(str.substring(3)); 
 				else if(str.startsWith("NY="))					
@@ -278,13 +239,7 @@ public class Editor extends JFrame implements MenuListener{
 		
 		repaint();
 	}
-	
-	private Point3D buildTexturePoint(String substring) {
-		
-		Point3D p=new Point3D(0,0,0);
-		
-		return p;
-	}
+
 
 	public String decomposePoint(Point3D p) {
 		String str="";

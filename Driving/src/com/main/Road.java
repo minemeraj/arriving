@@ -1238,7 +1238,7 @@ public class Road extends Shader{
 
 		Vector <Point3D>points = new Vector <Point3D>();
 		Vector <LineData>lines = new Vector <LineData>();
-		
+		Vector vTexturePoints=new Vector();
 
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));
@@ -1252,8 +1252,10 @@ public class Road extends Shader{
 
 				if(str.startsWith("v="))
 					PolygonMesh.buildPoints(points,str.substring(2)); 
+				else if(str.startsWith("vt="))
+					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
 				else if(str.startsWith("f="))
-					PolygonMesh.buildLines(lines,str.substring(2));
+					PolygonMesh.buildLine(lines,str.substring(2),vTexturePoints);
 
 
 			}

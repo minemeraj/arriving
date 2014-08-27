@@ -143,8 +143,10 @@ public class PolygonMesh implements Cloneable{
 			pol.ypoints[i]=(int) points[index].y;
 			pol.zpoints[i]=(int) points[index].z;
 			
-			pol.xtpoints[i]=(int) points[index].x;
-			pol.ytpoints[i]=(int) points[index].y;
+			Point3D pt = ld.getVertexTexturePoint(i);
+			
+			pol.xtpoints[i]=(int) pt.x;
+			pol.ytpoints[i]=(int) pt.y;
 		} 
 		
 		return pol;
@@ -193,44 +195,61 @@ public class PolygonMesh implements Cloneable{
 
 	}
 
-	public static void buildLines(Vector lines, String str) {
+	public static void buildLine(Vector polygonData, String token, Vector vTexturePoints) {
 
 
-			
-			LineData ld=new LineData();
 
-			if(str.indexOf("]")>0){
-				
-				String extraData=str.substring(str.indexOf("[")+1,str.indexOf("]"));
-				str=str.substring(str.indexOf("]")+1);
-				ld.setData(extraData);
-				
+		LineData ld=new LineData();
+
+		if(token.indexOf("]")>0){
+
+			String extraData=token.substring(token.indexOf("[")+1,token.indexOf("]"));
+			token=token.substring(token.indexOf("]")+1);
+			ld.setData(extraData);
+
+		}
+
+		String[] vals = token.split(" ");
+
+
+
+		for(int i=0;i<vals.length;i++){
+
+			String val=vals[i];
+			if(val.indexOf("/")>0){
+
+
+				String val0=val.substring(0,val.indexOf("/"));
+				String val1=val.substring(1+val.indexOf("/"));
+
+				int indx0=Integer.parseInt(val0);	
+				int indx1=Integer.parseInt(val1);					
+				Point3D pt=(Point3D) vTexturePoints.elementAt(indx1);					
+
+				ld.addIndex(indx0,indx1,pt.x,pt.y);
 			}
-			
-			String[] vals = str.split(" ");
+			else
+				ld.addIndex(Integer.parseInt(val));
+		}
 
-			
+		polygonData.add(ld);
 
-			for(int i=0;i<vals.length;i++){
-				
-				String val=vals[i];
-				if(val.indexOf("/")>0){
-					
-				
-					String val0=val.substring(0,val.indexOf("/"));
-					String val1=val.substring(1+val.indexOf("/"));
-					
-					ld.addIndex(Integer.parseInt(val0),Integer.parseInt(val1));
-				}
-				else
-					ld.addIndex(Integer.parseInt(val));
-		
-			}
 
-			lines.add(ld);
-	
 	}
 
+	
+	
+	public static void buildTexturePoint(Vector vTexturePoints,String str) {
+		
+		String[] vals=str.split(" ");
+		
+		double x=Double.parseDouble(vals[0]);
+		double y=Double.parseDouble(vals[1]);
+		Point3D p=new Point3D(x,y,0);
+		
+		vTexturePoints.add(p);
+	}
+	
 	public void translate(double i, double j, double k) {
 		
 		for(int p=0;p<points.length;p++){
@@ -256,10 +275,10 @@ public class PolygonMesh implements Cloneable{
 				if(str.indexOf("#")>=0 || str.length()==0)
 					continue;
 
-				if(str.startsWith("P="))
+				/*if(str.startsWith("P="))
 					buildPoints(points,str.substring(2));
 				else if(str.startsWith("L="))
-					buildLines(lines,str.substring(2));
+					buildLines(lines,str.substring(2),null);*/
 
 
 			}

@@ -4,8 +4,8 @@ public class LineDataVertex {
 	
 	int vertex_index=-1;
 	int vertex_texture_index=-1;
-	int vertex_texture_x=0;
-	int vertex_texture_y=0;
+	double vertex_texture_x=0;
+	double vertex_texture_y=0;
 	
 	public int getVertex_index() {
 		return vertex_index;
@@ -22,10 +22,16 @@ public class LineDataVertex {
 	public double getVertex_texture_x() {
 		return vertex_texture_x;
 	}
-
+	public void setVertex_texture_x(double vertex_texture_x) {
+		this.vertex_texture_x = vertex_texture_x;
+	}
 	public double getVertex_texture_y() {
 		return vertex_texture_y;
 	}
+	public void setVertex_texture_y(double vertex_texture_y) {
+		this.vertex_texture_y = vertex_texture_y;
+	}
+
 
 	
 }

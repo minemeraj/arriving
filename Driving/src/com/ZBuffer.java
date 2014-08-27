@@ -102,6 +102,8 @@ public class ZBuffer{
 				x=(int) (p.x*(p0.x)+p.y*p1.x+(1-p.x-p.y)*p2.x);
 				y=(int) (p.x*(p0.y)+p.y*p1.y+(1-p.x-p.y)*p2.y);
 				
+				
+				
 			}
 			
 			else if(origin!=null){

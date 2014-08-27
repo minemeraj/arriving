@@ -36,20 +36,35 @@ public class LineData implements Cloneable{
 		}
 		
 
-		public void addIndex(int n, int tn) {
+		public void addIndex(int n, int tn, double ptx,double pty) {
 			
 			LineDataVertex ldv=new LineDataVertex();
 			ldv.setVertex_index(n);
 			ldv.setVertex_texture_index(tn);
+			ldv.setVertex_texture_x(ptx);
+			ldv.setVertex_texture_y(pty);
 			
 			lineDatas.add(ldv);
 			
+		}
+		
+		public Point3D getVertexTexturePoint(int i){
+			
+			LineDataVertex ldv=getItem(i);
+			
+			return new Point3D(ldv.getVertex_texture_x(),ldv.getVertex_texture_y(),0);
 		}
 
 		public int getIndex(int i){
 			
 			LineDataVertex ldv=getItem(i);
 			return ldv.getVertex_index();
+		}
+		
+		public int getVertex_texture_index(int i){
+			
+			LineDataVertex ldv=getItem(i);
+			return ldv.getVertex_texture_index();
 		}
 		
 		public LineDataVertex getItem(int i){
@@ -128,7 +143,9 @@ public class LineData implements Cloneable{
 			
 			for(int i=0;i<size();i++){
 				
-				ldnew.addIndex(getIndex(i));
+				Point3D pt=getVertexTexturePoint(i);
+				
+				ldnew.addIndex(getIndex(i),getVertex_texture_index(i),pt.x,pt.y);
 			}
 			ldnew.texture_index=texture_index;
 			ldnew.shadowCosin=shadowCosin;
