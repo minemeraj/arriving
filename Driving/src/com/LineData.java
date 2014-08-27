@@ -28,16 +28,40 @@ public class LineData implements Cloneable{
 		}
 
 		public void addIndex(int n){
-			lineDatas.add(new Integer(n));
+			
+			LineDataVertex ldv=new LineDataVertex();
+			ldv.setVertex_index(n);
+			
+			lineDatas.add(ldv);
+		}
+		
+
+		public void addIndex(int n, int tn) {
+			
+			LineDataVertex ldv=new LineDataVertex();
+			ldv.setVertex_index(n);
+			ldv.setVertex_texture_index(tn);
+			
+			lineDatas.add(ldv);
+			
 		}
 
 		public int getIndex(int i){
-			return ((Integer)lineDatas.elementAt(i)).intValue();
+			
+			LineDataVertex ldv=getItem(i);
+			return ldv.getVertex_index();
 		}
 		
+		public LineDataVertex getItem(int i){
+			
+			LineDataVertex ldv=(LineDataVertex) lineDatas.elementAt(i);
+			return ldv;
+		}
 		
 		public void setIndex(int i,int n){
-			lineDatas.setElementAt(new Integer(n),i);
+			
+			LineDataVertex ldv=getItem(i);
+			ldv.setVertex_index(n);
 		}
 		
 		public String toString() {
@@ -128,7 +152,10 @@ public class LineData implements Cloneable{
 
 				if(j>0)
 					str+=",";
-				str+=ld.getIndex(j);
+				
+				LineDataVertex ldv=(LineDataVertex) ld.getItem(j);
+				
+				str+=ldv.getVertex_index()+"/"+ldv.getVertex_texture_index();
 
 			}
 
@@ -138,7 +165,7 @@ public class LineData implements Cloneable{
 		public int positionOf(int i) {
 			
 			for(int j=0;j<size();j++){
-				
+							
 				if(i==getIndex(j))
 					return j;
 			}
@@ -167,8 +194,8 @@ public class LineData implements Cloneable{
 
 			for(int i=0;i<size;i++){
 
-
-				int num=ld.getIndex(i);
+				LineDataVertex ldv=(LineDataVertex) ld.getItem(i);
+				int num=ldv.getVertex_index();
 
 				Point3D p=(Point3D) points.elementAt(num);
 
@@ -206,22 +233,16 @@ public class LineData implements Cloneable{
 
 			for(int i=0;i<size;i++){
 
-
-				int num=ld.getIndex(i);
-
+				LineDataVertex ldv=(LineDataVertex) ld.getItem(i);
+				int num=ldv.getVertex_index();
+				int numt=ldv.getVertex_texture_index();
+	
 				Point3D p=points[num];
-
-
-				
 
 				//real coordinates
 				cxr[i]=(int)(p.x);
 				cyr[i]=(int)(p.y);
 				czr[i]=(int)(p.z);
-				
-
-				
-
 
 			}
 
@@ -263,8 +284,6 @@ public class LineData implements Cloneable{
 			
 		}
 
-
-		
 
 		
 	}

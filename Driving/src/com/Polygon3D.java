@@ -22,6 +22,10 @@ public class Polygon3D  extends Polygon{
 	
 	public double shadowCosin=1;
 	
+	//textures point:
+	public int[] xtpoints=null;
+	public int[] ytpoints=null;
+	
 	public String data=null;
 
 
@@ -39,6 +43,8 @@ public class Polygon3D  extends Polygon{
 		this.xpoints = new int[npoints];
 		this.ypoints = new int[npoints];
 		this.zpoints = new int[npoints];
+		this.xtpoints = new int[npoints];
+		this.ytpoints = new int[npoints];
 		this.npoints=npoints;
 	}
 
@@ -49,7 +55,8 @@ public class Polygon3D  extends Polygon{
 		this.xpoints = new int[this.npoints];
 		this.ypoints = new int[this.npoints];
 		this.zpoints = new int[this.npoints];
-		
+		this.xtpoints = new int[npoints];
+		this.ytpoints = new int[npoints];
 
 
 		for(int i=0;i<this.npoints;i++){
@@ -59,7 +66,9 @@ public class Polygon3D  extends Polygon{
 			this.xpoints[i]=(int) p.x;
 			this.ypoints[i]=(int) p.y;
 			this.zpoints[i]=(int) p.z;
-
+			
+			this.xtpoints[i]=(int) p.x;
+			this.ytpoints[i]=(int) p.y;
 		}
 
 
@@ -76,6 +85,15 @@ public class Polygon3D  extends Polygon{
 			return null;
 		
 		return new Point3D(xpoints[index],ypoints[index],zpoints[index]);
+		
+	}
+	
+	public Point3D getTexturePoint(int index){
+		
+		if(index>=npoints)
+			return null;
+		
+		return new Point3D(xtpoints[index],ytpoints[index],0);
 		
 	}
 	
@@ -131,14 +149,20 @@ public class Polygon3D  extends Polygon{
 			triangle.xpoints[0]=pol.xpoints[0];
 			triangle.ypoints[0]=pol.ypoints[0];
 			triangle.zpoints[0]=pol.zpoints[0];
+			triangle.xtpoints[0]=pol.xtpoints[0];
+			triangle.ytpoints[0]=pol.ytpoints[0];
 			
 			triangle.xpoints[1]=pol.xpoints[i];
 			triangle.ypoints[1]=pol.ypoints[i];
 			triangle.zpoints[1]=pol.zpoints[i];
+			triangle.xtpoints[1]=pol.xtpoints[i];
+			triangle.ytpoints[1]=pol.ytpoints[i];
 			
 			triangle.xpoints[2]=pol.xpoints[i+1];
 			triangle.ypoints[2]=pol.ypoints[i+1];
 			triangle.zpoints[2]=pol.zpoints[i+1];
+			triangle.xtpoints[2]=pol.xtpoints[i+1];
+			triangle.ytpoints[2]=pol.ytpoints[i+1];
 
 			
 			triangles[i-1]=triangle;

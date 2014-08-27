@@ -142,6 +142,9 @@ public class PolygonMesh implements Cloneable{
 			pol.xpoints[i]=(int) points[index].x;
 			pol.ypoints[i]=(int) points[index].y;
 			pol.zpoints[i]=(int) points[index].z;
+			
+			pol.xtpoints[i]=(int) points[index].x;
+			pol.ytpoints[i]=(int) points[index].y;
 		} 
 		
 		return pol;
@@ -175,11 +178,9 @@ public class PolygonMesh implements Cloneable{
 	
 	public static void buildPoints(Vector points, String str) {
 
-		StringTokenizer sttoken=new StringTokenizer(str,"_");
 
-		while(sttoken.hasMoreElements()){
 
-			String[] vals = sttoken.nextToken().split(",");
+			String[] vals = str.split(" ");
 
 			Point3D p=new Point3D();
 
@@ -188,41 +189,46 @@ public class PolygonMesh implements Cloneable{
 			p.z=Double.parseDouble(vals[2]);
 
 			points.add(p);
-		}
-
-
 
 
 	}
 
 	public static void buildLines(Vector lines, String str) {
 
-		StringTokenizer sttoken=new StringTokenizer(str,"_");
 
-		while(sttoken.hasMoreElements()){
-			
-			String token=sttoken.nextToken();
 			
 			LineData ld=new LineData();
 
-			if(token.indexOf("]")>0){
+			if(str.indexOf("]")>0){
 				
-				String extraData=token.substring(token.indexOf("[")+1,token.indexOf("]"));
-				token=token.substring(token.indexOf("]")+1);
+				String extraData=str.substring(str.indexOf("[")+1,str.indexOf("]"));
+				str=str.substring(str.indexOf("]")+1);
 				ld.setData(extraData);
 				
 			}
 			
-			String[] vals = token.split(",");
+			String[] vals = str.split(" ");
 
 			
 
-			for(int i=0;i<vals.length;i++)
-				ld.addIndex(Integer.parseInt(vals[i]));
-
+			for(int i=0;i<vals.length;i++){
+				
+				String val=vals[i];
+				if(val.indexOf("/")>0){
+					
+				
+					String val0=val.substring(0,val.indexOf("/"));
+					String val1=val.substring(1+val.indexOf("/"));
+					
+					ld.addIndex(Integer.parseInt(val0),Integer.parseInt(val1));
+				}
+				else
+					ld.addIndex(Integer.parseInt(val));
+		
+			}
 
 			lines.add(ld);
-		}
+	
 	}
 
 	public void translate(double i, double j, double k) {

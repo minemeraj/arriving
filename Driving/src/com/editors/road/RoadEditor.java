@@ -1378,7 +1378,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 				if(texture!=null)
 					//rgbColor=texture.getRGB((int)texture_x,(int) texture_y);  
-					rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY);
+					rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY,null);
 				if(rgbColor==blackRgb)
 					continue;
 
@@ -1471,7 +1471,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 				if(texture!=null)
-					rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY);
+					rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY,null);
 					//rgbColor=texture.getRGB((int)texture_x,(int) texture_y);   
 				if(rgbColor==blackRgb)
 					continue;

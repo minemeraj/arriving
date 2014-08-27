@@ -162,7 +162,9 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 
     	for(int i=0;i<triangles.length;i++){
 
-    		decomposeTriangleIntoZBufferEdgeWalking( triangles[i],calculateShadowColor(cosin,color.getRGB()), texture,zbuffer, xDirection,yDirection,origin, deltaX, deltaY);
+    		decomposeTriangleIntoZBufferEdgeWalking( triangles[i],calculateShadowColor(cosin,color.getRGB()), texture,zbuffer,
+    				xDirection,yDirection,origin, deltaX, deltaY,
+    				null);
 
     	}
 

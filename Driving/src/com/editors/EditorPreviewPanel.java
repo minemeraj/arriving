@@ -13,6 +13,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.BarycentricCoordinates;
 import com.Point3D;
 import com.Polygon3D;
 import com.PolygonMesh;
@@ -158,8 +159,10 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
     	}
 
     	for(int i=0;i<triangles.length;i++){
+    		
+    		BarycentricCoordinates bc=null;
 
-    		decomposeTriangleIntoZBufferEdgeWalking( triangles[i],color.getRGB(), texture,zbuffer, xDirection,yDirection,origin, deltaX, deltaY);
+    		decomposeTriangleIntoZBufferEdgeWalking( triangles[i],color.getRGB(), texture,zbuffer, xDirection,yDirection,origin, deltaX, deltaY,bc);
 
     	}
 
@@ -178,7 +181,10 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 	 * @param yDirection
 	 * @param origin 
 	 */
-    public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int rgbColor,Texture texture,ZBuffer[] zbuffer, Point3D xDirection, Point3D yDirection, Point3D origin,int deltaX,int deltaY) {
+    public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int rgbColor,Texture texture,ZBuffer[] zbuffer,
+    		Point3D xDirection, Point3D yDirection, Point3D origin,int deltaX,int deltaY,
+    		BarycentricCoordinates bc
+    		) {
 
 		
 		Point3D p0=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
@@ -285,7 +291,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
     			
     			
     			if(texture!=null)
-    			  rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY);
+    			  rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY,null);
     			if(rgbColor==greenRgb)
     				continue;
     			int tot=WIDTH*j+i;
@@ -349,7 +355,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
     		
     			
     			if(texture!=null)
-    			  rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY);
+    			  rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY,null);
     			if(rgbColor==greenRgb)
     				continue;
     			int tot=WIDTH*j+i;

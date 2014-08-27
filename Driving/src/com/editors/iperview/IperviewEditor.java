@@ -1613,10 +1613,10 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 				if(str.indexOf("#")>=0 || str.length()==0)
 					continue;
 
-				if(str.startsWith("P="))
+				/*if(str.startsWith("P="))
 					buildPoints(transpoints,str.substring(2));
 				else if(str.startsWith("L="))
-					buildLines(translines,str.substring(2));
+					buildLines(translines,str.substring(2));*/
 
 
 			}

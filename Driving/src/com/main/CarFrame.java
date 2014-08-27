@@ -42,7 +42,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 
 	
     int counter=0;
-	String VERSION="CarDriving 7.0.21";
+	String VERSION="CarDriving 7.0.22";
 	
 	JPanel center=null;
 	private Graphics2D graphics2D;
@@ -232,7 +232,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 			for(int i=0;i<files.length;i++){
 				if(files[i].getName().startsWith("road_texture_")){
 					
-					vRoadTextures.add(files[i]);
+					//vRoadTextures.add(files[i]);
 					
 				}		
 			}
@@ -285,6 +285,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 				if(files[i].getName().startsWith("cardefault3D_")){
 					
 					vCarData.add(files[i]);
+					break;
 					
 				}		
 			}
@@ -297,7 +298,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 					   && 	!files[i].getName().startsWith("object3D_texture")	
 					){
 						
-						v3DObjects.add(files[i]);
+						//v3DObjects.add(files[i]);
 						
 					}		
 				}

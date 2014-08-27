@@ -29,6 +29,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import com.BarycentricCoordinates;
 import com.CubicMesh;
 import com.LineData;
 import com.Point3D;
@@ -790,7 +791,11 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
     	for(int i=0;i<triangles.length;i++){
 
-    		decomposeTriangleIntoZBufferEdgeWalking( triangles[i],calculateShadowColor(cosin,color.getRGB()), texture,zbuffer, xDirection,yDirection,origin, deltaX, deltaY);
+    		decomposeTriangleIntoZBufferEdgeWalking( triangles[i],calculateShadowColor(
+    				cosin,color.getRGB()), texture,zbuffer,
+    				xDirection,yDirection,origin, deltaX, deltaY,
+    				null
+    				);
 
     	}
 
@@ -821,7 +826,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 	public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,
 			int rgbColor, Texture texture, ZBuffer[] zbuffer,
 			Point3D xDirection, Point3D yDirection, Point3D origin, int deltaX,
-			int deltaY) {
+			int deltaY,BarycentricCoordinates bc) {
 
 		
 		Point3D p0=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
@@ -928,7 +933,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
     			
     			
     			if(texture!=null)
-    			  rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY);
+    			  rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY,null);
     			if(rgbColor==greenRgb)
     				continue;
     			int tot=WIDTH*j+i;
@@ -992,7 +997,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
     		
     			
     			if(texture!=null)
-    			  rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY);
+    			  rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY,null);
     			if(rgbColor==greenRgb)
     				continue;
     			int tot=WIDTH*j+i;

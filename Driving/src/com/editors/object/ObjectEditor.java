@@ -825,36 +825,91 @@ public class ObjectEditor extends Editor implements ActionListener{
 		
 		
 	}
-	
-	private String decomposePolyFormat(LineData ld) {
+
+	public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh) {
 		
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		int DX=0;
 
-		String str="";
+		
+		int deltaX=0;
+		int deltaY=0;
+		int deltaX2=0;
 
-		for(int j=0;j<ld.size();j++){
-
-			if(j>0)
-				str+="_";
-			Point3D p=mesh.points[ld.getIndex(j)];
-			str+=p.x+","+p.y+","+p.z;
-
+		double minx=0;
+		double miny=0;
+		double minz=0;
+		
+		double maxx=0;
+		double maxy=0;
+		double maxz=0;
+		
+		
+	      //find maxs
+		for(int j=0;j<mesh.points.length;j++){
+			
+			Point3D point=mesh.points[j];
+			
+			if(j==0){
+				
+				minx=point.x;
+				miny=point.y;
+				minz=point.z;
+				
+				maxx=point.x;
+				maxy=point.y;
+				maxz=point.z;
+			}
+			else{
+				
+				maxx=(int)Math.max(point.x,maxx);
+				maxz=(int)Math.max(point.z,maxz);
+				maxy=(int)Math.max(point.y,maxy);
+				
+				
+				minx=(int)Math.min(point.x,minx);
+				minz=(int)Math.min(point.z,minz);
+				miny=(int)Math.min(point.y,miny);
+			}
+			
+	
 		}
+		
+		deltaX2=(int)(maxx-minx)+1;
+		deltaX=(int)(maxz-minz)+1; 
+		deltaY=(int)(maxy-miny)+1;
 
-		return str;
+		for(int i=0;i<mesh.points.length;i++){
+
+			Point3D p=mesh.points[i];
+
+
+		
+			//top
+			pr.print("\nvt=");
+			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(-p.y+maxy+deltaX));
+			//front
+			pr.print("\nvt=");
+			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(p.z-minz));
+			//left
+			pr.print("\nvt=");
+			pr.print(DX+(int)(p.z-minz)+" "+(int)(-p.y+maxy+deltaX));
+			//right
+			pr.print("\nvt=");
+			pr.print(DX+(int)(-p.z+maxz+deltaX2)+" "+(int)(-p.y+maxy+deltaX));
+			//back
+			pr.print("\nvt=");
+			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(-p.z+maxz+deltaY+deltaX));
+			//bottom
+			pr.print("\nvt=");
+			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(-p.y+maxy+deltaX));
+
+		}	
+		
+		
+		
 	}
 
-
-
-
-
 	
-
-
-
-		
-	
-
 	class FileTransferhandler extends TransferHandler{
 		
 		

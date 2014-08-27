@@ -6,6 +6,10 @@ public class BarycentricCoordinates {
 	Point3D p1=null;
 	Point3D p2=null;
 	
+	Point3D pt0=null;
+	Point3D pt1=null;
+	Point3D pt2=null;
+	
 	Point3D n=null;
 	double inv_nSquare=0;
 	private Point3D nda;
@@ -47,6 +51,31 @@ public class BarycentricCoordinates {
 		ndc=p1.substract(p0);
 	}
 	
+	public BarycentricCoordinates(Point3D p0,Point3D p1,Point3D p2,Point3D pt0,Point3D pt1,Point3D pt2) {
+		
+		
+		
+		this.p0=p0;
+		this.p1=p1;
+		this.p2=p2;
+		
+		this.pt0=pt0;
+		this.pt1=pt1;
+		this.pt2=pt2;
+		
+		n=Point3D.calculateCrossProduct(p1.substract(p0), p2.substract(p0));
+		inv_nSquare=1.0/Point3D.calculateDotProduct(n,n);
+		nda=p2.substract(p1);
+		ndb=p0.substract(p2);
+		ndc=p1.substract(p0);
+	}
+	
+	public BarycentricCoordinates(Polygon3D triangle) {
+		
+		this(triangle.getPoint(0),triangle.getPoint(1),triangle.getPoint(2),triangle.getTexturePoint(0),triangle.getTexturePoint(1),triangle.getTexturePoint(2));
+		
+	}
+
 	public Point3D getBarycentricCoordinates(Point3D p){
 		
 				

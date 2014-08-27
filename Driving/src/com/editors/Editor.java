@@ -67,16 +67,10 @@ public class Editor extends JFrame implements MenuListener{
 	
 	}
 	
-	public void buildPoints(PolygonMesh mesh, String str) {
+	public Point3D buildPoint(String str) {
 		
-		Vector vPoints=new Vector();
 
-
-		StringTokenizer sttoken=new StringTokenizer(str,"_");
-
-		while(sttoken.hasMoreElements()){
-
-			String[] vals = sttoken.nextToken().split(",");
+			String[] vals =str.split(" ");
 
 			Point3D p=new Point3D();
 
@@ -87,46 +81,16 @@ public class Editor extends JFrame implements MenuListener{
 			if(vals.length==4)
 				p.data=vals[3];
 
-			vPoints.add(p);
-		}
-
-
-		mesh.setPoints(vPoints);
-
-	}
-	
-	public void buildPoints(Vector vPoints, String str) {
+          return p;
 		
 
-
-		StringTokenizer sttoken=new StringTokenizer(str,"_");
-
-		while(sttoken.hasMoreElements()){
-
-			String[] vals = sttoken.nextToken().split(",");
-
-			Point3D p=new Point3D();
-
-			p.x=Double.parseDouble(vals[0]);
-			p.y=Double.parseDouble(vals[1]);
-			p.z=Double.parseDouble(vals[2]);
-			
-			if(vals.length==4)
-				p.data=vals[3];
-
-			vPoints.add(p);
-		}
-
-
 	}
 	
-	public void buildLines(PolygonMesh mesh, String str) {
 
-		StringTokenizer sttoken=new StringTokenizer(str,"_");
+	
+	public void buildLine(PolygonMesh mesh, String token, Vector vTerxturePoints) {
 
-		while(sttoken.hasMoreElements()){
-			
-			String token=sttoken.nextToken();
+
 			
 			LineData ld=new LineData();
 			
@@ -138,18 +102,29 @@ public class Editor extends JFrame implements MenuListener{
 				
 			}
 
-			String[] vals = token.split(",");
+			String[] vals = token.split(" ");
 
 			
 
-			for(int i=0;i<vals.length;i++)
-				ld.addIndex(Integer.parseInt(vals[i]));
-
+			for(int i=0;i<vals.length;i++){
+				
+				String val=vals[i];
+				if(val.indexOf("/")>0){
+					
+				
+					String val0=val.substring(0,val.indexOf("/"));
+					String val1=val.substring(1+val.indexOf("/"));
+					
+					int indx1=Integer.parseInt(val1);
+					
+					
+					ld.addIndex(Integer.parseInt(val0),indx1);
+				}
+				else
+					ld.addIndex(Integer.parseInt(val));
+			}
 
 			mesh.polygonData.add(ld);
-		}
-
-
 
 
 	}
@@ -172,7 +147,7 @@ public class Editor extends JFrame implements MenuListener{
 				
 			}
 
-			String[] vals = token.split(",");
+			String[] vals = token.split(" ");
 
 			for(int i=0;i<vals.length;i++)
 				ld.addIndex(Integer.parseInt(vals[i]));
@@ -238,6 +213,9 @@ public class Editor extends JFrame implements MenuListener{
 			double x0=0;
 			double y0=0;
 			
+			Vector vPoints=new Vector();
+			Vector vTerxturePoints=new Vector();
+			
 			while((str=br.readLine())!=null){
 				
 				
@@ -252,11 +230,15 @@ public class Editor extends JFrame implements MenuListener{
 				
 				if(!read)
 					continue;
+				
+				
 
-				if(str.startsWith("P="))
-					buildPoints(meshes[ACTIVE_PANEL],str.substring(2));
-				else if(str.startsWith("L="))
-					buildLines(meshes[ACTIVE_PANEL],str.substring(2));
+				if(str.startsWith("v="))
+					vPoints.add(buildPoint(str.substring(2)));
+				else if(str.startsWith("ft="))
+					vTerxturePoints.add(buildTexturePoint(str.substring(2)));
+				else if(str.startsWith("f="))
+					buildLine(meshes[ACTIVE_PANEL],str.substring(2),vTerxturePoints);
 				else if(str.startsWith("NX="))					
 					nx=Integer.parseInt(str.substring(3)); 
 				else if(str.startsWith("NY="))					
@@ -285,6 +267,9 @@ public class Editor extends JFrame implements MenuListener{
 			}
 
 			br.close();
+			
+			meshes[ACTIVE_PANEL].setPoints(vPoints);
+			
 			//checkNormals();
 		} catch (Exception e) {
 
@@ -294,13 +279,20 @@ public class Editor extends JFrame implements MenuListener{
 		repaint();
 	}
 	
+	private Point3D buildTexturePoint(String substring) {
+		
+		Point3D p=new Point3D(0,0,0);
+		
+		return p;
+	}
+
 	public String decomposePoint(Point3D p) {
 		String str="";
 
-		str=p.x+","+p.y+","+p.z;
+		str=p.x+" "+p.y+" "+p.z;
 		
 		if(p.getData()!=null)
-			str=str+","+p.getData().toString();
+			str=str+" "+p.getData().toString();
 
 		return str;
 	}
@@ -309,14 +301,23 @@ public class Editor extends JFrame implements MenuListener{
 
 		String str="";
 		
-		if(ld.data!=null)
+		if(ld.data!=null){
+			
 			str+="["+ld.data+"]";
-
+		    
+		}
 		for(int j=0;j<ld.size();j++){
 
 			if(j>0)
-				str+=",";
+				str+=" ";
 			str+=ld.getIndex(j);
+			
+			if(ld.data!=null){
+				
+				int face=Integer.parseInt(ld.data);
+	
+				str+="/"+(ld.getIndex(j)*6+face);
+			}
 
 		}
 
@@ -378,18 +379,22 @@ public class Editor extends JFrame implements MenuListener{
 				pr.println("X0="+sm.getX0());
 				pr.println("Y0="+sm.getY0());
 			}
-			pr.print("P=");
+			
 
 			for(int i=0;i<mesh.points.length;i++){
 
 				Point3D p=mesh.points[i];
 
+				pr.print("v=");
 				pr.print(decomposePoint(p));
 				if(i<mesh.points.length-1)
-					pr.print("_");
-			}	
+					pr.println();
+			}
+			
+			decomposeObjVertices(pr,mesh);
 
-			pr.print("\nL=");
+	
+			
 
 			for(int i=0;i<mesh.polygonData.size();i++){
 
@@ -404,10 +409,9 @@ public class Editor extends JFrame implements MenuListener{
 				ld.setData(""+boxFace);*/
 				
 				////////////
-
+				pr.print("\nf=");
 				pr.print(decomposeLineData(ld));
-				if(i<mesh.polygonData.size()-1)
-					pr.print("_");
+			
 			}	
 			if(!forceReading)
 				pr.println("\n</"+TAG[ACTIVE_PANEL]+">");
@@ -418,7 +422,13 @@ public class Editor extends JFrame implements MenuListener{
 			e.printStackTrace();
 		}
 	}
-	
+
+
+	public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh) {
+		
+		
+		
+	}
 
 
 	public Vector clonePoints(Vector oldPoints) {

@@ -11,6 +11,7 @@ import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
 import java.util.Vector;
 
+import com.BarycentricCoordinates;
 import com.CubicMesh;
 import com.DrawObject;
 import com.LineData;
@@ -54,12 +55,13 @@ public class Renderer3D implements AbstractRenderer3D{
 	public static final int REAR_VIEW=-1;
 	public static int VIEW_TYPE=FRONT_VIEW;
 
-	public static final int CAR_BOTTOM=-1;
+	
 	public static final int CAR_BACK=0;
 	public static final int CAR_TOP=1;
 	public static final int CAR_LEFT=2;
 	public static final int CAR_RIGHT=3;
 	public static final int CAR_FRONT=4;
+	public static final int CAR_BOTTOM=5;
 	
 	public static final int CAR_BOTTOM_2=5;
 	public static final int CAR_BACK_2=6;
@@ -184,7 +186,9 @@ public class Renderer3D implements AbstractRenderer3D{
 	 * @param yDirection
 	 * @param origin 
 	 */
-	public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int rgbColor,Texture texture,ZBuffer[] zbuffer, Point3D xDirection, Point3D yDirection, Point3D origin,int deltaX,int deltaY) {
+	public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int rgbColor,Texture texture,ZBuffer[] zbuffer,
+			Point3D xDirection, Point3D yDirection, Point3D origin,int deltaX,int deltaY,
+			BarycentricCoordinates bc) {
 
 		Point3D normal=Polygon3D.findNormal(p3d).calculateVersor();
 		
@@ -334,7 +338,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 				if(texture!=null)
 					//rgbColor=texture.getRGB((int)texture_x,(int) texture_y);  
-					rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY);
+					rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY,bc);
 				if(rgbColor==greenRgb)
 					continue;
 
@@ -419,7 +423,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 
 				if(texture!=null)
-					rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY);
+					rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY,bc);
 					//rgbColor=texture.getRGB((int)texture_x,(int) texture_y);   
 				if(rgbColor==greenRgb)
 					continue;
@@ -646,7 +650,7 @@ public class Renderer3D implements AbstractRenderer3D{
 	public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer[] zbuffer,
 			Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY){
 
-		Polygon3D clippedPolygon=Polygon3D.clipPolygon3DInY(p3d,(int) (SCREEN_DISTANCE*2.0/3.0));
+		Polygon3D clippedPolygon=p3d;//Polygon3D.clipPolygon3DInY(p3d,(int) (SCREEN_DISTANCE*2.0/3.0));
 
 		if(clippedPolygon.npoints==0)
 			return ;
@@ -673,8 +677,10 @@ public class Renderer3D implements AbstractRenderer3D{
 
 		 
 		for(int i=0;i<triangles.length;i++){
+			
+			BarycentricCoordinates bc=new BarycentricCoordinates(triangles[i]);
 
-			decomposeTriangleIntoZBufferEdgeWalking( triangles[i],color.getRGB(), texture,zbuffer, xDirection,yDirection,origin, deltaX, deltaY);
+			decomposeTriangleIntoZBufferEdgeWalking( triangles[i],color.getRGB(), texture,zbuffer, xDirection,yDirection,origin, deltaX, deltaY,bc);
 
 		}
 

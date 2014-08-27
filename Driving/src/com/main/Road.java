@@ -179,7 +179,7 @@ public class Road extends Shader{
 		
 		initialiazeCarDynamics();
 		
-		loadAutocars(new File("lib/autocars"));
+		//loadAutocars(new File("lib/autocars"));
 		
 		//showMemoryUsage();
 		//buildDefaultRoad(); 
@@ -306,7 +306,7 @@ public class Road extends Shader{
 		
 		carShadowVolume=new ShadowVolume[vCarData.size()] ; 
 		
-		for (int i = 0; i < vCarData.size(); i++) {
+		for (int i = 0; i <1 && i< vCarData.size(); i++) {
 			File file = (File) vCarData.elementAt(i);
 			
 			carData[i]=loadCarFromFile(new File("lib/cardefault3D_"+i));
@@ -390,7 +390,7 @@ public class Road extends Shader{
 		double dz=-YFOCUS;
 		
 	    //apply terrain following
-        if(carTerrainNormal!=null){
+       /* if(carTerrainNormal!=null){
         	
         	double a=carTerrainNormal.x;
         	double b=carTerrainNormal.y;
@@ -417,7 +417,7 @@ public class Road extends Shader{
         	zMinusVersor=rotate(carRot,zMinusVersor);
         	
         	rotoTranslate(carRot,cm,dx,dy,dz);
-        } 
+        } */
         
        
         
@@ -442,11 +442,11 @@ public class Road extends Shader{
 				
 		}
 		
-		 cm.translate(POSX,POSY,-MOVZ);
+		/* cm.translate(POSX,POSY,-MOVZ);
 		 cm.rotate(POSX, POSY,viewDirectionCos,viewDirectionSin);
 		 if(!carFrame.skipShading){
 			 buildShadowVolumeBox(carShadowVolume[SELECTED_CAR],cm);
-		 }
+		 }*/
 
 	}
 
@@ -640,7 +640,7 @@ public class Road extends Shader{
 	
 					if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
 							
-						decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],roadZbuffer);
+						//decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],roadZbuffer);
 				
 							
 						    if(index==1){
@@ -650,7 +650,7 @@ public class Road extends Shader{
 						    	Polygon3D[] polygons=buildAdditionalRoadPolygons(p3D);
 						    	
 						    	for (int i = 0; i < polygons.length; i++) {
-										decomposeClippedPolygonIntoZBuffer(polygons[i],Color.DARK_GRAY,null,roadZbuffer);
+										//decomposeClippedPolygonIntoZBuffer(polygons[i],Color.DARK_GRAY,null,roadZbuffer);
 								}
 						    	
 						    }
@@ -666,7 +666,7 @@ public class Road extends Shader{
 		drawCar();
 
 		if(!carFrame.skipShading){
-			calculateStencilBuffer();
+			//calculateStencilBuffer();
 		}
 		buildScreen(buf); 
 		//showMemoryUsage();
@@ -1250,9 +1250,9 @@ public class Road extends Shader{
 				if(str.indexOf("#")>=0 || str.length()==0)
 					continue;
 
-				if(str.startsWith("P="))
-					PolygonMesh.buildPoints(points,str.substring(2));
-				else if(str.startsWith("L="))
+				if(str.startsWith("v="))
+					PolygonMesh.buildPoints(points,str.substring(2)); 
+				else if(str.startsWith("f="))
 					PolygonMesh.buildLines(lines,str.substring(2));
 
 
@@ -1293,7 +1293,7 @@ public class Road extends Shader{
 			
 			String str=null;
 			int rows=0;
-			while((str=br.readLine())!=null ){
+			/*while((str=br.readLine())!=null ){
 				if(str.indexOf("#")>=0 || str.length()==0)
 					continue;
 				
@@ -1329,7 +1329,7 @@ public class Road extends Shader{
 				dro.setMesh(cm);
 				
 
-			}
+			}*/
 			br.close();
 			
 			drawObjects=new DrawObject[vdrawObjects.size()];
