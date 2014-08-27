@@ -197,7 +197,7 @@ public class Editor extends JFrame implements MenuListener{
 				if(str.startsWith("v="))
 					buildPoint(vPoints,str.substring(2));
 				else if(str.startsWith("vt="))
-					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(2));
+					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
 				else if(str.startsWith("f="))
 					PolygonMesh.buildLine(meshes[ACTIVE_PANEL].polygonData,str.substring(2),vTexturePoints);
 				else if(str.startsWith("NX="))					

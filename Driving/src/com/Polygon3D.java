@@ -30,8 +30,12 @@ public class Polygon3D  extends Polygon{
 
 
 	public Polygon3D(int npoints, int[] xpoints, int[] ypoints, int[] zpoints) {
+		
 		super(xpoints,ypoints,npoints);
 		this.zpoints = zpoints;
+		
+		this.xtpoints = new int[npoints];
+		this.ytpoints = new int[npoints];
 	}
 
 	public Polygon3D(int npoints, int[] xpoints, int[] ypoints) {
