@@ -882,23 +882,28 @@ public class ObjectEditor extends Editor implements ActionListener{
 
 			Point3D p=mesh.points[i];
 
-
+			/*public static final int CAR_BACK=0;
+			public static final int CAR_TOP=1;
+			public static final int CAR_LEFT=2;
+			public static final int CAR_RIGHT=3;
+			public static final int CAR_FRONT=4;
+			public static final int CAR_BOTTOM=5;*/
 		
-			//top
-			pr.print("\nvt=");
-			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(-p.y+maxy+deltaX));
-			//front
-			pr.print("\nvt=");
-			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(p.z-minz));
-			//left
-			pr.print("\nvt=");
-			pr.print(DX+(int)(p.z-minz)+" "+(int)(-p.y+maxy+deltaX));
-			//right
-			pr.print("\nvt=");
-			pr.print(DX+(int)(-p.z+maxz+deltaX2)+" "+(int)(-p.y+maxy+deltaX));
 			//back
 			pr.print("\nvt=");
 			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(-p.z+maxz+deltaY+deltaX));
+			//top
+			pr.print("\nvt=");
+			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(-p.y+maxy+deltaX));
+			//left
+			pr.print("\nvt=");
+			pr.print(DX+(int)(p.z-minz)+" "+(int)(-p.y+maxy+deltaX));			
+			//right
+			pr.print("\nvt=");
+			pr.print(DX+(int)(-p.z+maxz+deltaX2)+" "+(int)(-p.y+maxy+deltaX));		
+			//front
+			pr.print("\nvt=");
+			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(p.z-minz));
 			//bottom
 			pr.print("\nvt=");
 			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(-p.y+maxy+deltaX));
