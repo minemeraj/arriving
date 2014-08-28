@@ -390,7 +390,7 @@ public class Road extends Shader{
 		double dz=-YFOCUS;
 		
 	    //apply terrain following
-       /* if(carTerrainNormal!=null){
+      if(carTerrainNormal!=null){
         	
         	double a=carTerrainNormal.x;
         	double b=carTerrainNormal.y;
@@ -417,7 +417,7 @@ public class Road extends Shader{
         	zMinusVersor=rotate(carRot,zMinusVersor);
         	
         	rotoTranslate(carRot,cm,dx,dy,dz);
-        } */
+        } 
         
        
         
