@@ -1052,6 +1052,8 @@ public class Road extends Shader{
 			String str=null;
 			int rows=0;
 			
+			Vector vPoints=new Vector();
+			
 			while((str=br.readLine())!=null){
 				if(str.indexOf("#")>=0 || str.length()==0)
 					continue;
@@ -1064,16 +1066,17 @@ public class Road extends Shader{
 				if(!read)
 					continue;
 
-				if(str.startsWith("P="))
-					buildPoints(meshes[index],str.substring(2),index);
-				else if(str.startsWith("L="))
-					buildLines(meshes[index],str.substring(2),index);
+				if(str.startsWith("v="))
+					buildPoint(vPoints,str.substring(2),index);
+				else if(str.startsWith("f="))
+					buildLine(meshes[index].polygonData,str.substring(2));
 
 
 			}
             br.close();
 
-			
+            meshes[index].setPoints(vPoints);
+            
 			oldMeshes[index]=cloneMesh(meshes[index]);
 		
 			
@@ -1104,15 +1107,11 @@ public class Road extends Shader{
 	}
 
 
-	public void buildPoints(PolygonMesh mesh, String str,int index) {
+	public void buildPoint(Vector vPoints, String str,int index) {
 
-		StringTokenizer sttoken=new StringTokenizer(str,"_");
-		
-		Vector vPoints=new Vector();
+	
 
-		while(sttoken.hasMoreElements()){
-
-			String[] vals = sttoken.nextToken().split(",");
+			String[] vals = str.split(" ");
 
 			Point4D p=new Point4D();
 			
@@ -1127,9 +1126,9 @@ public class Road extends Shader{
 				p.z+=ROAD_THICKNESS;
 
 			vPoints.add(p);
-		}
+		
 
-		mesh.setPoints(vPoints);
+		
 		
 	}
 	
@@ -1138,7 +1137,7 @@ public class Road extends Shader{
 		String str="";
 		
 		str+="T"+ld.texture_index;
-		str+=",C"+ld.getHexColor();
+		str+=" C"+ld.getHexColor();
 		
 		int size=ld.size();
 
@@ -1146,7 +1145,7 @@ public class Road extends Shader{
 			
 			
 			
-			str+=",";
+			str+=" ";
 			
 			str+=ld.getIndex(j);
 
@@ -1155,13 +1154,11 @@ public class Road extends Shader{
 		return str;
 	}
 	
-	public void buildLines(PolygonMesh meshes, String str,int index) {
+	public void buildLine(Vector polygonData, String str) {
 
-		StringTokenizer sttoken=new StringTokenizer(str,"_");
 
-		while(sttoken.hasMoreElements()){
 
-			String[] vals = sttoken.nextToken().split(",");
+			String[] vals = str.split(" ");
 
 			LineData ld=new LineData();
 
@@ -1172,9 +1169,9 @@ public class Road extends Shader{
 			for(int i=2;i<vals.length;i++)
 				ld.addIndex(Integer.parseInt(vals[i]));
 
-
-			meshes.polygonData.add(ld);
-		}
+			polygonData.add(ld);
+			
+		
 
 
 
