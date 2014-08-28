@@ -67,6 +67,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
+import com.BarycentricCoordinates;
 import com.CubicMesh;
 import com.DrawObject;
 import com.LineData;
@@ -1139,12 +1140,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				
 				Polygon3D tria=triangles[i];
 				
+					
 				int rgb=-1;
 				
 				if(selected!=null)
 					rgb=selected.getRGB();
 				
-				decomposeTriangleIntoZBufferEdgeWalking(tria,rgb,texture,landscapeZbuffer, xDirection, yDirection, p0r, 0, 0); 
+				decomposeTriangleIntoZBufferEdgeWalking(tria,rgb,texture,landscapeZbuffer, xDirection, yDirection, p0r, 0, 0,null); 
 
 				
 			}
@@ -1219,7 +1221,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	 * @param yDirection
 	 * @param origin 
 	 */
-	public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int selected,Texture texture,ZBuffer[] zbuffer, Point3D xDirection, Point3D yDirection, Point3D origin,int deltaX,int deltaY) {
+	public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int selected,Texture texture,ZBuffer[] zbuffer, 
+			Point3D xDirection, Point3D yDirection, Point3D origin,int deltaX,int deltaY,
+			BarycentricCoordinates bc) {
 
 		
 		int mask = 0xFF;

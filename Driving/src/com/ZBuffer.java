@@ -106,7 +106,7 @@ public class ZBuffer{
 				
 			}
 			
-			/*else if(origin!=null){
+			else if(origin!=null){
 				
 
 				 x=(int) Math.round(Point3D.calculateDotProduct(px-origin.x,py-origin.y, pz-origin.z,xDirection))+deltaX;
@@ -120,7 +120,7 @@ public class ZBuffer{
 				  x=(int) Math.round(Point3D.calculateDotProduct(px,py, pz,xDirection))+deltaX;
 				  y=(int) Math.round(Point3D.calculateDotProduct(px,py, pz,yDirection))+deltaY;
 	
-			}*/	
+			}	
 			
 			
 			int w=texture.getWidth();
