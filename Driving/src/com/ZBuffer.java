@@ -146,7 +146,7 @@ public class ZBuffer{
 			
 		}
 		
-		public static Point3D  pickTexturePositionPCoordinates(Texture texture,double px,double py,double pz,Point3D xDirection,Point3D yDirection, Point3D origin,int deltaX,int deltaY){
+		/*public static Point3D  pickTexturePositionPCoordinates(Texture texture,double px,double py,double pz,Point3D xDirection,Point3D yDirection, Point3D origin,int deltaX,int deltaY){
 			
 
 			 
@@ -166,7 +166,7 @@ public class ZBuffer{
 				  x= Point3D.calculateDotProduct(px,py,pz,xDirection)+deltaX;
 				  y= Point3D.calculateDotProduct(px,py,pz,yDirection)+deltaY;
 	
-			}	
+			}
 			
 			
 			
@@ -174,10 +174,10 @@ public class ZBuffer{
 			int h=texture.getHeight();
 			
 			//border fixed conditions
-			/*if(x<0) x=0;
-			if(x>=w)x=w-1;
-			if(y<0) y=0;
-			if(y>=h) y=h-1;*/
+			//if(x<0) x=0;
+			//if(x>=w)x=w-1;
+			//if(y<0) y=0;
+			//if(y>=h) y=h-1;
 
 			//border periodic condition
 			if(x<0) x=w-1+x%w;
@@ -192,7 +192,7 @@ public class ZBuffer{
 			return point;
 			
 			
-		}
+		}*/
 		
 		public void update(double xs,double ys,double zs, int rgbColor) {
 			

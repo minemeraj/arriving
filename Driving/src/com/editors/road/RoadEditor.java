@@ -1282,11 +1282,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		points[2]=new Point3D(x2,y2,z2,p2.x,p2.y,p2.z);
 		
 		if(texture!=null){
-	
+			/*
 			points[0].setTexurePositions(ZBuffer.pickTexturePositionPCoordinates(texture,points[0].p_x,points[0].p_y,points[0].p_z,xDirection,yDirection,origin,deltaX,deltaY));
 			points[1].setTexurePositions(ZBuffer.pickTexturePositionPCoordinates(texture,points[1].p_x,points[1].p_y,points[1].p_z,xDirection,yDirection,origin,deltaX,deltaY));
 			points[2].setTexurePositions(ZBuffer.pickTexturePositionPCoordinates(texture,points[2].p_x,points[2].p_y,points[2].p_z,xDirection,yDirection,origin,deltaX,deltaY));
-			
+			*/
 		}
 		
 		int upper=0;
