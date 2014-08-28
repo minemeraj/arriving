@@ -306,7 +306,7 @@ public class Road extends Shader{
 		
 		carShadowVolume=new ShadowVolume[vCarData.size()] ; 
 		
-		for (int i = 0; i <1 && i< vCarData.size(); i++) {
+		for (int i = 0; i< vCarData.size(); i++) {
 			File file = (File) vCarData.elementAt(i);
 			
 			carData[i]=loadCarFromFile(new File("lib/cardefault3D_"+i));

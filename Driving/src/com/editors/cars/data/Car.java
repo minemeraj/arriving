@@ -3736,7 +3736,7 @@ public class Car extends CustomData {
 					tyreRearWheel.addIndex(rRearWheel[i].getIndex());
 					tyreRearWheel.addIndex(rRearWheel[(i+1)%raysNumber].getIndex());
 					tyreRearWheel.addIndex(lRearWheel[(i+1)%raysNumber].getIndex());
-					
+					tyreRearWheel.setData(""+Renderer3D.CAR_TOP);
 					
 					polyData.add(tyreRearWheel);
 				}		

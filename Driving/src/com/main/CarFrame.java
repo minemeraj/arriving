@@ -285,7 +285,6 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 				if(files[i].getName().startsWith("cardefault3D_")){
 					
 					vCarData.add(files[i]);
-					break;
 					
 				}		
 			}
