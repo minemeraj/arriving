@@ -648,18 +648,11 @@ public class Renderer3D implements AbstractRenderer3D{
 	}
 
 	public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer[] zbuffer,
-			Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY){
-
-		Polygon3D clippedPolygon=p3d;//Polygon3D.clipPolygon3DInY(p3d,(int) (SCREEN_DISTANCE*2.0/3.0));
-
-		if(clippedPolygon.npoints==0)
-			return ;
-
-		Polygon3D[] triangles = Polygon3D.divideIntoTriangles(clippedPolygon);
+			Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY){		
 
 		Point3D normal=Polygon3D.findNormal(p3d);
 
-		if(!isStencilBuffer && !isFacing(clippedPolygon,normal,observerPoint))
+		if(!isStencilBuffer && !isFacing(p3d,normal,observerPoint))
 			return;
 
 		if(texture!=null && xDirection==null && yDirection==null){
@@ -668,19 +661,31 @@ public class Renderer3D implements AbstractRenderer3D{
 			Point3D p1=new Point3D(p3d.xpoints[1],p3d.ypoints[1],p3d.zpoints[1]);
 			xDirection=(p1.substract(p0)).calculateVersor();
 
-
-
 			yDirection=Point3D.calculateCrossProduct(normal,xDirection).calculateVersor();
 
 			//yDirection=Point3D.calculateOrthogonal(xDirection);
 		}
 
-		 
+		Polygon3D[] triangles = Polygon3D.divideIntoTriangles(p3d);
+		
 		for(int i=0;i<triangles.length;i++){
 			
 			BarycentricCoordinates bc=new BarycentricCoordinates(triangles[i]);
+			
+			Polygon3D clippedPolygon=Polygon3D.clipPolygon3DInY(triangles[i],(int) (SCREEN_DISTANCE*2.0/3.0));
 
-			decomposeTriangleIntoZBufferEdgeWalking( triangles[i],color.getRGB(), texture,zbuffer, xDirection,yDirection,origin, deltaX, deltaY,bc);
+			if(clippedPolygon.npoints==0)
+				return ;
+			
+			Polygon3D[] clippedTriangles = Polygon3D.divideIntoTriangles(clippedPolygon);
+			
+			for (int j = 0; j < clippedTriangles.length; j++) {
+				
+				decomposeTriangleIntoZBufferEdgeWalking( clippedTriangles[j],color.getRGB(), texture,zbuffer, xDirection,yDirection,origin, deltaX, deltaY,bc);
+				
+			}
+
+		
 
 		}
 

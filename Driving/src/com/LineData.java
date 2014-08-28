@@ -208,6 +208,9 @@ public class LineData implements Cloneable{
 			int[] cyr=new int[size];
 			int[] czr=new int[size];
 
+			int[] cxtr=new int[size];
+			int[] cytr=new int[size];
+
 
 			for(int i=0;i<size;i++){
 
@@ -224,14 +227,15 @@ public class LineData implements Cloneable{
 				cyr[i]=(int)(p.y);
 				czr[i]=(int)(p.z);
 				
-
+				cxtr[i]=(int) ldv.getVertex_texture_x();
+				cytr[i]=(int) ldv.getVertex_texture_y();
 				
 
 
 			}
 
 
-			Polygon3D p3dr=new Polygon3D(size,cxr,cyr,czr);
+			Polygon3D p3dr=new Polygon3D(size,cxr,cyr,czr,cxtr,cytr);
 
 	        return p3dr;
 
@@ -246,6 +250,9 @@ public class LineData implements Cloneable{
 			int[] cxr=new int[size];
 			int[] cyr=new int[size];
 			int[] czr=new int[size];
+			
+			int[] cxtr=new int[size];
+			int[] cytr=new int[size];
 
 
 			for(int i=0;i<size;i++){
@@ -260,11 +267,14 @@ public class LineData implements Cloneable{
 				cxr[i]=(int)(p.x);
 				cyr[i]=(int)(p.y);
 				czr[i]=(int)(p.z);
+				
+				cxtr[i]=(int) ldv.getVertex_texture_x();
+				cytr[i]=(int) ldv.getVertex_texture_y();
 
 			}
 
 
-			Polygon3D p3dr=new Polygon3D(size,cxr,cyr,czr);
+			Polygon3D p3dr=new Polygon3D(size,cxr,cyr,czr,cxtr,cytr);
 
 	        return p3dr;
 

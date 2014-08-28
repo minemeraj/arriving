@@ -28,6 +28,15 @@ public class Polygon3D  extends Polygon{
 	
 	public String data=null;
 
+	
+	public Polygon3D(int npoints, int[] xpoints, int[] ypoints, int[] zpoints,int[] xtpoints, int[] ytpoints) {
+		
+		super(xpoints,ypoints,npoints);
+		this.zpoints = zpoints;
+		
+		this.xtpoints = xtpoints;
+		this.ytpoints = ytpoints;
+	}
 
 	public Polygon3D(int npoints, int[] xpoints, int[] ypoints, int[] zpoints) {
 		

@@ -790,11 +790,13 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
     	
 
     	for(int i=0;i<triangles.length;i++){
+    		
+    		BarycentricCoordinates bc=new BarycentricCoordinates(triangles[i]);
 
     		decomposeTriangleIntoZBufferEdgeWalking( triangles[i],calculateShadowColor(
     				cosin,color.getRGB()), texture,zbuffer,
     				xDirection,yDirection,origin, deltaX, deltaY,
-    				null
+    				bc
     				);
 
     	}
@@ -933,7 +935,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
     			
     			
     			if(texture!=null)
-    			  rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY,null);
+    			  rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY,bc);
     			if(rgbColor==greenRgb)
     				continue;
     			int tot=WIDTH*j+i;
@@ -997,7 +999,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
     		
     			
     			if(texture!=null)
-    			  rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY,null);
+    			  rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY,bc);
     			if(rgbColor==greenRgb)
     				continue;
     			int tot=WIDTH*j+i;
