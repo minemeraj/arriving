@@ -15,6 +15,7 @@ import com.BarycentricCoordinates;
 import com.CubicMesh;
 import com.DrawObject;
 import com.LineData;
+import com.LineDataVertex;
 import com.Plain;
 import com.Point3D;
 import com.Point4D;
@@ -1019,10 +1020,14 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 		int[] cyr=new int[size];
 		int[] czr=new int[size];
 		
+		int[] cxtr=new int[size];
+		int[] cytr=new int[size];
+		
 		for(int i=0;i<size;i++){
 
 
-			int num=ld.getIndex(i);
+			LineDataVertex ldv=(LineDataVertex) ld.getItem(i);
+			int num=ldv.getVertex_index();
 
 			Point4D p=(Point4D) points[num];
 
@@ -1030,12 +1035,15 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 			cxr[i]=(int)(p.x);
 			cyr[i]=(int)(p.y);
 			czr[i]=(int)(p.z);
+			
+			cxtr[i]=(int) ldv.getVertex_texture_x();
+			cytr[i]=(int) ldv.getVertex_texture_y();
 
 		}
 
 
 
-		Polygon3D p3dr=new Polygon3D(size,cxr,cyr,czr);
+		Polygon3D p3dr=new Polygon3D(size,cxr,cyr,czr,cxtr,cytr);
 		buildTransformedPolygon(p3dr);
 		p3dr.setHexColor(ld.getHexColor());
 		p3dr.setIndex(ld.getTexture_index());

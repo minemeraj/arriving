@@ -179,7 +179,7 @@ public class Road extends Shader{
 		
 		initialiazeCarDynamics();
 		
-		//loadAutocars(new File("lib/autocars"));
+		loadAutocars(new File("lib/autocars"));
 		
 		//showMemoryUsage();
 		//buildDefaultRoad(); 
@@ -640,7 +640,7 @@ public class Road extends Shader{
 	
 					if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
 							
-						//decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],roadZbuffer);
+						decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],roadZbuffer);
 				
 							
 						    if(index==1){
@@ -650,7 +650,7 @@ public class Road extends Shader{
 						    	Polygon3D[] polygons=buildAdditionalRoadPolygons(p3D);
 						    	
 						    	for (int i = 0; i < polygons.length; i++) {
-										//decomposeClippedPolygonIntoZBuffer(polygons[i],Color.DARK_GRAY,null,roadZbuffer);
+										decomposeClippedPolygonIntoZBuffer(polygons[i],Color.DARK_GRAY,null,roadZbuffer);
 								}
 						    	
 						    }
@@ -727,10 +727,12 @@ public class Road extends Shader{
 			
 			pols[i]=new Polygon3D();
 			
-			pols[i].addPoint(p3d.xpoints[i],p3d.ypoints[i],p3d.zpoints[i]);
-			pols[i].addPoint(p3d.xpoints[i],p3d.ypoints[i],p3d.zpoints[i]-ROAD_THICKNESS);
-			pols[i].addPoint(p3d.xpoints[(i+1)%p3d.npoints],p3d.ypoints[(i+1)%p3d.npoints],p3d.zpoints[(i+1)%p3d.npoints]-ROAD_THICKNESS);
-			pols[i].addPoint(p3d.xpoints[(i+1)%p3d.npoints],p3d.ypoints[(i+1)%p3d.npoints],p3d.zpoints[(i+1)%p3d.npoints]);
+			pols[i].addPoint(p3d.xpoints[i],p3d.ypoints[i],p3d.zpoints[i],p3d.xtpoints[i],p3d.ytpoints[i]);
+			pols[i].addPoint(p3d.xpoints[i],p3d.ypoints[i],p3d.zpoints[i]-ROAD_THICKNESS,p3d.xtpoints[i],p3d.ytpoints[i]);
+			pols[i].addPoint(p3d.xpoints[(i+1)%p3d.npoints],p3d.ypoints[(i+1)%p3d.npoints],p3d.zpoints[(i+1)%p3d.npoints]-ROAD_THICKNESS,
+					p3d.xtpoints[(i+1)%p3d.npoints],p3d.ytpoints[(i+1)%p3d.npoints]);
+			pols[i].addPoint(p3d.xpoints[(i+1)%p3d.npoints],p3d.ypoints[(i+1)%p3d.npoints],p3d.zpoints[(i+1)%p3d.npoints],
+					p3d.xtpoints[i],p3d.ytpoints[(i+1)%p3d.npoints]);
 
 			
 		}
@@ -1295,7 +1297,7 @@ public class Road extends Shader{
 			
 			String str=null;
 			int rows=0;
-			/*while((str=br.readLine())!=null ){
+			while((str=br.readLine())!=null ){
 				if(str.indexOf("#")>=0 || str.length()==0)
 					continue;
 				
@@ -1331,7 +1333,7 @@ public class Road extends Shader{
 				dro.setMesh(cm);
 				
 
-			}*/
+			}
 			br.close();
 			
 			drawObjects=new DrawObject[vdrawObjects.size()];

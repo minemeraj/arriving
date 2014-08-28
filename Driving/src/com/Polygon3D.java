@@ -110,7 +110,7 @@ public class Polygon3D  extends Polygon{
 		
 	}
 	
-	public void addPoint(int x, int y,int z) {
+	public void addPoint(int x, int y,int z, int xt,int yt) {
 		
 		Polygon3D new_pol=new Polygon3D(this.npoints+1);
 
@@ -118,15 +118,28 @@ public class Polygon3D  extends Polygon{
 			new_pol.xpoints[i]=this.xpoints[i];
 			new_pol.ypoints[i]=this.ypoints[i];
 			new_pol.zpoints[i]=this.zpoints[i];
+			new_pol.xtpoints[i]=this.xtpoints[i];
+			new_pol.ytpoints[i]=this.ytpoints[i];
 		}
 		new_pol.xpoints[this.npoints]=x;
 		new_pol.ypoints[this.npoints]=y;
 		new_pol.zpoints[this.npoints]=z;
+		new_pol.xtpoints[this.npoints]=xt;
+		new_pol.ytpoints[this.npoints]=yt;
 		
 		this.setNpoints(new_pol.npoints);
 		this.setXpoints(new_pol.xpoints);
 		this.setYpoints(new_pol.ypoints);
 		this.setZpoints(new_pol.zpoints);
+		this.setXtpoints(new_pol.xtpoints);
+		this.setYtpoints(new_pol.ytpoints);
+		
+	}
+	
+	public void addPoint(int x, int y,int z) {
+		
+	
+		addPoint(x,  y, z,0,0);
 		
 	}
 	
@@ -928,6 +941,20 @@ public class Polygon3D  extends Polygon{
 		this.data = data;
 	}
 
+	public int[] getXtpoints() {
+		return xtpoints;
+	}
 
+	public void setXtpoints(int[] xtpoints) {
+		this.xtpoints = xtpoints;
+	}
+
+	public int[] getYtpoints() {
+		return ytpoints;
+	}
+
+	public void setYtpoints(int[] ytpoints) {
+		this.ytpoints = ytpoints;
+	}
 
 }

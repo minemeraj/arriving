@@ -211,7 +211,6 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 					if(files[i].getName().startsWith("object_")){
 						
 						vObjects.add(files[i]);
-						
 					}		
 				}
 			
@@ -232,7 +231,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 			for(int i=0;i<files.length;i++){
 				if(files[i].getName().startsWith("road_texture_")){
 					
-					//vRoadTextures.add(files[i]);
+					vRoadTextures.add(files[i]);
 					
 				}		
 			}
@@ -297,7 +296,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 					   && 	!files[i].getName().startsWith("object3D_texture")	
 					){
 						
-						//v3DObjects.add(files[i]);
+						v3DObjects.add(files[i]);
 						
 					}		
 				}
