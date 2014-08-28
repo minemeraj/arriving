@@ -442,11 +442,11 @@ public class Road extends Shader{
 				
 		}
 		
-		/* cm.translate(POSX,POSY,-MOVZ);
+		 cm.translate(POSX,POSY,-MOVZ);
 		 cm.rotate(POSX, POSY,viewDirectionCos,viewDirectionSin);
 		 if(!carFrame.skipShading){
 			 buildShadowVolumeBox(carShadowVolume[SELECTED_CAR],cm);
-		 }*/
+		 }
 
 	}
 
@@ -666,7 +666,7 @@ public class Road extends Shader{
 		drawCar();
 
 		if(!carFrame.skipShading){
-			//calculateStencilBuffer();
+			calculateStencilBuffer();
 		}
 		buildScreen(buf); 
 		//showMemoryUsage();
