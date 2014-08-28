@@ -2976,19 +2976,28 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		String str="";
 		
 		str+="T"+ld.texture_index;
-		str+=",C"+ld.getHexColor();
+		str+=" C"+ld.getHexColor();
 
 		for(int j=0;j<ld.size();j++){
 			
 			
 			
-			str+=",";
+			str+=" ";
 			
-			str+=ld.getIndex(j);
+			str+=ld.getIndex(j)+"/"+j;
 
 		}
 
 		return str;
+	}
+	
+
+	public void decomposeObjVertices(PrintWriter pr, PolygonMesh mesh) {
+	
+		pr.print("\nvt=0 0");//0
+		pr.print("\nvt=200 0");//1
+		pr.print("\nvt=200 200");//2
+		pr.print("\nvt=0 200");//3
 	}
 	
 	
@@ -2996,19 +3005,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
-			String[] vals = str.split(" ");
-
-			LineData ld=new LineData();
-
-			ld.texture_index=Integer.parseInt(vals[0].substring(1));
-			
-			ld.hexColor=vals[1].substring(1);
-			
-			for(int i=2;i<vals.length;i++)
-				ld.addIndex(Integer.parseInt(vals[i]));
-
-
-			polygonData.add(ld);
+	        Road.buildLine(polygonData,  str, vTexturePoints);
 
 
 	}
@@ -4614,7 +4611,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	 * @param roadData
 	 */
 	
-	public void migrateRoadToNewFormat(File fileIn,File fileOut,Point4D[][] roadData ) {
+	/*public void migrateRoadToNewFormat(File fileIn,File fileOut,Point4D[][] roadData ) {
 
 		int NX=0;
 		int NY=0;
@@ -4724,7 +4721,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	private Point4D[] buildRow(String string,int NX) {
 		StringTokenizer stk=new StringTokenizer(string,"_");

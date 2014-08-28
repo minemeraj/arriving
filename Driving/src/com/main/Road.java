@@ -1053,6 +1053,7 @@ public class Road extends Shader{
 			int rows=0;
 			
 			Vector vPoints=new Vector();
+			Vector vTexturePoints=new Vector();
 			
 			while((str=br.readLine())!=null){
 				if(str.indexOf("#")>=0 || str.length()==0)
@@ -1068,8 +1069,10 @@ public class Road extends Shader{
 
 				if(str.startsWith("v="))
 					buildPoint(vPoints,str.substring(2),index);
+				else if(str.startsWith("vt="))
+					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
 				else if(str.startsWith("f="))
-					buildLine(meshes[index].polygonData,str.substring(2));
+					buildLine(meshes[index].polygonData,str.substring(2),vTexturePoints);
 
 
 			}
@@ -1154,7 +1157,7 @@ public class Road extends Shader{
 		return str;
 	}
 	
-	public void buildLine(Vector polygonData, String str) {
+	public static void buildLine(Vector polygonData, String str,Vector vTexturePoints) {
 
 
 
@@ -1166,16 +1169,26 @@ public class Road extends Shader{
 			
 			ld.hexColor=vals[1].substring(1);
 			
-			for(int i=2;i<vals.length;i++)
-				ld.addIndex(Integer.parseInt(vals[i]));
+			for(int i=2;i<vals.length;i++){
 
+				String val=vals[i];
+				if(val.indexOf("/")>0){
+
+
+					String val0=val.substring(0,val.indexOf("/"));
+					String val1=val.substring(1+val.indexOf("/"));
+
+					int indx0=Integer.parseInt(val0);	
+					int indx1=Integer.parseInt(val1);					
+					Point3D pt=(Point3D) vTexturePoints.elementAt(indx1);					
+
+					ld.addIndex(indx0,indx1,pt.x,pt.y);
+				}
+				else
+					ld.addIndex(Integer.parseInt(val));
+
+			}
 			polygonData.add(ld);
-			
-		
-
-
-
-
 	}
 
 
