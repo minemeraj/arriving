@@ -2970,51 +2970,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 	
-	public void buildPoints(Vector points, String str) {
-
-		StringTokenizer sttoken=new StringTokenizer(str,"_");
-
-		while(sttoken.hasMoreElements()){
-
-			String[] vals = sttoken.nextToken().split(",");
-
-			Point4D p=new Point4D();
-			
-			p.x=Double.parseDouble(vals[0]);
-			p.y=Double.parseDouble(vals[1]);
-			p.z=Double.parseDouble(vals[2]);
-
-			points.add(p);
-		}
-
-
-
-
-	}
-	
-	public void buildPoints(PolygonMesh mesh, String str) {
-		
-		Vector vPoints=new Vector();
-
-		StringTokenizer sttoken=new StringTokenizer(str,"_");
-
-		while(sttoken.hasMoreElements()){
-
-			String[] vals = sttoken.nextToken().split(",");
-
-			Point4D p=new Point4D();
-			
-			p.x=Double.parseDouble(vals[0]);
-			p.y=Double.parseDouble(vals[1]);
-			p.z=Double.parseDouble(vals[2]);
-
-			vPoints.add(p);
-		}
-		mesh.setPoints(vPoints);
-
-
-
-	}
 	
 	public String decomposeLineData(LineData ld) {
 
@@ -3036,13 +2991,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		return str;
 	}
 	
-	public void buildLines(Vector lines, String str) {
+	
+	public void buildLine(Vector polygonData, String str,Vector vTexturePoints) {
 
-		StringTokenizer sttoken=new StringTokenizer(str,"_");
 
-		while(sttoken.hasMoreElements()){
 
-			String[] vals = sttoken.nextToken().split(",");
+			String[] vals = str.split(" ");
 
 			LineData ld=new LineData();
 
@@ -3054,41 +3008,27 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				ld.addIndex(Integer.parseInt(vals[i]));
 
 
-			lines.add(ld);
-		}
-
-
+			polygonData.add(ld);
 
 
 	}
 	
-	public void buildLines(PolygonMesh mesh, String str) {
+	public void buildPoint(Vector points, String str) {
 
-		StringTokenizer sttoken=new StringTokenizer(str,"_");
 
-		while(sttoken.hasMoreElements()){
 
-			String[] vals = sttoken.nextToken().split(",");
+			String[] vals = str.split(" ");
 
-			LineData ld=new LineData();
-
-			ld.texture_index=Integer.parseInt(vals[0].substring(1));
+			Point4D p=new Point4D();
 			
-			ld.hexColor=vals[1].substring(1);
-			
-			for(int i=2;i<vals.length;i++)
-				ld.addIndex(Integer.parseInt(vals[i]));
+			p.x=Double.parseDouble(vals[0]);
+			p.y=Double.parseDouble(vals[1]);
+			p.z=Double.parseDouble(vals[2]);
 
-
-			mesh.polygonData.add(ld);
-		}
-
-
-
-
-	}
+			points.add(p);
 	
 
+	}
 
 	public void loadObjectsFromFile(File file){
 

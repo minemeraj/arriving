@@ -73,7 +73,7 @@ public class Editor extends JFrame implements MenuListener{
 	
 	public void buildLines(Vector lines, String str) {
 
-		StringTokenizer sttoken=new StringTokenizer(str,"_");
+		StringTokenizer sttoken=new StringTokenizer(str," ");
 
 		while(sttoken.hasMoreElements()){
 			
@@ -176,11 +176,11 @@ public class Editor extends JFrame implements MenuListener{
 				
 
 				if(str.startsWith("v="))
-					PolygonMesh.buildPoint(vPoints,str.substring(2));
+					buildPoint(vPoints,str.substring(2));
 				else if(str.startsWith("vt="))
 					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
 				else if(str.startsWith("f="))
-					PolygonMesh.buildLine(meshes[ACTIVE_PANEL].polygonData,str.substring(2),vTexturePoints);
+					buildLine(meshes[ACTIVE_PANEL].polygonData,str.substring(2),vTexturePoints);
 				else if(str.startsWith("NX="))					
 					nx=Integer.parseInt(str.substring(3)); 
 				else if(str.startsWith("NY="))					
@@ -220,6 +220,25 @@ public class Editor extends JFrame implements MenuListener{
 		
 		repaint();
 	}
+
+
+	public void buildPoint(Vector vPoints, String str) {
+		PolygonMesh.buildPoint(vPoints,str);
+		
+	}
+
+
+
+
+
+	public void buildLine(Vector<LineData> polygonData, String str,
+			Vector vTexturePoints) {
+		PolygonMesh.buildLine(polygonData,str,vTexturePoints);
+		
+	}
+
+
+
 
 
 	public String decomposePoint(Point3D p) {
