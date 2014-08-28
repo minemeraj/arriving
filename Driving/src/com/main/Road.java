@@ -1253,7 +1253,7 @@ public class Road extends Shader{
 					continue;
 
 				if(str.startsWith("v="))
-					PolygonMesh.buildPoints(points,str.substring(2)); 
+					PolygonMesh.buildPoint(points,str.substring(2)); 
 				else if(str.startsWith("vt="))
 					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
 				else if(str.startsWith("f="))

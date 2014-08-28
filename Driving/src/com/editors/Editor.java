@@ -66,26 +66,7 @@ public class Editor extends JFrame implements MenuListener{
 		
 	
 	}
-	
-	public void buildPoint(Vector vPoints,String str) {
-		
 
-			String[] vals =str.split(" ");
-
-			Point3D p=new Point3D();
-
-			p.x=Double.parseDouble(vals[0]);
-			p.y=Double.parseDouble(vals[1]);
-			p.z=Double.parseDouble(vals[2]);
-			
-			if(vals.length==4)
-				p.data=vals[3];
-
-			vPoints.add(p);
-		
-
-	}
-	
 
 	
 
@@ -195,7 +176,7 @@ public class Editor extends JFrame implements MenuListener{
 				
 
 				if(str.startsWith("v="))
-					buildPoint(vPoints,str.substring(2));
+					PolygonMesh.buildPoint(vPoints,str.substring(2));
 				else if(str.startsWith("vt="))
 					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
 				else if(str.startsWith("f="))

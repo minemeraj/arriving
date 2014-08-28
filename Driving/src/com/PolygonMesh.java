@@ -177,23 +177,28 @@ public class PolygonMesh implements Cloneable{
 		return pols;
 
 	}
+
 	
-	public static void buildPoints(Vector points, String str) {
+	
+	public static void buildPoint(Vector vPoints,String str) {
+		
 
-
-
-			String[] vals = str.split(" ");
+			String[] vals =str.split(" ");
 
 			Point3D p=new Point3D();
 
 			p.x=Double.parseDouble(vals[0]);
 			p.y=Double.parseDouble(vals[1]);
 			p.z=Double.parseDouble(vals[2]);
+			
+			if(vals.length==4)
+				p.data=vals[3];
 
-			points.add(p);
-
+			vPoints.add(p);
+		
 
 	}
+	
 
 	public static void buildLine(Vector polygonData, String token, Vector vTexturePoints) {
 
@@ -262,6 +267,7 @@ public class PolygonMesh implements Cloneable{
 	public static PolygonMesh loadMeshFromFile(File file) {
 		Vector points=new Vector();
 		Vector lines=new Vector();
+		Vector vTexturePoints=new Vector();
 		
 		PolygonMesh pm=null;
 
@@ -275,10 +281,13 @@ public class PolygonMesh implements Cloneable{
 				if(str.indexOf("#")>=0 || str.length()==0)
 					continue;
 
-				/*if(str.startsWith("P="))
-					buildPoints(points,str.substring(2));
-				else if(str.startsWith("L="))
-					buildLines(lines,str.substring(2),null);*/
+				if(str.startsWith("v="))
+					buildPoint(points,str.substring(2));
+				else if(str.startsWith("vt="))
+					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
+				else if(str.startsWith("f="))
+					PolygonMesh.buildLine(lines,str.substring(2),vTexturePoints);
+
 
 
 			}
