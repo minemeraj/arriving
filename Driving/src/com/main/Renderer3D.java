@@ -302,7 +302,8 @@ public class Renderer3D implements AbstractRenderer3D{
 		
 		int j0=midP.y>0?(int)midP.y:0;
 		int j1=upP.y<HEIGHT?(int)upP.y:HEIGHT;
-
+		
+		
 		for(int j=j0;j<j1;j++){
 	
 
@@ -361,7 +362,7 @@ public class Renderer3D implements AbstractRenderer3D{
                 double texture_y=((1-l)*i_pstart_p_y*pstart.texture_y+l*i_end_p_y*pend.texture_y)*yi;
 
 				if(texture!=null)
-					rgbColor=texture.getRGB((int)texture_x,(int) texture_y);  
+					rgbColor=texture.getRGB((int)texture_x,texture.getHeight()-1-(int) texture_y);  
 					//rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY,bc);
 				if(rgbColor==greenRgb)
 					continue;
@@ -448,7 +449,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 				if(texture!=null)
 					//rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY,bc);
-					rgbColor=texture.getRGB((int)texture_x,(int) texture_y);   
+					rgbColor=texture.getRGB((int)texture_x,texture.getHeight()-(int) texture_y);   
 				if(rgbColor==greenRgb)
 					continue;
 

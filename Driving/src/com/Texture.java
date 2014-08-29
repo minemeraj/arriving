@@ -95,10 +95,10 @@ public class Texture {
 		
 		int tot=i+WIDTH*j;
 		
-	    if(tot<rgb.length)
+	    if(tot>-1 && tot<rgb.length)
 	    	return rgb[i+WIDTH*j];
 	    else
-	    	return rgb[tot-rgb.length];
+	    	return rgb[rgb.length-1];
 		
 		//return rgb[i+WIDTH*j];
 	}
