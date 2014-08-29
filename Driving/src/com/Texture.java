@@ -93,10 +93,12 @@ public class Texture {
 	
 	public int getRGB(int i,int j){
 		
-	    if(i+WIDTH*j<rgb.length)
+		int tot=i+WIDTH*j;
+		
+	    if(tot<rgb.length)
 	    	return rgb[i+WIDTH*j];
 	    else
-	    	return rgb[rgb.length-1];
+	    	return rgb[tot-rgb.length];
 		
 		//return rgb[i+WIDTH*j];
 	}

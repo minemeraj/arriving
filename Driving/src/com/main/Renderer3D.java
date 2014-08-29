@@ -242,25 +242,28 @@ public class Renderer3D implements AbstractRenderer3D{
 		
 		if(texture!=null){
 			
+			int w=texture.getWidth();
+			int h=texture.getHeight();
+			
 			Point3D pt0=bc.pt0;
 			Point3D pt1=bc.pt1;
 			Point3D pt2=bc.pt2;
 			
 			Point3D p=bc.getBarycentricCoordinates(new Point3D(points[0].p_x,points[0].p_y,points[0].p_z));
 			double x= (p.x*(pt0.x)+p.y*pt1.x+(1-p.x-p.y)*pt2.x);
-			double y= (p.x*(pt0.y)+p.y*pt1.y+(1-p.x-p.y)*pt2.y);			
+			double y= (p.x*(pt0.y)+p.y*pt1.y+(1-p.x-p.y)*pt2.y);
 			points[0].setTexurePositions(x,y);
 			
 			
 			p=bc.getBarycentricCoordinates(new Point3D(points[1].p_x,points[1].p_y,points[1].p_z));
 			x= (p.x*(pt0.x)+p.y*pt1.x+(1-p.x-p.y)*pt2.x);
-			y= (p.x*(pt0.y)+p.y*pt1.y+(1-p.x-p.y)*pt2.y);			
+			y= (p.x*(pt0.y)+p.y*pt1.y+(1-p.x-p.y)*pt2.y);	
 			points[1].setTexurePositions(x,y);
 			
 			
 			p=bc.getBarycentricCoordinates(new Point3D(points[2].p_x,points[2].p_y,points[2].p_z));
 			x= (p.x*(pt0.x)+p.y*pt1.x+(1-p.x-p.y)*pt2.x);
-			y= (p.x*(pt0.y)+p.y*pt1.y+(1-p.x-p.y)*pt2.y);			
+			y= (p.x*(pt0.y)+p.y*pt1.y+(1-p.x-p.y)*pt2.y);
 			points[2].setTexurePositions(x,y);
 				
 			/*
