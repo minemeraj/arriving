@@ -2,13 +2,13 @@ package com;
 
 public class BarycentricCoordinates {
 	
-	Point3D p0=null;
-	Point3D p1=null;
-	Point3D p2=null;
+	public Point3D p0=null;
+	public Point3D p1=null;
+	public Point3D p2=null;
 	
-	Point3D pt0=null;
-	Point3D pt1=null;
-	Point3D pt2=null;
+	public Point3D pt0=null;
+	public Point3D pt1=null;
+	public Point3D pt2=null;
 	
 	Point3D n=null;
 	double inv_nSquare=0;

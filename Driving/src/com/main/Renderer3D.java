@@ -241,6 +241,28 @@ public class Renderer3D implements AbstractRenderer3D{
 		points[2]=new Point3D(x2,y2,z2,p2.x,p2.y,p2.z);
 		
 		if(texture!=null){
+			
+			Point3D pt0=bc.pt0;
+			Point3D pt1=bc.pt1;
+			Point3D pt2=bc.pt2;
+			
+			Point3D p=bc.getBarycentricCoordinates(new Point3D(points[0].p_x,points[0].p_y,points[0].p_z));
+			double x= (p.x*(pt0.x)+p.y*pt1.x+(1-p.x-p.y)*pt2.x);
+			double y= (p.x*(pt0.y)+p.y*pt1.y+(1-p.x-p.y)*pt2.y);			
+			points[0].setTexurePositions(x,y);
+			
+			
+			p=bc.getBarycentricCoordinates(new Point3D(points[1].p_x,points[1].p_y,points[1].p_z));
+			x= (p.x*(pt0.x)+p.y*pt1.x+(1-p.x-p.y)*pt2.x);
+			y= (p.x*(pt0.y)+p.y*pt1.y+(1-p.x-p.y)*pt2.y);			
+			points[1].setTexurePositions(x,y);
+			
+			
+			p=bc.getBarycentricCoordinates(new Point3D(points[2].p_x,points[2].p_y,points[2].p_z));
+			x= (p.x*(pt0.x)+p.y*pt1.x+(1-p.x-p.y)*pt2.x);
+			y= (p.x*(pt0.y)+p.y*pt1.y+(1-p.x-p.y)*pt2.y);			
+			points[2].setTexurePositions(x,y);
+				
 			/*
 			points[0].setTexurePositions(ZBuffer.pickTexturePositionPCoordinates(texture,points[0].p_x,points[0].p_y,points[0].p_z,xDirection,yDirection,origin,deltaX,deltaY));
 			points[1].setTexurePositions(ZBuffer.pickTexturePositionPCoordinates(texture,points[1].p_x,points[1].p_y,points[1].p_z,xDirection,yDirection,origin,deltaX,deltaY));
@@ -332,14 +354,12 @@ public class Renderer3D implements AbstractRenderer3D{
 				double zi=((1-l)*i_pstart_p_y*pstart.p_z+l*i_end_p_y*pend.p_z)*yi;
 				double xi=((1-l)*i_pstart_p_y*pstart.p_x+l*i_end_p_y*pend.p_x)*yi;  
 				
-                //double texture_x=((1-l)*i_pstart_p_y*pstart.texture_x+l*i_end_p_y*pend.texture_x)*yi;
-                //double texture_y=((1-l)*i_pstart_p_y*pstart.texture_y+l*i_end_p_y*pend.texture_y)*yi;
-
-			
+                double texture_x=((1-l)*i_pstart_p_y*pstart.texture_x+l*i_end_p_y*pend.texture_x)*yi;
+                double texture_y=((1-l)*i_pstart_p_y*pstart.texture_y+l*i_end_p_y*pend.texture_y)*yi;
 
 				if(texture!=null)
-					//rgbColor=texture.getRGB((int)texture_x,(int) texture_y);  
-					rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY,bc);
+					rgbColor=texture.getRGB((int)texture_x,(int) texture_y);  
+					//rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY,bc);
 				if(rgbColor==greenRgb)
 					continue;
 
@@ -419,13 +439,13 @@ public class Renderer3D implements AbstractRenderer3D{
 				double zi=((1-l)*i_pstart_p_y*pstart.p_z+l*i_end_p_y*pend.p_z)*yi;
 				double xi=((1-l)*i_pstart_p_y*pstart.p_x+l*i_end_p_y*pend.p_x)*yi;
 
-                //double texture_x=((1-l)*i_pstart_p_y*pstart.texture_x+l*i_end_p_y*pend.texture_x)*yi;
-                //double texture_y=((1-l)*i_pstart_p_y*pstart.texture_y+l*i_end_p_y*pend.texture_y)*yi;
+                double texture_x=((1-l)*i_pstart_p_y*pstart.texture_x+l*i_end_p_y*pend.texture_x)*yi;
+                double texture_y=((1-l)*i_pstart_p_y*pstart.texture_y+l*i_end_p_y*pend.texture_y)*yi;
 
 
 				if(texture!=null)
-					rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY,bc);
-					//rgbColor=texture.getRGB((int)texture_x,(int) texture_y);   
+					//rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY,bc);
+					rgbColor=texture.getRGB((int)texture_x,(int) texture_y);   
 				if(rgbColor==greenRgb)
 					continue;
 

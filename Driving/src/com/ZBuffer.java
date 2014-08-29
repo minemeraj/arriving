@@ -90,9 +90,14 @@ public class ZBuffer{
 			int x=0;
 			int y=0;
 			
+		
+			
 			if(bc!=null){
 				
+				
+				
 				Point3D point=new Point3D(px,py,pz);
+				
 				Point3D p=bc.getBarycentricCoordinates(point);
 				
 				Point3D p0=bc.pt0;
@@ -101,8 +106,6 @@ public class ZBuffer{
 				
 				x=(int) (p.x*(p0.x)+p.y*p1.x+(1-p.x-p.y)*p2.x);
 				y=(int) (p.x*(p0.y)+p.y*p1.y+(1-p.x-p.y)*p2.y);
-				
-				
 				
 			}
 			//for the road editor
@@ -146,7 +149,7 @@ public class ZBuffer{
 			
 		}
 		
-		/*public static Point3D  pickTexturePositionPCoordinates(Texture texture,double px,double py,double pz,Point3D xDirection,Point3D yDirection, Point3D origin,int deltaX,int deltaY){
+		public static Point3D  pickTexturePositionPCoordinates(Texture texture,double px,double py,double pz,Point3D xDirection,Point3D yDirection, Point3D origin,int deltaX,int deltaY){
 			
 
 			 
@@ -192,7 +195,7 @@ public class ZBuffer{
 			return point;
 			
 			
-		}*/
+		}
 		
 		public void update(double xs,double ys,double zs, int rgbColor) {
 			
