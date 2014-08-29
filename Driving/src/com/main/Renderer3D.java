@@ -252,19 +252,19 @@ public class Renderer3D implements AbstractRenderer3D{
 			Point3D p=bc.getBarycentricCoordinates(new Point3D(points[0].p_x,points[0].p_y,points[0].p_z));
 			double x= (p.x*(pt0.x)+p.y*pt1.x+(1-p.x-p.y)*pt2.x);
 			double y= (p.x*(pt0.y)+p.y*pt1.y+(1-p.x-p.y)*pt2.y);
-			points[0].setTexurePositions(x,y);
+			points[0].setTexurePositions(x,texture.getHeight()-y);
 			
 			
 			p=bc.getBarycentricCoordinates(new Point3D(points[1].p_x,points[1].p_y,points[1].p_z));
 			x= (p.x*(pt0.x)+p.y*pt1.x+(1-p.x-p.y)*pt2.x);
 			y= (p.x*(pt0.y)+p.y*pt1.y+(1-p.x-p.y)*pt2.y);	
-			points[1].setTexurePositions(x,y);
+			points[1].setTexurePositions(x,texture.getHeight()-y);
 			
 			
 			p=bc.getBarycentricCoordinates(new Point3D(points[2].p_x,points[2].p_y,points[2].p_z));
 			x= (p.x*(pt0.x)+p.y*pt1.x+(1-p.x-p.y)*pt2.x);
 			y= (p.x*(pt0.y)+p.y*pt1.y+(1-p.x-p.y)*pt2.y);
-			points[2].setTexurePositions(x,y);
+			points[2].setTexurePositions(x,texture.getHeight()-y);
 				
 			/*
 			points[0].setTexurePositions(ZBuffer.pickTexturePositionPCoordinates(texture,points[0].p_x,points[0].p_y,points[0].p_z,xDirection,yDirection,origin,deltaX,deltaY));
@@ -362,7 +362,7 @@ public class Renderer3D implements AbstractRenderer3D{
                 double texture_y=((1-l)*i_pstart_p_y*pstart.texture_y+l*i_end_p_y*pend.texture_y)*yi;
 
 				if(texture!=null)
-					rgbColor=texture.getRGB((int)texture_x,texture.getHeight()-1-(int) texture_y);  
+					rgbColor=texture.getRGB((int)texture_x,(int) texture_y);  
 					//rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY,bc);
 				if(rgbColor==greenRgb)
 					continue;
@@ -449,7 +449,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 				if(texture!=null)
 					//rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY,bc);
-					rgbColor=texture.getRGB((int)texture_x,texture.getHeight()-(int) texture_y);   
+					rgbColor=texture.getRGB((int)texture_x,(int) texture_y);   
 				if(rgbColor==greenRgb)
 					continue;
 
