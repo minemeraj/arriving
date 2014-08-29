@@ -215,15 +215,12 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 			if(oe.jmt_show_texture.isSelected()){
 			
 				
-				
-				if(face==Renderer3D.CAR_BOTTOM_2 || face==Renderer3D.CAR_FRONT_2  ||face==Renderer3D.CAR_BACK_2 
-						||face==Renderer3D.CAR_TOP_2  || face==Renderer3D.CAR_LEFT_2 || face==Renderer3D.CAR_RIGHT_2)
-					deltaTexture=cm.getDeltaX()+cm.getDeltaX2();
+
 				
 				
-			 	if(face==Renderer3D.CAR_BOTTOM || face==Renderer3D.CAR_BOTTOM_2)
+			 	if(face==Renderer3D.CAR_BOTTOM )
 					continue;
-				if(face==Renderer3D.CAR_FRONT || face==Renderer3D.CAR_FRONT_2 ){
+				if(face==Renderer3D.CAR_FRONT){
 
 					
 					 deltaWidth=cm.getDeltaX();
@@ -235,7 +232,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 
 				}
-				else if(face==Renderer3D.CAR_BACK || face==Renderer3D.CAR_BACK_2){
+				else if(face==Renderer3D.CAR_BACK){
 					 deltaWidth=cm.getDeltaX();
 					 deltaHeight=0;
 					 xDirection=xVersor;
@@ -243,20 +240,20 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 
 				}
-				else if(face==Renderer3D.CAR_TOP || face==Renderer3D.CAR_TOP_2 ){
+				else if(face==Renderer3D.CAR_TOP){
 					 deltaWidth=cm.getDeltaX();
 					 xDirection=xVersor;
 					 yDirection=yVersor;
 
 
 				}
-				else if(face==Renderer3D.CAR_LEFT || face==Renderer3D.CAR_LEFT_2 ) {
+				else if(face==Renderer3D.CAR_LEFT) {
 					
 					xDirection=zVersor;
 					yDirection=yVersor;
 
 				}
-				else if(face==Renderer3D.CAR_RIGHT || face==Renderer3D.CAR_RIGHT_2 ) {
+				else if(face==Renderer3D.CAR_RIGHT) {  
 					
 					xDirection=zMinusVersor;
 					yDirection=yVersor;

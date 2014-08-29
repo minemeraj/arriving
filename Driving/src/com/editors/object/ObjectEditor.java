@@ -100,7 +100,6 @@ public class ObjectEditor extends Editor implements ActionListener{
 	public JMenuItem jmt_save_mesh;
 	public JMenuItem jmt22;
 	public JMenuItem jmt_save_base_texture;
-	public JMenuItem jmt_save_base_double_texture;
 	public JMenu jm_save;
 
 	public JMenu jm_change;
@@ -280,12 +279,6 @@ public class ObjectEditor extends Editor implements ActionListener{
 		jmt_save_base_texture.addActionListener(this);
 		jm_save.add(jmt_save_base_texture);
 		
-		jm_save.addSeparator();
-		
-		jmt_save_base_double_texture = new JMenuItem("Save double texture");
-		jmt_save_base_double_texture.addActionListener(this);
-		jm_save.add(jmt_save_base_double_texture);
-		
 		jmb.add(jm_save);
 
 		jm_change=new JMenu("Change");
@@ -391,10 +384,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 			saveLines();
 		}
 		else if(o==jmt_save_base_texture){
-			saveBaseCubicTexture(1);
-		}
-		else if(o==jmt_save_base_double_texture){
-			saveBaseCubicTexture(2);
+			saveBaseCubicTexture();
 		}
 		else if(o==jmt_load_mesh){
 			
@@ -652,7 +642,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 
 
 
-	private void saveBaseCubicTexture(int mode) {
+	private void saveBaseCubicTexture() {
 		
 		fc = new JFileChooser();
 		fc.setDialogType(JFileChooser.SAVE_DIALOG);
@@ -664,20 +654,21 @@ public class ObjectEditor extends Editor implements ActionListener{
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			currentDirectory=fc.getCurrentDirectory();
 			File file = fc.getSelectedFile();
-			saveBaseCubicTexture(file,mode);
+			saveBaseCubicTexture(file);
 
 		}
 		
 	}
 
 
-	private void saveBaseCubicTexture(File file, int mode) {
+	private void saveBaseCubicTexture(File file) {
 		
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
 		Color backgroundColor=Color.green;
 		Color back_color=Color.BLUE;
 		Color top_color=Color.RED;
+		Color bottom_color=Color.MAGENTA;
 		Color left_color=Color.YELLOW;
 		Color right_color=Color.ORANGE;
 		Color front_color=Color.CYAN;
@@ -735,22 +726,19 @@ public class ObjectEditor extends Editor implements ActionListener{
 		deltaX2=deltaX2+deltaX;
 		
 		IMG_HEIGHT=(int) deltaY+deltaX+deltaX;
-		IMG_WIDTH=(int) (deltaX2+deltaX);
+		IMG_WIDTH=(int) (deltaX2+deltaX2);
 		
-		BufferedImage buf=new BufferedImage(mode*IMG_WIDTH,IMG_HEIGHT,BufferedImage.TYPE_BYTE_INDEXED);
+		BufferedImage buf=new BufferedImage(IMG_WIDTH,IMG_HEIGHT,BufferedImage.TYPE_BYTE_INDEXED);
 	
 		try {
 
-			for (int i = 0; i < mode; i++) {
+	
 
 
 				int DX=0;
-				
-				if(i==1)
-					DX=IMG_WIDTH; 
 
 				Graphics2D bufGraphics=(Graphics2D)buf.getGraphics();
-
+ 
 				bufGraphics.setColor(backgroundColor);
 				bufGraphics.fillRect(DX+0,0,IMG_WIDTH,IMG_HEIGHT);
 				
@@ -770,7 +758,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 
 				bufGraphics.setColor(new Color(0,0,0));
 				bufGraphics.setStroke(new BasicStroke(0.1f));
-				for(int j=0;j<mesh.polygonData.size();j++){
+				for(int j=0;j<mesh.polygonData.size();j++){ 
 
 					LineData ld=(LineData) mesh.polygonData.elementAt(j);
 
@@ -794,11 +782,14 @@ public class ObjectEditor extends Editor implements ActionListener{
 						//back
 						bufGraphics.setColor(back_color);
 						bufGraphics.drawLine(DX+(int)(point0.x-minx+deltaX),(int)(-point0.z+maxz+deltaY+deltaX),DX+(int)(point1.x-minx+deltaX),(int)(-point1.z+maxz+deltaY+deltaX));
-
+						//bottom
+						bufGraphics.setColor(bottom_color);
+						bufGraphics.drawLine(DX+(int)(point0.x-minx+deltaX+deltaX2),(int)(-point0.y+maxy+deltaX),DX+(int)(point1.x-minx+deltaX+deltaX2),(int)(-point1.y+maxy+deltaX));
+				
 					}
 
 				}	
-			}
+			
 			ImageIO.write(buf,"gif",file);
 			
 		} catch (Exception e) {
