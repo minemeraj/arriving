@@ -149,7 +149,7 @@ public class ZBuffer{
 			
 		}
 		
-		public static Point3D  pickTexturePositionPCoordinates(Texture texture,double px,double py,double pz,Point3D xDirection,Point3D yDirection, Point3D origin,int deltaX,int deltaY){
+		/*public static Point3D  pickTexturePositionPCoordinates(Texture texture,double px,double py,double pz,Point3D xDirection,Point3D yDirection, Point3D origin,int deltaX,int deltaY){
 			
 
 			 
@@ -195,7 +195,7 @@ public class ZBuffer{
 			return point;
 			
 			
-		}
+		}*/
 		
 		public void update(double xs,double ys,double zs, int rgbColor) {
 			
