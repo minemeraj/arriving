@@ -1620,7 +1620,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		}
 	}
 	
-	public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh) {
+	public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCustom) {
 		
 		int DX=0;
 

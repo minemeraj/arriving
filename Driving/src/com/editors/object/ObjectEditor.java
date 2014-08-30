@@ -139,6 +139,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 	
 	public Texture currentTexture=null;
 	public JCheckBoxMenuItem jmt_show_texture;
+	private JMenuItem jmt_save_custom_mesh;
 	
 
 	public static void main(String[] args) {
@@ -279,6 +280,13 @@ public class ObjectEditor extends Editor implements ActionListener{
 		jmt_save_base_texture.addActionListener(this);
 		jm_save.add(jmt_save_base_texture);
 		
+		
+		jm_save.addSeparator();
+		
+		jmt_save_custom_mesh = new JMenuItem("Save custom mesh");
+		jmt_save_custom_mesh.addActionListener(this);
+		jm_save.add(jmt_save_custom_mesh); 
+		
 		jmb.add(jm_save);
 
 		jm_change=new JMenu("Change");
@@ -386,6 +394,9 @@ public class ObjectEditor extends Editor implements ActionListener{
 		else if(o==jmt_save_base_texture){
 			saveBaseCubicTexture();
 		}
+		else if(o==jmt_save_custom_mesh){
+			saveLines(true);
+		}		
 		else if(o==jmt_load_mesh){
 			
 			jmt_show_texture.setSelected(false);
@@ -442,9 +453,6 @@ public class ObjectEditor extends Editor implements ActionListener{
 			
 		}
 	}
-
-
-
 
 
 
@@ -800,8 +808,6 @@ public class ObjectEditor extends Editor implements ActionListener{
 	}
 
 
-	
-
 	public void undo() {
 		super.undo();
 		if(oldMeshes[ACTIVE_PANEL].size()==0)
@@ -817,7 +823,18 @@ public class ObjectEditor extends Editor implements ActionListener{
 		
 	}
 
-	public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh) {
+	public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCustom) {
+		
+		if(isCustom){
+			
+			for (int i = 0; i < mesh.texturePoints.size(); i++) {
+				Point3D pt = (Point3D)  mesh.texturePoints.elementAt(i);
+				pr.print("\nvt=");
+				pr.print(pt.x+" "+pt.y);
+			}
+			
+			return;
+		}
 		
 		int DX=0;
 

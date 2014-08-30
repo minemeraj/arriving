@@ -211,6 +211,7 @@ public class Editor extends JFrame implements MenuListener{
 			br.close();
 			
 			meshes[ACTIVE_PANEL].setPoints(vPoints);
+			meshes[ACTIVE_PANEL].setTexturePoints(vTexturePoints);
 			
 			//checkNormals();
 		} catch (Exception e) {
@@ -253,6 +254,11 @@ public class Editor extends JFrame implements MenuListener{
 	}
 	
 	public String decomposeLineData(LineData ld) {
+		
+		return decomposeLineData(ld,false);
+	}
+	
+	public String decomposeLineData(LineData ld,boolean isCustom) {
 
 		String str="";
 		
@@ -267,12 +273,23 @@ public class Editor extends JFrame implements MenuListener{
 				str+=" ";
 			str+=ld.getIndex(j);
 			
-			if(ld.data!=null){
+			if(isCustom){
 				
-				int face=Integer.parseInt(ld.data);
-	
-				str+="/"+(ld.getIndex(j)*6+face);
+				int indx=ld.getVertex_texture_index(j);
+				str+="/"+indx;
+				
+			}else{
+				
+				if(ld.data!=null){
+					
+					int face=Integer.parseInt(ld.data);
+		
+					str+="/"+(ld.getIndex(j)*6+face);
+				}
+				
 			}
+			
+		
 
 		}
 
@@ -280,6 +297,12 @@ public class Editor extends JFrame implements MenuListener{
 	}
 	
 	public void saveLines() {
+		
+		saveLines(false);
+		
+	}
+	
+	public void saveLines(boolean isCustom) {
 
 		fc = new JFileChooser();
 		fc.setDialogType(JFileChooser.SAVE_DIALOG);
@@ -299,7 +322,7 @@ public class Editor extends JFrame implements MenuListener{
 			currentFile=fc.getSelectedFile();
 			try{
 				PrintWriter pr = new PrintWriter(new FileOutputStream(file));
-				saveLines(pr);
+				saveLines(pr,isCustom);
 	            pr.close();
 			}catch (Exception e) {
 				e.printStackTrace();
@@ -308,8 +331,13 @@ public class Editor extends JFrame implements MenuListener{
 
 
 	}
-
+	
 	public void saveLines(PrintWriter pr) {
+		
+		saveLines(pr,false);
+	}
+
+	public void saveLines(PrintWriter pr,boolean isCustom) {
 
        
 
@@ -346,7 +374,7 @@ public class Editor extends JFrame implements MenuListener{
 					pr.println();
 			}
 			
-			decomposeObjVertices(pr,mesh);
+			decomposeObjVertices(pr,mesh,isCustom);
 
 	
 			
@@ -365,7 +393,12 @@ public class Editor extends JFrame implements MenuListener{
 				
 				////////////
 				pr.print("\nf=");
-				pr.print(decomposeLineData(ld));
+				if(isCustom){
+					
+					pr.print(decomposeLineData(ld,true));
+					
+				}else
+					pr.print(decomposeLineData(ld));
 			
 			}	
 			if(!forceReading)
@@ -379,7 +412,11 @@ public class Editor extends JFrame implements MenuListener{
 	}
 
 
-	public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh) {
+
+
+
+
+	public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCustom) {
 		
 		
 		
