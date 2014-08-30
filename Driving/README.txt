@@ -326,7 +326,8 @@
     key q,w,a,s : rotate axes
     
     
-    You can save an object in the standard editor format via the menu Save->Save lines 
+    You can save an object in the standard cube texture format via the menu Save->Save mesh 
+    To keep custom texture coordinates save via menu  Save->Save custom mesh
 
     To load an object file go to menu Load->Load lines or drag in the file.
     

@@ -222,6 +222,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	String header="<html><body>";
 	String footer="</body></html>";
 	private JMenu help_jm;
+	private JMenuItem jmt_save_custom_mesh;
 
 	
 	private void buildBottom() {
@@ -524,20 +525,26 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		jmt11.addActionListener(this);
 		jm.add(jmt11);*/
 
-		jmt_load_mesh = new JMenuItem("Load lines");
+		jmt_load_mesh = new JMenuItem("Load mesh");
 		jmt_load_mesh.addActionListener(this);
 		jm1.add(jmt_load_mesh);
 
-		jmt_save_mesh = new JMenuItem("Save lines");
+		jmt_save_mesh = new JMenuItem("Save mesh");
 		jmt_save_mesh.addActionListener(this);
 		jm1.add(jmt_save_mesh);
+
 		
 		jm1.addSeparator();
 		
-		
 		jmt_append_lines = new JMenuItem("Append lines");  
 		jmt_append_lines.addActionListener(this);
-		jm1.add(jmt_append_lines);
+		jm1.add(jmt_append_lines);		
+		
+		jm1.addSeparator();		
+		
+		jmt_save_custom_mesh = new JMenuItem("Save custom mesh");
+		jmt_save_custom_mesh.addActionListener(this);
+		jm1.add(jmt_save_custom_mesh); 
 		
 		
 		jm3=new JMenu("Change");
@@ -676,6 +683,9 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		else if(o==jmt_save_mesh) {
 			saveLines();			
 		}
+		else if(o==jmt_save_custom_mesh){
+			saveLines(true);
+		}	
 		else if(o==jmt_append_lines) {
 			appendPointsFromFile(true);
 			resetLists();
