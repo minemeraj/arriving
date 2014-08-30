@@ -1,5 +1,5 @@
 	**********************
-	*  READ ME CARDRIVING VERSION   7.0.21
+	*  READ ME CARDRIVING VERSION   8.0.0
 	*
 	*  by Piazza Francesco Giovanni 
 	*  Tecnes Milano ,Italy http://www.tecnes.com ; Tel.: +39.02.67101036
@@ -121,19 +121,26 @@
 	
 	---ROAD FORMAT:
 	
-	Is a succession of two linear sections sections  :
+	Is a succession of line sequences :
 	
-	1-Points coordinates (separated by "_")
+	1-Points coordinates (values separated by " ")
 	
-	P=x0,y0,z0_x1,y1,z1_....
+	v=x0 y0 z0
 	
-	2-Polygons (lines) (separated by "_")
+	2) vt= vertex texture coordinate  (values separated by " ")
+    
+    vt=x0 y0
+	
+	3-Polygons (values separated by " ")
 		
-	L=T<NUMTEXTURE>,C<HEXCOLOR>,POINT0_INDEX,POINT1_INDEX..._
+	f=T<NUMTEXTURE> C<HEXCOLOR> POINT0_INDEX/POINT0_TEXTURE_INDEX POINT1_INDEX/POINT1_TEXTURE_INDEX
 	
 	where HEXCOLOR is a string rgb color in the hex representation, e.g. for white :FFFFFF.
 	and NUMTEXTURE is the index number of the texture associated, as found in the RoadEditor.
 	HEXCOLOR is used if you don't want to sue textures.
+	
+	POINT0_INDEX is the vertex index
+	POINT0_TEXTURE_INDEX is vertex texture coordinate index
 	
 	if you don't want to use textures, create a file driving.properties in the lib directory and
 	write in: ISUSETEXTURE=false
@@ -163,20 +170,24 @@
     cardefault3D_[num_car] which define the object mesh
   	car_texture_t[num_car].gif which define the cubic texture for the object
     
-    every mesh files is composed by two lines:
+    every mesh files is composed by the lines:
     
-    a) P=the sequence of vertices in the format (separated by "_")
+    a) v=vertex in the format  (values separated by " ")
     
-     x0,y0,z0_x1,y1,y2_...  =P[i=0,1...]
+    v=x0 y0 z0
+     
+    b) vt= vertex texture coordinate  (values separated by " ")
     
-    b) L=the sequence of convex polygons composing the object in the format 
+    vt=x0 y0
+     
+    c) f=face (polygon) composing the object in the format  (values separated by " ")
     
-    [DATA]I00,I01,I02_I10,II2,I13,II4_...
+    f=[DATA] I0/VT0 I1/VT1
     
     the [DATA] parts contains infos about the cubic face to use in texturing.
     
-    the "_" separates different polygon sequences, where Iij is the index of the j vertex of the i polygon ,
-    i.e. the point P[Iij] is the i vertex of the j polygon.  
+    Ii is the i vertex of the polygon, VTi is the i vertex texture coordinate index.
+   
     
     
     ******** CUBIC TEXTURE
@@ -233,32 +244,8 @@
 	OBJECT_HEIGHT  = deltaX = deltaY = maxZ-minZ
 	
 	
-	****** DOUBLE CUBIC TEXTURE
+	************
 	
-	CUBE_BOTTOM_2=5;
-	CUBE_BACK_2=6;
-	CUBE_TOP_2=7;
-	CUBE_LEFT_2=8;
-	CUBE_RIGHT_2=9;
-	CUBE_FRONT_2=10;
-
-	--------------------------------------------------------- 
-	|		|      		 | 		|		|      		 | 		|
-	|		|     4   	 |		|		|     10   	 |		| 
-	|       |      		 | 		|       |      		 | 		|	
-	----------------------------------------------------------
-	|       | 	         |      |       | 	         |      |  
-	|   2   |	  1      |  3   |   8   |	  7      |  9   | 
-	|       | 	         |      |       | 	         |      | 
-	|       | 	         |      |       | 	         |      | 
-	----------------------------------------------------------   
-    | 		|            |		| 		|            |		|
-	|		|     0      |	    |		|     6      |	    |
-	|		|            | 	    |		|            | 	    |
-	---------------------------------------------------------		
-
-	*************
-
 	ROAD EDITOR
 
     Road and objects are loaded and saved separately in the load and save menu.

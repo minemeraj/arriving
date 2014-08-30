@@ -3,6 +3,8 @@ Revolution in the program, now using object files similar to the wavefront .obj 
 
 Code simplification, there were too many function duplicated.
 
+Eliminated the Double cubi texture.
+
 ----- 22/08/2014 CarDriving 7.0.22
 
 Added new object: passerby.
