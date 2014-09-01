@@ -480,7 +480,7 @@ public class Mould extends JFrame implements ActionListener{
 
 				pr.print(decomposePoint(p));
 				if(i<vpoints.size()-1)
-					pr.print("_");
+					pr.print(" ");
 			}	
 
 			pr.print("\nL=");
@@ -491,7 +491,7 @@ public class Mould extends JFrame implements ActionListener{
 
 				pr.print(decomposeLineData(ld));
 				if(i<vlines.size()-1)
-					pr.print("_");
+					pr.print(" ");
 			}	
 
 			pr.close(); 	

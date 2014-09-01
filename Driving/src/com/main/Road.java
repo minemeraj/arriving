@@ -1369,20 +1369,17 @@ public class Road extends Shader{
 		String properties0=str.substring(0,str.indexOf("["));
 		String properties1=str.substring(str.indexOf("[")+1,str.indexOf("]"));
 
-		StringTokenizer tok0=new StringTokenizer(properties0,"_"); 
+		StringTokenizer tok0=new StringTokenizer(properties0," "); 
 		
 		//translate world in the point (XFOCUS,SCREEN_DISTANCE,YFOCUS)
 		dro.x=Double.parseDouble(tok0.nextToken())-XFOCUS;
 		dro.y=Double.parseDouble(tok0.nextToken())+SCREEN_DISTANCE;
 		dro.z=Double.parseDouble(tok0.nextToken())-YFOCUS;
 		
-		dro.dx=Double.parseDouble(tok0.nextToken());
-		dro.dy=Double.parseDouble(tok0.nextToken());
-		dro.dz=Double.parseDouble(tok0.nextToken());
 		dro.index=Integer.parseInt(tok0.nextToken());
 		
 		
-		StringTokenizer tok1=new StringTokenizer(properties1,"_"); 
+		StringTokenizer tok1=new StringTokenizer(properties1," "); 
 		dro.rotation_angle=Double.parseDouble(tok1.nextToken());
 		dro.hexColor=tok1.nextToken();
 		dro.calculateBase();
@@ -1391,7 +1388,7 @@ public class Road extends Shader{
 	}
 
 	private Point4D[] buildRow(String string) {
-		StringTokenizer stk=new StringTokenizer(string,"_");
+		StringTokenizer stk=new StringTokenizer(string," ");
 
 		Point4D[] row = new Point4D[NX];
 		int columns=0;

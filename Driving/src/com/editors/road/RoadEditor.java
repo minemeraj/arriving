@@ -3079,19 +3079,20 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		String properties0=str.substring(0,str.indexOf("["));
 		String properties1=str.substring(str.indexOf("[")+1,str.indexOf("]"));
 
-		StringTokenizer tok0=new StringTokenizer(properties0,"_"); 
+		StringTokenizer tok0=new StringTokenizer(properties0," "); 
 		
 		dro.x=Double.parseDouble(tok0.nextToken());
 		dro.y=Double.parseDouble(tok0.nextToken());
 		dro.z=Double.parseDouble(tok0.nextToken());
-		
-		dro.dx=Double.parseDouble(tok0.nextToken());
-		dro.dy=Double.parseDouble(tok0.nextToken());
-		dro.dz=Double.parseDouble(tok0.nextToken());
 		dro.index=Integer.parseInt(tok0.nextToken());
 		
+		dro.dx=objectMeshes[dro.index].getDeltaX2()-objectMeshes[dro.index].getDeltaX();
+		dro.dy=objectMeshes[dro.index].getDeltaY2()-objectMeshes[dro.index].getDeltaY();
+		dro.dz=objectMeshes[dro.index].getDeltaX();
 		
-		StringTokenizer tok1=new StringTokenizer(properties1,"_"); 
+	
+		
+		StringTokenizer tok1=new StringTokenizer(properties1," "); 
 		dro.rotation_angle=Double.parseDouble(tok1.nextToken());
 		dro.hexColor=tok1.nextToken();
 		return dro;
@@ -4698,7 +4699,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 				pr.print(decomposePoint(p));
 				if(i<size-1)
-					pr.print("_");
+					pr.print(" ");
 			}	
 
 			pr.print("\nL=");
@@ -4715,7 +4716,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				
 				pr.print(decomposeLineData(ld));
 				if(i<sizel-1)
-					pr.print("_");
+					pr.print(" ");
 			}	
 
 			pr.close(); 	
@@ -4728,7 +4729,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}*/
 	
 	private Point4D[] buildRow(String string,int NX) {
-		StringTokenizer stk=new StringTokenizer(string,"_");
+		StringTokenizer stk=new StringTokenizer(string," ");
 
 		Point4D[] row = new Point4D[NX];
 		int columns=0;

@@ -993,7 +993,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 				
 				pr.print(blockData.selectionMask[i0][j0][k0]);
 				if(i<mesh.points.length-1)
-					pr.print("_");
+					pr.print(" ");
 			}
 
 			pr.close(); 	
@@ -1023,7 +1023,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 				if(str.startsWith("D=")){
 
 					String dimensions=str.substring(2);
-					String[] vals = dimensions.split("_");
+					String[] vals = dimensions.split(" ");
 					int NX=Integer.parseInt(vals[0]);
 					int NY=Integer.parseInt(vals[1]);
 					int NZ=Integer.parseInt(vals[2]);
@@ -1038,7 +1038,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 					Vector values=new Vector();
 					
 					String line=str.substring(2);
-					StringTokenizer stk=new StringTokenizer(line,"_");
+					StringTokenizer stk=new StringTokenizer(line," ");
 					while(stk.hasMoreElements()){
 
 						values.add(stk.nextElement());
@@ -1107,7 +1107,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 				Point3D p=pm.points[i];
 				pr.print(decomposePoint(p));
 				if(i<mesh.points.length-1)
-					pr.print("_");
+					pr.print(" ");
 			}	
 
 			pr.print("\nL=");
@@ -1118,7 +1118,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 				pr.print(decomposeLineData(ld));
 				if(i<pm.polygonData.size()-1)
-					pr.print("_");
+					pr.print(" ");
 			}	
 			
 
@@ -1722,7 +1722,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		}
 		public String print() {
 			
-			return NX+"_"+ NY+"_"+ NZ+"_"+ LX+"_"+ LY+"_"+ LZ;			
+			return NX+" "+ NY+" "+ NZ+" "+ LX+" "+ LY+" "+ LZ;			
 		}
 		public BlockData() {
 			

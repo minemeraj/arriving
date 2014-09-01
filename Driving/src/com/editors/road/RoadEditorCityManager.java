@@ -432,9 +432,10 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 					    DrawObject dro=new DrawObject();
 					    dro.setX(p.x+dpx);
 					    dro.setY(p.y+dpy);
-					    dro.setDx(200);
-					    dro.setDy(600);
 					    dro.setIndex(4);
+						dro.dx=objectMeshes[dro.index].getDeltaX2()-objectMeshes[dro.index].getDeltaX();
+						dro.dy=objectMeshes[dro.index].getDeltaY2()-objectMeshes[dro.index].getDeltaY();
+						dro.dz=objectMeshes[dro.index].getDeltaX();
 					    dro.setHexColor("FFFFFF");
 					    drawObjects.add(dro);
 					    

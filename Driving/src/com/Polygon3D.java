@@ -289,14 +289,14 @@ public class Polygon3D  extends Polygon{
 		if(zpoints!=null)
 
 			for(int i=0;i<npoints;i++){
-				sb.append(xpoints[i]+","+ypoints[i]+","+zpoints[i]+"_");
+				sb.append(xpoints[i]+","+ypoints[i]+","+zpoints[i]+" ");
 
 			}
 
 		else 
 
 			for(int i=0;i<npoints;i++){
-				sb.append(xpoints[i]+","+ypoints[i]+"_");
+				sb.append(xpoints[i]+","+ypoints[i]+" ");
 
 			}	
 

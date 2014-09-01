@@ -350,11 +350,11 @@ public class PolygonMesh implements Cloneable{
 					
 			for (int j = 0; j < ld.lineDatas.size(); j++) {
 				
-				 Integer index=(Integer) ld.lineDatas.elementAt(j);
-				 if(readIndexes.get(index)!=null)
+				LineDataVertex vertex=(LineDataVertex ) ld.lineDatas.elementAt(j);
+				 if(readIndexes.get(vertex.getVertex_index())!=null)
 					 continue;
-				 readIndexes.put(index,index);
-				 orderedIndexes.add(index);
+				 readIndexes.put(vertex.getVertex_index(),vertex.getVertex_index());
+				 orderedIndexes.add(vertex.getVertex_index());
 			}
 			
 		}
@@ -388,8 +388,8 @@ public class PolygonMesh implements Cloneable{
 					
 			for (int j = 0; j < ld.lineDatas.size(); j++) {
 				
-				 Integer index=(Integer) ld.lineDatas.elementAt(j);
-				 Integer newIndex=(Integer)transformFunction.get(index);
+			     LineDataVertex vertex=(LineDataVertex ) ld.lineDatas.elementAt(j);
+			     Integer newIndex=(Integer)transformFunction.get(vertex.getVertex_index());
 				 newLd.addIndex(newIndex.intValue());
 				 
 			}

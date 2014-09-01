@@ -1051,7 +1051,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 				pr.print(decomposePoint(p));
 				if(i<points.size()-1)
-					pr.print("_");
+					pr.print(" ");
 			}	
 
 			pr.print("\nL=");
@@ -1062,7 +1062,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 				pr.print(decomposeLineData(ld));
 				if(i<lines.size()-1)
-					pr.print("_");
+					pr.print(" ");
 			}	
 
 			pr.close(); 	
@@ -1125,11 +1125,11 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 	private void buildPoints(Vector points, String str) {
 
-		StringTokenizer sttoken=new StringTokenizer(str,"_");
+		StringTokenizer sttoken=new StringTokenizer(str," ");
 
 		while(sttoken.hasMoreElements()){
 
-			String[] vals = sttoken.nextToken().split(",");
+			String[] vals = sttoken.nextToken().split(" ");
 
 			Point3D p=new Point3D();
 
@@ -1147,11 +1147,11 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 	private void buildLines(Vector lines, String str) {
 
-		StringTokenizer sttoken=new StringTokenizer(str,"_");
+		StringTokenizer sttoken=new StringTokenizer(str," ");
 
 		while(sttoken.hasMoreElements()){
 
-			String[] vals = sttoken.nextToken().split(",");
+			String[] vals = sttoken.nextToken().split(" ");
 
 			LineData ld=new LineData();
 
