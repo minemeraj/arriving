@@ -195,13 +195,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton changeObject;
 	private JTextField colorObjChoice;
 	private JCheckBox checkObjColor;
-	
-	private DoubleTextField objcoordinatesdx;
-	private DoubleTextField objcoordinatesdy;
-	private DoubleTextField objcoordinatesdz;
-	private JCheckBox objcheckCoordinatesdx;
-	private JCheckBox objcheckCoordinatesdy;
-	private JCheckBox objcheckCoordinatesdz;
+
 	private DoubleTextField rotation_angle;
 	private Rectangle currentRect;
 	private boolean isDrawCurrentRect=false;
@@ -1713,61 +1707,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		objcheckCoordinatesz.addKeyListener(this);
 		left.add(objcheckCoordinatesz);
 
-		r+=30;
-
-		JLabel ldx=new JLabel("dx:");
-		ldx.setBounds(5,r,20,20);
-		left.add(ldx);
-		objcoordinatesdx=new DoubleTextField(8);
-		objcoordinatesdx.setBounds(30,r,120,20);
-		objcoordinatesdx.addKeyListener(this);
-		left.add(objcoordinatesdx);
-		objcheckCoordinatesdx=new JCheckBox();
-		objcheckCoordinatesdx.setBounds(170,r,50,20);
-		objcheckCoordinatesdx.addKeyListener(this);
-		left.add(objcheckCoordinatesdx);
 
 		r+=30;
-
-		JLabel ldy=new JLabel("dy:");
-		ldy.setBounds(5,r,20,20);
-		left.add(ldy);
-		objcoordinatesdy=new DoubleTextField(8);
-		objcoordinatesdy.setBounds(30,r,120,20);
-		objcoordinatesdy.addKeyListener(this);
-		left.add(objcoordinatesdy);
-		objcheckCoordinatesdy=new JCheckBox();
-		objcheckCoordinatesdy.setBounds(170,r,50,20);
-		objcheckCoordinatesdy.addKeyListener(this);
-		left.add(objcheckCoordinatesdy);
-
-		r+=30;
-
-		JLabel ldz=new JLabel("dz:");
-		ldz.setBounds(5,r,20,20);
-		left.add(ldz);
-		objcoordinatesdz=new DoubleTextField(8);
-		objcoordinatesdz.setBounds(30,r,120,20);
-		objcoordinatesdz.addKeyListener(this);
-		left.add(objcoordinatesdz);
-		objcheckCoordinatesdz=new JCheckBox();
-		objcheckCoordinatesdz.setBounds(170,r,50,20);
-		objcheckCoordinatesdz.addKeyListener(this);
-		left.add(objcheckCoordinatesdz);
 		
-		if(DrawObject.IS_3D){
-			
-			objcoordinatesdx.setEnabled(false);
-			objcoordinatesdy.setEnabled(false);
-			objcoordinatesdz.setEnabled(false);
-			objcheckCoordinatesdx.setEnabled(false);
-			objcheckCoordinatesdy.setEnabled(false);
-			objcheckCoordinatesdz.setEnabled(false);
-		}
-
-		r+=30;
-
-
 		chooseObject=new JComboBox();
 		chooseObject.addItem(new ValuePair("",""));
 		//chooseObject.setBounds(50,r,50,20);
@@ -2332,13 +2274,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			(dro).setY(objcoordinatesy.getvalue());
 			(dro).setZ(objcoordinatesz.getvalue());
 			
-			if(!DrawObject.IS_3D){
-				
-				(dro).setDx(objcoordinatesdx.getvalue());
-				(dro).setDy(objcoordinatesdy.getvalue());
-				(dro).setDz(objcoordinatesdz.getvalue());
-			 
-			}
 			ValuePair vp=(ValuePair) chooseObject.getSelectedItem();
 			if(vp!=null && !vp.getValue().equals("")){
 				
@@ -2410,12 +2345,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			objcoordinatesy.setText(""+dro.y);
 		if(!objcheckCoordinatesz.isSelected())
 			objcoordinatesz.setText(""+dro.z);
-		if(!objcheckCoordinatesdx.isSelected())
-			objcoordinatesdx.setText(""+dro.dx);
-		if(!objcheckCoordinatesdy.isSelected())
-			objcoordinatesdy.setText(""+dro.dy);
-		if(!objcheckCoordinatesdz.isSelected())
-			objcoordinatesdz.setText(""+dro.dz);
+
 		for(int k=0;k<chooseObject.getItemCount();k++){
 
 			ValuePair vp=(ValuePair) chooseObject.getItemAt(k);
@@ -2811,12 +2741,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			dro.y=Double.parseDouble(objcoordinatesy.getText());
 		if(!"".equals(objcoordinatesz.getText()))
 			dro.z=Double.parseDouble(objcoordinatesz.getText());
-		if(!"".equals(objcoordinatesdx.getText()))
-			dro.dx=Double.parseDouble(objcoordinatesdx.getText());
-		if(!"".equals(objcoordinatesdy.getText()))
-			dro.dy=Double.parseDouble(objcoordinatesdy.getText());
-		if(!"".equals(objcoordinatesdz.getText()))
-			dro.dz=Double.parseDouble(objcoordinatesdz.getText());
 
 		ValuePair vp=(ValuePair) chooseObject.getSelectedItem();
 		if(vp!=null && !vp.getValue().equals("")){
@@ -4226,10 +4150,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		if(!objcheckCoordinatesy.isSelected())objcoordinatesy.setText("");
 		if(!objcheckCoordinatesz.isSelected())objcoordinatesz.setText("");
 		
-		if(!objcheckCoordinatesdx.isSelected())objcoordinatesdx.setText("");
-		if(!objcheckCoordinatesdy.isSelected())objcoordinatesdy.setText("");
-		if(!objcheckCoordinatesdz.isSelected())objcoordinatesdz.setText("");
-		
 		
 		if(!checkObjColor.isSelected())checkObjColor.setBackground(ZBuffer.fromHexToColor("FFFFFF"));
 		
@@ -4565,20 +4485,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				ImageIcon ii=new ImageIcon(icon);
 				objectLabel.setIcon(ii);	
 				
-				if(DrawObject.IS_3D){
-				
-					int dim_x=objectMeshes[num].getDeltaX2()-objectMeshes[num].getDeltaX();
-					int dim_y=objectMeshes[num].getDeltaY2()-objectMeshes[num].getDeltaY();
-					int dim_z=objectMeshes[num].getDeltaX();
-					
-					objcoordinatesdx.setText(dim_x);
-					objcoordinatesdy.setText(dim_y);
-					objcoordinatesdz.setText(dim_z);
-
-				}else{
-					
-		
-				}
 				
 			}
 			else
