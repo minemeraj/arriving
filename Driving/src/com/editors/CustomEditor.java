@@ -1,15 +1,20 @@
 package com.editors;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.Vector;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
@@ -49,6 +54,7 @@ public class CustomEditor extends Editor implements  MouseWheelListener,KeyListe
 	public File currentDirectory=new File("lib");
 	
 	public CustomJPanel center=null;
+	private JMenuItem jmt_save_base_texture;
 
 	public void buildRightPanel(){}
 	
@@ -130,6 +136,12 @@ public class CustomEditor extends Editor implements  MouseWheelListener,KeyListe
 		jmt_save_mesh.addActionListener(this);
 		jm_file.add(jmt_save_mesh);
 		
+		jm_file.addSeparator();
+		
+		jmt_save_base_texture = new JMenuItem("Save base texture");
+		jmt_save_base_texture.addActionListener(this);
+		jm_file.add(jmt_save_base_texture);
+
 		jm_change=new JMenu("Change");
 		jm_change.addMenuListener(this);
 		jmb.add(jm_change);
@@ -387,6 +399,9 @@ public class CustomEditor extends Editor implements  MouseWheelListener,KeyListe
 			saveMesh(); 
 			
 		}
+		else if(obj==jmt_save_base_texture){
+			saveBaseCubicTexture();
+		}
 		else if(obj==jmt_preview){
 			
 			preview();
@@ -422,6 +437,152 @@ public class CustomEditor extends Editor implements  MouseWheelListener,KeyListe
 				
 			}
 		}
+	}
+	
+private void saveBaseCubicTexture() {
+		
+		fc = new JFileChooser();
+		fc.setDialogType(JFileChooser.SAVE_DIALOG);
+		fc.setDialogTitle("Save basic texture");
+		if(currentDirectory!=null)
+			fc.setCurrentDirectory(currentDirectory);
+		int returnVal = fc.showOpenDialog(null);
+
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			currentDirectory=fc.getCurrentDirectory();
+			File file = fc.getSelectedFile();
+			saveBaseCubicTexture(file);
+
+		}
+		
+	}
+
+
+	private void saveBaseCubicTexture(File file) {
+		
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		
+		Color backgroundColor=Color.green;
+		Color back_color=Color.BLUE;
+		Color top_color=Color.RED;
+		Color bottom_color=Color.MAGENTA;
+		Color left_color=Color.YELLOW;
+		Color right_color=Color.ORANGE;
+		Color front_color=Color.CYAN;
+		
+		int IMG_WIDTH=0;
+		int IMG_HEIGHT=0;
+
+		int deltaX=0;
+		int deltaY=0;
+		int deltaX2=0;
+
+		double minx=0;
+		double miny=0;
+		double minz=0;
+		
+		double maxx=0;
+		double maxy=0;
+		double maxz=0;
+		
+		
+	      //find maxs
+		for(int j=0;j<mesh.points.length;j++){
+			
+			Point3D point=mesh.points[j];
+			
+			if(j==0){
+				
+				minx=point.x;
+				miny=point.y;
+				minz=point.z;
+				
+				maxx=point.x;
+				maxy=point.y;
+				maxz=point.z;
+			}
+			else{
+				
+				maxx=(int)Math.max(point.x,maxx);
+				maxz=(int)Math.max(point.z,maxz);
+				maxy=(int)Math.max(point.y,maxy);
+				
+				
+				minx=(int)Math.min(point.x,minx);
+				minz=(int)Math.min(point.z,minz);
+				miny=(int)Math.min(point.y,miny);
+			}
+			
+	
+		}
+		
+		deltaX2=(int)(maxx-minx)+1;
+		deltaX=(int)(maxz-minz)+1; 
+		deltaY=(int)(maxy-miny)+1;
+		
+		deltaX2=deltaX2+deltaX;
+		
+		IMG_HEIGHT=(int) deltaY+deltaX+deltaX;
+		IMG_WIDTH=(int) (deltaX2+deltaX2);
+		
+		BufferedImage buf=new BufferedImage(IMG_WIDTH,IMG_HEIGHT,BufferedImage.TYPE_BYTE_INDEXED);
+	
+		try {
+
+	
+
+
+				int DX=0;
+
+				Graphics2D bufGraphics=(Graphics2D)buf.getGraphics();
+ 
+				bufGraphics.setColor(backgroundColor);
+				bufGraphics.fillRect(DX+0,0,IMG_WIDTH,IMG_HEIGHT);
+
+
+				//draw lines for reference
+
+				bufGraphics.setColor(new Color(0,0,0));
+				bufGraphics.setStroke(new BasicStroke(0.1f));
+				for(int j=0;j<mesh.polygonData.size();j++){ 
+
+					LineData ld=(LineData) mesh.polygonData.elementAt(j);
+
+					for (int k = 0; k < ld.size(); k++) {
+
+
+						Point3D point0=  mesh.points[ld.getIndex(k)];
+						Point3D point1=  mesh.points[ld.getIndex((k+1)%ld.size())];
+						//top
+						bufGraphics.setColor(top_color);
+						bufGraphics.drawLine(DX+(int)(point0.x-minx+deltaX),(int)(-point0.y+maxy+deltaX),DX+(int)(point1.x-minx+deltaX),(int)(-point1.y+maxy+deltaX));
+						//front
+						bufGraphics.setColor(front_color);
+						bufGraphics.drawLine(DX+(int)(point0.x-minx+deltaX),(int)(point0.z-minz),DX+(int)(point1.x-minx+deltaX),(int)(point1.z-minz));
+						//left
+						bufGraphics.setColor(left_color);
+						bufGraphics.drawLine(DX+(int)(point0.z-minz),(int)(-point0.y+maxy+deltaX),DX+(int)(point1.z-minz),(int)(-point1.y+maxy+deltaX));
+						//right
+						bufGraphics.setColor(right_color);
+						bufGraphics.drawLine(DX+(int)(-point0.z+maxz+deltaX2),(int)(-point0.y+maxy+deltaX),DX+(int)(-point1.z+maxz+deltaX2),(int)(-point1.y+maxy+deltaX));
+						//back
+						bufGraphics.setColor(back_color);
+						bufGraphics.drawLine(DX+(int)(point0.x-minx+deltaX),(int)(-point0.z+maxz+deltaY+deltaX),DX+(int)(point1.x-minx+deltaX),(int)(-point1.z+maxz+deltaY+deltaX));
+						//bottom
+						bufGraphics.setColor(bottom_color);
+						bufGraphics.drawLine(DX+(int)(point0.x-minx+deltaX+deltaX2),(int)(-point0.y+maxy+deltaX),DX+(int)(point1.x-minx+deltaX+deltaX2),(int)(-point1.y+maxy+deltaX));
+				
+					}
+
+				}	
+			
+			ImageIO.write(buf,"gif",file);
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
 	}
 	
 	
