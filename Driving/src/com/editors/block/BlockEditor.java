@@ -1154,8 +1154,6 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 	public void saveLines(File file,PolygonMesh pm) {
 
 
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];
-
 		PrintWriter pr;
 		try {
 			pr = new PrintWriter(new FileOutputStream(file));
@@ -1166,10 +1164,11 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 				Point3D p=pm.points[i];
 				pr.print("\nv=");
 				pr.print(decomposePoint(p));
-				if(i<mesh.points.length-1)
+				if(i<pm.points.length-1)
 					pr.print(" ");
 			}	
 
+			decomposeObjVertices(pr,pm,false);
 			
 
 			for(int i=0;i<pm.polygonData.size();i++){
@@ -1190,6 +1189,105 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 			e.printStackTrace();
 		}
+	}
+	
+public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCustom) {
+		
+		if(isCustom){
+			
+			for (int i = 0; i < mesh.texturePoints.size(); i++) {
+				Point3D pt = (Point3D)  mesh.texturePoints.elementAt(i);
+				pr.print("\nvt=");
+				pr.print(pt.x+" "+pt.y);
+			}
+			
+			return;
+		}
+		
+		int DX=0;
+
+		
+		int deltaX=0;
+		int deltaY=0;
+		int deltaX2=0;
+
+		double minx=0;
+		double miny=0;
+		double minz=0;
+		
+		double maxx=0;
+		double maxy=0;
+		double maxz=0;
+		
+		
+	      //find maxs
+		for(int j=0;j<mesh.points.length;j++){
+			
+			Point3D point=mesh.points[j];
+			
+			if(j==0){
+				
+				minx=point.x;
+				miny=point.y;
+				minz=point.z;
+				
+				maxx=point.x;
+				maxy=point.y;
+				maxz=point.z;
+			}
+			else{
+				
+				maxx=(int)Math.max(point.x,maxx);
+				maxz=(int)Math.max(point.z,maxz);
+				maxy=(int)Math.max(point.y,maxy);
+				
+				
+				minx=(int)Math.min(point.x,minx);
+				minz=(int)Math.min(point.z,minz);
+				miny=(int)Math.min(point.y,miny);
+			}
+			
+	
+		}
+		
+		deltaX2=(int)(maxx-minx)+1;
+		deltaX=(int)(maxz-minz)+1; 
+		deltaY=(int)(maxy-miny)+1;
+
+		for(int i=0;i<mesh.points.length;i++){
+
+			Point3D p=mesh.points[i];
+
+			/*public static final int CAR_BACK=0;
+			public static final int CAR_TOP=1;
+			public static final int CAR_LEFT=2;
+			public static final int CAR_RIGHT=3;
+			public static final int CAR_FRONT=4;
+			public static final int CAR_BOTTOM=5;*/
+		
+			//back
+			pr.print("\nvt=");
+			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(p.z-minz));					
+			//top
+			pr.print("\nvt=");
+			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(p.y-miny+deltaX));
+			//left
+			pr.print("\nvt=");
+			pr.print(DX+(int)(p.z-minz)+" "+(int)(p.y-miny+deltaX));			
+			//right
+			pr.print("\nvt=");
+			pr.print(DX+(int)(-p.z+maxz+deltaX2+deltaX)+" "+(int)(p.y-miny+deltaX));		
+			//front
+			pr.print("\nvt=");
+			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(-p.z+maxz+deltaY+deltaX));	
+			//bottom
+			pr.print("\nvt=");
+			pr.print(DX+(int)(p.x-minx+2*deltaX+deltaX2)+" "+(int)(p.y-miny+deltaX));
+
+		}	
+		
+		
+		
 	}
 
 	private PolygonMesh buildSurface() {
@@ -1232,7 +1330,8 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 		newPolygonMesh.points=mesh.points;
 		newPolygonMesh.polygonData=newPolygonData;
-
+		
+		newPolygonMesh=PolygonMesh.simplifyMesh(newPolygonMesh);
 
 		return newPolygonMesh;		
 	}
