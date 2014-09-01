@@ -598,11 +598,10 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 	
 		PrintWriter pw;
 		try {
-			Editor editor=new Editor();
-			editor.meshes[0]=animal.buildMesh();
+			meshes[0]=animal.buildMesh();
 			pw = new PrintWriter(new FileOutputStream(file));
-			editor.forceReading=true;
-			editor.saveLines(pw);
+			forceReading=true;
+			saveLines(pw);
 			pw.close();
 			
 		} catch (Exception e) { 

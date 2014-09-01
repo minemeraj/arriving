@@ -7,6 +7,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -26,7 +27,7 @@ import com.PolygonMesh;
 import com.editors.animals.AnimalsJPanel;
 import com.main.Renderer3D;
 
-public class CustomEditor extends JFrame implements  MouseWheelListener,KeyListener, ActionListener, MenuListener{
+public class CustomEditor extends Editor implements  MouseWheelListener,KeyListener, ActionListener, MenuListener{
 	
 	public JMenuBar jmb;
 	public JMenu jm_file;
@@ -82,10 +83,6 @@ public class CustomEditor extends JFrame implements  MouseWheelListener,KeyListe
 
 	
 	public void saveData(File file)  {}
-	
-	public void saveMesh(File file) {
-		
-	}
 	
 	public void loadData() {
 
@@ -231,6 +228,109 @@ public class CustomEditor extends JFrame implements  MouseWheelListener,KeyListe
 			saveMesh(file);
 			currentDirectory=new File(file.getParent());
 		} 
+		
+	}
+	
+	public void saveMesh(File file) {
+			
+	}
+
+	public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCustom) {
+		
+		if(isCustom){
+			
+			for (int i = 0; i < mesh.texturePoints.size(); i++) {
+				Point3D pt = (Point3D)  mesh.texturePoints.elementAt(i);
+				pr.print("\nvt=");
+				pr.print(pt.x+" "+pt.y);
+			}
+			
+			return;
+		}
+		
+		int DX=0;
+
+		
+		int deltaX=0;
+		int deltaY=0;
+		int deltaX2=0;
+
+		double minx=0;
+		double miny=0;
+		double minz=0;
+		
+		double maxx=0;
+		double maxy=0;
+		double maxz=0;
+		
+		
+	      //find maxs
+		for(int j=0;j<mesh.points.length;j++){
+			
+			Point3D point=mesh.points[j];
+			
+			if(j==0){
+				
+				minx=point.x;
+				miny=point.y;
+				minz=point.z;
+				
+				maxx=point.x;
+				maxy=point.y;
+				maxz=point.z;
+			}
+			else{
+				
+				maxx=(int)Math.max(point.x,maxx);
+				maxz=(int)Math.max(point.z,maxz);
+				maxy=(int)Math.max(point.y,maxy);
+				
+				
+				minx=(int)Math.min(point.x,minx);
+				minz=(int)Math.min(point.z,minz);
+				miny=(int)Math.min(point.y,miny);
+			}
+			
+	
+		}
+		
+		deltaX2=(int)(maxx-minx)+1;
+		deltaX=(int)(maxz-minz)+1; 
+		deltaY=(int)(maxy-miny)+1;
+
+		for(int i=0;i<mesh.points.length;i++){
+
+			Point3D p=mesh.points[i];
+
+			/*public static final int CAR_BACK=0;
+			public static final int CAR_TOP=1;
+			public static final int CAR_LEFT=2;
+			public static final int CAR_RIGHT=3;
+			public static final int CAR_FRONT=4;
+			public static final int CAR_BOTTOM=5;*/
+		
+			//back
+			pr.print("\nvt=");
+			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(p.z-minz));					
+			//top
+			pr.print("\nvt=");
+			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(p.y-miny+deltaX));
+			//left
+			pr.print("\nvt=");
+			pr.print(DX+(int)(p.z-minz)+" "+(int)(p.y-miny+deltaX));			
+			//right
+			pr.print("\nvt=");
+			pr.print(DX+(int)(-p.z+maxz+deltaX2+deltaX)+" "+(int)(p.y-miny+deltaX));		
+			//front
+			pr.print("\nvt=");
+			pr.print(DX+(int)(p.x-minx+deltaX)+" "+(int)(-p.z+maxz+deltaY+deltaX));	
+			//bottom
+			pr.print("\nvt=");
+			pr.print(DX+(int)(p.x-minx+2*deltaX+deltaX2)+" "+(int)(p.y-miny+deltaX));
+
+		}	
+		
+		
 		
 	}
 

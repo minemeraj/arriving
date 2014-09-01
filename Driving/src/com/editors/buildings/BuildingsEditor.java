@@ -379,11 +379,11 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 	
 		PrintWriter pw;
 		try {
-			Editor editor=new Editor();
-			editor.meshes[0]=plan.buildMesh();
+
+			meshes[0]=plan.buildMesh();
 			pw = new PrintWriter(new FileOutputStream(file));
-			editor.forceReading=true;
-			editor.saveLines(pw);
+			forceReading=true;
+			saveLines(pw);
 			pw.close();
 			
 		} catch (Exception e) { 

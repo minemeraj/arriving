@@ -794,11 +794,11 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 	
 		PrintWriter pw;
 		try {
-			Editor editor=new Editor();
-			editor.meshes[0]=car.buildMesh();
+		
+			meshes[0]=car.buildMesh();
 			pw = new PrintWriter(new FileOutputStream(file));
-			editor.forceReading=true;
-			editor.saveLines(pw);
+			forceReading=true;
+			saveLines(pw);
 			pw.close();
 			
 		} catch (Exception e) { 

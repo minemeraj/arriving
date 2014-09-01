@@ -629,11 +629,11 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 	
 		PrintWriter pw;
 		try {
-			Editor editor=new Editor();
-			editor.meshes[0]=forniture.buildMesh();
+
+			meshes[0]=forniture.buildMesh();
 			pw = new PrintWriter(new FileOutputStream(file));
-			editor.forceReading=true;
-			editor.saveLines(pw);
+			forceReading=true;
+			saveLines(pw);
 			pw.close();
 			
 		} catch (Exception e) { 
