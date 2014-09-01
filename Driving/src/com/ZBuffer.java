@@ -108,22 +108,6 @@ public class ZBuffer{
 				y=(int) (p.x*(p0.y)+p.y*p1.y+(1-p.x-p.y)*p2.y);
 				
 			}
-			//for the road editor
-			else if(origin!=null){
-				
-
-				 x=(int) Math.round(Point3D.calculateDotProduct(px-origin.x,py-origin.y, pz-origin.z,xDirection))+deltaX;
-				 y=(int) Math.round(Point3D.calculateDotProduct(px-origin.x,py-origin.y, pz-origin.z,yDirection))+deltaY;
-				 
-				 
-			}
-			else
-			{
-				
-				  x=(int) Math.round(Point3D.calculateDotProduct(px,py, pz,xDirection))+deltaX;
-				  y=(int) Math.round(Point3D.calculateDotProduct(px,py, pz,yDirection))+deltaY;
-	
-			}	
 			
 			
 			int w=texture.getWidth();

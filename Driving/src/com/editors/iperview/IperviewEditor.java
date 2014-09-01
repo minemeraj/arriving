@@ -80,8 +80,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	private JMenuBar jmb;
 
 	private int zdepth=0;
-	private JMenu jm3;
-	private JMenuItem jmt31;
+	private JMenuItem jmtUndo;
 	private JButton deleteSelection;
 	DoubleTextField coordinatesx;
 	DoubleTextField coordinatesy;
@@ -112,14 +111,14 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	
 	private JList lineList;
 	private JList pointList=null;
-	private JMenu jm1;
+	private JMenu jmLines;
 	private JMenuItem jmt_load_mesh;
 	private JMenuItem jmt_save_mesh;
-	private JMenu jm4;
-	private JMenuItem jmt41;
+	private JMenu jmView;
+	private JMenuItem jmtPreview;
 	private JCheckBoxMenuItem jmt42;
-	private JMenu jm5;
-	private JMenuItem jmt51;
+	private JMenu jmChange;
+	private JMenuItem jmtGetTemplate;
 
 
 	private BufferedImage backgroundImage=null;
@@ -223,6 +222,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	String footer="</body></html>";
 	private JMenu help_jm;
 	private JMenuItem jmt_save_custom_mesh;
+	private JMenu jmEdit;
 
 	
 	private void buildBottom() {
@@ -517,9 +517,9 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 
 		
 		
-		jm1=new JMenu("Lines");
-		jm1.addMenuListener(this);
-		jmb.add(jm1);
+		jmLines=new JMenu("Lines");
+		jmLines.addMenuListener(this);
+		jmb.add(jmLines);
 
 		/*jmt11 = new JMenuItem("Load road");
 		jmt11.addActionListener(this);
@@ -527,49 +527,49 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 
 		jmt_load_mesh = new JMenuItem("Load mesh");
 		jmt_load_mesh.addActionListener(this);
-		jm1.add(jmt_load_mesh);
+		jmLines.add(jmt_load_mesh);
 
 		jmt_save_mesh = new JMenuItem("Save mesh");
 		jmt_save_mesh.addActionListener(this);
-		jm1.add(jmt_save_mesh);
+		jmLines.add(jmt_save_mesh);
 
 		
-		jm1.addSeparator();
+		jmLines.addSeparator();
 		
 		jmt_append_lines = new JMenuItem("Append lines");  
 		jmt_append_lines.addActionListener(this);
-		jm1.add(jmt_append_lines);		
+		jmLines.add(jmt_append_lines);		
 		
-		jm1.addSeparator();		
+		jmLines.addSeparator();		
 		
 		jmt_save_custom_mesh = new JMenuItem("Save custom mesh");
 		jmt_save_custom_mesh.addActionListener(this);
-		jm1.add(jmt_save_custom_mesh); 
+		jmLines.add(jmt_save_custom_mesh); 
 		
 		
-		jm3=new JMenu("Change");
-		jm3.addMenuListener(this);
-		jmt31 = new JMenuItem("Undo last");
-		jmt31.setEnabled(false);
-		jmt31.addActionListener(this);
-		jm3.add(jmt31);
+		jmChange=new JMenu("Change");
+		jmChange.addMenuListener(this);
+		jmtUndo = new JMenuItem("Undo last");
+		jmtUndo.setEnabled(false);
+		jmtUndo.addActionListener(this);
+		jmChange.add(jmtUndo);
 		
-		jmb.add(jm3);
+		jmb.add(jmChange);
 		
-		jm5=new JMenu("Edit");
-		jm5.addMenuListener(this);
-		jmt51 = new JMenuItem("Insert template");	
-		jm5.add(jmt51);	
-		jmt51.addActionListener(this);
+		jmEdit=new JMenu("Edit");
+		jmEdit.addMenuListener(this);
+		jmtGetTemplate = new JMenuItem("Insert template");	
+		jmEdit.add(jmtGetTemplate);	
+		jmtGetTemplate.addActionListener(this);
 				
-		jmb.add(jm5);
+		jmb.add(jmEdit);
 		
-		jm4=new JMenu("View");
-		jm4.addMenuListener(this);
-		jmt41 = new JMenuItem("Preview");
-		jmt41.addActionListener(this);
-		jm4.add(jmt41);
-		jmb.add(jm4);
+		jmView=new JMenu("View");
+		jmView.addMenuListener(this);
+		jmtPreview = new JMenuItem("Preview");
+		jmtPreview.addActionListener(this);
+		jmView.add(jmtPreview);
+		jmb.add(jmView);
 		
 		help_jm=new JMenu("Help");
 		help_jm.addMenuListener(this);		
@@ -690,13 +690,13 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 			appendPointsFromFile(true);
 			resetLists();
 		}
-		else if(o==jmt31) {
+		else if(o==jmtUndo) {
 			undo();
 		}
-		else if(o==jmt41) {
+		else if(o==jmtPreview) {
 			preview();
 		}
-		else if(o==jmt51) {
+		else if(o==jmtGetTemplate) {
 			getTemplate();
 		}
 	}
@@ -957,7 +957,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 
 	
 	public void prepareUndo() {
-		jmt31.setEnabled(true);
+		jmtUndo.setEnabled(true);
 	    super.prepareUndo();
 	}
 
@@ -965,7 +965,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	public void undo() {
 		super.undo();
 		if(oldMeshes[ACTIVE_PANEL].size()==0)
-			jmt31.setEnabled(false);
+			jmtUndo.setEnabled(false);
 		resetLists();
 	}
 	

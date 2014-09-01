@@ -139,34 +139,47 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
     }
 
     public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer[] zbuffer,
-    		Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY){
+			Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY){		
 
-    	//avoid clipping:
-    	Polygon3D clippedPolygon=p3d;//Polygon3D.clipPolygon3DInY(p3d,0);
+		Point3D normal=Polygon3D.findNormal(p3d);
 
-    	Polygon3D[] triangles = Polygon3D.divideIntoTriangles(clippedPolygon);
 
-    	if(texture!=null && xDirection==null && yDirection==null){
 
-    		Point3D p0=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
-    		Point3D p1=new Point3D(p3d.xpoints[1],p3d.ypoints[1],p3d.zpoints[1]);
+		if(texture!=null && xDirection==null && yDirection==null){
 
-    		xDirection=(p1.substract(p0)).calculateVersor();
-    		Point3D normal=Polygon3D.findNormal(p3d);
-    		yDirection=Point3D.calculateCrossProduct(normal,xDirection).calculateVersor();
+			Point3D p0=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
+			Point3D p1=new Point3D(p3d.xpoints[1],p3d.ypoints[1],p3d.zpoints[1]);
+			xDirection=(p1.substract(p0)).calculateVersor();
 
-    		//yDirection=Point3D.calculateOrthogonal(xDirection);
-    	}
+			yDirection=Point3D.calculateCrossProduct(normal,xDirection).calculateVersor();
 
-    	for(int i=0;i<triangles.length;i++){
-    		
-    		BarycentricCoordinates bc=null;
+			//yDirection=Point3D.calculateOrthogonal(xDirection);
+		}
 
-    		decomposeTriangleIntoZBufferEdgeWalking( triangles[i],color.getRGB(), texture,zbuffer, xDirection,yDirection,origin, deltaX, deltaY,bc);
+		Polygon3D[] triangles = Polygon3D.divideIntoTriangles(p3d);
+		
+		for(int i=0;i<triangles.length;i++){
+			
+			BarycentricCoordinates bc=new BarycentricCoordinates(triangles[i]);
+			
+			//Polygon3D clippedPolygon=Polygon3D.clipPolygon3DInY(triangles[i],(int) (Renderer3D.SCREEN_DISTANCE*2.0/3.0));
 
-    	}
+			//if(clippedPolygon.npoints==0)
+			//	return ;
+			
+			Polygon3D[] clippedTriangles = Polygon3D.divideIntoTriangles(triangles[i]);
+			
+			for (int j = 0; j < clippedTriangles.length; j++) {
+				
+				decomposeTriangleIntoZBufferEdgeWalking( clippedTriangles[j],color.getRGB(), texture,zbuffer, xDirection,yDirection,origin, deltaX, deltaY,bc);
+				
+			}
 
-    }	
+		
+
+		}
+
+	}
     
     /**
 	 * 
@@ -291,7 +304,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
     			
     			
     			if(texture!=null)
-    			  rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY,null);
+    			  rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY,bc);
     			if(rgbColor==greenRgb)
     				continue;
     			int tot=WIDTH*j+i;
@@ -355,7 +368,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
     		
     			
     			if(texture!=null)
-    			  rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY,null);
+    			  rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY,bc);
     			if(rgbColor==greenRgb)
     				continue;
     			int tot=WIDTH*j+i;

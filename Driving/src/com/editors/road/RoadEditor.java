@@ -1376,7 +1376,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 				if(texture!=null)
 					//rgbColor=texture.getRGB((int)texture_x,(int) texture_y);  
-					rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY,null);
+					rgbColor=pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY,null);
 				if(rgbColor==blackRgb)
 					continue;
 
@@ -1469,7 +1469,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 				if(texture!=null)
-					rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY,null);
+					rgbColor=pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY,null);
 					//rgbColor=texture.getRGB((int)texture_x,(int) texture_y);   
 				if(rgbColor==blackRgb)
 					continue;
@@ -4508,6 +4508,58 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		{
 			 displayAll();
 		}
+		
+	}
+	
+	public static int  pickRGBColorFromTexture(
+			Texture texture,double px,double py,double pz,
+			Point3D xDirection,Point3D yDirection, Point3D origin,int deltaX,int deltaY,
+			BarycentricCoordinates bc
+			){
+		
+		
+		int x=0;
+		int y=0;
+		
+	
+		
+       if(origin!=null){
+			
+
+			 x=(int) Math.round(Point3D.calculateDotProduct(px-origin.x,py-origin.y, pz-origin.z,xDirection))+deltaX;
+			 y=(int) Math.round(Point3D.calculateDotProduct(px-origin.x,py-origin.y, pz-origin.z,yDirection))+deltaY;
+			 
+			 
+		}
+		else
+		{
+			
+			  x=(int) Math.round(Point3D.calculateDotProduct(px,py, pz,xDirection))+deltaX;
+			  y=(int) Math.round(Point3D.calculateDotProduct(px,py, pz,yDirection))+deltaY;
+
+		}	
+		
+		
+		int w=texture.getWidth();
+		int h=texture.getHeight();
+		
+		//border fixed condition
+		/*if(x<0) x=0;
+		if(x>=w) x=w-1;
+		if(y<0) y=0;
+		if(y>=h) y=h-1;*/
+		
+		//border periodic condition
+		if(x<0) x=w-1+x%w;
+		if(x>=w) x=x%w;
+		if(y<0) y=h-1+y%h;
+		if(y>=h) y=y%h;
+		
+	
+		
+		int argb= texture.getRGB(x, h-y-1);
+		
+		return argb;
 		
 	}
 

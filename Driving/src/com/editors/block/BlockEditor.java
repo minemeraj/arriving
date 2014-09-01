@@ -74,9 +74,9 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 	private JMenuBar jmb;
 	private JMenu jm1;
 	private JMenuItem jmt11;
-	private JMenuItem jmt12;
+	private JMenuItem jmtSaveBlocks;
 	private JMenu jm2;
-	private JMenuItem jmt22;
+	private JMenuItem jmtStartBlock;
 
 	private JMenu jm3;
 
@@ -86,7 +86,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 	private JMenuItem jmt21;
 
-	private JMenuItem jmt13;	
+	private JMenuItem jmtSaveSurface;	
 	
 	BlockData blockData=null;
 	
@@ -496,15 +496,15 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		jmt11.addActionListener(this);
 		jm1.add(jmt11);
 
-		jmt12 = new JMenuItem("Save Blocks");
-		jmt12.addActionListener(this);
-		jm1.add(jmt12);
+		jmtSaveBlocks = new JMenuItem("Save Blocks");
+		jmtSaveBlocks.addActionListener(this);
+		jm1.add(jmtSaveBlocks);
 		
 		jm1.addSeparator();
 		
-		jmt13 = new JMenuItem("Save surface");
-		jmt13.addActionListener(this);
-		jm1.add(jmt13);
+		jmtSaveSurface = new JMenuItem("Save surface");
+		jmtSaveSurface.addActionListener(this);
+		jm1.add(jmtSaveSurface);
 		
 		
 		
@@ -518,9 +518,9 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		jm2.add(jmt21);
 		jmt21.setEnabled(false);
 		
-		jmt22 = new JMenuItem("Start Block");
-		jmt22.addActionListener(this);
-		jm2.add(jmt22);
+		jmtStartBlock = new JMenuItem("Start Block");
+		jmtStartBlock.addActionListener(this);
+		jm2.add(jmtStartBlock);
 		
 		
 		jm3=new JMenu("View");
@@ -621,14 +621,14 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		Object o=arg0.getSource();
 		
 		if(o==jmt11) {
-			loadPointsFromFile();
+			loadBlocksFromFile();
 			resetLists();
 		}
-		else if(o==jmt12) {
-			saveLines();
+		else if(o==jmtSaveBlocks) {
+			saveBlocks();
 			
 		}
-		else if(o==jmt13) {
+		else if(o==jmtSaveSurface) {
 			saveSurface();
 			
 		}
@@ -636,7 +636,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 			undo();
 			displayAll();
 		}		
-		else if(o==jmt22) {
+		else if(o==jmtStartBlock) {
 			addBlocks();
 			displayAll();
 			
@@ -965,8 +965,38 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		return selectedBlocks;
 		
 	}
+	
+	public void saveBlocks() {
 
-	public void saveLines(File file) {
+		fc = new JFileChooser();
+		fc.setDialogType(JFileChooser.SAVE_DIALOG);
+		fc.setDialogTitle("Save lines");
+		if(currentDirectory!=null)
+			fc.setCurrentDirectory(currentDirectory);
+		if(currentFile!=null)
+			fc.setSelectedFile(currentFile);
+		
+		int returnVal = fc.showOpenDialog(null);
+
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File file = fc.getSelectedFile();
+			
+			
+			currentDirectory=fc.getCurrentDirectory();
+			currentFile=fc.getSelectedFile();
+			try{
+				PrintWriter pr = new PrintWriter(new FileOutputStream(file));
+				saveBlocks(pr,false);
+	            pr.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		} 
+
+
+	}
+
+	public void saveBlocks(PrintWriter pr,boolean isCustom) {
 
 
         if(blockData==null)
@@ -974,9 +1004,9 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
         
     	PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
-		PrintWriter pr; 
+		
 		try {
-			pr = new PrintWriter(new FileOutputStream(file));
+	
 			pr.print("\nD=");
 
 		
@@ -996,15 +1026,44 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 					pr.print(" ");
 			}
 
-			pr.close(); 	
 
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
 	}
 	
-	public void loadPointsFromFile(File file){
+	public void loadBlocksFromFile() {
+
+		fc = new JFileChooser();
+		fc.setDialogType(JFileChooser.SAVE_DIALOG);
+		fc.setDialogTitle("Save lines");
+		if(currentDirectory!=null)
+			fc.setCurrentDirectory(currentDirectory);
+		if(currentFile!=null)
+			fc.setSelectedFile(currentFile);
+		
+		int returnVal = fc.showOpenDialog(null);
+
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File file = fc.getSelectedFile();
+			
+			
+			currentDirectory=fc.getCurrentDirectory();
+			currentFile=fc.getSelectedFile();
+			try{
+				
+				loadBlocksFromFile(file);
+
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		} 
+
+
+	}
+	
+	public void loadBlocksFromFile(File file){
 
 		meshes[ACTIVE_PANEL]=new PolygonMesh();
 		oldMeshes[ACTIVE_PANEL]=new Stack();
@@ -1100,22 +1159,23 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		PrintWriter pr;
 		try {
 			pr = new PrintWriter(new FileOutputStream(file));
-			pr.print("P=");
+			
 
 			for(int i=0;i<pm.points.length;i++){
 
 				Point3D p=pm.points[i];
+				pr.print("\nv=");
 				pr.print(decomposePoint(p));
 				if(i<mesh.points.length-1)
 					pr.print(" ");
 			}	
 
-			pr.print("\nL=");
+			
 
 			for(int i=0;i<pm.polygonData.size();i++){
 
 				LineData ld=(LineData) pm.polygonData.elementAt(i);
-
+				pr.print("\nf=");
 				pr.print(decomposeLineData(ld));
 				if(i<pm.polygonData.size()-1)
 					pr.print(" ");

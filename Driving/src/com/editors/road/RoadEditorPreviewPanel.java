@@ -13,6 +13,7 @@ import java.util.Vector;
 import javax.imageio.ImageIO;
 
 import com.LineData;
+import com.LineDataVertex;
 import com.Point3D;
 import com.Point4D;
 import com.Polygon3D;
@@ -213,12 +214,14 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 		int[] cxr=new int[size];
 		int[] cyr=new int[size];
 		int[] czr=new int[size];
-
+		int[] cxtr=new int[size];
+		int[] cytr=new int[size];
 		
 		for(int i=0;i<size;i++){
 
 
-			int num=ld.getIndex(i);
+			LineDataVertex ldv=(LineDataVertex) ld.getItem(i);
+			int num=ldv.getVertex_index();
 
 			Point4D p=(Point4D) points[num];
 
@@ -227,6 +230,8 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 			cxr[i]=(int)(p.x)-POSX;
 			cyr[i]=(int)(p.y)-POSY;
 			czr[i]=(int)(p.z)+MOVZ;
+			cxtr[i]=(int) ldv.getVertex_texture_x();
+			cytr[i]=(int) ldv.getVertex_texture_y();
 			
 			if(index==1)
 				czr[i]+=Road.ROAD_THICKNESS;
@@ -235,7 +240,7 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 
 
 
-		Polygon3D p3dr=new Polygon3D(size,cxr,cyr,czr);
+		Polygon3D p3dr=new Polygon3D(size,cxr,cyr,czr,cxtr,cytr);
 		p3dr.setHexColor(ld.getHexColor());
 		p3dr.setIndex(ld.getTexture_index());
 
