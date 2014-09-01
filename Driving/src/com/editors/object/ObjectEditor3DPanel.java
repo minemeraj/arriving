@@ -218,9 +218,12 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 				
 				
-			 	if(face==Renderer3D.CAR_BOTTOM )
-					continue;
-				if(face==Renderer3D.CAR_FRONT){
+			 	if(face==Renderer3D.CAR_BOTTOM){
+			 		deltaWidth=cm.getDeltaX()+cm.getDeltaX2();
+				 	xDirection=xVersor;
+				 	yDirection=yVersor;
+			 	} 	
+			 	else if(face==Renderer3D.CAR_FRONT){
 
 					
 					 deltaWidth=cm.getDeltaX();

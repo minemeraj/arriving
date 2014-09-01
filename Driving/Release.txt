@@ -1,5 +1,7 @@
 Added menu File->Save base texture to the custom editors.
 
+Added bottom face to all the textures.
+
 Some updates for the experimental Block editor.
 
 ----- 01/09/2014 CarDriving 8.0.0

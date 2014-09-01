@@ -64,22 +64,13 @@ public class Renderer3D implements AbstractRenderer3D{
 	public static final int CAR_FRONT=4;
 	public static final int CAR_BOTTOM=5;
 	
-	public static final int CAR_BOTTOM_2=5;
-	public static final int CAR_BACK_2=6;
-	public static final int CAR_TOP_2=7;
-	public static final int CAR_LEFT_2=8;
-	public static final int CAR_RIGHT_2=9;
-	public static final int CAR_FRONT_2=10;
-	
 	public static final int[] faceIndexes={
-		CAR_BOTTOM,CAR_BACK,CAR_TOP,CAR_LEFT,CAR_RIGHT,CAR_FRONT,
-		CAR_BOTTOM_2,CAR_BACK_2,CAR_TOP_2,CAR_LEFT_2,CAR_RIGHT_2,CAR_FRONT_2
+		CAR_BOTTOM,CAR_BACK,CAR_TOP,CAR_LEFT,CAR_RIGHT,CAR_FRONT
 	};
 	
 	
 	public static final String[] faceDesc={
-		"Bo","Ba","To","Le","Ri","Fr",
-		"Bo2","Ba2","To2","Le2","Ri2","Fr2"
+		"Bo","Ba","To","Le","Ri","Fr"
 	};
 	
 
@@ -825,12 +816,14 @@ public class Renderer3D implements AbstractRenderer3D{
 		
 		int deltaTexture=0;
 		
-		if(face==CAR_BOTTOM_2 || face==CAR_FRONT_2  ||face==CAR_BACK_2  ||face==CAR_TOP_2  || face==CAR_LEFT_2 || face==CAR_RIGHT_2)
-			deltaTexture=cm.getDeltaX()+cm.getDeltaX2();
+
 		
-	 	if(face==CAR_BOTTOM || face==CAR_BOTTOM_2)
-			return;
-		if(face==CAR_FRONT || face==CAR_FRONT_2 ){
+	 	if(face==Renderer3D.CAR_BOTTOM){
+	 		deltaWidth=cm.getDeltaX()+cm.getDeltaX2();
+		 	xDirection=xVersor;
+		 	yDirection=yVersor;
+	 	} 
+		if(face==CAR_FRONT  ){
 
 			
 			 deltaWidth=cm.getDeltaX();
@@ -842,7 +835,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 
 		}
-		else if(face==CAR_BACK || face==CAR_BACK_2){
+		else if(face==CAR_BACK){
 			 deltaWidth=cm.getDeltaX();
 			 deltaHeight=0;
 			 xDirection=xVersor;
@@ -850,20 +843,20 @@ public class Renderer3D implements AbstractRenderer3D{
 
 
 		}
-		else if(face==CAR_TOP || face==CAR_TOP_2){
+		else if(face==CAR_TOP){
 			 deltaWidth=cm.getDeltaX();
 			 xDirection=xVersor;
 			 yDirection=yVersor;
 
 
 		}
-		else if(face==CAR_LEFT || face==CAR_LEFT_2 ) {
+		else if(face==CAR_LEFT) {
 			
 			xDirection=zVersor;
 			yDirection=yVersor;
 
 		}
-		else if(face==CAR_RIGHT || face==CAR_RIGHT_2 ) {
+		else if(face==CAR_RIGHT) {
 			
 			xDirection=zMinusVersor;
 			yDirection=yVersor;
