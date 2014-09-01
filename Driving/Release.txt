@@ -1,6 +1,6 @@
 Added menu File->Save base texture to the custom editors.
 
-Added space for bottom face to all the textures.
+Added space for bottom face (now transparent) to all the textures.
 
 Some updates for the experimental Block editor.
 
