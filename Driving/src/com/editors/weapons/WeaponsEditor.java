@@ -402,6 +402,17 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
         generate.addActionListener(this);
         generate.addKeyListener(this);
         right.add(generate);
+        
+        r+=30;
+		
+		jlb=new JLabel("Scale");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		scaleValue=new DoubleTextField();
+		scaleValue.setBounds(column, r, 100, 20);
+		scaleValue.addKeyListener(this);
+		scaleValue.setToolTipText("If empty=1.0");
+		right.add(scaleValue);
 		
 		add(right);
 		
@@ -623,7 +634,17 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 	
 
 	public PolygonMesh buildMesh() {
-		return weapon.buildMesh();
+		
+		if(scaleValue!=null){
+			
+			double val=scaleValue.getvalue();
+			
+			if(val>0)
+				scale=val;
+			else
+				scale=1.0;
+		}
+		return weapon.buildMesh(scale);
 	}
 	
 	public void generate() {

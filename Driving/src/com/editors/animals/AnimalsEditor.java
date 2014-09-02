@@ -325,6 +325,17 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
         generate.addActionListener(this);
         generate.addKeyListener(this);
         right.add(generate);
+        
+        r+=30;
+		
+		jlb=new JLabel("Scale");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		scaleValue=new DoubleTextField();
+		scaleValue.setBounds(column, r, 100, 20);
+		scaleValue.addKeyListener(this);
+		scaleValue.setToolTipText("If empty=1.0");
+		right.add(scaleValue);
 		
 		add(right);
 		
@@ -509,7 +520,17 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 	
 	@Override
 	public PolygonMesh buildMesh() {
-		return animal.buildMesh();
+		
+	if(scaleValue!=null){
+			
+			double val=scaleValue.getvalue();
+			
+			if(val>0)
+				scale=val;
+			else
+				scale=1.0;
+		}
+		return animal.buildMesh(scale);
 	}
 	
 	public void generate() {

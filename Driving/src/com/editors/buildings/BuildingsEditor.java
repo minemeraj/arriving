@@ -201,6 +201,17 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
         generate.addActionListener(this);
         generate.addKeyListener(this);
         right.add(generate);
+        
+        r+=30;
+		
+		jlb=new JLabel("Scale");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		scaleValue=new DoubleTextField();
+		scaleValue.setBounds(column, r, 100, 20);
+		scaleValue.addKeyListener(this);
+		scaleValue.setToolTipText("If empty=1.0");
+		right.add(scaleValue);
 		
 		add(right);
 		
@@ -398,7 +409,17 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 	
 	@Override
 	public PolygonMesh buildMesh() {
-		return plan.buildMesh();
+		
+		if(scaleValue!=null){
+			
+			double val=scaleValue.getvalue();
+			
+			if(val>0)
+				scale=val;
+			else
+				scale=1.0;
+		}
+		return plan.buildMesh(scale);
 	}
 
 	public void saveData(File file) {
