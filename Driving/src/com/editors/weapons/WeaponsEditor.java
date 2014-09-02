@@ -30,6 +30,7 @@ import javax.swing.RepaintManager;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
+import com.PolygonMesh;
 import com.editors.CustomEditor;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
@@ -614,10 +615,15 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 			return;
 		
 		Editor editor=new Editor();
-		editor.meshes[0]=weapon.buildMesh();
+		editor.meshes[0]=buildMesh();
 		
 		ObjectEditorPreviewPanel oepp=new ObjectEditorPreviewPanel(editor);
 		
+	}
+	
+
+	public PolygonMesh buildMesh() {
+		return weapon.buildMesh();
 	}
 	
 	public void generate() {
@@ -744,7 +750,7 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		PrintWriter pw; 
 		try {
 
-			meshes[0]=weapon.buildMesh();
+			meshes[0]=buildMesh();
 			pw = new PrintWriter(new FileOutputStream(file));
 			forceReading=true;
 			saveLines(pw);

@@ -1,5 +1,6 @@
 package com.editors.cars.data;
 
+import java.awt.image.RescaleOp;
 import java.util.Vector;
 import com.BPoint;
 import com.CustomData;
@@ -7,6 +8,7 @@ import com.LineData;
 import com.PolygonMesh;
 import com.Prism;
 import com.Segments;
+import com.editors.CustomEditor;
 import com.main.Renderer3D;
 
 public class Car extends CustomData {
@@ -295,6 +297,11 @@ public class Car extends CustomData {
 	public void setRear_overhang(double rear_overhang) {
 		this.rear_overhang = rear_overhang;
 	}
+	
+	
+	
+	
+
 	
 	public PolygonMesh buildMesh(){
 

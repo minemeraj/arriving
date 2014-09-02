@@ -1,5 +1,9 @@
 Added menu File->Save base texture to the custom editors.
 
+Fixed bug in custom editors texture generation.
+
+Added scale field in some custom editor, to save scaled points.
+
 Added space for bottom face (now transparent) to all the textures.
 
 Improved car 6 = farm tractor.

@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.RepaintManager;
 
+import com.PolygonMesh;
 import com.editors.CustomEditor;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
@@ -380,7 +381,7 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 		PrintWriter pw;
 		try {
 
-			meshes[0]=plan.buildMesh();
+			meshes[0]=buildMesh();
 			pw = new PrintWriter(new FileOutputStream(file));
 			forceReading=true;
 			saveLines(pw);
@@ -393,6 +394,11 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 	
 
 		
+	}
+	
+	@Override
+	public PolygonMesh buildMesh() {
+		return plan.buildMesh();
 	}
 
 	public void saveData(File file) {
@@ -456,7 +462,7 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 			return;
 		
 		Editor editor=new Editor();
-		editor.meshes[0]=plan.buildMesh();
+		editor.meshes[0]=buildMesh();
 		
 		ObjectEditorPreviewPanel oepp=new ObjectEditorPreviewPanel(editor);
 		

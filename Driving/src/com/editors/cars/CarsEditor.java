@@ -30,6 +30,7 @@ import javax.swing.RepaintManager;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
+import com.PolygonMesh;
 import com.editors.CustomEditor;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
@@ -344,6 +345,8 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 		rear_overhang.addKeyListener(this);
 		right.add(rear_overhang);
 		
+	
+		
 		r+=30;
 			
         generate=new JButton("Update");
@@ -357,6 +360,17 @@ public class CarsEditor extends CustomEditor implements ItemListener{
         restoreDefault.addActionListener(this);
         restoreDefault.addKeyListener(this); 
         right.add(restoreDefault);
+        
+        r+=30;
+		
+		jlb=new JLabel("Scale");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		scaleValue=new DoubleTextField();
+		scaleValue.setBounds(column, r, 100, 20);
+		scaleValue.addKeyListener(this);
+		scaleValue.setToolTipText("If empty=1.0");
+		right.add(scaleValue);
 		
 		add(right);
 		
@@ -686,7 +700,7 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 			return;
 		
 		Editor editor=new Editor();
-		editor.meshes[0]=car.buildMesh();
+		editor.meshes[0]=buildMesh();
 		
 		ObjectEditorPreviewPanel oepp=new ObjectEditorPreviewPanel(editor);
 		
@@ -752,6 +766,21 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 			setRightData(car);
 	}
 	
+	public PolygonMesh buildMesh() {
+		
+		if(scaleValue!=null){
+			
+			double val=scaleValue.getvalue();
+			
+			if(val>0)
+				scale=val;
+			else
+				scale=1.0;
+		}
+		
+		return car.buildMesh(scale);
+
+	}
 
 	public void loadData(File file) {
 		
@@ -795,7 +824,7 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 		PrintWriter pw;
 		try {
 		
-			meshes[0]=car.buildMesh();
+			meshes[0]=buildMesh();
 			pw = new PrintWriter(new FileOutputStream(file));
 			forceReading=true;
 			saveLines(pw);
@@ -809,6 +838,9 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 
 		
 	}
+
+
+
 
 	public void saveData(File file) {
 		

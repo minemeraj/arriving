@@ -55,6 +55,9 @@ public class CustomEditor extends Editor implements  MouseWheelListener,KeyListe
 	
 	public CustomJPanel center=null;
 	private JMenuItem jmt_save_base_texture;
+	
+	public DoubleTextField scaleValue=null;
+	public double scale=1.0;
 
 	public void buildRightPanel(){}
 	
@@ -460,7 +463,7 @@ private void saveBaseCubicTexture() {
 
 	private void saveBaseCubicTexture(File file) {
 		
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		PolygonMesh mesh=buildMesh();
 		
 		Color backgroundColor=Color.green;
 		Color back_color=Color.BLUE;
@@ -585,7 +588,12 @@ private void saveBaseCubicTexture() {
 		
 	}
 	
+
 	
+	public PolygonMesh buildMesh() {
+		return null;
+	}
+
 	@Override
 	public void menuCanceled(MenuEvent arg0) {
 		// TODO Auto-generated method stub

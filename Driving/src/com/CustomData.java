@@ -2,6 +2,7 @@ package com;
 
 import java.util.Vector;
 
+import com.editors.CustomEditor;
 import com.main.Renderer3D;
 
 public class CustomData {
@@ -307,5 +308,35 @@ public class CustomData {
 				
 			}
 			
+	}
+	
+	public PolygonMesh buildMesh(double scale){
+		
+		PolygonMesh pm=buildMesh();
+		if(pm!=null)
+			rescaleMesh(pm,scale);
+		
+		return pm;
+	}
+
+
+	public PolygonMesh buildMesh() {
+		return null;
+	}
+	
+	public static void rescaleMesh(PolygonMesh mesh, double scale) {
+		
+		if(scale==1.0)
+			return;
+		
+		Point3D[] points = mesh.points;
+		
+		for (int i = 0; i < points.length; i++) {
+			
+			points[i].x=Math.round(points[i].x *scale);
+			points[i].y=Math.round(points[i].y *scale);
+			points[i].z=Math.round(points[i].z *scale);
+		}
+		
 	}
 }
