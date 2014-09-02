@@ -2,6 +2,8 @@ Added menu File->Save base texture to the custom editors.
 
 Added space for bottom face (now transparent) to all the textures.
 
+Improved car 6 = farm tractor.
+
 Some updates for the experimental Block editor.
 
 ----- 01/09/2014 CarDriving 8.0.0
