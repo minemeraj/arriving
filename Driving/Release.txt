@@ -1,4 +1,4 @@
-Fixed bug in delete element function in ObjectEditor.
+Fixed bug in delete element function in ObjectEditor and IperviewEditor.
 
 Added menu File->Save base texture to the custom editors.
 

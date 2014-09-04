@@ -46,6 +46,7 @@ import javax.swing.border.Border;
 import javax.swing.event.MenuEvent;
 
 import com.LineData;
+import com.LineDataVertex;
 import com.Point3D;
 import com.PolygonMesh;
 import com.editors.DoubleTextField;
@@ -996,14 +997,15 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 
 			for(int j=0;j<ld.size();j++){
 
-				Point3D p0=mesh.points[ld.getIndex(j)];
+				LineDataVertex ldv= ld.getItem(j);
+				Point3D p0=mesh.points[ldv.getVertex_index()];
 				if(!p0.isSelected()) 
 					for(int k=0;k<newPoints.size();k++){
 
 						Point3D np=(Point3D) newPoints.elementAt(k);
 						if(np.equals(p0))
 						{
-							newLd.addIndex(k);
+							newLd.addIndex(k,ldv.getVertex_index(),ldv.getVertex_texture_x(),ldv.getVertex_texture_y());
 							break;
 						}
 					}
