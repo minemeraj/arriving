@@ -762,8 +762,6 @@ public class Animal extends CustomData{
 		pFrontRightForearm[1][1][0]=addBPoint(xc+ax,ay+leg_side,az,RIGHT_RADIUS);
 		pFrontRightForearm[0][1][0]=addBPoint(xc+ax-leg_side,ay+leg_side,az,RIGHT_RADIUS);
 
-		addLine(pFrontRightForearm[0][0][0],pFrontRightForearm[0][1][0],pFrontRightForearm[1][1][0],pFrontRightForearm[1][0][0],Renderer3D.CAR_BOTTOM);
-
 		
 		pFrontRightForearm[0][0][1]=addBPoint(xc+ax-leg_side,ay,az+radius_length,RIGHT_RADIUS);
 		pFrontRightForearm[1][0][1]=addBPoint(xc+ax,ay,az+radius_length,RIGHT_RADIUS);
