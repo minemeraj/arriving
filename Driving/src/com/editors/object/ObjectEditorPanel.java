@@ -1120,15 +1120,17 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 			
 			boolean insertedFirst=false;
 			for(int j=0;j<ld.size();j++){
+				
+				LineDataVertex ldv= ld.getItem(j);
 
-				Point3D p0=mesh.points[ld.getIndex(j)];
+				Point3D p0=mesh.points[ldv.getVertex_index()];
 				if(!p0.isSelected()) 
 					for(int k=0;k<newPoints.size();k++){
 
 						Point3D np=(Point3D) newPoints.elementAt(k);
 						if(np.equals(p0))
 						{
-							newLd.addIndex(k);
+							newLd.addIndex(k,ldv.getVertex_index(),ldv.getVertex_texture_x(),ldv.getVertex_texture_y());
 							break;
 						}
 					}
@@ -1136,8 +1138,8 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 					//cause using convex net polygons a point can't appear more than one time
 					if(insertedFirst)
 						continue;
-					
-					newLd.addIndex(firstPoint);
+
+					newLd.addIndex(firstPoint,ldv.getVertex_index(),ldv.getVertex_texture_x(),ldv.getVertex_texture_y());
 					
 					insertedFirst=true;
 				}
