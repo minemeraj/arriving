@@ -85,7 +85,7 @@ public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 			String desc=Renderer3D.faceDesc[i];
 			chooseFace.addItem(new ValuePair(""+val,""+desc));
 		}
-		chooseFace.setSelectedIndex(1+Integer.parseInt(ld.getData()));
+		chooseFace.setSelectedIndex(Integer.parseInt(ld.getData()));
 		add(chooseFace);
 		
 		save=new JButton("Save");

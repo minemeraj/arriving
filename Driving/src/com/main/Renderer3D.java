@@ -65,12 +65,12 @@ public class Renderer3D implements AbstractRenderer3D{
 	public static final int CAR_BOTTOM=5;
 	
 	public static final int[] faceIndexes={
-		CAR_BOTTOM,CAR_BACK,CAR_TOP,CAR_LEFT,CAR_RIGHT,CAR_FRONT
+		CAR_BACK,CAR_TOP,CAR_LEFT,CAR_RIGHT,CAR_FRONT,CAR_BOTTOM
 	};
 	
 	
 	public static final String[] faceDesc={
-		"Bo","Ba","To","Le","Ri","Fr"
+		"Ba","To","Le","Ri","Fr","Bo"
 	};
 	
 

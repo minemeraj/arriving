@@ -841,7 +841,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 	
 		
 		
-		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
+		for(int i=0;mesh.polygonData!=null && i<mesh.polygonData.size();i++){
 
 			LineData ld=(LineData) mesh.polygonData.elementAt(i);
 			if(!ld.isSelected())
