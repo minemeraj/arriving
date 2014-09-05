@@ -691,7 +691,7 @@ public class Renderer3D implements AbstractRenderer3D{
 			Polygon3D clippedPolygon=Polygon3D.clipPolygon3DInY(triangles[i],(int) (SCREEN_DISTANCE*2.0/3.0));
 
 			if(clippedPolygon.npoints==0)
-				return ;
+				continue;
 			
 			Polygon3D[] clippedTriangles = Polygon3D.divideIntoTriangles(clippedPolygon);
 			
