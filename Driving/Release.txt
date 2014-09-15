@@ -1,3 +1,6 @@
+Correction in the sky algorithm.
+
+
 ----- 06/09/2014 CarDriving 8.0.1
 
 Fixed bug in delete element function in ObjectEditor and IperviewEditor.

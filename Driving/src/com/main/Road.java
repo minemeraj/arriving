@@ -848,7 +848,17 @@ public class Road extends Shader{
 	public void rotateSky(double rotationAngle){
 		rearAngle=rotationAngle;
 	}
-	
+	/**
+	 *  alfa = scale factor:
+	 *  2PI:(tetam*2.0)=dw:(alfa*WIDTH)
+	 *  i:WIDTH=teta:(tetam*2.0) 0<i<WIDTH, i screen x point
+	 *  i_set:dw=teta:2PI i_set background x point
+	 *  
+	 *  texture and screen with y axis downward oriented:
+	 *  
+	 *  j=0 -> j_set= dh- (YFOCUS*alfa)
+	 *  j=YFOCUS -> j_set= dh
+	 */
 	public void drawSky() {
 
 		//g2.setColor(Color.BLUE);
@@ -863,7 +873,8 @@ public class Road extends Shader{
 		//actual value: 0,738
 		double alfa=tetam*dw/(Math.PI*WIDTH);
 		
-		int deltah=(int) (dh*(1-alfa)+YFOCUS*alfa);
+		//int deltah=(int) (dh*(1-alfa)+YFOCUS*alfa);
+		int deltah=(int) (dh-YFOCUS*alfa);//(int) (dh*(1-alfa)+YFOCUS*alfa);
 		
 		double eta=tetam*2.0/WIDTH;
 		
