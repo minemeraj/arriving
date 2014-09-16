@@ -168,7 +168,7 @@ public class LineData implements Cloneable{
 
 
 				if(j>0)
-					str+=",";
+					str+=" ";
 				
 				LineDataVertex ldv=(LineDataVertex) ld.getItem(j);
 				
