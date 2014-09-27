@@ -460,6 +460,7 @@ public class Mould extends JFrame implements ActionListener{
 			Vector vpoints=pm.getPointsAsVector();
 			Vector vlines=pm.getPolygonData();
 
+			fc=new JFileChooser();
 			fc.setDialogType(JFileChooser.SAVE_DIALOG);
 			fc.setDialogTitle("Save Mesh file");
 			if(currentDirectory!=null)
@@ -569,6 +570,7 @@ public class Mould extends JFrame implements ActionListener{
 
 	private void loadRotationProfileImage(int i) {
 		
+		fc=new JFileChooser();
 		fc.setDialogType(JFileChooser.OPEN_DIALOG);
 		fc.setDialogTitle("Load profile");
 		if(currentDirectory!=null)
@@ -609,6 +611,7 @@ public class Mould extends JFrame implements ActionListener{
 	
 	private void loadRotationProfileData() {
 		
+		fc=new JFileChooser();
 		fc.setDialogType(JFileChooser.OPEN_DIALOG);
 		fc.setDialogTitle("Load profile data");
 		if(currentDirectory!=null)
