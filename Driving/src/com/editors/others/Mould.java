@@ -718,6 +718,8 @@ public class Mould extends JFrame implements ActionListener{
 			int w=imageOrig.getWidth();
 			
 			Vector data=new Vector();
+			
+			int tollerance=5;
 
 			//READ PROFILE
 			for(int i=0;i<w;i++){
@@ -730,7 +732,9 @@ public class Mould extends JFrame implements ActionListener{
 					int gs = 0xff & (argbs >>8);
 					int bs = 0xff & argbs;
 
-					if(rs==lineColor.getRed() && gs==lineColor.getGreen() && bs==lineColor.getBlue())
+					if(		Math.abs(rs-lineColor.getRed())<tollerance &&
+							Math.abs(gs-lineColor.getGreen())<tollerance &&
+							Math.abs(bs-lineColor.getBlue())<tollerance)
 					{
 						data.add(new Point2D.Double(i,j));
 	                    break;
