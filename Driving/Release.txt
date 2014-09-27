@@ -1,3 +1,7 @@
+Update mould editor to the latest version,  to create rotation generated meshes.
+Now it can create profile also using x y data lists.
+See README.txt.
+
 Correction in the sky algorithm.
 
 

@@ -6,9 +6,11 @@ import java.awt.event.ActionListener;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Savepoint;
@@ -40,12 +42,12 @@ public class Mould extends JFrame implements ActionListener{
 
 	JTabbedPane tabCenter=null;
 	
-	private JButton loadRotationProfile=null;
+	private JButton loadProfileImage=null;
 	private JButton emptyProfiles=null;
 
 	
-	int N_PARALLELS=2;
-	int N_MERIDIANS=2;
+	int N_PARALLELS=5;
+	int N_MERIDIANS=10;
 	
 	double pi=Math.PI;
 	
@@ -64,7 +66,8 @@ public class Mould extends JFrame implements ActionListener{
 	private JButton rpColorChooser;
 	private JTextField rotationColor;
 	private JButton rotColorChooser;
-	private Color lineColor=Color.RED; 
+	private Color lineColor=Color.RED;
+	private JButton loadProfileData; 
 	
 	
 	public static void main(String[] args) {
@@ -76,7 +79,7 @@ public class Mould extends JFrame implements ActionListener{
 		
 		setTitle("Mould");	
 		
-		setSize(280,280);
+		setSize(280,300);
 		setLocation(20,20);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -115,10 +118,17 @@ public class Mould extends JFrame implements ActionListener{
 		r+=30;
 		
 		
-		loadRotationProfile=new JButton("Load Rotation profile");
-		loadRotationProfile.setBounds(10,r,180,20);
-		loadRotationProfile.addActionListener(this);
-		rotator.add(loadRotationProfile);
+		loadProfileImage=new JButton("Load Profile Image");
+		loadProfileImage.setBounds(10,r,180,20);
+		loadProfileImage.addActionListener(this);
+		rotator.add(loadProfileImage);
+				
+		r+=30;
+		
+		loadProfileData=new JButton("Load Profile Data");
+		loadProfileData.setBounds(10,r,180,20);
+		loadProfileData.addActionListener(this);
+		rotator.add(loadProfileData);
 				
 		r+=30;
 		
@@ -213,8 +223,10 @@ public class Mould extends JFrame implements ActionListener{
 			mould_rotate();
 		} else if (o == cancelRotator || o==cancelPoints) {
 			exit();
-		} else if (o == loadRotationProfile)
-			loadRotationProfile(1);
+		} else if (o == loadProfileImage)
+			loadRotationProfileImage(1);
+		else if (o == loadProfileData)
+			loadRotationProfileData();
 		 else if (o == emptyProfiles)
 			emptyProfiles();
 		 else if (o == loadPointsImage)
@@ -228,6 +240,8 @@ public class Mould extends JFrame implements ActionListener{
 		
 		
 	}
+
+
 
 
 
@@ -472,26 +486,27 @@ public class Mould extends JFrame implements ActionListener{
 		PrintWriter pr;
 		try {
 			pr = new PrintWriter(new FileOutputStream(file));
-			pr.print("P=");
-
+			
 			for(int i=0;i<vpoints.size();i++){
 
 				Point3D p=(Point3D) vpoints.elementAt(i);
-
+				pr.print("v=");
 				pr.print(decomposePoint(p));
 				if(i<vpoints.size()-1)
-					pr.print(" ");
+					pr.println();
 			}	
+			
+			PolygonMesh mesh=new PolygonMesh(vpoints,vlines);
 
-			pr.print("\nL=");
+			decomposeObjVertices(pr,mesh,false);
 
 			for(int i=0;i<vlines.size();i++){
 
 				LineData ld=(LineData) vlines.elementAt(i);
 
+				pr.print("\nf=");
 				pr.print(decomposeLineData(ld));
-				if(i<vlines.size()-1)
-					pr.print(" ");
+
 			}	
 
 			pr.close(); 	
@@ -503,10 +518,18 @@ public class Mould extends JFrame implements ActionListener{
 	
 	}
 	
+
+	public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCustom) {
+		
+		
+		
+	}
+
+
 	private String decomposePoint(Point3D p) {
 		String str="";
 
-		str=p.x+","+p.y+","+p.z;
+		str=p.x+" "+p.y+" "+p.z;
 
 		return str;
 	}
@@ -514,12 +537,24 @@ public class Mould extends JFrame implements ActionListener{
 	private String decomposeLineData(LineData ld) {
 
 		String str="";
-
+		
+		if(ld.data!=null){
+			
+			str+="["+ld.data+"]";
+		    
+		}
 		for(int j=0;j<ld.size();j++){
 
 			if(j>0)
-				str+=",";
+				str+=" ";
 			str+=ld.getIndex(j);
+		
+			if(ld.data!=null){
+					
+					int face=Integer.parseInt(ld.data);
+		
+					str+="/"+(ld.getIndex(j)*6+face);
+			}
 
 		}
 
@@ -532,7 +567,7 @@ public class Mould extends JFrame implements ActionListener{
         System.exit(0); 
 	}
 
-	private void loadRotationProfile(int i) {
+	private void loadRotationProfileImage(int i) {
 		
 		fc.setDialogType(JFileChooser.OPEN_DIALOG);
 		fc.setDialogTitle("Load profile");
@@ -544,7 +579,7 @@ public class Mould extends JFrame implements ActionListener{
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			currentDirectory=fc.getCurrentDirectory();
 			File file = fc.getSelectedFile();
-			rotationProfile=new Profile(file,rotationColor.getBackground());
+			rotationProfile=new Profile(file,rotationColor.getBackground(),true);
 		}	
 		
 	}
@@ -571,6 +606,23 @@ public class Mould extends JFrame implements ActionListener{
 		
 	}
 	
+	
+	private void loadRotationProfileData() {
+		
+		fc.setDialogType(JFileChooser.OPEN_DIALOG);
+		fc.setDialogTitle("Load profile data");
+		if(currentDirectory!=null)
+			fc.setCurrentDirectory(currentDirectory);
+		
+		int returnVal = fc.showOpenDialog(null);
+		
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			currentDirectory=fc.getCurrentDirectory();
+			File file = fc.getSelectedFile();
+			rotationProfile=new Profile(file,rotationColor.getBackground(),false);
+		}	
+		
+	}
 
 	private void emptyProfiles() {
 		
@@ -589,17 +641,23 @@ public class Mould extends JFrame implements ActionListener{
 		double lenY=0;
 		
 		
-		public Profile(File file,Color lineColor) {
+		public Profile(File file,Color lineColor, boolean isImage) {
 			
 			try {
 				this.lineColor = lineColor;
-				readProfile(file);	
+				if(isImage)
+					readProfileImage(file);	
+				else
+					readProfileData(file);	
+				
 				scaleData();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		
+
+
 		public double foundYApproximation(double len) {
 			
 			for(int i=0;i<points.length-1;i++){
@@ -612,8 +670,43 @@ public class Mould extends JFrame implements ActionListener{
 			
 			return 0;
 		}
+		
+		private void readProfileData(File file) throws Exception {
+			
+		
+				BufferedReader br=new BufferedReader(new FileReader(file));
+	
+				String line=null;
+				
+				Vector data=new Vector();
+				
+				while((line=br.readLine())!=null){
+					
+					line=line.trim();
+					String[] vals=line.split(" ");
+					
+					double x=java.lang.Double.parseDouble(vals[0]);
+					double y=java.lang.Double.parseDouble(vals[1]);
+					
+					Point2D.Double p=new Point2D.Double(x,y);
+					
+					data.add(p);
+				}
+				
+				
+				br.close();
+				
+				points=new Point2D.Double[data.size()];
 
-		private void readProfile(File fileOrig) throws IOException {
+				for (int i = 0; i < data.size(); i++) {
+					points[i] = (Point2D.Double) data.elementAt(i);
+				}
+			
+		}
+		
+		
+
+		private void readProfileImage(File fileOrig) throws IOException {
 			
 			BufferedImage imageOrig=ImageIO.read(fileOrig);
 				
