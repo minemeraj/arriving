@@ -354,7 +354,7 @@
     
     MOULD EDITOR
     
-    Rotator
+    Rotator:
     
     Load Profile Image:
     Create a profile using an image of HALF your object with 
@@ -368,6 +368,10 @@
       
     
     Save as Polygon Mesh.
+    
+    Read points:
+    
+    The editor can read points from an image and save the as points of a mesh.
     
     
    ********* AUTOCARS

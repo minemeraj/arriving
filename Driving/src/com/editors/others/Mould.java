@@ -32,7 +32,7 @@ import com.PolygonMesh;
 
 public class Mould extends JFrame implements ActionListener{
 	
-	JButton saveRotation=null;
+	JButton saveHorizontalRotation=null;
 	JButton cancelRotator=null;
 	JPanel rotator=null;
 	
@@ -57,7 +57,7 @@ public class Mould extends JFrame implements ActionListener{
 	Profile rotationProfile=null;
 
 	private JPanel readPoints;
-	private JButton saveReadPoints;
+	private JButton savePoints; 
 	private JButton cancelPoints;
 	private JButton loadPointsImage;
 
@@ -67,7 +67,8 @@ public class Mould extends JFrame implements ActionListener{
 	private JTextField rotationColor;
 	private JButton rotColorChooser;
 	private Color lineColor=Color.RED;
-	private JButton loadProfileData; 
+	private JButton loadProfileData;
+	private JButton saveVerticalRotationPoints; 
 	
 	
 	public static void main(String[] args) {
@@ -79,7 +80,7 @@ public class Mould extends JFrame implements ActionListener{
 		
 		setTitle("Mould");	
 		
-		setSize(280,300);
+		setSize(280,370);
 		setLocation(20,20);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -155,13 +156,23 @@ public class Mould extends JFrame implements ActionListener{
 						
 		r+=40;
 
-		saveRotation=new JButton("Save Mesh");
-		saveRotation.setBounds(10,r,100,20);
-		saveRotation.addActionListener(this);
-		rotator.add(saveRotation);
+		saveHorizontalRotation=new JButton("Save horizontal Mesh");
+		saveHorizontalRotation.setBounds(10,r,200,20);
+		saveHorizontalRotation.addActionListener(this);
+		rotator.add(saveHorizontalRotation);
+		
+		
+		r+=30;
+		
+		saveVerticalRotationPoints=new JButton("Save vertical Mesh");
+		saveVerticalRotationPoints.setBounds(10,r,200,20);
+		saveVerticalRotationPoints.addActionListener(this);
+		rotator.add(saveVerticalRotationPoints);
+		
+		r+=30;
 
 		cancelRotator=new JButton("cancel");
-		cancelRotator.setBounds(120,r,100,20);
+		cancelRotator.setBounds(10,r,100,20);
 		cancelRotator.addActionListener(this);
 		rotator.add(cancelRotator);
 		
@@ -196,10 +207,11 @@ public class Mould extends JFrame implements ActionListener{
 		
 		r+=30;
 		
-		saveReadPoints=new JButton("Save Mesh");
-		saveReadPoints.setBounds(10,r,100,20);
-		saveReadPoints.addActionListener(this);
-		readPoints.add(saveReadPoints);
+		savePoints=new JButton("Save points");
+		savePoints.setBounds(10,r,100,20);
+		savePoints.addActionListener(this);
+		readPoints.add(savePoints);
+
 
 		cancelPoints=new JButton("cancel");
 		cancelPoints.setBounds(120,r,100,20);
@@ -219,9 +231,13 @@ public class Mould extends JFrame implements ActionListener{
 
 		Object o = e.getSource();
 
-		if (o == saveRotation) {
-			mould_rotate();
-		} else if (o == cancelRotator || o==cancelPoints) {
+		if (o == saveHorizontalRotation) {
+			mould_horizontal_rotate();
+		} 
+		else if (o == saveVerticalRotationPoints) {
+			mould_vertical_rotate();
+		} 
+		else if (o == cancelRotator || o==cancelPoints) {
 			exit();
 		} else if (o == loadProfileImage)
 			loadRotationProfileImage(1);
@@ -231,7 +247,7 @@ public class Mould extends JFrame implements ActionListener{
 			emptyProfiles();
 		 else if (o == loadPointsImage)
 			 loadPointsImage();
-		 else if (o == saveReadPoints)
+		 else if (o == savePoints)
 			 saveReadPoints(readPointsImage,readPoints.getBackground());
 		 else if (o == rpColorChooser)
 		     chooseColor(readPointscolor);
@@ -240,8 +256,6 @@ public class Mould extends JFrame implements ActionListener{
 		
 		
 	}
-
-
 
 
 
@@ -352,7 +366,7 @@ public class Mould extends JFrame implements ActionListener{
 		
 	}
 
-	private void mould_rotate() {
+	private void mould_horizontal_rotate() {
 		
 		if(rotationProfile==null)
 			return;
@@ -446,6 +460,105 @@ public class Mould extends JFrame implements ActionListener{
 		
 	}
 	
+	
+
+
+
+
+	private void mould_vertical_rotate() {
+		
+		if(rotationProfile==null)
+			return;
+		
+		if(parallelsNumber.getText().equals("") || meridianNumbers.getText().equals(""))
+			return;
+		
+		try{
+		
+			N_PARALLELS=Integer.parseInt(parallelsNumber.getText()); 
+			
+			N_MERIDIANS=Integer.parseInt(meridianNumbers.getText());
+		
+		}
+		catch (Exception e) {
+			return;
+		}
+		
+		double teta=(2*pi)/(N_MERIDIANS);
+		
+		double dz=rotationProfile.lenX/(N_PARALLELS-1);
+		
+		PolygonMesh pm=new PolygonMesh();
+		
+		pm.points=new Point3D[N_PARALLELS*N_MERIDIANS];
+		
+		for(int i=0;i<N_PARALLELS;i++){
+			
+			double radius=rotationProfile.foundYApproximation(dz*i);
+			
+			for (int j = 0; j <N_MERIDIANS; j++) {
+				
+				
+				
+				double x= (radius*Math.cos(j*teta));
+				double y= (radius*Math.sin(j*teta));
+				double z= (dz*i);
+				
+				pm.points[f(i,j,N_PARALLELS,N_MERIDIANS)]=
+					 new Point3D(x,y,z);
+				
+			}
+			
+			
+		}
+		
+		
+		LineData lowerBase=new LineData();
+		LineData upperBase=new LineData();
+		
+		for (int j = 0; j <N_MERIDIANS; j++) {
+		
+			upperBase.addIndex(f(0,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
+			
+			
+			
+		}	
+		
+		for (int j = N_MERIDIANS-1; j >=0; j--) {
+			
+			 lowerBase.addIndex(f(N_PARALLELS-1,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
+		}
+		
+		pm.addPolygonData(upperBase);
+				
+		for(int i=0;i<N_PARALLELS-1;i++){
+			
+	
+			
+			
+			for (int j = 0; j <N_MERIDIANS; j++) {
+				
+			
+				 LineData ld=new LineData();
+				 
+				 
+				 ld.addIndex(f(i,j,N_PARALLELS,N_MERIDIANS));
+				 ld.addIndex(f(i+1,j,N_PARALLELS,N_MERIDIANS));
+				 ld.addIndex(f(i+1,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
+				 ld.addIndex(f(i,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
+				
+				 pm.addPolygonData(ld);
+				
+			}
+			
+			
+		}
+		
+		pm.addPolygonData(lowerBase);
+		
+		saveMesh(pm);
+		
+	}
 	
 	public int f(int i,int j,int nx,int ny){
 		
