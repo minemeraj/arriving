@@ -360,6 +360,9 @@
     Create a profile using an image of HALF your object with 
     WHITE background and RED outline.The radius is the y-coordinate of the image.
     
+    "Only data" options use as parallels only the data read, no interpolation or equal 
+    parallels.
+    
     Load Profile Data
     Create a profile using a data file of x and y coordinates, the radius is the y-coordinate
     of the image. The format is data with space separation.
