@@ -266,9 +266,9 @@ public class Mould extends JFrame implements ActionListener{
 		else if (o == cancelRotator || o==cancelPoints) {
 			exit();
 		} else if (o == loadProfileImage)
-			loadRotationProfileImage(parallelsOnlyData.isSelected());
+			loadRotationProfileImage();
 		else if (o == loadProfileData)
-			loadRotationProfileData(parallelsOnlyData.isSelected());
+			loadRotationProfileData();
 		 else if (o == emptyProfiles)
 			emptyProfiles();
 		 else if (o == loadPointsImage)
@@ -410,6 +410,14 @@ public class Mould extends JFrame implements ActionListener{
 		catch (Exception e) {
 			return;
 		}
+		
+		if(parallelsOnlyData.isSelected()){
+			
+			
+		}else{
+			
+			
+		}
 
 		double teta=(2*pi)/(N_MERIDIANS);
 
@@ -492,98 +500,106 @@ public class Mould extends JFrame implements ActionListener{
 
 
 	private void mould_vertical_rotate() {
-		
+
 		if(rotationProfile==null)
 			return;
-		
+
 		if(parallelsNumber.getText().equals("") || meridianNumbers.getText().equals(""))
 			return;
-		
+
 		try{
-		
+
 			N_PARALLELS=Integer.parseInt(parallelsNumber.getText()); 
-			
+
 			N_MERIDIANS=Integer.parseInt(meridianNumbers.getText());
-		
+
 		}
 		catch (Exception e) {
 			return;
 		}
-		
+
+		if(parallelsOnlyData.isSelected()){
+
+
+		}else{
+
+
+		}
+
 		double teta=(2*pi)/(N_MERIDIANS);
-		
+
 		double dz=rotationProfile.lenX/(N_PARALLELS-1);
-		
+
 		PolygonMesh pm=new PolygonMesh();
-		
+
 		pm.points=new Point3D[N_PARALLELS*N_MERIDIANS];
-		
+
 		for(int i=0;i<N_PARALLELS;i++){
-			
+
 			double radius=rotationProfile.foundYApproximation(dz*i);
-			
+
 			for (int j = 0; j <N_MERIDIANS; j++) {
-				
-				
-				
+
+
+
 				double x= (radius*Math.cos(j*teta));
 				double y= (radius*Math.sin(j*teta));
 				double z= (dz*i);
-				
+
 				pm.points[f(i,j,N_PARALLELS,N_MERIDIANS)]=
-					 new Point3D(x,y,z);
-				
+						new Point3D(x,y,z);
+
 			}
-			
-			
+
+
 		}
-		
-		
+
+
 		LineData lowerBase=new LineData();
 		LineData upperBase=new LineData();
-		
+
 		for (int j = 0; j <N_MERIDIANS; j++) {
-		
+
 			upperBase.addIndex(f(N_PARALLELS-1,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
-			
-			
-			
+
+
+
 		}	
-		
+
 		for (int j = N_MERIDIANS-1; j >=0; j--) {
-			
-			 lowerBase.addIndex(f(0,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
+
+			lowerBase.addIndex(f(0,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
 		}
-		
+
 		pm.addPolygonData(upperBase);
-				
+
 		for(int i=0;i<N_PARALLELS-1;i++){
-			
-	
-			
-			
+
+
+
+
 			for (int j = 0; j <N_MERIDIANS; j++) {
-				
-			
-				 LineData ld=new LineData();
-				 
-				 
-				 ld.addIndex(f(i,j,N_PARALLELS,N_MERIDIANS));
-				 ld.addIndex(f(i,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
-				 ld.addIndex(f(i+1,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
-				 ld.addIndex(f(i+1,j,N_PARALLELS,N_MERIDIANS));
-				 			
-				 pm.addPolygonData(ld);
-				
+
+
+				LineData ld=new LineData();
+
+
+				ld.addIndex(f(i,j,N_PARALLELS,N_MERIDIANS));
+				ld.addIndex(f(i,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
+				ld.addIndex(f(i+1,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
+				ld.addIndex(f(i+1,j,N_PARALLELS,N_MERIDIANS));
+
+				pm.addPolygonData(ld);
+
 			}
-			
-			
+
+
 		}
-		
+
 		pm.addPolygonData(lowerBase);
-		
+
 		saveMesh(pm);
-		
+
 	}
 	
 	public int f(int i,int j,int nx,int ny){
@@ -707,7 +723,7 @@ public class Mould extends JFrame implements ActionListener{
         System.exit(0); 
 	}
 
-	private void loadRotationProfileImage(boolean isOnlyData) {
+	private void loadRotationProfileImage() {
 		
 		fc=new JFileChooser();
 		fc.setDialogType(JFileChooser.OPEN_DIALOG);
@@ -720,7 +736,7 @@ public class Mould extends JFrame implements ActionListener{
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			currentDirectory=fc.getCurrentDirectory();
 			File file = fc.getSelectedFile();
-			rotationProfile=new Profile(file,rotationColor.getBackground(),true,isOnlyData);
+			rotationProfile=new Profile(file,rotationColor.getBackground(),true);
 		}	
 		
 	}
@@ -748,7 +764,7 @@ public class Mould extends JFrame implements ActionListener{
 	}
 	
 	
-	private void loadRotationProfileData(boolean isOnlyData) {
+	private void loadRotationProfileData() {
 		
 		fc=new JFileChooser();
 		fc.setDialogType(JFileChooser.OPEN_DIALOG);
@@ -761,7 +777,7 @@ public class Mould extends JFrame implements ActionListener{
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			currentDirectory=fc.getCurrentDirectory();
 			File file = fc.getSelectedFile();
-			rotationProfile=new Profile(file,rotationColor.getBackground(),false,isOnlyData);
+			rotationProfile=new Profile(file,rotationColor.getBackground(),false);
 		}	
 		
 	}
@@ -783,7 +799,7 @@ public class Mould extends JFrame implements ActionListener{
 		double lenY=0;
 		
 		
-		public Profile(File file,Color lineColor, boolean isImage,boolean isOnlyData) {
+		public Profile(File file,Color lineColor, boolean isImage) {
 			
 			try {
 				this.lineColor = lineColor;
