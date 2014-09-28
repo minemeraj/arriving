@@ -518,7 +518,7 @@ public class Mould extends JFrame implements ActionListener{
 		
 		for (int j = 0; j <N_MERIDIANS; j++) {
 		
-			upperBase.addIndex(f(0,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
+			upperBase.addIndex(f(N_PARALLELS-1,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
 			
 			
 			
@@ -526,7 +526,7 @@ public class Mould extends JFrame implements ActionListener{
 		
 		for (int j = N_MERIDIANS-1; j >=0; j--) {
 			
-			 lowerBase.addIndex(f(N_PARALLELS-1,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
+			 lowerBase.addIndex(f(0,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
 		}
 		
 		pm.addPolygonData(upperBase);
@@ -543,10 +543,10 @@ public class Mould extends JFrame implements ActionListener{
 				 
 				 
 				 ld.addIndex(f(i,j,N_PARALLELS,N_MERIDIANS));
-				 ld.addIndex(f(i+1,j,N_PARALLELS,N_MERIDIANS));
-				 ld.addIndex(f(i+1,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
 				 ld.addIndex(f(i,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
-				
+				 ld.addIndex(f(i+1,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
+				 ld.addIndex(f(i+1,j,N_PARALLELS,N_MERIDIANS));
+				 			
 				 pm.addPolygonData(ld);
 				
 			}
