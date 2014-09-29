@@ -397,12 +397,10 @@ public class Mould extends JFrame implements ActionListener{
 		if(rotationProfile==null)
 			return;
 
-		if(parallelsNumber.getText().equals("") || meridianNumbers.getText().equals(""))
+		if(meridianNumbers.getText().equals(""))
 			return;
 
 		try{
-
-			N_PARALLELS=Integer.parseInt(parallelsNumber.getText()); 
 
 			N_MERIDIANS=Integer.parseInt(meridianNumbers.getText());
 
@@ -411,40 +409,78 @@ public class Mould extends JFrame implements ActionListener{
 			return;
 		}
 		
+		double teta=(2*pi)/(N_MERIDIANS);
+		
+		PolygonMesh pm=new PolygonMesh();
+		
 		if(parallelsOnlyData.isSelected()){
 			
+	
+			pm.points=new Point3D[N_PARALLELS*N_MERIDIANS];
+			
+			N_PARALLELS=rotationProfile.points.length;
+
+			for(int i=0;i<N_PARALLELS;i++){
+
+				double radius=rotationProfile.points[i].y;
+
+				for (int j = 0; j <N_MERIDIANS; j++) {
+
+
+					double x= rotationProfile.points[i].x;
+					double y= (radius*Math.sin(j*teta));
+					double z= (radius*Math.cos(j*teta));
+
+					pm.points[f(i,j,N_PARALLELS,N_MERIDIANS)]=
+							new Point3D(x,y,z);
+
+				}
+
+
+			}
 			
 		}else{
 			
-			
-		}
+			if(parallelsNumber.getText().equals(""))
+				return;
 
-		double teta=(2*pi)/(N_MERIDIANS);
+			try{
 
-		double dx=rotationProfile.lenX/(N_PARALLELS-1);
+				N_PARALLELS=Integer.parseInt(parallelsNumber.getText()); 
 
-		PolygonMesh pm=new PolygonMesh();
-
-		pm.points=new Point3D[N_PARALLELS*N_MERIDIANS];
-
-		for(int i=0;i<N_PARALLELS;i++){
-
-			double radius=rotationProfile.foundYApproximation(dx*i);
-
-			for (int j = 0; j <N_MERIDIANS; j++) {
-
-
-				double x= (dx*i);
-				double y= (radius*Math.sin(j*teta));
-				double z= (radius*Math.cos(j*teta));
-
-				pm.points[f(i,j,N_PARALLELS,N_MERIDIANS)]=
-						new Point3D(x,y,z);
 
 			}
+			catch (Exception e) {
+				return;
+			}
+
+			double dx=rotationProfile.lenX/(N_PARALLELS-1);
+
+			
+
+			pm.points=new Point3D[N_PARALLELS*N_MERIDIANS];
+
+			for(int i=0;i<N_PARALLELS;i++){
+
+				double radius=rotationProfile.foundYApproximation(dx*i);
+
+				for (int j = 0; j <N_MERIDIANS; j++) {
 
 
+					double x= (dx*i);
+					double y= (radius*Math.sin(j*teta));
+					double z= (radius*Math.cos(j*teta));
+
+					pm.points[f(i,j,N_PARALLELS,N_MERIDIANS)]=
+							new Point3D(x,y,z);
+
+				}
+
+
+			}
 		}
+
+
 
 
 		LineData lowerBase=new LineData();
@@ -504,55 +540,91 @@ public class Mould extends JFrame implements ActionListener{
 		if(rotationProfile==null)
 			return;
 
-		if(parallelsNumber.getText().equals("") || meridianNumbers.getText().equals(""))
+		if(meridianNumbers.getText().equals(""))
 			return;
 
 		try{
 
-			N_PARALLELS=Integer.parseInt(parallelsNumber.getText()); 
-
 			N_MERIDIANS=Integer.parseInt(meridianNumbers.getText());
 
-		}
-		catch (Exception e) {
+		}	catch (Exception e) {
 			return;
 		}
-
-		if(parallelsOnlyData.isSelected()){
-
-
-		}else{
-
-
-		}
-
+		
 		double teta=(2*pi)/(N_MERIDIANS);
-
-		double dz=rotationProfile.lenX/(N_PARALLELS-1);
-
+		
 		PolygonMesh pm=new PolygonMesh();
 
-		pm.points=new Point3D[N_PARALLELS*N_MERIDIANS];
-
-		for(int i=0;i<N_PARALLELS;i++){
-
-			double radius=rotationProfile.foundYApproximation(dz*i);
-
-			for (int j = 0; j <N_MERIDIANS; j++) {
+		if(parallelsOnlyData.isSelected()){
+			
+			N_PARALLELS=rotationProfile.points.length;
 
 
+			pm.points=new Point3D[N_PARALLELS*N_MERIDIANS];
 
-				double x= (radius*Math.cos(j*teta));
-				double y= (radius*Math.sin(j*teta));
-				double z= (dz*i);
+			for(int i=0;i<N_PARALLELS;i++){
 
-				pm.points[f(i,j,N_PARALLELS,N_MERIDIANS)]=
-						new Point3D(x,y,z);
+				double radius=rotationProfile.points[i].y;
+
+				for (int j = 0; j <N_MERIDIANS; j++) {
+
+
+					double x= (radius*Math.cos(j*teta));
+					double y= (radius*Math.sin(j*teta));
+					double z= rotationProfile.points[i].x;
+
+					pm.points[f(i,j,N_PARALLELS,N_MERIDIANS)]=
+							new Point3D(x,y,z);
+
+				}
+
 
 			}
 
+			
+		}else{
+			
+			if(parallelsNumber.getText().equals(""))
+				return;
+
+			try{
+
+				N_PARALLELS=Integer.parseInt(parallelsNumber.getText()); 
+
+			}
+			catch (Exception e) {
+				return;
+			}
+
+
+			double dz=rotationProfile.lenX/(N_PARALLELS-1);
+
+
+			pm.points=new Point3D[N_PARALLELS*N_MERIDIANS];
+
+			for(int i=0;i<N_PARALLELS;i++){
+
+				double radius=rotationProfile.foundYApproximation(dz*i);
+
+				for (int j = 0; j <N_MERIDIANS; j++) {
+
+
+
+					double x= (radius*Math.cos(j*teta));
+					double y= (radius*Math.sin(j*teta));
+					double z= (dz*i);
+
+					pm.points[f(i,j,N_PARALLELS,N_MERIDIANS)]=
+							new Point3D(x,y,z);
+
+				}
+
+
+			}
 
 		}
+
+
 
 
 		LineData lowerBase=new LineData();
@@ -803,12 +875,14 @@ public class Mould extends JFrame implements ActionListener{
 			
 			try {
 				this.lineColor = lineColor;
-				if(isImage)
-					readProfileImage(file);	
+				if(isImage){
+					readProfileImage(file);
+					
+				}	
 				else
 					readProfileData(file);	
 				
-				scaleData();
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -905,11 +979,11 @@ public class Mould extends JFrame implements ActionListener{
 			}
 			
 		
-			
+			scaleData(h);
 			
 		}
 		
-		private void scaleData() {
+		private void scaleData(int h) {
 			
 			double maxX=0;
 			double minX=0;
@@ -952,7 +1026,7 @@ public class Mould extends JFrame implements ActionListener{
 				double x=points[i].getX();
 				double y=points[i].getY();
 				
-				points[i].setLocation((x-minX),(maxY-y));
+				points[i].setLocation((x-minX),(h-y));
 			}
 			
 		}
