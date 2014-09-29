@@ -881,7 +881,7 @@ public class Mould extends JFrame implements ActionListener{
 				}	
 				else
 					readProfileData(file);	
-				
+		
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -933,6 +933,9 @@ public class Mould extends JFrame implements ActionListener{
 				for (int i = 0; i < data.size(); i++) {
 					points[i] = (Point2D.Double) data.elementAt(i);
 				}
+				
+				
+				scaleData(-1);
 			
 		}
 		
@@ -979,7 +982,7 @@ public class Mould extends JFrame implements ActionListener{
 			}
 			
 		
-			scaleData(h);
+			
 			
 		}
 		
@@ -1020,13 +1023,17 @@ public class Mould extends JFrame implements ActionListener{
 			lenX=maxX-minX; 
 			lenY=maxY-minY;
 			
-			for (int i = 0; i < points.length; i++) { 
-				
-				
-				double x=points[i].getX();
-				double y=points[i].getY();
-				
-				points[i].setLocation((x-minX),(h-y));
+			if(h>0){
+			
+				for (int i = 0; i < points.length; i++) { 
+					
+					
+					double x=points[i].getX();
+					double y=points[i].getY();
+					
+					points[i].setLocation((x-minX),(h-y));
+				}
+			
 			}
 			
 		}
