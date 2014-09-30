@@ -2001,7 +2001,7 @@ public class Forniture extends CustomData{
 				sideLD.addIndex(trunkpoints[k][(i+1)%trunk_meridians].getIndex());
 				sideLD.addIndex(trunkpoints[k+1][(i+1)%trunk_meridians].getIndex());
 				sideLD.addIndex(trunkpoints[k+1][i].getIndex());	
-				sideLD.setData(""+getFace(sideLD,points));
+				sideLD.setData(""+Renderer3D.getFace(sideLD,points));
 				polyData.add(sideLD);
 				
 			}

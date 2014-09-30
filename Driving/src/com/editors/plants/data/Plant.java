@@ -148,7 +148,7 @@ public class Plant extends CustomData{
 				sideLD.addIndex(trunkpoints[k][(i+1)%trunk_meridians].getIndex());
 				sideLD.addIndex(trunkpoints[k+1][(i+1)%trunk_meridians].getIndex());
 				sideLD.addIndex(trunkpoints[k+1][i].getIndex());	
-				sideLD.setData(""+getFace(sideLD,points));
+				sideLD.setData(""+Renderer3D.getFace(sideLD,points));
 				polyData.add(sideLD);
 				
 				
@@ -202,7 +202,7 @@ public class Plant extends CustomData{
 			
 			
 		}
-		bottomFoliage.setData(""+getFace(bottomFoliage,points));
+		bottomFoliage.setData(""+Renderer3D.getFace(bottomFoliage,points));
 		polyData.add(bottomFoliage);
 		
 		for (int k = 0; k < foliage_parallels-1; k++) {
@@ -216,7 +216,7 @@ public class Plant extends CustomData{
 				sideLD.addIndex(foliagePoints[k][(i+1)%foliage_meridians].getIndex());
 				sideLD.addIndex(foliagePoints[k+1][(i+1)%foliage_meridians].getIndex());
 				sideLD.addIndex(foliagePoints[k+1][i].getIndex());	
-				sideLD.setData(""+getFace(sideLD,points));
+				sideLD.setData(""+Renderer3D.getFace(sideLD,points));
 				polyData.add(sideLD);
 				
 			}

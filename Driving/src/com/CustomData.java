@@ -173,24 +173,7 @@ public class CustomData {
 	}
 	
 
-	public int getFace(LineData ld,Vector points){
-		
-		int n=ld.size();
-		
-		Point3D p0=(Point3D)points.elementAt(ld.getIndex((n+0-1)%n));
-		Point3D p1=(Point3D)points.elementAt(ld.getIndex(0));
-		Point3D p2=(Point3D)points.elementAt(ld.getIndex((1+0)%n));
 
-		Point3D normal=Point3D.calculateCrossProduct(p1.substract(p0),p2.substract(p1));
-
-		normal=normal.calculateVersor();
-		
-		int boxFace=Renderer3D.findBoxFace(normal);
-		return boxFace;
-
-		
-		
-	}
 	
 	public void addCylinder(double cyx0, double cyy0,double cyz0,
 			double cylinder_radius,double cylinder_lenght,int barrel_meridians){
@@ -253,7 +236,7 @@ public class CustomData {
 				sideLD.addIndex(bTrunkpoints[i].getIndex());
 				sideLD.addIndex(uTrunkpoints[i].getIndex());
 				sideLD.addIndex(uTrunkpoints[(i+1)%barrel_meridians].getIndex());
-				sideLD.setData(""+getFace(sideLD,points));
+				sideLD.setData(""+Renderer3D.getFace(sideLD,points));
 				polyData.add(sideLD);
 				
 			}
@@ -303,7 +286,7 @@ public class CustomData {
 				sideLD.addIndex(((BPoint) prism.lowerBase[(i+1)%size]).getIndex());
 				sideLD.addIndex(((BPoint) prism.upperBase[(i+1)%size]).getIndex());
 				sideLD.addIndex(((BPoint) prism.upperBase[i]).getIndex());				
-				sideLD.setData(""+getFace(sideLD,points));
+				sideLD.setData(""+Renderer3D.getFace(sideLD,points));
 				polyData.add(sideLD);
 				
 			}

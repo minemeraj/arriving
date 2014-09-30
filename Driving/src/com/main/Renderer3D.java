@@ -1332,6 +1332,40 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 		return findBoxFace(normal);
 
 	}
+	
+	public static int getFace(LineData ld,Vector points){
+		
+		int n=ld.size();
+		
+		Point3D p0=(Point3D)points.elementAt(ld.getIndex((n+0-1)%n));
+		Point3D p1=(Point3D)points.elementAt(ld.getIndex(0));
+		Point3D p2=(Point3D)points.elementAt(ld.getIndex((1+0)%n));
+
+		Point3D normal=Point3D.calculateCrossProduct(p1.substract(p0),p2.substract(p1));
+
+		normal=normal.calculateVersor();
+		
+		int boxFace=Renderer3D.findBoxFace(normal);
+		return boxFace;
+
+	}
+	
+	public static int getFace(LineData ld,Point3D[] points){
+		
+		int n=ld.size();
+		
+		Point3D p0=points[ld.getIndex((n+0-1)%n)];
+		Point3D p1=points[ld.getIndex(0)];
+		Point3D p2=points[ld.getIndex((1+0)%n)];
+
+		Point3D normal=Point3D.calculateCrossProduct(p1.substract(p0),p2.substract(p1));
+
+		normal=normal.calculateVersor();
+		
+		int boxFace=Renderer3D.findBoxFace(normal);
+		return boxFace;
+
+	}
 
 	public static int findBoxFace(Point3D normal ) {
 

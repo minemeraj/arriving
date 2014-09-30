@@ -1695,7 +1695,7 @@ public class Weapon extends CustomData{
 			sideLD.addIndex(bTrunkpoints[i].getIndex());
 			sideLD.addIndex(uTrunkpoints[i].getIndex());
 			sideLD.addIndex(uTrunkpoints[(i+1)%barrel_meridians].getIndex());
-			sideLD.setData(""+getFace(sideLD,points));
+			sideLD.setData(""+Renderer3D.getFace(sideLD,points));
 			polyData.add(sideLD);
 			
 		}
