@@ -10,6 +10,7 @@ public class CustomData {
 	public Vector points=null;
 	public Vector polyData=null;
 	public int n=0;
+	double pi=Math.PI;
 	
 	public void buildBox(double x , double y, double z,double x_side,double y_side, double z_side) {
 		
@@ -321,5 +322,101 @@ public class CustomData {
 			points[i].z=Math.round(points[i].z *scale);
 		}
 		
+	}
+	
+	public PolygonMesh addZRotatedMesh(int N_MERIDIANS,Point3D[] profile ) {
+
+		
+		points=new Vector();
+		points.setSize(200);
+		polyData=new Vector();
+		
+		n=0;
+
+		double teta=(2*pi)/(N_MERIDIANS);
+
+
+		int	N_PARALLELS=profile.length;
+
+
+		BPoint[] aPoints=new BPoint[N_PARALLELS*N_MERIDIANS];
+
+			for(int i=0;i<N_PARALLELS;i++){
+
+				double radius=profile[i].y;
+
+				for (int j = 0; j <N_MERIDIANS; j++) {
+
+
+					double x= (radius*Math.cos(j*teta));
+					double y= (radius*Math.sin(j*teta));
+					double z= profile[i].x;
+
+					aPoints[f(i,j,N_PARALLELS,N_MERIDIANS)]=
+							addBPoint(x,y,z);
+
+				}
+
+
+			}
+
+
+
+
+		LineData lowerBase=new LineData();
+		LineData upperBase=new LineData();
+
+		for (int j = 0; j <N_MERIDIANS; j++) {
+
+			upperBase.addIndex(aPoints[f(N_PARALLELS-1,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS)].getIndex());
+
+			upperBase.setData(""+Renderer3D.getFace(upperBase,aPoints));
+
+		}	
+
+		for (int j = N_MERIDIANS-1; j >=0; j--) {
+
+			lowerBase.addIndex(aPoints[f(0,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS)].getIndex());
+
+			lowerBase.setData(""+Renderer3D.getFace(lowerBase,aPoints));
+		}
+
+		polyData.add(upperBase);
+
+		for(int i=0;i<N_PARALLELS-1;i++){
+
+
+
+
+			for (int j = 0; j <N_MERIDIANS; j++) {
+
+
+				LineData ld=new LineData();
+
+
+				ld.addIndex(aPoints[f(i,j,N_PARALLELS,N_MERIDIANS)].getIndex());
+				ld.addIndex(aPoints[f(i,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS)].getIndex());
+				ld.addIndex(aPoints[f(i+1,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS)].getIndex());
+				ld.addIndex(aPoints[f(i+1,j,N_PARALLELS,N_MERIDIANS)].getIndex());
+
+				ld.setData(""+Renderer3D.getFace(ld,aPoints));
+
+				polyData.add(ld);
+
+			}
+
+
+		}
+
+		polyData.add(lowerBase);
+
+		PolygonMesh pm=new PolygonMesh(points,polyData);
+		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
+		return spm;
+	}
+	
+	public int f(int i,int j,int nx,int ny){
+		
+		return i+j*nx;
 	}
 }

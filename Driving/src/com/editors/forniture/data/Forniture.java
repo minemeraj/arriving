@@ -27,6 +27,7 @@ public class Forniture extends CustomData{
 	public static int FORNITURE_TYPE_TOILET=6;
 	public static int FORNITURE_TYPE_CUPBOARD=7;
 	public static int FORNITURE_TYPE_STREETLIGHT=8;
+	public static int FORNITURE_TYPE_BARREL=9;
 	
 	public int forniture_type=FORNITURE_TYPE_TABLE;
 	
@@ -228,11 +229,16 @@ public class Forniture extends CustomData{
 		else if(FORNITURE_TYPE_STREETLIGHT==forniture_type){
 			return buildStreetLighteMesh();	
 		}
+		else if(FORNITURE_TYPE_BARREL==forniture_type){
+			return buildBarrelMesh();	
+		}
 		else	
 			return buildWardrobeMesh();
 
 
 	}
+
+
 
 
 	private PolygonMesh buildCupboardMesh() {
@@ -2172,5 +2178,22 @@ public class Forniture extends CustomData{
 		return spm;
 	}
 
+	private PolygonMesh buildBarrelMesh() {
+		
+		
+		
+		Point3D[] profile=new Point3D[5];
+		profile[0]=new Point3D(0,76,0);
+		profile[1]=new Point3D(67,108,0);
+		profile[2]=new Point3D(133,118,0);
+		profile[3]=new Point3D(200,108,0);
+		profile[4]=new Point3D(266,76,0);
+			
+		PolygonMesh pm=addZRotatedMesh(10,profile);
+	
+		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
+		return spm;
+	}
+	
 
 }	

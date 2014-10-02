@@ -1,6 +1,9 @@
-Updating and powering up the mould editor to the latest functioning version, in order to 
+Updating and powering up the Mould Editor to the latest functioning version, in order to 
 create rotation generated meshes. Now it can create profile also using x y data lists.
 See README.txt.
+
+Added the Barrel to the FornitureEditor.Some functionality of the Mould Editor incorporated in the
+Custom Data.
 
 Correction in the sky algorithm.
 

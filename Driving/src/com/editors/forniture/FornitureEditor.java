@@ -1,14 +1,8 @@
 package com.editors.forniture;
 
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -18,16 +12,10 @@ import java.util.Stack;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.RepaintManager;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 
 import com.PolygonMesh;
 import com.editors.CustomEditor;
@@ -158,6 +146,7 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		chooseForniture.addKeyListener(this);
 		chooseForniture.addItem(new ValuePair("-1",""));
 		
+		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_BARREL,"Barrel"));
 		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_BED,"Bed"));
 		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_BOOKCASE,"Bookcase"));
 		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_CHAIR,"Chair"));	
@@ -469,6 +458,28 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		
 	}
 	
+	private void initRightBarrelData() {
+		
+		x_side.setText(0);
+		y_side.setText(0);
+		z_side.setText(266);
+		
+		leg_length.setText(0);
+		leg_side.setText(0);
+		back_height.setText(0);
+		
+		
+		side_width.setText(118);
+		side_length.setText(0);
+		side_height.setText(0);
+		
+		upper_width.setText(76);
+		upper_length.setText(0);
+		upper_height.setText(0);
+		
+	}
+
+	
 	private void initRightStretLightData() {
 		
 		x_side.setText(12);
@@ -752,9 +763,13 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 				   initRightStretLightData();	
 			   else if(type==Forniture.FORNITURE_TYPE_TOILET)
 				   initRightToiletData();	
+			   else if(type==Forniture.FORNITURE_TYPE_BARREL)
+				   initRightBarrelData();	
 		}
 		
 	}
+
+
 
 
 
