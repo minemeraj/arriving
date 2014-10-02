@@ -2180,14 +2180,25 @@ public class Forniture extends CustomData{
 
 	private PolygonMesh buildBarrelMesh() {
 		
+		double rMin=upper_width;
+		double rMaX=side_width;
+		double h=z_side;	
 		
+		int num=5;
 		
-		Point3D[] profile=new Point3D[5];
-		profile[0]=new Point3D(0,76,0);
-		profile[1]=new Point3D(67,108,0);
-		profile[2]=new Point3D(133,118,0);
-		profile[3]=new Point3D(200,108,0);
-		profile[4]=new Point3D(266,76,0);
+		Point3D[] profile=new Point3D[num];
+		
+		double dx=h/(num-1);
+		
+		for (int i = 0; i < profile.length; i++) {
+			
+			double x=i*dx;
+			double y=rMaX-(rMaX-rMin)*(x-h*0.5)*(x-h*0.5)/(h*h*0.25);
+			
+			profile[i]=new Point3D(x,y,0);
+			
+		}
+
 			
 		PolygonMesh pm=addZRotatedMesh(10,profile);
 	
