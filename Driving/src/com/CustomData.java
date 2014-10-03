@@ -361,15 +361,61 @@ public class CustomData {
 			}
 
 
+		//////// texture points
+			
 		Vector texture_points=new Vector();
+		
+		double upper_radius=profile[N_PARALLELS-1].y;
+		double lower_radius=profile[0].y;
+		
+		double xc=0;
+		double yc=0;
+		
+		//lateral surface
+		
+		double dx=10;
+		double dy=10;
 		
 		for(int i=0;i<N_PARALLELS;i++){
 
-			for (int j = 0; j <N_MERIDIANS; j++) {
+			//texture is open and periodical:
+			
+			for (int j = 0; j <=N_MERIDIANS; j++) {
 
+				double x=dx*i;
+				double y=dy*j;
+				
+				Point3D p=new Point3D(x,y,0);
+				
+				texture_points.add(p);
 			}
 			
 		}	
+		
+		//upperbase
+
+		for (int j = 0; j <N_MERIDIANS; j++) {
+				
+			double x= xc+(upper_radius*Math.cos(j*teta));
+			double y= yc+(upper_radius*Math.sin(j*teta));
+			
+			Point3D p=new Point3D(x,y,0);			
+			texture_points.add(p);
+			
+		}
+		
+		//lowerbase
+		
+		for (int j = N_MERIDIANS-1; j >=0; j--) {
+			
+			double x= xc+(lower_radius*Math.cos(j*teta));
+			double y= yc+(lower_radius*Math.sin(j*teta));
+			
+			Point3D p=new Point3D(x,y,0);			
+			texture_points.add(p);
+		}
+		
+		//////////
 
 		LineData lowerBase=new LineData();
 		LineData upperBase=new LineData();
