@@ -401,6 +401,7 @@ public class PolygonMesh implements Cloneable{
 		
 		newPolygonMesh.points=newArrPoints;
 		newPolygonMesh.polygonData=newPolygonData;
+		newPolygonMesh.texturePoints=pm.getTexturePoints();
 		return newPolygonMesh;
 	}
 

@@ -361,7 +361,15 @@ public class CustomData {
 			}
 
 
+		Vector texture_points=new Vector();
+		
+		for(int i=0;i<N_PARALLELS;i++){
 
+			for (int j = 0; j <N_MERIDIANS; j++) {
+
+			}
+			
+		}	
 
 		LineData lowerBase=new LineData();
 		LineData upperBase=new LineData();
@@ -411,6 +419,7 @@ public class CustomData {
 		polyData.add(lowerBase);
 
 		PolygonMesh pm=new PolygonMesh(points,polyData);
+		pm.setTexturePoints(texture_points);
 		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
 		return spm;
 	}
