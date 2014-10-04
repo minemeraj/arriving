@@ -777,7 +777,7 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
     	if(forniture.getForniture_type()==Forniture.FORNITURE_TYPE_BARREL){
     		
     		PolygonMesh pm = buildMesh();
-    		Barrel.saveBarrelTexture(pm,file);
+    		Barrel.saveBarrelTexture(pm,file,forniture.getSpecificData());
     	}	
     	else
     		super.saveBaseCubicTexture(file);

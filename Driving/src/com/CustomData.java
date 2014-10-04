@@ -1,5 +1,6 @@
 package com;
 
+import java.util.Hashtable;
 import java.util.Vector;
 
 import com.editors.forniture.data.Barrel;
@@ -11,6 +12,8 @@ public class CustomData {
 	public Vector polyData=null;
 	public int n=0;
 	public static double pi=Math.PI;
+	
+	Hashtable specificData=new Hashtable();
 	
 	public void buildBox(double x , double y, double z,double x_side,double y_side, double z_side) {
 		
@@ -332,6 +335,8 @@ public class CustomData {
 		polyData=new Vector();
 		
 		n=0;
+		
+
 
 		double teta=(2*pi)/(N_MERIDIANS);
 
@@ -426,6 +431,13 @@ public class CustomData {
 
 		polyData.add(lowerBase);
 
+		specificData=new Hashtable();
+		specificData.put("N_MERIDIANS",new Integer(N_MERIDIANS));
+		specificData.put("N_PARALLELS",new Integer(N_PARALLELS));
+		specificData.put("LOWER_RADIUS",new Double(profile[0].y));
+		specificData.put("UPPER_RADIUS",new Double(profile[N_PARALLELS-1].y));
+		specificData.put("HEIGHT",new Double(profile[N_PARALLELS-1].x));
+		
 		PolygonMesh pm=new PolygonMesh(points,polyData);
 		pm.setTexturePoints(texture_points);
 		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
@@ -436,4 +448,16 @@ public class CustomData {
 		
 		return i+j*nx;
 	}
+
+
+	public Hashtable getSpecificData() {
+		return specificData;
+	}
+
+
+	public void setSpecificData(Hashtable specificData) {
+		this.specificData = specificData;
+	}
+
+
 }

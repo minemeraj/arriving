@@ -1,5 +1,6 @@
 package com.editors.forniture.data;
 
+import java.util.Hashtable;
 import java.util.Vector;
 
 import com.BPoint;
@@ -43,7 +44,6 @@ public class Forniture extends CustomData{
 	double upper_width=0;
 	double upper_length=0;
 	double upper_height=0;
-	
 
 	public Forniture(){}
 

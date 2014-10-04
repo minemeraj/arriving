@@ -2,8 +2,9 @@ Updating and powering up the Mould Editor to the latest functioning version, in 
 create rotation generated meshes. Now it can create profile also using x y data lists.
 See README.txt.
 
-Added the Barrel to the FornitureEditor. Some knowledge of the Mould Editor incorporated in the
-Custom Data.
+Added the Barrel to the FornitureEditor. This object use better the new texture format, 
+no cubic-like.
+Some knowledge of the Mould Editor incorporated in the Custom Data.
 
 Correction in the sky algorithm.
 
