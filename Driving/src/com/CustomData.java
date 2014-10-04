@@ -2,7 +2,6 @@ package com;
 
 import java.util.Vector;
 
-import com.editors.CustomEditor;
 import com.main.Renderer3D;
 
 public class CustomData {
@@ -339,7 +338,7 @@ public class CustomData {
 		int	N_PARALLELS=profile.length;
 
 
-		BPoint[] aPoints=new BPoint[N_PARALLELS*N_MERIDIANS];
+		BPoint[][] aPoints=new BPoint[N_PARALLELS][N_MERIDIANS];
 
 			for(int i=0;i<N_PARALLELS;i++){
 
@@ -352,8 +351,10 @@ public class CustomData {
 					double y= (radius*Math.sin(j*teta));
 					double z= profile[i].x;
 
-					aPoints[f(i,j,N_PARALLELS,N_MERIDIANS)]=
+					aPoints[i][j]=
 							addBPoint(x,y,z);
+					
+					points.setElementAt(aPoints[i][j],aPoints[i][j].getIndex());
 
 				}
 
@@ -422,17 +423,17 @@ public class CustomData {
 
 		for (int j = 0; j <N_MERIDIANS; j++) {
 
-			upperBase.addIndex(aPoints[f(N_PARALLELS-1,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS)].getIndex());
+			upperBase.addIndex(aPoints[N_PARALLELS-1][j].getIndex());
 
-			upperBase.setData(""+Renderer3D.getFace(upperBase,aPoints));
+			upperBase.setData(""+Renderer3D.getFace(upperBase,points));
 
 		}	
 
 		for (int j = N_MERIDIANS-1; j >=0; j--) {
 
-			lowerBase.addIndex(aPoints[f(0,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS)].getIndex());
+			lowerBase.addIndex(aPoints[0][j].getIndex());
 
-			lowerBase.setData(""+Renderer3D.getFace(lowerBase,aPoints));
+			lowerBase.setData(""+Renderer3D.getFace(lowerBase,points));
 		}
 
 		polyData.add(upperBase);
@@ -448,12 +449,12 @@ public class CustomData {
 				LineData ld=new LineData();
 
 
-				ld.addIndex(aPoints[f(i,j,N_PARALLELS,N_MERIDIANS)].getIndex());
-				ld.addIndex(aPoints[f(i,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS)].getIndex());
-				ld.addIndex(aPoints[f(i+1,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS)].getIndex());
-				ld.addIndex(aPoints[f(i+1,j,N_PARALLELS,N_MERIDIANS)].getIndex());
+				ld.addIndex(aPoints[i][j].getIndex());
+				ld.addIndex(aPoints[i][(j+1)%N_MERIDIANS].getIndex());
+				ld.addIndex(aPoints[i+1][(j+1)%N_MERIDIANS].getIndex());
+				ld.addIndex(aPoints[i+1][j].getIndex());
 
-				ld.setData(""+Renderer3D.getFace(ld,aPoints));
+				ld.setData(""+Renderer3D.getFace(ld,points));
 
 				polyData.add(ld);
 
