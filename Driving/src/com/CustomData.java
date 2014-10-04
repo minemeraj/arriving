@@ -434,9 +434,7 @@ public class CustomData {
 		specificData=new Hashtable();
 		specificData.put("N_MERIDIANS",new Integer(N_MERIDIANS));
 		specificData.put("N_PARALLELS",new Integer(N_PARALLELS));
-		specificData.put("LOWER_RADIUS",new Double(profile[0].y));
-		specificData.put("UPPER_RADIUS",new Double(profile[N_PARALLELS-1].y));
-		specificData.put("HEIGHT",new Double(profile[N_PARALLELS-1].x));
+		specificData.put("PROFILE",profile);
 		
 		PolygonMesh pm=new PolygonMesh(points,polyData);
 		pm.setTexturePoints(texture_points);

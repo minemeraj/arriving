@@ -30,10 +30,12 @@ public class Barrel extends CustomData{
 		
 		
 		int N_MERIDIANS=((Integer)specificData.get("N_MERIDIANS")).intValue();
-		int N_PARALLELS=((Integer)specificData.get("N_PARALLELS")).intValue();
-		double lower_radius=((Double)specificData.get("LOWER_RADIUS")).doubleValue();
-		double upper_radius=((Double)specificData.get("UPPER_RADIUS")).doubleValue();
-		double zHeight=((Double)specificData.get("HEIGHT")).doubleValue();
+		int N_PARALLELS=((Integer)specificData.get("N_PARALLELS")).intValue();		
+		Point3D[] profile=(Point3D[]) specificData.get("PROFILE");
+		
+		double upper_radius=profile[N_PARALLELS-1].y;
+		double lower_radius=profile[0].y;
+		double zHeight=profile[N_PARALLELS-1].x;
 		
 		double max_radius=Math.max(lower_radius,upper_radius);
 		double len=max_radius*2*pi;
@@ -45,15 +47,15 @@ public class Barrel extends CustomData{
 		Color backgroundColor=Color.green;
 
 		
-		IMG_WIDTH=(int) len+texture_x0;
-		IMG_HEIGHT=(int) (zHeight+lower_radius*2+upper_radius*2)+texture_y0;
+		IMG_WIDTH=(int) len+2*texture_x0;
+		IMG_HEIGHT=(int) (zHeight+lower_radius*2+upper_radius*2)+2*texture_y0;
 
 		
 		BufferedImage buf=new BufferedImage(IMG_WIDTH,IMG_HEIGHT,BufferedImage.TYPE_BYTE_INDEXED);
 	
 		try {
 
-				double xc=lower_radius;
+				double xc=upper_radius;
 				double yc=upper_radius+zHeight+2*lower_radius;
 
 				double teta=(2*pi)/(N_MERIDIANS);
@@ -83,6 +85,7 @@ public class Barrel extends CustomData{
 
 				
 				//lowerbase
+				xc=lower_radius;
 				yc=lower_radius;
 				bufGraphics.setColor(Color.BLUE);
 				
@@ -149,17 +152,24 @@ public class Barrel extends CustomData{
 
 		double upper_radius=profile[N_PARALLELS-1].y;
 		double lower_radius=profile[0].y;
+		double zHeight=profile[N_PARALLELS-1].x;
+		
+		double max_radius=Math.max(lower_radius,upper_radius);
+		double len=max_radius*2*pi;
+		
+		texture_side_dy=(int) (zHeight/(N_PARALLELS-1));
+		texture_side_dx=(int) (len/(N_MERIDIANS));
 
-		double xc=0;
-		double yc=0;
+		double xc=upper_radius;
+		double yc=upper_radius+zHeight+2*lower_radius;
 
 		int count=0;
 		//upperbase
 
 		for (int j = 0; j <N_MERIDIANS; j++) {
 
-			double x= texture_x0+xc+(upper_radius*Math.cos(j*teta));
-			double y= texture_y0+yc+(upper_radius*Math.sin(j*teta));
+			double x= calX(xc+(upper_radius*Math.cos(j*teta)));
+			double y= calY(yc+(upper_radius*Math.sin(j*teta)));
 
 			Point3D p=new Point3D(x,y,0);			
 			texture_points.setElementAt(p,count++);
@@ -168,11 +178,14 @@ public class Barrel extends CustomData{
 		}
 
 		//lowerbase
-
+		xc=lower_radius;
+		yc=lower_radius;
+		
+		
 		for (int j = N_MERIDIANS-1; j >=0; j--) {
 
-			double x= texture_x0+xc+(lower_radius*Math.cos(j*teta));
-			double y= texture_y0+yc+(lower_radius*Math.sin(j*teta));
+			double x= calX(xc+(lower_radius*Math.cos(j*teta)));
+			double y= calY(yc+(lower_radius*Math.sin(j*teta)));
 
 			Point3D p=new Point3D(x,y,0);			
 			texture_points.setElementAt(p,count++);
@@ -191,8 +204,8 @@ public class Barrel extends CustomData{
 
 			for (int j = 0; j <=N_MERIDIANS; j++) {
 
-				double x=texture_x0+dx*i;
-				double y=texture_y0+dy*j;
+				double x=calX(dx*i);
+				double y=calY(2*lower_radius+dy*j);
 
 				Point3D p=new Point3D(x,y,0);
 
