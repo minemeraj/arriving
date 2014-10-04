@@ -2,6 +2,7 @@ package com;
 
 import java.util.Vector;
 
+import com.editors.forniture.data.Barrel;
 import com.main.Renderer3D;
 
 public class CustomData {
@@ -9,7 +10,7 @@ public class CustomData {
 	public Vector points=null;
 	public Vector polyData=null;
 	public int n=0;
-	double pi=Math.PI;
+	public static double pi=Math.PI;
 	
 	public void buildBox(double x , double y, double z,double x_side,double y_side, double z_side) {
 		
@@ -364,72 +365,14 @@ public class CustomData {
 
 		//////// texture points
 			
-		int size=2*N_MERIDIANS+	(N_MERIDIANS+1)*(N_PARALLELS);
+	
 			
-		Vector texture_points=new Vector();
-		texture_points.setSize(size);
+		Vector texture_points=Barrel.buildTexturePoints(N_MERIDIANS,N_PARALLELS,profile);
 		
-		double upper_radius=profile[N_PARALLELS-1].y;
-		double lower_radius=profile[0].y;
-		
-		double xc=0;
-		double yc=0;
-
-		int count=0;
-		//upperbase
-
-		for (int j = 0; j <N_MERIDIANS; j++) {
-				
-			double x= xc+(upper_radius*Math.cos(j*teta));
-			double y= yc+(upper_radius*Math.sin(j*teta));
-			
-			Point3D p=new Point3D(x,y,0);			
-			texture_points.setElementAt(p,count++);
-
-			
-		}
-		
-		//lowerbase
-		
-		for (int j = N_MERIDIANS-1; j >=0; j--) {
-			
-			double x= xc+(lower_radius*Math.cos(j*teta));
-			double y= yc+(lower_radius*Math.sin(j*teta));
-			
-			Point3D p=new Point3D(x,y,0);			
-			texture_points.setElementAt(p,count++);
-
-		}
-		
-		
-		//lateral surface
-		
-		double dx=10;
-		double dy=10;
-		
-		for(int i=0;i<N_PARALLELS;i++){
-
-			//texture is open and periodical:
-			
-			for (int j = 0; j <=N_MERIDIANS; j++) {
-
-				double x=dx*i;
-				double y=dy*j;
-				
-				Point3D p=new Point3D(x,y,0);
-				
-				int texIndex=count+f(i,j,N_PARALLELS,N_MERIDIANS+1);
-				texture_points.setElementAt(p,texIndex);
-			}
-			
-		}	
-		
-		//////////
-
 		LineData lowerBase=new LineData();
 		LineData upperBase=new LineData();
 		
-		count=0;
+		int count=0;
 
 		for (int j = 0; j <N_MERIDIANS; j++) {
 
@@ -489,7 +432,7 @@ public class CustomData {
 		return spm;
 	}
 	
-	public int f(int i,int j,int nx,int ny){
+	public static int f(int i,int j,int nx,int ny){
 		
 		return i+j*nx;
 	}

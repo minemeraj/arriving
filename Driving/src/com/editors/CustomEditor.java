@@ -461,7 +461,7 @@ private void saveBaseCubicTexture() {
 	}
 
 
-	private void saveBaseCubicTexture(File file) {
+	public void saveBaseCubicTexture(File file) {
 		
 		PolygonMesh mesh=buildMesh();
 		

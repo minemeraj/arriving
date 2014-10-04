@@ -22,6 +22,7 @@ import com.editors.CustomEditor;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.ValuePair;
+import com.editors.forniture.data.Barrel;
 import com.editors.forniture.data.Forniture;
 import com.editors.object.ObjectEditorPreviewPanel;
 
@@ -671,7 +672,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 			meshes[0]=buildMesh();
 			pw = new PrintWriter(new FileOutputStream(file));
 			forceReading=true;
-			saveLines(pw);
+			boolean isCustom=(meshes[0].getTexturePoints()!=null 
+					&& meshes[0].getTexturePoints().size()>0); 
+			saveLines(pw,isCustom);
 			pw.close();
 			
 		} catch (Exception e) { 
@@ -769,20 +772,15 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Override
+    public void saveBaseCubicTexture(File file) {
+    	if(forniture.getForniture_type()==Forniture.FORNITURE_TYPE_BARREL){
+    		
+    		PolygonMesh pm = buildMesh();
+    		Barrel.saveBarrelTexture(pm,file);
+    	}	
+    	else
+    		super.saveBaseCubicTexture(file);
+    } 
 
 }
