@@ -364,13 +364,43 @@ public class CustomData {
 
 		//////// texture points
 			
+		int size=2*N_MERIDIANS+	(N_MERIDIANS+1)*(N_PARALLELS);
+			
 		Vector texture_points=new Vector();
+		texture_points.setSize(size);
 		
 		double upper_radius=profile[N_PARALLELS-1].y;
 		double lower_radius=profile[0].y;
 		
 		double xc=0;
 		double yc=0;
+
+		int count=0;
+		//upperbase
+
+		for (int j = 0; j <N_MERIDIANS; j++) {
+				
+			double x= xc+(upper_radius*Math.cos(j*teta));
+			double y= yc+(upper_radius*Math.sin(j*teta));
+			
+			Point3D p=new Point3D(x,y,0);			
+			texture_points.setElementAt(p,count++);
+
+			
+		}
+		
+		//lowerbase
+		
+		for (int j = N_MERIDIANS-1; j >=0; j--) {
+			
+			double x= xc+(lower_radius*Math.cos(j*teta));
+			double y= yc+(lower_radius*Math.sin(j*teta));
+			
+			Point3D p=new Point3D(x,y,0);			
+			texture_points.setElementAt(p,count++);
+
+		}
+		
 		
 		//lateral surface
 		
@@ -388,42 +418,22 @@ public class CustomData {
 				
 				Point3D p=new Point3D(x,y,0);
 				
-				texture_points.add(p);
+				int texIndex=count+f(i,j,N_PARALLELS,N_MERIDIANS+1);
+				texture_points.setElementAt(p,texIndex);
 			}
 			
 		}	
-		
-		//upperbase
-
-		for (int j = 0; j <N_MERIDIANS; j++) {
-				
-			double x= xc+(upper_radius*Math.cos(j*teta));
-			double y= yc+(upper_radius*Math.sin(j*teta));
-			
-			Point3D p=new Point3D(x,y,0);			
-			texture_points.add(p);
-			
-		}
-		
-		//lowerbase
-		
-		for (int j = N_MERIDIANS-1; j >=0; j--) {
-			
-			double x= xc+(lower_radius*Math.cos(j*teta));
-			double y= yc+(lower_radius*Math.sin(j*teta));
-			
-			Point3D p=new Point3D(x,y,0);			
-			texture_points.add(p);
-		}
 		
 		//////////
 
 		LineData lowerBase=new LineData();
 		LineData upperBase=new LineData();
+		
+		count=0;
 
 		for (int j = 0; j <N_MERIDIANS; j++) {
 
-			upperBase.addIndex(aPoints[N_PARALLELS-1][j].getIndex());
+			upperBase.addIndex(aPoints[N_PARALLELS-1][j].getIndex(),count++,0,0);
 
 			upperBase.setData(""+Renderer3D.getFace(upperBase,points));
 
@@ -431,7 +441,7 @@ public class CustomData {
 
 		for (int j = N_MERIDIANS-1; j >=0; j--) {
 
-			lowerBase.addIndex(aPoints[0][j].getIndex());
+			lowerBase.addIndex(aPoints[0][j].getIndex(),count++,0,0);
 
 			lowerBase.setData(""+Renderer3D.getFace(lowerBase,points));
 		}
@@ -448,13 +458,21 @@ public class CustomData {
 
 				LineData ld=new LineData();
 
-
-				ld.addIndex(aPoints[i][j].getIndex());
-				ld.addIndex(aPoints[i][(j+1)%N_MERIDIANS].getIndex());
-				ld.addIndex(aPoints[i+1][(j+1)%N_MERIDIANS].getIndex());
-				ld.addIndex(aPoints[i+1][j].getIndex());
+				int texIndex=count+f(i,j,N_PARALLELS,N_MERIDIANS+1);
+				ld.addIndex(aPoints[i][j].getIndex(),texIndex,0,0);
+				
+				texIndex=count+f(i,j+1,N_PARALLELS,N_MERIDIANS+1);
+				ld.addIndex(aPoints[i][(j+1)%N_MERIDIANS].getIndex(),texIndex,0,0);
+				
+				texIndex=count+f(i+1,j+1,N_PARALLELS,N_MERIDIANS+1);
+				ld.addIndex(aPoints[i+1][(j+1)%N_MERIDIANS].getIndex(),texIndex,0,0);
+				
+				texIndex=count+f(i+1,j,N_PARALLELS,N_MERIDIANS+1);
+				ld.addIndex(aPoints[i+1][j].getIndex(),texIndex,0,0);
 
 				ld.setData(""+Renderer3D.getFace(ld,points));
+				
+				
 
 				polyData.add(ld);
 
