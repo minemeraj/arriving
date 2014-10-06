@@ -346,21 +346,21 @@ public class CustomData {
 
 		BPoint[][] aPoints=new BPoint[N_PARALLELS][N_MERIDIANS];
 
-			for(int i=0;i<N_PARALLELS;i++){
+			for(int j=0;j<N_PARALLELS;j++){  
 
-				double radius=profile[i].y;
+				double radius=profile[j].y;
 
-				for (int j = 0; j <N_MERIDIANS; j++) {
+				for (int i = 0; i <N_MERIDIANS; i++) {  
 
 
-					double x= (radius*Math.cos(j*teta));
-					double y= (radius*Math.sin(j*teta));
-					double z= profile[i].x;
+					double x= (radius*Math.cos(i*teta));
+					double y= (radius*Math.sin(i*teta));
+					double z= profile[j].x;
 
-					aPoints[i][j]=
+					aPoints[j][i]=
 							addBPoint(x,y,z);
 					
-					points.setElementAt(aPoints[i][j],aPoints[i][j].getIndex());
+					points.setElementAt(aPoints[j][i],aPoints[j][i].getIndex());
 
 				}
 
@@ -397,27 +397,31 @@ public class CustomData {
 		polyData.add(upperBase);
 		polyData.add(lowerBase);
 
-		for(int i=0;i<N_PARALLELS-1;i++){
+		for(int j=0;j<N_PARALLELS-1;j++){ 
 
 
 
 
-			for (int j = 0; j <N_MERIDIANS; j++) {
+			for (int i = 0; i <N_MERIDIANS; i++) { 
 
 
 				LineData ld=new LineData();
 
-				int texIndex=count+f(i,j,N_PARALLELS,N_MERIDIANS+1);
-				ld.addIndex(aPoints[i][j].getIndex(),texIndex,0,0);
+				int texIndex=count+f(i,j,N_MERIDIANS+1,N_PARALLELS);
+				//System.out.print(texIndex+"\t");
+				ld.addIndex(aPoints[j][i].getIndex(),texIndex,0,0);
 				
-				texIndex=count+f(i,j+1,N_PARALLELS,N_MERIDIANS+1);
-				ld.addIndex(aPoints[i][(j+1)%N_MERIDIANS].getIndex(),texIndex,0,0);
+				texIndex=count+f(i+1,j,N_MERIDIANS+1,N_PARALLELS);
+				//System.out.print(texIndex+"\t");
+				ld.addIndex(aPoints[j][(i+1)%N_MERIDIANS].getIndex(),texIndex,0,0);
 				
-				texIndex=count+f(i+1,j+1,N_PARALLELS,N_MERIDIANS+1);
-				ld.addIndex(aPoints[i+1][(j+1)%N_MERIDIANS].getIndex(),texIndex,0,0);
+				texIndex=count+f(i+1,j+1,N_MERIDIANS+1,N_PARALLELS);
+				//System.out.print(texIndex+"\t");
+				ld.addIndex(aPoints[j+1][(i+1)%N_MERIDIANS].getIndex(),texIndex,0,0);
 				
-				texIndex=count+f(i+1,j,N_PARALLELS,N_MERIDIANS+1);
-				ld.addIndex(aPoints[i+1][j].getIndex(),texIndex,0,0);
+				texIndex=count+f(i,j+1,N_MERIDIANS+1,N_PARALLELS);
+				//System.out.print(texIndex+"\t");
+				ld.addIndex(aPoints[j+1][i].getIndex(),texIndex,0,0);
 
 				ld.setData(""+Renderer3D.getFace(ld,points));
 				
@@ -426,7 +430,7 @@ public class CustomData {
 				polyData.add(ld);
 
 			}
-
+			System.out.println();
 
 		}
 

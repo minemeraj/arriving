@@ -201,21 +201,22 @@ public class Barrel extends CustomData{
 		double dx=texture_side_dx;
 		double dy=texture_side_dy;
 
-		for(int i=0;i<N_PARALLELS;i++){
+		for(int j=0;j<N_PARALLELS;j++){
 
 			//texture is open and periodical:
 
-			for (int j = 0; j <=N_MERIDIANS; j++) {
+			for (int i = 0; i <=N_MERIDIANS; i++) {
 
 				double x=calX(dx*i);
 				double y=calY(2*lower_radius+dy*j);
 
 				Point3D p=new Point3D(x,y,0);
 
-				int texIndex=count+f(i,j,N_PARALLELS,N_MERIDIANS+1);
+				int texIndex=count+f(i,j,N_MERIDIANS+1,N_PARALLELS);
+				//System.out.print(texIndex+"\t");
 				texture_points.setElementAt(p,texIndex);
 			}
-
+			//System.out.println();
 		}	
 		
 		return texture_points;
