@@ -395,6 +395,7 @@ public class CustomData {
 		}
 
 		polyData.add(upperBase);
+		polyData.add(lowerBase);
 
 		for(int i=0;i<N_PARALLELS-1;i++){
 
@@ -429,7 +430,7 @@ public class CustomData {
 
 		}
 
-		polyData.add(lowerBase);
+		
 
 		specificData=new Hashtable();
 		specificData.put("N_MERIDIANS",new Integer(N_MERIDIANS));
