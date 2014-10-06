@@ -25,9 +25,12 @@ public class Barrel extends CustomData{
 	public static int IMG_WIDTH;
 	public static int IMG_HEIGHT;
 	
+	public static boolean isTextureDrawing=false;
+	
 
 	public static void saveBarrelTexture(PolygonMesh mesh, File file, Hashtable specificData) {
 		
+		isTextureDrawing=true;
 		
 		int N_MERIDIANS=((Integer)specificData.get("N_MERIDIANS")).intValue();
 		int N_PARALLELS=((Integer)specificData.get("N_PARALLELS")).intValue();		
@@ -139,6 +142,7 @@ public class Barrel extends CustomData{
 
 	public static Vector buildTexturePoints(int N_MERIDIANS, int N_PARALLELS,Point3D[] profile) {
 		
+		isTextureDrawing=false;
 		
 		Vector texture_points=new Vector();
 		
@@ -228,7 +232,9 @@ public class Barrel extends CustomData{
 	}
 
 	public static double calY(double y){
-		
-		return IMG_HEIGHT-(texture_y0+y);
+		if(isTextureDrawing)
+			return IMG_HEIGHT-(texture_y0+y);
+		else
+			return texture_y0+y;
 	}
 }
