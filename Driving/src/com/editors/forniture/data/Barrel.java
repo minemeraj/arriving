@@ -159,6 +159,9 @@ public class Barrel extends CustomData{
 		
 		texture_side_dy=(int) (zHeight/(N_PARALLELS-1));
 		texture_side_dx=(int) (len/(N_MERIDIANS));
+		
+		IMG_WIDTH=(int) len+2*texture_x0;
+		IMG_HEIGHT=(int) (zHeight+lower_radius*2+upper_radius*2)+2*texture_y0;
 
 		double xc=upper_radius;
 		double yc=upper_radius+zHeight+2*lower_radius;
