@@ -390,7 +390,7 @@ public class PolygonMesh implements Cloneable{
 				
 			     LineDataVertex vertex=(LineDataVertex ) ld.lineDatas.elementAt(j);
 			     Integer newIndex=(Integer)transformFunction.get(vertex.getVertex_index());
-				 newLd.addIndex(newIndex.intValue());
+				 newLd.addIndex(newIndex.intValue(),vertex.getVertex_texture_index(),0,0);
 				 
 			}
 			newLd.setData(ld.getData());
