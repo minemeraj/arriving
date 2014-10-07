@@ -2199,8 +2199,12 @@ public class Forniture extends CustomData{
 			
 		}
 
-			
-		PolygonMesh pm=addZRotatedMesh(10,profile);
+		Barrel barrel=new Barrel();
+		
+		Hashtable values=barrel.addZRotatedMesh(10,profile);
+		
+		PolygonMesh pm=(PolygonMesh) values.get("polygonMesh");
+		specificData=(Hashtable) values.get("specificData");
 	
 		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
 		return spm;

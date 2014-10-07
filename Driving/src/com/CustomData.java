@@ -13,7 +13,7 @@ public class CustomData {
 	public int n=0;
 	public static double pi=Math.PI;
 	
-	Hashtable specificData=new Hashtable();
+	public Hashtable specificData=new Hashtable();
 	
 	public void buildBox(double x , double y, double z,double x_side,double y_side, double z_side) {
 		
@@ -327,125 +327,7 @@ public class CustomData {
 		
 	}
 	
-	public PolygonMesh addZRotatedMesh(int N_MERIDIANS,Point3D[] profile ) {
-
-		
-		points=new Vector();
-		points.setSize(200);
-		polyData=new Vector();
-		
-		n=0;
-		
-
-
-		double teta=(2*pi)/(N_MERIDIANS);
-
-
-		int	N_PARALLELS=profile.length;
-
-
-		BPoint[][] aPoints=new BPoint[N_PARALLELS][N_MERIDIANS];
-
-			for(int j=0;j<N_PARALLELS;j++){  
-
-				double radius=profile[j].y;
-
-				for (int i = 0; i <N_MERIDIANS; i++) {  
-
-
-					double x= (radius*Math.cos(i*teta));
-					double y= (radius*Math.sin(i*teta));
-					double z= profile[j].x;
-
-					aPoints[j][i]=
-							addBPoint(x,y,z);
-					
-					points.setElementAt(aPoints[j][i],aPoints[j][i].getIndex());
-
-				}
-
-
-			}
-
-
-		//////// texture points
-			
 	
-			
-		Vector texture_points=Barrel.buildTexturePoints(N_MERIDIANS,N_PARALLELS,profile);
-		
-		LineData lowerBase=new LineData();
-		LineData upperBase=new LineData();
-		
-		int count=0;
-
-		for (int j = 0; j <N_MERIDIANS; j++) {
-
-			upperBase.addIndex(aPoints[N_PARALLELS-1][j].getIndex(),count++,0,0);
-
-			upperBase.setData(""+Renderer3D.getFace(upperBase,points));
-
-		}	
-
-		for (int j = N_MERIDIANS-1; j >=0; j--) {
-
-			lowerBase.addIndex(aPoints[0][j].getIndex(),count++,0,0);
-
-			lowerBase.setData(""+Renderer3D.getFace(lowerBase,points));
-		}
-
-		polyData.add(upperBase);
-		polyData.add(lowerBase);
-
-		for(int j=0;j<N_PARALLELS-1;j++){ 
-
-
-
-
-			for (int i = 0; i <N_MERIDIANS; i++) { 
-
-
-				LineData ld=new LineData();
-
-				int texIndex=count+f(i,j,N_MERIDIANS+1,N_PARALLELS);
-				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[j][i].getIndex(),texIndex,0,0);
-				
-				texIndex=count+f(i+1,j,N_MERIDIANS+1,N_PARALLELS);
-				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[j][(i+1)%N_MERIDIANS].getIndex(),texIndex,0,0);
-				
-				texIndex=count+f(i+1,j+1,N_MERIDIANS+1,N_PARALLELS);
-				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[j+1][(i+1)%N_MERIDIANS].getIndex(),texIndex,0,0);
-				
-				texIndex=count+f(i,j+1,N_MERIDIANS+1,N_PARALLELS);
-				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[j+1][i].getIndex(),texIndex,0,0);
-
-				ld.setData(""+Renderer3D.getFace(ld,points));
-				
-				
-
-				polyData.add(ld);
-
-			}
-			System.out.println();
-
-		}
-
-		
-
-		specificData=new Hashtable();
-		specificData.put("N_MERIDIANS",new Integer(N_MERIDIANS));
-		specificData.put("N_PARALLELS",new Integer(N_PARALLELS));
-		specificData.put("PROFILE",profile);
-		
-		PolygonMesh pm=new PolygonMesh(points,polyData);
-		pm.setTexturePoints(texture_points);
-		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
-		return spm;
-	}
 	
 	public static int f(int i,int j,int nx,int ny){
 		
