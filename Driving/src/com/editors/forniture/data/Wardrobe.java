@@ -30,13 +30,6 @@ public class Wardrobe extends Forniture{
 		initMesh();
 	}
 	
-	public PolygonMesh getMesh(){
-		
-		PolygonMesh pm=new PolygonMesh(points,polyData);
-
-		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
-		return spm;
-	}
 
 	public void initMesh() {
 
@@ -50,19 +43,10 @@ public class Wardrobe extends Forniture{
 		//basic sides:
 		buildBox(0,0,0,x_side,y_side,z_side);
 
-		specificData=new Hashtable();
-		specificData.put("x_side",new Double(x_side));
-		specificData.put("y_side",new Double(y_side));
-		specificData.put("z_side",new Double(z_side));
-
 	}
 
-	public static void saveBaseCubicTexture(PolygonMesh mesh, File file,
-			Hashtable specificData) {
-		
-		double x_side=((Double)specificData.get("x_side")).doubleValue();
-		double y_side=((Double)specificData.get("y_side")).doubleValue();
-		double z_side=((Double)specificData.get("z_side")).doubleValue();
+	public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
+
 		
 		Color backgroundColor=Color.green;
 		Color back_color=Color.BLUE;

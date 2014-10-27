@@ -1,5 +1,6 @@
 package com;
 
+import java.io.File;
 import java.util.Hashtable;
 import java.util.Vector;
 
@@ -13,7 +14,7 @@ public class CustomData {
 	public int n=0;
 	public static double pi=Math.PI;
 	
-	public Hashtable specificData=new Hashtable();
+	public CustomData specificData=null;
 	
 	public void buildBox(double x , double y, double z,double x_side,double y_side, double z_side) {
 		
@@ -44,6 +45,14 @@ public class CustomData {
 		addLine(pLeg100,pLeg101,pLeg001,pLeg000,Renderer3D.CAR_BACK);
 
 
+	}
+	
+	public PolygonMesh getMesh(){
+		
+		PolygonMesh pm=new PolygonMesh(points,polyData);
+
+		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
+		return spm;
 	}
 	
 
@@ -335,14 +344,19 @@ public class CustomData {
 	}
 
 
-	public Hashtable getSpecificData() {
+	public CustomData getSpecificData() {
 		return specificData;
 	}
 
 
-	public void setSpecificData(Hashtable specificData) {
+	public void setSpecificData(CustomData specificData) {
 		this.specificData = specificData;
 	}
+
+	public void saveBaseCubicTexture(PolygonMesh pm, File file) {
+		
+	}
+
 
 
 }

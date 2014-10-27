@@ -1009,7 +1009,7 @@ public class Forniture extends CustomData{
 
 		Wardrobe wardrobe=new Wardrobe(x_side,y_side,z_side);
 		
-		specificData=wardrobe.getSpecificData();
+		specificData=wardrobe;
 		
 		return wardrobe.getMesh();
 	}
@@ -2185,11 +2185,9 @@ public class Forniture extends CustomData{
 			
 		}
 
-		Barrel barrel=new Barrel(10,profile);
+		specificData=new Barrel(10,profile);
 		
-		PolygonMesh pm=barrel.getMesh();
-
-		specificData=barrel.getSpecificData();
+		PolygonMesh pm=specificData.getMesh();
 	
 		return pm;
 	}

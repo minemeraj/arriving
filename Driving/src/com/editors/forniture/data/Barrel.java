@@ -30,23 +30,24 @@ public class Barrel extends CustomData{
 	public static boolean isTextureDrawing=false;
 	
 	int N_MERIDIANS=0;
+	int N_PARALLELS=0;
+	
 	Point3D[] profile=null;
 
 	public Barrel(int N_MERIDIANS,Point3D[] profile) {
 		
 		this.N_MERIDIANS=N_MERIDIANS;
+		N_PARALLELS=profile.length;
+		
 		this.profile=profile;
 		
 		initMesh();
 	}
 
-	public static void saveBarrelTexture(PolygonMesh mesh, File file, Hashtable specificData) {
+	public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		
 		isTextureDrawing=true;
-		
-		int N_MERIDIANS=((Integer)specificData.get("N_MERIDIANS")).intValue();
-		int N_PARALLELS=((Integer)specificData.get("N_PARALLELS")).intValue();		
-		Point3D[] profile=(Point3D[]) specificData.get("PROFILE");
+
 		
 		double upper_radius=profile[N_PARALLELS-1].y;
 		double lower_radius=profile[0].y;
@@ -250,14 +251,6 @@ public class Barrel extends CustomData{
 			return texture_y0+y;
 	}
 	
-	public PolygonMesh getMesh(){
-		
-		PolygonMesh pm=new PolygonMesh(points,polyData);
-
-		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
-		return spm;
-	}
-	
 	public void initMesh( ) {
 
 	
@@ -366,13 +359,6 @@ public class Barrel extends CustomData{
 		
 
 		}
-
-		
-
-		specificData=new Hashtable();
-		specificData.put("N_MERIDIANS",new Integer(N_MERIDIANS));
-		specificData.put("N_PARALLELS",new Integer(N_PARALLELS));
-		specificData.put("PROFILE",profile);
 
 
 	}
