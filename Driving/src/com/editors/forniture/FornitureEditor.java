@@ -24,6 +24,7 @@ import com.editors.Editor;
 import com.editors.ValuePair;
 import com.editors.forniture.data.Barrel;
 import com.editors.forniture.data.Forniture;
+import com.editors.forniture.data.Wardrobe;
 import com.editors.object.ObjectEditorPreviewPanel;
 
 public class FornitureEditor extends CustomEditor implements ItemListener{
@@ -779,6 +780,11 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
     		PolygonMesh pm = buildMesh();
     		Barrel.saveBarrelTexture(pm,file,forniture.getSpecificData());
     	}	
+    	else if(forniture.getForniture_type()==Forniture.FORNITURE_TYPE_WARDROBE){
+    		
+    		PolygonMesh pm = buildMesh();
+    		Wardrobe.saveBaseCubicTexture(pm,file,forniture.getSpecificData());
+    	}
     	else
     		super.saveBaseCubicTexture(file);
     } 

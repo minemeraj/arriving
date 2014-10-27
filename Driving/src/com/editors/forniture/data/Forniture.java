@@ -1007,27 +1007,11 @@ public class Forniture extends CustomData{
 
 	private PolygonMesh buildWardrobeMesh() {
 
-		points=new Vector();
-		points.setSize(50);
-
-		polyData=new Vector();
+		Wardrobe wardrobe=new Wardrobe(x_side,y_side,z_side);
 		
-		n=0;
+		specificData=wardrobe.getSpecificData();
 		
-	
-
-		//basic sides:
-		buildBox(0,0,0,x_side,y_side,z_side);
-	
-		
-		/////////
-
-		//translatePoints(points,nw_x,nw_y);
-
-		PolygonMesh pm=new PolygonMesh(points,polyData);
-
-		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
-		return spm;
+		return wardrobe.getMesh();
 	}
 
 	private PolygonMesh buildSofaMesh() {
@@ -2177,6 +2161,8 @@ public class Forniture extends CustomData{
 		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
 		return spm;
 	}
+	
+
 
 	private PolygonMesh buildBarrelMesh() {
 		
@@ -2199,15 +2185,13 @@ public class Forniture extends CustomData{
 			
 		}
 
-		Barrel barrel=new Barrel();
+		Barrel barrel=new Barrel(10,profile);
 		
-		Hashtable values=barrel.addZRotatedMesh(10,profile);
-		
-		PolygonMesh pm=(PolygonMesh) values.get("polygonMesh");
-		specificData=(Hashtable) values.get("specificData");
+		PolygonMesh pm=barrel.getMesh();
+
+		specificData=barrel.getSpecificData();
 	
-		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
-		return spm;
+		return pm;
 	}
 	
 

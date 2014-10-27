@@ -6,6 +6,8 @@ Added the Barrel to the FornitureEditor. This object use better the new texture 
 no cubic-like.
 Some knowledge of the Mould Editor incorporated in the Custom Data.
 
+Revision of the Wardrobe mesh and texture.
+
 Correction in the sky algorithm.
 
 
