@@ -82,9 +82,11 @@ public class Barrel extends CustomData{
 		lowerBase=new Point3D[N_MERIDIANS];
 		
 		for (int j = N_MERIDIANS-1; j >=0; j--) {
+			
+			int jj=N_MERIDIANS-1-j;
 
-			double x= xc+(lower_radius*Math.cos(j*teta));
-			double y= yc+(lower_radius*Math.sin(j*teta));
+			double x= xc+(lower_radius*Math.cos(jj*teta));
+			double y= yc+(lower_radius*Math.sin(jj*teta));
 
 			lowerBase[j]=new Point3D(x,y,0);			
 
