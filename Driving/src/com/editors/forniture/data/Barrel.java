@@ -33,6 +33,13 @@ public class Barrel extends CustomData{
 	int N_PARALLELS=0;
 	
 	Point3D[] profile=null;
+	
+	private double upper_radius;
+	private double lower_radius;
+	private double zHeight;
+	private double max_radius;
+	private double len;
+	
 
 	public Barrel(int N_MERIDIANS,Point3D[] profile) {
 		
@@ -41,6 +48,14 @@ public class Barrel extends CustomData{
 		
 		this.profile=profile;
 		
+		
+		upper_radius=profile[N_PARALLELS-1].y;
+		lower_radius=profile[0].y;
+		zHeight=profile[N_PARALLELS-1].x;
+		
+		max_radius=Math.max(lower_radius,upper_radius);
+		len=max_radius*2*pi;
+		
 		initMesh();
 	}
 
@@ -48,13 +63,7 @@ public class Barrel extends CustomData{
 		
 		isTextureDrawing=true;
 
-		
-		double upper_radius=profile[N_PARALLELS-1].y;
-		double lower_radius=profile[0].y;
-		double zHeight=profile[N_PARALLELS-1].x;
-		
-		double max_radius=Math.max(lower_radius,upper_radius);
-		double len=max_radius*2*pi;
+
 		
 		texture_side_dy=(int) (zHeight/(N_PARALLELS-1));
 		texture_side_dx=(int) (len/(N_MERIDIANS));
@@ -153,7 +162,7 @@ public class Barrel extends CustomData{
 		
 	}
 
-	public static Vector buildTexturePoints(int N_MERIDIANS, int N_PARALLELS,Point3D[] profile) {
+	public Vector buildTexturePoints() {
 		
 		isTextureDrawing=false;
 		
@@ -166,13 +175,6 @@ public class Barrel extends CustomData{
 
 		
 		texture_points.setSize(size);
-
-		double upper_radius=profile[N_PARALLELS-1].y;
-		double lower_radius=profile[0].y;
-		double zHeight=profile[N_PARALLELS-1].x;
-		
-		double max_radius=Math.max(lower_radius,upper_radius);
-		double len=max_radius*2*pi;
 		
 		texture_side_dy=(int) (zHeight/(N_PARALLELS-1));
 		texture_side_dx=(int) (len/(N_MERIDIANS));
@@ -298,7 +300,7 @@ public class Barrel extends CustomData{
 			
 	
 			
-		Vector texture_points=Barrel.buildTexturePoints(N_MERIDIANS,N_PARALLELS,profile);
+		texture_points=buildTexturePoints();
 		
 		LineData lowerBase=new LineData();
 		LineData upperBase=new LineData();
@@ -362,4 +364,6 @@ public class Barrel extends CustomData{
 
 
 	}
+
+
 }

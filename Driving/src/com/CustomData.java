@@ -11,6 +11,8 @@ public class CustomData {
 	
 	public Vector points=null;
 	public Vector polyData=null;
+	public Vector texture_points=null;
+	
 	public int n=0;
 	public static double pi=Math.PI;
 	
@@ -50,7 +52,8 @@ public class CustomData {
 	public PolygonMesh getMesh(){
 		
 		PolygonMesh pm=new PolygonMesh(points,polyData);
-
+        pm.setTexturePoints(getTexture_points()); 
+		
 		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
 		return spm;
 	}
@@ -357,6 +360,12 @@ public class CustomData {
 		
 	}
 
+	public Vector getTexture_points() {
+		return texture_points;
+	}
 
+	public void setTexture_points(Vector texture_points) {
+		this.texture_points = texture_points;
+	}
 
 }
