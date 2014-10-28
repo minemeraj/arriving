@@ -42,6 +42,7 @@ public class Barrel extends CustomData{
 	
 	Point3D[] upperBase=null;
 	Point3D[] lowerBase=null;
+	Point3D[][] lateralFaces=null; 
 
 	public Barrel(int N_MERIDIANS,Point3D[] profile) {
 		
@@ -88,6 +89,26 @@ public class Barrel extends CustomData{
 			lowerBase[j]=new Point3D(x,y,0);			
 
 		}
+		
+		double dx=texture_side_dx;
+		double dy=texture_side_dy;
+		
+		lateralFaces=new Point3D[N_MERIDIANS+1][N_PARALLELS];
+
+		for(int j=0;j<N_PARALLELS;j++){
+
+			//texture is open and periodical:
+
+			for (int i = 0; i <=N_MERIDIANS; i++) {
+
+				double x=dx*i;
+				double y=2*lower_radius+dy*j;
+
+				lateralFaces[i][j]=new Point3D(x,y,0);
+
+			}
+			
+		}	
 		
 		initMesh();
 	}
@@ -157,9 +178,7 @@ public class Barrel extends CustomData{
 
 				//lateral surface
 				bufGraphics.setColor(new Color(0,0,0));
-				
-				double dx=texture_side_dx;
-				double dy=texture_side_dy;
+
 
 				for(int j=0;j<N_PARALLELS-1;j++){
 
@@ -167,10 +186,10 @@ public class Barrel extends CustomData{
 
 					for (int i = 0; i <N_MERIDIANS; i++) { 
 
-						double x0=calX(dx*i);
-						double x1=calX(dx*(i+1));
-						double y0=calY(2*lower_radius+dy*j);
-						double y1=calY(2*lower_radius+dy*(j+1));
+						double x0=calX(lateralFaces[i][j].x);
+						double x1=calX(lateralFaces[i+1][j].x);
+						double y0=calY(lateralFaces[i][j].y);
+						double y1=calY(lateralFaces[i][j+1].y);
 						
 						bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y0);
 						bufGraphics.drawLine((int)x1,(int)y0,(int)x1,(int)y1);
@@ -241,8 +260,6 @@ public class Barrel extends CustomData{
 
 		//lateral surface
 
-		double dx=texture_side_dx;
-		double dy=texture_side_dy;
 
 		for(int j=0;j<N_PARALLELS;j++){
 
@@ -250,8 +267,8 @@ public class Barrel extends CustomData{
 
 			for (int i = 0; i <=N_MERIDIANS; i++) {
 
-				double x=calX(dx*i);
-				double y=calY(2*lower_radius+dy*j);
+				double x=calX(lateralFaces[i][j].x);
+				double y=calY(lateralFaces[i][j].y);
 
 				Point3D p=new Point3D(x,y,0);
 
