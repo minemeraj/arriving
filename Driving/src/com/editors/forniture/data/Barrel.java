@@ -40,6 +40,8 @@ public class Barrel extends CustomData{
 	private double max_radius;
 	private double len;
 	
+	Point3D[] upperBase=null;
+	Point3D[] lowerBase=null;
 
 	public Barrel(int N_MERIDIANS,Point3D[] profile) {
 		
@@ -55,6 +57,37 @@ public class Barrel extends CustomData{
 		
 		max_radius=Math.max(lower_radius,upper_radius);
 		len=max_radius*2*pi;
+		
+		double xc=upper_radius;
+		double yc=upper_radius+zHeight+2*lower_radius;
+		
+		double teta=(2*pi)/(N_MERIDIANS);
+		
+		upperBase=new Point3D[N_MERIDIANS];
+		
+		for (int j = 0; j <N_MERIDIANS; j++) {
+			
+
+			double x= xc+(upper_radius*Math.cos(j*teta));
+			double y= yc+(upper_radius*Math.sin(j*teta));
+
+			upperBase[j]=new Point3D(x,y,0);			
+
+		}
+		
+		xc=lower_radius;
+		yc=lower_radius;
+		
+		lowerBase=new Point3D[N_MERIDIANS];
+		
+		for (int j = N_MERIDIANS-1; j >=0; j--) {
+
+			double x= xc+(lower_radius*Math.cos(j*teta));
+			double y= yc+(lower_radius*Math.sin(j*teta));
+
+			lowerBase[j]=new Point3D(x,y,0);			
+
+		}
 		
 		initMesh();
 	}
@@ -80,10 +113,6 @@ public class Barrel extends CustomData{
 	
 		try {
 
-				double xc=upper_radius;
-				double yc=upper_radius+zHeight+2*lower_radius;
-
-				double teta=(2*pi)/(N_MERIDIANS);
 
 				Graphics2D bufGraphics=(Graphics2D)buf.getGraphics();
  
@@ -96,13 +125,13 @@ public class Barrel extends CustomData{
 				bufGraphics.setColor(Color.RED);
 				bufGraphics.setStroke(new BasicStroke(0.1f));
 				
-				for (int j = 0; j <N_MERIDIANS; j++) {
+				for (int j = 0; j <upperBase.length; j++) {
 
-					double x0= calX(xc+(upper_radius*Math.cos(j*teta)));
-					double y0= calY(yc+(upper_radius*Math.sin(j*teta)));
+					double x0= calX(upperBase[j].x);
+					double y0= calY(upperBase[j].y);
 					
-					double x1= calX(xc+(upper_radius*Math.cos((j+1)*teta)));
-					double y1= calY(yc+(upper_radius*Math.sin((j+1)*teta)));
+					double x1= calX(upperBase[(j+1)%upperBase.length].x);
+					double y1= calY(upperBase[(j+1)%upperBase.length].y);
 
 					bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);	 
 
@@ -110,17 +139,16 @@ public class Barrel extends CustomData{
 
 				
 				//lowerbase
-				xc=lower_radius;
-				yc=lower_radius;
+		
 				bufGraphics.setColor(Color.BLUE);
 				
-				for (int j = N_MERIDIANS-1; j >=0; j--) {
+				for (int j = 0; j <lowerBase.length; j++) {
 
-					double x0= calX(xc+(lower_radius*Math.cos(j*teta)));
-					double y0= calY(yc+(lower_radius*Math.sin(j*teta)));
+					double x0= calX(lowerBase[j].x);
+					double y0= calY(lowerBase[j].y);
 					
-					double x1= calX(xc+(lower_radius*Math.cos((j+1)*teta)));
-					double y1= calY(yc+(lower_radius*Math.sin((j+1)*teta)));
+					double x1= calX(lowerBase[(j+1)%lowerBase.length].x);
+					double y1= calY(lowerBase[(j+1)%lowerBase.length].y);
 
 					bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);			
 
@@ -182,32 +210,28 @@ public class Barrel extends CustomData{
 		IMG_WIDTH=(int) len+2*texture_x0;
 		IMG_HEIGHT=(int) (zHeight+lower_radius*2+upper_radius*2)+2*texture_y0;
 
-		double xc=upper_radius;
-		double yc=upper_radius+zHeight+2*lower_radius;
 
 		int count=0;
 		//upperbase
 
-		for (int j = 0; j <N_MERIDIANS; j++) {
+		for (int j = 0; j <upperBase.length; j++) {
 
-			double x= calX(xc+(upper_radius*Math.cos(j*teta)));
-			double y= calY(yc+(upper_radius*Math.sin(j*teta)));
+			
+			
+			double x= calX(upperBase[j].x);
+			double y= calY(upperBase[j].y);
 
 			Point3D p=new Point3D(x,y,0);			
 			texture_points.setElementAt(p,count++);
 
 
 		}
-
-		//lowerbase
-		xc=lower_radius;
-		yc=lower_radius;
+	
 		
-		
-		for (int j = N_MERIDIANS-1; j >=0; j--) {
+		for (int j = 0; j <lowerBase.length; j++) {
 
-			double x= calX(xc+(lower_radius*Math.cos(j*teta)));
-			double y= calY(yc+(lower_radius*Math.sin(j*teta)));
+			double x= calX(lowerBase[j].x);
+			double y= calY(lowerBase[j].y);
 
 			Point3D p=new Point3D(x,y,0);			
 			texture_points.setElementAt(p,count++);
