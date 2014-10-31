@@ -143,8 +143,8 @@ public class Chair extends Forniture{
 		
 		upperBackBase[0]=new Point3D(0,baseY,0);			
 		upperBackBase[1]=new Point3D(x_side,baseY,0);	
-		upperBackBase[2]=new Point3D(x_side,baseY+y_side,0);	
-		upperBackBase[3]=new Point3D(0,baseY+y_side,0);
+		upperBackBase[2]=new Point3D(x_side,baseY+leg_length,0);	
+		upperBackBase[3]=new Point3D(0,baseY+leg_length,0);
 				
 		lateralBackFaces=new Point3D[N_FACES+1][N_PARALLELS];
 
@@ -194,7 +194,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 
 		
 		IMG_WIDTH=(int) len+2*texture_x0;
-		IMG_HEIGHT=(int) (leg_side+leg_length+z_side+y_side*3+back_height)+2*texture_y0;
+		IMG_HEIGHT=(int) (leg_side*2+leg_length+z_side+y_side*2+back_height)+2*texture_y0;
 
 		
 		BufferedImage buf=new BufferedImage(IMG_WIDTH,IMG_HEIGHT,BufferedImage.TYPE_BYTE_INDEXED);
@@ -668,7 +668,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 	private PolygonMesh initMesh() {
 
 		
-		buildTexturePoints();
+		texture_points=buildTexturePoints();
 
 		points=new Vector();
 		points.setSize(50);
@@ -816,7 +816,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		addLine(frLeg[1][0][0],frLeg[1][0][1],frLeg[0][0][1],frLeg[0][0][0],c0+9,c0+14,c0+13,c0+8,Renderer3D.CAR_BACK);
 
 		
-		c0=N_FACES*(N_PARALLELS-1)+(N_FACES+1)*N_PARALLELS+18;
+		
 				
 		//chair back:
 		Segments chair_back=new Segments(0,x_side,0,leg_side,leg_length+z_side,back_height);
@@ -829,7 +829,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		back0[0][1][0]=addBPoint(0,1,0,chair_back);
 		
 	
-		addLine(back0[0][0][0],back0[0][1][0],back0[1][1][0],back0[1][0][0],c0+4,c0+5,c0+6,c0+7,Renderer3D.CAR_BOTTOM);
+		//addLine(back0[0][0][0],back0[0][1][0],back0[1][1][0],back0[1][0][0],c0+4,c0+5,c0+6,c0+7,Renderer3D.CAR_BOTTOM);
 
 		
 		back0[0][0][1]=addBPoint(0,0,1,chair_back);
@@ -838,9 +838,11 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		back0[0][1][1]=addBPoint(0,1,1,chair_back);
 		
 		
+		c0=N_FACES*(N_PARALLELS-1)+(N_FACES+1)*N_PARALLELS+18;
+		
 		addLine(back0[0][0][1],back0[1][0][1],back0[1][1][1],back0[0][1][1],c0+0,c0+1,c0+2,c0+3,Renderer3D.CAR_TOP);
 		
-		
+		c0=N_FACES*(N_PARALLELS-1)+(N_FACES+1)*N_PARALLELS+14;
 		
 		addLine(back0[0][0][0],back0[0][0][1],back0[0][1][1],back0[0][1][0],c0+11,c0+16,c0+17,c0+12,Renderer3D.CAR_LEFT);
 
