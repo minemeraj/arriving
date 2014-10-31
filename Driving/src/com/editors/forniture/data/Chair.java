@@ -143,8 +143,8 @@ public class Chair extends Forniture{
 		
 		upperBackBase[0]=new Point3D(0,baseY,0);			
 		upperBackBase[1]=new Point3D(x_side,baseY,0);	
-		upperBackBase[2]=new Point3D(x_side,baseY+leg_length,0);	
-		upperBackBase[3]=new Point3D(0,baseY+leg_length,0);
+		upperBackBase[2]=new Point3D(x_side,baseY+leg_side,0);	
+		upperBackBase[3]=new Point3D(0,baseY+leg_side,0);
 				
 		lateralBackFaces=new Point3D[N_FACES+1][N_PARALLELS];
 
