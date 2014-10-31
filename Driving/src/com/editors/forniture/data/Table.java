@@ -331,6 +331,38 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 				texture_points.setElementAt(p,texIndex);
 			}
 			
+		}
+		
+		for (int j = 0; j <lowerLegBase.length; j++) {
+
+			double x= calX(lowerLegBase[j].x);
+			double y= calY(lowerLegBase[j].y);
+
+			Point3D p=new Point3D(x,y,0);			
+			texture_points.setElementAt(p,count++);
+
+		}
+
+
+		//lateral surface
+
+
+		for(int j=0;j<N_PARALLELS;j++){
+
+			//texture is open and periodical:
+
+			for (int i = 0; i <=N_FACES; i++) {
+
+				double x=calX(lateralLegFaces[i][j].x);
+				double y=calY(lateralLegFaces[i][j].y);
+
+				Point3D p=new Point3D(x,y,0);
+
+				int texIndex=count+f(i,j,N_FACES+1,N_PARALLELS);
+				//System.out.print(texIndex+"\t");
+				texture_points.setElementAt(p,texIndex);
+			}
+			
 		}	
 		
 		return texture_points;
@@ -348,7 +380,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 			return texture_y0+y;
 	}
 	
-	public void otherInitMesh( ) {
+	/*public void otherInitMesh( ) {
 		
 		points=new Vector();
 		points.setSize(200);
@@ -447,7 +479,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		}
 
 
-	}
+	}*/
 	
 	private PolygonMesh initMesh() {
 		
@@ -459,6 +491,8 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		polyData=new Vector();
 		
 		n=0;
+		
+		texture_points=buildTexturePoints();
 		
 		Segments b0=new Segments(0,x_side,0,y_side,leg_length,z_side);
 		

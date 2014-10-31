@@ -172,6 +172,23 @@ public class CustomData {
 		
 		return ld;
 	}
+	
+	public LineData  addLine(BPoint p0, BPoint p1, BPoint p2,
+			BPoint p3, int txt0,int txt1,int txt2,int txt3,int face) {
+
+		LineData ld=new LineData();
+
+		ld.addIndex(p0.getIndex(),txt0,0,0);
+		ld.addIndex(p1.getIndex(),txt1,0,0);					
+		ld.addIndex(p2.getIndex(),txt2,0,0);
+		if(p3!=null)
+			ld.addIndex(p3.getIndex(),txt3,0,0);	
+		ld.setData(""+face);
+
+		polyData.add(ld);
+		
+		return ld;
+	}
 
 	public LineData buildLine(BPoint p0, BPoint p1, BPoint p2,
 			BPoint p3, int face) {
