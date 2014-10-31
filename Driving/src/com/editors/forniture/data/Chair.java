@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.sql.Savepoint;
 import java.util.Hashtable;
 import java.util.Vector;
 
@@ -162,7 +163,12 @@ public class Chair extends Forniture{
 
 				lateralBackFaces[i][j]=new Point3D(x,y,0);
 				
-				x+=leg_side;
+				double dx=x_side;
+				
+				if(i%2==1)
+					dx=leg_side;
+				
+				x+=dx;
 
 			}
 			
@@ -359,6 +365,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 
 
 		int size=2*N_FACES+	(N_FACES+1)*(N_PARALLELS)+
+				  N_FACES+	(N_FACES+1)*(N_PARALLELS)+
 				  N_FACES+	(N_FACES+1)*(N_PARALLELS);
 		
 		texture_points.setSize(size);
@@ -660,6 +667,8 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 	
 	private PolygonMesh initMesh() {
 
+		
+		buildTexturePoints();
 
 		points=new Vector();
 		points.setSize(50);
