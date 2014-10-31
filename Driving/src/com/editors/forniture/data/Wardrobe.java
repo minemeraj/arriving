@@ -50,10 +50,10 @@ public class Wardrobe extends Forniture{
 		
 		upperBase=new Point3D[N_FACES];
 		
-		upperBase[0]=new Point3D(0,z_side,0);			
-		upperBase[1]=new Point3D(x_side,z_side,0);	
-		upperBase[2]=new Point3D(x_side,z_side+y_side,0);	
-		upperBase[3]=new Point3D(0,z_side+y_side,0);	
+		upperBase[0]=new Point3D(0,y_side+z_side,0);			
+		upperBase[1]=new Point3D(x_side,y_side+z_side,0);	
+		upperBase[2]=new Point3D(x_side,y_side+z_side+y_side,0);	
+		upperBase[3]=new Point3D(0,y_side+z_side+y_side,0);	
 		
 		lowerBase=new Point3D[N_FACES];
 		
@@ -62,21 +62,29 @@ public class Wardrobe extends Forniture{
 		lowerBase[2]=new Point3D(x_side,y_side,0);	
 		lowerBase[3]=new Point3D(x_side,0,0);	
 		
-		double dx=texture_side_dx;
-		double dy=texture_side_dy;
+
 		
 		lateralFaces=new Point3D[N_FACES+1][N_PARALLELS];
 
 		for(int j=0;j<N_PARALLELS;j++){
 
 			//texture is open and periodical:
+			
+			double x=0; 
 
 			for (int i = 0; i <=N_FACES; i++) {
 
-				double x=dx*i;
-				double y=y_side+dy*j;
+			
+				double y=y_side+z_side*j;
 
 				lateralFaces[i][j]=new Point3D(x,y,0);
+				
+				double dx=x_side;
+				
+				if(i%2==1)
+					dx=y_side;
+				
+				x+=dx;
 
 			}
 			
