@@ -1,3 +1,5 @@
+----- 01/11/2014 CarDriving 8.0.2
+
 Updating and powering up the Mould Editor to the latest functioning version, in order to 
 create rotation generated meshes. Now it can create profile also using x y data lists.
 See README.txt.
