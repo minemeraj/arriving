@@ -47,8 +47,11 @@ public class Sofa extends Forniture{
 	Point3D[] upperBackBase=null;
 	Point3D[][] lateralBackFaces=null;
 	
-	Point3D[] upperSideBase=null;
-	Point3D[][] lateralSideFaces=null;
+	Point3D[] upperLeftSideBase=null;
+	Point3D[][] lateralLeftSideFaces=null; 
+	
+	Point3D[] upperRightSideBase=null;
+	Point3D[][] lateralRightSideFaces=null; 
 	
 	public Sofa(double x_side, double y_side, double z_side,
 			double leg_length,double leg_side,
@@ -189,14 +192,14 @@ public class Sofa extends Forniture{
 		
 		baseY=leg_side+leg_length+y_side+z_side+y_side+back_height+leg_side+side_height;
 		
-		upperSideBase=new Point3D[N_FACES];
+		upperLeftSideBase=new Point3D[N_FACES];
 		
-		upperSideBase[0]=new Point3D(0,baseY,0);			
-		upperSideBase[1]=new Point3D(side_width,baseY,0);	
-		upperSideBase[2]=new Point3D(side_width,baseY+side_length,0);	
-		upperSideBase[3]=new Point3D(0,baseY+side_length,0);
+		upperLeftSideBase[0]=new Point3D(0,baseY,0);			
+		upperLeftSideBase[1]=new Point3D(side_width,baseY,0);	
+		upperLeftSideBase[2]=new Point3D(side_width,baseY+side_length,0);	
+		upperLeftSideBase[3]=new Point3D(0,baseY+side_length,0);
 				
-		lateralSideFaces=new Point3D[N_FACES+1][N_PARALLELS];
+		lateralLeftSideFaces=new Point3D[N_FACES+1][N_PARALLELS];
 
 		baseY=leg_side+leg_length+y_side+z_side+y_side+back_height+leg_side;
 		
@@ -211,7 +214,44 @@ public class Sofa extends Forniture{
 			
 				double y=baseY+side_height*j;
 
-				lateralSideFaces[i][j]=new Point3D(x,y,0);
+				lateralLeftSideFaces[i][j]=new Point3D(x,y,0);
+				
+				double dx=side_width;
+				
+				if(i%2==1)
+					dx=side_length;
+				
+				x+=dx;
+
+			}
+			
+		}
+		
+		baseY=leg_side+leg_length+y_side+z_side+y_side+back_height+leg_side+side_height+side_height+side_length;
+		
+		upperRightSideBase=new Point3D[N_FACES];
+		
+		upperRightSideBase[0]=new Point3D(0,baseY,0);			
+		upperRightSideBase[1]=new Point3D(side_width,baseY,0);	
+		upperRightSideBase[2]=new Point3D(side_width,baseY+side_length,0);	
+		upperRightSideBase[3]=new Point3D(0,baseY+side_length,0);
+				
+		lateralRightSideFaces=new Point3D[N_FACES+1][N_PARALLELS];
+
+		baseY=leg_side+leg_length+y_side+z_side+y_side+back_height+leg_side+side_height+side_length;
+		
+		for(int j=0;j<N_PARALLELS;j++){
+
+			//texture is open and periodical:
+			
+			double x=0; 
+
+			for (int i = 0; i <=N_FACES; i++) {
+
+			
+				double y=baseY+side_height*j;
+
+				lateralRightSideFaces[i][j]=new Point3D(x,y,0);
 				
 				double dx=side_width;
 				
@@ -244,7 +284,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 
 		
 		IMG_WIDTH=(int) len+2*texture_x0;
-		IMG_HEIGHT=(int) (leg_side*2+leg_length+z_side+y_side*2+back_height+side_height+side_length)+2*texture_y0;
+		IMG_HEIGHT=(int) (leg_side*2+leg_length+z_side+y_side*2+back_height+side_height+side_length+side_height+side_length)+2*texture_y0;
 
 		
 		BufferedImage buf=new BufferedImage(IMG_WIDTH,IMG_HEIGHT,BufferedImage.TYPE_BYTE_INDEXED);
@@ -400,13 +440,13 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 				
 				bufGraphics.setColor(Color.BLUE);
 				
-				for (int j = 0; j <upperSideBase.length; j++) {
+				for (int j = 0; j <upperLeftSideBase.length; j++) {
 
-					double x0= calX(upperSideBase[j].x);
-					double y0= calY(upperSideBase[j].y);
+					double x0= calX(upperLeftSideBase[j].x);
+					double y0= calY(upperLeftSideBase[j].y);
 					
-					double x1= calX(upperSideBase[(j+1)%upperSideBase.length].x);
-					double y1= calY(upperSideBase[(j+1)%upperSideBase.length].y);
+					double x1= calX(upperLeftSideBase[(j+1)%upperLeftSideBase.length].x);
+					double y1= calY(upperLeftSideBase[(j+1)%upperLeftSideBase.length].y);
 
 					bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);			
 
@@ -423,10 +463,49 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 
 					for (int i = 0; i <N_FACES; i++) { 
 
-						double x0=calX(lateralSideFaces[i][j].x);
-						double x1=calX(lateralSideFaces[i+1][j].x);
-						double y0=calY(lateralSideFaces[i][j].y);
-						double y1=calY(lateralSideFaces[i][j+1].y);
+						double x0=calX(lateralLeftSideFaces[i][j].x);
+						double x1=calX(lateralLeftSideFaces[i+1][j].x);
+						double y0=calY(lateralLeftSideFaces[i][j].y);
+						double y1=calY(lateralLeftSideFaces[i][j+1].y);
+						
+						bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y0);
+						bufGraphics.drawLine((int)x1,(int)y0,(int)x1,(int)y1);
+						bufGraphics.drawLine((int)x1,(int)y1,(int)x0,(int)y1);
+						bufGraphics.drawLine((int)x0,(int)y1,(int)x0,(int)y0);
+					}
+
+				}
+				
+				
+				bufGraphics.setColor(Color.BLUE);
+				
+				for (int j = 0; j <upperRightSideBase.length; j++) {
+
+					double x0= calX(upperRightSideBase[j].x);
+					double y0= calY(upperRightSideBase[j].y);
+					
+					double x1= calX(upperRightSideBase[(j+1)%upperRightSideBase.length].x);
+					double y1= calY(upperRightSideBase[(j+1)%upperRightSideBase.length].y);
+
+					bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);			
+
+				}
+
+
+				//lateral surface
+				bufGraphics.setColor(new Color(0,0,0));
+
+
+				for(int j=0;j<N_PARALLELS-1;j++){
+
+					//texture is open and periodical:
+
+					for (int i = 0; i <N_FACES; i++) { 
+
+						double x0=calX(lateralRightSideFaces[i][j].x);
+						double x1=calX(lateralRightSideFaces[i+1][j].x);
+						double y0=calY(lateralRightSideFaces[i][j].y);
+						double y1=calY(lateralRightSideFaces[i][j+1].y);
 						
 						bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y0);
 						bufGraphics.drawLine((int)x1,(int)y0,(int)x1,(int)y1);
@@ -454,6 +533,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 
 
 		int size=2*N_FACES+	(N_FACES+1)*(N_PARALLELS)+
+				  N_FACES+	(N_FACES+1)*(N_PARALLELS)+
 				  N_FACES+	(N_FACES+1)*(N_PARALLELS)+
 				  N_FACES+	(N_FACES+1)*(N_PARALLELS)+
 				  N_FACES+	(N_FACES+1)*(N_PARALLELS);
@@ -580,10 +660,10 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		
 		count=(4*N_FACES)+3*(N_FACES+1)*N_PARALLELS;
 		
-		for (int j = 0; j <upperSideBase.length; j++) {
+		for (int j = 0; j <upperLeftSideBase.length; j++) {
 
-			double x= calX(upperSideBase[j].x);
-			double y= calY(upperSideBase[j].y);
+			double x= calX(upperLeftSideBase[j].x);
+			double y= calY(upperLeftSideBase[j].y);
 
 			Point3D p=new Point3D(x,y,0);			
 			texture_points.setElementAt(p,count++);
@@ -600,8 +680,42 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 
 			for (int i = 0; i <=N_FACES; i++) {
 
-				double x=calX(lateralSideFaces[i][j].x);
-				double y=calY(lateralSideFaces[i][j].y);
+				double x=calX(lateralLeftSideFaces[i][j].x);
+				double y=calY(lateralLeftSideFaces[i][j].y);
+
+				Point3D p=new Point3D(x,y,0);
+
+				int texIndex=count+f(i,j,N_FACES+1,N_PARALLELS);
+				//System.out.print(texIndex+"\t");
+				texture_points.setElementAt(p,texIndex);
+			}
+			
+		}
+		
+		count=(5*N_FACES)+4*(N_FACES+1)*N_PARALLELS;
+		
+		for (int j = 0; j <upperLeftSideBase.length; j++) {
+
+			double x= calX(upperRightSideBase[j].x);
+			double y= calY(upperRightSideBase[j].y);
+
+			Point3D p=new Point3D(x,y,0);			
+			texture_points.setElementAt(p,count++);
+
+		}
+
+
+		//lateral surface
+
+
+		for(int j=0;j<N_PARALLELS;j++){
+
+			//texture is open and periodical:
+
+			for (int i = 0; i <=N_FACES; i++) {
+
+				double x=calX(lateralRightSideFaces[i][j].x);
+				double y=calY(lateralRightSideFaces[i][j].y);
 
 				Point3D p=new Point3D(x,y,0);
 
@@ -871,11 +985,11 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		right_side[1][1][1]=addBPoint(1,1,1,rightSide);
 		right_side[0][1][1]=addBPoint(0,1,1,rightSide);
 	
-		c0=(4+4+10)+(4+10)+(4+10);
+		c0=(4+4+10)+(4+10)+(4+10)+(4+10);
 		
 		addLine(right_side[0][0][1],right_side[1][0][1],right_side[1][1][1],right_side[0][1][1],c0+0,c0+1,c0+2,c0+3,Renderer3D.CAR_TOP);
 		
-		c0=(4+4+10)+(4+10)+(4+10)+4;
+		c0=(4+4+10)+(4+10)+(4+10)+(4+10)+4;
 		
 		addLine(right_side[0][0][0],right_side[0][0][1],right_side[0][1][1],right_side[0][1][0],c0+3,c0+8,c0+9,c0+4,Renderer3D.CAR_LEFT);
 
