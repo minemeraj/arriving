@@ -2377,97 +2377,97 @@ public class Animal extends CustomData{
 		
 		Segments p0=new Segments(xc,x_side,0,y_side,0,z_side);
 
-		palm[0][0][0]=addBPoint(x[0],0,0,p0);
-		palm[1][0][0]=addBPoint(x[1],0.0,0.4,p0);
-		palm[2][0][0]=addBPoint(x[2],0.0,0.4,p0);
-		palm[3][0][0]=addBPoint(x[3],0.0,0.6,p0);
-		palm[4][0][0]=addBPoint(x[4],0.0,0.6,p0);
-		palm[5][0][0]=addBPoint(x[5],0.0,0.4,p0);
-		palm[6][0][0]=addBPoint(x[6],0.0,0.4,p0);
-		palm[7][0][0]=addBPoint(x[7],0.0,0,p0);
-		palm[8][0][0]=addBPoint(x[8],0.0,0,p0);
-		palm[0][1][0]=addBPoint(x[0],0.25,0,p0);
-		palm[1][1][0]=addBPoint(x[1],0.25,0.4,p0);
-		palm[2][1][0]=addBPoint(x[2],0.25,0.4,p0);
-		palm[3][1][0]=addBPoint(x[3],0.25,0.6,p0);
-		palm[4][1][0]=addBPoint(x[4],0.25,0.6,p0);
-		palm[5][1][0]=addBPoint(x[5],0.25,0.4,p0);
-		palm[6][1][0]=addBPoint(x[6],0.25,0.4,p0);
-		palm[7][1][0]=addBPoint(x[7],0.25,0,p0);
-		palm[8][1][0]=addBPoint(x[8],0.25,0,p0);
-		palm[0][2][0]=addBPoint(x[0],0.5,0,p0);
-		palm[1][2][0]=addBPoint(x[1],0.5,0.4,p0);
-		palm[2][2][0]=addBPoint(x[2],0.5,0.4,p0);
-		palm[3][2][0]=addBPoint(x[3],0.5,0.6,p0);
-		palm[4][2][0]=addBPoint(x[4],0.5,0.6,p0);
-		palm[5][2][0]=addBPoint(x[5],0.5,0.4,p0);
-		palm[6][2][0]=addBPoint(x[6],0.5,0.4,p0);
-		palm[7][2][0]=addBPoint(x[7],0.5,0,p0);
-		palm[8][2][0]=addBPoint(x[8],0.5,0,p0);
-		palm[0][3][0]=addBPoint(x[0],0.75,0.5,p0);
-		palm[1][3][0]=addBPoint(x[1],0.75,0.9,p0);
-		palm[2][3][0]=addBPoint(x[2],0.75,0.9,p0);
-		palm[3][3][0]=addBPoint(x[3],0.75,1.1,p0);
-		palm[4][3][0]=addBPoint(x[4],0.75,1.1,p0);
-		palm[5][3][0]=addBPoint(x[5],0.75,0.9,p0);
-		palm[6][3][0]=addBPoint(x[6],0.75,0.9,p0);
-		palm[7][3][0]=addBPoint(x[7],0.75,0.5,p0);
-		palm[8][3][0]=addBPoint(x[8],0.75,0.5,p0);
-		palm[0][4][0]=addBPoint(x[0],1.0,1.0,p0);
-		palm[1][4][0]=addBPoint(x[1],1.0,1.4,p0);
-		palm[2][4][0]=addBPoint(x[2],1.0,1.4,p0);
-		palm[3][4][0]=addBPoint(x[3],1.0,1.6,p0);
-		palm[4][4][0]=addBPoint(x[4],1.0,1.6,p0);
-		palm[5][4][0]=addBPoint(x[5],1.0,1.4,p0);
-		palm[6][4][0]=addBPoint(x[6],1.0,1.4,p0);
-		palm[7][4][0]=addBPoint(x[7],1.0,1.0,p0);
-		palm[8][4][0]=addBPoint(x[8],1.0,1.0,p0);
+		palm[0][0][0]=addBPoint(x[0],0,0,TRUNK,p0);
+		palm[1][0][0]=addBPoint(x[1],0.0,0.4,TRUNK,p0);
+		palm[2][0][0]=addBPoint(x[2],0.0,0.4,TRUNK,p0);
+		palm[3][0][0]=addBPoint(x[3],0.0,0.6,TRUNK,p0);
+		palm[4][0][0]=addBPoint(x[4],0.0,0.6,TRUNK,p0);
+		palm[5][0][0]=addBPoint(x[5],0.0,0.4,TRUNK,p0);
+		palm[6][0][0]=addBPoint(x[6],0.0,0.4,TRUNK,p0);
+		palm[7][0][0]=addBPoint(x[7],0.0,0,TRUNK,p0);
+		palm[8][0][0]=addBPoint(x[8],0.0,0,TRUNK,p0);
+		palm[0][1][0]=addBPoint(x[0],0.25,0,TRUNK,p0);
+		palm[1][1][0]=addBPoint(x[1],0.25,0.4,TRUNK,p0);
+		palm[2][1][0]=addBPoint(x[2],0.25,0.4,TRUNK,p0);
+		palm[3][1][0]=addBPoint(x[3],0.25,0.6,TRUNK,p0);
+		palm[4][1][0]=addBPoint(x[4],0.25,0.6,TRUNK,p0);
+		palm[5][1][0]=addBPoint(x[5],0.25,0.4,TRUNK,p0);
+		palm[6][1][0]=addBPoint(x[6],0.25,0.4,TRUNK,p0);
+		palm[7][1][0]=addBPoint(x[7],0.25,0,TRUNK,p0);
+		palm[8][1][0]=addBPoint(x[8],0.25,0,TRUNK,p0);
+		palm[0][2][0]=addBPoint(x[0],0.5,0,TRUNK,p0);
+		palm[1][2][0]=addBPoint(x[1],0.5,0.4,TRUNK,p0);
+		palm[2][2][0]=addBPoint(x[2],0.5,0.4,TRUNK,p0);
+		palm[3][2][0]=addBPoint(x[3],0.5,0.6,TRUNK,p0);
+		palm[4][2][0]=addBPoint(x[4],0.5,0.6,TRUNK,p0);
+		palm[5][2][0]=addBPoint(x[5],0.5,0.4,TRUNK,p0);
+		palm[6][2][0]=addBPoint(x[6],0.5,0.4,TRUNK,p0);
+		palm[7][2][0]=addBPoint(x[7],0.5,0,TRUNK,p0);
+		palm[8][2][0]=addBPoint(x[8],0.5,0,TRUNK,p0);
+		palm[0][3][0]=addBPoint(x[0],0.75,0.5,TRUNK,p0);
+		palm[1][3][0]=addBPoint(x[1],0.75,0.9,TRUNK,p0);
+		palm[2][3][0]=addBPoint(x[2],0.75,0.9,TRUNK,p0);
+		palm[3][3][0]=addBPoint(x[3],0.75,1.1,TRUNK,p0);
+		palm[4][3][0]=addBPoint(x[4],0.75,1.1,TRUNK,p0);
+		palm[5][3][0]=addBPoint(x[5],0.75,0.9,TRUNK,p0);
+		palm[6][3][0]=addBPoint(x[6],0.75,0.9,TRUNK,p0);
+		palm[7][3][0]=addBPoint(x[7],0.75,0.5,TRUNK,p0);
+		palm[8][3][0]=addBPoint(x[8],0.75,0.5,TRUNK,p0);
+		palm[0][4][0]=addBPoint(x[0],1.0,1.0,TRUNK,p0);
+		palm[1][4][0]=addBPoint(x[1],1.0,1.4,TRUNK,p0);
+		palm[2][4][0]=addBPoint(x[2],1.0,1.4,TRUNK,p0);
+		palm[3][4][0]=addBPoint(x[3],1.0,1.6,TRUNK,p0);
+		palm[4][4][0]=addBPoint(x[4],1.0,1.6,TRUNK,p0);
+		palm[5][4][0]=addBPoint(x[5],1.0,1.4,TRUNK,p0);
+		palm[6][4][0]=addBPoint(x[6],1.0,1.4,TRUNK,p0);
+		palm[7][4][0]=addBPoint(x[7],1.0,1.0,TRUNK,p0);
+		palm[8][4][0]=addBPoint(x[8],1.0,1.0,TRUNK,p0);
 		
-		palm[0][0][1]=addBPoint(x[0],0,1.0,p0);
-		palm[1][0][1]=addBPoint(x[1],0.0,1.4,p0);
-		palm[2][0][1]=addBPoint(x[2],0.0,1.4,p0);
-		palm[3][0][1]=addBPoint(x[3],0.0,1.6,p0);
-		palm[4][0][1]=addBPoint(x[4],0.0,1.6,p0);
-		palm[5][0][1]=addBPoint(x[5],0.0,1.4,p0);
-		palm[6][0][1]=addBPoint(x[6],0.0,1.4,p0);
-		palm[7][0][1]=addBPoint(x[7],0.0,1.0,p0);
-		palm[8][0][1]=addBPoint(x[8],0.0,1.0,p0);
-		palm[0][1][1]=addBPoint(x[0],0.25,1.0,p0);
-		palm[1][1][1]=addBPoint(x[1],0.25,1.4,p0);
-		palm[2][1][1]=addBPoint(x[2],0.25,1.4,p0);
-		palm[3][1][1]=addBPoint(x[3],0.25,1.6,p0);
-		palm[4][1][1]=addBPoint(x[4],0.25,1.6,p0);
-		palm[5][1][1]=addBPoint(x[5],0.25,1.4,p0);
-		palm[6][1][1]=addBPoint(x[6],0.25,1.4,p0);
-		palm[7][1][1]=addBPoint(x[7],0.25,1.0,p0);
-		palm[8][1][1]=addBPoint(x[8],0.25,1.0,p0);
-		palm[0][2][1]=addBPoint(x[0],0.5,1.0,p0);
-		palm[1][2][1]=addBPoint(x[1],0.5,1.4,p0);
-		palm[2][2][1]=addBPoint(x[2],0.5,1.4,p0);
-		palm[3][2][1]=addBPoint(x[3],0.5,1.6,p0);
-		palm[4][2][1]=addBPoint(x[4],0.5,1.6,p0);
-		palm[5][2][1]=addBPoint(x[5],0.5,1.4,p0);
-		palm[6][2][1]=addBPoint(x[6],0.5,1.4,p0);
-		palm[7][2][1]=addBPoint(x[7],0.5,1.0,p0);
-		palm[8][2][1]=addBPoint(x[8],0.5,1.0,p0);
-		palm[0][3][1]=addBPoint(x[0],0.75,1.5,p0);
-		palm[1][3][1]=addBPoint(x[1],0.75,1.9,p0);
-		palm[2][3][1]=addBPoint(x[2],0.75,1.9,p0);
-		palm[3][3][1]=addBPoint(x[3],0.75,2.1,p0);
-		palm[4][3][1]=addBPoint(x[4],0.75,2.1,p0);
-		palm[5][3][1]=addBPoint(x[5],0.75,1.9,p0);
-		palm[6][3][1]=addBPoint(x[6],0.75,1.9,p0);
-		palm[7][3][1]=addBPoint(x[7],0.75,1.5,p0);
-		palm[8][3][1]=addBPoint(x[8],0.75,1.5,p0);
-		palm[0][4][1]=addBPoint(x[0],1.0,2.0,p0);
-		palm[1][4][1]=addBPoint(x[1],1.0,2.4,p0);
-		palm[2][4][1]=addBPoint(x[2],1.0,2.4,p0);
-		palm[3][4][1]=addBPoint(x[3],1.0,2.6,p0);
-		palm[4][4][1]=addBPoint(x[4],1.0,2.6,p0);
-		palm[5][4][1]=addBPoint(x[5],1.0,2.4,p0);
-		palm[6][4][1]=addBPoint(x[6],1.0,2.4,p0);
-		palm[7][4][1]=addBPoint(x[7],1.0,2.0,p0);
-		palm[8][4][1]=addBPoint(x[8],1.0,2.0,p0);
+		palm[0][0][1]=addBPoint(x[0],0,1.0,TRUNK,p0);
+		palm[1][0][1]=addBPoint(x[1],0.0,1.4,TRUNK,p0);
+		palm[2][0][1]=addBPoint(x[2],0.0,1.4,TRUNK,p0);
+		palm[3][0][1]=addBPoint(x[3],0.0,1.6,TRUNK,p0);
+		palm[4][0][1]=addBPoint(x[4],0.0,1.6,TRUNK,p0);
+		palm[5][0][1]=addBPoint(x[5],0.0,1.4,TRUNK,p0);
+		palm[6][0][1]=addBPoint(x[6],0.0,1.4,TRUNK,p0);
+		palm[7][0][1]=addBPoint(x[7],0.0,1.0,TRUNK,p0);
+		palm[8][0][1]=addBPoint(x[8],0.0,1.0,TRUNK,p0);
+		palm[0][1][1]=addBPoint(x[0],0.25,1.0,TRUNK,p0);
+		palm[1][1][1]=addBPoint(x[1],0.25,1.4,TRUNK,p0);
+		palm[2][1][1]=addBPoint(x[2],0.25,1.4,TRUNK,p0);
+		palm[3][1][1]=addBPoint(x[3],0.25,1.6,TRUNK,p0);
+		palm[4][1][1]=addBPoint(x[4],0.25,1.6,TRUNK,p0);
+		palm[5][1][1]=addBPoint(x[5],0.25,1.4,TRUNK,p0);
+		palm[6][1][1]=addBPoint(x[6],0.25,1.4,TRUNK,p0);
+		palm[7][1][1]=addBPoint(x[7],0.25,1.0,TRUNK,p0);
+		palm[8][1][1]=addBPoint(x[8],0.25,1.0,TRUNK,p0);
+		palm[0][2][1]=addBPoint(x[0],0.5,1.0,TRUNK,p0);
+		palm[1][2][1]=addBPoint(x[1],0.5,1.4,TRUNK,p0);
+		palm[2][2][1]=addBPoint(x[2],0.5,1.4,TRUNK,p0);
+		palm[3][2][1]=addBPoint(x[3],0.5,1.6,TRUNK,p0);
+		palm[4][2][1]=addBPoint(x[4],0.5,1.6,TRUNK,p0);
+		palm[5][2][1]=addBPoint(x[5],0.5,1.4,TRUNK,p0);
+		palm[6][2][1]=addBPoint(x[6],0.5,1.4,TRUNK,p0);
+		palm[7][2][1]=addBPoint(x[7],0.5,1.0,TRUNK,p0);
+		palm[8][2][1]=addBPoint(x[8],0.5,1.0,TRUNK,p0);
+		palm[0][3][1]=addBPoint(x[0],0.75,1.5,TRUNK,p0);
+		palm[1][3][1]=addBPoint(x[1],0.75,1.9,TRUNK,p0);
+		palm[2][3][1]=addBPoint(x[2],0.75,1.9,TRUNK,p0);
+		palm[3][3][1]=addBPoint(x[3],0.75,2.1,TRUNK,p0);
+		palm[4][3][1]=addBPoint(x[4],0.75,2.1,TRUNK,p0);
+		palm[5][3][1]=addBPoint(x[5],0.75,1.9,TRUNK,p0);
+		palm[6][3][1]=addBPoint(x[6],0.75,1.9,TRUNK,p0);
+		palm[7][3][1]=addBPoint(x[7],0.75,1.5,TRUNK,p0);
+		palm[8][3][1]=addBPoint(x[8],0.75,1.5,TRUNK,p0);
+		palm[0][4][1]=addBPoint(x[0],1.0,2.0,TRUNK,p0);
+		palm[1][4][1]=addBPoint(x[1],1.0,2.4,TRUNK,p0);
+		palm[2][4][1]=addBPoint(x[2],1.0,2.4,TRUNK,p0);
+		palm[3][4][1]=addBPoint(x[3],1.0,2.6,TRUNK,p0);
+		palm[4][4][1]=addBPoint(x[4],1.0,2.6,TRUNK,p0);
+		palm[5][4][1]=addBPoint(x[5],1.0,2.4,TRUNK,p0);
+		palm[6][4][1]=addBPoint(x[6],1.0,2.4,TRUNK,p0);
+		palm[7][4][1]=addBPoint(x[7],1.0,2.0,TRUNK,p0);
+		palm[8][4][1]=addBPoint(x[8],1.0,2.0,TRUNK,p0);
 
 		
 		
@@ -2529,20 +2529,20 @@ public class Animal extends CustomData{
 		foreFinger[0][0][1]=palm[1][pny-1][1];
 		foreFinger[1][0][1]=palm[2][pny-1][1];
 		
-		foreFinger[0][1][0]=addBPoint(-0.5,0.5,0.4,ff0);
-		foreFinger[1][1][0]=addBPoint(0.5,0.5,0.4,ff0);
-		foreFinger[0][1][1]=addBPoint(-0.5,0.5,1.4,ff0);
-		foreFinger[1][1][1]=addBPoint(0.5,0.5,1.4,ff0);
+		foreFinger[0][1][0]=addBPoint(-0.5,0.5,0.4,LEFT_HOMERUS,ff0);
+		foreFinger[1][1][0]=addBPoint(0.5,0.5,0.4,LEFT_HOMERUS,ff0);
+		foreFinger[0][1][1]=addBPoint(-0.5,0.5,1.4,LEFT_HOMERUS,ff0);
+		foreFinger[1][1][1]=addBPoint(0.5,0.5,1.4,LEFT_HOMERUS,ff0);
 		
-		foreFinger[0][2][0]=addBPoint(-0.5,0.75,0.4,ff0);
-		foreFinger[1][2][0]=addBPoint(0.5,0.75,0.4,ff0);
-		foreFinger[0][2][1]=addBPoint(-0.5,0.75,1.4,ff0);
-		foreFinger[1][2][1]=addBPoint(0.5,0.75,1.4,ff0);
+		foreFinger[0][2][0]=addBPoint(-0.5,0.75,0.4,LEFT_HOMERUS,ff0);
+		foreFinger[1][2][0]=addBPoint(0.5,0.75,0.4,LEFT_HOMERUS,ff0);
+		foreFinger[0][2][1]=addBPoint(-0.5,0.75,1.4,LEFT_HOMERUS,ff0);
+		foreFinger[1][2][1]=addBPoint(0.5,0.75,1.4,LEFT_HOMERUS,ff0);
 		
-		foreFinger[0][3][0]=addBPoint(-0.4,1.0,0.4,ff0);
-		foreFinger[1][3][0]=addBPoint(0.4,1.0,0.4,ff0);
-		foreFinger[0][3][1]=addBPoint(-0.4,1.0,1.4,ff0);
-		foreFinger[1][3][1]=addBPoint(0.4,1.0,1.4,ff0);
+		foreFinger[0][3][0]=addBPoint(-0.4,1.0,0.4,LEFT_HOMERUS,ff0);
+		foreFinger[1][3][0]=addBPoint(0.4,1.0,0.4,LEFT_HOMERUS,ff0);
+		foreFinger[0][3][1]=addBPoint(-0.4,1.0,1.4,LEFT_HOMERUS,ff0);
+		foreFinger[1][3][1]=addBPoint(0.4,1.0,1.4,LEFT_HOMERUS,ff0);
 		
 		
 		
@@ -2605,20 +2605,20 @@ public class Animal extends CustomData{
 		middleFinger[0][0][1]=palm[3][pny-1][1];
 		middleFinger[1][0][1]=palm[4][pny-1][1];
 		
-		middleFinger[0][1][0]=addBPoint(-0.5,0.5,0.6,mf0);
-		middleFinger[1][1][0]=addBPoint(0.5,0.5,0.6,mf0);
-		middleFinger[0][1][1]=addBPoint(-0.5,0.5,1.6,mf0);
-		middleFinger[1][1][1]=addBPoint(0.5,0.5,1.6,mf0);
+		middleFinger[0][1][0]=addBPoint(-0.5,0.5,0.6,LEFT_FEMUR,mf0);
+		middleFinger[1][1][0]=addBPoint(0.5,0.5,0.6,LEFT_FEMUR,mf0);
+		middleFinger[0][1][1]=addBPoint(-0.5,0.5,1.6,LEFT_FEMUR,mf0);
+		middleFinger[1][1][1]=addBPoint(0.5,0.5,1.6,LEFT_FEMUR,mf0);
 		
-		middleFinger[0][2][0]=addBPoint(-0.5,0.75,0.6,mf0);
-		middleFinger[1][2][0]=addBPoint(0.5,0.75,0.6,mf0);
-		middleFinger[0][2][1]=addBPoint(-0.5,0.75,1.6,mf0);
-		middleFinger[1][2][1]=addBPoint(0.5,0.75,1.6,mf0);
+		middleFinger[0][2][0]=addBPoint(-0.5,0.75,0.6,LEFT_FEMUR,mf0);
+		middleFinger[1][2][0]=addBPoint(0.5,0.75,0.6,LEFT_FEMUR,mf0);
+		middleFinger[0][2][1]=addBPoint(-0.5,0.75,1.6,LEFT_FEMUR,mf0);
+		middleFinger[1][2][1]=addBPoint(0.5,0.75,1.6,LEFT_FEMUR,mf0);
 		
-		middleFinger[0][3][0]=addBPoint(-0.4,1.0,0.6,mf0);
-		middleFinger[1][3][0]=addBPoint(0.4,1.0,0.6,mf0);
-		middleFinger[0][3][1]=addBPoint(-0.4,1.0,1.6,mf0);
-		middleFinger[1][3][1]=addBPoint(0.4,1.0,1.6,mf0);
+		middleFinger[0][3][0]=addBPoint(-0.4,1.0,0.6,LEFT_FEMUR,mf0);
+		middleFinger[1][3][0]=addBPoint(0.4,1.0,0.6,LEFT_FEMUR,mf0);
+		middleFinger[0][3][1]=addBPoint(-0.4,1.0,1.6,LEFT_FEMUR,mf0);
+		middleFinger[1][3][1]=addBPoint(0.4,1.0,1.6,LEFT_FEMUR,mf0);
 		
 		for (int i = 0; i < mfnx-1; i++) {
 
@@ -2679,20 +2679,20 @@ public class Animal extends CustomData{
 		ringFinger[0][0][1]=palm[5][pny-1][1];
 		ringFinger[1][0][1]=palm[6][pny-1][1];
 		
-		ringFinger[0][1][0]=addBPoint(-0.5,0.5,0.4,rf0);
-		ringFinger[1][1][0]=addBPoint(0.5,0.5,0.4,rf0);
-		ringFinger[0][1][1]=addBPoint(-0.5,0.5,1.4,rf0);
-		ringFinger[1][1][1]=addBPoint(0.5,0.5,1.4,rf0);
+		ringFinger[0][1][0]=addBPoint(-0.5,0.5,0.4,RIGHT_FEMUR,rf0);
+		ringFinger[1][1][0]=addBPoint(0.5,0.5,0.4,RIGHT_FEMUR,rf0);
+		ringFinger[0][1][1]=addBPoint(-0.5,0.5,1.4,RIGHT_FEMUR,rf0);
+		ringFinger[1][1][1]=addBPoint(0.5,0.5,1.4,RIGHT_FEMUR,rf0);
 
-		ringFinger[0][2][0]=addBPoint(-0.5,0.75,0.4,rf0);
-		ringFinger[1][2][0]=addBPoint(0.5,0.75,0.4,rf0);
-		ringFinger[0][2][1]=addBPoint(-0.5,0.75,1.4,rf0);
-		ringFinger[1][2][1]=addBPoint(0.5,0.75,1.4,rf0);
+		ringFinger[0][2][0]=addBPoint(-0.5,0.75,0.4,RIGHT_FEMUR,rf0);
+		ringFinger[1][2][0]=addBPoint(0.5,0.75,0.4,RIGHT_FEMUR,rf0);
+		ringFinger[0][2][1]=addBPoint(-0.5,0.75,1.4,RIGHT_FEMUR,rf0);
+		ringFinger[1][2][1]=addBPoint(0.5,0.75,1.4,RIGHT_FEMUR,rf0);
 		
-		ringFinger[0][3][0]=addBPoint(-0.4,1.0,0.4,rf0);
-		ringFinger[1][3][0]=addBPoint(0.4,1.0,0.4,rf0);
-		ringFinger[0][3][1]=addBPoint(-0.4,1.0,1.4,rf0);
-		ringFinger[1][3][1]=addBPoint(0.4,1.0,1.4,rf0);
+		ringFinger[0][3][0]=addBPoint(-0.4,1.0,0.4,RIGHT_FEMUR,rf0);
+		ringFinger[1][3][0]=addBPoint(0.4,1.0,0.4,RIGHT_FEMUR,rf0);
+		ringFinger[0][3][1]=addBPoint(-0.4,1.0,1.4,RIGHT_FEMUR,rf0);
+		ringFinger[1][3][1]=addBPoint(0.4,1.0,1.4,RIGHT_FEMUR,rf0);
 		
 		for (int i = 0; i < rfnx-1; i++) {
 
@@ -2753,20 +2753,20 @@ public class Animal extends CustomData{
 		littleFinger[0][0][1]=palm[7][pny-1][1];
 		littleFinger[1][0][1]=palm[8][pny-1][1];
 		
-		littleFinger[0][1][0]=addBPoint(-0.5,0.5,0,lf0);
-		littleFinger[1][1][0]=addBPoint(0.5,0.5,0,lf0);
-		littleFinger[0][1][1]=addBPoint(-0.5,0.5,1.0,lf0);
-		littleFinger[1][1][1]=addBPoint(0.5,0.5,1.0,lf0);
+		littleFinger[0][1][0]=addBPoint(-0.5,0.5,0,RIGHT_HOMERUS,lf0);
+		littleFinger[1][1][0]=addBPoint(0.5,0.5,0,RIGHT_HOMERUS,lf0);
+		littleFinger[0][1][1]=addBPoint(-0.5,0.5,1.0,RIGHT_HOMERUS,lf0);
+		littleFinger[1][1][1]=addBPoint(0.5,0.5,1.0,RIGHT_HOMERUS,lf0);
 		
-		littleFinger[0][2][0]=addBPoint(-0.5,0.75,0,lf0);
-		littleFinger[1][2][0]=addBPoint(0.5,0.75,0,lf0);
-		littleFinger[0][2][1]=addBPoint(-0.5,0.75,1.0,lf0);
-		littleFinger[1][2][1]=addBPoint(0.5,0.75,1.0,lf0);
+		littleFinger[0][2][0]=addBPoint(-0.5,0.75,0,RIGHT_HOMERUS,lf0);
+		littleFinger[1][2][0]=addBPoint(0.5,0.75,0,RIGHT_HOMERUS,lf0);
+		littleFinger[0][2][1]=addBPoint(-0.5,0.75,1.0,RIGHT_HOMERUS,lf0);
+		littleFinger[1][2][1]=addBPoint(0.5,0.75,1.0,RIGHT_HOMERUS,lf0);
 		
-		littleFinger[0][3][0]=addBPoint(-0.4,1.0,0,lf0);
-		littleFinger[1][3][0]=addBPoint(0.4,1.0,0,lf0);
-		littleFinger[0][3][1]=addBPoint(-0.4,1.0,1.0,lf0);
-		littleFinger[1][3][1]=addBPoint(0.4,1.0,1.0,lf0);
+		littleFinger[0][3][0]=addBPoint(-0.4,1.0,0,RIGHT_HOMERUS,lf0);
+		littleFinger[1][3][0]=addBPoint(0.4,1.0,0,RIGHT_HOMERUS,lf0);
+		littleFinger[0][3][1]=addBPoint(-0.4,1.0,1.0,RIGHT_HOMERUS,lf0);
+		littleFinger[1][3][1]=addBPoint(0.4,1.0,1.0,RIGHT_HOMERUS,lf0);
 		
 		
 		for (int i = 0; i < lfnx-1; i++) {
@@ -2834,30 +2834,30 @@ public class Animal extends CustomData{
 		double thumb_y0=-y_side*0.25/thumb_dy;
 		
 		
-		thumb[0][0][0]=addBPoint(-0.5,thumb_y0,0,tf0);		
-		thumb[1][0][0]=addBPoint(0.0,thumb_y0,0.0,tf0);
-		thumb[0][0][1]=addBPoint(-0.5,thumb_y0,1.0,tf0);
-		thumb[1][0][1]=addBPoint(0.0,thumb_y0,1.0,tf0);
+		thumb[0][0][0]=addBPoint(-0.5,thumb_y0,0,TRUNK,tf0);		
+		thumb[1][0][0]=addBPoint(0.0,thumb_y0,0.0,TRUNK,tf0);
+		thumb[0][0][1]=addBPoint(-0.5,thumb_y0,1.0,TRUNK,tf0);
+		thumb[1][0][1]=addBPoint(0.0,thumb_y0,1.0,TRUNK,tf0);
 		
-		thumb[0][1][0]=addBPoint(-0.5,0.0,0,tf0);		
-		thumb[1][1][0]=addBPoint(0.0,0.0,0.0,tf0);
-		thumb[0][1][1]=addBPoint(-0.5,0.0,1.0,tf0);
-		thumb[1][1][1]=addBPoint(0.0,0.0,1.0,tf0);
+		thumb[0][1][0]=addBPoint(-0.5,0.0,0,TRUNK,tf0);		
+		thumb[1][1][0]=addBPoint(0.0,0.0,0.0,TRUNK,tf0);
+		thumb[0][1][1]=addBPoint(-0.5,0.0,1.0,TRUNK,tf0);
+		thumb[1][1][1]=addBPoint(0.0,0.0,1.0,TRUNK,tf0);
 		
-		thumb[0][2][0]=addBPoint(-1.0,df1,0,tf0);		
-		thumb[1][2][0]=addBPoint(-0.5,df1,0.0,tf0);
-		thumb[0][2][1]=addBPoint(-1.0,df1,1.0,tf0);
-		thumb[1][2][1]=addBPoint(-0.5,df1,1.0,tf0);
+		thumb[0][2][0]=addBPoint(-1.0,df1,0,TRUNK,tf0);		
+		thumb[1][2][0]=addBPoint(-0.5,df1,0.0,TRUNK,tf0);
+		thumb[0][2][1]=addBPoint(-1.0,df1,1.0,TRUNK,tf0);
+		thumb[1][2][1]=addBPoint(-0.5,df1,1.0,TRUNK,tf0);
 		
-		thumb[0][3][0]=addBPoint(-1.0,0.75,0,tf0);		
-		thumb[1][3][0]=addBPoint(-0.5,0.75,0.0,tf0);
-		thumb[0][3][1]=addBPoint(-1.0,0.75,1.0,tf0);
-		thumb[1][3][1]=addBPoint(-0.5,0.75,1.0,tf0);
+		thumb[0][3][0]=addBPoint(-1.0,0.75,0,TRUNK,tf0);		
+		thumb[1][3][0]=addBPoint(-0.5,0.75,0.0,TRUNK,tf0);
+		thumb[0][3][1]=addBPoint(-1.0,0.75,1.0,TRUNK,tf0);
+		thumb[1][3][1]=addBPoint(-0.5,0.75,1.0,TRUNK,tf0);
 		
-		thumb[0][4][0]=addBPoint(-1.0,1.0,0,tf0);		
-		thumb[1][4][0]=addBPoint(-0.5,1.0,0.0,tf0);
-		thumb[0][4][1]=addBPoint(-1.0,1.0,1.0,tf0);
-		thumb[1][4][1]=addBPoint(-0.5,1.0,1.0,tf0);
+		thumb[0][4][0]=addBPoint(-1.0,1.0,0,TRUNK,tf0);		
+		thumb[1][4][0]=addBPoint(-0.5,1.0,0.0,TRUNK,tf0);
+		thumb[0][4][1]=addBPoint(-1.0,1.0,1.0,TRUNK,tf0);
+		thumb[1][4][1]=addBPoint(-0.5,1.0,1.0,TRUNK,tf0);
 
 		
 		for (int i = 0; i < tnx-1; i++) {
