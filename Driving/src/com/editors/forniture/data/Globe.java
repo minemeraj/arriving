@@ -1,12 +1,20 @@
 package com.editors.forniture.data;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Hashtable;
 import java.util.Vector;
+
+import javax.imageio.ImageIO;
 
 import com.BPoint;
 import com.CustomData;
 import com.LineData;
 import com.Point3D;
+import com.PolygonMesh;
 import com.main.Renderer3D;
 
 public class Globe extends CustomData {
@@ -14,11 +22,51 @@ public class Globe extends CustomData {
 	double radius=0;
 	private int N_MERIDIANS;
 	private int N_PARALLELS;
+	
+	Point3D[][] lateralFaces=null; 
+	
+	public static int texture_side_dx=10;
+	public static int texture_side_dy=10;
+	
+	public static int texture_x0=10;
+	public static int texture_y0=10;
+	public static int IMG_WIDTH;
+	public static int IMG_HEIGHT;
+	
+	public double len;
+	public double zHeight;
+	
+	public static boolean isTextureDrawing=false;
 
 	public Globe(double radius,int N_MERIDIANS,int N_PARALLELS) {
 		this.radius=radius;
 		this.N_MERIDIANS=N_MERIDIANS;
 		this.N_PARALLELS=N_PARALLELS;
+		
+		zHeight=2*radius;
+		
+		lateralFaces=new Point3D[N_MERIDIANS+1][N_PARALLELS];
+		
+		texture_side_dy=(int) (zHeight/(N_PARALLELS-1));
+		texture_side_dx=(int) (len/(N_MERIDIANS));
+		
+		double dx=texture_side_dx;
+		double dy=texture_side_dy;
+
+		for(int j=0;j<N_PARALLELS;j++){
+
+			//texture is open and periodical:
+
+			for (int i = 0; i <=N_MERIDIANS; i++) {
+
+				double x=dx*i;
+				double y=radius+dy*j;
+
+				lateralFaces[i][j]=new Point3D(x,y,0);
+
+			}
+			
+		}	
 		
 		initMesh();
 	}
@@ -56,6 +104,10 @@ public class Globe extends CustomData {
 
 			}
 		}
+		
+		len=2*pi*N_MERIDIANS;
+		
+		//texture_points=buildTexturePoints();
 
 		BPoint southPole=addBPoint(0,0,-radius);
 
@@ -121,9 +173,7 @@ public class Globe extends CustomData {
 		
 		for (int i = 0; i <N_MERIDIANS; i++) { 
 			
-			LineData ld=new LineData();
-			
-			
+			LineData ld=new LineData();			
 
 			int texIndex=count+f(i,(N_PARALLELS-1),N_MERIDIANS+1,N_PARALLELS);
 			//System.out.print(texIndex+"\t");
@@ -143,5 +193,121 @@ public class Globe extends CustomData {
 			polyData.add(ld);
 		}
 	}	
+	
+public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
+	
+		isTextureDrawing=true;
+		
+	
+		
+		Color backgroundColor=Color.green;
+
+		
+		IMG_WIDTH=(int) len+2*texture_x0;
+		IMG_HEIGHT=(int) (zHeight+radius*2)+2*texture_y0;
+
+		
+		BufferedImage buf=new BufferedImage(IMG_WIDTH,IMG_HEIGHT,BufferedImage.TYPE_BYTE_INDEXED);
+	
+		try {
+
+
+				Graphics2D bufGraphics=(Graphics2D)buf.getGraphics();
+ 
+				bufGraphics.setColor(backgroundColor);
+				bufGraphics.fillRect(0,0,IMG_WIDTH,IMG_HEIGHT);
+
+
+				//lateral surface
+				bufGraphics.setColor(new Color(0,0,0));
+
+
+				for(int j=0;j<N_PARALLELS-1;j++){
+
+					//texture is open and periodical:
+
+					for (int i = 0; i <N_MERIDIANS; i++) { 
+
+						double x0=calX(lateralFaces[i][j].x);
+						double x1=calX(lateralFaces[i+1][j].x);
+						double y0=calY(lateralFaces[i][j].y);
+						double y1=calY(lateralFaces[i][j+1].y);
+						
+						bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y0);
+						bufGraphics.drawLine((int)x1,(int)y0,(int)x1,(int)y1);
+						bufGraphics.drawLine((int)x1,(int)y1,(int)x0,(int)y1);
+						bufGraphics.drawLine((int)x0,(int)y1,(int)x0,(int)y0);
+					}
+
+				}	
+				
+			
+				ImageIO.write(buf,"gif",file);
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+	}
+
+public Vector buildTexturePoints() {
+	
+	isTextureDrawing=false;
+	
+	Vector texture_points=new Vector();
+	
+	double teta=(2*pi)/(N_MERIDIANS);
+
+
+	int size=2*N_MERIDIANS+	(N_MERIDIANS+1)*(N_PARALLELS);
+
+	
+	texture_points.setSize(size);
+	
+	texture_side_dy=(int) (zHeight/(N_PARALLELS-1));
+	texture_side_dx=(int) (len/(N_MERIDIANS));
+	
+	IMG_WIDTH=(int) len+2*texture_x0;
+	IMG_HEIGHT=(int) (zHeight+radius*2)+2*texture_y0;
+
+	int count=1;
+
+
+	//lateral surface
+
+
+	for(int j=0;j<N_PARALLELS;j++){
+
+		//texture is open and periodical:
+
+		for (int i = 0; i <=N_MERIDIANS; i++) {
+
+			double x=calX(lateralFaces[i][j].x);
+			double y=calY(lateralFaces[i][j].y);
+
+			Point3D p=new Point3D(x,y,0);
+
+			int texIndex=count+f(i,j,N_MERIDIANS+1,N_PARALLELS);
+			//System.out.print(texIndex+"\t");
+			texture_points.setElementAt(p,texIndex);
+		}
+		
+	}	
+	
+	return texture_points;
+}
+
+		public static double calX(double x){
+			
+			return texture_x0+x;
+		}
+		
+		public static double calY(double y){
+			if(isTextureDrawing)
+				return IMG_HEIGHT-(texture_y0+y);
+			else
+				return texture_y0+y;
+		}
 
 }
