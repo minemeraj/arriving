@@ -152,7 +152,8 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_BED,"Bed"));
 		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_BOOKCASE,"Bookcase"));
 		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_CHAIR,"Chair"));	
-		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_CUPBOARD,"Cupboard"));		
+		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_CUPBOARD,"Cupboard"));	
+		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_GLOBE,"Globe"));
 		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_SOFA,"Sofa"));
 		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_STREETLIGHT,"Streetlight"));
 		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_TABLE,"Table"));
@@ -480,6 +481,27 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		upper_height.setText(0);
 		
 	}
+	
+    private void initRightGlobeData() {
+		
+		x_side.setText(200);
+		y_side.setText(0);
+		z_side.setText(0);
+		
+		leg_length.setText(0);
+		leg_side.setText(0);
+		back_height.setText(0);
+		
+		
+		side_width.setText(0);
+		side_length.setText(0);
+		side_height.setText(0);
+		
+		upper_width.setText(0);
+		upper_length.setText(0);
+		upper_height.setText(0);
+		
+	}
 
 	
 	private void initRightStretLightData() {
@@ -769,11 +791,17 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 				   initRightToiletData();	
 			   else if(type==Forniture.FORNITURE_TYPE_BARREL)
 				   initRightBarrelData();	
+			   else if(type==Forniture.FORNITURE_TYPE_GLOBE)
+				   initRightGlobeData();	
+		
 		}
 		
 	}
 
-    @Override
+
+
+
+	@Override
     public void saveBaseCubicTexture(File file) {
     	if(forniture.getForniture_type()==Forniture.FORNITURE_TYPE_BARREL || 
 			forniture.getForniture_type()==Forniture.FORNITURE_TYPE_TABLE || 

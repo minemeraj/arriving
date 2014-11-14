@@ -29,6 +29,7 @@ public class Forniture extends CustomData{
 	public static int FORNITURE_TYPE_CUPBOARD=7;
 	public static int FORNITURE_TYPE_STREETLIGHT=8;
 	public static int FORNITURE_TYPE_BARREL=9;
+	public static int FORNITURE_TYPE_GLOBE=90;
 	
 	public int forniture_type=FORNITURE_TYPE_TABLE;
 	
@@ -232,6 +233,9 @@ public class Forniture extends CustomData{
 		else if(FORNITURE_TYPE_BARREL==forniture_type){
 			return buildBarrelMesh();	
 		}
+		else if(FORNITURE_TYPE_GLOBE==forniture_type){
+			return buildGlobeMesh();	
+		}
 		else	
 			return buildWardrobeMesh();
 
@@ -240,6 +244,17 @@ public class Forniture extends CustomData{
 
 
 
+
+	private PolygonMesh buildGlobeMesh() {
+
+		
+
+		specificData=new Globe(x_side,10,10);
+		
+		PolygonMesh pm=specificData.getMesh();
+	
+		return pm;
+	}
 
 	private PolygonMesh buildCupboardMesh() {
 		
