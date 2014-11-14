@@ -807,7 +807,8 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 			forniture.getForniture_type()==Forniture.FORNITURE_TYPE_TABLE || 
 			forniture.getForniture_type()==Forniture.FORNITURE_TYPE_WARDROBE ||
 			forniture.getForniture_type()==Forniture.FORNITURE_TYPE_CHAIR ||
-			forniture.getForniture_type()==Forniture.FORNITURE_TYPE_SOFA
+			forniture.getForniture_type()==Forniture.FORNITURE_TYPE_SOFA ||
+			forniture.getForniture_type()==Forniture.FORNITURE_TYPE_GLOBE 
     			){
     		
     		PolygonMesh pm = buildMesh();		

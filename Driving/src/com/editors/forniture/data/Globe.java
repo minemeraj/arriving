@@ -24,6 +24,8 @@ public class Globe extends CustomData {
 	private int N_PARALLELS;
 	
 	Point3D[][] lateralFaces=null; 
+	Point3D[]northPoles=null;
+	Point3D[]southPoles=null;
 	
 	public static int texture_side_dx=10;
 	public static int texture_side_dy=10;
@@ -39,11 +41,13 @@ public class Globe extends CustomData {
 	public static boolean isTextureDrawing=false;
 
 	public Globe(double radius,int N_MERIDIANS,int N_PARALLELS) {
+		
 		this.radius=radius;
 		this.N_MERIDIANS=N_MERIDIANS;
 		this.N_PARALLELS=N_PARALLELS;
 		
 		zHeight=2*radius;
+		len=2*pi*radius;
 		
 		lateralFaces=new Point3D[N_MERIDIANS+1][N_PARALLELS];
 		
@@ -52,6 +56,17 @@ public class Globe extends CustomData {
 		
 		double dx=texture_side_dx;
 		double dy=texture_side_dy;
+		
+		northPoles=new Point3D[N_MERIDIANS+1];
+		
+		for (int i = 0; i <=N_MERIDIANS; i++) {
+
+			double x=dx*(i+0.5);
+			double y=2*radius+zHeight;
+
+			northPoles[i]=new Point3D(x,y,0);
+
+		}
 
 		for(int j=0;j<N_PARALLELS;j++){
 
@@ -67,6 +82,18 @@ public class Globe extends CustomData {
 			}
 			
 		}	
+		
+	
+		southPoles=new Point3D[N_MERIDIANS+1];
+		
+		for (int i = 0; i <=N_MERIDIANS; i++) {
+
+			double x=dx*(i+0.5);
+			double y=0;
+
+			southPoles[i]=new Point3D(x,y,0);
+
+		}
 		
 		initMesh();
 	}
@@ -105,9 +132,7 @@ public class Globe extends CustomData {
 			}
 		}
 		
-		len=2*pi*N_MERIDIANS;
-		
-		//texture_points=buildTexturePoints();
+		texture_points=buildTexturePoints();
 
 		BPoint southPole=addBPoint(0,0,-radius);
 
@@ -126,7 +151,7 @@ public class Globe extends CustomData {
 			ld.addIndex(aPoints[(i+1)%N_MERIDIANS][0].getIndex(),texIndex,0,0);
 
 			
-			ld.addIndex(northPole.getIndex(),0,0,0);
+			ld.addIndex(northPole.getIndex(),i,0,0);
 
 			ld.setData(""+Renderer3D.getFace(ld,points));
 
@@ -170,6 +195,7 @@ public class Globe extends CustomData {
 
 		}
 		
+		int spIndex=N_MERIDIANS+N_PARALLELS*(N_MERIDIANS+1);
 		
 		for (int i = 0; i <N_MERIDIANS; i++) { 
 			
@@ -179,7 +205,7 @@ public class Globe extends CustomData {
 			//System.out.print(texIndex+"\t");
 			ld.addIndex(aPoints[i][(N_PARALLELS-1)].getIndex(),texIndex,0,0);
 			
-			ld.addIndex(southPole.getIndex(),N_MERIDIANS*N_PARALLELS+1,0,0);
+			ld.addIndex(southPole.getIndex(),spIndex,0,0);
 
 			texIndex=count+f(i+1,(N_PARALLELS-1),N_MERIDIANS+1,N_PARALLELS);
 			//System.out.print(texIndex+"\t");
@@ -194,7 +220,7 @@ public class Globe extends CustomData {
 		}
 	}	
 	
-public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
+	public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 	
 		isTextureDrawing=true;
 		
@@ -216,11 +242,27 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
  
 				bufGraphics.setColor(backgroundColor);
 				bufGraphics.fillRect(0,0,IMG_WIDTH,IMG_HEIGHT);
-
-
+				
+				bufGraphics.setColor(Color.RED);
+				bufGraphics.setStroke(new BasicStroke(0.1f));
+		
+	
+				for (int i = 0; i <N_MERIDIANS; i++) { 
+						
+						double x0=calX(lateralFaces[i][N_PARALLELS-1].x);
+						double x1=calX(lateralFaces[i+1][N_PARALLELS-1].x);
+						double y0=calY(lateralFaces[i][N_PARALLELS-1].y);
+						
+						double xp=calX(northPoles[i].x);
+						double yp=calY(northPoles[i].y);
+						
+						bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y0);
+						bufGraphics.drawLine((int)x1,(int)y0,(int)xp,(int)yp);
+						bufGraphics.drawLine((int)xp,(int)yp,(int)x0,(int)y0);
+				}
+		
 				//lateral surface
 				bufGraphics.setColor(new Color(0,0,0));
-
 
 				for(int j=0;j<N_PARALLELS-1;j++){
 
@@ -240,6 +282,23 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 					}
 
 				}	
+				
+				bufGraphics.setColor(Color.BLUE);
+				bufGraphics.setStroke(new BasicStroke(0.1f));
+				
+				for (int i = 0; i <N_MERIDIANS; i++) { 
+					
+					double x0=calX(lateralFaces[i][0].x);
+					double x1=calX(lateralFaces[i+1][0].x);
+					double y0=calY(lateralFaces[i][0].y);
+					
+					double xp=calX(southPoles[i].x);
+					double yp=calY(southPoles[i].y);
+					
+					bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y0);
+					bufGraphics.drawLine((int)x1,(int)y0,(int)xp,(int)yp);
+					bufGraphics.drawLine((int)xp,(int)yp,(int)x0,(int)y0);
+			    }
 				
 			
 				ImageIO.write(buf,"gif",file);
@@ -271,8 +330,17 @@ public Vector buildTexturePoints() {
 	IMG_WIDTH=(int) len+2*texture_x0;
 	IMG_HEIGHT=(int) (zHeight+radius*2)+2*texture_y0;
 
-	int count=1;
+	int count=0;
 
+	
+	for (int i = 0; i <N_MERIDIANS; i++) { 
+		
+		double xp=calX(northPoles[i].x);
+		double yp=calY(northPoles[i].y);
+		
+		Point3D p=new Point3D(xp,yp,0);	
+		texture_points.setElementAt(p,count++);
+}
 
 	//lateral surface
 
@@ -294,6 +362,18 @@ public Vector buildTexturePoints() {
 		}
 		
 	}	
+	
+	count=N_MERIDIANS+N_PARALLELS*(N_MERIDIANS+1);
+	
+	for (int i = 0; i <N_MERIDIANS; i++) { 
+		
+		double xp=calX(southPoles[i].x);
+		double yp=calY(southPoles[i].y);
+		
+		Point3D p=new Point3D(xp,yp,0);	
+		texture_points.setElementAt(p,count++);
+
+    }
 	
 	return texture_points;
 }
