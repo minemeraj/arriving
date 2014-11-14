@@ -92,18 +92,19 @@ public class Globe extends CustomData {
 				int texIndex=count+f(i,j,N_MERIDIANS+1,N_PARALLELS);
 				//System.out.print(texIndex+"\t");
 				ld.addIndex(aPoints[i][j].getIndex(),texIndex,0,0);
+				
+				texIndex=count+f(i,j+1,N_MERIDIANS+1,N_PARALLELS);
+				//System.out.print(texIndex+"\t");
+				ld.addIndex(aPoints[i][j+1].getIndex(),texIndex,0,0);
+				
+				texIndex=count+f(i+1,j+1,N_MERIDIANS+1,N_PARALLELS);
+				//System.out.print(texIndex+"\t");
+				ld.addIndex(aPoints[(i+1)%N_MERIDIANS][j+1].getIndex(),texIndex,0,0);
 
 				texIndex=count+f(i+1,j,N_MERIDIANS+1,N_PARALLELS);
 				//System.out.print(texIndex+"\t");
 				ld.addIndex(aPoints[(i+1)%N_MERIDIANS][j].getIndex(),texIndex,0,0);
 
-				texIndex=count+f(i+1,j+1,N_MERIDIANS+1,N_PARALLELS);
-				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[(i+1)%N_MERIDIANS][j+1].getIndex(),texIndex,0,0);
-
-				texIndex=count+f(i,j+1,N_MERIDIANS+1,N_PARALLELS);
-				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[i][j+1].getIndex(),texIndex,0,0);
 
 				ld.setData(""+Renderer3D.getFace(ld,points));
 
@@ -122,11 +123,13 @@ public class Globe extends CustomData {
 			
 			LineData ld=new LineData();
 			
-			ld.addIndex(southPole.getIndex(),N_MERIDIANS*N_PARALLELS+1,0,0);
+			
 
 			int texIndex=count+f(i,(N_PARALLELS-1),N_MERIDIANS+1,N_PARALLELS);
 			//System.out.print(texIndex+"\t");
 			ld.addIndex(aPoints[i][(N_PARALLELS-1)].getIndex(),texIndex,0,0);
+			
+			ld.addIndex(southPole.getIndex(),N_MERIDIANS*N_PARALLELS+1,0,0);
 
 			texIndex=count+f(i+1,(N_PARALLELS-1),N_MERIDIANS+1,N_PARALLELS);
 			//System.out.print(texIndex+"\t");
