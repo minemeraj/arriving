@@ -132,11 +132,12 @@ public class Globe extends CustomData {
 			}
 		}
 		
-		texture_points=buildTexturePoints();
-
 		BPoint southPole=addBPoint(0,0,-radius);
+		
+		texture_points=buildTexturePoints();
+	
 
-		int count=1;
+		int count=N_MERIDIANS;
 
 		for (int i = 0; i <N_MERIDIANS; i++) { 
 			
@@ -205,7 +206,7 @@ public class Globe extends CustomData {
 			//System.out.print(texIndex+"\t");
 			ld.addIndex(aPoints[i][(N_PARALLELS-1)].getIndex(),texIndex,0,0);
 			
-			ld.addIndex(southPole.getIndex(),spIndex,0,0);
+			ld.addIndex(southPole.getIndex(),spIndex+i,0,0);
 
 			texIndex=count+f(i+1,(N_PARALLELS-1),N_MERIDIANS+1,N_PARALLELS);
 			//System.out.print(texIndex+"\t");
