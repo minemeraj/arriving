@@ -75,7 +75,7 @@ public class Globe extends CustomData {
 			for (int i = 0; i <=N_MERIDIANS; i++) {
 
 				double x=dx*i;
-				double y=radius+dy*j;
+				double y=radius+zHeight-dy*j;
 
 				lateralFaces[i][j]=new Point3D(x,y,0);
 
