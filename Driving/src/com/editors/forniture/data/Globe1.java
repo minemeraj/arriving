@@ -120,7 +120,7 @@ public class Globe1 extends CustomData {
 		n=0;
 
 		double fi=(2*pi)/(N_MERIDIANS);
-		double teta=0.5*pi/(N_PARALLELS/2-1);
+		double teta=0.5*pi/(N_PARALLELS/2);
 		
 		BPoint northPole=addBPoint(0,0,radius);
 
@@ -131,7 +131,7 @@ public class Globe1 extends CustomData {
 
 			for (int j = 0; j <N_PARALLELS/2; j++) {
 				
-				double tt=j*teta;
+				double tt=teta+j*teta;
 
 				double x= radius*Math.cos(i*fi)*Math.sin(tt);
 				double y= radius*Math.sin(i*fi)*Math.sin(tt);
@@ -149,7 +149,7 @@ public class Globe1 extends CustomData {
 
 			for (int j = 0; j <N_PARALLELS/2; j++) {
 
-				double tt=-j*teta+pi;
+				double tt=pi*0.5+j*teta;
 								
 				double x= radius*Math.cos(i*fi)*Math.sin(tt);
 				double y= radius*Math.sin(i*fi)*Math.sin(tt);
@@ -460,7 +460,7 @@ public Vector buildTexturePoints() {
 
 			Point3D p=new Point3D(x,y,0);
 
-			int texIndex=count+f(i,j,N_MERIDIANS,N_PARALLELS);
+			int texIndex=count+f(i,j,N_MERIDIANS,N_PARALLELS/2);
 			//System.out.print(texIndex+"\t");
 			texture_points.setElementAt(p,texIndex);
 		}
@@ -480,7 +480,7 @@ public Vector buildTexturePoints() {
 
 			Point3D p=new Point3D(x,y,0);
 
-			int texIndex=count+f(i,j,N_MERIDIANS,N_PARALLELS);
+			int texIndex=count+f(i,j,N_MERIDIANS,N_PARALLELS/2);
 			//System.out.print(texIndex+"\t");
 			texture_points.setElementAt(p,texIndex);
 		}
