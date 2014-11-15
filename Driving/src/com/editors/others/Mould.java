@@ -73,7 +73,8 @@ public class Mould extends JFrame implements ActionListener{
 	private Color lineColor=Color.RED;
 	private JButton loadProfileData;
 	private JButton saveVerticalRotationPoints;
-	private JCheckBox parallelsOnlyData; 
+	private JCheckBox parallelsOnlyData;
+	private JButton saveImageProfile; 
 	
 	
 	public static void main(String[] args) {
@@ -85,7 +86,7 @@ public class Mould extends JFrame implements ActionListener{
 		
 		setTitle("Mould");	
 		
-		setSize(300,370);
+		setSize(300,400);
 		setLocation(20,20);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -146,14 +147,14 @@ public class Mould extends JFrame implements ActionListener{
 		r+=30;
 		
 		
-		loadProfileImage=new JButton("Load Profile Image");
+		loadProfileImage=new JButton("Load Profile Image XY");
 		loadProfileImage.setBounds(10,r,180,20);
 		loadProfileImage.addActionListener(this);
 		rotator.add(loadProfileImage);
 				
 		r+=30;
 		
-		loadProfileData=new JButton("Load Profile Data");
+		loadProfileData=new JButton("Load Profile Data XY");
 		loadProfileData.setBounds(10,r,180,20);
 		loadProfileData.addActionListener(this);
 		rotator.add(loadProfileData);
@@ -195,6 +196,13 @@ public class Mould extends JFrame implements ActionListener{
 		saveVerticalRotationPoints.setBounds(10,r,200,20);
 		saveVerticalRotationPoints.addActionListener(this);
 		rotator.add(saveVerticalRotationPoints);
+		
+		r+=30;
+		
+		saveImageProfile=new JButton("Save image profile");
+		saveImageProfile.setBounds(10,r,200,20);
+		saveImageProfile.addActionListener(this);
+		rotator.add(saveImageProfile);
 		
 		r+=30;
 
@@ -274,6 +282,8 @@ public class Mould extends JFrame implements ActionListener{
 			emptyProfiles();
 		 else if (o == loadPointsImage)
 			 loadPointsImage();
+		 else if (o == saveImageProfile)
+			 saveImageProfile();
 		 else if (o == savePoints)
 			 saveReadPoints(readPointsImage,readPoints.getBackground());
 		 else if (o == rpColorChooser)
@@ -283,6 +293,7 @@ public class Mould extends JFrame implements ActionListener{
 		
 		
 	}
+
 
 
 
@@ -298,6 +309,94 @@ public class Mould extends JFrame implements ActionListener{
 	         }
 		
 	}
+	
+	private void saveImageProfile() {
+
+		try{
+
+
+			fc=new JFileChooser();
+			fc.setDialogType(JFileChooser.SAVE_DIALOG);
+			fc.setDialogTitle("Save Image profile");
+			if(currentDirectory!=null)
+				fc.setCurrentDirectory(currentDirectory);
+			int returnVal = fc.showOpenDialog(null);
+
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				File file = fc.getSelectedFile();
+				currentDirectory=fc.getCurrentDirectory();
+				saveImageProfile(file);
+
+			} 
+
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private void saveImageProfile(File file) throws Exception {
+		
+		
+		PrintWriter pr = new PrintWriter(new FileOutputStream(file));
+
+		if(rotationProfile==null)
+			return;
+
+		if(parallelsOnlyData.isSelected()){
+			
+			N_PARALLELS=rotationProfile.points.length;
+
+			for(int i=0;i<N_PARALLELS;i++){
+
+				double radius=rotationProfile.points[i].y;
+
+		
+					
+					double z= rotationProfile.points[i].x;
+					pr.println(z+" "+radius);
+
+
+
+			}
+
+			
+		}else{
+			
+			if(parallelsNumber.getText().equals(""))
+				return;
+
+			try{
+
+				N_PARALLELS=Integer.parseInt(parallelsNumber.getText()); 
+
+			}
+			catch (Exception e) {
+				return;
+			}
+
+
+			double dz=rotationProfile.lenX/(N_PARALLELS-1);
+
+			for(int i=0;i<N_PARALLELS;i++){
+
+				double radius=rotationProfile.foundYApproximation(dz*i);
+				
+				double z= (dz*i);
+				pr.println(z+" "+radius);
+
+
+			}
+
+		}
+
+
+
+
+		pr.close();
+
+	}
+	
 
 	private void saveReadPoints(BufferedImage imageOrig,Color lineColor) {
 		
