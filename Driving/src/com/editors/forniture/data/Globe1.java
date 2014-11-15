@@ -94,7 +94,7 @@ public class Globe1 extends CustomData {
 			for (int i = 0; i <=N_MERIDIANS; i++) {
 
 				double x=dx*i;
-				double y=radius+zHeight*0.5-dy*j;
+				double y=radius+zHeight-dy*(j+N_PARALLELS/2);
 
 				southernHemisphere[i][j]=new Point3D(x,y,0);
 
