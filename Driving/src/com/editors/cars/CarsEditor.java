@@ -166,6 +166,7 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_RAILROAD_CAR_4,"Railroad car 4"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_SHIP,"Ship"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_STARSHIP,"Starship"));
+		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_TANK,"Tank"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_TRACTOR,"Tractor"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_TRUCK,"Truck"));
 		
@@ -419,6 +420,18 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 		
 		wheel_radius.setText(25);
 		wheel_width.setText(18);
+	}
+	
+
+	private void initRightTankData() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	private void initRightShipData() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public void initRightTruckData() { 
@@ -920,6 +933,10 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 				   initRightRailroadCarData(type); 
 			   else if(type==Car.CAR_TYPE_AIRPLANE)
 				   initRightAirplaneData();
+			   else if(type==Car.CAR_TYPE_SHIP)
+				   initRightShipData();
+			   else if(type==Car.CAR_TYPE_TANK)
+				   initRightTankData();
 			   else if(type==Car.CAR_TYPE_STARSHIP)
 				   initRightStarshipData();
 			   
@@ -929,6 +946,8 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 
 		
 	}
+
+
 
 
 

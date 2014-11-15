@@ -50,6 +50,7 @@ public class Car extends CustomData {
     public static int CAR_TYPE_STARSHIP=6;
     public static int CAR_TYPE_F1_CAR=7;
     public static int CAR_TYPE_SHIP=8;
+    public static int CAR_TYPE_TANK=9;
     
     public int car_type=CAR_TYPE_CAR;
 
@@ -327,14 +328,12 @@ public class Car extends CustomData {
 			return buildF1CarMesh();
 		else if(car_type==CAR_TYPE_SHIP)
 			return buildShipMesh(); 
+		else if(car_type==CAR_TYPE_TANK)
+			return buildTankMesh(); 
 		else
 			return buildAirplaneMesh();
 
 	}
-
-
-
-
 
 
 
@@ -1423,6 +1422,15 @@ public class Car extends CustomData {
 
 		return ship.getMesh();
 	}
+	
+	private PolygonMesh buildTankMesh() {
+
+		Tank tank=new Tank();
+
+		return tank.getMesh();
+		
+	}
+
 
 	private PolygonMesh buildTruckMesh() {
 		
