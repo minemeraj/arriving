@@ -168,7 +168,7 @@ public class Globe1 extends CustomData {
 		texture_points=buildTexturePoints();
 	
 
-		int count=N_MERIDIANS;
+		int count=1;
 
 		for (int i = 0; i <N_MERIDIANS; i++) { 
 			
