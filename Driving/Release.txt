@@ -1,5 +1,6 @@
+Added globe to the furniture editor, in two texture versions.
 
-Added globe to the forniture editor, in two texture version.
+Added baseball bat to the weapons editor.
 
 Fixed bug on the mould editor for read images,added the button "Save image profile".
 

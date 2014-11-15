@@ -9,6 +9,7 @@ import com.Point3D;
 import com.PolygonMesh;
 import com.Prism;
 import com.Segments;
+import com.editors.forniture.data.Barrel;
 import com.main.Renderer3D;
 
 public class Weapon extends CustomData{
@@ -22,6 +23,8 @@ public class Weapon extends CustomData{
 	public static int WEAPON_TYPE_DOUBLE_BARREL_SHOTGUN=2;
 	public static int WEAPON_TYPE_REVOLVER=3;
 	public static int WEAPON_TYPE_SUBMACHINEGUN=4;
+	public static int WEAPON_TYPE_BASEBALL_BAT=5;
+	
 	public int weapon_type=WEAPON_TYPE_GUN;
 	
 	
@@ -418,6 +421,8 @@ public class Weapon extends CustomData{
 			return buildDoubleBarrelGunMesh();
 		else if(weapon_type==WEAPON_TYPE_REVOLVER)
 			return buildRevolverMesh();
+		else if(weapon_type==WEAPON_TYPE_BASEBALL_BAT)
+			return buildBaseballBatMesh();
 		else if(weapon_type==WEAPON_TYPE_SUBMACHINEGUN)
 			return buildSubmachineGunMesh();
 		else
@@ -427,6 +432,8 @@ public class Weapon extends CustomData{
 
 	}
 	
+
+
 
 
 
@@ -2124,6 +2131,53 @@ public class Weapon extends CustomData{
 		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
 		return spm;
 
+	}
+	
+	private PolygonMesh buildBaseballBatMesh() {
+		
+
+		
+		int num=30;
+		
+		Point3D[] profile=new Point3D[num];
+		
+		
+		profile[0]=new Point3D(0.0,7.0,0.0);
+		profile[1]=new Point3D(33.758620689655174, 38.0,0.0);
+		profile[2]=new Point3D(67.51724137931035, 39.0,0.0);
+		profile[3]=new Point3D(101.27586206896552, 40.0,0.0);
+		profile[4]=new Point3D(135.0344827586207, 39.0,0.0);
+		profile[5]=new Point3D(168.79310344827587, 39.0,0.0);
+		profile[6]=new Point3D(202.55172413793105, 38.0,0.0);
+		profile[7]=new Point3D(236.31034482758622, 37.0,0.0);
+		profile[8]=new Point3D(270.0689655172414, 35.0,0.0);
+		profile[9]=new Point3D(303.82758620689657, 34.0,0.0);
+		profile[10]=new Point3D(337.58620689655174, 32.0,0.0);
+		profile[11]=new Point3D(371.3448275862069, 30.0,0.0);
+		profile[12]=new Point3D(405.1034482758621, 28.0,0.0);
+		profile[13]=new Point3D(438.86206896551727, 27.0,0.0);
+		profile[14]=new Point3D(472.62068965517244, 25.0,0.0);
+		profile[15]=new Point3D(506.3793103448276, 23.0,0.0);
+		profile[16]=new Point3D(540.1379310344828, 21.0,0.0);
+		profile[17]=new Point3D(573.8965517241379, 20.0,0.0);
+		profile[18]=new Point3D(607.6551724137931, 18.0,0.0);
+		profile[19]=new Point3D(641.4137931034484, 17.0,0.0);
+		profile[20]=new Point3D(675.1724137931035, 16.0,0.0);
+		profile[21]=new Point3D(708.9310344827586, 15.0,0.0);
+		profile[22]=new Point3D(742.6896551724138, 15.0,0.0);
+		profile[23]=new Point3D(776.4482758620691, 14.0,0.0);
+		profile[24]=new Point3D(810.2068965517242, 14.0,0.0);
+		profile[25]=new Point3D(843.9655172413793, 15.0,0.0);
+		profile[26]=new Point3D(877.7241379310345, 15.0,0.0);
+		profile[27]=new Point3D(911.4827586206898, 18.0,0.0);
+		profile[28]=new Point3D(945.2413793103449, 24.0,0.0);
+		profile[29]=new Point3D(979.0, 10.0,0.0);
+
+		specificData=new Barrel(10,profile);
+		
+		PolygonMesh pm=specificData.getMesh();
+	
+		return pm;
 	}
 
 	private PolygonMesh buildRevolverMesh() {

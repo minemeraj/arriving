@@ -36,6 +36,7 @@ import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.IntegerTextField;
 import com.editors.ValuePair;
+import com.editors.forniture.data.Forniture;
 import com.editors.object.ObjectEditorPreviewPanel;
 import com.editors.weapons.data.Weapon;
 
@@ -163,10 +164,11 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		weapon_type.setBounds(column, r, 180, 20);
 		weapon_type.addKeyListener(this);
 		weapon_type.addItem(new ValuePair("-1",""));
-		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_GUN,"Gun"));
-		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_SHOTGUN,"Shotgun"));	
+		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_BASEBALL_BAT,"Baseball bat"));
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_DOUBLE_BARREL_SHOTGUN,"Double barrel Shotgun"));
+		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_GUN,"Gun"));
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_REVOLVER,"Revolver"));
+		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_SHOTGUN,"Shotgun"));			
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_SUBMACHINEGUN,"Submachine gun"));
 		weapon_type.addItemListener(this);
 		
@@ -563,6 +565,40 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		magazine_height.setText(104);
 		
 	}
+	
+	private void initRightBaseballBatData() {
+		
+		barrel_length.setText(0);
+		barrel_radius.setText(0);	
+		barrel_meridians.setText(0);
+
+		breech_length.setText(0);
+		breech_width.setText(0);
+		breech_height.setText(0);
+		
+		butt_length.setText(0);
+		butt_width.setText(0);		
+		butt_height.setText(0);		
+		
+		butt_end_length.setText(0);
+		butt_end_width.setText(0);
+		butt_end_height.setText(0);
+		
+		forearm_length.setText(0);
+		forearm_width.setText(0);
+		forearm_height.setText(0);
+		
+		trigger_length.setText(0);
+		trigger_width.setText(0);
+		trigger_height.setText(0);
+		
+		rear_overhang.setText(0);
+		
+		magazine_length.setText(0);
+		magazine_width.setText(0);
+		magazine_height.setText(0);
+		
+	}
 
 	private void initRightRevolverData() {
 	
@@ -774,7 +810,9 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 			meshes[0]=buildMesh();
 			pw = new PrintWriter(new FileOutputStream(file));
 			forceReading=true;
-			saveLines(pw);
+			boolean isCustom=(meshes[0].getTexturePoints()!=null 
+					&& meshes[0].getTexturePoints().size()>0); 
+			saveLines(pw,isCustom);
 			pw.close();
 			
 		} catch (Exception e) { 
@@ -855,6 +893,8 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 				   initRightGunData();
 			   else if(type==Weapon.WEAPON_TYPE_REVOLVER)
 				   initRightRevolverData();
+			   else if(type==Weapon.WEAPON_TYPE_BASEBALL_BAT)
+				   initRightBaseballBatData();
 			   else if(type==Weapon.WEAPON_TYPE_SUBMACHINEGUN)
 				   initRightSubmachineGunData();
 			   else
@@ -864,6 +904,18 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 
 		
 	}
+
+	@Override
+    public void saveBaseCubicTexture(File file) {
+    	if(weapon.getWeapon_type()==Weapon.WEAPON_TYPE_BASEBALL_BAT
+    			){
+    		
+    		PolygonMesh pm = buildMesh();		
+    		weapon.getSpecificData().saveBaseCubicTexture(pm,file);
+    	}
+    	else
+    		super.saveBaseCubicTexture(file);
+    } 
 
 
 
