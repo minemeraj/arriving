@@ -250,9 +250,9 @@ public class Globe0 extends CustomData {
 	
 				for (int i = 0; i <N_MERIDIANS; i++) { 
 						
-						double x0=calX(lateralFaces[i][N_PARALLELS-1].x);
-						double x1=calX(lateralFaces[i+1][N_PARALLELS-1].x);
-						double y0=calY(lateralFaces[i][N_PARALLELS-1].y);
+						double x0=calX(lateralFaces[i][0].x);
+						double x1=calX(lateralFaces[i+1][0].x);
+						double y0=calY(lateralFaces[i][0].y);
 						
 						double xp=calX(northPoles[i].x);
 						double yp=calY(northPoles[i].y);
@@ -289,9 +289,9 @@ public class Globe0 extends CustomData {
 				
 				for (int i = 0; i <N_MERIDIANS; i++) { 
 					
-					double x0=calX(lateralFaces[i][0].x);
-					double x1=calX(lateralFaces[i+1][0].x);
-					double y0=calY(lateralFaces[i][0].y);
+					double x0=calX(lateralFaces[i][N_PARALLELS-1].x);
+					double x1=calX(lateralFaces[i+1][N_PARALLELS-1].x);
+					double y0=calY(lateralFaces[i][N_PARALLELS-1].y);
 					
 					double xp=calX(southPoles[i].x);
 					double yp=calY(southPoles[i].y);
