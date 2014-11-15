@@ -130,10 +130,12 @@ public class Globe1 extends CustomData {
 		for (int i = 0; i < N_MERIDIANS; i++) {
 
 			for (int j = 0; j <N_PARALLELS/2; j++) {
+				
+				double tt=j*teta;
 
-				double x= radius*Math.cos(i*fi)*Math.sin(teta+j*teta);
-				double y= radius*Math.sin(i*fi)*Math.sin(teta+j*teta);
-				double z= radius*Math.cos(j*teta);
+				double x= radius*Math.cos(i*fi)*Math.sin(tt);
+				double y= radius*Math.sin(i*fi)*Math.sin(tt);
+				double z= radius*Math.cos(tt);
 
 				nPoints[i][j]=
 						addBPoint(x,y,z);
