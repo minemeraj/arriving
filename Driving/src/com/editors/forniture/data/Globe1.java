@@ -23,9 +23,12 @@ public class Globe1 extends CustomData {
 	private int N_MERIDIANS;
 	private int N_PARALLELS;
 	
-	Point3D[][] lateralFaces=null; 
+	Point3D[][] northernHemisphere=null; 
+	Point3D[][] southernHemisphere=null;
+	
 	Point3D[]northPoles=null;
 	Point3D[]southPoles=null;
+		
 	
 	public static int texture_side_dx=10;
 	public static int texture_side_dy=10;
@@ -37,7 +40,7 @@ public class Globe1 extends CustomData {
 	
 	public double len;
 	public double zHeight;
-	
+		
 	public static boolean isTextureDrawing=false;
 
 	public Globe1(double radius,int N_MERIDIANS,int N_PARALLELS) {
@@ -49,7 +52,8 @@ public class Globe1 extends CustomData {
 		zHeight=2*radius;
 		len=2*pi*radius;
 		
-		lateralFaces=new Point3D[N_MERIDIANS+1][N_PARALLELS];
+		northernHemisphere=new Point3D[N_MERIDIANS+1][N_PARALLELS/2];
+		southernHemisphere=new Point3D[N_MERIDIANS+1][N_PARALLELS/2];
 		
 		texture_side_dy=(int) (zHeight/(N_PARALLELS-1));
 		texture_side_dx=(int) (len/(N_MERIDIANS));
@@ -68,7 +72,7 @@ public class Globe1 extends CustomData {
 
 		}
 
-		for(int j=0;j<N_PARALLELS;j++){
+		for(int j=0;j<N_PARALLELS/2;j++){
 
 			//texture is open and periodical:
 
@@ -77,12 +81,26 @@ public class Globe1 extends CustomData {
 				double x=dx*i;
 				double y=radius+zHeight-dy*j;
 
-				lateralFaces[i][j]=new Point3D(x,y,0);
+				northernHemisphere[i][j]=new Point3D(x,y,0);
 
 			}
 			
 		}	
 		
+		for(int j=0;j<N_PARALLELS/2;j++){
+
+			//texture is open and periodical:
+
+			for (int i = 0; i <=N_MERIDIANS; i++) {
+
+				double x=dx*i;
+				double y=radius+zHeight*0.5-dy*j;
+
+				southernHemisphere[i][j]=new Point3D(x,y,0);
+
+			}
+			
+		}	
 	
 		southPoles=new Point3D[N_MERIDIANS+1];
 		
@@ -250,9 +268,9 @@ public class Globe1 extends CustomData {
 	
 				for (int i = 0; i <N_MERIDIANS; i++) { 
 						
-						double x0=calX(lateralFaces[i][N_PARALLELS-1].x);
-						double x1=calX(lateralFaces[i+1][N_PARALLELS-1].x);
-						double y0=calY(lateralFaces[i][N_PARALLELS-1].y);
+						double x0=calX(northernHemisphere[i][0].x);
+						double x1=calX(northernHemisphere[i+1][0].x);
+						double y0=calY(northernHemisphere[i][0].y);
 						
 						double xp=calX(northPoles[i].x);
 						double yp=calY(northPoles[i].y);
@@ -265,16 +283,37 @@ public class Globe1 extends CustomData {
 				//lateral surface
 				bufGraphics.setColor(new Color(0,0,0));
 
-				for(int j=0;j<N_PARALLELS-1;j++){
+				for(int j=0;j<N_PARALLELS/2-1;j++){
+					
+					//texture is open and periodical:
+
+					for (int i = 0; i <N_MERIDIANS; i++) { 
+
+						double x0=calX(northernHemisphere[i][j].x);
+						double x1=calX(northernHemisphere[i+1][j].x);
+						double y0=calY(northernHemisphere[i][j].y);
+						double y1=calY(northernHemisphere[i][j+1].y);
+						
+						bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y0);
+						bufGraphics.drawLine((int)x1,(int)y0,(int)x1,(int)y1);
+						bufGraphics.drawLine((int)x1,(int)y1,(int)x0,(int)y1);
+						bufGraphics.drawLine((int)x0,(int)y1,(int)x0,(int)y0);
+					}
+
+				}	
+				
+				bufGraphics.setColor(new Color(100,100,100));
+
+				for(int j=0;j<N_PARALLELS/2-1;j++){
 
 					//texture is open and periodical:
 
 					for (int i = 0; i <N_MERIDIANS; i++) { 
 
-						double x0=calX(lateralFaces[i][j].x);
-						double x1=calX(lateralFaces[i+1][j].x);
-						double y0=calY(lateralFaces[i][j].y);
-						double y1=calY(lateralFaces[i][j+1].y);
+						double x0=calX(southernHemisphere[i][j].x);
+						double x1=calX(southernHemisphere[i+1][j].x);
+						double y0=calY(southernHemisphere[i][j].y);
+						double y1=calY(southernHemisphere[i][j+1].y);
 						
 						bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y0);
 						bufGraphics.drawLine((int)x1,(int)y0,(int)x1,(int)y1);
@@ -289,9 +328,9 @@ public class Globe1 extends CustomData {
 				
 				for (int i = 0; i <N_MERIDIANS; i++) { 
 					
-					double x0=calX(lateralFaces[i][0].x);
-					double x1=calX(lateralFaces[i+1][0].x);
-					double y0=calY(lateralFaces[i][0].y);
+					double x0=calX(southernHemisphere[i][N_PARALLELS/2-1].x);
+					double x1=calX(southernHemisphere[i+1][N_PARALLELS/2-1].x);
+					double y0=calY(southernHemisphere[i][N_PARALLELS/2-1].y);
 					
 					double xp=calX(southPoles[i].x);
 					double yp=calY(southPoles[i].y);
@@ -346,14 +385,14 @@ public Vector buildTexturePoints() {
 	//lateral surface
 
 
-	for(int j=0;j<N_PARALLELS;j++){
+	for(int j=0;j<N_PARALLELS/2;j++){
 
 		//texture is open and periodical:
 
 		for (int i = 0; i <=N_MERIDIANS; i++) {
 
-			double x=calX(lateralFaces[i][j].x);
-			double y=calY(lateralFaces[i][j].y);
+			double x=calX(northernHemisphere[i][j].x);
+			double y=calY(northernHemisphere[i][j].y);
 
 			Point3D p=new Point3D(x,y,0);
 
