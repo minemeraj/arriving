@@ -26,8 +26,8 @@ public class Globe1 extends CustomData {
 	Point3D[][] northernHemisphere=null; 
 	Point3D[][] southernHemisphere=null;
 	
-	Point3D[]northPoles=null;
-	Point3D[]southPoles=null;
+	Point3D northPole=null;
+	Point3D southPole=null;
 		
 	
 	public static int texture_side_dx=10;
@@ -50,36 +50,30 @@ public class Globe1 extends CustomData {
 		this.N_PARALLELS=N_PARALLELS;
 		
 		zHeight=2*radius;
-		len=2*pi*radius;
+		len=4*radius;
 		
-		northernHemisphere=new Point3D[N_MERIDIANS+1][N_PARALLELS/2];
-		southernHemisphere=new Point3D[N_MERIDIANS+1][N_PARALLELS/2];
+		northernHemisphere=new Point3D[N_MERIDIANS][N_PARALLELS/2];
+		southernHemisphere=new Point3D[N_MERIDIANS][N_PARALLELS/2];
 		
-		texture_side_dy=(int) (zHeight/(N_PARALLELS-1));
-		texture_side_dx=(int) (len/(N_MERIDIANS));
-		
-		double dx=texture_side_dx;
-		double dy=texture_side_dy;
-		
-		northPoles=new Point3D[N_MERIDIANS+1];
-		
-		for (int i = 0; i <=N_MERIDIANS; i++) {
+	
+		double xc=radius;
+		double yc=radius;
 
-			double x=dx*(i+0.5);
-			double y=2*radius+zHeight;
+		northPole=new Point3D(xc,yc,0);
 
-			northPoles[i]=new Point3D(x,y,0);
-
-		}
+		double dr=radius/(N_PARALLELS/2);
+		double dteta=2*pi/(N_MERIDIANS);
 
 		for(int j=0;j<N_PARALLELS/2;j++){
 
-			//texture is open and periodical:
+			double rr=dr*j;
 
-			for (int i = 0; i <=N_MERIDIANS; i++) {
+			for (int i = 0; i <N_MERIDIANS; i++) {
 
-				double x=dx*i;
-				double y=radius+zHeight-dy*j;
+				double teta=i*dteta;
+				
+				double x=xc+rr*Math.cos(teta);
+				double y=yc+rr*Math.sin(teta);
 
 				northernHemisphere[i][j]=new Point3D(x,y,0);
 
@@ -87,14 +81,19 @@ public class Globe1 extends CustomData {
 			
 		}	
 		
+		xc=3*radius;
+		yc=radius;
+		
 		for(int j=0;j<N_PARALLELS/2;j++){
 
-			//texture is open and periodical:
+			double rr=dr*j;
 
-			for (int i = 0; i <=N_MERIDIANS; i++) {
+			for (int i = 0; i <N_MERIDIANS; i++) {
 
-				double x=dx*i;
-				double y=radius+zHeight-dy*(j+N_PARALLELS/2);
+				double teta=i*dteta;
+				
+				double x=xc+rr*Math.cos(teta);
+				double y=yc+rr*Math.sin(teta);
 
 				southernHemisphere[i][j]=new Point3D(x,y,0);
 
@@ -102,16 +101,9 @@ public class Globe1 extends CustomData {
 			
 		}	
 	
-		southPoles=new Point3D[N_MERIDIANS+1];
+		southPole=new Point3D(xc,yc,0);
 		
-		for (int i = 0; i <=N_MERIDIANS; i++) {
 
-			double x=dx*(i+0.5);
-			double y=0;
-
-			southPoles[i]=new Point3D(x,y,0);
-
-		}
 		
 		initMesh();
 	}
@@ -132,20 +124,39 @@ public class Globe1 extends CustomData {
 		
 		BPoint northPole=addBPoint(0,0,radius);
 
-		BPoint[][] aPoints=new BPoint[N_MERIDIANS][N_PARALLELS];
+		BPoint[][] nPoints=new BPoint[N_MERIDIANS][N_PARALLELS/2];
+		BPoint[][] sPoints=new BPoint[N_MERIDIANS][N_PARALLELS/2];
 
 		for (int i = 0; i < N_MERIDIANS; i++) {
 
-			for (int j = 0; j <N_PARALLELS; j++) {
+			for (int j = 0; j <N_PARALLELS/2; j++) {
 
 				double x= radius*Math.cos(i*fi)*Math.sin(teta+j*teta);
 				double y= radius*Math.sin(i*fi)*Math.sin(teta+j*teta);
 				double z= radius*Math.cos(teta+j*teta);
 
-				aPoints[i][j]=
+				nPoints[i][j]=
 						addBPoint(x,y,z);
 
-				points.setElementAt(aPoints[i][j],aPoints[i][j].getIndex());
+				points.setElementAt(nPoints[i][j],nPoints[i][j].getIndex());
+
+			}
+		}
+		
+		for (int i = 0; i < N_MERIDIANS; i++) {
+
+			for (int j = 0; j <N_PARALLELS/2; j++) {
+
+				int jj=j+N_PARALLELS/2;
+				
+				double x= radius*Math.cos(i*fi)*Math.sin(teta+jj*teta);
+				double y= radius*Math.sin(i*fi)*Math.sin(teta+jj*teta);
+				double z= radius*Math.cos(teta+jj*teta);
+
+				sPoints[i][j]=
+						addBPoint(x,y,z);
+
+				points.setElementAt(nPoints[i][j],nPoints[i][j].getIndex());
 
 			}
 		}
@@ -161,13 +172,13 @@ public class Globe1 extends CustomData {
 			
 			LineData ld=new LineData();
 
-			int texIndex=count+f(i,0,N_MERIDIANS+1,N_PARALLELS);
+			int texIndex=count+f(i,0,N_MERIDIANS,N_PARALLELS/2);
 			//System.out.print(texIndex+"\t");
-			ld.addIndex(aPoints[i][0].getIndex(),texIndex,0,0);
+			ld.addIndex(nPoints[i][0].getIndex(),texIndex,0,0);
 
-			texIndex=count+f(i+1,0,N_MERIDIANS+1,N_PARALLELS);
+			texIndex=count+f(i+1,0,N_MERIDIANS,N_PARALLELS/2);
 			//System.out.print(texIndex+"\t");
-			ld.addIndex(aPoints[(i+1)%N_MERIDIANS][0].getIndex(),texIndex,0,0);
+			ld.addIndex(nPoints[(i+1)%N_MERIDIANS][0].getIndex(),texIndex,0,0);
 
 			
 			ld.addIndex(northPole.getIndex(),i,0,0);
@@ -181,25 +192,25 @@ public class Globe1 extends CustomData {
 
 		for (int i = 0; i <N_MERIDIANS; i++) { 
 
-			for(int j=0;j<N_PARALLELS-1;j++){ 
+			for(int j=0;j<N_PARALLELS/2-1;j++){ 
 
 				LineData ld=new LineData();
 
-				int texIndex=count+f(i,j,N_MERIDIANS+1,N_PARALLELS);
+				int texIndex=count+f(i,j,N_MERIDIANS,N_PARALLELS);
 				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[i][j].getIndex(),texIndex,0,0);
+				ld.addIndex(nPoints[i][j].getIndex(),texIndex,0,0);
 				
-				texIndex=count+f(i,j+1,N_MERIDIANS+1,N_PARALLELS);
+				texIndex=count+f(i,j+1,N_MERIDIANS,N_PARALLELS);
 				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[i][j+1].getIndex(),texIndex,0,0);
+				ld.addIndex(nPoints[i][j+1].getIndex(),texIndex,0,0);
 				
-				texIndex=count+f(i+1,j+1,N_MERIDIANS+1,N_PARALLELS);
+				texIndex=count+f(i+1,j+1,N_MERIDIANS,N_PARALLELS);
 				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[(i+1)%N_MERIDIANS][j+1].getIndex(),texIndex,0,0);
+				ld.addIndex(nPoints[(i+1)%N_MERIDIANS][j+1].getIndex(),texIndex,0,0);
 
-				texIndex=count+f(i+1,j,N_MERIDIANS+1,N_PARALLELS);
+				texIndex=count+f(i+1,j,N_MERIDIANS,N_PARALLELS);
 				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[(i+1)%N_MERIDIANS][j].getIndex(),texIndex,0,0);
+				ld.addIndex(nPoints[(i+1)%N_MERIDIANS][j].getIndex(),texIndex,0,0);
 
 
 				ld.setData(""+Renderer3D.getFace(ld,points));
@@ -214,21 +225,58 @@ public class Globe1 extends CustomData {
 
 		}
 		
-		int spIndex=N_MERIDIANS+N_PARALLELS*(N_MERIDIANS+1);
+		count=1+N_MERIDIANS*N_PARALLELS/2;
+
+		for (int i = 0; i <N_MERIDIANS; i++) { 
+
+			for(int j=0;j<N_PARALLELS/2-1;j++){ 
+
+				LineData ld=new LineData();
+
+				int texIndex=count+f(i,j,N_MERIDIANS,N_PARALLELS);
+				//System.out.print(texIndex+"\t");
+				ld.addIndex(sPoints[i][j].getIndex(),texIndex,0,0);
+				
+				texIndex=count+f(i,j+1,N_MERIDIANS,N_PARALLELS);
+				//System.out.print(texIndex+"\t");
+				ld.addIndex(sPoints[i][j+1].getIndex(),texIndex,0,0);
+				
+				texIndex=count+f(i+1,j+1,N_MERIDIANS,N_PARALLELS);
+				//System.out.print(texIndex+"\t");
+				ld.addIndex(sPoints[(i+1)%N_MERIDIANS][j+1].getIndex(),texIndex,0,0);
+
+				texIndex=count+f(i+1,j,N_MERIDIANS,N_PARALLELS);
+				//System.out.print(texIndex+"\t");
+				ld.addIndex(sPoints[(i+1)%N_MERIDIANS][j].getIndex(),texIndex,0,0);
+
+
+				ld.setData(""+Renderer3D.getFace(ld,points));
+
+
+
+				polyData.add(ld);
+
+			}
+
+
+
+		}
+		
+		int spIndex=2+N_PARALLELS*(N_MERIDIANS);
 		
 		for (int i = 0; i <N_MERIDIANS; i++) { 
 			
 			LineData ld=new LineData();			
 
-			int texIndex=count+f(i,(N_PARALLELS-1),N_MERIDIANS+1,N_PARALLELS);
+			int texIndex=count+f(i,(N_PARALLELS/2-1),N_MERIDIANS,N_PARALLELS/2);
 			//System.out.print(texIndex+"\t");
-			ld.addIndex(aPoints[i][(N_PARALLELS-1)].getIndex(),texIndex,0,0);
+			ld.addIndex(sPoints[i][(N_PARALLELS/2-1)].getIndex(),texIndex,0,0);
 			
 			ld.addIndex(southPole.getIndex(),spIndex+i,0,0);
 
-			texIndex=count+f(i+1,(N_PARALLELS-1),N_MERIDIANS+1,N_PARALLELS);
+			texIndex=count+f(i+1,(N_PARALLELS/2-1),N_MERIDIANS,N_PARALLELS/2);
 			//System.out.print(texIndex+"\t");
-			ld.addIndex(aPoints[(i+1)%N_MERIDIANS][(N_PARALLELS-1)].getIndex(),texIndex,0,0);
+			ld.addIndex(sPoints[(i+1)%N_MERIDIANS][(N_PARALLELS/2-1)].getIndex(),texIndex,0,0);
 		
 
 			ld.setData(""+Renderer3D.getFace(ld,points));
@@ -249,7 +297,7 @@ public class Globe1 extends CustomData {
 
 		
 		IMG_WIDTH=(int) len+2*texture_x0;
-		IMG_HEIGHT=(int) (zHeight+radius*2)+2*texture_y0;
+		IMG_HEIGHT=(int) (zHeight)+2*texture_y0;
 
 		
 		BufferedImage buf=new BufferedImage(IMG_WIDTH,IMG_HEIGHT,BufferedImage.TYPE_BYTE_INDEXED);
@@ -269,14 +317,15 @@ public class Globe1 extends CustomData {
 				for (int i = 0; i <N_MERIDIANS; i++) { 
 						
 						double x0=calX(northernHemisphere[i][0].x);
-						double x1=calX(northernHemisphere[i+1][0].x);
 						double y0=calY(northernHemisphere[i][0].y);
+						double x1=calX(northernHemisphere[(i+1)%N_MERIDIANS][0].x);
+						double y1=calY(northernHemisphere[(i+1)%N_MERIDIANS][0].y);
 						
-						double xp=calX(northPoles[i].x);
-						double yp=calY(northPoles[i].y);
+						double xp=calX(northPole.x);
+						double yp=calY(northPole.y);
 						
-						bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y0);
-						bufGraphics.drawLine((int)x1,(int)y0,(int)xp,(int)yp);
+						bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);
+						bufGraphics.drawLine((int)x1,(int)y1,(int)xp,(int)yp);
 						bufGraphics.drawLine((int)xp,(int)yp,(int)x0,(int)y0);
 				}
 		
@@ -290,14 +339,21 @@ public class Globe1 extends CustomData {
 					for (int i = 0; i <N_MERIDIANS; i++) { 
 
 						double x0=calX(northernHemisphere[i][j].x);
-						double x1=calX(northernHemisphere[i+1][j].x);
-						double y0=calY(northernHemisphere[i][j].y);
-						double y1=calY(northernHemisphere[i][j+1].y);
+						double y0=calY(northernHemisphere[i][j].y);						
 						
-						bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y0);
-						bufGraphics.drawLine((int)x1,(int)y0,(int)x1,(int)y1);
-						bufGraphics.drawLine((int)x1,(int)y1,(int)x0,(int)y1);
-						bufGraphics.drawLine((int)x0,(int)y1,(int)x0,(int)y0);
+						double x1=calX(northernHemisphere[(i+1)%N_MERIDIANS][j].x);
+						double y1=calY(northernHemisphere[(i+1)%N_MERIDIANS][j].y);
+						
+						double x2=calX(northernHemisphere[(i+1)%N_MERIDIANS][j+1].x);
+						double y2=calY(northernHemisphere[(i+1)%N_MERIDIANS][j+1].y);
+						
+						double x3=calX(northernHemisphere[i][j+1].x);
+						double y3=calY(northernHemisphere[i][j+1].y);
+						
+						bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);
+						bufGraphics.drawLine((int)x1,(int)y1,(int)x2,(int)y2);
+						bufGraphics.drawLine((int)x2,(int)y2,(int)x3,(int)y3);
+						bufGraphics.drawLine((int)x3,(int)y3,(int)x0,(int)y0);
 					}
 
 				}	
@@ -311,14 +367,21 @@ public class Globe1 extends CustomData {
 					for (int i = 0; i <N_MERIDIANS; i++) { 
 
 						double x0=calX(southernHemisphere[i][j].x);
-						double x1=calX(southernHemisphere[i+1][j].x);
-						double y0=calY(southernHemisphere[i][j].y);
-						double y1=calY(southernHemisphere[i][j+1].y);
+						double y0=calY(southernHemisphere[i][j].y);						
 						
-						bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y0);
-						bufGraphics.drawLine((int)x1,(int)y0,(int)x1,(int)y1);
-						bufGraphics.drawLine((int)x1,(int)y1,(int)x0,(int)y1);
-						bufGraphics.drawLine((int)x0,(int)y1,(int)x0,(int)y0);
+						double x1=calX(southernHemisphere[(i+1)%N_MERIDIANS][j].x);
+						double y1=calY(southernHemisphere[(i+1)%N_MERIDIANS][j].y);
+						
+						double x2=calX(southernHemisphere[(i+1)%N_MERIDIANS][j+1].x);
+						double y2=calY(southernHemisphere[(i+1)%N_MERIDIANS][j+1].y);
+						
+						double x3=calX(southernHemisphere[i][j+1].x);
+						double y3=calY(southernHemisphere[i][j+1].y);
+						
+						bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);
+						bufGraphics.drawLine((int)x1,(int)y1,(int)x2,(int)y2);
+						bufGraphics.drawLine((int)x2,(int)y2,(int)x3,(int)y3);
+						bufGraphics.drawLine((int)x3,(int)y3,(int)x0,(int)y0);
 					}
 
 				}	
@@ -329,14 +392,15 @@ public class Globe1 extends CustomData {
 				for (int i = 0; i <N_MERIDIANS; i++) { 
 					
 					double x0=calX(southernHemisphere[i][N_PARALLELS/2-1].x);
-					double x1=calX(southernHemisphere[i+1][N_PARALLELS/2-1].x);
+					double x1=calX(southernHemisphere[(i+1)%N_MERIDIANS][N_PARALLELS/2-1].x);
 					double y0=calY(southernHemisphere[i][N_PARALLELS/2-1].y);
+					double y1=calY(southernHemisphere[(i+1)%N_MERIDIANS][N_PARALLELS/2-1].y);
 					
-					double xp=calX(southPoles[i].x);
-					double yp=calY(southPoles[i].y);
+					double xp=calX(southPole.x);
+					double yp=calY(southPole.y);
 					
-					bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y0);
-					bufGraphics.drawLine((int)x1,(int)y0,(int)xp,(int)yp);
+					bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);
+					bufGraphics.drawLine((int)x1,(int)y1,(int)xp,(int)yp);
 					bufGraphics.drawLine((int)xp,(int)yp,(int)x0,(int)y0);
 			    }
 				
@@ -359,7 +423,7 @@ public Vector buildTexturePoints() {
 	double teta=(2*pi)/(N_MERIDIANS);
 
 
-	int size=2*N_MERIDIANS+	(N_MERIDIANS+1)*(N_PARALLELS);
+	int size=2+	(N_MERIDIANS)*(N_PARALLELS);
 
 	
 	texture_points.setSize(size);
@@ -373,14 +437,12 @@ public Vector buildTexturePoints() {
 	int count=0;
 
 	
-	for (int i = 0; i <N_MERIDIANS; i++) { 
-		
-		double xp=calX(northPoles[i].x);
-		double yp=calY(northPoles[i].y);
-		
-		Point3D p=new Point3D(xp,yp,0);	
-		texture_points.setElementAt(p,count++);
-}
+	
+	double xp=calX(northPole.x);
+	double yp=calY(northPole.y);
+	
+	Point3D pn=new Point3D(xp,yp,0);	
+	texture_points.setElementAt(pn,count++);
 
 	//lateral surface
 
@@ -389,31 +451,49 @@ public Vector buildTexturePoints() {
 
 		//texture is open and periodical:
 
-		for (int i = 0; i <=N_MERIDIANS; i++) {
+		for (int i = 0; i <N_MERIDIANS; i++) {
 
 			double x=calX(northernHemisphere[i][j].x);
 			double y=calY(northernHemisphere[i][j].y);
 
 			Point3D p=new Point3D(x,y,0);
 
-			int texIndex=count+f(i,j,N_MERIDIANS+1,N_PARALLELS);
+			int texIndex=count+f(i,j,N_MERIDIANS,N_PARALLELS);
 			//System.out.print(texIndex+"\t");
 			texture_points.setElementAt(p,texIndex);
 		}
 		
 	}	
 	
-	count=N_MERIDIANS+N_PARALLELS*(N_MERIDIANS+1);
+	count=1+N_PARALLELS/2*(N_MERIDIANS);
 	
-	for (int i = 0; i <N_MERIDIANS; i++) { 
-		
-		double xp=calX(southPoles[i].x);
-		double yp=calY(southPoles[i].y);
-		
-		Point3D p=new Point3D(xp,yp,0);	
-		texture_points.setElementAt(p,count++);
+	for(int j=0;j<N_PARALLELS/2;j++){
 
-    }
+		//texture is open and periodical:
+
+		for (int i = 0; i <N_MERIDIANS; i++) {
+
+			double x=calX(southernHemisphere[i][j].x);
+			double y=calY(southernHemisphere[i][j].y);
+
+			Point3D p=new Point3D(x,y,0);
+
+			int texIndex=count+f(i,j,N_MERIDIANS,N_PARALLELS);
+			//System.out.print(texIndex+"\t");
+			texture_points.setElementAt(p,texIndex);
+		}
+		
+	}
+	
+	count=1+N_PARALLELS*(N_MERIDIANS);
+
+		
+	xp=calX(southPole.x);
+	yp=calY(southPole.y);
+		
+	Point3D ps=new Point3D(xp,yp,0);	
+	texture_points.setElementAt(ps,count++);
+
 	
 	return texture_points;
 }
