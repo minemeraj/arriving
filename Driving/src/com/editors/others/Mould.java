@@ -1084,7 +1084,7 @@ public class Mould extends JFrame implements ActionListener{
 			}
 			
 		
-			
+			scaleData(h);
 			
 		}
 		

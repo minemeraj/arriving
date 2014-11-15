@@ -1,5 +1,7 @@
 
-Added globe to the forniture editor.
+Added globe to the forniture editor, in two texture version.
+
+Fixed bug on the mould editor for read images.
 
 ----- 01/11/2014 CarDriving 8.0.2
 
