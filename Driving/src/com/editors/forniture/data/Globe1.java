@@ -120,7 +120,7 @@ public class Globe1 extends CustomData {
 		n=0;
 
 		double fi=(2*pi)/(N_MERIDIANS);
-		double teta=pi/(N_PARALLELS+1);
+		double teta=0.5*pi/(N_PARALLELS/2-1);
 		
 		BPoint northPole=addBPoint(0,0,radius);
 
@@ -133,7 +133,7 @@ public class Globe1 extends CustomData {
 
 				double x= radius*Math.cos(i*fi)*Math.sin(teta+j*teta);
 				double y= radius*Math.sin(i*fi)*Math.sin(teta+j*teta);
-				double z= radius*Math.cos(teta+j*teta);
+				double z= radius*Math.cos(j*teta);
 
 				nPoints[i][j]=
 						addBPoint(x,y,z);
@@ -147,11 +147,11 @@ public class Globe1 extends CustomData {
 
 			for (int j = 0; j <N_PARALLELS/2; j++) {
 
-				int jj=j+N_PARALLELS/2;
-				
-				double x= radius*Math.cos(i*fi)*Math.sin(teta+jj*teta);
-				double y= radius*Math.sin(i*fi)*Math.sin(teta+jj*teta);
-				double z= radius*Math.cos(teta+jj*teta);
+				double tt=-j*teta+pi;
+								
+				double x= radius*Math.cos(i*fi)*Math.sin(tt);
+				double y= radius*Math.sin(i*fi)*Math.sin(tt);
+				double z= radius*Math.cos(tt);
 
 				sPoints[i][j]=
 						addBPoint(x,y,z);
