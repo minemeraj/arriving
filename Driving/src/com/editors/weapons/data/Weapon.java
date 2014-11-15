@@ -24,6 +24,7 @@ public class Weapon extends CustomData{
 	public static int WEAPON_TYPE_REVOLVER=3;
 	public static int WEAPON_TYPE_SUBMACHINEGUN=4;
 	public static int WEAPON_TYPE_BASEBALL_BAT=5;
+	public static int WEAPON_TYPE_AX=6;
 	
 	public int weapon_type=WEAPON_TYPE_GUN;
 	
@@ -425,6 +426,8 @@ public class Weapon extends CustomData{
 			return buildBaseballBatMesh();
 		else if(weapon_type==WEAPON_TYPE_SUBMACHINEGUN)
 			return buildSubmachineGunMesh();
+		else if(weapon_type==WEAPON_TYPE_AX)
+			return buildAxMesh();
 		else
 			return buildGunMesh();
 		
@@ -432,10 +435,6 @@ public class Weapon extends CustomData{
 
 	}
 	
-
-
-
-
 
 
 	private PolygonMesh buildGunMesh() {
@@ -2180,6 +2179,17 @@ public class Weapon extends CustomData{
 	
 		return pm;
 	}
+	
+	
+	private PolygonMesh buildAxMesh() {
+
+		specificData=new AX(barrel_lenght,barrel_radius,barrel_meridians);
+		
+		PolygonMesh pm=specificData.getMesh();
+	
+		return pm;
+	}
+
 
 	private PolygonMesh buildRevolverMesh() {
 		points=new Vector();

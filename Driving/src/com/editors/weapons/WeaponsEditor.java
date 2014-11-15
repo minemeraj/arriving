@@ -1,15 +1,8 @@
 package com.editors.weapons;
 
-import java.awt.Component;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,16 +12,10 @@ import java.util.Stack;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.RepaintManager;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 
 import com.PolygonMesh;
 import com.editors.CustomEditor;
@@ -36,7 +23,6 @@ import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.IntegerTextField;
 import com.editors.ValuePair;
-import com.editors.forniture.data.Forniture;
 import com.editors.object.ObjectEditorPreviewPanel;
 import com.editors.weapons.data.Weapon;
 
@@ -164,6 +150,7 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		weapon_type.setBounds(column, r, 180, 20);
 		weapon_type.addKeyListener(this);
 		weapon_type.addItem(new ValuePair("-1",""));
+		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_AX,"Ax"));
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_BASEBALL_BAT,"Baseball bat"));
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_DOUBLE_BARREL_SHOTGUN,"Double barrel Shotgun"));
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_GUN,"Gun"));
@@ -599,6 +586,40 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		magazine_height.setText(0);
 		
 	}
+	
+	private void initRightAxData() {
+		
+		barrel_length.setText(800);
+		barrel_radius.setText(0);	
+		barrel_meridians.setText(0);
+
+		breech_length.setText(0);
+		breech_width.setText(0);
+		breech_height.setText(0);
+		
+		butt_length.setText(0);
+		butt_width.setText(0);		
+		butt_height.setText(0);		
+		
+		butt_end_length.setText(0);
+		butt_end_width.setText(0);
+		butt_end_height.setText(0);
+		
+		forearm_length.setText(0);
+		forearm_width.setText(0);
+		forearm_height.setText(0);
+		
+		trigger_length.setText(0);
+		trigger_width.setText(0);
+		trigger_height.setText(0);
+		
+		rear_overhang.setText(0);
+		
+		magazine_length.setText(0);
+		magazine_width.setText(0);
+		magazine_height.setText(0);
+		
+	}
 
 	private void initRightRevolverData() {
 	
@@ -897,6 +918,8 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 				   initRightBaseballBatData();
 			   else if(type==Weapon.WEAPON_TYPE_SUBMACHINEGUN)
 				   initRightSubmachineGunData();
+			   else if(type==Weapon.WEAPON_TYPE_AX)
+				   initRightAxData();
 			   else
 				   initRightGunData(); 
 			
@@ -904,6 +927,8 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 
 		
 	}
+
+
 
 	@Override
     public void saveBaseCubicTexture(File file) {

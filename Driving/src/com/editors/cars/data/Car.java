@@ -1411,33 +1411,17 @@ public class Car extends CustomData {
 
 	private PolygonMesh buildF1CarMesh() {
 		
-		points=new Vector();
-		points.setSize(400);
-
-		polyData=new Vector();
+		F1Car f1=new F1Car();
+		return f1.getMesh();
 		
-		n=0;
-		
-		PolygonMesh pm=new PolygonMesh(points,polyData);
-
-		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
-		return spm;
+	
 	}
 	
 	private PolygonMesh buildShipMesh() {
 		
-		points=new Vector();
-		points.setSize(400);
+		Ship ship=new Ship();
 
-		polyData=new Vector();
-		
-		n=0;
-		
-		
-		PolygonMesh pm=new PolygonMesh(points,polyData);
-
-		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
-		return spm;
+		return ship.getMesh();
 	}
 
 	private PolygonMesh buildTruckMesh() {
