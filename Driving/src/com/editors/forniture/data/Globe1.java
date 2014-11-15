@@ -178,7 +178,7 @@ public class Globe1 extends CustomData {
 			//System.out.print(texIndex+"\t");
 			ld.addIndex(nPoints[i][0].getIndex(),texIndex,0,0);
 
-			texIndex=count+f(i+1,0,N_MERIDIANS,N_PARALLELS/2);
+			texIndex=count+f((i+1)%N_MERIDIANS,0,N_MERIDIANS,N_PARALLELS/2);
 			//System.out.print(texIndex+"\t");
 			ld.addIndex(nPoints[(i+1)%N_MERIDIANS][0].getIndex(),texIndex,0,0);
 
@@ -198,19 +198,19 @@ public class Globe1 extends CustomData {
 
 				LineData ld=new LineData();
 
-				int texIndex=count+f(i,j,N_MERIDIANS,N_PARALLELS);
+				int texIndex=count+f(i,j,N_MERIDIANS,N_PARALLELS/2);
 				//System.out.print(texIndex+"\t");
 				ld.addIndex(nPoints[i][j].getIndex(),texIndex,0,0);
 				
-				texIndex=count+f(i,j+1,N_MERIDIANS,N_PARALLELS);
+				texIndex=count+f(i,j+1,N_MERIDIANS,N_PARALLELS/2);
 				//System.out.print(texIndex+"\t");
 				ld.addIndex(nPoints[i][j+1].getIndex(),texIndex,0,0);
 				
-				texIndex=count+f(i+1,j+1,N_MERIDIANS,N_PARALLELS);
+				texIndex=count+f((i+1)%N_MERIDIANS,j+1,N_MERIDIANS,N_PARALLELS/2);
 				//System.out.print(texIndex+"\t");
 				ld.addIndex(nPoints[(i+1)%N_MERIDIANS][j+1].getIndex(),texIndex,0,0);
 
-				texIndex=count+f(i+1,j,N_MERIDIANS,N_PARALLELS);
+				texIndex=count+f((i+1)%N_MERIDIANS,j,N_MERIDIANS,N_PARALLELS/2);
 				//System.out.print(texIndex+"\t");
 				ld.addIndex(nPoints[(i+1)%N_MERIDIANS][j].getIndex(),texIndex,0,0);
 
@@ -235,19 +235,19 @@ public class Globe1 extends CustomData {
 
 				LineData ld=new LineData();
 
-				int texIndex=count+f(i,j,N_MERIDIANS,N_PARALLELS);
+				int texIndex=count+f(i,j,N_MERIDIANS,N_PARALLELS/2);
 				//System.out.print(texIndex+"\t");
 				ld.addIndex(sPoints[i][j].getIndex(),texIndex,0,0);
 				
-				texIndex=count+f(i,j+1,N_MERIDIANS,N_PARALLELS);
+				texIndex=count+f(i,j+1,N_MERIDIANS,N_PARALLELS/2);
 				//System.out.print(texIndex+"\t");
 				ld.addIndex(sPoints[i][j+1].getIndex(),texIndex,0,0);
 				
-				texIndex=count+f(i+1,j+1,N_MERIDIANS,N_PARALLELS);
+				texIndex=count+f((i+1)%N_MERIDIANS,j+1,N_MERIDIANS,N_PARALLELS/2);
 				//System.out.print(texIndex+"\t");
 				ld.addIndex(sPoints[(i+1)%N_MERIDIANS][j+1].getIndex(),texIndex,0,0);
 
-				texIndex=count+f(i+1,j,N_MERIDIANS,N_PARALLELS);
+				texIndex=count+f((i+1)%N_MERIDIANS,j,N_MERIDIANS,N_PARALLELS/2);
 				//System.out.print(texIndex+"\t");
 				ld.addIndex(sPoints[(i+1)%N_MERIDIANS][j].getIndex(),texIndex,0,0);
 
@@ -264,7 +264,7 @@ public class Globe1 extends CustomData {
 
 		}
 		
-		int spIndex=2+N_PARALLELS*(N_MERIDIANS);
+		int spIndex=1+N_PARALLELS*(N_MERIDIANS);
 		
 		for (int i = 0; i <N_MERIDIANS; i++) { 
 			
@@ -274,9 +274,9 @@ public class Globe1 extends CustomData {
 			//System.out.print(texIndex+"\t");
 			ld.addIndex(sPoints[i][(N_PARALLELS/2-1)].getIndex(),texIndex,0,0);
 			
-			ld.addIndex(southPole.getIndex(),spIndex+i,0,0);
+			ld.addIndex(southPole.getIndex(),spIndex,0,0);
 
-			texIndex=count+f(i+1,(N_PARALLELS/2-1),N_MERIDIANS,N_PARALLELS/2);
+			texIndex=count+f((i+1)%N_MERIDIANS,(N_PARALLELS/2-1),N_MERIDIANS,N_PARALLELS/2);
 			//System.out.print(texIndex+"\t");
 			ld.addIndex(sPoints[(i+1)%N_MERIDIANS][(N_PARALLELS/2-1)].getIndex(),texIndex,0,0);
 		
