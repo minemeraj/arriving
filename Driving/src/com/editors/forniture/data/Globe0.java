@@ -17,7 +17,7 @@ import com.Point3D;
 import com.PolygonMesh;
 import com.main.Renderer3D;
 
-public class Globe extends CustomData {
+public class Globe0 extends CustomData { 
 	
 	double radius=0;
 	private int N_MERIDIANS;
@@ -40,7 +40,7 @@ public class Globe extends CustomData {
 	
 	public static boolean isTextureDrawing=false;
 
-	public Globe(double radius,int N_MERIDIANS,int N_PARALLELS) {
+	public Globe0(double radius,int N_MERIDIANS,int N_PARALLELS) {
 		
 		this.radius=radius;
 		this.N_MERIDIANS=N_MERIDIANS;

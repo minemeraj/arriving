@@ -153,7 +153,8 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_BOOKCASE,"Bookcase"));
 		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_CHAIR,"Chair"));	
 		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_CUPBOARD,"Cupboard"));	
-		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_GLOBE,"Globe"));
+		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_GLOBE0,"Globe0"));
+		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_GLOBE1,"Globe1"));
 		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_SOFA,"Sofa"));
 		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_STREETLIGHT,"Streetlight"));
 		chooseForniture.addItem(new ValuePair(""+Forniture.FORNITURE_TYPE_TABLE,"Table"));
@@ -791,7 +792,8 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 				   initRightToiletData();	
 			   else if(type==Forniture.FORNITURE_TYPE_BARREL)
 				   initRightBarrelData();	
-			   else if(type==Forniture.FORNITURE_TYPE_GLOBE)
+			   else if(type==Forniture.FORNITURE_TYPE_GLOBE0 ||
+					   type==Forniture.FORNITURE_TYPE_GLOBE1)
 				   initRightGlobeData();	
 		
 		}
@@ -808,7 +810,8 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 			forniture.getForniture_type()==Forniture.FORNITURE_TYPE_WARDROBE ||
 			forniture.getForniture_type()==Forniture.FORNITURE_TYPE_CHAIR ||
 			forniture.getForniture_type()==Forniture.FORNITURE_TYPE_SOFA ||
-			forniture.getForniture_type()==Forniture.FORNITURE_TYPE_GLOBE 
+			forniture.getForniture_type()==Forniture.FORNITURE_TYPE_GLOBE0 ||
+			forniture.getForniture_type()==Forniture.FORNITURE_TYPE_GLOBE1 
     			){
     		
     		PolygonMesh pm = buildMesh();		
