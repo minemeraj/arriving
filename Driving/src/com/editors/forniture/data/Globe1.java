@@ -66,7 +66,7 @@ public class Globe1 extends CustomData {
 
 		for(int j=0;j<N_PARALLELS/2;j++){
 
-			double rr=dr*j;
+			double rr=dr+dr*j;
 
 			for (int i = 0; i <N_MERIDIANS; i++) {
 
@@ -86,7 +86,7 @@ public class Globe1 extends CustomData {
 		
 		for(int j=0;j<N_PARALLELS/2;j++){
 
-			double rr=dr*j;
+			double rr=radius-dr*j;
 
 			for (int i = 0; i <N_MERIDIANS; i++) {
 
