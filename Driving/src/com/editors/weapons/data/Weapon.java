@@ -2136,42 +2136,43 @@ public class Weapon extends CustomData{
 	private PolygonMesh buildBaseballBatMesh() {
 		
 
+		double a=barrel_lenght/979.0;
 		
 		int num=30;
 		
 		Point3D[] profile=new Point3D[num];
 		
 		
-		profile[0]=new Point3D(0.0,7.0,0.0);
-		profile[1]=new Point3D(33.758620689655174, 38.0,0.0);
-		profile[2]=new Point3D(67.51724137931035, 39.0,0.0);
-		profile[3]=new Point3D(101.27586206896552, 40.0,0.0);
-		profile[4]=new Point3D(135.0344827586207, 39.0,0.0);
-		profile[5]=new Point3D(168.79310344827587, 39.0,0.0);
-		profile[6]=new Point3D(202.55172413793105, 38.0,0.0);
-		profile[7]=new Point3D(236.31034482758622, 37.0,0.0);
-		profile[8]=new Point3D(270.0689655172414, 35.0,0.0);
-		profile[9]=new Point3D(303.82758620689657, 34.0,0.0);
-		profile[10]=new Point3D(337.58620689655174, 32.0,0.0);
-		profile[11]=new Point3D(371.3448275862069, 30.0,0.0);
-		profile[12]=new Point3D(405.1034482758621, 28.0,0.0);
-		profile[13]=new Point3D(438.86206896551727, 27.0,0.0);
-		profile[14]=new Point3D(472.62068965517244, 25.0,0.0);
-		profile[15]=new Point3D(506.3793103448276, 23.0,0.0);
-		profile[16]=new Point3D(540.1379310344828, 21.0,0.0);
-		profile[17]=new Point3D(573.8965517241379, 20.0,0.0);
-		profile[18]=new Point3D(607.6551724137931, 18.0,0.0);
-		profile[19]=new Point3D(641.4137931034484, 17.0,0.0);
-		profile[20]=new Point3D(675.1724137931035, 16.0,0.0);
-		profile[21]=new Point3D(708.9310344827586, 15.0,0.0);
-		profile[22]=new Point3D(742.6896551724138, 15.0,0.0);
-		profile[23]=new Point3D(776.4482758620691, 14.0,0.0);
-		profile[24]=new Point3D(810.2068965517242, 14.0,0.0);
-		profile[25]=new Point3D(843.9655172413793, 15.0,0.0);
-		profile[26]=new Point3D(877.7241379310345, 15.0,0.0);
-		profile[27]=new Point3D(911.4827586206898, 18.0,0.0);
-		profile[28]=new Point3D(945.2413793103449, 24.0,0.0);
-		profile[29]=new Point3D(979.0, 10.0,0.0);
+		profile[0]=buildScaledPoint(979,7.0,0.0,a);
+		profile[1]=buildScaledPoint(945.2414, 38.0,0.0,a);
+		profile[2]=buildScaledPoint(911.4828, 39.0,0.0,a);
+		profile[3]=buildScaledPoint(877.7241, 40.0,0.0,a);
+		profile[4]=buildScaledPoint(843.96552, 39.0,0.0,a);
+		profile[5]=buildScaledPoint(810.2069, 39.0,0.0,a);
+		profile[6]=buildScaledPoint(776.4483, 38.0,0.0,a);
+		profile[7]=buildScaledPoint(742.6897, 37.0,0.0,a);
+		profile[8]=buildScaledPoint(708.931, 35.0,0.0,a);
+		profile[9]=buildScaledPoint(675.1724, 34.0,0.0,a);
+		profile[10]=buildScaledPoint(641.4138, 32.0,0.0,a);
+		profile[11]=buildScaledPoint(607.6552, 30.0,0.0,a);
+		profile[12]=buildScaledPoint(573.8966, 28.0,0.0,a);
+		profile[13]=buildScaledPoint(540.138, 27.0,0.0,a);
+		profile[14]=buildScaledPoint(506.3793, 25.0,0.0,a);
+		profile[15]=buildScaledPoint(472.6207, 23.0,0.0,a);
+		profile[16]=buildScaledPoint(438.8621, 21.0,0.0,a);
+		profile[17]=buildScaledPoint(405.1034, 20.0,0.0,a);
+		profile[18]=buildScaledPoint(371.3448, 18.0,0.0,a);
+		profile[19]=buildScaledPoint(337.5862, 17.0,0.0,a);
+		profile[20]=buildScaledPoint(303.8276, 16.0,0.0,a);
+		profile[21]=buildScaledPoint(270.069, 15.0,0.0,a);
+		profile[22]=buildScaledPoint(236.3103, 15.0,0.0,a);
+		profile[23]=buildScaledPoint(202.5517, 14.0,0.0,a);
+		profile[24]=buildScaledPoint(168.7931, 14.0,0.0,a);
+		profile[25]=buildScaledPoint(135.0345, 15.0,0.0,a);
+		profile[26]=buildScaledPoint(101.2759, 15.0,0.0,a);
+		profile[27]=buildScaledPoint(67.5172, 18.0,0.0,a);
+		profile[28]=buildScaledPoint(33.7587, 24.0,0.0,a);
+		profile[29]=buildScaledPoint(0.0, 10.0,0.0,a);
 
 		specificData=new Barrel(10,profile);
 		

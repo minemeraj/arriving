@@ -568,7 +568,7 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 	
 	private void initRightBaseballBatData() {
 		
-		barrel_length.setText(0);
+		barrel_length.setText(800);
 		barrel_radius.setText(0);	
 		barrel_meridians.setText(0);
 

@@ -384,5 +384,11 @@ public class CustomData {
 	public void setTexture_points(Vector texture_points) {
 		this.texture_points = texture_points;
 	}
+	
+	public Point3D buildScaledPoint(double x,double y,double z,double alfa){
+		
+		return new Point3D(x*alfa,y*alfa,z*alfa);
+		
+	}
 
 }
