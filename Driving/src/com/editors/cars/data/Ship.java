@@ -32,7 +32,7 @@ public class Ship extends CustomData {
 		
 		Segments s0=new Segments(0,100,0,400,0,100);
 		
-		rightBroadSide[0][0][0]=addBPoint(0,0,0,s0);
+		rightBroadSide[0][0][0]=null;
 		rightBroadSide[0][0][1]=addBPoint(0.0,0,0.25,s0);
 		rightBroadSide[0][0][2]=addBPoint(0.0,0,0.5,s0);
 		rightBroadSide[0][0][3]=addBPoint(0.0,0,0.75,s0);
@@ -82,7 +82,7 @@ public class Ship extends CustomData {
 		rightBroadSide[0][9][2]=addBPoint(0.65,0.9,0.5,s0);
 		rightBroadSide[0][9][3]=addBPoint(0.75,0.9,0.75,s0);
 		
-		rightBroadSide[0][10][0]=addBPoint(0,1.0,0,s0);
+		rightBroadSide[0][10][0]=null;
 		rightBroadSide[0][10][1]=addBPoint(0.0,1.0,0.25,s0);
 		rightBroadSide[0][10][2]=addBPoint(0.0,1.0,0.5,s0);
 		rightBroadSide[0][10][3]=addBPoint(0.0,1.0,0.75,s0);
