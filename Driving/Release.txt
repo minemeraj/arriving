@@ -2,6 +2,8 @@ Added globe to the furniture editor, in two texture versions.
 
 Added baseball bat to the weapons editor.
 
+Added ship object in the car editor.
+
 Fixed bug on the mould editor for read images,added the button "Save image profile".
 
 ----- 01/11/2014 CarDriving 8.0.2
