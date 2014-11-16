@@ -90,7 +90,12 @@ public class Ship extends CustomData {
 		for (int j = 0; j < ny-1; j++) { 
 			
 			for (int k = 0; k < nz-1; k++) {
-				LineData leftLD=addLine(rightBroadSide[0][j][k],rightBroadSide[0][j+1][k],rightBroadSide[0][j+1][k+1],rightBroadSide[0][j][k+1],Renderer3D.CAR_RIGHT);
+				if((j==ny-2) && k==0)
+					addLine(rightBroadSide[0][j][k],rightBroadSide[0][j+1][k+1],rightBroadSide[0][j][k+1],null,Renderer3D.CAR_RIGHT);
+				else if((j==0) && k==0)
+					addLine(rightBroadSide[0][j+1][k],rightBroadSide[0][j+1][k+1],rightBroadSide[0][j][k+1],null,Renderer3D.CAR_RIGHT);
+				else	
+					addLine(rightBroadSide[0][j][k],rightBroadSide[0][j+1][k],rightBroadSide[0][j+1][k+1],rightBroadSide[0][j][k+1],Renderer3D.CAR_RIGHT);
 			}
 			
 		}
@@ -155,7 +160,13 @@ public class Ship extends CustomData {
 		for (int j = 0; j < ny-1; j++) { 
 			
 			for (int k = 0; k < nz-1; k++) {
-				LineData leftLD=addLine(leftBroadSide[0][j][k],leftBroadSide[0][j][k+1],leftBroadSide[0][j+1][k+1],leftBroadSide[0][j+1][k],Renderer3D.CAR_LEFT);
+				
+				if((j==ny-2) && k==0)
+					addLine(leftBroadSide[0][j][k],leftBroadSide[0][j][k+1],leftBroadSide[0][j+1][k+1],null,Renderer3D.CAR_LEFT);
+				else if((j==0) && k==0)
+					addLine(leftBroadSide[0][j][k+1],leftBroadSide[0][j+1][k+1],leftBroadSide[0][j+1][k],null,Renderer3D.CAR_LEFT);
+				else
+					addLine(leftBroadSide[0][j][k],leftBroadSide[0][j][k+1],leftBroadSide[0][j+1][k+1],leftBroadSide[0][j+1][k],Renderer3D.CAR_LEFT);
 			}
 			
 		}
