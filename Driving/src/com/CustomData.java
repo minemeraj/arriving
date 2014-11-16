@@ -291,7 +291,7 @@ public class CustomData {
 					
 					double x=cyx0+cylinder_radius*Math.cos(2*Math.PI/trunk_meridians*i);
 					double y=cyy0+cylinder_radius*Math.sin(2*Math.PI/trunk_meridians*i);
-					double z=cylinder_lenght/(trunk_parallels-1.0)*k;
+					double z=cyz0+cylinder_lenght/(trunk_parallels-1.0)*k;
 					
 					trunkpoints[k][i]=addBPoint(x,y,z);
 					

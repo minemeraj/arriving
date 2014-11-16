@@ -628,13 +628,13 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		barrel_radius.setText(0);	
 		barrel_meridians.setText(0);
 
-		breech_length.setText(80);
+		breech_length.setText(70);
 		breech_width.setText(20);
-		breech_height.setText(20);
+		breech_height.setText(10);
 		
-		butt_length.setText(20);
-		butt_width.setText(20);		
-		butt_height.setText(30);		
+		butt_length.setText(0);
+		butt_width.setText(10);		
+		butt_height.setText(40);		
 		
 		butt_end_length.setText(0);
 		butt_end_width.setText(0);

@@ -49,32 +49,8 @@ public class Sword extends CustomData {
 
 		n=0;
 		
-		Segments s0=new Segments(0,butt_width,0,butt_length,0,butt_height);
-		
-		BPoint[][][] grip=new BPoint[2][2][2];
-
-		grip[0][0][0]=addBPoint(-0.5,-0.5,0,s0);
-		grip[1][0][0]=addBPoint(0.5,-0.5,0,s0);
-		grip[0][1][0]=addBPoint(-0.5,0.5,0,s0);
-		grip[1][1][0]=addBPoint(0.5,0.5,0,s0);		
-
-		grip[0][0][1]=addBPoint(-0.5,-0.5,1.0,s0);
-		grip[1][0][1]=addBPoint(0.5,-0.5,1.0,s0);
-		grip[0][1][1]=addBPoint(-0.5,0.5,1.0,s0);
-		grip[1][1][1]=addBPoint(0.5,0.5,1.0,s0);
-
-		addLine(grip[0][0][1],grip[1][0][1],grip[1][1][1],grip[0][1][1],Renderer3D.CAR_TOP);		
-
-		addLine(grip[0][0][0],grip[0][0][1],grip[0][1][1],grip[0][1][0],Renderer3D.CAR_LEFT);				
-
-		addLine(grip[1][0][0],grip[1][1][0],grip[1][1][1],grip[1][0][1],Renderer3D.CAR_RIGHT);
-
-		addLine(grip[0][1][0],grip[0][1][1],grip[1][1][1],grip[1][1][0],Renderer3D.CAR_FRONT);
-
-		addLine(grip[0][0][0],grip[1][0][0],grip[1][0][1],grip[0][0][1],Renderer3D.CAR_BACK);
-
-		addLine(grip[0][0][0],grip[0][1][0],grip[1][1][0],grip[1][0][0],Renderer3D.CAR_BOTTOM);
-		
+		//the grip		
+		addZCylinder(0,0,0,butt_width,butt_height,10);
 		
 		Segments s1=new Segments(0,breech_width,0,breech_length,butt_height,breech_height);
 		
@@ -112,10 +88,10 @@ public class Sword extends CustomData {
 		blade[0][1][0]=addBPoint(-0.5,0.0,0,s2);
 		blade[1][1][0]=addBPoint(0,0.5,0,s2);
 
-		blade[0][0][1]=addBPoint(0,-0.5,1.0,s2); 
-		blade[1][0][1]=addBPoint(0.5,0.0,1.0,s2);
-		blade[0][1][1]=addBPoint(-0.5,0.0,1.0,s2);
-		blade[1][1][1]=addBPoint(0,0.5,1.0,s2);	
+		blade[0][0][1]=addBPoint(0,-0.125,1.0,s2); 
+		blade[1][0][1]=addBPoint(0.125,0.0,1.0,s2);
+		blade[0][1][1]=addBPoint(-0.125,0.0,1.0,s2);
+		blade[1][1][1]=addBPoint(0,0.125,1.0,s2);	
 
 
 		addLine(blade[0][0][1],blade[1][0][1],blade[1][1][1],blade[0][1][1],Renderer3D.CAR_TOP);		

@@ -1,6 +1,6 @@
 Added globe to the furniture editor, in two texture versions.
 
-Added baseball bat, ax to the weapons editor.
+Added baseball bat, ax, sword to the weapons editor.
 
 Added ship object in the car editor.
 
