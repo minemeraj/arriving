@@ -102,7 +102,7 @@ public class Ship extends CustomData {
 		
 		BPoint[][][] leftBroadSide=new BPoint[1][ny][nz];	 
 		
-		leftBroadSide[0][0][0]=addBPoint(0,0,0,s0);
+		leftBroadSide[0][0][0]=null;
 		leftBroadSide[0][0][1]=addBPoint(0.0,0,0.25,s0);
 		leftBroadSide[0][0][2]=addBPoint(0.0,0,0.5,s0);
 		leftBroadSide[0][0][3]=addBPoint(0.0,0,0.75,s0);
@@ -152,7 +152,7 @@ public class Ship extends CustomData {
 		leftBroadSide[0][9][2]=addBPoint(-0.65,0.9,0.5,s0);
 		leftBroadSide[0][9][3]=addBPoint(-0.75,0.9,0.75,s0);
 		
-		leftBroadSide[0][10][0]=addBPoint(0,1.0,0,s0);
+		leftBroadSide[0][10][0]=null;
 		leftBroadSide[0][10][1]=addBPoint(-0.0,1.0,0.25,s0);
 		leftBroadSide[0][10][2]=addBPoint(-0.0,1.0,0.5,s0);
 		leftBroadSide[0][10][3]=addBPoint(-0.0,1.0,0.75,s0);
@@ -169,6 +169,53 @@ public class Ship extends CustomData {
 					addLine(leftBroadSide[0][j][k],leftBroadSide[0][j][k+1],leftBroadSide[0][j+1][k+1],leftBroadSide[0][j+1][k],Renderer3D.CAR_LEFT);
 			}
 			
+		}
+		
+		BPoint[][][] mainDeck=new BPoint[2][ny][1];
+		
+		mainDeck[0][0][0]=leftBroadSide[0][0][nz-1];
+		mainDeck[1][0][0]=rightBroadSide[0][0][nz-1];
+		
+		mainDeck[0][1][0]=leftBroadSide[0][1][nz-1];
+		mainDeck[1][1][0]=rightBroadSide[0][1][nz-1];
+		
+		mainDeck[0][2][0]=leftBroadSide[0][2][nz-1];
+		mainDeck[1][2][0]=rightBroadSide[0][2][nz-1];
+		
+		mainDeck[0][3][0]=leftBroadSide[0][3][nz-1];
+		mainDeck[1][3][0]=rightBroadSide[0][3][nz-1];
+		
+		mainDeck[0][4][0]=leftBroadSide[0][4][nz-1];
+		mainDeck[1][4][0]=rightBroadSide[0][4][nz-1];
+		
+		mainDeck[0][5][0]=leftBroadSide[0][5][nz-1];
+		mainDeck[1][5][0]=rightBroadSide[0][5][nz-1];
+		
+		mainDeck[0][6][0]=leftBroadSide[0][6][nz-1];
+		mainDeck[1][6][0]=rightBroadSide[0][6][nz-1];
+		
+		mainDeck[0][7][0]=leftBroadSide[0][7][nz-1];
+		mainDeck[1][7][0]=rightBroadSide[0][7][nz-1];
+		
+		mainDeck[0][8][0]=leftBroadSide[0][8][nz-1];
+		mainDeck[1][8][0]=rightBroadSide[0][8][nz-1];
+		
+		mainDeck[0][9][0]=leftBroadSide[0][9][nz-1];
+		mainDeck[1][9][0]=rightBroadSide[0][9][nz-1];
+		
+		mainDeck[0][10][0]=leftBroadSide[0][10][nz-1];
+		mainDeck[1][10][0]=rightBroadSide[0][10][nz-1];
+		
+
+		
+		for (int j = 0; j < ny-1; j++) { 
+			
+			if(j==0)
+				addLine(mainDeck[0][j][0],mainDeck[1][j+1][0],mainDeck[0][j+1][0],null,Renderer3D.CAR_TOP);
+			else if (j==ny-2)
+				addLine(mainDeck[0][j][0],mainDeck[1][j][0],mainDeck[1][j+1][0],null,Renderer3D.CAR_TOP);
+			else			
+				addLine(mainDeck[0][j][0],mainDeck[1][j][0],mainDeck[1][j+1][0],mainDeck[0][j+1][0],Renderer3D.CAR_TOP);
 		}
 	}
 
