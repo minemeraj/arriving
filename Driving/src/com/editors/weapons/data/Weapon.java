@@ -2177,7 +2177,7 @@ public class Weapon extends CustomData{
 		profile[28]=buildScaledPoint(33.7587, 24.0,0.0,a);
 		profile[29]=buildScaledPoint(0.0, 10.0,0.0,a);
 
-		specificData=new Barrel(10,profile);
+		specificData=new Barrel(barrel_meridians,profile);
 		
 		PolygonMesh pm=specificData.getMesh();
 	
@@ -2200,7 +2200,7 @@ public class Weapon extends CustomData{
 		
 		specificData=new Sword( forearm_length, forearm_width,forearm_height,  
 				 breech_length,  breech_width, breech_height, 
-				 butt_length,  butt_width, butt_height);
+				 butt_length,  butt_width, butt_height,barrel_meridians);
 		
 		PolygonMesh pm=specificData.getMesh();
 	

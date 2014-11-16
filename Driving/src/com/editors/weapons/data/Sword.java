@@ -5,6 +5,7 @@ import java.util.Vector;
 import com.BPoint;
 import com.CustomData;
 import com.Segments;
+import com.editors.forniture.data.Barrel;
 import com.main.Renderer3D;
 
 public class Sword extends CustomData {
@@ -20,11 +21,13 @@ public class Sword extends CustomData {
 	double butt_length=0;
 	double butt_width=0;
 	double butt_height=0;
+	
+	int barrel_meridians=0;
 
 	public Sword(double forearm_length, double forearm_width,
 			double forearm_height, double breech_length, double breech_width,
 			double breech_height, double butt_length, double butt_width,
-			double butt_height) {
+			double butt_height,int barrel_meridians) {
 		super();
 		this.forearm_length = forearm_length;
 		this.forearm_width = forearm_width;
@@ -35,6 +38,7 @@ public class Sword extends CustomData {
 		this.butt_length = butt_length;
 		this.butt_width = butt_width;
 		this.butt_height = butt_height;
+		this.barrel_meridians = barrel_meridians;
 		
 		initMesh();
 	}
@@ -50,7 +54,7 @@ public class Sword extends CustomData {
 		n=0;
 		
 		//the grip		
-		addZCylinder(0,0,0,butt_width,butt_height,10);
+		addZCylinder(0,0,0,butt_width,butt_height,barrel_meridians);
 		
 		Segments s1=new Segments(0,breech_width,0,breech_length,butt_height,breech_height);
 		
