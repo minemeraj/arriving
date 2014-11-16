@@ -10,12 +10,31 @@ import com.main.Renderer3D;
 
 public class Ship extends CustomData {
 	
-	public Ship() {
-		
-
+	
+	double x_side=0;
+	double y_side=0;
+	double z_side=0;
+	
+    double back_width=0;
+    double back_length=0;
+    double back_height=0;
+    
+    double rear_overhang=0;
+	
+	public Ship(double x_side, double y_side, double z_side, double back_width,
+			double back_length, double back_height, double rear_overhang) {
+		super();
+		this.x_side = x_side;
+		this.y_side = y_side;
+		this.z_side = z_side;
+		this.back_width = back_width;
+		this.back_length = back_length;
+		this.back_height = back_height;
+		this.rear_overhang = rear_overhang;
 		
 		initMesh();
 	}
+
 
 	private void initMesh() {
 		
@@ -30,7 +49,7 @@ public class Ship extends CustomData {
 		
 		BPoint[][][] rightBroadSide=new BPoint[1][ny][nz];	 
 		
-		Segments s0=new Segments(0,100,0,400,0,100);
+		Segments s0=new Segments(0,x_side*0.5,0,y_side,0,z_side);
 		
 		rightBroadSide[0][0][0]=null;
 		rightBroadSide[0][0][1]=addBPoint(0.0,0,0.25,s0);
@@ -217,6 +236,34 @@ public class Ship extends CustomData {
 			else			
 				addLine(mainDeck[0][j][0],mainDeck[1][j][0],mainDeck[1][j+1][0],mainDeck[0][j+1][0],Renderer3D.CAR_TOP);
 		}
+		
+		Segments s1=new Segments(0,back_width*0.5,rear_overhang,back_length,z_side*0.75,back_height*0.75);
+		
+		BPoint[][][] mainBridge=new BPoint[2][2][2];
+		
+		mainBridge[0][0][0]=addBPoint(-0.75,0.0,0,s1);
+		mainBridge[1][0][0]=addBPoint(0.75,0.0,0,s1);
+		mainBridge[0][1][0]=addBPoint(-0.75,1.0,0,s1);
+		mainBridge[1][1][0]=addBPoint(0.75,1.0,0,s1);		
+		
+		mainBridge[0][0][1]=addBPoint(-0.75,0.0,1.0,s1);
+		mainBridge[1][0][1]=addBPoint(0.75,0.0,1.0,s1);
+		mainBridge[0][1][1]=addBPoint(-0.75,1.0,1.0,s1);
+		mainBridge[1][1][1]=addBPoint(0.75,1.0,1.0,s1);
+		
+		addLine(mainBridge[0][0][1],mainBridge[1][0][1],mainBridge[1][1][1],mainBridge[0][1][1],Renderer3D.CAR_TOP);		
+
+		addLine(mainBridge[0][0][0],mainBridge[0][0][1],mainBridge[0][1][1],mainBridge[0][1][0],Renderer3D.CAR_LEFT);				
+
+		addLine(mainBridge[1][0][0],mainBridge[1][1][0],mainBridge[1][1][1],mainBridge[1][0][1],Renderer3D.CAR_RIGHT);
+		
+		addLine(mainBridge[0][1][0],mainBridge[0][1][1],mainBridge[1][1][1],mainBridge[1][1][0],Renderer3D.CAR_FRONT);
+		
+		addLine(mainBridge[0][0][0],mainBridge[1][0][0],mainBridge[1][0][1],mainBridge[0][0][1],Renderer3D.CAR_BACK);
+		
+		addLine(mainBridge[0][0][0],mainBridge[0][1][0],mainBridge[1][1][0],mainBridge[1][0][0],Renderer3D.CAR_BOTTOM);
+		
+		
 	}
 
 }

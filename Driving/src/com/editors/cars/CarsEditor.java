@@ -208,7 +208,7 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 		
 		r+=30;
 		
-		jlb=new JLabel("Back width");
+		jlb=new JLabel("Rear width");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
 		back_width=new DoubleTextField();
@@ -238,7 +238,7 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 		
 		r+=30;
 		
-		jlb=new JLabel("Rear width");
+		jlb=new JLabel("Front width");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
 		front_width=new DoubleTextField();
@@ -430,7 +430,29 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 
 
 	private void initRightShipData() {
-		// TODO Auto-generated method stub
+		
+		x_side.setText(100);
+		y_side.setText(400);
+		z_side.setText(100);
+		
+		back_width.setText(80);
+		back_length.setText(50);
+		back_height.setText(50);
+		
+		front_width.setText(0);
+		front_length.setText(0);
+		front_height.setText(0);
+		
+		roof_width.setText(0);
+		roof_length.setText(0);
+		roof_height.setText(0);
+		
+		wheel_radius.setText(0);
+		wheel_width.setText(0);
+		
+		front_overhang.setText(0);
+		wheel_base.setText(0);
+		rear_overhang.setText(40);
 		
 	}
 

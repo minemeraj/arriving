@@ -1418,7 +1418,8 @@ public class Car extends CustomData {
 	
 	private PolygonMesh buildShipMesh() {
 		
-		Ship ship=new Ship();
+		Ship ship=new Ship(x_side,y_side,z_side, back_width,
+				 back_length,  back_height,rear_overhang);
 
 		return ship.getMesh();
 	}
