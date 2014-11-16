@@ -12,21 +12,36 @@ public class Tank extends CustomData {
 	double x_side=0;
 	double y_side=0;
 	double z_side=0;
+	
+	double front_width=0;
+    double front_length=0;
+    double front_height=0;
+    
+    double back_width=0;
+    double back_length=0;
+    double back_height=0;
 
 	double roof_width=0;
 	double roof_length=0;
 	double roof_height=0;
 	double front_overhang=0;
-
 	double rear_overhang=0;
-
-	public Tank(double x_side, double y_side, double z_side, double roof_width,
-			double roof_length, double roof_height, double front_overhang,
-			double rear_overhang) {
+	
+	public Tank(double x_side, double y_side, double z_side,
+			double front_width, double front_length, double front_height,
+			double back_width, double back_length, double back_height,
+			double roof_width, double roof_length, double roof_height,
+			double front_overhang, double rear_overhang) {
 		super();
 		this.x_side = x_side;
 		this.y_side = y_side;
 		this.z_side = z_side;
+		this.front_width = front_width;
+		this.front_length = front_length;
+		this.front_height = front_height;
+		this.back_width = back_width;
+		this.back_length = back_length;
+		this.back_height = back_height;
 		this.roof_width = roof_width;
 		this.roof_length = roof_length;
 		this.roof_height = roof_height;
@@ -35,6 +50,8 @@ public class Tank extends CustomData {
 		
 		initMesh();
 	}
+
+
 
 	private void initMesh() {
 		
