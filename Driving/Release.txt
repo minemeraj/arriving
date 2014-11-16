@@ -2,7 +2,7 @@ Added globe to the furniture editor, in two texture versions.
 
 Added baseball bat, ax, sword to the weapons editor.
 
-Added ship object in the car editor.
+Added ship, F1Car object in the car editor.
 
 Fixed bug on the mould editor for read images,added the button "Save image profile".
 

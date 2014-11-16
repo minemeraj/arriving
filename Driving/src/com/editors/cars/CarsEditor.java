@@ -450,28 +450,28 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 	}
 	
 	private void initRightF1CarData() {
-		x_side.setText(100);
+		x_side.setText(150);
 		y_side.setText(200);
-		z_side.setText(75);
+		z_side.setText(50);
 		
-		back_width.setText(0);
-		back_length.setText(0);
-		back_height.setText(0);
+		back_width.setText(50);
+		back_length.setText(100);
+		back_height.setText(50);
 		
-		front_width.setText(0);
-		front_length.setText(0);
-		front_height.setText(0);
+		front_width.setText(50);
+		front_length.setText(100);
+		front_height.setText(50);
 		
-		roof_width.setText(0);
-		roof_length.setText(0);
-		roof_height.setText(0);
+		roof_width.setText(50);
+		roof_length.setText(100);
+		roof_height.setText(30);
 		
-		wheel_radius.setText(0);
-		wheel_width.setText(0);
+		wheel_radius.setText(25);
+		wheel_width.setText(40);
 		
-		front_overhang.setText(0);
+		front_overhang.setText(30);
 		wheel_base.setText(0);
-		rear_overhang.setText(0);
+		rear_overhang.setText(30);
 		
 	}
 
