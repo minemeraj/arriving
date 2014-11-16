@@ -424,9 +424,57 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 	
 
 	private void initRightTankData() {
-		// TODO Auto-generated method stub
+		x_side.setText(100);
+		y_side.setText(200);
+		z_side.setText(75);
+		
+		back_width.setText(0);
+		back_length.setText(0);
+		back_height.setText(0);
+		
+		front_width.setText(0);
+		front_length.setText(0);
+		front_height.setText(0);
+		
+		roof_width.setText(80);
+		roof_length.setText(80);
+		roof_height.setText(40);
+		
+		wheel_radius.setText(0);
+		wheel_width.setText(0);
+		
+		front_overhang.setText(0);
+		wheel_base.setText(0);
+		rear_overhang.setText(50);
 		
 	}
+	
+	private void initRightF1CarData() {
+		x_side.setText(100);
+		y_side.setText(200);
+		z_side.setText(75);
+		
+		back_width.setText(0);
+		back_length.setText(0);
+		back_height.setText(0);
+		
+		front_width.setText(0);
+		front_length.setText(0);
+		front_height.setText(0);
+		
+		roof_width.setText(0);
+		roof_length.setText(0);
+		roof_height.setText(0);
+		
+		wheel_radius.setText(0);
+		wheel_width.setText(0);
+		
+		front_overhang.setText(0);
+		wheel_base.setText(0);
+		rear_overhang.setText(0);
+		
+	}
+
 
 
 	private void initRightShipData() {
@@ -961,13 +1009,16 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 				   initRightTankData();
 			   else if(type==Car.CAR_TYPE_STARSHIP)
 				   initRightStarshipData();
-			   
+			   else if(type==Car.CAR_TYPE_F1_CAR)
+				   initRightF1CarData();
 			   
 			
 		}
 
 		
 	}
+
+
 
 
 

@@ -892,7 +892,7 @@ public class Car extends CustomData {
 
 	private PolygonMesh buildF1CarMesh() {
 		
-		F1Car f1=new F1Car();
+		F1Car f1=new F1Car( x_side,  y_side, z_side);
 		return f1.getMesh();
 		
 	
@@ -908,7 +908,9 @@ public class Car extends CustomData {
 	
 	private PolygonMesh buildTankMesh() {
 
-		Tank tank=new Tank();
+		Tank tank=new Tank( x_side,  y_side,  z_side,
+				 roof_width, roof_length,
+				 roof_height,front_overhang, rear_overhang);
 
 		return tank.getMesh();
 		

@@ -157,6 +157,7 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_REVOLVER,"Revolver"));
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_SHOTGUN,"Shotgun"));			
 		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_SUBMACHINEGUN,"Submachine gun"));
+		weapon_type.addItem(new ValuePair(""+Weapon.WEAPON_TYPE_SWORD,"Sword"));
 		weapon_type.addItemListener(this);
 		
 		weapon_type.setSelectedIndex(0);
@@ -620,6 +621,40 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		magazine_height.setText(0);
 		
 	}
+	
+	private void initRightSwordData() {
+		
+		barrel_length.setText(0);
+		barrel_radius.setText(0);	
+		barrel_meridians.setText(0);
+
+		breech_length.setText(0);
+		breech_width.setText(0);
+		breech_height.setText(0);
+		
+		butt_length.setText(0);
+		butt_width.setText(0);		
+		butt_height.setText(0);		
+		
+		butt_end_length.setText(0);
+		butt_end_width.setText(0);
+		butt_end_height.setText(0);
+		
+		forearm_length.setText(50);
+		forearm_width.setText(20);
+		forearm_height.setText(300);
+		
+		trigger_length.setText(0);
+		trigger_width.setText(0);
+		trigger_height.setText(0);
+		
+		rear_overhang.setText(0);
+		
+		magazine_length.setText(0);
+		magazine_width.setText(0);
+		magazine_height.setText(0);
+		
+	}
 
 	private void initRightRevolverData() {
 	
@@ -918,6 +953,8 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 				   initRightBaseballBatData();
 			   else if(type==Weapon.WEAPON_TYPE_SUBMACHINEGUN)
 				   initRightSubmachineGunData();
+			   else if(type==Weapon.WEAPON_TYPE_SWORD)
+				   initRightSwordData();
 			   else if(type==Weapon.WEAPON_TYPE_AX)
 				   initRightAxData();
 			   else
@@ -927,6 +964,8 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 
 		
 	}
+
+
 
 
 
