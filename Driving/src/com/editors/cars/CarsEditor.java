@@ -433,11 +433,11 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 		
 		x_side.setText(100);
 		y_side.setText(400);
-		z_side.setText(100);
+		z_side.setText(75);
 		
 		back_width.setText(80);
-		back_length.setText(50);
-		back_height.setText(50);
+		back_length.setText(40);
+		back_height.setText(40);
 		
 		front_width.setText(0);
 		front_length.setText(0);

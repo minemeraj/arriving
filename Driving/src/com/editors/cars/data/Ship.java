@@ -45,7 +45,7 @@ public class Ship extends CustomData {
 		n=0;
 		
 		int ny=11;
-		int nz=4;
+		int nz=5;
 		
 		BPoint[][][] rightBroadSide=new BPoint[1][ny][nz];	 
 		
@@ -55,56 +55,67 @@ public class Ship extends CustomData {
 		rightBroadSide[0][0][1]=addBPoint(0.0,0,0.25,s0);
 		rightBroadSide[0][0][2]=addBPoint(0.0,0,0.5,s0);
 		rightBroadSide[0][0][3]=addBPoint(0.0,0,0.75,s0);
+		rightBroadSide[0][0][4]=addBPoint(0.0,0,1.0,s0);
 		
 		rightBroadSide[0][1][0]=addBPoint(0,0.1,0,s0);
 		rightBroadSide[0][1][1]=addBPoint(0.525,0.1,0.25,s0);
 		rightBroadSide[0][1][2]=addBPoint(0.65,0.1,0.5,s0);
 		rightBroadSide[0][1][3]=addBPoint(0.75,0.1,0.75,s0);
+		rightBroadSide[0][1][4]=addBPoint(1.0,0.1,1.0,s0);
 		
 		rightBroadSide[0][2][0]=addBPoint(0,0.2,0,s0);
 		rightBroadSide[0][2][1]=addBPoint(0.525,0.2,0.25,s0);
 		rightBroadSide[0][2][2]=addBPoint(0.65,0.2,0.5,s0);
 		rightBroadSide[0][2][3]=addBPoint(0.75,0.2,0.75,s0);
+		rightBroadSide[0][2][4]=addBPoint(1.0,0.2,1.0,s0);
 		
 		rightBroadSide[0][3][0]=addBPoint(0,0.3,0,s0);
 		rightBroadSide[0][3][1]=addBPoint(0.525,0.3,0.25,s0);
 		rightBroadSide[0][3][2]=addBPoint(0.65,0.3,0.5,s0);
 		rightBroadSide[0][3][3]=addBPoint(0.75,0.3,0.75,s0);
+		rightBroadSide[0][3][4]=addBPoint(1.0,0.3,1.0,s0);
 		
 		rightBroadSide[0][4][0]=addBPoint(0,0.4,0,s0);
 		rightBroadSide[0][4][1]=addBPoint(0.525,0.4,0.25,s0);
 		rightBroadSide[0][4][2]=addBPoint(0.65,0.4,0.5,s0);
 		rightBroadSide[0][4][3]=addBPoint(0.75,0.4,0.75,s0);
+		rightBroadSide[0][4][4]=addBPoint(1.0,0.4,1.0,s0);
 		
 		rightBroadSide[0][5][0]=addBPoint(0,0.5,0,s0);
 		rightBroadSide[0][5][1]=addBPoint(0.525,0.5,0.25,s0);
 		rightBroadSide[0][5][2]=addBPoint(0.65,0.5,0.5,s0);
 		rightBroadSide[0][5][3]=addBPoint(0.75,0.5,0.75,s0);
+		rightBroadSide[0][5][4]=addBPoint(1.0,0.5,1.0,s0);
 		
 		rightBroadSide[0][6][0]=addBPoint(0,0.6,0,s0);
 		rightBroadSide[0][6][1]=addBPoint(0.525,0.6,0.25,s0);
 		rightBroadSide[0][6][2]=addBPoint(0.65,0.6,0.5,s0);
 		rightBroadSide[0][6][3]=addBPoint(0.75,0.6,0.75,s0);
+		rightBroadSide[0][6][4]=addBPoint(1.0,0.6,1.0,s0);
 		
 		rightBroadSide[0][7][0]=addBPoint(0,0.7,0,s0);
 		rightBroadSide[0][7][1]=addBPoint(0.525,0.7,0.25,s0);
 		rightBroadSide[0][7][2]=addBPoint(0.65,0.7,0.5,s0);
 		rightBroadSide[0][7][3]=addBPoint(0.75,0.7,0.75,s0);
+		rightBroadSide[0][7][4]=addBPoint(1.0,0.7,1.0,s0);
 		
 		rightBroadSide[0][8][0]=addBPoint(0,0.8,0,s0);
 		rightBroadSide[0][8][1]=addBPoint(0.525,0.8,0.25,s0);
 		rightBroadSide[0][8][2]=addBPoint(0.65,0.8,0.5,s0);
 		rightBroadSide[0][8][3]=addBPoint(0.75,0.8,0.75,s0);
+		rightBroadSide[0][8][4]=addBPoint(1.0,0.8,1.0,s0);
 		
 		rightBroadSide[0][9][0]=addBPoint(0,0.9,0,s0);
 		rightBroadSide[0][9][1]=addBPoint(0.525,0.9,0.25,s0);
 		rightBroadSide[0][9][2]=addBPoint(0.65,0.9,0.5,s0);
 		rightBroadSide[0][9][3]=addBPoint(0.75,0.9,0.75,s0);
+		rightBroadSide[0][9][4]=addBPoint(1.0,0.9,1.0,s0);
 		
 		rightBroadSide[0][10][0]=null;
 		rightBroadSide[0][10][1]=addBPoint(0.0,1.0,0.25,s0);
 		rightBroadSide[0][10][2]=addBPoint(0.0,1.0,0.5,s0);
 		rightBroadSide[0][10][3]=addBPoint(0.0,1.0,0.75,s0);
+		rightBroadSide[0][10][4]=addBPoint(0.0,1.0,1.0,s0);
 		
 		for (int j = 0; j < ny-1; j++) { 
 			
@@ -125,56 +136,67 @@ public class Ship extends CustomData {
 		leftBroadSide[0][0][1]=addBPoint(0.0,0,0.25,s0);
 		leftBroadSide[0][0][2]=addBPoint(0.0,0,0.5,s0);
 		leftBroadSide[0][0][3]=addBPoint(0.0,0,0.75,s0);
+		leftBroadSide[0][0][4]=addBPoint(0.0,0,1.0,s0);
 		
 		leftBroadSide[0][1][0]=addBPoint(0,0.1,0,s0);
 		leftBroadSide[0][1][1]=addBPoint(-0.525,0.1,0.25,s0);
 		leftBroadSide[0][1][2]=addBPoint(-0.65,0.1,0.5,s0);
 		leftBroadSide[0][1][3]=addBPoint(-0.75,0.1,0.75,s0);
+		leftBroadSide[0][1][4]=addBPoint(-1.0,0.1,1.0,s0);
 		
 		leftBroadSide[0][2][0]=addBPoint(0,0.2,0,s0);
 		leftBroadSide[0][2][1]=addBPoint(-0.525,0.2,0.25,s0);
 		leftBroadSide[0][2][2]=addBPoint(-0.65,0.2,0.5,s0);
 		leftBroadSide[0][2][3]=addBPoint(-0.75,0.2,0.75,s0);
+		leftBroadSide[0][2][4]=addBPoint(-1.0,0.2,1.0,s0);
 		
 		leftBroadSide[0][3][0]=addBPoint(0,0.3,0,s0);
 		leftBroadSide[0][3][1]=addBPoint(-0.525,0.3,0.25,s0);
 		leftBroadSide[0][3][2]=addBPoint(-0.65,0.3,0.5,s0);
 		leftBroadSide[0][3][3]=addBPoint(-0.75,0.3,0.75,s0);
+		leftBroadSide[0][3][4]=addBPoint(-1.0,0.3,1.0,s0);
 		
 		leftBroadSide[0][4][0]=addBPoint(0,0.4,0,s0);
 		leftBroadSide[0][4][1]=addBPoint(-0.525,0.4,0.25,s0);
 		leftBroadSide[0][4][2]=addBPoint(-0.65,0.4,0.5,s0);
 		leftBroadSide[0][4][3]=addBPoint(-0.75,0.4,0.75,s0);
+		leftBroadSide[0][4][4]=addBPoint(-1.0,0.4,1.0,s0);
 		
 		leftBroadSide[0][5][0]=addBPoint(0,0.5,0,s0);
 		leftBroadSide[0][5][1]=addBPoint(-0.525,0.5,0.25,s0);
 		leftBroadSide[0][5][2]=addBPoint(-0.65,0.5,0.5,s0);
 		leftBroadSide[0][5][3]=addBPoint(-0.75,0.5,0.75,s0);
+		leftBroadSide[0][5][4]=addBPoint(-1.0,0.5,1.0,s0);
 		
 		leftBroadSide[0][6][0]=addBPoint(0,0.6,0,s0);
 		leftBroadSide[0][6][1]=addBPoint(-0.525,0.6,0.25,s0);
 		leftBroadSide[0][6][2]=addBPoint(-0.65,0.6,0.5,s0);
 		leftBroadSide[0][6][3]=addBPoint(-0.75,0.6,0.75,s0);
+		leftBroadSide[0][6][4]=addBPoint(-1.0,0.6,1.0,s0);
 		
 		leftBroadSide[0][7][0]=addBPoint(0,0.7,0,s0);
 		leftBroadSide[0][7][1]=addBPoint(-0.525,0.7,0.25,s0);
 		leftBroadSide[0][7][2]=addBPoint(-0.65,0.7,0.5,s0);
 		leftBroadSide[0][7][3]=addBPoint(-0.75,0.7,0.75,s0);
+		leftBroadSide[0][7][4]=addBPoint(-1.0,0.7,1.0,s0);
 		
 		leftBroadSide[0][8][0]=addBPoint(0,0.8,0,s0);
 		leftBroadSide[0][8][1]=addBPoint(-0.525,0.8,0.25,s0);
 		leftBroadSide[0][8][2]=addBPoint(-0.65,0.8,0.5,s0);
 		leftBroadSide[0][8][3]=addBPoint(-0.75,0.8,0.75,s0);
+		leftBroadSide[0][8][4]=addBPoint(-1.0,0.8,1.0,s0);
 		
 		leftBroadSide[0][9][0]=addBPoint(0,0.9,0,s0);
 		leftBroadSide[0][9][1]=addBPoint(-0.525,0.9,0.25,s0);
 		leftBroadSide[0][9][2]=addBPoint(-0.65,0.9,0.5,s0);
 		leftBroadSide[0][9][3]=addBPoint(-0.75,0.9,0.75,s0);
+		leftBroadSide[0][9][4]=addBPoint(-1.0,0.9,1.0,s0);
 		
 		leftBroadSide[0][10][0]=null;
 		leftBroadSide[0][10][1]=addBPoint(-0.0,1.0,0.25,s0);
 		leftBroadSide[0][10][2]=addBPoint(-0.0,1.0,0.5,s0);
 		leftBroadSide[0][10][3]=addBPoint(-0.0,1.0,0.75,s0);
+		leftBroadSide[0][10][4]=addBPoint(-0.0,1.0,1.0,s0);
 		
 		for (int j = 0; j < ny-1; j++) { 
 			
@@ -237,19 +259,19 @@ public class Ship extends CustomData {
 				addLine(mainDeck[0][j][0],mainDeck[1][j][0],mainDeck[1][j+1][0],mainDeck[0][j+1][0],Renderer3D.CAR_TOP);
 		}
 		
-		Segments s1=new Segments(0,back_width*0.5,rear_overhang,back_length,z_side*0.75,back_height*0.75);
+		Segments s1=new Segments(0,back_width*0.5,rear_overhang,back_length,z_side,back_height);
 		
 		BPoint[][][] mainBridge=new BPoint[2][2][2];
 		
-		mainBridge[0][0][0]=addBPoint(-0.75,0.0,0,s1);
-		mainBridge[1][0][0]=addBPoint(0.75,0.0,0,s1);
-		mainBridge[0][1][0]=addBPoint(-0.75,1.0,0,s1);
-		mainBridge[1][1][0]=addBPoint(0.75,1.0,0,s1);		
+		mainBridge[0][0][0]=addBPoint(-1.0,0.0,0,s1);
+		mainBridge[1][0][0]=addBPoint(1.0,0.0,0,s1);
+		mainBridge[0][1][0]=addBPoint(-1.0,1.0,0,s1);
+		mainBridge[1][1][0]=addBPoint(1.0,1.0,0,s1);		
 		
-		mainBridge[0][0][1]=addBPoint(-0.75,0.0,1.0,s1);
-		mainBridge[1][0][1]=addBPoint(0.75,0.0,1.0,s1);
-		mainBridge[0][1][1]=addBPoint(-0.75,1.0,1.0,s1);
-		mainBridge[1][1][1]=addBPoint(0.75,1.0,1.0,s1);
+		mainBridge[0][0][1]=addBPoint(-1.0,0.0,1.0,s1);
+		mainBridge[1][0][1]=addBPoint(1.0,0.0,1.0,s1);
+		mainBridge[0][1][1]=addBPoint(-1.0,1.0,1.0,s1);
+		mainBridge[1][1][1]=addBPoint(1.0,1.0,1.0,s1);
 		
 		addLine(mainBridge[0][0][1],mainBridge[1][0][1],mainBridge[1][1][1],mainBridge[0][1][1],Renderer3D.CAR_TOP);		
 
