@@ -208,7 +208,7 @@ public class CustomData {
 
 
 	
-	public void addCylinder(double cyx0, double cyy0,double cyz0,
+	public void addYCylinder(double cyx0, double cyy0,double cyz0,
 			double cylinder_radius,double cylinder_lenght,int barrel_meridians){
 	
 			BPoint[] uTrunkpoints=new BPoint[barrel_meridians];
@@ -275,7 +275,73 @@ public class CustomData {
 			}
 			
 	}
+	
+	public void addZCylinder(double cyx0, double cyy0,double cyz0,
+			double cylinder_radius,double cylinder_lenght,int barrel_meridians){
+	
+			int trunk_parallels=2;
+			int trunk_meridians=10;
+			
+		    BPoint[][] trunkpoints=new BPoint[trunk_parallels][trunk_meridians];
+			
+			for (int k = 0; k < trunk_parallels; k++) {
+				
+				
+				for (int i = 0; i < trunk_meridians; i++) {
+					
+					double x=cyx0+cylinder_radius*Math.cos(2*Math.PI/trunk_meridians*i);
+					double y=cyy0+cylinder_radius*Math.sin(2*Math.PI/trunk_meridians*i);
+					double z=cylinder_lenght/(trunk_parallels-1.0)*k;
+					
+					trunkpoints[k][i]=addBPoint(x,y,z);
+					
+				}
+				
+			}
+			
 
+
+			LineData topLD=new LineData();
+			
+			for (int i = 0; i < trunk_meridians; i++) {
+				
+				topLD.addIndex(trunkpoints[trunk_parallels-1][i].getIndex());
+				
+			}
+			topLD.setData(""+Renderer3D.CAR_TOP);
+			polyData.add(topLD);
+			
+
+
+
+			LineData bottomLD=new LineData();
+			
+			for (int i = trunk_meridians-1; i >=0; i--) {
+				
+				bottomLD.addIndex(trunkpoints[0][i].getIndex());
+				
+			}
+			bottomLD.setData(""+Renderer3D.CAR_BOTTOM);
+			polyData.add(bottomLD);
+			
+			for (int k = 0; k < trunk_parallels-1; k++) {
+			
+				for (int i = 0; i < trunk_meridians; i++) {
+					
+					LineData sideLD=new LineData();
+					
+					sideLD.addIndex(trunkpoints[k][i].getIndex());
+					sideLD.addIndex(trunkpoints[k][(i+1)%trunk_meridians].getIndex());
+					sideLD.addIndex(trunkpoints[k+1][(i+1)%trunk_meridians].getIndex());
+					sideLD.addIndex(trunkpoints[k+1][i].getIndex());	
+					sideLD.setData(""+Renderer3D.getFace(sideLD,points));
+					polyData.add(sideLD);
+					
+					
+				}
+			}
+	}
+	
 	public void addPrism(Prism prism){
 		
 	

@@ -589,9 +589,9 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 	
 	private void initRightAxData() {
 		
-		barrel_length.setText(800);
-		barrel_radius.setText(0);	
-		barrel_meridians.setText(0);
+		barrel_length.setText(400);
+		barrel_radius.setText(20);	
+		barrel_meridians.setText(10);
 
 		breech_length.setText(0);
 		breech_width.setText(0);
@@ -605,9 +605,9 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		butt_end_width.setText(0);
 		butt_end_height.setText(0);
 		
-		forearm_length.setText(0);
-		forearm_width.setText(0);
-		forearm_height.setText(0);
+		forearm_length.setText(100);
+		forearm_width.setText(150);
+		forearm_height.setText(100);
 		
 		trigger_length.setText(0);
 		trigger_width.setText(0);

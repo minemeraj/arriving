@@ -896,7 +896,7 @@ public class Weapon extends CustomData{
 
 		//barrel:
 		
-		addCylinder(bax0,bay0,baz0,barrel_radius,barrel_lenght,barrel_meridians);
+		addYCylinder(bax0,bay0,baz0,barrel_radius,barrel_lenght,barrel_meridians);
 		
 		//breech
 		
@@ -1270,8 +1270,8 @@ public class Weapon extends CustomData{
 
 		//barrels:
 		
-		addCylinder(barx,bay0,baz0,barrel_radius,barrel_lenght,barrel_meridians);
-		addCylinder(balx,bay0,baz0,barrel_radius,barrel_lenght,barrel_meridians);
+		addYCylinder(barx,bay0,baz0,barrel_radius,barrel_lenght,barrel_meridians);
+		addYCylinder(balx,bay0,baz0,barrel_radius,barrel_lenght,barrel_meridians);
 		
 		//breech
 		
@@ -2183,7 +2183,8 @@ public class Weapon extends CustomData{
 	
 	private PolygonMesh buildAxMesh() {
 
-		specificData=new AX(barrel_lenght,barrel_radius,barrel_meridians);
+		specificData=new Ax(barrel_lenght,barrel_radius,barrel_meridians,
+				 forearm_length,  forearm_width,  forearm_height);
 		
 		PolygonMesh pm=specificData.getMesh();
 	
@@ -2206,7 +2207,7 @@ public class Weapon extends CustomData{
 
 		//barrel:
 		
-		addCylinder(bax0,bay0,baz0,barrel_radius,barrel_lenght,barrel_meridians);
+		addYCylinder(bax0,bay0,baz0,barrel_radius,barrel_lenght,barrel_meridians);
 		
 				
 		//breech
@@ -2442,7 +2443,7 @@ public class Weapon extends CustomData{
 		double cyy0=breech_length-magazine_length;
 		double cyz0=breech_height-magazine_width*0.5;
 		
-		addCylinder(cyx0,cyy0,cyz0,magazine_width*0.5,magazine_length,barrel_meridians);
+		addYCylinder(cyx0,cyy0,cyz0,magazine_width*0.5,magazine_length,barrel_meridians);
 		
 		//butt
 		
