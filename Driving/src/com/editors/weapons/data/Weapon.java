@@ -2198,7 +2198,9 @@ public class Weapon extends CustomData{
 	
 	private PolygonMesh buildSwordMesh() {
 		
-		specificData=new Sword(forearm_length,  forearm_width,  forearm_height);
+		specificData=new Sword( forearm_length, forearm_width,forearm_height,  
+				 breech_length,  breech_width, breech_height, 
+				 butt_length,  butt_width, butt_height);
 		
 		PolygonMesh pm=specificData.getMesh();
 	
