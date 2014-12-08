@@ -4,6 +4,7 @@ import java.awt.Polygon;
 import java.awt.geom.Area;
 import java.awt.geom.Line2D;
 import java.awt.geom.PathIterator;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
@@ -75,6 +76,31 @@ public class Polygon3D  extends Polygon{
 		for(int i=0;i<this.npoints;i++){
 
 			Point3D p=(Point3D) points.elementAt(i);
+
+			this.xpoints[i]=(int) p.x;
+			this.ypoints[i]=(int) p.y;
+			this.zpoints[i]=(int) p.z;
+			
+			this.xtpoints[i]=(int) p.x;
+			this.ytpoints[i]=(int) p.y;
+		}
+
+
+	}
+	
+	public Polygon3D(ArrayList points) {
+
+		this.npoints=points.size();
+		this.xpoints = new int[this.npoints];
+		this.ypoints = new int[this.npoints];
+		this.zpoints = new int[this.npoints];
+		this.xtpoints = new int[npoints];
+		this.ytpoints = new int[npoints];
+
+
+		for(int i=0;i<this.npoints;i++){
+
+			Point3D p=(Point3D) points.get(i);
 
 			this.xpoints[i]=(int) p.x;
 			this.ypoints[i]=(int) p.y;

@@ -2,8 +2,8 @@ package com.main;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.Vector;
 
 import com.CubicMesh;
 import com.DrawObject;
@@ -246,7 +246,7 @@ public class Shader extends Renderer3D{
 
 
 
-				Vector values=new Vector();
+				ArrayList values=new ArrayList();
 
 				int tot=y*WIDTH+x;	
 
@@ -287,7 +287,7 @@ public class Shader extends Renderer3D{
 				zb.pcf_values=new double[size];
 
 				for (int c = 0; c < size; c++) {
-					zb.pcf_values[c]=(Double)values.elementAt(c);
+					zb.pcf_values[c]=(Double)values.get(c);
 				}
 
 			}
@@ -324,7 +324,7 @@ public class Shader extends Renderer3D{
 	public ShadowVolume initShadowVolume(CubicMesh cm) {
 
 		ShadowVolume shadowVolume=new ShadowVolume();
-		shadowVolume.allTriangles=new Vector();
+		shadowVolume.allTriangles=new ArrayList();
 
 		int polSize=cm.polygonData.size();
 
@@ -352,12 +352,12 @@ public class Shader extends Renderer3D{
 
 
 
-			ShadowTriangle triangle0 = (ShadowTriangle) shadowVolume.allTriangles.elementAt(i);
+			ShadowTriangle triangle0 = (ShadowTriangle) shadowVolume.allTriangles.get(i);
 
 
 			//ADJACENT TRIANGLES
 
-			Vector adjacentTriangles=new Vector();
+			ArrayList adjacentTriangles=new ArrayList();
 
 			for (int j = 0; j <aSize; j++) {
 
@@ -366,7 +366,7 @@ public class Shader extends Renderer3D{
 
 				int commonVertices=0;
 
-				LineData triangle1 = (LineData) shadowVolume.allTriangles.elementAt(j);
+				LineData triangle1 = (LineData) shadowVolume.allTriangles.get(j);
 
 				int iSize=triangle1.size();
 
@@ -409,7 +409,7 @@ public class Shader extends Renderer3D{
 
 		shadowVolume.initFaces();
 
-		Vector edges=new Vector();
+		ArrayList edges=new ArrayList();
 
         int aSize= shadowVolume.allTriangles.size(); 
         
@@ -419,7 +419,7 @@ public class Shader extends Renderer3D{
 			
 
 
-			ShadowTriangle triangle0 = (ShadowTriangle) shadowVolume.allTriangles.elementAt(i);
+			ShadowTriangle triangle0 = (ShadowTriangle) shadowVolume.allTriangles.get(i);
 
 			Polygon3D polTriangle0=PolygonMesh.getBodyPolygon(cm.points,triangle0);
 
@@ -436,7 +436,7 @@ public class Shader extends Renderer3D{
             
 
 			for (int j = 0; j < adjacentTriangles.length; j++) {
-				LineData triangle1 =  (LineData) shadowVolume.allTriangles.elementAt(adjacentTriangles[j]);
+				LineData triangle1 =  (LineData) shadowVolume.allTriangles.get(adjacentTriangles[j]);
 				Polygon3D adjPolTriangle=PolygonMesh.getBodyPolygon(cm.points,triangle1);
 
 				if(
@@ -500,7 +500,7 @@ public class Shader extends Renderer3D{
 		for (int i = 0; i < shadowVolume.allTriangles.size(); i++) {
 			
 
-			LineData triangle0 = (LineData) shadowVolume.allTriangles.elementAt(i);
+			LineData triangle0 = (LineData) shadowVolume.allTriangles.get(i);
 			Polygon3D polTriangle0=PolygonMesh.getBodyPolygon(cm.points,triangle0);
 
 			if(isFacing(polTriangle0,Polygon3D.findNormal(polTriangle0),lightPoint.position)){
@@ -520,7 +520,7 @@ public class Shader extends Renderer3D{
 
 		for (int i = 0; i < shadowVolume.frontCap.size(); i++) {
 
-			Polygon3D triangle_front = (Polygon3D) shadowVolume.frontCap.elementAt(i);
+			Polygon3D triangle_front = (Polygon3D) shadowVolume.frontCap.get(i);
 
 			Polygon3D triangle_back=new Polygon3D(3);
 
@@ -547,9 +547,9 @@ public class Shader extends Renderer3D{
 		
 		for (int j = 0; j < eSize; j++) {
 
-			LineData edge = (LineData) edges.elementAt(j);
+			LineData edge = (LineData) edges.get(j);
 
-			Vector facePoints=new Vector();
+			ArrayList facePoints=new ArrayList();
 
 			Point3D p0=cm.points[edge.getIndex(1)];
 			Point3D p1=cm.points[edge.getIndex(0)];
@@ -642,11 +642,11 @@ public class Shader extends Renderer3D{
 
 	public class ShadowVolume{
 
-		public Vector frontCap=null;
-		public Vector backCap=null;
-		public Vector faces=null;
+		public ArrayList frontCap=null;
+		public ArrayList backCap=null;
+		public ArrayList faces=null;
 		
-		public Vector allTriangles=null;
+		public ArrayList allTriangles=null;
 
 		public Polygon3D[] allPolygons=null;
 
@@ -670,9 +670,9 @@ public class Shader extends Renderer3D{
 		
 		public void initFaces(){
 			
-			frontCap=new Vector();
-			backCap=new Vector();
-			faces=new Vector();
+			frontCap=new ArrayList();
+			backCap=new ArrayList();
+			faces=new ArrayList();
 			
 			
 		}
@@ -681,26 +681,26 @@ public class Shader extends Renderer3D{
 			
 			int size=frontCap.size()+backCap.size()+faces.size();
 			
-			Vector vAllpolygons=new Vector();
+			ArrayList vAllpolygons=new ArrayList();
 			
 			int counter=0;
-			
-			for (int i = 0; i < frontCap.size(); i++) {
-				Polygon3D pol = (Polygon3D) frontCap.elementAt(i);
+			int sz0=frontCap.size();
+			for (int i = 0; i < sz0; i++) {
+				Polygon3D pol = (Polygon3D) frontCap.get(i);
 				//allPolygons[counter]=pol;
 				vAllpolygons.add(pol);
 				counter++;
 			}
-			
-			for (int i = 0; i < faces.size(); i++) {
-				Polygon3D pol = (Polygon3D) faces.elementAt(i);
+			int sz1=faces.size();
+			for (int i = 0; i < sz1; i++) {
+				Polygon3D pol = (Polygon3D) faces.get(i);
 				vAllpolygons.add(pol);
 				//allPolygons[counter]=pol;
 				counter++;
 			}
-			
-			for (int i = 0; i < backCap.size(); i++) {
-				Polygon3D pol = (Polygon3D) backCap.elementAt(i);
+			int sz2=backCap.size();
+			for (int i = 0; i < sz2; i++) {
+				Polygon3D pol = (Polygon3D) backCap.get(i);
 				vAllpolygons.add(pol);
 				//allPolygons[counter]=pol;
 				counter++;
@@ -708,9 +708,9 @@ public class Shader extends Renderer3D{
 			
 						
 			allPolygons=new Polygon3D[vAllpolygons.size()];
-			
-			for (int i = 0; i < vAllpolygons.size(); i++) {
-				allPolygons[i]= (Polygon3D) vAllpolygons.elementAt(i);
+			int sza=vAllpolygons.size();
+			for (int i = 0; i < sza; i++) {
+				allPolygons[i]= (Polygon3D) vAllpolygons.get(i);
 			}
 			
 		}
@@ -729,8 +729,8 @@ public class Shader extends Renderer3D{
 		
 		public ShadowTriangle(LineData ld) {
 			
-			
-			for(int i=0;i<ld.size();i++){
+			int sz=ld.size();
+			for(int i=0;i<sz;i++){
 				
 	
 				
@@ -740,12 +740,12 @@ public class Shader extends Renderer3D{
 			}
 		}
 
-		public void setAdjacentTriangles(Vector vAdjacentTriangles) {
+		public void setAdjacentTriangles(ArrayList vAdjacentTriangles) {
 			
 			adjacentTriangles=new int[vAdjacentTriangles.size()];
 			
 			for (int i = 0; i < vAdjacentTriangles.size(); i++) {
-				adjacentTriangles[i]= ((Integer) vAdjacentTriangles.elementAt(i)).intValue();
+				adjacentTriangles[i]= ((Integer) vAdjacentTriangles.get(i)).intValue();
 			}
 			
 		}
