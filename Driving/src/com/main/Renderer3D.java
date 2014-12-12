@@ -89,7 +89,7 @@ public class Renderer3D implements AbstractRenderer3D{
 		for(int i=0;i<roadZbuffer.getSize();i++){
 
 			roadZbuffer.rgbColor[i]=greenRgb;
-
+			roadZbuffer.z[i]=0;
 
 		}
 	

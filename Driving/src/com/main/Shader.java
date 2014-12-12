@@ -82,7 +82,7 @@ public class Shader extends Renderer3D{
 		for(int i=0;i<lenght;i++){
 
 			lightZbuffer.rgbColor[i]=greenRgb;
-
+			lightZbuffer.z[i]=0;
 		}
 
 		stencilZbuffer=new int[lenght];
