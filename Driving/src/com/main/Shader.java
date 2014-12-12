@@ -40,7 +40,7 @@ public class Shader extends Renderer3D{
 			else
 				rgb[i]=zb.getRgbColor();
 			//clean
-			zb.set(0,0,0,greenRgb,true);
+			zb.set(0,0,0,greenRgb);
 			stencilZbuffer[i]=0;   
 
 
@@ -283,12 +283,12 @@ public class Shader extends Renderer3D{
 				}
 
 
-				int size=values.size();
+				/*int size=values.size();
 				zb.pcf_values=new double[size];
 
 				for (int c = 0; c < size; c++) {
 					zb.pcf_values[c]=(Double)values.get(c);
-				}
+				}*/
 
 			}
 

@@ -1,3 +1,5 @@
+A faster code.
+
 Added globe to the furniture editor, in two texture versions.
 
 Added baseball bat, ax, sword to the weapons editor.
