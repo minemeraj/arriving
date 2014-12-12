@@ -168,8 +168,8 @@ public class Road extends Shader{
 		
 		calculateShadowCosines();
 		
-		roadZbuffer=new ZBuffer[WIDTH*HEIGHT];
-		lightZbuffer=new ZBuffer[WIDTH*HEIGHT];
+		roadZbuffer=new ZBuffer(WIDTH*HEIGHT);
+		lightZbuffer=new ZBuffer(WIDTH*HEIGHT);
 	
 		buildNewZBuffers();	    
 		
@@ -900,7 +900,7 @@ public class Road extends Shader{
 				int j_set=(int) (alfa*j)+deltah;
 													
 				int rgb=CarFrame.background.getRGB(i_set,j_set);
-				roadZbuffer[tot].setRgbColor(rgb);
+				roadZbuffer.setRgbColor(rgb,tot);
 				
 
 			}
@@ -1479,7 +1479,7 @@ public class Road extends Shader{
 	}
 
 	private void drawAutocars(Autocar[] autocars, Area totalVisibleField2,
-			ZBuffer[] roadZbuffer) {		
+			ZBuffer roadZbuffer) {		
 	
 		
 		for (int i = 0; i < autocars.length; i++) {

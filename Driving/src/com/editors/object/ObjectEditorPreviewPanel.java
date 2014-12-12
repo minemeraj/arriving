@@ -131,7 +131,7 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 	
 
 	
-   public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer[] zbuffer,
+   public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer,
     		Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY){
 
     	//avoid clipping:

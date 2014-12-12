@@ -10,33 +10,41 @@ import java.awt.image.BufferedImage;
 
 public class ZBuffer{
 
-		int rgbColor;
-		double z=0;
+		public int[] rgbColor;
+		public double[] z;
+		public int size=0;
 		
 		/*public double p_x=0;
 		public double p_y=0;
 		public double p_z=0;
 		
 		public double[] pcf_values=null;*/
+		
+		public ZBuffer(int size){
+			
+			this.size=size;
+			rgbColor=new int[size];
+			z=new double[size];
+		}
 
 		
-		public int getRgbColor() {
-			return rgbColor;
+		public int getRgbColor(int index) {
+			return rgbColor[index];
 		}
-		public void setRgbColor(int rgbColor) {
-			this.rgbColor = rgbColor;
+		public void setRgbColor(int rgbColor,int index) {
+			this.rgbColor[index] = rgbColor;
 		}
-		public double getZ() {
-			return z;
+		public double getZ(int index) {
+			return z[index];
 		}
-		public void setZ(double z) {
-			this.z = z;
+		public void setZ(double z,int index) {
+			this.z[index] = z;
 		}
 		
-		public ZBuffer(int rgbColor, double z) {
+		public ZBuffer(int rgbColor, double z,int index) {
 			super();
-			this.rgbColor = rgbColor;
-			this.z = z;
+			this.rgbColor[index] = rgbColor;
+			this.z[index] = z;
 		}
 		public ZBuffer() {
 			super();
@@ -179,13 +187,13 @@ public class ZBuffer{
 			
 		}*/
 		
-		public void update(double xs,double ys,double zs, int rgbColor) {
+		public void update(double xs,double ys,double zs, int rgbColor,int index) {
 			
 			
-			if(getZ()==0  ||  getZ()>ys ){
+			if(getZ(index)==0  ||  getZ(index)>ys ){
 
-				setZ(ys);
-				setRgbColor(rgbColor);
+				setZ(ys,index);
+				setRgbColor(rgbColor,index);
 				
 				/*p_x=xs;
 				p_y=ys;
@@ -196,21 +204,27 @@ public class ZBuffer{
 
 		}
 
-		public boolean isToUpdate(double ys){
+		public boolean isToUpdate(double ys,int index){
 
 
-			return getZ()==0 ||  getZ()>ys;
+			return getZ(index)==0 ||  getZ(index)>ys;
 		}	
 
-		public void set(double xs,double ys,double zs, int rgbColor) {
+		public void set(double xs,double ys,double zs, int rgbColor,int index) {
 
-			setZ(ys);
-			setRgbColor(rgbColor);
+			setZ(ys,index);
+			setRgbColor(rgbColor,index);
 
 			/*p_x=xs;
 			p_y=ys;
 			p_z=zs;*/
 
+		}
+		public int getSize() {
+			return size;
+		}
+		public void setSize(int size) {
+			this.size = size;
 		}
 
 		

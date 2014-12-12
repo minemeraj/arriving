@@ -39,7 +39,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 	public BufferedImage buf=null;
 
 		
-	public static ZBuffer[] roadZbuffer;
+	public static ZBuffer roadZbuffer;
 	public int[] rgb;
 	public int greenRgb= Color.BLACK.getRGB();
 
@@ -120,7 +120,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 	public void initialize() {
 
 		buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
-		roadZbuffer=new ZBuffer[WIDTH*HEIGHT];
+		roadZbuffer=new ZBuffer(WIDTH*HEIGHT);
 		pAsso=new Point3D(Math.cos(alfa)/s2,Math.sin(alfa)/s2,1/s2);
 				
 		buildNewZBuffers();
@@ -131,14 +131,14 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 
 
 	
-    public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer[] zbuffer){
+    public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer){
    	 
     	Point3D origin=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
     	decomposeClippedPolygonIntoZBuffer(p3d, color, texture,zbuffer,null,null,origin,0,0);
 
     }
 
-    public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer[] zbuffer,
+    public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer,
 			Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY){		
 
 		Point3D normal=Polygon3D.findNormal(p3d);
@@ -194,7 +194,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 	 * @param yDirection
 	 * @param origin 
 	 */
-    public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int rgbColor,Texture texture,ZBuffer[] zbuffer,
+    public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int rgbColor,Texture texture,ZBuffer zbuffer,
     		Point3D xDirection, Point3D yDirection, Point3D origin,int deltaX,int deltaY,
     		BarycentricCoordinates bc
     		) {
@@ -310,9 +310,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
     			int tot=WIDTH*j+i;
     			//System.out.println(x+" "+y+" "+tot);
 
-    			ZBuffer zb=zbuffer[tot];
-
-    			zb.update(xi,DEPTH_DISTANCE+yi,zi,rgbColor);
+    			zbuffer.update(xi,DEPTH_DISTANCE+yi,zi,rgbColor,tot);
     			
     		} 
 
@@ -374,9 +372,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
     			int tot=WIDTH*j+i;
     			//System.out.println(x+" "+y+" "+tot);
 
-    			ZBuffer zb=zbuffer[tot];
-
-    			zb.update(xi,DEPTH_DISTANCE+yi,zi,rgbColor);
+    			zbuffer.update(xi,DEPTH_DISTANCE+yi,zi,rgbColor,tot);
     			
     		}
 
@@ -449,13 +445,13 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 		
        
 		
-		for(int i=0;i<roadZbuffer.length;i++){
+		for(int i=0;i<roadZbuffer.getSize();i++){
 			
-			roadZbuffer[i]=new ZBuffer(greenRgb,0);
+			roadZbuffer.rgbColor[i]=greenRgb;
 			
 			
 		}
-		 int lenght=roadZbuffer.length;
+		 int lenght=roadZbuffer.getSize();
 		 rgb = new int[lenght];	
 
 				
@@ -469,12 +465,11 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 		
 		for(int i=0;i<length;i++){
 			   
-			  
-			 	   ZBuffer zb=roadZbuffer[i];
+	
 				   //set
-			 	   rgb[i]=zb.getRgbColor(); 
+			 	   rgb[i]=roadZbuffer.getRgbColor(i); 
 				   //clean
-				   zb.set(0,0,0,greenRgb);
+			 	  roadZbuffer.set(0,0,0,greenRgb,i);
 				  
  
 		 }	   

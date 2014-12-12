@@ -234,7 +234,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JMenuItem jmtLevelRoadTerrain;
 	private JMenuItem jmLevelTerrainRoad;
 	
-	public static ZBuffer[] landscapeZbuffer;
+	public static ZBuffer landscapeZbuffer;
 	public int blackRgb= Color.BLACK.getRGB();
 	public int[] rgb=null;
 	public Color selectionColor=null;
@@ -368,7 +368,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	 */
 	public void initialize() {
 
-		landscapeZbuffer=new ZBuffer[WIDTH*HEIGHT];
+		landscapeZbuffer=new ZBuffer(WIDTH*HEIGHT);
 		rgb=new int[WIDTH*HEIGHT];
 		buildNewZBuffers();
 		selectionColor=new Color(255,0,0,127);
@@ -495,9 +495,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public void buildNewZBuffers() {
 
 
-		for(int i=0;i<landscapeZbuffer.length;i++){
+		for(int i=0;i<landscapeZbuffer.getSize();i++){
 
-			landscapeZbuffer[i]=new ZBuffer(blackRgb,0);
+			landscapeZbuffer.rgbColor[i]=blackRgb;
             
 
 		}
@@ -512,12 +512,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		for(int i=0;i<length;i++){
 
 
-			ZBuffer zb=landscapeZbuffer[i];
 			//set
-			rgb[i]=zb.getRgbColor(); 
+			rgb[i]=landscapeZbuffer.getRgbColor(i); 
 			
 			//clean
-			zb.set(0,0,0,blackRgb);
+			landscapeZbuffer.set(0,0,0,blackRgb,i);
               
 		
 
@@ -530,7 +529,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 
-	private void displayObjects(ZBuffer[] landscapeZbuffer) {
+	private void displayObjects(ZBuffer landscapeZbuffer) {
 
 		Rectangle totalVisibleField=new Rectangle(0,0,WIDTH,HEIGHT);
 
@@ -645,7 +644,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
-	private void displayRoad(ZBuffer[] landscapeZbuffer,int index) {
+	private void displayRoad(ZBuffer landscapeZbuffer,int index) {
 
 		PolygonMesh mesh=meshes[index];
 		
@@ -717,7 +716,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		displayAll();
 	}
 
-	private void drawObject(ZBuffer[] landscapeZbuffer, DrawObject dro) {
+	private void drawObject(ZBuffer landscapeZbuffer, DrawObject dro) {
 
 		int[] cx=new int[4];
 		int[] cy=new int[4];
@@ -780,7 +779,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 
-	private void drawTextImage(ZBuffer[] landscapeZbuffer,
+	private void drawTextImage(ZBuffer landscapeZbuffer,
 			Texture textImage, int x, int y, int dx,
 			int dy, Color transparentColor, Color fixedColor) {
 
@@ -806,12 +805,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 				int tot=(int)(i+x+(j+y)*WIDTH);
 
-				landscapeZbuffer[tot].setRgbColor(rgbColor);
+				landscapeZbuffer.setRgbColor(rgbColor,tot);
 			}
 
 	}
 
-	private void drawImage(ZBuffer[] landscapeZbuffer,
+	private void drawImage(ZBuffer landscapeZbuffer,
 			BufferedImage bufferedImage, int x, int y, Point3D xDirection, Point3D yDirection,Color transparentColor) {
 		
 		int dx=(int) Point3D.calculateNorm(xDirection);
@@ -844,13 +843,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 				int tot=(int)(ix+x+(jy+y)*WIDTH);
 				
-				landscapeZbuffer[tot].setRgbColor(rgbColor);
+				landscapeZbuffer.setRgbColor(rgbColor,tot);
 			}
 		
 		
 	}
 
-	private void drawPolygon(ZBuffer[] landscapeZbuffer, Polygon pTot, int rgbColor) {
+	private void drawPolygon(ZBuffer landscapeZbuffer, Polygon pTot, int rgbColor) {
 		
 		
 		
@@ -870,7 +869,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 	
-	private void fillOval(ZBuffer[] landscapeZbuffer2, int cx, int cy, int dx,
+	private void fillOval(ZBuffer landscapeZbuffer2, int cx, int cy, int dx,
 			int dy, int rgbColor) {
 		
 		int x=cx-dx;		
@@ -894,7 +893,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				if(i>=0 && i<WIDTH && j>=0 && j<HEIGHT){
 					
 					int tot=i+j*WIDTH;
-					landscapeZbuffer[tot].setRgbColor(rgbColor);
+					landscapeZbuffer.setRgbColor(rgbColor,tot);
 				}
 				
 			}
@@ -903,7 +902,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 
-	private void drawLine(ZBuffer[] landscapeZbuffer2, int i, int j, int ii,
+	private void drawLine(ZBuffer landscapeZbuffer2, int i, int j, int ii,
 			int jj, int rgbColor) {
 
 		int mini=i;
@@ -933,7 +932,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				if(k>=0 && k<WIDTH && j>=0 && j<HEIGHT){
 
 					int tot=k+j*WIDTH;
-					landscapeZbuffer[tot].setRgbColor(rgbColor);
+					landscapeZbuffer.setRgbColor(rgbColor,tot);
 				}
 			}
 		}
@@ -944,7 +943,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 					int tot=i+k*WIDTH;
 
-					landscapeZbuffer[tot].setRgbColor(rgbColor);
+					landscapeZbuffer.setRgbColor(rgbColor,tot);
 				}
 			}
 
@@ -963,7 +962,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 						if(k>=0 && k<WIDTH && y>=0 && y<HEIGHT){
 							int tot=(k+y*WIDTH);					
-							landscapeZbuffer[tot].setRgbColor(rgbColor);
+							landscapeZbuffer.setRgbColor(rgbColor,tot);
 						}
 					}	
 				}
@@ -974,7 +973,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 						if(k>=0 && k<WIDTH && y>=0 && y<HEIGHT){
 							int tot=(k+y*WIDTH);					
-							landscapeZbuffer[tot].setRgbColor(rgbColor);
+							landscapeZbuffer.setRgbColor(rgbColor,tot);
 						}
 					}			
 
@@ -992,7 +991,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 						if(x>=0 && x<WIDTH && q>=0 && q<HEIGHT){
 							int tot=(x+q*WIDTH);					
-							landscapeZbuffer[tot].setRgbColor(rgbColor);
+							landscapeZbuffer.setRgbColor(rgbColor,tot);
 						}
 					}	
 				}
@@ -1003,7 +1002,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 						if(x>=0 && x<WIDTH && q>=0 && q<HEIGHT){
 							int tot=(x+q*WIDTH);					
-							landscapeZbuffer[tot].setRgbColor(rgbColor);
+							landscapeZbuffer.setRgbColor(rgbColor,tot);
 						}
 					}			
 
@@ -1016,7 +1015,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 
-	private void drawPolygon(LineData ld,Point3D[] points,ZBuffer[] landscapeZbuffer,int indx) {
+	private void drawPolygon(LineData ld,Point3D[] points,ZBuffer landscapeZbuffer,int indx) {
 
 
 		Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
@@ -1097,7 +1096,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 
-	private void drawTexture(Texture texture,  Polygon3D p3d, Polygon3D p3dr,ZBuffer[] landscapeZbuffer, Color selected) {
+	private void drawTexture(Texture texture,  Polygon3D p3d, Polygon3D p3dr,ZBuffer landscapeZbuffer, Color selected) {
 
 		Point3D normal=Polygon3D.findNormal(p3dr);
 
@@ -1215,7 +1214,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	 * @param yDirection
 	 * @param origin 
 	 */
-	public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int selected,Texture texture,ZBuffer[] zbuffer, 
+	public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int selected,Texture texture,ZBuffer zbuffer, 
 			Point3D xDirection, Point3D yDirection, Point3D origin,int deltaX,int deltaY,
 			BarycentricCoordinates bc) {
 
@@ -1361,8 +1360,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				double xi=pstart.p_x*(1-l)+l*pend.p_x;
 				double zi=pstart.p_z*(1-l)+l*pend.p_z;
 						
-				ZBuffer zb=zbuffer[tot];
-				if(zb.getZ()>zi){
+				if(zbuffer.getZ(tot)>zi){
 
 					continue;
 				}	
@@ -1394,7 +1392,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				}
 				
 
-				zb.set(xi,zi,yi,rgbColor);
+				zbuffer.set(xi,zi,yi,rgbColor,tot);
 				
 			}
 
@@ -1449,9 +1447,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				double yi=pstart.p_y*(1-l)+l*pend.p_y;
 				double xi=pstart.p_x*(1-l)+l*pend.p_x;
 				double zi=pstart.p_z*(1-l)+l*pend.p_z;
-				
-				ZBuffer zb=zbuffer[tot];
-				if(zb.getZ()>zi){
+		
+				if(zbuffer.getZ(tot)>zi){
 
 					continue;
 				}	
@@ -1485,7 +1482,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 			
-				zb.set(xi,zi,yi,rgbColor);
+				zbuffer.set(xi,zi,yi,rgbColor,tot);
 	
 			}
 
@@ -4401,7 +4398,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 	
-	private void drawCurrentRect(ZBuffer[] landscapeZbuffer) {
+	private void drawCurrentRect(ZBuffer landscapeZbuffer) {
 		
 		if(!isDrawCurrentRect)
 			return;

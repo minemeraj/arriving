@@ -46,7 +46,7 @@ public class Renderer3D implements AbstractRenderer3D{
 	public double viewDirectionCos=1.0;
 	public double viewDirectionSin=0.0;	
 
-	public static ZBuffer[] roadZbuffer;
+	public static ZBuffer roadZbuffer;
 
 
 	public int greenRgb= CarFrame.BACKGROUND_COLOR.getRGB();
@@ -86,9 +86,9 @@ public class Renderer3D implements AbstractRenderer3D{
 
 		setViewDirection(0);
 
-		for(int i=0;i<roadZbuffer.length;i++){
+		for(int i=0;i<roadZbuffer.getSize();i++){
 
-			roadZbuffer[i]=new ZBuffer(greenRgb,0);
+			roadZbuffer.rgbColor[i]=greenRgb;
 
 
 		}
@@ -103,12 +103,11 @@ public class Renderer3D implements AbstractRenderer3D{
 		for(int i=0;i<length;i++){
 
 
-			ZBuffer zb=roadZbuffer[i];
 			//set
-			rgb[i]=zb.getRgbColor(); 
+			rgb[i]=roadZbuffer.getRgbColor(i); 
 			
 			//clean
-			zb.set(0,0,0,greenRgb);
+			roadZbuffer.set(0,0,0,greenRgb,i);
               
 		
 
@@ -178,7 +177,7 @@ public class Renderer3D implements AbstractRenderer3D{
 	 * @param yDirection
 	 * @param origin 
 	 */
-	public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int rgbColor,Texture texture,ZBuffer[] zbuffer,
+	public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int rgbColor,Texture texture,ZBuffer zb, 
 			Point3D xDirection, Point3D yDirection, Point3D origin,int deltaX,int deltaY,
 			BarycentricCoordinates bc) {
 
@@ -336,11 +335,11 @@ public class Renderer3D implements AbstractRenderer3D{
 				double l=(i-start)*inverse;
 
 				double yi=1.0/((1-l)*i_pstart_p_y+l*i_end_p_y);
-				ZBuffer zb=zbuffer[tot];
-				if(!zb.isToUpdate(yi) || isStencilBuffer){
+				
+				if(!zb.isToUpdate(yi,tot) || isStencilBuffer){
 					//z-fail stencil buffer with bias
 					if(isStencilBuffer){
-						if(!zb.isToUpdate(yi+4))
+						if(!zb.isToUpdate(yi+4,tot))
 							stencilBuffer(tot,isFacing);
 					}
 					continue;
@@ -360,7 +359,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 				//System.out.println(x+" "+y+" "+tot);    			
 
-				zb.set(xi,yi,zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor));
+				zb.set(xi,yi,zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),tot);
 				
 			}
 
@@ -417,14 +416,14 @@ public class Renderer3D implements AbstractRenderer3D{
 				double l=(i-start)*inverse;
 
 				double yi=1.0/((1-l)*i_pstart_p_y+l*i_end_p_y);
-				ZBuffer zb=zbuffer[tot];
-				if(!zb.isToUpdate(yi) || isStencilBuffer){
+			
+				if(!zb.isToUpdate(yi,tot) || isStencilBuffer){
 					
 					//z-fail stencil buffer with bias
 					if(isStencilBuffer){
 						
 	
-						if(!zb.isToUpdate(yi+4))
+						if(!zb.isToUpdate(yi+4,tot))
 							stencilBuffer(tot,isFacing);
 					}
 					continue;
@@ -448,7 +447,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 
 			
-				zb.set(xi,yi,zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor));
+				zb.set(xi,yi,zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),tot);
 	
 			}
 
@@ -461,7 +460,7 @@ public class Renderer3D implements AbstractRenderer3D{
 	}
 	
 	public void decomposeLine( double x1,
-			double y1,double z1,double x2,double y2,double z2,ZBuffer[] zbuffer,int rgbColor) {
+			double y1,double z1,double x2,double y2,double z2,ZBuffer zb,int rgbColor) { 
 
 		int xx1=(int)calculPerspX(x1,y1,z1);
 		int yy1=(int)calculPerspY(x1,y1,z1);
@@ -495,12 +494,10 @@ public class Renderer3D implements AbstractRenderer3D{
 
 					int tot=WIDTH*yy+xx;
 
-					ZBuffer zb=zbuffer[tot];
-
-					if(!zb.isToUpdate(yi))
+					if(!zb.isToUpdate(yi,tot))
 						continue;			
 
-					zb.set(xx,yi,yy,rgbColor);
+					zb.set(xx,yi,yy,rgbColor,tot);
 				}
 			else
 				for (int yy = yy2; yy <= yy1; yy++) {
@@ -519,13 +516,12 @@ public class Renderer3D implements AbstractRenderer3D{
 
 					int tot=WIDTH*yy+xx;
 
-					ZBuffer zb=zbuffer[tot];
 
-					if(!zb.isToUpdate(yi))
+					if(!zb.isToUpdate(yi,tot))
 						continue;			
 
 
-					zb.set(xx,yi,yy,rgbColor);
+					zb.set(xx,yi,yy,rgbColor,tot);
 				}
 
 		}
@@ -549,13 +545,12 @@ public class Renderer3D implements AbstractRenderer3D{
 
 					int tot=WIDTH*yy+xx;
  
-					ZBuffer zb=zbuffer[tot];
-
-					if(!zb.isToUpdate(yi))
+			
+					if(!zb.isToUpdate(yi,tot))
 						continue;
 
 
-					zb.set(xx,yi,yy,rgbColor);
+					zb.set(xx,yi,yy,rgbColor,tot);
 				}
 			else
 				for (int xx = xx2; xx <= xx1; xx++) {
@@ -573,13 +568,11 @@ public class Renderer3D implements AbstractRenderer3D{
 
 					int tot=WIDTH*yy+xx;
 
-					ZBuffer zb=zbuffer[tot];
-
-					if(!zb.isToUpdate(yi))
+					if(!zb.isToUpdate(yi,tot))
 						continue;
 
 
-					zb.set(xx,yi,yy,rgbColor);
+					zb.set(xx,yi,yy,rgbColor,tot);
 				}
 
 		}
@@ -593,13 +586,12 @@ public class Renderer3D implements AbstractRenderer3D{
 
 			int tot=WIDTH*yy1+xx1;
 
-			ZBuffer zb=zbuffer[tot];
 
-			if(!zb.isToUpdate(y1))
+			if(!zb.isToUpdate(y1,tot))
 				return;
 
 
-			zb.set(xx1,y1,yy1,rgbColor);
+			zb.set(xx1,y1,yy1,rgbColor,tot);
 
 		}
 
@@ -656,14 +648,14 @@ public class Renderer3D implements AbstractRenderer3D{
 
 
 
-	public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer[] zbuffer){
+	public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer){
 
 		Point3D origin=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
 		decomposeClippedPolygonIntoZBuffer(p3d, color, texture,zbuffer,null,null,origin,0,0);
 
 	}
 
-	public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer[] zbuffer,
+	public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer,
 			Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY){		
 
 		Point3D normal=Polygon3D.findNormal(p3d);
@@ -707,7 +699,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 	}
 	
-	public void drawObjects(DrawObject[] drawObjects,Area totalVisibleField,ZBuffer[] zbuffer){
+	public void drawObjects(DrawObject[] drawObjects,Area totalVisibleField,ZBuffer zbuffer){
 
 
         Rectangle rect = totalVisibleField.getBounds();
@@ -719,7 +711,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 	}	
 
-	private void drawPolygonMesh(DrawObject dro,Rectangle rect,ZBuffer[] zbuffer) {
+	private void drawPolygonMesh(DrawObject dro,Rectangle rect,ZBuffer zbuffer) {
 	
 		//if(!totalVisibleField.contains(dro.x-POSX,VIEW_DIRECTION*(dro.y-POSY)))
 	
@@ -732,7 +724,7 @@ public class Renderer3D implements AbstractRenderer3D{
 		
 	}
 	
-	public void decomposeCubicMesh(CubicMesh cm, Texture texture,ZBuffer[] zBuffer){
+	public void decomposeCubicMesh(CubicMesh cm, Texture texture,ZBuffer zBuffer){
 		
 		
 		
@@ -803,7 +795,7 @@ public class Renderer3D implements AbstractRenderer3D{
 			int face, 
 			Color col, 
 			Texture texture, 
-			ZBuffer[] zBuffer
+			ZBuffer zBuffer
 			){
 		
 		Point3D xDirection=null;
@@ -887,7 +879,7 @@ public class Renderer3D implements AbstractRenderer3D{
 	
 
 
-	public void decomposeObject2D(Texture image,double x,double y,double z,double dx,double dy,double dz,ZBuffer[] zbuffer){
+	public void decomposeObject2D(Texture image,double x,double y,double z,double dx,double dy,double dz,ZBuffer zbuffer){
 
 
 
@@ -960,7 +952,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 }*/
 
 	private void decomposePointIntoZBuffer(double xs, double ys, double zs,
-			double ds, int rgbColor,ZBuffer[] zbuffer) {
+			double ds, int rgbColor,ZBuffer zbuffer) {
 
 		if(ys<=SCREEN_DISTANCE) return;
 
@@ -979,7 +971,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 
 		int tot=y*WIDTH+x;	
 
-		zbuffer[tot].update(xs,ys,zs,rgbColor);
+		zbuffer.update(xs,ys,zs,rgbColor,tot);
 
 
 

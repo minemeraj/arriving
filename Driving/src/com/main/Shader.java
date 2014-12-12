@@ -17,7 +17,7 @@ import com.ZBuffer;
 public class Shader extends Renderer3D{
 
 
-	public static ZBuffer[] lightZbuffer;
+	public static ZBuffer lightZbuffer;
 
 	public static int[] stencilZbuffer;
 
@@ -33,14 +33,13 @@ public class Shader extends Renderer3D{
 		for(int i=0;i<length;i++){
 
 
-			ZBuffer zb=roadZbuffer[i];
 			//set
-			if(zb.getZ()>0)
-				rgb[i]=stencil(zb.getRgbColor(), stencilZbuffer[i]); 
+			if(roadZbuffer.getZ(i)>0)
+				rgb[i]=stencil(roadZbuffer.getRgbColor(i), stencilZbuffer[i]); 
 			else
-				rgb[i]=zb.getRgbColor();
+				rgb[i]=roadZbuffer.getRgbColor(i);
 			//clean
-			zb.set(0,0,0,greenRgb);
+			roadZbuffer.set(0,0,0,greenRgb,i);
 			stencilZbuffer[i]=0;   
 
 
@@ -77,12 +76,12 @@ public class Shader extends Renderer3D{
 
 		super.buildNewZBuffers();
 
-		int lenght=roadZbuffer.length;
+		int lenght=roadZbuffer.size;
 		rgb = new int[lenght];	
 
-		for(int i=0;i<lightZbuffer.length;i++){
+		for(int i=0;i<lenght;i++){
 
-			lightZbuffer[i]=new ZBuffer(greenRgb,0);
+			lightZbuffer.rgbColor[i]=greenRgb;
 
 		}
 
@@ -250,7 +249,6 @@ public class Shader extends Renderer3D{
 
 				int tot=y*WIDTH+x;	
 
-				ZBuffer zb=lightZbuffer[tot];
 
 				int minX=x-1;
 				int maxX=x+1;
@@ -274,8 +272,7 @@ public class Shader extends Renderer3D{
 
 					for (int j = minY; j < maxY; j++) {
 
-						ZBuffer zb_p=lightZbuffer[j*WIDTH+i];
-						values.add(zb_p.getZ());
+							values.add(lightZbuffer.getZ(j*WIDTH+i));
 
 					}					
 
