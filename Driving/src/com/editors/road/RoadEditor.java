@@ -516,7 +516,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			rgb[i]=landscapeZbuffer.getRgbColor(i); 
 			
 			//clean
-			landscapeZbuffer.set(0,0,0,blackRgb,i);
+			landscapeZbuffer.set(0,0,0,blackRgb,true,i);
               
 		
 
@@ -1360,7 +1360,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				double xi=pstart.p_x*(1-l)+l*pend.p_x;
 				double zi=pstart.p_z*(1-l)+l*pend.p_z;
 						
-				if(zbuffer.getZ(tot)>zi){
+				if(!zbuffer.isEmpty(tot) && zbuffer.getZ(tot)>zi){
 
 					continue;
 				}	
@@ -1392,7 +1392,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				}
 				
 
-				zbuffer.set(xi,zi,yi,rgbColor,tot);
+				zbuffer.set(xi,zi,yi,rgbColor,false,tot);
 				
 			}
 
@@ -1448,7 +1448,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				double xi=pstart.p_x*(1-l)+l*pend.p_x;
 				double zi=pstart.p_z*(1-l)+l*pend.p_z;
 		
-				if(zbuffer.getZ(tot)>zi){
+				if(!zbuffer.isEmpty(tot) && zbuffer.getZ(tot)>zi){
 
 					continue;
 				}	
@@ -1482,7 +1482,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 			
-				zbuffer.set(xi,zi,yi,rgbColor,tot);
+				zbuffer.set(xi,zi,yi,rgbColor,false,tot);
 	
 			}
 

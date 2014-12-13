@@ -14,6 +14,8 @@ public class ZBuffer{
 		public double[] z;
 		public int size=0;
 		
+		public boolean[] empty;
+		
 		/*public double p_x=0;
 		public double p_y=0;
 		public double p_z=0;
@@ -25,6 +27,7 @@ public class ZBuffer{
 			this.size=size;
 			rgbColor=new int[size];
 			z=new double[size];
+			empty=new boolean[size];
 		}
 
 		
@@ -39,16 +42,10 @@ public class ZBuffer{
 		}
 		public void setZ(double z,int index) {
 			this.z[index] = z;
+			empty[index]=false;
 		}
 		
-		public ZBuffer(int rgbColor, double z,int index) {
-			super();
-			this.rgbColor[index] = rgbColor;
-			this.z[index] = z;
-		}
-		public ZBuffer() {
-			super();
-		}
+
 		
 		public static Color  fromHexToColor(String col){
 
@@ -210,10 +207,11 @@ public class ZBuffer{
 			return getZ(index)==0 ||  getZ(index)>ys;
 		}	
 
-		public void set(double xs,double ys,double zs, int rgbColor,int index) {
+		public void set(double xs,double ys,double zs, int rgbColor,boolean empty,int index) {
 
 			setZ(ys,index);
 			setRgbColor(rgbColor,index);
+			setEmpty(empty,index);
 
 			/*p_x=xs;
 			p_y=ys;
@@ -227,6 +225,14 @@ public class ZBuffer{
 			this.size = size;
 		}
 
+		public boolean isEmpty(int index){
+			
+			return empty[index];
+		}
 		
+		public void setEmpty(boolean value,int index){
+			
+			empty[index]=value;
+		}
 
 }

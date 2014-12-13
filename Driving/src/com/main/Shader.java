@@ -39,7 +39,7 @@ public class Shader extends Renderer3D{
 			else
 				rgb[i]=roadZbuffer.getRgbColor(i);
 			//clean
-			roadZbuffer.set(0,0,0,greenRgb,i);
+			roadZbuffer.set(0,0,0,greenRgb,true,i);
 			stencilZbuffer[i]=0;   
 
 

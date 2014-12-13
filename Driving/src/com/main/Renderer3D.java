@@ -23,7 +23,6 @@ import com.Polygon3D;
 import com.PolygonMesh;
 import com.Texture;
 import com.ZBuffer;
-import com.main.Shader.ShadowVolume;
 
 public class Renderer3D implements AbstractRenderer3D{
 
@@ -90,7 +89,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 			roadZbuffer.rgbColor[i]=greenRgb;
 			roadZbuffer.z[i]=0;
-
+			roadZbuffer.empty[i]=true;
 		}
 	
 
@@ -107,7 +106,7 @@ public class Renderer3D implements AbstractRenderer3D{
 			rgb[i]=roadZbuffer.getRgbColor(i); 
 			
 			//clean
-			roadZbuffer.set(0,0,0,greenRgb,i);
+			roadZbuffer.set(0,0,0,greenRgb,false,i);
               
 		
 
@@ -359,7 +358,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 				//System.out.println(x+" "+y+" "+tot);    			
 
-				zb.set(xi,yi,zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),tot);
+				zb.set(xi,yi,zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),false,tot);
 				
 			}
 
@@ -447,7 +446,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 
 			
-				zb.set(xi,yi,zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),tot);
+				zb.set(xi,yi,zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),false,tot);
 	
 			}
 
@@ -497,7 +496,7 @@ public class Renderer3D implements AbstractRenderer3D{
 					if(!zb.isToUpdate(yi,tot))
 						continue;			
 
-					zb.set(xx,yi,yy,rgbColor,tot);
+					zb.set(xx,yi,yy,rgbColor,false,tot);
 				}
 			else
 				for (int yy = yy2; yy <= yy1; yy++) {
@@ -521,7 +520,7 @@ public class Renderer3D implements AbstractRenderer3D{
 						continue;			
 
 
-					zb.set(xx,yi,yy,rgbColor,tot);
+					zb.set(xx,yi,yy,rgbColor,false,tot);
 				}
 
 		}
@@ -550,7 +549,7 @@ public class Renderer3D implements AbstractRenderer3D{
 						continue;
 
 
-					zb.set(xx,yi,yy,rgbColor,tot);
+					zb.set(xx,yi,yy,rgbColor,false,tot);
 				}
 			else
 				for (int xx = xx2; xx <= xx1; xx++) {
@@ -572,7 +571,7 @@ public class Renderer3D implements AbstractRenderer3D{
 						continue;
 
 
-					zb.set(xx,yi,yy,rgbColor,tot);
+					zb.set(xx,yi,yy,rgbColor,false,tot);
 				}
 
 		}
@@ -591,7 +590,7 @@ public class Renderer3D implements AbstractRenderer3D{
 				return;
 
 
-			zb.set(xx1,y1,yy1,rgbColor,tot);
+			zb.set(xx1,y1,yy1,rgbColor,false,tot);
 
 		}
 
