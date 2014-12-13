@@ -121,6 +121,8 @@ public class Road extends Shader{
     
 	public CarDynamics carDynamics=null;	
 	public CarFrame carFrame=null;
+	
+	public static double WATER_LEVEL=0;
 
 
 	public Road(int WITDH,int HEIGHT, CarFrame carFrame){
@@ -137,7 +139,7 @@ public class Road extends Shader{
 		loadRoad();
 		totalVisibleField=buildVisibileArea(SCREEN_DISTANCE,NYVISIBLE*dy+SCREEN_DISTANCE);
 		
-		
+		WATER_LEVEL=-HEIGHT/2-10;
 	}
 
 
@@ -863,6 +865,8 @@ public class Road extends Shader{
 
 		//g2.setColor(Color.BLUE);
 		//g2.fillRect(0,0,WIDTH,HEIGHT-YFOCUS);
+		
+		int YMAX=(HEIGHT-YFOCUS);
 
 		int dw=CarFrame.background.getWidth();
 		int dh=CarFrame.background.getHeight();
@@ -874,11 +878,13 @@ public class Road extends Shader{
 		double alfa=tetam*dw/(Math.PI*WIDTH);
 		
 		//int deltah=(int) (dh*(1-alfa)+YFOCUS*alfa);
-		int deltah=(int) (dh-YFOCUS*alfa);//(int) (dh*(1-alfa)+YFOCUS*alfa);
+		int deltah=(int) (dh-YMAX*alfa);//(int) (dh*(1-alfa)+YFOCUS*alfa);
 		
 		double eta=tetam*2.0/WIDTH;
 		
 		double i_d=1.0/SCREEN_DISTANCE;
+		
+		
 		
 		//System.out.println(APOSX);
 		for(int i=0;i<WIDTH;i++){
@@ -893,7 +899,7 @@ public class Road extends Shader{
 
 			int i_set=(int) (dw*teta*i_2pi);
 			
-			for(int j=0;j<YFOCUS;j++){
+			for(int j=0;j<YMAX;j++){
 
 				int tot=i+j*WIDTH;
 				

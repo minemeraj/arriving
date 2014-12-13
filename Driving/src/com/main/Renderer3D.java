@@ -602,6 +602,7 @@ public class Renderer3D implements AbstractRenderer3D{
 		
 	}
 
+
 	public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs) {
 
 		//double factor=(lightIntensity*(0.25+0.5*Math.exp(-yi*0.001)+0.25*cosin));
@@ -612,11 +613,17 @@ public class Renderer3D implements AbstractRenderer3D{
 		int rs = 0xff & (argbs>>16);
 		int gs = 0xff & (argbs >>8);
 		int bs = 0xff & argbs;
+		
+		//water effect
+		if(zi<Road.WATER_LEVEL+MOVZ)	{		
+			//factor=factor*0.7;	
+		    rs=gs=0;
+		}
 
 		rs=(int) (factor*rs);
 		gs=(int) (factor*gs);
 		bs=(int) (factor*bs);
-
+	
 		return alphas <<24 | rs <<16 | gs <<8 | bs;
 	
 	}
