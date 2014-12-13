@@ -40,7 +40,6 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 
 		
 	public static ZBuffer roadZbuffer;
-	public int[] rgb;
 	public int greenRgb= Color.BLACK.getRGB();
 
 
@@ -452,7 +451,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 			
 		}
 		 int lenght=roadZbuffer.getSize();
-		 rgb = new int[lenght];	
+	
 
 				
 	}
@@ -461,19 +460,19 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 	
 	public void buildScreen(BufferedImage buf) {
 
-		int length=rgb.length;
+		 buf.getRaster().setDataElements( 0,0,WIDTH,HEIGHT,roadZbuffer.rgbColor); 
+		
+		int length=roadZbuffer.getSize();
 		
 		for(int i=0;i<length;i++){
 			   
-	
-				   //set
-			 	   rgb[i]=roadZbuffer.getRgbColor(i); 
+
 				   //clean
 			 	  roadZbuffer.set(0,0,0,greenRgb,true,i);
 				  
  
 		 }	   
-		 buf.getRaster().setDataElements( 0,0,WIDTH,HEIGHT,rgb);    
+		   
 	              
 
 	}

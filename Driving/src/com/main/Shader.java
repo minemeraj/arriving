@@ -28,24 +28,30 @@ public class Shader extends Renderer3D{
 
 	public void buildScreen(BufferedImage buf) {
 
-		int length=rgb.length;
+		int length=roadZbuffer.getSize();
+				
 
 		for(int i=0;i<length;i++){
 
 
 			//set
 			if(roadZbuffer.getZ(i)>0)
-				rgb[i]=stencil(roadZbuffer.getRgbColor(i), stencilZbuffer[i]); 
-			else
-				rgb[i]=roadZbuffer.getRgbColor(i);
+				roadZbuffer.rgbColor[i]=stencil(roadZbuffer.getRgbColor(i), stencilZbuffer[i]); 
+
+
+
+		}
+		buf.getRaster().setDataElements( 0,0,WIDTH,HEIGHT,roadZbuffer.rgbColor);
+		
+		for(int i=0;i<length;i++){
+	
 			//clean
 			roadZbuffer.set(0,0,0,greenRgb,true,i);
 			stencilZbuffer[i]=0;   
 
 
 		}
-
-		buf.getRaster().setDataElements( 0,0,WIDTH,HEIGHT,rgb);
+		
 		//buf.setRGB(0,0,WIDTH,HEIGHT,rgb,0,WIDTH);
 
 
@@ -77,7 +83,6 @@ public class Shader extends Renderer3D{
 		super.buildNewZBuffers();
 
 		int lenght=roadZbuffer.size;
-		rgb = new int[lenght];	
 
 		for(int i=0;i<lenght;i++){
 

@@ -49,7 +49,6 @@ public class Renderer3D implements AbstractRenderer3D{
 
 
 	public int greenRgb= CarFrame.BACKGROUND_COLOR.getRGB();
-	public int[] rgb=null;
 
 	public static final int FRONT_VIEW=+1;
 	public static final int REAR_VIEW=-1;
@@ -97,13 +96,12 @@ public class Renderer3D implements AbstractRenderer3D{
 
 	public void buildScreen(BufferedImage buf) {
 
-		int length=rgb.length;
+		int length=roadZbuffer.getSize();
+		
+		buf.getRaster().setDataElements( 0,0,WIDTH,HEIGHT,roadZbuffer.rgbColor);
 		
 		for(int i=0;i<length;i++){
 
-
-			//set
-			rgb[i]=roadZbuffer.getRgbColor(i); 
 			
 			//clean
 			roadZbuffer.set(0,0,0,greenRgb,false,i);
@@ -112,7 +110,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 		}
 		
-		buf.getRaster().setDataElements( 0,0,WIDTH,HEIGHT,rgb);
+		
 		//buf.setRGB(0,0,WIDTH,HEIGHT,rgb,0,WIDTH);
 
 
