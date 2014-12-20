@@ -22,9 +22,7 @@ import com.editors.CustomEditor;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.ValuePair;
-import com.editors.forniture.data.Barrel;
 import com.editors.forniture.data.Forniture;
-import com.editors.forniture.data.Wardrobe;
 import com.editors.object.ObjectEditorPreviewPanel;
 
 public class FornitureEditor extends CustomEditor implements ItemListener{

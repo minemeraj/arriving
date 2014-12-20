@@ -31,15 +31,20 @@ public class ManHead extends Animal{
 	
 	public static boolean isTextureDrawing=false;
 	
-	int N_FACES=4;
-	int N_PARALLELS=2;
-	
 	private double len;
 	
-	Point3D[] upperBase=null;
-	Point3D[] lowerBase=null;
+	Point3D[][] upperBase=null;
+	Point3D[][] lowerBase=null;
 	Point3D[][] lateralFaces=null; 
 	
+
+	int numx=9;
+	int numy=5;
+	int numz=9;
+	
+	int N_FACES=numx*2+(numy-2)*2;
+	
+
 
 	public ManHead(double x_side, double y_side,double z_side,int animal_type,
 			double femur_length,double shinbone_length,double leg_side,
@@ -70,27 +75,43 @@ public class ManHead extends Animal{
 		this.hand_length = hand_length;
 		this.foot_length = foot_length;
 		
-		len=2*(x_side+y_side);
+		len=2*(head_DX+head_DY);
 		
-		upperBase=new Point3D[N_FACES];
 		
-		upperBase[0]=new Point3D(0,y_side+z_side,0);			
-		upperBase[1]=new Point3D(x_side,y_side+z_side,0);	
-		upperBase[2]=new Point3D(x_side,y_side+z_side+y_side,0);	
-		upperBase[3]=new Point3D(0,y_side+z_side+y_side,0);	
+		texture_side_dy=(int) (head_DY/(numy-1));
+		texture_side_dx=(int) (head_DX/(numx-1));
 		
-		lowerBase=new Point3D[N_FACES];
+		upperBase=new Point3D[numx][numy];
 		
-		lowerBase[0]=new Point3D(0,0,0);			
-		lowerBase[1]=new Point3D(0,y_side,0);	
-		lowerBase[2]=new Point3D(x_side,y_side,0);	
-		lowerBase[3]=new Point3D(x_side,0,0);	
+		double baseY=head_DZ+head_DY;
 		
+		for (int i = 0; i <numx; i++) {
+			
+			for (int j = 0; j < numy; j++) {
+				
+				upperBase[i][j]=new Point3D(texture_side_dx*i,texture_side_dy*j+baseY,0);
+			}
+			
+		}
+	
+		
+		lowerBase=new Point3D[numx][numy];
+		
+		for (int i = 0; i <numx; i++) {
+			
+			for (int j = 0; j < numy; j++) {
+				
+				lowerBase[i][j]=new Point3D(texture_side_dx*i,texture_side_dy*j,0);
+			}
+			
+		}
+		
+		texture_side_dy=(int) (head_DZ/(numz-1));
+		texture_side_dx=(int) (len/(N_FACES));
+		
+		lateralFaces=new Point3D[N_FACES+1][numz];
 
-		
-		lateralFaces=new Point3D[N_FACES+1][N_PARALLELS];
-
-		for(int j=0;j<N_PARALLELS;j++){
+		for(int j=0;j<numz;j++){
 
 			//texture is open and periodical:
 			
@@ -99,14 +120,14 @@ public class ManHead extends Animal{
 			for (int i = 0; i <=N_FACES; i++) {
 
 			
-				double y=y_side+z_side*j;
+				double y=head_DY+texture_side_dy*j;
 
 				lateralFaces[i][j]=new Point3D(x,y,0);
 				
-				double dx=x_side;
+				double dx=texture_side_dx;
 				
 				if(i%2==1)
-					dx=y_side;
+					dx=texture_side_dy;
 				
 				x+=dx;
 
@@ -124,17 +145,14 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		
 		isTextureDrawing=true;
 
-
-		
-		texture_side_dy=(int) (z_side/(N_PARALLELS-1));
-		texture_side_dx=(int) (len/(N_FACES));
+	
 		
 
 		Color backgroundColor=Color.green;
 
 		
 		IMG_WIDTH=(int) len+2*texture_x0;
-		IMG_HEIGHT=(int) (z_side+y_side*2)+2*texture_y0;
+		IMG_HEIGHT=(int) (head_DZ+head_DY*2)+2*texture_y0;
 
 		
 		BufferedImage buf=new BufferedImage(IMG_WIDTH,IMG_HEIGHT,BufferedImage.TYPE_BYTE_INDEXED);
@@ -153,33 +171,56 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 				bufGraphics.setColor(Color.RED);
 				bufGraphics.setStroke(new BasicStroke(0.1f));
 				
-				for (int j = 0; j <upperBase.length; j++) {
-
-					double x0= calX(upperBase[j].x);
-					double y0= calY(upperBase[j].y);
+				for (int i = 0; i <numx; i++) {
 					
-					double x1= calX(upperBase[(j+1)%upperBase.length].x);
-					double y1= calY(upperBase[(j+1)%upperBase.length].y);
+					for (int j = 0; j < numy; j++) {
 
-					bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);	 
+						double x0= calX(upperBase[i][j].x);
+						double y0= calY(upperBase[i][j].y);
+						
+						double x1= calX(upperBase[(i+1)%numx][j].x);
+						double y1= calY(upperBase[(i+1)%numx][j].y);
+						
+						double x2= calX(upperBase[(i+1)%numx][(j+1)%numy].x);
+						double y2= calY(upperBase[(i+1)%numx][(j+1)%numy].y);
+						
+						double x3= calX(upperBase[i][(j+1)%numy].x);
+						double y3= calY(upperBase[i][(j+1)%numy].y);
+	
+						bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);	 
+						bufGraphics.drawLine((int)x1,(int)y1,(int)x2,(int)y2);	 
+						bufGraphics.drawLine((int)x2,(int)y2,(int)x3,(int)y3);	 
+						bufGraphics.drawLine((int)x3,(int)y3,(int)x0,(int)y0);	 
 
+					}
 				}
-
 				
 				//lowerbase
 		
 				bufGraphics.setColor(Color.BLUE);
 				
-				for (int j = 0; j <lowerBase.length; j++) {
 
-					double x0= calX(lowerBase[j].x);
-					double y0= calY(lowerBase[j].y);
+				for (int i = 0; i <numx; i++) {
 					
-					double x1= calX(lowerBase[(j+1)%lowerBase.length].x);
-					double y1= calY(lowerBase[(j+1)%lowerBase.length].y);
+					for (int j = 0; j < numy; j++) {
 
-					bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);			
-
+						double x0= calX(lowerBase[i][j].x);
+						double y0= calY(lowerBase[i][j].y);
+						
+						double x1= calX(lowerBase[(i+1)%numx][j].x);
+						double y1= calY(lowerBase[(i+1)%numx][j].y);
+						
+						double x2= calX(lowerBase[(i+1)%numx][(j+1)%numy].x);
+						double y2= calY(lowerBase[(i+1)%numx][(j+1)%numy].y);
+						
+						double x3= calX(lowerBase[i][(j+1)%numy].x);
+						double y3= calY(lowerBase[i][(j+1)%numy].y);
+	
+						bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);	 
+						bufGraphics.drawLine((int)x1,(int)y1,(int)x2,(int)y2);	 
+						bufGraphics.drawLine((int)x2,(int)y2,(int)x3,(int)y3);	 
+						bufGraphics.drawLine((int)x3,(int)y3,(int)x0,(int)y0);	 		
+					}
 				}
 
 
@@ -187,7 +228,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 				bufGraphics.setColor(new Color(0,0,0));
 
 
-				for(int j=0;j<N_PARALLELS-1;j++){
+				for(int j=0;j<numz-1;j++){
 
 					//texture is open and periodical:
 
@@ -224,42 +265,32 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		
 
 
-		/*int size=2*N_FACES+	(N_FACES+1)*(N_PARALLELS);
-		
-		texture_points.setSize(size);
-		
-		int count=0;
 		//upperbase
 
-		for (int j = 0; j <upperBase.length; j++) {
-
+		for (int i = 0; i <numx; i++) {
 			
+			for (int j = 0; j < numy; j++) {
 			
-			double x= calX(upperBase[j].x);
-			double y= calY(upperBase[j].y);
-
-			Point3D p=new Point3D(x,y,0);			
-			texture_points.setElementAt(p,count++);
-
+				
+				double x= calX(upperBase[i][j].x);
+				double y= calY(upperBase[i][j].y);
+	
+				Point3D p=new Point3D(x,y,0);			
+				texture_points.add(p);
+			}
 
 		}
 	
+
+
 		
-		for (int j = 0; j <lowerBase.length; j++) {
-
-			double x= calX(lowerBase[j].x);
-			double y= calY(lowerBase[j].y);
-
-			Point3D p=new Point3D(x,y,0);			
-			texture_points.setElementAt(p,count++);
-
-		}
-
+		
+	
 
 		//lateral surface
 
 
-		for(int j=0;j<N_PARALLELS;j++){
+		for(int j=0;j<numz;j++){
 
 			//texture is open and periodical:
 
@@ -270,12 +301,25 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 
 				Point3D p=new Point3D(x,y,0);
 
-				int texIndex=count+f(i,j,N_FACES+1,N_PARALLELS);
+			
 				//System.out.print(texIndex+"\t");
-				texture_points.setElementAt(p,texIndex);
+				texture_points.add(p);
 			}
 			
-		}	*/
+		}	
+		
+		
+		for (int i = 0; i <numx; i++) {
+			
+			for (int j = 0; j < numy; j++) {
+
+				double x= calX(lowerBase[i][j].x);
+				double y= calY(lowerBase[i][j].y);
+	
+				Point3D p=new Point3D(x,y,0);			
+				texture_points.add(p);
+			}
+		}
 		
 		return texture_points;
 	}
@@ -306,11 +350,6 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 	
 		Segments n0=new Segments(xc,head_DX,yc,head_DY,0,head_DZ);
 		Segments h0=new Segments(xc,head_DX,yc,head_DY,0,head_DZ);
-		
-
-		int numx=9;
-		int numy=5;
-		int numz=9;
 		
 		BPoint[][][] head=new BPoint[numx][numy][numz];
 		
@@ -652,32 +691,32 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 
 					if(i==0){
 
-						addLine(head[i][j][k],head[i][j][k+1],head[i][j+1][k+1],head[i][j+1][k],Renderer3D.CAR_LEFT);
+						addLine(head[i][j][k],head[i][j][k+1],head[i][j+1][k+1],head[i][j+1][k],lfi(i,j,0,Renderer3D.CAR_LEFT),lfi(i,j,1,Renderer3D.CAR_LEFT),lfi(i,j,2,Renderer3D.CAR_LEFT),lfi(i,j,3,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
 					}
 
 				
 						
 					if(k==0){
 
-						addLine(head[i][j][k],head[i][j+1][k],head[i+1][j+1][k],head[i+1][j][k],Renderer3D.CAR_BOTTOM);
+						addLine(head[i][j][k],head[i][j+1][k],head[i+1][j+1][k],head[i+1][j][k],bfi(i,j,0),bfi(i,j,1),bfi(i,j,2),bfi(i,j,3),Renderer3D.CAR_BOTTOM);
 					
 					}
 					
 					if(k+1==numz-1){
-						addLine(head[i][j][k+1],head[i+1][j][k+1],head[i+1][j+1][k+1],head[i][j+1][k+1],Renderer3D.CAR_TOP);
+						addLine(head[i][j][k+1],head[i+1][j][k+1],head[i+1][j+1][k+1],head[i][j+1][k+1],tfi(i,j,0),tfi(i,j,1),tfi(i,j,2),tfi(i,j,3),Renderer3D.CAR_TOP);
 					}
 					
 					if(j==0){
-						addLine(head[i][j][k],head[i+1][j][k],head[i+1][j][k+1],head[i][j][k+1],Renderer3D.CAR_BACK);
+						addLine(head[i][j][k],head[i+1][j][k],head[i+1][j][k+1],head[i][j][k+1],lfi(i,j,0,Renderer3D.CAR_BACK),lfi(i,j,1,Renderer3D.CAR_BACK),lfi(i,j,2,Renderer3D.CAR_BACK),lfi(i,j,3,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 					}
 					if(j+1==numy-1){
-						addLine(head[i][j+1][k],head[i][j+1][k+1],head[i+1][j+1][k+1],head[i+1][j+1][k],Renderer3D.CAR_FRONT);	
+						addLine(head[i][j+1][k],head[i][j+1][k+1],head[i+1][j+1][k+1],head[i+1][j+1][k],lfi(i,j,0,Renderer3D.CAR_FRONT),lfi(i,j,1,Renderer3D.CAR_FRONT),lfi(i,j,2,Renderer3D.CAR_FRONT),lfi(i,j,3,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);	
 					}
 				
 
 					if(i+1==numx-1){
 
-						addLine(head[i+1][j][k],head[i+1][j+1][k],head[i+1][j+1][k+1],head[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+						addLine(head[i+1][j][k],head[i+1][j+1][k],head[i+1][j+1][k+1],head[i+1][j][k+1],lfi(i,j,0,Renderer3D.CAR_RIGHT),lfi(i,j,1,Renderer3D.CAR_RIGHT),lfi(i,j,2,Renderer3D.CAR_RIGHT),lfi(i,j,3,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
 
 					}
 				}
@@ -703,13 +742,13 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		noze[1][2]=head[4][4][5];
 		
 		//base
-		addLine(noze[0][0],noze[1][0],noze[2][0],null,Renderer3D.CAR_FRONT);
+		addLine(noze[0][0],noze[1][0],noze[2][0],null,0,0,0,0,Renderer3D.CAR_FRONT);
 		//lower		
-		addLine(noze[0][0],noze[0][1],noze[1][1],noze[1][0],Renderer3D.CAR_FRONT);	
-		addLine(noze[1][0],noze[1][1],noze[2][1],noze[2][0],Renderer3D.CAR_FRONT);	
+		addLine(noze[0][0],noze[0][1],noze[1][1],noze[1][0],0,0,0,0,Renderer3D.CAR_FRONT);	
+		addLine(noze[1][0],noze[1][1],noze[2][1],noze[2][0],0,0,0,0,Renderer3D.CAR_FRONT);	
 		//upper
-		addLine(noze[0][1],noze[1][2],noze[1][1],null,Renderer3D.CAR_FRONT);
-		addLine(noze[1][1],noze[1][2],noze[2][1],null,Renderer3D.CAR_FRONT);
+		addLine(noze[0][1],noze[1][2],noze[1][1],null,0,0,0,0,Renderer3D.CAR_FRONT);
+		addLine(noze[1][1],noze[1][2],noze[2][1],null,0,0,0,0,Renderer3D.CAR_FRONT);
 
 
 		//////// texture points
@@ -718,67 +757,128 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 			
 		texture_points=buildTexturePoints();
 		
-		/*LineData lowerBase=new LineData();
-		LineData upperBase=new LineData();
-		
-		int count=0;
 
-		for (int j = 0; j <N_FACES; j++) {
-
-			upperBase.addIndex(aPoints[N_PARALLELS-1][j].getIndex(),count++,0,0);
-
-			upperBase.setData(""+Renderer3D.getFace(upperBase,points));
-
-		}	
-
-		for (int j = N_FACES-1; j >=0; j--) {
-
-			lowerBase.addIndex(aPoints[0][j].getIndex(),count++,0,0);
-
-			lowerBase.setData(""+Renderer3D.getFace(lowerBase,points));
-		}
-
-		polyData.add(upperBase);
-		polyData.add(lowerBase);
-
-		for(int j=0;j<N_PARALLELS-1;j++){ 
-
-
-
-
-			for (int i = 0; i <N_FACES; i++) { 
-
-
-				LineData ld=new LineData();
-
-				int texIndex=count+f(i,j,N_FACES+1,N_PARALLELS);
-				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[j][i].getIndex(),texIndex,0,0);
-				
-				texIndex=count+f(i+1,j,N_FACES+1,N_PARALLELS);
-				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[j][(i+1)%N_FACES].getIndex(),texIndex,0,0);
-				
-				texIndex=count+f(i+1,j+1,N_FACES+1,N_PARALLELS);
-				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[j+1][(i+1)%N_FACES].getIndex(),texIndex,0,0);
-				
-				texIndex=count+f(i,j+1,N_FACES+1,N_PARALLELS);
-				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[j+1][i].getIndex(),texIndex,0,0);
-
-				ld.setData(""+Renderer3D.getFace(ld,points));
-				
-				
-
-				polyData.add(ld);
-
-			}
-		
-
-		}*/
 
 
 	}
+
+	
+	public int tfi(int i,int j,int n){
+		
+		int deltax=0;
+		int deltay=0;
+		
+		if(n==1){
+			deltax=1;
+		} else if(n==2){
+			deltax=1;
+			deltay=1;
+		}	
+		else if(n==3){
+			
+			deltay=1;
+		}
+		return upperFaceIndexes[i+deltax][j+deltay];
+	
+	}
+	
+	public int lfi(int i,int j,int n,int type){
+		
+		int deltax=0;
+		int deltay=0;
+		
+		if(n==1){
+			deltax=1;
+		} else if(n==2){
+			deltax=1;
+			deltay=1;
+		}	
+		else if(n==3){
+			
+			deltay=1;
+		}
+		
+		if(type==Renderer3D.CAR_BACK){
+			
+			
+		}else if(type==Renderer3D.CAR_RIGHT){
+			
+			deltax+=numx-1;
+			
+		}else if(type==Renderer3D.CAR_FRONT){
+			
+			deltax+=numx-1+numy-2;
+			
+		}else if(type==Renderer3D.CAR_LEFT){
+			
+			deltax+=2*numx+numy-2;
+		}
+		
+		
+		return lateralFaceIndexes[j+deltay][i+deltax];
+	}
+	
+	public int bfi(int i,int j,int n){
+		
+		int deltax=0;
+		int deltay=0;
+		
+		if(n==1){
+			deltax=1;
+		} else if(n==2){
+			deltax=1;
+			deltay=1;
+		}	
+		else if(n==3){
+			
+			deltay=1;
+		}
+		
+		return bottomFaceIndexes[i+deltax][j+deltay];
+	}
+	
+	int[][] upperFaceIndexes={
+			
+			{0,1,2,3,4},
+			{5,6,7,8,9},
+			{10,11,12,13,14},
+			{15,16,17,18,19},
+			{20,21,22,23,24},
+			{25,26,27,28,29},
+			{30,31,32,33,34},
+			{35,36,37,38,39},
+			{40,41,42,43,44}
+			
+	};
+
+	int[][] lateralFaceIndexes={
+			
+			{45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69},
+			{70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94},
+			{95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119},
+			{120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144},
+			{145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169},
+			{170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194},
+			{195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219},
+			{220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244},
+			{245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269},
+			
+			
+	};
+	
+	int[][] bottomFaceIndexes={
+			
+			{270,271,272,273,274},
+			{275,276,277,278,279},
+			{280,281,282,283,284},
+			{285,286,287,288,289},
+			{290,291,292,293,294},
+			{295,296,297,298,299},
+			{300,301,302,303,304},
+			{305,306,307,308,309},
+			{310,311,312,313,314},
+			
+	};
+
 	
 }

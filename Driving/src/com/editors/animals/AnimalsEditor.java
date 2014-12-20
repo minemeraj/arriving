@@ -36,6 +36,7 @@ import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.ValuePair;
 import com.editors.animals.data.Animal;
+import com.editors.forniture.data.Forniture;
 import com.editors.object.ObjectEditorPreviewPanel;
 import com.main.Renderer3D;
 
@@ -628,7 +629,9 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 			meshes[0]=buildMesh();
 			pw = new PrintWriter(new FileOutputStream(file));
 			forceReading=true;
-			saveLines(pw);
+			boolean isCustom=(meshes[0].getTexturePoints()!=null 
+					&& meshes[0].getTexturePoints().size()>0); 
+			saveLines(pw,isCustom);
 			pw.close();
 			
 		} catch (Exception e) { 
@@ -721,6 +724,19 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 			
 		}
 		
+	}
+	
+	@Override
+	public void saveBaseCubicTexture(File file) {
+
+    	if(animal.getAnimal_type()==Animal.ANIMAL_TYPE_MANHEAD 
+    	){
+    		
+    		PolygonMesh pm = buildMesh();		
+    		animal.getSpecificData().saveBaseCubicTexture(pm,file);
+    	}
+		else
+			super.saveBaseCubicTexture(file);
 	}
 
 

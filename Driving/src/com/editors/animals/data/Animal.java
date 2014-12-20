@@ -354,9 +354,10 @@ public class Animal extends CustomData{
 				 head_DZ, head_DX, head_DY, neck_length, neck_side,
 				 humerus_length, radius_length, hand_length, foot_length
 			);
+		
+		specificData=head;
+		
 		return head.getMesh();
-		
-		
 	}
 	
 
