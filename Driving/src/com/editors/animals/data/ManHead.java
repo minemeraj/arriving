@@ -800,6 +800,26 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 	
 	public int lf(int i,int j,int n,int type){
 		
+		if(type==Renderer3D.CAR_BACK){
+			
+			
+			
+			
+		}else if(type==Renderer3D.CAR_RIGHT){
+			
+			
+			
+		}else if(type==Renderer3D.CAR_FRONT){
+			
+		  i=numx-2-i;
+			
+		}else if(type==Renderer3D.CAR_LEFT){
+			
+			i=numy-2-i;
+			
+		}
+		
+		
 		int deltax=0;
 		int deltay=0;
 		
