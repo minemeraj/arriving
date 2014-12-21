@@ -678,6 +678,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		}
 
 */
+		int C=0;
 
 		
 		for (int i = 0; i < numx-1; i++) {
@@ -690,33 +691,48 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
              
 
 					if(i==0){
+						 
+						C=Renderer3D.CAR_LEFT;
 
-						addLine(head[i][j][k],head[i][j][k+1],head[i][j+1][k+1],head[i][j+1][k],lfi(i,j,0,Renderer3D.CAR_LEFT),lfi(i,j,1,Renderer3D.CAR_LEFT),lfi(i,j,2,Renderer3D.CAR_LEFT),lfi(i,j,3,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
+						addLine(head[i][j][k],head[i][j][k+1],head[i][j+1][k+1],head[i][j+1][k],lf(j,k,0,C),lf(j,k,1,C),lf(j,k,2,C),lf(j,k,3,C),C);
 					}
 
 				
 						
 					if(k==0){
+						
+						C=Renderer3D.CAR_BOTTOM;
 
-						addLine(head[i][j][k],head[i][j+1][k],head[i+1][j+1][k],head[i+1][j][k],bfi(i,j,0),bfi(i,j,1),bfi(i,j,2),bfi(i,j,3),Renderer3D.CAR_BOTTOM);
+						addLine(head[i][j][k],head[i][j+1][k],head[i+1][j+1][k],head[i+1][j][k],bfi(i,j,0),bfi(i,j,1),bfi(i,j,2),bfi(i,j,3),C);
 					
 					}
 					
 					if(k+1==numz-1){
-						addLine(head[i][j][k+1],head[i+1][j][k+1],head[i+1][j+1][k+1],head[i][j+1][k+1],tfi(i,j,0),tfi(i,j,1),tfi(i,j,2),tfi(i,j,3),Renderer3D.CAR_TOP);
+						
+						C=Renderer3D.CAR_TOP;
+						
+						addLine(head[i][j][k+1],head[i+1][j][k+1],head[i+1][j+1][k+1],head[i][j+1][k+1],tfi(i,j,0),tfi(i,j,1),tfi(i,j,2),tfi(i,j,3),C);
 					}
 					
 					if(j==0){
-						addLine(head[i][j][k],head[i+1][j][k],head[i+1][j][k+1],head[i][j][k+1],lfi(i,j,0,Renderer3D.CAR_BACK),lfi(i,j,1,Renderer3D.CAR_BACK),lfi(i,j,2,Renderer3D.CAR_BACK),lfi(i,j,3,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
+						
+						C=Renderer3D.CAR_BACK;
+						
+						addLine(head[i][j][k],head[i+1][j][k],head[i+1][j][k+1],head[i][j][k+1],lf(i,k,0,C),lf(i,k,1,C),lf(i,k,2,C),lf(i,k,3,C),C);
 					}
 					if(j+1==numy-1){
-						addLine(head[i][j+1][k],head[i][j+1][k+1],head[i+1][j+1][k+1],head[i+1][j+1][k],lfi(i,j,0,Renderer3D.CAR_FRONT),lfi(i,j,1,Renderer3D.CAR_FRONT),lfi(i,j,2,Renderer3D.CAR_FRONT),lfi(i,j,3,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);	
+						
+						C=Renderer3D.CAR_FRONT;
+						
+						addLine(head[i][j+1][k],head[i][j+1][k+1],head[i+1][j+1][k+1],head[i+1][j+1][k],lf(i,k,0,C),lf(i,k,1,C),lf(i,k,2,C),lf(i,k,3,C),C);	
 					}
 				
 
 					if(i+1==numx-1){
+						
+						C=Renderer3D.CAR_RIGHT;
 
-						addLine(head[i+1][j][k],head[i+1][j+1][k],head[i+1][j+1][k+1],head[i+1][j][k+1],lfi(i,j,0,Renderer3D.CAR_RIGHT),lfi(i,j,1,Renderer3D.CAR_RIGHT),lfi(i,j,2,Renderer3D.CAR_RIGHT),lfi(i,j,3,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
+						addLine(head[i+1][j][k],head[i+1][j+1][k],head[i+1][j+1][k+1],head[i+1][j][k+1],lf(j,k,0,C),lf(j,k,1,C),lf(j,k,2,C),lf(j,k,3,C),C);
 
 					}
 				}
@@ -782,7 +798,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 	
 	}
 	
-	public int lfi(int i,int j,int n,int type){
+	public int lf(int i,int j,int n,int type){
 		
 		int deltax=0;
 		int deltay=0;
@@ -807,11 +823,11 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 			
 		}else if(type==Renderer3D.CAR_FRONT){
 			
-			deltax+=numx-1+numy-2;
+			deltax+=numx-1+numy-1;
 			
 		}else if(type==Renderer3D.CAR_LEFT){
 			
-			deltax+=2*numx+numy-2;
+			deltax+=2*(numx-1)+numy-1;
 		}
 		
 		
