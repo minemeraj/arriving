@@ -5,18 +5,14 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.Hashtable;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
 
 import com.BPoint;
-import com.CustomData;
-import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
 import com.Segments;
-import com.editors.DoubleTextField;
 import com.main.Renderer3D;
 
 public class ManHead extends Animal{
@@ -694,7 +690,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 						 
 						C=Renderer3D.CAR_LEFT;
 
-						addLine(head[i][j][k],head[i][j][k+1],head[i][j+1][k+1],head[i][j+1][k],lf(j,k,0,C),lf(j,k,1,C),lf(j,k,2,C),lf(j,k,3,C),C);
+						addLine(head[i][j][k],head[i][j][k+1],head[i][j+1][k+1],head[i][j+1][k],lf(i,j,k,0,C),lf(i,j,k,1,C),lf(i,j,k,2,C),lf(i,j,k,3,C),C);
 					}
 
 				
@@ -718,13 +714,13 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 						
 						C=Renderer3D.CAR_BACK;
 						
-						addLine(head[i][j][k],head[i+1][j][k],head[i+1][j][k+1],head[i][j][k+1],lf(i,k,0,C),lf(i,k,1,C),lf(i,k,2,C),lf(i,k,3,C),C);
+						addLine(head[i][j][k],head[i+1][j][k],head[i+1][j][k+1],head[i][j][k+1],lf(i,j,k,0,C),lf(i,j,k,1,C),lf(i,j,k,2,C),lf(i,j,k,3,C),C);
 					}
 					if(j+1==numy-1){
 						
 						C=Renderer3D.CAR_FRONT;
 						
-						addLine(head[i][j+1][k],head[i][j+1][k+1],head[i+1][j+1][k+1],head[i+1][j+1][k],lf(i,k,0,C),lf(i,k,1,C),lf(i,k,2,C),lf(i,k,3,C),C);	
+						addLine(head[i][j+1][k],head[i][j+1][k+1],head[i+1][j+1][k+1],head[i+1][j+1][k],lf(i,j,k,0,C),lf(i,j,k,1,C),lf(i,j,k,2,C),lf(i,j,k,3,C),C);	
 					}
 				
 
@@ -732,7 +728,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 						
 						C=Renderer3D.CAR_RIGHT;
 
-						addLine(head[i+1][j][k],head[i+1][j+1][k],head[i+1][j+1][k+1],head[i+1][j][k+1],lf(j,k,0,C),lf(j,k,1,C),lf(j,k,2,C),lf(j,k,3,C),C);
+						addLine(head[i+1][j][k],head[i+1][j+1][k],head[i+1][j+1][k+1],head[i+1][j][k+1],lf(i,j,k,0,C),lf(i,j,k,1,C),lf(i,j,k,2,C),lf(i,j,k,3,C),C);
 
 					}
 				}
@@ -759,7 +755,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		
 		//base
 		addLine(noze[0][0],noze[1][0],noze[2][0],null,0,0,0,0,Renderer3D.CAR_FRONT);
-		//lower		
+		//sides		
 		addLine(noze[0][0],noze[0][1],noze[1][1],noze[1][0],0,0,0,0,Renderer3D.CAR_FRONT);	
 		addLine(noze[1][0],noze[1][1],noze[2][1],noze[2][0],0,0,0,0,Renderer3D.CAR_FRONT);	
 		//upper
@@ -798,24 +794,36 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 	
 	}
 	
-	public int lf(int i,int j,int n,int type){
+	public int lf(int i,int j,int k,int n,int type){
+		
+		int nx=0;
+		int ny=0;
+		
 		
 		if(type==Renderer3D.CAR_BACK){
 			
-			
+			nx=i;
+			ny=k;
 			
 			
 		}else if(type==Renderer3D.CAR_RIGHT){
 			
+			nx=j;
+			ny=k;
 			
 			
 		}else if(type==Renderer3D.CAR_FRONT){
 			
-		  i=numx-2-i;
+			nx=i;
+			ny=k;
+			
+			nx=numx-2-i;
 			
 		}else if(type==Renderer3D.CAR_LEFT){
 			
-			i=numy-2-i;
+			nx=j;
+			ny=k;
+			nx=numy-2-nx;
 			
 		}
 		
@@ -851,7 +859,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		}
 		
 		
-		return lateralFaceIndexes[j+deltay][i+deltax];
+		return lateralFaceIndexes[ny+deltay][nx+deltax];
 	}
 	
 	public int bfi(int i,int j,int n){
