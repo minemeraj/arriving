@@ -1,5 +1,6 @@
 package com;
 
+import java.awt.Graphics2D;
 import java.io.File;
 import java.util.Hashtable;
 import java.util.Vector;
@@ -428,8 +429,9 @@ public class CustomData {
 		
 		return i+j*nx;
 	}
+	
 
-
+	
 	public CustomData getSpecificData() {
 		return specificData;
 	}
@@ -455,6 +457,26 @@ public class CustomData {
 		
 		return new Point3D(x*alfa,y*alfa,z*alfa);
 		
+	}
+	
+	public void drawLine(Graphics2D bufGraphics, Point3D point3d, Point3D point3d2) {
+		
+		bufGraphics.drawLine(
+				(int)calX(point3d.x),
+				(int)calY(point3d.y),
+				(int)calX(point3d2.x),
+				(int)calY(point3d2.y)
+			);
+	
+	}
+	
+	public double calX(double x){
+		
+		return x;
+	}
+
+	public double calY(double y){
+			return y;
 	}
 
 }

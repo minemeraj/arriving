@@ -500,12 +500,12 @@ public Vector buildTexturePoints() {
 	return texture_points;
 }
 
-		public static double calX(double x){
+		public double calX(double x){
 			
 			return texture_x0+x;
 		}
 		
-		public static double calY(double y){
+		public double calY(double y){
 			if(isTextureDrawing)
 				return IMG_HEIGHT-(texture_y0+y);
 			else

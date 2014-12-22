@@ -32,6 +32,7 @@ public class ManHead extends Animal{
 	Point3D[][] upperBase=null;
 	Point3D[][] lowerBase=null;
 	Point3D[][] lateralFaces=null; 
+	Point3D[][] nozeFaces=null; 
 	
 
 	int numx=9;
@@ -130,6 +131,17 @@ public class ManHead extends Animal{
 			}
 			
 		}	
+		double baseX=head_DX+10;
+		double ndy=head_DY/4.0;
+		
+		nozeFaces=new Point3D[3][3];
+        nozeFaces[0][0]=new  Point3D(baseX,0,0);
+        nozeFaces[1][0]=new  Point3D(baseX+texture_side_dx,ndy*0.5,0);
+        nozeFaces[2][0]=new  Point3D(baseX+2*texture_side_dx,0,0);
+        nozeFaces[0][1]=new  Point3D(baseX,ndy,0);
+        nozeFaces[1][1]=new  Point3D(baseX+texture_side_dx,ndy,0);
+        nozeFaces[2][1]=new  Point3D(baseX+2*texture_side_dx,ndy,0);
+        nozeFaces[1][2]=new  Point3D(baseX+texture_side_dx,ndy*2.0,0);
 		
 		initMesh();
 	}
@@ -243,6 +255,22 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 
 				}	
 				
+				//noze
+				bufGraphics.setColor(new Color(0, 255, 255));
+				
+				drawLine(bufGraphics,nozeFaces[0][0],nozeFaces[2][0]);
+				drawLine(bufGraphics,nozeFaces[0][0],nozeFaces[1][0]);
+				drawLine(bufGraphics,nozeFaces[1][0],nozeFaces[2][0]);
+				drawLine(bufGraphics,nozeFaces[0][0],nozeFaces[0][1]);
+				drawLine(bufGraphics,nozeFaces[1][0],nozeFaces[1][1]);
+				drawLine(bufGraphics,nozeFaces[2][0],nozeFaces[2][1]);
+				
+				drawLine(bufGraphics,nozeFaces[0][1],nozeFaces[1][1]);				
+				drawLine(bufGraphics,nozeFaces[1][1],nozeFaces[2][1]);
+								
+				drawLine(bufGraphics,nozeFaces[0][1],nozeFaces[1][2]);
+				drawLine(bufGraphics,nozeFaces[1][1],nozeFaces[1][2]);
+				drawLine(bufGraphics,nozeFaces[2][1],nozeFaces[1][2]);
 			
 				ImageIO.write(buf,"gif",file);
 			
@@ -252,6 +280,11 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		}
 		
 	}
+
+
+
+
+
 
 	public Vector buildTexturePoints() {
 		
@@ -317,15 +350,30 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 			}
 		}
 		
+		for (int i = 0; i <3; i++) {
+			
+			for (int j = 0; j < 3; j++) {
+				
+				if(nozeFaces[i][j]==null)
+					continue;
+
+				double x= calX(nozeFaces[i][j].x);
+				double y= calY(nozeFaces[i][j].y);
+	
+				Point3D p=new Point3D(x,y,0);			
+				texture_points.add(p);
+			}
+		}
+		
 		return texture_points;
 	}
 	
-	public static double calX(double x){
+	public double calX(double x){
 		
 		return texture_x0+x;
 	}
 
-	public static double calY(double y){
+	public double calY(double y){
 		if(isTextureDrawing)
 			return IMG_HEIGHT-(texture_y0+y);
 		else
@@ -754,13 +802,13 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		noze[1][2]=head[4][4][5];
 		
 		//base
-		addLine(noze[0][0],noze[1][0],noze[2][0],null,0,0,0,0,Renderer3D.CAR_FRONT);
+		addLine(noze[0][0],noze[1][0],noze[2][0],null, nf(0,0),nf(1,0),nf(2,0),-1,Renderer3D.CAR_FRONT);
 		//sides		
-		addLine(noze[0][0],noze[0][1],noze[1][1],noze[1][0],0,0,0,0,Renderer3D.CAR_FRONT);	
-		addLine(noze[1][0],noze[1][1],noze[2][1],noze[2][0],0,0,0,0,Renderer3D.CAR_FRONT);	
+		addLine(noze[0][0],noze[0][1],noze[1][1],noze[1][0],nf(0,0),nf(0,1),nf(1,1),nf(1,0),Renderer3D.CAR_FRONT);	
+		addLine(noze[1][0],noze[1][1],noze[2][1],noze[2][0],nf(1,0),nf(1,1),nf(2,1),nf(2,0),Renderer3D.CAR_FRONT);	
 		//upper
-		addLine(noze[0][1],noze[1][2],noze[1][1],null,0,0,0,0,Renderer3D.CAR_FRONT);
-		addLine(noze[1][1],noze[1][2],noze[2][1],null,0,0,0,0,Renderer3D.CAR_FRONT);
+		addLine(noze[0][1],noze[1][2],noze[1][1],null,nf(0,1),nf(1,2),nf(1,1),-1,Renderer3D.CAR_FRONT);
+		addLine(noze[1][1],noze[1][2],noze[2][1],null,nf(1,1),nf(1,2),nf(2,1),-1,Renderer3D.CAR_FRONT);
 
 
 		//////// texture points
@@ -881,6 +929,11 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		return bottomFaceIndexes[i+deltax][j+deltay];
 	}
 	
+	public int nf(int i,int j){
+		
+		return nozeIndexes[i][j];
+	}
+	
 	int[][] upperFaceIndexes={
 			
 			{0,1,2,3,4},
@@ -922,6 +975,13 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 			{305,306,307,308,309},
 			{310,311,312,313,314},
 			
+	};
+	
+	int[][] nozeIndexes={
+			
+			{315,318,-1},
+			{316,319,321},
+			{317,320,-1}
 	};
 
 	
