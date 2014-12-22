@@ -350,9 +350,11 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 			}
 		}
 		
-		for (int i = 0; i <3; i++) {
+		for (int j = 0; j < 3; j++) {
+		
+			for (int i = 0; i <3; i++) {
 			
-			for (int j = 0; j < 3; j++) {
+			
 				
 				if(nozeFaces[i][j]==null)
 					continue;
@@ -907,7 +909,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 	
 	public int nf(int i,int j){
 		
-		return nozeIndexes[i][j];
+		return nozeIndexes[j][i];
 	}
 	
 	int[][] upperFaceIndexes={
@@ -955,9 +957,9 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 	
 	int[][] nozeIndexes={
 			
-			{315,316,-1},
-			{317,318,319},
-			{320,321,-1}
+			{315,316,317},
+			{318,319,320},
+			{-1,321,-1}
 	};
 
 	
