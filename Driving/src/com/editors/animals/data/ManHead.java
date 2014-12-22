@@ -747,7 +747,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 						
 						C=Renderer3D.CAR_BOTTOM;
 
-						addLine(head[i][j][k],head[i][j+1][k],head[i+1][j+1][k],head[i+1][j][k],bfi(i,j,0),bfi(i,j,1),bfi(i,j,2),bfi(i,j,3),C);
+						addLine(head[i][j][k],head[i][j+1][k],head[i+1][j+1][k],head[i+1][j][k],lf(i,j,k,0,C),lf(i,j,k,1,C),lf(i,j,k,2,C),lf(i,j,k,3,C),C);
 					
 					}
 					
@@ -755,7 +755,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 						
 						C=Renderer3D.CAR_TOP;
 						
-						addLine(head[i][j][k+1],head[i+1][j][k+1],head[i+1][j+1][k+1],head[i][j+1][k+1],tfi(i,j,0),tfi(i,j,1),tfi(i,j,2),tfi(i,j,3),C);
+						addLine(head[i][j][k+1],head[i+1][j][k+1],head[i+1][j+1][k+1],head[i][j+1][k+1],lf(i,j,k,0,C),lf(i,j,k,1,C),lf(i,j,k,2,C),lf(i,j,k,3,C),C);
 					}
 					
 					if(j==0){
@@ -823,25 +823,6 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 	}
 
 	
-	public int tfi(int i,int j,int n){
-		
-		int deltax=0;
-		int deltay=0;
-		
-		if(n==1){
-			deltax=1;
-		} else if(n==2){
-			deltax=1;
-			deltay=1;
-		}	
-		else if(n==3){
-			
-			deltay=1;
-		}
-		return upperFaceIndexes[i+deltax][j+deltay];
-	
-	}
-	
 	public int lf(int i,int j,int k,int n,int type){
 		
 		int nx=0;
@@ -872,6 +853,11 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 			nx=j;
 			ny=k;
 			nx=numy-2-nx;
+			
+		}else if(type==Renderer3D.CAR_TOP ||type==Renderer3D.CAR_BOTTOM  ){
+			
+			nx=i;
+			ny=j;
 			
 		}
 		
@@ -906,28 +892,18 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 			deltax+=2*(numx-1)+numy-1;
 		}
 		
-		
-		return lateralFaceIndexes[ny+deltay][nx+deltax];
-	}
-	
-	public int bfi(int i,int j,int n){
-		
-		int deltax=0;
-		int deltay=0;
-		
-		if(n==1){
-			deltax=1;
-		} else if(n==2){
-			deltax=1;
-			deltay=1;
-		}	
-		else if(n==3){
+		if(type==Renderer3D.CAR_TOP){
 			
-			deltay=1;
+			return upperFaceIndexes[nx+deltax][ny+deltay];
+			
+		}else if(type==Renderer3D.CAR_BOTTOM){
+			
+			return bottomFaceIndexes[nx+deltax][ny+deltay];
 		}
-		
-		return bottomFaceIndexes[i+deltax][j+deltay];
+		else
+			return lateralFaceIndexes[ny+deltay][nx+deltax];
 	}
+
 	
 	public int nf(int i,int j){
 		
@@ -979,9 +955,9 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 	
 	int[][] nozeIndexes={
 			
-			{315,318,-1},
-			{316,319,321},
-			{317,320,-1}
+			{315,316,-1},
+			{317,318,319},
+			{320,321,-1}
 	};
 
 	
