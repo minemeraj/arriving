@@ -740,7 +740,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 						 
 						C=Renderer3D.CAR_LEFT;
 
-						addLine(head[i][j][k],head[i][j][k+1],head[i][j+1][k+1],head[i][j+1][k],lf(i,j,k,0,C),lf(i,j,k,1,C),lf(i,j,k,2,C),lf(i,j,k,3,C),C);
+						addLine(head[i][j][k],head[i][j][k+1],head[i][j+1][k+1],head[i][j+1][k],lf(i,j,k,1,C),lf(i,j,k,2,C),lf(i,j,k,3,C),lf(i,j,k,0,C),C);
 					}
 
 				
@@ -770,7 +770,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 						
 						C=Renderer3D.CAR_FRONT;
 						
-						addLine(head[i][j+1][k],head[i][j+1][k+1],head[i+1][j+1][k+1],head[i+1][j+1][k],lf(i,j,k,0,C),lf(i,j,k,1,C),lf(i,j,k,2,C),lf(i,j,k,3,C),C);	
+						addLine(head[i][j+1][k],head[i][j+1][k+1],head[i+1][j+1][k+1],head[i+1][j+1][k],lf(i,j,k,1,C),lf(i,j,k,2,C),lf(i,j,k,3,C),lf(i,j,k,0,C),C);	
 					}
 				
 
