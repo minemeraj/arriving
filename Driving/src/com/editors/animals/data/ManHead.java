@@ -103,9 +103,8 @@ public class ManHead extends Animal{
 			
 		}
 		
-		texture_side_dy=(int) (head_DZ/(numz-1));
-		texture_side_dx=(int) (len/(N_FACES));
-		
+		double texture_side_dz=(int) (head_DZ/(numz-1));
+			
 		lateralFaces=new Point3D[N_FACES+1][numz];
 
 		for(int j=0;j<numz;j++){
@@ -117,13 +116,13 @@ public class ManHead extends Animal{
 			for (int i = 0; i <=N_FACES; i++) {
 
 			
-				double y=head_DY+texture_side_dy*j;
+				double y=head_DY+texture_side_dz*j;
 
 				lateralFaces[i][j]=new Point3D(x,y,0);
 				
 				double dx=texture_side_dx;
 				
-				if(i%2==1)
+				if(i%(numx+numy-2)>=numx-1)
 					dx=texture_side_dy;
 				
 				x+=dx;
@@ -133,15 +132,16 @@ public class ManHead extends Animal{
 		}	
 		double baseX=head_DX+10;
 		double ndy=head_DY/4.0;
+		double ndx=head_DX/4.0;
 		
 		nozeFaces=new Point3D[3][3];
         nozeFaces[0][0]=new  Point3D(baseX,0,0);
-        nozeFaces[1][0]=new  Point3D(baseX+texture_side_dx,ndy*0.5,0);
-        nozeFaces[2][0]=new  Point3D(baseX+2*texture_side_dx,0,0);
+        nozeFaces[1][0]=new  Point3D(baseX+ndx,ndy*0.5,0);
+        nozeFaces[2][0]=new  Point3D(baseX+2*ndx,0,0);
         nozeFaces[0][1]=new  Point3D(baseX,ndy,0);
-        nozeFaces[1][1]=new  Point3D(baseX+texture_side_dx,ndy,0);
-        nozeFaces[2][1]=new  Point3D(baseX+2*texture_side_dx,ndy,0);
-        nozeFaces[1][2]=new  Point3D(baseX+texture_side_dx,ndy*2.0,0);
+        nozeFaces[1][1]=new  Point3D(baseX+ndx,ndy,0);
+        nozeFaces[2][1]=new  Point3D(baseX+2*ndx,ndy,0);
+        nozeFaces[1][2]=new  Point3D(baseX+ndx,ndy*2.0,0);
 		
 		initMesh();
 	}
