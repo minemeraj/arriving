@@ -13,6 +13,9 @@ public class TextureBlock {
 	public int numy;
 	public int numz;
 	
+	boolean isDrawUpperBase=true;
+	boolean isDrawLowerBase=true;
+	
 	public TextureBlock(int numx,int numy,int numz,
 			double DX,double DY,double DZ,double x0,double y0){
 		
@@ -83,6 +86,22 @@ public class TextureBlock {
 			}
 			
 		}	
+	}
+
+	public boolean isDrawUpperBase() {
+		return isDrawUpperBase;
+	}
+
+	public void setDrawUpperBase(boolean isDrawUpperBase) {
+		this.isDrawUpperBase = isDrawUpperBase;
+	}
+
+	public boolean isDrawLowerBase() {
+		return isDrawLowerBase;
+	}
+
+	public void setDrawLowerBase(boolean isDrawLowerBase) {
+		this.isDrawLowerBase = isDrawLowerBase;
 	}
 
 }
