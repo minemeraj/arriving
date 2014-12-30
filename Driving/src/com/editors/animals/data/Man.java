@@ -1029,6 +1029,56 @@ public class Man extends Animal {
 		
 		return head;
 	}
+	
+	int[][] headIndexes={
+			
+			{},
+			
+	};
 
+	int[][] bodyIndexes={
+			
+			{},
+			
+	};
+	
+	int[][] leftLegIndexes={
+			
+			{},
+			
+	};
+	
+	int[][] rightLegIndexes={
+			
+			{},
+			
+	};
+	
+	int[][] leftFootIndexes={
+			
+			{},
+			
+	};
+	
+	int[][] rightFootIndexes={
+			
+			{},
+			
+	};	
+	
+	int[][] leftArmIndexes={
+			
+			{},
+			
+	};
+	
+	int[][] rightArmIndexes={
+			
+			{},
+			
+	};
+	
+
+			
 	
 }

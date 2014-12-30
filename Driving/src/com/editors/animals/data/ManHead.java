@@ -13,6 +13,7 @@ import com.BPoint;
 import com.Point3D;
 import com.PolygonMesh;
 import com.Segments;
+import com.TextureBlock;
 import com.main.Renderer3D;
 
 public class ManHead extends Animal{
@@ -29,10 +30,10 @@ public class ManHead extends Animal{
 	
 	private double len;
 	
-	Point3D[][] upperBase=null;
-	Point3D[][] lowerBase=null;
-	Point3D[][] lateralFaces=null; 
+
 	Point3D[][] nozeFaces=null; 
+	
+	TextureBlock tb=null;
 	
 
 	int numx=9;
@@ -78,58 +79,9 @@ public class ManHead extends Animal{
 		texture_side_dy=(int) (head_DY/(numy-1));
 		texture_side_dx=(int) (head_DX/(numx-1));
 		
-		upperBase=new Point3D[numx][numy];
+		tb=new TextureBlock(numx,numy,numz,head_DX,head_DY,head_DZ,0,0);
 		
-		double baseY=head_DZ+head_DY;
 		
-		for (int i = 0; i <numx; i++) {
-			
-			for (int j = 0; j < numy; j++) {
-				
-				upperBase[i][j]=new Point3D(texture_side_dx*i,texture_side_dy*j+baseY,0);
-			}
-			
-		}
-	
-		
-		lowerBase=new Point3D[numx][numy];
-		
-		for (int i = 0; i <numx; i++) {
-			
-			for (int j = 0; j < numy; j++) {
-				
-				lowerBase[i][j]=new Point3D(texture_side_dx*i,texture_side_dy*j,0);
-			}
-			
-		}
-		
-		double texture_side_dz=(int) (head_DZ/(numz-1));
-			
-		lateralFaces=new Point3D[N_FACES+1][numz];
-
-		for(int j=0;j<numz;j++){
-
-			//texture is open and periodical:
-			
-			double x=0; 
-
-			for (int i = 0; i <=N_FACES; i++) {
-
-			
-				double y=head_DY+texture_side_dz*j;
-
-				lateralFaces[i][j]=new Point3D(x,y,0);
-				
-				double dx=texture_side_dx;
-				
-				if(i%(numx+numy-2)>=numx-1)
-					dx=texture_side_dy;
-				
-				x+=dx;
-
-			}
-			
-		}	
 		double baseX=head_DX+10;
 		double ndy=head_DY/4.0;
 		double ndx=head_DX/4.0;
@@ -176,84 +128,8 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 
 				//draw lines for reference
 
-				bufGraphics.setColor(Color.RED);
-				bufGraphics.setStroke(new BasicStroke(0.1f));
-				
-				for (int i = 0; i <numx; i++) {
-					
-					for (int j = 0; j < numy; j++) {
 
-						double x0= calX(upperBase[i][j].x);
-						double y0= calY(upperBase[i][j].y);
-						
-						double x1= calX(upperBase[(i+1)%numx][j].x);
-						double y1= calY(upperBase[(i+1)%numx][j].y);
-						
-						double x2= calX(upperBase[(i+1)%numx][(j+1)%numy].x);
-						double y2= calY(upperBase[(i+1)%numx][(j+1)%numy].y);
-						
-						double x3= calX(upperBase[i][(j+1)%numy].x);
-						double y3= calY(upperBase[i][(j+1)%numy].y);
-	
-						bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);	 
-						bufGraphics.drawLine((int)x1,(int)y1,(int)x2,(int)y2);	 
-						bufGraphics.drawLine((int)x2,(int)y2,(int)x3,(int)y3);	 
-						bufGraphics.drawLine((int)x3,(int)y3,(int)x0,(int)y0);	 
-
-					}
-				}
-				
-				//lowerbase
-		
-				bufGraphics.setColor(Color.BLUE);
-				
-
-				for (int i = 0; i <numx; i++) {
-					
-					for (int j = 0; j < numy; j++) {
-
-						double x0= calX(lowerBase[i][j].x);
-						double y0= calY(lowerBase[i][j].y);
-						
-						double x1= calX(lowerBase[(i+1)%numx][j].x);
-						double y1= calY(lowerBase[(i+1)%numx][j].y);
-						
-						double x2= calX(lowerBase[(i+1)%numx][(j+1)%numy].x);
-						double y2= calY(lowerBase[(i+1)%numx][(j+1)%numy].y);
-						
-						double x3= calX(lowerBase[i][(j+1)%numy].x);
-						double y3= calY(lowerBase[i][(j+1)%numy].y);
-	
-						bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);	 
-						bufGraphics.drawLine((int)x1,(int)y1,(int)x2,(int)y2);	 
-						bufGraphics.drawLine((int)x2,(int)y2,(int)x3,(int)y3);	 
-						bufGraphics.drawLine((int)x3,(int)y3,(int)x0,(int)y0);	 		
-					}
-				}
-
-
-				//lateral surface
-				bufGraphics.setColor(new Color(0,0,0));
-
-
-				for(int j=0;j<numz-1;j++){
-
-					//texture is open and periodical:
-
-					for (int i = 0; i <N_FACES; i++) { 
-
-						double x0=calX(lateralFaces[i][j].x);
-						double x1=calX(lateralFaces[i+1][j].x);
-						double y0=calY(lateralFaces[i][j].y);
-						double y1=calY(lateralFaces[i][j+1].y);
-						
-						bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y0);
-						bufGraphics.drawLine((int)x1,(int)y0,(int)x1,(int)y1);
-						bufGraphics.drawLine((int)x1,(int)y1,(int)x0,(int)y1);
-						bufGraphics.drawLine((int)x0,(int)y1,(int)x0,(int)y0);
-					}
-
-				}	
+				drawTextureBlock(bufGraphics,tb,Color.RED,Color.BLUE,Color.BLACK);
 				
 				//noze
 				bufGraphics.setColor(new Color(0, 255, 255));
@@ -293,6 +169,9 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		Vector texture_points=new Vector();
 		
 
+		int numx=tb.numx;
+		int numy=tb.numy;
+		int numz=tb.numz;
 
 		//upperbase
 
@@ -301,8 +180,8 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 			for (int j = 0; j < numy; j++) {
 			
 				
-				double x= calX(upperBase[i][j].x);
-				double y= calY(upperBase[i][j].y);
+				double x= calX(tb.upperBase[i][j].x);
+				double y= calY(tb.upperBase[i][j].y);
 	
 				Point3D p=new Point3D(x,y,0);			
 				texture_points.add(p);
@@ -323,10 +202,10 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 
 			//texture is open and periodical:
 
-			for (int i = 0; i <=N_FACES; i++) {
+			for (int i = 0; i <=tb.N_FACES; i++) {
 
-				double x=calX(lateralFaces[i][j].x);
-				double y=calY(lateralFaces[i][j].y);
+				double x=calX(tb.lateralFaces[i][j].x);
+				double y=calY(tb.lateralFaces[i][j].y);
 
 				Point3D p=new Point3D(x,y,0);
 
@@ -342,8 +221,8 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 			
 			for (int j = 0; j < numy; j++) {
 
-				double x= calX(lowerBase[i][j].x);
-				double y= calY(lowerBase[i][j].y);
+				double x= calX(tb.lowerBase[i][j].x);
+				double y= calY(tb.lowerBase[i][j].y);
 	
 				Point3D p=new Point3D(x,y,0);			
 				texture_points.add(p);

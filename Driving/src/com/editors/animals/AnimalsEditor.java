@@ -729,7 +729,8 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 	@Override
 	public void saveBaseCubicTexture(File file) {
 
-    	if(animal.getAnimal_type()==Animal.ANIMAL_TYPE_MANHEAD 
+    	if(animal.getAnimal_type()==Animal.ANIMAL_TYPE_MANHEAD ||
+    			animal.getAnimal_type()==Animal.ANIMAL_TYPE_HUMAN	
     	){
     		
     		PolygonMesh pm = buildMesh();		
