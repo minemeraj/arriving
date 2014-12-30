@@ -584,5 +584,66 @@ public class CustomData {
 		
 		
 	}
+	
+	public void addTexturePoints(Vector texture_points,TextureBlock tb) {
+		
+
+		
+
+		int numx=tb.numx;
+		int numy=tb.numy;
+		int numz=tb.numz;
+
+		//upperbase
+
+		for (int i = 0; i <numx; i++) {
+			
+			for (int j = 0; j < numy; j++) {
+			
+				
+				double x= calX(tb.upperBase[i][j].x);
+				double y= calY(tb.upperBase[i][j].y);
+	
+				Point3D p=new Point3D(x,y,0);			
+				texture_points.add(p);
+			}
+
+		}
+
+		//lateral surface
+
+
+		for(int j=0;j<numz;j++){
+
+			//texture is open and periodical:
+
+			for (int i = 0; i <=tb.N_FACES; i++) {
+
+				double x=calX(tb.lateralFaces[i][j].x);
+				double y=calY(tb.lateralFaces[i][j].y);
+
+				Point3D p=new Point3D(x,y,0);
+
+			
+				//System.out.print(texIndex+"\t");
+				texture_points.add(p);
+			}
+			
+		}	
+		
+		
+		for (int i = 0; i <numx; i++) {
+			
+			for (int j = 0; j < numy; j++) {
+
+				double x= calX(tb.lowerBase[i][j].x);
+				double y= calY(tb.lowerBase[i][j].y);
+	
+				Point3D p=new Point3D(x,y,0);			
+				texture_points.add(p);
+			}
+		}
+
+	}
 
 }

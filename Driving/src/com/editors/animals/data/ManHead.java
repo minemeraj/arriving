@@ -33,7 +33,7 @@ public class ManHead extends Animal{
 
 	Point3D[][] nozeFaces=null; 
 	
-	TextureBlock tb=null;
+	TextureBlock textureBlock=null;
 	
 
 	int numx=9;
@@ -79,7 +79,7 @@ public class ManHead extends Animal{
 		texture_side_dy=(int) (head_DY/(numy-1));
 		texture_side_dx=(int) (head_DX/(numx-1));
 		
-		tb=new TextureBlock(numx,numy,numz,head_DX,head_DY,head_DZ,0,0);
+		textureBlock=new TextureBlock(numx,numy,numz,head_DX,head_DY,head_DZ,0,0);
 		
 		
 		double baseX=head_DX+10;
@@ -129,7 +129,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 				//draw lines for reference
 
 
-				drawTextureBlock(bufGraphics,tb,Color.RED,Color.BLUE,Color.BLACK);
+				drawTextureBlock(bufGraphics,textureBlock,Color.RED,Color.BLUE,Color.BLACK);
 				
 				//noze
 				bufGraphics.setColor(new Color(0, 255, 255));
@@ -168,66 +168,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		
 		Vector texture_points=new Vector();
 		
-
-		int numx=tb.numx;
-		int numy=tb.numy;
-		int numz=tb.numz;
-
-		//upperbase
-
-		for (int i = 0; i <numx; i++) {
-			
-			for (int j = 0; j < numy; j++) {
-			
-				
-				double x= calX(tb.upperBase[i][j].x);
-				double y= calY(tb.upperBase[i][j].y);
-	
-				Point3D p=new Point3D(x,y,0);			
-				texture_points.add(p);
-			}
-
-		}
-	
-
-
-		
-		
-	
-
-		//lateral surface
-
-
-		for(int j=0;j<numz;j++){
-
-			//texture is open and periodical:
-
-			for (int i = 0; i <=tb.N_FACES; i++) {
-
-				double x=calX(tb.lateralFaces[i][j].x);
-				double y=calY(tb.lateralFaces[i][j].y);
-
-				Point3D p=new Point3D(x,y,0);
-
-			
-				//System.out.print(texIndex+"\t");
-				texture_points.add(p);
-			}
-			
-		}	
-		
-		
-		for (int i = 0; i <numx; i++) {
-			
-			for (int j = 0; j < numy; j++) {
-
-				double x= calX(tb.lowerBase[i][j].x);
-				double y= calY(tb.lowerBase[i][j].y);
-	
-				Point3D p=new Point3D(x,y,0);			
-				texture_points.add(p);
-			}
-		}
+		addTexturePoints(texture_points,textureBlock);
 		
 		for (int j = 0; j < 3; j++) {
 		
