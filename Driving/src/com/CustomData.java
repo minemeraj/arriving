@@ -1,5 +1,7 @@
 package com;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.util.Hashtable;
@@ -477,6 +479,102 @@ public class CustomData {
 
 	public double calY(double y){
 			return y;
+	}
+	
+	public void drawTextureBlock(
+			Graphics2D bufGraphics,
+			TextureBlock t,
+			Color upperColor,
+			Color lowerColor,
+			Color sidelColor
+		){
+		
+		//draw lines for reference
+
+		bufGraphics.setColor(upperColor);
+		bufGraphics.setStroke(new BasicStroke(0.1f));
+		
+		int numx=t.numx;
+		int numy=t.numy;
+		int numz=t.numz;
+		
+		for (int i = 0; i <numx; i++) {
+			
+			for (int j = 0; j < numy; j++) {
+
+				double x0= calX(t.upperBase[i][j].x);
+				double y0= calY(t.upperBase[i][j].y);
+				
+				double x1= calX(t.upperBase[(i+1)%numx][j].x);
+				double y1= calY(t.upperBase[(i+1)%numx][j].y);
+				
+				double x2= calX(t.upperBase[(i+1)%numx][(j+1)%numy].x);
+				double y2= calY(t.upperBase[(i+1)%numx][(j+1)%numy].y);
+				
+				double x3= calX(t.upperBase[i][(j+1)%numy].x);
+				double y3= calY(t.upperBase[i][(j+1)%numy].y);
+
+				bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);	 
+				bufGraphics.drawLine((int)x1,(int)y1,(int)x2,(int)y2);	 
+				bufGraphics.drawLine((int)x2,(int)y2,(int)x3,(int)y3);	 
+				bufGraphics.drawLine((int)x3,(int)y3,(int)x0,(int)y0);	 
+
+			}
+		}
+		
+		//lowerbase
+
+		bufGraphics.setColor(lowerColor);
+		
+
+		for (int i = 0; i <numx; i++) {
+			
+			for (int j = 0; j < numy; j++) {
+
+				double x0= calX(t.lowerBase[i][j].x);
+				double y0= calY(t.lowerBase[i][j].y);
+				
+				double x1= calX(t.lowerBase[(i+1)%numx][j].x);
+				double y1= calY(t.lowerBase[(i+1)%numx][j].y);
+				
+				double x2= calX(t.lowerBase[(i+1)%numx][(j+1)%numy].x);
+				double y2= calY(t.lowerBase[(i+1)%numx][(j+1)%numy].y);
+				
+				double x3= calX(t.lowerBase[i][(j+1)%numy].x);
+				double y3= calY(t.lowerBase[i][(j+1)%numy].y);
+
+				bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);	 
+				bufGraphics.drawLine((int)x1,(int)y1,(int)x2,(int)y2);	 
+				bufGraphics.drawLine((int)x2,(int)y2,(int)x3,(int)y3);	 
+				bufGraphics.drawLine((int)x3,(int)y3,(int)x0,(int)y0);	 		
+			}
+		}
+
+
+		//lateral surface
+		bufGraphics.setColor(sidelColor);
+
+
+		for(int j=0;j<numz-1;j++){
+
+			//texture is open and periodical:
+
+			for (int i = 0; i< t.N_FACES; i++) { 
+
+				double x0=calX(t.lateralFaces[i][j].x);
+				double x1=calX(t.lateralFaces[i+1][j].x);
+				double y0=calY(t.lateralFaces[i][j].y);
+				double y1=calY(t.lateralFaces[i][j+1].y);
+				
+				bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y0);
+				bufGraphics.drawLine((int)x1,(int)y0,(int)x1,(int)y1);
+				bufGraphics.drawLine((int)x1,(int)y1,(int)x0,(int)y1);
+				bufGraphics.drawLine((int)x0,(int)y1,(int)x0,(int)y0);
+			}
+
+		}	
+		
+		
 	}
 
 }

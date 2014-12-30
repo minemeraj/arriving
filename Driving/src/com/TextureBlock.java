@@ -9,9 +9,16 @@ public class TextureBlock {
 	public int N_FACES=0;
 	public int texture_side_dy;
 	public int texture_side_dx;
+	public int numx;
+	public int numy;
+	public int numz;
 	
 	public TextureBlock(int numx,int numy,int numz,
 			double DX,double DY,double DZ,double x0,double y0){
+		
+		this.numx=numx;
+		this.numy=numy;
+		this.numz=numz;
 		
 		N_FACES=numx*2+(numy-2)*2;
 		
