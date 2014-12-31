@@ -595,21 +595,23 @@ public class CustomData {
 		int numz=tb.numz;
 
 		//upperbase
+		
+		if(tb.isDrawUpperBase()){
 
-		for (int i = 0; i <numx; i++) {
-			
-			for (int j = 0; j < numy; j++) {
-			
+			for (int i = 0; i <numx; i++) {
 				
-				double x= calX(tb.upperBase[i][j].x);
-				double y= calY(tb.upperBase[i][j].y);
+				for (int j = 0; j < numy; j++) {
+				
+					
+					double x= calX(tb.upperBase[i][j].x);
+					double y= calY(tb.upperBase[i][j].y);
+		
+					Point3D p=new Point3D(x,y,0);			
+					texture_points.add(p);
+				}
 	
-				Point3D p=new Point3D(x,y,0);			
-				texture_points.add(p);
 			}
-
 		}
-
 		//lateral surface
 
 
@@ -631,17 +633,20 @@ public class CustomData {
 			
 		}	
 		
+		if(tb.isDrawLowerBase()){
 		
-		for (int i = 0; i <numx; i++) {
-			
-			for (int j = 0; j < numy; j++) {
-
-				double x= calX(tb.lowerBase[i][j].x);
-				double y= calY(tb.lowerBase[i][j].y);
+			for (int i = 0; i <numx; i++) {
+				
+				for (int j = 0; j < numy; j++) {
 	
-				Point3D p=new Point3D(x,y,0);			
-				texture_points.add(p);
+					double x= calX(tb.lowerBase[i][j].x);
+					double y= calY(tb.lowerBase[i][j].y);
+		
+					Point3D p=new Point3D(x,y,0);			
+					texture_points.add(p);
+				}
 			}
+		
 		}
 
 	}
