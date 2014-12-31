@@ -7,8 +7,8 @@ public class TextureBlock {
 	public Point3D[][] lateralFaces=null; 
 	
 	public int N_FACES=0;
-	public int texture_side_dy;
-	public int texture_side_dx;
+	public double texture_side_dy;
+	public double texture_side_dx;
 	public int numx;
 	public int numy;
 	public int numz;
@@ -25,8 +25,8 @@ public class TextureBlock {
 		
 		N_FACES=numx*2+(numy-2)*2;
 		
-		texture_side_dy=(int) (DY/(numy-1));
-		texture_side_dx=(int) (DX/(numx-1));
+		texture_side_dy=(DY/(numy-1));
+		texture_side_dx=(DX/(numx-1));
 		
 		upperBase=new Point3D[numx][numy];
 		
@@ -59,11 +59,13 @@ public class TextureBlock {
 			
 		}
 		
-		double texture_side_dz=(int) (DZ/(numz-1));
+		double texture_side_dz= (DZ/(numz-1));
 			
 		lateralFaces=new Point3D[N_FACES+1][numz];
 
 		for(int j=0;j<numz;j++){
+			
+			double y=y0+DY+texture_side_dz*j;
 
 			//texture is open and periodical:
 			
@@ -72,7 +74,7 @@ public class TextureBlock {
 			for (int i = 0; i <=N_FACES; i++) {
 
 			
-				double y=y0+DY+texture_side_dz*j;
+				
 
 				lateralFaces[i][j]=new Point3D(x,y,0);
 				

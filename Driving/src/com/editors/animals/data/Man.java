@@ -14,6 +14,7 @@ import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
 import com.Segments;
+import com.TextureBlock;
 import com.main.Renderer3D;
 
 public class Man extends Animal {
@@ -33,9 +34,11 @@ public class Man extends Animal {
 	
 	private double len;
 	
-	Point3D[] upperBase=null;
-	Point3D[] lowerBase=null;
-	Point3D[][] lateralFaces=null; 
+	int numx=5;
+	int numy=5;
+	int numz=7;
+	
+	TextureBlock bodyBlock=null;
 	
 
 	public Man(double x_side, double y_side,double z_side,int animal_type,
@@ -69,47 +72,9 @@ public class Man extends Animal {
 		
 		len=2*(x_side+y_side);
 		
-		upperBase=new Point3D[N_FACES];
+		bodyBlock=new TextureBlock(numx,numy,numz,x_side,y_side,z_side,0,0);
 		
-		upperBase[0]=new Point3D(0,y_side+z_side,0);			
-		upperBase[1]=new Point3D(x_side,y_side+z_side,0);	
-		upperBase[2]=new Point3D(x_side,y_side+z_side+y_side,0);	
-		upperBase[3]=new Point3D(0,y_side+z_side+y_side,0);	
 		
-		lowerBase=new Point3D[N_FACES];
-		
-		lowerBase[0]=new Point3D(0,0,0);			
-		lowerBase[1]=new Point3D(0,y_side,0);	
-		lowerBase[2]=new Point3D(x_side,y_side,0);	
-		lowerBase[3]=new Point3D(x_side,0,0);	
-		
-
-		
-		lateralFaces=new Point3D[N_FACES+1][N_PARALLELS];
-
-		for(int j=0;j<N_PARALLELS;j++){
-
-			//texture is open and periodical:
-			
-			double x=0; 
-
-			for (int i = 0; i <=N_FACES; i++) {
-
-			
-				double y=y_side+z_side*j;
-
-				lateralFaces[i][j]=new Point3D(x,y,0);
-				
-				double dx=x_side;
-				
-				if(i%2==1)
-					dx=y_side;
-				
-				x+=dx;
-
-			}
-			
-		}	
 		
 		initMesh();
 	}
@@ -146,63 +111,10 @@ public class Man extends Animal {
 
 
 				//draw lines for reference
-
-				bufGraphics.setColor(Color.RED);
-				bufGraphics.setStroke(new BasicStroke(0.1f));
 				
-				for (int j = 0; j <upperBase.length; j++) {
+				drawTextureBlock(bufGraphics,bodyBlock,Color.RED,Color.BLUE,Color.BLACK);
 
-					double x0= calX(upperBase[j].x);
-					double y0= calY(upperBase[j].y);
-					
-					double x1= calX(upperBase[(j+1)%upperBase.length].x);
-					double y1= calY(upperBase[(j+1)%upperBase.length].y);
-
-					bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);	 
-
-				}
-
-				
-				//lowerbase
-		
-				bufGraphics.setColor(Color.BLUE);
-				
-				for (int j = 0; j <lowerBase.length; j++) {
-
-					double x0= calX(lowerBase[j].x);
-					double y0= calY(lowerBase[j].y);
-					
-					double x1= calX(lowerBase[(j+1)%lowerBase.length].x);
-					double y1= calY(lowerBase[(j+1)%lowerBase.length].y);
-
-					bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);			
-
-				}
-
-
-				//lateral surface
-				bufGraphics.setColor(new Color(0,0,0));
-
-
-				for(int j=0;j<N_PARALLELS-1;j++){
-
-					//texture is open and periodical:
-
-					for (int i = 0; i <N_FACES; i++) { 
-
-						double x0=calX(lateralFaces[i][j].x);
-						double x1=calX(lateralFaces[i+1][j].x);
-						double y0=calY(lateralFaces[i][j].y);
-						double y1=calY(lateralFaces[i][j+1].y);
-						
-						bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y0);
-						bufGraphics.drawLine((int)x1,(int)y0,(int)x1,(int)y1);
-						bufGraphics.drawLine((int)x1,(int)y1,(int)x0,(int)y1);
-						bufGraphics.drawLine((int)x0,(int)y1,(int)x0,(int)y0);
-					}
-
-				}	
-				
+							
 			
 				ImageIO.write(buf,"gif",file);
 			
@@ -315,9 +227,7 @@ public class Man extends Animal {
 
 		Segments b0=new Segments(xc,x_side,yc,y_side,femur_length+shinbone_length,z_side);
 		
-		int numx=5;
-		int numy=5;
-		int numz=7;
+
 		
 
 		
