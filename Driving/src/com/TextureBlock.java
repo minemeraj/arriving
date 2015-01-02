@@ -15,6 +15,8 @@ public class TextureBlock {
 	
 	boolean isDrawUpperBase=true;
 	boolean isDrawLowerBase=true;
+	public double len;
+	public int vlen;
 	
 	public TextureBlock(int numx,int numy,int numz,
 			double DX,double DY,double DZ,double x0,double y0){
@@ -24,6 +26,9 @@ public class TextureBlock {
 		this.numz=numz;
 		
 		N_FACES=numx*2+(numy-2)*2;
+		
+		len=2*(DX+DY);
+		vlen=(int) (DZ+DY*2);
 		
 		texture_side_dy=(DY/(numy-1));
 		texture_side_dx=(DX/(numx-1));
@@ -104,6 +109,22 @@ public class TextureBlock {
 
 	public void setDrawLowerBase(boolean isDrawLowerBase) {
 		this.isDrawLowerBase = isDrawLowerBase;
+	}
+
+	public double getLen() {
+		return len;
+	}
+
+	public void setLen(double len) {
+		this.len = len;
+	}
+
+	public int getVlen() {
+		return vlen;
+	}
+
+	public void setVlen(int vlen) {
+		this.vlen = vlen;
 	}
 
 }

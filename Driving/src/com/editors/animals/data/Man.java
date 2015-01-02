@@ -33,12 +33,20 @@ public class Man extends Animal {
 	int N_PARALLELS=2;
 	
 	private double len;
+	private double vlen;
 	
 	int numx=5;
 	int numy=5;
 	int numz=7;
 	
+	TextureBlock headBlock=null;
 	TextureBlock bodyBlock=null;
+	TextureBlock lLegBlock=null;
+	TextureBlock rLegBlock=null;
+	TextureBlock lFootBlock=null;
+	TextureBlock rFootBlock=null;
+	TextureBlock lArmBlock=null;
+	TextureBlock rArmBlock=null;
 	
 
 	public Man(double x_side, double y_side,double z_side,int animal_type,
@@ -70,11 +78,28 @@ public class Man extends Animal {
 		this.hand_length = hand_length;
 		this.foot_length = foot_length;
 		
-		len=2*(x_side+y_side);
+	
+		rFootBlock=new TextureBlock(numx,numy,numz,leg_side,foot_length,leg_side,
+				0,0);
+		lFootBlock=new TextureBlock(numx,numy,numz,leg_side,foot_length,leg_side,
+				rFootBlock.getLen(),0);
+		rLegBlock=new TextureBlock(numx,numy,numz,leg_side,leg_side,femur_length+shinbone_length,
+				0,rFootBlock.getVlen());
+		lLegBlock=new TextureBlock(numx,numy,numz,leg_side,leg_side,femur_length+shinbone_length,
+				rLegBlock.getLen(),rFootBlock.getVlen());
 		
-		bodyBlock=new TextureBlock(numx,numy,numz,x_side,y_side,z_side,0,0);
+		rArmBlock=new TextureBlock(numx,numy,numz,leg_side,leg_side,humerus_length+radius_length+hand_length,
+				0,rFootBlock.getVlen()+rLegBlock.getVlen());
+		bodyBlock=new TextureBlock(numx,numy,numz,x_side,y_side,z_side,
+				rArmBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen());
 		
+		lArmBlock=new TextureBlock(numx,numy,numz,leg_side,leg_side,humerus_length+radius_length+hand_length,
+				rArmBlock.getLen()+bodyBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen());
+		headBlock=new TextureBlock(numx,numy,numz,head_DX,head_DY,head_DZ,
+				rArmBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen()+bodyBlock.getVlen());
 		
+		len=bodyBlock.getLen()+lArmBlock.getLen()+rArmBlock.getLen();
+		vlen=headBlock.getVlen()+bodyBlock.getVlen()+lLegBlock.getVlen()+lFootBlock.getVlen()+lArmBlock.getVlen();
 		
 		initMesh();
 	}
@@ -86,17 +111,13 @@ public class Man extends Animal {
 		
 		isTextureDrawing=true;
 
-
-		
-		texture_side_dy=(int) (z_side/(N_PARALLELS-1));
-		texture_side_dx=(int) (len/(N_FACES));
 		
 
 		Color backgroundColor=Color.green;
 
 		
 		IMG_WIDTH=(int) len+2*texture_x0;
-		IMG_HEIGHT=(int) (z_side+y_side*2)+2*texture_y0;
+		IMG_HEIGHT=(int) vlen+2*texture_y0;
 
 		
 		BufferedImage buf=new BufferedImage(IMG_WIDTH,IMG_HEIGHT,BufferedImage.TYPE_BYTE_INDEXED);
@@ -112,9 +133,14 @@ public class Man extends Animal {
 
 				//draw lines for reference
 				
+				drawTextureBlock(bufGraphics,headBlock,Color.RED,Color.BLUE,Color.BLACK);
 				drawTextureBlock(bufGraphics,bodyBlock,Color.RED,Color.BLUE,Color.BLACK);
-
-							
+				drawTextureBlock(bufGraphics,lLegBlock,Color.RED,Color.BLUE,Color.BLACK);
+				drawTextureBlock(bufGraphics,rLegBlock,Color.RED,Color.BLUE,Color.BLACK);
+				drawTextureBlock(bufGraphics,lFootBlock,Color.RED,Color.BLUE,Color.BLACK);
+				drawTextureBlock(bufGraphics,rFootBlock,Color.RED,Color.BLUE,Color.BLACK);
+				drawTextureBlock(bufGraphics,lArmBlock,Color.RED,Color.BLUE,Color.BLACK);
+				drawTextureBlock(bufGraphics,rArmBlock,Color.RED,Color.BLUE,Color.BLACK);
 			
 				ImageIO.write(buf,"gif",file);
 			
