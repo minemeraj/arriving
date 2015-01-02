@@ -453,8 +453,8 @@ public class Man extends Animal {
 		
 		addLine(leftFoot[0][0][0],leftFoot[0][0][1],leftFoot[0][1][0],null,0,0,0,0,Renderer3D.CAR_LEFT);
 		addLine(leftFoot[1][0][0],leftFoot[1][1][0],leftFoot[1][0][1],null,0,0,0,0,Renderer3D.CAR_RIGHT);
-		//addLine(leftFoot,0,0,0,lf(),Renderer3D.CAR_BOTTOM);
-		//addLine(leftFoot,0,0,0,lf(),Renderer3D.CAR_TOP);
+		addLine(leftFoot[0][0][0],leftFoot[0][1][0],leftFoot[1][1][0],leftFoot[1][0][0],0,0,0,0,Renderer3D.CAR_BOTTOM);
+		addLine(leftFoot[0][0][1],leftFoot[1][0][1],leftFoot[1][1][0],leftFoot[0][1][0],0,0,0,0,Renderer3D.CAR_TOP);
 		
 		///RightLeg
 		
@@ -517,8 +517,8 @@ public class Man extends Animal {
 		
 		addLine(rightFoot[0][0][0],rightFoot[0][0][1],rightFoot[0][1][0],null,0,0,0,0,Renderer3D.CAR_LEFT);
 		addLine(rightFoot[1][0][0],rightFoot[1][1][0],rightFoot[1][0][1],null,0,0,0,0,Renderer3D.CAR_RIGHT);
-		//addLine(rightFoot,0,0,0,lf(),Renderer3D.CAR_BOTTOM);
-		//addLine(rightFoot,0,0,0,lf(),Renderer3D.CAR_TOP);
+		addLine(rightFoot[0][0][0],rightFoot[0][1][0],rightFoot[1][1][0],rightFoot[1][0][0],0,0,0,0,Renderer3D.CAR_BOTTOM);
+		addLine(rightFoot[0][0][1],rightFoot[1][0][1],rightFoot[1][1][0],rightFoot[0][1][0],0,0,0,0,Renderer3D.CAR_TOP);
 		
 		
 		//Arms:
@@ -610,7 +610,7 @@ public class Man extends Animal {
 		pLeftHand[1][1][0]=addBPoint(pLeftHand[1][1][1].x,pLeftHand[1][1][1].y,pLeftHand[1][1][1].z-hand_length,LEFT_RADIUS);
 		pLeftHand[0][1][0]=addBPoint(pLeftHand[0][1][1].x,pLeftHand[0][1][1].y,pLeftHand[0][1][1].z-hand_length,LEFT_RADIUS);
 		
-		addLine(pLeftHand,0,0,0,Renderer3D.CAR_LEFT);
+		addLine(pLeftHand,0,0,0,lf(),Renderer3D.CAR_LEFT);
 
 		addLine(pLeftHand,0,0,0,lf(),Renderer3D.CAR_FRONT);
 
@@ -679,7 +679,7 @@ public class Man extends Animal {
 		addLine(pFrontRightArm,0,0,1,lf(),Renderer3D.CAR_TOP);
 		
 		
-		addLine(pFrontRightArm,0,0,1,Renderer3D.CAR_LEFT);
+		addLine(pFrontRightArm,0,0,1,lf(),Renderer3D.CAR_LEFT);
 
 		addLine(pFrontRightArm,0,0,1,lf(),Renderer3D.CAR_FRONT);
 	
