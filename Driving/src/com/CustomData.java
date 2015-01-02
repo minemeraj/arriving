@@ -192,7 +192,86 @@ public class CustomData {
 		
 		return ld;
 	}
+	
+	public LineData  addLine(BPoint[][][]p,int i,int j,int k, int[] txt,int face) {
 
+
+		if(face==Renderer3D.CAR_LEFT){
+
+			return addLine(p[i][j][k],p[i][j][k+1],p[i][j+1][k+1],p[i][j+1][k],txt[0],txt[1],txt[2],txt[3],face);
+		}
+		else if(face==Renderer3D.CAR_BOTTOM){
+
+
+			return addLine(p[i][j][k],p[i][j+1][k],p[i+1][j+1][k],p[i+1][j][k],txt[0],txt[1],txt[2],txt[3],face);
+
+		}
+		else if(face==Renderer3D.CAR_TOP){
+
+
+			return addLine(p[i][j][k+1],p[i+1][j][k+1],p[i+1][j+1][k+1],p[i][j+1][k+1],txt[0],txt[1],txt[2],txt[3],face);
+		}
+		else if(face==Renderer3D.CAR_BACK){
+
+
+			return addLine(p[i][j][k],p[i+1][j][k],p[i+1][j][k+1],p[i][j][k+1],txt[0],txt[1],txt[2],txt[3],face);
+		}
+		else if(face==Renderer3D.CAR_FRONT){
+
+
+			return addLine(p[i][j+1][k],p[i][j+1][k+1],p[i+1][j+1][k+1],p[i+1][j+1][k],txt[0],txt[1],txt[2],txt[3],face);
+		}
+
+		else if(face==Renderer3D.CAR_RIGHT){
+
+			return addLine(p[i+1][j][k],p[i+1][j+1][k],p[i+1][j+1][k+1],p[i+1][j][k+1],txt[0],txt[1],txt[2],txt[3],face);
+
+		}
+		
+		return null;
+
+	}
+	
+	
+	public LineData  addLine(BPoint[][][]p,int i,int j,int k, int face) {
+
+
+		if(face==Renderer3D.CAR_LEFT){
+
+			return addLine(p[i][j][k],p[i][j][k+1],p[i][j+1][k+1],p[i][j+1][k],face);
+		}
+		else if(face==Renderer3D.CAR_BOTTOM){
+
+
+			return addLine(p[i][j][k],p[i][j+1][k],p[i+1][j+1][k],p[i+1][j][k],face);
+
+		}
+		else if(face==Renderer3D.CAR_TOP){
+
+
+			return addLine(p[i][j][k+1],p[i+1][j][k+1],p[i+1][j+1][k+1],p[i][j+1][k+1],face);
+		}
+		else if(face==Renderer3D.CAR_BACK){
+
+
+			return addLine(p[i][j][k],p[i+1][j][k],p[i+1][j][k+1],p[i][j][k+1],face);
+		}
+		else if(face==Renderer3D.CAR_FRONT){
+
+
+			return addLine(p[i][j+1][k],p[i][j+1][k+1],p[i+1][j+1][k+1],p[i+1][j+1][k],face);
+		}
+
+		else if(face==Renderer3D.CAR_RIGHT){
+
+			return addLine(p[i+1][j][k],p[i+1][j+1][k],p[i+1][j+1][k+1],p[i+1][j][k+1],face);
+
+		}
+		
+		return null;
+
+	}
+	
 	public LineData buildLine(BPoint p0, BPoint p1, BPoint p2,
 			BPoint p3, int face) {
 

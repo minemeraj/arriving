@@ -78,6 +78,7 @@ public class Man extends Animal {
 		this.hand_length = hand_length;
 		this.foot_length = foot_length;
 		
+		double x0=leg_side*4+x_side+y_side;
 	
 		rFootBlock=new TextureBlock(numx,numy,numz,leg_side,foot_length,leg_side,
 				0,0);

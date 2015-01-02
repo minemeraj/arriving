@@ -560,7 +560,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 						 
 						C=Renderer3D.CAR_LEFT;
 
-						addLine(head[i][j][k],head[i][j][k+1],head[i][j+1][k+1],head[i][j+1][k],lf(i,j,k,1,C),lf(i,j,k,2,C),lf(i,j,k,3,C),lf(i,j,k,0,C),C);
+						addLine(head,i,j,k,lf(i,j,k,C),C);
 					}
 
 				
@@ -569,7 +569,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 						
 						C=Renderer3D.CAR_BOTTOM;
 
-						addLine(head[i][j][k],head[i][j+1][k],head[i+1][j+1][k],head[i+1][j][k],lf(i,j,k,0,C),lf(i,j,k,1,C),lf(i,j,k,2,C),lf(i,j,k,3,C),C);
+						addLine(head,i,j,k,lf(i,j,k,C),C);
 					
 					}
 					
@@ -577,20 +577,20 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 						
 						C=Renderer3D.CAR_TOP;
 						
-						addLine(head[i][j][k+1],head[i+1][j][k+1],head[i+1][j+1][k+1],head[i][j+1][k+1],lf(i,j,k,0,C),lf(i,j,k,1,C),lf(i,j,k,2,C),lf(i,j,k,3,C),C);
+						addLine(head,i,j,k,lf(i,j,k,C),C);
 					}
 					
 					if(j==0){
 						
 						C=Renderer3D.CAR_BACK;
 						
-						addLine(head[i][j][k],head[i+1][j][k],head[i+1][j][k+1],head[i][j][k+1],lf(i,j,k,0,C),lf(i,j,k,1,C),lf(i,j,k,2,C),lf(i,j,k,3,C),C);
+						addLine(head,i,j,k,lf(i,j,k,C),C);
 					}
 					if(j+1==numy-1){
 						
 						C=Renderer3D.CAR_FRONT;
 						
-						addLine(head[i][j+1][k],head[i][j+1][k+1],head[i+1][j+1][k+1],head[i+1][j+1][k],lf(i,j,k,1,C),lf(i,j,k,2,C),lf(i,j,k,3,C),lf(i,j,k,0,C),C);	
+						addLine(head,i,j,k,lf(i,j,k,C),C);
 					}
 				
 
@@ -598,7 +598,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 						
 						C=Renderer3D.CAR_RIGHT;
 
-						addLine(head[i+1][j][k],head[i+1][j+1][k],head[i+1][j+1][k+1],head[i+1][j][k+1],lf(i,j,k,0,C),lf(i,j,k,1,C),lf(i,j,k,2,C),lf(i,j,k,3,C),C);
+						addLine(head,i,j,k,lf(i,j,k,C),C);
 
 					}
 				}
@@ -644,6 +644,35 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 
 	}
 
+	
+	public int[] lf(int i,int j,int k,int type){
+		
+		int n0=0;
+		int n1=1;
+		int n2=2;
+		int n3=3;
+		
+
+		if(type==Renderer3D.CAR_LEFT || type==Renderer3D.CAR_FRONT){
+	
+			n0=1;
+			n1=2;
+			n2=3;
+			n3=0;
+
+		}
+
+		
+		int[] vals=new int [4];
+		vals[0]=lf(i,j,k,n0,type);
+		vals[1]=lf(i,j,k,n1,type);
+		vals[2]=lf(i,j,k,n2,type);
+		vals[3]=lf(i,j,k,n3,type);
+
+		
+		return vals;
+		
+	}
 	
 	public int lf(int i,int j,int k,int n,int type){
 		
