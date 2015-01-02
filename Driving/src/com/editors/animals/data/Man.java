@@ -80,23 +80,23 @@ public class Man extends Animal {
 		
 		double x0=leg_side*4+x_side+y_side;
 	
-		rFootBlock=new TextureBlock(numx,numy,numz,leg_side,foot_length,leg_side,
+		rFootBlock=new TextureBlock(2,2,2,leg_side,foot_length,leg_side,
 				0,0);
-		lFootBlock=new TextureBlock(numx,numy,numz,leg_side,foot_length,leg_side,
+		lFootBlock=new TextureBlock(2,2,2,leg_side,foot_length,leg_side,
 				rFootBlock.getLen(),0);
-		rLegBlock=new TextureBlock(numx,numy,numz,leg_side,leg_side,femur_length+shinbone_length,
+		rLegBlock=new TextureBlock(2,2,3,leg_side,leg_side,femur_length+shinbone_length,
 				0,rFootBlock.getVlen());
-		lLegBlock=new TextureBlock(numx,numy,numz,leg_side,leg_side,femur_length+shinbone_length,
+		lLegBlock=new TextureBlock(2,2,3,leg_side,leg_side,femur_length+shinbone_length,
 				rLegBlock.getLen(),rFootBlock.getVlen());
 		
-		rArmBlock=new TextureBlock(numx,numy,numz,leg_side,leg_side,humerus_length+radius_length+hand_length,
+		rArmBlock=new TextureBlock(2,2,5,leg_side,leg_side,humerus_length+radius_length+hand_length,
 				0,rFootBlock.getVlen()+rLegBlock.getVlen());
 		bodyBlock=new TextureBlock(numx,numy,numz,x_side,y_side,z_side,
 				rArmBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen());
 		
-		lArmBlock=new TextureBlock(numx,numy,numz,leg_side,leg_side,humerus_length+radius_length+hand_length,
+		lArmBlock=new TextureBlock(2,2,5,leg_side,leg_side,humerus_length+radius_length+hand_length,
 				rArmBlock.getLen()+bodyBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen());
-		headBlock=new TextureBlock(numx,numy,numz,head_DX,head_DY,head_DZ,
+		headBlock=new TextureBlock(5,5,5,head_DX,head_DY,head_DZ,
 				rArmBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen()+bodyBlock.getVlen());
 		
 		len=bodyBlock.getLen()+lArmBlock.getLen()+rArmBlock.getLen();
@@ -783,10 +783,7 @@ public class Man extends Animal {
 
 	}
 	
-	private int[] lf() {
-		int[] vals=new int [4];
-		return vals;
-	}
+
 
 
 
@@ -939,6 +936,11 @@ public class Man extends Animal {
 
 		
 		return head;
+	}
+	
+	private int[] lf() {
+		int[] vals=new int [4];
+		return vals;
 	}
 	
 	int[][] headIndexes={
