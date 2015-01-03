@@ -412,13 +412,13 @@ public class Man extends Animal {
 		pBackLeftLeg[0][1][1]=addBPoint(xc-x_side*0.5+thigh_indentation,LEG_DY+leg_side,shinbone_length,LEFT_SHINBONE);
 
 
-		addLine(pBackLeftLeg,0,0,0,lf(),Renderer3D.CAR_LEFT);
+		addLine(pBackLeftLeg,0,0,0,lLegBlock.lf(0,0,0,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
 
-		addLine(pBackLeftLeg,0,0,0,lf(),Renderer3D.CAR_FRONT);
+		addLine(pBackLeftLeg,0,0,0,lLegBlock.lf(0,0,0,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);
 
-		addLine(pBackLeftLeg,0,0,0,lf(),Renderer3D.CAR_RIGHT);
+		addLine(pBackLeftLeg,0,0,0,lLegBlock.lf(0,0,0,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
 
-		addLine(pBackLeftLeg,0,0,0,lf(),Renderer3D.CAR_BACK);
+		addLine(pBackLeftLeg,0,0,0,lLegBlock.lf(0,0,0,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 		
 		//left thigh
 		
@@ -436,13 +436,13 @@ public class Man extends Animal {
 		pBackLeftThigh[1][1][1]=body[1][numy-1][0];
 		pBackLeftThigh[0][1][1]=body[0][numy-1][0];
 
-		addLine(pBackLeftThigh,0,0,0,lf(),Renderer3D.CAR_LEFT);
+		addLine(pBackLeftThigh,0,0,0,lLegBlock.lf(0,0,1,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
 
-		addLine(pBackLeftThigh,0,0,0,lf(),Renderer3D.CAR_FRONT);
+		addLine(pBackLeftThigh,0,0,0,lLegBlock.lf(0,0,1,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);
 
-		addLine(pBackLeftThigh,0,0,0,lf(),Renderer3D.CAR_RIGHT);
+		addLine(pBackLeftThigh,0,0,0,lLegBlock.lf(0,0,1,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
 
-		addLine(pBackLeftThigh,0,0,0,lf(),Renderer3D.CAR_BACK);
+		addLine(pBackLeftThigh,0,0,0,lLegBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 
 		//left foot
 		
@@ -477,13 +477,13 @@ public class Man extends Animal {
 		pBackRightLeg[1][1][1]=addBPoint(xc+x_side*0.5-thigh_indentation,LEG_DY+leg_side,shinbone_length,RIGHT_SHINBONE);
 		pBackRightLeg[0][1][1]=addBPoint(xc+x_side*0.5-leg_side-thigh_indentation,LEG_DY+leg_side,shinbone_length,RIGHT_SHINBONE);
 
-		addLine(pBackRightLeg,0,0,0,lf(),Renderer3D.CAR_LEFT);
+		addLine(pBackRightLeg,0,0,0,rLegBlock.lf(0,0,0,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
 	
-		addLine(pBackRightLeg,0,0,0,lf(),Renderer3D.CAR_FRONT);
+		addLine(pBackRightLeg,0,0,0,rLegBlock.lf(0,0,0,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);
 	
-		addLine(pBackRightLeg,0,0,0,lf(),Renderer3D.CAR_RIGHT);
+		addLine(pBackRightLeg,0,0,0,rLegBlock.lf(0,0,0,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
 		
-		addLine(pBackRightLeg,0,0,0,lf(),Renderer3D.CAR_BACK);
+		addLine(pBackRightLeg,0,0,0,rLegBlock.lf(0,0,0,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 	
 		
 		//right thigh
@@ -500,13 +500,13 @@ public class Man extends Animal {
 		pBackRightThigh[1][1][1]=body[numx-1][numy-1][0];
 		pBackRightThigh[0][1][1]=body[numx-2][numy-1][0];
 
-		addLine(pBackRightThigh,0,0,0,lf(),Renderer3D.CAR_LEFT);
+		addLine(pBackRightThigh,0,0,0,rLegBlock.lf(0,0,1,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
 
-		addLine(pBackRightThigh,0,0,0,lf(),Renderer3D.CAR_FRONT);
+		addLine(pBackRightThigh,0,0,0,rLegBlock.lf(0,0,1,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);
 
-		addLine(pBackRightThigh,0,0,0,lf(),Renderer3D.CAR_RIGHT);
+		addLine(pBackRightThigh,0,0,0,rLegBlock.lf(0,0,1,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
 
-		addLine(pBackRightThigh,0,0,0,lf(),Renderer3D.CAR_BACK);
+		addLine(pBackRightThigh,0,0,0,rLegBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 	
 		//right foot
 		
