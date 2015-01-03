@@ -489,7 +489,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 			currentFile=fc.getSelectedFile();
 			File file = fc.getSelectedFile();
 			loadTexture(file);
-
+			repaint();
 
 		}
 		
