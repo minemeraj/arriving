@@ -81,23 +81,23 @@ public class Man extends Animal {
 		double x0=leg_side*4+x_side+y_side;
 	
 		rFootBlock=new TextureBlock(2,2,2,leg_side,foot_length,leg_side,
-				0,0);
+				0,0,0);
 		lFootBlock=new TextureBlock(2,2,2,leg_side,foot_length,leg_side,
-				rFootBlock.getLen(),0);
+				rFootBlock.getLen(),0,rFootBlock.exitIndex);
 		rLegBlock=new TextureBlock(2,2,3,leg_side,leg_side,femur_length+shinbone_length,
-				0,rFootBlock.getVlen());
+				0,rFootBlock.getVlen(),lFootBlock.exitIndex);
 		lLegBlock=new TextureBlock(2,2,3,leg_side,leg_side,femur_length+shinbone_length,
-				rLegBlock.getLen(),rFootBlock.getVlen());
+				rLegBlock.getLen(),rFootBlock.getVlen(),rLegBlock.exitIndex);
 		
 		rArmBlock=new TextureBlock(2,2,5,leg_side,leg_side,humerus_length+radius_length+hand_length,
-				0,rFootBlock.getVlen()+rLegBlock.getVlen());
+				0,rFootBlock.getVlen()+rLegBlock.getVlen(),lLegBlock.exitIndex);
 		bodyBlock=new TextureBlock(numx,numy,numz,x_side,y_side,z_side,
-				rArmBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen());
+				rArmBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen(),rArmBlock.exitIndex);
 		
 		lArmBlock=new TextureBlock(2,2,5,leg_side,leg_side,humerus_length+radius_length+hand_length,
-				rArmBlock.getLen()+bodyBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen());
+				rArmBlock.getLen()+bodyBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen(),bodyBlock.exitIndex);
 		headBlock=new TextureBlock(5,5,5,head_DX,head_DY,head_DZ,
-				rArmBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen()+bodyBlock.getVlen());
+				rArmBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen()+bodyBlock.getVlen(),lArmBlock.exitIndex);
 		
 		len=bodyBlock.getLen()+lArmBlock.getLen()+rArmBlock.getLen();
 		vlen=headBlock.getVlen()+bodyBlock.getVlen()+lLegBlock.getVlen()+lFootBlock.getVlen()+lArmBlock.getVlen();

@@ -79,7 +79,7 @@ public class ManHead extends Animal{
 		texture_side_dy=(int) (head_DY/(numy-1));
 		texture_side_dx=(int) (head_DX/(numx-1));
 		
-		textureBlock=new TextureBlock(numx,numy,numz,head_DX,head_DY,head_DZ,0,0);
+		textureBlock=new TextureBlock(numx,numy,numz,head_DX,head_DY,head_DZ,0,0,0);
 		
 		
 		double baseX=head_DX+10;

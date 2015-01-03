@@ -20,12 +20,17 @@ public class TextureBlock {
 	public double len;
 	public int vlen;
 	
+	public int entryIndex=0;
+	public int exitIndex=0;
+	
 	public TextureBlock(int numx,int numy,int numz,
-			double DX,double DY,double DZ,double x0,double y0){
+			double DX,double DY,double DZ,double x0,double y0,int entryIndex){
 		
 		this.numx=numx;
 		this.numy=numy;
 		this.numz=numz;
+		
+		this.entryIndex=entryIndex;
 		
 		N_FACES=numx*2+(numy-2)*2;
 		
@@ -38,7 +43,9 @@ public class TextureBlock {
 		upperBase=new Point3D[numx][numy];
 		
 		double baseY=DZ+DY;
-		int count=0;
+		
+		int count=entryIndex;
+		
 		
 		for (int i = 0; i <numx; i++) {
 			
@@ -98,6 +105,8 @@ public class TextureBlock {
 			}
 			
 		}
+		
+		exitIndex=count;
 
 	}
 	
