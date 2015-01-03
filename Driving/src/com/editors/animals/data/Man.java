@@ -102,7 +102,7 @@ public class Man extends Animal {
 				rArmBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen()+bodyBlock.getVlen(),lArmBlock.exitIndex);
 		
 		len=bodyBlock.getLen()+lArmBlock.getLen()+rArmBlock.getLen();
-		vlen=headBlock.getVlen()+bodyBlock.getVlen()+lLegBlock.getVlen()+lFootBlock.getVlen()+lArmBlock.getVlen();
+		vlen=headBlock.getVlen()+bodyBlock.getVlen()+lLegBlock.getVlen()+lFootBlock.getVlen();
 		numTexturePoints=headBlock.exitIndex;
 		
 		initMesh();
