@@ -19,6 +19,8 @@ public class CustomData {
 	public int n=0;
 	public static double pi=Math.PI;
 	
+	public int numTexturePoints=0;
+	
 	public CustomData specificData=null;
 	
 	public void buildBox(double x , double y, double z,double x_side,double y_side, double z_side) {
@@ -684,9 +686,11 @@ public class CustomData {
 					
 					double x= calX(tb.upperBase[i][j].x);
 					double y= calY(tb.upperBase[i][j].y);
+					
+					int index=((Integer)tb.upperBase[i][j].getData()).intValue();
 		
 					Point3D p=new Point3D(x,y,0);			
-					texture_points.add(p);
+					texture_points.setElementAt(p,index);
 				}
 	
 			}
@@ -705,9 +709,9 @@ public class CustomData {
 
 				Point3D p=new Point3D(x,y,0);
 
-			
+				int index=((Integer)tb.lateralFaces[i][j].getData()).intValue();
 				//System.out.print(texIndex+"\t");
-				texture_points.add(p);
+				texture_points.setElementAt(p,index);
 			}
 			
 		}	
@@ -720,9 +724,11 @@ public class CustomData {
 	
 					double x= calX(tb.lowerBase[i][j].x);
 					double y= calY(tb.lowerBase[i][j].y);
+					
+					int index=((Integer)tb.lowerBase[i][j].getData()).intValue();
 		
 					Point3D p=new Point3D(x,y,0);			
-					texture_points.add(p);
+					texture_points.setElementAt(p,index);
 				}
 			}
 		

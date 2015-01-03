@@ -94,6 +94,8 @@ public class ManHead extends Animal{
         nozeFaces[1][1]=new  Point3D(baseX+ndx,ndy,0);
         nozeFaces[2][1]=new  Point3D(baseX+2*ndx,ndy,0);
         nozeFaces[1][2]=new  Point3D(baseX+ndx,ndy*2.0,0);
+        
+        numTexturePoints=textureBlock.exitIndex;
 		
 		initMesh();
 	}
@@ -167,6 +169,8 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		isTextureDrawing=false;
 		
 		Vector texture_points=new Vector();
+		
+		texture_points.setSize(numTexturePoints);
 		
 		addTexturePoints(texture_points,textureBlock);
 		

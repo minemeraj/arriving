@@ -35,6 +35,8 @@ public class Man extends Animal {
 	private double len;
 	private double vlen;
 	
+	
+	
 	int numx=5;
 	int numy=5;
 	int numz=7;
@@ -101,6 +103,7 @@ public class Man extends Animal {
 		
 		len=bodyBlock.getLen()+lArmBlock.getLen()+rArmBlock.getLen();
 		vlen=headBlock.getVlen()+bodyBlock.getVlen()+lLegBlock.getVlen()+lFootBlock.getVlen()+lArmBlock.getVlen();
+		numTexturePoints=headBlock.exitIndex;
 		
 		initMesh();
 	}
@@ -158,15 +161,17 @@ public class Man extends Animal {
 		isTextureDrawing=false;
 		
 		Vector texture_points=new Vector();
+		texture_points.setSize(numTexturePoints);
 		
-		addTexturePoints(texture_points,headBlock);
-		addTexturePoints(texture_points,lArmBlock);
-		addTexturePoints(texture_points,bodyBlock);
-		addTexturePoints(texture_points,rArmBlock);		
-		addTexturePoints(texture_points,lLegBlock);
-		addTexturePoints(texture_points,rLegBlock);
-		addTexturePoints(texture_points,lFootBlock);
+				
 		addTexturePoints(texture_points,rFootBlock);
+		addTexturePoints(texture_points,lFootBlock);
+		addTexturePoints(texture_points,rLegBlock);
+		addTexturePoints(texture_points,lLegBlock);
+		addTexturePoints(texture_points,rArmBlock);	
+		addTexturePoints(texture_points,bodyBlock);
+		addTexturePoints(texture_points,lArmBlock);
+		addTexturePoints(texture_points,headBlock);
 		
 		return texture_points;
 	}
@@ -362,18 +367,18 @@ public class Man extends Animal {
 				for(int k=0;k<numz-1;k++){
 
 					if(k==0)
-						addLine(body,i,j,k,lf(),Renderer3D.CAR_BOTTOM);			
+						addLine(body,i,j,k,bodyBlock.lf(i,j,k,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_BOTTOM);			
 
 					if(i==0)
-						addLine(body,i,j,k,lf(),Renderer3D.CAR_LEFT);
+						addLine(body,i,j,k,bodyBlock.lf(i,j,k,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
 
 					if(i+1==numx-1)
-						addLine(body,i,j,k,lf(),Renderer3D.CAR_RIGHT);
+						addLine(body,i,j,k,bodyBlock.lf(i,j,k,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
 					
 					if(j==0)
-						addLine(body,i,j,k,lf(),Renderer3D.CAR_BACK);
+						addLine(body,i,j,k,bodyBlock.lf(i,j,k,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 					if(j+1==numy-1)
-						addLine(body,i,j,k,lf(),Renderer3D.CAR_FRONT);
+						addLine(body,i,j,k,bodyBlock.lf(i,j,k,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);
 
 				}
 			}
@@ -911,21 +916,21 @@ public class Man extends Animal {
 				for(int k=0;k<numz-1;k++){		
 
 					if(i==0){
-						addLine(head,i,j,k,lf(),Renderer3D.CAR_LEFT);
+						addLine(head,i,j,k,headBlock.lf(i,j,k,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
 					}
 
 					if(i+1==numx-1){
-						addLine(head,i,j,k,lf(),Renderer3D.CAR_RIGHT);
+						addLine(head,i,j,k,headBlock.lf(i,j,k,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
 					}
 
 					if(j==0)
-						addLine(head,i,j,k,lf(),Renderer3D.CAR_BACK);		
+						addLine(head,i,j,k,headBlock.lf(i,j,k,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);		
 
 					if(j+1==numy-1)
-						addLine(head,i,j,k,lf(),Renderer3D.CAR_FRONT);
+						addLine(head,i,j,k,headBlock.lf(i,j,k,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);
 
 					if(k+1==numz-1)
-						addLine(head,i,j,k,lf(),Renderer3D.CAR_TOP);
+						addLine(head,i,j,k,headBlock.lf(i,j,k,Renderer3D.CAR_TOP),Renderer3D.CAR_TOP);
 
 				}
 
