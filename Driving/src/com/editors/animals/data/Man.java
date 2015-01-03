@@ -456,10 +456,10 @@ public class Man extends Animal {
 		leftFoot[0][1][0]=addBPoint(xc-x_side*0.5+thigh_indentation,LEG_DY+foot_length,0,LEFT_SHINBONE);
 		leftFoot[1][1][0]=addBPoint(xc-x_side*0.5+thigh_indentation+leg_side,LEG_DY+foot_length,0,LEFT_SHINBONE);
 		
-		addLine(leftFoot[0][0][0],leftFoot[0][0][1],leftFoot[0][1][0],null,0,0,0,0,Renderer3D.CAR_LEFT);
-		addLine(leftFoot[1][0][0],leftFoot[1][1][0],leftFoot[1][0][1],null,0,0,0,0,Renderer3D.CAR_RIGHT);
-		addLine(leftFoot[0][0][0],leftFoot[0][1][0],leftFoot[1][1][0],leftFoot[1][0][0],0,0,0,0,Renderer3D.CAR_BOTTOM);
-		addLine(leftFoot[0][0][1],leftFoot[1][0][1],leftFoot[1][1][0],leftFoot[0][1][0],0,0,0,0,Renderer3D.CAR_TOP);
+		addLine(leftFoot[0][0][0],leftFoot[0][0][1],leftFoot[0][1][0],null,lFootBlock.lf(0,0,0,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
+		addLine(leftFoot[1][0][0],leftFoot[1][1][0],leftFoot[1][0][1],null,lFootBlock.lf(0,0,0,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
+		addLine(leftFoot[0][0][0],leftFoot[0][1][0],leftFoot[1][1][0],leftFoot[1][0][0],lFootBlock.lf(0,0,0,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_BOTTOM);
+		addLine(leftFoot[0][0][1],leftFoot[1][0][1],leftFoot[1][1][0],leftFoot[0][1][0],lFootBlock.lf(0,0,0,Renderer3D.CAR_TOP),Renderer3D.CAR_TOP);
 		
 		///RightLeg
 		
@@ -520,10 +520,10 @@ public class Man extends Animal {
 		rightFoot[0][1][0]=addBPoint(xc+x_side*0.5-leg_side-thigh_indentation,LEG_DY+foot_length,0,RIGHT_SHINBONE);
 		rightFoot[1][1][0]=addBPoint(xc+x_side*0.5-thigh_indentation,LEG_DY+foot_length,0,RIGHT_SHINBONE);
 		
-		addLine(rightFoot[0][0][0],rightFoot[0][0][1],rightFoot[0][1][0],null,0,0,0,0,Renderer3D.CAR_LEFT);
-		addLine(rightFoot[1][0][0],rightFoot[1][1][0],rightFoot[1][0][1],null,0,0,0,0,Renderer3D.CAR_RIGHT);
-		addLine(rightFoot[0][0][0],rightFoot[0][1][0],rightFoot[1][1][0],rightFoot[1][0][0],0,0,0,0,Renderer3D.CAR_BOTTOM);
-		addLine(rightFoot[0][0][1],rightFoot[1][0][1],rightFoot[1][1][0],rightFoot[0][1][0],0,0,0,0,Renderer3D.CAR_TOP);
+		addLine(rightFoot[0][0][0],rightFoot[0][0][1],rightFoot[0][1][0],null,rFootBlock.lf(0,0,0,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
+		addLine(rightFoot[1][0][0],rightFoot[1][1][0],rightFoot[1][0][1],null,rFootBlock.lf(0,0,0,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
+		addLine(rightFoot[0][0][0],rightFoot[0][1][0],rightFoot[1][1][0],rightFoot[1][0][0],rFootBlock.lf(0,0,0,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_BOTTOM);
+		addLine(rightFoot[0][0][1],rightFoot[1][0][1],rightFoot[1][1][0],rightFoot[0][1][0],rFootBlock.lf(0,0,0,Renderer3D.CAR_TOP),Renderer3D.CAR_TOP);
 		
 		
 		//Arms:
