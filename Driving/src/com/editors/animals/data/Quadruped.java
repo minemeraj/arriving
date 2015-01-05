@@ -406,30 +406,30 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 			
 					if(j==0){
 
-						addLine(body[i][j][k],body[i+1][j][k],body[i+1][j][k+1],body[i][j][k+1],Renderer3D.CAR_BACK);
+						addLine(body,i,j,k,bodyBlock.lf(i,j,k,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 						
 					}				
 						
 					if(i==0)	
-						addLine(body[i][j][k],body[i][j][k+1],body[i][j+1][k+1],body[i][j+1][k],Renderer3D.CAR_LEFT);
+						addLine(body,i,j,k,bodyBlock.lf(i,j,k,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
 
 						
 					if(k==0)
-						addLine(body[i][j][k],body[i][j+1][k],body[i+1][j+1][k],body[i+1][j][k],Renderer3D.CAR_BOTTOM);
+						addLine(body,i,j,k,bodyBlock.lf(i,j,k,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_BOTTOM);
 					
 					if(k+1==numz-1)							
-						addLine(body[i][j][k+1],body[i+1][j][k+1],body[i+1][j+1][k+1],body[i][j+1][k+1],Renderer3D.CAR_TOP);
+						addLine(body,i,j,k,bodyBlock.lf(i,j,k,Renderer3D.CAR_TOP),Renderer3D.CAR_TOP);
 				
 					
 
 					if(i+1==numx-1)
-						addLine(body[i+1][j][k],body[i+1][j+1][k],body[i+1][j+1][k+1],body[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+						addLine(body,i,j,k,bodyBlock.lf(i,j,k,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
 						
 				
 					
 					if(j+1==numy-1){
 						
-						addLine(body[i][j+1][k],body[i][j+1][k+1],body[i+1][j+1][k+1],body[i+1][j+1][k],Renderer3D.CAR_FRONT);
+						addLine(body,i,j,k,bodyBlock.lf(i,j,k,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);
 						
 					}
 				
@@ -880,16 +880,14 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		
 		rotateYZ(pFrontRightForearm,pFrontRightArm[1][0][1].y,pFrontRightArm[1][0][1].z,fq0);
 		rotateYZ(pFrontRightForearm,pFrontRightForearm[0][1][1].y,pFrontRightForearm[0][1][1].z,fq1);
-		
-		LineData FrontRightForearm=addLine(pFrontRightForearm[0][0][0],pFrontRightForearm[0][1][0],pFrontRightForearm[1][1][0],pFrontRightForearm[1][0][0],Renderer3D.CAR_FRONT);
 			
-		LineData frontRightForearmS0=addLine(pFrontRightForearm[0][0][0],pFrontRightForearm[0][0][1],pFrontRightForearm[0][1][1],pFrontRightForearm[0][1][0],Renderer3D.CAR_LEFT);
+		addLine(pFrontRightForearm,0,0,0,rArmBlock.lf(0,0,1,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
 
-		LineData frontRightForearmS1=addLine(pFrontRightForearm[0][1][0],pFrontRightForearm[0][1][1],pFrontRightForearm[1][1][1],pFrontRightForearm[1][1][0],Renderer3D.CAR_FRONT);
+		addLine(pFrontRightForearm,0,0,0,rArmBlock.lf(0,0,1,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);
 
-		LineData frontRightForearmS2=addLine(pFrontRightForearm[1][1][0],pFrontRightForearm[1][1][1],pFrontRightForearm[1][0][1],pFrontRightForearm[1][0][0],Renderer3D.CAR_RIGHT);
+		addLine(pFrontRightForearm,0,0,0,rArmBlock.lf(0,0,1,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
 	
-		LineData frontRightForearmS3=addLine(pFrontRightForearm[1][0][0],pFrontRightForearm[1][0][1],pFrontRightForearm[0][0][1],pFrontRightForearm[0][0][0],Renderer3D.CAR_BACK);
+		addLine(pFrontRightForearm,0,0,0,rArmBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 			
 		
 		LineData backRightElbow0=addLine(pFrontRightForearm[0][0][1],pFrontRightForearm[1][0][1],pFrontRightArm[1][0][0],pFrontRightArm[0][0][0],Renderer3D.CAR_BACK);
@@ -915,15 +913,15 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		rotateYZ(pFrontRightHand,pFrontRightForearm[0][1][1].y,pFrontRightForearm[0][1][1].z,fq1);
 		rotateYZ(pFrontRightHand,pFrontRightHand[0][1][1].y,pFrontRightHand[0][1][1].z,fq2);
 			
-		LineData FrontRightHand=addLine(pFrontRightHand[0][0][0],pFrontRightHand[0][1][0],pFrontRightHand[1][1][0],pFrontRightHand[1][0][0],Renderer3D.CAR_FRONT);
+		addLine(pFrontRightHand,0,0,0,rArmBlock.lf(0,0,0,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 			
-		LineData frontRightHandS0=addLine(pFrontRightHand[0][0][0],pFrontRightHand[0][0][1],pFrontRightHand[0][1][1],pFrontRightHand[0][1][0],Renderer3D.CAR_LEFT);
+		addLine(pFrontRightHand,0,0,0,rArmBlock.lf(0,0,0,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
 
-		LineData frontRightHandS1=addLine(pFrontRightHand[0][1][0],pFrontRightHand[0][1][1],pFrontRightHand[1][1][1],pFrontRightHand[1][1][0],Renderer3D.CAR_FRONT);
+		addLine(pFrontRightHand,0,0,0,rArmBlock.lf(0,0,0,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);
 
-		LineData frontRightHandS2=addLine(pFrontRightHand[1][1][0],pFrontRightHand[1][1][1],pFrontRightHand[1][0][1],pFrontRightHand[1][0][0],Renderer3D.CAR_RIGHT);
+		addLine(pFrontRightHand,0,0,0,rArmBlock.lf(0,0,0,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
 	
-		LineData frontRightHandS3=addLine(pFrontRightHand[1][0][0],pFrontRightHand[1][0][1],pFrontRightHand[0][0][1],pFrontRightHand[0][0][0],Renderer3D.CAR_BACK);
+		addLine(pFrontRightHand,0,0,0,rArmBlock.lf(0,0,0,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 		
 		LineData backRightWrist0=addLine(pFrontRightHand[0][0][1],pFrontRightHand[1][0][1],pFrontRightForearm[1][0][0],pFrontRightForearm[0][0][0],Renderer3D.CAR_BACK);
 		LineData backRightWrist1=addLine(pFrontRightForearm[0][0][0],pFrontRightForearm[0][1][0],pFrontRightHand[0][0][1],null,Renderer3D.CAR_LEFT);
@@ -1138,7 +1136,7 @@ private BPoint[][][] buildQuadrupedHeadMesh(double hz, double xc) {
 					if(j==0){
 
 
-						addLine(head[i][j][k],head[i+1][j][k],head[i+1][j][k+1],head[i][j][k+1],Renderer3D.CAR_BACK);
+						addLine(head,i,j,k,headBlock.lf(i,j,k,Renderer3D.CAR_LEFT),Renderer3D.CAR_BACK);
 					}
 
 
@@ -1146,21 +1144,21 @@ private BPoint[][][] buildQuadrupedHeadMesh(double hz, double xc) {
 
 
 					if(k+1==hnz-1)
-						addLine(head[i][j][k+1],head[i+1][j][k+1],head[i+1][j+1][k+1],head[i][j+1][k+1],Renderer3D.CAR_TOP);
+						addLine(head,i,j,k,headBlock.lf(i,j,k,Renderer3D.CAR_LEFT),Renderer3D.CAR_TOP);
 
 					if(k==0)
-						addLine(head[i][j][k],head[i][j+1][k],head[i+1][j+1][k],head[i+1][j][k],Renderer3D.CAR_BOTTOM);
+						addLine(head,i,j,k,headBlock.lf(i,j,k,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_BOTTOM);
 
 					if(i==0)
-						addLine(head[i][j][k],head[i][j][k+1],head[i][j+1][k+1],head[i][j+1][k],Renderer3D.CAR_LEFT);
+						addLine(head,i,j,k,headBlock.lf(i,j,k,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
 
 					if(i+1==hnx-1)
-						addLine(head[i+1][j][k],head[i+1][j+1][k],head[i+1][j+1][k+1],head[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+						addLine(head,i,j,k,headBlock.lf(i,j,k,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
 
 
 					if(j+1==hny-1){
 
-						addLine(head[i][j+1][k],head[i][j+1][k+1],head[i+1][j+1][k+1],head[i+1][j+1][k],Renderer3D.CAR_FRONT);
+						addLine(head,i,j,k,headBlock.lf(i,j,k,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);
 
 					}
 
