@@ -1,14 +1,8 @@
 package com.editors.animals;
 
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,18 +11,11 @@ import java.io.PrintWriter;
 import java.util.Stack;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.RepaintManager;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 
 import com.PolygonMesh;
 import com.editors.CustomEditor;
@@ -36,9 +23,7 @@ import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.ValuePair;
 import com.editors.animals.data.Animal;
-import com.editors.forniture.data.Forniture;
 import com.editors.object.ObjectEditorPreviewPanel;
-import com.main.Renderer3D;
 
 public class AnimalsEditor extends CustomEditor implements ItemListener{
 	
@@ -730,7 +715,8 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 	public void saveBaseCubicTexture(File file) {
 
     	if(animal.getAnimal_type()==Animal.ANIMAL_TYPE_MANHEAD ||
-    			animal.getAnimal_type()==Animal.ANIMAL_TYPE_HUMAN	
+    			animal.getAnimal_type()==Animal.ANIMAL_TYPE_HUMAN	||
+    			animal.getAnimal_type()==Animal.ANIMAL_TYPE_QUADRUPED
     	){
     		
     		PolygonMesh pm = buildMesh();		

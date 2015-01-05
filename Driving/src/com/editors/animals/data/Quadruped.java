@@ -16,6 +16,7 @@ import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
 import com.Segments;
+import com.TextureBlock;
 import com.editors.DoubleTextField;
 import com.main.Renderer3D;
 
@@ -35,11 +36,26 @@ public class Quadruped extends Animal{
 	int N_PARALLELS=2;
 	
 	private double len;
+	private double vlen;
 	
-	Point3D[] upperBase=null;
-	Point3D[] lowerBase=null;
-	Point3D[][] lateralFaces=null; 
 	
+	TextureBlock headBlock=null;
+	TextureBlock bodyBlock=null;
+	TextureBlock lLegBlock=null;
+	TextureBlock rLegBlock=null;
+	TextureBlock lFootBlock=null;
+	TextureBlock rFootBlock=null;
+	TextureBlock lArmBlock=null;
+	TextureBlock rArmBlock=null;
+	
+	int numx=5;
+	int numy=6;
+	int numz=5;
+	
+	
+	int hnx=5;
+	int hny=5;
+	int hnz=5;
 
 	public Quadruped(double x_side, double y_side,double z_side,int animal_type,
 			double femur_length,double shinbone_length,double leg_side,
@@ -71,48 +87,28 @@ public class Quadruped extends Animal{
 		this.foot_length = foot_length;
 		
 		len=2*(x_side+y_side);
+		rFootBlock=new TextureBlock(2,2,2,leg_side,foot_length,leg_side,
+				0,0,0);
+		lFootBlock=new TextureBlock(2,2,2,leg_side,foot_length,leg_side,
+				rFootBlock.getLen(),0,rFootBlock.exitIndex);
+		rLegBlock=new TextureBlock(2,2,3,leg_side,leg_side,femur_length+shinbone_length,
+				0,rFootBlock.getVlen(),lFootBlock.exitIndex);
+		lLegBlock=new TextureBlock(2,2,3,leg_side,leg_side,femur_length+shinbone_length,
+				rLegBlock.getLen(),rFootBlock.getVlen(),rLegBlock.exitIndex);
 		
-		upperBase=new Point3D[N_FACES];
+		rArmBlock=new TextureBlock(2,2,5,leg_side,leg_side,humerus_length+radius_length+hand_length,
+				0,rFootBlock.getVlen()+rLegBlock.getVlen(),lLegBlock.exitIndex);
+		bodyBlock=new TextureBlock(numx,numy,numz,x_side,y_side,z_side,
+				rArmBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen(),rArmBlock.exitIndex);
 		
-		upperBase[0]=new Point3D(0,y_side+z_side,0);			
-		upperBase[1]=new Point3D(x_side,y_side+z_side,0);	
-		upperBase[2]=new Point3D(x_side,y_side+z_side+y_side,0);	
-		upperBase[3]=new Point3D(0,y_side+z_side+y_side,0);	
+		lArmBlock=new TextureBlock(2,2,5,leg_side,leg_side,humerus_length+radius_length+hand_length,
+				rArmBlock.getLen()+bodyBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen(),bodyBlock.exitIndex);
+		headBlock=new TextureBlock(hnx,hny,hnz,head_DX,head_DY,head_DZ,
+				rArmBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen()+bodyBlock.getVlen(),lArmBlock.exitIndex);
 		
-		lowerBase=new Point3D[N_FACES];
-		
-		lowerBase[0]=new Point3D(0,0,0);			
-		lowerBase[1]=new Point3D(0,y_side,0);	
-		lowerBase[2]=new Point3D(x_side,y_side,0);	
-		lowerBase[3]=new Point3D(x_side,0,0);	
-		
-
-		
-		lateralFaces=new Point3D[N_FACES+1][N_PARALLELS];
-
-		for(int j=0;j<N_PARALLELS;j++){
-
-			//texture is open and periodical:
-			
-			double x=0; 
-
-			for (int i = 0; i <=N_FACES; i++) {
-
-			
-				double y=y_side+z_side*j;
-
-				lateralFaces[i][j]=new Point3D(x,y,0);
-				
-				double dx=x_side;
-				
-				if(i%2==1)
-					dx=y_side;
-				
-				x+=dx;
-
-			}
-			
-		}	
+		len=bodyBlock.getLen()+lArmBlock.getLen()+rArmBlock.getLen();
+		vlen=headBlock.getVlen()+bodyBlock.getVlen()+lLegBlock.getVlen()+lFootBlock.getVlen();
+		numTexturePoints=headBlock.exitIndex;
 		
 		initMesh();
 	}
@@ -132,9 +128,9 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 
 		Color backgroundColor=Color.green;
 
-		
+				
 		IMG_WIDTH=(int) len+2*texture_x0;
-		IMG_HEIGHT=(int) (z_side+y_side*2)+2*texture_y0;
+		IMG_HEIGHT=(int) vlen+2*texture_y0;
 
 		
 		BufferedImage buf=new BufferedImage(IMG_WIDTH,IMG_HEIGHT,BufferedImage.TYPE_BYTE_INDEXED);
@@ -148,63 +144,17 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 				bufGraphics.fillRect(0,0,IMG_WIDTH,IMG_HEIGHT);
 
 
-				//draw lines for reference
-
-				bufGraphics.setColor(Color.RED);
-				bufGraphics.setStroke(new BasicStroke(0.1f));
+			//draw lines for reference
 				
-				for (int j = 0; j <upperBase.length; j++) {
-
-					double x0= calX(upperBase[j].x);
-					double y0= calY(upperBase[j].y);
-					
-					double x1= calX(upperBase[(j+1)%upperBase.length].x);
-					double y1= calY(upperBase[(j+1)%upperBase.length].y);
-
-					bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);	 
-
-				}
-
-				
-				//lowerbase
-		
-				bufGraphics.setColor(Color.BLUE);
-				
-				for (int j = 0; j <lowerBase.length; j++) {
-
-					double x0= calX(lowerBase[j].x);
-					double y0= calY(lowerBase[j].y);
-					
-					double x1= calX(lowerBase[(j+1)%lowerBase.length].x);
-					double y1= calY(lowerBase[(j+1)%lowerBase.length].y);
-
-					bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);			
-
-				}
-
-
-				//lateral surface
-				bufGraphics.setColor(new Color(0,0,0));
-
-
-				for(int j=0;j<N_PARALLELS-1;j++){
-
-					//texture is open and periodical:
-
-					for (int i = 0; i <N_FACES; i++) { 
-
-						double x0=calX(lateralFaces[i][j].x);
-						double x1=calX(lateralFaces[i+1][j].x);
-						double y0=calY(lateralFaces[i][j].y);
-						double y1=calY(lateralFaces[i][j+1].y);
-						
-						bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y0);
-						bufGraphics.drawLine((int)x1,(int)y0,(int)x1,(int)y1);
-						bufGraphics.drawLine((int)x1,(int)y1,(int)x0,(int)y1);
-						bufGraphics.drawLine((int)x0,(int)y1,(int)x0,(int)y0);
-					}
-
-				}	
+				drawTextureBlock(bufGraphics,headBlock,Color.RED,Color.BLUE,Color.BLACK);
+				drawTextureBlock(bufGraphics,lArmBlock,Color.RED,Color.BLUE,Color.BLACK);
+				drawTextureBlock(bufGraphics,bodyBlock,Color.RED,Color.BLUE,Color.BLACK);
+				drawTextureBlock(bufGraphics,rArmBlock,Color.RED,Color.BLUE,Color.BLACK);
+				drawTextureBlock(bufGraphics,lLegBlock,Color.RED,Color.BLUE,Color.BLACK);
+				drawTextureBlock(bufGraphics,rLegBlock,Color.RED,Color.BLUE,Color.BLACK);
+				drawTextureBlock(bufGraphics,lFootBlock,Color.RED,Color.BLUE,Color.BLACK);
+				drawTextureBlock(bufGraphics,rFootBlock,Color.RED,Color.BLUE,Color.BLACK);				
+	
 				
 			
 				ImageIO.write(buf,"gif",file);
@@ -223,59 +173,6 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		Vector texture_points=new Vector();
 		
 
-
-		/*int size=2*N_FACES+	(N_FACES+1)*(N_PARALLELS);
-		
-		texture_points.setSize(size);
-		
-		int count=0;
-		//upperbase
-
-		for (int j = 0; j <upperBase.length; j++) {
-
-			
-			
-			double x= calX(upperBase[j].x);
-			double y= calY(upperBase[j].y);
-
-			Point3D p=new Point3D(x,y,0);			
-			texture_points.setElementAt(p,count++);
-
-
-		}
-	
-		
-		for (int j = 0; j <lowerBase.length; j++) {
-
-			double x= calX(lowerBase[j].x);
-			double y= calY(lowerBase[j].y);
-
-			Point3D p=new Point3D(x,y,0);			
-			texture_points.setElementAt(p,count++);
-
-		}
-
-
-		//lateral surface
-
-
-		for(int j=0;j<N_PARALLELS;j++){
-
-			//texture is open and periodical:
-
-			for (int i = 0; i <=N_FACES; i++) {
-
-				double x=calX(lateralFaces[i][j].x);
-				double y=calY(lateralFaces[i][j].y);
-
-				Point3D p=new Point3D(x,y,0);
-
-				int texIndex=count+f(i,j,N_FACES+1,N_PARALLELS);
-				//System.out.print(texIndex+"\t");
-				texture_points.setElementAt(p,texIndex);
-			}
-			
-		}*/	
 		
 		return texture_points;
 	}
@@ -329,9 +226,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		
 		double dz=rearZ-(frontZ);
 		
-		int numx=5;
-		int numy=6;
-		int numz=5;
+
 		
 		BPoint[][][] body=new BPoint[numx][numy][numz]; 
 		
@@ -1121,10 +1016,7 @@ private BPoint[][][] buildQuadrupedHeadMesh(double hz, double xc) {
 		Segments h2=new Segments(xc,with2,y_side-neck_side,head_DY,hz,height2);
 		Segments h3=new Segments(xc,with3,y_side-neck_side,head_DY,hz,height3);
 		Segments h4=new Segments(xc,with4,y_side-neck_side,head_DY,hz,height4);
-		
-		int hnx=5;
-		int hny=5;
-		int hnz=5;
+
 
 		BPoint[][][] head=new BPoint[hnx][hny][hnz];
 

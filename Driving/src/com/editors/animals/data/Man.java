@@ -34,12 +34,14 @@ public class Man extends Animal {
 	
 	private double len;
 	private double vlen;
-	
-	
-	
+
 	int numx=5;
 	int numy=5;
 	int numz=7;
+	
+	int hnx=5;
+	int hny=5;
+	int hnz=5;
 	
 	TextureBlock headBlock=null;
 	TextureBlock bodyBlock=null;
@@ -98,7 +100,7 @@ public class Man extends Animal {
 		
 		lArmBlock=new TextureBlock(2,2,5,leg_side,leg_side,humerus_length+radius_length+hand_length,
 				rArmBlock.getLen()+bodyBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen(),bodyBlock.exitIndex);
-		headBlock=new TextureBlock(5,5,5,head_DX,head_DY,head_DZ,
+		headBlock=new TextureBlock(hnx,hny,hnz,head_DX,head_DY,head_DZ,
 				rArmBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen()+bodyBlock.getVlen(),lArmBlock.exitIndex);
 		
 		len=bodyBlock.getLen()+lArmBlock.getLen()+rArmBlock.getLen();
@@ -807,11 +809,9 @@ public class Man extends Animal {
 		Point3D e3=new Point3D(Math.cos(Math.PI*3.0/8.0),Math.sin(Math.PI*3.0/8.0),0.0);
 		Point3D e4=new Point3D(0,1.0,0.0);
 
-		int numx=5;
-		int numy=5;
-		int numz=5;
+
 		
-		BPoint[][][] head=new BPoint[numx][numy][numz];
+		BPoint[][][] head=new BPoint[hnx][hny][hnz];
 
 		head[0][0][0]=addBPoint(-e2.x*1.0,-e2.y*0.5,0.0,HEAD,n0);
 		head[1][0][0]=addBPoint(-e3.x,-e3.y*0.5,0.0,HEAD,n0);
@@ -908,28 +908,28 @@ public class Man extends Animal {
 		head[4][4][4]=addBPoint(e2.x*0.75,e2.y*0.75,1.0,HEAD,h0);
 
 		
-		for(int i=0;i<numx-1;i++){
+		for(int i=0;i<hnx-1;i++){
 
-			for (int j = 0; j < numy-1; j++) {
+			for (int j = 0; j < hny-1; j++) {
 
 
-				for(int k=0;k<numz-1;k++){		
+				for(int k=0;k<hnz-1;k++){		
 
 					if(i==0){
 						addLine(head,i,j,k,headBlock.lf(i,j,k,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
 					}
 
-					if(i+1==numx-1){
+					if(i+1==hnx-1){
 						addLine(head,i,j,k,headBlock.lf(i,j,k,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
 					}
 
 					if(j==0)
 						addLine(head,i,j,k,headBlock.lf(i,j,k,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);		
 
-					if(j+1==numy-1)
+					if(j+1==hny-1)
 						addLine(head,i,j,k,headBlock.lf(i,j,k,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);
 
-					if(k+1==numz-1)
+					if(k+1==hnz-1)
 						addLine(head,i,j,k,headBlock.lf(i,j,k,Renderer3D.CAR_TOP),Renderer3D.CAR_TOP);
 
 				}
