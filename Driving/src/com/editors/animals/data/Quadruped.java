@@ -40,6 +40,7 @@ public class Quadruped extends Animal{
 	
 	
 	TextureBlock headBlock=null;
+	TextureBlock neckBlock;
 	TextureBlock bodyBlock=null;
 	TextureBlock lLegBlock=null;
 	TextureBlock rLegBlock=null;
@@ -50,12 +51,15 @@ public class Quadruped extends Animal{
 	
 	int numx=5;
 	int numy=6;
-	int numz=5;
-	
+	int numz=5;	
+
+	int ney=3;
+	int nez=3;	
 	
 	int hnx=5;
 	int hny=5;
 	int hnz=5;
+	
 
 	public Quadruped(double x_side, double y_side,double z_side,int animal_type,
 			double femur_length,double shinbone_length,double leg_side,
@@ -103,11 +107,13 @@ public class Quadruped extends Animal{
 		
 		lArmBlock=new TextureBlock(2,2,5,leg_side,leg_side,humerus_length+radius_length+hand_length,
 				rArmBlock.getLen()+bodyBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen(),bodyBlock.exitIndex);
-		headBlock=new TextureBlock(hnx,hny,hnz,head_DX,head_DY,head_DZ,
+		neckBlock=new TextureBlock(hnx,ney,nez,head_DX,head_DY,head_DZ,
 				rArmBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen()+bodyBlock.getVlen(),lArmBlock.exitIndex);
+		headBlock=new TextureBlock(hnx,hny,hnz,head_DX,head_DY,head_DZ,
+				rArmBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen()+bodyBlock.getVlen()+neckBlock.getVlen(),neckBlock.exitIndex);
 		
 		len=bodyBlock.getLen()+lArmBlock.getLen()+rArmBlock.getLen();
-		vlen=headBlock.getVlen()+bodyBlock.getVlen()+lLegBlock.getVlen()+lFootBlock.getVlen();
+		vlen=headBlock.getVlen()+neckBlock.getVlen()+bodyBlock.getVlen()+lLegBlock.getVlen()+lFootBlock.getVlen();
 		numTexturePoints=headBlock.exitIndex;
 		
 		initMesh();
@@ -147,6 +153,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 			//draw lines for reference
 				
 				drawTextureBlock(bufGraphics,headBlock,Color.RED,Color.BLUE,Color.BLACK);
+				drawTextureBlock(bufGraphics,neckBlock,Color.RED,Color.BLUE,Color.BLACK);
 				drawTextureBlock(bufGraphics,lArmBlock,Color.RED,Color.BLUE,Color.BLACK);
 				drawTextureBlock(bufGraphics,bodyBlock,Color.RED,Color.BLUE,Color.BLACK);
 				drawTextureBlock(bufGraphics,rArmBlock,Color.RED,Color.BLUE,Color.BLACK);
@@ -437,9 +444,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		double nz0=frontZ+z_side+dz;		
 		
 		BPoint[][][] head=buildQuadrupedHeadMesh(nz0+neck_length,xc);		
-
-		int ney=3;
-		int nez=3;		
+	
 		
 		Segments n0=new Segments(xc,neck_side,y_side-neck_side,neck_side,nz0,neck_length);
 		
