@@ -1088,7 +1088,7 @@ private BPoint[][][] buildQuadrupedHeadMesh(double hz, double xc) {
 					if(j==0){
 
 
-						addLine(head,i,j,k,headBlock.lf(i,j,k,Renderer3D.CAR_LEFT),Renderer3D.CAR_BACK);
+						addLine(head,i,j,k,headBlock.lf(i,j,k,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 					}
 
 
@@ -1096,7 +1096,7 @@ private BPoint[][][] buildQuadrupedHeadMesh(double hz, double xc) {
 
 
 					if(k+1==hnz-1)
-						addLine(head,i,j,k,headBlock.lf(i,j,k,Renderer3D.CAR_LEFT),Renderer3D.CAR_TOP);
+						addLine(head,i,j,k,headBlock.lf(i,j,k,Renderer3D.CAR_TOP),Renderer3D.CAR_TOP);
 
 					if(k==0)
 						addLine(head,i,j,k,headBlock.lf(i,j,k,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_BOTTOM);
