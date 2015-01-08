@@ -178,8 +178,17 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		isTextureDrawing=false;
 		
 		Vector texture_points=new Vector();
+		texture_points.setSize(numTexturePoints);
 		
-
+		addTexturePoints(texture_points,rFootBlock);
+		addTexturePoints(texture_points,lFootBlock);
+		addTexturePoints(texture_points,rLegBlock);
+		addTexturePoints(texture_points,lLegBlock);
+		addTexturePoints(texture_points,rArmBlock);	
+		addTexturePoints(texture_points,bodyBlock);
+		addTexturePoints(texture_points,lArmBlock);
+		addTexturePoints(texture_points,neckBlock);
+		addTexturePoints(texture_points,headBlock);
 		
 		return texture_points;
 	}
@@ -507,25 +516,25 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 
 					if(i==0){
 
-						addLine(neck[i][j][k],neck[i][j][k+1],neck[i][j+1][k+1],neck[i][j+1][k],Renderer3D.CAR_LEFT);
+						addLine(neck,i,j,k,neckBlock.lf(i,j,k,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
 					}
 
 
 					if(j==0){
 					
-						addLine(neck[i][j][k],neck[i+1][j][k],neck[i+1][j][k+1],neck[i][j][k+1],Renderer3D.CAR_BACK);
+						addLine(neck,i,j,k,neckBlock.lf(i,j,k,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 
 					}
 					
 					if(j+1==ney-1){		
 
-						addLine(neck[i][j+1][k],neck[i][j+1][k+1],neck[i+1][j+1][k+1],neck[i+1][j+1][k],Renderer3D.CAR_FRONT);
+						addLine(neck,i,j,k,neckBlock.lf(i,j,k,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);
 
 					}
 
 					if(i+1==numx-1){
 
-						addLine(neck[i+1][j][k],neck[i+1][j+1][k],neck[i+1][j+1][k+1],neck[i+1][j][k+1],Renderer3D.CAR_RIGHT);
+						addLine(neck,i,j,k,neckBlock.lf(i,j,k,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
 					}
 
 				}
@@ -574,13 +583,13 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		
 		rotateYZ(pBackLeftThigh,pBackLeftThigh[0][1][1].y,pBackLeftThigh[0][1][1].z,bq0);
 
-		LineData backLeftThighS0=addLine(pBackLeftThigh[0][0][0],pBackLeftThigh[0][0][1],pBackLeftThigh[0][1][1],pBackLeftThigh[0][1][0],Renderer3D.CAR_LEFT);
+		addLine(pBackLeftThigh,0,0,0,lLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_LEFT);
 	
-		LineData backLeftThighS1=addLine(pBackLeftThigh[0][1][0],pBackLeftThigh[0][1][1],pBackLeftThigh[1][1][1],pBackLeftThigh[1][1][0],Renderer3D.CAR_FRONT);
+		addLine(pBackLeftThigh,0,0,0,lLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_FRONT);
 	
-		LineData backLeftThighS2=addLine(pBackLeftThigh[1][1][0],pBackLeftThigh[1][1][1],pBackLeftThigh[1][0][1],pBackLeftThigh[1][0][0],Renderer3D.CAR_RIGHT);
+		addLine(pBackLeftThigh,0,0,0,lLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_RIGHT);
 
-		LineData backLeftThighS3=addLine(pBackLeftThigh[1][0][0],pBackLeftThigh[1][0][1],pBackLeftThigh[0][0][1],pBackLeftThigh[0][0][0],Renderer3D.CAR_BACK);
+		addLine(pBackLeftThigh,0,0,0,lLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_BACK);
 
 		//LineData backLeftTopThigh=addLine(pBackLeftThigh[0][0][0],pBackLeftThigh[1][0][0],pBackLeftThigh[1][1][0],pBackLeftThigh[0][1][0],Renderer3D.CAR_TOP);
 		
@@ -603,19 +612,19 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		rotateYZ(pBackLeftLeg,pBackLeftLeg[0][0][1].y,pBackLeftLeg[0][0][1].z,bq1);
 
 		
-		LineData backLeftLeg=addLine(pBackLeftLeg[0][0][0],pBackLeftLeg[0][1][0],pBackLeftLeg[1][1][0],pBackLeftLeg[1][0][0],Renderer3D.CAR_BOTTOM);
+		addLine(pBackLeftLeg,0,0,0,lLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_BOTTOM);
 				
-		LineData backLeftLegS0=addLine(pBackLeftLeg[0][0][0],pBackLeftLeg[0][0][1],pBackLeftLeg[0][1][1],pBackLeftLeg[0][1][0],Renderer3D.CAR_LEFT);
+		addLine(pBackLeftLeg,0,0,0,lLegBlock.lf(0,0,1,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
 
-		LineData backLeftLegS1=addLine(pBackLeftLeg[0][1][0],pBackLeftLeg[0][1][1],pBackLeftLeg[1][1][1],pBackLeftLeg[1][1][0],Renderer3D.CAR_FRONT);
+		addLine(pBackLeftLeg,0,0,0,lLegBlock.lf(0,0,1,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);
 	
-		LineData backLeftLegS2=addLine(pBackLeftLeg[1][1][0],pBackLeftLeg[1][1][1],pBackLeftLeg[1][0][1],pBackLeftLeg[1][0][0],Renderer3D.CAR_RIGHT);
+		addLine(pBackLeftLeg,0,0,0,lLegBlock.lf(0,0,1,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
 	
-		LineData backLeftLegS3=addLine(pBackLeftLeg[1][0][0],pBackLeftLeg[1][0][1],pBackLeftLeg[0][0][1],pBackLeftLeg[0][0][0],Renderer3D.CAR_BACK);
+		addLine(pBackLeftLeg,0,0,0,lLegBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 		
-		LineData backLeftKnee0=addLine(pBackLeftThigh[0][1][0],pBackLeftThigh[1][1][0],pBackLeftLeg[1][1][1],pBackLeftLeg[0][1][1],Renderer3D.CAR_FRONT);
-		LineData backLeftKnee1=addLine(pBackLeftThigh[0][0][0],pBackLeftThigh[0][1][0],pBackLeftLeg[0][1][1],null,Renderer3D.CAR_LEFT);
-		LineData backLeftKnee2=addLine(pBackLeftThigh[1][1][0],pBackLeftThigh[1][0][0],pBackLeftLeg[1][1][1],null,Renderer3D.CAR_RIGHT);
+		addLine(pBackLeftThigh[0][1][0],pBackLeftThigh[1][1][0],pBackLeftLeg[1][1][1],pBackLeftLeg[0][1][1],lLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_FRONT);
+		addLine(pBackLeftThigh[0][0][0],pBackLeftThigh[0][1][0],pBackLeftLeg[0][1][1],null,lLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_LEFT);
+		addLine(pBackLeftThigh[1][1][0],pBackLeftThigh[1][0][0],pBackLeftLeg[1][1][1],null,lLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_RIGHT);
 		
 		//back left foot
 		
@@ -635,19 +644,19 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		rotateYZ(pBackLeftFoot,pBackLeftLeg[0][0][1].y,pBackLeftLeg[0][0][1].z,bq1);
 		rotateYZ(pBackLeftFoot,pBackLeftFoot[0][1][1].y,pBackLeftFoot[0][1][1].z,bq2);
 		
-		LineData backLeftFoot=addLine(pBackLeftFoot[0][0][0],pBackLeftFoot[0][1][0],pBackLeftFoot[1][1][0],pBackLeftFoot[1][0][0],Renderer3D.CAR_BOTTOM);
+		addLine(pBackLeftFoot,0,0,0,lLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_BOTTOM);
 				
-		LineData backLeftFootS0=addLine(pBackLeftFoot[0][0][0],pBackLeftFoot[0][0][1],pBackLeftFoot[0][1][1],pBackLeftFoot[0][1][0],Renderer3D.CAR_LEFT);
+		addLine(pBackLeftFoot,0,0,0,lLegBlock.lf(0,0,1,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
 
-		LineData backLeftFootS1=addLine(pBackLeftFoot[0][1][0],pBackLeftFoot[0][1][1],pBackLeftFoot[1][1][1],pBackLeftFoot[1][1][0],Renderer3D.CAR_FRONT);
+		addLine(pBackLeftFoot,0,0,0,lLegBlock.lf(0,0,1,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);
 	
-		LineData backLeftFootS2=addLine(pBackLeftFoot[1][1][0],pBackLeftFoot[1][1][1],pBackLeftFoot[1][0][1],pBackLeftFoot[1][0][0],Renderer3D.CAR_RIGHT);
+		addLine(pBackLeftFoot,0,0,0,lLegBlock.lf(0,0,1,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
 	
-		LineData backLeftFootS3=addLine(pBackLeftFoot[1][0][0],pBackLeftFoot[1][0][1],pBackLeftFoot[0][0][1],pBackLeftFoot[0][0][0],Renderer3D.CAR_BACK);
+		addLine(pBackLeftFoot,0,0,0,lLegBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 		
-		LineData backLeftAnkle0=addLine(pBackLeftFoot[0][0][1],pBackLeftFoot[1][0][1],pBackLeftLeg[1][0][0],pBackLeftLeg[0][0][0],Renderer3D.CAR_BACK);
-		LineData backLeftAnkle1=addLine(pBackLeftLeg[0][0][0],pBackLeftLeg[0][1][0],pBackLeftFoot[0][0][1],null,Renderer3D.CAR_LEFT);
-		LineData backLeftAnkle2=addLine( pBackLeftFoot[1][0][1],pBackLeftLeg[1][1][0],pBackLeftLeg[1][0][0],null,Renderer3D.CAR_RIGHT);
+		addLine(pBackLeftFoot[0][0][1],pBackLeftFoot[1][0][1],pBackLeftLeg[1][0][0],pBackLeftLeg[0][0][0],lLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_BACK);
+		addLine(pBackLeftLeg[0][0][0],pBackLeftLeg[0][1][0],pBackLeftFoot[0][0][1],null,lLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_LEFT);
+		addLine( pBackLeftFoot[1][0][1],pBackLeftLeg[1][1][0],pBackLeftLeg[1][0][0],null,lLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_RIGHT);
 
 		//back right thigh
 		
@@ -666,13 +675,13 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		
 		rotateYZ(pBackRightThigh,pBackRightThigh[1][1][1].y,pBackRightThigh[1][1][1].z,bq0);
 
-		LineData backRightThighS0=addLine(pBackRightThigh[0][0][0],pBackRightThigh[0][0][1],pBackRightThigh[0][1][1],pBackRightThigh[0][1][0],Renderer3D.CAR_LEFT);
+		addLine(pBackRightThigh,0,0,0,rLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_LEFT);
 	
-		LineData backRightThighS1=addLine(pBackRightThigh[0][1][0],pBackRightThigh[0][1][1],pBackRightThigh[1][1][1],pBackRightThigh[1][1][0],Renderer3D.CAR_FRONT);
+		addLine(pBackRightThigh,0,0,0,rLegBlock.lf(0,0,1,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);
 
-		LineData backRightThighS2=addLine(pBackRightThigh[1][1][0],pBackRightThigh[1][1][1],pBackRightThigh[1][0][1],pBackRightThigh[1][0][0],Renderer3D.CAR_RIGHT);
+		addLine(pBackRightThigh,0,0,0,rLegBlock.lf(0,0,1,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
 	
-		LineData backRightThighS3=addLine(pBackRightThigh[1][0][0],pBackRightThigh[1][0][1],pBackRightThigh[0][0][1],pBackRightThigh[0][0][0],Renderer3D.CAR_BACK);
+		addLine(pBackRightThigh,0,0,0,rLegBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 
 				
 		
@@ -697,19 +706,19 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		rotateYZ(pBackRightLeg,pBackRightThigh[1][1][1].y,pBackRightThigh[1][1][1].z,bq0);
 		rotateYZ(pBackRightLeg,pBackRightLeg[0][0][1].y,pBackRightLeg[0][0][1].z,bq1);
 		
-		LineData backRightLeg=addLine(pBackRightLeg[0][0][0],pBackRightLeg[0][1][0],pBackRightLeg[1][1][0],pBackRightLeg[1][0][0],Renderer3D.CAR_BOTTOM);
+		addLine(pBackRightLeg,0,0,0,rLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_BOTTOM);
 		
-		LineData backRightLegS0=addLine(pBackRightLeg[0][0][0],pBackRightLeg[0][0][1],pBackRightLeg[0][1][1],pBackRightLeg[0][1][0],Renderer3D.CAR_LEFT);
+		addLine(pBackRightLeg,0,0,0,rLegBlock.lf(0,0,1,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
 	
-		LineData backRightLegS1=addLine(pBackRightLeg[0][1][0],pBackRightLeg[0][1][1],pBackRightLeg[1][1][1],pBackRightLeg[1][1][0],Renderer3D.CAR_FRONT);
+		addLine(pBackRightLeg,0,0,0,rLegBlock.lf(0,0,1,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);
 	
-		LineData backRightLegS2=addLine(pBackRightLeg[1][1][0],pBackRightLeg[1][1][1],pBackRightLeg[1][0][1],pBackRightLeg[1][0][0],Renderer3D.CAR_RIGHT);
+		addLine(pBackRightLeg,0,0,0,rLegBlock.lf(0,0,1,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
 	
-		LineData backRightLegS3=addLine(pBackRightLeg[1][0][0],pBackRightLeg[1][0][1],pBackRightLeg[0][0][1],pBackRightLeg[0][0][0],Renderer3D.CAR_BACK);
+		addLine(pBackRightLeg,0,0,0,rLegBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 		
-		LineData backRightKnee0=addLine(pBackRightThigh[0][1][0],pBackRightThigh[1][1][0],pBackRightLeg[1][1][1],pBackRightLeg[0][1][1],Renderer3D.CAR_FRONT);
-		LineData backRightKnee1=addLine(pBackRightThigh[0][0][0],pBackRightThigh[0][1][0],pBackRightLeg[0][1][1],null,Renderer3D.CAR_LEFT);
-		LineData backRightKnee2=addLine(pBackRightThigh[1][1][0],pBackRightThigh[1][0][0],pBackRightLeg[1][1][1],null,Renderer3D.CAR_RIGHT);
+		addLine(pBackRightThigh[0][1][0],pBackRightThigh[1][1][0],pBackRightLeg[1][1][1],pBackRightLeg[0][1][1],rLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_FRONT);
+		addLine(pBackRightThigh[0][0][0],pBackRightThigh[0][1][0],pBackRightLeg[0][1][1],null,rLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_LEFT);
+		addLine(pBackRightThigh[1][1][0],pBackRightThigh[1][0][0],pBackRightLeg[1][1][1],null,rLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_RIGHT);
 	
 		//back Right Foot
 		
@@ -730,19 +739,20 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		rotateYZ(pBackRightFoot,pBackRightLeg[0][0][1].y,pBackRightLeg[0][0][1].z,bq1);
 		rotateYZ(pBackRightFoot,pBackRightFoot[0][1][1].y,pBackRightFoot[0][1][1].z,bq2);
 		
-		LineData backRightFoot=addLine(pBackRightFoot[0][0][0],pBackRightFoot[0][1][0],pBackRightFoot[1][1][0],pBackRightFoot[1][0][0],Renderer3D.CAR_BOTTOM);
+		addLine(pBackRightFoot,0,0,0,rLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_BOTTOM);
 		
-		LineData backRightFootS0=addLine(pBackRightFoot[0][0][0],pBackRightFoot[0][0][1],pBackRightFoot[0][1][1],pBackRightFoot[0][1][0],Renderer3D.CAR_LEFT);
+		addLine(pBackRightFoot,0,0,0,rLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_LEFT);
 	
-		LineData backRightFootS1=addLine(pBackRightFoot[0][1][0],pBackRightFoot[0][1][1],pBackRightFoot[1][1][1],pBackRightFoot[1][1][0],Renderer3D.CAR_FRONT);
+		addLine(pBackRightFoot,0,0,0,rLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_FRONT);
 	
-		LineData backRightFootS2=addLine(pBackRightFoot[1][1][0],pBackRightFoot[1][1][1],pBackRightFoot[1][0][1],pBackRightFoot[1][0][0],Renderer3D.CAR_RIGHT);
+		addLine(pBackRightFoot,0,0,0,rLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_RIGHT);
 	
-		LineData backRightFootS3=addLine(pBackRightFoot[1][0][0],pBackRightFoot[1][0][1],pBackRightFoot[0][0][1],pBackRightFoot[0][0][0],Renderer3D.CAR_BACK);
+		addLine(pBackRightFoot,0,0,0,rLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_BACK);
 		
-		LineData backRightAnkle0=addLine(pBackRightFoot[0][0][1],pBackRightFoot[1][0][1],pBackRightLeg[1][0][0],pBackRightLeg[0][0][0],Renderer3D.CAR_BACK);
-		LineData backRightAnkle1=addLine(pBackRightLeg[0][0][0],pBackRightLeg[0][1][0],pBackRightFoot[0][0][1],null,Renderer3D.CAR_LEFT);
-		LineData backRightAnkle2=addLine( pBackRightFoot[1][0][1],pBackRightLeg[1][1][0],pBackRightLeg[1][0][0],null,Renderer3D.CAR_RIGHT);
+		//ankle:
+		addLine(pBackRightFoot[0][0][1],pBackRightFoot[1][0][1],pBackRightLeg[1][0][0],pBackRightLeg[0][0][0],rLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_BACK);
+		addLine(pBackRightLeg[0][0][0],pBackRightLeg[0][1][0],pBackRightFoot[0][0][1],null,rLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_LEFT);
+		addLine( pBackRightFoot[1][0][1],pBackRightLeg[1][1][0],pBackRightLeg[1][0][0],null,rLegBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_RIGHT);
 
 
 		//left arm
@@ -762,15 +772,15 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		
 		rotateYZ(pFrontLeftArm,pFrontLeftArm[0][0][1].y,pFrontLeftArm[0][0][1].z,fq0);
 		
-		LineData bottomLeftArm=addLine(pFrontLeftArm[0][0][0],pFrontLeftArm[0][1][0],pFrontLeftArm[1][1][0],pFrontLeftArm[1][0][0],Renderer3D.CAR_BOTTOM);	
+		addLine(pFrontLeftArm,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_BOTTOM);	
 		
-		LineData FrontLeftArmS0=addLine(pFrontLeftArm[0][0][0],pFrontLeftArm[0][0][1],pFrontLeftArm[0][1][1],pFrontLeftArm[0][1][0],Renderer3D.CAR_LEFT);
+		addLine(pFrontLeftArm,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_LEFT);
 
-		LineData FrontLeftArmS1=addLine(pFrontLeftArm[0][1][0],pFrontLeftArm[0][1][1],pFrontLeftArm[1][1][1],pFrontLeftArm[1][1][0],Renderer3D.CAR_FRONT);
+		addLine(pFrontLeftArm,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_FRONT);
 	
-		LineData FrontLeftArmS2=addLine(pFrontLeftArm[1][1][0],pFrontLeftArm[1][1][1],pFrontLeftArm[1][0][1],pFrontLeftArm[1][0][0],Renderer3D.CAR_RIGHT);
+		addLine(pFrontLeftArm,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_RIGHT);
 
-		LineData FrontLeftArmS3=addLine(pFrontLeftArm[1][0][0],pFrontLeftArm[1][0][1],pFrontLeftArm[0][0][1],pFrontLeftArm[0][0][0],Renderer3D.CAR_BACK);
+		addLine(pFrontLeftArm,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_BACK);
 	
 		
 		//frontLeftForearm
@@ -790,19 +800,21 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		rotateYZ(pFrontLeftForearm,pFrontLeftArm[0][0][1].y,pFrontLeftArm[0][0][1].z,fq0);
 		rotateYZ(pFrontLeftForearm,pFrontLeftForearm[0][1][1].y,pFrontLeftForearm[0][1][1].z,fq1);
 		
-		LineData FrontLeftForearm=addLine(pFrontLeftForearm[0][0][0],pFrontLeftForearm[0][1][0],pFrontLeftForearm[1][1][0],pFrontLeftForearm[1][0][0],Renderer3D.CAR_BOTTOM);
+		addLine(pFrontLeftForearm,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_BOTTOM);
 		
-		LineData FrontLeftForearmS0=addLine(pFrontLeftForearm[0][0][0],pFrontLeftForearm[0][0][1],pFrontLeftForearm[0][1][1],pFrontLeftForearm[0][1][0],Renderer3D.CAR_LEFT);
+		addLine(pFrontLeftForearm,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
 	
-		LineData FrontLeftForearmS1=addLine(pFrontLeftForearm[0][1][0],pFrontLeftForearm[0][1][1],pFrontLeftForearm[1][1][1],pFrontLeftForearm[1][1][0],Renderer3D.CAR_FRONT);
+		addLine(pFrontLeftForearm,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);
 
-		LineData FrontLeftForearmS2=addLine(pFrontLeftForearm[1][1][0],pFrontLeftForearm[1][1][1],pFrontLeftForearm[1][0][1],pFrontLeftForearm[1][0][0],Renderer3D.CAR_RIGHT);
+		addLine(pFrontLeftForearm,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
 	
-		LineData FrontLeftForearmS3=addLine(pFrontLeftForearm[1][0][0],pFrontLeftForearm[1][0][1],pFrontLeftForearm[0][0][1],pFrontLeftForearm[0][0][0],Renderer3D.CAR_BACK);
+		addLine(pFrontLeftForearm,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 	
-		LineData backLeftElbow0=addLine(pFrontLeftForearm[0][0][1],pFrontLeftForearm[1][0][1],pFrontLeftArm[1][0][0],pFrontLeftArm[0][0][0],Renderer3D.CAR_BACK);
-		LineData backLeftElbow1=addLine(pFrontLeftArm[0][0][0],pFrontLeftArm[0][1][0],pFrontLeftForearm[0][0][1],null,Renderer3D.CAR_LEFT);
-		LineData backLeftElbow2=addLine( pFrontLeftForearm[1][0][1],pFrontLeftArm[1][1][0],pFrontLeftArm[1][0][0],null,Renderer3D.CAR_RIGHT);
+		
+		
+		addLine(pFrontLeftForearm[0][0][1],pFrontLeftForearm[1][0][1],pFrontLeftArm[1][0][0],pFrontLeftArm[0][0][0],lArmBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
+		addLine(pFrontLeftArm[0][0][0],pFrontLeftArm[0][1][0],pFrontLeftForearm[0][0][1],null,lArmBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_LEFT);
+		addLine( pFrontLeftForearm[1][0][1],pFrontLeftArm[1][1][0],pFrontLeftArm[1][0][0],null,lArmBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_RIGHT);
 		
 		//frontLeft Hand
 		
@@ -822,19 +834,19 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		rotateYZ(pFrontLeftHand,pFrontLeftForearm[0][1][1].y,pFrontLeftForearm[0][1][1].z,fq1);
 		rotateYZ(pFrontLeftHand,pFrontLeftHand[0][1][1].y,pFrontLeftHand[0][1][1].z,fq2);
 		
-		LineData FrontLeftHand=addLine(pFrontLeftHand[0][0][0],pFrontLeftHand[0][1][0],pFrontLeftHand[1][1][0],pFrontLeftHand[1][0][0],Renderer3D.CAR_BOTTOM);
+		addLine(pFrontLeftHand,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_BOTTOM);
 		
-		LineData FrontLeftHandS0=addLine(pFrontLeftHand[0][0][0],pFrontLeftHand[0][0][1],pFrontLeftHand[0][1][1],pFrontLeftHand[0][1][0],Renderer3D.CAR_LEFT);
+		addLine(pFrontLeftHand,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
 	
-		LineData FrontLeftHandS1=addLine(pFrontLeftHand[0][1][0],pFrontLeftHand[0][1][1],pFrontLeftHand[1][1][1],pFrontLeftHand[1][1][0],Renderer3D.CAR_FRONT);
+		addLine(pFrontLeftHand,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);
 
-		LineData FrontLeftHandS2=addLine(pFrontLeftHand[1][1][0],pFrontLeftHand[1][1][1],pFrontLeftHand[1][0][1],pFrontLeftHand[1][0][0],Renderer3D.CAR_RIGHT);
+		addLine(pFrontLeftHand,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
 	
-		LineData FrontLeftHandS3=addLine(pFrontLeftHand[1][0][0],pFrontLeftHand[1][0][1],pFrontLeftHand[0][0][1],pFrontLeftHand[0][0][0],Renderer3D.CAR_BACK);
+		addLine(pFrontLeftHand,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 		
-		LineData backLeftWrist0=addLine(pFrontLeftHand[0][0][1],pFrontLeftHand[1][0][1],pFrontLeftForearm[1][0][0],pFrontLeftForearm[0][0][0],Renderer3D.CAR_BACK);
-		LineData backLeftWrist1=addLine(pFrontLeftForearm[0][0][0],pFrontLeftForearm[0][1][0],pFrontLeftHand[0][0][1],null,Renderer3D.CAR_LEFT);
-		LineData backLeftWrist2=addLine( pFrontLeftHand[1][0][1],pFrontLeftForearm[1][1][0],pFrontLeftForearm[1][0][0],null,Renderer3D.CAR_RIGHT);
+		addLine(pFrontLeftHand[0][0][1],pFrontLeftHand[1][0][1],pFrontLeftForearm[1][0][0],pFrontLeftForearm[0][0][0],lArmBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
+		addLine(pFrontLeftForearm[0][0][0],pFrontLeftForearm[0][1][0],pFrontLeftHand[0][0][1],null,Renderer3D.CAR_LEFT);
+		addLine( pFrontLeftHand[1][0][1],pFrontLeftForearm[1][1][0],pFrontLeftForearm[1][0][0],null,Renderer3D.CAR_RIGHT);
 		
 		//right arm
 		
@@ -852,15 +864,15 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		
 		rotateYZ(pFrontRightArm,pFrontRightArm[1][0][1].y,pFrontRightArm[1][0][1].z,fq0);
 		
-		LineData bottomRightArm=addLine(pFrontRightArm[0][0][0],pFrontRightArm[0][1][0],pFrontRightArm[1][1][0],pFrontRightArm[1][0][0],Renderer3D.CAR_BOTTOM);	
+		addLine(pFrontRightArm,0,0,0,rArmBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_BOTTOM);	
 		
-		LineData frontRightArmS0=addLine(pFrontRightArm[0][0][0],pFrontRightArm[0][0][1],pFrontRightArm[0][1][1],pFrontRightArm[0][1][0],Renderer3D.CAR_LEFT);
+		addLine(pFrontRightArm,0,0,0,rArmBlock.lf(0,0,1,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
 	
-		LineData frontRightArmS1=addLine(pFrontRightArm[0][1][0],pFrontRightArm[0][1][1],pFrontRightArm[1][1][1],pFrontRightArm[1][1][0],Renderer3D.CAR_FRONT);
+		addLine(pFrontRightArm,0,0,0,rArmBlock.lf(0,0,1,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);
 	
-		LineData frontRightArmS2=addLine(pFrontRightArm[1][1][0],pFrontRightArm[1][1][1],pFrontRightArm[1][0][1],pFrontRightArm[1][0][0],Renderer3D.CAR_RIGHT);
+		addLine(pFrontRightArm,0,0,0,rArmBlock.lf(0,0,1,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
 	
-		LineData frontRightArmS3=addLine(pFrontRightArm[1][0][0],pFrontRightArm[1][0][1],pFrontRightArm[0][0][1],pFrontRightArm[0][0][0],Renderer3D.CAR_BACK);
+		addLine(pFrontRightArm,0,0,0,rArmBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 	
 	
 			
@@ -889,10 +901,10 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 	
 		addLine(pFrontRightForearm,0,0,0,rArmBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 			
-		
-		LineData backRightElbow0=addLine(pFrontRightForearm[0][0][1],pFrontRightForearm[1][0][1],pFrontRightArm[1][0][0],pFrontRightArm[0][0][0],Renderer3D.CAR_BACK);
-		LineData backRightElbow1=addLine(pFrontRightArm[0][0][0],pFrontRightArm[0][1][0],pFrontRightForearm[0][0][1],null,Renderer3D.CAR_LEFT);
-		LineData backRightElbow2=addLine( pFrontRightForearm[1][0][1],pFrontRightArm[1][1][0],pFrontRightArm[1][0][0],null,Renderer3D.CAR_RIGHT);
+		//elbow
+		addLine(pFrontRightForearm[0][0][1],pFrontRightForearm[1][0][1],pFrontRightArm[1][0][0],pFrontRightArm[0][0][0],rArmBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
+		addLine(pFrontRightArm[0][0][0],pFrontRightArm[0][1][0],pFrontRightForearm[0][0][1],null,rArmBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_LEFT);
+		addLine( pFrontRightForearm[1][0][1],pFrontRightArm[1][1][0],pFrontRightArm[1][0][0],null,rArmBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_RIGHT);
 		
 		//frontRight Hand
 		
@@ -923,11 +935,10 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 	
 		addLine(pFrontRightHand,0,0,0,rArmBlock.lf(0,0,0,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 		
-		LineData backRightWrist0=addLine(pFrontRightHand[0][0][1],pFrontRightHand[1][0][1],pFrontRightForearm[1][0][0],pFrontRightForearm[0][0][0],Renderer3D.CAR_BACK);
-		LineData backRightWrist1=addLine(pFrontRightForearm[0][0][0],pFrontRightForearm[0][1][0],pFrontRightHand[0][0][1],null,Renderer3D.CAR_LEFT);
-		LineData backRightWrist2=addLine( pFrontRightHand[1][0][1],pFrontRightForearm[1][1][0],pFrontRightForearm[1][0][0],null,Renderer3D.CAR_RIGHT);
-	
-	
+		//wrist
+		addLine(pFrontRightHand[0][0][1],pFrontRightHand[1][0][1],pFrontRightForearm[1][0][0],pFrontRightForearm[0][0][0],rArmBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
+		addLine(pFrontRightForearm[0][0][0],pFrontRightForearm[0][1][0],pFrontRightHand[0][0][1],null,rArmBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_LEFT);
+		addLine( pFrontRightHand[1][0][1],pFrontRightForearm[1][1][0],pFrontRightForearm[1][0][0],null,rArmBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_RIGHT);
 
 
 		//////// texture points
@@ -935,66 +946,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 	
 			
 		texture_points=buildTexturePoints();
-		
-		LineData lowerBase=new LineData();
-		LineData upperBase=new LineData();
-		
-		/*int count=0;
 
-		for (int j = 0; j <N_FACES; j++) {
-
-			upperBase.addIndex(aPoints[N_PARALLELS-1][j].getIndex(),count++,0,0);
-
-			upperBase.setData(""+Renderer3D.getFace(upperBase,points));
-
-		}	
-
-		for (int j = N_FACES-1; j >=0; j--) {
-
-			lowerBase.addIndex(aPoints[0][j].getIndex(),count++,0,0);
-
-			lowerBase.setData(""+Renderer3D.getFace(lowerBase,points));
-		}
-
-		polyData.add(upperBase);
-		polyData.add(lowerBase);
-
-		for(int j=0;j<N_PARALLELS-1;j++){ 
-
-
-
-
-			for (int i = 0; i <N_FACES; i++) { 
-
-
-				LineData ld=new LineData();
-
-				int texIndex=count+f(i,j,N_FACES+1,N_PARALLELS);
-				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[j][i].getIndex(),texIndex,0,0);
-				
-				texIndex=count+f(i+1,j,N_FACES+1,N_PARALLELS);
-				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[j][(i+1)%N_FACES].getIndex(),texIndex,0,0);
-				
-				texIndex=count+f(i+1,j+1,N_FACES+1,N_PARALLELS);
-				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[j+1][(i+1)%N_FACES].getIndex(),texIndex,0,0);
-				
-				texIndex=count+f(i,j+1,N_FACES+1,N_PARALLELS);
-				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[j+1][i].getIndex(),texIndex,0,0);
-
-				ld.setData(""+Renderer3D.getFace(ld,points));
-				
-				
-
-				polyData.add(ld);
-
-			}
-		
-
-		}*/
 
 
 	}
