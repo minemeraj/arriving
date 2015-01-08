@@ -774,13 +774,13 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		
 		addLine(pFrontLeftArm,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_BOTTOM);	
 		
-		addLine(pFrontLeftArm,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_LEFT);
+		addLine(pFrontLeftArm,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
 
-		addLine(pFrontLeftArm,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_FRONT);
+		addLine(pFrontLeftArm,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_FRONT),Renderer3D.CAR_FRONT);
 	
-		addLine(pFrontLeftArm,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_RIGHT);
+		addLine(pFrontLeftArm,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_RIGHT),Renderer3D.CAR_RIGHT);
 
-		addLine(pFrontLeftArm,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_BOTTOM),Renderer3D.CAR_BACK);
+		addLine(pFrontLeftArm,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 	
 		
 		//frontLeftForearm
@@ -845,8 +845,8 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		addLine(pFrontLeftHand,0,0,0,lArmBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
 		
 		addLine(pFrontLeftHand[0][0][1],pFrontLeftHand[1][0][1],pFrontLeftForearm[1][0][0],pFrontLeftForearm[0][0][0],lArmBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_BACK);
-		addLine(pFrontLeftForearm[0][0][0],pFrontLeftForearm[0][1][0],pFrontLeftHand[0][0][1],null,Renderer3D.CAR_LEFT);
-		addLine( pFrontLeftHand[1][0][1],pFrontLeftForearm[1][1][0],pFrontLeftForearm[1][0][0],null,Renderer3D.CAR_RIGHT);
+		addLine(pFrontLeftForearm[0][0][0],pFrontLeftForearm[0][1][0],pFrontLeftHand[0][0][1],null,lArmBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_LEFT);
+		addLine( pFrontLeftHand[1][0][1],pFrontLeftForearm[1][1][0],pFrontLeftForearm[1][0][0],null,lArmBlock.lf(0,0,1,Renderer3D.CAR_BACK),Renderer3D.CAR_RIGHT);
 		
 		//right arm
 		
