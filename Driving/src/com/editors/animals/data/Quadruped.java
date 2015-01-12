@@ -108,7 +108,7 @@ public class Quadruped extends Animal{
 		lArmBlock=new TextureBlock(2,2,4,leg_side,leg_side,humerus_length+radius_length+hand_length,
 				rArmBlock.getLen()+bodyBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen(),bodyBlock.exitIndex);
 		neckBlock=new TextureBlock(hnx,ney,nez,head_DX,head_DY,head_DZ,
-				rArmBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen()+bodyBlock.getVlen(),lArmBlock.exitIndex);
+				rArmBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen()+bodyBlock.getVlen(),lArmBlock.exitIndex,false,false);
 		headBlock=new TextureBlock(hnx,hny,hnz,head_DX,head_DY,head_DZ,
 				rArmBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen()+bodyBlock.getVlen()+neckBlock.getVlen(),neckBlock.exitIndex);
 		

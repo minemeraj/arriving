@@ -23,8 +23,24 @@ public class TextureBlock {
 	public int entryIndex=0;
 	public int exitIndex=0;
 	
+	
 	public TextureBlock(int numx,int numy,int numz,
-			double DX,double DY,double DZ,double x0,double y0,int entryIndex){
+			double DX,double DY,double DZ,double x0,double y0,int entryIndex
+			
+			
+			){
+		
+		this( numx, numy, numz,
+				 DX, DY, DZ, x0, y0, entryIndex,true,true);
+		
+		
+	}
+	
+	public TextureBlock(int numx,int numy,int numz,
+			double DX,double DY,double DZ,double x0,double y0,int entryIndex,
+			boolean isDrawUpperBase,boolean isDrawLowerBase
+			
+			){
 		
 		this.numx=numx;
 		this.numy=numy;
@@ -32,35 +48,41 @@ public class TextureBlock {
 		
 		this.entryIndex=entryIndex;
 		
+		this.isDrawUpperBase=isDrawUpperBase;
+		this.isDrawLowerBase=isDrawLowerBase;
+		
 		N_FACES=numx*2+(numy-2)*2;
 		
-		len=2*(DX+DY);
-		vlen=(int) (DZ+DY*2);
+		len=2*(DX+DY);		
+
+		vlen=(int) (DZ+(isDrawUpperBase?DY:0)+(isDrawLowerBase?DY:0));
 		
 		texture_side_dy=(DY/(numy-1));
 		texture_side_dx=(DX/(numx-1));
+
 		
-		upperBase=new Point3D[numx][numy];
-		
-		double baseY=DZ+DY;
+		double baseY=DZ+(isDrawLowerBase?DY:0);
 		
 		int count=entryIndex;
 		
+		if(isDrawUpperBase){
+			
+			upperBase=new Point3D[numx][numy];
 		
-		for (int i = 0; i <numx; i++) {
-			
-			for (int j = 0; j < numy; j++) {
+			for (int i = 0; i <numx; i++) {
 				
-				double x=x0+texture_side_dx*i;
-				double y=y0+texture_side_dy*j+baseY;
+				for (int j = 0; j < numy; j++) {
+					
+					double x=x0+texture_side_dx*i;
+					double y=y0+texture_side_dy*j+baseY;
+					
+					upperBase[i][j]=new Point3D(x,y,0);
+					upperBase[i][j].setData(new Integer(count++));
+				}
 				
-				upperBase[i][j]=new Point3D(x,y,0);
-				upperBase[i][j].setData(new Integer(count++));
 			}
-			
-		}
 	
-
+		}
 		
 		double texture_side_dz= (DZ/(numz-1));
 			
@@ -68,7 +90,7 @@ public class TextureBlock {
 
 		for(int j=0;j<numz;j++){
 			
-			double y=y0+DY+texture_side_dz*j;
+			double y=y0+(isDrawLowerBase?DY:0)+texture_side_dz*j;
 
 			//texture is open and periodical:
 			
@@ -91,21 +113,25 @@ public class TextureBlock {
 		}
 		
 		
-		lowerBase=new Point3D[numx][numy];
 		
-		for (int i = 0; i <numx; i++) {
+		
+		if(isDrawUpperBase){
 			
-			for (int j = 0; j < numy; j++) {
+			lowerBase=new Point3D[numx][numy];
+		
+			for (int i = 0; i <numx; i++) {
 				
-				double x=x0+texture_side_dx*i;
-				double y=y0+texture_side_dy*j;
+				for (int j = 0; j < numy; j++) {
+					
+					double x=x0+texture_side_dx*i;
+					double y=y0+texture_side_dy*j;
+					
+					lowerBase[i][j]=new Point3D(x,y,0);
+					lowerBase[i][j].setData(new Integer(count++));
+				}
 				
-				lowerBase[i][j]=new Point3D(x,y,0);
-				lowerBase[i][j].setData(new Integer(count++));
 			}
-			
 		}
-		
 		exitIndex=count;
 
 	}
