@@ -12,7 +12,10 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Date;
+import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
@@ -1454,10 +1457,8 @@ public class Road extends Shader{
 
 
 	/*public static void main(String[] args) {
-		Road road=new Road(500,600);
-		//road.saveRoad();
-		//road.loadRoadFromFile();
-		road.loadRoad();
+		
+		generateDefault0();
 
 	}*/
 
@@ -1786,5 +1787,80 @@ public class Road extends Shader{
 		return null;
 	}
 
+
+
+	public static void generateDefault0() {
+			
+			int nx=25;
+			int ny=22;
+			
+			double x0=-200;
+			double y0=0;
+			
+			double dx=200;
+			double dy=200;
+			
+			System.out.println("<terrain>");
+			System.out.println("NX="+nx);
+			System.out.println("NY="+ny);
+			System.out.println("DX="+dx);
+			System.out.println("DY="+dy);
+			System.out.println("X0="+x0);
+			System.out.println("Y0="+y0);
+			
+			DecimalFormatSymbols dfs=new DecimalFormatSymbols(Locale.UK);
+			DecimalFormat dfc = new DecimalFormat("###.###");
+			dfc.setDecimalFormatSymbols(dfs);
+			
+			//points
+			for(int j=0;j<ny+1;j++)
+				for (int i = 0; i < nx+1; i++) {
+					
+					double x=x0+i*dx;
+					double y=y0+j*dy;
+					double z=0;
+					
+					String sx=dfc.format(x);
+					String sy=dfc.format(y);
+					String sz=dfc.format(z);
+					
+					System.out.println("v="+sx+" "+sy+" "+sz);
+				}
+			
+			
+			
+			//texture points
+			System.out.println("vt=0 0");
+			System.out.println("vt=200 0");
+			System.out.println("vt=200 200");
+			System.out.println("vt=0 200");
+			
+					
+			//faces		
+			
+			for(int j=0;j<ny;j++)
+				for (int i = 0; i < nx; i++) {
+					
+					int ii=i+j*(nx+1);
+					
+					int n0=ii;
+					int n1=ii+1;
+					int n2=ii+1+(nx+1);
+					int n3=ii+(nx+1);
+					
+					System.out.println(
+					"f=T2 "+
+					"C00FF00 "+
+					n0+"/0 "+
+					n1+"/1 " +
+					n2+"/2 " +
+					n3+"/3"
+				);		
+			
+			}
+			
+			
+		}
+		
 
 }
