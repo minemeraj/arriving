@@ -154,7 +154,7 @@ public class Road extends Shader{
 		
 	 
 		try {
-			File file=new File("lib/landscape_default");
+			File file=new File("lib/landscape_"+carFrame.map_name);
 			
 			loadPointsFromFile(file,0);		
 			loadPointsFromFile(file,1);	
@@ -181,7 +181,7 @@ public class Road extends Shader{
 		
 		initialiazeCarDynamics();
 		
-		loadAutocars(new File("lib/autocars"));
+		loadAutocars(new File("lib/autocars_"+carFrame.map_name));
 		
 		//showMemoryUsage();
 		//buildDefaultRoad(); 

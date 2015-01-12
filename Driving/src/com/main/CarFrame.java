@@ -33,6 +33,7 @@ import com.DrawObject;
 import com.Engine;
 import com.Texture;
 import com.Transparency;
+import com.main.loader.GameLoader;
 import com.sound.AdvancedGameSound;
 import com.sound.GameSound;
 
@@ -110,8 +111,10 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 	double inverse_car_mass=0.05;
 	
 	//steering angle,positive anti-clockwise
-    double delta=0.30;
-	private boolean isProgramPaused=true;
+	public double delta=0.30;
+    public boolean isProgramPaused=true;
+	
+	public String map_name="default";
 	
 	
 	public boolean skipShading=false;
@@ -122,18 +125,22 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 		
 		if(args.length==1)
 			skipShading="-s".equals(args[0]);
+		
+		GameLoader gl=new GameLoader();
+		String map_name=gl.getMap();
 		 
-		CarFrame ff=new CarFrame(skipShading);
+		CarFrame ff=new CarFrame(skipShading,map_name);
 		//ff.initialize();
 	
 	}
 	 
 	 
-	public CarFrame(boolean skipShading){
+	public CarFrame(boolean skipShading,String map_name){
 		
 	 super();
 	 
 	 this.skipShading=skipShading;	
+	 this.map_name=map_name;
 	 
 	 setTitle(VERSION);
 	 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

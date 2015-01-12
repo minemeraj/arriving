@@ -1,4 +1,10 @@
-New man head custom mesh.
+Added a game loader to load different game maps:
+
+
+See README.txt
+Renamed file lib/autocars to lib/autocars_default. 
+
+New man, quadruped and man head custom mesh.
 
 Added a water fill effect for areas under 0 ground level.
 
