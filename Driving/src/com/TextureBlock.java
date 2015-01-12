@@ -115,7 +115,7 @@ public class TextureBlock {
 		
 		
 		
-		if(isDrawUpperBase){
+		if(isDrawLowerBase){
 			
 			lowerBase=new Point3D[numx][numy];
 		
