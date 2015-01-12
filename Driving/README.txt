@@ -250,8 +250,17 @@
 
     Road and objects are loaded and saved separately in the load and save menu.
    
-    The game uses the file in the lib directory named 
-    landscape_default.
+    The game uses for the maps the files in the lib directory with the name type: 
+    landscape_<MAPNAME>
+    
+    Ex:landscape_default,landscape_city0.
+    
+    Autocars files are named following the map name:
+    If map file is:
+    	landscape_<MAPNAME>
+    then the program associates the autocars file:
+   		 autocars_<MAPNAME>
+   	If no autocar file is defined, the program ignore it.	 
     
     Select tiles with left mouse button in the area, select object by clicking in the inner area.
    

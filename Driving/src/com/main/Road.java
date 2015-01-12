@@ -1641,7 +1641,8 @@ public class Road extends Shader{
 				
 			}
 			
-		}
+		}else
+			autocars=new Autocar[0];
 		
 		autocarShadowVolume=new ShadowVolume[autocars.length];
 		

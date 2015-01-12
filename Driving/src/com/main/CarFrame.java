@@ -114,7 +114,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 	public double delta=0.30;
     public boolean isProgramPaused=true;
 	
-	public String map_name="default";
+	public String map_name=GameLoader.DEFAULT_MAP;
 	
 	
 	public boolean skipShading=false;

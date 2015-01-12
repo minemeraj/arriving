@@ -17,7 +17,7 @@ import javax.swing.JRadioButton;
 public class GameLoader extends JDialog implements ActionListener{
 	
 	int WIDTH=200;
-	int HEIGHT=200;
+	int HEIGHT=60;
 	
 	int LOC_X=200;
 	int LOC_Y=200;
@@ -36,13 +36,15 @@ public class GameLoader extends JDialog implements ActionListener{
 		 setTitle("Game loader");
 		 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
+		 Vector mapNames=loadMapNames();
+		 int addedHeight=50*mapNames.size();
+		 HEIGHT=HEIGHT+addedHeight;
+		 
 		 setLayout(null);
 		 setSize(WIDTH,HEIGHT);
 		 setLocation(LOC_X,LOC_Y);
 		 setModal(true);
-		 
-		 Vector mapNames=loadMapNames();
-		 
+		 		 
 		 center=new JPanel();
 		 center.setLayout(null);
 		 center.setBounds(0,0,WIDTH,HEIGHT);
