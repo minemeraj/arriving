@@ -2,6 +2,7 @@ Added a game loader to load different game maps:
 
 default
 city0
+hills0
 
 See README.txt
 Renamed file lib/autocars to lib/autocars_default. 

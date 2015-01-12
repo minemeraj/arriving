@@ -1456,11 +1456,11 @@ public class Road extends Shader{
 
 
 
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		
 		generateDefault0();
 
-	}*/
+	}
 
 
 
@@ -1791,14 +1791,14 @@ public class Road extends Shader{
 
 	public static void generateDefault0() {
 			
-			int nx=25;
-			int ny=22;
+			int nx=44;
+			int ny=44;
 			
-			double x0=-200;
-			double y0=0;
+			int x0=-200;
+			int y0=0;
 			
-			double dx=200;
-			double dy=200;
+			int dx=200;
+			int dy=200;
 			
 			System.out.println("<terrain>");
 			System.out.println("NX="+nx);
@@ -1818,7 +1818,10 @@ public class Road extends Shader{
 					
 					double x=x0+i*dx;
 					double y=y0+j*dy;
-					double z=0;
+					//hills
+					double z=200*(1.0+Math.cos(((y-y0)*2*Math.PI/4400.0)-Math.PI)
+							*Math.cos(((x-x0)*2*Math.PI/4400.0)-Math.PI)
+							);
 					
 					String sx=dfc.format(x);
 					String sy=dfc.format(y);
@@ -1859,7 +1862,7 @@ public class Road extends Shader{
 			
 			}
 			
-			
+			System.out.println("</terrain>");
 		}
 		
 
