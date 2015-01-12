@@ -96,7 +96,7 @@ public class Man extends Animal {
 		rArmBlock=new TextureBlock(2,2,5,leg_side,leg_side,humerus_length+radius_length+hand_length,
 				0,rFootBlock.getVlen()+rLegBlock.getVlen(),lLegBlock.exitIndex);
 		bodyBlock=new TextureBlock(numx,numy,numz,x_side,y_side,z_side,
-				rArmBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen(),rArmBlock.exitIndex);
+				rArmBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen(),rArmBlock.exitIndex,false,true);
 		
 		lArmBlock=new TextureBlock(2,2,5,leg_side,leg_side,humerus_length+radius_length+hand_length,
 				rArmBlock.getLen()+bodyBlock.getLen(),rFootBlock.getVlen()+rLegBlock.getVlen(),bodyBlock.exitIndex);
