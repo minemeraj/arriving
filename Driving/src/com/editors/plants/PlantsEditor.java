@@ -229,7 +229,7 @@ public class PlantsEditor extends CustomEditor {
 	public void initRightData() {
 	
 		trunck_length.setText(200);
-		trunk_radius.setText(50);
+		trunk_radius.setText(24);
 		foliage_length.setText(200);
 		foliage_radius.setText(200);
 		foliage_meridians.setText(12);
