@@ -88,7 +88,7 @@ public class Plant extends CustomData{
 
 
 		points=new Vector();
-		points.setSize(200);
+		points.setSize(800);
 
 		polyData=new Vector();
 		
