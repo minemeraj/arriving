@@ -241,6 +241,7 @@ public class PlantsEditor extends CustomEditor {
 	
 		trunck_length.setText(200);
 		trunk_upper_radius.setText(24);
+		trunk_lower_radius.setText(30);
 		foliage_length.setText(200);
 		foliage_radius.setText(200);
 		foliage_meridians.setText(12);
