@@ -30,6 +30,7 @@ public class Plant extends CustomData{
 		super();
 		this.trunk_lenght = trunk_lenght; 
 		this.trunk_upper_radius = trunk_upper_radius;
+		this.trunk_lower_radius = trunk_lower_radius;
 		this.foliage_length = foliage_length;
 		this.foliage_radius = foliage_radius;
 		
@@ -108,9 +109,13 @@ public class Plant extends CustomData{
 			
 			for (int i = 0; i < trunk_meridians; i++) {
 				
-				double x=trunk_upper_radius*Math.cos(2*Math.PI/trunk_meridians*i);
-				double y=trunk_upper_radius*Math.sin(2*Math.PI/trunk_meridians*i);
 				double z=trunk_lenght/(trunk_parallels-1.0)*k;
+				
+				double r=z/trunk_lenght*(trunk_upper_radius-trunk_lower_radius)+trunk_lower_radius;
+				
+				double x=r*Math.cos(2*Math.PI/trunk_meridians*i);
+				double y=r*Math.sin(2*Math.PI/trunk_meridians*i);
+				
 				
 				trunkpoints[k][i]=addBPoint(x,y,z);
 				
