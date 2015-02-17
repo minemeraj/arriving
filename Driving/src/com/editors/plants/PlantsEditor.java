@@ -42,7 +42,7 @@ public class PlantsEditor extends CustomEditor {
 	public int BOTTOM_BORDER=100;
 	
 	private DoubleTextField trunck_length;
-	private DoubleTextField trunk_radius;
+	private DoubleTextField trunk_upper_radius;
 	private DoubleTextField foliage_length;
 	private DoubleTextField foliage_radius;	
 	private IntegerTextField foliage_meridians;
@@ -53,6 +53,7 @@ public class PlantsEditor extends CustomEditor {
 	int max_stack_size=10;
 	
 	Plant plant=null;
+	private DoubleTextField trunk_lower_radius;
 
 	
 	
@@ -142,13 +143,23 @@ public class PlantsEditor extends CustomEditor {
 
 		r+=30;
 		
-		jlb=new JLabel("Trunk rad");
-		jlb.setBounds(5, r, 100, 20);
+		jlb=new JLabel("Trunk up rad");
+		jlb.setBounds(5, r, 110, 20);
 		right.add(jlb);
-		trunk_radius=new DoubleTextField();
-		trunk_radius.setBounds(column, r, 100, 20);
-		trunk_radius.addKeyListener(this);
-		right.add(trunk_radius);
+		trunk_upper_radius=new DoubleTextField();
+		trunk_upper_radius.setBounds(column, r, 100, 20);
+		trunk_upper_radius.addKeyListener(this);
+		right.add(trunk_upper_radius);
+		
+		r+=30;
+		
+		jlb=new JLabel("Trunk lw rad");
+		jlb.setBounds(5, r, 110, 20);
+		right.add(jlb);
+		trunk_lower_radius=new DoubleTextField();
+		trunk_lower_radius.setBounds(column, r, 100, 20);
+		trunk_lower_radius.addKeyListener(this);
+		right.add(trunk_lower_radius);
 		
 		r+=30;
 		
@@ -229,7 +240,7 @@ public class PlantsEditor extends CustomEditor {
 	public void initRightData() {
 	
 		trunck_length.setText(200);
-		trunk_radius.setText(24);
+		trunk_upper_radius.setText(24);
 		foliage_length.setText(200);
 		foliage_radius.setText(200);
 		foliage_meridians.setText(12);
@@ -240,7 +251,7 @@ public class PlantsEditor extends CustomEditor {
 	private void setRightData(Plant plant) {
 	
 		trunck_length.setText(plant.getTrunk_lenght());
-		trunk_radius.setText(plant.getTrunk_radius());
+		trunk_upper_radius.setText(plant.getTrunk_radius());
 		foliage_length.setText(plant.getFoliage_length());
 		foliage_radius.setText(plant.getFoliage_radius());
 		
@@ -281,7 +292,8 @@ public class PlantsEditor extends CustomEditor {
 			prepareUndo();
 			
 			double trunckLength=trunck_length.getvalue();
-			double trunkRadius=trunk_radius.getvalue();
+			double trunkUpRadius=trunk_upper_radius.getvalue();
+			double trunkLwRadius=trunk_lower_radius.getvalue();
 			double foliageLength=foliage_length.getvalue();
 			double foliageRadius=foliage_radius.getvalue();
 			int foliageParallels=foliage_parallels.getvalue();
@@ -290,13 +302,13 @@ public class PlantsEditor extends CustomEditor {
 			
 			if(plant==null){
 				
-				plant=new Plant(trunckLength,trunkRadius,foliageLength,foliageRadius,
+				plant=new Plant(trunckLength,trunkUpRadius,trunkLwRadius,foliageLength,foliageRadius,
 						foliageMeridians,foliageParallels,foliageLobes
 						);
 				
 			}else{
 				
-				Plant expPlant = new Plant(trunckLength,trunkRadius,foliageLength,foliageRadius,
+				Plant expPlant = new Plant(trunckLength,trunkUpRadius,trunkLwRadius,foliageLength,foliageRadius,
 						foliageMeridians,foliageParallels,foliageLobes
 						);
 				

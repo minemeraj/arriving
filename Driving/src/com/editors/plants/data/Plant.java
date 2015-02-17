@@ -12,7 +12,8 @@ import com.main.Renderer3D;
 public class Plant extends CustomData{
 
 	double trunk_lenght=0; 
-	double trunk_radius=0;
+	double trunk_upper_radius=0;
+	double trunk_lower_radius=0;
 	double foliage_length=0;
 	double foliage_radius=0;
 		
@@ -22,13 +23,13 @@ public class Plant extends CustomData{
 
 	public Plant(){}
 
-	public Plant(double trunk_lenght, double trunk_radius,
+	public Plant(double trunk_lenght, double trunk_upper_radius,double trunk_lower_radius,
 			double foliage_length, double foliage_radius,
 			int foliage_meridians,int foliage_parallels,int foliage_lobes
 			) {
 		super();
-		this.trunk_lenght = trunk_lenght;
-		this.trunk_radius = trunk_radius;
+		this.trunk_lenght = trunk_lenght; 
+		this.trunk_upper_radius = trunk_upper_radius;
 		this.foliage_length = foliage_length;
 		this.foliage_radius = foliage_radius;
 		
@@ -40,7 +41,7 @@ public class Plant extends CustomData{
 
 	public Object clone(){
 
-		Plant grid=new Plant(trunk_lenght,trunk_radius,foliage_length,foliage_radius,
+		Plant grid=new Plant(trunk_lenght,trunk_upper_radius,trunk_lower_radius,foliage_length,foliage_radius,
 				foliage_meridians,foliage_parallels,foliage_lobes);
 		return grid;
 
@@ -51,7 +52,9 @@ public class Plant extends CustomData{
 
 	public String toString() {
 
-		return "F="+trunk_lenght+","+trunk_radius+","+foliage_length+","+foliage_radius+","+
+		return "F="+trunk_lenght+","+trunk_upper_radius+","+trunk_lower_radius+","
+		
+				+foliage_length+","+foliage_radius+","+
 				foliage_meridians+","+foliage_parallels+","+foliage_lobes;
 	}
 
@@ -61,14 +64,16 @@ public class Plant extends CustomData{
 
 	
 		double trunk_lenght =Double.parseDouble(vals[0]);
-		double trunk_radius = Double.parseDouble(vals[1]);
-		double foliage_length = Double.parseDouble(vals[2]);  
-		double foliage_radius = Double.parseDouble(vals[3]); 
-		int foliageMeridians=Integer.parseInt(vals[4]);
-		int foliageParallels=Integer.parseInt(vals[5]);
-		int foliageLobes=Integer.parseInt(vals[6]);
+		double trunk_upper_radius = Double.parseDouble(vals[1]);
+		double trunk_lower_radius = Double.parseDouble(vals[2]);
+		double foliage_length = Double.parseDouble(vals[3]);  
+		double foliage_radius = Double.parseDouble(vals[4]); 
+		int foliageMeridians=Integer.parseInt(vals[5]);
+		int foliageParallels=Integer.parseInt(vals[6]);
+		int foliageLobes=Integer.parseInt(vals[7]);
 
-		Plant grid=new Plant(trunk_lenght,trunk_radius,foliage_length,foliage_radius,
+		Plant grid=new Plant(trunk_lenght,trunk_lower_radius,trunk_lower_radius,				
+				foliage_length,foliage_radius,
 				foliageMeridians,foliageParallels,foliageLobes
 				);
 
@@ -103,8 +108,8 @@ public class Plant extends CustomData{
 			
 			for (int i = 0; i < trunk_meridians; i++) {
 				
-				double x=trunk_radius*Math.cos(2*Math.PI/trunk_meridians*i);
-				double y=trunk_radius*Math.sin(2*Math.PI/trunk_meridians*i);
+				double x=trunk_upper_radius*Math.cos(2*Math.PI/trunk_meridians*i);
+				double y=trunk_upper_radius*Math.sin(2*Math.PI/trunk_meridians*i);
 				double z=trunk_lenght/(trunk_parallels-1.0)*k;
 				
 				trunkpoints[k][i]=addBPoint(x,y,z);
@@ -172,7 +177,7 @@ public class Plant extends CustomData{
 				
 				double teta=2*Math.PI/foliage_meridians*i;
 				
-				double r=ff(zf)*rr(teta);
+				double r=ff(zf)*rr(teta);			
 				
 				double x=r*Math.cos(teta);
 				double y=r*Math.sin(teta);
@@ -247,11 +252,11 @@ public class Plant extends CustomData{
 	}
 
 	public double getTrunk_radius() {
-		return trunk_radius;
+		return trunk_upper_radius;
 	}
 
 	public void setTrunk_radius(double trunk_radius) {
-		this.trunk_radius = trunk_radius;
+		this.trunk_upper_radius = trunk_radius;
 	}
 
 	public double getFoliage_length() {
@@ -300,9 +305,9 @@ public class Plant extends CustomData{
 		if(foliage_length==0)
 			return 0;
 		
-		double a=-4*(foliage_radius-trunk_radius);
-		double b=4*(foliage_radius-trunk_radius);
-		double c=trunk_radius;
+		double a=-4*(foliage_radius-trunk_upper_radius);
+		double b=4*(foliage_radius-trunk_upper_radius);
+		double c=trunk_upper_radius;
 		
 		double xr=x/foliage_length;
 
