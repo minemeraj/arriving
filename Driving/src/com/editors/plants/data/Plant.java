@@ -73,9 +73,10 @@ public class Plant extends CustomData{
 	public String toString() {
 
 		return "F="+trunk_lenght+","+trunk_upper_radius+","+trunk_lower_radius+","
-		
+				+trunk_meridians+","+trunk_parallels+","
 				+foliage_length+","+foliage_radius+","+
-				foliage_meridians+","+foliage_parallels+","+foliage_lobes;
+				foliage_meridians+","+foliage_parallels+","+foliage_lobes
+				+","+lobe_percentage_depth;
 	}
 
 	public static Plant buildPlant(String str) {
