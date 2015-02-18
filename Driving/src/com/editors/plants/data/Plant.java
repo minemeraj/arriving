@@ -118,10 +118,16 @@ public class Plant extends CustomData{
 		return grid;
 	}
 
-
+	public PolygonMesh buildMesh(){
+		
+		if(plant_type==PLANT_TYPE_0)
+			return buildMeshPlant0();
+		else
+			return buildMeshPlant0();
+	}
 
 	
-	public PolygonMesh buildMesh(){
+	public PolygonMesh buildMeshPlant0(){
 
 
 
