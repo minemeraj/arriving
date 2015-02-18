@@ -54,6 +54,9 @@ public class PlantsEditor extends CustomEditor {
 	
 	Plant plant=null;
 	private DoubleTextField trunk_lower_radius;
+	private IntegerTextField trunk_meridians;
+	private IntegerTextField trunk_parallels;
+	private DoubleTextField lobe_percentage_depth;
 
 	
 	
@@ -161,6 +164,28 @@ public class PlantsEditor extends CustomEditor {
 		trunk_lower_radius.addKeyListener(this);
 		right.add(trunk_lower_radius);
 		
+	
+		
+		r+=30;
+		
+		jlb=new JLabel("Trunk parall");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		trunk_parallels=new IntegerTextField();
+		trunk_parallels.setBounds(column, r, 100, 20);
+		trunk_parallels.addKeyListener(this);
+		right.add(trunk_parallels);
+		
+		r+=30;
+		
+		jlb=new JLabel("Trunk merid");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		trunk_meridians=new IntegerTextField();
+		trunk_meridians.setBounds(column, r, 100, 20);
+		trunk_meridians.addKeyListener(this);
+		right.add(trunk_meridians);
+		
 		r+=30;
 		
 		jlb=new JLabel("Foliage len");
@@ -212,6 +237,18 @@ public class PlantsEditor extends CustomEditor {
 		right.add(foliage_lobes);
 		
 		r+=30;
+		
+		jlb=new JLabel("Lobe depth %");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		lobe_percentage_depth=new DoubleTextField();
+		lobe_percentage_depth.setBounds(column, r, 100, 20);
+		lobe_percentage_depth.addKeyListener(this);
+		right.add(lobe_percentage_depth);
+		
+		r+=30;
+		
+	
 			
         generate=new JButton("Update");
         generate.setBounds(10,r,100,20);
@@ -242,23 +279,32 @@ public class PlantsEditor extends CustomEditor {
 		trunck_length.setText(200);
 		trunk_upper_radius.setText(24);
 		trunk_lower_radius.setText(30);
+		trunk_meridians.setText(10);
+		trunk_parallels.setText(4);
+		
 		foliage_length.setText(200);
 		foliage_radius.setText(200);
 		foliage_meridians.setText(12);
 		foliage_parallels.setText(8);
 		foliage_lobes.setText(0);
+		lobe_percentage_depth.setText(80);
 	}
 	
 	private void setRightData(Plant plant) {
 	
 		trunck_length.setText(plant.getTrunk_lenght());
-		trunk_upper_radius.setText(plant.getTrunk_radius());
+		trunk_upper_radius.setText(plant.getTrunk_upper_radius());
+		trunk_lower_radius.setText(plant.getTrunk_lower_radius());
+		trunk_meridians.setText(plant.getTrunk_meridians());
+		trunk_parallels.setText(plant.getTrunk_parallels());
+		
 		foliage_length.setText(plant.getFoliage_length());
 		foliage_radius.setText(plant.getFoliage_radius());
 		
 		foliage_meridians.setText(plant.getFoliage_meridians());
 		foliage_parallels.setText(plant.getFoliage_parallels());
 		foliage_lobes.setText(plant.getFoliage_lobes());
+		lobe_percentage_depth.setText(plant.getLobe_percentage_depth());
 	}
 
 	
@@ -295,22 +341,37 @@ public class PlantsEditor extends CustomEditor {
 			double trunckLength=trunck_length.getvalue();
 			double trunkUpRadius=trunk_upper_radius.getvalue();
 			double trunkLwRadius=trunk_lower_radius.getvalue();
+			int trunkParallels=trunk_parallels.getvalue();
+			int trunkMeridians=trunk_meridians.getvalue();
+			
 			double foliageLength=foliage_length.getvalue();
 			double foliageRadius=foliage_radius.getvalue();
 			int foliageParallels=foliage_parallels.getvalue();
 			int foliageMeridians=foliage_meridians.getvalue();
 			int foliageLobes=foliage_lobes.getvalue();
+			double lobePercentageDepth=lobe_percentage_depth.getvalue();
+			
+			if(lobePercentageDepth>100.0 || lobePercentageDepth<0)
+			{
+				lobePercentageDepth=100.0;
+				lobe_percentage_depth.setText(lobePercentageDepth);
+				
+			}
 			
 			if(plant==null){
 				
-				plant=new Plant(trunckLength,trunkUpRadius,trunkLwRadius,foliageLength,foliageRadius,
-						foliageMeridians,foliageParallels,foliageLobes
+				plant=new Plant(trunckLength,trunkUpRadius,trunkLwRadius,
+						trunkMeridians,trunkParallels,
+						foliageLength,foliageRadius,
+						foliageMeridians,foliageParallels,foliageLobes,lobePercentageDepth
 						);
 				
 			}else{
 				
-				Plant expPlant = new Plant(trunckLength,trunkUpRadius,trunkLwRadius,foliageLength,foliageRadius,
-						foliageMeridians,foliageParallels,foliageLobes
+				Plant expPlant = new Plant(trunckLength,trunkUpRadius,trunkLwRadius,
+						trunkMeridians,trunkParallels,
+						foliageLength,foliageRadius,
+						foliageMeridians,foliageParallels,foliageLobes,lobePercentageDepth
 						);
 				
 				plant=expPlant;
