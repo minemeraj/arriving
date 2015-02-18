@@ -26,10 +26,16 @@ public class Plant extends CustomData{
 	int foliage_lobes=0;
 	
 	double lobe_percentage_depth=1.0;
+	
+	public static int PLANT_TYPE_0=0;
+	
+	public int plant_type=PLANT_TYPE_0;
 
 	public Plant(){}
 
-	public Plant(double trunk_lenght, double trunk_upper_radius,double trunk_lower_radius,
+	public Plant(
+			int plant_type,
+			double trunk_lenght, double trunk_upper_radius,double trunk_lower_radius,
 			int trunk_meridians,int trunk_parallels,
 			double foliage_length, double foliage_radius,			
 			int foliage_meridians,int foliage_parallels,
@@ -39,6 +45,8 @@ public class Plant extends CustomData{
 			) {
 		
 		super();
+		
+		this.plant_type = plant_type; 
 		this.trunk_lenght = trunk_lenght; 
 		this.trunk_upper_radius = trunk_upper_radius;
 		this.trunk_lower_radius = trunk_lower_radius;
@@ -58,6 +66,7 @@ public class Plant extends CustomData{
 	public Object clone(){
 
 		Plant grid=new Plant(
+				plant_type,
 				trunk_lenght,trunk_upper_radius,trunk_lower_radius,
 				trunk_meridians,trunk_parallels,
 				foliage_length,foliage_radius,
@@ -72,7 +81,7 @@ public class Plant extends CustomData{
 
 	public String toString() {
 
-		return "F="+trunk_lenght+","+trunk_upper_radius+","+trunk_lower_radius+","
+		return "F="+plant_type+","+trunk_lenght+","+trunk_upper_radius+","+trunk_lower_radius+","
 				+trunk_meridians+","+trunk_parallels+","
 				+foliage_length+","+foliage_radius+","+
 				foliage_meridians+","+foliage_parallels+","+foliage_lobes
@@ -83,21 +92,23 @@ public class Plant extends CustomData{
 
 		String[] vals = str.split(",");
 
-	
-		double trunk_lenght =Double.parseDouble(vals[0]);
-		double trunk_upper_radius = Double.parseDouble(vals[1]);
-		double trunk_lower_radius = Double.parseDouble(vals[2]);
-		int trunk_meridians=Integer.parseInt(vals[3]);
-		int trunk_parallels=Integer.parseInt(vals[4]);
+		int plant_type=Integer.parseInt(vals[0]);
+		double trunk_lenght =Double.parseDouble(vals[1]);
+		double trunk_upper_radius = Double.parseDouble(vals[2]);
+		double trunk_lower_radius = Double.parseDouble(vals[3]);
+		int trunk_meridians=Integer.parseInt(vals[4]);
+		int trunk_parallels=Integer.parseInt(vals[5]);
 		
-		double foliage_length = Double.parseDouble(vals[5]);  
-		double foliage_radius = Double.parseDouble(vals[6]); 
-		int foliageMeridians=Integer.parseInt(vals[7]);
-		int foliageParallels=Integer.parseInt(vals[8]);
-		int foliageLobes=Integer.parseInt(vals[9]);
-		double lobe_percentage_depth = Double.parseDouble(vals[10]);
+		double foliage_length = Double.parseDouble(vals[6]);  
+		double foliage_radius = Double.parseDouble(vals[7]); 
+		int foliageMeridians=Integer.parseInt(vals[8]);
+		int foliageParallels=Integer.parseInt(vals[9]);
+		int foliageLobes=Integer.parseInt(vals[10]);
+		double lobe_percentage_depth = Double.parseDouble(vals[11]);
 
-		Plant grid=new Plant(trunk_lenght,trunk_upper_radius,trunk_lower_radius,	
+		Plant grid=new Plant(
+				plant_type,
+				trunk_lenght,trunk_upper_radius,trunk_lower_radius,	
 				trunk_meridians,trunk_parallels,
 				foliage_length,foliage_radius,
 				foliageMeridians,foliageParallels,foliageLobes,
@@ -392,6 +403,14 @@ public class Plant extends CustomData{
 		
 		return rad;
 		
+	}
+
+	public int getPlant_type() {
+		return plant_type;
+	}
+
+	public void setPlant_type(int plant_type) {
+		this.plant_type = plant_type;
 	}
 
 

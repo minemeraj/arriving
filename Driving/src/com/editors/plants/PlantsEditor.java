@@ -1,12 +1,8 @@
 package com.editors.plants;
 
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,26 +11,22 @@ import java.io.PrintWriter;
 import java.util.Stack;
 
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.RepaintManager;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 
 import com.PolygonMesh;
 import com.editors.CustomEditor;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.IntegerTextField;
+import com.editors.ValuePair;
 import com.editors.object.ObjectEditorPreviewPanel;
 import com.editors.plants.data.Plant;
 
-public class PlantsEditor extends CustomEditor {
+public class PlantsEditor extends CustomEditor implements ItemListener {
 	
 	public static int HEIGHT=700;
 	public static int WIDTH=800;
@@ -49,16 +41,19 @@ public class PlantsEditor extends CustomEditor {
 	private IntegerTextField foliage_parallels;
 	private IntegerTextField foliage_lobes;
 	
-	public Stack oldPlant=null;
-	int max_stack_size=10;
-	
-	Plant plant=null;
 	private DoubleTextField trunk_lower_radius;
 	private IntegerTextField trunk_meridians;
 	private IntegerTextField trunk_parallels;
 	private DoubleTextField lobe_percentage_depth;
-
 	
+	Plant plant=null;
+
+	private JComboBox plant_type;
+	
+	public Stack oldPlant=null;
+	int max_stack_size=10;
+	
+
 	
 	
 	public PlantsEditor(){
@@ -135,8 +130,25 @@ public class PlantsEditor extends CustomEditor {
 		
 		int column=100;
 		
+		JLabel jlb=new JLabel("Plant type:");
+		jlb.setBounds(5, r, 120, 20);
+		right.add(jlb);
+		
+		plant_type=new JComboBox();
+		plant_type.setBounds(column, r, 110, 20);
+		plant_type.addKeyListener(this);
+		plant_type.addItem(new ValuePair("-1",""));
+		plant_type.addItem(new ValuePair(""+Plant.PLANT_TYPE_0,"Plant0"));
+		
+		plant_type.addItemListener(this);
+		
+		plant_type.setSelectedIndex(0);
+		right.add(plant_type);
+		
+		r+=30;
+		
 
-		JLabel jlb=new JLabel("Trunk len");
+		jlb=new JLabel("Trunk len");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
 		trunck_length=new DoubleTextField();
@@ -269,12 +281,12 @@ public class PlantsEditor extends CustomEditor {
 		
 		add(right);
 		
-		initRightData();
+		initRightPlant0Data();
 		
 	}
 	
 
-	public void initRightData() {
+	public void initRightPlant0Data() {
 	
 		trunck_length.setText(200);
 		trunk_upper_radius.setText(24);
@@ -291,6 +303,15 @@ public class PlantsEditor extends CustomEditor {
 	}
 	
 	private void setRightData(Plant plant) {
+		
+		for (int i = 0; i < plant_type.getItemCount(); i++) {
+			ValuePair vp= (ValuePair) plant_type.getItemAt(i);
+			if(vp.getId().equals(""+plant.getPlant_type()))
+			{
+				plant_type.setSelectedIndex(i);
+				break;
+			}	
+		}
 	
 		trunck_length.setText(plant.getTrunk_lenght());
 		trunk_upper_radius.setText(plant.getTrunk_upper_radius());
@@ -338,6 +359,12 @@ public class PlantsEditor extends CustomEditor {
 		
 			prepareUndo();
 			
+			 ValuePair vp= (ValuePair)plant_type.getSelectedItem();
+				
+			 int type=Integer.parseInt(vp.getId());
+			    if(type<0)
+			    	type=Plant.PLANT_TYPE_0;
+			
 			double trunckLength=trunck_length.getvalue();
 			double trunkUpRadius=trunk_upper_radius.getvalue();
 			double trunkLwRadius=trunk_lower_radius.getvalue();
@@ -360,7 +387,8 @@ public class PlantsEditor extends CustomEditor {
 			
 			if(plant==null){
 				
-				plant=new Plant(trunckLength,trunkUpRadius,trunkLwRadius,
+				plant=new Plant(type,
+						trunckLength,trunkUpRadius,trunkLwRadius,
 						trunkMeridians,trunkParallels,
 						foliageLength,foliageRadius,
 						foliageMeridians,foliageParallels,foliageLobes,lobePercentageDepth
@@ -368,7 +396,9 @@ public class PlantsEditor extends CustomEditor {
 				
 			}else{
 				
-				Plant expPlant = new Plant(trunckLength,trunkUpRadius,trunkLwRadius,
+				Plant expPlant = new Plant(
+						type,
+						trunckLength,trunkUpRadius,trunkLwRadius,
 						trunkMeridians,trunkParallels,
 						foliageLength,foliageRadius,
 						foliageMeridians,foliageParallels,foliageLobes,lobePercentageDepth
@@ -483,6 +513,26 @@ public class PlantsEditor extends CustomEditor {
 		
 		oldPlant.push(plant.clone());
 		
+		
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent arg0) {
+		Object obj = arg0.getSource();
+		
+		if(obj==plant_type){
+			
+			 center.setTeta(0);
+			 
+			 ValuePair vp= (ValuePair)plant_type.getSelectedItem();
+				
+			 int type=Integer.parseInt(vp.getId());
+			 
+			   if(type==Plant.PLANT_TYPE_0)
+				   initRightPlant0Data();
+			   else
+				   initRightPlant0Data();
+		}	 
 		
 	}
 	
