@@ -14,7 +14,6 @@ import com.CustomData;
 import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
-import com.editors.forniture.data.Table;
 import com.main.Renderer3D;
 
 public class Plant0 extends CustomData{
