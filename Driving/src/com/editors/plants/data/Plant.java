@@ -1,13 +1,7 @@
 package com.editors.plants.data;
 
-import java.util.Vector;
-
-import com.BPoint;
 import com.CustomData;
-import com.LineData;
-import com.Point3D;
 import com.PolygonMesh;
-import com.main.Renderer3D;
 
 public class Plant extends CustomData{
 
@@ -129,168 +123,23 @@ public class Plant extends CustomData{
 		else
 			return buildMeshPlant0();
 	}
-
 	
 	public PolygonMesh buildMeshPlant0(){
 
+		Plant0 plant0=new Plant0(
+				plant_type,
+				trunk_lenght,trunk_upper_radius,trunk_lower_radius,	
+				trunk_meridians,trunk_parallels,
+				foliage_length,foliage_radius,foliage_barycenter,
+				foliage_meridians,foliage_parallels,foliage_lobes,
+				lobe_percentage_depth
+				);
+		
+		specificData=plant0;
+		
+		return plant0.getMesh();
 
-
-		points=new Vector();
-		points.setSize(800);
-
-		polyData=new Vector();
 		
-		
-		n=0;
-
-
-		//trunk:
-
-	    BPoint[][] trunkpoints=new BPoint[trunk_parallels][trunk_meridians];
-		
-		for (int k = 0; k < trunk_parallels; k++) {
-			
-			
-			for (int i = 0; i < trunk_meridians; i++) {
-				
-				double z=trunk_lenght/(trunk_parallels-1.0)*k;
-				
-				//linear
-				//double r=z/trunk_lenght*(trunk_upper_radius-trunk_lower_radius)+trunk_lower_radius;
-				//parabolic
-				double r=(z-trunk_lenght)*(z-trunk_lenght)
-						*(trunk_lower_radius-trunk_upper_radius)/(trunk_lenght*trunk_lenght)
-						+trunk_upper_radius;
-								
-				double x=r*Math.cos(2*Math.PI/trunk_meridians*i);
-				double y=r*Math.sin(2*Math.PI/trunk_meridians*i);
-				
-				
-				trunkpoints[k][i]=addBPoint(x,y,z);
-				
-			}
-			
-		}
-		
-
-
-		LineData topLD=new LineData();
-		
-		for (int i = 0; i < trunk_meridians; i++) {
-			
-			topLD.addIndex(trunkpoints[trunk_parallels-1][i].getIndex());
-			
-		}
-		topLD.setData(""+Renderer3D.CAR_TOP);
-		polyData.add(topLD);
-		
-
-
-
-		LineData bottomLD=new LineData();
-		
-		for (int i = trunk_meridians-1; i >=0; i--) {
-			
-			bottomLD.addIndex(trunkpoints[0][i].getIndex());
-			
-		}
-		bottomLD.setData(""+Renderer3D.CAR_BOTTOM);
-		polyData.add(bottomLD);
-		
-		for (int k = 0; k < trunk_parallels-1; k++) {
-		
-			for (int i = 0; i < trunk_meridians; i++) {
-				
-				LineData sideLD=new LineData();
-				
-				sideLD.addIndex(trunkpoints[k][i].getIndex());
-				sideLD.addIndex(trunkpoints[k][(i+1)%trunk_meridians].getIndex());
-				sideLD.addIndex(trunkpoints[k+1][(i+1)%trunk_meridians].getIndex());
-				sideLD.addIndex(trunkpoints[k+1][i].getIndex());	
-				sideLD.setData(""+Renderer3D.getFace(sideLD,points));
-				polyData.add(sideLD);
-				
-				
-			}
-		}
-		//foliage:
-		
-	
-		
-		BPoint[][] foliagePoints=new BPoint[foliage_parallels][foliage_meridians];
-		
-		double dzf=foliage_length/(foliage_parallels-1);
-		
-		for (int k = 0; k < foliage_parallels; k++) {
-			
-			double zf=dzf*k;
-			
-			foliagePoints[k]=new BPoint[foliage_meridians];
-			
-			for (int i = 0; i < foliage_meridians; i++) {
-				
-				double teta=2*Math.PI/foliage_meridians*i;
-				
-				double r=ff(zf)*rr(teta);			
-				
-				double x=r*Math.cos(teta);
-				double y=r*Math.sin(teta);
-				
-				foliagePoints[k][i]=addBPoint(x,y,trunk_lenght+zf);
-				
-			}
-			
-		}
-			
-
-		LineData topFoliage=new LineData();
-		
-		for (int i = 0; i < foliage_meridians; i++) {
-			
-			topFoliage.addIndex(foliagePoints[foliage_parallels-1][i].getIndex());
-			
-		}
-		topFoliage.setData(""+Renderer3D.CAR_TOP);
-		polyData.add(topFoliage);
-		
-		LineData bottomFoliage=new LineData();
-		
-		for (int i = foliage_meridians-1; i>=0; i--) {
-			
-			bottomFoliage.addIndex(foliagePoints[0][i].getIndex());
-			
-			
-		}
-		bottomFoliage.setData(""+Renderer3D.getFace(bottomFoliage,points));
-		polyData.add(bottomFoliage);
-		
-		for (int k = 0; k < foliage_parallels-1; k++) {
-		
-		
-			for (int i = 0; i < foliage_meridians; i++) {
-				
-				LineData sideLD=new LineData();
-				
-				sideLD.addIndex(foliagePoints[k][i].getIndex());
-				sideLD.addIndex(foliagePoints[k][(i+1)%foliage_meridians].getIndex());
-				sideLD.addIndex(foliagePoints[k+1][(i+1)%foliage_meridians].getIndex());
-				sideLD.addIndex(foliagePoints[k+1][i].getIndex());	
-				sideLD.setData(""+Renderer3D.getFace(sideLD,points));
-				polyData.add(sideLD);
-				
-			}
-	
-		}
-		/////////
-
-		//translatePoints(points,nw_x,nw_y);
-
-		PolygonMesh pm=new PolygonMesh(points,polyData);
-
-		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
-		return spm;
-
-
 	}
 	
 	
@@ -388,47 +237,6 @@ public class Plant extends CustomData{
 		this.lobe_percentage_depth = lobe_percentage_depth;
 	}
 
-
-	public double ff(double x){
-		
-		if(foliage_length==0)
-			return 0;
-			
-		double xr=x/foliage_length;
-		double xf=foliage_barycenter/foliage_length;
-
-		
-		if(xr>xf){
-			
-			double a=(trunk_upper_radius-foliage_radius)/(xf*xf-2*xf+1);
-			double b=-2*xf*a;
-			double c=trunk_upper_radius-b-a;			
-			return a*xr*xr+b*xr+c;
-			
-		}else{
-
-			
-			double a=(trunk_upper_radius-foliage_radius)/(xf*xf);
-			double b=-2*(trunk_upper_radius-foliage_radius)/xf;
-			double c=trunk_upper_radius;
-				
-			return a*xr*xr+b*xr+c;
-			
-		}
-		
-
-		
-	}
-	
-	public double rr(double teta){
-		
-		double alfa=lobe_percentage_depth/100.0;
-		
-		double rad=(alfa+(1.0-alfa)*Math.abs(Math.cos(foliage_lobes*teta/2.0)));
-		
-		return rad;
-		
-	}
 
 	public int getPlant_type() {
 		return plant_type;
