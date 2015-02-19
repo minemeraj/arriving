@@ -23,6 +23,7 @@ import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.IntegerTextField;
 import com.editors.ValuePair;
+import com.editors.forniture.data.Forniture;
 import com.editors.object.ObjectEditorPreviewPanel;
 import com.editors.plants.data.Plant;
 
@@ -554,6 +555,20 @@ public class PlantsEditor extends CustomEditor implements ItemListener {
 				   initRightPlant0Data();
 		}	 
 		
+	}
+	
+	@Override
+	public void saveBaseCubicTexture(File file) {
+		
+    	if(plant.getPlant_type()==Plant.PLANT_TYPE_0 
+			
+    	){
+    		
+    		PolygonMesh pm = buildMesh();		
+    		plant.getSpecificData().saveBaseCubicTexture(pm,file);
+    	}
+    	else
+    		super.saveBaseCubicTexture(file);
 	}
 	
 
