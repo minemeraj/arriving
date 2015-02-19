@@ -52,6 +52,7 @@ public class PlantsEditor extends CustomEditor implements ItemListener {
 	
 	public Stack oldPlant=null;
 	int max_stack_size=10;
+	private DoubleTextField foliage_barycenter;
 	
 
 	
@@ -220,6 +221,16 @@ public class PlantsEditor extends CustomEditor implements ItemListener {
 		
 		r+=30;
 		
+		jlb=new JLabel("Foliage baryc.");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		foliage_barycenter=new DoubleTextField();
+		foliage_barycenter.setBounds(column, r, 100, 20);
+		foliage_barycenter.addKeyListener(this);
+		right.add(foliage_barycenter);
+		
+		r+=30;
+		
 		jlb=new JLabel("Foliage merid");
 		jlb.setBounds(5, r, 100, 20);
 		right.add(jlb);
@@ -296,6 +307,7 @@ public class PlantsEditor extends CustomEditor implements ItemListener {
 		
 		foliage_length.setText(200);
 		foliage_radius.setText(200);
+		foliage_barycenter.setText(100);
 		foliage_meridians.setText(12);
 		foliage_parallels.setText(8);
 		foliage_lobes.setText(0);
@@ -373,6 +385,7 @@ public class PlantsEditor extends CustomEditor implements ItemListener {
 			
 			double foliageLength=foliage_length.getvalue();
 			double foliageRadius=foliage_radius.getvalue();
+			double foliageBarycenter=foliage_barycenter.getvalue();
 			int foliageParallels=foliage_parallels.getvalue();
 			int foliageMeridians=foliage_meridians.getvalue();
 			int foliageLobes=foliage_lobes.getvalue();
@@ -385,12 +398,19 @@ public class PlantsEditor extends CustomEditor implements ItemListener {
 				
 			}
 			
+			if(foliageBarycenter>foliageLength){
+				
+				foliageBarycenter=foliageLength;
+				foliage_barycenter.setText(foliageBarycenter);
+				
+			}
+			
 			if(plant==null){
 				
 				plant=new Plant(type,
 						trunckLength,trunkUpRadius,trunkLwRadius,
 						trunkMeridians,trunkParallels,
-						foliageLength,foliageRadius,
+						foliageLength,foliageRadius,foliageBarycenter,
 						foliageMeridians,foliageParallels,foliageLobes,lobePercentageDepth
 						);
 				
@@ -400,7 +420,7 @@ public class PlantsEditor extends CustomEditor implements ItemListener {
 						type,
 						trunckLength,trunkUpRadius,trunkLwRadius,
 						trunkMeridians,trunkParallels,
-						foliageLength,foliageRadius,
+						foliageLength,foliageRadius,foliageBarycenter,
 						foliageMeridians,foliageParallels,foliageLobes,lobePercentageDepth
 						);
 				
