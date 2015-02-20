@@ -135,120 +135,45 @@ public class TextureCylinder {
 	}
 	
 	
-	public int[] lf(int i,int j,int k,int type){
+	public int[] lf(int i,int k,int type){
 		
 		int n0=0;
 		int n1=1;
 		int n2=2;
 		int n3=3;
-		
-
-		if(type==Renderer3D.CAR_LEFT || type==Renderer3D.CAR_FRONT){
-	
-			n0=1;
-			n1=2;
-			n2=3;
-			n3=0;
-
-		}
 
 		
 		int[] vals=new int [4];
-		vals[0]=lf(i,j,k,n0,type);
-		vals[1]=lf(i,j,k,n1,type);
-		vals[2]=lf(i,j,k,n2,type);
-		vals[3]=lf(i,j,k,n3,type);
+		vals[0]=lf(i,k,n0,type);
+		vals[1]=lf(i,k,n1,type);
+		vals[2]=lf(i,k,n2,type);
+		vals[3]=lf(i,k,n3,type);
 
 		
 		return vals;
 		
 	}
 	
-	public int lf(int i,int j,int k,int n,int type){
+	public int lf(int i,int k,int n,int type){
 		
-		int nx=0;
-		int ny=0;
-		
-		return 0;
-		
-		
-		/*if(type==Renderer3D.CAR_BACK){
-			
-			nx=i;
-			ny=k;
-			
-			
-		}else if(type==Renderer3D.CAR_RIGHT){
-			
-			nx=j;
-			ny=k;
-			
-			
-		}else if(type==Renderer3D.CAR_FRONT){
-			
-			nx=i;
-			ny=k;
-			
-			nx=numx-2-i;
-			
-		}else if(type==Renderer3D.CAR_LEFT){
-			
-			nx=j;
-			ny=k;
-			nx=numy-2-nx;
-			
-		}else if(type==Renderer3D.CAR_TOP ||type==Renderer3D.CAR_BOTTOM  ){
-			
-			nx=i;
-			ny=j;
-			
-		}
-		
-		
-		int deltax=0;
-		int deltay=0;
-		
-		if(n==1){
-			deltax=1;
-		} else if(n==2){
-			deltax=1;
-			deltay=1;
-		}	
-		else if(n==3){
-			
-			deltay=1;
-		}
-		
-		if(type==Renderer3D.CAR_BACK){
-			
-			
-		}else if(type==Renderer3D.CAR_RIGHT){
-			
-			deltax+=numx-1;
-			
-		}else if(type==Renderer3D.CAR_FRONT){
-			
-			deltax+=numx-1+numy-1;
-			
-		}else if(type==Renderer3D.CAR_LEFT){
-			
-			deltax+=2*(numx-1)+numy-1;
-		}
+		int nx=i;
+		int nz=k;
+
 		
 		if(type==Renderer3D.CAR_TOP){
 			
-			Integer value=(Integer) upperBase[nx+deltax][ny+deltay].getData();
+			Integer value=(Integer) upperBase[nx].getData();
 			return value.intValue();
 			
 		}else if(type==Renderer3D.CAR_BOTTOM){
 			
-			Integer value=(Integer) lowerBase[nx+deltax][ny+deltay].getData();
+			Integer value=(Integer) lowerBase[nx].getData();
 			return value.intValue();
 		}
 		else{
-			Integer value=(Integer) lateralFaces[nx+deltax][ny+deltay].getData();
+			Integer value=(Integer) lateralFaces[nx][nz].getData();
 			return value.intValue();
-		}	*/
+		}	
 	}
 
 	public boolean isDrawUpperBase() {
