@@ -14,6 +14,8 @@ import com.CustomData;
 import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
+import com.TextureBlock;
+import com.TextureCylinder;
 import com.main.Renderer3D;
 
 public class Plant0 extends CustomData{
@@ -40,6 +42,9 @@ public class Plant0 extends CustomData{
 	public int plant_type=PLANT_TYPE_0;
 
 	public Plant0(){}
+	
+	TextureCylinder trunkCylinder=null;
+	TextureCylinder foliageCylinder=null;
 
 	public Plant0(
 			int plant_type,
@@ -69,6 +74,11 @@ public class Plant0 extends CustomData{
 		this.foliage_parallels = foliage_parallels;
 		this.foliage_lobes = foliage_lobes;
 		this.lobe_percentage_depth = lobe_percentage_depth;
+		
+		trunkCylinder=new TextureCylinder(trunk_meridians,trunk_parallels,trunk_lower_radius,
+				trunk_lenght,0,0,0);
+		foliageCylinder=new TextureCylinder(foliage_meridians,foliage_parallels,foliage_radius,
+				foliage_length,0,0,trunkCylinder.exitIndex);
 		
 		initMesh();
 	}
