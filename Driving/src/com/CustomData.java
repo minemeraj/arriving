@@ -4,10 +4,8 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
-import java.util.Hashtable;
 import java.util.Vector;
 
-import com.editors.forniture.data.Barrel;
 import com.main.Renderer3D;
 
 public class CustomData {
@@ -683,6 +681,8 @@ public class CustomData {
 		
 	}
 	
+	
+	
 	public void addTexturePoints(Vector texture_points,TextureBlock tb) {
 		
 
@@ -751,6 +751,145 @@ public class CustomData {
 		
 		}
 
+	}
+	
+	public void drawTextureCylinder(
+			Graphics2D bufGraphics,
+			TextureCylinder t,
+			Color upperColor,
+			Color lowerColor,
+			Color sidelColor
+		){
+		
+		//draw lines for reference
+		
+
+		bufGraphics.setStroke(new BasicStroke(0.1f));
+
+		if(t.isDrawUpperBase()){
+
+			bufGraphics.setColor(upperColor);
+
+			for (int j = 0; j <t.upperBase.length; j++) {
+
+					double x0= calX(t.upperBase[j].x);
+					double y0= calY(t.upperBase[j].y);
+					
+					double x1= calX(t.upperBase[(j+1)%t.upperBase.length].x);
+					double y1= calY(t.upperBase[(j+1)%t.upperBase.length].y);
+
+					bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);	 
+
+				}
+		}
+		
+		if(t.isDrawLowerBase()){
+		
+		//lowerbase
+
+		bufGraphics.setColor(lowerColor);		
+
+			for (int j = 0; j <t.lowerBase.length; j++) {
+	
+				double x0= calX(t.lowerBase[j].x);
+				double y0= calY(t.lowerBase[j].y);
+				
+				double x1= calX(t.lowerBase[(j+1)%t.lowerBase.length].x);
+				double y1= calY(t.lowerBase[(j+1)%t.lowerBase.length].y);
+	
+				bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y1);			
+	
+			}
+
+
+		}
+
+		//lateral surface
+		bufGraphics.setColor(sidelColor);
+
+		
+		for(int j=0;j<t.N_PARALLELS-1;j++){
+
+			//texture is open and periodical:
+
+			for (int i = 0; i <t.N_MERIDIANS; i++) { 
+
+				double x0=calX(t.lateralFaces[i][j].x);
+				double x1=calX(t.lateralFaces[i+1][j].x);
+				double y0=calY(t.lateralFaces[i][j].y);
+				double y1=calY(t.lateralFaces[i][j+1].y);
+				
+				bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y0);
+				bufGraphics.drawLine((int)x1,(int)y0,(int)x1,(int)y1);
+				bufGraphics.drawLine((int)x1,(int)y1,(int)x0,(int)y1);
+				bufGraphics.drawLine((int)x0,(int)y1,(int)x0,(int)y0);
+			}
+
+		}	
+		
+	}
+	
+	
+	public void addTexturePoints(Vector texture_points,TextureCylinder tb) {
+		
+
+	
+
+		//upperbase
+		
+		if(tb.isDrawUpperBase()){
+
+			for (int j = 0; j <tb.upperBase.length; j++) {
+	
+						
+					double x= calX(tb.upperBase[j].x);
+					double y= calY(tb.upperBase[j].y);
+					
+					int index=((Integer)tb.upperBase[j].getData()).intValue();
+		
+					Point3D p=new Point3D(x,y,0);			
+					texture_points.setElementAt(p,index);
+		
+	
+			}
+		}
+		//lateral surface
+		
+
+		for(int j=0;j<tb.N_PARALLELS;j++){
+
+			//texture is open and periodical:
+
+			for (int i = 0; i <=tb.N_MERIDIANS; i++) {
+
+				double x=calX(tb.lateralFaces[i][j].x);
+				double y=calY(tb.lateralFaces[i][j].y);
+
+				Point3D p=new Point3D(x,y,0);
+
+				int index=((Integer)tb.lateralFaces[i][j].getData()).intValue();
+				texture_points.setElementAt(p,index);
+			}
+			
+		}	
+
+		
+		if(tb.isDrawLowerBase()){
+		
+			for (int j = 0; j <tb.lowerBase.length; j++) {
+	
+					double x= calX(tb.lowerBase[j].x);
+					double y= calY(tb.lowerBase[j].y);
+					
+					int index=((Integer)tb.lowerBase[j].getData()).intValue();
+		
+					Point3D p=new Point3D(x,y,0);			
+					texture_points.setElementAt(p,index);
+				}
+		}
+		
+		
+		 
 	}
 
 }
