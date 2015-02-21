@@ -89,10 +89,10 @@ public class Plant0 extends CustomData{
 		trunkCylinder=new TextureCylinder(trunk_meridians,trunk_parallels,trunk_lower_radius,
 				trunk_lenght,0,0,0);
 		foliageCylinder=new TextureCylinder(foliage_meridians,foliage_parallels,foliage_radius,
-				foliage_length,0,trunkCylinder.getLen(),trunkCylinder.exitIndex);
+				foliage_length,0,trunkCylinder.getVlen(),trunkCylinder.exitIndex);
 		
-		len=trunkCylinder.getLen()+foliageCylinder.getLen();
-		vlen=foliageCylinder.getVlen();
+		len=foliageCylinder.getLen();
+		vlen=foliageCylinder.getVlen()+trunkCylinder.getVlen();
 		numTexturePoints=foliageCylinder.exitIndex;
 		
 		initMesh();
@@ -463,6 +463,18 @@ public class Plant0 extends CustomData{
 		}
 
 		
+	}
+	
+	public double calX(double x){
+		
+		return texture_x0+x;
+	}
+
+	public double calY(double y){
+		if(isTextureDrawing)
+			return IMG_HEIGHT-(texture_y0+y);
+		else
+			return texture_y0+y;
 	}
 
 

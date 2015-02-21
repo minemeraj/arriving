@@ -78,8 +78,8 @@ public class TextureCylinder {
 			for (int j = 0; j <N_MERIDIANS; j++) {
 				
 	
-				double x= xc+(radius*Math.cos(j*teta));
-				double y= yc+(radius*Math.sin(j*teta));
+				double x= x0+xc+(radius*Math.cos(j*teta));
+				double y= y0+yc+(radius*Math.sin(j*teta));
 	
 				upperBase[j]=new Point3D(x,y,0);
 				upperBase[j].setData(new Integer(count++));
@@ -100,8 +100,8 @@ public class TextureCylinder {
 
 			for (int i = 0; i <=N_MERIDIANS; i++) {
 
-				double x=dx*i;
-				double y=(isDrawLowerBase?2*radius:0)+dy*j;
+				double x=x0+dx*i;
+				double y=y0+(isDrawLowerBase?2*radius:0)+dy*j;
 
 				lateralFaces[i][j]=new Point3D(x,y,0);
 				lateralFaces[i][j].setData(new Integer(count++));
@@ -121,8 +121,8 @@ public class TextureCylinder {
 				
 				int jj=N_MERIDIANS-1-j;
 	
-				double x= xc+(radius*Math.cos(j*teta));
-				double y= yc+(radius*Math.sin(j*teta));
+				double x= x0+xc+(radius*Math.cos(j*teta));
+				double y= y0+yc+(radius*Math.sin(j*teta));
 	
 				lowerBase[jj]=new Point3D(x,y,0);		
 				lowerBase[jj].setData(new Integer(count++));
