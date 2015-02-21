@@ -29,19 +29,19 @@ public class TextureCylinder {
 	
 	
 	public TextureCylinder(int N_MERIDIANS,int N_PARALLELS,
-			double radius,double zHeight,double x0,double y0,int entryIndex
+			double radius,double base_radius,double zHeight,double x0,double y0,int entryIndex
 			
 			
 			){
 		
 		this( N_MERIDIANS,N_PARALLELS,
-				radius, zHeight, x0, y0, entryIndex,true,true);
+				radius,base_radius, zHeight, x0, y0, entryIndex,true,true);
 		
 		
 	}
 	
 	public TextureCylinder(int N_MERIDIANS,int N_PARALLELS,
-			double radius,double zHeight,double x0,double y0,int entryIndex,
+			double radius,double base_radius,double zHeight,double x0,double y0,int entryIndex,
 			boolean isDrawUpperBase,boolean isDrawLowerBase
 			
 			){
@@ -61,13 +61,13 @@ public class TextureCylinder {
 				
 		len=2*Math.PI*this.radius;		
 
-		vlen=(int) (zHeight+(isDrawUpperBase?2*radius:0)+(isDrawLowerBase?2*radius:0));
+		vlen=(int) (zHeight+(isDrawUpperBase?2*base_radius:0)+(isDrawLowerBase?2*base_radius:0));
 		
 		texture_side_dy=(zHeight/(N_PARALLELS-1));
 		texture_side_dx=(len/N_MERIDIANS);
 		
-		double xc=x0+radius;
-		double yc=y0+radius+zHeight+(isDrawLowerBase?2*radius:0);
+		double xc=x0+base_radius;
+		double yc=y0+base_radius+zHeight+(isDrawLowerBase?2*base_radius:0);
 		
 		double teta=(2*Math.PI)/(N_MERIDIANS);
 		
@@ -78,8 +78,8 @@ public class TextureCylinder {
 			for (int j = 0; j <N_MERIDIANS; j++) {
 				
 	
-				double x= xc+(radius*Math.cos(j*teta));
-				double y= yc+(radius*Math.sin(j*teta));
+				double x= xc+(base_radius*Math.cos(j*teta));
+				double y= yc+(base_radius*Math.sin(j*teta));
 	
 				upperBase[j]=new Point3D(x,y,0);
 				upperBase[j].setData(new Integer(count++));
@@ -101,7 +101,7 @@ public class TextureCylinder {
 			for (int i = 0; i <=N_MERIDIANS; i++) {
 
 				double x=x0+dx*i;
-				double y=y0+(isDrawLowerBase?2*radius:0)+dy*j;
+				double y=y0+(isDrawLowerBase?2*base_radius:0)+dy*j;
 
 				lateralFaces[i][j]=new Point3D(x,y,0);
 				lateralFaces[i][j].setData(new Integer(count++));
@@ -110,8 +110,8 @@ public class TextureCylinder {
 		}	
 		
 		
-		xc=x0+radius;
-		yc=y0+radius;
+		xc=x0+base_radius;
+		yc=y0+base_radius;
 		
 		if(isDrawLowerBase){
 			
@@ -121,8 +121,8 @@ public class TextureCylinder {
 				
 				int jj=N_MERIDIANS-1-j;
 	
-				double x= xc+(radius*Math.cos(j*teta));
-				double y= yc+(radius*Math.sin(j*teta));
+				double x= xc+(base_radius*Math.cos(j*teta));
+				double y= yc+(base_radius*Math.sin(j*teta));
 	
 				lowerBase[jj]=new Point3D(x,y,0);		
 				lowerBase[jj].setData(new Integer(count++));
