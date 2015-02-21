@@ -158,6 +158,20 @@ public class TextureCylinder {
 		
 		int nx=i;
 		int nz=k;
+		
+		int deltax=0;
+		int deltay=0;
+		
+		if(n==1){
+			deltax=1;
+		} else if(n==2){
+			deltax=1;
+			deltay=1;
+		}	
+		else if(n==3){
+			
+			deltay=1;
+		}
 
 		
 		if(type==Renderer3D.CAR_TOP){
@@ -171,7 +185,7 @@ public class TextureCylinder {
 			return value.intValue();
 		}
 		else{
-			Integer value=(Integer) lateralFaces[nx][nz].getData();
+			Integer value=(Integer) lateralFaces[nx+deltax][nz+deltay].getData();
 			return value.intValue();
 		}	
 	}

@@ -727,65 +727,7 @@ public class Man extends Animal {
 			
 		texture_points=buildTexturePoints();
 		
-		LineData lowerBase=new LineData();
-		LineData upperBase=new LineData();
-		
-		int count=0;
 
-		/*for (int j = 0; j <N_FACES; j++) {
-
-			upperBase.addIndex(aPoints[N_PARALLELS-1][j].getIndex(),count++,0,0);
-
-			upperBase.setData(""+Renderer3D.getFace(upperBase,points));
-
-		}	
-
-		for (int j = N_FACES-1; j >=0; j--) {
-
-			lowerBase.addIndex(aPoints[0][j].getIndex(),count++,0,0);
-
-			lowerBase.setData(""+Renderer3D.getFace(lowerBase,points));
-		}
-
-		polyData.add(upperBase);
-		polyData.add(lowerBase);
-
-		for(int j=0;j<N_PARALLELS-1;j++){ 
-
-
-
-
-			for (int i = 0; i <N_FACES; i++) { 
-
-
-				LineData ld=new LineData();
-
-				int texIndex=count+f(i,j,N_FACES+1,N_PARALLELS);
-				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[j][i].getIndex(),texIndex,0,0);
-				
-				texIndex=count+f(i+1,j,N_FACES+1,N_PARALLELS);
-				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[j][(i+1)%N_FACES].getIndex(),texIndex,0,0);
-				
-				texIndex=count+f(i+1,j+1,N_FACES+1,N_PARALLELS);
-				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[j+1][(i+1)%N_FACES].getIndex(),texIndex,0,0);
-				
-				texIndex=count+f(i,j+1,N_FACES+1,N_PARALLELS);
-				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[j+1][i].getIndex(),texIndex,0,0);
-
-				ld.setData(""+Renderer3D.getFace(ld,points));
-				
-				
-
-				polyData.add(ld);
-
-			}
-		
-
-		}*/
 
 
 	}

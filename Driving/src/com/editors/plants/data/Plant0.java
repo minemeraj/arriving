@@ -40,11 +40,22 @@ public class Plant0 extends CustomData{
 	public static int PLANT_TYPE_0=0;
 	
 	public int plant_type=PLANT_TYPE_0;
-
-	public Plant0(){}
 	
 	TextureCylinder trunkCylinder=null;
 	TextureCylinder foliageCylinder=null;
+	
+	private double len;
+	private double vlen;
+	
+	public static int IMG_WIDTH;
+	public static int IMG_HEIGHT;
+	
+	public static int texture_x0=10;
+	public static int texture_y0=10;
+	
+	public static boolean isTextureDrawing=false;
+	
+	public Plant0(){}
 
 	public Plant0(
 			int plant_type,
@@ -78,13 +89,17 @@ public class Plant0 extends CustomData{
 		trunkCylinder=new TextureCylinder(trunk_meridians,trunk_parallels,trunk_lower_radius,
 				trunk_lenght,0,0,0);
 		foliageCylinder=new TextureCylinder(foliage_meridians,foliage_parallels,foliage_radius,
-				foliage_length,0,0,trunkCylinder.exitIndex);
+				foliage_length,0,trunkCylinder.getLen(),trunkCylinder.exitIndex);
+		
+		len=trunkCylinder.getLen()+foliageCylinder.getLen();
+		vlen=foliageCylinder.getVlen();
+		numTexturePoints=foliageCylinder.exitIndex;
 		
 		initMesh();
 	}
 
 	
-	public PolygonMesh initMesh(){
+	public void initMesh(){
 
 
 		points=new Vector();
@@ -126,41 +141,44 @@ public class Plant0 extends CustomData{
 		
 
 
-		LineData topLD=new LineData();
+		LineData topTrunk=new LineData();
 		
 		for (int i = 0; i < trunk_meridians; i++) {
 			
-			topLD.addIndex(trunkpoints[trunk_parallels-1][i].getIndex());
+			topTrunk.addIndex(trunkpoints[trunk_parallels-1][i].getIndex(),trunkCylinder.lf(i,0,0,Renderer3D.CAR_TOP),0,0);
 			
 		}
-		topLD.setData(""+Renderer3D.CAR_TOP);
-		polyData.add(topLD);
+		topTrunk.setData(""+Renderer3D.CAR_TOP);
+		polyData.add(topTrunk);
 		
 
 
 
-		LineData bottomLD=new LineData();
+		LineData bottomTrunk=new LineData();
 		
 		for (int i = trunk_meridians-1; i >=0; i--) {
 			
-			bottomLD.addIndex(trunkpoints[0][i].getIndex());
+			bottomTrunk.addIndex(trunkpoints[0][i].getIndex(),trunkCylinder.lf(i,0,0,Renderer3D.CAR_BOTTOM),0,0);
 			
 		}
-		bottomLD.setData(""+Renderer3D.CAR_BOTTOM);
-		polyData.add(bottomLD);
+		bottomTrunk.setData(""+Renderer3D.CAR_BOTTOM);
+		polyData.add(bottomTrunk);
 		
 		for (int k = 0; k < trunk_parallels-1; k++) {
 		
 			for (int i = 0; i < trunk_meridians; i++) {
 				
-				LineData sideLD=new LineData();
+				addLine(trunkpoints[k][i],trunkpoints[k][(i+1)%trunk_meridians],trunkpoints[k+1][(i+1)%trunk_meridians],trunkpoints[k+1][i],
+					   trunkCylinder.lf(i,k,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
 				
-				sideLD.addIndex(trunkpoints[k][i].getIndex());
-				sideLD.addIndex(trunkpoints[k][(i+1)%trunk_meridians].getIndex());
-				sideLD.addIndex(trunkpoints[k+1][(i+1)%trunk_meridians].getIndex());
-				sideLD.addIndex(trunkpoints[k+1][i].getIndex());	
-				sideLD.setData(""+Renderer3D.getFace(sideLD,points));
-				polyData.add(sideLD);
+			/*	LineData sideTrunk=new LineData();
+				
+				sideTrunk.addIndex(trunkpoints[k][i].getIndex());
+				sideTrunk.addIndex(trunkpoints[k][(i+1)%trunk_meridians].getIndex());
+				sideTrunk.addIndex(trunkpoints[k+1][(i+1)%trunk_meridians].getIndex());
+				sideTrunk.addIndex(trunkpoints[k+1][i].getIndex());	
+				sideTrunk.setData(""+Renderer3D.getFace(sideLD,points));
+				polyData.add(sideTrunk);*/
 				
 				
 			}
@@ -199,7 +217,7 @@ public class Plant0 extends CustomData{
 		
 		for (int i = 0; i < foliage_meridians; i++) {
 			
-			topFoliage.addIndex(foliagePoints[foliage_parallels-1][i].getIndex());
+			topFoliage.addIndex(foliagePoints[foliage_parallels-1][i].getIndex(),foliageCylinder.lf(i,0,0,Renderer3D.CAR_TOP),0,0);
 			
 		}
 		topFoliage.setData(""+Renderer3D.CAR_TOP);
@@ -209,7 +227,7 @@ public class Plant0 extends CustomData{
 		
 		for (int i = foliage_meridians-1; i>=0; i--) {
 			
-			bottomFoliage.addIndex(foliagePoints[0][i].getIndex());
+			bottomFoliage.addIndex(foliagePoints[0][i].getIndex(),foliageCylinder.lf(i,0,0,Renderer3D.CAR_TOP),0,0);
 			
 			
 		}
@@ -221,31 +239,45 @@ public class Plant0 extends CustomData{
 		
 			for (int i = 0; i < foliage_meridians; i++) {
 				
-				LineData sideLD=new LineData();
+				
+				addLine(foliagePoints[k][i],foliagePoints[k][(i+1)%foliage_meridians],foliagePoints[k+1][(i+1)%foliage_meridians],foliagePoints[k+1][i],
+						   foliageCylinder.lf(i,k,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
+				
+				/*LineData sideLD=new LineData();
 				
 				sideLD.addIndex(foliagePoints[k][i].getIndex());
 				sideLD.addIndex(foliagePoints[k][(i+1)%foliage_meridians].getIndex());
 				sideLD.addIndex(foliagePoints[k+1][(i+1)%foliage_meridians].getIndex());
 				sideLD.addIndex(foliagePoints[k+1][i].getIndex());	
 				sideLD.setData(""+Renderer3D.getFace(sideLD,points));
-				polyData.add(sideLD);
+				polyData.add(sideLD);*/
 				
 			}
 	
 		}
-		/////////
 
-		//translatePoints(points,nw_x,nw_y);
+		//////// texture points		
+		
+		texture_points=buildTexturePoints();
 
-		PolygonMesh pm=new PolygonMesh(points,polyData);
-
-		PolygonMesh spm=PolygonMesh.simplifyMesh(pm);
-		return spm;
 
 
 	}
 	
-	
+	public Vector buildTexturePoints() {
+		
+		isTextureDrawing=false;
+		
+		Vector texture_points=new Vector();
+		texture_points.setSize(numTexturePoints);
+		
+				
+		addTexturePoints(texture_points,trunkCylinder);
+		addTexturePoints(texture_points,foliageCylinder);
+
+		
+		return texture_points;
+	}
 	
 
 
@@ -393,126 +425,43 @@ public class Plant0 extends CustomData{
 	@Override
 	public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 			
+
+		isTextureDrawing=true;
+
+		
+
 		Color backgroundColor=Color.green;
-		Color back_color=Color.BLUE;
-		Color top_color=Color.RED;
-		Color bottom_color=Color.MAGENTA;
-		Color left_color=Color.YELLOW;
-		Color right_color=Color.ORANGE;
-		Color front_color=Color.CYAN;
-		
-		int IMG_WIDTH=0;
-		int IMG_HEIGHT=0;
 
-		int deltaX=0;
-		int deltaY=0;
-		int deltaX2=0;
+		
+		IMG_WIDTH=(int) len+2*texture_x0;
+		IMG_HEIGHT=(int) vlen+2*texture_y0;
 
-		double minx=0;
-		double miny=0;
-		double minz=0;
-		
-		double maxx=0;
-		double maxy=0;
-		double maxz=0;
-		
-		
-	      //find maxs
-		for(int j=0;j<mesh.points.length;j++){
-			
-			Point3D point=mesh.points[j];
-			
-			if(j==0){
-				
-				minx=point.x;
-				miny=point.y;
-				minz=point.z;
-				
-				maxx=point.x;
-				maxy=point.y;
-				maxz=point.z;
-			}
-			else{
-				
-				maxx=(int)Math.max(point.x,maxx);
-				maxz=(int)Math.max(point.z,maxz);
-				maxy=(int)Math.max(point.y,maxy);
-				
-				
-				minx=(int)Math.min(point.x,minx);
-				minz=(int)Math.min(point.z,minz);
-				miny=(int)Math.min(point.y,miny);
-			}
-			
-	
-		}
-		
-		deltaX2=(int)(maxx-minx)+1;
-		deltaX=(int)(maxz-minz)+1; 
-		deltaY=(int)(maxy-miny)+1;
-		
-		deltaX2=deltaX2+deltaX;
-		
-		IMG_HEIGHT=(int) deltaY+deltaX+deltaX;
-		IMG_WIDTH=(int) (deltaX2+deltaX2);
 		
 		BufferedImage buf=new BufferedImage(IMG_WIDTH,IMG_HEIGHT,BufferedImage.TYPE_BYTE_INDEXED);
 	
 		try {
 
-	
-
-
-				int DX=0;
 
 				Graphics2D bufGraphics=(Graphics2D)buf.getGraphics();
  
 				bufGraphics.setColor(backgroundColor);
-				bufGraphics.fillRect(DX+0,0,IMG_WIDTH,IMG_HEIGHT);
+				bufGraphics.fillRect(0,0,IMG_WIDTH,IMG_HEIGHT);
 
 
 				//draw lines for reference
-
-				bufGraphics.setColor(new Color(0,0,0));
-				bufGraphics.setStroke(new BasicStroke(0.1f));
-				for(int j=0;j<mesh.polygonData.size();j++){ 
-
-					LineData ld=(LineData) mesh.polygonData.elementAt(j);
-
-					for (int k = 0; k < ld.size(); k++) {
-
-
-						Point3D point0=  mesh.points[ld.getIndex(k)];
-						Point3D point1=  mesh.points[ld.getIndex((k+1)%ld.size())];
-						//top
-						bufGraphics.setColor(top_color);
-						bufGraphics.drawLine(DX+(int)(point0.x-minx+deltaX),(int)(-point0.y+maxy+deltaX),DX+(int)(point1.x-minx+deltaX),(int)(-point1.y+maxy+deltaX));
-						//front
-						bufGraphics.setColor(front_color);
-						bufGraphics.drawLine(DX+(int)(point0.x-minx+deltaX),(int)(point0.z-minz),DX+(int)(point1.x-minx+deltaX),(int)(point1.z-minz));
-						//left
-						bufGraphics.setColor(left_color);
-						bufGraphics.drawLine(DX+(int)(point0.z-minz),(int)(-point0.y+maxy+deltaX),DX+(int)(point1.z-minz),(int)(-point1.y+maxy+deltaX));
-						//right
-						bufGraphics.setColor(right_color);
-						bufGraphics.drawLine(DX+(int)(-point0.z+maxz+deltaX2),(int)(-point0.y+maxy+deltaX),DX+(int)(-point1.z+maxz+deltaX2),(int)(-point1.y+maxy+deltaX));
-						//back
-						bufGraphics.setColor(back_color);
-						bufGraphics.drawLine(DX+(int)(point0.x-minx+deltaX),(int)(-point0.z+maxz+deltaY+deltaX),DX+(int)(point1.x-minx+deltaX),(int)(-point1.z+maxz+deltaY+deltaX));
-						//bottom
-						bufGraphics.setColor(bottom_color);
-						bufGraphics.drawLine(DX+(int)(point0.x-minx+deltaX+deltaX2),(int)(-point0.y+maxy+deltaX),DX+(int)(point1.x-minx+deltaX+deltaX2),(int)(-point1.y+maxy+deltaX));
 				
-					}
-
-				}	
+				drawTextureCylinder(bufGraphics,trunkCylinder,Color.RED,Color.BLUE,Color.BLACK);
+				drawTextureCylinder(bufGraphics,foliageCylinder,Color.RED,Color.BLUE,Color.BLACK);
 			
-			ImageIO.write(buf,"gif",file);
+				
+			
+				ImageIO.write(buf,"gif",file);
 			
 		} catch (Exception e) {
 			
 			e.printStackTrace();
 		}
+
 		
 	}
 
