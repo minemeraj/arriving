@@ -227,7 +227,7 @@ public class Plant0 extends CustomData{
 		
 		for (int i = foliage_meridians-1; i>=0; i--) {
 			
-			bottomFoliage.addIndex(foliagePoints[0][i].getIndex(),foliageCylinder.lf(i,0,0,Renderer3D.CAR_TOP),0,0);
+			bottomFoliage.addIndex(foliagePoints[0][i].getIndex(),foliageCylinder.lf(i,0,0,Renderer3D.CAR_BOTTOM),0,0);
 			
 			
 		}

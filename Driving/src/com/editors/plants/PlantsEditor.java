@@ -474,11 +474,13 @@ public class PlantsEditor extends CustomEditor implements ItemListener {
 	
 		PrintWriter pw; 
 		try {
-
+			
 			meshes[0]=buildMesh();
 			pw = new PrintWriter(new FileOutputStream(file));
 			forceReading=true;
-			saveLines(pw);
+			boolean isCustom=(meshes[0].getTexturePoints()!=null 
+					&& meshes[0].getTexturePoints().size()>0); 
+			saveLines(pw,isCustom);
 			pw.close();
 			
 		} catch (Exception e) { 
