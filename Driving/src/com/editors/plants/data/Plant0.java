@@ -86,9 +86,9 @@ public class Plant0 extends CustomData{
 		this.foliage_lobes = foliage_lobes;
 		this.lobe_percentage_depth = lobe_percentage_depth;
 		
-		trunkCylinder=new TextureCylinder(trunk_meridians,trunk_parallels,trunk_lower_radius,
+		trunkCylinder=new TextureCylinder(trunk_meridians,trunk_parallels,trunk_lower_radius,trunk_lower_radius,
 				trunk_lenght,0,0,0);
-		foliageCylinder=new TextureCylinder(foliage_meridians,foliage_parallels,foliage_radius,
+		foliageCylinder=new TextureCylinder(foliage_meridians,foliage_parallels,foliage_radius,trunk_lower_radius,
 				foliage_length,0,trunkCylinder.getVlen(),trunkCylinder.exitIndex);
 		
 		len=foliageCylinder.getLen();

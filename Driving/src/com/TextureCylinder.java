@@ -92,7 +92,7 @@ public class TextureCylinder {
 		double dx=texture_side_dx;
 		double dy=texture_side_dy;
 		
-		lateralFaces=new Point3D[N_MERIDIANS+1][N_PARALLELS];
+		lateralFaces=new Point3D[N_PARALLELS][N_MERIDIANS+1];
 
 		for(int j=0;j<N_PARALLELS;j++){
 
@@ -103,8 +103,8 @@ public class TextureCylinder {
 				double x=x0+dx*i;
 				double y=y0+(isDrawLowerBase?2*base_radius:0)+dy*j;
 
-				lateralFaces[i][j]=new Point3D(x,y,0);
-				lateralFaces[i][j].setData(new Integer(count++));
+				lateralFaces[j][i]=new Point3D(x,y,0);
+				lateralFaces[j][i].setData(new Integer(count++));
 			}
 			
 		}	
@@ -185,7 +185,7 @@ public class TextureCylinder {
 			return value.intValue();
 		}
 		else{
-			Integer value=(Integer) lateralFaces[nx+deltax][nz+deltay].getData();
+			Integer value=(Integer) lateralFaces[nz+deltay][nx+deltax].getData();
 			return value.intValue();
 		}	
 	}

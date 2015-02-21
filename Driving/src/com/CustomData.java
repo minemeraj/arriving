@@ -808,16 +808,18 @@ public class CustomData {
 		bufGraphics.setColor(sidelColor);
 
 		
-		for(int j=0;j<t.N_PARALLELS-1;j++){
+		for(int i=0;i<t.N_PARALLELS-1;i++){
 
 			//texture is open and periodical:
 
-			for (int i = 0; i <t.N_MERIDIANS; i++) { 
+			for (int j = 0; j <t.N_MERIDIANS; j++) { 
 
-				double x0=calX(t.lateralFaces[i][j].x);
-				double x1=calX(t.lateralFaces[i+1][j].x);
+				double x0=calX(t.lateralFaces[i][j].x);		
 				double y0=calY(t.lateralFaces[i][j].y);
-				double y1=calY(t.lateralFaces[i][j+1].y);
+				double x1=calX(t.lateralFaces[i][j+1].x);				
+				double y1=calY(t.lateralFaces[i+1][j].y);
+				
+				
 				
 				bufGraphics.drawLine((int)x0,(int)y0,(int)x1,(int)y0);
 				bufGraphics.drawLine((int)x1,(int)y0,(int)x1,(int)y1);
@@ -862,12 +864,12 @@ public class CustomData {
 
 			for (int i = 0; i <=tb.N_MERIDIANS; i++) {
 
-				double x=calX(tb.lateralFaces[i][j].x);
-				double y=calY(tb.lateralFaces[i][j].y);
+				double x=calX(tb.lateralFaces[j][i].x);
+				double y=calY(tb.lateralFaces[j][i].y);
 
 				Point3D p=new Point3D(x,y,0);
 
-				int index=((Integer)tb.lateralFaces[i][j].getData()).intValue();
+				int index=((Integer)tb.lateralFaces[j][i].getData()).intValue();
 				texture_points.setElementAt(p,index);
 			}
 			
