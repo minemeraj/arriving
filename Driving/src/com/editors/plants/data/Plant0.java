@@ -87,9 +87,9 @@ public class Plant0 extends CustomData{
 		this.lobe_percentage_depth = lobe_percentage_depth;
 		
 		trunkCylinder=new TextureCylinder(trunk_meridians,trunk_parallels,trunk_lower_radius,trunk_lower_radius,
-				trunk_lenght,0,0,0);
+				trunk_lenght,0,0,0,false,true);
 		foliageCylinder=new TextureCylinder(foliage_meridians,foliage_parallels,foliage_radius,trunk_lower_radius,
-				foliage_length,0,trunkCylinder.getVlen(),trunkCylinder.exitIndex);
+				foliage_length,0,trunkCylinder.getVlen(),trunkCylinder.exitIndex,true,false);
 		
 		len=foliageCylinder.getLen();
 		vlen=foliageCylinder.getVlen()+trunkCylinder.getVlen();
@@ -141,7 +141,7 @@ public class Plant0 extends CustomData{
 		
 
 
-		LineData topTrunk=new LineData();
+		/*LineData topTrunk=new LineData();
 		
 		for (int i = 0; i < trunk_meridians; i++) {
 			
@@ -149,7 +149,7 @@ public class Plant0 extends CustomData{
 			
 		}
 		topTrunk.setData(""+Renderer3D.CAR_TOP);
-		polyData.add(topTrunk);
+		polyData.add(topTrunk);*/
 		
 
 
@@ -170,15 +170,6 @@ public class Plant0 extends CustomData{
 				
 				addLine(trunkpoints[k][i],trunkpoints[k][(i+1)%trunk_meridians],trunkpoints[k+1][(i+1)%trunk_meridians],trunkpoints[k+1][i],
 					   trunkCylinder.lf(i,k,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
-				
-			/*	LineData sideTrunk=new LineData();
-				
-				sideTrunk.addIndex(trunkpoints[k][i].getIndex());
-				sideTrunk.addIndex(trunkpoints[k][(i+1)%trunk_meridians].getIndex());
-				sideTrunk.addIndex(trunkpoints[k+1][(i+1)%trunk_meridians].getIndex());
-				sideTrunk.addIndex(trunkpoints[k+1][i].getIndex());	
-				sideTrunk.setData(""+Renderer3D.getFace(sideLD,points));
-				polyData.add(sideTrunk);*/
 				
 				
 			}
@@ -223,7 +214,7 @@ public class Plant0 extends CustomData{
 		topFoliage.setData(""+Renderer3D.CAR_TOP);
 		polyData.add(topFoliage);
 		
-		LineData bottomFoliage=new LineData();
+		/*LineData bottomFoliage=new LineData();
 		
 		for (int i = foliage_meridians-1; i>=0; i--) {
 			
@@ -231,8 +222,8 @@ public class Plant0 extends CustomData{
 			
 			
 		}
-		bottomFoliage.setData(""+Renderer3D.getFace(bottomFoliage,points));
-		polyData.add(bottomFoliage);
+		bottomFoliage.setData(""+Renderer3D.CAR_BOTTOM);
+		polyData.add(bottomFoliage);*/
 		
 		for (int k = 0; k < foliage_parallels-1; k++) {
 		
@@ -242,15 +233,7 @@ public class Plant0 extends CustomData{
 				
 				addLine(foliagePoints[k][i],foliagePoints[k][(i+1)%foliage_meridians],foliagePoints[k+1][(i+1)%foliage_meridians],foliagePoints[k+1][i],
 						   foliageCylinder.lf(i,k,Renderer3D.CAR_LEFT),Renderer3D.CAR_LEFT);
-				
-				/*LineData sideLD=new LineData();
-				
-				sideLD.addIndex(foliagePoints[k][i].getIndex());
-				sideLD.addIndex(foliagePoints[k][(i+1)%foliage_meridians].getIndex());
-				sideLD.addIndex(foliagePoints[k+1][(i+1)%foliage_meridians].getIndex());
-				sideLD.addIndex(foliagePoints[k+1][i].getIndex());	
-				sideLD.setData(""+Renderer3D.getFace(sideLD,points));
-				polyData.add(sideLD);*/
+
 				
 			}
 	
