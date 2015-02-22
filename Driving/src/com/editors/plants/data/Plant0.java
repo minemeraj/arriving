@@ -89,7 +89,7 @@ public class Plant0 extends CustomData{
 		trunkCylinder=new TextureCylinder(trunk_meridians,trunk_parallels,trunk_lower_radius,trunk_lower_radius,
 				trunk_lenght,0,0,0,false,true);
 		foliageCylinder=new TextureCylinder(foliage_meridians,foliage_parallels,foliage_radius,trunk_lower_radius,
-				foliage_length,0,trunkCylinder.getVlen(),trunkCylinder.exitIndex,true,false);
+				foliage_length,0,trunkCylinder.getVlen(),trunkCylinder.exitIndex,true,true);
 		
 		len=foliageCylinder.getLen();
 		vlen=foliageCylinder.getVlen()+trunkCylinder.getVlen();

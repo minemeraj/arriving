@@ -1,4 +1,4 @@
-Renewed plant editor.
+Renewed plant editor, with custom texture.
 
 ----- 12/01/2015 CarDriving 8.1.1
 
