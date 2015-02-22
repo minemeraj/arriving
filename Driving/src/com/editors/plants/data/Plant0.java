@@ -214,7 +214,7 @@ public class Plant0 extends CustomData{
 		topFoliage.setData(""+Renderer3D.CAR_TOP);
 		polyData.add(topFoliage);
 		
-		/*LineData bottomFoliage=new LineData();
+		LineData bottomFoliage=new LineData();
 		
 		for (int i = foliage_meridians-1; i>=0; i--) {
 			
@@ -223,7 +223,7 @@ public class Plant0 extends CustomData{
 			
 		}
 		bottomFoliage.setData(""+Renderer3D.CAR_BOTTOM);
-		polyData.add(bottomFoliage);*/
+		polyData.add(bottomFoliage);
 		
 		for (int k = 0; k < foliage_parallels-1; k++) {
 		
