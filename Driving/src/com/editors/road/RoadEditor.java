@@ -1699,31 +1699,37 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		left_tools.add(toogle_objects);
 		
 		////OBJECTS
-		
-        Border objBorder=BorderFactory.createTitledBorder("Objects");
-        JPanel object_panel = buildObjectsPanel();
-        //left.setBorder(objBorder);
-        left_tool_options.add(object_panel,OBJECT_MODE);
-        
+		        
         JPanel terrain_panel =  buildRoadPanel(0);
         //left.setBorder(objBorder);
         left_tool_options.add(terrain_panel,TERRAIN_MODE);
         
         JPanel road_panel = buildRoadPanel(1);
-        //left.setBorder(objBorder);
+       
         left_tool_options.add(road_panel,ROAD_MODE);
         
-      
+        
+        JPanel object_panel = buildObjectsPanel();
+        //left.setBorder(objBorder);
+        left_tool_options.add(object_panel,OBJECT_MODE);
+        
+       
 
 		add(left);
+		
+		
 
 	}
 
 	private JPanel buildObjectsPanel() {
+		
+		Border objBorder=BorderFactory.createTitledBorder("Objects");
+		
 
 		JPanel object_panel=new JPanel(null);
+		 object_panel.setBorder(objBorder);
 
-		int r=10;
+		int r=25;
 
 		checkMultipleObjectsSelection=new JCheckBox("Multiple selection");
 		checkMultipleObjectsSelection.setBounds(30,r,150,20);
