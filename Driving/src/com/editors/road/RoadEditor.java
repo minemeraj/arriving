@@ -259,7 +259,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public static String ROAD_MODE="ROAD_MODE";
 	public static String TERRAIN_MODE="TERRAIN_MODE";
 	
-	public String mode=OBJECT_MODE;
+	public String mode=TERRAIN_MODE;
 	
 	public RoadEditor(String title){
 		
@@ -1661,30 +1661,32 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		left_tool_options=new JPanel(new CardLayout());	
 		left_tool_options.setBounds(0,middle_left_height+upper_left_height,LEFT_BORDER,lower_left_height);
 		left.add(left_tool_options);
-	
 		
-		toogle_road = new JToggleButton("Road");
-		toogle_road.setActionCommand(ROAD_MODE);
-		toogle_road.setSelected(true);
-		toogle_road.addActionListener(this);
-		toogle_road.addKeyListener(this);
-		toogle_road.setBounds(10,r,100,20);
-		
-		r+=30;
 		
 		toogle_terrain= new JToggleButton("Terrain");		
 		toogle_terrain.setActionCommand(TERRAIN_MODE);
+		toogle_terrain.setSelected(true);
 		toogle_terrain.addActionListener(this);
 		toogle_terrain.addKeyListener(this);
 		toogle_terrain.setBounds(10,r,100,20);
 		
 		r+=30;
+	
 		
+		toogle_road = new JToggleButton("Road");
+		toogle_road.setActionCommand(ROAD_MODE);
+		toogle_road.addActionListener(this);
+		toogle_road.addKeyListener(this);
+		toogle_road.setBounds(10,r,100,20);
+		
+		r+=30;
+	
 		toogle_objects = new JToggleButton("Objects");
 		toogle_objects.setActionCommand(OBJECT_MODE);
 		toogle_objects.addActionListener(this);
 		toogle_objects.addKeyListener(this);
 		toogle_objects.setBounds(10,r,100,20);
+		
 		
 		
 		ButtonGroup bgb=new ButtonGroup();
