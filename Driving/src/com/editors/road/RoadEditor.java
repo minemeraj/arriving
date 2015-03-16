@@ -4,6 +4,7 @@ package com.editors.road;
  *
  */
 import java.awt.BasicStroke;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -42,6 +43,7 @@ import java.util.Vector;
 import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -58,6 +60,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import javax.swing.RepaintManager;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
@@ -94,7 +97,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 	private JPanel center;
-	int HEIGHT=660;
+	int HEIGHT=680;
 	int WIDTH=700;
 	int LEFT_BORDER=240;
 	int RIGHT_BORDER=240;
@@ -121,7 +124,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JFileChooser fc;
 	private JMenuBar jmb;
 	private JMenu jm_file;
-	private JTabbedPane right;
+
 	private DoubleTextField[] coordinatesx;
 	private DoubleTextField[] coordinatesy;
 	private DoubleTextField[] coordinatesz;
@@ -242,7 +245,21 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton put_object;
 	private JMenuItem jmtBuildCity;
 	private JMenuItem help_jmt;
-
+	
+	String header="<html><body>";
+	String footer="</body></html>";
+	private JToggleButton toogle_road;
+	private JToggleButton toogle_terrain;
+	private JToggleButton toogle_objects;
+	private JPanel left_tools;
+	private JPanel left_common_options;
+	private JPanel left_tool_options;
+	
+	public static String OBJECT_MODE="OBJECT_MODE";
+	public static String ROAD_MODE="ROAD_MODE";
+	public static String TERRAIN_MODE="TERRAIN_MODE";
+	
+	public String mode=OBJECT_MODE;
 	
 	public RoadEditor(String title){
 		
@@ -272,30 +289,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		add(center);
 		buildMenuBar();
 		buildLeftObjectPanel();
-		
-		right=new JTabbedPane();
-		right.addChangeListener(
-				
-			new ChangeListener() {
-				
-				public void stateChanged(ChangeEvent arg0) {
-					
-					ACTIVE_PANEL=right.getSelectedIndex();
-					
-				}
-			}
-				
-		);
+
 		
 		
-		
-		right.setBounds(WIDTH+LEFT_BORDER,0,RIGHT_BORDER,HEIGHT);
-		
-		add(right);
-		
-		buildFieldsArrays();
-		buildRightPanel(0); 
-		buildRightPanel(1); 
+		//buildRightPanel(0); 
+		//buildRightPanel(1); 
 		
 		buildBottomPanel();
 
@@ -1638,84 +1636,156 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 	private void buildLeftObjectPanel() {
+		
+		buildFieldsArrays();
 
-		String header="<html><body>";
-		String footer="</body></html>";
-
+		int upper_left_height=150;
+		int middle_left_height=0;
+		int lower_left_height=500;
+		
+		int r=30;	
+		
 		left=new JPanel();
 		left.setBounds(0,0,LEFT_BORDER,HEIGHT);
 		left.setLayout(null);
-        Border leftBorder=BorderFactory.createTitledBorder("Objects");
-        left.setBorder(leftBorder);
-		        
-		int r=5;
-
-
+		
+		left_tools=new JPanel(null);
+		//left_tools.setBorder(BorderFactory.createTitledBorder("Choose tool"));
+		left_tools.setBounds(5,0,150,upper_left_height);
+		left.add(left_tools);
+				
+		left_common_options=new JPanel(null);
+		left_common_options.setBounds(0,upper_left_height,LEFT_BORDER,middle_left_height);
+		left.add(left_common_options);
+		
+		left_tool_options=new JPanel(new CardLayout());	
+		left_tool_options.setBounds(0,middle_left_height+upper_left_height,LEFT_BORDER,lower_left_height);
+		left.add(left_tool_options);
+	
+		
+		toogle_road = new JToggleButton("Road");
+		toogle_road.setActionCommand(ROAD_MODE);
+		toogle_road.setSelected(true);
+		toogle_road.addActionListener(this);
+		toogle_road.addKeyListener(this);
+		toogle_road.setBounds(10,r,100,20);
+		
 		r+=30;
 		
+		toogle_terrain= new JToggleButton("Terrain");		
+		toogle_terrain.setActionCommand(TERRAIN_MODE);
+		toogle_terrain.addActionListener(this);
+		toogle_terrain.addKeyListener(this);
+		toogle_terrain.setBounds(10,r,100,20);
+		
+		r+=30;
+		
+		toogle_objects = new JToggleButton("Objects");
+		toogle_objects.setActionCommand(OBJECT_MODE);
+		toogle_objects.addActionListener(this);
+		toogle_objects.addKeyListener(this);
+		toogle_objects.setBounds(10,r,100,20);
+		
+		
+		ButtonGroup bgb=new ButtonGroup();
+		bgb.add(toogle_road);
+		bgb.add(toogle_terrain);
+		bgb.add(toogle_objects);
+		
+		left_tools.add(toogle_road);
+		left_tools.add(toogle_terrain);
+		left_tools.add(toogle_objects);
+		
+		////OBJECTS
+		
+        Border objBorder=BorderFactory.createTitledBorder("Objects");
+        JPanel object_panel = buildObjectsPanel();
+        //left.setBorder(objBorder);
+        left_tool_options.add(object_panel,OBJECT_MODE);
+        
+        JPanel terrain_panel =  buildRoadPanel(0);
+        //left.setBorder(objBorder);
+        left_tool_options.add(terrain_panel,TERRAIN_MODE);
+        
+        JPanel road_panel = buildRoadPanel(1);
+        //left.setBorder(objBorder);
+        left_tool_options.add(road_panel,ROAD_MODE);
+        
+      
+
+		add(left);
+
+	}
+
+	private JPanel buildObjectsPanel() {
+
+		JPanel object_panel=new JPanel(null);
+
+		int r=10;
+
 		checkMultipleObjectsSelection=new JCheckBox("Multiple selection");
 		checkMultipleObjectsSelection.setBounds(30,r,150,20);
 		checkMultipleObjectsSelection.addKeyListener(this);
-		left.add(checkMultipleObjectsSelection);
-		
+		object_panel.add(checkMultipleObjectsSelection);
+
 		r+=30;
 
 		JLabel lx=new JLabel("x:");
 		lx.setBounds(5,r,20,20);
-		left.add(lx);
+		object_panel.add(lx);
 		objcoordinatesx=new DoubleTextField(8);
 		objcoordinatesx.setBounds(30,r,120,20);
 		objcoordinatesx.addKeyListener(this);
-		left.add(objcoordinatesx);
+		object_panel.add(objcoordinatesx);
 		objcheckCoordinatesx=new JCheckBox();
 		objcheckCoordinatesx.setBounds(170,r,50,20);
 		objcheckCoordinatesx.addKeyListener(this);
-		left.add(objcheckCoordinatesx);
+		object_panel.add(objcheckCoordinatesx);
 
 		r+=30;
 
 		JLabel ly=new JLabel("y:");
 		ly.setBounds(5,r,20,20);
-		left.add(ly);
+		object_panel.add(ly);
 		objcoordinatesy=new DoubleTextField(8);
 		objcoordinatesy.setBounds(30,r,120,20);
 		objcoordinatesy.addKeyListener(this);
-		left.add(objcoordinatesy);
+		object_panel.add(objcoordinatesy);
 		objcheckCoordinatesy=new JCheckBox();
 		objcheckCoordinatesy.setBounds(170,r,50,20);
 		objcheckCoordinatesy.addKeyListener(this);
-		left.add(objcheckCoordinatesy);
+		object_panel.add(objcheckCoordinatesy);
 
 		r+=30;
 
 		JLabel lz=new JLabel("z:");
 		lz.setBounds(5,r,20,20);
-		left.add(lz);
+		object_panel.add(lz);
 		objcoordinatesz=new DoubleTextField(8);
 		objcoordinatesz.setBounds(30,r,120,20);
 		objcoordinatesz.addKeyListener(this);
-		left.add(objcoordinatesz);
+		object_panel.add(objcoordinatesz);
 		objcheckCoordinatesz=new JCheckBox();
 		objcheckCoordinatesz.setBounds(170,r,50,20);
 		objcheckCoordinatesz.addKeyListener(this);
-		left.add(objcheckCoordinatesz);
+		object_panel.add(objcheckCoordinatesz);
 
 
 		r+=30;
-		
+
 		chooseObject=new JComboBox();
 		chooseObject.addItem(new ValuePair("",""));
 		//chooseObject.setBounds(50,r,50,20);
 		chooseObject.addItemListener(this);
 		chooseObject.addKeyListener(this);
 		//left.add(chooseObject);
-		
-		
+
+
 		chooseObjectPanel=new JButton("Object");
 		chooseObjectPanel.setBounds(10,r,100,20);
 		chooseObjectPanel.addActionListener(this);
 		chooseObjectPanel.addKeyListener(this);
-		left.add(chooseObjectPanel);
+		object_panel.add(chooseObjectPanel);
 
 		r+=30;
 
@@ -1725,10 +1795,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		Border border=BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
 		objectLabel.setBorder(border);
-		left.add(objectLabel);
-		
+		object_panel.add(objectLabel);
+
 		JPanel moveObject=buildObjectMovePanel(120,r);
-		left.add(moveObject);
+		object_panel.add(moveObject);
 
 		r+=100;
 
@@ -1736,16 +1806,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		choosePrevObject.setBounds(10,r,50,20);
 		choosePrevObject.addActionListener(this);
 		choosePrevObject.addKeyListener(this);
-		left.add(choosePrevObject);
+		object_panel.add(choosePrevObject);
 
 		chooseNextObject=new JButton(">");
 		chooseNextObject.setBounds(60,r,50,20);
 		chooseNextObject.addActionListener(this);
 		chooseNextObject.addKeyListener(this);
-		left.add(chooseNextObject);		
+		object_panel.add(chooseNextObject);		
 
 		r+=30;
-		
+
 		colorObjChoice=new JTextField();
 		colorObjChoice.setBounds(30,r,150,20);
 		colorObjChoice.addKeyListener(this);
@@ -1766,7 +1836,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 				}
-		);
+				);
 		cho.addKeyListener(this);
 		cho.setBounds(5,r,20,20);
 		left.add(cho);
@@ -1774,25 +1844,25 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		checkObjColor.setBounds(200,r,50,20);
 		checkObjColor.addKeyListener(this);
 		checkObjColor.setOpaque(false);
-		left.add(checkObjColor);
+		object_panel.add(checkObjColor);
 
 		r+=30;
-		
+
 		lz=new JLabel("Rotation angle:");
 		lz.setBounds(5,r,90,20);
 		left.add(lz);
 		rotation_angle=new DoubleTextField(8);
 		rotation_angle.setBounds(100,r,80,20);
 		rotation_angle.addKeyListener(this);
-		left.add(rotation_angle);
-		
+		object_panel.add(rotation_angle);
+
 		r+=30;
 
 		changeObject=new JButton(header+"Change O<u>b</u>ject"+footer);
 		changeObject.addActionListener(this);
 		changeObject.setFocusable(false);
 		changeObject.setBounds(5,r,150,20);
-		left.add(changeObject);
+		object_panel.add(changeObject);
 
 		r+=30;
 
@@ -1800,7 +1870,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		addObject.addActionListener(this);
 		addObject.setFocusable(false);
 		addObject.setBounds(5,r,150,20);
-		left.add(addObject);
+		object_panel.add(addObject);
 
 		r+=30;
 
@@ -1808,34 +1878,31 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		delObject.addActionListener(this);
 		delObject.setFocusable(false);
 		delObject.setBounds(5,r,150,20);
-		left.add(delObject);
+		object_panel.add(delObject);
 
 		r+=30;
-		
+
 		deselectAllObjects=new JButton("Deselect all");
 		deselectAllObjects.addActionListener(this);
 		deselectAllObjects.setFocusable(false);
 		deselectAllObjects.setBounds(5,r,150,20);
-		left.add(deselectAllObjects);
+		object_panel.add(deselectAllObjects);
 
 		r+=30;
-		
+
 		put_object=new JButton("Put in cell");
 		put_object.setBounds(5,r,100,20);
 		put_object.addActionListener(this);
 		put_object.addKeyListener(this);
-		left.add(put_object);
-		
+		object_panel.add(put_object);
+
 		r+=30;
 
-		add(left);
-
+		return object_panel;
 	}
 
-	private void buildRightPanel(int index) {
+	private JPanel buildRoadPanel(int index) {
 
-		String header="<html><body>";
-		String footer="</body></html>";
 		
 		JPanel panel=new JPanel();
 
@@ -2067,9 +2134,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			panel.add(mergeSelectedPoints[index]);
 
 		}
-		
-		right.add(panelsTitles[index],panel);
 
+         return panel;
 
 	}
 
@@ -2843,7 +2909,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				setACTIVE_PANEL(1);
 				saveLines(pr);
 				
-				setACTIVE_PANEL(right.getSelectedIndex());
+				//setACTIVE_PANEL(right.getSelectedIndex());
 				
 				saveObjects(pr);
 				
@@ -2882,7 +2948,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			loadPointsFromFile(file);			
 			setACTIVE_PANEL(0);
 			
-			right.setSelectedIndex(0);
+			//right.setSelectedIndex(0);
 			
             loadObjectsFromFile(file); 
 
@@ -3018,107 +3084,116 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 	public void actionPerformed(ActionEvent arg0) {
-		Object o=arg0.getSource();
+		
+		Object obj=arg0.getSource();
 
-		if(o==jmt_load_landscape){
+		
+		if(toogle_objects==obj || toogle_road==obj || toogle_terrain==obj){
+			CardLayout cl = (CardLayout)(left_tool_options.getLayout());
+			
+			mode=((JToggleButton) obj).getActionCommand();
+			cl.show(left_tool_options,mode);
+			
+		}
+		else if(obj==jmt_load_landscape){
 			
 				loadLanscape();
 		}
-		else if(o==jmt_save_landscape){
+		else if(obj==jmt_save_landscape){
 			
 				saveLandscape();
 
 		}		
-		else if(o==jmtIsUSeTextures){
+		else if(obj==jmtIsUSeTextures){
 
 			isUseTextures=jmtIsUSeTextures.isSelected();
 			displayAll();
 			
 
 		}
-		else if(o==jmtUndoObjects){
+		else if(obj==jmtUndoObjects){
 			undoObjects();
 		}
-		else if(o==jmtUndoRoad){
+		else if(obj==jmtUndoRoad){
 			undoRoad();
 		}
-		else if(o==jmtPreview){
+		else if(obj==jmtPreview){
 			showPreview();
 		}
-		else if(o==jmtShowAltimetry){
+		else if(obj==jmtShowAltimetry){
 			showAltimetry();
 		}
-		else if(o==jmtBuildNewGrid){
+		else if(obj==jmtBuildNewGrid){
 			buildNewGrid();
 		}
-		else if(o==jmtExpandGrid){
+		else if(obj==jmtExpandGrid){
 			expandGrid();
 		}
-		else if(o==jmtAddGrid){
+		else if(obj==jmtAddGrid){
 			addGrid();
 		}
-		else if(o==jmtBuildCity){
+		else if(obj==jmtBuildCity){
 			buildCity();
 		}		
-		else if(o==jmtAddBendMesh){
+		else if(obj==jmtAddBendMesh){
 			addBendMesh();
 		}
-		else if(o==addPoint[ACTIVE_PANEL]){
+		else if(obj==addPoint[ACTIVE_PANEL]){
 			addPoint();
 			displayAll();
 		}
-		else if(o==mergeSelectedPoints[ACTIVE_PANEL]){			
+		else if(obj==mergeSelectedPoints[ACTIVE_PANEL]){			
 			
 			mergeSelectedPoints();
 			displayAll();
 		}
-		else if(o==changePoint[ACTIVE_PANEL] ){
+		else if(obj==changePoint[ACTIVE_PANEL] ){
 			changeSelectedRoadPoint();
 			displayAll();
 		}
-		else if(o==changePolygon[ACTIVE_PANEL]){
+		else if(obj==changePolygon[ACTIVE_PANEL]){
 			changeSelectedRoadPolygon();
 			displayAll();
 		}	
-		else if(o==startBuildPolygon[ACTIVE_PANEL]){
+		else if(obj==startBuildPolygon[ACTIVE_PANEL]){
 			startBuildPolygon();
 			
 			displayAll();
 		}	
-		else if(o==buildPolygon[ACTIVE_PANEL]){
+		else if(obj==buildPolygon[ACTIVE_PANEL]){
 			buildPolygon();
 			displayAll();
 		}
-		else if(o==polygonDetail[ACTIVE_PANEL]){
+		else if(obj==polygonDetail[ACTIVE_PANEL]){
 			polygonDetail();
 			//displayAll();
 		}
-		else if(o==deleteSelection[ACTIVE_PANEL]){
+		else if(obj==deleteSelection[ACTIVE_PANEL]){
 			deleteSelection();
 			displayAll();
 		}
-		else if(o==deselectAll[ACTIVE_PANEL]){
+		else if(obj==deselectAll[ACTIVE_PANEL]){
 			deselectAll();
 		}
-		else if(o==addObject){
+		else if(obj==addObject){
 			addObject();
 			displayAll();
 		}
-		else if(o==delObject){
+		else if(obj==delObject){
 			deleteObject();
 			displayAll();
 		}
-		else if(o==changeObject){
+		else if(obj==changeObject){
 			changeSelectedObject();
 			displayAll();
 		}
-		else if(o==deselectAllObjects){
+		else if(obj==deselectAllObjects){
 			cleanObjects();
 		}
-		else if(o==put_object){
+		else if(obj==put_object){
 			putObjectInCell();
 		}
-		else if(o==choosePanelTexture[ACTIVE_PANEL]){
+		else if(obj==choosePanelTexture[ACTIVE_PANEL]){
 			
 			TexturesPanel tp=new TexturesPanel(worldImages,100,100);
 			
@@ -3127,12 +3202,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				chooseTexture[ACTIVE_PANEL].setSelectedIndex(indx+1);
 			
 		}
-		else if(o==chooseNextTexture[ACTIVE_PANEL]){
+		else if(obj==chooseNextTexture[ACTIVE_PANEL]){
 			int indx=chooseTexture[ACTIVE_PANEL].getSelectedIndex();
 			if(indx<chooseTexture[ACTIVE_PANEL].getItemCount()-1)
 				chooseTexture[ACTIVE_PANEL].setSelectedIndex(indx+1);
 		}
-		else if(o==chooseObjectPanel){
+		else if(obj==chooseObjectPanel){
 			
 			TexturesPanel tp=new TexturesPanel(objectImages,100,100);
 			
@@ -3140,91 +3215,91 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			if(indx!=-1)
 				chooseObject.setSelectedIndex(indx+1);
 		}
-		else if(o==choosePrevTexture[ACTIVE_PANEL]){
+		else if(obj==choosePrevTexture[ACTIVE_PANEL]){
 			int indx=chooseTexture[ACTIVE_PANEL].getSelectedIndex();
 			if(indx>0)
 				chooseTexture[ACTIVE_PANEL].setSelectedIndex(indx-1);
 		}
-		else if(o==chooseNextObject){
+		else if(obj==chooseNextObject){
 			int indx=chooseObject.getSelectedIndex();
 			if(indx<chooseObject.getItemCount()-1)
 				chooseObject.setSelectedIndex(indx+1);
 		}
-		else if(o==choosePrevObject){
+		else if(obj==choosePrevObject){
 			int indx=chooseObject.getSelectedIndex();
 			if(indx>0)
 				chooseObject.setSelectedIndex(indx-1);
 		}
-		else if(o==moveRoadUp[ACTIVE_PANEL]){
+		else if(obj==moveRoadUp[ACTIVE_PANEL]){
 
 			moveSelectedRoadPoints(0,1,0);
 
 		}
-		else if(o==moveRoadDown[ACTIVE_PANEL]){
+		else if(obj==moveRoadDown[ACTIVE_PANEL]){
 
 			moveSelectedRoadPoints(0,-1,0);
 
 		}
-		else if(o==moveRoadLeft[ACTIVE_PANEL]){
+		else if(obj==moveRoadLeft[ACTIVE_PANEL]){
 
 			moveSelectedRoadPoints(-1,0,0);
 
 		}
-		else if(o==moveRoadRight[ACTIVE_PANEL]){
+		else if(obj==moveRoadRight[ACTIVE_PANEL]){
 
 			moveSelectedRoadPoints(+1,0,0);
 
 		}
-		else if(o==moveRoadTop[ACTIVE_PANEL]){
+		else if(obj==moveRoadTop[ACTIVE_PANEL]){
 
 			moveSelectedRoadPoints(0,0,1);
 
 		}
-		else if(o==moveRoadBottom[ACTIVE_PANEL]){
+		else if(obj==moveRoadBottom[ACTIVE_PANEL]){
 
 			moveSelectedRoadPoints(0,0,-1);
 
 		}
-		else if(o==moveObjUp){
+		else if(obj==moveObjUp){
 
 			moveSelectedObject(0,1,0);
 
 		}
-		else if(o==moveObjDown){
+		else if(obj==moveObjDown){
 
 			moveSelectedObject(0,-1,0);
 
 		}
-		else if(o==moveObjLeft){
+		else if(obj==moveObjLeft){
 
 			moveSelectedObject(-1,0,0);
 
 		}
-		else if(o==moveObjRight){
+		else if(obj==moveObjRight){
 
 			moveSelectedObject(+1,0,0);
 
 		}
-		else if(o==moveObjTop){
+		else if(obj==moveObjTop){
 
 			moveSelectedObject(0,0,1);
 
 		}
-		else if(o==moveObjBottom){
+		else if(obj==moveObjBottom){
 
 			moveSelectedObject(0,0,-1);
 
 		}
-		else if(o==jmtLevelRoadTerrain){
+		else if(obj==jmtLevelRoadTerrain){
 
 			levelRoadTerrain(1);
 
 		}
-		else if(o==jmLevelTerrainRoad){
+		else if(obj==jmLevelTerrainRoad){
 
 			levelRoadTerrain(-1);
 
-		}else if(o==help_jmt){
+		}else if(obj==help_jmt){
 			help();
 		}	
 		

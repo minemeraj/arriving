@@ -1,3 +1,5 @@
+First step in a deep re-thinking of the RoadEditor
+
 An improved GameLoader.
 
 Renewed plant editor, with custom texture.
