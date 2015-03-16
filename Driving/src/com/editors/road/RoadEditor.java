@@ -288,7 +288,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		addPropertyChangeListener(this);
 		add(center);
 		buildMenuBar();
-		buildLeftObjectPanel();
+		buildLeftPanel();
 
 		
 		
@@ -1635,7 +1635,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		setJMenuBar(jmb);
 	}
 
-	private void buildLeftObjectPanel() {
+	private void buildLeftPanel() {
 		
 		buildFieldsArrays();
 
@@ -1822,7 +1822,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		colorObjChoice.setBounds(30,r,150,20);
 		colorObjChoice.addKeyListener(this);
 		colorObjChoice.setToolTipText("Opt. background color");
-		left.add(colorObjChoice);
+		object_panel.add(colorObjChoice);
 		JButton cho = new JButton(">");
 		cho.setBorder(new LineBorder(Color.gray,1));
 		cho.addActionListener(
@@ -1841,7 +1841,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				);
 		cho.addKeyListener(this);
 		cho.setBounds(5,r,20,20);
-		left.add(cho);
+		object_panel.add(cho);
 		checkObjColor=new JCheckBox();
 		checkObjColor.setBounds(200,r,50,20);
 		checkObjColor.addKeyListener(this);
@@ -1852,7 +1852,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		lz=new JLabel("Rotation angle:");
 		lz.setBounds(5,r,90,20);
-		left.add(lz);
+		object_panel.add(lz);
 		rotation_angle=new DoubleTextField(8);
 		rotation_angle.setBounds(100,r,80,20);
 		rotation_angle.addKeyListener(this);
