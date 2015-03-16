@@ -115,7 +115,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
     public boolean isProgramPaused=true;
 	
 	public String map_name=GameLoader.DEFAULT_MAP;
-	
+	public GameLoader gameLoader=null;
 	
 	public boolean skipShading=false;
 	
@@ -126,21 +126,21 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 		if(args.length==1)
 			skipShading="-s".equals(args[0]);
 		
-		GameLoader gl=new GameLoader();
-		String map_name=gl.getMap();
+		GameLoader gl=new GameLoader();		
+		gl.setSkipShading(skipShading);
 		 
-		CarFrame ff=new CarFrame(skipShading,map_name);
+		CarFrame ff=new CarFrame(gl);
 		//ff.initialize();
 	
 	}
 	 
 	 
-	public CarFrame(boolean skipShading,String map_name){
-		
-	 super();
+	public CarFrame(GameLoader gameLoader){
+
 	 
-	 this.skipShading=skipShading;	
-	 this.map_name=map_name;
+	 this.gameLoader=gameLoader;
+	 this.map_name=gameLoader.getMap();
+	 this.skipShading=gameLoader.isSkipShading();	
 	 
 	 setTitle(VERSION);
 	 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
