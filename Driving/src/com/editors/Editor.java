@@ -40,8 +40,8 @@ public class Editor extends JFrame implements MenuListener{
 	public File currentDirectory=null;
 	public File currentFile=null;
 	
-	int TERRAIN_INDEX=0;
-	int ROAD_INDEX=1;
+	public int TERRAIN_INDEX=0;
+	public int ROAD_INDEX=1;
 	
 	public static String TAG[]={"terrain","road"};
 	

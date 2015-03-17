@@ -1616,6 +1616,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void buildLeftPanel() {
 		
+		ACTIVE_PANEL=TERRAIN_INDEX;
+		
 		buildFieldsArrays();
 
 		int upper_left_height=120;
@@ -1679,11 +1681,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		////OBJECTS
 		        
-        JPanel terrain_panel =  buildRoadPanel(0);
+        JPanel terrain_panel =  buildRoadPanel(TERRAIN_INDEX);
         //left.setBorder(objBorder);
         left_tool_options.add(terrain_panel,TERRAIN_MODE);
         
-        JPanel road_panel = buildRoadPanel(1);
+        JPanel road_panel = buildRoadPanel(ROAD_INDEX);
        
         left_tool_options.add(road_panel,ROAD_MODE);
         
@@ -2919,6 +2921,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			mode=((JToggleButton) obj).getActionCommand();
 			cl.show(left_tool_options,mode);
 			
+			if(ROAD_MODE.equals(mode))
+				ACTIVE_PANEL=ROAD_INDEX;
+			else if(TERRAIN_MODE.equals(mode))
+				ACTIVE_PANEL=TERRAIN_INDEX;
+			
 		}
 		else if(obj==jmt_load_landscape){
 			
@@ -3739,16 +3746,28 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public void mouseClicked(MouseEvent arg0) {
 
 		int buttonNum=arg0.getButton();
-		//right button click
-		if(buttonNum==MouseEvent.BUTTON3)
-			//addObject(arg0);
-			addPoint(arg0);
-		else{
-			selectPoint(arg0.getX(),arg0.getY());			
-		}	
+		
+		if(ROAD_MODE.equals(mode) || TERRAIN_MODE.equals(mode)){
+		
+			//right button click
+			if(buttonNum==MouseEvent.BUTTON3)
+				//addObject(arg0);
+				addPoint(arg0);
+			else{
+				selectPoint(arg0.getX(),arg0.getY());			
+			}	
+		
+		} else if(OBJECT_MODE.equals(mode)){
+			
+			if(buttonNum==MouseEvent.BUTTON3)
+				addObject();
+			else
+				selectObject(arg0.getX(),arg0.getY());
+		}
 		displayAll();
 	}
-	
+
+
 	private void addPoint(MouseEvent arg0) {
 		
 		if(ACTIVE_PANEL==0)
@@ -3847,13 +3866,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void selectPoint(int x, int y) {
 		
+		boolean found=false;
+		
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
 		if(!checkMultiplePointsSelection[ACTIVE_PANEL].isSelected()) 
 			polygon=new LineData();
-
-		//select point from road
-		boolean found=false;
 		
 			
 		for(int j=0;mesh.points!=null && j<mesh.points.length;j++){
@@ -3874,12 +3892,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					if(!checkCoordinatesz[ACTIVE_PANEL].isSelected())
 						coordinatesz[ACTIVE_PANEL].setText(p.z);
 				
-
+					found=true;
 					p.setSelected(true);
 					
 					polygon.addIndex(j);
 
-					found=true;
+		
 
 				}
 				else if(!checkMultiplePointsSelection[ACTIVE_PANEL].isSelected())
@@ -3888,48 +3906,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		}
 	
-		//select object
-
-		for(int i=0;i<drawObjects.size() && !found;i++){
-
-			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
-			if(!checkMultipleObjectsSelection.isSelected())
-				dro.setSelected(false);
-			
-			
-			int[] cx=new int[4];
-			int[] cy=new int[4];
-			
-			int versus=1;
-			if(!DrawObject.IS_3D)
-				versus=-1;
-
-			cx[0]=convertX(dro.x);
-			cy[0]=convertY(dro.y);
-			cx[1]=convertX(dro.x);
-			cy[1]=convertY(dro.y+versus*dro.dy);
-			cx[2]=convertX(dro.x+dro.dx);
-			cy[2]=convertY(dro.y+versus*dro.dy);
-			cx[3]=convertX(dro.x+dro.dx);
-			cy[3]=convertY(dro.y);
-
-			Polygon p_in=new Polygon(cx,cy,4);			
-			Point3D center=Polygon3D.findCentroid(p_in);
-			Polygon3D.rotate(p_in,center,dro.rotation_angle);
-			
-			if(p_in.contains(x,y))
-			{
-				dro.setSelected(true);
-				setObjectData(dro);
-				
-	
-				if(checkMultipleObjectsSelection.isSelected()){
-					found=true;
-					break;
-				}	
-			}
-
-		}
+		
 		if(found){
 			deselectAllLines();
 			return;
@@ -3968,6 +3945,55 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 
 	}
+	
+	
+	
+	private void selectObject(int x, int y) {
+		
+		//select object
+
+				for(int i=0;i<drawObjects.size();i++){
+
+					DrawObject dro=(DrawObject) drawObjects.elementAt(i);
+					if(!checkMultipleObjectsSelection.isSelected())
+						dro.setSelected(false);
+					
+					
+					int[] cx=new int[4];
+					int[] cy=new int[4];
+					
+					int versus=1;
+					if(!DrawObject.IS_3D)
+						versus=-1;
+
+					cx[0]=convertX(dro.x);
+					cy[0]=convertY(dro.y);
+					cx[1]=convertX(dro.x);
+					cy[1]=convertY(dro.y+versus*dro.dy);
+					cx[2]=convertX(dro.x+dro.dx);
+					cy[2]=convertY(dro.y+versus*dro.dy);
+					cx[3]=convertX(dro.x+dro.dx);
+					cy[3]=convertY(dro.y);
+
+					Polygon p_in=new Polygon(cx,cy,4);			
+					Point3D center=Polygon3D.findCentroid(p_in);
+					Polygon3D.rotate(p_in,center,dro.rotation_angle);
+					
+					if(p_in.contains(x,y))
+					{
+						dro.setSelected(true);
+						setObjectData(dro);
+						
+			
+						if(!checkMultipleObjectsSelection.isSelected()){
+							break;
+						}	
+					}
+
+				}
+		
+	}
+	
 	
 	public Polygon3D buildPolygon(LineData ld,Point3D[] points, boolean isReal) {
 
