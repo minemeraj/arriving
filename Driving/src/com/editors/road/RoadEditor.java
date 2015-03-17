@@ -2551,8 +2551,20 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 
+	
 
-	private void addObject() {
+	private void addObject(MouseEvent arg0) {
+	
+		Point p=arg0.getPoint();
+		
+		double xx=invertX((int)p.getX());
+		double yy=invertY((int)p.getY());
+		
+		addObject(xx, yy,0);
+	}
+	
+
+	private void addObject(double x, double y, double z) {
 		
 		
 		int index=0;
@@ -2568,50 +2580,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		cleanObjects();
 		
-		//addObject(x,y,z,dim_x,dim_y,dim_z,index,rot_angle);
+		addObject(x,y,z,dim_x,dim_y,dim_z,index,rot_angle);
 
 	}
 
-	private void putObjectInCell() {
-		
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];
-
-		if(mesh==null || mesh.polygonData==null)
-			return;
-
-
-		int sizel=mesh.polygonData.size();
-		for(int j=0;j<sizel;j++){
-			
-			
-			LineData ld=(LineData)mesh.polygonData.elementAt(j);
-
-			if(ld.isSelected()){
-				
-				Point3D p=mesh.points[ld.getIndex(0)];
-
-				double x=p.x;
-				double y=p.y;
-				double z=p.z;
-				
-				cleanObjects();
-				int index=0;
-				ValuePair vp=(ValuePair) chooseObject.getSelectedItem();
-				if(vp!=null && !vp.getValue().equals(""))
-					index=Integer.parseInt(vp.getId());
-				
-				int dim_x=objectMeshes[index].getDeltaX2()-objectMeshes[index].getDeltaX();
-				int dim_y=objectMeshes[index].getDeltaY2()-objectMeshes[index].getDeltaY();
-				int dim_z=objectMeshes[index].getDeltaX();
-				
-				double rot_angle=rotation_angle.getvalue();
-				
-				addObject(x,y,z,dim_x,dim_y,dim_z,index,rot_angle);
-				break;
-			}	
-		}
-	
-	}
 	
 	private void addObject(double x, double y, double z, int dx, int dy, int dz,int index,double rot_angle) {
 
@@ -3760,7 +3732,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		} else if(OBJECT_MODE.equals(mode)){
 			
 			if(buttonNum==MouseEvent.BUTTON3)
-				addObject();
+				addObject(arg0);
 			else
 				selectObject(arg0.getX(),arg0.getY());
 		}
@@ -3768,9 +3740,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 
+
 	private void addPoint(MouseEvent arg0) {
 		
-		if(ACTIVE_PANEL==0)
+		if(ACTIVE_PANEL==TERRAIN_INDEX)
 			return;
 		
 		prepareUndo();
