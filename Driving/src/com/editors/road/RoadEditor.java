@@ -23,7 +23,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
@@ -35,7 +34,6 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Hashtable;
 import java.util.Stack;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -58,17 +56,13 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.RepaintManager;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 
 import com.BarycentricCoordinates;
 import com.CubicMesh;
@@ -77,7 +71,7 @@ import com.LineData;
 import com.Plain;
 import com.Point3D;
 import com.Point4D;
-import com.Polygon3D; 
+import com.Polygon3D;
 import com.PolygonMesh;
 import com.SquareMesh;
 import com.Texture;
@@ -98,9 +92,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private JPanel center;
 	int HEIGHT=680;
-	int WIDTH=700;
+	int WIDTH=900;
 	int LEFT_BORDER=240;
-	int RIGHT_BORDER=240;
 	int BOTTOM_BORDER=100;
 	int RIGHT_SKYP=10;
 
@@ -133,14 +126,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JCheckBox[] checkCoordinatesz;
 	private JButton[] changePoint;
 	private JButton[] mergeSelectedPoints;
-	private JTextField[] colorRoadChoice;
-	private JCheckBox[] checkRoadColor;
+
 	private JCheckBox[] checkMultiplePointsSelection;
 	private JButton[] changePolygon;
 	private JButton[] startBuildPolygon;
 	private JButton[] buildPolygon;
 	private JButton[] deleteSelection;
-	private JButton[] addPoint;
 	private JButton[] polygonDetail;
 	private JComboBox[] chooseTexture;
 	private JButton[] choosePanelTexture;
@@ -159,7 +150,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private JButton deselectAllObjects;
 	
-	private JButton addObject;
 	private JButton delObject;
 	private JMenu jm5;
 	private JMenuItem jmtPreview;
@@ -188,16 +178,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JMenuItem jmtUndoRoad;	
 	private JPanel left;
 	
-	private DoubleTextField objcoordinatesx;
-	private JCheckBox objcheckCoordinatesx;
-	private DoubleTextField objcoordinatesy;	
-	private JCheckBox objcheckCoordinatesy;
-	private DoubleTextField objcoordinatesz;
-	private JCheckBox objcheckCoordinatesz;
-	
 	private JButton changeObject;
-	private JTextField colorObjChoice;
-	private JCheckBox checkObjColor;
+
 
 	private DoubleTextField rotation_angle;
 	private Rectangle currentRect;
@@ -242,7 +224,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public int[] rgb=null;
 	public Color selectionColor=null;
 	private JMenuItem jmtExpandGrid;
-	private JButton put_object;
+
 	private JMenuItem jmtBuildCity;
 	private JMenuItem help_jmt;
 	
@@ -270,7 +252,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
 		setLocation(10,10);
-		setSize(WIDTH+RIGHT_BORDER+LEFT_BORDER+RIGHT_SKYP,HEIGHT+BOTTOM_BORDER);
+		setSize(WIDTH+LEFT_BORDER+RIGHT_SKYP,HEIGHT+BOTTOM_BORDER);
 		center=new JPanel(){
 			
 			public void paint(Graphics g) {
@@ -329,15 +311,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		checkCoordinatesz=new JCheckBox[numPanels];
 
 		changePoint=new JButton[numPanels];		
-		colorRoadChoice= new  JTextField[numPanels];
-		checkRoadColor= new JCheckBox[numPanels];
 		checkMultiplePointsSelection= new JCheckBox[numPanels];
 		mergeSelectedPoints=new JButton[numPanels];
 		changePolygon=new JButton[numPanels];	
 		startBuildPolygon=new JButton[numPanels];	
 		buildPolygon=new JButton[numPanels];	
 		deleteSelection=new JButton[numPanels];	
-		addPoint=new JButton[numPanels];	
 		polygonDetail=new JButton[numPanels];	
 		
 		chooseTexture=new JComboBox[numPanels];	
@@ -1639,11 +1618,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		buildFieldsArrays();
 
-		int upper_left_height=150;
+		int upper_left_height=120;
 		int middle_left_height=0;
 		int lower_left_height=500;
 		
-		int r=30;	
+		int r=10;	
 		
 		left=new JPanel();
 		left.setBounds(0,0,LEFT_BORDER,HEIGHT);
@@ -1736,49 +1715,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		checkMultipleObjectsSelection.addKeyListener(this);
 		object_panel.add(checkMultipleObjectsSelection);
 
-		r+=30;
-
-		JLabel lx=new JLabel("x:");
-		lx.setBounds(5,r,20,20);
-		object_panel.add(lx);
-		objcoordinatesx=new DoubleTextField(8);
-		objcoordinatesx.setBounds(30,r,120,20);
-		objcoordinatesx.addKeyListener(this);
-		object_panel.add(objcoordinatesx);
-		objcheckCoordinatesx=new JCheckBox();
-		objcheckCoordinatesx.setBounds(170,r,50,20);
-		objcheckCoordinatesx.addKeyListener(this);
-		object_panel.add(objcheckCoordinatesx);
-
-		r+=30;
-
-		JLabel ly=new JLabel("y:");
-		ly.setBounds(5,r,20,20);
-		object_panel.add(ly);
-		objcoordinatesy=new DoubleTextField(8);
-		objcoordinatesy.setBounds(30,r,120,20);
-		objcoordinatesy.addKeyListener(this);
-		object_panel.add(objcoordinatesy);
-		objcheckCoordinatesy=new JCheckBox();
-		objcheckCoordinatesy.setBounds(170,r,50,20);
-		objcheckCoordinatesy.addKeyListener(this);
-		object_panel.add(objcheckCoordinatesy);
-
-		r+=30;
-
-		JLabel lz=new JLabel("z:");
-		lz.setBounds(5,r,20,20);
-		object_panel.add(lz);
-		objcoordinatesz=new DoubleTextField(8);
-		objcoordinatesz.setBounds(30,r,120,20);
-		objcoordinatesz.addKeyListener(this);
-		object_panel.add(objcoordinatesz);
-		objcheckCoordinatesz=new JCheckBox();
-		objcheckCoordinatesz.setBounds(170,r,50,20);
-		objcheckCoordinatesz.addKeyListener(this);
-		object_panel.add(objcheckCoordinatesz);
-
-
+	
 		r+=30;
 
 		chooseObject=new JComboBox();
@@ -1824,39 +1761,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		r+=30;
 
-		colorObjChoice=new JTextField();
-		colorObjChoice.setBounds(30,r,150,20);
-		colorObjChoice.addKeyListener(this);
-		colorObjChoice.setToolTipText("Opt. background color");
-		object_panel.add(colorObjChoice);
-		JButton cho = new JButton(">");
-		cho.setBorder(new LineBorder(Color.gray,1));
-		cho.addActionListener(
-				new ActionListener(){
 
-					public void actionPerformed(ActionEvent e) {
-						Color tcc = JColorChooser.showDialog(null,"Choose color",null);
-						if(tcc!=null) {
-							colorObjChoice.setBackground(tcc);
-						}
-
-					}
-
-
-				}
-				);
-		cho.addKeyListener(this);
-		cho.setBounds(5,r,20,20);
-		object_panel.add(cho);
-		checkObjColor=new JCheckBox();
-		checkObjColor.setBounds(200,r,50,20);
-		checkObjColor.addKeyListener(this);
-		checkObjColor.setOpaque(false);
-		object_panel.add(checkObjColor);
-
-		r+=30;
-
-		lz=new JLabel("Rotation angle:");
+		JLabel lz=new JLabel("Rotation angle:");
 		lz.setBounds(5,r,90,20);
 		object_panel.add(lz);
 		rotation_angle=new DoubleTextField(8);
@@ -1871,14 +1777,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		changeObject.setFocusable(false);
 		changeObject.setBounds(5,r,150,20);
 		object_panel.add(changeObject);
-
-		r+=30;
-
-		addObject=new JButton(header+"<u>I</u>nsert object"+footer);
-		addObject.addActionListener(this);
-		addObject.setFocusable(false);
-		addObject.setBounds(5,r,150,20);
-		object_panel.add(addObject);
 
 		r+=30;
 
@@ -1898,13 +1796,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		r+=30;
 
-		put_object=new JButton("Put in cell");
-		put_object.setBounds(5,r,100,20);
-		put_object.addActionListener(this);
-		put_object.addKeyListener(this);
-		object_panel.add(put_object);
-
-		r+=30;
 
 		return object_panel;
 	}
@@ -1914,7 +1805,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		JPanel panel=new JPanel();
 
-		panel.setBounds(WIDTH+LEFT_BORDER,0,RIGHT_BORDER,HEIGHT);
 		panel.setLayout(null);
 		
 		Border leftBorder=BorderFactory.createTitledBorder(panelsTitles[index]);
@@ -2011,55 +1901,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		chooseNextTexture[index].addActionListener(this);
 		chooseNextTexture[index].addKeyListener(this);
 		panel.add(chooseNextTexture[index]);
-		
-	
-		
-		r+=30;
-
-		colorRoadChoice[index]=new JTextField();
-		colorRoadChoice[index].setBounds(30,r,120,20);
-		colorRoadChoice[index].addKeyListener(this);
-		colorRoadChoice[index].setToolTipText("Opt. background color");
-		panel.add(colorRoadChoice[index]);
-		
-		final JTextField crc=colorRoadChoice[index];
-		
-		JButton cho = new JButton(">");
-		cho.setBorder(new LineBorder(Color.gray,1));
-		cho.addActionListener(
-				new ActionListener(){
-
-					public void actionPerformed(ActionEvent e) {
-						Color tcc = JColorChooser.showDialog(null,"Choose color",null);
-						if(tcc!=null) {
-							crc.setBackground(tcc);
-						}
-
-					}
-
-
-				}
-		);
-		cho.addKeyListener(this);
-		cho.setBounds(5,r,20,20);
-		panel.add(cho);
-		checkRoadColor[index]=new JCheckBox();
-		checkRoadColor[index].setBounds(180,r,30,20);
-		checkRoadColor[index].addKeyListener(this);
-		checkRoadColor[index].setOpaque(false);
-		panel.add(checkRoadColor[index]);
-		
-		if(index==1){
-
-			r+=30;
-	
-			addPoint[index]=new JButton(header+"Insert point"+footer);
-			addPoint[index].addActionListener(this);
-			addPoint[index].setFocusable(false);
-			addPoint[index].setBounds(5,r,150,20);
-			panel.add(addPoint[index]);
-
-		}
 		
 		r+=30;
 
@@ -2262,7 +2103,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void buildBottomPanel() {
 		bottom=new JPanel();
-		bottom.setBounds(0,HEIGHT,LEFT_BORDER+WIDTH+RIGHT_BORDER,BOTTOM_BORDER);
+		bottom.setBounds(0,HEIGHT,LEFT_BORDER+WIDTH,BOTTOM_BORDER);
 		bottom.setLayout(null);
 		JLabel lscreenpoint = new JLabel();
 		lscreenpoint.setText("Position x,y: ");
@@ -2336,10 +2177,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 			if(!dro.isSelected())
 				continue;
-
-			(dro).setX(objcoordinatesx.getvalue());
-			(dro).setY(objcoordinatesy.getvalue());
-			(dro).setZ(objcoordinatesz.getvalue());
 			
 			ValuePair vp=(ValuePair) chooseObject.getSelectedItem();
 			if(vp!=null && !vp.getValue().equals("")){
@@ -2355,7 +2192,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				     dro.setDz(cm.getDeltaX());
 				 }
 			}	 
-			dro.setHexColor(ZBuffer.fromColorToHex(colorObjChoice.getBackground()));
+
 			dro.setRotation_angle(rotation_angle.getvalue());
 			
 			//dro.setSelected(false);
@@ -2406,12 +2243,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void setObjectData(DrawObject dro) { 
 		
-		if(!objcheckCoordinatesx.isSelected())
-			objcoordinatesx.setText(""+dro.x);
-		if(!objcheckCoordinatesy.isSelected())
-			objcoordinatesy.setText(""+dro.y);
-		if(!objcheckCoordinatesz.isSelected())
-			objcoordinatesz.setText(""+dro.z);
+
 
 		for(int k=0;k<chooseObject.getItemCount();k++){
 
@@ -2419,7 +2251,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			if(vp.getId().equals(""+dro.index) )
 				chooseObject.setSelectedItem(vp);
 		}
-		colorObjChoice.setBackground(ZBuffer.fromHexToColor(dro.hexColor));
+
 		rotation_angle.setText(dro.rotation_angle);
 		
 	}
@@ -2443,8 +2275,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 						p.y=Double.parseDouble(coordinatesy[ACTIVE_PANEL].getText());
 					if(!"".equals(coordinatesz[ACTIVE_PANEL].getText()))
 						p.z=Double.parseDouble(coordinatesz[ACTIVE_PANEL].getText());
-
-					p.setHexColor(ZBuffer.fromColorToHex(colorRoadChoice[ACTIVE_PANEL].getBackground()));
 
 					ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getSelectedItem();
 					if(!vp.getId().equals(""))
@@ -2484,8 +2314,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					ld.setTexture_index(Integer.parseInt(vp.getId()));
 				
 		    	}
-		    	ld.setHexColor(ZBuffer.fromColorToHex(colorRoadChoice[ACTIVE_PANEL].getBackground()));
-		    	
+		      	
 		    	ld.setSelected(false);
 		    	
 		    }
@@ -2722,10 +2551,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 	private void addObject() {
-	
-		double x=objcoordinatesx.getvalue();
-		double y=objcoordinatesy.getvalue();
-		double z=objcoordinatesz.getvalue();
 		
 		
 		int index=0;
@@ -2741,7 +2566,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		cleanObjects();
 		
-		addObject(x,y,z,dim_x,dim_y,dim_z,index,rot_angle);
+		//addObject(x,y,z,dim_x,dim_y,dim_z,index,rot_angle);
 
 	}
 
@@ -2801,14 +2626,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		dro.setHexColor("FFFFFF");
 		dro.setRotation_angle(rot_angle);
 
-
-		if(!"".equals(objcoordinatesx.getText()))
-			dro.x=Double.parseDouble(objcoordinatesx.getText());
-		if(!"".equals(objcoordinatesy.getText()))
-			dro.y=Double.parseDouble(objcoordinatesy.getText());
-		if(!"".equals(objcoordinatesz.getText()))
-			dro.z=Double.parseDouble(objcoordinatesz.getText());
-
 		ValuePair vp=(ValuePair) chooseObject.getSelectedItem();
 		if(vp!=null && !vp.getValue().equals("")){
 			
@@ -2823,7 +2640,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			CubicMesh mesh=objectMeshes[dro.index].clone();
 			dro.setMesh(mesh);
 		}
-		dro.setHexColor(ZBuffer.fromColorToHex(colorObjChoice.getBackground()));
+
 		dro.setRotation_angle(rot_angle);
 		drawObjects.add(dro);
 
@@ -3146,10 +2963,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		else if(obj==jmtAddBendMesh){
 			addBendMesh();
 		}
-		else if(obj==addPoint[ACTIVE_PANEL]){
-			addPoint();
-			displayAll();
-		}
 		else if(obj==mergeSelectedPoints[ACTIVE_PANEL]){			
 			
 			mergeSelectedPoints();
@@ -3183,10 +2996,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		else if(obj==deselectAll[ACTIVE_PANEL]){
 			deselectAll();
 		}
-		else if(obj==addObject){
-			addObject();
-			displayAll();
-		}
 		else if(obj==delObject){
 			deleteObject();
 			displayAll();
@@ -3197,9 +3006,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		else if(obj==deselectAllObjects){
 			cleanObjects();
-		}
-		else if(obj==put_object){
-			putObjectInCell();
 		}
 		else if(obj==choosePanelTexture[ACTIVE_PANEL]){
 			
@@ -4149,9 +3955,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 						chooseTexture[ACTIVE_PANEL].setSelectedItem(vp);
 				}
 				
-				if(ld.hexColor!=null)
-					colorRoadChoice[ACTIVE_PANEL].setBackground(ZBuffer.fromHexToColor(ld.hexColor));
-		    	
+	    	
 		    	ld.setSelected(true);
 		    	
 		    }
@@ -4222,13 +4026,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	public void cleanObjects(){
 		
-		if(!objcheckCoordinatesx.isSelected())	objcoordinatesx.setText("");
-		if(!objcheckCoordinatesy.isSelected())objcoordinatesy.setText("");
-		if(!objcheckCoordinatesz.isSelected())objcoordinatesz.setText("");
-		
-		
-		if(!checkObjColor.isSelected())checkObjColor.setBackground(ZBuffer.fromHexToColor("FFFFFF"));
-		
+	
 		rotation_angle.setText(0);
 		
 		deselectAllObjects();
@@ -4241,7 +4039,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		if(!checkCoordinatesy[ACTIVE_PANEL].isSelected())coordinatesy[ACTIVE_PANEL].setText("");
 		if(!checkCoordinatesz[ACTIVE_PANEL].isSelected())coordinatesz[ACTIVE_PANEL].setText("");
 		
-		if(!checkRoadColor[ACTIVE_PANEL].isSelected())checkRoadColor[ACTIVE_PANEL].setBackground(ZBuffer.fromHexToColor("FFFFFF"));
 	}
 	
 	public void mouseEntered(MouseEvent arg0) {
@@ -4363,11 +4160,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		else if(code==KeyEvent.VK_B  )
 		{	
 			changeSelectedObject();
-			displayAll();
-		}
-		else if(code==KeyEvent.VK_I  )
-		{ 
-			addObject();
 			displayAll();
 		}
 		else if(code==KeyEvent.VK_L  )

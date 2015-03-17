@@ -1,5 +1,5 @@
 	**********************
-	*  READ ME CARDRIVING VERSION   8.1.1
+	*  READ ME CARDRIVING VERSION   8.1.2
 	*
 	*  by Piazza Francesco Giovanni 
 	*  Tecnes Milano ,Italy http://www.tecnes.com ; Tel.: +39.02.67101036
@@ -248,8 +248,7 @@
 	
 	ROAD EDITOR
 
-    Road and objects are loaded and saved separately in the load and save menu.
-   
+    
     The game uses for the maps the files in the lib directory with the name type: 
     landscape_<MAPNAME>
     
@@ -264,8 +263,11 @@
     
     Select tiles with left mouse button in the area, select object by clicking in the inner area.
    
-    Select object and road part, then to modify them type new coordinates and press 
-    "Change Point".
+    Select object and road part using left mouse button.
+    Insert objects and road points with right mouse button.
+    
+    Move objects with the arrows panel.
+
     You can also keep the mouse pressed and select a rectangular region o points/objects.
    
     To select a road polygon press in his inner space with the left mouse button.After selecting 
@@ -275,7 +277,6 @@
 
         a: add new row
         d: delete last row
-        i: insert object
         b: change selected object 
         p: change selected point
         y: change selected polygon

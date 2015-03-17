@@ -1,4 +1,6 @@
-First step in a deep re-thinking of the RoadEditor
+First step in a deep re-thinking of the RoadEditor.
+
+See README.txt.
 
 An improved GameLoader.
 
