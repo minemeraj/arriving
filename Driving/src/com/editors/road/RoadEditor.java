@@ -166,12 +166,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton choosePrevObject;
 	private JButton chooseNextObject;
 	private JCheckBox checkMultipleObjectsSelection;
-
-	boolean isUseTextures=true;
-
-	
-	private JMenu jm3;
-	private JCheckBoxMenuItem jmtIsUSeTextures;
 	
 	private JMenu jm4;
 	private JMenuItem jmtUndoObjects;
@@ -401,42 +395,33 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			worldImages=new BufferedImage[vRoadTextures.size()];
 			worldTextures=new Texture[vRoadTextures.size()];
-			
-			
-			if(isUseTextures){
-				
-				
-				for(int i=0;i<vRoadTextures.size();i++){
-					
-					worldImages[i]=ImageIO.read(new File("lib/road_texture_"+i+".jpg"));
-					
-					for (int j = 0; j < numPanels; j++) {
-						chooseTexture[j].addItem(new ValuePair(""+i,""+i));
-					}
-				
-					
-					
-					
+
+
+
+
+
+			for(int i=0;i<vRoadTextures.size();i++){
+
+				worldImages[i]=ImageIO.read(new File("lib/road_texture_"+i+".jpg"));
+
+				for (int j = 0; j < numPanels; j++) {
+					chooseTexture[j].addItem(new ValuePair(""+i,""+i));
 				}
 
-				
-				if(isUseTextures){
-					
-					
-					for(int i=0;i<vRoadTextures.size();i++){
-						
-						worldTextures[i]=new Texture(ImageIO.read(new File("lib/road_texture_"+i+".jpg")));
-					}
-					
-				
-					
-			
-					
-				}
 
-				
+
+
 			}
-			
+
+
+
+			for(int i=0;i<vRoadTextures.size();i++){
+
+				worldTextures[i]=new Texture(ImageIO.read(new File("lib/road_texture_"+i+".jpg")));
+			}
+
+
+
 		
 			
 			objectImages=new BufferedImage[vObjects.size()];
@@ -1025,9 +1010,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			cxr[i]=(int)(p.x);
 			cyr[i]=(int)(p.y);
 			czr[i]=(int)p.z;
-			
+
 			if(indx==1){
-				
+
 				cz[i]+=Road.ROAD_THICKNESS;
 				czr[i]+=Road.ROAD_THICKNESS;
 			}
@@ -1046,29 +1031,24 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		//calculate texture angle
 
 
-		if(isUseTextures){
 
-			
 
-			int index=ld.getTexture_index();//????
-			Color selected=null;
-			
-			if(ld.isSelected()){
-				
-				if(indx<0 || indx==ACTIVE_PANEL){
-					selected=selectionColor;
-				}
+
+
+		int index=ld.getTexture_index();//????
+		Color selected=null;
+
+		if(ld.isSelected()){
+
+			if(indx<0 || indx==ACTIVE_PANEL){
+				selected=selectionColor;
 			}
-			
+		}
 
 
-			drawTexture(worldTextures[index],p3d,p3dr,landscapeZbuffer,selected);
-			
-		}
-		else{
-			/*bufGraphics.setColor(ZBuffer.fromHexToColor(ld.getHexColor()));
-			bufGraphics.fill(partialArea); */
-		}
+
+		drawTexture(worldTextures[index],p3d,p3dr,landscapeZbuffer,selected);
+
 
 
 	}
@@ -1519,16 +1499,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		jmt_save_landscape.addActionListener(this);
 		jm_file.add(jmt_save_landscape);
 
-
-		jm3=new JMenu("Textures");
-		jm3.addMenuListener(this);
-
-		jmtIsUSeTextures = new JCheckBoxMenuItem("Use textures");
-		jmtIsUSeTextures.setState(true);
-		jmtIsUSeTextures.addActionListener(this);
-		jm3.add(jmtIsUSeTextures);
-
-		jmb.add(jm3);
 
 		jm4=new JMenu("Change");
 		jm4.addMenuListener(this);
@@ -2908,13 +2878,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				saveLandscape();
 
 		}		
-		else if(obj==jmtIsUSeTextures){
-
-			isUseTextures=jmtIsUSeTextures.isSelected();
-			displayAll();
-			
-
-		}
 		else if(obj==jmtUndoObjects){
 			undoObjects();
 		}
