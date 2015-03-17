@@ -3839,6 +3839,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void selectPoint(int x, int y) {
 		
+		deselectAllObjects();
+		
 		boolean found=false;
 		
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
@@ -3922,49 +3924,51 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	
 	private void selectObject(int x, int y) {
-		
-		//select object
 
-				for(int i=0;i<drawObjects.size();i++){
+		deselectAllPoints();
+		deselectAllLines();
 
-					DrawObject dro=(DrawObject) drawObjects.elementAt(i);
-					if(!checkMultipleObjectsSelection.isSelected())
-						dro.setSelected(false);
-					
-					
-					int[] cx=new int[4];
-					int[] cy=new int[4];
-					
-					int versus=1;
-					if(!DrawObject.IS_3D)
-						versus=-1;
+		for(int i=0;i<drawObjects.size();i++){
 
-					cx[0]=convertX(dro.x);
-					cy[0]=convertY(dro.y);
-					cx[1]=convertX(dro.x);
-					cy[1]=convertY(dro.y+versus*dro.dy);
-					cx[2]=convertX(dro.x+dro.dx);
-					cy[2]=convertY(dro.y+versus*dro.dy);
-					cx[3]=convertX(dro.x+dro.dx);
-					cy[3]=convertY(dro.y);
+			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
+			if(!checkMultipleObjectsSelection.isSelected())
+				dro.setSelected(false);
 
-					Polygon p_in=new Polygon(cx,cy,4);			
-					Point3D center=Polygon3D.findCentroid(p_in);
-					Polygon3D.rotate(p_in,center,dro.rotation_angle);
-					
-					if(p_in.contains(x,y))
-					{
-						dro.setSelected(true);
-						setObjectData(dro);
-						
+
+			int[] cx=new int[4];
+			int[] cy=new int[4];
+
+			int versus=1;
+			if(!DrawObject.IS_3D)
+				versus=-1;
+
+			cx[0]=convertX(dro.x);
+			cy[0]=convertY(dro.y);
+			cx[1]=convertX(dro.x);
+			cy[1]=convertY(dro.y+versus*dro.dy);
+			cx[2]=convertX(dro.x+dro.dx);
+			cy[2]=convertY(dro.y+versus*dro.dy);
+			cx[3]=convertX(dro.x+dro.dx);
+			cy[3]=convertY(dro.y);
+
+			Polygon p_in=new Polygon(cx,cy,4);			
+			Point3D center=Polygon3D.findCentroid(p_in);
+			Polygon3D.rotate(p_in,center,dro.rotation_angle);
+
+			if(p_in.contains(x,y))
+			{
+				dro.setSelected(true);
+				setObjectData(dro);
+
+
 			
-						if(!checkMultipleObjectsSelection.isSelected()){
-							break;
-						}	
-					}
+			}else if(!checkMultipleObjectsSelection.isSelected()){
+				
+				dro.setSelected(false);
+			}
 
-				}
-		
+		}
+
 	}
 	
 	
