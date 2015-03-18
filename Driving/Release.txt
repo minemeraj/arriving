@@ -1,5 +1,7 @@
 First step in a deep re-thinking of the RoadEditor.
 
+Drawing the objects in the Preview.
+
 See README.txt.
 
 An improved GameLoader.

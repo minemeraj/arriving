@@ -71,8 +71,6 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 	int CAR_Y=150;
 	int CAR_WIDTH=90;
 	int CAR_HEIGHT=90;
-	
-	JButton resetCar=null;
 
 	
 	public static Texture background=null;
@@ -152,10 +150,6 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 	
 	 
 	 bottom=new JPanel();
-	 resetCar= new JButton("Reset car");
-	 resetCar.addActionListener(this);
-	 resetCar.addKeyListener(this);
-	 bottom.add(resetCar);
 	 bottom.setBounds(0,UPBORDER+HEIGHT,LEFTBORDER+WIDTH+RIGHTBORDER,BUTTOMBORDER);
 	 add(bottom);
 	 setSize(LEFTBORDER+WIDTH+RIGHTBORDER,UPBORDER+HEIGHT+BUTTOMBORDER);
@@ -648,8 +642,6 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 
 	public void actionPerformed(ActionEvent arg0) {
 		Object o=arg0.getSource();
-		if(o==resetCar)
-			reset();
 		
 	}
 

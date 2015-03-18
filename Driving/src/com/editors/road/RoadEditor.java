@@ -106,7 +106,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	int deltay=200;
 	int deltax=200;
 
-	Vector drawObjects=new Vector();
+	public Vector drawObjects=new Vector();
 	Graphics2D g2;
 	Graphics2D g2Alias;
 	Stack oldObjects=new Stack();

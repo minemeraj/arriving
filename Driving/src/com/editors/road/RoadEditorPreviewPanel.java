@@ -1,17 +1,22 @@
 package com.editors.road;
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.lang.ProcessBuilder.Redirect;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
 
+import com.CubicMesh;
+import com.DrawObject;
 import com.LineData;
 import com.LineDataVertex;
 import com.Point3D;
@@ -21,6 +26,8 @@ import com.PolygonMesh;
 import com.Texture;
 import com.ZBuffer;
 import com.editors.EditorPreviewPanel;
+import com.main.CarFrame;
+import com.main.Renderer3D;
 import com.main.Road;
 
 
@@ -41,6 +48,9 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 	public static final int NUM_WORLD_TEXTURES = 12;
 	public static Texture[] worldTextures;	
 	
+	public static CubicMesh[] object3D=null;
+	public static Texture[] objectTextures=null;
+	
 	public int NX=2;
 	public int NY=80;
 	
@@ -50,6 +60,11 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 	public int MOVZ=0;
 	
 	public PolygonMesh[] meshes=new PolygonMesh[2];
+	Vector drawObjects=null;
+	
+	public double viewDirection=0;	
+	public double viewDirectionCos=1.0;
+	public double viewDirectionSin=0.0;	
 	
 	
 	public RoadEditorPreviewPanel( RoadEditor roadEditor) {
@@ -57,7 +72,8 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 		super();
 		this.roadEditor=roadEditor;
 	
-		this.meshes=roadEditor.meshes;
+		this.meshes=roadEditor.meshes;		
+		this.drawObjects=roadEditor.drawObjects;
 			
 		this.roadEditor=roadEditor;
 		roadEditor.addPropertyChangeListener(this);
@@ -68,48 +84,50 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 		initialize();
 	}
 	
-	
+
 	public void initialize() {
 
 		super.initialize();
 
 		deltax=4;
 		deltay=4;
-		
+
 		POSX=0;
 		POSY=1000;
 
 		try {
 
+
+			worldTextures=RoadEditor.worldTextures;
+
 			File directoryImg=new File("lib");
 			File[] files=directoryImg.listFiles();
 
-			Vector vRoadTextures=new Vector();
+			Vector v3DObjects=new Vector();
 
 			for(int i=0;i<files.length;i++){
-				if(files[i].getName().startsWith("road_texture_")){
+				if(files[i].getName().startsWith("object3D_")
+						&& 	!files[i].getName().startsWith("object3D_texture")	
+						){
 
-					vRoadTextures.add(files[i]);
+					v3DObjects.add(files[i]);
 
 				}		
 			}
 
-			worldTextures=new Texture[vRoadTextures.size()];
-
-
-			if(isUseTextures){
-
-
-				for(int i=0;i<vRoadTextures.size();i++){
-
-					worldTextures[i]=new Texture(ImageIO.read(new File("lib/road_texture_"+i+".jpg")));
-				}
+			object3D=new CubicMesh[v3DObjects.size()];
+			objectTextures=new Texture[v3DObjects.size()];
 
 
 
+			for(int i=0;i<v3DObjects.size();i++){
 
+				object3D[i]=CubicMesh.loadMeshFromFile(new File("lib/object3D_"+i));
+				if(isUseTextures)
+					objectTextures[i]=new Texture(ImageIO.read(new File("lib/object3D_texture_"+i+".jpg")));
 
 			}
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -169,36 +187,248 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 			}
 		
 		}
+		
+		drawObjects(drawObjects,null,roadZbuffer);
 
 		buildScreen(buf); 
 	}
-	
-	public void keyPressed(KeyEvent arg0) {
-		
-		super.keyPressed(arg0);
-		
-		int code =arg0.getKeyCode();
 
+	
+	public void drawObjects(Vector drawObjects,Area totalVisibleField,ZBuffer zbuffer){
+
+
+        Rectangle rect = null;//totalVisibleField.getBounds();
+		for(int i=0;i<drawObjects.size();i++){
+
+			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
+     		drawPolygonMesh(dro, rect, zbuffer);
+		}		
+
+	}
+	
+	
+	private void drawPolygonMesh(DrawObject dro,Rectangle rect,ZBuffer zbuffer) {
+		
+		//if(!totalVisibleField.contains(dro.x-POSX,VIEW_DIRECTION*(dro.y-POSY)))
+	
+		//if(rect.y+rect.height<dro.y-POSY)
+		//	return;
+		
+		PolygonMesh mesh = dro.getMesh();
+	    
+		decomposeCubicMesh((CubicMesh) mesh,objectTextures[dro.getIndex()],zbuffer);
+		
+	}
+	
+	public void decomposeCubicMesh(CubicMesh cm, Texture texture,ZBuffer zBuffer){
+		
+		
+		
+		Point3D point000=buildTransformedPoint(cm.point000);				
+
+		Point3D point011=buildTransformedPoint(cm.point011);
+
+		Point3D point001=buildTransformedPoint(cm.point001);
+			
+		Point3D xVersor=buildTransformedVersor(cm.getXAxis());
+		Point3D yVersor=buildTransformedVersor(cm.getYAxis());
+		
+		Point3D zVersor=buildTransformedVersor(cm.getZAxis());
+		Point3D zMinusVersor=new Point3D(-zVersor.x,-zVersor.y,-zVersor.z);
+
+
+		
+		int polSize=cm.polygonData.size();	
+		for(int i=0;i<polSize;i++){
+
+
+
+			int due=(int)(255-i%15);			
+			Color col=new Color(due,0,0);
+
+			LineData ld=cm.polygonData.elementAt(i);
+			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld);
+			polRotate.setShadowCosin(ld.getShadowCosin());
+
+
+			int face=cm.boxFaces[i];
+
+			buildTransformedPolygon(polRotate);
+
+			decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,point000,point011,point001,face,col,texture,zBuffer);
+
+
+
+		}
+
+
+}
+
+
+	public void decomposeCubiMeshPolygon(
+			
+			Polygon3D polRotate, 
+			Point3D xVersor, 
+			Point3D yVersor, 
+			Point3D zVersor, 
+			Point3D zMinusVersor,
+			CubicMesh cm, 
+			Point3D point000, 
+			Point3D point011, 
+			Point3D point001,
+			int face, 
+			Color col, 
+			Texture texture, 
+			ZBuffer zBuffer
+			){
+		
+			Point3D xDirection=null;
+			Point3D yDirection=null;
+			
+			Point3D rotateOrigin=point000;
+			
+			int deltaWidth=0;
+			int deltaHeight=cm.getDeltaY();
+			
+			int deltaTexture=0;
+			
+		
+			
+		 	if(face==Renderer3D.CAR_BOTTOM){
+		 		deltaWidth=cm.getDeltaX()+cm.getDeltaX2();
+			 	xDirection=xVersor;
+			 	yDirection=yVersor;
+		 	} 
+			if(face==Renderer3D.CAR_FRONT  ){
+		
+				
+				 deltaWidth=cm.getDeltaX();
+				 deltaHeight=cm.getDeltaY2();
+				 xDirection=xVersor;
+				 yDirection=zMinusVersor;
+				 
+				 rotateOrigin=point011;
+		
+		
+			}
+			else if(face==Renderer3D.CAR_BACK){
+				 deltaWidth=cm.getDeltaX();
+				 deltaHeight=0;
+				 xDirection=xVersor;
+				 yDirection=zVersor;
+		
+		
+			}
+			else if(face==Renderer3D.CAR_TOP){
+				 deltaWidth=cm.getDeltaX();
+				 xDirection=xVersor;
+				 yDirection=yVersor;
+		
+		
+			}
+			else if(face==Renderer3D.CAR_LEFT) {
+				
+				xDirection=zVersor;
+				yDirection=yVersor;
+		
+			}
+			else if(face==Renderer3D.CAR_RIGHT) {
+				
+				xDirection=zMinusVersor;
+				yDirection=yVersor;
+		
+				deltaWidth=cm.getDeltaX2();
+				rotateOrigin=point001;
+			}
+			
+			
+			
+			decomposeClippedPolygonIntoZBuffer(polRotate,col,texture,zBuffer,xDirection,yDirection,rotateOrigin,deltaTexture+deltaWidth,deltaHeight);
+	}
+
+
+	public Point3D buildTransformedPoint(Point3D point) {
+	
+		Point3D newPoint=new Point3D();
+	
+	
+	
+		double x=point.x-POSX;
+		double y=point.y-POSY;
+	
+		newPoint.x=(int) (viewDirectionCos*x+viewDirectionSin*y);
+		newPoint.y=(int) (viewDirectionCos*y-viewDirectionSin*x);	
+		newPoint.z=point.z+MOVZ;
+	
+		return newPoint;
+	}
+
+	public Point3D buildTransformedVersor(Point3D point) {
+
+		Point3D newPoint=new Point3D();
+
+	
+			
+		double x=point.x;
+		double y=point.y;
+		double z=point.z;
+			
+		newPoint.x= (viewDirectionCos*x+viewDirectionSin*y);
+		newPoint.y= (viewDirectionCos*y-viewDirectionSin*x);	
+		newPoint.z=z;
+
+		return newPoint;
+	}
+
+	public void buildTransformedPolygon(Polygon3D base) {
+	
+	
+	
+		for(int i=0;i<base.npoints;i++){
+	
+	
+			double x=base.xpoints[i]-POSX;
+			double y=base.ypoints[i]-POSY;
+	
+			base.xpoints[i]=(int) (viewDirectionCos*x+viewDirectionSin*y);
+			base.ypoints[i]=(int) (viewDirectionCos*y-viewDirectionSin*x);	
+	
+			//base.xpoints[i]=(int) (viewDirectionCos*(x-observerPoint.x)+viewDirectionSin*(y-observerPoint.y)+observerPoint.x);
+			//base.ypoints[i]=(int) (viewDirectionCos*(y-observerPoint.y)-viewDirectionSin*(x-observerPoint.x)+observerPoint.y);	
+	
+			base.zpoints[i]=base.zpoints[i]+MOVZ;
+	
+		}
+	
+	
+	}
+
+	public void keyPressed(KeyEvent arg0) {
+	
+		super.keyPressed(arg0);
+	
+		int code =arg0.getKeyCode();
+	
 		if(code==KeyEvent.VK_LEFT  )
 		{ 
 			POSX-=2*deltax;
 			draw();
-		}
-		else if(code==KeyEvent.VK_RIGHT  )
-		{ 
-			POSX+=2*deltax;
-			draw();
-		}
-		else if(code==KeyEvent.VK_UP  )
-		{ 
-			POSY+=2*deltax;
-			draw();
-		}
-		else if(code==KeyEvent.VK_DOWN  )
-		{ 
-			POSY-=2*deltax;
-			draw();
-		}
+			}
+			else if(code==KeyEvent.VK_RIGHT  )
+			{ 
+				POSX+=2*deltax;
+				draw();
+			}
+			else if(code==KeyEvent.VK_UP  )
+			{ 
+				POSY+=2*deltax;
+				draw();
+			}
+			else if(code==KeyEvent.VK_DOWN  )
+			{ 
+				POSY-=2*deltax;
+				draw();
+			}
 	}
 	
 
@@ -288,5 +518,6 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 		y0-=5;
 		
 	}
+
 
 }
