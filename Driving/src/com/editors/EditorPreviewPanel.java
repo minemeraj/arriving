@@ -10,6 +10,7 @@ import java.beans.PropertyChangeListener;
 import java.util.Vector;
 
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -79,6 +80,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 	
 	public EditorPreviewPanel(){
 		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Preview 3D");
 		setLayout(null);
 		

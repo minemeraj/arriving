@@ -393,9 +393,6 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 			base.xpoints[i]=(int) (viewDirectionCos*x+viewDirectionSin*y);
 			base.ypoints[i]=(int) (viewDirectionCos*y-viewDirectionSin*x);	
 	
-			//base.xpoints[i]=(int) (viewDirectionCos*(x-observerPoint.x)+viewDirectionSin*(y-observerPoint.y)+observerPoint.x);
-			//base.ypoints[i]=(int) (viewDirectionCos*(y-observerPoint.y)-viewDirectionSin*(x-observerPoint.x)+observerPoint.y);	
-	
 			base.zpoints[i]=base.zpoints[i]+MOVZ;
 	
 		}
