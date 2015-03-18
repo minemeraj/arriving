@@ -79,6 +79,7 @@ import com.ZBuffer;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.ValuePair;
+import com.main.CarFrame;
 import com.main.HelpPanel;
 import com.main.Road;
 
@@ -2809,11 +2810,21 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				
 				DrawObject dro=buildDrawObject(str);
 				drawObjects.add(dro);
+				
+				//buildRectanglePolygons(dro.getPolygons(),dro.x,dro.y,dro.z,dro.dx,dro.dy,dro.dz);
 
-				if(DrawObject.IS_3D){
-					CubicMesh mesh=objectMeshes[dro.getIndex()].clone();
-					dro.setMesh(mesh);
-				}
+				
+				CubicMesh cm=objectMeshes[dro.getIndex()].clone();
+				Point3D point = cm.point000;
+				
+				
+				double dx=-point.x+dro.x;
+				double dy=-point.y+dro.y;
+				double dz=-point.z+dro.z;
+				
+				cm.translate(dx,dy,dz);
+				dro.setMesh(cm);
+				
 			}
 
 			br.close();
@@ -2822,7 +2833,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			e.printStackTrace();
 		}
 	}
-
+	
+	
 
 
 	private DrawObject buildDrawObject(String str) {
