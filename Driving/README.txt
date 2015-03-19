@@ -1,5 +1,5 @@
 	**********************
-	*  READ ME CARDRIVING VERSION   8.1.2
+	*  READ ME CARDRIVING VERSION   8.1.3
 	*
 	*  by Piazza Francesco Giovanni 
 	*  Tecnes Milano ,Italy http://www.tecnes.com ; Tel.: +39.02.67101036
@@ -41,6 +41,10 @@
 	* to launch the object iperview editor use the command:
 	*
 	* java -classpath Driving.jar    com.editors.iperview.IperviewEditor
+	
+	* to launch the autocar editor use the command:
+	*
+	* java -classpath Driving2D.jar    com.editors.autocars.AutocarEditor
 	*
 	*
 	***** To launch custom editors:
@@ -354,7 +358,19 @@
     
     Choose the menu View->Preview to see a 3D grey scale preview of the object.
     
-    
+    -----AUTOCARS FORMAT:
+	
+	ROAD_0=x0,y0,z0_x1,y1,z1_...
+	ROAD_1=
+	...
+	DATA_0=car_type
+	INIT_0=center_x,center_y,u,nu,fi,steering,autoline_index (all double, except the last one)
+		
+	DATA_1=...
+	
+	center_x,center_y: initail position of the auotcar center, better if very near
+	to the road line
+	
     --- EXPERIMENTAL EDITOR:
     
     IPERVIEW EDITOR

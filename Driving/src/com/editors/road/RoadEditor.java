@@ -2837,7 +2837,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 
 
-	private DrawObject buildDrawObject(String str) {
+	public static DrawObject buildDrawObject(String str) {
 		DrawObject dro=new DrawObject();
 		
 		String properties0=str.substring(0,str.indexOf("["));

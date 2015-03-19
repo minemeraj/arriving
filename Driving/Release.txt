@@ -2,6 +2,7 @@ First step in a deep re-thinking of the RoadEditor.
 
 Drawing the objects in the Preview.
 
+Autocars editor transferred here form the dead project CarDriving2D.
 See README.txt.
 
 An improved GameLoader.
