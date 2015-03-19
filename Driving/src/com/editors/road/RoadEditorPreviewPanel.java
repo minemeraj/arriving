@@ -48,7 +48,7 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 	public static final int NUM_WORLD_TEXTURES = 12;
 	public static Texture[] worldTextures;	
 	
-	public static CubicMesh[] object3D=null;
+	public static CubicMesh[] objectMeshes=null;
 	public static Texture[] objectTextures=null;
 	
 	public int NX=2;
@@ -99,34 +99,9 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 
 
 			worldTextures=RoadEditor.worldTextures;
+			objectMeshes=RoadEditor.objectMeshes;
+			objectTextures=RoadEditor.objectTextures;
 
-			File directoryImg=new File("lib");
-			File[] files=directoryImg.listFiles();
-
-			Vector v3DObjects=new Vector();
-
-			for(int i=0;i<files.length;i++){
-				if(files[i].getName().startsWith("object3D_")
-						&& 	!files[i].getName().startsWith("object3D_texture")	
-						){
-
-					v3DObjects.add(files[i]);
-
-				}		
-			}
-
-			object3D=new CubicMesh[v3DObjects.size()];
-			objectTextures=new Texture[v3DObjects.size()];
-
-
-
-			for(int i=0;i<v3DObjects.size();i++){
-
-				object3D[i]=CubicMesh.loadMeshFromFile(new File("lib/object3D_"+i));
-				if(isUseTextures)
-					objectTextures[i]=new Texture(ImageIO.read(new File("lib/object3D_texture_"+i+".jpg")));
-
-			}
 
 
 		} catch (Exception e) {

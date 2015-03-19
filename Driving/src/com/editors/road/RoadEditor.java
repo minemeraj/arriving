@@ -186,13 +186,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton moveObjRight;
 	private JButton moveObjTop;
 	private JButton moveObjBottom;
-	private CubicMesh[] objectMeshes;	
-
+	
+	public static  CubicMesh[] objectMeshes;
 	public static Texture[] worldTextures;
 	public static BufferedImage[] worldImages;
 	public static BufferedImage[] objectImages;
-	public static Texture[] objectIndexes;
-	
+	public static Texture[] objectIndexes;  
+	public static Texture[] objectTextures;  
+
 	int indexWidth=40;
 	int indexHeight=18;
 
@@ -421,13 +422,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				worldTextures[i]=new Texture(ImageIO.read(new File("lib/road_texture_"+i+".jpg")));
 			}
 
-
-
 		
 			
 			objectImages=new BufferedImage[vObjects.size()];
 			objectMeshes=new CubicMesh[vObjects.size()];
 			objectIndexes=new Texture[vObjects.size()];
+			objectTextures=new Texture[vObjects.size()];
 			
 			for(int i=0;i<vObjects.size();i++){
 				
@@ -435,9 +435,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				objectImages[i]=ImageIO.read(new File("lib/object_"+i+".gif"));
 					
 				
-				if(DrawObject.IS_3D){
-					objectMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/object3D_"+i));
-				}
+				
+				objectMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/object3D_"+i));
+				objectTextures[i]=new Texture(ImageIO.read(new File("lib/object3D_texture_"+i+".jpg")));
 				
 					
 				BufferedImage boi=new BufferedImage(indexWidth,indexHeight,BufferedImage.TYPE_INT_RGB);
