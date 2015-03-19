@@ -5,6 +5,8 @@ Drawing the objects in the Preview.
 Autocars editor transferred here form the dead project CarDriving2D.
 See README.txt.
 
+Now you can delete points in the RoadEditorPolygonDetail.
+
 An improved GameLoader.
 
 Renewed plant editor, with custom texture.

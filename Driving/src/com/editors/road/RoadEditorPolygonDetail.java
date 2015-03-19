@@ -24,7 +24,7 @@ import com.main.Renderer3D;
 public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 
 	int WIDTH=440;
-	int HEIGHT=300;
+	int HEIGHT=340;
 	
 	LineData modifiedLineData=null;
 	Editor editor=null;
@@ -36,6 +36,7 @@ public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 	private boolean saved=false;
 	private JButton save;
 	private JComboBox chooseFace;
+	private JButton delete;
 
 	
 	public RoadEditorPolygonDetail(Editor roadEditor, LineData ld) {
@@ -89,10 +90,19 @@ public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 			chooseFace.setSelectedIndex(Integer.parseInt(ld.getData()));
 		add(chooseFace);
 		
+		r+=30;
+		
 		save=new JButton("Save");
-		save.setBounds(330,r,80,20);
+		save.setBounds(10,r,80,20);
 		save.addActionListener(this);
 		add(save);
+		
+		
+		delete=new JButton("Del pts");
+		delete.setBounds(230,r,80,20);
+		delete.addActionListener(this);
+		add(delete);
+
 		
 		r+=30;
 		
@@ -166,12 +176,23 @@ public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 			
 			invertPoints();
 		}
+		else if(obj==delete){
+			
+			deletePoints();
+		}
 		else if(obj==save){
 			
 			savePoints();
 		}
 		
 	}
+
+
+
+
+
+
+
 
 	private void savePoints() {
 		
@@ -226,7 +247,30 @@ public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 	}
 
 
+	private void deletePoints() {
+		
+		
+	LineData ld=new LineData();
+	
+	int indx=table.getSelectedRow();
 
+		for (int i = 0; i < modifiedLineData.size(); i++) {
+			
+			if(indx==i)
+				continue;
+			
+			ld.addIndex(modifiedLineData.getIndex(i));
+					
+
+		}
+		ld.setTexture_index(modifiedLineData.getTexture_index());
+		modifiedLineData=ld;
+		
+		table.setModel(buildTableModel(modifiedLineData));
+
+		repaint();
+		
+	}
 
 
 
