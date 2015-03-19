@@ -68,9 +68,11 @@ import com.Texture;
 import com.ZBuffer;
 import com.editors.ComboElement;
 import com.editors.DoubleTextField;
+import com.editors.ValuePair;
 import com.editors.road.RoadEditor;
 import com.main.Autocar;
 import com.main.HelpPanel;
+import com.main.Road;
 
 public class AutocarEditor extends Renderer2D implements MouseListener,
 		ActionListener, MenuListener, KeyListener, MouseWheelListener,
@@ -186,6 +188,12 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 	private JButton addCarToAutoline;
 	private Vector drawObjects=null;
 	private Texture[] worldTextures;
+	private BufferedImage[] objectImages;
+	private CubicMesh[] objectMeshes;
+	private Texture[] objectIndexes;
+	
+	int indexWidth=40;
+	int indexHeight=18;
 
 
 	public static void main(String[] args) {
@@ -292,6 +300,40 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 			worldTextures[i] = new Texture(
 					ImageIO.read(new File("lib/road_texture_" + i + ".jpg")));
 
+		}
+		
+		Vector vObjects=new Vector();
+		
+		
+		for(int i=0;i<files.length;i++){
+				if(files[i].getName().startsWith("object3D_")
+				   && 	!files[i].getName().startsWith("object3D_texture")	
+				){
+					
+					vObjects.add(files[i]);
+					
+				}		
+		}
+		
+		
+		objectImages=new BufferedImage[vObjects.size()];
+		objectMeshes=new CubicMesh[vObjects.size()];
+		objectIndexes=new Texture[vObjects.size()];
+
+		
+		for(int i=0;i<vObjects.size();i++){
+			
+			objectImages[i]=ImageIO.read(new File("lib/object_"+i+".gif"));
+						
+			
+			objectMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/object3D_"+i));
+		
+				
+			BufferedImage boi=new BufferedImage(indexWidth,indexHeight,BufferedImage.TYPE_INT_RGB);
+			boi.getGraphics().setColor(Color.white);
+			boi.getGraphics().drawString(""+i,0,indexHeight);
+			objectIndexes[i]=new Texture(boi);	
+			
 		}
 
 	}
@@ -1126,6 +1168,14 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 		drawObjects(bufGraphics);
 	}
 	
+	public void buildLine(Vector polygonData, String str,Vector vTexturePoints) {
+
+
+
+        Road.buildLine(polygonData,  str, vTexturePoints);
+
+
+	}
 	
 	private void drawObjects(Graphics2D bufGraphics) {
 		
@@ -1604,12 +1654,9 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 				if(!read)
 					continue;
 				
-				DrawObject dro=RoadEditor.buildDrawObject(str);
+				DrawObject dro=RoadEditor.buildDrawObject(str,objectMeshes);
 				drawObjects.add(dro);
 
-				if(DrawObject.IS_3D){
-
-				}
 			}
 
 			br.close();

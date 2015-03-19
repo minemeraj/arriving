@@ -2808,7 +2808,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				if(!read)
 					continue;
 				
-				DrawObject dro=buildDrawObject(str);
+				DrawObject dro=buildDrawObject(str,objectMeshes);
 				drawObjects.add(dro);
 				
 				//buildRectanglePolygons(dro.getPolygons(),dro.x,dro.y,dro.z,dro.dx,dro.dy,dro.dz);
@@ -2837,7 +2837,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 
 
-	public static DrawObject buildDrawObject(String str) {
+	public static DrawObject buildDrawObject(String str, CubicMesh[] objectMeshes) {
 		DrawObject dro=new DrawObject();
 		
 		String properties0=str.substring(0,str.indexOf("["));

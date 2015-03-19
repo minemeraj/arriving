@@ -191,7 +191,7 @@ public class Renderer2D extends Editor {
 
 			int num=ld.getIndex(i);
 
-			Point4D p=(Point4D) points[num];
+			Point3D p=(Point3D) points[num];
 
 
 			if(isReal){
