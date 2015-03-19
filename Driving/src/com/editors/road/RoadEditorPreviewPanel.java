@@ -371,31 +371,43 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 	}
 
 	public void keyPressed(KeyEvent arg0) {
-	
-		super.keyPressed(arg0);
-	
+
+		
+
 		int code =arg0.getKeyCode();
-	
+
 		if(code==KeyEvent.VK_LEFT  )
 		{ 
 			POSX-=2*deltax;
 			draw();
-			}
-			else if(code==KeyEvent.VK_RIGHT  )
-			{ 
-				POSX+=2*deltax;
-				draw();
-			}
-			else if(code==KeyEvent.VK_UP  )
-			{ 
-				POSY+=2*deltax;
-				draw();
-			}
-			else if(code==KeyEvent.VK_DOWN  )
-			{ 
-				POSY-=2*deltax;
-				draw();
-			}
+		}
+		else if(code==KeyEvent.VK_RIGHT  )
+		{ 
+			POSX+=2*deltax;
+			draw();
+		}
+		else if(code==KeyEvent.VK_UP  )
+		{ 
+			POSY+=2*deltax;
+			draw();
+		}
+		else if(code==KeyEvent.VK_DOWN  )
+		{ 
+			POSY-=2*deltax;
+			draw();
+			
+		}else if(code==KeyEvent.VK_Q  )
+		{  
+			
+		}
+		else if(code==KeyEvent.VK_W  )
+		{  
+		
+			
+		}else{
+			
+			super.keyPressed(arg0);
+		}
 	}
 	
 
