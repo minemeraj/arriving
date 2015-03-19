@@ -9,11 +9,7 @@ import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
-import java.lang.ProcessBuilder.Redirect;
 import java.util.Vector;
-
-import javax.imageio.ImageIO;
 
 import com.CubicMesh;
 import com.DrawObject;
@@ -26,7 +22,6 @@ import com.PolygonMesh;
 import com.Texture;
 import com.ZBuffer;
 import com.editors.EditorPreviewPanel;
-import com.main.CarFrame;
 import com.main.Renderer3D;
 import com.main.Road;
 
