@@ -79,6 +79,9 @@ import com.ZBuffer;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.ValuePair;
+import com.editors.road.panel.RoadEditorIsoPanel;
+import com.editors.road.panel.RoadEditorPanel;
+import com.editors.road.panel.RoadEditorTopPanel;
 import com.main.CarFrame;
 import com.main.HelpPanel;
 import com.main.Road;
@@ -152,7 +155,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton deselectAllObjects;
 	
 	private JButton delObject;
-	private JMenu jm5;
+	private JMenu jm_editing;
 	private JMenuItem jmtPreview;
 
 	public boolean ISDEBUG=false;
@@ -238,6 +241,27 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public static String TERRAIN_MODE="TERRAIN_MODE";
 	
 	public String mode=TERRAIN_MODE;
+	private JMenu jm_view;
+	private JMenuItem jmt_3d_view;
+	private JMenuItem jmt_top_view;
+	
+	int ISO_VIEW=1;
+	int TOP_VIEW=0;
+
+	int VIEW_TYPE=TOP_VIEW;
+	
+	private RoadEditorPanel panelIso;
+	private RoadEditorPanel panelTop;
+	
+	BufferedImage buf=null;
+	private Graphics2D graphics;
+	
+
+	public static void main(String[] args) {
+
+		RoadEditor re=new RoadEditor("New road editor");
+		re.initialize();
+	}
 	
 	public RoadEditor(String title){
 		
@@ -249,6 +273,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		setLayout(null);
 		setLocation(10,10);
 		setSize(WIDTH+LEFT_BORDER+RIGHT_SKYP,HEIGHT+BOTTOM_BORDER);
+		
+		panelIso=getPanel3D();
+		//panelIso.setTransferHandler(new FileTransferhandler());
+		panelTop=getPanelTop();
+		//panelTop.setTransferHandler(new FileTransferhandler());
+		
 		center=new JPanel(){
 			
 			public void paint(Graphics g) {
@@ -295,6 +325,26 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 	}
+	
+	private RoadEditorPanel getPanel3D() {
+		RoadEditorIsoPanel panel=new RoadEditorIsoPanel(this,WIDTH,HEIGHT);
+		panel.setBounds(LEFT_BORDER,0,WIDTH,HEIGHT);
+		panel.addKeyListener(this);
+		panel.addMouseListener(this);
+		panel.addMouseMotionListener(this);
+		return panel;
+	}
+
+	private RoadEditorPanel getPanelTop() {
+		RoadEditorTopPanel panel=new RoadEditorTopPanel(this,WIDTH,HEIGHT);
+		panel.setBounds(LEFT_BORDER,0,WIDTH,HEIGHT);
+		panel.addKeyListener(this);
+		panel.addMouseListener(this);
+		panel.addMouseMotionListener(this);
+		return panel;
+	}
+	
+
 
 	private void buildFieldsArrays() {
 
@@ -340,6 +390,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	 * 
 	 */
 	public void initialize() {
+		
+		buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 
 		landscapeZbuffer=new ZBuffer(WIDTH*HEIGHT);
 		rgb=new int[WIDTH*HEIGHT];
@@ -586,7 +638,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private void displayAll() {
 
 
-		BufferedImage buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
+		
 
 		Graphics2D bufGraphics=(Graphics2D)buf.getGraphics();
 		bufGraphics.setColor(BACKGROUND_COLOR);
@@ -603,9 +655,39 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			g2.drawImage(buf,0,0,WIDTH,HEIGHT,null);
 
 	}
+	
+
+	private void displayAllNew() {
+
+
+		Graphics2D graph = (Graphics2D) buf.getGraphics();
+		RoadEditorPanel ep=getCenter();
+
+		displayAll(getCenter(),graph);
+
+		if(graphics==null)
+			graphics=(Graphics2D) ep.getGraphics();
+
+		graphics.drawImage(buf,0,0,null);
 
 
 
+	}
+
+
+	private void displayAll( RoadEditorPanel editorPanel,Graphics2D graph) {
+
+
+		graph.setColor(Color.BLACK);
+		graph.fillRect(0,0,WIDTH,HEIGHT);
+	
+		//editorPanel.setHide_objects(checkHideObjects.isSelected());
+		editorPanel.drawRoad(meshes,drawObjects,graph);
+	
+
+		//drawCurrentRect(graph);
+
+	}
 
 	private void displayRoad(ZBuffer landscapeZbuffer,int index) {
 
@@ -1514,53 +1596,66 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		jmb.add(jm4);
 		
-		jm5=new JMenu("Editing");
-		jm5.addMenuListener(this);
+		jm_view=new JMenu("View");
+		jm_view.addMenuListener(this);
+		jmb.add(jm_view);
+
+		jmt_3d_view=new JMenuItem("3D view");
+		jmt_3d_view.addActionListener(this);
+		jm_view.add(jmt_3d_view);
+
+		jmt_top_view=new JMenuItem("Top view");
+		jmt_top_view.addActionListener(this);
+		jm_view.add(jmt_top_view);
+		
+		
+		jm_editing=new JMenu("Editing");
+		jm_editing.addMenuListener(this);
 		
 		jmtBuildNewGrid = new JMenuItem("New Grid");
 		jmtBuildNewGrid.addActionListener(this);
-		jm5.add(jmtBuildNewGrid);
+		jm_editing.add(jmtBuildNewGrid);
 		
-		jm5.addSeparator();
+		jm_editing.addSeparator();
 		
 		jmtExpandGrid = new JMenuItem("Expand grid(T)");
 		jmtExpandGrid.addActionListener(this);
-		jm5.add(jmtExpandGrid);
+		jm_editing.add(jmtExpandGrid);
 		
-		jm5.addSeparator();
+		jm_editing.addSeparator();
 		
 		jmtAddGrid = new JMenuItem("Add grid");
 		jmtAddGrid.addActionListener(this);
-		jm5.add(jmtAddGrid);
+		jm_editing.add(jmtAddGrid);
 		
-		jm5.addSeparator();
+		jm_editing.addSeparator();
 		
 		jmtBuildCity = new JMenuItem("Build Custom city");
 		jmtBuildCity.addActionListener(this);
-		jm5.add(jmtBuildCity);
+		jm_editing.add(jmtBuildCity);
 		
-		jm5.addSeparator();
+		jm_editing.addSeparator();
 		
 		if(DrawObject.IS_3D)
 		{
 			jmtPreview = new JMenuItem("Preview");
 			jmtPreview.addActionListener(this);
-			jm5.add(jmtPreview);
+			jm_editing.add(jmtPreview);
 	
 			jmtShowAltimetry = new JMenuItem("Advanced Altimetry");
 			jmtShowAltimetry.addActionListener(this);
-			jm5.add(jmtShowAltimetry);
+			jm_editing.add(jmtShowAltimetry);
 		}
 		
 
-		jm5.addSeparator();
+		jm_editing.addSeparator();
 		
 		jmtAddBendMesh = new JMenuItem("Add bend (R)");
 		jmtAddBendMesh.addActionListener(this);
-		jm5.add(jmtAddBendMesh);
+		jm_editing.add(jmtAddBendMesh);
 		
 		
-		jmb.add(jm5);
+		jmb.add(jm_editing);
 		
 		jmSpecial=new JMenu("Special");
 		jmSpecial.addMenuListener(this);		
@@ -3069,6 +3164,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		}else if(obj==help_jmt){
 			help();
+		}
+		else if(obj==jmt_top_view){
+			changeView(TOP_VIEW);
+		}
+		else if(obj==jmt_3d_view){
+			changeView(ISO_VIEW);
 		}	
 		
 		
@@ -3096,6 +3197,35 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
     }
     
+	private void changeView(int type) {
+
+		if(1>0)
+			return;
+		
+		remove(getCenter());
+
+		if(type==ISO_VIEW){
+
+			add(panelIso);
+		}
+		else
+			add(panelTop);
+
+		VIEW_TYPE=type;
+
+		displayAll();
+	}
+	
+	public RoadEditorPanel getCenter(){
+
+
+		if(VIEW_TYPE==ISO_VIEW)
+			return panelIso;
+		else
+			return panelTop;
+
+	}
+    
 	private void help() {
 	
 		
@@ -3103,11 +3233,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 
-	public static void main(String[] args) {
-
-		RoadEditor re=new RoadEditor("New road editor");
-		re.initialize();
-	}
 	
 	private void expandGrid() {
  

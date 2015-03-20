@@ -1,3 +1,6 @@
+Now preview becomes a panel in the editor, alternative to top view.
+See menu View-> 3D view/Top view
+
 ----- 20/03/2015 CarDriving 8.1.2
 
 First step in a deep re-thinking of the RoadEditor.
