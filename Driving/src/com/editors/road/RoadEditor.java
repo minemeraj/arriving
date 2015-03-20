@@ -657,13 +657,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 	
 
-	private void displayAllNew() {
+	private void draw() {
 
 
 		Graphics2D graph = (Graphics2D) buf.getGraphics();
 		RoadEditorPanel ep=getCenter();
 
-		displayAll(getCenter(),graph);
+		draw(getCenter(),graph);
 
 		if(graphics==null)
 			graphics=(Graphics2D) ep.getGraphics();
@@ -675,14 +675,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 
-	private void displayAll( RoadEditorPanel editorPanel,Graphics2D graph) {
+	private void draw( RoadEditorPanel editorPanel,Graphics2D graph) {
 
 
 		graph.setColor(Color.BLACK);
 		graph.fillRect(0,0,WIDTH,HEIGHT);
 	
 		//editorPanel.setHide_objects(checkHideObjects.isSelected());
-		editorPanel.drawRoad(meshes,drawObjects,graph);
+		editorPanel.drawRoad(meshes,drawObjects,graph,landscapeZbuffer);
 	
 
 		//drawCurrentRect(graph);

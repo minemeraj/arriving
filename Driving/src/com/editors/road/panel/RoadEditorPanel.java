@@ -6,11 +6,12 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 import com.PolygonMesh;
+import com.ZBuffer;
 
 public class RoadEditorPanel extends JPanel {
 
 	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,
-			Graphics2D graph) {
+			Graphics2D graph,ZBuffer landscapeZbuffer) {
 		
 	}
 

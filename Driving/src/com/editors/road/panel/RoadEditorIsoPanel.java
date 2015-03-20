@@ -1,6 +1,7 @@
 package com.editors.road.panel;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseWheelEvent;
@@ -30,6 +31,12 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	public RoadEditorIsoPanel(RoadEditor editor,int cENTER_HEIGHT, int cENTER_WIDTH) {
 		
 		
+	}
+	
+
+	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,
+			Graphics2D graph,ZBuffer landscapeZbuffer) {
+
 	}
 	
 	/*public RoadEditorPreviewPanel( RoadEditor roadEditor) {
