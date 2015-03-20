@@ -43,7 +43,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 
 	
     int counter=0;
-	String VERSION="CarDriving 8.1.1";
+	String VERSION="CarDriving 8.1.2";
 	
 	JPanel center=null;
 	private Graphics2D graphics2D;
@@ -154,6 +154,8 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 	 add(bottom);
 	 setSize(LEFTBORDER+WIDTH+RIGHTBORDER,UPBORDER+HEIGHT+BUTTOMBORDER);
 	 buildUpPannel();
+	 
+	 addKeyListener(this);
 	 
 	 initialize();
 	 setVisible(true);
