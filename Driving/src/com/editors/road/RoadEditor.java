@@ -117,16 +117,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JMenuBar jmb;
 	private JMenu jm_file;
 
-	private DoubleTextField[] coordinatesx;
-	private DoubleTextField[] coordinatesy;
-	private DoubleTextField[] coordinatesz;
-	private JCheckBox[] checkCoordinatesx;
-	private JCheckBox[] checkCoordinatesy;
-	private JCheckBox[] checkCoordinatesz;
+	public DoubleTextField[] coordinatesx;
+	public DoubleTextField[] coordinatesy;
+	public DoubleTextField[] coordinatesz;
+	public JCheckBox[] checkCoordinatesx;
+	public JCheckBox[] checkCoordinatesy;
+	public JCheckBox[] checkCoordinatesz;
 	private JButton[] changePoint;
 	private JButton[] mergeSelectedPoints;
 
-	private JCheckBox[] checkMultiplePointsSelection;
+	public JCheckBox[] checkMultiplePointsSelection;
 	private JButton[] changePolygon;
 	private JButton[] startBuildPolygon;
 	private JButton[] buildPolygon;
@@ -624,24 +624,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		editorPanel.drawCurrentRect(landscapeZbuffer);
 
-	}
-
-	private int convertX(double i) {
-
-		return (int) (i/dx-MOVX);
-	}
-	private int convertY(double j) {
-
-		return (int) (HEIGHT-(j/dy+MOVY));
-	}
-
-	private int invertX(int i) {
-
-		return (i+MOVX)*dx;
-	}
-	private int invertY(int j) {
-
-		return dy*(HEIGHT-j-MOVY);
 	}
 
 
@@ -1706,11 +1688,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 
 	private void addObject(MouseEvent arg0) {
+		
+		
+		RoadEditorPanel ep = getCenter();
 	
 		Point p=arg0.getPoint();
 		
-		double xx=invertX((int)p.getX());
-		double yy=invertY((int)p.getY());
+		double xx=ep.invertX((int)p.getX());
+		double yy=ep.invertY((int)p.getY());
 		
 		addObject(xx, yy,0);
 	}
@@ -2929,6 +2914,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void addPoint(MouseEvent arg0) {
 		
+		RoadEditorPanel ep = getCenter();
+		
 		if(ACTIVE_PANEL==TERRAIN_INDEX)
 			return;
 		
@@ -2938,8 +2925,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		Point p=arg0.getPoint();
 
-		int x=invertX((int)p.getX());
-		int y=invertY((int)p.getY());
+		int x=ep.invertX((int)p.getX());
+		int y=ep.invertY((int)p.getY());
 		
 		int index=0;
 		ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getSelectedItem();
@@ -3027,6 +3014,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		deselectAllObjects();
 		
+		RoadEditorPanel ep = getCenter();
+		
 		boolean found=false;
 		
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
@@ -3040,8 +3029,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		    Point4D p=(Point4D) mesh.points[j];
 
-				int xo=convertX(p.x);
-				int yo=convertY(p.y);
+				int xo=ep.convertX(p.x);
+				int yo=ep.convertY(p.y);
 
 				Rectangle rect=new Rectangle(xo-5,yo-5,10,10);
 				if(rect.contains(x,y)){
@@ -3113,6 +3102,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		deselectAllPoints();
 		deselectAllLines();
+		
+		RoadEditorPanel ep = getCenter();
 
 		for(int i=0;i<drawObjects.size();i++){
 
@@ -3128,14 +3119,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			if(!DrawObject.IS_3D)
 				versus=-1;
 
-			cx[0]=convertX(dro.x);
-			cy[0]=convertY(dro.y);
-			cx[1]=convertX(dro.x);
-			cy[1]=convertY(dro.y+versus*dro.dy);
-			cx[2]=convertX(dro.x+dro.dx);
-			cy[2]=convertY(dro.y+versus*dro.dy);
-			cx[3]=convertX(dro.x+dro.dx);
-			cy[3]=convertY(dro.y);
+			cx[0]=ep.convertX(dro.x);
+			cy[0]=ep.convertY(dro.y);
+			cx[1]=ep.convertX(dro.x);
+			cy[1]=ep.convertY(dro.y+versus*dro.dy);
+			cx[2]=ep.convertX(dro.x+dro.dx);
+			cy[2]=ep.convertY(dro.y+versus*dro.dy);
+			cx[3]=ep.convertX(dro.x+dro.dx);
+			cy[3]=ep.convertY(dro.y);
 
 			Polygon p_in=new Polygon(cx,cy,4);			
 			Point3D center=Polygon3D.findCentroid(p_in);
@@ -3160,7 +3151,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	public Polygon3D buildPolygon(LineData ld,Point3D[] points, boolean isReal) {
 
-
+		RoadEditorPanel ep = getCenter();
 
 		int size=ld.size();
 
@@ -3186,8 +3177,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			}
 			else {
 				
-				cxr[i]=convertX(p.x);
-				cyr[i]=convertY(p.y);
+				cxr[i]=ep.convertX(p.x);
+				cyr[i]=ep.convertY(p.y);
 				czr[i]=(int)(p.z);
 			}
 			
@@ -3264,44 +3255,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		if(mesh.points==null)
 			return;
-
-		int x0=Math.min(currentRect.x,currentRect.x+currentRect.width);
-		int x1=Math.max(currentRect.x,currentRect.x+currentRect.width);
-		int y0=Math.min(currentRect.y,currentRect.y+currentRect.height);
-		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
-
-		if(!checkCoordinatesx[ACTIVE_PANEL].isSelected())
-			coordinatesx[ACTIVE_PANEL].setText("");
-		if(!checkCoordinatesy[ACTIVE_PANEL].isSelected())
-			coordinatesy[ACTIVE_PANEL].setText("");
-		if(!checkCoordinatesz[ACTIVE_PANEL].isSelected())
-			coordinatesz[ACTIVE_PANEL].setText("");
-
-		//select point from road
-		boolean found=false;
 		
-
-		for(int j=0;j<mesh.points.length;j++){
-
-
-			Point4D p=(Point4D) mesh.points[j];
-
-			int xo=convertX(p.x);
-			int yo=convertY(p.y);
-
-
-			if(xo>=x0 && xo<=x1 && yo>=y0 && yo<=y1  ){
-
-				p.setSelected(true);
-				found=true;
-
-
-			}
-			else if(!checkMultiplePointsSelection[ACTIVE_PANEL].isSelected())
-				p.setSelected(false);
-
-
-		}
+		RoadEditorPanel ep = getCenter();
+		
+		boolean found=ep.selectPointsWithRectangle(mesh);
+		
 		if(found){
 			deselectAllObjects();
 		    deselectAllLines();  
@@ -3471,7 +3429,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	public void mouseMoved(MouseEvent e) {
 		Point p=e.getPoint();
-		screenPoint.setText(invertX((int)p.getX())+","+invertY((int)p.getY()));
+		
+		RoadEditorPanel ep = getCenter();
+		screenPoint.setText(ep.invertX((int)p.getX())+","+ep.invertY((int)p.getY()));
 
 	}
 

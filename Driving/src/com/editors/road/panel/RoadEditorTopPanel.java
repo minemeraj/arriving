@@ -617,6 +617,58 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 	}
 	
+	public boolean selectPointsWithRectangle(PolygonMesh mesh) {
+		
+	
+		if(mesh.points==null)
+			return false;
+
+
+		int x0=Math.min(editor.currentRect.x,editor.currentRect.x+editor.currentRect.width);
+		int x1=Math.max(editor.currentRect.x,editor.currentRect.x+editor.currentRect.width);
+		int y0=Math.min(editor.currentRect.y,editor.currentRect.y+editor.currentRect.height);
+		int y1=Math.max(editor.currentRect.y,editor.currentRect.y+editor.currentRect.height);
+
+		if(!editor.checkCoordinatesx[editor.ACTIVE_PANEL].isSelected())
+			editor.coordinatesx[editor.ACTIVE_PANEL].setText("");
+		if(!editor.checkCoordinatesy[editor.ACTIVE_PANEL].isSelected())
+			editor.coordinatesy[editor.ACTIVE_PANEL].setText("");
+		if(!editor.checkCoordinatesz[editor.ACTIVE_PANEL].isSelected())
+			editor.coordinatesz[editor.ACTIVE_PANEL].setText("");
+
+		//select point from road
+		boolean found=false;
+		
+
+		for(int j=0;j<mesh.points.length;j++){
+
+
+			Point4D p=(Point4D) mesh.points[j];
+
+			int xo=convertX(p.x);
+			int yo=convertY(p.y);
+
+
+			if(xo>=x0 && xo<=x1 && yo>=y0 && yo<=y1  ){
+
+				p.setSelected(true);
+				found=true;
+
+
+			}
+			else if(!editor.checkMultiplePointsSelection[editor.ACTIVE_PANEL].isSelected())
+				p.setSelected(false);
+
+
+		}
+		
+		return found;
+		
+
+		
+
+	}
+	
 	/**
 	 * For the old Cardriving2D version
 	 * 

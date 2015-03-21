@@ -448,6 +448,11 @@ public class RoadEditorPanel extends JPanel {
 		
 
 	}
+	
+	public boolean selectPointsWithRectangle(PolygonMesh mesh) {
+		
+		return false;
+	}
 
 
 }
