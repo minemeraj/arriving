@@ -375,7 +375,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				if(selected!=null)
 					rgb=selected.getRGB();
 				
-				//decomposeTriangleIntoZBufferEdgeWalking(tria,rgb,texture,landscapeZbuffer, xDirection, yDirection, p0r, 0, 0,null); 
+				decomposeTriangleIntoZBufferEdgeWalking(tria,rgb,texture,landscapeZbuffer, xDirection, yDirection, p0r, 0, 0,null); 
 
 				
 			}
@@ -519,20 +519,20 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	}
 	
 
-	private int convertX(double i) {
+	public int convertX(double i) {
 
 		return (int) (i/dx-MOVX);
 	}
-	private int convertY(double j) {
+	public int convertY(double j) {
 
 		return (int) (HEIGHT-(j/dy+MOVY));
 	}
 
-	private int invertX(int i) {
+	public int invertX(int i) {
 
 		return (i+MOVX)*dx;
 	}
-	private int invertY(int j) {
+	public int invertY(int j) {
 
 		return dy*(HEIGHT-j-MOVY);
 	}
