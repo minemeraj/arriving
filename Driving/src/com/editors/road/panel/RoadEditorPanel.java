@@ -424,6 +424,30 @@ public class RoadEditorPanel extends JPanel {
 		
 		
 	}
+	
+	public void zoom(int i) {
+		
+		
+	}
+	
+	public void up(){
+	
+
+	}
+
+	public void down(){
+		
+
+	}
+	
+	public void left(){
+		
+	}
+
+	public void right(){
+		
+
+	}
 
 
 }

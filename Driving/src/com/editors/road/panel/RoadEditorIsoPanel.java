@@ -446,13 +446,13 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	}
 
 
-	private void down() {
+	public void down() {
 		y0+=5;
 		
 	}
 
 
-	private void up() {
+	public void up() {
 		y0-=5;
 		
 	}

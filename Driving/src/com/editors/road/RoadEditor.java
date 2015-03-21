@@ -333,6 +333,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		panel.addKeyListener(this);
 		panel.addMouseListener(this);
 		panel.addMouseMotionListener(this);
+		panel.addMouseWheelListener(this);
 		return panel;
 	}
 
@@ -342,6 +343,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		panel.addKeyListener(this);
 		panel.addMouseListener(this);
 		panel.addMouseMotionListener(this);
+		panel.addMouseWheelListener(this);
 		return panel;
 	}
 	
@@ -3314,19 +3316,25 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	public void keyPressed(KeyEvent arg0) {
 
+		
+		RoadEditorPanel ep = getCenter();
+		
 		int code =arg0.getKeyCode();
-		if(code==KeyEvent.VK_DOWN )
-			down();
-		else if(code==KeyEvent.VK_UP  )
-			up();
+		if(code==KeyEvent.VK_DOWN ){
+			ep.down();
+			draw();
+		}else if(code==KeyEvent.VK_UP  ){
+			ep.up();
+			draw();
+		}	
 		else if(code==KeyEvent.VK_LEFT )
 		{	
-			MOVX=MOVX-10; 
+			ep.left();
 			draw();
 		}
 		else if(code==KeyEvent.VK_RIGHT  )
 		{	 
-			MOVX=MOVX+10;   
+			ep.right();   
 			draw();
 		}
 		else if(code==KeyEvent.VK_D  )
@@ -3385,41 +3393,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
-	public void up(){
-		MOVY=MOVY-10;
-		draw();
-
-	}
-
-	public void down(){
-		MOVY=MOVY+10;
-		draw();
-
-	}
-
-
 	private void zoom(int i) {
 		
 		
-		
-		double alfa=1.0;
-		if(i>0){
-			alfa=0.5;
-			
-			if(dx==1 || dy==1)
-				return;
-		}
-		else {
-			alfa=2.0;
-		      	
-		}
-			
-				
-		dx=(int) (dx*alfa);
-		dy=(int) (dy*alfa);
-		
-		MOVX+=(int) ((WIDTH/2+MOVX)*(1.0/alfa-1.0));
-		MOVY+=(int) ((-HEIGHT/2+MOVY)*(1.0/alfa-1.0));
+
+		 RoadEditorPanel ep = getCenter();
+		 ep.zoom(i);
+		 draw();
 	}
 
 	public void keyReleased(KeyEvent arg0) {
@@ -3441,9 +3421,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 	public void mouseWheelMoved(MouseWheelEvent arg0) {
+		
+		RoadEditorPanel ep = getCenter();
+		
 		int pix=arg0.getUnitsToScroll();
-		if(pix>0) up();
-		else down();
+		if(pix>0) 
+			ep.up();
+		else 
+			ep.down();
+		
+		draw();
 
 	}
 

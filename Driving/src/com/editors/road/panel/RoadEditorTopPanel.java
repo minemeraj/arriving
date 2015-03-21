@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.util.Vector;
@@ -539,6 +540,95 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	}
 	
 	
+	public void zoom(int i) {
+		
+		
+		
+		double alfa=1.0;
+		if(i>0){
+			alfa=0.5;
+			
+			if(dx==1 || dy==1)
+				return;
+		}
+		else {
+			alfa=2.0;
+		      	
+		}
+			
+				
+		dx=(int) (dx*alfa);
+		dy=(int) (dy*alfa);
+		
+		MOVX+=(int) ((WIDTH/2+MOVX)*(1.0/alfa-1.0));
+		MOVY+=(int) ((-HEIGHT/2+MOVY)*(1.0/alfa-1.0));
+	}
+	
+	public void up(){
+		MOVY=MOVY-10;
+		
+
+	}
+
+	public void down(){
+		MOVY=MOVY+10;
+		
+
+	}
+	
+	public void left(){
+		MOVX=MOVX-10;
+	}
+
+	public void right(){
+		MOVX=MOVX+10;	
+
+	}
+	
+
+	public void drawTextImage(ZBuffer landscapeZbuffer,
+			Texture textImage, int x, int y, int dx,
+			int dy, Color transparentColor, Color fixedColor) {
+
+		double alfax=textImage.getWidth()*1.0/dx;
+		double alfay=textImage.getHeight()*1.0/dy;
+
+		for(int i=0;i<dx;i++)
+			for(int j=0;j<dy;j++){
+
+				if(i+x<0 || i+x>=WIDTH || j+y<0 || j+y>=HEIGHT)
+					continue;
+
+				int rgbColor=textImage.getRGB((int)(alfax*i),(int)(alfay*j));
+
+				if(transparentColor!=null && transparentColor.getRGB()==rgbColor)
+					continue;
+
+				if(fixedColor!=null){
+
+
+					rgbColor=fixedColor.getRGB();
+				}
+
+				int tot=(int)(i+x+(j+y)*WIDTH);
+
+				landscapeZbuffer.setRgbColor(rgbColor,tot);
+			}
+
+	}
+	
+	/**
+	 * For the old Cardriving2D version
+	 * 
+	 * 
+	 * @param landscapeZbuffer
+	 * @param bufferedImage
+	 * @param x
+	 * @param y
+	 * @param xDirection
+	 * @param yDirection
+	 * @param transparentColor
+	 */
 	private void drawImage(ZBuffer landscapeZbuffer,
 			BufferedImage bufferedImage, int x, int y, Point3D xDirection, Point3D yDirection,Color transparentColor) {
 		
@@ -576,38 +666,6 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			}
 		
 		
-	}
-	
-
-	public void drawTextImage(ZBuffer landscapeZbuffer,
-			Texture textImage, int x, int y, int dx,
-			int dy, Color transparentColor, Color fixedColor) {
-
-		double alfax=textImage.getWidth()*1.0/dx;
-		double alfay=textImage.getHeight()*1.0/dy;
-
-		for(int i=0;i<dx;i++)
-			for(int j=0;j<dy;j++){
-
-				if(i+x<0 || i+x>=WIDTH || j+y<0 || j+y>=HEIGHT)
-					continue;
-
-				int rgbColor=textImage.getRGB((int)(alfax*i),(int)(alfay*j));
-
-				if(transparentColor!=null && transparentColor.getRGB()==rgbColor)
-					continue;
-
-				if(fixedColor!=null){
-
-
-					rgbColor=fixedColor.getRGB();
-				}
-
-				int tot=(int)(i+x+(j+y)*WIDTH);
-
-				landscapeZbuffer.setRgbColor(rgbColor,tot);
-			}
-
 	}
 
 	
