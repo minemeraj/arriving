@@ -180,7 +180,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 	private DoubleTextField rotation_angle;
-	private Rectangle currentRect;
+	public Rectangle currentRect;
 	private boolean isDrawCurrentRect=false;
 	private DoubleTextField objMove;
 	private JButton moveObjUp;
@@ -197,8 +197,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public static Texture[] objectIndexes;  
 	public static Texture[] objectTextures;  
 
-	int indexWidth=40;
-	int indexHeight=18;
+	public int indexWidth=40;
+	public int indexHeight=18;
 
 	public static Color BACKGROUND_COLOR=new Color(0,0,0);
 	private JMenuItem jmtShowAltimetry;
@@ -824,7 +824,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 
-	private void drawTextImage(ZBuffer landscapeZbuffer,
+	public void drawTextImage(ZBuffer landscapeZbuffer,
 			Texture textImage, int x, int y, int dx,
 			int dy, Color transparentColor, Color fixedColor) {
 
@@ -4687,6 +4687,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		displayAll();
 		
+	}
+
+	public boolean isDrawCurrentRect() {
+		return isDrawCurrentRect;
+	}
+
+	public void setDrawCurrentRect(boolean isDrawCurrentRect) {
+		this.isDrawCurrentRect = isDrawCurrentRect;
 	}
 
 }
