@@ -419,6 +419,11 @@ public class RoadEditorPanel extends JPanel {
 
 		return (int) j;
 	}
+	
+	public void drawCurrentRect(ZBuffer landscapeZbuffer) {
+		
+		
+	}
 
 
 }
