@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.util.Vector;
 
+import com.BarycentricCoordinates;
 import com.CubicMesh;
 import com.DrawObject;
 import com.LineData;
@@ -62,8 +63,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	}
 	
 
-	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,
-			Graphics2D graph,ZBuffer landscapeZbuffer) {
+	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,ZBuffer landscapeZbuffer,Graphics2D graph) {
 		
 		drawRoad(meshes,landscapeZbuffer);
 		drawObjects(drawObjects,null,landscapeZbuffer);
@@ -98,7 +98,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	
 				Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.points,index);
 	
-				//decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),RoadEditor.worldTextures[p3D.getIndex()],roadZbuffer);
+				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),RoadEditor.worldTextures[p3D.getIndex()],roadZbuffer);
 				
 			    if(index==1){
 			    	
@@ -107,7 +107,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			    	Polygon3D[] polygons=Road.buildAdditionalRoadPolygons(p3D);
 			    	
 			    	for (int i = 0; i < polygons.length; i++) {
-							//decomposeClippedPolygonIntoZBuffer(polygons[i],Color.DARK_GRAY,null,roadZbuffer);
+							decomposeClippedPolygonIntoZBuffer(polygons[i],Color.DARK_GRAY,null,roadZbuffer);
 					}
 			    	
 			    }
@@ -272,9 +272,60 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			
 			
 			
-			//decomposeClippedPolygonIntoZBuffer(polRotate,col,texture,zBuffer,xDirection,yDirection,rotateOrigin,deltaTexture+deltaWidth,deltaHeight);
+			decomposeClippedPolygonIntoZBuffer(polRotate,col,texture,zBuffer,xDirection,yDirection,rotateOrigin,deltaTexture+deltaWidth,deltaHeight);
 	}
+	
+	 public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer){
+	   	 
+	    	Point3D origin=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
+	    	decomposeClippedPolygonIntoZBuffer(p3d, color, texture,zbuffer,null,null,origin,0,0);
 
+	 }
+
+	
+
+    public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer,
+			Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY){		
+
+		Point3D normal=Polygon3D.findNormal(p3d);
+
+
+
+		if(texture!=null && xDirection==null && yDirection==null){
+
+			Point3D p0=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
+			Point3D p1=new Point3D(p3d.xpoints[1],p3d.ypoints[1],p3d.zpoints[1]);
+			xDirection=(p1.substract(p0)).calculateVersor();
+
+			yDirection=Point3D.calculateCrossProduct(normal,xDirection).calculateVersor();
+
+			//yDirection=Point3D.calculateOrthogonal(xDirection);
+		}
+
+		Polygon3D[] triangles = Polygon3D.divideIntoTriangles(p3d);
+		
+		for(int i=0;i<triangles.length;i++){
+			
+			BarycentricCoordinates bc=new BarycentricCoordinates(triangles[i]);
+			
+			//Polygon3D clippedPolygon=Polygon3D.clipPolygon3DInY(triangles[i],(int) (Renderer3D.SCREEN_DISTANCE*2.0/3.0));
+
+			//if(clippedPolygon.npoints==0)
+			//	return ;
+			
+			Polygon3D[] clippedTriangles = Polygon3D.divideIntoTriangles(triangles[i]);
+			
+			for (int j = 0; j < clippedTriangles.length; j++) {
+				
+				decomposeTriangleIntoZBufferEdgeWalking( clippedTriangles[j],color.getRGB(), texture,zbuffer, xDirection,yDirection,origin, deltaX, deltaY,bc);
+				
+			}
+
+		
+
+		}
+
+	}
 
 	public Point3D buildTransformedPoint(Point3D point) {
 	

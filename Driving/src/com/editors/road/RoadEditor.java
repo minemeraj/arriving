@@ -151,7 +151,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private JButton delObject;
 	private JMenu jm_editing;
-	private JMenuItem jmtPreview;
 
 	public boolean ISDEBUG=false;
 	
@@ -667,15 +666,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		jm_view=new JMenu("View");
 		jm_view.addMenuListener(this);
 		jmb.add(jm_view);
+		
+		jmt_top_view=new JMenuItem("Top view");
+		jmt_top_view.addActionListener(this);
+		jm_view.add(jmt_top_view);
 
 		jmt_3d_view=new JMenuItem("3D view");
 		jmt_3d_view.addActionListener(this);
 		jm_view.add(jmt_3d_view);
-
-		jmt_top_view=new JMenuItem("Top view");
-		jmt_top_view.addActionListener(this);
-		jm_view.add(jmt_top_view);
-		
 		
 		jm_editing=new JMenu("Editing");
 		jm_editing.addMenuListener(this);
@@ -703,18 +701,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		jm_editing.add(jmtBuildCity);
 		
 		jm_editing.addSeparator();
-		
-		if(DrawObject.IS_3D)
-		{
-			jmtPreview = new JMenuItem("Preview");
-			jmtPreview.addActionListener(this);
-			jm_editing.add(jmtPreview);
 	
-			jmtShowAltimetry = new JMenuItem("Advanced Altimetry");
-			jmtShowAltimetry.addActionListener(this);
-			jm_editing.add(jmtShowAltimetry);
-		}
-		
+		jmtShowAltimetry = new JMenuItem("Advanced Altimetry");
+		jmtShowAltimetry.addActionListener(this);
+		jm_editing.add(jmtShowAltimetry);
+				
 
 		jm_editing.addSeparator();
 		
@@ -2062,9 +2053,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		else if(obj==jmtUndoRoad){
 			undoRoad();
 		}
-		else if(obj==jmtPreview){
-			showPreview();
-		}
 		else if(obj==jmtShowAltimetry){
 			showAltimetry();
 		}
@@ -2269,9 +2257,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
     }
     
 	private void changeView(int type) {
-
-		if(1>0)
-			return;
 		
 		remove(getCenter());
 
