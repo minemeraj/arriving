@@ -35,8 +35,9 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	int dx=2;
 	int dy=2;
 
-	int deltay=200;
-	int deltax=200;
+	
+	public double deltay=1;
+	public double deltax=1;
 	
 	public int y0=200;
 	public int x0=100;
@@ -45,7 +46,9 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	public int POSY=0;
 	public int MOVZ=0;
 	
-	
+	public double alfa=Math.PI/3;
+	public double cosAlfa=Math.cos(alfa);
+	public double sinAlfa=Math.sin(alfa);
 	
 	public double viewDirection=0;	
 	public double viewDirectionCos=1.0;
@@ -485,15 +488,20 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		
 	}
 
-
 	
-	public void mouseWheelMoved(MouseWheelEvent arg0) {
+	
+	public int convertX(double sx,double sy,double sz){
+
 		
-		int pix=arg0.getUnitsToScroll();
-		if(pix>0) up();
-		else down();
+		//return x0+(int) (deltax*(sy-sx*sinAlfa));//axonometric formula
+		return x0+(int) ((sx*sinAlfa-sy*sinAlfa)/deltay);
+	}
+
+	public int convertY(double sx,double sy,double sz){
+
 		
-		//draw();
+		//return y0+(int) (deltay*(sz-sx*cosAlfa));
+		return y0-(int) ((sz+sy*cosAlfa+sx*cosAlfa)/deltay);
 	}
 
 

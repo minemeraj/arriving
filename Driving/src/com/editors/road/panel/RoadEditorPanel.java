@@ -81,17 +81,17 @@ public class RoadEditorPanel extends JPanel {
 
 		//System.out.println(p3d+" "+rgbColor);
 
-		double x0=convertX(p0.x);
-		double y0=convertY(p0.y);
+		double x0=convertX(p0);
+		double y0=convertY(p0);
 		double z0=p0.z;
 
 
-		double x1=convertX(p1.x);
-		double y1=convertY(p1.y);
+		double x1=convertX(p1);
+		double y1=convertY(p1);
 		double z1=p1.z;
 
-		double x2=convertX(p2.x);
-		double y2=convertY(p2.y);
+		double x2=convertX(p2);
+		double y2=convertY(p2);
 		double z2=p2.z;
 
 		//check if triangle is visible
@@ -402,11 +402,23 @@ public class RoadEditorPanel extends JPanel {
 
 	}
 	
-	public int convertX(double i) {
+	
+	public int convertX(Point3D p){
+
+
+		return convertX(p.x,p.y,p.z);
+	}
+	public int convertY(Point3D p){
+
+
+		return convertY(p.x,p.y,p.z);
+	}
+	
+	public int convertX(double i,double j,double k) {
 
 		return (int) i;
 	}
-	public int convertY(double j) {
+	public int convertY(double i,double j,double k) {
 
 		return (int) j;
 	}

@@ -85,8 +85,8 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 		    Point4D p=(Point4D) mesh.points[j];
 
-				int xo=convertX(p.x);
-				int yo=convertY(p.y);
+				int xo=convertX(p);
+				int yo=convertY(p);
 				
 				int rgbColor=Color.white.getRGB();
 
@@ -283,8 +283,8 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			//bufGraphics.setColor(ZBuffer.fromHexToColor(is[i].getHexColor()));
 
-			cx[i]=convertX(p.x);
-			cy[i]=convertY(p.y);
+			cx[i]=convertX(p);
+			cy[i]=convertY(p);
 			cz[i]=(int)p.z;
 
 			//real coordinates
@@ -442,8 +442,8 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
 
-			int y=convertY(dro.y);
-			int x=convertX(dro.x);
+			int y=convertY(dro.x,dro.y,dro.z);
+			int x=convertX(dro.x,dro.y,dro.z);
 
 			int index=dro.getIndex();
 
@@ -475,14 +475,14 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		if(!DrawObject.IS_3D)
 			versus=-1;
 
-		cx[0]=convertX(dro.x);
-		cy[0]=convertY(dro.y);
-		cx[1]=convertX(dro.x);
-		cy[1]=convertY(dro.y+versus*dro.dy);
-		cx[2]=convertX(dro.x+dro.dx);
-		cy[2]=convertY(dro.y+versus*dro.dy);
-		cx[3]=convertX(dro.x+dro.dx);
-		cy[3]=convertY(dro.y);
+		cx[0]=convertX(dro.x,dro.y,dro.z);
+		cy[0]=convertY(dro.x,dro.y,dro.z);
+		cx[1]=convertX(dro.x,dro.y,dro.z);
+		cy[1]=convertY(dro.x,dro.y+versus*dro.dy,dro.z);
+		cx[2]=convertX(dro.x+dro.dx,dro.y,dro.z);
+		cy[2]=convertY(dro.x,dro.y+versus*dro.dy,dro.z);
+		cx[3]=convertX(dro.x+dro.dx,dro.y,dro.z);
+		cy[3]=convertY(dro.x,dro.y,dro.z);
 
 		Polygon p_in=new Polygon(cx,cy,4);
 		
@@ -521,11 +521,11 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	}
 	
 
-	public int convertX(double i) {
+	public int convertX(double i,double j,double k) {
 
 		return (int) (i/dx-MOVX);
 	}
-	public int convertY(double j) {
+	public int convertY(double i,double j,double k) {
 
 		return (int) (HEIGHT-(j/dy+MOVY));
 	}
@@ -645,8 +645,8 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			Point4D p=(Point4D) mesh.points[j];
 
-			int xo=convertX(p.x);
-			int yo=convertY(p.y);
+			int xo=convertX(p);
+			int yo=convertY(p);
 
 
 			if(xo>=x0 && xo<=x1 && yo>=y0 && yo<=y1  ){

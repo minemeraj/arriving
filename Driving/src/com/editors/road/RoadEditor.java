@@ -3014,8 +3014,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		    Point4D p=(Point4D) mesh.points[j];
 
-				int xo=ep.convertX(p.x);
-				int yo=ep.convertY(p.y);
+				int xo=ep.convertX(p);
+				int yo=ep.convertY(p);
 
 				Rectangle rect=new Rectangle(xo-5,yo-5,10,10);
 				if(rect.contains(x,y)){
@@ -3104,14 +3104,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			if(!DrawObject.IS_3D)
 				versus=-1;
 
-			cx[0]=ep.convertX(dro.x);
-			cy[0]=ep.convertY(dro.y);
-			cx[1]=ep.convertX(dro.x);
-			cy[1]=ep.convertY(dro.y+versus*dro.dy);
-			cx[2]=ep.convertX(dro.x+dro.dx);
-			cy[2]=ep.convertY(dro.y+versus*dro.dy);
-			cx[3]=ep.convertX(dro.x+dro.dx);
-			cy[3]=ep.convertY(dro.y);
+			cx[0]=ep.convertX(dro.x,dro.y,dro.z	);
+			cy[0]=ep.convertY(dro.x,dro.y,dro.z	);
+			cx[1]=ep.convertX(dro.x,dro.y,dro.z	);
+			cy[1]=ep.convertY(dro.x,dro.y+versus*dro.dy,dro.z);
+			cx[2]=ep.convertX(dro.x+dro.dx,dro.y,dro.z);
+			cy[2]=ep.convertY(dro.x,dro.y+versus*dro.dy,dro.z);
+			cx[3]=ep.convertX(dro.x+dro.dx,dro.y,dro.z);
+			cy[3]=ep.convertY(dro.x,dro.y,dro.z);
 
 			Polygon p_in=new Polygon(cx,cy,4);			
 			Point3D center=Polygon3D.findCentroid(p_in);
@@ -3162,8 +3162,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			}
 			else {
 				
-				cxr[i]=ep.convertX(p.x);
-				cyr[i]=ep.convertY(p.y);
+				cxr[i]=ep.convertX(p);
+				cyr[i]=ep.convertY(p);
 				czr[i]=(int)(p.z);
 			}
 			
