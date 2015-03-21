@@ -650,7 +650,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		displayRoad(landscapeZbuffer,1);
 		displayObjects(landscapeZbuffer);
 		
-		buildScreen(buf); 
+		
 
 		//if(g2!=null)
 		//	g2.drawImage(buf,0,0,WIDTH,HEIGHT,null);
@@ -664,7 +664,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		Graphics2D graph = (Graphics2D) buf.getGraphics();
 		RoadEditorPanel ep=getCenter();
 
-		draw(getCenter(),graph);
+		draw(ep,graph);
+		
+		buildScreen(buf); 
 
 		if(graphics==null)
 			graphics=(Graphics2D) ep.getGraphics();
@@ -683,7 +685,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		graph.fillRect(0,0,WIDTH,HEIGHT);
 	
 		//editorPanel.setHide_objects(checkHideObjects.isSelected());
-		editorPanel.drawRoad(meshes,drawObjects,graph,landscapeZbuffer);
+		editorPanel.drawRoad(meshes,drawObjects,landscapeZbuffer,graph);
 	
 
 		//drawCurrentRect(graph);
