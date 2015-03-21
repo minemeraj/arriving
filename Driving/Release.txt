@@ -3,6 +3,8 @@ See menu View-> 3D view/Top view.
 
 Fixed bug of rotated 3D objects wrongly displayed.
 
+Now defualt start whitout shading. To shade, add +s parameter. See README.txt
+
 ----- 20/03/2015 CarDriving 8.1.2
 
 First step in a deep re-thinking of the RoadEditor.

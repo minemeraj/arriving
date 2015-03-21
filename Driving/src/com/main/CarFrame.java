@@ -119,10 +119,10 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 	
 	 public static void main(String[] args) {
 		 
-		boolean  skipShading=false;
+		boolean skipShading=true;
 		
 		if(args.length==1)
-			skipShading="-s".equals(args[0]);
+			skipShading=!("+s".equals(args[0]));
 		
 		GameLoader gl=new GameLoader();		
 		gl.setSkipShading(skipShading);
