@@ -1188,58 +1188,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			}
 			
 		
-			
-			
-		
-		
-			/*for(int i=i0;i<i1;i++){
-				
-				//how to calculate the real limits?
-				
-			
-				for (int j = j0; j < j1; j++) {
-					
-					if(p3d.contains(i,j))
-					{	
-
-						
-						int ii=invertX(i);
-						int jj=invertY(j);
-				
-						if(i>=0 && i<WIDTH && j>=0 && j<HEIGHT){
-							
-							int tot=i+j*WIDTH;											
-
-							int rgbColor = ZBuffer.pickRGBColorFromTexture(texture,ii,jj,p3d.zpoints[0],xDirection,yDirection,p0r,0,0);
-							
-							if(selected!=null){
-								
-								
-								
-							    //int a=(int) (a1*(rgbColor>>32 & mask)+a2*(rgbSelection>>32 & mask));
-							    int r=(int) (a1*(rgbColor>>16 & mask)+rr);
-							    int g=(int) (a1*(rgbColor>>8 & mask)+gg);
-							    int b=(int) (a1*(rgbColor & mask)+bb);
-								
-								rgbColor= (255 << 32) + (r << 16) + (g << 8) + b;
-							}
-
-							landscapeZbuffer[tot].setRgbColor(rgbColor);
-				
-						}
-						
-						
-						
-					}
-					//bufGraphics.setColor(new Color(rgbColor));
-					//bufGraphics.fillRect(i,j,1,1);
-					
-
-
-				}
-
-			}*/
-
 		}
 
 	}

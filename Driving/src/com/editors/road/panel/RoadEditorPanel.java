@@ -23,8 +23,8 @@ public class RoadEditorPanel extends JPanel {
 	int WIDTH=0;
 	int HEIGHT=0;
 
-	public RoadEditorPanel(RoadEditor editor, int cENTER_HEIGHT,
-			int cENTER_WIDTH) {
+	public RoadEditorPanel(RoadEditor editor,
+			int cENTER_WIDTH, int cENTER_HEIGHT) {
 	
 		this.HEIGHT=cENTER_HEIGHT;
 		this.WIDTH=cENTER_WIDTH;

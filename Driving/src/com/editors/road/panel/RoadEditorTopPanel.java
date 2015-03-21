@@ -31,9 +31,9 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	public Color selectionColor=null;
 
 	
-	public RoadEditorTopPanel(RoadEditor editor,int cENTER_HEIGHT, int cENTER_WIDTH) {
+	public RoadEditorTopPanel(RoadEditor editor, int cENTER_WIDTH,int cENTER_HEIGHT) {
 		
-		super(editor,cENTER_HEIGHT, cENTER_WIDTH);
+		super(editor, cENTER_WIDTH,cENTER_HEIGHT);
 		intialize();
 	}
 	
