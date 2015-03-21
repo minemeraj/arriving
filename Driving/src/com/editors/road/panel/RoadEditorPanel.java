@@ -432,23 +432,19 @@ public class RoadEditorPanel extends JPanel {
 		return (int) j;
 	}
 	
-	public void drawCurrentRect(ZBuffer landscapeZbuffer) {
-		
-		
-	}
-	
-	public void zoom(int i) {
-		
+	public void drawCurrentRect(ZBuffer landscapeZbuffer) {		
 		
 	}
 	
-	public void up(){
+	public void zoom(int i) {		
+		
+	}
 	
+	public void up(){	
 
 	}
 
-	public void down(){
-		
+	public void down(){		
 
 	}
 	
@@ -456,15 +452,24 @@ public class RoadEditorPanel extends JPanel {
 		
 	}
 
-	public void right(){
-		
+	public void right(){		
 
+	}
+	
+	public void mouseDown() {
+		
+	}
+
+
+	public void mouseUp() {
+		
 	}
 	
 	public boolean selectPointsWithRectangle(PolygonMesh mesh) {
 		
 		return false;
 	}
+	
 
 
 }

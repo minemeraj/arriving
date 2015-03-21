@@ -39,7 +39,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	public double deltay=1;
 	public double deltax=1;
 	
-	public int y0=200;
+	public int y0=400;
 	public int x0=100;
 	
 	public int POSX=0;
@@ -504,14 +504,48 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		return y0-(int) ((sz+sy*cosAlfa+sx*cosAlfa)/deltay);
 	}
 
+	
+
+	public void left() {
+		POSX-=2*deltax;
+	}
+	
+
+	public void right() {
+		POSX+=2*deltax;
+	}
 
 	public void down() {
-		y0+=5;
+		POSY-=2*deltax;
 		
 	}
 
 
 	public void up() {
+		POSY+=2*deltax;
+		
+	}
+	
+	public void zoom(int i) {
+		if(i<0){
+			deltax=deltax*2;
+			deltay=deltay*2;
+			
+		}	
+		else if(i>0){
+			deltax=deltax/2;
+			deltay=deltay/2;
+			
+		}
+	}
+	
+	public void mouseDown() {
+		y0+=5;
+		
+	}
+
+
+	public void mouseUp() {
 		y0-=5;
 		
 	}

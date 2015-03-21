@@ -576,6 +576,16 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 	}
 	
+
+	public void mouseDown() {
+		down();
+	}
+	
+	@Override
+	public void mouseUp() {
+		up();
+	}
+	
 	public void left(){
 		MOVX=MOVX-10;
 	}

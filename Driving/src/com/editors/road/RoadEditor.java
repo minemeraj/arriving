@@ -3369,9 +3369,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		int pix=arg0.getUnitsToScroll();
 		if(pix>0) 
-			ep.up();
+			ep.mouseUp();
 		else 
-			ep.down();
+			ep.mouseDown();
 		
 		draw();
 
