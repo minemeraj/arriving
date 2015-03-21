@@ -20,7 +20,7 @@ import com.main.Road;
 
 public class RoadEditorTopPanel extends RoadEditorPanel {
 	
-	RoadEditor roadEditor=null;
+
 	
 	int MOVX=-50;
 	int MOVY=100;
@@ -33,7 +33,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	
 	public RoadEditorTopPanel(RoadEditor editor,int cENTER_HEIGHT, int cENTER_WIDTH) {
 		
-		this.roadEditor=editor;
+		super(editor,cENTER_HEIGHT, cENTER_WIDTH);
 		intialize();
 	}
 	
@@ -104,11 +104,11 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	
 	private void drawCurrentRect(ZBuffer landscapeZbuffer) {
 		
-		if(!roadEditor.isDrawCurrentRect())
+		if(!editor.isDrawCurrentRect())
 			return;
 		//System.out.println(isDrawCurrentRect);
 		
-		Rectangle currentRect = roadEditor.currentRect;
+		Rectangle currentRect = editor.currentRect;
 		
 		int x0=Math.min(currentRect.x,currentRect.x+currentRect.width);
 		int x1=Math.max(currentRect.x,currentRect.x+currentRect.width);
@@ -319,7 +319,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 		if(ld.isSelected()){
 
-			if(indx<0 || indx==roadEditor.ACTIVE_PANEL){
+			if(indx<0 || indx==editor.ACTIVE_PANEL){
 				selected=selectionColor;
 			}
 		}
@@ -511,8 +511,8 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		int rgbColor = pColor.getRGB();
 		drawPolygon(landscapeZbuffer,pTot,rgbColor);
 				
-		roadEditor.drawTextImage(landscapeZbuffer,RoadEditor.objectIndexes[dro.getIndex()]
-						,cx[0]-5,cy[0]-5,roadEditor.indexWidth,roadEditor.indexHeight,Color.BLACK,pColor);		
+		editor.drawTextImage(landscapeZbuffer,RoadEditor.objectIndexes[dro.getIndex()]
+						,cx[0]-5,cy[0]-5,editor.indexWidth,editor.indexHeight,Color.BLACK,pColor);		
 		
 		
 

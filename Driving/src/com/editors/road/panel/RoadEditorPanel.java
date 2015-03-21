@@ -12,10 +12,24 @@ import com.Polygon3D;
 import com.PolygonMesh;
 import com.Texture;
 import com.ZBuffer;
+import com.editors.road.RoadEditor;
 
 public class RoadEditorPanel extends JPanel {
 	
 	public int blackRgb= Color.BLACK.getRGB();
+	
+	public RoadEditor editor;
+	
+	int WIDTH=0;
+	int HEIGHT=0;
+
+	public RoadEditorPanel(RoadEditor editor, int cENTER_HEIGHT,
+			int cENTER_WIDTH) {
+	
+		this.HEIGHT=cENTER_HEIGHT;
+		this.WIDTH=cENTER_WIDTH;
+		this.editor=editor;
+	}
 
 	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,
 			ZBuffer landscapeZbuffer,Graphics2D graph) {

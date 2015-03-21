@@ -44,7 +44,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	public int POSY=0;
 	public int MOVZ=0;
 	
-	private RoadEditor editor;
+	
 	
 	public double viewDirection=0;	
 	public double viewDirectionCos=1.0;
@@ -53,8 +53,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 	public RoadEditorIsoPanel(RoadEditor editor,int cENTER_HEIGHT, int cENTER_WIDTH) {
 		
-		super();
-		this.editor=editor;
+		super(editor,cENTER_HEIGHT, cENTER_WIDTH);
 		//editor.addPropertyChangeListener(this);
 		//addKeyListener(this);
 		//addMouseWheelListener(this);
