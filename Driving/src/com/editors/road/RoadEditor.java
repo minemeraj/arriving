@@ -45,8 +45,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -56,12 +54,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.RepaintManager;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.event.MenuEvent;
 
 import com.BarycentricCoordinates;
@@ -82,7 +78,6 @@ import com.editors.ValuePair;
 import com.editors.road.panel.RoadEditorIsoPanel;
 import com.editors.road.panel.RoadEditorPanel;
 import com.editors.road.panel.RoadEditorTopPanel;
-import com.main.CarFrame;
 import com.main.HelpPanel;
 import com.main.Road;
 
@@ -94,7 +89,7 @@ import com.main.Road;
 public class RoadEditor extends Editor implements ActionListener,MouseListener,MouseWheelListener,PropertyChangeListener,MouseMotionListener,KeyListener, ItemListener{
 
 
-	private JPanel center;
+	//private JPanel center;
 	int HEIGHT=680;
 	int WIDTH=900;
 	int LEFT_BORDER=240;
@@ -111,8 +106,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	int deltax=200;
 
 	public Vector drawObjects=new Vector();
-	Graphics2D g2;
-	Graphics2D g2Alias;
+	//Graphics2D g2;
+	//Graphics2D g2Alias;
 	Stack oldObjects=new Stack();
 	Stack oldRoads=new Stack();
 	int MAX_STACK_SIZE=10;
@@ -278,8 +273,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		//panelIso.setTransferHandler(new FileTransferhandler());
 		panelTop=getPanelTop();
 		//panelTop.setTransferHandler(new FileTransferhandler());
+		add(panelTop);
 		
-		center=new JPanel(){
+		
+		/*center=new JPanel(){
 			
 			public void paint(Graphics g) {
 				super.paint(g);
@@ -291,10 +288,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		center.setBounds(LEFT_BORDER,0,WIDTH,HEIGHT);
 		center.addMouseListener(this);
 		center.addMouseWheelListener(this);
-		center.addMouseMotionListener(this);
+		center.addMouseMotionListener(this);*/
+		
+		
+		
 		addKeyListener(this);
 		addPropertyChangeListener(this);
-		add(center);
+		
+		
 		buildMenuBar();
 		buildLeftPanel();
 
@@ -398,11 +399,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		buildNewZBuffers();
 		selectionColor=new Color(255,0,0,127);
 		
-		g2=(Graphics2D) center.getGraphics();
-		g2Alias=(Graphics2D) center.getGraphics();
-		g2Alias.setColor(Color.GRAY);
-		Stroke stroke=new BasicStroke(0.1f,BasicStroke.CAP_BUTT,BasicStroke.JOIN_BEVEL);
-		g2Alias.setStroke(stroke);
+		//g2=(Graphics2D) center.getGraphics();
+		//g2Alias=(Graphics2D) center.getGraphics();
+		//g2Alias.setColor(Color.GRAY);
+		//Stroke stroke=new BasicStroke(0.1f,BasicStroke.CAP_BUTT,BasicStroke.JOIN_BEVEL);
+		//g2Alias.setStroke(stroke);
 		
 		File directoryImg=new File("lib");
 		File[] files=directoryImg.listFiles();
@@ -593,7 +594,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private void deselectAll() {
 		cleanPoints();
 		deselectAllPoints();
-		displayAll();
+		draw();
 		coordinatesx[ACTIVE_PANEL].requestFocus();
 		
 		polygon=new LineData();
@@ -602,7 +603,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private void startBuildPolygon() {
 		
 		deselectAll();
-		displayAll();
+		draw();
 		
 		if(!checkMultiplePointsSelection[ACTIVE_PANEL].isSelected())
 			checkMultiplePointsSelection[ACTIVE_PANEL].setSelected(true);
@@ -630,12 +631,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			break;
 		}
-		displayAll();
+		draw();
 		
 	}
 
 
-	private void displayAll() {
+	/*private void displayAll() {
 
 
 		
@@ -651,10 +652,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		buildScreen(buf); 
 
-		if(g2!=null)
-			g2.drawImage(buf,0,0,WIDTH,HEIGHT,null);
+		//if(g2!=null)
+		//	g2.drawImage(buf,0,0,WIDTH,HEIGHT,null);
 
-	}
+	}*/
 	
 
 	private void draw() {
@@ -758,7 +759,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	public void paint(Graphics g) {
 		super.paint(g);
-		displayAll();
+		draw();
 	}
 
 	private void drawObject(ZBuffer landscapeZbuffer, DrawObject dro) {
@@ -2267,7 +2268,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 
 		cleanObjects();
-		displayAll();
+		draw();
 
 	}
 	
@@ -2305,7 +2306,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
        
 		//cleanObjects();
-		displayAll();
+		draw();
 		
 	}
 
@@ -2355,7 +2356,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         firePropertyChange("RoadEditorUpdate", false, true);
 
 		cleanPoints();
-		displayAll();
+		draw();
 	}
 	
 	private void changeSelectedRoadPolygon() {
@@ -2600,7 +2601,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		firePropertyChange("RoadEditorUpdate", false, true);
 
 		cleanPoints();
-		displayAll();
+		draw();
 
 	}
 
@@ -3015,43 +3016,43 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		else if(obj==mergeSelectedPoints[ACTIVE_PANEL]){			
 			
 			mergeSelectedPoints();
-			displayAll();
+			draw();
 		}
 		else if(obj==changePoint[ACTIVE_PANEL] ){
 			changeSelectedRoadPoint();
-			displayAll();
+			draw();
 		}
 		else if(obj==changePolygon[ACTIVE_PANEL]){
 			changeSelectedRoadPolygon();
-			displayAll();
+			draw();
 		}	
 		else if(obj==startBuildPolygon[ACTIVE_PANEL]){
 			startBuildPolygon();
 			
-			displayAll();
+			draw();
 		}	
 		else if(obj==buildPolygon[ACTIVE_PANEL]){
 			buildPolygon();
-			displayAll();
+			draw();
 		}
 		else if(obj==polygonDetail[ACTIVE_PANEL]){
 			polygonDetail();
-			//displayAll();
+			//draw();
 		}
 		else if(obj==deleteSelection[ACTIVE_PANEL]){
 			deleteSelection();
-			displayAll();
+			draw();
 		}
 		else if(obj==deselectAll[ACTIVE_PANEL]){
 			deselectAll();
 		}
 		else if(obj==delObject){
 			deleteObject();
-			displayAll();
+			draw();
 		}
 		else if(obj==changeObject){
 			changeSelectedObject();
-			displayAll();
+			draw();
 		}
 		else if(obj==deselectAllObjects){
 			cleanObjects();
@@ -3213,7 +3214,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		VIEW_TYPE=type;
 
-		displayAll();
+		draw();
 	}
 	
 	public RoadEditorPanel getCenter(){
@@ -3347,7 +3348,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 		}
 		
-		displayAll();
+		draw();
 		
 	
 		
@@ -3437,7 +3438,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 		}
 		
-		displayAll();
+		draw();
 		
 	}
 	
@@ -3522,7 +3523,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 		}
 		
-		displayAll();
+		draw();
 		
 	}
 	
@@ -3536,7 +3537,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			RoadEditorCityManager.buildCustomCity1(meshes[0],meshes[1],roadECM,drawObjects,objectMeshes);
 			meshes[1]=PolygonMesh.simplifyMesh(meshes[1]);
 			
-			displayAll();
+			draw();
 		}
 		
 	}
@@ -3773,7 +3774,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				mesh.polygonData.add(ld);
 			}
 			
-			displayAll();
+			draw();
 			
 		}
 		
@@ -3836,7 +3837,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			else
 				selectObject(arg0.getX(),arg0.getY());
 		}
-		displayAll();
+		draw();
 	}
 
 
@@ -4133,7 +4134,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		rotation_angle.setText(0);
 		
 		deselectAllObjects();
-		displayAll();
+		draw();
 	}
 	
 	public void cleanPoints(){
@@ -4238,42 +4239,42 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		else if(code==KeyEvent.VK_LEFT )
 		{	
 			MOVX=MOVX-10; 
-			displayAll();
+			draw();
 		}
 		else if(code==KeyEvent.VK_RIGHT  )
 		{	 
 			MOVX=MOVX+10;   
-			displayAll();
+			draw();
 		}
 		else if(code==KeyEvent.VK_D  )
 		{	
 			deleteSelection();
-			displayAll();
+			draw();
 		}
 		else if(code==KeyEvent.VK_N  )
 		{	
 			startBuildPolygon();
-			displayAll();
+			draw();
 		}
 		else if(code==KeyEvent.VK_P  )
 		{	
 			changeSelectedRoadPoint();
-			displayAll();
+			draw();
 		}
 		else if(code==KeyEvent.VK_B  )
 		{	
 			changeSelectedObject();
-			displayAll();
+			draw();
 		}
 		else if(code==KeyEvent.VK_L  )
 		{  
 			buildPolygon();
-			displayAll();
+			draw();
 		}
 		else if(code==KeyEvent.VK_Y  )
 		{ 
 			changeSelectedRoadPolygon();
-			displayAll();
+			draw();
 		}
 		else if(code==KeyEvent.VK_E  )
 		{ 
@@ -4282,18 +4283,18 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		else if(code==KeyEvent.VK_F1  )
 		{ 
 			zoom(+1);
-			displayAll();
+			draw();
 		}
 		else if(code==KeyEvent.VK_F2  )
 		{  
 			zoom(-1);
-			displayAll();
+			draw();
 		}
 		else if(code==KeyEvent.VK_LESS )
 		{	
 			 
 			invertSelectedRoadPolygon(); 
-			displayAll();
+			draw();
 		}
 
 	}
@@ -4303,13 +4304,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	public void up(){
 		MOVY=MOVY-10;
-		displayAll();
+		draw();
 
 	}
 
 	public void down(){
 		MOVY=MOVY+10;
-		displayAll();
+		draw();
 
 	}
 
@@ -4372,7 +4373,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		isDrawCurrentRect=true;
 		updateSize(e);
-		displayAll();
+		draw();
 
 	}
 	
@@ -4400,7 +4401,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		isDrawCurrentRect=false;
 		updateSize(arg0);
         selectPointsWithRectangle();
-        displayAll();
+        draw();
        
 	}
 
@@ -4472,12 +4473,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		//System.out.println(arg0.getSource().getClass());
 		if("paintDirtyRegions".equals(arg0.getPropertyName()) && redrawAfterMenu)
 		{
-			 displayAll();
+			 draw();
 			 redrawAfterMenu=false;
 		}
 		else if("roadUpdate".equals(arg0.getPropertyName()))
 		{
-			 displayAll();
+			 draw();
 		}
 		
 	}
@@ -4685,7 +4686,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		meshes[ACTIVE_PANEL]=pMesh;
 		
-		displayAll();
+		draw();
 		
 	}
 
