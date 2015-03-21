@@ -28,38 +28,50 @@ import com.main.Road;
 public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 	
+	int MOVX=-50;
+	int MOVY=100;
+
+	int dx=2;
+	int dy=2;
+
+	int deltay=200;
+	int deltax=200;
+	
+	public int y0=200;
+	public int x0=100;
+	
+	public int POSX=0;
+	public int POSY=0;
+	public int MOVZ=0;
+	
+	private RoadEditor editor;
+	
+	public double viewDirection=0;	
+	public double viewDirectionCos=1.0;
+	public double viewDirectionSin=0.0;	
+
+
 	public RoadEditorIsoPanel(RoadEditor editor,int cENTER_HEIGHT, int cENTER_WIDTH) {
 		
-		
-	}
-	
-
-	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,
-			Graphics2D graph,ZBuffer landscapeZbuffer) {
-
-	}
-	
-	/*public RoadEditorPreviewPanel( RoadEditor roadEditor) {
-		
 		super();
-		this.roadEditor=roadEditor;
-	
-		this.meshes=roadEditor.meshes;		
-		this.drawObjects=roadEditor.drawObjects;
-			
-		this.roadEditor=roadEditor;
-		roadEditor.addPropertyChangeListener(this);
-		
-		addKeyListener(this);
-		addMouseWheelListener(this);
+		this.editor=editor;
+		//editor.addPropertyChangeListener(this);
+		//addKeyListener(this);
+		//addMouseWheelListener(this);
 		setVisible(true);
 		initialize();
 	}
 	
 
-	public void initialize() {
+	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,
+			Graphics2D graph,ZBuffer landscapeZbuffer) {
+		
+		drawRoad(meshes,landscapeZbuffer);
+		drawObjects(drawObjects,null,landscapeZbuffer);
+	}
+	
 
-		super.initialize();
+	public void initialize() {
 
 		deltax=4;
 		deltay=4;
@@ -67,39 +79,10 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		POSX=0;
 		POSY=1000;
 
-		try {
-
-
-			worldTextures=RoadEditor.worldTextures;
-			objectMeshes=RoadEditor.objectMeshes;
-			objectTextures=RoadEditor.objectTextures;
-
-
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
 	}
 
 
-
-
-
-	public void draw() {
-		
-				
-
-
-		drawRoad(buf);
-		super.draw();
-	
-		
-		
-	}
-
-
-	private void drawRoad(BufferedImage buf) {
+	private void drawRoad(PolygonMesh[] meshes,ZBuffer roadZbuffer) {
 		
 		
 		
@@ -116,7 +99,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	
 				Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.points,index);
 	
-				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),worldTextures[p3D.getIndex()],roadZbuffer);
+				//decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),RoadEditor.worldTextures[p3D.getIndex()],roadZbuffer);
 				
 			    if(index==1){
 			    	
@@ -125,7 +108,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			    	Polygon3D[] polygons=Road.buildAdditionalRoadPolygons(p3D);
 			    	
 			    	for (int i = 0; i < polygons.length; i++) {
-							decomposeClippedPolygonIntoZBuffer(polygons[i],Color.DARK_GRAY,null,roadZbuffer);
+							//decomposeClippedPolygonIntoZBuffer(polygons[i],Color.DARK_GRAY,null,roadZbuffer);
 					}
 			    	
 			    }
@@ -135,9 +118,9 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		
 		}
 		
-		drawObjects(drawObjects,null,roadZbuffer);
+		
 
-		buildScreen(buf); 
+		//buildScreen(buf); 
 	}
 
 	
@@ -163,7 +146,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		
 		PolygonMesh mesh = dro.getMesh();
 	    
-		decomposeCubicMesh((CubicMesh) mesh,objectTextures[dro.getIndex()],zbuffer);
+		decomposeCubicMesh((CubicMesh) mesh,RoadEditor.objectTextures[dro.getIndex()],zbuffer);
 		
 	}
 	
@@ -290,7 +273,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			
 			
 			
-			decomposeClippedPolygonIntoZBuffer(polRotate,col,texture,zBuffer,xDirection,yDirection,rotateOrigin,deltaTexture+deltaWidth,deltaHeight);
+			//decomposeClippedPolygonIntoZBuffer(polRotate,col,texture,zBuffer,xDirection,yDirection,rotateOrigin,deltaTexture+deltaWidth,deltaHeight);
 	}
 
 
@@ -353,7 +336,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 		int code =arg0.getKeyCode();
 
-		if(code==KeyEvent.VK_LEFT  )
+		/*if(code==KeyEvent.VK_LEFT  )
 		{ 
 			POSX-=2*deltax;
 			draw();
@@ -384,7 +367,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		}else{
 			
 			super.keyPressed(arg0);
-		}
+		}*/
 	}
 	
 
@@ -442,9 +425,9 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				|| "RoadEditorUpdate".equals(evt.getPropertyName())
 		)
 		{
-			this.meshes=roadEditor.meshes;
+			/*this.meshes=roadEditor.meshes;
 		
-			draw();
+			draw();*/
 		}
 		
 	
@@ -460,7 +443,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		if(pix>0) up();
 		else down();
 		
-		draw();
+		//draw();
 	}
 
 
@@ -473,5 +456,5 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	private void up() {
 		y0-=5;
 		
-	}*/
+	}
 }
