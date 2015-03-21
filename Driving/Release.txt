@@ -1,5 +1,7 @@
 Now preview becomes a panel in the editor, alternative to top view.
-See menu View-> 3D view/Top view
+See menu View-> 3D view/Top view.
+
+Fixed bug of rotated 3D objects wrongly displayed.
 
 ----- 20/03/2015 CarDriving 8.1.2
 
