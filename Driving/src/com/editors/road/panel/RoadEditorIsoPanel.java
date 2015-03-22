@@ -158,12 +158,21 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		//	return;
 		
 		PolygonMesh mesh = dro.getMesh();
+		
+		Color selected=null;
+		
+		if(dro.isSelected()){
+
+				selected=selectionColor;
+			
+		}
+		
 	    
-		decomposeCubicMesh((CubicMesh) mesh,RoadEditor.objectTextures[dro.getIndex()],zbuffer);
+		decomposeCubicMesh((CubicMesh) mesh,RoadEditor.objectTextures[dro.getIndex()],zbuffer,selected);
 		
 	}
 	
-	public void decomposeCubicMesh(CubicMesh cm, Texture texture,ZBuffer zBuffer){
+	public void decomposeCubicMesh(CubicMesh cm, Texture texture,ZBuffer zBuffer,Color selected){
 		
 		
 		
@@ -178,6 +187,8 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		
 		Point3D zVersor=buildTransformedVersor(cm.getZAxis());
 		Point3D zMinusVersor=new Point3D(-zVersor.x,-zVersor.y,-zVersor.z);
+		
+		
 
 
 		
@@ -186,8 +197,8 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 
 
-			int due=(int)(255-i%15);			
-			Color col=new Color(due,0,0);
+			//int due=(int)(255-i%15);			
+			//Color col=new Color(due,0,0);
 
 			LineData ld=cm.polygonData.elementAt(i);
 			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld);
@@ -199,7 +210,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			buildTransformedPolygon(polRotate);
 
 
-			decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,point000,point011,point001,face,col,texture,zBuffer);
+			decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,point000,point011,point001,face,selected,texture,zBuffer);
 
 
 
