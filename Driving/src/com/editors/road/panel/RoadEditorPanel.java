@@ -22,6 +22,8 @@ public class RoadEditorPanel extends JPanel {
 	
 	int WIDTH=0;
 	int HEIGHT=0;
+	
+	public Color selectionColor=null;
 
 	public RoadEditorPanel(RoadEditor editor,
 			int cENTER_WIDTH, int cENTER_HEIGHT) {

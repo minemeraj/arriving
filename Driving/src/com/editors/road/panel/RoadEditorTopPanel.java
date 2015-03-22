@@ -30,7 +30,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	int dx=2;
 	int dy=2;
 	
-	public Color selectionColor=null;
+	
 
 	
 	public RoadEditorTopPanel(RoadEditor editor, int cENTER_WIDTH,int cENTER_HEIGHT) {

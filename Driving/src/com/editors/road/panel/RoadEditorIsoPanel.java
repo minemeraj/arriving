@@ -58,10 +58,6 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	public RoadEditorIsoPanel(RoadEditor editor, int cENTER_WIDTH,int cENTER_HEIGHT) {
 		
 		super(editor, cENTER_WIDTH,cENTER_HEIGHT);
-		//editor.addPropertyChangeListener(this);
-		//addKeyListener(this);
-		//addMouseWheelListener(this);
-		setVisible(true);
 		initialize();
 	}
 	
@@ -80,6 +76,8 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 		POSX=0;
 		POSY=1000;
+		
+		selectionColor=new Color(255,0,0,127);
 
 	}
 
@@ -100,8 +98,18 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				LineData ld=(LineData) mesh.polygonData.elementAt(j);
 	
 				Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.points,index);
+				
+				Color selected=null;
+				
+				if(ld.isSelected()){
+
+					if(index<0 || index==editor.ACTIVE_PANEL){
+						selected=selectionColor;
+					}
+				}
+				
 	
-				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),RoadEditor.worldTextures[p3D.getIndex()],roadZbuffer);
+				decomposeClippedPolygonIntoZBuffer(p3D,selected,RoadEditor.worldTextures[p3D.getIndex()],roadZbuffer);
 				
 			    if(index==1){
 			    	
@@ -109,8 +117,11 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			    	
 			    	Polygon3D[] polygons=Road.buildAdditionalRoadPolygons(p3D);
 			    	
+			    	if(selected==null)
+			    		selected=Color.DARK_GRAY;
+			    	
 			    	for (int i = 0; i < polygons.length; i++) {
-							decomposeClippedPolygonIntoZBuffer(polygons[i],Color.DARK_GRAY,null,roadZbuffer);
+							decomposeClippedPolygonIntoZBuffer(polygons[i],selected,null,roadZbuffer);
 					}
 			    	
 			    }
@@ -187,6 +198,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 			buildTransformedPolygon(polRotate);
 
+
 			decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,point000,point011,point001,face,col,texture,zBuffer);
 
 
@@ -209,7 +221,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			Point3D point011, 
 			Point3D point001,
 			int face, 
-			Color col, 
+			Color selected, 
 			Texture texture, 
 			ZBuffer zBuffer
 			){
@@ -275,24 +287,26 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			
 			
 			
-			decomposeClippedPolygonIntoZBuffer(polRotate,col,texture,zBuffer,xDirection,yDirection,rotateOrigin,deltaTexture+deltaWidth,deltaHeight);
+			decomposeClippedPolygonIntoZBuffer(polRotate,selected,texture,zBuffer,xDirection,yDirection,rotateOrigin,deltaTexture+deltaWidth,deltaHeight);
 	}
 	
-	 public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer){
+	 public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color selected,Texture texture,ZBuffer zbuffer){
 	   	 
 	    	Point3D origin=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
-	    	decomposeClippedPolygonIntoZBuffer(p3d, color, texture,zbuffer,null,null,origin,0,0);
+	    	decomposeClippedPolygonIntoZBuffer(p3d, selected, texture,zbuffer,null,null,origin,0,0);
 
 	 }
 
 	
 
-    public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer,
+    public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color selected,Texture texture,ZBuffer zbuffer,
 			Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY){		
 
 		Point3D normal=Polygon3D.findNormal(p3d);
 
-
+        int rgb=-1;
+        if(selected!=null)
+        	rgb=selected.getRGB();
 
 		if(texture!=null && xDirection==null && yDirection==null){
 
@@ -319,8 +333,9 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			Polygon3D[] clippedTriangles = Polygon3D.divideIntoTriangles(triangles[i]);
 			
 			for (int j = 0; j < clippedTriangles.length; j++) {
+						
 				
-				decomposeTriangleIntoZBufferEdgeWalking( clippedTriangles[j],color.getRGB(), texture,zbuffer, xDirection,yDirection,origin, deltaX, deltaY,bc);
+				decomposeTriangleIntoZBufferEdgeWalking( clippedTriangles[j],rgb, texture,zbuffer, xDirection,yDirection,origin, deltaX, deltaY,bc);
 				
 			}
 
