@@ -496,5 +496,10 @@ public class RoadEditorPanel extends JPanel {
 	public boolean selectPoints(int x, int y, PolygonMesh mesh, LineData polygon) {
 		return false;
 	}
+	
+	public Polygon3D builProjectedPolygon(Polygon3D p3d) {
+		
+		return null;
+	}
 
 }

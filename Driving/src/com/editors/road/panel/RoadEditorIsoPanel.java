@@ -4,9 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseWheelEvent;
 import java.awt.geom.Area;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.util.Vector;
 
@@ -51,10 +49,11 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	public double cosAlfa=Math.cos(alfa);
 	public double sinAlfa=Math.sin(alfa);
 	
+	Point3D projectionNormal=new Point3D(-1/Math.sqrt(3),-1/Math.sqrt(3),1/Math.sqrt(3));
+	
 	public double viewDirection=0;	
 	public double viewDirectionCos=1.0;
 	public double viewDirectionSin=0.0;	
-
 
 	public RoadEditorIsoPanel(RoadEditor editor, int cENTER_WIDTH,int cENTER_HEIGHT) {
 		
@@ -458,64 +457,60 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
     	
     }
 
-    @Override
     public Vector selectPolygons(int x, int y, PolygonMesh mesh,
     		boolean toSelect) {
-    
-
+    	
+    	Vector ret=new Vector();
+   
+    	if(mesh==null)
+    		return ret;
 		
-		Vector ret=new Vector();
 		
-		Vector selectableBlocks=new Vector();
-		/*for (int i = 0; i < blocks.length; i++) {
-			
-			Block bl = blocks[i];
-			
-			Vector lines=bl.getPolygons(false);	   
+		
+		Vector selectablePolygons=new Vector();
+		
+		int sizel=mesh.polygonData.size();
+		
+		for(int i=0;i<sizel;i++){
 
-			for (int j = 0; j < lines.size(); j++) {
 
-				LineData ld = (LineData) lines.elementAt(j);
-				Polygon3D polReal= PolygonMesh.getBodyPolygon(bl.getMesh().points,ld);
-				
-				int indexZ=0;
-				try{indexZ=Integer.parseInt(ld.getData2());}catch (Exception e) {}
+			LineData ld=(LineData) mesh.polygonData.elementAt(i);
+			Polygon3D polReal= PolygonMesh.getBodyPolygon(mesh.points,ld);
+			
+			
 
 				Polygon3D polProjectd=builProjectedPolygon(polReal);
 								
 				if(polProjectd.contains(x,y)){
 					
-					BlockToOrder bot=new BlockToOrder(bl,Polygon3D.findCentroid(polReal),i,indexZ);
-					selectableBlocks.add(bot);
+					PolygonToOrder pot=new PolygonToOrder(polReal,Polygon3D.findCentroid(polReal),i);
+					selectablePolygons.add(pot);
 
 				}
-				
-				
-				
-			}
-			
 	
 			
-		}
+		}	
 		
-		BlockToOrder selectedBlockOrder=null;
+	
+		
+		PolygonToOrder selectedPolygonOrder=null;
 		double maxDistance=0;
 		
 		/////here calculate the nearest block.
 		
-		for (int i = 0; i < selectableBlocks.size(); i++) {
-			BlockToOrder bot = (BlockToOrder) selectableBlocks.elementAt(i);
+		for (int i = 0; i < selectablePolygons.size(); i++) {
+			PolygonToOrder pot = (PolygonToOrder) selectablePolygons.elementAt(i);
 			
 			if(i==0){
-				selectedBlockOrder=bot;
-				maxDistance=Point3D.calculateDotProduct(bot.getCentroid(),projectionNormal);
+				selectedPolygonOrder=pot;
+				maxDistance=Point3D.calculateDotProduct(pot.getCentroid(),projectionNormal);
 			
 			}else{
 				
-				double distance=Point3D.calculateDotProduct(bot.getCentroid(),projectionNormal);
+				double distance=Point3D.calculateDotProduct(pot.getCentroid(),projectionNormal);
 				if(distance>maxDistance){
 					
-					selectedBlockOrder=bot;
+					selectedPolygonOrder=pot;
 					maxDistance=distance;
 					
 				}
@@ -526,38 +521,72 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		/////
 		
 		
-		for (int i = 0; i < blocks.length; i++) {
+		for(int i=0;i<sizel;i++){ 
+
+
+			LineData ld=(LineData) mesh.polygonData.elementAt(i);
+		
+	
 			
-			Block bl = blocks[i];
-			
-			if(selectedBlockOrder!=null && i==selectedBlockOrder.getIndex()){
+			if(selectedPolygonOrder!=null && i==selectedPolygonOrder.getIndex()){
 				
 				if(toSelect){
-					editor.setCellPanelData(bl);							
-					bl.setSelected(true);
-					bl.setSelectedZ(selectedBlockOrder.getIndexZ());
+					//editor.setCellPanelData(ld);							
+					ld.setSelected(true);
+			
 					
-				}else{
-					
-					bl.setSelectedZ(selectedBlockOrder.getIndexZ());
-					ret.add(bl);
+				}else{					
+			
+					ret.add(ld);
 				}
 				
-			}else if(!editor.checkMultiselection.isSelected()){
+			}else if(!editor.checkMultiplePointsSelection[editor.ACTIVE_PANEL].isSelected()){
 				
 				if(toSelect){
-					bl.setSelected(false);
-					bl.setSelectedZ(-1);
+					ld.setSelected(false);
+				
 				}	
 			}
 				
 		
-		}*/
+		}
 		
 		return ret;
 	
     	
     }
+    
+	public Polygon3D builProjectedPolygon(Polygon3D p3d) {
+
+		
+		Polygon3D pol=new Polygon3D();
+		
+		int size=p3d.npoints;
+
+
+		for(int i=0;i<size;i++){
+
+
+	
+			double x=p3d.xpoints[i];
+			double y=p3d.ypoints[i];
+			double z=p3d.zpoints[i];
+			
+			Point3D p=new Point3D(x,y,z);
+			
+			//p.rotate(POSX,POSY,cosf,sinf);
+			
+			int xx=convertX(p.x,p.y,p.z);
+			int yy=convertY(p.x,p.y,p.z);	
+		
+			
+			pol.addPoint(xx,yy);
+			
+
+		}
+		
+		return pol;
+	}
 
 	private Polygon3D buildTranslatedPolygon3D(LineData ld,Point3D[] points,int index) {
 
@@ -679,6 +708,61 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 	public void mouseUp() {
 		y0-=5;
+		
+	}
+	
+	public class PolygonToOrder{
+		
+		Polygon3D polygon=null;
+		Point3D centroid=null;
+		int index=-1;
+		int indexZ=-1;
+		
+		public PolygonToOrder(Polygon3D polygon, Point3D centroid, int index) {
+
+			this.polygon = polygon;
+			this.centroid = centroid;
+			this.index = index;
+
+		}
+
+		public Point3D getCentroid() {
+			return centroid;
+		}
+
+		public void setCentroid(Point3D centroid) {
+			this.centroid = centroid;
+		}
+
+		public int getIndex() {
+			return index;
+		}
+
+		public void setIndex(int index) {
+			this.index = index;
+		}
+
+		public int getIndexZ() {
+			return indexZ;
+		}
+
+		public void setIndexZ(int indexZ) {
+			this.indexZ = indexZ;
+		}
+
+
+
+		public Polygon3D getPolygon() {
+			return polygon;
+		}
+
+
+
+		public void setPolygon(Polygon3D polygon) {
+			this.polygon = polygon;
+		}
+	
+		
 		
 	}
 }

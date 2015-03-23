@@ -690,8 +690,13 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 	public Vector selectPolygons(int x, int y, PolygonMesh mesh,boolean isToselect) {
+		
+		Vector ret=new Vector(); 
+		
+		if(mesh==null)
+    		return ret;
 	
-		Vector vec=new Vector();
+	
 		
 		//select polygon
 		int sizel=mesh.polygonData.size();
@@ -704,7 +709,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		    
 		    if(pol.contains(x,y)){
 		    	
-		    	vec.add(ld);
+		    	ret.add(ld);
 		    	
 				for(int k=0;k<editor.chooseTexture[editor.ACTIVE_PANEL].getItemCount();k++){
 
@@ -722,7 +727,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			
 		}
 		
-		return vec;
+		return ret;
 	}
 	
 	
