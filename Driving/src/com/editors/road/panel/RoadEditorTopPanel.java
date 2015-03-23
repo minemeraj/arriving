@@ -17,6 +17,7 @@ import com.Polygon3D;
 import com.PolygonMesh;
 import com.Texture;
 import com.ZBuffer;
+import com.editors.ValuePair;
 import com.editors.road.RoadEditor;
 import com.main.Road;
 
@@ -677,6 +678,190 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 		
 
+	}
+	
+    public boolean selectPolygons(int x, int y, PolygonMesh mesh) {
+    	
+    	Vector vec=selectPolygons(x,y,mesh,true);
+    	
+    	return vec!=null && vec.size()>0;
+    	
+    }
+
+
+	public Vector selectPolygons(int x, int y, PolygonMesh mesh,boolean isToselect) {
+	
+		Vector vec=new Vector();
+		
+		//select polygon
+		int sizel=mesh.polygonData.size();
+
+		for(int j=0;j<sizel;j++){
+			
+			
+			LineData ld=(LineData) mesh.polygonData.elementAt(j);
+		    Polygon3D pol=buildPolygon(ld,mesh.points,false);
+		    
+		    if(pol.contains(x,y)){
+		    	
+		    	vec.add(ld);
+		    	
+				for(int k=0;k<editor.chooseTexture[editor.ACTIVE_PANEL].getItemCount();k++){
+
+					ValuePair vp=(ValuePair) editor.chooseTexture[editor.ACTIVE_PANEL].getItemAt(k);
+					if(vp.getId().equals(""+ld.getTexture_index())) 
+						editor.chooseTexture[editor.ACTIVE_PANEL].setSelectedItem(vp);
+				}
+				
+	    	
+		    	ld.setSelected(true);
+		    	
+		    }
+			else if(!editor.checkMultiplePointsSelection[editor.ACTIVE_PANEL].isSelected())
+				ld.setSelected(false);
+			
+		}
+		
+		return vec;
+	}
+	
+	
+    public void selectObjects(int x, int y, Vector drawObjects) {
+    	
+    	Vector vec=selectObjects(x,y,drawObjects,true);
+    	
+       	
+    }
+
+	public Vector selectObjects(int x, int y, Vector drawObjects,boolean toSelect) {
+
+		Vector ret=new Vector();
+
+		for(int i=0;i<drawObjects.size();i++){
+
+			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
+			if(!editor.checkMultipleObjectsSelection.isSelected())
+				dro.setSelected(false);
+
+
+			int[] cx=new int[4];
+			int[] cy=new int[4];
+
+			int versus=1;
+			if(!DrawObject.IS_3D)
+				versus=-1;
+
+			cx[0]=convertX(dro.x,dro.y,dro.z);
+			cy[0]=convertY(dro.x,dro.y,dro.z);
+			cx[1]=convertX(dro.x,dro.y,dro.z);
+			cy[1]=convertY(dro.x,dro.y+versus*dro.dy,dro.z);
+			cx[2]=convertX(dro.x+dro.dx,dro.y,dro.z);
+			cy[2]=convertY(dro.x,dro.y+versus*dro.dy,dro.z);
+			cx[3]=convertX(dro.x+dro.dx,dro.y,dro.z);
+			cy[3]=convertY(dro.x,dro.y,dro.z);
+
+			Polygon p_in=new Polygon(cx,cy,4);			
+			Point3D center=Polygon3D.findCentroid(p_in);
+			Polygon3D.rotate(p_in,center,dro.rotation_angle);
+
+			if(p_in.contains(x,y))
+			{
+				dro.setSelected(true);
+				editor.setObjectData(dro);
+                ret.add(dro);
+
+			
+			}else if(!editor.checkMultipleObjectsSelection.isSelected()){
+				
+				dro.setSelected(false);
+			}
+
+		}
+		
+		return ret;
+		
+	}
+	
+	
+	public Polygon3D buildPolygon(LineData ld,Point3D[] points, boolean isReal) {
+
+		int size=ld.size();
+
+		int[] cxr=new int[size];
+		int[] cyr=new int[size];
+		int[] czr=new int[size];
+
+
+		for(int i=0;i<size;i++){
+
+
+			int num=ld.getIndex(i);
+
+			Point4D p=(Point4D) points[num];
+
+
+			if(isReal){
+
+				//real coordinates
+				cxr[i]=(int)(p.x);
+				cyr[i]=(int)(p.y);
+				czr[i]=(int)(p.z);
+			}
+			else {
+				
+				cxr[i]=convertX(p);
+				cyr[i]=convertY(p);
+				czr[i]=(int)(p.z);
+			}
+			
+
+
+		}
+
+
+		Polygon3D p3dr=new Polygon3D(size,cxr,cyr,czr);
+
+        return p3dr;
+
+	}
+	
+	public boolean selectPoints(int x, int y, PolygonMesh mesh, LineData polygon) {
+	
+		boolean found=false;
+		
+		for(int j=0;mesh.points!=null && j<mesh.points.length;j++){
+
+
+		    Point4D p=(Point4D) mesh.points[j];
+
+				int xo=convertX(p);
+				int yo=convertY(p);
+
+				Rectangle rect=new Rectangle(xo-5,yo-5,10,10);
+				if(rect.contains(x,y)){
+
+					if(!editor.checkCoordinatesx[editor.ACTIVE_PANEL].isSelected())
+						editor.coordinatesx[editor.ACTIVE_PANEL].setText(p.x);
+					if(!editor.checkCoordinatesy[editor.ACTIVE_PANEL].isSelected())
+						editor.coordinatesy[editor.ACTIVE_PANEL].setText(p.y);
+					if(!editor.checkCoordinatesz[editor.ACTIVE_PANEL].isSelected())
+						editor.coordinatesz[editor.ACTIVE_PANEL].setText(p.z);
+				
+					found=true;
+					p.setSelected(true);
+					
+					polygon.addIndex(j);
+
+		
+
+				}
+				else if(!editor.checkMultiplePointsSelection[editor.ACTIVE_PANEL].isSelected())
+					p.setSelected(false);
+			
+
+		}
+		
+		return found;
 	}
 	
 	/**

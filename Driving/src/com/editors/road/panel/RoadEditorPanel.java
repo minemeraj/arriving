@@ -7,6 +7,7 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 import com.BarycentricCoordinates;
+import com.LineData;
 import com.Point3D;
 import com.Polygon3D;
 import com.PolygonMesh;
@@ -473,5 +474,27 @@ public class RoadEditorPanel extends JPanel {
 	}
 	
 
+	public boolean selectPolygons(int x, int y,PolygonMesh mesh) {
+		
+		return false;
+	}
+	
+	public Vector selectPolygons(int x, int y,PolygonMesh mesh,boolean toSelect) {		
+		return null;			
+	}
+
+	public void selectObjects(int x, int y, Vector drawObjects) {
+		
+	}
+	
+	public Vector selectObjects(int x, int y, Vector drawObjects,boolean toSelect) {
+		
+		return null;
+		
+	}
+
+	public boolean selectPoints(int x, int y, PolygonMesh mesh, LineData polygon) {
+		return false;
+	}
 
 }

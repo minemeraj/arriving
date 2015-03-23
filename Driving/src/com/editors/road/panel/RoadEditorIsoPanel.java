@@ -26,6 +26,7 @@ import com.main.Renderer3D;
 import com.main.Road;
 
 
+
 public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 	
@@ -448,10 +449,115 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			super.keyPressed(arg0);
 		}*/
 	}
+
+    public boolean selectPolygons(int x, int y, PolygonMesh mesh) {
+    	
+    	Vector vec=selectPolygons(x,y,mesh,true);
+    	
+    	return vec!=null && vec.size()>0;
+    	
+    }
+
+    @Override
+    public Vector selectPolygons(int x, int y, PolygonMesh mesh,
+    		boolean toSelect) {
+    
+
+		
+		Vector ret=new Vector();
+		
+		Vector selectableBlocks=new Vector();
+		/*for (int i = 0; i < blocks.length; i++) {
+			
+			Block bl = blocks[i];
+			
+			Vector lines=bl.getPolygons(false);	   
+
+			for (int j = 0; j < lines.size(); j++) {
+
+				LineData ld = (LineData) lines.elementAt(j);
+				Polygon3D polReal= PolygonMesh.getBodyPolygon(bl.getMesh().points,ld);
+				
+				int indexZ=0;
+				try{indexZ=Integer.parseInt(ld.getData2());}catch (Exception e) {}
+
+				Polygon3D polProjectd=builProjectedPolygon(polReal);
+								
+				if(polProjectd.contains(x,y)){
+					
+					BlockToOrder bot=new BlockToOrder(bl,Polygon3D.findCentroid(polReal),i,indexZ);
+					selectableBlocks.add(bot);
+
+				}
+				
+				
+				
+			}
+			
 	
-
-
-
+			
+		}
+		
+		BlockToOrder selectedBlockOrder=null;
+		double maxDistance=0;
+		
+		/////here calculate the nearest block.
+		
+		for (int i = 0; i < selectableBlocks.size(); i++) {
+			BlockToOrder bot = (BlockToOrder) selectableBlocks.elementAt(i);
+			
+			if(i==0){
+				selectedBlockOrder=bot;
+				maxDistance=Point3D.calculateDotProduct(bot.getCentroid(),projectionNormal);
+			
+			}else{
+				
+				double distance=Point3D.calculateDotProduct(bot.getCentroid(),projectionNormal);
+				if(distance>maxDistance){
+					
+					selectedBlockOrder=bot;
+					maxDistance=distance;
+					
+				}
+				
+			}
+		}
+		
+		/////
+		
+		
+		for (int i = 0; i < blocks.length; i++) {
+			
+			Block bl = blocks[i];
+			
+			if(selectedBlockOrder!=null && i==selectedBlockOrder.getIndex()){
+				
+				if(toSelect){
+					editor.setCellPanelData(bl);							
+					bl.setSelected(true);
+					bl.setSelectedZ(selectedBlockOrder.getIndexZ());
+					
+				}else{
+					
+					bl.setSelectedZ(selectedBlockOrder.getIndexZ());
+					ret.add(bl);
+				}
+				
+			}else if(!editor.checkMultiselection.isSelected()){
+				
+				if(toSelect){
+					bl.setSelected(false);
+					bl.setSelectedZ(-1);
+				}	
+			}
+				
+		
+		}*/
+		
+		return ret;
+	
+    	
+    }
 
 	private Polygon3D buildTranslatedPolygon3D(LineData ld,Point3D[] points,int index) {
 
