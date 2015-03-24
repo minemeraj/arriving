@@ -19,6 +19,7 @@ import com.Polygon3D;
 import com.PolygonMesh;
 import com.Texture;
 import com.ZBuffer;
+import com.editors.ValuePair;
 import com.editors.road.RoadEditor;
 import com.main.Renderer3D;
 import com.main.Road;
@@ -475,10 +476,12 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 
     		LineData ld=(LineData) mesh.polygonData.elementAt(i);
-    		Polygon3D polReal= PolygonMesh.getBodyPolygon(mesh.points,ld);
+    		
+    		
+    		Polygon3D polReal= buildTranslatedPolygon3D(ld,mesh.points,0);
 
     		Polygon3D polProjectd=builProjectedPolygon(polReal);
-
+           
     		if(polProjectd.contains(x,y)){
 
     			PolygonToOrder pot=new PolygonToOrder(ld,Polygon3D.findCentroid(polReal),i);
@@ -531,12 +534,19 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
     			if(toSelect){
     				//editor.setCellPanelData(ld);							
     				ld.setSelected(true);
+    				
+    				for(int k=0;k<editor.chooseTexture[editor.ACTIVE_PANEL].getItemCount();k++){
 
+    					ValuePair vp=(ValuePair) editor.chooseTexture[editor.ACTIVE_PANEL].getItemAt(k);
+    					if(vp.getId().equals(""+ld.getTexture_index())) 
+    						editor.chooseTexture[editor.ACTIVE_PANEL].setSelectedItem(vp);
+    				}
+    			}				
 
-    			}else{					
-
-    				ret.add(ld);
-    			}
+    			ret.add(ld);
+    			
+    			
+    			
 
     		}else if(!editor.checkMultiplePointsSelection[editor.ACTIVE_PANEL].isSelected()){
 
@@ -553,6 +563,50 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 
     }
+    
+
+    public void selectObjects(int x, int y, Vector drawObjects) {
+ 
+    	
+    	for (int i = 0; i < drawObjects.size(); i++) {
+
+			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
+
+			boolean selected=selectObject(x,y,dro);
+
+			if(selected){
+
+				dro.setSelected(true);
+				editor.setObjectData(dro);
+
+
+			}
+			else if(!editor.checkMultipleObjectsSelection.isSelected())
+				dro.setSelected(false);
+
+		}
+    }
+    
+
+	public boolean selectObject(int x, int y, DrawObject dro) {
+		for (int j = 0; j < dro.polygons.size(); j++) {
+			Polygon3D pol3D = ((Polygon3D) dro.polygons.elementAt(j)).clone();
+           
+			buildTransformedPolygon(pol3D);
+			Polygon3D poly = builProjectedPolygon(pol3D);
+			
+	
+			if(poly.contains(x,y)){
+				
+				return true;
+				
+			}
+					
+		}
+		
+		return false;
+	}
+
 
 	public Polygon3D builProjectedPolygon(Polygon3D p3d) {
 

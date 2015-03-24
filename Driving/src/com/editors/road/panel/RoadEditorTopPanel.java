@@ -709,17 +709,22 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		    
 		    if(pol.contains(x,y)){
 		    	
-		    	ret.add(ld);
+		    	if(isToselect){
 		    	
-				for(int k=0;k<editor.chooseTexture[editor.ACTIVE_PANEL].getItemCount();k++){
-
-					ValuePair vp=(ValuePair) editor.chooseTexture[editor.ACTIVE_PANEL].getItemAt(k);
-					if(vp.getId().equals(""+ld.getTexture_index())) 
-						editor.chooseTexture[editor.ACTIVE_PANEL].setSelectedItem(vp);
-				}
+			    	ld.setSelected(true);
+			    	
+					for(int k=0;k<editor.chooseTexture[editor.ACTIVE_PANEL].getItemCount();k++){
+	
+						ValuePair vp=(ValuePair) editor.chooseTexture[editor.ACTIVE_PANEL].getItemAt(k);
+						if(vp.getId().equals(""+ld.getTexture_index())) 
+							editor.chooseTexture[editor.ACTIVE_PANEL].setSelectedItem(vp);
+					}
 				
-	    	
-		    	ld.setSelected(true);
+		    	}
+		    	
+		    	
+		    	
+		    	ret.add(ld);
 		    	
 		    }
 			else if(!editor.checkMultiplePointsSelection[editor.ACTIVE_PANEL].isSelected())
