@@ -450,6 +450,11 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			super.keyPressed(arg0);
 		}*/
 	}
+	
+    public Vector getClickedPolygons(int x, int y, PolygonMesh mesh) {
+    	
+    	return selectPolygons(x,y,mesh,false);
+    }
 
     public boolean selectPolygons(int x, int y, PolygonMesh mesh) {
     	

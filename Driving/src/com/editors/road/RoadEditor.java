@@ -3,15 +3,12 @@ package com.editors.road;
  * @author Piazza Francesco Giovanni ,Tecnes Milano http://www.tecnes.com
  *
  */
-import java.awt.BasicStroke;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Polygon;
 import java.awt.Rectangle;
-import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -23,7 +20,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -2903,12 +2899,25 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		int buttonNum=arg0.getButton();
 		
-		if(ROAD_MODE.equals(mode) || TERRAIN_MODE.equals(mode)){
+		if(ROAD_MODE.equals(mode)){
 		
 			//right button click
 			if(buttonNum==MouseEvent.BUTTON3)
 				//addObject(arg0);
 				addPoint(arg0);
+			else{
+				selectPoint(arg0.getX(),arg0.getY());			
+			}	
+		
+		} else if(TERRAIN_MODE.equals(mode)){
+		
+			//right button click
+			if(buttonNum==MouseEvent.BUTTON3){
+
+				deselectAll();
+				changePolygon(arg0.getX(),arg0.getY());
+				
+			}
 			else{
 				selectPoint(arg0.getX(),arg0.getY());			
 			}	
@@ -2922,6 +2931,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		draw();
 	}
+
 
 
 
@@ -3048,6 +3058,40 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			deselectAllPoints();
 		
 
+	}
+	
+
+	private void changePolygon(int x, int y) {
+
+		if(meshes==null)
+			return;
+
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+
+		RoadEditorPanel ep=getCenter();
+
+		Vector cPolygons=ep.getClickedPolygons(x,y,mesh);
+		
+		for (int i = 0;cPolygons!=null && i < cPolygons.size(); i++) {
+
+			LineData ld =(LineData) cPolygons.elementAt(i);
+
+
+		     ///set here
+
+	    	int indx=chooseTexture[ACTIVE_PANEL].getSelectedIndex();
+	    	
+	    	if(indx!=0){
+
+				ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getItemAt(indx);
+					
+					
+				ld.setTexture_index(Integer.parseInt(vp.getId()));
+			
+	    	}
+
+		}
+		
 	}
 	
 	

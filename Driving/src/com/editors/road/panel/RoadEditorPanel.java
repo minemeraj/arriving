@@ -512,4 +512,8 @@ public class RoadEditorPanel extends JPanel {
 		this.hide_objects = hide_objects;
 	}
 
+	public Vector getClickedPolygons(int x, int y, PolygonMesh mesh) {
+		return null;
+	}
+
 }

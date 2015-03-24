@@ -688,6 +688,12 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
     	return vec!=null && vec.size()>0;
     	
     }
+    
+  
+    public Vector getClickedPolygons(int x, int y, PolygonMesh mesh) {
+    	
+    	return selectPolygons(x,y,mesh,false);
+    }
 
 
 	public Vector selectPolygons(int x, int y, PolygonMesh mesh,boolean isToselect) {

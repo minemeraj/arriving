@@ -269,6 +269,7 @@
    
     Select object and road part using left mouse button.
     Insert objects and road points with right mouse button.
+    Change terrain using right mouse button.
     
     Move objects with the arrows panel.
 
