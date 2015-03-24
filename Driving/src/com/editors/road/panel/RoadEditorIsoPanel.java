@@ -589,20 +589,29 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
     
 
 	public boolean selectObject(int x, int y, DrawObject dro) {
-		for (int j = 0; j < dro.polygons.size(); j++) {
-			Polygon3D pol3D = ((Polygon3D) dro.polygons.elementAt(j)).clone();
-           
-			buildTransformedPolygon(pol3D);
-			Polygon3D poly = builProjectedPolygon(pol3D);
+		
+		
+		CubicMesh cm = (CubicMesh) dro.getMesh();
+		
+		int polSize=cm.polygonData.size();	
+		for(int i=0;i<polSize;i++){
+
+
+			LineData ld=cm.polygonData.elementAt(i);
+			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld);
+			polRotate.setShadowCosin(ld.getShadowCosin());
+
+			buildTransformedPolygon(polRotate);			
 			
-	
+			Polygon3D poly = builProjectedPolygon(polRotate);			
+			
 			if(poly.contains(x,y)){
 				
 				return true;
 				
 			}
-					
-		}
+			
+		}	
 		
 		return false;
 	}
