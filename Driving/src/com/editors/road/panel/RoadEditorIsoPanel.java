@@ -66,7 +66,8 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,ZBuffer landscapeZbuffer,Graphics2D graph) {
 		
 		drawRoad(meshes,landscapeZbuffer);
-		drawObjects(drawObjects,null,landscapeZbuffer);
+		if(!isHide_objects())
+			drawObjects(drawObjects,null,landscapeZbuffer);
 	}
 	
 

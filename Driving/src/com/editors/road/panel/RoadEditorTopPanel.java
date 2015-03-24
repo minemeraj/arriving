@@ -53,7 +53,8 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		
 		displayRoad(landscapeZbuffer,meshes,0);
 		displayRoad(landscapeZbuffer,meshes,1);
-		displayObjects(landscapeZbuffer,drawObjects);
+		if(!isHide_objects())
+			displayObjects(landscapeZbuffer,drawObjects);
 	
 	}
 	

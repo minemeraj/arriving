@@ -230,6 +230,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JPanel left_common_options;
 	private JPanel left_tool_options;
 	
+	private JCheckBox checkHideObjects;
+	
 	public static String OBJECT_MODE="OBJECT_MODE";
 	public static String ROAD_MODE="ROAD_MODE";
 	public static String TERRAIN_MODE="TERRAIN_MODE";
@@ -249,6 +251,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	BufferedImage buf=null;
 	private Graphics2D graphics;
+	
+	
 	
 
 	public static void main(String[] args) {
@@ -597,6 +601,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		Graphics2D graph = (Graphics2D) buf.getGraphics();
 		RoadEditorPanel ep=getCenter();
 
+		ep.setHide_objects(checkHideObjects.isSelected());
 		draw(ep,graph);
 		
 		buildScreen(buf); 
@@ -745,8 +750,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		buildFieldsArrays();
 
-		int upper_left_height=120;
-		int middle_left_height=0;
+		int upper_left_height=100;
+		int middle_left_height=40;
 		int lower_left_height=500;
 		
 		int r=10;	
@@ -803,6 +808,22 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		left_tools.add(toogle_road);
 		left_tools.add(toogle_terrain);
 		left_tools.add(toogle_objects);
+		
+		r=10;
+		
+		checkHideObjects=new JCheckBox(header+"Hide objects"+footer);
+		checkHideObjects.setBounds(10,r,100,20);
+		checkHideObjects.addKeyListener(this);
+		checkHideObjects.addActionListener(new ActionListener() {
+			
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				draw();
+			}
+		});
+		
+		left_common_options.add(checkHideObjects);
 		
 		////OBJECTS
 		        
@@ -3032,6 +3053,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	
 	private void selectObject(int x, int y) {
+		
+		if(checkHideObjects.isSelected())
+			return;
 
 		deselectAllPoints();
 		deselectAllLines();

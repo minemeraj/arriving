@@ -25,6 +25,8 @@ public class RoadEditorPanel extends JPanel {
 	int HEIGHT=0;
 	
 	public Color selectionColor=null;
+	
+	boolean hide_objects=false;
 
 	public RoadEditorPanel(RoadEditor editor,
 			int cENTER_WIDTH, int cENTER_HEIGHT) {
@@ -500,6 +502,14 @@ public class RoadEditorPanel extends JPanel {
 	public Polygon3D builProjectedPolygon(Polygon3D p3d) {
 		
 		return null;
+	}
+
+	public boolean isHide_objects() {
+		return hide_objects;
+	}
+
+	public void setHide_objects(boolean hide_objects) {
+		this.hide_objects = hide_objects;
 	}
 
 }
