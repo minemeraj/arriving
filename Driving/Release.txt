@@ -1,6 +1,8 @@
 Now preview becomes a panel in the editor, alternative to top view.
 See menu View-> 3D view/Top view.
 
+Now you can select road, terrain and objects in the 3D view too!
+
 Fixed bug of rotated 3D objects wrongly displayed.
 
 Now default start without shading. To shade, add +s parameter. See README.txt
