@@ -27,6 +27,14 @@ public class RoadEditorPanel extends JPanel {
 	public Color selectionColor=null;
 	
 	boolean hide_objects=false;
+	
+	public int POSX=0;
+	public int POSY=0;
+	public int MOVZ=0;
+	
+	public double fi=0;
+	public double sinf=Math.sin(fi);
+	public double cosf=Math.cos(fi);
 
 	public RoadEditorPanel(RoadEditor editor,
 			int cENTER_WIDTH, int cENTER_HEIGHT) {
@@ -78,11 +86,17 @@ public class RoadEditorPanel extends JPanel {
 		double cosin=p3d.getShadowCosin();
 	
 		
+		Point3D po0=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
+		Point3D po1=new Point3D(p3d.xpoints[1],p3d.ypoints[1],p3d.zpoints[1]);
+		Point3D po2=new Point3D(p3d.xpoints[2],p3d.ypoints[2],p3d.zpoints[2]);
+		
 		Point3D p0=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
 		Point3D p1=new Point3D(p3d.xpoints[1],p3d.ypoints[1],p3d.zpoints[1]);
 		Point3D p2=new Point3D(p3d.xpoints[2],p3d.ypoints[2],p3d.zpoints[2]);
 
-
+		p0.rotate(POSX,POSY,cosf,sinf);
+		p1.rotate(POSX,POSY,cosf,sinf);
+		p2.rotate(POSX,POSY,cosf,sinf);
 
 		//System.out.println(p3d+" "+rgbColor);
 
@@ -515,5 +529,12 @@ public class RoadEditorPanel extends JPanel {
 	public Vector getClickedPolygons(int x, int y, PolygonMesh mesh) {
 		return null;
 	}
+
+	public void rotate(int signum) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 
 }

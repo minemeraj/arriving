@@ -248,7 +248,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	BufferedImage buf=null;
 	private Graphics2D graphics;
 	
-	
+
 	
 
 	public static void main(String[] args) {
@@ -3262,6 +3262,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			 
 			invertSelectedRoadPolygon(); 
 			draw();
+		}else if(code==KeyEvent.VK_Q  )
+		{  
+			rotate(-1);
+			draw();
+		}
+		else if(code==KeyEvent.VK_W  )
+		{  
+		
+			rotate(+1);
+			draw();
 		}
 
 	}
@@ -3626,5 +3636,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public void setDrawCurrentRect(boolean isDrawCurrentRect) {
 		this.isDrawCurrentRect = isDrawCurrentRect;
 	}
+	
+	public void rotate(int signum){
+		
+		RoadEditorPanel ep = getCenter();
+		ep.rotate(signum);
+		
+	
+	}
+
 
 }

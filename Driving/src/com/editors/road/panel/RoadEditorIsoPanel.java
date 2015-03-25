@@ -42,9 +42,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	public int y0=400;
 	public int x0=100;
 	
-	public int POSX=0;
-	public int POSY=0;
-	public int MOVZ=0;
+
 	
 	public double alfa=Math.PI/3;
 	public double cosAlfa=Math.cos(alfa);
@@ -417,38 +415,6 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 		int code =arg0.getKeyCode();
 
-		/*if(code==KeyEvent.VK_LEFT  )
-		{ 
-			POSX-=2*deltax;
-			draw();
-		}
-		else if(code==KeyEvent.VK_RIGHT  )
-		{ 
-			POSX+=2*deltax;
-			draw();
-		}
-		else if(code==KeyEvent.VK_UP  )
-		{ 
-			POSY+=2*deltax;
-			draw();
-		}
-		else if(code==KeyEvent.VK_DOWN  )
-		{ 
-			POSY-=2*deltax;
-			draw();
-			
-		}else if(code==KeyEvent.VK_Q  )
-		{  
-			
-		}
-		else if(code==KeyEvent.VK_W  )
-		{  
-		
-			
-		}else{
-			
-			super.keyPressed(arg0);
-		}*/
 	}
 	
     public Vector getClickedPolygons(int x, int y, PolygonMesh mesh) {
@@ -641,7 +607,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			
 			Point3D p=new Point3D(x,y,z);
 			
-			//p.rotate(POSX,POSY,cosf,sinf);
+			p.rotate(POSX,POSY,cosf,sinf);
 			
 			int xx=convertX(p.x,p.y,p.z);
 			int yy=convertY(p.x,p.y,p.z);	
@@ -748,6 +714,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		
 	}
 
+	
 
 	public void up() {
 		POSY+=2*deltax;
@@ -831,5 +798,14 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	
 		
 		
+	}	
+
+	public void rotate(int signum) {
+
+		double df=0.1;
+		fi+=df*signum;
+		sinf=Math.sin(fi);
+		cosf=Math.cos(fi);
+
 	}
 }
