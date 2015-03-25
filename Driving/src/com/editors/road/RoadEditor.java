@@ -3640,7 +3640,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public void rotate(int signum){
 		
 		RoadEditorPanel ep = getCenter();
-		ep.rotate(signum);
+		//ep.rotate(signum);
 		
 	
 	}
