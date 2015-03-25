@@ -84,19 +84,10 @@ public class RoadEditorPanel extends JPanel {
 		Point3D normal=Polygon3D.findNormal(p3d).calculateVersor();
 	
 		double cosin=p3d.getShadowCosin();
-	
-		
-		Point3D po0=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
-		Point3D po1=new Point3D(p3d.xpoints[1],p3d.ypoints[1],p3d.zpoints[1]);
-		Point3D po2=new Point3D(p3d.xpoints[2],p3d.ypoints[2],p3d.zpoints[2]);
 		
 		Point3D p0=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
 		Point3D p1=new Point3D(p3d.xpoints[1],p3d.ypoints[1],p3d.zpoints[1]);
 		Point3D p2=new Point3D(p3d.xpoints[2],p3d.ypoints[2],p3d.zpoints[2]);
-
-		p0.rotate(POSX,POSY,cosf,sinf);
-		p1.rotate(POSX,POSY,cosf,sinf);
-		p2.rotate(POSX,POSY,cosf,sinf);
 
 		//System.out.println(p3d+" "+rgbColor);
 
