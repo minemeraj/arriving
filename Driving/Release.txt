@@ -3,6 +3,8 @@ See menu View-> 3D view/Top view.
 
 Now you can select road, terrain and objects in the 3D view too!
 
+Rotate 3D view with keys q and w!
+
 Fixed bug of rotated 3D objects wrongly displayed.
 
 Now default start without shading. To shade, add +s parameter. See README.txt

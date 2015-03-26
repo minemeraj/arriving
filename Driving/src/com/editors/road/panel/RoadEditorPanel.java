@@ -35,6 +35,14 @@ public class RoadEditorPanel extends JPanel {
 	public double fi=0;
 	public double sinf=Math.sin(fi);
 	public double cosf=Math.cos(fi);
+	
+	public int mask = 0xFF;
+	public double a1=0.6;
+	public double a2=1.0-a1;
+	
+	public double rr=0;
+	public double gg=0;
+	public double bb=0;
 
 	public RoadEditorPanel(RoadEditor editor,
 			int cENTER_WIDTH, int cENTER_HEIGHT) {
@@ -67,13 +75,7 @@ public class RoadEditorPanel extends JPanel {
 			BarycentricCoordinates bc) {
 
 		
-		int mask = 0xFF;
-		double a1=0.6;
-		double a2=1.0-a1;
-		
-		double rr=0;
-		double gg=0;
-		double bb=0;
+
 		
 		int rgbColor=selected;
 
@@ -410,6 +412,25 @@ public class RoadEditorPanel extends JPanel {
 		
 		return intersect;
 
+	}
+	
+	public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs) {
+
+		return argbs;
+		
+		/*double factor=(1*(0.75+0.25*cosin));
+		
+		int alphas=0xff & (argbs>>24);
+		int rs = 0xff & (argbs>>16);
+		int gs = 0xff & (argbs >>8);
+		int bs = 0xff & argbs;
+
+		rs=(int) (factor*rs);
+		gs=(int) (factor*gs);
+		bs=(int) (factor*bs);
+
+		return alphas <<24 | rs <<16 | gs <<8 | bs;*/
+	
 	}
 	
 	

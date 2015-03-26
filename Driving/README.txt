@@ -270,6 +270,7 @@
     Select object and road part using left mouse button.
     Insert objects and road points with right mouse button.
     Change terrain using right mouse button.
+    Rotate 3D view with keys q and w.
     
     Move objects with the arrows panel.
 
