@@ -3047,7 +3047,23 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 	        Point3D centroid=Polygon3D.findCentroid(polRotate);
 				
-			addObject(centroid.x,centroid.y,centroid.z);	
+			if(chooseObject.getSelectedIndex()<=0)
+				return;
+			
+			int index=0;
+			ValuePair vp=(ValuePair) chooseObject.getSelectedItem();
+			if(vp!=null && !vp.getValue().equals(""))
+				index=Integer.parseInt(vp.getId());
+			
+			int dim_x=objectMeshes[index].getDeltaX2()-objectMeshes[index].getDeltaX();
+			int dim_y=objectMeshes[index].getDeltaY2()-objectMeshes[index].getDeltaY();
+			int dim_z=objectMeshes[index].getDeltaX();
+			
+			double rot_angle=rotation_angle.getvalue();rotation_angle.getText();
+			
+			cleanObjects();
+			
+			addObject(centroid.x-dim_x*0.5,centroid.y-dim_y*0.5,centroid.z,dim_x,dim_y,dim_z,index,rot_angle);
 				
 	
 				
