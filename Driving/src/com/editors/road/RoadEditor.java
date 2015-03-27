@@ -1744,12 +1744,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		
 		}	
-		if(DrawObject.IS_3D){
+
 			
-			
-			CubicMesh mesh=objectMeshes[dro.index].clone();
-			dro.setMesh(mesh);
-		}
+		
+		setObjectMesh(dro);
+		
 
 		dro.setRotation_angle(rot_angle);
 		drawObjects.add(dro);
@@ -1757,7 +1756,29 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 
+	private static void setObjectMesh(DrawObject dro) {
+		
+		Point3D center=null;
 
+		CubicMesh cm=(CubicMesh) objectMeshes[dro.getIndex()].clone();
+
+		Point3D point = cm.point000;
+
+		double dx=-point.x+dro.x;
+		double dy=-point.y+dro.y;
+		double dz=-point.z+dro.z;
+
+		cm.translate(dx,dy,dz);			
+
+		center=cm.findCentroid();
+
+		if(dro.rotation_angle!=0)
+			cm.rotate(center.x,center.y,Math.cos(dro.rotation_angle),Math.sin(dro.rotation_angle));
+
+
+		dro.setMesh(cm);
+		
+	}
 
 	public void saveObjects() throws FileNotFoundException{
 		fc = new JFileChooser();
