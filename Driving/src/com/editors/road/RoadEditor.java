@@ -1695,22 +1695,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	
 
-	private void addObject(MouseEvent arg0) {
-		
-		
-		RoadEditorPanel ep = getCenter();
-	
-		Point p=arg0.getPoint();
-		
-		double xx=ep.invertX((int)p.getX());
-		double yy=ep.invertY((int)p.getY());
-		
-		addObject(xx, yy,0);
-	}
+
 	
 
 	private void addObject(double x, double y, double z) {
 		
+		if(chooseObject.getSelectedIndex()<=0)
+			return;
 		
 		int index=0;
 		ValuePair vp=(ValuePair) chooseObject.getSelectedItem();
@@ -2924,10 +2915,31 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		} else if(OBJECT_MODE.equals(mode)){
 			
-			if(buttonNum==MouseEvent.BUTTON3)
-				addObject(arg0);
+			if(buttonNum==MouseEvent.BUTTON3){
+				
+				RoadEditorPanel ep = getCenter();
+				
+				if(ep instanceof RoadEditorTopPanel){
+					
+					Point p=arg0.getPoint();
+					
+					double xx=ep.invertX((int)p.getX());
+					double yy=ep.invertY((int)p.getY());
+					
+					addObject(xx, yy,0);
+
+				}else if(ep instanceof RoadEditorIsoPanel){
+					
+					putObjectInCell(arg0.getX(),arg0.getY());
+
+					
+				}
+			}	
 			else
 				selectObject(arg0.getX(),arg0.getY());
+			
+			
+
 		}
 		draw();
 	}
@@ -2992,6 +3004,34 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		Point4D point=new Point4D(x,y,0,LineData.GREEN_HEX,index);
 		mesh.addPoint(point);
 
+	}
+	
+	private void putObjectInCell(int x, int y) {
+		
+		if(meshes==null)
+			return;
+		
+		PolygonMesh mesh=meshes[TERRAIN_INDEX];	
+		
+		RoadEditorPanel ep=getCenter();	
+			
+		Vector polygons=ep.getClickedPolygons(x,y,mesh);
+		
+		if(polygons.size()>0){
+			
+			
+			LineData ld=(LineData)polygons.elementAt(0);
+			
+			Polygon3D polRotate=PolygonMesh.getBodyPolygon(mesh.points,ld);
+			
+	        Point3D centroid=Polygon3D.findCentroid(polRotate);
+				
+			addObject(centroid.x,centroid.y,centroid.z);	
+				
+	
+				
+		}
+		
 	}
 
 	private void deselectAllPoints(){
