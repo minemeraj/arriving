@@ -166,10 +166,11 @@ public class Globe1 extends CustomData {
 		BPoint southPole=addBPoint(0,0,-radius);
 		
 		texture_points=buildTexturePoints();
-	
+		int northPoleIndex=0;
 
 		int count=1;
-
+        
+		
 		for (int i = 0; i <N_MERIDIANS; i++) { 
 			
 			LineData ld=new LineData();
@@ -183,7 +184,7 @@ public class Globe1 extends CustomData {
 			ld.addIndex(nPoints[(i+1)%N_MERIDIANS][0].getIndex(),texIndex,0,0);
 
 			
-			ld.addIndex(northPole.getIndex(),i,0,0);
+			ld.addIndex(northPole.getIndex(),northPoleIndex,0,0);
 
 			ld.setData(""+Renderer3D.getFace(ld,points));
 
