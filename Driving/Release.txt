@@ -1,4 +1,4 @@
-Fixed bug on globe1 mesh, north pole not correctly mapped.
+Fixed bug on globe1 mesh, north pole not correctly textured.
 
 ----- 28/03/2015 CarDriving 8.1.3
 
