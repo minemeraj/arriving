@@ -39,13 +39,17 @@ public class Forniture extends CustomData{
 	double upper_width=0;
 	double upper_length=0;
 	double upper_height=0;
+	
+	int n_meridians; 
+	int n_parallels;
 
 	public Forniture(){}
 
 	public Forniture( double x_side, double y_side,double z_side,int forniture_type,
 			double legLength, double legSide,double frontHeight, double backHeight,
 			double side_width,double side_length, double side_height,
-			double upper_width,double upper_length, double upper_height
+			double upper_width,double upper_length, double upper_height,
+			int N_MERIDIANS,int N_PARALLELS
 			) {
 		super();
 
@@ -65,6 +69,9 @@ public class Forniture extends CustomData{
 		this.upper_width = upper_width;
 		this.upper_length = upper_length;
 		this.upper_height = upper_height;
+		
+		this.n_meridians = N_MERIDIANS;
+		this.n_parallels = N_PARALLELS;
 	}
 	
 
@@ -74,7 +81,8 @@ public class Forniture extends CustomData{
 				leg_length,leg_side,
 				front_height,back_height,
 				side_width, side_length,side_height,
-				upper_width, upper_length, upper_height
+				upper_width, upper_length, upper_height,
+				n_meridians,n_parallels
 				);
 		return grid;
 
@@ -122,12 +130,17 @@ public class Forniture extends CustomData{
 		double upper_width=Double.parseDouble(vals[11]); 
 		double upper_length=Double.parseDouble(vals[12]); 
 		double upper_height=Double.parseDouble(vals[13]); 
+		
+		int n_parallels=Integer.parseInt(vals[14]);
+		int n_meridians=Integer.parseInt(vals[15]);
 
 		Forniture grid=new Forniture(x_side,y_side,z_side,forniture_type,
 				legLength,legSide,
 				frontHeight,backHeight,
 				side_width, side_length,side_height,
-				upper_width,upper_length,upper_height);
+				upper_width,upper_length,upper_height,
+				n_parallels,n_meridians
+				);
 
 		return grid;
 	}
@@ -244,7 +257,7 @@ public class Forniture extends CustomData{
 
 		
 
-		specificData=new Globe1(x_side,10,10);
+		specificData=new Globe1(x_side,n_meridians,n_parallels);
 		
 		PolygonMesh pm=specificData.getMesh();
 	
@@ -255,7 +268,7 @@ public class Forniture extends CustomData{
 
 		
 
-		specificData=new Globe0(x_side,10,10);
+		specificData=new Globe0(x_side,n_meridians,n_parallels);
 		
 		PolygonMesh pm=specificData.getMesh();
 	

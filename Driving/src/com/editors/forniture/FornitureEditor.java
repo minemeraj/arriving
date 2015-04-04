@@ -21,6 +21,7 @@ import com.PolygonMesh;
 import com.editors.CustomEditor;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
+import com.editors.IntegerTextField;
 import com.editors.ValuePair;
 import com.editors.forniture.data.Forniture;
 import com.editors.object.ObjectEditorPreviewPanel;
@@ -50,6 +51,8 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 	private DoubleTextField upper_width;
 	private DoubleTextField upper_length;
 	private DoubleTextField upper_height;
+	private IntegerTextField num_parallels;
+	private IntegerTextField num_meridians;
 
 	
 
@@ -263,8 +266,30 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		upper_height.setBounds(column, r, 100, 20);
 		upper_height.addKeyListener(this);
 		right.add(upper_height);
+		
+		r+=30;
+		
+		jlb=new JLabel("Num parall");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		num_parallels=new IntegerTextField();
+		num_parallels.setBounds(column, r, 100, 20);
+		num_parallels.addKeyListener(this);
+		right.add(num_parallels);
+		
+		r+=30;
+		
+		jlb=new JLabel("Num merid");
+		jlb.setBounds(5, r, 100, 20);
+		right.add(jlb);
+		num_meridians=new IntegerTextField();
+		num_meridians.setBounds(column, r, 100, 20);
+		num_meridians.addKeyListener(this);
+		right.add(num_meridians);
 
 		r+=30;
+		
+		
 			
         generate=new JButton("Update");
         generate.setBounds(10,r,100,20);
@@ -308,6 +333,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		upper_width.setText(0);
 		upper_length.setText(0);
 		upper_height.setText(0);
+		
+		num_meridians.setText(0);
+		num_parallels.setText(0);
 
 	}
 
@@ -331,6 +359,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		upper_length.setText(0);
 		upper_height.setText(0);
 		
+		num_meridians.setText(0);
+		num_parallels.setText(0);
+		
 	}
 
 	public void initRightTableData() {
@@ -352,6 +383,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		upper_width.setText(0);
 		upper_length.setText(0);
 		upper_height.setText(0);
+		
+		num_meridians.setText(0);
+		num_parallels.setText(0);
 	}
 	
 	private void initRightChairData() {
@@ -372,6 +406,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		upper_width.setText(0);
 		upper_length.setText(0);
 		upper_height.setText(0);
+		
+		num_meridians.setText(0);
+		num_parallels.setText(0);
 		
 	}
 
@@ -395,6 +432,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		upper_length.setText(0);
 		upper_height.setText(0);
 		
+		num_meridians.setText(0);
+		num_parallels.setText(0);
+		
 	}
 	
 
@@ -415,6 +455,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		upper_width.setText(0);
 		upper_length.setText(0);
 		upper_height.setText(0);
+		
+		num_meridians.setText(0);
+		num_parallels.setText(0);
 	}
 	
 	
@@ -438,6 +481,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		upper_length.setText(55);
 		upper_height.setText(119);
 		
+		num_meridians.setText(0);
+		num_parallels.setText(0);
+		
 	}
 	
 	private void initRightToiletData() {
@@ -457,6 +503,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		upper_width.setText(0);
 		upper_length.setText(0);
 		upper_height.setText(0);
+		
+		num_meridians.setText(0);
+		num_parallels.setText(0);
 		
 	}
 	
@@ -479,6 +528,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		upper_length.setText(0);
 		upper_height.setText(0);
 		
+		num_meridians.setText(0);
+		num_parallels.setText(0);
+		
 	}
 	
     private void initRightGlobeData() {
@@ -499,6 +551,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		upper_width.setText(0);
 		upper_length.setText(0);
 		upper_height.setText(0);
+		
+		num_meridians.setText(10);
+		num_parallels.setText(10);
 		
 	}
 
@@ -521,6 +576,9 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		upper_width.setText(38);
 		upper_length.setText(66);
 		upper_height.setText(19);
+		
+		num_meridians.setText(0);
+		num_parallels.setText(0);
 		
 	}
 	
@@ -602,6 +660,8 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 			double upperWidth=upper_width.getvalue();
 			double upperLength=upper_length.getvalue();
 			double upperHeight=upper_height.getvalue();
+			int nMeridians=num_meridians.getvalue();
+			int nParallels=num_parallels.getvalue();
 			
 			 ValuePair vp= (ValuePair)chooseForniture.getSelectedItem();
 			 
@@ -616,7 +676,8 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 						legLength,legSide,
 						frontHeight,backHeight,
 						sideWidth,sideLength,sideHeight,
-						upperWidth,upperLength,upperHeight
+						upperWidth,upperLength,upperHeight,
+						nMeridians,nParallels
 						);
 			
 				
@@ -626,7 +687,8 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 						legLength,legSide,
 						frontHeight,backHeight,
 						sideWidth,sideLength,sideHeight,
-						upperWidth,upperLength,upperHeight
+						upperWidth,upperLength,upperHeight,
+						nMeridians,nParallels
 						);
 				
 				

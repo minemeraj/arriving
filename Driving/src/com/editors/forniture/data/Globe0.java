@@ -17,11 +17,10 @@ import com.Point3D;
 import com.PolygonMesh;
 import com.main.Renderer3D;
 
-public class Globe0 extends CustomData { 
+public class Globe0 extends Forniture { 
 	
 	double radius=0;
-	private int N_MERIDIANS;
-	private int N_PARALLELS;
+
 	
 	Point3D[][] lateralFaces=null; 
 	Point3D[]northPoles=null;
@@ -43,8 +42,8 @@ public class Globe0 extends CustomData {
 	public Globe0(double radius,int N_MERIDIANS,int N_PARALLELS) {
 		
 		this.radius=radius;
-		this.N_MERIDIANS=N_MERIDIANS;
-		this.N_PARALLELS=N_PARALLELS;
+		this.n_meridians=N_MERIDIANS;
+		this.n_parallels=N_PARALLELS;
 		
 		zHeight=2*radius;
 		len=2*pi*radius;
@@ -109,16 +108,16 @@ public class Globe0 extends CustomData {
 
 		n=0;
 
-		double fi=(2*pi)/(N_MERIDIANS);
-		double teta=pi/(N_PARALLELS+1);
+		double fi=(2*pi)/(n_meridians);
+		double teta=pi/(n_parallels+1);
 		
 		BPoint northPole=addBPoint(0,0,radius);
 
-		BPoint[][] aPoints=new BPoint[N_MERIDIANS][N_PARALLELS];
+		BPoint[][] aPoints=new BPoint[n_meridians][n_parallels];
 
-		for (int i = 0; i < N_MERIDIANS; i++) {
+		for (int i = 0; i < n_meridians; i++) {
 
-			for (int j = 0; j <N_PARALLELS; j++) {
+			for (int j = 0; j <n_parallels; j++) {
 
 				double x= radius*Math.cos(i*fi)*Math.sin(teta+j*teta);
 				double y= radius*Math.sin(i*fi)*Math.sin(teta+j*teta);
@@ -137,19 +136,19 @@ public class Globe0 extends CustomData {
 		texture_points=buildTexturePoints();
 	
 
-		int count=N_MERIDIANS;
+		int count=n_meridians;
 
-		for (int i = 0; i <N_MERIDIANS; i++) { 
+		for (int i = 0; i <n_meridians; i++) { 
 			
 			LineData ld=new LineData();
 
-			int texIndex=count+f(i,0,N_MERIDIANS+1,N_PARALLELS);
+			int texIndex=count+f(i,0,n_meridians+1,n_parallels);
 			//System.out.print(texIndex+"\t");
 			ld.addIndex(aPoints[i][0].getIndex(),texIndex,0,0);
 
-			texIndex=count+f(i+1,0,N_MERIDIANS+1,N_PARALLELS);
+			texIndex=count+f(i+1,0,n_meridians+1,n_parallels);
 			//System.out.print(texIndex+"\t");
-			ld.addIndex(aPoints[(i+1)%N_MERIDIANS][0].getIndex(),texIndex,0,0);
+			ld.addIndex(aPoints[(i+1)%n_meridians][0].getIndex(),texIndex,0,0);
 
 			
 			ld.addIndex(northPole.getIndex(),i,0,0);
@@ -161,27 +160,27 @@ public class Globe0 extends CustomData {
 			polyData.add(ld);
 		}
 
-		for (int i = 0; i <N_MERIDIANS; i++) { 
+		for (int i = 0; i <n_meridians; i++) { 
 
-			for(int j=0;j<N_PARALLELS-1;j++){ 
+			for(int j=0;j<n_parallels-1;j++){ 
 
 				LineData ld=new LineData();
 
-				int texIndex=count+f(i,j,N_MERIDIANS+1,N_PARALLELS);
+				int texIndex=count+f(i,j,n_meridians+1,n_parallels);
 				//System.out.print(texIndex+"\t");
 				ld.addIndex(aPoints[i][j].getIndex(),texIndex,0,0);
 				
-				texIndex=count+f(i,j+1,N_MERIDIANS+1,N_PARALLELS);
+				texIndex=count+f(i,j+1,n_meridians+1,n_parallels);
 				//System.out.print(texIndex+"\t");
 				ld.addIndex(aPoints[i][j+1].getIndex(),texIndex,0,0);
 				
-				texIndex=count+f(i+1,j+1,N_MERIDIANS+1,N_PARALLELS);
+				texIndex=count+f(i+1,j+1,n_meridians+1,n_parallels);
 				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[(i+1)%N_MERIDIANS][j+1].getIndex(),texIndex,0,0);
+				ld.addIndex(aPoints[(i+1)%n_meridians][j+1].getIndex(),texIndex,0,0);
 
-				texIndex=count+f(i+1,j,N_MERIDIANS+1,N_PARALLELS);
+				texIndex=count+f(i+1,j,n_meridians+1,n_parallels);
 				//System.out.print(texIndex+"\t");
-				ld.addIndex(aPoints[(i+1)%N_MERIDIANS][j].getIndex(),texIndex,0,0);
+				ld.addIndex(aPoints[(i+1)%n_meridians][j].getIndex(),texIndex,0,0);
 
 
 				ld.setData(""+Renderer3D.getFace(ld,points));
@@ -196,21 +195,21 @@ public class Globe0 extends CustomData {
 
 		}
 		
-		int spIndex=N_MERIDIANS+N_PARALLELS*(N_MERIDIANS+1);
+		int spIndex=n_meridians+n_parallels*(n_meridians+1);
 		
-		for (int i = 0; i <N_MERIDIANS; i++) { 
+		for (int i = 0; i <n_meridians; i++) { 
 			
 			LineData ld=new LineData();			
 
-			int texIndex=count+f(i,(N_PARALLELS-1),N_MERIDIANS+1,N_PARALLELS);
+			int texIndex=count+f(i,(n_parallels-1),n_meridians+1,n_parallels);
 			//System.out.print(texIndex+"\t");
-			ld.addIndex(aPoints[i][(N_PARALLELS-1)].getIndex(),texIndex,0,0);
+			ld.addIndex(aPoints[i][(n_parallels-1)].getIndex(),texIndex,0,0);
 			
 			ld.addIndex(southPole.getIndex(),spIndex+i,0,0);
 
-			texIndex=count+f(i+1,(N_PARALLELS-1),N_MERIDIANS+1,N_PARALLELS);
+			texIndex=count+f(i+1,(n_parallels-1),n_meridians+1,n_parallels);
 			//System.out.print(texIndex+"\t");
-			ld.addIndex(aPoints[(i+1)%N_MERIDIANS][(N_PARALLELS-1)].getIndex(),texIndex,0,0);
+			ld.addIndex(aPoints[(i+1)%n_meridians][(n_parallels-1)].getIndex(),texIndex,0,0);
 		
 
 			ld.setData(""+Renderer3D.getFace(ld,points));
@@ -248,7 +247,7 @@ public class Globe0 extends CustomData {
 				bufGraphics.setStroke(new BasicStroke(0.1f));
 		
 	
-				for (int i = 0; i <N_MERIDIANS; i++) { 
+				for (int i = 0; i <n_meridians; i++) { 
 						
 						double x0=calX(lateralFaces[i][0].x);
 						double x1=calX(lateralFaces[i+1][0].x);
@@ -265,11 +264,11 @@ public class Globe0 extends CustomData {
 				//lateral surface
 				bufGraphics.setColor(new Color(0,0,0));
 
-				for(int j=0;j<N_PARALLELS-1;j++){
+				for(int j=0;j<n_parallels-1;j++){
 
 					//texture is open and periodical:
 
-					for (int i = 0; i <N_MERIDIANS; i++) { 
+					for (int i = 0; i <n_meridians; i++) { 
 
 						double x0=calX(lateralFaces[i][j].x);
 						double x1=calX(lateralFaces[i+1][j].x);
@@ -287,11 +286,11 @@ public class Globe0 extends CustomData {
 				bufGraphics.setColor(Color.BLUE);
 				bufGraphics.setStroke(new BasicStroke(0.1f));
 				
-				for (int i = 0; i <N_MERIDIANS; i++) { 
+				for (int i = 0; i <n_meridians; i++) { 
 					
-					double x0=calX(lateralFaces[i][N_PARALLELS-1].x);
-					double x1=calX(lateralFaces[i+1][N_PARALLELS-1].x);
-					double y0=calY(lateralFaces[i][N_PARALLELS-1].y);
+					double x0=calX(lateralFaces[i][n_parallels-1].x);
+					double x1=calX(lateralFaces[i+1][n_parallels-1].x);
+					double y0=calY(lateralFaces[i][n_parallels-1].y);
 					
 					double xp=calX(southPoles[i].x);
 					double yp=calY(southPoles[i].y);
@@ -317,16 +316,16 @@ public Vector buildTexturePoints() {
 	
 	Vector texture_points=new Vector();
 	
-	double teta=(2*pi)/(N_MERIDIANS);
+	double teta=(2*pi)/(n_meridians);
 
 
-	int size=2*N_MERIDIANS+	(N_MERIDIANS+1)*(N_PARALLELS);
+	int size=2*n_meridians+	(n_meridians+1)*(n_parallels);
 
 	
 	texture_points.setSize(size);
 	
-	texture_side_dy=(int) (zHeight/(N_PARALLELS-1));
-	texture_side_dx=(int) (len/(N_MERIDIANS));
+	texture_side_dy=(int) (zHeight/(n_parallels-1));
+	texture_side_dx=(int) (len/(n_meridians));
 	
 	IMG_WIDTH=(int) len+2*texture_x0;
 	IMG_HEIGHT=(int) (zHeight+radius*2)+2*texture_y0;
@@ -334,7 +333,7 @@ public Vector buildTexturePoints() {
 	int count=0;
 
 	
-	for (int i = 0; i <N_MERIDIANS; i++) { 
+	for (int i = 0; i <n_meridians; i++) { 
 		
 		double xp=calX(northPoles[i].x);
 		double yp=calY(northPoles[i].y);
@@ -346,27 +345,27 @@ public Vector buildTexturePoints() {
 	//lateral surface
 
 
-	for(int j=0;j<N_PARALLELS;j++){
+	for(int j=0;j<n_parallels;j++){
 
 		//texture is open and periodical:
 
-		for (int i = 0; i <=N_MERIDIANS; i++) {
+		for (int i = 0; i <=n_meridians; i++) {
 
 			double x=calX(lateralFaces[i][j].x);
 			double y=calY(lateralFaces[i][j].y);
 
 			Point3D p=new Point3D(x,y,0);
 
-			int texIndex=count+f(i,j,N_MERIDIANS+1,N_PARALLELS);
+			int texIndex=count+f(i,j,n_meridians+1,n_parallels);
 			//System.out.print(texIndex+"\t");
 			texture_points.setElementAt(p,texIndex);
 		}
 		
 	}	
 	
-	count=N_MERIDIANS+N_PARALLELS*(N_MERIDIANS+1);
+	count=n_meridians+n_parallels*(n_meridians+1);
 	
-	for (int i = 0; i <N_MERIDIANS; i++) { 
+	for (int i = 0; i <n_meridians; i++) { 
 		
 		double xp=calX(southPoles[i].x);
 		double yp=calY(southPoles[i].y);
