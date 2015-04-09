@@ -112,7 +112,7 @@ public class Globe1 extends Forniture {
 		Hashtable values=new Hashtable();
 
 		points=new Vector();
-		points.setSize(200);
+		points.setSize(500);
 		polyData=new Vector();
 
 		n=0;
