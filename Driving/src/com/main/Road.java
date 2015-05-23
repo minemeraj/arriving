@@ -1449,10 +1449,10 @@ public class Road extends Shader{
 				if(!read)
 					continue;
 				
+				SPLine sp=Editor.buildSPLine(str);
+				sp.getMesh().translate(-XFOCUS,+SCREEN_DISTANCE,-YFOCUS);
 				
-
-				
-				splines.add(Editor.buildSPLine(str));
+				splines.add(sp);
 		
 
 
