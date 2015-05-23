@@ -1,4 +1,5 @@
-
+Deep review of the road object structure, now modeled as a spline mesh.
+Big releated changes in the road editor too.
 
 Fixed bug on globe1 mesh, north pole not correctly textured.
 

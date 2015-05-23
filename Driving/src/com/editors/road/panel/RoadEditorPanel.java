@@ -52,7 +52,7 @@ public class RoadEditorPanel extends JPanel {
 		this.editor=editor;
 	}
 
-	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,
+	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,Vector splines,
 			ZBuffer landscapeZbuffer,Graphics2D graph) {
 		
 	}

@@ -160,7 +160,7 @@ public class Road extends Shader{
 			File file=new File("lib/landscape_"+carFrame.map_name);
 			
 			loadPointsFromFile(file,0);		
-			loadPointsFromFile(file,1);	
+			//loadPointsFromFile(file,1);	
 			loadObjectsFromFile(file);			
 			
 		} catch (Exception e) {
@@ -541,8 +541,8 @@ public class Road extends Shader{
      
 	    int TRANSZ=PARTIAL_MOVZ;
 	    boolean start_max_calculus=true;
-		
-		for(int index=0;index<2;index++){
+	    int index=0;
+		//for(int index=0;index<2;index++){
 	
 			PolygonMesh mesh=meshes[index];
 			
@@ -612,7 +612,7 @@ public class Road extends Shader{
 	
 			}
 			
-		}
+		//}
 			//changing altitutude with the movements		
 		    if(TRANSZ>=PARTIAL_MOVZ-ROAD_THICKNESS)
 		    	PARTIAL_MOVZ=TRANSZ;
@@ -630,10 +630,10 @@ public class Road extends Shader{
 				
 			}
 			
-			for(int index=0;index<2;index++){
+			//for(int index=0;index<2;index++){
 				
-				PolygonMesh mesh=meshes[index];
-				int size=mesh.polygonData.size();
+				//PolygonMesh mesh=meshes[index];
+				//int size=mesh.polygonData.size();
 			
 				for(int j=0;j<size;j++){
 					
@@ -665,7 +665,7 @@ public class Road extends Shader{
 					
 				} 
 		
-			}
+			//}
 
 
 		drawCar();

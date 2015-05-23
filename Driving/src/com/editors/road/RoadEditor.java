@@ -65,6 +65,7 @@ import com.Point3D;
 import com.Point4D;
 import com.Polygon3D;
 import com.PolygonMesh;
+import com.SPLine;
 import com.SquareMesh;
 import com.Texture;
 import com.ZBuffer;
@@ -460,9 +461,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 				worldImages[i]=ImageIO.read(new File("lib/road_texture_"+i+".jpg"));
 
-				for (int j = 0; j < numPanels; j++) {
+				/*for (int j = 0; j < numPanels; j++) {
 					chooseTexture[j].addItem(new ValuePair(""+i,""+i));
-				}
+				}*/
 
 
 
@@ -619,7 +620,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		graph.fillRect(0,0,WIDTH,HEIGHT);
 	
 		//editorPanel.setHide_objects(checkHideObjects.isSelected());
-		editorPanel.drawRoad(meshes,drawObjects,landscapeZbuffer,graph);
+		editorPanel.drawRoad(meshes,drawObjects,splines,landscapeZbuffer,graph);
 	
 
 		editorPanel.drawCurrentRect(landscapeZbuffer);
@@ -823,13 +824,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		////OBJECTS
 		        
-        JPanel terrain_panel =  buildRoadPanel(TERRAIN_INDEX);
+        JPanel terrain_panel =  buildTerrainPanel(TERRAIN_INDEX);
         //left.setBorder(objBorder);
         left_tool_options.add(terrain_panel,TERRAIN_MODE);
         
-        JPanel road_panel = buildRoadPanel(ROAD_INDEX);
+        //JPanel road_panel = buildRoadPanel(ROAD_INDEX);
        
-        left_tool_options.add(road_panel,ROAD_MODE);
+        //left_tool_options.add(road_panel,ROAD_MODE);
         
         
         JPanel object_panel = buildObjectsPanel();
@@ -944,7 +945,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		return object_panel;
 	}
 
-	private JPanel buildRoadPanel(int index) {
+	private JPanel buildTerrainPanel(int index) {
 
 		
 		JPanel panel=new JPanel();
@@ -1009,10 +1010,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		chooseTexture[index]=new JComboBox();
 		chooseTexture[index].addItem(new ValuePair("",""));
-		/*chooseTexture.setBounds(35,r,50,20);*/
+		//chooseTexture.setBounds(35,r,50,20);
 		chooseTexture[index].addItemListener(this);
 		chooseTexture[index].addKeyListener(this);
-		/*panel.add(chooseTexture);*/
+		//panel.add(chooseTexture);
 
 		choosePanelTexture[index]=new JButton("Texture");
 		choosePanelTexture[index].setBounds(5,r,100,20);
@@ -1863,7 +1864,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				setACTIVE_PANEL(0);
 				saveLines(pr);
 				setACTIVE_PANEL(1);
-				saveLines(pr);
+				//saveLines(pr);
+				saveSPLines(pr);
 				
 				//setACTIVE_PANEL(right.getSelectedIndex());
 				
@@ -1878,6 +1880,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		
 	}
+
+
 
 
 
@@ -1901,7 +1905,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			setACTIVE_PANEL(0);
 			loadPointsFromFile(file);	
 			setACTIVE_PANEL(1);
-			loadPointsFromFile(file);			
+			loadPointsFromFile(file);
+			loadSPLinesFromFile(file);
 			setACTIVE_PANEL(0);
 			
 			//right.setSelectedIndex(0);
@@ -2918,7 +2923,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				//addObject(arg0);
 				addPoint(arg0);
 			else{
-				selectPoint(arg0.getX(),arg0.getY());			
+				//selectPoint(arg0.getX(),arg0.getY());			
 			}	
 		
 		} else if(TERRAIN_MODE.equals(mode)){
@@ -2977,22 +2982,33 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		prepareUndo();
 		
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];
-		
 		Point p=arg0.getPoint();
 
 		int x=ep.invertX((int)p.getX());
 		int y=ep.invertY((int)p.getY());
 		
 		int index=0;
+		Point4D p0=new Point4D(x,y,0,LineData.GREEN_HEX,index);
+		
+		SPLine sp=new SPLine(p0);
+
+		
+		splines.add(sp);
+				
+		
+		/*PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		
+	
+		
+		
 		ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getSelectedItem();
 		if(vp!=null && !vp.getValue().equals(""))
 			index=Integer.parseInt(vp.getId());
 		else
 			index=0;
 		
-		Point4D point=new Point4D(x,y,0,LineData.GREEN_HEX,index);
-		mesh.addPoint(point);
+		
+		mesh.addPoint(point);*/
 		
 
 	}

@@ -16,8 +16,10 @@ import javax.swing.event.MenuListener;
 
 import com.LineData;
 import com.Point3D;
+import com.Point4D;
 import com.Polygon3D;
 import com.PolygonMesh;
+import com.SPLine;
 import com.SquareMesh;
 import com.main.Renderer3D;
 
@@ -45,6 +47,8 @@ public class Editor extends JFrame implements MenuListener{
 	
 	public static String TAG[]={"terrain","road"};
 	
+	public Vector splines=null;
+	
 	public Editor(){
 		
 		
@@ -63,7 +67,7 @@ public class Editor extends JFrame implements MenuListener{
 			oldMeshes[i]=new Stack();
 		}
 		
-		
+		splines=new Vector();
 	
 	}
 
@@ -221,6 +225,79 @@ public class Editor extends JFrame implements MenuListener{
 		
 		repaint();
 	}
+	
+	public void loadSPLinesFromFile(File file){
+		
+		try {
+			BufferedReader br=new BufferedReader(new FileReader(file));
+
+
+			String str=null;
+			int rows=0;
+			
+			boolean read=forceReading;
+
+			double x0=0;
+			double y0=0;
+			
+			splines=new Vector();
+			
+			while((str=br.readLine())!=null){
+				
+				
+				
+				if(str.indexOf("#")>=0 || str.length()==0)
+					continue;
+				
+				if(str.indexOf(TAG[ACTIVE_PANEL])>=0){
+					read=!read;
+				    continue;
+				}	
+				
+				if(!read)
+					continue;
+				
+				
+
+				
+				splines.add(buildSPLine(str));
+		
+
+
+			}
+			
+			br.close();
+
+			
+			//checkNormals();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		
+		repaint();
+		
+	}
+
+
+	public SPLine buildSPLine(String str) {
+		
+		String[] vals =str.split(" ");
+
+		Point4D p=new Point4D();
+
+		p.x=Double.parseDouble(vals[0]);
+		p.y=Double.parseDouble(vals[1]);
+		
+		SPLine sp=new SPLine(p);
+
+		
+		
+		return sp;
+	}
+
+
+
 
 
 	public void buildPoint(Vector vPoints, String str) {
@@ -293,6 +370,17 @@ public class Editor extends JFrame implements MenuListener{
 
 		}
 
+		return str;
+	}
+	
+	
+
+
+	private String decomposeSPLine(SPLine sp) {
+		
+		String str="";
+		Point4D p0=(Point4D) sp.getStarPoint();
+		str=p0.getX()+" "+p0.getY();
 		return str;
 	}
 	
@@ -410,6 +498,33 @@ public class Editor extends JFrame implements MenuListener{
 			e.printStackTrace();
 		}
 	}
+
+	public void saveSPLines(PrintWriter pr) {
+		
+		try {
+			
+			if(!forceReading)
+				pr.println("<"+TAG[ACTIVE_PANEL]+">");
+			
+			for (int i = 0; i < splines.size(); i++) {
+				
+				SPLine sp = (SPLine) splines.elementAt(i);
+				pr.print(decomposeSPLine(sp));
+				
+			}	
+			
+			if(!forceReading)
+				pr.println("\n</"+TAG[ACTIVE_PANEL]+">");
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		
+	}
+
+
 
 
 

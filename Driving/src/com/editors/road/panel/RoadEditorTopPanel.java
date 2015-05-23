@@ -15,6 +15,7 @@ import com.Point3D;
 import com.Point4D;
 import com.Polygon3D;
 import com.PolygonMesh;
+import com.SPLine;
 import com.Texture;
 import com.ZBuffer;
 import com.editors.ValuePair;
@@ -48,18 +49,22 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	}
 
 
-	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,ZBuffer landscapeZbuffer,
+	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,Vector splines,ZBuffer landscapeZbuffer,
 			Graphics2D graph) {
 		
-		displayRoad(landscapeZbuffer,meshes,0);
-		displayRoad(landscapeZbuffer,meshes,1);
+		displayTerrain(landscapeZbuffer,meshes,0);
+		displaySPLines(landscapeZbuffer,splines);
+		//displayRoad(landscapeZbuffer,meshes,1);
 		if(!isHide_objects())
 			displayObjects(landscapeZbuffer,drawObjects);
 	
 	}
 	
 	
-	private void displayRoad(ZBuffer landscapeZbuffer,PolygonMesh[] meshes,int index) {
+
+
+
+	private void displayTerrain(ZBuffer landscapeZbuffer,PolygonMesh[] meshes,int index) {
 
 	
 		PolygonMesh mesh=meshes[index];
@@ -104,6 +109,33 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		
 		
 		drawCurrentRect(landscapeZbuffer);
+	}
+	
+	private void displaySPLines(ZBuffer landscapeZbuffer, Vector splines) {
+		
+		for (int i = 0; i < splines.size(); i++) {
+			SPLine sp = (SPLine) splines.elementAt(i);
+			
+			Point4D p0=(Point4D) sp.getStarPoint();
+			
+			
+			PolygonMesh mesh=sp.getMesh();
+			
+			int lsize=mesh.polygonData.size();
+			
+
+			for(int j=0;j<lsize;j++){
+				
+				
+				LineData ld=(LineData) mesh.polygonData.elementAt(j);
+
+				drawPolygon(ld,mesh.points,landscapeZbuffer,1);
+
+			} 
+			
+		}
+		
+		
 	}
 	
 	public void drawCurrentRect(ZBuffer landscapeZbuffer) {

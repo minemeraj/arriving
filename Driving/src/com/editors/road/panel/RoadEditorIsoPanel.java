@@ -63,11 +63,12 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	}
 	
 
-	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,ZBuffer landscapeZbuffer,Graphics2D graph) {
-		
+	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,Vector splines,ZBuffer landscapeZbuffer,Graphics2D graph) {
+
 		drawRoad(meshes,landscapeZbuffer);
 		if(!isHide_objects())
 			drawObjects(drawObjects,null,landscapeZbuffer);
+		displaySPLines(landscapeZbuffer,splines);
 	}
 	
 
@@ -86,9 +87,9 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 	private void drawRoad(PolygonMesh[] meshes,ZBuffer roadZbuffer) {
 		
+		int index=0;
 		
-		
-		for(int index=0;index<2;index++){
+		//for(int index=0;index<2;index++){
 		
 			PolygonMesh mesh=meshes[index];
 			
@@ -131,12 +132,18 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	
 			}
 		
-		}
+		//}
 		
 		
 
 		//buildScreen(buf); 
 	}
+	
+	private void displaySPLines(ZBuffer landscapeZbuffer, Vector splines) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 
 	
 	public void drawObjects(Vector drawObjects,Area totalVisibleField,ZBuffer zbuffer){
