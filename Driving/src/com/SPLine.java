@@ -22,7 +22,7 @@ public class SPLine {
 		
 		if(nodes.size()>0)
 		{
-			p0=(Point4D) nodes.lastElement();
+			p0=((Point4D) nodes.lastElement()).clone();
 			nodes.add(p1);
 		}
 		else{
