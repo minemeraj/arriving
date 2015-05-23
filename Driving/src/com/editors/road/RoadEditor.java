@@ -3437,8 +3437,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	public void mouseReleased(MouseEvent arg0) {
 		
+		if(ACTIVE_PANEL==1)
+			return;
+		
 		isDrawCurrentRect=false;
 		updateSize(arg0);
+		
         selectPointsWithRectangle();
         draw();
        
