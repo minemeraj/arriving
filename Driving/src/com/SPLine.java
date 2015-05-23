@@ -39,9 +39,17 @@ public class SPLine {
 		
 		double x1=p1.x;
 		double y1=p1.y;
+		
+		Point3D d=new Point3D(x1-x0,y1-y0,0);
+		d=d.calculateVersor();
+		
+		Point3D lpd=new Point3D(-d.y,d.x,0);
+		Point3D rpd=new Point3D(d.y,-d.x,0);
 
-		Point4D p2=new Point4D(x1,y1+100,0,LineData.GREEN_HEX,index);
-		Point4D p3=new Point4D(x0,y0+100,0,LineData.GREEN_HEX,index);
+		Point4D p2=new Point4D(x1+lpd.x*100,y1+lpd.y*100,0,LineData.GREEN_HEX,index);
+		Point4D p3=new Point4D(x0+lpd.x*100,y0+lpd.y*100,0,LineData.GREEN_HEX,index);
+		
+		
 
 
 		Vector points=new Vector();
