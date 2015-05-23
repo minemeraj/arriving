@@ -220,7 +220,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	String header="<html><body>";
 	String footer="</body></html>";
-	private JToggleButton toogle_road;
+	private JToggleButton toogle_splines;
 	private JToggleButton toogle_terrain;
 	private JToggleButton toogle_objects;
 	private JPanel left_tools;
@@ -230,7 +230,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JCheckBox checkHideObjects;
 	
 	public static String OBJECT_MODE="OBJECT_MODE";
-	public static String ROAD_MODE="ROAD_MODE";
+	public static String SPLINES_MODE="SPLINES_MODE"; 
 	public static String TERRAIN_MODE="TERRAIN_MODE";
 	
 	public String mode=TERRAIN_MODE;
@@ -299,10 +299,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		buildMenuBar();
 		buildLeftPanel();
 
-		
-		
-		//buildRightPanel(0); 
-		//buildRightPanel(1); 
 		
 		buildBottomPanel();
 
@@ -781,11 +777,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		r+=30;
 	
 		
-		toogle_road = new JToggleButton("Road");
-		toogle_road.setActionCommand(ROAD_MODE);
-		toogle_road.addActionListener(this);
-		toogle_road.addKeyListener(this);
-		toogle_road.setBounds(10,r,100,20);
+		toogle_splines = new JToggleButton("Splines");
+		toogle_splines.setActionCommand(SPLINES_MODE);
+		toogle_splines.addActionListener(this);
+		toogle_splines.addKeyListener(this);
+		toogle_splines.setBounds(10,r,100,20);
 		
 		r+=30;
 	
@@ -798,11 +794,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		
 		ButtonGroup bgb=new ButtonGroup();
-		bgb.add(toogle_road);
+		bgb.add(toogle_splines);
 		bgb.add(toogle_terrain);
 		bgb.add(toogle_objects);
 		
-		left_tools.add(toogle_road);
+		left_tools.add(toogle_splines);
 		left_tools.add(toogle_terrain);
 		left_tools.add(toogle_objects);
 		
@@ -828,9 +824,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         //left.setBorder(objBorder);
         left_tool_options.add(terrain_panel,TERRAIN_MODE);
         
-        //JPanel road_panel = buildRoadPanel(ROAD_INDEX);
+        JPanel splines_panel = buildSPLinesPanel(ROAD_INDEX);
        
-        //left_tool_options.add(road_panel,ROAD_MODE);
+        left_tool_options.add(splines_panel,SPLINES_MODE);
         
         
         JPanel object_panel = buildObjectsPanel();
@@ -843,6 +839,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		
 
+	}
+
+	private JPanel buildSPLinesPanel(int rOAD_INDEX) {
+		JPanel splines_panel=new JPanel(null);
+		return splines_panel;
 	}
 
 	private JPanel buildObjectsPanel() {
@@ -2067,13 +2068,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		Object obj=arg0.getSource();
 
 		
-		if(toogle_objects==obj || toogle_road==obj || toogle_terrain==obj){
+		if(toogle_objects==obj || toogle_splines==obj || toogle_terrain==obj){
 			CardLayout cl = (CardLayout)(left_tool_options.getLayout());
 			
 			mode=((JToggleButton) obj).getActionCommand();
 			cl.show(left_tool_options,mode);
 			
-			if(ROAD_MODE.equals(mode))
+			if(SPLINES_MODE.equals(mode))
 				ACTIVE_PANEL=ROAD_INDEX;
 			else if(TERRAIN_MODE.equals(mode))
 				ACTIVE_PANEL=TERRAIN_INDEX;
@@ -2916,7 +2917,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		int buttonNum=arg0.getButton();
 		
-		if(ROAD_MODE.equals(mode)){
+		if(SPLINES_MODE.equals(mode)){
 		
 			//right button click
 			if(buttonNum==MouseEvent.BUTTON3)
@@ -2990,11 +2991,19 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		int index=0;
 		Point4D p0=new Point4D(x,y,0,LineData.GREEN_HEX,index);
 		
-		SPLine sp=new SPLine(p0);
-
-		
-		splines.add(sp);
-				
+		if(splines.size()==0){
+			
+			SPLine sp=new SPLine();	
+			sp.addPoint(p0);
+			splines.add(sp);
+			
+		}else{
+			
+			SPLine sp=(SPLine) splines.lastElement();
+			sp.addPoint(p0);
+			
+		}
+	
 		
 		/*PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		

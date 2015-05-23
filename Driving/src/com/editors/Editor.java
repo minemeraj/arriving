@@ -258,11 +258,21 @@ public class Editor extends JFrame implements MenuListener{
 					continue;
 				
 				
-
+				SPLine sp=null;
 				
-				splines.add(buildSPLine(str));
-		
-
+				if(splines.size()==0){
+					
+					sp=new SPLine();
+					splines.add(sp);
+					
+				}else{
+					
+					sp=(SPLine) splines.lastElement();
+				
+				}
+				
+				buildSPLine(sp,str);
+				
 
 			}
 			
@@ -280,20 +290,15 @@ public class Editor extends JFrame implements MenuListener{
 	}
 
 
-	public static SPLine buildSPLine(String str) {
+	public static void buildSPLine(SPLine sp,String str) {
 		
 		String[] vals =str.split(" ");
 
 		Point4D p=new Point4D();
-
 		p.x=Double.parseDouble(vals[0]);
 		p.y=Double.parseDouble(vals[1]);
 		
-		SPLine sp=new SPLine(p);
-
-		
-		
-		return sp;
+        sp.addPoint(p);
 	}
 
 
@@ -379,8 +384,13 @@ public class Editor extends JFrame implements MenuListener{
 	private String decomposeSPLine(SPLine sp) {
 		
 		String str="";
-		Point4D p0=(Point4D) sp.getStarPoint();
-		str=p0.getX()+" "+p0.getY();
+		for(int i=0;i<sp.nodes.size();i++){
+			
+			if(i>0)
+				str+="\n";
+			Point3D p0=(Point3D) sp.nodes.elementAt(i);
+			str+=p0.getX()+" "+p0.getY();
+		}
 		return str;
 	}
 	
@@ -509,7 +519,7 @@ public class Editor extends JFrame implements MenuListener{
 			for (int i = 0; i < splines.size(); i++) {
 				
 				SPLine sp = (SPLine) splines.elementAt(i);
-				pr.println(decomposeSPLine(sp));
+				pr.print(decomposeSPLine(sp));
 				
 			}	
 			
@@ -523,12 +533,6 @@ public class Editor extends JFrame implements MenuListener{
 
 		
 	}
-
-
-
-
-
-
 
 
 	public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCustom) {

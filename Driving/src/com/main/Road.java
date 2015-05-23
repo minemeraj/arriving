@@ -690,29 +690,34 @@ public class Road extends Shader{
 
 	private void drawSPLines(Vector splines, Area totalVisibleField,
 			ZBuffer roadZbuffer) {
-		
+
 		for (int i = 0; i < splines.size(); i++) {
-			
+
 			SPLine sp = (SPLine) splines.elementAt(i);
-			PolygonMesh mesh = sp.getMesh();
-			
-			int size=mesh.polygonData.size();
-			
-			for(int j=0;j<size;j++){
-			
-				LineData ld=(LineData) mesh.polygonData.elementAt(j);
-				
-				Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points);
-	
-	
-				//if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
-						
-				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],roadZbuffer);
-			
+
+			Vector meshes = sp.getMeshes();
+
+			for (int j = 0; j < meshes.size(); j++) {
+
+				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
+
+				int size=mesh.polygonData.size();
+
+				for(int k=0;k<size;k++){
+
+					LineData ld=(LineData) mesh.polygonData.elementAt(k);
+
+					Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points);
+
+
+					//if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
+
+					decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],roadZbuffer);
+
+				}
+
 			}
-			
 		}
-		
 	}
 
 
@@ -1449,10 +1454,25 @@ public class Road extends Shader{
 				if(!read)
 					continue;
 				
-				SPLine sp=Editor.buildSPLine(str);
-				sp.getMesh().translate(-XFOCUS,+SCREEN_DISTANCE,-YFOCUS);
+				SPLine sp=null;
 				
-				splines.add(sp);
+				if(splines.size()==0){
+					
+					sp=new SPLine();
+					splines.add(sp);
+					
+				}else{
+					
+					sp=(SPLine) splines.lastElement();
+				
+				}
+				
+				Editor.buildSPLine(sp,str);
+				
+				PolygonMesh pm=(PolygonMesh) sp.getMeshes().lastElement();
+				
+				pm.translate(-XFOCUS,+SCREEN_DISTANCE,-YFOCUS);
+				
 		
 
 
