@@ -29,6 +29,7 @@ import com.Point3D;
 import com.Point4D;
 import com.Polygon3D;
 import com.PolygonMesh;
+import com.SPLine;
 import com.Texture;
 import com.ZBuffer;
 import com.editors.Editor;
@@ -618,6 +619,8 @@ public class Road extends Shader{
 	
 			}
 			
+			drawSPLines(splines,totalVisibleField,roadZbuffer);
+			
 		//}
 			//changing altitutude with the movements		
 		    if(TRANSZ>=PARTIAL_MOVZ-ROAD_THICKNESS)
@@ -684,6 +687,34 @@ public class Road extends Shader{
 
 	}
 	
+
+	private void drawSPLines(Vector splines, Area totalVisibleField,
+			ZBuffer roadZbuffer) {
+		
+		for (int i = 0; i < splines.size(); i++) {
+			
+			SPLine sp = (SPLine) splines.elementAt(i);
+			PolygonMesh mesh = sp.getMesh();
+			
+			int size=mesh.polygonData.size();
+			
+			for(int j=0;j<size;j++){
+			
+				LineData ld=(LineData) mesh.polygonData.elementAt(j);
+				
+				Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points);
+	
+	
+				//if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
+						
+				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],roadZbuffer);
+			
+			}
+			
+		}
+		
+	}
+
 
 	public void calculateStencilBuffer() {
 

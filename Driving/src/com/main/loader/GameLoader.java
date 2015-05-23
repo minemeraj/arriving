@@ -102,7 +102,7 @@ public class GameLoader extends JDialog implements ActionListener{
 
 		vec.add(DEFAULT_MAP);
 
-		File directoryImg=new File("lib");
+		/*File directoryImg=new File("lib");
 		File[] files=directoryImg.listFiles();
 
 		for (int i = 0; i < files.length; i++) {
@@ -115,7 +115,7 @@ public class GameLoader extends JDialog implements ActionListener{
 
 			}
 
-		}
+		}*/
 
 		return vec;
 
