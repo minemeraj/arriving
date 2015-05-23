@@ -14,19 +14,34 @@ public class SPLine {
 		meshes=new Vector();
 	}
 	
-	public void addPoint(Point4D p0){
+	public void addPoint(Point4D p1){
 
 
-		nodes.add(p0);
+		
+		Point4D p0=null;
+		
+		if(nodes.size()>0)
+		{
+			p0=(Point4D) nodes.lastElement();
+			nodes.add(p1);
+		}
+		else{
+			
+			nodes.add(p1);
+			return;
+		}
+		
 
 		int index=0;
 
-		double x=p0.x;
-		double y=p0.y;
+		double x0=p0.x;
+		double y0=p0.y;
+		
+		double x1=p1.x;
+		double y1=p1.y;
 
-		Point4D p1=new Point4D(x+100,y,0,LineData.GREEN_HEX,index);
-		Point4D p2=new Point4D(x+100,y+100,0,LineData.GREEN_HEX,index);
-		Point4D p3=new Point4D(x,y+100,0,LineData.GREEN_HEX,index);
+		Point4D p2=new Point4D(x1,y1+100,0,LineData.GREEN_HEX,index);
+		Point4D p3=new Point4D(x0,y0+100,0,LineData.GREEN_HEX,index);
 
 
 		Vector points=new Vector();
