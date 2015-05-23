@@ -280,7 +280,7 @@ public class Editor extends JFrame implements MenuListener{
 	}
 
 
-	public SPLine buildSPLine(String str) {
+	public static SPLine buildSPLine(String str) {
 		
 		String[] vals =str.split(" ");
 
@@ -509,7 +509,7 @@ public class Editor extends JFrame implements MenuListener{
 			for (int i = 0; i < splines.size(); i++) {
 				
 				SPLine sp = (SPLine) splines.elementAt(i);
-				pr.print(decomposeSPLine(sp));
+				pr.println(decomposeSPLine(sp));
 				
 			}	
 			

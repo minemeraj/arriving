@@ -126,6 +126,8 @@ public class Road extends Shader{
 	public CarFrame carFrame=null;
 	
 	public static double WATER_LEVEL=0;
+	
+	public Vector splines=null;
 
 
 	public Road(int WITDH,int HEIGHT, CarFrame carFrame){
@@ -160,7 +162,8 @@ public class Road extends Shader{
 			File file=new File("lib/landscape_"+carFrame.map_name);
 			
 			loadPointsFromFile(file,0);		
-			//loadPointsFromFile(file,1);	
+			//loadPointsFromFile(file,1);
+			loadSPLinesFromFile(file);
 			loadObjectsFromFile(file);			
 			
 		} catch (Exception e) {
@@ -192,6 +195,9 @@ public class Road extends Shader{
 
 	}
 	
+
+
+
 	/**
 	 * SCALING VALUES:
 	 * 
@@ -1381,7 +1387,53 @@ public class Road extends Shader{
 		}
 	}
 
+	private void loadSPLinesFromFile(File file) {
+		
+		try {
+			BufferedReader br=new BufferedReader(new FileReader(file));
 
+
+			String str=null;
+			int rows=0;
+			
+			boolean read=false;
+
+			double x0=0;
+			double y0=0;
+			
+			splines=new Vector();
+			
+			while((str=br.readLine())!=null){
+				
+				
+				
+				if(str.indexOf("#")>=0 || str.length()==0)
+					continue;
+				
+				if(str.indexOf(Editor.TAG[1])>=0){
+					read=!read;
+				    continue;
+				}	
+				
+				if(!read)
+					continue;
+				
+				
+
+				
+				splines.add(Editor.buildSPLine(str));
+		
+
+
+			}
+			
+			br.close();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+	}
 
 	private DrawObject buildDrawObject(String str) {
 		DrawObject dro=new DrawObject();
