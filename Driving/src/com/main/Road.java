@@ -1469,11 +1469,13 @@ public class Road extends Shader{
 				
 				Editor.buildSPLine(sp,str);
 				
-				PolygonMesh pm=(PolygonMesh) sp.getMeshes().lastElement();
+				if(sp.getMeshes().size()>0){
 				
-				pm.translate(-XFOCUS,+SCREEN_DISTANCE,-YFOCUS);
+					PolygonMesh pm=(PolygonMesh) sp.getMeshes().lastElement();
+					
+					pm.translate(-XFOCUS,+SCREEN_DISTANCE,-YFOCUS);
 				
-		
+				}
 
 
 			}
