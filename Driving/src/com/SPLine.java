@@ -14,40 +14,62 @@ public class SPLine {
 		meshes=new Vector();
 	}
 	
-	public void addPoint(Point4D p1,Vector vTexturePoints){
+	public void addPoint(SPNode nextNode,Vector vTexturePoints){
 
 
 		
-		Point4D p0=null;
+		SPNode previousNode=null;
 		
 		if(nodes.size()>0)
 		{
-			p0=((Point4D) nodes.lastElement()).clone();
-			nodes.add(p1);
+			previousNode=(SPNode) nodes.lastElement();
+			nodes.add(nextNode);
 		}
 		else{
 			
-			nodes.add(p1);
+			nodes.add(nextNode);
 			return;
 		}
 		
 
 		int index=0;
 
-		double x0=p0.x;
-		double y0=p0.y;
+		double prevX=previousNode.x;
+		double prevY=previousNode.y;
 		
-		double x1=p1.x;
-		double y1=p1.y;
+		double nextX=nextNode.x;
+		double nextY=nextNode.y;
 		
-		Point3D d=new Point3D(x1-x0,y1-y0,0);
-		d=d.calculateVersor();
+		Point3D preTangent=previousNode.getTangent();
 		
-		Point3D lpd=new Point3D(-d.y,d.x,0);
-		Point3D rpd=new Point3D(d.y,-d.x,0);
+		Point3D NextTangent=new Point3D(nextX-prevX,nextY-prevY,0);
+		NextTangent=NextTangent.calculateVersor();		
+		nextNode.setTangent(NextTangent);
+		
+		Point3D lnextd=new Point3D(-NextTangent.y,NextTangent.x,0);
+		Point3D rnextd=new Point3D(NextTangent.y,-NextTangent.x,0);
+		
+		Point3D lprevd=null;
+		Point3D rprevd=null;
+		
+		if(preTangent==null){
+			
+			lprevd=new Point3D(-NextTangent.y,NextTangent.x,0);
+			rprevd=new Point3D(NextTangent.y,-NextTangent.x,0);
+			
+		}else{
+			
+			
+			lprevd=new Point3D(-preTangent.y,preTangent.x,0);
+			rprevd=new Point3D(preTangent.y,-preTangent.x,0);
+		}
+		
+	
 
-		Point4D p2=new Point4D(x1+lpd.x*200,y1+lpd.y*200,0,LineData.GREEN_HEX,index);
-		Point4D p3=new Point4D(x0+lpd.x*200,y0+lpd.y*200,0,LineData.GREEN_HEX,index);
+		Point4D p0=new Point4D(prevX+rprevd.x*100,prevY+rprevd.y*100,0,LineData.GREEN_HEX,index);
+		Point4D p1=new Point4D(nextX+rnextd.x*100,nextY+rnextd.y*100,0,LineData.GREEN_HEX,index);		
+		Point4D p2=new Point4D(nextX+lnextd.x*100,nextY+lnextd.y*100,0,LineData.GREEN_HEX,index);
+		Point4D p3=new Point4D(prevX+lprevd.x*100,prevY+lprevd.y*100,0,LineData.GREEN_HEX,index);
 		
 		Vector points=new Vector();
 		points.add(p0);

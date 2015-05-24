@@ -20,6 +20,7 @@ import com.Point4D;
 import com.Polygon3D;
 import com.PolygonMesh;
 import com.SPLine;
+import com.SPNode;
 import com.SquareMesh;
 import com.main.Renderer3D;
 
@@ -303,7 +304,7 @@ public class Editor extends JFrame implements MenuListener{
 		
 			String[] vals =str.split(" ");
 	
-			Point4D p=new Point4D();
+			SPNode p=new SPNode();
 			p.x=Double.parseDouble(vals[0]);
 			p.y=Double.parseDouble(vals[1]);
 			

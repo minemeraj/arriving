@@ -66,6 +66,7 @@ import com.Point4D;
 import com.Polygon3D;
 import com.PolygonMesh;
 import com.SPLine;
+import com.SPNode;
 import com.SquareMesh;
 import com.Texture;
 import com.ZBuffer;
@@ -2989,7 +2990,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		int y=ep.invertY((int)p.getY());
 		
 		int index=0;
-		Point4D p0=new Point4D(x,y,0,LineData.GREEN_HEX,index);
+		SPNode p0=new SPNode(x,y,0,LineData.GREEN_HEX,index);
 		
 		if(splines.size()==0){
 			
