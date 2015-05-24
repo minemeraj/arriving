@@ -1943,7 +1943,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	public void decomposeObjVertices(PrintWriter pr, PolygonMesh mesh,boolean isCustom) {
 	
-		pr.print("\nvt=0 0");//0
+		pr.print("vt=0 0");//0
 		pr.print("\nvt=200 0");//1
 		pr.print("\nvt=200 200");//2
 		pr.print("\nvt=0 200\n");//3

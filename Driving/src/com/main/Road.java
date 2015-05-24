@@ -1475,17 +1475,32 @@ public class Road extends Shader{
 				
 				Editor.buildSPLine(sp,vTexturePoints,str);
 				
-				if(sp.getMeshes().size()>0){
-				
-					PolygonMesh pm=(PolygonMesh) sp.getMeshes().lastElement();
-					
-					pm.translate(-XFOCUS,+SCREEN_DISTANCE,-YFOCUS);
-				
-				}
+	
 
 
 			}
 			
+			//translation to fit view screen
+			if(splines.size()>0){
+
+
+				for (int i = 0; i < splines.size(); i++) {
+					SPLine sp = (SPLine) splines.elementAt(i);
+					
+					
+					for (int j = 0; sp.getMeshes()!=null && j < sp.getMeshes().size(); j++) {
+						
+						PolygonMesh pm = (PolygonMesh) sp.getMeshes().elementAt(j);
+						pm.translate(-XFOCUS,+SCREEN_DISTANCE,-YFOCUS);
+						
+					}
+
+
+				}
+
+			}
+			
+	
 			br.close();
 
 		} catch (Exception e) {
