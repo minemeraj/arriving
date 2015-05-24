@@ -32,7 +32,7 @@ public class SPLine {
 		}
 		
 
-		int index=0;
+		int index=3;
 
 		double prevX=previousNode.x;
 		double prevY=previousNode.y;
@@ -88,6 +88,7 @@ public class SPLine {
 		ld.addIndex(1,1,pt1.x,pt1.y);
 		ld.addIndex(2,2,pt2.x,pt2.y);
 		ld.addIndex(3,3,pt3.x,pt3.y);
+		ld.setTexture_index(index);
 		polygonData.add(ld);
 
 		PolygonMesh mesh=new PolygonMesh(points,polygonData);
