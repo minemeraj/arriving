@@ -46,12 +46,9 @@ public class SPLine {
 		Point3D lpd=new Point3D(-d.y,d.x,0);
 		Point3D rpd=new Point3D(d.y,-d.x,0);
 
-		Point4D p2=new Point4D(x1+lpd.x*100,y1+lpd.y*100,0,LineData.GREEN_HEX,index);
-		Point4D p3=new Point4D(x0+lpd.x*100,y0+lpd.y*100,0,LineData.GREEN_HEX,index);
+		Point4D p2=new Point4D(x1+lpd.x*200,y1+lpd.y*200,0,LineData.GREEN_HEX,index);
+		Point4D p3=new Point4D(x0+lpd.x*200,y0+lpd.y*200,0,LineData.GREEN_HEX,index);
 		
-		
-
-
 		Vector points=new Vector();
 		points.add(p0);
 		points.add(p1);
@@ -78,6 +75,8 @@ public class SPLine {
 
 
 	}
+
+
 
 	public Vector getMeshes() {
 		return meshes;

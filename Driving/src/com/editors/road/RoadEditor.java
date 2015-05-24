@@ -2994,13 +2994,20 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		if(splines.size()==0){
 			
 			SPLine sp=new SPLine();	
-			sp.addPoint(p0,null);
+			
+				
+				
+			Vector vTexturePoints=buildTemplateTexturePoints();
+
+			sp.addPoint(p0,vTexturePoints);
 			splines.add(sp);
 			
 		}else{
 			
 			SPLine sp=(SPLine) splines.lastElement();
-			sp.addPoint(p0,null);
+			
+			Vector vTexturePoints=buildTemplateTexturePoints();
+			sp.addPoint(p0,vTexturePoints);
 			
 		}
 	
@@ -3749,6 +3756,18 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		ep.rotate(signum);
 		
 	
+	}
+	
+	private Vector buildTemplateTexturePoints() {
+		
+		Vector vPoints=new Vector();
+		
+		vPoints.add(new Point3D(0,0,0));
+		vPoints.add(new Point3D(200,0,0));
+		vPoints.add(new Point3D(200,200,0));
+		vPoints.add(new Point3D(0,200,0));
+		
+		return vPoints;
 	}
 
 
