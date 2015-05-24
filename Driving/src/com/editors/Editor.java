@@ -241,6 +241,7 @@ public class Editor extends JFrame implements MenuListener{
 			double y0=0;
 			
 			splines=new Vector();
+			Vector vTexturePoints=new Vector();
 			
 			while((str=br.readLine())!=null){
 				
@@ -257,6 +258,10 @@ public class Editor extends JFrame implements MenuListener{
 				if(!read)
 					continue;
 				
+				if(str.startsWith("vt=")){
+					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
+					continue;
+				}	
 				
 				SPLine sp=null;
 				
@@ -271,7 +276,7 @@ public class Editor extends JFrame implements MenuListener{
 				
 				}
 				
-				buildSPLine(sp,str);
+				buildSPLine(sp,vTexturePoints,str);
 				
 
 			}
@@ -290,15 +295,21 @@ public class Editor extends JFrame implements MenuListener{
 	}
 
 
-	public static void buildSPLine(SPLine sp,String str) {
+	public static void buildSPLine(SPLine sp,Vector vTexturePoints,String str) {
 		
-		String[] vals =str.split(" ");
-
-		Point4D p=new Point4D();
-		p.x=Double.parseDouble(vals[0]);
-		p.y=Double.parseDouble(vals[1]);
+		if(str.startsWith("v=")){
+			
+			str=str.substring(2);
 		
-        sp.addPoint(p);
+			String[] vals =str.split(" ");
+	
+			Point4D p=new Point4D();
+			p.x=Double.parseDouble(vals[0]);
+			p.y=Double.parseDouble(vals[1]);
+			
+	        sp.addPoint(p,vTexturePoints);
+        
+		}
 	}
 
 
@@ -389,8 +400,9 @@ public class Editor extends JFrame implements MenuListener{
 			if(i>0)
 				str+="\n";
 			Point3D p0=(Point3D) sp.nodes.elementAt(i);
-			str+=p0.getX()+" "+p0.getY();
+			str+="v="+p0.getX()+" "+p0.getY()+" "+p0.getZ();
 		}
+		
 		return str;
 	}
 	
@@ -516,12 +528,15 @@ public class Editor extends JFrame implements MenuListener{
 			if(!forceReading)
 				pr.println("<"+TAG[ACTIVE_PANEL]+">");
 			
+			decomposeObjVertices(pr,null,false);
+			
 			for (int i = 0; i < splines.size(); i++) {
 				
 				SPLine sp = (SPLine) splines.elementAt(i);
 				pr.print(decomposeSPLine(sp));
 				
-			}	
+			}
+			
 			
 			if(!forceReading)
 				pr.println("\n</"+TAG[ACTIVE_PANEL]+">");

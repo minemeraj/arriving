@@ -2994,13 +2994,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		if(splines.size()==0){
 			
 			SPLine sp=new SPLine();	
-			sp.addPoint(p0);
+			sp.addPoint(p0,null);
 			splines.add(sp);
 			
 		}else{
 			
 			SPLine sp=(SPLine) splines.lastElement();
-			sp.addPoint(p0);
+			sp.addPoint(p0,null);
 			
 		}
 	

@@ -1438,6 +1438,7 @@ public class Road extends Shader{
 			double y0=0;
 			
 			splines=new Vector();
+			Vector vTexturePoints=new Vector();
 			
 			while((str=br.readLine())!=null){
 				
@@ -1454,6 +1455,11 @@ public class Road extends Shader{
 				if(!read)
 					continue;
 				
+				if(str.startsWith("vt=")){
+					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
+					continue;
+				}	
+				
 				SPLine sp=null;
 				
 				if(splines.size()==0){
@@ -1467,7 +1473,7 @@ public class Road extends Shader{
 				
 				}
 				
-				Editor.buildSPLine(sp,str);
+				Editor.buildSPLine(sp,vTexturePoints,str);
 				
 				if(sp.getMeshes().size()>0){
 				
