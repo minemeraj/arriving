@@ -1488,11 +1488,11 @@ public class Road extends Shader{
 					SPLine sp = (SPLine) splines.elementAt(i);
 					
 					
-					for (int j = 0; sp.getMeshes()!=null && j < sp.getMeshes().size(); j++) {
+					for (int j = 0; sp.ribs!=null && j < sp.ribs.size(); j++) {
 						
-						PolygonMesh pm = (PolygonMesh) sp.getMeshes().elementAt(j);
-						pm.translate(-XFOCUS,+SCREEN_DISTANCE,-YFOCUS);
-						
+						Point4D[] rib= (Point4D[]) sp.ribs.elementAt(j);
+						rib[0].translate(-XFOCUS,+SCREEN_DISTANCE,-YFOCUS);
+						rib[1].translate(-XFOCUS,+SCREEN_DISTANCE,-YFOCUS);
 					}
 
 
