@@ -203,7 +203,7 @@ public class ZBuffer{
 
 		public boolean isToUpdate(double ys,int index){
 
-
+          
 			return getZ(index)==0 ||  getZ(index)>ys;
 		}	
 
