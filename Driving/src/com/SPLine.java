@@ -6,15 +6,18 @@ public class SPLine {
 	
 	public Vector nodes=null;
 	public Vector meshes=null;
+	Vector vTexturePoints=null;
 
 	
-	public SPLine(){
+	public SPLine(Vector vTexturePoints){
 		
 		nodes=new Vector();
 		meshes=new Vector();
+		
+		this.vTexturePoints=vTexturePoints;
 	}
 	
-	public void addPoint(SPNode nextNode,Vector vTexturePoints){
+	public void addPoint(SPNode nextNode){
 
 
 		

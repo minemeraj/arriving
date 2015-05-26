@@ -1464,7 +1464,7 @@ public class Road extends Shader{
 				
 				if(splines.size()==0){
 					
-					sp=new SPLine();
+					sp=new SPLine(vTexturePoints);
 					splines.add(sp);
 					
 				}else{
@@ -1473,7 +1473,7 @@ public class Road extends Shader{
 				
 				}
 				
-				Editor.buildSPLine(sp,vTexturePoints,str);
+				Editor.buildSPLine(sp,str);
 				
 	
 

@@ -268,7 +268,7 @@ public class Editor extends JFrame implements MenuListener{
 				
 				if(splines.size()==0){
 					
-					sp=new SPLine();
+					sp=new SPLine(vTexturePoints);
 					splines.add(sp);
 					
 				}else{
@@ -277,7 +277,7 @@ public class Editor extends JFrame implements MenuListener{
 				
 				}
 				
-				buildSPLine(sp,vTexturePoints,str);
+				buildSPLine(sp,str);
 				
 
 			}
@@ -296,7 +296,7 @@ public class Editor extends JFrame implements MenuListener{
 	}
 
 
-	public static void buildSPLine(SPLine sp,Vector vTexturePoints,String str) {
+	public static void buildSPLine(SPLine sp,String str) {
 		
 		if(str.startsWith("v=")){
 			
@@ -308,7 +308,7 @@ public class Editor extends JFrame implements MenuListener{
 			p.x=Double.parseDouble(vals[0]);
 			p.y=Double.parseDouble(vals[1]);
 			
-	        sp.addPoint(p,vTexturePoints);
+	        sp.addPoint(p);
         
 		}
 	}
