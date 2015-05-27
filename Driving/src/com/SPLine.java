@@ -34,68 +34,91 @@ public class SPLine {
 			return;
 		}
 		
-
-		int index=3;
-
-		double prevX=previousNode.x;
-		double prevY=previousNode.y;
+        calculateRibs();
 		
-		double nextX=nextNode.x;
-		double nextY=nextNode.y;
-		
-		Point3D preTangent=previousNode.getTangent();
-		
-		Point3D NextTangent=new Point3D(nextX-prevX,nextY-prevY,0);
-		NextTangent=NextTangent.calculateVersor();		
-		nextNode.setTangent(NextTangent);
-		
-		Point3D lnextd=new Point3D(-NextTangent.y,NextTangent.x,0);
-		Point3D rnextd=new Point3D(NextTangent.y,-NextTangent.x,0);
-		
-		Point3D lprevd=null;
-		Point3D rprevd=null;
-		
-		if(preTangent==null){
-			
-			lprevd=new Point3D(-NextTangent.y,NextTangent.x,0);
-			rprevd=new Point3D(NextTangent.y,-NextTangent.x,0);
-			
-		}else{
-			
-			
-			lprevd=new Point3D(-preTangent.y,preTangent.x,0);
-			rprevd=new Point3D(preTangent.y,-preTangent.x,0);
-		}
-		
-		Point4D[] prevRib=null;
-		Point4D[] nextRib=null;
-	
-		if(ribs.size()==0){
-			
-			
-			prevRib=new Point4D[2];
-			prevRib[0]=new Point4D(prevX+rprevd.x*100,prevY+rprevd.y*100,0,LineData.GREEN_HEX,index);
-			prevRib[1]=new Point4D(prevX+lprevd.x*100,prevY+lprevd.y*100,0,LineData.GREEN_HEX,index);
-			
-			ribs.add(prevRib);
-			
-		}else{
-			
-			prevRib=(Point4D[]) ribs.lastElement();
-		
-		}
-
-		nextRib=new Point4D[2];
-		nextRib[0]=new Point4D(nextX+rnextd.x*100,nextY+rnextd.y*100,0,LineData.GREEN_HEX,index);		
-		nextRib[1]=new Point4D(nextX+lnextd.x*100,nextY+lnextd.y*100,0,LineData.GREEN_HEX,index);
-		
-		ribs.add(nextRib);
 		
 
 
 	}
 
 
+
+	private void calculateRibs() {
+
+		ribs=new Vector();
+
+		for (int i = 0; i < nodes.size()-1; i++) {
+			
+			SPNode previousNode = (SPNode) nodes.elementAt(i); 
+			SPNode nextNode = (SPNode) nodes.elementAt(i+1); 
+
+			int index=3;
+
+			double prevX=previousNode.x;
+			double prevY=previousNode.y;
+
+			double nextX=nextNode.x;
+			double nextY=nextNode.y;
+
+			Point3D preTangent=previousNode.getTangent();
+
+			Point3D NextTangent=new Point3D(nextX-prevX,nextY-prevY,0);
+			NextTangent=NextTangent.calculateVersor();		
+			nextNode.setTangent(NextTangent);
+
+			Point3D lnextd=new Point3D(-NextTangent.y,NextTangent.x,0);
+			Point3D rnextd=new Point3D(NextTangent.y,-NextTangent.x,0);
+
+			Point3D lprevd=null;
+			Point3D rprevd=null;
+
+			if(preTangent==null){
+
+				lprevd=new Point3D(-NextTangent.y,NextTangent.x,0);
+				rprevd=new Point3D(NextTangent.y,-NextTangent.x,0);
+
+			}else{
+
+
+				lprevd=new Point3D(-preTangent.y,preTangent.x,0);
+				rprevd=new Point3D(preTangent.y,-preTangent.x,0);
+			}
+			
+			
+			double dj=1.0;
+			
+			//for(double j=0;j<=1;){
+				
+				double l=0;//j/1.0;
+				
+				double x=(1-l)*prevX+l*nextX;
+				double y=(1-l)*prevY+l*nextY;
+
+
+				if(i==0){
+					
+					Point4D[] rib=new Point4D[2];
+					rib[0]=new Point4D(x+rprevd.x*100,y+rprevd.y*100,0,LineData.GREEN_HEX,index);
+					rib[1]=new Point4D(x+lprevd.x*100,y+lprevd.y*100,0,LineData.GREEN_HEX,index);
+					ribs.add(rib);
+					
+				}
+				
+				Point4D[] rib=new Point4D[2];
+				rib[0]=new Point4D(nextX+rnextd.x*100,nextY+rnextd.y*100,0,LineData.GREEN_HEX,index);		
+				rib[1]=new Point4D(nextX+lnextd.x*100,nextY+lnextd.y*100,0,LineData.GREEN_HEX,index);
+				ribs.add(rib);	
+				
+				
+				
+				//j=j+dj;
+
+			
+			//}
+
+		}
+
+	}
 
 	public Vector getMeshes() {
 
