@@ -87,34 +87,30 @@ public class SPLine {
 			
 			double dj=1.0;
 			
-			//for(double j=0;j<=1;){
+			for(double j=0;j<=1;){
 				
-				double l=0;//j/1.0;
+				double l=j/1.0;
 				
 				double x=(1-l)*prevX+l*nextX;
 				double y=(1-l)*prevY+l*nextY;
 
-
-				if(i==0){
+				if(j==0 && i>0){
 					
-					Point4D[] rib=new Point4D[2];
-					rib[0]=new Point4D(x+rprevd.x*100,y+rprevd.y*100,0,LineData.GREEN_HEX,index);
-					rib[1]=new Point4D(x+lprevd.x*100,y+lprevd.y*100,0,LineData.GREEN_HEX,index);
-					ribs.add(rib);
-					
-				}
+					j=j+dj;
+					continue;
+				}	
 				
 				Point4D[] rib=new Point4D[2];
-				rib[0]=new Point4D(nextX+rnextd.x*100,nextY+rnextd.y*100,0,LineData.GREEN_HEX,index);		
-				rib[1]=new Point4D(nextX+lnextd.x*100,nextY+lnextd.y*100,0,LineData.GREEN_HEX,index);
+				rib[0]=new Point4D(x+rnextd.x*100,y+rnextd.y*100,0,LineData.GREEN_HEX,index);		
+				rib[1]=new Point4D(x+lnextd.x*100,y+lnextd.y*100,0,LineData.GREEN_HEX,index);
 				ribs.add(rib);	
 				
 				
 				
-				//j=j+dj;
+				j=j+dj;
 
 			
-			//}
+			}
 
 		}
 
