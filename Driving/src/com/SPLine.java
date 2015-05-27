@@ -63,12 +63,16 @@ public class SPLine {
 			Point3D preTangent=previousNode.getTangent();
 
 			Point3D NextTangent=new Point3D(nextX-prevX,nextY-prevY,0);
+			
+			double nodeDistance=Point3D.calculateNorm(NextTangent);
+					
 			NextTangent=NextTangent.calculateVersor();		
 			nextNode.setTangent(NextTangent);
 
 			Point3D lnextd=new Point3D(-NextTangent.y,NextTangent.x,0);
 			Point3D rnextd=new Point3D(NextTangent.y,-NextTangent.x,0);
 
+			/*
 			Point3D lprevd=null;
 			Point3D rprevd=null;
 
@@ -82,21 +86,21 @@ public class SPLine {
 
 				lprevd=new Point3D(-preTangent.y,preTangent.x,0);
 				rprevd=new Point3D(preTangent.y,-preTangent.x,0);
-			}
+			}*/
+			
+			int n=(int) (nodeDistance/200.0)+1;
 			
 			
-			double dj=1.0;
+			double dj=1.0/n;
 			
-			for(double j=0;j<=1;){
-				
-				double l=j/1.0;
+			for(double l=0;l<=1;){
 				
 				double x=(1-l)*prevX+l*nextX;
 				double y=(1-l)*prevY+l*nextY;
 
-				if(j==0 && i>0){
+				if(l==0 && i>0){
 					
-					j=j+dj;
+					l=l+dj;
 					continue;
 				}	
 				
@@ -107,7 +111,7 @@ public class SPLine {
 				
 				
 				
-				j=j+dj;
+				l=l+dj;
 
 			
 			}
