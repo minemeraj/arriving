@@ -60,7 +60,7 @@ public class SPLine {
 			double nextX=nextNode.x;
 			double nextY=nextNode.y;
 
-			Point3D preTangent=previousNode.getTangent();
+			//Point3D preTangent=previousNode.getTangent();
 
 			Point3D NextTangent=new Point3D(nextX-prevX,nextY-prevY,0);
 			
