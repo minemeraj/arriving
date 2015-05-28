@@ -26,7 +26,8 @@ public class EditorShape {
 		whiteTexture=new Texture(bf);
 		
 		
-		double r=100;
+		double maxR=100;
+		double minR=80;
 		int n=10;
 		
 		double dteta=2*Math.PI/n;
@@ -34,23 +35,50 @@ public class EditorShape {
 		//Vector vTexturePoints=RoadEditor.buildTemplateTexturePoints(100);
 		//circleShape.setTexturePoints(vTexturePoints);
 		
-		Point4D[] points=new Point4D[n];
-		LineData ld=new LineData();
+		Point4D[] points=new Point4D[2*n];
+		
 		
 		for (int i = 0; i < n; i++) {
 			
 			double teta=i*dteta;
-			double x=r*Math.cos(teta);
-			double y=r*Math.sin(teta);
+			
+			double x=maxR*Math.cos(teta);
+			double y=maxR*Math.sin(teta);
+			
+			double xm=minR*Math.cos(teta);
+			double ym=minR*Math.sin(teta);
 			
 			points[i]=new Point4D(x,y,0);
+			points[i+n]=new Point4D(xm,ym,0);
 			
-			ld.addIndex(i,i,x,y);
+			
 		}
 		
 		Vector polygonData=new Vector();
+		for (int i = 0; i < n; i++) {
+			
+			int indx0=i;
+			int indx1=(i+1)%n;
+			int indx2=(i+1)%n+n;
+			int indx3=i+n;
+			
+			Point4D p0= points[indx0];
+			Point4D p1= points[indx1];
+			Point4D p2= points[indx2];
+			Point4D p3= points[indx3];
+			
+			LineData ld=new LineData();
+			ld.addIndex(indx0,indx0,p0.x,p0.y);
+			ld.addIndex(indx1,indx1,p1.x,p1.y);
+			ld.addIndex(indx2,indx2,p2.x,p2.y);
+			ld.addIndex(indx3,indx3,p3.x,p3.y);
+			
+			polygonData.add(ld);
+		}
 		
-		polygonData.add(ld);
+		
+		
+		
 		
 		circleShape=new PolygonMesh(points,polygonData);
 		

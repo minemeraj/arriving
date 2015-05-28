@@ -132,12 +132,33 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 				
 			}
+
+
+
+			
+		}
+		
+		
+		for (int i = 0; i < splines.size(); i++) {
+			SPLine sp = (SPLine) splines.elementAt(i);
+			
+			Vector meshes = sp.getMeshes();
+			
+			for (int j = 0; j < meshes.size(); j++) {
+				
+				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
+				
+	
+				drawPolygon(mesh,landscapeZbuffer,1);
+
+				
+			}
 			
 			for (int k = 0; k < sp.nodes.size(); k++) {
 				
 				Point4D node = (Point4D) sp.nodes.elementAt(k);
 				
-				PolygonMesh pm=EditorShape.getCircle(node.x,node.y,node.z);	
+				PolygonMesh pm=EditorShape.getCircle(node.x,node.y,node.z+10);	
 				
 				for(int l=0;l<pm.polygonData.size();l++){
 					
