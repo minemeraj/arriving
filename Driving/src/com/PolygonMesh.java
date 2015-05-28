@@ -130,7 +130,7 @@ public class PolygonMesh implements Cloneable{
 			pm.normals.add(normals.elementAt(i).clone());
 		}
 		
-		for(int i=0;i<this.texturePoints.size();i++){
+		for(int i=0;texturePoints!=null && i<this.texturePoints.size();i++){
 
 			pm.texturePoints.add(((Point3D)texturePoints.elementAt(i)).clone());
 		}
