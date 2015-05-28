@@ -19,6 +19,7 @@ import com.PolygonMesh;
 import com.SPLine;
 import com.Texture;
 import com.ZBuffer;
+import com.editors.EditorShape;
 import com.editors.ValuePair;
 import com.editors.road.RoadEditor;
 import com.main.Road;
@@ -46,6 +47,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	private void intialize() {
 		
 		selectionColor=new Color(255,0,0,127);
+		EditorShape.buildShape();
 		
 	}
 
@@ -81,7 +83,9 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			
 			LineData ld=(LineData) mesh.polygonData.elementAt(j);
 
-			drawPolygon(ld,mesh.points,landscapeZbuffer,index);
+	
+			Texture texture = RoadEditor.worldTextures[ld.getTexture_index()];
+			drawPolygon(ld,mesh.points,landscapeZbuffer,texture,index);
 
 		} 
 
@@ -123,20 +127,30 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				
 				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
 				
-				int lsize=mesh.polygonData.size();
+	
+				drawPolygon(mesh,landscapeZbuffer,1);
+
 				
-
-				for(int k=0;k<lsize;k++){
+			}
+			
+			for (int k = 0; k < sp.nodes.size(); k++) {
+				
+				Point4D node = (Point4D) sp.nodes.elementAt(k);
+				
+				PolygonMesh pm=EditorShape.getCircle(node.x,node.y,node.z);	
+				
+				for(int l=0;l<pm.polygonData.size();l++){
 					
 					
-					LineData ld=(LineData) mesh.polygonData.elementAt(k);
-
-					drawPolygon(ld,mesh.points,landscapeZbuffer,1);
+					LineData ld=(LineData) pm.polygonData.elementAt(l);
+											
+					drawPolygon(ld,pm.points,landscapeZbuffer,EditorShape.whiteTexture,1);
 
 				} 
-			}
-	
+				
 			
+			}
+
 
 			
 		}
@@ -144,6 +158,8 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		
 	}
 	
+
+
 	public void drawCurrentRect(ZBuffer landscapeZbuffer) {
 		
 		if(!editor.isDrawCurrentRect())
@@ -298,7 +314,30 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 	}
 	
-	private void drawPolygon(LineData ld,Point3D[] points,ZBuffer landscapeZbuffer,int indx) {
+	private void drawPolygon(PolygonMesh mesh, ZBuffer landscapeZbuffer,
+			int rgbColor) {
+
+		
+		int lsize=mesh.polygonData.size();
+		
+
+		for(int k=0;k<lsize;k++){
+			
+			
+			LineData ld=(LineData) mesh.polygonData.elementAt(k);
+			Texture texture = RoadEditor.worldTextures[ld.getTexture_index()];
+			
+			drawPolygon(ld,mesh.points,landscapeZbuffer,texture,1);
+
+		} 
+		
+	}
+	
+	
+	
+
+	
+	private void drawPolygon(LineData ld,Point3D[] points,ZBuffer landscapeZbuffer,Texture texture,int indx) {
 
 
 		Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
@@ -344,7 +383,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 		//calculate texture angle
 
-		int index=ld.getTexture_index();//????
+		
 		Color selected=null;
 
 		if(ld.isSelected()){
@@ -353,10 +392,11 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				selected=selectionColor;
 			}
 		}
+		
 
 
 
-		drawTexture(RoadEditor.worldTextures[index],p3d,p3dr,landscapeZbuffer,selected);
+		drawTexture(texture,p3d,p3dr,landscapeZbuffer,selected);
 
 
 

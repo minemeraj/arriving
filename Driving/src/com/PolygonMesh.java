@@ -17,7 +17,7 @@ public class PolygonMesh implements Cloneable{
 
 	public Point3D[] points=null;
 	public Vector <LineData>polygonData=null;
-	public Vector texturePoints=null;
+	public Vector<Point3D> texturePoints=null;
 	public Vector <Point3D>normals=null;
 	public int[] boxFaces=null; 
 
@@ -128,6 +128,11 @@ public class PolygonMesh implements Cloneable{
 		for(int i=0;i<this.normals.size();i++){
 
 			pm.normals.add(normals.elementAt(i).clone());
+		}
+		
+		for(int i=0;i<this.texturePoints.size();i++){
+
+			pm.texturePoints.add(((Point3D)texturePoints.elementAt(i)).clone());
 		}
 	
 		return pm;
