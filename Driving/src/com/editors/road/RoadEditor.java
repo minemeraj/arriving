@@ -545,10 +545,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 	private void deselectAll() {
-		cleanPoints();
-		deselectAllPoints();
+		
+		deselectAllPoints(ACTIVE_PANEL);
 		draw();
-		coordinatesx[ACTIVE_PANEL].requestFocus();
+		
 		
 		polygon=new LineData();
 	}
@@ -845,10 +845,20 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JPanel buildSPLinesPanel() {
 		JPanel splines_panel=new JPanel(null);
 		
+		int index=ROAD_INDEX;
+		
 		int r=10;
 		
-		JPanel moveRoad=buildRoadMovePanel(10,r,ROAD_INDEX);
+		JPanel moveRoad=buildRoadMovePanel(10,r,index);
 		splines_panel.add(moveRoad);
+		
+		r+=120;
+		
+		deselectAll[index]=new JButton(header+"D<u>e</u>select all"+footer);
+		deselectAll[index].addActionListener(this);
+		deselectAll[index].setFocusable(false);
+		deselectAll[index].setBounds(5,r,150,20);
+		splines_panel.add(deselectAll[index]);
 		
 		return splines_panel;
 	}
@@ -1725,7 +1735,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				if(spnode.isSelected){
 					
 					spnode.translate(qty*dx,  qty*dy, qty*dz);
-					spnode.calculateCircle();
+					spnode.update();
 					found=true;
 					
 					
@@ -3161,28 +3171,54 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 
-	private void deselectAllPoints(){
+	private void deselectAllPoints(int index){
 		
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];
-		
-		if(mesh.points==null)
-			return; 
-		
-		for(int j=0;j<mesh.points.length;j++){
+		if(index==TERRAIN_INDEX){
+			
+			cleanPoints();
+			
+			PolygonMesh mesh=meshes[index];
+			
+			if(mesh.points==null)
+				return; 
+			
+			for(int j=0;j<mesh.points.length;j++){
 
 
-		    Point4D p=(Point4D) mesh.points[j];
+			    Point4D p=(Point4D) mesh.points[j];
 
-			p.setSelected(false);
+				p.setSelected(false);
+					
+			}	
+			int sizel=mesh.polygonData.size();
+			for(int j=0;j<sizel;j++){
 				
-		}	
-		int sizel=mesh.polygonData.size();
-		for(int j=0;j<sizel;j++){
+				
+				LineData ld=(LineData) mesh.polygonData.elementAt(j);
+			    ld.setSelected(false);	
+			}
+			
+			coordinatesx[ACTIVE_PANEL].requestFocus();
 			
 			
-			LineData ld=(LineData) mesh.polygonData.elementAt(j);
-		    ld.setSelected(false);	
+		}else if(index==ROAD_INDEX){
+			
+			for (int i = 0; i < splines.size(); i++) {
+				
+				SPLine spline = (SPLine) splines.elementAt(i);
+				
+				Vector nodes=spline.nodes;
+				
+				for(int j=0;j<nodes.size();j++){
+				
+					SPNode spnode = (SPNode) nodes.elementAt(j);
+					spnode.setSelected(false);
+					
+				}
+			}	
+			
 		}
+
 
 	}
 
@@ -3222,7 +3258,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		
 		if(!found)
-			deselectAllPoints();
+			deselectAllPoints(ACTIVE_PANEL);
 		
 
 	}
@@ -3279,7 +3315,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		if(checkHideObjects.isSelected())
 			return;
 
-		deselectAllPoints();
+		deselectAllPoints(ACTIVE_PANEL);
 		deselectAllLines();
 		
 		RoadEditorPanel ep = getCenter();
