@@ -825,7 +825,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         //left.setBorder(objBorder);
         left_tool_options.add(terrain_panel,TERRAIN_MODE);
         
-        JPanel splines_panel = buildSPLinesPanel(ROAD_INDEX);
+        JPanel splines_panel = buildSPLinesPanel();
        
         left_tool_options.add(splines_panel,SPLINES_MODE);
         
@@ -842,8 +842,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 
-	private JPanel buildSPLinesPanel(int rOAD_INDEX) {
+	private JPanel buildSPLinesPanel() {
 		JPanel splines_panel=new JPanel(null);
+		
+		int r=10;
+		
+		JPanel moveRoad=buildRoadMovePanel(10,r,ROAD_INDEX);
+		splines_panel.add(moveRoad);
+		
 		return splines_panel;
 	}
 
@@ -1641,7 +1647,19 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 	
-	private void moveSelectedRoadPoints(int dx, int dy,int dk) {
+	private void moveSelectedPoints(int dx, int dy,int dk) { 
+		
+		if(ACTIVE_PANEL==TERRAIN_INDEX)
+			 moveSelectedTerrainPoints(dx,  dy, dk);
+		else if(ACTIVE_PANEL==ROAD_INDEX)
+			moveSelectedSplinesPoints(dx,  dy, dk);
+		
+
+	}
+	
+
+
+	private void moveSelectedTerrainPoints(int dx, int dy,int dk) { 
 		
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 
@@ -1681,6 +1699,45 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		cleanPoints();
 		draw();
 
+	}
+	
+	private void moveSelectedSplinesPoints(int dx, int dy, int dz) {
+		
+		String sqty=roadMove[ACTIVE_PANEL].getText();
+
+		if(sqty==null || sqty.equals(""))
+			return;
+
+		double qty=Double.parseDouble(sqty);
+		
+		for (int i = 0; i < splines.size(); i++) {
+			
+			SPLine spline = (SPLine) splines.elementAt(i);
+			
+			Vector nodes=spline.nodes;
+			
+			boolean found=false;
+			
+			for(int j=0;j<nodes.size();j++){
+			
+				SPNode spnode = (SPNode) nodes.elementAt(j);
+				
+				if(spnode.isSelected){
+					
+					spnode.translate(qty*dx,  qty*dy, qty*dz);
+					spnode.calculateCircle();
+					found=true;
+					
+					
+				}
+			}
+			
+			if(found)
+				spline.calculateRibs();
+			
+		}
+		
+		draw();
 	}
 
 	private void deleteObject() {
@@ -2197,32 +2254,32 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		else if(obj==moveRoadUp[ACTIVE_PANEL]){
 
-			moveSelectedRoadPoints(0,1,0);
+			moveSelectedPoints(0,1,0);
 
 		}
 		else if(obj==moveRoadDown[ACTIVE_PANEL]){
 
-			moveSelectedRoadPoints(0,-1,0);
+			moveSelectedPoints(0,-1,0);
 
 		}
 		else if(obj==moveRoadLeft[ACTIVE_PANEL]){
 
-			moveSelectedRoadPoints(-1,0,0);
+			moveSelectedPoints(-1,0,0);
 
 		}
 		else if(obj==moveRoadRight[ACTIVE_PANEL]){
 
-			moveSelectedRoadPoints(+1,0,0);
+			moveSelectedPoints(+1,0,0);
 
 		}
 		else if(obj==moveRoadTop[ACTIVE_PANEL]){
 
-			moveSelectedRoadPoints(0,0,1);
+			moveSelectedPoints(0,0,1);
 
 		}
 		else if(obj==moveRoadBottom[ACTIVE_PANEL]){
 
-			moveSelectedRoadPoints(0,0,-1);
+			moveSelectedPoints(0,0,-1);
 
 		}
 		else if(obj==moveObjUp){

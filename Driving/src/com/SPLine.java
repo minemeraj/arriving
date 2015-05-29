@@ -43,7 +43,7 @@ public class SPLine {
 
 
 
-	private void calculateRibs() {
+	public void calculateRibs() {
 
 		ribs=new Vector();
 

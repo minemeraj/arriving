@@ -13,7 +13,14 @@ public class SPNode extends Point4D{
 	public SPNode(int x, int y, int i, String gREEN_HEX, int index) {
 	
 		super( x,  y,  i,  gREEN_HEX,  index);
+		calculateCircle();
+		
+	}
+	
+	public void calculateCircle(){
+		
 		circle=EditorShape.getCircle(x,y,z+10);	
+		
 	}
 
 	public Point3D getTangent() {
