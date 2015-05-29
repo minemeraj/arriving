@@ -2925,7 +2925,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				//addObject(arg0);
 				addPoint(arg0);
 			else{
-				//selectPoint(arg0.getX(),arg0.getY());			
+				selectSPNode(arg0.getX(),arg0.getY());	
+				
 			}	
 		
 		} else if(TERRAIN_MODE.equals(mode)){
@@ -3168,6 +3169,17 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 
 	}
+	
+	private void selectSPNode(int x, int y) {
+		
+		
+		RoadEditorPanel ep = getCenter();
+		
+		boolean found=ep.selectSPNodes(x,y,splines);
+		
+
+	}
+	
 	
 
 	private void changePolygon(int x, int y) {

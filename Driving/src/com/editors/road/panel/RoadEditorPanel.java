@@ -833,6 +833,11 @@ public class RoadEditorPanel extends JPanel {
 		return false;
 	}
 	
+
+	public boolean selectSPNodes(int x, int y, Vector splines) {
+		return false;
+	}
+	
 	public Polygon3D builProjectedPolygon(Polygon3D p3d) {
 		
 		return null;
@@ -854,6 +859,7 @@ public class RoadEditorPanel extends JPanel {
 		// TODO Auto-generated method stub
 		
 	}
+
 	
 	
 

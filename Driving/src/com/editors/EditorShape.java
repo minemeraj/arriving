@@ -1,6 +1,7 @@
 package com.editors;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Vector;
 
@@ -17,13 +18,19 @@ public class EditorShape {
 	
 	public static PolygonMesh circleShape;
 	public static Texture whiteTexture=null;
+	public static Texture redTexture=null;
 
 	public static void buildShape() {
 		
-		BufferedImage bf=new BufferedImage(100,100,BufferedImage.TYPE_BYTE_INDEXED);
-		bf.getGraphics().setColor(Color.WHITE);
-		bf.getGraphics().fillRect(0,0,100,100);
+		BufferedImage bf=new BufferedImage(100,100,BufferedImage.TYPE_INT_RGB);
+		Graphics2D graph=(Graphics2D) bf.getGraphics();
+		graph.setColor(Color.WHITE);
+		graph.fillRect(0,0,100,100);
 		whiteTexture=new Texture(bf);
+		
+		graph.setColor(Color.RED);
+		graph.fillRect(0,0,100,100);
+		redTexture=new Texture(bf);
 		
 		
 		double maxR=100;

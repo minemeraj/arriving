@@ -17,6 +17,7 @@ import com.Point4D;
 import com.Polygon3D;
 import com.PolygonMesh;
 import com.SPLine;
+import com.SPNode;
 import com.Texture;
 import com.ZBuffer;
 import com.editors.EditorShape;
@@ -156,16 +157,23 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			
 			for (int k = 0; k < sp.nodes.size(); k++) {
 				
-				Point4D node = (Point4D) sp.nodes.elementAt(k);
+				SPNode node = (SPNode) sp.nodes.elementAt(k);
 				
-				PolygonMesh pm=EditorShape.getCircle(node.x,node.y,node.z+10);	
+				PolygonMesh pm=node.getCircle();
+				
+				Texture texture=EditorShape.whiteTexture;
+				
+				if(node.isSelected())
+					texture=EditorShape.redTexture;
 				
 				for(int l=0;l<pm.polygonData.size();l++){
 					
 					
 					LineData ld=(LineData) pm.polygonData.elementAt(l);
+					
+				
 											
-					drawPolygon(ld,pm.points,landscapeZbuffer,EditorShape.whiteTexture,1);
+					drawPolygon(ld,pm.points,landscapeZbuffer,texture,1);
 
 				} 
 				
@@ -1086,6 +1094,53 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 		
 
+	}
+	
+
+
+	public boolean selectSPNodes(int x, int y, Vector splines) {
+		
+       //System.out.println(x+" "+y);
+		
+		boolean isToselect=true;
+		
+		for (int i = 0; i < splines.size(); i++) {
+			
+			SPLine spline = (SPLine) splines.elementAt(i);
+			
+			Vector nodes=spline.nodes;
+			
+			for(int j=0;j<nodes.size();j++){
+			
+				SPNode spnode = (SPNode) nodes.elementAt(j);
+				PolygonMesh circle = spnode.getCircle();
+				
+				for (int k = 0; k < circle.polygonData.size(); k++) {
+					
+					LineData ld=(LineData) circle.polygonData.elementAt(k);
+				    Polygon3D pol=buildPolygon(ld,circle.points,false);
+				   // System.out.println(k+" "+pol);
+				    if(pol.contains(x,y)){
+				    	
+				    	if(isToselect){
+				    		
+				    		spnode.setSelected(true);
+				    		break;
+				    	}
+				    	
+				    }else{
+				    	
+				    	spnode.setSelected(false);
+				    }	
+				}
+				
+			
+		    
+			}
+	
+		}
+
+		return false;
 	}
 	
     public boolean selectPolygons(int x, int y, PolygonMesh mesh) {
