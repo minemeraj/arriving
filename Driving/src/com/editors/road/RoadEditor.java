@@ -546,13 +546,18 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void deselectAll() {
 		
-		deselectAllPoints(ACTIVE_PANEL);
+		if(ACTIVE_PANEL==TERRAIN_INDEX)
+			deselectAllPoints();
+		else if(ACTIVE_PANEL==ROAD_INDEX)
+			deselectAllSPNodes();
 		draw();
 		
 		
 		polygon=new LineData();
 	}
 	
+
+
 	private void startBuildPolygon() {
 		
 		deselectAll();
@@ -844,22 +849,52 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private JPanel buildSPLinesPanel() {
 		JPanel splines_panel=new JPanel(null);
-		
+
 		int index=ROAD_INDEX;
-		
+
 		int r=10;
-		
+
 		JPanel moveRoad=buildRoadMovePanel(10,r,index);
 		splines_panel.add(moveRoad);
-		
-		r+=120;
-		
+
+		r+=120;		
+
+
+		startBuildPolygon[index]=new JButton(header+"Start polygo<u>n</u> <br/> points sequence"+footer);
+		//startBuildPolygon[index].addActionListener(this);
+		startBuildPolygon[index].addKeyListener(this);
+		startBuildPolygon[index].setFocusable(false);
+		startBuildPolygon[index].setBounds(5,r,150,35);
+		splines_panel.add(startBuildPolygon[index]);
+
+		r+=45;
+
+		buildPolygon[index]=new JButton(header+"Bui<u>l</u>d polygon"+footer);
+		//buildPolygon[index].addActionListener(this);
+		buildPolygon[index].addKeyListener(this);
+		buildPolygon[index].setFocusable(false);
+		buildPolygon[index].setBounds(5,r,150,20);
+		splines_panel.add(buildPolygon[index]);
+
+
+		r+=30;
+
+
+		deleteSelection[index]=new JButton(header+"<u>D</u>elete selection"+footer);
+		deleteSelection[index].addActionListener(this);
+		deleteSelection[index].addKeyListener(this);
+		deleteSelection[index].setFocusable(false);
+		deleteSelection[index].setBounds(5,r,150,20);
+		splines_panel.add(deleteSelection[index]);
+
+		r+=30;
+
 		deselectAll[index]=new JButton(header+"D<u>e</u>select all"+footer);
 		deselectAll[index].addActionListener(this);
 		deselectAll[index].setFocusable(false);
 		deselectAll[index].setBounds(5,r,150,20);
 		splines_panel.add(deselectAll[index]);
-		
+
 		return splines_panel;
 	}
 
@@ -1082,30 +1117,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		changePolygon[index].setBounds(5,r,150,20);
 		panel.add(changePolygon[index]);
 		
-		if(index==1){
 
-			r+=30;
-			
-			startBuildPolygon[index]=new JButton(header+"Start polygo<u>n</u> <br/> points sequence"+footer);
-			startBuildPolygon[index].addActionListener(this);
-			startBuildPolygon[index].addKeyListener(this);
-			startBuildPolygon[index].setFocusable(false);
-			startBuildPolygon[index].setBounds(5,r,150,35);
-			panel.add(startBuildPolygon[index]);
-	
-			r+=45;
-				
-			buildPolygon[index]=new JButton(header+"Bui<u>l</u>d polygon"+footer);
-			buildPolygon[index].addActionListener(this);
-			buildPolygon[index].addKeyListener(this);
-			buildPolygon[index].setFocusable(false);
-			buildPolygon[index].setBounds(5,r,150,20);
-			panel.add(buildPolygon[index]);
-			
-	
-			r+=30;
 		
-		}
+		r+=30;
 		
 		polygonDetail[index]=new JButton(header+"Polygon detail"+footer);
 		polygonDetail[index].addActionListener(this);
@@ -1592,8 +1606,22 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	}
 	
-
 	private void deleteSelection() {
+		
+		if(ACTIVE_PANEL==TERRAIN_INDEX)
+			deleteTerrainSelection();
+		else if(ACTIVE_PANEL==ROAD_INDEX)
+			deleteSelectedSPnode();
+			
+		
+	}
+
+	private void deleteSelectedSPnode() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void deleteTerrainSelection() {
 		
 		prepareUndo();
 		
@@ -3171,13 +3199,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 
-	private void deselectAllPoints(int index){
+	private void deselectAllPoints(){
 		
-		if(index==TERRAIN_INDEX){
-			
+
 			cleanPoints();
 			
-			PolygonMesh mesh=meshes[index];
+			PolygonMesh mesh=meshes[TERRAIN_INDEX];
 			
 			if(mesh.points==null)
 				return; 
@@ -3200,26 +3227,27 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			coordinatesx[ACTIVE_PANEL].requestFocus();
 			
-			
-		}else if(index==ROAD_INDEX){
-			
-			for (int i = 0; i < splines.size(); i++) {
-				
-				SPLine spline = (SPLine) splines.elementAt(i);
-				
-				Vector nodes=spline.nodes;
-				
-				for(int j=0;j<nodes.size();j++){
-				
-					SPNode spnode = (SPNode) nodes.elementAt(j);
-					spnode.setSelected(false);
-					
-				}
-			}	
-			
-		}
 
 
+
+	}
+	
+	private void deselectAllSPNodes() {
+		
+		for (int i = 0; i < splines.size(); i++) {
+			
+			SPLine spline = (SPLine) splines.elementAt(i);
+			
+			Vector nodes=spline.nodes;
+			
+			for(int j=0;j<nodes.size();j++){
+			
+				SPNode spnode = (SPNode) nodes.elementAt(j);
+				spnode.setSelected(false);
+				
+			}
+		}	
+		
 	}
 
 	private void deselectAllLines(){
@@ -3258,7 +3286,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		
 		if(!found)
-			deselectAllPoints(ACTIVE_PANEL);
+			deselectAllPoints();
 		
 
 	}
@@ -3315,7 +3343,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		if(checkHideObjects.isSelected())
 			return;
 
-		deselectAllPoints(ACTIVE_PANEL);
+		deselectAllPoints();
 		deselectAllLines();
 		
 		RoadEditorPanel ep = getCenter();
