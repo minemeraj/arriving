@@ -850,11 +850,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		startNewSPLine.addActionListener(this);
 		startNewSPLine.addKeyListener(this);
 		startNewSPLine.setFocusable(false);
-		startNewSPLine.setBounds(5,r,150,35);
+		startNewSPLine.setBounds(5,r,150,20);
 		splines_panel.add(startNewSPLine);
 
 
-		r+=45;
+		r+=30;
 
 
 		deleteSelection[index]=new JButton(header+"<u>D</u>elete selection"+footer);
@@ -1594,7 +1594,35 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 	private void deleteSelectedSPnode() {
-		// TODO Auto-generated method stub
+		
+		Vector newSplines=new Vector();
+	
+		for (int i = 0; i < splines.size(); i++) {
+			SPLine sp = (SPLine) splines.elementAt(i);
+			
+			Vector newNodes=new Vector();
+			
+			for (int j = 0; j < sp.nodes.size(); j++) {
+				
+				SPNode node = (SPNode) sp.nodes.elementAt(j);
+				
+				if(node.isSelected)
+					continue;
+
+				newNodes.add(node);
+			}
+
+			
+			if(newNodes.size()>0){
+				
+				sp.nodes=newNodes;
+				sp.calculateRibs();
+				newSplines.add(sp);
+			}
+			
+		}
+		
+		splines=newSplines;
 		
 	}
 
@@ -2949,6 +2977,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		prepareUndo();
 
+		
+		Vector vTexturePoints=buildTemplateTexturePoints(200);
+		
+		SPLine sp=new SPLine(vTexturePoints);	
+		splines.add(sp);
 
 		deselectAll();
 
