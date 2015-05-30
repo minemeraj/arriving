@@ -1016,6 +1016,52 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		
 		return false;
 	}
+	
+
+	public boolean selectSPNodes(int x, int y, Vector splines) {
+	
+		boolean isToselect=true;
+		
+		for (int i = 0; i < splines.size(); i++) {
+			
+			SPLine spline = (SPLine) splines.elementAt(i);
+			
+			Vector nodes=spline.nodes;
+			
+			for(int j=0;j<nodes.size();j++){
+			
+				SPNode spnode = (SPNode) nodes.elementAt(j);
+				PolygonMesh circle = spnode.getCircle();
+				
+				for (int k = 0; k < circle.polygonData.size(); k++) {
+					
+					LineData ld=(LineData) circle.polygonData.elementAt(k);
+				    Polygon3D polReal= buildTranslatedPolygon3D(ld,circle.points,0);
+				    Polygon3D polProjectd=builProjectedPolygon(polReal);
+				   // System.out.println(k+" "+pol);
+				    if(polProjectd.contains(x,y)){
+				    	
+				    	if(isToselect){
+				    		
+				    		spnode.setSelected(true);
+				    		break;
+				    	}
+				    	
+				    }else{
+				    	
+				    	if(!editor.checkMultiplePointsSelection[editor.ACTIVE_PANEL].isSelected())
+						   	spnode.setSelected(false);
+				    }	
+				}
+				
+			
+		    
+			}
+	
+		}
+		
+		return false;
+	}
 
 
 	public Polygon3D builProjectedPolygon(Polygon3D p3d) {
