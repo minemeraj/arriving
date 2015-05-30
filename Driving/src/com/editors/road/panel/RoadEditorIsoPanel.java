@@ -18,9 +18,11 @@ import com.Point4D;
 import com.Polygon3D;
 import com.PolygonMesh;
 import com.SPLine;
+import com.SPNode;
 import com.Texture;
 import com.ZBuffer;
 import com.editors.Editor;
+import com.editors.EditorShape;
 import com.editors.ValuePair;
 import com.editors.road.RoadEditor;
 import com.main.Renderer3D;
@@ -182,7 +184,32 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				
 			}
 
+			for (int k = 0; k < sp.nodes.size(); k++) {
+				
+				SPNode node = (SPNode) sp.nodes.elementAt(k);
+				
+				PolygonMesh pm=node.getRing();
+				
+				Texture texture=EditorShape.whiteTexture;
+				
+				if(node.isSelected())
+					texture=EditorShape.redTexture;
+				
+				for(int l=0;l<pm.polygonData.size();l++){
+					
+					
+					LineData ld=(LineData) pm.polygonData.elementAt(l);
+					
+				
+											
+					Polygon3D p3D=buildTranslatedPolygon3D(ld,pm.points,Editor.ROAD_INDEX);
+					
+					decomposeClippedPolygonIntoZBuffer(p3D,null,texture,landscapeZbuffer);
 
+				} 
+				
+			
+			}
 
 			
 		}
