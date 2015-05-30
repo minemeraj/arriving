@@ -8,6 +8,7 @@ public class SPNode extends Point4D{
 	
 	public SPNode(){}
 	
+	PolygonMesh ring=null;
 	PolygonMesh circle=null;
 
 	public SPNode(int x, int y, int i, String gREEN_HEX, int index) {
@@ -19,6 +20,7 @@ public class SPNode extends Point4D{
 	
 	public void update(){
 		
+		ring=EditorShape.getRing(x,y,z+10);	
 		circle=EditorShape.getCircle(x,y,z+10);	
 		
 	}
@@ -29,6 +31,14 @@ public class SPNode extends Point4D{
 
 	public void setTangent(Point3D tangent) {
 		this.tangent = tangent;
+	}
+
+	public PolygonMesh getRing() {
+		return ring;
+	}
+
+	public void setRing(PolygonMesh circle) {
+		this.ring = circle;
 	}
 
 	public PolygonMesh getCircle() {

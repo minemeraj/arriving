@@ -159,7 +159,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				
 				SPNode node = (SPNode) sp.nodes.elementAt(k);
 				
-				PolygonMesh pm=node.getCircle();
+				PolygonMesh pm=node.getRing();
 				
 				Texture texture=EditorShape.whiteTexture;
 				

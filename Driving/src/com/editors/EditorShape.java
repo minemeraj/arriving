@@ -6,19 +6,23 @@ import java.awt.image.BufferedImage;
 import java.util.Vector;
 
 import com.LineData;
-import com.Point3D;
 import com.Point4D;
 import com.PolygonMesh;
 import com.Texture;
-import com.editors.road.RoadEditor;
 
 public class EditorShape {
 	
 
 	
+	public static PolygonMesh ringShape;
 	public static PolygonMesh circleShape;
 	public static Texture whiteTexture=null;
 	public static Texture redTexture=null;
+	
+	
+	public static double maxR=100;
+	public static double minR=80;
+	public static int n=10;
 
 	public static void buildShape() {
 		
@@ -32,10 +36,45 @@ public class EditorShape {
 		graph.fillRect(0,0,100,100);
 		redTexture=new Texture(bf);
 		
+		buildRingShape();
+		buildCircleShape();
+	
+	}
+	
+	private static void buildCircleShape() {
+	
+	
+		double dteta=2*Math.PI/n;
 		
-		double maxR=100;
-		double minR=80;
-		int n=10;
+		//Vector vTexturePoints=RoadEditor.buildTemplateTexturePoints(100);
+		//circleShape.setTexturePoints(vTexturePoints);
+		
+		Vector polygonData=new Vector();
+		Point4D[] points=new Point4D[n];
+		
+		LineData ld=new LineData();
+		for (int i = 0; i <= n; i++) {
+			
+			double teta=i*dteta;
+			
+			double x=maxR*Math.cos(teta);
+			double y=maxR*Math.sin(teta);			
+			
+			if(i<n)
+				points[i]=new Point4D(x,y,0);
+			
+			ld.addIndex(i%n,i%n,x,y);
+		}
+		
+		polygonData.add(ld);
+		circleShape=new PolygonMesh(points,polygonData);
+
+		
+	}
+
+	private static void buildRingShape() {
+	
+
 		
 		double dteta=2*Math.PI/n;
 		
@@ -87,11 +126,17 @@ public class EditorShape {
 		
 		
 		
-		circleShape=new PolygonMesh(points,polygonData);
+		ringShape=new PolygonMesh(points,polygonData);
 		
+	}
+
+	public static PolygonMesh getRing(double x,double y,double z){
 		
+		PolygonMesh ring=ringShape.clone();
 		
-			
+		ring.translate(x,y,z);
+		
+		return ring;
 	}
 	
 	public static PolygonMesh getCircle(double x,double y,double z){
