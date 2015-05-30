@@ -43,8 +43,8 @@ public class Editor extends JFrame implements MenuListener{
 	public File currentDirectory=null;
 	public File currentFile=null;
 	
-	public int TERRAIN_INDEX=0;
-	public int ROAD_INDEX=1;
+	public static int TERRAIN_INDEX=0;
+	public static int ROAD_INDEX=1;
 	
 	public static String TAG[]={"terrain","road"};
 	
@@ -229,6 +229,14 @@ public class Editor extends JFrame implements MenuListener{
 	
 	public void loadSPLinesFromFile(File file){
 		
+		splines=loadStaticSPLinesFromFile(file,forceReading);
+		repaint();
+	}
+	
+	public static Vector loadStaticSPLinesFromFile(File file,boolean forceReading){
+		
+		Vector splines=new Vector();
+		
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));
 
@@ -241,8 +249,8 @@ public class Editor extends JFrame implements MenuListener{
 			double x0=0;
 			double y0=0;
 			
-			splines=new Vector();
 			
+			Vector vTexturePoints=new Vector();
 			
 			while((str=br.readLine())!=null){
 				
@@ -251,7 +259,7 @@ public class Editor extends JFrame implements MenuListener{
 				if(str.indexOf("#")>=0 || str.length()==0)
 					continue;
 				
-				if(str.indexOf(TAG[ACTIVE_PANEL])>=0){
+				if(str.indexOf(TAG[ROAD_INDEX])>=0){
 					read=!read;
 				    continue;
 				}	
@@ -259,9 +267,14 @@ public class Editor extends JFrame implements MenuListener{
 				if(!read)
 					continue;
 				
+				if(str.startsWith("vt=")){
+					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
+					continue;
+				}	
+				
 				if(str.equals("<spline>")){
 					
-					Vector vTexturePoints=new Vector();
+					
 					SPLine sp=new SPLine(vTexturePoints);
 					splines.add(sp);
 					continue;
@@ -270,10 +283,7 @@ public class Editor extends JFrame implements MenuListener{
 				
 				SPLine sp=(SPLine) splines.lastElement();
 				
-				if(str.startsWith("vt=")){
-					PolygonMesh.buildTexturePoint(sp.getvTexturePoints(),str.substring(3));
-					continue;
-				}	
+			
 								
 				buildSPLine(sp,str);
 				
@@ -289,7 +299,7 @@ public class Editor extends JFrame implements MenuListener{
 			e.printStackTrace();
 		}
 		
-		repaint();
+		return splines;
 		
 	}
 
@@ -394,7 +404,7 @@ public class Editor extends JFrame implements MenuListener{
 
 	private String decomposeSPLine(SPLine sp) {
 		
-		String str="";
+		String str="<spline>\n";
 		for(int i=0;i<sp.nodes.size();i++){
 			
 			if(i>0)
@@ -402,7 +412,7 @@ public class Editor extends JFrame implements MenuListener{
 			Point3D p0=(Point3D) sp.nodes.elementAt(i);
 			str+="v="+p0.getX()+" "+p0.getY()+" "+p0.getZ();
 		}
-		
+		str+="\n</spline>";
 		return str;
 	}
 	
@@ -533,6 +543,9 @@ public class Editor extends JFrame implements MenuListener{
 			for (int i = 0; i < splines.size(); i++) {
 				
 				SPLine sp = (SPLine) splines.elementAt(i);
+				if(i>0)
+					pr.println();
+				
 				pr.print(decomposeSPLine(sp));
 				
 			}

@@ -1430,57 +1430,8 @@ public class Road extends Shader{
 	private void loadSPLinesFromFile(File file) {
 		
 		try {
-						
-			BufferedReader br=new BufferedReader(new FileReader(file));
-
-
-			String str=null;
-			int rows=0;
-			
-			boolean read=false;
-
-			double x0=0;
-			double y0=0;
-			
-			splines=new Vector();
-			Vector vTexturePoints=new Vector();
-			
-			while((str=br.readLine())!=null){
-				
-				
-				
-				if(str.indexOf("#")>=0 || str.length()==0)
-					continue;
-				
-				if(str.indexOf(Editor.TAG[1])>=0){
-					read=!read;
-				    continue;
-				}	
-				
-				if(!read)
-					continue;
-				
-				if(str.equals("<spline>")){
-					
-					SPLine sp=new SPLine(vTexturePoints);
-					splines.add(sp);
-					continue;
-				}
-				
-				SPLine sp=(SPLine) splines.lastElement();
-				
-				if(str.startsWith("vt=")){
-					PolygonMesh.buildTexturePoint(sp.getvTexturePoints(),str.substring(3));
-					continue;
-				}	
-	
-				
-				Editor.buildSPLine(sp,str);
-				
-	
-
-
-			}
+			boolean forceReading=false;
+			splines=Editor.loadStaticSPLinesFromFile(file,forceReading);
 			
 			//translation to fit view screen
 			if(splines.size()>0){
@@ -1501,9 +1452,7 @@ public class Road extends Shader{
 				}
 
 			}
-			
-	
-			br.close();
+
 
 		} catch (Exception e) {
 
