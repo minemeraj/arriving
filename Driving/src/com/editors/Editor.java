@@ -242,7 +242,7 @@ public class Editor extends JFrame implements MenuListener{
 			double y0=0;
 			
 			splines=new Vector();
-			Vector vTexturePoints=new Vector();
+			
 			
 			while((str=br.readLine())!=null){
 				
@@ -259,24 +259,22 @@ public class Editor extends JFrame implements MenuListener{
 				if(!read)
 					continue;
 				
-				if(str.startsWith("vt=")){
-					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
-					continue;
-				}	
-				
-				SPLine sp=null;
-				
-				if(splines.size()==0){
+				if(str.equals("<spline>")){
 					
-					sp=new SPLine(vTexturePoints);
+					Vector vTexturePoints=new Vector();
+					SPLine sp=new SPLine(vTexturePoints);
 					splines.add(sp);
-					
-				}else{
-					
-					sp=(SPLine) splines.lastElement();
-				
+					continue;
 				}
 				
+				
+				SPLine sp=(SPLine) splines.lastElement();
+				
+				if(str.startsWith("vt=")){
+					PolygonMesh.buildTexturePoint(sp.getvTexturePoints(),str.substring(3));
+					continue;
+				}	
+								
 				buildSPLine(sp,str);
 				
 
@@ -307,6 +305,7 @@ public class Editor extends JFrame implements MenuListener{
 			SPNode p=new SPNode();
 			p.x=Double.parseDouble(vals[0]);
 			p.y=Double.parseDouble(vals[1]);
+			p.update();
 			
 	        sp.addPoint(p);
         

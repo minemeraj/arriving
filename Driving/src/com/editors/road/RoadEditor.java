@@ -838,7 +838,15 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		int index=ROAD_INDEX;
 
 		int r=10;
+		
+		
+		checkMultiplePointsSelection[index]=new JCheckBox("Multiple selection");
+		checkMultiplePointsSelection[index].setBounds(30,r,150,20);
+		checkMultiplePointsSelection[index].addKeyListener(this);
+		splines_panel.add(checkMultiplePointsSelection[index]);
 
+		r+=30;
+		
 		JPanel moveRoad=buildRoadMovePanel(10,r,index);
 		splines_panel.add(moveRoad);
 

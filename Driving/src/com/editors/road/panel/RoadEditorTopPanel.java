@@ -1130,7 +1130,8 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				    	
 				    }else{
 				    	
-				    	spnode.setSelected(false);
+				    	if(!editor.checkMultiplePointsSelection[editor.ACTIVE_PANEL].isSelected())
+						   	spnode.setSelected(false);
 				    }	
 				}
 				

@@ -33,6 +33,7 @@ import com.SPLine;
 import com.Texture;
 import com.ZBuffer;
 import com.editors.Editor;
+import com.editors.EditorShape;
 
 
 /*
@@ -160,6 +161,9 @@ public class Road extends Shader{
 		
 	 
 		try {
+			
+			EditorShape.buildShape();
+			
 			File file=new File("lib/landscape_"+carFrame.map_name);
 			
 			loadPointsFromFile(file,0);		
@@ -1426,6 +1430,7 @@ public class Road extends Shader{
 	private void loadSPLinesFromFile(File file) {
 		
 		try {
+						
 			BufferedReader br=new BufferedReader(new FileReader(file));
 
 
@@ -1455,23 +1460,20 @@ public class Road extends Shader{
 				if(!read)
 					continue;
 				
+				if(str.equals("<spline>")){
+					
+					SPLine sp=new SPLine(vTexturePoints);
+					splines.add(sp);
+					continue;
+				}
+				
+				SPLine sp=(SPLine) splines.lastElement();
+				
 				if(str.startsWith("vt=")){
-					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
+					PolygonMesh.buildTexturePoint(sp.getvTexturePoints(),str.substring(3));
 					continue;
 				}	
-				
-				SPLine sp=null;
-				
-				if(splines.size()==0){
-					
-					sp=new SPLine(vTexturePoints);
-					splines.add(sp);
-					
-				}else{
-					
-					sp=(SPLine) splines.lastElement();
-				
-				}
+	
 				
 				Editor.buildSPLine(sp,str);
 				

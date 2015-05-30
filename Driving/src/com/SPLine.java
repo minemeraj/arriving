@@ -46,6 +46,9 @@ public class SPLine {
 	public void calculateRibs() {
 
 		ribs=new Vector();
+		
+		double wid=200;
+		double len=200;
 
 		for (int i = 0; i < nodes.size()-1; i++) {
 			
@@ -105,8 +108,8 @@ public class SPLine {
 				}	
 				
 				Point4D[] rib=new Point4D[2];
-				rib[0]=new Point4D(x+rnextd.x*100,y+rnextd.y*100,0,LineData.GREEN_HEX,index);		
-				rib[1]=new Point4D(x+lnextd.x*100,y+lnextd.y*100,0,LineData.GREEN_HEX,index);
+				rib[0]=new Point4D(x+rnextd.x*wid,y+rnextd.y*len,0,LineData.GREEN_HEX,index);		
+				rib[1]=new Point4D(x+lnextd.x*wid,y+lnextd.y*len,0,LineData.GREEN_HEX,index);
 				ribs.add(rib);	
 				
 				
@@ -162,6 +165,14 @@ public class SPLine {
 
 		return meshes;
 
+	}
+
+	public Vector getvTexturePoints() {
+		return vTexturePoints;
+	}
+
+	public void setvTexturePoints(Vector vTexturePoints) {
+		this.vTexturePoints = vTexturePoints;
 	}
 
 
