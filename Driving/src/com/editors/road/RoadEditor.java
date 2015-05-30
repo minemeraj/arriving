@@ -126,8 +126,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	public JCheckBox[] checkMultiplePointsSelection;
 	private JButton[] changePolygon;
-	private JButton[] startBuildPolygon;
-	private JButton[] buildPolygon;
 	private JButton[] deleteSelection;
 	private JButton[] polygonDetail;
 	public JComboBox[] chooseTexture;
@@ -249,6 +247,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	BufferedImage buf=null;
 	private Graphics2D graphics;
+	private JButton startNewSPLine;
 	
 
 	
@@ -360,8 +359,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		checkMultiplePointsSelection= new JCheckBox[numPanels];
 		mergeSelectedPoints=new JButton[numPanels];
 		changePolygon=new JButton[numPanels];	
-		startBuildPolygon=new JButton[numPanels];	
-		buildPolygon=new JButton[numPanels];	
 		deleteSelection=new JButton[numPanels];	
 		polygonDetail=new JButton[numPanels];	
 		
@@ -555,20 +552,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		polygon=new LineData();
 	}
-	
 
-
-	private void startBuildPolygon() {
-		
-		deselectAll();
-		draw();
-		
-		if(!checkMultiplePointsSelection[ACTIVE_PANEL].isSelected())
-			checkMultiplePointsSelection[ACTIVE_PANEL].setSelected(true);
-	}
-	
 	private void polygonDetail() {
-	
+		
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
 		int sizel=mesh.polygonData.size();
@@ -592,7 +578,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		draw();
 		
 	}
-	
 
 	private void draw() {
 
@@ -859,25 +844,17 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		r+=120;		
 
+		
 
-		startBuildPolygon[index]=new JButton(header+"Start polygo<u>n</u> <br/> points sequence"+footer);
-		//startBuildPolygon[index].addActionListener(this);
-		startBuildPolygon[index].addKeyListener(this);
-		startBuildPolygon[index].setFocusable(false);
-		startBuildPolygon[index].setBounds(5,r,150,35);
-		splines_panel.add(startBuildPolygon[index]);
+		startNewSPLine=new JButton(header+"Start new spline"+footer);
+		startNewSPLine.addActionListener(this);
+		startNewSPLine.addKeyListener(this);
+		startNewSPLine.setFocusable(false);
+		startNewSPLine.setBounds(5,r,150,35);
+		splines_panel.add(startNewSPLine);
+
 
 		r+=45;
-
-		buildPolygon[index]=new JButton(header+"Bui<u>l</u>d polygon"+footer);
-		//buildPolygon[index].addActionListener(this);
-		buildPolygon[index].addKeyListener(this);
-		buildPolygon[index].setFocusable(false);
-		buildPolygon[index].setBounds(5,r,150,20);
-		splines_panel.add(buildPolygon[index]);
-
-
-		r+=30;
 
 
 		deleteSelection[index]=new JButton(header+"<u>D</u>elete selection"+footer);
@@ -2222,13 +2199,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			changeSelectedRoadPolygon();
 			draw();
 		}	
-		else if(obj==startBuildPolygon[ACTIVE_PANEL]){
-			startBuildPolygon();
-			
-			draw();
-		}	
-		else if(obj==buildPolygon[ACTIVE_PANEL]){
-			buildPolygon();
+		else if(obj==startNewSPLine){
+			startNewSPLine();
 			draw();
 		}
 		else if(obj==polygonDetail[ACTIVE_PANEL]){
@@ -2973,17 +2945,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 	
-	public void buildPolygon() {
+	public void startNewSPLine() {
 		
 		prepareUndo();
-		
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 
-		if(polygon.lineDatas.size()<3){
-			deselectAll();
-			return;
-		}	
-       mesh.polygonData.add(polygon);
 
 		deselectAll();
 
@@ -3462,7 +3427,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		else if(code==KeyEvent.VK_N  )
 		{	
-			startBuildPolygon();
+			startNewSPLine();
 			draw();
 		}
 		else if(code==KeyEvent.VK_P  )
@@ -3473,11 +3438,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		else if(code==KeyEvent.VK_B  )
 		{	
 			changeSelectedObject();
-			draw();
-		}
-		else if(code==KeyEvent.VK_L  )
-		{  
-			buildPolygon();
 			draw();
 		}
 		else if(code==KeyEvent.VK_Y  )
