@@ -470,7 +470,7 @@ public class Editor extends JFrame implements MenuListener{
 				return; 
 			
 			if(!forceReading)
-				pr.println("<"+TAG[ACTIVE_PANEL]+">");
+				pr.print("<"+TAG[ACTIVE_PANEL]+">\n");
 			
 			if(mesh instanceof SquareMesh){
 				
@@ -489,9 +489,8 @@ public class Editor extends JFrame implements MenuListener{
 				Point3D p=mesh.points[i];
 
 				pr.print("v=");
-				pr.print(decomposePoint(p));
-				if(i<mesh.points.length-1)
-					pr.println();
+				pr.print(decomposePoint(p));				
+				pr.println();
 			}
 			
 			decomposeObjVertices(pr,mesh,isCustom);
@@ -512,17 +511,17 @@ public class Editor extends JFrame implements MenuListener{
 				ld.setData(""+boxFace);*/
 				
 				////////////
-				pr.print("\nf=");
+				pr.print("f=");
 				if(isCustom){
 					
-					pr.print(decomposeLineData(ld,true));
+					pr.println(decomposeLineData(ld,true));
 					
 				}else
-					pr.print(decomposeLineData(ld));
+					pr.println(decomposeLineData(ld));
 			
 			}	
 			if(!forceReading)
-				pr.println("\n</"+TAG[ACTIVE_PANEL]+">");
+				pr.print("</"+TAG[ACTIVE_PANEL]+">\n");
 				
 
 		} catch (Exception e) {

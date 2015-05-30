@@ -17,8 +17,10 @@ import com.Point3D;
 import com.Point4D;
 import com.Polygon3D;
 import com.PolygonMesh;
+import com.SPLine;
 import com.Texture;
 import com.ZBuffer;
+import com.editors.Editor;
 import com.editors.ValuePair;
 import com.editors.road.RoadEditor;
 import com.main.Renderer3D;
@@ -140,7 +142,50 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	}
 	
 	private void displaySPLines(ZBuffer landscapeZbuffer, Vector splines) {
-		// TODO Auto-generated method stub
+	
+		
+
+		for (int i = 0; i < splines.size(); i++) {
+			SPLine sp = (SPLine) splines.elementAt(i);
+			
+			Vector meshes = sp.getMeshes();
+			
+			for (int j = 0; j < meshes.size(); j++) {
+				
+				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
+				
+				
+
+				
+				int lsize=mesh.polygonData.size();
+				
+
+				for(int k=0;k<lsize;k++){
+				
+					Color selected=null;
+					
+					LineData ld=(LineData) mesh.polygonData.elementAt(k);
+					
+					if(ld.isSelected()){
+
+						/*if(index<0 || index==editor.ACTIVE_PANEL){
+							selected=selectionColor;
+						}*/
+					}
+					
+					Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.points,Editor.ROAD_INDEX);
+					
+					decomposeClippedPolygonIntoZBuffer(p3D,selected,RoadEditor.worldTextures[p3D.getIndex()],landscapeZbuffer);
+					
+				
+				}
+				
+			}
+
+
+
+			
+		}
 		
 	}
 	
