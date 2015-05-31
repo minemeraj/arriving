@@ -2,6 +2,8 @@ package com;
 
 import java.util.Vector;
 
+import com.main.Road;
+
 public class SPLine {
 	
 	public Vector nodes=null;
@@ -107,9 +109,11 @@ public class SPLine {
 					continue;
 				}	
 				
-				Point4D[] rib=new Point4D[2];
-				rib[0]=new Point4D(x+rnextd.x*wid,y+rnextd.y*len,0,LineData.GREEN_HEX,index);		
-				rib[1]=new Point4D(x+lnextd.x*wid,y+lnextd.y*len,0,LineData.GREEN_HEX,index);
+				Point4D[] rib=new Point4D[4];
+				rib[0]=new Point4D(x+lnextd.x*wid,y+lnextd.y*len,0,LineData.GREEN_HEX,index);
+				rib[1]=new Point4D(x+rnextd.x*wid,y+rnextd.y*len,0,LineData.GREEN_HEX,index);		
+				rib[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*len,Road.ROAD_THICKNESS,LineData.GREEN_HEX,index);	
+				rib[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*len,Road.ROAD_THICKNESS,LineData.GREEN_HEX,index);
 				ribs.add(rib);	
 				
 				
@@ -127,16 +131,17 @@ public class SPLine {
 
 		Vector meshes=new Vector();
 
-		int index=3;
+		int index=0;
 
 		for (int i = 0; i < ribs.size()-1; i++) {
 			Point4D[] prevRib= (Point4D[]) ribs.elementAt(i);
 			Point4D[] nextRib= (Point4D[]) ribs.elementAt(i+1);
 			
-			Point4D p0=prevRib[0];
-			Point4D p1=nextRib[0];
-			Point4D p2=nextRib[1];
-			Point4D p3=prevRib[1];
+			Point4D p0=prevRib[3];
+			Point4D p1=prevRib[2];
+			Point4D p2=nextRib[2];
+			Point4D p3=nextRib[3];
+			
 
 			Vector points=new Vector();
 			points.add(p0);
@@ -171,47 +176,49 @@ public class SPLine {
 
 		Vector meshes=new Vector();
 
-		int index=3;
+		int index=0;
 
 		for (int i = 0; i < ribs.size()-1; i++) {
 			Point4D[] prevRib= (Point4D[]) ribs.elementAt(i);
 			Point4D[] nextRib= (Point4D[]) ribs.elementAt(i+1);
 			
 			Point4D p0=prevRib[0];
-			Point4D p1=nextRib[0];
+			Point4D p1=prevRib[1];
 			Point4D p2=nextRib[1];
-			Point4D p3=prevRib[1];
+			Point4D p3=nextRib[2];
+			
+			
+			Point4D p4=prevRib[3];
+			Point4D p5=prevRib[2];
+			Point4D p6=nextRib[2];
+			Point4D p7=nextRib[3];
+			
 
 			Vector points=new Vector();
 			points.add(p0);
 			points.add(p1);
 			points.add(p2);
-			points.add(p3);
-			
-			
-			Point4D p4=prevRib[0].clone();p4.translate(0,0,-20);
-			Point4D p5=nextRib[0].clone();p5.translate(0,0,-20);
-			Point4D p6=nextRib[1].clone();p6.translate(0,0,-20);
-			Point4D p7=prevRib[1].clone();p7.translate(0,0,-20);
+			points.add(p3);		
+		
 			
 			points.add(p4);
 			points.add(p5);
 			points.add(p6);
 			points.add(p7);
 
-			Point3D pt0=(Point3D) vTexturePoints.elementAt(0);
+			/*Point3D pt0=(Point3D) vTexturePoints.elementAt(0);
 			Point3D pt1=(Point3D) vTexturePoints.elementAt(1);
 			Point3D pt2=(Point3D) vTexturePoints.elementAt(2);
-			Point3D pt3=(Point3D) vTexturePoints.elementAt(3);
+			Point3D pt3=(Point3D) vTexturePoints.elementAt(3);*/
 
 			Vector polygonData=new Vector();
-			LineData ld=new LineData();
+			/*LineData ld=new LineData();
 			ld.addIndex(0,0,pt0.x,pt0.y);
 			ld.addIndex(1,1,pt1.x,pt1.y);
 			ld.addIndex(2,2,pt2.x,pt2.y);
 			ld.addIndex(3,3,pt3.x,pt3.y);
 			ld.setTexture_index(index);
-			polygonData.add(ld);
+			polygonData.add(ld);*/
 
 			PolygonMesh mesh=new PolygonMesh(points,polygonData);
 			mesh.setTexturePoints(vTexturePoints);
