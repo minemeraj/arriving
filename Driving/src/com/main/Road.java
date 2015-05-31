@@ -57,7 +57,7 @@ public class Road extends Shader{
 	int dy=3000/NYVISIBLE;//600 orig
 
 	int ROAD_LENGHT=600;
-	public static int ROAD_THICKNESS=20;
+	public static int ROAD_THICKNESS=22;
 
 	int CAR_WIDTH=100;
 	int CAR_LENGTH=100;
@@ -549,18 +549,16 @@ public class Road extends Shader{
 		drawSky();
 
 		calculateAltitude();
-
-
-		drawSPLines(splines,totalVisibleField,roadZbuffer);
-
+        
 		//changing altitutude with the movements		
 		if(TRANSZ>=PARTIAL_MOVZ-ROAD_THICKNESS)
 			PARTIAL_MOVZ=TRANSZ;
 		else //minus to simulate gravitational fall
 			PARTIAL_MOVZ=PARTIAL_MOVZ-ROAD_THICKNESS;
-        System.out.println(TRANSZ+" "+PARTIAL_MOVZ);
+       
 		MOVZ=-(PARTIAL_MOVZ+YFOCUS);
         
+		drawSPLines(splines,totalVisibleField,roadZbuffer);
 
 		drawObjects(drawObjects,totalVisibleField,roadZbuffer);
 
@@ -635,7 +633,6 @@ public class Road extends Shader{
 
 		calculateAltitude(mesh);
 
-
 		for (int i = 0; i < splines.size(); i++) {
 
 				SPLine sp = (SPLine) splines.elementAt(i);
@@ -671,7 +668,7 @@ public class Road extends Shader{
 
 				int zz=(int)interpolate(start_car_x,start_car_y,p3D);
 
-
+				
 				//find max possible z altitude
 				if(initMOVZ){							
 
@@ -683,13 +680,13 @@ public class Road extends Shader{
 					carTerrainNormal=Polygon3D.findNormal(p3D);
 				} 						
 				else if(zz<=PARTIAL_MOVZ+ROAD_THICKNESS){
-
+					
 					if(start_max_calculus){
 						TRANSZ=zz;
 						start_max_calculus=false;
 						carTerrainNormal=Polygon3D.findNormal(p3D);
 					}
-					else if(zz>=TRANSZ){
+					else if(zz>=TRANSZ){ 
 						TRANSZ=zz;
 						carTerrainNormal=Polygon3D.findNormal(p3D);
 					}	
