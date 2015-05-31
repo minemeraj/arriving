@@ -2,6 +2,7 @@ package com;
 
 import java.util.Vector;
 
+import com.editors.EditorData;
 import com.editors.road.RoadEditor;
 import com.main.CarFrame;
 import com.main.Road;
@@ -51,8 +52,7 @@ public class SPLine {
 
 		ribs=new Vector();
 		
-		double wid=200;
-		double len=200;
+
 
 		for (int i = 0; i < nodes.size()-1; i++) {
 			
@@ -97,12 +97,19 @@ public class SPLine {
 			
 			int n=(int) (nodeDistance/200.0)+1;
 			
+			double wid=0.5*(EditorData.splinesMeshes[0].getDeltaX2()-
+					EditorData.splinesMeshes[0].getDeltaX());
+					
+			double len=EditorData.splinesMeshes[0].getDeltaY2()-
+					EditorData.splinesMeshes[0].getDeltaY();
+			
+			double dz=EditorData.splinesMeshes[0].getDeltaY();
 			
 			double dj=1.0/n;
 			
-			//double dz=CarFrame.splinesMeshes[0].getDeltaY();
 			
-			double dz=Road.ROAD_THICKNESS;
+			
+			//double dz=Road.ROAD_THICKNESS;
 			
 			for(double l=0;l<=1;){
 				
