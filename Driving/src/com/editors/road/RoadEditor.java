@@ -186,7 +186,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public static BufferedImage[] objectImages;
 	public static Texture[] objectIndexes;  
 	public static Texture[] objectTextures;  
-
+	public static CubicMesh[] splinesMeshes=null;
+	public static Texture[] splinesTextures=null;
+	
+	
 	public int indexWidth=40;
 	public int indexHeight=18;
 
@@ -387,63 +390,65 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	 * 
 	 */
 	public void initialize() {
-		
+
 		buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 
 		landscapeZbuffer=new ZBuffer(WIDTH*HEIGHT);
 		rgb=new int[WIDTH*HEIGHT];
 		buildNewZBuffers();
 		selectionColor=new Color(255,0,0,127);
-		
+
 		//g2=(Graphics2D) center.getGraphics();
 		//g2Alias=(Graphics2D) center.getGraphics();
 		//g2Alias.setColor(Color.GRAY);
 		//Stroke stroke=new BasicStroke(0.1f,BasicStroke.CAP_BUTT,BasicStroke.JOIN_BEVEL);
 		//g2Alias.setStroke(stroke);
-		
+
 		File directoryImg=new File("lib");
 		File[] files=directoryImg.listFiles();
-		
-		Vector vObjects=new Vector();
-		
-		if(DrawObject.IS_3D)
-			for(int i=0;i<files.length;i++){
-				if(files[i].getName().startsWith("object3D_")
-				   && 	!files[i].getName().startsWith("object3D_texture")	
-				){
-					
-					vObjects.add(files[i]);
-					
-				}		
+
+		try{
+
+			Vector vObjects=new Vector();
+
+			if(DrawObject.IS_3D)
+				for(int i=0;i<files.length;i++){
+					if(files[i].getName().startsWith("object3D_")
+							&& 	!files[i].getName().startsWith("object3D_texture")	
+							){
+
+						vObjects.add(files[i]);
+
+					}		
+				}
+			else{
+				for(int i=0;i<files.length;i++){
+					if(files[i].getName().startsWith("object_")
+
+							){
+
+						vObjects.add(files[i]);
+
+					}		
+				}
+
 			}
-		else{
-			for(int i=0;i<files.length;i++){
-				if(files[i].getName().startsWith("object_")
-					
-				){
-					
-					vObjects.add(files[i]);
-					
-				}		
-			}
-			
-		}
-		
-		try{	
 
 
-		
-			
+
+
+
+
 			Vector vRoadTextures=new Vector();
-			
+
 			for(int i=0;i<files.length;i++){
 				if(files[i].getName().startsWith("road_texture_")){
-					
+
 					vRoadTextures.add(files[i]);
-					
+
 				}		
 			}
-			
+
 			worldImages=new BufferedImage[vRoadTextures.size()];
 			worldTextures=new Texture[vRoadTextures.size()];
 
@@ -471,32 +476,55 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				worldTextures[i]=new Texture(ImageIO.read(new File("lib/road_texture_"+i+".jpg")));
 			}
 
-		
-			
+
+
 			objectImages=new BufferedImage[vObjects.size()];
 			objectMeshes=new CubicMesh[vObjects.size()];
 			objectIndexes=new Texture[vObjects.size()];
 			objectTextures=new Texture[vObjects.size()];
-			
+
 			for(int i=0;i<vObjects.size();i++){
-				
+
 				chooseObject.addItem(new ValuePair(""+i,""+i));
 				objectImages[i]=ImageIO.read(new File("lib/object_"+i+".gif"));
-					
-				
-				
+
+
+
 				objectMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/object3D_"+i));
 				objectTextures[i]=new Texture(ImageIO.read(new File("lib/object3D_texture_"+i+".jpg")));
-				
-					
+
+
 				BufferedImage boi=new BufferedImage(indexWidth,indexHeight,BufferedImage.TYPE_INT_RGB);
 				boi.getGraphics().setColor(Color.white);
 				boi.getGraphics().drawString(""+i,0,indexHeight);
 				objectIndexes[i]=new Texture(boi);	
-				
+
 			}
-						
-			
+
+			Vector vSPlineMeshes=new Vector();
+
+			for(int i=0;i<files.length;i++){
+				if(files[i].getName().startsWith("spline_mesh_")
+						){
+
+					vSPlineMeshes.add(files[i]);
+
+				}		
+			}
+
+			splinesMeshes=new CubicMesh[vSPlineMeshes.size()];
+			splinesTextures=new Texture[vSPlineMeshes.size()];
+
+
+
+			for(int i=0;i<vSPlineMeshes.size();i++){
+
+				splinesMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/spline_mesh_"+i));
+				splinesTextures[i]=new Texture(ImageIO.read(new File("lib/spline_texture_"+i+".jpg")));
+
+			}
+
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	

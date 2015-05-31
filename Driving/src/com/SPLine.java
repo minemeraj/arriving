@@ -2,6 +2,8 @@ package com;
 
 import java.util.Vector;
 
+import com.editors.road.RoadEditor;
+import com.main.CarFrame;
 import com.main.Road;
 
 public class SPLine {
@@ -98,6 +100,10 @@ public class SPLine {
 			
 			double dj=1.0/n;
 			
+			//double dz=CarFrame.splinesMeshes[0].getDeltaY();
+			
+			double dz=Road.ROAD_THICKNESS;
+			
 			for(double l=0;l<=1;){
 				
 				double x=(1-l)*prevX+l*nextX;
@@ -112,8 +118,8 @@ public class SPLine {
 				Point4D[] rib=new Point4D[4];
 				rib[0]=new Point4D(x+lnextd.x*wid,y+lnextd.y*len,0,LineData.GREEN_HEX,index);
 				rib[1]=new Point4D(x+rnextd.x*wid,y+rnextd.y*len,0,LineData.GREEN_HEX,index);		
-				rib[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*len,Road.ROAD_THICKNESS,LineData.GREEN_HEX,index);	
-				rib[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*len,Road.ROAD_THICKNESS,LineData.GREEN_HEX,index);
+				rib[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*len,dz,LineData.GREEN_HEX,index);	
+				rib[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*len,dz,LineData.GREEN_HEX,index);
 				ribs.add(rib);	
 				
 				
