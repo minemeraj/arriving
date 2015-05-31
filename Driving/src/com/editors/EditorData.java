@@ -3,28 +3,41 @@ package com.editors;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Vector;
 
+import javax.imageio.ImageIO;
+
+import com.CubicMesh;
+import com.DrawObject;
 import com.LineData;
 import com.Point4D;
 import com.PolygonMesh;
 import com.Texture;
 
-public class EditorShape {
+public class EditorData {
 	
-
+	public static Texture[] worldTextures;
+	public static Texture[] objects=null;
+	public static CubicMesh[] object3D=null;
+	public static Texture[] objectTextures=null;
+	public static  CubicMesh[] objectMeshes;
 	
 	public static PolygonMesh ringShape;
 	public static PolygonMesh circleShape;
 	public static Texture whiteTexture=null;
 	public static Texture redTexture=null;
 	
+	public static CubicMesh[] splinesMeshes=null;
+	public static Texture[] splinesTextures=null;	
 	
 	public static double maxR=100;
 	public static double minR=80;
 	public static int n=10;
 
-	public static void buildShape() {
+	public static void initialize() { 
+		
+		loadMeshesAndTextures();
 		
 		BufferedImage bf=new BufferedImage(100,100,BufferedImage.TYPE_INT_RGB);
 		Graphics2D graph=(Graphics2D) bf.getGraphics();
@@ -41,6 +54,112 @@ public class EditorShape {
 	
 	}
 	
+	public static void loadMeshesAndTextures() {
+	
+		try {
+
+			
+
+			
+			File directoryImg=new File("lib");
+			File[] files=directoryImg.listFiles();
+			
+			
+			
+			Vector vObjects=new Vector();
+			
+				for(int i=0;i<files.length;i++){
+					if(files[i].getName().startsWith("object_")){
+						
+						vObjects.add(files[i]);
+					}		
+				}
+			
+			
+			objects=new Texture[vObjects.size()];
+			
+			for(int j=0;j<vObjects.size();j++){
+				
+				File fileObj=(File) vObjects.elementAt(j);
+				
+				objects[j]=new Texture(ImageIO.read(fileObj));
+						
+						
+			}
+		
+			Vector vRoadTextures=new Vector();
+			
+			for(int i=0;i<files.length;i++){
+				if(files[i].getName().startsWith("road_texture_")){
+					
+					vRoadTextures.add(files[i]);
+					
+				}		
+			}
+			
+			worldTextures=new Texture[vRoadTextures.size()];
+
+			for(int i=0;i<vRoadTextures.size();i++){
+				
+				worldTextures[i]=new Texture(ImageIO.read(new File("lib/road_texture_"+i+".jpg")));
+			}
+
+			Vector v3DObjects=new Vector();
+			
+				for(int i=0;i<files.length;i++){
+					if(files[i].getName().startsWith("object3D_")
+					   && 	!files[i].getName().startsWith("object3D_texture")	
+					){
+						
+						v3DObjects.add(files[i]);
+						
+					}		
+				}
+
+			object3D=new CubicMesh[v3DObjects.size()];
+			objectTextures=new Texture[v3DObjects.size()];
+			objectMeshes=new CubicMesh[vObjects.size()];
+			
+		
+			for(int i=0;i<v3DObjects.size();i++){
+					
+				object3D[i]=CubicMesh.loadMeshFromFile(new File("lib/object3D_"+i));
+				objectMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/object3D_"+i));
+				objectTextures[i]=new Texture(ImageIO.read(new File("lib/object3D_texture_"+i+".jpg")));
+			
+			}
+			
+
+			
+			Vector vSPlineMeshes=new Vector();
+			
+			for(int i=0;i<files.length;i++){
+				if(files[i].getName().startsWith("spline_mesh_")
+						){
+
+					vSPlineMeshes.add(files[i]);
+
+				}		
+			}
+
+			splinesMeshes=new CubicMesh[vSPlineMeshes.size()];
+			splinesTextures=new Texture[vSPlineMeshes.size()];
+
+
+
+			for(int i=0;i<vSPlineMeshes.size();i++){
+
+				splinesMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/spline_mesh_"+i));
+				splinesTextures[i]=new Texture(ImageIO.read(new File("lib/spline_texture_"+i+".jpg")));
+
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+	}
+
 	private static void buildCircleShape() {
 	
 	

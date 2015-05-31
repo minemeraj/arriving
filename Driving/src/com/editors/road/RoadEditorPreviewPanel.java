@@ -21,6 +21,7 @@ import com.Polygon3D;
 import com.PolygonMesh;
 import com.Texture;
 import com.ZBuffer;
+import com.editors.EditorData;
 import com.editors.EditorPreviewPanel;
 import com.main.Renderer3D;
 import com.main.Road;
@@ -93,9 +94,9 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 		try {
 
 
-			worldTextures=RoadEditor.worldTextures;
-			objectMeshes=RoadEditor.objectMeshes;
-			objectTextures=RoadEditor.objectTextures;
+			worldTextures=EditorData.worldTextures;
+			objectMeshes=EditorData.objectMeshes;
+			objectTextures=EditorData.objectTextures;
 
 
 

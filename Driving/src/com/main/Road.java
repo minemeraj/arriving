@@ -33,7 +33,7 @@ import com.SPLine;
 import com.Texture;
 import com.ZBuffer;
 import com.editors.Editor;
-import com.editors.EditorShape;
+import com.editors.EditorData;
 
 
 /*
@@ -162,7 +162,7 @@ public class Road extends Shader{
 	 
 		try {
 			
-			EditorShape.buildShape();
+			EditorData.initialize();
 			
 			File file=new File("lib/landscape_"+carFrame.map_name);
 			
@@ -241,7 +241,7 @@ public class Road extends Shader{
 				Polygon3D p3D=buildLightTransformedPolygon3D(ld,ii);
 
 
-				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],lightZbuffer);
+				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.worldTextures[p3D.getIndex()],lightZbuffer);
 
 
 			}
@@ -278,7 +278,7 @@ public class Road extends Shader{
 			}
 			int polSize=cm.polygonData.size();	
 
-			Texture texture = CarFrame.objectTextures[dro.getIndex()];
+			Texture texture = EditorData.objectTextures[dro.getIndex()];
 
 			for(int i=0;i<polSize;i++){
 
@@ -658,7 +658,7 @@ public class Road extends Shader{
 	
 					if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
 							
-						decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],roadZbuffer);
+						decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.worldTextures[p3D.getIndex()],roadZbuffer);
 				
 							
 						    if(index==1){
@@ -705,7 +705,7 @@ public class Road extends Shader{
 
 				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
 				
-				PolygonMesh pMesh =carFrame.splinesMeshes[0];
+				PolygonMesh pMesh =EditorData.splinesMeshes[0];
 
 				int size=pMesh.polygonData.size();
 
@@ -718,7 +718,7 @@ public class Road extends Shader{
 
 					//if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
 
-					decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),carFrame.splinesTextures[0],roadZbuffer);
+					decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.splinesTextures[0],roadZbuffer);
 
 				}
 
@@ -1393,7 +1393,7 @@ public class Road extends Shader{
 								
 				vdrawObjects.add(dro);
 				
-				CubicMesh cm=(CubicMesh) CarFrame.object3D[dro.getIndex()].clone();
+				CubicMesh cm=(CubicMesh) EditorData.object3D[dro.getIndex()].clone();
 				
 				Point3D point = cm.point000;
 				

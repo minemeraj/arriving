@@ -1,6 +1,6 @@
 package com;
 
-import com.editors.EditorShape;
+import com.editors.EditorData;
 
 public class SPNode extends Point4D{
 	
@@ -20,8 +20,8 @@ public class SPNode extends Point4D{
 	
 	public void update(){
 		
-		ring=EditorShape.getRing(x,y,z+10);	
-		circle=EditorShape.getCircle(x,y,z+10);	
+		ring=EditorData.getRing(x,y,z+10);	
+		circle=EditorData.getCircle(x,y,z+10);	
 		
 	}
 

@@ -22,7 +22,7 @@ import com.SPNode;
 import com.Texture;
 import com.ZBuffer;
 import com.editors.Editor;
-import com.editors.EditorShape;
+import com.editors.EditorData;
 import com.editors.ValuePair;
 import com.editors.road.RoadEditor;
 import com.main.Renderer3D;
@@ -116,7 +116,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				}
 				
 	
-				decomposeClippedPolygonIntoZBuffer(p3D,selected,RoadEditor.worldTextures[p3D.getIndex()],roadZbuffer);
+				decomposeClippedPolygonIntoZBuffer(p3D,selected,EditorData.worldTextures[p3D.getIndex()],roadZbuffer);
 				
 			    if(index==1){
 			    	
@@ -177,7 +177,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 					
 					Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.points,Editor.ROAD_INDEX);
 					
-					decomposeClippedPolygonIntoZBuffer(p3D,selected,RoadEditor.worldTextures[p3D.getIndex()],landscapeZbuffer);
+					decomposeClippedPolygonIntoZBuffer(p3D,selected,EditorData.worldTextures[p3D.getIndex()],landscapeZbuffer);
 					
 				
 				}
@@ -190,10 +190,10 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				
 				PolygonMesh pm=node.getRing();
 				
-				Texture texture=EditorShape.whiteTexture;
+				Texture texture=EditorData.whiteTexture;
 				
 				if(node.isSelected())
-					texture=EditorShape.redTexture;
+					texture=EditorData.redTexture;
 				
 				for(int l=0;l<pm.polygonData.size();l++){
 					
@@ -249,7 +249,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		}
 		
 	    
-		decomposeCubicMesh((CubicMesh) mesh,RoadEditor.objectTextures[dro.getIndex()],zbuffer,selected);
+		decomposeCubicMesh((CubicMesh) mesh,EditorData.objectTextures[dro.getIndex()],zbuffer,selected);
 		
 	}
 	

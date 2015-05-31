@@ -72,6 +72,7 @@ import com.Texture;
 import com.ZBuffer;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
+import com.editors.EditorData;
 import com.editors.ValuePair;
 import com.editors.road.panel.RoadEditorIsoPanel;
 import com.editors.road.panel.RoadEditorPanel;
@@ -180,15 +181,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton moveObjTop;
 	private JButton moveObjBottom;
 	
-	public static  CubicMesh[] objectMeshes;
-	public static Texture[] worldTextures;
-	public static BufferedImage[] worldImages;
+	public static BufferedImage[] worldImages;	
 	public static BufferedImage[] objectImages;
-	public static Texture[] objectIndexes;  
-	public static Texture[] objectTextures;  
-	public static CubicMesh[] splinesMeshes=null;
-	public static Texture[] splinesTextures=null;
-	
+	public static Texture[] objectIndexes; 
 	
 	public int indexWidth=40;
 	public int indexHeight=18;
@@ -408,6 +403,32 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		File[] files=directoryImg.listFiles();
 
 		try{
+			
+			Vector vRoadTextures=new Vector();
+
+			for(int i=0;i<files.length;i++){
+				if(files[i].getName().startsWith("road_texture_")){
+
+					vRoadTextures.add(files[i]);
+
+				}		
+			}
+
+			worldImages=new BufferedImage[vRoadTextures.size()];
+
+			for(int i=0;i<vRoadTextures.size();i++){
+
+				worldImages[i]=ImageIO.read(new File("lib/road_texture_"+i+".jpg"));
+
+				/*for (int j = 0; j < numPanels; j++) {
+					chooseTexture[j].addItem(new ValuePair(""+i,""+i));
+				}*/
+
+
+
+
+			}
+
 
 			Vector vObjects=new Vector();
 
@@ -433,67 +454,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				}
 
 			}
-
-
-
-
-
-
-			Vector vRoadTextures=new Vector();
-
-			for(int i=0;i<files.length;i++){
-				if(files[i].getName().startsWith("road_texture_")){
-
-					vRoadTextures.add(files[i]);
-
-				}		
-			}
-
-			worldImages=new BufferedImage[vRoadTextures.size()];
-			worldTextures=new Texture[vRoadTextures.size()];
-
-
-
-
-
-			for(int i=0;i<vRoadTextures.size();i++){
-
-				worldImages[i]=ImageIO.read(new File("lib/road_texture_"+i+".jpg"));
-
-				/*for (int j = 0; j < numPanels; j++) {
-					chooseTexture[j].addItem(new ValuePair(""+i,""+i));
-				}*/
-
-
-
-
-			}
-
-
-
-			for(int i=0;i<vRoadTextures.size();i++){
-
-				worldTextures[i]=new Texture(ImageIO.read(new File("lib/road_texture_"+i+".jpg")));
-			}
-
-
-
+			
 			objectImages=new BufferedImage[vObjects.size()];
-			objectMeshes=new CubicMesh[vObjects.size()];
 			objectIndexes=new Texture[vObjects.size()];
-			objectTextures=new Texture[vObjects.size()];
-
+			
 			for(int i=0;i<vObjects.size();i++){
 
 				chooseObject.addItem(new ValuePair(""+i,""+i));
 				objectImages[i]=ImageIO.read(new File("lib/object_"+i+".gif"));
-
-
-
-				objectMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/object3D_"+i));
-				objectTextures[i]=new Texture(ImageIO.read(new File("lib/object3D_texture_"+i+".jpg")));
-
-
+	
+	
 				BufferedImage boi=new BufferedImage(indexWidth,indexHeight,BufferedImage.TYPE_INT_RGB);
 				boi.getGraphics().setColor(Color.white);
 				boi.getGraphics().drawString(""+i,0,indexHeight);
@@ -501,31 +471,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 			}
 
-			Vector vSPlineMeshes=new Vector();
-
-			for(int i=0;i<files.length;i++){
-				if(files[i].getName().startsWith("spline_mesh_")
-						){
-
-					vSPlineMeshes.add(files[i]);
-
-				}		
-			}
-
-			splinesMeshes=new CubicMesh[vSPlineMeshes.size()];
-			splinesTextures=new Texture[vSPlineMeshes.size()];
-
-
-
-			for(int i=0;i<vSPlineMeshes.size();i++){
-
-				splinesMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/spline_mesh_"+i));
-				splinesTextures[i]=new Texture(ImageIO.read(new File("lib/spline_texture_"+i+".jpg")));
-
-			}
-
-
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}	
 
@@ -1376,7 +1322,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				 
 				 if(DrawObject.IS_3D){
 					 
-				     CubicMesh cm=objectMeshes[index]; 
+				     CubicMesh cm=EditorData.objectMeshes[index]; 
 				     dro.setDx(cm.getDeltaX2()-cm.getDeltaX());
 				     dro.setDy(cm.getDeltaY2()-cm.getDeltaY());
 				     dro.setDz(cm.getDeltaX());
@@ -1847,9 +1793,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		if(vp!=null && !vp.getValue().equals(""))
 			index=Integer.parseInt(vp.getId());
 		
-		int dim_x=objectMeshes[index].getDeltaX2()-objectMeshes[index].getDeltaX();
-		int dim_y=objectMeshes[index].getDeltaY2()-objectMeshes[index].getDeltaY();
-		int dim_z=objectMeshes[index].getDeltaX();
+		int dim_x=EditorData.objectMeshes[index].getDeltaX2()-EditorData.objectMeshes[index].getDeltaX();
+		int dim_y=EditorData.objectMeshes[index].getDeltaY2()-EditorData.objectMeshes[index].getDeltaY();
+		int dim_z=EditorData.objectMeshes[index].getDeltaX();
 		
 		double rot_angle=rotation_angle.getvalue();rotation_angle.getText();
 		
@@ -1899,7 +1845,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		Point3D center=null;
 
-		CubicMesh cm=(CubicMesh) objectMeshes[dro.getIndex()].clone();
+		CubicMesh cm=(CubicMesh) EditorData.objectMeshes[dro.getIndex()].clone();
 
 		Point3D point = cm.point000;
 
@@ -2137,13 +2083,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				if(!read)
 					continue;
 				
-				DrawObject dro=buildDrawObject(str,objectMeshes);
+				DrawObject dro=buildDrawObject(str,EditorData.objectMeshes);
 				drawObjects.add(dro);
 				
 				//buildRectanglePolygons(dro.getPolygons(),dro.x,dro.y,dro.z,dro.dx,dro.dy,dro.dz);
 
 				
-				CubicMesh cm=objectMeshes[dro.getIndex()].clone();
+				CubicMesh cm=EditorData.objectMeshes[dro.getIndex()].clone();
 				Point3D point = cm.point000;
 				
 				
@@ -2763,7 +2709,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		if(regm.getReturnValue()!=null){
 			
 			RoadEditorCityManager roadECM=(RoadEditorCityManager) regm.getReturnValue();
-			RoadEditorCityManager.buildCustomCity1(meshes[0],meshes[1],roadECM,drawObjects,objectMeshes);
+			RoadEditorCityManager.buildCustomCity1(meshes[0],meshes[1],roadECM,drawObjects,EditorData.objectMeshes);
 			meshes[1]=PolygonMesh.simplifyMesh(meshes[1]);
 			
 			draw();
@@ -3217,9 +3163,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			if(vp!=null && !vp.getValue().equals(""))
 				index=Integer.parseInt(vp.getId());
 			
-			int dim_x=objectMeshes[index].getDeltaX2()-objectMeshes[index].getDeltaX();
-			int dim_y=objectMeshes[index].getDeltaY2()-objectMeshes[index].getDeltaY();
-			int dim_z=objectMeshes[index].getDeltaX();
+			int dim_x=EditorData.objectMeshes[index].getDeltaX2()-EditorData.objectMeshes[index].getDeltaX();
+			int dim_y=EditorData.objectMeshes[index].getDeltaY2()-EditorData.objectMeshes[index].getDeltaY();
+			int dim_z=EditorData.objectMeshes[index].getDeltaX();
 			
 			double rot_angle=rotation_angle.getvalue();rotation_angle.getText();
 			

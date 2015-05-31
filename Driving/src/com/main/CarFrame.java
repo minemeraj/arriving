@@ -74,13 +74,9 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 
 	
 	public static Texture background=null;
-	public static Texture[] worldTextures;
-	public static Texture[] objects=null;
-	public static CubicMesh[] object3D=null;
-	public static Texture[] objectTextures=null;
+	
 	public static Texture[] carTextures=null;
-	public static CubicMesh[] splinesMeshes=null;
-	public static Texture[] splinesTextures=null;
+
 	String IMAGES_PATH="lib/";
 	Engine engine=null;
 
@@ -192,70 +188,31 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 	 * 
 	 */
 	private void initialize() {
-		
+
 		loadProperties();
-		
+
 		buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
-		
-		
+
+
 		try {
 
-		
 			background=
-				DrawObject.fromImageToTexture(
-						ImageIO.read(new File("lib/background_"+back_num+".jpg")),Color.BLUE
-						
-				);
+					DrawObject.fromImageToTexture(
+							ImageIO.read(new File("lib/background_"+back_num+".jpg")),Color.BLUE
+
+							);
 			
 			File directoryImg=new File("lib");
 			File[] files=directoryImg.listFiles();
-			
-			Vector vObjects=new Vector();
-			
-				for(int i=0;i<files.length;i++){
-					if(files[i].getName().startsWith("object_")){
-						
-						vObjects.add(files[i]);
-					}		
-				}
-			
-			
-			objects=new Texture[vObjects.size()];
-			
-			for(int j=0;j<vObjects.size();j++){
-				
-				File fileObj=(File) vObjects.elementAt(j);
-				
-				objects[j]=new Texture(ImageIO.read(fileObj));
-						
-						
-			}
-		
-			Vector vRoadTextures=new Vector();
-			
+
+			Vector vCarData=new Vector();
+
 			for(int i=0;i<files.length;i++){
-				if(files[i].getName().startsWith("road_texture_")){
-					
-					vRoadTextures.add(files[i]);
-					
+				if(files[i].getName().startsWith("cardefault3D_")){
+
+					vCarData.add(files[i]);
+
 				}		
-			}
-			
-			worldTextures=new Texture[vRoadTextures.size()];
-			
-			
-			if(isUseTextures){
-				
-				
-				for(int i=0;i<vRoadTextures.size();i++){
-					
-					worldTextures[i]=new Texture(ImageIO.read(new File("lib/road_texture_"+i+".jpg")));
-				}
-				
-			
-				
-		
-				
 			}
 			
 			Vector vCarTextures=new Vector();
@@ -269,92 +226,26 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 			}
 			
 			carTextures=new Texture[vCarTextures.size()];
-			
-			
-			if(isUseTextures){
+
+			for(int i=0;i<vCarTextures.size();i++){
 				
-				
-				for(int i=0;i<vCarTextures.size();i++){
-					
-					File file=(File) vCarTextures.elementAt(i);
-					carTextures[i]=new Texture(ImageIO.read(file));
-				}
-
-				
-			}
-			
-			Vector vCarData=new Vector();
-			
-			for(int i=0;i<files.length;i++){
-				if(files[i].getName().startsWith("cardefault3D_")){
-					
-					vCarData.add(files[i]);
-					
-				}		
-			}
-			
-			
-			Vector v3DObjects=new Vector();
-			
-				for(int i=0;i<files.length;i++){
-					if(files[i].getName().startsWith("object3D_")
-					   && 	!files[i].getName().startsWith("object3D_texture")	
-					){
-						
-						v3DObjects.add(files[i]);
-						
-					}		
-				}
-
-			object3D=new CubicMesh[v3DObjects.size()];
-			objectTextures=new Texture[v3DObjects.size()];
-			
-			
-		
-			for(int i=0;i<v3DObjects.size();i++){
-					
-				object3D[i]=CubicMesh.loadMeshFromFile(new File("lib/object3D_"+i));
-				if(isUseTextures)
-					objectTextures[i]=new Texture(ImageIO.read(new File("lib/object3D_texture_"+i+".jpg")));
-			
-			}
-			
-			Vector vSPlineMeshes=new Vector();
-			
-			for(int i=0;i<files.length;i++){
-				if(files[i].getName().startsWith("spline_mesh_")
-						){
-
-					vSPlineMeshes.add(files[i]);
-
-				}		
+				File file=(File) vCarTextures.elementAt(i);
+				carTextures[i]=new Texture(ImageIO.read(file));
 			}
 
-			splinesMeshes=new CubicMesh[vSPlineMeshes.size()];
-			splinesTextures=new Texture[vSPlineMeshes.size()];
-
-
-
-			for(int i=0;i<vSPlineMeshes.size();i++){
-
-				splinesMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/spline_mesh_"+i));
-				splinesTextures[i]=new Texture(ImageIO.read(new File("lib/spline_texture_"+i+".jpg")));
-
-			}
-			
 			hornFile=new File(SOUNDS_FOLDER+"horn.wav");
 			engineFile=new File(SOUNDS_FOLDER+"shortDiesel.wav");
 			engineSound=new AdvancedGameSound(engineFile,-1,false);
 			engineSound.filter(getEngineModulation());
-			
+
 			graphics2D=(Graphics2D) center.getGraphics();
 			transparency=new Transparency();
 			setCarSpeed(0);
 			road=new Road(WIDTH,HEIGHT,this);
 			road.initCars(vCarData);
-			
+
 			hornSound = new GameSound(hornFile,true);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

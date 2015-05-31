@@ -23,6 +23,7 @@ import com.Polygon3D;
 import com.PolygonMesh;
 import com.Texture;
 import com.ZBuffer;
+import com.editors.EditorData;
 
 public class Renderer3D implements AbstractRenderer3D{
 
@@ -724,7 +725,7 @@ public class Renderer3D implements AbstractRenderer3D{
 		
 		PolygonMesh mesh = dro.getMesh();
 	    
-		decomposeCubicMesh((CubicMesh) mesh,CarFrame.objectTextures[dro.getIndex()],zbuffer);
+		decomposeCubicMesh((CubicMesh) mesh,EditorData.objectTextures[dro.getIndex()],zbuffer);
 		
 	}
 	

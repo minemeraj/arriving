@@ -20,7 +20,7 @@ import com.SPLine;
 import com.SPNode;
 import com.Texture;
 import com.ZBuffer;
-import com.editors.EditorShape;
+import com.editors.EditorData;
 import com.editors.ValuePair;
 import com.editors.road.RoadEditor;
 import com.main.Road;
@@ -48,7 +48,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	private void intialize() {
 		
 		selectionColor=new Color(255,0,0,127);
-		EditorShape.buildShape();
+		EditorData.initialize();
 		
 	}
 
@@ -85,7 +85,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			LineData ld=(LineData) mesh.polygonData.elementAt(j);
 
 	
-			Texture texture = RoadEditor.worldTextures[ld.getTexture_index()];
+			Texture texture = EditorData.worldTextures[ld.getTexture_index()];
 			drawPolygon(ld,mesh.points,landscapeZbuffer,texture,index);
 
 		} 
@@ -161,10 +161,10 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				
 				PolygonMesh pm=node.getRing();
 				
-				Texture texture=EditorShape.whiteTexture;
+				Texture texture=EditorData.whiteTexture;
 				
 				if(node.isSelected())
-					texture=EditorShape.redTexture;
+					texture=EditorData.redTexture;
 				
 				for(int l=0;l<pm.polygonData.size();l++){
 					
@@ -354,7 +354,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			
 			
 			LineData ld=(LineData) mesh.polygonData.elementAt(k);
-			Texture texture = RoadEditor.worldTextures[ld.getTexture_index()];
+			Texture texture = EditorData.worldTextures[ld.getTexture_index()];
 			
 			drawPolygon(ld,mesh.points,landscapeZbuffer,texture,1);
 
