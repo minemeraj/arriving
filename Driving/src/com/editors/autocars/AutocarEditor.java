@@ -64,10 +64,12 @@ import com.Point3D;
 import com.Polygon3D;
 import com.PolygonMesh;
 import com.Renderer2D;
+import com.SPLine;
 import com.Texture;
 import com.ZBuffer;
 import com.editors.ComboElement;
 import com.editors.DoubleTextField;
+import com.editors.EditorData;
 import com.editors.ValuePair;
 import com.editors.road.RoadEditor;
 import com.main.Autocar;
@@ -203,6 +205,8 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 	}
 
 	public AutocarEditor() {
+		
+		EditorData.initialize();
 
 		WIDTH = 820;
 		HEIGHT = 880;
@@ -1009,8 +1013,10 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 
 		graph2.fillRect(0, 0, WIDTH, HEIGHT);
 
-		if (mesh != null && mesh.points!=null)
+		if (mesh != null && mesh.points!=null){
 			drawRoad(buf, rgb);
+			
+		}	
 		// else
 
 		graph2.setColor(Color.WHITE);
@@ -1161,13 +1167,58 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 						bufGraphics, buf.getWidth(), buf.getHeight(), rgb);
 
 			}
-			buf.getRaster().setDataElements(0, 0, buf.getWidth(),
-						buf.getHeight(), rgb);
+			
 		}
+		drawSPLines(bufGraphics,splines);
 		
-		drawObjects(bufGraphics);
+		buf.getRaster().setDataElements(0, 0, buf.getWidth(),
+				buf.getHeight(), rgb);
+		
+		drawObjects(bufGraphics); 
 	}
 	
+	private void drawSPLines(Graphics2D bufGraphics, Vector splines) {
+	
+		for (int i = 0; i < splines.size(); i++) {
+			SPLine sp = (SPLine) splines.elementAt(i);
+			
+			Vector meshes = sp.getMeshes();
+			
+			for (int j = 0; j < meshes.size(); j++) {
+				
+				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
+				
+	
+				for (int k = 0; k < mesh.polygonData.size(); k++) {
+
+					LineData ld = (LineData)  mesh.polygonData.elementAt(k);
+
+					// if(j>0 || i>0) continue;
+					Polygon3D p3D = buildPolygon(ld, mesh.points, false);
+					
+					
+					if (!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()) {
+						
+						
+						Polygon3D p3Dr = buildPolygon(ld, mesh.points, true);
+						drawRoadPolygon(p3D, p3Dr, totalVisibleField,
+								ZBuffer.fromHexToColor(p3D.getHexColor()),
+								EditorData.worldTextures[p3D.getIndex()], true,
+								bufGraphics, buf.getWidth(), buf.getHeight(), rgb);
+					
+					}
+				}	
+
+				
+			}
+
+
+
+			
+		}
+		
+	}
+
 	public void buildLine(Vector polygonData, String str,Vector vTexturePoints) {
 
 
@@ -1623,7 +1674,7 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 		setACTIVE_PANEL(0);
 		loadPointsFromFile(file);	
 		setACTIVE_PANEL(1);
-		loadPointsFromFile(file);			
+		loadSPLinesFromFile(file);		
 		setACTIVE_PANEL(0);
 		
 		loadObjectsFromFile(file); 
