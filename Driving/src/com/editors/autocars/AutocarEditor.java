@@ -1130,7 +1130,7 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 
 		int PARTIAL_MOVZ = 0;
 
-		boolean found = false;
+		boolean found = false; 
 		// Date t=new Date();
 
 		for(int index=0;index<2;index++){
