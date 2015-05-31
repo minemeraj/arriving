@@ -640,7 +640,7 @@ public class Road extends Shader{
 		calculateAltitude(mesh);
 
 
-		/*for (int i = 0; i < splines.size(); i++) {
+		for (int i = 0; i < splines.size(); i++) {
 
 				SPLine sp = (SPLine) splines.elementAt(i);
 
@@ -648,10 +648,10 @@ public class Road extends Shader{
 
 				for (int j = 0; j < meshes.size(); j++) {
 
-					PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
-
+					mesh = (PolygonMesh) meshes.elementAt(j);
+					calculateAltitude(mesh);
 				}	
-			}*/
+			}
 
 		return TRANSZ;
 
@@ -666,7 +666,7 @@ public class Road extends Shader{
 
 
 
-			LineData ld=(LineData) meshes[Editor.TERRAIN_INDEX].polygonData.elementAt(j);
+			LineData ld=(LineData) mesh.polygonData.elementAt(j);
 
 			Polygon3D realP3D=LineData.buildPolygon(ld,mesh.points);
 
