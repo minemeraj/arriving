@@ -247,6 +247,24 @@
 	OBJECT_WIDTH   = deltaX2-deltaX = maxX-minX
 	OBJECT_HEIGHT  = deltaX = deltaY = maxZ-minZ
 	
+	CUBE'S VERTICES NUMERATION
+
+
+	  7       6
+	   ______
+	  /     / 
+	 /     /
+	/_____/
+	
+	4     5 	
+	
+	  3       2
+	   ______
+	  /     / 
+	 /     /
+	/_____/
+	
+	0     1 
 	
 	************
 	
