@@ -546,139 +546,71 @@ public class Road extends Shader{
 		//cleanZBuffer();
 		drawSky();
 
-		
-		MOVZ=0;
 
-     
-	    int TRANSZ=PARTIAL_MOVZ;
-	    boolean start_max_calculus=true;
-	    int index=0;
+
+
+
+		int TRANSZ=calculateAltitude();
+
+
+		drawSPLines(splines,totalVisibleField,roadZbuffer);
+
+		//changing altitutude with the movements		
+		if(TRANSZ>=PARTIAL_MOVZ-ROAD_THICKNESS)
+			PARTIAL_MOVZ=TRANSZ;
+		else //minus to simulate gravitational fall
+			PARTIAL_MOVZ=PARTIAL_MOVZ-ROAD_THICKNESS;
+
+		MOVZ=-(PARTIAL_MOVZ+YFOCUS);
+
+
+		drawObjects(drawObjects,totalVisibleField,roadZbuffer);
+
+		if(autocars!=null){
+
+			drawAutocars(autocars,totalVisibleField,roadZbuffer);
+
+		}
+
+		PolygonMesh mesh=meshes[Editor.TERRAIN_INDEX];
+		int size=mesh.polygonData.size();
+
 		//for(int index=0;index<2;index++){
-	
-			PolygonMesh mesh=meshes[index];
-			
-			int size=mesh.polygonData.size();
-	
-			for(int j=0;j<size;j++){
-				
-				
-	
-				LineData ld=(LineData) meshes[index].polygonData.elementAt(j);
-	
-				Polygon3D realP3D=LineData.buildPolygon(ld,mesh.points);
-				
-				Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points);
-	
-					if(p3D.contains(start_car_x,start_car_y)){
-	
-						int zz=(int)interpolate(start_car_x,start_car_y,p3D);
-						
-						
-						//find max possible z altitude
-						if(initMOVZ){							
-					
-							TRANSZ=zz;
-							PARTIAL_MOVZ=zz;
-							
-							initMOVZ=false;
-							start_max_calculus=false;
-							carTerrainNormal=Polygon3D.findNormal(p3D);
-						} 						
-						else if(zz<=PARTIAL_MOVZ+ROAD_THICKNESS){
-							
-							if(start_max_calculus){
-								TRANSZ=zz;
-								start_max_calculus=false;
-								carTerrainNormal=Polygon3D.findNormal(p3D);
-							}
-							else if(zz>=TRANSZ){
-								TRANSZ=zz;
-								carTerrainNormal=Polygon3D.findNormal(p3D);
-							}	
-							
-						}	
-						//break;
-	
-					}
-					
-					if(autocars!=null){
-						
-						
-						for (int i = 0; i < autocars.length; i++) {
-							
-							Point3D transformedCenter=buildTransformedPoint(autocars[i].center);
-						
-							if(p3D.contains(transformedCenter.x,transformedCenter.y)){
-								
-							    int posz=(int)interpolate(transformedCenter.x,transformedCenter.y,p3D);
-								
-								autocars[i].center.z=autocars[i].car_height*0.5+
-										(posz);
-								
-								autocarTerrainNormal[i]=Polygon3D.findNormal(realP3D);
-							}
-						}
-						
-					}
-	
-			}
-			
-			drawSPLines(splines,totalVisibleField,roadZbuffer);
-			
-		//}
-			//changing altitutude with the movements		
-		    if(TRANSZ>=PARTIAL_MOVZ-ROAD_THICKNESS)
-		    	PARTIAL_MOVZ=TRANSZ;
-		    else //minus to simulate gravitational fall
-		    	PARTIAL_MOVZ=PARTIAL_MOVZ-ROAD_THICKNESS;
-		    
-			MOVZ=-(PARTIAL_MOVZ+YFOCUS);
-			
-			
-			drawObjects(drawObjects,totalVisibleField,roadZbuffer);
 
-			if(autocars!=null){
-				
-				drawAutocars(autocars,totalVisibleField,roadZbuffer);
-				
-			}
-			
-			//for(int index=0;index<2;index++){
-				
-				//PolygonMesh mesh=meshes[index];
-				//int size=mesh.polygonData.size();
-			
-				for(int j=0;j<size;j++){
-					
-				
-					LineData ld=(LineData) mesh.polygonData.elementAt(j);
-	
-					Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points);
-	
-	
-					if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
-							
-						decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.worldTextures[p3D.getIndex()],roadZbuffer);
-				
-							
-						    if(index==1){
-						    	
+		//PolygonMesh mesh=meshes[index];
+		//int size=mesh.polygonData.size();
+
+		for(int j=0;j<size;j++){
+
+
+			LineData ld=(LineData) mesh.polygonData.elementAt(j);
+
+			Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points);
+
+
+			if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
+
+				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.worldTextures[p3D.getIndex()],roadZbuffer);
+
+
+				/* if(index==1){
+
 						    	//build road polgyons
-						    	
+
 						    	Polygon3D[] polygons=buildAdditionalRoadPolygons(p3D);
-						    	
+
 						    	for (int i = 0; i < polygons.length; i++) {
 										decomposeClippedPolygonIntoZBuffer(polygons[i],Color.DARK_GRAY,null,roadZbuffer);
 								}
-						    	
-						    }
-					}		
-							
 
-					
-				} 
-		
-			//}
+						    }*/
+			}		
+
+
+
+		} 
+
+		//}
 
 
 		drawCar();
@@ -691,6 +623,105 @@ public class Road extends Shader{
 
 	}
 	
+
+	private int calculateAltitude() {
+
+		MOVZ=0;
+
+		int TRANSZ=PARTIAL_MOVZ;
+		boolean start_max_calculus=true;
+
+		//for(int index=0;index<2;index++){
+
+		PolygonMesh mesh=meshes[Editor.TERRAIN_INDEX];
+
+		int size=mesh.polygonData.size();
+
+		for(int j=0;j<size;j++){
+
+
+
+			LineData ld=(LineData) meshes[Editor.TERRAIN_INDEX].polygonData.elementAt(j);
+
+			Polygon3D realP3D=LineData.buildPolygon(ld,mesh.points);
+
+			Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points);
+
+			if(p3D.contains(start_car_x,start_car_y)){
+
+				int zz=(int)interpolate(start_car_x,start_car_y,p3D);
+
+
+				//find max possible z altitude
+				if(initMOVZ){							
+
+					TRANSZ=zz;
+					PARTIAL_MOVZ=zz;
+
+					initMOVZ=false;
+					start_max_calculus=false;
+					carTerrainNormal=Polygon3D.findNormal(p3D);
+				} 						
+				else if(zz<=PARTIAL_MOVZ+ROAD_THICKNESS){
+
+					if(start_max_calculus){
+						TRANSZ=zz;
+						start_max_calculus=false;
+						carTerrainNormal=Polygon3D.findNormal(p3D);
+					}
+					else if(zz>=TRANSZ){
+						TRANSZ=zz;
+						carTerrainNormal=Polygon3D.findNormal(p3D);
+					}	
+
+				}	
+				//break;
+
+			}
+
+			if(autocars!=null){
+
+
+				for (int i = 0; i < autocars.length; i++) {
+
+					Point3D transformedCenter=buildTransformedPoint(autocars[i].center);
+
+					if(p3D.contains(transformedCenter.x,transformedCenter.y)){
+
+						int posz=(int)interpolate(transformedCenter.x,transformedCenter.y,p3D);
+
+						autocars[i].center.z=autocars[i].car_height*0.5+
+								(posz);
+
+						autocarTerrainNormal[i]=Polygon3D.findNormal(realP3D);
+					}
+				}
+
+			}
+
+		}
+
+
+
+
+
+		/*for (int i = 0; i < splines.size(); i++) {
+
+				SPLine sp = (SPLine) splines.elementAt(i);
+
+				Vector meshes = sp.getMeshes();
+
+				for (int j = 0; j < meshes.size(); j++) {
+
+					PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
+
+				}	
+			}*/
+
+		return TRANSZ;
+
+	}
+
 
 	private void drawSPLines(Vector splines, Area totalVisibleField,
 			ZBuffer roadZbuffer) {
