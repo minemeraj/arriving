@@ -548,11 +548,7 @@ public class Road extends Shader{
 		//cleanZBuffer();
 		drawSky();
 
-
-
-
-
-		int TRANSZ=calculateAltitude();
+		calculateAltitude();
 
 
 		drawSPLines(splines,totalVisibleField,roadZbuffer);
@@ -562,9 +558,9 @@ public class Road extends Shader{
 			PARTIAL_MOVZ=TRANSZ;
 		else //minus to simulate gravitational fall
 			PARTIAL_MOVZ=PARTIAL_MOVZ-ROAD_THICKNESS;
-
+        System.out.println(TRANSZ+" "+PARTIAL_MOVZ);
 		MOVZ=-(PARTIAL_MOVZ+YFOCUS);
-
+        
 
 		drawObjects(drawObjects,totalVisibleField,roadZbuffer);
 
@@ -626,7 +622,7 @@ public class Road extends Shader{
 	}
 	
 
-	private int calculateAltitude() {
+	private void calculateAltitude() {
 
 		MOVZ=0;
 
@@ -653,7 +649,6 @@ public class Road extends Shader{
 				}	
 			}
 
-		return TRANSZ;
 
 	}
 
