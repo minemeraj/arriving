@@ -704,19 +704,21 @@ public class Road extends Shader{
 			for (int j = 0; j < meshes.size(); j++) {
 
 				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
+				
+				PolygonMesh pMesh =carFrame.splinesMEshes[0];
 
-				int size=mesh.polygonData.size();
+				int size=pMesh.polygonData.size();
 
 				for(int k=0;k<size;k++){
 
-					LineData ld=(LineData) mesh.polygonData.elementAt(k);
+					LineData ld=(LineData) pMesh.polygonData.elementAt(k);
 
 					Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points);
 
 
 					//if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
 
-					decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),CarFrame.worldTextures[p3D.getIndex()],roadZbuffer);
+					decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),carFrame.splinesTextures[0],roadZbuffer);
 
 				}
 

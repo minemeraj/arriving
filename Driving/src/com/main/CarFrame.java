@@ -79,6 +79,8 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 	public static CubicMesh[] object3D=null;
 	public static Texture[] objectTextures=null;
 	public static Texture[] carTextures=null;
+	public static CubicMesh[] splinesMEshes=null;
+	public static Texture[] splinesTextures=null;
 	String IMAGES_PATH="lib/";
 	Engine engine=null;
 
@@ -317,7 +319,28 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 			
 			}
 			
+			Vector vSPlineMeshes=new Vector();
 			
+			for(int i=0;i<files.length;i++){
+				if(files[i].getName().startsWith("spline_mesh_")
+						){
+
+					vSPlineMeshes.add(files[i]);
+
+				}		
+			}
+
+			splinesMEshes=new CubicMesh[vSPlineMeshes.size()];
+			splinesTextures=new Texture[vSPlineMeshes.size()];
+
+
+
+			for(int i=0;i<vSPlineMeshes.size();i++){
+
+				splinesMEshes[i]=CubicMesh.loadMeshFromFile(new File("lib/spline_mesh_"+i));
+				splinesTextures[i]=new Texture(ImageIO.read(new File("lib/spline_texture_"+i+".jpg")));
+
+			}
 			
 			hornFile=new File(SOUNDS_FOLDER+"horn.wav");
 			engineFile=new File(SOUNDS_FOLDER+"shortDiesel.wav");
