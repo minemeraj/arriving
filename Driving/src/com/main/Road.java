@@ -482,6 +482,8 @@ public class Road extends Shader{
 	}
 	
 	double[] pRot=new double[3];
+	private int TRANSZ;
+	private boolean start_max_calculus;
 	
 
 	private Point3D rotate(double[][] rot, Point3D point) {
@@ -628,13 +630,36 @@ public class Road extends Shader{
 
 		MOVZ=0;
 
-		int TRANSZ=PARTIAL_MOVZ;
-		boolean start_max_calculus=true;
+		TRANSZ=PARTIAL_MOVZ;
+		start_max_calculus=true;
 
 		//for(int index=0;index<2;index++){
 
 		PolygonMesh mesh=meshes[Editor.TERRAIN_INDEX];
 
+		calculateAltitude(mesh);
+
+
+		/*for (int i = 0; i < splines.size(); i++) {
+
+				SPLine sp = (SPLine) splines.elementAt(i);
+
+				Vector meshes = sp.getMeshes();
+
+				for (int j = 0; j < meshes.size(); j++) {
+
+					PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
+
+				}	
+			}*/
+
+		return TRANSZ;
+
+	}
+
+
+	private void calculateAltitude(PolygonMesh mesh) {
+		
 		int size=mesh.polygonData.size();
 
 		for(int j=0;j<size;j++){
@@ -700,26 +725,7 @@ public class Road extends Shader{
 			}
 
 		}
-
-
-
-
-
-		/*for (int i = 0; i < splines.size(); i++) {
-
-				SPLine sp = (SPLine) splines.elementAt(i);
-
-				Vector meshes = sp.getMeshes();
-
-				for (int j = 0; j < meshes.size(); j++) {
-
-					PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
-
-				}	
-			}*/
-
-		return TRANSZ;
-
+		
 	}
 
 
