@@ -705,7 +705,7 @@ public class Road extends Shader{
 
 				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
 				
-				PolygonMesh pMesh =carFrame.splinesMEshes[0];
+				PolygonMesh pMesh =carFrame.splinesMeshes[0];
 
 				int size=pMesh.polygonData.size();
 

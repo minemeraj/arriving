@@ -123,6 +123,50 @@ public class SPLine {
 
 	}
 
+	/*public Vector getMeshes() {
+
+		Vector meshes=new Vector();
+
+		int index=3;
+
+		for (int i = 0; i < ribs.size()-1; i++) {
+			Point4D[] prevRib= (Point4D[]) ribs.elementAt(i);
+			Point4D[] nextRib= (Point4D[]) ribs.elementAt(i+1);
+			
+			Point4D p0=prevRib[0];
+			Point4D p1=nextRib[0];
+			Point4D p2=nextRib[1];
+			Point4D p3=prevRib[1];
+
+			Vector points=new Vector();
+			points.add(p0);
+			points.add(p1);
+			points.add(p2);
+			points.add(p3);
+
+			Point3D pt0=(Point3D) vTexturePoints.elementAt(0);
+			Point3D pt1=(Point3D) vTexturePoints.elementAt(1);
+			Point3D pt2=(Point3D) vTexturePoints.elementAt(2);
+			Point3D pt3=(Point3D) vTexturePoints.elementAt(3);
+
+			Vector polygonData=new Vector();
+			LineData ld=new LineData();
+			ld.addIndex(0,0,pt0.x,pt0.y);
+			ld.addIndex(1,1,pt1.x,pt1.y);
+			ld.addIndex(2,2,pt2.x,pt2.y);
+			ld.addIndex(3,3,pt3.x,pt3.y);
+			ld.setTexture_index(index);
+			polygonData.add(ld);
+
+			PolygonMesh mesh=new PolygonMesh(points,polygonData);
+			mesh.setTexturePoints(vTexturePoints);
+			meshes.add(mesh);
+		}
+
+		return meshes;
+
+	}*/
+	
 	public Vector getMeshes() {
 
 		Vector meshes=new Vector();
@@ -143,6 +187,17 @@ public class SPLine {
 			points.add(p1);
 			points.add(p2);
 			points.add(p3);
+			
+			
+			Point4D p4=prevRib[0];p4.translate(0,0,-20);
+			Point4D p5=nextRib[0];p5.translate(0,0,-20);
+			Point4D p6=nextRib[1];p6.translate(0,0,-20);
+			Point4D p7=prevRib[1];p7.translate(0,0,-20);
+			
+			points.add(p4);
+			points.add(p5);
+			points.add(p6);
+			points.add(p7);
 
 			Point3D pt0=(Point3D) vTexturePoints.elementAt(0);
 			Point3D pt1=(Point3D) vTexturePoints.elementAt(1);
