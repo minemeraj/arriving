@@ -256,8 +256,8 @@ public class CustomEditor extends Editor implements  MouseWheelListener,KeyListe
 			
 			for (int i = 0; i < mesh.texturePoints.size(); i++) {
 				Point3D pt = (Point3D)  mesh.texturePoints.elementAt(i);
-				pr.print("\nvt=");
-				pr.print(pt.x+" "+pt.y);
+				pr.print("vt=");
+				pr.println(pt.x+" "+pt.y);
 			}
 			
 			return;
