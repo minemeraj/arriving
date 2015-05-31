@@ -123,7 +123,7 @@ public class SPLine {
 
 	}
 
-	/*public Vector getMeshes() {
+	public Vector getMeshes() {
 
 		Vector meshes=new Vector();
 
@@ -165,9 +165,9 @@ public class SPLine {
 
 		return meshes;
 
-	}*/
+	}
 	
-	public Vector getMeshes() {
+	public Vector get3DMeshes() {
 
 		Vector meshes=new Vector();
 
@@ -189,10 +189,10 @@ public class SPLine {
 			points.add(p3);
 			
 			
-			Point4D p4=prevRib[0];p4.translate(0,0,-20);
-			Point4D p5=nextRib[0];p5.translate(0,0,-20);
-			Point4D p6=nextRib[1];p6.translate(0,0,-20);
-			Point4D p7=prevRib[1];p7.translate(0,0,-20);
+			Point4D p4=prevRib[0].clone();p4.translate(0,0,-20);
+			Point4D p5=nextRib[0].clone();p5.translate(0,0,-20);
+			Point4D p6=nextRib[1].clone();p6.translate(0,0,-20);
+			Point4D p7=prevRib[1].clone();p7.translate(0,0,-20);
 			
 			points.add(p4);
 			points.add(p5);
