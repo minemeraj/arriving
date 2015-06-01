@@ -317,7 +317,7 @@ public class Editor extends JFrame implements MenuListener{
 			p.y=Double.parseDouble(vals[1]);
 			p.update();
 			
-	        sp.addPoint(p);
+	        sp.addSPNode(p);
         
 		}
 	}

@@ -56,7 +56,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,Vector splines,ZBuffer landscapeZbuffer,
 			Graphics2D graph) {
 		
-		displayTerrain(landscapeZbuffer,meshes,0);
+		displayTerrain(landscapeZbuffer,meshes);
 		displaySPLines(landscapeZbuffer,splines);
 		//displayRoad(landscapeZbuffer,meshes,1);
 		if(!isHide_objects())
@@ -68,10 +68,10 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 
-	private void displayTerrain(ZBuffer landscapeZbuffer,PolygonMesh[] meshes,int index) {
+	private void displayTerrain(ZBuffer landscapeZbuffer,PolygonMesh[] meshes) {
 
 	
-		PolygonMesh mesh=meshes[index];
+		PolygonMesh mesh=meshes[RoadEditor.TERRAIN_INDEX];
 		
 		if(mesh.points==null)
 			return;
@@ -86,7 +86,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 	
 			Texture texture = EditorData.worldTextures[ld.getTexture_index()];
-			drawPolygon(ld,mesh.points,landscapeZbuffer,texture,index);
+			drawPolygon(ld,mesh.points,landscapeZbuffer,texture,RoadEditor.TERRAIN_INDEX);
 
 		} 
 
@@ -128,9 +128,9 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				
 				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
 				
-	
+	            
 				drawPolygon(mesh,landscapeZbuffer,1);
-
+                 
 				
 			}
 
@@ -142,18 +142,6 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		
 		for (int i = 0; i < splines.size(); i++) {
 			SPLine sp = (SPLine) splines.elementAt(i);
-			
-			Vector meshes = sp.getMeshes();
-			
-			for (int j = 0; j < meshes.size(); j++) {
-				
-				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
-				
-	
-				drawPolygon(mesh,landscapeZbuffer,1);
-
-				
-			}
 			
 			for (int k = 0; k < sp.nodes.size(); k++) {
 				
@@ -356,7 +344,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			LineData ld=(LineData) mesh.polygonData.elementAt(k);
 			Texture texture = EditorData.worldTextures[ld.getTexture_index()];
 			
-			drawPolygon(ld,mesh.points,landscapeZbuffer,texture,1);
+			drawPolygon(ld,mesh.points,landscapeZbuffer,texture,0);
 
 		} 
 		
@@ -392,12 +380,12 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			cz[i]=(int)p.z;
 
 
-
+            /*
 			if(indx==1){
 
 				cz[i]+=Road.ROAD_THICKNESS;
 
-			}
+			}*/
 
 		}
 
@@ -699,7 +687,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 				//System.out.println(x+" "+y+" "+tot);    	
 				
-				zb.set(xi,yi,zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),false,tot);
+				zb.set(xi,yi,zi,zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),false,tot);
 				
 				
 			}
@@ -791,7 +779,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 			
-				zb.set(xi,yi,zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),false,tot);
+				zb.set(xi,yi,zi,zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),false,tot);
 				
 			}
 

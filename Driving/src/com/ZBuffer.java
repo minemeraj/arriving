@@ -207,9 +207,9 @@ public class ZBuffer{
 			return getZ(index)==0 ||  getZ(index)>ys;
 		}	
 
-		public void set(double xs,double ys,double zs, int rgbColor,boolean empty,int index) {
+		public void set(double xs,double ys,double zs,double z, int rgbColor,boolean empty,int index) {
 
-			setZ(ys,index);
+			setZ(z,index);
 			setRgbColor(rgbColor,index);
 			setEmpty(empty,index);
 

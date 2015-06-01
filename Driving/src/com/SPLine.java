@@ -22,7 +22,7 @@ public class SPLine {
 		this.vTexturePoints=vTexturePoints;
 	}
 	
-	public void addPoint(SPNode nextNode){
+	public void addSPNode(SPNode nextNode){
 
 
 		

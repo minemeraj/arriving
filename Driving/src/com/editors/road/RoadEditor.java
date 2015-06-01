@@ -246,6 +246,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	BufferedImage buf=null;
 	private Graphics2D graphics;
 	private JButton startNewSPLine;
+	private JButton insertSPNode;
+	private JButton mergeSPNodes;
 	
 
 	
@@ -502,7 +504,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			rgb[i]=landscapeZbuffer.getRgbColor(i); 
 			
 			//clean
-			landscapeZbuffer.set(0,0,0,blackRgb,true,i);
+			landscapeZbuffer.set(0,0,0,0,blackRgb,true,i);
               
 		
 
@@ -826,7 +828,25 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		r+=120;		
 
+		insertSPNode=new JButton(header+"Insert node after"+footer);
+		insertSPNode.addActionListener(this);
+		insertSPNode.addKeyListener(this);
+		insertSPNode.setFocusable(false);
+		insertSPNode.setBounds(5,r,150,20);
+		splines_panel.add(insertSPNode);
+
+
+		r+=30;
 		
+		mergeSPNodes=new JButton(header+"Merge spnodes"+footer);
+		mergeSPNodes.addActionListener(this);
+		mergeSPNodes.addKeyListener(this);
+		mergeSPNodes.setFocusable(false);
+		mergeSPNodes.setBounds(5,r,150,20);
+		splines_panel.add(mergeSPNodes);
+
+
+		r+=30;
 
 		startNewSPLine=new JButton(header+"Start new spline"+footer);
 		startNewSPLine.addActionListener(this);
@@ -2350,9 +2370,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		else if(obj==jmt_3d_view){
 			changeView(ISO_VIEW);
 		}	
-		
+		else if(obj==insertSPNode){
+			insertSPNode();
+		}
+		else if(obj==mergeSPNodes){
+			mergeSPNodes();
+		}		
 		
 	}
+
+
 
 
 
@@ -3075,7 +3102,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			SPLine sp=new SPLine(vTexturePoints);	
 
-			sp.addPoint(p0);
+			sp.addSPNode(p0);
 			splines.add(sp);
 			
 		}else{
@@ -3083,7 +3110,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			SPLine sp=(SPLine) splines.lastElement();
 			
 			Vector vTexturePoints=buildTemplateTexturePoints(200);
-			sp.addPoint(p0);
+			sp.addSPNode(p0);
 			
 		}
 	
@@ -3103,6 +3130,58 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		mesh.addPoint(point);*/
 		
 
+	}
+	
+	private void mergeSPNodes() {
+		
+		for (int i = 0; i < splines.size(); i++) {
+			SPLine sp = (SPLine) splines.elementAt(i);
+			
+			for (int k = 0; k < sp.nodes.size(); k++) {
+				
+				SPNode node = (SPNode) sp.nodes.elementAt(k);
+
+				if(node.isSelected()){
+					
+					
+					
+				}
+			
+			}
+
+
+			
+		}
+		
+	}
+
+	private void insertSPNode() {
+		
+		for (int i = 0; i < splines.size(); i++) {
+			SPLine sp = (SPLine) splines.elementAt(i);
+			
+			for (int k = 0; k < sp.nodes.size(); k++) {
+				
+				SPNode node = (SPNode) sp.nodes.elementAt(k);
+
+				if(node.isSelected()){
+					
+					
+					
+				}
+			
+			}
+
+
+			
+		}
+		
+		for (int i = 0; i < splines.size(); i++) {
+			SPLine sp = (SPLine) splines.elementAt(i);
+		    sp.calculateRibs();	
+			
+		}	
+		
 	}
 	
 
@@ -3134,6 +3213,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		mesh.addPoint(point);
 
 	}
+	
+
 	
 	private void putObjectInCell(int x, int y) {
 		
