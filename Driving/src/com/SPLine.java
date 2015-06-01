@@ -59,7 +59,7 @@ public class SPLine {
 			SPNode previousNode = (SPNode) nodes.elementAt(i); 
 			SPNode nextNode = (SPNode) nodes.elementAt(i+1); 
 
-			int index=3;
+			int index=0;
 
 			double prevX=previousNode.x;
 			double prevY=previousNode.y;
@@ -105,20 +105,17 @@ public class SPLine {
 			
 			double dz=EditorData.splinesMeshes[0].getDeltaY();
 			
-			double dj=1.0/n;
-			
-			
-			
-			//double dz=Road.ROAD_THICKNESS;
-			
-			for(double l=0;l<=1;){
+			for(int k=0;k<n;k++){
 				
-				double x=(1-l)*prevX+l*nextX;
-				double y=(1-l)*prevY+l*nextY;
+				double l=k*200.0/nodeDistance;
+				if(l>1.0)
+					l=1.0;
+				
+				double x=(1.0-l)*prevX+l*nextX;
+				double y=(1.0-l)*prevY+l*nextY;
 
 				if(l==0 && i>0){
-					
-					l=l+dj;
+	
 					continue;
 				}	
 				
@@ -128,10 +125,7 @@ public class SPLine {
 				rib[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*len,dz,LineData.GREEN_HEX,index);	
 				rib[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*len,dz,LineData.GREEN_HEX,index);
 				ribs.add(rib);	
-				
-				
-				
-				l=l+dj;
+	
 
 			
 			}
