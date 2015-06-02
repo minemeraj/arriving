@@ -109,6 +109,7 @@ public class SPLine {
 			for(int k=0;k<n;k++){
 				
 				double l=k*len/nodeDistance;
+				//stretching last texture
 				if(k==n-1)
 					l=1.0;
 				

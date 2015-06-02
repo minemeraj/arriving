@@ -11,9 +11,9 @@ public class SPNode extends Point4D{
 	PolygonMesh ring=null;
 	PolygonMesh circle=null;
 
-	public SPNode(int x, int y, int i, String gREEN_HEX, int index) {
+	public SPNode(int x, int y, int z, String gREEN_HEX, int index) {
 	
-		super( x,  y,  i,  gREEN_HEX,  index);
+		super( x,  y,  z,  gREEN_HEX,  index);
 		update();
 		
 	}

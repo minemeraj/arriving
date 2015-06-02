@@ -3169,7 +3169,27 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 				if(node.isSelected()){
 					
+					SPNode nextNode=null;
 					
+					if(k+1< sp.nodes.size()){
+						
+						nextNode= (SPNode) sp.nodes.elementAt(k+1);
+						
+					}else{
+						
+						nextNode= (SPNode) sp.nodes.elementAt(0);
+					}
+					
+					
+					
+					double x=(node.x+nextNode.x)*0.5;
+					double y=(node.y+nextNode.y)*0.5;
+					double z=(node.z+nextNode.z)*0.5;
+					
+					
+					SPNode intermediateNode=new SPNode((int)x,(int)y,(int)z,"FFFFFF",0);
+					
+					newNodes.add(intermediateNode);
 					
 				}
 			
@@ -3184,7 +3204,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		    sp.calculateRibs();	
 			
 		}	
-		
+		deselectAllSPNodes();
+		draw();
 	}
 	
 
