@@ -124,7 +124,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			
 			Vector meshes = sp.getMeshes();
 			
-			for (int j = 0; j < meshes.size(); j++) {
+			for (int j = 0; j < meshes.size(); j++) {//if(j!=4)continue;
 				
 				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
 				            

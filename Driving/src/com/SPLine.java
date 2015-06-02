@@ -95,19 +95,20 @@ public class SPLine {
 				rprevd=new Point3D(preTangent.y,-preTangent.x,0);
 			}*/
 			
-			int n=(int) (nodeDistance/200.0)+1;
+			
 			
 			double wid=0.5*(EditorData.splinesMeshes[0].getDeltaX2()-
 					EditorData.splinesMeshes[0].getDeltaX());
-					
+				
 			double len=EditorData.splinesMeshes[0].getDeltaY2()-
 					EditorData.splinesMeshes[0].getDeltaY();
 			
 			double dz=EditorData.splinesMeshes[0].getDeltaY();
+			int n=(int) (nodeDistance/len)+1;
 			
 			for(int k=0;k<=n;k++){
 				
-				double l=k*200.0/nodeDistance;
+				double l=k*len/nodeDistance;
 				if(l>1.0)
 					l=1.0;
 				
@@ -120,10 +121,10 @@ public class SPLine {
 				}	
 				
 				Point4D[] rib=new Point4D[4];
-				rib[0]=new Point4D(x+lnextd.x*wid,y+lnextd.y*len,0,LineData.GREEN_HEX,index);
-				rib[1]=new Point4D(x+rnextd.x*wid,y+rnextd.y*len,0,LineData.GREEN_HEX,index);		
-				rib[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*len,dz,LineData.GREEN_HEX,index);	
-				rib[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*len,dz,LineData.GREEN_HEX,index);
+				rib[0]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,0,LineData.GREEN_HEX,index);
+				rib[1]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,0,LineData.GREEN_HEX,index);		
+				rib[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,dz,LineData.GREEN_HEX,index);	
+				rib[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,dz,LineData.GREEN_HEX,index);
 				ribs.add(rib);	
 	            //System.out.println(rib[0]+","+rib[1]+","+rib[2]+","+rib[3]+",");  
 
