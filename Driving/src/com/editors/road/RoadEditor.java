@@ -3134,6 +3134,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private void mergeSPNodes() {
 		
+		SPNode baseNode=null;
+		
 		for (int i = 0; i < splines.size(); i++) {
 			SPLine sp = (SPLine) splines.elementAt(i);
 			
@@ -3143,7 +3145,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 				if(node.isSelected()){
 					
-					
+					if(baseNode==null){
+						
+						baseNode=node;
+						
+					}else{
+						
+						sp.nodes.setElementAt(baseNode,k);
+					}
 					
 				}
 			
@@ -3152,6 +3161,15 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 			
 		}
+		
+		for (int i = 0; i < splines.size(); i++) {
+			SPLine sp = (SPLine) splines.elementAt(i);
+		    sp.calculateRibs();	
+			
+		}
+		
+		deselectAllSPNodes();
+		draw();
 		
 	}
 
