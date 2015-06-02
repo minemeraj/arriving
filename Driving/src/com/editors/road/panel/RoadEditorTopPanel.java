@@ -127,8 +127,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			for (int j = 0; j < meshes.size(); j++) {
 				
 				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
-				
-	            
+				            
 				drawPolygon(mesh,landscapeZbuffer,1);
                  
 				
@@ -520,17 +519,17 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 		double x0=(int)convertX(p0.x,p0.y,p0.z);
 		double y0=(int)convertY(p0.x,p0.y,p0.z);
-		double z0=p0.y;
+		double z0=p0.z;
 
 		double x1=(int)convertX(p1.x,p1.y,p1.z);
 		double y1=(int)convertY(p1.x,p1.y,p1.z);
-		double z1=p1.y;
+		double z1=p1.z;
 
 		
 		double x2=(int)convertX(p2.x,p2.y,p2.z);
 		double y2=(int)convertY(p2.x,p2.y,p2.z);
-		double z2=p2.y;
-
+		double z2=p2.z;
+        //System.out.println(x0+" "+y0+", "+x1+" "+y1+", "+x2+" "+y2);
 		
 		//check if triangle is visible
 		double maxX=Math.max(x0,x1);

@@ -3160,9 +3160,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		for (int i = 0; i < splines.size(); i++) {
 			SPLine sp = (SPLine) splines.elementAt(i);
 			
+			Vector newNodes=new Vector();
+			
 			for (int k = 0; k < sp.nodes.size(); k++) {
 				
 				SPNode node = (SPNode) sp.nodes.elementAt(k);
+				newNodes.add(node);
 
 				if(node.isSelected()){
 					
@@ -3171,7 +3174,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				}
 			
 			}
-
+			 sp.nodes=newNodes;
 
 			
 		}
