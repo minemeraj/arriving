@@ -105,7 +105,7 @@ public class SPLine {
 			
 			double dz=EditorData.splinesMeshes[0].getDeltaY();
 			
-			for(int k=0;k<n;k++){
+			for(int k=0;k<=n;k++){
 				
 				double l=k*200.0/nodeDistance;
 				if(l>1.0)
