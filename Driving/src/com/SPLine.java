@@ -63,9 +63,11 @@ public class SPLine {
 
 			double prevX=previousNode.x;
 			double prevY=previousNode.y;
+			double prevZ=previousNode.z;
 
 			double nextX=nextNode.x;
 			double nextY=nextNode.y;
+			double nextZ=nextNode.z;
 
 			//Point3D preTangent=previousNode.getTangent();
 
@@ -115,6 +117,7 @@ public class SPLine {
 				
 				double x=(1.0-l)*prevX+l*nextX;
 				double y=(1.0-l)*prevY+l*nextY;
+				double z=(1.0-l)*prevZ+l*nextZ;
 
 				if(l==0 && i>0){
 	
@@ -122,10 +125,10 @@ public class SPLine {
 				}	
 				
 				Point4D[] rib=new Point4D[4];
-				rib[0]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,0,LineData.GREEN_HEX,index);
-				rib[1]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,0,LineData.GREEN_HEX,index);		
-				rib[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,dz,LineData.GREEN_HEX,index);	
-				rib[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,dz,LineData.GREEN_HEX,index);
+				rib[0]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z,LineData.GREEN_HEX,index);
+				rib[1]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z,LineData.GREEN_HEX,index);		
+				rib[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z+dz,LineData.GREEN_HEX,index);	
+				rib[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z+dz,LineData.GREEN_HEX,index);
 				ribs.add(rib);	
 	            //System.out.println(rib[0]+","+rib[1]+","+rib[2]+","+rib[3]+",");  
 

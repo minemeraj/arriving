@@ -1422,6 +1422,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				}
 
 		}	
+		updateSPlines();
+		
         firePropertyChange("RoadEditorUpdate", false, true);
 
 		cleanPoints();
@@ -1724,6 +1726,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 			}
 		}	
+		
+		updateSPlines();
+		
 		firePropertyChange("RoadEditorUpdate", false, true);
 
 		cleanPoints();
@@ -2726,6 +2731,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		if(meshes[TERRAIN_INDEX]==null || meshes[TERRAIN_INDEX].polygonData==null)
 			return;
+		
+		int lsize=meshes[TERRAIN_INDEX].polygonData.size();
 
 		for (int i = 0; splines!=null && i < splines.size(); i++) {
 
@@ -2735,10 +2742,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			for (int k = 0; k < sp.nodes.size(); k++) {
 
 				SPNode node = (SPNode) sp.nodes.elementAt(k);
-
-
-				int lsize=meshes[TERRAIN_INDEX].polygonData.size();
-
+				
 
 				for(int j=0;j<lsize;j++){
 
@@ -2748,10 +2752,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					Polygon3D p3D=levelGetPolygon(ld,meshes[TERRAIN_INDEX].points);
 
 					if(p3D.contains(node.x,node.y)){
-
-						double posz=interpolate(node.x,node.y,p3D);
 						
-						node.z=posz;
+						double zz=interpolate(node.x,node.y,p3D);
+
+						node.z=zz;
+						
 
 					}
 
