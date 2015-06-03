@@ -1602,13 +1602,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			if(newNodes.size()>0){
 				
 				sp.nodes=newNodes;
-				sp.calculateRibs();
 				newSplines.add(sp);
 			}
 			
 		}
 		
 		splines=newSplines;
+		
+		updateSPlines();
 		
 	}
 
@@ -2720,57 +2721,60 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 	
-	private void levelRoadTerrain(int action) {
+	private void levelSPLinesTerrain() {
+
+
+		if(meshes[TERRAIN_INDEX]==null || meshes[TERRAIN_INDEX].polygonData==null)
+			return;
+
+		for (int i = 0; splines!=null && i < splines.size(); i++) {
+
+
+			SPLine sp = (SPLine) splines.elementAt(i);
+
+			for (int k = 0; k < sp.nodes.size(); k++) {
+
+				SPNode node = (SPNode) sp.nodes.elementAt(k);
+
+
+				int lsize=meshes[TERRAIN_INDEX].polygonData.size();
+
+
+				for(int j=0;j<lsize;j++){
+
+
+					LineData ld=(LineData) meshes[TERRAIN_INDEX].polygonData.elementAt(j);
+
+					Polygon3D p3D=levelGetPolygon(ld,meshes[TERRAIN_INDEX].points);
+
+					if(p3D.contains(node.x,node.y)){
+
+						double posz=interpolate(node.x,node.y,p3D);
+						
+						node.z=posz;
+
+					}
+
+
+				} 
+
+			}
+		}
 		
 	
 
-		//jmtLevelRoadTerrain
-		int from=1;
-		int to=0;
-		//jmtLevelTerrainRoad
-
-		if(action<0){
-
-			from=0;
-			to=1;
-
-		}	
-
-
-
-
-		for (int i = 0; i < meshes[from].points.length;  i++) {
-
-			Point3D point=meshes[from].points[i];
+	}
+	
+	public void updateSPlines(){
+		
+		levelSPLinesTerrain();
+		
+		for (int i = 0; i < splines.size(); i++) {
+			SPLine sp = (SPLine) splines.elementAt(i);
+		    sp.calculateRibs();	
 			
-			if(!point.isSelected)
-				continue;
-			
-			
-
-			int lsize=meshes[to].polygonData.size();
-
-
-			for(int j=0;j<lsize;j++){
-
-
-				LineData ld=(LineData) meshes[to].polygonData.elementAt(j);
-
-				Polygon3D p3D=levelGetPolygon(ld,meshes[to].points);
-
-				if(p3D.contains(point.x,point.y)){
-					
-					int posz=(int)interpolate(point.x,point.y,p3D);
-					point.z=posz;
-					
-				}
-
-
-			} 
-
-
 		}
-
+		
 	}
 	
 	protected double interpolate(double px, double py, Polygon3D p3d) {
@@ -3128,11 +3132,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 		}
 		
-		for (int i = 0; i < splines.size(); i++) {
-			SPLine sp = (SPLine) splines.elementAt(i);
-		    sp.calculateRibs();	
-			
-		}
+		updateSPlines();
 		
 		deselectAllSPNodes();
 		draw();
@@ -3183,11 +3183,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 		}
 		
-		for (int i = 0; i < splines.size(); i++) {
-			SPLine sp = (SPLine) splines.elementAt(i);
-		    sp.calculateRibs();	
-			
-		}	
+		updateSPlines();
+		
 		deselectAllSPNodes();
 		draw();
 	}
