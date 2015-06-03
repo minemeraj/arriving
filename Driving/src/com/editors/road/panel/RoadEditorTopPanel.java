@@ -655,7 +655,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				double zi=((1-l)*pstart.p_z+l*pend.p_z);
 				double xi=((1-l)*pstart.p_x+l*pend.p_x);  
 		
-				if(!zb.isToUpdate(zi,tot)){
+				if(!zb.isToUpdate(-zi,tot)){
 				
 					continue;
 				}	
@@ -686,7 +686,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 				//System.out.println(x+" "+y+" "+tot);    	
 				
-				zb.set(xi,yi,zi,zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),false,tot);
+				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),false,tot);
 				
 				
 			}
@@ -746,7 +746,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				double xi=((1-l)*pstart.p_x+l*pend.p_x);  
 				
 				
-				if(!zb.isToUpdate(zi,tot) ){
+				if(!zb.isToUpdate(-zi,tot) ){
 					
 					continue;
 				}	
@@ -778,7 +778,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 			
-				zb.set(xi,yi,zi,zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),false,tot);
+				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),false,tot);
 				
 			}
 

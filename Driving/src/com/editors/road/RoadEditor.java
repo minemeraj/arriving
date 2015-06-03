@@ -108,7 +108,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	//Graphics2D g2;
 	//Graphics2D g2Alias;
 	Stack oldObjects=new Stack();
-	Stack oldRoads=new Stack();
+	Stack oldSpline=new Stack();
 	int MAX_STACK_SIZE=10;
 
 
@@ -164,7 +164,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private JMenu jm4;
 	private JMenuItem jmtUndoObjects;
-	private JMenuItem jmtUndoRoad;	
+	private JMenuItem jmtUndoSPLines;	
 	private JPanel left;
 	
 	private JButton changeObject;
@@ -192,7 +192,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JMenuItem jmtShowAltimetry;
 	private JMenuItem jmtBuildNewGrid;
 	private JMenu help_jm;
-	private AbstractButton jmtAddBendMesh;
 	private JMenuItem jmt_load_landscape;
 	private JMenuItem jmt_save_landscape;
 
@@ -202,9 +201,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	Color alphaRed=new Color(Color.RED.getRed(),0,0,100);
 	private JMenuItem jmtAddGrid;
-	private JMenu jmSpecial;
-	private JMenuItem jmtLevelRoadTerrain;
-	private JMenuItem jmLevelTerrainRoad;
 	
 	public static ZBuffer landscapeZbuffer;
 	public int blackRgb= Color.BLACK.getRGB();
@@ -621,10 +617,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		jmtUndoObjects.setEnabled(false);
 		jmtUndoObjects.addActionListener(this);
 		jm4.add(jmtUndoObjects);
-		jmtUndoRoad = new JMenuItem("Undo last road");
-		jmtUndoRoad.setEnabled(false);
-		jmtUndoRoad.addActionListener(this);
-		jm4.add(jmtUndoRoad);	
+		jmtUndoSPLines = new JMenuItem("Undo last road");
+		jmtUndoSPLines.setEnabled(false);
+		jmtUndoSPLines.addActionListener(this);
+		jm4.add(jmtUndoSPLines);	
 		
 		jmb.add(jm4);
 		
@@ -670,28 +666,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		jmtShowAltimetry = new JMenuItem("Advanced Altimetry");
 		jmtShowAltimetry.addActionListener(this);
 		jm_editing.add(jmtShowAltimetry);
-				
-
-		jm_editing.addSeparator();
-		
-		jmtAddBendMesh = new JMenuItem("Add bend (R)");
-		jmtAddBendMesh.addActionListener(this);
-		jm_editing.add(jmtAddBendMesh);
-		
+			
 		
 		jmb.add(jm_editing);
-		
-		jmSpecial=new JMenu("Special");
-		jmSpecial.addMenuListener(this);		
-		jmb.add(jmSpecial);
-		
-		jmtLevelRoadTerrain=new JMenuItem("Level road->ground");
-		jmtLevelRoadTerrain.addActionListener(this);		
-		jmSpecial.add(jmtLevelRoadTerrain);
-		
-		jmLevelTerrainRoad=new JMenuItem("Level ground->road");
-		jmLevelTerrainRoad.addActionListener(this);		
-		jmSpecial.add(jmLevelTerrainRoad);
 		
 		help_jm=new JMenu("Help");
 		help_jm.addMenuListener(this);		
@@ -1280,22 +1257,27 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			jmtUndoObjects.setEnabled(false);
 	}
 
-	private void undoRoad() {
+	private void undoSplines() {
 
-		super.undo();
+		splines=(Vector) oldSpline.pop();
+		if(oldSpline.size()==0)
+			jmtUndoSPLines.setEnabled(false);
 		
 		firePropertyChange("RoadEditorUndo", false, true);
 	}
 
 	public void prepareUndo() {
 		prepareUndoObjects();
-		prepareUndoRoad();
+		prepareUndoSpline();
 	}
 
-	private void prepareUndoRoad() {
-		jmtUndoRoad.setEnabled(true);
+	private void prepareUndoSpline() {
+		jmtUndoSPLines.setEnabled(true);
 		
-		super.prepareUndo();
+		if(oldSpline.size()==MAX_STACK_SIZE){
+			oldSpline.removeElementAt(0);
+		}
+		oldSpline.push(cloneSPLines(splines));
 
 
 	}
@@ -1412,9 +1394,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 
-	private void changeSelectedRoadPoint() {
+	private void changeSelectedTerrainPoint() {
 
-		prepareUndoRoad();
+	
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
 		
@@ -1446,9 +1428,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		draw();
 	}
 	
-	private void changeSelectedRoadPolygon() {
+	private void changeSelectedTerrainPolygon() {
 		
-		prepareUndoRoad();
+	
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
 		int sizel=mesh.polygonData.size();
@@ -1481,7 +1463,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private void invertSelectedRoadPolygon() {
 		
-		prepareUndoRoad();
+		prepareUndoSpline();
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
 		int sizel=mesh.polygonData.size();
@@ -1508,7 +1490,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void mergeSelectedPoints() {
 	
-		prepareUndoRoad();
+		//prepareUndo();
 		
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
@@ -1596,6 +1578,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 	private void deleteSelectedSPnode() {
+		
+		prepareUndoSpline();
 		
 		Vector newSplines=new Vector();
 	
@@ -1717,7 +1701,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
-		prepareUndoRoad();
+		prepareUndoSpline();
 
 		for(int j=0;j<mesh.points.length;j++){
 
@@ -2016,6 +2000,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			//right.setSelectedIndex(0);
 			
             loadObjectsFromFile(file); 
+            
+            
+            oldSpline=new Stack();
+            oldObjects=new Stack();
 
 		}
 		
@@ -2081,7 +2069,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	public void loadObjectsFromFile(File file){
 
-		oldRoads=new Stack();
+		
 		drawObjects=new Vector();
 
 		try {
@@ -2195,8 +2183,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		else if(obj==jmtUndoObjects){
 			undoObjects();
 		}
-		else if(obj==jmtUndoRoad){
-			undoRoad();
+		else if(obj==jmtUndoSPLines){
+			undoSplines();
 		}
 		else if(obj==jmtShowAltimetry){
 			showAltimetry();
@@ -2213,20 +2201,17 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		else if(obj==jmtBuildCity){
 			buildCity();
 		}		
-		else if(obj==jmtAddBendMesh){
-			addBendMesh();
-		}
 		else if(obj==mergeSelectedPoints[ACTIVE_PANEL]){			
 			
 			mergeSelectedPoints();
 			draw();
 		}
 		else if(obj==changePoint[ACTIVE_PANEL] ){
-			changeSelectedRoadPoint();
+			changeSelectedTerrainPoint();
 			draw();
 		}
 		else if(obj==changePolygon[ACTIVE_PANEL]){
-			changeSelectedRoadPolygon();
+			changeSelectedTerrainPolygon();
 			draw();
 		}	
 		else if(obj==startNewSPLine){
@@ -2352,16 +2337,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			moveSelectedObject(0,0,-1);
 
 		}
-		else if(obj==jmtLevelRoadTerrain){
-
-			levelRoadTerrain(1);
-
-		}
-		else if(obj==jmLevelTerrainRoad){
-
-			levelRoadTerrain(-1);
-
-		}else if(obj==help_jmt){
+		else if(obj==help_jmt){
 			help();
 		}
 		else if(obj==jmt_top_view){
@@ -2863,7 +2839,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		return p_in;
 	}
 
-	private void addBendMesh() {
+	/*private void addBendMesh() {
 		
 		if(ACTIVE_PANEL==0){
 			
@@ -2980,7 +2956,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 		}
 		
-	}
+	}*/
 	
 	public void startNewSPLine() {
 		
@@ -3025,7 +3001,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			//right button click
 			if(buttonNum==MouseEvent.BUTTON3)
 				//addObject(arg0);
-				addPoint(arg0);
+				addSPnode(arg0);
 			else{
 				selectSPNode(arg0.getX(),arg0.getY());	
 				
@@ -3078,7 +3054,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
-	private void addPoint(MouseEvent arg0) {
+	private void addSPnode(MouseEvent arg0) {
+		
+		prepareUndoSpline();
 		
 		RoadEditorPanel ep = getCenter();
 		
@@ -3115,24 +3093,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 	
 		
-		/*PolygonMesh mesh=meshes[ACTIVE_PANEL];
-		
-	
-		
-		
-		ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getSelectedItem();
-		if(vp!=null && !vp.getValue().equals(""))
-			index=Integer.parseInt(vp.getId());
-		else
-			index=0;
-		
-		
-		mesh.addPoint(point);*/
-		
 
 	}
 	
 	private void mergeSPNodes() {
+		
+		prepareUndoSpline();
 		
 		SPNode baseNode=null;
 		
@@ -3151,7 +3117,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 						
 					}else{
 						
-						sp.nodes.setElementAt(baseNode,k);
+						sp.nodes.setElementAt(baseNode.clone(),k);
 					}
 					
 				}
@@ -3570,7 +3536,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		else if(code==KeyEvent.VK_P  )
 		{	
-			changeSelectedRoadPoint();
+			changeSelectedTerrainPoint();
 			draw();
 		}
 		else if(code==KeyEvent.VK_B  )
@@ -3580,7 +3546,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		else if(code==KeyEvent.VK_Y  )
 		{ 
-			changeSelectedRoadPolygon();
+			changeSelectedTerrainPolygon();
 			draw();
 		}
 		else if(code==KeyEvent.VK_E  )
@@ -4005,6 +3971,25 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		vPoints.add(new Point3D(0,side,0));
 		
 		return vPoints;
+	}
+	
+	public Vector cloneSPLines(Vector splines){
+		
+		Vector newSplines=new Vector();
+		
+		for (int i = 0; i < splines.size(); i++) {
+			SPLine line = (SPLine) splines.elementAt(i);
+			try {
+				
+				newSplines.add(line.clone());
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return newSplines;
+		
 	}
 
 

@@ -11,17 +11,26 @@ public class SPNode extends Point4D{
 	PolygonMesh ring=null;
 	PolygonMesh circle=null;
 
-	public SPNode(int x, int y, int z, String gREEN_HEX, int index) {
+	public SPNode(double x, double y, double z, String gREEN_HEX, int index) {
 	
 		super( x,  y,  z,  gREEN_HEX,  index);
 		update();
 		
 	}
 	
+	@Override
+	public SPNode clone() {
+		
+		SPNode sp=new SPNode(x,  y,  z,  "FFFFFF",  index);
+		sp.update();
+		
+		return sp;
+	}
+	
 	public void update(){
 		
-		ring=EditorData.getRing(x,y,z+10);	
-		circle=EditorData.getCircle(x,y,z+10);	
+		ring=EditorData.getRing(x,y,z+25);	
+		circle=EditorData.getCircle(x,y,z+25);	
 		
 	}
 

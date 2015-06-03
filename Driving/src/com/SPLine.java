@@ -245,6 +245,19 @@ public class SPLine {
 	public void setvTexturePoints(Vector vTexturePoints) {
 		this.vTexturePoints = vTexturePoints;
 	}
+	
+	
+	public SPLine clone() throws CloneNotSupportedException {
+		
+		SPLine line=new SPLine(vTexturePoints);
+		
+		for (int i = 0; i < nodes.size(); i++) {
+			SPNode sp = (SPNode) nodes.elementAt(i);
+			line.addSPNode(sp.clone());
+		}
+		
+		return  line;
+	}
 
 
 
