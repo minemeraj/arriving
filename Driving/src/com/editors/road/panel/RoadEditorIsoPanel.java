@@ -157,7 +157,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
 				
 				
-                Vector polygonData=EditorData.splinesMeshes[0].polygonData;
+                Vector polygonData=mesh.polygonData;
 				
 				int lsize=polygonData.size();
 				

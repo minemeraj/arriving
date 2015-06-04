@@ -218,20 +218,9 @@ public class SPLine {
 			points.add(p6);
 			points.add(p7);
 
-			/*Point3D pt0=(Point3D) vTexturePoints.elementAt(0);
-			Point3D pt1=(Point3D) vTexturePoints.elementAt(1);
-			Point3D pt2=(Point3D) vTexturePoints.elementAt(2);
-			Point3D pt3=(Point3D) vTexturePoints.elementAt(3);*/
 
-			Vector polygonData=new Vector();
-			/*LineData ld=new LineData();
-			ld.addIndex(0,0,pt0.x,pt0.y);
-			ld.addIndex(1,1,pt1.x,pt1.y);
-			ld.addIndex(2,2,pt2.x,pt2.y);
-			ld.addIndex(3,3,pt3.x,pt3.y);
-			ld.setTexture_index(index);
-			polygonData.add(ld);*/
-
+			Vector polygonData=EditorData.splinesMeshes[0].polygonData;
+			
 			PolygonMesh mesh=new PolygonMesh(points,polygonData);
 			mesh.setTexturePoints(vTexturePoints);
 			meshes.add(mesh);

@@ -733,14 +733,12 @@ public class Road extends Shader{
 			for (int j = 0; j < meshes.size(); j++) {
 
 				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
-				
-				PolygonMesh pMesh =EditorData.splinesMeshes[0];
 
-				int size=pMesh.polygonData.size();
+				int size=mesh.polygonData.size();
 
 				for(int k=0;k<size;k++){
 
-					LineData ld=(LineData) pMesh.polygonData.elementAt(k);
+					LineData ld=(LineData) mesh.polygonData.elementAt(k);
 
 					Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points);
 
