@@ -1464,7 +1464,7 @@ public class Road extends Shader{
 		try {
 			boolean forceReading=false;
 			splines=Editor.loadStaticSPLinesFromFile(file,forceReading);
-			//Editor.levelSPLinesTerrain(meshes[RoadEditor.TERRAIN_INDEX],splines);
+			
 			//translation to fit view screen
 			if(splines.size()>0){
 
@@ -1477,7 +1477,8 @@ public class Road extends Shader{
 						
 						Point4D[] rib= (Point4D[]) sp.ribs.elementAt(j);
 						for (int k = 0; k < rib.length; k++) {
-							rib[k].translate(-XFOCUS,+SCREEN_DISTANCE,-YFOCUS);
+							//rib[k].translate(-XFOCUS,+SCREEN_DISTANCE,-YFOCUS);
+							rib[k].translate(-XFOCUS,+SCREEN_DISTANCE,0);
 						}
 					
 					}
@@ -1486,6 +1487,7 @@ public class Road extends Shader{
 				}
 
 			}
+			Editor.levelSPLinesTerrain(meshes[RoadEditor.TERRAIN_INDEX],splines);
 
 
 		} catch (Exception e) {
