@@ -270,9 +270,8 @@ public class Editor extends JFrame implements MenuListener{
 				if(str.startsWith("vt=")){
 					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
 					continue;
-				}	
+				}else if(str.equals("<spline>")){			
 				
-				if(str.equals("<spline>")){
 					
 					
 					SPLine sp=new SPLine(vTexturePoints);
@@ -319,6 +318,12 @@ public class Editor extends JFrame implements MenuListener{
 			
 	        sp.addSPNode(p);
         
+		}else if(str.startsWith("i=")){
+			
+			str=str.substring(2);
+			int index=Integer.parseInt(str);
+			sp.setTexture_index(index);
+			
 		}
 	}
 
@@ -405,6 +410,7 @@ public class Editor extends JFrame implements MenuListener{
 	private String decomposeSPLine(SPLine sp) {
 		
 		String str="<spline>\n";
+		str+="i="+sp.getTexture_index()+"\n";
 		for(int i=0;i<sp.nodes.size();i++){
 			
 			if(i>0)
