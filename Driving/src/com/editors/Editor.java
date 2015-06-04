@@ -15,6 +15,7 @@ import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
 import com.LineData;
+import com.Plain;
 import com.Point3D;
 import com.Point4D;
 import com.Polygon3D;
@@ -73,8 +74,123 @@ public class Editor extends JFrame implements MenuListener{
 	}
 
 
+	public static void levelSPLinesTerrain(PolygonMesh mesh, Vector splines) {
+
+
+
+		int lsize=mesh.polygonData.size();
+
+		for (int i = 0; splines!=null && i < splines.size(); i++) {
+
+
+			SPLine sp = (SPLine) splines.elementAt(i);
+
+			for (int k = 0; k < sp.ribs.size();k++){
+
+				Point4D[] rib = (Point4D[]) sp.ribs.elementAt(k);
+				
+				double mx=(rib[0].x+rib[1].x)*0.5;
+				double my=(rib[0].y+rib[1].y)*0.5;
+				
+
+				for(int j=0;j<lsize;j++){
+
+
+					LineData ld=(LineData) mesh.polygonData.elementAt(j);
+
+					Polygon3D p3D=levelGetPolygon(ld,mesh.points);
+
+					if(p3D.contains(mx,my)){
+						
+						double zz=interpolate(mx,my,p3D);
+
+						for (int l = 0; l < rib.length; l++) {
+							rib[l].z+=zz;
+						}
+						
+						
+						break;
+						
+
+					}
+
+
+				} 
+
+			}
+		}
+		
 	
 
+	}
+
+
+	public static Polygon3D levelGetPolygon(LineData ld, Point3D[] points) {
+		
+	
+
+		int size=ld.size();
+
+		int[] cx=new int[size];
+		int[] cy=new int[size];
+		int[] cz=new int[size];
+
+
+		for(int i=0;i<size;i++){
+
+
+			int num=ld.getIndex(i);
+
+			Point4D p=(Point4D) points[num];
+			
+
+
+			//bufGraphics.setColor(ZBuffer.fromHexToColor(is[i].getHexColor()));
+
+			cx[i]=(int)p.x;
+			cy[i]=(int)p.y;
+			cz[i]=(int)p.z;
+
+	
+
+		}
+
+		Polygon3D p_in=new Polygon3D(ld.size(),cx,cy,cz);
+		
+		return p_in;
+	}
+	
+	
+	public static double interpolate(double px, double py, Polygon3D p3d) {
+	       
+		/*Plain plain=Plain.calculatePlain(p3d);
+		return plain.calculateZ(px,py);
+
+		 */
+		Polygon3D p1=Polygon3D.extractSubPolygon3D(p3d,3,0);
+
+		if(p1.hasInsidePoint(px,py)){
+
+			Plain plane1=Plain.calculatePlain(p1);
+
+			return plane1.calculateZ(px,py);
+
+		}
+
+		Polygon3D p2=Polygon3D.extractSubPolygon3D(p3d,3,2);
+
+		if(p2.hasInsidePoint(px,py)){
+
+			Plain plane2=Plain.calculatePlain(p2);
+
+			return plane2.calculateZ(px,py);
+
+		}
+
+
+		return 0;
+	}
+	
 	
 	public void buildLines(Vector lines, String str) {
 

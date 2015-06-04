@@ -2003,6 +2003,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			loadSPLinesFromFile(file);
 			setACTIVE_PANEL(0);
 			
+			Editor.levelSPLinesTerrain(meshes[TERRAIN_INDEX],splines);
 			//right.setSelectedIndex(0);
 			
             loadObjectsFromFile(file); 
@@ -2726,57 +2727,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 	
-	private void levelSPLinesTerrain() {
-
-
-		if(meshes[TERRAIN_INDEX]==null || meshes[TERRAIN_INDEX].polygonData==null)
-			return;
-		
-		int lsize=meshes[TERRAIN_INDEX].polygonData.size();
-
-		for (int i = 0; splines!=null && i < splines.size(); i++) {
-
-
-			SPLine sp = (SPLine) splines.elementAt(i);
-
-			for (int k = 0; k < sp.ribs.size();k++){
-
-				Point4D[] rib = (Point4D[]) sp.ribs.elementAt(k);
-				
-				double mx=(rib[0].x+rib[1].x)*0.5;
-				double my=(rib[0].y+rib[1].y)*0.5;
-				
-
-				for(int j=0;j<lsize;j++){
-
-
-					LineData ld=(LineData) meshes[TERRAIN_INDEX].polygonData.elementAt(j);
-
-					Polygon3D p3D=levelGetPolygon(ld,meshes[TERRAIN_INDEX].points);
-
-					if(p3D.contains(mx,my)){
-						
-						double zz=interpolate(mx,my,p3D);
-
-						for (int l = 0; l < rib.length; l++) {
-							rib[l].z+=zz;
-						}
-						
-						
-						break;
-						
-
-					}
-
-
-				} 
-
-			}
-		}
-		
 	
-
-	}
 	
 	public void updateSPlines(){
 		
@@ -2787,76 +2738,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		    sp.calculateRibs();	
 			
 		}
+		if(meshes[TERRAIN_INDEX]==null || meshes[TERRAIN_INDEX].polygonData==null)
+			return;
 		
-		levelSPLinesTerrain();
+		Editor.levelSPLinesTerrain(meshes[TERRAIN_INDEX],splines);
 		
 	}
-	
-	protected double interpolate(double px, double py, Polygon3D p3d) {
-	       
-		/*Plain plain=Plain.calculatePlain(p3d);
-		return plain.calculateZ(px,py);
-
-		 */
-		Polygon3D p1=Polygon3D.extractSubPolygon3D(p3d,3,0);
-
-		if(p1.hasInsidePoint(px,py)){
-
-			Plain plane1=Plain.calculatePlain(p1);
-
-			return plane1.calculateZ(px,py);
-
-		}
-
-		Polygon3D p2=Polygon3D.extractSubPolygon3D(p3d,3,2);
-
-		if(p2.hasInsidePoint(px,py)){
-
-			Plain plane2=Plain.calculatePlain(p2);
-
-			return plane2.calculateZ(px,py);
-
-		}
 
 
-		return 0;
-	}
-	
-
-	private Polygon3D levelGetPolygon(LineData ld, Point3D[] points) {
-		
-	
-
-		int size=ld.size();
-
-		int[] cx=new int[size];
-		int[] cy=new int[size];
-		int[] cz=new int[size];
-
-
-		for(int i=0;i<size;i++){
-
-
-			int num=ld.getIndex(i);
-
-			Point4D p=(Point4D) points[num];
-			
-
-
-			//bufGraphics.setColor(ZBuffer.fromHexToColor(is[i].getHexColor()));
-
-			cx[i]=(int)p.x;
-			cy[i]=(int)p.y;
-			cz[i]=(int)p.z;
-
-	
-
-		}
-
-		Polygon3D p_in=new Polygon3D(ld.size(),cx,cy,cz);
-		
-		return p_in;
-	}
 
 	/*private void addBendMesh() {
 		

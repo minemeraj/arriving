@@ -34,6 +34,7 @@ import com.Texture;
 import com.ZBuffer;
 import com.editors.Editor;
 import com.editors.EditorData;
+import com.editors.road.RoadEditor;
 
 
 /*
@@ -166,9 +167,11 @@ public class Road extends Shader{
 			
 			File file=new File("lib/landscape_"+carFrame.map_name);
 			
-			loadPointsFromFile(file,0);		
+			loadPointsFromFile(file,RoadEditor.TERRAIN_INDEX);		
 			//loadPointsFromFile(file,1);
 			loadSPLinesFromFile(file);
+			
+			
 			loadObjectsFromFile(file);			
 			
 		} catch (Exception e) {
@@ -1461,7 +1464,7 @@ public class Road extends Shader{
 		try {
 			boolean forceReading=false;
 			splines=Editor.loadStaticSPLinesFromFile(file,forceReading);
-			
+			//Editor.levelSPLinesTerrain(meshes[RoadEditor.TERRAIN_INDEX],splines);
 			//translation to fit view screen
 			if(splines.size()>0){
 
