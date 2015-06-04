@@ -728,7 +728,7 @@ public class Road extends Shader{
 
 			SPLine sp = (SPLine) splines.elementAt(i);
 
-			Vector meshes = sp.get3DMeshes();
+			Vector meshes = sp.getMeshes3D();
 
 			for (int j = 0; j < meshes.size(); j++) {
 
@@ -1478,7 +1478,7 @@ public class Road extends Shader{
 						}
 					
 					}
-
+                     sp.calculate3DMeshes();
 
 				}
 

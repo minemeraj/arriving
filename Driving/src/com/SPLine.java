@@ -14,6 +14,8 @@ public class SPLine {
 	Vector vTexturePoints=null;
 	
 	int texture_index=0;
+	
+	Vector meshes3D=new Vector();
 
 	
 	public SPLine(Vector vTexturePoints){
@@ -185,9 +187,9 @@ public class SPLine {
 
 	}
 	
-	public Vector get3DMeshes() {
+	public void calculate3DMeshes() {
 
-		Vector meshes=new Vector();
+		meshes3D=new Vector();
 
 		for (int i = 0; i < ribs.size()-1; i++) {
 			Point4D[] prevRib= (Point4D[]) ribs.elementAt(i);
@@ -222,10 +224,8 @@ public class SPLine {
 			
 			PolygonMesh mesh=new PolygonMesh(points,polygonData);
 			mesh.setTexturePoints(vTexturePoints);
-			meshes.add(mesh);
+			meshes3D.add(mesh);
 		}
-
-		return meshes;
 
 	}
 
@@ -256,6 +256,14 @@ public class SPLine {
 
 	public void setTexture_index(int texture_index) {
 		this.texture_index = texture_index;
+	}
+
+	public Vector getMeshes3D() {
+		return meshes3D;
+	}
+
+	public void setMeshes3D(Vector meshes3d) {
+		meshes3D = meshes3d;
 	}
 
 

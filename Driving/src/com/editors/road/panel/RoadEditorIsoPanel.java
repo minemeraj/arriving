@@ -149,8 +149,9 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 		for (int i = 0; i < splines.size(); i++) {
 			SPLine sp = (SPLine) splines.elementAt(i);
+			sp.calculate3DMeshes();
 			
-			Vector meshes = sp.get3DMeshes();
+			Vector meshes = sp.getMeshes3D();
 			
 			for (int j = 0; j < meshes.size(); j++) {
 				
