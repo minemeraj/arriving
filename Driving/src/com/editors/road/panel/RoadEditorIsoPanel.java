@@ -150,23 +150,23 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		for (int i = 0; i < splines.size(); i++) {
 			SPLine sp = (SPLine) splines.elementAt(i);
 			
-			Vector meshes = sp.getMeshes();
+			Vector meshes = sp.get3DMeshes();
 			
 			for (int j = 0; j < meshes.size(); j++) {
 				
 				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
 				
 				
-
+                Vector polygonData=EditorData.splinesMeshes[0].polygonData;
 				
-				int lsize=mesh.polygonData.size();
+				int lsize=polygonData.size();
 				
 
 				for(int k=0;k<lsize;k++){
 				
 					Color selected=null;
 					
-					LineData ld=(LineData) mesh.polygonData.elementAt(k);
+					LineData ld=(LineData) polygonData.elementAt(k);
 					
 					if(ld.isSelected()){
 
@@ -177,7 +177,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 					
 					Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.points,Editor.ROAD_INDEX);
 					
-					decomposeClippedPolygonIntoZBuffer(p3D,selected,EditorData.worldTextures[p3D.getIndex()],landscapeZbuffer);
+					decomposeClippedPolygonIntoZBuffer(p3D,selected,EditorData.splinesTextures[0],landscapeZbuffer);
 					
 				
 				}

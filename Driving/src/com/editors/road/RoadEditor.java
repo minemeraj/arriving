@@ -2739,9 +2739,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 			SPLine sp = (SPLine) splines.elementAt(i);
 
-			for (int k = 0; k < sp.nodes.size(); k++) {
+			for (int k = 0; k < sp.ribs.size();k++){
 
-				SPNode node = (SPNode) sp.nodes.elementAt(k);
+				Point4D[] rib = (Point4D[]) sp.ribs.elementAt(k);
+				
+				double mx=(rib[0].x+rib[1].x)*0.5;
+				double my=(rib[0].y+rib[1].y)*0.5;
 				
 
 				for(int j=0;j<lsize;j++){
@@ -2751,11 +2754,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 					Polygon3D p3D=levelGetPolygon(ld,meshes[TERRAIN_INDEX].points);
 
-					if(p3D.contains(node.x,node.y)){
+					if(p3D.contains(mx,my)){
 						
-						double zz=interpolate(node.x,node.y,p3D);
+						double zz=interpolate(mx,my,p3D);
 
-						node.z=zz;
+						for (int l = 0; l < rib.length; l++) {
+							rib[l].z+=zz;
+						}
+						
+						
+						break;
 						
 
 					}
@@ -2772,13 +2780,15 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	public void updateSPlines(){
 		
-		levelSPLinesTerrain();
+		
 		
 		for (int i = 0; i < splines.size(); i++) {
 			SPLine sp = (SPLine) splines.elementAt(i);
 		    sp.calculateRibs();	
 			
 		}
+		
+		levelSPLinesTerrain();
 		
 	}
 	
