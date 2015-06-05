@@ -152,7 +152,7 @@ public class EditorData {
 
 				splinesMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/spline_mesh_"+i));
 				splinesTextures[i]=new Texture(ImageIO.read(new File("lib/spline_texture_"+i+".jpg")));
-				splinesTextures[i]=new Texture(ImageIO.read(new File("lib/spline_editor_"+i+".jpg")));
+				splinesEditorTextures[i]=new Texture(ImageIO.read(new File("lib/spline_editor_"+i+".jpg")));
 			}
 			
 			

@@ -405,7 +405,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			Vector vRoadTextures=new Vector();
 
 			for(int i=0;i<files.length;i++){
-				if(files[i].getName().startsWith("road_texture_")){
+				if(files[i].getName().startsWith("world_texture_")){
 
 					vRoadTextures.add(files[i]);
 
@@ -416,11 +416,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 			for(int i=0;i<vRoadTextures.size();i++){
 
-				worldImages[i]=ImageIO.read(new File("lib/road_texture_"+i+".jpg"));
+				worldImages[i]=ImageIO.read(new File("lib/world_texture_"+i+".jpg"));
 
-				/*for (int j = 0; j < numPanels; j++) {
-					chooseTexture[j].addItem(new ValuePair(""+i,""+i));
-				}*/
+				
+				chooseTexture[TERRAIN_INDEX].addItem(new ValuePair(""+i,""+i));
+				
 
 
 
@@ -2486,6 +2486,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				
 			}
 			
+			Vector vTexturePoints=buildTemplateTexturePoints(200);
+					
 		
 			
 			int count=0;
@@ -2502,11 +2504,17 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					int pos2=pos(i+1,j+1,numx,numy);
 					int pos3=pos(i,j+1,numx,numy);
 					
+				
+					Point3D pt0=(Point3D) vTexturePoints.elementAt(0);
+					Point3D pt1=(Point3D) vTexturePoints.elementAt(1);
+					Point3D pt2=(Point3D) vTexturePoints.elementAt(2);
+					Point3D pt3=(Point3D) vTexturePoints.elementAt(3);
+
 					LineData ld=new LineData();
-					ld.addIndex(pos0);
-					ld.addIndex(pos1);
-					ld.addIndex(pos2);
-					ld.addIndex(pos3);
+					ld.addIndex(pos0,0,pt0.x,pt0.y);
+					ld.addIndex(pos1,1,pt1.x,pt1.y);
+					ld.addIndex(pos2,2,pt2.x,pt2.y);
+					ld.addIndex(pos3,3,pt3.x,pt3.y);
 					
 					npm.polygonData.add(ld);
 					
@@ -2582,6 +2590,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 				}
 
+			Vector vTexturePoints=buildTemplateTexturePoints(200);
 			
 			for(int i=0;i<numx-1;i++)
 				for(int j=0;j<numy-1;j++){
@@ -2593,7 +2602,19 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					int pl3=i+1+numx*(j+1);
 					int pl4=i+1+numx*j;
 					
-					LineData ld=new LineData(pl1, pl4, pl3, pl2);
+					
+					Point3D pt0=(Point3D) vTexturePoints.elementAt(0);
+					Point3D pt1=(Point3D) vTexturePoints.elementAt(1);
+					Point3D pt2=(Point3D) vTexturePoints.elementAt(2);
+					Point3D pt3=(Point3D) vTexturePoints.elementAt(3);
+
+					LineData ld=new LineData();
+					ld.addIndex(pl1,0,pt0.x,pt0.y);
+					ld.addIndex(pl2,1,pt1.x,pt1.y);
+					ld.addIndex(pl3,2,pt2.x,pt2.y);
+					ld.addIndex(pl4,3,pt3.x,pt3.y);
+
+					
 					ld.setTexture_index(0);
 					
 					mesh.polygonData.add(ld);
