@@ -468,6 +468,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				objectIndexes[i]=new Texture(boi);	
 
 			}
+			
+			for(int i=0;i<EditorData.splinesEditorTextures.length;i++){
+				
+				chooseTexture[ROAD_INDEX].addItem(new ValuePair(""+i,""+i));
+
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -798,12 +804,49 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		checkMultiplePointsSelection[index].addKeyListener(this);
 		splines_panel.add(checkMultiplePointsSelection[index]);
 
-		r+=30;
+		chooseTexture[index]=new JComboBox();
+		chooseTexture[index].addItem(new ValuePair("",""));
+		//chooseTexture.setBounds(35,r,50,20);
+		chooseTexture[index].addItemListener(this);
+		chooseTexture[index].addKeyListener(this);
+		//panel.add(chooseTexture);
 		
-		JPanel moveRoad=buildRoadMovePanel(10,r,index);
+		r+=30;
+
+		choosePanelTexture[index]=new JButton("Texture");
+		choosePanelTexture[index].setBounds(5,r,100,20);
+		choosePanelTexture[index].addActionListener(this);
+		choosePanelTexture[index].addKeyListener(this);
+		splines_panel.add(choosePanelTexture[index]);
+		
+		r+=30;
+
+		textureLabel[index]=new JLabel();
+		textureLabel[index].setFocusable(false);
+		textureLabel[index].setBounds(5,r,100,100);
+		Border border=BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
+		textureLabel[index].setBorder(border);
+		splines_panel.add(textureLabel[index]);
+		
+		JPanel moveRoad=buildRoadMovePanel(120,r,index);
 		splines_panel.add(moveRoad);
 
-		r+=120;		
+		r+=100;		
+		
+		choosePrevTexture[index]=new JButton("<");
+		choosePrevTexture[index].setBounds(5,r,50,20);
+		choosePrevTexture[index].addActionListener(this);
+		choosePrevTexture[index].addKeyListener(this);
+		splines_panel.add(choosePrevTexture[index]);
+
+		chooseNextTexture[index]=new JButton(">");
+		chooseNextTexture[index].setBounds(55,r,50,20);
+		chooseNextTexture[index].addActionListener(this);
+		chooseNextTexture[index].addKeyListener(this);
+		splines_panel.add(chooseNextTexture[index]);
+		
+		r+=30;
+	
 
 		insertSPNode=new JButton(header+"Insert node after"+footer);
 		insertSPNode.addActionListener(this);
