@@ -341,7 +341,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			
 			
 			LineData ld=(LineData) mesh.polygonData.elementAt(k);
-			Texture texture = EditorData.splinesTextures[ld.getTexture_index()];
+			Texture texture = EditorData.splinesEditorTextures[ld.getTexture_index()];
 			
 			drawPolygon(ld,mesh.points,landscapeZbuffer,texture,0);
 
