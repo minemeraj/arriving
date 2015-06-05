@@ -2421,8 +2421,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	
 	private void expandGrid() {
- 
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+
+		PolygonMesh mesh=meshes[Editor.TERRAIN_INDEX];
 		if(mesh.points==null)
 			return; 
 		
@@ -2517,17 +2517,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					}
 					else{
 						
-						if(ACTIVE_PANEL==1)
 							ld.setTexture_index(0);
-						else
-							ld.setTexture_index(2);
 						
 					}
 						
 				}
 			}	
 			//pm=(SquareMesh) PolygonMesh.simplifyMesh(npm);
-			meshes[ACTIVE_PANEL]=npm;
+			meshes[TERRAIN_INDEX]=npm;
 		
 			
 			
@@ -2553,7 +2550,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			RoadEditorGridManager roadEGM=(RoadEditorGridManager) regm.getReturnValue();
 			
-			PolygonMesh mesh=meshes[ACTIVE_PANEL];
+			PolygonMesh mesh=meshes[TERRAIN_INDEX];
 
 			
 			double z_value=0;
@@ -2597,11 +2594,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					int pl4=i+1+numx*j;
 					
 					LineData ld=new LineData(pl1, pl4, pl3, pl2);
-					
-					if(ACTIVE_PANEL==1)
-						ld.setTexture_index(0);
-					else
-						ld.setTexture_index(2);
+					ld.setTexture_index(0);
 					
 					mesh.polygonData.add(ld);
 					

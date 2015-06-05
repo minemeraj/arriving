@@ -30,6 +30,7 @@ public class EditorData {
 	
 	public static CubicMesh[] splinesMeshes=null;
 	public static Texture[] splinesTextures=null;	
+	public static Texture[] splinesEditorTextures=null;
 	
 	public static double maxR=100;
 	public static double minR=80;
@@ -90,7 +91,7 @@ public class EditorData {
 			Vector vRoadTextures=new Vector();
 			
 			for(int i=0;i<files.length;i++){
-				if(files[i].getName().startsWith("road_texture_")){
+				if(files[i].getName().startsWith("world_texture_")){
 					
 					vRoadTextures.add(files[i]);
 					
@@ -101,7 +102,7 @@ public class EditorData {
 
 			for(int i=0;i<vRoadTextures.size();i++){
 				
-				worldTextures[i]=new Texture(ImageIO.read(new File("lib/road_texture_"+i+".jpg")));
+				worldTextures[i]=new Texture(ImageIO.read(new File("lib/world_texture_"+i+".jpg")));
 			}
 
 			Vector v3DObjects=new Vector();
@@ -144,14 +145,14 @@ public class EditorData {
 
 			splinesMeshes=new CubicMesh[vSPlineMeshes.size()];
 			splinesTextures=new Texture[vSPlineMeshes.size()];
-
+            splinesEditorTextures=new Texture[vSPlineMeshes.size()];
 
 
 			for(int i=0;i<vSPlineMeshes.size();i++){
 
 				splinesMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/spline_mesh_"+i));
 				splinesTextures[i]=new Texture(ImageIO.read(new File("lib/spline_texture_"+i+".jpg")));
-
+				splinesTextures[i]=new Texture(ImageIO.read(new File("lib/spline_editor_"+i+".jpg")));
 			}
 			
 			
