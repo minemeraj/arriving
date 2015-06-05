@@ -182,6 +182,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton moveObjBottom;
 	
 	public static BufferedImage[] worldImages;	
+	public static BufferedImage[] splinesImages;	
 	public static BufferedImage[] objectImages;
 	public static Texture[] objectIndexes; 
 	
@@ -469,9 +470,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 			}
 			
+			splinesImages=new BufferedImage[EditorData.splinesEditorTextures.length];
 			for(int i=0;i<EditorData.splinesEditorTextures.length;i++){
 				
 				chooseTexture[ROAD_INDEX].addItem(new ValuePair(""+i,""+i));
+				splinesImages[i]=ImageIO.read(new File("lib/spline_editor_"+i+".jpg"));
 
 			}
 
@@ -2292,7 +2295,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		else if(obj==choosePanelTexture[ACTIVE_PANEL]){
 			
-			TexturesPanel tp=new TexturesPanel(worldImages,100,100);
+			TexturesPanel tp=null;
+			if(ACTIVE_PANEL==TERRAIN_INDEX)
+				tp=new TexturesPanel(worldImages,100,100);
+			else
+				tp=new TexturesPanel(splinesImages,100,100);
 			
 			int indx=tp.getSelectedIndex();
 			if(indx!=-1)
@@ -3648,7 +3655,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				int num=Integer.parseInt(val.getId());
 				
 				BufferedImage icon=new BufferedImage(100,100,BufferedImage.TYPE_3BYTE_BGR);
-				icon.getGraphics().drawImage(worldImages[num],0,0,objectLabel.getWidth(),objectLabel.getHeight(),null);
+				if(ACTIVE_PANEL==TERRAIN_INDEX)
+					icon.getGraphics().drawImage(worldImages[num],0,0,objectLabel.getWidth(),objectLabel.getHeight(),null);
+				else
+					icon.getGraphics().drawImage(splinesImages[num],0,0,objectLabel.getWidth(),objectLabel.getHeight(),null);
+				
 				ImageIcon ii=new ImageIcon(icon);
 				textureLabel[ACTIVE_PANEL].setIcon(ii);
 
