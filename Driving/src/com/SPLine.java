@@ -13,8 +13,6 @@ public class SPLine {
 	public Vector ribs=null;
 	Vector vTexturePoints=null;
 	
-	int texture_index=0;
-	
 	Vector meshes3D=new Vector();
 
 	
@@ -128,11 +126,11 @@ public class SPLine {
 					continue;
 				}	
 				
-				Point4D[] rib=new Point4D[4];
-				rib[0]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z,LineData.GREEN_HEX,index);
-				rib[1]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z,LineData.GREEN_HEX,index);		
-				rib[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z+dz,LineData.GREEN_HEX,index);	
-				rib[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z+dz,LineData.GREEN_HEX,index);
+				Rib rib=new Rib(4);
+				rib.points[0]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z,LineData.GREEN_HEX,index);
+				rib.points[1]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z,LineData.GREEN_HEX,index);		
+				rib.points[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z+dz,LineData.GREEN_HEX,index);	
+				rib.points[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z+dz,LineData.GREEN_HEX,index);
 				ribs.add(rib);	
 	            //System.out.println(rib[0]+","+rib[1]+","+rib[2]+","+rib[3]+",");  
 
@@ -149,13 +147,13 @@ public class SPLine {
 
 
 		for (int i = 0; i < ribs.size()-1; i++) {
-			Point4D[] prevRib= (Point4D[]) ribs.elementAt(i);
-			Point4D[] nextRib= (Point4D[]) ribs.elementAt(i+1);
+			Rib prevRib= (Rib) ribs.elementAt(i);
+			Rib nextRib= (Rib) ribs.elementAt(i+1);
 			
-			Point4D p0=prevRib[3];
-			Point4D p1=prevRib[2];
-			Point4D p2=nextRib[2];
-			Point4D p3=nextRib[3];
+			Point4D p0=prevRib.points[3];
+			Point4D p1=prevRib.points[2];
+			Point4D p2=nextRib.points[2];
+			Point4D p3=nextRib.points[3];
 			
 
 			Vector points=new Vector();
@@ -175,7 +173,7 @@ public class SPLine {
 			ld.addIndex(1,1,pt1.x,pt1.y);
 			ld.addIndex(2,2,pt2.x,pt2.y);
 			ld.addIndex(3,3,pt3.x,pt3.y);
-			ld.setTexture_index(texture_index);
+			ld.setTexture_index(prevRib.getIndex());
 			polygonData.add(ld);
 
 			PolygonMesh mesh=new PolygonMesh(points,polygonData);
@@ -192,19 +190,20 @@ public class SPLine {
 		meshes3D=new Vector();
 
 		for (int i = 0; i < ribs.size()-1; i++) {
-			Point4D[] prevRib= (Point4D[]) ribs.elementAt(i);
-			Point4D[] nextRib= (Point4D[]) ribs.elementAt(i+1);
 			
-			Point4D p0=prevRib[0];
-			Point4D p1=prevRib[1];
-			Point4D p2=nextRib[1];
-			Point4D p3=nextRib[2];
+			Rib prevRib= (Rib) ribs.elementAt(i);
+			Rib nextRib= (Rib) ribs.elementAt(i+1);
+			
+			Point4D p0=prevRib.points[0];
+			Point4D p1=prevRib.points[1];
+			Point4D p2=nextRib.points[1];
+			Point4D p3=nextRib.points[2];
 			
 			
-			Point4D p4=prevRib[3];
-			Point4D p5=prevRib[2];
-			Point4D p6=nextRib[2];
-			Point4D p7=nextRib[3];
+			Point4D p4=prevRib.points[3];
+			Point4D p5=prevRib.points[2];
+			Point4D p6=nextRib.points[2];
+			Point4D p7=nextRib.points[3];
 			
 
 			Vector points=new Vector();
@@ -220,7 +219,7 @@ public class SPLine {
 			points.add(p7);
 
 
-			Vector polygonData=EditorData.splinesMeshes[texture_index].polygonData;
+			Vector polygonData=EditorData.splinesMeshes[prevRib.getIndex()].polygonData;
 			
 			PolygonMesh mesh=new PolygonMesh(points,polygonData);
 			mesh.setTexturePoints(vTexturePoints);
@@ -250,13 +249,6 @@ public class SPLine {
 		return  line;
 	}
 
-	public int getTexture_index() {
-		return texture_index;
-	}
-
-	public void setTexture_index(int texture_index) {
-		this.texture_index = texture_index;
-	}
 
 	public Vector getMeshes3D() {
 		return meshes3D;

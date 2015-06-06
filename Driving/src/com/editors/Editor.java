@@ -20,6 +20,7 @@ import com.Point3D;
 import com.Point4D;
 import com.Polygon3D;
 import com.PolygonMesh;
+import com.Rib;
 import com.SPLine;
 import com.SPNode;
 import com.SquareMesh;
@@ -87,10 +88,11 @@ public class Editor extends JFrame implements MenuListener{
 
 			for (int k = 0; k < sp.ribs.size();k++){
 
-				Point4D[] rib = (Point4D[]) sp.ribs.elementAt(k);
+				Rib rib = (Rib) sp.ribs.elementAt(k);
+				Point4D[] points=rib.points;
 				
-				double mx=(rib[0].x+rib[1].x)*0.5;
-				double my=(rib[0].y+rib[1].y)*0.5;
+				double mx=(points[0].x+points[1].x)*0.5;
+				double my=(points[0].y+points[1].y)*0.5;
 				
 
 				for(int j=0;j<lsize;j++){
@@ -104,8 +106,8 @@ public class Editor extends JFrame implements MenuListener{
 						
 						double zz=interpolate(mx,my,p3D);
 
-						for (int l = 0; l < rib.length; l++) {
-							rib[l].z+=zz;
+						for (int l = 0; l < points.length; l++) {
+							points[l].z+=zz;
 						}
 						
 						
@@ -438,7 +440,7 @@ public class Editor extends JFrame implements MenuListener{
 			
 			str=str.substring(2);
 			int index=Integer.parseInt(str);
-			sp.setTexture_index(index);
+			//sp.set(index);
 			
 		}
 	}
@@ -526,7 +528,7 @@ public class Editor extends JFrame implements MenuListener{
 	private String decomposeSPLine(SPLine sp) {
 		
 		String str="<spline>\n";
-		str+="i="+sp.getTexture_index()+"\n";
+		//str+="i="+sp.getTexture_index()+"\n";
 		for(int i=0;i<sp.nodes.size();i++){
 			
 			if(i>0)

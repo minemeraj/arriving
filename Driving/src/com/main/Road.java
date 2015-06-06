@@ -29,6 +29,7 @@ import com.Point3D;
 import com.Point4D;
 import com.Polygon3D;
 import com.PolygonMesh;
+import com.Rib;
 import com.SPLine;
 import com.Texture;
 import com.ZBuffer;
@@ -1475,10 +1476,10 @@ public class Road extends Shader{
 					
 					for (int j = 0; sp.ribs!=null && j < sp.ribs.size(); j++) {
 						
-						Point4D[] rib= (Point4D[]) sp.ribs.elementAt(j);
-						for (int k = 0; k < rib.length; k++) {
+						Rib rib= (Rib) sp.ribs.elementAt(j);
+						for (int k = 0; k < rib.points.length; k++) {
 							//rib[k].translate(-XFOCUS,+SCREEN_DISTANCE,-YFOCUS);
-							rib[k].translate(-XFOCUS,+SCREEN_DISTANCE,0);
+							rib.points[k].translate(-XFOCUS,+SCREEN_DISTANCE,0);
 						}
 					
 					}

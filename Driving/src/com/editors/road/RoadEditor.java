@@ -122,7 +122,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public JCheckBox[] checkCoordinatesx;
 	public JCheckBox[] checkCoordinatesy;
 	public JCheckBox[] checkCoordinatesz;
-	private JButton[] changePoint;
 	private JButton[] mergeSelectedPoints;
 
 	public JCheckBox[] checkMultiplePointsSelection;
@@ -245,6 +244,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton startNewSPLine;
 	private JButton insertSPNode;
 	private JButton mergeSPNodes;
+	private JButton changeSPNode;
+	private JButton changeTerrainPoint;
 	
 
 	
@@ -352,7 +353,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		checkCoordinatesy=new JCheckBox[numPanels];
 		checkCoordinatesz=new JCheckBox[numPanels];
 
-		changePoint=new JButton[numPanels];		
+
 		checkMultiplePointsSelection= new JCheckBox[numPanels];
 		mergeSelectedPoints=new JButton[numPanels];
 		changePolygon=new JButton[numPanels];	
@@ -849,6 +850,17 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		splines_panel.add(chooseNextTexture[index]);
 		
 		r+=30;
+		
+		
+		changeSPNode=new JButton(header+"Change node"+footer);
+		changeSPNode.addActionListener(this);
+		changeSPNode.addKeyListener(this);
+		changeSPNode.setFocusable(false);
+		changeSPNode.setBounds(5,r,150,20);
+		splines_panel.add(changeSPNode);
+
+
+		r+=30;
 	
 
 		insertSPNode=new JButton(header+"Insert node after"+footer);
@@ -1104,11 +1116,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		r+=30;
 
-		changePoint[index]=new JButton(header+"Change <u>P</u>oint"+footer);
-		changePoint[index].addActionListener(this);
-		changePoint[index].setFocusable(false);
-		changePoint[index].setBounds(5,r,150,20);
-		panel.add(changePoint[index]);
+		changeTerrainPoint=new JButton(header+"Change <u>P</u>oint"+footer);
+		changeTerrainPoint.addActionListener(this);
+		changeTerrainPoint.setFocusable(false);
+		changeTerrainPoint.setBounds(5,r,150,20);
+		panel.add(changeTerrainPoint);
 
 		r+=30;
 		
@@ -1437,6 +1449,36 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 
 		rotation_angle.setText(dro.rotation_angle);
+		
+	}
+	
+
+	private void changeSelectedPNode() {
+		
+		
+		for (int i = 0; i < splines.size(); i++) {
+			
+			SPLine spline = (SPLine) splines.elementAt(i);
+			
+			Vector nodes=spline.nodes;
+			
+			boolean found=false;
+			
+			for(int j=0;j<nodes.size();j++){
+			
+				SPNode spnode = (SPNode) nodes.elementAt(j);
+				
+				if(spnode.isSelected){
+					
+					ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getSelectedItem();
+					if(!vp.getId().equals(""))
+						spnode.setIndex(Integer.parseInt(vp.getId()));
+					
+				}
+				
+			}		
+		
+		}
 		
 	}
 
@@ -2259,10 +2301,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			mergeSelectedPoints();
 			draw();
 		}
-		else if(obj==changePoint[ACTIVE_PANEL] ){
+		else if(obj==changeTerrainPoint){
 			changeSelectedTerrainPoint();
 			draw();
 		}
+		else if(obj==changeSPNode ){
+			changeSelectedPNode();
+			draw();
+		}		
 		else if(obj==changePolygon[ACTIVE_PANEL]){
 			changeSelectedTerrainPolygon();
 			draw();
@@ -2411,6 +2457,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}		
 		
 	}
+
 
 
 
