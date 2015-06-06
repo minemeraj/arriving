@@ -2702,11 +2702,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	
 					//lower base
-					int pl1=i+numx*j;
-					int pl2=i+numx*(j+1);
-					int pl3=i+1+numx*(j+1);
-					int pl4=i+1+numx*j;
 					
+					int pl1=pos(i,j,numx,numy);
+					int pl2=pos(i+1,j,numx,numy);
+					int pl3=pos(i+1,j+1,numx,numy);
+					int pl4=pos(i,j+1,numx,numy);
 					
 					Point3D pt0=(Point3D) vTexturePoints.elementAt(0);
 					Point3D pt1=(Point3D) vTexturePoints.elementAt(1);
