@@ -1091,11 +1091,15 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		
 		boolean isToselect=true;
 		
+		
+		
 		for (int i = 0; i < splines.size(); i++) {
 			
 			SPLine spline = (SPLine) splines.elementAt(i);
 			
 			Vector nodes=spline.nodes;
+			
+			boolean found=false;
 			
 			for(int j=0;j<nodes.size();j++){
 			
@@ -1112,7 +1116,18 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				    	if(isToselect){
 				    		
 				    		spnode.setSelected(true);
+				    		found=true;
+				    		
+							for(int l=0;l<editor.chooseTexture[editor.ACTIVE_PANEL].getItemCount();l++){
+								
+								ValuePair vp=(ValuePair) editor.chooseTexture[editor.ACTIVE_PANEL].getItemAt(l);
+								if(vp.getId().equals(""+spnode.getIndex())) 
+									editor.chooseTexture[editor.ACTIVE_PANEL].setSelectedItem(vp);
+							}
+				    		
 				    		break;
+				    		
+				    		
 				    	}
 				    	
 				    }else{
@@ -1125,8 +1140,14 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			
 		    
 			}
+			
+			if(found)
+				spline.calculateRibs();
 	
 		}
+		
+		
+	
 
 		return false;
 	}

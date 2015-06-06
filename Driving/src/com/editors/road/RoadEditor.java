@@ -2087,7 +2087,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			setACTIVE_PANEL(0);
 			loadPointsFromFile(file);	
 			setACTIVE_PANEL(1);
-			loadPointsFromFile(file);
+			//loadPointsFromFile(file);
 			loadSPLinesFromFile(file);
 			setACTIVE_PANEL(0);
 			

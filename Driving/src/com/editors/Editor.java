@@ -430,18 +430,17 @@ public class Editor extends JFrame implements MenuListener{
 			String[] vals =str.split(" ");
 	
 			SPNode p=new SPNode();
-			p.x=Double.parseDouble(vals[0]);
-			p.y=Double.parseDouble(vals[1]);
+			
+			String texture_index=vals[0];
+			texture_index=texture_index.substring(1);
+			p.setIndex(Integer.parseInt(texture_index));
+			
+			p.x=Double.parseDouble(vals[1]);
+			p.y=Double.parseDouble(vals[2]);
 			p.update();
 			
 	        sp.addSPNode(p);
         
-		}else if(str.startsWith("i=")){
-			
-			str=str.substring(2);
-			int index=Integer.parseInt(str);
-			//sp.set(index);
-			
 		}
 	}
 
@@ -533,8 +532,8 @@ public class Editor extends JFrame implements MenuListener{
 			
 			if(i>0)
 				str+="\n";
-			Point3D p0=(Point3D) sp.nodes.elementAt(i);
-			str+="v="+p0.getX()+" "+p0.getY()+" "+p0.getZ();
+			Point4D p0=(Point4D) sp.nodes.elementAt(i);
+			str+="v=T"+p0.getIndex()+" "+p0.getX()+" "+p0.getY()+" "+p0.getZ();
 		}
 		str+="\n</spline>";
 		return str;

@@ -131,6 +131,7 @@ public class SPLine {
 				rib.points[1]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z,LineData.GREEN_HEX,index);		
 				rib.points[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z+dz,LineData.GREEN_HEX,index);	
 				rib.points[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z+dz,LineData.GREEN_HEX,index);
+				rib.setIndex(previousNode.getIndex());
 				ribs.add(rib);	
 	            //System.out.println(rib[0]+","+rib[1]+","+rib[2]+","+rib[3]+",");  
 
