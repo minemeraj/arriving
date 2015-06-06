@@ -1478,8 +1478,7 @@ public class Road extends Shader{
 						
 						Rib rib= (Rib) sp.ribs.elementAt(j);
 						for (int k = 0; k < rib.points.length; k++) {
-							//rib[k].translate(-XFOCUS,+SCREEN_DISTANCE,-YFOCUS);
-							rib.points[k].translate(-XFOCUS,+SCREEN_DISTANCE,0);
+							rib.points[k].translate(-XFOCUS,+SCREEN_DISTANCE,-YFOCUS);
 						}
 					
 					}
