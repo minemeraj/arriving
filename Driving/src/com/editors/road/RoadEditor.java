@@ -1453,7 +1453,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 	
 
-	private void changeSelectedPNode() {
+	private void changeSelectedSPNode() {
 		
 		
 		for (int i = 0; i < splines.size(); i++) {
@@ -1470,15 +1470,23 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				
 				if(spnode.isSelected){
 					
+					found=true;
+					
 					ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getSelectedItem();
 					if(!vp.getId().equals(""))
 						spnode.setIndex(Integer.parseInt(vp.getId()));
 					
 				}
 				
+				
+				if(found)
+					spline.calculateRibs();
+				
 			}		
 		
 		}
+		
+		draw();
 		
 	}
 
@@ -2306,7 +2314,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			draw();
 		}
 		else if(obj==changeSPNode ){
-			changeSelectedPNode();
+			changeSelectedSPNode();
 			draw();
 		}		
 		else if(obj==changePolygon[ACTIVE_PANEL]){

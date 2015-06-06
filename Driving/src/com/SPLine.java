@@ -61,8 +61,6 @@ public class SPLine {
 			SPNode previousNode = (SPNode) nodes.elementAt(i); 
 			SPNode nextNode = (SPNode) nodes.elementAt(i+1); 
 
-			int index=0;
-
 			double prevX=previousNode.x;
 			double prevY=previousNode.y;
 			double prevZ=previousNode.z;
@@ -114,23 +112,27 @@ public class SPLine {
 				
 				double l=k*len/nodeDistance;
 				//stretching last texture
-				if(k==n-1)
+				if(k==n-1){
+					
+					//do not repeat the last rib two time!
+					if(i<nodes.size()-2){
+						
+						continue;
+					}	
+					
 					l=1.0;
+					
+				}	
 				
 				double x=(1.0-l)*prevX+l*nextX;
 				double y=(1.0-l)*prevY+l*nextY;
 				double z=(1.0-l)*prevZ+l*nextZ;
 
-				if(l==0 && i>0){
-	
-					continue;
-				}	
-				
 				Rib rib=new Rib(4);
-				rib.points[0]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z,LineData.GREEN_HEX,index);
-				rib.points[1]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z,LineData.GREEN_HEX,index);		
-				rib.points[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z+dz,LineData.GREEN_HEX,index);	
-				rib.points[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z+dz,LineData.GREEN_HEX,index);
+				rib.points[0]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z,LineData.GREEN_HEX,0);
+				rib.points[1]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z,LineData.GREEN_HEX,0);		
+				rib.points[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z+dz,LineData.GREEN_HEX,0);	
+				rib.points[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z+dz,LineData.GREEN_HEX,0);
 				rib.setIndex(previousNode.getIndex());
 				ribs.add(rib);	
 	            //System.out.println(rib[0]+","+rib[1]+","+rib[2]+","+rib[3]+",");  
