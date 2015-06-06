@@ -1488,7 +1488,7 @@ public class Road extends Shader{
 				}
 
 			}
-			Editor.levelSPLinesTerrain(meshes[RoadEditor.TERRAIN_INDEX],splines);
+			//Editor.levelSPLinesTerrain(meshes[RoadEditor.TERRAIN_INDEX],splines);
 
 
 		} catch (Exception e) {

@@ -2099,7 +2099,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			loadSPLinesFromFile(file);
 			setACTIVE_PANEL(0);
 			
-			Editor.levelSPLinesTerrain(meshes[TERRAIN_INDEX],splines);
+			//Editor.levelSPLinesTerrain(meshes[TERRAIN_INDEX],splines);
 			//right.setSelectedIndex(0);
 			
             loadObjectsFromFile(file); 
@@ -2860,7 +2860,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		if(meshes[TERRAIN_INDEX]==null || meshes[TERRAIN_INDEX].polygonData==null)
 			return;
 		
-		Editor.levelSPLinesTerrain(meshes[TERRAIN_INDEX],splines);
+		//Editor.levelSPLinesTerrain(meshes[TERRAIN_INDEX],splines);
 		
 	}
 

@@ -90,10 +90,11 @@ public class Editor extends JFrame implements MenuListener{
 
 				Rib rib = (Rib) sp.ribs.elementAt(k);
 				Point4D[] points=rib.points;
-				
+
 				double mx=(points[0].x+points[1].x)*0.5;
 				double my=(points[0].y+points[1].y)*0.5;
-				
+
+
 
 				for(int j=0;j<lsize;j++){
 
@@ -103,16 +104,16 @@ public class Editor extends JFrame implements MenuListener{
 					Polygon3D p3D=levelGetPolygon(ld,mesh.points);
 
 					if(p3D.contains(mx,my)){
-						
+
 						double zz=interpolate(mx,my,p3D);
 
 						for (int l = 0; l < points.length; l++) {
 							points[l].z+=zz;
 						}
-						
-						
+
+
 						break;
-						
+
 
 					}
 
@@ -121,8 +122,8 @@ public class Editor extends JFrame implements MenuListener{
 
 			}
 		}
-		
-	
+
+
 
 	}
 
@@ -437,6 +438,7 @@ public class Editor extends JFrame implements MenuListener{
 			
 			p.x=Double.parseDouble(vals[1]);
 			p.y=Double.parseDouble(vals[2]);
+			p.z=Double.parseDouble(vals[3]);
 			p.update();
 			
 	        sp.addSPNode(p);
