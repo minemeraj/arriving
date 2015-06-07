@@ -15,6 +15,8 @@ import com.LineData;
 import com.Point3D;
 import com.Point4D;
 import com.PolygonMesh;
+import com.SPLine;
+import com.SPNode;
 import com.SquareMesh;
 import com.editors.DoubleTextField;
 
@@ -309,7 +311,9 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 		
 		//new road
 		
-		/*roadMesh.polygonData=new Vector();
+		splines.clear();
+		
+		/*roadMesh.polygonData=new Vector();*/
 		
 		Point4D[] newPoints = new Point4D[numy*numx];
 		 
@@ -327,12 +331,33 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 
 		}
 		
-		roadMesh.points=newPoints;
+	
 		
-		for(int i=0;i<numx-1;i++){
-			for(int j=0;j<numy-1;j++){
+		for(int i=0;i<numx;i++){
+			//for(int j=0;j<numy-1;j++){
 				
-				if(i%(block_xtextures+road_textures)>road_textures-1
+				if(i%(block_xtextures+road_textures)==1){
+					
+					Vector vTexturePoints=RoadEditor.buildTemplateTexturePoints(200);
+					
+					SPLine sp=new SPLine(vTexturePoints);
+			
+					int tot=i+0*numx;
+					Point4D p=newPoints[tot];
+							
+					SPNode spn0=new SPNode(p.x,p.y,p.z,"FFFFFF",0);					
+					sp.addSPNode(spn0);
+					
+					tot=i+(numy-1)*numx;
+					p=newPoints[tot];
+					SPNode spn1=new SPNode(p.x,p.y,p.z,"FFFFFF",0);					
+					sp.addSPNode(spn1);
+					
+					splines.add(sp);
+				}
+				
+				
+				/*if(i%(block_xtextures+road_textures)>road_textures-1
 						
 				&& 	j%(block_ytextures+road_textures)>road_textures-1	
 						)
@@ -358,11 +383,11 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 					ld.setTexture_index(0);
 
 				
-				roadMesh.polygonData.add(ld);
+			    */
 				
-			}
+			//}
 
-		}*/
+		}
 		
 		///// new terrain
 		
@@ -422,7 +447,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 		
 		//add objects
 		
-		/*drawObjects.clear();
+		drawObjects.clear();
 		
 		for(int i=0;i<numx-1;i++){
 			for(int j=0;j<numy-1;j++){
@@ -458,7 +483,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 					
 					}
 			}
-		}*/	
+		}
 	}
 	
 	
