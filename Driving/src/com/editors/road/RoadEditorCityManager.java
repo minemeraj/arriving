@@ -396,10 +396,10 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 
 				//lower base
 				
-				int pl1=pos(i,j,numx,numy);
-				int pl2=pos(i+1,j,numx,numy);
-				int pl3=pos(i+1,j+1,numx,numy);
-				int pl4=pos(i,j+1,numx,numy);
+				int pl1=pos(i,j,numTerrainx,numTerrainy);
+				int pl2=pos(i+1,j,numTerrainx,numTerrainy);
+				int pl3=pos(i+1,j+1,numTerrainx,numTerrainy);
+				int pl4=pos(i,j+1,numTerrainx,numTerrainy);
 				
 				Point3D pt0=(Point3D) vTexturePoints.elementAt(0);
 				Point3D pt1=(Point3D) vTexturePoints.elementAt(1);
