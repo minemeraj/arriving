@@ -286,7 +286,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 
 
 
-	public static void buildCustomCity1(PolygonMesh terrainMesh, PolygonMesh roadMesh,
+	public static void buildCustomCity1(PolygonMesh terrainMesh, Vector splines,
 			RoadEditorCityManager roadECM, Vector drawObjects, CubicMesh[] objectMeshes) {
 		
 		
@@ -309,7 +309,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 		
 		//new road
 		
-		roadMesh.polygonData=new Vector();
+		/*roadMesh.polygonData=new Vector();
 		
 		Point4D[] newPoints = new Point4D[numy*numx];
 		 
@@ -362,45 +362,57 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 				
 			}
 
-		}
+		}*/
 		
 		///// new terrain
 		
 		double gapX=-dx;
 		double gapY=-dy;
 
-        int numRoadx=numx+2;
-        int numRoady=numy+2;
+        int numTerrainx=numx+2;
+        int numTerrainy=numy+2;
 		
-        Point3D[] newRoadPoints = new Point3D[numRoadx*numRoady];
+        Point3D[] newTerrainPoints = new Point3D[numTerrainx*numTerrainy];
 
 		
-		for(int i=0;i<numRoadx;i++)
-			for(int j=0;j<numRoady;j++)
+		for(int i=0;i<numTerrainx;i++)
+			for(int j=0;j<numTerrainy;j++)
 			{
 				
 				Point4D p=new Point4D(i*dx+x_0+gapX,j*dy+y_0+gapY,0);
 			
-				newRoadPoints[i+j*numRoadx]=p;
+				newTerrainPoints[i+j*numTerrainx]=p;
 
 			}
 
-		terrainMesh.points=newRoadPoints;
+		terrainMesh.points=newTerrainPoints;
 		terrainMesh.polygonData=new Vector();
 		
-		for(int i=0;i<numRoadx-1;i++)
-			for(int j=0;j<numRoady-1;j++){
+		Vector vTexturePoints=RoadEditor.buildTemplateTexturePoints(200);
+		
+		for(int i=0;i<numTerrainx-1;i++)
+			for(int j=0;j<numTerrainy-1;j++){
 
 
 				//lower base
-				int pl1=i+numRoadx*j;
-				int pl2=i+numRoadx*(j+1);
-				int pl3=i+1+numRoadx*(j+1);
-				int pl4=i+1+numRoadx*j;
 				
-				LineData ld=new LineData(pl1, pl4, pl3, pl2);
+				int pl1=pos(i,j,numx,numy);
+				int pl2=pos(i+1,j,numx,numy);
+				int pl3=pos(i+1,j+1,numx,numy);
+				int pl4=pos(i,j+1,numx,numy);
 				
-				ld.setTexture_index(2);
+				Point3D pt0=(Point3D) vTexturePoints.elementAt(0);
+				Point3D pt1=(Point3D) vTexturePoints.elementAt(1);
+				Point3D pt2=(Point3D) vTexturePoints.elementAt(2);
+				Point3D pt3=(Point3D) vTexturePoints.elementAt(3);
+
+				LineData ld=new LineData();
+				ld.addIndex(pl1,0,pt0.x,pt0.y);
+				ld.addIndex(pl2,1,pt1.x,pt1.y);
+				ld.addIndex(pl3,2,pt2.x,pt2.y);
+				ld.addIndex(pl4,3,pt3.x,pt3.y);
+				
+				ld.setTexture_index(0);
 				
 				terrainMesh.polygonData.add(ld);
 				
@@ -410,7 +422,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 		
 		//add objects
 		
-		drawObjects.clear();
+		/*drawObjects.clear();
 		
 		for(int i=0;i<numx-1;i++){
 			for(int j=0;j<numy-1;j++){
@@ -446,11 +458,14 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 					
 					}
 			}
-		}	
+		}*/	
 	}
 	
 	
-	
+	public static int pos(int i, int j,  int numx, int numy) {
+		
+		return (i+j*numx);
+	}	
 	
 	
 }
