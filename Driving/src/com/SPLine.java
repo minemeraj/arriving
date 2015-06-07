@@ -200,7 +200,7 @@ public class SPLine {
 			Point4D p0=prevRib.points[0];
 			Point4D p1=prevRib.points[1];
 			Point4D p2=nextRib.points[1];
-			Point4D p3=nextRib.points[2];
+			Point4D p3=nextRib.points[0];
 			
 			
 			Point4D p4=prevRib.points[3];
