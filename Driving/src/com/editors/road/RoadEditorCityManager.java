@@ -391,7 +391,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 		Vector vTexturePoints=RoadEditor.buildTemplateTexturePoints(200);
 		
 		for(int i=0;i<numTerrainx-1;i++)
-			for(int j=0;j<numTerrainy-1;j++){
+			for(int j=0;j<numTerrainy-1;j++){ 
 
 
 				//lower base
