@@ -1399,6 +1399,23 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	}
 	
+	public void buildPoint(Vector points, String str) {
+
+
+
+		String[] vals = str.split(" ");
+
+		Point4D p=new Point4D();
+		
+		p.x=Double.parseDouble(vals[0]);
+		p.y=Double.parseDouble(vals[1]);
+		p.z=Double.parseDouble(vals[2]);
+
+		points.add(p);
+
+
+}
+	
 	private void drawObjects(Graphics2D bufGraphics) {
 		
 		/*bufGraphics.setColor(Color.GREEN);
