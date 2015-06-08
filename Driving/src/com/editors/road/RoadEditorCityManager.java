@@ -478,6 +478,20 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 					    
 						if(DrawObject.IS_3D){
 							CubicMesh mesh=objectMeshes[dro.getIndex()].clone();
+							
+							Point3D point = mesh.point000;
+							
+							double ddx=-point.x+dro.x;
+							double ddy=-point.y+dro.y;
+							double ddz=-point.z+dro.z;
+							
+							mesh.translate(ddx,ddy,ddz);
+							
+							Point3D center=mesh.findCentroid();
+							
+							if(dro.rotation_angle!=0)
+								mesh.rotate(center.x,center.y,Math.cos(dro.rotation_angle),Math.sin(dro.rotation_angle));
+							
 							dro.setMesh(mesh);
 						}
 					
