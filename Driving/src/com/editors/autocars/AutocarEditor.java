@@ -1048,12 +1048,12 @@ public class AutocarEditor extends Editor implements MouseListener,
 	}
 
 
-	public int convertX(double x) {
+	public int convertX(double x,double y, double z) {
 
 		return (int) (x / dx - x0);
 	}
 
-	public int convertY(double y) {
+	public int convertY(double x,double y, double z) {
 
 		return (int) (HEIGHT - (y / dy - y0));
 	}
@@ -1201,7 +1201,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		// bufGraphics.setColor(CarFrame2D.BACKGROUND_COLOR);
 		// bufGraphics.fillRect(0,0,WIDTH,HEIGHT);
 
-		Graphics2D bufGraphics = (Graphics2D) buf.getGraphics();
+		/*Graphics2D bufGraphics = (Graphics2D) buf.getGraphics();
 
 		Vector visibleMap = new Vector();
 		Vector visibleRealMap = new Vector();
@@ -1212,7 +1212,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		// Date t=new Date();
 
 
-			/*PolygonMesh mesh = meshes[TERRAIN_INDEX];	
+			PolygonMesh mesh = meshes[TERRAIN_INDEX];	
 
 			for (int j = 0; j < mesh.polygonData.size(); j++) {
 
@@ -1343,10 +1343,10 @@ public class AutocarEditor extends Editor implements MouseListener,
 		
 	}
 
-	private void displayTerrain(ZBuffer landscapeZbuffer2, PolygonMesh[] meshes) {
+	private void displayTerrain(ZBuffer landscapeZbuffer, PolygonMesh[] meshes) {
 
 	
-		/*PolygonMesh mesh=meshes[RoadEditor.TERRAIN_INDEX];
+		PolygonMesh mesh=meshes[RoadEditor.TERRAIN_INDEX];
 		
 		if(mesh.points==null)
 			return;
@@ -1373,8 +1373,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		    Point4D p=(Point4D) mesh.points[j];
 
-				int xo=convertX(p);
-				int yo=convertY(p);
+				int xo=convertX(p.x,p.y,p.z);
+				int yo=convertY(p.x,p.y,p.z);
 				
 				int rgbColor=Color.white.getRGB();
 
@@ -1382,14 +1382,11 @@ public class AutocarEditor extends Editor implements MouseListener,
 					rgbColor=Color.RED.getRGB();
 
 				}	
-	
-	
-			    fillOval(landscapeZbuffer,xo,yo,2,2,rgbColor);
 
 			}
 		
 		
-		drawCurrentRect(landscapeZbuffer);*/
+		/*drawCurrentRect(landscapeZbuffer);*/
 	}
 
 
@@ -1944,38 +1941,6 @@ public class AutocarEditor extends Editor implements MouseListener,
 		return new_area_out;
 
 	}
-	
-	private void fillOval(ZBuffer landscapeZbuffer, int cx, int cy, int dx,
-			int dy, int rgbColor) {
-		
-		int x=cx-dx;		
-		int xx=cx+dx;
-		
-		int y=cy-dy;
-		int yy=cy+dy;
-		
-		double r=(dx+dy)/2.0+0.5;
-		
-		for (int i = x; i <= xx; i++) {
-		
-			for (int j = y; j <= yy; j++) {
-				
-				double d=Point3D.distance(cx,cy,0,i,j,0);
-				
-				if(d>r)
-					continue;
-				
-				
-				if(i>=0 && i<WIDTH && j>=0 && j<HEIGHT){
-					
-					int tot=i+j*WIDTH;
-					landscapeZbuffer.setRgbColor(rgbColor,tot);
-				}
-				
-			}
-		
-		}
-	}
 
 	
 
@@ -2014,8 +1979,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 			Point3D point = (Point3D) linkedList.get(i);
 
-			Rectangle rect = new Rectangle(convertX(point.x - 2),
-					convertY(point.y - 2), 5, 5);
+			Rectangle rect = new Rectangle(convertX(point.x-2, point.y,point.z),
+					convertY(point.x, point.y-2, point.z), 5, 5);
 
 			if (rect.contains(x, y)) {
 				point.setSelected(true);
@@ -2055,8 +2020,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 			Point3D p = (Point3D) linkedList.get(i);
 
-			int x = convertX(p.x);
-			int y = convertY(p.y);
+			int x = convertX(p.x,p.y,p.z);
+			int y = convertY(p.x,p.y,p.z);
 
 			if (x >= x0 && x <= x1 && y >= y0 && y <= y1) {
 
