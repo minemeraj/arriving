@@ -21,6 +21,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -57,18 +58,22 @@ import javax.swing.border.Border;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
+import com.BarycentricCoordinates;
 import com.CubicMesh;
 import com.DrawObject;
 import com.LineData;
 import com.Point3D;
+import com.Point4D;
 import com.Polygon3D;
 import com.PolygonMesh;
-import com.Renderer2D;
+import com.SPNode;
+//import com.Renderer2D;
 import com.SPLine;
 import com.Texture;
 import com.ZBuffer;
 import com.editors.ComboElement;
 import com.editors.DoubleTextField;
+import com.editors.Editor;
 import com.editors.EditorData;
 import com.editors.ValuePair;
 import com.editors.road.RoadEditor;
@@ -76,9 +81,13 @@ import com.main.Autocar;
 import com.main.HelpPanel;
 import com.main.Road;
 
-public class AutocarEditor extends Renderer2D implements MouseListener,
+public class AutocarEditor extends Editor implements MouseListener,
 		ActionListener, MenuListener, KeyListener, MouseWheelListener,
 		MouseMotionListener, FocusListener, PropertyChangeListener {
+	
+	
+	int WIDTH = 820;
+	int HEIGHT = 880;
 
 	int LEFT_BORDER = 180;
 	int RIGHT_BORDER = 200;
@@ -196,7 +205,10 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 	
 	int indexWidth=40;
 	int indexHeight=18;
-
+	
+	public Area totalVisibleField=null;
+	public static ZBuffer landscapeZbuffer;
+	public int blackRgb= Color.BLACK.getRGB();
 
 	public static void main(String[] args) {
 
@@ -274,12 +286,28 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 
 		setVisible(true);
 	}
+	
+	public void buildNewZBuffers() {
+
+
+		for(int i=0;i<landscapeZbuffer.getSize();i++){
+
+			landscapeZbuffer.rgbColor[i]=blackRgb;
+            
+
+		}
+	
+
+	}
+	
+
 
 	private void initialize() throws IOException {
 
 		totalVisibleField = buildVisibileArea(0, HEIGHT);
-
 		buf = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+		
+		landscapeZbuffer=new ZBuffer(WIDTH*HEIGHT);
 		rgb = new int[buf.getWidth() * buf.getHeight()];
 
 		File directoryImg = new File("lib");
@@ -339,6 +367,29 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 			objectIndexes[i]=new Texture(boi);	
 			
 		}
+
+	}
+	
+	public void buildScreen(BufferedImage buf) {
+
+		int length=rgb.length;
+		
+		for(int i=0;i<length;i++){
+
+
+			//set
+			rgb[i]=landscapeZbuffer.getRgbColor(i); 
+			
+			//clean
+			landscapeZbuffer.set(0,0,0,0,blackRgb,true,i);
+              
+		
+
+		}
+		
+		buf.getRaster().setDataElements( 0,0,WIDTH,HEIGHT,rgb);
+		//buf.setRGB(0,0,WIDTH,HEIGHT,rgb,0,WIDTH);
+
 
 	}
 
@@ -972,11 +1023,30 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 		if (graph == null)
 			graph = (Graphics2D) center.getGraphics();
 
-		draw(buf);
+		draw(graph);
+		
+		buildScreen(buf); 
 
-		graph.drawImage(buf, 0, 0, WIDTH, HEIGHT, null);
+
+		graph.drawImage(buf,0,0,null);
+
+		//graph.drawImage(buf, 0, 0, WIDTH, HEIGHT, null);
 
 	}
+
+	private void draw(Graphics2D graph) {
+		
+		graph.setColor(Color.BLACK);
+		graph.fillRect(0,0,WIDTH,HEIGHT);
+	
+		//editorPanel.setHide_objects(checkHideObjects.isSelected());
+		drawRoad(meshes,drawObjects,splines,landscapeZbuffer,graph);
+	
+
+		//drawCurrentRect(landscapeZbuffer);
+		
+	}
+
 
 	public int convertX(double x) {
 
@@ -1000,7 +1070,7 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 
 	private void draw(BufferedImage buf) {
 		
-		PolygonMesh mesh = meshes[0];	
+		/*PolygonMesh mesh = meshes[0];	
 
 		Graphics2D graph2 = (Graphics2D) buf.getGraphics();
 
@@ -1114,11 +1184,19 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 			
 		}*/
 		
-		displayCurrentRect(graph2);
+		//displayCurrentRect(graph2);
 
 	}
 
-	private void drawRoad(BufferedImage buf, int[] rgb) {
+
+	private void drawRoad(PolygonMesh[] meshes, Vector drawObjects2,
+			Vector splines, ZBuffer landscapeZbuffer2, Graphics2D graph2) {
+		
+		
+		displayTerrain(landscapeZbuffer,meshes);
+		displaySPLines(landscapeZbuffer,splines);
+		//displayRoad(landscapeZbuffer,meshes,1);
+		displayObjects(landscapeZbuffer,drawObjects);
 
 		// bufGraphics.setColor(CarFrame2D.BACKGROUND_COLOR);
 		// bufGraphics.fillRect(0,0,WIDTH,HEIGHT);
@@ -1133,9 +1211,8 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 		boolean found = false; 
 		// Date t=new Date();
 
-		for(int index=0;index<2;index++){
 
-			PolygonMesh mesh = meshes[index];	
+			/*PolygonMesh mesh = meshes[TERRAIN_INDEX];	
 
 			for (int j = 0; j < mesh.polygonData.size(); j++) {
 
@@ -1166,49 +1243,62 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 						worldTextures[p3D.getIndex()], true,
 						bufGraphics, buf.getWidth(), buf.getHeight(), rgb);
 
-			}
+			}*/
 			
-		}
-		drawSPLines(bufGraphics,splines);
+
+		/*drawSPLines(bufGraphics,splines);
 		
 		buf.getRaster().setDataElements(0, 0, buf.getWidth(),
 				buf.getHeight(), rgb);
 		
-		drawObjects(bufGraphics); 
+		drawObjects(bufGraphics); */
 	}
 	
-	private void drawSPLines(Graphics2D bufGraphics, Vector splines) {
-	
-		for (int i = 0; i < splines.size(); i++) {
+	private void displayObjects(ZBuffer landscapeZbuffer2, Vector drawObjects2) {
+
+		Rectangle totalVisibleField=new Rectangle(0,0,WIDTH,HEIGHT);
+
+		/*for(int i=0;i<drawObjects.size();i++){
+
+			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
+
+			int y=convertY(dro.x,dro.y,dro.z);
+			int x=convertX(dro.x,dro.y,dro.z);
+
+			int index=dro.getIndex();
+
+			int dw=(int) (dro.dx/dx);
+			int dh=(int) (dro.dy/dy);
+
+			
+			if(!totalVisibleField.intersects(new Rectangle(x,y-dh,dw,dh))){
+				
+				//System.out.println(totalVisibleField+" "+new Rectangle(x,y,dw,dh));
+				
+				continue;
+			}
+			
+			
+		
+			
+			drawObject(landscapeZbuffer,dro);
+
+		}	*/
+	}
+
+	private void displaySPLines(ZBuffer landscapeZbuffer2, Vector splines) {
+		
+		/*for (int i = 0; i < splines.size(); i++) {
 			SPLine sp = (SPLine) splines.elementAt(i);
 			
 			Vector meshes = sp.getMeshes();
 			
-			for (int j = 0; j < meshes.size(); j++) {
+			for (int j = 0; j < meshes.size(); j++) {//if(j!=4)continue;
 				
 				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
-				
-	
-				for (int k = 0; k < mesh.polygonData.size(); k++) {
-
-					LineData ld = (LineData)  mesh.polygonData.elementAt(k);
-
-					// if(j>0 || i>0) continue;
-					Polygon3D p3D = buildPolygon(ld, mesh.points, false);
-					
-					
-					if (!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()) {
-						
-						
-						Polygon3D p3Dr = buildPolygon(ld, mesh.points, true);
-						drawRoadPolygon(p3D, p3Dr, totalVisibleField,
-								ZBuffer.fromHexToColor(p3D.getHexColor()),
-								EditorData.worldTextures[p3D.getIndex()], true,
-								bufGraphics, buf.getWidth(), buf.getHeight(), rgb);
-					
-					}
-				}	
-
+				            
+				drawPolygon(mesh,landscapeZbuffer,1);
+                 
 				
 			}
 
@@ -1217,7 +1307,91 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 			
 		}
 		
+		
+		for (int i = 0; i < splines.size(); i++) {
+			SPLine sp = (SPLine) splines.elementAt(i);
+			
+			for (int k = 0; k < sp.nodes.size(); k++) {
+				
+				SPNode node = (SPNode) sp.nodes.elementAt(k);
+				
+				PolygonMesh pm=node.getRing();
+				
+				Texture texture=EditorData.whiteTexture;
+				
+				if(node.isSelected())
+					texture=EditorData.redTexture;
+				
+				for(int l=0;l<pm.polygonData.size();l++){
+					
+					
+					LineData ld=(LineData) pm.polygonData.elementAt(l);
+					
+				
+											
+					drawPolygon(ld,pm.points,landscapeZbuffer,texture,1);
+
+				} 
+				
+			
+			}
+
+
+			
+		}*/
+		
+		
 	}
+
+	private void displayTerrain(ZBuffer landscapeZbuffer2, PolygonMesh[] meshes) {
+
+	
+		/*PolygonMesh mesh=meshes[RoadEditor.TERRAIN_INDEX];
+		
+		if(mesh.points==null)
+			return;
+		
+		int lsize=mesh.polygonData.size();
+		
+
+		for(int j=0;j<lsize;j++){
+			
+			
+			LineData ld=(LineData) mesh.polygonData.elementAt(j);
+
+	
+			Texture texture = EditorData.worldTextures[ld.getTexture_index()];
+			drawPolygon(ld,mesh.points,landscapeZbuffer,texture,RoadEditor.TERRAIN_INDEX);
+
+		} 
+
+		//mark row angles
+		
+		int size=mesh.points.length;
+		for(int j=0;j<size;j++){
+
+
+		    Point4D p=(Point4D) mesh.points[j];
+
+				int xo=convertX(p);
+				int yo=convertY(p);
+				
+				int rgbColor=Color.white.getRGB();
+
+				if(p.isSelected()){
+					rgbColor=Color.RED.getRGB();
+
+				}	
+	
+	
+			    fillOval(landscapeZbuffer,xo,yo,2,2,rgbColor);
+
+			}
+		
+		
+		drawCurrentRect(landscapeZbuffer);*/
+	}
+
 
 	public void buildLine(Vector polygonData, String str,Vector vTexturePoints) {
 
@@ -1230,7 +1404,7 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 	
 	private void drawObjects(Graphics2D bufGraphics) {
 		
-		bufGraphics.setColor(Color.GREEN);
+		/*bufGraphics.setColor(Color.GREEN);
 
 		Rectangle totalVisibleField=new Rectangle(0,0,WIDTH,HEIGHT);
 
@@ -1270,45 +1444,541 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 			
 			drawObject(bufGraphics,dro);
 
-		}	
+		}	*/
 	}
 
-	private void drawObject(Graphics2D bufGraphics, DrawObject dro) {
-		
-		int index=dro.getIndex();
-		
-		int[] cx=new int[4];
+	private void drawObject(ZBuffer landscapeZbuffer, DrawObject dro) {
+
+		/*int[] cx=new int[4];
 		int[] cy=new int[4];
 		
 		int versus=1;
 		if(!DrawObject.IS_3D)
 			versus=-1;
 
-		cx[0]=convertX(dro.x);
-		cy[0]=convertY(dro.y);
-		cx[1]=convertX(dro.x);
-		cy[1]=convertY(dro.y+versus*dro.dy);
-		cx[2]=convertX(dro.x+dro.dx);
-		cy[2]=convertY(dro.y+versus*dro.dy);
-		cx[3]=convertX(dro.x+dro.dx);
-		cy[3]=convertY(dro.y);
+		cx[0]=convertX(dro.x,dro.y,dro.z);
+		cy[0]=convertY(dro.x,dro.y,dro.z);
+		cx[1]=convertX(dro.x,dro.y,dro.z);
+		cy[1]=convertY(dro.x,dro.y+versus*dro.dy,dro.z);
+		cx[2]=convertX(dro.x+dro.dx,dro.y,dro.z);
+		cy[2]=convertY(dro.x,dro.y+versus*dro.dy,dro.z);
+		cx[3]=convertX(dro.x+dro.dx,dro.y,dro.z);
+		cy[3]=convertY(dro.x,dro.y,dro.z);
 
 		Polygon p_in=new Polygon(cx,cy,4);
 		
 		Point3D center=Polygon3D.findCentroid(p_in);
 		Polygon3D.rotate(p_in,center,dro.rotation_angle);
+	
+
+		Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
+		Area partialArea = clipPolygonToArea2D( p_in,totArea);
+
+		if(partialArea.isEmpty()){
+			
+			return;
+		}	
+
+		Polygon pTot=Polygon3D.fromAreaToPolygon2D(partialArea);
+		//if(cy[0]<0 || cy[0]>HEIGHT || cx[0]<0 || cx[0]>WIDTH) return;
 		
 		
-		drawPolygon(bufGraphics,p_in);
+		Color pColor=ZBuffer.fromHexToColor(dro.getHexColor());
 		
 		
+		if(dro.isSelected())
+		{
+			pColor=Color.RED;
+			
+		}
+		int rgbColor = pColor.getRGB();
+		drawPolygon(landscapeZbuffer,pTot,rgbColor);
+				
+		drawTextImage(landscapeZbuffer,RoadEditor.objectIndexes[dro.getIndex()]
+						,cx[0]-5,cy[0]-5,editor.indexWidth,editor.indexHeight,Color.BLACK,pColor);		
+		*/
+		
+
+	}
+	
+	private void drawPolygon(LineData ld,Point3D[] points,ZBuffer landscapeZbuffer,Texture texture,int indx) {
+
+
+		/*Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
+
+		int size=ld.size();
+
+		int[] cx=new int[size];
+		int[] cy=new int[size];
+		int[] cz=new int[size];
+
+
+		for(int i=0;i<size;i++){
+
+
+			int num=ld.getIndex(i);
+
+			Point4D p=(Point4D) points[num];
+
+			//bufGraphics.setColor(ZBuffer.fromHexToColor(is[i].getHexColor()));
+
+			cx[i]=convertX(p);
+			cy[i]=convertY(p);
+			cz[i]=(int)p.z;
+
+
+
+		}
+
+		Polygon p_in=new Polygon(cx,cy,ld.size());
+		Area partialArea = clipPolygonToArea2D( p_in,totArea);
+
+		if(partialArea.isEmpty())
+			return;
+
+		Polygon3D p3d=new Polygon3D(size,cx,cy,cz);
+		Polygon3D p3dr=PolygonMesh.getBodyPolygon(points,ld);
+
+		//calculate texture angle
+
+		
+		Color selected=null;
+
+		if(ld.isSelected()){
+
+			if(indx<0 || indx==editor.ACTIVE_PANEL){
+				selected=selectionColor;
+			}
+		}
+		
+
+
+
+		drawTexture(texture,p3d,p3dr,landscapeZbuffer,selected);
+*/
+
+
+	}
+	
+	private void drawTexture(Texture texture,  Polygon3D p3d, Polygon3D p3dr,ZBuffer landscapeZbuffer, Color selected) {
+
+		/*Point3D normal=Polygon3D.findNormal(p3dr);
+
+
+
+		if(texture!=null){
+			
+			Rectangle rect = p3d.getBounds();
+			
+			
+			
+			int i0=rect.x;
+			int i1=rect.x+rect.width;
+					
+			int j0=rect.y;
+			int j1=rect.y+rect.height;
+
+			//System.out.println(i0+" "+i1+" "+j0+" "+j1);
+			
+			
+			Point3D p0r=new Point3D(p3dr.xpoints[0],p3dr.ypoints[0],p3dr.zpoints[0]);
+			Point3D p1r=new Point3D(p3dr.xpoints[1],p3dr.ypoints[1],p3dr.zpoints[1]);
+			Point3D pNr=new Point3D(p3dr.xpoints[p3dr.npoints-1],p3dr.ypoints[p3dr.npoints-1],p3dr.zpoints[p3dr.npoints-1]);
+
+			Point3D xDirection = (p1r.substract(p0r)).calculateVersor();
+			//Point3D yDirection= (pNr.substract(p0r)).calculateVersor();
+			Point3D yDirection=Point3D.calculateCrossProduct(normal,xDirection).calculateVersor();
+
+	
+			
+			Polygon3D[] triangles=Polygon3D.divideIntoTriangles(p3dr);
+			
+			for (int i = 0; i < triangles.length; i++) {
+				
+				Polygon3D tria=triangles[i];
+				
+				BarycentricCoordinates bc=new BarycentricCoordinates(triangles[i]);
+				
+					
+				int rgb=-1;
+				
+				if(selected!=null)
+					rgb=selected.getRGB();
+				
+				decomposeTriangleIntoZBufferEdgeWalking(tria,rgb,texture,landscapeZbuffer, xDirection, yDirection, p0r, 0, 0,bc); 
+
+				
+			}
+
+
+		}*/
+
+	}
+	
+	/**
+	 * 
+	 * DECOMPOSE PROJECTED TRIANGLE USING EDGE WALKING AND
+	 * PERSPECTIVE CORRECT MAPPING
+	 * 
+	 * @param p3d
+	 * @param color
+	 * @param texture
+	 * @param useLowResolution
+	 * @param xDirection
+	 * @param yDirection
+	 * @param origin 
+	 */
+	public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int selected,Texture texture,ZBuffer zb,  
+			Point3D xDirection, Point3D yDirection, Point3D origin,int deltaX,int deltaY,
+			BarycentricCoordinates bc) {
+
+		/*int rgbColor=selected;
+		
+		rr=a2*(selected>>16 & mask);
+		gg=a2*(selected>>8 & mask);
+		bb=a2*(selected & mask);
+
+		Point3D normal=Polygon3D.findNormal(p3d).calculateVersor();
+		
+		//boolean isFacing=isFacing(p3d,normal,observerPoint);
+
+
+	
+		double cosin=calculateCosin(p3d);
+		
+		
+		Point3D po0=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
+		Point3D po1=new Point3D(p3d.xpoints[1],p3d.ypoints[1],p3d.zpoints[1]);
+		Point3D po2=new Point3D(p3d.xpoints[2],p3d.ypoints[2],p3d.zpoints[2]);
+	
+		Point3D p0=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
+		Point3D p1=new Point3D(p3d.xpoints[1],p3d.ypoints[1],p3d.zpoints[1]);
+		Point3D p2=new Point3D(p3d.xpoints[2],p3d.ypoints[2],p3d.zpoints[2]);
+
+		p0.rotate(POSX,POSY,cosf,sinf);
+		p1.rotate(POSX,POSY,cosf,sinf);
+		p2.rotate(POSX,POSY,cosf,sinf);
+
+		double x0=(int)convertX(p0.x,p0.y,p0.z);
+		double y0=(int)convertY(p0.x,p0.y,p0.z);
+		double z0=p0.z;
+
+		double x1=(int)convertX(p1.x,p1.y,p1.z);
+		double y1=(int)convertY(p1.x,p1.y,p1.z);
+		double z1=p1.z;
+
+		
+		double x2=(int)convertX(p2.x,p2.y,p2.z);
+		double y2=(int)convertY(p2.x,p2.y,p2.z);
+		double z2=p2.z;
+        //System.out.println(x0+" "+y0+", "+x1+" "+y1+", "+x2+" "+y2);
+		
+		//check if triangle is visible
+		double maxX=Math.max(x0,x1);
+		maxX=Math.max(x2,maxX);
+		double maxY=Math.max(y0,y1);
+		maxY=Math.max(y2,maxY);
+		double minX=Math.min(x0,x1);
+		minX=Math.min(x2,minX);
+		double minY=Math.min(y0,y1);
+		minY=Math.min(y2,minY);
+		
+		if(maxX<0 || minX>WIDTH || maxY<0 || minY>HEIGHT)
+			return;
+
+		Point3D[] points=new Point3D[3];
+
+		points[0]=new Point3D(x0,y0,z0,p0.x,p0.y,p0.z);
+		points[1]=new Point3D(x1,y1,z1,p1.x,p1.y,p1.z);
+		points[2]=new Point3D(x2,y2,z2,p2.x,p2.y,p2.z);
+
+		
+		if(texture!=null){
+			
+			int w=texture.getWidth();
+			int h=texture.getHeight();
+			
+			Point3D pt0=bc.pt0;
+			Point3D pt1=bc.pt1;
+			Point3D pt2=bc.pt2;
+			
+			Point3D p=bc.getBarycentricCoordinates(new Point3D(po0.x,po0.y,po0.z));
+			double x= (p.x*(pt0.x)+p.y*pt1.x+(1-p.x-p.y)*pt2.x);
+			double y= (p.x*(pt0.y)+p.y*pt1.y+(1-p.x-p.y)*pt2.y);
+			points[0].setTexurePositions(x,texture.getHeight()-y);
+			
+			
+			p=bc.getBarycentricCoordinates(new Point3D(po1.x,po1.y,po1.z));
+			x= (p.x*(pt0.x)+p.y*pt1.x+(1-p.x-p.y)*pt2.x);
+			y= (p.x*(pt0.y)+p.y*pt1.y+(1-p.x-p.y)*pt2.y);	
+			points[1].setTexurePositions(x,texture.getHeight()-y);
+			
+			
+			p=bc.getBarycentricCoordinates(new Point3D(po2.x,po2.y,po2.z));
+			x= (p.x*(pt0.x)+p.y*pt1.x+(1-p.x-p.y)*pt2.x);
+			y= (p.x*(pt0.y)+p.y*pt1.y+(1-p.x-p.y)*pt2.y);
+			points[2].setTexurePositions(x,texture.getHeight()-y);
+				
+		}
+		
+		int upper=0;
+		int middle=1;
+		int lower=2;
+
+		for(int i=0;i<3;i++){
+
+			if(points[i].y>points[upper].y)
+				upper=i;
+
+			if(points[i].y<points[lower].y)
+				lower=i;
+
+		}
+		for(int i=0;i<3;i++){
+
+			if(i!=upper && i!=lower)
+				middle=i;
+		}
+
+
+		//double i_depth=1.0/zs;
+		//UPPER TRIANGLE
+		
+		Point3D lowP=points[lower];
+		Point3D upP=points[upper];
+		Point3D midP=points[middle];
+		
+		int j0=midP.y>0?(int)midP.y:0;
+		int j1=upP.y<HEIGHT?(int)upP.y:HEIGHT;
+
+		for(int j=j0;j<j1;j++){
+
+			double middlex=Point3D.foundXIntersection(upP,lowP,j);
+			Point3D intersects = foundPX_PY_PZ_TEXTURE_Intersection(upP,lowP,j);
+
+			double middlex2=Point3D.foundXIntersection(upP,midP,j);
+			Point3D intersecte = foundPX_PY_PZ_TEXTURE_Intersection(upP,midP,j);
+	
+			Point3D pstart=new Point3D(middlex,j,intersects.p_z,intersects.p_x,intersects.p_y,intersects.p_z,intersects.texture_x,intersects.texture_y);
+			Point3D pend=new Point3D(middlex2,j,intersecte.p_z,intersecte.p_x,intersecte.p_y,intersecte.p_z,intersecte.texture_x,intersecte.texture_y);
+			
+			
+			//pstart.p_y=pstart.p_x*projectionNormal.x+pstart.p_y*projectionNormal.y+pstart.p_z*projectionNormal.z;
+			//pend.p_y=pend.p_x*projectionNormal.x+pend.p_y*projectionNormal.y+pend.p_z*projectionNormal.z;
+
+			if(pstart.x>pend.x){
+
+				Point3D swap= pend;
+				pend= pstart;
+				pstart=swap;
+
+			}
+
+			int start=(int)pstart.x;
+			int end=(int)pend.x;
+
+
+
+			double inverse=1.0/(end-start);
+
+
+			int i0=start>0?start:0;
+
+			for(int i=i0;i<end;i++){
+
+				if(i>=WIDTH)
+					break;
+
+				int tot=WIDTH*j+i;
+
+				double l=(i-start)*inverse;
+
+				double yi=((1-l)*pstart.p_y+l*pend.p_y);
+				double zi=((1-l)*pstart.p_z+l*pend.p_z);
+				double xi=((1-l)*pstart.p_x+l*pend.p_x);  
+		
+				if(!zb.isToUpdate(-zi,tot)){
+				
+					continue;
+				}	
+
+			
+				
+                double texture_x=(1-l)*pstart.texture_x+l*pend.texture_x;
+                double texture_y=(1-l)*pstart.texture_y+l*pend.texture_y;
+
+			
+
+				if(texture!=null)
+					rgbColor=texture.getRGB((int)texture_x,(int) texture_y);  
+					//rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY);
+				if(rgbColor==greenRgb)
+					continue;
+				
+				if(selected>-1){
+					
+
+					
+				    int r=(int) (a1*(rgbColor>>16 & mask)+rr);
+				    int g=(int) (a1*(rgbColor>>8 & mask)+gg);
+				    int b=(int) (a1*(rgbColor & mask)+bb);
+					
+					rgbColor= (255 << 32) + (r << 16) + (g << 8) + b;
+				}
+
+				//System.out.println(x+" "+y+" "+tot);    	
+				
+				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),false,tot);
+				
+				
+			}
+
+
+		}
+		//LOWER TRIANGLE
+		j0=lowP.y>0?(int)lowP.y:0;
+		j1=midP.y<HEIGHT?(int)midP.y:HEIGHT;
+		
+		for(int j=j0;j<j1;j++){
+		
+			double middlex=Point3D.foundXIntersection(upP,lowP,j);
+			
+			Point3D intersects = foundPX_PY_PZ_TEXTURE_Intersection(upP,lowP,j);
+
+			double middlex2=Point3D.foundXIntersection(lowP,midP,j);
+			
+			Point3D insersecte = foundPX_PY_PZ_TEXTURE_Intersection(lowP,midP,j);
+			
+			Point3D pstart=new Point3D(middlex,j,intersects.p_z,intersects.p_x,intersects.p_y,intersects.p_z,intersects.texture_x,intersects.texture_y);
+			Point3D pend=new Point3D(middlex2,j,insersecte.p_z,insersecte.p_x,insersecte.p_y,insersecte.p_z,insersecte.texture_x,insersecte.texture_y);
+
+
+			//pstart.p_y=pstart.p_x*projectionNormal.x+pstart.p_y*projectionNormal.y+pstart.p_z*projectionNormal.z;
+			//pend.p_y=pend.p_x*projectionNormal.x+pend.p_y*projectionNormal.y+pend.p_z*projectionNormal.z;
+
+			
+			if(pstart.x>pend.x){
+
+
+				Point3D swap= pend;
+				pend= pstart;
+				pstart=swap;
+
+			}
+
+			int start=(int)pstart.x;
+			int end=(int)pend.x;
+
+			double inverse=1.0/(end-start);
+
+			int i0=start>0?start:0;
+
+			for(int i=i0;i<end;i++){
+				
+				if(i>=WIDTH)
+					break;
+
+				int tot=WIDTH*j+i; 
+
+				double l=(i-start)*inverse;
+
+				double yi=((1-l)*pstart.p_y+l*pend.p_y);
+
+				double zi=((1-l)*pstart.p_z+l*pend.p_z);
+				double xi=((1-l)*pstart.p_x+l*pend.p_x);  
+				
+				
+				if(!zb.isToUpdate(-zi,tot) ){
+					
+					continue;
+				}	
+
+
+
+                double texture_x=(1-l)*pstart.texture_x+l*pend.texture_x;
+                double texture_y=(1-l)*pstart.texture_y+l*pend.texture_y;
+
+
+				if(texture!=null)
+					//rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY);
+					rgbColor=texture.getRGB((int)texture_x,(int) texture_y);   
+				if(rgbColor==greenRgb)
+					continue;
+				
+				if(selected>-1){
+					
+
+					
+				    int r=(int) (a1*(rgbColor>>16 & mask)+rr);
+				    int g=(int) (a1*(rgbColor>>8 & mask)+gg);
+				    int b=(int) (a1*(rgbColor & mask)+bb);
+					
+					rgbColor= (255 << 32) + (r << 16) + (g << 8) + b;
+				}
+
+				//System.out.println(x+" "+y+" "+tot);
+
+
+			
+				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),false,tot);
+				
+			}
+
+
+		}	
+*/
+
+
+
+	}
+	
+	
+	public Area clipPolygonToArea2D(Polygon p_in,Area area_out){
+
+
+		Area area_in = new Area(p_in);
+
+		Area new_area_out = (Area) area_out.clone();
+		new_area_out.intersect(area_in);
+
+		return new_area_out;
+
+	}
+	
+	private void fillOval(ZBuffer landscapeZbuffer, int cx, int cy, int dx,
+			int dy, int rgbColor) {
+		
+		int x=cx-dx;		
+		int xx=cx+dx;
+		
+		int y=cy-dy;
+		int yy=cy+dy;
+		
+		double r=(dx+dy)/2.0+0.5;
+		
+		for (int i = x; i <= xx; i++) {
+		
+			for (int j = y; j <= yy; j++) {
+				
+				double d=Point3D.distance(cx,cy,0,i,j,0);
+				
+				if(d>r)
+					continue;
+				
+				
+				if(i>=0 && i<WIDTH && j>=0 && j<HEIGHT){
+					
+					int tot=i+j*WIDTH;
+					landscapeZbuffer.setRgbColor(rgbColor,tot);
+				}
+				
+			}
+		
+		}
 	}
 
-	private void drawPolygon(Graphics2D bufGraphics, Polygon p_in) {
-		
-		bufGraphics.draw(p_in);
-		
-	}
+	
+
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -1662,19 +2332,20 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
-			loadRoad(file);
+			loadLanscape(file);
 			draw();
 			//currentDirectory = new File(file.getParent());
 		}
 
 	}
 
-	private void loadRoad(File file) {
+	private void loadLanscape(File file) { 
 
 		setACTIVE_PANEL(0);
 		loadPointsFromFile(file);	
 		setACTIVE_PANEL(1);
-		loadSPLinesFromFile(file);		
+		//loadPointsFromFile(file);
+		loadSPLinesFromFile(file);
 		setACTIVE_PANEL(0);
 		
 		loadObjectsFromFile(file); 
@@ -2501,6 +3172,30 @@ public class AutocarEditor extends Renderer2D implements MouseListener,
 
 		draw();
 
+	}
+	
+	public Area buildVisibileArea(int y1, int y2) {
+		int[] cx=new int[4];
+		int[] cy=new int[4];
+
+
+
+		cx[0]=0;
+		cy[0]=y1;
+		cx[1]=WIDTH;
+		cy[1]=y1;
+		cx[2]=WIDTH;
+		cy[2]=y2;
+		cx[3]=0;
+		cy[3]=y2;
+
+		Polygon p=new Polygon(cx,cy,4);
+
+		Area a = new Area(p);
+
+		//System.out.println(Polygon3D.fromAreaToPolygon2D(a));
+
+		return a;
 	}
 
 	@Override
