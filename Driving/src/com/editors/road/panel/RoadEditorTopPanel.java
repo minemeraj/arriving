@@ -128,7 +128,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				
 				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
 				            
-				drawPolygon(mesh,landscapeZbuffer,1);
+				drawSPLinePolygon(mesh,landscapeZbuffer,1);
                  
 				
 			}
@@ -330,7 +330,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 	}
 	
-	private void drawPolygon(PolygonMesh mesh, ZBuffer landscapeZbuffer,
+	private void drawSPLinePolygon(PolygonMesh mesh, ZBuffer landscapeZbuffer,
 			int rgbColor) {
 
 		

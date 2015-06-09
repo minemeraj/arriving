@@ -110,8 +110,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 	int x0 = 0;
 	int y0 = 0;
 
-	double dx = 1;
-	double dy = 1;
+	double dx = 2.0;
+	double dy = 2.0;
 
 	int deltax = 10;
 	int deltay = 10;
@@ -1317,7 +1317,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	private void displaySPLines(ZBuffer landscapeZbuffer2, Vector splines) {
 		
-		/*for (int i = 0; i < splines.size(); i++) {
+		for (int i = 0; i < splines.size(); i++) {
 			SPLine sp = (SPLine) splines.elementAt(i);
 			
 			Vector meshes = sp.getMeshes();
@@ -1326,7 +1326,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 				
 				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
 				            
-				drawPolygon(mesh,landscapeZbuffer,1);
+				drawSPLinePolygon(mesh,landscapeZbuffer,1);
                  
 				
 			}
@@ -1335,39 +1335,6 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 			
 		}
-		
-		
-		for (int i = 0; i < splines.size(); i++) {
-			SPLine sp = (SPLine) splines.elementAt(i);
-			
-			for (int k = 0; k < sp.nodes.size(); k++) {
-				
-				SPNode node = (SPNode) sp.nodes.elementAt(k);
-				
-				PolygonMesh pm=node.getRing();
-				
-				Texture texture=EditorData.whiteTexture;
-				
-				if(node.isSelected())
-					texture=EditorData.redTexture;
-				
-				for(int l=0;l<pm.polygonData.size();l++){
-					
-					
-					LineData ld=(LineData) pm.polygonData.elementAt(l);
-					
-				
-											
-					drawPolygon(ld,pm.points,landscapeZbuffer,texture,1);
-
-				} 
-				
-			
-			}
-
-
-			
-		}*/
 		
 		
 	}
@@ -1542,6 +1509,25 @@ public class AutocarEditor extends Editor implements MouseListener,
 		*/
 		
 
+	}
+	
+	private void drawSPLinePolygon(PolygonMesh mesh, ZBuffer landscapeZbuffer,
+			int rgbColor) {
+
+		
+		int lsize=mesh.polygonData.size();
+		
+
+		for(int k=0;k<lsize;k++){
+			
+			
+			LineData ld=(LineData) mesh.polygonData.elementAt(k);
+			Texture texture = EditorData.splinesEditorTextures[ld.getTexture_index()];
+			
+			drawPolygon(ld,mesh.points,landscapeZbuffer,texture,0);
+
+		} 
+		
 	}
 	
 	private void drawPolygon(LineData ld,Point3D[] points,ZBuffer landscapeZbuffer,Texture texture,int indx) {
