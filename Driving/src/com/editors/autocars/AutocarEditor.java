@@ -209,6 +209,22 @@ public class AutocarEditor extends Editor implements MouseListener,
 	public Area totalVisibleField=null;
 	public static ZBuffer landscapeZbuffer;
 	public int blackRgb= Color.BLACK.getRGB();
+	
+	public Color selectionColor=null;
+	
+	public int mask = 0xFF;
+	public double a1=0.6;
+	public double a2=1.0-a1;
+	
+	public double rr=0;
+	public double gg=0;
+	public double bb=0;
+	
+	public int greenRgb= Color.GREEN.getRGB();
+	
+	public double fi=0;
+	public double sinf=Math.sin(fi);
+	public double cosf=Math.cos(fi);
 
 	public static void main(String[] args) {
 
@@ -367,6 +383,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 			objectIndexes[i]=new Texture(boi);	
 			
 		}
+		
+		selectionColor=new Color(255,0,0,127);
 
 	}
 	
@@ -1046,6 +1064,17 @@ public class AutocarEditor extends Editor implements MouseListener,
 		//drawCurrentRect(landscapeZbuffer);
 		
 	}
+	
+	public int convertX(Point3D p){
+
+
+		return convertX(p.x,p.y,p.z);
+	}
+	public int convertY(Point3D p){
+
+
+		return convertY(p.x,p.y,p.z);
+	}
 
 
 	public int convertX(double x,double y, double z) {
@@ -1518,7 +1547,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 	private void drawPolygon(LineData ld,Point3D[] points,ZBuffer landscapeZbuffer,Texture texture,int indx) {
 
 
-		/*Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
+		Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
 
 		int size=ld.size();
 
@@ -1560,7 +1589,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		if(ld.isSelected()){
 
-			if(indx<0 || indx==editor.ACTIVE_PANEL){
+			if(indx<0 || indx==ACTIVE_PANEL){
 				selected=selectionColor;
 			}
 		}
@@ -1569,14 +1598,14 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 
 		drawTexture(texture,p3d,p3dr,landscapeZbuffer,selected);
-*/
+
 
 
 	}
 	
 	private void drawTexture(Texture texture,  Polygon3D p3d, Polygon3D p3dr,ZBuffer landscapeZbuffer, Color selected) {
 
-		/*Point3D normal=Polygon3D.findNormal(p3dr);
+		Point3D normal=Polygon3D.findNormal(p3dr);
 
 
 
@@ -1625,7 +1654,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 			}
 
 
-		}*/
+		}
 
 	}
 	
@@ -1646,7 +1675,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 			Point3D xDirection, Point3D yDirection, Point3D origin,int deltaX,int deltaY,
 			BarycentricCoordinates bc) {
 
-		/*int rgbColor=selected;
+		int rgbColor=selected;
 		
 		rr=a2*(selected>>16 & mask);
 		gg=a2*(selected>>8 & mask);
@@ -1669,9 +1698,9 @@ public class AutocarEditor extends Editor implements MouseListener,
 		Point3D p1=new Point3D(p3d.xpoints[1],p3d.ypoints[1],p3d.zpoints[1]);
 		Point3D p2=new Point3D(p3d.xpoints[2],p3d.ypoints[2],p3d.zpoints[2]);
 
-		p0.rotate(POSX,POSY,cosf,sinf);
-		p1.rotate(POSX,POSY,cosf,sinf);
-		p2.rotate(POSX,POSY,cosf,sinf);
+		p0.rotate(x0,y0,cosf,sinf);
+		p1.rotate(x0,y0,cosf,sinf);
+		p2.rotate(x0,y0,cosf,sinf);
 
 		double x0=(int)convertX(p0.x,p0.y,p0.z);
 		double y0=(int)convertY(p0.x,p0.y,p0.z);
@@ -1940,7 +1969,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 
 		}	
-*/
+
 
 
 
@@ -3178,6 +3207,27 @@ public class AutocarEditor extends Editor implements MouseListener,
 		//System.out.println(Polygon3D.fromAreaToPolygon2D(a));
 
 		return a;
+	}
+	
+	public static Point3D foundPX_PY_PZ_TEXTURE_Intersection(Point3D pstart, Point3D pend,
+			double y) {
+		
+		Point3D intersect=new Point3D(); 
+
+
+		
+		double l=(y-pstart.y)/(pend.y-pstart.y);
+	
+		
+		intersect.p_x= (1-l)*pstart.p_x+l*pend.p_x;
+		intersect.p_y= (1-l)*pstart.p_y+l*pend.p_y;		
+		intersect.p_z= (1-l)*pstart.p_z+l*pend.p_z;
+		
+		intersect.texture_x=  (1-l)*pstart.texture_x+l*pend.texture_x;
+		intersect.texture_y=  (1-l)*pstart.texture_y+l*pend.texture_y;
+		
+		return intersect;
+
 	}
 
 	@Override

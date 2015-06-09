@@ -767,6 +767,17 @@ public class Editor extends JFrame implements MenuListener{
 		return null;
 	}
 
+	public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs) {
+
+		return argbs;
+	
+	}
+	
+	public double calculateCosin(Polygon3D polReal) {
+		
+		return 1.0;
+	}
+	
 	public int getACTIVE_PANEL() {
 		return ACTIVE_PANEL;
 	}
