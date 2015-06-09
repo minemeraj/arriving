@@ -1,6 +1,8 @@
 Deep review of the road object structure, now modeled as a spline mesh.
 Big releated changes in the road editor too.
 
+Added "Insert point after" to the autocar editor.
+
 Fixed bug on globe1 mesh, north pole not correctly textured.
 
 Modified  FornitureEditor, to set freely num meridians and parallels for the globes.

@@ -225,6 +225,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 	public double fi=0;
 	public double sinf=Math.sin(fi);
 	public double cosf=Math.cos(fi);
+	private String header;
+	private JButton insertPoint;
 
 	public static void main(String[] args) {
 
@@ -541,6 +543,16 @@ public class AutocarEditor extends Editor implements MouseListener,
 		right.add(changePoint);
 
 		r += 30;
+		
+		insertPoint=new JButton("Insert point after");
+		insertPoint.addActionListener(this);
+		insertPoint.addKeyListener(this);
+		insertPoint.setFocusable(false);
+		insertPoint.setBounds(10,r,150,20);
+		right.add(insertPoint);
+
+
+		r+=30;
 
 		selectAll = new JButton("Select all");
 		selectAll.addActionListener(this);
@@ -2266,6 +2278,9 @@ public class AutocarEditor extends Editor implements MouseListener,
 			help();		
 		else if (obj == changePoint)
 			changeSelectedPoint();
+		else if(obj==insertPoint){
+			insertPointAfter();
+		}
 		else if (obj == deselectAll) {
 			deselectAllPoints();
 			draw();
@@ -2951,6 +2966,51 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		draw();
 
+	}
+	
+	private void insertPointAfter() {
+		
+		prepareUndo();		
+		
+		LinkedList linkedList=(LinkedList) autolinesData.elementAt(chooseAutoline.getSelectedIndex());
+
+		int size = linkedList.size();
+
+		for (int i = 0; i < size; i++) {
+
+			Point3D point = (Point3D) linkedList.get(i);
+
+			if (point.isSelected()) {
+
+				
+				Point3D nextPoint=null;
+				
+				if(i+1< size){
+					
+					nextPoint=  (Point3D) linkedList.get(i+1);
+					
+				}else{
+					
+					nextPoint=  (Point3D) linkedList.get(0);
+				}
+				
+				
+				
+				double x=(point.x+nextPoint.x)*0.5;
+				double y=(point.y+nextPoint.y)*0.5;
+				double z=(point.z+nextPoint.z)*0.5;
+				
+				
+				Point3D intermediatePoint=new Point3D(x,y,z);
+				linkedList.add(i+1,intermediatePoint);
+				
+				break;
+			}
+
+		}
+
+
+		draw();
 	}
 
 	private void moveSelectedPoints(int dx, int dy, int dk) {
