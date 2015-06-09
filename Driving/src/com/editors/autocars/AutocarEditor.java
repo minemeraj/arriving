@@ -1044,7 +1044,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 		draw(graph);
 		
 		buildScreen(buf); 
-
+        drawAutolines(buf);  
+		
 
 		graph.drawImage(buf,0,0,null);
 
@@ -1097,29 +1098,11 @@ public class AutocarEditor extends Editor implements MouseListener,
 		return (int) (dy * (HEIGHT + y0 - y));
 	}
 
-	private void draw(BufferedImage buf) {
+	private void drawAutolines(BufferedImage buf) {
 		
-		/*PolygonMesh mesh = meshes[0];	
 
 		Graphics2D graph2 = (Graphics2D) buf.getGraphics();
 
-		graph2.setColor(background_color);
-
-		int backColor = background_color.getRGB();
-
-		for (int i = 0; i < rgb.length; i++)
-			rgb[i] = backColor;
-
-		graph2.fillRect(0, 0, WIDTH, HEIGHT);
-
-		if (mesh != null && mesh.points!=null){
-			drawRoad(buf, rgb);
-			
-		}	
-		// else
-
-		graph2.setColor(Color.WHITE);
-		// draw lines
 
 		// draw all lines
 
@@ -1141,8 +1124,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 				else
 					graph2.setColor(Color.WHITE);
 
-				graph2.drawLine(convertX(point1.x), convertY(point1.y),
-						convertX(point2.x), convertY(point2.y));
+				graph2.drawLine(convertX(point1), convertY(point1),
+						convertX(point2), convertY(point2));
 			}
 
 		}
@@ -1163,7 +1146,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 				else
 					graph2.setColor(Color.WHITE);
 	
-				graph2.fillOval(convertX(point.x) - 2, (int) convertY(point.y) - 2,
+				graph2.fillOval(convertX(point) - 2, (int) convertY(point) - 2,
 						5, 5);
 			}
 	
@@ -1190,9 +1173,9 @@ public class AutocarEditor extends Editor implements MouseListener,
 			double x1 =x0+20*Math.cos(orientation);
 			double y1 =y0+20*Math.sin(orientation);
 			
-			graph2.drawLine(convertX(x0),convertY(y0),convertX(x1),convertY(y1));
+			graph2.drawLine(convertX(x0,y0,0),convertY(x0,y0,0),convertX(x1,y1,0),convertY(x1,y1,0));
 			
-			graph2.fillOval(convertX(x0) - 2, convertY(y0) - 2, 5, 5);
+			graph2.fillOval(convertX(x0,y0,0) - 2, convertY(x0,y0,0) - 2, 5, 5);
 		}
 		
 		/*if (autocarData!=null ) {
@@ -1213,7 +1196,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 			
 		}*/
 		
-		//displayCurrentRect(graph2);
+		displayCurrentRect(graph2);
 
 	}
 
