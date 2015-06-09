@@ -197,7 +197,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		drawLine(landscapeZbuffer,x1,y0,x1,y1,rgbColor);
 	}
 	
-	private void drawPolygon(ZBuffer landscapeZbuffer, Polygon pTot, int rgbColor) {
+	private void drawObjectPolygon(ZBuffer landscapeZbuffer, Polygon pTot, int rgbColor) {
 		
 		
 		
@@ -915,7 +915,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			
 		}
 		int rgbColor = pColor.getRGB();
-		drawPolygon(landscapeZbuffer,pTot,rgbColor);
+		drawObjectPolygon(landscapeZbuffer,pTot,rgbColor);
 				
 		drawTextImage(landscapeZbuffer,RoadEditor.objectIndexes[dro.getIndex()]
 						,cx[0]-5,cy[0]-5,editor.indexWidth,editor.indexHeight,Color.BLACK,pColor);		

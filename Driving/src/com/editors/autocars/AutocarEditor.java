@@ -1224,70 +1224,18 @@ public class AutocarEditor extends Editor implements MouseListener,
 		
 		displayTerrain(landscapeZbuffer,meshes);
 		displaySPLines(landscapeZbuffer,splines);
-		//displayRoad(landscapeZbuffer,meshes,1);
 		displayObjects(landscapeZbuffer,drawObjects);
-
-		// bufGraphics.setColor(CarFrame2D.BACKGROUND_COLOR);
-		// bufGraphics.fillRect(0,0,WIDTH,HEIGHT);
-
-		/*Graphics2D bufGraphics = (Graphics2D) buf.getGraphics();
-
-		Vector visibleMap = new Vector();
-		Vector visibleRealMap = new Vector();
-
-		int PARTIAL_MOVZ = 0;
-
-		boolean found = false; 
-		// Date t=new Date();
-
-
-			PolygonMesh mesh = meshes[TERRAIN_INDEX];	
-
-			for (int j = 0; j < mesh.polygonData.size(); j++) {
-
-				LineData ld = (LineData)  mesh.polygonData.elementAt(j);
-
-				// if(j>0 || i>0) continue;
-				Polygon3D p3D = buildPolygon(ld, mesh.points, false);
-
-				if (!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()) {
-
-					visibleMap.add(p3D);
-
-					Polygon3D p3Dr = buildPolygon(ld, mesh.points, true);
-					visibleRealMap.add(p3Dr);
-				}
-
-			}
-
-			int visibleLenght = visibleMap.size();
-
-			for (int i = 0; i < visibleLenght; i = i + 1) {
-
-				Polygon3D p3D = (Polygon3D) visibleMap.elementAt(i);
-				Polygon3D p3Dr = (Polygon3D) visibleRealMap.elementAt(i);
-
-				drawRoadPolygon(p3D, p3Dr, totalVisibleField,
-						ZBuffer.fromHexToColor(p3D.getHexColor()),
-						worldTextures[p3D.getIndex()], true,
-						bufGraphics, buf.getWidth(), buf.getHeight(), rgb);
-
-			}*/
-			
-
-		/*drawSPLines(bufGraphics,splines);
-		
-		buf.getRaster().setDataElements(0, 0, buf.getWidth(),
-				buf.getHeight(), rgb);
-		
-		drawObjects(bufGraphics); */
+	
 	}
 	
-	private void displayObjects(ZBuffer landscapeZbuffer2, Vector drawObjects2) {
+	private void displayObjects(ZBuffer landscapeZbuffer2, Vector drawObjects) {
+		
+		if(drawObjects==null)
+			return;
 
 		Rectangle totalVisibleField=new Rectangle(0,0,WIDTH,HEIGHT);
 
-		/*for(int i=0;i<drawObjects.size();i++){
+		for(int i=0;i<drawObjects.size();i++){
 
 			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
 
@@ -1312,7 +1260,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 			
 			drawObject(landscapeZbuffer,dro);
 
-		}	*/
+		}	
 	}
 
 	private void displaySPLines(ZBuffer landscapeZbuffer2, Vector splines) {
@@ -1412,54 +1360,10 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 }
 	
-	private void drawObjects(Graphics2D bufGraphics) {
-		
-		/*bufGraphics.setColor(Color.GREEN);
-
-		Rectangle totalVisibleField=new Rectangle(0,0,WIDTH,HEIGHT);
-
-		for(int i=0;i<drawObjects.size();i++){
-
-			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
-
-			int y=convertY(dro.y);
-			int x=convertX(dro.x);
-
-			
-
-			int dw=(int) (dro.dx/dx);
-			int dh=(int) (dro.dy/dy);
-
-
-			if(DrawObject.IS_3D){
-			
-				if(!totalVisibleField.intersects(new Rectangle(x,y-dh,dw,dh))){
-					
-					//System.out.println(totalVisibleField+" "+new Rectangle(x,y,dw,dh));
-					
-					continue;
-				}
-			
-			}else{
-				
-				if(!totalVisibleField.intersects(new Rectangle(x,y,dw,dh))){
-					
-					//System.out.println(totalVisibleField+" "+new Rectangle(x,y,dw,dh));
-					
-					continue;
-				}
-				
-			}
-		
-			
-			drawObject(bufGraphics,dro);
-
-		}	*/
-	}
 
 	private void drawObject(ZBuffer landscapeZbuffer, DrawObject dro) {
 
-		/*int[] cx=new int[4];
+		int[] cx=new int[4];
 		int[] cy=new int[4];
 		
 		int versus=1;
@@ -1502,13 +1406,31 @@ public class AutocarEditor extends Editor implements MouseListener,
 			
 		}
 		int rgbColor = pColor.getRGB();
-		drawPolygon(landscapeZbuffer,pTot,rgbColor);
-				
-		drawTextImage(landscapeZbuffer,RoadEditor.objectIndexes[dro.getIndex()]
-						,cx[0]-5,cy[0]-5,editor.indexWidth,editor.indexHeight,Color.BLACK,pColor);		
-		*/
+		drawObjectPolygon(landscapeZbuffer,pTot,rgbColor);
+
+	
 		
 
+	}
+	
+	private void drawObjectPolygon(ZBuffer landscapeZbuffer, Polygon pTot, int rgbColor) {
+		
+		
+		
+		for (int n = 0; n < pTot.npoints; n++) {
+			
+			int i=pTot.xpoints[n];
+			int j=pTot.ypoints[n];
+			
+			int ii=pTot.xpoints[(n+1)%pTot.npoints];
+			int jj=pTot.ypoints[(n+1)%pTot.npoints];
+			
+			drawLine(landscapeZbuffer,i,j,ii,jj,rgbColor);
+			
+			
+		
+		}
+		
 	}
 	
 	private void drawSPLinePolygon(PolygonMesh mesh, ZBuffer landscapeZbuffer,
@@ -1639,6 +1561,119 @@ public class AutocarEditor extends Editor implements MouseListener,
 				
 			}
 
+
+		}
+
+	}
+	
+	private void drawLine(ZBuffer landscapeZbuffer, int i, int j, int ii,
+			int jj, int rgbColor) {
+
+		int mini=i;
+		int maxi=ii;
+
+		int minj=j;
+		int maxj=jj;
+
+		if(ii<i){
+
+			mini=ii;
+			maxi=i;
+
+		}
+
+		if(jj<j){
+
+			minj=jj;
+			maxj=j;
+
+		}
+
+		if(j==jj){			
+
+			for (int k = mini; k < maxi; k++) {
+
+				if(k>=0 && k<WIDTH && j>=0 && j<HEIGHT){
+
+					int tot=k+j*WIDTH;
+					landscapeZbuffer.setRgbColor(rgbColor,tot);
+				}
+			}
+		}
+		else if(i==ii){
+
+			for (int k = minj; k < maxj; k++) {
+				if(i>=0 && i<WIDTH && k>=0 && k<HEIGHT){
+
+					int tot=i+k*WIDTH;
+
+					landscapeZbuffer.setRgbColor(rgbColor,tot);
+				}
+			}
+
+		}
+		else{
+
+			//use coordinate with more points:
+			if(Math.abs(ii-i)>Math.abs(jj-j)){
+
+				double dy=(jj-j)*1.0/(ii-i);
+
+				if(ii>i){
+					for (int k = i; k < ii; k++) {
+
+						int y=(int) (dy*(k-i)+j);
+
+						if(k>=0 && k<WIDTH && y>=0 && y<HEIGHT){
+							int tot=(k+y*WIDTH);					
+							landscapeZbuffer.setRgbColor(rgbColor,tot);
+						}
+					}	
+				}
+				else{
+					for (int k = ii; k < i; k++) {
+
+						int y=(int) (dy*(k-i)+j);
+
+						if(k>=0 && k<WIDTH && y>=0 && y<HEIGHT){
+							int tot=(k+y*WIDTH);					
+							landscapeZbuffer.setRgbColor(rgbColor,tot);
+						}
+					}			
+
+				}
+
+
+			}else{
+				
+				double dx=(ii-i)*1.0/(jj-j);
+
+				if(jj>j){
+					for (int q = j; q < jj; q++) {
+
+						int x=(int) (dx*(q-j)+i);
+
+						if(x>=0 && x<WIDTH && q>=0 && q<HEIGHT){
+							int tot=(x+q*WIDTH);					
+							landscapeZbuffer.setRgbColor(rgbColor,tot);
+						}
+					}	
+				}
+				else{
+					for (int q = jj; q < j; q++) {
+
+						int x=(int) (dx*(q-j)+i);
+
+						if(x>=0 && x<WIDTH && q>=0 && q<HEIGHT){
+							int tot=(x+q*WIDTH);					
+							landscapeZbuffer.setRgbColor(rgbColor,tot);
+						}
+					}			
+
+				}
+
+				
+			}
 
 		}
 
