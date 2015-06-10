@@ -246,6 +246,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton mergeSPNodes;
 	private JButton changeSPNode;
 	private JButton changeTerrainPoint;
+	private JButton setSPNodeHeight;
+	private DoubleTextField setSPNodeHeightValue;
 	
 
 	
@@ -909,6 +911,19 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		deselectAll[index].setBounds(5,r,150,20);
 		splines_panel.add(deselectAll[index]);
 
+		
+		r+=30;
+
+		setSPNodeHeight=new JButton(header+"Set height"+footer);
+		setSPNodeHeight.addActionListener(this);
+		setSPNodeHeight.setFocusable(false);
+		setSPNodeHeight.setBounds(5,r,100,20);
+		splines_panel.add(setSPNodeHeight);
+		
+		setSPNodeHeightValue=new DoubleTextField(7);
+		setSPNodeHeightValue.setBounds(110,r,120,20);
+		splines_panel.add(setSPNodeHeightValue);
+		
 		return splines_panel;
 	}
 
@@ -2462,7 +2477,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		else if(obj==mergeSPNodes){
 			mergeSPNodes();
-		}		
+		}	
+		else if(obj==setSPNodeHeight){
+			setSPNodeHeight();
+		}	
+		
+		
 		
 	}
 
@@ -3210,6 +3230,41 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		deselectAllSPNodes();
 		draw();
+	}
+	
+	
+
+
+	private void setSPNodeHeight() {
+		
+		double height=setSPNodeHeightValue.getvalue();
+		
+		for (int i = 0; i < splines.size(); i++) {
+			SPLine sp = (SPLine) splines.elementAt(i);
+		
+			
+			for (int k = 0; k < sp.nodes.size(); k++) {
+				
+				SPNode node = (SPNode) sp.nodes.elementAt(k);
+			
+
+				if(node.isSelected()){
+					
+					node.z=height;
+					
+				}
+			
+			}
+		
+
+			
+		}
+		
+		updateSPlines();
+		
+		deselectAllSPNodes();
+		draw();
+		
 	}
 	
 
