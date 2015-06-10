@@ -749,7 +749,7 @@ public class Road extends Shader{
 
 					//if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
 
-					decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.splinesTextures[0],roadZbuffer);
+					decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.splinesTextures[ld.getTexture_index()],roadZbuffer);
 
 				}
 

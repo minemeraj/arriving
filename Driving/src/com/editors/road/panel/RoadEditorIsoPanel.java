@@ -178,7 +178,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 					
 					Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.points,Editor.ROAD_INDEX);
 					
-					decomposeClippedPolygonIntoZBuffer(p3D,selected,EditorData.splinesTextures[0],landscapeZbuffer);
+					decomposeClippedPolygonIntoZBuffer(p3D,selected,EditorData.splinesTextures[ld.getTexture_index()],landscapeZbuffer);
 					
 				
 				}

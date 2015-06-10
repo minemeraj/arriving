@@ -222,9 +222,19 @@ public class SPLine {
 			points.add(p7);
 
 
-			Vector polygonData=EditorData.splinesMeshes[prevRib.getIndex()].polygonData;
+			Vector polygonData= EditorData.splinesMeshes[prevRib.getIndex()].polygonData;
+			Vector nPolygonData=new Vector();
 			
-			PolygonMesh mesh=new PolygonMesh(points,polygonData);
+			
+			for (int j = 0; j < polygonData.size(); j++) {
+				
+				LineData ld = ((LineData) polygonData.elementAt(j)).clone();
+				
+				ld.setTexture_index(prevRib.getIndex());
+				nPolygonData.add(ld);
+			}
+			
+			PolygonMesh mesh=new PolygonMesh(points,nPolygonData);
 			mesh.setTexturePoints(vTexturePoints);
 			meshes3D.add(mesh);
 		}
