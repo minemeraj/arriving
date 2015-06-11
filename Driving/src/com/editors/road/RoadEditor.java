@@ -3445,7 +3445,17 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 	
-	
+	public void setSPLineData(SPLine spline, SPNode spnode){
+		
+		
+		for(int l=0;l<chooseTexture[ACTIVE_PANEL].getItemCount();l++){
+			
+			ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getItemAt(l);
+			if(vp.getId().equals(""+spnode.getIndex())) 
+				chooseTexture[ACTIVE_PANEL].setSelectedItem(vp);
+		}
+		
+	}
 
 	private void changePolygon(int x, int y) {
 

@@ -1118,12 +1118,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				    		spnode.setSelected(true);
 				    		found=true;
 				    		
-							for(int l=0;l<editor.chooseTexture[editor.ACTIVE_PANEL].getItemCount();l++){
-								
-								ValuePair vp=(ValuePair) editor.chooseTexture[editor.ACTIVE_PANEL].getItemAt(l);
-								if(vp.getId().equals(""+spnode.getIndex())) 
-									editor.chooseTexture[editor.ACTIVE_PANEL].setSelectedItem(vp);
-							}
+						    editor.setSPLineData(spline,spnode);
 				    		
 				    		break;
 				    		
