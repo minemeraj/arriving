@@ -3369,6 +3369,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			    ld.setSelected(false);	
 			}
 			
+			if(ACTIVE_PANEL!=TERRAIN_INDEX)
+				return;
 			coordinatesx[ACTIVE_PANEL].requestFocus();
 			
 
@@ -3528,6 +3530,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 	
 	public void cleanPoints(){
+		
+		if(ACTIVE_PANEL!=TERRAIN_INDEX)
+			return;
 		
 		if(!checkCoordinatesx[ACTIVE_PANEL].isSelected())coordinatesx[ACTIVE_PANEL].setText("");
 		if(!checkCoordinatesy[ACTIVE_PANEL].isSelected())coordinatesy[ACTIVE_PANEL].setText("");
