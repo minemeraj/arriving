@@ -331,10 +331,10 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 
 		}
 		
-	
+		
 		
 		for(int i=0;i<numx;i++){
-			//for(int j=0;j<numy-1;j++){
+			//
 				
 				if(i%(block_xtextures+road_textures)==1){
 					
@@ -343,8 +343,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 					SPLine sp=new SPLine(vTexturePoints);
 			
 					int tot=i+0*numx;
-					Point4D p=newPoints[tot];
-							
+					Point4D p=newPoints[tot];							
 					SPNode spn0=new SPNode(p.x,p.y,p.z,"FFFFFF",0);					
 					sp.addSPNode(spn0);
 					
@@ -357,35 +356,38 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 				}
 				
 				
-				/*if(i%(block_xtextures+road_textures)>road_textures-1
+				if(i%(block_xtextures+road_textures)==road_textures
+	
+				){
+			
+					
+					for(int j=0;j<numy-1;j++){
 						
-				&& 	j%(block_ytextures+road_textures)>road_textures-1	
-						)
-					continue;
-				
-				int tot=i+j*numx;
-				
-				double x=x_0+dx*i;
-				double y=y_0+dy*j;
-				
-				newPoints[tot]=new Point4D(x,y,0);
-				
-				int pl1=i+numx*j;
-				int pl2=i+numx*(j+1);
-				int pl3=i+1+numx*(j+1);
-				int pl4=i+1+numx*j;
-				
-				LineData ld=new LineData(pl1, pl4, pl3, pl2);
-				
-				if(i%(block_xtextures+road_textures)>road_textures-1)
-					ld.setTexture_index(3);
-				else
-					ld.setTexture_index(0);
+						if(j%(block_ytextures+road_textures)==0	){
+							
+							Vector vTexturePoints=RoadEditor.buildTemplateTexturePoints(200);
+							
+							SPLine sp=new SPLine(vTexturePoints);
+							
+							int tot=i+j*numx;
+								Point4D p=newPoints[tot];							
+							SPNode spn0=new SPNode(p.x,p.y,p.z,"FFFFFF",0);					
+							sp.addSPNode(spn0);
+							
+							tot=(i+block_xtextures-1)+j*numx;
+							p=newPoints[tot];
+							SPNode spn1=new SPNode(p.x,p.y,p.z,"FFFFFF",0);					
+							sp.addSPNode(spn1);							
+							//splines.add(sp);
+							
+		
+							
+						}
+					}
 
-				
-			    */
-				
-			//}
+
+				}
+			
 
 		}
 		

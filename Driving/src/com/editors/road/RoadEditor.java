@@ -3369,9 +3369,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			    ld.setSelected(false);	
 			}
 			
-			if(ACTIVE_PANEL!=TERRAIN_INDEX)
-				return;
-			coordinatesx[ACTIVE_PANEL].requestFocus();
+			if(ACTIVE_PANEL==TERRAIN_INDEX)
+				coordinatesx[ACTIVE_PANEL].requestFocus();
 			
 
 
