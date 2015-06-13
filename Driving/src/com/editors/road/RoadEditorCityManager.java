@@ -361,24 +361,24 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 				){
 			
 					
-					for(int j=0;j<numy-1;j++){
+					for(int j=0;j<numy;j++){
 						
-						if(j%(block_ytextures+road_textures)==0	){
+						if(j%(block_ytextures+road_textures)==1	){
 							
 							Vector vTexturePoints=RoadEditor.buildTemplateTexturePoints(200);
 							
 							SPLine sp=new SPLine(vTexturePoints);
 							
 							int tot=i+j*numx;
-								Point4D p=newPoints[tot];							
+							Point4D p=newPoints[tot];							
 							SPNode spn0=new SPNode(p.x,p.y,p.z,"FFFFFF",0);					
 							sp.addSPNode(spn0);
 							
-							tot=(i+block_xtextures-1)+j*numx;
+							tot=(i+block_xtextures)+j*numx;
 							p=newPoints[tot];
 							SPNode spn1=new SPNode(p.x,p.y,p.z,"FFFFFF",0);					
 							sp.addSPNode(spn1);							
-							//splines.add(sp);
+							splines.add(sp);
 							
 		
 							
