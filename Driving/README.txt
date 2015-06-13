@@ -1,5 +1,5 @@
 	**********************
-	*  READ ME CARDRIVING VERSION   8.1.3
+	*  READ ME CARDRIVING VERSION   9.0.0
 	*
 	*  by Piazza Francesco Giovanni 
 	*  Tecnes Milano ,Italy http://www.tecnes.com ; Tel.: +39.02.67101036
@@ -123,7 +123,7 @@
 	A polygon with its vertices appearing in counterclockwise order is the "front" of the polygon.
 	REFERENCE BOOK,chapter 7. Use only convex polygons!
 	
-	---ROAD FORMAT:
+	---TERRAIN FORMAT:
 	
 	Is a succession of line sequences :
 	
@@ -146,8 +146,39 @@
 	POINT0_INDEX is the vertex index
 	POINT0_TEXTURE_INDEX is vertex texture coordinate index
 	
-	if you don't want to use textures, create a file driving.properties in the lib directory and
-	write in: ISUSETEXTURE=false
+
+    -- SPLINE FORMAT
+    
+    Splines are in a sequence of coupled tags:
+    <spline>
+	...
+	</spline>
+	<spline>
+	...
+	</spline>
+	
+	Each spline si determined by its (sp)nodes:
+	
+	<spline>
+	v=TN x y z
+    v=TN x y z
+    ...
+	</spline>
+	
+	where N is a 0,1,2... spline index, and x,y,z are the node coordinates. 
+	
+	 Note that in the lib folder you will find groups of files of the type:
+	 
+	 spline_editor_N.jpg
+	 spline_mesh_N
+	 spline_texture_N.jpg
+	 
+	 
+	 where 
+	 
+	 spline_editor_N.jpg is a texture used in the RoadEditor and AutocarEditor for the Nth psline.
+	 spline_mesh_N is the mesh used in the main program for the Nth psline.
+	 spline_texture_N is a texture used in the main program for the Nth psline.
 	
 	-- OBJECT LIST FORMAT:
 	
@@ -299,27 +330,20 @@
 
     Editor short keys:
 
-        a: add new row
-        d: delete last row
         b: change selected object 
         p: change selected point
-        y: change selected polygon
         n: start build polygon
-        l: build polygon
         e: deselect all
         f1: zoom in
         f2  zoom out
-        < to invert polygon
         
-    To insert a road point press the right button of the mouse in the location where you want
+    To insert the node of a spline press the right button of the mouse in the location where you want
     to insert it. 
     
     To insert an object press the button "insert object" to have it in a fixed starting point, or type the coordinates
     of the new object and then press the button "insert object".
     
-    To create a new polygon press "Start polygon points sequence", select the sequence of points part of
-    the polygon (in a counterclockwise order), then press "Build polygon". The option "Multiple selection" must be checked.
-    
+   
     If you don't want to clean up some text boxes after every insertion (to reuse their values) check 
     the case at the right of them.
         
@@ -328,8 +352,6 @@
     
     The file object_[NUM_OBJECT].gif is the image to display in the panel to choose the object type to
     insert/modify in the road. 
-    
-    Choose the menu View->Preview to see a 3D grey scale preview of the road, without objects.
     
     **************
     
