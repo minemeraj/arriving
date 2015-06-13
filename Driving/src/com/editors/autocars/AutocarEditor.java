@@ -2012,9 +2012,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 			linkedList.push(point);
 
-			xcoordinate.setText(point.x);
-			ycoordinate.setText(point.y);
-			zcoordinate.setText(point.z);
+			setPointCoordinates(point);
 
 			draw();
 			return;
@@ -2035,9 +2033,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 			if (rect.contains(x, y)) {
 				point.setSelected(true);
 
-				xcoordinate.setText(point.x);
-				ycoordinate.setText(point.y);
-				zcoordinate.setText(point.z);
+				setPointCoordinates(point);
+			
 
 				break;
 			} else if (!checkMultipleSelection.isSelected()) {
@@ -2049,6 +2046,14 @@ public class AutocarEditor extends Editor implements MouseListener,
 		}
 
 		draw();
+	}
+
+	private void setPointCoordinates(Point3D point) {
+	
+		xcoordinate.setText(point.x);
+		ycoordinate.setText(point.y);
+		zcoordinate.setText(point.z);
+		
 	}
 
 	public void selectPointsWithRectangle() {
@@ -3027,6 +3032,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 				point.y += qty * dy;
 
 				point.z += qty * dk;
+				
+				setPointCoordinates(point);
 
 			}
 		}
