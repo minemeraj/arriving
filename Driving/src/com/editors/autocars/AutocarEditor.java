@@ -3056,6 +3056,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 		ad.x += qty * dx;
 
 		ad.y += qty * dy;
+		
+		setAutocarData(ad);
 
 
 	}
