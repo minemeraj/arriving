@@ -1053,7 +1053,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		if (graph == null)
 			graph = (Graphics2D) center.getGraphics();
 
-		draw(graph);
+		drawRoad(meshes,drawObjects,splines,landscapeZbuffer);
 		
 		buildScreen(buf); 
         drawAutolines(buf);  
@@ -1065,18 +1065,6 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	}
 
-	private void draw(Graphics2D graph) {
-		
-		graph.setColor(Color.BLACK);
-		graph.fillRect(0,0,WIDTH,HEIGHT);
-	
-		//editorPanel.setHide_objects(checkHideObjects.isSelected());
-		drawRoad(meshes,drawObjects,splines,landscapeZbuffer,graph);
-	
-
-		//drawCurrentRect(landscapeZbuffer);
-		
-	}
 	
 	public int convertX(Point3D p){
 
@@ -1214,7 +1202,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 
 	private void drawRoad(PolygonMesh[] meshes, Vector drawObjects2,
-			Vector splines, ZBuffer landscapeZbuffer2, Graphics2D graph2) {
+			Vector splines, ZBuffer landscapeZbuffer2) {
 		
 		
 		displayTerrain(landscapeZbuffer,meshes);
