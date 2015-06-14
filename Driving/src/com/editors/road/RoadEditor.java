@@ -3184,6 +3184,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void insertSPNode() {
 		
+		prepareUndoSpline();
+		
 		for (int i = 0; i < splines.size(); i++) {
 			SPLine sp = (SPLine) splines.elementAt(i);
 			

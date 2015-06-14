@@ -1,7 +1,7 @@
------ /2015 CarDriving 9.0.0
+----- 14/06/2015 CarDriving 9.0.0
 
 Deep review of the road object structure, now modeled as a spline mesh.
-Big releated changes in the road editor too.
+Big related changes in the road editor too.
 
 Added "Insert point after" to the autocar editor.
 
