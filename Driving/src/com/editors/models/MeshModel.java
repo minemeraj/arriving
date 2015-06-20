@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
@@ -33,6 +35,8 @@ public class MeshModel extends JFrame implements ActionListener{
 	private JButton textureButton;
 	
 	public File currentDirectory=new File("lib");
+
+	private PrintWriter pw;
 
 	
 	public MeshModel(){		
@@ -77,10 +81,43 @@ public class MeshModel extends JFrame implements ActionListener{
 		
 	}
 	
-	public void printMesh(){}
+	public void printMesh(){
+		
+		JFileChooser fc = new JFileChooser();
+		
+		fc.setDialogType(JFileChooser.SAVE_DIALOG);
+		fc.setDialogTitle("Save texture");
+		if(currentDirectory!=null)
+			fc.setCurrentDirectory(currentDirectory);
+		int returnVal = fc.showOpenDialog(this);
+		
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File file = fc.getSelectedFile();
+			
 	
-	
-	
+			try {
+				
+				pw = new PrintWriter(file);
+				printMeshData();
+				pw.close();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			currentDirectory=new File(file.getParent());
+		} 
+		
+	}
+
+
+	public void printMeshData() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void initTexturePoints(){
 		
 		texturePoints=new Vector();
@@ -89,7 +126,7 @@ public class MeshModel extends JFrame implements ActionListener{
 	
 	public void print(String string) {
 		
-		System.out.println(string);
+		pw.println(string);
 		
 	}
 	
@@ -118,7 +155,7 @@ public class MeshModel extends JFrame implements ActionListener{
 
 	private int cY(double y) {
 		
-		return (int) (HEIGHT-y);
+		return (int) (IMG_HEIGHT-y);
 	}
 
 	@Override
