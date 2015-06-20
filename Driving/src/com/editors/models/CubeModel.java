@@ -128,11 +128,12 @@ public class CubeModel extends MeshModel{
     	
     	points=new Vector();
     	
-    	
+    	//lower base
     	points.add(new Point3D(0.0,0.0,0.0));
 		points.add(new Point3D(dx,0.0,0.0));
 		points.add(new Point3D(dx,dy,0.0));
 		points.add(new Point3D(0.0,dy,0.0));
+		//upper base
 		points.add(new Point3D(0.0,0.0,dz));
 		points.add(new Point3D(dx,0.0,dz));
 		points.add(new Point3D(dx,dy,dz));
@@ -180,45 +181,45 @@ public class CubeModel extends MeshModel{
     }
     
 
-    public void printTexture(Graphics2D bufGraphics) {
+    public void printTexture(Graphics2D bg) {
     
 
 		//draw lines for reference
 
-		bufGraphics.setColor(Color.RED);
-		bufGraphics.setStroke(new BasicStroke(0.1f));
+		bg.setColor(Color.RED);
+		bg.setStroke(new BasicStroke(0.1f));
 		
 		//lower base
-		printTextureLine(bufGraphics,0,1);
-		printTextureLine(bufGraphics,1,2);
-		printTextureLine(bufGraphics,2,3);
-		printTextureLine(bufGraphics,3,0);
+		printTextureLine(bg,0,1);
+		printTextureLine(bg,1,2);
+		printTextureLine(bg,2,3);
+		printTextureLine(bg,3,0);
 		
 		//lateral faces
-		bufGraphics.setColor(Color.BLACK);
-		printTextureLine(bufGraphics,4,5);
-		printTextureLine(bufGraphics,5,10);
-		printTextureLine(bufGraphics,10,9);
-		printTextureLine(bufGraphics,9,4);
+		bg.setColor(Color.BLACK);
+		printTextureLine(bg,4,5);
+		printTextureLine(bg,5,10);
+		printTextureLine(bg,10,9);
+		printTextureLine(bg,9,4);
 		
-		printTextureLine(bufGraphics,5,6);
-		printTextureLine(bufGraphics,6,11);
-		printTextureLine(bufGraphics,11,10);
+		printTextureLine(bg,5,6);
+		printTextureLine(bg,6,11);
+		printTextureLine(bg,11,10);
 		
-		printTextureLine(bufGraphics,6,7);
-		printTextureLine(bufGraphics,7,12);
-		printTextureLine(bufGraphics,12,11);
+		printTextureLine(bg,6,7);
+		printTextureLine(bg,7,12);
+		printTextureLine(bg,12,11);
 		
-		printTextureLine(bufGraphics,7,8);
-		printTextureLine(bufGraphics,8,13);
-		printTextureLine(bufGraphics,13,12);
+		printTextureLine(bg,7,8);
+		printTextureLine(bg,8,13);
+		printTextureLine(bg,13,12);
 		
 		//upper base
-		bufGraphics.setColor(Color.BLUE);
-		printTextureLine(bufGraphics,14,15);
-		printTextureLine(bufGraphics,15,16);
-		printTextureLine(bufGraphics,16,17);
-		printTextureLine(bufGraphics,17,14);
+		bg.setColor(Color.BLUE);
+		printTextureLine(bg,14,15);
+		printTextureLine(bg,15,16);
+		printTextureLine(bg,16,17);
+		printTextureLine(bg,17,14);
 	
 	
     }
