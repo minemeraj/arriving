@@ -38,21 +38,10 @@ public class CubeModel extends MeshModel{
 	 
 	
 	public void printMeshData() {
+		
+		super.printMeshData();
 	
-		
-		print("v=0.0 0.0 0.0");
-		print("v="+dx+" 0.0 0.0");
-		print("v="+dx+" "+dy+" 0.0");
-		print("v=0.0"+" "+dy+" 0.0");
-		print("v=0.0 0.0 "+dz);
-		print("v="+dx+" 0.0 "+dz);
-		print("v="+dx+" "+dy+" "+dz);
-		print("v=0.0"+" "+dy+" "+dz);
-		
-		for (int i = 0; i < texturePoints.size(); i++) {
-			Point3D p = (Point3D) texturePoints.elementAt(i);
-			print("vt="+p.x+" "+p.y);
-		}
+
 		
 		
 		print("f=[1]4/14 5/15 6/16 7/17");//TOP
@@ -69,11 +58,23 @@ public class CubeModel extends MeshModel{
 
 
     public void initMesh() {
+    	
+    	
+    	points=new Vector();
+    	
+    	
+    	points.add(new Point3D(0.0,0.0,0.0));
+		points.add(new Point3D(dx,0.0,0.0));
+		points.add(new Point3D(dx,dy,0.0));
+		points.add(new Point3D(0.0,dy,0.0));
+		points.add(new Point3D(0.0,0.0,dz));
+		points.add(new Point3D(dx,0.0,dz));
+		points.add(new Point3D(dx,dy,dz));
+		points.add(new Point3D(0.0,dy,dz));
+    	
     
     	texturePoints=new Vector();
-    	
-  
-    	
+
     	//lower base
     	double y=by;
     	double x=bx;

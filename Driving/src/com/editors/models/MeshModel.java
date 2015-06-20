@@ -22,6 +22,7 @@ public class MeshModel extends JFrame implements ActionListener{
 	
 
 	Vector texturePoints=null;
+	Vector points=null;
 	
 	Color backgroundColor=Color.green;
 	
@@ -114,7 +115,20 @@ public class MeshModel extends JFrame implements ActionListener{
 
 
 	public void printMeshData() {
-		// TODO Auto-generated method stub
+		
+		for(int i=0;i<points.size();i++){
+			
+			
+			Point3D p=(Point3D) points.elementAt(i);
+			print("v="+p.x+" "+p.y+" "+p.z);
+			
+		}
+	
+		
+		for (int i = 0; i < texturePoints.size(); i++) {
+			Point3D p = (Point3D) texturePoints.elementAt(i);
+			print("vt="+p.x+" "+p.y);
+		}
 		
 	}
 
