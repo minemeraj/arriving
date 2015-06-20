@@ -2122,6 +2122,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
             
             oldSpline=new Stack();
             oldObjects=new Stack();
+            
+            startNewSPLine();
 
 		}
 		
@@ -3221,7 +3223,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					double z=(node.z+nextNode.z)*0.5;
 					
 					
-					SPNode intermediateNode=new SPNode((int)x,(int)y,(int)z,"FFFFFF",0);
+					SPNode intermediateNode=new SPNode((int)x,(int)y,(int)z,"FFFFFF",node.getIndex());
 					
 					newNodes.add(intermediateNode);
 					
