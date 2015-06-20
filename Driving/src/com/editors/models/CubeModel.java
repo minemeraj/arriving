@@ -51,12 +51,15 @@ public class CubeModel extends MeshModel{
 			print("vt="+p.x+" "+p.y);
 		}
 		
-		//print("f=[1]4/0 5/1 6/2 7/3");//TOP
-		print("f=[5]0/0 1/1 2/2 3/3");//BOTTOM
-		/*print("f=[0]0/8 1/9 5/14 4/13");//BACK
-		print("f=[3]1/9 2/10 6/15 5/14");//RIGHT
-		print("f=[4]2/10 3/11 7/16 6/15");//FRONT
-		print("f=[2]3/11 0/12 4/17 7/16");///LEFT*/
+		
+		print("f=[1]4/14 5/15 6/16 7/17");//TOP
+		
+		print("f=[0]0/4 1/5 5/10 4/9");//BACK
+		print("f=[3]1/5 2/6 6/11 5/10");//RIGHT
+		print("f=[4]2/6 3/7 7/12 6/11");//FRONT
+		print("f=[2]3/7 0/8 4/13 7/12");///LEFT
+		
+		print("f=[5]0/0 3/1 2/2 1/3");//BOTTOM
 		
 	}
 
@@ -65,29 +68,41 @@ public class CubeModel extends MeshModel{
     public void initTexturePoints() {
     
     	texturePoints=new Vector();
-    	//upper base
-    	texturePoints.add(new Point3D(0,0,0));
+    	
+  
+    	
+    	//lower base
+    	double y=0;
+    	
+     	texturePoints.add(new Point3D(0,0,0));
     	texturePoints.add(new Point3D(dx,0,0));
     	texturePoints.add(new Point3D(dx, dy,0));
     	texturePoints.add(new Point3D(0,dy,0));
     	
     	//faces
-    	/*texturePoints.add(new Point3D(10.0, 10.0,0));
-    	texturePoints.add(new Point3D(10.0, 99.0,0));
-    	texturePoints.add(new Point3D(147.0, 99.0,0));
-    	texturePoints.add(new Point3D(147.0, 10.0,0));
-    	texturePoints.add(new Point3D(10.0, 99.0,0));
-    	texturePoints.add(new Point3D(147.0, 99.0,0));
-    	texturePoints.add(new Point3D(236.0, 99.0,0));
-    	texturePoints.add(new Point3D(373.0, 99.0,0));
-    	texturePoints.add(new Point3D(462.0, 99.0,0));
-    	texturePoints.add(new Point3D(10.0, 497.0,0));
+    	y=dy;
+        
+    	texturePoints.add(new Point3D(0,y,0));
+    	texturePoints.add(new Point3D(dx,y,0));
+    	texturePoints.add(new Point3D(2*dx,y,0));
+    	texturePoints.add(new Point3D(3*dx,y,0));
+    	texturePoints.add(new Point3D(4*dx,y,0));    	
     	
-    	//lower base
-    	texturePoints.add(new Point3D(147.0, 497.0,0));
-    	texturePoints.add(new Point3D(236.0, 497.0,0));
-    	texturePoints.add(new Point3D(373.0, 497.0,0));
-    	texturePoints.add(new Point3D(462.0, 497.0,0));*/
+    	
+    	texturePoints.add(new Point3D(0,y+dz,0));
+    	texturePoints.add(new Point3D(dx,y+dz,0));
+    	texturePoints.add(new Point3D(2*dx,y+dz,0));
+    	texturePoints.add(new Point3D(3*dx,y+dz,0));
+    	texturePoints.add(new Point3D(4*dx,y+dz,0));
+    	
+    	 y=dy+dz;
+    	
+    	//upper base
+      	texturePoints.add(new Point3D(0,y,0));
+    	texturePoints.add(new Point3D(dx,y,0));
+    	texturePoints.add(new Point3D(dx,y+dy,0));
+    	texturePoints.add(new Point3D(0,y+dy,0));
+
 
 		IMG_WIDTH=800;
 		IMG_HEIGHT=800;
@@ -102,10 +117,39 @@ public class CubeModel extends MeshModel{
 		bufGraphics.setColor(Color.RED);
 		bufGraphics.setStroke(new BasicStroke(0.1f));
 		
+		//lower base
 		printTextureLine(bufGraphics,0,1);
 		printTextureLine(bufGraphics,1,2);
 		printTextureLine(bufGraphics,2,3);
 		printTextureLine(bufGraphics,3,0);
+		
+		//lateral faces
+		bufGraphics.setColor(Color.BLACK);
+		printTextureLine(bufGraphics,4,5);
+		printTextureLine(bufGraphics,5,10);
+		printTextureLine(bufGraphics,10,9);
+		printTextureLine(bufGraphics,9,4);
+		
+		printTextureLine(bufGraphics,5,6);
+		printTextureLine(bufGraphics,6,11);
+		printTextureLine(bufGraphics,11,10);
+		
+		printTextureLine(bufGraphics,6,7);
+		printTextureLine(bufGraphics,7,12);
+		printTextureLine(bufGraphics,12,11);
+		
+		printTextureLine(bufGraphics,7,8);
+		printTextureLine(bufGraphics,8,13);
+		printTextureLine(bufGraphics,13,12);
+		
+		//upper base
+		bufGraphics.setColor(Color.BLUE);
+		printTextureLine(bufGraphics,14,15);
+		printTextureLine(bufGraphics,15,16);
+		printTextureLine(bufGraphics,16,17);
+		printTextureLine(bufGraphics,17,14);
+	
+	
     }
 
 	
