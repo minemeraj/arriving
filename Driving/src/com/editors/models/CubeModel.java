@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 
 import com.Point3D;
 
@@ -37,7 +38,23 @@ public class CubeModel extends MeshModel{
 			 
 	}
 	 
-	 
+	 public void buildCenter() {
+
+		 int r=10;
+
+		 meshButton=new JButton("Mesh");
+		 meshButton.setBounds(10,r,80,20);
+		 meshButton.addActionListener(this);
+		 center.add(meshButton);
+
+		 r+=30;
+
+		 textureButton=new JButton("Texture");
+		 textureButton.setBounds(10,r,90,20);
+		 textureButton.addActionListener(this);
+		 center.add(textureButton);
+
+	 }
 	
 	public void printMeshData() {
 		

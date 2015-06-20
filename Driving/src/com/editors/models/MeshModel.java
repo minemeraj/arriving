@@ -29,11 +29,11 @@ public class MeshModel extends JFrame implements ActionListener{
 	int IMG_WIDTH=100;
 	int IMG_HEIGHT=100;
 
-	private JPanel center;
+	public JPanel center;
 
-	private JButton meshButton;
+	public JButton meshButton;
 
-	private JButton textureButton;
+	public JButton textureButton;
 	
 	public File currentDirectory=new File("lib");
 
@@ -63,7 +63,7 @@ public class MeshModel extends JFrame implements ActionListener{
 		
 	}
 	
-	private void buildCenter() {
+	public void buildCenter() {
 		
 		int r=10;
 		
