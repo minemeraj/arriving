@@ -2,6 +2,7 @@ package com.editors.models;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -10,8 +11,11 @@ import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 
 import com.Point3D;
+import com.editors.DoubleTextField;
 
 public class CubeModel extends MeshModel{
 	
@@ -23,12 +27,15 @@ public class CubeModel extends MeshModel{
 	int by=10;
 	
 	String title="Cube model";
+	private DoubleTextField dz_text;
+	private DoubleTextField dy_text;
+	private DoubleTextField dx_text;
 	
 
 	
 	public CubeModel(){
 		
-		super(200,150);
+		super(200,250);
 		setTitle(title);
 		
 	}
@@ -42,7 +49,42 @@ public class CubeModel extends MeshModel{
 	 
 	 public void buildCenter() {
 
+		 double dx=100;
+		 double dy=200;
+		 double dz=300;
+
 		 int r=10;
+
+		 JLabel lx=new JLabel("dx:");
+		 lx.setBounds(5,r,20,20);
+		 center.add(lx);
+		 dx_text=new DoubleTextField(8);
+		 dx_text.setBounds(30,r,120,20);
+		 dx_text.setText(dx);
+		 center.add(dx_text);
+
+		 r+=30;
+
+		 JLabel ly=new JLabel("dy:");
+		 ly.setBounds(5,r,20,20);
+		 center.add(ly);
+		 dy_text=new DoubleTextField(8);
+		 dy_text.setBounds(30,r,120,20);
+		 dy_text.setText(dy);
+		 center.add(dy_text);
+
+
+		 r+=30;
+
+		 JLabel lz=new JLabel("dz:");
+		 lz.setBounds(5,r,20,20);
+		 center.add(lz);
+		 dz_text=new DoubleTextField(8);
+		 dz_text.setBounds(30,r,120,20);
+		 dz_text.setText(dz);
+		 center.add(dz_text);
+
+		 r+=30;
 
 		 meshButton=new JButton("Mesh");
 		 meshButton.setBounds(10,r,80,20);
@@ -80,6 +122,9 @@ public class CubeModel extends MeshModel{
 
     public void initMesh() {
     	
+    	dx=dx_text.getvalue();
+    	dy=dy_text.getvalue();
+    	dz=dz_text.getvalue();
     	
     	points=new Vector();
     	
