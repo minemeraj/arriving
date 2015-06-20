@@ -71,7 +71,8 @@ public class SPLine {
 			double nextX=nextNode.x;
 			double nextY=nextNode.y;
 			double nextZ=nextNode.z;
-
+			
+			
 			Point3D NextTangent=nextNode.getTangent();
 
 			Point3D vDistance=new Point3D(nextX-prevX,nextY-prevY,0);
@@ -79,7 +80,27 @@ public class SPLine {
 
 			Point3D lnextd=new Point3D(-NextTangent.y,NextTangent.x,0);
 			Point3D rnextd=new Point3D(NextTangent.y,-NextTangent.x,0);
+			
+			
+			
+			Point3D preTangent=previousNode.getTangent();
+			
+			Point3D lprevd=null;
+			Point3D rprevd=null;
 
+			if(i==0 && preTangent!=null ){
+
+
+				lprevd=new Point3D(-preTangent.y,preTangent.x,0);
+				rprevd=new Point3D(preTangent.y,-preTangent.x,0);
+				
+			}else{				
+				
+				lprevd=new Point3D(-NextTangent.y,NextTangent.x,0);
+				rprevd=new Point3D(NextTangent.y,-NextTangent.x,0);
+				
+			}
+			
 
 			double wid=0.5*(EditorData.splinesMeshes[0].getDeltaX2()-
 					EditorData.splinesMeshes[0].getDeltaX());
@@ -114,8 +135,8 @@ public class SPLine {
 				double z=(1.0-l)*prevZ+l*nextZ;
 
 				Rib rib=new Rib(4);
-				rib.points[0]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z,LineData.GREEN_HEX,0);
-				rib.points[1]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z,LineData.GREEN_HEX,0);		
+				rib.points[0]=new Point4D(x+lprevd.x*wid,y+lprevd.y*wid,z,LineData.GREEN_HEX,0);
+				rib.points[1]=new Point4D(x+rprevd.x*wid,y+rprevd.y*wid,z,LineData.GREEN_HEX,0);		
 				rib.points[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z+dz,LineData.GREEN_HEX,0);	
 				rib.points[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z+dz,LineData.GREEN_HEX,0);
 				rib.setIndex(previousNode.getIndex());
