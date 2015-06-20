@@ -24,9 +24,11 @@ public class CubeModel extends MeshModel{
 	
 	String title="Cube model";
 	
+
+	
 	public CubeModel(){
 		
-		super();
+		super(200,150);
 		setTitle(title);
 		
 	}

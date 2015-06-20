@@ -38,14 +38,12 @@ public class MeshModel extends JFrame implements ActionListener{
 	public File currentDirectory=new File("lib");
 
 	private PrintWriter pw;
-	
-	int W=200;
-	int H=150;
+
 	
 	String title="Mesh model";
 
 	
-	public MeshModel(){		
+	public MeshModel(int W,int H){		
 		
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
