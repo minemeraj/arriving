@@ -18,6 +18,9 @@ public class CubeModel extends MeshModel{
 	double dy=200;
 	double dz=300;
 	
+	int bx=10;
+	int by=10;
+	
 	public CubeModel(){
 		
 		super();
@@ -65,47 +68,48 @@ public class CubeModel extends MeshModel{
 
 
 
-    public void initTexturePoints() {
+    public void initMesh() {
     
     	texturePoints=new Vector();
     	
   
     	
     	//lower base
-    	double y=0;
+    	double y=by;
+    	double x=bx;
     	
-     	texturePoints.add(new Point3D(0,0,0));
-    	texturePoints.add(new Point3D(dx,0,0));
-    	texturePoints.add(new Point3D(dx, dy,0));
-    	texturePoints.add(new Point3D(0,dy,0));
+     	texturePoints.add(new Point3D(x,y,0));
+    	texturePoints.add(new Point3D(x+dx,y,0));
+    	texturePoints.add(new Point3D(x+dx, y+dy,0));
+    	texturePoints.add(new Point3D(x,y+dy,0));
     	
     	//faces
-    	y=dy;
+    	y=by+dy;
         
-    	texturePoints.add(new Point3D(0,y,0));
-    	texturePoints.add(new Point3D(dx,y,0));
-    	texturePoints.add(new Point3D(2*dx,y,0));
-    	texturePoints.add(new Point3D(3*dx,y,0));
-    	texturePoints.add(new Point3D(4*dx,y,0));    	
+    	texturePoints.add(new Point3D(x,y,0));
+    	texturePoints.add(new Point3D(x+dx,y,0));
+    	texturePoints.add(new Point3D(x+dy+dx,y,0));
+    	texturePoints.add(new Point3D(x+dy+2*dx,y,0));
+    	texturePoints.add(new Point3D(x+2*dy+2*dx,y,0));    	
     	
     	
-    	texturePoints.add(new Point3D(0,y+dz,0));
-    	texturePoints.add(new Point3D(dx,y+dz,0));
-    	texturePoints.add(new Point3D(2*dx,y+dz,0));
-    	texturePoints.add(new Point3D(3*dx,y+dz,0));
-    	texturePoints.add(new Point3D(4*dx,y+dz,0));
+    	texturePoints.add(new Point3D(x,y+dz,0));
+    	texturePoints.add(new Point3D(x+dx,y+dz,0));
+    	texturePoints.add(new Point3D(x+dy+dx,y+dz,0));
+    	texturePoints.add(new Point3D(x+dy+2*dx,y+dz,0));
+    	texturePoints.add(new Point3D(x+2*dy+2*dx,y+dz,0));
     	
-    	 y=dy+dz;
+    	y=by+dy+dz;
     	
     	//upper base
-      	texturePoints.add(new Point3D(0,y,0));
-    	texturePoints.add(new Point3D(dx,y,0));
-    	texturePoints.add(new Point3D(dx,y+dy,0));
-    	texturePoints.add(new Point3D(0,y+dy,0));
+      	texturePoints.add(new Point3D(x,y,0));
+    	texturePoints.add(new Point3D(x+dx,y,0));
+    	texturePoints.add(new Point3D(x+dx,y+dy,0));
+    	texturePoints.add(new Point3D(x,y+dy,0));
 
 
-		IMG_WIDTH=800;
-		IMG_HEIGHT=800;
+		IMG_WIDTH=(int) (2*dy+2*dx+2*bx);
+		IMG_HEIGHT=(int) (dy*2+dz+2*by);
     }
     
 

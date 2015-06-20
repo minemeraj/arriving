@@ -76,7 +76,7 @@ public class MeshModel extends JFrame implements ActionListener{
 
 	public void generateMesh(){
 		
-		initTexturePoints();
+		initMesh();
 		printMesh();
 		
 	}
@@ -118,7 +118,7 @@ public class MeshModel extends JFrame implements ActionListener{
 		
 	}
 
-	public void initTexturePoints(){
+	public void initMesh(){
 		
 		texturePoints=new Vector();
 	}
@@ -176,7 +176,7 @@ public class MeshModel extends JFrame implements ActionListener{
 
 	private void prinTexture() {
 		
-		initTexturePoints();
+		initMesh();
 		
 		JFileChooser fc = new JFileChooser();
 		
