@@ -54,7 +54,83 @@ public class SPLine {
 
 		ribs=new Vector();
 		
+       
+		calculateTangents();
 
+		
+		
+		for (int i = 0; i < nodes.size()-1; i++) {
+
+			SPNode previousNode = (SPNode) nodes.elementAt(i); 
+			SPNode nextNode = (SPNode) nodes.elementAt(i+1); 
+
+			double prevX=previousNode.x;
+			double prevY=previousNode.y;
+			double prevZ=previousNode.z;
+
+			double nextX=nextNode.x;
+			double nextY=nextNode.y;
+			double nextZ=nextNode.z;
+
+			Point3D NextTangent=nextNode.getTangent();
+
+			Point3D vDistance=new Point3D(nextX-prevX,nextY-prevY,0);
+			double nodeDistance=Point3D.calculateNorm(vDistance);
+
+			Point3D lnextd=new Point3D(-NextTangent.y,NextTangent.x,0);
+			Point3D rnextd=new Point3D(NextTangent.y,-NextTangent.x,0);
+
+
+			double wid=0.5*(EditorData.splinesMeshes[0].getDeltaX2()-
+					EditorData.splinesMeshes[0].getDeltaX());
+
+			double len=EditorData.splinesMeshes[0].getDeltaY2()-
+					EditorData.splinesMeshes[0].getDeltaY();
+
+			double dz=EditorData.splinesMeshes[0].getDeltaY();
+			int n=(int) (nodeDistance/len)+1;
+
+			if(n==1)
+				n=2;
+
+			for(int k=0;k<n;k++){
+
+				double l=k*len/nodeDistance;
+				//stretching last texture
+				if(k==n-1){
+
+					//do not repeat the last rib two time!
+					if(i<nodes.size()-2){
+
+						continue;
+					}	
+
+					l=1.0;
+
+				}	
+
+				double x=(1.0-l)*prevX+l*nextX;
+				double y=(1.0-l)*prevY+l*nextY;
+				double z=(1.0-l)*prevZ+l*nextZ;
+
+				Rib rib=new Rib(4);
+				rib.points[0]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z,LineData.GREEN_HEX,0);
+				rib.points[1]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z,LineData.GREEN_HEX,0);		
+				rib.points[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z+dz,LineData.GREEN_HEX,0);	
+				rib.points[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z+dz,LineData.GREEN_HEX,0);
+				rib.setIndex(previousNode.getIndex());
+				ribs.add(rib);	
+				//System.out.println(rib[0]+","+rib[1]+","+rib[2]+","+rib[3]+",");  
+
+
+			}
+
+		}
+
+	}
+
+	private void calculateTangents() {
+		
 
 		for (int i = 0; i < nodes.size()-1; i++) {
 			
@@ -73,78 +149,14 @@ public class SPLine {
 
 			Point3D NextTangent=new Point3D(nextX-prevX,nextY-prevY,0);
 			
-			double nodeDistance=Point3D.calculateNorm(NextTangent);
+			
 					
 			NextTangent=NextTangent.calculateVersor();		
 			nextNode.setTangent(NextTangent);
 
-			Point3D lnextd=new Point3D(-NextTangent.y,NextTangent.x,0);
-			Point3D rnextd=new Point3D(NextTangent.y,-NextTangent.x,0);
-
-			/*
-			Point3D lprevd=null;
-			Point3D rprevd=null;
-
-			if(preTangent==null){
-
-				lprevd=new Point3D(-NextTangent.y,NextTangent.x,0);
-				rprevd=new Point3D(NextTangent.y,-NextTangent.x,0);
-
-			}else{
-
-
-				lprevd=new Point3D(-preTangent.y,preTangent.x,0);
-				rprevd=new Point3D(preTangent.y,-preTangent.x,0);
-			}*/
 			
-			
-			
-			double wid=0.5*(EditorData.splinesMeshes[0].getDeltaX2()-
-					EditorData.splinesMeshes[0].getDeltaX());
-				
-			double len=EditorData.splinesMeshes[0].getDeltaY2()-
-					EditorData.splinesMeshes[0].getDeltaY();
-			
-			double dz=EditorData.splinesMeshes[0].getDeltaY();
-			int n=(int) (nodeDistance/len)+1;
-			
-			if(n==1)
-				n=2;
-			
-			for(int k=0;k<n;k++){
-				
-				double l=k*len/nodeDistance;
-				//stretching last texture
-				if(k==n-1){
-					
-					//do not repeat the last rib two time!
-					if(i<nodes.size()-2){
-						
-						continue;
-					}	
-					
-					l=1.0;
-					
-				}	
-				
-				double x=(1.0-l)*prevX+l*nextX;
-				double y=(1.0-l)*prevY+l*nextY;
-				double z=(1.0-l)*prevZ+l*nextZ;
-
-				Rib rib=new Rib(4);
-				rib.points[0]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z,LineData.GREEN_HEX,0);
-				rib.points[1]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z,LineData.GREEN_HEX,0);		
-				rib.points[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z+dz,LineData.GREEN_HEX,0);	
-				rib.points[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z+dz,LineData.GREEN_HEX,0);
-				rib.setIndex(previousNode.getIndex());
-				ribs.add(rib);	
-	            //System.out.println(rib[0]+","+rib[1]+","+rib[2]+","+rib[3]+",");  
-
-			
-			}
-
 		}
-
+		
 	}
 
 	public Vector getMeshes() {
