@@ -43,7 +43,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 
 	
     int counter=0;
-	String VERSION="CarDriving 8.1.3";
+	String VERSION="CarDriving 9.0.0";
 	
 	JPanel center=null;
 	private Graphics2D graphics2D;

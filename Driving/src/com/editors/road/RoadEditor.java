@@ -629,7 +629,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		jmtUndoObjects.setEnabled(false);
 		jmtUndoObjects.addActionListener(this);
 		jm4.add(jmtUndoObjects);
-		jmtUndoSPLines = new JMenuItem("Undo last road");
+		jmtUndoSPLines = new JMenuItem("Undo last spline");
 		jmtUndoSPLines.setEnabled(false);
 		jmtUndoSPLines.addActionListener(this);
 		jm4.add(jmtUndoSPLines);	
@@ -3118,6 +3118,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		int y=ep.invertY((int)p.getY());
 		
 		int index=0;
+		
+		ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getSelectedItem();
+		if(!vp.getId().equals(""))
+			index=Integer.parseInt(vp.getId());
+		
 		SPNode p0=new SPNode(x,y,0,LineData.GREEN_HEX,index);
 		
 		if(splines.size()==0){

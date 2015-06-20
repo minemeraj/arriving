@@ -101,14 +101,16 @@ public class SPLine {
 				
 			}
 			
+			int index=previousNode.getIndex();
+			
 
-			double wid=0.5*(EditorData.splinesMeshes[0].getDeltaX2()-
-					EditorData.splinesMeshes[0].getDeltaX());
+			double wid=0.5*(EditorData.splinesMeshes[index].getDeltaX2()-
+					EditorData.splinesMeshes[index].getDeltaX());
 
-			double len=EditorData.splinesMeshes[0].getDeltaY2()-
-					EditorData.splinesMeshes[0].getDeltaY();
+			double len=EditorData.splinesMeshes[index].getDeltaY2()-
+					EditorData.splinesMeshes[index].getDeltaY();
 
-			double dz=EditorData.splinesMeshes[0].getDeltaY();
+			double dz=EditorData.splinesMeshes[index].getDeltaY();
 			int n=(int) (nodeDistance/len)+1;
 
 			if(n==1)
