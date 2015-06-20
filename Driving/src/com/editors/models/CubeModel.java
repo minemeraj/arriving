@@ -21,10 +21,12 @@ public class CubeModel extends MeshModel{
 	int bx=10;
 	int by=10;
 	
+	String title="Cube model";
+	
 	public CubeModel(){
 		
 		super();
-
+		setTitle(title);
 		
 	}
 

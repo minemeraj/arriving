@@ -38,17 +38,23 @@ public class MeshModel extends JFrame implements ActionListener{
 	public File currentDirectory=new File("lib");
 
 	private PrintWriter pw;
+	
+	int W=200;
+	int H=150;
+	
+	String title="Mesh model";
 
 	
 	public MeshModel(){		
 		
-		setTitle("MeshModel");
+		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
-		setSize(300,300);
+		setSize(W,H);
+		setLocation(100,100);
 		
 		center=new JPanel(null);
-		center.setBounds(0,0,300,300);
+		center.setBounds(0,0,W,H);
 		add(center);
 		
 		buildCenter();
