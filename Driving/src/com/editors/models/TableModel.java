@@ -100,7 +100,7 @@ public class TableModel extends MeshModel{
 		super.printMeshData();
 	
 
-		
+		//leg
 		
 		print("f=[1]4/14 5/15 6/16 7/17");//TOP
 		
@@ -111,6 +111,16 @@ public class TableModel extends MeshModel{
 		
 		print("f=[5]0/0 3/1 2/2 1/3");//BOTTOM
 
+		//plane
+		
+		print("f=[1]12/32 13/33 14/34 15/35");//TOP
+		
+		print("f=[0]8/22 9/23 13/28 12/27");//BACK
+		print("f=[3]9/23 10/24 14/29 13/28");//RIGHT
+		print("f=[4]10/24 11/25 15/30 14/29");//FRONT
+		print("f=[2]11/25 8/26 12/31 15/30");///LEFT
+		
+		print("f=[5]8/18 11/19 10/20 9/21");//BOTTOM
 		
 	}
 
@@ -306,11 +316,18 @@ public class TableModel extends MeshModel{
 	
 	
     }
+	
+    String ub0="34-35";
+    String ub1="32-33";
+    String lf0="27-28-39-30-31";
+    String lf1="22-23-24-25-26";
+    String lb0="21-20";
+    String lb1="18-19";
     
-    String ub0="17-16";
-    String ub1="14-15";
-    String lf0="09-10-11-12-13";
-    String lf1="04-05-06-07-08";
-    String lb0="03-02";
-    String lb1="00-01";
+    String lub0="17-16";
+    String lub1="14-15";
+    String llf0="09-10-11-12-13";
+    String llf1="04-05-06-07-08";
+    String llb0="03-02";
+    String llb1="00-01";
 }
