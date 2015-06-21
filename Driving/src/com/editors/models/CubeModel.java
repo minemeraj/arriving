@@ -22,6 +22,8 @@ public class CubeModel extends MeshModel{
 	double dx=100;
 	double dy=200;
 	double dz=300;
+	double leg_length=50;
+	double leg_side=10;
 	
 	int bx=10;
 	int by=10;
@@ -128,16 +130,18 @@ public class CubeModel extends MeshModel{
     	
     	points=new Vector();
     	
-    	//lower base
-    	points.add(new Point3D(0.0,0.0,0.0));
-		points.add(new Point3D(dx,0.0,0.0));
-		points.add(new Point3D(dx,dy,0.0));
-		points.add(new Point3D(0.0,dy,0.0));
-		//upper base
-		points.add(new Point3D(0.0,0.0,dz));
-		points.add(new Point3D(dx,0.0,dz));
-		points.add(new Point3D(dx,dy,dz));
-		points.add(new Point3D(0.0,dy,dz));
+    	//lower and upper base
+    	for(int k=0;k<2;k++){
+    		
+    		double z=dz*k;
+    		
+    		addPoint(0.0,0.0,z);
+    		addPoint(dx,0.0,z);
+    		addPoint(dx,dy,z);
+    		addPoint(0.0,dy,z);
+    		
+    	}
+
     	
     
     	texturePoints=new Vector();
@@ -146,34 +150,34 @@ public class CubeModel extends MeshModel{
     	double y=by;
     	double x=bx;
     	
-     	texturePoints.add(new Point3D(x,y,0));
-    	texturePoints.add(new Point3D(x+dx,y,0));
-    	texturePoints.add(new Point3D(x+dx, y+dy,0));
-    	texturePoints.add(new Point3D(x,y+dy,0));
+     	addTPoint(x,y,0);
+    	addTPoint(x+dx,y,0);
+    	addTPoint(x+dx, y+dy,0);
+    	addTPoint(x,y+dy,0);
     	
     	//faces
     	y=by+dy;
         
-    	texturePoints.add(new Point3D(x,y,0));
-    	texturePoints.add(new Point3D(x+dx,y,0));
-    	texturePoints.add(new Point3D(x+dy+dx,y,0));
-    	texturePoints.add(new Point3D(x+dy+2*dx,y,0));
-    	texturePoints.add(new Point3D(x+2*dy+2*dx,y,0));    	
+    	addTPoint(x,y,0);
+    	addTPoint(x+dx,y,0);
+    	addTPoint(x+dy+dx,y,0);
+    	addTPoint(x+dy+2*dx,y,0);
+    	addTPoint(x+2*dy+2*dx,y,0);    	
     	
     	
-    	texturePoints.add(new Point3D(x,y+dz,0));
-    	texturePoints.add(new Point3D(x+dx,y+dz,0));
-    	texturePoints.add(new Point3D(x+dy+dx,y+dz,0));
-    	texturePoints.add(new Point3D(x+dy+2*dx,y+dz,0));
-    	texturePoints.add(new Point3D(x+2*dy+2*dx,y+dz,0));
+    	addTPoint(x,y+dz,0);
+    	addTPoint(x+dx,y+dz,0);
+    	addTPoint(x+dy+dx,y+dz,0);
+    	addTPoint(x+dy+2*dx,y+dz,0);
+    	addTPoint(x+2*dy+2*dx,y+dz,0);
     	
     	y=by+dy+dz;
     	
     	//upper base
-      	texturePoints.add(new Point3D(x,y,0));
-    	texturePoints.add(new Point3D(x+dx,y,0));
-    	texturePoints.add(new Point3D(x+dx,y+dy,0));
-    	texturePoints.add(new Point3D(x,y+dy,0));
+      	addTPoint(x,y,0);
+    	addTPoint(x+dx,y,0);
+    	addTPoint(x+dx,y+dy,0);
+    	addTPoint(x,y+dy,0);
 
 
 		IMG_WIDTH=(int) (2*dy+2*dx+2*bx);
@@ -181,7 +185,10 @@ public class CubeModel extends MeshModel{
     }
     
 
-    public void printTexture(Graphics2D bg) {
+
+
+
+	public void printTexture(Graphics2D bg) {
     
 
 		//draw lines for reference

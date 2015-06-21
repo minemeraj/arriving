@@ -236,5 +236,18 @@ public class MeshModel extends JFrame implements ActionListener{
 		}
 
 	}
+	
+	public void addPoint(double x, double y, double z) {
+	
+    	points.add(new Point3D(x,y,z));
+		
+	}
+	
+	public void addTPoint(double x, double y, double z) {
+		
+		texturePoints.add(new Point3D(x,y,z));
+		
+	}
+	
 
 }
