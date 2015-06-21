@@ -22,8 +22,7 @@ public class CubeModel extends MeshModel{
 	double dx=100;
 	double dy=200;
 	double dz=300;
-	double leg_length=50;
-	double leg_side=10;
+
 	
 	int bx=10;
 	int by=10;
