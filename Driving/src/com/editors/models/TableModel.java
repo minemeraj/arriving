@@ -42,6 +42,26 @@ public class TableModel extends MeshModel{
 			 
 	}
 	 
+	int[][][] faces={
+		
+				{{1},{4,5,6,7},{14,15,16,17}},
+				{{0},{0,1,5,4},{4,5,10,9}},
+				{{3},{1,2,6,5},{5,6,11,10}},
+				{{4},{2,3,7,6},{6,7,12,11}},
+				{{2},{3,0,4,7},{7,8,13,12}},
+				{{5},{0,3,2,1},{0,1,2,3}},
+				
+				{{1},{12,13,14,15},{32,33,34,35}},
+				{{0},{8,9,13,12},{22,23,28,27}},
+				{{3},{9,10,14,13},{23,24,29,28}},
+				{{4},{10,11,15,14},{24,25,30,29}},
+				{{2},{11,8,12,15},{25,26,31,30}},
+				{{5},{8,11,10,9},{18,19,20,21}}
+			
+	};
+
+
+	 
 	 public void buildCenter() {
 
 		 double dx=100;
@@ -102,7 +122,28 @@ public class TableModel extends MeshModel{
 
 		//leg
 		
-		print("f=[1]4/14 5/15 6/16 7/17");//TOP
+		for (int i = 0; i < faces.length; i++) {
+			
+			int[][] face=faces[i];
+			
+			int[] fts=face[0];
+			int[] pts=face[1];
+			int[] tts=face[2];
+			
+			String line="f=["+fts[0]+"]";
+			
+			for (int j = 0; j < pts.length; j++) {
+				
+				if(j>0)
+					line+=" ";
+				line+=(pts[j]+"/"+tts[j]);
+			}
+			
+			print(line);
+			
+		}
+		
+		/*print("f=[1]4/14 5/15 6/16 7/17");//TOP
 		
 		print("f=[0]0/4 1/5 5/10 4/9");//BACK
 		print("f=[3]1/5 2/6 6/11 5/10");//RIGHT
@@ -120,7 +161,7 @@ public class TableModel extends MeshModel{
 		print("f=[4]10/24 11/25 15/30 14/29");//FRONT
 		print("f=[2]11/25 8/26 12/31 15/30");///LEFT
 		
-		print("f=[5]8/18 11/19 10/20 9/21");//BOTTOM
+		print("f=[5]8/18 11/19 10/20 9/21");//BOTTOM*/
 		
 	}
 
