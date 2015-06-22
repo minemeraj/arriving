@@ -39,8 +39,11 @@ public class TableModel extends MeshModel{
 	public static void main(String[] args) {
 
 		TableModel cm=new TableModel();
-
+        //cm.codeGeneration();  
 	}
+
+
+
 
 
 
@@ -104,8 +107,6 @@ public class TableModel extends MeshModel{
 		super.printMeshData();
 
 
-		//leg
-
 		for (int i = 0; i < faces.length; i++) {
 
 			int[][] face=faces[i];
@@ -159,16 +160,35 @@ public class TableModel extends MeshModel{
 
 		points=new Vector();
 
-		//bl leg
-		for(int k=0;k<2;k++){
-
-			double z=leg_length*k;
-
-			addPoint(0.0,0.0,z);
-			addPoint(leg_side,0.0,z);
-			addPoint(leg_side,leg_side,z);
-			addPoint(0.0,leg_side,z);
-
+		//legs
+		
+		for(int l=0;l<4;l++){
+			for(int k=0;k<2;k++){
+	
+				double z=leg_length*k;
+				double x=0;
+				double y=0;
+				
+				if(l==1){
+					
+					x=dx-leg_side;
+					
+				}else if(l==2){
+					
+					y=dy-leg_side;
+					
+				}else if(l==3){
+					
+					y=dy-leg_side;
+					x=dx-leg_side;
+				}
+	
+				addPoint(x,y,z);
+				addPoint(x+leg_side,y,z);
+				addPoint(x+leg_side,y+leg_side,z);
+				addPoint(x,y+leg_side,z);
+	
+			}
 		}
 		//lower and upper base
 		for(int k=0;k<2;k++){
@@ -344,21 +364,47 @@ public class TableModel extends MeshModel{
 
 	int[][][] faces={
 
+			//leg
 			{{1},{4,5,6,7},{14,15,16,17}},
 			{{0},{0,1,5,4},{4,5,10,9}},
 			{{3},{1,2,6,5},{5,6,11,10}},
 			{{4},{2,3,7,6},{6,7,12,11}},
 			{{2},{3,0,4,7},{7,8,13,12}},
 			{{5},{0,3,2,1},{0,1,2,3}},
+			
+			{{1},{12,13,14,15},{14,15,16,17}},
+			{{0},{8,9,13,12},{4,5,10,9}},
+			{{3},{9,10,14,13},{5,6,11,10}},
+			{{4},{10,11,15,14},{6,7,12,11}},
+			{{2},{11,8,12,15},{7,8,13,12}},
+			{{5},{8,11,10,9},{0,1,2,3}},
+			
+			{{1},{20,21,22,23},{14,15,16,17}},
+			{{0},{16,17,21,20},{4,5,10,9}},
+			{{3},{17,18,22,21},{5,6,11,10}},
+			{{4},{18,19,23,22},{6,7,12,11}},
+			{{2},{19,16,20,23},{7,8,13,12}},
+			{{5},{16,19,18,17},{0,1,2,3}},
+			
+			{{1},{28,29,30,31},{14,15,16,17}},
+			{{0},{24,25,29,28},{4,5,10,9}},
+			{{3},{25,26,30,29},{5,6,11,10}},
+			{{4},{26,27,31,30},{6,7,12,11}},
+			{{2},{27,24,28,31},{7,8,13,12}},
+			{{5},{24,27,26,25},{0,1,2,3}},
 
-			{{1},{12,13,14,15},{32,33,34,35}},
-			{{0},{8,9,13,12},{22,23,28,27}},
-			{{3},{9,10,14,13},{23,24,29,28}},
-			{{4},{10,11,15,14},{24,25,30,29}},
-			{{2},{11,8,12,15},{25,26,31,30}},
-			{{5},{8,11,10,9},{18,19,20,21}}
+			//body
+			{{1},{36,37,38,39},{32,33,34,35}},
+			{{0},{32,33,37,36},{22,23,28,27}},
+			{{3},{33,34,38,37},{23,24,29,28}},
+			{{4},{34,35,39,38},{24,25,30,29}},
+			{{2},{35,32,36,39},{25,26,31,30}},
+			{{5},{32,35,34,33},{18,19,20,21}},
 
 	};
+	
+
+
 
 	String ub0="34-35";
 	String ub1="32-33";
@@ -373,4 +419,50 @@ public class TableModel extends MeshModel{
 	String llf1="04-05-06-07-08";
 	String llb0="03-02";
 	String llb1="00-01";
+	
+	
+	private void codeGeneration() {
+		
+		int c=0;
+		int t=0;
+		
+		for (int i = 0; i < faces.length; i++) {
+
+			int[][] face=faces[i];
+
+			int[] fts=face[0];
+			int[] pts=face[1];
+			int[] tts=face[2];
+
+			String line="{"+"{"+fts[0]+"}";
+			
+			line+=",{";
+
+			for (int j = 0; j < pts.length; j++) {
+
+				if(j>0)
+					line+=",";
+				line+=(c+pts[j]);
+			}
+			
+			line+="}";
+			
+			line+=",{";
+			
+			for (int j = 0; j < pts.length; j++) {
+
+				if(j>0)
+					line+=",";
+				line+=(t+tts[j]);
+			}
+			
+			line+="}";
+
+			line+="},";
+			
+			System.out.println(line);
+
+		}
+		
+	}
 }
