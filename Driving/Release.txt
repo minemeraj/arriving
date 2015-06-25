@@ -2,7 +2,7 @@ Added fence wall as spline=2.
 
 Fixed various editing bugs.
 
-New highway map (very basic), with autocars file landscape_highway.
+New highway map (very basic) landscape_highway, with autocars file autocars_highway.
 
 Added instruction for autocars editor.
 
