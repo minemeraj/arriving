@@ -1,7 +1,8 @@
-
 Added fence wall as spline=2. 
 
 Fixed various editing bugs.
+
+New highway map (very basic).
 
 ----- 14/06/2015 CarDriving 9.0.0
 
