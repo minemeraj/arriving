@@ -445,9 +445,19 @@
     The editor can read points from an image and save the as points of a mesh.
     
     
-   ********* AUTOCARS
+   ********* AUTOCARS EDITOR
    
-   See my Driving2D project for instructions and editors. 
+   Add an autoline by choosing menu Other->Add autoline,
+   then add points by clicking with right mouse button.
+   
+   Add autocar by choosing menu Other->Add autocar, then move your autocar near an already
+   existing autoline.
+   
+   Assign an autoline to hte autocar.
+   
+   Assign a speed to an autocar, or set it parked.
+   
+   Remember to press "Change Car" button to apply car modifications.
     
    ************** PERFORMANCE NOTES   
    

@@ -2,7 +2,9 @@ Added fence wall as spline=2.
 
 Fixed various editing bugs.
 
-New highway map (very basic).
+New highway map (very basic), with autocars file landscape_highway.
+
+Added instruction for autocars editor.
 
 ----- 14/06/2015 CarDriving 9.0.0
 
