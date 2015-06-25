@@ -4,6 +4,8 @@ Fixed various editing bugs.
 
 New highway map (very basic) landscape_highway, with autocars file autocars_highway.
 
+Fixed bug on parked autocars, which now doesn't need to belong to an autoline
+
 Added instruction for autocars editor.
 
 ----- 14/06/2015 CarDriving 9.0.0

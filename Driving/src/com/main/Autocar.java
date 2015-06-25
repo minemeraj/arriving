@@ -103,6 +103,9 @@ public class Autocar {
 
 	public void move(double dt){
 		
+		if(isParked)
+			return;
+		
 		if(stopTime!=null){
 			
 			

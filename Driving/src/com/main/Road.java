@@ -1737,20 +1737,23 @@ public class Road extends Shader{
 				autoCar.center.y=autoCar.center.y+SCREEN_DISTANCE;
 				autoCar.center.z=autoCar.center.z+autoCar.car_height*0.5-YFOCUS;
 				
-				Point3D[] newCar_road=new Point3D[autoCar.car_road.length];
+				if(autoCar.car_road!=null){
 				
-				for (int j = 0; j < autoCar.car_road.length; j++) {
+					Point3D[] newCar_road=new Point3D[autoCar.car_road.length];
 					
-					newCar_road[j]=new Point3D();
+					for (int j = 0; j < autoCar.car_road.length; j++) {
+						
+						newCar_road[j]=new Point3D();
+						
+						newCar_road[j].x=autoCar.car_road[j].x-XFOCUS;
+						newCar_road[j].y=autoCar.car_road[j].y+SCREEN_DISTANCE;
+						newCar_road[j].z=autoCar.car_road[j].z-YFOCUS;
+						
+					}
 					
-					newCar_road[j].x=autoCar.car_road[j].x-XFOCUS;
-					newCar_road[j].y=autoCar.car_road[j].y+SCREEN_DISTANCE;
-					newCar_road[j].z=autoCar.car_road[j].z-YFOCUS;
-					
+					autoCar.setCar_road(newCar_road);
+				
 				}
-				
-				autoCar.setCar_road(newCar_road);
-				
 			
 				
 			}
