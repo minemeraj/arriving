@@ -1160,7 +1160,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 			AutocarData ad = (AutocarData) autocarsData.elementAt(i);
 	
 			if(i==chooseAutocar.getSelectedIndex())
-				graph2.setColor(Color.MAGENTA);
+				graph2.setColor(Color.BLUE);
 			else
 				graph2.setColor(Color.CYAN);
 
