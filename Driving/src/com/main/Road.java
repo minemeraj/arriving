@@ -53,7 +53,7 @@ public class Road extends Shader{
 	int NY=80;
 	
 	int NXVISIBLE=NX;
-	int NYVISIBLE=20;//20 orig
+	int NYVISIBLE=40;//20 orig
 
 	int dx=0;
 	int dy=3000/NYVISIBLE;//600 orig
