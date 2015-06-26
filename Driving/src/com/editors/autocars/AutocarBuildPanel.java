@@ -73,7 +73,7 @@ public class AutocarBuildPanel extends JDialog implements ActionListener{
 		
 		for(int f=0;f<files.length;f++){
 
-			if(files[f].getName().startsWith("supercar_")){
+			if(files[f].getName().startsWith("cardefault3D_")){
 				
 				car_type_index.addItem(new ComboElement(""+count,""+count));
 				count++;

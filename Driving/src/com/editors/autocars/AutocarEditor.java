@@ -2314,20 +2314,19 @@ public class AutocarEditor extends Editor implements MouseListener,
 		else if (obj == moveAutocarsLeft) {
 	
 			moveSelectedAutocars(-1, 0, 0);
-			draw();
+
 			
 		} else if (obj == moveAutocarsRight) {
 	
 			moveSelectedAutocars(1, 0, 0);
-			draw();
+
 		} else if (obj == moveAutocarsUp) {
 	
 			moveSelectedAutocars(0, 1, 0);
-			draw();
+
 		} else if (obj == moveAutocarsDown) {
 	
 			moveSelectedAutocars(0, -1, 0);
-			draw();
 		} 
 		
 		else if (obj == rescale) {
@@ -2545,9 +2544,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 				chooseAutocarline.setSelectedIndex(ad.autoline_index);
 		}
 		
-		
+		draw();
 
-		repaint();
 	}
 
 	private void addAutoline() {
