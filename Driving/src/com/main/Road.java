@@ -747,9 +747,11 @@ public class Road extends Shader{
 					Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points);
 
 
-					//if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
+					if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
 
-					decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.splinesTextures[ld.getTexture_index()],roadZbuffer);
+						decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.splinesTextures[ld.getTexture_index()],roadZbuffer);
+					
+					}
 
 				}
 
@@ -1617,6 +1619,18 @@ public class Road extends Shader{
 
 			cm.translate(dx,dy,dz);
 			cm.rotate(autocar.center.x,autocar.center.y,cosRo,sinRo);
+			
+			int signum=+1;
+			
+			if(VIEW_TYPE==REAR_VIEW)
+				signum=-1;
+			
+			if(!totalVisibleField.contains(
+					signum*(autocar.center.x-POSX),
+					signum*(autocar.center.y-POSY)
+					)
+					)
+				continue;
 
 				
 			Point3D xVersor=cm.getXAxis();
