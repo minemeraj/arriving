@@ -11,24 +11,24 @@ import javax.swing.JRadioButton;
 
 import com.editors.DoubleTextField;
 import com.editors.models.CubeModel;
+import com.editors.models.House0Model;
 import com.editors.models.TableModel;
 
-public class FornitureMeshEditor extends MeshModelEditor{
+public class BulldingMeshEditor extends MeshModelEditor{
 	
-	String title="Forniture model";
+	String title="Building model";
 	private DoubleTextField dz_text;
 	private DoubleTextField dy_text;
 	private DoubleTextField dx_text;
-	private JRadioButton jcbCube;
-	private JRadioButton jcbTable;
+	private JRadioButton jcbHouse0;
 	
 	public static void main(String[] args) {
 		
-		FornitureMeshEditor fm=new FornitureMeshEditor(200,280);
+		BulldingMeshEditor fm=new BulldingMeshEditor(200,280);
 	}
 	
 	
-	public FornitureMeshEditor(int W, int H) {
+	public BulldingMeshEditor(int W, int H) {
 		super(W, H);
 		setTitle(title);
 	}
@@ -73,20 +73,10 @@ public class FornitureMeshEditor extends MeshModelEditor{
 		 
 		 r+=30;
 		 
-		 jcbCube=new JRadioButton("Cube");
-		 jcbCube.setBounds(5,r,80,20);
-		 jcbCube.setSelected(true);
-		 center.add(jcbCube);
-		 
-		 r+=30;
-		 
-		 jcbTable=new JRadioButton("Table");
-		 jcbTable.setBounds(5,r,80,20);
-		 center.add(jcbTable);
-		 
-		 ButtonGroup bg=new ButtonGroup();
-		 bg.add(jcbCube);
-		 bg.add(jcbTable);
+		 jcbHouse0=new JRadioButton("House0");
+		 jcbHouse0.setBounds(5,r,80,20);
+		 jcbHouse0.setSelected(true);
+		 center.add(jcbHouse0);
 
 		 r+=30;
 
@@ -111,10 +101,10 @@ public class FornitureMeshEditor extends MeshModelEditor{
 	    double dy = dy_text.getvalue();
 	    double dz = dz_text.getvalue();
 	    
-	    if(jcbCube.isSelected())
-	    	meshModel=new CubeModel(dx,dy,dz);
+	    if(jcbHouse0.isSelected())
+	    	meshModel=new House0Model(dx,dy,dz);
 	    else
-	    	meshModel=new TableModel(dx,dy,dz);
+	    	meshModel=new House0Model(dx,dy,dz);
 	    
 	    meshModel.initMesh();
 	}

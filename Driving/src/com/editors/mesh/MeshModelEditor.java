@@ -135,6 +135,8 @@ public class MeshModelEditor extends JFrame implements ActionListener{
 	
 	public void printMesh(){
 		
+		initMesh();
+		
 		JFileChooser fc = new JFileChooser();
 		
 		fc.setDialogType(JFileChooser.SAVE_DIALOG);
