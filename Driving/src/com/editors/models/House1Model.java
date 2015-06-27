@@ -255,12 +255,18 @@ public class House1Model extends MeshModel{
 
 			
 			//base
-			/*{{Renderer3D.CAR_BACK},{0,1,5,4},{4,5,10,9}},
-			{{Renderer3D.CAR_RIGHT},{1,2,6,5},{5,6,11,10}},
-			{{Renderer3D.CAR_FRONT},{2,3,7,6},{6,7,12,11}},
-			{{Renderer3D.CAR_LEFT},{3,0,4,7},{7,8,13,12}},
-			{{Renderer3D.CAR_BOTTOM},{0,3,2,1},{0,1,2,3}},
-			*/
+			{{Renderer3D.CAR_BACK},{0,5,2,1},{0,5,2,1}},
+			{{Renderer3D.CAR_BACK},{5,4,3,2},{5,4,3,2}},
+			
+			//faces
+			{{Renderer3D.CAR_BACK},{0,1,7,6},{6,7,14,13}},
+			{{Renderer3D.CAR_RIGHT},{1,2,8,7},{7,8,15,14}},
+			{{Renderer3D.CAR_BACK},{2,3,9,8},{8,9,16,15}},
+			{{Renderer3D.CAR_RIGHT},{3,4,10,9},{9,10,17,16}},
+			{{Renderer3D.CAR_FRONT},{4,5,11,10},{10,11,18,17}},
+			{{Renderer3D.CAR_LEFT},{5,0,6,11},{11,12,19,18}},
+			
+			
 			//gables
 			{{Renderer3D.CAR_BACK},{6,7,12},{13,14,20}},
 			{{Renderer3D.CAR_RIGHT},{9,10,14},{16,17,21}},
