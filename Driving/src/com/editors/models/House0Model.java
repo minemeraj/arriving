@@ -216,11 +216,11 @@ public class House0Model extends MeshModel{
 
 			//base
 
-			{{0},{0,1,5,4},{4,5,10,9}},
-			{{3},{1,2,6,5},{5,6,11,10}},
-			{{4},{2,3,7,6},{6,7,12,11}},
-			{{2},{3,0,4,7},{7,8,13,12}},
-			{{5},{0,3,2,1},{0,1,2,3}},
+			{{Renderer3D.CAR_BACK},{0,1,5,4},{4,5,10,9}},
+			{{Renderer3D.CAR_RIGHT},{1,2,6,5},{5,6,11,10}},
+			{{Renderer3D.CAR_FRONT},{2,3,7,6},{6,7,12,11}},
+			{{Renderer3D.CAR_LEFT},{3,0,4,7},{7,8,13,12}},
+			{{Renderer3D.CAR_BOTTOM},{0,3,2,1},{0,1,2,3}},
 			
 
 			//gables
@@ -232,11 +232,10 @@ public class House0Model extends MeshModel{
 			{{Renderer3D.CAR_TOP},{8,9,7,4},{18,19,21,20}},
 	};
 	
-	String roo4="20-21";
-	String roo2="18-19";
-	String roo1="16-17";
-	
-	String gab0="14-15";
+	String roo2="20-21";
+	String roo1="18-19";
+	String roo0="16-17";	
+	String gables_top="14-15";
 	String llf0="09-10-11-12-13";
 	String llf1="04-05-06-07-08";
 	String llb0="03-02";
