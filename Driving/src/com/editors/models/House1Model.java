@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import com.editors.DoubleTextField;
 import com.main.Renderer3D;
 
-public class House0Model extends MeshModel{
+public class House1Model extends MeshModel{
 
 	double dx=100;
 	double dy=200;
@@ -22,7 +22,7 @@ public class House0Model extends MeshModel{
 	int bx=10;
 	int by=10;
 	
-	public House0Model(double dx, double dy, double dz,double roof_height) {
+	public House1Model(double dx, double dy, double dz,double roof_height) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
@@ -83,6 +83,7 @@ public class House0Model extends MeshModel{
 	public void initMesh() {
 
 		points=new Vector();
+		double dy2=dy;
 
 		//lower and upper base
 		for(int k=0;k<2;k++){
@@ -92,14 +93,16 @@ public class House0Model extends MeshModel{
 			addPoint(0.0,0.0,z);
 			addPoint(dx,0.0,z);
 			addPoint(dx,dy,z);
-			addPoint(0.0,dy,z);
-
+			addPoint(dx+dy2,dy,z);
+			addPoint(dx+dy2,dy+dx,z);
+			addPoint(0,dy+dx,z);
 		}
 		
 		//roof		
 		addPoint(dx*0.5,0,dz+roof_height);
-		addPoint(dx*0.5,dy,dz+roof_height);
-
+		addPoint(dx*0.5,dy+dx*0.5,dz+roof_height);
+		addPoint(dx+dy2,dy+dx*0.5,dz+roof_height);
+		
 		texturePoints=new Vector();
 
 	
@@ -108,47 +111,60 @@ public class House0Model extends MeshModel{
 		//lower base
 		double y=by;
 		double x=bx;
-
+		
 		addTPoint(x,y,0);
 		addTPoint(x+dx,y,0);
-		addTPoint(x+dx, y+dy,0);
-		addTPoint(x,y+dy,0);
+		addTPoint(x+dx,y+dy,0);
+		addTPoint(x+dx+dy2,y+dy,0);
+		addTPoint(x+dx+dy2,y+dy+dx,0);
+		addTPoint(x,y+dy+dx,0);
 
+	
 		//faces
-		y=by+dy;
+		y=by+dy+dx;
 
 		addTPoint(x,y,0);
 		addTPoint(x+dx,y,0);
-		addTPoint(x+dy+dx,y,0);
-		addTPoint(x+dy+2*dx,y,0);
-		addTPoint(x+2*dy+2*dx,y,0);    	
-
-
-		addTPoint(x,y+dz,0);
-		addTPoint(x+dx,y+dz,0);
-		addTPoint(x+dy+dx,y+dz,0);
-		addTPoint(x+dy+2*dx,y+dz,0);
-		addTPoint(x+2*dy+2*dx,y+dz,0);
+		addTPoint(x+dx+dy,y,0);
+		addTPoint(x+dx+dy+dy2,y,0);
+		addTPoint(x+dx+dy+dy2+dx,y,0);    	
+		addTPoint(x+dx+dy+dy2+dx+(dx+dy2),y,0);
+		addTPoint(x+dx+dy+dy2+dx+(dx+dy2)+(dx+dy),y,0);
 		
-		y=by+dy+dz;
-		addTPoint(x+dx*0.5,y+roof_height,0);	
-		addTPoint(x+dx+dy+dx*0.5,y+roof_height,0);		
+		y=by+dy+dx+dz;
 
-		x=dx;
-		y=by+dy+dz+roof_height;
-
-		//roof pitches
 		addTPoint(x,y,0);
-		addTPoint(x+dy,y,0);
-		addTPoint(x,y+dx*0.5,0);
-		addTPoint(x+dy,y+dx*0.5,0);
-		addTPoint(x,y+dx,0);
-		addTPoint(x+dy,y+dx,0);
+		addTPoint(x+dx,y,0);
+		addTPoint(x+dx+dy,y,0);
+		addTPoint(x+dx+dy+dy2,y,0);
+		addTPoint(x+dx+dy+dy2+dx,y,0);    	
+		addTPoint(x+dx+dy+dy2+dx+(dx+dy2),y,0);
+		addTPoint(x+dx+dy+dy2+dx+(dx+dy2)+(dx+dy),y,0);
 		
+		//gables tops
+		y=by+dy+dx+dz+roof_height;
 		
+		addTPoint(x+dx*0.5,y,0);
+		addTPoint(x+dx+dy+dy2+dx*0.5,y,0); 
+		
+		y=by+dy+dx+dz+roof_height;
 
-		IMG_WIDTH=(int) (2*dy+2*dx+2*bx);
-		IMG_HEIGHT=(int) (dy+dz+2*by+roof_height+dx);
+		//roof
+		addTPoint(x,y,0);
+		addTPoint(x+dx*0.5,y,0);
+		addTPoint(x+dx,y,0);
+		
+		addTPoint(x+dx,y+dy,0);
+		addTPoint(x+dx+dy2,y+dy,0);
+		
+		addTPoint(x+dx*0.5,y+dy+dx*0.5,0);
+		addTPoint(x+dx+dy2,y+dy+dx*0.5,0);
+		
+		addTPoint(x,y+dy+dx,0);
+		addTPoint(x+dx+dy2,y+dy+dx,0);
+
+		IMG_WIDTH=(int) (2*bx+dx+dy+dy2+dx+(dx+dy2)+(dx+dy));
+		IMG_HEIGHT=(int) (2*by+(dx+dy)+dz+roof_height+(dx+dy));
 	}
 
 
@@ -167,56 +183,74 @@ public class House0Model extends MeshModel{
 		printTextureLine(bg,0,1);
 		printTextureLine(bg,1,2);
 		printTextureLine(bg,2,3);
-		printTextureLine(bg,3,0);
+		printTextureLine(bg,3,4);
+		printTextureLine(bg,4,5);
+		printTextureLine(bg,5,0);
 
 		//lateral faces
 		bg.setColor(Color.BLACK);
-		printTextureLine(bg,4,5);
-		printTextureLine(bg,5,10);
-		printTextureLine(bg,10,9);
-		printTextureLine(bg,9,4);
-
-		printTextureLine(bg,5,6);
-		printTextureLine(bg,6,11);
-		printTextureLine(bg,11,10);
-
 		printTextureLine(bg,6,7);
-		printTextureLine(bg,7,12);
-		printTextureLine(bg,12,11);
-
+		printTextureLine(bg,7,14);
+		printTextureLine(bg,14,13);
+		printTextureLine(bg,13,6);
+		
 		printTextureLine(bg,7,8);
-		printTextureLine(bg,8,13);
-		printTextureLine(bg,13,12);
-
-        //gables
-		bg.setColor(Color.BLUE);
+		printTextureLine(bg,8,15);
+		printTextureLine(bg,15,14);
+		
+		printTextureLine(bg,8,9);
+		printTextureLine(bg,9,16);
+		printTextureLine(bg,16,15);
+		
 		printTextureLine(bg,9,10);
-		printTextureLine(bg,10,14);
-		printTextureLine(bg,14,9);
+		printTextureLine(bg,10,17);
+		printTextureLine(bg,17,16);
 		
-		bg.setColor(Color.BLUE);
+		printTextureLine(bg,10,11);
+		printTextureLine(bg,11,18);
+		printTextureLine(bg,18,17);
+		
 		printTextureLine(bg,11,12);
-		printTextureLine(bg,12,15);
-		printTextureLine(bg,15,11);
-		
-		//roof pitches
-		printTextureLine(bg,16,17);
-		printTextureLine(bg,17,19);
+		printTextureLine(bg,12,19);
 		printTextureLine(bg,19,18);
-		printTextureLine(bg,18,16);
-		
-		printTextureLine(bg,18,19);
-		printTextureLine(bg,19,21);
-		printTextureLine(bg,21,20);
-		printTextureLine(bg,20,18);
+	
+		//gables
+		bg.setColor(Color.BLUE);
 
+		printTextureLine(bg,13,14);
+		printTextureLine(bg,14,20);
+		printTextureLine(bg,20,13);
+		
+		printTextureLine(bg,16,17);
+		printTextureLine(bg,17,21);
+		printTextureLine(bg,21,16);
+		
+
+		//roof
+		bg.setColor(Color.RED);
+		printTextureLine(bg,22,23);
+		printTextureLine(bg,23,27);
+		printTextureLine(bg,27,29);
+		printTextureLine(bg,29,22);
+		
+		printTextureLine(bg,23,24);
+		printTextureLine(bg,24,25);
+		printTextureLine(bg,25,27);
+		
+		printTextureLine(bg,25,26);
+		printTextureLine(bg,26,28);
+		printTextureLine(bg,28,27);
+		
+		printTextureLine(bg,27,28);
+		printTextureLine(bg,28,30);
+		printTextureLine(bg,30,29);
 	}
 
 	int[][][] faces={
 
 			//base
 
-			{{Renderer3D.CAR_BACK},{0,1,5,4},{4,5,10,9}},
+			/*{{Renderer3D.CAR_BACK},{0,1,5,4},{4,5,10,9}},
 			{{Renderer3D.CAR_RIGHT},{1,2,6,5},{5,6,11,10}},
 			{{Renderer3D.CAR_FRONT},{2,3,7,6},{6,7,12,11}},
 			{{Renderer3D.CAR_LEFT},{3,0,4,7},{7,8,13,12}},
@@ -229,17 +263,24 @@ public class House0Model extends MeshModel{
 			
 			//roof pitches
 			{{Renderer3D.CAR_TOP},{5,6,9,8},{16,17,19,18}},
-			{{Renderer3D.CAR_TOP},{8,9,7,4},{18,19,21,20}},
+			{{Renderer3D.CAR_TOP},{8,9,7,4},{18,19,21,20}},*/
 	};
 	
-	String roo2="20-21";
-	String roo1="18-19";
-	String roo0="16-17";	
-	String gables_top="14-15";
-	String llf1="09-10-11-12-13";
-	String llf0="04-05-06-07-08";
-	String llb1="03-02";
-	String llb0="00-01";
+	String roof3="29-30";
+	String roof2="27-28";
+	String roof1="25-26";
+	String roof0="22-23-24";
+	
+	String gables_top="20-21";
+	String llf1="13-14-15-16-17-18-19";
+	String llf0="06-07-08-09-10-11-12";
+	String lineb2="05-04";
+	String lineb1="02-03";
+	String lineb0="00-01";
+	
+	String points_level2="12,13,14";
+	String points_level1="6,7,8,9,10,11";
+	String points_level0="0,1,2,4,5";
 	
 	
 	private void codeGeneration() {

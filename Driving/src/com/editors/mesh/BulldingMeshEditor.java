@@ -12,6 +12,7 @@ import javax.swing.JRadioButton;
 import com.editors.DoubleTextField;
 import com.editors.models.CubeModel;
 import com.editors.models.House0Model;
+import com.editors.models.House1Model;
 import com.editors.models.TableModel;
 
 public class BulldingMeshEditor extends MeshModelEditor{
@@ -22,10 +23,11 @@ public class BulldingMeshEditor extends MeshModelEditor{
 	private DoubleTextField dx_text;
 	private JRadioButton jcbHouse0;
 	private DoubleTextField roof_height;
+	private JRadioButton jcbHouse1;
 	
 	public static void main(String[] args) {
 		
-		BulldingMeshEditor fm=new BulldingMeshEditor(270,280);
+		BulldingMeshEditor fm=new BulldingMeshEditor(270,290);
 	}
 	
 	
@@ -93,6 +95,17 @@ public class BulldingMeshEditor extends MeshModelEditor{
 		 center.add(jcbHouse0);
 
 		 r+=30;
+		 
+		 jcbHouse1=new JRadioButton("House1");
+		 jcbHouse1.setBounds(5,r,80,20);
+		 jcbHouse1.setSelected(true);
+		 center.add(jcbHouse1);
+		 
+		 ButtonGroup bg=new ButtonGroup();
+		 bg.add(jcbHouse0);
+		 bg.add(jcbHouse1);
+
+		 r+=30;
 
 		 meshButton=new JButton("Mesh");
 		 meshButton.setBounds(10,r,80,20);
@@ -119,7 +132,7 @@ public class BulldingMeshEditor extends MeshModelEditor{
 	    if(jcbHouse0.isSelected())
 	    	meshModel=new House0Model(dx,dy,dz,rh);
 	    else
-	    	meshModel=new House0Model(dx,dy,dz,rh);
+	    	meshModel=new House1Model(dx,dy,dz,rh);
 	    
 	    meshModel.initMesh();
 	}
