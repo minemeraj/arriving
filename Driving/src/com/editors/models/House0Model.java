@@ -10,21 +10,24 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import com.editors.DoubleTextField;
+import com.main.Renderer3D;
 
 public class House0Model extends MeshModel{
 
 	double dx=100;
 	double dy=200;
 	double dz=20;
+	double roof_height=50;
 
 	int bx=10;
 	int by=10;
 	
-	public House0Model(double dx, double dy, double dz) {
+	public House0Model(double dx, double dy, double dz,double roof_height) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
 		this.dz = dz;
+		this.roof_height = roof_height;
 	}
 
 
@@ -92,6 +95,10 @@ public class House0Model extends MeshModel{
 			addPoint(0.0,dy,z);
 
 		}
+		
+		//roof		
+		addPoint(dx*0.5,0,dz+roof_height);
+		addPoint(dx*0.5,dy,dz+roof_height);
 
 		texturePoints=new Vector();
 
@@ -122,18 +129,26 @@ public class House0Model extends MeshModel{
 		addTPoint(x+dy+dx,y+dz,0);
 		addTPoint(x+dy+2*dx,y+dz,0);
 		addTPoint(x+2*dy+2*dx,y+dz,0);
-
+		
 		y=by+dy+dz;
+		addTPoint(x+dx*0.5,y+roof_height,0);	
+		addTPoint(x+dx+dy+dx*0.5,y+roof_height,0);		
 
-		//upper base
+		x=dx;
+		y=by+dy+dz+roof_height;
+
+		//roof pitches
 		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx,y+dy,0);
-		addTPoint(x,y+dy,0);
-
+		addTPoint(x+dy,y,0);
+		addTPoint(x,y+dx*0.5,0);
+		addTPoint(x+dy,y+dx*0.5,0);
+		addTPoint(x,y+dx,0);
+		addTPoint(x+dy,y+dx,0);
+		
+		
 
 		IMG_WIDTH=(int) (2*dy+2*dx+2*bx);
-		IMG_HEIGHT=(int) (dy*2+dz+2*by);
+		IMG_HEIGHT=(int) (dy+dz+2*by+roof_height+dx);
 	}
 
 
@@ -173,22 +188,34 @@ public class House0Model extends MeshModel{
 		printTextureLine(bg,8,13);
 		printTextureLine(bg,13,12);
 
-		//upper base
+        //gables
 		bg.setColor(Color.BLUE);
-		printTextureLine(bg,14,15);
-		printTextureLine(bg,15,16);
-		printTextureLine(bg,16,17);
-		printTextureLine(bg,17,14);
-
-
+		printTextureLine(bg,9,10);
+		printTextureLine(bg,10,14);
+		printTextureLine(bg,14,9);
 		
+		bg.setColor(Color.BLUE);
+		printTextureLine(bg,11,12);
+		printTextureLine(bg,12,15);
+		printTextureLine(bg,15,11);
+		
+		//roof pitches
+		printTextureLine(bg,16,17);
+		printTextureLine(bg,17,19);
+		printTextureLine(bg,19,18);
+		printTextureLine(bg,18,16);
+		
+		printTextureLine(bg,18,19);
+		printTextureLine(bg,19,21);
+		printTextureLine(bg,21,20);
+		printTextureLine(bg,20,18);
 
 	}
 
 	int[][][] faces={
 
 			//base
-			{{1},{4,5,6,7},{14,15,16,17}},
+
 			{{0},{0,1,5,4},{4,5,10,9}},
 			{{3},{1,2,6,5},{5,6,11,10}},
 			{{4},{2,3,7,6},{6,7,12,11}},
@@ -196,13 +223,18 @@ public class House0Model extends MeshModel{
 			{{5},{0,3,2,1},{0,1,2,3}},
 			
 
+			//gables
+			{{Renderer3D.CAR_BACK},{4,5,8},{9,10,14}},
+			{{Renderer3D.CAR_BACK},{6,7,9},{11,12,15}},
+			
+			//roof
 	};
 	
-
-
-
-	String lub0="17-16";
-	String lub1="14-15";
+	String roo4="20-21";
+	String roo2="18-19";
+	String roo1="16-17";
+	
+	String gab0="14-15";
 	String llf0="09-10-11-12-13";
 	String llf1="04-05-06-07-08";
 	String llb0="03-02";

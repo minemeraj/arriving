@@ -21,10 +21,11 @@ public class BulldingMeshEditor extends MeshModelEditor{
 	private DoubleTextField dy_text;
 	private DoubleTextField dx_text;
 	private JRadioButton jcbHouse0;
+	private DoubleTextField roof_height;
 	
 	public static void main(String[] args) {
 		
-		BulldingMeshEditor fm=new BulldingMeshEditor(200,280);
+		BulldingMeshEditor fm=new BulldingMeshEditor(270,280);
 	}
 	
 	
@@ -39,24 +40,25 @@ public class BulldingMeshEditor extends MeshModelEditor{
 		 double dx=100;
 		 double dy=200;
 		 double dz=50;
-
+		 double dr=50;
+		 
 		 int r=10;
 
 		 JLabel lx=new JLabel("dx:");
-		 lx.setBounds(5,r,20,20);
+		 lx.setBounds(5,r,80,20);
 		 center.add(lx);
 		 dx_text=new DoubleTextField(8);
-		 dx_text.setBounds(30,r,120,20);
+		 dx_text.setBounds(90,r,120,20);
 		 dx_text.setText(dx);
 		 center.add(dx_text);
 
 		 r+=30;
 
 		 JLabel ly=new JLabel("dy:");
-		 ly.setBounds(5,r,20,20);
+		 ly.setBounds(5,r,80,20);
 		 center.add(ly);
 		 dy_text=new DoubleTextField(8);
-		 dy_text.setBounds(30,r,120,20);
+		 dy_text.setBounds(90,r,120,20);
 		 dy_text.setText(dy);
 		 center.add(dy_text);
 
@@ -64,14 +66,26 @@ public class BulldingMeshEditor extends MeshModelEditor{
 		 r+=30;
 
 		 JLabel lz=new JLabel("dz:");
-		 lz.setBounds(5,r,20,20);
+		 lz.setBounds(5,r,80,20);
 		 center.add(lz);
 		 dz_text=new DoubleTextField(8);
-		 dz_text.setBounds(30,r,120,20);
+		 dz_text.setBounds(90,r,120,20);
 		 dz_text.setText(dz);
 		 center.add(dz_text);
 		 
 		 r+=30;
+		 
+
+		 JLabel lr=new JLabel("Roof h:");
+		 lr.setBounds(5,r,80,20);
+		 center.add(lr);
+		 roof_height=new DoubleTextField(8);
+		 roof_height.setBounds(90,r,120,20);
+		 roof_height.setText(dr);
+		 center.add(roof_height);
+		 
+		 r+=30;	 
+		 
 		 
 		 jcbHouse0=new JRadioButton("House0");
 		 jcbHouse0.setBounds(5,r,80,20);
@@ -100,11 +114,12 @@ public class BulldingMeshEditor extends MeshModelEditor{
 	    double dx = dx_text.getvalue();
 	    double dy = dy_text.getvalue();
 	    double dz = dz_text.getvalue();
+	    double rh = roof_height.getvalue();
 	    
 	    if(jcbHouse0.isSelected())
-	    	meshModel=new House0Model(dx,dy,dz);
+	    	meshModel=new House0Model(dx,dy,dz,rh);
 	    else
-	    	meshModel=new House0Model(dx,dy,dz);
+	    	meshModel=new House0Model(dx,dy,dz,rh);
 	    
 	    meshModel.initMesh();
 	}
