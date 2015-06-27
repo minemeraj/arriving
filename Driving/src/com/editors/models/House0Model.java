@@ -225,9 +225,11 @@ public class House0Model extends MeshModel{
 
 			//gables
 			{{Renderer3D.CAR_BACK},{4,5,8},{9,10,14}},
-			{{Renderer3D.CAR_BACK},{6,7,9},{11,12,15}},
+			{{Renderer3D.CAR_FRONT},{6,7,9},{11,12,15}},
 			
-			//roof
+			//roof pitches
+			{{Renderer3D.CAR_TOP},{5,6,9,8},{16,17,19,18}},
+			{{Renderer3D.CAR_TOP},{8,9,7,4},{18,19,21,20}},
 	};
 	
 	String roo4="20-21";
