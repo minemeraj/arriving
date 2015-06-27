@@ -3,6 +3,7 @@ package com.editors.models;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.io.PrintWriter;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -13,6 +14,8 @@ import com.editors.DoubleTextField;
 public class TableModel extends MeshModel{
 
 	double dx=100;
+
+
 	double dy=200;
 	double dz=20;
 	double leg_length=50;
@@ -20,92 +23,18 @@ public class TableModel extends MeshModel{
 
 	int bx=10;
 	int by=10;
-
-	String title="Cube model";
-	private DoubleTextField dz_text;
-	private DoubleTextField dy_text;
-	private DoubleTextField dx_text;
-
-
-
-	public TableModel(){
-
-		super(200,250);
-		setTitle(title);
-
+	
+	public TableModel(double dx, double dy, double dz) {
+		super();
+		this.dx = dx;
+		this.dy = dy;
+		this.dz = dz;
 	}
 
 
-	public static void main(String[] args) {
+	public void printMeshData(PrintWriter pw) {
 
-		TableModel cm=new TableModel();
-        //cm.codeGeneration();  
-	}
-
-
-
-
-
-
-
-
-	public void buildCenter() {
-
-		double dx=100;
-		double dy=200;
-		double dz=20;
-
-		int r=10;
-
-		JLabel lx=new JLabel("dx:");
-		lx.setBounds(5,r,20,20);
-		center.add(lx);
-		dx_text=new DoubleTextField(8);
-		dx_text.setBounds(30,r,120,20);
-		dx_text.setText(dx);
-		center.add(dx_text);
-
-		r+=30;
-
-		JLabel ly=new JLabel("dy:");
-		ly.setBounds(5,r,20,20);
-		center.add(ly);
-		dy_text=new DoubleTextField(8);
-		dy_text.setBounds(30,r,120,20);
-		dy_text.setText(dy);
-		center.add(dy_text);
-
-
-		r+=30;
-
-		JLabel lz=new JLabel("dz:");
-		lz.setBounds(5,r,20,20);
-		center.add(lz);
-		dz_text=new DoubleTextField(8);
-		dz_text.setBounds(30,r,120,20);
-		dz_text.setText(dz);
-		center.add(dz_text);
-
-		r+=30;
-
-		meshButton=new JButton("Mesh");
-		meshButton.setBounds(10,r,80,20);
-		meshButton.addActionListener(this);
-		center.add(meshButton);
-
-		r+=30;
-
-		textureButton=new JButton("Texture");
-		textureButton.setBounds(10,r,90,20);
-		textureButton.addActionListener(this);
-		center.add(textureButton);
-
-	}
-
-	public void printMeshData() {
-
-		super.printMeshData();
-
+		super.printMeshData(pw);
 
 		for (int i = 0; i < faces.length; i++) {
 
@@ -124,7 +53,7 @@ public class TableModel extends MeshModel{
 				line+=(pts[j]+"/"+tts[j]);
 			}
 
-			print(line);
+			print(pw,line);
 
 		}
 
@@ -153,10 +82,6 @@ public class TableModel extends MeshModel{
 
 
 	public void initMesh() {
-
-		dx=dx_text.getvalue();
-		dy=dy_text.getvalue();
-		dz=dz_text.getvalue();
 
 		points=new Vector();
 

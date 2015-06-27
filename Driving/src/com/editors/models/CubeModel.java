@@ -2,130 +2,50 @@ package com.editors.models;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.PrintWriter;
 import java.util.Vector;
-
-import javax.imageio.ImageIO;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-
-import com.Point3D;
-import com.editors.DoubleTextField;
 
 public class CubeModel extends MeshModel{
 	
 	double dx=100;
+
+
 	double dy=200;
 	double dz=300;
 
 	
 	int bx=10;
 	int by=10;
-	
-	String title="Cube model";
-	private DoubleTextField dz_text;
-	private DoubleTextField dy_text;
-	private DoubleTextField dx_text;
-	
 
-	
-	public CubeModel(){
-		
-		super(200,250);
-		setTitle(title);
-		
+	public CubeModel(double dx, double dy, double dz) {
+		super();
+		this.dx = dx;
+		this.dy = dy;
+		this.dz = dz;
 	}
-
 	
-	 public static void main(String[] args) {
+	public void printMeshData(PrintWriter pw) {
 		
-		 CubeModel cm=new CubeModel();
-			 
-	}
-	 
-	 public void buildCenter() {
-
-		 double dx=100;
-		 double dy=200;
-		 double dz=300;
-
-		 int r=10;
-
-		 JLabel lx=new JLabel("dx:");
-		 lx.setBounds(5,r,20,20);
-		 center.add(lx);
-		 dx_text=new DoubleTextField(8);
-		 dx_text.setBounds(30,r,120,20);
-		 dx_text.setText(dx);
-		 center.add(dx_text);
-
-		 r+=30;
-
-		 JLabel ly=new JLabel("dy:");
-		 ly.setBounds(5,r,20,20);
-		 center.add(ly);
-		 dy_text=new DoubleTextField(8);
-		 dy_text.setBounds(30,r,120,20);
-		 dy_text.setText(dy);
-		 center.add(dy_text);
-
-
-		 r+=30;
-
-		 JLabel lz=new JLabel("dz:");
-		 lz.setBounds(5,r,20,20);
-		 center.add(lz);
-		 dz_text=new DoubleTextField(8);
-		 dz_text.setBounds(30,r,120,20);
-		 dz_text.setText(dz);
-		 center.add(dz_text);
-
-		 r+=30;
-
-		 meshButton=new JButton("Mesh");
-		 meshButton.setBounds(10,r,80,20);
-		 meshButton.addActionListener(this);
-		 center.add(meshButton);
-
-		 r+=30;
-
-		 textureButton=new JButton("Texture");
-		 textureButton.setBounds(10,r,90,20);
-		 textureButton.addActionListener(this);
-		 center.add(textureButton);
-
-	 }
-	
-	public void printMeshData() {
-		
-		super.printMeshData();
+		super.printMeshData(pw);
 	
 
 		
 		
-		print("f=[1]4/14 5/15 6/16 7/17");//TOP
+		print(pw,"f=[1]4/14 5/15 6/16 7/17");//TOP
 		
-		print("f=[0]0/4 1/5 5/10 4/9");//BACK
-		print("f=[3]1/5 2/6 6/11 5/10");//RIGHT
-		print("f=[4]2/6 3/7 7/12 6/11");//FRONT
-		print("f=[2]3/7 0/8 4/13 7/12");///LEFT
-		
-		print("f=[5]0/0 3/1 2/2 1/3");//BOTTOM
+		print(pw,"f=[0]0/4 1/5 5/10 4/9");//BACK
+		print(pw,"f=[3]1/5 2/6 6/11 5/10");//RIGHT
+		print(pw,"f=[4]2/6 3/7 7/12 6/11");//FRONT
+		print(pw,"f=[2]3/7 0/8 4/13 7/12");///LEFT		
+		print(pw,"f=[5]0/0 3/1 2/2 1/3");//BOTTOM
 		
 	}
 
 
 
     public void initMesh() {
-    	
-    	dx=dx_text.getvalue();
-    	dy=dy_text.getvalue();
-    	dz=dz_text.getvalue();
+
     	
     	points=new Vector();
     	
