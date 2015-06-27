@@ -248,22 +248,29 @@ public class House1Model extends MeshModel{
 
 	int[][][] faces={
 
-			//base
+			
+			
+			
+		
 
+			
+			//base
 			/*{{Renderer3D.CAR_BACK},{0,1,5,4},{4,5,10,9}},
 			{{Renderer3D.CAR_RIGHT},{1,2,6,5},{5,6,11,10}},
 			{{Renderer3D.CAR_FRONT},{2,3,7,6},{6,7,12,11}},
 			{{Renderer3D.CAR_LEFT},{3,0,4,7},{7,8,13,12}},
 			{{Renderer3D.CAR_BOTTOM},{0,3,2,1},{0,1,2,3}},
-			
-
+			*/
 			//gables
-			{{Renderer3D.CAR_BACK},{4,5,8},{9,10,14}},
-			{{Renderer3D.CAR_FRONT},{6,7,9},{11,12,15}},
+			{{Renderer3D.CAR_BACK},{6,7,12},{13,14,20}},
+			{{Renderer3D.CAR_RIGHT},{9,10,14},{16,17,21}},
+			
 			
 			//roof pitches
-			{{Renderer3D.CAR_TOP},{5,6,9,8},{16,17,19,18}},
-			{{Renderer3D.CAR_TOP},{8,9,7,4},{18,19,21,20}},*/
+			{{Renderer3D.CAR_TOP},{12,7,8,13},{23,24,25,27}},
+			{{Renderer3D.CAR_TOP},{8,9,14,13},{25,26,28,27}},
+			{{Renderer3D.CAR_TOP},{13,14,10,11},{27,28,30,29}},
+			{{Renderer3D.CAR_TOP},{12,13,11,6},{23,27,29,22}},
 	};
 	
 	String roof3="29-30";
