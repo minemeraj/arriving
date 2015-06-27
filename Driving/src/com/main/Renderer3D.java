@@ -708,7 +708,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 
         Rectangle rect = totalVisibleField.getBounds();
-		for(int i=0;i<1+0*drawObjects.length;i++){
+		for(int i=0;i<drawObjects.length;i++){
 
 			DrawObject dro=drawObjects[i];
      		drawPolygonMesh(dro, rect, zbuffer);
@@ -720,10 +720,16 @@ public class Renderer3D implements AbstractRenderer3D{
 	
 		//if(!totalVisibleField.contains(dro.x-POSX,VIEW_DIRECTION*(dro.y-POSY)))
 	
-		System.out.println(rect.y+" "+rect.height+" "+(dro.y-POSY));
+		//System.out.println(rect.y+" "+rect.height+" "+(dro.y-POSY));
 		
-		if(rect.y+rect.height<dro.y-POSY)
-			return;
+		//if(rect.y+rect.height<dro.y-POSY)
+		//	return;
+		
+		Point3D p=new Point3D(dro.x,dro.y,0);
+		p=buildTransformedPoint(p);
+		
+		if(!rect.contains(p.x,p.y))
+				return;
 		
 		PolygonMesh mesh = dro.getMesh();
 	    

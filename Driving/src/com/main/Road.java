@@ -1620,17 +1620,12 @@ public class Road extends Shader{
 			cm.translate(dx,dy,dz);
 			cm.rotate(autocar.center.x,autocar.center.y,cosRo,sinRo);
 			
-			int signum=+1;
 			
-			if(VIEW_TYPE==REAR_VIEW)
-				signum=-1;
+			Point3D p=new Point3D(autocar.center.x,autocar.center.y,0);
+			p=buildTransformedPoint(p);
 			
-			if(!totalVisibleField.contains(
-					signum*(autocar.center.x-POSX),
-					signum*(autocar.center.y-POSY)
-					)
-					)
-				continue;
+			if(!totalVisibleField.contains(p.x,p.y))
+					continue;;
 
 				
 			Point3D xVersor=cm.getXAxis();
