@@ -241,6 +241,10 @@ public class House0Model extends MeshModel{
 	String llb1="03-02";
 	String llb0="00-01";
 	
+	String points_level2="8,9";
+	String points_level1="4,5,6,7";
+	String points_level0="0,1,2,3";
+	
 	
 	private void codeGeneration() {
 		

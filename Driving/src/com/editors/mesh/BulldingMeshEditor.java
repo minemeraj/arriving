@@ -24,10 +24,12 @@ public class BulldingMeshEditor extends MeshModelEditor{
 	private JRadioButton jcbHouse0;
 	private DoubleTextField roof_height;
 	private JRadioButton jcbHouse1;
+	private DoubleTextField dx1_text;
+	private DoubleTextField dy1_text;
 	
 	public static void main(String[] args) {
 		
-		BulldingMeshEditor fm=new BulldingMeshEditor(270,290);
+		BulldingMeshEditor fm=new BulldingMeshEditor(470,290);
 	}
 	
 	
@@ -43,8 +45,13 @@ public class BulldingMeshEditor extends MeshModelEditor{
 		 double dy=200;
 		 double dz=50;
 		 double dr=50;
+		 double dx1=50;
+		 double dy1=150;
 		 
 		 int r=10;
+		 
+		 int c0=220;
+		 int c1=310;
 
 		 JLabel lx=new JLabel("dx:");
 		 lx.setBounds(5,r,80,20);
@@ -52,7 +59,15 @@ public class BulldingMeshEditor extends MeshModelEditor{
 		 dx_text=new DoubleTextField(8);
 		 dx_text.setBounds(90,r,120,20);
 		 dx_text.setText(dx);
-		 center.add(dx_text);
+		 center.add(dx_text);		
+		 
+		 lx=new JLabel("dx1:");
+		 lx.setBounds(c0,r,80,20);
+		 center.add(lx);
+		 dx1_text=new DoubleTextField(8);
+		 dx1_text.setBounds(c1,r,120,20);
+		 dx1_text.setText(dx1);
+		 center.add(dx1_text);
 
 		 r+=30;
 
@@ -63,6 +78,14 @@ public class BulldingMeshEditor extends MeshModelEditor{
 		 dy_text.setBounds(90,r,120,20);
 		 dy_text.setText(dy);
 		 center.add(dy_text);
+		 
+		 ly=new JLabel("dy1:");
+		 ly.setBounds(c0,r,80,20);
+		 center.add(ly);
+		 dy1_text=new DoubleTextField(8);
+		 dy1_text.setBounds(c1,r,120,20);
+		 dy1_text.setText(dy1);
+		 center.add(dy1_text);
 
 
 		 r+=30;
@@ -129,10 +152,13 @@ public class BulldingMeshEditor extends MeshModelEditor{
 	    double dz = dz_text.getvalue();
 	    double rh = roof_height.getvalue();
 	    
+	    double dx1 = dx1_text.getvalue();
+	    double dy1 = dy1_text.getvalue();
+	    
 	    if(jcbHouse0.isSelected())
 	    	meshModel=new House0Model(dx,dy,dz,rh);
 	    else
-	    	meshModel=new House1Model(dx,dy,dz,rh);
+	    	meshModel=new House1Model(dx,dy,dz,rh,dx1,dy1);
 	    
 	    meshModel.initMesh();
 	}

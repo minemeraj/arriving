@@ -6,10 +6,6 @@ import java.awt.Graphics2D;
 import java.io.PrintWriter;
 import java.util.Vector;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-
-import com.editors.DoubleTextField;
 import com.main.Renderer3D;
 
 public class House1Model extends MeshModel{
@@ -18,16 +14,20 @@ public class House1Model extends MeshModel{
 	double dy=200;
 	double dz=20;
 	double roof_height=50;
+	double dx1=100;
+	double dy1=200;
 
 	int bx=10;
 	int by=10;
 	
-	public House1Model(double dx, double dy, double dz,double roof_height) {
+	public House1Model(double dx, double dy, double dz,double roof_height,double dx1, double dy1) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
 		this.dz = dz;
 		this.roof_height = roof_height;
+		this.dx1 = dx1;
+		this.dy1 = dy1;
 	}
 
 
@@ -56,25 +56,6 @@ public class House1Model extends MeshModel{
 
 		}
 
-		/*print("f=[1]4/14 5/15 6/16 7/17");//TOP
-
-		print("f=[0]0/4 1/5 5/10 4/9");//BACK
-		print("f=[3]1/5 2/6 6/11 5/10");//RIGHT
-		print("f=[4]2/6 3/7 7/12 6/11");//FRONT
-		print("f=[2]3/7 0/8 4/13 7/12");///LEFT
-
-		print("f=[5]0/0 3/1 2/2 1/3");//BOTTOM
-
-		//plane
-
-		print("f=[1]12/32 13/33 14/34 15/35");//TOP
-
-		print("f=[0]8/22 9/23 13/28 12/27");//BACK
-		print("f=[3]9/23 10/24 14/29 13/28");//RIGHT
-		print("f=[4]10/24 11/25 15/30 14/29");//FRONT
-		print("f=[2]11/25 8/26 12/31 15/30");///LEFT
-
-		print("f=[5]8/18 11/19 10/20 9/21");//BOTTOM*/
 
 	}
 
@@ -83,7 +64,6 @@ public class House1Model extends MeshModel{
 	public void initMesh() {
 
 		points=new Vector();
-		double dy2=dy;
 
 		//lower and upper base
 		for(int k=0;k<2;k++){
@@ -93,15 +73,15 @@ public class House1Model extends MeshModel{
 			addPoint(0.0,0.0,z);
 			addPoint(dx,0.0,z);
 			addPoint(dx,dy,z);
-			addPoint(dx+dy2,dy,z);
-			addPoint(dx+dy2,dy+dx,z);
-			addPoint(0,dy+dx,z);
+			addPoint(dx+dy1,dy,z);
+			addPoint(dx+dy1,dy+dx1,z);
+			addPoint(0,dy+dx1,z);
 		}
 		
 		//roof		
 		addPoint(dx*0.5,0,dz+roof_height);
-		addPoint(dx*0.5,dy+dx*0.5,dz+roof_height);
-		addPoint(dx+dy2,dy+dx*0.5,dz+roof_height);
+		addPoint(dx*0.5,dy+dx1*0.5,dz+roof_height);
+		addPoint(dx+dy1,dy+dx1*0.5,dz+roof_height);
 		
 		texturePoints=new Vector();
 
@@ -115,39 +95,39 @@ public class House1Model extends MeshModel{
 		addTPoint(x,y,0);
 		addTPoint(x+dx,y,0);
 		addTPoint(x+dx,y+dy,0);
-		addTPoint(x+dx+dy2,y+dy,0);
-		addTPoint(x+dx+dy2,y+dy+dx,0);
-		addTPoint(x,y+dy+dx,0);
+		addTPoint(x+dx+dy1,y+dy,0);
+		addTPoint(x+dx+dy1,y+dy+dx1,0);
+		addTPoint(x,y+dy+dx1,0);
 
 	
 		//faces
-		y=by+dy+dx;
+		y=by+dy+dx1;
 
 		addTPoint(x,y,0);
 		addTPoint(x+dx,y,0);
 		addTPoint(x+dx+dy,y,0);
-		addTPoint(x+dx+dy+dy2,y,0);
-		addTPoint(x+dx+dy+dy2+dx,y,0);    	
-		addTPoint(x+dx+dy+dy2+dx+(dx+dy2),y,0);
-		addTPoint(x+dx+dy+dy2+dx+(dx+dy2)+(dx+dy),y,0);
+		addTPoint(x+dx+dy+dy1,y,0);
+		addTPoint(x+dx+dy+dy1+dx1,y,0);    	
+		addTPoint(x+dx+dy+dy1+dx1+(dx+dy1),y,0);
+		addTPoint(x+dx+dy+dy1+dx1+(dx+dy1)+(dx1+dy),y,0);
 		
-		y=by+dy+dx+dz;
+		y=by+dy+dx1+dz;
 
 		addTPoint(x,y,0);
 		addTPoint(x+dx,y,0);
 		addTPoint(x+dx+dy,y,0);
-		addTPoint(x+dx+dy+dy2,y,0);
-		addTPoint(x+dx+dy+dy2+dx,y,0);    	
-		addTPoint(x+dx+dy+dy2+dx+(dx+dy2),y,0);
-		addTPoint(x+dx+dy+dy2+dx+(dx+dy2)+(dx+dy),y,0);
+		addTPoint(x+dx+dy+dy1,y,0);
+		addTPoint(x+dx+dy+dy1+dx1,y,0);    	
+		addTPoint(x+dx+dy+dy1+dx1+(dx+dy1),y,0);
+		addTPoint(x+dx+dy+dy1+dx1+(dx+dy1)+(dx1+dy),y,0);
 		
 		//gables tops
-		y=by+dy+dx+dz+roof_height;
+		y=by+dy+dx1+dz+roof_height;
 		
 		addTPoint(x+dx*0.5,y,0);
-		addTPoint(x+dx+dy+dy2+dx*0.5,y,0); 
+		addTPoint(x+dx+dy+dy1+dx1*0.5,y,0); 
 		
-		y=by+dy+dx+dz+roof_height;
+		y=by+dy+dx1+dz+roof_height;
 
 		//roof
 		addTPoint(x,y,0);
@@ -155,16 +135,16 @@ public class House1Model extends MeshModel{
 		addTPoint(x+dx,y,0);
 		
 		addTPoint(x+dx,y+dy,0);
-		addTPoint(x+dx+dy2,y+dy,0);
+		addTPoint(x+dx+dy1,y+dy,0);
 		
-		addTPoint(x+dx*0.5,y+dy+dx*0.5,0);
-		addTPoint(x+dx+dy2,y+dy+dx*0.5,0);
+		addTPoint(x+dx*0.5,y+dy+dx1*0.5,0);
+		addTPoint(x+dx+dy1,y+dy+dx1*0.5,0);
 		
-		addTPoint(x,y+dy+dx,0);
-		addTPoint(x+dx+dy2,y+dy+dx,0);
+		addTPoint(x,y+dy+dx1,0);
+		addTPoint(x+dx+dy1,y+dy+dx1,0);
 
-		IMG_WIDTH=(int) (2*bx+dx+dy+dy2+dx+(dx+dy2)+(dx+dy));
-		IMG_HEIGHT=(int) (2*by+(dx+dy)+dz+roof_height+(dx+dy));
+		IMG_WIDTH=(int) (2*bx+2*(dx+dy+dy1+dx1));
+		IMG_HEIGHT=(int) (2*by+2*(dx1+dy)+dz+roof_height);
 	}
 
 
@@ -248,12 +228,7 @@ public class House1Model extends MeshModel{
 
 	int[][][] faces={
 
-			
-			
-			
-		
 
-			
 			//base
 			{{Renderer3D.CAR_BACK},{0,5,2,1},{0,5,2,1}},
 			{{Renderer3D.CAR_BACK},{5,4,3,2},{5,4,3,2}},
@@ -293,51 +268,7 @@ public class House1Model extends MeshModel{
 	
 	String points_level2="12,13,14";
 	String points_level1="6,7,8,9,10,11";
-	String points_level0="0,1,2,4,5";
+	String points_level0="0,1,2,3,4,5";
 	
-	
-	private void codeGeneration() {
-		
-		int c=0;
-		int t=0;
-		
-		for (int i = 0; i < faces.length; i++) {
 
-			int[][] face=faces[i];
-
-			int[] fts=face[0];
-			int[] pts=face[1];
-			int[] tts=face[2];
-
-			String line="{"+"{"+fts[0]+"}";
-			
-			line+=",{";
-
-			for (int j = 0; j < pts.length; j++) {
-
-				if(j>0)
-					line+=",";
-				line+=(c+pts[j]);
-			}
-			
-			line+="}";
-			
-			line+=",{";
-			
-			for (int j = 0; j < pts.length; j++) {
-
-				if(j>0)
-					line+=",";
-				line+=(t+tts[j]);
-			}
-			
-			line+="}";
-
-			line+="},";
-			
-			System.out.println(line);
-
-		}
-		
-	}
 }
