@@ -112,14 +112,14 @@ public class BulldingMeshEditor extends MeshModelEditor{
 		 r+=30;	 
 		 
 		 
-		 jcbHouse0=new JRadioButton("House0");
+		 jcbHouse0=new JRadioButton(House0Model.NAME);
 		 jcbHouse0.setBounds(5,r,80,20);
 		 jcbHouse0.setSelected(true);
 		 center.add(jcbHouse0);
 
 		 r+=30;
 		 
-		 jcbHouse1=new JRadioButton("House1");
+		 jcbHouse1=new JRadioButton(House1Model.NAME);
 		 jcbHouse1.setBounds(5,r,80,20);
 		 jcbHouse1.setSelected(true);
 		 center.add(jcbHouse1);

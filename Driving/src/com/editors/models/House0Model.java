@@ -22,6 +22,8 @@ public class House0Model extends MeshModel{
 	int bx=10;
 	int by=10;
 	
+	public static String NAME="Gable0";
+	
 	public House0Model(double dx, double dy, double dz,double roof_height) {
 		super();
 		this.dx = dx;
