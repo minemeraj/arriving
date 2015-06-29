@@ -16,6 +16,7 @@ public class House0Model extends MeshModel{
 
 	double dx=100;
 	double dy=200;
+	double dy1=200;
 	double dz=20;
 	double roof_height=50;
 
@@ -24,12 +25,13 @@ public class House0Model extends MeshModel{
 	
 	public static String NAME="Gable0";
 	
-	public House0Model(double dx, double dy, double dz,double roof_height) {
+	public House0Model(double dx, double dy, double dz,double roof_height,double dy1) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
 		this.dz = dz;
 		this.roof_height = roof_height;
+		this.dy1 = dy1;
 	}
 
 
@@ -78,9 +80,11 @@ public class House0Model extends MeshModel{
 
 		}
 		
-		//roof		
-		addPoint(dx*0.5,0,dz+roof_height);
-		addPoint(dx*0.5,dy,dz+roof_height);
+		//roof			
+		double d=(dy-dy1)*0.5;
+		
+		addPoint(dx*0.5,d,dz+roof_height);
+		addPoint(dx*0.5,dy-d,dz+roof_height);
 
 		texturePoints=new Vector();
 
@@ -111,7 +115,8 @@ public class House0Model extends MeshModel{
 		addTPoint(x+dy+dx,y+dz,0);
 		addTPoint(x+dy+2*dx,y+dz,0);
 		addTPoint(x+2*dy+2*dx,y+dz,0);
-		
+	
+		//gable tops
 		y=by+dy+dz;
 		addTPoint(x+dx*0.5,y+roof_height,0);	
 		addTPoint(x+dx+dy+dx*0.5,y+roof_height,0);		
@@ -122,8 +127,8 @@ public class House0Model extends MeshModel{
 		//roof pitches
 		addTPoint(x,y,0);
 		addTPoint(x+dy,y,0);
-		addTPoint(x,y+dx*0.5,0);
-		addTPoint(x+dy,y+dx*0.5,0);
+		addTPoint(x+d,y+dx*0.5,0);
+		addTPoint(x+dy-d,y+dx*0.5,0);
 		addTPoint(x,y+dx,0);
 		addTPoint(x+dy,y+dx,0);
 		

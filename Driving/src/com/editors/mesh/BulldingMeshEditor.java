@@ -48,7 +48,7 @@ public class BulldingMeshEditor extends MeshModelEditor{
 		 double dz=50;
 		 double dr=50;
 		 double dx1=50;
-		 double dy1=150;
+		 double dy1=200;
 		 
 		 int r=10;
 		 
@@ -164,7 +164,7 @@ public class BulldingMeshEditor extends MeshModelEditor{
 	    double dy1 = dy1_text.getvalue();
 	    
 	    if(jcbHouse0.isSelected())
-	    	meshModel=new House0Model(dx,dy,dz,rh);
+	    	meshModel=new House0Model(dx,dy,dz,rh,dy1);
 	    else if(jcbHouse1.isSelected())
 	    	meshModel=new House1Model(dx,dy,dz,rh,dx1,dy1);
 	    else
