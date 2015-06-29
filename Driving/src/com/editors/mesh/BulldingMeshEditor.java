@@ -14,6 +14,7 @@ import com.editors.models.CubeModel;
 import com.editors.models.Gambrel0Model;
 import com.editors.models.House0Model;
 import com.editors.models.House1Model;
+import com.editors.models.Mansard0Model;
 import com.editors.models.TableModel;
 
 public class BulldingMeshEditor extends MeshModelEditor{
@@ -27,7 +28,8 @@ public class BulldingMeshEditor extends MeshModelEditor{
 	private JRadioButton jcbHouse1;
 	private DoubleTextField dx1_text;
 	private DoubleTextField dy1_text;
-	private JRadioButton jcbGramble0;
+	private JRadioButton jcbGambrel0;
+	private JRadioButton jcbMansard0;
 	
 	public static void main(String[] args) {
 		
@@ -119,10 +121,10 @@ public class BulldingMeshEditor extends MeshModelEditor{
 		 jcbHouse0.setSelected(true);
 		 center.add(jcbHouse0);
 		 
-		 jcbGramble0=new JRadioButton(Gambrel0Model.NAME);
-		 jcbGramble0.setBounds(90,r,80,20);
-		 jcbGramble0.setSelected(true);
-		 center.add(jcbGramble0);	
+		 jcbGambrel0=new JRadioButton(Gambrel0Model.NAME);
+		 jcbGambrel0.setBounds(90,r,80,20);
+		 jcbGambrel0.setSelected(true);
+		 center.add(jcbGambrel0);	
 
 		 r+=30;
 		 
@@ -131,11 +133,16 @@ public class BulldingMeshEditor extends MeshModelEditor{
 		 jcbHouse1.setSelected(true);
 		 center.add(jcbHouse1);
 		 
+		 jcbMansard0=new JRadioButton(Mansard0Model.NAME);
+		 jcbMansard0.setBounds(90,r,90,20);
+		 center.add(jcbMansard0);	
+		 
 		 ButtonGroup bg=new ButtonGroup();
 		 bg.add(jcbHouse0);
 		 bg.add(jcbHouse1);		 
-		 bg.add(jcbGramble0);
-
+		 bg.add(jcbGambrel0);
+		 bg.add(jcbMansard0);
+		 
 		 r+=30;
 
 		 meshButton=new JButton("Mesh");
@@ -167,7 +174,9 @@ public class BulldingMeshEditor extends MeshModelEditor{
 	    	meshModel=new House0Model(dx,dy,dz,rh,dy1);
 	    else if(jcbHouse1.isSelected())
 	    	meshModel=new House1Model(dx,dy,dz,rh,dx1,dy1);
-	    else
+	    else if(jcbMansard0.isSelected())
+	    	meshModel=new Mansard0Model(dx,dy,dz,rh,dx1,dy1);
+	    else if(jcbGambrel0.isSelected())
 	    	meshModel=new Gambrel0Model(dx,dy,dz);
 	    	
 	    
