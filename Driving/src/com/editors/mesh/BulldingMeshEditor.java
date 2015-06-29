@@ -11,6 +11,7 @@ import javax.swing.JRadioButton;
 
 import com.editors.DoubleTextField;
 import com.editors.models.CubeModel;
+import com.editors.models.Gambrel0Model;
 import com.editors.models.House0Model;
 import com.editors.models.House1Model;
 import com.editors.models.TableModel;
@@ -26,6 +27,7 @@ public class BulldingMeshEditor extends MeshModelEditor{
 	private JRadioButton jcbHouse1;
 	private DoubleTextField dx1_text;
 	private DoubleTextField dy1_text;
+	private JRadioButton jcbGramble0;
 	
 	public static void main(String[] args) {
 		
@@ -116,6 +118,11 @@ public class BulldingMeshEditor extends MeshModelEditor{
 		 jcbHouse0.setBounds(5,r,80,20);
 		 jcbHouse0.setSelected(true);
 		 center.add(jcbHouse0);
+		 
+		 jcbGramble0=new JRadioButton(Gambrel0Model.NAME);
+		 jcbGramble0.setBounds(90,r,80,20);
+		 jcbGramble0.setSelected(true);
+		 center.add(jcbGramble0);	
 
 		 r+=30;
 		 
@@ -126,7 +133,8 @@ public class BulldingMeshEditor extends MeshModelEditor{
 		 
 		 ButtonGroup bg=new ButtonGroup();
 		 bg.add(jcbHouse0);
-		 bg.add(jcbHouse1);
+		 bg.add(jcbHouse1);		 
+		 bg.add(jcbGramble0);
 
 		 r+=30;
 
@@ -157,8 +165,11 @@ public class BulldingMeshEditor extends MeshModelEditor{
 	    
 	    if(jcbHouse0.isSelected())
 	    	meshModel=new House0Model(dx,dy,dz,rh);
-	    else
+	    else if(jcbHouse1.isSelected())
 	    	meshModel=new House1Model(dx,dy,dz,rh,dx1,dy1);
+	    else
+	    	meshModel=new Gambrel0Model(dx,dy,dz);
+	    	
 	    
 	    meshModel.initMesh();
 	}
