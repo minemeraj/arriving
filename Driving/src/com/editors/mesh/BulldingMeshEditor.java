@@ -1,5 +1,7 @@
 package com.editors.mesh;
 
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
@@ -11,12 +13,13 @@ import javax.swing.JLabel;
 
 import com.editors.DoubleTextField;
 import com.editors.ValuePair;
+import com.editors.forniture.data.Forniture;
 import com.editors.models.Gambrel0Model;
 import com.editors.models.House0Model;
 import com.editors.models.House1Model;
 import com.editors.models.Mansard0Model;
 
-public class BulldingMeshEditor extends MeshModelEditor implements KeyListener{
+public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, ItemListener{
 
 	String title="Building model";
 	private DoubleTextField dz_text;
@@ -46,13 +49,6 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener{
 
 	public void buildCenter() {
 
-		double dx=100;
-		double dy=200;
-		double dz=50;
-		double dr=50;
-		double dx1=50;
-		double dy1=150;
-
 		int r=10;
 
 		int c0=220;
@@ -63,7 +59,6 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener{
 		center.add(lx);
 		dx_text=new DoubleTextField(8);
 		dx_text.setBounds(90,r,120,20);
-		dx_text.setText(dx);
 		center.add(dx_text);		
 
 		lx=new JLabel("dx1:");
@@ -71,7 +66,6 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener{
 		center.add(lx);
 		dx1_text=new DoubleTextField(8);
 		dx1_text.setBounds(c1,r,120,20);
-		dx1_text.setText(dx1);
 		center.add(dx1_text);
 
 		r+=30;
@@ -81,7 +75,6 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener{
 		center.add(ly);
 		dy_text=new DoubleTextField(8);
 		dy_text.setBounds(90,r,120,20);
-		dy_text.setText(dy);
 		center.add(dy_text);
 
 		ly=new JLabel("dy1:");
@@ -89,7 +82,6 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener{
 		center.add(ly);
 		dy1_text=new DoubleTextField(8);
 		dy1_text.setBounds(c1,r,120,20);
-		dy1_text.setText(dy1);
 		center.add(dy1_text);
 
 
@@ -100,7 +92,6 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener{
 		center.add(lz);
 		dz_text=new DoubleTextField(8);
 		dz_text.setBounds(90,r,120,20);
-		dz_text.setText(dz);
 		center.add(dz_text);
 
 		r+=30;
@@ -111,8 +102,9 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener{
 		center.add(lr);
 		roof_height=new DoubleTextField(8);
 		roof_height.setBounds(90,r,120,20);
-		roof_height.setText(dr);
 		center.add(roof_height);
+		
+		setRightData(100,200,100,50,0,150);
 
 	
 		r+=30;
@@ -129,7 +121,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener{
 		chooseBuilding.addItem(new ValuePair(""+HOUSE1,House1Model.NAME));	
 		chooseBuilding.addItem(new ValuePair(""+GAMBREL0,Gambrel0Model.NAME));	
 		chooseBuilding.addItem(new ValuePair(""+MANSARD0,Mansard0Model.NAME));	
-		
+		chooseBuilding.addItemListener(this);
 	
 
 		chooseBuilding.setSelectedIndex(0);
@@ -210,6 +202,46 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void itemStateChanged(ItemEvent arg0) {
+		
+		Object obj = arg0.getSource();
+		
+		if(obj==chooseBuilding){
+			
+			 ValuePair vp= (ValuePair)chooseBuilding.getSelectedItem();
+				
+			 int val=Integer.parseInt(vp.getId());
+			   if(val<0)
+			    	val=HOUSE0;
+			   
+				if(HOUSE0==val)
+					setRightData(100,200,100,50,0,150);
+				else if(HOUSE1==val)
+					setRightData(100,200,100,50,50,150);
+				else if(MANSARD0==val)
+					setRightData(100,200,100,50,50,150);
+				else if(GAMBREL0==val)
+					setRightData(100,200,100,0,0,0);
+			   
+		}		   
+		
+	}
+
+
+	private void setRightData(int dx, int dy, int dz, int roofHeight, int dx1, int dy1) {
+	
+		
+		dx_text.setText(dx);
+		dy_text.setText(dy); 
+		dz_text.setText(dz);
+		roof_height.setText(roofHeight);
+		dx1_text.setText(dx1);
+		dy1_text.setText(dy1);
 		
 	}
 
