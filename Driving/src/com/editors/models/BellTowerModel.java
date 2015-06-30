@@ -187,7 +187,7 @@ public class BellTowerModel extends MeshModel{
 
 			//base
 
-			/*{{Renderer3D.CAR_BACK},{0,1,5,4},{4,5,10,9}},
+			{{Renderer3D.CAR_BACK},{0,1,5,4},{4,5,10,9}},
 			{{Renderer3D.CAR_RIGHT},{1,2,6,5},{5,6,11,10}},
 			{{Renderer3D.CAR_FRONT},{2,3,7,6},{6,7,12,11}},
 			{{Renderer3D.CAR_LEFT},{3,0,4,7},{7,8,13,12}},
@@ -196,11 +196,10 @@ public class BellTowerModel extends MeshModel{
 
 			//gables
 			{{Renderer3D.CAR_BACK},{4,5,8},{9,10,14}},
-			{{Renderer3D.CAR_FRONT},{6,7,9},{11,12,15}},
-			
-			//roof pitches
-			{{Renderer3D.CAR_TOP},{5,6,9,8},{16,17,19,18}},
-			{{Renderer3D.CAR_TOP},{8,9,7,4},{18,19,21,20}},*/
+			{{Renderer3D.CAR_RIGHT},{5,6,8},{10,11,15}},
+			{{Renderer3D.CAR_FRONT},{6,7,8},{11,12,16}},
+			{{Renderer3D.CAR_LEFT},{7,4,8},{12,13,17}},
+	
 	};
 	
 
