@@ -227,17 +227,15 @@ public class Mansard0Model extends MeshModel{
 		
 	};
 	
-	/*String roo2="20-21";
-	String roo1="18-19";
-	String roo0="16-17";	
-	String gables_top="14-15";*/
-	
+	String top1="22-21";
+	String top0="19-20";
+	String gabl="14-15-16-17-18";	
 	String llf1="09-10-11-12-13";
 	String llf0="04-05-06-07-08";
 	String llb1="03-02";
 	String llb0="00-01";
 	
-	String points_level2="8,9";
+	String points_level2="8,9,10,11";
 	String points_level1="4,5,6,7";
 	String points_level0="0,1,2,3";
 	
