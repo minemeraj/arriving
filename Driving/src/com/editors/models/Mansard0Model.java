@@ -86,8 +86,12 @@ public class Mansard0Model extends MeshModel{
 		double d=(dy-dy1)*0.5;
 		double e=(dx-dx1)*0.5;
 		
-		//addPoint(dx*0.5,d,dz+roof_height);
-		//addPoint(dx*0.5,dy-d,dz+roof_height);
+		double z=dz+roof_height;
+		
+		addPoint(e,d,z);
+		addPoint(dx-e,d,z);
+		addPoint(dx-e,dy-d,z);
+		addPoint(e,dy-d,z);
 
 		texturePoints=new Vector();
 
@@ -129,6 +133,8 @@ public class Mansard0Model extends MeshModel{
 
 		//top plain
 		y=by+dy+dz+roof_height;
+		
+		x=bx+d+dx;
 		
 		addTPoint(x,y,0);
 		addTPoint(x+dy1,y,0);
@@ -212,12 +218,13 @@ public class Mansard0Model extends MeshModel{
 			
 
 			//gables
-			{{Renderer3D.CAR_BACK},{4,5,8},{9,10,14}},
-			{{Renderer3D.CAR_FRONT},{6,7,9},{11,12,15}},
-			
-			//roof pitches
-			{{Renderer3D.CAR_TOP},{5,6,9,8},{16,17,19,18}},
-			{{Renderer3D.CAR_TOP},{8,9,7,4},{18,19,21,20}},
+			{{Renderer3D.CAR_BACK},{4,5,9,8},{9,10,15,14}},
+			{{Renderer3D.CAR_RIGHT},{5,6,10,9},{10,11,16,15}},
+			{{Renderer3D.CAR_FRONT},{6,7,11,10},{11,12,17,16}},
+			{{Renderer3D.CAR_LEFT},{7,4,8,11},{12,13,18,17}},
+			//top plain
+			{{Renderer3D.CAR_TOP},{8,9,10,11},{19,20,21,22}},
+		
 	};
 	
 	/*String roo2="20-21";

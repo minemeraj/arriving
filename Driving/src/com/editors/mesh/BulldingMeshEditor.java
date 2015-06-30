@@ -50,7 +50,7 @@ public class BulldingMeshEditor extends MeshModelEditor{
 		 double dz=50;
 		 double dr=50;
 		 double dx1=50;
-		 double dy1=200;
+		 double dy1=150;
 		 
 		 int r=10;
 		 
