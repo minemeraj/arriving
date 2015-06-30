@@ -13,7 +13,6 @@ import javax.swing.JLabel;
 
 import com.editors.DoubleTextField;
 import com.editors.ValuePair;
-import com.editors.forniture.data.Forniture;
 import com.editors.models.BellTowerModel;
 import com.editors.models.Gambrel0Model;
 import com.editors.models.House0Model;
