@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import com.editors.DoubleTextField;
 import com.editors.ValuePair;
 import com.editors.models.BellTowerModel;
+import com.editors.models.Chimney0Model;
 import com.editors.models.Gambrel0Model;
 import com.editors.models.House0Model;
 import com.editors.models.House1Model;
@@ -38,6 +39,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 	public static int MANSARD0=3;
 	public static int BELLTOWER=4;
 	public static int SHED0=5;
+	public static int CHIMNEY0=6;
 	
 	public static void main(String[] args) {
 
@@ -128,7 +130,8 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		chooseBuilding.setBounds(115, r, 100, 20);
 		chooseBuilding.addKeyListener(this);
 		chooseBuilding.addItem(new ValuePair("-1",""));
-		chooseBuilding.addItem(new ValuePair(""+BELLTOWER,BellTowerModel.NAME));	
+		chooseBuilding.addItem(new ValuePair(""+BELLTOWER,BellTowerModel.NAME));
+		chooseBuilding.addItem(new ValuePair(""+CHIMNEY0,Chimney0Model.NAME));
 		chooseBuilding.addItem(new ValuePair(""+HOUSE0,House0Model.NAME));		
 		chooseBuilding.addItem(new ValuePair(""+HOUSE1,House1Model.NAME));	
 		chooseBuilding.addItem(new ValuePair(""+GAMBREL0,Gambrel0Model.NAME));	
@@ -187,6 +190,8 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 			meshModel=new BellTowerModel(dx,dy,dz,rh);
 		else if(SHED0==val)
 			meshModel=new Shed0Model(dx,dy,dz,dz1);
+		else if(CHIMNEY0==val)
+			meshModel=new Chimney0Model(dx,dx1,dz);
 
 		meshModel.initMesh();
 	}
@@ -249,6 +254,8 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 					setRightData(100,200,300,100,0,0,0);
 				else if(SHED0==val)
 					setRightData(100,200,100,0,0,0,60);
+				else if(CHIMNEY0==val)
+					setRightData(100,0,300,0,80,0,0);
 		}		   
 		
 	}
