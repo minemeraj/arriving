@@ -176,10 +176,10 @@ public class Chimney0Model extends MeshModel{
 			faces[1+l][1][2]=(l+1)%N+N;
 			faces[1+l][1][3]=l+N;
 			
-			faces[1+l][2][0]=l;
-			faces[1+l][2][1]=(l+1)%N;
-			faces[1+l][2][2]=(l+1)%N+N;
-			faces[1+l][2][3]=l+N;
+			faces[1+l][2][0]=start+l;
+			faces[1+l][2][1]=start+(l+1);
+			faces[1+l][2][2]=start+(l+1)+N+1;
+			faces[1+l][2][3]=start+l+N+1;
 			
 		}
 
