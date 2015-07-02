@@ -48,8 +48,13 @@ public class Chimney0Model extends MeshModel{
 			int[] tts=face[2];
 
 			String line="f=["+fts[0]+"]";
+			
+			int len=pts.length; 
+			
+			if(i>0 && i<faces.length-1)
+				len=4;
 
-			for (int j = 0; j < pts.length; j++) {
+			for (int j = 0; j < len; j++) {
 
 				if(j>0)
 					line+=" ";
@@ -87,8 +92,8 @@ public class Chimney0Model extends MeshModel{
 		for(int i=0;i<N;i++){
 			
 			double teta=dteta*i;
-			double xx=dx1*0.5+dx1*0.5*Math.cos(teta);
-			double yy=dx1*0.5+dx1*0.5*Math.sin(teta);
+			double xx=dx*0.5+dx1*0.5*Math.cos(teta);
+			double yy=dx*0.5+dx1*0.5*Math.sin(teta);
 			addPoint(xx,yy,dz);
 		}
 		
@@ -155,8 +160,8 @@ public class Chimney0Model extends MeshModel{
 		//bottom
 		faces[0][0][0]=Renderer3D.CAR_BOTTOM;
 		for(int i=0;i<N;i++){
-			faces[0][1][i]=i;
-			faces[0][2][i]=i;
+			faces[0][1][i]=N-1-i;
+			faces[0][2][i]=N-1-i;
 		}
 		
 		//faces
