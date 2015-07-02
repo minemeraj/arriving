@@ -106,36 +106,39 @@ public class Chimney0Model extends MeshModel{
 			addTPoint(x+xx,y+yy,0);
 		}
 		
-		
+		x=bx;
 		y=by+dx;
 		
+		//faces
 		double dl=Math.PI*dx/N;
 		
-		for(int i=0;i<N;i++){
+		for(int i=0;i<=N;i++){
 			
 			
 			double xx=dl*i;
-			double yy=dx;
+			double yy=0;
 			addTPoint(x+xx,y+yy,dz);
 		}
 		
-		y=by+dx+dz;
+		x=bx;
+		y=by+dx+dz;		
 		
-		for(int i=0;i<N;i++){
+		for(int i=0;i<=N;i++){
 			
 			
 			double xx=dl*i;
-			double yy=dx;
+			double yy=0;
 			addTPoint(x+xx,y+yy,dz);
 		}
 		
+		x=bx+dx*0.5;
 		y=by+dx+dz+dx1*0.5;
 		
 		for(int i=0;i<N;i++){
 			
 			double teta=dteta*i;
-			double xx=dx*0.5*Math.cos(teta);
-			double yy=dx*0.5*Math.sin(teta);
+			double xx=dx1*0.5*Math.cos(teta);
+			double yy=dx1*0.5*Math.sin(teta);
 			addTPoint(x+xx,y+yy,dz);
 		}
 
@@ -164,9 +167,20 @@ public class Chimney0Model extends MeshModel{
 			printTextureLine(bg,i,(i+1)%N);
 		}
 		
+		//faces
+		int start=N;
+		bg.setColor(Color.BLACK);
+		for(int i=0;i<N;i++){
+			
+			printTextureLine(bg,start+i,start+i+1);
+			printTextureLine(bg,start+i,start+i+(N+1));
+			printTextureLine(bg,start+i+1,start+i+1+(N+1));
+			printTextureLine(bg,start+i+(N+1),start+i+1+(N+1));
+		}
+		
 		//upper base
 		bg.setColor(Color.BLUE);
-		int start=3*N;
+		start=N+2*(N+1);
 		for(int i=0;i<N;i++){
 			
 			printTextureLine(bg,start+i,start+(i+1)%N);
