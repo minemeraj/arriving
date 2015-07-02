@@ -23,6 +23,7 @@ public class Chimney0Model extends MeshModel{
 	int by=10;
 	
 	int N=10;
+	private int[][][] faces;
 	
 	public static String NAME="Chimney0";
 	
@@ -147,6 +148,44 @@ public class Chimney0Model extends MeshModel{
 
 		IMG_WIDTH=(int) (2*bx+Math.PI*dx);
 		IMG_HEIGHT=(int) (2*by+dx+dz+dx1);
+		
+		int NF=2+N;
+		faces=new int[NF][3][N];
+		
+		//bottom
+		faces[0][0][0]=Renderer3D.CAR_BOTTOM;
+		for(int i=0;i<N;i++){
+			faces[0][1][i]=i;
+			faces[0][2][i]=i;
+		}
+		
+		//faces
+		int start=N;
+		for(int l=0;l<N;l++){
+			
+			faces[1+l][0][0]=Renderer3D.CAR_BACK;
+			
+			
+			faces[1+l][1][0]=l;
+			faces[1+l][1][1]=(l+1)%N;
+			faces[1+l][1][2]=(l+1)%N+N;
+			faces[1+l][1][3]=l+N;
+			
+			faces[1+l][2][0]=l;
+			faces[1+l][2][1]=(l+1)%N;
+			faces[1+l][2][2]=(l+1)%N+N;
+			faces[1+l][2][3]=l+N;
+			
+		}
+
+		//top
+		start=N+2*(N+1);
+		faces[NF-1][0][0]=Renderer3D.CAR_TOP;
+		for(int i=0;i<N;i++){
+			faces[NF-1][1][i]=i+N;
+			faces[NF-1][2][i]=i+start;
+		}
+		
 	}
 
 
@@ -188,28 +227,6 @@ public class Chimney0Model extends MeshModel{
 
 	}
 
-	int[][][] faces={
-
-			//base
-
-			{{Renderer3D.CAR_BACK},{0,1,5,4},{4,5,10,9}},
-			{{Renderer3D.CAR_RIGHT},{1,2,6,5},{5,6,11,10}},
-			{{Renderer3D.CAR_FRONT},{2,3,7,6},{6,7,12,11}},
-			{{Renderer3D.CAR_LEFT},{3,0,4,7},{7,8,13,12}},
-			{{Renderer3D.CAR_BOTTOM},{0,3,2,1},{0,1,2,3}},
-			
-
-			//gables
-			{{Renderer3D.CAR_BACK},{4,5,10,9,8},{9,10,16,15,14}},
-			{{Renderer3D.CAR_FRONT},{6,7,11,12,13},{11,12,19,18,17}},
-						
-			//roof pitches
-			{{Renderer3D.CAR_TOP},{4,8,11,7},{28,26,27,29}},
-			{{Renderer3D.CAR_TOP},{8,9,12,11},{26,24,25,27}},
-			{{Renderer3D.CAR_TOP},{9,10,13,12},{24,22,23,25}},
-			{{Renderer3D.CAR_TOP},{10,5,6,13},{22,20,21,23}},
-			
-	};
 	
 
 	
