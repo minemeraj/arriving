@@ -22,16 +22,17 @@ public class Chimney0Model extends MeshModel{
 	int bx=10;
 	int by=10;
 	
-	int N=10;
-	private int[][][] faces;
+	int num_meridians=10;
+	private int[][][] faces; 
 	
 	public static String NAME="Chimney0";
 	
-	public Chimney0Model(double dx, double dx1, double dz) {
+	public Chimney0Model(double dx, double dx1, double dz,int num_meridians) {
 		super();
 		this.dx = dx;
 		this.dx1 = dx1;
 		this.dz = dz;
+		this.num_meridians = num_meridians;
 	}
 
 
@@ -77,10 +78,10 @@ public class Chimney0Model extends MeshModel{
 		//lower base
 	
 		
-		double dteta=Math.PI*2.0/N;
+		double dteta=Math.PI*2.0/num_meridians;
 		
 		//lower base
-		for(int i=0;i<N;i++){
+		for(int i=0;i<num_meridians;i++){
 			
 			double teta=dteta*i;
 			double xx=dx*0.5+dx*0.5*Math.cos(teta);
@@ -89,7 +90,7 @@ public class Chimney0Model extends MeshModel{
 		}
 		
 		//upper base
-		for(int i=0;i<N;i++){
+		for(int i=0;i<num_meridians;i++){
 			
 			double teta=dteta*i;
 			double xx=dx*0.5+dx1*0.5*Math.cos(teta);
@@ -104,7 +105,7 @@ public class Chimney0Model extends MeshModel{
 		double x=bx+dx*0.5;
 		
 		//lower base
-		for(int i=0;i<N;i++){
+		for(int i=0;i<num_meridians;i++){
 			
 			double teta=dteta*i;
 			double xx=dx*0.5*Math.cos(teta);
@@ -116,9 +117,9 @@ public class Chimney0Model extends MeshModel{
 		y=by+dx;
 		
 		//faces
-		double dl=Math.PI*dx/N;
+		double dl=Math.PI*dx/num_meridians;
 		
-		for(int i=0;i<=N;i++){
+		for(int i=0;i<=num_meridians;i++){
 			
 			
 			double xx=dl*i;
@@ -129,7 +130,7 @@ public class Chimney0Model extends MeshModel{
 		x=bx;
 		y=by+dx+dz;		
 		
-		for(int i=0;i<=N;i++){
+		for(int i=0;i<=num_meridians;i++){
 			
 			
 			double xx=dl*i;
@@ -140,7 +141,7 @@ public class Chimney0Model extends MeshModel{
 		x=bx+dx*0.5;
 		y=by+dx+dz+dx1*0.5;
 		
-		for(int i=0;i<N;i++){
+		for(int i=0;i<num_meridians;i++){
 			
 			double teta=dteta*i;
 			double xx=dx1*0.5*Math.cos(teta);
@@ -154,40 +155,40 @@ public class Chimney0Model extends MeshModel{
 		IMG_WIDTH=(int) (2*bx+Math.PI*dx);
 		IMG_HEIGHT=(int) (2*by+dx+dz+dx1);
 		
-		int NF=2+N;
-		faces=new int[NF][3][N];
+		int NF=2+num_meridians;
+		faces=new int[NF][3][num_meridians];
 		
 		//bottom
 		faces[0][0][0]=Renderer3D.CAR_BOTTOM;
-		for(int i=0;i<N;i++){
-			faces[0][1][i]=N-1-i;
-			faces[0][2][i]=N-1-i;
+		for(int i=0;i<num_meridians;i++){
+			faces[0][1][i]=num_meridians-1-i;
+			faces[0][2][i]=num_meridians-1-i;
 		}
 		
 		//faces
-		int start=N;
-		for(int l=0;l<N;l++){
+		int start=num_meridians;
+		for(int l=0;l<num_meridians;l++){
 			
 			faces[1+l][0][0]=Renderer3D.CAR_BACK;
 			
 			
 			faces[1+l][1][0]=l;
-			faces[1+l][1][1]=(l+1)%N;
-			faces[1+l][1][2]=(l+1)%N+N;
-			faces[1+l][1][3]=l+N;
+			faces[1+l][1][1]=(l+1)%num_meridians;
+			faces[1+l][1][2]=(l+1)%num_meridians+num_meridians;
+			faces[1+l][1][3]=l+num_meridians;
 			
 			faces[1+l][2][0]=start+l;
 			faces[1+l][2][1]=start+(l+1);
-			faces[1+l][2][2]=start+(l+1)+N+1;
-			faces[1+l][2][3]=start+l+N+1;
+			faces[1+l][2][2]=start+(l+1)+num_meridians+1;
+			faces[1+l][2][3]=start+l+num_meridians+1;
 			
 		}
 
 		//top
-		start=N+2*(N+1);
+		start=num_meridians+2*(num_meridians+1);
 		faces[NF-1][0][0]=Renderer3D.CAR_TOP;
-		for(int i=0;i<N;i++){
-			faces[NF-1][1][i]=i+N;
+		for(int i=0;i<num_meridians;i++){
+			faces[NF-1][1][i]=i+num_meridians;
 			faces[NF-1][2][i]=i+start;
 		}
 		
@@ -206,28 +207,28 @@ public class Chimney0Model extends MeshModel{
 		bg.setStroke(new BasicStroke(0.1f));
 
 		//lower base
-		for(int i=0;i<N;i++){
+		for(int i=0;i<num_meridians;i++){
 			
-			printTextureLine(bg,i,(i+1)%N);
+			printTextureLine(bg,i,(i+1)%num_meridians);
 		}
 		
 		//faces
-		int start=N;
+		int start=num_meridians;
 		bg.setColor(Color.BLACK);
-		for(int i=0;i<N;i++){
+		for(int i=0;i<num_meridians;i++){
 			
 			printTextureLine(bg,start+i,start+i+1);
-			printTextureLine(bg,start+i,start+i+(N+1));
-			printTextureLine(bg,start+i+1,start+i+1+(N+1));
-			printTextureLine(bg,start+i+(N+1),start+i+1+(N+1));
+			printTextureLine(bg,start+i,start+i+(num_meridians+1));
+			printTextureLine(bg,start+i+1,start+i+1+(num_meridians+1));
+			printTextureLine(bg,start+i+(num_meridians+1),start+i+1+(num_meridians+1));
 		}
 		
 		//upper base
 		bg.setColor(Color.BLUE);
-		start=N+2*(N+1);
-		for(int i=0;i<N;i++){
+		start=num_meridians+2*(num_meridians+1);
+		for(int i=0;i<num_meridians;i++){
 			
-			printTextureLine(bg,start+i,start+(i+1)%N);
+			printTextureLine(bg,start+i,start+(i+1)%num_meridians);
 		}
 
 	}

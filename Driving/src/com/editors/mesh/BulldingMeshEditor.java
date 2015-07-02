@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
 import com.editors.DoubleTextField;
+import com.editors.IntegerTextField;
 import com.editors.ValuePair;
 import com.editors.models.BellTowerModel;
 import com.editors.models.Chimney0Model;
@@ -32,6 +33,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 	private DoubleTextField dy1_text;
 	private JComboBox chooseBuilding;
 	private DoubleTextField dz1_text;
+	private IntegerTextField num_meridians;
 	
 	public static int HOUSE0=0;
 	public static int HOUSE1=1;
@@ -117,7 +119,14 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		roof_height.setBounds(90,r,120,20);
 		center.add(roof_height);
 		
-		setRightData(100,200,100,50,0,150,0);
+		lr=new JLabel("N merid.");
+		lr.setBounds(c0,r,80,20);
+		center.add(lr);
+		num_meridians=new IntegerTextField(8);
+		num_meridians.setBounds(c1,r,120,20);
+		center.add(num_meridians);
+		
+		setRightData(100,200,100,50,0,150,0,0);
 
 	
 		r+=30;
@@ -170,7 +179,9 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 
 		double dx1 = dx1_text.getvalue();
 		double dy1 = dy1_text.getvalue();
-		double dz1 = dz1_text.getvalue();
+		double dz1 = dz1_text.getvalue();		
+		
+		int num_mer=num_meridians.getvalue();
 		
 	    ValuePair vp= (ValuePair)chooseBuilding.getSelectedItem();
 	    
@@ -191,7 +202,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		else if(SHED0==val)
 			meshModel=new Shed0Model(dx,dy,dz,dz1);
 		else if(CHIMNEY0==val)
-			meshModel=new Chimney0Model(dx,dx1,dz);
+			meshModel=new Chimney0Model(dx,dx1,dz,num_mer);
 
 		meshModel.initMesh();
 	}
@@ -243,25 +254,30 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 			    	val=HOUSE0;
 			   
 				if(HOUSE0==val)
-					setRightData(100,200,100,50,0,150,0);
+					setRightData(100,200,100,50,0,150,0,0);
 				else if(HOUSE1==val)
-					setRightData(100,200,100,50,50,150,0);
+					setRightData(100,200,100,50,50,150,0,0);
 				else if(MANSARD0==val)
-					setRightData(100,200,100,50,50,150,0);
+					setRightData(100,200,100,50,50,150,0,0);
 				else if(GAMBREL0==val)
-					setRightData(100,200,100,0,0,0,0);
+					setRightData(100,200,100,0,0,0,0,0);
 				else if(BELLTOWER==val)
-					setRightData(100,200,300,100,0,0,0);
+					setRightData(100,200,300,100,0,0,0,0);
 				else if(SHED0==val)
-					setRightData(100,200,100,0,0,0,60);
+					setRightData(100,200,100,0,0,0,60,0);
 				else if(CHIMNEY0==val)
-					setRightData(100,0,300,0,80,0,0);
+					setRightData(100,0,300,0,80,0,0,10);
 		}		   
 		
 	}
 
 
-	private void setRightData(int dx, int dy, int dz, int roofHeight, int dx1, int dy1,int dz1) {
+	private void setRightData(
+			int dx, int dy, int dz, 
+			int roofHeight,
+			int dx1, int dy1,int dz1,
+			int num_merid
+			) {
 	
 		
 		dx_text.setText(dx);
@@ -271,6 +287,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		dx1_text.setText(dx1);
 		dy1_text.setText(dy1);
 		dz1_text.setText(dz1);
+		num_meridians.setText(num_merid);
 		
 	}
 
