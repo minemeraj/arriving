@@ -246,18 +246,20 @@ public class House2Model extends MeshModel{
 		
 	};
 	
-	String roo2="20-21";
-	String roo1="18-19";
-	String roo0="16-17";	
-	String gables_top="14-15";
-	String llf1="09-10-11-12-13";
-	String llf0="04-05-06-07-08";
-	String llb1="03-02";
-	String llb0="00-01";
+	String roo3="39-40";
+	String roo2="36-37-38";
+	String roo1="32-33-34-35";
+	String roo0="29-30-31";	
+	String gables_top="26-27,28";
+	String faces1="17-18-19-20-21-22-23-24-25";
+	String faces0="08-09-10-11-12-13-14-15-16";
+	String llb1="08-09-10-11-12-13-14-15";
+	String llb0="00-01-02-03-04-05-06-07";
 	
-	String points_level2="8,9";
-	String points_level1="4,5,6,7";
-	String points_level0="0,1,2,3";
+	String points_level3="17,18,19";
+	String points_level2="16";
+	String points_level1="8,9,10,11,12,13,14,15,16";
+	String points_level0="0,1,2,3,4,5,6,7";
 	
 
 }
