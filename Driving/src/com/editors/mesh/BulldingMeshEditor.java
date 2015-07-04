@@ -19,6 +19,9 @@ import com.editors.models.Chimney0Model;
 import com.editors.models.Gambrel0Model;
 import com.editors.models.House0Model;
 import com.editors.models.House1Model;
+import com.editors.models.House2Model;
+import com.editors.models.House3Model;
+import com.editors.models.House4Model;
 import com.editors.models.Mansard0Model;
 import com.editors.models.Shed0Model;
 
@@ -42,6 +45,9 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 	public static int BELLTOWER=4;
 	public static int SHED0=5;
 	public static int CHIMNEY0=6;
+	public static int HOUSE2=7;
+	public static int HOUSE3=8;
+	public static int HOUSE4=9;
 	
 	public static void main(String[] args) {
 
@@ -143,6 +149,9 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		chooseBuilding.addItem(new ValuePair(""+CHIMNEY0,Chimney0Model.NAME));
 		chooseBuilding.addItem(new ValuePair(""+HOUSE0,House0Model.NAME));		
 		chooseBuilding.addItem(new ValuePair(""+HOUSE1,House1Model.NAME));	
+		chooseBuilding.addItem(new ValuePair(""+HOUSE2,House2Model.NAME));
+		chooseBuilding.addItem(new ValuePair(""+HOUSE3,House3Model.NAME));
+		chooseBuilding.addItem(new ValuePair(""+HOUSE4,House4Model.NAME));
 		chooseBuilding.addItem(new ValuePair(""+GAMBREL0,Gambrel0Model.NAME));	
 		chooseBuilding.addItem(new ValuePair(""+MANSARD0,Mansard0Model.NAME));
 		chooseBuilding.addItem(new ValuePair(""+SHED0,Shed0Model.NAME));
@@ -203,6 +212,12 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 			meshModel=new Shed0Model(dx,dy,dz,dz1);
 		else if(CHIMNEY0==val)
 			meshModel=new Chimney0Model(dx,dx1,dz,num_mer);
+		else if(HOUSE2==val)
+			meshModel=new House2Model(dx,dy,dz,rh,dy1);
+		else if(HOUSE3==val)
+			meshModel=new House3Model(dx,dy,dz,rh,dy1);
+		else if(HOUSE4==val)
+			meshModel=new House4Model(dx,dy,dz,rh,dy1);
 
 		meshModel.initMesh();
 	}
@@ -267,6 +282,12 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 					setRightData(100,200,100,0,0,0,60,0);
 				else if(CHIMNEY0==val)
 					setRightData(100,0,300,0,80,0,0,10);
+				else if(HOUSE2==val)
+					setRightData(100,200,100,50,0,150,0,0);
+				else if(HOUSE3==val)
+					setRightData(100,200,100,50,0,150,0,0);
+				else if(HOUSE4==val)
+					setRightData(100,200,100,50,0,150,0,0);
 		}		   
 		
 	}
