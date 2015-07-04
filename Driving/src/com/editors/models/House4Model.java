@@ -69,7 +69,7 @@ public class House4Model extends MeshModel{
 		points=new Vector();
 
 		//lower and upper base
-		for(int k=0;k<2;k++){
+		/*for(int k=0;k<2;k++){
 
 			double z=dz*k;
 
@@ -84,14 +84,14 @@ public class House4Model extends MeshModel{
 		double d=(dy-dy1)*0.5;
 		
 		addPoint(dx*0.5,d,dz+roof_height);
-		addPoint(dx*0.5,dy-d,dz+roof_height);
+		addPoint(dx*0.5,dy-d,dz+roof_height);*/
 
 		texturePoints=new Vector();
 
 	
 		///////main plane
 
-		//lower base
+		/*//lower base
 		double y=by;
 		double x=bx;
 
@@ -130,7 +130,7 @@ public class House4Model extends MeshModel{
 		addTPoint(x+d,y+dx*0.5,0);
 		addTPoint(x+dy-d,y+dx*0.5,0);
 		addTPoint(x,y+dx,0);
-		addTPoint(x+dy,y+dx,0);
+		addTPoint(x+dy,y+dx,0);*/
 		
 		
 
@@ -151,7 +151,7 @@ public class House4Model extends MeshModel{
 		bg.setStroke(new BasicStroke(0.1f));
 
 		//lower base
-		printTextureLine(bg,0,1);
+		/*printTextureLine(bg,0,1);
 		printTextureLine(bg,1,2);
 		printTextureLine(bg,2,3);
 		printTextureLine(bg,3,0);
@@ -195,19 +195,18 @@ public class House4Model extends MeshModel{
 		printTextureLine(bg,18,19);
 		printTextureLine(bg,19,21);
 		printTextureLine(bg,21,20);
-		printTextureLine(bg,20,18);
+		printTextureLine(bg,20,18);*/
 
 	}
 
 	int[][][] faces={
 
 			//base
+		
 
-			{{Renderer3D.CAR_BACK},{0,1,5,4},{4,5,10,9}},
-			{{Renderer3D.CAR_RIGHT},{1,2,6,5},{5,6,11,10}},
-			{{Renderer3D.CAR_FRONT},{2,3,7,6},{6,7,12,11}},
-			{{Renderer3D.CAR_LEFT},{3,0,4,7},{7,8,13,12}},
-			{{Renderer3D.CAR_BOTTOM},{0,3,2,1},{0,1,2,3}},
+			
+			/*{{Renderer3D.CAR_BACK},{0,1,5,4},{4,5,10,9}},
+
 			
 
 			//gables
@@ -216,7 +215,7 @@ public class House4Model extends MeshModel{
 			
 			//roof pitches
 			{{Renderer3D.CAR_TOP},{5,6,9,8},{16,17,19,18}},
-			{{Renderer3D.CAR_TOP},{8,9,7,4},{18,19,21,20}},
+			{{Renderer3D.CAR_TOP},{8,9,7,4},{18,19,21,20}},*/
 	};
 	
 	String roo2="20-21";

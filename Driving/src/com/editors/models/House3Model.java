@@ -15,8 +15,11 @@ import com.main.Renderer3D;
 public class House3Model extends MeshModel{
 
 	double dx=100;
+	double dx1=100;
 	double dy=200;
 	double dy1=200;
+	double dy2=200;
+	double dy3=200;
 	double dz=20;
 	double roof_height=50;
 
@@ -67,24 +70,25 @@ public class House3Model extends MeshModel{
 	public void initMesh() {
 
 		points=new Vector();
-
 		//lower and upper base
 		for(int k=0;k<2;k++){
 
 			double z=dz*k;
 
-			addPoint(0.0,0.0,z);
-			addPoint(dx,0.0,z);
-			addPoint(dx,dy,z);
-			addPoint(0.0,dy,z);
-
+			addPoint(dy3,0.0,z);
+			addPoint(dy3+dx,0.0,z);
+			addPoint(dy3+dx,dy,z);
+			addPoint(dy3+dx+dy1,dy,z);
+			addPoint(dy3+dx+dy1,dy+dx1,z);
+			addPoint(dy3+dx,dy+dx1,z);
+			addPoint(dy3+dx,dy+dx1+dy2,z);
+			addPoint(dy3,dy+dx1+dy2,z);
+			addPoint(dy3,dy+dx1,z);
+			addPoint(0,dy+dx1,z);
+			addPoint(0,dy,z);
+			addPoint(dy3,dy,z);
 		}
-		
-		//roof			
-		double d=(dy-dy1)*0.5;
-		
-		addPoint(dx*0.5,d,dz+roof_height);
-		addPoint(dx*0.5,dy-d,dz+roof_height);
+	
 
 		texturePoints=new Vector();
 
@@ -96,7 +100,7 @@ public class House3Model extends MeshModel{
 		double x=bx;
 
 		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
+		/*addTPoint(x+dx,y,0);
 		addTPoint(x+dx, y+dy,0);
 		addTPoint(x,y+dy,0);
 
@@ -131,7 +135,7 @@ public class House3Model extends MeshModel{
 		addTPoint(x+dy-d,y+dx*0.5,0);
 		addTPoint(x,y+dx,0);
 		addTPoint(x+dy,y+dx,0);
-		
+		*/
 		
 
 		IMG_WIDTH=(int) (2*bx+2*dy+2*dx);
@@ -151,7 +155,7 @@ public class House3Model extends MeshModel{
 		bg.setStroke(new BasicStroke(0.1f));
 
 		//lower base
-		printTextureLine(bg,0,1);
+		/*printTextureLine(bg,0,1);
 		printTextureLine(bg,1,2);
 		printTextureLine(bg,2,3);
 		printTextureLine(bg,3,0);
@@ -195,15 +199,32 @@ public class House3Model extends MeshModel{
 		printTextureLine(bg,18,19);
 		printTextureLine(bg,19,21);
 		printTextureLine(bg,21,20);
-		printTextureLine(bg,20,18);
+		printTextureLine(bg,20,18);*/
 
 	}
 
 	int[][][] faces={
 
 			//base
+			
+			{{Renderer3D.CAR_BOTTOM},{0,1,2,11},{0,0,0,0}},
+			{{Renderer3D.CAR_BOTTOM},{10,3,4,9},{0,0,0,0}},
+			{{Renderer3D.CAR_BOTTOM},{8,5,6,7},{0,0,0,0}},
 
-			{{Renderer3D.CAR_BACK},{0,1,5,4},{4,5,10,9}},
+			//faces
+			{{Renderer3D.CAR_BACK},{0,1,13,12},{0,0,0,0}},
+			{{Renderer3D.CAR_RIGHT},{1,2,14,13},{0,0,0,0}},
+			{{Renderer3D.CAR_BACK},{2,3,15,14},{0,0,0,0}},
+			{{Renderer3D.CAR_BACK},{3,4,16,15},{0,0,0,0}},
+			{{Renderer3D.CAR_BACK},{4,5,17,16},{0,0,0,0}},
+			{{Renderer3D.CAR_BACK},{5,6,18,17},{0,0,0,0}},
+			{{Renderer3D.CAR_BACK},{6,7,19,18},{0,0,0,0}},
+			{{Renderer3D.CAR_BACK},{7,8,20,19},{0,0,0,0}},
+			{{Renderer3D.CAR_BACK},{8,9,21,20},{0,0,0,0}},
+			{{Renderer3D.CAR_BACK},{9,10,22,21},{0,0,0,0}},
+			{{Renderer3D.CAR_BACK},{10,11,23,22},{0,0,0,0}},
+			{{Renderer3D.CAR_BACK},{11,0,12,23},{0,0,0,0}},
+			/*{{Renderer3D.CAR_BACK},{0,1,5,4},{4,5,10,9}},
 			{{Renderer3D.CAR_RIGHT},{1,2,6,5},{5,6,11,10}},
 			{{Renderer3D.CAR_FRONT},{2,3,7,6},{6,7,12,11}},
 			{{Renderer3D.CAR_LEFT},{3,0,4,7},{7,8,13,12}},
@@ -216,7 +237,7 @@ public class House3Model extends MeshModel{
 			
 			//roof pitches
 			{{Renderer3D.CAR_TOP},{5,6,9,8},{16,17,19,18}},
-			{{Renderer3D.CAR_TOP},{8,9,7,4},{18,19,21,20}},
+			{{Renderer3D.CAR_TOP},{8,9,7,4},{18,19,21,20}},*/
 	};
 	
 	String roo2="20-21";
