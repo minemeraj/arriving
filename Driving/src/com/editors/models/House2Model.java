@@ -221,27 +221,27 @@ public class House2Model extends MeshModel{
 			{{Renderer3D.CAR_BOTTOM},{6,5,4,3,2,7},{6,5,4,3,2,7}},
 			
 			//faces
-			{{Renderer3D.CAR_BACK},{0,1,9,8},{0,0,0,0}},
-			{{Renderer3D.CAR_RIGHT},{1,2,10,9},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{2,3,11,10},{0,0,0,0}},
-			{{Renderer3D.CAR_RIGHT},{3,4,12,11},{0,0,0,0}},
-			{{Renderer3D.CAR_FRONT},{4,5,13,12},{0,0,0,0}},
-			{{Renderer3D.CAR_LEFT},{5,6,14,13},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{6,7,15,14},{0,0,0,0}},
-			{{Renderer3D.CAR_LEFT},{7,0,8,15},{0,0,0,0}},
+			{{Renderer3D.CAR_BACK},{0,1,9,8},{8,9,18,17}},
+			{{Renderer3D.CAR_RIGHT},{1,2,10,9},{9,10,19,18}},
+			{{Renderer3D.CAR_BACK},{2,3,11,10},{10,11,20,19}},
+			{{Renderer3D.CAR_RIGHT},{3,4,12,11},{11,12,21,20}},
+			{{Renderer3D.CAR_FRONT},{4,5,13,12},{12,13,22,21}},
+			{{Renderer3D.CAR_LEFT},{5,6,14,13},{13,14,23,22}},
+			{{Renderer3D.CAR_BACK},{6,7,15,14},{14,15,24,23}},
+			{{Renderer3D.CAR_LEFT},{7,0,8,15},{15,16,25,24}},
 			
 			//gables
-			{{Renderer3D.CAR_BACK},{8,9,16},{0,0,0}},
-			{{Renderer3D.CAR_RIGHT},{11,12,19},{0,0,0}},
-			{{Renderer3D.CAR_LEFT},{13,14,17},{0,0,0}},
+			{{Renderer3D.CAR_BACK},{8,9,16},{17,18,26}},
+			{{Renderer3D.CAR_RIGHT},{11,12,19},{20,21,27}},
+			{{Renderer3D.CAR_LEFT},{13,14,17},{22,23,28}},
 			
 					
 			//roof pitches
-			{{Renderer3D.CAR_TOP},{15,8,16,18},{0,0,0,0}},
-			{{Renderer3D.CAR_TOP},{9,10,18,16},{0,0,0,0}},
-			{{Renderer3D.CAR_TOP},{10,11,19,18},{0,0,0,0}},
-			{{Renderer3D.CAR_TOP},{12,13,17,19},{0,0,0,0}},
-			{{Renderer3D.CAR_TOP},{14,15,18,17},{0,0,0,0}},
+			{{Renderer3D.CAR_TOP},{15,8,16,18},{33,29,30,37}},
+			{{Renderer3D.CAR_TOP},{9,10,18,16},{31,34,37,30}},
+			{{Renderer3D.CAR_TOP},{10,11,19,18},{34,35,38,27}},
+			{{Renderer3D.CAR_TOP},{12,13,17,19},{40,39,36,38}},
+			{{Renderer3D.CAR_TOP},{14,15,18,17},{32,33,37,36}},
 
 		
 	};
