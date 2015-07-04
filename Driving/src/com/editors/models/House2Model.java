@@ -134,7 +134,7 @@ public class House2Model extends MeshModel{
 		addTPoint(x+dx+dy+dy1+dx*0.5,y+roof_height,0);		
 		addTPoint(x+dx+dy+dy1+dx+(dx+dy1+dy2)+dx1*0.5,y+roof_height,0);
 
-		x=dx;
+		x=bx;
 		y=by+dy+dx1+dz+roof_height;
 
 		//roof pitches
@@ -175,74 +175,41 @@ public class House2Model extends MeshModel{
 		bg.setStroke(new BasicStroke(0.1f));
 
 		//lower base
-		printTextureLine(bg,0,1);
-		printTextureLine(bg,1,2);
-		printTextureLine(bg,2,3);
-		printTextureLine(bg,3,4);
-		printTextureLine(bg,4,5);
-		printTextureLine(bg,5,6);
-		printTextureLine(bg,6,7);
-		printTextureLine(bg,7,0);
+		printTextureLine(bg,0,1,2,3);
+		printTextureLine(bg,3,4,5,6);
+		printTextureLine(bg,6,7,0);
 
 		//lateral faces
 		bg.setColor(Color.BLACK);
-		printTextureLine(bg,8,9);
-		printTextureLine(bg,9,18);
-		printTextureLine(bg,18,17);
-		printTextureLine(bg,17,8);
+		printTexturePolygon(bg,8,9,18,17);
 		
-		printTextureLine(bg,9,10);
-		printTextureLine(bg,10,19);
-		printTextureLine(bg,19,18);
+		printTextureLine(bg,9,10,19,18);
 		
-		printTextureLine(bg,10,11);
-		printTextureLine(bg,11,20);
-		printTextureLine(bg,20,19);
+		printTextureLine(bg,10,11,20,19);
 		
-		printTextureLine(bg,11,12);
-		printTextureLine(bg,12,21);
-		printTextureLine(bg,21,20);
+		printTextureLine(bg,11,12,21,20);
 		
-		printTextureLine(bg,12,13);
-		printTextureLine(bg,13,22);
-		printTextureLine(bg,22,21);
+		printTextureLine(bg,12,13,22,21);
 		
-		printTextureLine(bg,13,14);
-		printTextureLine(bg,14,23);
-		printTextureLine(bg,23,22);
+		printTextureLine(bg,13,14,23,22);
 		
-		printTextureLine(bg,14,15);
-		printTextureLine(bg,15,24);
-		printTextureLine(bg,24,23);
-		
-		printTextureLine(bg,15,16);
-		printTextureLine(bg,16,25);
-		printTextureLine(bg,25,24);
+		printTextureLine(bg,14,15,24,23);
+	
+		printTextureLine(bg,15,16,25,24);
 		
         //gables
 		bg.setColor(Color.BLUE);
-		printTextureLine(bg,17,18);
-		printTextureLine(bg,18,26);
-		printTextureLine(bg,26,17);
-		
-		printTextureLine(bg,20,21);
-		printTextureLine(bg,21,27);
-		printTextureLine(bg,27,20);
-		
-		printTextureLine(bg,22,23);
-		printTextureLine(bg,23,28);
-		printTextureLine(bg,28,22);
+		printTexturePolygon(bg,17,18,26);
+		printTexturePolygon(bg,20,21,27);
+		printTexturePolygon(bg,22,23,28);
+
 		
 		//roof pitches
-		printTextureLine(bg,29,30);
-		printTextureLine(bg,30,37);
-		printTextureLine(bg,37,33);
-		printTextureLine(bg,33,29);
-		
-		printTextureLine(bg,30,31);
-		printTextureLine(bg,31,34);
-		printTextureLine(bg,34,37);
-		printTextureLine(bg,37,30);
+		printTexturePolygon(bg,29,30,37,33);
+		printTexturePolygon(bg,30,31,34,37);
+		printTexturePolygon(bg,34,35,38,37);
+		printTexturePolygon(bg,36,38,40,39);
+		printTexturePolygon(bg,32,33,37,36);
 
 	}
 

@@ -89,6 +89,57 @@ public class MeshModel {
 		graphics.drawLine(cX(p0.x),cY(p0.y),cX(p1.x),cY(p1.y));	
 		
 	}
+	
+	public void printTextureLine(Graphics2D graphics, int indx0,int indx1,int indx2){
+		
+		
+		Point3D p0=(Point3D) texturePoints.elementAt(indx0);
+		Point3D p1=(Point3D) texturePoints.elementAt(indx1);
+		Point3D p2=(Point3D) texturePoints.elementAt(indx2);
+
+		graphics.drawLine(cX(p0.x),cY(p0.y),cX(p1.x),cY(p1.y));	
+		graphics.drawLine(cX(p1.x),cY(p1.y),cX(p2.x),cY(p2.y));	
+
+	}
+	
+	public void printTextureLine(Graphics2D graphics, int indx0,int indx1,int indx2,int indx3){
+		
+		
+		Point3D p0=(Point3D) texturePoints.elementAt(indx0);
+		Point3D p1=(Point3D) texturePoints.elementAt(indx1);
+		Point3D p2=(Point3D) texturePoints.elementAt(indx2);
+		Point3D p3=(Point3D) texturePoints.elementAt(indx3);
+
+		graphics.drawLine(cX(p0.x),cY(p0.y),cX(p1.x),cY(p1.y));	
+		graphics.drawLine(cX(p1.x),cY(p1.y),cX(p2.x),cY(p2.y));	
+		graphics.drawLine(cX(p2.x),cY(p2.y),cX(p3.x),cY(p3.y));	
+	}
+	
+	public void printTexturePolygon(Graphics2D graphics, int indx0,int indx1,int indx2){
+		
+		
+		Point3D p0=(Point3D) texturePoints.elementAt(indx0);
+		Point3D p1=(Point3D) texturePoints.elementAt(indx1);
+		Point3D p2=(Point3D) texturePoints.elementAt(indx2);
+
+		graphics.drawLine(cX(p0.x),cY(p0.y),cX(p1.x),cY(p1.y));	
+		graphics.drawLine(cX(p1.x),cY(p1.y),cX(p2.x),cY(p2.y));	
+		graphics.drawLine(cX(p2.x),cY(p2.y),cX(p0.x),cY(p0.y));	
+	}
+	
+	public void printTexturePolygon(Graphics2D graphics, int indx0,int indx1,int indx2,int indx3){
+		
+		
+		Point3D p0=(Point3D) texturePoints.elementAt(indx0);
+		Point3D p1=(Point3D) texturePoints.elementAt(indx1);
+		Point3D p2=(Point3D) texturePoints.elementAt(indx2);
+		Point3D p3=(Point3D) texturePoints.elementAt(indx3);
+
+		graphics.drawLine(cX(p0.x),cY(p0.y),cX(p1.x),cY(p1.y));	
+		graphics.drawLine(cX(p1.x),cY(p1.y),cX(p2.x),cY(p2.y));	
+		graphics.drawLine(cX(p2.x),cY(p2.y),cX(p3.x),cY(p3.y));	
+		graphics.drawLine(cX(p3.x),cY(p3.y),cX(p0.x),cY(p0.y));	
+	}
 
 	private int cX(double x) {
 		return (int) x;
