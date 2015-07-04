@@ -80,8 +80,9 @@ public class House1Model extends MeshModel{
 			addPoint(0,dy+dx1,z);
 		}
 		
-		//roof		
+		//roof	
 		addPoint(dx*0.5,0,dz+roof_height);
+		addPoint(0,dy,dz);
 		addPoint(dx*0.5,dy+dx1*0.5,dz+roof_height);
 		addPoint(dx+dy1,dy+dx1*0.5,dz+roof_height);
 		
@@ -136,6 +137,7 @@ public class House1Model extends MeshModel{
 		addTPoint(x+dx*0.5,y,0);
 		addTPoint(x+dx,y,0);
 		
+		addTPoint(x,y+dy,0);
 		addTPoint(x+dx,y+dy,0);
 		addTPoint(x+dx+dy1,y+dy,0);
 		
@@ -210,22 +212,13 @@ public class House1Model extends MeshModel{
 
 		//roof
 		bg.setColor(Color.RED);
-		printTextureLine(bg,22,23);
-		printTextureLine(bg,23,27);
-		printTextureLine(bg,27,29);
-		printTextureLine(bg,29,22);
+		printTexturePolygon(bg,22,23,28,25);
 		
-		printTextureLine(bg,23,24);
-		printTextureLine(bg,24,25);
-		printTextureLine(bg,25,27);
-		
-		printTextureLine(bg,25,26);
-		printTextureLine(bg,26,28);
-		printTextureLine(bg,28,27);
-		
-		printTextureLine(bg,27,28);
-		printTextureLine(bg,28,30);
-		printTextureLine(bg,30,29);
+		printTexturePolygon(bg,23,24,26,28);
+		printTexturePolygon(bg,26,27,29,28);
+		printTexturePolygon(bg,28,29,31,30);
+		printTexturePolygon(bg,30,25,28);
+
 	}
 
 	int[][][] faces={
@@ -246,19 +239,20 @@ public class House1Model extends MeshModel{
 			
 			//gables
 			{{Renderer3D.CAR_BACK},{6,7,12},{13,14,20}},
-			{{Renderer3D.CAR_RIGHT},{9,10,14},{16,17,21}},
+			{{Renderer3D.CAR_RIGHT},{9,10,15},{16,17,21}},
 			
 			
 			//roof pitches
-			{{Renderer3D.CAR_TOP},{12,7,8,13},{23,24,25,27}},
-			{{Renderer3D.CAR_TOP},{8,9,14,13},{25,26,28,27}},
-			{{Renderer3D.CAR_TOP},{13,14,10,11},{27,28,30,29}},
-			{{Renderer3D.CAR_TOP},{12,13,11,6},{23,27,29,22}},
+			{{Renderer3D.CAR_TOP},{12,7,8,14},{23,24,26,28}},
+			{{Renderer3D.CAR_TOP},{8,9,15,14},{26,27,29,28}},
+			{{Renderer3D.CAR_TOP},{14,15,10,11},{28,29,31,30}},
+			{{Renderer3D.CAR_TOP},{6,12,14,13},{22,23,28,25}},
+			{{Renderer3D.CAR_TOP},{11,13,14},{30,25,28}},
 	};
 	
-	String roof3="29-30";
-	String roof2="27-28";
-	String roof1="25-26";
+	String roof3="30-31";
+	String roof2="28-29";
+	String roof1="25-26-27";
 	String roof0="22-23-24";
 	
 	String gables_top="20-21";
