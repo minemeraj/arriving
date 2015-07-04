@@ -6,10 +6,6 @@ import java.awt.Graphics2D;
 import java.io.PrintWriter;
 import java.util.Vector;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-
-import com.editors.DoubleTextField;
 import com.main.Renderer3D;
 
 public class House2Model extends MeshModel{
@@ -27,13 +23,15 @@ public class House2Model extends MeshModel{
 	
 	public static String NAME="Gable2";
 	
-	public House2Model(double dx, double dy, double dz,double roof_height,double dy1) {
+	public House2Model(double dx, double dy, double dz,double roof_height,double dx1,double dy1,double dy2) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
 		this.dz = dz;
 		this.roof_height = roof_height;
+		this.dx1 = dx1;
 		this.dy1 = dy1;
+		this.dy2 = dy2;
 	}
 
 

@@ -37,6 +37,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 	private JComboBox chooseBuilding;
 	private DoubleTextField dz1_text;
 	private IntegerTextField num_meridians;
+	private DoubleTextField dy2_text;
 	
 	public static int HOUSE0=0;
 	public static int HOUSE1=1;
@@ -51,7 +52,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 	
 	public static void main(String[] args) {
 
-		BulldingMeshEditor fm=new BulldingMeshEditor(470,290);
+		BulldingMeshEditor fm=new BulldingMeshEditor(600,290);
 	}
 
 
@@ -65,14 +66,20 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 
 		int r=10;
 
-		int c0=220;
-		int c1=310;
-
+		int a0=5;
+		int a1=70;
+		
+		int c0=200;
+		int c1=280;
+		
+		int c2=410;
+		int c3=450;
+		
 		JLabel lx=new JLabel("dx:");
-		lx.setBounds(5,r,80,20);
+		lx.setBounds(a0,r,80,20);
 		center.add(lx);
 		dx_text=new DoubleTextField(8);
-		dx_text.setBounds(90,r,120,20);
+		dx_text.setBounds(a1,r,120,20);
 		center.add(dx_text);		
 
 		lx=new JLabel("dx1:");
@@ -85,10 +92,10 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		r+=30;
 
 		JLabel ly=new JLabel("dy:");
-		ly.setBounds(5,r,80,20);
+		ly.setBounds(a0,r,80,20);
 		center.add(ly);
 		dy_text=new DoubleTextField(8);
-		dy_text.setBounds(90,r,120,20);
+		dy_text.setBounds(a1,r,120,20);
 		center.add(dy_text);
 
 		ly=new JLabel("dy1:");
@@ -98,14 +105,20 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		dy1_text.setBounds(c1,r,120,20);
 		center.add(dy1_text);
 
+		ly=new JLabel("dy2:");
+		ly.setBounds(c2,r,80,20);
+		center.add(ly);
+		dy2_text=new DoubleTextField(8);
+		dy2_text.setBounds(c3,r,120,20);
+		center.add(dy2_text);
 
 		r+=30;
 
 		JLabel lz=new JLabel("dz:");
-		lz.setBounds(5,r,80,20);
+		lz.setBounds(a0,r,80,20);
 		center.add(lz);
 		dz_text=new DoubleTextField(8);
-		dz_text.setBounds(90,r,120,20);
+		dz_text.setBounds(a1,r,120,20);
 		center.add(dz_text);
 		
 		ly=new JLabel("dz1:");
@@ -119,10 +132,10 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 
 
 		JLabel lr=new JLabel("Roof h:");
-		lr.setBounds(5,r,80,20);
+		lr.setBounds(a0,r,80,20);
 		center.add(lr);
 		roof_height=new DoubleTextField(8);
-		roof_height.setBounds(90,r,120,20);
+		roof_height.setBounds(a1,r,120,20);
 		center.add(roof_height);
 		
 		lr=new JLabel("N merid.");
@@ -132,7 +145,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		num_meridians.setBounds(c1,r,120,20);
 		center.add(num_meridians);
 		
-		setRightData(100,200,100,50,0,150,0,0);
+		setRightData(100,200,100,50,0,150,0,0,0);
 
 	
 		r+=30;
@@ -188,7 +201,9 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 
 		double dx1 = dx1_text.getvalue();
 		double dy1 = dy1_text.getvalue();
-		double dz1 = dz1_text.getvalue();		
+		double dz1 = dz1_text.getvalue();	
+		
+		double dy2 = dy2_text.getvalue();
 		
 		int num_mer=num_meridians.getvalue();
 		
@@ -213,7 +228,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		else if(CHIMNEY0==val)
 			meshModel=new Chimney0Model(dx,dx1,dz,num_mer);
 		else if(HOUSE2==val)
-			meshModel=new House2Model(dx,dy,dz,rh,dy1);
+			meshModel=new House2Model(dx,dy,dz,rh,dx1,dy1,dy2);
 		else if(HOUSE3==val)
 			meshModel=new House3Model(dx,dy,dz,rh,dy1);
 		else if(HOUSE4==val)
@@ -269,35 +284,40 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 			    	val=HOUSE0;
 			   
 				if(HOUSE0==val)
-					setRightData(100,200,100,50,0,150,0,0);
+					setRightData(100,200,100,50,0,150,0,0,0);
 				else if(HOUSE1==val)
-					setRightData(100,200,100,50,50,150,0,0);
+					setRightData(100,200,100,50,50,150,0,0,0);
 				else if(MANSARD0==val)
-					setRightData(100,200,100,50,50,150,0,0);
+					setRightData(100,200,100,50,50,150,0,0,0);
 				else if(GAMBREL0==val)
-					setRightData(100,200,100,0,0,0,0,0);
+					setRightData(100,200,100,0,0,0,0,0,0);
 				else if(BELLTOWER==val)
-					setRightData(100,200,300,100,0,0,0,0);
+					setRightData(100,200,300,100,0,0,0,0,0);
 				else if(SHED0==val)
-					setRightData(100,200,100,0,0,0,60,0);
+					setRightData(100,200,100,0,0,0,60,0,0);
 				else if(CHIMNEY0==val)
-					setRightData(100,0,300,0,80,0,0,10);
+					setRightData(100,0,300,0,80,0,0,10,0);
 				else if(HOUSE2==val)
-					setRightData(100,200,100,50,0,150,0,0);
+					setRightData(100,200,100,50,100,150,0,0,200);
 				else if(HOUSE3==val)
-					setRightData(100,200,100,50,0,150,0,0);
+					setRightData(100,200,100,50,0,150,0,0,0);
 				else if(HOUSE4==val)
-					setRightData(100,200,100,50,0,150,0,0);
+					setRightData(100,200,100,50,0,150,0,0,0);
 		}		   
 		
 	}
 
 
 	private void setRightData(
-			int dx, int dy, int dz, 
+			int dx, 
+			int dy, 
+			int dz, 
 			int roofHeight,
-			int dx1, int dy1,int dz1,
-			int num_merid
+			int dx1, 
+			int dy1,
+			int dz1,
+			int num_merid,
+			int dy2
 			) {
 	
 		
@@ -309,7 +329,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		dy1_text.setText(dy1);
 		dz1_text.setText(dz1);
 		num_meridians.setText(num_merid);
-		
+		dy2_text.setText(dy2);
 	}
 
 }
