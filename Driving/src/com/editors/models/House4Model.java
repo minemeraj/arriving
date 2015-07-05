@@ -16,6 +16,7 @@ public class House4Model extends MeshModel{
 
 	double dx=100;
 	double dx1=100;
+	double dx2=100;
 	double dy=200;
 	double dy1=200;
 	double dz=20;
@@ -109,51 +110,43 @@ public class House4Model extends MeshModel{
 		double x=bx;
 
 		addTPoint(x,y,0);
-		addTPoint(x,y,0);
-		addTPoint(x,y,0);
-		addTPoint(x,y,0);
-		addTPoint(x,y,0);
-		addTPoint(x,y,0);
-		addTPoint(x,y,0);
-		addTPoint(x,y,0);
-		/*addTPoint(x,y,0);
 		addTPoint(x+dx,y,0);
-		addTPoint(x+dx, y+dy,0);
-		addTPoint(x,y+dy,0);
-
+		addTPoint(x+dx,y+dy,0);
+		addTPoint(x+dx+dx1,y+dy,0);
+		addTPoint(x+dx+dx1,y,0);
+		addTPoint(x+dx+dx1+dx,y,0);
+		addTPoint(x+dx+dx1+dx,y+dy1,0);
+		addTPoint(x,y+dy1,0);
+		
 		//faces
-		y=by+dy;
+		y=by+dy1;
+		for(int k=0;k<2;k++){
 
-		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dy+dx,y,0);
-		addTPoint(x+dy+2*dx,y,0);
-		addTPoint(x+2*dy+2*dx,y,0);    	
-
-
-		addTPoint(x,y+dz,0);
-		addTPoint(x+dx,y+dz,0);
-		addTPoint(x+dy+dx,y+dz,0);
-		addTPoint(x+dy+2*dx,y+dz,0);
-		addTPoint(x+2*dy+2*dx,y+dz,0);
-	
-		//gable tops
-		y=by+dy+dz;
-		addTPoint(x+dx*0.5,y+roof_height,0);	
-		addTPoint(x+dx+dy+dx*0.5,y+roof_height,0);		
-
-		x=dx;
-		y=by+dy+dz+roof_height;
-
+			double z=y+dz*k;
+			addTPoint(x,y,0);
+			addTPoint(x+dx,y,0);
+			addTPoint(x+dx+dy,y,0);
+			addTPoint(x+dx+dy+dx1,y,0);
+			addTPoint(x+dx+dy+dx1+dy,y,0);
+			addTPoint(x+dx+dy+dx1+dy+dx2,y,0);
+			addTPoint(x+dx+dy+dx1+dy+dx2+dy1,y,0);
+			addTPoint(x+dx+dy+dx1+dy+dx2+dy1+(dx+dx1+dx2),y,0);
+			addTPoint(x+dx+dy+dx1+dy+dx2+dy1+(dx+dx1+dx2)+dy1,y,0);
+		}	
+		
+		//gables tops
+		y=by+dy1+roof_height;
+		addTPoint(x+dx*0.5,y,0);
+		addTPoint(x+dx+dy+dx1+dy+dx2*0.5,y,0);
+		
 		//roof pitches
+		y=by+dy1+roof_height;
 		addTPoint(x,y,0);
-		addTPoint(x+dy,y,0);
-		addTPoint(x+d,y+dx*0.5,0);
-		addTPoint(x+dy-d,y+dx*0.5,0);
-		addTPoint(x,y+dx,0);
-		addTPoint(x+dy,y+dx,0);*/
-		
-		
+		addTPoint(x+dx*0.5,y,0);
+		addTPoint(x+dx,y,0);
+		addTPoint(x+dx+dx1,y,0);
+		addTPoint(x+dx+dx1+dx2*0.5,y,0);
+		addTPoint(x+dx+dx1+dx2,y,0);
 
 		IMG_WIDTH=(int) (2*bx+2*dy+2*dx);
 		IMG_HEIGHT=(int) (2*by+dy+dz+roof_height+dx);
