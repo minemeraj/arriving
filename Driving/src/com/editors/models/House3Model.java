@@ -105,44 +105,66 @@ public class House3Model extends MeshModel{
 		double y=by;
 		double x=bx;
 
-		addTPoint(x,y,0);
-		/*addTPoint(x+dx,y,0);
-		addTPoint(x+dx, y+dy,0);
-		addTPoint(x,y+dy,0);
-
-		//faces
-		y=by+dy;
-
-		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dy+dx,y,0);
-		addTPoint(x+dy+2*dx,y,0);
-		addTPoint(x+2*dy+2*dx,y,0);    	
-
-
-		addTPoint(x,y+dz,0);
-		addTPoint(x+dx,y+dz,0);
-		addTPoint(x+dy+dx,y+dz,0);
-		addTPoint(x+dy+2*dx,y+dz,0);
-		addTPoint(x+2*dy+2*dx,y+dz,0);
-	
-		//gable tops
-		y=by+dy+dz;
-		addTPoint(x+dx*0.5,y+roof_height,0);	
-		addTPoint(x+dx+dy+dx*0.5,y+roof_height,0);		
-
-		x=dx;
-		y=by+dy+dz+roof_height;
-
-		//roof pitches
-		addTPoint(x,y,0);
-		addTPoint(x+dy,y,0);
-		addTPoint(x+d,y+dx*0.5,0);
-		addTPoint(x+dy-d,y+dx*0.5,0);
-		addTPoint(x,y+dx,0);
-		addTPoint(x+dy,y+dx,0);
-		*/
+		addPoint(x+dy3,y,0);
+		addPoint(x+dy3+dx,y,0);		
+		addPoint(x+dy3+dx,y+dy,0);
+		addPoint(x+dy3+dx+dy1,y+dy,0);
+		addPoint(x+dy3+dx+dy1,y+dy+dx1,0);
+		addPoint(x+dy3+dx,y+dy+dx1,0);		
+		addPoint(x+dy3+dx,y+dy+dx1+dy2,0);
+		addPoint(x+dy3,y+dy+dx1+dy2,0);
+		addPoint(x+dy3,y+dy+dx1,0);
+		addPoint(x,y+dy+dx1,0);		
+		addPoint(x,y+dy,0);
+		addPoint(dy3,y+dy,0);
 		
+		//faces
+		y=by+dy+dx1+dy2;
+		x=bx;
+		
+		for(int k=0;k<2;k++){
+
+			double z=y+dz*k;
+			
+			addPoint(x,z,0);
+			addPoint(x+dx,z,0);
+			addPoint(x+dx+dy,z,0);
+			addPoint(x+dx+dy+dy1,z,0);
+			addPoint(x+dx+dy+dy1+dx1,z,0);
+			addPoint(x+dx+dy+dy1+dx1+dy1,z,0);
+			addPoint(x+dx+dy+dy1+dx1+dy1+dy2,z,0);
+			addPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx,z,0);
+			addPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx+dy2,z,0);
+			addPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx+dy2+dy3,z,0);
+			addPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx+dy2+dy3+dx1,z,0);
+			addPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx+dy2+dy3+dx1+dy3,z,0);
+			addPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx+dy2+dy3+dx1+dy3+dy,z,0);
+		}	
+		
+		//gable tops
+		y=by+dy+dx1+dy2+dx+roof_height;
+		x=bx;
+		
+		addPoint(x+dy3,y,0);
+		addPoint(x+dy3+dx*0.5,y,0);
+		addPoint(x+dy3+dx,y,0);
+		addPoint(0,y+dy,0);
+		addPoint(dy3,y+dy,0);
+		addPoint(dy3+dx,y+dy,0);
+		addPoint(dy3+dx+dy1,y+dy,0);
+		
+		addPoint(0,y+dy+dx1*0.5,0);
+		addPoint(dy3+dx*0.5,y+dy+dx1*0.5,0);
+		addPoint(dy3+dx+dy1,y+dy+dx1*0.5,0);
+		
+		addPoint(0,y+dy+dx1,0);
+		addPoint(dy3,y+dy+dx1,0);
+		addPoint(dy3+dx,y+dy+dx1,0);
+		addPoint(dy3+dx+dy1,y+dy+dx1,0);
+		
+		addPoint(x+dy3,y+dy+dx1+dy2,0);
+		addPoint(x+dy3+dx*0.5,y+dy+dx1+dy2,0);
+		addPoint(x+dy3+dx,y+dy+dx1+dy2,0);
 
 		IMG_WIDTH=(int) (2*bx+2*dy+2*dx);
 		IMG_HEIGHT=(int) (2*by+dy+dz+roof_height+dx);
