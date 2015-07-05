@@ -234,39 +234,39 @@ public class House3Model extends MeshModel{
 
 			//base
 			
-			{{Renderer3D.CAR_BOTTOM},{0,1,2,11},{0,0,0,0}},
-			{{Renderer3D.CAR_BOTTOM},{10,3,4,9},{0,0,0,0}},
-			{{Renderer3D.CAR_BOTTOM},{8,5,6,7},{0,0,0,0}},
+			{{Renderer3D.CAR_BOTTOM},{11,2,1,0},{11,2,1,0}},
+			{{Renderer3D.CAR_BOTTOM},{3,10,9,4},{3,10,9,4}},
+			{{Renderer3D.CAR_BOTTOM},{5,8,7,6},{5,8,7,6}},
 
 			//faces
-			{{Renderer3D.CAR_BACK},{0,1,13,12},{0,0,0,0}},
-			{{Renderer3D.CAR_RIGHT},{1,2,14,13},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{2,3,15,14},{0,0,0,0}},
-			{{Renderer3D.CAR_RIGHT},{3,4,16,15},{0,0,0,0}},
-			{{Renderer3D.CAR_FRONT},{4,5,17,16},{0,0,0,0}},
-			{{Renderer3D.CAR_RIGHT},{5,6,18,17},{0,0,0,0}},
-			{{Renderer3D.CAR_RIGHT},{6,7,19,18},{0,0,0,0}},
-			{{Renderer3D.CAR_LEFT},{7,8,20,19},{0,0,0,0}},
-			{{Renderer3D.CAR_FRONT},{8,9,21,20},{0,0,0,0}},
-			{{Renderer3D.CAR_LEFT},{9,10,22,21},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{10,11,23,22},{0,0,0,0}},
-			{{Renderer3D.CAR_LEFT},{11,0,12,23},{0,0,0,0}},
+			{{Renderer3D.CAR_BACK},{0,1,13,12},{12,13,26,25}},
+			{{Renderer3D.CAR_RIGHT},{1,2,14,13},{13,14,27,26}},
+			{{Renderer3D.CAR_BACK},{2,3,15,14},{14,15,28,27}},
+			{{Renderer3D.CAR_RIGHT},{3,4,16,15},{15,16,29,28}},
+			{{Renderer3D.CAR_FRONT},{4,5,17,16},{16,17,30,29}},
+			{{Renderer3D.CAR_RIGHT},{5,6,18,17},{17,18,31,30}},
+			{{Renderer3D.CAR_RIGHT},{6,7,19,18},{18,19,32,31}},
+			{{Renderer3D.CAR_LEFT},{7,8,20,19},{19,20,33,32}},
+			{{Renderer3D.CAR_FRONT},{8,9,21,20},{20,21,34,33}},
+			{{Renderer3D.CAR_LEFT},{9,10,22,21},{21,22,35,34}},
+			{{Renderer3D.CAR_BACK},{10,11,23,22},{22,23,36,35}},
+			{{Renderer3D.CAR_LEFT},{11,0,12,23},{23,24,37,36}},
 			
 			//gables
-			{{Renderer3D.CAR_BACK},{12,13,24},{0,0,0}},
-			{{Renderer3D.CAR_RIGHT},{15,16,27},{0,0,0}},
-			{{Renderer3D.CAR_FRONT},{18,19,28},{0,0,0}},
-			{{Renderer3D.CAR_LEFT},{21,22,25},{0,0,0}},
+			{{Renderer3D.CAR_BACK},{12,13,24},{25,26,38}},
+			{{Renderer3D.CAR_RIGHT},{15,16,27},{28,29,39}},
+			{{Renderer3D.CAR_FRONT},{18,19,28},{31,32,40}},
+			{{Renderer3D.CAR_LEFT},{21,22,25},{34,35,41}},
 			
 			//roof pitches
-			{{Renderer3D.CAR_TOP},{13,14,26,24},{0,0,0,0}},
-			{{Renderer3D.CAR_TOP},{14,15,27,26},{0,0,0,0}},
-			{{Renderer3D.CAR_TOP},{26,27,16,17},{0,0,0,0}},
-			{{Renderer3D.CAR_TOP},{17,18,28,26},{0,0,0,0}},
-			{{Renderer3D.CAR_TOP},{26,28,19,20},{0,0,0,0}},
-			{{Renderer3D.CAR_TOP},{25,26,20,21},{0,0,0,0}},
-			{{Renderer3D.CAR_TOP},{22,23,26,25},{0,0,0,0}},
-			{{Renderer3D.CAR_TOP},{23,12,24,26},{0,0,0,0}},
+			{{Renderer3D.CAR_TOP},{13,14,26,24},{44,47,50,46}},
+			{{Renderer3D.CAR_TOP},{14,15,27,26},{47,48,51,50}},
+			{{Renderer3D.CAR_TOP},{26,27,16,17},{50,51,55,54}},
+			{{Renderer3D.CAR_TOP},{17,18,28,26},{54,58,57,50}},
+			{{Renderer3D.CAR_TOP},{26,28,19,20},{50,57,56,53}},
+			{{Renderer3D.CAR_TOP},{25,26,20,21},{49,50,53,52}},
+			{{Renderer3D.CAR_TOP},{22,23,26,25},{45,46,50,49}},
+			{{Renderer3D.CAR_TOP},{23,12,24,26},{46,42,43,50}},
 	};
 	
 	String roo2="20-21";
