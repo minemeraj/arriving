@@ -88,8 +88,14 @@ public class House3Model extends MeshModel{
 			addPoint(0,dy,z);
 			addPoint(dy3,dy,z);
 		}
-	
-
+		
+		//roof
+		addPoint(dy3+dx*0.5,0.0,dz+roof_height);
+		addPoint(0,dy+dx1*0.5,dz+roof_height);
+		addPoint(dy3+dx*0.5,dy+dx1*0.5,dz+roof_height);
+		addPoint(dy3+dx+dy1,dy+dx1*0.5,dz+roof_height);
+		addPoint(dy3+dx*0.5,dy+dx1+dy2,dz+roof_height);
+		
 		texturePoints=new Vector();
 
 	
@@ -155,51 +161,44 @@ public class House3Model extends MeshModel{
 		bg.setStroke(new BasicStroke(0.1f));
 
 		//lower base
-		/*printTextureLine(bg,0,1);
-		printTextureLine(bg,1,2);
-		printTextureLine(bg,2,3);
-		printTextureLine(bg,3,0);
-
+		printTextureLine(bg,0,1,2,3);
+		printTextureLine(bg,4,5,6,7);
+		printTextureLine(bg,8,9,10,11);
+		printTextureLine(bg,11,0);
+		
 		//lateral faces
 		bg.setColor(Color.BLACK);
-		printTextureLine(bg,4,5);
-		printTextureLine(bg,5,10);
-		printTextureLine(bg,10,9);
-		printTextureLine(bg,9,4);
-
-		printTextureLine(bg,5,6);
-		printTextureLine(bg,6,11);
-		printTextureLine(bg,11,10);
-
-		printTextureLine(bg,6,7);
-		printTextureLine(bg,7,12);
-		printTextureLine(bg,12,11);
-
-		printTextureLine(bg,7,8);
-		printTextureLine(bg,8,13);
-		printTextureLine(bg,13,12);
-
-        //gables
-		bg.setColor(Color.BLUE);
-		printTextureLine(bg,9,10);
-		printTextureLine(bg,10,14);
-		printTextureLine(bg,14,9);
+		printTexturePolygon(bg,12,13,26,25);
+		printTextureLine(bg,13,14,27,26);
+		printTextureLine(bg,14,15,28,27);
+		printTextureLine(bg,15,16,29,28);
+		printTextureLine(bg,16,17,30,29);
+		printTextureLine(bg,17,18,31,30);
+		printTextureLine(bg,18,19,32,31);
+		printTextureLine(bg,19,20,33,32);
+		printTextureLine(bg,20,21,34,33);
+		printTextureLine(bg,21,22,35,34);
+		printTextureLine(bg,22,23,36,35);
+		printTextureLine(bg,23,24,37,36);
+		printTextureLine(bg,24,25,38,37);
 		
+		 //gables
 		bg.setColor(Color.BLUE);
-		printTextureLine(bg,11,12);
-		printTextureLine(bg,12,15);
-		printTextureLine(bg,15,11);
+		printTexturePolygon(bg,25,26,38);
+		printTexturePolygon(bg,28,29,39);
+		printTexturePolygon(bg,31,32,40);
+		printTexturePolygon(bg,34,35,41);
 		
 		//roof pitches
-		printTextureLine(bg,16,17);
-		printTextureLine(bg,17,19);
-		printTextureLine(bg,19,18);
-		printTextureLine(bg,18,16);
-		
-		printTextureLine(bg,18,19);
-		printTextureLine(bg,19,21);
-		printTextureLine(bg,21,20);
-		printTextureLine(bg,20,18);*/
+		bg.setColor(Color.BLACK);
+		printTexturePolygon(bg,43,44,47,50);
+		printTextureLine(bg,47,48,51,50);
+		printTextureLine(bg,51,55,54,50);
+		printTextureLine(bg,54,58,57,60);
+		printTextureLine(bg,57,56,53,60);
+		printTextureLine(bg,53,52,49,50);
+		printTextureLine(bg,49,45,46,50);
+		printTextureLine(bg,46,42,43);
 
 	}
 
@@ -224,20 +223,22 @@ public class House3Model extends MeshModel{
 			{{Renderer3D.CAR_BACK},{9,10,22,21},{0,0,0,0}},
 			{{Renderer3D.CAR_BACK},{10,11,23,22},{0,0,0,0}},
 			{{Renderer3D.CAR_BACK},{11,0,12,23},{0,0,0,0}},
-			/*{{Renderer3D.CAR_BACK},{0,1,5,4},{4,5,10,9}},
-			{{Renderer3D.CAR_RIGHT},{1,2,6,5},{5,6,11,10}},
-			{{Renderer3D.CAR_FRONT},{2,3,7,6},{6,7,12,11}},
-			{{Renderer3D.CAR_LEFT},{3,0,4,7},{7,8,13,12}},
-			{{Renderer3D.CAR_BOTTOM},{0,3,2,1},{0,1,2,3}},
 			
-
 			//gables
-			{{Renderer3D.CAR_BACK},{4,5,8},{9,10,14}},
-			{{Renderer3D.CAR_FRONT},{6,7,9},{11,12,15}},
+			{{Renderer3D.CAR_BACK},{12,13,24},{0,0,0}},
+			{{Renderer3D.CAR_BACK},{15,16,27},{0,0,0}},
+			{{Renderer3D.CAR_BACK},{18,19,28},{0,0,0}},
+			{{Renderer3D.CAR_BACK},{21,22,25},{0,0,0}},
 			
 			//roof pitches
-			{{Renderer3D.CAR_TOP},{5,6,9,8},{16,17,19,18}},
-			{{Renderer3D.CAR_TOP},{8,9,7,4},{18,19,21,20}},*/
+			{{Renderer3D.CAR_BACK},{13,14,26,24},{0,0,0,0}},
+			{{Renderer3D.CAR_BACK},{14,15,27,26},{0,0,0,0}},
+			{{Renderer3D.CAR_BACK},{26,27,16,17},{0,0,0,0}},
+			{{Renderer3D.CAR_BACK},{17,18,28,26},{0,0,0,0}},
+			{{Renderer3D.CAR_BACK},{26,28,19,20},{0,0,0,0}},
+			{{Renderer3D.CAR_BACK},{25,26,20,21},{0,0,0,0}},
+			{{Renderer3D.CAR_BACK},{22,23,26,25},{0,0,0,0}},
+			{{Renderer3D.CAR_BACK},{23,12,24,26},{0,0,0,0}},
 	};
 	
 	String roo2="20-21";
