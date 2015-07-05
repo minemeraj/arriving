@@ -88,17 +88,15 @@ public class House4Model extends MeshModel{
 		//roof			
 		addPoint(dx*0.5,0.0,dz+roof_height);
 		addPoint(dx+dx1+dx*0.5,0.0,dz+roof_height);
-		addPoint(0,dy,dz+roof_height);
 		
-		addPoint(dx,dy,dz+roof_height);
-		addPoint(dx+dx1,dy,dz+roof_height);
-		addPoint(dx+dx1+dx,dy,dz+roof_height);
+		addPoint(0,dy,dz);
+		addPoint(dx+dx1+dx,dy,dz);
 		
-		addPoint(dx*0.5,dy,dz+roof_height);
-		addPoint(dx+dx1+dx*0.5,dy,dz+roof_height);
+		double dd=(dy1-dy)*0.5;
 		
-		addPoint(0,dy1,dz+roof_height);
-		addPoint(dx+dx1+dx,dy1,dz+roof_height);
+		addPoint(dx*0.5,dy+dd,dz+roof_height);
+		addPoint(dx+dx1+dx*0.5,dy+dd,dz+roof_height);
+
 		
 		texturePoints=new Vector();
 
@@ -154,12 +152,11 @@ public class House4Model extends MeshModel{
 		addTPoint(x+dx+dx1,y,0);
 		addTPoint(x+dx+dx1+dx2,y,0);
 		
-		double dd=(dy1-dy)*0.5;
 		y=by+dy1+dz+roof_height+dy+dd;
 
 		addTPoint(x+dx*0.5,y,0);
 		addTPoint(x+dx+dx1+dx2*0.5,y,0);
-
+		
 		y=by+dy1+dz+roof_height+dy1;
 		addTPoint(x,y,0);
 		addTPoint(x+dx+dx1+dx2,y,0);
@@ -235,8 +232,15 @@ public class House4Model extends MeshModel{
 			{{Renderer3D.CAR_BACK},{12,13,17},{21,22,27}},
 			
 			//roof pitches
-			/*{{Renderer3D.CAR_TOP},{5,6,9,8},{16,17,19,18}},
-			{{Renderer3D.CAR_TOP},{8,9,7,4},{18,19,21,20}},*/
+			{{Renderer3D.CAR_TOP},{9,10,20,16},{29,30,35,38}},
+			{{Renderer3D.CAR_TOP},{10,11,21,20},{35,36,39,38}},
+			{{Renderer3D.CAR_TOP},{11,12,17,21},{36,31,32,39}},
+			{{Renderer3D.CAR_TOP},{17,13,19,21},{32,33,37,39}},
+			{{Renderer3D.CAR_TOP},{19,14,21},{37,41,39}},
+			{{Renderer3D.CAR_TOP},{20,21,14,15},{38,39,41,40}},
+			{{Renderer3D.CAR_TOP},{15,18,20},{40,34,38}},
+			{{Renderer3D.CAR_TOP},{18,8,16,20},{34,28,39,38}},
+
 	};
 	
 	String roo2="20-21";
