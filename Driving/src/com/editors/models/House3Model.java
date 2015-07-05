@@ -105,18 +105,18 @@ public class House3Model extends MeshModel{
 		double y=by;
 		double x=bx;
 
-		addPoint(x+dy3,y,0);
-		addPoint(x+dy3+dx,y,0);		
-		addPoint(x+dy3+dx,y+dy,0);
-		addPoint(x+dy3+dx+dy1,y+dy,0);
-		addPoint(x+dy3+dx+dy1,y+dy+dx1,0);
-		addPoint(x+dy3+dx,y+dy+dx1,0);		
-		addPoint(x+dy3+dx,y+dy+dx1+dy2,0);
-		addPoint(x+dy3,y+dy+dx1+dy2,0);
-		addPoint(x+dy3,y+dy+dx1,0);
-		addPoint(x,y+dy+dx1,0);		
-		addPoint(x,y+dy,0);
-		addPoint(dy3,y+dy,0);
+		addTPoint(x+dy3,y,0);
+		addTPoint(x+dy3+dx,y,0);		
+		addTPoint(x+dy3+dx,y+dy,0);
+		addTPoint(x+dy3+dx+dy1,y+dy,0);
+		addTPoint(x+dy3+dx+dy1,y+dy+dx1,0);
+		addTPoint(x+dy3+dx,y+dy+dx1,0);		
+		addTPoint(x+dy3+dx,y+dy+dx1+dy2,0);
+		addTPoint(x+dy3,y+dy+dx1+dy2,0);
+		addTPoint(x+dy3,y+dy+dx1,0);
+		addTPoint(x,y+dy+dx1,0);		
+		addTPoint(x,y+dy,0);
+		addTPoint(dy3,y+dy,0);
 		
 		//faces
 		y=by+dy+dx1+dy2;
@@ -126,48 +126,55 @@ public class House3Model extends MeshModel{
 
 			double z=y+dz*k;
 			
-			addPoint(x,z,0);
-			addPoint(x+dx,z,0);
-			addPoint(x+dx+dy,z,0);
-			addPoint(x+dx+dy+dy1,z,0);
-			addPoint(x+dx+dy+dy1+dx1,z,0);
-			addPoint(x+dx+dy+dy1+dx1+dy1,z,0);
-			addPoint(x+dx+dy+dy1+dx1+dy1+dy2,z,0);
-			addPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx,z,0);
-			addPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx+dy2,z,0);
-			addPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx+dy2+dy3,z,0);
-			addPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx+dy2+dy3+dx1,z,0);
-			addPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx+dy2+dy3+dx1+dy3,z,0);
-			addPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx+dy2+dy3+dx1+dy3+dy,z,0);
+			addTPoint(x,z,0);
+			addTPoint(x+dx,z,0);
+			addTPoint(x+dx+dy,z,0);
+			addTPoint(x+dx+dy+dy1,z,0);
+			addTPoint(x+dx+dy+dy1+dx1,z,0);
+			addTPoint(x+dx+dy+dy1+dx1+dy1,z,0);
+			addTPoint(x+dx+dy+dy1+dx1+dy1+dy2,z,0);
+			addTPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx,z,0);
+			addTPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx+dy2,z,0);
+			addTPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx+dy2+dy3,z,0);
+			addTPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx+dy2+dy3+dx1,z,0);
+			addTPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx+dy2+dy3+dx1+dy3,z,0);
+			addTPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx+dy2+dy3+dx1+dy3+dy,z,0);
 		}	
 		
 		//gable tops
 		y=by+dy+dx1+dy2+dx+roof_height;
 		x=bx;
 		
-		addPoint(x+dy3,y,0);
-		addPoint(x+dy3+dx*0.5,y,0);
-		addPoint(x+dy3+dx,y,0);
-		addPoint(0,y+dy,0);
-		addPoint(dy3,y+dy,0);
-		addPoint(dy3+dx,y+dy,0);
-		addPoint(dy3+dx+dy1,y+dy,0);
+		addTPoint(x+dx*0.5,y,0);
+		addTPoint(x+dx+dy+dy1+dx1*0.5,y,0);
+		addTPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx*0.5,y,0);
+		addTPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx+dy2+dy3+dx1*0.5,y,0);
 		
-		addPoint(0,y+dy+dx1*0.5,0);
-		addPoint(dy3+dx*0.5,y+dy+dx1*0.5,0);
-		addPoint(dy3+dx+dy1,y+dy+dx1*0.5,0);
+		//gable pitches
 		
-		addPoint(0,y+dy+dx1,0);
-		addPoint(dy3,y+dy+dx1,0);
-		addPoint(dy3+dx,y+dy+dx1,0);
-		addPoint(dy3+dx+dy1,y+dy+dx1,0);
+		addTPoint(x+dy3,y,0);
+		addTPoint(x+dy3+dx*0.5,y,0);
+		addTPoint(x+dy3+dx,y,0);
+		addTPoint(0,y+dy,0);
+		addTPoint(dy3,y+dy,0);
+		addTPoint(dy3+dx,y+dy,0);
+		addTPoint(dy3+dx+dy1,y+dy,0);
 		
-		addPoint(x+dy3,y+dy+dx1+dy2,0);
-		addPoint(x+dy3+dx*0.5,y+dy+dx1+dy2,0);
-		addPoint(x+dy3+dx,y+dy+dx1+dy2,0);
+		addTPoint(0,y+dy+dx1*0.5,0);
+		addTPoint(dy3+dx*0.5,y+dy+dx1*0.5,0);
+		addTPoint(dy3+dx+dy1,y+dy+dx1*0.5,0);
+		
+		addTPoint(0,y+dy+dx1,0);
+		addTPoint(dy3,y+dy+dx1,0);
+		addTPoint(dy3+dx,y+dy+dx1,0);
+		addTPoint(dy3+dx+dy1,y+dy+dx1,0);
+		
+		addTPoint(x+dy3,y+dy+dx1+dy2,0);
+		addTPoint(x+dy3+dx*0.5,y+dy+dx1+dy2,0);
+		addTPoint(x+dy3+dx,y+dy+dx1+dy2,0);
 
-		IMG_WIDTH=(int) (2*bx+2*dy+2*dx);
-		IMG_HEIGHT=(int) (2*by+dy+dz+roof_height+dx);
+		IMG_WIDTH=(int) (2*bx+2*(dx+dx1+dy+dy1+dy2+dy3));
+		IMG_HEIGHT=(int) (2*by+2*(dy+dx1+dy2)+dz+roof_height);
 	}
 
 
@@ -216,8 +223,8 @@ public class House3Model extends MeshModel{
 		printTexturePolygon(bg,43,44,47,50);
 		printTextureLine(bg,47,48,51,50);
 		printTextureLine(bg,51,55,54,50);
-		printTextureLine(bg,54,58,57,60);
-		printTextureLine(bg,57,56,53,60);
+		printTextureLine(bg,54,58,57,50);
+		printTextureLine(bg,57,56,53,50);
 		printTextureLine(bg,53,52,49,50);
 		printTextureLine(bg,49,45,46,50);
 		printTextureLine(bg,46,42,43);
