@@ -259,7 +259,7 @@ public class House3Model extends MeshModel{
 			{{Renderer3D.CAR_LEFT},{21,22,25},{34,35,41}},
 			
 			//roof pitches
-			{{Renderer3D.CAR_TOP},{13,14,26,24},{44,47,50,46}},
+			{{Renderer3D.CAR_TOP},{13,14,26,24},{44,47,50,43}},
 			{{Renderer3D.CAR_TOP},{14,15,27,26},{47,48,51,50}},
 			{{Renderer3D.CAR_TOP},{26,27,16,17},{50,51,55,54}},
 			{{Renderer3D.CAR_TOP},{17,18,28,26},{54,58,57,50}},
