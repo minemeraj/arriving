@@ -15,6 +15,7 @@ import com.main.Renderer3D;
 public class House4Model extends MeshModel{
 
 	double dx=100;
+	double dx1=100;
 	double dy=200;
 	double dy1=200;
 	double dz=20;
@@ -69,33 +70,53 @@ public class House4Model extends MeshModel{
 		points=new Vector();
 
 		//lower and upper base
-		/*for(int k=0;k<2;k++){
+		for(int k=0;k<2;k++){
 
 			double z=dz*k;
 
 			addPoint(0.0,0.0,z);
 			addPoint(dx,0.0,z);
 			addPoint(dx,dy,z);
-			addPoint(0.0,dy,z);
-
+			addPoint(dx+dx1,dy,z);
+			addPoint(dx+dx1,0,z);
+			addPoint(dx+dx1+dx,0,z);
+			addPoint(dx+dx1+dx,dy1,z);
+			addPoint(0,dy1,z);
 		}
 		
 		//roof			
-		double d=(dy-dy1)*0.5;
+		addPoint(dx*0.5,0.0,dz+roof_height);
+		addPoint(dx+dx1+dx*0.5,0.0,dz+roof_height);
+		addPoint(0,dy,dz+roof_height);
 		
-		addPoint(dx*0.5,d,dz+roof_height);
-		addPoint(dx*0.5,dy-d,dz+roof_height);*/
-
+		addPoint(dx,dy,dz+roof_height);
+		addPoint(dx+dx1,dy,dz+roof_height);
+		addPoint(dx+dx1+dx,dy,dz+roof_height);
+		
+		addPoint(dx*0.5,dy,dz+roof_height);
+		addPoint(dx+dx1+dx*0.5,dy,dz+roof_height);
+		
+		addPoint(0,dy1,dz+roof_height);
+		addPoint(dx+dx1+dx,dy1,dz+roof_height);
+		
 		texturePoints=new Vector();
 
 	
 		///////main plane
 
-		/*//lower base
+		//lower base
 		double y=by;
 		double x=bx;
 
 		addTPoint(x,y,0);
+		addTPoint(x,y,0);
+		addTPoint(x,y,0);
+		addTPoint(x,y,0);
+		addTPoint(x,y,0);
+		addTPoint(x,y,0);
+		addTPoint(x,y,0);
+		addTPoint(x,y,0);
+		/*addTPoint(x,y,0);
 		addTPoint(x+dx,y,0);
 		addTPoint(x+dx, y+dy,0);
 		addTPoint(x,y+dy,0);
@@ -202,15 +223,12 @@ public class House4Model extends MeshModel{
 	int[][][] faces={
 
 			//base
-		
-
-			
-			/*{{Renderer3D.CAR_BACK},{0,1,5,4},{4,5,10,9}},
-
-			
+			{{Renderer3D.CAR_BOTTOM},{0,7,2,1},{0,7,2,1}},
+			{{Renderer3D.CAR_BOTTOM},{2,7,6,3},{2,7,6,3}},
+			{{Renderer3D.CAR_BOTTOM},{4,3,6,5},{4,3,6,5}},
 
 			//gables
-			{{Renderer3D.CAR_BACK},{4,5,8},{9,10,14}},
+			/*{{Renderer3D.CAR_BACK},{4,5,8},{9,10,14}},
 			{{Renderer3D.CAR_FRONT},{6,7,9},{11,12,15}},
 			
 			//roof pitches
