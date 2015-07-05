@@ -269,18 +269,25 @@ public class House3Model extends MeshModel{
 			{{Renderer3D.CAR_TOP},{23,12,24,26},{46,42,43,50}},
 	};
 	
-	String roo2="20-21";
-	String roo1="18-19";
-	String roo0="16-17";	
-	String gables_top="14-15";
-	String llf1="09-10-11-12-13";
-	String llf0="04-05-06-07-08";
-	String llb1="03-02";
+	String roof4="56-57-58";
+	String roof3="52-53-54-55";
+	String roof2="49-50-51";
+	String roof1="45-46-47-48";
+	String roof0="42-43-44";
+	String gab="38-39-40";
+	String fac1="25-26-27-28-29-30-31-32-33-34-35-36-37";
+	String fac0="12-13-14-15-16-17-18-19-20-21-22-23-24";	
+	String llb3="07-06";
+	String llb2="09-08-05-04";
+	String llb1="10-11-02-03";
 	String llb0="00-01";
 	
-	String points_level2="8,9";
-	String points_level1="4,5,6,7";
-	String points_level0="0,1,2,3";
+	
+	String points_level4="28";
+	String points_level3="25-26-27";
+	String points_level2="24";
+	String points_level1="12-13-14-15-16-17-18-19-20-21-22-23";
+	String points_level0="00-01-02-03-04-05-06-07-08-09-10-11";
 	
 
 }
