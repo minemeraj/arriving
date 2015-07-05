@@ -123,24 +123,24 @@ public class House4Model extends MeshModel{
 		for(int k=0;k<2;k++){
 
 			double z=y+dz*k;
-			addTPoint(x,y,0);
-			addTPoint(x+dx,y,0);
-			addTPoint(x+dx+dy,y,0);
-			addTPoint(x+dx+dy+dx1,y,0);
-			addTPoint(x+dx+dy+dx1+dy,y,0);
-			addTPoint(x+dx+dy+dx1+dy+dx2,y,0);
-			addTPoint(x+dx+dy+dx1+dy+dx2+dy1,y,0);
-			addTPoint(x+dx+dy+dx1+dy+dx2+dy1+(dx+dx1+dx2),y,0);
-			addTPoint(x+dx+dy+dx1+dy+dx2+dy1+(dx+dx1+dx2)+dy1,y,0);
+			addTPoint(x,z,0);
+			addTPoint(x+dx,z,0);
+			addTPoint(x+dx+dy,z,0);
+			addTPoint(x+dx+dy+dx1,z,0);
+			addTPoint(x+dx+dy+dx1+dy,z,0);
+			addTPoint(x+dx+dy+dx1+dy+dx2,z,0);
+			addTPoint(x+dx+dy+dx1+dy+dx2+dy1,z,0);
+			addTPoint(x+dx+dy+dx1+dy+dx2+dy1+(dx+dx1+dx2),z,0);
+			addTPoint(x+dx+dy+dx1+dy+dx2+dy1+(dx+dx1+dx2)+dy1,z,0);
 		}	
 		
 		//gables tops
-		y=by+dy1+roof_height;
+		y=by+dy1+dz+roof_height;
 		addTPoint(x+dx*0.5,y,0);
 		addTPoint(x+dx+dy+dx1+dy+dx2*0.5,y,0);
 		
 		//roof pitches
-		y=by+dy1+roof_height;
+		y=by+dy1+dz+roof_height;
 		addTPoint(x,y,0);
 		addTPoint(x+dx*0.5,y,0);
 		addTPoint(x+dx,y,0);
@@ -148,24 +148,24 @@ public class House4Model extends MeshModel{
 		addTPoint(x+dx+dx1+dx2*0.5,y,0);
 		addTPoint(x+dx+dx1+dx2,y,0);
 		
-		y=by+dy1+roof_height+dy;
+		y=by+dy1+dz+roof_height+dy;
 		addTPoint(x,y,0);
 		addTPoint(x+dx,y,0);
 		addTPoint(x+dx+dx1,y,0);
 		addTPoint(x+dx+dx1+dx2,y,0);
 		
 		double dd=(dy1-dy)*0.5;
-		y=by+dy1+roof_height+dy+dd;
+		y=by+dy1+dz+roof_height+dy+dd;
 
 		addTPoint(x+dx*0.5,y,0);
 		addTPoint(x+dx+dx1+dx2*0.5,y,0);
 
-		y=by+dy1+roof_height+dy1;
+		y=by+dy1+dz+roof_height+dy1;
 		addTPoint(x,y,0);
 		addTPoint(x+dx+dx1+dx2,y,0);
 
-		IMG_WIDTH=(int) (2*bx+2*dy+2*dx);
-		IMG_HEIGHT=(int) (2*by+dy+dz+roof_height+dx);
+		IMG_WIDTH=(int) (2*bx+2*(dx+dx1+dx2+dy+dy1));
+		IMG_HEIGHT=(int) (2*by+2*dy1+dz+roof_height);
 	}
 
 
