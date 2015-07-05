@@ -116,7 +116,7 @@ public class House3Model extends MeshModel{
 		addTPoint(x+dy3,y+dy+dx1,0);
 		addTPoint(x,y+dy+dx1,0);		
 		addTPoint(x,y+dy,0);
-		addTPoint(dy3,y+dy,0);
+		addTPoint(x+dy3,y+dy,0);
 		
 		//faces
 		y=by+dy+dx1+dy2;
@@ -155,19 +155,19 @@ public class House3Model extends MeshModel{
 		addTPoint(x+dy3,y,0);
 		addTPoint(x+dy3+dx*0.5,y,0);
 		addTPoint(x+dy3+dx,y,0);
-		addTPoint(0,y+dy,0);
-		addTPoint(dy3,y+dy,0);
-		addTPoint(dy3+dx,y+dy,0);
-		addTPoint(dy3+dx+dy1,y+dy,0);
+		addTPoint(x,y+dy,0);
+		addTPoint(x+dy3,y+dy,0);
+		addTPoint(x+dy3+dx,y+dy,0);
+		addTPoint(x+dy3+dx+dy1,y+dy,0);
 		
-		addTPoint(0,y+dy+dx1*0.5,0);
-		addTPoint(dy3+dx*0.5,y+dy+dx1*0.5,0);
-		addTPoint(dy3+dx+dy1,y+dy+dx1*0.5,0);
+		addTPoint(x,y+dy+dx1*0.5,0);
+		addTPoint(x+dy3+dx*0.5,y+dy+dx1*0.5,0);
+		addTPoint(x+dy3+dx+dy1,y+dy+dx1*0.5,0);
 		
-		addTPoint(0,y+dy+dx1,0);
-		addTPoint(dy3,y+dy+dx1,0);
-		addTPoint(dy3+dx,y+dy+dx1,0);
-		addTPoint(dy3+dx+dy1,y+dy+dx1,0);
+		addTPoint(x,y+dy+dx1,0);
+		addTPoint(x+dy3,y+dy+dx1,0);
+		addTPoint(x+dy3+dx,y+dy+dx1,0);
+		addTPoint(x+dy3+dx+dy1,y+dy+dx1,0);
 		
 		addTPoint(x+dy3,y+dy+dx1+dy2,0);
 		addTPoint(x+dy3+dx*0.5,y+dy+dx1+dy2,0);
@@ -191,9 +191,9 @@ public class House3Model extends MeshModel{
 
 		//lower base
 		printTextureLine(bg,0,1,2,3);
-		printTextureLine(bg,4,5,6,7);
-		printTextureLine(bg,8,9,10,11);
-		printTextureLine(bg,11,0);
+		printTextureLine(bg,3,4,5,6);
+		printTextureLine(bg,6,7,8,9);
+		printTextureLine(bg,9,10,11,0);
 		
 		//lateral faces
 		bg.setColor(Color.BLACK);
@@ -209,9 +209,8 @@ public class House3Model extends MeshModel{
 		printTextureLine(bg,21,22,35,34);
 		printTextureLine(bg,22,23,36,35);
 		printTextureLine(bg,23,24,37,36);
-		printTextureLine(bg,24,25,38,37);
 		
-		 //gables
+	 //gables
 		bg.setColor(Color.BLUE);
 		printTexturePolygon(bg,25,26,38);
 		printTexturePolygon(bg,28,29,39);
@@ -243,31 +242,31 @@ public class House3Model extends MeshModel{
 			{{Renderer3D.CAR_BACK},{0,1,13,12},{0,0,0,0}},
 			{{Renderer3D.CAR_RIGHT},{1,2,14,13},{0,0,0,0}},
 			{{Renderer3D.CAR_BACK},{2,3,15,14},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{3,4,16,15},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{4,5,17,16},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{5,6,18,17},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{6,7,19,18},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{7,8,20,19},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{8,9,21,20},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{9,10,22,21},{0,0,0,0}},
+			{{Renderer3D.CAR_RIGHT},{3,4,16,15},{0,0,0,0}},
+			{{Renderer3D.CAR_FRONT},{4,5,17,16},{0,0,0,0}},
+			{{Renderer3D.CAR_RIGHT},{5,6,18,17},{0,0,0,0}},
+			{{Renderer3D.CAR_RIGHT},{6,7,19,18},{0,0,0,0}},
+			{{Renderer3D.CAR_LEFT},{7,8,20,19},{0,0,0,0}},
+			{{Renderer3D.CAR_FRONT},{8,9,21,20},{0,0,0,0}},
+			{{Renderer3D.CAR_LEFT},{9,10,22,21},{0,0,0,0}},
 			{{Renderer3D.CAR_BACK},{10,11,23,22},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{11,0,12,23},{0,0,0,0}},
+			{{Renderer3D.CAR_LEFT},{11,0,12,23},{0,0,0,0}},
 			
 			//gables
 			{{Renderer3D.CAR_BACK},{12,13,24},{0,0,0}},
-			{{Renderer3D.CAR_BACK},{15,16,27},{0,0,0}},
-			{{Renderer3D.CAR_BACK},{18,19,28},{0,0,0}},
-			{{Renderer3D.CAR_BACK},{21,22,25},{0,0,0}},
+			{{Renderer3D.CAR_RIGHT},{15,16,27},{0,0,0}},
+			{{Renderer3D.CAR_FRONT},{18,19,28},{0,0,0}},
+			{{Renderer3D.CAR_LEFT},{21,22,25},{0,0,0}},
 			
 			//roof pitches
-			{{Renderer3D.CAR_BACK},{13,14,26,24},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{14,15,27,26},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{26,27,16,17},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{17,18,28,26},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{26,28,19,20},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{25,26,20,21},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{22,23,26,25},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{23,12,24,26},{0,0,0,0}},
+			{{Renderer3D.CAR_TOP},{13,14,26,24},{0,0,0,0}},
+			{{Renderer3D.CAR_TOP},{14,15,27,26},{0,0,0,0}},
+			{{Renderer3D.CAR_TOP},{26,27,16,17},{0,0,0,0}},
+			{{Renderer3D.CAR_TOP},{17,18,28,26},{0,0,0,0}},
+			{{Renderer3D.CAR_TOP},{26,28,19,20},{0,0,0,0}},
+			{{Renderer3D.CAR_TOP},{25,26,20,21},{0,0,0,0}},
+			{{Renderer3D.CAR_TOP},{22,23,26,25},{0,0,0,0}},
+			{{Renderer3D.CAR_TOP},{23,12,24,26},{0,0,0,0}},
 	};
 	
 	String roo2="20-21";
