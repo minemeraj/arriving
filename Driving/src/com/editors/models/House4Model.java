@@ -189,45 +189,28 @@ public class House4Model extends MeshModel{
 		bg.setColor(Color.BLACK);
 		printTexturePolygon(bg,7,9,18,17);
 		printTextureLine(bg,9,10,19,18);
-		/*printTextureLine(bg,4,5);
-		printTextureLine(bg,5,10);
-		printTextureLine(bg,10,9);
-		printTextureLine(bg,9,4);
-
-		printTextureLine(bg,5,6);
-		printTextureLine(bg,6,11);
-		printTextureLine(bg,11,10);
-
-		printTextureLine(bg,6,7);
-		printTextureLine(bg,7,12);
-		printTextureLine(bg,12,11);
-
-		printTextureLine(bg,7,8);
-		printTextureLine(bg,8,13);
-		printTextureLine(bg,13,12);
-
-        //gables
+		printTextureLine(bg,10,11,20,19);
+		printTextureLine(bg,11,12,21,20);
+		printTextureLine(bg,12,13,22,21);
+		printTextureLine(bg,13,14,23,22);
+		printTextureLine(bg,14,15,24,23);
+		printTextureLine(bg,15,16,25,24);
+		//gables
 		bg.setColor(Color.BLUE);
-		printTextureLine(bg,9,10);
-		printTextureLine(bg,10,14);
-		printTextureLine(bg,14,9);
-		
-		bg.setColor(Color.BLUE);
-		printTextureLine(bg,11,12);
-		printTextureLine(bg,12,15);
-		printTextureLine(bg,15,11);
+		printTexturePolygon(bg,17,18,26);
+		printTexturePolygon(bg,21,22,27);
 		
 		//roof pitches
-		printTextureLine(bg,16,17);
-		printTextureLine(bg,17,19);
-		printTextureLine(bg,19,18);
-		printTextureLine(bg,18,16);
-		
-		printTextureLine(bg,18,19);
-		printTextureLine(bg,19,21);
-		printTextureLine(bg,21,20);
-		printTextureLine(bg,20,18);*/
-
+		bg.setColor(Color.BLACK);
+		printTexturePolygon(bg,28,29,38,34);
+		printTextureLine(bg,29,30,35,38);
+		printTextureLine(bg,35,36,39,38);
+		printTextureLine(bg,36,31,32,39);
+		printTextureLine(bg,32,33,37,39);
+		printTextureLine(bg,37,41,39);
+		printTextureLine(bg,38,34,28,29);
+		printTextureLine(bg,38,40,34);
+		printTextureLine(bg,40,41);
 	}
 
 	int[][][] faces={
