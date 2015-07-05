@@ -147,6 +147,22 @@ public class House4Model extends MeshModel{
 		addTPoint(x+dx+dx1,y,0);
 		addTPoint(x+dx+dx1+dx2*0.5,y,0);
 		addTPoint(x+dx+dx1+dx2,y,0);
+		
+		y=by+dy1+roof_height+dy;
+		addTPoint(x,y,0);
+		addTPoint(x+dx,y,0);
+		addTPoint(x+dx+dx1,y,0);
+		addTPoint(x+dx+dx1+dx2,y,0);
+		
+		double dd=(dy1-dy)*0.5;
+		y=by+dy1+roof_height+dy+dd;
+
+		addTPoint(x+dx*0.5,y,0);
+		addTPoint(x+dx+dx1+dx2*0.5,y,0);
+
+		y=by+dy1+roof_height+dy1;
+		addTPoint(x,y,0);
+		addTPoint(x+dx+dx1+dx2,y,0);
 
 		IMG_WIDTH=(int) (2*bx+2*dy+2*dx);
 		IMG_HEIGHT=(int) (2*by+dy+dz+roof_height+dx);
@@ -165,14 +181,15 @@ public class House4Model extends MeshModel{
 		bg.setStroke(new BasicStroke(0.1f));
 
 		//lower base
-		/*printTextureLine(bg,0,1);
-		printTextureLine(bg,1,2);
-		printTextureLine(bg,2,3);
-		printTextureLine(bg,3,0);
+		printTexturePolygon(bg,0,7,2,1);
+		printTexturePolygon(bg,2,7,6,3);
+		printTexturePolygon(bg,4,3,6,5);
 
 		//lateral faces
 		bg.setColor(Color.BLACK);
-		printTextureLine(bg,4,5);
+		printTexturePolygon(bg,7,9,18,17);
+		printTextureLine(bg,9,10,19,18);
+		/*printTextureLine(bg,4,5);
 		printTextureLine(bg,5,10);
 		printTextureLine(bg,10,9);
 		printTextureLine(bg,9,4);
