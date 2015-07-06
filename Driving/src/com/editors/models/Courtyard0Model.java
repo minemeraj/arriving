@@ -93,10 +93,10 @@ public class Courtyard0Model extends MeshModel{
 
 		}
 				
-		addPoint(d,e,dz+roof_height);
-		addPoint(dx-d,e,dz+roof_height);
-		addPoint(dx-d,dy-e,dz+roof_height);
-		addPoint(d,dy-e,dz+roof_height);
+		addPoint(d*0.5,e*0.5,dz+roof_height);
+		addPoint(dx-d*0.5,e*0.5,dz+roof_height);
+		addPoint(dx-d*0.5,dy-e*0.5,dz+roof_height);
+		addPoint(d*0.5,dy-e*0.5,dz+roof_height);
 
 		texturePoints=new Vector();
 
