@@ -239,7 +239,7 @@ public class House4Model extends MeshModel{
 			{{Renderer3D.CAR_TOP},{19,14,21},{37,41,39}},
 			{{Renderer3D.CAR_TOP},{20,21,14,15},{38,39,41,40}},
 			{{Renderer3D.CAR_TOP},{15,18,20},{40,34,38}},
-			{{Renderer3D.CAR_TOP},{18,8,16,20},{34,28,39,38}},
+			{{Renderer3D.CAR_TOP},{18,8,16,20},{34,28,29,38}},
 
 	};
 	
