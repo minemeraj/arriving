@@ -235,7 +235,7 @@ public class Courtyard0Model extends MeshModel{
 			{{Renderer3D.CAR_TOP},{8,9,17,16},{0,0,0,0}},
 			{{Renderer3D.CAR_TOP},{16,17,13,12},{0,0,0,0}},
 			{{Renderer3D.CAR_TOP},{9,10,18,17},{0,0,0,0}},
-			{{Renderer3D.CAR_TOP},{17,18,16,13},{0,0,0,0}},
+			{{Renderer3D.CAR_TOP},{17,18,14,13},{0,0,0,0}},
 			{{Renderer3D.CAR_TOP},{10,11,19,18},{0,0,0,0}},
 			{{Renderer3D.CAR_TOP},{18,19,15,14},{0,0,0,0}},
 			{{Renderer3D.CAR_TOP},{11,8,16,19},{0,0,0,0}},
