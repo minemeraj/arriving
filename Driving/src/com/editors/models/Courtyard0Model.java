@@ -108,32 +108,49 @@ public class Courtyard0Model extends MeshModel{
 		double x=bx;
 
 		addTPoint(x,y,0);
-		/*addTPoint(x+dx,y,0);
-		addTPoint(x+dx, y+dy,0);
+		addTPoint(x+dx,y,0);
+		addTPoint(x+dx,y+dy,0);
 		addTPoint(x,y+dy,0);
+		
+		
+		addTPoint(x+e,y+d,0);
+		addTPoint(x+dx-e,y+d,0);
+		addTPoint(x+dx-e,y+dy-d,0);
+		addTPoint(x+e,y+dy-d,0);
+		
 
 		//faces
 		y=by+dy;
 
-		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dy+dx,y,0);
-		addTPoint(x+dy+2*dx,y,0);
-		addTPoint(x+2*dy+2*dx,y,0);    	
+		for(int k=0;k<2;k++){
+			
+			double z=y+dz*k;
+		
+			addTPoint(x,z,0);
+			addTPoint(x+dx,z,0);
+			addTPoint(x+dy+dx,z,0);
+			addTPoint(x+dy+2*dx,z,0);
+			addTPoint(x+2*dy+2*dx,z,0);    	
 
+		}
 
-		addTPoint(x,y+dz,0);
-		addTPoint(x+dx,y+dz,0);
-		addTPoint(x+dy+dx,y+dz,0);
-		addTPoint(x+dy+2*dx,y+dz,0);
-		addTPoint(x+2*dy+2*dx,y+dz,0);
+		y=by+dy+dz;
+
+		for(int k=0;k<2;k++){
+			
+			double z=y+dz*k;
+		
+			addTPoint(x,z,0);
+			addTPoint(x+dx1,z,0);
+			addTPoint(x+dy1+dx1,z,0);
+			addTPoint(x+dy1+2*dx1,z,0);
+			addTPoint(x+2*dy1+2*dx1,z,0);    	
+
+		}
 	
 		//gable tops
-		y=by+dy+dz;
-		addTPoint(x+dx*0.5,y+roof_height,0);	
-		addTPoint(x+dx+dy+dx*0.5,y+roof_height,0);		
 
-		x=dx;
+		/*x=dx;
 		y=by+dy+dz+roof_height;
 
 		//roof pitches
@@ -147,7 +164,7 @@ public class Courtyard0Model extends MeshModel{
 		
 
 		IMG_WIDTH=(int) (2*bx+2*dy+2*dx);
-		IMG_HEIGHT=(int) (2*by+dy+dz+roof_height+dx);
+		IMG_HEIGHT=(int) (2*by+2*dy+2*dz);
 	}
 
 
@@ -163,29 +180,21 @@ public class Courtyard0Model extends MeshModel{
 		bg.setStroke(new BasicStroke(0.1f));
 
 		//lower base
-		/*printTextureLine(bg,0,1);
-		printTextureLine(bg,1,2);
-		printTextureLine(bg,2,3);
-		printTextureLine(bg,3,0);
+		printTexturePolygon(bg,0,1,2,3);
+		printTexturePolygon(bg,4,5,6,7);
 
 		//lateral faces
 		bg.setColor(Color.BLACK);
-		printTextureLine(bg,4,5);
-		printTextureLine(bg,5,10);
-		printTextureLine(bg,10,9);
-		printTextureLine(bg,9,4);
-
-		printTextureLine(bg,5,6);
-		printTextureLine(bg,6,11);
-		printTextureLine(bg,11,10);
-
-		printTextureLine(bg,6,7);
-		printTextureLine(bg,7,12);
-		printTextureLine(bg,12,11);
-
-		printTextureLine(bg,7,8);
-		printTextureLine(bg,8,13);
-		printTextureLine(bg,13,12);
+		printTexturePolygon(bg,8,9,14,13);
+		printTextureLine(bg,9,10,15,14);
+		printTextureLine(bg,10,11,16,15);
+		printTextureLine(bg,11,12,17,16);
+		
+		printTexturePolygon(bg,18,19,24,23);
+		printTextureLine(bg,19,20,25,24);
+		printTextureLine(bg,20,21,26,25);
+		printTextureLine(bg,21,22,27,26);
+		/*
 
         //gables
 		bg.setColor(Color.BLUE);
