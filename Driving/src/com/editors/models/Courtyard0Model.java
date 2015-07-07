@@ -236,14 +236,14 @@ public class Courtyard0Model extends MeshModel{
 	
 			
 			//roof pitches
-			{{Renderer3D.CAR_TOP},{8,9,17,16},{0,0,0,0}},
-			{{Renderer3D.CAR_TOP},{16,17,13,12},{0,0,0,0}},
-			{{Renderer3D.CAR_TOP},{9,10,18,17},{0,0,0,0}},
-			{{Renderer3D.CAR_TOP},{17,18,14,13},{0,0,0,0}},
-			{{Renderer3D.CAR_TOP},{10,11,19,18},{0,0,0,0}},
-			{{Renderer3D.CAR_TOP},{18,19,15,14},{0,0,0,0}},
-			{{Renderer3D.CAR_TOP},{11,8,16,19},{0,0,0,0}},
-			{{Renderer3D.CAR_TOP},{19,16,12,15},{0,0,0,0}},
+			{{Renderer3D.CAR_TOP},{8,9,17,16},{28,29,37,36}},
+			{{Renderer3D.CAR_TOP},{16,17,13,12},{36,37,33,32}},
+			{{Renderer3D.CAR_TOP},{9,10,18,17},{29,30,38,37}},
+			{{Renderer3D.CAR_TOP},{17,18,14,13},{37,38,34,33}},
+			{{Renderer3D.CAR_TOP},{10,11,19,18},{30,31,39,38}},
+			{{Renderer3D.CAR_TOP},{18,19,15,14},{38,39,35,34}},
+			{{Renderer3D.CAR_TOP},{11,8,16,19},{31,28,36,39}},
+			{{Renderer3D.CAR_TOP},{19,16,12,15},{39,36,32,35}},
 	};
 	
 	String roo2="20-21";
