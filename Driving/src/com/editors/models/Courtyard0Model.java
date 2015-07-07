@@ -229,10 +229,10 @@ public class Courtyard0Model extends MeshModel{
 			{{Renderer3D.CAR_FRONT},{2,3,11,10},{10,11,16,15}},
 			{{Renderer3D.CAR_LEFT},{3,0,8,11},{11,12,17,16}},
 			//inner faces
-			{{Renderer3D.CAR_BACK},{5,4,12,13},{18,19,25,23}},
-			{{Renderer3D.CAR_LEFT},{6,5,13,14},{19,20,26,24}},
-			{{Renderer3D.CAR_FRONT},{7,15,14,6},{20,21,27,25}},
-			{{Renderer3D.CAR_RIGHT},{4,12,15,7},{21,22,28,26}},
+			{{Renderer3D.CAR_BACK},{5,4,12,13},{18,19,24,23}},
+			{{Renderer3D.CAR_LEFT},{6,5,13,14},{19,20,25,24}},
+			{{Renderer3D.CAR_FRONT},{7,15,14,6},{20,21,26,25}},
+			{{Renderer3D.CAR_RIGHT},{4,12,15,7},{21,22,27,26}},
 						
 			//roof pitches
 			{{Renderer3D.CAR_TOP},{8,9,17,16},{28,29,37,36}},
