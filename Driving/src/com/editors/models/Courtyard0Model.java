@@ -150,7 +150,7 @@ public class Courtyard0Model extends MeshModel{
 	
 		//gable tops
 
-		x=dx;
+		x=bx;
 		y=by+dy+2*dz;
 
 		//roof pitches
