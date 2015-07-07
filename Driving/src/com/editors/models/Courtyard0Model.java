@@ -150,16 +150,24 @@ public class Courtyard0Model extends MeshModel{
 	
 		//gable tops
 
-		/*x=dx;
-		y=by+dy+dz+roof_height;
+		x=dx;
+		y=by+dy+2*dz;
 
 		//roof pitches
 		addTPoint(x,y,0);
-		addTPoint(x+dy,y,0);
-		addTPoint(x+d,y+dx*0.5,0);
-		addTPoint(x+dy-d,y+dx*0.5,0);
-		addTPoint(x,y+dx,0);
-		addTPoint(x+dy,y+dx,0);*/
+		addTPoint(x+dx,y,0);
+		addTPoint(x+dx,y+dy,0);
+		addTPoint(x,y+dy,0);
+		
+		addTPoint(x+e,y+d,0);
+		addTPoint(x+dx-e,y+d,0);
+		addTPoint(x+dx-e,y+dy-d,0);
+		addTPoint(x+e,y+dy-d,0);
+		
+		addTPoint(x+e*0.5,y+d*0.5,0);
+		addTPoint(x+dx-e*0.5,y+d*0.5,0);
+		addTPoint(x+dx-e*0.5,y+dy-d*0.5,0);
+		addTPoint(x+e*0.5,y+dy-d*0.5,0);
 		
 		
 
@@ -194,30 +202,17 @@ public class Courtyard0Model extends MeshModel{
 		printTextureLine(bg,19,20,25,24);
 		printTextureLine(bg,20,21,26,25);
 		printTextureLine(bg,21,22,27,26);
-		/*
 
-        //gables
-		bg.setColor(Color.BLUE);
-		printTextureLine(bg,9,10);
-		printTextureLine(bg,10,14);
-		printTextureLine(bg,14,9);
-		
-		bg.setColor(Color.BLUE);
-		printTextureLine(bg,11,12);
-		printTextureLine(bg,12,15);
-		printTextureLine(bg,15,11);
-		
 		//roof pitches
-		printTextureLine(bg,16,17);
-		printTextureLine(bg,17,19);
-		printTextureLine(bg,19,18);
-		printTextureLine(bg,18,16);
-		
-		printTextureLine(bg,18,19);
-		printTextureLine(bg,19,21);
-		printTextureLine(bg,21,20);
-		printTextureLine(bg,20,18);*/
-
+		bg.setColor(Color.BLUE);
+		printTexturePolygon(bg,28,29,37,36);
+		printTextureLine(bg,37,33,32,36);
+		printTextureLine(bg,29,30,38,37);
+		printTextureLine(bg,38,34,33);
+		printTextureLine(bg,30,31,39,38);
+		printTextureLine(bg,39,35,34);		
+		printTextureLine(bg,32,35,39,36);
+		printTextureLine(bg,39,31,28);
 	}
 
 	int[][][] faces={
