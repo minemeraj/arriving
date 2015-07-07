@@ -218,23 +218,22 @@ public class Courtyard0Model extends MeshModel{
 	int[][][] faces={
 
 			//bottom
-			{{Renderer3D.CAR_BACK},{0,4,5,1},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{0,3,7,4},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{3,2,6,7},{0,0,0,0}},
-			{{Renderer3D.CAR_BACK},{6,2,1,5},{0,0,0,0}},
+			{{Renderer3D.CAR_BACK},{0,4,5,1},{0,4,5,1}},
+			{{Renderer3D.CAR_BACK},{0,3,7,4},{0,3,7,4}},
+			{{Renderer3D.CAR_BACK},{3,2,6,7},{3,2,6,7}},
+			{{Renderer3D.CAR_BACK},{6,2,1,5},{6,2,1,5}},
 			
 			//faces
-			{{Renderer3D.CAR_BACK},{0,1,9,8},{0,0,0,0}},
-			{{Renderer3D.CAR_RIGHT},{1,2,10,9},{0,0,0,0}},
-			{{Renderer3D.CAR_FRONT},{2,3,11,10},{0,0,0,0}},
-			{{Renderer3D.CAR_LEFT},{3,0,8,11},{0,0,0,0}},
+			{{Renderer3D.CAR_BACK},{0,1,9,8},{8,9,14,13}},
+			{{Renderer3D.CAR_RIGHT},{1,2,10,9},{9,10,15,14}},
+			{{Renderer3D.CAR_FRONT},{2,3,11,10},{10,11,16,15}},
+			{{Renderer3D.CAR_LEFT},{3,0,8,11},{11,12,17,16}},
 			//inner faces
-			{{Renderer3D.CAR_BACK},{5,4,12,13},{0,0,0,0}},
-			{{Renderer3D.CAR_RIGHT},{4,12,15,7},{0,0,0,0}},
-			{{Renderer3D.CAR_FRONT},{7,15,14,6},{0,0,0,0}},
-			{{Renderer3D.CAR_LEFT},{6,5,13,14},{0,0,0,0}},
-	
-			
+			{{Renderer3D.CAR_BACK},{5,4,12,13},{18,19,25,23}},
+			{{Renderer3D.CAR_LEFT},{6,5,13,14},{19,20,26,24}},
+			{{Renderer3D.CAR_FRONT},{7,15,14,6},{20,21,27,25}},
+			{{Renderer3D.CAR_RIGHT},{4,12,15,7},{21,22,28,26}},
+						
 			//roof pitches
 			{{Renderer3D.CAR_TOP},{8,9,17,16},{28,29,37,36}},
 			{{Renderer3D.CAR_TOP},{16,17,13,12},{36,37,33,32}},
