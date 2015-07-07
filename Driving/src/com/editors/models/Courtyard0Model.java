@@ -245,18 +245,27 @@ public class Courtyard0Model extends MeshModel{
 			{{Renderer3D.CAR_TOP},{19,16,12,15},{39,36,32,35}},
 	};
 	
-	String roo2="20-21";
-	String roo1="18-19";
-	String roo0="16-17";	
-	String gables_top="14-15";
-	String llf1="09-10-11-12-13";
-	String llf0="04-05-06-07-08";
-	String llb1="03-02";
+	
+	String roo5="31-30";
+	String roo4="39-38";
+	String roo3="35-34";
+	String roo2="32-33";
+	String roo1="36-37";
+	String roo0="28-29";
+	String fai2="23-24-25-26-27";
+	String fai1="18-19.20-21-22";
+	String fae1="13-14-15-16-17";
+	String fae0="08-09-10-11-12";	
+	String llb3="08-09";
+	String llb2="07-06";
+	String llb1="04-05";
 	String llb0="00-01";
 	
-	String points_level2="8,9";
-	String points_level1="4,5,6,7";
-	String points_level0="0,1,2,3";
+	String points_roof_0="14,17,18,19";
+	String points_level3="12-13-14-15";
+	String points_level2="08-09-10-11";
+	String points_level1="04-05-06-07";
+	String points_level0="00-01-02-03";
 	
 
 }
