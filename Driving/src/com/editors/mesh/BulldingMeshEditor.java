@@ -56,7 +56,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 	
 	public static void main(String[] args) {
 
-		BulldingMeshEditor fm=new BulldingMeshEditor(600,290);
+		BulldingMeshEditor fm=new BulldingMeshEditor(790,290);
 	}
 
 
@@ -80,8 +80,8 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		int c3=450;
 		
 		
-		int c4=620;
-		int c5=660;
+		int c4=580;
+		int c5=620;
 		
 		JLabel lx=new JLabel("dx:");
 		lx.setBounds(a0,r,80,20);
