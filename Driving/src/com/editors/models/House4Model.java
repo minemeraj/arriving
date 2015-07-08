@@ -27,13 +27,15 @@ public class House4Model extends MeshModel{
 	
 	public static String NAME="Gable4";
 	
-	public House4Model(double dx, double dy, double dz,double roof_height,double dy1) {
+	public House4Model(double dx, double dy, double dz,double roof_height,double dx1,double dy1,double dx2) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
 		this.dz = dz;
 		this.roof_height = roof_height;
+		this.dx1 = dx1;
 		this.dy1 = dy1;
+		this.dx2 = dx2;
 	}
 
 
