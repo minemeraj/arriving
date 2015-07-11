@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -43,6 +44,8 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 	private DoubleTextField dy2_text;
 	private DoubleTextField dx2_text;
 	private DoubleTextField dy3_text;
+	
+	private boolean skipItemChanged=false;
 	
 	public static int HOUSE0=0;
 	public static int HOUSE1=1;
@@ -302,6 +305,9 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 	@Override
 	public void itemStateChanged(ItemEvent arg0) {
 		
+		if(skipItemChanged)
+			return;
+		
 		Object obj = arg0.getSource();
 		
 		if(obj==chooseBuilding){
@@ -370,6 +376,13 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 	@Override
 	public void saveData(PrintWriter pr) {
 		
+		 ValuePair vp= (ValuePair)chooseBuilding.getSelectedItem();
+			
+		 int val=Integer.parseInt(vp.getId());
+		   if(val<0)
+		    	val=HOUSE0;
+		
+		pr.println("building="+val);
 		pr.println("dx="+dx_text.getvalue());
 		pr.println("dy="+dy_text.getvalue());
 		pr.println("dz="+dz_text.getvalue());
@@ -386,6 +399,8 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 	@Override
 	public void loadData(BufferedReader br) throws IOException {
 		
+		
+		
 		String str=null;
 		while((str=br.readLine())!=null){
 			
@@ -395,9 +410,26 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 			int indx=str.indexOf("=");
 			
 			String name=str.substring(0,indx);
-			String value=str.substring(0,indx);
+			String value=str.substring(1+indx);
 			
-			if("dx".equals(name)){
+			if("building".equals(name)){
+				
+				skipItemChanged=true;
+				
+				int building=Integer.parseInt(value);
+				
+				for (int i = 0; i < chooseBuilding.getItemCount(); i++) {
+					ValuePair vp= (ValuePair) chooseBuilding.getItemAt(i);
+					if(vp.getId().equals(""+building))
+					{
+						chooseBuilding.setSelectedIndex(i);
+						break;
+					}	
+				}
+				skipItemChanged=false;
+				
+			}
+			else if("dx".equals(name)){
 				
 				double dx=Double.parseDouble(value);
 				dx_text.setText(dx);
