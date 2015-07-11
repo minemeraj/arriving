@@ -4,6 +4,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.PrintWriter;
 
@@ -363,6 +364,18 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		dx2_text.setText(dx2);
 		dy2_text.setText(dy2);
 		dy3_text.setText(dy3);
+	}
+	
+	@Override
+	public void saveData(PrintWriter pr) {
+		// TODO Auto-generated method stub
+		super.saveData(pr);
+	}
+	
+	@Override
+	public void loadData(BufferedReader br) {
+		// TODO Auto-generated method stub
+		super.loadData(br);
 	}
 
 }
