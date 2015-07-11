@@ -728,8 +728,8 @@ public class Renderer3D implements AbstractRenderer3D{
 		Point3D p=new Point3D(dro.x,dro.y,0);
 		p=buildTransformedPoint(p);
 		
-		if(!rect.contains(p.x,p.y))
-				return;
+		//if(!rect.contains(p.x,p.y))
+		//		return;
 		
 		PolygonMesh mesh = dro.getMesh();
 	    
