@@ -1444,7 +1444,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 			
 			}
-			
+			setObjectMesh(dro);
 		}
        
 		//cleanObjects();
