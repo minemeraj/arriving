@@ -717,19 +717,18 @@ public class Renderer3D implements AbstractRenderer3D{
 	}	
 
 	private void drawPolygonMesh(DrawObject dro,Rectangle rect,ZBuffer zbuffer) {
-	
-		//if(!totalVisibleField.contains(dro.x-POSX,VIEW_DIRECTION*(dro.y-POSY)))
-	
+
 		//System.out.println(rect.y+" "+rect.height+" "+(dro.y-POSY));
-		
-		//if(rect.y+rect.height<dro.y-POSY)
-		//	return;
-		
+			
 		Point3D p=new Point3D(dro.x,dro.y,0);
 		p=buildTransformedPoint(p);
 		
-		//if(!rect.contains(p.x,p.y))
-		//		return;
+		if(!rect.contains(p.x,p.y) 
+			&& !rect.contains(p.x+rect.width,p.y) 
+			&& !rect.contains(p.x+rect.width,p.y+rect.height) 
+			&& !rect.contains(p.x,p.y+rect.height) 
+			)
+				return;
 		
 		PolygonMesh mesh = dro.getMesh();
 	    
