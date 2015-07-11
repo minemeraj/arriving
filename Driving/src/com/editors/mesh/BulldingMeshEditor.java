@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.swing.JButton;
@@ -368,14 +369,113 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 	
 	@Override
 	public void saveData(PrintWriter pr) {
-		// TODO Auto-generated method stub
-		super.saveData(pr);
+		
+		pr.println("dx="+dx_text.getvalue());
+		pr.println("dy="+dy_text.getvalue());
+		pr.println("dz="+dz_text.getvalue());
+		pr.println("roof_height="+roof_height.getvalue());
+		pr.println("dx1="+dx1_text.getvalue());
+		pr.println("dy1="+dy1_text.getvalue());
+		pr.println("dz1="+dz1_text.getvalue());
+		pr.println("num_meridians="+num_meridians.getvalue());
+		pr.println("dx2="+dx2_text.getvalue());
+		pr.println("+dy2="+dy2_text.getvalue());
+		pr.println("dy3="+dy3_text.getvalue());
 	}
 	
 	@Override
-	public void loadData(BufferedReader br) {
-		// TODO Auto-generated method stub
-		super.loadData(br);
+	public void loadData(BufferedReader br) throws IOException {
+		
+		String str=null;
+		while((str=br.readLine())!=null){
+			
+			if(str.indexOf("#")>=0 || str.length()==0)
+				continue;
+			
+			int indx=str.indexOf("=");
+			
+			String name=str.substring(0,indx);
+			String value=str.substring(0,indx);
+			
+			if("dx".equals(name)){
+				
+				double dx=Double.parseDouble(value);
+				dx_text.setText(dx);
+				
+				
+			}
+			else if("dx1".equals(name)){
+				
+				double dx1=Double.parseDouble(value);
+				dx1_text.setText(dx1);
+				
+				
+			}
+			else if("dx2".equals(name)){
+				
+				double dx2=Double.parseDouble(value);
+				dx2_text.setText(dx2);
+				
+				
+			}
+			else if("dy".equals(name)){
+				
+				double dy=Double.parseDouble(value);
+				dy_text.setText(dy);
+				
+				
+			}
+			else if("dy1".equals(name)){
+				
+				double dy1=Double.parseDouble(value);
+				dy1_text.setText(dy1);
+				
+				
+			}
+			else if("dy2".equals(name)){
+				
+				double dy2=Double.parseDouble(value);
+				dy2_text.setText(dy2);
+				
+				
+			}
+			else if("dy3".equals(name)){
+				
+				double dy3=Double.parseDouble(value);
+				dy3_text.setText(dy3);
+				
+				
+			}
+			else if("dz".equals(name)){
+				
+				double dz=Double.parseDouble(value);
+				dz_text.setText(dz);
+				
+				
+			}
+			else if("dz1".equals(name)){
+				
+				double dz1=Double.parseDouble(value);
+				dz1_text.setText(dz1);
+				
+				
+			}
+			else if("roof_height".equals(name)){
+				
+				double roofHeight=Double.parseDouble(value);
+				roof_height.setText(roofHeight);
+				
+				
+			}
+			else if("num_meridians".equals(name)){
+				
+				int nm=Integer.parseInt(value);
+				num_meridians.setText(nm);
+				
+				
+			}
+			
+		}
 	}
 
 }

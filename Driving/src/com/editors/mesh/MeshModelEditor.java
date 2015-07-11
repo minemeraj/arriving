@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Vector;
 
@@ -222,7 +223,7 @@ public class MeshModelEditor extends JFrame implements ActionListener, MenuListe
 		
 	}
 
-	public void loadData(BufferedReader br) { 
+	public void loadData(BufferedReader br) throws IOException { 
 		// TODO Auto-generated method stub
 		
 	}
