@@ -1,3 +1,5 @@
+Added object house=11.
+
 Added fence wall as spline=2. 
 
 Fixed various editing bugs.
