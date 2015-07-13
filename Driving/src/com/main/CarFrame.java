@@ -3,7 +3,6 @@ package com.main;
  * @author Piazza Francesco Giovanni ,Tecnes Milano http://www.tecnes.com
  *
  */
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -23,12 +21,10 @@ import java.util.Properties;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.CubicMesh;
 import com.DrawObject;
 import com.Engine;
 import com.Texture;
@@ -43,7 +39,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 
 	
     int counter=0;
-	String VERSION="CarDriving 9.0.0";
+	String VERSION="CarDriving 9.0.1";
 	
 	JPanel center=null;
 	private Graphics2D graphics2D;
