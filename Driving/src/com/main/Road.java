@@ -739,7 +739,28 @@ public class Road extends Shader{
 				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
 
 				int size=mesh.polygonData.size();
+				
+				//test if mesh is vibile
+				boolean visible=false;
+				
+				for(int k=0;k<size;k++){
 
+					LineData ld=(LineData) mesh.polygonData.elementAt(k);
+
+					
+					Polygon3D p3DBase=buildTransformedPolygon3D(ld,mesh.points);
+					
+					if(!p3DBase.clipPolygonToArea2D(totalVisibleField).isEmpty()){
+						visible=true;
+						break;
+						
+					}
+				}
+				
+				if(!visible)
+					continue;
+				
+				
 				for(int k=0;k<size;k++){
 
 					LineData ld=(LineData) mesh.polygonData.elementAt(k);
@@ -747,11 +768,9 @@ public class Road extends Shader{
 					Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points);
 
 
-					//if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
-
-						decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.splinesTextures[ld.getTexture_index()],roadZbuffer);
+					decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.splinesTextures[ld.getTexture_index()],roadZbuffer);
 					
-					//}
+					
 
 				}
 
