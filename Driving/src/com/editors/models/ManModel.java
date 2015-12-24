@@ -1,8 +1,13 @@
 package com.editors.models;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.PrintWriter;
 import java.util.Vector;
+
+import com.editors.cars.data.Car;
+import com.main.Renderer3D;
 
 public class ManModel extends MeshModel{
 	
@@ -13,7 +18,7 @@ public class ManModel extends MeshModel{
 	private int[][][] faces; 
 	
 	int numSections=10;
-	int nPoints=4;
+	int nBasePoints=4;
 	
 	int bx=10;
 	int by=10;
@@ -57,17 +62,42 @@ public class ManModel extends MeshModel{
 			addTPoint(x+dx,z+deltaz,0);
 			addTPoint(x,z+deltaz,0);
 		}
-		int NUM_FACES=nPoints*(numSections-1);
-		faces=new int[NUM_FACES][3][nPoints];
+		faces=MeshModel.buildSingleBlockFaces(nBasePoints,numSections);
+		
 		
 		IMG_WIDTH=(int) (2*bx+2*(dx+dy));
 		IMG_HEIGHT=(int) (2*by+dz);
 	}
 
 	
+	
+
 	@Override
-	public void printTexture(Graphics2D bufGraphics) {
-		// TODO Auto-generated method stub
+	public void printTexture(Graphics2D bg) {
+		//draw lines for reference
+
+		bg.setColor(Color.RED);
+		bg.setStroke(new BasicStroke(0.1f));
+		
+		for (int i = 0; i < faces.length; i++) {
+			
+			int[][] face=faces[i];
+
+			int[] fts=face[0];
+			int[] pts=face[1];
+			int[] tts=face[2];
+			
+			if(tts.length==4){
+			
+				int idx0=tts[0];
+				int idx1=tts[1];
+				int idx2=tts[2];
+				int idx3=tts[3];
+				
+				printTexturePolygon(bg,idx0,idx1,idx2,idx3);
+			
+			}
+		}
 		
 	}
 	

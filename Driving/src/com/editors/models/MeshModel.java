@@ -17,50 +17,51 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.Point3D;
+import com.main.Renderer3D;
 
 public abstract class MeshModel {
-	
+
 
 	Vector texturePoints=null;
 	Vector points=null;
-	
+
 	Color backgroundColor=Color.green;
-	
+
 	int IMG_WIDTH=100;
 	int IMG_HEIGHT=100;
 
 
 
 	String title="Mesh model";
-	
+
 	public static int FACE_TYPE_ORIENTATION=0;
 	public static int FACE_TYPE_BODY_INDEXES=1;
 	public static int FACE_TYPE_TEXTURE_INDEXES=2;
-	
-	public MeshModel(){		
-		
 
-		
+	public MeshModel(){		
+
+
+
 	}
-	
+
 
 
 	public void printMeshData(PrintWriter pw) {
-		
+
 		for(int i=0;i<points.size();i++){
-			
-			
+
+
 			Point3D p=(Point3D) points.elementAt(i);
 			print(pw,"v="+p.x+" "+p.y+" "+p.z);
-			
+
 		}
-	
-		
+
+
 		for (int i = 0; i < texturePoints.size(); i++) {
 			Point3D p = (Point3D) texturePoints.elementAt(i);
 			print(pw,"vt="+p.x+" "+p.y);
 		}
-		
+
 	}
 	/***
 	 * Format:
@@ -75,10 +76,10 @@ public abstract class MeshModel {
 	 * @param faces
 	 */
 	public void printFaces(PrintWriter pw,int[][][] faces) {
-		
+
 		if(faces==null)
 			return;
-		
+
 		for (int i = 0; i < faces.length; i++) {
 
 			int[][] face=faces[i];
@@ -88,7 +89,7 @@ public abstract class MeshModel {
 			int[] tts=face[2];
 
 			String line="f=["+fts[0]+"]";
-			
+
 			int len=pts.length; 
 
 			for (int j = 0; j < len; j++) {
@@ -101,33 +102,33 @@ public abstract class MeshModel {
 			print(pw,line);
 
 		}
-		
+
 	}
 
 	public abstract void initMesh();
-	
+
 	public abstract void printTexture(Graphics2D bufGraphics);
-	
+
 	public void print(PrintWriter pw, String string) {
-		
+
 		pw.println(string);
-		
+
 	}
 
 	public void printTextureLine(Graphics2D graphics, int indx0,int indx1){
-		
-		
+
+
 		Point3D p0=(Point3D) texturePoints.elementAt(indx0);
 		Point3D p1=(Point3D) texturePoints.elementAt(indx1);
-		
+
 
 		graphics.drawLine(cX(p0.x),cY(p0.y),cX(p1.x),cY(p1.y));	
-		
+
 	}
-	
+
 	public void printTextureLine(Graphics2D graphics, int indx0,int indx1,int indx2){
-		
-		
+
+
 		Point3D p0=(Point3D) texturePoints.elementAt(indx0);
 		Point3D p1=(Point3D) texturePoints.elementAt(indx1);
 		Point3D p2=(Point3D) texturePoints.elementAt(indx2);
@@ -136,10 +137,10 @@ public abstract class MeshModel {
 		graphics.drawLine(cX(p1.x),cY(p1.y),cX(p2.x),cY(p2.y));	
 
 	}
-	
+
 	public void printTextureLine(Graphics2D graphics, int indx0,int indx1,int indx2,int indx3){
-		
-		
+
+
 		Point3D p0=(Point3D) texturePoints.elementAt(indx0);
 		Point3D p1=(Point3D) texturePoints.elementAt(indx1);
 		Point3D p2=(Point3D) texturePoints.elementAt(indx2);
@@ -149,10 +150,10 @@ public abstract class MeshModel {
 		graphics.drawLine(cX(p1.x),cY(p1.y),cX(p2.x),cY(p2.y));	
 		graphics.drawLine(cX(p2.x),cY(p2.y),cX(p3.x),cY(p3.y));	
 	}
-	
+
 	public void printTexturePolygon(Graphics2D graphics, int indx0,int indx1,int indx2){
-		
-		
+
+
 		Point3D p0=(Point3D) texturePoints.elementAt(indx0);
 		Point3D p1=(Point3D) texturePoints.elementAt(indx1);
 		Point3D p2=(Point3D) texturePoints.elementAt(indx2);
@@ -161,10 +162,10 @@ public abstract class MeshModel {
 		graphics.drawLine(cX(p1.x),cY(p1.y),cX(p2.x),cY(p2.y));	
 		graphics.drawLine(cX(p2.x),cY(p2.y),cX(p0.x),cY(p0.y));	
 	}
-	
+
 	public void printTexturePolygon(Graphics2D graphics, int indx0,int indx1,int indx2,int indx3){
-		
-		
+
+
 		Point3D p0=(Point3D) texturePoints.elementAt(indx0);
 		Point3D p1=(Point3D) texturePoints.elementAt(indx1);
 		Point3D p2=(Point3D) texturePoints.elementAt(indx2);
@@ -181,11 +182,11 @@ public abstract class MeshModel {
 	}
 
 	private int cY(double y) {
-		
+
 		return (int) (IMG_HEIGHT-y);
 	}
 
-	
+
 	public void printTexture(File file){
 
 
@@ -210,18 +211,64 @@ public abstract class MeshModel {
 		}
 
 	}
-	
+
 	public void addPoint(double x, double y, double z) {
-	
-    	points.add(new Point3D(x,y,z));
-		
+
+		points.add(new Point3D(x,y,z));
+
 	}
-	
+
 	public void addTPoint(double x, double y, double z) {
-		
+
 		texturePoints.add(new Point3D(x,y,z));
-		
+
 	}
-	
+
+	public static int[][][] buildSingleBlockFaces(
+			int nBasePoints,
+			int numSections
+			) {
+
+		int NUM_FACES=nBasePoints*(numSections-1);
+		int[][][] faces=new int[NUM_FACES][3][nBasePoints];
+		
+		
+
+		int counter=0;
+		for (int k = 0;k < numSections-2; k++) {
+			
+			int numLevelPoints=nBasePoints*(k+1);
+
+			for (int p0 = 0; p0 < nBasePoints; p0++) {
+
+				int p=p0+k*nBasePoints;
+				int t=p0+k*(nBasePoints+1);
+
+				faces[counter][0][MeshModel.FACE_TYPE_ORIENTATION]=Renderer3D.CAR_BACK;
+
+				int[] pts = new int[nBasePoints];
+				faces[counter][MeshModel.FACE_TYPE_BODY_INDEXES]=pts;
+				pts[0]=p;
+				pts[1]=(p+1)%numLevelPoints;
+				pts[2]=(p+1)%numLevelPoints+nBasePoints;
+				pts[3]=p+nBasePoints;
+
+				int[] tts = new int[nBasePoints];
+				faces[counter][MeshModel.FACE_TYPE_TEXTURE_INDEXES]=tts;
+				tts[0]=t;
+				tts[1]=t+1;
+				tts[2]=t+1+nBasePoints+1;
+				tts[3]=t+nBasePoints+1;
+
+				counter++;
+
+			}
+
+		}
+
+		return faces;
+
+	}
+
 
 }
