@@ -235,7 +235,7 @@ public abstract class MeshModel {
 		
 
 		int counter=0;
-		for (int k = 0;k < numSections-2; k++) {
+		for (int k = 0;k < numSections-1; k++) {
 			
 			int numLevelPoints=nBasePoints*(k+1);
 
@@ -249,8 +249,11 @@ public abstract class MeshModel {
 				int[] pts = new int[nBasePoints];
 				faces[counter][MeshModel.FACE_TYPE_BODY_INDEXES]=pts;
 				pts[0]=p;
-				pts[1]=(p+1)%numLevelPoints;
-				pts[2]=(p+1)%numLevelPoints+nBasePoints;
+				int pl=(p+1)%numLevelPoints;
+				if(pl==0)
+					pl=k*nBasePoints;
+				pts[1]=pl;
+				pts[2]=pl+nBasePoints;
 				pts[3]=p+nBasePoints;
 
 				int[] tts = new int[nBasePoints];

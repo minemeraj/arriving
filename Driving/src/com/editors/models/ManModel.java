@@ -51,16 +51,19 @@ public class ManModel extends MeshModel{
 			addPoint(x, y+dy, z);
 		}
 		
-		for(int k=0;k<numSections-1;k++){
+		for(int k=0;k<numSections;k++){
 			
-			double z=k*deltaz;
+			double z=by+k*deltaz;
 			
-			double x=0;
+			double x=bx;
 			
-			addTPoint(x,z,0);
-			addTPoint(x+dx,z,0);
-			addTPoint(x+dx,z+deltaz,0);
-			addTPoint(x,z+deltaz,0);
+			for (int p0 = 0; p0 <= nBasePoints; p0++) {
+	
+				addTPoint(x,z,0);
+				
+				x+=(p0%2==0?dx:dy);
+			
+			}
 		}
 		faces=MeshModel.buildSingleBlockFaces(nBasePoints,numSections);
 		
