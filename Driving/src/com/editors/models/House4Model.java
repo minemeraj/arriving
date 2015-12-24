@@ -41,29 +41,9 @@ public class House4Model extends MeshModel{
 
 	public void printMeshData(PrintWriter pw) {
 
-		super.printMeshData(pw);
+		super.printMeshData(pw, faces);
 
-		for (int i = 0; i < faces.length; i++) {
-
-			int[][] face=faces[i];
-
-			int[] fts=face[0];
-			int[] pts=face[1];
-			int[] tts=face[2];
-
-			String line="f=["+fts[0]+"]";
-
-			for (int j = 0; j < pts.length; j++) {
-
-				if(j>0)
-					line+=" ";
-				line+=(pts[j]+"/"+tts[j]);
-			}
-
-			print(pw,line);
-
-		}
-
+		
 	}
 
 

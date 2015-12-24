@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 
 import com.Point3D;
 
-public class MeshModel {
+public abstract class MeshModel {
 	
 
 	Vector texturePoints=null;
@@ -40,6 +40,11 @@ public class MeshModel {
 		
 	}
 	
+	public void printMeshData(PrintWriter pw,int[][][] faces) {
+		
+		printMeshData(pw);
+		printFaces(pw, faces);
+	}
 
 	public void printMeshData(PrintWriter pw) {
 		
@@ -58,24 +63,44 @@ public class MeshModel {
 		}
 		
 	}
-
-	public void initMesh(){
-		
-		texturePoints=new Vector();
-	}
 	
+	public void printFaces(PrintWriter pw,int[][][] faces) {
+		
+		if(faces==null)
+			return;
+		
+		for (int i = 0; i < faces.length; i++) {
+
+			int[][] face=faces[i];
+
+			int[] fts=face[0];
+			int[] pts=face[1];
+			int[] tts=face[2];
+
+			String line="f=["+fts[0]+"]";
+			
+			int len=pts.length; 
+
+			for (int j = 0; j < len; j++) {
+
+				if(j>0)
+					line+=" ";
+				line+=(pts[j]+"/"+tts[j]);
+			}
+
+			print(pw,line);
+
+		}
+		
+	}
+
+	public abstract void initMesh();
+	
+	public abstract void printTexture(Graphics2D bufGraphics);
 	
 	public void print(PrintWriter pw, String string) {
 		
 		pw.println(string);
-		
-	}
-	
-	
-	
-	
-	public void printTexture(Graphics2D bufGraphics) {
-		// TODO Auto-generated method stub
 		
 	}
 
