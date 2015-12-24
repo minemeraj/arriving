@@ -155,6 +155,7 @@ public class Chimney0Model extends MeshModel{
 		IMG_WIDTH=(int) (2*bx+Math.PI*dx);
 		IMG_HEIGHT=(int) (2*by+dx+dz+dx1);
 		
+		//2=bases
 		int NF=2+num_meridians;
 		faces=new int[NF][3][num_meridians];
 		

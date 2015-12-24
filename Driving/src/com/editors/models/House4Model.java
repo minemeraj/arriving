@@ -41,7 +41,8 @@ public class House4Model extends MeshModel{
 
 	public void printMeshData(PrintWriter pw) {
 
-		super.printMeshData(pw, faces);
+		super.printMeshData(pw);
+		super.printFaces(pw, faces);
 
 		
 	}

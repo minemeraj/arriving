@@ -32,7 +32,10 @@ public abstract class MeshModel {
 
 
 	String title="Mesh model";
-
+	
+	public static int FACE_TYPE_ORIENTATION=0;
+	public static int FACE_TYPE_BODY_INDEXES=1;
+	public static int FACE_TYPE_TEXTURE_INDEXES=2;
 	
 	public MeshModel(){		
 		
@@ -40,11 +43,7 @@ public abstract class MeshModel {
 		
 	}
 	
-	public void printMeshData(PrintWriter pw,int[][][] faces) {
-		
-		printMeshData(pw);
-		printFaces(pw, faces);
-	}
+
 
 	public void printMeshData(PrintWriter pw) {
 		
@@ -63,7 +62,18 @@ public abstract class MeshModel {
 		}
 		
 	}
-	
+	/***
+	 * Format:
+	 * 
+	 * faces[nf][type][values]
+	 * 
+	 * nf=face number
+	 * type= o =orientation, 1=body polygon indexes 2=texture polygon indexes
+	 * values=orientation number or indexes
+	 * 
+	 * @param pw
+	 * @param faces
+	 */
 	public void printFaces(PrintWriter pw,int[][][] faces) {
 		
 		if(faces==null)
