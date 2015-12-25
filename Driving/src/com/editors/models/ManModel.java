@@ -38,7 +38,7 @@ public class ManModel extends MeshModel{
 		
 		int numSections=body.length;
 		
-		double deltaz=dz/(numSections-1);
+		
 		
 		for(int k=0;k<numSections;k++){
 			
@@ -62,7 +62,9 @@ public class ManModel extends MeshModel{
 		}
 		
 		//single block texture
-		/*or(int k=0;k<numSections;k++){
+		/*
+		 * double deltaz=dz/(numSections-1);
+		 * for(int k=0;k<numSections;k++){
 			
 			double z=by+k*deltaz;
 			
@@ -174,18 +176,18 @@ public class ManModel extends MeshModel{
 	 */
 	public static final double[][] body={
 			
-			{0.0,0.2,1.0},
-			{0.0589,0.8,1.0},
-			{0.3529,0.5,1.0},
-			{0.5294,0.6,1.0},
-			{0.6471,1.0,1.0},
-			{0.7059,0.2,1.0},
-			{0.7647,0.2,1.0},
-			{0.8235,0.4,1.0},
-			{0.9412,0.4,1.0},
-			{1.0,0.2,1.0},
-			
-			
+			{0.0,0.1111,1.0},
+			{0.1239,0.6032,1.0},
+			{0.2743,0.5556,1.0},
+			{0.4867,0.6508,1.0},
+			{0.5221,1.0,1.0},
+			{0.5929,0.9206,1.0},
+			{0.6372,0.7778,1.0},
+			{0.6991,0.2381,1.0},
+			{0.7611,0.2540,1.0},
+			{0.9027,0.3810,1.0},
+			{0.9823,0.1905,1.0},
+	
 	};
 
 

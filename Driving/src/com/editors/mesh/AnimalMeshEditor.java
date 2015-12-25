@@ -46,8 +46,8 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 	public void buildCenter() {
 
 		double dx=100;
-		double dy=200;
-		double dz=50;
+		double dy=100;
+		double dz=100;
 
 		int r=10;
 
@@ -162,7 +162,7 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 				val=MAN0;
 
 			if(MAN0==val)
-				setRightData(100,20,170);
+				setRightData(100,20,180);
 		}
 
 	}
