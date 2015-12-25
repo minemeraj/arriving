@@ -211,6 +211,30 @@ public abstract class MeshModel {
 		}
 
 	}
+	
+	public void printTextureFaces(Graphics2D bg, int[][][] faces) {
+
+		for (int i = 0; i < faces.length; i++) {
+
+			int[][] face=faces[i];
+
+			int[] fts=face[0];
+			int[] pts=face[1];
+			int[] tts=face[2];
+
+			if(tts.length==4){
+
+				int idx0=tts[0];
+				int idx1=tts[1];
+				int idx2=tts[2];
+				int idx3=tts[3];
+
+				printTexturePolygon(bg,idx0,idx1,idx2,idx3);
+
+			}
+		}
+
+	}
 
 	public void addPoint(double x, double y, double z) {
 
