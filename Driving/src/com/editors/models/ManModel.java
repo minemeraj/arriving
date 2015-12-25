@@ -101,7 +101,7 @@ public class ManModel extends MeshModel{
 	public void printTexture(Graphics2D bg) {
 		//draw lines for reference
 
-		bg.setColor(Color.RED);
+		bg.setColor(Color.BLACK);
 		bg.setStroke(new BasicStroke(0.1f));
 		
 		for (int i = 0; i < faces.length; i++) {
