@@ -87,15 +87,33 @@ public class ManModel extends MeshModel{
 				
 				double z=by+zi*dz;
 				
-				double x=bx;
+				double x0=bx+dx/2;
 				if(tex==1)
-					x=x+(2*dy+dx);
+					x0=x0+(2*dy+dx);
 				
 				for (int p0 = 0; p0 <= nBasePoints/2; p0++) {
 		
+					double x=0;
+				
+					if(p0<nBasePoints/4){
+						
+						x=x0-dx*0.5*xi;
+						
+					}else if(p0>=nBasePoints/4 && p0<nBasePoints/2)
+					{
+						x=x0+dx*0.5*xi;
+					}
+					else if(p0==nBasePoints/2){
+						
+						x=x0+dx*0.5*xi+dy*yi;
+					}
+					
+			
+					
 					addTPoint(x,z,0);
 					
-					x+=(p0%2==0?dx:dy);
+			
+					
 				
 				}
 			}
