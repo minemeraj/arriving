@@ -40,19 +40,27 @@ public class ManModel extends MeshModel{
 		
 		for(int k=0;k<numSections;k++){
 			
-			double z=k*deltaz;
+		    double[] d=body[k];
+		    
+		    double xi=d[1];
+		    double yi=d[2];
+		    double zi=d[0];
+			
+			double z=zi*dz;
+			double deltax=dx*xi*0.5;
+			double deltay=dy*yi*0.5;
 			
 			double x=0;
 			double y=0;
 			
-			addPoint(x, y, z);
-			addPoint(x+dx, y, z);
-			addPoint(x+dx, y+dy, z);
-			addPoint(x, y+dy, z);
+			addPoint(x-deltax, y-deltay, z);
+			addPoint(x+deltax, y-deltay, z);
+			addPoint(x+deltax, y+deltay, z);
+			addPoint(x-deltax, y+deltay, z);
 		}
 		
 		//single block texture
-		/*for(int k=0;k<numSections;k++){
+		/*or(int k=0;k<numSections;k++){
 			
 			double z=by+k*deltaz;
 			
@@ -65,13 +73,19 @@ public class ManModel extends MeshModel{
 				x+=(p0%2==0?dx:dy);
 			
 			}
-		}*/
-		
+		}
+		faces=MeshModel.buildSingleBlockFaces(nBasePoints,numSections);*/
 		//double block texture
 		for(int tex=0;tex<2;tex++){
 			for(int k=0;k<numSections;k++){
 				
-				double z=by+k*deltaz;
+			    double[] d=body[k];
+			    
+			    double xi=d[1];
+			    double yi=d[2];
+			    double zi=d[0];
+				
+				double z=by+zi*dz;
 				
 				double x=bx;
 				if(tex==1)
@@ -88,7 +102,7 @@ public class ManModel extends MeshModel{
 		}
 		
 		faces=MeshModel.buildDoubleBlockFaces(nBasePoints,numSections);
-		
+	
 		
 		IMG_WIDTH=(int) (2*bx+2*(dx+dy)+dy);
 		IMG_HEIGHT=(int) (2*by+dz);
@@ -132,6 +146,27 @@ public class ManModel extends MeshModel{
 		super.printFaces(pw, faces);
 
 	}
+	
+	/**
+	 * BOTTOM-UP SECTIONS
+	 * z,x,y
+	 * 
+	 */
+	public static final double[][] body={
+			
+			{0.0,0.2,1.0},
+			{0.0589,0.8,1.0},
+			{0.3529,0.5,1.0},
+			{0.5294,0.6,1.0},
+			{0.6471,1.0,1.0},
+			{0.7059,0.2,1.0},
+			{0.7647,0.2,1.0},
+			{0.8235,0.4,1.0},
+			{0.9412,0.4,1.0},
+			{1.0,0.2,1.0},
+			
+			
+	};
 
 
 }
