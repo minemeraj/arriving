@@ -17,6 +17,9 @@ public class ManModel extends MeshModel{
 	
 	private int[][][] faces; 
 	private int[][][] rightArmFaces;
+	private int[][][] leftArmFaces;
+	private int[][][] rightLegFaces;
+	private int[][][] leftLegFaces;
 	
 	int nBasePoints=4;
 	
@@ -38,7 +41,7 @@ public class ManModel extends MeshModel{
 		
 		int numSections=body.length;
 		
-		double arm_length=100;
+		double leg_length=100;
 		
 		int totalBodyPoints=0;
 		
@@ -50,7 +53,7 @@ public class ManModel extends MeshModel{
 		    double yi=d[2];
 		    double zi=d[0];
 			
-			double z=zi*dz+arm_length;
+			double z=zi*dz+leg_length;
 			double deltax=dx*xi*0.5;
 			double deltay=dy*yi*0.5;
 			
@@ -65,10 +68,10 @@ public class ManModel extends MeshModel{
 			totalBodyPoints+=4;
 		}
 		
-		//right arm
+		//right leg
 		for (int i = 0; i < 2; i++) {
 			//here right arm points
-			double z=arm_length*i;
+			double z=leg_length*i;
 			
 			double x=-dx;
 			double y=0;
@@ -82,24 +85,23 @@ public class ManModel extends MeshModel{
 			addPoint(x-deltax, y+deltay, z);
 		}
 		
-		//single block texture
-		/*
-		 * double deltaz=dz/(numSections-1);
-		 * for(int k=0;k<numSections;k++){
+		//left leg
+		for (int i = 0; i < 2; i++) {
+			//here right arm points
+			double z=leg_length*i;
 			
-			double z=by+k*deltaz;
+			double x=-dx+dx+dy;
+			double y=0;
 			
-			double x=bx;
+			double deltax=10;
+			double deltay=10;
 			
-			for (int p0 = 0; p0 <= nBasePoints; p0++) {
-	
-				addTPoint(x,z,0);
-				
-				x+=(p0%2==0?dx:dy);
-			
-			}
+			addPoint(x-deltax, y-deltay, z);
+			addPoint(x+deltax, y-deltay, z);
+			addPoint(x+deltax, y+deltay, z);
+			addPoint(x-deltax, y+deltay, z);
 		}
-		faces=MeshModel.buildSingleBlockFaces(nBasePoints,numSections);*/
+
 		
 		int totalBodyTexturePoints=0;
 		
@@ -113,7 +115,7 @@ public class ManModel extends MeshModel{
 			    double yi=d[2];
 			    double zi=d[0];
 				
-				double z=by+zi*dz+arm_length;
+				double z=by+zi*dz+leg_length;
 				
 				double x0=bx+dx/2;
 				if(tex==1)
@@ -147,30 +149,44 @@ public class ManModel extends MeshModel{
 			}
 		}
 		
-		//right arm
+		//right leg
 		for (int k = 0; k < 2; k++) {
 			
-			double z=arm_length*k; 
+			double z=leg_length*k; 
 			
 			double x=0;
 			
 			for(int s=0;s<=4;s++){
-	
-				
-				
+
 				addTPoint(x,z,0);
 				
 				x+=10;
 			}
-			
+
+		}
 		
+		//left leg
+		for (int k = 0; k < 2; k++) {
+			
+			double z=leg_length*k; 
+			
+			double x=dx+dy;
+			
+			for(int s=0;s<=4;s++){
+
+				addTPoint(x,z,0);
+				
+				x+=10;
+			}
+
 		}
 		
 		faces=MeshModel.buildDoubleBlockFaces(nBasePoints,numSections,0,0);
-	    rightArmFaces=MeshModel.buildSingleBlockFaces(4, 2, totalBodyPoints, totalBodyTexturePoints);
+	    rightLegFaces=MeshModel.buildSingleBlockFaces(4, 2, totalBodyPoints, totalBodyTexturePoints);
+	    leftLegFaces=MeshModel.buildSingleBlockFaces(4, 2, totalBodyPoints+8, totalBodyTexturePoints+10);
 		
 		IMG_WIDTH=(int) (2*bx+2*(dx+dy)+dy);
-		IMG_HEIGHT=(int) (2*by+dz+arm_length);
+		IMG_HEIGHT=(int) (2*by+dz+leg_length);
 	}
 
 	
@@ -184,8 +200,9 @@ public class ManModel extends MeshModel{
 		bg.setStroke(new BasicStroke(0.1f));
 		printTextureFaces(bg,faces);
 		bg.setColor(Color.RED);
-		printTextureFaces(bg,rightArmFaces);
-	
+		printTextureFaces(bg,rightLegFaces);
+		bg.setColor(Color.BLUE);
+		printTextureFaces(bg,leftLegFaces);
 		
 	}
 	
@@ -195,7 +212,8 @@ public class ManModel extends MeshModel{
 
 		super.printMeshData(pw);
 		super.printFaces(pw, faces);
-		super.printFaces(pw, rightArmFaces);
+		super.printFaces(pw, rightLegFaces);
+		super.printFaces(pw, leftLegFaces);
 	}
 	
 	/**
