@@ -226,7 +226,9 @@ public abstract class MeshModel {
 
 	public static int[][][] buildSingleBlockFaces(
 			int nBasePoints,
-			int numSections
+			int numSections,
+			int pOffset,
+			int tOffset
 			) {
 
 		int NUM_FACES=nBasePoints*(numSections-1);
@@ -248,20 +250,20 @@ public abstract class MeshModel {
 
 				int[] pts = new int[nBasePoints];
 				faces[counter][MeshModel.FACE_TYPE_BODY_INDEXES]=pts;
-				pts[0]=p;
+				pts[0]=p+pOffset;
 				int pl=(p+1)%numLevelPoints;
 				if(pl==0)
 					pl=k*nBasePoints;
-				pts[1]=pl;
-				pts[2]=pl+nBasePoints;
-				pts[3]=p+nBasePoints;
+				pts[1]=pl+pOffset;
+				pts[2]=pl+nBasePoints+pOffset;
+				pts[3]=p+nBasePoints+pOffset;
 
 				int[] tts = new int[nBasePoints];
 				faces[counter][MeshModel.FACE_TYPE_TEXTURE_INDEXES]=tts;
-				tts[0]=t;
-				tts[1]=t+1;
-				tts[2]=t+1+nBasePoints+1;
-				tts[3]=t+nBasePoints+1;
+				tts[0]=t+tOffset;
+				tts[1]=t+1+tOffset;
+				tts[2]=t+1+nBasePoints+1+tOffset;
+				tts[3]=t+nBasePoints+1+tOffset;
 
 				counter++;
 
@@ -275,7 +277,9 @@ public abstract class MeshModel {
 	
 	public static int[][][] buildDoubleBlockFaces(
 			int nBasePoints,
-			int numSections
+			int numSections,
+			int pOffset,
+			int tOffset
 			) {
 
 		int NUM_FACES=nBasePoints*(numSections-1);
@@ -305,20 +309,20 @@ public abstract class MeshModel {
 
 				int[] pts = new int[nBasePoints];
 				faces[counter][MeshModel.FACE_TYPE_BODY_INDEXES]=pts;
-				pts[0]=p;
+				pts[0]=p+pOffset;
 				int pl=(p+1)%numLevelPoints;
 				if(pl==0)
 					pl=k*nBasePoints;
-				pts[1]=pl;
-				pts[2]=pl+nBasePoints;
-				pts[3]=p+nBasePoints;
+				pts[1]=pl+pOffset;
+				pts[2]=pl+nBasePoints+pOffset;
+				pts[3]=p+nBasePoints+pOffset;
 
 				int[] tts = new int[nBasePoints];
 				faces[counter][MeshModel.FACE_TYPE_TEXTURE_INDEXES]=tts;
-				tts[0]=t;
-				tts[1]=t+1;
-				tts[2]=t+1+texLevelPoints;
-				tts[3]=t+texLevelPoints;
+				tts[0]=t+tOffset;
+				tts[1]=t+1+tOffset;
+				tts[2]=t+1+texLevelPoints+tOffset;
+				tts[3]=t+texLevelPoints+tOffset;
 
 				counter++;
 

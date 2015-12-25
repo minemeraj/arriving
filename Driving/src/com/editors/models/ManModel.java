@@ -17,7 +17,7 @@ public class ManModel extends MeshModel{
 	
 	private int[][][] faces; 
 	
-	int numSections=10;
+	
 	int nBasePoints=4;
 	
 	int bx=10;
@@ -35,6 +35,8 @@ public class ManModel extends MeshModel{
 		
 		points=new Vector();
 		texturePoints=new Vector();
+		
+		int numSections=body.length;
 		
 		double deltaz=dz/(numSections-1);
 		
@@ -119,7 +121,7 @@ public class ManModel extends MeshModel{
 			}
 		}
 		
-		faces=MeshModel.buildDoubleBlockFaces(nBasePoints,numSections);
+		faces=MeshModel.buildDoubleBlockFaces(nBasePoints,numSections,0,0);
 	
 		
 		IMG_WIDTH=(int) (2*bx+2*(dx+dy)+dy);
