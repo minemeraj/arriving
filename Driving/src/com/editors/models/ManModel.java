@@ -51,7 +51,8 @@ public class ManModel extends MeshModel{
 			addPoint(x, y+dy, z);
 		}
 		
-		for(int k=0;k<numSections;k++){
+		//single block texture
+		/*for(int k=0;k<numSections;k++){
 			
 			double z=by+k*deltaz;
 			
@@ -64,11 +65,32 @@ public class ManModel extends MeshModel{
 				x+=(p0%2==0?dx:dy);
 			
 			}
+		}*/
+		
+		//double block texture
+		for(int tex=0;tex<2;tex++){
+			for(int k=0;k<numSections;k++){
+				
+				double z=by+k*deltaz;
+				
+				double x=bx;
+				if(tex==1)
+					x=x+(2*dy+dx);
+				
+				for (int p0 = 0; p0 <= nBasePoints/2; p0++) {
+		
+					addTPoint(x,z,0);
+					
+					x+=(p0%2==0?dx:dy);
+				
+				}
+			}
 		}
-		faces=MeshModel.buildSingleBlockFaces(nBasePoints,numSections);
+		
+		faces=MeshModel.buildDoubleBlockFaces(nBasePoints,numSections);
 		
 		
-		IMG_WIDTH=(int) (2*bx+2*(dx+dy));
+		IMG_WIDTH=(int) (2*bx+2*(dx+dy)+dy);
 		IMG_HEIGHT=(int) (2*by+dz);
 	}
 

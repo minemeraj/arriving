@@ -272,6 +272,63 @@ public abstract class MeshModel {
 		return faces;
 
 	}
+	
+	public static int[][][] buildDoubleBlockFaces(
+			int nBasePoints,
+			int numSections
+			) {
+
+		int NUM_FACES=nBasePoints*(numSections-1);
+		int[][][] faces=new int[NUM_FACES][3][nBasePoints];
+		
+		
+
+		int counter=0;
+		for (int k = 0;k < numSections-1; k++) {
+			
+			int numLevelPoints=nBasePoints*(k+1);
+			int texLevelPoints=nBasePoints/2+1;
+			int sigma=texLevelPoints*numSections;
+
+			for (int p0 = 0; p0 < nBasePoints; p0++) {
+
+				int p=p0+k*nBasePoints;
+				int t=0;
+				if(p0<nBasePoints/2){
+					t=p0+k*texLevelPoints;
+				}else{
+					t=p0+k*texLevelPoints-nBasePoints/2+sigma;
+				}
+				
+
+				faces[counter][0][MeshModel.FACE_TYPE_ORIENTATION]=Renderer3D.CAR_BACK;
+
+				int[] pts = new int[nBasePoints];
+				faces[counter][MeshModel.FACE_TYPE_BODY_INDEXES]=pts;
+				pts[0]=p;
+				int pl=(p+1)%numLevelPoints;
+				if(pl==0)
+					pl=k*nBasePoints;
+				pts[1]=pl;
+				pts[2]=pl+nBasePoints;
+				pts[3]=p+nBasePoints;
+
+				int[] tts = new int[nBasePoints];
+				faces[counter][MeshModel.FACE_TYPE_TEXTURE_INDEXES]=tts;
+				tts[0]=t;
+				tts[1]=t+1;
+				tts[2]=t+1+texLevelPoints;
+				tts[3]=t+texLevelPoints;
+
+				counter++;
+
+			}
+
+		}
+
+		return faces;
+
+	}
 
 
 }
