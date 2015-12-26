@@ -43,7 +43,7 @@ public class ManModel extends MeshModel{
 		int numSections=body.length;
 
 		double leg_length=dz;
-		double arm_length=dz;
+		
 
 		int totalBodyPoints=0;
 		int totalLegPoints=0;
@@ -51,7 +51,9 @@ public class ManModel extends MeshModel{
 		
 		Point3D crotch0=null;
 		Point3D crotch1=null;
-
+		Point3D armpit0=null;
+		Point3D armpit1=null;
+		
 		for(int k=0;k<numSections;k++){
 
 			double[] d=body[k];
@@ -74,14 +76,19 @@ public class ManModel extends MeshModel{
 
 			totalBodyPoints+=4;
 			
-			//distances to set the lega
+			
 			if(k==0)
 				crotch0=new Point3D(deltax,deltay,z);
 			else if(k==1)
 				crotch1=new Point3D(deltax,deltay,z);
+			else if(k==3)
+				armpit0=new Point3D(deltax,deltay,z);
+			else if(k==4)
+				armpit1=new Point3D(deltax,deltay,z);
 		}
 
 		double leg_width=(crotch1.x-crotch0.y);
+		double arm_length=armpit0.z-leg_length;
 
 		//right leg
 		int legsNumSections=2;
@@ -145,8 +152,22 @@ public class ManModel extends MeshModel{
 			addPoint(x-deltax, y+deltay, z);
 		}
 
+		int armsNumSections=2;
 		//right arm
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < armsNumSections; i++) {
+			
+			//join with the bust
+			if(i==armsNumSections-1){
+				
+				addPoint(-armpit1.x, -armpit1.y, armpit1.z);
+				addPoint(-armpit0.x, -armpit0.y, armpit0.z);
+				addPoint(-armpit0.x, armpit0.y, armpit0.z);
+				addPoint(-armpit1.x, armpit1.y, armpit1.z);
+				
+				totalArmPoints+=4;
+				
+				continue;
+			}
 
 			double z=arm_length*i+leg_length;
 
@@ -165,7 +186,18 @@ public class ManModel extends MeshModel{
 		}
 
 		//left arm
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < armsNumSections; i++) {
+			
+			//join with the bust
+			if(i==armsNumSections-1){
+				
+				addPoint(armpit0.x, -armpit0.y, armpit0.z);
+				addPoint(armpit1.x, -armpit1.y, armpit1.z);				
+				addPoint(armpit1.x, armpit1.y, armpit1.z);
+				addPoint(armpit0.x, armpit0.y, armpit0.z);
+				
+				continue;
+			}
 
 			double z=arm_length*i+leg_length;
 
@@ -266,7 +298,7 @@ public class ManModel extends MeshModel{
 
 
 		//right arm
-		for (int k = 0; k < 2; k++) {
+		for (int k = 0; k < armsNumSections; k++) {
 
 			double z=arm_length*k; 
 
@@ -284,7 +316,7 @@ public class ManModel extends MeshModel{
 		}
 
 		//left arm
-		for (int k = 0; k < 2; k++) {
+		for (int k = 0; k < armsNumSections; k++) {
 
 			double z=arm_length*k; 
 
