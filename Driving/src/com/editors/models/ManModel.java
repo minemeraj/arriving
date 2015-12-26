@@ -87,14 +87,18 @@ public class ManModel extends MeshModel{
 		int legsNumSections=2;
 		for (int i = 0; i < legsNumSections; i++) {
 			
-			/*if(i==legsNumSections-1){
+			//join with the bust
+			if(i==legsNumSections-1){
 				
-				addPoint(-crotch1.x, crotch1.y-dy, crotch1.z);
-				addPoint(-crotch0.x, crotch0.y-dy, crotch0.z);
-				addPoint(-crotch0.x, crotch0.y+dy, crotch0.z);
-				addPoint(-crotch1.x, crotch1.y+dy, crotch1.z);
+				addPoint(-crotch1.x, -crotch1.y, crotch1.z);
+				addPoint(-crotch0.x, -crotch0.y, crotch0.z);
+				addPoint(-crotch0.x, crotch0.y, crotch0.z);
+				addPoint(-crotch1.x, crotch1.y, crotch1.z);
+				
+				totalLegPoints+=4;
+				
 				continue;
-			}*/
+			}
 
 			double z=leg_length*i;
 
@@ -115,6 +119,17 @@ public class ManModel extends MeshModel{
 
 		//left leg
 		for (int i = 0; i < legsNumSections; i++) {
+			
+			//join with the bust
+			if(i==legsNumSections-1){
+				
+				addPoint(crotch0.x, -crotch0.y, crotch0.z);
+				addPoint(crotch1.x, -crotch1.y, crotch1.z);				
+				addPoint(crotch1.x, crotch1.y, crotch1.z);
+				addPoint(crotch0.x, crotch0.y, crotch0.z);
+				
+				continue;
+			}
 
 			double z=leg_length*i;
 
