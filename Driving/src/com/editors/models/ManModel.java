@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.io.PrintWriter;
 import java.util.Vector;
 
+import com.Point3D;
 import com.editors.cars.data.Car;
 import com.main.Renderer3D;
 
@@ -41,12 +42,15 @@ public class ManModel extends MeshModel{
 
 		int numSections=body.length;
 
-		double leg_length=100;
-		double arm_length=100;
+		double leg_length=dz;
+		double arm_length=dz;
 
 		int totalBodyPoints=0;
 		int totalLegPoints=0;
 		int totalArmPoints=0;
+		
+		Point3D crotch0=null;
+		Point3D crotch1=null;
 
 		for(int k=0;k<numSections;k++){
 
@@ -69,18 +73,37 @@ public class ManModel extends MeshModel{
 			addPoint(x-deltax, y+deltay, z);
 
 			totalBodyPoints+=4;
+			
+			//distances to set the lega
+			if(k==0)
+				crotch0=new Point3D(deltax,deltay,z);
+			else if(k==1)
+				crotch1=new Point3D(deltax,deltay,z);
 		}
 
+		double leg_width=(crotch1.x-crotch0.y);
+
 		//right leg
-		for (int i = 0; i < 2; i++) {
+		int legsNumSections=2;
+		for (int i = 0; i < legsNumSections; i++) {
+			
+			/*if(i==legsNumSections-1){
+				
+				addPoint(-crotch1.x, crotch1.y-dy, crotch1.z);
+				addPoint(-crotch0.x, crotch0.y-dy, crotch0.z);
+				addPoint(-crotch0.x, crotch0.y+dy, crotch0.z);
+				addPoint(-crotch1.x, crotch1.y+dy, crotch1.z);
+				continue;
+			}*/
 
-			double z=leg_length*i+arm_length;
+			double z=leg_length*i;
 
-			double x=-dx*0.5+10;
+			double x=-crotch0.x-leg_width*0.5;
 			double y=0;
 
-			double deltax=10;
-			double deltay=10;
+
+			double deltax=leg_width*0.5;
+			double deltay=leg_width*0.5;
 
 			addPoint(x-deltax, y-deltay, z);
 			addPoint(x+deltax, y-deltay, z);
@@ -91,15 +114,15 @@ public class ManModel extends MeshModel{
 		}
 
 		//left leg
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < legsNumSections; i++) {
 
-			double z=leg_length*i+arm_length;;
+			double z=leg_length*i;
 
-			double x=dx*0.5-10;
+			double x=crotch0.x+leg_width*0.5;
 			double y=0;
 
-			double deltax=10;
-			double deltay=10;
+			double deltax=leg_width*0.5;
+			double deltay=leg_width*0.5;
 
 			addPoint(x-deltax, y-deltay, z);
 			addPoint(x+deltax, y-deltay, z);
@@ -110,7 +133,7 @@ public class ManModel extends MeshModel{
 		//right arm
 		for (int i = 0; i < 2; i++) {
 
-			double z=arm_length*i;
+			double z=arm_length*i+leg_length;
 
 			double x=-dx*0.5+10;
 			double y=0;
@@ -129,7 +152,7 @@ public class ManModel extends MeshModel{
 		//left arm
 		for (int i = 0; i < 2; i++) {
 
-			double z=arm_length*i;
+			double z=arm_length*i+leg_length;
 
 			double x=dx*0.5-10;
 			double y=0;
@@ -193,7 +216,7 @@ public class ManModel extends MeshModel{
 		}
 
 		//right leg
-		for (int k = 0; k < 2; k++) {
+		for (int k = 0; k < legsNumSections; k++) {
 
 			double z=leg_length*k+arm_length; 
 
@@ -211,7 +234,7 @@ public class ManModel extends MeshModel{
 		}
 
 		//left leg
-		for (int k = 0; k < 2; k++) {
+		for (int k = 0; k < legsNumSections; k++) {
 
 			double z=leg_length*k+arm_length; 
 
