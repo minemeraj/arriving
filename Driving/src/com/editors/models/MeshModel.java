@@ -272,7 +272,7 @@ public abstract class MeshModel {
 
 				faces[counter][0][MeshModel.FACE_TYPE_ORIENTATION]=Renderer3D.CAR_BACK;
 
-				int[] pts = new int[nBasePoints];
+				int[] pts = new int[4];
 				faces[counter][MeshModel.FACE_TYPE_BODY_INDEXES]=pts;
 				pts[0]=p+pOffset;
 				int pl=(p+1)%numLevelPoints;
@@ -282,7 +282,7 @@ public abstract class MeshModel {
 				pts[2]=pl+nBasePoints+pOffset;
 				pts[3]=p+nBasePoints+pOffset;
 
-				int[] tts = new int[nBasePoints];
+				int[] tts = new int[4];
 				faces[counter][MeshModel.FACE_TYPE_TEXTURE_INDEXES]=tts;
 				tts[0]=t+tOffset;
 				tts[1]=t+1+tOffset;
@@ -331,7 +331,7 @@ public abstract class MeshModel {
 
 				faces[counter][0][MeshModel.FACE_TYPE_ORIENTATION]=Renderer3D.CAR_BACK;
 
-				int[] pts = new int[nBasePoints];
+				int[] pts = new int[4];
 				faces[counter][MeshModel.FACE_TYPE_BODY_INDEXES]=pts;
 				pts[0]=p+pOffset;
 				int pl=(p+1)%numLevelPoints;
@@ -341,12 +341,57 @@ public abstract class MeshModel {
 				pts[2]=pl+nBasePoints+pOffset;
 				pts[3]=p+nBasePoints+pOffset;
 
-				int[] tts = new int[nBasePoints];
+				int[] tts = new int[4];
 				faces[counter][MeshModel.FACE_TYPE_TEXTURE_INDEXES]=tts;
 				tts[0]=t+tOffset;
 				tts[1]=t+1+tOffset;
 				tts[2]=t+1+texLevelPoints+tOffset;
 				tts[3]=t+texLevelPoints+tOffset;
+
+				counter++;
+
+			}
+
+		}
+
+		return faces;
+
+	}
+	
+
+	public static int[][][] buildSinglePlaneFaces(int nBasePoints, int numSections, int pOffset, int tOffset) {
+
+		int NUM_FACES=(nBasePoints-1)*(numSections-1);
+		int[][][] faces=new int[NUM_FACES][3][nBasePoints];
+		
+		
+
+		int counter=0;
+		for (int k = 0;k < numSections-1; k++) {
+			
+			//int numLevelPoints=nBasePoints*(k+1);
+
+			for (int p0 = 0; p0 < nBasePoints-1; p0++) {
+
+				int p=p0+k*nBasePoints;
+				int t=p0+k*nBasePoints;
+
+				faces[counter][0][MeshModel.FACE_TYPE_ORIENTATION]=Renderer3D.CAR_BACK;
+
+				int[] pts = new int[4];
+				faces[counter][MeshModel.FACE_TYPE_BODY_INDEXES]=pts;
+				pts[0]=p+pOffset;
+				int pl=(p+1);
+				pts[1]=pl+pOffset;
+				pts[2]=pl+nBasePoints+pOffset;
+				pts[3]=p+nBasePoints+pOffset;
+
+				int[] tts = new int[4];
+				faces[counter][MeshModel.FACE_TYPE_TEXTURE_INDEXES]=tts;
+				tts[0]=t+tOffset;
+				tts[1]=t+1+tOffset;
+				tts[2]=t+1+nBasePoints+tOffset;
+				tts[3]=t+nBasePoints+tOffset;
 
 				counter++;
 

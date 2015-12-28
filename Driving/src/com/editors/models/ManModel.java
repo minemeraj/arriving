@@ -270,7 +270,7 @@ public class ManModel extends MeshModel{
 
 			double z=k*leg_length/(legsNumSections-1.0)+arm_length; 
 
-			double x=0;
+			double x=bx;
 
 			for(int s=0;s<=4;s++){
 
@@ -288,7 +288,7 @@ public class ManModel extends MeshModel{
 
 			double z=k*leg_length/(legsNumSections-1.0)+arm_length; 
 
-			double x=dx+dy;
+			double x=bx+dx+dy;
 
 			for(int s=0;s<=4;s++){
 
@@ -306,7 +306,7 @@ public class ManModel extends MeshModel{
 			
 			double z=k*arm_length/(armsNumSections-1.0);
 
-			double x=0;
+			double x=bx;
 
 			for(int s=0;s<=4;s++){
 
@@ -324,7 +324,7 @@ public class ManModel extends MeshModel{
 
 			double z=k*arm_length/(armsNumSections-1.0);
 
-			double x=dx+dy;
+			double x=bx+dx+dy;
 
 			for(int s=0;s<=4;s++){
 
@@ -369,7 +369,7 @@ public class ManModel extends MeshModel{
 		printTextureFaces(bg,leftLegFaces);
 		bg.setColor(Color.BLUE);
 		printTextureFaces(bg,leftArmFaces);
-		bg.setColor(Color.BLUE);
+		bg.setColor(Color.RED);
 		printTextureFaces(bg,rightArmFaces);
 	}
 
