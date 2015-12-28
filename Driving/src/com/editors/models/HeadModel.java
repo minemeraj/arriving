@@ -53,7 +53,8 @@ public class HeadModel extends MeshModel {
 			
 			for (int i = 0; i < xNumSections; i++) {
 				
-				double x=deltax*i;
+				//center points in x=0 with -dx/2;
+				double x=deltax*i-dx*0.5;
 				double y=0;
 				
 				addPoint(x, y, z);
@@ -65,17 +66,19 @@ public class HeadModel extends MeshModel {
 		
 		//neurocranium
 		
-		double dTeta=Math.PI/(tetaNumSections);
+		double dTeta=Math.PI/(tetaNumSections-1);
 		for (int k = 0; k < tetaNumSections; k++) { 
 			
 			double z=deltaz*k; 
+			double rx=dx*0.5;
+			double ry=dy;
 			
 			for (int i = 0; i < xNumSections; i++) {
 				
 				double teta=dTeta*i;
 				
-				double x=100*Math.cos(teta);
-				double y=100*Math.sin(teta);
+				double x=rx*Math.cos(teta);
+				double y=ry*Math.sin(teta);
 				
 				addPoint(x, y, z);
 				
