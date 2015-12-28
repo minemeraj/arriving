@@ -36,7 +36,7 @@ public class HeadModel extends MeshModel {
 		
 		int xNumSections=10;
 		int yNumSections=10;
-		int zNumSections=10;
+		int zNumSections=neuroRadiuses.length;
 		
 		int tetaNumSections=10;
 		
@@ -73,9 +73,13 @@ public class HeadModel extends MeshModel {
 			double rx=dx*0.5;
 			double ry=dy;
 			
+			double d=neuroRadiuses[k];
+			ry=d*ry;
+			
 			for (int i = 0; i < xNumSections; i++) {
 				
 				double teta=dTeta*i;
+				
 				
 				double x=rx*Math.cos(teta);
 				double y=ry*Math.sin(teta);
@@ -153,5 +157,17 @@ public class HeadModel extends MeshModel {
 		super.printFaces(pw, splacFaces);
 		super.printFaces(pw, neuroFaces);
 	}
+	
+	double[] neuroRadiuses={
+			0.55,
+			0.6,
+			0.7,
+			0.9,
+			1.0,
+			1.0,
+			0.8,
+			0.75,
+			0.7,
+			0.65};
 
 }

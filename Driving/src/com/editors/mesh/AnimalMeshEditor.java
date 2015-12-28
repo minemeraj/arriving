@@ -168,7 +168,7 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 			if(MAN0==val)
 				setRightData(100,20,180);
 			else if(HEAD0==val)
-				setRightData(100,100,100);
+				setRightData(200,200,200);
 		}
 
 	}
