@@ -37,6 +37,10 @@ public abstract class MeshModel {
 	public static int FACE_TYPE_ORIENTATION=0;
 	public static int FACE_TYPE_BODY_INDEXES=1;
 	public static int FACE_TYPE_TEXTURE_INDEXES=2;
+	
+	//sqrt(1-x*x), 0.125,0.1 decimal fraction steps
+	double[] el_125={1.0,0.9922,0.9682,0.9270,0.8660,0.7806,0.6614,0.4841,0.0};
+	double[] el_1={1.0,0.9950,0.9798,0.9539,0.9165,0.8660,0.8,0.7141,0.6,0.4359,0.0};
 
 	public MeshModel(){		
 

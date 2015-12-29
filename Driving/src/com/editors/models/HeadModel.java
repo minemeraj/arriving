@@ -36,7 +36,7 @@ public class HeadModel extends MeshModel {
 		
 		int xNumSections=splancnoSections[0].length;
 
-		int zNumSections=neuroSections.length;
+		int zNumSections=skullSections.length;
 		
 		int tetaNumSections=10;
 		
@@ -49,7 +49,7 @@ public class HeadModel extends MeshModel {
 		//splanchnocranium
 		for (int k = 0; k < zNumSections; k++) { 
 			
-			double[] d=neuroSections[k];
+			double[] d=skullSections[k];
 			double[] s=splancnoSections[k];
 			
 			double z=dz*d[0];  
@@ -58,7 +58,7 @@ public class HeadModel extends MeshModel {
 				
 				//center points in x=0 with -dx/2;
 				double x=deltax*i-dx*0.5;
-				double y=s[i]*dy;
+				double y=-s[i]*dy*d[2];
 				
 				addPoint(x, y, z);
 				
@@ -76,7 +76,7 @@ public class HeadModel extends MeshModel {
 			double rx=dx*0.5;
 			double ry=dy;
 			
-			double[] d=neuroSections[k];
+			double[] d=skullSections[k];
 			
 			double z=dz*d[0]; 
 			ry=ry*d[1];
@@ -101,7 +101,7 @@ public class HeadModel extends MeshModel {
 		
 		for (int k = 0; k < zNumSections; k++) { 
 			
-			double[] d=neuroSections[k];
+			double[] d=skullSections[k];
 			
 			double z=by+dz*d[0]; 
 			
@@ -122,7 +122,7 @@ public class HeadModel extends MeshModel {
 		
 		for (int k = 0; k < zNumSections; k++) { 
 			
-			double[] d=neuroSections[k];
+			double[] d=skullSections[k];
 			
 			double z=by+dz*d[0]; 
 			
@@ -166,35 +166,37 @@ public class HeadModel extends MeshModel {
 		super.printFaces(pw, neuroFaces);
 	}
 	
-	double[][] neuroSections={
-			{0,0.8837},
-			{0.1148,0.814},
-			{0.1803,0.814},
-			{0.2787,0.8604},
-			{0.3279,0.8837},
-			{0.4754,0.9651},
-			{0.6066,0.9767},
-			{0.6885,1.0},
-			{0.8525,0.8637},
-			{0.9344,0.7558},
-			{1.0,0.3953}
+	double[][] skullSections={
+			{0,0.8837,0.2093},
+			{0.1148,0.814,0.2326},
+			{0.1803,0.814,0.2326},
+			{0.2787,0.8604,0.2791},
+			{0.3279,0.8837,0.3721},
+			{0.4754,0.9651,0.2791},
+			{0.6066,0.9767,0.2558},
+			{0.6885,1.0,0.2093},
+			{0.8525,0.8637,0.0698},
+			{0.9344,0.7558,-0.0349},
+			{1.0,0.3953,-0.4070}
 			};
 
 	
 	double[][] splancnoSections={
 			
-			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0},
-			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0},
-			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0},
-			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0},
-			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0},
-			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0},
-			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0},
-			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0},
-			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0},
-			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0},
-			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0}
+			{0.0,0.484,0.6614,0.8660,0.9682,1.0,0.9682,0.8660,0.6614,0.4841,0.0},
+			{0.0,0.484,0.6614,0.8660,0.9682,1.0,0.9682,0.8660,0.6614,0.4841,0.0},
+			{0.0,0.484,0.6614,0.8660,0.9682,1.0,0.9682,0.8660,0.6614,0.4841,0.0},
+			{0.0,0.484,0.6614,0.8660,0.9682,1.0,0.9682,0.8660,0.6614,0.4841,0.0},
+			{0.0,0.484,0.6614,0.8660,0.9682,1.0,0.9682,0.8660,0.6614,0.4841,0.0},
+			{0.0,0.484,0.6614,0.8660,0.9682,1.0,0.9682,0.8660,0.6614,0.4841,0.0},
+			{0.0,0.484,0.6614,0.8660,0.9682,1.0,0.9682,0.8660,0.6614,0.4841,0.0},
+			{0.0,0.484,0.6614,0.8660,0.9682,1.0,0.9682,0.8660,0.6614,0.4841,0.0},
+			{0.0,0.484,0.6614,0.8660,0.9682,1.0,0.9682,0.8660,0.6614,0.4841,0.0},
+			{0.0,0.484,0.6614,0.8660,0.9682,1.0,0.9682,0.8660,0.6614,0.4841,0.0},
+			{0.0,0.484,0.6614,0.8660,0.9682,1.0,0.9682,0.8660,0.6614,0.4841,0.0},
 
 			
 	};
+	
+	
 }
