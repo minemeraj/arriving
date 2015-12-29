@@ -34,9 +34,9 @@ public class HeadModel extends MeshModel {
 		points=new Vector();
 		texturePoints=new Vector();
 		
-		int xNumSections=10;
-		int yNumSections=10;
-		int zNumSections=neuroRadiuses.length;
+		int xNumSections=splancnoSections[0].length;
+
+		int zNumSections=neuroSections.length;
 		
 		int tetaNumSections=10;
 		
@@ -49,13 +49,16 @@ public class HeadModel extends MeshModel {
 		//splanchnocranium
 		for (int k = 0; k < zNumSections; k++) { 
 			
-			double z=deltaz*k; 
+			double[] d=neuroSections[k];
+			double[] s=splancnoSections[k];
+			
+			double z=dz*d[0];  
 			
 			for (int i = 0; i < xNumSections; i++) {
 				
 				//center points in x=0 with -dx/2;
 				double x=deltax*i-dx*0.5;
-				double y=0;
+				double y=s[i]*dy;
 				
 				addPoint(x, y, z);
 				
@@ -67,16 +70,18 @@ public class HeadModel extends MeshModel {
 		//neurocranium
 		
 		double dTeta=Math.PI/(tetaNumSections-1);
-		for (int k = 0; k < tetaNumSections; k++) { 
+		for (int k = 0; k < zNumSections; k++) { 
 			
-			double z=deltaz*k; 
+			
 			double rx=dx*0.5;
 			double ry=dy;
 			
-			double d=neuroRadiuses[k];
-			ry=d*ry;
+			double[] d=neuroSections[k];
 			
-			for (int i = 0; i < xNumSections; i++) {
+			double z=dz*d[0]; 
+			ry=ry*d[1];
+			
+			for (int i = 0; i < tetaNumSections; i++) {
 				
 				double teta=dTeta*i;
 				
@@ -96,12 +101,14 @@ public class HeadModel extends MeshModel {
 		
 		for (int k = 0; k < zNumSections; k++) { 
 			
-			double z=by+deltaz*k; 
+			double[] d=neuroSections[k];
 			
-			for (int i = 0; i < tetaNumSections; i++) {
+			double z=by+dz*d[0]; 
+			
+			for (int i = 0; i < xNumSections; i++) {
 				
 				double x=bx+deltax*i;
-				double y=0;
+			
 				
 				addTPoint(x, z, 0);
 				
@@ -115,12 +122,13 @@ public class HeadModel extends MeshModel {
 		
 		for (int k = 0; k < zNumSections; k++) { 
 			
-			double z=by+deltaz*k; 
+			double[] d=neuroSections[k];
+			
+			double z=by+dz*d[0]; 
 			
 			for (int i = 0; i < tetaNumSections; i++) {
 				
 				double x=bx+dx+deltaTeta*i;
-				double y=0;
 				
 				addTPoint(x, z, 0);
 				
@@ -158,16 +166,35 @@ public class HeadModel extends MeshModel {
 		super.printFaces(pw, neuroFaces);
 	}
 	
-	double[] neuroRadiuses={
-			0.55,
-			0.6,
-			0.7,
-			0.9,
-			1.0,
-			1.0,
-			0.8,
-			0.75,
-			0.7,
-			0.65};
+	double[][] neuroSections={
+			{0,0.8837},
+			{0.1148,0.814},
+			{0.1803,0.814},
+			{0.2787,0.8604},
+			{0.3279,0.8837},
+			{0.4754,0.9651},
+			{0.6066,0.9767},
+			{0.6885,1.0},
+			{0.8525,0.8637},
+			{0.9344,0.7558},
+			{1.0,0.3953}
+			};
 
+	
+	double[][] splancnoSections={
+			
+			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0},
+			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0},
+			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0},
+			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0},
+			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0},
+			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0},
+			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0},
+			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0},
+			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0},
+			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0},
+			{0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0}
+
+			
+	};
 }
