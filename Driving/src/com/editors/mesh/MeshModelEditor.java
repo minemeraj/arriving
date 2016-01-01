@@ -267,15 +267,17 @@ public class MeshModelEditor extends JFrame implements ActionListener, MenuListe
 		JFileChooser fc = new JFileChooser();
 		
 		fc.setDialogType(JFileChooser.SAVE_DIALOG);
-		fc.setDialogTitle("Save texture");
+		fc.setDialogTitle("Save mesh");
 		if(currentDirectory!=null)
 			fc.setCurrentDirectory(currentDirectory);
+		if(currentFile!=null)
+			fc.setSelectedFile(currentFile);
+		
 		int returnVal = fc.showOpenDialog(this);
 		
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
-			
-	
+			currentFile=fc.getSelectedFile();
 			try {
 				
 				pw = new PrintWriter(file);

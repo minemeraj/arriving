@@ -17,6 +17,7 @@ import javax.swing.JRadioButton;
 import com.editors.DoubleTextField;
 import com.editors.ValuePair;
 import com.editors.models.HeadModel;
+import com.editors.models.Man1Model;
 import com.editors.models.ManModel;
 
 public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, ItemListener{
@@ -30,7 +31,8 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 	private boolean skipItemChanged=false;
 
 	public static int MAN0=0;
-	public static int HEAD0=1;
+	public static int MAN1=1;
+	public static int HEAD0=2;
 
 	public static void main(String[] args) {
 
@@ -92,6 +94,7 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 		chooseAnimal.addKeyListener(this);
 		chooseAnimal.addItem(new ValuePair("-1",""));
 		chooseAnimal.addItem(new ValuePair(""+MAN0,"Man0"));
+		chooseAnimal.addItem(new ValuePair(""+MAN1,"Man1"));
 		chooseAnimal.addItem(new ValuePair(""+HEAD0,"Head0"));		
 		chooseAnimal.addItemListener(this);		
 
@@ -129,6 +132,8 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 
 		if(val==MAN0)
 			meshModel=new ManModel(dx,dy,dz);
+		if(val==MAN1)
+			meshModel=new Man1Model(dx,dy,dz);
 		else if(val==HEAD0)
 			meshModel=new HeadModel(dx,dy,dz);
 		else
@@ -166,6 +171,8 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 				val=MAN0;
 
 			if(MAN0==val)
+				setRightData(100,20,180);
+			else if(MAN1==val)
 				setRightData(100,20,180);
 			else if(HEAD0==val)
 				setRightData(200,200,284);
