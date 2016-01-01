@@ -41,7 +41,7 @@ public class Man1Model extends MeshModel {
 		
 		int xNumSections=bodySections[0].length;
 
-		int zNumSections=bodySections.length;
+		int zNumSections=zSections.length;
 		
 		double deltax=dx/(xNumSections-1);
 		double deltaz=dz/(zNumSections-1);
@@ -54,7 +54,7 @@ public class Man1Model extends MeshModel {
 			
 			double[] d=bodySections[k];
 			
-			double z=deltaz*k;  
+			double z=zSections[k]*dz; 
 			
 			for (int i = 0; i < xNumSections; i++) {
 				
@@ -81,7 +81,7 @@ public class Man1Model extends MeshModel {
 			
 			double[] d=bodySections[k];
 			
-			double z=deltaz*k; 
+			double z=zSections[k]*dz; 
 			ry=ry*d[1];
 			
 			for (int i = 0; i < xNumSections; i++) {
@@ -105,7 +105,7 @@ public class Man1Model extends MeshModel {
 			
 			double[] d=bodySections[k];
 			
-			double z=by+deltaz*k; 
+			double z=by+zSections[k]*dz; 
 			
 			for (int i = 0; i < xNumSections; i++) {
 				
@@ -124,7 +124,7 @@ public class Man1Model extends MeshModel {
 			
 			double[] d=bodySections[k];
 			
-			double z=by+deltaz*k; 
+			double z=by+zSections[k]*dz; 
 			
 			for (int i = 0; i < xNumSections; i++) {
 				
@@ -213,6 +213,19 @@ public class Man1Model extends MeshModel {
 		return faces;
 
 	}
+	
+	double[] zSections={
+			
+			0.0,
+			0.25,
+			0.375,
+			0.5,
+			0.625,
+			0.75,
+			0.875,
+			1.0
+			
+	};
 	
 	double[][] bodySections={
 			
