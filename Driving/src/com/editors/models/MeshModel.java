@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
@@ -405,6 +407,114 @@ public abstract class MeshModel {
 
 		return faces;
 
+	}
+	
+	public static Vector postProcessor(Vector points,Vector vFaces){
+		
+		Vector data=new Vector<>();
+		data.add(points);
+		data.add(vFaces);
+		
+		return postProcessor(data);
+	}
+	
+	/***
+	 * 
+	 * Simplify the mesh discarding not used and repeated points
+	 * @param data
+	 * @return
+	 */
+	public static Vector postProcessor(Vector data){
+		
+		
+		Vector points=(Vector) data.elementAt(0);
+		Vector vFaces=(Vector) data.elementAt(1);
+		
+		Hashtable fp=new Hashtable<>();
+		
+		Vector newPoints=new Vector<>();
+		Vector newData=new Vector<>();
+		
+		newData.add(newPoints);
+		newData.add(vFaces);
+		
+		int counter=0;
+		
+		Hashtable usedPoints=buildUsedPointsHashtable(vFaces);
+		Hashtable readPoints=new Hashtable<>();
+		
+		for(int i=0;i<points.size();i++){
+			
+			if(usedPoints.get(i)==null)
+				continue;
+			
+			Point3D p=(Point3D) points.elementAt(i);
+			
+			String key=p.toString();
+
+			Integer oldIndex=(Integer) readPoints.get(key);
+			
+			if(oldIndex!=null){				
+
+				fp.put(i,oldIndex);
+				continue;
+			}
+			
+			readPoints.put(p.toString(), counter);
+			fp.put(i,counter);
+			newPoints.add(p);
+			
+			counter++;
+		}
+		
+		for (int i = 0; i < vFaces.size(); i++) {
+
+			int[][][] faces = (int[][][]) vFaces.elementAt(i);
+			
+			for (int j = 0; j < faces.length; j++) {
+				int[][] face=faces[j];
+
+				int[] fts=face[0];
+				int[] pts=face[1];
+				int[] tts=face[2];
+				
+				for (int k = 0; k < pts.length; k++) {
+					int idx0=pts[k];
+					pts[k]=(Integer)fp.get(idx0);
+				}
+			}
+		}
+		
+		return newData;
+		
+	}
+
+
+
+	private static Hashtable buildUsedPointsHashtable(Vector vFaces) {
+		
+		Hashtable usedPoints=new Hashtable<>();
+		
+		for (int i = 0; i < vFaces.size(); i++) {
+
+			int[][][] faces = (int[][][]) vFaces.elementAt(i);
+			
+			for (int j = 0; j < faces.length; j++) {
+				int[][] face=faces[j];
+
+				int[] fts=face[0];
+				int[] pts=face[1];
+				int[] tts=face[2];
+				
+				for (int k = 0; k < pts.length; k++) {
+					int idx0=pts[k];
+					usedPoints.put(idx0, "");
+				}
+			
+			}
+		}
+		
+		return usedPoints;
 	}
 
 
