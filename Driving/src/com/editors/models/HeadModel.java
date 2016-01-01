@@ -4,6 +4,9 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 public class HeadModel extends MeshModel {
@@ -58,7 +61,9 @@ public class HeadModel extends MeshModel {
 				
 				//center points in x=0 with -dx/2;
 				double x=deltax*i-dx*0.5;
-				double y=-s[i]*dy*d[2];
+				//double y=-s[i]*dy*d[2];
+				
+				double y=-dy*faceData[k][i];
 				
 				addPoint(x, y, z);
 				
@@ -197,6 +202,59 @@ public class HeadModel extends MeshModel {
 
 			
 	};
+	
+	double[][] faceData={
+			{0,0.1384,0.1813,0.2026,0.2093,0.2026,0.1813,0.1384,0},
+			{0,0.1538,0.2014,0.2252,0.2326,0.2252,0.2014,0.1538,0},
+			{0,0.1538,0.2014,0.2252,0.2326,0.2252,0.2014,0.1538,0},
+			{0,0.1846,0.2417,0.2702,0.2791,0.2702,0.2417,0.1846,0}, 
+			{0,0.1692,0.2215,0.2477,0.3721,0.2477,0.2215,0.1692,0},
+			{0,0.1846,0.2417,0.2702,0.2791,0.2702,0.2417,0.1846,0},
+			{0,0.1692,0.2215,0.2477,0.2558,0.2477,0.2215,0.1692,0},
+			{0,0.1384,0.1813,0.2026,0.2093,0.2026,0.1813,0.1384,0},
+			{0,0.0462,0.0604,0.0676,0.0698,0.0676,0.0604,0.0462,0},
+			{-0,-0.0231,-0.0302,-0.0338,-0.0349,-0.0338,-0.0302,-0.0231,-0},
+			{-0,-0.2692,-0.3525,-0.3941,-0.407,-0.3941,-0.3525,-0.2692,-0}
+		};
+
+	
+	public static void main(String[] args) {
+		//new HeadModel(0, 0, 0).generateBaseFaceData();
+	}
+
+	private void generateBaseFaceData() {
+		
+	    DecimalFormat sdf=new DecimalFormat("0.####");
+	    DecimalFormatSymbols symbols=sdf.getDecimalFormatSymbols();
+	    symbols.setDecimalSeparator('.');
+	    symbols.setGroupingSeparator(',');
+	    sdf.setDecimalFormatSymbols(symbols);
+		
+	    System.out.print("{");
+	    
+		for (int k = 0; k < skullSections.length; k++) {
+			
+
+			
+			System.out.print("{");
+			
+			for (int i = 0; i < splancnoSections[k].length; i++) {
+				
+				if(i>0)
+					System.out.print(",");
+				
+				double d=skullSections[k][2]*splancnoSections[k][i];
+				//double d=0.2558*splancnoSections[k][i];
+				
+				System.out.print(sdf.format(d));
+			}
+			
+			System.out.println("},");
+
+			
+		}
+		System.out.println("}");
+	}
 	
 	
 }
