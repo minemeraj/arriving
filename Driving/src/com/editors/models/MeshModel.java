@@ -254,7 +254,7 @@ public abstract class MeshModel {
 
 	}
 
-	public static int[][][] buildSingleBlockFaces(
+	public int[][][] buildSingleBlockFaces(
 			int nBasePoints,
 			int numSections,
 			int pOffset,
@@ -305,7 +305,7 @@ public abstract class MeshModel {
 
 	}
 	
-	public static int[][][] buildDoubleBlockFaces(
+	public int[][][] buildDoubleBlockFaces(
 			int nBasePoints,
 			int numSections,
 			int pOffset,
@@ -365,7 +365,7 @@ public abstract class MeshModel {
 	}
 	
 
-	public static int[][][] buildSinglePlaneFaces(int nBasePoints, int numSections, int pOffset, int tOffset) {
+	public int[][][] buildSinglePlaneFaces(int nBasePoints, int numSections, int pOffset, int tOffset) {
 
 		int NUM_FACES=(nBasePoints-1)*(numSections-1);
 		int[][][] faces=new int[NUM_FACES][3][nBasePoints];
@@ -378,6 +378,10 @@ public abstract class MeshModel {
 			//int numLevelPoints=nBasePoints*(k+1);
 
 			for (int p0 = 0; p0 < nBasePoints-1; p0++) {
+				
+				if(isFilter(k,p0)){
+					continue;
+				}
 
 				int p=p0+k*nBasePoints;
 				int t=p0+k*nBasePoints;
@@ -409,13 +413,9 @@ public abstract class MeshModel {
 
 	}
 	
-	public static Vector postProcessor(Vector points,Vector vFaces){
-		
-		Vector data=new Vector<>();
-		data.add(points);
-		data.add(vFaces);
-		
-		return postProcessor(data);
+	public boolean isFilter(int k, int p0) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	/***
@@ -424,11 +424,8 @@ public abstract class MeshModel {
 	 * @param data
 	 * @return
 	 */
-	public static Vector postProcessor(Vector data){
-		
-		
-		Vector points=(Vector) data.elementAt(0);
-		Vector vFaces=(Vector) data.elementAt(1);
+	public Vector postProcessor(Vector vFaces){
+
 		
 		Hashtable fp=new Hashtable<>();
 		

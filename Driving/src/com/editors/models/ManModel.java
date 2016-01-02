@@ -335,17 +335,17 @@ public class ManModel extends MeshModel{
 
 		}
 
-		faces=MeshModel.buildDoubleBlockFaces(nBasePoints,numSections,0,0);
-		rightLegFaces=MeshModel.buildSingleBlockFaces(4, legsNumSections, 
+		faces=buildDoubleBlockFaces(nBasePoints,numSections,0,0);
+		rightLegFaces=buildSingleBlockFaces(4, legsNumSections, 
 				totalBodyPoints, 
 				totalBodyTexturePoints);
-		leftLegFaces=MeshModel.buildSingleBlockFaces(4, legsNumSections, 
+		leftLegFaces=buildSingleBlockFaces(4, legsNumSections, 
 				totalBodyPoints+totalLegPoints, 
 				totalBodyTexturePoints+totalLegTexturePoints);
-		rightArmFaces=MeshModel.buildSingleBlockFaces(4, armsNumSections, 
+		rightArmFaces=buildSingleBlockFaces(4, armsNumSections, 
 				totalBodyPoints+2*totalLegPoints, 
 				totalBodyTexturePoints+2*totalLegTexturePoints);
-		leftArmFaces=MeshModel.buildSingleBlockFaces(4, armsNumSections, 
+		leftArmFaces=buildSingleBlockFaces(4, armsNumSections, 
 				totalBodyPoints+2*totalLegPoints+totalArmPoints, 
 				totalBodyTexturePoints+2*totalLegTexturePoints+totalArmTexturePoints);
 
