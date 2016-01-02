@@ -142,11 +142,23 @@ public class Man1Model extends MeshModel {
 		frontFaces=buildSinglePlaneFaces(xNumSections, zNumSections, 
 				nBackPoints, nBackTPoints);
 		
+		postProcessor(backFaces,frontFaces);
+	
+		
 		IMG_WIDTH=(int) (2*bx+dx+dy*Math.PI);
 		IMG_HEIGHT=(int) (2*by+dz);
 
 	}
 
+
+	private void postProcessor(int[][][] backFaces2, int[][][] frontFaces2) {
+	
+		Vector vFaces=new Vector<>();
+		vFaces.add(backFaces2);
+		vFaces.add(frontFaces2);
+		
+		super.postProcessor(vFaces);
+	}
 
 	@Override
 	public void printTexture(Graphics2D bg) {

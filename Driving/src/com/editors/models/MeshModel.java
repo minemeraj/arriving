@@ -370,7 +370,7 @@ public abstract class MeshModel {
 		int NUM_FACES=(nBasePoints-1)*(numSections-1);
 		int[][][] faces=new int[NUM_FACES][3][nBasePoints];
 		
-		
+		Vector finalFaces=new Vector<>();
 
 		int counter=0;
 		for (int k = 0;k < numSections-1; k++) {
@@ -382,6 +382,8 @@ public abstract class MeshModel {
 				if(isFilter(k,p0)){
 					continue;
 				}
+				else
+					finalFaces.add(faces[counter]);
 
 				int p=p0+k*nBasePoints;
 				int t=p0+k*nBasePoints;
@@ -408,8 +410,15 @@ public abstract class MeshModel {
 			}
 
 		}
+		
+		int[][][] fFaces=new int[finalFaces.size()][3][nBasePoints];
+		
+		for (int i = 0; i < finalFaces.size(); i++) {
 
-		return faces;
+			fFaces[i] = (int[][]) finalFaces.elementAt(i);
+		}
+
+		return fFaces;
 
 	}
 	
@@ -424,16 +433,12 @@ public abstract class MeshModel {
 	 * @param data
 	 * @return
 	 */
-	public Vector postProcessor(Vector vFaces){
+	public void postProcessor(Vector vFaces){
 
 		
 		Hashtable fp=new Hashtable<>();
 		
 		Vector newPoints=new Vector<>();
-		Vector newData=new Vector<>();
-		
-		newData.add(newPoints);
-		newData.add(vFaces);
 		
 		int counter=0;
 		
@@ -464,6 +469,8 @@ public abstract class MeshModel {
 			counter++;
 		}
 		
+		points=newPoints;
+		
 		for (int i = 0; i < vFaces.size(); i++) {
 
 			int[][][] faces = (int[][][]) vFaces.elementAt(i);
@@ -481,8 +488,7 @@ public abstract class MeshModel {
 				}
 			}
 		}
-		
-		return newData;
+
 		
 	}
 
