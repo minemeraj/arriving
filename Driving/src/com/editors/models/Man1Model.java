@@ -39,9 +39,9 @@ public class Man1Model extends MeshModel {
 		points=new Vector();
 		texturePoints=new Vector();
 		
-		int xNumSections=bodySections[0].length;
+		int xNumSections=bodySections[0][1].length;
 
-		int zNumSections=zSections.length;
+		int zNumSections=bodySections.length;
 		
 		double deltax=dx/(xNumSections-1);
 		double deltaz=dz/(zNumSections-1);
@@ -52,9 +52,9 @@ public class Man1Model extends MeshModel {
 	    //back
 		for (int k = 0; k < zNumSections; k++) { 
 			
-			double[] d=bodySections[k];
+			double[] d=bodySections[k][1];
 			
-			double z=zSections[k]*dz; 
+			double z=bodySections[k][0][0]*dz; 
 			
 			for (int i = 0; i < xNumSections; i++) {
 				
@@ -79,9 +79,9 @@ public class Man1Model extends MeshModel {
 			double rx=dx*0.5;
 			double ry=dy;
 			
-			double[] d=bodySections[k];
+			double[] d=bodySections[k][1];
 			
-			double z=zSections[k]*dz; 
+			double z=bodySections[k][0][0]*dz; 
 			ry=ry*d[1];
 			
 			for (int i = 0; i < xNumSections; i++) {
@@ -103,9 +103,9 @@ public class Man1Model extends MeshModel {
 		
 		for (int k = 0; k < zNumSections; k++) { 
 			
-			double[] d=bodySections[k];
+			double[] d=bodySections[k][1];
 			
-			double z=by+zSections[k]*dz; 
+			double z=bodySections[k][0][0]*dz; 
 			
 			for (int i = 0; i < xNumSections; i++) {
 				
@@ -122,9 +122,9 @@ public class Man1Model extends MeshModel {
 		//front
 		for (int k = 0; k < zNumSections; k++) { 
 			
-			double[] d=bodySections[k];
+			double[] d=bodySections[k][1];
 			
-			double z=by+zSections[k]*dz; 
+			double z=bodySections[k][0][0]*dz; 
 			
 			for (int i = 0; i < xNumSections; i++) {
 				
@@ -183,31 +183,21 @@ public class Man1Model extends MeshModel {
 	public boolean isFilter(int k, int p0) {
 		return (bodyGrid[k][p0]==0);
 	}
-	
-	
-	double[] zSections={
+	/**
+	 * 
+	 * z sections and x[] sections
+	 * 
+	 */
+	double[][][] bodySections={
 			
-			0.0,
-	        0.5,
-	        0.5625,
-	        0.8125,
-	        0.84375,
-	        0.875,
-	        0.90625,	        
-			1.0
-			
-	};
-	
-	double[][] bodySections={
-			
-			{0,0,0,0,1,0,0,0,1,0,0,0,0},
-			{0,1,0,0,1,0,1,0,1,0,0,1,0},
-			{0,1,0,0,1,1,1,1,1,0,0,1,0},
-			{0,1,0,0,1,1,1,1,1,0,0,1,0},
-			{0,1,1,1,1,1,1,1,1,1,1,1,0},
-			{0,0,0,0,0,0,1,0,0,0,0,0,0},
-			{0,0,0,0,0,1,1,1,0,0,0,0,0},
-			{0,0,0,0,0,1,1,1,0,0,0,0,0},
+			{{0.0},{0,0,0,0,1,0,0,0,1,0,0,0,0}},
+			{{0.5},{0,1,0,0,1,0,1,0,1,0,0,1,0}},
+			{{0.5625},{0,1,0,0,1,1,1,1,1,0,0,1,0}},
+			{{0.8125},{0,1,0,0,1,1,1,1,1,0,0,1,0}},
+			{{0.84375},{0,1,1,1,1,1,1,1,1,1,1,1,0}},
+			{{0.875},{0,0,0,0,0,0,1,0,0,0,0,0,0}},
+			{{0.90625},{0,0,0,0,0,1,1,1,0,0,0,0,0}},
+			{{1.0},{0,0,0,0,0,1,1,1,0,0,0,0,0}},
 	};
 	
 	public static double[][] bodyGrid={
