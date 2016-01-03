@@ -42,27 +42,27 @@ public class Car0Model extends MeshModel{
 
 		for(int k=0;k<numSections;k++){
 
-			double[] d=body[k];
+			double[][] d=body[k];
 
-			double yi=d[0];
+			double yi=d[0][0];
 			
-			double xi=d[1];
-			double ziMin=d[2];
-			double ziMax=d[3];
+			double xi=d[1][0];
+			double z0=d[2][0];
+			double z1=d[2][1];
 
 			double y=yi*dy;
 			
 			double deltax=dx*xi*0.5;
-			double deltazMin=dz*ziMin;
-			double deltazMax=dz*ziMax;
+			double deltaz0=dz*z0;
+			double deltaz1=dz*z1;
 
 			double x=0;
 			double z=0;
 
-			addPoint(x-deltax, y,z+deltazMin);
-			addPoint(x-deltax, y,z+deltazMax);
-			addPoint(x+deltax, y,z+deltazMax);
-			addPoint(x+deltax, y,z+deltazMin);
+			addPoint(x-deltax, y,z+deltaz0);
+			addPoint(x-deltax, y,z+deltaz1);
+			addPoint(x+deltax, y,z+deltaz1);
+			addPoint(x+deltax, y,z+deltaz0);
 
 			totalBodyPoints+=4;
 
@@ -73,12 +73,9 @@ public class Car0Model extends MeshModel{
 
 		for(int k=0;k<numSections;k++){
 
-			double[] d=body[k];
+			double[][] d=body[k];
 
-			double yi=d[0];
-			
-			double xi=d[1];
-			double zi=d[2];
+			double yi=d[0][0];
 
 			double y=by+yi*dy;
 			double x=bx;
@@ -127,19 +124,19 @@ public class Car0Model extends MeshModel{
 
 	/**
 	 * BOTTOM-UP SECTIONS
-	 * y,x,zMin,Zmax
+	 * [y],[x],[z0,z1]
 	 * 
 	 */
-	public static final double[][] body={
+	public static final double[][][] body={
 
-			{0.0,1.0,0.0,0.4},
-			{0.1538,1.0,0.0,0.8},
-			{0.2308,1.0,0.2,1.0},
-			{0.3077,1.0,0.0,1.0},
-			{0.6923,1.0,0.0,1.0},
-			{0.7692,1.0,0.2,0.6},
-			{0.8462,1.0,0.0,0.56},
-			{1.0,1.0,0.0,0.4}
+			{{0.0},{1.0},{0.0,0.4}},
+			{{0.1538},{1.0},{0.0,0.8}},
+			{{0.2308},{1.0},{0.2,1.0}},
+			{{0.3077},{1.0},{0.0,1.0}},
+			{{0.6923},{1.0},{0.0,1.0}},
+			{{0.7692},{1.0},{0.2,0.6}},
+			{{0.8462},{1.0},{0.0,0.56}},
+			{{1.0},{1.0},{0.0,0.4}}
 	};
 
 
