@@ -18,7 +18,7 @@ public class Car0Model extends MeshModel{
 
 	private int[][][] faces; 
 
-	int nBasePoints=4;
+	int nBasePoints=6;
 
 	int bx=10;
 	int by=10;
@@ -46,23 +46,33 @@ public class Car0Model extends MeshModel{
 
 			double yi=d[0][0];
 			
-			double xi=d[1][0];
+			double x0=d[1][0];
+			double x1=d[1][1];
+			double x2=d[1][2];
+			
 			double z0=d[2][0];
 			double z1=d[2][1];
+			double z2=d[2][2];
 
 			double y=yi*dy;
 			
-			double deltax=dx*xi*0.5;
+			double deltax0=dx*x0*0.5;
+			double deltax1=dx*x1*0.5;
+			double deltax2=dx*x2*0.5;
+			
 			double deltaz0=dz*z0;
 			double deltaz1=dz*z1;
+			double deltaz2=dz*z2;
 
 			double x=0;
 			double z=0;
 
-			addPoint(x-deltax, y,z+deltaz0);
-			addPoint(x-deltax, y,z+deltaz1);
-			addPoint(x+deltax, y,z+deltaz1);
-			addPoint(x+deltax, y,z+deltaz0);
+			addPoint(x-deltax0, y,z+deltaz0);
+			addPoint(x-deltax1, y,z+deltaz1);
+			addPoint(x-deltax2, y,z+deltaz2);
+			addPoint(x+deltax2, y,z+deltaz2);
+			addPoint(x+deltax1, y,z+deltaz1);
+			addPoint(x+deltax0, y,z+deltaz0);
 
 			totalBodyPoints+=4;
 
@@ -83,11 +93,14 @@ public class Car0Model extends MeshModel{
 			for (int p0 = 0; p0 <= nBasePoints; p0++) {
 				addTPoint(x,y,0);
 
-				if(p0%2==0)
+				if(p0==0 || p0==4)
 					x+=dz;
-				else
+				else if(p0==1 || p0==3)
+					x+=dx*0.25;
+				else if(p0==2)
+					x+=dx*0.5;
+				else if(p0==5)
 					x+=dx;
-				
 			}
 		}
 
@@ -124,19 +137,21 @@ public class Car0Model extends MeshModel{
 
 	/**
 	 * BOTTOM-UP SECTIONS
-	 * [y],[x],[z0,z1]
+	 * [y],[x0,x1,x2],[z0,z1,z2]
+	 * 
+	 * i from bottom to top
 	 * 
 	 */
 	public static final double[][][] body={
 
-			{{0.0},{1.0},{0.0,0.4}},
-			{{0.1538},{1.0},{0.0,0.8}},
-			{{0.2308},{1.0},{0.2,1.0}},
-			{{0.3077},{1.0},{0.0,1.0}},
-			{{0.6923},{1.0},{0.0,1.0}},
-			{{0.7692},{1.0},{0.2,0.6}},
-			{{0.8462},{1.0},{0.0,0.56}},
-			{{1.0},{1.0},{0.0,0.4}}
+			{{0.0},{1.0,1.0,0.75},{0.0,0.4,0.4}},
+			{{0.1538},{1.0,1.0,0.75},{0.0,0.6,0.8}},
+			{{0.2308},{1.0,1.0,0.75},{0.2,0.6,1.0}},
+			{{0.3077},{1.0,1.0,0.75},{0.0,0.6,1.0}},
+			{{0.6923},{1.0,1.0,0.75},{0.0,0.6,1.0}},
+			{{0.7692},{1.0,1.0,0.75},{0.2,0.6,0.6}},
+			{{0.8462},{1.0,1.0,0.75},{0.0,0.56,0.56}},
+			{{1.0},{1.0,1.0,0.75},{0.0,0.4,0.4}}
 	};
 
 
