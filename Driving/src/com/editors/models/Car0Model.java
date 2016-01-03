@@ -38,38 +38,35 @@ public class Car0Model extends MeshModel{
 
 		int numSections=body.length;
 
-
 		int totalBodyPoints=0;
-		int totalLegPoints=0;
-		int totalArmPoints=0;
 
 		for(int k=0;k<numSections;k++){
 
 			double[] d=body[k];
 
+			double yi=d[0];
+			
 			double xi=d[1];
-			double yi=d[2];
-			double zi=d[0];
+			double zi=d[2];
+			
 
-			double z=zi*dz;
+			double y=yi*dy;
+			
 			double deltax=dx*xi*0.5;
-			double deltay=dy*yi*0.5;
+			double deltaz=dz*zi;
 
 			double x=0;
-			double y=0;
+			double z=0;
 
-			addPoint(x-deltax, y-deltay, z);
-			addPoint(x+deltax, y-deltay, z);
-			addPoint(x+deltax, y+deltay, z);
-			addPoint(x-deltax, y+deltay, z);
+			addPoint(x-deltax, y,z);
+			addPoint(x-deltax, y,z+deltaz);
+			addPoint(x+deltax, y,z+deltaz);
+			addPoint(x+deltax, y,z);
 
 			totalBodyPoints+=4;
 
 
 		}
-
-
-		int totalBodyTexturePoints=0;
 
 		//single block texture
 
@@ -77,24 +74,21 @@ public class Car0Model extends MeshModel{
 
 			double[] d=body[k];
 
+			double yi=d[0];
+			
 			double xi=d[1];
-			double yi=d[2];
-			double zi=d[0];
+			double zi=d[2];
 
-			double z=by+zi*dz;
-
-
+			double y=by+yi*dy;
 			double x=bx;
 
 			for (int p0 = 0; p0 <= nBasePoints; p0++) {
-				addTPoint(x,z,0);
-
-				totalBodyTexturePoints++;
+				addTPoint(x,y,0);
 
 				if(p0%2==0)
-					x+=dx;
+					x+=dz;
 				else
-					x+=dy;
+					x+=dx;
 				
 			}
 		}
@@ -104,8 +98,8 @@ public class Car0Model extends MeshModel{
 		faces=buildSingleBlockFaces(nBasePoints,numSections,0,0);
 
 
-		IMG_WIDTH=(int) (2*bx+2*(dx+dy)+dy);
-		IMG_HEIGHT=(int) (2*by+dz);
+		IMG_WIDTH=(int) (2*bx+2*(dx+dz));
+		IMG_HEIGHT=(int) (2*by+dy);
 	}
 
 
@@ -137,16 +131,16 @@ public class Car0Model extends MeshModel{
 	 */
 	public static final double[][] body={
 
-			{0.0,0.1111,1.0},
-			{0.1239,0.6032,1.0},
-			{0.2743,0.5556,1.0},
-			{0.4867,0.6508,1.0},
+			{0.0,1.0,1.0},
+			{0.1239,1.0,1.0},
+			{0.2743,1.0,1.0},
+			{0.4867,1.0,1.0},
 			{0.5221,1.0,1.0},
 			{0.5929,0.9206,1.0},
-			{0.6372,0.7778,1.0},
-			{0.6991,0.2381,1.0},
-			{0.7611,0.2540,1.0},
-			{0.9027,0.3810,1.0},
+			{0.6372,1.0,1.0},
+			{0.6991,1.0,1.0},
+			{0.7611,1.0,1.0},
+			{0.9027,0.8810,1.0},
 			{0.9823,0.1905,1.0},
 
 	};
