@@ -47,21 +47,22 @@ public class Car0Model extends MeshModel{
 			double yi=d[0];
 			
 			double xi=d[1];
-			double zi=d[2];
-			
+			double ziMin=d[2];
+			double ziMax=d[3];
 
 			double y=yi*dy;
 			
 			double deltax=dx*xi*0.5;
-			double deltaz=dz*zi;
+			double deltazMin=dz*ziMin;
+			double deltazMax=dz*ziMax;
 
 			double x=0;
 			double z=0;
 
-			addPoint(x-deltax, y,z);
-			addPoint(x-deltax, y,z+deltaz);
-			addPoint(x+deltax, y,z+deltaz);
-			addPoint(x+deltax, y,z);
+			addPoint(x-deltax, y,z+deltazMin);
+			addPoint(x-deltax, y,z+deltazMax);
+			addPoint(x+deltax, y,z+deltazMax);
+			addPoint(x+deltax, y,z+deltazMin);
 
 			totalBodyPoints+=4;
 
@@ -126,23 +127,19 @@ public class Car0Model extends MeshModel{
 
 	/**
 	 * BOTTOM-UP SECTIONS
-	 * z,x,y
+	 * y,x,zMin,Zmax
 	 * 
 	 */
 	public static final double[][] body={
 
-			{0.0,1.0,1.0},
-			{0.1239,1.0,1.0},
-			{0.2743,1.0,1.0},
-			{0.4867,1.0,1.0},
-			{0.5221,1.0,1.0},
-			{0.5929,0.9206,1.0},
-			{0.6372,1.0,1.0},
-			{0.6991,1.0,1.0},
-			{0.7611,1.0,1.0},
-			{0.9027,0.8810,1.0},
-			{0.9823,0.1905,1.0},
-
+			{0.0,1.0,0.0,0.4},
+			{0.1538,1.0,0.0,0.8},
+			{0.2308,1.0,0.2,1.0},
+			{0.3077,1.0,0.0,1.0},
+			{0.6923,1.0,0.0,1.0},
+			{0.7692,1.0,0.2,0.6},
+			{0.8462,1.0,0.0,0.56},
+			{1.0,1.0,0.0,0.4}
 	};
 
 
