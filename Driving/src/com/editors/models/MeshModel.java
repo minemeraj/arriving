@@ -18,6 +18,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.BPoint;
 import com.Point3D;
 import com.main.Renderer3D;
 
@@ -252,6 +253,16 @@ public abstract class MeshModel {
 
 		texturePoints.add(new Point3D(x,y,z));
 
+	}
+	
+
+	public BPoint addBPoint(double x, double y, double z) {
+
+		int index=points.size();
+		BPoint p=new BPoint(x, y, z, index);
+		points.add(p);
+
+		return p;
 	}
 
 	public int[][][] buildSingleBlockFaces(
