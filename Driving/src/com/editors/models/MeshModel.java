@@ -381,7 +381,7 @@ public abstract class MeshModel {
 		int NUM_FACES=(nBasePoints-1)*(numSections-1);
 		int[][][] faces=new int[NUM_FACES][3][nBasePoints];
 		
-		Vector finalFaces=new Vector<>();
+		Vector finalFaces=new Vector();
 
 		int counter=0;
 		for (int k = 0;k < numSections-1; k++) {
@@ -447,14 +447,14 @@ public abstract class MeshModel {
 	public void postProcessor(Vector vFaces){
 
 		
-		Hashtable fp=new Hashtable<>();
+		Hashtable fp=new Hashtable();
 		
-		Vector newPoints=new Vector<>();
+		Vector newPoints=new Vector();
 		
 		int counter=0;
 		
 		Hashtable usedPoints=buildUsedPointsHashtable(vFaces);
-		Hashtable readPoints=new Hashtable<>();
+		Hashtable readPoints=new Hashtable();
 		
 		for(int i=0;i<points.size();i++){
 			
@@ -507,7 +507,7 @@ public abstract class MeshModel {
 
 	private static Hashtable buildUsedPointsHashtable(Vector vFaces) {
 		
-		Hashtable usedPoints=new Hashtable<>();
+		Hashtable usedPoints=new Hashtable();
 		
 		for (int i = 0; i < vFaces.size(); i++) {
 

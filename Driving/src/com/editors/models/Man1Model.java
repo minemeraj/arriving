@@ -153,7 +153,7 @@ public class Man1Model extends MeshModel {
 
 	private void postProcessor(int[][][] backFaces2, int[][][] frontFaces2) {
 	
-		Vector vFaces=new Vector<>();
+		Vector vFaces=new Vector();
 		vFaces.add(backFaces2);
 		vFaces.add(frontFaces2);
 		

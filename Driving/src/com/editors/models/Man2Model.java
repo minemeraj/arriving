@@ -43,12 +43,17 @@ public class Man2Model extends MeshModel{
 		BPoint p1= addBPoint(100,0,0);
 		BPoint p2= addBPoint(100,0,100);
 		BPoint p3= addBPoint(0,0,100);
+		
+		BPoint p4= addBPoint(100,100,100);
+		BPoint p5= addBPoint(0,100,100);
 
 		int zNumSections=2;
-		int xNumSections=2;  
+		int xNumSections=3;  
 
 		double deltax=dx/(xNumSections-1);
 		double deltay=dz/(zNumSections-1);
+
+		int  NUMFACES=(xNumSections-1)*(zNumSections-1);
 
 		for (int k = 0; k < zNumSections; k++) { 
 
@@ -66,15 +71,27 @@ public class Man2Model extends MeshModel{
 
 		}
 
-		int  NUMFACES=1;
-		faces=new int[NUMFACES][3][4];
+
+		int[][][] tFaces = new int[NUMFACES][3][4];
 
 		/*int m=NUMFACES/zNumSections;
 		int n=NUMFACES/xNumSections;*/
 
 		int counter=0;
 		
-		buildFace(faces,counter++,p0,p1,p2,p3);
+		int nBasePoints=4;
+
+		buildFace(tFaces,counter++,p0,p1,p2,p3,xNumSections,zNumSections);
+		buildFace(tFaces,counter++,p2,p4,p5,p3,xNumSections,zNumSections);
+
+		faces=new int[counter][3][nBasePoints];
+
+		for (int i = 0; i < counter; i++) {
+
+			faces[i] = (int[][]) tFaces[i];
+
+		}
+
 
 		IMG_WIDTH=(int) (2*bx+2*(dx+dx));
 		IMG_HEIGHT=(int) (2*by+dz);
@@ -83,8 +100,13 @@ public class Man2Model extends MeshModel{
 
 
 
-	private void buildFace(int[][][] faces, int counter, BPoint p0, BPoint p1, BPoint p2, BPoint p3) {
-		
+	private void buildFace(int[][][] faces, 
+			int counter, 
+			BPoint p0, BPoint p1, BPoint p2, BPoint p3, 
+			int xNumSections, 
+			int zNumSections
+			) {
+
 
 		faces[counter][0][MeshModel.FACE_TYPE_ORIENTATION]=Renderer3D.CAR_BACK;
 
@@ -95,16 +117,21 @@ public class Man2Model extends MeshModel{
 		pts[1]=p1.getIndex();
 		pts[2]=p2.getIndex();
 		pts[3]=p3.getIndex();
-
+		
+		int nx=(xNumSections-1);
+		int m=counter/nx;
+		int n=counter-m*nx;
+		
+		int p=(nx+1)*m+n;
 
 		int[] tts = new int[4];
 		faces[counter][MeshModel.FACE_TYPE_TEXTURE_INDEXES]=tts;
 
-		tts[0]=0;
-		tts[1]=1;
-		tts[2]=3;
-		tts[3]=2;
-		
+		tts[0]=p;
+		tts[1]=p+1;
+		tts[2]=p+1+(nx+1);
+		tts[3]=p+(nx+1);
+
 	}
 
 	@Override
