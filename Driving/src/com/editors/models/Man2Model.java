@@ -47,12 +47,12 @@ public class Man2Model extends MeshModel{
 		BPoint p4= addBPoint(100,100,100);
 		BPoint p5= addBPoint(0,100,100);
 
-		int zNumSections=2;
+		double deltax=100;
+		double deltay=100;
+		
 		int xNumSections=3;  
-
-		double deltax=(dx+dy)/(xNumSections-1);
-		double deltay=dz/(zNumSections-1);
-
+		int zNumSections=3;
+		
 		int  NUMFACES=(xNumSections-1)*(zNumSections-1);
 
 		for (int k = 0; k < zNumSections; k++) { 
@@ -74,17 +74,12 @@ public class Man2Model extends MeshModel{
 
 		int[][][] tFaces = new int[NUMFACES][3][4];
 
-		/*int m=NUMFACES/zNumSections;
-		int n=NUMFACES/xNumSections;*/
-
 		int counter=0;
-		
-		int nBasePoints=4;
 
 		buildFace(tFaces,counter++,p0,p1,p2,p3,xNumSections,zNumSections);
 		buildFace(tFaces,counter++,p2,p4,p5,p3,xNumSections,zNumSections);
 
-		faces=new int[counter][3][nBasePoints];
+		faces=new int[counter][3][];
 
 		for (int i = 0; i < counter; i++) {
 
@@ -93,8 +88,8 @@ public class Man2Model extends MeshModel{
 		}
 
 
-		IMG_WIDTH=(int) (2*bx+2*(dx+dx));
-		IMG_HEIGHT=(int) (2*by+dz);
+		IMG_WIDTH=(int) (2*bx+deltax*(xNumSections-1));
+		IMG_HEIGHT=(int) (2*by+deltay*((zNumSections-1)));
 	}
 
 
