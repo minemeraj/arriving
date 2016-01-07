@@ -238,6 +238,14 @@ public abstract class MeshModel {
 
 				printTexturePolygon(bg,idx0,idx1,idx2,idx3);
 
+			}else if(tts.length==3){
+				
+				int idx0=tts[0];
+				int idx1=tts[1];
+				int idx2=tts[2];
+
+				printTexturePolygon(bg,idx0,idx1,idx2);
+			
 			}
 		}
 

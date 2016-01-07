@@ -50,7 +50,7 @@ public class Man2Model extends MeshModel{
 		int zNumSections=2;
 		int xNumSections=3;  
 
-		double deltax=dx/(xNumSections-1);
+		double deltax=(dx+dy)/(xNumSections-1);
 		double deltay=dz/(zNumSections-1);
 
 		int  NUMFACES=(xNumSections-1)*(zNumSections-1);
@@ -106,17 +106,22 @@ public class Man2Model extends MeshModel{
 			int xNumSections, 
 			int zNumSections
 			) {
+		
+		int sz=3;
+		if(p3!=null)
+			sz=4;
 
 
 		faces[counter][0][MeshModel.FACE_TYPE_ORIENTATION]=Renderer3D.CAR_BACK;
 
-		int[] pts = new int[4];
+		int[] pts = new int[sz];
 		faces[counter][MeshModel.FACE_TYPE_BODY_INDEXES]=pts;
 
 		pts[0]=p0.getIndex();
 		pts[1]=p1.getIndex();
 		pts[2]=p2.getIndex();
-		pts[3]=p3.getIndex();
+		if(p3!=null)
+			pts[3]=p3.getIndex();
 		
 		int nx=(xNumSections-1);
 		int m=counter/nx;
@@ -124,14 +129,21 @@ public class Man2Model extends MeshModel{
 		
 		int p=(nx+1)*m+n;
 
-		int[] tts = new int[4];
+		int[] tts = new int[sz];
 		faces[counter][MeshModel.FACE_TYPE_TEXTURE_INDEXES]=tts;
 
 		tts[0]=p;
 		tts[1]=p+1;
-		tts[2]=p+1+(nx+1);
-		tts[3]=p+(nx+1);
-
+		
+		if(p3!=null){
+			
+			tts[2]=p+1+(nx+1);
+			tts[3]=p+(nx+1);
+			
+		}else{
+			
+			tts[2]=p+(nx+1);
+		}
 	}
 
 	@Override
