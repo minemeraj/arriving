@@ -81,7 +81,7 @@ public class Man2Model extends MeshModel{
 						bust[k][(i+1)%4],
 						bust[k+1][(i+1)%4],
 						bust[k+1][(i)],
-						xNumSections,bust.length);
+						xNumSections,zNumSections);
 	
 			}
 		}
@@ -94,7 +94,7 @@ public class Man2Model extends MeshModel{
 						leftLeg[k][(i+1)%4],
 						leftLeg[k+1][(i+1)%4],
 						leftLeg[k+1][(i)],
-						4,leftLeg.length);
+						xNumSections,zNumSections);
 	
 			}
 		}
@@ -107,7 +107,7 @@ public class Man2Model extends MeshModel{
 						rightLeg[k][(i+1)%4],
 						rightLeg[k+1][(i+1)%4],
 						rightLeg[k+1][(i)],
-						4,rightLeg.length);
+						xNumSections,zNumSections);
 	
 			}
 		}
