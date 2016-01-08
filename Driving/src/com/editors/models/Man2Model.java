@@ -37,18 +37,21 @@ public class Man2Model extends MeshModel{
 		points=new Vector();
 		texturePoints=new Vector();
 		
-		double leg_lenght=100;
+		double leg_lenght=dz;
 
 		///BUST
 		BPoint[][] bust=buildBustBPoints(dx,dy,dz,leg_lenght);
 		BPoint[][] leftLeg=buildLeftLeg(bust,leg_lenght);
 		BPoint[][] rightLeg=buildRightLeg(bust,leg_lenght);
+		BPoint[][] leftArm=buildLeftArm(bust,leg_lenght);
+		BPoint[][] rightArm=buildRightArm(bust,leg_lenght);
 
 		double deltax=100;
 		double deltay=100;
 
 		int xNumSections=5;  
-		int zNumSections=bust.length+leftLeg.length+rightLeg.length;
+		int zNumSections=bust.length+leftLeg.length+rightLeg.length
+				+leftArm.length+rightArm.length;
 
 		int  NUMFACES=(xNumSections-1)*(zNumSections-1);
 
@@ -112,6 +115,32 @@ public class Man2Model extends MeshModel{
 			}
 		}
 		
+		for(int k=0;k<leftArm.length-1;k++){
+			for (int i = 0; i < 4; i++) {
+	
+				buildFace(tFaces,counter++,
+						leftArm[k][i],
+						leftArm[k][(i+1)%4],
+						leftArm[k+1][(i+1)%4],
+						leftArm[k+1][(i)],
+						xNumSections,zNumSections);
+	
+			}
+		}
+		
+		for(int k=0;k<rightArm.length-1;k++){
+			for (int i = 0; i < 4; i++) {
+	
+				buildFace(tFaces,counter++,
+						rightArm[k][i],
+						rightArm[k][(i+1)%4],
+						rightArm[k+1][(i+1)%4],
+						rightArm[k+1][(i)],
+						xNumSections,zNumSections);
+	
+			}
+		}
+		
 		faces=new int[counter][3][];
 
 		for (int i = 0; i < counter; i++) {
@@ -126,7 +155,54 @@ public class Man2Model extends MeshModel{
 	}
 
 
+	private BPoint[][] buildRightArm(BPoint[][] bust, double leg_lenght) {
+		
+		BPoint[][] arm=new BPoint[2][4];
+		
+		double deltay=dy;
 
+		double leg_width=20;
+		double zm=leg_lenght;
+
+		arm[0][0]= addBPoint(bust[3][1].x,0,zm);
+		arm[0][1]= addBPoint(bust[3][1].x+leg_width,0,zm);
+		arm[0][2]= addBPoint(bust[3][2].x+leg_width,deltay,zm);
+		arm[0][3]= addBPoint(bust[3][2].x,deltay,zm);
+		
+		arm[1][0]= bust[3][1];
+		arm[1][1]= bust[4][1];
+		arm[1][2]= bust[4][2];
+		arm[1][3]= bust[3][2];
+		
+		
+		return arm;
+	}
+
+
+
+	private BPoint[][] buildLeftArm(BPoint[][] bust, double leg_lenght) {
+		
+		BPoint[][] arm=new BPoint[2][4];
+		
+		double deltay=dy;
+
+		double arm_width=20;
+		
+		double zm=leg_lenght;
+
+		arm[0][0]= addBPoint(bust[3][0].x-arm_width,0,zm);
+		arm[0][1]= addBPoint(bust[3][0].x,0,zm);
+		arm[0][2]= addBPoint(bust[3][3].x,deltay,zm);
+		arm[0][3]= addBPoint(bust[3][3].x-arm_width,deltay,zm);
+		
+		arm[1][0]= bust[4][0];
+		arm[1][1]= bust[3][0];
+		arm[1][2]= bust[3][3];
+		arm[1][3]= bust[4][3];
+		
+		
+		return arm;
+	}
 
 	private BPoint[][] buildRightLeg(BPoint[][] bust, double leg_lenght) {
 		
