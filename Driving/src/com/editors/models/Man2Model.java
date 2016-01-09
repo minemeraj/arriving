@@ -16,6 +16,9 @@ public class Man2Model extends MeshModel{
 	double dx = 0;
 	double dy = 0;
 	double dz = 0;
+	
+	double leg_length = 0;
+	double arm_length = 0;
 
 	private int[][][] faces; 
 
@@ -24,11 +27,17 @@ public class Man2Model extends MeshModel{
 	int bx=10;
 	int by=10;
 
-	public Man2Model(double dx, double dy, double dz) {
+	public Man2Model(double dx, double dy, double dz,
+			double leg_length,
+			double arm_length
+			) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
 		this.dz = dz;
+		
+		this.leg_length = leg_length;
+		this.arm_length = arm_length;
 	}
 
 	@Override
@@ -36,15 +45,13 @@ public class Man2Model extends MeshModel{
 
 		points=new Vector();
 		texturePoints=new Vector();
-		
-		double leg_lenght=dz;
 
 		///BUST
-		BPoint[][] bust=buildBustBPoints(dx,dy,dz,leg_lenght);
-		BPoint[][] leftLeg=buildLeftLeg(bust,leg_lenght);
-		BPoint[][] rightLeg=buildRightLeg(bust,leg_lenght);
-		BPoint[][] leftArm=buildLeftArm(bust,leg_lenght);
-		BPoint[][] rightArm=buildRightArm(bust,leg_lenght);
+		BPoint[][] bust=buildBustBPoints(dx,dy,dz,leg_length);
+		BPoint[][] leftLeg=buildLeftLeg(bust,leg_length);
+		BPoint[][] rightLeg=buildRightLeg(bust,leg_length);
+		BPoint[][] leftArm=buildLeftArm(bust,leg_length);
+		BPoint[][] rightArm=buildRightArm(bust,leg_length);
 
 		double deltax=100;
 		double deltay=100;
@@ -159,13 +166,13 @@ public class Man2Model extends MeshModel{
 		
 		BPoint[][] arm=new BPoint[2][4];
 		
-		double deltay=dy;
+		double deltay=dy*0.5;
 
 		double leg_width=20;
 		double zm=leg_lenght;
 
-		arm[0][0]= addBPoint(bust[3][1].x,0,zm);
-		arm[0][1]= addBPoint(bust[3][1].x+leg_width,0,zm);
+		arm[0][0]= addBPoint(bust[3][1].x,-deltay,zm);
+		arm[0][1]= addBPoint(bust[3][1].x+leg_width,-deltay,zm);
 		arm[0][2]= addBPoint(bust[3][2].x+leg_width,deltay,zm);
 		arm[0][3]= addBPoint(bust[3][2].x,deltay,zm);
 		
@@ -184,14 +191,14 @@ public class Man2Model extends MeshModel{
 		
 		BPoint[][] arm=new BPoint[2][4];
 		
-		double deltay=dy;
+		double deltay=dy*0.5;
 
 		double arm_width=20;
 		
 		double zm=leg_lenght;
 
-		arm[0][0]= addBPoint(bust[3][0].x-arm_width,0,zm);
-		arm[0][1]= addBPoint(bust[3][0].x,0,zm);
+		arm[0][0]= addBPoint(bust[3][0].x-arm_width,-deltay,zm);
+		arm[0][1]= addBPoint(bust[3][0].x,-deltay,zm);
 		arm[0][2]= addBPoint(bust[3][3].x,deltay,zm);
 		arm[0][3]= addBPoint(bust[3][3].x-arm_width,deltay,zm);
 		
@@ -208,12 +215,12 @@ public class Man2Model extends MeshModel{
 		
 		BPoint[][] leg=new BPoint[2][4];
 		
-		double deltay=dy;
+		double deltay=dy*0.5;
 
 		double leg_width=20;
 
-		leg[0][0]= addBPoint(bust[0][1].x,0,0);
-		leg[0][1]= addBPoint(bust[0][1].x+leg_width,0,0);
+		leg[0][0]= addBPoint(bust[0][1].x,-deltay,0);
+		leg[0][1]= addBPoint(bust[0][1].x+leg_width,-deltay,0);
 		leg[0][2]= addBPoint(bust[0][2].x+leg_width,deltay,0);
 		leg[0][3]= addBPoint(bust[0][2].x,deltay,0);
 		
@@ -229,12 +236,12 @@ public class Man2Model extends MeshModel{
 	private BPoint[][] buildLeftLeg(BPoint[][] bust, double leg_lenght) {
 		BPoint[][] leg=new BPoint[2][4];
 		
-		double deltay=dy;
+		double deltay=dy*0.5;
 
 		double leg_width=20;
 
-		leg[0][0]= addBPoint(bust[0][0].x-leg_width,0,0);
-		leg[0][1]= addBPoint(bust[0][0].x,0,0);
+		leg[0][0]= addBPoint(bust[0][0].x-leg_width,-deltay,0);
+		leg[0][1]= addBPoint(bust[0][0].x,-deltay,0);
 		leg[0][2]= addBPoint(bust[0][3].x,deltay,0);
 		leg[0][3]= addBPoint(bust[0][3].x-leg_width,deltay,0);
 		
@@ -253,61 +260,61 @@ public class Man2Model extends MeshModel{
 		BPoint[][] bust=new BPoint[11][4];
 		
 		double deltax=dx*0.5;
-		double deltay=dy;
+		double deltay=dy*0.5;
 		double deltaz=leg_lenght;
 
-		bust[0][0]= addBPoint(-deltax*0.1111,0,deltaz);
-		bust[0][1]= addBPoint(deltax*0.1111,0,deltaz);
+		bust[0][0]= addBPoint(-deltax*0.1111,-deltay,deltaz);
+		bust[0][1]= addBPoint(deltax*0.1111,-deltay,deltaz);
 		bust[0][2]= addBPoint(deltax*0.1111,deltay,deltaz);
 		bust[0][3]= addBPoint(-deltax*0.1111,deltay,deltaz);
 		
-		bust[1][0]= addBPoint(-deltax*0.6032,0,dz*0.1239+deltaz);
-		bust[1][1]= addBPoint(deltax*0.6032,0,dz*0.1239+deltaz);
+		bust[1][0]= addBPoint(-deltax*0.6032,-deltay,dz*0.1239+deltaz);
+		bust[1][1]= addBPoint(deltax*0.6032,-deltay,dz*0.1239+deltaz);
 		bust[1][2]= addBPoint(deltax*0.6032,deltay,dz*0.1239+deltaz);
 		bust[1][3]= addBPoint(-deltax*0.6032,deltay,dz*0.1239+deltaz);
 		
-		bust[2][0]= addBPoint(-deltax*0.5556,0,dz*0.2743+deltaz);
-		bust[2][1]= addBPoint(deltax*0.5556,0,dz*0.2743+deltaz);
+		bust[2][0]= addBPoint(-deltax*0.5556,-deltay,dz*0.2743+deltaz);
+		bust[2][1]= addBPoint(deltax*0.5556,-deltay,dz*0.2743+deltaz);
 		bust[2][2]= addBPoint(deltax*0.5556,deltay,dz*0.2743+deltaz);
 		bust[2][3]= addBPoint(-deltax*0.5556,deltay,dz*0.2743+deltaz);
 		
-		bust[3][0]= addBPoint(-deltax*0.6508,0,dz*0.4867+deltaz);
-		bust[3][1]= addBPoint(deltax*0.6508,0,dz*0.4867+deltaz);
+		bust[3][0]= addBPoint(-deltax*0.6508,-deltay,dz*0.4867+deltaz);
+		bust[3][1]= addBPoint(deltax*0.6508,-deltay,dz*0.4867+deltaz);
 		bust[3][2]= addBPoint(deltax*0.6508,deltay,dz*0.4867+deltaz);
 		bust[3][3]= addBPoint(-deltax*0.6508,deltay,dz*0.4867+deltaz);
 
-		bust[4][0]= addBPoint(-deltax*1.0,0,dz*0.5221+deltaz);
-		bust[4][1]= addBPoint(deltax*1.0,0,dz*0.5221+deltaz);
+		bust[4][0]= addBPoint(-deltax*1.0,-deltay,dz*0.5221+deltaz);
+		bust[4][1]= addBPoint(deltax*1.0,-deltay,dz*0.5221+deltaz);
 		bust[4][2]= addBPoint(deltax*1.0,deltay,dz*0.5221+deltaz);
 		bust[4][3]= addBPoint(-deltax*1.0,deltay,dz*0.5221+deltaz);
 		
-		bust[5][0]= addBPoint(-deltax*0.9206,0,dz*0.5929+deltaz);
-		bust[5][1]= addBPoint(deltax*0.9206,0,dz*0.5929+deltaz);
+		bust[5][0]= addBPoint(-deltax*0.9206,-deltay,dz*0.5929+deltaz);
+		bust[5][1]= addBPoint(deltax*0.9206,-deltay,dz*0.5929+deltaz);
 		bust[5][2]= addBPoint(deltax*0.9206,deltay,dz*0.5929+deltaz);
 		bust[5][3]= addBPoint(-deltax*0.9206,deltay,dz*0.5929+deltaz);
 		
-		bust[6][0]= addBPoint(-deltax*0.7778,0,dz*0.6372+deltaz);
-		bust[6][1]= addBPoint(deltax*0.7778,0,dz*0.6372+deltaz);
+		bust[6][0]= addBPoint(-deltax*0.7778,-deltay,dz*0.6372+deltaz);
+		bust[6][1]= addBPoint(deltax*0.7778,-deltay,dz*0.6372+deltaz);
 		bust[6][2]= addBPoint(deltax*0.7778,deltay,dz*0.6372+deltaz);
 		bust[6][3]= addBPoint(-deltax*0.7778,deltay,dz*0.6372+deltaz);
 		
-		bust[7][0]= addBPoint(-deltax*0.2381,0,dz*0.6991+deltaz);
-		bust[7][1]= addBPoint(deltax*0.2381,0,dz*0.6991+deltaz);
+		bust[7][0]= addBPoint(-deltax*0.2381,-deltay,dz*0.6991+deltaz);
+		bust[7][1]= addBPoint(deltax*0.2381,-deltay,dz*0.6991+deltaz);
 		bust[7][2]= addBPoint(deltax*0.2381,deltay,dz*0.6991+deltaz);
 		bust[7][3]= addBPoint(-deltax*0.2381,deltay,dz*0.6991+deltaz);
 		
-		bust[8][0]= addBPoint(-deltax*0.2540,0,dz*0.7611+deltaz);
-		bust[8][1]= addBPoint(deltax*0.2540,0,dz*0.7611+deltaz);
+		bust[8][0]= addBPoint(-deltax*0.2540,-deltay,dz*0.7611+deltaz);
+		bust[8][1]= addBPoint(deltax*0.2540,-deltay,dz*0.7611+deltaz);
 		bust[8][2]= addBPoint(deltax*0.2540,deltay,dz*0.7611+deltaz);
 		bust[8][3]= addBPoint(-deltax*0.2540,deltay,dz*0.7611+deltaz);
 		
-		bust[9][0]= addBPoint(-deltax*0.3810,0,dz*0.9027+deltaz);
-		bust[9][1]= addBPoint(deltax*0.3810,0,dz*0.9027+deltaz);
+		bust[9][0]= addBPoint(-deltax*0.3810,-deltay,dz*0.9027+deltaz);
+		bust[9][1]= addBPoint(deltax*0.3810,-deltay,dz*0.9027+deltaz);
 		bust[9][2]= addBPoint(deltax*0.3810,deltay,dz*0.9027+deltaz);
 		bust[9][3]= addBPoint(-deltax*0.3810,deltay,dz*0.9027+deltaz);
 		
-		bust[10][0]= addBPoint(-deltax*0.1905,0,dz*0.9823+deltaz);
-		bust[10][1]= addBPoint(deltax*0.1905,0,dz*0.9823+deltaz);
+		bust[10][0]= addBPoint(-deltax*0.1905,-deltay,dz*0.9823+deltaz);
+		bust[10][1]= addBPoint(deltax*0.1905,-deltay,dz*0.9823+deltaz);
 		bust[10][2]= addBPoint(deltax*0.1905,deltay,dz*0.9823+deltaz);
 		bust[10][3]= addBPoint(-deltax*0.1905,deltay,dz*0.9823+deltaz);
 

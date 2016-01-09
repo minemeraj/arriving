@@ -28,9 +28,12 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 	private DoubleTextField dz_text;
 	private DoubleTextField dy_text;
 	private DoubleTextField dx_text;
+	private DoubleTextField leg_length_text;
+	private DoubleTextField arm_length_text;
 	private JComboBox chooseAnimal;
 
 	private boolean skipItemChanged=false;
+
 
 	public static int MAN0=0;
 	public static int MAN1=1;
@@ -40,7 +43,7 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 
 	public static void main(String[] args) {
 
-		AnimalMeshEditor fm=new AnimalMeshEditor(250,280);
+		AnimalMeshEditor fm=new AnimalMeshEditor(350,280);
 	}
 
 
@@ -62,9 +65,17 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 		lx.setBounds(5,r,20,20);
 		center.add(lx);
 		dx_text=new DoubleTextField(8);
-		dx_text.setBounds(30,r,120,20);
+		dx_text.setBounds(30,r,100,20);
 		dx_text.setText(dx);
 		center.add(dx_text);
+		
+		JLabel llegs=new JLabel("Legs len:");
+		llegs.setBounds(140,r,70,20);
+		center.add(llegs);
+		leg_length_text=new DoubleTextField(8);
+		leg_length_text.setBounds(210,r,100,20);
+		leg_length_text.setText(0); 
+		center.add(leg_length_text);
 
 		r+=30;
 
@@ -72,9 +83,17 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 		ly.setBounds(5,r,20,20);
 		center.add(ly);
 		dy_text=new DoubleTextField(8);
-		dy_text.setBounds(30,r,120,20);
+		dy_text.setBounds(30,r,100,20);
 		dy_text.setText(dy);
 		center.add(dy_text);
+		
+		JLabel larms=new JLabel("Arms len:");
+		llegs.setBounds(140,r,70,20);
+		center.add(llegs);
+		arm_length_text=new DoubleTextField(8);
+		arm_length_text.setBounds(210,r,100,20);
+		arm_length_text.setText(0);
+		center.add(arm_length_text);
 
 
 		r+=30;
@@ -83,7 +102,7 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 		lz.setBounds(5,r,20,20);
 		center.add(lz);
 		dz_text=new DoubleTextField(8);
-		dz_text.setBounds(30,r,120,20);
+		dz_text.setBounds(30,r,100,20);
 		dz_text.setText(dz);
 		center.add(dz_text);
 
@@ -129,6 +148,9 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 		double dx = dx_text.getvalue();
 		double dy = dy_text.getvalue();
 		double dz = dz_text.getvalue();
+		
+		double darm=arm_length_text.getvalue();
+		double dlegs=leg_length_text.getvalue();
 
 		ValuePair vp= (ValuePair)chooseAnimal.getSelectedItem();
 
@@ -141,7 +163,7 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 		else if(val==MAN1)
 			meshModel=new Man1Model(dx,dy,dz);
 		else if(val==MAN2)
-			meshModel=new Man2Model(dx,dy,dz);
+			meshModel=new Man2Model(dx,dy,dz,dlegs,darm);
 		else if(val==HEAD0)
 			meshModel=new HeadModel(dx,dy,dz);
 		else if(val==HEAD1)
@@ -181,25 +203,27 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 				val=MAN0;
 
 			if(MAN0==val)
-				setRightData(100,10,180);
+				setRightData(100,10,180,0,0);
 			else if(MAN1==val)
-				setRightData(100,10,180);
+				setRightData(100,10,180,0,0);
 			else if(MAN2==val)
-				setRightData(100,20,180);
+				setRightData(100,20,180,180,0);
 			else if(HEAD0==val)
-				setRightData(200,200,284);
+				setRightData(200,200,284,0,0);
 			else if(HEAD1==val)
-				setRightData(200,200,284);
+				setRightData(200,200,284,0,0);
 		}
 
 	}
 
 
-	private void setRightData(int dx, int dy, int dz){ 
+	private void setRightData(int dx, int dy, int dz,int leg_length,int arm_length){ 
 		
 		dx_text.setText(dx);
 		dy_text.setText(dy);
 		dz_text.setText(dz);
+		leg_length_text.setText(leg_length);
+		arm_length_text.setText(arm_length);
 	}
 
 
