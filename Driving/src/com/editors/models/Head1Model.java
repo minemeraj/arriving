@@ -38,15 +38,17 @@ public class Head1Model extends MeshModel{
 		texturePoints=new Vector();
 
 		///BUST
-		BPoint[][] bust=buildHeadBPoints(dx,dy,dz);
+		BPoint[][] head=buildHeadBPoints(dx,dy,dz);
 
 		double deltax=100;
 		double deltay=100;
 
-		int xNumSections=5;  
-		int zNumSections=bust.length;
+		int xNumSections=7;  
+		int zNumSections=head.length;
 		int  NUMFACES=(xNumSections-1)*(zNumSections-1);
 
+		
+		
 		for (int k = 0; k < zNumSections; k++) { 
 
 
@@ -63,19 +65,20 @@ public class Head1Model extends MeshModel{
 
 		}
 
-
+		int ns=xNumSections-1;
+		
 		int[][][] tFaces = new int[NUMFACES][3][4];
 
 		int counter=0;
 
-		for(int k=0;k<bust.length-1;k++){
-			for (int i = 0; i < 4; i++) {
+		for(int k=0;k<head.length-1;k++){
+			for (int i = 0; i < ns; i++) {
 	
 				buildFace(tFaces,counter++,
-						bust[k][i],
-						bust[k][(i+1)%4],
-						bust[k+1][(i+1)%4],
-						bust[k+1][(i)],
+						head[k][i],
+						head[k][(i+1)%ns],
+						head[k+1][(i+1)%ns],
+						head[k+1][(i)],
 						xNumSections,zNumSections);
 	
 			}
@@ -99,70 +102,92 @@ public class Head1Model extends MeshModel{
 	private BPoint[][] buildHeadBPoints(double dx, double dy, double dz) {
 
 
-		BPoint[][] head=new BPoint[11][4];
+		BPoint[][] head=new BPoint[11][6];
 		
 		double deltax=dx*0.5;
 		double deltay=dy;
 		double deltaz=dz;
 
 		head[0][0]= addBPoint(-deltax,-deltay*0.4884,deltaz*0);
-		head[0][1]= addBPoint(deltax,-deltay*0.4884,deltaz*0);
-		head[0][2]= addBPoint(deltax,deltay*0.6163,deltaz*0);
-		head[0][3]= addBPoint(-deltax,deltay*0.6163,deltaz*0);
+		head[0][1]= addBPoint(-deltax*0.0,-deltay*0.4884,deltaz*0);
+		head[0][2]= addBPoint(deltax,-deltay*0.4884,deltaz*0);
+		head[0][3]= addBPoint(deltax,deltay*0.6163,deltaz*0);
+		head[0][4]= addBPoint(deltax*0.0,deltay*0.6163,deltaz*0);
+		head[0][5]= addBPoint(-deltax,deltay*0.6163,deltaz*0);
 
 		
 		head[1][0]= addBPoint(-deltax,-deltay*0.4187,deltaz*0.1148);
-		head[1][1]= addBPoint(deltax,-deltay*0.4187,deltaz*0.1148);
-		head[1][2]= addBPoint(deltax,deltay*0.6396,deltaz*0.1148);
-		head[1][3]= addBPoint(-deltax,deltay*0.6396,deltaz*0.1148);
+		head[1][1]= addBPoint(-deltax*0.0,-deltay*0.4187,deltaz*0.1148);
+		head[1][2]= addBPoint(deltax,-deltay*0.4187,deltaz*0.1148);
+		head[1][3]= addBPoint(deltax,deltay*0.6396,deltaz*0.1148);
+		head[1][4]= addBPoint(deltax*0.0,deltay*0.6396,deltaz*0.1148);
+		head[1][5]= addBPoint(-deltax,deltay*0.6396,deltaz*0.1148);
 
 		
 		head[2][0]= addBPoint(-deltax,-deltay*0.4187,deltaz*0.1803);
-		head[2][1]= addBPoint(deltax,-deltay*0.4187,deltaz*0.1803);
-		head[2][2]= addBPoint(deltax,deltay*0.6396,deltaz*0.1803);
-		head[2][3]= addBPoint(-deltax,deltay*0.6396,deltaz*0.1803);
+		head[2][1]= addBPoint(-deltax*0.0,-deltay*0.4187,deltaz*0.1803);
+		head[2][2]= addBPoint(deltax,-deltay*0.4187,deltaz*0.1803);
+		head[2][3]= addBPoint(deltax,deltay*0.6396,deltaz*0.1803);
+		head[2][4]= addBPoint(deltax*0.0,deltay*0.6396,deltaz*0.1803);
+		head[2][5]= addBPoint(-deltax,deltay*0.6396,deltaz*0.1803);
 		
 		head[3][0]= addBPoint(-deltax,-deltay*0.4651,deltaz*0.2787);
-		head[3][1]= addBPoint(deltax,-deltay*0.4651,deltaz*0.2787);
-		head[3][2]= addBPoint(deltax,deltay*0.6861,deltaz*0.2787);
-		head[3][3]= addBPoint(-deltax,deltay*0.6861,deltaz*0.2787);
+		head[3][1]= addBPoint(-deltax*0.0,-deltay*0.4651,deltaz*0.2787);
+		head[3][2]= addBPoint(deltax,-deltay*0.4651,deltaz*0.2787);
+		head[3][3]= addBPoint(deltax,deltay*0.6861,deltaz*0.2787);
+		head[3][4]= addBPoint(deltax*0.0,deltay*0.6861,deltaz*0.2787);
+		head[3][5]= addBPoint(-deltax,deltay*0.6861,deltaz*0.2787);
 		
 		head[4][0]= addBPoint(-deltax,-deltay*0.4884,deltaz*0.3279);
-		head[4][1]= addBPoint(deltax,-deltay*0.4884,deltaz*0.3279);
-		head[4][2]= addBPoint(deltax,deltay*0.7791,deltaz*0.3279);
-		head[4][3]= addBPoint(-deltax,deltay*0.7791,deltaz*0.3279);
+		head[4][1]= addBPoint(-deltax*0.0,-deltay*0.4884,deltaz*0.3279);
+		head[4][2]= addBPoint(deltax,-deltay*0.4884,deltaz*0.3279);
+		head[4][3]= addBPoint(deltax,deltay*0.7791,deltaz*0.3279);
+		head[4][4]= addBPoint(deltax*0.0,deltay*0.7791,deltaz*0.3279);
+		head[4][5]= addBPoint(-deltax,deltay*0.7791,deltaz*0.3279);
 
 		
 		head[5][0]= addBPoint(-deltax,-deltay*0.5698,deltaz*0.4754);
-		head[5][1]= addBPoint(deltax,-deltay*0.5698,deltaz*0.4754);
-		head[5][2]= addBPoint(deltax,deltay*0.6861,deltaz*0.4754);
-		head[5][3]= addBPoint(-deltax,deltay*0.6861,deltaz*0.4754);
+		head[5][1]= addBPoint(-deltax*0.0,-deltay*0.5698,deltaz*0.4754);
+		head[5][2]= addBPoint(deltax,-deltay*0.5698,deltaz*0.4754);
+		head[5][3]= addBPoint(deltax,deltay*0.6861,deltaz*0.4754);
+		head[5][4]= addBPoint(deltax*0.0,deltay*0.6861,deltaz*0.4754);
+		head[5][5]= addBPoint(-deltax,deltay*0.6861,deltaz*0.4754);
 		
 		head[6][0]= addBPoint(-deltax,-deltay*0.5814,deltaz*0.6066);
-		head[6][1]= addBPoint(deltax,-deltay*0.5814,deltaz*0.6066);
-		head[6][2]= addBPoint(deltax,deltay*0.6628,deltaz*0.6066);
-		head[6][3]= addBPoint(-deltax,deltay*0.6628,deltaz*0.6066);
+		head[6][1]= addBPoint(-deltax*0.0,-deltay*0.5814,deltaz*0.6066);
+		head[6][2]= addBPoint(deltax,-deltay*0.5814,deltaz*0.6066);
+		head[6][3]= addBPoint(deltax,deltay*0.6628,deltaz*0.6066);
+		head[6][4]= addBPoint(deltax*0.0,deltay*0.6628,deltaz*0.6066);
+		head[6][5]= addBPoint(-deltax,deltay*0.6628,deltaz*0.6066);
 		
 		head[7][0]= addBPoint(-deltax,-deltay*0.6047,deltaz*0.6885);
-		head[7][1]= addBPoint(deltax,-deltay*0.6047,deltaz*0.6885);
-		head[7][2]= addBPoint(deltax,deltay*0.6163,deltaz*0.6885);
-		head[7][3]= addBPoint(-deltax,deltay*0.6163,deltaz*0.6885);
+		head[7][1]= addBPoint(-deltax*0.0,-deltay*0.6047,deltaz*0.6885);
+		head[7][2]= addBPoint(deltax,-deltay*0.6047,deltaz*0.6885);
+		head[7][3]= addBPoint(deltax,deltay*0.6163,deltaz*0.6885);
+		head[7][4]= addBPoint(deltax*0.0,deltay*0.6163,deltaz*0.6885);
+		head[7][5]= addBPoint(-deltax,deltay*0.6163,deltaz*0.6885);
 		
 		head[8][0]= addBPoint(-deltax,-deltay*0.4684,deltaz*0.8525);
-		head[8][1]= addBPoint(deltax,-deltay*0.4684,deltaz*0.8525);
-		head[8][2]= addBPoint(deltax,deltay*0.4768,deltaz*0.8525);
-		head[8][3]= addBPoint(-deltax,deltay*0.4768,deltaz*0.8525);
+		head[8][1]= addBPoint(-deltax*0.0,-deltay*0.4684,deltaz*0.8525);
+		head[8][2]= addBPoint(deltax,-deltay*0.4684,deltaz*0.8525);
+		head[8][3]= addBPoint(deltax,deltay*0.4768,deltaz*0.8525);
+		head[8][4]= addBPoint(deltax*0.0,deltay*0.4768,deltaz*0.8525);
+		head[8][5]= addBPoint(-deltax,deltay*0.4768,deltaz*0.8525);
 
 		
 		head[9][0]= addBPoint(-deltax,-deltay*0.3605,deltaz*0.9344);
-		head[9][1]= addBPoint(deltax,-deltay*0.3605,deltaz*0.9344);
-		head[9][2]= addBPoint(deltax,deltay*0.3721,deltaz*0.9344);
-		head[9][3]= addBPoint(-deltax,deltay*0.3721,deltaz*0.9344);
+		head[9][1]= addBPoint(-deltax*0.0,-deltay*0.3605,deltaz*0.9344);
+		head[9][2]= addBPoint(deltax,-deltay*0.3605,deltaz*0.9344);
+		head[9][3]= addBPoint(deltax,deltay*0.3721,deltaz*0.9344);
+		head[9][4]= addBPoint(deltax*0.0,deltay*0.3721,deltaz*0.9344);
+		head[9][5]= addBPoint(-deltax,deltay*0.3721,deltaz*0.9344);
 		
 		head[10][0]= addBPoint(-deltax,-deltay*0,deltaz*1.0);
-		head[10][1]= addBPoint(deltax,-deltay*0,deltaz*1.0);
-		head[10][2]= addBPoint(deltax,deltay*0,deltaz*1.0);
-		head[10][3]= addBPoint(-deltax,deltay*0,deltaz*1.0);
+		head[10][1]= addBPoint(-deltax*0.0,-deltay*0,deltaz*1.0);
+		head[10][2]= addBPoint(deltax,-deltay*0,deltaz*1.0);
+		head[10][3]= addBPoint(deltax,deltay*0,deltaz*1.0);
+		head[10][4]= addBPoint(deltax*0.0,deltay*0,deltaz*1.0);
+		head[10][5]= addBPoint(-deltax,deltay*0,deltaz*1.0);
 		
 
 
