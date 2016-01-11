@@ -220,8 +220,13 @@ public abstract class MeshModel {
 	}
 	
 	public void printTextureFaces(Graphics2D bg, int[][][] faces) {
+		
+		printTextureFaces(bg, faces,0,faces.length);
+	}
+	
+	public void printTextureFaces(Graphics2D bg, int[][][] faces,int minimum,int maximum) {
 
-		for (int i = 0; i < faces.length; i++) {
+		for (int i = minimum; i < maximum; i++) {
 
 			int[][] face=faces[i];
 
