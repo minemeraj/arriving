@@ -22,10 +22,10 @@ public class Man2Model extends MeshModel{
 
 	private int[][][] faces; 
 
-
-
 	int bx=10;
 	int by=10;
+	
+	int bustFacesNum=0;
 
 	public Man2Model(double dx, double dy, double dz,
 			double leg_length,
@@ -50,8 +50,8 @@ public class Man2Model extends MeshModel{
 		BPoint[][] bust=buildBustBPoints(dx,dy,dz,leg_length);
 		BPoint[][] leftLeg=buildLeftLeg(bust,leg_length);
 		BPoint[][] rightLeg=buildRightLeg(bust,leg_length);
-		BPoint[][] leftArm=buildLeftArm(bust,leg_length);
-		BPoint[][] rightArm=buildRightArm(bust,leg_length);
+		BPoint[][] leftArm=buildLeftArm(bust,arm_length);
+		BPoint[][] rightArm=buildRightArm(bust,arm_length);
 
 		double deltax=100;
 		double deltay=100;
@@ -94,16 +94,19 @@ public class Man2Model extends MeshModel{
 						bust[k+1][(i)],
 						xNumSections,zNumSections);
 
+				bustFacesNum++;
 			}
 		}
+		
+		int nl=4;
 
 		for(int k=0;k<leftLeg.length-1;k++){
-			for (int i = 0; i < 4; i++) {
+			for (int i = 0; i < nl; i++) {
 
 				buildFace(tFaces,counter++,
 						leftLeg[k][i],
-						leftLeg[k][(i+1)%4],
-						leftLeg[k+1][(i+1)%4],
+						leftLeg[k][(i+1)%nl],
+						leftLeg[k+1][(i+1)%nl],
 						leftLeg[k+1][(i)],
 						xNumSections,zNumSections);
 
@@ -111,12 +114,12 @@ public class Man2Model extends MeshModel{
 		}
 
 		for(int k=0;k<rightLeg.length-1;k++){
-			for (int i = 0; i < 4; i++) {
+			for (int i = 0; i < nl; i++) {
 
 				buildFace(tFaces,counter++,
 						rightLeg[k][i],
-						rightLeg[k][(i+1)%4],
-						rightLeg[k+1][(i+1)%4],
+						rightLeg[k][(i+1)%nl],
+						rightLeg[k+1][(i+1)%nl],
 						rightLeg[k+1][(i)],
 						xNumSections,zNumSections);
 
@@ -124,12 +127,12 @@ public class Man2Model extends MeshModel{
 		}
 
 		for(int k=0;k<leftArm.length-1;k++){
-			for (int i = 0; i < 4; i++) {
+			for (int i = 0; i < nl; i++) {
 
 				buildFace(tFaces,counter++,
 						leftArm[k][i],
-						leftArm[k][(i+1)%4],
-						leftArm[k+1][(i+1)%4],
+						leftArm[k][(i+1)%nl],
+						leftArm[k+1][(i+1)%nl],
 						leftArm[k+1][(i)],
 						xNumSections,zNumSections);
 
@@ -137,12 +140,12 @@ public class Man2Model extends MeshModel{
 		}
 
 		for(int k=0;k<rightArm.length-1;k++){
-			for (int i = 0; i < 4; i++) {
+			for (int i = 0; i < nl; i++) {
 
 				buildFace(tFaces,counter++,
 						rightArm[k][i],
-						rightArm[k][(i+1)%4],
-						rightArm[k+1][(i+1)%4],
+						rightArm[k][(i+1)%nl],
+						rightArm[k+1][(i+1)%nl],
 						rightArm[k+1][(i)],
 						xNumSections,zNumSections);
 
@@ -163,24 +166,29 @@ public class Man2Model extends MeshModel{
 	}
 
 
-	private BPoint[][] buildRightArm(BPoint[][] bust, double leg_lenght) {
+	private BPoint[][] buildRightArm(BPoint[][] bust, double arm_lenght) {
 
-		BPoint[][] arm=new BPoint[2][4];
+		BPoint[][] arm=new BPoint[3][4];
 
 		double deltay=dy*0.5;
 
-		double leg_width=20;
-		double zm=leg_lenght;
+		double arm_width=20;
+		double zm=arm_lenght;
 
-		arm[0][0]= addBPoint(bust[3][4].x,-deltay,zm);
-		arm[0][1]= addBPoint(bust[3][4].x+leg_width,-deltay,zm);
-		arm[0][2]= addBPoint(bust[3][5].x+leg_width,deltay,zm);
-		arm[0][3]= addBPoint(bust[3][5].x,deltay,zm);
+		arm[0][0]= addBPoint(bust[3][4].x,-deltay,bust[3][4].z-zm);
+		arm[0][1]= addBPoint(bust[3][4].x+arm_width,-deltay,bust[3][4].z-zm);
+		arm[0][2]= addBPoint(bust[3][5].x+arm_width,deltay,bust[3][5].z-zm);
+		arm[0][3]= addBPoint(bust[3][5].x,deltay,bust[3][5].z-zm);
+		
+		arm[1][0]= addBPoint(bust[3][4].x,-deltay,bust[3][4].z-zm*0.5);
+		arm[1][1]= addBPoint(bust[3][4].x+arm_width,-deltay,bust[3][4].z-zm*0.5);
+		arm[1][2]= addBPoint(bust[3][5].x+arm_width,deltay,bust[3][5].z-zm*0.5);
+		arm[1][3]= addBPoint(bust[3][5].x,deltay,bust[3][5].z-zm*0.5);
 
-		arm[1][0]= bust[3][4];
-		arm[1][1]= bust[4][4];
-		arm[1][2]= bust[4][5];
-		arm[1][3]= bust[3][5];
+		arm[2][0]= bust[3][4];
+		arm[2][1]= bust[4][4];
+		arm[2][2]= bust[4][5];
+		arm[2][3]= bust[3][5];
 
 
 		return arm;
@@ -188,25 +196,30 @@ public class Man2Model extends MeshModel{
 
 
 
-	private BPoint[][] buildLeftArm(BPoint[][] bust, double leg_lenght) {
+	private BPoint[][] buildLeftArm(BPoint[][] bust, double arm_length) {
 
-		BPoint[][] arm=new BPoint[2][4];
+		BPoint[][] arm=new BPoint[3][4];
 
 		double deltay=dy*0.5;
 
 		double arm_width=20;
 
-		double zm=leg_lenght;
+		double zm=arm_length;
 
-		arm[0][0]= addBPoint(bust[3][0].x-arm_width,-deltay,zm);
-		arm[0][1]= addBPoint(bust[3][0].x,-deltay,zm);
-		arm[0][2]= addBPoint(bust[3][9].x,deltay,zm);
-		arm[0][3]= addBPoint(bust[3][9].x-arm_width,deltay,zm);
+		arm[0][0]= addBPoint(bust[3][0].x-arm_width,-deltay,bust[3][0].z-zm);
+		arm[0][1]= addBPoint(bust[3][0].x,-deltay,bust[3][0].z-zm);
+		arm[0][2]= addBPoint(bust[3][9].x,deltay,bust[3][9].z-zm);
+		arm[0][3]= addBPoint(bust[3][9].x-arm_width,deltay,bust[3][9].z-zm);
+		
+		arm[1][0]= addBPoint(bust[3][0].x-arm_width,-deltay,bust[3][0].z-zm*0.5);
+		arm[1][1]= addBPoint(bust[3][0].x,-deltay,bust[3][0].z-zm*0.5);
+		arm[1][2]= addBPoint(bust[3][9].x,deltay,bust[3][9].z-zm*0.5);
+		arm[1][3]= addBPoint(bust[3][9].x-arm_width,deltay,bust[3][9].z-zm*0.5);
 
-		arm[1][0]= bust[4][0];
-		arm[1][1]= bust[3][0];
-		arm[1][2]= bust[3][9];
-		arm[1][3]= bust[4][9];
+		arm[2][0]= bust[4][0];
+		arm[2][1]= bust[3][0];
+		arm[2][2]= bust[3][9];
+		arm[2][3]= bust[4][9];
 
 
 		return arm;
@@ -214,9 +227,10 @@ public class Man2Model extends MeshModel{
 
 	private BPoint[][] buildRightLeg(BPoint[][] bust, double leg_lenght) {
 
-		BPoint[][] leg=new BPoint[2][4];
+		BPoint[][] leg=new BPoint[3][4];
 
 		double deltay=dy*0.5;
+		double deltaz=leg_lenght;
 
 		double leg_width=20;
 
@@ -224,20 +238,26 @@ public class Man2Model extends MeshModel{
 		leg[0][1]= addBPoint(bust[0][4].x+leg_width,-deltay,0);
 		leg[0][2]= addBPoint(bust[0][5].x+leg_width,deltay,0);
 		leg[0][3]= addBPoint(bust[0][5].x,deltay,0);
+		
+		leg[1][0]= addBPoint(bust[0][4].x,-deltay,deltaz*0.5);
+		leg[1][1]= addBPoint(bust[0][4].x+leg_width,-deltay,deltaz*0.5);
+		leg[1][2]= addBPoint(bust[0][5].x+leg_width,deltay,deltaz*0.5);
+		leg[1][3]= addBPoint(bust[0][5].x,deltay,deltaz*0.5);
 
-		leg[1][0]= bust[0][4];
-		leg[1][1]= bust[1][4];
-		leg[1][2]= bust[1][5];
-		leg[1][3]= bust[0][5];
+		leg[2][0]= bust[0][4];
+		leg[2][1]= bust[1][4];
+		leg[2][2]= bust[1][5];
+		leg[2][3]= bust[0][5];
 
 
 		return leg;
 	}
 
 	private BPoint[][] buildLeftLeg(BPoint[][] bust, double leg_lenght) {
-		BPoint[][] leg=new BPoint[2][4];
+		BPoint[][] leg=new BPoint[3][4];
 
 		double deltay=dy*0.5;
+		double deltaz=leg_lenght;
 
 		double leg_width=20;
 
@@ -246,10 +266,15 @@ public class Man2Model extends MeshModel{
 		leg[0][2]= addBPoint(bust[0][9].x,deltay,0);
 		leg[0][3]= addBPoint(bust[0][9].x-leg_width,deltay,0);
 
-		leg[1][0]= bust[1][0];
-		leg[1][1]= bust[0][0];
-		leg[1][2]= bust[0][9];
-		leg[1][3]= bust[1][9];
+		leg[1][0]= addBPoint(bust[0][0].x-leg_width,-deltay,deltaz*0.5);
+		leg[1][1]= addBPoint(bust[0][0].x,-deltay,deltaz*0.5);
+		leg[1][2]= addBPoint(bust[0][9].x,deltay,deltaz*0.5);
+		leg[1][3]= addBPoint(bust[0][9].x-leg_width,deltay,deltaz*0.5);		
+		
+		leg[2][0]= bust[1][0];
+		leg[2][1]= bust[0][0];
+		leg[2][2]= bust[0][9];
+		leg[2][3]= bust[1][9];
 
 
 		return leg;
@@ -295,7 +320,7 @@ public class Man2Model extends MeshModel{
 		bust[2][5]= addBPoint(deltax*0.5556,deltay,dz*0.2743+deltaz);
 		bust[2][6]= addBPoint(deltax*0.27786,deltay,dz*0.2743+deltaz);
 		bust[2][7]= addBPoint(deltax*0.0,deltay,dz*0.2743+deltaz);
-		bust[2][8]= addBPoint(-deltax*0.2778,deltay,dz*0.2743+deltaz);
+		bust[2][8]= addBPoint(-deltax*0.27786,deltay,dz*0.2743+deltaz);
 		bust[2][9]= addBPoint(-deltax*0.5556,deltay,dz*0.2743+deltaz);
 
 		bust[3][0]= addBPoint(-deltax*0.6508,-deltay,dz*0.4867+deltaz);
@@ -440,9 +465,14 @@ public class Man2Model extends MeshModel{
 	public void printTexture(Graphics2D bg) {
 		//draw lines for reference
 
+		
+		bg.setStroke(new BasicStroke(0.1f));	
+		
 		bg.setColor(Color.RED);
-		bg.setStroke(new BasicStroke(0.1f));
-		printTextureFaces(bg,faces);
+		printTextureFaces(bg,faces,0,bustFacesNum);
+		
+		bg.setColor(Color.BLACK);
+		printTextureFaces(bg,faces,bustFacesNum,faces.length);
 
 	}
 
