@@ -7,8 +7,6 @@ import java.io.PrintWriter;
 import java.util.Vector;
 
 import com.BPoint;
-import com.Point3D;
-import com.editors.cars.data.Car;
 import com.main.Renderer3D;
 
 public class Man2Model extends MeshModel{
