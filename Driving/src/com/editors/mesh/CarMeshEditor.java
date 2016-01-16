@@ -165,7 +165,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 				val=CAR0;
 
 			if(CAR0==val)
-				setRightData(180,300,200);
+				setRightData(151,400,109);
 
 		}
 
