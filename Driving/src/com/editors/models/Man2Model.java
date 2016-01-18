@@ -287,218 +287,19 @@ public class Man2Model extends MeshModel{
 		double deltay=dy*0.5;
 		double deltaz=leg_lenght;
 
-		bust[0][0]= addBPoint(-deltax*0.1111,-deltay*1.0,deltaz*1.0);
-		bust[0][1]= addBPoint(-deltax*0.08335000000000001,-deltay*1.0,deltaz*1.0);
-		bust[0][2]= addBPoint(-deltax*0.0556,-deltay*1.0,deltaz*1.0);
-		bust[0][3]= addBPoint(-deltax*0.0278,-deltay*1.0,deltaz*1.0);
-		bust[0][4]= addBPoint(-deltax*0.0,-deltay*1.0,deltaz*1.0);
-		bust[0][5]= addBPoint(deltax*0.0278,-deltay*1.0,deltaz*1.0);
-		bust[0][6]= addBPoint(deltax*0.0556,-deltay*1.0,deltaz*1.0);
-		bust[0][7]= addBPoint(deltax*0.08335000000000001,-deltay*1.0,deltaz*1.0);
-		bust[0][8]= addBPoint(deltax*0.1111,-deltay*1.0,deltaz*1.0);
-		bust[0][9]= addBPoint(deltax*0.1111,deltay*1.0,deltaz*1.0);
-		bust[0][10]= addBPoint(deltax*0.08335000000000001,deltay*1.0,deltaz*1.0);
-		bust[0][11]= addBPoint(deltax*0.0556,deltay*1.0,deltaz*1.0);
-		bust[0][12]= addBPoint(deltax*0.0278,deltay*1.0,deltaz*1.0);
-		bust[0][13]= addBPoint(deltax*0.0,deltay*1.0,deltaz*1.0);
-		bust[0][14]= addBPoint(-deltax*0.0278,deltay*1.0,deltaz*1.0);
-		bust[0][15]= addBPoint(-deltax*0.0556,deltay*1.0,deltaz*1.0);
-		bust[0][16]= addBPoint(-deltax*0.08335000000000001,deltay*1.0,deltaz*1.0);
-		bust[0][17]= addBPoint(-deltax*0.1111,deltay*1.0,deltaz*1.0);
+		for (int i = 0; i < data.length; i++) {
 
-		bust[1][0]= addBPoint(-deltax*0.6032,-deltay*1.0,dz+deltaz*0.1239);
-		bust[1][1]= addBPoint(-deltax*0.45239999999999997,-deltay*1.0,dz+deltaz*0.1239);
-		bust[1][2]= addBPoint(-deltax*0.3016,-deltay*1.0,dz+deltaz*0.1239);
-		bust[1][3]= addBPoint(-deltax*0.1508,-deltay*1.0,dz+deltaz*0.1239);
-		bust[1][4]= addBPoint(-deltax*0.0,-deltay*1.0,dz+deltaz*0.1239);
-		bust[1][5]= addBPoint(deltax*0.1508,-deltay*1.0,dz+deltaz*0.1239);
-		bust[1][6]= addBPoint(deltax*0.3016,-deltay*1.0,dz+deltaz*0.1239);
-		bust[1][7]= addBPoint(deltax*0.45239999999999997,-deltay*1.0,dz+deltaz*0.1239);
-		bust[1][8]= addBPoint(deltax*0.6032,-deltay*1.0,dz+deltaz*0.1239);
-		bust[1][9]= addBPoint(deltax*0.6032,deltay*1.0,dz+deltaz*0.1239);
-		bust[1][10]= addBPoint(deltax*0.45239999999999997,deltay*1.0,dz+deltaz*0.1239);
-		bust[1][11]= addBPoint(deltax*0.3016,deltay*1.0,dz+deltaz*0.1239);
-		bust[1][12]= addBPoint(deltax*0.1508,deltay*1.0,dz+deltaz*0.1239);
-		bust[1][13]= addBPoint(deltax*0.0,deltay*1.0,dz+deltaz*0.1239);
-		bust[1][14]= addBPoint(-deltax*0.1508,deltay*1.0,dz+deltaz*0.1239);
-		bust[1][15]= addBPoint(-deltax*0.3016,deltay*1.0,dz+deltaz*0.1239);
-		bust[1][16]= addBPoint(-deltax*0.45239999999999997,deltay*1.0,dz+deltaz*0.1239);
-		bust[1][17]= addBPoint(-deltax*0.6032,deltay*1.0,dz+deltaz*0.1239);
+			double[][] pts = data[i];
 
-		bust[2][0]= addBPoint(-deltax*0.5556,-deltay*1.0,dz+deltaz*0.2743);
-		bust[2][1]= addBPoint(-deltax*0.41669999999999996,-deltay*1.0,dz+deltaz*0.2743);
-		bust[2][2]= addBPoint(-deltax*0.2778,-deltay*1.0,dz+deltaz*0.2743);
-		bust[2][3]= addBPoint(-deltax*0.1389,-deltay*1.0,dz+deltaz*0.2743);
-		bust[2][4]= addBPoint(-deltax*0.0,-deltay*1.0,dz+deltaz*0.2743);
-		bust[2][5]= addBPoint(deltax*0.1389,-deltay*1.0,dz+deltaz*0.2743);
-		bust[2][6]= addBPoint(deltax*0.2778,-deltay*1.0,dz+deltaz*0.2743);
-		bust[2][7]= addBPoint(deltax*0.41669999999999996,-deltay*1.0,dz+deltaz*0.2743);
-		bust[2][8]= addBPoint(deltax*0.5556,-deltay*1.0,dz+deltaz*0.2743);
-		bust[2][9]= addBPoint(deltax*0.5556,deltay*1.0,dz+deltaz*0.2743);
-		bust[2][10]= addBPoint(deltax*0.41673,deltay*1.0,dz+deltaz*0.2743);
-		bust[2][11]= addBPoint(deltax*0.27786,deltay*1.0,dz+deltaz*0.2743);
-		bust[2][12]= addBPoint(deltax*0.13893,deltay*1.0,dz+deltaz*0.2743);
-		bust[2][13]= addBPoint(deltax*0.0,deltay*1.0,dz+deltaz*0.2743);
-		bust[2][14]= addBPoint(-deltax*0.13893,deltay*1.0,dz+deltaz*0.2743);
-		bust[2][15]= addBPoint(-deltax*0.27786,deltay*1.0,dz+deltaz*0.2743);
-		bust[2][16]= addBPoint(-deltax*0.41673,deltay*1.0,dz+deltaz*0.2743);
-		bust[2][17]= addBPoint(-deltax*0.5556,deltay*1.0,dz+deltaz*0.2743);
+			for (int j = 0; j < pts.length; j++) {
 
-		bust[3][0]= addBPoint(-deltax*0.6508,-deltay*1.0,dz+deltaz*0.4867);
-		bust[3][1]= addBPoint(-deltax*0.48810000000000003,-deltay*1.0,dz+deltaz*0.4867);
-		bust[3][2]= addBPoint(-deltax*0.3254,-deltay*1.0,dz+deltaz*0.4867);
-		bust[3][3]= addBPoint(-deltax*0.1627,-deltay*1.0,dz+deltaz*0.4867);
-		bust[3][4]= addBPoint(-deltax*0.0,-deltay*1.0,dz+deltaz*0.4867);
-		bust[3][5]= addBPoint(deltax*0.1627,-deltay*1.0,dz+deltaz*0.4867);
-		bust[3][6]= addBPoint(deltax*0.3254,-deltay*1.0,dz+deltaz*0.4867);
-		bust[3][7]= addBPoint(deltax*0.48810000000000003,-deltay*1.0,dz+deltaz*0.4867);
-		bust[3][8]= addBPoint(deltax*0.6508,-deltay*1.0,dz+deltaz*0.4867);
-		bust[3][9]= addBPoint(deltax*0.6508,deltay*1.0,dz+deltaz*0.4867);
-		bust[3][10]= addBPoint(deltax*0.48810000000000003,deltay*1.0,dz+deltaz*0.4867);
-		bust[3][11]= addBPoint(deltax*0.3254,deltay*1.0,dz+deltaz*0.4867);
-		bust[3][12]= addBPoint(deltax*0.1627,deltay*1.0,dz+deltaz*0.4867);
-		bust[3][13]= addBPoint(deltax*0.0,deltay*1.0,dz+deltaz*0.4867);
-		bust[3][14]= addBPoint(-deltax*0.1627,deltay*1.0,dz+deltaz*0.4867);
-		bust[3][15]= addBPoint(-deltax*0.3254,deltay*1.0,dz+deltaz*0.4867);
-		bust[3][16]= addBPoint(-deltax*0.48810000000000003,deltay*1.0,dz+deltaz*0.4867);
-		bust[3][17]= addBPoint(-deltax*0.6508,deltay*1.0,dz+deltaz*0.4867);
-
-		bust[4][0]= addBPoint(-deltax*1.0,-deltay*1.0,dz+deltaz*0.5221);
-		bust[4][1]= addBPoint(-deltax*0.75,-deltay*1.0,dz+deltaz*0.5221);
-		bust[4][2]= addBPoint(-deltax*0.5,-deltay*1.0,dz+deltaz*0.5221);
-		bust[4][3]= addBPoint(-deltax*0.25,-deltay*1.0,dz+deltaz*0.5221);
-		bust[4][4]= addBPoint(-deltax*0.0,-deltay*1.0,dz+deltaz*0.5221);
-		bust[4][5]= addBPoint(deltax*0.25,-deltay*1.0,dz+deltaz*0.5221);
-		bust[4][6]= addBPoint(deltax*0.5,-deltay*1.0,dz+deltaz*0.5221);
-		bust[4][7]= addBPoint(deltax*0.75,-deltay*1.0,dz+deltaz*0.5221);
-		bust[4][8]= addBPoint(deltax*1.0,-deltay*1.0,dz+deltaz*0.5221);
-		bust[4][9]= addBPoint(deltax*1.0,deltay*1.0,dz+deltaz*0.5221);
-		bust[4][10]= addBPoint(deltax*0.75,deltay*1.0,dz+deltaz*0.5221);
-		bust[4][11]= addBPoint(deltax*0.5,deltay*1.0,dz+deltaz*0.5221);
-		bust[4][12]= addBPoint(deltax*0.25,deltay*1.0,dz+deltaz*0.5221);
-		bust[4][13]= addBPoint(deltax*0.0,deltay*1.0,dz+deltaz*0.5221);
-		bust[4][14]= addBPoint(-deltax*0.25,deltay*1.0,dz+deltaz*0.5221);
-		bust[4][15]= addBPoint(-deltax*0.5,deltay*1.0,dz+deltaz*0.5221);
-		bust[4][16]= addBPoint(-deltax*0.75,deltay*1.0,dz+deltaz*0.5221);
-		bust[4][17]= addBPoint(-deltax*1.0,deltay*1.0,dz+deltaz*0.5221);
-
-		bust[5][0]= addBPoint(-deltax*0.9206,-deltay*1.0,dz+deltaz*0.5929);
-		bust[5][1]= addBPoint(-deltax*0.69045,-deltay*1.0,dz+deltaz*0.5929);
-		bust[5][2]= addBPoint(-deltax*0.4603,-deltay*1.0,dz+deltaz*0.5929);
-		bust[5][3]= addBPoint(-deltax*0.23015,-deltay*1.0,dz+deltaz*0.5929);
-		bust[5][4]= addBPoint(-deltax*0.0,-deltay*1.0,dz+deltaz*0.5929);
-		bust[5][5]= addBPoint(deltax*0.23015,-deltay*1.0,dz+deltaz*0.5929);
-		bust[5][6]= addBPoint(deltax*0.4603,-deltay*1.0,dz+deltaz*0.5929);
-		bust[5][7]= addBPoint(deltax*0.69045,-deltay*1.0,dz+deltaz*0.5929);
-		bust[5][8]= addBPoint(deltax*0.9206,-deltay*1.0,dz+deltaz*0.5929);
-		bust[5][9]= addBPoint(deltax*0.9206,deltay*1.0,dz+deltaz*0.5929);
-		bust[5][10]= addBPoint(deltax*0.69045,deltay*1.0,dz+deltaz*0.5929);
-		bust[5][11]= addBPoint(deltax*0.4603,deltay*1.0,dz+deltaz*0.5929);
-		bust[5][12]= addBPoint(deltax*0.23015,deltay*1.0,dz+deltaz*0.5929);
-		bust[5][13]= addBPoint(deltax*0.0,deltay*1.0,dz+deltaz*0.5929);
-		bust[5][14]= addBPoint(-deltax*0.23015,deltay*1.0,dz+deltaz*0.5929);
-		bust[5][15]= addBPoint(-deltax*0.4603,deltay*1.0,dz+deltaz*0.5929);
-		bust[5][16]= addBPoint(-deltax*0.69045,deltay*1.0,dz+deltaz*0.5929);
-		bust[5][17]= addBPoint(-deltax*0.9206,deltay*1.0,dz+deltaz*0.5929);
-
-		bust[6][0]= addBPoint(-deltax*0.7778,-deltay*1.0,dz+deltaz*0.6372);
-		bust[6][1]= addBPoint(-deltax*0.58335,-deltay*1.0,dz+deltaz*0.6372);
-		bust[6][2]= addBPoint(-deltax*0.3889,-deltay*1.0,dz+deltaz*0.6372);
-		bust[6][3]= addBPoint(-deltax*0.19445,-deltay*1.0,dz+deltaz*0.6372);
-		bust[6][4]= addBPoint(-deltax*0.0,-deltay*1.0,dz+deltaz*0.6372);
-		bust[6][5]= addBPoint(deltax*0.19445,-deltay*1.0,dz+deltaz*0.6372);
-		bust[6][6]= addBPoint(deltax*0.3889,-deltay*1.0,dz+deltaz*0.6372);
-		bust[6][7]= addBPoint(deltax*0.58335,-deltay*1.0,dz+deltaz*0.6372);
-		bust[6][8]= addBPoint(deltax*0.7778,-deltay*1.0,dz+deltaz*0.6372);
-		bust[6][9]= addBPoint(deltax*0.7778,deltay*1.0,dz+deltaz*0.6372);
-		bust[6][10]= addBPoint(deltax*0.58335,deltay*1.0,dz+deltaz*0.6372);
-		bust[6][11]= addBPoint(deltax*0.3889,deltay*1.0,dz+deltaz*0.6372);
-		bust[6][12]= addBPoint(deltax*0.19445,deltay*1.0,dz+deltaz*0.6372);
-		bust[6][13]= addBPoint(deltax*0.0,deltay*1.0,dz+deltaz*0.6372);
-		bust[6][14]= addBPoint(-deltax*0.19445,deltay*1.0,dz+deltaz*0.6372);
-		bust[6][15]= addBPoint(-deltax*0.3889,deltay*1.0,dz+deltaz*0.6372);
-		bust[6][16]= addBPoint(-deltax*0.58335,deltay*1.0,dz+deltaz*0.6372);
-		bust[6][17]= addBPoint(-deltax*0.7778,deltay*1.0,dz+deltaz*0.6372);
-
-		bust[7][0]= addBPoint(-deltax*0.2381,-deltay*1.0,dz+deltaz*0.6991);
-		bust[7][1]= addBPoint(-deltax*0.1786,-deltay*1.0,dz+deltaz*0.6991);
-		bust[7][2]= addBPoint(-deltax*0.1191,-deltay*1.0,dz+deltaz*0.6991);
-		bust[7][3]= addBPoint(-deltax*0.05955,-deltay*1.0,dz+deltaz*0.6991);
-		bust[7][4]= addBPoint(-deltax*0.0,-deltay*1.0,dz+deltaz*0.6991);
-		bust[7][5]= addBPoint(deltax*0.05955,-deltay*1.0,dz+deltaz*0.6991);
-		bust[7][6]= addBPoint(deltax*0.1191,-deltay*1.0,dz+deltaz*0.6991);
-		bust[7][7]= addBPoint(deltax*0.1786,-deltay*1.0,dz+deltaz*0.6991);
-		bust[7][8]= addBPoint(deltax*0.2381,-deltay*1.0,dz+deltaz*0.6991);
-		bust[7][9]= addBPoint(deltax*0.2381,deltay*1.0,dz+deltaz*0.6991);
-		bust[7][10]= addBPoint(deltax*0.1786,deltay*1.0,dz+deltaz*0.6991);
-		bust[7][11]= addBPoint(deltax*0.1191,deltay*1.0,dz+deltaz*0.6991);
-		bust[7][12]= addBPoint(deltax*0.05955,deltay*1.0,dz+deltaz*0.6991);
-		bust[7][13]= addBPoint(deltax*0.0,deltay*1.0,dz+deltaz*0.6991);
-		bust[7][14]= addBPoint(-deltax*0.05955,deltay*1.0,dz+deltaz*0.6991);
-		bust[7][15]= addBPoint(-deltax*0.1191,deltay*1.0,dz+deltaz*0.6991);
-		bust[7][16]= addBPoint(-deltax*0.1786,deltay*1.0,dz+deltaz*0.6991);
-		bust[7][17]= addBPoint(-deltax*0.2381,deltay*1.0,dz+deltaz*0.6991);
-
-		bust[8][0]= addBPoint(-deltax*0.254,-deltay*1.0,dz+deltaz*0.7611);
-		bust[8][1]= addBPoint(-deltax*0.1905,-deltay*1.0,dz+deltaz*0.7611);
-		bust[8][2]= addBPoint(-deltax*0.127,-deltay*1.0,dz+deltaz*0.7611);
-		bust[8][3]= addBPoint(-deltax*0.0635,-deltay*1.0,dz+deltaz*0.7611);
-		bust[8][4]= addBPoint(-deltax*0.0,-deltay*1.0,dz+deltaz*0.7611);
-		bust[8][5]= addBPoint(deltax*0.0635,-deltay*1.0,dz+deltaz*0.7611);
-		bust[8][6]= addBPoint(deltax*0.127,-deltay*1.0,dz+deltaz*0.7611);
-		bust[8][7]= addBPoint(deltax*0.1905,-deltay*1.0,dz+deltaz*0.7611);
-		bust[8][8]= addBPoint(deltax*0.254,-deltay*1.0,dz+deltaz*0.7611);
-		bust[8][9]= addBPoint(deltax*0.254,deltay*1.0,dz+deltaz*0.7611);
-		bust[8][10]= addBPoint(deltax*0.1905,deltay*1.0,dz+deltaz*0.7611);
-		bust[8][11]= addBPoint(deltax*0.127,deltay*1.0,dz+deltaz*0.7611);
-		bust[8][12]= addBPoint(deltax*0.0635,deltay*1.0,dz+deltaz*0.7611);
-		bust[8][13]= addBPoint(deltax*0.0,deltay*1.0,dz+deltaz*0.7611);
-		bust[8][14]= addBPoint(-deltax*0.0635,deltay*1.0,dz+deltaz*0.7611);
-		bust[8][15]= addBPoint(-deltax*0.127,deltay*1.0,dz+deltaz*0.7611);
-		bust[8][16]= addBPoint(-deltax*0.1905,deltay*1.0,dz+deltaz*0.7611);
-		bust[8][17]= addBPoint(-deltax*0.254,deltay*1.0,dz+deltaz*0.7611);
-
-		bust[9][0]= addBPoint(-deltax*0.381,-deltay*1.0,dz+deltaz*0.9027);
-		bust[9][1]= addBPoint(-deltax*0.28575,-deltay*1.0,dz+deltaz*0.9027);
-		bust[9][2]= addBPoint(-deltax*0.1905,-deltay*1.0,dz+deltaz*0.9027);
-		bust[9][3]= addBPoint(-deltax*0.09525,-deltay*1.0,dz+deltaz*0.9027);
-		bust[9][4]= addBPoint(-deltax*0.0,-deltay*1.0,dz+deltaz*0.9027);
-		bust[9][5]= addBPoint(deltax*0.09525,-deltay*1.0,dz+deltaz*0.9027);
-		bust[9][6]= addBPoint(deltax*0.1905,-deltay*1.0,dz+deltaz*0.9027);
-		bust[9][7]= addBPoint(deltax*0.28575,-deltay*1.0,dz+deltaz*0.9027);
-		bust[9][8]= addBPoint(deltax*0.381,-deltay*1.0,dz+deltaz*0.9027);
-		bust[9][9]= addBPoint(deltax*0.381,deltay*1.0,dz+deltaz*0.9027);
-		bust[9][10]= addBPoint(deltax*0.28575,deltay*1.0,dz+deltaz*0.9027);
-		bust[9][11]= addBPoint(deltax*0.1905,deltay*1.0,dz+deltaz*0.9027);
-		bust[9][12]= addBPoint(deltax*0.09525,deltay*1.0,dz+deltaz*0.9027);
-		bust[9][13]= addBPoint(deltax*0.0,deltay*1.0,dz+deltaz*0.9027);
-		bust[9][14]= addBPoint(-deltax*0.09525,deltay*1.0,dz+deltaz*0.9027);
-		bust[9][15]= addBPoint(-deltax*0.1905,deltay*1.0,dz+deltaz*0.9027);
-		bust[9][16]= addBPoint(-deltax*0.28575,deltay*1.0,dz+deltaz*0.9027);
-		bust[9][17]= addBPoint(-deltax*0.381,deltay*1.0,dz+deltaz*0.9027);
-
-		bust[10][0]= addBPoint(-deltax*0.1905,-deltay*1.0,dz+deltaz*0.9823);
-		bust[10][1]= addBPoint(-deltax*0.1429,-deltay*1.0,dz+deltaz*0.9823);
-		bust[10][2]= addBPoint(-deltax*0.0953,-deltay*1.0,dz+deltaz*0.9823);
-		bust[10][3]= addBPoint(-deltax*0.04765,-deltay*1.0,dz+deltaz*0.9823);
-		bust[10][4]= addBPoint(-deltax*0.0,-deltay*1.0,dz+deltaz*0.9823);
-		bust[10][5]= addBPoint(deltax*0.04765,-deltay*1.0,dz+deltaz*0.9823);
-		bust[10][6]= addBPoint(deltax*0.0953,-deltay*1.0,dz+deltaz*0.9823);
-		bust[10][7]= addBPoint(deltax*0.1429,-deltay*1.0,dz+deltaz*0.9823);
-		bust[10][8]= addBPoint(deltax*0.1905,-deltay*1.0,dz+deltaz*0.9823);
-		bust[10][9]= addBPoint(deltax*0.1905,deltay*1.0,dz+deltaz*0.9823);
-		bust[10][10]= addBPoint(deltax*0.1429,deltay*1.0,dz+deltaz*0.9823);
-		bust[10][11]= addBPoint(deltax*0.0953,deltay*1.0,dz+deltaz*0.9823);
-		bust[10][12]= addBPoint(deltax*0.04765,deltay*1.0,dz+deltaz*0.9823);
-		bust[10][13]= addBPoint(deltax*0.0,deltay*1.0,dz+deltaz*0.9823);
-		bust[10][14]= addBPoint(-deltax*0.04765,deltay*1.0,dz+deltaz*0.9823);
-		bust[10][15]= addBPoint(-deltax*0.0953,deltay*1.0,dz+deltaz*0.9823);
-		bust[10][16]= addBPoint(-deltax*0.1429,deltay*1.0,dz+deltaz*0.9823);
-		bust[10][17]= addBPoint(-deltax*0.1905,deltay*1.0,dz+deltaz*0.9823);
+				bust[i][j]= addBPoint(deltax*pts[j][0],deltay*pts[j][1],deltaz+dz*pts[j][2]);
+			}
 
 
+		}
 
-
+		
 		return bust;
 	}
 
@@ -571,6 +372,231 @@ public class Man2Model extends MeshModel{
 		super.printFaces(pw, faces);
 
 	}
+
+	double[][][] data=
+		{
+				{	
+
+					{-0.1111,-1.0,0.0},
+					{-0.08335000000000001,-1.0,0.0},
+					{-0.0556,-1.0,0.0},
+					{-0.0278,-1.0,0.0},
+					{-0.0,-1.0,0.0},
+					{0.0278,-1.0,0.0},
+					{0.0556,-1.0,0.0},
+					{0.08335000000000001,-1.0,0.0},
+					{0.1111,-1.0,0.0},
+					{0.1111,1.0,0.0},
+					{0.08335000000000001,1.0,0.0},
+					{0.0556,1.0,0.0},
+					{0.0278,1.0,0.0},
+					{0.0,1.0,0.0},
+					{-0.0278,1.0,0.0},
+					{-0.0556,1.0,0.0},
+					{-0.08335000000000001,1.0,0.0},
+					{-0.1111,1.0,0.0},
+				},
+				{
+					{-0.6032,-1.0,0.1239},
+					{-0.45239999999999997,-1.0,0.1239},
+					{-0.3016,-1.0,0.1239},
+					{-0.1508,-1.0,0.1239},
+					{-0.0,-1.0,0.1239},
+					{0.1508,-1.0,0.1239},
+					{0.3016,-1.0,0.1239},
+					{0.45239999999999997,-1.0,0.1239},
+					{0.6032,-1.0,0.1239},
+					{0.6032,1.0,0.1239},
+					{0.45239999999999997,1.0,0.1239},
+					{0.3016,1.0,0.1239},
+					{0.1508,1.0,0.1239},
+					{0.0,1.0,0.1239},
+					{-0.1508,1.0,0.1239},
+					{-0.3016,1.0,0.1239},
+					{-0.45239999999999997,1.0,0.1239},
+					{-0.6032,1.0,0.1239},
+				},
+				{
+					{-0.5556,-1.0,0.2743},
+					{-0.41669999999999996,-1.0,0.2743},
+					{-0.2778,-1.0,0.2743},
+					{-0.1389,-1.0,0.2743},
+					{-0.0,-1.0,0.2743},
+					{0.1389,-1.0,0.2743},
+					{0.2778,-1.0,0.2743},
+					{0.41669999999999996,-1.0,0.2743},
+					{0.5556,-1.0,0.2743},
+					{0.5556,1.0,0.2743},
+					{0.41673,1.0,0.2743},
+					{0.27786,1.0,0.2743},
+					{0.13893,1.0,0.2743},
+					{0.0,1.0,0.2743},
+					{-0.13893,1.0,0.2743},
+					{-0.27786,1.0,0.2743},
+					{-0.41673,1.0,0.2743},
+					{-0.5556,1.0,0.2743},
+				},
+				{
+					{-0.6508,-1.0,0.4867},
+					{-0.48810000000000003,-1.0,0.4867},
+					{-0.3254,-1.0,0.4867},
+					{-0.1627,-1.0,0.4867},
+					{-0.0,-1.0,0.4867},
+					{0.1627,-1.0,0.4867},
+					{0.3254,-1.0,0.4867},
+					{0.48810000000000003,-1.0,0.4867},
+					{0.6508,-1.0,0.4867},
+					{0.6508,1.0,0.4867},
+					{0.48810000000000003,1.0,0.4867},
+					{0.3254,1.0,0.4867},
+					{0.1627,1.0,0.4867},
+					{0.0,1.0,0.4867},
+					{-0.1627,1.0,0.4867},
+					{-0.3254,1.0,0.4867},
+					{-0.48810000000000003,1.0,0.4867},
+					{-0.6508,1.0,0.4867},
+				},
+				{
+					{-1.0,-1.0,0.5221},
+					{-0.75,-1.0,0.5221},
+					{-0.5,-1.0,0.5221},
+					{-0.25,-1.0,0.5221},
+					{-0.0,-1.0,0.5221},
+					{0.25,-1.0,0.5221},
+					{0.5,-1.0,0.5221},
+					{0.75,-1.0,0.5221},
+					{1.0,-1.0,0.5221},
+					{1.0,1.0,0.5221},
+					{0.75,1.0,0.5221},
+					{0.5,1.0,0.5221},
+					{0.25,1.0,0.5221},
+					{0.0,1.0,0.5221},
+					{-0.25,1.0,0.5221},
+					{-0.5,1.0,0.5221},
+					{-0.75,1.0,0.5221},
+					{-1.0,1.0,0.5221},
+				},
+				{
+					{-0.9206,-1.0,0.5929},
+					{-0.69045,-1.0,0.5929},
+					{-0.4603,-1.0,0.5929},
+					{-0.23015,-1.0,0.5929},
+					{-0.0,-1.0,0.5929},
+					{0.23015,-1.0,0.5929},
+					{0.4603,-1.0,0.5929},
+					{0.69045,-1.0,0.5929},
+					{0.9206,-1.0,0.5929},
+					{0.9206,1.0,0.5929},
+					{0.69045,1.0,0.5929},
+					{0.4603,1.0,0.5929},
+					{0.23015,1.0,0.5929},
+					{0.0,1.0,0.5929},
+					{-0.23015,1.0,0.5929},
+					{-0.4603,1.0,0.5929},
+					{-0.69045,1.0,0.5929},
+					{-0.9206,1.0,0.5929},
+				},
+				{
+					{-0.7778,-1.0,0.6372},
+					{-0.58335,-1.0,0.6372},
+					{-0.3889,-1.0,0.6372},
+					{-0.19445,-1.0,0.6372},
+					{-0.0,-1.0,0.6372},
+					{0.19445,-1.0,0.6372},
+					{0.3889,-1.0,0.6372},
+					{0.58335,-1.0,0.6372},
+					{0.7778,-1.0,0.6372},
+					{0.7778,1.0,0.6372},
+					{0.58335,1.0,0.6372},
+					{0.3889,1.0,0.6372},
+					{0.19445,1.0,0.6372},
+					{0.0,1.0,0.6372},
+					{-0.19445,1.0,0.6372},
+					{-0.3889,1.0,0.6372},
+					{-0.58335,1.0,0.6372},
+					{-0.7778,1.0,0.6372},
+				},
+				{
+					{-0.2381,-1.0,0.6991},
+					{-0.1786,-1.0,0.6991},
+					{-0.1191,-1.0,0.6991},
+					{-0.05955,-1.0,0.6991},
+					{-0.0,-1.0,0.6991},
+					{0.05955,-1.0,0.6991},
+					{0.1191,-1.0,0.6991},
+					{0.1786,-1.0,0.6991},
+					{0.2381,-1.0,0.6991},
+					{0.2381,1.0,0.6991},
+					{0.1786,1.0,0.6991},
+					{0.1191,1.0,0.6991},
+					{0.05955,1.0,0.6991},
+					{0.0,1.0,0.6991},
+					{-0.05955,1.0,0.6991},
+					{-0.1191,1.0,0.6991},
+					{-0.1786,1.0,0.6991},
+					{-0.2381,1.0,0.6991},
+				},
+				{
+					{-0.254,-1.0,0.7611},
+					{-0.1905,-1.0,0.7611},
+					{-0.127,-1.0,0.7611},
+					{-0.0635,-1.0,0.7611},
+					{-0.0,-1.0,0.7611},
+					{0.0635,-1.0,0.7611},
+					{0.127,-1.0,0.7611},
+					{0.1905,-1.0,0.7611},
+					{0.254,-1.0,0.7611},
+					{0.254,1.0,0.7611},
+					{0.1905,1.0,0.7611},
+					{0.127,1.0,0.7611},
+					{0.0635,1.0,0.7611},
+					{0.0,1.0,0.7611},
+					{-0.0635,1.0,0.7611},
+					{-0.127,1.0,0.7611},
+					{-0.1905,1.0,0.7611},
+					{-0.254,1.0,0.7611},
+				},
+				{
+					{-0.381,-1.0,0.9027},
+					{-0.28575,-1.0,0.9027},
+					{-0.1905,-1.0,0.9027},
+					{-0.09525,-1.0,0.9027},
+					{-0.0,-1.0,0.9027},
+					{0.09525,-1.0,0.9027},
+					{0.1905,-1.0,0.9027},
+					{0.28575,-1.0,0.9027},
+					{0.381,-1.0,0.9027},
+					{0.381,1.0,0.9027},
+					{0.28575,1.0,0.9027},
+					{0.1905,1.0,0.9027},
+					{0.09525,1.0,0.9027},
+					{0.0,1.0,0.9027},
+					{-0.09525,1.0,0.9027},
+					{-0.1905,1.0,0.9027},
+					{-0.28575,1.0,0.9027},
+					{-0.381,1.0,0.9027},
+				},
+				{
+					{-0.1905,-1.0,0.9823},
+					{-0.1429,-1.0,0.9823},
+					{-0.0953,-1.0,0.9823},
+					{-0.04765,-1.0,0.9823},
+					{-0.0,-1.0,0.9823},
+					{0.04765,-1.0,0.9823},
+					{0.0953,-1.0,0.9823},
+					{0.1429,-1.0,0.9823},
+					{0.1905,-1.0,0.9823},
+					{0.1905,1.0,0.9823},
+					{0.1429,1.0,0.9823},
+					{0.0953,1.0,0.9823},
+					{0.04765,1.0,0.9823},
+					{0.0,1.0,0.9823},
+					{-0.04765,1.0,0.9823},
+					{-0.0953,1.0,0.9823},
+					{-0.1429,1.0,0.9823},
+					{-0.1905,1.0,0.9823},
+				}
+		};
 
 
 }
