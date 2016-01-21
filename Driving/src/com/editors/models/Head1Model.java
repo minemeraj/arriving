@@ -3,8 +3,12 @@ package com.editors.models;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.PrintWriter;
 import java.util.Vector;
+
+import javax.imageio.ImageIO;
 
 import com.BPoint;
 import com.Point3D;
@@ -192,10 +196,77 @@ public class Head1Model extends MeshModel{
 	}
 
 	public static void main(String[] args) {
-		new Head1Model(200,200,284).writeNewCode();
+		//new Head1Model(200,200,284).writeNewCode();
+		
+		new Head1Model(200,200,284).printSections();
 	}
 
+	/**
+	 * DEBUGGING UTILITY
+	 * 
+	 */
+	public void printSections(){
+		
+		int w=(int) (dx)+2*bx;
+		int h=(int) (2*dy)+2*by;
+		
+		BufferedImage buf=new BufferedImage(w,h,BufferedImage.TYPE_BYTE_INDEXED);
+		
+		File file=new File("sections.jpg");
 
+		try {
+
+			
+
+			Graphics2D bufGraphics=(Graphics2D)buf.getGraphics();
+
+			bufGraphics.setColor(Color.BLACK);
+			bufGraphics.fillRect(0,0,w,h);
+			
+			bufGraphics.setColor(Color.WHITE);
+			
+			for (int i = 0; i < data.length; i++) {
+				
+				double[][] pts = data[i];
+				
+				
+				if(i==8){
+					
+					bufGraphics.setColor(Color.WHITE);
+				}else if(i==9){
+					
+					bufGraphics.setColor(Color.RED);
+				}else if(i==10){
+					
+					bufGraphics.setColor(Color.GREEN);
+					continue;
+				}
+				else
+					continue;
+
+				for (int j = 0; j < pts.length-1; j++) {
+					
+					int x=(int) (pts[j][0]*dx*0.5)+(int) (dx*0.5)+bx;
+					int y=(int) (pts[j][1]*dy)+(int) (dy)+by;
+					
+					bufGraphics.fillRect(x-1, y-1, 2, 2);
+				}
+				
+				
+			}
+
+			ImageIO.write(buf,"gif",file);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * DEBUGGING UTILITY
+	 * 
+	 */
 	public void writeNewCode(){
 		
 		double deltax=dx*0.5;
@@ -205,8 +276,7 @@ public class Head1Model extends MeshModel{
 			System.out.println("\t{");
 			
 			double[][] pts = data[i];
-			
-			
+
 
 			for (int j = 0; j < pts.length; j++) {
 				
@@ -282,7 +352,7 @@ public class Head1Model extends MeshModel{
 
 	double[][][] data=
 		{		
-				
+			//8 nose tip, 10 eyes line
 
 				{
 					{-1.0,-0.0,0.0},
@@ -572,7 +642,7 @@ public class Head1Model extends MeshModel{
 					{-0.875,0.31796026536129846,0.3033},
 					{-1.0,0.0,0.3033},
 				},
-				//8 noze tip
+				//8 nose tip
 				{
 					{-1.0,-0.0,0.3279},
 					{-0.875,-0.16151388,0.3279},
@@ -597,11 +667,11 @@ public class Head1Model extends MeshModel{
 					{0.625,0.5419188814580786,0.3279},
 					{0.5,0.6142746941086429,0.3279},
 					{0.375,0.71809452,0.3279},
-					{0.25,0.77302302,0.3279},
-					{0.125,0.77606151,0.3279},
+					{0.25,0.7268857200000001,0.3279},
+					{0.125,0.7268857200000001,0.3279},
 					{0.0,0.7791,0.3279},
-					{-0.125,0.77606151,0.3279},
-					{-0.25,0.77302302,0.3279},
+					{-0.125,0.7268857200000001,0.3279},
+					{-0.25,0.7268857200000001,0.3279},					
 					{-0.375,0.71809452,0.3279},
 					{-0.5,0.6142746941086429,0.3279},
 					{-0.625,0.5419188814580786,0.3279},
@@ -633,11 +703,11 @@ public class Head1Model extends MeshModel{
 					{0.625,0.5075219008577502,0.40165},
 					{0.5,0.5752851045972426,0.40165},
 					{0.375,0.67251522,0.40165},
-					{0.25,0.7268857200000001,0.40165},
-					{0.125,0.72974286,0.40165},
+					{0.25,0.68074842,0.40165},
+					{0.125,0.68074842,0.40165},
 					{0.0,0.7326,0.40165},
-					{-0.125,0.72974286,0.40165},
-					{-0.25,0.7268857200000001,0.40165},
+					{-0.125,0.68074842,0.40165},
+					{-0.25,0.68074842,0.40165},
 					{-0.375,0.67251522,0.40165},
 					{-0.5,0.5752851045972426,0.40165},
 					{-0.625,0.5075219008577502,0.40165},
@@ -663,20 +733,20 @@ public class Head1Model extends MeshModel{
 					{0.625,-0.43515625999999996,0.4754},
 					{0.75,-0.37686571999999996,0.4754},
 					{0.875,-0.18843285999999998,0.4754},
-					{1.0,-0.0,0.4754},
+					{1.0,-0.0,0.4754},					
 					{1.0,0.0,0.4754},
 					{0.875,0.29777851223640034,0.4754},
 					{0.75,0.4206841815953381,0.4754},
 					{0.625,0.5075219008577502,0.4754},
-					{0.5,0.5752851045972426,0.4754},
-					{0.375,0.67251522,0.4754},
+					{0.5,0.5075219008577502,0.4754},
+					{0.375,0.5752851045972426,0.4754},
 					{0.25,0.68074842,0.4754},
-					{0.125,0.6834242100000001,0.4754},
+					{0.125,0.68074842,0.4754},
 					{0.0,0.6861,0.4754},
-					{-0.125,0.6834242100000001,0.4754},
+					{-0.125,0.68074842,0.4754},
 					{-0.25,0.68074842,0.4754},
-					{-0.375,0.67251522,0.4754},
-					{-0.5,0.5752851045972426,0.4754},
+					{-0.375,0.5752851045972426,0.4754},
+					{-0.5,0.5075219008577502,0.4754},
 					{-0.625,0.5075219008577502,0.4754},
 					{-0.75,0.4206841815953381,0.4754},
 					{-0.875,0.29777851223640034,0.4754},
