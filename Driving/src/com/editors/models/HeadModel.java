@@ -3,28 +3,32 @@ package com.editors.models;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Vector;
 
+import javax.imageio.ImageIO;
+
 public class HeadModel extends MeshModel {
-	
+
 	private int[][][] splacFaces; 
 	private int[][][] neuroFaces;
-	
+
 	double dx = 0;
 	double dy = 0;
 	double dz = 0;
-	
+
 	int bx=10;
 	int by=10;
 
-	
+	int tetaNumSections=10;
 
 	public HeadModel(double dx, double dy, double dz) {
-	
+
 		super();
 		this.dx = dx;
 		this.dy = dy;
@@ -33,118 +37,118 @@ public class HeadModel extends MeshModel {
 
 	@Override
 	public void initMesh() {
-		
+
 		points=new Vector();
 		texturePoints=new Vector();
-		
+
 		int xNumSections=faceData[0].length;
 
 		int zNumSections=skullSections.length;
+
 		
-		int tetaNumSections=10;
-		
+
 		double deltax=dx/(xNumSections-1);
 		double deltaz=dz/(zNumSections-1);
-		
-	
+
+
 		int nSplacnoPoints=0;
-		
+
 		//splanchnocranium
 		for (int k = 0; k < zNumSections; k++) { 
-			
+
 			double[] d=skullSections[k];
-						
+
 			double z=dz*d[0];  
-			
+
 			for (int i = 0; i < xNumSections; i++) {
-				
+
 				//center points in x=0 with -dx/2;
 				double x=deltax*i-dx*0.5;
 				//double y=-s[i]*dy*d[2];
-				
+
 				double y=-dy*faceData[k][i];
-				
+
 				addPoint(x, y, z);
-				
+
 				nSplacnoPoints++;
 			}
-			
+
 		}
-		
+
 		//neurocranium
-		
+
 		double dTeta=Math.PI/(tetaNumSections-1);
 		for (int k = 0; k < zNumSections; k++) { 
-			
-			
+
+
 			double rx=dx*0.5;
 			double ry=dy;
-			
+
 			double[] d=skullSections[k];
-			
+
 			double z=dz*d[0]; 
 			ry=ry*d[1];
-			
+
 			for (int i = 0; i < tetaNumSections; i++) {
-				
+
 				double teta=dTeta*i;
-				
-				
+
+
 				double x=rx*Math.cos(teta);
 				double y=ry*Math.sin(teta);
-				
+
 				addPoint(x, y, z);
-				
+
 			}
-			
+
 		}
-		
+
 		//splanchnocranium
-		
+
 		int nSplacnoTPoints=0;
-		
+
 		for (int k = 0; k < zNumSections; k++) { 
-			
+
 			double[] d=skullSections[k];
-			
+
 			double z=by+dz*d[0]; 
-			
+
 			for (int i = 0; i < xNumSections; i++) {
-				
+
 				double x=bx+deltax*i;
-			
-				
+
+
 				addTPoint(x, z, 0);
-				
+
 				nSplacnoTPoints++;
 			}
-			
+
 		}
-		
+
 		//neurocranium
 		double deltaTeta=(dy*Math.PI)/(tetaNumSections-1);
-		
+
 		for (int k = 0; k < zNumSections; k++) { 
-			
+
 			double[] d=skullSections[k];
-			
+
 			double z=by+dz*d[0]; 
-			
+
 			for (int i = 0; i < tetaNumSections; i++) {
-				
+
 				double x=bx+dx+deltaTeta*i;
-				
+
 				addTPoint(x, z, 0);
-				
+
 			}
-			
+
 		}
-		
+
 		splacFaces=buildSinglePlaneFaces(xNumSections, zNumSections,
 				0, 0);
 		neuroFaces=buildSinglePlaneFaces(tetaNumSections, zNumSections, 
 				nSplacnoPoints, nSplacnoTPoints);
-		
+
 		IMG_WIDTH=(int) (2*bx+dx+dy*Math.PI);
 		IMG_HEIGHT=(int) (2*by+dz);
 
@@ -153,7 +157,7 @@ public class HeadModel extends MeshModel {
 
 	@Override
 	public void printTexture(Graphics2D bg) {
-	
+
 		bg.setColor(Color.BLACK);
 		bg.setStroke(new BasicStroke(0.1f));
 		printTextureFaces(bg,splacFaces);
@@ -162,14 +166,14 @@ public class HeadModel extends MeshModel {
 		bg.setStroke(new BasicStroke(0.1f));
 		printTextureFaces(bg,neuroFaces);
 	}
-	
+
 	@Override
 	public void printMeshData(PrintWriter pw) {
 		super.printMeshData(pw);
 		super.printFaces(pw, splacFaces);
 		super.printFaces(pw, neuroFaces);
 	}
-	
+
 	double[][] skullSections={
 			{0.0,0.8837,0.2093},
 			{0.0574,0.84885,0.22095},
@@ -192,11 +196,11 @@ public class HeadModel extends MeshModel {
 			{0.9344,0.7558,-0.0349},
 			{0.9672000000000001,0.57555,-0.22094999999999998},
 			{1.0,0.3953,-0.407},
-			};
+	};
 
-	
+
 	/*double[][] splancnoSections={
-			
+
 			{0.0,0.6614,0.8660,0.9682,1.0,0.9682,0.8660,0.6614,0.0},
 			{0.0,0.6614,0.8660,0.9682,1.0,0.9682,0.8660,0.6614,0.0},
 			{0.0,0.6614,0.8660,0.9682,1.0,0.9682,0.8660,0.6614,0.0},
@@ -209,11 +213,11 @@ public class HeadModel extends MeshModel {
 			{0.0,0.6614,0.8660,0.9682,1.0,0.9682,0.8660,0.6614,0.0},
 			{0.0,0.6614,0.8660,0.9682,1.0,0.9682,0.8660,0.6614,0.0},
 
-			
+
 	};*/
-	
+
 	double[][] faceData={
-			
+
 			{0.0,0.0692,0.1384,0.15985,0.1813,0.19195,0.2026,0.20595000000000002,0.2093,0.20595000000000002,0.2026,0.19195,0.1813,0.15985,0.1384,0.0692,0.0},
 			{0.0,0.07305,0.1461,0.16872499999999999,0.19135,0.202625,0.2139,0.217425,0.22095,0.217425,0.2139,0.202625,0.19135,0.16872499999999999,0.1461,0.07305,0.0},
 			{0.0,0.0769,0.1538,0.17759999999999998,0.2014,0.2133,0.2252,0.2289,0.2326,0.2289,0.2252,0.2133,0.2014,0.17759999999999998,0.1538,0.0769,0.0},
@@ -236,112 +240,211 @@ public class HeadModel extends MeshModel {
 			{0.0,-0.073075,-0.14615,-0.16874999999999998,-0.19135,-0.20265,-0.21395,-0.21744999999999998,-0.22094999999999998,-0.21744999999999998,-0.21395,-0.20265,-0.19135,-0.16874999999999998,-0.14615,-0.073075,0.0},
 			{0.0,-0.1346,-0.2692,-0.31084999999999996,-0.3525,-0.37329999999999997,-0.3941,-0.40054999999999996,-0.407,-0.40054999999999996,-0.3941,-0.37329999999999997,-0.3525,-0.31084999999999996,-0.2692,-0.1346,0.0},
 
-		};
+	};
 
-	
+
 	public static void main(String[] args) {
 		//new HeadModel(0, 0, 0).printNewCode();
 	}
 
+	/**
+	 * DIAGNOSTICS UTILITY
+	 * 
+	 */
+	public void printSections(){
+
+		int w=(int) (dx)+2*bx;
+		int h=(int) (2*dy)+2*by;
+
+		int xNumSections=faceData[0].length;
+		double deltax=dx/(xNumSections-1);
+
+		//double y=-s[i]*dy*d[2];
+
+
+
+		BufferedImage buf=new BufferedImage(w,h,BufferedImage.TYPE_BYTE_INDEXED);
+
+		File file=new File("sections.jpg");
+
+		try {
+
+
+
+			Graphics2D bufGraphics=(Graphics2D)buf.getGraphics();
+
+			bufGraphics.setColor(Color.BLACK);
+			bufGraphics.fillRect(0,0,w,h);
+
+			bufGraphics.setColor(Color.WHITE);
+
+			for (int k = 0; k < faceData.length; k++) {
+
+				double[] pts = faceData[k];
+
+
+				if(k==8){
+
+					bufGraphics.setColor(Color.WHITE);
+				}else if(k==9){
+
+					bufGraphics.setColor(Color.RED);
+				}else if(k==10){
+
+					bufGraphics.setColor(Color.GREEN);
+					continue;
+				}
+				else
+					continue;
+
+				for (int i = 0; i < pts.length-1; i++) {
+
+					int x=(int)(deltax*i-dx*0.5)+bx;
+					int y=(int)(-dy*faceData[k][i])+by;
+
+					bufGraphics.fillRect(x-1, y-1, 2, 2);
+				}
+
+
+			}
+
+			//////
+			int zNumSections=skullSections.length;
+			double dTeta=Math.PI/(tetaNumSections-1);
+			for (int k = 0; k < zNumSections; k++) { 
+
+
+				double rx=dx*0.5;
+				double ry=dy;
+
+				double[] d=skullSections[k];
+
+				double z=dz*d[0]; 
+				ry=ry*d[1];
+
+				for (int i = 0; i < tetaNumSections; i++) {
+
+					double teta=dTeta*i;
+
+
+					int x=(int)(rx*Math.cos(teta));
+					int y=(int)(ry*Math.sin(teta));
+
+
+					bufGraphics.fillRect(x-1, y-1, 2, 2);
+				}
+
+
+			}
+
+			ImageIO.write(buf,"gif",file);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+	}
+
+
 	private void printNewCode() {
-		
+
 		for (int i = 0; i < skullSections.length; i++) {
-			
+
 			double[] sk0 = skullSections[i];
-			
+
 			System.out.print("{");
-			
+
 			for (int j = 0; j < sk0.length; j++) {
-				
+
 				if(j>0)
 					System.out.print(",");
 				System.out.print(sk0[j]);
 			}
-			
+
 			System.out.println("},");
-			
+
 			if(i<skullSections.length-1){
-				
-				
+
+
 				double[] sk1 = skullSections[i+1];
-				
+
 				System.out.print("{");
-				
+
 				for (int j = 0; j < sk0.length; j++) {
-					
+
 					if(j>0)
 						System.out.print(",");
 					System.out.print(m(sk0[j],sk1[j]));
 				}
-				
+
 				System.out.println("},");
-				
+
 			}
 		}
-		
+
 		System.out.println("--------------");
-		
+
 		for (int i = 0; i < faceData.length; i++) {
-			
+
 			double[] fd0 = faceData[i];
-			
+
 			System.out.print("{");
-			
+
 			for (int j = 0; j < fd0.length; j++) {
 				if(j>0)
 					System.out.print(",");
 				System.out.print(fd0[j]);
-								
+
 			}
-			
+
 			System.out.println("},");
-			
+
 			if(i<faceData.length-1){
-				
+
 				double[] fd1 = faceData[i+1];
-				
+
 				System.out.print("{");
-				
+
 				for (int j = 0; j < fd0.length; j++) {
 					if(j>0)
 						System.out.print(",");
 					System.out.print(m(fd0[j],fd1[j]));
-									
+
 				}
-				
+
 				System.out.println("},");
 			}
 		}
-	
+
 		/*for (int i = 0; i < faceData.length; i++) {
-			
+
 			double[] fd0 = faceData[i];
-			
+
 			System.out.print("{");
-			
+
 			for (int j = 0; j < fd0.length; j++) {
 				if(j>0)
 					System.out.print(",");
 				System.out.print(fd0[j]);
 				if(j<fd0.length-1){
-					
+
 					System.out.print(",");
 					System.out.print(m(fd0[j],fd0[j+1]));
 				}
-				
+
 			}
-			
+
 			System.out.println("},");
-	
-			
+
+
 		}*/
-		
+
 	}
 
 	private double m(double d, double e) {
 		return (d+e)*0.5;
 	}
 
-	
-	
+
+
 }

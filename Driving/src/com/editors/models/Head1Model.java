@@ -197,65 +197,78 @@ public class Head1Model extends MeshModel{
 
 	public static void main(String[] args) {
 		//new Head1Model(200,200,284).writeNewCode();
-		
+
 		new Head1Model(200,200,284).printSections();
 	}
 
 	/**
-	 * DEBUGGING UTILITY
+	 * DIAGNOSTICS UTILITY
 	 * 
 	 */
 	public void printSections(){
-		
+
 		int w=(int) (dx)+2*bx;
 		int h=(int) (2*dy)+2*by;
-		
+
 		BufferedImage buf=new BufferedImage(w,h,BufferedImage.TYPE_BYTE_INDEXED);
-		
-		File file=new File("sections.jpg");
+
+
 
 		try {
 
-			
+
 
 			Graphics2D bufGraphics=(Graphics2D)buf.getGraphics();
 
-			bufGraphics.setColor(Color.BLACK);
-			bufGraphics.fillRect(0,0,w,h);
-			
-			bufGraphics.setColor(Color.WHITE);
-			
-			for (int i = 0; i < data.length; i++) {
-				
-				double[][] pts = data[i];
-				
-				
-				if(i==8){
-					
-					bufGraphics.setColor(Color.WHITE);
-				}else if(i==9){
-					
-					bufGraphics.setColor(Color.RED);
-				}else if(i==10){
-					
-					bufGraphics.setColor(Color.GREEN);
-					continue;
-				}
-				else
-					continue;
+			for(int k=0;k<2;k++){
 
-				for (int j = 0; j < pts.length-1; j++) {
-					
-					int x=(int) (pts[j][0]*dx*0.5)+(int) (dx*0.5)+bx;
-					int y=(int) (pts[j][1]*dy)+(int) (dy)+by;
-					
-					bufGraphics.fillRect(x-1, y-1, 2, 2);
+				File file=new File("sections"+k+".jpg");
+
+				bufGraphics.setColor(Color.BLACK);
+				bufGraphics.fillRect(0,0,w,h);
+
+				bufGraphics.setColor(Color.WHITE);
+
+				for (int i = 0; i < data.length; i++) {
+
+
+
+					double[][] pts = data[i];
+
+
+					if(i==8){
+
+						bufGraphics.setColor(Color.WHITE);
+						if(k==1)
+							continue;
+
+					}else if(i==9){
+
+						bufGraphics.setColor(Color.RED);
+
+					}else if(i==10){
+
+						bufGraphics.setColor(Color.GREEN);
+						if(k==0)
+							continue;
+					}
+					else
+						continue;
+
+					for (int j = 0; j < pts.length-1; j++) {
+
+						int x=(int) (pts[j][0]*dx*0.5)+(int) (dx*0.5)+bx;
+						int y=(int) (pts[j][1]*dy)+(int) (dy)+by;
+
+						bufGraphics.fillRect(x-1, y-1, 2, 2);
+					}
+
+
 				}
-				
-				
+
+				ImageIO.write(buf,"gif",file);
+
 			}
-
-			ImageIO.write(buf,"gif",file);
 
 		} catch (Exception e) {
 
@@ -268,37 +281,37 @@ public class Head1Model extends MeshModel{
 	 * 
 	 */
 	public void writeNewCode(){
-		
+
 		double deltax=dx*0.5;
 
 		for (int i = 0; i < data.length; i++) {
-			
+
 			System.out.println("\t{");
-			
+
 			double[][] pts = data[i];
 
 
 			for (int j = 0; j < pts.length; j++) {
-				
+
 				System.out.print("\t\t{");
-				
+
 				double x=pts[j][0];
 				double y=pts[j][1];
-				
+
 				if(j>16){
 					if(j<=21 || j>=29)
 						y=y*Math.sqrt(1.0-(i>3?1.0:0.9)*x*x);
 				}
 				System.out.print(x+","+y+","+pts[j][2]);
-				
+
 				System.out.println("},");
 			}
-			
+
 			System.out.println("\t},");
-			
+
 		}
 
-		
+
 	}
 
 	private double m(String str0,String str1){
@@ -352,7 +365,7 @@ public class Head1Model extends MeshModel{
 
 	double[][][] data=
 		{		
-			//8 nose tip, 10 eyes line
+				//8 nose tip, 10 eyes line
 
 				{
 					{-1.0,-0.0,0.0},

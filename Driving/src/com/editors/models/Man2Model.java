@@ -3,8 +3,12 @@ package com.editors.models;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.PrintWriter;
 import java.util.Vector;
+
+import javax.imageio.ImageIO;
 
 import com.BPoint;
 import com.main.Renderer3D;
@@ -372,6 +376,69 @@ public class Man2Model extends MeshModel{
 		super.printFaces(pw, faces);
 
 	}
+	
+	/**
+	 * DIAGNOSTICS UTILITY
+	 * 
+	 */
+	public void printSections(){
+		
+		int w=(int) (dx)+2*bx;
+		int h=(int) (2*dy)+2*by;
+		
+		BufferedImage buf=new BufferedImage(w,h,BufferedImage.TYPE_BYTE_INDEXED);
+		
+		File file=new File("sections.jpg");
+
+		try {
+
+			
+
+			Graphics2D bufGraphics=(Graphics2D)buf.getGraphics();
+
+			bufGraphics.setColor(Color.BLACK);
+			bufGraphics.fillRect(0,0,w,h);
+			
+			bufGraphics.setColor(Color.WHITE);
+			
+			for (int i = 0; i < data.length; i++) {
+				
+				double[][] pts = data[i];
+				
+				
+				if(i==8){
+					
+					bufGraphics.setColor(Color.WHITE);
+				}else if(i==9){
+					
+					bufGraphics.setColor(Color.RED);
+				}else if(i==10){
+					
+					bufGraphics.setColor(Color.GREEN);
+					continue;
+				}
+				else
+					continue;
+
+				for (int j = 0; j < pts.length-1; j++) {
+					
+					int x=(int) (pts[j][0]*dx*0.5)+(int) (dx*0.5)+bx;
+					int y=(int) (pts[j][1]*dy)+(int) (dy)+by;
+					
+					bufGraphics.fillRect(x-1, y-1, 2, 2);
+				}
+				
+				
+			}
+
+			ImageIO.write(buf,"gif",file);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+	}
+
 
 	double[][][] data=
 		{
@@ -599,4 +666,6 @@ public class Man2Model extends MeshModel{
 		};
 
 
+	
+	
 }
