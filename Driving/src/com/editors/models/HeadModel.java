@@ -45,7 +45,7 @@ public class HeadModel extends MeshModel {
 
 		int zNumSections=skullSections.length;
 
-		
+
 
 		double deltax=dx/(xNumSections-1);
 		double deltaz=dz/(zNumSections-1);
@@ -225,10 +225,10 @@ public class HeadModel extends MeshModel {
 			{0.0,0.0769,0.1538,0.17759999999999998,0.2014,0.2133,0.2252,0.2289,0.2326,0.2289,0.2252,0.2133,0.2014,0.17759999999999998,0.1538,0.0769,0.0},
 			{0.0,0.0846,0.1692,0.195375,0.22155,0.234625,0.2477,0.25177499999999997,0.25585,0.25177499999999997,0.2477,0.234625,0.22155,0.195375,0.1692,0.0846,0.0},
 			{0.0,0.0923,0.1846,0.21315,0.2417,0.25595,0.2702,0.27465,0.2791,0.27465,0.2702,0.25595,0.2417,0.21315,0.1846,0.0923,0.0},
-			{0.0,0.08845,0.1769,0.20425,0.2316,0.24527500000000002,0.25895,0.292275,0.3256,0.292275,0.25895,0.24527500000000002,0.2316,0.20425,0.1769,0.08845,0.0},
-			{0.0,0.0846,0.1692,0.19535,0.2215,0.2346,0.2477,0.3099,0.3721,0.3099,0.2477,0.2346,0.2215,0.19535,0.1692,0.0846,0.0},
-			{0.0,0.08845,0.1769,0.17925,0.18159999999999998,0.20277499999999998,0.22394999999999998,0.274775,0.3256,0.274775,0.22394999999999998,0.20277499999999998,0.18159999999999998,0.17925,0.1769,0.08845,0.0},
-			{0.0,0.0923,0.1846,0.16315,0.1417,0.17095,0.2002,0.23965,0.2791,0.23965,0.2002,0.17095,0.1417,0.16315,0.1846,0.0923,0.0},
+			{0.0,0.08845,0.1769,0.20425,0.2316,0.24527500000000002,0.25895,0.292275,0.3256,0.282275,0.25895,0.24527500000000002,0.2316,0.20425,0.1769,0.08845,0.0},
+			{0.0,0.0846,0.1692,0.19535,0.2215,0.2346,0.2477,0.2899,0.3721,0.2899,0.2477,0.2346,0.2215,0.19535,0.1692,0.0846,0.0},//nose tip
+			{0.0,0.08845,0.1769,0.17925,0.18159999999999998,0.20277499999999998,0.22395,0.254775,0.3256,0.254775,0.22394999999999998,0.20277499999999998,0.18159999999999998,0.17925,0.1769,0.08845,0.0},
+			{0.0,0.0923,0.1446,0.15315,0.1617,0.17095,0.2002,0.23965,0.2791,0.23965,0.2002,0.17095,0.1617,0.15315,0.1446,0.0923,0.0},//10 eye line
 			{0.0,0.08845,0.1769,0.17925,0.18159999999999998,0.20277499999999998,0.22394999999999998,0.24570000000000003,0.26745,0.24570000000000003,0.22394999999999998,0.20277499999999998,0.18159999999999998,0.17925,0.1769,0.08845,0.0},
 			{0.0,0.0846,0.1692,0.19535,0.2215,0.2346,0.2477,0.25175000000000003,0.2558,0.25175000000000003,0.2477,0.2346,0.2215,0.19535,0.1692,0.0846,0.0},
 			{0.0,0.0769,0.1538,0.17759999999999998,0.2014,0.213275,0.22515000000000002,0.22885000000000003,0.23255000000000003,0.22885000000000003,0.22515000000000002,0.213275,0.2014,0.17759999999999998,0.1538,0.0769,0.0},
@@ -244,7 +244,8 @@ public class HeadModel extends MeshModel {
 
 
 	public static void main(String[] args) {
-		//new HeadModel(0, 0, 0).printNewCode();
+		//new HeadModel(200,200,284).printNewCode();
+		new HeadModel(200,200,284).printXSections();
 	}
 
 	/**
@@ -344,6 +345,107 @@ public class HeadModel extends MeshModel {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * DIAGNOSTICS UTILITY
+	 * 
+	 */
+	public void printXSections(){
+
+		int w=(int) (dy*2)+2*bx;
+		int h=(int) dz+2*by;
+
+		int xNumSections=faceData[0].length;
+		double deltax=dx/(xNumSections-1);
+
+		BufferedImage buf=new BufferedImage(w,h,BufferedImage.TYPE_BYTE_INDEXED);
+
+		File file=new File("lsections.jpg");
+
+		try {
+
+
+
+			Graphics2D bufGraphics=(Graphics2D)buf.getGraphics();
+
+			bufGraphics.setColor(Color.BLACK);
+			bufGraphics.fillRect(0,0,w,h);
+
+			bufGraphics.setColor(Color.WHITE);
+			
+			Color[] cols={Color.RED,Color.GREEN,Color.CYAN,Color.YELLOW,
+			    		Color.MAGENTA,Color.PINK,Color.BLUE,Color.GRAY,Color.WHITE};
+
+			for (int k = 0; k < faceData.length-1; k++) {
+
+				double[] pts = faceData[k];
+
+				for (int i = 0; i < pts.length; i++) {
+					
+					if(i<8)
+						continue;
+			
+					bufGraphics.setColor(cols[i-8]);
+					
+					int x=(int)(-dy*faceData[k][i])+(int)dy+bx;
+					double[] d=skullSections[k];
+					int y=(int) (dz*d[0])+by;   
+					
+					int x1=(int)(-dy*faceData[k+1][i])+(int)dy+bx;
+					double[] d1=skullSections[k+1];
+					int y1=(int) (dz*d1[0])+by;  
+
+					bufGraphics.drawLine(x, h-(y), x1, h-y1);
+				}
+
+
+			}
+
+			//////
+			bufGraphics.setColor(Color.GREEN);
+			
+			
+			int zNumSections=skullSections.length;
+			double dTeta=Math.PI/(tetaNumSections-1);
+			for (int k = 0; k < zNumSections-1; k++) { 
+
+
+				double rx=dx*0.5;
+				double ry=dy;
+				double ry1=dy;
+
+				double[] d=skullSections[k];
+				double[] d1=skullSections[k+1];
+
+				ry=ry*d[1];
+				ry1=ry1*d1[1];
+
+				for (int i = 0; i < tetaNumSections; i++) {
+
+					double teta=dTeta*i;
+
+
+					int x=(int)(ry*Math.sin(teta))+(int)dy+bx;					
+					int y=(int) (dz*d[0])+by;
+					
+					int x1=(int)(ry1*Math.sin(teta))+(int)dy+bx;					
+					int y1=(int) (dz*d1[0])+by; 
+
+
+					bufGraphics.drawLine(x, h-(y), x1, h-y1);
+				}
+
+
+			}
+
+			ImageIO.write(buf,"gif",file);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+	}
+
 
 
 	private void printNewCode() {
