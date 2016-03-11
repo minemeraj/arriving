@@ -9,35 +9,55 @@ import javax.imageio.ImageIO;
 
 public class DrawBuildingTexture0 {
 	
+	int window_width=28;
+	int window_height=44;		
+	int window_lower_base=27;	
+	
+	int num_len_windows=2;		
+	int num_wid_windows=1;	
+
+	int bx=10;
+	int by=10;
+	
+	Color BACKGROUND_COLOR=new Color(0, 255, 0);	
+	
+	Color[] WINDOW_COLORS={new Color(162, 162, 190)};
+	Color WINDOW_COLOR=WINDOW_COLORS[0];
+	
+	Color[] SHUTTER_COLORS={new Color(17, 119, 54)};
+	Color SHUTTER_COLOR=SHUTTER_COLORS[0];
+		
+	Color[] WALL_COLORS={new Color(253, 227, 170)};
+	Color FRONT_WALL_COLOR=WALL_COLORS[0];
+	Color BACK_WALL_COLOR=WALL_COLORS[0];
+	Color LEFT_WALL_COLOR=WALL_COLORS[0];
+	Color RIGHT_WAll_COLOR=WALL_COLORS[0];
+	
+	Color[] ROOF_COLORS={new Color(205, 153, 51),new Color(145, 11, 36)};
+	Color ROOF_COLORO=ROOF_COLORS[0];
+	Color ROOF_COLOR1=ROOF_COLORS[1];
+	Color BOTTOM_COLOR=Color.YELLOW;
+	
 	public static void main(String[] args) {
 		
 		DrawBuildingTexture0 db=new DrawBuildingTexture0();
-		db.draw();
+		
+		int house_w=208;	
+		int house_l=286;
+		int house_h=164;
+		int num_floors=2;
+		
+		db.draw(house_w,house_l,house_h,num_floors);
 		
 	}
 
-	private void draw() {
+	private void draw(int house_w,int house_l,int house_h,int num_floors) {
 		
 		int floor_height=120;
-		int num_floors=2;
 		
-		
-		int num_len_windows=2;		
-		int num_lat_windows=2;
-		
-		int window_width=40;
-		int window_height=50;		
-		int window_lower_base=30;	
-		int windows_interspace=60;
-		
-		int house_w=num_lat_windows*window_width+(num_lat_windows+1)*windows_interspace;	
-		int house_l=num_len_windows*window_width+(num_len_windows+1)*windows_interspace;	
-	
-		int house_h=floor_height*num_floors;	
-		
-		
-		int bx=10;
-		int by=10;
+		int windows_wid_interspace=(house_w-num_wid_windows*window_width)/(num_wid_windows+1);
+		int windows_len_interspace=(house_l-num_len_windows*window_width)/(num_len_windows+1);	
+
 		
 		int w=house_h*2+house_l+2*bx;
 		int h=house_w+2*house_h+2*by;
@@ -50,19 +70,19 @@ public class DrawBuildingTexture0 {
 			
 			Graphics2D bufGraphics=(Graphics2D)buf.getGraphics();
 
-			bufGraphics.setColor(Color.GREEN);
+			bufGraphics.setColor(BACKGROUND_COLOR);
 			bufGraphics.fillRect(0,0,w,h);
 			
 			//TOP FACE
-			bufGraphics.setColor(Color.YELLOW);
+			bufGraphics.setColor(ROOF_COLORO);
 			bufGraphics.fillRect(bx+house_h,h-(by+house_h+house_w),house_l,house_w/2);
-			bufGraphics.setColor(Color.ORANGE);
+			bufGraphics.setColor(ROOF_COLOR1);
 			bufGraphics.fillRect(bx+house_h,h-(by+house_h+house_w/2),house_l,house_w/2);		
 			
 			////BACK FACE
 			
 			int x0=bx+house_h;
-			bufGraphics.setColor(Color.WHITE);
+			bufGraphics.setColor(BACK_WALL_COLOR);
 			bufGraphics.fillRect(x0,h-(by+house_h),house_l,house_h);
 			
 			for (int j = 0; j < num_floors; j++) {
@@ -72,16 +92,16 @@ public class DrawBuildingTexture0 {
 
 				for (int i = 0; i < num_len_windows; i++) {
 
-					int x=x0+(i+1)*windows_interspace+i*window_width;
+					int x=x0+(i+1)*windows_len_interspace+i*window_width;
 					int y=y0+window_height+window_lower_base;
 
-					bufGraphics.setColor(Color.RED);
+					bufGraphics.setColor(SHUTTER_COLOR);
 					bufGraphics.fillRect(x-window_width/2,h-y,window_width/2,window_height);
 
-					bufGraphics.setColor(Color.BLACK);
+					bufGraphics.setColor(WINDOW_COLOR);
 					bufGraphics.fillRect(x,h-y,window_width,window_height);
 
-					bufGraphics.setColor(Color.RED);
+					bufGraphics.setColor(SHUTTER_COLOR);
 					bufGraphics.fillRect(x+window_width,h-y,window_width/2,window_height);
 
 
@@ -93,7 +113,7 @@ public class DrawBuildingTexture0 {
 			////FRONT FACE
 			
 		
-			bufGraphics.setColor(Color.WHITE);
+			bufGraphics.setColor(FRONT_WALL_COLOR);
 			bufGraphics.fillRect(x0,h-(by+house_h+house_w+house_h),house_l,house_h);
 			
 			for (int j = 0; j < num_floors; j++) {
@@ -103,16 +123,16 @@ public class DrawBuildingTexture0 {
 
 				for (int i = 0; i < num_len_windows; i++) {
 
-					int x=x0+(i+1)*windows_interspace+i*window_width;
+					int x=x0+(i+1)*windows_len_interspace+i*window_width;
 					int y=y0-window_lower_base;
 
-					bufGraphics.setColor(Color.RED);
+					bufGraphics.setColor(SHUTTER_COLOR);
 					bufGraphics.fillRect(x-window_width/2,h-y,window_width/2,window_height);
 
-					bufGraphics.setColor(Color.BLACK);
+					bufGraphics.setColor(WINDOW_COLOR);
 					bufGraphics.fillRect(x,h-y,window_width,window_height);
 
-					bufGraphics.setColor(Color.RED);
+					bufGraphics.setColor(SHUTTER_COLOR);
 					bufGraphics.fillRect(x+window_width,h-y,window_width/2,window_height);
 
 
@@ -122,7 +142,7 @@ public class DrawBuildingTexture0 {
 			}
 			
 			////LEFT FACE
-			bufGraphics.setColor(Color.MAGENTA);
+			bufGraphics.setColor(LEFT_WALL_COLOR);
 			bufGraphics.fillRect(bx,h-(by+house_h+house_w),house_h,house_w);
 			
 			for (int j = 0; j < num_floors; j++) {
@@ -132,16 +152,16 @@ public class DrawBuildingTexture0 {
 				
 				for (int i = 0; i < num_len_windows; i++) {
 					
-					int yl0=by+house_h+house_w-((i+1)*windows_interspace+i*window_width);
+					int yl0=by+house_h+house_w-((i+1)*windows_wid_interspace+i*window_width);
 					
 					
-					bufGraphics.setColor(Color.RED);
+					bufGraphics.setColor(SHUTTER_COLOR);
 					bufGraphics.fillRect(xl0,h-(yl0-window_width),window_height,window_width/2);
 					
-					bufGraphics.setColor(Color.BLACK);
+					bufGraphics.setColor(WINDOW_COLOR);
 					bufGraphics.fillRect(xl0,h-yl0,window_height,window_width);
 					
-					bufGraphics.setColor(Color.RED);
+					bufGraphics.setColor(SHUTTER_COLOR);
 					bufGraphics.fillRect(xl0,h-(yl0+window_width/2),window_height,window_width/2);
 					
 				}
@@ -149,7 +169,7 @@ public class DrawBuildingTexture0 {
 			}
 			
 			////RIGHT FACE
-			bufGraphics.setColor(Color.CYAN);
+			bufGraphics.setColor(RIGHT_WAll_COLOR);
 			bufGraphics.fillRect(bx+house_h+house_l,h-(by+house_h+house_w),house_h,house_w);
 			
 			for (int j = 0; j < num_floors; j++) {
@@ -160,15 +180,15 @@ public class DrawBuildingTexture0 {
 					
 					int x=xl0-window_lower_base-window_height;
 					
-					int yl0=by+house_h+house_w-((i+1)*windows_interspace+i*window_width);
+					int yl0=by+house_h+house_w-((i+1)*windows_wid_interspace+i*window_width);
 					
-					bufGraphics.setColor(Color.RED);
+					bufGraphics.setColor(SHUTTER_COLOR);
 					bufGraphics.fillRect(x,h-(yl0-window_width),window_height,window_width/2);
 					
-					bufGraphics.setColor(Color.BLACK);
+					bufGraphics.setColor(WINDOW_COLOR);
 					bufGraphics.fillRect(x,h-yl0,window_height,window_width);
 					
-					bufGraphics.setColor(Color.RED);
+					bufGraphics.setColor(SHUTTER_COLOR);
 					bufGraphics.fillRect(x,h-(yl0+window_width/2),window_height,window_width/2);
 					
 				}
