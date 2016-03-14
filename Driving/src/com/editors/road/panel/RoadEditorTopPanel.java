@@ -686,7 +686,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 				//System.out.println(x+" "+y+" "+tot);    	
 				
-				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),false,tot);
+				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),0,tot);
 				
 				
 			}
@@ -778,7 +778,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 			
-				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),false,tot);
+				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),0,tot);
 				
 			}
 

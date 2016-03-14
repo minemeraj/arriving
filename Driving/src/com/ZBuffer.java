@@ -14,7 +14,7 @@ public class ZBuffer{
 		public double[] z;
 		public int size=0;
 		
-		public boolean[] empty;
+		public int[] level;
 		
 		/*public double p_x=0;
 		public double p_y=0;
@@ -27,7 +27,7 @@ public class ZBuffer{
 			this.size=size;
 			rgbColor=new int[size];
 			z=new double[size];
-			empty=new boolean[size];
+			level=new int[size];
 		}
 
 		
@@ -42,7 +42,7 @@ public class ZBuffer{
 		}
 		public void setZ(double z,int index) {
 			this.z[index] = z;
-			empty[index]=false;
+			level[index]=0;
 		}
 		
 
@@ -207,11 +207,11 @@ public class ZBuffer{
 			return getZ(index)==0 ||  getZ(index)>ys;
 		}	
 
-		public void set(double xs,double ys,double zs,double z, int rgbColor,boolean empty,int index) {
+		public void set(double xs,double ys,double zs,double z, int rgbColor,int level,int index) {
 
 			setZ(z,index);
 			setRgbColor(rgbColor,index);
-			setEmpty(empty,index);
+			setLevel(level,index);
 
 			/*p_x=xs;
 			p_y=ys;
@@ -227,12 +227,12 @@ public class ZBuffer{
 
 		public boolean isEmpty(int index){
 			
-			return empty[index];
+			return level[index]==-1;
 		}
 		
-		public void setEmpty(boolean value,int index){
+		public void setLevel(int value,int index){
 			
-			empty[index]=value;
+			level[index]=value;
 		}
 
 }

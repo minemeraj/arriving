@@ -401,7 +401,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 			rgb[i]=landscapeZbuffer.getRgbColor(i); 
 			
 			//clean
-			landscapeZbuffer.set(0,0,0,0,blackRgb,true,i);
+			landscapeZbuffer.set(0,0,0,0,blackRgb,-1,i);
               
 		
 
@@ -1875,7 +1875,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 				//System.out.println(x+" "+y+" "+tot);    	
 				
-				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),false,tot);
+				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),0,tot);
 				
 				
 			}
@@ -1967,7 +1967,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 
 			
-				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),false,tot);
+				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),0,tot);
 				
 			}
 

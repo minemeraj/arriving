@@ -89,7 +89,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 			roadZbuffer.rgbColor[i]=greenRgb;
 			roadZbuffer.z[i]=0;
-			roadZbuffer.empty[i]=true;
+			roadZbuffer.level[i]=-1;
 		}
 	
 
@@ -105,7 +105,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 			
 			//clean
-			roadZbuffer.set(0,0,0,0,greenRgb,false,i);
+			roadZbuffer.set(0,0,0,0,greenRgb,-1,i);
               
 		
 
@@ -357,7 +357,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 				//System.out.println(x+" "+y+" "+tot);    			
 
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),false,tot);
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),0,tot);
 				
 			}
 
@@ -445,7 +445,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 
 			
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),false,tot);
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),0,tot);
 	
 			}
 
@@ -495,7 +495,7 @@ public class Renderer3D implements AbstractRenderer3D{
 					if(!zb.isToUpdate(yi,tot))
 						continue;			
 
-					zb.set(xx,yi,yy,yi,rgbColor,false,tot);
+					zb.set(xx,yi,yy,yi,rgbColor,0,tot);
 				}
 			else
 				for (int yy = yy2; yy <= yy1; yy++) {
@@ -519,7 +519,7 @@ public class Renderer3D implements AbstractRenderer3D{
 						continue;			
 
 
-					zb.set(xx,yi,yy,yi,rgbColor,false,tot);
+					zb.set(xx,yi,yy,yi,rgbColor,0,tot);
 				}
 
 		}
@@ -548,7 +548,7 @@ public class Renderer3D implements AbstractRenderer3D{
 						continue;
 
 
-					zb.set(xx,yi,yy,yi,rgbColor,false,tot);
+					zb.set(xx,yi,yy,yi,rgbColor,0,tot);
 				}
 			else
 				for (int xx = xx2; xx <= xx1; xx++) {
@@ -570,7 +570,7 @@ public class Renderer3D implements AbstractRenderer3D{
 						continue;
 
 
-					zb.set(xx,yi,yy,yi,rgbColor,false,tot);
+					zb.set(xx,yi,yy,yi,rgbColor,0,tot);
 				}
 
 		}
@@ -589,7 +589,7 @@ public class Renderer3D implements AbstractRenderer3D{
 				return;
 
 
-			zb.set(xx1,y1,yy1,y1,rgbColor,false,tot);
+			zb.set(xx1,y1,yy1,y1,rgbColor,0,tot);
 
 		}
 
