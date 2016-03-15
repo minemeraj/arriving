@@ -20,7 +20,7 @@ public class PolygonMesh implements Cloneable{
 	public Vector<Point3D> texturePoints=null;
 	public Vector <Point3D>normals=null;
 	public int[] boxFaces=null; 
-
+	public int level=0;
 
 
 	public PolygonMesh() {
@@ -465,6 +465,14 @@ public class PolygonMesh implements Cloneable{
 
 	public void setTexturePoints(Vector vTexturePoints) {
 		this.texturePoints = vTexturePoints;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 

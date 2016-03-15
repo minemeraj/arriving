@@ -142,9 +142,12 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		for (int i = 0; i < splines.size(); i++) {
 			SPLine sp = (SPLine) splines.elementAt(i);
 			
-			for (int k = 0; k < sp.nodes.size(); k++) {
+			SPNode root = sp.getRoot();
+			int sz=root.getChildCount();
+			
+			for (int k = -1; k < sz; k++) {
 				
-				SPNode node = (SPNode) sp.nodes.elementAt(k);
+				SPNode node = (SPNode) root.getChildAt(k);
 				
 				PolygonMesh pm=node.getRing();
 				
@@ -1097,13 +1100,14 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			
 			SPLine spline = (SPLine) splines.elementAt(i);
 			
-			Vector nodes=spline.nodes;
+			SPNode root = spline.getRoot();
+			int sz=root.getChildCount();
 			
 			boolean found=false;
 			
-			for(int j=0;j<nodes.size();j++){
+			for(int j=-1;j<sz;j++){
 			
-				SPNode spnode = (SPNode) nodes.elementAt(j);
+				SPNode spnode = (SPNode) root.getChildAt(j);
 				PolygonMesh circle = spnode.getCircle();
 				
 				for (int k = 0; k < circle.polygonData.size(); k++) {

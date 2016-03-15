@@ -529,12 +529,15 @@ public class Editor extends JFrame implements MenuListener{
 	private String decomposeSPLine(SPLine sp) {
 		
 		String str="<spline>\n";
-		//str+="i="+sp.getTexture_index()+"\n";
-		for(int i=0;i<sp.nodes.size();i++){
+
+		SPNode root = sp.getRoot();
+		int sz=root.getChildCount();
+		
+		for(int i=-1;i<sz;i++){
 			
 			if(i>0)
 				str+="\n";
-			Point4D p0=(Point4D) sp.nodes.elementAt(i);
+			Point4D p0=(Point4D) root.getChildAt(i);
 			str+="v=T"+p0.getIndex()+" "+p0.getX()+" "+p0.getY()+" "+p0.getZ();
 		}
 		str+="\n</spline>";

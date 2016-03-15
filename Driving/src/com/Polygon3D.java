@@ -20,6 +20,7 @@ public class Polygon3D  extends Polygon{
 	public int[] 	zpoints=null;
 	public String hexColor="FFFFFF";
 	public int index=0;
+	public int level=0;
 	
 	public double shadowCosin=1;
 	
@@ -981,6 +982,14 @@ public class Polygon3D  extends Polygon{
 
 	public void setYtpoints(int[] ytpoints) {
 		this.ytpoints = ytpoints;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 }

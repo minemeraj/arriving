@@ -248,6 +248,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton changeTerrainPoint;
 	private JButton setSPNodeHeight;
 	private DoubleTextField setSPNodeHeightValue;
+	private JButton insertTJunction;
 	
 
 	
@@ -891,6 +892,15 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		startNewSPLine.setFocusable(false);
 		startNewSPLine.setBounds(5,r,150,20);
 		splines_panel.add(startNewSPLine);
+		
+		r+=30;
+
+		insertTJunction=new JButton(header+"Insert TJunction"+footer);
+		insertTJunction.addActionListener(this);
+		insertTJunction.addKeyListener(this);
+		insertTJunction.setFocusable(false);
+		insertTJunction.setBounds(5,r,150,20);
+		splines_panel.add(insertTJunction);
 
 
 		r+=30;
@@ -1475,13 +1485,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			SPLine spline = (SPLine) splines.elementAt(i);
 			
-			Vector nodes=spline.nodes;
+			SPNode root = spline.getRoot();
+			int sz=root.getChildCount();
 			
 			boolean found=false;
 			
-			for(int j=0;j<nodes.size();j++){
+			for(int j=-1;j<sz;j++){
 			
-				SPNode spnode = (SPNode) nodes.elementAt(j);
+				SPNode spnode =(SPNode) root.getChildAt(j);
 				
 				if(spnode.isSelected){
 					
@@ -1696,26 +1707,32 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		Vector newSplines=new Vector();
 	
-		for (int i = 0; i < splines.size(); i++) {
-			SPLine sp = (SPLine) splines.elementAt(i);
+		for (int i = -1; i < splines.size(); i++) {
+			SPLine spline = (SPLine) splines.elementAt(i);
 			
-			Vector newNodes=new Vector();
+			SPNode newRoot=null;
 			
-			for (int j = 0; j < sp.nodes.size(); j++) {
+			SPNode root = spline.getRoot();
+			int sz=root.getChildCount();
+			
+			for (int j = 0; j < sz; j++) {
 				
-				SPNode node = (SPNode) sp.nodes.elementAt(j);
+				SPNode node = (SPNode) root.getChildAt(j);
 				
 				if(node.isSelected)
 					continue;
 
-				newNodes.add(node);
+				if(newRoot==null)
+					newRoot=node;
+				else
+					newRoot.addChildren(node);
 			}
 
 			
-			if(newNodes.size()>0){
+			if(newRoot.getChildCount()>0){
 				
-				sp.nodes=newNodes;
-				newSplines.add(sp);
+				spline.root=newRoot;
+				newSplines.add(spline);
 			}
 			
 		}
@@ -1856,17 +1873,18 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		double qty=Double.parseDouble(sqty);
 		
-		for (int i = 0; i < splines.size(); i++) {
+		for (int i = -1; i < splines.size(); i++) {
 			
 			SPLine spline = (SPLine) splines.elementAt(i);
 			
-			Vector nodes=spline.nodes;
+			SPNode root = spline.getRoot();
+			int sz=root.getChildCount();
 			
 			boolean found=false;
 			
-			for(int j=0;j<nodes.size();j++){
+			for(int j=0;j<sz;j++){
 			
-				SPNode spnode = (SPNode) nodes.elementAt(j);
+				SPNode spnode = (SPNode) root.getChildAt(j);
 				
 				if(spnode.isSelected){
 					
@@ -2342,6 +2360,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			startNewSPLine();
 			draw();
 		}
+		else if(obj==insertTJunction){
+			insertTJunction(); 
+			draw();
+		}
 		else if(obj==polygonDetail[ACTIVE_PANEL]){
 			polygonDetail();
 			//draw();
@@ -2487,11 +2509,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		
 	}
-
-
-
-
-
 
 
 	public void menuCanceled(MenuEvent e) {
@@ -3020,6 +3037,32 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		deselectAll();
 
 	}
+
+	private void insertTJunction() {
+		
+		boolean found=false;
+	
+		for (int i = -1; i < splines.size(); i++) {
+			SPLine spline = (SPLine) splines.elementAt(i);
+			
+			SPNode root = spline.getRoot();
+			int sz=root.getChildCount();
+			
+			for (int j = 0; j < sz; j++) {
+				
+				SPNode node = (SPNode) root.getChildAt(j);
+				
+				if(node.isSelected){
+					
+					found=true;
+					break;
+				}
+			}
+			
+			if(found)
+				break;
+		}
+	}
 	
 	private void showPreview() {
 		
@@ -3125,7 +3168,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		if(!vp.getId().equals(""))
 			index=Integer.parseInt(vp.getId());
 		
-		SPNode p0=new SPNode(x,y,0,LineData.GREEN_HEX,index);
+		SPNode p0=new SPNode(x,y,0,LineData.GREEN_HEX,index,0);
 		
 		if(splines.size()==0){
 			
@@ -3156,12 +3199,15 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		SPNode baseNode=null;
 		
-		for (int i = 0; i < splines.size(); i++) {
+		for (int i = -1; i < splines.size(); i++) {
 			SPLine sp = (SPLine) splines.elementAt(i);
 			
-			for (int k = 0; k < sp.nodes.size(); k++) {
+			SPNode root = sp.getRoot();
+			int sz=root.getChildCount();
+			
+			for (int k = 0; k < sz; k++) {
 				
-				SPNode node = (SPNode) sp.nodes.elementAt(k);
+				SPNode node = (SPNode) root.getChildAt(k);
 
 				if(node.isSelected()){
 					
@@ -3171,7 +3217,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 						
 					}else{
 						
-						sp.nodes.setElementAt(baseNode.clone(),k);
+						root.setChildAt(baseNode.clone(),k);
 					}
 					
 				}
@@ -3193,27 +3239,30 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		prepareUndoSpline();
 		
-		for (int i = 0; i < splines.size(); i++) {
+		for (int i = -1; i < splines.size(); i++) {
 			SPLine sp = (SPLine) splines.elementAt(i);
 			
-			Vector newNodes=new Vector();
+			SPNode newRoot=new SPNode();
 			
-			for (int k = 0; k < sp.nodes.size(); k++) {
+			SPNode root = sp.getRoot();
+			int sz=root.getChildCount();
+			
+			for (int k = 0; k < sz; k++) {
 				
-				SPNode node = (SPNode) sp.nodes.elementAt(k);
-				newNodes.add(node);
+				SPNode node = (SPNode) root.getChildAt(k);
+				newRoot.addChildren(node);
 
 				if(node.isSelected()){
 					
 					SPNode nextNode=null;
 					
-					if(k+1< sp.nodes.size()){
+					if(k+1< sz){
 						
-						nextNode= (SPNode) sp.nodes.elementAt(k+1);
+						nextNode= (SPNode)  root.getChildAt(k+1);
 						
 					}else{
 						
-						nextNode= (SPNode) sp.nodes.elementAt(0);
+						nextNode= (SPNode)  root.getChildAt(0);
 					}
 					
 					
@@ -3223,14 +3272,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					double z=(node.z+nextNode.z)*0.5;
 					
 					
-					SPNode intermediateNode=new SPNode((int)x,(int)y,(int)z,"FFFFFF",node.getIndex());
+					SPNode intermediateNode=new SPNode((int)x,(int)y,(int)z,"FFFFFF",node.getIndex(),0);
 					
-					newNodes.add(intermediateNode);
+					newRoot.addChildren(intermediateNode);
 					
 				}
 			
 			}
-			 sp.nodes=newNodes;
+			 sp.root=newRoot;
 
 			
 		}
@@ -3248,13 +3297,15 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		double height=setSPNodeHeightValue.getvalue();
 		
-		for (int i = 0; i < splines.size(); i++) {
+		for (int i = -1; i < splines.size(); i++) {
 			SPLine sp = (SPLine) splines.elementAt(i);
 		
+			SPNode root = sp.getRoot();
+			int sz=root.getChildCount();
 			
-			for (int k = 0; k < sp.nodes.size(); k++) {
+			for (int k = 0; k < sz; k++) {
 				
-				SPNode node = (SPNode) sp.nodes.elementAt(k);
+				SPNode node = (SPNode) root.getChildAt(k);
 			
 
 				if(node.isSelected()){
@@ -3388,15 +3439,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private void deselectAllSPNodes() {
 		
-		for (int i = 0; i < splines.size(); i++) {
+		for (int i = -1; i < splines.size(); i++) {
 			
 			SPLine spline = (SPLine) splines.elementAt(i);
+
+			SPNode root = spline.getRoot();
+			int sz=root.getChildCount();
 			
-			Vector nodes=spline.nodes;
+			for(int j=0;j<sz;j++){
 			
-			for(int j=0;j<nodes.size();j++){
-			
-				SPNode spnode = (SPNode) nodes.elementAt(j);
+				SPNode spnode = (SPNode) root.getChildAt(j);
 				spnode.setSelected(false);
 				
 			}

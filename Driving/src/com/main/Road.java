@@ -1497,10 +1497,17 @@ public class Road extends Shader{
 					
 					for (int j = 0; sp.ribs!=null && j < sp.ribs.size(); j++) {
 						
-						Rib rib= (Rib) sp.ribs.elementAt(j);
-						for (int k = 0; k < rib.points.length; k++) {
-							rib.points[k].translate(-XFOCUS,+SCREEN_DISTANCE,-YFOCUS);
+						Vector nodeRibs=(Vector) sp.ribs.elementAt(j);
+						
+						for (int r = 0; r< nodeRibs.size(); r++) {
+							
+							Rib rib= (Rib) nodeRibs.elementAt(r);
+							for (int k = 0; k < rib.points.length; k++) {
+								rib.points[k].translate(-XFOCUS,+SCREEN_DISTANCE,-YFOCUS);
+							}
+							
 						}
+					
 					
 					}
                      sp.calculate3DMeshes();

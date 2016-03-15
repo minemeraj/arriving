@@ -1,5 +1,6 @@
 package com;
 
+import java.util.Enumeration;
 import java.util.Vector;
 
 import com.editors.EditorData;
@@ -9,7 +10,7 @@ import com.main.Road;
 
 public class SPLine {
 	
-	public Vector nodes=null;
+	public SPNode root=null;
 	public Vector ribs=null;
 	Vector vTexturePoints=null;
 	
@@ -18,51 +19,44 @@ public class SPLine {
 	
 	public SPLine(Vector vTexturePoints){
 		
-		nodes=new Vector();
 		ribs=new Vector();
-		
 		this.vTexturePoints=vTexturePoints;
 	}
 	
 	public void addSPNode(SPNode nextNode){
 
-
-		
-		SPNode previousNode=null;
-		
-		if(nodes.size()>0)
-		{
-			previousNode=(SPNode) nodes.lastElement();
-			nodes.add(nextNode);
-		}
-		else{
-			
-			nodes.add(nextNode);
+		if(root==null){
+			root=nextNode;
 			return;
 		}
+		else
+			root.addChildren(nextNode);
 		
         calculateRibs();
-		
-		
-
 
 	}
 
-
-
 	public void calculateRibs() {
-
+		
 		ribs=new Vector();
 		
-       
-		calculateTangents();
-
+		calculateTangents(root);
 		
-		
-		for (int i = 0; i < nodes.size()-1; i++) {
+		calculateRibs(root);
+	}
 
-			SPNode previousNode = (SPNode) nodes.elementAt(i); 
-			SPNode nextNode = (SPNode) nodes.elementAt(i+1); 
+	public void calculateRibs(SPNode root) {
+	
+		       
+		Vector nodeRibs=new Vector();
+		ribs.add(nodeRibs);
+
+		int sz=root.getChildCount();
+		
+		for (int i = -1; i < sz-1; i++) {
+
+			SPNode previousNode = (SPNode) root.getChildAt(i);
+			SPNode nextNode = (SPNode) root.getChildAt(i+1);
 
 			double prevX=previousNode.x;
 			double prevY=previousNode.y;
@@ -123,7 +117,7 @@ public class SPLine {
 				if(k==n-1){
 
 					//do not repeat the last rib two time!
-					if(i<nodes.size()-2){
+					if(i<sz-2){
 
 						continue;
 					}	
@@ -142,23 +136,28 @@ public class SPLine {
 				rib.points[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z+dz,LineData.GREEN_HEX,0);	
 				rib.points[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z+dz,LineData.GREEN_HEX,0);
 				rib.setIndex(previousNode.getIndex());
-				ribs.add(rib);	
+				rib.setLevel(nextNode.getLevel());
+				nodeRibs.add(rib);	
 				//System.out.println(rib[0]+","+rib[1]+","+rib[2]+","+rib[3]+",");  
 
 
 			}
 
+			if(nextNode.getChildCount()>0)
+				calculateRibs(nextNode);
+			
 		}
 
 	}
 
-	private void calculateTangents() {
+	private void calculateTangents(SPNode root) {
 		
-
-		for (int i = 0; i < nodes.size()-1; i++) {
+		int sz=root.getChildCount();
+		
+		for (int i = -1; i < sz-1; i++) {
 			
-			SPNode previousNode = (SPNode) nodes.elementAt(i); 
-			SPNode nextNode = (SPNode) nodes.elementAt(i+1); 
+			SPNode previousNode = (SPNode) root.getChildAt(i);
+			SPNode nextNode = (SPNode) root.getChildAt(i+1);
 
 			double prevX=previousNode.x;
 			double prevY=previousNode.y;
@@ -177,7 +176,8 @@ public class SPLine {
 			NextTangent=NextTangent.calculateVersor();		
 			nextNode.setTangent(NextTangent);
 
-			
+			if(nextNode.getChildCount()>0)
+				calculateTangents(nextNode);
 		}
 		
 	}
@@ -186,42 +186,47 @@ public class SPLine {
 
 		Vector meshes=new Vector();
 
+		for (int j = 0; j < ribs.size(); j++) {
 
-		for (int i = 0; i < ribs.size()-1; i++) {
-			Rib prevRib= (Rib) ribs.elementAt(i);
-			Rib nextRib= (Rib) ribs.elementAt(i+1);
-			
-			Point4D p0=prevRib.points[3];
-			Point4D p1=prevRib.points[2];
-			Point4D p2=nextRib.points[2];
-			Point4D p3=nextRib.points[3];
-			
+			Vector nodeRibs=(Vector)ribs.elementAt(j);
 
-			Vector points=new Vector();
-			points.add(p0);
-			points.add(p1);
-			points.add(p2);
-			points.add(p3);
+			for (int i = 0;i < nodeRibs.size()-1; i++) {
 
-			Point3D pt0=(Point3D) vTexturePoints.elementAt(0);
-			Point3D pt1=(Point3D) vTexturePoints.elementAt(1);
-			Point3D pt2=(Point3D) vTexturePoints.elementAt(2);
-			Point3D pt3=(Point3D) vTexturePoints.elementAt(3);
+				Rib prevRib= (Rib) nodeRibs.elementAt(i);
+				Rib nextRib= (Rib) nodeRibs.elementAt(i+1);
 
-			Vector polygonData=new Vector();
-			LineData ld=new LineData();
-			ld.addIndex(0,0,pt0.x,pt0.y);
-			ld.addIndex(1,1,pt1.x,pt1.y);
-			ld.addIndex(2,2,pt2.x,pt2.y);
-			ld.addIndex(3,3,pt3.x,pt3.y);
-			ld.setTexture_index(prevRib.getIndex());
-			polygonData.add(ld);
+				Point4D p0=prevRib.points[3];
+				Point4D p1=prevRib.points[2];
+				Point4D p2=nextRib.points[2];
+				Point4D p3=nextRib.points[3];
 
-			PolygonMesh mesh=new PolygonMesh(points,polygonData);
-			mesh.setTexturePoints(vTexturePoints);
-			meshes.add(mesh);
+
+				Vector points=new Vector();
+				points.add(p0);
+				points.add(p1);
+				points.add(p2);
+				points.add(p3);
+
+				Point3D pt0=(Point3D) vTexturePoints.elementAt(0);
+				Point3D pt1=(Point3D) vTexturePoints.elementAt(1);
+				Point3D pt2=(Point3D) vTexturePoints.elementAt(2);
+				Point3D pt3=(Point3D) vTexturePoints.elementAt(3);
+
+				Vector polygonData=new Vector();
+				LineData ld=new LineData();
+				ld.addIndex(0,0,pt0.x,pt0.y);
+				ld.addIndex(1,1,pt1.x,pt1.y);
+				ld.addIndex(2,2,pt2.x,pt2.y);
+				ld.addIndex(3,3,pt3.x,pt3.y);
+				ld.setTexture_index(prevRib.getIndex());
+				polygonData.add(ld);
+
+				PolygonMesh mesh=new PolygonMesh(points,polygonData);
+				mesh.setTexturePoints(vTexturePoints);
+				mesh.setLevel(prevRib.getLevel());
+				meshes.add(mesh);
+			}
 		}
-
 		return meshes;
 
 	}
@@ -230,53 +235,59 @@ public class SPLine {
 
 		meshes3D=new Vector();
 
-		for (int i = 0; i < ribs.size()-1; i++) {
-			
-			Rib prevRib= (Rib) ribs.elementAt(i);
-			Rib nextRib= (Rib) ribs.elementAt(i+1);
-			
-			Point4D p0=prevRib.points[0];
-			Point4D p1=prevRib.points[1];
-			Point4D p2=nextRib.points[1];
-			Point4D p3=nextRib.points[0];
-			
-			
-			Point4D p4=prevRib.points[3];
-			Point4D p5=prevRib.points[2];
-			Point4D p6=nextRib.points[2];
-			Point4D p7=nextRib.points[3];
-			
 
-			Vector points=new Vector();
-			points.add(p0);
-			points.add(p1);
-			points.add(p2);
-			points.add(p3);		
-		
-			
-			points.add(p4);
-			points.add(p5);
-			points.add(p6);
-			points.add(p7);
+		for (int j = 0;j < ribs.size(); j++) {
+
+			Vector nodeRibs=(Vector)ribs.elementAt(j);
+
+			for (int i = 0;i < nodeRibs.size()-1; i++) {
+
+				Rib prevRib= (Rib) nodeRibs.elementAt(i);
+				Rib nextRib= (Rib) nodeRibs.elementAt(i+1);
+
+				Point4D p0=prevRib.points[0];
+				Point4D p1=prevRib.points[1];
+				Point4D p2=nextRib.points[1];
+				Point4D p3=nextRib.points[0];
 
 
-			Vector polygonData= EditorData.splinesMeshes[prevRib.getIndex()].polygonData;
-			Vector nPolygonData=new Vector();
-			
-			
-			for (int j = 0; j < polygonData.size(); j++) {
-				
-				LineData ld = ((LineData) polygonData.elementAt(j)).clone();
-				
-				ld.setTexture_index(prevRib.getIndex());
-				nPolygonData.add(ld);
+				Point4D p4=prevRib.points[3];
+				Point4D p5=prevRib.points[2];
+				Point4D p6=nextRib.points[2];
+				Point4D p7=nextRib.points[3];
+
+
+				Vector points=new Vector();
+				points.add(p0);
+				points.add(p1);
+				points.add(p2);
+				points.add(p3);		
+
+
+				points.add(p4);
+				points.add(p5);
+				points.add(p6);
+				points.add(p7);
+
+
+				Vector polygonData= EditorData.splinesMeshes[prevRib.getIndex()].polygonData;
+				Vector nPolygonData=new Vector();
+
+
+				for (int kj = 0; kj < polygonData.size(); kj++) {
+
+					LineData ld = ((LineData) polygonData.elementAt(kj)).clone();
+
+					ld.setTexture_index(prevRib.getIndex());
+					nPolygonData.add(ld);
+				}
+
+				PolygonMesh mesh=new PolygonMesh(points,nPolygonData);
+				mesh.setTexturePoints(vTexturePoints);
+				mesh.setLevel(prevRib.getLevel());
+				meshes3D.add(mesh);
 			}
-			
-			PolygonMesh mesh=new PolygonMesh(points,nPolygonData);
-			mesh.setTexturePoints(vTexturePoints);
-			meshes3D.add(mesh);
 		}
-
 	}
 
 	public Vector getvTexturePoints() {
@@ -292,8 +303,10 @@ public class SPLine {
 		
 		SPLine line=new SPLine(vTexturePoints);
 		
-		for (int i = 0; i < nodes.size(); i++) {
-			SPNode sp = (SPNode) nodes.elementAt(i);
+		int sz=root.getChildCount();
+		
+		for (int i = 0; i < sz; i++) {
+			SPNode sp =(SPNode) root.getChildAt(i);
 			line.addSPNode(sp.clone());
 		}
 		
@@ -307,6 +320,10 @@ public class SPLine {
 
 	public void setMeshes3D(Vector meshes3d) {
 		meshes3D = meshes3d;
+	}
+
+	public SPNode getRoot() {
+		return root;
 	}
 
 
