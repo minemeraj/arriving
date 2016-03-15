@@ -303,6 +303,11 @@ public class SPLine {
 		
 		SPLine line=new SPLine(vTexturePoints);
 		
+		root=line.getRoot();
+		
+		if(root==null)
+			return line;
+		
 		int sz=root.getChildCount();
 		
 		for (int i = 0; i < sz; i++) {

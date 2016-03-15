@@ -186,6 +186,8 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			}
 			
 			SPNode root = sp.getRoot();
+			if(root==null)
+				continue;
 			int sz=root.getChildCount();
 
 			for (int k = -1; k < sz; k++) {

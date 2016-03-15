@@ -143,6 +143,8 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			SPLine sp = (SPLine) splines.elementAt(i);
 			
 			SPNode root = sp.getRoot();
+			if(root==null)
+				continue;
 			int sz=root.getChildCount();
 			
 			for (int k = -1; k < sz; k++) {
