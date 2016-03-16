@@ -396,6 +396,8 @@ public class Editor extends JFrame implements MenuListener{
 					SPLine sp=new SPLine(vTexturePoints);
 					splines.add(sp);
 					continue;
+				}else if(str.equals("<spline>")){
+					continue;
 				}
 				
 				
