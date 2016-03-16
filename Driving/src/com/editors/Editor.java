@@ -535,7 +535,7 @@ public class Editor extends JFrame implements MenuListener{
 		
 		for(int i=-1;i<sz;i++){
 			
-			if(i>0)
+			if(i>-1)
 				str+="\n";
 			Point4D p0=(Point4D) root.getChildAt(i);
 			str+="v=T"+p0.getIndex()+" "+p0.getX()+" "+p0.getY()+" "+p0.getZ();

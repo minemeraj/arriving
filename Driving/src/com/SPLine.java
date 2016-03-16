@@ -303,17 +303,7 @@ public class SPLine {
 		
 		SPLine line=new SPLine(vTexturePoints);
 		
-		root=line.getRoot();
-		
-		if(root==null)
-			return line;
-		
-		int sz=root.getChildCount();
-		
-		for (int i = 0; i < sz; i++) {
-			SPNode sp =(SPNode) root.getChildAt(i);
-			line.addSPNode(sp.clone());
-		}
+		line.setRoot(root.clone());
 		
 		return  line;
 	}
@@ -329,6 +319,10 @@ public class SPLine {
 
 	public SPNode getRoot() {
 		return root;
+	}
+
+	public void setRoot(SPNode root) {
+		this.root = root;
 	}
 
 

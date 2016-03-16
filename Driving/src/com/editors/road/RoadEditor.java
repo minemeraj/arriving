@@ -1707,10 +1707,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		Vector newSplines=new Vector();
 	
-		for (int i = -1; i < splines.size(); i++) {
+		for (int i = 0; i < splines.size(); i++) {
 			SPLine spline = (SPLine) splines.elementAt(i);
 			
-			SPNode newRoot=null;
+			SPLine newSpline=new SPLine(spline.getvTexturePoints());
 			
 			SPNode root = spline.getRoot();
 			int sz=root.getChildCount();
@@ -1722,17 +1722,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				if(node.isSelected)
 					continue;
 
-				if(newRoot==null)
-					newRoot=node;
-				else
-					newRoot.addChildren(node);
+		
+				newSpline.addSPNode(node);
 			}
 
 			
-			if(newRoot.getChildCount()>0){
-				
-				spline.root=newRoot;
-				newSplines.add(spline);
+			if(newSpline.getRoot()!=null && newSpline.getRoot().getChildCount()>0){
+
+				newSplines.add(newSpline);
 			}
 			
 		}
@@ -1873,7 +1870,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		double qty=Double.parseDouble(sqty);
 		
-		for (int i = -1; i < splines.size(); i++) {
+		for (int i = 0; i < splines.size(); i++) {
 			
 			SPLine spline = (SPLine) splines.elementAt(i);
 			
@@ -1882,7 +1879,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			boolean found=false;
 			
-			for(int j=0;j<sz;j++){
+			for(int j=-1;j<sz;j++){
 			
 				SPNode spnode = (SPNode) root.getChildAt(j);
 				
@@ -3439,7 +3436,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private void deselectAllSPNodes() {
 		
-		for (int i = -1; i < splines.size(); i++) {
+		for (int i = 0; i < splines.size(); i++) {
 			
 			SPLine spline = (SPLine) splines.elementAt(i);
 
