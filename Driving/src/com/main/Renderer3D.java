@@ -1033,7 +1033,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 
 	}
 	
-	public Polygon3D buildTransformedPolygon3D(LineData ld,Point3D[] points) { 
+	public Polygon3D buildTransformedPolygon3D(LineData ld,Point3D[] points,int level) { 
 
 
 
@@ -1071,6 +1071,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 		p3dr.setHexColor(ld.getHexColor());
 		p3dr.setIndex(ld.getTexture_index());
 		p3dr.setShadowCosin(ld.getShadowCosin());
+		p3dr.setLevel(level);
 		
         return p3dr;
 

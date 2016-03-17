@@ -588,7 +588,7 @@ public class Road extends Shader{
 
 			LineData ld=(LineData) mesh.polygonData.elementAt(j);
 
-			Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points);
+			Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel());
 
 
 			if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
@@ -669,7 +669,7 @@ public class Road extends Shader{
 
 			Polygon3D realP3D=LineData.buildPolygon(ld,mesh.points);
 
-			Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points);
+			Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel());
 
 			if(p3D.contains(start_car_x,start_car_y)){
 
@@ -751,7 +751,7 @@ public class Road extends Shader{
 					LineData ld=(LineData) mesh.polygonData.elementAt(k);
 
 					
-					Polygon3D p3DBase=buildTransformedPolygon3D(ld,mesh.points);
+					Polygon3D p3DBase=buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel());
 					
 					if(!p3DBase.clipPolygonToArea2D(totalVisibleField).isEmpty()){
 						visible=true;
@@ -768,7 +768,7 @@ public class Road extends Shader{
 
 					LineData ld=(LineData) mesh.polygonData.elementAt(k);
 
-					Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points);
+					Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel());
 
 
 					decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.splinesTextures[ld.getTexture_index()],roadZbuffer);
