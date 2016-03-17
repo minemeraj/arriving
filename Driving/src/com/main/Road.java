@@ -132,7 +132,10 @@ public class Road extends Shader{
 	public static double WATER_LEVEL=0;
 	
 	public Vector splines=null;
-
+	
+	public static int GROUND_LEVEL=0;
+	public static int ROAD_LEVEL=1;
+	public static int OBJECT_LEVEL=2;
 
 	public Road(int WITDH,int HEIGHT, CarFrame carFrame){
 		
