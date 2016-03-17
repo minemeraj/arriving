@@ -105,7 +105,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 			
 			//clean
-			roadZbuffer.set(0,0,0,0,greenRgb,-1,i);
+			roadZbuffer.set(0,0,0,0,greenRgb,Road.GROUND_LEVEL,i);
               
 		
 
@@ -183,7 +183,7 @@ public class Renderer3D implements AbstractRenderer3D{
 		
 		boolean isFacing=isFacing(p3d,normal,observerPoint);
 
-
+		int level=p3d.getLevel();
 	
 		double cosin=p3d.getShadowCosin();
 	
@@ -334,10 +334,10 @@ public class Renderer3D implements AbstractRenderer3D{
 
 				double yi=1.0/((1-l)*i_pstart_p_y+l*i_end_p_y);
 				
-				if(!zb.isToUpdate(yi,tot) || isStencilBuffer){
+				if(!zb.isToUpdate(yi,tot,level) || isStencilBuffer){
 					//z-fail stencil buffer with bias
 					if(isStencilBuffer){
-						if(!zb.isToUpdate(yi+4,tot))
+						if(!zb.isToUpdate(yi+4,tot,level))
 							stencilBuffer(tot,isFacing);
 					}
 					continue;
@@ -357,7 +357,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 				//System.out.println(x+" "+y+" "+tot);    			
 
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),0,tot);
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),level,tot);
 				
 			}
 
@@ -415,13 +415,13 @@ public class Renderer3D implements AbstractRenderer3D{
 
 				double yi=1.0/((1-l)*i_pstart_p_y+l*i_end_p_y);
 			
-				if(!zb.isToUpdate(yi,tot) || isStencilBuffer){
+				if(!zb.isToUpdate(yi,tot,level) || isStencilBuffer){
 					
 					//z-fail stencil buffer with bias
 					if(isStencilBuffer){
 						
 	
-						if(!zb.isToUpdate(yi+4,tot))
+						if(!zb.isToUpdate(yi+4,tot,level))
 							stencilBuffer(tot,isFacing);
 					}
 					continue;
@@ -445,7 +445,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 
 			
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),0,tot);
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),level,tot);
 	
 			}
 
@@ -457,8 +457,10 @@ public class Renderer3D implements AbstractRenderer3D{
 
 	}
 	
-	public void decomposeLine( double x1,
-			double y1,double z1,double x2,double y2,double z2,ZBuffer zb,int rgbColor) { 
+	public void decomposeLine( 
+			double x1,	double y1,double z1,
+			double x2,double y2,double z2,int level,
+			ZBuffer zb,int rgbColor) { 
 
 		int xx1=(int)calculPerspX(x1,y1,z1);
 		int yy1=(int)calculPerspY(x1,y1,z1);
@@ -492,10 +494,10 @@ public class Renderer3D implements AbstractRenderer3D{
 
 					int tot=WIDTH*yy+xx;
 
-					if(!zb.isToUpdate(yi,tot))
+					if(!zb.isToUpdate(yi,tot,level))
 						continue;			
 
-					zb.set(xx,yi,yy,yi,rgbColor,0,tot);
+					zb.set(xx,yi,yy,yi,rgbColor,level,tot);
 				}
 			else
 				for (int yy = yy2; yy <= yy1; yy++) {
@@ -515,11 +517,11 @@ public class Renderer3D implements AbstractRenderer3D{
 					int tot=WIDTH*yy+xx;
 
 
-					if(!zb.isToUpdate(yi,tot))
+					if(!zb.isToUpdate(yi,tot,level))
 						continue;			
 
 
-					zb.set(xx,yi,yy,yi,rgbColor,0,tot);
+					zb.set(xx,yi,yy,yi,rgbColor,level,tot);
 				}
 
 		}
@@ -544,11 +546,11 @@ public class Renderer3D implements AbstractRenderer3D{
 					int tot=WIDTH*yy+xx;
  
 			
-					if(!zb.isToUpdate(yi,tot))
+					if(!zb.isToUpdate(yi,tot,level))
 						continue;
 
 
-					zb.set(xx,yi,yy,yi,rgbColor,0,tot);
+					zb.set(xx,yi,yy,yi,rgbColor,level,tot);
 				}
 			else
 				for (int xx = xx2; xx <= xx1; xx++) {
@@ -566,11 +568,11 @@ public class Renderer3D implements AbstractRenderer3D{
 
 					int tot=WIDTH*yy+xx;
 
-					if(!zb.isToUpdate(yi,tot))
+					if(!zb.isToUpdate(yi,tot,level))
 						continue;
 
 
-					zb.set(xx,yi,yy,yi,rgbColor,0,tot);
+					zb.set(xx,yi,yy,yi,rgbColor,level,tot);
 				}
 
 		}
@@ -585,11 +587,11 @@ public class Renderer3D implements AbstractRenderer3D{
 			int tot=WIDTH*yy1+xx1;
 
 
-			if(!zb.isToUpdate(y1,tot))
+			if(!zb.isToUpdate(y1,tot,level))
 				return;
 
 
-			zb.set(xx1,y1,yy1,y1,rgbColor,0,tot);
+			zb.set(xx1,y1,yy1,y1,rgbColor,level,tot);
 
 		}
 

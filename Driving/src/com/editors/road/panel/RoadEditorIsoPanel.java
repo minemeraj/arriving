@@ -470,7 +470,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		
 		//boolean isFacing=isFacing(p3d,normal,observerPoint);
 
-
+		int level=p3d.getLevel();
 	
 		double cosin=calculateCosin(p3d);
 		
@@ -623,7 +623,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 				double yi=((1-l)*pstart.p_y+l*pend.p_y);
 		
-				if(!zb.isToUpdate(yi,tot)){
+				if(!zb.isToUpdate(yi,tot,level)){
 				
 					continue;
 				}	
@@ -655,7 +655,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 				//System.out.println(x+" "+y+" "+tot);    	
 				
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),0,tot);
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),level,tot);
 				
 				
 			}
@@ -711,7 +711,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 				double yi=((1-l)*pstart.p_y+l*pend.p_y);
 			
-				if(!zb.isToUpdate(yi,tot) ){
+				if(!zb.isToUpdate(yi,tot,level) ){
 					
 					continue;
 				}	
@@ -745,7 +745,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 
 			
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),0,tot);
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),level,tot);
 				
 			}
 

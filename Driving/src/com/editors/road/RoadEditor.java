@@ -3165,7 +3165,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		if(!vp.getId().equals(""))
 			index=Integer.parseInt(vp.getId());
 		
-		SPNode p0=new SPNode(x,y,0,LineData.GREEN_HEX,index,0);
+		SPNode p0=new SPNode(x,y,0,LineData.GREEN_HEX,index);
 		
 		if(splines.size()==0){
 			
@@ -3269,7 +3269,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					double z=(node.z+nextNode.z)*0.5;
 					
 					
-					SPNode intermediateNode=new SPNode((int)x,(int)y,(int)z,"FFFFFF",node.getIndex(),0);
+					SPNode intermediateNode=new SPNode((int)x,(int)y,(int)z,"FFFFFF",node.getIndex());
 					
 					newRoot.addChildren(intermediateNode);
 					

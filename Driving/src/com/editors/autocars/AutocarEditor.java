@@ -1687,6 +1687,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		Point3D normal=Polygon3D.findNormal(p3d).calculateVersor();
 		
+		int level=p3d.getLevel();
+		
 		//boolean isFacing=isFacing(p3d,normal,observerPoint);
 
 
@@ -1844,7 +1846,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 				double zi=((1-l)*pstart.p_z+l*pend.p_z);
 				double xi=((1-l)*pstart.p_x+l*pend.p_x);  
 		
-				if(!zb.isToUpdate(-zi,tot)){
+				if(!zb.isToUpdate(-zi,tot,level)){
 				
 					continue;
 				}	
@@ -1875,7 +1877,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 				//System.out.println(x+" "+y+" "+tot);    	
 				
-				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),0,tot);
+				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),level,tot);
 				
 				
 			}
@@ -1935,7 +1937,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 				double xi=((1-l)*pstart.p_x+l*pend.p_x);  
 				
 				
-				if(!zb.isToUpdate(-zi,tot) ){
+				if(!zb.isToUpdate(-zi,tot,level) ){
 					
 					continue;
 				}	

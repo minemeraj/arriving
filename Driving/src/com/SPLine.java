@@ -15,6 +15,8 @@ public class SPLine {
 	Vector vTexturePoints=null;
 	
 	Vector meshes3D=new Vector();
+	
+	int level=Road.ROAD_LEVEL;
 
 	
 	public SPLine(Vector vTexturePoints){
@@ -136,7 +138,7 @@ public class SPLine {
 				rib.points[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z+dz,LineData.GREEN_HEX,0);	
 				rib.points[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z+dz,LineData.GREEN_HEX,0);
 				rib.setIndex(previousNode.getIndex());
-				rib.setLevel(nextNode.getLevel());
+				rib.setLevel(getLevel());
 				nodeRibs.add(rib);	
 				//System.out.println(rib[0]+","+rib[1]+","+rib[2]+","+rib[3]+",");  
 
@@ -323,6 +325,14 @@ public class SPLine {
 
 	public void setRoot(SPNode root) {
 		this.root = root;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 

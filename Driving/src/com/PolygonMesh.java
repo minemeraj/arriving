@@ -9,6 +9,7 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 
 import com.main.Renderer3D;
+import com.main.Road;
 
 public class PolygonMesh implements Cloneable{
 	
@@ -20,7 +21,7 @@ public class PolygonMesh implements Cloneable{
 	public Vector<Point3D> texturePoints=null;
 	public Vector <Point3D>normals=null;
 	public int[] boxFaces=null; 
-	public int level=0;
+	public int level=Road.OBJECT_LEVEL;
 
 
 	public PolygonMesh() {

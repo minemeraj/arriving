@@ -41,6 +41,7 @@ import com.ZBuffer;
 import com.editors.DoubleTextField;
 import com.main.AbstractRenderer3D;
 import com.main.Renderer3D;
+import com.main.Road;
 
 
 
@@ -275,9 +276,9 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		
 		Color clr= Color.WHITE;
 		
-		decomposeLine(0,0,0,length,0,0,roadZbuffer,clr.getRGB()); 
-		decomposeLine(0,0,0,0,length,0,roadZbuffer,clr.getRGB()); 
-		decomposeLine(0,0,0,0,0,length,roadZbuffer,clr.getRGB()); 
+		decomposeLine(0,0,0,length,0,0,Road.OBJECT_LEVEL,roadZbuffer,clr.getRGB()); 
+		decomposeLine(0,0,0,0,length,0,Road.OBJECT_LEVEL,roadZbuffer,clr.getRGB()); 
+		decomposeLine(0,0,0,0,0,length,Road.OBJECT_LEVEL,roadZbuffer,clr.getRGB()); 
 
 		for(int i=0;i<cm.points.length;i++){
 
@@ -1016,8 +1017,11 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 	}
 
-	public void decomposeLine( double x1,
-			double y1,double z1,double x2,double y2,double z2,ZBuffer zb,int rgbColor) {
+	public void decomposeLine( 
+			double x1,	double y1,double z1,
+			double x2,double y2,double z2,
+			int level,
+			ZBuffer zb,int rgbColor) {
 
 		int xx1=(int)calcAssX(x1,y1,z1); 
 		int yy1=(int)calcAssY(x1,y1,z1);
@@ -1051,10 +1055,10 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 					int tot=WIDTH*yy+xx;
 
-					if(!zb.isToUpdate(yi,tot))
+					if(!zb.isToUpdate(yi,tot,level))
 						continue;			
 
-					zb.set(xx,yi,yy,yi,rgbColor,0,tot);
+					zb.set(xx,yi,yy,yi,rgbColor,Road.OBJECT_LEVEL,tot);
 				}
 			else
 				for (int yy = yy2; yy <= yy1; yy++) {
@@ -1073,11 +1077,11 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 					int tot=WIDTH*yy+xx;
 
-					if(!zb.isToUpdate(yi,tot))
+					if(!zb.isToUpdate(yi,tot,level))
 						continue;			
 
 
-					zb.set(xx,yi,yy,yi,rgbColor,0,tot);
+					zb.set(xx,yi,yy,yi,rgbColor,Road.OBJECT_LEVEL,tot);
 				}
 
 		}
@@ -1101,11 +1105,11 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 					int tot=WIDTH*yy+xx;
  
-					if(!zb.isToUpdate(yi,tot))
+					if(!zb.isToUpdate(yi,tot,level))
 						continue;
 
 
-					zb.set(xx,yi,yy,yi,rgbColor,0,tot);
+					zb.set(xx,yi,yy,yi,rgbColor,Road.OBJECT_LEVEL,tot);
 				}
 			else
 				for (int xx = xx2; xx <= xx1; xx++) {
@@ -1124,11 +1128,11 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 					int tot=WIDTH*yy+xx;
 
 
-					if(!zb.isToUpdate(yi,tot))
+					if(!zb.isToUpdate(yi,tot,level))
 						continue;
 
 
-					zb.set(xx,yi,yy,yi,rgbColor,0,tot);
+					zb.set(xx,yi,yy,yi,rgbColor,Road.OBJECT_LEVEL,tot);
 				}
 
 		}
@@ -1142,11 +1146,11 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 			int tot=WIDTH*yy1+xx1;
 
-			if(!zb.isToUpdate(DEPTH_DISTANCE+y1,tot))
+			if(!zb.isToUpdate(DEPTH_DISTANCE+y1,tot,level))
 				return;
 
 
-			zb.set(xx1,y1,yy1,y1,rgbColor,0,tot);
+			zb.set(xx1,y1,yy1,y1,rgbColor,Road.OBJECT_LEVEL,tot);
 
 		}
 
@@ -1182,7 +1186,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 				   //set
 			 	   rgb[i]=roadZbuffer.getRgbColor(i); 
 				   //clean
-			 	  roadZbuffer.set(0,0,0,0,blackRgb,-1,i);
+			 	  roadZbuffer.set(0,0,0,0,blackRgb,Road.GROUND_LEVEL,i);
 				  
  
 		 }	   

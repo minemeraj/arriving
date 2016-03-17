@@ -21,6 +21,7 @@ import com.PolygonMesh;
 import com.Texture;
 import com.ZBuffer;
 import com.main.AbstractRenderer3D;
+import com.main.Road;
 
 
 
@@ -470,7 +471,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 			   
 
 				   //clean
-			 	  roadZbuffer.set(0,0,0,0,greenRgb,-1,i);
+			 	  roadZbuffer.set(0,0,0,0,greenRgb,Road.GROUND_LEVEL,i);
 				  
  
 		 }	   

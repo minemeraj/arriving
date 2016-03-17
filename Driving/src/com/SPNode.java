@@ -19,19 +19,16 @@ public class SPNode extends Point4D implements TreeNode{
 	Vector children=null;
 	
 	SPNode parent=null;
-	
-	int level=0;
-	
+
 	public SPNode(){
 		
 		children=new Vector();
 		
 	}
 
-	public SPNode(double x, double y, double z, String gREEN_HEX, int index,int level) {
+	public SPNode(double x, double y, double z, String gREEN_HEX, int index) {
 	
 		super( x,  y,  z,  gREEN_HEX,  index);
-		this.level=level;
 		children=new Vector();
 		update();
 		
@@ -40,7 +37,7 @@ public class SPNode extends Point4D implements TreeNode{
 	@Override
 	public SPNode clone() {
 		
-		SPNode sp=new SPNode(x,  y,  z,  "FFFFFF",  index,getLevel());
+		SPNode sp=new SPNode(x,  y,  z,  "FFFFFF",  index);
 
 		for (int i = 0; i < getChildCount(); i++) {
 			
@@ -157,12 +154,5 @@ public class SPNode extends Point4D implements TreeNode{
 		
 	}
 
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
 
 }

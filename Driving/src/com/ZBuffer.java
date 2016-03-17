@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
+import com.main.Road;
+
 /**
  * @author Piazza Francesco Giovanni ,Tecnes Milano http://www.tecnes.com
  *
@@ -15,6 +17,8 @@ public class ZBuffer{
 		public int size=0;
 		
 		public int[] level;
+		
+		public double mergingDeltaZ=10;
 		
 		/*public double p_x=0;
 		public double p_y=0;
@@ -201,11 +205,23 @@ public class ZBuffer{
 
 		}
 
-		public boolean isToUpdate(double ys,int index){
+		public boolean isToUpdate(double ys,int index,int level){
 
+			boolean checkLevel=checkLevel(ys,index,level);
           
-			return getZ(index)==0 ||  getZ(index)>ys;
+			return getZ(index)==0 || checkLevel || getZ(index)>ys;
 		}	
+
+		private boolean checkLevel(double ys, int index, int level) {
+		
+			if(level==Road.ROAD_LEVEL && this.level[index]==Road.ROAD_LEVEL){
+				
+				if(Math.abs(getZ(index)-ys)<mergingDeltaZ)
+					return true;
+			}
+			return false;
+		}
+
 
 		public void set(double xs,double ys,double zs,double z, int rgbColor,int level,int index) {
 
