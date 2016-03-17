@@ -288,7 +288,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			//Color col=new Color(due,0,0);
 
 			LineData ld=cm.polygonData.elementAt(i);
-			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld);
+			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld,cm.getLevel());
 			polRotate.setShadowCosin(ld.getShadowCosin());
 
 
@@ -1005,7 +1005,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 
 			LineData ld=cm.polygonData.elementAt(i);
-			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld);
+			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld,cm.getLevel());
 			polRotate.setShadowCosin(ld.getShadowCosin());
 
 			buildTransformedPolygon(polRotate);			

@@ -1471,7 +1471,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 			return;
 
 		Polygon3D p3d=new Polygon3D(size,cx,cy,cz);
-		Polygon3D p3dr=PolygonMesh.getBodyPolygon(points,ld);
+		Polygon3D p3dr=PolygonMesh.getBodyPolygon(points,ld,Road.ROAD_LEVEL);
 
 		//calculate texture angle
 

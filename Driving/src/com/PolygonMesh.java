@@ -139,7 +139,7 @@ public class PolygonMesh implements Cloneable{
 		return pm;
 	}
 	
-	public static Polygon3D getBodyPolygon(Point3D[] points,LineData ld) {
+	public static Polygon3D getBodyPolygon(Point3D[] points,LineData ld,int level) {
 		 
 		int size=ld.size();
 		Polygon3D pol=new Polygon3D(size);
@@ -156,6 +156,7 @@ public class PolygonMesh implements Cloneable{
 			pol.xtpoints[i]=(int) pt.x;
 			pol.ytpoints[i]=(int) pt.y;
 		} 
+		pol.setLevel(level);
 		
 		return pol;
 		
@@ -180,6 +181,7 @@ public class PolygonMesh implements Cloneable{
 				pol.ypoints[i]=(int) pm.points[index].y;
 				pol.zpoints[i]=(int) pm.points[index].z;
 			} 
+			pol.setLevel(pm.getLevel());
 			pols.add(pol);
 		}
 		return pols;

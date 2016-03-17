@@ -400,7 +400,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			return;
 
 		Polygon3D p3d=new Polygon3D(size,cx,cy,cz);
-		Polygon3D p3dr=PolygonMesh.getBodyPolygon(points,ld);
+		Polygon3D p3dr=PolygonMesh.getBodyPolygon(points,ld,Road.OBJECT_LEVEL);
 
 		//calculate texture angle
 

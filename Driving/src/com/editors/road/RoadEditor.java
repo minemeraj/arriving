@@ -3372,7 +3372,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			LineData ld=(LineData)polygons.elementAt(0);
 			
-			Polygon3D polRotate=PolygonMesh.getBodyPolygon(mesh.points,ld);
+			Polygon3D polRotate=PolygonMesh.getBodyPolygon(mesh.points,ld,mesh.getLevel());
 			
 	        Point3D centroid=Polygon3D.findCentroid(polRotate);
 				

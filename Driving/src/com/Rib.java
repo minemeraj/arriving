@@ -5,7 +5,6 @@ public class Rib {
 	
 	public Point4D[] points=null;
 	public int index=0;
-	public int level=0;
 	
 	public Rib(int size){
 		points=new Point4D[size];
@@ -27,12 +26,5 @@ public class Rib {
 		this.index = index;
 	}
 
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
 	
 }

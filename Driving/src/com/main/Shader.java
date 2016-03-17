@@ -423,7 +423,7 @@ public class Shader extends Renderer3D{
 
 			ShadowTriangle triangle0 = (ShadowTriangle) shadowVolume.allTriangles.get(i);
 
-			Polygon3D polTriangle0=PolygonMesh.getBodyPolygon(cm.points,triangle0);
+			Polygon3D polTriangle0=PolygonMesh.getBodyPolygon(cm.points,triangle0,cm.getLevel());
 
 			if(!isFacing(polTriangle0,Polygon3D.findNormal(polTriangle0),lightPoint.position))
 				continue;
@@ -439,7 +439,7 @@ public class Shader extends Renderer3D{
 
 			for (int j = 0; j < adjacentTriangles.length; j++) {
 				LineData triangle1 =  (LineData) shadowVolume.allTriangles.get(adjacentTriangles[j]);
-				Polygon3D adjPolTriangle=PolygonMesh.getBodyPolygon(cm.points,triangle1);
+				Polygon3D adjPolTriangle=PolygonMesh.getBodyPolygon(cm.points,triangle1,cm.getLevel());
 
 				if(
 
@@ -503,7 +503,7 @@ public class Shader extends Renderer3D{
 			
 
 			LineData triangle0 = (LineData) shadowVolume.allTriangles.get(i);
-			Polygon3D polTriangle0=PolygonMesh.getBodyPolygon(cm.points,triangle0);
+			Polygon3D polTriangle0=PolygonMesh.getBodyPolygon(cm.points,triangle0,cm.getLevel());
 
 			if(isFacing(polTriangle0,Polygon3D.findNormal(polTriangle0),lightPoint.position)){
 				shadowVolume.addToFrontCap(polTriangle0);

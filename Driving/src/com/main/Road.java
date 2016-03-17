@@ -298,7 +298,7 @@ public class Road extends Shader{
 				int due=(int)(255-i%15);
 				Color col=new Color(due,0,0);
 
-				Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld);
+				Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld,cm.getLevel());
 				calculateLightTransformedPolygon(polRotate,true);
 				polRotate.setShadowCosin(ld.getShadowCosin());
 
@@ -453,7 +453,7 @@ public class Road extends Shader{
 			Color col=new Color(due,0,0);
 			
 			LineData ld=cm.polygonData.elementAt(i);
-			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld);
+			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld,cm.getLevel());
 			polRotate.setShadowCosin(ld.getShadowCosin());
 			
 		

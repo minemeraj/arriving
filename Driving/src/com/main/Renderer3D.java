@@ -641,7 +641,7 @@ public class Renderer3D implements AbstractRenderer3D{
 			
 			LineData ld=cm.polygonData.elementAt(i);
 			
-			Polygon3D polygon = PolygonMesh.getBodyPolygon(cm.points,ld);
+			Polygon3D polygon = PolygonMesh.getBodyPolygon(cm.points,ld,cm.getLevel());
 			
 			Point3D centroid = Polygon3D.findCentroid(polygon);
 			
@@ -774,7 +774,7 @@ public class Renderer3D implements AbstractRenderer3D{
 			Color col=new Color(due,0,0);
 			
 			LineData ld=cm.polygonData.elementAt(i);
-			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld);
+			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld,cm.getLevel());
 			polRotate.setShadowCosin(ld.getShadowCosin());
 			
 		
