@@ -1,3 +1,6 @@
+Modification to the code to manage SPLines intersection and prepare for future
+developments. 
+
 Some fixing for the visibility test of SPLines.
 
 Improving
