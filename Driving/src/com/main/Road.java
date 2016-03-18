@@ -595,18 +595,6 @@ public class Road extends Shader{
 
 				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.worldTextures[p3D.getIndex()],roadZbuffer);
 
-
-				/* if(index==1){
-
-						    	//build road polgyons
-
-						    	Polygon3D[] polygons=buildAdditionalRoadPolygons(p3D);
-
-						    	for (int i = 0; i < polygons.length; i++) {
-										decomposeClippedPolygonIntoZBuffer(polygons[i],Color.DARK_GRAY,null,roadZbuffer);
-								}
-
-						    }*/
 			}		
 
 
@@ -1248,8 +1236,8 @@ public class Road extends Shader{
 			p.y=Double.parseDouble(vals[1])+SCREEN_DISTANCE;
 			p.z=Double.parseDouble(vals[2])-YFOCUS;
 			
-			if (index==1)
-				p.z+=ROAD_THICKNESS;
+			//if (index==1)
+			//	p.z+=ROAD_THICKNESS;
 
 			vPoints.add(p);
 		

@@ -443,8 +443,9 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 			cxtr[i]=(int) ldv.getVertex_texture_x();
 			cytr[i]=(int) ldv.getVertex_texture_y();
 			
-			if(index==1)
-				czr[i]+=Road.ROAD_THICKNESS;
+			//old road translation
+			//if(index==1)
+			//	czr[i]+=Road.ROAD_THICKNESS;
 
 		}
 

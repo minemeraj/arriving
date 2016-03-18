@@ -1131,8 +1131,8 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			cxtr[i]=(int) ldv.getVertex_texture_x();
 			cytr[i]=(int) ldv.getVertex_texture_y();
 			
-			if(index==1)
-				czr[i]+=Road.ROAD_THICKNESS;
+			//if(index==1)
+			//	czr[i]+=Road.ROAD_THICKNESS;
 
 		}
 
