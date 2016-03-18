@@ -249,6 +249,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton setSPNodeHeight;
 	private DoubleTextField setSPNodeHeightValue;
 	private JButton insertTJunction;
+	private boolean isInit;
 	
 
 	
@@ -2138,7 +2139,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
             oldSpline=new Stack();
             oldObjects=new Stack();
             
-            startNewSPLine();
+            isInit=true;
 
 		}
 		
@@ -3025,13 +3026,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		prepareUndo();
 
-		
-		Vector vTexturePoints=buildTemplateTexturePoints(200);
-		
-		SPLine sp=new SPLine(vTexturePoints);	
-		splines.add(sp);
-
-		deselectAll();
+		isInit=true;
 
 	}
 
@@ -3167,8 +3162,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		SPNode p0=new SPNode(x,y,0,LineData.GREEN_HEX,index);
 		
-		if(splines.size()==0){
+		if(isInit || splines.size()==0){
 			
+			isInit=false;
 						
 			Vector vTexturePoints=buildTemplateTexturePoints(200);
 			
