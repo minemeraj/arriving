@@ -104,7 +104,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	
 				LineData ld=(LineData) mesh.polygonData.elementAt(j);
 	
-				Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.points,index);
+				Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.points,index,mesh.getLevel());
 				
 				Color selected=null;
 				
@@ -176,7 +176,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 						}*/
 					}
 					
-					Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.points,Editor.ROAD_INDEX);
+					Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.points,Editor.ROAD_INDEX,mesh.getLevel());
 					
 					decomposeClippedPolygonIntoZBuffer(p3D,selected,EditorData.splinesTextures[ld.getTexture_index()],landscapeZbuffer);
 					
@@ -208,7 +208,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 					
 				
 											
-					Polygon3D p3D=buildTranslatedPolygon3D(ld,pm.points,Editor.ROAD_INDEX);
+					Polygon3D p3D=buildTranslatedPolygon3D(ld,pm.points,Editor.ROAD_INDEX,pm.getLevel());
 					
 					decomposeClippedPolygonIntoZBuffer(p3D,null,texture,landscapeZbuffer);
 
@@ -885,7 +885,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
     		LineData ld=(LineData) mesh.polygonData.elementAt(i);
     		
     		
-    		Polygon3D polReal= buildTranslatedPolygon3D(ld,mesh.points,0);
+    		Polygon3D polReal= buildTranslatedPolygon3D(ld,mesh.points,0,mesh.getLevel());
 
     		Polygon3D polProjectd=builProjectedPolygon(polReal);
            
@@ -1043,7 +1043,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				for (int k = 0; k < circle.polygonData.size(); k++) {
 					
 					LineData ld=(LineData) circle.polygonData.elementAt(k);
-				    Polygon3D polReal= buildTranslatedPolygon3D(ld,circle.points,0);
+				    Polygon3D polReal= buildTranslatedPolygon3D(ld,circle.points,0,0);
 				    Polygon3D polProjectd=builProjectedPolygon(polReal);
 				   // System.out.println(k+" "+pol);
 				    if(polProjectd.contains(x,y)){
@@ -1103,7 +1103,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		return pol;
 	}
 
-	private Polygon3D buildTranslatedPolygon3D(LineData ld,Point3D[] points,int index) {
+	private Polygon3D buildTranslatedPolygon3D(LineData ld,Point3D[] points,int index,int level) {
 
 
 
@@ -1141,7 +1141,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		Polygon3D p3dr=new Polygon3D(size,cxr,cyr,czr,cxtr,cytr);
 		p3dr.setHexColor(ld.getHexColor());
 		p3dr.setIndex(ld.getTexture_index());
-
+		p3dr.setLevel(level);
 		return p3dr;
 
 	}

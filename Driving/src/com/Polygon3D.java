@@ -217,6 +217,7 @@ public class Polygon3D  extends Polygon{
 			triangle.xtpoints[2]=pol.xtpoints[i+1];
 			triangle.ytpoints[2]=pol.ytpoints[i+1];
 
+			triangle.setLevel(pol.getLevel());
 			
 			triangles[i-1]=triangle;
 			
@@ -489,6 +490,7 @@ public class Polygon3D  extends Polygon{
 			p_new.zpoints[j]=(int) p.z;
 		}
 		
+		p_new.setLevel(p_old.getLevel());
 		
 		return p_new;
 	}
