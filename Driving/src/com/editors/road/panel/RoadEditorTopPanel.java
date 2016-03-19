@@ -660,7 +660,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				double zi=((1-l)*pstart.p_z+l*pend.p_z);
 				double xi=((1-l)*pstart.p_x+l*pend.p_x);  
 		
-				if(!zb.isToUpdate(-zi,tot,level)){
+				if(!zb.isToUpdate(-zi,zi,tot,level)){
 				
 					continue;
 				}	
@@ -751,7 +751,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				double xi=((1-l)*pstart.p_x+l*pend.p_x);  
 				
 				
-				if(!zb.isToUpdate(-zi,tot,level) ){
+				if(!zb.isToUpdate(-zi,zi,tot,level) ){
 					
 					continue;
 				}	

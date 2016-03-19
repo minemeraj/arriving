@@ -1055,7 +1055,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 					int tot=WIDTH*yy+xx;
 
-					if(!zb.isToUpdate(yi,tot,level))
+					if(!zb.isToUpdate(yi,0,tot,level))
 						continue;			
 
 					zb.set(xx,yi,yy,yi,rgbColor,Road.OBJECT_LEVEL,tot);
@@ -1077,7 +1077,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 					int tot=WIDTH*yy+xx;
 
-					if(!zb.isToUpdate(yi,tot,level))
+					if(!zb.isToUpdate(yi,0,tot,level))
 						continue;			
 
 
@@ -1105,7 +1105,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 					int tot=WIDTH*yy+xx;
  
-					if(!zb.isToUpdate(yi,tot,level))
+					if(!zb.isToUpdate(yi,0,tot,level))
 						continue;
 
 
@@ -1128,7 +1128,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 					int tot=WIDTH*yy+xx;
 
 
-					if(!zb.isToUpdate(yi,tot,level))
+					if(!zb.isToUpdate(yi,0,tot,level))
 						continue;
 
 
@@ -1146,7 +1146,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 			int tot=WIDTH*yy1+xx1;
 
-			if(!zb.isToUpdate(DEPTH_DISTANCE+y1,tot,level))
+			if(!zb.isToUpdate(DEPTH_DISTANCE+y1,0,tot,level))
 				return;
 
 
@@ -1186,7 +1186,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 				   //set
 			 	   rgb[i]=roadZbuffer.getRgbColor(i); 
 				   //clean
-			 	  roadZbuffer.set(0,0,0,0,blackRgb,Road.GROUND_LEVEL,i);
+			 	  roadZbuffer.set(0,0,0,0,blackRgb,Road.EMPTY_LEVEL,i);
 				  
  
 		 }	   

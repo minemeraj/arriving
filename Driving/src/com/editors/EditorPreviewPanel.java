@@ -471,7 +471,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 			   
 
 				   //clean
-			 	  roadZbuffer.set(0,0,0,0,greenRgb,Road.GROUND_LEVEL,i);
+			 	  roadZbuffer.set(0,0,0,0,greenRgb,Road.EMPTY_LEVEL,i);
 				  
  
 		 }	   

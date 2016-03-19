@@ -105,7 +105,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 			
 			//clean
-			roadZbuffer.set(0,0,0,0,greenRgb,Road.GROUND_LEVEL,i);
+			roadZbuffer.set(0,0,0,0,greenRgb,Road.EMPTY_LEVEL,i);
               
 		
 
@@ -333,17 +333,18 @@ public class Renderer3D implements AbstractRenderer3D{
 				double l=(i-start)*inverse;
 
 				double yi=1.0/((1-l)*i_pstart_p_y+l*i_end_p_y);
+				double zi=((1-l)*i_pstart_p_y*pstart.p_z+l*i_end_p_y*pend.p_z)*yi;
 				
-				if(!zb.isToUpdate(yi,tot,level) || isStencilBuffer){
+				if(!zb.isToUpdate(yi,zi,tot,level) || isStencilBuffer){
 					//z-fail stencil buffer with bias
 					if(isStencilBuffer){
-						if(!zb.isToUpdate(yi+4,tot,level))
+						if(!zb.isToUpdate(yi+4,zi,tot,level))
 							stencilBuffer(tot,isFacing);
 					}
 					continue;
 				}	
 
-				double zi=((1-l)*i_pstart_p_y*pstart.p_z+l*i_end_p_y*pend.p_z)*yi;
+				
 				double xi=((1-l)*i_pstart_p_y*pstart.p_x+l*i_end_p_y*pend.p_x)*yi;  
 				
                 double texture_x=((1-l)*i_pstart_p_y*pstart.texture_x+l*i_end_p_y*pend.texture_x)*yi;
@@ -414,21 +415,22 @@ public class Renderer3D implements AbstractRenderer3D{
 				double l=(i-start)*inverse;
 
 				double yi=1.0/((1-l)*i_pstart_p_y+l*i_end_p_y);
+				double zi=((1-l)*i_pstart_p_y*pstart.p_z+l*i_end_p_y*pend.p_z)*yi;
 			
-				if(!zb.isToUpdate(yi,tot,level) || isStencilBuffer){
+				if(!zb.isToUpdate(yi,zi,tot,level) || isStencilBuffer){
 					
 					//z-fail stencil buffer with bias
 					if(isStencilBuffer){
 						
 	
-						if(!zb.isToUpdate(yi+4,tot,level))
+						if(!zb.isToUpdate(yi+4,zi,tot,level))
 							stencilBuffer(tot,isFacing);
 					}
 					continue;
 				}	
 
 
-				double zi=((1-l)*i_pstart_p_y*pstart.p_z+l*i_end_p_y*pend.p_z)*yi;
+			
 				double xi=((1-l)*i_pstart_p_y*pstart.p_x+l*i_end_p_y*pend.p_x)*yi;
 
                 double texture_x=((1-l)*i_pstart_p_y*pstart.texture_x+l*i_end_p_y*pend.texture_x)*yi;
@@ -494,7 +496,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 					int tot=WIDTH*yy+xx;
 
-					if(!zb.isToUpdate(yi,tot,level))
+					if(!zb.isToUpdate(yi,0,tot,level))
 						continue;			
 
 					zb.set(xx,yi,yy,yi,rgbColor,level,tot);
@@ -517,7 +519,7 @@ public class Renderer3D implements AbstractRenderer3D{
 					int tot=WIDTH*yy+xx;
 
 
-					if(!zb.isToUpdate(yi,tot,level))
+					if(!zb.isToUpdate(yi,0,tot,level))
 						continue;			
 
 
@@ -546,7 +548,7 @@ public class Renderer3D implements AbstractRenderer3D{
 					int tot=WIDTH*yy+xx;
  
 			
-					if(!zb.isToUpdate(yi,tot,level))
+					if(!zb.isToUpdate(yi,0,tot,level))
 						continue;
 
 
@@ -568,7 +570,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 					int tot=WIDTH*yy+xx;
 
-					if(!zb.isToUpdate(yi,tot,level))
+					if(!zb.isToUpdate(yi,0,tot,level))
 						continue;
 
 
@@ -587,7 +589,7 @@ public class Renderer3D implements AbstractRenderer3D{
 			int tot=WIDTH*yy1+xx1;
 
 
-			if(!zb.isToUpdate(y1,tot,level))
+			if(!zb.isToUpdate(y1,0,tot,level))
 				return;
 
 

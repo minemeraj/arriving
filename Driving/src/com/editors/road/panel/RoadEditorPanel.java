@@ -521,7 +521,7 @@ public class RoadEditorPanel extends JPanel {
 				double zi=((1-l)*pstart.p_z+l*pend.p_z);
 				double xi=((1-l)*pstart.p_x+l*pend.p_x);  
 		
-				if(!zb.isToUpdate(yi,tot,level)){
+				if(!zb.isToUpdate(yi,zi,tot,level)){
 				
 					continue;
 				}	
@@ -612,7 +612,7 @@ public class RoadEditorPanel extends JPanel {
 				double xi=((1-l)*pstart.p_x+l*pend.p_x);  
 				
 				
-				if(!zb.isToUpdate(yi,tot,level) ){
+				if(!zb.isToUpdate(yi,zi,tot,level) ){
 					
 					continue;
 				}	

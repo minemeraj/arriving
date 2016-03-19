@@ -622,13 +622,14 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				double l=(i-start)*inverse;
 
 				double yi=((1-l)*pstart.p_y+l*pend.p_y);
+				double zi=((1-l)*pstart.p_z+l*pend.p_z);
 		
-				if(!zb.isToUpdate(yi,tot,level)){
+				if(!zb.isToUpdate(yi,zi,tot,level)){
 				
 					continue;
 				}	
 
-				double zi=((1-l)*pstart.p_z+l*pend.p_z);
+				
 				double xi=((1-l)*pstart.p_x+l*pend.p_x);  
 				
                 double texture_x=(1-l)*pstart.texture_x+l*pend.texture_x;
@@ -710,14 +711,15 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				double l=(i-start)*inverse;
 
 				double yi=((1-l)*pstart.p_y+l*pend.p_y);
+				double zi=((1-l)*pstart.p_z+l*pend.p_z);
 			
-				if(!zb.isToUpdate(yi,tot,level) ){
+				if(!zb.isToUpdate(yi,zi,tot,level) ){
 					
 					continue;
 				}	
 
 
-				double zi=((1-l)*pstart.p_z+l*pend.p_z);
+				
 				double xi=((1-l)*pstart.p_x+l*pend.p_x);  
 
                 double texture_x=(1-l)*pstart.texture_x+l*pend.texture_x;

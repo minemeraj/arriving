@@ -46,7 +46,7 @@ public class Shader extends Renderer3D{
 		for(int i=0;i<length;i++){
 	
 			//clean
-			roadZbuffer.set(0,0,0,0,greenRgb,Road.GROUND_LEVEL,i);
+			roadZbuffer.set(0,0,0,0,greenRgb,Road.EMPTY_LEVEL,i);
 			stencilZbuffer[i]=0;   
 
 

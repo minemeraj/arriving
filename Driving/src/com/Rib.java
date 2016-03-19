@@ -26,5 +26,14 @@ public class Rib {
 		this.index = index;
 	}
 
+	public void translate(int dx, int dy, double dz) {
+
+
+		for (int k = 0; k < points.length; k++) {
+			points[k].translate(dx, dy, dz);
+		}
+		
+	}
+
 	
 }

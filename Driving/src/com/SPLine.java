@@ -141,7 +141,8 @@ public class SPLine {
 				nodeRibs.add(rib);	
 				//System.out.println(rib[0]+","+rib[1]+","+rib[2]+","+rib[3]+",");  
 
-
+				if(rib.getIndex()==Road.ROAD_INDEX)
+					rib.translate(0,0,-dz);
 			}
 
 			if(nextNode.getChildCount()>0)

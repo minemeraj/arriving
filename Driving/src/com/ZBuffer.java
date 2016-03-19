@@ -18,13 +18,13 @@ public class ZBuffer{
 		
 		public int[] level;
 		
-		public double mergingDeltaZ=10;
+		double mergingDeltaZ=10;
 		
 		/*public double p_x=0;
-		public double p_y=0;
-		public double p_z=0;
+		public double p_y=0;*/
+		double[] p_z;
 		
-		public double[] pcf_values=null;*/
+		/*public double[] pcf_values=null;*/
 		
 		public ZBuffer(int size){
 			
@@ -32,6 +32,7 @@ public class ZBuffer{
 			rgbColor=new int[size];
 			z=new double[size];
 			level=new int[size];
+			p_z=new double[size];
 		}
 
 		
@@ -205,22 +206,31 @@ public class ZBuffer{
 
 		}
 
-		public boolean isToUpdate(double ys,int index,int level){
+		public boolean isToUpdate(double ys,double zs,int index,int level){
 
-			boolean checkLevel=checkLevel(ys,index,level);
+			boolean checkLevel=checkLevel(ys,zs,index,level);
           
 			return getZ(index)==0 || checkLevel || getZ(index)>ys;
 		}	
 
-		private boolean checkLevel(double ys, int index, int level) {
+		private boolean checkLevel(double ys, double zs, int index, int level) {
 		
-			if(level==Road.ROAD_LEVEL && this.level[index]==Road.ROAD_LEVEL){
+			
+			if(
+					//ROAD INTERSECTION
+					(level==Road.ROAD_LEVEL && this.level[index]==Road.ROAD_LEVEL) 	||				
+					//ROAD OVER TERRAIN
+					(level==Road.ROAD_LEVEL && this.level[index]==Road.GROUND_LEVEL)
+					){
 				
-				if(Math.abs(getZ(index)-ys)<mergingDeltaZ)
+				if(Math.abs(getPZ(index)-zs)<mergingDeltaZ)
 					return true;
-			}
+			} 
+						
 			return false;
 		}
+
+
 
 
 		public void set(double xs,double ys,double zs,double z, int rgbColor,int level,int index) {
@@ -228,12 +238,24 @@ public class ZBuffer{
 			setZ(z,index);
 			setRgbColor(rgbColor,index);
 			setLevel(level,index);
+			setPz(zs,index);
 
 			/*p_x=xs;
 			p_y=ys;
 			p_z=zs;*/
 
 		}
+		
+
+		private double getPZ(int index) {
+			return p_z[index];
+		}
+		private void setPz(double zs, int index) {
+			p_z[index]=zs;
+			
+		}
+
+
 		public int getSize() {
 			return size;
 		}

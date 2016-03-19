@@ -70,6 +70,7 @@ public class Road extends Shader{
 	
 	public static final int EXTERNAL_CAMERA=0;
 	public static final int DRIVER_CAMERA=1;
+	
 	public static int CAMERA_TYPE=EXTERNAL_CAMERA;
 	
 		
@@ -133,6 +134,9 @@ public class Road extends Shader{
 	
 	public Vector splines=null;
 	
+	public static final int ROAD_INDEX =0;
+	
+	public static final int EMPTY_LEVEL = -1;	
 	public static int GROUND_LEVEL=0;
 	public static int ROAD_LEVEL=1;
 	public static int OBJECT_LEVEL=2;
@@ -565,7 +569,7 @@ public class Road extends Shader{
        
 		MOVZ=-(PARTIAL_MOVZ+YFOCUS);
         
-		drawSPLines(splines,totalVisibleField,roadZbuffer);
+		
 
 		drawObjects(drawObjects,totalVisibleField,roadZbuffer);
 
@@ -603,7 +607,7 @@ public class Road extends Shader{
 
 		//}
 
-
+		drawSPLines(splines,totalVisibleField,roadZbuffer);
 		drawCar();
 
 		if(!carFrame.skipShading){
@@ -740,6 +744,9 @@ public class Road extends Shader{
 
 					
 					Polygon3D p3DBase=buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel());
+					
+					//if(p3DBase.getLevel()==Road.ROAD_LEVEL)
+					//	p3DBase.translate(0, 0,-ROAD_THICKNESS);
 					
 					if(!p3DBase.clipPolygonToArea2D(totalVisibleField).isEmpty()){
 						visible=true;
@@ -1190,6 +1197,9 @@ public class Road extends Shader{
             br.close();
 
             meshes[index].setPoints(vPoints);
+            
+           if(index==RoadEditor.TERRAIN_INDEX)
+        	   meshes[index].setLevel(Road.GROUND_LEVEL);
             
 			oldMeshes[index]=cloneMesh(meshes[index]);
 		
