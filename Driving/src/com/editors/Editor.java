@@ -25,6 +25,7 @@ import com.SPLine;
 import com.SPNode;
 import com.SquareMesh;
 import com.main.Renderer3D;
+import com.main.Road;
 
 public class Editor extends JFrame implements MenuListener{
 	
@@ -336,6 +337,7 @@ public class Editor extends JFrame implements MenuListener{
 			
 			meshes[ACTIVE_PANEL].setPoints(vPoints);
 			meshes[ACTIVE_PANEL].setTexturePoints(vTexturePoints);
+			meshes[ACTIVE_PANEL].setLevel(Road.GROUND_LEVEL);
 			
 			//checkNormals();
 		} catch (Exception e) {
