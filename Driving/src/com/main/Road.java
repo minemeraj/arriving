@@ -142,6 +142,7 @@ public class Road extends Shader{
 	public static int ROAD_LEVEL=1;
 	public static int OBJECT_LEVEL=2;
 
+
 	public Road(int WITDH,int HEIGHT, CarFrame carFrame){
 		
 		this.carFrame=carFrame;
@@ -592,7 +593,7 @@ public class Road extends Shader{
 
 
 			LineData ld=(LineData) mesh.polygonData.elementAt(j);
-
+			
 			Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel());
 
 
@@ -1229,6 +1230,29 @@ public class Road extends Shader{
 	
 		}	
 		
+		PolygonMesh mesh=meshes[Editor.TERRAIN_INDEX];
+		int size=mesh.polygonData.size();
+
+		//for(int index=0;index<2;index++){
+
+		//PolygonMesh mesh=meshes[index];
+		//int size=mesh.polygonData.size();
+
+		for(int j=0;j<size;j++){
+
+
+			LineData ld=(LineData) mesh.polygonData.elementAt(j);
+			
+			Polygon3D polygon = PolygonMesh.getBodyPolygon(mesh.points,ld,mesh.getLevel());
+			
+			Point3D centroid = Polygon3D.findCentroid(polygon);
+			
+			Point3D normal=(Polygon3D.findNormal(polygon)).calculateVersor();
+			
+			ld.setShadowCosin(Point3D.calculateCosin(lightPoint.position.substract(centroid),normal));
+			
+		}
+
 	}
 
 
