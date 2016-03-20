@@ -134,7 +134,8 @@ public class Road extends Shader{
 	
 	public Vector splines=null;
 	
-	public static final int ROAD_INDEX =0;
+	public static final int ROAD_INDEX0 =0;
+	public static final int ROAD_INDEX1 =1;
 	
 	public static final int EMPTY_LEVEL = -1;	
 	public static int GROUND_LEVEL=0;
