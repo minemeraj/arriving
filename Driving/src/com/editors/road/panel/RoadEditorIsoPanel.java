@@ -116,7 +116,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				}
 				
 	
-				decomposeClippedPolygonIntoZBuffer(p3D,selected,EditorData.worldTextures[p3D.getIndex()],roadZbuffer);
+				decomposeClippedPolygonIntoZBuffer(p3D,selected,EditorData.worldTextures[p3D.getIndex()],roadZbuffer,mesh.hashCode());
 				
 			    if(index==1){
 			    	
@@ -128,7 +128,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			    		selected=Color.DARK_GRAY;
 			    	
 			    	for (int i = 0; i < polygons.length; i++) {
-							decomposeClippedPolygonIntoZBuffer(polygons[i],selected,null,roadZbuffer);
+							decomposeClippedPolygonIntoZBuffer(polygons[i],selected,null,roadZbuffer,mesh.hashCode());
 					}
 			    	
 			    }
@@ -150,6 +150,8 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		for (int i = 0; i < splines.size(); i++) {
 			SPLine sp = (SPLine) splines.elementAt(i);
 			sp.calculate3DMeshes();
+			
+			int hashCode=sp.hashCode();
 			
 			Vector meshes = sp.getMeshes3D();
 			
@@ -178,7 +180,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 					
 					Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.points,Editor.ROAD_INDEX,mesh.getLevel());
 					
-					decomposeClippedPolygonIntoZBuffer(p3D,selected,EditorData.splinesTextures[ld.getTexture_index()],landscapeZbuffer);
+					decomposeClippedPolygonIntoZBuffer(p3D,selected,EditorData.splinesTextures[ld.getTexture_index()],landscapeZbuffer,hashCode);
 					
 				
 				}
@@ -210,7 +212,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 											
 					Polygon3D p3D=buildTranslatedPolygon3D(ld,pm.points,Editor.ROAD_INDEX,pm.getLevel());
 					
-					decomposeClippedPolygonIntoZBuffer(p3D,null,texture,landscapeZbuffer);
+					decomposeClippedPolygonIntoZBuffer(p3D,null,texture,landscapeZbuffer,hashCode);
 
 				} 
 				
@@ -385,20 +387,20 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			
 			
 			
-			decomposeClippedPolygonIntoZBuffer(polRotate,selected,texture,zBuffer,xDirection,yDirection,rotateOrigin,deltaTexture+deltaWidth,deltaHeight);
+			decomposeClippedPolygonIntoZBuffer(polRotate,selected,texture,zBuffer,xDirection,yDirection,rotateOrigin,deltaTexture+deltaWidth,deltaHeight,cm.hashCode());
 	}
 	
-	 public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color selected,Texture texture,ZBuffer zbuffer){
+	 public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color selected,Texture texture,ZBuffer zbuffer,int hashCode){
 	   	 
 	    	Point3D origin=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
-	    	decomposeClippedPolygonIntoZBuffer(p3d, selected, texture,zbuffer,null,null,origin,0,0);
+	    	decomposeClippedPolygonIntoZBuffer(p3d, selected, texture,zbuffer,null,null,origin,0,0,hashCode);
 
 	 }
 
 	
 
     public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color selected,Texture texture,ZBuffer zbuffer,
-			Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY){		
+			Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY,int hashCode){		
 
 		Point3D normal=Polygon3D.findNormal(p3d);
 
@@ -433,7 +435,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			for (int j = 0; j < clippedTriangles.length; j++) {
 						
 				
-				decomposeTriangleIntoZBufferEdgeWalking( clippedTriangles[j],rgb, texture,zbuffer, xDirection,yDirection,origin, deltaX, deltaY,bc);
+				decomposeTriangleIntoZBufferEdgeWalking( clippedTriangles[j],rgb, texture,zbuffer, xDirection,yDirection,origin, deltaX, deltaY,bc,hashCode);
 				
 			}
 
@@ -458,7 +460,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	 */
 	public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int selected,Texture texture,ZBuffer zb,  
 			Point3D xDirection, Point3D yDirection, Point3D origin,int deltaX,int deltaY,
-			BarycentricCoordinates bc) {
+			BarycentricCoordinates bc,int hashCode) {
 
 		int rgbColor=selected;
 		
@@ -624,7 +626,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				double yi=((1-l)*pstart.p_y+l*pend.p_y);
 				double zi=((1-l)*pstart.p_z+l*pend.p_z);
 		
-				if(!zb.isToUpdate(yi,zi,tot,level,p3d.hashCode())){
+				if(!zb.isToUpdate(yi,zi,tot,level,hashCode)){
 				
 					continue;
 				}	
@@ -656,7 +658,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 				//System.out.println(x+" "+y+" "+tot);    	
 				
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),level,tot,p3d.hashCode());
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),level,tot,hashCode);
 				
 				
 			}
