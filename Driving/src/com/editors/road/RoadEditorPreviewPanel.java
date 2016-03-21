@@ -131,6 +131,8 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 		
 			PolygonMesh mesh=meshes[index];
 			
+			int hashCode=mesh.hashCode();
+			
 			int sizel=mesh.polygonData.size();
 	
 			for(int j=0;j<sizel;j++){
@@ -140,7 +142,7 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 	
 				Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.points,index);
 	
-				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),worldTextures[p3D.getIndex()],roadZbuffer);
+				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),worldTextures[p3D.getIndex()],roadZbuffer,hashCode);
 				
 			    if(index==1){
 			    	
@@ -149,7 +151,7 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 			    	Polygon3D[] polygons=Road.buildAdditionalRoadPolygons(p3D);
 			    	
 			    	for (int i = 0; i < polygons.length; i++) {
-							decomposeClippedPolygonIntoZBuffer(polygons[i],Color.DARK_GRAY,null,roadZbuffer);
+							decomposeClippedPolygonIntoZBuffer(polygons[i],Color.DARK_GRAY,null,roadZbuffer,hashCode);
 					}
 			    	
 			    }
@@ -314,7 +316,7 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 			
 			
 			
-			decomposeClippedPolygonIntoZBuffer(polRotate,col,texture,zBuffer,xDirection,yDirection,rotateOrigin,deltaTexture+deltaWidth,deltaHeight);
+			decomposeClippedPolygonIntoZBuffer(polRotate,col,texture,zBuffer,xDirection,yDirection,rotateOrigin,deltaTexture+deltaWidth,deltaHeight,hashCode());
 	}
 
 

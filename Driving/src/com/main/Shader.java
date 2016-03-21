@@ -46,7 +46,7 @@ public class Shader extends Renderer3D{
 		for(int i=0;i<length;i++){
 	
 			//clean
-			roadZbuffer.set(0,0,0,0,greenRgb,Road.EMPTY_LEVEL,i);
+			roadZbuffer.set(0,0,0,0,greenRgb,Road.EMPTY_LEVEL,i,ZBuffer.EMPTY_HASH_CODE);
 			stencilZbuffer[i]=0;   
 
 
@@ -619,7 +619,7 @@ public class Shader extends Renderer3D{
 				Polygon3D polTrans=pol.clone();
 				buildTransformedPolygon(polTrans);
 
-				decomposeClippedPolygonIntoZBuffer(polTrans,Color.red,null,roadZbuffer);
+				decomposeClippedPolygonIntoZBuffer(polTrans,Color.red,null,roadZbuffer,-1);
 			}
 
 		}

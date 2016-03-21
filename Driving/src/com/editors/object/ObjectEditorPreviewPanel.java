@@ -122,7 +122,7 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 		for(int j=0;j<polygons.size();j++)	{
 
 			Polygon3D p3D=(Polygon3D) polygons.elementAt(j);
-			decomposeClippedPolygonIntoZBuffer(p3D,Color.GRAY,null,roadZbuffer);
+			decomposeClippedPolygonIntoZBuffer(p3D,Color.GRAY,null,roadZbuffer,p3D.hashCode());
 
 		}
 
@@ -132,7 +132,7 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 
 	
    public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer,
-    		Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY){
+    		Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY,int hashCode){
 
     	//avoid clipping:
     	Polygon3D clippedPolygon = p3d;//Polygon3D.clipPolygon3DInY(p3d,0);
@@ -164,7 +164,7 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 
     		decomposeTriangleIntoZBufferEdgeWalking( triangles[i],calculateShadowColor(cosin,color.getRGB()), texture,zbuffer,
     				xDirection,yDirection,origin, deltaX, deltaY,
-    				null);
+    				null,hashCode);
 
     	}
 

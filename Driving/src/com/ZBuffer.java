@@ -23,6 +23,9 @@ public class ZBuffer{
 		/*public double p_x=0;
 		public double p_y=0;*/
 		double[] p_z;
+		int[] hashCodes;
+		
+		public static int EMPTY_HASH_CODE=-1;
 		
 		/*public double[] pcf_values=null;*/
 		
@@ -33,6 +36,7 @@ public class ZBuffer{
 			z=new double[size];
 			level=new int[size];
 			p_z=new double[size];
+			hashCodes=new int[size];
 		}
 
 		
@@ -54,7 +58,7 @@ public class ZBuffer{
 		
 		public static Color  fromHexToColor(String col){
 
-
+	
 			if(col==null || col.equals(""))
 				return Color.WHITE;
 
@@ -206,19 +210,19 @@ public class ZBuffer{
 
 		}
 
-		public boolean isToUpdate(double ys,double zs,int index,int level){
+		public boolean isToUpdate(double ys,double zs,int index,int level,int hashCode){
 
-			boolean checkLevel=checkLevel(ys,zs,index,level);
+			boolean checkLevel=checkLevel(ys,zs,index,level,hashCode);
           
 			return getZ(index)==0 || checkLevel || getZ(index)>ys;
 		}	
 
-		private boolean checkLevel(double ys, double zs, int index, int level) {
+		private boolean checkLevel(double ys, double zs, int index, int level, int hashCode) {
 		
 			
 			if(
-					//ROAD INTERSECTION
-					(level==Road.ROAD_LEVEL && this.level[index]==Road.ROAD_LEVEL) 	||				
+					//ROAD INTERSECTION, AVOID AUTO-OVERWRITING
+					(level==Road.ROAD_LEVEL && this.level[index]==Road.ROAD_LEVEL && hashCode!=this.hashCodes[index]) 	||				
 					//ROAD OVER TERRAIN
 					(level==Road.ROAD_LEVEL && this.level[index]==Road.GROUND_LEVEL)
 					){
@@ -233,12 +237,14 @@ public class ZBuffer{
 
 
 
-		public void set(double xs,double ys,double zs,double z, int rgbColor,int level,int index) {
+		public void set(double xs,double ys,double zs,double z,
+				int rgbColor,int level,int index,int hashCode) {
 
 			setZ(z,index);
 			setRgbColor(rgbColor,index);
 			setLevel(level,index);
 			setPz(zs,index);
+			setHashCode(hashCode,index);
 
 			/*p_x=xs;
 			p_y=ys;
@@ -246,6 +252,13 @@ public class ZBuffer{
 
 		}
 		
+
+		private void setHashCode(int hashCode, int index) {
+		
+			this.hashCodes[index]=hashCode;
+			
+		}
+
 
 		private double getPZ(int index) {
 			return p_z[index];

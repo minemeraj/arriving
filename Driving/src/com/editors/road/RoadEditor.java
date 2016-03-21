@@ -514,7 +514,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			rgb[i]=landscapeZbuffer.getRgbColor(i); 
 			
 			//clean
-			landscapeZbuffer.set(0,0,0,0,blackRgb,-1,i);
+			landscapeZbuffer.set(0,0,0,0,blackRgb,Road.EMPTY_LEVEL,i,ZBuffer.EMPTY_HASH_CODE);
               
 		
 

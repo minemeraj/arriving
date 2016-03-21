@@ -254,7 +254,7 @@ public class Road extends Shader{
 				Polygon3D p3D=buildLightTransformedPolygon3D(ld,ii);
 
 
-				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.worldTextures[p3D.getIndex()],lightZbuffer);
+				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.worldTextures[p3D.getIndex()],lightZbuffer,-1);
 
 
 			}
@@ -583,6 +583,8 @@ public class Road extends Shader{
 
 		PolygonMesh mesh=meshes[Editor.TERRAIN_INDEX];
 		int size=mesh.polygonData.size();
+		
+		int hashCode=mesh.hashCode();
 
 		//for(int index=0;index<2;index++){
 
@@ -599,7 +601,7 @@ public class Road extends Shader{
 
 			if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
 
-				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.worldTextures[p3D.getIndex()],roadZbuffer);
+				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.worldTextures[p3D.getIndex()],roadZbuffer,hashCode);
 
 			}		
 
@@ -734,6 +736,8 @@ public class Road extends Shader{
 			for (int j = 0; j < meshes.size(); j++) {
 
 				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
+				
+				int hashCode=mesh.hashCode();
 
 				int size=mesh.polygonData.size();
 				
@@ -768,7 +772,7 @@ public class Road extends Shader{
 					Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel());
 
 
-					decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.splinesTextures[ld.getTexture_index()],roadZbuffer);
+					decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.splinesTextures[ld.getTexture_index()],roadZbuffer,hashCode);
 					
 					
 
@@ -797,7 +801,7 @@ public class Road extends Shader{
 
 				Polygon3D pol = carShadowVolume[SELECTED_CAR].allPolygons[j];
 				buildTransformedPolygon(pol);
-				decomposeClippedPolygonIntoZBuffer(pol,Color.red,null,roadZbuffer);
+				decomposeClippedPolygonIntoZBuffer(pol,Color.red,null,roadZbuffer,-1);
 			
 			}
 			
@@ -812,7 +816,7 @@ public class Road extends Shader{
 	
 					Polygon3D pol = autocarShadowVolume[i].allPolygons[j];
 					buildTransformedPolygon(pol);
-					decomposeClippedPolygonIntoZBuffer(pol,Color.red,null,roadZbuffer);
+					decomposeClippedPolygonIntoZBuffer(pol,Color.red,null,roadZbuffer,-1);
 				
 				}
 				

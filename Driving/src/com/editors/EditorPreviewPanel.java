@@ -133,15 +133,15 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 
 
 	
-    public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer){
+    public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer,int hashCode){
    	 
     	Point3D origin=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
-    	decomposeClippedPolygonIntoZBuffer(p3d, color, texture,zbuffer,null,null,origin,0,0);
+    	decomposeClippedPolygonIntoZBuffer(p3d, color, texture,zbuffer,null,null,origin,0,0,hashCode);
 
     }
 
     public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer,
-			Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY){		
+			Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY,int hashCode){		
 
 		Point3D normal=Polygon3D.findNormal(p3d);
 
@@ -173,7 +173,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 			
 			for (int j = 0; j < clippedTriangles.length; j++) {
 				
-				decomposeTriangleIntoZBufferEdgeWalking( clippedTriangles[j],color.getRGB(), texture,zbuffer, xDirection,yDirection,origin, deltaX, deltaY,bc);
+				decomposeTriangleIntoZBufferEdgeWalking( clippedTriangles[j],color.getRGB(), texture,zbuffer, xDirection,yDirection,origin, deltaX, deltaY,bc,hashCode);
 				
 			}
 
@@ -198,7 +198,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 	 */
     public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int rgbColor,Texture texture,ZBuffer zbuffer,
     		Point3D xDirection, Point3D yDirection, Point3D origin,int deltaX,int deltaY,
-    		BarycentricCoordinates bc
+    		BarycentricCoordinates bc,int hashCode
     		) {
 
 		
@@ -471,7 +471,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 			   
 
 				   //clean
-			 	  roadZbuffer.set(0,0,0,0,greenRgb,Road.EMPTY_LEVEL,i);
+			 	  roadZbuffer.set(0,0,0,0,greenRgb,Road.EMPTY_LEVEL,i,ZBuffer.EMPTY_HASH_CODE);
 				  
  
 		 }	   

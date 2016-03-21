@@ -169,6 +169,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		CubicMesh cm=CubicMesh.buildCubicMesh(pm).clone();
 		rotateMesh(cm);
 		
+		int hashCode=mesh.hashCode();
 		
 		Texture texture=null;
 		if(oe.jmt_show_texture.isSelected()){
@@ -268,7 +269,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 			}
 			
 			
-	    	decomposeClippedPolygonIntoZBuffer(p3D, col, texture,roadZbuffer,xDirection,yDirection,rotateOrigin,deltaTexture+deltaWidth,deltaHeight);
+	    	decomposeClippedPolygonIntoZBuffer(p3D, col, texture,roadZbuffer,xDirection,yDirection,rotateOrigin,deltaTexture+deltaWidth,deltaHeight,hashCode);
 		   
 		}	
 		
@@ -752,7 +753,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		
 	@Override
 	public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d, Color color,
-			Texture texture, ZBuffer zbuffer) {
+			Texture texture, ZBuffer zbuffer,int hashCode) {
 		
 	  
 		
@@ -761,7 +762,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 	@Override
 	public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d, Color color,
 			Texture texture, ZBuffer zbuffer, Point3D xDirection,
-			Point3D yDirection, Point3D origin, int deltaX, int deltaY) {
+			Point3D yDirection, Point3D origin, int deltaX, int deltaY,int hashCode) {
 
     	//avoid clipping:
     	Polygon3D clippedPolygon=p3d;//Polygon3D.clipPolygon3DInY(p3d,0);
@@ -797,7 +798,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
     		decomposeTriangleIntoZBufferEdgeWalking( triangles[i],calculateShadowColor(
     				cosin,color.getRGB()), texture,zbuffer,
     				xDirection,yDirection,origin, deltaX, deltaY,
-    				bc
+    				bc,hashCode
     				);
 
     	}
@@ -829,7 +830,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 	public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,
 			int rgbColor, Texture texture, ZBuffer zbuffer,
 			Point3D xDirection, Point3D yDirection, Point3D origin, int deltaX,
-			int deltaY,BarycentricCoordinates bc) {
+			int deltaY,BarycentricCoordinates bc,int hashCode) {
 
 		
 		Point3D p0=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
@@ -1055,10 +1056,10 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 					int tot=WIDTH*yy+xx;
 
-					if(!zb.isToUpdate(yi,0,tot,level))
+					if(!zb.isToUpdate(yi,0,tot,level,-1))
 						continue;			
 
-					zb.set(xx,yi,yy,yi,rgbColor,Road.OBJECT_LEVEL,tot);
+					zb.set(xx,yi,yy,yi,rgbColor,Road.OBJECT_LEVEL,tot,ZBuffer.EMPTY_HASH_CODE);
 				}
 			else
 				for (int yy = yy2; yy <= yy1; yy++) {
@@ -1077,11 +1078,11 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 					int tot=WIDTH*yy+xx;
 
-					if(!zb.isToUpdate(yi,0,tot,level))
+					if(!zb.isToUpdate(yi,0,tot,level,-1))
 						continue;			
 
 
-					zb.set(xx,yi,yy,yi,rgbColor,Road.OBJECT_LEVEL,tot);
+					zb.set(xx,yi,yy,yi,rgbColor,Road.OBJECT_LEVEL,tot,ZBuffer.EMPTY_HASH_CODE);
 				}
 
 		}
@@ -1105,11 +1106,11 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 					int tot=WIDTH*yy+xx;
  
-					if(!zb.isToUpdate(yi,0,tot,level))
+					if(!zb.isToUpdate(yi,0,tot,level,-1))
 						continue;
 
 
-					zb.set(xx,yi,yy,yi,rgbColor,Road.OBJECT_LEVEL,tot);
+					zb.set(xx,yi,yy,yi,rgbColor,Road.OBJECT_LEVEL,tot,ZBuffer.EMPTY_HASH_CODE);
 				}
 			else
 				for (int xx = xx2; xx <= xx1; xx++) {
@@ -1128,11 +1129,11 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 					int tot=WIDTH*yy+xx;
 
 
-					if(!zb.isToUpdate(yi,0,tot,level))
+					if(!zb.isToUpdate(yi,0,tot,level,-1))
 						continue;
 
 
-					zb.set(xx,yi,yy,yi,rgbColor,Road.OBJECT_LEVEL,tot);
+					zb.set(xx,yi,yy,yi,rgbColor,Road.OBJECT_LEVEL,tot,ZBuffer.EMPTY_HASH_CODE);
 				}
 
 		}
@@ -1146,11 +1147,11 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 			int tot=WIDTH*yy1+xx1;
 
-			if(!zb.isToUpdate(DEPTH_DISTANCE+y1,0,tot,level))
+			if(!zb.isToUpdate(DEPTH_DISTANCE+y1,0,tot,level,-1))
 				return;
 
 
-			zb.set(xx1,y1,yy1,y1,rgbColor,Road.OBJECT_LEVEL,tot);
+			zb.set(xx1,y1,yy1,y1,rgbColor,Road.OBJECT_LEVEL,tot,ZBuffer.EMPTY_HASH_CODE);
 
 		}
 
@@ -1186,7 +1187,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 				   //set
 			 	   rgb[i]=roadZbuffer.getRgbColor(i); 
 				   //clean
-			 	  roadZbuffer.set(0,0,0,0,blackRgb,Road.EMPTY_LEVEL,i);
+			 	  roadZbuffer.set(0,0,0,0,blackRgb,Road.EMPTY_LEVEL,i,ZBuffer.EMPTY_HASH_CODE);
 				  
  
 		 }	   

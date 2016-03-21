@@ -105,7 +105,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 			
 			//clean
-			roadZbuffer.set(0,0,0,0,greenRgb,Road.EMPTY_LEVEL,i);
+			roadZbuffer.set(0,0,0,0,greenRgb,Road.EMPTY_LEVEL,i,ZBuffer.EMPTY_HASH_CODE);
               
 		
 
@@ -177,7 +177,7 @@ public class Renderer3D implements AbstractRenderer3D{
 	 */
 	public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int rgbColor,Texture texture,ZBuffer zb, 
 			Point3D xDirection, Point3D yDirection, Point3D origin,int deltaX,int deltaY,
-			BarycentricCoordinates bc) {
+			BarycentricCoordinates bc,int hashCode) {
 
 		Point3D normal=Polygon3D.findNormal(p3d).calculateVersor();
 		
@@ -335,10 +335,10 @@ public class Renderer3D implements AbstractRenderer3D{
 				double yi=1.0/((1-l)*i_pstart_p_y+l*i_end_p_y);
 				double zi=((1-l)*i_pstart_p_y*pstart.p_z+l*i_end_p_y*pend.p_z)*yi;
 				
-				if(!zb.isToUpdate(yi,zi,tot,level) || isStencilBuffer){
+				if(!zb.isToUpdate(yi,zi,tot,level,hashCode) || isStencilBuffer){
 					//z-fail stencil buffer with bias
 					if(isStencilBuffer){
-						if(!zb.isToUpdate(yi+4,zi,tot,level))
+						if(!zb.isToUpdate(yi+4,zi,tot,level,hashCode))
 							stencilBuffer(tot,isFacing);
 					}
 					continue;
@@ -358,7 +358,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 				//System.out.println(x+" "+y+" "+tot);    			
 
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),level,tot);
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),level,tot,p3d.hashCode());
 				
 			}
 
@@ -417,13 +417,13 @@ public class Renderer3D implements AbstractRenderer3D{
 				double yi=1.0/((1-l)*i_pstart_p_y+l*i_end_p_y);
 				double zi=((1-l)*i_pstart_p_y*pstart.p_z+l*i_end_p_y*pend.p_z)*yi;
 			
-				if(!zb.isToUpdate(yi,zi,tot,level) || isStencilBuffer){
+				if(!zb.isToUpdate(yi,zi,tot,level,hashCode) || isStencilBuffer){
 					
 					//z-fail stencil buffer with bias
 					if(isStencilBuffer){
 						
 	
-						if(!zb.isToUpdate(yi+4,zi,tot,level))
+						if(!zb.isToUpdate(yi+4,zi,tot,level,hashCode))
 							stencilBuffer(tot,isFacing);
 					}
 					continue;
@@ -447,7 +447,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 
 			
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),level,tot);
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),level,tot,hashCode);
 	
 			}
 
@@ -496,10 +496,10 @@ public class Renderer3D implements AbstractRenderer3D{
 
 					int tot=WIDTH*yy+xx;
 
-					if(!zb.isToUpdate(yi,0,tot,level))
+					if(!zb.isToUpdate(yi,0,tot,level,-1))
 						continue;			
 
-					zb.set(xx,yi,yy,yi,rgbColor,level,tot);
+					zb.set(xx,yi,yy,yi,rgbColor,level,tot,ZBuffer.EMPTY_HASH_CODE);
 				}
 			else
 				for (int yy = yy2; yy <= yy1; yy++) {
@@ -519,11 +519,11 @@ public class Renderer3D implements AbstractRenderer3D{
 					int tot=WIDTH*yy+xx;
 
 
-					if(!zb.isToUpdate(yi,0,tot,level))
+					if(!zb.isToUpdate(yi,0,tot,level,-1))
 						continue;			
 
 
-					zb.set(xx,yi,yy,yi,rgbColor,level,tot);
+					zb.set(xx,yi,yy,yi,rgbColor,level,tot,ZBuffer.EMPTY_HASH_CODE);
 				}
 
 		}
@@ -548,11 +548,11 @@ public class Renderer3D implements AbstractRenderer3D{
 					int tot=WIDTH*yy+xx;
  
 			
-					if(!zb.isToUpdate(yi,0,tot,level))
+					if(!zb.isToUpdate(yi,0,tot,level,-1))
 						continue;
 
 
-					zb.set(xx,yi,yy,yi,rgbColor,level,tot);
+					zb.set(xx,yi,yy,yi,rgbColor,level,tot,ZBuffer.EMPTY_HASH_CODE);
 				}
 			else
 				for (int xx = xx2; xx <= xx1; xx++) {
@@ -570,11 +570,11 @@ public class Renderer3D implements AbstractRenderer3D{
 
 					int tot=WIDTH*yy+xx;
 
-					if(!zb.isToUpdate(yi,0,tot,level))
+					if(!zb.isToUpdate(yi,0,tot,level,-1))
 						continue;
 
 
-					zb.set(xx,yi,yy,yi,rgbColor,level,tot);
+					zb.set(xx,yi,yy,yi,rgbColor,level,tot,ZBuffer.EMPTY_HASH_CODE);
 				}
 
 		}
@@ -589,11 +589,11 @@ public class Renderer3D implements AbstractRenderer3D{
 			int tot=WIDTH*yy1+xx1;
 
 
-			if(!zb.isToUpdate(y1,0,tot,level))
+			if(!zb.isToUpdate(y1,0,tot,level,-1))
 				return;
 
 
-			zb.set(xx1,y1,yy1,y1,rgbColor,level,tot);
+			zb.set(xx1,y1,yy1,y1,rgbColor,level,tot,ZBuffer.EMPTY_HASH_CODE);
 
 		}
 
@@ -657,15 +657,15 @@ public class Renderer3D implements AbstractRenderer3D{
 
 
 
-	public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer){
+	public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer,int hashCode){
 
 		Point3D origin=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
-		decomposeClippedPolygonIntoZBuffer(p3d, color, texture,zbuffer,null,null,origin,0,0);
+		decomposeClippedPolygonIntoZBuffer(p3d, color, texture,zbuffer,null,null,origin,0,0,hashCode);
 
 	}
 
 	public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer,
-			Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY){		
+			Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY,int hashCode){		
 
 		Point3D normal=Polygon3D.findNormal(p3d);
 
@@ -698,7 +698,7 @@ public class Renderer3D implements AbstractRenderer3D{
 			
 			for (int j = 0; j < clippedTriangles.length; j++) {
 				
-				decomposeTriangleIntoZBufferEdgeWalking( clippedTriangles[j],color.getRGB(), texture,zbuffer, xDirection,yDirection,origin, deltaX, deltaY,bc);
+				decomposeTriangleIntoZBufferEdgeWalking( clippedTriangles[j],color.getRGB(), texture,zbuffer, xDirection,yDirection,origin, deltaX, deltaY,bc,hashCode);
 				
 			}
 
@@ -814,6 +814,8 @@ public class Renderer3D implements AbstractRenderer3D{
 			ZBuffer zBuffer
 			){
 		
+		int hashCode=cm.hashCode();
+		
 		Point3D xDirection=null;
 		Point3D yDirection=null;
 		
@@ -875,7 +877,7 @@ public class Renderer3D implements AbstractRenderer3D{
 		
 		
 		
-		decomposeClippedPolygonIntoZBuffer(polRotate,col,texture,zBuffer,xDirection,yDirection,rotateOrigin,deltaTexture+deltaWidth,deltaHeight);
+		decomposeClippedPolygonIntoZBuffer(polRotate,col,texture,zBuffer,xDirection,yDirection,rotateOrigin,deltaTexture+deltaWidth,deltaHeight,hashCode);
 	}
 
 	public static boolean isFacing(Polygon3D pol,Point3D normal,Point3D observer){
