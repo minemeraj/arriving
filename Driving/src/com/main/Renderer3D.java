@@ -358,7 +358,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 				//System.out.println(x+" "+y+" "+tot);    			
 
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),level,tot,p3d.hashCode());
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),level,tot,hashCode);
 				
 			}
 
