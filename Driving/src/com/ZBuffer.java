@@ -218,7 +218,6 @@ public class ZBuffer{
 		}	
 
 		private boolean checkLevel(double ys, double zs, int index, int level, int hashCode) {
-		
 			
 			if(
 					//ROAD INTERSECTION, AVOID AUTO-OVERWRITING

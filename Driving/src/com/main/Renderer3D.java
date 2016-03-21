@@ -620,9 +620,9 @@ public class Renderer3D implements AbstractRenderer3D{
 		int bs = 0xff & argbs;
 		
 		//water effect
-		if(zi<Road.WATER_LEVEL+MOVZ)	{		
+		if(zi<Road.WATER_LEVEL+MOVZ){		
 			//factor=factor*0.7;	
-		    rs=gs=0;
+		    //rs=gs=0;
 		}
 
 		rs=(int) (factor*rs);

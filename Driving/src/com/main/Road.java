@@ -730,6 +730,8 @@ public class Road extends Shader{
 		for (int i = 0; i < splines.size(); i++) {
 
 			SPLine sp = (SPLine) splines.elementAt(i);
+			
+			int hashCode=sp.hashCode();
 
 			Vector meshes = sp.getMeshes3D();
 
@@ -737,7 +739,7 @@ public class Road extends Shader{
 
 				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
 				
-				int hashCode=mesh.hashCode();
+				
 
 				int size=mesh.polygonData.size();
 				
