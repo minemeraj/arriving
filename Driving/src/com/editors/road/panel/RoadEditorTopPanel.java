@@ -1412,7 +1412,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		if(startPosition==null)
 			return;
 		
-		PolygonMesh ring = EditorData.getRing(startPosition.getX(),startPosition.getY(),10);	
+		PolygonMesh ring = EditorData.getRing(startPosition.getX(),startPosition.getY(),25,40,50);
 		
 
 		int lsize=ring.polygonData.size();
@@ -1423,7 +1423,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			
 			LineData ld=(LineData) ring.polygonData.elementAt(j);
 
-			drawPolygon(ld,ring.points,landscapeZbuffer,EditorData.whiteTexture,RoadEditor.TERRAIN_INDEX);
+			drawPolygon(ld,ring.points,landscapeZbuffer,EditorData.cyanTexture,RoadEditor.TERRAIN_INDEX);
 
 		} 
 	}

@@ -1302,7 +1302,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	public void displayStartPosition(ZBuffer landscapeZbuffer, Point3D startPosition) {
 		
 
-		PolygonMesh ring = EditorData.getRing(startPosition.getX(),startPosition.getY(),10);	
+		PolygonMesh ring = EditorData.getRing(startPosition.getX(),startPosition.getY(),25,40,50);	
 		
 
 		int lsize=ring.polygonData.size();
@@ -1316,7 +1316,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	
 			Polygon3D p3D=buildTranslatedPolygon3D(ld,ring.points,Editor.ROAD_INDEX,ring.getLevel());
 			
-			decomposeClippedPolygonIntoZBuffer(p3D,Color.CYAN,EditorData.whiteTexture,landscapeZbuffer,ZBuffer.EMPTY_HASH_CODE);
+			decomposeClippedPolygonIntoZBuffer(p3D,Color.CYAN,EditorData.cyanTexture,landscapeZbuffer,ZBuffer.EMPTY_HASH_CODE);
 	
 
 		} 

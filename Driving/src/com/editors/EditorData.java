@@ -27,6 +27,7 @@ public class EditorData {
 	public static PolygonMesh circleShape;
 	public static Texture whiteTexture=null;
 	public static Texture redTexture=null;
+	public static Texture cyanTexture=null;
 	
 	public static CubicMesh[] splinesMeshes=null;
 	public static Texture[] splinesTextures=null;	
@@ -35,6 +36,7 @@ public class EditorData {
 	public static double maxR=100;
 	public static double minR=80;
 	public static int n=10;
+	
 
 	public static void initialize() { 
 		
@@ -49,6 +51,10 @@ public class EditorData {
 		graph.setColor(Color.RED);
 		graph.fillRect(0,0,100,100);
 		redTexture=new Texture(bf);
+		
+		graph.setColor(Color.CYAN);
+		graph.fillRect(0,0,100,100);
+		cyanTexture=new Texture(bf);
 		
 		buildRingShape();
 		buildCircleShape();
@@ -191,11 +197,15 @@ public class EditorData {
 
 		
 	}
-
-	private static void buildRingShape() {
 	
-
+	private static void buildRingShape() {
 		
+		ringShape=buildRingShape(minR,maxR);
+	}
+
+	private static PolygonMesh buildRingShape(double minR,double maxR) {
+	
+				
 		double dteta=2*Math.PI/n;
 		
 		//Vector vTexturePoints=RoadEditor.buildTemplateTexturePoints(100);
@@ -246,7 +256,8 @@ public class EditorData {
 		
 		
 		
-		ringShape=new PolygonMesh(points,polygonData);
+		PolygonMesh ringShape=new PolygonMesh(points,polygonData);
+		return ringShape;
 		
 	}
 
@@ -267,5 +278,15 @@ public class EditorData {
 		
 		return circle;
 	}
+	
+	public static PolygonMesh getRing(double x,double y,double z,double minR,double maxR){
+		
+		PolygonMesh ring=buildRingShape(minR, maxR);
+		
+		ring.translate(x,y,z);
+		
+		return ring;
+	}
+
 
 }
