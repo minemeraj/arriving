@@ -58,286 +58,7 @@ public abstract class RoadEditorPanel extends JPanel {
 			Point3D startPosition,
 			ZBuffer landscapeZbuffer,Graphics2D graph);
 	
-	/**
-	 * 
-	 * DECOMPOSE PROJECTED TRIANGLE USING EDGE WALKING AND
-	 * PERSPECTIVE CORRECT MAPPING
-	 * 
-	 * @param p3d
-	 * @param color
-	 * @param texture
-	 * @param useLowResolution
-	 * @param xDirection
-	 * @param yDirection
-	 * @param origin 
-	 */
-	/*public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int selected,Texture texture,ZBuffer zbuffer, 
-			Point3D xDirection, Point3D yDirection, Point3D origin,int deltaX,int deltaY,
-			BarycentricCoordinates bc) {
-
 		
-
-		
-		int rgbColor=selected;
-
-		rr=a2*(selected>>16 & mask);
-		gg=a2*(selected>>8 & mask);
-		bb=a2*(selected & mask);
-		
-		Point3D normal=Polygon3D.findNormal(p3d).calculateVersor();
-	
-		double cosin=p3d.getShadowCosin();
-		
-		Point3D p0=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
-		Point3D p1=new Point3D(p3d.xpoints[1],p3d.ypoints[1],p3d.zpoints[1]);
-		Point3D p2=new Point3D(p3d.xpoints[2],p3d.ypoints[2],p3d.zpoints[2]);
-
-		//System.out.println(p3d+" "+rgbColor);
-
-		double x0=convertX(p0);
-		double y0=convertY(p0);
-		double z0=p0.z;
-
-
-		double x1=convertX(p1);
-		double y1=convertY(p1);
-		double z1=p1.z;
-
-		double x2=convertX(p2);
-		double y2=convertY(p2);
-		double z2=p2.z;
-
-		//check if triangle is visible
-		double maxX=Math.max(x0,x1);
-		maxX=Math.max(x2,maxX);
-		double maxY=Math.max(y0,y1);
-		maxY=Math.max(y2,maxY);
-		double minX=Math.min(x0,x1);
-		minX=Math.min(x2,minX);
-		double minY=Math.min(y0,y1);
-		minY=Math.min(y2,minY);
-		
-		if(maxX<0 || minX>WIDTH || maxY<0 || minY>HEIGHT)
-			return;
-
-		Point3D[] points=new Point3D[3];
-
-		points[0]=new Point3D(x0,y0,z0,p0.x,p0.y,p0.z);
-		points[1]=new Point3D(x1,y1,z1,p1.x,p1.y,p1.z);
-		points[2]=new Point3D(x2,y2,z2,p2.x,p2.y,p2.z);
-		
-		if(texture!=null){
-	
-		}
-		
-		int upper=0;
-		int middle=1;
-		int lower=2;
-
-		for(int i=0;i<3;i++){
-
-			if(points[i].y>points[upper].y)
-				upper=i;
-
-			if(points[i].y<points[lower].y)
-				lower=i;
-
-		}
-		for(int i=0;i<3;i++){
-
-			if(i!=upper && i!=lower)
-				middle=i;
-		}
-
-
-		//double i_depth=1.0/zs;
-		//UPPER TRIANGLE
-		
-		Point3D lowP=points[lower];
-		Point3D upP=points[upper];
-		Point3D midP=points[middle];
-		
-		int j0=midP.y>0?(int)midP.y:0;
-		int j1=upP.y<HEIGHT?(int)upP.y:HEIGHT;
-
-		for(int j=j0;j<j1;j++){
-	
-
-			double middlex=Point3D.foundXIntersection(upP,lowP,j);
-			Point3D intersects = foundPX_PY_PZ_TEXTURE_Intersection(upP,lowP,j);
-
-			double middlex2=Point3D.foundXIntersection(upP,midP,j);
-			Point3D intersecte = foundPX_PY_PZ_TEXTURE_Intersection(upP,midP,j);
-	
-			Point3D pstart=new Point3D(middlex,j,intersects.p_z,intersects.p_x,intersects.p_y,intersects.p_z,intersects.texture_x,intersects.texture_y);
-			Point3D pend=new Point3D(middlex2,j,intersecte.p_z,intersecte.p_x,intersecte.p_y,intersecte.p_z,intersecte.texture_x,intersecte.texture_y);
-
-			if(pstart.x>pend.x){
-
-				Point3D swap= pend;
-				pend= pstart;
-				pstart=swap;
-
-			}
-
-			int start=(int)pstart.x;
-			int end=(int)pend.x;
-
-
-
-			double inverse=1.0/(end-start);
-			double i_pstart_p_y=1.0/(pstart.p_y);
-			double i_end_p_y=1.0/(pend.p_y);
-			
-			int i0=start>0?start:0;
-
-			for(int i=i0;i<end;i++){
-
-				if(i>=WIDTH)
-					break;
-
-				int tot=WIDTH*j+i;
-
-				double l=(i-start)*inverse;
-
-				double yi=pstart.p_y*(1-l)+l*pend.p_y;
-				double xi=pstart.p_x*(1-l)+l*pend.p_x;
-				double zi=pstart.p_z*(1-l)+l*pend.p_z;
-						
-				if(!zbuffer.isEmpty(tot) && zbuffer.getZ(tot)>zi){
-
-					continue;
-				}	
-
-			
-				
-                //double texture_x=((1-l)*i_pstart_p_y*pstart.texture_x+l*i_end_p_y*pend.texture_x)*yi;
-                //double texture_y=((1-l)*i_pstart_p_y*pstart.texture_y+l*i_end_p_y*pend.texture_y)*yi;
-
-			
-
-				if(texture!=null)
-					//rgbColor=texture.getRGB((int)texture_x,(int) texture_y);  
-					rgbColor=pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY,null);
-				if(rgbColor==blackRgb)
-					continue;
-
-				//System.out.println(x+" "+y+" "+tot);   
-				
-				if(selected>-1){
-					
-
-					
-				    int r=(int) (a1*(rgbColor>>16 & mask)+rr);
-				    int g=(int) (a1*(rgbColor>>8 & mask)+gg);
-				    int b=(int) (a1*(rgbColor & mask)+bb);
-					
-					rgbColor= (255 << 32) + (r << 16) + (g << 8) + b;
-				}
-				
-
-				zbuffer.set(xi,zi,yi,rgbColor,false,tot);
-				
-			}
-
-
-		}
-		//LOWER TRIANGLE
-		
-		j0=lowP.y>0?(int)lowP.y:0;
-		j1=midP.y<HEIGHT?(int)midP.y:HEIGHT;
-		
-		for(int j=j0;j<j1;j++){
-	
-
-			double middlex=Point3D.foundXIntersection(upP,lowP,j);
-			
-			Point3D intersects = foundPX_PY_PZ_TEXTURE_Intersection(upP,lowP,j);
-
-			double middlex2=Point3D.foundXIntersection(lowP,midP,j);
-			
-			Point3D insersecte = foundPX_PY_PZ_TEXTURE_Intersection(lowP,midP,j);
-			
-			Point3D pstart=new Point3D(middlex,j,intersects.p_z,intersects.p_x,intersects.p_y,intersects.p_z,intersects.texture_x,intersects.texture_y);
-			Point3D pend=new Point3D(middlex2,j,insersecte.p_z,insersecte.p_x,insersecte.p_y,insersecte.p_z,insersecte.texture_x,insersecte.texture_y);
-
-
-			if(pstart.x>pend.x){
-
-
-				Point3D swap= pend;
-				pend= pstart;
-				pstart=swap;
-
-			}
-
-			int start=(int)pstart.x;
-			int end=(int)pend.x;
-
-			double inverse=1.0/(end-start);
-
-			int i0=start>0?start:0;
-			
-			
-			for(int i=i0;i<end;i++){
-	
-				if(i>=WIDTH)
-					break;
-
-				int tot=WIDTH*j+i;
-
-				double l=(i-start)*inverse;
-
-				double yi=pstart.p_y*(1-l)+l*pend.p_y;
-				double xi=pstart.p_x*(1-l)+l*pend.p_x;
-				double zi=pstart.p_z*(1-l)+l*pend.p_z;
-		
-				if(!zbuffer.isEmpty(tot) && zbuffer.getZ(tot)>zi){
-
-					continue;
-				}	
-
-
-				//double zi=((1-l)*i_pstart_p_y*pstart.p_z+l*i_end_p_y*pend.p_z)*yi;
-				//double xi=((1-l)*i_pstart_p_y*pstart.p_x+l*i_end_p_y*pend.p_x)*yi;
-
-                //double texture_x=((1-l)*i_pstart_p_y*pstart.texture_x+l*i_end_p_y*pend.texture_x)*yi;
-                //double texture_y=((1-l)*i_pstart_p_y*pstart.texture_y+l*i_end_p_y*pend.texture_y)*yi;
-
-
-				if(texture!=null)
-					rgbColor=pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY,null);
-					//rgbColor=texture.getRGB((int)texture_x,(int) texture_y);   
-				if(rgbColor==blackRgb)
-					continue;
-				
-				if(selected>-1){
-					
-
-					
-				    int r=(int) (a1*(rgbColor>>16 & mask)+rr);
-				    int g=(int) (a1*(rgbColor>>8 & mask)+gg);
-				    int b=(int) (a1*(rgbColor & mask)+bb);
-					
-					rgbColor= (255 << 32) + (r << 16) + (g << 8) + b;
-				}
-
-				//System.out.println(x+" "+y+" "+tot);
-
-
-			
-				zbuffer.set(xi,zi,yi,rgbColor,false,tot);
-	
-			}
-
-
-		}	
-
-
-
-
-	}*/
-	
 	/**
 	 * 
 	 * DECOMPOSE PROJECTED TRIANGLE USING EDGE WALKING AND
@@ -752,56 +473,39 @@ public abstract class RoadEditorPanel extends JPanel {
 		return convertY(p.x,p.y,p.z);
 	}
 	
-	public int convertX(double i,double j,double k) {
+	public abstract void initialize();
+	
+	public abstract int convertX(double i,double j,double k);
+	
+	public abstract int convertY(double i,double j,double k);
 
-		return (int) i;
-	}
-	public int convertY(double i,double j,double k) {
-
-		return (int) j;
-	}
-
-	public int invertX(int i) {
-
-		return (int) i;
-	}
-	public int invertY(int j) {
-
-		return (int) j;
+	public int invertX(int i){
+		return i;
 	}
 	
+	public int invertY(int j){
+		
+		return j;
+		
+	}
 	public void drawCurrentRect(ZBuffer landscapeZbuffer) {		
 		
 	}
 	
-	public void zoom(int i) {		
-		
-	}
+	public abstract void zoom(int i);
 	
-	public void up(){	
+	public abstract void up();
 
-	}
-
-	public void down(){		
-
-	}
+	public abstract void down();
 	
-	public void left(){
-		
-	}
+	public abstract void left();
 
-	public void right(){		
-
-	}
+	public abstract void right();
 	
-	public void mouseDown() {
-		
-	}
+	public abstract void mouseDown();
 
 
-	public void mouseUp() {
-		
-	}
+	public abstract void mouseUp();
 	
 	public boolean selectPointsWithRectangle(PolygonMesh mesh) {
 		
@@ -809,18 +513,11 @@ public abstract class RoadEditorPanel extends JPanel {
 	}
 	
 
-	public boolean selectPolygons(int x, int y,PolygonMesh mesh) {
-		
-		return false;
-	}
+	public abstract boolean selectPolygons(int x, int y,PolygonMesh mesh);
 	
-	public Vector selectPolygons(int x, int y,PolygonMesh mesh,boolean toSelect) {		
-		return null;			
-	}
+	public abstract Vector selectPolygons(int x, int y,PolygonMesh mesh,boolean toSelect);
 
-	public void selectObjects(int x, int y, Vector drawObjects) {
-		
-	}
+	public abstract void selectObjects(int x, int y, Vector drawObjects);
 	
 	public Vector selectObjects(int x, int y, Vector drawObjects,boolean toSelect) {
 		
@@ -833,9 +530,7 @@ public abstract class RoadEditorPanel extends JPanel {
 	}
 	
 
-	public boolean selectSPNodes(int x, int y, Vector splines) {
-		return false;
-	}
+	public abstract boolean selectSPNodes(int x, int y, Vector splines);
 	
 	public Polygon3D builProjectedPolygon(Polygon3D p3d) {
 		
@@ -850,15 +545,9 @@ public abstract class RoadEditorPanel extends JPanel {
 		this.hide_objects = hide_objects;
 	}
 
-	public Vector getClickedPolygons(int x, int y, PolygonMesh mesh) {
-		return null;
-	}
+	public abstract Vector getClickedPolygons(int x, int y, PolygonMesh mesh);
 
-	public void rotate(int signum) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public abstract void rotate(int signum);
 	
 	public abstract void displaySPLines(ZBuffer landscapeZbuffer, Vector splines);
 

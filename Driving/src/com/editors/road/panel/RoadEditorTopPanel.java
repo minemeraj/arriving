@@ -41,11 +41,11 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	public RoadEditorTopPanel(RoadEditor editor, int cENTER_WIDTH,int cENTER_HEIGHT) {
 		
 		super(editor, cENTER_WIDTH,cENTER_HEIGHT);
-		intialize();
+		initialize();
 	}
 	
-
-	private void intialize() {
+	@Override
+	public void initialize() {
 		
 		selectionColor=new Color(255,0,0,127);
 		EditorData.initialize();
@@ -1426,6 +1426,13 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			drawPolygon(ld,ring.points,landscapeZbuffer,EditorData.cyanTexture,RoadEditor.TERRAIN_INDEX);
 
 		} 
+	}
+
+
+	@Override
+	public void rotate(int signum) {
+		//nothing to do
+		
 	}
 
 	
