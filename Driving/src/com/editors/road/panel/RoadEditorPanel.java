@@ -15,7 +15,7 @@ import com.Texture;
 import com.ZBuffer;
 import com.editors.road.RoadEditor;
 
-public class RoadEditorPanel extends JPanel {
+public abstract class RoadEditorPanel extends JPanel {
 	
 	public int blackRgb= Color.BLACK.getRGB();
 	
@@ -54,10 +54,9 @@ public class RoadEditorPanel extends JPanel {
 		this.editor=editor;
 	}
 
-	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,Vector splines,
-			ZBuffer landscapeZbuffer,Graphics2D graph) {
-		
-	}
+	public abstract void drawRoad(PolygonMesh[] meshes, Vector drawObjects,Vector splines,
+			Point3D startPosition,
+			ZBuffer landscapeZbuffer,Graphics2D graph);
 	
 	/**
 	 * 
@@ -861,6 +860,10 @@ public class RoadEditorPanel extends JPanel {
 	}
 
 	
-	
+	public abstract void displaySPLines(ZBuffer landscapeZbuffer, Vector splines);
 
+	
+	public abstract void displayTerrain(ZBuffer landscapeZbuffer,PolygonMesh[] meshes);
+	
+	public abstract void displayStartPosition(ZBuffer landscapeZbuffer,Point3D startPosition);
 }

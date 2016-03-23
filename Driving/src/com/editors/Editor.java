@@ -353,6 +353,7 @@ public class Editor extends JFrame implements MenuListener{
 		splines=loadStaticSPLinesFromFile(file,forceReading);
 		repaint();
 	}
+
 	
 	public static Vector loadStaticSPLinesFromFile(File file,boolean forceReading){
 		
@@ -423,6 +424,53 @@ public class Editor extends JFrame implements MenuListener{
 		
 		return splines;
 		
+	}
+	
+public static Point3D loadStartPosition(File file) {
+		
+		Point3D startPosition=null;
+
+		try {
+			BufferedReader br=new BufferedReader(new FileReader(file));
+
+			boolean read=false;
+
+			String str=null;
+
+			while((str=br.readLine())!=null){
+				if(str.indexOf("#")>=0 || str.length()==0)
+					continue;
+				
+				if(str.indexOf("startPosition")>=0){
+					read=!read;
+				    continue;
+				}	
+				
+				if(!read)
+					continue;
+				
+
+				String[] vals = str.split(" ");
+
+				startPosition=new Point3D();
+				
+				startPosition.x=Double.parseDouble(vals[0]);
+				startPosition.y=Double.parseDouble(vals[1]);
+				startPosition.z=Double.parseDouble(vals[2]);
+		
+				
+			}
+
+			br.close();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		
+		if(startPosition==null)
+			startPosition=new Point3D(0,0,0);
+		
+		return startPosition;
 	}
 
 

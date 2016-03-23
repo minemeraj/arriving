@@ -67,12 +67,14 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	}
 	
 
-	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,Vector splines,ZBuffer landscapeZbuffer,Graphics2D graph) {
+	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,Vector splines,Point3D startPosition,ZBuffer landscapeZbuffer,Graphics2D graph) {
 
-		drawRoad(meshes,landscapeZbuffer);
+		displayTerrain(landscapeZbuffer,meshes);
 		if(!isHide_objects())
 			drawObjects(drawObjects,null,landscapeZbuffer);
 		displaySPLines(landscapeZbuffer,splines);
+		
+		displayStartPosition(landscapeZbuffer, startPosition);
 	}
 	
 
@@ -89,7 +91,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	}
 
 
-	private void drawRoad(PolygonMesh[] meshes,ZBuffer roadZbuffer) {
+	public void displayTerrain(ZBuffer roadZbuffer,PolygonMesh[] meshes) {
 		
 		int index=0;
 		
@@ -143,7 +145,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		//buildScreen(buf); 
 	}
 	
-	private void displaySPLines(ZBuffer landscapeZbuffer, Vector splines) {
+	public void displaySPLines(ZBuffer landscapeZbuffer, Vector splines) {
 	
 		
 
@@ -1293,5 +1295,32 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		sinf=Math.sin(fi);
 		cosf=Math.cos(fi);
 
+	}
+
+
+	@Override
+	public void displayStartPosition(ZBuffer landscapeZbuffer, Point3D startPosition) {
+		
+
+		PolygonMesh ring = EditorData.getRing(startPosition.getX(),startPosition.getY(),10);	
+		
+
+		int lsize=ring.polygonData.size();
+		
+
+		for(int j=0;j<lsize;j++){
+			
+			
+			LineData ld=(LineData) ring.polygonData.elementAt(j);
+
+	
+			Polygon3D p3D=buildTranslatedPolygon3D(ld,ring.points,Editor.ROAD_INDEX,ring.getLevel());
+			
+			decomposeClippedPolygonIntoZBuffer(p3D,Color.CYAN,EditorData.whiteTexture,landscapeZbuffer,ZBuffer.EMPTY_HASH_CODE);
+	
+
+		} 
+	
+		
 	}
 }

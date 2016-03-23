@@ -11,6 +11,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.InputMethodListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
@@ -73,6 +75,7 @@ import com.ZBuffer;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.EditorData;
+import com.editors.IntegerTextField;
 import com.editors.ValuePair;
 import com.editors.road.panel.RoadEditorIsoPanel;
 import com.editors.road.panel.RoadEditorPanel;
@@ -89,7 +92,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 	//private JPanel center;
-	int HEIGHT=680;
+	int HEIGHT=580;
 	int WIDTH=900;
 	int LEFT_BORDER=240;
 	int BOTTOM_BORDER=100;
@@ -251,7 +254,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton insertTJunction;
 	private boolean isInit;
 	
-
+	Point3D startPosition=null;
+	private IntegerTextField startX;
+	private IntegerTextField startY;
+	private JButton updateStartPosition;
 	
 
 	public static void main(String[] args) {
@@ -593,7 +599,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		graph.fillRect(0,0,WIDTH,HEIGHT);
 	
 		//editorPanel.setHide_objects(checkHideObjects.isSelected());
-		editorPanel.drawRoad(meshes,drawObjects,splines,landscapeZbuffer,graph);
+		editorPanel.drawRoad(meshes,drawObjects,splines,startPosition,landscapeZbuffer,graph);
 	
 
 		editorPanel.drawCurrentRect(landscapeZbuffer);
@@ -1322,13 +1328,43 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		bottom=new JPanel();
 		bottom.setBounds(0,HEIGHT,LEFT_BORDER+WIDTH,BOTTOM_BORDER);
 		bottom.setLayout(null);
+		
+		JLabel label = new JLabel();
+		label.setText("Start X: ");
+		label.setBounds(2,2,60,20);
+		bottom.add(label);
+		
+		startX=new IntegerTextField();
+		startX.setBounds(60,2,100,20);
+		startX.addKeyListener(this);
+		bottom.add(startX);
+		
+		
+		label = new JLabel();
+		label.setText("Start Y: ");
+		label.setBounds(180,2,60,20);
+		bottom.add(label);
+	
+		startY=new IntegerTextField();
+		startY.setBounds(240,2,100,20);
+		startY.addKeyListener(this);
+		bottom.add(startY);
+		
+		
+		updateStartPosition=new JButton("Update");
+		updateStartPosition.setBounds(360,2,100,20);
+		updateStartPosition.setFocusable(false);
+		updateStartPosition.addActionListener(this);
+		bottom.add(updateStartPosition);
+		
+		
 		JLabel lscreenpoint = new JLabel();
 		lscreenpoint.setText("Position x,y: ");
-		lscreenpoint.setBounds(2,2,100,20);
+		lscreenpoint.setBounds(500,2,100,20);
 		bottom.add(lscreenpoint);
 		screenPoint=new JLabel();
 		screenPoint.setText(",");
-		screenPoint.setBounds(120,2,300,20);
+		screenPoint.setBounds(600,2,300,20);
 		bottom.add(screenPoint);
 		add(bottom);
 	}
@@ -2039,6 +2075,31 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			e.printStackTrace();
 		}
 	}
+	
+
+
+
+
+
+	private void saveStartPosition(PrintWriter pr) {
+		
+		try {
+			
+			startPosition=new Point3D(startX.getvalue(),startY.getvalue(),0);
+
+            pr.println("<startPosition>");		
+
+			pr.println(startPosition.toString());
+			
+			pr.println("</startPosition>");
+				
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		
+	}
 
 	public void loadObjectsFromFile(){	
 
@@ -2092,6 +2153,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				
 				saveObjects(pr);
 				
+				saveStartPosition(pr);
+				
 				pr.close();
 			
 			}catch (Exception e) {
@@ -2101,9 +2164,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		
 	}
-
-
-
 
 
 	private void loadLanscape() {
@@ -2134,7 +2194,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			//right.setSelectedIndex(0);
 			
             loadObjectsFromFile(file); 
-            
+            setStartPosition(loadStartPosition(file));
             
             oldSpline=new Stack();
             oldObjects=new Stack();
@@ -2145,8 +2205,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 
-	
-	
+
+
 	public String decomposeLineData(LineData ld) {
 
 		String str="";
@@ -2259,9 +2319,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			e.printStackTrace();
 		}
 	}
-	
-	
 
+	
 
 	public static DrawObject buildDrawObject(String str, CubicMesh[] objectMeshes) {
 		DrawObject dro=new DrawObject();
@@ -2503,10 +2562,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		else if(obj==setSPNodeHeight){
 			setSPNodeHeight();
 		}	
-		
+		else if(obj==updateStartPosition){
+			
+			updateStartPosition();
+		}
 		
 		
 	}
+
 
 
 	public void menuCanceled(MenuEvent e) {
@@ -4139,5 +4202,22 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 
+	public Point3D getStartPosition() {
+		return startPosition;
+	}
+
+	public void setStartPosition(Point3D startPosition) {
+		this.startPosition = startPosition;
+		startX.setText((int) this.startPosition.x);
+		startY.setText((int) this.startPosition.y);
+	}
+
+
+	private void updateStartPosition() {
+		
+		startPosition=new Point3D(startX.getvalue(),startY.getvalue(),0);
+		draw();
+		
+	}
 
 }

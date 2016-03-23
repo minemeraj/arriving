@@ -53,7 +53,11 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	}
 
 
-	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,Vector splines,ZBuffer landscapeZbuffer,
+	public void drawRoad(PolygonMesh[] meshes, 
+			Vector drawObjects,
+			Vector splines,
+			Point3D startPosition,
+			ZBuffer landscapeZbuffer,
 			Graphics2D graph) {
 		
 		displayTerrain(landscapeZbuffer,meshes);
@@ -61,14 +65,11 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		//displayRoad(landscapeZbuffer,meshes,1);
 		if(!isHide_objects())
 			displayObjects(landscapeZbuffer,drawObjects);
+		displayStartPosition(landscapeZbuffer, startPosition);
 	
 	}
-	
-	
 
-
-
-	private void displayTerrain(ZBuffer landscapeZbuffer,PolygonMesh[] meshes) {
+	public void displayTerrain(ZBuffer landscapeZbuffer,PolygonMesh[] meshes) {
 
 	
 		PolygonMesh mesh=meshes[RoadEditor.TERRAIN_INDEX];
@@ -117,7 +118,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		drawCurrentRect(landscapeZbuffer);
 	}
 	
-	private void displaySPLines(ZBuffer landscapeZbuffer, Vector splines) {
+	public void displaySPLines(ZBuffer landscapeZbuffer, Vector splines) {
 		
 		for (int i = 0; i < splines.size(); i++) {
 			SPLine sp = (SPLine) splines.elementAt(i);
@@ -1402,6 +1403,29 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			}
 		
 		
+	}
+
+
+	@Override
+	public void displayStartPosition(ZBuffer landscapeZbuffer, Point3D startPosition) {
+		
+		if(startPosition==null)
+			return;
+		
+		PolygonMesh ring = EditorData.getRing(startPosition.getX(),startPosition.getY(),10);	
+		
+
+		int lsize=ring.polygonData.size();
+		
+
+		for(int j=0;j<lsize;j++){
+			
+			
+			LineData ld=(LineData) ring.polygonData.elementAt(j);
+
+			drawPolygon(ld,ring.points,landscapeZbuffer,EditorData.whiteTexture,RoadEditor.TERRAIN_INDEX);
+
+		} 
 	}
 
 	

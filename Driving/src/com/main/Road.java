@@ -182,7 +182,11 @@ public class Road extends Shader{
 			loadSPLinesFromFile(file);
 			
 			
-			loadObjectsFromFile(file);			
+			loadObjectsFromFile(file);	
+			
+			Point3D startPosition = Editor.loadStartPosition(file);
+			POSX=(int) startPosition.x;
+			POSY=(int) startPosition.y;
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
