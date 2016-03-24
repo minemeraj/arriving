@@ -21,6 +21,8 @@ public class LineData implements Cloneable{
 		public String hexColor=GREEN_HEX;	
 		
 		public static String GREEN_HEX="00FF00";
+		
+		boolean hasWater=false;
 
 		public int size(){
 
@@ -309,6 +311,14 @@ public class LineData implements Cloneable{
 			
 			return triangles;
 			
+		}
+
+		public boolean isHasWater() {
+			return hasWater;
+		}
+
+		public void setHasWater(boolean hasWater) {
+			this.hasWater = hasWater;
 		}
 
 

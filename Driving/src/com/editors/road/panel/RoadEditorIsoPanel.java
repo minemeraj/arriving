@@ -660,7 +660,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 				//System.out.println(x+" "+y+" "+tot);    	
 				
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),level,tot,hashCode);
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.hasWater),level,tot,hashCode);
 				
 				
 			}
@@ -751,7 +751,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 
 			
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),level,tot,p3d.hashCode());
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.hasWater),level,tot,p3d.hashCode());
 				
 			}
 
@@ -778,7 +778,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	
 	}
 	
-	public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs) {
+	public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs,boolean hasWater) {
 
 		
 		
@@ -788,11 +788,17 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		int rs = 0xff & (argbs>>16);
 		int gs = 0xff & (argbs >>8);
 		int bs = 0xff & argbs;
+		
+		//water effect
+		if(hasWater && zi<Road.WATER_LEVEL+MOVZ){		
+			//factor=factor*0.7;	
+		    rs=gs=0;
+		}
 
 		rs=(int) (factor*rs);
 		gs=(int) (factor*gs);
 		bs=(int) (factor*bs);
-
+		
 		return alphas <<24 | rs <<16 | gs <<8 | bs;
 	
 	}
@@ -1148,6 +1154,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		p3dr.setHexColor(ld.getHexColor());
 		p3dr.setIndex(ld.getTexture_index());
 		p3dr.setLevel(level);
+		p3dr.setHasWater(ld.isHasWater());
 		return p3dr;
 
 	}

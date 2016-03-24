@@ -1297,6 +1297,7 @@ public class Road extends Shader{
 		
 		str+="T"+ld.texture_index;
 		str+=" C"+ld.getHexColor();
+		str+=" W"+(ld.isHasWater()?1:0);
 		
 		int size=ld.size();
 
@@ -1324,8 +1325,9 @@ public class Road extends Shader{
 			ld.texture_index=Integer.parseInt(vals[0].substring(1));
 			
 			ld.hexColor=vals[1].substring(1);
+			ld.setHasWater("W1".equals(vals[2]));
 			
-			for(int i=2;i<vals.length;i++){
+			for(int i=3;i<vals.length;i++){
 
 				String val=vals[i];
 				if(val.indexOf("/")>0){

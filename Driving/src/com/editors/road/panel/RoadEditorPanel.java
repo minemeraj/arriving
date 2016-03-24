@@ -272,7 +272,7 @@ public abstract class RoadEditorPanel extends JPanel {
 
 				//System.out.println(x+" "+y+" "+tot);    	
 				
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),level,tot,p3d.hashCode());
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.hasWater),level,tot,p3d.hashCode());
 				
 				
 			}
@@ -364,7 +364,7 @@ public abstract class RoadEditorPanel extends JPanel {
 
 
 			
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),level,tot,p3d.hashCode());
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.hasWater),level,tot,p3d.hashCode());
 				
 			}
 
@@ -450,7 +450,7 @@ public abstract class RoadEditorPanel extends JPanel {
 
 	}
 	
-	public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs) {
+	public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs,boolean hasWater) {
 
 		return argbs;
 	

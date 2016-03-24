@@ -692,7 +692,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 				//System.out.println(x+" "+y+" "+tot);    	
 				
-				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),level,tot,p3d.hashCode());
+				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.hasWater),level,tot,p3d.hashCode());
 				
 				
 			}
@@ -784,7 +784,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 			
-				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),level,tot,p3d.hashCode());
+				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.hasWater),level,tot,p3d.hashCode());
 				
 			}
 

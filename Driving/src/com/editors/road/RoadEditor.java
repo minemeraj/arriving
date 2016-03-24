@@ -2213,6 +2213,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		str+="T"+ld.texture_index;
 		str+=" C"+ld.getHexColor();
+		str+=" W"+(ld.isHasWater()?1:0);
 
 		for(int j=0;j<ld.size();j++){
 			

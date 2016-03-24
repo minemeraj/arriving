@@ -29,6 +29,8 @@ public class Polygon3D  extends Polygon{
 	public int[] ytpoints=null;
 	
 	public String data=null;
+	
+	public boolean hasWater=false;
 
 	
 	public Polygon3D(int npoints, int[] xpoints, int[] ypoints, int[] zpoints,int[] xtpoints, int[] ytpoints) {
@@ -219,6 +221,8 @@ public class Polygon3D  extends Polygon{
 
 			triangle.setLevel(pol.getLevel());
 			
+			triangle.setHasWater(pol.isHasWater());
+			
 			triangles[i-1]=triangle;
 			
 		}
@@ -247,6 +251,8 @@ public class Polygon3D  extends Polygon{
 		}
 
 		Polygon3D new_pol = new Polygon3D(numAngles,xpoints,ypoints,zpoints);
+		new_pol.setHasWater(pol.isHasWater());
+		new_pol.setLevel(pol.getLevel());
 		new_pol.setHexColor(pol.getHexColor());
 		return new_pol;
 	}
@@ -992,6 +998,14 @@ public class Polygon3D  extends Polygon{
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	public boolean isHasWater() {
+		return hasWater;
+	}
+
+	public void setHasWater(boolean hasWater) {
+		this.hasWater = hasWater;
 	}
 
 }

@@ -358,7 +358,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 				//System.out.println(x+" "+y+" "+tot);    			
 
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),level,tot,hashCode);
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.hasWater),level,tot,hashCode);
 				
 			}
 
@@ -447,7 +447,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 
 			
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor),level,tot,hashCode);
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.hasWater),level,tot,hashCode);
 	
 			}
 
@@ -608,7 +608,7 @@ public class Renderer3D implements AbstractRenderer3D{
 	}
 
 
-	public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs) {
+	public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs,boolean hasWater) {
 
 		//double factor=(lightIntensity*(0.25+0.5*Math.exp(-yi*0.001)+0.25*cosin));
 		double factor=(lightIntensity*(0.75+0.25*cosin));		
@@ -620,9 +620,9 @@ public class Renderer3D implements AbstractRenderer3D{
 		int bs = 0xff & argbs;
 		
 		//water effect
-		if(zi<Road.WATER_LEVEL+MOVZ){		
+		if(hasWater && zi<Road.WATER_LEVEL+MOVZ){		
 			//factor=factor*0.7;	
-		    //rs=gs=0;
+		    rs=gs=0;
 		}
 
 		rs=(int) (factor*rs);
