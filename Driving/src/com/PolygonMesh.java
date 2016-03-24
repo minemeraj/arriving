@@ -136,6 +136,8 @@ public class PolygonMesh implements Cloneable{
 			pm.texturePoints.add(((Point3D)texturePoints.elementAt(i)).clone());
 		}
 	
+		pm.setLevel(level);
+		
 		return pm;
 	}
 	
