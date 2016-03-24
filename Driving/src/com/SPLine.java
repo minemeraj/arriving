@@ -307,7 +307,7 @@ public class SPLine {
 		SPLine line=new SPLine(vTexturePoints);
 		
 		line.setRoot(root.clone());
-		
+		line.calculateRibs();
 		return  line;
 	}
 

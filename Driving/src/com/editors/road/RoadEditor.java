@@ -1900,6 +1900,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private void moveSelectedSplinesPoints(int dx, int dy, int dz) {
 		
+		prepareUndoSpline();
+		
 		String sqty=roadMove[ACTIVE_PANEL].getText();
 
 		if(sqty==null || sqty.equals(""))
