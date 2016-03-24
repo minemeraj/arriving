@@ -5,6 +5,8 @@ Introduced the management of the Starting Position in the landscape.
 
 Some fixing for the visibility test of SPLines.
 
+Changes in the terrain format, see README.txt.
+
 Improving
 object3D_texture_11.jpg
 

@@ -137,11 +137,13 @@
 	
 	3-Polygons (values separated by " ")
 		
-	f=T<NUMTEXTURE> C<HEXCOLOR> POINT0_INDEX/POINT0_TEXTURE_INDEX POINT1_INDEX/POINT1_TEXTURE_INDEX
+	f=T<NUMTEXTURE> C<HEXCOLOR> W<HASWATER> POINT0_INDEX/POINT0_TEXTURE_INDEX POINT1_INDEX/POINT1_TEXTURE_INDEX
 	
 	where HEXCOLOR is a string rgb color in the hex representation, e.g. for white :FFFFFF.
 	and NUMTEXTURE is the index number of the texture associated, as found in the RoadEditor.
 	HEXCOLOR is used if you don't want to sue textures.
+	
+	HASWATER=0,1 show if the polygon area is filled (=1) or not (=0) with water.
 	
 	POINT0_INDEX is the vertex index
 	POINT0_TEXTURE_INDEX is vertex texture coordinate index
