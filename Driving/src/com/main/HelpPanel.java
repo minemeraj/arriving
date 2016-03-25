@@ -13,13 +13,13 @@ import javax.swing.JScrollPane;
 
 public class HelpPanel extends JDialog implements ActionListener{
 	
-	public static String AUTOCAR_EDITOR_HELP_TEXT="<html><body>" +
+	public static final String AUTOCAR_EDITOR_HELP_TEXT="<html><body>" +
 			
 	    	"<h3>Autocar Editor</h3>"+
             "<p>The cyan point is the center starting position of the auotcar</p>"+ 
 		"</body></html>";
 	
-	public static String OBJECT_EDITOR_HELP_TEXT="<html><body>" +
+	public static final String OBJECT_EDITOR_HELP_TEXT="<html><body>" +
 	
 	    	"Editor short keys:"+
 	        "<ul>"+ 
@@ -50,7 +50,7 @@ public class HelpPanel extends JDialog implements ActionListener{
 		"</body></html>";
 	
 	
-	public static String CUBIC_EDITOR_HELP_TEXT="<html><body>" +
+	public static final String CUBIC_EDITOR_HELP_TEXT="<html><body>" +
 		"<p>Use <b>Edit->Add cube</b> to start</p>" +
 		"<p>Navigate through the lattice using" +
 		" the buttons." +
@@ -68,7 +68,7 @@ public class HelpPanel extends JDialog implements ActionListener{
 		"</body></html>";
 	
 	
-	public static String ROAD_EDITOR_HELP_TEXT="<html><body>" +
+	public static final String ROAD_EDITOR_HELP_TEXT="<html><body>" +
 
 		"<p>Select tiles with left mouse button in the area, select object by clicking on the number.</p>"+	
         "<br>View keys:<br>" +
@@ -89,7 +89,7 @@ public class HelpPanel extends JDialog implements ActionListener{
         "</ul>"+
 		"</body></html>";
 	
-	public static String BLOCK_EDITOR_HELP_TEXT="<html><body>" +
+	public static final String BLOCK_EDITOR_HELP_TEXT="<html><body>" +
 			
 		"<p>Use <b>Edit->Start Block</b> to start</p>" +
 		"<p>You must add blocks to navigate through the lattice using" +
@@ -107,7 +107,7 @@ public class HelpPanel extends JDialog implements ActionListener{
         "</ul>"+ 	
 		"</body></html>";
 	
-	public static String IPERVIEW_EDITOR_HELP_TEXT="<html><body>" +
+	public static final String IPERVIEW_EDITOR_HELP_TEXT="<html><body>" +
 			
         "<p>Move mesh with arrow keys or mouse wheel.</p>" +
         "<p>View keys:</p>" +

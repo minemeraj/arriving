@@ -1,7 +1,5 @@
 package com;
 
-import com.main.Road;
-
 /**
  * @author Piazza Francesco Giovanni ,Tecnes Milano http://www.tecnes.com
  *
@@ -82,7 +80,8 @@ public class Point3D {
 		return this.x==p.x && this.y==p.y && this.z==p.z;
 		
 	}
-
+	
+	@Override
 	public Point3D clone()  {
 
 		Point3D p=new Point3D(this.x,this.y,this.z,this.p_x,this.p_y,this.p_z,this.texture_x,this.texture_y);
@@ -106,9 +105,7 @@ public class Point3D {
 
 		double prod=-(calculateSquareNorm(b.substract(a))-calculateSquareNorm(a)-calculateSquareNorm(b))
 		/(2*calculateNorm(a)*calculateNorm(b));
-		
-		
-		//System.out.println(a.x+" "+a.y+" "+a.z);
+
 		return prod;
 	}
 
@@ -407,7 +404,7 @@ public class Point3D {
 		texture_y = p.y;
 	}
 	
-
+	@Override
 	public String toString() {
 
 		return x+" "+y+" "+z;

@@ -7,6 +7,8 @@ Some fixing for the visibility test of SPLines.
 
 Changes in the terrain format, see README.txt.
 
+Cleaning up the code using SonarQube.
+
 Improving
 object3D_texture_11.jpg
 

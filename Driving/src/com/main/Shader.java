@@ -25,7 +25,7 @@ public class Shader extends Renderer3D{
 
 
 
-
+	@Override
 	public void buildScreen(BufferedImage buf) {
 
 		int length=roadZbuffer.getSize();
@@ -74,7 +74,7 @@ public class Shader extends Renderer3D{
 
 		return alphas <<24 | rs <<16 | gs <<8 | bs;
 	}
-
+	@Override
 	public void buildNewZBuffers() {
 
 
@@ -632,7 +632,7 @@ public class Shader extends Renderer3D{
 	 * Z-FAIL STENCIL BUFFER
 	 * 
 	 */
-
+	@Override
 	public void stencilBuffer(int tot, boolean isFacing) {
 
 		if(isFacing)

@@ -183,7 +183,7 @@ public class CarDynamics {
 		
 	   if(!isBraking)	
 		    Fx2=Fx2Signum*torque_force*Math.exp(-0.15*Math.abs(u));
-	   else if(isBraking)
+	   else 
 		    Fx2=-brakingForce*Math.signum(u);
 		
 	}
@@ -198,7 +198,7 @@ public class CarDynamics {
 	private void calculateFy2(double dt) {
 		
 		if(Math.abs(u-r*t1*0.5)==0)
-			alfa2=delta2-PI_2*Math.signum((nu-r*a2));
+			alfa2=delta2-PI_2*Math.signum(nu-r*a2);
 		else
 			alfa2=delta2-Math.atan((nu-r*a2)/(u-r*t2*0.5));
 		//double dFy2= (C2*alfa2-Fy2)*u/d;
@@ -217,7 +217,7 @@ public class CarDynamics {
 	private void calculateFy1(double dt) {
 	
 		if(Math.abs(u-r*t1*0.5)==0)
-			alfa1=delta1-PI_2*Math.signum((nu+r*a1));
+			alfa1=delta1-PI_2*Math.signum(nu+r*a1);
 		else
 			alfa1=delta1-Math.atan((nu+r*a1)/(u-r*t1*0.5));	
 		
@@ -225,7 +225,7 @@ public class CarDynamics {
 		//Fy1+=dt*dFy1;
 		Fy1= C1*alfa1*(1.0-Math.exp(-Math.abs(u)*dt/d));
 	}
-	
+	@Override
 	public String toString() {
 		
 		String str=" nu= "+nu+ " ,r= "+r+ " ,u= "+u+" ,alfa1= "+alfa1+" ,alfa2= "+alfa2;

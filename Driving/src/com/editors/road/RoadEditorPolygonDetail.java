@@ -52,6 +52,7 @@ public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 		
 		table=new JTable(){
 			
+			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}

@@ -9,36 +9,36 @@ import java.util.Vector;
 
 public class DrawObject {
 	
-	public static boolean IS_3D=true;
+	public static final boolean IS_3D=true;
 	
-	public double x;
-	public double y;
-	public double z;
+	double x;
+	double y;
+	double z;
 	
-	public double dx;
-	public double dy;
-	public double dz;
+	double dx;
+	double dy;
+	double dz;
 	
-	public int index=0;
+	int index=0;
 	
-	public double rotation_angle=0;
+	double rotation_angle=0;
 	
 
-	public String hexColor=null;
-	public boolean selected=false;
+	String hexColor=null;
+	boolean selected=false;
 	
-	public Vector polygons=new Vector();
-	public PolygonMesh mesh=new PolygonMesh();
+	private Vector polygons=new Vector();
+	private PolygonMesh mesh=new PolygonMesh();
 
 
-	public int deltaX=0;
-	public int deltaY=0;  
-	public int deltaX2=0;
+	private int deltaX=0;
+	private int deltaY=0;  
+	private int deltaX2=0;
 	
-	public Polygon3D base=null;
-	public Polygon3D border=null;
+	private Polygon3D base=null;
+	private Polygon3D border=null;
 
-
+	@Override
 	public Object clone()  {
 		DrawObject dro=new DrawObject();
 
@@ -195,19 +195,6 @@ public class DrawObject {
 		this.rotation_angle = rotation_angle;
 	}
 
-	/*public static Vector cloneObjectsVector(Vector drawObjects) {
-		Vector newDrawObjects=new Vector();
-		
-		for(int i=0;i<drawObjects.size();i++){
-			
-			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
-			newDrawObjects.add(dro.clone());
-			
-		}
-		
-		return newDrawObjects;
-	}*/
-
 	public static DrawObject[] cloneObjectsArray(DrawObject[] drawObjects) {
 		DrawObject[] newDrawObjects=new DrawObject[drawObjects.length];
 		
@@ -221,7 +208,7 @@ public class DrawObject {
 		return newDrawObjects;
 	}
 	
-
+	@Override
 	public String toString() {
 		
 		String rot=""+Math.round(rotation_angle*1000)/1000.0;

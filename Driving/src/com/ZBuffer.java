@@ -25,7 +25,7 @@ public class ZBuffer{
 		double[] p_z;
 		int[] hashCodes;
 		
-		public static int EMPTY_HASH_CODE=-1;
+		public static final int EMPTY_HASH_CODE=-1;
 		
 		/*public double[] pcf_values=null;*/
 		

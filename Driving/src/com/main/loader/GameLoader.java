@@ -23,11 +23,11 @@ public class GameLoader extends JDialog implements ActionListener{
 
 	private JPanel center;
 
-	public static Color BACKGROUND_COLOR=new Color(255,255,255);
+	public static final Color BACKGROUND_COLOR=new Color(255,255,255);
 
 	JButton[] mapRadios=null;
 
-	public static String DEFAULT_MAP="default";
+	public static final String DEFAULT_MAP="default";
 
 	int selectedIndex=0;
 	
@@ -121,7 +121,7 @@ public class GameLoader extends JDialog implements ActionListener{
 
 	}
 
-
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 
 		Object obj = arg0.getSource();
@@ -170,7 +170,7 @@ public class GameLoader extends JDialog implements ActionListener{
 	}
 
 
-	public String[] quotes={
+	public static final String[] quotes={
 
 
 			"Choose you world...",

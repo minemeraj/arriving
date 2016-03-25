@@ -4,7 +4,7 @@ public class Rib {
 
 	
 	public Point4D[] points=null;
-	public int index=0;
+	private int index=0;
 	
 	public Rib(int size){
 		points=new Point4D[size];

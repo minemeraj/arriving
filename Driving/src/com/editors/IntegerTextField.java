@@ -20,13 +20,13 @@ public class IntegerTextField extends JTextField{
 	public IntegerTextField() {
 			super();
 		}
-	
+	@Override
 	protected Document createDefaultModel() {
 		return new IntegerDocument();
 	}
 	
 	static class IntegerDocument extends PlainDocument {
-		
+		@Override
 		public void insertString(int offs, String str, AttributeSet a) 
 		throws BadLocationException {
 			

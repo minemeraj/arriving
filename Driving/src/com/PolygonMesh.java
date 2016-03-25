@@ -4,11 +4,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.Collections;
 import java.util.Hashtable;
-import java.util.Stack;
-import java.util.StringTokenizer;
 import java.util.Vector;
 
-import com.main.Renderer3D;
 import com.main.Road;
 
 public class PolygonMesh implements Cloneable{
@@ -145,7 +142,7 @@ public class PolygonMesh implements Cloneable{
 		 
 		int size=ld.size();
 		Polygon3D pol=new Polygon3D(size);
-		pol.setHasWater(ld.isHasWater());
+		pol.setIsFilledWithWater(ld.isFilledWithWater());
 		
 		for(int i=0;i<size;i++){
 			int index=ld.getIndex(i);
@@ -187,7 +184,7 @@ public class PolygonMesh implements Cloneable{
 				pol.zpoints[i]=(int) pm.points[index].z;
 			} 
 			pol.setLevel(pm.getLevel());
-			pol.setHasWater(ld.isHasWater());
+			pol.setIsFilledWithWater(ld.isFilledWithWater());
 			pols.add(pol);
 		}
 		return pols;

@@ -1222,13 +1222,13 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
 
-			int y=convertY(dro.x,dro.y,dro.z);
-			int x=convertX(dro.x,dro.y,dro.z);
+			int y=convertY(dro.getX(),dro.getY(),dro.getZ());
+			int x=convertX(dro.getX(),dro.getY(),dro.getZ());
 
 			int index=dro.getIndex();
 
-			int dw=(int) (dro.dx/dx);
-			int dh=(int) (dro.dy/dy);
+			int dw=(int) (dro.getDx()/dx);
+			int dh=(int) (dro.getDy()/dy);
 
 			
 			if(!totalVisibleField.intersects(new Rectangle(x,y-dh,dw,dh))){
@@ -1353,19 +1353,19 @@ public class AutocarEditor extends Editor implements MouseListener,
 		if(!DrawObject.IS_3D)
 			versus=-1;
 
-		cx[0]=convertX(dro.x,dro.y,dro.z);
-		cy[0]=convertY(dro.x,dro.y,dro.z);
-		cx[1]=convertX(dro.x,dro.y,dro.z);
-		cy[1]=convertY(dro.x,dro.y+versus*dro.dy,dro.z);
-		cx[2]=convertX(dro.x+dro.dx,dro.y,dro.z);
-		cy[2]=convertY(dro.x,dro.y+versus*dro.dy,dro.z);
-		cx[3]=convertX(dro.x+dro.dx,dro.y,dro.z);
-		cy[3]=convertY(dro.x,dro.y,dro.z);
+		cx[0]=convertX(dro.getX(),dro.getY(),dro.getZ());
+		cy[0]=convertY(dro.getX(),dro.getY(),dro.getZ());
+		cx[1]=convertX(dro.getX(),dro.getY(),dro.getZ());
+		cy[1]=convertY(dro.getX(),dro.getY()+versus*dro.getDy(),dro.getZ());
+		cx[2]=convertX(dro.getX()+dro.getDx(),dro.getY(),dro.getZ());
+		cy[2]=convertY(dro.getX(),dro.getY()+versus*dro.getDy(),dro.getZ());
+		cx[3]=convertX(dro.getX()+dro.getDx(),dro.getY(),dro.getZ());
+		cy[3]=convertY(dro.getX(),dro.getY(),dro.getZ());
 
 		Polygon p_in=new Polygon(cx,cy,4);
 		
 		Point3D center=Polygon3D.findCentroid(p_in);
-		Polygon3D.rotate(p_in,center,dro.rotation_angle);
+		Polygon3D.rotate(p_in,center,dro.getRotation_angle());
 	
 
 		Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));

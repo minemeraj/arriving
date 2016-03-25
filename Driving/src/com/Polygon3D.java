@@ -5,7 +5,6 @@ import java.awt.geom.Area;
 import java.awt.geom.Line2D;
 import java.awt.geom.PathIterator;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Vector;
 
 
@@ -30,7 +29,7 @@ public class Polygon3D  extends Polygon{
 	
 	public String data=null;
 	
-	public boolean hasWater=false;
+	private boolean isFilledWithWater=false;
 
 	
 	public Polygon3D(int npoints, int[] xpoints, int[] ypoints, int[] zpoints,int[] xtpoints, int[] ytpoints) {
@@ -171,7 +170,7 @@ public class Polygon3D  extends Polygon{
 		addPoint(x,  y, z,0,0);
 		
 	}
-	
+	@Override
 	public Polygon3D clone(){
 
 		return buildTranslatedPolygon(0,0,0);
@@ -221,7 +220,7 @@ public class Polygon3D  extends Polygon{
 
 			triangle.setLevel(pol.getLevel());
 			
-			triangle.setHasWater(pol.isHasWater());
+			triangle.setIsFilledWithWater(pol.isFilledWithWater());
 			
 			triangles[i-1]=triangle;
 			
@@ -251,7 +250,7 @@ public class Polygon3D  extends Polygon{
 		}
 
 		Polygon3D new_pol = new Polygon3D(numAngles,xpoints,ypoints,zpoints);
-		new_pol.setHasWater(pol.isHasWater());
+		new_pol.setIsFilledWithWater(pol.isFilledWithWater());
 		new_pol.setLevel(pol.getLevel());
 		new_pol.setHexColor(pol.getHexColor());
 		return new_pol;
@@ -316,7 +315,7 @@ public class Polygon3D  extends Polygon{
 		}
 
 	}
-
+	@Override
 	public String toString() {
 		StringBuffer sb=new StringBuffer();
 
@@ -568,9 +567,6 @@ public class Polygon3D  extends Polygon{
 
 		Line2D.Double line1=new Line2D.Double(x2,y2,x1,y1);
 		Line2D.Double line2=new Line2D.Double(p2.x,p2.y,p1.x,p1.y);
-
-		//if(!line1.intersectsLine(line2))
-		//	return null;
 
 		Point insersection=new Point();
 
@@ -1000,12 +996,12 @@ public class Polygon3D  extends Polygon{
 		this.level = level;
 	}
 
-	public boolean isHasWater() {
-		return hasWater;
+	public boolean isFilledWithWater() {
+		return isFilledWithWater;
 	}
 
-	public void setHasWater(boolean hasWater) {
-		this.hasWater = hasWater;
+	public void setIsFilledWithWater(boolean hasWater) {
+		this.isFilledWithWater = hasWater;
 	}
 
 }

@@ -660,7 +660,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 				//System.out.println(x+" "+y+" "+tot);    	
 				
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.hasWater),level,tot,hashCode);
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.isFilledWithWater()),level,tot,hashCode);
 				
 				
 			}
@@ -751,7 +751,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 
 			
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.hasWater),level,tot,p3d.hashCode());
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.isFilledWithWater()),level,tot,p3d.hashCode());
 				
 			}
 
@@ -960,6 +960,9 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
     					if(vp.getId().equals(""+ld.getTexture_index())) 
     						editor.chooseTexture[editor.ACTIVE_PANEL].setSelectedItem(vp);
     				}
+    				
+    				editor.fillWithWater[editor.ACTIVE_PANEL].setSelected(ld.isFilledWithWater());
+    				
     			}				
 
     			ret.add(ld);
@@ -1154,7 +1157,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		p3dr.setHexColor(ld.getHexColor());
 		p3dr.setIndex(ld.getTexture_index());
 		p3dr.setLevel(level);
-		p3dr.setHasWater(ld.isHasWater());
+		p3dr.setIsFilledWithWater(ld.isFilledWithWater());
 		return p3dr;
 
 	}

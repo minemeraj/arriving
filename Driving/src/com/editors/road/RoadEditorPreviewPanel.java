@@ -44,8 +44,8 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 	public static final int NUM_WORLD_TEXTURES = 12;
 	public static Texture[] worldTextures;	
 	
-	public static CubicMesh[] objectMeshes=null;
-	public static Texture[] objectTextures=null;
+	protected static CubicMesh[] objectMeshes=null;
+	protected static Texture[] objectTextures=null;
 	
 	public int NX=2;
 	public int NY=80;
@@ -69,7 +69,7 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 		this.roadEditor=roadEditor;
 	
 		this.meshes=roadEditor.meshes;		
-		this.drawObjects=roadEditor.drawObjects;
+		this.drawObjects=roadEditor.getDrawObjects();
 			
 		this.roadEditor=roadEditor;
 		roadEditor.addPropertyChangeListener(this);
@@ -80,7 +80,7 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 		initialize();
 	}
 	
-
+	@Override
 	public void initialize() {
 
 		super.initialize();
@@ -109,7 +109,7 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 
 
 
-
+	@Override
 	public void draw() {
 		
 				
@@ -372,7 +372,7 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 	
 	
 	}
-
+	@Override
 	public void keyPressed(KeyEvent arg0) {
 
 		
@@ -456,12 +456,12 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 		Polygon3D p3dr=new Polygon3D(size,cxr,cyr,czr,cxtr,cytr);
 		p3dr.setHexColor(ld.getHexColor());
 		p3dr.setIndex(ld.getTexture_index());
-		p3dr.setHasWater(ld.isHasWater());
+		p3dr.setIsFilledWithWater(ld.isFilledWithWater());
 		return p3dr;
 
 	}
 
-
+	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		//System.out.println(evt.getPropertyName());
 		if("RoadEditorUndo".equals(evt.getPropertyName()) 
@@ -480,7 +480,7 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 	}
 
 
-	
+	@Override
 	public void mouseWheelMoved(MouseWheelEvent arg0) {
 		
 		int pix=arg0.getUnitsToScroll();

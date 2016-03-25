@@ -92,7 +92,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 	//private JPanel center;
-	int HEIGHT=580;
+	int HEIGHT=600;
 	int WIDTH=900;
 	int LEFT_BORDER=240;
 	int BOTTOM_BORDER=100;
@@ -107,7 +107,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	int deltay=200;
 	int deltax=200;
 
-	public Vector drawObjects=new Vector();
+	private Vector drawObjects=new Vector();
 	//Graphics2D g2;
 	//Graphics2D g2Alias;
 	Stack oldObjects=new Stack();
@@ -137,6 +137,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton[] choosePrevTexture;
 	private JButton[] deselectAll;
 	private JLabel[] textureLabel;
+	public JCheckBox[] fillWithWater;
 	
 	private DoubleTextField[] roadMove;
 	private JButton[] moveRoadUp;
@@ -377,6 +378,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		deselectAll=new JButton[numPanels];
 		textureLabel=new JLabel[numPanels];
+		fillWithWater=new JCheckBox[numPanels];
 		
 		roadMove=new DoubleTextField[numPanels];
 		moveRoadUp=new JButton[numPanels];
@@ -1176,8 +1178,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 
 		r+=30;
+		
+		fillWithWater[index]=new JCheckBox("Water");
+		fillWithWater[index].addKeyListener(this);
+		fillWithWater[index].setFocusable(false);
+		fillWithWater[index].setBounds(5,r,150,20);
+		panel.add(fillWithWater[index]);
 
-	
+		r+=30;
 
 		deselectAll[index]=new JButton(header+"D<u>e</u>select all"+footer);
 		deselectAll[index].addActionListener(this);
@@ -1506,11 +1514,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		for(int k=0;k<chooseObject.getItemCount();k++){
 
 			ValuePair vp=(ValuePair) chooseObject.getItemAt(k);
-			if(vp.getId().equals(""+dro.index) )
+			if(vp.getId().equals(""+dro.getIndex()) )
 				chooseObject.setSelectedItem(vp);
 		}
 
-		rotation_angle.setText(dro.rotation_angle);
+		rotation_angle.setText(dro.getRotation_angle());
 		
 	}
 	
@@ -1987,12 +1995,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		DrawObject dro=new DrawObject();
 		dro.setIndex(index);
-		dro.x=x;
-		dro.y=y;
-		dro.z=z;
-		dro.dx=dx;
-		dro.dy=dy;
-		dro.dz=dz;
+		dro.setX(x);
+		dro.setY(y);
+		dro.setZ(z);
+		dro.setDx(dx);
+		dro.setDy(dy);
+		dro.setDz(dz);
 		dro.setHexColor("FFFFFF");
 		dro.setRotation_angle(rot_angle);
 
@@ -2000,7 +2008,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		if(vp!=null && !vp.getValue().equals("")){
 			
 			
-			dro.index=Integer.parseInt(vp.getId());
+			dro.setIndex(Integer.parseInt(vp.getId()));
 		
 		
 		}	
@@ -2024,16 +2032,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		Point3D point = cm.point000;
 
-		double dx=-point.x+dro.x;
-		double dy=-point.y+dro.y;
-		double dz=-point.z+dro.z;
+		double dx=-point.x+dro.getX();
+		double dy=-point.y+dro.getY();
+		double dz=-point.z+dro.getZ();
 
 		cm.translate(dx,dy,dz);			
 
 		center=cm.findCentroid();
 
-		if(dro.rotation_angle!=0)
-			cm.rotate(center.x,center.y,Math.cos(dro.rotation_angle),Math.sin(dro.rotation_angle));
+		if(dro.getRotation_angle()!=0)
+			cm.rotate(center.x,center.y,Math.cos(dro.getRotation_angle()),Math.sin(dro.getRotation_angle()));
 
 
 		dro.setMesh(cm);
@@ -2215,7 +2223,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		str+="T"+ld.texture_index;
 		str+=" C"+ld.getHexColor();
-		str+=" W"+(ld.isHasWater()?1:0);
+		str+=" W"+(ld.isFilledWithWater()?1:0);
 
 		for(int j=0;j<ld.size();j++){
 			
@@ -2300,16 +2308,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				Point3D point = cm.point000;
 				
 				
-				double dx=-point.x+dro.x;
-				double dy=-point.y+dro.y;
-				double dz=-point.z+dro.z;
+				double dx=-point.x+dro.getX();
+				double dy=-point.y+dro.getY();
+				double dz=-point.z+dro.getZ();
 				
 				cm.translate(dx,dy,dz);
 				
 				Point3D center=cm.findCentroid();
 				
-				if(dro.rotation_angle!=0)
-					cm.rotate(center.x,center.y,Math.cos(dro.rotation_angle),Math.sin(dro.rotation_angle));
+				if(dro.getRotation_angle()!=0)
+					cm.rotate(center.x,center.y,Math.cos(dro.getRotation_angle()),Math.sin(dro.getRotation_angle()));
 			
 				
 				dro.setMesh(cm);
@@ -2333,20 +2341,20 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		StringTokenizer tok0=new StringTokenizer(properties0," "); 
 		
-		dro.x=Double.parseDouble(tok0.nextToken());
-		dro.y=Double.parseDouble(tok0.nextToken());
-		dro.z=Double.parseDouble(tok0.nextToken());
-		dro.index=Integer.parseInt(tok0.nextToken());
+		dro.setX(Double.parseDouble(tok0.nextToken()));
+		dro.setY(Double.parseDouble(tok0.nextToken()));
+		dro.setZ(Double.parseDouble(tok0.nextToken()));
+		dro.setIndex(Integer.parseInt(tok0.nextToken()));
 		
-		dro.dx=objectMeshes[dro.index].getDeltaX2()-objectMeshes[dro.index].getDeltaX();
-		dro.dy=objectMeshes[dro.index].getDeltaY2()-objectMeshes[dro.index].getDeltaY();
-		dro.dz=objectMeshes[dro.index].getDeltaX();
+		dro.setDx(objectMeshes[dro.getIndex()].getDeltaX2()-objectMeshes[dro.getIndex()].getDeltaX());
+		dro.setDy(objectMeshes[dro.getIndex()].getDeltaY2()-objectMeshes[dro.getIndex()].getDeltaY());
+		dro.setDz(objectMeshes[dro.getIndex()].getDeltaX());
 		
 	
 		
 		StringTokenizer tok1=new StringTokenizer(properties1," "); 
-		dro.rotation_angle=Double.parseDouble(tok1.nextToken());
-		dro.hexColor=tok1.nextToken();
+		dro.setRotation_angle(Double.parseDouble(tok1.nextToken()));
+		dro.setHexColor(tok1.nextToken());
 		return dro;
 	}
 
@@ -3606,6 +3614,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				ld.setTexture_index(Integer.parseInt(vp.getId()));
 			
 	    	}
+	    	
+	    	ld.setFilledWithWater(fillWithWater[ACTIVE_PANEL].isSelected());
 
 		}
 		
@@ -4221,6 +4231,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		startPosition=new Point3D(startX.getvalue(),startY.getvalue(),0);
 		draw();
 		
+	}
+
+	public Vector getDrawObjects() {
+		return drawObjects;
 	}
 
 }

@@ -3,8 +3,6 @@ package com.editors.autocars;
 
 public class AutocarData {
 
-	//public LinkedList linkedList = new LinkedList();
-
 	public int car_width = 0;
 	public int car_length = 0;
 	public int car_type = 0;
@@ -15,10 +13,11 @@ public class AutocarData {
 	public double fi = 0;
 	public double steering = 0;
 	
-	public static int AUTOLINE_PARKED=-1;
+	public static final int AUTOLINE_PARKED=-1;
 	
 	public int autoline_index=AUTOLINE_PARKED;
 	
+	@Override
 	public AutocarData clone(){
 		
 		AutocarData ac=new AutocarData();

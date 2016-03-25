@@ -66,13 +66,13 @@ public class CustomEditor extends Editor implements  MouseWheelListener,KeyListe
 	public void initialize() {
 		
 	}
-	
+	@Override
 	public void preview() {}
-	
+
 	public void generate() {}
-	
+	@Override
 	public void undo() {}	
-	
+	@Override
 	public void prepareUndo() {}
 	
 	public void saveData() {
@@ -249,7 +249,7 @@ public class CustomEditor extends Editor implements  MouseWheelListener,KeyListe
 	public void saveMesh(File file) {
 			
 	}
-
+	@Override
 	public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCustom) {
 		
 		if(isCustom){

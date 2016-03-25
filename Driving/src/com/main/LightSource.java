@@ -30,7 +30,7 @@ public class LightSource {
 		this.position = position;
 	}
 
-
+	@Override
 	protected Object clone() throws CloneNotSupportedException {
 	
 		LightSource ls=new LightSource();

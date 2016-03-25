@@ -20,9 +20,9 @@ public class LineData implements Cloneable{
 		public int texture_index=0;
 		public String hexColor=GREEN_HEX;	
 		
-		public static String GREEN_HEX="00FF00";
+		public static final String GREEN_HEX="00FF00";
 		
-		boolean hasWater=false;
+		boolean fillWithWater=false;
 
 		public int size(){
 
@@ -81,6 +81,7 @@ public class LineData implements Cloneable{
 			ldv.setVertex_index(n);
 		}
 		
+		@Override
 		public String toString() {
 			
 			return decomposeLineData(this);
@@ -138,7 +139,7 @@ public class LineData implements Cloneable{
 			this.isSelected = isSelected;
 		} 
 		
-
+		@Override
 		public LineData clone() {
 		
 			LineData ldnew=new LineData();
@@ -313,12 +314,12 @@ public class LineData implements Cloneable{
 			
 		}
 
-		public boolean isHasWater() {
-			return hasWater;
+		public boolean isFilledWithWater() {
+			return fillWithWater;
 		}
 
-		public void setHasWater(boolean hasWater) {
-			this.hasWater = hasWater;
+		public void setFilledWithWater(boolean hasWater) {
+			this.fillWithWater = hasWater;
 		}
 
 

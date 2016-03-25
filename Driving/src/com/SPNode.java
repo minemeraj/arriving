@@ -91,20 +91,20 @@ public class SPNode extends Point4D implements TreeNode{
 		
 	}
 
-
+	@Override
 	public Enumeration children() {
 		if(children==null)
 			return null;
 		return children.elements();
 	}
 
-
+	@Override
 	public boolean getAllowsChildren() {
 		// TODO Auto-generated method stub
 		return children!=null;
 	}
 
-
+	@Override
 	public SPNode getChildAt(int i) {
 		if(children==null)
 			return null;
@@ -115,19 +115,19 @@ public class SPNode extends Point4D implements TreeNode{
 		return (SPNode) children.elementAt(i);
 	}
 
-	
+	@Override
 	public int getChildCount() {
 		if(children==null)
 			return 0;
 		return children.size();
 	}
-
+	@Override
 	public SPNode getParent() {
 		// TODO Auto-generated method stub
 		return parent;
 	}
 
-	
+	@Override
 	public boolean isLeaf() {
 		return children==null || children.size()==0;
 	}

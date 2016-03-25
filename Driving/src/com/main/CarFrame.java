@@ -6,15 +6,11 @@ package com.main;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.Properties;
@@ -33,7 +29,7 @@ import com.main.loader.GameLoader;
 import com.sound.AdvancedGameSound;
 import com.sound.GameSound;
 
-public class CarFrame extends JFrame implements KeyListener,ActionListener {
+public class CarFrame extends JFrame implements KeyListener {
 
 	
 
@@ -107,7 +103,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
     public boolean isProgramPaused=true;
 	
 	public String map_name=GameLoader.DEFAULT_MAP;
-	public GameLoader gameLoader=null;
+	private GameLoader gameLoader=null;
 	
 	public boolean skipShading=false;
 	
@@ -274,6 +270,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 	/* (non-Javadoc)
 	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
 	 */
+	@Override
 	public void keyTyped(KeyEvent arg0) {
 		
 	
@@ -283,9 +280,9 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 	/* (non-Javadoc)
 	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
 	 */
+	@Override
 	public void keyPressed(KeyEvent arg0)  {
-		char press=arg0.getKeyChar();
-
+	
 		int code=arg0.getKeyCode();
 
 		if(code==KeyEvent.VK_R) 
@@ -400,19 +397,6 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 			System.exit(0);
 		}
 	}
-
-	private Image loadImage(String string) throws IOException {
-		
-		boolean exists = (new File(string)).exists();
-		if(exists){
-			Image img=ImageIO.read(new File(string)); 
-			img=Transparency.makeColorTransparent(img,Color.WHITE);
-			return img;
-		}
-		return null;
-	}
-
-
 	
 	/*private void calculateSpeed(){
 		
@@ -519,7 +503,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 		
 	}
 
-
+	@Override
 	public void keyReleased(KeyEvent arg0) {
 		
 		
@@ -551,12 +535,6 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 
 	}
 
-
-	public void actionPerformed(ActionEvent arg0) {
-		Object o=arg0.getSource();
-		
-	}
-
 	public void reset(){
 		
 		isProgramPaused=true;
@@ -585,7 +563,7 @@ public class CarFrame extends JFrame implements KeyListener,ActionListener {
 	
 	
 	
-	
+	@Override
 	public void paint(Graphics g) {
 		
 		super.paint(g);

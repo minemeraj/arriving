@@ -226,7 +226,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 		
 
 	}
-
+	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
 		displayAll();
@@ -604,7 +604,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 		pointList.addMouseListener(new MouseAdapter(){
 			
-			
+			@Override
 			public void mouseClicked(MouseEvent e){
 
 				int index=pointList.getSelectedIndex();
@@ -633,7 +633,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 		
 		lineList.addMouseListener(new MouseAdapter(){
 			
-			
+			@Override
 			public void mouseClicked(MouseEvent e){
 
 				int index=lineList.getSelectedIndex();
@@ -665,7 +665,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 
 	}
-
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		Object o=arg0.getSource();
 
@@ -1205,22 +1205,22 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 		
 
 	}
-
+	@Override
 	public void menuCanceled(MenuEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
-
+	@Override
 	public void menuDeselected(MenuEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
-
+	@Override
 	public void menuSelected(MenuEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
-
+	@Override
 	public void mouseClicked(MouseEvent arg0) {
 
 		int buttonNum=arg0.getButton();
@@ -1233,27 +1233,27 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 		displayAll();
 
 	}
-
+	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
-
+	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
-
+	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
-
+	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
-
+	@Override
 	public void mouseWheelMoved(MouseWheelEvent arg0) {
 
 		int pix=arg0.getUnitsToScroll();
@@ -1261,11 +1261,11 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 		else down();
 
 	}
-
+	@Override
 	public void mouseDragged(MouseEvent arg0) {
 
 	}
-
+	@Override
 	public void mouseMoved(MouseEvent e) {
 
 		Point p=e.getPoint();
@@ -1288,7 +1288,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 		
 
 	}
-
+	@Override
 	public void keyPressed(KeyEvent arg0) {
 
 		int code =arg0.getKeyCode();
@@ -1410,17 +1410,17 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 		displayAll();
 		
 	}
-
+	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
-
+	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
-
+	@Override
 	public void itemStateChanged(ItemEvent arg0) {
 		// TODO Auto-generated method stub
 
@@ -1445,7 +1445,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 			return ((Integer)lineDatas.elementAt(i)).intValue();
 		}
 		
-		
+		@Override
 		public String toString() {
 			
 			return decomposeLineData(this);
@@ -1473,7 +1473,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 			this.p = p;
 		}
 		
-	
+		@Override
 		public String toString() {
 			
 			return df.format(p.x)+","+df.format(p.y)+","+df.format(p.z);

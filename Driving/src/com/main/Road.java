@@ -59,7 +59,7 @@ public class Road extends Shader{
 	int dy=3000/NYVISIBLE;//600 orig
 
 	int ROAD_LENGHT=600;
-	public static int ROAD_THICKNESS=22;
+	public static final int ROAD_THICKNESS=22;
 
 	int CAR_WIDTH=100;
 	int CAR_LENGTH=100;
@@ -74,16 +74,14 @@ public class Road extends Shader{
 	public static int CAMERA_TYPE=EXTERNAL_CAMERA;
 	
 		
-	int TILE_SIDE=4;
+
 	CarData[] carData=null;
 	ShadowVolume[] carShadowVolume=null;
 		
-	public PolygonMesh[] meshes=new PolygonMesh[2];
+	PolygonMesh[] meshes=new PolygonMesh[2];
 	
-	public PolygonMesh[] oldMeshes=new PolygonMesh[2];
-	
-   
-	//public static String[] hexRoadColors={"888888","888888","888888","CCCCCC"};
+	PolygonMesh[] oldMeshes=new PolygonMesh[2];
+
 	DrawObject[] drawObjects=null;
 	DrawObject[]  oldDrawObjects=null;
 	
@@ -92,8 +90,8 @@ public class Road extends Shader{
 	boolean start=true;
 
 	public static boolean steer=false;
-	public static double SPACE_SCALE_FACTOR=60.0;
-	public static double SPEED_SCALE=1.0/1.13;
+	public static final double SPACE_SCALE_FACTOR=60.0;
+	public static final double SPEED_SCALE=1.0/1.13;
 
 	
 	int whiteRGB=Color.WHITE.getRGB();
@@ -107,7 +105,7 @@ public class Road extends Shader{
 	int start_car_x=WIDTH/2-XFOCUS;
 	int start_car_y=y_edge;
 	
-	public static Autocar[] autocars=null;
+	protected static Autocar[] autocars=null;
     double pi_2=Math.PI/2.0;
     double i_2pi=1.0/(Math.PI*2.0);
     
@@ -127,20 +125,20 @@ public class Road extends Shader{
     
     ShadowVolume[] autocarShadowVolume=null;
     
-	public CarDynamics carDynamics=null;	
-	public CarFrame carFrame=null;
+	private CarDynamics carDynamics=null;	
+	private CarFrame carFrame=null;
 	
 	public static double WATER_LEVEL=0;
 	
-	public Vector splines=null;
+	private Vector splines=null;
 	
 	public static final int ROAD_INDEX0 =0;
 	public static final int ROAD_INDEX1 =1;
 	
 	public static final int EMPTY_LEVEL = -1;	
-	public static int GROUND_LEVEL=0;
-	public static int ROAD_LEVEL=1;
-	public static int OBJECT_LEVEL=2;
+	public static final int GROUND_LEVEL=0;
+	public static final int ROAD_LEVEL=1;
+	public static final int OBJECT_LEVEL=2;
 
 
 	public Road(int WITDH,int HEIGHT, CarFrame carFrame){
@@ -185,8 +183,8 @@ public class Road extends Shader{
 			loadObjectsFromFile(file);	
 			
 			Point3D startPosition = Editor.loadStartPosition(file);
-			POSX=(int) startPosition.x;
-			POSY=(int) startPosition.y;
+			POSX=(int) startPosition.x-WIDTH/2-CAR_WIDTH/2;
+			POSY=(int) startPosition.y-y_edge;
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -241,6 +239,7 @@ public class Road extends Shader{
 	 * Unused method
 	 * 
 	 */
+	@Override
 	public void calculateShadowMap() {
 
 		isShadowMap=true;
@@ -788,7 +787,7 @@ public class Road extends Shader{
 		}
 	}
 
-
+	@Override
 	public void calculateStencilBuffer() {
 
 		super.calculateStencilBuffer();
@@ -1297,7 +1296,7 @@ public class Road extends Shader{
 		
 		str+="T"+ld.texture_index;
 		str+=" C"+ld.getHexColor();
-		str+=" W"+(ld.isHasWater()?1:0);
+		str+=" W"+(ld.isFilledWithWater()?1:0);
 		
 		int size=ld.size();
 
@@ -1325,7 +1324,7 @@ public class Road extends Shader{
 			ld.texture_index=Integer.parseInt(vals[0].substring(1));
 			
 			ld.hexColor=vals[1].substring(1);
-			ld.setHasWater("W1".equals(vals[2]));
+			ld.setFilledWithWater("W1".equals(vals[2]));
 			
 			for(int i=3;i<vals.length;i++){
 
@@ -1479,7 +1478,7 @@ public class Road extends Shader{
 				
 				DrawObject dro=buildDrawObject(str);
 				
-				buildRectanglePolygons(dro.getPolygons(),dro.x,dro.y,dro.z,dro.dx,dro.dy,dro.dz);
+				buildRectanglePolygons(dro.getPolygons(),dro.getX(),dro.getY(),dro.getZ(),dro.getDx(),dro.getDy(),dro.getDz());
 								
 				vdrawObjects.add(dro);
 				
@@ -1487,16 +1486,16 @@ public class Road extends Shader{
 				
 				Point3D point = cm.point000;
 				
-				double dx=-point.x+dro.x;
-				double dy=-point.y+dro.y;
-				double dz=-point.z+dro.z;
+				double dx=-point.x+dro.getX();
+				double dy=-point.y+dro.getY();
+				double dz=-point.z+dro.getZ();
 				
 				cm.translate(dx,dy,dz);
 				
 				Point3D center=cm.findCentroid();
 				
-				if(dro.rotation_angle!=0)
-					cm.rotate(center.x,center.y,Math.cos(dro.rotation_angle),Math.sin(dro.rotation_angle));
+				if(dro.getRotation_angle()!=0)
+					cm.rotate(center.x,center.y,Math.cos(dro.getRotation_angle()),Math.sin(dro.getRotation_angle()));
 				
 				dro.setMesh(cm);
 				
@@ -1571,16 +1570,16 @@ public class Road extends Shader{
 		StringTokenizer tok0=new StringTokenizer(properties0," "); 
 		
 		//translate world in the point (XFOCUS,SCREEN_DISTANCE,YFOCUS)
-		dro.x=Double.parseDouble(tok0.nextToken())-XFOCUS;
-		dro.y=Double.parseDouble(tok0.nextToken())+SCREEN_DISTANCE;
-		dro.z=Double.parseDouble(tok0.nextToken())-YFOCUS;
+		dro.setX(Double.parseDouble(tok0.nextToken())-XFOCUS);
+		dro.setY(Double.parseDouble(tok0.nextToken())+SCREEN_DISTANCE);
+		dro.setZ(Double.parseDouble(tok0.nextToken())-YFOCUS);
 		
-		dro.index=Integer.parseInt(tok0.nextToken());
+		dro.setIndex(Integer.parseInt(tok0.nextToken()));
 		
 		
 		StringTokenizer tok1=new StringTokenizer(properties1," "); 
-		dro.rotation_angle=Double.parseDouble(tok1.nextToken());
-		dro.hexColor=tok1.nextToken();
+		dro.setRotation_angle(Double.parseDouble(tok1.nextToken()));
+		dro.setHexColor(tok1.nextToken());
 		dro.calculateBase();
 		
 		return dro;
@@ -1664,7 +1663,7 @@ public class Road extends Shader{
 		
 	}
 
-	private void drawAutocars(Autocar[] autocars, Area totalVisibleField2,
+	private void drawAutocars(Autocar[] autocars, Area totalVisibleField,
 			ZBuffer roadZbuffer) {		
 	
 		
@@ -1885,7 +1884,7 @@ public class Road extends Shader{
 		    	Polygon3D objBorder= dro.getBorder().clone();
 
 		    	Point3D center=Polygon3D.findCentroid(objBorder);
-				Polygon3D.rotate(objBorder,center,dro.rotation_angle);
+				Polygon3D.rotate(objBorder,center,dro.getRotation_angle());
 				
 				if(getIntersection(objBorder,CAR_BORDER)!=null){
 					//carDynamics.stop();

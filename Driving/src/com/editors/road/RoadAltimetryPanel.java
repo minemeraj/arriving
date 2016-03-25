@@ -233,9 +233,6 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 		r+=30;
 		slopeMode.setBounds(10,r,150,20);
 		right.add(slopeMode);	
-		//slopeMode.setSelected(true);
-
-
 
 		r+=30;
 		slopeModeType=new JComboBox();
@@ -363,7 +360,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 		setJMenuBar(jmb);
 	}
-
+	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
 		drawRoad();
@@ -508,7 +505,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 		prepareUndo();
 
 		String speak=peak.getText();
-		if(speak.equals(""))
+		if("".equals(speak))
 			return;
 
 		double altitude=Double.parseDouble(speak);
@@ -759,7 +756,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 	}
 
-
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 
 		Object o=arg0.getSource();
@@ -800,7 +797,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 	}
 
-
+	@Override
 	public void keyPressed(KeyEvent arg0) {
 
 
@@ -857,7 +854,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 	}
 
-
+	@Override
 	public void mouseWheelMoved(MouseWheelEvent arg0) {
 		int pix=arg0.getUnitsToScroll();
 		if(pix>0) up();
@@ -972,7 +969,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 
 	}
-
+	@Override
 	public void mouseDragged(MouseEvent e) {
 		updateSize(e);
 
@@ -984,7 +981,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 
 	}
-
+	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		updateSize(arg0);
 		selectPointsWithRectangle();
@@ -1001,10 +998,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 		int y0=Math.min(currentRect.y,currentRect.y+currentRect.height);
 		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
 
-		//select point from road
-		boolean found=false;
-		
-
+	
 		for(int j=0;j<mesh.points.length;j++){
 
 
@@ -1017,7 +1011,6 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 			if(xo>=x0 && xo<=x1 && yo>=y0 && yo<=y1  ){
 
 				p.setSelected(true);
-				found=true;
 
 
 			}
@@ -1087,7 +1080,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 
 
-
+	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {		
 
 		if("paintDirtyRegions".equals(arg0.getPropertyName()) && redrawAfterMenu)
@@ -1107,16 +1100,17 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 	}
 
+	@Override
 	public void menuCanceled(MenuEvent e) {
 		// TODO Auto-generated method stub
 
 	}
-
+	@Override
 	public void menuDeselected(MenuEvent e) {
 		redrawAfterMenu=true;
 
 	}
-
+	@Override
 	public void menuSelected(MenuEvent e) {
 		redrawAfterMenu=false;	
 
@@ -1140,7 +1134,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 		public Bounds() {
 			// TODO Auto-generated constructor stub
 		}
-
+		@Override
 		public String toString() {
 			String str="\nmaxX="+maxX+
 					"\nminX="+minX+

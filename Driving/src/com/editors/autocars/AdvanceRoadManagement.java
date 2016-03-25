@@ -182,6 +182,7 @@ public class AdvanceRoadManagement extends JDialog implements ActionListener {
 
 		JTable table=new JTable(){
 			
+			@Override
 			public boolean isCellEditable(int row, int column) {
 				return column>0;
 			}
@@ -190,7 +191,7 @@ public class AdvanceRoadManagement extends JDialog implements ActionListener {
 			
 			
 		};
-		//table.setRowSelectionAllowed(false);
+
 		table.addMouseListener(
 				
 				
@@ -273,7 +274,6 @@ public class AdvanceRoadManagement extends JDialog implements ActionListener {
 		DoubleCellEditor ce=new DoubleCellEditor();	
 	
 	
-		//table.setDefaultEditor(Double.class,ce);
 		table.getColumnModel().getColumn(1).setCellRenderer(cr);
 		table.getColumnModel().getColumn(1).setCellEditor(ce);
 		
@@ -339,7 +339,7 @@ public class AdvanceRoadManagement extends JDialog implements ActionListener {
 			
 		}
 
-
+		@Override
 		public Component getTableCellRendererComponent(JTable table, Object value,
 				boolean isSelected, boolean hasFocus, int row, int column) {
 
@@ -387,16 +387,6 @@ public class AdvanceRoadManagement extends JDialog implements ActionListener {
 	        }
 		
 	}
-	
-
-
-	
-	/*protected void processWindowEvent(WindowEvent e) {
-		    super.processWindowEvent(e);
-		    if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-		      System.exit(0);
-		    }
-	 }*/
 	
 	private void deleteRow(int popup_row) {
 

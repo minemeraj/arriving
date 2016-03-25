@@ -97,7 +97,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 		bottom.add(usage);
 		add(bottom);
 	}
-	
+	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
 		draw();
@@ -111,7 +111,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 		graphics2D.drawImage(buf,0,0,WIDTH,HEIGHT,null);
 		
 	}
-
+	@Override
 	public void setVisible(boolean b) {
 		
 		super.setVisible(b);
@@ -132,14 +132,14 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 
 
 
-	
+	@Override
     public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer,int hashCode){
    	 
     	Point3D origin=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
     	decomposeClippedPolygonIntoZBuffer(p3d, color, texture,zbuffer,null,null,origin,0,0,hashCode);
 
     }
-
+	@Override
     public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer,
 			Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY,int hashCode){		
 
@@ -196,6 +196,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 	 * @param yDirection
 	 * @param origin 
 	 */
+	@Override
     public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int rgbColor,Texture texture,ZBuffer zbuffer,
     		Point3D xDirection, Point3D yDirection, Point3D origin,int deltaX,int deltaY,
     		BarycentricCoordinates bc,int hashCode
@@ -442,7 +443,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 		return clonePoints;
 	
 	}
-
+	@Override
 	public void buildNewZBuffers() {
 		
        
@@ -460,7 +461,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 	}
 
 	
-	
+	@Override
 	public void buildScreen(BufferedImage buf) {
 
 		 buf.getRaster().setDataElements( 0,0,WIDTH,HEIGHT,roadZbuffer.rgbColor); 
@@ -492,7 +493,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 			
 		}
 	}
-
+	@Override
 	public void keyPressed(KeyEvent arg0) {
 		
 		int code =arg0.getKeyCode();
@@ -529,19 +530,19 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 
 
 
-
+	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-
+	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-
+	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		
 	

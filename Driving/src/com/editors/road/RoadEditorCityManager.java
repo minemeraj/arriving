@@ -167,7 +167,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 	}
 
 
-
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 
 
@@ -472,9 +472,9 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 					    dro.setX(p.x+dpx);
 					    dro.setY(p.y+dpy);
 					    dro.setIndex(4);
-						dro.dx=objectMeshes[dro.index].getDeltaX2()-objectMeshes[dro.index].getDeltaX();
-						dro.dy=objectMeshes[dro.index].getDeltaY2()-objectMeshes[dro.index].getDeltaY();
-						dro.dz=objectMeshes[dro.index].getDeltaX();
+						dro.setDx(objectMeshes[dro.getIndex()].getDeltaX2()-objectMeshes[dro.getIndex()].getDeltaX());
+						dro.setDy(objectMeshes[dro.getIndex()].getDeltaY2()-objectMeshes[dro.getIndex()].getDeltaY());
+						dro.setDz(objectMeshes[dro.getIndex()].getDeltaX());
 					    dro.setHexColor("FFFFFF");
 					    drawObjects.add(dro);
 					    
@@ -483,16 +483,16 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 						
 						Point3D point = mesh.point000;
 						
-						double ddx=-point.x+dro.x;
-						double ddy=-point.y+dro.y;
-						double ddz=-point.z+dro.z;
+						double ddx=-point.x+dro.getX();
+						double ddy=-point.y+dro.getY();
+						double ddz=-point.z+dro.getZ();
 						
 						mesh.translate(ddx,ddy,ddz);
 						
 						Point3D center=mesh.findCentroid();
 						
-						if(dro.rotation_angle!=0)
-							mesh.rotate(center.x,center.y,Math.cos(dro.rotation_angle),Math.sin(dro.rotation_angle));
+						if(dro.getRotation_angle()!=0)
+							mesh.rotate(center.x,center.y,Math.cos(dro.getRotation_angle()),Math.sin(dro.getRotation_angle()));
 						
 						dro.setMesh(mesh);
 					

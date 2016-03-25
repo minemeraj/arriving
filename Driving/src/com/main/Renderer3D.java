@@ -1,7 +1,6 @@
 package com.main;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.awt.geom.PathIterator;
@@ -80,7 +79,7 @@ public class Renderer3D implements AbstractRenderer3D{
 	public double lightIntensity=1.0;
 
 
-
+	@Override
 	public void buildNewZBuffers() {
 
 		setViewDirection(0);
@@ -94,7 +93,7 @@ public class Renderer3D implements AbstractRenderer3D{
 	
 
 	}
-
+	@Override
 	public void buildScreen(BufferedImage buf) {
 
 		int length=roadZbuffer.getSize();
@@ -175,6 +174,7 @@ public class Renderer3D implements AbstractRenderer3D{
 	 * @param yDirection
 	 * @param origin 
 	 */
+	@Override
 	public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int rgbColor,Texture texture,ZBuffer zb, 
 			Point3D xDirection, Point3D yDirection, Point3D origin,int deltaX,int deltaY,
 			BarycentricCoordinates bc,int hashCode) {
@@ -358,7 +358,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 				//System.out.println(x+" "+y+" "+tot);    			
 
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.hasWater),level,tot,hashCode);
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.isFilledWithWater()),level,tot,hashCode);
 				
 			}
 
@@ -447,7 +447,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 
 			
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.hasWater),level,tot,hashCode);
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.isFilledWithWater()),level,tot,hashCode);
 	
 			}
 
@@ -656,14 +656,14 @@ public class Renderer3D implements AbstractRenderer3D{
 	}
 
 
-
+	@Override
 	public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer,int hashCode){
 
 		Point3D origin=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
 		decomposeClippedPolygonIntoZBuffer(p3d, color, texture,zbuffer,null,null,origin,0,0,hashCode);
 
 	}
-
+	@Override
 	public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer,
 			Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY,int hashCode){		
 
@@ -724,7 +724,7 @@ public class Renderer3D implements AbstractRenderer3D{
 
 		//System.out.println(rect.y+" "+rect.height+" "+(dro.y-POSY));
 			
-		Point3D p=new Point3D(dro.x,dro.y,0);
+		Point3D p=new Point3D(dro.getX(),dro.getY(),0);
 		p=buildTransformedPoint(p);
 		
 		if(!rect.contains(p.x,p.y) 
@@ -985,8 +985,6 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 		int x=(int) xd;
 		int y=(int) yd;
 
-		//double i_ys=1.0/ys;
-
 		int tot=y*WIDTH+x;	
 
 		zbuffer.update(xs,ys,zs,rgbColor,tot);
@@ -1138,9 +1136,6 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 				base.xpoints[i]=(int) (viewDirectionCos*x+viewDirectionSin*y);
 				base.ypoints[i]=(int) (viewDirectionCos*y-viewDirectionSin*x);	
 				
-				//base.xpoints[i]=(int) (viewDirectionCos*(x-observerPoint.x)+viewDirectionSin*(y-observerPoint.y)+observerPoint.x);
-				//base.ypoints[i]=(int) (viewDirectionCos*(y-observerPoint.y)-viewDirectionSin*(x-observerPoint.x)+observerPoint.y);	
-				
 				base.zpoints[i]=base.zpoints[i]+MOVZ;
 			}
 			else{
@@ -1235,13 +1230,10 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 
 	public Polygon3D interpolateAreaToPolygon3D(Area a, Polygon3D p3d){
 
-
-
-
 		Vector points=new Vector();
 
 		PathIterator pathIter = a.getPathIterator(null);
-		//if(isDebug)System.out.println(p3d);
+
 		while(!pathIter.isDone()){
 
 			double[] coords = new double[6];
@@ -1271,10 +1263,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 	
 	protected double interpolate(double px, double py, Polygon3D p3d) {
        
-		/*Plain plain=Plain.calculatePlain(p3d);
-		return plain.calculateZ(px,py);
 
-		 */
 		Polygon3D p1=Polygon3D.extractSubPolygon3D(p3d,3,0);
 
 		if(p1.hasInsidePoint(px,py)){

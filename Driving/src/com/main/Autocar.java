@@ -6,6 +6,7 @@ import java.awt.Polygon;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.Date;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -309,13 +310,18 @@ public class Autocar {
 
 		
 		Vector autocars=new Vector();
-	
+		
+		
+		FileReader fr=null;
+		BufferedReader br=null;
+		
 		try {
 			
 			
 			Vector roads=new Vector();
 			
-			BufferedReader br=new BufferedReader(new FileReader(file));
+			fr=new FileReader(file);
+			br=new BufferedReader(fr);
 
 
 			String str=null;
@@ -411,12 +417,17 @@ public class Autocar {
 
 			}
 
-			br.close();
-			
-			//checkNormals();
 		} catch (Exception e) {
 
 			e.printStackTrace();
+		}finally{
+			
+			try {
+				fr.close();
+				br.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		

@@ -426,7 +426,7 @@ public class Editor extends JFrame implements MenuListener{
 		
 	}
 	
-public static Point3D loadStartPosition(File file) {
+	public static Point3D loadStartPosition(File file) {
 		
 		Point3D startPosition=null;
 
@@ -801,17 +801,17 @@ public static Point3D loadStartPosition(File file) {
 	}
 	
 	public void preview(){}
-	
+	@Override
 	public void menuCanceled(MenuEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
-
+	@Override
 	public void menuDeselected(MenuEvent arg0) {
 		redrawAfterMenu=true;
 
 	}
-
+	@Override
 	public void menuSelected(MenuEvent arg0) {
 		redrawAfterMenu=false;
 
