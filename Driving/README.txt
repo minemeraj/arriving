@@ -1,8 +1,8 @@
 	**********************
-	*  READ ME CARDRIVING VERSION   9.0.0
+	*  READ ME CARDRIVING VERSION   9.0.2
 	*
 	*  by Piazza Francesco Giovanni 
-	*  Tecnes Milano ,Italy http://www.tecnes.com ; Tel.: +39.02.67101036
+	*  Tecnes Milano ,Italy http://www.betacom.it
 	*	
 	**********************
 		
