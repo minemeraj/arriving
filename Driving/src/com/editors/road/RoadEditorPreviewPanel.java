@@ -9,6 +9,7 @@ import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.CubicMesh;
@@ -56,7 +57,7 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 	public int MOVZ=0;
 	
 	public PolygonMesh[] meshes=new PolygonMesh[2];
-	Vector drawObjects=null;
+	ArrayList drawObjects=null;
 	
 	public double viewDirection=0;	
 	public double viewDirectionCos=1.0;
@@ -167,13 +168,13 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 	}
 
 	
-	public void drawObjects(Vector drawObjects,Area totalVisibleField,ZBuffer zbuffer){
+	public void drawObjects(ArrayList drawObjects,Area totalVisibleField,ZBuffer zbuffer){
 
 
         Rectangle rect = null;//totalVisibleField.getBounds();
 		for(int i=0;i<drawObjects.size();i++){
 
-			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
+			DrawObject dro=(DrawObject) drawObjects.get(i);
      		drawPolygonMesh(dro, rect, zbuffer);
 		}		
 

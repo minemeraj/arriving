@@ -103,7 +103,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	int deltay=200;
 	int deltax=200;
 
-	private Vector drawObjects=new Vector();
+	private ArrayList drawObjects=new ArrayList();
 	//Graphics2D g2;
 	//Graphics2D g2Alias;
 	Stack oldObjects=new Stack();
@@ -1376,7 +1376,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private void undoObjects() {
 
 
-		drawObjects=(Vector) oldObjects.pop();
+		drawObjects=(ArrayList) oldObjects.pop();
 		if(oldObjects.size()==0)
 			jmtUndoObjects.setEnabled(false);
 	}
@@ -1416,12 +1416,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
-	private Vector cloneObjectsVector(Vector drawObjects) {
-		Vector newDrawObjects=new Vector();
+	private ArrayList cloneObjectsVector(ArrayList drawObjects) {
+		ArrayList newDrawObjects=new ArrayList();
 
 		for(int i=0;i<drawObjects.size();i++){
 
-			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
+			DrawObject dro=(DrawObject) drawObjects.get(i);
 			newDrawObjects.add(dro.clone());
 
 		}
@@ -1435,7 +1435,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		for(int i=0;i<drawObjects.size();i++){
 			
-			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
+			DrawObject dro=(DrawObject) drawObjects.get(i);
 
 			if(!dro.isSelected())
 				continue;
@@ -1479,7 +1479,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		for(int i=0;i<drawObjects.size();i++){
 			
-			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
+			DrawObject dro=(DrawObject) drawObjects.get(i);
 			
 			if(!dro.isSelected())
 				continue;
@@ -1950,7 +1950,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		for(int i=0;i<drawObjects.size();i++){
 			
-			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
+			DrawObject dro=(DrawObject) drawObjects.get(i);
 			if(dro.isSelected())
 				drawObjects.remove(dro);
 		}
@@ -2069,7 +2069,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
             pr.println("<objects>");			 
 			for(int i=0;i<drawObjects.size();i++){
 
-				DrawObject dro=(DrawObject) drawObjects.elementAt(i);
+				DrawObject dro=(DrawObject) drawObjects.get(i);
 
 				pr.println(dro.toString());
 			}
@@ -2273,7 +2273,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public void loadObjectsFromFile(File file){
 
 		
-		drawObjects=new Vector();
+		drawObjects=new ArrayList();
 
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));
@@ -3640,7 +3640,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		for(int i=0;i<size;i++){
 			
-			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
+			DrawObject dro=(DrawObject) drawObjects.get(i);
 			dro.setSelected(false);
 		}
 	}
@@ -4229,7 +4229,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 
-	public Vector getDrawObjects() {
+	public ArrayList getDrawObjects() {
 		return drawObjects;
 	}
 

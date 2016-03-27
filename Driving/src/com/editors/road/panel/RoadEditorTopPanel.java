@@ -54,7 +54,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 	public void drawRoad(PolygonMesh[] meshes, 
-			Vector drawObjects,
+			ArrayList drawObjects,
 			ArrayList splines,
 			Point3D startPosition,
 			ZBuffer landscapeZbuffer,
@@ -123,11 +123,11 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		for (int i = 0; i < splines.size(); i++) {
 			SPLine sp = (SPLine) splines.get(i);
 			
-			Vector meshes = sp.getMeshes();
+			ArrayList meshes = sp.getMeshes();
 			
 			for (int j = 0; j < meshes.size(); j++) {//if(j!=4)continue;
 				
-				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
+				PolygonMesh mesh = (PolygonMesh) meshes.get(j);
 				            
 				drawSPLinePolygon(mesh,landscapeZbuffer,1);
                 
@@ -841,13 +841,13 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	
 	
 	
-	private void displayObjects(ZBuffer landscapeZbuffer,Vector drawObjects) {
+	private void displayObjects(ZBuffer landscapeZbuffer,ArrayList drawObjects) {
 
 		Rectangle totalVisibleField=new Rectangle(0,0,WIDTH,HEIGHT);
 
 		for(int i=0;i<drawObjects.size();i++){
 
-			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
+			DrawObject dro=(DrawObject) drawObjects.get(i);
 
 			int y=convertY(dro.getX(),dro.getY(),dro.getZ());
 			int x=convertX(dro.getX(),dro.getY(),dro.getZ());
@@ -1215,20 +1215,20 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	}
 	
 	
-    public void selectObjects(int x, int y, Vector drawObjects) {
+    public void selectObjects(int x, int y, ArrayList drawObjects) {
     	
     	Vector vec=selectObjects(x,y,drawObjects,true);
     	
        	
     }
 
-	public Vector selectObjects(int x, int y, Vector drawObjects,boolean toSelect) {
+	public Vector selectObjects(int x, int y, ArrayList drawObjects,boolean toSelect) {
 
 		Vector ret=new Vector();
 
 		for(int i=0;i<drawObjects.size();i++){
 
-			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
+			DrawObject dro=(DrawObject) drawObjects.get(i);
 			if(!editor.checkMultipleObjectsSelection.isSelected())
 				dro.setSelected(false);
 

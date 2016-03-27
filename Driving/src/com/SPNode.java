@@ -124,7 +124,6 @@ public class SPNode extends Point4D implements TreeNode{
 	}
 	@Override
 	public SPNode getParent() {
-		// TODO Auto-generated method stub
 		return parent;
 	}
 

@@ -195,7 +195,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 	private JMenuItem jmt_help_show;
 	private DoubleTextField autocarsMove;
 	private JButton addCarToAutoline;
-	private Vector drawObjects=null;
+	private ArrayList drawObjects=null;
 	private Texture[] worldTextures;
 	private BufferedImage[] objectImages;
 	private CubicMesh[] objectMeshes;
@@ -1199,7 +1199,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 	}
 
 
-	private void drawRoad(PolygonMesh[] meshes, Vector drawObjects2,
+	private void drawRoad(PolygonMesh[] meshes, ArrayList drawObjects2,
 			ArrayList splines, ZBuffer landscapeZbuffer2) {
 		
 		
@@ -1209,7 +1209,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 	
 	}
 	
-	private void displayObjects(ZBuffer landscapeZbuffer2, Vector drawObjects) {
+	private void displayObjects(ZBuffer landscapeZbuffer2, ArrayList drawObjects) {
 		
 		if(drawObjects==null)
 			return;
@@ -1218,7 +1218,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		for(int i=0;i<drawObjects.size();i++){
 
-			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
+			DrawObject dro=(DrawObject) drawObjects.get(i);
 
 			int y=convertY(dro.getX(),dro.getY(),dro.getZ());
 			int x=convertX(dro.getX(),dro.getY(),dro.getZ());
@@ -1249,11 +1249,11 @@ public class AutocarEditor extends Editor implements MouseListener,
 		for (int i = 0; i < splines.size(); i++) {
 			SPLine sp = (SPLine) splines.get(i);
 			
-			Vector meshes = sp.getMeshes();
+			ArrayList meshes = sp.getMeshes();
 			
 			for (int j = 0; j < meshes.size(); j++) {//if(j!=4)continue;
 				
-				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
+				PolygonMesh mesh = (PolygonMesh) meshes.get(j);
 				            
 				drawSPLinePolygon(mesh,landscapeZbuffer,1);
                  
@@ -2377,7 +2377,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 	
 	public void loadObjectsFromFile(File file){
 
-		drawObjects=new Vector();
+		drawObjects=new ArrayList();
 
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));

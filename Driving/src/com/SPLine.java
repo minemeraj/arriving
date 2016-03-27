@@ -186,9 +186,9 @@ public class SPLine {
 		
 	}
 
-	public Vector getMeshes() {
+	public ArrayList getMeshes() {
 
-		Vector meshes=new Vector();
+		ArrayList meshes=new ArrayList();
 
 		for (int j = 0; j < ribs.size(); j++) {
 
@@ -298,8 +298,8 @@ public class SPLine {
 		return vTexturePoints;
 	}
 
-	public void setvTexturePoints(ArrayList vTexturePoints) {
-		this.vTexturePoints = vTexturePoints;
+	public void setvTexturePoints(ArrayList aTexturePoints) {
+		this.vTexturePoints = aTexturePoints;
 	}
 	
 	

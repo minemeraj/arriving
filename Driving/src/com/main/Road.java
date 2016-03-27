@@ -146,7 +146,6 @@ public class Road extends Shader{
 		this.carFrame=carFrame;
 
 		dx=WITDH/(NXVISIBLE-1);
-		//dy=HEIGHT/(NYVISIBLE-1);
 
 		this.HEIGHT=HEIGHT;
 		this.WIDTH=WITDH;
@@ -331,7 +330,7 @@ public class Road extends Shader{
 
 
 
-	private void loadCars(Vector vCarData) {
+	private void loadCars(ArrayList vCarData) {
 		
 		
 		carData=new CarData[vCarData.size()];
@@ -339,7 +338,7 @@ public class Road extends Shader{
 		carShadowVolume=new ShadowVolume[vCarData.size()] ; 
 		
 		for (int i = 0; i< vCarData.size(); i++) {
-			File file = (File) vCarData.elementAt(i);
+			File file = (File) vCarData.get(i);
 			
 			carData[i]=loadCarFromFile(new File("lib/cardefault3D_"+i));
 			CAR_WIDTH=carData[i].carMesh.deltaX2-carData[i].carMesh.deltaX;
@@ -371,7 +370,7 @@ public class Road extends Shader{
 		
 	}
 
-	public void initCars(Vector vCarData) {
+	public void initCars(ArrayList vCarData) {
 		
 		SELECTED_CAR=0;
 
@@ -589,11 +588,6 @@ public class Road extends Shader{
 		
 		int hashCode=mesh.hashCode();
 
-		//for(int index=0;index<2;index++){
-
-		//PolygonMesh mesh=meshes[index];
-		//int size=mesh.polygonData.size();
-
 		for(int j=0;j<size;j++){
 
 
@@ -612,7 +606,6 @@ public class Road extends Shader{
 
 		} 
 
-		//}
 
 		drawSPLines(splines,totalVisibleField,roadZbuffer);
 		drawCar();
@@ -621,8 +614,6 @@ public class Road extends Shader{
 			calculateStencilBuffer();
 		}
 		buildScreen(buf); 
-		//showMemoryUsage();
-
 	}
 	
 
@@ -643,11 +634,11 @@ public class Road extends Shader{
 
 				SPLine sp = (SPLine) splines.get(i);
 
-				Vector meshes = sp.getMeshes();
+				ArrayList meshes = sp.getMeshes();
 
 				for (int j = 0; j < meshes.size(); j++) {
 
-					mesh = (PolygonMesh) meshes.elementAt(j);
+					mesh = (PolygonMesh) meshes.get(j);
 					calculateAltitude(mesh);
 				}	
 			}
@@ -1434,7 +1425,7 @@ public class Road extends Shader{
 	
 	public void loadObjectsFromFile(File file){
 		
-		Vector vdrawObjects=new Vector();
+		ArrayList vdrawObjects=new ArrayList();
 		
 	
 	
@@ -1488,7 +1479,7 @@ public class Road extends Shader{
 			
 			
 			for (int i = 0; i < vdrawObjects.size(); i++) {
-				drawObjects[i]=(DrawObject) vdrawObjects.elementAt(i);
+				drawObjects[i]=(DrawObject) vdrawObjects.get(i);
 			}
 			
 			oldDrawObjects=DrawObject.cloneObjectsArray(drawObjects);

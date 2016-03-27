@@ -68,7 +68,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	}
 	
 
-	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,ArrayList splines,Point3D startPosition,ZBuffer landscapeZbuffer,Graphics2D graph) {
+	public void drawRoad(PolygonMesh[] meshes, ArrayList drawObjects,ArrayList splines,Point3D startPosition,ZBuffer landscapeZbuffer,Graphics2D graph) {
 
 		displayTerrain(landscapeZbuffer,meshes);
 		if(!isHide_objects())
@@ -229,13 +229,13 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	
 
 	
-	public void drawObjects(Vector drawObjects,Area totalVisibleField,ZBuffer zbuffer){
+	public void drawObjects(ArrayList drawObjects,Area totalVisibleField,ZBuffer zbuffer){
 
 
         Rectangle rect = null;//totalVisibleField.getBounds();
 		for(int i=0;i<drawObjects.size();i++){
 
-			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
+			DrawObject dro=(DrawObject) drawObjects.get(i);
      		drawPolygonMesh(dro, rect, zbuffer);
 		}		
 
@@ -988,12 +988,12 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
     }
     
 
-    public void selectObjects(int x, int y, Vector drawObjects) {
+    public void selectObjects(int x, int y, ArrayList drawObjects) {
  
     	
     	for (int i = 0; i < drawObjects.size(); i++) {
 
-			DrawObject dro=(DrawObject) drawObjects.elementAt(i);
+			DrawObject dro=(DrawObject) drawObjects.get(i);
 
 			boolean selected=selectObject(x,y,dro);
 

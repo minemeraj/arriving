@@ -55,7 +55,7 @@ public abstract class RoadEditorPanel extends JPanel {
 		this.editor=editor;
 	}
 
-	public abstract void drawRoad(PolygonMesh[] meshes, Vector drawObjects,ArrayList splines,
+	public abstract void drawRoad(PolygonMesh[] meshes, ArrayList drawObjects,ArrayList splines,
 			Point3D startPosition,
 			ZBuffer landscapeZbuffer,Graphics2D graph);
 	
@@ -518,9 +518,9 @@ public abstract class RoadEditorPanel extends JPanel {
 	
 	public abstract Vector selectPolygons(int x, int y,PolygonMesh mesh,boolean toSelect);
 
-	public abstract void selectObjects(int x, int y, Vector drawObjects);
+	public abstract void selectObjects(int x, int y, ArrayList drawObjects);
 	
-	public Vector selectObjects(int x, int y, Vector drawObjects,boolean toSelect) {
+	public Vector selectObjects(int x, int y, ArrayList drawObjects,boolean toSelect) {
 		
 		return null;
 		

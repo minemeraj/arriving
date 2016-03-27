@@ -76,7 +76,7 @@ public class Editor extends JFrame implements MenuListener{
 	}
 
 
-	public static void levelSPLinesTerrain(PolygonMesh mesh, Vector splines) {
+	public static void levelSPLinesTerrain(PolygonMesh mesh, ArrayList splines) {
 
 
 
@@ -85,7 +85,7 @@ public class Editor extends JFrame implements MenuListener{
 		for (int i = 0; splines!=null && i < splines.size(); i++) {
 
 
-			SPLine sp = (SPLine) splines.elementAt(i);
+			SPLine sp = (SPLine) splines.get(i);
 
 			for (int k = 0; k < sp.ribs.size();k++){
 

@@ -12,9 +12,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
-import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -197,7 +197,7 @@ public class CarFrame extends JFrame implements KeyListener {
 			File directoryImg=new File("lib");
 			File[] files=directoryImg.listFiles();
 
-			Vector vCarData=new Vector();
+			ArrayList vCarData=new ArrayList();
 
 			for(int i=0;i<files.length;i++){
 				if(files[i].getName().startsWith("cardefault3D_")){
@@ -207,7 +207,7 @@ public class CarFrame extends JFrame implements KeyListener {
 				}		
 			}
 			
-			Vector vCarTextures=new Vector();
+			ArrayList vCarTextures=new ArrayList();
 			
 			for(int i=0;i<files.length;i++){
 				if(files[i].getName().startsWith("car_texture_t")){
@@ -221,7 +221,7 @@ public class CarFrame extends JFrame implements KeyListener {
 
 			for(int i=0;i<vCarTextures.size();i++){
 				
-				File file=(File) vCarTextures.elementAt(i);
+				File file=(File) vCarTextures.get(i);
 				carTextures[i]=new Texture(ImageIO.read(file));
 			}
 

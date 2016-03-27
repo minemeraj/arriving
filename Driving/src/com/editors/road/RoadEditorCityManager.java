@@ -290,7 +290,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 
 
 	public static void buildCustomCity1(PolygonMesh terrainMesh, ArrayList splines,
-			RoadEditorCityManager roadECM, Vector drawObjects, CubicMesh[] objectMeshes) {
+			RoadEditorCityManager roadECM, ArrayList drawObjects, CubicMesh[] objectMeshes) {
 		
 		
 	
