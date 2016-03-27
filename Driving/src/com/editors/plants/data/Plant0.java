@@ -100,8 +100,7 @@ public class Plant0 extends CustomData{
 	public void initMesh(){
 
 
-		points=new Vector();
-		points.setSize(800);
+		points=new ArrayList();
 
 		polyData=new ArrayList();
 		

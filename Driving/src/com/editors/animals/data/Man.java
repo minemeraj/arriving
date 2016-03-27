@@ -195,9 +195,7 @@ public class Man extends Animal {
 		
 		double q_angle=12*2*Math.PI/360.0;
 
-		points=new Vector();
-		points.setSize(400);
-
+		points=new ArrayList();
 		polyData=new ArrayList();
 
 		n=0;

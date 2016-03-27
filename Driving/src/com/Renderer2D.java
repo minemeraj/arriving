@@ -5,14 +5,11 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.geom.Area;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 
 import com.editors.Editor;
 
@@ -340,7 +337,7 @@ public class Renderer2D extends Editor {
 
 		StringTokenizer sttoken=new StringTokenizer(str,"_");
 		
-		Vector vPoints=new Vector();
+		ArrayList aPoints=new ArrayList();
 
 		while(sttoken.hasMoreElements()){
 
@@ -352,10 +349,10 @@ public class Renderer2D extends Editor {
 			p.y=Double.parseDouble(vals[1]);
 			p.z=Double.parseDouble(vals[2]);
 
-			vPoints.add(p);
+			aPoints.add(p);
 		}
 
-		mesh.setPoints(vPoints);
+		mesh.setPoints(aPoints);
 	}
 	
 	

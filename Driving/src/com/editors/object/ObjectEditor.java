@@ -15,19 +15,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
-import java.awt.image.RescaleOp;
 import java.beans.PropertyChangeListener;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Stack;
-import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
@@ -44,7 +38,6 @@ import javax.swing.JMenuItem;
 import javax.swing.RepaintManager;
 import javax.swing.TransferHandler;
 import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 
 import com.LineData;
 import com.Point3D;
@@ -554,7 +547,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 			
 			PolygonMesh mesh=meshes[ACTIVE_PANEL];
 			
-			Vector vPoints=new Vector();
+			ArrayList vPoints=new ArrayList();
 			for (int i = 0; i < pm.points.length; i++) {
 				vPoints.add(pm.points[i]);
 			}
@@ -577,11 +570,11 @@ public class ObjectEditor extends Editor implements ActionListener{
 		PolygonMesh pm=oetp.getCopy();
 		
 		if(pm!=null){
-			Vector vPoints=new Vector();
+			ArrayList aPoints=new ArrayList();
 			for (int i = 0; i < pm.points.length; i++) {
-				vPoints.add(pm.points[i]);
+				aPoints.add(pm.points[i]);
 			}
-			mesh.setPoints(vPoints);
+			mesh.setPoints(aPoints);
 			mesh.polygonData=pm.polygonData;
 			getCenter().displayAll();
 		}

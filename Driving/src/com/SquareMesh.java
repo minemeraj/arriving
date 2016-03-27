@@ -15,11 +15,11 @@ public class SquareMesh extends PolygonMesh {
 	double y0=0;
 	
 	
-	public SquareMesh(Vector points, ArrayList lines) {
+	public SquareMesh(ArrayList points, ArrayList lines) {
 		super(points, lines);
 	}
 	
-	public SquareMesh(Vector points, ArrayList lines,int numx, int numy, int dx,int dy,double x0, double y0) {
+	public SquareMesh(ArrayList points, ArrayList lines,int numx, int numy, int dx,int dy,double x0, double y0) {
 		super(points, lines);
 		this.numx = numx;
 		this.numy = numy;

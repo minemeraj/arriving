@@ -102,8 +102,7 @@ public class Globe0 extends Forniture {
 
 		Hashtable values=new Hashtable();
 
-		points=new Vector();
-		points.setSize(500);
+		points=new ArrayList();
 		polyData=new ArrayList();
 
 		n=0;
@@ -126,7 +125,7 @@ public class Globe0 extends Forniture {
 				aPoints[i][j]=
 						addBPoint(x,y,z);
 
-				points.setElementAt(aPoints[i][j],aPoints[i][j].getIndex());
+				points.set(aPoints[i][j].getIndex(),aPoints[i][j]);
 
 			}
 		}

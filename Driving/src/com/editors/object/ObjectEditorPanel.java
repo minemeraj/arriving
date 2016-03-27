@@ -992,11 +992,11 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 		
 		if(pm!=null){
-			Vector vPoints=new Vector();
+			ArrayList aPoints=new ArrayList();
 			for (int i = 0; i < pm.points.length; i++) {
-				vPoints.add(pm.points[i]);
+				aPoints.add(pm.points[i]);
 			}
-			mesh.setPoints(vPoints);
+			mesh.setPoints(aPoints);
 			mesh.polygonData=pm.polygonData;
 			displayAll();
 		}
@@ -1023,7 +1023,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 
 	public void delete() {
 
-		Vector newPoints=new Vector();
+		ArrayList newPoints=new ArrayList();
 		ArrayList newLines=new ArrayList();
 		
 		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
@@ -1053,7 +1053,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 				if(!p0.isSelected()) 
 					for(int k=0;k<newPoints.size();k++){
 
-						Point3D np=(Point3D) newPoints.elementAt(k);
+						Point3D np=(Point3D) newPoints.get(k);
 						if(np.equals(p0))
 						{
 							newLd.addIndex(k,ldv.getVertex_index(),ldv.getVertex_texture_x(),ldv.getVertex_texture_y());
@@ -1085,7 +1085,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 	private void mergeSelectedPoints() {
 	
 		
-		Vector newPoints=new Vector();
+		ArrayList newPoints=new ArrayList();
 		ArrayList newLines=new ArrayList();
 		
 		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
@@ -1128,7 +1128,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 				if(!p0.isSelected()) 
 					for(int k=0;k<newPoints.size();k++){
 
-						Point3D np=(Point3D) newPoints.elementAt(k);
+						Point3D np=(Point3D) newPoints.get(k);
 						if(np.equals(p0))
 						{
 							newLd.addIndex(k,ldv.getVertex_index(),ldv.getVertex_texture_x(),ldv.getVertex_texture_y());

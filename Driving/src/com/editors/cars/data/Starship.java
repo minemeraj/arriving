@@ -45,9 +45,7 @@ public class Starship extends CustomData {
 
 	private void initMesh() {
 		
-		points=new Vector();
-		points.setSize(400);
-
+		points=new ArrayList();
 		polyData=new ArrayList();
 		
 		

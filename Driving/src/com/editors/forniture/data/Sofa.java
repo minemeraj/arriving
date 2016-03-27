@@ -743,9 +743,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 
 		texture_points=buildTexturePoints();
 		
-		points=new Vector();
-		points.setSize(100);
-
+		points=new ArrayList();
 		polyData=new ArrayList();
 		
 		n=0;

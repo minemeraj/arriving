@@ -35,12 +35,12 @@ public class PolygonMesh implements Cloneable{
 		calculateNormals();
 	}
 	
-	public PolygonMesh(Vector <Point3D> points, ArrayList <LineData> polygonData) {
+	public PolygonMesh(ArrayList <Point3D> points, ArrayList <LineData> polygonData) {
 		
 		if(points!=null){
 			this.points=new Point3D[points.size()];
 			for(int i=0;i<points.size();i++)
-				this.points[i] = points.elementAt(i);
+				this.points[i] = points.get(i);
 		}	
 		else
 			this.points= null;
@@ -108,7 +108,7 @@ public class PolygonMesh implements Cloneable{
 	public void addPolygonData(LineData polygon){
 		polygonData.add(polygon);		
 	}
-	
+	@Override
 	public PolygonMesh clone() {
 		
 		PolygonMesh pm=new PolygonMesh();
@@ -194,7 +194,7 @@ public class PolygonMesh implements Cloneable{
 
 	
 	
-	public static void buildPoint(Vector vPoints,String str) {
+	public static void buildPoint(ArrayList vPoints,String str) {
 		
 
 			String[] vals =str.split(" ");
@@ -279,7 +279,7 @@ public class PolygonMesh implements Cloneable{
 	}
 
 	public static PolygonMesh loadMeshFromFile(File file) {
-		Vector points=new Vector();
+		ArrayList points=new ArrayList();
 		ArrayList lines=new ArrayList();
 		Vector vTexturePoints=new Vector();
 		
@@ -417,9 +417,9 @@ public class PolygonMesh implements Cloneable{
 		return newPolygonMesh;
 	}
 
-	public Vector getPointsAsVector() {
+	public ArrayList getPointsAsArrayList() {
 		
-		Vector vpoints=new Vector(); 
+		ArrayList vpoints=new ArrayList(); 
 		
 		for (int i = 0; i < points.length; i++) {
 			vpoints.add(points[i]);
@@ -436,12 +436,12 @@ public class PolygonMesh implements Cloneable{
 		this.polygonData = polygonData;
 	}
 
-	public void setPoints(Vector points) {
+	public void setPoints(ArrayList points) {
 		
 		if(points!=null){
 			this.points=new Point3D[points.size()];
 			for(int i=0;i<points.size();i++)
-				this.points[i] = (Point3D) points.elementAt(i);
+				this.points[i] = (Point3D) points.get(i);
 		}	
 		else
 			this.points= null;

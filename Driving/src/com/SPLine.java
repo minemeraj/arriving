@@ -205,7 +205,7 @@ public class SPLine {
 				Point4D p3=nextRib.points[3];
 
 
-				Vector points=new Vector();
+				ArrayList points=new ArrayList();
 				points.add(p0);
 				points.add(p1);
 				points.add(p2);
@@ -261,7 +261,7 @@ public class SPLine {
 				Point4D p7=nextRib.points[3];
 
 
-				Vector points=new Vector();
+				ArrayList points=new ArrayList();
 				points.add(p0);
 				points.add(p1);
 				points.add(p2);

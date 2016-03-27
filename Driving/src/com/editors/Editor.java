@@ -280,7 +280,7 @@ public class Editor extends JFrame implements MenuListener{
 			double x0=0;
 			double y0=0;
 			
-			Vector vPoints=new Vector();
+			ArrayList aPoints=new ArrayList();
 			Vector vTexturePoints=new Vector();
 			
 			while((str=br.readLine())!=null){
@@ -301,7 +301,7 @@ public class Editor extends JFrame implements MenuListener{
 				
 
 				if(str.startsWith("v="))
-					buildPoint(vPoints,str.substring(2));
+					buildPoint(aPoints,str.substring(2));
 				else if(str.startsWith("vt="))
 					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
 				else if(str.startsWith("f="))
@@ -335,7 +335,7 @@ public class Editor extends JFrame implements MenuListener{
 
 			br.close();
 			
-			meshes[ACTIVE_PANEL].setPoints(vPoints);
+			meshes[ACTIVE_PANEL].setPoints(aPoints);
 			meshes[ACTIVE_PANEL].setTexturePoints(vTexturePoints);
 			meshes[ACTIVE_PANEL].setLevel(Road.GROUND_LEVEL);
 			
@@ -502,7 +502,7 @@ public class Editor extends JFrame implements MenuListener{
 
 
 
-	public void buildPoint(Vector vPoints, String str) {
+	public void buildPoint(ArrayList vPoints, String str) {
 		PolygonMesh.buildPoint(vPoints,str);
 		
 	}

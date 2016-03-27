@@ -268,8 +268,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 	
 	public void initMesh( ) {
 		
-		points=new Vector();
-		points.setSize(200);
+		points=new ArrayList();
 		polyData=new ArrayList();
 		
 		n=0;
@@ -290,7 +289,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 
 				for (int i = 0; i <N_FACES; i++) {  
 					
-					points.setElementAt(aPoints[j][i],aPoints[j][i].getIndex());
+					points.set(aPoints[j][i].getIndex(),aPoints[j][i]);
 
 				}
 

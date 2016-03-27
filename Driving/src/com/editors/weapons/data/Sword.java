@@ -47,8 +47,7 @@ public class Sword extends CustomData {
 
 	private void initMesh() {
 
-		points=new Vector();
-		points.setSize(200);
+		points=new ArrayList();
 		polyData=new ArrayList();
 
 		n=0;

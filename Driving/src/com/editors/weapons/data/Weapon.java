@@ -443,9 +443,7 @@ public class Weapon extends CustomData{
 
 
 	private PolygonMesh buildGunMesh() {
-		points=new Vector();
-		points.setSize(300);
-
+		points=new ArrayList();
 		polyData=new ArrayList();
 		
 		
@@ -887,9 +885,7 @@ public class Weapon extends CustomData{
 	}
 
 	private PolygonMesh buildShotGunMesh() {
-		points=new Vector();
-		points.setSize(200);
-
+		points=new ArrayList();
 		polyData=new ArrayList();
 		
 		
@@ -1260,9 +1256,7 @@ public class Weapon extends CustomData{
 
 
 	private PolygonMesh buildDoubleBarrelGunMesh() {
-		points=new Vector();
-		points.setSize(200);
-
+		points=new ArrayList();
 		polyData=new ArrayList();
 		
 		
@@ -1634,9 +1628,7 @@ public class Weapon extends CustomData{
 	}
 
 	private PolygonMesh buildSubmachineGunMesh() {
-		points=new Vector();
-		points.setSize(200);
-
+		points=new ArrayList();
 		polyData=new ArrayList();
 		
 		
@@ -2211,9 +2203,8 @@ public class Weapon extends CustomData{
 
 
 	private PolygonMesh buildRevolverMesh() {
-		points=new Vector();
-		points.setSize(200);
-
+		
+		points=new ArrayList();
 		polyData=new ArrayList();
 		
 		

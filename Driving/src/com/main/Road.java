@@ -940,25 +940,6 @@ public class Road extends Shader{
 		return (int) ((y1)*(WIDTH-XFOCUS)/SCREEN_DISTANCE);
 	}
 
-
-
-
-
-	private boolean isVisible(Rectangle rect, Polygon3D translatedPolygon) {
-		
-		int maxY=rect.y+rect.height;
-		
-		for(int i=0;i<translatedPolygon.npoints;i++){
-			
-			if(translatedPolygon.ypoints[0]<maxY && translatedPolygon.ypoints[0]>rect.y)
-				return true;
-		}
-		
-		return false;
-	}
-
-
-
     //used for read view
 	public void rotateSky(double rotationAngle){
 		rearAngle=rotationAngle;
@@ -1092,7 +1073,7 @@ public class Road extends Shader{
 		
 	
 		setViewDirection(getViewDirection()-carDynamics.dpsi);
-		carFrame.setSteeringAngle(getViewDirection());
+		CarFrame.setSteeringAngle(getViewDirection());
 
 		if(!checkIsWayFree(NEW_POSX,NEW_POSY,getViewDirection(),-1))
 		{	
@@ -1182,7 +1163,7 @@ public class Road extends Shader{
 			String str=null;
 			int rows=0;
 			
-			Vector vPoints=new Vector();
+			ArrayList aPoints=new ArrayList();
 			Vector vTexturePoints=new Vector();
 			
 			while((str=br.readLine())!=null){
@@ -1198,7 +1179,7 @@ public class Road extends Shader{
 					continue;
 
 				if(str.startsWith("v="))
-					buildPoint(vPoints,str.substring(2),index);
+					buildPoint(aPoints,str.substring(2),index);
 				else if(str.startsWith("vt="))
 					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
 				else if(str.startsWith("f="))
@@ -1208,7 +1189,7 @@ public class Road extends Shader{
 			}
             br.close();
 
-            meshes[index].setPoints(vPoints);
+            meshes[index].setPoints(aPoints);
             
            if(index==RoadEditor.TERRAIN_INDEX)
         	   meshes[index].setLevel(Road.GROUND_LEVEL);
@@ -1266,7 +1247,7 @@ public class Road extends Shader{
 	}
 
 
-	public void buildPoint(Vector vPoints, String str,int index) {
+	public void buildPoint(ArrayList vPoints, String str,int index) {
 
 	
 
@@ -1406,7 +1387,7 @@ public class Road extends Shader{
 		CarData carData=new CarData();
 
 
-		Vector <Point3D>points = new Vector <Point3D>();
+		ArrayList <Point3D>points = new ArrayList <Point3D>();
 		ArrayList <LineData>lines = new ArrayList <LineData>();
 		Vector vTexturePoints=new Vector();
 

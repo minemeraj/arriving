@@ -711,7 +711,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	private void mergeSelectedPoints() {
 	
 		
-		Vector newPoints=new Vector();
+		ArrayList newPoints=new ArrayList();
 		ArrayList newLines=new ArrayList();
 
 		 PolygonMesh mesh = meshes[ACTIVE_PANEL];	
@@ -751,7 +751,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 				if(!p0.isSelected()) 
 					for(int k=0;k<newPoints.size();k++){
 
-						Point3D np=(Point3D) newPoints.elementAt(k);
+						Point3D np=(Point3D) newPoints.get(k);
 						if(np.equals(p0))
 						{
 							newLd.addIndex(k);
@@ -974,7 +974,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	
 	public void delete() {
 
-		Vector newPoints=new Vector();
+		ArrayList newPoints=new ArrayList();
 		ArrayList newLines=new ArrayList();
 		
 		 PolygonMesh mesh = meshes[ACTIVE_PANEL];
@@ -1003,7 +1003,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 				if(!p0.isSelected()) 
 					for(int k=0;k<newPoints.size();k++){
 
-						Point3D np=(Point3D) newPoints.elementAt(k);
+						Point3D np=(Point3D) newPoints.get(k);
 						if(np.equals(p0))
 						{
 							newLd.addIndex(k,ldv.getVertex_index(),ldv.getVertex_texture_x(),ldv.getVertex_texture_y());
@@ -1529,7 +1529,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	
 	public void appendPointsFromFile(File file,boolean withBorder){
 
-		Vector transpoints=new Vector();
+		ArrayList transpoints=new ArrayList();
 		ArrayList translines=new ArrayList();
 		Vector vTexturePoints=new Vector();
 		
@@ -1574,14 +1574,14 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	}
 	
 	private void appendPoints(PolygonMesh mesh,
-			Vector transpoints, ArrayList translines) {
+			ArrayList transpoints, ArrayList translines) {
 		
 		
 		int size=mesh.points.length;
 		
 		for (int i = 0; i < transpoints.size(); i++) {
 			
-			Point3D p=(Point3D) transpoints.elementAt(i);
+			Point3D p=(Point3D) transpoints.get(i);
 			mesh.addPoint(p);
 			
 		}
@@ -1780,11 +1780,11 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 		
 		if(pm!=null){
-			Vector vPoints=new Vector();
+			ArrayList aPoints=new ArrayList();
 			for (int i = 0; i < pm.points.length; i++) {
-				vPoints.add(pm.points[i]);
+				aPoints.add(pm.points[i]);
 			}
-			mesh.setPoints(vPoints);
+			mesh.setPoints(aPoints);
 			mesh.polygonData=pm.polygonData;
 			displayAll();
 		}

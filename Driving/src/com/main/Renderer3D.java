@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.BarycentricCoordinates;
@@ -1333,13 +1334,13 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 
 	}
 	
-	public static int getFace(LineData ld,Vector points){
+	public static int getFace(LineData ld,ArrayList points){
 		
 		int n=ld.size();
 		
-		Point3D p0=(Point3D)points.elementAt(ld.getIndex((n+0-1)%n));
-		Point3D p1=(Point3D)points.elementAt(ld.getIndex(0));
-		Point3D p2=(Point3D)points.elementAt(ld.getIndex((1+0)%n));
+		Point3D p0=(Point3D)points.get(ld.getIndex((n+0-1)%n));
+		Point3D p1=(Point3D)points.get(ld.getIndex(0));
+		Point3D p2=(Point3D)points.get(ld.getIndex((1+0)%n));
 
 		Point3D normal=Point3D.calculateCrossProduct(p1.substract(p0),p2.substract(p1));
 

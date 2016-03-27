@@ -11,7 +11,7 @@ import com.main.Renderer3D;
 
 public class CustomData {
 	
-	public Vector points=null;
+	public ArrayList points=null;
 	public ArrayList polyData=null;
 	public Vector texture_points=null;
 	
@@ -147,7 +147,7 @@ public class CustomData {
 	public BPoint addBPoint(double x, double y, double z){
 		
 		BPoint point=new BPoint(x, y, z, n++);
-		points.setElementAt(point,point.getIndex());
+		points.set(point.getIndex(),point);
 		return point;
 		
 	}
@@ -155,7 +155,7 @@ public class CustomData {
 	public BPoint addBPoint( double x, double y, double z,Segments s){
 		
 		BPoint point=new BPoint(s.x(x), s.y(y), s.z(z), n++);
-		points.setElementAt(point,point.getIndex());
+		points.set(point.getIndex(),point);
 		return point;
 		
 	}

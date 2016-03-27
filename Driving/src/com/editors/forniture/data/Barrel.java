@@ -302,8 +302,7 @@ public class Barrel extends CustomData{
 	
 	    Hashtable values=new Hashtable();
 		
-		points=new Vector();
-		points.setSize(300);
+		points=new ArrayList();
 		polyData=new ArrayList();
 		
 		n=0;
@@ -332,7 +331,7 @@ public class Barrel extends CustomData{
 					aPoints[j][i]=
 							addBPoint(x,y,z);
 					
-					points.setElementAt(aPoints[j][i],aPoints[j][i].getIndex());
+					points.set(aPoints[j][i].getIndex(),aPoints[j][i]);
 
 				}
 

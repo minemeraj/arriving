@@ -339,8 +339,7 @@ public class Car extends CustomData {
 
 	private PolygonMesh buildCarMesh() {
 		
-		points=new Vector();
-		points.setSize(400);
+		points=new ArrayList();
 
 		polyData=new ArrayList();
 
@@ -926,9 +925,7 @@ public class Car extends CustomData {
 
 	private PolygonMesh buildTruckMesh() {
 		
-		points=new Vector();
-		points.setSize(500);
-
+		points=new ArrayList();
 		polyData=new ArrayList();
 
 		//basic sides: 
@@ -1549,8 +1546,7 @@ public class Car extends CustomData {
 
 	private PolygonMesh buildBykeMesh() {
 		
-		points=new Vector();
-		points.setSize(100);
+		points=new ArrayList();
 
 		polyData=new ArrayList();
 
@@ -1747,8 +1743,7 @@ public class Car extends CustomData {
 
 	private PolygonMesh buildTractorMesh() {
 		
-		points=new Vector();
-		points.setSize(300);
+		points=new ArrayList();
 
 		polyData=new ArrayList();
 
@@ -2229,8 +2224,7 @@ public class Car extends CustomData {
 	private PolygonMesh buildAirplaneMesh() {
 		
 		
-		points=new Vector();
-		points.setSize(300);
+		points=new ArrayList();
 
 		polyData=new ArrayList();
 
@@ -2678,9 +2672,7 @@ public class Car extends CustomData {
 
 	private PolygonMesh buildRailroadCarMesh() {
 				
-		points=new Vector();
-		points.setSize(300);
-
+		points=new ArrayList();
 		polyData=new ArrayList();
 
 		//basic sides:

@@ -1324,7 +1324,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	}
 	
-	public void buildPoint(Vector points, String str) {
+	public void buildPoint(ArrayList points, String str) {
 
 
 

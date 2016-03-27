@@ -791,7 +791,7 @@ public class Mould extends JFrame implements ActionListener{
 		try{
 
 					
-			Vector vpoints=pm.getPointsAsVector();
+			ArrayList aPoints=pm.getPointsAsArrayList();
 			ArrayList vlines=pm.getPolygonData();
 
 			fc=new JFileChooser();
@@ -804,7 +804,7 @@ public class Mould extends JFrame implements ActionListener{
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				File file = fc.getSelectedFile();
 				currentDirectory=fc.getCurrentDirectory();
-				saveMesh(file,vpoints,vlines);
+				saveMesh(file,aPoints,vlines);
 
 			} 
 
@@ -814,7 +814,7 @@ public class Mould extends JFrame implements ActionListener{
 
 	}
 	
-	public void saveMesh(File file,Vector vpoints,ArrayList vlines) {
+	public void saveMesh(File file,ArrayList aPoints,ArrayList vlines) {
 
 
 
@@ -822,16 +822,16 @@ public class Mould extends JFrame implements ActionListener{
 		try {
 			pr = new PrintWriter(new FileOutputStream(file));
 			
-			for(int i=0;i<vpoints.size();i++){
+			for(int i=0;i<aPoints.size();i++){
 
-				Point3D p=(Point3D) vpoints.elementAt(i);
+				Point3D p=(Point3D) aPoints.get(i);
 				pr.print("v=");
 				pr.print(decomposePoint(p));
-				if(i<vpoints.size()-1)
+				if(i<aPoints.size()-1)
 					pr.println();
 			}	
 			
-			PolygonMesh mesh=new PolygonMesh(vpoints,vlines);
+			PolygonMesh mesh=new PolygonMesh(aPoints,vlines);
 
 			decomposeObjVertices(pr,mesh,false);
 

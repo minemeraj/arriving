@@ -1659,7 +1659,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
-		Vector newPoints=new Vector();
+		ArrayList newPoints=new ArrayList();
 		ArrayList newLines=new ArrayList();
 
 		
@@ -1699,7 +1699,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				if(!p0.isSelected()) 
 					for(int k=0;k<newPoints.size();k++){
 
-						Point3D np=(Point3D) newPoints.elementAt(k);
+						Point3D np=(Point3D) newPoints.get(k);
 						if(np.equals(p0))
 						{
 							
@@ -1787,7 +1787,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
-		Vector newPoints=new Vector();
+		ArrayList newPoints=new ArrayList();
 		ArrayList newLines=new ArrayList();
 
 		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
@@ -1815,7 +1815,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				if(!p0.isSelected()) 
 					for(int k=0;k<newPoints.size();k++){
 
-						Point3D np=(Point3D) newPoints.elementAt(k);
+						Point3D np=(Point3D) newPoints.get(k);
 						if(np.equals(p0))
 						{
 							newLd.addIndex(k);
@@ -2253,7 +2253,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 	
-	public void buildPoint(Vector points, String str) {
+	public void buildPoint(ArrayList points, String str) {
 
 
 

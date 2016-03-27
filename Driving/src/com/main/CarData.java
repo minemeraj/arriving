@@ -1,8 +1,5 @@
 package com.main;
-import java.util.Vector;
-
 import com.CubicMesh;
-import com.PolygonMesh;
 
 /*
  * Created on 20/giu/09

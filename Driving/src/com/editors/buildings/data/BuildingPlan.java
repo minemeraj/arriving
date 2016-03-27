@@ -186,8 +186,7 @@ public class BuildingPlan extends CustomData{
 		int ynum=1;
 
 
-		points=new Vector();
-		points.setSize(30);
+		points=new ArrayList();
 
 		polyData=new ArrayList();
 		
