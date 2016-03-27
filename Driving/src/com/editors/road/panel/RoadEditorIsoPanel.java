@@ -68,7 +68,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	}
 	
 
-	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,Vector splines,Point3D startPosition,ZBuffer landscapeZbuffer,Graphics2D graph) {
+	public void drawRoad(PolygonMesh[] meshes, Vector drawObjects,ArrayList splines,Point3D startPosition,ZBuffer landscapeZbuffer,Graphics2D graph) {
 
 		displayTerrain(landscapeZbuffer,meshes);
 		if(!isHide_objects())
@@ -146,21 +146,21 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		//buildScreen(buf); 
 	}
 	
-	public void displaySPLines(ZBuffer landscapeZbuffer, Vector splines) {
+	public void displaySPLines(ZBuffer landscapeZbuffer, ArrayList splines) {
 	
 		
 
 		for (int i = 0; i < splines.size(); i++) {
-			SPLine sp = (SPLine) splines.elementAt(i);
+			SPLine sp = (SPLine) splines.get(i);
 			sp.calculate3DMeshes();
 			
 			int hashCode=sp.hashCode();
 			
-			Vector meshes = sp.getMeshes3D();
+			ArrayList meshes = sp.getMeshes3D();
 			
 			for (int j = 0; j < meshes.size(); j++) {
 				
-				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
+				PolygonMesh mesh = (PolygonMesh) meshes.get(j);
 				
 				
 				ArrayList polygonData=mesh.polygonData;
@@ -1040,13 +1040,13 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	}
 	
 
-	public boolean selectSPNodes(int x, int y, Vector splines) {
+	public boolean selectSPNodes(int x, int y, ArrayList splines) {
 	
 		boolean isToselect=true;
 		
 		for (int i = 0; i < splines.size(); i++) {
 			
-			SPLine spline = (SPLine) splines.elementAt(i);
+			SPLine spline = (SPLine) splines.get(i);
 			
 			SPNode root = spline.getRoot();
 			int sz=root.getChildCount();

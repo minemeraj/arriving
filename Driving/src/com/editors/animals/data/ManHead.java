@@ -164,13 +164,11 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 
 
 
-	public Vector buildTexturePoints() {
+	public ArrayList buildTexturePoints() {
 		
 		isTextureDrawing=false;
 		
-		Vector texture_points=new Vector();
-		
-		texture_points.setSize(numTexturePoints);
+		ArrayList texture_points=new ArrayList(numTexturePoints);
 		
 		addTexturePoints(texture_points,textureBlock);
 		

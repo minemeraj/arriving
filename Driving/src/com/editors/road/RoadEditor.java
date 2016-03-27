@@ -1383,7 +1383,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void undoSplines() {
 
-		splines=(Vector) oldSpline.pop();
+		splines=(ArrayList) oldSpline.pop();
 		if(oldSpline.size()==0)
 			jmtUndoSPLines.setEnabled(false);
 		
@@ -1524,7 +1524,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		for (int i = 0; i < splines.size(); i++) {
 			
-			SPLine spline = (SPLine) splines.elementAt(i);
+			SPLine spline = (SPLine) splines.get(i);
 			
 			SPNode root = spline.getRoot();
 			int sz=root.getChildCount();
@@ -1746,10 +1746,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		prepareUndoSpline();
 		
-		Vector newSplines=new Vector();
+		ArrayList newSplines=new ArrayList();
 	
 		for (int i = 0; i < splines.size(); i++) {
-			SPLine spline = (SPLine) splines.elementAt(i);
+			SPLine spline = (SPLine) splines.get(i);
 			
 			SPLine newSpline=new SPLine(spline.getvTexturePoints());
 			
@@ -1915,7 +1915,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		for (int i = 0; i < splines.size(); i++) {
 			
-			SPLine spline = (SPLine) splines.elementAt(i);
+			SPLine spline = (SPLine) splines.get(i);
 			
 			SPNode root = spline.getRoot();
 			int sz=root.getChildCount();
@@ -2244,7 +2244,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 	
 	
-	public void buildLine(ArrayList polygonData, String str,Vector vTexturePoints) {
+	public void buildLine(ArrayList polygonData, String str,ArrayList vTexturePoints) {
 
 
 
@@ -2698,7 +2698,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				
 			}
 			
-			Vector vTexturePoints=buildTemplateTexturePoints(200);
+			ArrayList vTexturePoints=buildTemplateTexturePoints(200);
 					
 		
 			
@@ -2717,10 +2717,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					int pos3=pos(i,j+1,numx,numy);
 					
 				
-					Point3D pt0=(Point3D) vTexturePoints.elementAt(0);
-					Point3D pt1=(Point3D) vTexturePoints.elementAt(1);
-					Point3D pt2=(Point3D) vTexturePoints.elementAt(2);
-					Point3D pt3=(Point3D) vTexturePoints.elementAt(3);
+					Point3D pt0=(Point3D) vTexturePoints.get(0);
+					Point3D pt1=(Point3D) vTexturePoints.get(1);
+					Point3D pt2=(Point3D) vTexturePoints.get(2);
+					Point3D pt3=(Point3D) vTexturePoints.get(3);
 
 					LineData ld=new LineData();
 					ld.addIndex(pos0,0,pt0.x,pt0.y);
@@ -2802,7 +2802,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 				}
 
-			Vector vTexturePoints=buildTemplateTexturePoints(200);
+			ArrayList vTexturePoints=buildTemplateTexturePoints(200);
 			
 			for(int i=0;i<numx-1;i++)
 				for(int j=0;j<numy-1;j++){
@@ -2815,10 +2815,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					int pl3=pos(i+1,j+1,numx,numy);
 					int pl4=pos(i,j+1,numx,numy);
 					
-					Point3D pt0=(Point3D) vTexturePoints.elementAt(0);
-					Point3D pt1=(Point3D) vTexturePoints.elementAt(1);
-					Point3D pt2=(Point3D) vTexturePoints.elementAt(2);
-					Point3D pt3=(Point3D) vTexturePoints.elementAt(3);
+					Point3D pt0=(Point3D) vTexturePoints.get(0);
+					Point3D pt1=(Point3D) vTexturePoints.get(1);
+					Point3D pt2=(Point3D) vTexturePoints.get(2);
+					Point3D pt3=(Point3D) vTexturePoints.get(3);
 
 					LineData ld=new LineData();
 					ld.addIndex(pl1,0,pt0.x,pt0.y);
@@ -2960,7 +2960,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		
 		for (int i = 0; i < splines.size(); i++) {
-			SPLine sp = (SPLine) splines.elementAt(i);
+			SPLine sp = (SPLine) splines.get(i);
 		    sp.calculateRibs();	
 			
 		}
@@ -3105,7 +3105,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		boolean found=false;
 	
 		for (int i = -1; i < splines.size(); i++) {
-			SPLine spline = (SPLine) splines.elementAt(i);
+			SPLine spline = (SPLine) splines.get(i);
 			
 			SPNode root = spline.getRoot();
 			int sz=root.getChildCount();
@@ -3236,7 +3236,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			isInit=false;
 						
-			Vector vTexturePoints=buildTemplateTexturePoints(200);
+			ArrayList vTexturePoints=buildTemplateTexturePoints(200);
 			
 			SPLine sp=new SPLine(vTexturePoints);	
 
@@ -3245,9 +3245,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 		}else{
 			
-			SPLine sp=(SPLine) splines.lastElement();
+			SPLine sp=(SPLine) splines.get(splines.size()-1);
 			
-			Vector vTexturePoints=buildTemplateTexturePoints(200);
+			ArrayList vTexturePoints=buildTemplateTexturePoints(200);
 			sp.addSPNode(p0);
 			
 		}
@@ -3263,7 +3263,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		SPNode baseNode=null;
 		
 		for (int i = -1; i < splines.size(); i++) {
-			SPLine sp = (SPLine) splines.elementAt(i);
+			SPLine sp = (SPLine) splines.get(i);
 			
 			SPNode root = sp.getRoot();
 			int sz=root.getChildCount();
@@ -3303,7 +3303,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		prepareUndoSpline();
 		
 		for (int i = -1; i < splines.size(); i++) {
-			SPLine sp = (SPLine) splines.elementAt(i);
+			SPLine sp = (SPLine) splines.get(i);
 			
 			SPNode newRoot=new SPNode();
 			
@@ -3361,7 +3361,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		double height=setSPNodeHeightValue.getvalue();
 		
 		for (int i = -1; i < splines.size(); i++) {
-			SPLine sp = (SPLine) splines.elementAt(i);
+			SPLine sp = (SPLine) splines.get(i);
 		
 			SPNode root = sp.getRoot();
 			int sz=root.getChildCount();
@@ -3504,7 +3504,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		for (int i = 0; i < splines.size(); i++) {
 			
-			SPLine spline = (SPLine) splines.elementAt(i);
+			SPLine spline = (SPLine) splines.get(i);
 
 			SPNode root = spline.getRoot();
 			int sz=root.getChildCount();
@@ -4180,9 +4180,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	}
 	
-	public static Vector buildTemplateTexturePoints(double side) {
+	public static ArrayList buildTemplateTexturePoints(double side) {
 		
-		Vector vPoints=new Vector();
+		ArrayList vPoints=new ArrayList();
 		
 		vPoints.add(new Point3D(0,0,0));
 		vPoints.add(new Point3D(side,0,0));
@@ -4192,12 +4192,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		return vPoints;
 	}
 	
-	public Vector cloneSPLines(Vector splines){
+	public ArrayList cloneSPLines(ArrayList splines){
 		
-		Vector newSplines=new Vector();
+		ArrayList newSplines=new ArrayList();
 		
 		for (int i = 0; i < splines.size(); i++) {
-			SPLine line = (SPLine) splines.elementAt(i);
+			SPLine line = (SPLine) splines.get(i);
 			try {
 				
 				newSplines.add(line.clone());

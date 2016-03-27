@@ -208,15 +208,11 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		
 	}
 
-	public Vector buildTexturePoints() {
+	public ArrayList buildTexturePoints() {
 		
 		isTextureDrawing=false;
 		
-		Vector texture_points=new Vector();
-		
-
-
-		
+		ArrayList texture_points=new ArrayList();		
 		
 		return texture_points;
 	}

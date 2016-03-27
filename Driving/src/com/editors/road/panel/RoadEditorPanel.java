@@ -2,6 +2,7 @@ package com.editors.road.panel;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JPanel;
@@ -54,7 +55,7 @@ public abstract class RoadEditorPanel extends JPanel {
 		this.editor=editor;
 	}
 
-	public abstract void drawRoad(PolygonMesh[] meshes, Vector drawObjects,Vector splines,
+	public abstract void drawRoad(PolygonMesh[] meshes, Vector drawObjects,ArrayList splines,
 			Point3D startPosition,
 			ZBuffer landscapeZbuffer,Graphics2D graph);
 	
@@ -530,7 +531,7 @@ public abstract class RoadEditorPanel extends JPanel {
 	}
 	
 
-	public abstract boolean selectSPNodes(int x, int y, Vector splines);
+	public abstract boolean selectSPNodes(int x, int y, ArrayList splines);
 	
 	public Polygon3D builProjectedPolygon(Polygon3D p3d) {
 		
@@ -549,7 +550,7 @@ public abstract class RoadEditorPanel extends JPanel {
 
 	public abstract void rotate(int signum);
 	
-	public abstract void displaySPLines(ZBuffer landscapeZbuffer, Vector splines);
+	public abstract void displaySPLines(ZBuffer landscapeZbuffer, ArrayList splines);
 
 	
 	public abstract void displayTerrain(ZBuffer landscapeZbuffer,PolygonMesh[] meshes);

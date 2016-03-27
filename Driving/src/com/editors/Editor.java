@@ -51,7 +51,7 @@ public class Editor extends JFrame implements MenuListener{
 	
 	public static String TAG[]={"terrain","road"};
 	
-	public Vector splines=null;
+	public ArrayList splines=null;
 	
 	public Editor(){
 		
@@ -71,7 +71,7 @@ public class Editor extends JFrame implements MenuListener{
 			oldMeshes[i]=new Stack();
 		}
 		
-		splines=new Vector();
+		splines=new ArrayList();
 	
 	}
 
@@ -281,7 +281,7 @@ public class Editor extends JFrame implements MenuListener{
 			double y0=0;
 			
 			ArrayList aPoints=new ArrayList();
-			Vector vTexturePoints=new Vector();
+			ArrayList vTexturePoints=new ArrayList();
 			
 			while((str=br.readLine())!=null){
 				
@@ -355,9 +355,9 @@ public class Editor extends JFrame implements MenuListener{
 	}
 
 	
-	public static Vector loadStaticSPLinesFromFile(File file,boolean forceReading){
+	public static ArrayList loadStaticSPLinesFromFile(File file,boolean forceReading){
 		
-		Vector splines=new Vector();
+		ArrayList splines=new ArrayList();
 		
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));
@@ -372,7 +372,7 @@ public class Editor extends JFrame implements MenuListener{
 			double y0=0;
 			
 			
-			Vector vTexturePoints=new Vector();
+			ArrayList aTexturePoints=new ArrayList();
 			
 			while((str=br.readLine())!=null){
 				
@@ -390,13 +390,13 @@ public class Editor extends JFrame implements MenuListener{
 					continue;
 				
 				if(str.startsWith("vt=")){
-					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
+					PolygonMesh.buildTexturePoint(aTexturePoints,str.substring(3));
 					continue;
 				}else if(str.equals("<spline>")){			
 				
 					
 					
-					SPLine sp=new SPLine(vTexturePoints);
+					SPLine sp=new SPLine(aTexturePoints);
 					splines.add(sp);
 					continue;
 				}else if(str.equals("</spline>")){
@@ -404,7 +404,7 @@ public class Editor extends JFrame implements MenuListener{
 				}
 				
 				
-				SPLine sp=(SPLine) splines.lastElement();
+				SPLine sp=(SPLine) splines.get(splines.size()-1);
 				
 			
 								
@@ -512,7 +512,7 @@ public class Editor extends JFrame implements MenuListener{
 
 
 	public void buildLine(ArrayList<LineData> polygonData, String str,
-			Vector vTexturePoints) {
+			ArrayList vTexturePoints) {
 		PolygonMesh.buildLine(polygonData,str,vTexturePoints);
 		
 	}
@@ -721,7 +721,7 @@ public class Editor extends JFrame implements MenuListener{
 			
 			for (int i = 0; i < splines.size(); i++) {
 				
-				SPLine sp = (SPLine) splines.elementAt(i);
+				SPLine sp = (SPLine) splines.get(i);
 				if(i>0)
 					pr.println();
 				

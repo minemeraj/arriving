@@ -244,13 +244,11 @@ public class Plant0 extends CustomData{
 
 	}
 	
-	public Vector buildTexturePoints() {
+	public ArrayList buildTexturePoints() {
 		
 		isTextureDrawing=false;
 		
-		Vector texture_points=new Vector();
-		texture_points.setSize(numTexturePoints);
-		
+		ArrayList texture_points=new ArrayList();
 				
 		addTexturePoints(texture_points,trunkCylinder);
 		addTexturePoints(texture_points,foliageCylinder);

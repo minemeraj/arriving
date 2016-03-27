@@ -212,19 +212,16 @@ public class Barrel extends CustomData{
 		
 	}
 
-	public Vector buildTexturePoints() {
+	public ArrayList buildTexturePoints() {
 		
 		isTextureDrawing=false;
-		
-		Vector texture_points=new Vector();
-		
+				
 		double teta=(2*pi)/(N_MERIDIANS);
 
 
 		int size=2*N_MERIDIANS+	(N_MERIDIANS+1)*(N_PARALLELS);
-
 		
-		texture_points.setSize(size);
+		ArrayList texture_points=new ArrayList(size);
 		
 		texture_side_dy=(int) (zHeight/(N_PARALLELS-1));
 		texture_side_dx=(int) (len/(N_MERIDIANS));
@@ -244,7 +241,7 @@ public class Barrel extends CustomData{
 			double y= calY(upperBase[j].y);
 
 			Point3D p=new Point3D(x,y,0);			
-			texture_points.setElementAt(p,count++);
+			texture_points.set(count++,p);
 
 
 		}
@@ -256,7 +253,7 @@ public class Barrel extends CustomData{
 			double y= calY(lowerBase[j].y);
 
 			Point3D p=new Point3D(x,y,0);			
-			texture_points.setElementAt(p,count++);
+			texture_points.set(count++,p);
 
 		}
 
@@ -277,7 +274,7 @@ public class Barrel extends CustomData{
 
 				int texIndex=count+f(i,j,N_MERIDIANS+1,N_PARALLELS);
 				//System.out.print(texIndex+"\t");
-				texture_points.setElementAt(p,texIndex);
+				texture_points.set(texIndex,p);
 			}
 			
 		}	

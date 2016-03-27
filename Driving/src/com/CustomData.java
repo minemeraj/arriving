@@ -13,7 +13,7 @@ public class CustomData {
 	
 	public ArrayList points=null;
 	public ArrayList polyData=null;
-	public Vector texture_points=null;
+	public ArrayList texture_points=null;
 	
 	public int n=0;
 	public static double pi=Math.PI;
@@ -544,11 +544,11 @@ public class CustomData {
 		
 	}
 
-	public Vector getTexture_points() {
+	public ArrayList getTexture_points() {
 		return texture_points;
 	}
 
-	public void setTexture_points(Vector texture_points) {
+	public void setTexture_points(ArrayList texture_points) {
 		this.texture_points = texture_points;
 	}
 	
@@ -684,7 +684,7 @@ public class CustomData {
 	
 	
 	
-	public void addTexturePoints(Vector texture_points,TextureBlock tb) {
+	public void addTexturePoints(ArrayList texture_points,TextureBlock tb) {
 		
 
 		
@@ -708,7 +708,7 @@ public class CustomData {
 					int index=((Integer)tb.upperBase[i][j].getData()).intValue();
 		
 					Point3D p=new Point3D(x,y,0);			
-					texture_points.setElementAt(p,index);
+					texture_points.set(index,p);
 				}
 	
 			}
@@ -729,7 +729,7 @@ public class CustomData {
 
 				int index=((Integer)tb.lateralFaces[i][j].getData()).intValue();
 				//System.out.print(texIndex+"\t");
-				texture_points.setElementAt(p,index);
+				texture_points.set(index,p);
 			}
 			
 		}	
@@ -746,7 +746,7 @@ public class CustomData {
 					int index=((Integer)tb.lowerBase[i][j].getData()).intValue();
 		
 					Point3D p=new Point3D(x,y,0);			
-					texture_points.setElementAt(p,index);
+					texture_points.set(index,p);
 				}
 			}
 		
@@ -833,7 +833,7 @@ public class CustomData {
 	}
 	
 	
-	public void addTexturePoints(Vector texture_points,TextureCylinder tb) {
+	public void addTexturePoints(ArrayList texture_points,TextureCylinder tb) {
 		
 
 	
@@ -851,7 +851,7 @@ public class CustomData {
 					int index=((Integer)tb.upperBase[j].getData()).intValue();
 		
 					Point3D p=new Point3D(x,y,0);			
-					texture_points.setElementAt(p,index);
+					texture_points.set(index,p);
 		
 	
 			}
@@ -871,7 +871,7 @@ public class CustomData {
 				Point3D p=new Point3D(x,y,0);
 
 				int index=((Integer)tb.lateralFaces[j][i].getData()).intValue();
-				texture_points.setElementAt(p,index);
+				texture_points.set(index,p);
 			}
 			
 		}	
@@ -887,7 +887,7 @@ public class CustomData {
 					int index=((Integer)tb.lowerBase[j].getData()).intValue();
 		
 					Point3D p=new Point3D(x,y,0);			
-					texture_points.setElementAt(p,index);
+					texture_points.set(index,p);
 				}
 		}
 		

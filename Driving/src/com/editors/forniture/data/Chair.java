@@ -352,19 +352,15 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		
 	}
 
-	public Vector buildTexturePoints() {
+	public ArrayList buildTexturePoints() {
 		
 		isTextureDrawing=false;
-		
-		Vector texture_points=new Vector();
-		
-
 
 		int size=2*N_FACES+	(N_FACES+1)*(N_PARALLELS)+
 				  N_FACES+	(N_FACES+1)*(N_PARALLELS)+
 				  N_FACES+	(N_FACES+1)*(N_PARALLELS);
 		
-		texture_points.setSize(size);
+		ArrayList texture_points=new ArrayList(size);
 		
 		int count=0;
 		//upperbase
@@ -377,7 +373,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 			double y= calY(upperBase[j].y);
 
 			Point3D p=new Point3D(x,y,0);			
-			texture_points.setElementAt(p,count++);
+			texture_points.set(count++,p);
 
 
 		}
@@ -389,7 +385,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 			double y= calY(lowerBase[j].y);
 
 			Point3D p=new Point3D(x,y,0);			
-			texture_points.setElementAt(p,count++);
+			texture_points.set(count++,p);
 
 		}
 
@@ -410,7 +406,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 
 				int texIndex=count+f(i,j,N_FACES+1,N_PARALLELS);
 				//System.out.print(texIndex+"\t");
-				texture_points.setElementAt(p,texIndex);
+				texture_points.set(texIndex,p);
 			}
 			
 		}
@@ -423,7 +419,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 			double y= calY(lowerLegBase[j].y);
 
 			Point3D p=new Point3D(x,y,0);			
-			texture_points.setElementAt(p,count++);
+			texture_points.set(count++,p);
 
 		}
 
@@ -444,7 +440,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 
 				int texIndex=count+f(i,j,N_FACES+1,N_PARALLELS);
 				//System.out.print(texIndex+"\t");
-				texture_points.setElementAt(p,texIndex);
+				texture_points.set(texIndex,p);
 			}
 			
 		}
@@ -457,7 +453,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 			double y= calY(upperBackBase[j].y);
 
 			Point3D p=new Point3D(x,y,0);			
-			texture_points.setElementAt(p,count++);
+			texture_points.set(count++,p);
 
 		}
 
@@ -478,7 +474,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 
 				int texIndex=count+f(i,j,N_FACES+1,N_PARALLELS);
 				//System.out.print(texIndex+"\t");
-				texture_points.setElementAt(p,texIndex);
+				texture_points.set(texIndex,p);
 			}
 			
 		}	

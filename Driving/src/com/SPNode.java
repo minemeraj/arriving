@@ -1,7 +1,7 @@
 package com;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.Vector;
 
 import javax.swing.tree.TreeNode;
@@ -16,22 +16,27 @@ public class SPNode extends Point4D implements TreeNode{
 	PolygonMesh circle=null;	
 
 	Object object=null;
-	Vector children=null;
+	ArrayList children=null;
 	
 	SPNode parent=null;
 
 	public SPNode(){
 		
-		children=new Vector();
+		children=new ArrayList();
 		
 	}
 
 	public SPNode(double x, double y, double z, String gREEN_HEX, int index) {
 	
 		super( x,  y,  z,  gREEN_HEX,  index);
-		children=new Vector();
+		children=new ArrayList();
 		update();
 		
+	}
+	
+	public SPNode(Object object) {
+		this.object=object;
+		children=new ArrayList();
 	}
 	
 	@Override
@@ -80,10 +85,7 @@ public class SPNode extends Point4D implements TreeNode{
 	}
 
 
-	public SPNode(Object object) {
-		this.object=object;
-		children=new Vector();
-	}
+
 
 	public void addChildren(SPNode child0) {
 		children.add(child0);
@@ -93,14 +95,13 @@ public class SPNode extends Point4D implements TreeNode{
 
 	@Override
 	public Enumeration children() {
-		if(children==null)
-			return null;
-		return children.elements();
+
+		throw new UnsupportedOperationException("Enumeration not available!");
+		
 	}
 
 	@Override
 	public boolean getAllowsChildren() {
-		// TODO Auto-generated method stub
 		return children!=null;
 	}
 
@@ -112,7 +113,7 @@ public class SPNode extends Point4D implements TreeNode{
 		if(i==-1)
 			return this;
 		
-		return (SPNode) children.elementAt(i);
+		return (SPNode) children.get(i);
 	}
 
 	@Override
@@ -150,7 +151,7 @@ public class SPNode extends Point4D implements TreeNode{
 	}
 
 	public void setChildAt(SPNode spnode, int k) {
-		children.setElementAt(spnode, k);
+		children.set(k,spnode);
 		
 	}
 

@@ -309,19 +309,18 @@ public class Globe0 extends Forniture {
 		
 	}
 
-public Vector buildTexturePoints() {
+public ArrayList buildTexturePoints() {
 	
 	isTextureDrawing=false;
 	
-	Vector texture_points=new Vector();
+	
 	
 	double teta=(2*pi)/(n_meridians);
 
 
 	int size=2*n_meridians+	(n_meridians+1)*(n_parallels);
 
-	
-	texture_points.setSize(size);
+	ArrayList texture_points=new ArrayList(size);
 	
 	texture_side_dy=(int) (zHeight/(n_parallels-1));
 	texture_side_dx=(int) (len/(n_meridians));
@@ -338,7 +337,7 @@ public Vector buildTexturePoints() {
 		double yp=calY(northPoles[i].y);
 		
 		Point3D p=new Point3D(xp,yp,0);	
-		texture_points.setElementAt(p,count++);
+		texture_points.set(count++,p);
 }
 
 	//lateral surface
@@ -357,7 +356,7 @@ public Vector buildTexturePoints() {
 
 			int texIndex=count+f(i,j,n_meridians+1,n_parallels);
 			//System.out.print(texIndex+"\t");
-			texture_points.setElementAt(p,texIndex);
+			texture_points.set(texIndex,p);
 		}
 		
 	}	
@@ -370,7 +369,7 @@ public Vector buildTexturePoints() {
 		double yp=calY(southPoles[i].y);
 		
 		Point3D p=new Point3D(xp,yp,0);	
-		texture_points.setElementAt(p,count++);
+		texture_points.set(count++,p);
 
     }
 	

@@ -1531,7 +1531,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 
 		ArrayList transpoints=new ArrayList();
 		ArrayList translines=new ArrayList();
-		Vector vTexturePoints=new Vector();
+		ArrayList aTexturePoints=new ArrayList();
 		
 		oldMeshes[ACTIVE_PANEL]=new Stack();
 		
@@ -1556,9 +1556,9 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 				if(str.startsWith("v="))
 					buildPoint(transpoints,str.substring(2));
 				else if(str.startsWith("vt="))
-					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
+					PolygonMesh.buildTexturePoint(aTexturePoints,str.substring(3));
 				else if(str.startsWith("f="))
-					buildLine(translines,str.substring(2),vTexturePoints);
+					buildLine(translines,str.substring(2),aTexturePoints);
 			}
 
 			br.close();

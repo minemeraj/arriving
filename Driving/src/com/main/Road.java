@@ -6,7 +6,6 @@ package com.main;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
-import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -131,7 +130,7 @@ public class Road extends Shader{
 	
 	public static double WATER_LEVEL=0;
 	
-	private Vector splines=null;
+	private ArrayList splines=null;
 	
 	public static final int ROAD_INDEX0 =0;
 	public static final int ROAD_INDEX1 =1;
@@ -642,7 +641,7 @@ public class Road extends Shader{
 
 		for (int i = 0; i < splines.size(); i++) {
 
-				SPLine sp = (SPLine) splines.elementAt(i);
+				SPLine sp = (SPLine) splines.get(i);
 
 				Vector meshes = sp.getMeshes();
 
@@ -728,20 +727,20 @@ public class Road extends Shader{
 	}
 
 
-	private void drawSPLines(Vector splines, Area totalVisibleField,
+	private void drawSPLines(ArrayList splines, Area totalVisibleField,
 			ZBuffer roadZbuffer) {
 
 		for (int i = 0; i < splines.size(); i++) {
 
-			SPLine sp = (SPLine) splines.elementAt(i);
+			SPLine sp = (SPLine) splines.get(i);
 			
 			int hashCode=sp.hashCode();
 
-			Vector meshes = sp.getMeshes3D();
+			ArrayList meshes = sp.getMeshes3D();
 
 			for (int j = 0; j < meshes.size(); j++) {
 
-				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
+				PolygonMesh mesh = (PolygonMesh) meshes.get(j);
 				
 				
 
@@ -1164,7 +1163,7 @@ public class Road extends Shader{
 			int rows=0;
 			
 			ArrayList aPoints=new ArrayList();
-			Vector vTexturePoints=new Vector();
+			ArrayList vTexturePoints=new ArrayList();
 			
 			while((str=br.readLine())!=null){
 				if(str.indexOf("#")>=0 || str.length()==0)
@@ -1295,7 +1294,7 @@ public class Road extends Shader{
 		return str;
 	}
 	
-	public static void buildLine(ArrayList polygonData, String str,Vector vTexturePoints) {
+	public static void buildLine(ArrayList polygonData, String str,ArrayList vTexturePoints) {
 
 
 
@@ -1319,7 +1318,7 @@ public class Road extends Shader{
 
 					int indx0=Integer.parseInt(val0);	
 					int indx1=Integer.parseInt(val1);					
-					Point3D pt=(Point3D) vTexturePoints.elementAt(indx1);					
+					Point3D pt=(Point3D) vTexturePoints.get(indx1);					
 
 					ld.addIndex(indx0,indx1,pt.x,pt.y);
 				}
@@ -1389,7 +1388,7 @@ public class Road extends Shader{
 
 		ArrayList <Point3D>points = new ArrayList <Point3D>();
 		ArrayList <LineData>lines = new ArrayList <LineData>();
-		Vector vTexturePoints=new Vector();
+		ArrayList aTexturePoints=new ArrayList();
 
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));
@@ -1404,9 +1403,9 @@ public class Road extends Shader{
 				if(str.startsWith("v="))
 					PolygonMesh.buildPoint(points,str.substring(2)); 
 				else if(str.startsWith("vt="))
-					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
+					PolygonMesh.buildTexturePoint(aTexturePoints,str.substring(3));
 				else if(str.startsWith("f="))
-					PolygonMesh.buildLine(lines,str.substring(2),vTexturePoints);
+					PolygonMesh.buildLine(lines,str.substring(2),aTexturePoints);
 
 
 			}
@@ -1511,7 +1510,7 @@ public class Road extends Shader{
 
 
 				for (int i = 0; i < splines.size(); i++) {
-					SPLine sp = (SPLine) splines.elementAt(i);
+					SPLine sp = (SPLine) splines.get(i);
 					
 					
 					for (int j = 0; sp.ribs!=null && j < sp.ribs.size(); j++) {

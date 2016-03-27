@@ -289,7 +289,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 
 
 
-	public static void buildCustomCity1(PolygonMesh terrainMesh, Vector splines,
+	public static void buildCustomCity1(PolygonMesh terrainMesh, ArrayList splines,
 			RoadEditorCityManager roadECM, Vector drawObjects, CubicMesh[] objectMeshes) {
 		
 		
@@ -339,7 +339,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 				
 				if(i%(block_xtextures+road_textures)==1){
 					
-					Vector vTexturePoints=RoadEditor.buildTemplateTexturePoints(200);
+					ArrayList vTexturePoints=RoadEditor.buildTemplateTexturePoints(200);
 					
 					SPLine sp=new SPLine(vTexturePoints);
 			
@@ -366,7 +366,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 						
 						if(j%(block_ytextures+road_textures)==1	){
 							
-							Vector vTexturePoints=RoadEditor.buildTemplateTexturePoints(200);
+							ArrayList vTexturePoints=RoadEditor.buildTemplateTexturePoints(200);
 							
 							SPLine sp=new SPLine(vTexturePoints);
 							
@@ -416,7 +416,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 		terrainMesh.points=newTerrainPoints;
 		terrainMesh.polygonData=new ArrayList();
 		
-		Vector vTexturePoints=RoadEditor.buildTemplateTexturePoints(200);
+		ArrayList vTexturePoints=RoadEditor.buildTemplateTexturePoints(200);
 		
 		for(int i=0;i<numTerrainx-1;i++)
 			for(int j=0;j<numTerrainy-1;j++){ 
@@ -429,10 +429,10 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 				int pl3=pos(i+1,j+1,numTerrainx,numTerrainy);
 				int pl4=pos(i,j+1,numTerrainx,numTerrainy);
 				
-				Point3D pt0=(Point3D) vTexturePoints.elementAt(0);
-				Point3D pt1=(Point3D) vTexturePoints.elementAt(1);
-				Point3D pt2=(Point3D) vTexturePoints.elementAt(2);
-				Point3D pt3=(Point3D) vTexturePoints.elementAt(3);
+				Point3D pt0=(Point3D) vTexturePoints.get(0);
+				Point3D pt1=(Point3D) vTexturePoints.get(1);
+				Point3D pt2=(Point3D) vTexturePoints.get(2);
+				Point3D pt3=(Point3D) vTexturePoints.get(3);
 
 				LineData ld=new LineData();
 				ld.addIndex(pl1,0,pt0.x,pt0.y);

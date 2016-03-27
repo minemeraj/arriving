@@ -4,9 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.BarycentricCoordinates;
@@ -55,7 +55,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 	public void drawRoad(PolygonMesh[] meshes, 
 			Vector drawObjects,
-			Vector splines,
+			ArrayList splines,
 			Point3D startPosition,
 			ZBuffer landscapeZbuffer,
 			Graphics2D graph) {
@@ -118,10 +118,10 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		drawCurrentRect(landscapeZbuffer);
 	}
 	
-	public void displaySPLines(ZBuffer landscapeZbuffer, Vector splines) {
+	public void displaySPLines(ZBuffer landscapeZbuffer, ArrayList splines) {
 		
 		for (int i = 0; i < splines.size(); i++) {
-			SPLine sp = (SPLine) splines.elementAt(i);
+			SPLine sp = (SPLine) splines.get(i);
 			
 			Vector meshes = sp.getMeshes();
 			
@@ -130,18 +130,15 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
 				            
 				drawSPLinePolygon(mesh,landscapeZbuffer,1);
-                 
+                
 				
 			}
-
-
-
-			
+	
 		}
 		
 		
 		for (int i = 0; i < splines.size(); i++) {
-			SPLine sp = (SPLine) splines.elementAt(i);
+			SPLine sp = (SPLine) splines.get(i);
 			
 			SPNode root = sp.getRoot();
 			if(root==null)
@@ -1091,7 +1088,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	
 
 
-	public boolean selectSPNodes(int x, int y, Vector splines) {
+	public boolean selectSPNodes(int x, int y, ArrayList splines) {
 		
        //System.out.println(x+" "+y);
 		
@@ -1101,7 +1098,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		
 		for (int i = 0; i < splines.size(); i++) {
 			
-			SPLine spline = (SPLine) splines.elementAt(i);
+			SPLine spline = (SPLine) splines.get(i);
 			
 			SPNode root = spline.getRoot();
 			int sz=root.getChildCount();

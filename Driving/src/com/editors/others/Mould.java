@@ -859,7 +859,7 @@ public class Mould extends JFrame implements ActionListener{
 		if(isCustom){
 			
 			for (int i = 0; i < mesh.texturePoints.size(); i++) {
-				Point3D pt = (Point3D)  mesh.texturePoints.elementAt(i);
+				Point3D pt = (Point3D)  mesh.texturePoints.get(i);
 				pr.print("\nvt=");
 				pr.print(pt.x+" "+pt.y);
 			}

@@ -1200,7 +1200,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 
 	private void drawRoad(PolygonMesh[] meshes, Vector drawObjects2,
-			Vector splines, ZBuffer landscapeZbuffer2) {
+			ArrayList splines, ZBuffer landscapeZbuffer2) {
 		
 		
 		displayTerrain(landscapeZbuffer,meshes);
@@ -1244,10 +1244,10 @@ public class AutocarEditor extends Editor implements MouseListener,
 		}	
 	}
 
-	private void displaySPLines(ZBuffer landscapeZbuffer2, Vector splines) {
+	private void displaySPLines(ZBuffer landscapeZbuffer2, ArrayList splines) {
 		
 		for (int i = 0; i < splines.size(); i++) {
-			SPLine sp = (SPLine) splines.elementAt(i);
+			SPLine sp = (SPLine) splines.get(i);
 			
 			Vector meshes = sp.getMeshes();
 			
@@ -1315,7 +1315,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 	}
 
 
-	public void buildLine(ArrayList polygonData, String str,Vector vTexturePoints) {
+	public void buildLine(ArrayList polygonData, String str,ArrayList vTexturePoints) {
 
 
 

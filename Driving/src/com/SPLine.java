@@ -13,14 +13,14 @@ public class SPLine {
 	
 	public SPNode root=null;
 	public Vector ribs=null;
-	Vector vTexturePoints=null;
+	ArrayList vTexturePoints=null;
 	
-	Vector meshes3D=new Vector();
+	ArrayList meshes3D=new ArrayList();
 	
 	int level=Road.ROAD_LEVEL;
 
 	
-	public SPLine(Vector vTexturePoints){
+	public SPLine(ArrayList vTexturePoints){
 		
 		ribs=new Vector();
 		this.vTexturePoints=vTexturePoints;
@@ -211,10 +211,10 @@ public class SPLine {
 				points.add(p2);
 				points.add(p3);
 
-				Point3D pt0=(Point3D) vTexturePoints.elementAt(0);
-				Point3D pt1=(Point3D) vTexturePoints.elementAt(1);
-				Point3D pt2=(Point3D) vTexturePoints.elementAt(2);
-				Point3D pt3=(Point3D) vTexturePoints.elementAt(3);
+				Point3D pt0=(Point3D) vTexturePoints.get(0);
+				Point3D pt1=(Point3D) vTexturePoints.get(1);
+				Point3D pt2=(Point3D) vTexturePoints.get(2);
+				Point3D pt3=(Point3D) vTexturePoints.get(3);
 
 				ArrayList polygonData=new ArrayList();
 				LineData ld=new LineData();
@@ -237,7 +237,7 @@ public class SPLine {
 	
 	public void calculate3DMeshes() {
 
-		meshes3D=new Vector();
+		meshes3D=new ArrayList();
 
 
 		for (int j = 0;j < ribs.size(); j++) {
@@ -294,11 +294,11 @@ public class SPLine {
 		}
 	}
 
-	public Vector getvTexturePoints() {
+	public ArrayList getvTexturePoints() {
 		return vTexturePoints;
 	}
 
-	public void setvTexturePoints(Vector vTexturePoints) {
+	public void setvTexturePoints(ArrayList vTexturePoints) {
 		this.vTexturePoints = vTexturePoints;
 	}
 	
@@ -313,12 +313,12 @@ public class SPLine {
 	}
 
 
-	public Vector getMeshes3D() {
+	public ArrayList getMeshes3D() {
 		return meshes3D;
 	}
 
-	public void setMeshes3D(Vector meshes3d) {
-		meshes3D = meshes3d;
+	public void setMeshes3D(ArrayList meshes3d) {
+		this.meshes3D = meshes3d;
 	}
 
 	public SPNode getRoot() {
