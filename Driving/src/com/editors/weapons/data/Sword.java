@@ -1,11 +1,11 @@
 package com.editors.weapons.data;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.BPoint;
 import com.CustomData;
 import com.Segments;
-import com.editors.forniture.data.Barrel;
 import com.main.Renderer3D;
 
 public class Sword extends CustomData {
@@ -49,7 +49,7 @@ public class Sword extends CustomData {
 
 		points=new Vector();
 		points.setSize(200);
-		polyData=new Vector();
+		polyData=new ArrayList();
 
 		n=0;
 		

@@ -387,7 +387,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 		for(int j=0;j<mesh.polygonData.size();j++){
 
 
-			LineData ld=(LineData) mesh.polygonData.elementAt(j);
+			LineData ld=(LineData) mesh.polygonData.get(j);
 
 			drawPolygon(ld,mesh.points,g2);
 

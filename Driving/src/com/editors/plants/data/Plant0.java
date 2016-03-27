@@ -1,10 +1,10 @@
 package com.editors.plants.data;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
@@ -12,9 +12,7 @@ import javax.imageio.ImageIO;
 import com.BPoint;
 import com.CustomData;
 import com.LineData;
-import com.Point3D;
 import com.PolygonMesh;
-import com.TextureBlock;
 import com.TextureCylinder;
 import com.main.Renderer3D;
 
@@ -105,7 +103,7 @@ public class Plant0 extends CustomData{
 		points=new Vector();
 		points.setSize(800);
 
-		polyData=new Vector();
+		polyData=new ArrayList();
 		
 		
 		n=0;

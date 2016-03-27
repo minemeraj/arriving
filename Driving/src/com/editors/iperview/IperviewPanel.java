@@ -206,7 +206,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 		
 		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData)mesh.polygonData.elementAt(i);
+			LineData ld=(LineData)mesh.polygonData.get(i);
 			int numLInes=1;
 			if(ld.size()>2)
 				numLInes=ld.size();
@@ -231,7 +231,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 
 		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData)mesh.polygonData.elementAt(i);
+			LineData ld=(LineData)mesh.polygonData.get(i);
 			int numLInes=1;
 			if(ld.size()>2)
 				numLInes=ld.size();

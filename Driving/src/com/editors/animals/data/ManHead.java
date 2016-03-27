@@ -1,10 +1,10 @@
 package com.editors.animals.data;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
@@ -211,7 +211,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		points=new Vector();
 		points.setSize(400);
 
-		polyData=new Vector();
+		polyData=new ArrayList();
 
 		n=0;
 		

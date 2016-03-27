@@ -260,9 +260,9 @@ public class ObjectEditorTransformPanel extends JDialog implements ActionListene
 			}
 			
 			for (int i = 0; i < mesh.polygonData.size(); i++) {
-				LineData ld = (LineData) mesh.polygonData.elementAt(i);
+				LineData ld = (LineData) mesh.polygonData.get(i);
 				ld=invertLineData(ld);
-				mesh.polygonData.setElementAt(ld,i);
+				mesh.polygonData.set(i,ld);
 			}
 		}
 

@@ -1,5 +1,6 @@
 package com;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class SquareMesh extends PolygonMesh {
@@ -14,11 +15,11 @@ public class SquareMesh extends PolygonMesh {
 	double y0=0;
 	
 	
-	public SquareMesh(Vector points, Vector lines) {
+	public SquareMesh(Vector points, ArrayList lines) {
 		super(points, lines);
 	}
 	
-	public SquareMesh(Vector points, Vector lines,int numx, int numy, int dx,int dy,double x0, double y0) {
+	public SquareMesh(Vector points, ArrayList lines,int numx, int numy, int dx,int dy,double x0, double y0) {
 		super(points, lines);
 		this.numx = numx;
 		this.numy = numy;
@@ -96,7 +97,7 @@ public class SquareMesh extends PolygonMesh {
 		
 		for(int i=0;i<this.polygonData.size();i++){
 
-			pm.addPolygonData(polygonData.elementAt(i).clone());
+			pm.addPolygonData(polygonData.get(i).clone());
 		}
 		for(int i=0;i<this.normals.size();i++){
 

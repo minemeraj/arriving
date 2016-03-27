@@ -138,7 +138,7 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 			for(int j=0;j<sizel;j++){
 	
 	
-				LineData ld=(LineData) mesh.polygonData.elementAt(j);
+				LineData ld=(LineData) mesh.polygonData.get(j);
 	
 				Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.points,index);
 	
@@ -219,7 +219,7 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 			int due=(int)(255-i%15);			
 			Color col=new Color(due,0,0);
 
-			LineData ld=cm.polygonData.elementAt(i);
+			LineData ld=cm.polygonData.get(i);
 			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld,cm.getLevel());
 			polRotate.setShadowCosin(ld.getShadowCosin());
 

@@ -4,12 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
 
 import com.CubicMesh;
-import com.DrawObject;
 import com.LineData;
 import com.Point4D;
 import com.PolygonMesh;
@@ -175,7 +175,7 @@ public class EditorData {
 		//Vector vTexturePoints=RoadEditor.buildTemplateTexturePoints(100);
 		//circleShape.setTexturePoints(vTexturePoints);
 		
-		Vector polygonData=new Vector();
+		ArrayList polygonData=new ArrayList();
 		Point4D[] points=new Point4D[n];
 		
 		LineData ld=new LineData();
@@ -230,7 +230,7 @@ public class EditorData {
 			
 		}
 		
-		Vector polygonData=new Vector();
+		ArrayList polygonData=new ArrayList();
 		for (int i = 0; i < n; i++) {
 			
 			int indx0=i;

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Stack;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -24,7 +25,6 @@ import com.Rib;
 import com.SPLine;
 import com.SPNode;
 import com.SquareMesh;
-import com.main.Renderer3D;
 import com.main.Road;
 
 public class Editor extends JFrame implements MenuListener{
@@ -100,7 +100,7 @@ public class Editor extends JFrame implements MenuListener{
 				for(int j=0;j<lsize;j++){
 
 
-					LineData ld=(LineData) mesh.polygonData.elementAt(j);
+					LineData ld=(LineData) mesh.polygonData.get(j);
 
 					Polygon3D p3D=levelGetPolygon(ld,mesh.points);
 
@@ -511,7 +511,7 @@ public class Editor extends JFrame implements MenuListener{
 
 
 
-	public void buildLine(Vector<LineData> polygonData, String str,
+	public void buildLine(ArrayList<LineData> polygonData, String str,
 			Vector vTexturePoints) {
 		PolygonMesh.buildLine(polygonData,str,vTexturePoints);
 		
@@ -680,7 +680,7 @@ public class Editor extends JFrame implements MenuListener{
 
 			for(int i=0;i<mesh.polygonData.size();i++){
 
-				LineData ld=(LineData) mesh.polygonData.elementAt(i);
+				LineData ld=(LineData) mesh.polygonData.get(i);
 				
 				//for the transaction phase:
 				

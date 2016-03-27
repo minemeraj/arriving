@@ -5,19 +5,15 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.sql.Savepoint;
-import java.util.Hashtable;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
 
 import com.BPoint;
-import com.CustomData;
-import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
 import com.Segments;
-import com.editors.DoubleTextField;
 import com.main.Renderer3D;
 
 public class Chair extends Forniture{
@@ -512,7 +508,7 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		points=new Vector();
 		points.setSize(50);
 
-		polyData=new Vector();
+		polyData=new ArrayList();
 		
 		n=0;
 		

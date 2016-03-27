@@ -4,6 +4,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.main.Renderer3D;
@@ -11,7 +12,7 @@ import com.main.Renderer3D;
 public class CustomData {
 	
 	public Vector points=null;
-	public Vector polyData=null;
+	public ArrayList polyData=null;
 	public Vector texture_points=null;
 	
 	public int n=0;

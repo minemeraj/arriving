@@ -4,14 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.BufferedReader;
@@ -21,15 +17,13 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.text.DecimalFormat;
-import java.util.Collections;
-import java.util.Hashtable;
+import java.util.ArrayList;
 import java.util.Stack;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -38,25 +32,21 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 
 import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
 import com.editors.Editor;
 import com.editors.EditorPanel;
-import com.editors.block.BlockEditor.BlockData;
 import com.editors.object.ObjectEditorPreviewPanel;
 import com.main.HelpPanel;
 
@@ -1025,7 +1015,7 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 			for(int i=0;i<pm.polygonData.size();i++){
 
-				LineData ld=(LineData) pm.polygonData.elementAt(i);
+				LineData ld=(LineData) pm.polygonData.get(i);
 
 				pr.print(decomposeLineData(ld));
 				if(i<pm.polygonData.size()-1)
@@ -1058,7 +1048,7 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 		//create new line data
 
-		Vector<LineData> newPolygonData =new Vector();
+		ArrayList<LineData> newPolygonData =new ArrayList();
 
 		for(int i=0;i<NX-1;i++)
 			for(int j=0;j<NY-1;j++){

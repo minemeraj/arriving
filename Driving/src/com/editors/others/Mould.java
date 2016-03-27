@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,7 +14,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Savepoint;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
@@ -793,7 +792,7 @@ public class Mould extends JFrame implements ActionListener{
 
 					
 			Vector vpoints=pm.getPointsAsVector();
-			Vector vlines=pm.getPolygonData();
+			ArrayList vlines=pm.getPolygonData();
 
 			fc=new JFileChooser();
 			fc.setDialogType(JFileChooser.SAVE_DIALOG);
@@ -815,7 +814,7 @@ public class Mould extends JFrame implements ActionListener{
 
 	}
 	
-	public void saveMesh(File file,Vector vpoints,Vector vlines) {
+	public void saveMesh(File file,Vector vpoints,ArrayList vlines) {
 
 
 
@@ -838,7 +837,7 @@ public class Mould extends JFrame implements ActionListener{
 
 			for(int i=0;i<vlines.size();i++){
 
-				LineData ld=(LineData) vlines.elementAt(i);
+				LineData ld=(LineData) vlines.get(i);
 
 				pr.print("\nf=");
 				pr.print(decomposeLineData(ld));

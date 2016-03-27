@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Area;
 import java.beans.PropertyChangeEvent;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.BarycentricCoordinates;
@@ -104,7 +105,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			for(int j=0;j<sizel;j++){
 	
 	
-				LineData ld=(LineData) mesh.polygonData.elementAt(j);
+				LineData ld=(LineData) mesh.polygonData.get(j);
 	
 				Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.points,index,mesh.getLevel());
 				
@@ -162,7 +163,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				PolygonMesh mesh = (PolygonMesh) meshes.elementAt(j);
 				
 				
-                Vector polygonData=mesh.polygonData;
+				ArrayList polygonData=mesh.polygonData;
 				
 				int lsize=polygonData.size();
 				
@@ -171,7 +172,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				
 					Color selected=null;
 					
-					LineData ld=(LineData) polygonData.elementAt(k);
+					LineData ld=(LineData) polygonData.get(k);
 					
 					if(ld.isSelected()){
 
@@ -208,7 +209,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				for(int l=0;l<pm.polygonData.size();l++){
 					
 					
-					LineData ld=(LineData) pm.polygonData.elementAt(l);
+					LineData ld=(LineData) pm.polygonData.get(l);
 					
 				
 											
@@ -291,7 +292,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			//int due=(int)(255-i%15);			
 			//Color col=new Color(due,0,0);
 
-			LineData ld=cm.polygonData.elementAt(i);
+			LineData ld=cm.polygonData.get(i);
 			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld,cm.getLevel());
 			polRotate.setShadowCosin(ld.getShadowCosin());
 
@@ -894,7 +895,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
     	for(int i=0;i<sizel;i++){
 
 
-    		LineData ld=(LineData) mesh.polygonData.elementAt(i);
+    		LineData ld=(LineData) mesh.polygonData.get(i);
     		
     		
     		Polygon3D polReal= buildTranslatedPolygon3D(ld,mesh.points,0,mesh.getLevel());
@@ -944,7 +945,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
     	for(int i=0;i<sizel;i++){ 
 
 
-    		LineData ld=(LineData) mesh.polygonData.elementAt(i);
+    		LineData ld=(LineData) mesh.polygonData.get(i);
 
 
 
@@ -1019,7 +1020,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		for(int i=0;i<polSize;i++){
 
 
-			LineData ld=cm.polygonData.elementAt(i);
+			LineData ld=cm.polygonData.get(i);
 			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld,cm.getLevel());
 			polRotate.setShadowCosin(ld.getShadowCosin());
 
@@ -1057,7 +1058,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				
 				for (int k = 0; k < circle.polygonData.size(); k++) {
 					
-					LineData ld=(LineData) circle.polygonData.elementAt(k);
+					LineData ld=(LineData) circle.polygonData.get(k);
 				    Polygon3D polReal= buildTranslatedPolygon3D(ld,circle.points,0,0);
 				    Polygon3D polProjectd=builProjectedPolygon(polReal);
 				   // System.out.println(k+" "+pol);
@@ -1321,7 +1322,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		for(int j=0;j<lsize;j++){
 			
 			
-			LineData ld=(LineData) ring.polygonData.elementAt(j);
+			LineData ld=(LineData) ring.polygonData.get(j);
 
 	
 			Polygon3D p3D=buildTranslatedPolygon3D(ld,ring.points,Editor.ROAD_INDEX,ring.getLevel());

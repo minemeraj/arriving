@@ -1,5 +1,6 @@
 package com;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Vector;
 
 /*
@@ -25,7 +26,7 @@ public class CubicMesh extends PolygonMesh{
 	public Point3D point101=null;
 	public Point3D point111=null;
 
-	public CubicMesh(Point3D[] points, Vector<LineData> polygonData) {
+	public CubicMesh(Point3D[] points, ArrayList<LineData> polygonData) {
 		super(points,polygonData);
 	}
 
@@ -133,7 +134,7 @@ public class CubicMesh extends PolygonMesh{
 
 		for(int i=0;i<this.polygonData.size();i++){
 
-			cm.addPolygonData(polygonData.elementAt(i).clone());
+			cm.addPolygonData(polygonData.get(i).clone());
 		}
 		for(int i=0;i<this.normals.size();i++){
 

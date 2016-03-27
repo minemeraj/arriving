@@ -768,7 +768,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 				bufGraphics.setStroke(new BasicStroke(0.1f));
 				for(int j=0;j<mesh.polygonData.size();j++){ 
 
-					LineData ld=(LineData) mesh.polygonData.elementAt(j);
+					LineData ld=(LineData) mesh.polygonData.get(j);
 
 					for (int k = 0; k < ld.size(); k++) {
 

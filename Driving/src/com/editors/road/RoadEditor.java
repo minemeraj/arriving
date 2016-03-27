@@ -11,8 +11,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputMethodEvent;
-import java.awt.event.InputMethodListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
@@ -30,14 +28,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Stack;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
-import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -62,7 +59,6 @@ import com.BarycentricCoordinates;
 import com.CubicMesh;
 import com.DrawObject;
 import com.LineData;
-import com.Plain;
 import com.Point3D;
 import com.Point4D;
 import com.Polygon3D;
@@ -554,7 +550,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		int sizel=mesh.polygonData.size();
 		for(int i=0;i<sizel;i++){
 
-			LineData ld=(LineData) mesh.polygonData.elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.get(i);
 			if(!ld.isSelected())
 				continue;
 			
@@ -563,7 +559,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			if(repd.getModifiedLineData()!=null){
 				
-				mesh.polygonData.setElementAt(repd.getModifiedLineData(),i);
+				mesh.polygonData.set(i,repd.getModifiedLineData());
 				
 			}
 			
@@ -1606,7 +1602,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		for(int j=0;j<sizel;j++){
 			
 			
-			LineData ld=(LineData)mesh.polygonData.elementAt(j);
+			LineData ld=(LineData)mesh.polygonData.get(j);
 		    
 		    
 		    if(ld.isSelected){
@@ -1639,7 +1635,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		for(int i=0;i<sizel;i++){
 			
 			
-			LineData ld=(LineData) mesh.polygonData.elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.get(i);
 		    
 		    
 		    if(ld.isSelected){
@@ -1649,7 +1645,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				for (int j = ld.size()-1; j >=0; j--) {
 					invertedLd.addIndex(ld.getIndex(j));
 				}
-				mesh.polygonData.setElementAt(invertedLd,i);
+				mesh.polygonData.set(i,invertedLd);
 		    	
 		    }
 			
@@ -1664,7 +1660,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
 		Vector newPoints=new Vector();
-		Vector newLines=new Vector();
+		ArrayList newLines=new ArrayList();
 
 		
 		int firstPoint=-1;
@@ -1690,7 +1686,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData)mesh.polygonData.elementAt(i);
+			LineData ld=(LineData)mesh.polygonData.get(i);
 			if(ld.isSelected())
 				continue;
 			LineData newLd = new LineData();
@@ -1792,7 +1788,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
 		Vector newPoints=new Vector();
-		Vector newLines=new Vector();
+		ArrayList newLines=new ArrayList();
 
 		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
@@ -1806,7 +1802,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		int sizel=mesh.polygonData.size();
 		for(int i=0;i<sizel;i++){
 
-			LineData ld=(LineData) mesh.polygonData.elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.get(i);
 			if(ld.isSelected())
 				continue;
 			LineData newLd = new LineData();
@@ -2248,7 +2244,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 	
 	
-	public void buildLine(Vector polygonData, String str,Vector vTexturePoints) {
+	public void buildLine(ArrayList polygonData, String str,Vector vTexturePoints) {
 
 
 
@@ -2736,7 +2732,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					
 					if(i<pm.getNumx()-1 && j<pm.getNumy()-1){
 						
-						LineData oldLineData=pm.polygonData.elementAt(count++);
+						LineData oldLineData=pm.polygonData.get(count++);
 						ld.setTexture_index(oldLineData.getTexture_index());
 					}
 					else{
@@ -2791,7 +2787,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			int tot=numx*numy;
 			
 		
-			mesh.polygonData=new Vector();
+			mesh.polygonData=new ArrayList();
 			
 			mesh.points=new Point3D[numy*numx];
 			
@@ -3492,7 +3488,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			for(int j=0;j<sizel;j++){
 				
 				
-				LineData ld=(LineData) mesh.polygonData.elementAt(j);
+				LineData ld=(LineData) mesh.polygonData.get(j);
 			    ld.setSelected(false);	
 			}
 			
@@ -3531,7 +3527,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		for(int j=0;j<sizel;j++){
 			
 			
-			LineData ld=(LineData) mesh.polygonData.elementAt(j);
+			LineData ld=(LineData) mesh.polygonData.get(j);
 		    ld.setSelected(false);	
 		}
 	}

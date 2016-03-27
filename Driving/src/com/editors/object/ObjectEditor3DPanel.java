@@ -203,7 +203,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 			int deltaWidth=0;
 			int deltaHeight=cm.getDeltaY();		
 
-			LineData ld=(LineData) cm.polygonData.elementAt(i);
+			LineData ld=(LineData) cm.polygonData.get(i);
 			Polygon3D p3D=LineData.buildPolygon(ld,cm.points);
 			Color col=Color.GRAY;
 			
@@ -429,7 +429,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData) mesh.polygonData.elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.get(i);
 			int numLInes=1;
 			if(ld.size()>2)
 				numLInes=ld.size();
@@ -453,7 +453,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData) mesh.polygonData.elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.get(i);
 			int numLInes=1;
 			if(ld.size()>2)
 				numLInes=ld.size();

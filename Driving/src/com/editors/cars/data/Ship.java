@@ -1,10 +1,10 @@
 package com.editors.cars.data;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.BPoint;
 import com.CustomData;
-import com.LineData;
 import com.Segments;
 import com.main.Renderer3D;
 
@@ -40,7 +40,7 @@ public class Ship extends CustomData {
 		
 		points=new Vector();
 		points.setSize(200);
-		polyData=new Vector();
+		polyData=new ArrayList();
 
 		n=0;
 		

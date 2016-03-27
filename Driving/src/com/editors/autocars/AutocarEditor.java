@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -66,7 +67,6 @@ import com.Point3D;
 import com.Point4D;
 import com.Polygon3D;
 import com.PolygonMesh;
-import com.SPNode;
 //import com.Renderer2D;
 import com.SPLine;
 import com.Texture;
@@ -75,9 +75,7 @@ import com.editors.ComboElement;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.EditorData;
-import com.editors.ValuePair;
 import com.editors.road.RoadEditor;
-import com.main.Autocar;
 import com.main.HelpPanel;
 import com.main.Road;
 
@@ -1284,7 +1282,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		for(int j=0;j<lsize;j++){
 			
 			
-			LineData ld=(LineData) mesh.polygonData.elementAt(j);
+			LineData ld=(LineData) mesh.polygonData.get(j);
 
 	
 			Texture texture = EditorData.worldTextures[ld.getTexture_index()];
@@ -1317,7 +1315,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 	}
 
 
-	public void buildLine(Vector polygonData, String str,Vector vTexturePoints) {
+	public void buildLine(ArrayList polygonData, String str,Vector vTexturePoints) {
 
 
 
@@ -1426,7 +1424,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		for(int k=0;k<lsize;k++){
 			
 			
-			LineData ld=(LineData) mesh.polygonData.elementAt(k);
+			LineData ld=(LineData) mesh.polygonData.get(k);
 			Texture texture = EditorData.splinesEditorTextures[ld.getTexture_index()];
 			
 			drawPolygon(ld,mesh.points,landscapeZbuffer,texture,0);

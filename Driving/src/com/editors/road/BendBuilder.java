@@ -549,7 +549,7 @@ public class BendBuilder extends JDialog implements ActionListener{
 			//assign road texture 3
 			
 			for (int j = 0; j < pm.polygonData.size(); j++) {
-				LineData lid = (LineData) pm.polygonData.elementAt(j);
+				LineData lid = (LineData) pm.polygonData.get(j);
 				lid.setTexture_index(3);
 			}
 			

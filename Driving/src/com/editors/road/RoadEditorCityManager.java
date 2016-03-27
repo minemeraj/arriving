@@ -2,6 +2,7 @@ package com.editors.road;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -413,7 +414,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 			}
 
 		terrainMesh.points=newTerrainPoints;
-		terrainMesh.polygonData=new Vector();
+		terrainMesh.polygonData=new ArrayList();
 		
 		Vector vTexturePoints=RoadEditor.buildTemplateTexturePoints(200);
 		

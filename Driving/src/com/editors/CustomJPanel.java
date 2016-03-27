@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JPanel;
@@ -119,11 +120,11 @@ public class CustomJPanel extends JPanel{
 			return;
 		Graphics buffGraph = buf.getGraphics();
 		
-		Vector<LineData> poly = mesh.getPolygonData();
+		ArrayList<LineData> poly = mesh.getPolygonData();
 		Point3D[] points = mesh.points;
 		
 		for (int i = 0; i < poly.size(); i++) {
-			LineData ld = (LineData) poly.elementAt(i);
+			LineData ld = (LineData) poly.get(i);
 			Polygon3D pol=LineData.buildPolygon(ld,points);
 			
 			

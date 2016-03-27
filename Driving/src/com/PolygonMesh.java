@@ -2,6 +2,7 @@ package com;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Vector;
@@ -14,7 +15,7 @@ public class PolygonMesh implements Cloneable{
 
 
 	public Point3D[] points=null;
-	public Vector <LineData>polygonData=null;
+	public ArrayList <LineData>polygonData=null;
 	public Vector<Point3D> texturePoints=null;
 	public Vector <Point3D>normals=null;
 	public int[] boxFaces=null; 
@@ -23,18 +24,18 @@ public class PolygonMesh implements Cloneable{
 
 	public PolygonMesh() {
 		points= null;
-		polygonData= new Vector <LineData>();
+		polygonData= new ArrayList <LineData>();
 		normals= new Vector <Point3D>();
 		texturePoints=new Vector();
 	}
 	
-	public PolygonMesh(Point3D[] points, Vector<LineData> polygonData) {
+	public PolygonMesh(Point3D[] points, ArrayList<LineData> polygonData) {
 		this.points=points;
 		this.polygonData=polygonData;
 		calculateNormals();
 	}
 	
-	public PolygonMesh(Vector <Point3D> points, Vector <LineData> polygonData) {
+	public PolygonMesh(Vector <Point3D> points, ArrayList <LineData> polygonData) {
 		
 		if(points!=null){
 			this.points=new Point3D[points.size()];
@@ -47,7 +48,7 @@ public class PolygonMesh implements Cloneable{
 		if(polygonData!=null)
 			this.polygonData = polygonData;
 		else
-			this.polygonData= new Vector <LineData>();
+			this.polygonData= new ArrayList <LineData>();
 		
 		calculateNormals();
 	}
@@ -61,7 +62,7 @@ public class PolygonMesh implements Cloneable{
 		boxFaces=new int[polygonData.size()];
 		for(int l=0;l<polygonData.size();l++){
 
-			LineData ld=(LineData) polygonData.elementAt(l);
+			LineData ld=(LineData) polygonData.get(l);
 
 			Point3D normal = getNormal(0,ld,points);
 			normals.add(normal);
@@ -121,7 +122,7 @@ public class PolygonMesh implements Cloneable{
 		
 		for(int i=0;i<this.polygonData.size();i++){
 
-			pm.addPolygonData(polygonData.elementAt(i).clone());
+			pm.addPolygonData(polygonData.get(i).clone());
 		}
 		for(int i=0;i<this.normals.size();i++){
 
@@ -171,7 +172,7 @@ public class PolygonMesh implements Cloneable{
 
 		for(int j=0;j<polsSize;j++){
 
-			LineData ld=pm.polygonData.elementAt(j);
+			LineData ld=pm.polygonData.get(j);
 			int size=ld.size();
 
 			Polygon3D pol=new Polygon3D(ld.size());
@@ -213,7 +214,7 @@ public class PolygonMesh implements Cloneable{
 	}
 	
 
-	public static void buildLine(Vector polygonData, String token, Vector vTexturePoints) {
+	public static void buildLine(ArrayList polygonData, String token, Vector vTexturePoints) {
 
 
 
@@ -279,7 +280,7 @@ public class PolygonMesh implements Cloneable{
 
 	public static PolygonMesh loadMeshFromFile(File file) {
 		Vector points=new Vector();
-		Vector lines=new Vector();
+		ArrayList lines=new ArrayList();
 		Vector vTexturePoints=new Vector();
 		
 		PolygonMesh pm=null;
@@ -347,7 +348,7 @@ public class PolygonMesh implements Cloneable{
 		PolygonMesh newPolygonMesh=new PolygonMesh();
 		
 		Point3D[] arrPoints = pm.points; 
-		Vector<LineData> polygonData = pm.polygonData;
+		ArrayList<LineData> polygonData = pm.polygonData;
 		
 		//which points are really used ?
 		
@@ -356,7 +357,7 @@ public class PolygonMesh implements Cloneable{
 		Vector orderedIndexes=new Vector();
 		
 		for (int i = 0; i < polygonData.size(); i++) {
-			LineData ld= (LineData) polygonData.elementAt(i);
+			LineData ld= (LineData) polygonData.get(i);
 			
 					
 			for (int j = 0; j < ld.lineDatas.size(); j++) {
@@ -390,11 +391,11 @@ public class PolygonMesh implements Cloneable{
 		
 		//create new line data
 		
-		Vector<LineData> newPolygonData =new Vector();
+		ArrayList<LineData> newPolygonData =new ArrayList();
 			
 		for (int i = 0; i < polygonData.size(); i++) {
 			
-			LineData ld= (LineData) polygonData.elementAt(i);
+			LineData ld= (LineData) polygonData.get(i);
 			LineData newLd=new LineData(); 
 					
 			for (int j = 0; j < ld.lineDatas.size(); j++) {
@@ -427,11 +428,11 @@ public class PolygonMesh implements Cloneable{
 		return vpoints;
 	}
 
-	public Vector<LineData> getPolygonData() {
+	public ArrayList<LineData> getPolygonData() {
 		return polygonData;
 	}
 
-	public void setPolygonData(Vector<LineData> polygonData) {
+	public void setPolygonData(ArrayList<LineData> polygonData) {
 		this.polygonData = polygonData;
 	}
 

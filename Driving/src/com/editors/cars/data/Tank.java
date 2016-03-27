@@ -1,5 +1,6 @@
 package com.editors.cars.data;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.BPoint;
@@ -57,7 +58,7 @@ public class Tank extends CustomData {
 		
 		points=new Vector();
 		points.setSize(200);
-		polyData=new Vector();
+		polyData=new ArrayList();
 
 		n=0;
 		

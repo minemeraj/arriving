@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.StringTokenizer;
@@ -252,7 +253,7 @@ public class Road extends Shader{
 
 			for(int j=0;j<size;j++){
 
-				LineData ld=(LineData) meshes[index].polygonData.elementAt(j);
+				LineData ld=(LineData) meshes[index].polygonData.get(j);
 
 				Polygon3D p3D=buildLightTransformedPolygon3D(ld,ii);
 
@@ -299,7 +300,7 @@ public class Road extends Shader{
 			for(int i=0;i<polSize;i++){
 
 
-				LineData ld=cm.polygonData.elementAt(i);
+				LineData ld=cm.polygonData.get(i);
 
 				//Point3D normal= cm.normals.elementAt(i).clone();
 
@@ -461,7 +462,7 @@ public class Road extends Shader{
 			int due=(int)(255-i%15);			
 			Color col=new Color(due,0,0);
 			
-			LineData ld=cm.polygonData.elementAt(i);
+			LineData ld=cm.polygonData.get(i);
 			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld,cm.getLevel());
 			polRotate.setShadowCosin(ld.getShadowCosin());
 			
@@ -597,7 +598,7 @@ public class Road extends Shader{
 		for(int j=0;j<size;j++){
 
 
-			LineData ld=(LineData) mesh.polygonData.elementAt(j);
+			LineData ld=(LineData) mesh.polygonData.get(j);
 			
 			Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel());
 
@@ -664,7 +665,7 @@ public class Road extends Shader{
 
 
 
-			LineData ld=(LineData) mesh.polygonData.elementAt(j);
+			LineData ld=(LineData) mesh.polygonData.get(j);
 
 			Polygon3D realP3D=LineData.buildPolygon(ld,mesh.points);
 
@@ -751,7 +752,7 @@ public class Road extends Shader{
 				
 				for(int k=0;k<size;k++){
 
-					LineData ld=(LineData) mesh.polygonData.elementAt(k);
+					LineData ld=(LineData) mesh.polygonData.get(k);
 
 					
 					Polygon3D p3DBase=buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel());
@@ -772,7 +773,7 @@ public class Road extends Shader{
 				
 				for(int k=0;k<size;k++){
 
-					LineData ld=(LineData) mesh.polygonData.elementAt(k);
+					LineData ld=(LineData) mesh.polygonData.get(k);
 
 					Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel());
 
@@ -1250,7 +1251,7 @@ public class Road extends Shader{
 		for(int j=0;j<size;j++){
 
 
-			LineData ld=(LineData) mesh.polygonData.elementAt(j);
+			LineData ld=(LineData) mesh.polygonData.get(j);
 			
 			Polygon3D polygon = PolygonMesh.getBodyPolygon(mesh.points,ld,mesh.getLevel());
 			
@@ -1313,7 +1314,7 @@ public class Road extends Shader{
 		return str;
 	}
 	
-	public static void buildLine(Vector polygonData, String str,Vector vTexturePoints) {
+	public static void buildLine(ArrayList polygonData, String str,Vector vTexturePoints) {
 
 
 
@@ -1406,7 +1407,7 @@ public class Road extends Shader{
 
 
 		Vector <Point3D>points = new Vector <Point3D>();
-		Vector <LineData>lines = new Vector <LineData>();
+		ArrayList <LineData>lines = new ArrayList <LineData>();
 		Vector vTexturePoints=new Vector();
 
 		try {

@@ -83,7 +83,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		for(int j=0;j<lsize;j++){
 			
 			
-			LineData ld=(LineData) mesh.polygonData.elementAt(j);
+			LineData ld=(LineData) mesh.polygonData.get(j);
 
 	
 			Texture texture = EditorData.worldTextures[ld.getTexture_index()];
@@ -162,7 +162,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				for(int l=0;l<pm.polygonData.size();l++){
 					
 					
-					LineData ld=(LineData) pm.polygonData.elementAt(l);
+					LineData ld=(LineData) pm.polygonData.get(l);
 					
 				
 											
@@ -346,7 +346,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		for(int k=0;k<lsize;k++){
 			
 			
-			LineData ld=(LineData) mesh.polygonData.elementAt(k);
+			LineData ld=(LineData) mesh.polygonData.get(k);
 			Texture texture = EditorData.splinesEditorTextures[ld.getTexture_index()];
 			
 			drawPolygon(ld,mesh.points,landscapeZbuffer,texture,0);
@@ -1115,7 +1115,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				
 				for (int k = 0; k < circle.polygonData.size(); k++) {
 					
-					LineData ld=(LineData) circle.polygonData.elementAt(k);
+					LineData ld=(LineData) circle.polygonData.get(k);
 				    Polygon3D pol=buildPolygon(ld,circle.points,false);
 				   // System.out.println(k+" "+pol);
 				    if(pol.contains(x,y)){
@@ -1184,7 +1184,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		for(int j=0;j<sizel;j++){
 			
 			
-			LineData ld=(LineData) mesh.polygonData.elementAt(j);
+			LineData ld=(LineData) mesh.polygonData.get(j);
 		    Polygon3D pol=buildPolygon(ld,mesh.points,false);
 		    
 		    if(pol.contains(x,y)){
@@ -1423,7 +1423,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		for(int j=0;j<lsize;j++){
 			
 			
-			LineData ld=(LineData) ring.polygonData.elementAt(j);
+			LineData ld=(LineData) ring.polygonData.get(j);
 
 			drawPolygon(ld,ring.points,landscapeZbuffer,EditorData.cyanTexture,RoadEditor.TERRAIN_INDEX);
 

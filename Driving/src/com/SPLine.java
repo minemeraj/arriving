@@ -1,5 +1,6 @@
 package com;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Vector;
 
@@ -215,7 +216,7 @@ public class SPLine {
 				Point3D pt2=(Point3D) vTexturePoints.elementAt(2);
 				Point3D pt3=(Point3D) vTexturePoints.elementAt(3);
 
-				Vector polygonData=new Vector();
+				ArrayList polygonData=new ArrayList();
 				LineData ld=new LineData();
 				ld.addIndex(0,0,pt0.x,pt0.y);
 				ld.addIndex(1,1,pt1.x,pt1.y);
@@ -273,13 +274,13 @@ public class SPLine {
 				points.add(p7);
 
 
-				Vector polygonData= EditorData.splinesMeshes[prevRib.getIndex()].polygonData;
-				Vector nPolygonData=new Vector();
+				ArrayList polygonData= EditorData.splinesMeshes[prevRib.getIndex()].polygonData;
+				ArrayList nPolygonData=new ArrayList();
 
 
 				for (int kj = 0; kj < polygonData.size(); kj++) {
 
-					LineData ld = ((LineData) polygonData.elementAt(kj)).clone();
+					LineData ld = ((LineData) polygonData.get(kj)).clone();
 
 					ld.setTexture_index(prevRib.getIndex());
 					nPolygonData.add(ld);

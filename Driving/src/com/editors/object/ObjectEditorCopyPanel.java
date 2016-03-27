@@ -3,6 +3,7 @@ package com.editors.object;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Vector;
 
@@ -35,7 +36,7 @@ public class ObjectEditorCopyPanel extends JDialog implements ActionListener {
 	private DoubleTextField translate_dz;
 	private JCheckBox invert_polygons;
 
-	public ObjectEditorCopyPanel(Point3D[] points, Vector lines) {
+	public ObjectEditorCopyPanel(Point3D[] points, ArrayList lines) {
 		
 		
 		setSize(WIDTH,HEIGHT+BOTTOM_HEIGHT);
@@ -179,7 +180,7 @@ public class ObjectEditorCopyPanel extends JDialog implements ActionListener {
 		}
 		
 		Point3D[] new_points=new Point3D[num_points+counter];
-		Vector new_lines=new Vector();
+		ArrayList new_lines=new ArrayList();
 		
 		counter=0;
 		
@@ -207,13 +208,13 @@ public class ObjectEditorCopyPanel extends JDialog implements ActionListener {
 		}
 		
 		for (int i = 0; i < pm.polygonData.size(); i++) {
-			LineData ld = (LineData) pm.polygonData.elementAt(i);
+			LineData ld = (LineData) pm.polygonData.get(i);
 			
 			new_lines.add(ld);
 		}
 		
 		for (int i = 0; i < pm.polygonData.size(); i++) {
-			LineData ld = (LineData) pm.polygonData.elementAt(i);
+			LineData ld = (LineData) pm.polygonData.get(i);
 			
 			LineData new_ld=new LineData();
 			

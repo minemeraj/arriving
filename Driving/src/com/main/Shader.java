@@ -334,7 +334,7 @@ public class Shader extends Renderer3D{
 
 		for(int i=0;i<polSize;i++){
 
-			LineData ld=cm.polygonData.elementAt(i);
+			LineData ld=cm.polygonData.get(i);
 
 			LineData[] triangles = LineData.divideIntoTriangles(ld);
 

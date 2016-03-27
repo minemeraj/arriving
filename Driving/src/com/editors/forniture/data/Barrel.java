@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Vector;
 
@@ -303,7 +304,7 @@ public class Barrel extends CustomData{
 		
 		points=new Vector();
 		points.setSize(300);
-		polyData=new Vector();
+		polyData=new ArrayList();
 		
 		n=0;
 		

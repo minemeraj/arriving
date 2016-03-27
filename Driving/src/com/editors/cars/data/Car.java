@@ -1,14 +1,14 @@
 package com.editors.cars.data;
 
-import java.awt.image.RescaleOp;
+import java.util.ArrayList;
 import java.util.Vector;
+
 import com.BPoint;
 import com.CustomData;
 import com.LineData;
 import com.PolygonMesh;
 import com.Prism;
 import com.Segments;
-import com.editors.CustomEditor;
 import com.main.Renderer3D;
 
 public class Car extends CustomData {
@@ -342,7 +342,7 @@ public class Car extends CustomData {
 		points=new Vector();
 		points.setSize(400);
 
-		polyData=new Vector();
+		polyData=new ArrayList();
 
 		//basic sides:
 		
@@ -929,7 +929,7 @@ public class Car extends CustomData {
 		points=new Vector();
 		points.setSize(500);
 
-		polyData=new Vector();
+		polyData=new ArrayList();
 
 		//basic sides: 
 		
@@ -1552,7 +1552,7 @@ public class Car extends CustomData {
 		points=new Vector();
 		points.setSize(100);
 
-		polyData=new Vector();
+		polyData=new ArrayList();
 
 		//basic sides:
 		
@@ -1750,7 +1750,7 @@ public class Car extends CustomData {
 		points=new Vector();
 		points.setSize(300);
 
-		polyData=new Vector();
+		polyData=new ArrayList();
 
 		//basic sides:
 		
@@ -2232,7 +2232,7 @@ public class Car extends CustomData {
 		points=new Vector();
 		points.setSize(300);
 
-		polyData=new Vector();
+		polyData=new ArrayList();
 
 		//basic sides:
 		
@@ -2681,7 +2681,7 @@ public class Car extends CustomData {
 		points=new Vector();
 		points.setSize(300);
 
-		polyData=new Vector();
+		polyData=new ArrayList();
 
 		//basic sides:
 		

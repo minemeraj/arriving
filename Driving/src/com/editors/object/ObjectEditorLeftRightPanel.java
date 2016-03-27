@@ -173,7 +173,7 @@ public class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 
 		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData) mesh.polygonData.elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.get(i);
 			int numLInes=1;
 			if(ld.size()>2)
 				numLInes=ld.size();
@@ -197,7 +197,7 @@ public class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 
 		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData) mesh.polygonData.elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.get(i);
 			int numLInes=1;
 			if(ld.size()>2)
 				numLInes=ld.size();

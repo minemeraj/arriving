@@ -25,6 +25,7 @@ import java.awt.geom.Area;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Locale;
@@ -448,7 +449,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 				int index=lineList.getSelectedIndex();
 				for(int i=0;i<mesh.polygonData.size();i++){
 
-					LineData ld=(LineData) mesh.polygonData.elementAt(i);
+					LineData ld=(LineData) mesh.polygonData.get(i);
 					if(index==i)
 						ld.setSelected(true);
 					else 
@@ -774,7 +775,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 
 		for (int i = 0; i < sz ; i++) {
 			
-			LineData ld = (LineData)  mesh.polygonData.elementAt(i);
+			LineData ld = (LineData)  mesh.polygonData.get(i);
 
 			if(polygon.size()==ld.size()){	
 				
@@ -843,7 +844,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		
 		for(int i=0;mesh.polygonData!=null && i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData) mesh.polygonData.elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.get(i);
 			if(!ld.isSelected())
 				continue;
 			
@@ -851,7 +852,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 	
 			if(repd.getModifiedLineData()!=null){
 				
-				mesh.polygonData.setElementAt(repd.getModifiedLineData(),i);
+				mesh.polygonData.set(i,repd.getModifiedLineData());
 				
 			}
 			
@@ -1023,7 +1024,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 	public void delete() {
 
 		Vector newPoints=new Vector();
-		Vector newLines=new Vector();
+		ArrayList newLines=new ArrayList();
 		
 		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 
@@ -1037,7 +1038,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 
 		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData) mesh.polygonData.elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.get(i);
 			if(ld.isSelected())
 				continue;
 			LineData newLd = new LineData();
@@ -1085,7 +1086,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 	
 		
 		Vector newPoints=new Vector();
-		Vector newLines=new Vector();
+		ArrayList newLines=new ArrayList();
 		
 		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
 
@@ -1113,7 +1114,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 
 		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData) mesh.polygonData.elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.get(i);
 			if(ld.isSelected())
 				continue;
 			LineData newLd = new LineData();
@@ -1190,7 +1191,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		
 		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData) mesh.polygonData.elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.get(i);
 			ld.setSelected(false);
 		}
 		
@@ -1383,7 +1384,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		
 		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData) mesh.polygonData.elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.get(i);
 			if(ld.isSelected() && direction>0 && i<mesh.polygonData.size()-1 ){
 					swapLines(mesh.polygonData,i+1,i);	
 					lineList.setSelectedIndex(lineList.getSelectedIndex()+1);
@@ -1399,11 +1400,11 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		resetLists();
 	}
 	
-	public void swapLines(Vector lines, int i1, int i2) {
-		LineData ld1=(LineData) lines.elementAt(i1);
-		LineData ld2=(LineData) lines.elementAt(i2);
-		lines.setElementAt(ld1,i2);
-		lines.setElementAt(ld2,i1);
+	public void swapLines(ArrayList lines, int i1, int i2) {
+		LineData ld1=(LineData) lines.get(i1);
+		LineData ld2=(LineData) lines.get(i2);
+		lines.set(i2,ld1);
+		lines.set(i1,ld2);
 	}
 
 	public void invertSelectedLine(){
@@ -1412,7 +1413,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		
 		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData) mesh.polygonData.elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.get(i);
 			if(ld.isSelected()){
 				
 				LineData invertedLd=new LineData();
@@ -1420,7 +1421,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 				for (int j = ld.size()-1; j >=0; j--) {
 					invertedLd.addIndex(ld.getIndex(j));
 				}
-				mesh.polygonData.setElementAt(invertedLd,i);
+				mesh.polygonData.set(i,invertedLd);
 			}
 			
 		
@@ -1459,7 +1460,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 
 		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData) mesh.polygonData.elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.get(i);
 			dflm.addElement(ld) ; 
 		}
 		
@@ -1741,7 +1742,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		
 		for(int i=0;i<mesh.polygonData.size();i++){
 
-			LineData ld=(LineData) mesh.polygonData.elementAt(i);
+			LineData ld=(LineData) mesh.polygonData.get(i);
 		
 			if(ld.size()>2){
 				

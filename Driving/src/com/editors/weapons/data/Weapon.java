@@ -1,5 +1,6 @@
 package com.editors.weapons.data;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.BPoint;
@@ -445,7 +446,7 @@ public class Weapon extends CustomData{
 		points=new Vector();
 		points.setSize(300);
 
-		polyData=new Vector();
+		polyData=new ArrayList();
 		
 		
 		n=0;
@@ -889,7 +890,7 @@ public class Weapon extends CustomData{
 		points=new Vector();
 		points.setSize(200);
 
-		polyData=new Vector();
+		polyData=new ArrayList();
 		
 		
 		n=0;
@@ -1262,7 +1263,7 @@ public class Weapon extends CustomData{
 		points=new Vector();
 		points.setSize(200);
 
-		polyData=new Vector();
+		polyData=new ArrayList();
 		
 		
 		n=0;
@@ -1636,7 +1637,7 @@ public class Weapon extends CustomData{
 		points=new Vector();
 		points.setSize(200);
 
-		polyData=new Vector();
+		polyData=new ArrayList();
 		
 		
 		n=0;
@@ -2213,7 +2214,7 @@ public class Weapon extends CustomData{
 		points=new Vector();
 		points.setSize(200);
 
-		polyData=new Vector();
+		polyData=new ArrayList();
 		
 		
 		n=0;
