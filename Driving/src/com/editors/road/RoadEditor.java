@@ -32,7 +32,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Stack;
 import java.util.StringTokenizer;
-import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -239,7 +238,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private RoadEditorPanel panelIso;
 	private RoadEditorPanel panelTop;
 	
-	BufferedImage buf=null;
+	transient BufferedImage buf=null;
 	private Graphics2D graphics;
 	private JButton startNewSPLine;
 	private JButton insertSPNode;
@@ -251,7 +250,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton insertTJunction;
 	private boolean isInit;
 	
-	Point3D startPosition=null;
+	transient Point3D startPosition=null;
 	private IntegerTextField startX;
 	private IntegerTextField startY;
 	private JButton updateStartPosition;
@@ -309,7 +308,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		RepaintManager.setCurrentManager( 
 				new RepaintManager(){
-
+					@Override
 					public void paintDirtyRegions() {
 
 
@@ -412,7 +411,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		try{
 			
-			Vector vRoadTextures=new Vector();
+			ArrayList vRoadTextures=new ArrayList();
 
 			for(int i=0;i<files.length;i++){
 				if(files[i].getName().startsWith("world_texture_")){
@@ -438,7 +437,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			}
 
 
-			Vector vObjects=new Vector();
+			ArrayList vObjects=new ArrayList();
 
 			if(DrawObject.IS_3D)
 				for(int i=0;i<files.length;i++){
@@ -605,7 +604,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 
-
+	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
 		draw();
@@ -771,7 +770,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		checkHideObjects.addKeyListener(this);
 		checkHideObjects.addActionListener(new ActionListener() {
 			
-			
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				
 				draw();
@@ -1389,7 +1388,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		firePropertyChange("RoadEditorUndo", false, true);
 	}
-
+	@Override
 	public void prepareUndo() {
 		prepareUndoObjects();
 		prepareUndoSpline();
@@ -2212,7 +2211,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 
-
+	@Override
 	public String decomposeLineData(LineData ld) {
 
 		String str="";
@@ -2234,7 +2233,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		return str;
 	}
 	
-
+	@Override
 	public void decomposeObjVertices(PrintWriter pr, PolygonMesh mesh,boolean isCustom) {
 	
 		pr.print("vt=0 0\n");//0
@@ -2243,7 +2242,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		pr.print("vt=0 200\n");//3
 	}
 	
-	
+	@Override
 	public void buildLine(ArrayList polygonData, String str,ArrayList vTexturePoints) {
 
 
@@ -2252,7 +2251,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 	}
-	
+	@Override
 	public void buildPoint(ArrayList points, String str) {
 
 
@@ -2355,7 +2354,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 
-
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		
 		Object obj=arg0.getSource();
@@ -2578,17 +2577,17 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 
-
+	@Override
 	public void menuCanceled(MenuEvent e) {
 		// TODO Auto-generated method stub
 
 	}
-
+	@Override
 	public void menuDeselected(MenuEvent e) {
 		redrawAfterMenu=true;
 
 	}
-
+	@Override
     public void menuSelected(MenuEvent arg0) {
     	
     	super.menuSelected(arg0);
@@ -3145,7 +3144,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		RoadAltimetryPanel altimetry=new RoadAltimetryPanel(this);
 	}
 
-
+	@Override
 	public void mouseClicked(MouseEvent arg0) {
 
 		int buttonNum=arg0.getButton();
@@ -3431,12 +3430,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		RoadEditorPanel ep=getCenter();	
 			
-		Vector polygons=ep.getClickedPolygons(x,y,mesh);
+		ArrayList polygons=ep.getClickedPolygons(x,y,mesh);
 		
 		if(polygons.size()>0){
 			
 			
-			LineData ld=(LineData)polygons.elementAt(0);
+			LineData ld=(LineData)polygons.get(0);
 			
 			Polygon3D polRotate=PolygonMesh.getBodyPolygon(mesh.points,ld,mesh.getLevel());
 			
@@ -3591,11 +3590,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		RoadEditorPanel ep=getCenter();
 
-		Vector cPolygons=ep.getClickedPolygons(x,y,mesh);
+		ArrayList cPolygons=ep.getClickedPolygons(x,y,mesh);
 		
 		for (int i = 0;cPolygons!=null && i < cPolygons.size(); i++) {
 
-			LineData ld =(LineData) cPolygons.elementAt(i);
+			LineData ld =(LineData) cPolygons.get(i);
 
 
 		     ///set here
@@ -3664,19 +3663,19 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		if(!checkCoordinatesz[ACTIVE_PANEL].isSelected())coordinatesz[ACTIVE_PANEL].setText("");
 		
 	}
-	
+	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
-
+	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
-
+	@Override
 	public void mousePressed(MouseEvent arg0) {
 	
 		  int x = arg0.getX();
@@ -3685,11 +3684,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 	}
-
-
-
-
-
 
 
 
@@ -3715,7 +3709,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 
-
+	@Override
 	public void keyPressed(KeyEvent arg0) {
 
 		
@@ -3814,7 +3808,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		 ep.zoom(i);
 		 draw();
 	}
-
+	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 
@@ -3823,7 +3817,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
-
+	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 
@@ -3832,7 +3826,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
-
+	@Override
 	public void mouseWheelMoved(MouseWheelEvent arg0) {
 		
 		RoadEditorPanel ep = getCenter();
@@ -3850,7 +3844,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
-
+	@Override
 	public void mouseDragged(MouseEvent e) {
 		
 		
@@ -3859,7 +3853,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		draw();
 
 	}
-	
+	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		
 		if(ACTIVE_PANEL==1)
@@ -3885,7 +3879,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
-
+    @Override
 	public void mouseMoved(MouseEvent e) {
 		Point p=e.getPoint();
 		
@@ -3893,7 +3887,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		screenPoint.setText(ep.invertX((int)p.getX())+","+ep.invertY((int)p.getY()));
 
 	}
-
+    @Override
 	public void itemStateChanged(ItemEvent arg0) {
 
 		Object o=arg0.getSource();
@@ -3941,7 +3935,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 
 	}
-	
+	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
 		
 		//System.out.println(arg0.getSource().getClass());

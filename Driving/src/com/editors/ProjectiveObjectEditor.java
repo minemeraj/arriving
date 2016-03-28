@@ -5,9 +5,6 @@ package com.editors;
  *
  */
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -26,30 +23,22 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Area;
-import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
-import java.util.Vector;
 
-import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
-import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -57,18 +46,11 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.RepaintManager;
-import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
@@ -119,8 +101,8 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 	Graphics2D g2;
 
-	Vector points=new Vector();
-	Vector lines=new Vector();
+	ArrayList points=new ArrayList();
+	ArrayList lines=new ArrayList();
 
 	private JFileChooser fc;
 	private JMenuBar jmb;
@@ -200,6 +182,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 		RepaintManager.setCurrentManager( 
 				new RepaintManager(){
 
+					@Override
 					public void paintDirtyRegions() {
 
 
@@ -259,7 +242,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 		for(int i=0;i<points.size();i++){
 
-			Point3D p=(Point3D) points.elementAt(i);
+			Point3D p=(Point3D) points.get(i);
 		    dlm.addElement(new PointListItem(p)) ; 
 		}
 		
@@ -276,7 +259,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 		for(int i=0;i<lines.size();i++){
 
-			LineData ld=(LineData) lines.elementAt(i);
+			LineData ld=(LineData) lines.get(i);
 			dflm.addElement(ld) ; 
 		}
 		
@@ -339,7 +322,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 		
 		for(int i=0;i<lines.size();i++){
 
-			LineData ld=(LineData) lines.elementAt(i);
+			LineData ld=(LineData) lines.get(i);
 			int numLInes=1;
 			if(ld.size()>2)
 				numLInes=ld.size();
@@ -352,8 +335,8 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 			for(int j=0;j<numLInes;j++){
 
-				Point3D p0=(Point3D)points.elementAt(ld.getIndex(j));
-				Point3D p1=(Point3D)points.elementAt(ld.getIndex((j+1)%ld.size()));
+				Point3D p0=(Point3D)points.get(ld.getIndex(j));
+				Point3D p1=(Point3D)points.get(ld.getIndex((j+1)%ld.size()));
 
 				//TOP VIEW
 				bufGraphics.drawLine(convertTopX(p0.y),convertTopY(p0.x),convertTopX(p1.y),convertTopY(p1.x));
@@ -379,7 +362,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 		for(int i=0;i<points.size();i++){
 
-			Point3D p=(Point3D) points.elementAt(i);
+			Point3D p=(Point3D) points.get(i);
 
 			if(p.isSelected())
 				bufGraphics.setColor(Color.RED);
@@ -610,7 +593,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 				int index=pointList.getSelectedIndex();
 				for(int i=0;i<points.size();i++){
 
-					Point3D p=(Point3D) points.elementAt(i);
+					Point3D p=(Point3D) points.get(i);
 					if(index==i)
 						selectPoint(p);
 					else if(!checkMultipleSelection.isSelected())
@@ -639,7 +622,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 				int index=lineList.getSelectedIndex();
 				for(int i=0;i<lines.size();i++){
 
-					LineData ld=(LineData) lines.elementAt(i);
+					LineData ld=(LineData) lines.get(i);
 					if(index==i)
 						ld.setSelected(true);
 					else 
@@ -740,12 +723,12 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 	private void delete() {
 
-		Vector newPoints=new Vector();
-		Vector newLines=new Vector();
+		ArrayList newPoints=new ArrayList();
+		ArrayList newLines=new ArrayList();
 
 		for(int i=0;i<points.size();i++){
 
-			Point3D p=(Point3D) points.elementAt(i);
+			Point3D p=(Point3D) points.get(i);
 			if(!p.isSelected()) 
 				newPoints.add(p);
 
@@ -753,18 +736,18 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 		for(int i=0;i<lines.size();i++){
 
-			LineData ld=(LineData) lines.elementAt(i);
+			LineData ld=(LineData) lines.get(i);
 			if(ld.isSelected())
 				continue;
 			LineData newLd = new LineData();
 
 			for(int j=0;j<ld.size();j++){
 
-				Point3D p0=(Point3D) points.elementAt(ld.getIndex(j));
+				Point3D p0=(Point3D) points.get(ld.getIndex(j));
 				if(!p0.isSelected()) 
 					for(int k=0;k<newPoints.size();k++){
 
-						Point3D np=(Point3D) newPoints.elementAt(k);
+						Point3D np=(Point3D) newPoints.get(k);
 						if(np.equals(p0))
 						{
 							newLd.addIndex(k);
@@ -804,11 +787,11 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 	private void joinSelectedPoints() {
 		for(int i=0;i<points.size();i++){
 
-			Point3D p0=(Point3D) points.elementAt(i);
+			Point3D p0=(Point3D) points.get(i);
 
 			for(int j=0;j<points.size();j++){
 
-				Point3D p1=(Point3D) points.elementAt(j);
+				Point3D p1=(Point3D) points.get(j);
 
 				if(p0.isSelected && p1.isSelected() && i<j)
 				{
@@ -863,7 +846,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 			polygon=new LineData();
 		for(int i=0;i<points.size();i++){
 
-			Point3D p=(Point3D) points.elementAt(i);
+			Point3D p=(Point3D) points.get(i);
 
 
 
@@ -931,7 +914,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 		
 		for(int i=0;i<points.size();i++){
 
-			Point3D p=(Point3D) points.elementAt(i);
+			Point3D p=(Point3D) points.get(i);
 			p.setSelected(false);
 		}
 		
@@ -941,7 +924,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 		
 		for(int i=0;i<points.size();i++){
 
-			Point3D p=(Point3D) points.elementAt(i);
+			Point3D p=(Point3D) points.get(i);
 			p.setSelected(true);
 		}
 		
@@ -951,7 +934,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 		
 		for(int i=0;i<lines.size();i++){
 
-			LineData ld=(LineData) lines.elementAt(i);
+			LineData ld=(LineData) lines.get(i);
 			ld.setSelected(false);
 		}
 		
@@ -961,7 +944,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 		for(int i=0;i<points.size();i++){
 
-			Point3D p=(Point3D) points.elementAt(i);
+			Point3D p=(Point3D) points.get(i);
 
 			if(p.isSelected()){
 
@@ -1047,7 +1030,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 			for(int i=0;i<points.size();i++){
 
-				Point3D p=(Point3D) points.elementAt(i);
+				Point3D p=(Point3D) points.get(i);
 
 				pr.print(decomposePoint(p));
 				if(i<points.size()-1)
@@ -1058,7 +1041,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 			for(int i=0;i<lines.size();i++){
 
-				LineData ld=(LineData) lines.elementAt(i);
+				LineData ld=(LineData) lines.get(i);
 
 				pr.print(decomposeLineData(ld));
 				if(i<lines.size()-1)
@@ -1093,8 +1076,8 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 	public void loadPointsFromFile(File file){
 
-		points=new Vector();
-		lines=new Vector();
+		points=new ArrayList();
+		lines=new ArrayList();
 
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));
@@ -1123,7 +1106,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 
 
-	private void buildPoints(Vector points, String str) {
+	private void buildPoints(ArrayList points, String str) {
 
 		StringTokenizer sttoken=new StringTokenizer(str," ");
 
@@ -1145,7 +1128,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 	}
 
-	private void buildLines(Vector lines, String str) {
+	private void buildLines(ArrayList lines, String str) {
 
 		StringTokenizer sttoken=new StringTokenizer(str," ");
 
@@ -1429,7 +1412,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 	public class LineData{
 
-		Vector lineDatas=new Vector();
+		ArrayList lineDatas=new ArrayList();
 		boolean isSelected=false;
 
 		public int size(){
@@ -1442,7 +1425,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 		}
 
 		public int getIndex(int i){
-			return ((Integer)lineDatas.elementAt(i)).intValue();
+			return ((Integer)lineDatas.get(i)).intValue();
 		}
 		
 		@Override

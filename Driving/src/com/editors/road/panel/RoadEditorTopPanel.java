@@ -7,7 +7,6 @@ import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Vector;
 
 import com.BarycentricCoordinates;
 import com.DrawObject;
@@ -1153,22 +1152,22 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	
     public boolean selectPolygons(int x, int y, PolygonMesh mesh) {
     	
-    	Vector vec=selectPolygons(x,y,mesh,true);
+    	ArrayList vec=selectPolygons(x,y,mesh,true);
     	
     	return vec!=null && vec.size()>0;
     	
     }
     
   
-    public Vector getClickedPolygons(int x, int y, PolygonMesh mesh) {
+    public ArrayList getClickedPolygons(int x, int y, PolygonMesh mesh) {
     	
     	return selectPolygons(x,y,mesh,false);
     }
 
 
-	public Vector selectPolygons(int x, int y, PolygonMesh mesh,boolean isToselect) {
+	public ArrayList selectPolygons(int x, int y, PolygonMesh mesh,boolean isToselect) {
 		
-		Vector ret=new Vector(); 
+		ArrayList ret=new ArrayList(); 
 		
 		if(mesh==null)
     		return ret;
@@ -1217,14 +1216,14 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	
     public void selectObjects(int x, int y, ArrayList drawObjects) {
     	
-    	Vector vec=selectObjects(x,y,drawObjects,true);
+    	ArrayList vec=selectObjects(x,y,drawObjects,true);
     	
        	
     }
 
-	public Vector selectObjects(int x, int y, ArrayList drawObjects,boolean toSelect) {
+	public ArrayList selectObjects(int x, int y, ArrayList drawObjects,boolean toSelect) {
 
-		Vector ret=new Vector();
+		ArrayList ret=new ArrayList();
 
 		for(int i=0;i<drawObjects.size();i++){
 

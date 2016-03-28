@@ -89,7 +89,7 @@ public class Editor extends JFrame implements MenuListener{
 
 			for (int k = 0; k < sp.ribs.size();k++){
 
-				Rib rib = (Rib) sp.ribs.elementAt(k);
+				Rib rib = (Rib) sp.ribs.get(k);
 				Point4D[] points=rib.points;
 
 				double mx=(points[0].x+points[1].x)*0.5;

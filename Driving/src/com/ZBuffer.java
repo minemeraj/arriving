@@ -1,7 +1,5 @@
 package com;
 import java.awt.Color;
-import java.awt.Point;
-import java.awt.image.BufferedImage;
 
 import com.main.Road;
 

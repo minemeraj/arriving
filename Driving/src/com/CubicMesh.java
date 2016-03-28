@@ -1,7 +1,6 @@
 package com;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Vector;
 
 /*
  * Created on 31/ott/09
@@ -120,6 +119,7 @@ public class CubicMesh extends PolygonMesh{
 
 	}
 
+	@Override
 	public CubicMesh clone() {
 
 		CubicMesh cm=new CubicMesh();
@@ -162,7 +162,7 @@ public class CubicMesh extends PolygonMesh{
 		
 		return cm;
 	}
-	
+	@Override
 	public void translate(double i, double j, double k) {
 		
 		

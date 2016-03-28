@@ -1,18 +1,13 @@
 package com;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Vector;
-
 import com.editors.EditorData;
-import com.editors.road.RoadEditor;
-import com.main.CarFrame;
 import com.main.Road;
 
 public class SPLine {
 	
 	public SPNode root=null;
-	public Vector ribs=null;
+	public ArrayList ribs=null;
 	ArrayList vTexturePoints=null;
 	
 	ArrayList meshes3D=new ArrayList();
@@ -22,7 +17,7 @@ public class SPLine {
 	
 	public SPLine(ArrayList vTexturePoints){
 		
-		ribs=new Vector();
+		ribs=new ArrayList();
 		this.vTexturePoints=vTexturePoints;
 	}
 	
@@ -41,7 +36,7 @@ public class SPLine {
 
 	public void calculateRibs() {
 		
-		ribs=new Vector();
+		ribs=new ArrayList();
 		
 		calculateTangents(root);
 		
@@ -51,7 +46,7 @@ public class SPLine {
 	public void calculateRibs(SPNode root) {
 	
 		       
-		Vector nodeRibs=new Vector();
+		ArrayList nodeRibs=new ArrayList();
 		ribs.add(nodeRibs);
 
 		int sz=root.getChildCount();
@@ -192,12 +187,12 @@ public class SPLine {
 
 		for (int j = 0; j < ribs.size(); j++) {
 
-			Vector nodeRibs=(Vector)ribs.elementAt(j);
+			ArrayList nodeRibs=(ArrayList)ribs.get(j);
 
 			for (int i = 0;i < nodeRibs.size()-1; i++) {
 
-				Rib prevRib= (Rib) nodeRibs.elementAt(i);
-				Rib nextRib= (Rib) nodeRibs.elementAt(i+1);
+				Rib prevRib= (Rib) nodeRibs.get(i);
+				Rib nextRib= (Rib) nodeRibs.get(i+1);
 
 				Point4D p0=prevRib.points[3];
 				Point4D p1=prevRib.points[2];
@@ -242,12 +237,12 @@ public class SPLine {
 
 		for (int j = 0;j < ribs.size(); j++) {
 
-			Vector nodeRibs=(Vector)ribs.elementAt(j);
+			ArrayList nodeRibs=(ArrayList)ribs.get(j);
 
 			for (int i = 0;i < nodeRibs.size()-1; i++) {
 
-				Rib prevRib= (Rib) nodeRibs.elementAt(i);
-				Rib nextRib= (Rib) nodeRibs.elementAt(i+1);
+				Rib prevRib= (Rib) nodeRibs.get(i);
+				Rib nextRib= (Rib) nodeRibs.get(i+1);
 
 				Point4D p0=prevRib.points[0];
 				Point4D p1=prevRib.points[1];

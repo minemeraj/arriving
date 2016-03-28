@@ -1593,10 +1593,10 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 			
 			LineData newld = new LineData();
 
-			Vector lineDatas = ld.lineDatas;
+			ArrayList lineDatas = ld.lineDatas;
 			for (int m = 0; m < lineDatas.size(); m++) {
 				
-				 Integer index=(Integer) ld.lineDatas.elementAt(m);
+				 Integer index=(Integer) ld.lineDatas.get(m);
 				 Integer newIndex=new Integer(index.intValue()+size);
 				 newld.addIndex(newIndex);
 

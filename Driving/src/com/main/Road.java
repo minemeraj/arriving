@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.StringTokenizer;
-import java.util.Vector;
 
 import javax.swing.JFileChooser;
 
@@ -1319,55 +1318,11 @@ public class Road extends Shader{
 			}
 			polygonData.add(ld);
 	}
-
-
-	private Point4D[][] cloneRoadData(Point4D[][] roadData2) {
-
-		Point4D[][] newRoadData=new Point4D[NY][NX];
-
-
-		for(int j=0;j<NY;j++)
-			for(int i=0;i<NX;i++)
-				for(int k=0;k<3;k++)
-					newRoadData[j][i]=(Point4D) roadData2[j][i].clone();
-
-		return newRoadData;
-	}
-	
-	public Vector clonePoints(Vector oldPoints) {
 		
-		Vector newPoints=new Vector();
-		
-		for(int i=0;i<oldPoints.size();i++){
-			
-			Point3D p=(Point3D) oldPoints.elementAt(i);
-			newPoints.add(p.clone());
-		}
-		
-		return newPoints;
-	}
-	
-	public Vector cloneLineData(Vector oldLines) {
-		
-		Vector newLineData=new Vector();
-		
-		for(int i=0;i<oldLines.size();i++){
-
-			LineData ld=(LineData) oldLines.elementAt(i);
-		
-			
-			newLineData.add(ld.clone());
-		
-			
-		}
-		return newLineData;
-	}
-	
 	private void resetRoadData(int index) {
 		
 		meshes[index]=cloneMesh(oldMeshes[index]);
-	
-		
+
 	}
 
 
@@ -1506,11 +1461,11 @@ public class Road extends Shader{
 					
 					for (int j = 0; sp.ribs!=null && j < sp.ribs.size(); j++) {
 						
-						Vector nodeRibs=(Vector) sp.ribs.elementAt(j);
+						ArrayList nodeRibs=(ArrayList) sp.ribs.get(j);
 						
 						for (int r = 0; r< nodeRibs.size(); r++) {
 							
-							Rib rib= (Rib) nodeRibs.elementAt(r);
+							Rib rib= (Rib) nodeRibs.get(r);
 							for (int k = 0; k < rib.points.length; k++) {
 								rib.points[k].translate(-XFOCUS,+SCREEN_DISTANCE,-YFOCUS);
 							}

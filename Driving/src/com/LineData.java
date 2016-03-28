@@ -1,16 +1,10 @@
 package com;
 
-import java.awt.Graphics2D;
-import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.awt.geom.Area;
-import java.awt.image.BufferedImage;
-import java.util.StringTokenizer;
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class LineData implements Cloneable{
 
-		public Vector lineDatas=new Vector();
+		public ArrayList lineDatas=new ArrayList();
 		public boolean isSelected=false;
 		
 		public double shadowCosin=1;
@@ -71,7 +65,7 @@ public class LineData implements Cloneable{
 		
 		public LineDataVertex getItem(int i){
 			
-			LineDataVertex ldv=(LineDataVertex) lineDatas.elementAt(i);
+			LineDataVertex ldv=(LineDataVertex) lineDatas.get(i);
 			return ldv;
 		}
 		
@@ -201,48 +195,6 @@ public class LineData implements Cloneable{
 			this.shadowCosin = shadowCosin;
 		}
 		
-		public static Polygon3D buildPolygon(LineData ld,Vector points) {
-
-
-
-			int size=ld.size();
-
-			int[] cxr=new int[size];
-			int[] cyr=new int[size];
-			int[] czr=new int[size];
-
-			int[] cxtr=new int[size];
-			int[] cytr=new int[size];
-
-
-			for(int i=0;i<size;i++){
-
-				LineDataVertex ldv=(LineDataVertex) ld.getItem(i);
-				int num=ldv.getVertex_index();
-
-				Point3D p=(Point3D) points.elementAt(num);
-
-
-				
-
-				//real coordinates
-				cxr[i]=(int)(p.x);
-				cyr[i]=(int)(p.y);
-				czr[i]=(int)(p.z);
-				
-				cxtr[i]=(int) ldv.getVertex_texture_x();
-				cytr[i]=(int) ldv.getVertex_texture_y();
-				
-
-
-			}
-
-
-			Polygon3D p3dr=new Polygon3D(size,cxr,cyr,czr,cxtr,cytr);
-
-	        return p3dr;
-
-		}
 		
 		public static Polygon3D buildPolygon(LineData ld,Point3D[] points) {
 

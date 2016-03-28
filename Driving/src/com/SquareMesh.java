@@ -1,7 +1,6 @@
 package com;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 public class SquareMesh extends PolygonMesh {
 	

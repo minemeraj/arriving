@@ -5,8 +5,6 @@ import java.awt.geom.Area;
 import java.awt.geom.Line2D;
 import java.awt.geom.PathIterator;
 import java.util.ArrayList;
-import java.util.Vector;
-
 
 /**
  * @author Piazza Francesco Giovanni ,Tecnes Milano http://www.tecnes.com
@@ -62,32 +60,6 @@ public class Polygon3D  extends Polygon{
 		this.xtpoints = new int[npoints];
 		this.ytpoints = new int[npoints];
 		this.npoints=npoints;
-	}
-
-
-	public Polygon3D(Vector points) {
-
-		this.npoints=points.size();
-		this.xpoints = new int[this.npoints];
-		this.ypoints = new int[this.npoints];
-		this.zpoints = new int[this.npoints];
-		this.xtpoints = new int[npoints];
-		this.ytpoints = new int[npoints];
-
-
-		for(int i=0;i<this.npoints;i++){
-
-			Point3D p=(Point3D) points.elementAt(i);
-
-			this.xpoints[i]=(int) p.x;
-			this.ypoints[i]=(int) p.y;
-			this.zpoints[i]=(int) p.z;
-			
-			this.xtpoints[i]=(int) p.x;
-			this.ytpoints[i]=(int) p.y;
-		}
-
-
 	}
 	
 	public Polygon3D(ArrayList points) {
@@ -439,7 +411,7 @@ public class Polygon3D  extends Polygon{
 
 
 		
-        Vector newPoints=new Vector();
+		ArrayList newPoints=new ArrayList();
 
 
 		for(int i=0;i<p_old.npoints;i++){
@@ -488,7 +460,7 @@ public class Polygon3D  extends Polygon{
 		
 		for(int j=0;j<new_size;j++){
 			
-			Point3D p=(Point3D) newPoints.elementAt(j);
+			Point3D p=(Point3D) newPoints.get(j);
 			
 			p_new.xpoints[j]=(int) p.x;
 			p_new.ypoints[j]=(int) p.y;
@@ -504,7 +476,7 @@ public class Polygon3D  extends Polygon{
 
 
 		
-        Vector newPoints=new Vector();
+		ArrayList newPoints=new ArrayList();
 
 
 		for(int i=0;i<p_old.npoints;i++){
@@ -552,7 +524,7 @@ public class Polygon3D  extends Polygon{
 		
 		for(int j=0;j<new_size;j++){
 						
-			Point3D p=(Point3D) newPoints.elementAt(j);
+			Point3D p=(Point3D) newPoints.get(j);
 			
 			p_new.xpoints[j]=(int) p.x;
 			p_new.ypoints[j]=(int) p.y;
@@ -638,27 +610,6 @@ public class Polygon3D  extends Polygon{
 
 		Point3D normal=Point3D.calculateCrossProduct(vector1,vector2);
 		
-		/*
-		if(Point3D.calculateNorm(normal)==0){
-			
-			
-			p0=new Point3D(pol.xpoints[1],pol.ypoints[1],pol.zpoints[1]);
-
-			p1=new Point3D(pol.xpoints[2],pol.ypoints[2],pol.zpoints[2]);
-			p2=new Point3D(pol.xpoints[0],pol.ypoints[0],pol.zpoints[0]);
-
-			vector1=p1.substract(p0); 
-			vector2=p2.substract(p0);
-
-			
-
-			normal=Point3D.calculateCrossProduct(vector1,vector2);
-			
-			
-		}
-		 */
-		
-
 		return normal;
 	}
 
@@ -673,7 +624,8 @@ public class Polygon3D  extends Polygon{
 			double valPoint=line.signum(x,y);
 
 			//near the border the precise calcutation is very difficult
-			if(Math.abs(valPoint)<0.01) valPoint=0;
+			if(Math.abs(valPoint)<0.01) 
+				valPoint=0;
 
 			for(int j=2;j<npoints;j++){
 

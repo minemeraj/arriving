@@ -3,8 +3,6 @@ package com.editors.road.panel;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.Vector;
-
 import javax.swing.JPanel;
 
 import com.BarycentricCoordinates;
@@ -516,11 +514,11 @@ public abstract class RoadEditorPanel extends JPanel {
 
 	public abstract boolean selectPolygons(int x, int y,PolygonMesh mesh);
 	
-	public abstract Vector selectPolygons(int x, int y,PolygonMesh mesh,boolean toSelect);
+	public abstract ArrayList selectPolygons(int x, int y,PolygonMesh mesh,boolean toSelect);
 
 	public abstract void selectObjects(int x, int y, ArrayList drawObjects);
 	
-	public Vector selectObjects(int x, int y, ArrayList drawObjects,boolean toSelect) {
+	public ArrayList selectObjects(int x, int y, ArrayList drawObjects,boolean toSelect) {
 		
 		return null;
 		
@@ -546,7 +544,7 @@ public abstract class RoadEditorPanel extends JPanel {
 		this.hide_objects = hide_objects;
 	}
 
-	public abstract Vector getClickedPolygons(int x, int y, PolygonMesh mesh);
+	public abstract ArrayList getClickedPolygons(int x, int y, PolygonMesh mesh);
 
 	public abstract void rotate(int signum);
 	

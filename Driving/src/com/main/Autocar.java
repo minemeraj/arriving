@@ -1,17 +1,15 @@
 package com.main;
 
 
-import java.awt.Dimension;
 import java.awt.Polygon;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.StringTokenizer;
-import java.util.Vector;
 
-import com.Engine;
 import com.Point3D;
 import com.Polygon3D;
 import com.Texture;
@@ -309,7 +307,7 @@ public class Autocar {
 	public static Autocar[] buildAutocars(File file) {
 
 		
-		Vector autocars=new Vector();
+		ArrayList autocars=new ArrayList();
 		
 		
 		FileReader fr=null;
@@ -318,7 +316,7 @@ public class Autocar {
 		try {
 			
 			
-			Vector roads=new Vector();
+			ArrayList roads=new ArrayList();
 			
 			fr=new FileReader(file);
 			br=new BufferedReader(fr);
@@ -354,7 +352,7 @@ public class Autocar {
 					str=str.substring(str.indexOf("=")+1);							
 					String[] vals=str.split(",");
 					
-					Autocar car=(Autocar) autocars.lastElement();
+					Autocar car=(Autocar) autocars.get(autocars.size()-1);
 					
 					
 					double x=Double.parseDouble(vals[0]);
@@ -371,7 +369,7 @@ public class Autocar {
 
 					if(autoline_index>=0){
 					
-						Point3D[] car_road=(Point3D[]) roads.elementAt(autoline_index);
+						Point3D[] car_road=(Point3D[]) roads.get(autoline_index);
 						car.setCar_road(car_road);
 						car.isParked=false;
 						
@@ -386,7 +384,7 @@ public class Autocar {
 					str=str.substring(str.indexOf("=")+1);
 					StringTokenizer stk=new StringTokenizer(str,"_");
 					
-					Vector road_points=new Vector();
+					ArrayList road_points=new ArrayList();
 					
 					while(stk.hasMoreTokens()){			
 						
@@ -406,7 +404,7 @@ public class Autocar {
 					Point3D[] car_road=new Point3D[road_points.size()];
 					
 					for (int i = 0; i < road_points.size(); i++) {
-						car_road[i]=(Point3D) road_points.elementAt(i);
+						car_road[i]=(Point3D) road_points.get(i);
 					}
 					roads.add(car_road);
 	
@@ -437,7 +435,7 @@ public class Autocar {
 		Autocar[] acars=new Autocar[autocars.size()];
 		
 		for (int i = 0; i < autocars.size(); i++) {
-			acars[i]=(Autocar) autocars.elementAt(i);
+			acars[i]=(Autocar) autocars.get(i);
 			acars[i].setAutocar_index(i);
 		}
 		

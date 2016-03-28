@@ -9,7 +9,6 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
 import java.util.ArrayList;
-import java.util.Vector;
 
 import com.BarycentricCoordinates;
 import com.CubicMesh;
@@ -975,8 +974,6 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 
 		if(ys<=SCREEN_DISTANCE) return;
 
-		//double gamma=SCREEN_DISTANCE/(SCREEN_DISTANCE+ys);
-
 		double xd=calculPerspX(xs,ys,zs);
 		double yd=calculPerspY(xs,ys,zs);
 
@@ -995,7 +992,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 
 	}
 
-	public void buildRectanglePolygons(Vector polygons, double x, double y,
+	public void buildRectanglePolygons(ArrayList polygons, double x, double y,
 			double z, double dx, double dy, double dz) {
 
 
@@ -1164,7 +1161,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 		int size=dro.getPolygons().size();
 		for(int j=0;j<size;j++){
 			
-			Polygon3D polig=(Polygon3D) dro.getPolygons().elementAt(j);
+			Polygon3D polig=(Polygon3D) dro.getPolygons().get(j);
 			rotatePolygon( polig, xo, yo, cosTur, sinTur);
 		}
 		
@@ -1231,7 +1228,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 
 	public Polygon3D interpolateAreaToPolygon3D(Area a, Polygon3D p3d){
 
-		Vector points=new Vector();
+		ArrayList points=new ArrayList();
 
 		PathIterator pathIter = a.getPathIterator(null);
 

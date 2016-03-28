@@ -1,10 +1,9 @@
 package com;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.util.Vector;
+import java.util.ArrayList;
 
 
 public class DrawObject {
@@ -27,7 +26,7 @@ public class DrawObject {
 	String hexColor=null;
 	boolean selected=false;
 	
-	private Vector polygons=new Vector();
+	private ArrayList polygons=new ArrayList();
 	private PolygonMesh mesh=new PolygonMesh();
 
 
@@ -55,7 +54,7 @@ public class DrawObject {
 		//polygons vector!
 		for(int i=0;i<polygons.size();i++){
 			
-			Polygon3D polig=(Polygon3D) polygons.elementAt(i);
+			Polygon3D polig=(Polygon3D) polygons.get(i);
 			dro.addPolygon(polig.clone());
 		}
 		dro.setMesh(getMesh().clone());		
@@ -69,11 +68,11 @@ public class DrawObject {
 		polygons.add(poly);
 	}
 	
-	public Vector getPolygons() {
+	public ArrayList getPolygons() {
 		return polygons;
 	}
 
-	public void setPolygons(Vector polygons) {
+	public void setPolygons(ArrayList polygons) {
 		this.polygons = polygons;
 	}
 	

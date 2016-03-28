@@ -7,7 +7,6 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Area;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
-import java.util.Vector;
 
 import com.BarycentricCoordinates;
 import com.CubicMesh;
@@ -865,30 +864,30 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 	}
 	
-    public Vector getClickedPolygons(int x, int y, PolygonMesh mesh) {
+    public ArrayList getClickedPolygons(int x, int y, PolygonMesh mesh) {
     	
     	return selectPolygons(x,y,mesh,false);
     }
 
     public boolean selectPolygons(int x, int y, PolygonMesh mesh) {
     	
-    	Vector vec=selectPolygons(x,y,mesh,true);
+    	ArrayList vec=selectPolygons(x,y,mesh,true);
     	
     	return vec!=null && vec.size()>0;
     	
     }
 
-    public Vector selectPolygons(int x, int y, PolygonMesh mesh,
+    public ArrayList selectPolygons(int x, int y, PolygonMesh mesh,
     		boolean toSelect) {
 
-    	Vector ret=new Vector();
+    	ArrayList ret=new ArrayList();
 
     	if(mesh==null)
     		return ret;
 
 
 
-    	Vector selectablePolygons=new Vector();
+    	ArrayList selectablePolygons=new ArrayList();
 
     	int sizel=mesh.polygonData.size();
 
@@ -920,7 +919,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
     	/////here calculate the nearest block.
 
     	for (int i = 0; i < selectablePolygons.size(); i++) {
-    		PolygonToOrder pot = (PolygonToOrder) selectablePolygons.elementAt(i);
+    		PolygonToOrder pot = (PolygonToOrder) selectablePolygons.get(i);
 
     		if(i==0){
     			selectedPolygonOrder=pot;

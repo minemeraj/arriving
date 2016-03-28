@@ -232,7 +232,7 @@ public class ObjectEditorCopyPanel extends JDialog implements ActionListener {
 				}
 				else{
 					
-					new_ld.lineDatas.removeAllElements();
+					new_ld.lineDatas.clear();
 					break;
 					
 				}
