@@ -63,7 +63,7 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 		initialize();
 	}
 	
-	
+	@Override
 	public void initialize() {
 
 		super.initialize();
@@ -101,7 +101,7 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 
 
 
-
+	@Override
 	public void draw() {
 		
 				
@@ -130,7 +130,7 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 	}
 	
 
-	
+	@Override
    public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer,
     		Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY,int hashCode){
 
@@ -150,7 +150,6 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
     		Point3D normal=Polygon3D.findNormal(p3d);
     		yDirection=Point3D.calculateCrossProduct(normal,xDirection).calculateVersor();
 
-    		//yDirection=Point3D.calculateOrthogonal(xDirection);
     	}
     	else{
     		
@@ -172,9 +171,9 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 
 
 
-
+	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		//System.out.println(evt.getPropertyName());
+
 		if( "ObjectEditorUndo".equals(evt.getPropertyName()) ||
 			 "ObjectEditorUpdate".equals(evt.getPropertyName())
 		)
@@ -190,7 +189,7 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 
 		
 	}
-	
+	@Override
 	public void keyPressed(KeyEvent arg0) {
 		
 		super.keyPressed(arg0);

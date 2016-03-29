@@ -15,8 +15,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Vector;
-
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -405,7 +403,7 @@ public class Mould extends JFrame implements ActionListener{
 		int h=imageOrig.getHeight();
 		int w=imageOrig.getWidth();
 		
-		Vector data=new Vector();
+		ArrayList data=new ArrayList();
 
 		//READ IMAGES TO FIND COLOURED POINTS
 		for(int i=0;i<w;i++){
@@ -434,7 +432,7 @@ public class Mould extends JFrame implements ActionListener{
 		pm.points=new Point3D[data.size()];
 
 		for (int i = 0; i < data.size(); i++) {
-			pm.points[i] = (Point3D) data.elementAt(i);
+			pm.points[i] = (Point3D) data.get(i);
 		}
 		
 		//rescale mesh points
@@ -1110,7 +1108,7 @@ public class Mould extends JFrame implements ActionListener{
 	
 				String line=null;
 				
-				Vector data=new Vector();
+				ArrayList data=new ArrayList();
 				
 				while((line=br.readLine())!=null){
 					
@@ -1131,7 +1129,7 @@ public class Mould extends JFrame implements ActionListener{
 				points=new Point2D.Double[data.size()];
 
 				for (int i = 0; i < data.size(); i++) {
-					points[i] = (Point2D.Double) data.elementAt(i);
+					points[i] = (Point2D.Double) data.get(i);
 				}
 				
 				
@@ -1149,7 +1147,7 @@ public class Mould extends JFrame implements ActionListener{
 			int h=imageOrig.getHeight();
 			int w=imageOrig.getWidth();
 			
-			Vector data=new Vector();
+			ArrayList data=new ArrayList();
 			
 			int tollerance=5;
 
@@ -1178,7 +1176,7 @@ public class Mould extends JFrame implements ActionListener{
 			points=new Point2D.Double[data.size()];
 
 			for (int i = 0; i < data.size(); i++) {
-				points[i] = (Point2D.Double) data.elementAt(i);
+				points[i] = (Point2D.Double) data.get(i);
 			}
 			
 		

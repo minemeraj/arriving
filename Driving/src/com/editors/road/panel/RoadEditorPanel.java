@@ -17,34 +17,35 @@ import com.editors.road.RoadEditor;
 
 public abstract class RoadEditorPanel extends JPanel {
 	
-	public int blackRgb= Color.BLACK.getRGB();
+	public static final int blackRgb= Color.BLACK.getRGB();
+	public static final int greenRgb= Color.GREEN.getRGB();
 	
 	public RoadEditor editor;
 	
 	int WIDTH=0;
 	int HEIGHT=0;
 	
-	public Color selectionColor=null;
+	protected Color selectionColor=null;
 	
 	boolean hide_objects=false;
 	
-	public int POSX=0;
-	public int POSY=0;
-	public int MOVZ=0;
+	protected int POSX=0;
+	protected int POSY=0;
+	protected int MOVZ=0;
 	
-	public double fi=0;
-	public double sinf=Math.sin(fi);
-	public double cosf=Math.cos(fi);
+	protected double fi=0;
+	protected double sinf=Math.sin(fi);
+	protected double cosf=Math.cos(fi);
 	
-	public int mask = 0xFF;
-	public double a1=0.6;
-	public double a2=1.0-a1;
+	protected int mask = 0xFF;
+	protected double a1=0.6;
+	protected double a2=1.0-a1;
 	
-	public double rr=0;
-	public double gg=0;
-	public double bb=0;
+	protected double rr=0;
+	protected double gg=0;
+	protected double bb=0;
 	
-	public int greenRgb= Color.GREEN.getRGB();
+
 
 	public RoadEditorPanel(RoadEditor editor,
 			int cENTER_WIDTH, int cENTER_HEIGHT) {

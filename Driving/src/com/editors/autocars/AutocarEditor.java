@@ -36,7 +36,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 import java.util.StringTokenizer;
-import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -329,7 +328,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		File directoryImg = new File("lib");
 		File[] files = directoryImg.listFiles();
 
-		Vector vRoadTextures = new Vector();
+		ArrayList vRoadTextures = new ArrayList();
 
 		for (int i = 0; i < files.length; i++) {
 			if (files[i].getName().startsWith("road_texture_")) {
@@ -350,7 +349,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		}
 		
-		Vector vObjects=new Vector();
+		ArrayList vObjects=new ArrayList();
 		
 		
 		for(int i=0;i<files.length;i++){
@@ -2173,8 +2172,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		jmt_undo.setEnabled(true);
 
-		Vector clonedAutolinesData=new Vector();
-		Vector clonedAutocarsData=new Vector();
+		ArrayList clonedAutolinesData=new ArrayList();
+		ArrayList clonedAutocarsData=new ArrayList();
 
 		for (int l= 0; l < autolinesData.size(); l++) {
 

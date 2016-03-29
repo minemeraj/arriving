@@ -9,7 +9,6 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -25,9 +24,6 @@ import com.editors.models.MeshModel;
 
 public class MeshModelEditor extends JFrame implements ActionListener, MenuListener{
 	
-
-	Vector texturePoints=null;
-	Vector points=null;
 	
 	Color backgroundColor=Color.green;
 	
@@ -36,18 +32,18 @@ public class MeshModelEditor extends JFrame implements ActionListener, MenuListe
 
 	public JPanel center;
 
-	public JButton meshButton;
+	protected JButton meshButton;
 
-	public JButton textureButton;
+	protected JButton textureButton;
 	
-	public File currentDirectory=new File("lib");
+	protected File currentDirectory=new File("lib");
 
-	private PrintWriter pw;
+	protected PrintWriter pw;
 
 	
 	String title="Mesh model";
 	
-	public MeshModel meshModel=null;
+	protected MeshModel meshModel=null;
 	private JMenuBar jmb;
 	private JMenu jm_file;
 	private JMenuItem jm_file_load;

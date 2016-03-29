@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+
 import javax.swing.JFileChooser;
 
 import com.editors.Editor;
