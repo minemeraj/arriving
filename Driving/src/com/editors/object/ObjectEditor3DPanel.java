@@ -5,40 +5,21 @@ package com.editors.object;
  *
  */
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
 import java.awt.Rectangle;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Vector;
+import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.border.Border;
 
 import com.BarycentricCoordinates;
 import com.CubicMesh;
 import com.LineData;
 import com.Point3D;
-import com.Point4D;
 import com.Polygon3D;
 import com.PolygonMesh;
 import com.Texture;
 import com.ZBuffer;
-import com.editors.DoubleTextField;
 import com.main.AbstractRenderer3D;
 import com.main.Renderer3D;
 import com.main.Road;
@@ -161,7 +142,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 	
 	private void buildShading(BufferedImage buf) {
 		
-		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 		
 	
 		
@@ -347,9 +328,9 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		
 	}
 
-	public Vector rotatePoints(Point3D[] points) {
+	public ArrayList rotatePoints(Point3D[] points) {
 		
-		Vector clonePoints=new Vector();
+		ArrayList clonePoints=new ArrayList();
 		
 		for (int i = 0; i < points.length; i++) {
 			
@@ -425,7 +406,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 	private void displayLines(Graphics2D bufGraphics) {
 
-		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 
 		for(int i=0;i<mesh.polygonData.size();i++){
 
@@ -509,7 +490,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 	private void displayPoints(Graphics2D bufGraphics) {
 		
-		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 		
 		if(mesh.points==null)
 			return;
@@ -545,7 +526,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		
 		boolean found=false;
 		
-		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 		if(mesh.points==null)
 			return; 
 		
@@ -614,7 +595,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		int y0=Math.min(currentRect.y,currentRect.y+currentRect.height);
 		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
 		
-		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 		if(mesh.points==null)
 			return; 
 		

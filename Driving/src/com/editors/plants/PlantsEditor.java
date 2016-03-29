@@ -23,7 +23,6 @@ import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.IntegerTextField;
 import com.editors.ValuePair;
-import com.editors.forniture.data.Forniture;
 import com.editors.object.ObjectEditorPreviewPanel;
 import com.editors.plants.data.Plant;
 
@@ -348,7 +347,7 @@ public class PlantsEditor extends CustomEditor implements ItemListener {
 			return;
 		
 		Editor editor=new Editor();
-		editor.meshes[0]=buildMesh();
+		editor.getMeshes()[0]=buildMesh();
 		
 		ObjectEditorPreviewPanel oepp=new ObjectEditorPreviewPanel(editor);
 		

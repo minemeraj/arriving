@@ -7,8 +7,6 @@ import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-import java.util.Vector;
-
 import javax.swing.JFileChooser;
 
 import com.editors.Editor;
@@ -267,7 +265,7 @@ public class Renderer2D extends Editor {
 	
 	boolean forceReading=false;
 
-	public void buildLines(Vector lines, String str) {
+	public void buildLines(ArrayList lines, String str) {
 
 		StringTokenizer sttoken=new StringTokenizer(str,"_");
 
@@ -314,7 +312,7 @@ public class Renderer2D extends Editor {
 	}
 	
 	
-	public void buildPoints(Vector points, String str) {
+	public void buildPoints(ArrayList points, String str) {
 
 		StringTokenizer sttoken=new StringTokenizer(str,"_");
 

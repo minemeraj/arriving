@@ -7,9 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
-import com.Point4D;
 import com.SquareMesh;
 import com.editors.DoubleTextField;
 

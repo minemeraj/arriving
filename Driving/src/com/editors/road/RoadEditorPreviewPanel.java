@@ -10,7 +10,6 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.Vector;
 
 import com.CubicMesh;
 import com.DrawObject;
@@ -69,7 +68,7 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 		super();
 		this.roadEditor=roadEditor;
 	
-		this.meshes=roadEditor.meshes;		
+		this.meshes=roadEditor.getMeshes();		
 		this.drawObjects=roadEditor.getDrawObjects();
 			
 		this.roadEditor=roadEditor;
@@ -470,7 +469,7 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 				|| "RoadEditorUpdate".equals(evt.getPropertyName())
 		)
 		{
-			this.meshes=roadEditor.meshes;
+			this.meshes=roadEditor.getMeshes();
 		
 			draw();
 		}

@@ -5,33 +5,14 @@ package com.editors.object;
  *
  */
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
 import java.awt.Rectangle;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
-import java.util.Collections;
-import java.util.Vector;
-
-import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.border.Border;
 
 import com.LineData;
 import com.Point3D;
 import com.Polygon3D;
 import com.PolygonMesh;
-import com.editors.DoubleTextField;
 
 
 
@@ -130,7 +111,7 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 
 	private void displayLines(Graphics2D bufGraphics) {
 
-		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 
 		for(int i=0;i<mesh.polygonData.size();i++){
 
@@ -215,7 +196,7 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 
 	private void displayPoints(Graphics2D bufGraphics) {
 		
-		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 
 		for(int i=0;i<mesh.points.length;i++){
 
@@ -245,7 +226,7 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 
 		boolean found=false;
 		
-		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 		
 		//select point from lines
 		if(!checkMultipleSelection.isSelected()) 
@@ -301,7 +282,7 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 		int y0=Math.min(currentRect.y,currentRect.y+currentRect.height);
 		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
 		
-		PolygonMesh mesh=oe.meshes[oe.ACTIVE_PANEL];
+		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 
 		for (int i = 0; i < mesh.points.length; i++) {
 

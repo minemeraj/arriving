@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Random;
-import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -43,7 +43,7 @@ public class GameLoader extends JDialog implements ActionListener{
 		setTitle("Game loader");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		Vector mapNames=loadMapNames();
+		ArrayList mapNames=loadMapNames();
 		int addedHeight=50*mapNames.size();
 		HEIGHT=HEIGHT+addedHeight;
 
@@ -72,7 +72,7 @@ public class GameLoader extends JDialog implements ActionListener{
 
 		for (int i = 0; i < mapNames.size(); i++) {
 
-			String mName = (String) mapNames.elementAt(i);
+			String mName = (String) mapNames.get(i);
 
 			mapRadios[i]=new JButton("X");
 			mapRadios[i].setBounds(10,r,50,20);
@@ -96,9 +96,9 @@ public class GameLoader extends JDialog implements ActionListener{
 	}
 
 
-	private Vector loadMapNames() {
+	private ArrayList loadMapNames() {
 
-		Vector vec=new Vector();
+		ArrayList vec=new ArrayList();
 
 		vec.add(DEFAULT_MAP);
 

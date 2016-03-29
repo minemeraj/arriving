@@ -390,7 +390,7 @@ public class BlockEditorPanel extends JPanel implements MouseListener{
 
 	private void selectPoint(int x, int y) {
 		
-		PolygonMesh mesh = blockEditor.meshes[blockEditor.ACTIVE_PANEL];
+		PolygonMesh mesh = blockEditor.getMeshes()[blockEditor.getACTIVE_PANEL()];
 		
 		if(mesh.points==null)
 			return; 

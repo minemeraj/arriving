@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Vector;
 
 import com.main.Renderer3D;
 
@@ -63,10 +62,10 @@ public class CustomData {
 	}
 	
 
-	public void translatePoints(Vector points, double dx, double dy) { 
+	public void translatePoints(ArrayList points, double dx, double dy) { 
 
 		for (int i = 0; i < points.size(); i++) {
-			BPoint point = (BPoint) points.elementAt(i);
+			BPoint point = (BPoint) points.get(i);
 			if(point==null)
 				continue;
 			point.translate(dx,dy,0);

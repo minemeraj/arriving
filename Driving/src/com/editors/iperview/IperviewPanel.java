@@ -14,11 +14,9 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Vector;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -27,7 +25,6 @@ import javax.swing.TransferHandler;
 import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
-import com.editors.EditorPanel;
 
 
 public class IperviewPanel extends JPanel implements MouseWheelListener,MouseMotionListener,MouseListener{
@@ -177,7 +174,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 
 	private void displayPoints(Graphics2D bufGraphics) {
 		
-		 PolygonMesh mesh = iperviewEditor.meshes[iperviewEditor.ACTIVE_PANEL];	
+		 PolygonMesh mesh = iperviewEditor.getMeshes()[iperviewEditor.getACTIVE_PANEL()];	
 		
 		if(mesh.points==null)
 			return;
@@ -202,7 +199,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 	private void displayLines(Graphics2D bufGraphics) {
 
 
-		PolygonMesh mesh = iperviewEditor.meshes[iperviewEditor.ACTIVE_PANEL];
+		PolygonMesh mesh = iperviewEditor.getMeshes()[iperviewEditor.getACTIVE_PANEL()];
 		
 		for(int i=0;i<mesh.polygonData.size();i++){
 
@@ -470,7 +467,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 
 		
 		if(!iperviewEditor.checkMultipleSelection.isSelected()) 
-			iperviewEditor.polygon=new LineData();
+			iperviewEditor.setPolygon(new LineData());
 		
 		int xp=arg0.getX();
 		int yp=arg0.getY();
@@ -479,7 +476,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 
 		int button=arg0.getButton();
 		
-		PolygonMesh mesh = iperviewEditor.meshes[iperviewEditor.ACTIVE_PANEL];	
+		PolygonMesh mesh = iperviewEditor.getMeshes()[iperviewEditor.getACTIVE_PANEL()];	
 
 		if(button==MouseEvent.BUTTON3){
 			
@@ -528,7 +525,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 				if(!iperviewEditor.checkExtraData.isSelected())
 					iperviewEditor.extraData.setText(p3d.getData()!=null?p3d.getData().toString():null);
 				
-				iperviewEditor.polygon.addIndex(i);
+				iperviewEditor.getPolygon().addIndex(i);
 				
 				iperviewEditor.deselectAllLines();
 			}
@@ -562,7 +559,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 			return;
 		
 
-		PolygonMesh mesh = iperviewEditor.meshes[iperviewEditor.ACTIVE_PANEL];
+		PolygonMesh mesh = iperviewEditor.getMeshes()[iperviewEditor.getACTIVE_PANEL()];
 		
 		int x0=Math.min(currentRect.x,currentRect.x+currentRect.width);
 		int x1=Math.max(currentRect.x,currentRect.x+currentRect.width);
@@ -682,7 +679,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 	}
 
 	public void setMesh(PolygonMesh mesh) {
-		this.iperviewEditor.meshes[iperviewEditor.ACTIVE_PANEL]=mesh;
+		this.iperviewEditor.getMeshes()[iperviewEditor.getACTIVE_PANEL()]=mesh;
 		
 	}
 

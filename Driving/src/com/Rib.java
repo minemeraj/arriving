@@ -3,7 +3,7 @@ package com;
 public class Rib {
 
 	
-	public Point4D[] points=null;
+	private Point4D[] points=null;
 	private int index=0;
 	
 	public Rib(int size){

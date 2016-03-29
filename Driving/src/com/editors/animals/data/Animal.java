@@ -1,13 +1,9 @@
 package com.editors.animals.data;
 
-import java.util.Vector;
-
 import com.BPoint;
 import com.CustomData;
-import com.LineData;
 import com.PolygonMesh;
 import com.Segments;
-import com.main.Renderer3D;
 
 public class Animal extends CustomData{
 

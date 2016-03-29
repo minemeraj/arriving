@@ -1,7 +1,6 @@
 package com.editors.weapons.data;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 import com.BPoint;
 import com.CustomData;

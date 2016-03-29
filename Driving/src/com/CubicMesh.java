@@ -138,7 +138,7 @@ public class CubicMesh extends PolygonMesh{
 		}
 		for(int i=0;i<this.normals.size();i++){
 
-			cm.normals.add(normals.elementAt(i).clone());
+			cm.normals.add(normals.get(i).clone());
 		}
 		for(int i=0;i<this.boxFaces.length;i++){
 			cm.boxFaces[i]=this.boxFaces[i];

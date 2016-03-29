@@ -1,6 +1,5 @@
 package com;
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +8,6 @@ import java.util.Hashtable;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
-import javax.swing.text.html.HTMLDocument.Iterator;
 
 import com.main.CarFrame;
 

@@ -6,11 +6,6 @@ import java.awt.Graphics2D;
 import java.io.PrintWriter;
 import java.util.Vector;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-
-import com.editors.DoubleTextField;
-
 public class TableModel extends MeshModel{
 
 	double dx=100;

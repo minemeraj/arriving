@@ -7,8 +7,6 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Stack;
-import java.util.StringTokenizer;
-import java.util.Vector;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -29,29 +27,29 @@ import com.main.Road;
 
 public class Editor extends JFrame implements MenuListener{
 	
-	public int ACTIVE_PANEL=0; 
-	public int numPanels=2;
+	protected int ACTIVE_PANEL=0; 
+	protected int numPanels=2;
 	
-	public PolygonMesh[] meshes=null;	
-	public Stack[] oldMeshes=null;
+	transient protected PolygonMesh[] meshes=null;	
+	protected Stack[] oldMeshes=null;
 
 	
-	public LineData polygon=new LineData();
+	transient protected LineData polygon=new LineData();
 	
-	public int MAX_STACK_SIZE=10;
+	public static final int MAX_STACK_SIZE=10;
 	
-	public boolean redrawAfterMenu=false;
+	protected boolean redrawAfterMenu=false;
 	
-	public JFileChooser fc= new JFileChooser();
-	public File currentDirectory=null;
-	public File currentFile=null;
+	protected JFileChooser fc= new JFileChooser();
+	protected File currentDirectory=null;
+	protected File currentFile=null;
 	
-	public static int TERRAIN_INDEX=0;
-	public static int ROAD_INDEX=1;
+	public static final int TERRAIN_INDEX=0;
+	public static final int ROAD_INDEX=1;
 	
-	public static String TAG[]={"terrain","road"};
+	public static final String TAG[]={"terrain","road"};
 	
-	public ArrayList splines=null;
+	protected ArrayList splines=null;
 	
 	public Editor(){
 		
@@ -90,7 +88,7 @@ public class Editor extends JFrame implements MenuListener{
 			for (int k = 0; k < sp.ribs.size();k++){
 
 				Rib rib = (Rib) sp.ribs.get(k);
-				Point4D[] points=rib.points;
+				Point4D[] points=rib.getPoints();
 
 				double mx=(points[0].x+points[1].x)*0.5;
 				double my=(points[0].y+points[1].y)*0.5;
@@ -195,38 +193,6 @@ public class Editor extends JFrame implements MenuListener{
 		return 0;
 	}
 	
-	
-	public void buildLines(Vector lines, String str) {
-
-		StringTokenizer sttoken=new StringTokenizer(str," ");
-
-		while(sttoken.hasMoreElements()){
-			
-			String token=sttoken.nextToken();
-			
-			LineData ld=new LineData();
-			
-			if(token.indexOf("]")>0){
-				
-				String extraData=token.substring(token.indexOf("[")+1,token.indexOf("]"));
-				token=token.substring(token.indexOf("]")+1);
-				ld.setData(extraData);
-				
-			}
-
-			String[] vals = token.split(" ");
-
-			for(int i=0;i<vals.length;i++)
-				ld.addIndex(Integer.parseInt(vals[i]));
-
-
-			lines.add(ld);
-		}
-
-
-
-
-	}
 	
 	public boolean forceReading=false;
 	
@@ -498,28 +464,16 @@ public class Editor extends JFrame implements MenuListener{
 		}
 	}
 
-
-
-
-
 	public void buildPoint(ArrayList vPoints, String str) {
 		PolygonMesh.buildPoint(vPoints,str);
 		
 	}
-
-
-
-
 
 	public void buildLine(ArrayList<LineData> polygonData, String str,
 			ArrayList vTexturePoints) {
 		PolygonMesh.buildLine(polygonData,str,vTexturePoints);
 		
 	}
-
-
-
-
 
 	public String decomposePoint(Point3D p) {
 		String str="";
@@ -749,35 +703,7 @@ public class Editor extends JFrame implements MenuListener{
 	}
 
 
-	public Vector clonePoints(Vector oldPoints) {
 		
-		Vector newPoints=new Vector();
-		
-		for(int i=0;i<oldPoints.size();i++){
-			
-			Point3D p=(Point3D) oldPoints.elementAt(i);
-			newPoints.add(p.clone());
-		}
-		
-		return newPoints;
-	}
-	
-	public Vector cloneLineData(Vector oldLines) {
-		
-		Vector newLineData=new Vector();
-		
-		for(int i=0;i<oldLines.size();i++){
-
-			LineData ld=(LineData) oldLines.elementAt(i);
-		
-			
-			newLineData.add(ld.clone());
-		
-			
-		}
-		return newLineData;
-	}
-	
 	public void prepareUndo() {
 		
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
@@ -839,6 +765,21 @@ public class Editor extends JFrame implements MenuListener{
 
 	public void setACTIVE_PANEL(int aCTIVE_PANEL) {
 		ACTIVE_PANEL = aCTIVE_PANEL;
+	}
+
+
+	public PolygonMesh[] getMeshes() {
+		return meshes;
+	}
+
+
+	public LineData getPolygon() {
+		return polygon;
+	}
+
+
+	public void setPolygon(LineData polygon) {
+		this.polygon = polygon;
 	}
 
 

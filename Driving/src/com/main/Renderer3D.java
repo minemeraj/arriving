@@ -1197,7 +1197,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 		for(int i=0;i<nsize;i++){
 			
 			
-			Point3D normal = mesh.normals.elementAt(i);
+			Point3D normal = mesh.normals.get(i);
 			rotatePoint(normal,0,0,ct,st);
 
 		}

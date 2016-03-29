@@ -1466,8 +1466,8 @@ public class Road extends Shader{
 						for (int r = 0; r< nodeRibs.size(); r++) {
 							
 							Rib rib= (Rib) nodeRibs.get(r);
-							for (int k = 0; k < rib.points.length; k++) {
-								rib.points[k].translate(-XFOCUS,+SCREEN_DISTANCE,-YFOCUS);
+							for (int k = 0; k < rib.getPoints().length; k++) {
+								rib.getPoints()[k].translate(-XFOCUS,+SCREEN_DISTANCE,-YFOCUS);
 							}
 							
 						}

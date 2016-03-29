@@ -1,11 +1,9 @@
 package com.editors.autocars;
 
 import java.awt.Component;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
-import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import com.Point3D;
-import com.PolygonMesh;
 import com.editors.DoubleTextField;
 
 public class AutocarTemplatePanel extends JDialog implements ActionListener{

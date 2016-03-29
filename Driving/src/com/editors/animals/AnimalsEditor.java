@@ -498,7 +498,7 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 			return;
 		
 		Editor editor=new Editor();
-		editor.meshes[0]=buildMesh();
+		editor.getMeshes()[0]=buildMesh();
 		
 		ObjectEditorPreviewPanel oepp=new ObjectEditorPreviewPanel(editor);
 		

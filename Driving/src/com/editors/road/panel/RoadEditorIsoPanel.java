@@ -112,7 +112,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				
 				if(ld.isSelected()){
 
-					if(index<0 || index==editor.ACTIVE_PANEL){
+					if(index<0 || index==editor.getACTIVE_PANEL()){
 						selected=selectionColor;
 					}
 				}
@@ -954,14 +954,14 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
     				//editor.setCellPanelData(ld);							
     				ld.setSelected(true);
     				
-    				for(int k=0;k<editor.chooseTexture[editor.ACTIVE_PANEL].getItemCount();k++){
+    				for(int k=0;k<editor.chooseTexture[editor.getACTIVE_PANEL()].getItemCount();k++){
 
-    					ValuePair vp=(ValuePair) editor.chooseTexture[editor.ACTIVE_PANEL].getItemAt(k);
+    					ValuePair vp=(ValuePair) editor.chooseTexture[editor.getACTIVE_PANEL()].getItemAt(k);
     					if(vp.getId().equals(""+ld.getTexture_index())) 
-    						editor.chooseTexture[editor.ACTIVE_PANEL].setSelectedItem(vp);
+    						editor.chooseTexture[editor.getACTIVE_PANEL()].setSelectedItem(vp);
     				}
     				
-    				editor.fillWithWater[editor.ACTIVE_PANEL].setSelected(ld.isFilledWithWater());
+    				editor.fillWithWater[editor.getACTIVE_PANEL()].setSelected(ld.isFilledWithWater());
     				
     			}				
 
@@ -970,7 +970,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
     			
     			
 
-    		}else if(!editor.checkMultiplePointsSelection[editor.ACTIVE_PANEL].isSelected()){
+    		}else if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected()){
 
     			if(toSelect){
     				ld.setSelected(false);
@@ -1071,7 +1071,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				    	
 				    }else{
 				    	
-				    	if(!editor.checkMultiplePointsSelection[editor.ACTIVE_PANEL].isSelected())
+				    	if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected())
 						   	spnode.setSelected(false);
 				    }	
 				}

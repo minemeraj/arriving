@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import com.Point3D;
 import com.Polygon3D;
@@ -47,7 +47,7 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 		editor.addPropertyChangeListener(this);
 		this.editor=editor;
 		
-		this.mesh=editor.meshes[editor.ACTIVE_PANEL];
+		this.mesh=editor.getMeshes()[editor.getACTIVE_PANEL()];
 		
 		deltay=1;
 		deltax=1;
@@ -81,7 +81,7 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 			File directoryImg=new File("lib");
 			File[] files=directoryImg.listFiles();
 
-			Vector vRoadTextures=new Vector();
+			ArrayList vRoadTextures=new ArrayList();
 
 			for(int i=0;i<files.length;i++){
 				if(files[i].getName().startsWith("road_texture_")){
@@ -121,7 +121,7 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 
 		for(int j=0;j<polygons.size();j++)	{
 
-			Polygon3D p3D=(Polygon3D) polygons.elementAt(j);
+			Polygon3D p3D=(Polygon3D) polygons.get(j);
 			decomposeClippedPolygonIntoZBuffer(p3D,Color.GRAY,null,roadZbuffer,p3D.hashCode());
 
 		}
@@ -179,7 +179,7 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 			 "ObjectEditorUpdate".equals(evt.getPropertyName())
 		)
 		{
-			PolygonMesh pm=editor.meshes[editor.ACTIVE_PANEL];
+			PolygonMesh pm=editor.getMeshes()[editor.getACTIVE_PANEL()];
 			this.polygons = PolygonMesh.getBodyPolygons(pm);
 			
 			draw();

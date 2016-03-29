@@ -22,7 +22,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
@@ -1043,11 +1042,11 @@ public class ObjectEditor extends Editor implements ActionListener{
 
 	}
 
-	public static void rotate(Vector vector,double[][] matrix, double x0,double y0, double z0) {
+	public static void rotate(ArrayList vector,double[][] matrix, double x0,double y0, double z0) {
 
 		for(int i=0;i<vector.size();i++){
 
-			rotate( (Point3D) vector.elementAt(i),matrix,x0,y0,z0);
+			rotate( (Point3D) vector.get(i),matrix,x0,y0,z0);
 		}
 
 	}

@@ -3,7 +3,6 @@ package com.editors.object;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.util.Vector;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -216,7 +215,7 @@ public class ObjectEditorTransformPanel extends JDialog implements ActionListene
 		double refY=Double.parseDouble(referencey.getText());
 		double refZ=Double.parseDouble(referencez.getText());
 
-		PolygonMesh mesh=editor.meshes[editor.ACTIVE_PANEL];
+		PolygonMesh mesh=editor.getMeshes()[editor.getACTIVE_PANEL()];
 
 
 

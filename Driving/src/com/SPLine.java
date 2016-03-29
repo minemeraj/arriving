@@ -1,6 +1,7 @@
 package com;
 
 import java.util.ArrayList;
+
 import com.editors.EditorData;
 import com.main.Road;
 
@@ -129,10 +130,10 @@ public class SPLine {
 				double z=(1.0-l)*prevZ+l*nextZ;
 
 				Rib rib=new Rib(4);
-				rib.points[0]=new Point4D(x+lprevd.x*wid,y+lprevd.y*wid,z,LineData.GREEN_HEX,0);
-				rib.points[1]=new Point4D(x+rprevd.x*wid,y+rprevd.y*wid,z,LineData.GREEN_HEX,0);		
-				rib.points[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z+dz,LineData.GREEN_HEX,0);	
-				rib.points[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z+dz,LineData.GREEN_HEX,0);
+				rib.getPoints()[0]=new Point4D(x+lprevd.x*wid,y+lprevd.y*wid,z,LineData.GREEN_HEX,0);
+				rib.getPoints()[1]=new Point4D(x+rprevd.x*wid,y+rprevd.y*wid,z,LineData.GREEN_HEX,0);		
+				rib.getPoints()[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z+dz,LineData.GREEN_HEX,0);	
+				rib.getPoints()[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z+dz,LineData.GREEN_HEX,0);
 				rib.setIndex(previousNode.getIndex());
 				nodeRibs.add(rib);	
 				//System.out.println(rib[0]+","+rib[1]+","+rib[2]+","+rib[3]+",");  
@@ -194,10 +195,10 @@ public class SPLine {
 				Rib prevRib= (Rib) nodeRibs.get(i);
 				Rib nextRib= (Rib) nodeRibs.get(i+1);
 
-				Point4D p0=prevRib.points[3];
-				Point4D p1=prevRib.points[2];
-				Point4D p2=nextRib.points[2];
-				Point4D p3=nextRib.points[3];
+				Point4D p0=prevRib.getPoints()[3];
+				Point4D p1=prevRib.getPoints()[2];
+				Point4D p2=nextRib.getPoints()[2];
+				Point4D p3=nextRib.getPoints()[3];
 
 
 				ArrayList points=new ArrayList();
@@ -244,16 +245,16 @@ public class SPLine {
 				Rib prevRib= (Rib) nodeRibs.get(i);
 				Rib nextRib= (Rib) nodeRibs.get(i+1);
 
-				Point4D p0=prevRib.points[0];
-				Point4D p1=prevRib.points[1];
-				Point4D p2=nextRib.points[1];
-				Point4D p3=nextRib.points[0];
+				Point4D p0=prevRib.getPoints()[0];
+				Point4D p1=prevRib.getPoints()[1];
+				Point4D p2=nextRib.getPoints()[1];
+				Point4D p3=nextRib.getPoints()[0];
 
 
-				Point4D p4=prevRib.points[3];
-				Point4D p5=prevRib.points[2];
-				Point4D p6=nextRib.points[2];
-				Point4D p7=nextRib.points[3];
+				Point4D p4=prevRib.getPoints()[3];
+				Point4D p5=prevRib.getPoints()[2];
+				Point4D p6=nextRib.getPoints()[2];
+				Point4D p7=nextRib.getPoints()[3];
 
 
 				ArrayList points=new ArrayList();

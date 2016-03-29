@@ -11,8 +11,6 @@ import java.util.Vector;
 import javax.imageio.ImageIO;
 
 import com.BPoint;
-import com.Point3D;
-import com.editors.cars.data.Car;
 import com.main.Renderer3D;
 
 public class Head1Model extends MeshModel{

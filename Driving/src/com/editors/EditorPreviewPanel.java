@@ -77,7 +77,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 	double sinteta=Math.sin(teta);
 	
 	public PolygonMesh mesh=null;
-	public Vector polygons;	
+	public ArrayList polygons;	
 	public ArrayList clonedPoints=null;
 	
 	public EditorPreviewPanel(){

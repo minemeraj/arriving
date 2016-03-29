@@ -13,17 +13,13 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Locale;
 import java.util.Stack;
-import java.util.Vector;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;

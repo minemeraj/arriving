@@ -7,12 +7,9 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.PrintWriter;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JRadioButton;
 
 import com.editors.DoubleTextField;
 import com.editors.ValuePair;

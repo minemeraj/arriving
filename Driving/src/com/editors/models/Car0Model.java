@@ -6,10 +6,6 @@ import java.awt.Graphics2D;
 import java.io.PrintWriter;
 import java.util.Vector;
 
-import com.Point3D;
-import com.editors.cars.data.Car;
-import com.main.Renderer3D;
-
 public class Car0Model extends MeshModel{
 
 	double dx = 0;

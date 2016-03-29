@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 
 import com.LineData;
 import com.Point3D;
-import com.Polygon3D;
 import com.PolygonMesh;
 import com.editors.cubic.CubicEditor.CubeData;
 import com.editors.cubic.CubicEditor.CubeListItem;
@@ -182,7 +181,7 @@ public class CubicEditorPanel extends JPanel implements MouseListener{
 			
 		}
 
-		PolygonMesh mesh = cubicEditor.meshes[cubicEditor.ACTIVE_PANEL];
+		PolygonMesh mesh = cubicEditor.getMeshes()[cubicEditor.getACTIVE_PANEL()];
 		displayPoints(bufGraphics,mesh.points);
 	}
 
@@ -391,7 +390,7 @@ public class CubicEditorPanel extends JPanel implements MouseListener{
 
 	private void selectPoint(int x, int y) {
 		
-		PolygonMesh mesh = cubicEditor.meshes[cubicEditor.ACTIVE_PANEL];
+		PolygonMesh mesh = cubicEditor.getMeshes()[cubicEditor.getACTIVE_PANEL()];
 	
 		for(int c=0;mesh.points!=null && c<mesh.points.length;c++){
 

@@ -164,8 +164,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	private JMenuItem jmt_advance_road;
 	
-	private Vector autocarsData = null;
-	private Vector autolinesData = null;
+	private ArrayList autocarsData = null;
+	private ArrayList autolinesData = null;
 
 	private JComboBox chooseAutoline;
 
@@ -247,8 +247,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		buildMenuBar();
 
-		autocarsData = new Vector();
-		autolinesData=new Vector();
+		autocarsData = new ArrayList();
+		autolinesData=new ArrayList();
 		
 	
 		
@@ -280,7 +280,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		addPropertyChangeListener(this);
 
 		RepaintManager.setCurrentManager(new RepaintManager() {
-
+			@Override
 			public void paintDirtyRegions() {
 
 				super.paintDirtyRegions();
@@ -631,7 +631,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		chooseAutoline.addItemListener(
 
 		new ItemListener() {
-
+			@Override
 			public void itemStateChanged(ItemEvent arg0) {
 
 				changeActiveAutoline();
@@ -715,7 +715,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		chooseAutocar.addItemListener(
 
 		new ItemListener() {
-
+			@Override
 			public void itemStateChanged(ItemEvent arg0) {
 
 				//System.out.println("changeActiveCar->");
@@ -766,7 +766,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		car_type_index.addItemListener(
 
 		new ItemListener() {
-
+			@Override
 			public void itemStateChanged(ItemEvent arg0) {
 
 
@@ -917,7 +917,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		chooseAutocarline.addItemListener(
 
 		new ItemListener() {
-
+			@Override
 			public void itemStateChanged(ItemEvent arg0) {
 
 			}
@@ -1040,7 +1040,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	}
 
-
+	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
 		draw();
@@ -1105,7 +1105,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		// draw all lines
 
 		for (int l = 0; l < autolinesData.size(); l++) {
-			LinkedList linkedList = (LinkedList) autolinesData.elementAt(l);
+			LinkedList linkedList = (LinkedList) autolinesData.get(l);
 
 			int size = linkedList.size();
 
@@ -1130,7 +1130,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		if(autolinesData.size()>0){
 			
-			LinkedList linkedList=(LinkedList) autolinesData.elementAt(chooseAutoline.getSelectedIndex());
+			LinkedList linkedList=(LinkedList) autolinesData.get(chooseAutoline.getSelectedIndex());
 		
 			int size = linkedList.size();
 	
@@ -1155,7 +1155,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		// draw initial position and direction
 		
 		for (int i = 0; i < autocarsData.size(); i++) {
-			AutocarData ad = (AutocarData) autocarsData.elementAt(i);
+			AutocarData ad = (AutocarData) autocarsData.get(i);
 	
 			if(i==chooseAutocar.getSelectedIndex())
 				graph2.setColor(Color.BLUE);
@@ -1314,7 +1314,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		/*drawCurrentRect(landscapeZbuffer);*/
 	}
 
-
+	@Override
 	public void buildLine(ArrayList polygonData, String str,ArrayList vTexturePoints) {
 
 
@@ -1324,6 +1324,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	}
 	
+	@Override
 	public void buildPoint(ArrayList points, String str) {
 
 
@@ -2001,7 +2002,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		if(autolinesData.size()==0)
 			return;
 		
-		LinkedList linkedList=(LinkedList) autolinesData.elementAt(chooseAutoline.getSelectedIndex());
+		LinkedList linkedList=(LinkedList) autolinesData.get(chooseAutoline.getSelectedIndex());
 
 		int x = e.getX();
 		int y = e.getY();
@@ -2062,7 +2063,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		if(autolinesData.size()==0)
 			return;
 		
-		LinkedList linkedList=(LinkedList) autolinesData.elementAt(chooseAutoline.getSelectedIndex());
+		LinkedList linkedList=(LinkedList) autolinesData.get(chooseAutoline.getSelectedIndex());
 
 		int x0 = Math.min(currentRect.x, currentRect.x + currentRect.width);
 		int x1 = Math.max(currentRect.x, currentRect.x + currentRect.width);
@@ -2093,7 +2094,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		if(autolinesData.size()==0)
 			return;
 		
-		LinkedList linkedList=(LinkedList) autolinesData.elementAt(chooseAutoline.getSelectedIndex());
+		LinkedList linkedList=(LinkedList) autolinesData.get(chooseAutoline.getSelectedIndex());
 
 		int size = linkedList.size();
 
@@ -2111,7 +2112,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	public void selectAllPoints() {
 		
-		LinkedList linkedList=(LinkedList) autolinesData.elementAt(chooseAutoline.getSelectedIndex());
+		LinkedList linkedList=(LinkedList) autolinesData.get(chooseAutoline.getSelectedIndex());
 
 		int size = linkedList.size();
 
@@ -2167,7 +2168,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		draw();
 
 	}
-
+	@Override
 	public void prepareUndo() {
 
 		jmt_undo.setEnabled(true);
@@ -2178,7 +2179,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		for (int l= 0; l < autolinesData.size(); l++) {
 
 
-			LinkedList linkedList=(LinkedList) autolinesData.elementAt(l);
+			LinkedList linkedList=(LinkedList) autolinesData.get(l);
 
 
 			LinkedList newLinkedList=new LinkedList();
@@ -2197,7 +2198,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		for (int l= 0; l < autocarsData.size(); l++) {
 
-			AutocarData autocarData=(AutocarData) autocarsData.elementAt(l);
+			AutocarData autocarData=(AutocarData) autocarsData.get(l);
 
 			clonedAutocarsData.add(autocarData.clone());
 
@@ -2211,18 +2212,18 @@ public class AutocarEditor extends Editor implements MouseListener,
 			oldAutolinesData.removeElementAt(0);
 		oldAutolinesData.push(clonedAutolinesData);
 	}
-
+	@Override
 	public void undo() {
 		
 	    if(oldAutocarsData.size()>0)  
-	    	autocarsData=(Vector) oldAutocarsData.pop();
+	    	autocarsData=(ArrayList) oldAutocarsData.pop();
 	    else
-	    	autocarsData=new Vector();
+	    	autocarsData=new ArrayList();
 	    
 	    if(autolinesData.size()>0)  
-	    	autolinesData=(Vector) oldAutolinesData.pop();
+	    	autolinesData=(ArrayList) oldAutolinesData.pop();
 	    else
-	    	autolinesData=new Vector(); 
+	    	autolinesData=new ArrayList(); 
         
         if(autocarsData.size()>0)
              chooseAutocar.setSelectedIndex(0);
@@ -2412,7 +2413,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	private void manageRoad() {
 		
-		LinkedList linkedList=(LinkedList) autolinesData.elementAt(chooseAutoline.getSelectedIndex());
+		LinkedList linkedList=(LinkedList) autolinesData.get(chooseAutoline.getSelectedIndex());
 
 		AdvanceRoadManagement arm = new AdvanceRoadManagement(linkedList);
 
@@ -2426,7 +2427,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	private void buildTemplate() {
 		
-		LinkedList linkedList=(LinkedList) autolinesData.elementAt(chooseAutoline.getSelectedIndex());
+		LinkedList linkedList=(LinkedList) autolinesData.get(chooseAutoline.getSelectedIndex());
 
 		AutocarTemplatePanel atp = new AutocarTemplatePanel();
 
@@ -2465,7 +2466,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 			for (int l = 0; l < autolinesData.size(); l++) {
 				
-				LinkedList linkedList = (LinkedList) autolinesData.elementAt(l);
+				LinkedList linkedList = (LinkedList) autolinesData.get(l);
 			
 				int size = linkedList.size();
 	
@@ -2487,7 +2488,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 			}
 
 			for (int l = 0; l < autocarsData.size(); l++) {
-				AutocarData aData = (AutocarData) autocarsData.elementAt(l);
+				AutocarData aData = (AutocarData) autocarsData.get(l);
 
 				double x = aData.x;
 				double y = aData.y;
@@ -2588,7 +2589,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 	private void addAutocarToAutoline() {
 		
 		
-		LinkedList linkedList=(LinkedList) autolinesData.elementAt(chooseAutoline.getSelectedIndex());
+		LinkedList linkedList=(LinkedList) autolinesData.get(chooseAutoline.getSelectedIndex());
 
 		int size = linkedList.size();
 
@@ -2641,7 +2642,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 			prepareUndo();
 			
 			int sel = chooseAutoline.getSelectedIndex();
-			autolinesData.removeElementAt(sel);
+			autolinesData.remove(sel);
 			
 			setAutolineSelectionModel();
 			
@@ -2657,11 +2658,11 @@ public class AutocarEditor extends Editor implements MouseListener,
 			prepareUndo();
 
 			int sel = chooseAutocar.getSelectedIndex();
-			autocarsData.removeElementAt(sel);
+			autocarsData.remove(sel);
 
 			setAutocarSelectionModel();
 			
-			AutocarData autocarData = (AutocarData) autocarsData.firstElement();
+			AutocarData autocarData = (AutocarData) autocarsData.get(0);
 			setAutocarData(autocarData);
 			
 		}
@@ -2690,7 +2691,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		if(autocarsData.size()==0)
 			return;
 		
-		AutocarData autocarData=(AutocarData) autocarsData.elementAt(chooseAutocar.getSelectedIndex());
+		AutocarData autocarData=(AutocarData) autocarsData.get(chooseAutocar.getSelectedIndex());
 
 		autocarData.x = centerX.getvalue();
 		autocarData.y = centerY.getvalue();
@@ -2725,7 +2726,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		for (int i = 0; i < autolinesData.size(); i++) {
 
-			LinkedList ll = (LinkedList) autolinesData.elementAt(i);
+			LinkedList ll = (LinkedList) autolinesData.get(i);
 
 			dcbm.addElement(new ComboItem("" + i, "" + i));
 
@@ -2737,7 +2738,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		for (int i = 0; i < autolinesData.size(); i++) {
 
-			LinkedList ll = (LinkedList) autolinesData.elementAt(i);
+			LinkedList ll = (LinkedList) autolinesData.get(i);
 
 			dcba.addElement(new ComboItem("" + i, "" + i));
 
@@ -2753,7 +2754,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		for (int i = 0; i < autocarsData.size(); i++) {
 
-			AutocarData autocar = (AutocarData) autocarsData.elementAt(i);
+			AutocarData autocar = (AutocarData) autocarsData.get(i);
 
 			dcbm.addElement(new ComboItem("" + i, "" + i));
 
@@ -2761,7 +2762,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		chooseAutocar.setModel(dcbm);
 
 	}
-
+	@Override
 	public String decomposePoint(Point3D point) {
 
 		String pstr = point.x + "," + point.y + "," + point.z;
@@ -2788,8 +2789,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	private void loadAutocars(File file) {
 
-		autocarsData = new Vector();
-		autolinesData=new Vector();
+		autocarsData = new ArrayList();
+		autolinesData=new ArrayList();
 
 		BufferedReader br;
 		try {
@@ -2813,7 +2814,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 				} else if (str.indexOf("INIT") >= 0) {
 
 					AutocarData aData = (AutocarData) autocarsData
-							.lastElement();
+							.get(autocarsData.size()-1);
 
 					str = str.substring(str.indexOf("=") + 1);
 					String[] vals = str.split(",");
@@ -2852,7 +2853,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 			setSelectionModels();
 			
-			AutocarData autocarData=(AutocarData) autocarsData.elementAt(chooseAutocar.getSelectedIndex());
+			AutocarData autocarData=(AutocarData) autocarsData.get(chooseAutocar.getSelectedIndex());
 			setAutocarData(autocarData);
 
 		} catch (Exception e) {
@@ -2896,7 +2897,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		LinkedList newLinkedList = new LinkedList();
 		
-		LinkedList linkedList=(LinkedList) autolinesData.elementAt(chooseAutoline.getSelectedIndex());
+		LinkedList linkedList=(LinkedList) autolinesData.get(chooseAutoline.getSelectedIndex());
 
 		int size = linkedList.size();
 
@@ -2914,7 +2915,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		}
 
-		autolinesData.setElementAt(newLinkedList,chooseAutoline.getSelectedIndex());
+		autolinesData.set(chooseAutoline.getSelectedIndex(),newLinkedList);
 		
 		draw();
 
@@ -2924,7 +2925,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		prepareUndo();
 		
-		LinkedList linkedList=(LinkedList) autolinesData.elementAt(chooseAutoline.getSelectedIndex());
+		LinkedList linkedList=(LinkedList) autolinesData.get(chooseAutoline.getSelectedIndex());
 
 		int size = linkedList.size();
 
@@ -2963,7 +2964,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		
 		prepareUndo();		
 		
-		LinkedList linkedList=(LinkedList) autolinesData.elementAt(chooseAutoline.getSelectedIndex());
+		LinkedList linkedList=(LinkedList) autolinesData.get(chooseAutoline.getSelectedIndex());
 
 		int size = linkedList.size();
 
@@ -3015,7 +3016,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		prepareUndo();
 		
-		LinkedList linkedList=(LinkedList) autolinesData.elementAt(chooseAutoline.getSelectedIndex());
+		LinkedList linkedList=(LinkedList) autolinesData.get(chooseAutoline.getSelectedIndex());
 
 		int size = linkedList.size();
 
@@ -3046,7 +3047,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 
 
-		AutocarData ad = (AutocarData) autocarsData.elementAt(chooseAutocar.getSelectedIndex());
+		AutocarData ad = (AutocarData) autocarsData.get(chooseAutocar.getSelectedIndex());
 
 		String sqty = autocarsMove.getText();
 
@@ -3092,7 +3093,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 	}
 
 	public class FileTransferhandler extends TransferHandler {
-
+		@Override
 		public boolean canImport(JComponent comp, DataFlavor[] transferFlavors) {
 
 			for (int i = 0; i < transferFlavors.length; i++) {
@@ -3102,7 +3103,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 			}
 			return true;
 		}
-
+		@Override
 		public boolean importData(JComponent comp, Transferable t) {
 
 			try {
@@ -3182,7 +3183,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		prepareUndo();
 		
-		LinkedList linkedList=(LinkedList) autolinesData.elementAt(chooseAutoline.getSelectedIndex());
+		LinkedList linkedList=(LinkedList) autolinesData.get(chooseAutoline.getSelectedIndex());
 
 		String txt = rescaleValue.getText();
 
@@ -3227,7 +3228,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 			translate(0, -1);
 
 	}
-
+	@Override
 	public void mouseDragged(MouseEvent e) {
 
 		isDrawCurrentRect = true;
@@ -3313,7 +3314,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 				HelpPanel.AUTOCAR_EDITOR_HELP_TEXT, this);
 
 	}
-
+	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
 
 		// System.out.println(arg0.getSource().getClass());

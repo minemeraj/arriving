@@ -6,10 +6,6 @@ import java.awt.Graphics2D;
 import java.io.PrintWriter;
 import java.util.Vector;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-
-import com.editors.DoubleTextField;
 import com.main.Renderer3D;
 
 public class House0Model extends MeshModel{

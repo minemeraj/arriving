@@ -5,8 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Vector;
-
 import javax.imageio.ImageIO;
 
 import com.CubicMesh;
@@ -23,8 +21,8 @@ public class EditorData {
 	public static Texture[] objectTextures=null;
 	public static  CubicMesh[] objectMeshes;
 	
-	public static PolygonMesh ringShape;
-	public static PolygonMesh circleShape;
+	private static PolygonMesh ringShape;
+	private static PolygonMesh circleShape;
 	public static Texture whiteTexture=null;
 	public static Texture redTexture=null;
 	public static Texture cyanTexture=null;
@@ -33,9 +31,9 @@ public class EditorData {
 	public static Texture[] splinesTextures=null;	
 	public static Texture[] splinesEditorTextures=null;
 	
-	public static double maxR=100;
-	public static double minR=80;
-	public static int n=10;
+	private static double maxR=100;
+	private static double minR=80;
+	private static int n=10;
 	
 
 	public static void initialize() { 
@@ -73,7 +71,7 @@ public class EditorData {
 			
 			
 			
-			Vector vObjects=new Vector();
+			ArrayList vObjects=new ArrayList();
 			
 				for(int i=0;i<files.length;i++){
 					if(files[i].getName().startsWith("object_")){
@@ -87,14 +85,14 @@ public class EditorData {
 			
 			for(int j=0;j<vObjects.size();j++){
 				
-				File fileObj=(File) vObjects.elementAt(j);
+				File fileObj=(File) vObjects.get(j);
 				
 				objects[j]=new Texture(ImageIO.read(fileObj));
 						
 						
 			}
 		
-			Vector vRoadTextures=new Vector();
+			ArrayList vRoadTextures=new ArrayList();
 			
 			for(int i=0;i<files.length;i++){
 				if(files[i].getName().startsWith("world_texture_")){
@@ -111,7 +109,7 @@ public class EditorData {
 				worldTextures[i]=new Texture(ImageIO.read(new File("lib/world_texture_"+i+".jpg")));
 			}
 
-			Vector v3DObjects=new Vector();
+			ArrayList v3DObjects=new ArrayList();
 			
 				for(int i=0;i<files.length;i++){
 					if(files[i].getName().startsWith("object3D_")
@@ -138,7 +136,7 @@ public class EditorData {
 			
 
 			
-			Vector vSPlineMeshes=new Vector();
+			ArrayList vSPlineMeshes=new ArrayList();
 			
 			for(int i=0;i<files.length;i++){
 				if(files[i].getName().startsWith("spline_mesh_")

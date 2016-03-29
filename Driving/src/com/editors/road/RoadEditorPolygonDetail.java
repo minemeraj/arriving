@@ -126,7 +126,7 @@ public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 
 	private DefaultTableModel buildTableModel(LineData ld) {
 		
-		PolygonMesh mesh=editor.meshes[editor.ACTIVE_PANEL];
+		PolygonMesh mesh=editor.getMeshes()[editor.getACTIVE_PANEL()];
 		
 		Polygon3D polygon3d = editor.buildPolygon(ld,mesh.points,true);
 

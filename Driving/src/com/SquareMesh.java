@@ -100,7 +100,7 @@ public class SquareMesh extends PolygonMesh {
 		}
 		for(int i=0;i<this.normals.size();i++){
 
-			pm.normals.add(normals.elementAt(i).clone());
+			pm.normals.add(normals.get(i).clone());
 		}
 		pm.setNumx(getNumx());
 		pm.setNumy(getNumy());

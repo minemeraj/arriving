@@ -406,7 +406,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 		if(ld.isSelected()){
 
-			if(indx<0 || indx==editor.ACTIVE_PANEL){
+			if(indx<0 || indx==editor.getACTIVE_PANEL()){
 				selected=selectionColor;
 			}
 		}
@@ -1045,12 +1045,12 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		int y0=Math.min(editor.currentRect.y,editor.currentRect.y+editor.currentRect.height);
 		int y1=Math.max(editor.currentRect.y,editor.currentRect.y+editor.currentRect.height);
 
-		if(!editor.checkCoordinatesx[editor.ACTIVE_PANEL].isSelected())
-			editor.coordinatesx[editor.ACTIVE_PANEL].setText("");
-		if(!editor.checkCoordinatesy[editor.ACTIVE_PANEL].isSelected())
-			editor.coordinatesy[editor.ACTIVE_PANEL].setText("");
-		if(!editor.checkCoordinatesz[editor.ACTIVE_PANEL].isSelected())
-			editor.coordinatesz[editor.ACTIVE_PANEL].setText("");
+		if(!editor.checkCoordinatesx[editor.getACTIVE_PANEL()].isSelected())
+			editor.coordinatesx[editor.getACTIVE_PANEL()].setText("");
+		if(!editor.checkCoordinatesy[editor.getACTIVE_PANEL()].isSelected())
+			editor.coordinatesy[editor.getACTIVE_PANEL()].setText("");
+		if(!editor.checkCoordinatesz[editor.getACTIVE_PANEL()].isSelected())
+			editor.coordinatesz[editor.getACTIVE_PANEL()].setText("");
 
 		//select point from road
 		boolean found=false;
@@ -1072,7 +1072,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 			}
-			else if(!editor.checkMultiplePointsSelection[editor.ACTIVE_PANEL].isSelected())
+			else if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected())
 				p.setSelected(false);
 
 
@@ -1130,7 +1130,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				    	
 				    }else{
 				    	
-				    	if(!editor.checkMultiplePointsSelection[editor.ACTIVE_PANEL].isSelected())
+				    	if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected())
 						   	spnode.setSelected(false);
 				    }	
 				}
@@ -1189,14 +1189,14 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		    	
 			    	ld.setSelected(true);
 			    	
-					for(int k=0;k<editor.chooseTexture[editor.ACTIVE_PANEL].getItemCount();k++){
+					for(int k=0;k<editor.chooseTexture[editor.getACTIVE_PANEL()].getItemCount();k++){
 	
-						ValuePair vp=(ValuePair) editor.chooseTexture[editor.ACTIVE_PANEL].getItemAt(k);
+						ValuePair vp=(ValuePair) editor.chooseTexture[editor.getACTIVE_PANEL()].getItemAt(k);
 						if(vp.getId().equals(""+ld.getTexture_index())) 
-							editor.chooseTexture[editor.ACTIVE_PANEL].setSelectedItem(vp);
+							editor.chooseTexture[editor.getACTIVE_PANEL()].setSelectedItem(vp);
 					}
 					
-					editor.fillWithWater[editor.ACTIVE_PANEL].setSelected(ld.isFilledWithWater());
+					editor.fillWithWater[editor.getACTIVE_PANEL()].setSelected(ld.isFilledWithWater());
 				
 		    	}
 		    	
@@ -1205,7 +1205,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		    	ret.add(ld);
 		    	
 		    }
-			else if(!editor.checkMultiplePointsSelection[editor.ACTIVE_PANEL].isSelected())
+			else if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected())
 				ld.setSelected(false);
 			
 		}
@@ -1328,12 +1328,12 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				Rectangle rect=new Rectangle(xo-5,yo-5,10,10);
 				if(rect.contains(x,y)){
 
-					if(!editor.checkCoordinatesx[editor.ACTIVE_PANEL].isSelected())
-						editor.coordinatesx[editor.ACTIVE_PANEL].setText(p.x);
-					if(!editor.checkCoordinatesy[editor.ACTIVE_PANEL].isSelected())
-						editor.coordinatesy[editor.ACTIVE_PANEL].setText(p.y);
-					if(!editor.checkCoordinatesz[editor.ACTIVE_PANEL].isSelected())
-						editor.coordinatesz[editor.ACTIVE_PANEL].setText(p.z);
+					if(!editor.checkCoordinatesx[editor.getACTIVE_PANEL()].isSelected())
+						editor.coordinatesx[editor.getACTIVE_PANEL()].setText(p.x);
+					if(!editor.checkCoordinatesy[editor.getACTIVE_PANEL()].isSelected())
+						editor.coordinatesy[editor.getACTIVE_PANEL()].setText(p.y);
+					if(!editor.checkCoordinatesz[editor.getACTIVE_PANEL()].isSelected())
+						editor.coordinatesz[editor.getACTIVE_PANEL()].setText(p.z);
 				
 					found=true;
 					p.setSelected(true);
@@ -1343,7 +1343,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		
 
 				}
-				else if(!editor.checkMultiplePointsSelection[editor.ACTIVE_PANEL].isSelected())
+				else if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected())
 					p.setSelected(false);
 			
 

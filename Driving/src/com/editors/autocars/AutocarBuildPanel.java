@@ -1,14 +1,10 @@
 package com.editors.autocars;
 
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.io.File;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -16,7 +12,6 @@ import javax.swing.JPanel;
 
 import com.editors.ComboElement;
 import com.editors.DoubleTextField;
-import com.main.Autocar;
 
 public class AutocarBuildPanel extends JDialog implements ActionListener{
 	

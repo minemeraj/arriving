@@ -3,10 +3,8 @@ package com.sound;
 
 
 import java.io.File;
-import java.io.IOException;
 
 import javax.sound.midi.Instrument;
-import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;

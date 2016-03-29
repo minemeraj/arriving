@@ -7,19 +7,13 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.PrintWriter;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JRadioButton;
 
 import com.editors.DoubleTextField;
 import com.editors.ValuePair;
 import com.editors.models.Car0Model;
-import com.editors.models.HeadModel;
-import com.editors.models.Man1Model;
-import com.editors.models.ManModel;
 
 public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemListener{
 

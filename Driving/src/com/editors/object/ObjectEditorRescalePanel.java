@@ -2,22 +2,17 @@ package com.editors.object;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.util.Vector;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import com.Point3D;
 import com.PolygonMesh;
-import com.editors.DoubleTextField;
 
 public class ObjectEditorRescalePanel extends JDialog implements ActionListener{
 	
@@ -174,7 +169,7 @@ public class ObjectEditorRescalePanel extends JDialog implements ActionListener{
 		
 		
 
-		PolygonMesh mesh=editor.meshes[editor.ACTIVE_PANEL];
+		PolygonMesh mesh=editor.getMeshes()[editor.getACTIVE_PANEL()];
 
 
 		for(int i=0;i<mesh.points.length;i++){

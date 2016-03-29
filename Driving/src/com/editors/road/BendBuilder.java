@@ -2,7 +2,7 @@ package com.editors.road;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -281,7 +281,7 @@ public class BendBuilder extends JDialog implements ActionListener{
 	public PolygonMesh createMesh(int sectors_number, double line_width, double radius, double x0, 
 			double y0, double teta0) {
 		
-		Vector v_points=new Vector();
+		ArrayList v_points=new ArrayList();
 		
 		Point4D center=new Point4D(x0,y0,0);		
 		v_points.add(center);

@@ -12,24 +12,20 @@ import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.PrintWriter;
-import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
-import com.BPoint;
 import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
-import com.editors.animals.AnimalsJPanel;
 import com.main.Renderer3D;
 
 public class CustomEditor extends Editor implements  MouseWheelListener,KeyListener, ActionListener, MenuListener{

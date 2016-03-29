@@ -123,7 +123,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 	public RoadAltimetryPanel(RoadEditor roadEditor) {
 		super();
 		
-		this.mesh=roadEditor.meshes[roadEditor.ACTIVE_PANEL];
+		this.mesh=roadEditor.getMeshes()[roadEditor.getACTIVE_PANEL()];
 
 		
 		setTitle("Advanced Altimetry");
@@ -1094,7 +1094,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 				)
 		{
 
-			this.mesh=roadEditor.meshes[roadEditor.ACTIVE_PANEL];
+			this.mesh=roadEditor.getMeshes()[roadEditor.getACTIVE_PANEL()];
 			drawRoad();
 		}
 

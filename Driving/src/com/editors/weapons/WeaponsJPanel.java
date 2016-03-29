@@ -1,13 +1,8 @@
 package com.editors.weapons;
 
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
-import javax.swing.JPanel;
 
 import com.CustomData;
-import com.Polygon3D;
 import com.PolygonMesh;
 import com.editors.CustomJPanel;
 import com.editors.weapons.data.Weapon;
