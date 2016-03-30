@@ -24,31 +24,29 @@ import com.Texture;
 import com.ZBuffer;
 import com.editors.EditorData;
 
-public class Renderer3D implements AbstractRenderer3D{
+public abstract class Renderer3D implements AbstractRenderer3D{
 
 	int XFOCUS=0;
 	int YFOCUS=0;
 	public static final int SCREEN_DISTANCE=300;
 	
-	public Point3D observerPoint=null;
-	
+	protected Point3D observerPoint=null;
 
-
-	public int HEIGHT=0;
-	public int WIDTH=0;
+	protected int HEIGHT=0;
+	protected int WIDTH=0;
  
     //REFERENCE SYSTEM COORDINATES	
-	public int POSX=0;
-	public int POSY=0;
-	public int MOVZ=0;
-	public double viewDirection=0;	
-	public double viewDirectionCos=1.0;
-	public double viewDirectionSin=0.0;	
+	protected int POSX=0;
+	protected int POSY=0;
+	protected int MOVZ=0;
+	protected double viewDirection=0;	
+	protected double viewDirectionCos=1.0;
+	protected double viewDirectionSin=0.0;	
 
-	public static ZBuffer roadZbuffer;
+	protected static ZBuffer roadZbuffer;
 
 
-	public int greenRgb= CarFrame.BACKGROUND_COLOR.getRGB();
+	protected int greenRgb= CarFrame.BACKGROUND_COLOR.getRGB();
 
 	public static final int FRONT_VIEW=+1;
 	public static final int REAR_VIEW=-1;
@@ -86,9 +84,9 @@ public class Renderer3D implements AbstractRenderer3D{
 
 		for(int i=0;i<roadZbuffer.getSize();i++){
 
-			roadZbuffer.rgbColor[i]=greenRgb;
-			roadZbuffer.z[i]=0;
-			roadZbuffer.level[i]=-1;
+			roadZbuffer.setRgbColor(greenRgb, i);
+			roadZbuffer.setZ(0, i);
+			roadZbuffer.setLevel(Road.EMPTY_LEVEL, i);
 		}
 	
 
@@ -98,10 +96,9 @@ public class Renderer3D implements AbstractRenderer3D{
 
 		int length=roadZbuffer.getSize();
 		
-		buf.getRaster().setDataElements( 0,0,WIDTH,HEIGHT,roadZbuffer.rgbColor);
+		buf.getRaster().setDataElements( 0,0,WIDTH,HEIGHT,roadZbuffer.getRgbColor());
 		
 		for(int i=0;i<length;i++){
-
 			
 			//clean
 			roadZbuffer.set(0,0,0,0,greenRgb,Road.EMPTY_LEVEL,i,ZBuffer.EMPTY_HASH_CODE);

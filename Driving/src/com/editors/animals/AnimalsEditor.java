@@ -81,7 +81,7 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 		
 		RepaintManager.setCurrentManager( 
 				new RepaintManager(){
-
+					@Override
 					public void paintDirtyRegions() {
 
 
@@ -99,7 +99,7 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 		
 		initialize();
 	}
-	
+	@Override
 	public void initialize() {
 		
 		center.initialize();
@@ -112,18 +112,18 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 		AnimalsEditor be=new AnimalsEditor();
 	}
 	
-	
+	@Override
 	public void paint(Graphics arg0) {
 		super.paint(arg0);
 		draw();
 	}
-
+	@Override
 	public void draw() {
 		
 		center.draw(animal);
 		
 	}
-	
+	@Override
 	public void buildRightPanel() {
 		
 		
@@ -329,7 +329,7 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 		
 	}
 	
-
+	@Override
 	public void initRightData() {
 		
 		center.setTeta(0);
@@ -491,16 +491,14 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 
 	
 
-	
+	@Override
 	public void preview() {
 		
 		if(animal==null)
 			return;
 		
-		Editor editor=new Editor();
-		editor.getMeshes()[0]=buildMesh();
-		
-		ObjectEditorPreviewPanel oepp=new ObjectEditorPreviewPanel(editor);
+		super.preview();
+
 		
 	}
 	
@@ -518,7 +516,7 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 		}
 		return animal.buildMesh(scale);
 	}
-	
+	@Override
 	public void generate() {
 		
 			prepareUndo();
@@ -569,7 +567,7 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 			draw();
 			setRightData(animal);
 	}
-
+	@Override
 	public void loadData(File file) {
 		
 		BufferedReader br;
@@ -602,6 +600,7 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 		
 	}
 
+	@Override
 	public void saveMesh(File file) {
 		
 		
@@ -628,7 +627,7 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 		
 	}
 
-
+	@Override
 	public void saveData(File file) {
 		
 		
@@ -649,7 +648,7 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 		}
 		
 	}
-	
+	@Override
 	public void undo() {
 
 		if(oldAnimal.size()>0)
@@ -662,7 +661,7 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 		
 		draw();
 	}
-	
+	@Override
 	public void prepareUndo() {
 		
 		if(animal==null)

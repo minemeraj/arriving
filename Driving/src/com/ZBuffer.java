@@ -10,23 +10,19 @@ import com.main.Road;
 
 public class ZBuffer{
 
-		public int[] rgbColor;
-		public double[] z;
-		public int size=0;
+		int[] rgbColor;
+		double[] z;
+		int size=0;
 		
-		public int[] level;
+		int[] level;
 		
 		double mergingDeltaZ=10;
-		
-		/*public double p_x=0;
-		public double p_y=0;*/
+
 		double[] p_z;
 		int[] hashCodes;
 		
 		public static final int EMPTY_HASH_CODE=-1;
-		
-		/*public double[] pcf_values=null;*/
-		
+			
 		public ZBuffer(int size){
 			
 			this.size=size;
@@ -198,11 +194,6 @@ public class ZBuffer{
 
 				setZ(ys,index);
 				setRgbColor(rgbColor,index);
-				
-				/*p_x=xs;
-				p_y=ys;
-				p_z=zs;*/
-	
 
 			}
 
@@ -281,6 +272,11 @@ public class ZBuffer{
 		public void setLevel(int value,int index){
 			
 			level[index]=value;
+		}
+
+
+		public int[] getRgbColor() {
+			return rgbColor;
 		}
 
 }

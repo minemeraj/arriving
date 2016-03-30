@@ -5,21 +5,22 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.main.Renderer3D;
 
-public class CustomData {
+public abstract class CustomData {
 	
-	public ArrayList points=null;
-	public ArrayList polyData=null;
-	public ArrayList texture_points=null;
+	protected ArrayList points=null;
+	protected ArrayList polyData=null;
+	protected ArrayList texture_points=null;
 	
-	public int n=0;
-	public static double pi=Math.PI;
+	protected int n=0;
+	public static final double pi=Math.PI;
 	
-	public int numTexturePoints=0;
+	protected int numTexturePoints=0;
 	
-	public CustomData specificData=null;
+	protected CustomData specificData=null;
 	
 	public void buildBox(double x , double y, double z,double x_side,double y_side, double z_side) {
 		
@@ -169,7 +170,7 @@ public class CustomData {
 		ld.addIndex(p2.getIndex());
 		if(p3!=null)
 			ld.addIndex(p3.getIndex());	
-		ld.setData(""+face);
+		ld.setData(Integer.toString(face));
 
 		polyData.add(ld);
 		
@@ -186,7 +187,7 @@ public class CustomData {
 		ld.addIndex(p2.getIndex(),txt2,0,0);
 		if(p3!=null)
 			ld.addIndex(p3.getIndex(),txt3,0,0);	
-		ld.setData(""+face);
+		ld.setData(Integer.toString(face));
 
 		polyData.add(ld);
 		
@@ -203,7 +204,7 @@ public class CustomData {
 		ld.addIndex(p2.getIndex(),txt[2],0,0);
 		if(p3!=null)
 			ld.addIndex(p3.getIndex(),txt[3],0,0);	
-		ld.setData(""+face);
+		ld.setData(Integer.toString(face));
 
 		polyData.add(ld);
 		
@@ -299,7 +300,7 @@ public class CustomData {
 		ld.addIndex(p2.getIndex());
 		if(p3!=null)
 			ld.addIndex(p3.getIndex());	
-		ld.setData(""+face);
+		ld.setData(Integer.toString(face));
 
 		return ld;
 	}
@@ -334,7 +335,7 @@ public class CustomData {
 				topLD.addIndex(uTrunkpoints[i].getIndex());
 				
 			}
-			topLD.setData(""+Renderer3D.CAR_TOP);
+			topLD.setData(Integer.toString(Renderer3D.CAR_TOP));
 			polyData.add(topLD);
 			
 			for (int i = 0; i < barrel_meridians; i++) {
@@ -354,7 +355,7 @@ public class CustomData {
 				bottomLD.addIndex(bTrunkpoints[i].getIndex());
 				
 			}
-			bottomLD.setData(""+Renderer3D.CAR_BOTTOM);
+			bottomLD.setData(Integer.toString(Renderer3D.CAR_BOTTOM));
 			polyData.add(bottomLD);
 			
 			
@@ -368,7 +369,7 @@ public class CustomData {
 				sideLD.addIndex(bTrunkpoints[i].getIndex());
 				sideLD.addIndex(uTrunkpoints[i].getIndex());
 				sideLD.addIndex(uTrunkpoints[(i+1)%barrel_meridians].getIndex());
-				sideLD.setData(""+Renderer3D.getFace(sideLD,points));
+				sideLD.setData(Integer.toString(Renderer3D.getFace(sideLD,points)));
 				polyData.add(sideLD);
 				
 			}
@@ -407,7 +408,7 @@ public class CustomData {
 				topLD.addIndex(trunkpoints[trunk_parallels-1][i].getIndex());
 				
 			}
-			topLD.setData(""+Renderer3D.CAR_TOP);
+			topLD.setData(Integer.toString(Renderer3D.CAR_TOP));
 			polyData.add(topLD);
 			
 
@@ -420,7 +421,7 @@ public class CustomData {
 				bottomLD.addIndex(trunkpoints[0][i].getIndex());
 				
 			}
-			bottomLD.setData(""+Renderer3D.CAR_BOTTOM);
+			bottomLD.setData(Integer.toString(Renderer3D.CAR_BOTTOM));
 			polyData.add(bottomLD);
 			
 			for (int k = 0; k < trunk_parallels-1; k++) {
@@ -433,7 +434,7 @@ public class CustomData {
 					sideLD.addIndex(trunkpoints[k][(i+1)%trunk_meridians].getIndex());
 					sideLD.addIndex(trunkpoints[k+1][(i+1)%trunk_meridians].getIndex());
 					sideLD.addIndex(trunkpoints[k+1][i].getIndex());	
-					sideLD.setData(""+Renderer3D.getFace(sideLD,points));
+					sideLD.setData(Integer.toString(Renderer3D.getFace(sideLD,points)));
 					polyData.add(sideLD);
 					
 					
@@ -457,7 +458,7 @@ public class CustomData {
 				topLD.addIndex(((BPoint) prism.upperBase[i]).getIndex());
 				
 			}
-			topLD.setData(""+Renderer3D.CAR_TOP);
+			topLD.setData(Integer.toString(Renderer3D.CAR_TOP));
 			polyData.add(topLD);
 			
 			LineData bottomLD=new LineData();
@@ -469,7 +470,7 @@ public class CustomData {
 				bottomLD.addIndex(((BPoint) prism.lowerBase[i]).getIndex());
 				
 			}
-			bottomLD.setData(""+Renderer3D.CAR_BOTTOM);
+			bottomLD.setData(Integer.toString(Renderer3D.CAR_BOTTOM));
 			polyData.add(bottomLD);
 			
 			
@@ -484,7 +485,7 @@ public class CustomData {
 				sideLD.addIndex(((BPoint) prism.lowerBase[(i+1)%size]).getIndex());
 				sideLD.addIndex(((BPoint) prism.upperBase[(i+1)%size]).getIndex());
 				sideLD.addIndex(((BPoint) prism.upperBase[i]).getIndex());				
-				sideLD.setData(""+Renderer3D.getFace(sideLD,points));
+				sideLD.setData(Integer.toString(Renderer3D.getFace(sideLD,points)));
 				polyData.add(sideLD);
 				
 			}
@@ -683,7 +684,7 @@ public class CustomData {
 	
 	
 	
-	public void addTexturePoints(ArrayList texture_points,TextureBlock tb) {
+	public void addTexturePoints(List texture_points,TextureBlock tb) {
 		
 
 		
@@ -727,7 +728,6 @@ public class CustomData {
 				Point3D p=new Point3D(x,y,0);
 
 				int index=((Integer)tb.lateralFaces[i][j].getData()).intValue();
-				//System.out.print(texIndex+"\t");
 				texture_points.set(index,p);
 			}
 			
@@ -832,7 +832,7 @@ public class CustomData {
 	}
 	
 	
-	public void addTexturePoints(ArrayList texture_points,TextureCylinder tb) {
+	public void addTexturePoints(List texture_points,TextureCylinder tb) {
 		
 
 	

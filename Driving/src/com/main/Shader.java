@@ -36,12 +36,12 @@ public class Shader extends Renderer3D{
 
 			//set
 			if(roadZbuffer.getZ(i)>0)
-				roadZbuffer.rgbColor[i]=stencil(roadZbuffer.getRgbColor(i), stencilZbuffer[i]); 
+				roadZbuffer.setRgbColor( stencil(roadZbuffer.getRgbColor(i), stencilZbuffer[i]),i); 
 
 
 
 		}
-		buf.getRaster().setDataElements( 0,0,WIDTH,HEIGHT,roadZbuffer.rgbColor);
+		buf.getRaster().setDataElements( 0,0,WIDTH,HEIGHT,roadZbuffer.getRgbColor());
 		
 		for(int i=0;i<length;i++){
 	
@@ -82,12 +82,13 @@ public class Shader extends Renderer3D{
 
 		super.buildNewZBuffers();
 
-		int lenght=roadZbuffer.size;
+		int lenght=roadZbuffer.getSize();
 
 		for(int i=0;i<lenght;i++){
 
-			lightZbuffer.rgbColor[i]=greenRgb;
-			lightZbuffer.z[i]=0;
+			roadZbuffer.setRgbColor(greenRgb, i);
+			roadZbuffer.setZ(0, i);
+			roadZbuffer.setLevel(Road.EMPTY_LEVEL, i);
 		}
 
 		stencilZbuffer=new int[lenght];

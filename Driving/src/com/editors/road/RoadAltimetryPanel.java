@@ -54,23 +54,23 @@ import com.editors.DoubleTextField;
 public class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeListener,MouseWheelListener,MouseListener,ActionListener, MouseMotionListener, MenuListener{
 
 
-	int WIDTH=800;
-	int BOTTOM_HEIGHT=100;
-	int RIGHT_BORDER=240;
-	int HEIGHT=500;
-	int LEFT_BORDER=0;
-	int BOTTOM_BORDER=100;
+	private int WIDTH=800;
+	private int BOTTOM_HEIGHT=100;
+	private int RIGHT_BORDER=240;
+	private int HEIGHT=500;
+	private int LEFT_BORDER=0;
+	private int BOTTOM_BORDER=100;
 
-	int dx=4;
-	int dy=4;
+	private int dx=4;
+	private int dy=4;
 
-	int NX=2;
-	int NY=80;
+	private int NX=2;
+	private int NY=80;
 
-	int MOVX=-50;
-	int MOVY=100;
+	private int MOVX=-50;
+	private int MOVY=100;
 
-	RoadEditor roadEditor=null;
+	private RoadEditor roadEditor=null;
 
 	private Graphics2D graphics2D;
 	private BufferedImage buf=null;
@@ -87,10 +87,10 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 	private Rectangle currentRect;
 	private Graphics2D g2Alias;
 
-	public String DIRECTION_NORTH="N";
-	public String DIRECTION_SOUTH="S";
-	public String DIRECTION_WEST="W";
-	public String DIRECTION_EAST="E";
+	private String DIRECTION_NORTH="N";
+	private String DIRECTION_SOUTH="S";
+	private String DIRECTION_WEST="W";
+	private String DIRECTION_EAST="E";
 	private JRadioButton absoluteZ;
 	private JRadioButton relativeZ;
 	private JRadioButton planMode;
@@ -103,21 +103,20 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 	private JCheckBox checkCoordinatesz;
 	private JButton changePoint;
 
-	String header="<html><body>";
-	String footer="</body></html>";
+	private String header="<html><body>";
+	private String footer="</body></html>";
 
-	private JMenuItem jmt11;
+	private JMenuItem jmtUndoLast;
+	
+	private Stack oldMeshes=new Stack();
 
-
-	Stack oldMeshes=new Stack();
-
-	int MAX_STACK_SIZE=10;
-	private JMenuBar jmb;
-	private JMenu jm1;
+	public final int MAX_STACK_SIZE=10;
+	private JMenuBar jMenuBar;
+	private JMenu jmUndo;
 	private boolean redrawAfterMenu;
 	private JLabel screenPoint;
 
-	public PolygonMesh mesh;
+	private PolygonMesh mesh;
 
 
 	public RoadAltimetryPanel(RoadEditor roadEditor) {
@@ -345,20 +344,20 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 	private void buildMenuBar() {
 
-		jmb=new JMenuBar();
+		jMenuBar=new JMenuBar();
 
 
-		jm1=new JMenu("Change");
-		jm1.addMenuListener(this);
-		jmt11 = new JMenuItem("Undo last ");
-		jmt11.setEnabled(false);
-		jmt11.addActionListener(this);
-		jm1.add(jmt11);	
+		jmUndo=new JMenu("Change");
+		jmUndo.addMenuListener(this);
+		jmtUndoLast = new JMenuItem("Undo last ");
+		jmtUndoLast.setEnabled(false);
+		jmtUndoLast.addActionListener(this);
+		jmUndo.add(jmtUndoLast);	
 
-		jmb.add(jm1);
+		jMenuBar.add(jmUndo);
 
 
-		setJMenuBar(jmb);
+		setJMenuBar(jMenuBar);
 	}
 	@Override
 	public void paint(Graphics g) {
@@ -766,7 +765,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 			changeSelectedRoadPoint();
 		}
-		else if(o==jmt11){
+		else if(o==jmtUndoLast){
 
 			undoRoad();
 		}
@@ -940,7 +939,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 	}
 
 	private void prepareUndoRoad() {
-		jmt11.setEnabled(true);
+		jmtUndoLast.setEnabled(true);
 		if(oldMeshes.size()==MAX_STACK_SIZE){
 
 			oldMeshes.removeElementAt(0);
@@ -961,7 +960,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 
 		if(oldMeshes.size()==0)
-			jmt11.setEnabled(false);
+			jmtUndoLast.setEnabled(false);
 
 
 		roadEditor.setRoadData("RoadAltimetryUndo",mesh); 

@@ -109,8 +109,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	Stack oldSpline=new Stack();
 	int MAX_STACK_SIZE=10;
 
-
-	private JFileChooser fc;
 	private JMenuBar jmb;
 	private JMenu jm_file;
 
@@ -428,7 +426,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				worldImages[i]=ImageIO.read(new File("lib/world_texture_"+i+".jpg"));
 
 				
-				chooseTexture[TERRAIN_INDEX].addItem(new ValuePair(""+i,""+i));
+				chooseTexture[TERRAIN_INDEX].addItem(new ValuePair(Integer.toString(i),Integer.toString(i)));
 				
 
 
@@ -467,13 +465,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			for(int i=0;i<vObjects.size();i++){
 
-				chooseObject.addItem(new ValuePair(""+i,""+i));
+				chooseObject.addItem(new ValuePair(Integer.toString(i),Integer.toString(i)));
 				objectImages[i]=ImageIO.read(new File("lib/object_"+i+".gif"));
 	
 	
 				BufferedImage boi=new BufferedImage(indexWidth,indexHeight,BufferedImage.TYPE_INT_RGB);
 				boi.getGraphics().setColor(Color.white);
-				boi.getGraphics().drawString(""+i,0,indexHeight);
+				boi.getGraphics().drawString(Integer.toString(i),0,indexHeight);
 				objectIndexes[i]=new Texture(boi);	
 
 			}
@@ -481,7 +479,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			splinesImages=new BufferedImage[EditorData.splinesEditorTextures.length];
 			for(int i=0;i<EditorData.splinesEditorTextures.length;i++){
 				
-				chooseTexture[ROAD_INDEX].addItem(new ValuePair(""+i,""+i));
+				chooseTexture[ROAD_INDEX].addItem(new ValuePair(Integer.toString(i),Integer.toString(i)));
 				splinesImages[i]=ImageIO.read(new File("lib/spline_editor_"+i+".jpg"));
 
 			}
@@ -498,7 +496,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		for(int i=0;i<landscapeZbuffer.getSize();i++){
 
-			landscapeZbuffer.rgbColor[i]=blackRgb;
+			landscapeZbuffer.setRgbColor(blackRgb, i);
             
 
 		}
@@ -1509,7 +1507,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		for(int k=0;k<chooseObject.getItemCount();k++){
 
 			ValuePair vp=(ValuePair) chooseObject.getItemAt(k);
-			if(vp.getId().equals(""+dro.getIndex()) )
+			if(vp.getId().equals(Integer.toBinaryString(dro.getIndex())) )
 				chooseObject.setSelectedItem(vp);
 		}
 
@@ -3124,17 +3122,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				break;
 		}
 	}
-	
-	private void showPreview() {
-		
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];
-		
-		if(mesh.points.length==0)
-			return;
-		RoadEditorPreviewPanel preview=new RoadEditorPreviewPanel(this);
-		
-	}
-	
+
 	private void showAltimetry() {
 		
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
@@ -3575,7 +3563,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		for(int l=0;l<chooseTexture[ACTIVE_PANEL].getItemCount();l++){
 			
 			ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getItemAt(l);
-			if(vp.getId().equals(""+spnode.getIndex())) 
+			if(vp.getId().equals(Integer.toString(spnode.getIndex()))) 
 				chooseTexture[ACTIVE_PANEL].setSelectedItem(vp);
 		}
 		
@@ -4002,152 +3990,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		return argb;
 		
 	}
-
-
-	/**
-	 * 
-	 * old-> new road migration function 
-	 * 
-	 * @param fileOut
-	 * @param NX
-	 * @param NY
-	 * @param roadData
-	 */
-	
-	/*public void migrateRoadToNewFormat(File fileIn,File fileOut,Point4D[][] roadData ) {
-
-		int NX=0;
-		int NY=0;
-		
-		try {
-			BufferedReader br=new BufferedReader(new FileReader(fileIn));
-
-			String snx=br.readLine();
-			String sny=br.readLine();
-
-			if(snx==null || sny==null) {
-
-				br.close();
-				return;
-			}
-
-			NX=Integer.parseInt(snx.substring(4));
-			NY=Integer.parseInt(sny.substring(4));
-			roadData=new Point4D[NY][NX];
-
-			String str=null;
-			int rows=0;
-			while((str=br.readLine())!=null){
-
-				roadData[rows]=buildRow(str,NX);
-
-				rows++;	
-
-			}
-
-			br.close();
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
-		
-		Vector points=new Vector();
-		Vector lines=new Vector();
-		
-		points.setSize(NX*NY);
-		
-		
-		for(int i=0;i<NX;i++)
-			for(int j=0;j<NY;j++)
-			{
-				
-				Point4D p=new Point4D(roadData[j][i].x,roadData[j][i].y,roadData[j][i].z,roadData[j][i].hexColor,roadData[j][i].getIndex());
-			
-				points.setElementAt(p,i+j*NX);
-
-			}
-
-		
-		for(int i=0;i<NX-1;i++)
-			for(int j=0;j<NY-1;j++){
-
-
-				//lower base
-				int pl1=i+NX*j;
-				int pl2=i+NX*(j+1);
-				int pl3=i+1+NX*(j+1);
-				int pl4=i+1+NX*j;
-									
-				lines.add(new LineData(pl1, pl4, pl3, pl2));
-				
-			}
-
-
-		PrintWriter pr;
-		try {
-			
-			pr = new PrintWriter(new FileOutputStream(fileOut));
-			pr.print("P=");
-
-			int size=points.size();
-			
-			for(int i=0;i<size;i++){
-
-				Point3D p=(Point3D) points.elementAt(i);
-
-				pr.print(decomposePoint(p));
-				if(i<size-1)
-					pr.print(" ");
-			}	
-
-			pr.print("\nL=");
-
-			int sizel=lines.size();
-			for(int i=0;i<sizel;i++){
-
-				LineData ld=(LineData) lines.elementAt(i);
-				
-				Point4D p=(Point4D) points.elementAt(ld.getIndex(0));
-				
-				ld.setHexColor(p.getHexColor());
-                ld.setTexture_index(p.getIndex());
-				
-				pr.print(decomposeLineData(ld));
-				if(i<sizel-1)
-					pr.print(" ");
-			}	
-
-			pr.close(); 	
-	
-
-		} catch (FileNotFoundException e) {
-
-			e.printStackTrace();
-		}
-	}*/
-	
-	private Point4D[] buildRow(String string,int NX) {
-		StringTokenizer stk=new StringTokenizer(string," ");
-
-		Point4D[] row = new Point4D[NX];
-		int columns=0;
-		while(stk.hasMoreTokens()){
-
-			String[] vals=stk.nextToken().split(",");
-
-			row[columns]=new Point4D();
-
-			row[columns].x=Double.parseDouble(vals[0]);
-			row[columns].y=Double.parseDouble(vals[1]);
-			row[columns].z=Double.parseDouble(vals[2]);
-			row[columns].setHexColor(vals[3]);
-			row[columns].setIndex(Integer.parseInt(vals[4]));
-			columns++;
-		}
-
-		return row;
-	}
-
 
 
 	public void setRoadData(String string, PolygonMesh pMesh) {

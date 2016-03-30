@@ -23,11 +23,11 @@ import com.main.Renderer3D;
 
 public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 
-	int WIDTH=440;
-	int HEIGHT=340;
+	private int WIDTH=440;
+	private int HEIGHT=340;
 	
-	LineData modifiedLineData=null;
-	Editor editor=null;
+	private LineData modifiedLineData=null;
+	private Editor editor=null;
 	
 	private JButton movePoints;
 	private JButton invertPoints;
@@ -85,7 +85,7 @@ public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 		for (int i =0; i< Renderer3D.faceIndexes.length; i++) {
 			int val=Renderer3D.faceIndexes[i];
 			String desc=Renderer3D.faceDesc[i];
-			chooseFace.addItem(new ValuePair(""+val,""+desc));
+			chooseFace.addItem(new ValuePair(Integer.toString(val),desc));
 		}
 		if(ld.getData()!=null)
 			chooseFace.setSelectedIndex(Integer.parseInt(ld.getData()));

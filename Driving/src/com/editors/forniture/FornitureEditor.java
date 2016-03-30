@@ -616,15 +616,14 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		FornitureEditor be=new FornitureEditor();
 	}
 	
+	@Override
 	public void preview() {
 		
 		if(forniture==null)
 			return;
 		
-		Editor editor=new Editor();
-		editor.getMeshes()[0]=buildMesh();
 		
-		ObjectEditorPreviewPanel oepp=new ObjectEditorPreviewPanel(editor);
+		super.preview();
 		
 	}
 	
@@ -879,6 +878,13 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
     	}
     	else
     		super.saveBaseCubicTexture(file);
-    } 
+    }
+
+
+	@Override
+	public void initRightData() {
+		// TODO Auto-generated method stub
+		
+	} 
 
 }

@@ -1147,7 +1147,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		
 		for(int i=0;i<roadZbuffer.getSize();i++){
 			
-			roadZbuffer.rgbColor[i]=blackRgb;
+			roadZbuffer.setRgbColor(blackRgb,i);
 			
 			
 		}

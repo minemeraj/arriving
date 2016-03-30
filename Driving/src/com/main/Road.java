@@ -171,7 +171,7 @@ public class Road extends Shader{
 			
 			EditorData.initialize();
 			
-			File file=new File("lib/landscape_"+carFrame.map_name);
+			File file=new File("lib/landscape_"+carFrame.getMap_name());
 			
 			loadPointsFromFile(file,RoadEditor.TERRAIN_INDEX);		
 			//loadPointsFromFile(file,1);
@@ -200,12 +200,12 @@ public class Road extends Shader{
 		buildNewZBuffers();	    
 		
 		
-		if(!carFrame.skipShading)
+		if(!carFrame.isSkipShading())
 			calculateShadowVolumes(drawObjects);
 		
 		initialiazeCarDynamics();
 		
-		loadAutocars(new File("lib/autocars_"+carFrame.map_name));
+		loadAutocars(new File("lib/autocars_"+carFrame.getMap_name()));
 		
 		//showMemoryUsage();
 		//buildDefaultRoad(); 
@@ -344,7 +344,7 @@ public class Road extends Shader{
 			CAR_LENGTH=carData[i].carMesh.deltaY2-carData[i].carMesh.deltaY;
 			carData[i].getCarMesh().translate(WIDTH/2-CAR_WIDTH/2-XFOCUS,y_edge,-YFOCUS);
 
-			if(!carFrame.skipShading){
+			if(!carFrame.isSkipShading()){
 				carShadowVolume[i]=initShadowVolume(carData[i].carMesh);
 			}
 			
@@ -474,7 +474,7 @@ public class Road extends Shader{
 		
 		 cm.translate(POSX,POSY,-MOVZ);
 		 cm.rotate(POSX, POSY,viewDirectionCos,viewDirectionSin);
-		 if(!carFrame.skipShading){
+		 if(!carFrame.isSkipShading()){
 			 buildShadowVolumeBox(carShadowVolume[SELECTED_CAR],cm);
 		 }
 
@@ -609,7 +609,7 @@ public class Road extends Shader{
 		drawSPLines(splines,totalVisibleField,roadZbuffer);
 		drawCar();
 
-		if(!carFrame.skipShading){
+		if(!carFrame.isSkipShading()){
 			calculateStencilBuffer();
 		}
 		buildScreen(buf); 
@@ -1277,7 +1277,7 @@ public class Road extends Shader{
 			
 			str+=" ";
 			
-			str+=ld.getIndex(j);
+			str+=Integer.toString(ld.getIndex(j));
 
 		}
 
@@ -1512,7 +1512,7 @@ public class Road extends Shader{
 		return dro;
 	}
 
-	private Point4D[] buildRow(String string) {
+	/*private Point4D[] buildRow(String string) {
 		StringTokenizer stk=new StringTokenizer(string," ");
 
 		Point4D[] row = new Point4D[NX];
@@ -1532,7 +1532,7 @@ public class Road extends Shader{
 		}
 
 		return row;
-	}
+	}*/
 
 	public static String decomposeColor(Color tcc) {
 		return addZeros(tcc.getRed())+","+addZeros(tcc.getGreen())+","+addZeros(tcc.getBlue());
@@ -1540,7 +1540,7 @@ public class Road extends Shader{
 	}
 
 	public static String addZeros(int numb){
-		String newStr=""+numb;
+		String newStr=Integer.toString(numb);
 		newStr="00"+newStr;
 		newStr=newStr.substring(newStr.length()-3,newStr.length());
 
@@ -1690,7 +1690,7 @@ public class Road extends Shader{
 
 			decomposeCubicMesh(cm,autocar.texture,roadZbuffer);
 
-			if(!carFrame.skipShading)
+			if(!carFrame.isSkipShading())
 				buildShadowVolumeBox(autocarShadowVolume[i],cm);
 			
 			
@@ -1762,7 +1762,7 @@ public class Road extends Shader{
 		
 		autocarShadowVolume=new ShadowVolume[autocars.length];
 		
-		if(!carFrame.skipShading){
+		if(!carFrame.isSkipShading()){
 			
 			for (int i = 0; i < autocarShadowVolume.length; i++) {
 				autocarShadowVolume[i]=initShadowVolume(autocars[i].carData.carMesh);

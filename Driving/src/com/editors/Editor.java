@@ -25,7 +25,7 @@ import com.SPNode;
 import com.SquareMesh;
 import com.main.Road;
 
-public class Editor extends JFrame implements MenuListener{
+public abstract class Editor extends JFrame implements MenuListener{
 	
 	protected int ACTIVE_PANEL=0; 
 	protected int numPanels=2;
@@ -696,11 +696,7 @@ public class Editor extends JFrame implements MenuListener{
 	}
 
 
-	public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCustom) {
-		
-		
-		
-	}
+	public abstract void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCustom);
 
 
 		
@@ -744,7 +740,6 @@ public class Editor extends JFrame implements MenuListener{
 	}
 
 	public Polygon3D buildPolygon(LineData ld, Point3D[] points, boolean b) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

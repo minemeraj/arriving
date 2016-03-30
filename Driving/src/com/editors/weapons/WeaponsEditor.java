@@ -717,10 +717,9 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		if(weapon==null)
 			return;
 		
-		Editor editor=new Editor();
-		editor.getMeshes()[0]=buildMesh();
+		getMeshes()[0]=buildMesh();
 		
-		ObjectEditorPreviewPanel oepp=new ObjectEditorPreviewPanel(editor);
+		ObjectEditorPreviewPanel oepp=new ObjectEditorPreviewPanel(this);
 		
 	}
 	

@@ -307,7 +307,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		for(int i=0;i<landscapeZbuffer.getSize();i++){
 
-			landscapeZbuffer.rgbColor[i]=blackRgb;
+			landscapeZbuffer.setRgbColor(blackRgb,i);
             
 
 		}
@@ -3358,6 +3358,12 @@ public class AutocarEditor extends Editor implements MouseListener,
 			this.code = code;
 		}
 
+	}
+
+	@Override
+	public void decomposeObjVertices(PrintWriter pr, PolygonMesh mesh, boolean isCustom) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

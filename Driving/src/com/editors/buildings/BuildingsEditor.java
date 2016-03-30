@@ -477,15 +477,13 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 		
 	}
 
+	@Override
 	public void preview() {
 		
 		if(plan==null)
 			return;
 		
-		Editor editor=new Editor();
-		editor.getMeshes()[0]=buildMesh();
-		
-		ObjectEditorPreviewPanel oepp=new ObjectEditorPreviewPanel(editor);
+		super.preview();
 		
 	}
 

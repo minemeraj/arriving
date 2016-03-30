@@ -26,9 +26,10 @@ import javax.swing.event.MenuListener;
 import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
+import com.editors.object.ObjectEditorPreviewPanel;
 import com.main.Renderer3D;
 
-public class CustomEditor extends Editor implements  MouseWheelListener,KeyListener, ActionListener, MenuListener{
+public abstract class CustomEditor extends Editor implements  MouseWheelListener,KeyListener, ActionListener, MenuListener{
 	
 	public JMenuBar jmb;
 	public JMenu jm_file;
@@ -55,17 +56,21 @@ public class CustomEditor extends Editor implements  MouseWheelListener,KeyListe
 	public DoubleTextField scaleValue=null;
 	public double scale=1.0;
 
-	public void buildRightPanel(){}
+	public abstract void buildRightPanel();
 	
-	public void initRightData() {}
+	public abstract void initRightData();
 	
-	public void initialize() {
-		
-	}
+	public abstract void initialize();
+	
 	@Override
-	public void preview() {}
+	public void preview() {
+		
+		getMeshes()[0]=buildMesh();
+		
+		ObjectEditorPreviewPanel oepp=new ObjectEditorPreviewPanel(this);
+	}
 
-	public void generate() {}
+	public abstract void generate();
 	@Override
 	public void undo() {}	
 	@Override
@@ -87,7 +92,7 @@ public class CustomEditor extends Editor implements  MouseWheelListener,KeyListe
 	}
 
 	
-	public void saveData(File file)  {}
+	public abstract void saveData(File file);
 	
 	public void loadData() {
 
@@ -107,9 +112,7 @@ public class CustomEditor extends Editor implements  MouseWheelListener,KeyListe
 		
 	}
 	
-	public void loadData(File file) {}
-	
-	public void rotate(double dTeta) {}
+	public abstract void loadData(File file);
 	
 	public void buildMenuBar() {
 		
@@ -586,9 +589,7 @@ private void saveBaseCubicTexture() {
 	
 
 	
-	public PolygonMesh buildMesh() {
-		return null;
-	}
+	public abstract PolygonMesh buildMesh();
 
 	@Override
 	public void menuCanceled(MenuEvent arg0) {

@@ -1772,4 +1772,10 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 		}
     }
 
+	@Override
+	public void decomposeObjVertices(PrintWriter pr, PolygonMesh mesh, boolean isCustom) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

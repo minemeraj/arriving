@@ -340,16 +340,13 @@ public class PlantsEditor extends CustomEditor implements ItemListener {
 		lobe_percentage_depth.setText(plant.getLobe_percentage_depth());
 	}
 
-	
+	@Override
 	public void preview() {
 		
 		if(plant==null)
 			return;
 		
-		Editor editor=new Editor();
-		editor.getMeshes()[0]=buildMesh();
-		
-		ObjectEditorPreviewPanel oepp=new ObjectEditorPreviewPanel(editor);
+		super.preview();
 		
 	}
 	
@@ -570,6 +567,12 @@ public class PlantsEditor extends CustomEditor implements ItemListener {
     	}
     	else
     		super.saveBaseCubicTexture(file);
+	}
+
+	@Override
+	public void initRightData() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

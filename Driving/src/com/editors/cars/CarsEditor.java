@@ -764,15 +764,13 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 		CarsEditor be=new CarsEditor();
 	}
 	
+	@Override
 	public void preview() {
 		
 		if(car==null)
 			return;
 		
-		Editor editor=new Editor();
-		editor.getMeshes()[0]=buildMesh();
-		
-		ObjectEditorPreviewPanel oepp=new ObjectEditorPreviewPanel(editor);
+		super.preview();
 		
 	}
 	
@@ -1002,6 +1000,13 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 			
 		}
 
+		
+	}
+
+
+	@Override
+	public void initRightData() {
+		// TODO Auto-generated method stub
 		
 	}
 

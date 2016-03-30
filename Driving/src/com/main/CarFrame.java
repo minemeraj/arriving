@@ -39,8 +39,8 @@ public class CarFrame extends JFrame implements KeyListener {
 	
 	JPanel center=null;
 	private Graphics2D graphics2D;
-	public static int HEIGHT=500;
-	public static int WIDTH=800;
+	public static final int HEIGHT=500;
+	public static final int WIDTH=800;
 
 	
 	int car_num=0;
@@ -51,12 +51,12 @@ public class CarFrame extends JFrame implements KeyListener {
 
 	
 	
-	public static int BUTTOMBORDER=100;
-	public static int UPBORDER=40;
-	public static int LEFTBORDER=0;
-	public static int RIGHTBORDER=0;
+	public static final int BUTTOMBORDER=100;
+	public static final int UPBORDER=40;
+	public static final int LEFTBORDER=0;
+	public static final int RIGHTBORDER=0;
 	
-	public static Color BACKGROUND_COLOR=Color.GREEN;
+	public static final Color BACKGROUND_COLOR=Color.GREEN;
 	//public static double CURVATURE_RADIUS = WIDTH/2;
 	
 	int CAR_X=150;
@@ -73,18 +73,15 @@ public class CarFrame extends JFrame implements KeyListener {
 	Engine engine=null;
 
 	private JPanel bottom;
-	private Road road;
+	private transient Road road;
 	private JPanel up;
-	private Transparency transparency;
 	private JLabel speedometer;
 	DecimalFormat df=new DecimalFormat("####");
 	
 	public Properties p;
 
 	private JLabel forward;
-	
-	
-	
+		
 	public static boolean isUseTextures=true;
 	private static JLabel steerAngle;
 	
@@ -94,7 +91,7 @@ public class CarFrame extends JFrame implements KeyListener {
 	AdvancedGameSound engineSound=null;
 	private GameSound hornSound;
 	private Date t;
-	private BufferedImage buf;
+	private transient BufferedImage buf;
 	
 	double inverse_car_mass=0.05;
 	
@@ -102,10 +99,9 @@ public class CarFrame extends JFrame implements KeyListener {
 	public double delta=0.30;
     public boolean isProgramPaused=true;
 	
-	public String map_name=GameLoader.DEFAULT_MAP;
-	private GameLoader gameLoader=null;
+	private String map_name=GameLoader.DEFAULT_MAP;
 	
-	public boolean skipShading=false;
+	private boolean skipShading=false;
 	
 	 public static void main(String[] args) {
 		 
@@ -126,7 +122,6 @@ public class CarFrame extends JFrame implements KeyListener {
 	public CarFrame(GameLoader gameLoader){
 
 	 
-	 this.gameLoader=gameLoader;
 	 this.map_name=gameLoader.getMap();
 	 this.skipShading=gameLoader.isSkipShading();	
 	 
@@ -231,7 +226,6 @@ public class CarFrame extends JFrame implements KeyListener {
 			engineSound.filter(getEngineModulation());
 
 			graphics2D=(Graphics2D) center.getGraphics();
-			transparency=new Transparency();
 			setCarSpeed(0);
 			road=new Road(WIDTH,HEIGHT,this);
 			road.initCars(vCarData);
@@ -257,7 +251,7 @@ public class CarFrame extends JFrame implements KeyListener {
 			
 
 			if( p.getProperty("INSTRUMENT_CODE")==null)
-				p.setProperty("INSTRUMENT_CODE",""+0);
+				p.setProperty("INSTRUMENT_CODE",Integer.toString(0));
 
 			
 		} catch (Exception e) {
@@ -595,6 +589,16 @@ public class CarFrame extends JFrame implements KeyListener {
 		engine.start();	
 		
 		isProgramPaused=false;
+	}
+
+
+	public String getMap_name() {
+		return map_name;
+	}
+
+
+	public boolean isSkipShading() {
+		return skipShading;
 	}
 
 
