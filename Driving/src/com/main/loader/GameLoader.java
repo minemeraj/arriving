@@ -170,7 +170,7 @@ public class GameLoader extends JDialog implements ActionListener{
 	}
 
 
-	public static final String[] quotes={
+	private final String[] quotes={
 
 
 			"Choose you world...",

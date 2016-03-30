@@ -144,10 +144,6 @@ public abstract class Editor extends JFrame implements MenuListener{
 			int num=ld.getIndex(i);
 
 			Point4D p=(Point4D) points[num];
-			
-
-
-			//bufGraphics.setColor(ZBuffer.fromHexToColor(is[i].getHexColor()));
 
 			cx[i]=(int)p.x;
 			cy[i]=(int)p.y;
@@ -165,10 +161,6 @@ public abstract class Editor extends JFrame implements MenuListener{
 	
 	public static double interpolate(double px, double py, Polygon3D p3d) {
 	       
-		/*Plain plain=Plain.calculatePlain(p3d);
-		return plain.calculateZ(px,py);
-
-		 */
 		Polygon3D p1=Polygon3D.extractSubPolygon3D(p3d,3,0);
 
 		if(p1.hasInsidePoint(px,py)){
@@ -305,7 +297,7 @@ public abstract class Editor extends JFrame implements MenuListener{
 			meshes[ACTIVE_PANEL].setTexturePoints(vTexturePoints);
 			meshes[ACTIVE_PANEL].setLevel(Road.GROUND_LEVEL);
 			
-			//checkNormals();
+		
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -381,8 +373,6 @@ public abstract class Editor extends JFrame implements MenuListener{
 			
 			br.close();
 
-			
-			//checkNormals();
 		} catch (Exception e) {
 
 			e.printStackTrace();
