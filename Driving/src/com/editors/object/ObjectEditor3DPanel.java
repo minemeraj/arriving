@@ -95,7 +95,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 			
 		buildNewZBuffers();
 	}
-
+	@Override
 	public void displayAll() {
 
 		
@@ -517,7 +517,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 
 	
-
+	@Override
 	public void selectPoint(int x, int y) {
 
 		//select point from lines
@@ -562,7 +562,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 	}
 	
-	
+	@Override
 	public double calculateScreenDistance(Polygon3D p3d, int xp, int yp) { 
 		
 		//calculate screen projection of each face
@@ -587,7 +587,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 	
 	
-
+	@Override
 	public void selectPointsWithRectangle() {
 		
 		int x0=Math.min(currentRect.x,currentRect.x+currentRect.width);
@@ -617,14 +617,14 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		
 	}
 
-	
+	@Override
 	public void zoomOut(){
 		
 		deltay=deltax=deltax*2;
 	
 		moveCenter(2.0);
 	}
-	
+	@Override
 	public void zoomIn(){
 		
 		//if(deltax==0.125)
@@ -650,7 +650,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
     	x0+=dx;
     	y0+=dy;
     }
-	
+	@Override
 	public int calcAssX(double x, double y, double z) {
 		 
 
@@ -665,7 +665,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		
 		return (int) ((yyy-xxx*sinAlfa)/deltax+x0);
 	}
-	
+	@Override
 	public int calcAssY(double x, double y, double z) {
 		
 		
@@ -701,7 +701,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		 
 		return  calcAssY(p.x,p.y,p.z);
 	}
-
+	@Override
 	public void right() {
 		
 		
@@ -709,19 +709,19 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		displayAll();
 		
 	}
-
+	@Override
 	public void left() {
 		x0=x0+5;
 		displayAll();
 		
 	}
-
+	@Override
 	public void up(){
 		y0=y0+2;
 		displayAll();
 
 	}
-
+	@Override
 	public void down(){
 		
 		y0=y0-2;

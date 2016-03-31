@@ -72,7 +72,7 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 		
 		RepaintManager.setCurrentManager( 
 				new RepaintManager(){
-
+					@Override
 					public void paintDirtyRegions() {
 
 
@@ -89,7 +89,7 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 		setVisible(true);
 		initialize();
 	}
-	
+	@Override
 	public void buildRightPanel() {
 		
 		
@@ -219,7 +219,7 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 		
 	}
 	
-
+	@Override
 	public void initRightData() {
 		
 
@@ -265,7 +265,7 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 		roof_top_length.setText("");
 		chooseRoof.setSelectedIndex(0);
 	}
-	
+	@Override
 	public void initialize() {
 		
 		center.initialize();
@@ -278,7 +278,7 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 		BuildingsEditor be=new BuildingsEditor();
 	}
 	
-	
+	@Override
 	public void generate() {
 		
 		prepareUndo();
@@ -332,18 +332,18 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 	}
 
 
-
+	@Override
 	public void draw() {
 		center.draw(plan);
 		
 	}
-
+	@Override
 	public void paint(Graphics arg0) {
 		super.paint(arg0);
 		draw();
 	}
 	
-
+	@Override
 	public void loadData(File file) {
 		
 		BufferedReader br;
@@ -381,7 +381,7 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 		
 	}
 
-
+	@Override
 	public void saveMesh(File file) {
 		
 		
@@ -421,7 +421,7 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 		}
 		return plan.buildMesh(scale);
 	}
-
+	@Override
 	public void saveData(File file) {
 		
 		
@@ -511,7 +511,7 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 		// TODO Auto-generated method stub
 		
 	}
-	
+	@Override
 	public void undo() {
 
 		if(oldPlan.size()>0)
@@ -522,7 +522,7 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 		
 		draw();
 	}
-	
+	@Override
 	public void prepareUndo() {
 		
 		if(plan==null)

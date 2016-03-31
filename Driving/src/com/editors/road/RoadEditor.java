@@ -3787,8 +3787,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
-
-	private void zoom(int i) {
+	
+	public void zoom(int i) {
 		
 		
 

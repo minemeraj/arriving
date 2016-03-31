@@ -264,7 +264,7 @@ public class Sofa extends Forniture{
 	
 
 	
-	
+	@Override
 public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		
 		isTextureDrawing=true;
@@ -720,12 +720,12 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		
 		return texture_points;
 	}
-	
+	@Override
 	public double calX(double x){
 		
 		return texture_x0+x;
 	}
-
+	@Override
 	public double calY(double y){
 		if(isTextureDrawing)
 			return IMG_HEIGHT-(texture_y0+y);

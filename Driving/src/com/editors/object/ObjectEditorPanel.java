@@ -54,7 +54,7 @@ import com.editors.ValuePair;
 import com.editors.road.RoadEditorPolygonDetail;
 import com.main.Renderer3D;
 
-public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,KeyListener, ItemListener,MouseListener,MouseWheelListener,MouseMotionListener{
+public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,KeyListener, ItemListener,MouseListener,MouseWheelListener,MouseMotionListener{
 
 
 	public ObjectEditor oe=null;
@@ -1553,7 +1553,7 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 	
 		
 	}
-
+	@Override
 	public void mouseWheelMoved(MouseWheelEvent arg0) {
 
 		int pix=arg0.getUnitsToScroll();
@@ -1578,16 +1578,6 @@ public class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListe
 		
 	}	
 
-	public void zoomOut() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	public void zoomIn() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	public void right() {
 		// TODO Auto-generated method stub

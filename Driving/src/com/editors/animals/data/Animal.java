@@ -132,7 +132,7 @@ public class Animal extends CustomData{
 		this.y_side = y_side;
 	}
 
-
+	@Override
 	public String toString() {
 
 		String ret= "A="+x_side+","+y_side+","+z_side+","+animal_type;
@@ -284,7 +284,7 @@ public class Animal extends CustomData{
 	public void setHand_length(double hand_length) {
 		this.hand_length = hand_length;
 	}
-
+	@Override
 	public PolygonMesh buildMesh(){
 		
 		

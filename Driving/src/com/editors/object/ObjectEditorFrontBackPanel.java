@@ -58,7 +58,7 @@ public class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 	}
 
 
-
+	@Override
 	public void displayAll() {
 
 
@@ -221,7 +221,7 @@ public class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 
 
 
-
+	@Override
 	public void selectPoint(int x, int y) {
 		
 		boolean found=false;
@@ -261,7 +261,7 @@ public class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 			selectPolygon(x,y);
 
 	}
-	
+	@Override
 	public double calculateScreenDistance(Polygon3D p3d, int x, int y) {
 
 		Point3D centroid=Polygon3D.findCentroid(p3d);
@@ -270,7 +270,7 @@ public class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 		
 		return xx;
 	}
-	
+	@Override
 	public void selectPointsWithRectangle() {
 		
 		int x0=Math.min(currentRect.x,currentRect.x+currentRect.width);
@@ -301,14 +301,14 @@ public class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 
 
 
-	
+	@Override
 	public void zoomOut(){
 		
 		deltay=deltax=deltax*2;
 	
 		moveCenter(2.0);
 	}
-	
+	@Override
 	public void zoomIn(){
 		
 		deltay=deltax=deltax/2;
@@ -332,7 +332,7 @@ public class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
     	x0+=dx;
     	y0+=dy;
     }
-	
+	@Override
 	public int calcAssX(double x, double y, double z) {
 		 
 
@@ -343,7 +343,7 @@ public class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 		
 		return (int) (xx/deltax+x0);
 	}
-	
+	@Override
 	public int calcAssY(double x, double y, double z) {
 		
 		
@@ -365,7 +365,7 @@ public class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 		 
 		return  calcAssY(p.x,p.y,p.z);
 	}
-
+	@Override
 	public void right() {
 		
 		
@@ -373,19 +373,19 @@ public class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 		displayAll();
 		
 	}
-
+	@Override
 	public void left() {
 		x0=x0+5;
 		displayAll();
 		
 	}
-
+	@Override
 	public void up(){
 		y0=y0+2;
 		displayAll();
 
 	}
-
+	@Override
 	public void down(){
 		
 		y0=y0-2;

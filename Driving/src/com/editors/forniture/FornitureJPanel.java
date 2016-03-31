@@ -11,7 +11,7 @@ public class FornitureJPanel extends CustomJPanel{
 
 
 	
-
+	@Override
 	public void draw(CustomData data ) {
 		 
 		Forniture forniture=(Forniture) data;

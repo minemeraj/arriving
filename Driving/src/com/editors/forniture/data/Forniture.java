@@ -74,7 +74,7 @@ public class Forniture extends CustomData{
 		this.n_parallels = N_PARALLELS;
 	}
 	
-
+	@Override
 	public Object clone(){
 
 		Forniture grid=new Forniture(x_side,y_side,z_side,forniture_type,
@@ -102,7 +102,7 @@ public class Forniture extends CustomData{
 		this.y_side = y_side;
 	}
 
-
+	@Override
 	public String toString() {
 
 		String ret="F="+x_side+","+y_side+","+z_side+","+forniture_type;
@@ -194,7 +194,7 @@ public class Forniture extends CustomData{
 		return (i+(1+1)*j)*2+k;
 	}
 
-
+	@Override
 	public PolygonMesh buildMesh(){
 		
 		if(FORNITURE_TYPE_TABLE==forniture_type){			

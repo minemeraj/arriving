@@ -69,8 +69,6 @@ public class PolygonMesh implements Cloneable{
 				
 				boxFaces[l]=Integer.parseInt(ld.getData());
 			}
-			/*else
-				boxFaces[l]=Renderer3D.findBoxFace(normal);*/
 			
 		}
 		

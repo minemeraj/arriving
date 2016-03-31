@@ -1148,11 +1148,6 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 	
 	}
 	
-	public void rotate(){
-		// TODO Auto-generated method stub
-	}
-	
-	
 	public void rotatePolygon(DrawObject dro,double xo,double yo,double cosTur,double sinTur){
 		
 		int size=dro.getPolygons().size();

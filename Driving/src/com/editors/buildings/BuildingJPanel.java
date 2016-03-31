@@ -10,7 +10,7 @@ import com.editors.buildings.data.BuildingPlan;
 public class BuildingJPanel extends CustomJPanel{
 
 
-
+	@Override
 	public void draw(CustomData data ) {
 		
 		BuildingPlan plan=(BuildingPlan) data;

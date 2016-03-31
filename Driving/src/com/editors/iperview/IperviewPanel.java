@@ -29,10 +29,10 @@ import com.PolygonMesh;
 
 public class IperviewPanel extends JPanel implements MouseWheelListener,MouseMotionListener,MouseListener{
 	
-	public static int TYPE_FRONT=0;
-	public static int TYPE_LEFT=1;
-	public static int TYPE_RIGHT=2;
-	public static int TYPE_TOP=3;
+	public static final int TYPE_FRONT=0;
+	public static final int TYPE_LEFT=1;
+	public static final int TYPE_RIGHT=2;
+	public static final int TYPE_TOP=3;
 	
 	
     int type=-1;
@@ -100,7 +100,7 @@ public class IperviewPanel extends JPanel implements MouseWheelListener,MouseMot
 		
 		
 	}
-	
+	@Override
 	public void paint(Graphics arg0) {
 		super.paint(arg0);
 		draw();
@@ -355,8 +355,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 
 
 	
-
-	
+	@Override	
 	public void mouseMoved(MouseEvent e) {
 		Point p=e.getPoint();
 		
@@ -584,7 +583,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 	
 		
 	}
-
+	@Override
 	public void mouseWheelMoved(MouseWheelEvent arg0) {
 		
 		
@@ -599,7 +598,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 	
 	public class FileTransferhandler extends TransferHandler{
 		
-		
+		@Override
 		public boolean canImport(JComponent comp, DataFlavor[] transferFlavors) {
 			
 			for(int i=0;i<transferFlavors.length;i++){
@@ -609,7 +608,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 			}
 		    return true;
 		}
-	
+		@Override
 		public boolean importData(JComponent comp, Transferable t) {
 			
 			iperviewEditor.forceReading=true;

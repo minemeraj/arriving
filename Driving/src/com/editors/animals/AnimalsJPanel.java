@@ -12,7 +12,7 @@ public class AnimalsJPanel extends CustomJPanel{
 
 
 	
-
+	@Override
 	public void draw(CustomData data) {
 		
 		Animal animal=(Animal)data;

@@ -114,7 +114,7 @@ public class Barrel extends CustomData{
 		
 		initMesh();
 	}
-
+	@Override
 	public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		
 		isTextureDrawing=true;
@@ -280,12 +280,12 @@ public class Barrel extends CustomData{
 		
 		return texture_points;
 	}
-	
+	@Override
 	public double calX(double x){
 		
 		return texture_x0+x;
 	}
-
+	@Override
 	public double calY(double y){
 		if(isTextureDrawing)
 			return IMG_HEIGHT-(texture_y0+y);

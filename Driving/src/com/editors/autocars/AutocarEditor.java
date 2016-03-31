@@ -101,7 +101,6 @@ public class AutocarEditor extends Editor implements MouseListener,
 	private JMenuItem jmt_load_autocar;
 	private JMenuItem jmt_save_autocar;
 
-	JFileChooser fc = new JFileChooser();
 	File currentDirectory = null;
 
 	int x0 = 0;
@@ -3156,7 +3155,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		draw();
 	}
 
-	private void zoom(int i) {
+	public void zoom(int i) {
 
 		double alfa = 1.0;
 		if (i > 0) {

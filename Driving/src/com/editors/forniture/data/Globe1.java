@@ -285,7 +285,7 @@ public class Globe1 extends Forniture {
 			polyData.add(ld);
 		}
 	}	
-	
+	@Override
 	public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 	
 		isTextureDrawing=true;
@@ -495,17 +495,17 @@ public ArrayList buildTexturePoints() {
 	
 	return texture_points;
 }
-
-		public double calX(double x){
-			
-			return texture_x0+x;
-		}
+	@Override
+	public double calX(double x){
 		
-		public double calY(double y){
-			if(isTextureDrawing)
-				return IMG_HEIGHT-(texture_y0+y);
-			else
-				return texture_y0+y;
-		}
+		return texture_x0+x;
+	}
+	@Override
+	public double calY(double y){
+		if(isTextureDrawing)
+			return IMG_HEIGHT-(texture_y0+y);
+		else
+			return texture_y0+y;
+	}
 
 }

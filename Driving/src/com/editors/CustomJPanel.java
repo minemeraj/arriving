@@ -14,7 +14,7 @@ import com.Point3D;
 import com.Polygon3D;
 import com.PolygonMesh;
 
-public class CustomJPanel extends JPanel{
+public abstract class CustomJPanel extends JPanel{
 	
 	public static final Color BACKGROUND = Color.BLACK;
 	
@@ -141,10 +141,7 @@ public class CustomJPanel extends JPanel{
 		
 	}
 
-	public void draw(CustomData data) {
-		
-		
-	}
+	public abstract void draw(CustomData data);
 
 	private void drawLine(Graphics buffGraph, double x0,double y0,double z0,double x1,double y1,double z1) {
 		

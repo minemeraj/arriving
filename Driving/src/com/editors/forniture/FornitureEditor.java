@@ -80,7 +80,7 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		
 		RepaintManager.setCurrentManager( 
 				new RepaintManager(){
-
+					@Override
 					public void paintDirtyRegions() {
 
 
@@ -97,7 +97,7 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		initialize();
 	}
 	
-
+	@Override
 	public void buildRightPanel() {
 		
 		
@@ -603,7 +603,7 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		back_height.setText(forniture.getBack_height());
 	}
 
-	
+	@Override
 	public void initialize() {
 		
 		center.initialize();
@@ -641,7 +641,7 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		}
 		return forniture.buildMesh(scale);
 	}
-	
+	@Override
 	public void generate() {
 		
 			prepareUndo();
@@ -697,19 +697,19 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 			draw();
 			setRightData(forniture);
 	}
-	
+	@Override
 	public void paint(Graphics arg0) {
 		super.paint(arg0);
 		draw();
 	}
-
+	@Override
 	public void draw() {
 		
 		
 		center.draw(forniture);
 		
 	}
-
+	@Override
 	public void loadData(File file) {
 		
 		BufferedReader br;
@@ -768,7 +768,7 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 
 		
 	}
-
+	@Override
 	public void saveData(File file) {
 		
 		
@@ -789,7 +789,7 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		}
 		
 	}
-	
+	@Override
 	public void undo() {
 
 		if(oldForniture.size()>0)
@@ -800,7 +800,7 @@ public class FornitureEditor extends CustomEditor implements ItemListener{
 		
 		draw();
 	}
-	
+	@Override
 	public void prepareUndo() {
 		
 		if(forniture==null)

@@ -15,7 +15,7 @@ public class CarsEditorJPanel extends CustomJPanel{
 		super();
 		x0=500;
 	}
-
+	@Override
 	public void draw(CustomData data ) { 
 		
 		Car car=(Car) data;

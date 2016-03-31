@@ -299,9 +299,6 @@ public class Road extends Shader{
 
 				LineData ld=cm.polygonData.get(i);
 
-				//Point3D normal= cm.normals.elementAt(i).clone();
-
-
 				int due=(int)(255-i%15);
 				Color col=new Color(due,0,0);
 
@@ -309,11 +306,7 @@ public class Road extends Shader{
 				calculateLightTransformedPolygon(polRotate,true);
 				polRotate.setShadowCosin(ld.getShadowCosin());
 
-				//int face=findBoxFace(normal,xVersor0,yVersor0,zVersor);
 				int face=cm.boxFaces[i];
-
-
-
 
 
 				decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,point000,point011,point001,face,col,texture,lightZbuffer);

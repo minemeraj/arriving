@@ -626,14 +626,6 @@ public abstract class Editor extends JFrame implements MenuListener{
 
 				LineData ld=(LineData) mesh.polygonData.get(i);
 				
-				//for the transaction phase:
-				
-				/*Point3D normal = PolygonMesh.getNormal(0,ld,mesh.points);	
-				
-				int boxFace=Renderer3D.findBoxFace(normal);
-				
-				ld.setData(""+boxFace);*/
-				
 				////////////
 				pr.print("f=");
 				if(isCustom){
@@ -765,6 +757,10 @@ public abstract class Editor extends JFrame implements MenuListener{
 
 	public void setPolygon(LineData polygon) {
 		this.polygon = polygon;
+	}
+	
+	public void zoom(int n){
+		
 	}
 
 

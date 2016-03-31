@@ -349,10 +349,7 @@ public abstract class CustomEditor extends Editor implements  MouseWheelListener
 	}
 
 
-	public void draw() {
-		// TODO Auto-generated method stub
-		
-	}
+	public abstract void draw();
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
@@ -441,7 +438,7 @@ public abstract class CustomEditor extends Editor implements  MouseWheelListener
 		}
 	}
 	
-private void saveBaseCubicTexture() {
+	private void saveBaseCubicTexture() {
 		
 		fc = new JFileChooser();
 		fc.setDialogType(JFileChooser.SAVE_DIALOG);

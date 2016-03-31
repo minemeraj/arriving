@@ -19,13 +19,13 @@ public class Polygon3D  extends Polygon{
 	public int index=0;
 	public int level=0;
 	
-	public double shadowCosin=1;
+	private double shadowCosin=1;
 	
 	//textures point:
 	public int[] xtpoints=null;
 	public int[] ytpoints=null;
 	
-	public String data=null;
+	private String data=null;
 	
 	private boolean isFilledWithWater=false;
 

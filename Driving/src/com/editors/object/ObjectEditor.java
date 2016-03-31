@@ -181,7 +181,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 
 		RepaintManager.setCurrentManager( 
 				new RepaintManager(){
-
+					@Override
 					public void paintDirtyRegions() {
 
 
@@ -214,7 +214,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 		    return centerFront;
 		
 	}
-
+	@Override
 	public void paint(Graphics arg0) {
 		super.paint(arg0);
 		getCenter().displayAll();
@@ -376,7 +376,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 		HelpPanel hp=new HelpPanel(300,200,this.getX()+100,this.getY(),HelpPanel.OBJECT_EDITOR_HELP_TEXT,this);
 		
 	}
-	
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		Object o=arg0.getSource();
 
@@ -448,7 +448,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 
 
 
-
+	@Override
 	public void preview() {
 		
 		
@@ -799,7 +799,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 		
 	}
 
-
+	@Override
 	public void undo() {
 		super.undo();
 		if(oldMeshes[ACTIVE_PANEL].size()==0)
@@ -807,14 +807,14 @@ public class ObjectEditor extends Editor implements ActionListener{
 		
 		firePropertyChange("ObjectEditorUndo",false,true);
 	}
-	
+	@Override
 	public void prepareUndo() {
 		jmt_undo_last.setEnabled(true);
 		super.prepareUndo();
 		
 		
 	}
-
+	@Override
 	public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCustom) {
 		
 		if(isCustom){
@@ -917,7 +917,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 	
 	class FileTransferhandler extends TransferHandler{
 		
-		
+		@Override
 		public boolean canImport(JComponent comp, DataFlavor[] transferFlavors) {
 			
 			for(int i=0;i<transferFlavors.length;i++){
@@ -927,7 +927,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 			}
 		    return true;
 		}
-	
+		@Override
 		public boolean importData(JComponent comp, Transferable t) {
 		
 			try {
@@ -1050,7 +1050,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 		}
 
 	}
-    
+	@Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
     	
     	center3D.addPropertyChangeListener(listener);
@@ -1068,7 +1068,7 @@ public class ObjectEditor extends Editor implements ActionListener{
     	
 
     }
-
+    @Override
     public Polygon3D buildPolygon(LineData ld,Point3D[] points, boolean isReal) {
 
 

@@ -88,7 +88,7 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		
 		RepaintManager.setCurrentManager( 
 				new RepaintManager(){
-
+					@Override
 					public void paintDirtyRegions() {
 
 
@@ -106,7 +106,7 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		
 		initialize();
 	}
-	
+	@Override
 	public void initialize() {
 		
 		center.initialize();
@@ -119,18 +119,18 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		WeaponsEditor be=new WeaponsEditor();
 	}
 	
-	
+	@Override
 	public void paint(Graphics arg0) {
 		super.paint(arg0);
 		draw();
 	}
-
+	@Override
 	public void draw() {
 		
 		center.draw(weapon);
 		
 	}
-	
+	@Override
 	public void buildRightPanel() {
 		
 		
@@ -409,7 +409,7 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		initRightData();
 		
 	}
-
+	@Override
 	public void initRightData() {
 		
 		initRightGunData();
@@ -711,7 +711,7 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 
 	}
 
-	
+	@Override
 	public void preview() {
 		
 		if(weapon==null)
@@ -723,7 +723,7 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		
 	}
 	
-
+	@Override
 	public PolygonMesh buildMesh() {
 		
 		if(scaleValue!=null){
@@ -737,7 +737,7 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		}
 		return weapon.buildMesh(scale);
 	}
-	
+	@Override
 	public void generate() {
 		
 			prepareUndo();
@@ -815,7 +815,7 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 			setRightData(weapon);
 	}
 	
-
+	@Override
 	public void loadData(File file) {
 		
 		BufferedReader br;
@@ -851,7 +851,7 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 
 
 
-
+	@Override
 	public void saveMesh(File file) {
 		
 		
@@ -878,7 +878,7 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 
 		
 	}
-
+	@Override
 	public void saveData(File file) {
 		
 		
@@ -899,7 +899,7 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		}
 		
 	}
-	
+	@Override
 	public void undo() {
 
 		if(oldWeapon.size()>0)
@@ -910,7 +910,7 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		
 		draw();
 	}
-	
+	@Override
 	public void prepareUndo() {
 		
 		if(weapon==null)

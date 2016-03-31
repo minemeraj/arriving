@@ -131,7 +131,7 @@ public class Weapon extends CustomData{
 
 	}
 
-
+	@Override
 	public Object clone(){
 
 		Weapon grid=new Weapon(
@@ -149,7 +149,7 @@ public class Weapon extends CustomData{
 
 	}
 
-
+	@Override
 	public String toString() {
 
 		return "F="+weapon_type+","+
@@ -412,7 +412,7 @@ public class Weapon extends CustomData{
 	public void setMagazine_height(double magazine_height) {
 		this.magazine_height = magazine_height;
 	}
-	
+	@Override
 	public PolygonMesh buildMesh(){
 
 		if(weapon_type==WEAPON_TYPE_SHOTGUN)

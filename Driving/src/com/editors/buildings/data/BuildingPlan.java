@@ -45,7 +45,7 @@ public class BuildingPlan extends CustomData{
 
 
 	}
-
+	@Override
 	public Object clone(){
 
 		BuildingPlan grid=new BuildingPlan(x_side,y_side,z_side);
@@ -69,7 +69,7 @@ public class BuildingPlan extends CustomData{
 		this.y_side = y_side;
 	}
 
-
+	@Override
 	public String toString() {
 
 		return x_side+","+y_side+","+z_side;
@@ -178,7 +178,7 @@ public class BuildingPlan extends CustomData{
 		this.roof_rim = roof_rim;
 	}
 
-
+	@Override
 	public PolygonMesh buildMesh(){
 
 		int xnum=1;

@@ -191,7 +191,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		RepaintManager.setCurrentManager(
 	
 				new RepaintManager(){
-	
+					@Override
 					public void paintDirtyRegions() {
 	
 						super.paintDirtyRegions();
@@ -468,13 +468,13 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 
 	}
 
-
+	@Override
 	public void paint(Graphics arg0) {
 
 		super.paint(arg0);
 		draw();
 	}
-	
+	@Override
 	public void draw() {
 		
 		leftPanel.draw();
@@ -482,7 +482,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		rightPanel.draw();
 	}
 	
-
+	@Override
 	public void buildPolygon() {
 		
 		 PolygonMesh mesh = meshes[ACTIVE_PANEL];	
@@ -498,7 +498,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 
 	}
-	
+	@Override
 	public void initialize() {
 		
 		DecimalFormatSymbols dfs=new DecimalFormatSymbols(Locale.UK);
@@ -772,7 +772,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		displayAll();
 	}
 	
-
+	@Override
 	public void preview() {
 		
 		
@@ -918,7 +918,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 			isControlMode=true;
 		}
 	}
-	
+	@Override
 	public void rotate(double df) {
 		
 		leftPanel.rotate(df);
@@ -926,7 +926,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		rightPanel.rotate(df);
 	}
 
-
+	@Override
 	public void zoomIn() {
 		
 		leftPanel.zoomIn();
@@ -935,7 +935,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 	}
 
-	
+	@Override
 	public void zoomOut() {
 		
 		leftPanel.zoomOut();
@@ -943,7 +943,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		rightPanel.zoomOut();
 		
 	}
-
+	@Override
 	public void translate(int i, int j) {
 		leftPanel.translate( i,  j);
 		centerPanel.translate(i,  j);
@@ -953,13 +953,13 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 
 
 
-	
+	@Override
 	public void prepareUndo() {
 		jmtUndo.setEnabled(true);
 	    super.prepareUndo();
 	}
 
-
+	@Override
 	public void undo() {
 		super.undo();
 		if(oldMeshes[ACTIVE_PANEL].size()==0)
@@ -967,7 +967,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		resetLists();
 	}
 	
-	
+	@Override
 	public void delete() {
 
 		ArrayList newPoints=new ArrayList();
@@ -1026,7 +1026,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
         displayAll();
 
 	}
-	
+	@Override
 	public void joinSelectedPoints() {
 		
 		PolygonMesh mesh = meshes[ACTIVE_PANEL];
@@ -1056,8 +1056,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 
 	}
 	
-
-
+	@Override
 	public void clean() {
 		
 		
@@ -1071,7 +1070,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 
 
 	
-	
+	@Override
 	public void addPoint() {
 
 		if("".equals(coordinatesx.getText()) ||
@@ -1094,7 +1093,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		addPoint(x,y,z);
 	}
 	
-	
+	@Override
 	public void addPoint(double x, double y ,double z) {
 
 		
@@ -1116,7 +1115,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	}
 	
 
-	
+	@Override
 	public void rescaleAllPoints() {
 		
 		PolygonMesh mesh = meshes[ACTIVE_PANEL];
@@ -1138,7 +1137,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		}
 		
 	}
-	
+	@Override
 	public void changeSelectedPoint() {
 		
 		PolygonMesh mesh = meshes[ACTIVE_PANEL];
@@ -1167,7 +1166,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		deselectAll();
 
 	}
-	
+	@Override
 	public void moveSelectedPointWithMouse(Point3D p3d, int type) {
 		
 		PolygonMesh mesh = meshes[ACTIVE_PANEL];
@@ -1202,7 +1201,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		}	
 		
 	}
-	
+	@Override
 	public void moveSelectedPoints(int dx, int dy, int dz) { 
 		
 		PolygonMesh mesh = meshes[ACTIVE_PANEL];
@@ -1235,14 +1234,14 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 
 		
 	}
-	
+	@Override
 	public void displayAll(){
 		
 		resetLists();
 		draw();
 		
 	}
-	
+	@Override
 	public void deselectAll() {
 		
 		clean();
@@ -1253,7 +1252,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 	
 	}
-
+	@Override
 	public void deselectAllPoints() {
 		
 		PolygonMesh mesh = meshes[ACTIVE_PANEL];
@@ -1265,7 +1264,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		}
 		
 	}
-	
+	@Override
 	public void selectAllPoints() {
 		
 		PolygonMesh mesh = meshes[ACTIVE_PANEL];
@@ -1291,7 +1290,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 	}
 
-	
+	@Override
 	public void selectPoint(Point3D p) {
 		
 		
@@ -1311,7 +1310,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		p.setSelected(true);
 		
 	}
-	
+	@Override
 	public void selectPoint(int x, int y){
 		// TODO Auto-generated method stub
 	}
@@ -1335,7 +1334,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		pointList.addMouseListener(new MouseAdapter(){
 			
 		
-			
+			@Override
 			public void mouseClicked(MouseEvent e){
 
 				if(!checkMultipleSelection.isSelected()) 
@@ -1369,7 +1368,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 		lineList.addMouseListener(new MouseAdapter(){
 			
-			
+			@Override
 			public void mouseClicked(MouseEvent e){
 
 				int index=lineList.getSelectedIndex();
@@ -1412,7 +1411,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		return lowpane;
 	}
 
-	
+	@Override
 	public void resetLists() {
 		
 		PolygonMesh mesh = meshes[ACTIVE_PANEL];
@@ -1603,7 +1602,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		}
 		
 	}
-
+	@Override
 	public void loadPointsFromFile(){	
 		
 		
@@ -1628,7 +1627,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 		}
 	}
-	
+	@Override
 	public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCustom) {
 		
 		int DX=0;
@@ -1742,7 +1741,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 			this.index=index;
 		}
 		
-	
+		@Override
 		public String toString() {
 			
 			return df.format(p.x)+","+df.format(p.y)+"("+index+")";
@@ -1786,13 +1785,13 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		}
 		
 	}
-
+	@Override
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		leftPanel.addPropertyChangeListener(listener);
 		centerPanel.addPropertyChangeListener(listener);
 		rightPanel.addPropertyChangeListener(listener);
 	}
-	
+	@Override
     public void menuSelected(MenuEvent arg0) {
     	
     	super.menuSelected(arg0);
