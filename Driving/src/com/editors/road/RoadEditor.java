@@ -2104,27 +2104,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 
-	public void loadObjectsFromFile(){	
-
-		fc=new JFileChooser();
-		fc.setDialogType(JFileChooser.OPEN_DIALOG);
-		fc.setDialogTitle("Load objects ");
-		if(currentDirectory!=null)
-			fc.setCurrentDirectory(currentDirectory);
-
-		int returnVal = fc.showOpenDialog(null);
-
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			currentDirectory=fc.getCurrentDirectory();
-			File file = fc.getSelectedFile();
-			loadObjectsFromFile(file);
-
-
-		}
-	}
-	
-	
-
 	private void saveLandscape()  {
 		
 		fc = new JFileChooser();
@@ -2196,7 +2175,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			//Editor.levelSPLinesTerrain(meshes[TERRAIN_INDEX],splines);
 			//right.setSelectedIndex(0);
 			
-            loadObjectsFromFile(file); 
+			drawObjects=loadObjectsFromFile(file,EditorData.objectMeshes); 
             setStartPosition(loadStartPosition(file));
             
             oldSpline=new Stack();
@@ -2267,10 +2246,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 
-	public void loadObjectsFromFile(File file){
+	public static ArrayList loadObjectsFromFile(File file,CubicMesh[] objectMeshes ){
 
 		
-		drawObjects=new ArrayList();
+		ArrayList drawObjects=new ArrayList();
 
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));
@@ -2291,7 +2270,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				if(!read)
 					continue;
 				
-				DrawObject dro=buildDrawObject(str,EditorData.objectMeshes);
+				DrawObject dro=buildDrawObject(str,objectMeshes);
 				drawObjects.add(dro);
 				
 				//buildRectanglePolygons(dro.getPolygons(),dro.x,dro.y,dro.z,dro.dx,dro.dy,dro.dz);
@@ -2322,6 +2301,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 			e.printStackTrace();
 		}
+		
+		return drawObjects;
 	}
 
 	

@@ -2357,46 +2357,10 @@ public class AutocarEditor extends Editor implements MouseListener,
 		loadSPLinesFromFile(file);
 		setACTIVE_PANEL(0);
 		
-		loadObjectsFromFile(file); 
+		drawObjects=RoadEditor.loadObjectsFromFile(file,objectMeshes); 
 
 	}
 	
-	
-	public void loadObjectsFromFile(File file){
-
-		drawObjects=new ArrayList();
-
-		try {
-			BufferedReader br=new BufferedReader(new FileReader(file));
-
-			boolean read=false;
-
-			String str=null;
-
-			while((str=br.readLine())!=null){
-				if(str.indexOf("#")>=0 || str.length()==0)
-					continue;
-				
-				if(str.indexOf("objects")>=0){
-					read=!read;
-				    continue;
-				}	
-				
-				if(!read)
-					continue;
-				
-				DrawObject dro=RoadEditor.buildDrawObject(str,objectMeshes);
-				drawObjects.add(dro);
-
-			}
-
-			br.close();
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
-	}
-
 	private void manageRoad() {
 		
 		LinkedList linkedList=(LinkedList) autolinesData.get(chooseAutoline.getSelectedIndex());

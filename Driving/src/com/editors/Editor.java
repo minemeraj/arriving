@@ -32,9 +32,8 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 	protected int numPanels=2;
 	
 	protected Stack[] oldMeshes=null;
-
 	
-	transient protected LineData polygon=new LineData();
+	protected transient LineData polygon=new LineData();
 	
 	public static final int MAX_STACK_SIZE=10;
 	
