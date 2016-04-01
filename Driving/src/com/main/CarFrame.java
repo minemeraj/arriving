@@ -360,15 +360,13 @@ public class CarFrame extends Road implements KeyListener {
 		}
 		else if(code==KeyEvent.VK_N)
 		{			
-			Road.FORWARD=1;
+			FORWARD=1;
 			forward.setText("(F)");
-			//road.setAccelerationVersus(1);
 		}
 		else if(code==KeyEvent.VK_M)
 		{			
-			Road.FORWARD=-1;
+			FORWARD=-1;
 			forward.setText("(R)");
-			//road.setAccelerationVersus(1);
 		}
 		else if(code==KeyEvent.VK_H)
 		{			

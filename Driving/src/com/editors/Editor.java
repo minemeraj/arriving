@@ -44,10 +44,9 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 	protected File currentDirectory=null;
 	protected File currentFile=null;
 	
-	public static final int TERRAIN_INDEX=0;
-	public static final int ROAD_INDEX=1;
+
 	
-	public static final String TAG[]={"terrain","road"};
+	
 	
 	protected ArrayList splines=null;
 	
@@ -308,79 +307,12 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 	
 	public void loadSPLinesFromFile(File file){
 		
-		splines=loadStaticSPLinesFromFile(file,forceReading);
+		splines=loadSPLinesFromFile(file,forceReading);
 		repaint();
 	}
 
 	
-	public static ArrayList loadStaticSPLinesFromFile(File file,boolean forceReading){
-		
-		ArrayList splines=new ArrayList();
-		
-		try {
-			BufferedReader br=new BufferedReader(new FileReader(file));
-
-
-			String str=null;
-			int rows=0;
-			
-			boolean read=forceReading;
-
-			double x0=0;
-			double y0=0;
-			
-			
-			ArrayList aTexturePoints=new ArrayList();
-			
-			while((str=br.readLine())!=null){
-				
-				
-				
-				if(str.indexOf("#")>=0 || str.length()==0)
-					continue;
-				
-				if(str.indexOf(TAG[ROAD_INDEX])>=0){
-					read=!read;
-				    continue;
-				}	
-				
-				if(!read)
-					continue;
-				
-				if(str.startsWith("vt=")){
-					PolygonMesh.buildTexturePoint(aTexturePoints,str.substring(3));
-					continue;
-				}else if(str.equals("<spline>")){			
-				
-					
-					
-					SPLine sp=new SPLine(aTexturePoints);
-					splines.add(sp);
-					continue;
-				}else if(str.equals("</spline>")){
-					continue;
-				}
-				
-				
-				SPLine sp=(SPLine) splines.get(splines.size()-1);
-				
-			
-								
-				buildSPLine(sp,str);
-				
-
-			}
-			
-			br.close();
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
-		
-		return splines;
-		
-	}
+	
 	
 	public static Point3D loadStartPosition(File file) {
 		
@@ -429,30 +361,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 		return startPosition;
 	}
 
-
-	public static void buildSPLine(SPLine sp,String str) {
-		
-		if(str.startsWith("v=")){
-			
-			str=str.substring(2);
-		
-			String[] vals =str.split(" ");
 	
-			SPNode p=new SPNode();
-			
-			String texture_index=vals[0];
-			texture_index=texture_index.substring(1);
-			p.setIndex(Integer.parseInt(texture_index));
-			
-			p.x=Double.parseDouble(vals[1]);
-			p.y=Double.parseDouble(vals[2]);
-			p.z=Double.parseDouble(vals[3]);
-			p.update();
-			
-	        sp.addSPNode(p);
-        
-		}
-	}
 
 	public void buildPoint(ArrayList vPoints, String str) {
 		PolygonMesh.buildPoint(vPoints,str);

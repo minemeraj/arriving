@@ -25,6 +25,7 @@ import com.editors.Editor;
 import com.editors.EditorData;
 import com.editors.ValuePair;
 import com.editors.road.RoadEditor;
+import com.main.DrivingFrame;
 import com.main.Renderer3D;
 import com.main.Road;
 
@@ -180,7 +181,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 						}*/
 					}
 					
-					Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.points,Editor.ROAD_INDEX,mesh.getLevel());
+					Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.points,DrivingFrame.ROAD_INDEX,mesh.getLevel());
 					
 					decomposeClippedPolygonIntoZBuffer(p3D,selected,EditorData.splinesTextures[ld.getTexture_index()],landscapeZbuffer,hashCode);
 					
@@ -212,7 +213,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 					
 				
 											
-					Polygon3D p3D=buildTranslatedPolygon3D(ld,pm.points,Editor.ROAD_INDEX,pm.getLevel());
+					Polygon3D p3D=buildTranslatedPolygon3D(ld,pm.points,DrivingFrame.ROAD_INDEX,pm.getLevel());
 					
 					decomposeClippedPolygonIntoZBuffer(p3D,null,texture,landscapeZbuffer,hashCode);
 
@@ -1324,7 +1325,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			LineData ld=(LineData) ring.polygonData.get(j);
 
 	
-			Polygon3D p3D=buildTranslatedPolygon3D(ld,ring.points,Editor.ROAD_INDEX,ring.getLevel());
+			Polygon3D p3D=buildTranslatedPolygon3D(ld,ring.points,DrivingFrame.ROAD_INDEX,ring.getLevel());
 			
 			decomposeClippedPolygonIntoZBuffer(p3D,Color.CYAN,EditorData.cyanTexture,landscapeZbuffer,ZBuffer.EMPTY_HASH_CODE);
 	

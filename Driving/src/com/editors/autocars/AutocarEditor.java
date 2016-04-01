@@ -101,8 +101,6 @@ public class AutocarEditor extends Editor implements MouseListener,
 	private JMenuItem jmt_load_autocar;
 	private JMenuItem jmt_save_autocar;
 
-	File currentDirectory = null;
-
 	int x0 = 0;
 	int y0 = 0;
 
@@ -129,12 +127,12 @@ public class AutocarEditor extends Editor implements MouseListener,
 	private JButton movePointsTop;
 	private JButton movePointsBottom;
 
-	public Rectangle currentRect = null;
-	public boolean isDrawCurrentRect = false;
+	private Rectangle currentRect = null;
+	private boolean isDrawCurrentRect = false;
 
 	
-	public Stack oldAutocarsData=new Stack();
-	public Stack oldAutolinesData=new Stack();
+	private Stack oldAutocarsData=new Stack();
+	private Stack oldAutolinesData=new Stack();
 
 	
 	private DoubleTextField centerX;
@@ -144,9 +142,9 @@ public class AutocarEditor extends Editor implements MouseListener,
 	private DoubleTextField longitudinal_velocity;
 	private DoubleTextField lateral_velocity;
 
-	public JButton rescale;
-	public DoubleTextField rescaleValue;
-	public JButton selectAll;
+	private JButton rescale;
+	private DoubleTextField rescaleValue;
+	private JButton selectAll;
 	private JMenuItem jmt_template;
 	private JMenuItem jmt_load_landscape;
 
@@ -157,8 +155,6 @@ public class AutocarEditor extends Editor implements MouseListener,
 	private JMenuItem jmt_refresh;
 
 	private JMenu jmt_help;
-
-	private boolean redrawAfterMenu = false;
 
 	private JMenuItem jmt_advance_road;
 	
@@ -197,7 +193,6 @@ public class AutocarEditor extends Editor implements MouseListener,
 	private Texture[] worldTextures;
 	private BufferedImage[] objectImages;
 	private CubicMesh[] objectMeshes;
-	private Texture[] objectIndexes;
 	
 	int indexWidth=40;
 	int indexHeight=18;
@@ -364,8 +359,6 @@ public class AutocarEditor extends Editor implements MouseListener,
 		
 		objectImages=new BufferedImage[vObjects.size()];
 		objectMeshes=new CubicMesh[vObjects.size()];
-		objectIndexes=new Texture[vObjects.size()];
-
 		
 		for(int i=0;i<vObjects.size();i++){
 			
@@ -374,11 +367,6 @@ public class AutocarEditor extends Editor implements MouseListener,
 			
 			objectMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/object3D_"+i));
 		
-				
-			BufferedImage boi=new BufferedImage(indexWidth,indexHeight,BufferedImage.TYPE_INT_RGB);
-			boi.getGraphics().setColor(Color.white);
-			boi.getGraphics().drawString(""+i,0,indexHeight);
-			objectIndexes[i]=new Texture(boi);	
 			
 		}
 		
@@ -3155,6 +3143,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		draw();
 	}
 
+	@Override
 	public void zoom(int i) {
 
 		double alfa = 1.0;

@@ -18,8 +18,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
-import javax.swing.JFileChooser;
-
 import com.CubicMesh;
 import com.DrawObject;
 import com.Engine;
@@ -63,14 +61,14 @@ public class Road extends Shader{
 	int CAR_WIDTH=100;
 	int CAR_LENGTH=100;
 	
-	public static double TURNING_RADIUS=700;
+	public static final double TURNING_RADIUS=700;
 	
-	public static int FORWARD=1;
+	protected int FORWARD=1;
 	
 	public static final int EXTERNAL_CAMERA=0;
 	public static final int DRIVER_CAMERA=1;
 	
-	public static int CAMERA_TYPE=EXTERNAL_CAMERA;
+	protected int CAMERA_TYPE=EXTERNAL_CAMERA;
 	
 	protected PolygonMesh[] oldMeshes=new PolygonMesh[2];
 
@@ -80,9 +78,9 @@ public class Road extends Shader{
 	DrawObject[] drawObjects=null;
 	DrawObject[]  oldDrawObjects=null;
 
-	boolean start=true;
+	protected boolean start=true;
 
-	public static boolean steer=false;
+	protected boolean steer=false;
 	public static final double SPACE_SCALE_FACTOR=60.0;
 	public static final double SPEED_SCALE=1.0/1.13;
 
@@ -99,8 +97,8 @@ public class Road extends Shader{
 	int start_car_y=y_edge;
 	
 	protected static Autocar[] autocars=null;
-    double pi_2=Math.PI/2.0;
-    double i_2pi=1.0/(Math.PI*2.0);
+    public static final double pi_2=Math.PI/2.0;
+    public static final double i_2pi=1.0/(Math.PI*2.0);
     
 	int PARTIAL_MOVZ=0;
     boolean initMOVZ=true;
@@ -169,8 +167,7 @@ public class Road extends Shader{
 			
 			loadPointsFromFile(file,RoadEditor.TERRAIN_INDEX);		
 			//loadPointsFromFile(file,1);
-			loadSPLinesFromFile(file);
-			
+			loadSPLinesFromFile(file);			
 			
 			loadObjectsFromFile(file);	
 			
@@ -1111,7 +1108,7 @@ public class Road extends Shader{
 				if(str.indexOf("#")>=0 || str.length()==0)
 					continue;
 				
-				if(str.indexOf(Editor.TAG[index])>=0){
+				if(str.indexOf(TAG[index])>=0){
 					read=!read;
 				    continue;
 				}	
@@ -1401,7 +1398,7 @@ public class Road extends Shader{
 		
 		try {
 			boolean forceReading=false;
-			splines=Editor.loadStaticSPLinesFromFile(file,forceReading);
+			splines=loadSPLinesFromFile(file,forceReading);
 			
 			//translation to fit view screen
 			if(splines.size()>0){
@@ -1431,7 +1428,6 @@ public class Road extends Shader{
 				}
 
 			}
-			//Editor.levelSPLinesTerrain(meshes[RoadEditor.TERRAIN_INDEX],splines);
 
 
 		} catch (Exception e) {
