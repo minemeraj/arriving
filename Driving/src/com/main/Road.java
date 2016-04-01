@@ -72,20 +72,14 @@ public class Road extends Shader{
 	
 	public static int CAMERA_TYPE=EXTERNAL_CAMERA;
 	
-		
+	protected PolygonMesh[] oldMeshes=new PolygonMesh[2];
 
 	CarData[] carData=null;
 	ShadowVolume[] carShadowVolume=null;
-		
-	PolygonMesh[] meshes=new PolygonMesh[2];
-	
-	PolygonMesh[] oldMeshes=new PolygonMesh[2];
 
 	DrawObject[] drawObjects=null;
 	DrawObject[]  oldDrawObjects=null;
-	
 
-	private JFileChooser fc;
 	boolean start=true;
 
 	public static boolean steer=false;
@@ -124,8 +118,7 @@ public class Road extends Shader{
     
     ShadowVolume[] autocarShadowVolume=null;
     
-	private CarDynamics carDynamics=null;	
-	private CarFrame carFrame=null;
+	protected CarDynamics carDynamics=null;	
 	
 	public static double WATER_LEVEL=0;
 	
@@ -138,11 +131,12 @@ public class Road extends Shader{
 	public static final int GROUND_LEVEL=0;
 	public static final int ROAD_LEVEL=1;
 	public static final int OBJECT_LEVEL=2;
+	
+	protected boolean skipShading=false;
 
 
-	public Road(int WITDH,int HEIGHT, CarFrame carFrame){
+	public Road(int WITDH,int HEIGHT){
 		
-		this.carFrame=carFrame;
 
 		dx=WITDH/(NXVISIBLE-1);
 
@@ -150,14 +144,14 @@ public class Road extends Shader{
 		this.WIDTH=WITDH;
 		YFOCUS=HEIGHT/2;
 		XFOCUS=WITDH/2;
-		loadRoad();
+
 		totalVisibleField=buildVisibileArea(SCREEN_DISTANCE,NYVISIBLE*dy+SCREEN_DISTANCE);
 		
 		WATER_LEVEL=-HEIGHT/2-10;
 	}
 
 
-	public void loadRoad() {
+	public void loadRoad(String map_name) {
 
 		observerPoint=new Point3D(0,0,0);
 		
@@ -171,7 +165,7 @@ public class Road extends Shader{
 			
 			EditorData.initialize();
 			
-			File file=new File("lib/landscape_"+carFrame.getMap_name());
+			File file=new File("lib/landscape_"+map_name);
 			
 			loadPointsFromFile(file,RoadEditor.TERRAIN_INDEX);		
 			//loadPointsFromFile(file,1);
@@ -200,16 +194,12 @@ public class Road extends Shader{
 		buildNewZBuffers();	    
 		
 		
-		if(!carFrame.isSkipShading())
+		if(!isSkipShading())
 			calculateShadowVolumes(drawObjects);
 		
 		initialiazeCarDynamics();
 		
-		loadAutocars(new File("lib/autocars_"+carFrame.getMap_name()));
-		
-		//showMemoryUsage();
-		//buildDefaultRoad(); 
-		
+
 
 	}
 	
@@ -337,7 +327,7 @@ public class Road extends Shader{
 			CAR_LENGTH=carData[i].carMesh.deltaY2-carData[i].carMesh.deltaY;
 			carData[i].getCarMesh().translate(WIDTH/2-CAR_WIDTH/2-XFOCUS,y_edge,-YFOCUS);
 
-			if(!carFrame.isSkipShading()){
+			if(!isSkipShading()){
 				carShadowVolume[i]=initShadowVolume(carData[i].carMesh);
 			}
 			
@@ -467,7 +457,7 @@ public class Road extends Shader{
 		
 		 cm.translate(POSX,POSY,-MOVZ);
 		 cm.rotate(POSX, POSY,viewDirectionCos,viewDirectionSin);
-		 if(!carFrame.isSkipShading()){
+		 if(!isSkipShading()){
 			 buildShadowVolumeBox(carShadowVolume[SELECTED_CAR],cm);
 		 }
 
@@ -602,7 +592,7 @@ public class Road extends Shader{
 		drawSPLines(splines,totalVisibleField,roadZbuffer);
 		drawCar();
 
-		if(!carFrame.isSkipShading()){
+		if(!isSkipShading()){
 			calculateStencilBuffer();
 		}
 		buildScreen(buf); 
@@ -992,7 +982,6 @@ public class Road extends Shader{
 
 	public void reset(Graphics2D g2) {
 		
-		carFrame.setCarSpeed(0);
 		g2.setColor(CarFrame.BACKGROUND_COLOR);
 		g2.fillRect(0,YFOCUS,WIDTH,HEIGHT-YFOCUS);
 
@@ -1022,32 +1011,13 @@ public class Road extends Shader{
 		setViewDirection(0);
 	}
 
-
-
-	/*public void up(Graphics2D graphics2D) {
-
-        
-		if(!steer){
-
-			
-			POSY=(int) (POSY+FORWARD*CarFrame.CAR_SPEED*SPEED_SCALE*viewDirectionCos);
-			POSX=(int) (POSX-FORWARD*CarFrame.CAR_SPEED*SPEED_SCALE*viewDirectionSin);
-
-		}
-		else {
-			rotate();
-	
-		} 
-
-
-	}*/
 	
 	public void up(Graphics2D graphics2D) {
 		
 
 		carDynamics.move(Engine.dtt);
 		//from m/s to km/s
-		carFrame.setCarSpeed(3.6*Math.abs(carDynamics.u));
+	
 
 		//cast this way to cut off very small speeds
 		int NEW_POSY=POSY+(int)( SPACE_SCALE_FACTOR*carDynamics.dy);
@@ -1064,10 +1034,6 @@ public class Road extends Shader{
 			
 		}else{
 	
-		
-			//System.out.println(NEW_POSX+" "+NEW_POSY);	
-	
-	
 			POSY=NEW_POSY;
 			POSX=NEW_POSX;
 		
@@ -1083,13 +1049,6 @@ public class Road extends Shader{
 		}
 
 	}
-	
-	
-	public void start(){
-		//for debug
-
-	}
-	
 	
 	public void setSteerAngle(double angle) {
 		
@@ -1683,7 +1642,7 @@ public class Road extends Shader{
 
 			decomposeCubicMesh(cm,autocar.texture,roadZbuffer);
 
-			if(!carFrame.isSkipShading())
+			if(!isSkipShading())
 				buildShadowVolumeBox(autocarShadowVolume[i],cm);
 			
 			
@@ -1709,7 +1668,7 @@ public class Road extends Shader{
 		}
 	}
 
-	private void loadAutocars(File file) {
+	public void loadAutocars(File file) {
 	
 
 		if(file.exists())	{	
@@ -1755,7 +1714,7 @@ public class Road extends Shader{
 		
 		autocarShadowVolume=new ShadowVolume[autocars.length];
 		
-		if(!carFrame.isSkipShading()){
+		if(!isSkipShading()){
 			
 			for (int i = 0; i < autocarShadowVolume.length; i++) {
 				autocarShadowVolume[i]=initShadowVolume(autocars[i].carData.carMesh);
@@ -1972,6 +1931,10 @@ public class Road extends Shader{
 			
 			System.out.println("</terrain>");
 		}
+	
+	public boolean isSkipShading() {
+		return skipShading;
+	}
 		
 
 }

@@ -611,7 +611,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 		@Override
 		public boolean importData(JComponent comp, Transferable t) {
 			
-			iperviewEditor.forceReading=true;
+			iperviewEditor.setForceReading(true);
 			
 			try {
 				List list=(List) t.getTransferData(DataFlavor.javaFileListFlavor);

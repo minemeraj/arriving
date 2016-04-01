@@ -24,7 +24,7 @@ import com.Texture;
 import com.ZBuffer;
 import com.editors.EditorData;
 
-public abstract class Renderer3D implements AbstractRenderer3D{
+public abstract class Renderer3D extends DrivingFrame implements AbstractRenderer3D{
 
 	int XFOCUS=0;
 	int YFOCUS=0;

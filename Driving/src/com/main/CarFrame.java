@@ -29,7 +29,7 @@ import com.main.loader.GameLoader;
 import com.sound.AdvancedGameSound;
 import com.sound.GameSound;
 
-public class CarFrame extends JFrame implements KeyListener {
+public class CarFrame extends Road implements KeyListener {
 
 	
 
@@ -73,7 +73,6 @@ public class CarFrame extends JFrame implements KeyListener {
 	Engine engine=null;
 
 	private JPanel bottom;
-	private transient Road road;
 	private JPanel up;
 	private JLabel speedometer;
 	DecimalFormat df=new DecimalFormat("####");
@@ -101,7 +100,7 @@ public class CarFrame extends JFrame implements KeyListener {
 	
 	private String map_name=GameLoader.DEFAULT_MAP;
 	
-	private boolean skipShading=false;
+
 	
 	 public static void main(String[] args) {
 		 
@@ -113,14 +112,16 @@ public class CarFrame extends JFrame implements KeyListener {
 		GameLoader gl=new GameLoader();		
 		gl.setSkipShading(skipShading);
 		 
-		CarFrame ff=new CarFrame(gl);
+		CarFrame ff=new CarFrame(gl,WIDTH,HEIGHT);
 		//ff.initialize();
 	
 	}
 	 
 	 
-	public CarFrame(GameLoader gameLoader){
+	public CarFrame(GameLoader gameLoader,int WITDH,int HEIGHT){
 
+	 super( WITDH, HEIGHT);
+	
 	 
 	 this.map_name=gameLoader.getMap();
 	 this.skipShading=gameLoader.isSkipShading();	
@@ -143,6 +144,8 @@ public class CarFrame extends JFrame implements KeyListener {
 	 addKeyListener(this);
 	 
 	 initialize();
+	 
+	
 	 setVisible(true);
 	 
 	 start();
@@ -227,16 +230,23 @@ public class CarFrame extends JFrame implements KeyListener {
 
 			graphics2D=(Graphics2D) center.getGraphics();
 			setCarSpeed(0);
-			road=new Road(WIDTH,HEIGHT,this);
-			road.initCars(vCarData);
+			initCars(vCarData);
 
 			hornSound = new GameSound(hornFile,true);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		loadRoad();
 	}
 
+
+	public void loadRoad() {
+		
+		super.loadRoad(getMap_name());
+		loadAutocars(new File("lib/autocars_"+getMap_name()));
+	}
 
 	public void loadProperties(){
 		
@@ -283,17 +293,13 @@ public class CarFrame extends JFrame implements KeyListener {
 			reset();
 		else if(code==KeyEvent.VK_UP || code==KeyEvent.VK_W)
 		{	
-			if(getcarSpeed()==0){
-				road.start();
-			}
-
-			road.setAccelerationVersus(1);
+			setAccelerationVersus(1);
 
 
 		}
 		else if(code==KeyEvent.VK_DOWN || code==KeyEvent.VK_S)
 		{			
-			road.setIsBraking(true);
+			setIsBraking(true);
 
 		}
 		else if(code==KeyEvent.VK_LEFT || code==KeyEvent.VK_A) 
@@ -314,7 +320,7 @@ public class CarFrame extends JFrame implements KeyListener {
 			
 			setCarSpeed(0);
 			
-            road.selectNextCar();
+            selectNextCar();
             
             isProgramPaused=false;
 		}
@@ -372,18 +378,18 @@ public class CarFrame extends JFrame implements KeyListener {
 		else if(code==KeyEvent.VK_Z)
 		{			
 			if(Road.VIEW_TYPE==Road.FRONT_VIEW)
-				 road.rotateSky(Math.PI);
+				rotateSky(Math.PI);
 			Road.VIEW_TYPE=Road.REAR_VIEW;
 		   
 		}
 		else if(code==KeyEvent.VK_1)
 		{
-			road.changeCamera(0);
+			 changeCamera(0);
 			 drawRoad();
 		}
 		else if(code==KeyEvent.VK_2)
 		{
-			road.changeCamera(1);
+			 changeCamera(1);
 			 drawRoad();
 		}
 		else if(code==KeyEvent.VK_ESCAPE)
@@ -391,28 +397,6 @@ public class CarFrame extends JFrame implements KeyListener {
 			System.exit(0);
 		}
 	}
-	
-	/*private void calculateSpeed(){
-		
-		if(isBraking){
-			
-			double gamma=0.1;
-			double friction=-3;
-			CAR_SPEED+= inverse_car_mass*(friction-CAR_SPEED*gamma);
-			
-		}
-		else{
-			
-			double gamma=0.09;
-			
-			if(CAR_SPEED>=0)
-				CAR_SPEED+=inverse_car_mass*(torque-CAR_SPEED*gamma);
-			
-		}
-		setCarSpeed(CAR_SPEED);
-		
-		
-	}*/
 
 	private double getEngineModulation(){
 		
@@ -472,7 +456,9 @@ public class CarFrame extends JFrame implements KeyListener {
 			return;
 		
 		//calculateSpeed();
-		road.up(graphics2D);
+		up(graphics2D);
+		
+		setCarSpeed(3.6*Math.abs(carDynamics.u));
 		
 		drawRoad();
 
@@ -480,13 +466,13 @@ public class CarFrame extends JFrame implements KeyListener {
 	
 	public void steer(double angle) {
 		
-		road.setSteerAngle(angle);
+		setSteerAngle(angle);
 	
 	
 	}
 	
 	public void down() {
-		road.down(graphics2D);
+		down(graphics2D);
 		drawRoad(); 
 	}
 	
@@ -515,26 +501,26 @@ public class CarFrame extends JFrame implements KeyListener {
 			
 						
 			if(Road.VIEW_TYPE==Road.REAR_VIEW)
-				road.rotateSky(0);
+				rotateSky(0);
 			Road.VIEW_TYPE=Road.FRONT_VIEW;
 			
 		}
 		else if((code==KeyEvent.VK_UP ||code==KeyEvent.VK_DOWN || code==KeyEvent.VK_W ||code==KeyEvent.VK_S) && engine!=null)
 		{			
-			road.setAccelerationVersus(0);
+			setAccelerationVersus(0);
 			
 			steer(0);			
 
 		}
 
 	}
-
+	
 	public void reset(){
 		
 		isProgramPaused=true;
 		
 		buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
-		road.reset(graphics2D);
+		reset(graphics2D);
 	
 		
 		setCarSpeed(0);
@@ -550,7 +536,7 @@ public class CarFrame extends JFrame implements KeyListener {
 		if(graphics2D==null)
 			graphics2D=(Graphics2D) center.getGraphics();
 			
-		road.drawRoad(buf);
+		drawRoad(buf);
 		graphics2D.drawImage(buf,0,0,WIDTH,HEIGHT,null);
 		
 	}
@@ -563,11 +549,6 @@ public class CarFrame extends JFrame implements KeyListener {
 		super.paint(g);
 		//drawRoad();
 		
-	}
-
-
-	public Road getRoad() {
-		return road;
 	}
 	
 	private void playHorn() {
@@ -597,9 +578,7 @@ public class CarFrame extends JFrame implements KeyListener {
 	}
 
 
-	public boolean isSkipShading() {
-		return skipShading;
-	}
+
 
 
 

@@ -23,14 +23,14 @@ import com.Rib;
 import com.SPLine;
 import com.SPNode;
 import com.SquareMesh;
+import com.main.DrivingFrame;
 import com.main.Road;
 
-public abstract class Editor extends JFrame implements MenuListener{
+public abstract class Editor extends DrivingFrame implements MenuListener{
 	
 	protected int ACTIVE_PANEL=0; 
 	protected int numPanels=2;
 	
-	transient protected PolygonMesh[] meshes=null;	
 	protected Stack[] oldMeshes=null;
 
 	
@@ -40,7 +40,7 @@ public abstract class Editor extends JFrame implements MenuListener{
 	
 	protected boolean redrawAfterMenu=false;
 	
-	protected JFileChooser fc= new JFileChooser();
+	
 	protected File currentDirectory=null;
 	protected File currentFile=null;
 	
@@ -186,7 +186,7 @@ public abstract class Editor extends JFrame implements MenuListener{
 	}
 	
 	
-	public boolean forceReading=false;
+	protected boolean forceReading=false;
 	
 	public void loadPointsFromFile(){	
 		
@@ -761,6 +761,16 @@ public abstract class Editor extends JFrame implements MenuListener{
 	
 	public void zoom(int n){
 		
+	}
+
+
+	public boolean isForceReading() {
+		return forceReading;
+	}
+
+
+	public void setForceReading(boolean forceReading) {
+		this.forceReading = forceReading;
 	}
 
 
