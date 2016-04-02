@@ -2166,7 +2166,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			File file = fc.getSelectedFile();
 			
 			setACTIVE_PANEL(0);
-			loadPointsFromFile(file);	
+			loadPointsFromFile(file,ACTIVE_PANEL,forceReading);	
 			setACTIVE_PANEL(1);
 			//loadPointsFromFile(file);
 			loadSPLinesFromFile(file);
@@ -2224,7 +2224,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
-	        Road.buildLine(polygonData,  str, vTexturePoints);
+		new Road().buildLine(polygonData,  str, vTexturePoints);
 
 
 	}

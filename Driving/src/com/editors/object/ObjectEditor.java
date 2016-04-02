@@ -942,7 +942,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 					currentDirectory=file.getParentFile();
 					currentFile=file;
 					
-					loadPointsFromFile(file);
+					loadPointsFromFile(file,ACTIVE_PANEL,forceReading);
 					getCenter().displayAll();
 				}
 

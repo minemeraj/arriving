@@ -1305,7 +1305,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 
 
-        Road.buildLine(polygonData,  str, vTexturePoints);
+        new Road().buildLine(polygonData,  str, vTexturePoints);
 
 
 	}
@@ -2350,8 +2350,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	private void loadLanscape(File file) { 
 
-		setACTIVE_PANEL(0);
-		loadPointsFromFile(file);	
+		setACTIVE_PANEL(TERRAIN_INDEX);
+		loadPointsFromFile(file,TERRAIN_INDEX,forceReading);	
 		setACTIVE_PANEL(1);
 		//loadPointsFromFile(file);
 		loadSPLinesFromFile(file);

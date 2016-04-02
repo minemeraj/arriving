@@ -1620,12 +1620,18 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 			File file = fc.getSelectedFile();
 			currentFile=file;
 			
-			loadPointsFromFile(file);
+			loadPointsFromFile(file,ACTIVE_PANEL,forceReading);
 			
 			reloadPanels();
 
 		
 		}
+	}
+	
+	
+	public void loadPointsFromFile(File file) {
+		loadPointsFromFile(file,ACTIVE_PANEL,forceReading);
+		
 	}
 	@Override
 	public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCustom) {
@@ -1811,5 +1817,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		HelpPanel hp=new HelpPanel(300,200,this.getX()+100,this.getY(),HelpPanel.IPERVIEW_EDITOR_HELP_TEXT,this);
 		
 	}
+
+
 
 }

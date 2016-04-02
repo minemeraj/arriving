@@ -131,6 +131,8 @@ public class Road extends Shader{
 	public static final int OBJECT_LEVEL=2;
 	
 	protected boolean skipShading=false;
+	
+	public Road(){}
 
 
 	public Road(int WITDH,int HEIGHT){
@@ -165,8 +167,7 @@ public class Road extends Shader{
 			
 			File file=new File("lib/landscape_"+map_name);
 			
-			loadPointsFromFile(file,RoadEditor.TERRAIN_INDEX);		
-			//loadPointsFromFile(file,1);
+			loadPointsFromFile(file);		
 			loadSPLinesFromFile(file);	
 			loadObjectsFromFile(file);
 			
@@ -1113,53 +1114,16 @@ public class Road extends Shader{
 	}
 
 	
-	public void loadPointsFromFile(File file,int index){
-
-		meshes[index]=new PolygonMesh();		
-
-		
+	public void loadPointsFromFile(File file){		
 
 		try {
 			
-			BufferedReader br=new BufferedReader(new FileReader(file));
-			
-			boolean read=false;
-
-			String str=null;
-			int rows=0;
-			
-			ArrayList aPoints=new ArrayList();
-			ArrayList vTexturePoints=new ArrayList();
-			
-			while((str=br.readLine())!=null){
-				if(str.indexOf("#")>=0 || str.length()==0)
-					continue;
-				
-				if(str.indexOf(TAG[index])>=0){
-					read=!read;
-				    continue;
-				}	
-				
-				if(!read)
-					continue;
-
-				if(str.startsWith("v="))
-					buildPoint(aPoints,str.substring(2),index);
-				else if(str.startsWith("vt="))
-					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
-				else if(str.startsWith("f="))
-					buildLine(meshes[index].polygonData,str.substring(2),vTexturePoints);
-
-
-			}
-            br.close();
-
-            meshes[index].setPoints(aPoints);
+			loadPointsFromFile(file,Road.TERRAIN_INDEX,false);
             
-           if(index==RoadEditor.TERRAIN_INDEX)
-        	   meshes[index].setLevel(Road.GROUND_LEVEL);
+
+        	meshes[RoadEditor.TERRAIN_INDEX].setLevel(Road.GROUND_LEVEL);
             
-			oldMeshes[index]=cloneMesh(meshes[index]);
+			oldMeshes[RoadEditor.TERRAIN_INDEX]=cloneMesh(meshes[RoadEditor.TERRAIN_INDEX]);
 		
 			
 			//checkNormals();
@@ -1211,8 +1175,8 @@ public class Road extends Shader{
 
 	}
 
-
-	public void buildPoint(ArrayList vPoints, String str,int index) {
+	@Override
+	public void buildPoint(ArrayList vPoints, String str) {
 
 	
 
@@ -1260,7 +1224,8 @@ public class Road extends Shader{
 		return str;
 	}
 	
-	public static void buildLine(ArrayList polygonData, String str,ArrayList vTexturePoints) {
+	@Override
+	public void buildLine(ArrayList polygonData, String str,ArrayList vTexturePoints) {
 
 
 

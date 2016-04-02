@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Stack;
 import java.util.StringTokenizer;
 
 import javax.swing.JFileChooser;
@@ -11,10 +12,12 @@ import javax.swing.JFrame;
 
 import com.CubicMesh;
 import com.DrawObject;
+import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
 import com.SPLine;
 import com.SPNode;
+import com.SquareMesh;
 import com.editors.EditorData;
 
 public abstract class DrivingFrame extends JFrame{
@@ -209,6 +212,108 @@ public abstract class DrivingFrame extends JFrame{
 		dro.setRotation_angle(Double.parseDouble(tok1.nextToken()));
 		dro.setHexColor(tok1.nextToken());
 		return dro;
+	}
+	
+	protected void loadPointsFromFile(File file,int ACTIVE_PANEL,boolean forceReading){
+
+		if(ACTIVE_PANEL==0)
+			meshes[ACTIVE_PANEL]=new  SquareMesh();
+		else	
+			meshes[ACTIVE_PANEL]=new  PolygonMesh();
+		
+		
+	
+
+		try {
+			BufferedReader br=new BufferedReader(new FileReader(file));
+
+
+			String str=null;
+			int rows=0;
+			
+			boolean read=forceReading;
+			
+			int nx=0;
+			int ny=0;
+			int dx=0;
+			int dy=0;
+			double x0=0;
+			double y0=0;
+			
+			ArrayList aPoints=new ArrayList();
+			ArrayList vTexturePoints=new ArrayList();
+			
+			while((str=br.readLine())!=null){
+				
+				
+				
+				if(str.indexOf("#")>=0 || str.length()==0)
+					continue;
+				
+				if(str.indexOf(TAG[ACTIVE_PANEL])>=0){
+					read=!read;
+				    continue;
+				}	
+				
+				if(!read)
+					continue;
+				
+				
+
+				if(str.startsWith("v="))
+					buildPoint(aPoints,str.substring(2));
+				else if(str.startsWith("vt="))
+					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
+				else if(str.startsWith("f="))
+					buildLine(meshes[ACTIVE_PANEL].polygonData,str.substring(2),vTexturePoints);
+				else if(str.startsWith("NX="))					
+					nx=Integer.parseInt(str.substring(3)); 
+				else if(str.startsWith("NY="))					
+					ny=Integer.parseInt(str.substring(3)); 
+				else if(str.startsWith("DX="))					
+					dx=Integer.parseInt(str.substring(3)); 
+				else if(str.startsWith("DY="))					
+					dy=Integer.parseInt(str.substring(3)); 
+				else if(str.startsWith("X0="))					
+					x0=Double.parseDouble(str.substring(3)); 
+				else if(str.startsWith("Y0="))					
+					y0=Double.parseDouble(str.substring(3)); 
+
+
+			}
+			
+			if(meshes[ACTIVE_PANEL] instanceof SquareMesh){
+				
+				((SquareMesh)meshes[ACTIVE_PANEL]).setNumx(nx); 
+				((SquareMesh)meshes[ACTIVE_PANEL]).setNumy(ny); 
+				((SquareMesh)meshes[ACTIVE_PANEL]).setDx(dx);
+				((SquareMesh)meshes[ACTIVE_PANEL]).setDy(dy);
+				((SquareMesh)meshes[ACTIVE_PANEL]).setX0(x0); 
+				((SquareMesh)meshes[ACTIVE_PANEL]).setY0(y0); 
+				
+			}
+
+			br.close();
+			
+			meshes[ACTIVE_PANEL].setPoints(aPoints);
+			meshes[ACTIVE_PANEL].setTexturePoints(vTexturePoints);
+			meshes[ACTIVE_PANEL].setLevel(Road.GROUND_LEVEL);
+			
+		
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		
+		repaint();
+	}
+
+	protected void buildLine(ArrayList<LineData> polygonData, String substring, ArrayList vTexturePoints) {
+			
+	}
+
+	protected void buildPoint(ArrayList aPoints, String substring) {
+			
 	}
 
 

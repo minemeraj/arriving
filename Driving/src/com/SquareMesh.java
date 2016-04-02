@@ -109,6 +109,8 @@ public class SquareMesh extends PolygonMesh {
 		pm.setX0(getX0());
 		pm.setY0(getY0());
 		
+		pm.setLevel(level);
+		
 		return pm;
 	}
 
