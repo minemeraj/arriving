@@ -3603,20 +3603,20 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		int code =arg0.getKeyCode();
 		if(code==KeyEvent.VK_DOWN ){
-			ep.down();
+			ep.translate(0, 1);
 			draw();
 		}else if(code==KeyEvent.VK_UP  ){
-			ep.up();
+			ep.translate(0, -1);
 			draw();
 		}	
 		else if(code==KeyEvent.VK_LEFT )
 		{	
-			ep.left();
+			ep.translate(-1, 0);
 			draw();
 		}
 		else if(code==KeyEvent.VK_RIGHT  )
 		{	 
-			ep.right();   
+			ep.translate(1, 0);  
 			draw();
 		}
 		else if(code==KeyEvent.VK_D  )

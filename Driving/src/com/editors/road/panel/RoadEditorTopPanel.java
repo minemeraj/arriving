@@ -969,36 +969,23 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		MOVX+=(int) ((WIDTH/2+MOVX)*(1.0/alfa-1.0));
 		MOVY+=(int) ((-HEIGHT/2+MOVY)*(1.0/alfa-1.0));
 	}
-	
-	public void up(){
-		MOVY=MOVY-10;
-		
 
-	}
-
-	public void down(){
-		MOVY=MOVY+10;
-		
-
-	}
 	
 
 	public void mouseDown() {
-		down();
+		translate(0,-1);
 	}
 	
 	@Override
 	public void mouseUp() {
-		up();
+		translate(0,1);
 	}
 	
-	public void left(){
-		MOVX=MOVX-10;
-	}
-
-	public void right(){
-		MOVX=MOVX+10;	
-
+	@Override
+	public void translate(int i, int j) {
+		MOVX=MOVX+i*10;
+		MOVY=MOVY+j*10;
+		
 	}
 	
 

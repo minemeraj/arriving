@@ -125,13 +125,7 @@ public abstract class RoadEditorPanel extends JPanel {
 	
 	public abstract void zoom(int i);
 	
-	public abstract void up();
-
-	public abstract void down();
-	
-	public abstract void left();
-
-	public abstract void right();
+	public abstract void translate(int i, int j);
 	
 	public abstract void mouseDown();
 

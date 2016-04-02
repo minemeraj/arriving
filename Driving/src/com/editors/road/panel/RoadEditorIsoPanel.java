@@ -1197,27 +1197,11 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		return y0-(int) ((sz+sy*cosAlfa+sx*cosAlfa)/deltay);
 	}
 
-	
-
-	public void left() {
-		POSX-=2*deltax;
-	}
-	
-
-	public void right() {
-		POSX+=2*deltax;
-	}
-
-	public void down() {
-		POSY-=2*deltax;
+	@Override
+	public void translate(int i, int j) {
 		
-	}
-
-	
-
-	public void up() {
-		POSY+=2*deltax;
-		
+		POSX+=i*2*deltax;
+		POSY-=j*2*deltax;
 	}
 	
 	public void zoom(int i) {
