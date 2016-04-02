@@ -106,32 +106,8 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 		
 
 		}
-		
-		
-		//buf.setRGB(0,0,WIDTH,HEIGHT,rgb,0,WIDTH);
-
 
 	}
-
-	/*private void cleanZBuffer() {
-
-	for(int i=0;i<roadZbuffer.length;i++){
-
-		roadZbuffer[i].set(0,greenRgb);
-
-	}*/
-	
-	/*public double calculPerspY( double x, double y, double z) {
-		double newy0= YFOCUS+((z-YFOCUS)*SCREEN_DISTANCE/y);
-		return HEIGHT-newy0;
-	}
-
-	public double calculPerspX(double x, double y, double z) {
-
-		return ((x-XFOCUS)*SCREEN_DISTANCE/y);
-
-	}*/
-
 
 
 	public double calculPerspY( double x, double y, double z) {
@@ -189,9 +165,6 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 		Point3D p1=new Point3D(p3d.xpoints[1],p3d.ypoints[1],p3d.zpoints[1]);
 		Point3D p2=new Point3D(p3d.xpoints[2],p3d.ypoints[2],p3d.zpoints[2]);
 
-
-
-		//System.out.println(p3d+" "+rgbColor);
 
 		double x0=(int)calculPespX(p0);
 		double y0=(int)calculPerspY(p0);
@@ -618,7 +591,6 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 		
 		//water effect
 		if(hasWater && zi<Road.WATER_LEVEL+MOVZ){		
-			//factor=factor*0.7;	
 		    rs=gs=0;
 		}
 
@@ -984,26 +956,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 
 		zbuffer.update(xs,ys,zs,rgbColor,tot);
 
-
-
-
 	}
-
-	public void buildRectanglePolygons(ArrayList polygons, double x, double y,
-			double z, double dx, double dy, double dz) {
-
-
-
-		Polygon3D base=buildRectangleBase3D(x,y,z,dx,dy,dz);
-		polygons.add(base);		
-		Polygon3D ubase=base.buildTranslatedPolygon(0,0,dz);
-		polygons.add(ubase);	
-		polygons.add(Polygon3D.buildPrismIFace(ubase,base,0));
-		polygons.add(Polygon3D.buildPrismIFace(ubase,base,1));
-		polygons.add(Polygon3D.buildPrismIFace(ubase,base,2));
-		polygons.add(Polygon3D.buildPrismIFace(ubase,base,3));
-	}
-
 
 	public Polygon3D buildRectangleBase3D(double x,double y,double z,double dx,double dy,double dz){
 

@@ -167,16 +167,14 @@ public class Road extends Shader{
 			
 			loadPointsFromFile(file,RoadEditor.TERRAIN_INDEX);		
 			//loadPointsFromFile(file,1);
-			loadSPLinesFromFile(file);			
-			
-			loadObjectsFromFile(file);	
+			loadSPLinesFromFile(file);	
+			loadObjectsFromFile(file);
 			
 			Point3D startPosition = Editor.loadStartPosition(file);
 			POSX=(int) startPosition.x-WIDTH/2-CAR_WIDTH/2;
 			POSY=(int) startPosition.y-y_edge;
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -199,8 +197,37 @@ public class Road extends Shader{
 
 
 	}
-	
 
+	private void loadObjectsFromFile(File file) {
+		
+		ArrayList vdrawObjects = loadObjectsFromFile(file,null);	
+		
+		drawObjects=new DrawObject[vdrawObjects.size()];
+		
+		
+		for (int i = 0; i < vdrawObjects.size(); i++) {
+			drawObjects[i]=(DrawObject) vdrawObjects.get(i);
+		}
+		
+		oldDrawObjects=DrawObject.cloneObjectsArray(drawObjects);
+		
+	}
+	
+	@Override
+	public void buildRectanglePolygons(ArrayList polygons, double x, double y,
+			double z, double dx, double dy, double dz) {
+
+
+
+		Polygon3D base=buildRectangleBase3D(x,y,z,dx,dy,dz);
+		polygons.add(base);		
+		Polygon3D ubase=base.buildTranslatedPolygon(0,0,dz);
+		polygons.add(ubase);	
+		polygons.add(Polygon3D.buildPrismIFace(ubase,base,0));
+		polygons.add(Polygon3D.buildPrismIFace(ubase,base,1));
+		polygons.add(Polygon3D.buildPrismIFace(ubase,base,2));
+		polygons.add(Polygon3D.buildPrismIFace(ubase,base,3));
+	}
 
 
 	/**
@@ -1027,7 +1054,7 @@ public class Road extends Shader{
 		if(!checkIsWayFree(NEW_POSX,NEW_POSY,getViewDirection(),-1))
 		{	
 
-			
+			//DO NOTHING
 			
 		}else{
 	
@@ -1327,7 +1354,7 @@ public class Road extends Shader{
 	
 	
 	
-	public void loadObjectsFromFile(File file){
+	/*public void loadObjectsFromFile(File file){
 		
 		ArrayList vdrawObjects=new ArrayList();
 		
@@ -1392,7 +1419,7 @@ public class Road extends Shader{
 
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	private void loadSPLinesFromFile(File file) {
 		
@@ -1436,7 +1463,8 @@ public class Road extends Shader{
 		}
 	}
 
-	private DrawObject buildDrawObject(String str) {
+	@Override
+	public DrawObject buildDrawObject(String str,CubicMesh[] objectMeshes) {
 		DrawObject dro=new DrawObject();
 		
 		String properties0=str.substring(0,str.indexOf("["));
@@ -1460,27 +1488,6 @@ public class Road extends Shader{
 		return dro;
 	}
 
-	/*private Point4D[] buildRow(String string) {
-		StringTokenizer stk=new StringTokenizer(string," ");
-
-		Point4D[] row = new Point4D[NX];
-		int columns=0;
-		while(stk.hasMoreTokens()){
-
-			String[] vals=stk.nextToken().split(",");
-
-			row[columns]=new Point4D();
-
-			row[columns].x=Double.parseDouble(vals[0]);
-			row[columns].y=Double.parseDouble(vals[1]);
-			row[columns].z=Double.parseDouble(vals[2]);
-			row[columns].setHexColor(vals[3]);
-			row[columns].setIndex(Integer.parseInt(vals[4]));
-			columns++;
-		}
-
-		return row;
-	}*/
 
 	public static String decomposeColor(Color tcc) {
 		return addZeros(tcc.getRed())+","+addZeros(tcc.getGreen())+","+addZeros(tcc.getBlue());
@@ -1498,7 +1505,8 @@ public class Road extends Shader{
 
 	public static Color buildColor(String colorString) {
 
-		if(colorString==null) return null;
+		if(colorString==null) 
+			return null;
 		Color tcc=null;
 		String[] colorComponents = colorString.split(",");
 		tcc=new Color(Integer.parseInt(colorComponents[0]),Integer.parseInt(colorComponents[1]),Integer.parseInt(colorComponents[2]));
