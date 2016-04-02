@@ -2224,7 +2224,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
-		new Road().buildLine(polygonData,  str, vTexturePoints);
+		Road.buildStaticLine(polygonData,  str, vTexturePoints);
 
 
 	}

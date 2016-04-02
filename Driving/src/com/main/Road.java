@@ -388,20 +388,11 @@ public class Road extends Shader{
 		
 		carTexture=CarFrame.carTextures[SELECTED_CAR];
 
-		/*carZbuffer=new ZBuffer[WIDTH*HEIGHT];
-		for(int i=0;i<WIDTH*HEIGHT;i++){
 
-
-			carZbuffer[i]=new ZBuffer(greenRgb,0);
-
-		}
-		buildCar(0);
-	    */
 	}
 
 	public void buildCar(double directionAngle){
 		
-		//Point3D steeringCenter=new Point3D(start_car_x, start_car_y,-YFOCUS);
 
 		//putting the car right in front of the view point
 		CubicMesh cm = carData[SELECTED_CAR].getCarMesh().clone();
@@ -567,7 +558,7 @@ public class Road extends Shader{
 	public void drawRoad(BufferedImage buf){
 
 
-		//cleanZBuffer();
+
 		drawSky();
 
 		calculateAltitude();
@@ -631,7 +622,6 @@ public class Road extends Shader{
 		TRANSZ=PARTIAL_MOVZ;
 		start_max_calculus=true;
 
-		//for(int index=0;index<2;index++){
 
 		PolygonMesh mesh=meshes[Editor.TERRAIN_INDEX];
 
@@ -696,7 +686,7 @@ public class Road extends Shader{
 					}	
 
 				}	
-				//break;
+				
 
 			}
 
@@ -753,9 +743,6 @@ public class Road extends Shader{
 
 					
 					Polygon3D p3DBase=buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel());
-					
-					//if(p3DBase.getLevel()==Road.ROAD_LEVEL)
-					//	p3DBase.translate(0, 0,-ROAD_THICKNESS);
 					
 					if(!p3DBase.clipPolygonToArea2D(totalVisibleField).isEmpty()){
 						visible=true;
@@ -953,9 +940,6 @@ public class Road extends Shader{
 	 *  j=YFOCUS -> j_set= dh
 	 */
 	public void drawSky() {
-
-		//g2.setColor(Color.BLUE);
-		//g2.fillRect(0,0,WIDTH,HEIGHT-YFOCUS);
 		
 		int YMAX=(HEIGHT-YFOCUS);
 
@@ -968,16 +952,13 @@ public class Road extends Shader{
 		//actual value: 0,738
 		double alfa=tetam*dw/(Math.PI*WIDTH);
 		
-		//int deltah=(int) (dh*(1-alfa)+YFOCUS*alfa);
 		int deltah=(int) (dh-YMAX*alfa);//(int) (dh*(1-alfa)+YFOCUS*alfa);
 		
 		double eta=tetam*2.0/WIDTH;
 		
 		double i_d=1.0/SCREEN_DISTANCE;
 		
-		
-		
-		//System.out.println(APOSX);
+
 		for(int i=0;i<WIDTH;i++){
 			
 			double teta=i*eta-viewDirection-rearAngle;
@@ -1015,9 +996,6 @@ public class Road extends Shader{
 		POSY=0;
 		
 		initialiazeCarDynamics();
-	
-		
-		//loadRoad();
 		
 		try {
 			Thread.sleep(250);
@@ -1124,9 +1102,7 @@ public class Road extends Shader{
         	meshes[RoadEditor.TERRAIN_INDEX].setLevel(Road.GROUND_LEVEL);
             
 			oldMeshes[RoadEditor.TERRAIN_INDEX]=cloneMesh(meshes[RoadEditor.TERRAIN_INDEX]);
-		
-			
-			//checkNormals();
+
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -1152,11 +1128,6 @@ public class Road extends Shader{
 		
 		PolygonMesh mesh=meshes[Editor.TERRAIN_INDEX];
 		int size=mesh.polygonData.size();
-
-		//for(int index=0;index<2;index++){
-
-		//PolygonMesh mesh=meshes[index];
-		//int size=mesh.polygonData.size();
 
 		for(int j=0;j<size;j++){
 
@@ -1190,9 +1161,6 @@ public class Road extends Shader{
 			p.x=Double.parseDouble(vals[0])-XFOCUS;
 			p.y=Double.parseDouble(vals[1])+SCREEN_DISTANCE;
 			p.z=Double.parseDouble(vals[2])-YFOCUS;
-			
-			//if (index==1)
-			//	p.z+=ROAD_THICKNESS;
 
 			vPoints.add(p);
 		
@@ -1225,7 +1193,12 @@ public class Road extends Shader{
 	}
 	
 	@Override
+	
 	public void buildLine(ArrayList polygonData, String str,ArrayList vTexturePoints) {
+		
+		buildStaticLine( polygonData,  str, vTexturePoints);
+	}
+	public static void buildStaticLine(ArrayList polygonData, String str,ArrayList vTexturePoints) {
 
 
 
@@ -1572,7 +1545,6 @@ public class Road extends Shader{
 	        	autocarMinusRo[2][1]=0; 
 	        	autocarMinusRo[2][2]=1; 
 	        	
-	        	//Point3D autocarNormal=rotate(autocarRo,new Point3D(-0.19611613513818402, 0.0, 0.9805806756909201));
 	        	Point3D autocarNormal=rotate(autocarRo,autocarTerrainNormal[i]);
 	        	
 	        	double a=autocarNormal.x;
@@ -1595,9 +1567,7 @@ public class Road extends Shader{
 	  
 	        	double[][] aRotation=rotate(autocarRot,autocarRo);
 				aRotation=rotate(autocarMinusRo,aRotation);
-				//double[][] aRotation=autocarRot;
-			
-		
+	
 
 				xVersor=rotate(aRotation,xVersor);
 	        	yVersor=rotate(aRotation,yVersor);
@@ -1735,15 +1705,12 @@ public class Road extends Shader{
 				Polygon3D.rotate(objBorder,center,dro.getRotation_angle());
 				
 				if(getIntersection(objBorder,CAR_BORDER)!=null){
-					//carDynamics.stop();
     				return false;
 		     	}	
 			}
 
 		}
 
-
-		//System.out.println(CAR_BORDER);
 
 		if(autocars!=null){
 

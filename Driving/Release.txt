@@ -1,5 +1,7 @@
 Code cleaning continued.
 
+Fixed sound bug onm reset.
+
 ----- 26/03/2016 CarDriving 9.0.2
 
 Modification to the code to manage SPLines intersection, to draw the road at

@@ -1305,7 +1305,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 
 
-        new Road().buildLine(polygonData,  str, vTexturePoints);
+        Road.buildStaticLine(polygonData,  str, vTexturePoints);
 
 
 	}

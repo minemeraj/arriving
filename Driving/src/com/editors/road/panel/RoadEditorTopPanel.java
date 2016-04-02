@@ -86,7 +86,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 	
 			Texture texture = EditorData.worldTextures[ld.getTexture_index()];
-			drawPolygon(ld,mesh.points,landscapeZbuffer,texture,RoadEditor.TERRAIN_INDEX);
+			drawPolygon(ld,mesh.points,landscapeZbuffer,texture,RoadEditor.TERRAIN_INDEX,mesh.hashCode());
 
 		} 
 
@@ -128,7 +128,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				
 				PolygonMesh mesh = (PolygonMesh) meshes.get(j);
 				            
-				drawSPLinePolygon(mesh,landscapeZbuffer,1);
+				drawSPLinePolygon(mesh,landscapeZbuffer,1,mesh.hashCode());
                 
 				
 			}
@@ -162,7 +162,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 					
 				
 											
-					drawPolygon(ld,pm.points,landscapeZbuffer,texture,1);
+					drawPolygon(ld,pm.points,landscapeZbuffer,texture,1,pm.hashCode());
 
 				} 
 				
@@ -333,7 +333,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	}
 	
 	private void drawSPLinePolygon(PolygonMesh mesh, ZBuffer landscapeZbuffer,
-			int rgbColor) {
+			int rgbColor,int hashCode) {
 
 		
 		int lsize=mesh.polygonData.size();
@@ -345,7 +345,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			LineData ld=(LineData) mesh.polygonData.get(k);
 			Texture texture = EditorData.splinesEditorTextures[ld.getTexture_index()];
 			
-			drawPolygon(ld,mesh.points,landscapeZbuffer,texture,0);
+			drawPolygon(ld,mesh.points,landscapeZbuffer,texture,0,hashCode);
 
 		} 
 		
@@ -355,7 +355,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	
 
 	
-	private void drawPolygon(LineData ld,Point3D[] points,ZBuffer landscapeZbuffer,Texture texture,int indx) {
+	private void drawPolygon(LineData ld,Point3D[] points,ZBuffer landscapeZbuffer,Texture texture,int indx,int hashCode) {
 
 
 		Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
@@ -414,13 +414,13 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 
-		drawTexture(texture,p3d,p3dr,landscapeZbuffer,selected);
+		drawTexture(texture,p3d,p3dr,landscapeZbuffer,selected,hashCode);
 
 
 
 	}
 	
-	private void drawTexture(Texture texture,  Polygon3D p3d, Polygon3D p3dr,ZBuffer landscapeZbuffer, Color selected) {
+	private void drawTexture(Texture texture,  Polygon3D p3d, Polygon3D p3dr,ZBuffer landscapeZbuffer, Color selected,int hashCode) {
 
 		Point3D normal=Polygon3D.findNormal(p3dr);
 
@@ -465,7 +465,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				if(selected!=null)
 					rgb=selected.getRGB();
 				
-				decomposeTriangleIntoZBufferEdgeWalking(tria,rgb,texture,landscapeZbuffer, xDirection, yDirection, p0r, 0, 0,bc); 
+				decomposeTriangleIntoZBufferEdgeWalking(tria,rgb,texture,landscapeZbuffer, xDirection, yDirection, p0r, 0, 0,bc,hashCode); 
 
 				
 			}
@@ -490,7 +490,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	 */
 	public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int selected,Texture texture,ZBuffer zb,  
 			Point3D xDirection, Point3D yDirection, Point3D origin,int deltaX,int deltaY,
-			BarycentricCoordinates bc) {
+			BarycentricCoordinates bc,int hashCode) {
 
 		int rgbColor=selected;
 		
@@ -1421,7 +1421,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			
 			LineData ld=(LineData) ring.polygonData.get(j);
 
-			drawPolygon(ld,ring.points,landscapeZbuffer,EditorData.cyanTexture,RoadEditor.TERRAIN_INDEX);
+			drawPolygon(ld,ring.points,landscapeZbuffer,EditorData.cyanTexture,RoadEditor.TERRAIN_INDEX,ring.hashCode());
 
 		} 
 	}
