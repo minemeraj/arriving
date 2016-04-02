@@ -413,7 +413,7 @@ public class CarFrame extends Road implements KeyListener {
 		return CAR_SPEED;
 	}
 	
-	public void setCarSpeed(double d) { 
+	private void setCarSpeed(double d) { 
 		
 		CAR_SPEED=d;
 		if(CAR_SPEED<0)
@@ -431,9 +431,9 @@ public class CarFrame extends Road implements KeyListener {
 				}
 			    engineSound.setPlay(true);
 			    engineSound.filter(getEngineModulation());
-				
 			}
 			else engineSound.setPlay(false);
+		
 			
 		} catch (Exception e) {
 			

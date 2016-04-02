@@ -116,8 +116,9 @@ public class AdvancedGameSound extends Thread{
 			 int cnt=bytesToRead;
 			 int offset=0;
 			 try{
-				 while(cnt>0 && offset<audioDataToPlay.length && play){
-					
+				
+				 while(cnt>0 && offset<audioDataToPlay.length && isPlay()){
+					 
 					 if(bytesToRead+offset>audioDataToPlay.length)
 						 bytesToRead=audioDataToPlay.length-offset;
 					 //System.out.println(cnt+" "+offset+" "+bytesToRead+" "+audioDataToPlay.length );				 
@@ -125,9 +126,11 @@ public class AdvancedGameSound extends Thread{
 					 offset+=cnt;
                      
 				 }
-                 
 				 if(once)
 					 break;
+				 
+				 if(!isPlay())
+					 Thread.sleep(100);
 
 				
 			 }
