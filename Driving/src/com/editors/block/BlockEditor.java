@@ -561,12 +561,12 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		}
 		else if(code==KeyEvent.VK_PLUS)
 		{	
-			zoomIn();
+			zoom(+1);
 			displayAll(); 
 		}
 		else if(code==KeyEvent.VK_MINUS)
 		{	
-			zoomOut();
+			zoom(-1);
 			displayAll(); 
 		}
 		else if(code==KeyEvent.VK_Q )
@@ -1811,16 +1811,9 @@ public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCusto
 	}
 
 
-	public void zoomIn() {
+	public void zoom(int n) {
 		
-		centerPanel.zoomIn();
-		
-		
-	}
-
-	public void zoomOut() {
-		
-		centerPanel.zoomOut();
+		centerPanel.zoom(n);
 	
 		
 	}

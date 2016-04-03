@@ -643,18 +643,21 @@ private void displayAxes(Graphics2D bufGraphics) {
 		
 	}
 	
-	public void zoomOut(){
+	public void zoom(int n){
 		
-		deltay=deltax=deltax*2;
-	
-		moveCenter(2.0);
-	}
-	
-	public void zoomIn(){
+		if(n>0){
+			
+			deltay=deltax=deltax/2;
+			
+			 moveCenter(0.5);
+			
+		}else{
+			deltay=deltax=deltax*2;
+			
+			moveCenter(2.0);
+		}
 		
-		deltay=deltax=deltax/2;
 	
-		 moveCenter(0.5);
 	}
 
     private void moveCenter(double d) {

@@ -336,21 +336,25 @@ public class CubicEditorPanel extends JPanel implements MouseListener{
 		
 	}
 	
-	public void zoomOut(){
+	public void zoom(int n){
 		
-		deltay=deltax=deltax*2;
-	
-		moveCenter(2.0);
-	}
-	
-	public void zoomIn(){
+		if(n>0){
+			
+			if(deltax==0.25)
+				return;
+			deltay=deltax=deltax/2;
 		
-		if(deltax==0.25)
-			return;
-		deltay=deltax=deltax/2;
-	
-		 moveCenter(0.5);
+			 moveCenter(0.5);
+			
+		}else{
+		
+			deltay=deltax=deltax*2;
+		
+			moveCenter(2.0);
+		
+		}
 	}
+
 
     private void moveCenter(double d) {
 		

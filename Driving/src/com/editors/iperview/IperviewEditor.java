@@ -928,19 +928,12 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 
 	@Override
 	public void zoom(int n) {
-		
-		if(n>0){
-		
-			leftPanel.zoomIn();
-			centerPanel.zoomIn();
-			rightPanel.zoomIn();
-		
-		}else{
-			
-			leftPanel.zoomOut();
-			centerPanel.zoomOut();
-			rightPanel.zoomOut();
-		}
+
+
+		leftPanel.zoom(n);
+		centerPanel.zoom(n);
+		rightPanel.zoom(n);
+
 	}
 
 	@Override

@@ -619,12 +619,12 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 		}
 		else if(code==KeyEvent.VK_PLUS)
 		{	
-			zoomIn();
+			zoom(+1);
 			displayAll(); 
 		}
 		else if(code==KeyEvent.VK_MINUS)
 		{	
-			zoomOut();
+			zoom(-1);
 			displayAll(); 
 		}
 		else if(code==KeyEvent.VK_Q )
@@ -1550,20 +1550,14 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 	
 	}
 
-
-	public void zoomIn() {
+	@Override
+	public void zoom(int n) {
 		
-		centerPanel.zoomIn();
+		centerPanel.zoom(n);
 		
-		
-	}
-
-	public void zoomOut() {
-		
-		centerPanel.zoomOut();
-	
 		
 	}
+
 	
 	public void prepareUndo() {
 		jmt21.setEnabled(true);
