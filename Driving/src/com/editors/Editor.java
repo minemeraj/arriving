@@ -577,10 +577,6 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 	public void setPolygon(LineData polygon) {
 		this.polygon = polygon;
 	}
-	
-	public void zoom(int n){
-		
-	}
 
 
 	public boolean isForceReading() {

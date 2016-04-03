@@ -3107,7 +3107,6 @@ public class AutocarEditor extends Editor implements MouseListener,
 		draw();
 	}
 
-	@Override
 	public void zoom(int i) {
 
 		double alfa = 1.0;
