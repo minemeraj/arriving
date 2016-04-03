@@ -373,32 +373,13 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 		return  calcAssY(p.x,p.y,p.z);
 	}
 
-	public void right() {
-		
-		
-		x0=x0-5;
+	
+	@Override
+	public void translate(int i, int j) {
+	
+		x0=x0-i*5;
+		y0=y0-j*2;
 		displayAll();
-		
-	}
-
-	public void left() {
-		x0=x0+5;
-		displayAll();
-		
-	}
-
-	public void up(){
-		y0=y0+2;
-		displayAll();
-
-	}
-
-	public void down(){
-		
-		y0=y0-2;
-		
-		displayAll();
-
 	}
 	
 

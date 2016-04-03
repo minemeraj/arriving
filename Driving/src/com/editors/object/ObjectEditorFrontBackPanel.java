@@ -366,32 +366,11 @@ public class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 		return  calcAssY(p.x,p.y,p.z);
 	}
 	@Override
-	public void right() {
-		
-		
-		x0=x0-5;
+	public void translate(int i, int j) {
+	
+		x0=x0-i*5;
+		y0=y0-j*2;
 		displayAll();
-		
-	}
-	@Override
-	public void left() {
-		x0=x0+5;
-		displayAll();
-		
-	}
-	@Override
-	public void up(){
-		y0=y0+2;
-		displayAll();
-
-	}
-	@Override
-	public void down(){
-		
-		y0=y0-2;
-		
-		displayAll();
-
 	}
 
 

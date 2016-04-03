@@ -1208,12 +1208,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		if(!checkCoordinatesy.isSelected())coordinatesy.setText("");
 		if(!checkCoordinatesz.isSelected())coordinatesz.setText("");
 		if(!checkExtraData.isSelected())extraData.setText("");
-		/*if(!checkCoordinatesdx.isSelected())coordinatesdx.setText("");
-		if(!checkCoordinatesdy.isSelected())coordinatesdy.setText("");
-		if(!checkCoordinatesdz.isSelected())coordinatesdz.setText("");
-		if(!checkObjectIndex.isSelected())objectIndex.setText("");
-		if(!checkColor.isSelected())checkColor.setBackground(ZBuffer.fromHexToColor("FFFFFF"));
-		 */
+
 		
 
 	}
@@ -1223,16 +1218,17 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		int code =arg0.getKeyCode();
 
 		if(code==KeyEvent.VK_DOWN )
-			down();
+			translate(0,-1);
 		else if(code==KeyEvent.VK_UP  )
-			up();
+			translate(0,1);
 		else if(code==KeyEvent.VK_LEFT )
-		{	left(); 
+		{	
+			translate(-1,0);
 		   
 		}
 		else if(code==KeyEvent.VK_RIGHT  )
 		{	
-			right();   
+			translate(1,0);  
 		
 		}
 		else if(code==KeyEvent.VK_C  )
@@ -1557,8 +1553,10 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 	public void mouseWheelMoved(MouseWheelEvent arg0) {
 
 		int pix=arg0.getUnitsToScroll();
-		if(pix>0) up();
-		else down();
+		if(pix>0) 
+			translate(0,1);
+		else 
+			translate(0,-1);
 
 	}
 	
@@ -1579,28 +1577,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 	}	
 
 
-	public void right() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	public void left() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	public void up() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	public void down() {
-		// TODO Auto-generated method stub
-		
-	}
+	public abstract void translate(int i, int j);
 
 	public void itemStateChanged(ItemEvent arg0) {
 		
@@ -1663,11 +1640,6 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 	}
 
 	public void draw() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void translate(int i, int j) {
 		// TODO Auto-generated method stub
 		
 	}
