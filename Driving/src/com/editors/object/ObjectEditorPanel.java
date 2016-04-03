@@ -1294,12 +1294,12 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		}
 		else if(code==KeyEvent.VK_F1 )
 		{	
-			zoomIn();
+			zoom(+1);
 			displayAll(); 
 		}
 		else if(code==KeyEvent.VK_F2 )
 		{	
-			zoomOut();
+			zoom(-1);
 			displayAll(); 
 		}
 		else if(code==KeyEvent.VK_N )

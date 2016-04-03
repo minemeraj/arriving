@@ -302,18 +302,18 @@ public class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 
 
 	@Override
-	public void zoomOut(){
+	public void zoom(int n){
 		
-		deltay=deltax=deltax*2;
-	
-		moveCenter(2.0);
-	}
-	@Override
-	public void zoomIn(){
+		if(n>0){
+			deltay=deltax=deltax/2;
+			moveCenter(0.5);
+			
+		}
+		else{
+			deltay=deltax=deltax*2;
+			moveCenter(2.0);
+		}
 		
-		deltay=deltax=deltax/2;
-	
-		moveCenter(0.5);
 	}
 
     private void moveCenter(double d) {

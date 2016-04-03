@@ -809,12 +809,12 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		}
 		else if(code==KeyEvent.VK_PLUS)
 		{	
-			zoomIn();
+			zoom(+1);
 			displayAll(); 
 		}
 		else if(code==KeyEvent.VK_MINUS)
 		{	
-			zoomOut();
+			zoom(-1);
 			displayAll(); 
 		}
 		else if(code==KeyEvent.VK_C  )
@@ -866,12 +866,12 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		}
 		else if(code==KeyEvent.VK_F1 )
 		{	
-			zoomIn();
+			zoom(+1);
 			displayAll(); 
 		}
 		else if(code==KeyEvent.VK_F2 )
 		{	
-			zoomOut();
+			zoom(-1);
 			displayAll(); 
 		}
 		else if(code==KeyEvent.VK_R )
@@ -927,22 +927,22 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	}
 
 	@Override
-	public void zoomIn() {
+	public void zoom(int n) {
 		
-		leftPanel.zoomIn();
-		centerPanel.zoomIn();
-		rightPanel.zoomIn();
+		if(n>0){
 		
+			leftPanel.zoomIn();
+			centerPanel.zoomIn();
+			rightPanel.zoomIn();
+		
+		}else{
+			
+			leftPanel.zoomOut();
+			centerPanel.zoomOut();
+			rightPanel.zoomOut();
+		}
 	}
 
-	@Override
-	public void zoomOut() {
-		
-		leftPanel.zoomOut();
-		centerPanel.zoomOut();
-		rightPanel.zoomOut();
-		
-	}
 	@Override
 	public void translate(int i, int j) {
 		leftPanel.translate( i,  j);

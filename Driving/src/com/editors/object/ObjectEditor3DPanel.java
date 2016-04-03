@@ -618,20 +618,18 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 	}
 
 	@Override
-	public void zoomOut(){
+	public void zoom(int n){
 		
-		deltay=deltax=deltax*2;
-	
-		moveCenter(2.0);
-	}
-	@Override
-	public void zoomIn(){
+		if(n>0){
+			deltay=deltax=deltax/2;
+			moveCenter(0.5);
+			
+		}
+		else{
+			deltay=deltax=deltax*2;
+			moveCenter(2.0);
+		}
 		
-		//if(deltax==0.125)
-		//	return;
-		deltay=deltax=deltax/2;
-	
-		moveCenter(0.5);
 	}
 
     private void moveCenter(double d) {

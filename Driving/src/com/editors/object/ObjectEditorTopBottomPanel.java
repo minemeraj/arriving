@@ -304,22 +304,19 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 
 
 	
-	public void zoomOut(){
+	@Override
+	public void zoom(int n){
 		
-		deltay=deltax=deltax*2;
-	
-		moveCenter(2.0);
-	}
-	
-	public void zoomIn(){
+		if(n>0){
+			deltay=deltax=deltax/2;
+			moveCenter(0.5);
+			
+		}
+		else{
+			deltay=deltax=deltax*2;
+			moveCenter(2.0);
+		}
 		
-
-		deltay=deltax=deltax/2;
-	
-	    moveCenter(0.5);
-		
-	
-	
 	}
 
   

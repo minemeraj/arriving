@@ -29,9 +29,7 @@ public interface EditorPanel {
 
 	public void rotate(double df);
 	
-	public void zoomIn();
-	
-	public void zoomOut();
+	public void zoom(int n);
 	 
 	public void translate(int i, int j);
 	
