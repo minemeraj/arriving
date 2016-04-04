@@ -3,7 +3,6 @@ package com.main;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.geom.Area;
-import java.awt.geom.PathIterator;
 import java.awt.image.BufferedImage;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
@@ -429,149 +428,6 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 
 	}
 	
-	public void decomposeLine( 
-			double x1,	double y1,double z1,
-			double x2,double y2,double z2,int level,
-			ZBuffer zb,int rgbColor) { 
-
-		int xx1=(int)calculPerspX(x1,y1,z1);
-		int yy1=(int)calculPerspY(x1,y1,z1);
-
-		int xx2=(int)calculPerspX(x2,y2,z2);
-		int yy2=(int)calculPerspY(x2,y2,z2);
-
-
-
-		if(yy1!=yy2){
-
-			double i_yy=1.0/(yy2-yy1);
-
-			if(yy2>yy1)
-
-				for (int yy = yy1; yy <= yy2; yy++) { 
-					
-			
-
-					double l=(yy-yy1)*i_yy;
-
-					int xx=(int) (xx2*l+xx1*(1-l));
-					
-					if(xx<0 || yy<0 )
-	    				continue;
-	    			
-	    			if(xx>=WIDTH || yy>= HEIGHT)
-	    				break;
-
-					double yi=y2*l+y1*(1-l);
-
-					int tot=WIDTH*yy+xx;
-
-					if(!zb.isToUpdate(yi,0,tot,level,-1))
-						continue;			
-
-					zb.set(xx,yi,yy,yi,rgbColor,level,tot,ZBuffer.EMPTY_HASH_CODE);
-				}
-			else
-				for (int yy = yy2; yy <= yy1; yy++) {
-
-					double l=-(yy-yy2)*i_yy;
-
-					int xx=(int) (xx1*l+xx2*(1-l));
-					
-					if(xx<0 || yy<0 )
-	    				continue;
-	    			
-	    			if(xx>=WIDTH || yy>= HEIGHT)
-	    				break;
-
-	    			double yi=y2*l+y1*(1-l);
-
-					int tot=WIDTH*yy+xx;
-
-
-					if(!zb.isToUpdate(yi,0,tot,level,-1))
-						continue;			
-
-
-					zb.set(xx,yi,yy,yi,rgbColor,level,tot,ZBuffer.EMPTY_HASH_CODE);
-				}
-
-		}
-		else if(xx1!=xx2){
-			
-			double i_xx=1.0/(xx2-xx1);
-
-			if(xx2>xx1)
-				for (int xx = xx1; xx <= xx2; xx++) {
-
-					double l=(xx-xx1)*i_xx;
-					double yi=y2*l+y1*(1-l);
-
-					int yy=(int) (yy2*l+yy1*(1-l));
-					
-					if(xx<0 || yy<0 )
-	    				continue;
-	    			
-	    			if(xx>=WIDTH || yy>= HEIGHT)
-	    				break;
-
-					int tot=WIDTH*yy+xx;
- 
-			
-					if(!zb.isToUpdate(yi,0,tot,level,-1))
-						continue;
-
-
-					zb.set(xx,yi,yy,yi,rgbColor,level,tot,ZBuffer.EMPTY_HASH_CODE);
-				}
-			else
-				for (int xx = xx2; xx <= xx1; xx++) {
-
-					double l=-(xx-xx2)*i_xx;
-					double yi=y2*l+y1*(1-l);
- 
-					int yy=(int) (yy1*l+yy2*(1-l));
-					
-					if(xx<0 || yy<0 )
-	    				continue;
-	    			
-	    			if(xx>=WIDTH || yy>= HEIGHT)
-	    				break;
-
-					int tot=WIDTH*yy+xx;
-
-					if(!zb.isToUpdate(yi,0,tot,level,-1))
-						continue;
-
-
-					zb.set(xx,yi,yy,yi,rgbColor,level,tot,ZBuffer.EMPTY_HASH_CODE);
-				}
-
-		}
-		else {
-			
-			if(xx1<0 || yy1<0 )
-				return;
-			
-			if(xx1>=WIDTH || yy1>= HEIGHT)
-				return;
-
-			int tot=WIDTH*yy1+xx1;
-
-
-			if(!zb.isToUpdate(y1,0,tot,level,-1))
-				return;
-
-
-			zb.set(xx1,y1,yy1,y1,rgbColor,level,tot,ZBuffer.EMPTY_HASH_CODE);
-
-		}
-
-
-	}
-	
-
-
 	public void stencilBuffer(int tot, boolean isFacing) {
 		
 		
@@ -866,38 +722,7 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 	
 
 
-	public void decomposeObject2D(Texture image,double x,double y,double z,double dx,double dy,double dz,ZBuffer zbuffer){
-
-
-
-		double drx=dx/image.getWidth();
-		double drz=dz/image.getHeight();
-		double deltaz=z+dz;
-		int h=image.getHeight();
-		int w=image.getWidth();
-
-
-		for(int i=0;i<w;i++)
-			for(int j=0;j<h;j++){
-
-
-				int argb = image.getRGB(i, j);
-				if(greenRgb==argb)
-					continue;
-				int alpha=0xff & (argb>>24);
-
-
-				double xs=x+i*drx;
-				double ys=y;
-				double zs=deltaz-j*drz;
-
-				decomposePointIntoZBuffer(xs,ys,zs,0,argb,zbuffer);
-
-
-			}
-
-
-	}
+	
 	
 	/*public void drawObject2D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer){
 
@@ -1101,18 +926,6 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 	
 	}
 	
-	public void rotatePolygon(DrawObject dro,double xo,double yo,double cosTur,double sinTur){
-		
-		int size=dro.getPolygons().size();
-		for(int j=0;j<size;j++){
-			
-			Polygon3D polig=(Polygon3D) dro.getPolygons().get(j);
-			rotatePolygon( polig, xo, yo, cosTur, sinTur);
-		}
-		
-		
-	}
-
 	public void rotatePolygon(Polygon3D polig,double xo,double yo,double cosTur,double sinTur){
 
 
@@ -1130,34 +943,6 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 
 	}
 	
-	public void rotateMesh(CubicMesh mesh, double xo, double yo, double ct,
-			double st) {
-		
-		for(int i=0;i<mesh.points.length;i++){
-			
-			rotatePoint(mesh.points[i],xo,yo,ct,st);
-
-		}
-		int nsize=mesh.normals.size();
-		for(int i=0;i<nsize;i++){
-			
-			
-			Point3D normal = mesh.normals.get(i);
-			rotatePoint(normal,0,0,ct,st);
-
-		}
-		
-		rotatePoint(mesh.point000,xo,yo,ct,st);
-		rotatePoint(mesh.point100,xo,yo,ct,st);
-		rotatePoint(mesh.point010,xo,yo,ct,st);
-		rotatePoint(mesh.point001,xo,yo,ct,st);
-		rotatePoint(mesh.point110,xo,yo,ct,st);
-		rotatePoint(mesh.point011,xo,yo,ct,st);
-		rotatePoint(mesh.point101,xo,yo,ct,st);
-		rotatePoint(mesh.point111,xo,yo,ct,st);
-		
-	}
-	
 	public void rotatePoint(Point3D p,double xo,double yo,double cosTur,double sinTur){
 
 
@@ -1171,39 +956,6 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 
 	}
 
-	public Polygon3D interpolateAreaToPolygon3D(Area a, Polygon3D p3d){
-
-		ArrayList points=new ArrayList();
-
-		PathIterator pathIter = a.getPathIterator(null);
-
-		while(!pathIter.isDone()){
-
-			double[] coords = new double[6];
-
-			int type=pathIter.currentSegment(coords);
-
-			double px= coords[0];
-			double py= coords[1];	
-
-
-
-			if(type==PathIterator.SEG_MOVETO || type==PathIterator.SEG_LINETO)
-			{		//here i could use the 3d polygon to interpolate the z value ?
-
-
-				double pz=interpolate(px,py,p3d);
-				points.add(new Point4D(px,py,pz));
-
-			}
-			pathIter.next();
-		}
-
-		Polygon3D draw_p=new Polygon3D(points);
-		return draw_p;
-
-	}
-	
 	protected double interpolate(double px, double py, Polygon3D p3d) {
        
 
@@ -1269,13 +1021,6 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 		return -1;
 	}
 
-	public static int findBoxFace(Polygon3D pol) {
-
-		Point3D normal = Polygon3D.findNormal(pol);
-		return findBoxFace(normal);
-
-	}
-	
 	public static int getFace(LineData ld,ArrayList points){
 		
 		int n=ld.size();

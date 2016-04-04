@@ -31,30 +31,29 @@ import com.main.Renderer3D;
 
 public abstract class CustomEditor extends Editor implements  MouseWheelListener,KeyListener, ActionListener, MenuListener{
 	
-	public JMenuBar jmb;
-	public JMenu jm_file;
-	public JMenuItem jmt_load_file;
-	public JMenuItem jmt_save_file;
-	public JMenu jm_view;
-	public JMenuItem jmt_preview;
-	public JMenu jm_change;
-	public JMenuItem jmt_undo_last;
-	public JMenuItem jmt_save_mesh;
+	protected JMenuBar jmb;
+	protected JMenu jm_file;
+	protected JMenuItem jmt_load_file;
+	protected JMenuItem jmt_save_file;
+	protected JMenu jm_view;
+	protected JMenuItem jmt_preview;
+	protected JMenu jm_change;
+	protected JMenuItem jmt_undo_last;
+	protected JMenuItem jmt_save_mesh;
 	
-	public boolean redrawAfterMenu=false;
+	protected boolean redrawAfterMenu=false;
 	
-	public JMenu jm_filter;
-	public JCheckBoxMenuItem[] jm_filters;
+	protected JMenu jm_filter;
+	protected JCheckBoxMenuItem[] jm_filters;
 	
-	public JButton generate;	
-	public JFileChooser fc = new JFileChooser();
-	public File currentDirectory=new File("lib");
+	protected JButton generate;	
+	protected File currentDirectory=new File("lib");
 	
-	public CustomJPanel center=null;
-	private JMenuItem jmt_save_base_texture;
+	protected CustomJPanel center=null;
+	protected JMenuItem jmt_save_base_texture;
 	
-	public DoubleTextField scaleValue=null;
-	public double scale=1.0;
+	protected DoubleTextField scaleValue=null;
+	protected double scale=1.0;
 
 	public abstract void buildRightPanel();
 	

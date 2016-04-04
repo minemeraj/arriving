@@ -8,12 +8,10 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -25,12 +23,10 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
-import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -66,38 +62,16 @@ public class ObjectEditor extends Editor implements ActionListener{
 
 	public int RIGHT_BORDER=330;
 	public int BOTTOM_BORDER=100;
-	public int NX=4;
-	public int NY=0;
-
-	public int MOVX=0;
-	public int MOVY=0;
 	
-	public static int y0=250;
-	public static int x0=250;
-
-	public int dx=2;
-	public int dy=2;
-
-	public double deltay=0.5;
-	public double deltax=0.5;
-
-	
-
-
 	public JMenuBar jmb;
 	public JMenu jm_load;
-	public JMenuItem jmt11;
 
 	public AbstractButton jmt_load_mesh;
 	public JMenuItem jmt_save_mesh;
-	public JMenuItem jmt22;
 	public JMenuItem jmt_save_base_texture;
 	public JMenu jm_save;
 
 	public JMenu jm_change;
-	public JList lineList;
-	public JButton selectAll;
-
 	public JMenuItem jmt_undo_last;
 	public JMenuItem jmt_transform;
 
@@ -222,28 +196,11 @@ public class ObjectEditor extends Editor implements ActionListener{
 		
 	}
 
-	public Area clipPolygonToArea2D(Polygon p_in,Area area_out){
-
-
-		Area area_in = new Area(p_in);
-
-		Area new_area_out = (Area) area_out.clone();
-		new_area_out.intersect(area_in);
-
-		return new_area_out;
-
-	}
-
-
 	private void buildMenuBar() {
 		jmb=new JMenuBar();
 		jm_load=new JMenu("Load");
 		jm_load.addMenuListener(this);
 		jmb.add(jm_load);
-
-		/*jmt11 = new JMenuItem("Load road");
-		jmt11.addActionListener(this);
-		jm.add(jmt11);*/
 
 		jmt_load_mesh = new JMenuItem("Load Mesh");
 		jmt_load_mesh.addActionListener(this);
@@ -954,23 +911,6 @@ public class ObjectEditor extends Editor implements ActionListener{
 		
 	}
 
-	public Polygon3D getBodyPolygon(LineData ld) {
-		
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];
-		
-		Polygon3D pol=new Polygon3D(ld.size());
-		
-		for(int i=0;i<ld.size();i++){
-			int index=ld.getIndex(i);
-			Point3D p=mesh.points[index];		
-			pol.xpoints[i]=(int) p.x;
-			pol.ypoints[i]=(int) p.y;
-			pol.zpoints[i]=(int) p.z;
-		} 
-		
-		return pol;
-		
-	}
 	
 	public static double[][] getRotationMatrix(Point3D versor,double teta){
 
@@ -1042,14 +982,6 @@ public class ObjectEditor extends Editor implements ActionListener{
 
 	}
 
-	public static void rotate(ArrayList vector,double[][] matrix, double x0,double y0, double z0) {
-
-		for(int i=0;i<vector.size();i++){
-
-			rotate( (Point3D) vector.get(i),matrix,x0,y0,z0);
-		}
-
-	}
 	@Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
     	

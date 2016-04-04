@@ -549,9 +549,6 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 	
 	public int calculateShadowColor(double cosin, int argbs) {
 
-		if(false) 
-			return argbs;
-		else{
 
 			double factor=(lightIntensity*(0.75+0.25*cosin));
 
@@ -565,7 +562,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 			bs=(int) (factor*bs);
 
 			return alphas <<24 | rs <<16 | gs <<8 | bs;
-		}
+	
 	}
 	
 	private void rotateFI(int i) {

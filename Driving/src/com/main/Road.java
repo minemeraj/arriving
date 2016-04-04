@@ -14,7 +14,6 @@ import java.io.FileReader;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
@@ -46,22 +45,17 @@ public class Road extends Shader{
 
 
 	int y_edge=5+SCREEN_DISTANCE;
-	int NX=2;
-	int NY=80;
 	
-	int NXVISIBLE=NX;
+	int NXVISIBLE=2;
 	int NYVISIBLE=40;//20 orig
 
 	int dx=0;
 	int dy=3000/NYVISIBLE;//600 orig
 
-	int ROAD_LENGHT=600;
 	public static final int ROAD_THICKNESS=22;
 
 	int CAR_WIDTH=100;
 	int CAR_LENGTH=100;
-	
-	public static final double TURNING_RADIUS=700;
 	
 	protected int FORWARD=1;
 	
@@ -78,25 +72,20 @@ public class Road extends Shader{
 	DrawObject[] drawObjects=null;
 	DrawObject[]  oldDrawObjects=null;
 
-	protected boolean start=true;
 
 	protected boolean steer=false;
 	public static final double SPACE_SCALE_FACTOR=60.0;
 	public static final double SPEED_SCALE=1.0/1.13;
-
-	
-	int whiteRGB=Color.WHITE.getRGB();
 	
 	int SELECTED_CAR=0;
 
 	private Texture carTexture=null;
-	private Date time;
 	private Area totalVisibleField=null;
 	
 	int start_car_x=WIDTH/2-XFOCUS;
 	int start_car_y=y_edge;
 	
-	protected static Autocar[] autocars=null;
+	protected Autocar[] autocars=null;
     public static final double pi_2=Math.PI/2.0;
     public static final double i_2pi=1.0/(Math.PI*2.0);
     
@@ -554,7 +543,7 @@ public class Road extends Shader{
 	    
 		return res;
 	}
-
+	
 	public void drawRoad(BufferedImage buf){
 
 
@@ -838,7 +827,7 @@ public class Road extends Shader{
 		
 		return pols;
 	}
-
+	
 	private Polygon3D buildLightTransformedPolygon3D(LineData ld,int index) {
 		
 
@@ -1169,28 +1158,6 @@ public class Road extends Shader{
 		
 	}
 	
-	public String decomposeLineData(LineData ld) {
-
-		String str="";
-		
-		str+="T"+ld.texture_index;
-		str+=" C"+ld.getHexColor();
-		str+=" W"+(ld.isFilledWithWater()?1:0);
-		
-		int size=ld.size();
-
-		for(int j=0;j<size;j++){
-			
-			
-			
-			str+=" ";
-			
-			str+=Integer.toString(ld.getIndex(j));
-
-		}
-
-		return str;
-	}
 	
 	@Override
 	
@@ -1276,7 +1243,7 @@ public class Road extends Shader{
 			carData.carMesh=CubicMesh.buildCubicMesh(pm);
 			
 			
-		
+			br.close();
 			
 		
 			
@@ -1289,8 +1256,7 @@ public class Road extends Shader{
 		return carData;
 		
 	}
-	
-	
+
 	
 	/*public void loadObjectsFromFile(File file){
 		
@@ -1425,35 +1391,6 @@ public class Road extends Shader{
 		
 		return dro;
 	}
-
-
-	public static String decomposeColor(Color tcc) {
-		return addZeros(tcc.getRed())+","+addZeros(tcc.getGreen())+","+addZeros(tcc.getBlue());
-
-	}
-
-	public static String addZeros(int numb){
-		String newStr=Integer.toString(numb);
-		newStr="00"+newStr;
-		newStr=newStr.substring(newStr.length()-3,newStr.length());
-
-		return newStr;
-
-	}
-
-	public static Color buildColor(String colorString) {
-
-		if(colorString==null) 
-			return null;
-		Color tcc=null;
-		String[] colorComponents = colorString.split(",");
-		tcc=new Color(Integer.parseInt(colorComponents[0]),Integer.parseInt(colorComponents[1]),Integer.parseInt(colorComponents[2]));
-		return tcc;
-
-	}
-
-
-
 
 	public static void main(String[] args) {
 		

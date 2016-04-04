@@ -39,17 +39,15 @@ public class CarFrame extends Road implements KeyListener {
 	
 	JPanel center=null;
 	private Graphics2D graphics2D;
-	public static final int HEIGHT=500;
-	public static final int WIDTH=800;
+	private static final int HEIGHT=500;
+	private static final int WIDTH=800;
 
 	
 	int car_num=0;
 	int back_num=0;
 	int obj_num=0;
 	
-	public static double CAR_SPEED=0;
-
-	
+	private double CAR_SPEED=0;
 	
 	public static final int BUTTOMBORDER=100;
 	public static final int UPBORDER=40;
@@ -57,7 +55,6 @@ public class CarFrame extends Road implements KeyListener {
 	public static final int RIGHTBORDER=0;
 	
 	public static final Color BACKGROUND_COLOR=Color.GREEN;
-	//public static double CURVATURE_RADIUS = WIDTH/2;
 	
 	int CAR_X=150;
 	int CAR_Y=150;
@@ -408,7 +405,7 @@ public class CarFrame extends Road implements KeyListener {
 			return ratio;
 	}
 	
-	private double getcarSpeed(){
+	public double getcarSpeed(){
 		
 		return CAR_SPEED;
 	}

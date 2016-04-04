@@ -87,16 +87,12 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 	public JButton buildPolygon;
 	
 
-	public boolean ISDEBUG=false;
 	public JPanel bottom;
 	public JLabel screenPoint;
 	public JCheckBox checkCoordinatesx;
 	public JCheckBox checkCoordinatesz;
 	public JCheckBox checkCoordinatesy;
 	public JCheckBox checkExtraData;
-
-
-	public boolean isUseTextures=true;
 
 
 	public JList lineList;
@@ -124,8 +120,6 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 	public JButton mergeSelectedPoints;
 	public JButton polygonDetail;
 	
-	public File currentDirectory=null;
-
 	public DecimalFormat dfc=null;
 	
 	public Rectangle currentRect=null;
@@ -980,44 +974,6 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		
 		pointList.ensureIndexIsVisible(pointList.getModel().getSize()-1); 
 
-	}
-
-	public void getTemplate() {
-		
-		ObjectEditorTemplatePanel oetp=new ObjectEditorTemplatePanel();
-		
-		PolygonMesh pm=oetp.getTemplate();
-		
-		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
-		
-		if(pm!=null){
-			ArrayList aPoints=new ArrayList();
-			for (int i = 0; i < pm.points.length; i++) {
-				aPoints.add(pm.points[i]);
-			}
-			mesh.setPoints(aPoints);
-			mesh.polygonData=pm.polygonData;
-			displayAll();
-		}
-		
-	}
-
-	public Polygon3D getBodyPolygon(LineData ld) {
-		
-		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
-		
-		Polygon3D pol=new Polygon3D(ld.size());
-		
-		for(int i=0;i<ld.size();i++){
-			int index=ld.getIndex(i);
-			Point3D p=mesh.points[index];		
-			pol.xpoints[i]=(int) p.x;
-			pol.ypoints[i]=(int) p.y;
-			pol.zpoints[i]=(int) p.z;
-		} 
-		
-		return pol;
-		
 	}
 
 	public void delete() {

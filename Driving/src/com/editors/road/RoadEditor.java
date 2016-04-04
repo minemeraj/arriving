@@ -3284,8 +3284,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];	
 
-		if("".equals(coordinatesx[ACTIVE_PANEL].getText()) |
-				"".equals(coordinatesy[ACTIVE_PANEL].getText()) |
+		if("".equals(coordinatesx[ACTIVE_PANEL].getText()) ||
+				"".equals(coordinatesy[ACTIVE_PANEL].getText()) ||
 				"".equals(coordinatesz[ACTIVE_PANEL].getText())
 		)
 			return;

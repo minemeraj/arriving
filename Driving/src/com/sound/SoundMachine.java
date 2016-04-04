@@ -88,7 +88,7 @@ public class SoundMachine extends Thread{
 
 
 		while(play){
-			double inverse_time=CarFrame.CAR_SPEED;
+			double inverse_time=carFrame.getcarSpeed();
 
 			if(inverse_time!=0){
 

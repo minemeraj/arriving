@@ -8,7 +8,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -33,20 +32,9 @@ import com.main.Road;
 
 public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRenderer3D{
 
-
-
-
-	int NX=4;
-	int NY=0;
-
-	int MOVX=0;
-	int MOVY=0;
-	
 	static int y0=250;
 	static int x0=350;
 
-	int dx=2;
-	int dy=2;
 
 	double deltay=0.5;
 	double deltax=0.5;
@@ -326,28 +314,6 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 				}
 		
-	}
-
-	public ArrayList rotatePoints(Point3D[] points) {
-		
-		ArrayList clonePoints=new ArrayList();
-		
-		for (int i = 0; i < points.length; i++) {
-			
-			Point3D p = points[i];
-			
-		
-
-			
-			Point3D pp=rotatePoint(p);
-			clonePoints.add(pp);
-
-			
-		}
-
-		
-		return clonePoints;
-	
 	}
 
 	private Point3D rotatePoint(Point3D p) {
@@ -766,9 +732,6 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 	
 	public int calculateShadowColor(double cosin, int argbs) {
 
-		if(false) 
-			return argbs;
-		else{
 
 			double factor=(lightIntensity*(0.75+0.25*cosin));
 
@@ -782,7 +745,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 			bs=(int) (factor*bs);
 
 			return alphas <<24 | rs <<16 | gs <<8 | bs;
-		}
+
 	}
 
 	@Override

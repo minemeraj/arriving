@@ -17,7 +17,6 @@ import com.editors.road.RoadEditor;
 
 public abstract class RoadEditorPanel extends JPanel {
 	
-	public static final int blackRgb= Color.BLACK.getRGB();
 	public static final int greenRgb= Color.GREEN.getRGB();
 	
 	public RoadEditor editor;
