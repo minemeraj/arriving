@@ -25,12 +25,6 @@ public class Autocar {
 		this.car_type_index = car_type_index;
 	}
 	
-	public Autocar(int car_width, int car_length) {
-		super();
-		this.car_width = car_width;
-		this.car_length = car_length;
-	}
-	
 	Point3D center=null;
 
 	double fi=0; 
@@ -63,26 +57,7 @@ public class Autocar {
 	int autocar_index=-1;
 
 
-	public void init(double x,double y,double u,double nu,double fi,double steering,double linePosition,Point3D[] car_road){
-		
-	
-		center=new Point3D(x,y,0);
-		
-		this.u=u;
-		this.nu=nu;
-		this.fi=fi;
-		this.steering=steering;
-		this.linePosition=linePosition;
-		this.car_road=car_road;
-		
-		this.carData=Road.loadCarFromFile(new File("lib/cardefault3D_"+car_type_index));
-		
-		this.car_width=this.carData.getDeltaX2()-this.carData.getDeltaX();
-		this.car_length=this.carData.getDeltaY2()-this.carData.getDeltaY();
-		this.car_height=this.carData.getDeltaY();
-}
-	
-	public void init(double x,double y,double u,double nu,double fi,double steering,double linePosition){
+	private void init(double x,double y,double u,double nu,double fi,double steering,double linePosition){
 		
 		
 		center=new Point3D(x,y,0);
@@ -214,7 +189,7 @@ public class Autocar {
 		return poly;
 	}
 	
-	public static void rotate(Polygon polyCar,double fi,int x0,int y0) {
+	private static void rotate(Polygon polyCar,double fi,int x0,int y0) {
 		
 
 		double sinfi=Math.sin(fi);

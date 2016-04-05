@@ -9,11 +9,11 @@ public class TextureBlock {
 	public Point3D[][] lateralFaces=null; 
 	
 	public int N_FACES=0;
-	public double texture_side_dy;
-	public double texture_side_dx;
-	public int numx;
-	public int numy;
-	public int numz;
+	private double texture_side_dy;
+	private double texture_side_dx;
+	int numx;
+	int numy;
+	int numz;
 	
 	boolean isDrawUpperBase=true;
 	boolean isDrawLowerBase=true;
@@ -166,7 +166,7 @@ public class TextureBlock {
 		
 	}
 	
-	public int lf(int i,int j,int k,int n,int type){
+	private int lf(int i,int j,int k,int n,int type){
 		
 		int nx=0;
 		int ny=0;

@@ -128,8 +128,8 @@ public class HelpPanel extends JDialog implements ActionListener{
 		"</body></html>";
 	
 
-	JButton exit=null;
-	JPanel bottom=null;
+	private JButton exit=null;
+	private JPanel bottom=null;
 	private JEditorPane center;
 	
 	public HelpPanel(int w, int h,int locX,int locY,String text,JFrame owner){
@@ -168,7 +168,7 @@ public class HelpPanel extends JDialog implements ActionListener{
 	}
 
 	
-	public void exit(){
+	private void exit(){
 		
 		dispose();
 		

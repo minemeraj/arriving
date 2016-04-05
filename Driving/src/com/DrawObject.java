@@ -10,21 +10,21 @@ public class DrawObject {
 	
 	public static final boolean IS_3D=true;
 	
-	double x;
-	double y;
-	double z;
+	private double x;
+	private double y;
+	private double z;
 	
-	double dx;
-	double dy;
-	double dz;
+	private double dx;
+	private double dy;
+	private double dz;
 	
-	int index=0;
+	private int index=0;
 	
-	double rotation_angle=0;
+	private double rotation_angle=0;
 	
 
-	String hexColor=null;
-	boolean selected=false;
+	private String hexColor=null;
+	private boolean selected=false;
 	
 	private ArrayList polygons=new ArrayList();
 	private PolygonMesh mesh=new PolygonMesh();

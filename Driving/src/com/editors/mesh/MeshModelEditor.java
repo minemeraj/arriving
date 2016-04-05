@@ -24,11 +24,6 @@ import com.editors.models.MeshModel;
 
 public class MeshModelEditor extends JFrame implements ActionListener, MenuListener{
 	
-	
-	Color backgroundColor=Color.green;
-	
-	int IMG_WIDTH=100;
-	int IMG_HEIGHT=100;
 
 	public JPanel center;
 

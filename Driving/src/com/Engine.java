@@ -9,7 +9,7 @@ import com.main.CarFrame;
 
 public class Engine extends Thread{
 	
-	CarFrame carFrame;
+	private CarFrame carFrame;
 	
 	public static double dtt=0.034;
 	

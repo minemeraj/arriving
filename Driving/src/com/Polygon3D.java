@@ -1,8 +1,6 @@
 package com;
-import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.geom.Area;
-import java.awt.geom.Line2D;
 import java.awt.geom.PathIterator;
 import java.util.ArrayList;
 
@@ -46,11 +44,6 @@ public class Polygon3D  extends Polygon{
 		
 		this.xtpoints = new int[npoints];
 		this.ytpoints = new int[npoints];
-	}
-
-	public Polygon3D(int npoints, int[] xpoints, int[] ypoints) {
-		super(xpoints,ypoints,npoints);
-
 	}
 
 	public Polygon3D(int npoints) {
@@ -321,92 +314,6 @@ public class Polygon3D  extends Polygon{
 
 	}
 
-	/**
-	 * 
-	 * USING SUTHERLAND-HODGMAN ALGORITHM FOR CLIPPING
-	 * 
-	 * @param p_in
-	 * @param p_out
-	 * @return
-	 */
-	public static Polygon3D clipPolygon3D(Polygon3D p_in,Polygon3D  p_out){
-
-
-
-		//build all vertices adding border points
-
-
-		for(int i=0;i<p_out.npoints;i++){
-
-			Polygon3D p_new=new Polygon3D();
-
-			int x1=p_out.xpoints[i];
-			int y1=p_out.ypoints[i];
-			int z1=p_out.zpoints[i];
-
-
-
-			int x2=0;
-			int y2=0;
-			int z2=0;
-
-			if(i==p_out.npoints-1) {
-
-				x2=p_out.xpoints[0];
-				y2=p_out.ypoints[0];
-				z2=p_out.zpoints[0];
-
-			}
-			else{
-
-				x2=p_out.xpoints[i+1];
-				y2=p_out.ypoints[i+1];
-				z2=p_out.zpoints[i+1];
-
-			}
-			System.out.println("clipping side : "+i);
-
-
-			Point ps=new Point(p_in.xpoints[0],p_in.ypoints[0]);
-
-			for(int j=0;j<p_in.npoints;j++){
-
-				//System.out.println("clipping vertex:"+j);
-
-				Point po=new Point(p_in.xpoints[j],p_in.ypoints[j]);
-
-				if(isInsideClipPlane(po.x-x1,po.y-y1,x2-x1,y2-y1)){
-					if(!isInsideClipPlane(ps.x-x1,ps.y-y1,x2-x1,y2-y1)){
-
-						Point pm=insersect(ps,po,x2,x1,y2,y1);
-						if(pm!=null) p_new.addPoint(pm.x,pm.y);
-
-					}
-
-					p_new.addPoint(po.x,po.y);
-				}
-				else if(isInsideClipPlane(ps.x-x1,ps.y-y1,x2-x1,y2-y1)){
-
-					Point pm=insersect(po,ps,x2,x1,y2,y1);
-					if(pm!=null) p_new.addPoint(pm.x,pm.y);
-				}
-
-				ps.x=po.x;
-				ps.y=po.y;
-			}
-
-			p_in=new Polygon3D();
-			for(int j=0;j<p_new.npoints;j++){
-				p_in.addPoint(p_new.xpoints[j],p_new.ypoints[j]);
-				//System.out.println(p_new.xpoints[j]+" "+p_new.ypoints[j]);
-			}
-
-		}	
-
-		return p_in;
-
-	}
-
 	public static Polygon3D clipPolygon3DInY(Polygon3D  p_old,int y){
 
 
@@ -472,130 +379,6 @@ public class Polygon3D  extends Polygon{
 		return p_new;
 	}
 	
-	public static Polygon3D clipPolygon3DInX(Polygon3D  p_old,int x){
-
-
-		
-		ArrayList newPoints=new ArrayList();
-
-
-		for(int i=0;i<p_old.npoints;i++){
-
-
-
-			int x1=p_old.xpoints[i];
-			int y1=p_old.ypoints[i];
-			int z1=p_old.zpoints[i];
-
-
-			int x2=p_old.xpoints[(i+1)%p_old.npoints];
-			int y2=p_old.ypoints[(i+1)%p_old.npoints];
-			int z2=p_old.zpoints[(i+1)%p_old.npoints];
-			
-			
-			if((x1-x)>=0 && (x2-x)>=0){
-				
-				newPoints.add(new Point3D(x1,y1,z1));
-							
-			}
-			else if(((x1-x)<0 && (x2-x)>=0) || ((x1-x)>=0 && (x2-x)<0)){
-				
-				if((x1-x)>=0)
-				   newPoints.add(new Point3D(x1,y1,z1));
-				
-				if(x1!=x2){
-					
-					double l=(x-x1)*1.0/(x2-x1);
-					double xn=x;
-					double zn=z1+l*(z2-z1);
-					double yn=y1+l*(y2-y1);
-					
-					newPoints.add(new Point3D(xn,yn,zn));
-					
-				}
-			}
-			
-
-		}
-		
-		Polygon3D p_new=new Polygon3D(newPoints.size());
-		
-		int new_size=newPoints.size();
-		
-		for(int j=0;j<new_size;j++){
-						
-			Point3D p=(Point3D) newPoints.get(j);
-			
-			p_new.xpoints[j]=(int) p.x;
-			p_new.ypoints[j]=(int) p.y;
-			p_new.zpoints[j]=(int) p.z;
-		}
-		
-		
-		return p_new;
-	}
-
-	private static Point insersect(Point p1, Point p2, int x2, int x1, int y2, int y1) {
-
-		Line2D.Double line1=new Line2D.Double(x2,y2,x1,y1);
-		Line2D.Double line2=new Line2D.Double(p2.x,p2.y,p1.x,p1.y);
-
-		Point insersection=new Point();
-
-		if(x2!=x1 && p2.x!=p1.x){
-
-			double a1=(y2-y1)/(x2-x1);
-			double a2=(p2.y-p1.y)/(p2.x-p1.x);
-			double b1=(-x1*y2+y1*x2)/(x2-x1);
-			double b2=(-p2.y*p1.x+p1.y*p2.x)/(p2.x-p1.x);
-
-
-			insersection.x=(int)((-b2+b1)/(a2-a1));
-			insersection.y=(int)((a2*b1-b2*a1)/(a2-a1));
-
-		}
-		else if(x2==x1 && p2.x!=p1.x){
-
-			double a2=(p2.y-p1.y)/(p2.x-p1.x);
-			double b2=(-p2.y*p1.x+p1.y*p2.x)/(p2.x-p1.x);
-
-			insersection.x=x2;
-			insersection.y=(int) (a2*x2+b2);
-		}
-		else if(x2!=x1 && p2.x==p1.x){
-
-			double a1=(y2-y1)/(x2-x1);
-			double b1=(-x1*y2+y1*x2)/(x2-x1);
-
-			insersection.x=p2.x;
-			insersection.y=(int) (a1*p2.x+b1);
-		}
-
-
-		return insersection;
-	}
-
-	private static boolean isInsideClipPlane(int pox,int poy, int ax, int ay) {
-
-
-		return (ax*poy-ay*pox)>=0;
-	}
-
-
-	public static boolean isFacing(Polygon3D pol,Point3D observer){
-
-		Point3D p0=new Point3D(pol.xpoints[0],pol.ypoints[0],pol.zpoints[0]);
-
-	
-		Point3D vectorObs=observer.substract(p0);
-
-		Point3D normal=findNormal(pol);
-
-		double cosin=Point3D.calculateCosin(normal,vectorObs);
-
-		return cosin>=0;
-	}
-	
 	public static Point3D findNormal(Polygon3D pol){
 
 		Point3D p0=new Point3D(pol.xpoints[0],pol.ypoints[0],pol.zpoints[0]);
@@ -651,13 +434,6 @@ public class Polygon3D  extends Polygon{
 		double a;
 		double b;
 		double c;
-
-		public AnalyticLine(double a, double b, double c) {
-			super();
-			this.a = a;
-			this.b = b;
-			this.c = c;
-		}
 
 		public AnalyticLine(double x1, double y1, double x0,double y0) {
 			super();
@@ -741,32 +517,6 @@ public class Polygon3D  extends Polygon{
 
 		return translatedPolygon;
 
-	}
-	
-	public void translate(double dx,double dy,double dz){
-
-
-		for(int i=0;i<this.npoints;i++){
-
-			this.xpoints[i]=(int) (this.xpoints[i]+dx);
-			this.ypoints[i]=(int) (this.ypoints[i]+dy);
-			this.zpoints[i]=(int) (this.zpoints[i]+dz);
-
-		}
-
-
-	}
-	
-	public void invertY(int y0) {		
-	
-
-		for(int i=0;i<this.npoints;i++){
-
-			this.ypoints[i]=y0-this.ypoints[i];
-		
-		}
-
-		
 	}
 	
 	public static Polygon3D buildPrismIFace(Polygon3D upperBase,Polygon3D lowerBase,int i){

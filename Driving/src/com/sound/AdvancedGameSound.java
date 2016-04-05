@@ -15,14 +15,14 @@ import javax.sound.sampled.SourceDataLine;
 
 public class AdvancedGameSound extends Thread{
 
-	SourceDataLine sound=null;
-	SoundFilter sf=null;
-	boolean play=true;
-	boolean run=false;
-	boolean once=false;
-	int LOOP=0;
-	int NEVER_ENDING_LOOP=-1;
-	double INVERSE_TIME=0.1;
+	private SourceDataLine sound=null;
+	private SoundFilter sf=null;
+	private boolean play=true;
+	private boolean run=false;
+	private boolean once=false;
+	private int LOOP=0;
+	private int NEVER_ENDING_LOOP=-1;
+	private double INVERSE_TIME=0.1;
 	private AudioInputStream audioStream;
 	private byte[] audioData=null;
 	private byte[] audioDataToPlay;
@@ -49,14 +49,14 @@ public class AdvancedGameSound extends Thread{
 		}
       	return data;
 	}
-	
+	@Deprecated
 	public AdvancedGameSound(File file,int loop) throws Exception {
 
 
 		this(file,loop,false);
 
 	}
-
+	@Deprecated
 	public AdvancedGameSound(File file,boolean once) throws Exception {
 
 
@@ -145,7 +145,7 @@ public class AdvancedGameSound extends Thread{
 		 sound.close();
 
 	 }
-
+	 @Deprecated
 	 public void stopPlay(){
 
 		 play=false;
@@ -154,7 +154,7 @@ public class AdvancedGameSound extends Thread{
 		 }
 
 	 }
-
+	 @Deprecated
 	 public void startPlay() {
 
 		 play=true;

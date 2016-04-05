@@ -1,7 +1,5 @@
 package com;
 
-import java.util.ArrayList;
-
 public class SquareMesh extends PolygonMesh {
 	
 
@@ -13,20 +11,6 @@ public class SquareMesh extends PolygonMesh {
 	double x0=0;
 	double y0=0;
 	
-	
-	public SquareMesh(ArrayList points, ArrayList lines) {
-		super(points, lines);
-	}
-	
-	public SquareMesh(ArrayList points, ArrayList lines,int numx, int numy, int dx,int dy,double x0, double y0) {
-		super(points, lines);
-		this.numx = numx;
-		this.numy = numy;
-		this.dx = dx;
-		this.dy = dy;
-		this.x0 = x0;
-		this.y0 = y0;
-	}
 	
 	public SquareMesh(int numx, int numy, int dx,int dy, double x0, double y0) {
 		super();

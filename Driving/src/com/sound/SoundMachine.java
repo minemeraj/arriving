@@ -16,7 +16,7 @@ import javax.sound.midi.Synthesizer;
 import com.main.CarFrame;
 
 
-
+@Deprecated
 public class SoundMachine extends Thread{
 	
 	CarFrame carFrame;

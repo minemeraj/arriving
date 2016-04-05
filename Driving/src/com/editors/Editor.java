@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
@@ -24,7 +23,6 @@ import com.SPLine;
 import com.SPNode;
 import com.SquareMesh;
 import com.main.DrivingFrame;
-import com.main.Road;
 
 public abstract class Editor extends DrivingFrame implements MenuListener{
 	
@@ -125,7 +123,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 	}
 
 
-	public static Polygon3D levelGetPolygon(LineData ld, Point3D[] points) {
+	private static Polygon3D levelGetPolygon(LineData ld, Point3D[] points) {
 		
 	
 
@@ -157,7 +155,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 	}
 	
 	
-	public static double interpolate(double px, double py, Polygon3D p3d) {
+	private static double interpolate(double px, double py, Polygon3D p3d) {
 	       
 		Polygon3D p1=Polygon3D.extractSubPolygon3D(p3d,3,0);
 

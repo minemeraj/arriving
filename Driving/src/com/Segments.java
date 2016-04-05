@@ -2,13 +2,13 @@ package com;
 
 public class Segments {
 	
-	public double xc;
-	public double yc;
-	public double zc;
+	private double xc;
+	private double yc;
+	private double zc;
 	
-	public double dx;
-	public double dy;
-	public double dz;
+	private double dx;
+	private double dy;
+	private double dz;
 	
 	public Segments(double xc,double dx, double yc,double dy, double zc,  
 			double dz) {

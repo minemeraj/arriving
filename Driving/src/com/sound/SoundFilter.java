@@ -3,13 +3,13 @@ package com.sound;
 
 public class SoundFilter {
 	
-	int frameSize=0;
+	private int frameSize=0;
 	
 	public SoundFilter(int frameSize) {
 		this.frameSize=frameSize;
 	}
 
-	public byte[] filter(byte[] data,double modulation){
+	byte[] filter(byte[] data,double modulation){
 		
 		int length=data.length;
 		int dim=(int) (length*modulation);
@@ -27,13 +27,13 @@ public class SoundFilter {
 		return newData;
 	}
 	//16 bit sample
-	public static short getSample(byte[] buffer, int position) {
+	private static short getSample(byte[] buffer, int position) {
 		return (short)(
 				((buffer[position+1] & 0xff) << 8) |
 				(buffer[position] & 0xff));
 	}
 	//16 bit sample
-	public static void setSample(byte[] buffer, int position,
+	private static void setSample(byte[] buffer, int position,
 			short sample)
 	{
 		buffer[position] = (byte)(sample & 0xff);

@@ -2,8 +2,8 @@ package com.editors;
 
 public class ValuePair {
 
-	String id;
-	String value;
+	private String id;
+	private String value;
 
 	public String getId() {
 		return id;

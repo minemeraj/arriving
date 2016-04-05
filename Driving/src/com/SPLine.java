@@ -9,11 +9,11 @@ public class SPLine {
 	
 	public SPNode root=null;
 	public ArrayList ribs=null;
-	ArrayList vTexturePoints=null;
+	private ArrayList vTexturePoints=null;
 	
-	ArrayList meshes3D=new ArrayList();
+	private ArrayList meshes3D=new ArrayList();
 	
-	int level=Road.ROAD_LEVEL;
+	private int level=Road.ROAD_LEVEL;
 
 	
 	public SPLine(ArrayList vTexturePoints){
@@ -44,7 +44,7 @@ public class SPLine {
 		calculateRibs(root);
 	}
 
-	public void calculateRibs(SPNode root) {
+	private void calculateRibs(SPNode root) {
 	
 		       
 		ArrayList nodeRibs=new ArrayList();
@@ -294,11 +294,6 @@ public class SPLine {
 		return vTexturePoints;
 	}
 
-	public void setvTexturePoints(ArrayList aTexturePoints) {
-		this.vTexturePoints = aTexturePoints;
-	}
-	
-	
 	public SPLine clone() throws CloneNotSupportedException {
 		
 		SPLine line=new SPLine(vTexturePoints);

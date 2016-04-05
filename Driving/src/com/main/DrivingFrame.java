@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Stack;
 import java.util.StringTokenizer;
 
 import javax.swing.JFileChooser;
@@ -39,14 +38,9 @@ public abstract class DrivingFrame extends JFrame{
 
 
 			String str=null;
-			int rows=0;
 			
 			boolean read=forceReading;
-
-			double x0=0;
-			double y0=0;
-			
-			
+		
 			ArrayList aTexturePoints=new ArrayList();
 			
 			while((str=br.readLine())!=null){
@@ -99,7 +93,7 @@ public abstract class DrivingFrame extends JFrame{
 		
 	}
 
-	protected void buildSPLine(SPLine sp,String str) {
+	private void buildSPLine(SPLine sp,String str) {
 		
 		if(str.startsWith("v=")){
 			
@@ -229,8 +223,7 @@ public abstract class DrivingFrame extends JFrame{
 
 
 			String str=null;
-			int rows=0;
-			
+
 			boolean read=forceReading;
 			
 			int nx=0;

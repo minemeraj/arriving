@@ -4,14 +4,13 @@ import com.main.Renderer3D;
 
 public class TextureCylinder {
 	
-	public Point3D[] upperBase=null;
-	public Point3D[][] lateralFaces=null;
-	public Point3D[] lowerBase=null;
-	; 
+	Point3D[] upperBase=null;
+	Point3D[][] lateralFaces=null;
+	Point3D[] lowerBase=null;
+
 	
-	public int N_FACES=0;
-	public double texture_side_dy;
-	public double texture_side_dx;
+	private double texture_side_dy;
+	private double texture_side_dx;
 	
 	int N_MERIDIANS=0;
 	int N_PARALLELS=0;
@@ -27,18 +26,6 @@ public class TextureCylinder {
 	private double radius;
 	private double zHeight;
 	
-	
-	public TextureCylinder(int N_MERIDIANS,int N_PARALLELS,
-			double radius,double base_radius,double zHeight,double x0,double y0,int entryIndex
-			
-			
-			){
-		
-		this( N_MERIDIANS,N_PARALLELS,
-				radius,base_radius, zHeight, x0, y0, entryIndex,true,true);
-		
-		
-	}
 	
 	public TextureCylinder(int N_MERIDIANS,int N_PARALLELS,
 			double radius,double base_radius,double zHeight,double x0,double y0,int entryIndex,

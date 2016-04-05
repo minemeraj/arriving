@@ -22,37 +22,6 @@ public abstract class CustomData {
 	
 	protected CustomData specificData=null;
 	
-	public void buildBox(double x , double y, double z,double x_side,double y_side, double z_side) {
-		
-		BPoint pLeg000=addBPoint(x,y,z);
-		BPoint pLeg100=addBPoint(x+x_side,y,z);
-		BPoint pLeg110=addBPoint(x+x_side,y+y_side,z);
-		BPoint pLeg010=addBPoint(x,y+y_side,z);
-		
-	
-		LineData bottom=buildLine(pLeg000,pLeg010,pLeg110,pLeg100,Renderer3D.CAR_BOTTOM);
-		polyData.add(bottom);
-		
-		
-		BPoint pLeg001=addBPoint(x,y,z+z_side);
-		BPoint pLeg101=addBPoint(x+x_side,y,z+z_side);
-		BPoint pLeg111=addBPoint(x+x_side,y+y_side,z+z_side);
-		BPoint pLeg011=addBPoint(x,y+y_side,z+z_side);
-	
-		
-		addLine(pLeg001,pLeg101,pLeg111,pLeg011,Renderer3D.CAR_TOP);
-		
-		addLine(pLeg000,pLeg001,pLeg011,pLeg010,Renderer3D.CAR_LEFT);
-
-		addLine(pLeg010,pLeg011,pLeg111,pLeg110,Renderer3D.CAR_FRONT);
-
-		addLine(pLeg110,pLeg111,pLeg101,pLeg100,Renderer3D.CAR_RIGHT);
-
-		addLine(pLeg100,pLeg101,pLeg001,pLeg000,Renderer3D.CAR_BACK);
-
-
-	}
-	
 	public PolygonMesh getMesh(){
 		
 		PolygonMesh pm=new PolygonMesh(points,polyData);
@@ -63,29 +32,6 @@ public abstract class CustomData {
 	}
 	
 
-	public void translatePoints(ArrayList points, double dx, double dy) { 
-
-		for (int i = 0; i < points.size(); i++) {
-			BPoint point = (BPoint) points.get(i);
-			if(point==null)
-				continue;
-			point.translate(dx,dy,0);
-		}
-
-	}
-	
-	
-	public void translatePoints(Point3D[] points, double dx, double dy) { 
-
-		for (int i = 0; i < points.length; i++) {
-			Point3D point = points[i];
-			if(point==null)
-				continue;
-			point.translate(dx,dy,0);
-		}
-
-	}
-	
 	public void rotateYZ(BPoint[][][] element, double y0, double z0, double teta) {
 		
 		double st=Math.sin(teta);
@@ -250,45 +196,6 @@ public abstract class CustomData {
 
 	}
 	
-	
-	public LineData  addLine(BPoint[][][]p,int i,int j,int k, int face) {
-
-
-		if(face==Renderer3D.CAR_LEFT){
-
-			return addLine(p[i][j][k],p[i][j][k+1],p[i][j+1][k+1],p[i][j+1][k],face);
-		}
-		else if(face==Renderer3D.CAR_BOTTOM){
-
-
-			return addLine(p[i][j][k],p[i][j+1][k],p[i+1][j+1][k],p[i+1][j][k],face);
-
-		}
-		else if(face==Renderer3D.CAR_TOP){
-
-
-			return addLine(p[i][j][k+1],p[i+1][j][k+1],p[i+1][j+1][k+1],p[i][j+1][k+1],face);
-		}
-		else if(face==Renderer3D.CAR_BACK){
-
-
-			return addLine(p[i][j][k],p[i+1][j][k],p[i+1][j][k+1],p[i][j][k+1],face);
-		}
-		else if(face==Renderer3D.CAR_FRONT){
-
-
-			return addLine(p[i][j+1][k],p[i][j+1][k+1],p[i+1][j+1][k+1],p[i+1][j+1][k],face);
-		}
-
-		else if(face==Renderer3D.CAR_RIGHT){
-
-			return addLine(p[i+1][j][k],p[i+1][j+1][k],p[i+1][j+1][k+1],p[i+1][j][k+1],face);
-
-		}
-		
-		return null;
-
-	}
 	
 	public LineData buildLine(BPoint p0, BPoint p1, BPoint p2,
 			BPoint p3, int face) {

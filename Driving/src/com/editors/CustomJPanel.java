@@ -19,31 +19,31 @@ public abstract class CustomJPanel extends JPanel{
 	public static final Color BACKGROUND = Color.BLACK;
 	
 	
-	public int x0=400;
-	public int y0=500;
+	protected int x0=400;
+	protected int y0=500;
 	
-	public double dy=1.0;
-	public double dx=1.0; 
+	protected double dy=1.0;
+	protected double dx=1.0; 
 	
-	public int deltax=10;
-	public int deltay=10;
+	protected int deltax=10;
+	protected int deltay=10;
 	
-	public int WIDTH=0;
-	public int HEIGHT=0; 
+	private int WIDTH=0;
+	private int HEIGHT=0; 
 	
-	public double alfa=Math.PI/3;
-	public double cosAlfa=Math.cos(alfa);
-	public double sinAlfa=Math.sin(alfa);
+	private double alfa=Math.PI/3;
+	private double cosAlfa=Math.cos(alfa);
+	private double sinAlfa=Math.sin(alfa);
 	
 	public Graphics2D graph=null;
 	public BufferedImage buf=null;
 	public Graphics2D buffGraph;
 	
-	String filter=null;
+	private String filter=null;
 	
-	double teta=0;
-	double ct=Math.cos(teta);
-	double st=Math.sin(teta);
+	private double teta=0;
+	private double ct=Math.cos(teta);
+	private double st=Math.sin(teta);
 	
 
 	public void initialize() {

@@ -56,11 +56,11 @@ import com.main.HelpPanel;
 
 public class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionListener{
 	
-	int CENTER_WIDTH=500;
-	int CENTER_HEIGHT=550;
-	int BOTTOM_BORDER=300;
-	int RIGHT_BORDER=350;
-	int LEFT_BORDER=350;
+	private int CENTER_WIDTH=500;
+	private int CENTER_HEIGHT=550;
+	private int BOTTOM_BORDER=300;
+	private int RIGHT_BORDER=350;
+	private int LEFT_BORDER=350;
 	
 	private JPanel bottom;
 	private JButton exit=null;
@@ -77,7 +77,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	
 	private JMenuBar jmb;
 
-	private int zdepth=0;
+
 	private JMenuItem jmtUndo;
 	private JButton deleteSelection;
 	DoubleTextField coordinatesx;
@@ -114,13 +114,11 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	private JMenuItem jmt_save_mesh;
 	private JMenu jmView;
 	private JMenuItem jmtPreview;
-	private JCheckBoxMenuItem jmt42;
 	private JMenu jmChange;
 	private JMenuItem jmtGetTemplate;
 
 
 	private BufferedImage backgroundImage=null;
-	private JMenuItem jmt54;
 	
 	public JCheckBox checkCoordinatesx;
 	public JCheckBox checkCoordinatesz;
@@ -1720,9 +1718,9 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 		PolygonMesh mesh = meshes[ACTIVE_PANEL];
 		
-		centerPanel.setMesh(meshes[ACTIVE_PANEL]);
-		leftPanel.setMesh(meshes[ACTIVE_PANEL]);
-		rightPanel.setMesh(meshes[ACTIVE_PANEL]);
+		centerPanel.setMesh(mesh);
+		leftPanel.setMesh(mesh);
+		rightPanel.setMesh(mesh);
 
 		
 	}
@@ -1734,7 +1732,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		Point3D p;
 		int index=-1;
 
-		public PointListItem(Point3D p, int index) {	
+		private PointListItem(Point3D p, int index) {	
 			super();
 			this.p = p;
 			this.index=index;
@@ -1745,21 +1743,6 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 			
 			return df.format(p.x)+","+df.format(p.y)+"("+index+")";
 		}
-		
-	}
-	
-	public String addBlanksLeft(int num,double rough){
-		
-		
-		String str=""+rough;
-		
-		while(str.length()<num){
-			
-			
-			str=" "+str;
-		}
-		
-		return str;
 		
 	}
 	

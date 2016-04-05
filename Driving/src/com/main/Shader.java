@@ -213,7 +213,7 @@ public class Shader extends Renderer3D{
 
 
 	}
-
+	@Deprecated
 	public Point4D calculateLightTransformedVersor(Point3D p,boolean isReal){
 
 		Point4D p_light=new Point4D();
@@ -224,7 +224,7 @@ public class Shader extends Renderer3D{
 
 		return p_light;
 	}
-
+	@Deprecated
 	public double calculatePercentageCloserFiltering(double[] pcf_values, double z) {
 
 		double total=0;		
@@ -240,7 +240,7 @@ public class Shader extends Renderer3D{
 		return total/pcf_values.length;
 	}
 
-
+	@Deprecated
 	public void processShadowMapForPCF() {
 
 
@@ -671,7 +671,7 @@ public class Shader extends Renderer3D{
 		
 		}
 		
-		public void initFaces(){
+		private void initFaces(){
 			
 			frontCap=new ArrayList();
 			backCap=new ArrayList();

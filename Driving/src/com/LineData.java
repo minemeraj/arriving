@@ -7,7 +7,7 @@ public class LineData implements Cloneable{
 		public ArrayList lineDatas=new ArrayList();
 		public boolean isSelected=false;
 		
-		public double shadowCosin=1;
+		private double shadowCosin=1;
 		
 		public String data=null;
 		
@@ -16,7 +16,7 @@ public class LineData implements Cloneable{
 		
 		public static final String GREEN_HEX="00FF00";
 		
-		boolean fillWithWater=false;
+		private boolean fillWithWater=false;
 
 		public int size(){
 
@@ -67,12 +67,6 @@ public class LineData implements Cloneable{
 			
 			LineDataVertex ldv=(LineDataVertex) lineDatas.get(i);
 			return ldv;
-		}
-		
-		public void setIndex(int i,int n){
-			
-			LineDataVertex ldv=getItem(i);
-			ldv.setVertex_index(n);
 		}
 		
 		@Override
@@ -174,17 +168,6 @@ public class LineData implements Cloneable{
 			}
 
 			return str;
-		}
-
-		public int positionOf(int i) {
-			
-			for(int j=0;j<size();j++){
-							
-				if(i==getIndex(j))
-					return j;
-			}
-			
-			return -1;
 		}
 
 		public double getShadowCosin() {

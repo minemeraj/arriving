@@ -19,7 +19,7 @@ public class Point3D {
 	public double texture_x;
 	public double texture_y;
 	
-	public Object data=null;
+	Object data=null;
 	
 	public Point3D(double x, double y, double z, double pX, double pY,
 			double pZ, double textureX, double textureY) {
@@ -66,15 +66,6 @@ public class Point3D {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Point3D(double x, double y, double z, boolean selected) {
-		
-		this.x = x;
-		this.y = y;
-		this.z = z;
-		this.setSelected(selected);
-	}
-
-
 	public boolean equals(Point3D p){
 		
 		return this.x==p.x && this.y==p.y && this.z==p.z;
@@ -132,7 +123,7 @@ public class Point3D {
 		return calculateDotProduct(a,a);
 	}
 
-	public static double distance(Point3D a,Point3D b){
+	private static double distance(Point3D a,Point3D b){
 
 
 		return calculateNorm(a.substract(b));
@@ -145,12 +136,6 @@ public class Point3D {
 		return distance(new Point3D (x1,y1,z1),new Point3D (x2,y2,z2));
 	}
 
-
-	public static Point3D calculateOrthogonal(Point3D a){
-		Point3D orth=new Point3D(-a.y,a.x,0);
-
-		return orth;
-	}
 
 	public Point3D calculateVersor(){
 
@@ -182,16 +167,6 @@ public class Point3D {
 		return pRes;
 	}
 	
-	public Point3D minus(Point3D p0) {
-
-		this.x=this.x-p0.x;
-		this.y=this.y-p0.y;
-		this.z=this.z-p0.z;
-		
-		return this;
-		
-	}
-
 	public Point3D sum(Point3D p0) {
 
 		Point3D pRes=new Point3D(this.x+p0.x,this.y+p0.y,this.z+p0.z);
@@ -252,50 +227,6 @@ public class Point3D {
 
 	}
 	
-	public static double foundXIntersection(double p1x, double p1y,double p2x, double p2y,
-			double y) {
-
-		if(p2y-p1y<1 && p2y-p1y>-1)
-			return p1x;
-
-		return p1x+((p2x-p1x)*(y-p1y))/(p2y-p1y);
-	
-
-	}
-
-	public static double foundZIntersection(Point3D p1, Point3D p2,
-			double y) {
-
-		if(p2.y-p1.y<1 && p2.y-p1.y>-1)
-			return p1.z;
-
-		return p1.z+((p2.z-p1.z)*(y-p1.y))/(p2.y-p1.y);
-
-
-	}
-
-	
-	public static Point3D foundPX_PY_PZ_Intersection(Point3D pstart, Point3D pend,
-			double y) {
-		
-		Point3D intersect=new Point3D(); 
-
-		double i_pstart_p_y=1.0/(pstart.p_y);
-		double i_end_p_y=1.0/(pend.p_y);
-		
-		double l=(y-pstart.y)/(pend.y-pstart.y);
-	
-		double yi=1.0/((1-l)*i_pstart_p_y+l*i_end_p_y);
-		
-		intersect.p_x= ((1-l)*pstart.p_x*i_pstart_p_y+l*pend.p_x*i_end_p_y)*yi;
-		intersect.p_y=  1.0/((1-l)*i_pstart_p_y+l*i_end_p_y);		
-		intersect.p_z=  ((1-l)*pstart.p_z*i_pstart_p_y+l*pend.p_z*i_end_p_y)*yi;
-		
-		return intersect;
-
-	}
-	
-	
 	public static Point3D foundPX_PY_PZ_TEXTURE_Intersection(Point3D pstart, Point3D pend,
 			double y) {
 		
@@ -319,50 +250,6 @@ public class Point3D {
 
 	}
 	
-	public static double foundPXIntersection(Point3D pstart, Point3D pend,
-			double y) {
-
-		double i_pstart_p_y=1.0/(pstart.p_y);
-		double i_end_p_y=1.0/(pend.p_y);
-		
-		double l=(y-pstart.y)/(pend.y-pstart.y);
-	
-		double yi=1.0/((1-l)*i_pstart_p_y+l*i_end_p_y);
-		
-		return ((1-l)*pstart.p_x*i_pstart_p_y+l*pend.p_x*i_end_p_y)*yi;
-
-	}
-
-	public static double foundPYIntersection(Point3D pstart, Point3D pend,
-			double y) {
-
-		double i_pstart_p_y=1.0/(pstart.p_y);
-		double i_end_p_y=1.0/(pend.p_y);
-		
-		double l=(y-pstart.y)/(pend.y-pstart.y);
-	
-		return 1.0/((1-l)*i_pstart_p_y+l*i_end_p_y);
-		
-		
-
-	}
-
-	public static double foundPZIntersection(Point3D pstart, Point3D pend,
-			double y) {
-
-		double i_pstart_p_y=1.0/(pstart.p_y);
-		double i_end_p_y=1.0/(pend.p_y);
-		
-		double l=(y-pstart.y)/(pend.y-pstart.y);
-	
-		double yi=1.0/((1-l)*i_pstart_p_y+l*i_end_p_y);
-		
-		return ((1-l)*pstart.p_z*i_pstart_p_y+l*pend.p_z*i_end_p_y)*yi;
-
-
-	}
-
-
 	public void rotate(double x0, double y0,double cos, double sin ) {
 		
 		double xx=this.x;
@@ -373,18 +260,7 @@ public class Point3D {
 		this.y=y0+(yy-y0)*cos+(xx-x0)*sin;
 	}
 
-    public Point3D buildTranslatedPoint(double dx,double dy,double dz){
-    	
-    	Point3D p=new Point3D();
-    	p.setX(this.getX()+dx);
-    	p.setY(this.getY()+dy);
-    	p.setZ(this.getZ()+dz);
-    	
-    	return p;
-    }
-
-
-	public void translate(double dx, double dy, double dz) {
+    public void translate(double dx, double dy, double dz) {
 		
 		setX(this.getX()+dx);
     	setY(this.getY()+dy);

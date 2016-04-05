@@ -17,8 +17,8 @@ import com.Texture;
 public class EditorData {
 	
 	public static Texture[] worldTextures;
-	public static Texture[] objects=null;
-	public static CubicMesh[] object3D=null;
+	private static Texture[] objects=null;
+	private static CubicMesh[] object3D=null;
 	public static Texture[] objectTextures=null;
 	public static  CubicMesh[] objectMeshes;
 	
@@ -60,7 +60,7 @@ public class EditorData {
 	
 	}
 	
-	public static void loadMeshesAndTextures() {
+	private static void loadMeshesAndTextures() {
 	
 		try {
 

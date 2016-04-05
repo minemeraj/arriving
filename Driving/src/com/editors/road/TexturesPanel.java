@@ -26,18 +26,18 @@ public class TexturesPanel extends JDialog implements ActionListener,MouseListen
 	private JPanel center;
 	private JLabel[] textureLabels;
 	
-	int TEXTURE_SIDE_X=100;
-	int TEXTURE_SIDE_Y=100;
+	private int TEXTURE_SIDE_X=100;
+	private int TEXTURE_SIDE_Y=100;
 	
-	int DELTAY=25;
-	int DELTAX=25;
-	int BORDER=90;
+	private int DELTAY=25;
+	private int DELTAX=25;
+	private int BORDER=90;
 
-	int X_SIZE=800;
-	int Y_SIZE=500;
+	private int X_SIZE=800;
+	private int Y_SIZE=500;
 	
-	int columns=5;
-	int selectedIndex=-1;
+	private int columns=5;
+	private int selectedIndex=-1;
 	
 
 	public TexturesPanel(BufferedImage[] textures,int TEXTURE_SIDE_X,int TEXTURE_SIDE_Y){

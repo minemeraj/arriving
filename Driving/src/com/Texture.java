@@ -39,8 +39,6 @@ public class Texture {
 
 	int[] rgb;
 	
-	static double pi_2=Math.PI/2;
-	
 	public Texture(){		
 	}
 	
@@ -218,7 +216,7 @@ public class Texture {
 		return newI;
 	}
 
-	public static void scanImagePoints(String name) throws IOException{
+	private static void scanImagePoints(String name) throws IOException{
 		
 		BufferedImage bi=ImageIO.read(new File(name));
 		scanImagePoints(bi,Color.BLACK);
@@ -412,7 +410,7 @@ public class Texture {
 		System.out.println("max rgb:"+max);
 	}	
 	
-	public static void analyzeImage(BufferedImage bi) throws IOException{
+	private static void analyzeImage(BufferedImage bi) throws IOException{
 		
 		
 		

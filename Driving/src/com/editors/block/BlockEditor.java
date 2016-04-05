@@ -1754,12 +1754,6 @@ public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCusto
 	}
 
 	@Override
-	public void moveSelectedPointWithMouse(Point3D p3d, int type) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void moveSelectedPoints(int dx, int dy, int dz) {
 		// TODO Auto-generated method stub
 		
@@ -2025,6 +2019,12 @@ public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCusto
 			translate(0,-1);
 		
 		displayAll(); 
+	}
+
+	@Override
+	public void moveSelectedPointWithMouse(Point3D p3d, int type) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

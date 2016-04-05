@@ -10,15 +10,15 @@ import com.main.Road;
 
 public class ZBuffer{
 
-		int[] rgbColor;
-		double[] z;
-		int size=0;
+		private int[] rgbColor;
+		private double[] z;
+		private int size=0;
 		
 		int[] level;
 		
-		double mergingDeltaZ=10;
+		private double mergingDeltaZ=10;
 
-		double[] p_z;
+		private double[] p_z;
 		int[] hashCodes;
 		
 		public static final int EMPTY_HASH_CODE=-1;
@@ -65,20 +65,7 @@ public class ZBuffer{
 			return color;
 		}
 
-		public static String fromColorToHex(Color col){
-
-			String exe="";
-
-			exe+=addZeros(Integer.toHexString(col.getRed()))
-					+addZeros(Integer.toHexString(col.getGreen()))
-					+addZeros(Integer.toHexString(col.getBlue()));
-
-			return exe;
-
-		}
-
-
-		public static String addZeros(String hexString) {
+		private static String addZeros(String hexString) {
 			
 			if(hexString.length()==1)
 				return "0"+hexString;
@@ -264,11 +251,6 @@ public class ZBuffer{
 			this.size = size;
 		}
 
-		public boolean isEmpty(int index){
-			
-			return level[index]==-1;
-		}
-		
 		public void setLevel(int value,int index){
 			
 			level[index]=value;

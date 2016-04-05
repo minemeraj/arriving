@@ -89,19 +89,6 @@ public class PolygonMesh implements Cloneable{
 		return normal.calculateVersor();
 	}
 
-	public void addPoints(Point3D[] addPoints){
-		
-		int newSize=points.length+addPoints.length;	
-		Point3D[] newPoints=new Point3D[newSize];
-		
-		
-		for(int i=0;i<points.length;i++)
-			newPoints[i]=points[i];
-		for(int i=0;i<addPoints.length;i++)
-			newPoints[i+points.length]=addPoints[i];
-		
-	}
-	
 	public void addPolygonData(LineData polygon){
 		polygonData.add(polygon);		
 	}
@@ -287,7 +274,7 @@ public class PolygonMesh implements Cloneable{
 
 
 			String str=null;
-			int rows=0;
+
 			while((str=br.readLine())!=null){
 				if(str.indexOf("#")>=0 || str.length()==0)
 					continue;
@@ -327,19 +314,7 @@ public class PolygonMesh implements Cloneable{
     	
     }
 
-    public static ArrayList  fromArrayToVector(Point3D[] points){
-    	
-    	ArrayList pts=new ArrayList();
-    	
-    	for (int i = 0; i < points.length; i++) {
-    		pts.add(points[i]);
-		}
-    	
-    	return pts;
-    	
-    }
-    
-	public static PolygonMesh simplifyMesh(PolygonMesh pm){
+    public static PolygonMesh simplifyMesh(PolygonMesh pm){
 		
 		
 		PolygonMesh newPolygonMesh=new PolygonMesh();

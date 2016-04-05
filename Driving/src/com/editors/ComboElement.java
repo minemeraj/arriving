@@ -1,8 +1,8 @@
 package com.editors;
 public class ComboElement{
 
-	String code=null;
-	String value=null;
+	private String code=null;
+	private String value=null;
 
 
 

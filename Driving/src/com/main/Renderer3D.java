@@ -73,7 +73,7 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 	boolean isStencilBuffer=false;
 	
 	public LightSource lightPoint=null;
-	public double lightIntensity=1.0;
+	private double lightIntensity=1.0;
 
 
 	@Override
@@ -109,22 +109,22 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 	}
 
 
-	public double calculPerspY( double x, double y, double z) {
+	private double calculPerspY( double x, double y, double z) {
 		double newy0= ((z)*SCREEN_DISTANCE/y)+YFOCUS;
 		return HEIGHT-newy0;
 	}
 
-	public double calculPerspX(double x, double y, double z) {
+	private double calculPerspX(double x, double y, double z) {
 
 		return ((x)*SCREEN_DISTANCE/y)+XFOCUS;
 
 	}
 
-	public double calculPerspY(Point3D point) {
+	private double calculPerspY(Point3D point) {
 		return calculPerspY( point.x,  point.y, point.z);
 	}
 
-	public double calculPespX(Point3D point) {
+	private double calculPespX(Point3D point) {
 		return calculPerspX( point.x,  point.y, point.z);
 	}
 	
@@ -852,7 +852,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 
 	}
 	
-	public Point3D buildTransformedVersor(Point3D point) {
+	private Point3D buildTransformedVersor(Point3D point) {
 
 		Point3D newPoint=new Point3D();
 
@@ -926,36 +926,6 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 	
 	}
 	
-	public void rotatePolygon(Polygon3D polig,double xo,double yo,double cosTur,double sinTur){
-
-
-
-		for(int i=0;i<polig.npoints;i++){
-
-			int x=polig.xpoints[i];
-			int y=polig.ypoints[i];	
-
-			polig.xpoints[i]=(int)(xo+(x-xo)*cosTur-(y-yo)*sinTur);
-			polig.ypoints[i]=(int)(yo+(y-yo)*cosTur+(x-xo)*sinTur);
-
-		}
-
-
-	}
-	
-	public void rotatePoint(Point3D p,double xo,double yo,double cosTur,double sinTur){
-
-
-			double x=p.x;
-			double y=p.y;	
-
-			p.x=xo+(x-xo)*cosTur-(y-yo)*sinTur;
-			p.y=yo+(y-yo)*cosTur+(x-xo)*sinTur;
-
-	
-
-	}
-
 	protected double interpolate(double px, double py, Polygon3D p3d) {
        
 
@@ -983,7 +953,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 		return 0;
 	}
 
-	public static int findBoxFace(Point3D normal,Point3D versusx,Point3D versusy,Point3D versusz) {
+	private static int findBoxFace(Point3D normal,Point3D versusx,Point3D versusy,Point3D versusz) {
 
 		double normx=Point3D.calculateDotProduct(normal,versusx);
 		double normy=Point3D.calculateDotProduct(normal,versusy);

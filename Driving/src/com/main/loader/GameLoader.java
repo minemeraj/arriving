@@ -15,26 +15,26 @@ import javax.swing.JPanel;
 
 public class GameLoader extends JDialog implements ActionListener{
 
-	int WIDTH=220;
-	int HEIGHT=100;
+	private int WIDTH=220;
+	private int HEIGHT=100;
 
-	int LOC_X=200;
-	int LOC_Y=200;
+	private int LOC_X=200;
+	private int LOC_Y=200;
 
 	private JPanel center;
 
-	public static final Color BACKGROUND_COLOR=new Color(255,255,255);
+	private static final Color BACKGROUND_COLOR=new Color(255,255,255);
 
 	JButton[] mapRadios=null;
 
 	public static final String DEFAULT_MAP="default";
 
-	int selectedIndex=0;
+	private int selectedIndex=0;
 	
 	private boolean skipShading=false;
 
-	String header="<html><body>";
-	String footer="</body></html>";
+	private String header="<html><body>";
+	private String footer="</body></html>";
 
 	public GameLoader(){
 

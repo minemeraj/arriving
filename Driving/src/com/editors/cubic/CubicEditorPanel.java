@@ -9,8 +9,6 @@ import java.awt.image.BufferedImage;
 import java.util.Vector;
 
 import javax.swing.JPanel;
-
-import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
 import com.editors.cubic.CubicEditor.CubeData;
@@ -24,24 +22,24 @@ public class CubicEditorPanel extends JPanel implements MouseListener{
 	BufferedImage buf=null;
 	private Graphics2D comp;
 	
-	public double fi=0;
-	public double sinf=Math.sin(fi);
-	public double cosf=Math.cos(fi);
+	private double fi=0;
+	private double sinf=Math.sin(fi);
+	private double cosf=Math.cos(fi);
 	
-	public double alfa=Math.PI/4;
-	public double sinAlfa=Math.sin(alfa);
-	public double cosAlfa=Math.cos(alfa);
+	private double alfa=Math.PI/4;
+	private double sinAlfa=Math.sin(alfa);
+	private double cosAlfa=Math.cos(alfa);
 	
-	int y0=-1;
-	int x0=-1;
+	private int y0=-1;
+	private int x0=-1;
 
-	double deltay=0.5;
-	double deltax=0.5;
+	private double deltay=0.5;
+	private double deltax=0.5;
 	
-	int WIDTH;
-	int HEIGHT;
+	private int WIDTH;
+	private int HEIGHT;
 	
-	CubicEditor cubicEditor=null;
+	private CubicEditor cubicEditor=null;
 	
 	Vector points=null;
 	
@@ -372,12 +370,6 @@ public class CubicEditorPanel extends JPanel implements MouseListener{
 		int dy=(int) (2*j/deltay);
 		
 		moveCenter(dx,dy);
-		
-	}
-
-	public void showNormals( LineData ld, Graphics2D bufGraphics) {
-		
-		
 		
 	}
 

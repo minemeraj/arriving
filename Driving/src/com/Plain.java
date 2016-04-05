@@ -8,10 +8,10 @@ package com;
 
 public class Plain {
 	
-	double a=0;
-	double b=0;
-	double c=0;
-	double d=0;
+	private double a=0;
+	private double b=0;
+	private double c=0;
+	private double d=0;
 	
 	
 	public double calculateZ(double x,double y){
@@ -22,7 +22,7 @@ public class Plain {
 	}
 	
 	
-	public static Plain calculatePlain(int[] x,int[] y,int[] z){
+	private static Plain calculatePlain(int[] x,int[] y,int[] z){
 		
 		double det1=((y[1]-y[0])*(z[2]-z[0]))-((y[2]-y[0])*(z[1]-z[0]));
 		double det2=((x[1]-x[0])*(z[2]-z[0]))-((x[2]-x[0])*(z[1]-z[0]));

@@ -107,7 +107,6 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 	private JFileChooser fc;
 	private JMenuBar jmb;
 	private JMenu jm;
-	private JMenuItem jmt11;
 	private JPanel right;
 	private JTextField coordinatesx;
 	private JTextField coordinatesy;
@@ -127,7 +126,6 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 	private boolean redrawAfterMenu=false;
 	private AbstractButton jmt12;
 	private JMenuItem jmt21;
-	private JMenuItem jmt22;
 	private JMenu jm2;
 
 	public boolean ISDEBUG=false;
@@ -140,8 +138,6 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 	boolean isUseTextures=true;
 
-	private JMenu jm3;
-	private JCheckBoxMenuItem jmt31;
 	private JList lineList;
 	private JButton selectAll;
 	private LineData polygon=new LineData();
@@ -1084,7 +1080,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 
 
 			String str=null;
-			int rows=0;
+
 			while((str=br.readLine())!=null){
 				if(str.indexOf("#")>=0 || str.length()==0)
 					continue;

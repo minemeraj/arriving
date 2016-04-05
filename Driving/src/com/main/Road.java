@@ -44,7 +44,7 @@ import com.editors.road.RoadEditor;
 public class Road extends Shader{
 
 
-	int y_edge=5+SCREEN_DISTANCE;
+	private int y_edge=5+SCREEN_DISTANCE;
 	
 	int NXVISIBLE=2;
 	int NYVISIBLE=40;//20 orig
@@ -380,7 +380,7 @@ public class Road extends Shader{
 
 	}
 
-	public void buildCar(double directionAngle){
+	private void buildCar(double directionAngle){
 		
 
 		//putting the car right in front of the view point
@@ -928,7 +928,7 @@ public class Road extends Shader{
 	 *  j=0 -> j_set= dh- (YFOCUS*alfa)
 	 *  j=YFOCUS -> j_set= dh
 	 */
-	public void drawSky() {
+	private void drawSky() {
 		
 		int YMAX=(HEIGHT-YFOCUS);
 
@@ -1081,7 +1081,7 @@ public class Road extends Shader{
 	}
 
 	
-	public void loadPointsFromFile(File file){		
+	private void loadPointsFromFile(File file){		
 
 		try {
 			
@@ -1729,7 +1729,7 @@ public class Road extends Shader{
 
 
 
-	public static void generateDefault0() {
+	private static void generateDefault0() {
 			
 			int nx=44;
 			int ny=44;

@@ -14,13 +14,14 @@ import javax.sound.sampled.DataLine;
 
 public class GameSound extends Thread{
 	
-	Clip clip=null;
-	boolean play=true;
-	boolean run=false;
-	boolean once=false;
-	int LOOP=0;
-	double INVERSE_TIME=0.1;
+	private Clip clip=null;
+	private boolean play=true;
+	private boolean run=false;
+	private boolean once=false;
+	private int LOOP=0;
+	private double INVERSE_TIME=0.1;
 	
+	@Deprecated
 	public GameSound(File file,int loop) throws Exception {
 		
 		AudioInputStream stream = loadStream(file);
@@ -97,7 +98,7 @@ public class GameSound extends Thread{
 		clip.close();
 
 	}
-	
+	@Deprecated	
 	public void stopPlay(){
 		
 		play=false;
@@ -107,7 +108,7 @@ public class GameSound extends Thread{
 		}
 		
 	}
-	
+	@Deprecated	
 	public void startPlay() {
 		
 		play=true;
@@ -171,7 +172,7 @@ public class GameSound extends Thread{
 		
 		
 	}
-	
+	@Deprecated
 	public void makeSoundLoop(int loop) {
 		
 	    if (clip.isRunning())

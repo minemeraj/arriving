@@ -829,13 +829,13 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 	}
 
-	public void up(){
+	private void up(){
 		MOVY=MOVY-10;
 		drawRoad();
 
 	}
 
-	public void down(){
+	private void down(){
 		MOVY=MOVY+10;
 		drawRoad();
 
@@ -1117,10 +1117,10 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 	
 	public class Bounds{
 		
-		double maxX=0;
-		double maxY=0;
-		double minY=0;
-		double minX=0;
+		private double maxX=0;
+		private double maxY=0;
+		private double minY=0;
+		private double minX=0;
 		
 		public Bounds( double minX,double maxX, double minY, double maxY) {
 			super();

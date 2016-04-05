@@ -34,20 +34,17 @@ import com.main.Road;
 
 public class EditorPreviewPanel extends JDialog implements KeyListener, PropertyChangeListener,AbstractRenderer3D{
 
-	public int WIDTH=800;
-	public int BOTTOM_HEIGHT=100;
-	public int HEIGHT=500;
+	private int WIDTH=800;
+	private int BOTTOM_HEIGHT=100;
+	private int HEIGHT=500;
 	
 	public BufferedImage buf=null;
 
 		
 	public static ZBuffer roadZbuffer;
-	public int greenRgb= Color.BLACK.getRGB();
+	private int greenRgb= Color.BLACK.getRGB();
 
 
-	
-
-	
 	public double deltay=1;
 	public double deltax=1;
 	public int y0=200;
@@ -62,18 +59,18 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 	public double s2=Math.sqrt(2);
 	public boolean isUseTextures=true;
 	
-	public Graphics2D graphics2D;
-	public JPanel center;
-	public JPanel bottom;
+	private Graphics2D graphics2D;
+	private JPanel center;
+	private JPanel bottom;
 	
-	public double lightIntensity=1.0;
+	private double lightIntensity=1.0;
 	
 	double fi=0;
 	double cosf=Math.cos(fi);
 	double sinf=Math.sin(fi);
-	double teta=0;
-	double costeta=Math.cos(teta);
-	double sinteta=Math.sin(teta);
+	private double teta=0;
+	private double costeta=Math.cos(teta);
+	private double sinteta=Math.sin(teta);
 	
 	public PolygonMesh mesh=null;
 	public ArrayList polygons;	
@@ -392,20 +389,20 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 
 		return calcAssX(p.x,p.y,p.z);
 	}
-	public int calcAssY(Point3D p){
+	private int calcAssY(Point3D p){
 
 
 		return calcAssY(p.x,p.y,p.z);
 	}
 
-	public int calcAssX(double sx,double sy,double sz){
+	private int calcAssX(double sx,double sy,double sz){
 
 		
 		//return x0+(int) (deltax*(sy-sx*sinAlfa));//axonometric formula
 		return x0+(int) ((sx*sinAlfa-sy*sinAlfa)/deltay);
 	}
 
-	public int calcAssY(double sx,double sy,double sz){
+	private int calcAssY(double sx,double sy,double sz){
 
 		
 		//return y0+(int) (deltay*(sz-sx*cosAlfa));
@@ -478,7 +475,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 
 	}
 	
-	public void zoom(int i) {
+	private void zoom(int i) {
 		if(i>0){
 			deltax=deltax*2;
 			deltay=deltay*2;

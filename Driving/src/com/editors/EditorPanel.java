@@ -1,6 +1,7 @@
 package com.editors;
 
 import com.Point3D;
+import com.PolygonMesh;
 
 
 public interface EditorPanel {
@@ -47,9 +48,9 @@ public interface EditorPanel {
 	
 	public void changeSelectedPoint();
 	
-	public void moveSelectedPointWithMouse(Point3D p3d, int type);
-	
 	public void moveSelectedPoints(int dx, int dy, int dz);
+	
+	public void moveSelectedPointWithMouse(Point3D p3d, int type);
 	
 	public void selectPoint(int x, int y);
 	

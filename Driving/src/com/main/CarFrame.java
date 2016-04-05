@@ -32,9 +32,6 @@ import com.sound.GameSound;
 public class CarFrame extends Road implements KeyListener {
 
 	
-
-	
-    int counter=0;
 	String VERSION="CarDriving 9.0.2";
 	
 	JPanel center=null;
@@ -55,12 +52,6 @@ public class CarFrame extends Road implements KeyListener {
 	public static final int RIGHTBORDER=0;
 	
 	public static final Color BACKGROUND_COLOR=Color.GREEN;
-	
-	int CAR_X=150;
-	int CAR_Y=150;
-	int CAR_WIDTH=90;
-	int CAR_HEIGHT=90;
-
 	
 	public static Texture background=null;
 	
@@ -88,8 +79,6 @@ public class CarFrame extends Road implements KeyListener {
 	private GameSound hornSound;
 	private Date t;
 	private transient BufferedImage buf;
-	
-	double inverse_car_mass=0.05;
 	
 	//steering angle,positive anti-clockwise
 	public double delta=0.30;
@@ -464,11 +453,6 @@ public class CarFrame extends Road implements KeyListener {
 		setSteerAngle(angle);
 	
 	
-	}
-	
-	public void down() {
-		down(graphics2D);
-		drawRoad(); 
 	}
 	
 	public static void setSteeringAngle(double d) {

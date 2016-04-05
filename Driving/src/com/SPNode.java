@@ -9,15 +9,15 @@ import com.editors.EditorData;
 
 public class SPNode extends Point4D implements TreeNode{
 	
-	Point3D tangent=null;
+	private Point3D tangent=null;
 
-	PolygonMesh ring=null;
-	PolygonMesh circle=null;	
+	private PolygonMesh ring=null;
+	private PolygonMesh circle=null;	
 
-	Object object=null;
-	ArrayList children=null;
+	private Object object=null;
+	private ArrayList children=null;
 	
-	SPNode parent=null;
+	private SPNode parent=null;
 
 	public SPNode(){
 		
@@ -31,11 +31,6 @@ public class SPNode extends Point4D implements TreeNode{
 		children=new ArrayList();
 		update();
 		
-	}
-	
-	public SPNode(Object object) {
-		this.object=object;
-		children=new ArrayList();
 	}
 	
 	@Override

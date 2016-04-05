@@ -35,29 +35,29 @@ public class IperviewPanel extends JPanel implements MouseWheelListener,MouseMot
 	public static final int TYPE_TOP=3;
 	
 	
-    int type=-1;
-    int WIDTH=0;
-    int HEIGHT=0;
+	private int type=-1;
+    private int WIDTH=0;
+    private int HEIGHT=0;
     
 	BufferedImage buf=null;
 	private Graphics2D comp;
 	
-	public double fi=0;
-	public double sinf=Math.sin(fi);
-	public double cosf=Math.cos(fi);
+	private double fi=0;
+	private double sinf=Math.sin(fi);
+	private double cosf=Math.cos(fi);
 	
-	int y0=-1;
-	int x0=-1;
+	private int y0=-1;
+	private int x0=-1;
 
-	double deltay=0.5;
-	double deltax=0.5;
+	private double deltay=0.5;
+	private double deltax=0.5;
 	
 	
 	
-	IperviewEditor iperviewEditor=null;
+	private IperviewEditor iperviewEditor=null;
 	
-	public Rectangle currentRect=null;
-	public boolean isDrawCurrentRect=false;
+	private Rectangle currentRect=null;
+	private boolean isDrawCurrentRect=false;
 
 
 	public IperviewPanel(IperviewEditor iperviewEditor, int type,int WIDTH,int HEIGHT){
@@ -395,7 +395,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 	
 	
 	
-    void updateRectangleSize(MouseEvent e) {
+    private void updateRectangleSize(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
         currentRect.setSize(x - currentRect.x,
@@ -407,7 +407,7 @@ private void displayAxes(Graphics2D bufGraphics) {
    
     }
     
-    void updateSize(MouseEvent arg0) {
+    private void updateSize(MouseEvent arg0) {
     	
     	int xp=arg0.getX();
 		int yp=arg0.getY();

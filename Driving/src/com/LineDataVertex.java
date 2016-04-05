@@ -2,10 +2,10 @@ package com;
 
 public class LineDataVertex {
 	
-	int vertex_index=-1;
-	int vertex_texture_index=-1;
-	double vertex_texture_x=0;
-	double vertex_texture_y=0;
+	private int vertex_index=-1;
+	private int vertex_texture_index=-1;
+	private double vertex_texture_x=0;
+	private double vertex_texture_y=0;
 	
 	public int getVertex_index() {
 		return vertex_index;

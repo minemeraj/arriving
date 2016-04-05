@@ -93,15 +93,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	int BOTTOM_BORDER=100;
 	int RIGHT_SKYP=10;
 
-	int MOVX=-50;
-	int MOVY=100;
-
-	int dx=2;
-	int dy=2;
-
-	int deltay=200;
-	int deltax=200;
-
 	private ArrayList drawObjects=new ArrayList();
 	//Graphics2D g2;
 	//Graphics2D g2Alias;
@@ -145,7 +136,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton delObject;
 	private JMenu jm_editing;
 
-	public boolean ISDEBUG=false;
 	
 	private JPanel bottom;
 	private JLabel screenPoint;
@@ -185,7 +175,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public int indexWidth=40;
 	public int indexHeight=18;
 
-	public static Color BACKGROUND_COLOR=new Color(0,0,0);
 	private JMenuItem jmtShowAltimetry;
 	private JMenuItem jmtBuildNewGrid;
 	private JMenu help_jm;
@@ -196,7 +185,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	String[] panelsTitles={"Terrain","Road"};
 	
-	Color alphaRed=new Color(Color.RED.getRed(),0,0,100);
 	private JMenuItem jmtAddGrid;
 	
 	public static ZBuffer landscapeZbuffer;
@@ -2041,24 +2029,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 
-	public void saveObjects() throws FileNotFoundException{
-		fc = new JFileChooser();
-		fc.setDialogType(JFileChooser.SAVE_DIALOG);
-		fc.setDialogTitle("Save objects");
-		if(currentDirectory!=null)
-			fc.setCurrentDirectory(currentDirectory);
-		int returnVal = fc.showOpenDialog(null);
-
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			currentDirectory=fc.getCurrentDirectory();
-			File file = fc.getSelectedFile();
-			PrintWriter pr = new PrintWriter(new FileOutputStream(file));
-			saveObjects(pr);
-			pr.close(); 
-
-		} 
-	}
-
 	private void saveObjects(PrintWriter pr) {
 		
 		try {
@@ -3276,37 +3246,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 	
 
-	public void addPoint() {
-		
-		prepareUndo();
-		
-	
-		
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];	
-
-		if("".equals(coordinatesx[ACTIVE_PANEL].getText()) ||
-				"".equals(coordinatesy[ACTIVE_PANEL].getText()) ||
-				"".equals(coordinatesz[ACTIVE_PANEL].getText())
-		)
-			return;
-		double x=Double.parseDouble(coordinatesx[ACTIVE_PANEL].getText());
-		double y=Double.parseDouble(coordinatesy[ACTIVE_PANEL].getText());
-		double z=Double.parseDouble(coordinatesz[ACTIVE_PANEL].getText());
-
-		int index=0;
-		ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getSelectedItem();
-		if(vp!=null && !vp.getValue().equals(""))
-			index=Integer.parseInt(vp.getId());
-		else
-			index=0;
-		
-		Point4D point=new Point4D(x,y,0,LineData.GREEN_HEX,index);
-		mesh.addPoint(point);
-
-	}
-	
-
-	
 	private void putObjectInCell(int x, int y) {
 		
 		if(meshes==null)
@@ -3837,59 +3776,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 	
-	public static int  pickRGBColorFromTexture(
-			Texture texture,double px,double py,double pz,
-			Point3D xDirection,Point3D yDirection, Point3D origin,int deltaX,int deltaY,
-			BarycentricCoordinates bc
-			){
-		
-		
-		int x=0;
-		int y=0;
-		
-	
-		
-       if(origin!=null){
-			
-
-			 x=(int) Math.round(Point3D.calculateDotProduct(px-origin.x,py-origin.y, pz-origin.z,xDirection))+deltaX;
-			 y=(int) Math.round(Point3D.calculateDotProduct(px-origin.x,py-origin.y, pz-origin.z,yDirection))+deltaY;
-			 
-			 
-		}
-		else
-		{
-			
-			  x=(int) Math.round(Point3D.calculateDotProduct(px,py, pz,xDirection))+deltaX;
-			  y=(int) Math.round(Point3D.calculateDotProduct(px,py, pz,yDirection))+deltaY;
-
-		}	
-		
-		
-		int w=texture.getWidth();
-		int h=texture.getHeight();
-		
-		//border fixed condition
-		/*if(x<0) x=0;
-		if(x>=w) x=w-1;
-		if(y<0) y=0;
-		if(y>=h) y=h-1;*/
-		
-		//border periodic condition
-		if(x<0) x=w-1+x%w;
-		if(x>=w) x=x%w;
-		if(y<0) y=h-1+y%h;
-		if(y>=h) y=y%h;
-		
-	
-		
-		int argb= texture.getRGB(x, h-y-1);
-		
-		return argb;
-		
-	}
-
-
 	public void setRoadData(String string, PolygonMesh pMesh) {
 		
 		meshes[ACTIVE_PANEL]=pMesh;
