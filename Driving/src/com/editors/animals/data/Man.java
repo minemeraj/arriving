@@ -16,39 +16,34 @@ import com.TextureBlock;
 import com.main.Renderer3D;
 
 public class Man extends Animal {
-	
-	public static int texture_side_dx=10;
-	public static int texture_side_dy=10;
 
-	public static int texture_x0=10;
-	public static int texture_y0=10;
-	public static int IMG_WIDTH;
-	public static int IMG_HEIGHT;
+	private  static int texture_x0=10;
+	private  static int texture_y0=10;
+	private  static int IMG_WIDTH;
+	private  static int IMG_HEIGHT;
 	
 	public static boolean isTextureDrawing=false;
-	
-	int N_FACES=4;
-	int N_PARALLELS=2;
 	
 	private double len;
 	private double vlen;
 
-	int numx=5;
-	int numy=5;
-	int numz=7;
+	private int numx=5;
+	private int numy=5;
+	private int numz=7;
 	
-	int hnx=5;
-	int hny=5;
-	int hnz=5;
+	private int hnx=5;
+	private int hny=5;
+	private int hnz=5;
 	
-	TextureBlock headBlock=null;
-	TextureBlock bodyBlock=null;
-	TextureBlock lLegBlock=null;
-	TextureBlock rLegBlock=null;
-	TextureBlock lFootBlock=null;
-	TextureBlock rFootBlock=null;
-	TextureBlock lArmBlock=null;
-	TextureBlock rArmBlock=null;
+	
+	private TextureBlock headBlock=null;
+	private TextureBlock bodyBlock=null;
+	private TextureBlock lLegBlock=null;
+	private TextureBlock rLegBlock=null;
+	private TextureBlock lFootBlock=null;
+	private TextureBlock rFootBlock=null;
+	private TextureBlock lArmBlock=null;
+	private TextureBlock rArmBlock=null;
 	
 
 	public Man(double x_side, double y_side,double z_side,int animal_type,
@@ -186,7 +181,7 @@ public class Man extends Animal {
 			return texture_y0+y;
 	}
 	
-	public void initMesh( ) {
+	private void initMesh( ) {
 		
 
 		
@@ -883,55 +878,6 @@ public class Man extends Animal {
 		int[] vals=new int [4];
 		return vals;
 	}
-	
-	int[][] headIndexes={
-			
-			{},
-			
-	};
-
-	int[][] bodyIndexes={
-			
-			{},
-			
-	};
-	
-	int[][] leftLegIndexes={
-			
-			{},
-			
-	};
-	
-	int[][] rightLegIndexes={
-			
-			{},
-			
-	};
-	
-	int[][] leftFootIndexes={
-			
-			{},
-			
-	};
-	
-	int[][] rightFootIndexes={
-			
-			{},
-			
-	};	
-	
-	int[][] leftArmIndexes={
-			
-			{},
-			
-	};
-	
-	int[][] rightArmIndexes={
-			
-			{},
-			
-	};
-	
 
 			
 	

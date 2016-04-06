@@ -66,18 +66,13 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	private JButton exit=null;
 	
 
-	IperviewPanel leftPanel=null;
-	IperviewPanel centerPanel=null;
-	IperviewPanel rightPanel=null;
+	private IperviewPanel leftPanel=null;
+	private IperviewPanel centerPanel=null;
+	private IperviewPanel rightPanel=null;
 	
 	private JLabel screenPoint=null;
-
-	
-	int MAX_STACK_SIZE=10;
 	
 	private JMenuBar jmb;
-
-
 	private JMenuItem jmtUndo;
 	private JButton deleteSelection;
 	DoubleTextField coordinatesx;
@@ -88,7 +83,6 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	private JButton addPoint;
 	private JButton rescale;
 	private com.editors.DoubleTextField rescaleValue;
-	//private JButton joinPoints;
 	private AbstractButton buildPolygon;
 	private JButton changePoint;
 	private JButton deselectAll;
@@ -214,8 +208,8 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 
 	}
 	
-	String header="<html><body>";
-	String footer="</body></html>";
+	private String header="<html><body>";
+	private String footer="</body></html>";
 	private JMenu help_jm;
 	private JMenuItem jmt_save_custom_mesh;
 	private JMenu jmEdit;
@@ -1471,7 +1465,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		lines.set(i1,ld2);
 	}
 	
-	public void invertSelectedLine(){
+	private void invertSelectedLine(){
 		
 		PolygonMesh mesh = meshes[ACTIVE_PANEL];
 		
@@ -1620,7 +1614,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	}
 	
 	
-	public void loadPointsFromFile(File file) {
+	void loadPointsFromFile(File file) {
 		loadPointsFromFile(file,ACTIVE_PANEL,forceReading);
 		
 	}
@@ -1746,7 +1740,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 	}
 	
-	public void getTemplate() {
+	private void getTemplate() {
 		
 		ObjectEditorTemplatePanel oetp=new ObjectEditorTemplatePanel();
 		

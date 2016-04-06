@@ -52,11 +52,11 @@ import com.main.HelpPanel;
 
 public class BlockEditor extends Editor implements EditorPanel,KeyListener, ActionListener, MouseWheelListener{
 	
-	public static Color BACKGROUND_COLOR=new Color(0,0,0);
+	private static Color BACKGROUND_COLOR=new Color(0,0,0);
 
-	int CENTER_WIDTH=1000;
-	int CENTER_HEIGHT=500;
-	int BOTTOM_BORDER=300;
+	private int CENTER_WIDTH=1000;
+	private int CENTER_HEIGHT=500;
+	private int BOTTOM_BORDER=300;
 
 	private BlockEditorPanel centerPanel=null;
 
@@ -69,7 +69,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 	private JMenu jm3;
 
-	JCheckBoxMenuItem jmt31;
+	private JCheckBoxMenuItem jmt31;
 
 	private JMenuItem jmt32;
 
@@ -79,12 +79,9 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 	
 	BlockData blockData=null;
 	
+	private JCheckBox checkMultipleSelection;
 	
-	public JList BlocksList=null;
-	
-	public JCheckBox checkMultipleSelection;
-	
-	Stack oldBlockData=null;
+	private Stack oldBlockData=null;
 
 	private JComboBox xBlock;
 
@@ -128,12 +125,12 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 	private JMenu help_jm; 
 	
-	public static int BOTTOM=0;
-	public static int TOP=1;
-	public static int FRONT=2;
-	public static int BACK=3;
-	public static int LEFT=4;
-	public static int RIGHT=5;
+	private static int BOTTOM=0;
+	private static int TOP=1;
+	private static int FRONT=2;
+	private static int BACK=3;
+	private static int LEFT=4;
+	private static int RIGHT=5;
 	
 
 	public static void main(String[] args) {
@@ -423,7 +420,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		bottom.add(deselectAll);
 	}
 	
-	public void updateBlockSelectedBlockUnit() {
+	private void updateBlockSelectedBlockUnit() {
 		
 		
 		try{
@@ -985,7 +982,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 	}
 
-	public void saveBlocks(PrintWriter pr,boolean isCustom) {
+	private void saveBlocks(PrintWriter pr,boolean isCustom) {
 
 
         if(blockData==null)
@@ -1140,7 +1137,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		
 	}
 	
-	public void saveLines(File file,PolygonMesh pm) {
+	private void saveLines(File file,PolygonMesh pm) {
 
 
 		PrintWriter pr;
@@ -1963,7 +1960,7 @@ public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCusto
 
 		
 		
-		public BlockListItem(int i,int j,int k, int index) {	
+		private BlockListItem(int i,int j,int k, int index) {	
 			
 			this.index=index;
 			this.i=i;

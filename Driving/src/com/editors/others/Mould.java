@@ -33,36 +33,36 @@ import com.main.Renderer3D;
 
 public class Mould extends JFrame implements ActionListener{
 	
-	JButton saveHorizontalRotation=null;
-	JButton cancelRotator=null;
-	JPanel rotator=null;
+	private JButton saveHorizontalRotation=null;
+	private JButton cancelRotator=null;
+	private JPanel rotator=null;
 	
-	JTextField parallelsNumber=null;
-	JTextField meridianNumbers=null;
+	private JTextField parallelsNumber=null;
+	private JTextField meridianNumbers=null;
 	
 
-	JTabbedPane tabCenter=null;
+	private JTabbedPane tabCenter=null;
 	
 	private JButton loadProfileImage=null;
 	private JButton emptyProfiles=null;
 
 	
-	int N_PARALLELS=5;
-	int N_MERIDIANS=10;
+	private int N_PARALLELS=5;
+	private int N_MERIDIANS=10;
 	
-	double pi=Math.PI;
+	private double pi=Math.PI;
 	
-	JFileChooser fc = new JFileChooser();
+	private JFileChooser fc = new JFileChooser();
 	private File currentDirectory=null;
 	
-	Profile rotationProfile=null;
+	private Profile rotationProfile=null;
 
 	private JPanel readPoints;
 	private JButton savePoints; 
 	private JButton cancelPoints;
 	private JButton loadPointsImage;
 
-	BufferedImage readPointsImage=null;
+	private BufferedImage readPointsImage=null;
 	private JTextField readPointscolor;
 	private JButton rpColorChooser;
 	private JTextField rotationColor;
@@ -1088,7 +1088,7 @@ public class Mould extends JFrame implements ActionListener{
 		
 
 
-		public double foundYApproximation(double len) {
+		private double foundYApproximation(double len) {
 			
 			for(int i=0;i<points.length-1;i++){
 				

@@ -17,30 +17,30 @@ import com.main.Renderer3D;
 
 public class Chair extends Forniture{
 	
-	public static int texture_side_dx=10;
-	public static int texture_side_dy=10;
+	private static int texture_side_dx=10;
+	private static int texture_side_dy=10;
 
-	public static int texture_x0=10;
-	public static int texture_y0=10;
-	public static int IMG_WIDTH;
-	public static int IMG_HEIGHT;
+	private static int texture_x0=10;
+	private static int texture_y0=10;
+	private static int IMG_WIDTH;
+	private static int IMG_HEIGHT;
 	
 	public static boolean isTextureDrawing=false;
 	
-	int N_FACES=4;
-	int N_PARALLELS=2;
+	private int N_FACES=4;
+	private int N_PARALLELS=2;
 	
 	private double len;
 	
-	Point3D[] upperBase=null;
-	Point3D[] lowerBase=null;
-	Point3D[][] lateralFaces=null; 
+	private Point3D[] upperBase=null;
+	private Point3D[] lowerBase=null;
+	private Point3D[][] lateralFaces=null; 
 	
-	Point3D[] lowerLegBase=null;
-	Point3D[][] lateralLegFaces=null; 
+	private Point3D[] lowerLegBase=null;
+	private Point3D[][] lateralLegFaces=null; 
 	
-	Point3D[] upperBackBase=null;
-	Point3D[][] lateralBackFaces=null;
+	private Point3D[] upperBackBase=null;
+	private Point3D[][] lateralBackFaces=null;
 	
 	public Chair(double x_side, double y_side, double z_side,double leg_length,double leg_side,double back_height) {
 		

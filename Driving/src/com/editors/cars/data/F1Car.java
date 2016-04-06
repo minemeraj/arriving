@@ -10,26 +10,26 @@ import com.main.Renderer3D;
 
 public class F1Car extends CustomData {
 	
-	double x_side=0;
-	double y_side=0;
-	double z_side=0;
-	double front_width=0;
-    double front_length=0;
-    double front_height=0;
-    double back_width=0;
-    double back_length=0;
-    double back_height=0;
+	private double x_side=0;
+	private double y_side=0;
+	private double z_side=0;
+	private double front_width=0;
+	private double front_length=0;
+	private double front_height=0;
+	private double back_width=0;
+	private double back_length=0;
+	private double back_height=0;
     
-    double roof_width=0;
-    double roof_length=0;
-    double roof_height=0;
+	private double roof_width=0;
+	private double roof_length=0;
+	private double roof_height=0;
     
-    double wheel_radius=0;
-    double wheel_width=0;
+	private double wheel_radius=0;
+	private double wheel_width=0;
     
-    double front_overhang=0;
-    double wheel_base=0;    
-    double rear_overhang=0;
+	private double front_overhang=0;
+	private double wheel_base=0;    
+	private double rear_overhang=0;
 	
 	public F1Car(double x_side, double y_side, double z_side,
 			double front_width, double front_length, double front_height,

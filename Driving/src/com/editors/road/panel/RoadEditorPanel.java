@@ -26,7 +26,7 @@ public abstract class RoadEditorPanel extends JPanel {
 	
 	protected Color selectionColor=null;
 	
-	boolean hide_objects=false;
+	private boolean hide_objects=false;
 	
 	protected int POSX=0;
 	protected int POSY=0;
@@ -92,12 +92,12 @@ public abstract class RoadEditorPanel extends JPanel {
 	}
 	
 	
-	public int convertX(Point3D p){
+	protected int convertX(Point3D p){
 
 
 		return convertX(p.x,p.y,p.z);
 	}
-	public int convertY(Point3D p){
+	protected int convertY(Point3D p){
 
 
 		return convertY(p.x,p.y,p.z);

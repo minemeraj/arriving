@@ -9,17 +9,17 @@ import com.main.Renderer3D;
 
 public class Sword extends CustomData {
 	
-	double forearm_length=0;
-	double forearm_width=0;
-	double forearm_height=0;
+	private double forearm_length=0;
+	private double forearm_width=0;
+	private double forearm_height=0;
 	
-	double breech_length=0;
-	double breech_width=0;
-	double breech_height=0;
+	private double breech_length=0;
+	private double breech_width=0;
+	private double breech_height=0;
 	
-	double butt_length=0;
-	double butt_width=0;
-	double butt_height=0;
+	private double butt_length=0;
+	private double butt_width=0;
+	private double butt_height=0;
 	
 	int barrel_meridians=0;
 

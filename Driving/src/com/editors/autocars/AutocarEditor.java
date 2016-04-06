@@ -213,10 +213,9 @@ public class AutocarEditor extends Editor implements MouseListener,
 	
 	public int greenRgb= Color.GREEN.getRGB();
 	
-	public double fi=0;
-	public double sinf=Math.sin(fi);
-	public double cosf=Math.cos(fi);
-	private String header;
+	private double fi=0;
+	private double sinf=Math.sin(fi);
+	private double cosf=Math.cos(fi);
 	private JButton insertPoint;
 
 	public static void main(String[] args) {
@@ -3279,10 +3278,10 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	class ComboItem {
 
-		String value = null;
-		String code = null;
+		private String value = null;
+		private String code = null;
 
-		public ComboItem(String value, String code) {
+		private ComboItem(String value, String code) {
 			super();
 			this.value = value;
 			this.code = code;

@@ -17,12 +17,12 @@ import com.editors.DoubleTextField;
 public class AutocarTemplatePanel extends JDialog implements ActionListener{
 
 	private int TEMPLATE_TYPE;
-	private int TEMPLATE_TYPE_ELLIPSE=0;
-	private int TEMPLATE_TYPE_RECTANGLE=1;
+	private final int TEMPLATE_TYPE_ELLIPSE=0;
+	private final int TEMPLATE_TYPE_RECTANGLE=1;
 	
-	int WIDTH=300;
-	int BOTTOM_HEIGHT=100;
-	int HEIGHT=280;
+	private final int WIDTH=300;
+	private final int BOTTOM_HEIGHT=100;
+	private final int HEIGHT=280;
 	
 	private JTabbedPane jtb;
 	private JButton generate;

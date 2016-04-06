@@ -20,13 +20,13 @@ import com.editors.DoubleTextField;
 
 public class ObjectEditorCopyPanel extends JDialog implements ActionListener {
 	
-	int WIDTH=300;
-	int BOTTOM_HEIGHT=100;
-	int HEIGHT=200;
+	private int WIDTH=300;
+	private int BOTTOM_HEIGHT=100;
+	private int HEIGHT=200;
 	
-	PolygonMesh pm=null;
+	private PolygonMesh pm=null;
 	
-	boolean saved=false;
+	private boolean saved=false;
 	private JButton copy;
 	private JButton delete;
 	private JTabbedPane jtb;
@@ -269,18 +269,6 @@ public class ObjectEditorCopyPanel extends JDialog implements ActionListener {
 		
 		return ld;
 	
-	}
-
-	public Object translate(LineData ld,int increment) {
-		
-		LineData ldnew=new LineData();
-		
-		for(int i=0;i<ld.size();i++){
-			
-			ldnew.addIndex(ld.getIndex(i)+increment);
-		}
-		
-		return ldnew;
 	}
 
 }

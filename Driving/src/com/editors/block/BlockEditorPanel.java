@@ -99,7 +99,7 @@ public class BlockEditorPanel extends JPanel implements MouseListener{
 		return  calcAssY(p.x,p.y,p.z);
 	}
 	
-	public void draw(Graphics2D comp){
+	private void draw(Graphics2D comp){
 	
 		buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);		
 	
@@ -322,7 +322,7 @@ public class BlockEditorPanel extends JPanel implements MouseListener{
 		
 	}
 	
-	public void moveCenter(int dx, int dy) {
+	private void moveCenter(int dx, int dy) {
 	    
     	x0+=dx;
     	y0+=dy;
@@ -374,12 +374,6 @@ public class BlockEditorPanel extends JPanel implements MouseListener{
 		int dy=(int) (2*j/deltay);
 		
 		moveCenter(dx,dy);
-		
-	}
-
-	public void showNormals( LineData ld, Graphics2D bufGraphics) {
-		
-		
 		
 	}
 

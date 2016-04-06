@@ -9,17 +9,17 @@ import com.main.Renderer3D;
 
 public class Starship extends CustomData {
 	
-	double x_side=0;
-	double y_side=0;
-	double z_side=0;
+	private double x_side=0;
+	private double y_side=0;
+	private double z_side=0;
 
-	double front_width=0;
-    double front_length=0;
-    double front_height=0;
+	private double front_width=0;
+	private double front_length=0;
+	private double front_height=0;
     
-	double roof_width=0;
-    double roof_length=0;
-    double roof_height=0;
+	private double roof_width=0;
+	private double roof_length=0;
+	private double roof_height=0;
 
     
     public Starship(double x_side, double y_side, double z_side,

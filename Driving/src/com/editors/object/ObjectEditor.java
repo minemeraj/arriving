@@ -52,37 +52,37 @@ import com.main.HelpPanel;
 public class ObjectEditor extends Editor implements ActionListener{
 
 
-	public ObjectEditor3DPanel center3D;
-	public ObjectEditorTopBottomPanel centerTop;
-	public ObjectEditorFrontBackPanel centerFront;
-	public ObjectEditorLeftRightPanel centerLeft;
+	private ObjectEditor3DPanel center3D;
+	private ObjectEditorTopBottomPanel centerTop;
+	private ObjectEditorFrontBackPanel centerFront;
+	private ObjectEditorLeftRightPanel centerLeft;
 	
-	public static int HEIGHT=700;
-	public static int WIDTH=800;
+	static int HEIGHT=700;
+	static int WIDTH=800;
 
-	public int RIGHT_BORDER=330;
-	public int BOTTOM_BORDER=100;
+	private int RIGHT_BORDER=330;
+	private int BOTTOM_BORDER=100;
 	
-	public JMenuBar jmb;
-	public JMenu jm_load;
+	private JMenuBar jmb;
+	private JMenu jm_load;
 
-	public AbstractButton jmt_load_mesh;
-	public JMenuItem jmt_save_mesh;
-	public JMenuItem jmt_save_base_texture;
-	public JMenu jm_save;
+	private AbstractButton jmt_load_mesh;
+	private JMenuItem jmt_save_mesh;
+	private JMenuItem jmt_save_base_texture;
+	private JMenu jm_save;
 
-	public JMenu jm_change;
-	public JMenuItem jmt_undo_last;
-	public JMenuItem jmt_transform;
+	private JMenu jm_change;
+	private JMenuItem jmt_undo_last;
+	private JMenuItem jmt_transform;
 
-	public JMenu jm_edit;
-	public JMenuItem jmt_insert_template;
-	public JCheckBoxMenuItem jmt_show_normals;
-	public JMenu jm_view;
-	public JMenuItem jmt_3Dview;
-	public JMenuItem jmt_top_view;
-	public JMenuItem jmt_left_view;
-	public JMenuItem jmt_front_view;
+	private JMenu jm_edit;
+	private JMenuItem jmt_insert_template;
+	private JCheckBoxMenuItem jmt_show_normals; 
+	private JMenu jm_view;
+	private JMenuItem jmt_3Dview;
+	private JMenuItem jmt_top_view;
+	private JMenuItem jmt_left_view;
+	private JMenuItem jmt_front_view;
 
 
 
@@ -1045,5 +1045,10 @@ public class ObjectEditor extends Editor implements ActionListener{
         return p3dr;
 
 	}
+    
+    public boolean isShowNornals(){
+    	
+    	return jmt_show_normals.isSelected();
+    }
 
 }

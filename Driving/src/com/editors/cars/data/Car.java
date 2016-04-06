@@ -14,42 +14,42 @@ public class Car extends CustomData {
 
 
 
-	double x_side=0;
-	double y_side=0;
-	double z_side=0;
+	private double x_side=0;
+	private double y_side=0;
+	private double z_side=0;
 
-	double front_width=0;
-    double front_length=0;
-    double front_height=0;
-    double back_width=0;
-    double back_length=0;
-    double back_height=0;
+	private double front_width=0;
+	private double front_length=0;
+	private double front_height=0;
+	private double back_width=0;
+	private double back_length=0;
+	private double back_height=0;
     
-    double roof_width=0;
-    double roof_length=0;
-    double roof_height=0;
+	private double roof_width=0;
+	private double roof_length=0;
+	private double roof_height=0;
     
-    double wheel_radius=0;
-    double wheel_width=0;
+	private double wheel_radius=0;
+	private double wheel_width=0;
     
-    double front_overhang=0;
-    double wheel_base=0;    
-    double rear_overhang=0;
+	private double front_overhang=0;
+	private double wheel_base=0;    
+	private double rear_overhang=0;
     
-    public static int CAR_TYPE_CAR=0;
-    public static int CAR_TYPE_TRUCK=1;
-    public static int CAR_TYPE_BYKE=2;
-    public static int CAR_TYPE_TRACTOR=3;
-    public static int CAR_TYPE_RAILROAD_CAR_0=4;
-    public static int CAR_TYPE_RAILROAD_CAR_1=41;
-    public static int CAR_TYPE_RAILROAD_CAR_2=42;
-    public static int CAR_TYPE_RAILROAD_CAR_3=43;
-    public static int CAR_TYPE_RAILROAD_CAR_4=44;
-    public static int CAR_TYPE_AIRPLANE=5;
-    public static int CAR_TYPE_STARSHIP=6;
-    public static int CAR_TYPE_F1_CAR=7;
-    public static int CAR_TYPE_SHIP=8;
-    public static int CAR_TYPE_TANK=9;
+    public final static int CAR_TYPE_CAR=0;
+    public final static int CAR_TYPE_TRUCK=1;
+    public final static int CAR_TYPE_BYKE=2;
+    public final static int CAR_TYPE_TRACTOR=3;
+    public final static int CAR_TYPE_RAILROAD_CAR_0=4;
+    public final static int CAR_TYPE_RAILROAD_CAR_1=41;
+    public final static int CAR_TYPE_RAILROAD_CAR_2=42;
+    public final static int CAR_TYPE_RAILROAD_CAR_3=43;
+    public final static int CAR_TYPE_RAILROAD_CAR_4=44;
+    public final static int CAR_TYPE_AIRPLANE=5;
+    public final static int CAR_TYPE_STARSHIP=6;
+    public final static int CAR_TYPE_F1_CAR=7;
+    public final static int CAR_TYPE_SHIP=8;
+    public final static int CAR_TYPE_TANK=9;
     
     public int car_type=CAR_TYPE_CAR;
 

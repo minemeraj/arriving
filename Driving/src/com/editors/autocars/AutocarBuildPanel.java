@@ -15,7 +15,7 @@ import com.editors.DoubleTextField;
 
 public class AutocarBuildPanel extends JDialog implements ActionListener{
 	
-	AutocarData autocarData=null;
+	private AutocarData autocarData=null;
 	private JComboBox car_type_index;
 	private DoubleTextField centerX;
 	private DoubleTextField centerY;
@@ -26,8 +26,8 @@ public class AutocarBuildPanel extends JDialog implements ActionListener{
 	private JButton addButton;
 	private JButton cancelButton;
 	
-	int WIDTH=200;
-	int HEIGHT=350;
+	private int WIDTH=200;
+	private int HEIGHT=350;
 	
 	public AutocarBuildPanel(double x, double y, double u){
 		

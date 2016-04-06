@@ -25,8 +25,8 @@ public class RoadEditorGridManager extends JDialog implements ActionListener{
 	double X0=0;
 	double Y0=0;
 	
-	int WIDTH=230;
-	int HEIGHT=260;
+	private int WIDTH=230;
+	private int HEIGHT=260;
 	private DoubleTextField NX_Field;
 	private DoubleTextField NY_Field;
 	
@@ -35,8 +35,8 @@ public class RoadEditorGridManager extends JDialog implements ActionListener{
 	
 	private Object returnValue=null;
 	
-	JButton update=null;
-	JButton cancel=null;
+	private JButton update=null;
+	private JButton cancel=null;
 	private DoubleTextField DX_Field;
 	private DoubleTextField DY_Field;
 	

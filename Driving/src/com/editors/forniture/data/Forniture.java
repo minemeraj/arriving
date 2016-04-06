@@ -189,11 +189,6 @@ public class Forniture extends CustomData{
 		this.back_height = back_length;
 	}
 
-	public int pos(int i, int j, int k){
-
-		return (i+(1+1)*j)*2+k;
-	}
-
 	@Override
 	public PolygonMesh buildMesh(){
 		

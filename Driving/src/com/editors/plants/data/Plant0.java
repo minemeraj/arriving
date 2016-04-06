@@ -17,40 +17,40 @@ import com.main.Renderer3D;
 
 public class Plant0 extends CustomData{
 
-	double trunk_lenght=0; 
-	double trunk_upper_radius=0;
-	double trunk_lower_radius=0;
+	private double trunk_lenght=0; 
+	private double trunk_upper_radius=0;
+	private double trunk_lower_radius=0;
 	
-	int trunk_parallels=0;
-	int trunk_meridians=0;	
+	private int trunk_parallels=0;
+	private int trunk_meridians=0;	
 	
-	double foliage_length=0;
-	double foliage_radius=0;
-	double foliage_barycenter=0;
+	private double foliage_length=0;
+	private double foliage_radius=0;
+	private double foliage_barycenter=0;
 		
-	int foliage_meridians=0;
-	int foliage_parallels=0;
-	int foliage_lobes=0;
+	private int foliage_meridians=0;
+	private int foliage_parallels=0;
+	private int foliage_lobes=0;
 	
-	double lobe_percentage_depth=1.0;
+	private double lobe_percentage_depth=1.0;
 	
 	public static int PLANT_TYPE_0=0;
 	
 	public int plant_type=PLANT_TYPE_0;
 	
-	TextureCylinder trunkCylinder=null;
-	TextureCylinder foliageCylinder=null;
+	private TextureCylinder trunkCylinder=null;
+	private TextureCylinder foliageCylinder=null;
 	
 	private double len;
 	private double vlen;
 	
-	public static int IMG_WIDTH;
-	public static int IMG_HEIGHT;
+	private static int IMG_WIDTH;
+	private static int IMG_HEIGHT;
 	
-	public static int texture_x0=10;
-	public static int texture_y0=10;
+	private static int texture_x0=10;
+	private static int texture_y0=10;
 	
-	public static boolean isTextureDrawing=false;
+	private static boolean isTextureDrawing=false;
 	
 	public Plant0(){}
 

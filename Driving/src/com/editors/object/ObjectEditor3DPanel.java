@@ -393,7 +393,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 				bufGraphics.drawLine(calcAssX(p0),calcAssY(p0),calcAssX(p1),calcAssY(p1));
 			}
-			if(oe.jmt_show_normals.isSelected())
+			if(oe.isShowNornals())
 				showNormals(mesh.points,ld,bufGraphics);
 
 		}	

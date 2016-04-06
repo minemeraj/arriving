@@ -54,9 +54,9 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 	
 	public static Color BACKGROUND_COLOR=new Color(0,0,0);
 
-	int CENTER_WIDTH=1000;
-	int CENTER_HEIGHT=500;
-	int BOTTOM_BORDER=300;
+	private int CENTER_WIDTH=1000;
+	private int CENTER_HEIGHT=500;
+	private int BOTTOM_BORDER=300;
 
 	private CubicEditorPanel centerPanel=null;
 
@@ -137,12 +137,12 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 	private JMenu help_jm; 
 	
-	public static int BOTTOM=0;
-	public static int TOP=1;
-	public static int FRONT=2;
-	public static int BACK=3;
-	public static int LEFT=4;
-	public static int RIGHT=5;
+	private static int BOTTOM=0;
+	private static int TOP=1;
+	private static int FRONT=2;
+	private static int BACK=3;
+	private static int LEFT=4;
+	private static int RIGHT=5;
 	
 
 	public static void main(String[] args) {
@@ -476,7 +476,7 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 	}
 	
-	public void updateCubeSelectedCubeUnit() {
+	private void updateCubeSelectedCubeUnit() {
 		
 		
 		try{
@@ -866,111 +866,6 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 		
 	}
 
-	public void saveLines(File file) {
-
-
-        if(cubeData==null)
-        	return;
-        
-        PolygonMesh mesh = meshes[ACTIVE_PANEL];
-		
-		PrintWriter pr; 
-		try {
-			pr = new PrintWriter(new FileOutputStream(file));
-			pr.print("\nD=");
-
-		
-			pr.print(cubeData.print());
-	
-			pr.print("\nM=");
-
-			for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
-
-				Point3D p0=mesh.points[i];
-				int i0=(int)p0.p_x;
-				int j0=(int)p0.p_y;
-				int k0=(int)p0.p_z;	
-				
-				pr.print(cubeData.selectionMask[i0][j0][k0]);
-				if(i<mesh.points.length-1)
-					pr.print(" ");
-			}
-
-			pr.close(); 	
-
-		} catch (FileNotFoundException e) {
-
-			e.printStackTrace();
-		}
-	}
-	
-	public void loadPointsFromFile(File file){
-
-		meshes[ACTIVE_PANEL]=new PolygonMesh();
-
-		oldMeshes[ACTIVE_PANEL]=new Stack();
-
-
-		try {
-			BufferedReader br=new BufferedReader(new FileReader(file));
-
-
-			String str=null;
-			int rows=0;
-			while((str=br.readLine())!=null){
-				if(str.indexOf("#")>=0 || str.length()==0)
-					continue;
-
-				if(str.startsWith("D=")){
-
-					String dimensions=str.substring(2);
-					String[] vals = dimensions.split(" ");
-					int NX=Integer.parseInt(vals[0]);
-					int NY=Integer.parseInt(vals[1]);
-					int NZ=Integer.parseInt(vals[2]);
-					double LX=Double.parseDouble(vals[3]);
-					double LY=Double.parseDouble(vals[4]);
-					double LZ=Double.parseDouble(vals[5]);
-
-					cubeData=new CubeData(NX,NY,NZ,LX,LY,LZ);
-				}
-				else if(str.startsWith("M=")){
-
-					Vector values=new Vector();
-					
-					String line=str.substring(2);
-					StringTokenizer stk=new StringTokenizer(line," ");
-					while(stk.hasMoreElements()){
-
-						values.add(stk.nextElement());
-					}
-					
-				
-					for(int i=0;i<cubeData.NX;i++)
-						for(int j=0;j<cubeData.NY;j++){
-
-							for(int k=0;k<cubeData.NZ;k++){
-								
-								int pos=pos(i,j,k,cubeData.NX,cubeData.NY,cubeData.NZ);
-								cubeData.selectionMask[i][j][k]=Short.parseShort((String) values.elementAt(pos));
-								
-							}
-						}	
-
-				}
-			}
-
-			br.close();
-			
-			addCube(cubeData);
-			//checkNormals();
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
-	}
-	
-
 	private void saveSurface() {
 	
 		
@@ -1268,16 +1163,16 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 		
 	}*/
 	
-	int[] p000={0,0,0};
-	int[] p100={1,0,0};
-	int[] p110={1,1,0};
-	int[] p010={0,1,0};
-	int[] p001={0,0,1};
-	int[] p011={0,1,1};
-	int[] p111={1,1,1};
-	int[] p101={1,0,1};
+	private int[] p000={0,0,0};
+	private int[] p100={1,0,0};
+	private int[] p110={1,1,0};
+	private int[] p010={0,1,0};
+	private int[] p001={0,0,1};
+	private int[] p011={0,1,1};
+	private int[] p111={1,1,1};
+	private int[] p101={1,0,1};
 	
-	public Vector buildCubeLines(int i,int j,int k,CubeData cd){
+	private Vector buildCubeLines(int i,int j,int k,CubeData cd){
 		
 		Vector cubeLines=new Vector();
 		

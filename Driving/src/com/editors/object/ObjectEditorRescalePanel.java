@@ -29,7 +29,7 @@ public class ObjectEditorRescalePanel extends JDialog implements ActionListener{
 	private JCheckBox checkRescaleZ;
 	
 	
-	ObjectEditor editor=null;
+	private ObjectEditor editor=null;
 
 	
 	public ObjectEditorRescalePanel(ObjectEditor editor){

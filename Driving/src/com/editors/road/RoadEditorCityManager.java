@@ -23,19 +23,18 @@ import com.editors.DoubleTextField;
 public class RoadEditorCityManager extends JDialog implements ActionListener{
 	
 	private JPanel center;
-	private JPanel bottom;
 	
-	int NX=10;
-	int NY=10;
+	private int NX=10;
+	private int NY=10;
 	
-	double DX=200;
-	double DY=200;
+	private double DX=200;
+	private double DY=200;
 	
-	double X0=0;
-	double Y0=0;
+	private double X0=0;
+	private double Y0=0;
 	
-	int WIDTH=230;
-	int HEIGHT=230;
+	private int WIDTH=230;
+	private int HEIGHT=230;
 	private DoubleTextField NX_Field;
 	private DoubleTextField NY_Field;
 	
@@ -44,12 +43,12 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 	
 	private Object returnValue=null;
 	
-	JButton update=null;
-	JButton cancel=null;
+	private JButton update=null;
+	private JButton cancel=null;
 	
 	SquareMesh squareMesh=null;
 	
-	boolean is_expand_mode=false;
+	private boolean is_expand_mode=false;
 	
 
 	public RoadEditorCityManager(SquareMesh squareMesh){

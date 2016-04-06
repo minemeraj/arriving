@@ -97,7 +97,7 @@ public class CubicEditorPanel extends JPanel implements MouseListener{
 		return  calcAssY(p.x,p.y,p.z);
 	}
 	
-	public void draw(Graphics2D comp){
+	private void draw(Graphics2D comp){
 	
 		buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);		
 	
@@ -320,13 +320,13 @@ public class CubicEditorPanel extends JPanel implements MouseListener{
 		
 	}
 	
-	public void moveCenter(int dx, int dy) {
+	private void moveCenter(int dx, int dy) {
 	    
     	x0+=dx;
     	y0+=dy;
     }
 
-	public void rotate(double df) {
+	void rotate(double df) {
 		
 		 fi+=df;
 		 sinf=Math.sin(fi);
@@ -364,7 +364,7 @@ public class CubicEditorPanel extends JPanel implements MouseListener{
 	}
     
     
-	public void translate(int i, int j) {
+    void translate(int i, int j) {
 		
 		int dx=(int) (2*i/deltax);
 		int dy=(int) (2*j/deltay);

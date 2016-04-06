@@ -2,7 +2,6 @@ package com.editors.object;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -23,7 +22,6 @@ public class ObjectEditorTransformPanel extends JDialog implements ActionListene
 	private JPanel center;
 	private JButton confirm;
 	private JButton cancel;
-	public BufferedImage image=null;
 	private JTextField referencex;
 	private JTextField referencey;
 	private JTextField referencez;
@@ -33,7 +31,7 @@ public class ObjectEditorTransformPanel extends JDialog implements ActionListene
 	private JRadioButton axisY;
 	private JRadioButton axisZ;
 	
-	ObjectEditor editor=null;
+	private ObjectEditor editor=null;
 	private DoubleTextField rotationAngle;
 	
 	public ObjectEditorTransformPanel(ObjectEditor editor){

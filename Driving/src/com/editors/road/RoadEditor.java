@@ -86,19 +86,18 @@ import com.main.Road;
 public class RoadEditor extends Editor implements ActionListener,MouseListener,MouseWheelListener,PropertyChangeListener,MouseMotionListener,KeyListener, ItemListener{
 
 
-	//private JPanel center;
-	int HEIGHT=600;
-	int WIDTH=900;
-	int LEFT_BORDER=240;
-	int BOTTOM_BORDER=100;
-	int RIGHT_SKYP=10;
+
+	private int HEIGHT=600;
+	private int WIDTH=900;
+	private int LEFT_BORDER=240;
+	private int BOTTOM_BORDER=100;
+	private int RIGHT_SKYP=10;
 
 	private ArrayList drawObjects=new ArrayList();
-	//Graphics2D g2;
-	//Graphics2D g2Alias;
-	Stack oldObjects=new Stack();
-	Stack oldSpline=new Stack();
-	int MAX_STACK_SIZE=10;
+
+	private Stack oldObjects=new Stack();
+	private Stack oldSpline=new Stack();
+	private int MAX_STACK_SIZE=10;
 
 	private JMenuBar jmb;
 	private JMenu jm_file;
@@ -167,9 +166,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton moveObjTop;
 	private JButton moveObjBottom;
 	
-	public static BufferedImage[] worldImages;	
-	public static BufferedImage[] splinesImages;	
-	public static BufferedImage[] objectImages;
+	protected static BufferedImage[] worldImages;	
+	protected static BufferedImage[] splinesImages;	
+	protected static BufferedImage[] objectImages;
 	public static Texture[] objectIndexes; 
 	
 	public int indexWidth=40;

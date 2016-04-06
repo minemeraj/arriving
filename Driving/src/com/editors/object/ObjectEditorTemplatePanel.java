@@ -17,13 +17,13 @@ import com.editors.DoubleTextField;
 
 public class ObjectEditorTemplatePanel  extends JDialog implements ActionListener{
 	
-	int WIDTH=300;
-	int BOTTOM_HEIGHT=100;
-	int HEIGHT=200;
-	DoubleTextField box_side=null;
-	DoubleTextField box_num_x=null;
-	DoubleTextField box_num_y=null;
-	DoubleTextField box_num_z=null;
+	private int WIDTH=300;
+	private int BOTTOM_HEIGHT=100;
+	private int HEIGHT=200;
+	private DoubleTextField box_side=null;
+	private DoubleTextField box_num_x=null;
+	private DoubleTextField box_num_y=null;
+	private DoubleTextField box_num_z=null;
 	private DoubleTextField prism_radius;
 	private DoubleTextField prism_num;
 	private DoubleTextField sphere_radius;

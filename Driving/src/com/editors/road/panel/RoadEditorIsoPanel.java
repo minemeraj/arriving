@@ -3,7 +3,6 @@ package com.editors.road.panel;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
 import java.awt.geom.Area;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ import com.SPLine;
 import com.SPNode;
 import com.Texture;
 import com.ZBuffer;
-import com.editors.Editor;
 import com.editors.EditorData;
 import com.editors.ValuePair;
 import com.editors.road.RoadEditor;
@@ -32,34 +30,25 @@ import com.main.Road;
 
 
 public class RoadEditorIsoPanel extends RoadEditorPanel{
-
 	
-	int MOVX=-50;
-	int MOVY=100;
-
-	int dx=2;
-	int dy=2;
-
+	private double deltay=1;
+	private double deltax=1;
 	
-	public double deltay=1;
-	public double deltax=1;
-	
-	public int y0=400;
-	public int x0=100;
+	private int y0=400;
+	private int x0=100;
 	
 
 	
-	public double alfa=Math.PI/3;
-	public double cosAlfa=Math.cos(alfa);
-	public double sinAlfa=Math.sin(alfa);
+	private double alfa=Math.PI/3;
+	private double cosAlfa=Math.cos(alfa);
+	private double sinAlfa=Math.sin(alfa);
 	
-	Point3D projectionNormal=new Point3D(-1/Math.sqrt(3),-1/Math.sqrt(3),1/Math.sqrt(3));
+	private Point3D projectionNormal=new Point3D(-1/Math.sqrt(3),-1/Math.sqrt(3),1/Math.sqrt(3));
 	
-	public double viewDirection=0;	
-	public double viewDirectionCos=1.0;
-	public double viewDirectionSin=0.0;	
+	private double viewDirectionCos=1.0;
+	private double viewDirectionSin=0.0;	
 	
-	public int greenRgb= Color.GREEN.getRGB();
+	private int greenRgb= Color.GREEN.getRGB();
 
 	public RoadEditorIsoPanel(RoadEditor editor, int WIDTH,int HEIGHT) {
 		
@@ -820,7 +809,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		return newPoint;
 	}
 
-	public Point3D buildTransformedVersor(Point3D point) {
+	private Point3D buildTransformedVersor(Point3D point) {
 
 		Point3D newPoint=new Point3D();
 
@@ -837,7 +826,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		return newPoint;
 	}
 
-	public void buildTransformedPolygon(Polygon3D base) {
+	private void buildTransformedPolygon(Polygon3D base) {
 	
 	
 	
@@ -855,14 +844,6 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		}
 	
 	
-	}
-
-	public void keyPressed(KeyEvent arg0) {
-
-		
-
-		int code =arg0.getKeyCode();
-
 	}
 	
     public ArrayList getClickedPolygons(int x, int y, PolygonMesh mesh) {
@@ -1011,7 +992,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
     }
     
 
-	public boolean selectObject(int x, int y, DrawObject dro) {
+    private boolean selectObject(int x, int y, DrawObject dro) {
 		
 		
 		CubicMesh cm = (CubicMesh) dro.getMesh();
@@ -1230,10 +1211,10 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	
 	public class PolygonToOrder{
 		
-		LineData polygon=null;
-		Point3D centroid=null;
-		int index=-1;
-		int indexZ=-1;
+		private LineData polygon=null;
+		private Point3D centroid=null;
+		private int index=-1;
+		private int indexZ=-1;
 		
 		public PolygonToOrder(LineData polygon, Point3D centroid, int index) {
 

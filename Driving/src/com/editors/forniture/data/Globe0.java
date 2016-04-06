@@ -21,22 +21,22 @@ public class Globe0 extends Forniture {
 	double radius=0;
 
 	
-	Point3D[][] lateralFaces=null; 
-	Point3D[]northPoles=null;
-	Point3D[]southPoles=null;
+	private Point3D[][] lateralFaces=null; 
+	private Point3D[]northPoles=null;
+	private Point3D[]southPoles=null;
 	
-	public static int texture_side_dx=10;
-	public static int texture_side_dy=10;
+	private static int texture_side_dx=10;
+	private static int texture_side_dy=10;
 	
-	public static int texture_x0=10;
-	public static int texture_y0=10;
-	public static int IMG_WIDTH;
-	public static int IMG_HEIGHT;
+	private static int texture_x0=10;
+	private static int texture_y0=10;
+	private static int IMG_WIDTH;
+	private static int IMG_HEIGHT;
 	
-	public double len;
-	public double zHeight;
+	private double len;
+	private double zHeight;
 	
-	public static boolean isTextureDrawing=false;
+	private static boolean isTextureDrawing=false;
 
 	public Globe0(double radius,int N_MERIDIANS,int N_PARALLELS) {
 		

@@ -14,48 +14,48 @@ import com.main.Renderer3D;
 
 public class Weapon extends CustomData{
 
-	double barrel_lenght=0; 
-	double barrel_radius=0;		
-	int barrel_meridians=0;
+	private double barrel_lenght=0; 
+	private double barrel_radius=0;		
+	private int barrel_meridians=0;
 	
-	public static int WEAPON_TYPE_GUN=0;	
-	public static int WEAPON_TYPE_SHOTGUN=1;
-	public static int WEAPON_TYPE_DOUBLE_BARREL_SHOTGUN=2;
-	public static int WEAPON_TYPE_REVOLVER=3;
-	public static int WEAPON_TYPE_SUBMACHINEGUN=4;
-	public static int WEAPON_TYPE_BASEBALL_BAT=5;
-	public static int WEAPON_TYPE_AX=6;
-	public static int WEAPON_TYPE_SWORD=7;
+	public final static int WEAPON_TYPE_GUN=0;	
+	public final static int WEAPON_TYPE_SHOTGUN=1;
+	public final static int WEAPON_TYPE_DOUBLE_BARREL_SHOTGUN=2;
+	public final static int WEAPON_TYPE_REVOLVER=3;
+	public final static int WEAPON_TYPE_SUBMACHINEGUN=4;
+	public final static int WEAPON_TYPE_BASEBALL_BAT=5;
+	public final static int WEAPON_TYPE_AX=6;
+	public final static int WEAPON_TYPE_SWORD=7;
 	
 	public int weapon_type=WEAPON_TYPE_GUN;
 	
 	
 	
-	double breech_length=0;
-	double breech_width=0;
-	double breech_height=0;
+	private double breech_length=0;
+	private double breech_width=0;
+	private double breech_height=0;
 	
-	double butt_length=0;
-	double butt_width=0;
-	double butt_height=0;
+	private double butt_length=0;
+	private double butt_width=0;
+	private double butt_height=0;
 
-	double butt_end_length=0;
-	double butt_end_width=0;
-	double butt_end_height=0;
+	private double butt_end_length=0;
+	private double butt_end_width=0;
+	private double butt_end_height=0;
 	
-	double rear_overhang=0;
+	private double rear_overhang=0;
 	
-	double trigger_length=0;
-	double trigger_width=0;
-	double trigger_height=0;
+	private double trigger_length=0;
+	private double trigger_width=0;
+	private double trigger_height=0;
 	
-	double forearm_length=0;
-	double forearm_width=0;
-	double forearm_height=0;
+	private double forearm_length=0;
+	private double forearm_width=0;
+	private double forearm_height=0;
 	
-	double magazine_length=0;
-	double magazine_width=0;
-	double magazine_height=0;
+	private double magazine_length=0;
+	private double magazine_width=0;
+	private double magazine_height=0;
 
 	public Weapon(){}
 

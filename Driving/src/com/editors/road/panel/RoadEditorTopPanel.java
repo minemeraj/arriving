@@ -28,11 +28,11 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	
 
 	
-	int MOVX=-50;
-	int MOVY=100;
+	private int MOVX=-50;
+	private int MOVY=100;
 
-	int dx=2;
-	int dy=2;
+	private int dx=2;
+	private int dy=2;
 	
 	
 

@@ -23,23 +23,13 @@ import com.PolygonMesh;
 
 public class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 
-
-
-
-	int NX=4;
-	int NY=0;
-
-	int MOVX=0;
-	int MOVY=0;
 	
-	static int y0=250;
-	static int x0=350;
+	private static int y0=250;
+	private static int x0=350;
 
-	int dx=2;
-	int dy=2;
 
-	double deltay=0.5;
-	double deltax=0.5;
+	private double deltay=0.5;
+	private double deltax=0.5;
 
 
 	public ObjectEditorFrontBackPanel(ObjectEditor oe){
@@ -133,7 +123,7 @@ public class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 
 				bufGraphics.drawLine(calcAssX(p0),calcAssY(p0),calcAssX(p1),calcAssY(p1));
 			}
-			if(oe.jmt_show_normals.isSelected())
+			if(oe.isShowNornals())
 				showNormals(mesh.points,ld,bufGraphics);
 
 		}	

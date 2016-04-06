@@ -14,9 +14,9 @@ import com.editors.block.BlockEditor.BlockData;
 
 public class BlockDataChooser extends JDialog implements ActionListener{
 	
-	BlockData cc=null;
-	JButton exit=null;
-	JButton ok=null;
+	private BlockData cc=null;
+	private JButton exit=null;
+	private JButton ok=null;
 	private DoubleTextField NX;
 	private DoubleTextField NY;
 	private DoubleTextField NZ;

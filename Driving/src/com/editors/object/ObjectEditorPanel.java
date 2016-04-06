@@ -69,18 +69,18 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 
 	Graphics2D g2;
 
-	public JPanel right;
-	public JTextField coordinatesx;
-	public JTextField coordinatesy;
-	public JTextField coordinatesz;
-	public JTextField extraData=null;
+	private JPanel right;
+	private JTextField coordinatesx;
+	private JTextField coordinatesy;
+	private JTextField coordinatesz;
+	private JTextField extraData=null;
 
-	public JButton addPoint;
-	public JButton deleteSelection;
-	public JButton changePoint;
-	public JButton deselectAll;;
-	public JCheckBox checkMultipleSelection;
-	public JList pointList=null;
+	private JButton addPoint;
+	private JButton deleteSelection;
+	private JButton changePoint;
+	private JButton deselectAll;;
+	protected JCheckBox checkMultipleSelection;
+	private JList pointList=null;
 
 
 	//public JButton joinPoints;

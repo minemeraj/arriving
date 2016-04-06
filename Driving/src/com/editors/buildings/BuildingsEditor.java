@@ -23,10 +23,8 @@ import javax.swing.RepaintManager;
 import com.PolygonMesh;
 import com.editors.CustomEditor;
 import com.editors.DoubleTextField;
-import com.editors.Editor;
 import com.editors.ValuePair;
 import com.editors.buildings.data.BuildingPlan;
-import com.editors.object.ObjectEditorPreviewPanel;
 
 public class BuildingsEditor extends CustomEditor implements  MouseListener, ItemListener{
 	

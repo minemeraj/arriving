@@ -18,13 +18,13 @@ import com.main.Renderer3D;
 
 public class Bed extends Forniture{
 	
-	public static int texture_side_dx=10;
-	public static int texture_side_dy=10;
+	private static int texture_side_dx=10;
+	private static int texture_side_dy=10;
 
-	public static int texture_x0=10;
-	public static int texture_y0=10;
-	public static int IMG_WIDTH;
-	public static int IMG_HEIGHT;
+	private static int texture_x0=10;
+	private static int texture_y0=10;
+	private static int IMG_WIDTH;
+	private static int IMG_HEIGHT;
 	
 	public static boolean isTextureDrawing=false;
 	

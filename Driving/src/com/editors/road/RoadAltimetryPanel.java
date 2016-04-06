@@ -64,9 +64,6 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 	private int dx=4;
 	private int dy=4;
 
-	private int NX=2;
-	private int NY=80;
-
 	private int MOVX=-50;
 	private int MOVY=100;
 
@@ -110,7 +107,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 	
 	private Stack oldMeshes=new Stack();
 
-	public final int MAX_STACK_SIZE=10;
+	private final int MAX_STACK_SIZE=10;
 	private JMenuBar jMenuBar;
 	private JMenu jmUndo;
 	private boolean redrawAfterMenu;
@@ -332,7 +329,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 		add(bottom);
 	}
 
-	public Vector buildSlopeTypeVector() {
+	private Vector buildSlopeTypeVector() {
 
 		Vector data=new Vector();
 		data.add(new ComboElement(DIRECTION_NORTH,"North Slope"));
@@ -487,7 +484,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 	}
 
-	public Area clipPolygonToArea2D(Polygon p_in,Area area_out){
+	private Area clipPolygonToArea2D(Polygon p_in,Area area_out){
 
 
 		Area area_in = new Area(p_in);
@@ -1022,7 +1019,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 	}
 
-	void updateSize(MouseEvent e) {
+	private void updateSize(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
 		currentRect.setSize(x - currentRect.x,

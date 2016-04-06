@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 import javax.imageio.ImageIO;
 
@@ -19,15 +18,15 @@ import com.main.Renderer3D;
 
 public class Barrel extends CustomData{
 	
-	public static int texture_side_dx=10;
-	public static int texture_side_dy=10;
+	private static int texture_side_dx=10;
+	private static int texture_side_dy=10;
 	
-	public static int texture_x0=10;
-	public static int texture_y0=10;
-	public static int IMG_WIDTH;
-	public static int IMG_HEIGHT;
+	private static int texture_x0=10;
+	private static int texture_y0=10;
+	private static int IMG_WIDTH;
+	private static int IMG_HEIGHT;
 	
-	public static boolean isTextureDrawing=false;
+	private static boolean isTextureDrawing=false;
 	
 	int N_MERIDIANS=0;
 	int N_PARALLELS=0;
@@ -40,9 +39,9 @@ public class Barrel extends CustomData{
 	private double max_radius;
 	private double len;
 	
-	Point3D[] upperBase=null;
-	Point3D[] lowerBase=null;
-	Point3D[][] lateralFaces=null; 
+	private Point3D[] upperBase=null;
+	private Point3D[] lowerBase=null;
+	private Point3D[][] lateralFaces=null; 
 
 	public Barrel(int N_MERIDIANS,Point3D[] profile) {
 		
@@ -211,12 +210,9 @@ public class Barrel extends CustomData{
 		
 	}
 
-	public ArrayList buildTexturePoints() {
+	private ArrayList buildTexturePoints() {
 		
 		isTextureDrawing=false;
-				
-		double teta=(2*pi)/(N_MERIDIANS);
-
 
 		int size=2*N_MERIDIANS+	(N_MERIDIANS+1)*(N_PARALLELS);
 		
@@ -293,10 +289,9 @@ public class Barrel extends CustomData{
 			return texture_y0+y;
 	}
 	
-	public void initMesh( ) {
+	private void initMesh( ) {
 
 	
-	    Hashtable values=new Hashtable();
 		
 		points=new ArrayList();
 		polyData=new ArrayList();

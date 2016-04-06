@@ -29,13 +29,13 @@ import com.editors.DoubleTextField;
 
 public class AdvanceRoadManagement extends JDialog implements ActionListener {
 	
-	JButton exit=null;
-	JPanel bottom=null;
+	private JButton exit=null;
+	private JPanel bottom=null;
 	
-	JTable table=null;
+	private JTable table=null;
 	private JButton save;
 	
-	LinkedList newLinkedList=null;
+	private LinkedList newLinkedList=null;
 	private JPopupMenu popupMenu;
 	private JMenuItem jitem_insert_before;
 	private JMenuItem jitem_insert_after;
@@ -165,7 +165,7 @@ public class AdvanceRoadManagement extends JDialog implements ActionListener {
 		dispose();
 	}
 
-	public void exit(){
+	private void exit(){
 		
 		newLinkedList=null;
 		
@@ -173,7 +173,7 @@ public class AdvanceRoadManagement extends JDialog implements ActionListener {
 		
 	}
 	
-	public JTable createTable(LinkedList linkedList) {
+	private JTable createTable(LinkedList linkedList) {
 
 
 

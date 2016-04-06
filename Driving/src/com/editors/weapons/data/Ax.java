@@ -10,12 +10,12 @@ import com.main.Renderer3D;
 public class Ax extends CustomData  {
 	
 	
-	double barrel_length=0;
-	double barrel_radius=0;	
-	int barrel_meridians=0;
+	private double barrel_length=0;
+	private double barrel_radius=0;	
+	private int barrel_meridians=0;
 	
-	double forearm_length=0;
-	double forearm_width=0;
+	private double forearm_length=0;
+	private double forearm_width=0;
 	public Ax(double barrel_length, double barrel_radius, int barrel_meridians,
 			double forearm_length, double forearm_width, double forearm_height) {
 		super();

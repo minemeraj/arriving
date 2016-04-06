@@ -13,9 +13,9 @@ import com.editors.cubic.CubicEditor.CubeData;
 
 public class CubicDataChooser extends JDialog implements ActionListener{
 	
-	CubeData cc=null;
-	JButton exit=null;
-	JButton ok=null;
+	private CubeData cc=null;
+	private JButton exit=null;
+	private JButton ok=null;
 	private DoubleTextField NX;
 	private DoubleTextField NY;
 	private DoubleTextField NZ;
@@ -123,7 +123,7 @@ public class CubicDataChooser extends JDialog implements ActionListener{
 		return cc;
 	}
 	
-	public void exit(){
+	private void exit(){
 		
 		cc=null;
 		dispose();

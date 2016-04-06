@@ -20,10 +20,8 @@ import javax.swing.RepaintManager;
 import com.PolygonMesh;
 import com.editors.CustomEditor;
 import com.editors.DoubleTextField;
-import com.editors.Editor;
 import com.editors.ValuePair;
 import com.editors.cars.data.Car;
-import com.editors.object.ObjectEditorPreviewPanel;
 
 public class CarsEditor extends CustomEditor implements ItemListener{
 	

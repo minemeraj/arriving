@@ -31,11 +31,7 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 
 
 	
-	
-	
-
-	
-	Editor editor=null;
+	private Editor editor=null;
 
 	
 	
