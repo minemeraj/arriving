@@ -77,7 +77,7 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 			File directoryImg=new File("lib");
 			File[] files=directoryImg.listFiles();
 
-			ArrayList vRoadTextures=new ArrayList();
+			ArrayList<File> vRoadTextures=new ArrayList<File>();
 
 			for(int i=0;i<files.length;i++){
 				if(files[i].getName().startsWith("road_texture_")){

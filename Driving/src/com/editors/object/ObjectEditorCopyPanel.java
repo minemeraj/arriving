@@ -20,9 +20,9 @@ import com.editors.DoubleTextField;
 
 public class ObjectEditorCopyPanel extends JDialog implements ActionListener {
 	
-	private int WIDTH=300;
-	private int BOTTOM_HEIGHT=100;
-	private int HEIGHT=200;
+	private final int WIDTH=300;
+	private final int BOTTOM_HEIGHT=100;
+	private final int HEIGHT=200;
 	
 	private PolygonMesh pm=null;
 	
@@ -35,7 +35,7 @@ public class ObjectEditorCopyPanel extends JDialog implements ActionListener {
 	private DoubleTextField translate_dz;
 	private JCheckBox invert_polygons;
 
-	public ObjectEditorCopyPanel(Point3D[] points, ArrayList lines) {
+	public ObjectEditorCopyPanel(Point3D[] points, ArrayList<LineData> lines) {
 		
 		
 		setSize(WIDTH,HEIGHT+BOTTOM_HEIGHT);
@@ -179,11 +179,11 @@ public class ObjectEditorCopyPanel extends JDialog implements ActionListener {
 		}
 		
 		Point3D[] new_points=new Point3D[num_points+counter];
-		ArrayList new_lines=new ArrayList();
+		ArrayList<LineData> new_lines=new ArrayList<LineData>();
 		
 		counter=0;
 		
-		Hashtable codes=new Hashtable();
+		Hashtable<Integer,Integer> codes=new Hashtable<Integer,Integer>();
 
 		for (int i = 0; i < pm.points.length; i++) {
 			

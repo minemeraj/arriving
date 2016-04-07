@@ -233,7 +233,7 @@ public class CarDynamics {
 		return str;
 	}
 	
-	
+	@Deprecated
 	public String printForces() {
 		
 		String str=" Fy1= "+Fy1+ " ,Fy2= "+Fy2+ " ,Fx2= "+Fx2;

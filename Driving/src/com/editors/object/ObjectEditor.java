@@ -86,25 +86,25 @@ public class ObjectEditor extends Editor implements ActionListener{
 
 
 
-	public static Color BACKGROUND_COLOR=new Color(0,0,0);
+	private static Color BACKGROUND_COLOR=new Color(0,0,0);
 	
 	
-	int VIEW_TYPE_3D=0;
-	int VIEW_TYPE_TOP=1;
-	int VIEW_TYPE_LEFT=2;
-	int VIEW_TYPE_FRONT=3;
-	int VIEW_TYPE=VIEW_TYPE_3D;
-	public JMenuItem hmt_preview;
-	public JMenuItem jmt_rescale_selected;
-	public JMenuItem jmt_copy_selection;
-	public JCheckBoxMenuItem jmt_show_shading;
+	private final int VIEW_TYPE_3D=0;
+	private final int VIEW_TYPE_TOP=1;
+	private final int VIEW_TYPE_LEFT=2;
+	private final int VIEW_TYPE_FRONT=3;
+	private int VIEW_TYPE=VIEW_TYPE_3D;
+	private JMenuItem hmt_preview;
+	private JMenuItem jmt_rescale_selected;
+	private JMenuItem jmt_copy_selection;
+	JCheckBoxMenuItem jmt_show_shading;
 	private JMenu jmt_other;
 	private JMenuItem jmt_help;
 	private JMenuItem jmt_load_texture;
 	private JMenuItem jmt_discharge_texture; 
 	
-	public Texture currentTexture=null;
-	public JCheckBoxMenuItem jmt_show_texture;
+	Texture currentTexture=null;
+	private JCheckBoxMenuItem jmt_show_texture;
 	private JMenuItem jmt_save_custom_mesh;
 	
 
@@ -456,7 +456,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 		
 	}
 
-	public void set3DView() {
+	private void set3DView() {
 		
 		remove(getCenter()); 
 		VIEW_TYPE=VIEW_TYPE_3D;
@@ -465,7 +465,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 		repaint();
 	}
 	
-	public void setTopView() {
+	private void setTopView() {
 
 		remove(getCenter()); 
 		VIEW_TYPE=VIEW_TYPE_TOP;
@@ -474,7 +474,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 		repaint();
 	}
 	
-	public void setLeftView() {
+	private void setLeftView() {
 		
 		remove(getCenter()); 
 		VIEW_TYPE=VIEW_TYPE_LEFT;
@@ -483,7 +483,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 		repaint();
 	}
 	
-	public void setFrontView() {
+	private void setFrontView() {
 		
 		remove(getCenter()); 
 		VIEW_TYPE=VIEW_TYPE_FRONT;
@@ -492,7 +492,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 		repaint();
 	}
 
-	public void getTemplate() {
+	private void getTemplate() {
 		
 		ObjectEditorTemplatePanel oetp=new ObjectEditorTemplatePanel();
 		
@@ -503,7 +503,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 			
 			PolygonMesh mesh=meshes[ACTIVE_PANEL];
 			
-			ArrayList vPoints=new ArrayList();
+			ArrayList<Point3D> vPoints=new ArrayList<Point3D>();
 			for (int i = 0; i < pm.points.length; i++) {
 				vPoints.add(pm.points[i]);
 			}
@@ -526,7 +526,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 		PolygonMesh pm=oetp.getCopy();
 		
 		if(pm!=null){
-			ArrayList aPoints=new ArrayList();
+			ArrayList<Point3D> aPoints=new ArrayList<Point3D>();
 			for (int i = 0; i < pm.points.length; i++) {
 				aPoints.add(pm.points[i]);
 			}
@@ -759,7 +759,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 	@Override
 	public void undo() {
 		super.undo();
-		if(oldMeshes[ACTIVE_PANEL].size()==0)
+		if(oldMeshes[ACTIVE_PANEL].isEmpty())
 			jmt_undo_last.setEnabled(false);
 		
 		firePropertyChange("ObjectEditorUndo",false,true);
@@ -957,7 +957,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 	 * @param z0
 	 */
 
-	public static void rotate(Point3D p,double[][] matrix, double x0,double y0, double z0) {
+	private static void rotate(Point3D p,double[][] matrix, double x0,double y0, double z0) {
 
 		double xx=(p.x-x0);
 		double yy=(p.y-y0);
@@ -1050,5 +1050,21 @@ public class ObjectEditor extends Editor implements ActionListener{
     	
     	return jmt_show_normals.isSelected();
     }
+    
+    public boolean isShowShading(){
+    	
+    	return jmt_show_shading.isSelected();
+    }
+    
+    public boolean isShowTexture(){
+    	
+    	return jmt_show_texture.isSelected();
+    }
+
+	public void setShowTexture(boolean b) {
+		
+		jmt_show_texture.setSelected(b);
+		
+	}
 
 }

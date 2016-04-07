@@ -5,20 +5,20 @@ import java.util.ArrayList;
 import com.editors.EditorData;
 import com.main.Road;
 
-public class SPLine {
+public class SPLine implements Cloneable{
 	
 	public SPNode root=null;
-	public ArrayList ribs=null;
-	private ArrayList vTexturePoints=null;
+	public ArrayList<ArrayList<Rib>> ribs=null;
+	private ArrayList<Point3D> vTexturePoints=null;
 	
-	private ArrayList meshes3D=new ArrayList();
+	private ArrayList<PolygonMesh> meshes3D=new ArrayList<PolygonMesh>();
 	
 	private int level=Road.ROAD_LEVEL;
 
 	
-	public SPLine(ArrayList vTexturePoints){
+	public SPLine(ArrayList<Point3D> vTexturePoints){
 		
-		ribs=new ArrayList();
+		ribs=new ArrayList<ArrayList<Rib>>();
 		this.vTexturePoints=vTexturePoints;
 	}
 	
@@ -37,7 +37,7 @@ public class SPLine {
 
 	public void calculateRibs() {
 		
-		ribs=new ArrayList();
+		ribs=new ArrayList<ArrayList<Rib>>();
 		
 		calculateTangents(root);
 		
@@ -47,7 +47,7 @@ public class SPLine {
 	private void calculateRibs(SPNode root) {
 	
 		       
-		ArrayList nodeRibs=new ArrayList();
+		ArrayList<Rib> nodeRibs=new ArrayList<Rib>();
 		ribs.add(nodeRibs);
 
 		int sz=root.getChildCount();
@@ -182,13 +182,13 @@ public class SPLine {
 		
 	}
 
-	public ArrayList getMeshes() {
+	public ArrayList<PolygonMesh> getMeshes() {
 
-		ArrayList meshes=new ArrayList();
+		ArrayList<PolygonMesh> meshes=new ArrayList<PolygonMesh>();
 
 		for (int j = 0; j < ribs.size(); j++) {
 
-			ArrayList nodeRibs=(ArrayList)ribs.get(j);
+			ArrayList<Rib> nodeRibs=(ArrayList<Rib>)ribs.get(j);
 
 			for (int i = 0;i < nodeRibs.size()-1; i++) {
 
@@ -201,7 +201,7 @@ public class SPLine {
 				Point4D p3=nextRib.getPoints()[3];
 
 
-				ArrayList points=new ArrayList();
+				ArrayList<Point3D> points=new ArrayList<Point3D>();
 				points.add(p0);
 				points.add(p1);
 				points.add(p2);
@@ -212,7 +212,7 @@ public class SPLine {
 				Point3D pt2=(Point3D) vTexturePoints.get(2);
 				Point3D pt3=(Point3D) vTexturePoints.get(3);
 
-				ArrayList polygonData=new ArrayList();
+				ArrayList<LineData> polygonData=new ArrayList<LineData>();
 				LineData ld=new LineData();
 				ld.addIndex(0,0,pt0.x,pt0.y);
 				ld.addIndex(1,1,pt1.x,pt1.y);
@@ -233,12 +233,12 @@ public class SPLine {
 	
 	public void calculate3DMeshes() {
 
-		meshes3D=new ArrayList();
+		meshes3D=new ArrayList<PolygonMesh>();
 
 
 		for (int j = 0;j < ribs.size(); j++) {
 
-			ArrayList nodeRibs=(ArrayList)ribs.get(j);
+			ArrayList<Rib> nodeRibs=(ArrayList<Rib>)ribs.get(j);
 
 			for (int i = 0;i < nodeRibs.size()-1; i++) {
 
@@ -257,7 +257,7 @@ public class SPLine {
 				Point4D p7=nextRib.getPoints()[3];
 
 
-				ArrayList points=new ArrayList();
+				ArrayList<Point3D> points=new ArrayList<Point3D>();
 				points.add(p0);
 				points.add(p1);
 				points.add(p2);
@@ -270,8 +270,8 @@ public class SPLine {
 				points.add(p7);
 
 
-				ArrayList polygonData= EditorData.splinesMeshes[prevRib.getIndex()].polygonData;
-				ArrayList nPolygonData=new ArrayList();
+				ArrayList<LineData> polygonData= EditorData.splinesMeshes[prevRib.getIndex()].polygonData;
+				ArrayList<LineData> nPolygonData=new ArrayList<LineData>();
 
 
 				for (int kj = 0; kj < polygonData.size(); kj++) {
@@ -290,7 +290,7 @@ public class SPLine {
 		}
 	}
 
-	public ArrayList getvTexturePoints() {
+	public ArrayList<Point3D> getvTexturePoints() {
 		return vTexturePoints;
 	}
 
@@ -304,11 +304,11 @@ public class SPLine {
 	}
 
 
-	public ArrayList getMeshes3D() {
+	public ArrayList<PolygonMesh> getMeshes3D() {
 		return meshes3D;
 	}
 
-	public void setMeshes3D(ArrayList meshes3d) {
+	public void setMeshes3D(ArrayList<PolygonMesh> meshes3d) {
 		this.meshes3D = meshes3d;
 	}
 

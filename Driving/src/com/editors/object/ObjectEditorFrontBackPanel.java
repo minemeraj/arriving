@@ -24,8 +24,8 @@ import com.PolygonMesh;
 public class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 
 	
-	private static int y0=250;
-	private static int x0=350;
+	private int y0=250;
+	private int x0=350;
 
 
 	private double deltay=0.5;
@@ -72,7 +72,7 @@ public class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 	}
 
 
-	public void draw2Daxis(Graphics2D graphics2D, int i, int j) {
+	private void draw2Daxis(Graphics2D graphics2D, int i, int j) {
 		
 		int length=60;
 	
@@ -317,7 +317,7 @@ public class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 
 
 
-	public void moveCenter(int dx, int dy) {
+	private void moveCenter(int dx, int dy) {
     
     	x0+=dx;
     	y0+=dy;

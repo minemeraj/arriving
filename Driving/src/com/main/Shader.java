@@ -684,7 +684,7 @@ public class Shader extends Renderer3D{
 			
 			int size=frontCap.size()+backCap.size()+faces.size();
 			
-			ArrayList vAllpolygons=new ArrayList();
+			ArrayList vAllpolygons=new ArrayList(size);
 			
 			int counter=0;
 			int sz0=frontCap.size();
@@ -698,14 +698,12 @@ public class Shader extends Renderer3D{
 			for (int i = 0; i < sz1; i++) {
 				Polygon3D pol = (Polygon3D) faces.get(i);
 				vAllpolygons.add(pol);
-				//allPolygons[counter]=pol;
 				counter++;
 			}
 			int sz2=backCap.size();
 			for (int i = 0; i < sz2; i++) {
 				Polygon3D pol = (Polygon3D) backCap.get(i);
 				vAllpolygons.add(pol);
-				//allPolygons[counter]=pol;
 				counter++;
 			}
 			

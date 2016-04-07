@@ -32,24 +32,21 @@ import com.sound.GameSound;
 public class CarFrame extends Road implements KeyListener {
 
 	
-	String VERSION="CarDriving 9.0.2";
+	private String VERSION="CarDriving 9.0.2";
 	
-	JPanel center=null;
+	private JPanel center=null;
 	private Graphics2D graphics2D;
 	private static final int HEIGHT=500;
 	private static final int WIDTH=800;
 
-	
-	int car_num=0;
-	int back_num=0;
-	int obj_num=0;
-	
+	private int back_num=0;
+
 	private double CAR_SPEED=0;
 	
-	public static final int BUTTOMBORDER=100;
-	public static final int UPBORDER=40;
-	public static final int LEFTBORDER=0;
-	public static final int RIGHTBORDER=0;
+	private static final int BUTTOMBORDER=100;
+	private static final int UPBORDER=40;
+	private static final int LEFTBORDER=0;
+	private static final int RIGHTBORDER=0;
 	
 	public static final Color BACKGROUND_COLOR=Color.GREEN;
 	
@@ -72,17 +69,17 @@ public class CarFrame extends Road implements KeyListener {
 	public static boolean isUseTextures=true;
 	private static JLabel steerAngle;
 	
-	String SOUNDS_FOLDER="lib/";
-	File hornFile=null;
-	File engineFile=null;
-	AdvancedGameSound engineSound=null;
+	private String SOUNDS_FOLDER="lib/";
+	private File hornFile=null;
+	private File engineFile=null;
+	private AdvancedGameSound engineSound=null;
 	private GameSound hornSound;
 	private Date t;
 	private transient BufferedImage buf;
 	
 	//steering angle,positive anti-clockwise
-	public double delta=0.30;
-    public boolean isProgramPaused=true;
+	private double delta=0.30;
+	private boolean isProgramPaused=true;
 	
 	private String map_name=GameLoader.DEFAULT_MAP;
 	
@@ -181,7 +178,7 @@ public class CarFrame extends Road implements KeyListener {
 			File directoryImg=new File("lib");
 			File[] files=directoryImg.listFiles();
 
-			ArrayList vCarData=new ArrayList();
+			ArrayList<File> vCarData=new ArrayList<File>();
 
 			for(int i=0;i<files.length;i++){
 				if(files[i].getName().startsWith("cardefault3D_")){
@@ -191,7 +188,7 @@ public class CarFrame extends Road implements KeyListener {
 				}		
 			}
 			
-			ArrayList vCarTextures=new ArrayList();
+			ArrayList<File> vCarTextures=new ArrayList<File>();
 			
 			for(int i=0;i<files.length;i++){
 				if(files[i].getName().startsWith("car_texture_t")){
@@ -228,13 +225,13 @@ public class CarFrame extends Road implements KeyListener {
 	}
 
 
-	public void loadRoad() {
+	private void loadRoad() {
 		
 		super.loadRoad(getMap_name());
 		loadAutocars(new File("lib/autocars_"+getMap_name()));
 	}
 
-	public void loadProperties(){
+	private void loadProperties(){
 		
 		p=new Properties();
 		try {
@@ -448,7 +445,7 @@ public class CarFrame extends Road implements KeyListener {
 
 	}
 	
-	public void steer(double angle) {
+	private void steer(double angle) {
 		
 		setSteerAngle(angle);
 	
@@ -494,7 +491,7 @@ public class CarFrame extends Road implements KeyListener {
 
 	}
 	
-	public void reset(){
+	private void reset(){
 		
 		isProgramPaused=true;
 		
@@ -543,7 +540,7 @@ public class CarFrame extends Road implements KeyListener {
 		}
 	}
 	
-	public void start() {
+	private void start() {
 		
 		engine=new Engine(this);
 		engine.start();	

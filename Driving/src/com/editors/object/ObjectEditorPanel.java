@@ -22,7 +22,6 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Area;
-import java.io.File;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
@@ -57,15 +56,15 @@ import com.main.Renderer3D;
 public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,KeyListener, ItemListener,MouseListener,MouseWheelListener,MouseMotionListener{
 
 
-	public ObjectEditor oe=null;
+	ObjectEditor oe=null;
 	
 	
-	public int HEIGHT=ObjectEditor.HEIGHT;
-	public int WIDTH=ObjectEditor.WIDTH;
+	protected int HEIGHT=ObjectEditor.HEIGHT;
+	protected int WIDTH=ObjectEditor.WIDTH;
 
 
-	public int RIGHT_BORDER=320;
-	public int BOTTOM_BORDER=100;
+	private final int RIGHT_BORDER=320;
+	private final int BOTTOM_BORDER=100;
 
 	Graphics2D g2;
 
@@ -84,51 +83,51 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 
 
 	//public JButton joinPoints;
-	public JButton buildPolygon;
+	private JButton buildPolygon;
 	
 
-	public JPanel bottom;
-	public JLabel screenPoint;
-	public JCheckBox checkCoordinatesx;
-	public JCheckBox checkCoordinatesz;
-	public JCheckBox checkCoordinatesy;
-	public JCheckBox checkExtraData;
+	private JPanel bottom;
+	private JLabel screenPoint;
+	private JCheckBox checkCoordinatesx;
+	private JCheckBox checkCoordinatesz;
+	private JCheckBox checkCoordinatesy;
+	private JCheckBox checkExtraData;
 
 
-	public JList lineList;
-	public JButton selectAll;
-	public LineData polygon=new LineData();
+	private JList lineList;
+	private JButton selectAll;
+	LineData polygon=new LineData();
 
 
-	public double alfa=Math.PI/4;
-	public double sinAlfa=Math.sin(alfa);
-	public double cosAlfa=Math.cos(alfa);
-	public double fi=0;
-	public double sinf=Math.sin(fi);
-	public double cosf=Math.cos(fi);
-	public JButton rescale;
-	public DoubleTextField rescaleValue;
+	double alfa=Math.PI/4;
+	double sinAlfa=Math.sin(alfa);
+	double cosAlfa=Math.cos(alfa);
+	double fi=0;
+	double sinf=Math.sin(fi);
+	double cosf=Math.cos(fi);
+	private JButton rescale;
+	private DoubleTextField rescaleValue;
 
-	public DoubleTextField objMove;
-	public JButton movePointUp;
-	public JButton movePointDown;
-	public JButton movePointLeft;
-	public JButton movePointRight;
-	public JButton movePointTop;
-	public JButton movePointBottom;
-	public JButton startBuildPolygon;
-	public JButton mergeSelectedPoints;
-	public JButton polygonDetail;
+	private DoubleTextField objMove;
+	private JButton movePointUp;
+	private JButton movePointDown;
+	private JButton movePointLeft;
+	private JButton movePointRight;
+	private JButton movePointTop;
+	private JButton movePointBottom;
+	private JButton startBuildPolygon;
+	private JButton mergeSelectedPoints;
+	private JButton polygonDetail;
 	
-	public DecimalFormat dfc=null;
+	private DecimalFormat dfc=null;
 	
-	public Rectangle currentRect=null;
-	public boolean isDrawCurrentRect=false;
+	Rectangle currentRect=null;
+	private boolean isDrawCurrentRect=false;
 
 
-	public double teta;
-	double costeta=Math.cos(teta);
-	double sinteta=Math.sin(teta);
+	protected double teta=0;
+	protected double costeta=Math.cos(teta);
+	protected double sinteta=Math.sin(teta);
 
 
 	private JComboBox chooseFace;
@@ -150,7 +149,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 
 	}
 	
-	public void buildRightPanel() {
+	protected void buildRightPanel() {
 		
 		String header="<html><body>";
 		String footer="</body></html>";
@@ -382,7 +381,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		add(bottom);
 	}
 	
-	public Component buildLowerRightPanel(int r) {
+	private Component buildLowerRightPanel(int r) {
 		pointList=new JList();
         JScrollPane jsp=new JScrollPane(pointList);
         JPanel lowpane=new JPanel();
@@ -398,7 +397,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 
 		pointList.addMouseListener(new MouseAdapter(){
 			
-			
+			@Override
 			public void mouseClicked(MouseEvent e){
 
 				PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
@@ -434,7 +433,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		
 		lineList.addMouseListener(new MouseAdapter(){
 			
-			
+			@Override
 			public void mouseClicked(MouseEvent e){
 				
 				PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
@@ -470,7 +469,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		return lowpane;
 	}
 
-	public JPanel buildPointsMovePanel(int i, int r) {
+	private JPanel buildPointsMovePanel(int i, int r) {
 
 		JPanel move=new JPanel();
 		move.setBounds(i,r,100,100);
@@ -534,6 +533,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 	/**
 	 * 
 	 */
+	@Override
 	public void initialize() {
 
 
@@ -548,7 +548,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 
 	}
 
-
+	@Override
 	public void displayAll() {
  
 		
@@ -567,7 +567,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 
 	}
 	
-	public static Polygon3D buildPolygon(LineData ld,Point3D[] points) {
+	private static Polygon3D buildPolygon(LineData ld,Point3D[] points) {
 
 
 
@@ -599,7 +599,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 
 	}
 
-
+	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		Object o=arg0.getSource();
 
@@ -680,7 +680,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 
 	}
 
-	
+	@Override
 	public void moveSelectedPoints(int dx, int dy, int dz) { 
 		
 		String sqty=objMove.getText();
@@ -714,7 +714,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		
 	}
 
-
+	@Override
 	public void rescaleAllPoints() {
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
@@ -738,7 +738,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 	}
 
 
-	
+	@Override
 	public void selectAllPoints() {
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
@@ -750,7 +750,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		}
 		
 	}
-
+	@Override
 	public void buildPolygon() {
 
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
@@ -857,7 +857,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 	
 	
 
-
+	@Override
 	public void joinSelectedPoints() {
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
@@ -886,7 +886,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 
 	}
 
-
+	@Override
 	public void changeSelectedPoint() {
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
@@ -918,11 +918,11 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 
 	}
 
-
+    @Override
 	public void addPoint() {
 
-		if("".equals(coordinatesx.getText()) |
-				"".equals(coordinatesy.getText()) |
+		if("".equals(coordinatesx.getText()) ||
+				"".equals(coordinatesy.getText()) ||
 				"".equals(coordinatesz.getText())
 		)
 			return;
@@ -934,7 +934,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		addPoint(x,y,z);
 
 	}
-	
+    @Override
 	public void addPoint(double x, double y, double z) {
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
@@ -975,11 +975,11 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		pointList.ensureIndexIsVisible(pointList.getModel().getSize()-1); 
 
 	}
-
+    @Override
 	public void delete() {
 
-		ArrayList newPoints=new ArrayList();
-		ArrayList newLines=new ArrayList();
+		ArrayList<Point3D> newPoints=new ArrayList<Point3D>();
+		ArrayList<LineData> newLines=new ArrayList<LineData>();
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 
@@ -1040,8 +1040,8 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 	private void mergeSelectedPoints() {
 	
 		
-		ArrayList newPoints=new ArrayList();
-		ArrayList newLines=new ArrayList();
+		ArrayList<Point3D> newPoints=new ArrayList<Point3D>();
+		ArrayList<LineData> newLines=new ArrayList<LineData>();
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 
@@ -1115,7 +1115,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		
 		displayAll();
 	}
-
+	@Override
 	public void deselectAll() {
 		
 		clean();
@@ -1127,7 +1127,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		
 	
 	}
-
+	@Override
 	public void deselectAllPoints() {
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
@@ -1139,7 +1139,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		}
 		
 	}
-	
+	@Override
 	public void deselectAllLines() {
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
@@ -1157,7 +1157,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 
 
 	
-	
+	@Override
 	public void clean(){
 
 		if(!checkCoordinatesx.isSelected())	coordinatesx.setText("");
@@ -1168,7 +1168,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		
 
 	}
-
+	@Override
 	public void keyPressed(KeyEvent arg0) {
 
 		int code =arg0.getKeyCode();
@@ -1318,18 +1318,18 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		deselectAll();
 		displayAll();
 	}
-
+	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
-
+	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public void moveSelectedLine(int direction) {
+	private void moveSelectedLine(int direction) {
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 		
@@ -1351,14 +1351,14 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		resetLists();
 	}
 	
-	public void swapLines(ArrayList lines, int i1, int i2) {
+	private void swapLines(ArrayList<LineData> lines, int i1, int i2) {
 		LineData ld1=(LineData) lines.get(i1);
 		LineData ld2=(LineData) lines.get(i2);
 		lines.set(i2,ld1);
 		lines.set(i1,ld2);
 	}
 
-	public void invertSelectedLine(){
+	private void invertSelectedLine(){
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 		
@@ -1380,7 +1380,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		resetLists();
 		displayAll();
 	}
-	
+	@Override
 	public void resetLists() {
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
@@ -1422,17 +1422,14 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		
 		
 	}
-
+	@Override
 	public void mouseClicked(MouseEvent arg0) {
-
-		int buttonNum=arg0.getButton();
-		//right button click
 
 		selectPoint(arg0.getX(),arg0.getY());
 		displayAll();
 
 	}
-	
+	@Override
 	public void mouseDragged(MouseEvent e) {
 
 		isDrawCurrentRect=true;
@@ -1440,7 +1437,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		
 	}
 	
-    void updateSize(MouseEvent e) {
+	private void updateSize(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
         currentRect.setSize(x - currentRect.x,
@@ -1451,23 +1448,23 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
         
    
     }
-
+	@Override
 	public void mouseMoved(MouseEvent e) {
 
 
 
 	}
-
+	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
-
+	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
-
+	@Override
 	public void mousePressed(MouseEvent arg0) {
 		
 		int xp=arg0.getX();
@@ -1475,7 +1472,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		currentRect = new Rectangle(xp, yp, 0, 0);
 
 	}
-
+	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		
 		updateSize(arg0);
@@ -1515,7 +1512,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 			translate(0,-1);
 
 	}
-	
+	@Override
 	public void rotate(double df){
 		
 		 fi+=df;
@@ -1532,9 +1529,9 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		
 	}	
 
-
+	@Override
 	public abstract void translate(int i, int j);
-
+	@Override
 	public void itemStateChanged(ItemEvent arg0) {
 		
 		Object obj=arg0.getSource();
@@ -1545,17 +1542,17 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		}
 
 	}
-
+	@Override
 	public void selectPoint(int x, int y){
 		// TODO Auto-generated method stub
 	}
 		
 	public class PointListItem{
 		
-		public DecimalFormat df=new DecimalFormat("000");
+		private DecimalFormat df=new DecimalFormat("000");
 
-		Point3D p;
-		int index=-1;
+		private Point3D p;
+		private int index=-1;
 
 		public PointListItem(Point3D p, int index) {	
 			super();
@@ -1563,14 +1560,14 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 			this.index=index;
 		}
 		
-	
+		@Override
 		public String toString() {
 			
 			return df.format(p.x)+","+df.format(p.y)+","+df.format(p.z)+"("+index+")";
 		}
 		
 	}
-	
+	@Override
 	public void selectPoint(Point3D p) {
 
 		if(!checkCoordinatesx.isSelected())
@@ -1589,12 +1586,12 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 
 		
 	}
-	
+	@Override
 	public void moveSelectedPointWithMouse(Point3D p3d, int type) {
 		// TODO Auto-generated method stub
 		
 	}
-
+	@Override
 	public void draw() {
 		// TODO Auto-generated method stub
 		
@@ -1650,11 +1647,11 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 	
 	
 
-	public void selectPolygon(int x, int y) {
+	protected void selectPolygon(int x, int y) {
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 		
-		ArrayList polygonsInLine=new ArrayList();
+		ArrayList<LineDataWithDistance> polygonsInLine=new ArrayList<LineDataWithDistance>();
 	
 		
 		for(int i=0;i<mesh.polygonData.size();i++){
@@ -1702,7 +1699,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		return 0;
 	}
 
-	public Polygon buildProjection(Polygon3D p3d) { 
+	private Polygon buildProjection(Polygon3D p3d) { 
 
 
 

@@ -46,16 +46,14 @@ public class Road extends Shader{
 
 	private int y_edge=5+SCREEN_DISTANCE;
 	
-	int NXVISIBLE=2;
-	int NYVISIBLE=40;//20 orig
+	private int NYVISIBLE=40;//20 orig
 
-	int dx=0;
 	int dy=3000/NYVISIBLE;//600 orig
 
 	public static final int ROAD_THICKNESS=22;
 
-	int CAR_WIDTH=100;
-	int CAR_LENGTH=100;
+	private int CAR_WIDTH=100;
+	private int CAR_LENGTH=100;
 	
 	protected int FORWARD=1;
 	
@@ -73,21 +71,20 @@ public class Road extends Shader{
 	DrawObject[]  oldDrawObjects=null;
 
 
-	protected boolean steer=false;
 	public static final double SPACE_SCALE_FACTOR=60.0;
 	public static final double SPEED_SCALE=1.0/1.13;
 	
-	int SELECTED_CAR=0;
+	private int SELECTED_CAR=0;
 
 	private Texture carTexture=null;
 	private Area totalVisibleField=null;
 	
-	int start_car_x=WIDTH/2-XFOCUS;
-	int start_car_y=y_edge;
+	private int start_car_x=WIDTH/2-XFOCUS;
+	private int start_car_y=y_edge;
 	
 	protected Autocar[] autocars=null;
-    public static final double pi_2=Math.PI/2.0;
-    public static final double i_2pi=1.0/(Math.PI*2.0);
+    private static final double pi_2=Math.PI/2.0;
+    private static final double i_2pi=1.0/(Math.PI*2.0);
     
 	int PARTIAL_MOVZ=0;
     boolean initMOVZ=true;
@@ -125,9 +122,6 @@ public class Road extends Shader{
 
 
 	public Road(int WITDH,int HEIGHT){
-		
-
-		dx=WITDH/(NXVISIBLE-1);
 
 		this.HEIGHT=HEIGHT;
 		this.WIDTH=WITDH;
@@ -980,7 +974,6 @@ public class Road extends Shader{
 		g2.setColor(CarFrame.BACKGROUND_COLOR);
 		g2.fillRect(0,YFOCUS,WIDTH,HEIGHT-YFOCUS);
 
-		steer=false;
 		POSX=0;
 		POSY=0;
 		
@@ -1071,15 +1064,6 @@ public class Road extends Shader{
 		carDynamics.setIsbraking(b);
 		
 	}
-
-	public void down(Graphics2D graphics2D) {
-
-		if(POSY>0)
-			POSY=POSY-dy;
-
-
-	}
-
 	
 	private void loadPointsFromFile(File file){		
 
@@ -1256,74 +1240,6 @@ public class Road extends Shader{
 		return carData;
 		
 	}
-
-	
-	/*public void loadObjectsFromFile(File file){
-		
-		ArrayList vdrawObjects=new ArrayList();
-		
-	
-	
-		try {
-			BufferedReader br=new BufferedReader(new FileReader(file));
-
-			boolean read=false;
-			
-			String str=null;
-			int rows=0;
-			while((str=br.readLine())!=null ){
-				if(str.indexOf("#")>=0 || str.length()==0)
-					continue;
-				
-				if(str.indexOf("objects")>=0){
-					read=!read;
-				    continue;
-				}	
-				
-				if(!read)
-					continue;
-				
-				DrawObject dro=buildDrawObject(str);
-				
-				buildRectanglePolygons(dro.getPolygons(),dro.getX(),dro.getY(),dro.getZ(),dro.getDx(),dro.getDy(),dro.getDz());
-								
-				vdrawObjects.add(dro);
-				
-				CubicMesh cm=(CubicMesh) EditorData.object3D[dro.getIndex()].clone();
-				
-				Point3D point = cm.point000;
-				
-				double dx=-point.x+dro.getX();
-				double dy=-point.y+dro.getY();
-				double dz=-point.z+dro.getZ();
-				
-				cm.translate(dx,dy,dz);
-				
-				Point3D center=cm.findCentroid();
-				
-				if(dro.getRotation_angle()!=0)
-					cm.rotate(center.x,center.y,Math.cos(dro.getRotation_angle()),Math.sin(dro.getRotation_angle()));
-				
-				dro.setMesh(cm);
-				
-
-			}
-			br.close();
-			
-			drawObjects=new DrawObject[vdrawObjects.size()];
-			
-			
-			for (int i = 0; i < vdrawObjects.size(); i++) {
-				drawObjects[i]=(DrawObject) vdrawObjects.get(i);
-			}
-			
-			oldDrawObjects=DrawObject.cloneObjectsArray(drawObjects);
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
-	}*/
 
 	private void loadSPLinesFromFile(File file) {
 		

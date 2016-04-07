@@ -51,7 +51,7 @@ public class Autocar {
 	
 	boolean isParked=false;
 
-	Date stopTime=null;
+	private Date stopTime=null;
 	int TIME_OUT=3000;
 	
 	int autocar_index=-1;
@@ -282,7 +282,7 @@ public class Autocar {
 	public static Autocar[] buildAutocars(File file) {
 
 		
-		ArrayList autocars=new ArrayList();
+		ArrayList<Autocar> autocars=new ArrayList<Autocar>();
 		
 		
 		FileReader fr=null;
@@ -291,7 +291,7 @@ public class Autocar {
 		try {
 			
 			
-			ArrayList roads=new ArrayList();
+			ArrayList<Point3D[]> roads=new ArrayList<Point3D[]>();
 			
 			fr=new FileReader(file);
 			br=new BufferedReader(fr);

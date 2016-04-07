@@ -17,9 +17,9 @@ import com.editors.DoubleTextField;
 
 public class ObjectEditorTemplatePanel  extends JDialog implements ActionListener{
 	
-	private int WIDTH=300;
-	private int BOTTOM_HEIGHT=100;
-	private int HEIGHT=200;
+	private final int WIDTH=300;
+	private final int BOTTOM_HEIGHT=100;
+	private final int HEIGHT=200;
 	private DoubleTextField box_side=null;
 	private DoubleTextField box_num_x=null;
 	private DoubleTextField box_num_y=null;
@@ -36,8 +36,8 @@ public class ObjectEditorTemplatePanel  extends JDialog implements ActionListene
 	private int TEMPLATE_TYPE_SPHERE=2; 
 	private int TEMPLATE_TYPE_PLANE=3;
 	
-	JButton generate=null;
-	JButton delete=null;
+	private JButton generate=null;
+	private JButton delete=null;
 	private JTabbedPane jtb;
 	private DoubleTextField prism_height;
 	private DoubleTextField prism_num_z;
@@ -371,8 +371,8 @@ public class ObjectEditorTemplatePanel  extends JDialog implements ActionListene
 						int i1=i+j*numx;
 						int i2=i+1+j*numx;
 
-						int i3=ii2+base+num*(1-1);
-						int i4=ii1+base+num*(1-1);
+						int i3=ii2+base+num*(i-1);
+						int i4=ii1+base+num*(i-1);
 
 
 						if(j==0)

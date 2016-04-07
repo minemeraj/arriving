@@ -69,7 +69,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 	
 	}
 
-
+	@Deprecated
 	public static void levelSPLinesTerrain(PolygonMesh mesh, ArrayList splines) {
 
 
@@ -82,38 +82,44 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 			SPLine sp = (SPLine) splines.get(i);
 
 			for (int k = 0; k < sp.ribs.size();k++){
+				ArrayList<Rib> nodeRibs =  sp.ribs.get(k);
+				
+				for (int s = 0; s < nodeRibs.size(); s++) {
+					
+					Rib rib = nodeRibs.get(s);
+					Point4D[] points=rib.getPoints();
 
-				Rib rib = (Rib) sp.ribs.get(k);
-				Point4D[] points=rib.getPoints();
-
-				double mx=(points[0].x+points[1].x)*0.5;
-				double my=(points[0].y+points[1].y)*0.5;
+					double mx=(points[0].x+points[1].x)*0.5;
+					double my=(points[0].y+points[1].y)*0.5;
 
 
 
-				for(int j=0;j<lsize;j++){
+					for(int j=0;j<lsize;j++){
 
 
-					LineData ld=(LineData) mesh.polygonData.get(j);
+						LineData ld=(LineData) mesh.polygonData.get(j);
 
-					Polygon3D p3D=levelGetPolygon(ld,mesh.points);
+						Polygon3D p3D=levelGetPolygon(ld,mesh.points);
 
-					if(p3D.contains(mx,my)){
+						if(p3D.contains(mx,my)){
 
-						double zz=interpolate(mx,my,p3D);
+							double zz=interpolate(mx,my,p3D);
 
-						for (int l = 0; l < points.length; l++) {
-							points[l].z+=zz;
+							for (int l = 0; l < points.length; l++) {
+								points[l].z+=zz;
+							}
+
+
+							break;
+
+
 						}
 
 
-						break;
+					} 
+					
+				}
 
-
-					}
-
-
-				} 
 
 			}
 		}

@@ -32,27 +32,27 @@ import com.main.Road;
 
 public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRenderer3D{
 
-	static int y0=250;
-	static int x0=350;
+	private int y0=250;
+	private int x0=350;
 
 
-	double deltay=0.5;
-	double deltax=0.5;
+	private double deltay=0.5;
+	private double deltax=0.5;
 	
-	public BufferedImage buf=null;
+	private BufferedImage buf=null;
 	
-	public static ZBuffer roadZbuffer;
-	public int[] rgb;
+	private ZBuffer roadZbuffer;
+	private int[] rgb;
 	
-	public double DEPTH_DISTANCE=1000;
+	private double DEPTH_DISTANCE=1000;
 	
-	public double s2=Math.sqrt(2);
-	public  Point3D pAsso;
+	private double s2=Math.sqrt(2);
+	private  Point3D pAsso;
 	
-	public double lightIntensity=1.0;
+	private double lightIntensity=1.0;
 	
 	
-	public int greenRgb= Color.GREEN.getRGB();
+	private int greenRgb= Color.GREEN.getRGB();
 	private int blackRgb= Color.BLACK.getRGB();
 
 
@@ -89,7 +89,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		
 		buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 		
-		if(oe.jmt_show_shading.isSelected() || oe.jmt_show_texture.isSelected() ){
+		if(oe.jmt_show_shading.isSelected() || oe.isShowTexture() ){
 			
 			buildShading(buf);
 			
@@ -141,11 +141,11 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		int hashCode=mesh.hashCode();
 		
 		Texture texture=null;
-		if(oe.jmt_show_texture.isSelected()){
+		if(oe.isShowTexture()){
 			
 			texture=oe.currentTexture;
 			if(texture==null){
-				oe.jmt_show_texture.setSelected(false);
+				oe.setShowTexture(false);
 				JOptionPane.showMessageDialog(this,"No texture loaded","Error",JOptionPane.ERROR_MESSAGE);				
 				return;
 			}
@@ -183,7 +183,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 			
 			int deltaTexture=0;
 			
-			if(oe.jmt_show_texture.isSelected()){
+			if(oe.isShowTexture()){
 			
 				
 
@@ -333,7 +333,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		return pp;
 	}
 
-	public void draw3Daxis(Graphics2D graphics2D, int i, int j) {
+	private void draw3Daxis(Graphics2D graphics2D, int i, int j) {
 		
 		int length=60;
 		
@@ -609,7 +609,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 
 
-	public void moveCenter(int dx, int dy) {
+    private void moveCenter(int dx, int dy) {
     
     	x0+=dx;
     	y0+=dy;
@@ -680,7 +680,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 	public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d, Color color,
 			Texture texture, ZBuffer zbuffer,int hashCode) {
 		
-	  
+			//NOT USED, BUT IT MUST IMPLEMENT IT
 		
 	}
 
@@ -705,7 +705,6 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
     		Point3D normal=Polygon3D.findNormal(p3d);
     		yDirection=Point3D.calculateCrossProduct(normal,xDirection).calculateVersor();
 
-    		//yDirection=Point3D.calculateOrthogonal(xDirection);
     	}
     	else{
     		
@@ -730,7 +729,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
     }
 	
-	public int calculateShadowColor(double cosin, int argbs) {
+	private int calculateShadowColor(double cosin, int argbs) {
 
 
 			double factor=(lightIntensity*(0.75+0.25*cosin));
@@ -758,10 +757,6 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		Point3D p0=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
 		Point3D p1=new Point3D(p3d.xpoints[1],p3d.ypoints[1],p3d.zpoints[1]);
 		Point3D p2=new Point3D(p3d.xpoints[2],p3d.ypoints[2],p3d.zpoints[2]);
-		
-	    
-
-		//System.out.println(p3d+" "+rgbColor);
 
 		double x0=calcProspX(p0);
 		double y0=calcProspY(p0);
@@ -811,9 +806,6 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 		double inv_lo_mi_y=1.0/(points[lower].y-points[middle].y);
 		
     	for(int j=(int) points[middle].y;j<points[upper].y;j++){
-    		
-    		//if(j>258)
-    		//	continue;
 
     		double middlex=Point3D.foundXIntersection(points[upper],points[lower],j);
     		double middlex2=Point3D.foundXIntersection(points[upper],points[middle],j);
@@ -863,7 +855,6 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
     			if(rgbColor==greenRgb)
     				continue;
     			int tot=WIDTH*j+i;
-    			//System.out.println(x+" "+y+" "+tot);
 
     			zbuffer.update(xi,DEPTH_DISTANCE-yi,zi,rgbColor,tot);
     			
@@ -925,8 +916,6 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
     			if(rgbColor==greenRgb)
     				continue;
     			int tot=WIDTH*j+i;
-    			//System.out.println(x+" "+y+" "+tot);
-
 
     			zbuffer.update(xi,DEPTH_DISTANCE-yi,zi,rgbColor,tot);
     			
@@ -940,7 +929,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 
 	}
 
-	public void decomposeLine( 
+	private void decomposeLine( 
 			double x1,	double y1,double z1,
 			double x2,double y2,double z2,
 			int level,

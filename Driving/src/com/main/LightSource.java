@@ -48,17 +48,13 @@ public class LightSource {
 	public LightSource() {
 		super();
 	}
-	public void calculateLightAxes(){
+	private void calculateLightAxes(){
 
 		
 		xAxis=new Point3D(yAxis.y,-yAxis.x,0).calculateVersor();
 		zAxis=new Point3D(-yAxis.z*yAxis.x,
 								  -yAxis.z*yAxis.y,
 								  yAxis.y*yAxis.y+yAxis.x*yAxis.x).calculateVersor();
-		
-		/*System.out.println("x:"+xAxis);
-		System.out.println("y:"+yAxis);
-		System.out.println("z:"+zAxis);*/
 		
 		cos[0][0]=xAxis.x;
 		cos[0][1]=xAxis.y;

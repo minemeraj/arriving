@@ -21,7 +21,7 @@ import com.editors.EditorData;
 
 public abstract class DrivingFrame extends JFrame{
 	
-	protected PolygonMesh[] meshes=new PolygonMesh[2];	
+	protected transient PolygonMesh[] meshes=new PolygonMesh[2];	
 	protected JFileChooser fc= new JFileChooser();
 	
 	protected static final String TAG[]={"terrain","road"};
@@ -31,7 +31,7 @@ public abstract class DrivingFrame extends JFrame{
 	
 	protected ArrayList loadSPLinesFromFile(File file,boolean forceReading){
 		
-		ArrayList splines=new ArrayList();
+		ArrayList<SPLine> splines=new ArrayList<SPLine>();
 		
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));
@@ -41,7 +41,7 @@ public abstract class DrivingFrame extends JFrame{
 			
 			boolean read=forceReading;
 		
-			ArrayList aTexturePoints=new ArrayList();
+			ArrayList<Point3D> aTexturePoints=new ArrayList<Point3D>();
 			
 			while((str=br.readLine())!=null){
 				
@@ -118,10 +118,10 @@ public abstract class DrivingFrame extends JFrame{
 	}
 	
 	
-	protected ArrayList loadObjectsFromFile(File file,CubicMesh[] objectMeshes ){
+	protected ArrayList<DrawObject> loadObjectsFromFile(File file,CubicMesh[] objectMeshes ){
 
 		
-		ArrayList drawObjects=new ArrayList();
+		ArrayList<DrawObject> drawObjects=new ArrayList<DrawObject>();
 
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));
@@ -233,8 +233,8 @@ public abstract class DrivingFrame extends JFrame{
 			double x0=0;
 			double y0=0;
 			
-			ArrayList aPoints=new ArrayList();
-			ArrayList vTexturePoints=new ArrayList();
+			ArrayList<Point3D> aPoints=new ArrayList<Point3D>();
+			ArrayList<Point3D> vTexturePoints=new ArrayList<Point3D>();
 			
 			while((str=br.readLine())!=null){
 				

@@ -25,21 +25,11 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 
 
 
+	private int y0=250;
+	private int x0=350;
 
-	int NX=4;
-	int NY=0;
-
-	int MOVX=0;
-	int MOVY=0;
-	
-	static int y0=250;
-	static int x0=350;
-
-	int dx=2;
-	int dy=2;
-
-	double deltay=0.5;
-	double deltax=0.5;
+	private double deltay=0.5;
+	private double deltax=0.5;
 
 
 	public ObjectEditorTopBottomPanel(ObjectEditor oe){
@@ -58,7 +48,7 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 	}
 
 
-
+	@Override
 	public void displayAll() {
 
 
@@ -82,7 +72,7 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 	}
 
 
-	public void draw2Daxis(Graphics2D graphics2D, int i, int j) {
+	private void draw2Daxis(Graphics2D graphics2D, int i, int j) {
 		
 		int length=60;
 				
@@ -221,7 +211,7 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 
 
 
-
+	@Override
 	public void selectPoint(int x, int y) {
 
 		boolean found=false;
@@ -264,7 +254,7 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 
 
 
-
+	@Override
 	public double calculateScreenDistance(Polygon3D p3d, int x, int y) {
 
 		Point3D centroid=Polygon3D.findCentroid(p3d);
@@ -274,7 +264,7 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 	}
 
 
-
+	@Override
 	public void selectPointsWithRectangle() {
 
 		int x0=Math.min(currentRect.x,currentRect.x+currentRect.width);
@@ -331,12 +321,12 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 
 
 
-	public void moveCenter(int dx, int dy) {
+	private void moveCenter(int dx, int dy) {
     
     	x0+=dx;
     	y0+=dy;
     }
-	
+	@Override
 	public int calcAssX(double x, double y, double z) {
 		 
 
@@ -347,7 +337,7 @@ public class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 		
 		return (int) (xx/deltax+x0);
 	}
-	
+	@Override
 	public int calcAssY(double x, double y, double z) {
 		
 		
