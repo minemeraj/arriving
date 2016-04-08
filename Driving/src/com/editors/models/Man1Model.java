@@ -11,12 +11,12 @@ public class Man1Model extends MeshModel {
 	private int[][][] backFaces; 
 	private int[][][] frontFaces;
 	
-	double dx = 0;
-	double dy = 0;
-	double dz = 0;
+	private double dx = 0;
+	private double dy = 0;
+	private double dz = 0;
 	
-	int bx=10;
-	int by=10;
+	private int bx=10;
+	private int by=10;
 
 	
 
@@ -183,7 +183,7 @@ public class Man1Model extends MeshModel {
 	 * z sections and x[] sections
 	 * 
 	 */
-	double[][][] bodySections={
+	private double[][][] bodySections={
 			
 			{{0.0},{0.0,0,0.0,0,0.0,0,0.0,1,1.0,1,0.0,0,0.0,0,0.0,1,1.0,1,0.0,0,0.0,0,0.0,0,0.0}},
 			{{0.5},{0.0,1,1.0,1,0.0,0,0.0,1,1.0,1,0.0,1,1.0,1,0.0,1,1.0,1,0.0,0,0.0,1,1.0,1,0.0}},
@@ -195,7 +195,7 @@ public class Man1Model extends MeshModel {
 			{{1.0},{0.0,0,0.0,0,0.0,0,0.0,0,0.0,1,1.0,1,1.0,1,1.0,1,0.0,0,0.0,0,0.0,0,0.0,0,0.0}},
 	};
 	
-	public static int[][] bodyGrid={
+	private int[][] bodyGrid={
 			
 			
 			{0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,0},

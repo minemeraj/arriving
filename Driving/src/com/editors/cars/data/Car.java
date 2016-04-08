@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.BPoint;
 import com.CustomData;
 import com.LineData;
+import com.Point3D;
 import com.PolygonMesh;
 import com.Prism;
 import com.Segments;
@@ -51,7 +52,7 @@ public class Car extends CustomData {
     public final static int CAR_TYPE_SHIP=8;
     public final static int CAR_TYPE_TANK=9;
     
-    public int car_type=CAR_TYPE_CAR;
+    private int car_type=CAR_TYPE_CAR;
 
 	public Car(){}
 
@@ -338,9 +339,9 @@ public class Car extends CustomData {
 
 	private PolygonMesh buildCarMesh() {
 		
-		points=new ArrayList();
+		points=new ArrayList<Point3D>();
 
-		polyData=new ArrayList();
+		polyData=new ArrayList<LineData>();
 
 		//basic sides:
 		
@@ -924,8 +925,8 @@ public class Car extends CustomData {
 
 	private PolygonMesh buildTruckMesh() {
 		
-		points=new ArrayList();
-		polyData=new ArrayList();
+		points=new ArrayList<Point3D>();
+		polyData=new ArrayList<LineData>();
 
 		//basic sides: 
 		
@@ -1545,9 +1546,9 @@ public class Car extends CustomData {
 
 	private PolygonMesh buildBykeMesh() {
 		
-		points=new ArrayList();
+		points=new ArrayList<Point3D>();
 
-		polyData=new ArrayList();
+		polyData=new ArrayList<LineData>();
 
 		//basic sides:
 		
@@ -1742,9 +1743,9 @@ public class Car extends CustomData {
 
 	private PolygonMesh buildTractorMesh() {
 		
-		points=new ArrayList();
+		points=new ArrayList<Point3D>();
 
-		polyData=new ArrayList();
+		polyData=new ArrayList<LineData>();
 
 		//basic sides:
 		
@@ -2223,9 +2224,9 @@ public class Car extends CustomData {
 	private PolygonMesh buildAirplaneMesh() {
 		
 		
-		points=new ArrayList();
+		points=new ArrayList<Point3D>();
 
-		polyData=new ArrayList();
+		polyData=new ArrayList<LineData>();
 
 		//basic sides:
 		
@@ -2671,8 +2672,8 @@ public class Car extends CustomData {
 
 	private PolygonMesh buildRailroadCarMesh() {
 				
-		points=new ArrayList();
-		polyData=new ArrayList();
+		points=new ArrayList<Point3D>();
+		polyData=new ArrayList<LineData>();
 
 		//basic sides:
 		

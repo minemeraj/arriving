@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.BPoint;
 import com.CustomData;
 import com.LineData;
+import com.Point3D;
 import com.Segments;
 import com.main.Renderer3D;
 
@@ -58,11 +59,11 @@ public class F1Car extends CustomData {
 		
 		initMesh();
 	}
-
-	private void initMesh() {
+	
+	public void initMesh() {
 		
-		points=new ArrayList();
-		polyData=new ArrayList();
+		points=new ArrayList<Point3D>();
+		polyData=new ArrayList<LineData>();
 
 		n=0;
 		

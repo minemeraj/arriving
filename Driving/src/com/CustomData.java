@@ -11,9 +11,20 @@ import com.main.Renderer3D;
 
 public abstract class CustomData {
 	
-	protected ArrayList points=null;
-	protected ArrayList polyData=null;
-	protected ArrayList texture_points=null;
+	protected  int texture_x0=10;
+	protected  int texture_y0=10;
+	protected  int IMG_WIDTH;
+	protected  int IMG_HEIGHT;
+	
+	protected int texture_side_dx=10;
+	protected int texture_side_dy=10;
+	
+	protected double len;
+	protected double vlen;
+	
+	protected ArrayList<Point3D> points=null;
+	protected ArrayList<LineData> polyData=null;
+	protected ArrayList<Point3D> texture_points=null;
 	
 	protected int n=0;
 	public static final double pi=Math.PI;
@@ -21,6 +32,8 @@ public abstract class CustomData {
 	protected int numTexturePoints=0;
 	
 	protected CustomData specificData=null;
+	
+	protected boolean isTextureDrawing=false;
 	
 	public PolygonMesh getMesh(){
 		
@@ -413,7 +426,7 @@ public abstract class CustomData {
 		return null;
 	}
 	
-	public static void rescaleMesh(PolygonMesh mesh, double scale) {
+	private void rescaleMesh(PolygonMesh mesh, double scale) {
 		
 		if(scale==1.0)
 			return;
@@ -451,11 +464,11 @@ public abstract class CustomData {
 		
 	}
 
-	public ArrayList getTexture_points() {
+	public ArrayList<Point3D> getTexture_points() {
 		return texture_points;
 	}
 
-	public void setTexture_points(ArrayList texture_points) {
+	public void setTexture_points(ArrayList<Point3D> texture_points) {
 		this.texture_points = texture_points;
 	}
 	
@@ -591,7 +604,7 @@ public abstract class CustomData {
 	
 	
 	
-	public void addTexturePoints(List texture_points,TextureBlock tb) {
+	public void addTexturePoints(List<Point3D> texture_points,TextureBlock tb) {
 		
 
 		
@@ -739,7 +752,7 @@ public abstract class CustomData {
 	}
 	
 	
-	public void addTexturePoints(List texture_points,TextureCylinder tb) {
+	public void addTexturePoints(List<Point3D> texture_points,TextureCylinder tb) {
 		
 
 	

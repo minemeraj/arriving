@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.BPoint;
 import com.CustomData;
 import com.LineData;
+import com.Point3D;
 import com.PolygonMesh;
 import com.Segments;
 import com.main.Renderer3D;
@@ -13,9 +14,9 @@ public class BuildingPlan extends CustomData{
 
 
 
-	double x_side=0;
-	double y_side=0;
-	double z_side=0;
+	private double x_side=0;
+	private double y_side=0;
+	private double z_side=0;
 
 	public static int ROOF_TYPE_FLAT=0;
 	public static int ROOF_TYPE_HIP=1;
@@ -24,13 +25,13 @@ public class BuildingPlan extends CustomData{
 	public static int ROOF_TYPE_MANSARD=4;
 	public static int ROOF_TYPE_GABLE=5;
 
-	public int roof_type=ROOF_TYPE_HIP;
+	private int roof_type=ROOF_TYPE_HIP;
 
-	double roof_top_height=0;
-	double roof_top_width=0;
-	double roof_top_length=0;	
+	private double roof_top_height=0;
+	private double roof_top_width=0;
+	private double roof_top_length=0;	
 	
-	double roof_rim=0;
+	private double roof_rim=0;
 
 	public BuildingPlan(){}
 
@@ -118,14 +119,6 @@ public class BuildingPlan extends CustomData{
 		this.z_side = z_side;
 	}
 
-
-	public int pos(int i, int j, int k){
-
-		return (i+(1+1)*j)*2+k;
-	}
-
-
-
 	public int getRoof_type() {
 		return roof_type;
 	}
@@ -185,9 +178,9 @@ public class BuildingPlan extends CustomData{
 		int ynum=1;
 
 
-		points=new ArrayList();
+		points=new ArrayList<Point3D>();
 
-		polyData=new ArrayList();
+		polyData=new ArrayList<LineData>();
 		
 		n=0;
 

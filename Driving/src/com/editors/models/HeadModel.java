@@ -15,14 +15,14 @@ public class HeadModel extends MeshModel {
 	private int[][][] splacFaces; 
 	private int[][][] neuroFaces;
 
-	double dx = 0;
-	double dy = 0;
-	double dz = 0;
+	private double dx = 0;
+	private double dy = 0;
+	private double dz = 0;
 
-	int bx=10;
-	int by=10;
+	private int bx=10;
+	private int by=10;
 
-	int tetaNumSections=10;
+	private int tetaNumSections=10;
 
 	public HeadModel(double dx, double dy, double dz) {
 
@@ -171,7 +171,7 @@ public class HeadModel extends MeshModel {
 		super.printFaces(pw, neuroFaces);
 	}
 
-	double[][] skullSections={
+	private double[][] skullSections={
 			{0.0,0.8837,0.2093},
 			{0.0574,0.84885,0.22095},
 			{0.1148,0.814,0.2326},
@@ -213,7 +213,7 @@ public class HeadModel extends MeshModel {
 
 	};*/
 
-	double[][] faceData={
+	private double[][] faceData={
 
 			{0.0,0.0692,0.1384,0.15985,0.1813,0.19195,0.2026,0.20595000000000002,0.2093,0.20595000000000002,0.2026,0.19195,0.1813,0.15985,0.1384,0.0692,0.0},
 			{0.0,0.07305,0.1461,0.16872499999999999,0.19135,0.202625,0.2139,0.217425,0.22095,0.217425,0.2139,0.202625,0.19135,0.16872499999999999,0.1461,0.07305,0.0},
@@ -347,7 +347,7 @@ public class HeadModel extends MeshModel {
 	 * DIAGNOSTICS UTILITY
 	 * 
 	 */
-	public void printXSections(){
+	private void printXSections(){
 
 		int w=(int) (dy*2)+2*bx;
 		int h=(int) dz+2*by;

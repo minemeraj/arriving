@@ -10,15 +10,15 @@ import com.main.Renderer3D;
 
 public class Courtyard0Model extends MeshModel{
 
-	double dx=100;
-	double dx1=50;
-	double dy=100;
-	double dy1=50;
-	double dz=20;
-	double roof_height=50;
+	private double dx=100;
+	private double dx1=50;
+	private double dy=100;
+	private double dy1=50;
+	private double dz=20;
+	private double roof_height=50;
 
-	int bx=10;
-	int by=10;
+	private int bx=10;
+	private int by=10;
 	
 	public static String NAME="Courtyard0";
 	
@@ -61,7 +61,7 @@ public class Courtyard0Model extends MeshModel{
 	}
 
 
-
+	@Override
 	public void initMesh() {
 
 		points=new Vector();
@@ -211,7 +211,7 @@ public class Courtyard0Model extends MeshModel{
 		printTextureLine(bg,39,31,28);
 	}
 
-	int[][][] faces={
+	private int[][][] faces={
 
 			//bottom
 			{{Renderer3D.CAR_BACK},{0,4,5,1},{0,4,5,1}},

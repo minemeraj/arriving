@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import com.BPoint;
 import com.CustomData;
 import com.LineData;
+import com.Point3D;
 import com.PolygonMesh;
 import com.TextureCylinder;
 import com.main.Renderer3D;
@@ -34,23 +35,12 @@ public class Plant0 extends CustomData{
 	
 	private double lobe_percentage_depth=1.0;
 	
-	public static int PLANT_TYPE_0=0;
+	private int PLANT_TYPE_0=0;
 	
-	public int plant_type=PLANT_TYPE_0;
+	private int plant_type=PLANT_TYPE_0;
 	
 	private TextureCylinder trunkCylinder=null;
 	private TextureCylinder foliageCylinder=null;
-	
-	private double len;
-	private double vlen;
-	
-	private static int IMG_WIDTH;
-	private static int IMG_HEIGHT;
-	
-	private static int texture_x0=10;
-	private static int texture_y0=10;
-	
-	private static boolean isTextureDrawing=false;
 	
 	public Plant0(){}
 
@@ -96,12 +86,12 @@ public class Plant0 extends CustomData{
 	}
 
 	
-	public void initMesh(){
+	private void initMesh(){
 
 
-		points=new ArrayList();
+		points=new ArrayList<Point3D>();
 
-		polyData=new ArrayList();
+		polyData=new ArrayList<LineData>();
 		
 		
 		n=0;
@@ -243,11 +233,11 @@ public class Plant0 extends CustomData{
 
 	}
 	
-	public ArrayList buildTexturePoints() {
+	private ArrayList<Point3D> buildTexturePoints() {
 		
 		isTextureDrawing=false;
 		
-		ArrayList texture_points=new ArrayList();
+		ArrayList<Point3D> texture_points=new ArrayList<Point3D>();
 				
 		addTexturePoints(texture_points,trunkCylinder);
 		addTexturePoints(texture_points,foliageCylinder);
@@ -350,7 +340,7 @@ public class Plant0 extends CustomData{
 	}
 
 
-	public double ff(double x){
+	private double ff(double x){
 		
 		if(foliage_length==0)
 			return 0;
@@ -381,7 +371,7 @@ public class Plant0 extends CustomData{
 		
 	}
 	
-	public double rr(double teta){
+	private double rr(double teta){
 		
 		double alfa=lobe_percentage_depth/100.0;
 		

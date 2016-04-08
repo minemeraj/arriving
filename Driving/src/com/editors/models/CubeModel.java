@@ -8,15 +8,13 @@ import java.util.Vector;
 
 public class CubeModel extends MeshModel{
 	
-	double dx=100;
-
-
-	double dy=200;
-	double dz=300;
+	private double dx=100;
+	private double dy=200;
+	private double dz=300;
 
 	
-	int bx=10;
-	int by=10;
+	private int bx=10;
+	private int by=10;
 
 	public CubeModel(double dx, double dy, double dz) {
 		super();
@@ -43,7 +41,7 @@ public class CubeModel extends MeshModel{
 	}
 
 
-
+	@Override
     public void initMesh() {
 
     	

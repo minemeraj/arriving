@@ -18,17 +18,16 @@ public class Weapon extends CustomData{
 	private double barrel_radius=0;		
 	private int barrel_meridians=0;
 	
-	public final static int WEAPON_TYPE_GUN=0;	
-	public final static int WEAPON_TYPE_SHOTGUN=1;
-	public final static int WEAPON_TYPE_DOUBLE_BARREL_SHOTGUN=2;
-	public final static int WEAPON_TYPE_REVOLVER=3;
-	public final static int WEAPON_TYPE_SUBMACHINEGUN=4;
-	public final static int WEAPON_TYPE_BASEBALL_BAT=5;
-	public final static int WEAPON_TYPE_AX=6;
-	public final static int WEAPON_TYPE_SWORD=7;
+	public static final int WEAPON_TYPE_GUN=0;	
+	public static final int WEAPON_TYPE_SHOTGUN=1;
+	public static final int WEAPON_TYPE_DOUBLE_BARREL_SHOTGUN=2;
+	public static final int WEAPON_TYPE_REVOLVER=3;
+	public static final int WEAPON_TYPE_SUBMACHINEGUN=4;
+	public static final int WEAPON_TYPE_BASEBALL_BAT=5;
+	public static final int WEAPON_TYPE_AX=6;
+	public static final int WEAPON_TYPE_SWORD=7;
 	
-	public int weapon_type=WEAPON_TYPE_GUN;
-	
+	private int weapon_type=WEAPON_TYPE_GUN;
 	
 	
 	private double breech_length=0;
@@ -442,8 +441,8 @@ public class Weapon extends CustomData{
 
 
 	private PolygonMesh buildGunMesh() {
-		points=new ArrayList();
-		polyData=new ArrayList();
+		points=new ArrayList<Point3D>();
+		polyData=new ArrayList<LineData>();
 		
 		
 		n=0;
@@ -884,8 +883,8 @@ public class Weapon extends CustomData{
 	}
 
 	private PolygonMesh buildShotGunMesh() {
-		points=new ArrayList();
-		polyData=new ArrayList();
+		points=new ArrayList<Point3D>();
+		polyData=new ArrayList<LineData>();
 		
 		
 		n=0;
@@ -1255,8 +1254,8 @@ public class Weapon extends CustomData{
 
 
 	private PolygonMesh buildDoubleBarrelGunMesh() {
-		points=new ArrayList();
-		polyData=new ArrayList();
+		points=new ArrayList<Point3D>();
+		polyData=new ArrayList<LineData>();
 		
 		
 		n=0;
@@ -1627,8 +1626,8 @@ public class Weapon extends CustomData{
 	}
 
 	private PolygonMesh buildSubmachineGunMesh() {
-		points=new ArrayList();
-		polyData=new ArrayList();
+		points=new ArrayList<Point3D>();
+		polyData=new ArrayList<LineData>();
 		
 		
 		n=0;
@@ -2203,8 +2202,8 @@ public class Weapon extends CustomData{
 
 	private PolygonMesh buildRevolverMesh() {
 		
-		points=new ArrayList();
-		polyData=new ArrayList();
+		points=new ArrayList<Point3D>();
+		polyData=new ArrayList<LineData>();
 		
 		
 		n=0;

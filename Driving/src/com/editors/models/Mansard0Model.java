@@ -10,15 +10,15 @@ import com.main.Renderer3D;
 
 public class Mansard0Model extends MeshModel{
 
-	double dx=100;
-	double dy=200;
-	double dx1=100;
-	double dy1=200;
-	double dz=20;
-	double roof_height=50;
+	private double dx=100;
+	private double dy=200;
+	private double dx1=100;
+	private double dy1=200;
+	private double dz=20;
+	private double roof_height=50;
 
-	int bx=10;
-	int by=10;
+	private int bx=10;
+	private int by=10;
 	
 	public static String NAME="Mansard0";
 	
@@ -61,7 +61,7 @@ public class Mansard0Model extends MeshModel{
 	}
 
 
-
+	@Override
 	public void initMesh() {
 
 		points=new Vector();
@@ -202,7 +202,7 @@ public class Mansard0Model extends MeshModel{
 		printTextureLine(bg,22,19);
 	}
 
-	int[][][] faces={
+	private int[][][] faces={
 
 			//base
 

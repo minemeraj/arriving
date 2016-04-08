@@ -1,6 +1,5 @@
 package com.editors.mesh;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -25,18 +24,17 @@ import com.editors.models.MeshModel;
 public class MeshModelEditor extends JFrame implements ActionListener, MenuListener{
 	
 
-	public JPanel center;
+	JPanel center;
 
 	protected JButton meshButton;
 
 	protected JButton textureButton;
 	
-	protected File currentDirectory=new File("lib");
+	private File currentDirectory=new File("lib");
 
-	protected PrintWriter pw;
-
+	private PrintWriter pw;
 	
-	String title="Mesh model";
+	private String title="Mesh model";
 	
 	protected MeshModel meshModel=null;
 	private JMenuBar jmb;
@@ -46,7 +44,7 @@ public class MeshModelEditor extends JFrame implements ActionListener, MenuListe
 	private File currentFile;
 
 	
-	public MeshModelEditor(int W,int H){		
+	MeshModelEditor(int W,int H){		
 		
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -246,7 +244,7 @@ public class MeshModelEditor extends JFrame implements ActionListener, MenuListe
 	}
 	
 	
-	public void printMesh(){
+	private void printMesh(){
 		
 		initMesh();
 		

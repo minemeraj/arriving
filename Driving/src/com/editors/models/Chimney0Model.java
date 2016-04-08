@@ -10,15 +10,15 @@ import com.main.Renderer3D;
 
 public class Chimney0Model extends MeshModel{
 
-	double dx=100;
-	double dx1=200;
-	double dz=20;
+	private double dx=100;
+	private double dx1=200;
+	private double dz=20;
 
 
-	int bx=10;
-	int by=10;
+	private int bx=10;
+	private int by=10;
 	
-	int num_meridians=10;
+	private int num_meridians=10;
 	private int[][][] faces; 
 	
 	public static String NAME="Chimney0";
@@ -65,7 +65,7 @@ public class Chimney0Model extends MeshModel{
 	}
 
 
-
+	@Override
 	public void initMesh() {
 
 		points=new Vector();

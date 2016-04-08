@@ -52,7 +52,7 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 	private DoubleTextField hand_length;
 	private DoubleTextField leg_side;
 	
-	public Stack oldAnimal=null;
+	public Stack<Animal> oldAnimal=null;
 	int max_stack_size=10;
 	
 	Animal animal=null;
@@ -670,7 +670,7 @@ public class AnimalsEditor extends CustomEditor implements ItemListener{
 		if(oldAnimal.size()>=max_stack_size)
 			oldAnimal.removeElementAt(0);
 		
-		oldAnimal.push(animal.clone());
+		oldAnimal.push((Animal) animal.clone());
 		
 		
 	}

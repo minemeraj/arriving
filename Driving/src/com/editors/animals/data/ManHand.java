@@ -17,25 +17,13 @@ import com.Segments;
 import com.main.Renderer3D;
 
 public class ManHand extends Animal{
-	
-	public static int texture_side_dx=10;
-	public static int texture_side_dy=10;
 
-	public static int texture_x0=10;
-	public static int texture_y0=10;
-	public static int IMG_WIDTH;
-	public static int IMG_HEIGHT;
-	
-	public static boolean isTextureDrawing=false;
-	
-	int N_FACES=4;
-	int N_PARALLELS=2;
-	
-	private double len;
-	
-	Point3D[] upperBase=null;
-	Point3D[] lowerBase=null;
-	Point3D[][] lateralFaces=null; 
+	private int N_FACES=4;
+	private int N_PARALLELS=2;
+
+	private Point3D[] upperBase=null;
+	private Point3D[] lowerBase=null;
+	private Point3D[][] lateralFaces=null; 
 	
 
 	public ManHand(double x_side, double y_side,double z_side,int animal_type,
@@ -213,11 +201,11 @@ public class ManHand extends Animal{
 		
 	}
 
-	public ArrayList buildTexturePoints() {
+	private ArrayList<Point3D> buildTexturePoints() {
 		
 		isTextureDrawing=false;
 		
-		ArrayList texture_points=new ArrayList();
+		ArrayList<Point3D> texture_points=new ArrayList<Point3D>();
 		
 
 
@@ -289,10 +277,10 @@ public class ManHand extends Animal{
 			return texture_y0+y;
 	}
 	
-	public void initMesh( ) {
+	private void initMesh( ) {
 		
-		points=new ArrayList();
-		polyData=new ArrayList();
+		points=new ArrayList<Point3D>();
+		polyData=new ArrayList<LineData>();
 
 		n=0;
 		

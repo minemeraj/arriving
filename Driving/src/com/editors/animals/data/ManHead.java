@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import com.BPoint;
+import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
 import com.Segments;
@@ -17,29 +18,17 @@ import com.main.Renderer3D;
 
 public class ManHead extends Animal{
 	
-	public static int texture_side_dx=10;
-	public static int texture_side_dy=10;
 
-	public static int texture_x0=10;
-	public static int texture_y0=10;
-	public static int IMG_WIDTH;
-	public static int IMG_HEIGHT;
+	private Point3D[][] nozeFaces=null; 
 	
-	public static boolean isTextureDrawing=false;
-	
-	private double len;
+	private TextureBlock textureBlock=null;
 	
 
-	Point3D[][] nozeFaces=null; 
+	private int numx=9;
+	private int numy=5;
+	private int numz=9;
 	
-	TextureBlock textureBlock=null;
-	
-
-	int numx=9;
-	int numy=5;
-	int numz=9;
-	
-	int N_FACES=numx*2+(numy-2)*2;
+	private int N_FACES=numx*2+(numy-2)*2;
 	
 
 
@@ -163,11 +152,11 @@ public class ManHead extends Animal{
 
 
 
-	public ArrayList buildTexturePoints() {
+	private ArrayList<Point3D> buildTexturePoints() {
 		
 		isTextureDrawing=false;
 		
-		ArrayList texture_points=new ArrayList(numTexturePoints);
+		ArrayList<Point3D> texture_points=new ArrayList<Point3D> (numTexturePoints);
 		
 		addTexturePoints(texture_points,textureBlock);
 		
@@ -203,10 +192,10 @@ public class ManHead extends Animal{
 			return texture_y0+y;
 	}
 	
-	public void initMesh( ) {
+	private void initMesh( ) {
 		
-		points=new ArrayList();
-		polyData=new ArrayList();
+		points=new ArrayList<Point3D>();
+		polyData=new ArrayList<LineData>();
 
 		n=0;
 		
@@ -646,14 +635,14 @@ public class ManHead extends Animal{
 
 
 	
-	public int nf(int i,int j){
+	private int nf(int i,int j){
 		
 		return nozeIndexes[j][i];
 	}
 	
 	
 	
-	int[][] nozeIndexes={
+	private int[][] nozeIndexes={
 			
 			{315,316,317},
 			{318,319,320},

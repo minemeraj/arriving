@@ -17,21 +17,17 @@ import com.main.Renderer3D;
 public abstract class MeshModel {
 
 
-	Vector texturePoints=null;
-	Vector points=null;
+	Vector<Point3D> texturePoints=null;
+	Vector<Point3D> points=null;
 
-	Color backgroundColor=Color.green;
+	private Color backgroundColor=Color.green;
 
 	int IMG_WIDTH=100;
 	int IMG_HEIGHT=100;
 
-
-
-	String title="Mesh model";
-
-	public static int FACE_TYPE_ORIENTATION=0;
-	public static int FACE_TYPE_BODY_INDEXES=1;
-	public static int FACE_TYPE_TEXTURE_INDEXES=2;
+	static int FACE_TYPE_ORIENTATION=0;
+	static int FACE_TYPE_BODY_INDEXES=1;
+	static int FACE_TYPE_TEXTURE_INDEXES=2;
 	
 	//sqrt(1-x*x), 0.125,0.1 decimal fraction steps
 	double[] el_125={1.0,0.9922,0.9682,0.9270,0.8660,0.7806,0.6614,0.4841,0.0};
@@ -74,7 +70,7 @@ public abstract class MeshModel {
 	 * @param pw
 	 * @param faces
 	 */
-	public void printFaces(PrintWriter pw,int[][][] faces) {
+	void printFaces(PrintWriter pw,int[][][] faces) {
 
 		if(faces==null)
 			return;
@@ -108,13 +104,13 @@ public abstract class MeshModel {
 
 	public abstract void printTexture(Graphics2D bufGraphics);
 
-	public void print(PrintWriter pw, String string) {
+	void print(PrintWriter pw, String string) {
 
 		pw.println(string);
 
 	}
 
-	public void printTextureLine(Graphics2D graphics, int indx0,int indx1){
+	void printTextureLine(Graphics2D graphics, int indx0,int indx1){
 
 
 		Point3D p0=(Point3D) texturePoints.elementAt(indx0);
@@ -125,7 +121,7 @@ public abstract class MeshModel {
 
 	}
 
-	public void printTextureLine(Graphics2D graphics, int indx0,int indx1,int indx2){
+	void printTextureLine(Graphics2D graphics, int indx0,int indx1,int indx2){
 
 
 		Point3D p0=(Point3D) texturePoints.elementAt(indx0);
@@ -137,7 +133,7 @@ public abstract class MeshModel {
 
 	}
 
-	public void printTextureLine(Graphics2D graphics, int indx0,int indx1,int indx2,int indx3){
+	void printTextureLine(Graphics2D graphics, int indx0,int indx1,int indx2,int indx3){
 
 
 		Point3D p0=(Point3D) texturePoints.elementAt(indx0);
@@ -150,7 +146,7 @@ public abstract class MeshModel {
 		graphics.drawLine(cX(p2.x),cY(p2.y),cX(p3.x),cY(p3.y));	
 	}
 
-	public void printTexturePolygon(Graphics2D graphics, int indx0,int indx1,int indx2){
+	void printTexturePolygon(Graphics2D graphics, int indx0,int indx1,int indx2){
 
 
 		Point3D p0=(Point3D) texturePoints.elementAt(indx0);
@@ -162,7 +158,7 @@ public abstract class MeshModel {
 		graphics.drawLine(cX(p2.x),cY(p2.y),cX(p0.x),cY(p0.y));	
 	}
 
-	public void printTexturePolygon(Graphics2D graphics, int indx0,int indx1,int indx2,int indx3){
+	void printTexturePolygon(Graphics2D graphics, int indx0,int indx1,int indx2,int indx3){
 
 
 		Point3D p0=(Point3D) texturePoints.elementAt(indx0);
@@ -211,12 +207,12 @@ public abstract class MeshModel {
 
 	}
 	
-	public void printTextureFaces(Graphics2D bg, int[][][] faces) {
+	void printTextureFaces(Graphics2D bg, int[][][] faces) {
 		
 		printTextureFaces(bg, faces,0,faces.length);
 	}
 	
-	public void printTextureFaces(Graphics2D bg, int[][][] faces,int minimum,int maximum) {
+	void printTextureFaces(Graphics2D bg, int[][][] faces,int minimum,int maximum) {
 
 		for (int i = minimum; i < maximum; i++) {
 
@@ -248,20 +244,20 @@ public abstract class MeshModel {
 
 	}
 
-	public void addPoint(double x, double y, double z) {
+	void addPoint(double x, double y, double z) {
 
 		points.add(new Point3D(x,y,z));
 
 	}
 
-	public void addTPoint(double x, double y, double z) {
+	void addTPoint(double x, double y, double z) {
 
 		texturePoints.add(new Point3D(x,y,z));
 
 	}
 	
 
-	public BPoint addBPoint(double x, double y, double z) {
+	BPoint addBPoint(double x, double y, double z) {
 
 		int index=points.size();
 		BPoint p=new BPoint(x, y, z, index);
@@ -270,7 +266,7 @@ public abstract class MeshModel {
 		return p;
 	}
 
-	public int[][][] buildSingleBlockFaces(
+	int[][][] buildSingleBlockFaces(
 			int nBasePoints,
 			int numSections,
 			int pOffset,
@@ -321,7 +317,7 @@ public abstract class MeshModel {
 
 	}
 	
-	public int[][][] buildDoubleBlockFaces(
+	int[][][] buildDoubleBlockFaces(
 			int nBasePoints,
 			int numSections,
 			int pOffset,
@@ -381,7 +377,7 @@ public abstract class MeshModel {
 	}
 	
 
-	public int[][][] buildSinglePlaneFaces(int nBasePoints, int numSections, int pOffset, int tOffset) {
+	int[][][] buildSinglePlaneFaces(int nBasePoints, int numSections, int pOffset, int tOffset) {
 
 		int NUM_FACES=(nBasePoints-1)*(numSections-1);
 		int[][][] faces=new int[NUM_FACES][3][nBasePoints];
@@ -449,12 +445,12 @@ public abstract class MeshModel {
 	 * @param data
 	 * @return
 	 */
-	public void postProcessor(Vector vFaces){
+	void postProcessor(Vector vFaces){
 
 		
 		Hashtable fp=new Hashtable();
 		
-		Vector newPoints=new Vector();
+		Vector<Point3D> newPoints=new Vector<Point3D>();
 		
 		int counter=0;
 		

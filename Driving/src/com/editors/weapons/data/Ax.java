@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.BPoint;
 import com.CustomData;
+import com.LineData;
+import com.Point3D;
 import com.Segments;
 import com.main.Renderer3D;
 
@@ -16,6 +18,8 @@ public class Ax extends CustomData  {
 	
 	private double forearm_length=0;
 	private double forearm_width=0;
+	private double forearm_height=0;
+	
 	public Ax(double barrel_length, double barrel_radius, int barrel_meridians,
 			double forearm_length, double forearm_width, double forearm_height) {
 		super();
@@ -29,13 +33,13 @@ public class Ax extends CustomData  {
 		initMesh();
 	}
 
-	double forearm_height=0;
+	
 	
 
 	private void initMesh() {
 		
-		points=new ArrayList();
-		polyData=new ArrayList();
+		points=new ArrayList<Point3D>();
+		polyData=new ArrayList<LineData>();
 
 		n=0;
 		

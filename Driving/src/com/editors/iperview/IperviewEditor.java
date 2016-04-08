@@ -77,8 +77,8 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	private JButton deleteSelection;
 	DoubleTextField coordinatesx;
 	DoubleTextField coordinatesy;
-	public DoubleTextField coordinatesz;
-	public JTextField extraData;	
+	DoubleTextField coordinatesz;
+	JTextField extraData;	
 	JCheckBox checkMultipleSelection;
 	private JButton addPoint;
 	private JButton rescale;
@@ -114,10 +114,10 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 
 	private BufferedImage backgroundImage=null;
 	
-	public JCheckBox checkCoordinatesx;
-	public JCheckBox checkCoordinatesz;
-	public JCheckBox checkCoordinatesy;
-	public JCheckBox checkExtraData; 
+	JCheckBox checkCoordinatesx;
+	JCheckBox checkCoordinatesz;
+	JCheckBox checkCoordinatesy;
+	JCheckBox checkExtraData; 
 	
 	int ACTIVE_KEY=-1;
 	boolean isControlMode=false;
@@ -698,9 +698,8 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 	
 	private void mergeSelectedPoints() {
 	
-		
-		ArrayList newPoints=new ArrayList();
-		ArrayList newLines=new ArrayList();
+		ArrayList<Point3D> newPoints=new ArrayList<Point3D>();
+		ArrayList<LineData> newLines=new ArrayList<LineData>();
 
 		 PolygonMesh mesh = meshes[ACTIVE_PANEL];	
 		
@@ -1262,7 +1261,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 	}
 	
-
+	@Override
 	public void deselectAllLines() {
 		
 		PolygonMesh mesh = meshes[ACTIVE_PANEL];
@@ -1723,8 +1722,8 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		
 		private DecimalFormat df=new DecimalFormat("000");
 
-		Point3D p;
-		int index=-1;
+		private Point3D p;
+		private int index=-1;
 
 		private PointListItem(Point3D p, int index) {	
 			super();

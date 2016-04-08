@@ -10,9 +10,9 @@ import com.Point3D;
 
 public class ManModel extends MeshModel{
 
-	double dx = 0;
-	double dy = 0;
-	double dz = 0;
+	private double dx = 0;
+	private double dy = 0;
+	private double dz = 0;
 
 	private int[][][] faces; 
 	private int[][][] rightArmFaces;
@@ -20,10 +20,10 @@ public class ManModel extends MeshModel{
 	private int[][][] rightLegFaces;
 	private int[][][] leftLegFaces;
 
-	int nBasePoints=4;
+	private int nBasePoints=4;
 
-	int bx=10;
-	int by=10;
+	private int bx=10;
+	private int by=10;
 
 	public ManModel(double dx, double dy, double dz) {
 		super();
@@ -388,7 +388,7 @@ public class ManModel extends MeshModel{
 	 * z,x,y
 	 * 
 	 */
-	public static final double[][] body={
+	private final double[][] body={
 
 			{0.0,0.1111,1.0},
 			{0.1239,0.6032,1.0},

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import com.BPoint;
+import com.LineData;
+import com.Point3D;
 import com.PolygonMesh;
 import com.Segments;
 import com.TextureBlock;
@@ -16,43 +18,29 @@ import com.main.Renderer3D;
 
 public class Quadruped extends Animal{
 	
-	public static int texture_side_dx=10;
-	public static int texture_side_dy=10;
+	private int N_FACES=4;
+	private int N_PARALLELS=2;
 
-	public static int texture_x0=10;
-	public static int texture_y0=10;
-	public static int IMG_WIDTH;
-	public static int IMG_HEIGHT;
+	private TextureBlock headBlock=null;
+	private TextureBlock neckBlock;
+	private TextureBlock bodyBlock=null;
+	private TextureBlock lLegBlock=null;
+	private TextureBlock rLegBlock=null;
+	private TextureBlock lFootBlock=null;
+	private TextureBlock rFootBlock=null;
+	private TextureBlock lArmBlock=null;
+	private TextureBlock rArmBlock=null;
 	
-	public static boolean isTextureDrawing=false;
-	
-	int N_FACES=4;
-	int N_PARALLELS=2;
-	
-	private double len;
-	private double vlen;
-	
-	
-	TextureBlock headBlock=null;
-	TextureBlock neckBlock;
-	TextureBlock bodyBlock=null;
-	TextureBlock lLegBlock=null;
-	TextureBlock rLegBlock=null;
-	TextureBlock lFootBlock=null;
-	TextureBlock rFootBlock=null;
-	TextureBlock lArmBlock=null;
-	TextureBlock rArmBlock=null;
-	
-	int numx=5;
-	int numy=6;
-	int numz=5;	
+	private int numx=5;
+	private int numy=6;
+	private int numz=5;	
 
-	int ney=3;
-	int nez=3;	
+	private int ney=3;
+	private int nez=3;	
 	
-	int hnx=5;
-	int hny=5;
-	int hnz=5;
+	private int hnx=5;
+	private int hny=5;
+	private int hnz=5;
 	
 
 	public Quadruped(double x_side, double y_side,double z_side,int animal_type,
@@ -167,11 +155,11 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		
 	}
 
-	public ArrayList buildTexturePoints() {
+	private ArrayList<Point3D> buildTexturePoints() {
 		
 		isTextureDrawing=false;
 		
-		ArrayList texture_points=new ArrayList(numTexturePoints);
+		ArrayList<Point3D> texture_points=new ArrayList(numTexturePoints);
 	
 		addTexturePoints(texture_points,rFootBlock);
 		addTexturePoints(texture_points,lFootBlock);
@@ -198,13 +186,13 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 			return texture_y0+y;
 	}
 	
-	public void initMesh( ) {
+	private void initMesh( ) {
 		
 
 
 
-		points=new ArrayList();
-		polyData=new ArrayList();
+		points=new ArrayList<Point3D>();
+		polyData=new ArrayList<LineData>();
 		
 		
 		

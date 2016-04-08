@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import com.BPoint;
+import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
 import com.Segments;
@@ -17,15 +18,7 @@ import com.main.Renderer3D;
 
 public class Man extends Animal {
 
-	private  static int texture_x0=10;
-	private  static int texture_y0=10;
-	private  static int IMG_WIDTH;
-	private  static int IMG_HEIGHT;
-	
-	public static boolean isTextureDrawing=false;
-	
-	private double len;
-	private double vlen;
+
 
 	private int numx=5;
 	private int numy=5;
@@ -151,11 +144,11 @@ public class Man extends Animal {
 		
 	}
 
-	public ArrayList buildTexturePoints() {
+	private ArrayList<Point3D> buildTexturePoints() {
 		
 		isTextureDrawing=false;
 		
-		ArrayList texture_points=new ArrayList(numTexturePoints);
+		ArrayList<Point3D> texture_points=new ArrayList<Point3D>(numTexturePoints);
 				
 		addTexturePoints(texture_points,rFootBlock);
 		addTexturePoints(texture_points,lFootBlock);
@@ -187,8 +180,8 @@ public class Man extends Animal {
 		
 		double q_angle=12*2*Math.PI/360.0;
 
-		points=new ArrayList();
-		polyData=new ArrayList();
+		points=new ArrayList<Point3D>();
+		polyData=new ArrayList<LineData>();
 
 		n=0;
 

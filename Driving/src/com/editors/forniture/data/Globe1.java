@@ -25,20 +25,9 @@ public class Globe1 extends Forniture {
 	
 	private Point3D northPole=null;
 	private Point3D southPole=null;
-		
-	
-	private static int texture_side_dx=10;
-	private static int texture_side_dy=10;
-	
-	private static int texture_x0=10;
-	private static int texture_y0=10;
-	private static int IMG_WIDTH;
-	private static int IMG_HEIGHT;
 	
 	private double len;
 	private double zHeight;
-		
-	private static boolean isTextureDrawing=false;
 
 	public Globe1(double radius,int N_MERIDIANS,int N_PARALLELS) {
 		
@@ -105,13 +94,10 @@ public class Globe1 extends Forniture {
 		initMesh();
 	}
 	
-	public void initMesh( ) {
+	private void initMesh( ) {
 
-
-		Hashtable values=new Hashtable();
-
-		points=new ArrayList();
-		polyData=new ArrayList();
+		points=new ArrayList<Point3D>();
+		polyData=new ArrayList<LineData>();
 
 		n=0;
 
@@ -413,18 +399,13 @@ public class Globe1 extends Forniture {
 		
 	}
 
-public ArrayList buildTexturePoints() {
+private ArrayList<Point3D> buildTexturePoints() {
 	
 	isTextureDrawing=false;
-	
-	
-	
-	double teta=(2*pi)/(n_meridians);
-
 
 	int size=2+	(n_meridians)*(n_parallels);
 	
-	ArrayList texture_points=new ArrayList(size);
+	ArrayList<Point3D> texture_points=new ArrayList<Point3D>(size);
 	
 	texture_side_dy=(int) (zHeight/(n_parallels-1));
 	texture_side_dx=(int) (len/(n_meridians));

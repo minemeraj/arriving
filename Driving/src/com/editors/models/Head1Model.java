@@ -15,16 +15,14 @@ import com.main.Renderer3D;
 
 public class Head1Model extends MeshModel{
 
-	double dx = 0;
-	double dy = 0;
-	double dz = 0;
+	private double dx = 0;
+	private double dy = 0;
+	private double dz = 0;
 
 	private int[][][] faces; 
-
-
-
-	int bx=10;
-	int by=10;
+	
+	private int bx=10;
+	private int by=10;
 
 	public Head1Model(double dx, double dy, double dz) {
 		super();
@@ -275,7 +273,7 @@ public class Head1Model extends MeshModel{
 	 * DIAGNOSTICS UTILITY
 	 * 
 	 */
-	public void printXSections(){
+	private void printXSections(){
 
 		int w=(int) (2*dy)+2*bx;
 		int h=(int) (dz)+2*by;
@@ -437,7 +435,7 @@ public class Head1Model extends MeshModel{
 		return sex;
 	}
 
-	double[][][] data=
+	private double[][][] data=
 		{		
 				//8 nose tip, 10 eyes line
 

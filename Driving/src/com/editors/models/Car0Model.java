@@ -6,18 +6,20 @@ import java.awt.Graphics2D;
 import java.io.PrintWriter;
 import java.util.Vector;
 
+import com.Point3D;
+
 public class Car0Model extends MeshModel{
 
-	double dx = 0;
-	double dy = 0;
-	double dz = 0;
+	private double dx = 0;
+	private double dy = 0;
+	private double dz = 0;
 
 	private int[][][] faces; 
 
-	int nBasePoints=6;
+	private int nBasePoints=6;
 
-	int bx=10;
-	int by=10;
+	private int bx=10;
+	private int by=10;
 
 	public Car0Model(double dx, double dy, double dz) {
 		super();
@@ -29,7 +31,7 @@ public class Car0Model extends MeshModel{
 	@Override
 	public void initMesh() {
 
-		points=new Vector();
+		points=new Vector<Point3D>();
 		texturePoints=new Vector();
 
 		int numSections=body.length;
@@ -140,7 +142,7 @@ public class Car0Model extends MeshModel{
 	 * measurs from mazda-6 2008
 	 * 
 	 */
-	public static final double[][][] body={
+	private final double[][][] body={
 
 			{{0.0000},{1.0,1.0,0.75},{0.1044,0.3655,0.3655}},
 			{{0.0329},{1.0,1.0,0.75},{0.0763,0.7068,0.7068}},

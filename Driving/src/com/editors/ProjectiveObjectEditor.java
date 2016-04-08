@@ -1406,7 +1406,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 	}
 
 
-	public class LineData{
+	private class LineData{
 
 		ArrayList lineDatas=new ArrayList();
 		boolean isSelected=false;

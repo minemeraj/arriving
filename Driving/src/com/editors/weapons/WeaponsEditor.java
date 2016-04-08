@@ -60,7 +60,7 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 	
 
 	
-	public Stack oldWeapon=null;
+	public Stack<Weapon> oldWeapon=null;
 	int max_stack_size=10;
 	
 	Weapon weapon=null;
@@ -921,7 +921,7 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		if(oldWeapon.size()>=max_stack_size)
 			oldWeapon.removeElementAt(0);
 		
-		oldWeapon.push(weapon.clone());
+		oldWeapon.push((Weapon) weapon.clone());
 		
 		
 	}

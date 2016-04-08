@@ -50,7 +50,7 @@ public class PlantsEditor extends CustomEditor implements ItemListener {
 
 	private JComboBox plant_type;
 	
-	public Stack oldPlant=null;
+	public Stack<Plant> oldPlant=null;
 	int max_stack_size=10;
 	private DoubleTextField foliage_barycenter;
 	
@@ -100,7 +100,7 @@ public class PlantsEditor extends CustomEditor implements ItemListener {
 		
 		center.initialize();
 		
-		oldPlant=new Stack();
+		oldPlant=new Stack<Plant>();
 	}
 
 	public static void main(String[] args) {
@@ -530,7 +530,7 @@ public class PlantsEditor extends CustomEditor implements ItemListener {
 		if(oldPlant.size()>=max_stack_size)
 			oldPlant.removeElementAt(0);
 		
-		oldPlant.push(plant.clone());
+		oldPlant.push((Plant) plant.clone());
 		
 		
 	}

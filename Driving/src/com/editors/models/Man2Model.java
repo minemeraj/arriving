@@ -15,19 +15,19 @@ import com.main.Renderer3D;
 
 public class Man2Model extends MeshModel{
 
-	double dx = 0;
-	double dy = 0;
-	double dz = 0;
+	private double dx = 0;
+	private double dy = 0;
+	private double dz = 0;
 
-	double leg_length = 0;
-	double arm_length = 0;
+	private double leg_length = 0;
+	private double arm_length = 0;
 
 	private int[][][] faces; 
 
-	int bx=10;
-	int by=10;
+	private int bx=10;
+	private int by=10;
 
-	int bustFacesNum=0;
+	private int bustFacesNum=0;
 
 	public Man2Model(double dx, double dy, double dz,
 			double leg_length,
@@ -440,7 +440,7 @@ public class Man2Model extends MeshModel{
 	}
 
 
-	double[][][] data=
+	private double[][][] data=
 		{
 				{	
 

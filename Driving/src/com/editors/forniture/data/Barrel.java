@@ -18,26 +18,16 @@ import com.main.Renderer3D;
 
 public class Barrel extends CustomData{
 	
-	private static int texture_side_dx=10;
-	private static int texture_side_dy=10;
+
+	private int N_MERIDIANS=0;
+	private int N_PARALLELS=0;
 	
-	private static int texture_x0=10;
-	private static int texture_y0=10;
-	private static int IMG_WIDTH;
-	private static int IMG_HEIGHT;
-	
-	private static boolean isTextureDrawing=false;
-	
-	int N_MERIDIANS=0;
-	int N_PARALLELS=0;
-	
-	Point3D[] profile=null;
+	private Point3D[] profile=null;
 	
 	private double upper_radius;
 	private double lower_radius;
 	private double zHeight;
 	private double max_radius;
-	private double len;
 	
 	private Point3D[] upperBase=null;
 	private Point3D[] lowerBase=null;
@@ -210,13 +200,13 @@ public class Barrel extends CustomData{
 		
 	}
 
-	private ArrayList buildTexturePoints() {
+	private ArrayList<Point3D> buildTexturePoints() {
 		
 		isTextureDrawing=false;
 
 		int size=2*N_MERIDIANS+	(N_MERIDIANS+1)*(N_PARALLELS);
 		
-		ArrayList texture_points=new ArrayList(size);
+		ArrayList<Point3D> texture_points=new ArrayList<Point3D>(size);
 		
 		texture_side_dy=(int) (zHeight/(N_PARALLELS-1));
 		texture_side_dx=(int) (len/(N_MERIDIANS));
@@ -293,8 +283,8 @@ public class Barrel extends CustomData{
 
 	
 		
-		points=new ArrayList();
-		polyData=new ArrayList();
+		points=new ArrayList<Point3D>();
+		polyData=new ArrayList<LineData>();
 		
 		n=0;
 		

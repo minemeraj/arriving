@@ -43,7 +43,7 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 	private DoubleTextField roof_top_width;
 	private DoubleTextField roof_top_length;
 	
-	public Stack oldPlan=null;
+	public Stack<BuildingPlan> oldPlan=null;
 	int max_stack_size=10;
 	private DoubleTextField roof_rim;
 	
@@ -531,7 +531,7 @@ public class BuildingsEditor extends CustomEditor implements  MouseListener, Ite
 		if(oldPlan.size()>=max_stack_size)
 			oldPlan.removeElementAt(0);
 		
-		oldPlan.push(plan.clone());
+		oldPlan.push((BuildingPlan) plan.clone());
 		
 		
 	}

@@ -158,8 +158,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	private JMenuItem jmt_advance_road;
 	
-	private ArrayList autocarsData = null;
-	private ArrayList autolinesData = null;
+	private ArrayList<AutocarData> autocarsData = null;
+	private ArrayList<LinkedList> autolinesData = null;
 
 	private JComboBox chooseAutoline;
 
@@ -239,8 +239,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		buildMenuBar();
 
-		autocarsData = new ArrayList();
-		autolinesData=new ArrayList();
+		autocarsData = new ArrayList<AutocarData>();
+		autolinesData=new ArrayList<LinkedList>();
 		
 	
 		
@@ -321,7 +321,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		File directoryImg = new File("lib");
 		File[] files = directoryImg.listFiles();
 
-		ArrayList vRoadTextures = new ArrayList();
+		ArrayList<File> vRoadTextures = new ArrayList<File>();
 
 		for (int i = 0; i < files.length; i++) {
 			if (files[i].getName().startsWith("road_texture_")) {
@@ -342,7 +342,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		}
 		
-		ArrayList vObjects=new ArrayList();
+		ArrayList<File> vObjects=new ArrayList<File>();
 		
 		
 		for(int i=0;i<files.length;i++){
@@ -2158,8 +2158,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		jmt_undo.setEnabled(true);
 
-		ArrayList clonedAutolinesData=new ArrayList();
-		ArrayList clonedAutocarsData=new ArrayList();
+		ArrayList clonedAutolinesData=new ArrayList<LinkedList>();
+		ArrayList clonedAutocarsData=new ArrayList<AutocarData>();
 
 		for (int l= 0; l < autolinesData.size(); l++) {
 
@@ -2201,9 +2201,9 @@ public class AutocarEditor extends Editor implements MouseListener,
 	public void undo() {
 		
 	    if(oldAutocarsData.size()>0)  
-	    	autocarsData=(ArrayList) oldAutocarsData.pop();
+	    	autocarsData=(ArrayList<AutocarData>) oldAutocarsData.pop();
 	    else
-	    	autocarsData=new ArrayList();
+	    	autocarsData=new ArrayList<AutocarData>();
 	    
 	    if(autolinesData.size()>0)  
 	    	autolinesData=(ArrayList) oldAutolinesData.pop();
@@ -2738,8 +2738,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	private void loadAutocars(File file) {
 
-		autocarsData = new ArrayList();
-		autolinesData=new ArrayList();
+		autocarsData = new ArrayList<AutocarData>();
+		autolinesData=new ArrayList<LinkedList>();
 
 		BufferedReader br;
 		try {

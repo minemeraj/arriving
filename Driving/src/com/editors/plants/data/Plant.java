@@ -24,7 +24,7 @@ public class Plant extends CustomData{
 	
 	public static int PLANT_TYPE_0=0;
 	
-	public int plant_type=PLANT_TYPE_0;
+	private int plant_type=PLANT_TYPE_0;
 
 	public Plant(){}
 
@@ -124,7 +124,7 @@ public class Plant extends CustomData{
 			return buildMeshPlant0();
 	}
 	
-	public PolygonMesh buildMeshPlant0(){
+	private PolygonMesh buildMeshPlant0(){
 
 		Plant0 plant0=new Plant0(
 				plant_type,

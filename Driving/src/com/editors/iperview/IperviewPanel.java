@@ -29,17 +29,17 @@ import com.PolygonMesh;
 
 public class IperviewPanel extends JPanel implements MouseWheelListener,MouseMotionListener,MouseListener{
 	
-	public static final int TYPE_FRONT=0;
-	public static final int TYPE_LEFT=1;
-	public static final int TYPE_RIGHT=2;
-	public static final int TYPE_TOP=3;
+	static final int TYPE_FRONT=0;
+	static final int TYPE_LEFT=1;
+	static final int TYPE_RIGHT=2;
+	static final int TYPE_TOP=3;
 	
 	
 	private int type=-1;
     private int WIDTH=0;
     private int HEIGHT=0;
     
-	BufferedImage buf=null;
+    private BufferedImage buf=null;
 	private Graphics2D comp;
 	
 	private double fi=0;
@@ -106,7 +106,7 @@ public class IperviewPanel extends JPanel implements MouseWheelListener,MouseMot
 		draw();
 	}
 	
-	public void draw() {
+	void draw() {
 		if(comp==null)
 			comp=(Graphics2D) getGraphics();
 		draw(comp);
@@ -253,7 +253,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 	}
 
 	
-	public void moveCenter(int dx, int dy) {
+	private void moveCenter(int dx, int dy) {
 	    
     	x0+=dx;
     	y0+=dy;
@@ -635,7 +635,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 		
 	}
 	
-	public void rotate(double df){
+	void rotate(double df){
 		
 		 fi+=df;
 		 sinf=Math.sin(fi);
@@ -643,7 +643,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 		
 	}
 	
-	public void zoom(int n){
+	void zoom(int n){
 		
 		if(n>0){
 			
@@ -670,7 +670,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 	}
 
 
-	public void translate(int i, int j) {
+	void translate(int i, int j) {
 		
 		int dx=(int) (2*i*deltax);
 		int dy=(int) (2*j*deltay);

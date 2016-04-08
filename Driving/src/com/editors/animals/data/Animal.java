@@ -29,23 +29,23 @@ public class Animal extends CustomData{
 	
 	double foot_length=0;
 	
-	public static int ANIMAL_TYPE_QUADRUPED=0;
-	public static int ANIMAL_TYPE_HUMAN=1;
-	public static int ANIMAL_TYPE_MANHEAD=2;
-	public static int ANIMAL_TYPE_MANHAND=3;
+	public static final int ANIMAL_TYPE_QUADRUPED=0;
+	public static final int ANIMAL_TYPE_HUMAN=1;
+	public static final int ANIMAL_TYPE_MANHEAD=2;
+	public static final int ANIMAL_TYPE_MANHAND=3;
 	
-	public int animal_type=ANIMAL_TYPE_HUMAN;
+	int animal_type=ANIMAL_TYPE_HUMAN;
 	
-	public static int HEAD=0;
-	public static int TRUNK=1;
-	public static int LEFT_FEMUR=2;
-	public static int RIGHT_FEMUR=3;
-	public static int LEFT_HOMERUS=4;
-	public static int RIGHT_HOMERUS=5;
-	public static int LEFT_RADIUS=6;
-	public static int RIGHT_RADIUS=7;
-	public static int LEFT_SHINBONE=8;
-	public static int RIGHT_SHINBONE=9;
+	static final int HEAD=0;
+	static final int TRUNK=1;
+	static final int LEFT_FEMUR=2;
+	static final int RIGHT_FEMUR=3;
+	static final int LEFT_HOMERUS=4;
+	static final int RIGHT_HOMERUS=5;
+	static final int LEFT_RADIUS=6;
+	static final int RIGHT_RADIUS=7;
+	static final int LEFT_SHINBONE=8;
+	static final int RIGHT_SHINBONE=9;
 
 
 	public Animal(){}

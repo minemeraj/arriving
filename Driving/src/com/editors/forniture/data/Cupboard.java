@@ -10,23 +10,14 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import com.BPoint;
+import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
 import com.Segments;
 import com.main.Renderer3D;
 
 public class Cupboard extends Forniture{
-	
-	private static int texture_side_dx=10;
-	private static int texture_side_dy=10;
 
-	private static int texture_x0=10;
-	private static int texture_y0=10;
-	private static int IMG_WIDTH;
-	private static int IMG_HEIGHT;
-	
-	public static boolean isTextureDrawing=false;
-	
 	private int N_FACES=4;
 	private int N_PARALLELS=2;
 	
@@ -207,11 +198,11 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 		
 	}
 
-	public ArrayList buildTexturePoints() {
+	private ArrayList<Point3D> buildTexturePoints() {
 		
 		isTextureDrawing=false;
 		
-		ArrayList texture_points=new ArrayList();
+		ArrayList<Point3D> texture_points=new ArrayList<Point3D>();
 		
 
 
@@ -232,10 +223,10 @@ public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
 			return texture_y0+y;
 	}
 	
-	public void initMesh( ) {
+	private void initMesh( ) {
 		
-		points=new ArrayList();
-		polyData=new ArrayList();
+		points=new ArrayList<Point3D>();
+		polyData=new ArrayList<LineData>();
 		
 		n=0;	
 		

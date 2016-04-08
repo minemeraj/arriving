@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.BPoint;
 import com.CustomData;
+import com.LineData;
+import com.Point3D;
 import com.Segments;
 import com.main.Renderer3D;
 
@@ -21,7 +23,7 @@ public class Sword extends CustomData {
 	private double butt_width=0;
 	private double butt_height=0;
 	
-	int barrel_meridians=0;
+	private int barrel_meridians=0;
 
 	public Sword(double forearm_length, double forearm_width,
 			double forearm_height, double breech_length, double breech_width,
@@ -46,8 +48,8 @@ public class Sword extends CustomData {
 
 	private void initMesh() {
 
-		points=new ArrayList();
-		polyData=new ArrayList();
+		points=new ArrayList<Point3D>();
+		polyData=new ArrayList<LineData>();
 
 		n=0;
 		

@@ -8,16 +8,16 @@ import java.util.Vector;
 
 public class TableModel extends MeshModel{
 
-	double dx=100;
+	private double dx=100;
 
 
-	double dy=200;
-	double dz=20;
-	double leg_length=50;
-	double leg_side=10;
+	private double dy=200;
+	private double dz=20;
+	private double leg_length=50;
+	private double leg_side=10;
 
-	int bx=10;
-	int by=10;
+	private int bx=10;
+	private int by=10;
 	
 	public TableModel(double dx, double dy, double dz) {
 		super();
@@ -75,7 +75,7 @@ public class TableModel extends MeshModel{
 	}
 
 
-
+	@Override
 	public void initMesh() {
 
 		points=new Vector();
@@ -282,7 +282,7 @@ public class TableModel extends MeshModel{
 
 	}
 
-	int[][][] faces={
+	private int[][][] faces={
 
 			//leg
 			{{1},{4,5,6,7},{14,15,16,17}},

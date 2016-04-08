@@ -51,7 +51,7 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 	
 	private JButton restoreDefault;
 	
-	public Stack oldCar=null;
+	public Stack<Car> oldCar=null;
 	int max_stack_size=10;
 	
 	Car car=null;
@@ -103,7 +103,7 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 	
 	public void initialize() {
 		
-		oldCar=new Stack();
+		oldCar=new Stack<Car>();
 		center.initialize();
 	}
 	
@@ -950,7 +950,7 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 		if(oldCar.size()>=max_stack_size)
 			oldCar.removeElementAt(0);
 		
-		oldCar.push(car.clone());
+		oldCar.push((Car) car.clone());
 		
 		
 	}
