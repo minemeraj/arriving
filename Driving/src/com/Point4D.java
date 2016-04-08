@@ -16,7 +16,7 @@ public class Point4D extends Point3D {
 		super(x, y, z);
 	}
 	
-	public Point4D(double x, double y, double z, String hexColor, int index) {
+	Point4D(double x, double y, double z, String hexColor, int index) {
 		super(x, y, z);
 		this.hexColor = hexColor;
 		this.index = index;

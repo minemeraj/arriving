@@ -15,20 +15,20 @@ public class SPNode extends Point4D implements TreeNode{
 	private PolygonMesh circle=null;	
 
 	private Object object=null;
-	private ArrayList children=null;
+	private ArrayList<SPNode> children=null;
 	
 	private SPNode parent=null;
 
 	public SPNode(){
 		
-		children=new ArrayList();
+		children=new ArrayList<SPNode>();
 		
 	}
 
 	public SPNode(double x, double y, double z, String gREEN_HEX, int index) {
 	
 		super( x,  y,  z,  gREEN_HEX,  index);
-		children=new ArrayList();
+		children=new ArrayList<SPNode>();
 		update();
 		
 	}

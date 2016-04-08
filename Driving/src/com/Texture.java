@@ -239,7 +239,7 @@ public class Texture {
 		int HEIGHT=bi.getHeight();
 		int WIDTH=bi.getWidth();
 
-		Vector rows=new Vector();
+		Vector<Vector> rows=new Vector<Vector>();
 		
 
 		int tolerance=20;
@@ -256,7 +256,7 @@ public class Texture {
 
 			boolean reading=false;
 
-			Vector row=new Vector();
+			Vector<Point3D> row=new Vector<Point3D>();
 
 			for(int i=0;i<WIDTH;i++){ 
 
@@ -352,7 +352,7 @@ public class Texture {
 
 		for (int i = 0; i < rows.size(); i++) {
 
-			Vector row = (Vector) rows.elementAt(i);
+			Vector<Point3D> row = (Vector<Point3D>) rows.elementAt(i);
 
 			for (int k = 0; k < row.size(); k++) {
 				Point3D p = (Point3D) row.elementAt(k);

@@ -105,12 +105,6 @@ public class Point3D {
 
 		return a.x*b.x+a.y*b.y+a.z*b.z;
 	}
-	
-	public static double calculateDotProduct(double px,double py,double pz,
-			Point3D b) {
-
-		return px*b.x+py*b.y+pz*b.z;
-	}
 
 	public static double calculateNorm(Point3D a) {
 

@@ -20,7 +20,7 @@ public class TextureCylinder {
 	public double len;
 	public int vlen;
 	
-	public int entryIndex=0;
+	private int entryIndex=0;
 	public int exitIndex=0;
 	
 	private double radius;

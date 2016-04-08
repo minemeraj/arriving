@@ -44,7 +44,7 @@ public class LineData implements Cloneable{
 			
 		}
 		
-		public Point3D getVertexTexturePoint(int i){
+		Point3D getVertexTexturePoint(int i){
 			
 			LineDataVertex ldv=getItem(i);
 			

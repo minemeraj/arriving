@@ -14,12 +14,12 @@ public class ZBuffer{
 		private double[] z;
 		private int size=0;
 		
-		int[] level;
+		private int[] level;
 		
 		private double mergingDeltaZ=10;
 
 		private double[] p_z;
-		int[] hashCodes;
+		private int[] hashCodes;
 		
 		public static final int EMPTY_HASH_CODE=-1;
 			

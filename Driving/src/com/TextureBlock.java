@@ -4,9 +4,9 @@ import com.main.Renderer3D;
 
 public class TextureBlock {
 	
-	public Point3D[][] upperBase=null;
-	public Point3D[][] lowerBase=null;
-	public Point3D[][] lateralFaces=null; 
+	Point3D[][] upperBase=null;
+	Point3D[][] lowerBase=null;
+	Point3D[][] lateralFaces=null; 
 	
 	public int N_FACES=0;
 	private double texture_side_dy;
@@ -15,10 +15,10 @@ public class TextureBlock {
 	int numy;
 	int numz;
 	
-	boolean isDrawUpperBase=true;
-	boolean isDrawLowerBase=true;
-	public double len;
-	public int vlen;
+	private boolean isDrawUpperBase=true;
+	private boolean isDrawLowerBase=true;
+	private double len;
+	private int vlen;
 	
 	public int entryIndex=0;
 	public int exitIndex=0;

@@ -85,7 +85,7 @@ public class Polygon3D  extends Polygon{
 		addPoint((int)p.x,(int)p.y,(int)p.z);
 	}
 	
-	public Point3D getPoint(int index){
+	Point3D getPoint(int index){
 		
 		if(index>=npoints)
 			return null;
@@ -94,7 +94,7 @@ public class Polygon3D  extends Polygon{
 		
 	}
 	
-	public Point3D getTexturePoint(int index){
+	Point3D getTexturePoint(int index){
 		
 		if(index>=npoints)
 			return null;
@@ -318,7 +318,7 @@ public class Polygon3D  extends Polygon{
 
 
 		
-		ArrayList newPoints=new ArrayList();
+		ArrayList<Point3D> newPoints=new ArrayList<Point3D>();
 
 
 		for(int i=0;i<p_old.npoints;i++){

@@ -26,7 +26,7 @@ public class DrawObject {
 	private String hexColor=null;
 	private boolean selected=false;
 	
-	private ArrayList polygons=new ArrayList();
+	private ArrayList<Polygon3D> polygons=new ArrayList<Polygon3D>();
 	private PolygonMesh mesh=new PolygonMesh();
 
 
@@ -63,20 +63,20 @@ public class DrawObject {
 		return dro;
 	}
 	
-	public void addPolygon(Polygon3D poly){
+	private void addPolygon(Polygon3D poly){
 		
 		polygons.add(poly);
 	}
 	
-	public ArrayList getPolygons() {
+	public ArrayList<Polygon3D> getPolygons() {
 		return polygons;
 	}
 
-	public void setPolygons(ArrayList polygons) {
+	public void setPolygons(ArrayList<Polygon3D> polygons) {
 		this.polygons = polygons;
 	}
 	
-    public static BufferedImage fromImageToBufferedImage(Image image,Color color){
+	private static BufferedImage fromImageToBufferedImage(Image image,Color color){
 	
     	image=Transparency.makeColorTransparent(image,color);
     	
@@ -301,7 +301,7 @@ public class DrawObject {
 
 	}
 	
-	public void calculateBorder() {
+	private void calculateBorder() {
 		
 		
 		if(mesh==null || mesh.points==null)
