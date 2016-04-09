@@ -13,9 +13,9 @@ public class Polygon3D  extends Polygon{
 
 
 	public int[] 	zpoints=null;
-	public String hexColor="FFFFFF";
-	public int index=0;
-	public int level=0;
+	private String hexColor="FFFFFF";
+	private int index=0;
+	private int level=0;
 	
 	private double shadowCosin=1;
 	
@@ -431,9 +431,9 @@ public class Polygon3D  extends Polygon{
 	public static class AnalyticLine{
 
 
-		double a;
-		double b;
-		double c;
+		private double a;
+		private double b;
+		private double c;
 
 		public AnalyticLine(double x1, double y1, double x0,double y0) {
 			super();
@@ -442,7 +442,7 @@ public class Polygon3D  extends Polygon{
 			this.c = (x0*y1-y0*x1);
 		}
 
-		public double signum(double x,double y){
+		private double signum(double x,double y){
 
 			return a*x+b*y+c;
 

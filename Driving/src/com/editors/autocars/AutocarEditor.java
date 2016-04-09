@@ -131,7 +131,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 	private boolean isDrawCurrentRect = false;
 
 	
-	private Stack oldAutocarsData=new Stack();
+	private Stack<ArrayList<AutocarData>> oldAutocarsData=new Stack<ArrayList<AutocarData>>();
 	private Stack oldAutolinesData=new Stack();
 
 	
@@ -189,7 +189,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 	private JMenuItem jmt_help_show;
 	private DoubleTextField autocarsMove;
 	private JButton addCarToAutoline;
-	private ArrayList drawObjects=null;
+	private ArrayList<DrawObject> drawObjects=null;
 	private Texture[] worldTextures;
 	private BufferedImage[] objectImages;
 	private CubicMesh[] objectMeshes;
@@ -1184,8 +1184,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 	}
 
 
-	private void drawRoad(PolygonMesh[] meshes, ArrayList drawObjects2,
-			ArrayList splines, ZBuffer landscapeZbuffer2) {
+	private void drawRoad(PolygonMesh[] meshes, ArrayList<DrawObject> drawObjects2,
+			ArrayList<SPLine> splines, ZBuffer landscapeZbuffer2) {
 		
 		
 		displayTerrain(landscapeZbuffer,meshes);
@@ -1194,7 +1194,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 	
 	}
 	
-	private void displayObjects(ZBuffer landscapeZbuffer2, ArrayList drawObjects) {
+	private void displayObjects(ZBuffer landscapeZbuffer2, ArrayList<DrawObject> drawObjects) {
 		
 		if(drawObjects==null)
 			return;
@@ -1229,12 +1229,12 @@ public class AutocarEditor extends Editor implements MouseListener,
 		}	
 	}
 
-	private void displaySPLines(ZBuffer landscapeZbuffer2, ArrayList splines) {
+	private void displaySPLines(ZBuffer landscapeZbuffer2, ArrayList<SPLine> splines) {
 		
 		for (int i = 0; i < splines.size(); i++) {
 			SPLine sp = (SPLine) splines.get(i);
 			
-			ArrayList meshes = sp.getMeshes();
+			ArrayList<PolygonMesh> meshes = sp.getMeshes();
 			
 			for (int j = 0; j < meshes.size(); j++) {//if(j!=4)continue;
 				
@@ -1300,7 +1300,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 	}
 
 	@Override
-	public void buildLine(ArrayList polygonData, String str,ArrayList vTexturePoints) {
+	public void buildLine(ArrayList<LineData> polygonData, String str,ArrayList<Point3D> vTexturePoints) {
 
 
 
@@ -1310,7 +1310,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 	}
 	
 	@Override
-	public void buildPoint(ArrayList points, String str) {
+	public void buildPoint(ArrayList<Point3D> points, String str) {
 
 
 
@@ -2167,7 +2167,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 			LinkedList linkedList=(LinkedList) autolinesData.get(l);
 
 
-			LinkedList newLinkedList=new LinkedList();
+			LinkedList<Point3D> newLinkedList=new LinkedList<Point3D>();
 			
 			int size = linkedList.size();
 
@@ -2484,7 +2484,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		fi_angle.setText(ad.fi);
 		steering_angle.setText(ad.steering);
 		
-		if(ad.autoline_index==ad.AUTOLINE_PARKED){
+		if(ad.autoline_index==AutocarData.AUTOLINE_PARKED){
 			is_parked.setSelected(true);
 		}	
 		else{

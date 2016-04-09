@@ -55,7 +55,7 @@ public class CarFrame extends Road implements KeyListener {
 	public static Texture[] carTextures=null;
 
 	String IMAGES_PATH="lib/";
-	Engine engine=null;
+	private Engine engine=null;
 
 	private JPanel bottom;
 	private JPanel up;

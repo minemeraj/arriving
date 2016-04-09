@@ -16,17 +16,17 @@ import com.PolygonMesh;
 
 public abstract class CustomJPanel extends JPanel{
 	
-	public static final Color BACKGROUND = Color.BLACK;
+	private final Color BACKGROUND = Color.BLACK;
 	
 	
 	protected int x0=400;
 	protected int y0=500;
 	
-	protected double dy=1.0;
-	protected double dx=1.0; 
+	private double dy=1.0;
+	private double dx=1.0; 
 	
-	protected int deltax=10;
-	protected int deltay=10;
+	private int deltax=10;
+	private int deltay=10;
 	
 	private int WIDTH=0;
 	private int HEIGHT=0; 

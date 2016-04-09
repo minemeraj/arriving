@@ -60,7 +60,7 @@ public class Road extends Shader{
 	public static final int EXTERNAL_CAMERA=0;
 	public static final int DRIVER_CAMERA=1;
 	
-	protected int CAMERA_TYPE=EXTERNAL_CAMERA;
+	private int CAMERA_TYPE=EXTERNAL_CAMERA;
 	
 	protected PolygonMesh[] oldMeshes=new PolygonMesh[2];
 

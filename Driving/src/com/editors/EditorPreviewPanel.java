@@ -50,7 +50,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 	public int y0=200;
 	public int x0=100;
 	
-	public double DEPTH_DISTANCE=1000;
+	private double DEPTH_DISTANCE=1000;
 	
 	public  Point3D pAsso;
 	public double alfa=Math.PI/3;
@@ -65,9 +65,9 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 	
 	private double lightIntensity=1.0;
 	
-	double fi=0;
-	double cosf=Math.cos(fi);
-	double sinf=Math.sin(fi);
+	private double fi=0;
+	private double cosf=Math.cos(fi);
+	private double sinf=Math.sin(fi);
 	private double teta=0;
 	private double costeta=Math.cos(teta);
 	private double sinteta=Math.sin(teta);
@@ -384,7 +384,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 
 	}
 	
-	public int calcAssX(Point3D p){
+	private int calcAssX(Point3D p){
 
 
 		return calcAssX(p.x,p.y,p.z);

@@ -7,7 +7,7 @@ import javax.swing.tree.TreeNode;
 
 import com.editors.EditorData;
 
-public class SPNode extends Point4D implements TreeNode{
+public class SPNode extends Point4D implements TreeNode,Cloneable{
 	
 	private Point3D tangent=null;
 

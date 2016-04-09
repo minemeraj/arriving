@@ -34,7 +34,7 @@ public class Autocar {
 	int car_length=0;
 	int car_height=0;
 	
-	double linePosition=-1;
+	private double linePosition=-1;
 	
 	// longitudinal  velocity
 	double u=0;
@@ -49,12 +49,12 @@ public class Autocar {
 	
 	int car_type_index=0;
 	
-	boolean isParked=false;
+	private boolean isParked=false;
 
 	private Date stopTime=null;
 	int TIME_OUT=3000;
 	
-	int autocar_index=-1;
+	private int autocar_index=-1;
 
 
 	private void init(double x,double y,double u,double nu,double fi,double steering,double linePosition){
