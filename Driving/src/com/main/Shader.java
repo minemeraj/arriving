@@ -17,11 +17,11 @@ import com.ZBuffer;
 public class Shader extends Renderer3D{
 
 
-	public static ZBuffer lightZbuffer;
+	protected ZBuffer lightZbuffer;
 
-	public static int[] stencilZbuffer;
+	private int[] stencilZbuffer;
 
-	ShadowVolume[] shadowVolumes=null;
+	private ShadowVolume[] shadowVolumes=null;
 
 
 
@@ -251,7 +251,7 @@ public class Shader extends Renderer3D{
 
 
 
-				ArrayList values=new ArrayList();
+				ArrayList<Double> values=new ArrayList<Double>();
 
 				int tot=y*WIDTH+x;	
 
@@ -315,7 +315,7 @@ public class Shader extends Renderer3D{
 
 	}
 	
-	public  ShadowVolume buildShadowVolumeBox(CubicMesh cm) {
+	private  ShadowVolume buildShadowVolumeBox(CubicMesh cm) {
 		
 		ShadowVolume shadowVolume=initShadowVolume(cm);
 		buildShadowVolumeBox(shadowVolume,cm);
@@ -327,7 +327,7 @@ public class Shader extends Renderer3D{
 	public ShadowVolume initShadowVolume(CubicMesh cm) {
 
 		ShadowVolume shadowVolume=new ShadowVolume();
-		shadowVolume.allTriangles=new ArrayList();
+		shadowVolume.allTriangles=new ArrayList<ShadowTriangle>();
 
 		int polSize=cm.polygonData.size();
 
@@ -360,7 +360,7 @@ public class Shader extends Renderer3D{
 
 			//ADJACENT TRIANGLES
 
-			ArrayList adjacentTriangles=new ArrayList();
+			ArrayList<Integer> adjacentTriangles=new ArrayList<Integer>();
 
 			for (int j = 0; j <aSize; j++) {
 
@@ -412,7 +412,7 @@ public class Shader extends Renderer3D{
 
 		shadowVolume.initFaces();
 
-		ArrayList edges=new ArrayList();
+		ArrayList<LineData> edges=new ArrayList<LineData>();
 
         int aSize= shadowVolume.allTriangles.size(); 
         
@@ -552,7 +552,7 @@ public class Shader extends Renderer3D{
 
 			LineData edge = (LineData) edges.get(j);
 
-			ArrayList facePoints=new ArrayList();
+			ArrayList<Point3D> facePoints=new ArrayList<Point3D>();
 
 			Point3D p0=cm.points[edge.getIndex(1)];
 			Point3D p1=cm.points[edge.getIndex(0)];
@@ -645,27 +645,27 @@ public class Shader extends Renderer3D{
 
 	public class ShadowVolume{
 
-		public ArrayList frontCap=null;
-		public ArrayList backCap=null;
-		public ArrayList faces=null;
+		private ArrayList<Polygon3D> frontCap=null;
+		private ArrayList<Polygon3D> backCap=null;
+		private ArrayList<Polygon3D> faces=null;
 		
-		public ArrayList allTriangles=null;
+		private ArrayList<ShadowTriangle> allTriangles=null;
 
 		public Polygon3D[] allPolygons=null;
 
-		public void addToFrontCap(Polygon3D pol){
+		private void addToFrontCap(Polygon3D pol){
 
 			frontCap.add(pol);
 			
 		}
 
-		public void addToBackCap(Polygon3D pol){
+		private void addToBackCap(Polygon3D pol){
 
 			backCap.add(pol);
 		
 		}
 
-		public void addToFaces(Polygon3D pol){
+		private void addToFaces(Polygon3D pol){
 
 			faces.add(pol);
 		
@@ -673,18 +673,18 @@ public class Shader extends Renderer3D{
 		
 		private void initFaces(){
 			
-			frontCap=new ArrayList();
-			backCap=new ArrayList();
-			faces=new ArrayList();
+			frontCap=new ArrayList<Polygon3D>();
+			backCap=new ArrayList<Polygon3D>();
+			faces=new ArrayList<Polygon3D>();
 			
 			
 		}
 		
-		public void buildPolygonsArray(){
+		private void buildPolygonsArray(){
 			
 			int size=frontCap.size()+backCap.size()+faces.size();
 			
-			ArrayList vAllpolygons=new ArrayList(size);
+			ArrayList<Polygon3D> vAllpolygons=new ArrayList<Polygon3D>(size);
 			
 			int counter=0;
 			int sz0=frontCap.size();
@@ -741,7 +741,7 @@ public class Shader extends Renderer3D{
 			}
 		}
 
-		public void setAdjacentTriangles(ArrayList vAdjacentTriangles) {
+		public void setAdjacentTriangles(ArrayList<Integer> vAdjacentTriangles) {
 			
 			adjacentTriangles=new int[vAdjacentTriangles.size()];
 			
@@ -757,7 +757,7 @@ public class Shader extends Renderer3D{
 
 
 
-		int[] adjacentTriangles=null;
+		private int[] adjacentTriangles=null;
 		
 	}
 

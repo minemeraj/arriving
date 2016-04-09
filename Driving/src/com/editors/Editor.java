@@ -283,7 +283,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 
 	@Override
 	public void buildLine(ArrayList<LineData> polygonData, String str,
-			ArrayList vTexturePoints) {
+			ArrayList<Point3D> vTexturePoints) {
 		PolygonMesh.buildLine(polygonData,str,vTexturePoints);
 		
 	}

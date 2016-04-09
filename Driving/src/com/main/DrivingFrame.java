@@ -13,6 +13,7 @@ import com.CubicMesh;
 import com.DrawObject;
 import com.LineData;
 import com.Point3D;
+import com.Polygon3D;
 import com.PolygonMesh;
 import com.SPLine;
 import com.SPNode;
@@ -29,7 +30,7 @@ public abstract class DrivingFrame extends JFrame{
 	public static final int TERRAIN_INDEX=0;
 	public static final int ROAD_INDEX=1;
 	
-	protected ArrayList loadSPLinesFromFile(File file,boolean forceReading){
+	protected ArrayList<SPLine> loadSPLinesFromFile(File file,boolean forceReading){
 		
 		ArrayList<SPLine> splines=new ArrayList<SPLine>();
 		
@@ -177,7 +178,7 @@ public abstract class DrivingFrame extends JFrame{
 		return drawObjects;
 	}
 
-	protected void buildRectanglePolygons(ArrayList polygons, double x, double y, double z, double dx, double dy,
+	protected void buildRectanglePolygons(ArrayList<Polygon3D> polygons, double x, double y, double z, double dx, double dy,
 			double dz) {
 		//TO IMPLEMENT, WHEN NECESSARY
 		
@@ -301,11 +302,11 @@ public abstract class DrivingFrame extends JFrame{
 		repaint();
 	}
 
-	protected void buildLine(ArrayList<LineData> polygonData, String substring, ArrayList vTexturePoints) {
+	protected void buildLine(ArrayList<LineData> polygonData, String substring, ArrayList<Point3D> vTexturePoints) {
 			
 	}
 
-	protected void buildPoint(ArrayList aPoints, String substring) {
+	protected void buildPoint(ArrayList<Point3D> aPoints, String substring) {
 			
 	}
 

@@ -48,7 +48,7 @@ public class Road extends Shader{
 	
 	private int NYVISIBLE=40;//20 orig
 
-	int dy=3000/NYVISIBLE;//600 orig
+	private int dy=3000/NYVISIBLE;//600 orig
 
 	public static final int ROAD_THICKNESS=22;
 
@@ -64,11 +64,11 @@ public class Road extends Shader{
 	
 	protected PolygonMesh[] oldMeshes=new PolygonMesh[2];
 
-	CarData[] carData=null;
-	ShadowVolume[] carShadowVolume=null;
+	private CarData[] carData=null;
+	private ShadowVolume[] carShadowVolume=null;
 
-	DrawObject[] drawObjects=null;
-	DrawObject[]  oldDrawObjects=null;
+	private DrawObject[] drawObjects=null;
+	private DrawObject[]  oldDrawObjects=null;
 
 
 	public static final double SPACE_SCALE_FACTOR=60.0;
@@ -82,31 +82,31 @@ public class Road extends Shader{
 	private int start_car_x=WIDTH/2-XFOCUS;
 	private int start_car_y=y_edge;
 	
-	protected Autocar[] autocars=null;
+	private Autocar[] autocars=null;
     private static final double pi_2=Math.PI/2.0;
     private static final double i_2pi=1.0/(Math.PI*2.0);
     
-	int PARTIAL_MOVZ=0;
-    boolean initMOVZ=true;
+    private int PARTIAL_MOVZ=0;
+    private boolean initMOVZ=true;
         
     private double rearAngle;
     
-    double[][] carRot=new double[3][3];
-    double[][] autocarRot=new double[3][3];
-    double[][] autocarRo=new double[3][3];
-    double[][] autocarMinusRo=new double[3][3];
+    private double[][] carRot=new double[3][3];
+    private double[][] autocarRot=new double[3][3];
+    private double[][] autocarRo=new double[3][3];
+    private double[][] autocarMinusRo=new double[3][3];
     
-    Point3D carTerrainNormal=null; 
-    Point3D[] autocarTerrainNormal=null;
+    private Point3D carTerrainNormal=null; 
+    private Point3D[] autocarTerrainNormal=null;
     
     
-    ShadowVolume[] autocarShadowVolume=null;
+    private ShadowVolume[] autocarShadowVolume=null;
     
 	protected CarDynamics carDynamics=null;	
 	
 	public static double WATER_LEVEL=0;
 	
-	private ArrayList splines=null;
+	private ArrayList<SPLine> splines=null;
 	
 	public static final int ROAD_INDEX0 =0;
 	public static final int ROAD_INDEX1 =1;
@@ -184,7 +184,7 @@ public class Road extends Shader{
 
 	private void loadObjectsFromFile(File file) {
 		
-		ArrayList vdrawObjects = loadObjectsFromFile(file,null);	
+		ArrayList<DrawObject> vdrawObjects = loadObjectsFromFile(file,null);	
 		
 		drawObjects=new DrawObject[vdrawObjects.size()];
 		
@@ -198,7 +198,7 @@ public class Road extends Shader{
 	}
 	
 	@Override
-	public void buildRectanglePolygons(ArrayList polygons, double x, double y,
+	public void buildRectanglePolygons(ArrayList<Polygon3D> polygons, double x, double y,
 			double z, double dx, double dy, double dz) {
 
 
@@ -320,7 +320,7 @@ public class Road extends Shader{
 
 
 
-	private void loadCars(ArrayList vCarData) {
+	private void loadCars(ArrayList<File> vCarData) {
 		
 		
 		carData=new CarData[vCarData.size()];
@@ -360,7 +360,7 @@ public class Road extends Shader{
 		
 	}
 
-	public void initCars(ArrayList vCarData) {
+	public void initCars(ArrayList<File> vCarData) {
 		
 		SELECTED_CAR=0;
 
@@ -614,7 +614,7 @@ public class Road extends Shader{
 
 				SPLine sp = (SPLine) splines.get(i);
 
-				ArrayList meshes = sp.getMeshes();
+				ArrayList<PolygonMesh> meshes = sp.getMeshes();
 
 				for (int j = 0; j < meshes.size(); j++) {
 
@@ -698,7 +698,7 @@ public class Road extends Shader{
 	}
 
 
-	private void drawSPLines(ArrayList splines, Area totalVisibleField,
+	private void drawSPLines(ArrayList<SPLine> splines, Area totalVisibleField,
 			ZBuffer roadZbuffer) {
 
 		for (int i = 0; i < splines.size(); i++) {
@@ -707,7 +707,7 @@ public class Road extends Shader{
 			
 			int hashCode=sp.hashCode();
 
-			ArrayList meshes = sp.getMeshes3D();
+			ArrayList<PolygonMesh> meshes = sp.getMeshes3D();
 
 			for (int j = 0; j < meshes.size(); j++) {
 
@@ -1120,7 +1120,7 @@ public class Road extends Shader{
 	}
 
 	@Override
-	public void buildPoint(ArrayList vPoints, String str) {
+	public void buildPoint(ArrayList<Point3D> vPoints, String str) {
 
 	
 
@@ -1145,11 +1145,11 @@ public class Road extends Shader{
 	
 	@Override
 	
-	public void buildLine(ArrayList polygonData, String str,ArrayList vTexturePoints) {
+	public void buildLine(ArrayList<LineData> polygonData, String str,ArrayList<Point3D> vTexturePoints) {
 		
 		buildStaticLine( polygonData,  str, vTexturePoints);
 	}
-	public static void buildStaticLine(ArrayList polygonData, String str,ArrayList vTexturePoints) {
+	public static void buildStaticLine(ArrayList<LineData> polygonData, String str,ArrayList<Point3D> vTexturePoints) {
 
 
 
@@ -1199,7 +1199,7 @@ public class Road extends Shader{
 
 		ArrayList <Point3D>points = new ArrayList <Point3D>();
 		ArrayList <LineData>lines = new ArrayList <LineData>();
-		ArrayList aTexturePoints=new ArrayList();
+		ArrayList <Point3D> aTexturePoints=new ArrayList<Point3D>();
 
 		try {
 			BufferedReader br=new BufferedReader(new FileReader(file));
