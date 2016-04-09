@@ -133,7 +133,7 @@ public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 		
 		DefaultTableModel model=new DefaultTableModel();
 		
-		Vector columns=new Vector();
+		Vector<String> columns=new Vector<String>();
 		columns.add("P Index");
 		columns.add("X");
 		columns.add("Y");
@@ -144,7 +144,7 @@ public class RoadEditorPolygonDetail extends JDialog implements ActionListener{
 		
 		for (int i = 0; i < polygon3d.npoints; i++) {
 			
-			Vector record=new Vector();
+			Vector<String> record=new Vector<String>();
 			
 			record.add(" "+i);
 			record.add(" "+polygon3d.xpoints[i]);

@@ -329,9 +329,9 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 		add(bottom);
 	}
 
-	private Vector buildSlopeTypeVector() {
+	private Vector<ComboElement> buildSlopeTypeVector() {
 
-		Vector data=new Vector();
+		Vector<ComboElement> data=new Vector<ComboElement>();
 		data.add(new ComboElement(DIRECTION_NORTH,"North Slope"));
 		data.add(new ComboElement(DIRECTION_SOUTH,"South Slope"));
 		data.add(new ComboElement(DIRECTION_WEST,"West Slope"));

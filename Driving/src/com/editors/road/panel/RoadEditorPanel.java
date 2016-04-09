@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import com.BarycentricCoordinates;
+import com.DrawObject;
 import com.LineData;
 import com.Point3D;
 import com.Polygon3D;
 import com.PolygonMesh;
+import com.SPLine;
 import com.Texture;
 import com.ZBuffer;
 import com.editors.road.RoadEditor;
@@ -54,7 +56,7 @@ public abstract class RoadEditorPanel extends JPanel {
 		this.editor=editor;
 	}
 
-	public abstract void drawRoad(PolygonMesh[] meshes, ArrayList drawObjects,ArrayList splines,
+	public abstract void drawRoad(PolygonMesh[] meshes, ArrayList<DrawObject> drawObjects,ArrayList<SPLine> splines,
 			Point3D startPosition,
 			ZBuffer landscapeZbuffer,Graphics2D graph);
 	
@@ -139,11 +141,11 @@ public abstract class RoadEditorPanel extends JPanel {
 
 	public abstract boolean selectPolygons(int x, int y,PolygonMesh mesh);
 	
-	public abstract ArrayList selectPolygons(int x, int y,PolygonMesh mesh,boolean toSelect);
+	public abstract ArrayList<LineData> selectPolygons(int x, int y,PolygonMesh mesh,boolean toSelect);
 
-	public abstract void selectObjects(int x, int y, ArrayList drawObjects);
+	public abstract void selectObjects(int x, int y, ArrayList<DrawObject> drawObjects);
 	
-	public ArrayList selectObjects(int x, int y, ArrayList drawObjects,boolean toSelect) {
+	public ArrayList<DrawObject> selectObjects(int x, int y, ArrayList<DrawObject> drawObjects,boolean toSelect) {
 		
 		return null;
 		
@@ -154,7 +156,7 @@ public abstract class RoadEditorPanel extends JPanel {
 	}
 	
 
-	public abstract boolean selectSPNodes(int x, int y, ArrayList splines);
+	public abstract boolean selectSPNodes(int x, int y, ArrayList<SPLine> splines);
 	
 	public Polygon3D builProjectedPolygon(Polygon3D p3d) {
 		
@@ -173,11 +175,11 @@ public abstract class RoadEditorPanel extends JPanel {
 		this.hide_objects = hide_objects;
 	}
 
-	public abstract ArrayList getClickedPolygons(int x, int y, PolygonMesh mesh);
+	public abstract ArrayList<LineData> getClickedPolygons(int x, int y, PolygonMesh mesh);
 
 	public abstract void rotate(int signum);
 	
-	public abstract void displaySPLines(ZBuffer landscapeZbuffer, ArrayList splines);
+	public abstract void displaySPLines(ZBuffer landscapeZbuffer, ArrayList<SPLine> splines);
 
 	
 	public abstract void displayTerrain(ZBuffer landscapeZbuffer,PolygonMesh[] meshes);

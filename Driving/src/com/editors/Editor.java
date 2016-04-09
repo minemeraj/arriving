@@ -45,7 +45,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 	
 	
 	
-	protected ArrayList splines=null;
+	protected ArrayList<SPLine> splines=null;
 	
 	public Editor(){
 		
@@ -65,7 +65,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 			oldMeshes[i]=new Stack();
 		}
 		
-		splines=new ArrayList();
+		splines=new ArrayList<SPLine>();
 	
 	}
 
@@ -276,7 +276,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 
 	
 	@Override
-	public void buildPoint(ArrayList vPoints, String str) {
+	public void buildPoint(ArrayList<Point3D> vPoints, String str) {
 		PolygonMesh.buildPoint(vPoints,str);
 		
 	}

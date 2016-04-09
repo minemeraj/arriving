@@ -72,9 +72,9 @@ public class EditorData {
 			
 			
 			
-			ArrayList vObjects=new ArrayList();
+			ArrayList<File> vObjects=new ArrayList<File>();
 			
-				for(int i=0;i<files.length;i++){
+				for(int i=0;files!=null && i<files.length;i++){
 					if(files[i].getName().startsWith("object_")){
 						
 						vObjects.add(files[i]);
@@ -93,7 +93,7 @@ public class EditorData {
 						
 			}
 		
-			ArrayList vRoadTextures=new ArrayList();
+			ArrayList<File> vRoadTextures=new ArrayList<File>();
 			
 			for(int i=0;i<files.length;i++){
 				if(files[i].getName().startsWith("world_texture_")){
@@ -110,7 +110,7 @@ public class EditorData {
 				worldTextures[i]=new Texture(ImageIO.read(new File("lib/world_texture_"+i+".jpg")));
 			}
 
-			ArrayList v3DObjects=new ArrayList();
+			ArrayList<File> v3DObjects=new ArrayList<File>();
 			
 				for(int i=0;i<files.length;i++){
 					if(files[i].getName().startsWith("object3D_")
@@ -137,7 +137,7 @@ public class EditorData {
 			
 
 			
-			ArrayList vSPlineMeshes=new ArrayList();
+			ArrayList<File> vSPlineMeshes=new ArrayList<File>();
 			
 			for(int i=0;i<files.length;i++){
 				if(files[i].getName().startsWith("spline_mesh_")
@@ -174,7 +174,7 @@ public class EditorData {
 		//Vector vTexturePoints=RoadEditor.buildTemplateTexturePoints(100);
 		//circleShape.setTexturePoints(vTexturePoints);
 		
-		ArrayList polygonData=new ArrayList();
+		ArrayList<LineData> polygonData=new ArrayList<LineData>();
 		Point4D[] points=new Point4D[n];
 		
 		LineData ld=new LineData();
@@ -229,7 +229,7 @@ public class EditorData {
 			
 		}
 		
-		ArrayList polygonData=new ArrayList();
+		ArrayList<LineData> polygonData=new ArrayList<LineData>();
 		for (int i = 0; i < n; i++) {
 			
 			int indx0=i;

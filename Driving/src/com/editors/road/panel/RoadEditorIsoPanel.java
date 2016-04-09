@@ -56,8 +56,8 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		initialize();
 	}
 	
-
-	public void drawRoad(PolygonMesh[] meshes, ArrayList drawObjects,ArrayList splines,Point3D startPosition,ZBuffer landscapeZbuffer,Graphics2D graph) {
+	@Override
+	public void drawRoad(PolygonMesh[] meshes, ArrayList<DrawObject> drawObjects,ArrayList<SPLine> splines,Point3D startPosition,ZBuffer landscapeZbuffer,Graphics2D graph) {
 
 		displayTerrain(landscapeZbuffer,meshes);
 		if(!isHide_objects())
@@ -135,7 +135,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		//buildScreen(buf); 
 	}
 	
-	public void displaySPLines(ZBuffer landscapeZbuffer, ArrayList splines) {
+	public void displaySPLines(ZBuffer landscapeZbuffer, ArrayList<SPLine> splines) {
 	
 		
 
@@ -145,14 +145,14 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			
 			int hashCode=sp.hashCode();
 			
-			ArrayList meshes = sp.getMeshes3D();
+			ArrayList<PolygonMesh> meshes = sp.getMeshes3D();
 			
 			for (int j = 0; j < meshes.size(); j++) {
 				
 				PolygonMesh mesh = (PolygonMesh) meshes.get(j);
 				
 				
-				ArrayList polygonData=mesh.polygonData;
+				ArrayList<LineData> polygonData=mesh.polygonData;
 				
 				int lsize=polygonData.size();
 				
@@ -218,7 +218,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	
 
 	
-	public void drawObjects(ArrayList drawObjects,Area totalVisibleField,ZBuffer zbuffer){
+	public void drawObjects(ArrayList<DrawObject> drawObjects,Area totalVisibleField,ZBuffer zbuffer){
 
 
         Rectangle rect = null;//totalVisibleField.getBounds();
@@ -846,30 +846,30 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	
 	}
 	
-    public ArrayList getClickedPolygons(int x, int y, PolygonMesh mesh) {
+    public ArrayList<LineData> getClickedPolygons(int x, int y, PolygonMesh mesh) {
     	
     	return selectPolygons(x,y,mesh,false);
     }
 
     public boolean selectPolygons(int x, int y, PolygonMesh mesh) {
     	
-    	ArrayList vec=selectPolygons(x,y,mesh,true);
+    	ArrayList<LineData> vec=selectPolygons(x,y,mesh,true);
     	
     	return vec!=null && vec.size()>0;
     	
     }
 
-    public ArrayList selectPolygons(int x, int y, PolygonMesh mesh,
+    public ArrayList<LineData> selectPolygons(int x, int y, PolygonMesh mesh,
     		boolean toSelect) {
 
-    	ArrayList ret=new ArrayList();
+    	ArrayList<LineData> ret=new ArrayList<LineData>();
 
     	if(mesh==null)
     		return ret;
 
 
 
-    	ArrayList selectablePolygons=new ArrayList();
+    	ArrayList<PolygonToOrder> selectablePolygons=new ArrayList<PolygonToOrder>();
 
     	int sizel=mesh.polygonData.size();
 
@@ -969,7 +969,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
     }
     
 
-    public void selectObjects(int x, int y, ArrayList drawObjects) {
+    public void selectObjects(int x, int y, ArrayList<DrawObject> drawObjects) {
  
     	
     	for (int i = 0; i < drawObjects.size(); i++) {
@@ -1021,7 +1021,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	}
 	
 
-	public boolean selectSPNodes(int x, int y, ArrayList splines) {
+	public boolean selectSPNodes(int x, int y, ArrayList<SPLine> splines) {
 	
 		boolean isToselect=true;
 		

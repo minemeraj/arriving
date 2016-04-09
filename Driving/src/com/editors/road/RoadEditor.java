@@ -23,15 +23,11 @@ import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Stack;
-import java.util.StringTokenizer;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -54,7 +50,6 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.MenuEvent;
 
-import com.BarycentricCoordinates;
 import com.CubicMesh;
 import com.DrawObject;
 import com.LineData;
@@ -93,10 +88,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private int BOTTOM_BORDER=100;
 	private int RIGHT_SKYP=10;
 
-	private ArrayList drawObjects=new ArrayList();
+	private ArrayList<DrawObject> drawObjects=new ArrayList<DrawObject>();
 
-	private Stack oldObjects=new Stack();
-	private Stack oldSpline=new Stack();
+	private Stack<ArrayList<DrawObject>> oldObjects=new Stack<ArrayList<DrawObject>>();
+	private Stack<ArrayList<SPLine>> oldSpline=new Stack<ArrayList<SPLine>>();
 	private int MAX_STACK_SIZE=10;
 
 	private JMenuBar jmb;
@@ -166,13 +161,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton moveObjTop;
 	private JButton moveObjBottom;
 	
-	protected static BufferedImage[] worldImages;	
-	protected static BufferedImage[] splinesImages;	
-	protected static BufferedImage[] objectImages;
+	private static BufferedImage[] worldImages;	
+	private static BufferedImage[] splinesImages;	
+	private static BufferedImage[] objectImages;
 	public static Texture[] objectIndexes; 
 	
-	public int indexWidth=40;
-	public int indexHeight=18;
+	public final int indexWidth=40;
+	public final int indexHeight=18;
 
 	private JMenuItem jmtShowAltimetry;
 	private JMenuItem jmtBuildNewGrid;
@@ -182,21 +177,21 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 	
-	String[] panelsTitles={"Terrain","Road"};
+	private String[] panelsTitles={"Terrain","Road"};
 	
 	private JMenuItem jmtAddGrid;
 	
-	public static ZBuffer landscapeZbuffer;
-	public int blackRgb= Color.BLACK.getRGB();
-	public int[] rgb=null;
-	public Color selectionColor=null;
+	private static ZBuffer landscapeZbuffer;
+	private int blackRgb= Color.BLACK.getRGB();
+	private int[] rgb=null;
+	private Color selectionColor=null;
 	private JMenuItem jmtExpandGrid;
 
 	private JMenuItem jmtBuildCity;
 	private JMenuItem help_jmt;
 	
-	String header="<html><body>";
-	String footer="</body></html>";
+	private String header="<html><body>";
+	private String footer="</body></html>";
 	private JToggleButton toogle_splines;
 	private JToggleButton toogle_terrain;
 	private JToggleButton toogle_objects;
@@ -206,24 +201,24 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private JCheckBox checkHideObjects;
 	
-	public static String OBJECT_MODE="OBJECT_MODE";
-	public static String SPLINES_MODE="SPLINES_MODE"; 
-	public static String TERRAIN_MODE="TERRAIN_MODE";
+	private final String OBJECT_MODE="OBJECT_MODE";
+	private final String SPLINES_MODE="SPLINES_MODE"; 
+	private final String TERRAIN_MODE="TERRAIN_MODE";
 	
-	public String mode=TERRAIN_MODE;
+	private String mode=TERRAIN_MODE;
 	private JMenu jm_view;
 	private JMenuItem jmt_3d_view;
 	private JMenuItem jmt_top_view;
 	
-	int ISO_VIEW=1;
-	int TOP_VIEW=0;
+	private final int ISO_VIEW=1;
+	private final int TOP_VIEW=0;
 
-	int VIEW_TYPE=TOP_VIEW;
+	private int VIEW_TYPE=TOP_VIEW;
 	
 	private RoadEditorPanel panelIso;
 	private RoadEditorPanel panelTop;
 	
-	transient BufferedImage buf=null;
+	private transient BufferedImage buf=null;
 	private Graphics2D graphics;
 	private JButton startNewSPLine;
 	private JButton insertSPNode;
@@ -235,7 +230,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton insertTJunction;
 	private boolean isInit;
 	
-	transient Point3D startPosition=null;
+	private transient Point3D startPosition=null;
 	private IntegerTextField startX;
 	private IntegerTextField startY;
 	private JButton updateStartPosition;
@@ -247,7 +242,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		re.initialize();
 	}
 	
-	public RoadEditor(String title){
+	private RoadEditor(String title){
 		
 		setTitle(title);
 		
@@ -376,7 +371,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	/**
 	 * 
 	 */
-	public void initialize() {
+	private void initialize() {
 
 		buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 
@@ -396,7 +391,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		try{
 			
-			ArrayList vRoadTextures=new ArrayList();
+			ArrayList<File> vRoadTextures=new ArrayList<File>();
 
 			for(int i=0;i<files.length;i++){
 				if(files[i].getName().startsWith("world_texture_")){
@@ -422,7 +417,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			}
 
 
-			ArrayList vObjects=new ArrayList();
+			ArrayList<File> vObjects=new ArrayList<File>();
 
 			if(DrawObject.IS_3D)
 				for(int i=0;i<files.length;i++){
@@ -478,7 +473,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 
-	public void buildNewZBuffers() {
+	private void buildNewZBuffers() {
 
 
 		for(int i=0;i<landscapeZbuffer.getSize();i++){
@@ -491,7 +486,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 	
-	public void buildScreen(BufferedImage buf) {
+	private void buildScreen(BufferedImage buf) {
 
 		int length=rgb.length;
 		
@@ -1360,14 +1355,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private void undoObjects() {
 
 
-		drawObjects=(ArrayList) oldObjects.pop();
+		drawObjects=(ArrayList<DrawObject>) oldObjects.pop();
 		if(oldObjects.size()==0)
 			jmtUndoObjects.setEnabled(false);
 	}
 
 	private void undoSplines() {
 
-		splines=(ArrayList) oldSpline.pop();
+		splines=(ArrayList<SPLine>) oldSpline.pop();
 		if(oldSpline.size()==0)
 			jmtUndoSPLines.setEnabled(false);
 		
@@ -1400,13 +1395,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
-	private ArrayList cloneObjectsVector(ArrayList drawObjects) {
-		ArrayList newDrawObjects=new ArrayList();
+	private ArrayList<DrawObject> cloneObjectsVector(ArrayList<DrawObject> drawObjects) {
+		ArrayList<DrawObject> newDrawObjects=new ArrayList<DrawObject>();
 
 		for(int i=0;i<drawObjects.size();i++){
 
 			DrawObject dro=(DrawObject) drawObjects.get(i);
-			newDrawObjects.add(dro.clone());
+			newDrawObjects.add((DrawObject) dro.clone());
 
 		}
 
@@ -1638,13 +1633,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 	private void mergeSelectedPoints() {
-	
-		//prepareUndo();
 		
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
-		ArrayList newPoints=new ArrayList();
-		ArrayList newLines=new ArrayList();
+		ArrayList<Point3D> newPoints=new ArrayList<Point3D>();
+		ArrayList<LineData> newLines=new ArrayList<LineData>();
 
 		
 		int firstPoint=-1;
@@ -1730,7 +1723,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		prepareUndoSpline();
 		
-		ArrayList newSplines=new ArrayList();
+		ArrayList<SPLine> newSplines=new ArrayList<SPLine>();
 	
 		for (int i = 0; i < splines.size(); i++) {
 			SPLine spline = (SPLine) splines.get(i);
@@ -1771,8 +1764,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
-		ArrayList newPoints=new ArrayList();
-		ArrayList newLines=new ArrayList();
+		ArrayList<Point3D> newPoints=new ArrayList<Point3D>();
+		ArrayList<LineData> newLines=new ArrayList<LineData>();
 
 		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
@@ -2189,7 +2182,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 	
 	@Override
-	public void buildLine(ArrayList polygonData, String str,ArrayList vTexturePoints) {
+	public void buildLine(ArrayList<LineData> polygonData, String str,ArrayList<Point3D> vTexturePoints) {
 
 
 
@@ -2198,7 +2191,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 	@Override
-	public void buildPoint(ArrayList points, String str) {
+	public void buildPoint(ArrayList<Point3D> points, String str) {
 
 
 
@@ -2562,7 +2555,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				
 			}
 			
-			ArrayList vTexturePoints=buildTemplateTexturePoints(200);
+			ArrayList<Point3D> vTexturePoints=buildTemplateTexturePoints(200);
 					
 		
 			
@@ -2651,7 +2644,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			int tot=numx*numy;
 			
 		
-			mesh.polygonData=new ArrayList();
+			mesh.polygonData=new ArrayList<LineData>();
 			
 			mesh.points=new Point3D[numy*numx];
 			
@@ -2666,7 +2659,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 				}
 
-			ArrayList vTexturePoints=buildTemplateTexturePoints(200);
+			ArrayList<Point3D> vTexturePoints=buildTemplateTexturePoints(200);
 			
 			for(int i=0;i<numx-1;i++)
 				for(int j=0;j<numy-1;j++){
@@ -2819,7 +2812,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	
 	
-	public void updateSPlines(){
+	private void updateSPlines(){
 		
 		
 		
@@ -2956,7 +2949,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}*/
 	
-	public void startNewSPLine() {
+	private void startNewSPLine() {
 		
 		prepareUndo();
 
@@ -3090,7 +3083,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			isInit=false;
 						
-			ArrayList vTexturePoints=buildTemplateTexturePoints(200);
+			ArrayList<Point3D> vTexturePoints=buildTemplateTexturePoints(200);
 			
 			SPLine sp=new SPLine(vTexturePoints);	
 
@@ -3101,7 +3094,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			SPLine sp=(SPLine) splines.get(splines.size()-1);
 			
-			ArrayList vTexturePoints=buildTemplateTexturePoints(200);
+			ArrayList<Point3D> vTexturePoints=buildTemplateTexturePoints(200);
 			sp.addSPNode(p0);
 			
 		}
@@ -3254,7 +3247,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		RoadEditorPanel ep=getCenter();	
 			
-		ArrayList polygons=ep.getClickedPolygons(x,y,mesh);
+		ArrayList<LineData> polygons=ep.getClickedPolygons(x,y,mesh);
 		
 		if(polygons.size()>0){
 			
@@ -3414,7 +3407,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		RoadEditorPanel ep=getCenter();
 
-		ArrayList cPolygons=ep.getClickedPolygons(x,y,mesh);
+		ArrayList<LineData> cPolygons=ep.getClickedPolygons(x,y,mesh);
 		
 		for (int i = 0;cPolygons!=null && i < cPolygons.size(); i++) {
 
@@ -3457,7 +3450,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 
 	
-	public void deselectAllObjects(){
+	private void deselectAllObjects(){
 		
 		int size=drawObjects.size();
 		
@@ -3468,7 +3461,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 	}
 
-	public void cleanObjects(){
+	private void cleanObjects(){
 		
 	
 		rotation_angle.setText(0);
@@ -3477,7 +3470,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		draw();
 	}
 	
-	public void cleanPoints(){
+	private void cleanPoints(){
 		
 		if(ACTIVE_PANEL!=TERRAIN_INDEX)
 			return;
@@ -3621,10 +3614,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 
-
-
-	
-	public void zoom(int i) {
+	private void zoom(int i) {
 		
 		
 
@@ -3691,7 +3681,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
        
 	}
 
-    void updateSize(MouseEvent e) {
+	private void updateSize(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
         currentRect.setSize(x - currentRect.x,
@@ -3791,7 +3781,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		this.isDrawCurrentRect = isDrawCurrentRect;
 	}
 	
-	public void rotate(int signum){
+	private void rotate(int signum){
 		
 		RoadEditorPanel ep = getCenter();
 		ep.rotate(signum);
@@ -3799,9 +3789,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	}
 	
-	public static ArrayList buildTemplateTexturePoints(double side) {
+	public static ArrayList<Point3D> buildTemplateTexturePoints(double side) {
 		
-		ArrayList vPoints=new ArrayList();
+		ArrayList<Point3D> vPoints=new ArrayList<Point3D>();
 		
 		vPoints.add(new Point3D(0,0,0));
 		vPoints.add(new Point3D(side,0,0));
@@ -3811,9 +3801,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		return vPoints;
 	}
 	
-	public ArrayList cloneSPLines(ArrayList splines){
+	private ArrayList<SPLine> cloneSPLines(ArrayList<SPLine> splines){
 		
-		ArrayList newSplines=new ArrayList();
+		ArrayList<SPLine> newSplines=new ArrayList<SPLine>();
 		
 		for (int i = 0; i < splines.size(); i++) {
 			SPLine line = (SPLine) splines.get(i);
@@ -3848,7 +3838,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 
-	public ArrayList getDrawObjects() {
+	public ArrayList<DrawObject> getDrawObjects() {
 		return drawObjects;
 	}
 
