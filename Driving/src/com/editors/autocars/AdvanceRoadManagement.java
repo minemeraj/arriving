@@ -288,9 +288,9 @@ public class AdvanceRoadManagement extends JDialog implements ActionListener {
 
 
 	
-	public class DoubleCellEditor  extends AbstractCellEditor  implements TableCellEditor{
+	private class DoubleCellEditor  extends AbstractCellEditor  implements TableCellEditor{
 		
-		DoubleTextField field=null;
+		private DoubleTextField field=null;
 
 		
 		public DoubleCellEditor(){
@@ -325,9 +325,9 @@ public class AdvanceRoadManagement extends JDialog implements ActionListener {
 		
 	}
 	
-	public class DoubleCellRenderer implements TableCellRenderer {
+	private class DoubleCellRenderer implements TableCellRenderer {
 		
-		DoubleTextField field=null;
+		private DoubleTextField field=null;
 		
 		public DoubleCellRenderer(){
 			

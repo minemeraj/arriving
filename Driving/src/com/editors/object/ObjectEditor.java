@@ -872,7 +872,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 	}
 
 	
-	class FileTransferhandler extends TransferHandler{
+	private class FileTransferhandler extends TransferHandler{
 		
 		@Override
 		public boolean canImport(JComponent comp, DataFlavor[] transferFlavors) {
@@ -931,7 +931,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 
 
 
-	public static double[][] getRotationMatrix(double x,double y,double z,double teta){
+	private static final double[][] getRotationMatrix(double x,double y,double z,double teta){
 
 		double[][] matrix=new double[3][3];
 		matrix[0][0]=Math.cos(teta)+x*x*(1.0-Math.cos(teta));

@@ -45,6 +45,7 @@ import javax.swing.event.MenuEvent;
 import com.LineData;
 import com.LineDataVertex;
 import com.Point3D;
+import com.PointListItem;
 import com.PolygonMesh;
 import com.editors.DoubleTextField;
 import com.editors.Editor;
@@ -1487,7 +1488,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		displayAll();
 	}
 
-	public void appendPointsFromFile(boolean withBorder){	
+	private void appendPointsFromFile(boolean withBorder){	
 
 		fc=new JFileChooser();
 		fc.setDialogType(JFileChooser.OPEN_DIALOG);
@@ -1506,7 +1507,7 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		}
 	}
 	
-	public void appendPointsFromFile(File file,boolean withBorder){
+	private void appendPointsFromFile(File file,boolean withBorder){
 
 		ArrayList transpoints=new ArrayList();
 		ArrayList translines=new ArrayList();
@@ -1715,27 +1716,6 @@ public class IperviewEditor extends Editor implements EditorPanel,KeyListener, A
 		leftPanel.setMesh(mesh);
 		rightPanel.setMesh(mesh);
 
-		
-	}
-
-	public class PointListItem{
-		
-		private DecimalFormat df=new DecimalFormat("000");
-
-		private Point3D p;
-		private int index=-1;
-
-		private PointListItem(Point3D p, int index) {	
-			super();
-			this.p = p;
-			this.index=index;
-		}
-		
-		@Override
-		public String toString() {
-			
-			return df.format(p.x)+","+df.format(p.y)+"("+index+")";
-		}
 		
 	}
 	

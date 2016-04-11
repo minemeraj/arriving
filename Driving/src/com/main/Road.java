@@ -50,19 +50,19 @@ public class Road extends Shader{
 
 	private int dy=3000/NYVISIBLE;//600 orig
 
-	public static final int ROAD_THICKNESS=22;
+	private static final int ROAD_THICKNESS=22;
 
 	private int CAR_WIDTH=100;
 	private int CAR_LENGTH=100;
 	
 	protected int FORWARD=1;
 	
-	public static final int EXTERNAL_CAMERA=0;
-	public static final int DRIVER_CAMERA=1;
+	private final int EXTERNAL_CAMERA=0;
+	private final int DRIVER_CAMERA=1;
 	
 	private int CAMERA_TYPE=EXTERNAL_CAMERA;
 	
-	protected PolygonMesh[] oldMeshes=new PolygonMesh[2];
+	private PolygonMesh[] oldMeshes=new PolygonMesh[2];
 
 	private CarData[] carData=null;
 	private ShadowVolume[] carShadowVolume=null;
@@ -117,6 +117,9 @@ public class Road extends Shader{
 	public static final int OBJECT_LEVEL=2;
 	
 	protected boolean skipShading=false;
+	
+	private int TRANSZ;
+	private boolean start_max_calculus;
 	
 	public Road(){}
 
@@ -477,10 +480,7 @@ public class Road extends Shader{
 		return new Point3D(res[0]+dx,res[1]+dy,res[2]+dz);
 	}
 	
-	double[] pRot=new double[3];
-	private int TRANSZ;
-	private boolean start_max_calculus;
-	
+	private double[] pRot=new double[3];
 
 	private Point3D rotate(double[][] rot, Point3D point) {
 		

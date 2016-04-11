@@ -28,7 +28,7 @@ public class Autocar {
 	Point3D center=null;
 
 	double fi=0; 
-	double steering=0; 
+	private double steering=0; 
 	
 	int car_width=0;
 	int car_length=0;

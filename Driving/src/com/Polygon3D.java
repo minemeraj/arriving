@@ -428,14 +428,14 @@ public class Polygon3D  extends Polygon{
 	
 
 
-	public static class AnalyticLine{
+	private class AnalyticLine{
 
 
 		private double a;
 		private double b;
 		private double c;
 
-		public AnalyticLine(double x1, double y1, double x0,double y0) {
+		private AnalyticLine(double x1, double y1, double x0,double y0) {
 			super();
 			this.a = (y0-y1);
 			this.b = -(x0-x1);

@@ -434,7 +434,7 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 	}
 
 
-	public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs,boolean hasWater) {
+	private int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs,boolean hasWater) {
 
 		//double factor=(lightIntensity*(0.25+0.5*Math.exp(-yi*0.001)+0.25*cosin));
 		double factor=(lightIntensity*(0.75+0.25*cosin));		

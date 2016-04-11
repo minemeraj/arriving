@@ -49,6 +49,8 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	private double viewDirectionSin=0.0;	
 	
 	private int greenRgb= Color.GREEN.getRGB();
+	
+	private Point3D lightDirection=new Point3D(-Math.sqrt(2)/2,-Math.sqrt(2)/2,0);
 
 	public RoadEditorIsoPanel(RoadEditor editor, int WIDTH,int HEIGHT) {
 		
@@ -61,7 +63,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 		displayTerrain(landscapeZbuffer,meshes);
 		if(!isHide_objects())
-			drawObjects(drawObjects,null,landscapeZbuffer);
+			displayObjects(drawObjects,null,landscapeZbuffer);
 		displaySPLines(landscapeZbuffer,splines);
 		
 		displayStartPosition(landscapeZbuffer, startPosition);
@@ -218,7 +220,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	
 
 	
-	public void drawObjects(ArrayList<DrawObject> drawObjects,Area totalVisibleField,ZBuffer zbuffer){
+	public void displayObjects(ArrayList<DrawObject> drawObjects,Area totalVisibleField,ZBuffer zbuffer){
 
 
         Rectangle rect = null;//totalVisibleField.getBounds();
@@ -253,7 +255,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		
 	}
 	
-	public void decomposeCubicMesh(CubicMesh cm, Texture texture,ZBuffer zBuffer,Color selected){
+	private void decomposeCubicMesh(CubicMesh cm, Texture texture,ZBuffer zBuffer,Color selected){
 		
 		
 		
@@ -301,7 +303,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 }
 
 
-	public void decomposeCubiMeshPolygon(
+	private void decomposeCubiMeshPolygon(
 			
 			Polygon3D polRotate, 
 			Point3D xVersor, 
@@ -382,7 +384,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			decomposeClippedPolygonIntoZBuffer(polRotate,selected,texture,zBuffer,xDirection,yDirection,rotateOrigin,deltaTexture+deltaWidth,deltaHeight,cm.hashCode());
 	}
 	
-	 public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color selected,Texture texture,ZBuffer zbuffer,int hashCode){
+	private void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color selected,Texture texture,ZBuffer zbuffer,int hashCode){
 	   	 
 	    	Point3D origin=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
 	    	decomposeClippedPolygonIntoZBuffer(p3d, selected, texture,zbuffer,null,null,origin,0,0,hashCode);
@@ -391,7 +393,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 	
 
-    public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color selected,Texture texture,ZBuffer zbuffer,
+    private void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color selected,Texture texture,ZBuffer zbuffer,
 			Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY,int hashCode){		
 
 		Point3D normal=Polygon3D.findNormal(p3d);
@@ -753,7 +755,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 	}
 	
-	Point3D lightDirection=new Point3D(-Math.sqrt(2)/2,-Math.sqrt(2)/2,0);
+
 	
 	public double calculateCosin(Polygon3D polReal) {
 		
@@ -793,7 +795,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	
 	}
 
-	public Point3D buildTransformedPoint(Point3D point) {
+	private Point3D buildTransformedPoint(Point3D point) {
 	
 		Point3D newPoint=new Point3D();
 	

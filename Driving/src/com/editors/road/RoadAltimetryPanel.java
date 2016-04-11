@@ -1112,7 +1112,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 
 	}
 	
-	public class Bounds{
+	private class Bounds{
 		
 		private double maxX=0;
 		private double maxY=0;

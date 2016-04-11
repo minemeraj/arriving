@@ -2,6 +2,7 @@ package com.editors.road.panel;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Area;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -178,6 +179,8 @@ public abstract class RoadEditorPanel extends JPanel {
 	public abstract ArrayList<LineData> getClickedPolygons(int x, int y, PolygonMesh mesh);
 
 	public abstract void rotate(int signum);
+	
+	public abstract void displayObjects(ArrayList<DrawObject> drawObjects,Area totalVisibleField,ZBuffer zbuffer);
 	
 	public abstract void displaySPLines(ZBuffer landscapeZbuffer, ArrayList<SPLine> splines);
 

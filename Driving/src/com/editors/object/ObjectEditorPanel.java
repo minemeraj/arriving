@@ -45,6 +45,7 @@ import javax.swing.border.Border;
 import com.LineData;
 import com.LineDataVertex;
 import com.Point3D;
+import com.PointListItem;
 import com.Polygon3D;
 import com.PolygonMesh;
 import com.editors.DoubleTextField;
@@ -1546,27 +1547,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 	public void selectPoint(int x, int y){
 		// TODO Auto-generated method stub
 	}
-		
-	public class PointListItem{
-		
-		private DecimalFormat df=new DecimalFormat("000");
 
-		private Point3D p;
-		private int index=-1;
-
-		public PointListItem(Point3D p, int index) {	
-			super();
-			this.p = p;
-			this.index=index;
-		}
-		
-		@Override
-		public String toString() {
-			
-			return df.format(p.x)+","+df.format(p.y)+","+df.format(p.z)+"("+index+")";
-		}
-		
-	}
 	@Override
 	public void selectPoint(Point3D p) {
 
@@ -1597,7 +1578,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 		
 	}
 	
-	public class PolygonComparator implements Comparator {
+	private class PolygonComparator implements Comparator {
 
 		@Override
 		public int compare(Object o1, Object o2) {
@@ -1617,7 +1598,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 	}
 	
 
-	public class LineDataWithDistance {
+	private class LineDataWithDistance {
 		
 
 		public LineDataWithDistance(LineData line_data, double screen_distance) {
@@ -1626,7 +1607,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 			this.screen_distance = screen_distance;
 		}
 		LineData line_data=null;
-		double screen_distance=0;
+		private double screen_distance=0;
 		
 
 		public double getScreen_distance() {

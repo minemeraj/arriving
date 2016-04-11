@@ -726,9 +726,9 @@ public class Shader extends Renderer3D{
 
 	}
 	
-	public class ShadowTriangle extends LineData {
+	private class ShadowTriangle extends LineData {
 		
-		public ShadowTriangle(LineData ld) {
+		private ShadowTriangle(LineData ld) {
 			
 			int sz=ld.size();
 			for(int i=0;i<sz;i++){

@@ -15,11 +15,12 @@ import com.main.CarFrame;
 public class Texture {
 
 	
-	int WIDTH;
-	int HEIGHT;
+	private int WIDTH;
+	private int HEIGHT;
 
+	private int[] rgb;
 	
-	public Color background= CarFrame.BACKGROUND_COLOR;
+	private Color background= CarFrame.BACKGROUND_COLOR;
 	
 	public int getWIDTH() {
 		return WIDTH;
@@ -37,7 +38,7 @@ public class Texture {
 		HEIGHT = hEIGHT;
 	}
 
-	int[] rgb;
+	
 	
 	public Texture(){		
 	}

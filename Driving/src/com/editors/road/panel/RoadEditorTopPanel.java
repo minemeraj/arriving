@@ -62,8 +62,12 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		displayTerrain(landscapeZbuffer,meshes);
 		displaySPLines(landscapeZbuffer,splines);
 		//displayRoad(landscapeZbuffer,meshes,1);
-		if(!isHide_objects())
-			displayObjects(landscapeZbuffer,drawObjects);
+		if(!isHide_objects()){
+			
+			Rectangle totalVisibleField=new Rectangle(0,0,WIDTH,HEIGHT);
+			Area area=new Area(totalVisibleField);
+			displayObjects(drawObjects,area,landscapeZbuffer);
+		}
 		displayStartPosition(landscapeZbuffer, startPosition);
 	
 	}
@@ -793,7 +797,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	}
 
 	
-	public Area clipPolygonToArea2D(Polygon p_in,Area area_out){
+	private Area clipPolygonToArea2D(Polygon p_in,Area area_out){
 
 
 		Area area_in = new Area(p_in);
@@ -840,9 +844,9 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	
 	
 	
-	private void displayObjects(ZBuffer landscapeZbuffer,ArrayList<DrawObject> drawObjects) {
+	public void displayObjects(ArrayList<DrawObject> drawObjects,Area area,ZBuffer landscapeZbuffer) {
 
-		Rectangle totalVisibleField=new Rectangle(0,0,WIDTH,HEIGHT);
+		
 
 		for(int i=0;i<drawObjects.size();i++){
 
@@ -857,7 +861,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			int dh=(int) (dro.getDy()/dy);
 
 			
-			if(!totalVisibleField.intersects(new Rectangle(x,y-dh,dw,dh))){
+			if(!area.intersects(new Rectangle(x,y-dh,dw,dh))){
 				
 				//System.out.println(totalVisibleField+" "+new Rectangle(x,y,dw,dh));
 				
@@ -989,7 +993,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	}
 	
 
-	public void drawTextImage(ZBuffer landscapeZbuffer,
+	private void drawTextImage(ZBuffer landscapeZbuffer,
 			Texture textImage, int x, int y, int dx,
 			int dy, Color transparentColor, Color fixedColor) {
 
@@ -1259,7 +1263,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	}
 	
 	
-	public Polygon3D buildPolygon(LineData ld,Point3D[] points, boolean isReal) {
+	private Polygon3D buildPolygon(LineData ld,Point3D[] points, boolean isReal) {
 
 		int size=ld.size();
 

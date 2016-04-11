@@ -502,7 +502,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 	}
 	
 	
-	public static int pos(int i, int j,  int numx, int numy) {
+	private static int pos(int i, int j,  int numx, int numy) {
 		
 		return (i+j*numx);
 	}	

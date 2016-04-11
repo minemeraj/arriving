@@ -30,7 +30,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.PrintWriter;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -38,7 +37,6 @@ import javax.swing.AbstractButton;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -55,6 +53,7 @@ import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
 import com.Point3D;
+import com.PointListItem;
 import com.Texture;
 
 
@@ -239,7 +238,7 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 		for(int i=0;i<points.size();i++){
 
 			Point3D p=(Point3D) points.get(i);
-		    dlm.addElement(new PointListItem(p)) ; 
+		    dlm.addElement(new PointListItem(p,i)) ; 
 		}
 		
 		pointList.setModel(dlm);
@@ -1440,26 +1439,6 @@ public class ProjectiveObjectEditor extends JFrame implements MenuListener,Actio
 			this.isSelected = isSelected;
 		} 
 	}
-	
-	public class PointListItem{
-		
-		private DecimalFormat df=new DecimalFormat("000");
-
-		Point3D p;
-
-		public PointListItem(Point3D p) {
-			super();
-			this.p = p;
-		}
-		
-		@Override
-		public String toString() {
-			
-			return df.format(p.x)+","+df.format(p.y)+","+df.format(p.z);
-		}
-		
-	}
-
 
 
 }

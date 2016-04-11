@@ -4,12 +4,12 @@ public class SquareMesh extends PolygonMesh {
 	
 
 
-	int numx=0;
-	int numy=0;	
-	int dx=0;
-	int dy=0;
-	double x0=0;
-	double y0=0;
+	private int numx=0;
+	private int numy=0;	
+	private int dx=0;
+	private int dy=0;
+	private double x0=0;
+	private double y0=0;
 	
 	
 	public SquareMesh(int numx, int numy, int dx,int dy, double x0, double y0) {

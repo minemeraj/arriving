@@ -775,7 +775,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		}
 	}
 
-	public void addBlock(int position) {
+	private void addBlock(int position) {
 		
 		
 		if(selectedBlocks.size()==0)
@@ -883,7 +883,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 	}
 	
 	
-	public void deleteBlock(){
+	private void deleteBlock(){
 		
 		if(selectedBlocks.size()==0)
 			return;
@@ -897,7 +897,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		deleteBlock(i,j,k);
 	}
 	
-	public void deleteBlock(int i,int j,int k) {
+	private void deleteBlock(int i,int j,int k) {
 		
 		blockData.selectionMask[i][j][k]=0;
 		selectedBlocks.removeAllElements();
@@ -952,7 +952,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		
 	}
 	
-	public void saveBlocks() {
+	private void saveBlocks() {
 
 		fc = new JFileChooser();
 		fc.setDialogType(JFileChooser.SAVE_DIALOG);
@@ -1019,7 +1019,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		}
 	}
 	
-	public void loadBlocksFromFile() {
+	private void loadBlocksFromFile() {
 
 		fc = new JFileChooser();
 		fc.setDialogType(JFileChooser.SAVE_DIALOG);
@@ -1049,7 +1049,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 	}
 	
-	public void loadBlocksFromFile(File file){
+	private void loadBlocksFromFile(File file){
 
 		meshes[ACTIVE_PANEL]=new PolygonMesh();
 		oldMeshes[ACTIVE_PANEL]=new Stack();
@@ -1534,16 +1534,16 @@ public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCusto
 		
 	}*/
 	
-	int[] p000={0,0,0};
-	int[] p100={1,0,0};
-	int[] p110={1,1,0};
-	int[] p010={0,1,0};
-	int[] p001={0,0,1};
-	int[] p011={0,1,1};
-	int[] p111={1,1,1};
-	int[] p101={1,0,1};
+	private int[] p000={0,0,0};
+	private int[] p100={1,0,0};
+	private int[] p110={1,1,0};
+	private int[] p010={0,1,0};
+	private int[] p001={0,0,1};
+	private int[] p011={0,1,1};
+	private int[] p111={1,1,1};
+	private int[] p101={1,0,1};
 	
-	public Vector buildBlockLines(int i,int j,int k,BlockData cd){
+	private Vector buildBlockLines(int i,int j,int k,BlockData cd){
 		
 		Vector BlockLines=new Vector();
 		
@@ -1852,7 +1852,7 @@ public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCusto
 			
 			initSelectionMask();
 		}
-		public String print() {
+		private String print() {
 			
 			return NX+" "+ NY+" "+ NZ+" "+ LX+" "+ LY+" "+ LZ;			
 		}
@@ -1950,9 +1950,9 @@ public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCusto
 		
 		public DecimalFormat df=new DecimalFormat("000");
 
-		int index=-1;
+		private int index=-1;
 		
-		short selectMask=1;
+		private short selectMask=1;
 
 		int i;
 		int j;

@@ -596,7 +596,7 @@ private void displayAxes(Graphics2D bufGraphics) {
 	
 	}
 	
-	public class FileTransferhandler extends TransferHandler{
+	private class FileTransferhandler extends TransferHandler{
 		
 		@Override
 		public boolean canImport(JComponent comp, DataFlavor[] transferFlavors) {

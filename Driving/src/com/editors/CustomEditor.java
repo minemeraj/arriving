@@ -31,26 +31,26 @@ import com.main.Renderer3D;
 
 public abstract class CustomEditor extends Editor implements  MouseWheelListener,KeyListener, ActionListener, MenuListener{
 	
-	protected JMenuBar jmb;
-	protected JMenu jm_file;
-	protected JMenuItem jmt_load_file;
-	protected JMenuItem jmt_save_file;
-	protected JMenu jm_view;
-	protected JMenuItem jmt_preview;
-	protected JMenu jm_change;
+	private JMenuBar jmb;
+	private JMenu jm_file;
+	private JMenuItem jmt_load_file;
+	private JMenuItem jmt_save_file;
+	private JMenu jm_view;
+	private JMenuItem jmt_preview;
+	private JMenu jm_change;
 	protected JMenuItem jmt_undo_last;
-	protected JMenuItem jmt_save_mesh;
+	private JMenuItem jmt_save_mesh;
 	
 	protected boolean redrawAfterMenu=false;
 	
-	protected JMenu jm_filter;
-	protected JCheckBoxMenuItem[] jm_filters;
+	private JMenu jm_filter;
+	private JCheckBoxMenuItem[] jm_filters;
 	
 	protected JButton generate;	
-	protected File currentDirectory=new File("lib");
+	private File currentDirectory=new File("lib");
 	
 	protected CustomJPanel center=null;
-	protected JMenuItem jmt_save_base_texture;
+	private JMenuItem jmt_save_base_texture;
 	
 	protected DoubleTextField scaleValue=null;
 	protected double scale=1.0;
@@ -75,7 +75,7 @@ public abstract class CustomEditor extends Editor implements  MouseWheelListener
 	@Override
 	public void prepareUndo() {}
 	
-	public void saveData() {
+	private void saveData() {
 		fc.setDialogType(JFileChooser.SAVE_DIALOG);
 		fc.setDialogTitle("Save data");
 		if(currentDirectory!=null)
@@ -93,7 +93,7 @@ public abstract class CustomEditor extends Editor implements  MouseWheelListener
 	
 	public abstract void saveData(File file);
 	
-	public void loadData() {
+	private void loadData() {
 
 		fc.setDialogType(JFileChooser.SAVE_DIALOG);
 		fc.setDialogTitle("Load data");
@@ -228,7 +228,7 @@ public abstract class CustomEditor extends Editor implements  MouseWheelListener
 		
 	}
 
-	public void saveMesh() {
+	private void saveMesh() {
 		
 		fc.setDialogType(JFileChooser.SAVE_DIALOG);
 		fc.setDialogTitle("Save mesh");
@@ -244,9 +244,8 @@ public abstract class CustomEditor extends Editor implements  MouseWheelListener
 		
 	}
 	
-	public void saveMesh(File file) {
-			
-	}
+	protected abstract void saveMesh(File file);
+	
 	@Override
 	public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCustom) {
 		

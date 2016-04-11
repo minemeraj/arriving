@@ -304,7 +304,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 		return decomposeLineData(ld,false);
 	}
 	
-	public String decomposeLineData(LineData ld,boolean isCustom) {
+	private String decomposeLineData(LineData ld,boolean isCustom) {
 
 		String str="";
 		

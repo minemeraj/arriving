@@ -125,7 +125,7 @@ public class BlockDataChooser extends JDialog implements ActionListener{
 		return cc;
 	}
 	
-	public void exit(){
+	private void exit(){
 		
 		cc=null;
 		dispose();

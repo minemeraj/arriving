@@ -60,7 +60,7 @@ public class F1Car extends CustomData {
 		initMesh();
 	}
 	
-	public void initMesh() {
+	private void initMesh() {
 		
 		points=new ArrayList<Point3D>();
 		polyData=new ArrayList<LineData>();

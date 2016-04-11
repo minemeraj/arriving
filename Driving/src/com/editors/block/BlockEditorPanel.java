@@ -21,29 +21,29 @@ public class BlockEditorPanel extends JPanel implements MouseListener{
 	
 
 
-	BufferedImage buf=null;
+	private BufferedImage buf=null;
 	private Graphics2D comp;
 	
-	public double fi=0;
-	public double sinf=Math.sin(fi);
-	public double cosf=Math.cos(fi);
+	private double fi=0;
+	private double sinf=Math.sin(fi);
+	private double cosf=Math.cos(fi);
 	
-	public double alfa=Math.PI/4;
-	public double sinAlfa=Math.sin(alfa);
-	public double cosAlfa=Math.cos(alfa);
+	private double alfa=Math.PI/4;
+	private double sinAlfa=Math.sin(alfa);
+	private double cosAlfa=Math.cos(alfa);
 	
-	int y0=-1;
-	int x0=-1;
+	private int y0=-1;
+	private int x0=-1;
 
-	double deltay=0.5;
-	double deltax=0.5;
+	private double deltay=0.5;
+	private double deltax=0.5;
 	
-	int WIDTH;
-	int HEIGHT;
+	private int WIDTH;
+	private int HEIGHT;
 	
-	BlockEditor blockEditor=null;
+	private BlockEditor blockEditor=null;
 	
-	Vector points=null;
+	private Vector points=null;
 	
 
 
