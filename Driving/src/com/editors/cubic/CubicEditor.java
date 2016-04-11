@@ -52,7 +52,7 @@ import com.main.HelpPanel;
 
 public class CubicEditor extends Editor implements EditorPanel,KeyListener, ActionListener, MouseWheelListener{
 	
-	public static Color BACKGROUND_COLOR=new Color(0,0,0);
+	private Color BACKGROUND_COLOR=new Color(0,0,0);
 
 	private int CENTER_WIDTH=1000;
 	private int CENTER_HEIGHT=500;
@@ -61,19 +61,19 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 	private CubicEditorPanel centerPanel=null;
 
 	private JMenuBar jmb;
-	private JMenu jm1;
-	private JMenuItem jmt11;
-	private JMenuItem jmt12;
-	private JMenu jm2;
-	private JMenuItem jmt22;
+	private JMenu jm_cube;
+	private JMenuItem jmt_load_Cube;
+	private JMenuItem jmt_save_cube;
+	private JMenu jm_edit;
+	private JMenuItem jmt_add_cube;
 
-	private JMenu jm3;
+	private JMenu jm_view;
 
-	JCheckBoxMenuItem jmt31;
+	private JCheckBoxMenuItem jmt_show_normals;
 
 	private JMenuItem jmt_preview;
 
-	private JMenuItem jmt21;
+	private JMenuItem jmt_undo;
 
 	private JMenuItem jmt13;	
 	
@@ -83,9 +83,9 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 	private JButton deMaskCubeUnit;
 	
-	public JCheckBox checkMultipleSelection;
+	private JCheckBox checkMultipleSelection;
 	
-	Stack oldCubeData=null;
+	private Stack oldCubeData=null;
 
 	private JComboBox xCUbe;
 
@@ -531,54 +531,54 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 		
 		jmb=new JMenuBar();
 		
-		jm1=new JMenu("Cube");
-		jm1.addMenuListener(this);
-		jmb.add(jm1);
+		jm_cube=new JMenu("Cube");
+		jm_cube.addMenuListener(this);
+		jmb.add(jm_cube);
 
-		jmt11 = new JMenuItem("Load cube");
-		jmt11.addActionListener(this);
-		jm1.add(jmt11);
+		jmt_load_Cube = new JMenuItem("Load cube");
+		jmt_load_Cube.addActionListener(this);
+		jm_cube.add(jmt_load_Cube);
 
-		jmt12 = new JMenuItem("Save cube");
-		jmt12.addActionListener(this);
-		jm1.add(jmt12);
+		jmt_save_cube = new JMenuItem("Save cube");
+		jmt_save_cube.addActionListener(this);
+		jm_cube.add(jmt_save_cube);
 		
-		jm1.addSeparator();
+		jm_cube.addSeparator();
 		
 		jmt13 = new JMenuItem("Save surface");
 		jmt13.addActionListener(this);
-		jm1.add(jmt13);
+		jm_cube.add(jmt13);
 		
 		
 		
-		jm2=new JMenu("Edit");
-		jm2.addMenuListener(this);
-		jmb.add(jm2);
+		jm_edit=new JMenu("Edit");
+		jm_edit.addMenuListener(this);
+		jmb.add(jm_edit);
 		
 		
-		jmt21 = new JMenuItem("Undo");
-		jmt21.addActionListener(this);
-		jm2.add(jmt21);
-		jmt21.setEnabled(false);
+		jmt_undo = new JMenuItem("Undo");
+		jmt_undo.addActionListener(this);
+		jm_edit.add(jmt_undo);
+		jmt_undo.setEnabled(false);
 		
-		jmt22 = new JMenuItem("Add cube");
-		jmt22.addActionListener(this);
-		jm2.add(jmt22);
+		jmt_add_cube = new JMenuItem("Add cube");
+		jmt_add_cube.addActionListener(this);
+		jm_edit.add(jmt_add_cube);
 		
 		
-		jm3=new JMenu("View");
-		jm3.addMenuListener(this);
-		jmb.add(jm3);
+		jm_view=new JMenu("View");
+		jm_view.addMenuListener(this);
+		jmb.add(jm_view);
 		
-		jmt31 = new JCheckBoxMenuItem("Show normals");
-		jmt31.setState(false);
-		jmt31.addActionListener(this);
-		jm3.add(jmt31);
+		jmt_show_normals = new JCheckBoxMenuItem("Show normals");
+		jmt_show_normals.setState(false);
+		jmt_show_normals.addActionListener(this);
+		jm_view.add(jmt_show_normals);
 		
 		
 		jmt_preview = new JMenuItem("Preview");
 		jmt_preview.addActionListener(this);
-		jm3.add(jmt_preview);
+		jm_view.add(jmt_preview);
 		
 		
 		help_jm=new JMenu("Help");
@@ -667,11 +667,11 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 		
 		Object o=arg0.getSource();
 		
-		if(o==jmt11) {
+		if(o==jmt_load_Cube) {
 			loadPointsFromFile();
 			resetLists();
 		}
-		else if(o==jmt12) {
+		else if(o==jmt_save_cube) {
 			saveLines();
 			
 		}
@@ -679,16 +679,16 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 			saveSurface();
 			
 		}
-		else if(o==jmt21) {
+		else if(o==jmt_undo) {
 			undo();
 			displayAll();
 		}		
-		else if(o==jmt22) {
+		else if(o==jmt_add_cube) {
 			addCube();
 			displayAll();
 			
 		}
-		else if(o==jmt31) {
+		else if(o==jmt_show_normals) {
 			displayAll();
 		}
 		else if(o==jmt_preview) {
@@ -888,7 +888,7 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 		
 	}
 	
-	public void saveLines(File file,PolygonMesh pm) {
+	private void saveLines(File file,PolygonMesh pm) {
 
 
 	
@@ -1332,7 +1332,7 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 				
 	}
 
-	public void selectAll() {
+	private void selectAll() {
 		
 		clean();
 		selectedCubes.removeAllElements();
@@ -1449,7 +1449,7 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 	
 	public void prepareUndo() {
-		jmt21.setEnabled(true);
+		jmt_undo.setEnabled(true);
 		
 		super.prepareUndo();
 		
@@ -1477,7 +1477,7 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 	
 	public static class CubeData{
 		
-		public CubeData(int nX, int nY, int nZ, double lX, double lY, double lZ) {
+		private CubeData(int nX, int nY, int nZ, double lX, double lY, double lZ) {
 		
 			NX = nX;
 			NY = nY;
@@ -1587,9 +1587,9 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 		
 		public DecimalFormat df=new DecimalFormat("000");
 
-		int index=-1;
+		private int index=-1;
 		
-		short selectMask=1;
+		private short selectMask=1;
 
 		int i;
 		int j;
@@ -1597,7 +1597,7 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 		
 		
-		public CubeListItem(int i,int j,int k, int index) {	
+		private CubeListItem(int i,int j,int k, int index) {	
 			
 			this.index=index;
 			this.i=i;

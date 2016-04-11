@@ -227,7 +227,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton changeTerrainPoint;
 	private JButton setSPNodeHeight;
 	private DoubleTextField setSPNodeHeightValue;
-	private JButton insertTJunction;
 	private boolean isInit;
 	
 	private transient Point3D startPosition=null;
@@ -877,15 +876,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		startNewSPLine.setBounds(5,r,150,20);
 		splines_panel.add(startNewSPLine);
 		
-		r+=30;
-
-		insertTJunction=new JButton(header+"Insert TJunction"+footer);
-		insertTJunction.addActionListener(this);
-		insertTJunction.addKeyListener(this);
-		insertTJunction.setFocusable(false);
-		insertTJunction.setBounds(5,r,150,20);
-		splines_panel.add(insertTJunction);
-
 
 		r+=30;
 
@@ -2281,10 +2271,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			startNewSPLine();
 			draw();
 		}
-		else if(obj==insertTJunction){
-			insertTJunction(); 
-			draw();
-		}
 		else if(obj==polygonDetail[ACTIVE_PANEL]){
 			polygonDetail();
 			//draw();
@@ -2955,32 +2941,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		isInit=true;
 
-	}
-
-	private void insertTJunction() {
-		
-		boolean found=false;
-	
-		for (int i = -1; i < splines.size(); i++) {
-			SPLine spline = (SPLine) splines.get(i);
-			
-			SPNode root = spline.getRoot();
-			int sz=root.getChildCount();
-			
-			for (int j = 0; j < sz; j++) {
-				
-				SPNode node = (SPNode) root.getChildAt(j);
-				
-				if(node.isSelected){
-					
-					found=true;
-					break;
-				}
-			}
-			
-			if(found)
-				break;
-		}
 	}
 
 	private void showAltimetry() {

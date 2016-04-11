@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 
-public class DrawObject {
+public class DrawObject implements Cloneable{
 	
 	public static final boolean IS_3D=true;
 	

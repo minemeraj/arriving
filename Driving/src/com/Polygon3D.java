@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *
  */
 
-public class Polygon3D  extends Polygon{
+public class Polygon3D  extends Polygon implements Cloneable{
 
 
 	public int[] 	zpoints=null;
@@ -226,15 +226,12 @@ public class Polygon3D  extends Polygon{
 		Polygon3D pol=new Polygon3D();
 
 		PathIterator pathIter = area.getPathIterator(null);
-		//if(isDebug)System.out.println(p3d);
-
 
 		while(!pathIter.isDone()){
 
 			double[] coords = new double[6];
 
 			int type=pathIter.currentSegment(coords);
-			//System.out.println(type);		
 			double px= coords[0];
 			double py= coords[1];	
 

@@ -2677,7 +2677,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 			LinkedList ll = (LinkedList) autolinesData.get(i);
 
-			dcbm.addElement(new ComboItem("" + i, "" + i));
+			dcbm.addElement(new ComboElement("" + i, "" + i));
 
 		}
 		chooseAutoline.setModel(dcbm);
@@ -2689,7 +2689,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 			LinkedList ll = (LinkedList) autolinesData.get(i);
 
-			dcba.addElement(new ComboItem("" + i, "" + i));
+			dcba.addElement(new ComboElement("" + i, "" + i));
 
 		}
 		
@@ -2705,7 +2705,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 			AutocarData autocar = (AutocarData) autocarsData.get(i);
 
-			dcbm.addElement(new ComboItem("" + i, "" + i));
+			dcbm.addElement(new ComboElement("" + i, "" + i));
 
 		}
 		chooseAutocar.setModel(dcbm);
@@ -3041,7 +3041,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	}
 
-	public class FileTransferhandler extends TransferHandler {
+	private class FileTransferhandler extends TransferHandler {
 		@Override
 		public boolean canImport(JComponent comp, DataFlavor[] transferFlavors) {
 
@@ -3276,40 +3276,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	}
 
-	class ComboItem {
-
-		private String value = null;
-		private String code = null;
-
-		private ComboItem(String value, String code) {
-			super();
-			this.value = value;
-			this.code = code;
-		}
-
-		@Override
-		public String toString() {
-			return value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		public void setValue(String value) {
-			this.value = value;
-		}
-
-		public String getCode() {
-			return code;
-		}
-
-		public void setCode(String code) {
-			this.code = code;
-		}
-
-	}
-
+	
 	@Override
 	public void decomposeObjVertices(PrintWriter pr, PolygonMesh mesh, boolean isCustom) {
 		// TODO Auto-generated method stub

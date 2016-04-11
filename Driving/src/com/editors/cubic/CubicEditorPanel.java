@@ -19,7 +19,7 @@ public class CubicEditorPanel extends JPanel implements MouseListener{
 	
 
 
-	BufferedImage buf=null;
+	private BufferedImage buf=null;
 	private Graphics2D comp;
 	
 	private double fi=0;
@@ -41,7 +41,7 @@ public class CubicEditorPanel extends JPanel implements MouseListener{
 	
 	private CubicEditor cubicEditor=null;
 	
-	Vector points=null;
+	private Vector points=null;
 	
 
 
@@ -183,7 +183,7 @@ public class CubicEditorPanel extends JPanel implements MouseListener{
 		displayPoints(bufGraphics,mesh.points);
 	}
 
-	public void displayCubeUnit(double x, double y, double z, double dx,
+	private void displayCubeUnit(double x, double y, double z, double dx,
 			double dy, double dz, Graphics2D bufGraphics) {
 		
 		

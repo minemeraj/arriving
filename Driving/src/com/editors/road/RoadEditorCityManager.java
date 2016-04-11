@@ -46,7 +46,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 	private JButton update=null;
 	private JButton cancel=null;
 	
-	SquareMesh squareMesh=null;
+	private SquareMesh squareMesh=null;
 	
 	private boolean is_expand_mode=false;
 	

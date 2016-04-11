@@ -864,7 +864,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		addBlocks(this.blockData);
 	}
 
-	public void addBlock(int i,int j,int k) {
+	private void addBlock(int i,int j,int k) {
 		
 
 		
@@ -1840,7 +1840,7 @@ public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCusto
 	
 	public static class BlockData{
 		
-		public BlockData(int nX, int nY, int nZ, double lX, double lY, double lZ) {
+		private BlockData(int nX, int nY, int nZ, double lX, double lY, double lZ) {
 		
 			NX = nX;
 			NY = nY;

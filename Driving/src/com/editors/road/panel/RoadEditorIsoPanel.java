@@ -1211,14 +1211,14 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		
 	}
 	
-	public class PolygonToOrder{
+	private class PolygonToOrder{
 		
 		private LineData polygon=null;
 		private Point3D centroid=null;
 		private int index=-1;
 		private int indexZ=-1;
 		
-		public PolygonToOrder(LineData polygon, Point3D centroid, int index) {
+		private PolygonToOrder(LineData polygon, Point3D centroid, int index) {
 
 			this.polygon = polygon;
 			this.centroid = centroid;

@@ -41,8 +41,6 @@ public abstract class CustomEditor extends Editor implements  MouseWheelListener
 	protected JMenuItem jmt_undo_last;
 	private JMenuItem jmt_save_mesh;
 	
-	protected boolean redrawAfterMenu=false;
-	
 	private JMenu jm_filter;
 	private JCheckBoxMenuItem[] jm_filters;
 	

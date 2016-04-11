@@ -1058,18 +1058,18 @@ public class Mould extends JFrame implements ActionListener{
 		
 	}
 	
-	public class Profile{
+	private class Profile{
 
-		Point2D.Double [] points=null;
+		private Point2D.Double [] points=null;
 		private Color lineColor;
 		
 
 		
-		double lenX=0;
-		double lenY=0;
+		private double lenX=0;
+		private double lenY=0;
 		
 		
-		public Profile(File file,Color lineColor, boolean isImage) {
+		private Profile(File file,Color lineColor, boolean isImage) {
 			
 			try {
 				this.lineColor = lineColor;

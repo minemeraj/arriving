@@ -54,19 +54,19 @@ public class CarFrame extends Road implements KeyListener {
 	
 	public static Texture[] carTextures=null;
 
-	String IMAGES_PATH="lib/";
+	private String IMAGES_PATH="lib/";
 	private Engine engine=null;
 
 	private JPanel bottom;
 	private JPanel up;
 	private JLabel speedometer;
-	DecimalFormat df=new DecimalFormat("####");
+	private DecimalFormat df=new DecimalFormat("####");
 	
 	public Properties p;
 
 	private JLabel forward;
 		
-	public static boolean isUseTextures=true;
+	private boolean isUseTextures=true;
 	private static JLabel steerAngle;
 	
 	private String SOUNDS_FOLDER="lib/";

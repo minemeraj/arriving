@@ -301,6 +301,7 @@ public class Shader extends Renderer3D{
 
 	}
 
+	@Deprecated
 	public void calculateShadowVolumes(DrawObject[] drawObjects ){
 
 
