@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import com.Point3D;
 import com.PolygonMesh;
 
-public class ObjectEditorRescalePanel extends JDialog implements ActionListener{
+class ObjectEditorRescalePanel extends JDialog implements ActionListener{
 	
 	private JPanel center;
 	private JButton confirm;
@@ -32,7 +32,7 @@ public class ObjectEditorRescalePanel extends JDialog implements ActionListener{
 	private ObjectEditor editor=null;
 
 	
-	public ObjectEditorRescalePanel(ObjectEditor editor){
+	ObjectEditorRescalePanel(ObjectEditor editor){
 		
 		
 		this.editor=editor;

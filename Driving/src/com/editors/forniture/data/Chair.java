@@ -16,7 +16,7 @@ import com.PolygonMesh;
 import com.Segments;
 import com.main.Renderer3D;
 
-public class Chair extends Forniture{
+class Chair extends Forniture{
 	
 	private int N_FACES=4;
 	private int N_PARALLELS=2;
@@ -33,7 +33,7 @@ public class Chair extends Forniture{
 	private Point3D[] upperBackBase=null;
 	private Point3D[][] lateralBackFaces=null;
 	
-	public Chair(double x_side, double y_side, double z_side,double leg_length,double leg_side,double back_height) {
+	Chair(double x_side, double y_side, double z_side,double leg_length,double leg_side,double back_height) {
 		
 		this.x_side=x_side;
 		this.y_side=y_side;

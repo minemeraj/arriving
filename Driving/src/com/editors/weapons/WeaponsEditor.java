@@ -20,7 +20,6 @@ import javax.swing.RepaintManager;
 import com.PolygonMesh;
 import com.editors.CustomEditor;
 import com.editors.DoubleTextField;
-import com.editors.Editor;
 import com.editors.IntegerTextField;
 import com.editors.ValuePair;
 import com.editors.object.ObjectEditorPreviewPanel;

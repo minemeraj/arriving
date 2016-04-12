@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import com.editors.ComboElement;
 import com.editors.DoubleTextField;
 
-public class AutocarBuildPanel extends JDialog implements ActionListener{
+class AutocarBuildPanel extends JDialog implements ActionListener{
 	
 	private AutocarData autocarData=null;
 	private JComboBox car_type_index;
@@ -29,7 +29,7 @@ public class AutocarBuildPanel extends JDialog implements ActionListener{
 	private int WIDTH=200;
 	private int HEIGHT=350;
 	
-	public AutocarBuildPanel(double x, double y, double u){
+	AutocarBuildPanel(double x, double y, double u){
 		
 		autocarData=null;
 		

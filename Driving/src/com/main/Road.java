@@ -71,8 +71,8 @@ public class Road extends Shader{
 	private DrawObject[]  oldDrawObjects=null;
 
 
-	public static final double SPACE_SCALE_FACTOR=60.0;
-	public static final double SPEED_SCALE=1.0/1.13;
+	static final double SPACE_SCALE_FACTOR=60.0;
+	static final double SPEED_SCALE=1.0/1.13;
 	
 	private int SELECTED_CAR=0;
 
@@ -124,7 +124,7 @@ public class Road extends Shader{
 	public Road(){}
 
 
-	public Road(int WITDH,int HEIGHT){
+	Road(int WITDH,int HEIGHT){
 
 		this.HEIGHT=HEIGHT;
 		this.WIDTH=WITDH;
@@ -137,7 +137,7 @@ public class Road extends Shader{
 	}
 
 
-	public void loadRoad(String map_name) {
+	void loadRoad(String map_name) {
 
 		observerPoint=new Point3D(0,0,0);
 		
@@ -351,7 +351,7 @@ public class Road extends Shader{
 	}
 
 	
-	public void selectNextCar() {
+	void selectNextCar() {
 		
 		
 		if(SELECTED_CAR+1<carData.length)
@@ -363,7 +363,7 @@ public class Road extends Shader{
 		
 	}
 
-	public void initCars(ArrayList<File> vCarData) {
+	void initCars(ArrayList<File> vCarData) {
 		
 		SELECTED_CAR=0;
 
@@ -538,7 +538,7 @@ public class Road extends Shader{
 		return res;
 	}
 	
-	public void drawRoad(BufferedImage buf){
+	void drawRoad(BufferedImage buf){
 
 
 
@@ -908,7 +908,7 @@ public class Road extends Shader{
 	}
 
     //used for read view
-	public void rotateSky(double rotationAngle){
+	void rotateSky(double rotationAngle){
 		rearAngle=rotationAngle;
 	}
 	/**
@@ -969,7 +969,7 @@ public class Road extends Shader{
 
 	}
 
-	public void reset(Graphics2D g2) {
+	void reset(Graphics2D g2) {
 		
 		g2.setColor(CarFrame.BACKGROUND_COLOR);
 		g2.fillRect(0,YFOCUS,WIDTH,HEIGHT-YFOCUS);
@@ -997,7 +997,7 @@ public class Road extends Shader{
 	}
 
 	
-	public void up(Graphics2D graphics2D) {
+	void up(Graphics2D graphics2D) {
 		
 
 		carDynamics.move(Engine.dtt);
@@ -1191,7 +1191,7 @@ public class Road extends Shader{
 	}
 
 
-	public static  CarData loadCarFromFile(File file) {
+	static  CarData loadCarFromFile(File file) {
 		
 		
 		CarData carData=new CarData();
@@ -1318,7 +1318,7 @@ public class Road extends Shader{
 
 
 
-	public void changeCamera(int camera_type) {
+	void changeCamera(int camera_type) {
 		
 		if(camera_type==EXTERNAL_CAMERA && CAMERA_TYPE!=EXTERNAL_CAMERA){
 			
@@ -1460,7 +1460,7 @@ public class Road extends Shader{
 		}
 	}
 
-	public void loadAutocars(File file) {
+	void loadAutocars(File file) {
 	
 
 		if(file.exists())	{	
@@ -1516,7 +1516,7 @@ public class Road extends Shader{
 		autocarTerrainNormal=new Point3D[autocars.length];
 	}
 
-	public boolean checkIsWayFree(int new_posx, int new_posy,double newViewDirection,  int autocar_index) {
+	boolean checkIsWayFree(int new_posx, int new_posy,double newViewDirection,  int autocar_index) {
 
 
 		// car points of border to detect collisions

@@ -19,7 +19,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
 
-public class TexturesPanel extends JDialog implements ActionListener,MouseListener{
+class TexturesPanel extends JDialog implements ActionListener,MouseListener{
 	
 	JButton cancel=null;
 	
@@ -40,7 +40,7 @@ public class TexturesPanel extends JDialog implements ActionListener,MouseListen
 	private int selectedIndex=-1;
 	
 
-	public TexturesPanel(BufferedImage[] textures,int TEXTURE_SIDE_X,int TEXTURE_SIDE_Y){
+	TexturesPanel(BufferedImage[] textures,int TEXTURE_SIDE_X,int TEXTURE_SIDE_Y){
 		
 		this.TEXTURE_SIDE_X=TEXTURE_SIDE_X;
 		this.TEXTURE_SIDE_Y=TEXTURE_SIDE_Y;

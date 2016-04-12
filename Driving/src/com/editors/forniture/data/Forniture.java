@@ -25,7 +25,7 @@ public class Forniture extends CustomData{
 	public static int FORNITURE_TYPE_GLOBE0=90;
 	public static int FORNITURE_TYPE_GLOBE1=91;
 	
-	public int forniture_type=FORNITURE_TYPE_TABLE;
+	int forniture_type=FORNITURE_TYPE_TABLE;
 	
 	double leg_side=0;
 	double leg_length=0;

@@ -23,7 +23,7 @@ import com.PolygonMesh;
  *
  */
 
-public class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
+class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 
 
 
@@ -34,7 +34,7 @@ public class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 	private double deltax=0.5;
 
 
-	public ObjectEditorLeftRightPanel(ObjectEditor oe){
+	ObjectEditorLeftRightPanel(ObjectEditor oe){
 
 	    super(oe);
 		this.oe=oe;

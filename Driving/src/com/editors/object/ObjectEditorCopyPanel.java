@@ -18,7 +18,7 @@ import com.Point3D;
 import com.PolygonMesh;
 import com.editors.DoubleTextField;
 
-public class ObjectEditorCopyPanel extends JDialog implements ActionListener {
+class ObjectEditorCopyPanel extends JDialog implements ActionListener {
 	
 	private final int WIDTH=300;
 	private final int BOTTOM_HEIGHT=100;
@@ -35,7 +35,7 @@ public class ObjectEditorCopyPanel extends JDialog implements ActionListener {
 	private DoubleTextField translate_dz;
 	private JCheckBox invert_polygons;
 
-	public ObjectEditorCopyPanel(Point3D[] points, ArrayList<LineData> lines) {
+	ObjectEditorCopyPanel(Point3D[] points, ArrayList<LineData> lines) {
 		
 		
 		setSize(WIDTH,HEIGHT+BOTTOM_HEIGHT);

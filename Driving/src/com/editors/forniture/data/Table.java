@@ -16,7 +16,7 @@ import com.PolygonMesh;
 import com.Segments;
 import com.main.Renderer3D;
 
-public class Table extends Forniture{
+class Table extends Forniture{
 	
 	private int N_FACES=4;
 	private int N_PARALLELS=2;
@@ -29,7 +29,7 @@ public class Table extends Forniture{
 	private Point3D[][] lateralLegFaces=null; 
 	
 
-	public Table(double x_side, double y_side, double z_side,double leg_length,double leg_side) {
+	Table(double x_side, double y_side, double z_side,double leg_length,double leg_side) {
 		
 		this.x_side=x_side;
 		this.y_side=y_side;

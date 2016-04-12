@@ -16,7 +16,7 @@ import com.PolygonMesh;
 import com.Segments;
 import com.main.Renderer3D;
 
-public class StreetLight extends Forniture{
+class StreetLight extends Forniture{
 	
 	private int N_FACES=4;
 	private int N_PARALLELS=2;
@@ -26,7 +26,7 @@ public class StreetLight extends Forniture{
 	private Point3D[][] lateralFaces=null; 
 	
 
-	public StreetLight( double x_side, double y_side,double z_side,int forniture_type,
+	StreetLight( double x_side, double y_side,double z_side,int forniture_type,
 			double legLength, double leg_side,double front_height, double back_height,
 			double side_width,double side_length, double side_height,
 			double upper_width,double upper_length, double upper_height

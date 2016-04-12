@@ -27,7 +27,7 @@ import com.Point3D;
 import com.PolygonMesh;
 
 
-public class IperviewPanel extends JPanel implements MouseWheelListener,MouseMotionListener,MouseListener{
+class IperviewPanel extends JPanel implements MouseWheelListener,MouseMotionListener,MouseListener{
 	
 	static final int TYPE_FRONT=0;
 	static final int TYPE_LEFT=1;
@@ -60,7 +60,7 @@ public class IperviewPanel extends JPanel implements MouseWheelListener,MouseMot
 	private boolean isDrawCurrentRect=false;
 
 
-	public IperviewPanel(IperviewEditor iperviewEditor, int type,int WIDTH,int HEIGHT){
+	IperviewPanel(IperviewEditor iperviewEditor, int type,int WIDTH,int HEIGHT){
 		
 		setLayout(null);
 		

@@ -272,7 +272,7 @@ public class CarDynamics {
 		
 	}
 	
-	public void setAerodynamics(double ro,double S,double Cx){
+	void setAerodynamics(double ro,double S,double Cx){
 		
 		this.ro=ro;
 		this.S=S;
@@ -291,7 +291,7 @@ public class CarDynamics {
 	}
 	
 	
-	public void setInitvalues(double delta, double u, double r, double nu) {
+	void setInitvalues(double delta, double u, double r, double nu) {
 		
 		this.delta = delta;
 		this.u = u;
@@ -339,7 +339,7 @@ public class CarDynamics {
 		return torque_force;
 	}
 	
-	public void setForces(double torque_force,double brakingForce){
+	void setForces(double torque_force,double brakingForce){
 		
 		
 		this.torque_force=torque_force;

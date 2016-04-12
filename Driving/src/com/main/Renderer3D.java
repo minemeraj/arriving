@@ -27,7 +27,7 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 
 	int XFOCUS=0;
 	int YFOCUS=0;
-	public static final int SCREEN_DISTANCE=300;
+	static final int SCREEN_DISTANCE=300;
 	
 	protected Point3D observerPoint=null;
 
@@ -47,9 +47,9 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 
 	protected int greenRgb= CarFrame.BACKGROUND_COLOR.getRGB();
 
-	public static final int FRONT_VIEW=+1;
-	public static final int REAR_VIEW=-1;
-	public static int VIEW_TYPE=FRONT_VIEW;
+	static final int FRONT_VIEW=+1;
+	static final int REAR_VIEW=-1;
+	static int VIEW_TYPE=FRONT_VIEW;
 
 	
 	public static final int CAR_BACK=0;
@@ -72,7 +72,7 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 	boolean isShadowMap=false;
 	boolean isStencilBuffer=false;
 	
-	public LightSource lightPoint=null;
+	LightSource lightPoint=null;
 	private double lightIntensity=1.0;
 
 
@@ -458,7 +458,7 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 	
 	}
 	
-	public void calculateShadowCosines(DrawObject dro) {
+	void calculateShadowCosines(DrawObject dro) {
 	
 		
 		CubicMesh cm= (CubicMesh)dro.getMesh();
@@ -533,7 +533,7 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 
 	}
 	
-	public void drawObjects(DrawObject[] drawObjects,Area totalVisibleField,ZBuffer zbuffer){
+	void drawObjects(DrawObject[] drawObjects,Area totalVisibleField,ZBuffer zbuffer){
 
 
         Rectangle rect = totalVisibleField.getBounds();
@@ -565,7 +565,7 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 		
 	}
 	
-	public void decomposeCubicMesh(CubicMesh cm, Texture texture,ZBuffer zBuffer){
+	void decomposeCubicMesh(CubicMesh cm, Texture texture,ZBuffer zBuffer){
 		
 		
 		
@@ -623,7 +623,7 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 	
 	}
 	
-	public void decomposeCubiMeshPolygon(
+	void decomposeCubiMeshPolygon(
 			Polygon3D polRotate, 
 			Point3D xVersor, 
 			Point3D yVersor, 
@@ -705,7 +705,7 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 		decomposeClippedPolygonIntoZBuffer(polRotate,col,texture,zBuffer,xDirection,yDirection,rotateOrigin,deltaTexture+deltaWidth,deltaHeight,hashCode);
 	}
 
-	public static boolean isFacing(Polygon3D pol,Point3D normal,Point3D observer){
+	static boolean isFacing(Polygon3D pol,Point3D normal,Point3D observer){
 
 
 
@@ -783,7 +783,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 
 	}
 
-	public Polygon3D buildRectangleBase3D(double x,double y,double z,double dx,double dy,double dz){
+	Polygon3D buildRectangleBase3D(double x,double y,double z,double dx,double dy,double dz){
 
 		int[] cx=new int[4];
 		int[] cy=new int[4];
@@ -808,7 +808,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 
 	}
 	
-	public Polygon3D buildTransformedPolygon3D(LineData ld,Point3D[] points,int level) { 
+	Polygon3D buildTransformedPolygon3D(LineData ld,Point3D[] points,int level) { 
 
 
 
@@ -869,7 +869,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 		return newPoint;
 	}
 	
-	public Point3D buildTransformedPoint(Point3D point) {
+	Point3D buildTransformedPoint(Point3D point) {
 
 		Point3D newPoint=new Point3D();
 
@@ -895,7 +895,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 	}
 	
 	
-	public void buildTransformedPolygon(Polygon3D base) {
+	void buildTransformedPolygon(Polygon3D base) {
 
 		
 

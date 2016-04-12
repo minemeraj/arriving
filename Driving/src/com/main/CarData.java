@@ -8,7 +8,7 @@ import com.CubicMesh;
  * Window - Preferences - Java - Code Generation - Code and Comments
  */
 
-public class CarData {
+class CarData {
 	
 	CubicMesh carMesh=null;
 	

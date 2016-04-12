@@ -10,16 +10,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Stack;
-import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -50,7 +47,7 @@ import com.editors.EditorPanel;
 import com.editors.object.ObjectEditorPreviewPanel;
 import com.main.HelpPanel;
 
-public class CubicEditor extends Editor implements EditorPanel,KeyListener, ActionListener, MouseWheelListener{
+class CubicEditor extends Editor implements EditorPanel,KeyListener, ActionListener, MouseWheelListener{
 	
 	private Color BACKGROUND_COLOR=new Color(0,0,0);
 
@@ -93,7 +90,7 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 	private JComboBox zCUbe;
 
-	public JCheckBox checkDiplaySelectedCube;
+	JCheckBox checkDiplaySelectedCube;
 
 	private Vector selectedCubes=null;
 
@@ -495,7 +492,7 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 		}
 	}
         
-	public void updateCubeSelectedCubeUnit(int i,int j, int k) {
+	void updateCubeSelectedCubeUnit(int i,int j, int k) {
 		
 		try{
 
@@ -513,7 +510,7 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 		}
 	}
 	
-	public void updateComoboBoxes(int i,int j, int k) {
+	void updateComoboBoxes(int i,int j, int k) {
 
 		isWaitForCompletion=true;
 
@@ -1475,7 +1472,7 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 			cubeData=(CubeData) oldCubeData.pop();
 	}
 	
-	public static class CubeData{
+	static class CubeData{
 		
 		private CubeData(int nX, int nY, int nZ, double lX, double lY, double lZ) {
 		
@@ -1522,7 +1519,7 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 		double LY=0;
 		double LZ=0;
 		
-		public short[][][] selectionMask;
+		short[][][] selectionMask;
 		
 		public int getNX() {
 			return NX;
@@ -1583,7 +1580,7 @@ public class CubicEditor extends Editor implements EditorPanel,KeyListener, Acti
 		}
 	}
 	
-	public class CubeListItem{
+	class CubeListItem{
 		
 		public DecimalFormat df=new DecimalFormat("000");
 

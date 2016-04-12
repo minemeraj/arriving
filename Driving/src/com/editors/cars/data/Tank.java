@@ -9,7 +9,7 @@ import com.Point3D;
 import com.Segments;
 import com.main.Renderer3D;
 
-public class Tank extends CustomData {
+class Tank extends CustomData {
 	
 	private double x_side=0;
 	private double y_side=0;
@@ -29,7 +29,7 @@ public class Tank extends CustomData {
 	private double front_overhang=0;
 	private double rear_overhang=0;
 	
-	public Tank(double x_side, double y_side, double z_side,
+	Tank(double x_side, double y_side, double z_side,
 			double front_width, double front_length, double front_height,
 			double back_width, double back_length, double back_height,
 			double roof_width, double roof_length, double roof_height,

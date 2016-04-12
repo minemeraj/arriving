@@ -10,7 +10,6 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
-import com.LineData;
 import com.Point3D;
 import com.PolygonMesh;
 import com.editors.block.BlockEditor.BlockData;

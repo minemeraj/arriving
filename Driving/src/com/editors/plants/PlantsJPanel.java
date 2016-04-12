@@ -7,7 +7,7 @@ import com.PolygonMesh;
 import com.editors.CustomJPanel;
 import com.editors.plants.data.Plant;
 
-public class PlantsJPanel extends CustomJPanel{
+class PlantsJPanel extends CustomJPanel{
 
 
 	

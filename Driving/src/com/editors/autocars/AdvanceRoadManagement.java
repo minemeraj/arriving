@@ -27,7 +27,7 @@ import com.Point3D;
 import com.editors.DoubleTextField;
 
 
-public class AdvanceRoadManagement extends JDialog implements ActionListener {
+class AdvanceRoadManagement extends JDialog implements ActionListener {
 	
 	private JButton exit=null;
 	private JPanel bottom=null;
@@ -44,7 +44,7 @@ public class AdvanceRoadManagement extends JDialog implements ActionListener {
 	private int popup_row=-1;
 
 	
-	public AdvanceRoadManagement(LinkedList linkedList){
+	AdvanceRoadManagement(LinkedList linkedList){
 		
 		newLinkedList=null;
 

@@ -7,7 +7,7 @@ import com.PolygonMesh;
 import com.editors.CustomJPanel;
 import com.editors.cars.data.Car;
 
-public class CarsEditorJPanel extends CustomJPanel{
+class CarsEditorJPanel extends CustomJPanel{
 
 
 	public CarsEditorJPanel(){

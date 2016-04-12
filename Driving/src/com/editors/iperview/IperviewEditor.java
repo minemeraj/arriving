@@ -26,7 +26,6 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -55,7 +54,7 @@ import com.editors.object.ObjectEditorTemplatePanel;
 import com.main.HelpPanel;
 
 
-public class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionListener{
+class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionListener{
 	
 	private int CENTER_WIDTH=500;
 	private int CENTER_HEIGHT=550;

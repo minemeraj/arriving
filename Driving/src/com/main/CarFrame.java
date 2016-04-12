@@ -24,7 +24,6 @@ import javax.swing.JPanel;
 import com.DrawObject;
 import com.Engine;
 import com.Texture;
-import com.Transparency;
 import com.main.loader.GameLoader;
 import com.sound.AdvancedGameSound;
 import com.sound.GameSound;
@@ -50,9 +49,9 @@ public class CarFrame extends Road implements KeyListener {
 	
 	public static final Color BACKGROUND_COLOR=Color.GREEN;
 	
-	public static Texture background=null;
+	static Texture background=null;
 	
-	public static Texture[] carTextures=null;
+	static Texture[] carTextures=null;
 
 	private String IMAGES_PATH="lib/";
 	private Engine engine=null;
@@ -452,7 +451,7 @@ public class CarFrame extends Road implements KeyListener {
 	
 	}
 	
-	public static void setSteeringAngle(double d) {
+	static void setSteeringAngle(double d) {
 		
 		DecimalFormat df=new DecimalFormat("##.##");
 		steerAngle.setText(df.format(d));

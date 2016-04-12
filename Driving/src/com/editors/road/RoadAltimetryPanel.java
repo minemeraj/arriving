@@ -51,7 +51,7 @@ import com.editors.DoubleTextField;
 
 
 
-public class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeListener,MouseWheelListener,MouseListener,ActionListener, MouseMotionListener, MenuListener{
+class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeListener,MouseWheelListener,MouseListener,ActionListener, MouseMotionListener, MenuListener{
 
 
 	private int WIDTH=800;
@@ -116,7 +116,7 @@ public class RoadAltimetryPanel extends JDialog implements KeyListener, Property
 	private PolygonMesh mesh;
 
 
-	public RoadAltimetryPanel(RoadEditor roadEditor) {
+	RoadAltimetryPanel(RoadEditor roadEditor) {
 		super();
 		
 		this.mesh=roadEditor.getMeshes()[roadEditor.getACTIVE_PANEL()];

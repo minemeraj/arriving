@@ -2,20 +2,20 @@ package com.main;
 
 import com.Point3D;
 
-public class LightSource {
+class LightSource {
 	
-	public Point3D position;
+	Point3D position;
 	
-	public Point3D xAxis=null;
-	public Point3D yAxis=null;
-	public Point3D zAxis=null;
+	private Point3D xAxis=null;
+	private Point3D yAxis=null;
+	private Point3D zAxis=null;
 	
 	//light point axes
 	
     double cos[][]=null;
 	
 	
-	public LightSource(Point3D position, Point3D yAxis) {
+	LightSource(Point3D position, Point3D yAxis) {
 		super();
 		this.position = position;
 		this.yAxis = yAxis;

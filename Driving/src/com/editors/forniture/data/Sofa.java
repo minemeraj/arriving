@@ -16,7 +16,7 @@ import com.PolygonMesh;
 import com.Segments;
 import com.main.Renderer3D;
 
-public class Sofa extends Forniture{
+class Sofa extends Forniture{
 
 	private int N_FACES=4;
 	private int N_PARALLELS=2;
@@ -37,7 +37,7 @@ public class Sofa extends Forniture{
 	private Point3D[] upperRightSideBase=null;
 	private Point3D[][] lateralRightSideFaces=null; 
 	
-	public Sofa(double x_side, double y_side, double z_side,
+	Sofa(double x_side, double y_side, double z_side,
 			double leg_length,double leg_side,
 			double back_height,
 			double side_width,

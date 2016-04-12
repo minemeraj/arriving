@@ -1,7 +1,6 @@
 package com.editors;
 
 import com.Point3D;
-import com.PolygonMesh;
 
 
 public interface EditorPanel {

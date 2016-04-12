@@ -9,7 +9,7 @@ import com.Point3D;
 import com.Segments;
 import com.main.Renderer3D;
 
-public class F1Car extends CustomData {
+class F1Car extends CustomData {
 	
 	private double x_side=0;
 	private double y_side=0;
@@ -32,7 +32,7 @@ public class F1Car extends CustomData {
 	private double wheel_base=0;    
 	private double rear_overhang=0;
 	
-	public F1Car(double x_side, double y_side, double z_side,
+	F1Car(double x_side, double y_side, double z_side,
 			double front_width, double front_length, double front_height,
 			double back_width, double back_length, double back_height,
 			double roof_width, double roof_length, double roof_height,

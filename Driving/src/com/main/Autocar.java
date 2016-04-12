@@ -14,7 +14,7 @@ import com.Point3D;
 import com.Polygon3D;
 import com.Texture;
 
-public class Autocar {
+class Autocar {
 	
 	Road road;
 	
@@ -45,7 +45,7 @@ public class Autocar {
 	
 	CarData carData=null;
 	
-	public Texture texture=null;
+	Texture texture=null;
 	
 	int car_type_index=0;
 	
@@ -75,7 +75,7 @@ public class Autocar {
 
 	}
 
-	public void move(double dt){
+	void move(double dt){
 		
 		if(isParked)
 			return;
@@ -155,12 +155,12 @@ public class Autocar {
 		this.autocar_index = autocar_index;
 	}
 
-	public Polygon3D buildCarBox(int xx0, int yy0, int zz0) {
+	Polygon3D buildCarBox(int xx0, int yy0, int zz0) {
 		
 		return buildCarBox( xx0,  yy0,zz0,car_length,car_width,fi);
 	}
 	
-	public static Polygon3D buildCarBox(int xx0, int yy0, int zz0,int car_length, int car_width,double fi) {
+	static Polygon3D buildCarBox(int xx0, int yy0, int zz0,int car_length, int car_width,double fi) {
 		
 		int[] cx=new int[4]; 
 		int[] cy=new int[4];
@@ -246,7 +246,7 @@ public class Autocar {
 		return Math.sqrt((x0-x1)*(x0-x1)+(y0-y1)*(y0-y1));
 	}
 	
-	public static Point3D calculateLineIntersection(Point3D p1,Point3D p2,Point3D p3,Point3D p4) {
+	static Point3D calculateLineIntersection(Point3D p1,Point3D p2,Point3D p3,Point3D p4) {
 		
 		
 		double det=(p4.y-p3.y)*(p2.x-p1.x)-(p4.x-p3.x)*(p2.y-p1.y);
@@ -279,7 +279,7 @@ public class Autocar {
 		return intersection;
 	}
 
-	public static Autocar[] buildAutocars(File file) {
+	static Autocar[] buildAutocars(File file) {
 
 		
 		ArrayList<Autocar> autocars=new ArrayList<Autocar>();

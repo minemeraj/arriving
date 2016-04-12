@@ -7,7 +7,7 @@ import com.PolygonMesh;
 import com.editors.CustomJPanel;
 import com.editors.forniture.data.Forniture;
 
-public class FornitureJPanel extends CustomJPanel{
+class FornitureJPanel extends CustomJPanel{
 
 
 	

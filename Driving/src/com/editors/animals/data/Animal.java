@@ -92,7 +92,7 @@ public class Animal extends CustomData{
 
 	}
 	
-	public BPoint addBPoint( double x, double y, double z,int body_part,Segments s){
+	BPoint addBPoint( double x, double y, double z,int body_part,Segments s){
 		
 		BPoint point=new BPoint(s.x(x), s.y(y), s.z(z), n++);
 		point.setData(""+body_part);
@@ -101,7 +101,7 @@ public class Animal extends CustomData{
 		
 	}
 	
-	public BPoint addBPoint(double x, double y, double z,int body_part){
+	BPoint addBPoint(double x, double y, double z,int body_part){
 		
 		BPoint point=new BPoint(x, y, z, n++);
 		point.setData(""+body_part);

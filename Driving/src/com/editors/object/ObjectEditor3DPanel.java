@@ -30,7 +30,7 @@ import com.main.Road;
  *
  */
 
-public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRenderer3D{
+class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRenderer3D{
 
 	private int y0=250;
 	private int x0=350;
@@ -56,7 +56,7 @@ public class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRe
 	private int blackRgb= Color.BLACK.getRGB();
 
 
-	public ObjectEditor3DPanel(ObjectEditor oe){
+	ObjectEditor3DPanel(ObjectEditor oe){
 
 	    super(oe);
 		this.oe=oe;

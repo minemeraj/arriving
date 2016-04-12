@@ -9,7 +9,7 @@ import com.Point3D;
 import com.Segments;
 import com.main.Renderer3D;
 
-public class Starship extends CustomData {
+class Starship extends CustomData {
 	
 	private double x_side=0;
 	private double y_side=0;
@@ -24,7 +24,7 @@ public class Starship extends CustomData {
 	private double roof_height=0;
 
     
-    public Starship(double x_side, double y_side, double z_side,
+    Starship(double x_side, double y_side, double z_side,
 			double front_width, double front_length, double front_height,
 			double roof_width, double roof_length, double roof_height) {
 		super();

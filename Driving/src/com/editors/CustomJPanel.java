@@ -71,7 +71,7 @@ public abstract class CustomJPanel extends JPanel{
 	}
 	
 	
-	public void zoom(int i) {
+	void zoom(int i) {
 		
 		
 		if(i>0)
@@ -82,7 +82,7 @@ public abstract class CustomJPanel extends JPanel{
 		
 	}
 	
-	public void translate(int i, int j) {
+	void translate(int i, int j) {
 		
 		
 		x0+=i*deltax;
@@ -180,7 +180,7 @@ public abstract class CustomJPanel extends JPanel{
 		st=Math.sin(teta);
 	}
 	
-	public void rotate(double dTeta){
+	void rotate(double dTeta){
 		
 		teta+=dTeta;
 		

@@ -16,7 +16,7 @@ import com.Point3D;
 import com.PolygonMesh;
 import com.main.Renderer3D;
 
-public class Globe0 extends Forniture { 
+class Globe0 extends Forniture { 
 	
 	private double radius=0;
 
@@ -28,7 +28,7 @@ public class Globe0 extends Forniture {
 	private double len;
 	private double zHeight;
 
-	public Globe0(double radius,int N_MERIDIANS,int N_PARALLELS) {
+	Globe0(double radius,int N_MERIDIANS,int N_PARALLELS) {
 		
 		this.radius=radius;
 		this.n_meridians=N_MERIDIANS;

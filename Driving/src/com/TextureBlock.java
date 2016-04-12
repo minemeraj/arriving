@@ -8,7 +8,7 @@ public class TextureBlock {
 	Point3D[][] lowerBase=null;
 	Point3D[][] lateralFaces=null; 
 	
-	public int N_FACES=0;
+	int N_FACES=0;
 	private double texture_side_dy;
 	private double texture_side_dx;
 	int numx;

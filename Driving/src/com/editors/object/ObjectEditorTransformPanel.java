@@ -17,7 +17,7 @@ import com.Point3D;
 import com.PolygonMesh;
 import com.editors.DoubleTextField;
 
-public class ObjectEditorTransformPanel extends JDialog implements ActionListener{
+class ObjectEditorTransformPanel extends JDialog implements ActionListener{
 	
 	private JPanel center;
 	private JButton confirm;
@@ -34,7 +34,7 @@ public class ObjectEditorTransformPanel extends JDialog implements ActionListene
 	private ObjectEditor editor=null;
 	private DoubleTextField rotationAngle;
 	
-	public ObjectEditorTransformPanel(ObjectEditor editor){
+	ObjectEditorTransformPanel(ObjectEditor editor){
 		
 		
 		this.editor=editor;

@@ -14,7 +14,7 @@ import com.PolygonMesh;
 import com.editors.cubic.CubicEditor.CubeData;
 import com.editors.cubic.CubicEditor.CubeListItem;
 
-public class CubicEditorPanel extends JPanel implements MouseListener{
+class CubicEditorPanel extends JPanel implements MouseListener{
 
 	
 
@@ -45,7 +45,7 @@ public class CubicEditorPanel extends JPanel implements MouseListener{
 	
 
 
-	public CubicEditorPanel(int WIDTH, int HEIGHT, CubicEditor cubicEditor) {
+	CubicEditorPanel(int WIDTH, int HEIGHT, CubicEditor cubicEditor) {
 		
 		
 		y0=250;
@@ -58,7 +58,7 @@ public class CubicEditorPanel extends JPanel implements MouseListener{
 		addMouseListener(this);
 	}
 	
-	public void draw() {
+	void draw() {
 		if(comp==null)
 			comp=(Graphics2D) getGraphics();
 		draw(comp);
@@ -334,7 +334,7 @@ public class CubicEditorPanel extends JPanel implements MouseListener{
 		
 	}
 	
-	public void zoom(int n){
+	void zoom(int n){
 		
 		if(n>0){
 			

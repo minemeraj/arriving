@@ -1,21 +1,21 @@
 package com.editors.autocars;
 
 
-public class AutocarData {
+class AutocarData {
 
-	public int car_width = 0;
-	public int car_length = 0;
-	public int car_type = 0;
-	public double x = 0;
-	public double y = 0;
-	public double u = 0;
-	public double nu = 0;
-	public double fi = 0;
-	public double steering = 0;
+	int car_width = 0;
+	int car_length = 0;
+	int car_type = 0;
+	double x = 0;
+	double y = 0;
+	double u = 0;
+	double nu = 0;
+	double fi = 0;
+	double steering = 0;
 	
-	public static final int AUTOLINE_PARKED=-1;
+	static final int AUTOLINE_PARKED=-1;
 	
-	public int autoline_index=AUTOLINE_PARKED;
+	int autoline_index=AUTOLINE_PARKED;
 	
 	@Override
 	public AutocarData clone(){

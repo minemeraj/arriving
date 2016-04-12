@@ -8,11 +8,11 @@ import com.editors.CustomJPanel;
 import com.editors.weapons.data.Weapon;
 
 
-public class WeaponsJPanel extends CustomJPanel{
+class WeaponsJPanel extends CustomJPanel{
 
 
 	
-
+	@Override
 	public void draw(CustomData data) {
 		
 		 Weapon weapon=(Weapon) data;

@@ -16,9 +16,9 @@ public class PolygonMesh implements Cloneable{
 	public Point3D[] points=null;
 	public ArrayList <LineData>polygonData=null;
 	public ArrayList<Point3D> texturePoints=null;
-	public ArrayList <Point3D>normals=null;
+	ArrayList <Point3D>normals=null;
 	public int[] boxFaces=null; 
-	public int level=Road.OBJECT_LEVEL;
+	int level=Road.OBJECT_LEVEL;
 
 
 	public PolygonMesh() {
@@ -262,7 +262,7 @@ public class PolygonMesh implements Cloneable{
 	
 	}
 
-	public static PolygonMesh loadMeshFromFile(File file) {
+	static PolygonMesh loadMeshFromFile(File file) {
 		ArrayList<Point3D> points=new ArrayList<Point3D>();
 		ArrayList<LineData> lines=new ArrayList<LineData>();
 		ArrayList<Point3D> vTexturePoints=new ArrayList<Point3D>();

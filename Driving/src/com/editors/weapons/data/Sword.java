@@ -9,7 +9,7 @@ import com.Point3D;
 import com.Segments;
 import com.main.Renderer3D;
 
-public class Sword extends CustomData {
+class Sword extends CustomData {
 	
 	private double forearm_length=0;
 	private double forearm_width=0;
@@ -25,7 +25,7 @@ public class Sword extends CustomData {
 	
 	private int barrel_meridians=0;
 
-	public Sword(double forearm_length, double forearm_width,
+	Sword(double forearm_length, double forearm_width,
 			double forearm_height, double breech_length, double breech_width,
 			double breech_height, double butt_length, double butt_width,
 			double butt_height,int barrel_meridians) {

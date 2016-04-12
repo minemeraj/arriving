@@ -16,7 +16,7 @@ import com.Segments;
 import com.TextureBlock;
 import com.main.Renderer3D;
 
-public class Quadruped extends Animal{
+class Quadruped extends Animal{
 	
 	private int N_FACES=4;
 	private int N_PARALLELS=2;
@@ -43,7 +43,7 @@ public class Quadruped extends Animal{
 	private int hnz=5;
 	
 
-	public Quadruped(double x_side, double y_side,double z_side,int animal_type,
+	Quadruped(double x_side, double y_side,double z_side,int animal_type,
 			double femur_length,double shinbone_length,double leg_side,
 			double head_DZ,double head_DX,double head_DY,double neck_length,double neck_side,
 			double humerus_length,double radius_length,double hand_length,double foot_length

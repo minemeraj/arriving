@@ -16,7 +16,7 @@ import com.Segments;
 import com.TextureBlock;
 import com.main.Renderer3D;
 
-public class ManHead extends Animal{
+class ManHead extends Animal{
 	
 
 	private Point3D[][] nozeFaces=null; 
@@ -32,7 +32,7 @@ public class ManHead extends Animal{
 	
 
 
-	public ManHead(double x_side, double y_side,double z_side,int animal_type,
+	ManHead(double x_side, double y_side,double z_side,int animal_type,
 			double femur_length,double shinbone_length,double leg_side,
 			double head_DZ,double head_DX,double head_DY,double neck_length,double neck_side,
 			double humerus_length,double radius_length,double hand_length,double foot_length

@@ -21,7 +21,7 @@ import javax.swing.event.MenuListener;
 
 import com.editors.models.MeshModel;
 
-public class MeshModelEditor extends JFrame implements ActionListener, MenuListener{
+class MeshModelEditor extends JFrame implements ActionListener, MenuListener{
 	
 
 	JPanel center;

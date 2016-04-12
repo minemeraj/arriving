@@ -6,7 +6,7 @@ public class Rib {
 	private Point4D[] points=null;
 	private int index=0;
 	
-	public Rib(int size){
+	Rib(int size){
 		points=new Point4D[size];
 	}
 
@@ -26,7 +26,7 @@ public class Rib {
 		this.index = index;
 	}
 
-	public void translate(int dx, int dy, double dz) {
+	void translate(int dx, int dy, double dz) {
 
 
 		for (int k = 0; k < points.length; k++) {

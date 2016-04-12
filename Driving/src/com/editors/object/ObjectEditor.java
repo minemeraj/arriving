@@ -49,7 +49,7 @@ import com.main.HelpPanel;
  *
  */
 
-public class ObjectEditor extends Editor implements ActionListener{
+class ObjectEditor extends Editor implements ActionListener{
 
 
 	private ObjectEditor3DPanel center3D;
@@ -912,7 +912,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 	}
 
 	
-	public static double[][] getRotationMatrix(Point3D versor,double teta){
+	static double[][] getRotationMatrix(Point3D versor,double teta){
 
 		return getRotationMatrix(versor.x,versor.y,versor.z,teta);
 	}
@@ -973,7 +973,7 @@ public class ObjectEditor extends Editor implements ActionListener{
 
 
 
-	public static void rotate(Point3D[] ds,double[][] matrix, double x0,double y0, double z0) {
+	static void rotate(Point3D[] ds,double[][] matrix, double x0,double y0, double z0) {
 
 		for(int i=0;i<ds.length;i++){
 

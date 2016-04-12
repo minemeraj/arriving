@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import com.SquareMesh;
 import com.editors.DoubleTextField;
 
-public class RoadEditorGridManager extends JDialog implements ActionListener{
+class RoadEditorGridManager extends JDialog implements ActionListener{
 	
 	private JPanel center;
 	private JPanel bottom;
@@ -45,7 +45,7 @@ public class RoadEditorGridManager extends JDialog implements ActionListener{
 	boolean is_expand_mode=false;
 	
 
-	public RoadEditorGridManager(SquareMesh squareMesh){
+	RoadEditorGridManager(SquareMesh squareMesh){
 		
 		if(squareMesh!=null){
 			is_expand_mode=true;

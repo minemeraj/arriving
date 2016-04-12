@@ -9,7 +9,7 @@ import com.Point3D;
 import com.Segments;
 import com.main.Renderer3D;
 
-public class Ship extends CustomData {
+class Ship extends CustomData {
 	
 	
 	private double x_side=0;
@@ -22,7 +22,7 @@ public class Ship extends CustomData {
     
 	private double rear_overhang=0;
 	
-	public Ship(double x_side, double y_side, double z_side, double back_width,
+	Ship(double x_side, double y_side, double z_side, double back_width,
 			double back_length, double back_height, double rear_overhang) {
 		super();
 		this.x_side = x_side;

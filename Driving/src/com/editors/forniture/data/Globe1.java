@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 import javax.imageio.ImageIO;
 
@@ -16,7 +15,7 @@ import com.Point3D;
 import com.PolygonMesh;
 import com.main.Renderer3D;
 
-public class Globe1 extends Forniture { 
+class Globe1 extends Forniture { 
 	
 	private double radius=0;
 	
@@ -29,7 +28,7 @@ public class Globe1 extends Forniture {
 	private double len;
 	private double zHeight;
 
-	public Globe1(double radius,int N_MERIDIANS,int N_PARALLELS) {
+	Globe1(double radius,int N_MERIDIANS,int N_PARALLELS) {
 		
 		this.radius=radius;
 		this.n_meridians=N_MERIDIANS;

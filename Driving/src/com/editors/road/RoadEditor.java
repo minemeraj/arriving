@@ -3725,7 +3725,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 	
-	public void setRoadData(String string, PolygonMesh pMesh) {
+	void setRoadData(String string, PolygonMesh pMesh) {
 		
 		meshes[ACTIVE_PANEL]=pMesh;
 		
@@ -3749,7 +3749,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	}
 	
-	public static ArrayList<Point3D> buildTemplateTexturePoints(double side) {
+	static ArrayList<Point3D> buildTemplateTexturePoints(double side) {
 		
 		ArrayList<Point3D> vPoints=new ArrayList<Point3D>();
 		

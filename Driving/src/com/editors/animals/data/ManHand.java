@@ -16,7 +16,7 @@ import com.PolygonMesh;
 import com.Segments;
 import com.main.Renderer3D;
 
-public class ManHand extends Animal{
+class ManHand extends Animal{
 
 	private int N_FACES=4;
 	private int N_PARALLELS=2;
@@ -26,7 +26,7 @@ public class ManHand extends Animal{
 	private Point3D[][] lateralFaces=null; 
 	
 
-	public ManHand(double x_side, double y_side,double z_side,int animal_type,
+	ManHand(double x_side, double y_side,double z_side,int animal_type,
 			double femur_length,double shinbone_length,double leg_side,
 			double head_DZ,double head_DX,double head_DY,double neck_length,double neck_side,
 			double humerus_length,double radius_length,double hand_length,double foot_length

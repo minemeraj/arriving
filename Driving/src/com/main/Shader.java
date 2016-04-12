@@ -14,7 +14,7 @@ import com.Polygon3D;
 import com.PolygonMesh;
 import com.ZBuffer;
 
-public class Shader extends Renderer3D{
+class Shader extends Renderer3D{
 
 
 	protected ZBuffer lightZbuffer;
@@ -145,7 +145,7 @@ public class Shader extends Renderer3D{
 	public void calculateShadowMap() {}
 
 
-	public Point4D calculateLightTransformedPoint(Point3D p,boolean isReal){
+	Point4D calculateLightTransformedPoint(Point3D p,boolean isReal){
 
 		Point4D p_light=new Point4D();
 
@@ -197,7 +197,7 @@ public class Shader extends Renderer3D{
 
 
 
-	public void calculateLightTransformedPolygon(Polygon3D pol,boolean isReal){
+	void calculateLightTransformedPolygon(Polygon3D pol,boolean isReal){
 
 		for (int i = 0; i < pol.npoints; i++) {
 
@@ -302,7 +302,7 @@ public class Shader extends Renderer3D{
 	}
 
 	@Deprecated
-	public void calculateShadowVolumes(DrawObject[] drawObjects ){
+	void calculateShadowVolumes(DrawObject[] drawObjects ){
 
 
 		shadowVolumes=new ShadowVolume[drawObjects.length];
@@ -325,7 +325,7 @@ public class Shader extends Renderer3D{
 		
 	}
 
-	public ShadowVolume initShadowVolume(CubicMesh cm) {
+	ShadowVolume initShadowVolume(CubicMesh cm) {
 
 		ShadowVolume shadowVolume=new ShadowVolume();
 		shadowVolume.allTriangles=new ArrayList<ShadowTriangle>();
@@ -409,7 +409,7 @@ public class Shader extends Renderer3D{
 		return shadowVolume;
 	}
 
-	public  ShadowVolume buildShadowVolumeBox(ShadowVolume shadowVolume,CubicMesh cm) {
+	 ShadowVolume buildShadowVolumeBox(ShadowVolume shadowVolume,CubicMesh cm) {
 
 		shadowVolume.initFaces();
 
@@ -644,7 +644,7 @@ public class Shader extends Renderer3D{
 
 	}
 
-	public class ShadowVolume{
+	class ShadowVolume{
 
 		private ArrayList<Polygon3D> frontCap=null;
 		private ArrayList<Polygon3D> backCap=null;
@@ -652,7 +652,7 @@ public class Shader extends Renderer3D{
 		
 		private ArrayList<ShadowTriangle> allTriangles=null;
 
-		public Polygon3D[] allPolygons=null;
+		Polygon3D[] allPolygons=null;
 
 		private void addToFrontCap(Polygon3D pol){
 

@@ -22,7 +22,7 @@ public abstract class RoadEditorPanel extends JPanel {
 	
 	public static final int greenRgb= Color.GREEN.getRGB();
 	
-	public RoadEditor editor;
+	RoadEditor editor;
 	
 	int WIDTH=0;
 	int HEIGHT=0;
@@ -49,7 +49,7 @@ public abstract class RoadEditorPanel extends JPanel {
 	
 
 
-	public RoadEditorPanel(RoadEditor editor,
+	RoadEditorPanel(RoadEditor editor,
 			int cENTER_WIDTH, int cENTER_HEIGHT) {
 	
 		this.HEIGHT=cENTER_HEIGHT;
@@ -62,7 +62,7 @@ public abstract class RoadEditorPanel extends JPanel {
 			ZBuffer landscapeZbuffer,Graphics2D graph);
 	
 		
-	public static Point3D foundPX_PY_PZ_TEXTURE_Intersection(Point3D pstart, Point3D pend,
+	static Point3D foundPX_PY_PZ_TEXTURE_Intersection(Point3D pstart, Point3D pend,
 			double y) {
 		
 		Point3D intersect=new Point3D(); 

@@ -14,7 +14,7 @@ import javax.swing.JTabbedPane;
 import com.Point3D;
 import com.editors.DoubleTextField;
 
-public class AutocarTemplatePanel extends JDialog implements ActionListener{
+class AutocarTemplatePanel extends JDialog implements ActionListener{
 
 	private int TEMPLATE_TYPE;
 	private final int TEMPLATE_TYPE_ELLIPSE=0;

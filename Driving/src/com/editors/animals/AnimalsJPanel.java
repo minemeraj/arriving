@@ -8,7 +8,7 @@ import com.PolygonMesh;
 import com.editors.CustomJPanel;
 import com.editors.animals.data.Animal;
 
-public class AnimalsJPanel extends CustomJPanel{
+class AnimalsJPanel extends CustomJPanel{
 
 
 	

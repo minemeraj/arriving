@@ -20,7 +20,7 @@ import com.SPNode;
 import com.SquareMesh;
 import com.editors.DoubleTextField;
 
-public class RoadEditorCityManager extends JDialog implements ActionListener{
+class RoadEditorCityManager extends JDialog implements ActionListener{
 	
 	private JPanel center;
 	
@@ -51,7 +51,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 	private boolean is_expand_mode=false;
 	
 
-	public RoadEditorCityManager(SquareMesh squareMesh){
+	RoadEditorCityManager(SquareMesh squareMesh){
 		
 		if(squareMesh!=null){
 			is_expand_mode=true;
@@ -287,7 +287,7 @@ public class RoadEditorCityManager extends JDialog implements ActionListener{
 
 
 
-	public static void buildCustomCity1(PolygonMesh terrainMesh, ArrayList splines,
+	static void buildCustomCity1(PolygonMesh terrainMesh, ArrayList splines,
 			RoadEditorCityManager roadECM, ArrayList drawObjects, CubicMesh[] objectMeshes) {
 		
 		

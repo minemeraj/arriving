@@ -54,7 +54,7 @@ import com.editors.ValuePair;
 import com.editors.road.RoadEditorPolygonDetail;
 import com.main.Renderer3D;
 
-public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,KeyListener, ItemListener,MouseListener,MouseWheelListener,MouseMotionListener{
+abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,KeyListener, ItemListener,MouseListener,MouseWheelListener,MouseMotionListener{
 
 
 	ObjectEditor oe=null;
@@ -135,7 +135,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 
 
 
-	public ObjectEditorPanel(ObjectEditor oe){
+	ObjectEditorPanel(ObjectEditor oe){
 
 	
 		this.oe=oe;
@@ -367,7 +367,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
  
 	}
 	
-	public void buildBottomPanel() {
+	void buildBottomPanel() {
 		bottom=new JPanel();
 		bottom.setBounds(0,HEIGHT,WIDTH+RIGHT_BORDER,BOTTOM_BORDER);
 		bottom.setLayout(null);
@@ -1483,7 +1483,7 @@ public abstract class ObjectEditorPanel extends JPanel implements EditorPanel,Ac
 
 	}
 	
-	public void displayCurrentRect(Graphics2D bufGraphics) {
+	void displayCurrentRect(Graphics2D bufGraphics) {
 		
 		if(!isDrawCurrentRect)
 			return;

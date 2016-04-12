@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import com.editors.DoubleTextField;
 import com.editors.cubic.CubicEditor.CubeData;
 
-public class CubicDataChooser extends JDialog implements ActionListener{
+class CubicDataChooser extends JDialog implements ActionListener{
 	
 	private CubeData cc=null;
 	private JButton exit=null;
