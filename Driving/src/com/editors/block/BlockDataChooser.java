@@ -12,7 +12,7 @@ import com.editors.DoubleTextField;
 import com.editors.block.BlockEditor.BlockData;
 
 
-public class BlockDataChooser extends JDialog implements ActionListener{
+class BlockDataChooser extends JDialog implements ActionListener{
 	
 	private BlockData cc=null;
 	private JButton exit=null;

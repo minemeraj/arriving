@@ -15,7 +15,7 @@ import com.PolygonMesh;
 import com.editors.block.BlockEditor.BlockData;
 import com.editors.block.BlockEditor.BlockListItem;
 
-public class BlockEditorPanel extends JPanel implements MouseListener{
+class BlockEditorPanel extends JPanel implements MouseListener{
 
 	
 
@@ -46,7 +46,7 @@ public class BlockEditorPanel extends JPanel implements MouseListener{
 	
 
 
-	public BlockEditorPanel(int WIDTH, int HEIGHT, BlockEditor cubicEditor) {
+	BlockEditorPanel(int WIDTH, int HEIGHT, BlockEditor cubicEditor) {
 		
 		
 		y0=250;
@@ -59,7 +59,7 @@ public class BlockEditorPanel extends JPanel implements MouseListener{
 		addMouseListener(this);
 	}
 	
-	public void draw() {
+	void draw() {
 		if(comp==null)
 			comp=(Graphics2D) getGraphics();
 		draw(comp);
@@ -327,7 +327,7 @@ public class BlockEditorPanel extends JPanel implements MouseListener{
     	y0+=dy;
     }
 
-	public void rotate(double df) {
+	void rotate(double df) {
 		
 		 fi+=df;
 		 sinf=Math.sin(fi);
@@ -335,7 +335,7 @@ public class BlockEditorPanel extends JPanel implements MouseListener{
 		
 	}
 	
-	public void zoom(int n){
+	void zoom(int n){
 		
 		if(n>0){
 			
@@ -367,7 +367,7 @@ public class BlockEditorPanel extends JPanel implements MouseListener{
 	}
     
     
-	public void translate(int i, int j) {
+	void translate(int i, int j) {
 		
 		int dx=(int) (2*i/deltax);
 		int dy=(int) (2*j/deltay);

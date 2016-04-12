@@ -16,7 +16,7 @@ import com.PolygonMesh;
 import com.TextureCylinder;
 import com.main.Renderer3D;
 
-public class Plant0 extends CustomData{
+class Plant0 extends CustomData{
 
 	private double trunk_lenght=0; 
 	private double trunk_upper_radius=0;
@@ -44,7 +44,7 @@ public class Plant0 extends CustomData{
 	
 	public Plant0(){}
 
-	public Plant0(
+	Plant0(
 			int plant_type,
 			double trunk_lenght, double trunk_upper_radius,double trunk_lower_radius,
 			int trunk_meridians,int trunk_parallels,

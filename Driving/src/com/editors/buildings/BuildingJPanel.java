@@ -7,7 +7,7 @@ import com.PolygonMesh;
 import com.editors.CustomJPanel;
 import com.editors.buildings.data.BuildingPlan;
 
-public class BuildingJPanel extends CustomJPanel{
+class BuildingJPanel extends CustomJPanel{
 
 
 	@Override

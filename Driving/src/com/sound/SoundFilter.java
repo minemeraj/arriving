@@ -1,11 +1,11 @@
 package com.sound;
 
 
-public class SoundFilter {
+class SoundFilter {
 	
 	private int frameSize=0;
 	
-	public SoundFilter(int frameSize) {
+	SoundFilter(int frameSize) {
 		this.frameSize=frameSize;
 	}
 

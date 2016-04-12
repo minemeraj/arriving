@@ -15,10 +15,10 @@ public class TextureCylinder {
 	int N_MERIDIANS=0;
 	int N_PARALLELS=0;
 	
-	boolean isDrawUpperBase=true;
-	boolean isDrawLowerBase=true;
-	public double len;
-	public int vlen;
+	private boolean isDrawUpperBase=true;
+	private boolean isDrawLowerBase=true;
+	private double len;
+	private int vlen;
 	
 	private int entryIndex=0;
 	public int exitIndex=0;

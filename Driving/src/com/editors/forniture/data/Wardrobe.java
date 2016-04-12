@@ -15,7 +15,7 @@ import com.Point3D;
 import com.PolygonMesh;
 import com.main.Renderer3D;
 
-public class Wardrobe extends Forniture{
+class Wardrobe extends Forniture{
 	
 	private int N_FACES=4;
 	private int N_PARALLELS=2;
@@ -25,7 +25,7 @@ public class Wardrobe extends Forniture{
 	private Point3D[][] lateralFaces=null; 
 	
 
-	public Wardrobe(double x_side, double y_side, double z_side) {
+	Wardrobe(double x_side, double y_side, double z_side) {
 		
 		this.x_side=x_side;
 		this.y_side=y_side;

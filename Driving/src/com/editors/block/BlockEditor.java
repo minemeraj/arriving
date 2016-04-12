@@ -49,7 +49,7 @@ import com.editors.EditorPanel;
 import com.editors.object.ObjectEditorPreviewPanel;
 import com.main.HelpPanel;
 
-public class BlockEditor extends Editor implements EditorPanel,KeyListener, ActionListener, MouseWheelListener{
+class BlockEditor extends Editor implements EditorPanel,KeyListener, ActionListener, MouseWheelListener{
 	
 	private static Color BACKGROUND_COLOR=new Color(0,0,0);
 
@@ -88,7 +88,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 
 	private JComboBox zBlock;
 
-	public JCheckBox checkDiplaySelectedBlock;
+	JCheckBox checkDiplaySelectedBlock;
 
 	private Vector selectedBlocks=null;
 
@@ -438,7 +438,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		}
 	}
         
-	public void updateBlockSelectedBlockUnit(int i,int j, int k) {
+	void updateBlockSelectedBlockUnit(int i,int j, int k) {
 		
 		try{
 
@@ -455,7 +455,7 @@ public class BlockEditor extends Editor implements EditorPanel,KeyListener, Acti
 		}
 	}
 	
-	public void updateComoboBoxes(int i,int j, int k) {
+	void updateComoboBoxes(int i,int j, int k) {
 
 		isWaitForCompletion=true;
 
@@ -1837,7 +1837,7 @@ public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCusto
 			blockData=(BlockData) oldBlockData.pop();
 	}
 	
-	public static class BlockData{
+	static class BlockData{
 		
 		private BlockData(int nX, int nY, int nZ, double lX, double lY, double lZ) {
 		
@@ -1861,7 +1861,7 @@ public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCusto
 			initSelectionMask();
 			
 		}
-		public void initSelectionMask() {
+		void initSelectionMask() {
 			
 		selectionMask=new short[NX][NY][NZ];
 			
@@ -1884,7 +1884,7 @@ public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCusto
 		double LY=0;
 		double LZ=0;
 		
-		public short[][][] selectionMask;
+		short[][][] selectionMask;
 		
 		public int getNX() {
 			return NX;
@@ -1945,7 +1945,7 @@ public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCusto
 		}
 	}
 	
-	public class BlockListItem{
+	class BlockListItem{
 		
 		public DecimalFormat df=new DecimalFormat("000");
 
