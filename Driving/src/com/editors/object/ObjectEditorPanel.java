@@ -103,7 +103,7 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 	double alfa=Math.PI/4;
 	double sinAlfa=Math.sin(alfa);
 	double cosAlfa=Math.cos(alfa);
-	double fi=0;
+	private double fi=0;
 	double sinf=Math.sin(fi);
 	double cosf=Math.cos(fi);
 	private JButton rescale;
@@ -126,7 +126,7 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 	private boolean isDrawCurrentRect=false;
 
 
-	protected double teta=0;
+	private double teta=0;
 	protected double costeta=Math.cos(teta);
 	protected double sinteta=Math.sin(teta);
 

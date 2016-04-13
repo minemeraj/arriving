@@ -11,35 +11,35 @@ import java.text.DecimalFormat;
  *
  */
 
-public class CarDynamics {
+class CarDynamics {
 	
 
 	/** STRUCTURAL VARIABLES **/
-	double a1=0;
-	double a2=0;	
-	double tau=1;
-	double chi=0;
+	private double a1=0;
+	private double a2=0;	
+	private double tau=1;
+	private double chi=0;
 	/** wheelbase **/
-	double l=0;
+	private double l=0;
 	/** front and rear track **/
-	double t1=0;
-	double t2=0;
+	private double t1=0;
+	private double t2=0;
 
 	/** moment of inerzia  **/
-	double Jz=0;
-	double i_Jz=0;
+	private double Jz=0;
+	private double i_Jz=0;
 	
 	/** vehicle mass  **/
-	double m=0;
-	double i_m=0;
+	private double m=0;
+	private double i_m=0;
 
 	//DYNAMIC VARIABLES  
 	
 	/** front steering angles 1=front,2=rear**/
-	double delta1=0;
-	double delta2=0;
+	private double delta1=0;
+	private double delta2=0;
 	
-	double delta=0;
+	private double delta=0;
 	
 	public double getDelta() {
 		return delta;
@@ -55,41 +55,41 @@ public class CarDynamics {
 	/** longitudinal  velocity**/
 	double u=0;
 	/**  yaw  velocity**/
-	double r=0;
+	private double r=0;
 	/** lateral  velocity**/
-	double nu=0;
+	private double nu=0;
 	
 	/** tire slip angles**/
-	double alfa1=0;
-	double alfa2=0;
+	private double alfa1=0;
+	private double alfa2=0;
 	
 	/** side slip angles **/
-	double beta1=0;
-	double beta2=0;
+	private double beta1=0;
+	private double beta2=0;
 	
 	/** cornering stiffness **/
-	double C1=0;
-	double C2=0;
+	private double C1=0;
+	private double C2=0;
 	
 	/** relaxation lenght **/
-	double d=0.25;
+	private double d=0.25;
 	
 	/** tractive forces **/
-	double Fx1=0;
-	double Fx2=0;
+	private double Fx1=0;
+	private double Fx2=0;
 	/** lateral forces**/
 	private double Fy1;
 	private double Fy2;
 	/** torque force **/
-	double torque_force=0;
+	private double torque_force=0;
 	/** braking force **/
-	double brakingForce=0;
+	private double brakingForce=0;
 		
     //DRAG PROPERTIES
 	/** air density **/
-	double ro=0;
-	double S=0;
-	double Cx=0;
+	private double ro=0;
+	private double S=0;
+	private double Cx=0;
 	
 	/** Centripetal Force  **/
 	double ay=0;
@@ -98,16 +98,16 @@ public class CarDynamics {
 	double dx=0;
 	double dy=0;
 	double dpsi=0;
-    double psi=0;
+	private double psi=0;
 	
-	static DecimalFormat df=null;
+    private static DecimalFormat df=null;
 	
 	private byte Fx2Signum=0;
 	private boolean isBraking=false;
 	
 	//MATH CONSTANTS
 	
-	double PI_2=Math.PI*0.5;
+	private double PI_2=Math.PI*0.5;
 
 	public static void main(String[] args) {
 		
@@ -243,7 +243,7 @@ public class CarDynamics {
 	
 	public CarDynamics(){}
 	
-	public CarDynamics(double m,double a1, double a2,double t1,double t2, double tau, double chi ,double jz, double c1,
+	CarDynamics(double m,double a1, double a2,double t1,double t2, double tau, double chi ,double jz, double c1,
 			double c2) {
 		
 		this.m=m;
@@ -279,7 +279,7 @@ public class CarDynamics {
 		this.Cx=Cx;
 	}
 	
-	public void calculateCoordinatesIncrements(double dt){
+	private void calculateCoordinatesIncrements(double dt){
 		
 		dpsi=r*dt;
 		psi+=dpsi;

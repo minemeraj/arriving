@@ -21,7 +21,7 @@ import javax.swing.border.EtchedBorder;
 
 class TexturesPanel extends JDialog implements ActionListener,MouseListener{
 	
-	JButton cancel=null;
+	private JButton cancel=null;
 	
 	private JPanel center;
 	private JLabel[] textureLabels;

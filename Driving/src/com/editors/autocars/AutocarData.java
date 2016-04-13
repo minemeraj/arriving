@@ -3,8 +3,8 @@ package com.editors.autocars;
 
 class AutocarData {
 
-	int car_width = 0;
-	int car_length = 0;
+	private int car_width = 0;
+	private int car_length = 0;
 	int car_type = 0;
 	double x = 0;
 	double y = 0;

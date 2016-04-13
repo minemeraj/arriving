@@ -38,7 +38,7 @@ public class GameSound extends Thread{
 		
 	}
 	
-	public GameSound(File file,int loop,boolean once) throws Exception {
+	private GameSound(File file,int loop,boolean once) throws Exception {
 		
 		AudioInputStream stream = loadStream(file);
 		clip=getClip(stream);

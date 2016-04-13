@@ -20,7 +20,7 @@ public abstract class CustomJPanel extends JPanel{
 	
 	
 	protected int x0=400;
-	protected int y0=500;
+	private int y0=500;
 	
 	private double dy=1.0;
 	private double dx=1.0; 

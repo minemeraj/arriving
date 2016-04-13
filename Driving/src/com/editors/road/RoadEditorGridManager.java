@@ -40,9 +40,9 @@ class RoadEditorGridManager extends JDialog implements ActionListener{
 	private DoubleTextField DX_Field;
 	private DoubleTextField DY_Field;
 	
-	SquareMesh squareMesh=null;
+	private SquareMesh squareMesh=null;
 	
-	boolean is_expand_mode=false;
+	private boolean is_expand_mode=false;
 	
 
 	RoadEditorGridManager(SquareMesh squareMesh){

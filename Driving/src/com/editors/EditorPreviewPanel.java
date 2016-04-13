@@ -54,8 +54,8 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 	
 	public  Point3D pAsso;
 	public double alfa=Math.PI/3;
-	public double cosAlfa=Math.cos(alfa);
-	public double sinAlfa=Math.sin(alfa);
+	private double cosAlfa=Math.cos(alfa);
+	private double sinAlfa=Math.sin(alfa);
 	public double s2=Math.sqrt(2);
 	public boolean isUseTextures=true;
 	

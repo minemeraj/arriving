@@ -25,7 +25,7 @@ public class CubicMesh extends PolygonMesh{
 	public Point3D point101=null;
 	public Point3D point111=null;
 
-	public CubicMesh(Point3D[] points, ArrayList<LineData> polygonData) {
+	private CubicMesh(Point3D[] points, ArrayList<LineData> polygonData) {
 		super(points,polygonData);
 	}
 

@@ -2,16 +2,16 @@ package com;
 
 public class BarycentricCoordinates {
 	
-	public Point3D p0=null;
-	public Point3D p1=null;
-	public Point3D p2=null;
+	private Point3D p0=null;
+	private Point3D p1=null;
+	private Point3D p2=null;
 	
 	public Point3D pt0=null;
 	public Point3D pt1=null;
 	public Point3D pt2=null;
 	
-	Point3D n=null;
-	double inv_nSquare=0;
+	private Point3D n=null;
+	private double inv_nSquare=0;
 	private Point3D nda;
 	private Point3D ndb;
 	private Point3D ndc;
@@ -36,7 +36,7 @@ public class BarycentricCoordinates {
 		
 	}
 	
-	public BarycentricCoordinates(Point3D p0,Point3D p1,Point3D p2) {
+	private BarycentricCoordinates(Point3D p0,Point3D p1,Point3D p2) {
 		
 		
 		
@@ -51,7 +51,7 @@ public class BarycentricCoordinates {
 		ndc=p1.substract(p0);
 	}
 	
-	public BarycentricCoordinates(Point3D p0,Point3D p1,Point3D p2,Point3D pt0,Point3D pt1,Point3D pt2) {
+	private BarycentricCoordinates(Point3D p0,Point3D p1,Point3D p2,Point3D pt0,Point3D pt1,Point3D pt2) {
 		
 		
 		
@@ -93,7 +93,7 @@ public class BarycentricCoordinates {
 		return pc;
 	}
 	
-	public Point3D getRealCoordinates(Point3D p){
+	private Point3D getRealCoordinates(Point3D p){
 		
 		Point3D pr=new Point3D();
 		pr.x=p.x*(p0.x)+p.y*p1.x+(1-p.x-p.y)*p2.x;

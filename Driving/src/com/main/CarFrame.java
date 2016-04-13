@@ -100,7 +100,7 @@ public class CarFrame extends Road implements KeyListener {
 	}
 	 
 	 
-	public CarFrame(GameLoader gameLoader,int WITDH,int HEIGHT){
+	 private CarFrame(GameLoader gameLoader,int WITDH,int HEIGHT){
 
 	 super( WITDH, HEIGHT);
 	

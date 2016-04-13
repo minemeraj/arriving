@@ -25,7 +25,7 @@ public class GameLoader extends JDialog implements ActionListener{
 
 	private static final Color BACKGROUND_COLOR=new Color(255,255,255);
 
-	JButton[] mapRadios=null;
+	private JButton[] mapRadios=null;
 
 	public static final String DEFAULT_MAP="default";
 

@@ -20,7 +20,7 @@ public class TextureBlock {
 	private double len;
 	private int vlen;
 	
-	public int entryIndex=0;
+	private int entryIndex=0;
 	public int exitIndex=0;
 	
 	

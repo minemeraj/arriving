@@ -44,7 +44,7 @@ public class Plain {
 	}
 
 
-	public Plain(double a, double b, double c, double d) {
+	private Plain(double a, double b, double c, double d) {
 		super();
 		this.a = a;
 		this.b = b;

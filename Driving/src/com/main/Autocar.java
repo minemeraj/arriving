@@ -16,9 +16,9 @@ import com.Texture;
 
 class Autocar {
 	
-	Road road;
+	private Road road;
 	
-	public Autocar(int car_width, int car_length,int car_type_index) {
+	private Autocar(int car_width, int car_length,int car_type_index) {
 		super();
 		this.car_width = car_width;
 		this.car_length = car_length;
@@ -37,9 +37,9 @@ class Autocar {
 	private double linePosition=-1;
 	
 	// longitudinal  velocity
-	double u=0;
+	private double u=0;
 	// lateral  velocity
-	double nu=0;
+	private double nu=0;
 	//line to follow
 	Point3D[] car_road=null;
 	
@@ -52,7 +52,7 @@ class Autocar {
 	private boolean isParked=false;
 
 	private Date stopTime=null;
-	int TIME_OUT=3000;
+	private int TIME_OUT=3000;
 	
 	private int autocar_index=-1;
 

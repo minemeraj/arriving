@@ -184,7 +184,7 @@ class BlockEditorPanel extends JPanel implements MouseListener{
 		//displayPoints(bufGraphics,cubicEditor.points);
 	}
 
-	public void displayBlockUnit(double x, double y, double z, double dx,
+	private void displayBlockUnit(double x, double y, double z, double dx,
 			double dy, double dz, Graphics2D bufGraphics) {
 		
 		
