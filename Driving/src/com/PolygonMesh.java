@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
+import java.util.List;
 
 import com.main.Road;
 
@@ -178,7 +179,7 @@ public class PolygonMesh implements Cloneable{
 
 	
 	
-	public static void buildPoint(ArrayList<Point3D> vPoints,String str) {
+	public static void buildPoint(List<Point3D> vPoints,String str) {
 		
 
 			String[] vals =str.split(" ");

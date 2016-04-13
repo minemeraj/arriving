@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 import javax.swing.JFileChooser;
@@ -276,7 +277,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 
 	
 	@Override
-	public void buildPoint(ArrayList<Point3D> vPoints, String str) {
+	public void buildPoint(List<Point3D> vPoints, String str) {
 		PolygonMesh.buildPoint(vPoints,str);
 		
 	}

@@ -122,8 +122,6 @@ class Autocar {
 
 			
 		}
-				
-		//System.out.println(position);
 
 		if(steering==0){
 			
@@ -222,13 +220,10 @@ class Autocar {
 			Point3D p2=car_road[(j+1)%car_road.length];				
 			
 			Point3D intersection=calculateLineIntersection(p1,p2,p3,p4);
-		
-			//System.out.println(p1+","+p2);
 			
 			if(intersection!=null){
 				
 				pos=distance(p3.x,p3.y,intersection.x,intersection.y);
-				//System.out.println(intersection.x+","+intersection.y);
 
 			
 			}
@@ -425,27 +420,7 @@ class Autocar {
 		this.car_road = car_road;
 	}
 	
-	/*public void run() {
 	
-		
-		while(true){
-			
-			move(Engine.dtt);
-			
-			try {
-				
-				sleep((int)(Engine.dtt*1000));
-			} catch (InterruptedException e) {
-				
-				e.printStackTrace();
-			}
-		
-		
-				
-		}
-		
-	}*/
-
 	public Road getRoad() {
 		return road;
 	}

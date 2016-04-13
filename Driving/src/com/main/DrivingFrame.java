@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.swing.JFileChooser;
@@ -306,7 +307,7 @@ public abstract class DrivingFrame extends JFrame{
 			
 	}
 
-	protected void buildPoint(ArrayList<Point3D> aPoints, String substring) {
+	protected void buildPoint(List<Point3D> aPoints, String substring) {
 			
 	}
 

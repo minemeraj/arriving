@@ -14,6 +14,7 @@ import java.io.FileReader;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
@@ -892,8 +893,6 @@ public class Road extends Shader{
 
 		Area a = new Area(p);
 
-		//System.out.println(Polygon3D.fromAreaToPolygon2D(a));
-
 		return a;
 	}
 
@@ -1120,7 +1119,7 @@ public class Road extends Shader{
 	}
 
 	@Override
-	public void buildPoint(ArrayList<Point3D> vPoints, String str) {
+	public void buildPoint(List<Point3D> vPoints, String str) {
 
 	
 
@@ -1149,7 +1148,7 @@ public class Road extends Shader{
 		
 		buildStaticLine( polygonData,  str, vTexturePoints);
 	}
-	public static void buildStaticLine(ArrayList<LineData> polygonData, String str,ArrayList<Point3D> vTexturePoints) {
+	public static void buildStaticLine(List<LineData> polygonData, String str,ArrayList<Point3D> vTexturePoints) {
 
 
 

@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 import javax.imageio.ImageIO;
@@ -2181,7 +2182,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 	@Override
-	public void buildPoint(ArrayList<Point3D> points, String str) {
+	public void buildPoint(List<Point3D> points, String str) {
 
 
 

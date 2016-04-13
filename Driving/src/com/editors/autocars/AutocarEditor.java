@@ -1310,7 +1310,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 	}
 	
 	@Override
-	public void buildPoint(ArrayList<Point3D> points, String str) {
+	public void buildPoint(List<Point3D> points, String str) {
 
 
 
