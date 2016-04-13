@@ -258,13 +258,6 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 
 		r+=30;
 
-		/*joinPoints=new JButton(header+"<u>J</u>oin sel points"+footer);
-		joinPoints.addActionListener(this);
-		joinPoints.addKeyListener(this);
-		joinPoints.setFocusable(false);
-		joinPoints.setBounds(5,r,150,20);
-		right.add(joinPoints);*/
-
 		startBuildPolygon=new JButton(header+"Start polygo<u>n</u> <br/> points sequence"+footer);
 		startBuildPolygon.addActionListener(this);
 		startBuildPolygon.addKeyListener(this);
@@ -549,11 +542,6 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 
 	}
 
-	@Override
-	public void displayAll() {
- 
-		
-	}
 
 
 	public Area clipPolygonToArea2D(Polygon p_in,Area area_out){
@@ -1291,27 +1279,7 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 			 
 			invertSelectedLine(); 
 		}
-		/*else if(code==KeyEvent.VK_1 )
-		{	
-			 
-			oe.set3DView(); 
-		}
-		else if(code==KeyEvent.VK_2 )
-		{	
-			 
-			oe.setTopView(); 
-		}
-		else if(code==KeyEvent.VK_3 )
-		{	
-			 
-			oe.setLeftView(); 
-		}
-		else if(code==KeyEvent.VK_4)
-		{	
-			 
-			oe.setFrontView(); 
-		}*/
-
+		
 	}
 
 	private void startBuildPolygon() {

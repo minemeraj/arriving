@@ -53,6 +53,11 @@ public class SPNode extends Point4D implements TreeNode,Cloneable{
 		circle=EditorData.getCircle(x,y,z+25);	
 		
 	}
+	
+	public void emptyChildren() {
+		
+		children=new ArrayList<SPNode>();
+	}
 
 	public Point3D getTangent() {
 		return tangent;

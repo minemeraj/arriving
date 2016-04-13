@@ -1724,6 +1724,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			SPNode root = spline.getRoot();
 			int sz=root.getChildCount();
 			
+			SPNode cloneRoot=root.clone();
+			cloneRoot.emptyChildren();
+			newSpline.addSPNode(cloneRoot);
+			
 			for (int j = 0; j < sz; j++) {
 				
 				SPNode node = (SPNode) root.getChildAt(j);

@@ -1,5 +1,7 @@
 Code cleaning continued using SonarQube, Unnecessary Code Detector, FindBugs Eclipse Plugins.
 
+Fixed bug in Road Editor when deleting SPLine nodes.
+
 Fixed sound bug on reset.
 
 ----- 26/03/2016 CarDriving 9.0.2
