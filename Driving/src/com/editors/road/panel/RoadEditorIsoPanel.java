@@ -1279,6 +1279,8 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	@Override
 	public void displayStartPosition(ZBuffer landscapeZbuffer, Point3D startPosition) {
 		
+		if(startPosition==null)
+			return;
 
 		PolygonMesh ring = EditorData.getRing(startPosition.getX(),startPosition.getY(),25,40,50);	
 		
