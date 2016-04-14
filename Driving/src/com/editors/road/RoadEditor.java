@@ -3114,18 +3114,21 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		prepareUndoSpline();
 		
-		for (int i = -1; i < splines.size(); i++) {
+		for (int i = 0; i < splines.size(); i++) {
 			SPLine sp = (SPLine) splines.get(i);
 			
-			SPNode newRoot=new SPNode();
 			
 			SPNode root = sp.getRoot();
+			SPNode cloneRoot=root.clone();
+			cloneRoot.emptyChildren();
+			
 			int sz=root.getChildCount();
 			
-			for (int k = 0; k < sz; k++) {
+			for (int k = -1; k < sz; k++) {
 				
 				SPNode node = (SPNode) root.getChildAt(k);
-				newRoot.addChildren(node);
+				if(k>=0)
+					cloneRoot.addChildren(node);
 
 				if(node.isSelected()){
 					
@@ -3149,12 +3152,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					
 					SPNode intermediateNode=new SPNode((int)x,(int)y,(int)z,"FFFFFF",node.getIndex());
 					
-					newRoot.addChildren(intermediateNode);
+					cloneRoot.addChildren(intermediateNode);
 					
 				}
 			
 			}
-			 sp.root=newRoot;
+			 sp.root=cloneRoot;
 
 			
 		}
