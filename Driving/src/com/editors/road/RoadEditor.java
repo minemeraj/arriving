@@ -1426,8 +1426,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			}	 
 
 			dro.setRotation_angle(rotation_angle.getvalue());
-			
-			//dro.setSelected(false);
+			setObjectMesh(dro);
+
 		}
 
 		cleanObjects();
