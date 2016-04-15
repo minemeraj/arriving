@@ -709,7 +709,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				double yi=((1-l)*pstart.p_y+l*pend.p_y);
 				double zi=((1-l)*pstart.p_z+l*pend.p_z);
 			
-				if(!zb.isToUpdate(yi,zi,tot,level,p3d.hashCode()) ){
+				if(!zb.isToUpdate(yi,zi,tot,level,hashCode) ){
 					
 					continue;
 				}	
