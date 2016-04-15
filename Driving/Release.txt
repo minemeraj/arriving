@@ -2,7 +2,10 @@ Code cleaning continued using SonarQube, Unnecessary Code Detector, FindBugs Ecl
 
 Fixed bug in Road Editor for "Delete selection" for a SPNode, and "Insert Node After"
 
+Reverting back to old SPLine structure.
+
 Fixed sound bug on reset.
+
 
 ----- 26/03/2016 CarDriving 9.0.2
 

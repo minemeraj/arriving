@@ -84,7 +84,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 	
 	
 	int WIDTH = 820;
-	int HEIGHT = 880;
+	int HEIGHT = 650;
 
 	int LEFT_BORDER = 180;
 	int RIGHT_BORDER = 200;

@@ -346,18 +346,20 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 	
 
 
-	private String decomposeSPLine(SPLine sp) {
+	private String decomposeSPLine(SPLine spline) {
 		
 		String str="<spline>\n";
 
-		SPNode root = sp.getRoot();
-		int sz=root.getChildCount();
+		ArrayList<SPNode> nodes = spline.getNodes();
+		if(nodes==null)
+			return "";
+		int sz=nodes.size();
 		
-		for(int i=-1;i<sz;i++){
+		for(int i=0;i<sz;i++){
 			
-			if(i>-1)
+			if(i>0)
 				str+="\n";
-			Point4D p0=(Point4D) root.getChildAt(i);
+			Point4D p0=(Point4D) nodes.get(i);
 			str+="v=T"+p0.getIndex()+" "+p0.getX()+" "+p0.getY()+" "+p0.getZ();
 		}
 		str+="\n</spline>";

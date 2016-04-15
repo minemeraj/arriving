@@ -7,7 +7,7 @@ import com.main.Road;
 
 public class SPLine implements Cloneable{
 	
-	public SPNode root=null;
+	public ArrayList<SPNode> nodes=null;
 	public ArrayList<ArrayList<Rib>> ribs=null;
 	private ArrayList<Point3D> vTexturePoints=null;
 	
@@ -24,12 +24,13 @@ public class SPLine implements Cloneable{
 	
 	public void addSPNode(SPNode nextNode){
 
-		if(root==null){
-			root=nextNode;
+		if(nodes==null){
+			nodes=new ArrayList<SPNode>();
+			nodes.add(nextNode);
 			return;
 		}
 		else
-			root.addChildren(nextNode);
+			nodes.add(nextNode);
 		
         calculateRibs();
 
@@ -39,23 +40,23 @@ public class SPLine implements Cloneable{
 		
 		ribs=new ArrayList<ArrayList<Rib>>();
 		
-		calculateTangents(root);
+		calculateTangents(nodes);
 		
-		calculateRibs(root);
+		calculateRibs(nodes);
 	}
 
-	private void calculateRibs(SPNode root) {
+	private void calculateRibs(ArrayList<SPNode> nodes) {
 	
 		       
 		ArrayList<Rib> nodeRibs=new ArrayList<Rib>();
 		ribs.add(nodeRibs);
 
-		int sz=root.getChildCount();
+		int sz=nodes.size();
 		
-		for (int i = -1; i < sz-1; i++) {
+		for (int i = 0; i < sz-1; i++) {
 
-			SPNode previousNode = (SPNode) root.getChildAt(i);
-			SPNode nextNode = (SPNode) root.getChildAt(i+1);
+			SPNode previousNode = (SPNode) nodes.get(i);
+			SPNode nextNode = (SPNode) nodes.get(i+1);
 
 			double prevX=previousNode.x;
 			double prevY=previousNode.y;
@@ -142,22 +143,19 @@ public class SPLine implements Cloneable{
 				   rib.getIndex()==Road.ROAD_INDEX1 )
 						rib.translate(0,0,-dz);
 			}
-
-			if(nextNode.getChildCount()>0)
-				calculateRibs(nextNode);
 			
 		}
 
 	}
 
-	private void calculateTangents(SPNode root) {
+	private void calculateTangents(ArrayList<SPNode> nodes) {
 		
-		int sz=root.getChildCount();
+		int sz=nodes.size();
 		
-		for (int i = -1; i < sz-1; i++) {
+		for (int i = 0; i < sz-1; i++) {
 			
-			SPNode previousNode = (SPNode) root.getChildAt(i);
-			SPNode nextNode = (SPNode) root.getChildAt(i+1);
+			SPNode previousNode = (SPNode) nodes.get(i);
+			SPNode nextNode = (SPNode) nodes.get(i+1);
 
 			double prevX=previousNode.x;
 			double prevY=previousNode.y;
@@ -176,8 +174,6 @@ public class SPLine implements Cloneable{
 			NextTangent=NextTangent.calculateVersor();		
 			nextNode.setTangent(NextTangent);
 
-			if(nextNode.getChildCount()>0)
-				calculateTangents(nextNode);
 		}
 		
 	}
@@ -298,7 +294,13 @@ public class SPLine implements Cloneable{
 		
 		SPLine line=new SPLine(vTexturePoints);
 		
-		line.setRoot(root.clone());
+		for (int i = 0; i < nodes.size(); i++) {
+
+			SPNode node = (SPNode) nodes.get(i);
+			line.addSPNode(node);
+		}
+		
+		
 		line.calculateRibs();
 		return  line;
 	}
@@ -312,13 +314,6 @@ public class SPLine implements Cloneable{
 		this.meshes3D = meshes3d;
 	}
 
-	public SPNode getRoot() {
-		return root;
-	}
-
-	public void setRoot(SPNode root) {
-		this.root = root;
-	}
 
 	public int getLevel() {
 		return level;
@@ -326,6 +321,14 @@ public class SPLine implements Cloneable{
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	public ArrayList<SPNode> getNodes() {
+		return nodes;
+	}
+
+	public void setNodes(ArrayList<SPNode> nodes) {
+		this.nodes = nodes;
 	}
 
 
