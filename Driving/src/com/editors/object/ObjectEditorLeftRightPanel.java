@@ -189,6 +189,9 @@ class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 	private void displayPoints(Graphics2D bufGraphics) {
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
+		
+		if(mesh==null || mesh.points==null)
+			return;
 
 		for(int i=0;i<mesh.points.length;i++){
 

@@ -137,6 +137,7 @@ class ObjectEditor extends Editor implements ActionListener{
 		centerTop.setBounds(0,0,WIDTH+RIGHT_BORDER,HEIGHT+BOTTOM_BORDER);
 		centerTop.setTransferHandler(new FileTransferhandler());
 		
+		
 		centerLeft=new ObjectEditorLeftRightPanel(this);
 		centerLeft.setBackground(BACKGROUND_COLOR);
 		centerLeft.setBounds(0,0,WIDTH+RIGHT_BORDER,HEIGHT+BOTTOM_BORDER);
@@ -873,6 +874,7 @@ class ObjectEditor extends Editor implements ActionListener{
 
 	
 	private class FileTransferhandler extends TransferHandler{
+		
 		
 		@Override
 		public boolean canImport(JComponent comp, DataFlavor[] transferFlavors) {
