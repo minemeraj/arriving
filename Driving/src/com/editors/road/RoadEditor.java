@@ -3070,7 +3070,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		SPNode baseNode=null;
 		
-		for (int i = -1; i < splines.size(); i++) {
+		for (int i =0; i < splines.size(); i++) {
 			SPLine spline = (SPLine) splines.get(i);
 			
 			ArrayList<SPNode> nodes = spline.getNodes();
@@ -3120,7 +3120,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			ArrayList<SPNode> newNodes=new ArrayList<SPNode>();
 			
-			for (int k = -1; k < sz; k++) {
+			for (int k = 0; k < sz; k++) {
 				
 				SPNode node = (SPNode) nodes.get(k);
 			
