@@ -97,27 +97,29 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		//mark row angles
 		
 		int size=mesh.points.length;
-		for(int j=0;j<size;j++){
-
-
-		    Point4D p=(Point4D) mesh.points[j];
-
-				int xo=convertX(p);
-				int yo=convertY(p);
-				
-				int rgbColor=Color.white.getRGB();
-
-				if(p.isSelected()){
-					rgbColor=Color.RED.getRGB();
-
-				}	
+		//draw points until they're visible
+		if(dx<32){
+			for(int j=0;j<size;j++){
 	
 	
-			    fillOval(landscapeZbuffer,xo,yo,2,2,rgbColor);
-
-			}
+			    Point4D p=(Point4D) mesh.points[j];
+	
+					int xo=convertX(p);
+					int yo=convertY(p);
+					
+					int rgbColor=Color.white.getRGB();
+	
+					if(p.isSelected()){
+						rgbColor=Color.RED.getRGB();
+	
+					}	
 		
 		
+				    fillOval(landscapeZbuffer,xo,yo,2,2,rgbColor);
+	
+				}
+		
+		}
 		drawCurrentRect(landscapeZbuffer);
 	}
 	
