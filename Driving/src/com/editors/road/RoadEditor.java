@@ -1585,6 +1585,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 						
 						
 					ld.setTexture_index(Integer.parseInt(vp.getId()));
+					ld.setFilledWithWater(fillWithWater[ACTIVE_PANEL].isSelected());
 				
 		    	}
 		      	
