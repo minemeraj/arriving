@@ -1194,14 +1194,23 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	}
 	
 	public void zoom(int i) {
+		
+		double alfa=1.0;
+		
 		if(i<0){
-			deltax=deltax*2;
-			deltay=deltay*2;
+			
+			alfa=2.0;
+			
+			deltax=deltax*alfa;
+			deltay=deltay*alfa;
 			
 		}	
 		else if(i>0){
-			deltax=deltax/2;
-			deltay=deltay/2;
+			
+			alfa=0.5;
+			
+			deltax=deltax*alfa;
+			deltay=deltay*alfa;
 			
 		}
 	}
