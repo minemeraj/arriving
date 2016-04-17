@@ -6,6 +6,8 @@ Reverting back to old SPLine structure.
 
 New landscape_indy.
 
+Revision of the landscape_highway.
+
 Fixed sound bug on reset.
 
 
