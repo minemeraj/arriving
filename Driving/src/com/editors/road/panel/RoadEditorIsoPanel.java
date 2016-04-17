@@ -1213,6 +1213,9 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			deltay=deltay*alfa;
 			
 		}
+		
+		x0+=(WIDTH*0.5-x0)*(1.0-1.0/alfa);
+		y0+=(HEIGHT*0.5-y0)*(1.0-1.0/alfa);
 	}
 	
 	public void mouseDown() {
