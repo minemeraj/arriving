@@ -2520,6 +2520,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			//create a SquareMesh
 			SquareMesh npm=new SquareMesh(numx,numy,pm.getDx(),pm.getDy(),pm.getX0(),pm.getY0());
+			npm.setLevel(Road.GROUND_LEVEL);
 			
 			npm.points=new Point4D[numx*numy];
 			
@@ -2573,6 +2574,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					ld.addIndex(pos2,2,pt2.x,pt2.y);
 					ld.addIndex(pos3,3,pt3.x,pt3.y);
 					
+					
 					npm.polygonData.add(ld);
 					
 					if(i<pm.getNumx()-1 && j<pm.getNumy()-1){
@@ -2616,6 +2618,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			RoadEditorGridManager roadEGM=(RoadEditorGridManager) regm.getReturnValue();
 			
 			PolygonMesh mesh=meshes[TERRAIN_INDEX];
+			mesh.setLevel(Road.GROUND_LEVEL);
 
 			
 			double z_value=0;
