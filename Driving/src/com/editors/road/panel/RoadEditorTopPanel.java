@@ -98,7 +98,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		
 		int size=mesh.points.length;
 		//draw points until they're visible
-		if(dx<32){
+		if(dx<16){
 			for(int j=0;j<size;j++){
 	
 	

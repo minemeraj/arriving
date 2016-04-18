@@ -9,6 +9,12 @@ New landscape_indy.
 
 Revision of the landscape_highway.
 
+Added farm field textures:
+ /lib/world_texture_4.jpg
+ /lib/world_texture_5.jpg
+ /lib/world_texture_6.jpg
+ /lib/world_texture_7.jpg
+
 Fixed sound bug on reset.
 
 
