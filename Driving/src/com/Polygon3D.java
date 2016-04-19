@@ -299,15 +299,13 @@ public class Polygon3D  extends Polygon implements Cloneable{
 	}
 	
 	
-	public Area clipPolygonToArea2D(Area area_out){
+	public Area clipPolygonToArea2D(Area visibleField){
 
 
 		Area area_in = new Area(this);
+		area_in.intersect(visibleField);
 
-		Area new_area_out = (Area) area_out.clone();
-		new_area_out.intersect(area_in);
-
-		return new_area_out;
+		return area_in;
 
 	}
 
