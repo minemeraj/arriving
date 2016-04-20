@@ -1,6 +1,10 @@
 Code cleaning continued using SonarQube, Unnecessary Code Detector, FindBugs Eclipse Plugins.
 
-Fixed bug in Road Editor for "Delete selection" for a SPNode, and "Insert Node After".
+A slightly faster version.
+
+Fixed bug in Road Editor for "Delete selection" for a SPNode, and "Insert Node After". Fixed
+other minor bugs in the RaodEditor.
+
 Fixed 3D Road Editor Panel bug when zooming in and out.
 
 Reverting back to old SPLine structure.
