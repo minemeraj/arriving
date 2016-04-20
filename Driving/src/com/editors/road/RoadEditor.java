@@ -907,6 +907,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		setSPNodeHeightValue=new DoubleTextField(7);
 		setSPNodeHeightValue.setBounds(110,r,120,20);
+		setSPNodeHeightValue.addKeyListener(this);
 		splines_panel.add(setSPNodeHeightValue);
 		
 		return splines_panel;
@@ -3175,7 +3176,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		double height=setSPNodeHeightValue.getvalue();
 		
-		for (int i = -1; i < splines.size(); i++) {
+		for (int i = 0; i < splines.size(); i++) {
 			SPLine spline = (SPLine) splines.get(i);
 		
 			ArrayList<SPNode> nodes = spline.getNodes();
@@ -3190,7 +3191,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				if(node.isSelected()){
 					
 					node.z=height;
-					
+					node.update();
 				}
 			
 			}
@@ -3365,6 +3366,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			if(vp.getId().equals(Integer.toString(spnode.getIndex()))) 
 				chooseTexture[ACTIVE_PANEL].setSelectedItem(vp);
 		}
+		
+		setSPNodeHeightValue.setText(spnode.getZ());
 		
 	}
 
