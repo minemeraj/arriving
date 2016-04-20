@@ -299,9 +299,8 @@ public class Polygon3D  extends Polygon implements Cloneable{
 		return sb.toString();
 	}
 	
-	public static boolean isIntersect(Polygon3D p3d, Rectangle bounds) {
-		
-		Rectangle polBounds =p3d.getBounds();
+	public static boolean isIntersect(Polygon p_in, Rectangle bounds) {
+		Rectangle polBounds =p_in.getBounds();
 		
 		if(polBounds.getMaxY()>=bounds.getMinY() &&
 			polBounds.getMinY()<=bounds.getMaxY() &&
@@ -704,5 +703,7 @@ public class Polygon3D  extends Polygon implements Cloneable{
 	public void setIsFilledWithWater(boolean hasWater) {
 		this.isFilledWithWater = hasWater;
 	}
+
+
 
 }

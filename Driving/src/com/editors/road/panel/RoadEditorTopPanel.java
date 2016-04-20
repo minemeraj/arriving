@@ -397,9 +397,8 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		}
 
 		Polygon p_in=new Polygon(cx,cy,ld.size());
-		Area partialArea = clipPolygonToArea2D( p_in,totArea);
-
-		if(partialArea.isEmpty())
+			
+		if(!Polygon3D.isIntersect(p_in,totArea.getBounds()))
 			return;
 
 		Polygon3D p3d=new Polygon3D(size,cx,cy,cz);
@@ -904,11 +903,6 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 		Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
 		Area partialArea = clipPolygonToArea2D( p_in,totArea);
-
-		if(partialArea.isEmpty()){
-			
-			return;
-		}	
 
 		Polygon pTot=Polygon3D.fromAreaToPolygon2D(partialArea);
 		//if(cy[0]<0 || cy[0]>HEIGHT || cx[0]<0 || cx[0]>WIDTH) return;
