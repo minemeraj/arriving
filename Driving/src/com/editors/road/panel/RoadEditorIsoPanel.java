@@ -1189,8 +1189,8 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	@Override
 	public void translate(int i, int j) {
 		
-		POSX+=i*2*deltax;
-		POSY-=j*2*deltax;
+		POSX+=i*4*deltax;
+		POSY-=j*4*deltax;
 	}
 	
 	public void zoom(int i) {
