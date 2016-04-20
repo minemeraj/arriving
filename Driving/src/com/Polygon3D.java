@@ -1,5 +1,6 @@
 package com;
 import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.awt.geom.PathIterator;
 import java.util.ArrayList;
@@ -298,15 +299,18 @@ public class Polygon3D  extends Polygon implements Cloneable{
 		return sb.toString();
 	}
 	
-	
-	public Area clipPolygonToArea2D(Area visibleField){
-
-
-		Area area_in = new Area(this);
-		area_in.intersect(visibleField);
-
-		return area_in;
-
+	public static boolean isIntersect(Polygon3D p3d, Rectangle bounds) {
+		
+		Rectangle polBounds =p3d.getBounds();
+		
+		if(polBounds.getMaxY()>=bounds.getMinY() &&
+			polBounds.getMinY()<=bounds.getMaxY() &&
+			polBounds.getMaxX()>=bounds.getMinX() &&
+			polBounds.getMinX()<=bounds.getMaxX() 
+		)
+			return true;
+		
+		return false;
 	}
 
 	public static Polygon3D clipPolygon3DInY(Polygon3D  p_old,int y){

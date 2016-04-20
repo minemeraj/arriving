@@ -578,7 +578,8 @@ public class Road extends Shader{
 			Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel());
 
 
-			if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
+			//if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
+			if(Polygon3D.isIntersect(p3D,totalVisibleField.getBounds())){
 
 				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.worldTextures[p3D.getIndex()],roadZbuffer,hashCode);
 
@@ -598,6 +599,9 @@ public class Road extends Shader{
 		buildScreen(buf); 
 	}
 	
+
+
+
 
 	private void calculateAltitude() {
 
@@ -728,7 +732,7 @@ public class Road extends Shader{
 					
 					Polygon3D p3DBase=buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel());
 					
-					if(!p3DBase.clipPolygonToArea2D(totalVisibleField).isEmpty()){
+					if(Polygon3D.isIntersect(p3DBase,totalVisibleField.getBounds())){
 						visible=true;
 						break;
 						
