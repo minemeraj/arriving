@@ -1056,13 +1056,17 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				    	if(isToselect){
 				    		
 				    		spnode.setSelected(true);
+				    		
+				    		if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected())
+							   	spnode.setSelected(false);
+				    		
 				    		break;
 				    	}
 				    	
 				    }else{
 				    	
-				    	if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected())
-						   	spnode.setSelected(false);
+				    	editor.setSPLineData(spline,spnode);
+				    
 				    }	
 				}
 				
