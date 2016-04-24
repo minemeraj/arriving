@@ -3149,7 +3149,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 						
 					}else{
 						
-						nextNode= (SPNode)  nodes.get(0);
+						//avoid problem when updating the last node!
+						break;
+						
 					}
 					
 					
