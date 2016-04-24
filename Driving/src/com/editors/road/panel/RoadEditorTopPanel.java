@@ -1161,7 +1161,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		if(mesh==null)
     		return ret;
 	
-	
+		Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
 		
 		//select polygon
 		int sizel=mesh.polygonData.size();
@@ -1172,7 +1172,9 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			LineData ld=(LineData) mesh.polygonData.get(j);
 		    Polygon3D pol=buildPolygon(ld,mesh.points,false);
 		    
-		    if(pol.contains(x,y)){
+		    boolean isVisible = Polygon3D.isIntersect(pol,totArea.getBounds());
+		    
+		    if(isVisible && pol.contains(x,y)){
 		    	
 		    	if(isToselect){
 		    	
