@@ -2351,10 +2351,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		setACTIVE_PANEL(TERRAIN_INDEX);
 		loadPointsFromFile(file,TERRAIN_INDEX,forceReading);	
-		setACTIVE_PANEL(1);
-		//loadPointsFromFile(file);
 		loadSPLinesFromFile(file);
-		setACTIVE_PANEL(0);
 		
 		drawObjects=loadObjectsFromFile(file,objectMeshes); 
 

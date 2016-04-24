@@ -2080,17 +2080,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			try{			
 				PrintWriter pr = new PrintWriter(new FileOutputStream(file));
 				
-				setACTIVE_PANEL(0);
+				setACTIVE_PANEL(TERRAIN_INDEX);
 				saveLines(pr);
-				setACTIVE_PANEL(1);
-				//saveLines(pr);
 				saveSPLines(pr);
-				
-				//setACTIVE_PANEL(right.getSelectedIndex());
 				
 				saveObjects(pr);
 				
 				saveStartPosition(pr);
+
 				
 				pr.close();
 			
@@ -2120,15 +2117,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			currentFile=fc.getSelectedFile();
 			File file = fc.getSelectedFile();
 			
-			setACTIVE_PANEL(0);
+			setACTIVE_PANEL(TERRAIN_INDEX);
 			loadPointsFromFile(file,ACTIVE_PANEL,forceReading);	
-			setACTIVE_PANEL(1);
-			//loadPointsFromFile(file);
 			loadSPLinesFromFile(file);
-			setACTIVE_PANEL(0);
-			
-			//Editor.levelSPLinesTerrain(meshes[TERRAIN_INDEX],splines);
-			//right.setSelectedIndex(0);
 			
 			drawObjects=loadObjectsFromFile(file,EditorData.objectMeshes); 
             setStartPosition(loadStartPosition(file));
