@@ -60,7 +60,9 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			Graphics2D graph) {
 		
 		displayTerrain(landscapeZbuffer,meshes);
-		displaySPLines(landscapeZbuffer,splines);
+		if(!isHide_splines()){
+			displaySPLines(landscapeZbuffer,splines);
+		}
 		//displayRoad(landscapeZbuffer,meshes,1);
 		if(!isHide_objects()){
 			

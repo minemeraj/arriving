@@ -201,6 +201,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JPanel left_tool_options;
 	
 	private JCheckBox checkHideObjects;
+	private JCheckBox checkHideSplines;
 	
 	private final String OBJECT_MODE="OBJECT_MODE";
 	private final String SPLINES_MODE="SPLINES_MODE"; 
@@ -555,6 +556,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		RoadEditorPanel ep=getCenter();
 
 		ep.setHide_objects(checkHideObjects.isSelected());
+		ep.setHide_splines(checkHideSplines.isSelected());
 		draw(ep,graph);
 		
 		buildScreen(buf); 
@@ -575,7 +577,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		graph.setColor(Color.BLACK);
 		graph.fillRect(0,0,WIDTH,HEIGHT);
 	
-		//editorPanel.setHide_objects(checkHideObjects.isSelected());
+
 		editorPanel.drawRoad(meshes,drawObjects,splines,startPosition,landscapeZbuffer,graph);
 	
 
@@ -757,7 +759,20 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			}
 		});
 		
+		checkHideSplines=new JCheckBox(header+"Hide splines"+footer);
+		checkHideSplines.setBounds(110,r,100,20);
+		checkHideSplines.addKeyListener(this);
+		checkHideSplines.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				draw();
+			}
+		});
+		
 		left_common_options.add(checkHideObjects);
+		left_common_options.add(checkHideSplines);
 		
 		////OBJECTS
 		        
@@ -2082,7 +2097,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				
 				setACTIVE_PANEL(TERRAIN_INDEX);
 				saveLines(pr);
+				setACTIVE_PANEL(ROAD_INDEX);
 				saveSPLines(pr);
+				setACTIVE_PANEL(TERRAIN_INDEX);
 				
 				saveObjects(pr);
 				

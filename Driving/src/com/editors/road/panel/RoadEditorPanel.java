@@ -30,6 +30,7 @@ public abstract class RoadEditorPanel extends JPanel {
 	protected Color selectionColor=null;
 	
 	private boolean hide_objects=false;
+	private boolean hide_splines=false;
 	
 	protected int POSX=0;
 	protected int POSY=0;
@@ -175,6 +176,14 @@ public abstract class RoadEditorPanel extends JPanel {
 	public void setHide_objects(boolean hide_objects) {
 		this.hide_objects = hide_objects;
 	}
+	
+	public boolean isHide_splines() {
+		return hide_splines;
+	}
+
+	public void setHide_splines(boolean hide_splines) {
+		this.hide_splines = hide_splines;
+	}
 
 	public abstract ArrayList<LineData> getClickedPolygons(int x, int y, PolygonMesh mesh);
 
@@ -188,4 +197,6 @@ public abstract class RoadEditorPanel extends JPanel {
 	public abstract void displayTerrain(ZBuffer landscapeZbuffer,PolygonMesh[] meshes);
 	
 	public abstract void displayStartPosition(ZBuffer landscapeZbuffer,Point3D startPosition);
+
+
 }

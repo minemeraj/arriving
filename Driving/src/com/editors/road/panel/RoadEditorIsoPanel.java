@@ -64,7 +64,8 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		displayTerrain(landscapeZbuffer,meshes);
 		if(!isHide_objects())
 			displayObjects(drawObjects,null,landscapeZbuffer);
-		displaySPLines(landscapeZbuffer,splines);
+		if(!isHide_splines())
+			displaySPLines(landscapeZbuffer,splines);
 		
 		displayStartPosition(landscapeZbuffer, startPosition);
 	}
