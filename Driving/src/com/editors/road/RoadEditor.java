@@ -2951,9 +2951,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void showAltimetry() {
 		
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		PolygonMesh mesh=meshes[TERRAIN_INDEX];
 		
-		if(mesh.points.length==0)
+		if(mesh==null || mesh.points.length==0)
 			return;
 		RoadAltimetryPanel altimetry=new RoadAltimetryPanel(this);
 	}

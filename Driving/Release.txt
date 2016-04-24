@@ -2,6 +2,7 @@
 New landscape_smalltown.
 
 Bugs fixed in the RoadEditor.
+Fixing the AdvanceAltimetry.
 
 ----- 23/04/2016 CarDriving 9.0.3
 

@@ -853,7 +853,7 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent arg0) {
 		int pix=arg0.getUnitsToScroll();
-		if(pix>0) up();
+		if(pix<0) up();
 		else down();
 
 	}
