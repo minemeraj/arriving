@@ -698,7 +698,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		left_tools=new JPanel(null);
 		//left_tools.setBorder(BorderFactory.createTitledBorder("Choose tool"));
-		left_tools.setBounds(5,0,150,upper_left_height);
+		left_tools.setBounds(5,0,200,upper_left_height);
 		left.add(left_tools);
 				
 		left_common_options=new JPanel(null);
@@ -710,29 +710,29 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		left.add(left_tool_options);
 		
 		
-		toogle_terrain= new JToggleButton("Terrain");		
+		toogle_terrain= new JToggleButton("TER");		
 		toogle_terrain.setActionCommand(TERRAIN_MODE);
 		toogle_terrain.setSelected(true);
 		toogle_terrain.addActionListener(this);
 		toogle_terrain.addKeyListener(this);
-		toogle_terrain.setBounds(10,r,100,20);
+		toogle_terrain.setToolTipText("Terrain");
+		toogle_terrain.setBounds(10,r,60,20);
 		
 		r+=30;
-	
 		
-		toogle_splines = new JToggleButton("Splines");
+		toogle_splines = new JToggleButton("SPL");
 		toogle_splines.setActionCommand(SPLINES_MODE);
 		toogle_splines.addActionListener(this);
 		toogle_splines.addKeyListener(this);
-		toogle_splines.setBounds(10,r,100,20);
-		
-		r+=30;
+		toogle_splines.setToolTipText("Splines");
+		toogle_splines.setBounds(10,r,60,20);
 	
-		toogle_objects = new JToggleButton("Objects");
+		toogle_objects = new JToggleButton("OBJ");
 		toogle_objects.setActionCommand(OBJECT_MODE);
 		toogle_objects.addActionListener(this);
 		toogle_objects.addKeyListener(this);
-		toogle_objects.setBounds(10,r,100,20);
+		toogle_objects.setToolTipText("Ojbects");
+		toogle_objects.setBounds(80,r,60,20);
 		
 		
 		
