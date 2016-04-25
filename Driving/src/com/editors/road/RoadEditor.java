@@ -3356,13 +3356,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				p.setSelected(false);
 					
 			}	
-			int sizel=mesh.polygonData.size();
-			for(int j=0;j<sizel;j++){
-				
-				
-				LineData ld=(LineData) mesh.polygonData.get(j);
-			    ld.setSelected(false);	
-			}
 			
 			if(ACTIVE_PANEL==TERRAIN_INDEX)
 				coordinatesx[ACTIVE_PANEL].requestFocus();
@@ -3602,7 +3595,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		if(found){
 			deselectAllObjects();
-		    deselectAllLines();  
+			deselectAllPoints();  
 		}
 	}
 

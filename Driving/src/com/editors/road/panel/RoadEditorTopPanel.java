@@ -1021,7 +1021,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			}
 
 	}
-	
+	@Override
 	public boolean selectPointsWithRectangle(PolygonMesh mesh) {
 		
 	
@@ -1073,8 +1073,56 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		
 
 	}
-	
+	@Override
+	public boolean selectPolygonsWithRectangle(PolygonMesh mesh) {
+		
+		
+		if(mesh.points==null)
+			return false;
 
+		//select polygons from road
+		boolean found=false;
+		
+		
+		Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
+		
+
+		
+		//select polygon
+		int sizel=mesh.polygonData.size();
+
+		for(int j=0;j<sizel;j++){
+			
+			
+			LineData ld=(LineData) mesh.polygonData.get(j);
+		    Polygon3D pol=buildPolygon(ld,mesh.points,false);
+		    		    
+		    boolean isVisible = Polygon3D.isIntersect(pol,totArea.getBounds());
+		    
+		    boolean selected=false;	
+		    
+		    if(isVisible && Polygon3D.isIntersect(pol, editor.currentRect.getBounds()) ){
+		    	
+		    	ld.setSelected(true);
+		    	found=true;
+		    	selected=true;
+		    }
+		    
+			if(!selected && !editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected())
+				ld.setSelected(false);
+		 
+		    
+		}   
+		
+
+				
+		return found;
+		
+
+		
+
+	}
+	
 
 	public boolean selectSPNodes(int x, int y, ArrayList<SPLine> splines) {
 		
