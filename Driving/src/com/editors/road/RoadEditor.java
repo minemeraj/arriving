@@ -523,6 +523,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		if(ACTIVE_PANEL==TERRAIN_INDEX){
 			deselectAllPoints();
+			deselectAllLines();
 		}	
 		else if(ACTIVE_PANEL==ROAD_INDEX)
 			deselectAllSPNodes();
@@ -3745,6 +3746,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public void mouseReleased(MouseEvent arg0) {
 		
 		if(ACTIVE_PANEL==1)
+			return;
+		
+		int buttonNum=arg0.getButton();
+		if(buttonNum==MouseEvent.BUTTON3)
 			return;
 		
 		isDrawCurrentRect=false;
