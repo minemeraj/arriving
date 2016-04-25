@@ -109,7 +109,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public JCheckBox[] checkMultiplePointsSelection;
 	private JButton[] changePolygon;
 	private JButton[] deleteSelection;
-	private JCheckBox[] checkMultiplePolygonsSelection;
+	public JCheckBox[] checkMultiplePolygonsSelection;
 	private JButton[] polygonDetail;
 	public JComboBox[] chooseTexture;
 	private JButton[] choosePanelTexture;

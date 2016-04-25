@@ -1108,7 +1108,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		    	selected=true;
 		    }
 		    
-			if(!selected && !editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected())
+			if(!selected && !editor.checkMultiplePolygonsSelection[editor.getACTIVE_PANEL()].isSelected())
 				ld.setSelected(false);
 		 
 		    
@@ -1246,7 +1246,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		    	ret.add(ld);
 		    	
 		    }
-			else if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected())
+			else if(!editor.checkMultiplePolygonsSelection[editor.getACTIVE_PANEL()].isSelected())
 				ld.setSelected(false);
 			
 		}
