@@ -159,6 +159,10 @@ public abstract class RoadEditorPanel extends JPanel {
 		return false;
 	}
 	
+	public boolean selectPolygonsWithRectangle(PolygonMesh mesh) {
+		return false;
+	}
+	
 
 	public abstract boolean selectPolygons(int x, int y,PolygonMesh mesh);
 	
@@ -216,6 +220,8 @@ public abstract class RoadEditorPanel extends JPanel {
 	public abstract void displayTerrain(ZBuffer landscapeZbuffer,PolygonMesh[] meshes);
 	
 	public abstract void displayStartPosition(ZBuffer landscapeZbuffer,Point3D startPosition);
+
+
 
 
 }

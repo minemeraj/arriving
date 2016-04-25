@@ -109,12 +109,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public JCheckBox[] checkMultiplePointsSelection;
 	private JButton[] changePolygon;
 	private JButton[] deleteSelection;
+	private JCheckBox[] checkMultiplePolygonsSelection;
 	private JButton[] polygonDetail;
 	public JComboBox[] chooseTexture;
 	private JButton[] choosePanelTexture;
 	private JButton[] chooseNextTexture;
 	private JButton[] choosePrevTexture;
-	private JButton[] deselectAll;
+	private JButton[] deselectAllTerrainPoints;
+	private JButton[] deselectAllTerrainPolygons;	
 	private JLabel[] textureLabel;
 	public JCheckBox[] fillWithWater;
 	
@@ -194,7 +196,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private String header="<html><body>";
 	private String footer="</body></html>";
 	private JToggleButton toogle_splines;
-	private JToggleButton toogle_terrain;
+	private JToggleButton toogle_terrain_points;
+	private JToggleButton toogle_terrain_polygons;
 	private JToggleButton toogle_objects;
 	private JPanel left_tools;
 	private JPanel left_common_options;
@@ -205,9 +208,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private final String OBJECT_MODE="OBJECT_MODE";
 	private final String SPLINES_MODE="SPLINES_MODE"; 
-	private final String TERRAIN_MODE="TERRAIN_MODE";
+	private final String TERRAIN_POINTS_MODE="TERRAIN_POINTS_MODE";
+	private final String TERRAIN_POLYGONS_MODE="TERRAIN_POLYGONS_MODE";
 	
-	private String mode=TERRAIN_MODE;
+	private String mode=TERRAIN_POINTS_MODE;
 	private JMenu jm_view;
 	private JMenuItem jmt_3d_view;
 	private JMenuItem jmt_top_view;
@@ -235,6 +239,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private IntegerTextField startX;
 	private IntegerTextField startY;
 	private JButton updateStartPosition;
+
+	
 	
 
 	public static void main(String[] args) {
@@ -343,7 +349,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		checkMultiplePointsSelection= new JCheckBox[numPanels];
 		mergeSelectedPoints=new JButton[numPanels];
-		changePolygon=new JButton[numPanels];	
+		checkMultiplePolygonsSelection= new JCheckBox[numPanels];
+		changePolygon=new JButton[numPanels];
 		deleteSelection=new JButton[numPanels];	
 		polygonDetail=new JButton[numPanels];	
 		
@@ -352,7 +359,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		chooseNextTexture=new JButton[numPanels];
 		choosePrevTexture=new JButton[numPanels];
 		
-		deselectAll=new JButton[numPanels];
+		deselectAllTerrainPoints=new JButton[numPanels];
+		deselectAllTerrainPolygons=new JButton[numPanels];
 		textureLabel=new JLabel[numPanels];
 		fillWithWater=new JCheckBox[numPanels];
 		
@@ -513,8 +521,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void deselectAll() {
 		
-		if(ACTIVE_PANEL==TERRAIN_INDEX)
+		if(ACTIVE_PANEL==TERRAIN_INDEX){
 			deselectAllPoints();
+		}	
 		else if(ACTIVE_PANEL==ROAD_INDEX)
 			deselectAllSPNodes();
 		draw();
@@ -710,13 +719,21 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		left.add(left_tool_options);
 		
 		
-		toogle_terrain= new JToggleButton("TER");		
-		toogle_terrain.setActionCommand(TERRAIN_MODE);
-		toogle_terrain.setSelected(true);
-		toogle_terrain.addActionListener(this);
-		toogle_terrain.addKeyListener(this);
-		toogle_terrain.setToolTipText("Terrain");
-		toogle_terrain.setBounds(10,r,60,20);
+		toogle_terrain_points= new JToggleButton("POI");		
+		toogle_terrain_points.setActionCommand(TERRAIN_POINTS_MODE);
+		toogle_terrain_points.setSelected(true);
+		toogle_terrain_points.addActionListener(this);
+		toogle_terrain_points.addKeyListener(this);
+		toogle_terrain_points.setToolTipText("Terrain points");
+		toogle_terrain_points.setBounds(10,r,60,20);
+		
+		toogle_terrain_polygons= new JToggleButton("PLG");		
+		toogle_terrain_polygons.setActionCommand(TERRAIN_POLYGONS_MODE);
+		toogle_terrain_polygons.setSelected(true);
+		toogle_terrain_polygons.addActionListener(this);
+		toogle_terrain_polygons.addKeyListener(this);
+		toogle_terrain_polygons.setToolTipText("Terrain polygons");
+		toogle_terrain_polygons.setBounds(80,r,60,20);
 		
 		r+=30;
 		
@@ -738,11 +755,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		ButtonGroup bgb=new ButtonGroup();
 		bgb.add(toogle_splines);
-		bgb.add(toogle_terrain);
+		bgb.add(toogle_terrain_points);
+		bgb.add(toogle_terrain_polygons);
 		bgb.add(toogle_objects);
-		
+				
+		left_tools.add(toogle_terrain_points);
+		left_tools.add(toogle_terrain_polygons);
 		left_tools.add(toogle_splines);
-		left_tools.add(toogle_terrain);
 		left_tools.add(toogle_objects);
 		
 		r=10;
@@ -776,9 +795,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		////OBJECTS
 		        
-        JPanel terrain_panel =  buildTerrainPanel(TERRAIN_INDEX);
-        //left.setBorder(objBorder);
-        left_tool_options.add(terrain_panel,TERRAIN_MODE);
+        JPanel terrain_points_panel =  buildTerrainPointsPanel(TERRAIN_INDEX);
+        left_tool_options.add(terrain_points_panel,TERRAIN_POINTS_MODE);
+        
+        JPanel terrain_polygons_panel =  buildTerrainPolygonsPanel(TERRAIN_INDEX);
+        left_tool_options.add(terrain_polygons_panel,TERRAIN_POLYGONS_MODE);
         
         JPanel splines_panel = buildSPLinesPanel();
        
@@ -786,7 +807,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         
         
         JPanel object_panel = buildObjectsPanel();
-        //left.setBorder(objBorder);
         left_tool_options.add(object_panel,OBJECT_MODE);
         
        
@@ -905,11 +925,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		r+=30;
 
-		deselectAll[index]=new JButton(header+"D<u>e</u>select all"+footer);
-		deselectAll[index].addActionListener(this);
-		deselectAll[index].setFocusable(false);
-		deselectAll[index].setBounds(5,r,150,20);
-		splines_panel.add(deselectAll[index]);
+		deselectAllTerrainPoints[index]=new JButton(header+"D<u>e</u>select all"+footer);
+		deselectAllTerrainPoints[index].addActionListener(this);
+		deselectAllTerrainPoints[index].setFocusable(false);
+		deselectAllTerrainPoints[index].setBounds(5,r,150,20);
+		splines_panel.add(deselectAllTerrainPoints[index]);
 
 		
 		r+=30;
@@ -1028,7 +1048,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		return object_panel;
 	}
 
-	private JPanel buildTerrainPanel(int index) {
+	private JPanel buildTerrainPointsPanel(int index) {
 
 		
 		JPanel panel=new JPanel();
@@ -1088,9 +1108,66 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		panel.add(checkCoordinatesz[index]);
 
 		r+=30;
+		
+		changeTerrainPoint=new JButton(header+"Change <u>P</u>oint"+footer);
+		changeTerrainPoint.addActionListener(this);
+		changeTerrainPoint.setFocusable(false);
+		changeTerrainPoint.setBounds(5,r,150,20);
+		panel.add(changeTerrainPoint);
 
+		r+=30;		
 
+		deselectAllTerrainPoints[index]=new JButton(header+"D<u>e</u>select all"+footer);
+		deselectAllTerrainPoints[index].addActionListener(this);
+		deselectAllTerrainPoints[index].setFocusable(false);
+		deselectAllTerrainPoints[index].setBounds(5,r,150,20);
+		panel.add(deselectAllTerrainPoints[index]);
+		
+		if(index==1){		
+		
+			r+=30;
+			
+			deleteSelection[index]=new JButton(header+"<u>D</u>elete selection"+footer);
+			deleteSelection[index].addActionListener(this);
+			deleteSelection[index].addKeyListener(this);
+			deleteSelection[index].setFocusable(false);
+			deleteSelection[index].setBounds(5,r,150,20);
+			panel.add(deleteSelection[index]);
+	
+			r+=30;
+			
+			mergeSelectedPoints[index]=new JButton(header+"<u>M</u>erge selected<br/>points"+footer);
+			mergeSelectedPoints[index].addActionListener(this);
+			mergeSelectedPoints[index].addKeyListener(this);
+			mergeSelectedPoints[index].setFocusable(false);
+			mergeSelectedPoints[index].setBounds(5,r,150,35);
+			panel.add(mergeSelectedPoints[index]);
 
+		}
+
+         return panel;
+
+	}
+
+	private JPanel buildTerrainPolygonsPanel(int index) {
+
+		
+		JPanel panel=new JPanel();
+
+		panel.setLayout(null);
+		
+		Border leftBorder=BorderFactory.createTitledBorder(panelsTitles[index]);
+		panel.setBorder(leftBorder);
+
+		int r=25;
+
+		checkMultiplePolygonsSelection[index]=new JCheckBox("Multiple selection");
+		checkMultiplePolygonsSelection[index].setBounds(30,r,150,20);
+		checkMultiplePolygonsSelection[index].addKeyListener(this);
+		panel.add(checkMultiplePolygonsSelection[index]);
+
+		r+=30;
+		
 		chooseTexture[index]=new JComboBox();
 		chooseTexture[index].addItem(new ValuePair("",""));
 		//chooseTexture.setBounds(35,r,50,20);
@@ -1131,15 +1208,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		panel.add(chooseNextTexture[index]);
 		
 		r+=30;
-
-		changeTerrainPoint=new JButton(header+"Change <u>P</u>oint"+footer);
-		changeTerrainPoint.addActionListener(this);
-		changeTerrainPoint.setFocusable(false);
-		changeTerrainPoint.setBounds(5,r,150,20);
-		panel.add(changeTerrainPoint);
-
-		r+=30;
-		
+	
 
 		changePolygon[index]=new JButton(header+"Change Pol<u>y</u>gon"+footer);
 		changePolygon[index].addActionListener(this);
@@ -1169,11 +1238,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		r+=30;
 
-		deselectAll[index]=new JButton(header+"D<u>e</u>select all"+footer);
-		deselectAll[index].addActionListener(this);
-		deselectAll[index].setFocusable(false);
-		deselectAll[index].setBounds(5,r,150,20);
-		panel.add(deselectAll[index]);
+		deselectAllTerrainPolygons[index]=new JButton(header+"D<u>e</u>select all"+footer);
+		deselectAllTerrainPolygons[index].addActionListener(this);
+		deselectAllTerrainPolygons[index].setFocusable(false);
+		deselectAllTerrainPolygons[index].setBounds(5,r,150,20);
+		panel.add(deselectAllTerrainPolygons[index]);
 		
 		if(index==1){		
 		
@@ -1201,7 +1270,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 
-	
 	
 
 	private JPanel buildRoadMovePanel(int i, int r, int index) {
@@ -2219,7 +2287,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		Object obj=arg0.getSource();
 
 		
-		if(toogle_objects==obj || toogle_splines==obj || toogle_terrain==obj){
+		if(toogle_objects==obj || toogle_splines==obj || toogle_terrain_points==obj || toogle_terrain_polygons==obj){
 			CardLayout cl = (CardLayout)(left_tool_options.getLayout());
 			
 			mode=((JToggleButton) obj).getActionCommand();
@@ -2227,7 +2295,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			if(SPLINES_MODE.equals(mode))
 				ACTIVE_PANEL=ROAD_INDEX;
-			else if(TERRAIN_MODE.equals(mode))
+			else if(TERRAIN_POINTS_MODE.equals(mode) || TERRAIN_POLYGONS_MODE.equals(mode))
 				ACTIVE_PANEL=TERRAIN_INDEX;
 			
 		}
@@ -2290,7 +2358,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			deleteSelection();
 			draw();
 		}
-		else if(obj==deselectAll[ACTIVE_PANEL]){
+		else if(obj==deselectAllTerrainPoints[ACTIVE_PANEL] || obj==deselectAllTerrainPolygons[ACTIVE_PANEL]){
 			deselectAll();
 		}
 		else if(obj==delObject){
@@ -2982,20 +3050,28 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				
 			}	
 		
-		} else if(TERRAIN_MODE.equals(mode)){
+		} else if(TERRAIN_POINTS_MODE.equals(mode)){
 		
+	
+			selectTerrainPoint(arg0.getX(),arg0.getY());			
+		
+		
+		
+		} else if(TERRAIN_POLYGONS_MODE.equals(mode)){
+			
 			//right button click
 			if(buttonNum==MouseEvent.BUTTON3){
-
+	
 				deselectAll();
 				changePolygon(arg0.getX(),arg0.getY());
 				
 			}
 			else{
-				selectPoint(arg0.getX(),arg0.getY());			
+				selectTerrainPolygons(arg0.getX(),arg0.getY());			
 			}	
 		
-		} else if(OBJECT_MODE.equals(mode)){
+		}
+		else if(OBJECT_MODE.equals(mode)){
 			
 			if(buttonNum==MouseEvent.BUTTON3){
 				
@@ -3330,7 +3406,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 
-	private void selectPoint(int x, int y) {
+	private void selectTerrainPoint(int x, int y) {
 		
 		deselectAllObjects();
 				
@@ -3342,17 +3418,23 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		RoadEditorPanel ep = getCenter();
 		
 		boolean found=ep.selectPoints(x,y,mesh,polygon);
-
-		if(found){
-			deselectAllLines();
-			return;
-		}
 		
-		found=ep.selectPolygons(x,y,mesh);
 
+	}
+	
+	private void selectTerrainPolygons(int x, int y) {
 		
-		if(!found)
-			deselectAllPoints();
+		deselectAllObjects();
+				
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		
+		if(!checkMultiplePointsSelection[ACTIVE_PANEL].isSelected()) 
+			polygon=new LineData();
+		
+		RoadEditorPanel ep = getCenter();
+		
+		boolean found=ep.selectPolygons(x,y,mesh);
+
 		
 
 	}
@@ -3502,10 +3584,26 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			deselectAllObjects();
 		    deselectAllLines();  
 		}
-		
 
-		
+	}
+	
+	
 
+	private void selectPolygonsWithRectangle() {
+		
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+
+		if(mesh.points==null)
+			return;
+		
+		RoadEditorPanel ep = getCenter();
+		
+		boolean  found=ep.selectPolygonsWithRectangle(mesh);
+		
+		if(found){
+			deselectAllObjects();
+		    deselectAllLines();  
+		}
 	}
 
 
@@ -3659,10 +3757,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		isDrawCurrentRect=false;
 		updateSize(arg0);
 		
-        selectPointsWithRectangle();
+		if(mode==TERRAIN_POINTS_MODE)
+			selectPointsWithRectangle();
+		else if(mode==TERRAIN_POLYGONS_MODE)
+			selectPolygonsWithRectangle();
         draw();
        
 	}
+
 
 	private void updateSize(MouseEvent e) {
         int x = e.getX();
