@@ -3745,7 +3745,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		
-		if(ACTIVE_PANEL==1)
+		if(!isDrawCurrentRect || ACTIVE_PANEL==1)
 			return;
 		
 		int buttonNum=arg0.getButton();
