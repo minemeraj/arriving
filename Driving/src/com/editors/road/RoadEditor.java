@@ -116,7 +116,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton[] chooseNextTexture;
 	private JButton[] choosePrevTexture;
 	private JButton[] deselectAllTerrainPoints;
-	private JButton[] deselectAllTerrainPolygons;	
+	private JButton[] deselectAllTerrainPolygons;
+	
 	private JLabel[] textureLabel;
 	public JCheckBox[] fillWithWater;
 	
@@ -129,6 +130,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton[] moveRoadBottom;
 	
 	private JButton deselectAllObjects;
+	private JButton deselectAllSplines;
 	
 	private JButton delObject;
 	private JMenu jm_editing;
@@ -239,6 +241,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private IntegerTextField startX;
 	private IntegerTextField startY;
 	private JButton updateStartPosition;
+	
 
 	
 	
@@ -361,6 +364,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		deselectAllTerrainPoints=new JButton[numPanels];
 		deselectAllTerrainPolygons=new JButton[numPanels];
+		
 		textureLabel=new JLabel[numPanels];
 		fillWithWater=new JCheckBox[numPanels];
 		
@@ -371,8 +375,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		moveRoadLeft=new JButton[numPanels];
 		moveRoadTop=new JButton[numPanels];
 		moveRoadBottom=new JButton[numPanels];
-		
-		
+
 		
 	}
 
@@ -926,11 +929,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		r+=30;
 
-		deselectAllTerrainPoints[index]=new JButton(header+"D<u>e</u>select all"+footer);
-		deselectAllTerrainPoints[index].addActionListener(this);
-		deselectAllTerrainPoints[index].setFocusable(false);
-		deselectAllTerrainPoints[index].setBounds(5,r,150,20);
-		splines_panel.add(deselectAllTerrainPoints[index]);
+		deselectAllSplines=new JButton(header+"D<u>e</u>select all"+footer);
+		deselectAllSplines.addActionListener(this);
+		deselectAllSplines.setFocusable(false);
+		deselectAllSplines.setBounds(5,r,150,20);
+		splines_panel.add(deselectAllSplines);
 
 		
 		r+=30;
@@ -1597,6 +1600,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getSelectedItem();
 					if(!vp.getId().equals(""))
 						spnode.setIndex(Integer.parseInt(vp.getId()));
+					
+					if(setSPNodeHeightValue.getText().equals(""))
+							spnode.setZ(setSPNodeHeightValue.getvalue());
 					
 				}
 				
@@ -2373,6 +2379,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		else if(obj==deselectAllObjects){
 			cleanObjects();
 		}
+		else if(obj==deselectAllSplines){
+			deselectAllSPNodes();
+		}
+		
 		else if(obj==choosePanelTexture[ACTIVE_PANEL]){
 			
 			TexturesPanel tp=null;
@@ -3383,7 +3393,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				
 			}
 		}	
-		
+		draw();
 	}
 
 	private void deselectAllLines(){
