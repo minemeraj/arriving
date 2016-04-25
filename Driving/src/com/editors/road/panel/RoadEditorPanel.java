@@ -17,6 +17,7 @@ import com.SPLine;
 import com.Texture;
 import com.ZBuffer;
 import com.editors.road.RoadEditor;
+import com.main.Road;
 
 public abstract class RoadEditorPanel extends JPanel {
 	
@@ -85,8 +86,26 @@ public abstract class RoadEditorPanel extends JPanel {
 	}
 	
 	public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs,boolean hasWater) {
+		
+		//water effect
+		if(hasWater && zi<-Road.WATER_FILLING+MOVZ){	
+			
+			int alphas=0xff & (argbs>>24);
+			int rs = 0xff & (argbs>>16);
+			int gs = 0xff & (argbs >>8);
+			int bs = 0xff & argbs;
+	
+			rs=gs=0;
 
-		return argbs;
+		
+			return alphas <<24 | rs <<16 | gs <<8 | bs;
+			
+		}else{
+			
+			return argbs;
+		}
+
+	
 	
 	}
 	

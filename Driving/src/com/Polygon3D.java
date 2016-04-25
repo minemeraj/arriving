@@ -184,8 +184,7 @@ public class Polygon3D  extends Polygon implements Cloneable{
 			triangle.xtpoints[2]=pol.xtpoints[i+1];
 			triangle.ytpoints[2]=pol.ytpoints[i+1];
 
-			triangle.setLevel(pol.getLevel());
-			
+			triangle.setLevel(pol.getLevel());			
 			triangle.setIsFilledWithWater(pol.isFilledWithWater());
 			
 			triangles[i-1]=triangle;
@@ -373,6 +372,7 @@ public class Polygon3D  extends Polygon implements Cloneable{
 		}
 		
 		p_new.setLevel(p_old.getLevel());
+		p_new.setIsFilledWithWater(p_old.isFilledWithWater());
 		
 		return p_new;
 	}

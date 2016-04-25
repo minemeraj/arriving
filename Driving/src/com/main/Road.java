@@ -106,6 +106,7 @@ public class Road extends Shader{
 	protected CarDynamics carDynamics=null;	
 	
 	public static double WATER_LEVEL=0;
+	public static double WATER_FILLING=50;
 	
 	private ArrayList<SPLine> splines=null;
 	
@@ -134,7 +135,7 @@ public class Road extends Shader{
 
 		totalVisibleField=buildVisibileArea(SCREEN_DISTANCE,NYVISIBLE*dy+SCREEN_DISTANCE);
 		
-		WATER_LEVEL=-HEIGHT/2-10;
+		WATER_LEVEL=-HEIGHT/2-WATER_FILLING;
 	}
 
 

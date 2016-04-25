@@ -444,7 +444,6 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 		int rs = 0xff & (argbs>>16);
 		int gs = 0xff & (argbs >>8);
 		int bs = 0xff & argbs;
-		
 		//water effect
 		if(hasWater && zi<Road.WATER_LEVEL+MOVZ){		
 		    rs=gs=0;
@@ -847,6 +846,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 		p3dr.setIndex(ld.getTexture_index());
 		p3dr.setShadowCosin(ld.getShadowCosin());
 		p3dr.setLevel(level);
+		p3dr.setIsFilledWithWater(ld.isFilledWithWater());
 		
         return p3dr;
 
