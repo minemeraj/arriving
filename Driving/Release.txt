@@ -5,6 +5,8 @@ New terrain textures:
 lib/world_texture_8.jpg
 lib/world_texture_9.jpg
 
+Added autocar to the landscape_indy
+
 Several bugs fixed in the RoadEditor.
 Added the option "hide splines" in the RoadEditor.
 
