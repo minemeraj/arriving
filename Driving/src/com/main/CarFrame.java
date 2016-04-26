@@ -463,14 +463,24 @@ public class CarFrame extends Road implements KeyListener {
 
 	static String getMovingDirection(double d) {
 		
-		if(d<Math.PI/4.0 || d>Math.PI*7.0/4.0)
+		if(d>0 && d<Math.PI/6.0)
 			return "N";
-		else if(d>=Math.PI/4.0 && d<=Math.PI*3.0/4.0)
+		else if(d>=Math.PI/6.0 && d<=Math.PI/3.0)
+			return "N-W";
+		else if(d>Math.PI/3.0 && d<Math.PI*2.0/3.0)
 			return "W";
-		else if(d>Math.PI*3.0/4.0 && d<Math.PI*5.0/4.0)
+		else if(d>=Math.PI*2.0/3.0 && d<=Math.PI*5.0/6.0)
+			return "S-W";
+		else if(d>Math.PI*5.0/6.0 && d<Math.PI*7/6.0)
 			return "S";
-		else if(d>=Math.PI*5.0/4.0 && d<=Math.PI*7.0/4.0)
-			return "E";
+		else if(d>=Math.PI*7/6.0 && d<=Math.PI*4/3.0)
+			return "S-E";		
+		else if(d>Math.PI*4.0/3.0 && d<Math.PI*5.0/3.0)
+			return "E";		
+		else if(d>=Math.PI*5/3.0 && d<=Math.PI*11.0/6.0)
+			return "N-E";		
+		else if(d>Math.PI*11.0/6.0 && d<=Math.PI*2.0)
+			return "N";
 				
 		return  "N";
 	}
