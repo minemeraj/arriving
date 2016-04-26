@@ -2331,6 +2331,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	private void loadLandScape() {
 
+		fc=new JFileChooser();
 		fc.setDialogType(JFileChooser.SAVE_DIALOG);
 		fc.setDialogTitle("Load road");
 		if (currentDirectory != null)
@@ -2388,6 +2389,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	private void saveAutocars() {
 
+		fc=new JFileChooser();
 		fc.setDialogType(JFileChooser.SAVE_DIALOG);
 		fc.setDialogTitle("Save Track");
 		if (currentDirectory != null)
@@ -2717,6 +2719,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	private void loadAutocars() {
 
+		fc=new JFileChooser();
 		fc.setDialogType(JFileChooser.SAVE_DIALOG);
 		fc.setDialogTitle("Load autocar");
 		if (currentDirectory != null)
