@@ -67,6 +67,7 @@ public class CarFrame extends Road implements KeyListener {
 		
 	private boolean isUseTextures=true;
 	private static JLabel steerAngle;
+	private static JLabel movingDirection;
 	
 	private String SOUNDS_FOLDER="lib/";
 	private File hornFile=null;
@@ -149,12 +150,13 @@ public class CarFrame extends Road implements KeyListener {
 		up.add(steer);
 		up.add(steerAngle);
 		
+		movingDirection=new JLabel(getMovingDirection(0));
+		up.add(movingDirection);
+		
 		up.setBounds(0,0,LEFTBORDER+WIDTH+RIGHTBORDER,UPBORDER);
 		add(up);
 	}
 
-	
-	
 
 	/**
 	 * 
@@ -451,12 +453,28 @@ public class CarFrame extends Road implements KeyListener {
 	
 	}
 	
-	static void setSteeringAngle(double d) {
+	static void setMovingAngle(double d) {
 		
 		DecimalFormat df=new DecimalFormat("##.##");
 		steerAngle.setText(df.format(d));
-		
+		movingDirection.setText(getMovingDirection(d));
+
 	}
+
+	static String getMovingDirection(double d) {
+		
+		if(d<Math.PI/4.0 || d>Math.PI*7.0/4.0)
+			return "N";
+		else if(d>=Math.PI/4.0 && d<=Math.PI*3.0/4.0)
+			return "W";
+		else if(d>Math.PI*3.0/4.0 && d<Math.PI*5.0/4.0)
+			return "S";
+		else if(d>=Math.PI*5.0/4.0 && d<=Math.PI*7.0/4.0)
+			return "E";
+				
+		return  "N";
+	}
+
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
@@ -499,7 +517,7 @@ public class CarFrame extends Road implements KeyListener {
 	
 		
 		setCarSpeed(0);
-		setSteeringAngle(0);
+		setMovingAngle(0);
 
 		isProgramPaused=false;
 		

@@ -1,3 +1,6 @@
+Added object name variable in the OBjectEditor.
+
+Added clearer directions (N,W,S,E) in the Main program.
 
 New landscape_smalltown.
 

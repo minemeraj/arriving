@@ -1014,7 +1014,7 @@ public class Road extends Shader{
 		
 	
 		setViewDirection(getViewDirection()-carDynamics.dpsi);
-		CarFrame.setSteeringAngle(getViewDirection());
+		CarFrame.setMovingAngle(getViewDirection());
 
 		if(!checkIsWayFree(NEW_POSX,NEW_POSY,getViewDirection(),-1))
 		{	
