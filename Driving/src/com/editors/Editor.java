@@ -36,7 +36,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 	
 	public static final int MAX_STACK_SIZE=10;
 	
-	protected boolean redrawAfterMenu=false;
+	public boolean redrawAfterMenu=false;
 	
 	
 	protected File currentDirectory=null;

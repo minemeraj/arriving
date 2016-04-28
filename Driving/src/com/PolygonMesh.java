@@ -20,6 +20,8 @@ public class PolygonMesh implements Cloneable{
 	ArrayList <Point3D>normals=null;
 	public int[] boxFaces=null; 
 	int level=Road.OBJECT_LEVEL;
+	
+	private String description="";
 
 
 	public PolygonMesh() {
@@ -453,6 +455,14 @@ public class PolygonMesh implements Cloneable{
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 

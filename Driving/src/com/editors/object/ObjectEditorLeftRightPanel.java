@@ -23,7 +23,7 @@ import com.PolygonMesh;
  *
  */
 
-class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
+class ObjectEditorLeftRightPanel extends ObjectEditorViewPanel {
 
 
 
@@ -34,18 +34,9 @@ class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 	private double deltax=0.5;
 
 
-	ObjectEditorLeftRightPanel(ObjectEditor oe){
-
-	    super(oe);
-		this.oe=oe;
+	ObjectEditorLeftRightPanel(ObjectEditorPanel oep){
 		
-
-		buildRightPanel();
-		buildBottomPanel();
-
-		
-		initialize();
-
+		super(oep);
 
 	}
 
@@ -69,7 +60,7 @@ class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 			g2=(Graphics2D) getGraphics();
 		
 		g2.drawImage(buf,0,0,WIDTH,HEIGHT,null);
-		resetLists();
+		objEditorPanel.resetLists();
 
 	}
 
@@ -103,6 +94,8 @@ class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 	}
 
 	private void displayLines(Graphics2D bufGraphics) {
+		
+		ObjectEditor oe = objEditorPanel.oe;
 
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 
@@ -125,6 +118,9 @@ class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 
 				bufGraphics.drawLine(calcAssX(p0),calcAssY(p0),calcAssX(p1),calcAssY(p1));
 			}
+			
+			
+			
 			if(oe.isShowNornals())
 				showNormals(mesh.points,ld,bufGraphics);
 
@@ -188,6 +184,8 @@ class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 
 	private void displayPoints(Graphics2D bufGraphics) {
 		
+		ObjectEditor oe = objEditorPanel.oe;
+		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 		
 		if(mesh==null || mesh.points==null)
@@ -234,11 +232,13 @@ class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 		
 		boolean found=false;
 		
+		ObjectEditor oe = objEditorPanel.oe;
+		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 
 		//select point from lines
-		if(!checkMultipleSelection.isSelected()) 
-			polygon=new LineData();
+		if(!objEditorPanel.checkMultipleSelection.isSelected()) 
+			objEditorPanel.polygon=new LineData();
 		for(int i=0;i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
@@ -252,14 +252,14 @@ class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 			Rectangle rect=new Rectangle(xo-5,yo-5,10,10);
 			if(rect.contains(x,y)){
 
-				selectPoint(p);
+				objEditorPanel.selectPoint(p);
 
-			    polygon.addIndex(i);
+				objEditorPanel.polygon.addIndex(i);
 			    
 			    found=true;
 
 			}
-			else if(!checkMultipleSelection.isSelected()) 
+			else if(!objEditorPanel.checkMultipleSelection.isSelected()) 
 				p.setSelected(false);
 		}
 		
@@ -283,6 +283,8 @@ class ObjectEditorLeftRightPanel extends ObjectEditorPanel {
 		int x1=Math.max(currentRect.x,currentRect.x+currentRect.width);
 		int y0=Math.min(currentRect.y,currentRect.y+currentRect.height);
 		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
+		
+		ObjectEditor oe = objEditorPanel.oe;
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
         

@@ -6,7 +6,9 @@ package com.editors.object;
  */
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.awt.Rectangle;
+import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 
 import com.LineData;
@@ -21,7 +23,7 @@ import com.PolygonMesh;
  *
  */
 
-class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
+class ObjectEditorFrontBackPanel extends ObjectEditorViewPanel {
 
 	
 	private int y0=250;
@@ -32,18 +34,9 @@ class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 	private double deltax=0.5;
 
 
-	ObjectEditorFrontBackPanel(ObjectEditor oe){
+	ObjectEditorFrontBackPanel(ObjectEditorPanel oep){
 
-	    super(oe);
-		this.oe=oe;
-		
-
-		buildRightPanel();
-		buildBottomPanel();
-
-		
-		initialize();
-
+	    super(oep);
 
 	}
 
@@ -67,7 +60,7 @@ class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 			g2=(Graphics2D) getGraphics();
 		
 		g2.drawImage(buf,0,0,WIDTH,HEIGHT,null);
-		resetLists();
+		objEditorPanel.resetLists();
 
 	}
 
@@ -102,6 +95,8 @@ class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 
 	private void displayLines(Graphics2D bufGraphics) {
 
+		ObjectEditor oe = objEditorPanel.oe;
+		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 
 		for(int i=0;i<mesh.polygonData.size();i++){
@@ -185,6 +180,7 @@ class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 	}
 
 	private void displayPoints(Graphics2D bufGraphics) {
+		ObjectEditor oe = objEditorPanel.oe;
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 		
@@ -218,12 +214,13 @@ class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 	public void selectPoint(int x, int y) {
 		
 		boolean found=false;
+		ObjectEditor oe = objEditorPanel.oe;
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 
 		//select point from lines
-		if(!checkMultipleSelection.isSelected()) 
-			polygon=new LineData();
+		if(!objEditorPanel.checkMultipleSelection.isSelected()) 
+			objEditorPanel.polygon=new LineData();
 		for(int i=0;i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
@@ -237,15 +234,15 @@ class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 			Rectangle rect=new Rectangle(xo-5,yo-5,10,10);
 			if(rect.contains(x,y)){
 
-				selectPoint(p);
+				objEditorPanel.selectPoint(p);
 
-			    polygon.addIndex(i);
+				objEditorPanel.polygon.addIndex(i);
 			    
 			    
 				found=true;
 
 			}
-			else if(!checkMultipleSelection.isSelected()) 
+			else if(!objEditorPanel.checkMultipleSelection.isSelected()) 
 				p.setSelected(false);
 		}
 		
@@ -270,6 +267,8 @@ class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 		int x1=Math.max(currentRect.x,currentRect.x+currentRect.width);
 		int y0=Math.min(currentRect.y,currentRect.y+currentRect.height);
 		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
+		
+		ObjectEditor oe = objEditorPanel.oe;
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
         
@@ -364,6 +363,13 @@ class ObjectEditorFrontBackPanel extends ObjectEditorPanel {
 		x0=x0-i*5;
 		y0=y0-j*2;
 		displayAll();
+	}
+
+
+	@Override
+	Area clipPolygonToArea2D(Polygon p_in, Area area_out) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

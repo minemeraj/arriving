@@ -30,7 +30,7 @@ import com.main.Road;
  *
  */
 
-class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRenderer3D{
+class ObjectEditor3DPanel extends ObjectEditorViewPanel implements AbstractRenderer3D{
 
 	private int y0=250;
 	private int x0=350;
@@ -54,20 +54,15 @@ class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRenderer3
 	
 	private int greenRgb= Color.GREEN.getRGB();
 	private int blackRgb= Color.BLACK.getRGB();
+	
+	double alfa=Math.PI/4;
+	double sinAlfa=Math.sin(alfa);
+	double cosAlfa=Math.cos(alfa);
 
 
-	ObjectEditor3DPanel(ObjectEditor oe){
+	ObjectEditor3DPanel(ObjectEditorPanel oep){
 
-	    super(oe);
-		this.oe=oe;
-		
-
-		buildRightPanel();
-		buildBottomPanel();
-
-		
-		initialize();
-
+	    super(oep);
 
 	}
 	
@@ -89,6 +84,8 @@ class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRenderer3
 		
 		buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 		
+		ObjectEditor oe = objEditorPanel.oe;
+		
 		if(oe.jmt_show_shading.isSelected() || oe.isShowTexture() ){
 			
 			buildShading(buf);
@@ -105,7 +102,7 @@ class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRenderer3
 		}
 
 		g2.drawImage(buf,0,0,WIDTH,HEIGHT,null);
-		resetLists();
+		objEditorPanel.resetLists();
 		
 		firePropertyChange("ObjectEditorUpdate",false,true);
 	}
@@ -130,9 +127,9 @@ class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRenderer3
 	
 	private void buildShading(BufferedImage buf) {
 		
-		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
+		ObjectEditor oe = objEditorPanel.oe;
 		
-	
+		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];	
 		
 		PolygonMesh pm=new PolygonMesh(mesh.points,mesh.polygonData);
 		CubicMesh cm=CubicMesh.buildCubicMesh(pm).clone();
@@ -141,6 +138,7 @@ class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRenderer3
 		int hashCode=mesh.hashCode();
 		
 		Texture texture=null;
+
 		if(oe.isShowTexture()){
 			
 			texture=oe.currentTexture;
@@ -372,6 +370,8 @@ class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRenderer3
 
 	private void displayLines(Graphics2D bufGraphics) {
 
+		ObjectEditor oe = objEditorPanel.oe;
+		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 
 		for(int i=0;i<mesh.polygonData.size();i++){
@@ -456,6 +456,8 @@ class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRenderer3
 
 	private void displayPoints(Graphics2D bufGraphics) {
 		
+		ObjectEditor oe = objEditorPanel.oe;
+		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 		
 		if(mesh==null || mesh.points==null)
@@ -487,10 +489,12 @@ class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRenderer3
 	public void selectPoint(int x, int y) {
 
 		//select point from lines
-		if(!checkMultipleSelection.isSelected()) 
-			polygon=new LineData();
+		if(!objEditorPanel.checkMultipleSelection.isSelected()) 
+			objEditorPanel.polygon=new LineData();
 		
 		boolean found=false;
+		
+		ObjectEditor oe = objEditorPanel.oe;
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 		if(mesh.points==null)
@@ -509,14 +513,14 @@ class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRenderer3
 			Rectangle rect=new Rectangle(xo-5,yo-5,10,10);
 			if(rect.contains(x,y)){
 
-				selectPoint(p);
+				objEditorPanel.selectPoint(p);
 
-			    polygon.addIndex(i);
+				objEditorPanel.polygon.addIndex(i);
 			    
 			    found=true;
 
 			}
-			else if(!checkMultipleSelection.isSelected()) 
+			else if(!objEditorPanel.checkMultipleSelection.isSelected()) 
 				p.setSelected(false);
 		}
 		
@@ -560,6 +564,8 @@ class ObjectEditor3DPanel extends ObjectEditorPanel implements AbstractRenderer3
 		int x1=Math.max(currentRect.x,currentRect.x+currentRect.width);
 		int y0=Math.min(currentRect.y,currentRect.y+currentRect.height);
 		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
+		
+		ObjectEditor oe = objEditorPanel.oe;
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 		if(mesh.points==null)

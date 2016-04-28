@@ -8,30 +8,23 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
 import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.RepaintManager;
-import javax.swing.TransferHandler;
 import javax.swing.event.MenuEvent;
 
 import com.LineData;
@@ -52,16 +45,12 @@ import com.main.HelpPanel;
 class ObjectEditor extends Editor implements ActionListener{
 
 
-	private ObjectEditor3DPanel center3D;
-	private ObjectEditorTopBottomPanel centerTop;
-	private ObjectEditorFrontBackPanel centerFront;
-	private ObjectEditorLeftRightPanel centerLeft;
 	
 	static int HEIGHT=700;
 	static int WIDTH=800;
 
-	private int RIGHT_BORDER=330;
-	private int BOTTOM_BORDER=100;
+	int RIGHT_BORDER=330;
+	int BOTTOM_BORDER=100;
 	
 	private JMenuBar jmb;
 	private JMenu jm_load;
@@ -84,16 +73,6 @@ class ObjectEditor extends Editor implements ActionListener{
 	private JMenuItem jmt_left_view;
 	private JMenuItem jmt_front_view;
 
-
-
-	private static Color BACKGROUND_COLOR=new Color(0,0,0);
-	
-	
-	private final int VIEW_TYPE_3D=0;
-	private final int VIEW_TYPE_TOP=1;
-	private final int VIEW_TYPE_LEFT=2;
-	private final int VIEW_TYPE_FRONT=3;
-	private int VIEW_TYPE=VIEW_TYPE_3D;
 	private JMenuItem hmt_preview;
 	private JMenuItem jmt_rescale_selected;
 	private JMenuItem jmt_copy_selection;
@@ -107,6 +86,8 @@ class ObjectEditor extends Editor implements ActionListener{
 	private JCheckBoxMenuItem jmt_show_texture;
 	private JMenuItem jmt_save_custom_mesh;
 	
+	ObjectEditorPanel mainPanel=null;
+	
 
 	public static void main(String[] args) {
 
@@ -116,8 +97,8 @@ class ObjectEditor extends Editor implements ActionListener{
 
 	private void initialize() {
 		
-		center3D.initialize();
-		centerTop.initialize();
+		mainPanel.initialize();
+		
 	}
 
 	public ObjectEditor(){
@@ -127,30 +108,7 @@ class ObjectEditor extends Editor implements ActionListener{
 		setLayout(null);
 		setSize(WIDTH+RIGHT_BORDER,HEIGHT+BOTTOM_BORDER);
 		
-		center3D=new ObjectEditor3DPanel(this);
-		center3D.setBackground(BACKGROUND_COLOR);
-		center3D.setBounds(0,0,WIDTH+RIGHT_BORDER,HEIGHT+BOTTOM_BORDER);
-		center3D.setTransferHandler(new FileTransferhandler());
 		
-		centerTop=new ObjectEditorTopBottomPanel(this);
-		centerTop.setBackground(BACKGROUND_COLOR);
-		centerTop.setBounds(0,0,WIDTH+RIGHT_BORDER,HEIGHT+BOTTOM_BORDER);
-		centerTop.setTransferHandler(new FileTransferhandler());
-		
-		
-		centerLeft=new ObjectEditorLeftRightPanel(this);
-		centerLeft.setBackground(BACKGROUND_COLOR);
-		centerLeft.setBounds(0,0,WIDTH+RIGHT_BORDER,HEIGHT+BOTTOM_BORDER);
-		centerLeft.setTransferHandler(new FileTransferhandler());
-		
-		centerFront=new ObjectEditorFrontBackPanel(this);
-		centerFront.setBackground(BACKGROUND_COLOR);
-		centerFront.setBounds(0,0,WIDTH+RIGHT_BORDER,HEIGHT+BOTTOM_BORDER);
-		centerFront.setTransferHandler(new FileTransferhandler());
-		
-
-		add(center3D);
-
 		
 		buildMenuBar();
 
@@ -162,7 +120,7 @@ class ObjectEditor extends Editor implements ActionListener{
 
 						super.paintDirtyRegions();
 						if(redrawAfterMenu ) {
-							getCenter().displayAll();
+							mainPanel.displayAll();
 							redrawAfterMenu=false;						    
 						}
 					}
@@ -170,29 +128,24 @@ class ObjectEditor extends Editor implements ActionListener{
 				}				
 		);
 		
+		mainPanel=new ObjectEditorPanel(this);
+		mainPanel.setBounds(0, 0,WIDTH+RIGHT_BORDER,HEIGHT+BOTTOM_BORDER);
+		add(mainPanel);
+		
 		currentDirectory=new File("lib");
 		forceReading=true;
+		
 		setVisible(true);
+		
 		initialize();
+			
 
 	}
-	
-	public ObjectEditorPanel getCenter(){
-		
-		if(VIEW_TYPE==VIEW_TYPE_3D)
-			return center3D;
-		else if(VIEW_TYPE==VIEW_TYPE_TOP)
-		    return centerTop;
-		else if(VIEW_TYPE==VIEW_TYPE_LEFT)
-		    return centerLeft;
-		else 
-		    return centerFront;
-		
-	}
+
 	@Override
 	public void paint(Graphics arg0) {
 		super.paint(arg0);
-		getCenter().displayAll();
+		mainPanel.displayAll();
 		
 		
 	}
@@ -369,19 +322,19 @@ class ObjectEditor extends Editor implements ActionListener{
 			copySelection();
 		}
 		else if(o==jmt_3Dview){
-			set3DView();
+			mainPanel.set3DView();
 		}
 		else if(o==jmt_top_view){
 			
-			setTopView();
+			mainPanel.setTopView();
 		}
 		else if(o==jmt_left_view){
 			
-			setLeftView();
+			mainPanel.setLeftView();
 		}
 		else if(o==jmt_front_view){
 			
-			setFrontView();
+			mainPanel.setFrontView();
 		}
 		else if(o==hmt_preview){
 			
@@ -457,41 +410,7 @@ class ObjectEditor extends Editor implements ActionListener{
 		
 	}
 
-	private void set3DView() {
-		
-		remove(getCenter()); 
-		VIEW_TYPE=VIEW_TYPE_3D;
-		add(center3D);		
-		center3D.grabFocus();
-		repaint();
-	}
 	
-	private void setTopView() {
-
-		remove(getCenter()); 
-		VIEW_TYPE=VIEW_TYPE_TOP;
-		add(centerTop);		
-		centerTop.grabFocus();
-		repaint();
-	}
-	
-	private void setLeftView() {
-		
-		remove(getCenter()); 
-		VIEW_TYPE=VIEW_TYPE_LEFT;
-		add(centerLeft);		
-		centerLeft.grabFocus();
-		repaint();
-	}
-	
-	private void setFrontView() {
-		
-		remove(getCenter()); 
-		VIEW_TYPE=VIEW_TYPE_FRONT;
-		add(centerFront);		
-		centerFront.grabFocus();
-		repaint();
-	}
 
 	private void getTemplate() {
 		
@@ -510,7 +429,7 @@ class ObjectEditor extends Editor implements ActionListener{
 			}
 			mesh.setPoints(vPoints);
 			mesh.polygonData=pm.polygonData;
-			getCenter().displayAll();
+			mainPanel.displayAll();
 		}
 		
 	}
@@ -533,7 +452,7 @@ class ObjectEditor extends Editor implements ActionListener{
 			}
 			mesh.setPoints(aPoints);
 			mesh.polygonData=pm.polygonData;
-			getCenter().displayAll();
+			mainPanel.displayAll();
 		}
 		
 	}
@@ -873,46 +792,7 @@ class ObjectEditor extends Editor implements ActionListener{
 	}
 
 	
-	private class FileTransferhandler extends TransferHandler{
-		
-		
-		@Override
-		public boolean canImport(JComponent comp, DataFlavor[] transferFlavors) {
-			
-			for(int i=0;i<transferFlavors.length;i++){
-				
-				 if (!transferFlavors[i].equals(DataFlavor.javaFileListFlavor))
-					 return false;
-			}
-		    return true;
-		}
-		@Override
-		public boolean importData(JComponent comp, Transferable t) {
-		
-			try {
-				List list=(List) t.getTransferData(DataFlavor.javaFileListFlavor);
-				Iterator itera = list.iterator();
-				while(itera.hasNext()){
-					
-					Object o=itera.next();
-					if(!(o instanceof File))
-						continue;
-					File file=(File) o;
-					currentDirectory=file.getParentFile();
-					currentFile=file;
-					
-					loadPointsFromFile(file,ACTIVE_PANEL,forceReading);
-					getCenter().displayAll();
-				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return false;
-		}
-		
-	}
-
+	
 	
 	static double[][] getRotationMatrix(Point3D versor,double teta){
 
@@ -984,14 +864,7 @@ class ObjectEditor extends Editor implements ActionListener{
 
 	}
 
-	@Override
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-    	
-    	center3D.addPropertyChangeListener(listener);
-    	centerTop.addPropertyChangeListener(listener);
-    	centerLeft.addPropertyChangeListener(listener);
-    	centerFront.addPropertyChangeListener(listener);
-    }
+
 
     @Override
     public void menuSelected(MenuEvent arg0) {

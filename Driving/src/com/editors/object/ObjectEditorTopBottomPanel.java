@@ -21,7 +21,7 @@ import com.PolygonMesh;
  *
  */
 
-class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
+class ObjectEditorTopBottomPanel extends ObjectEditorViewPanel {
 
 
 
@@ -32,18 +32,9 @@ class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 	private double deltax=0.5;
 
 
-	ObjectEditorTopBottomPanel(ObjectEditor oe){
+	ObjectEditorTopBottomPanel(ObjectEditorPanel oep){
 
-	    super(oe);
-		this.oe=oe;
-		
-
-		buildRightPanel();
-		buildBottomPanel();
-
-		
-		initialize();
-
+		super(oep);
 
 	}
 
@@ -67,7 +58,7 @@ class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 			g2=(Graphics2D) getGraphics();
 		
 		g2.drawImage(buf,0,0,WIDTH,HEIGHT,null);
-		resetLists();
+		objEditorPanel.resetLists();
 
 	}
 
@@ -101,6 +92,7 @@ class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 
 	private void displayLines(Graphics2D bufGraphics) {
 
+		ObjectEditor oe= objEditorPanel.oe;
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 
 		for(int i=0;i<mesh.polygonData.size();i++){
@@ -186,6 +178,8 @@ class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 
 	private void displayPoints(Graphics2D bufGraphics) {
 		
+		ObjectEditor oe= objEditorPanel.oe;
+		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 		
 		if(mesh==null || mesh.points==null)
@@ -219,11 +213,12 @@ class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 
 		boolean found=false;
 		
+		ObjectEditor oe= objEditorPanel.oe;
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 		
 		//select point from lines
-		if(!checkMultipleSelection.isSelected()) 
-			polygon=new LineData();
+		if(!objEditorPanel.checkMultipleSelection.isSelected()) 
+			objEditorPanel.polygon=new LineData();
 		for(int i=0;i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
@@ -237,14 +232,14 @@ class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 			Rectangle rect=new Rectangle(xo-5,yo-5,10,10);
 			if(rect.contains(x,y)){
 
-				selectPoint(p);
+				objEditorPanel.selectPoint(p);
 
-			    polygon.addIndex(i);
+				objEditorPanel.polygon.addIndex(i);
 			    
 			    found=true;
 
 			}
-			else if(!checkMultipleSelection.isSelected()) 
+			else if(!objEditorPanel.checkMultipleSelection.isSelected()) 
 				p.setSelected(false);
 		}
 		
@@ -275,6 +270,7 @@ class ObjectEditorTopBottomPanel extends ObjectEditorPanel {
 		int y0=Math.min(currentRect.y,currentRect.y+currentRect.height);
 		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
 		
+		ObjectEditor oe= objEditorPanel.oe;
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 
 		for (int i = 0; i < mesh.points.length; i++) {

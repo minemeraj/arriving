@@ -6,9 +6,9 @@ package com.editors.object;
  */
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Graphics2D;
 import java.awt.Polygon;
-import java.awt.Rectangle;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -17,16 +17,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.awt.geom.Area;
+import java.beans.PropertyChangeListener;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Locale;
 
 import javax.swing.BorderFactory;
@@ -34,12 +29,14 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.TransferHandler;
 import javax.swing.border.Border;
 
 import com.LineData;
@@ -54,12 +51,17 @@ import com.editors.ValuePair;
 import com.editors.road.RoadEditorPolygonDetail;
 import com.main.Renderer3D;
 
-abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,KeyListener, ItemListener,MouseListener,MouseWheelListener,MouseMotionListener{
+class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,KeyListener, ItemListener{
 
+	private final int VIEW_TYPE_3D=0;
+	private final int VIEW_TYPE_TOP=1;
+	private final int VIEW_TYPE_LEFT=2;
+	private final int VIEW_TYPE_FRONT=3;
+	private int VIEW_TYPE=VIEW_TYPE_3D;
 
 	ObjectEditor oe=null;
-	
-	
+
+
 	protected int HEIGHT=ObjectEditor.HEIGHT;
 	protected int WIDTH=ObjectEditor.WIDTH;
 
@@ -67,7 +69,7 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 	private final int RIGHT_BORDER=320;
 	private final int BOTTOM_BORDER=100;
 
-	Graphics2D g2;
+
 
 	private JPanel right;
 	private JTextField coordinatesx;
@@ -85,7 +87,7 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 
 	//public JButton joinPoints;
 	private JButton buildPolygon;
-	
+
 
 	private JPanel bottom;
 	private JLabel screenPoint;
@@ -100,12 +102,6 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 	LineData polygon=new LineData();
 
 
-	double alfa=Math.PI/4;
-	double sinAlfa=Math.sin(alfa);
-	double cosAlfa=Math.cos(alfa);
-	private double fi=0;
-	double sinf=Math.sin(fi);
-	double cosf=Math.cos(fi);
 	private JButton rescale;
 	private DoubleTextField rescaleValue;
 
@@ -119,39 +115,63 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 	private JButton startBuildPolygon;
 	private JButton mergeSelectedPoints;
 	private JButton polygonDetail;
-	
+
 	private DecimalFormat dfc=null;
-	
-	Rectangle currentRect=null;
-	private boolean isDrawCurrentRect=false;
 
 
-	private double teta=0;
-	protected double costeta=Math.cos(teta);
-	protected double sinteta=Math.sin(teta);
+
+	JComboBox chooseFace;
 
 
-	private JComboBox chooseFace;
+	private ObjectEditor3DPanel center3D;
+	private ObjectEditorTopBottomPanel centerTop;
+	private ObjectEditorFrontBackPanel centerFront;
+	private ObjectEditorLeftRightPanel centerLeft;
 
-
+	private static Color BACKGROUND_COLOR=new Color(0,0,0);
 
 	ObjectEditorPanel(ObjectEditor oe){
 
-	
+
 		this.oe=oe;
 		
+		buildRightPanel();
+		buildBottomPanel();
+
 		setLayout(null);
 		addKeyListener(this);
-		addMouseListener(this);
-		addMouseWheelListener(this);
-		addMouseMotionListener(this);
 
+
+		center3D=new ObjectEditor3DPanel(this);
+		center3D.setBackground(BACKGROUND_COLOR);
+		center3D.setBounds(0,0,WIDTH+RIGHT_BORDER,HEIGHT+BOTTOM_BORDER);
+		center3D.setTransferHandler(new FileTransferhandler());
+
+		centerTop=new ObjectEditorTopBottomPanel(this);
+		centerTop.setBackground(BACKGROUND_COLOR);
+		centerTop.setBounds(0,0,WIDTH+RIGHT_BORDER,HEIGHT+BOTTOM_BORDER);
+		centerTop.setTransferHandler(new FileTransferhandler());
+
+
+		centerLeft=new ObjectEditorLeftRightPanel(this);
+		centerLeft.setBackground(BACKGROUND_COLOR);
+		centerLeft.setBounds(0,0,WIDTH+RIGHT_BORDER,HEIGHT+BOTTOM_BORDER);
+		centerLeft.setTransferHandler(new FileTransferhandler());
+
+		centerFront=new ObjectEditorFrontBackPanel(this);
+		centerFront.setBackground(BACKGROUND_COLOR);
+		centerFront.setBounds(0,0,WIDTH+RIGHT_BORDER,HEIGHT+BOTTOM_BORDER);
+		centerFront.setTransferHandler(new FileTransferhandler());
+
+		initialize();
+
+		add(center3D);
 
 
 	}
-	
+
 	protected void buildRightPanel() {
-		
+
 		String header="<html><body>";
 		String footer="</body></html>";
 
@@ -172,8 +192,8 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 		checkCoordinatesx.setBounds(200,r,30,20);
 		checkCoordinatesx.addKeyListener(this);
 		right.add(checkCoordinatesx);
-	
-	
+
+
 
 		r+=30;
 
@@ -188,7 +208,7 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 		checkCoordinatesy.setBounds(200,r,30,20);
 		checkCoordinatesy.addKeyListener(this);
 		right.add(checkCoordinatesy);
-		
+
 
 		r+=30;
 
@@ -203,8 +223,8 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 		checkCoordinatesz.setBounds(200,r,30,20);
 		checkCoordinatesz.addKeyListener(this);
 		right.add(checkCoordinatesz);
-		
-		
+
+
 		r+=30;
 
 		JLabel ed=new JLabel("Ex:");
@@ -242,14 +262,14 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 		addPoint.setFocusable(false);
 		addPoint.setBounds(5,r,150,20);
 		right.add(addPoint);
-		
+
 		rescale=new JButton(header+"<u>R</u>escale all"+footer);
 		rescale.addKeyListener(this);
 		rescale.addActionListener(this);
 		rescale.setFocusable(false);
 		rescale.setBounds(160,r,150,20);
 		right.add(rescale);
-		
+
 		rescaleValue=new DoubleTextField();
 		rescaleValue.setBounds(200,r+30,70,20);
 		rescaleValue.addKeyListener(this);
@@ -266,20 +286,20 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 		right.add(startBuildPolygon);
 
 		r+=45;
-			
+
 		buildPolygon=new JButton(header+"Build <u>p</u>olygon"+footer);
 		buildPolygon.addActionListener(this);
 		buildPolygon.addKeyListener(this);
 		buildPolygon.setFocusable(false);
 		buildPolygon.setBounds(5,r,150,20);
 		right.add(buildPolygon);
-		
-		
-	
+
+
+
 		JLabel jlFace=new JLabel("Face:");
 		jlFace.setBounds(160,r,50,20);
 		right.add(jlFace);
-		
+
 		chooseFace=new JComboBox(); 
 		chooseFace.setBounds(200,r,50,20); 
 		for (int i =0; i< Renderer3D.faceIndexes.length; i++) {
@@ -289,16 +309,16 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 		}
 		chooseFace.addItemListener(this);
 		right.add(chooseFace);
-		
+
 		r+=30;
-		
+
 		polygonDetail=new JButton(header+"Polygon detail"+footer);
 		polygonDetail.addActionListener(this);
 		polygonDetail.addKeyListener(this);
 		polygonDetail.setFocusable(false);
 		polygonDetail.setBounds(5,r,150,20);
 		right.add(polygonDetail);
-		
+
 		JPanel movePanel=buildPointsMovePanel(185,r);
 		right.add(movePanel);
 
@@ -331,17 +351,17 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 		deselectAll.setFocusable(false);
 		deselectAll.setBounds(5,r,100,20);
 		right.add(deselectAll);
-		
+
 		r+=30;
-		
+
 		selectAll=new JButton(header+"Selec<u>t</u> all"+footer);
 		selectAll.addActionListener(this);
 		selectAll.addKeyListener(this);
 		selectAll.setFocusable(false);
 		selectAll.setBounds(5,r,100,20);
 		right.add(selectAll);
-		
-	
+
+
 		mergeSelectedPoints=new JButton(header+"<u>M</u>erge selected<br/>points"+footer);
 		mergeSelectedPoints.addActionListener(this);
 		mergeSelectedPoints.addKeyListener(this);
@@ -350,16 +370,16 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 		right.add(mergeSelectedPoints);
 
 		r+=35;
-	
+
 		right.add(buildLowerRightPanel(r));
-		
+
 
 
 		add(right);
 
- 
+
 	}
-	
+
 	void buildBottomPanel() {
 		bottom=new JPanel();
 		bottom.setBounds(0,HEIGHT,WIDTH+RIGHT_BORDER,BOTTOM_BORDER);
@@ -374,14 +394,14 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 		bottom.add(screenPoint);
 		add(bottom);
 	}
-	
+
 	private Component buildLowerRightPanel(int r) {
 		pointList=new JList();
-        JScrollPane jsp=new JScrollPane(pointList);
-        JPanel lowpane=new JPanel();
-        lowpane.setBounds(5,r,300,220);        
+		JScrollPane jsp=new JScrollPane(pointList);
+		JPanel lowpane=new JPanel();
+		lowpane.setBounds(5,r,300,220);        
 		right.add(lowpane);
-		
+
 		lowpane.setLayout(null);
 		JLabel jlb=new JLabel("Points:");
 		jlb.setBounds(20,0,100,20);
@@ -390,15 +410,15 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 		lowpane.add(jsp);
 
 		pointList.addMouseListener(new MouseAdapter(){
-			
+
 			@Override
 			public void mouseClicked(MouseEvent e){
 
 				PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
-				
+
 				if(!checkMultipleSelection.isSelected()) 
 					polygon=new LineData();
-				
+
 				int index=pointList.getSelectedIndex();
 				for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
@@ -409,27 +429,27 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 					}
 					else if(!checkMultipleSelection.isSelected())
 						p.setSelected(false);
-					
+
 				}
-				
+
 				displayAll();
 
 
 			}
-			
-		
+
+
 		}
-		); 
+				); 
 		pointList.setFocusable(false);
 
-		
+
 		lineList=new JList();
-		
+
 		lineList.addMouseListener(new MouseAdapter(){
-			
+
 			@Override
 			public void mouseClicked(MouseEvent e){
-				
+
 				PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 
 				int index=lineList.getSelectedIndex();
@@ -440,26 +460,26 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 						ld.setSelected(true);
 					else 
 						ld.setSelected(false);
-					
+
 				}
 				deselectAllPoints();
 				displayAll();
 
 
 			}
-			
-		
+
+
 		}
-		); 
+				); 
 		lineList.setFocusable(false);
-		
+
 		JScrollPane jscp=new JScrollPane(lineList);
 		jlb=new JLabel("Lines:");
 		jlb.setBounds(170,0,100,20);
 		lowpane.add(jlb);
 		jscp.setBounds(150,25,150,180);
 		lowpane.add(jscp);
-		
+
 		return lowpane;
 	}
 
@@ -471,7 +491,7 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 
 		Border border = BorderFactory.createEtchedBorder();
 		move.setBorder(border);
-		
+
 		objMove=new DoubleTextField();
 		objMove.setBounds(30,40,40,20);
 		objMove.setToolTipText("Position increment");
@@ -484,35 +504,35 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 		movePointUp.addActionListener(this);
 		movePointUp.setFocusable(false);
 		move.add(movePointUp);
-		
+
 		movePointDown=new JButton("-Z");
 		movePointDown.setBorder(null);
 		movePointDown.setBounds(40,70,20,20);
 		movePointDown.addActionListener(this);
 		movePointDown.setFocusable(false);
 		move.add(movePointDown);
-		
+
 		movePointLeft=new JButton("-Y");
 		movePointLeft.setBorder(null);
 		movePointLeft.setBounds(5,40,20,20);
 		movePointLeft.addActionListener(this);
 		movePointLeft.setFocusable(false);
 		move.add(movePointLeft);
-		
+
 		movePointRight=new JButton("+Y");
 		movePointRight.setBorder(null);
 		movePointRight.setBounds(75,40,20,20);
 		movePointRight.addActionListener(this);
 		movePointRight.setFocusable(false);
 		move.add(movePointRight);
-		
+
 		movePointTop=new JButton("+X");
 		movePointTop.setBorder(null);
 		movePointTop.setBounds(5,70,20,20);
 		movePointTop.addActionListener(this);
 		movePointTop.setFocusable(false);
 		move.add(movePointTop);
-		
+
 		movePointBottom=new JButton("-X");
 		movePointBottom.setBorder(null);
 		movePointBottom.setBounds(75,70,20,20);
@@ -523,7 +543,7 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 		return move;
 
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -531,14 +551,15 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 	public void initialize() {
 
 
-		g2=(Graphics2D) getGraphics();
 		
+
 		DecimalFormatSymbols dfs=new DecimalFormatSymbols(Locale.UK);
 		dfc=new DecimalFormat("###.##");
 		dfc.setDecimalFormatSymbols(dfs);
-		
 
-		
+
+		center3D.initialize();
+		centerTop.initialize();
 
 	}
 
@@ -555,8 +576,8 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 		return new_area_out;
 
 	}
-	
-	private static Polygon3D buildPolygon(LineData ld,Point3D[] points) {
+
+	static Polygon3D buildPolygon(LineData ld,Point3D[] points) {
 
 
 
@@ -584,7 +605,7 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 
 		Polygon3D p3dr=new Polygon3D(size,cxr,cyr,czr);
 
-        return p3dr;
+		return p3dr;
 
 	}
 
@@ -606,10 +627,10 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 			displayAll();
 		}
 		else if(o==mergeSelectedPoints){
-			
+
 			oe.prepareUndo();
 			mergeSelectedPoints();
-			
+
 		}
 		else if(o==startBuildPolygon){
 			startBuildPolygon();
@@ -671,47 +692,47 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 
 	@Override
 	public void moveSelectedPoints(int dx, int dy, int dz) { 
-		
+
 		String sqty=objMove.getText();
-		
+
 		if(sqty==null || sqty.equals(""))
 			return;
-		
+
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
-		
+
 		double qty=Double.parseDouble(sqty);
-		
+
 		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
 
 			if(p.isSelected()){
 
-				
-					p.x=p.x+qty*dx;
-					p.y=p.y+qty*dy;
-					p.z=p.z+qty*dz;
-					
-					coordinatesx.setText(dfc.format(p.x));
-					coordinatesy.setText(dfc.format(p.y));
-					coordinatesz.setText(dfc.format(p.z));
+
+				p.x=p.x+qty*dx;
+				p.y=p.y+qty*dy;
+				p.z=p.z+qty*dz;
+
+				coordinatesx.setText(dfc.format(p.x));
+				coordinatesy.setText(dfc.format(p.y));
+				coordinatesz.setText(dfc.format(p.z));
 			}
 
 		}
 		//deselectAll();
 
-		
+
 	}
 
 	@Override
 	public void rescaleAllPoints() {
-		
+
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
-		
+
 		String txt=rescaleValue.getText();
-		
+
 		if(txt==null || txt.equals("")){
-			
+
 			JOptionPane.showMessageDialog(this,"Please insert rescale factor under the button");
 			return;
 		}	
@@ -719,25 +740,25 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
-		    p.x=Math.round(p.x *val);
-		    p.y=Math.round(p.y *val);
-		    p.z=Math.round(p.z *val);
+			p.x=Math.round(p.x *val);
+			p.y=Math.round(p.y *val);
+			p.z=Math.round(p.z *val);
 		}
-		
+
 	}
 
 
 	@Override
 	public void selectAllPoints() {
-		
+
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
-		
+
 		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
 			p.setSelected(true);
 		}
-		
+
 	}
 	@Override
 	public void buildPolygon() {
@@ -756,11 +777,11 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 		//check if a polygon is already present
 
 		for (int i = 0; i < sz ; i++) {
-			
+
 			LineData ld = (LineData)  mesh.polygonData.get(i);
 
 			if(polygon.size()==ld.size()){	
-				
+
 				boolean present=false;
 
 				for (int j = 0; j < ld.size(); j++) {
@@ -780,15 +801,15 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 
 					}
 
-                    if(found) {
-                    	present=true;        
+					if(found) {
+						present=true;        
 
-                    }else{
-                    	
-                    	present=false;
-                    	break;
-                    }	
-                    
+					}else{
+
+						present=false;
+						break;
+					}	
+
 				} 
 
 
@@ -804,12 +825,12 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 
 		}
 
-		
-		
+
+
 		Point3D normal = PolygonMesh.getNormal(0,polygon,mesh.points);	
-			
+
 		int boxFace=Renderer3D.findBoxFace(normal);
-		
+
 		polygon.setData(""+boxFace);
 
 		mesh.polygonData.add(polygon);
@@ -817,44 +838,44 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 		deselectAll();
 
 	}
-	
+
 	private void polygonDetail() {
-		
+
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
-	
-		
-		
+
+
+
 		for(int i=0;mesh.polygonData!=null && i<mesh.polygonData.size();i++){
 
 			LineData ld=(LineData) mesh.polygonData.get(i);
 			if(!ld.isSelected())
 				continue;
-			
+
 			RoadEditorPolygonDetail repd=new RoadEditorPolygonDetail(oe,ld);
-	
+
 			if(repd.getModifiedLineData()!=null){
-				
+
 				mesh.polygonData.set(i,repd.getModifiedLineData());
-				
+
 			}
-			
+
 			break;
 		}
 		displayAll();
-		
+
 	}
-	
-	
+
+
 
 	@Override
 	public void joinSelectedPoints() {
-		
+
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
-		
+
 		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p0=mesh.points[i];
-			
+
 			for(int j=0;j<mesh.points.length;j++){
 
 				Point3D p1=mesh.points[j];
@@ -877,9 +898,9 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 
 	@Override
 	public void changeSelectedPoint() {
-		
+
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
-		
+
 		if(mesh.points==null)
 			return; 
 
@@ -907,25 +928,25 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 
 	}
 
-    @Override
+	@Override
 	public void addPoint() {
 
 		if("".equals(coordinatesx.getText()) ||
 				"".equals(coordinatesy.getText()) ||
 				"".equals(coordinatesz.getText())
-		)
+				)
 			return;
 		double x=Double.parseDouble(coordinatesx.getText());
 		double y=Double.parseDouble(coordinatesy.getText());
 		double z=Double.parseDouble(coordinatesz.getText());
 
-		
+
 		addPoint(x,y,z);
 
 	}
-    @Override
+	@Override
 	public void addPoint(double x, double y, double z) {
-		
+
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 
 		if(!"".equals(coordinatesx.getText()))
@@ -936,40 +957,40 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 			z=Double.parseDouble(coordinatesz.getText());
 
 		Point3D p=new Point3D(x,y,z);
-		
+
 		if(!"".equals(extraData.getText()))
 			p.setData(extraData.getText());
 
 		int sz= 0;
 		if(mesh.points!=null)
 			sz=mesh.points.length;
-		
+
 		for (int i = 0; i <sz; i++) {
 			Point3D old_p = mesh.points[i];
-			
+
 			if(old_p.x==p.x && old_p.y==p.y && old_p.z==p.z){
-				
+
 				JOptionPane.showMessageDialog(this,"Point already present!");
 				return;
-				
-				
+
+
 			}
 		}
-		
+
 		mesh.addPoint(p);
-        
+
 		deselectAll();
 		displayAll();
-		
+
 		pointList.ensureIndexIsVisible(pointList.getModel().getSize()-1); 
 
 	}
-    @Override
+	@Override
 	public void delete() {
 
 		ArrayList<Point3D> newPoints=new ArrayList<Point3D>();
 		ArrayList<LineData> newLines=new ArrayList<LineData>();
-		
+
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 
 		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
@@ -988,9 +1009,9 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 			LineData newLd = new LineData();
 
 			boolean gotAllPoint=true;
-			
+
 			for(int j=0;j<ld.size();j++){
-				
+
 				LineDataVertex ldv= ld.getItem(j);
 
 				Point3D p0=mesh.points[ldv.getVertex_index()];
@@ -1003,7 +1024,7 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 							newLd.addIndex(k,ldv.getVertex_index(),ldv.getVertex_texture_x(),ldv.getVertex_texture_y());
 							break;
 						}
-						
+
 					}
 				else
 					gotAllPoint=false;
@@ -1019,24 +1040,24 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 
 		mesh.setPoints(newPoints);
 		mesh.polygonData=newLines;
-        deselectAll();
-		
+		deselectAll();
+
 
 		displayAll();
 
 	}
-	
+
 	private void mergeSelectedPoints() {
-	
-		
+
+
 		ArrayList<Point3D> newPoints=new ArrayList<Point3D>();
 		ArrayList<LineData> newLines=new ArrayList<LineData>();
-		
+
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 
-		
+
 		int firstPoint=-1;
-		
+
 		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
@@ -1047,11 +1068,11 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 				newPoints.add(p);
 			}
 			else{
-				
-				
-				
+
+
+
 			}
-				
+
 
 		}
 
@@ -1062,10 +1083,10 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 			if(ld.isSelected())
 				continue;
 			LineData newLd = new LineData();
-			
+
 			boolean insertedFirst=false;
 			for(int j=0;j<ld.size();j++){
-				
+
 				LineDataVertex ldv= ld.getItem(j);
 
 				Point3D p0=mesh.points[ldv.getVertex_index()];
@@ -1085,7 +1106,7 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 						continue;
 
 					newLd.addIndex(firstPoint,ldv.getVertex_index(),ldv.getVertex_texture_x(),ldv.getVertex_texture_y());
-					
+
 					insertedFirst=true;
 				}
 
@@ -1100,52 +1121,52 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 
 		mesh.setPoints(newPoints);
 		mesh.polygonData=newLines;
-        deselectAll();
-		
+		deselectAll();
+
 		displayAll();
 	}
 	@Override
 	public void deselectAll() {
-		
+
 		clean();
 		deselectAllLines();
 		deselectAllPoints();
 		polygon=new LineData();
 
-	
-		
-	
+
+
+
 	}
 	@Override
 	public void deselectAllPoints() {
-		
+
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
-		
+
 		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
 			p.setSelected(false);
 		}
-		
+
 	}
 	@Override
 	public void deselectAllLines() {
-		
+
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
-		
+
 		for(int i=0;i<mesh.polygonData.size();i++){
 
 			LineData ld=(LineData) mesh.polygonData.get(i);
 			ld.setSelected(false);
 		}
-		
+
 	}
 
 
-	
 
 
-	
+
+
 	@Override
 	public void clean(){
 
@@ -1154,7 +1175,7 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 		if(!checkCoordinatesz.isSelected())coordinatesz.setText("");
 		if(!checkExtraData.isSelected())extraData.setText("");
 
-		
+
 
 	}
 	@Override
@@ -1169,18 +1190,18 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 		else if(code==KeyEvent.VK_LEFT )
 		{	
 			translate(-1,0);
-		   
+
 		}
 		else if(code==KeyEvent.VK_RIGHT  )
 		{	
 			translate(1,0);  
-		
+
 		}
 		else if(code==KeyEvent.VK_C  )
 		{	
 			oe.prepareUndo();
 			changeSelectedPoint();   
-		    displayAll();   
+			displayAll();   
 		}
 		else if(code==KeyEvent.VK_J )
 		{	
@@ -1226,11 +1247,11 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 			displayAll(); 
 		}
 		else if(code==KeyEvent.VK_A){
-			rotateTeta(+1);
+			getCenter().rotateTeta(+1);
 			displayAll();
 		}	
 		else if(code==KeyEvent.VK_S){
-			rotateTeta(-1);
+			getCenter().rotateTeta(-1);
 			displayAll();
 		}	
 		else if(code==KeyEvent.VK_M )
@@ -1262,7 +1283,7 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 		}
 		else if(code==KeyEvent.VK_F4 )
 		{	
-			 
+
 			checkMultipleSelection.setSelected(false);  
 		}
 		else if(code==KeyEvent.VK_PAGE_UP )
@@ -1271,19 +1292,19 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 		}
 		else if(code==KeyEvent.VK_PAGE_DOWN )
 		{	
-			 
+
 			moveSelectedLine(+1); 
 		}
 		else if(code==KeyEvent.VK_LESS )
 		{	
-			 
+
 			invertSelectedLine(); 
 		}
-		
+
 	}
 
 	private void startBuildPolygon() {
-		
+
 		deselectAll();
 		displayAll();
 	}
@@ -1299,27 +1320,27 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 	}
 
 	private void moveSelectedLine(int direction) {
-		
+
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
-		
+
 		for(int i=0;i<mesh.polygonData.size();i++){
 
 			LineData ld=(LineData) mesh.polygonData.get(i);
 			if(ld.isSelected() && direction>0 && i<mesh.polygonData.size()-1 ){
-					swapLines(mesh.polygonData,i+1,i);	
-					lineList.setSelectedIndex(lineList.getSelectedIndex()+1);
-					break;
+				swapLines(mesh.polygonData,i+1,i);	
+				lineList.setSelectedIndex(lineList.getSelectedIndex()+1);
+				break;
 			}
 			else if(ld.isSelected() && direction<0 && i>0){
-					swapLines(mesh.polygonData,i,i-1);	
-					lineList.setSelectedIndex(lineList.getSelectedIndex()-1);
-					break;
+				swapLines(mesh.polygonData,i,i-1);	
+				lineList.setSelectedIndex(lineList.getSelectedIndex()-1);
+				break;
 			}
 		}
 		//System.out.println(lineList.getSelectedIndex());
 		resetLists();
 	}
-	
+
 	private void swapLines(ArrayList<LineData> lines, int i1, int i2) {
 		LineData ld1=(LineData) lines.get(i1);
 		LineData ld2=(LineData) lines.get(i2);
@@ -1328,186 +1349,94 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 	}
 
 	private void invertSelectedLine(){
-		
+
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
-		
+
 		for(int i=0;i<mesh.polygonData.size();i++){
 
 			LineData ld=(LineData) mesh.polygonData.get(i);
 			if(ld.isSelected()){
-				
+
 				LineData invertedLd=new LineData();
-				
+
 				for (int j = ld.size()-1; j >=0; j--) {
 					invertedLd.addIndex(ld.getIndex(j));
 				}
 				mesh.polygonData.set(i,invertedLd);
 			}
-			
-		
+
+
 		}
 		resetLists();
 		displayAll();
 	}
 	@Override
 	public void resetLists() {
-		
+
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
-		
+
 		if(mesh.points==null)
 			return;
-		
+
 		DefaultListModel dlm=new DefaultListModel();
 		int sel=pointList.getSelectedIndex();
-		
+
 
 		for(int i=0;i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
-		    dlm.addElement(new PointListItem(p,i)) ; 
+			dlm.addElement(new PointListItem(p,i)) ; 
 		}
-		
+
 		pointList.setModel(dlm);
-		
+
 		if(sel>=0 && sel<pointList.getModel().getSize())
 			pointList.setSelectedIndex(sel);
-		
+
 		///////////////////////
-		
+
 		DefaultListModel dflm=new DefaultListModel();
 		int selec=lineList.getSelectedIndex();
-		
+
 
 		for(int i=0;i<mesh.polygonData.size();i++){
 
 			LineData ld=(LineData) mesh.polygonData.get(i);
 			dflm.addElement(ld) ; 
 		}
-		
+
 		lineList.setModel(dflm);
-		
+
 		if(selec>=0 && selec<lineList.getModel().getSize())
 			lineList.setSelectedIndex(selec);
-		
-		
-	}
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
 
-		selectPoint(arg0.getX(),arg0.getY());
-		displayAll();
 
 	}
-	@Override
-	public void mouseDragged(MouseEvent e) {
 
-		isDrawCurrentRect=true;
-		updateSize(e);
-		
-	}
 	
-	private void updateSize(MouseEvent e) {
-        int x = e.getX();
-        int y = e.getY();
-        currentRect.setSize(x - currentRect.x,
-                            y - currentRect.y);
-       
-        
-        displayAll(); 
-        
-   
-    }
-	@Override
-	public void mouseMoved(MouseEvent e) {
 
-
-
-	}
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		
-		int xp=arg0.getX();
-		int yp=arg0.getY();
-		currentRect = new Rectangle(xp, yp, 0, 0);
-
-	}
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		
-		updateSize(arg0);
-        selectPointsWithRectangle();
-        isDrawCurrentRect=false;
-        displayAll();
-
-	}
-	
-	void displayCurrentRect(Graphics2D bufGraphics) {
-		
-		if(!isDrawCurrentRect)
-			return;
-		
-		int x0=Math.min(currentRect.x,currentRect.x+currentRect.width);
-		int x1=Math.max(currentRect.x,currentRect.x+currentRect.width);
-		int y0=Math.min(currentRect.y,currentRect.y+currentRect.height);
-		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
-		
-		bufGraphics.setColor(Color.WHITE);
-		bufGraphics.drawRect(x0,y0,x1-x0,y1-y0);
-		
-	}
-	
 	public void selectPointsWithRectangle() {
-		
+
+
+
+	}
 	
-		
-	}
-	@Override
-	public void mouseWheelMoved(MouseWheelEvent arg0) {
 
-		int pix=arg0.getUnitsToScroll();
-		if(pix>0) 
-			translate(0,1);
-		else 
-			translate(0,-1);
 
-	}
-	@Override
-	public void rotate(double df){
+	public void translate(int i, int j){
 		
-		 fi+=df;
-		 sinf=Math.sin(fi);
-		 cosf=Math.cos(fi);
+		getCenter().translate(i, j);
 		
 	}
 	
-	private void rotateTeta(int i) {
-		
-		teta+=0.1*i;
-		costeta=Math.cos(teta);
-		sinteta=Math.sin(teta);
-		
-	}	
-
-	@Override
-	public abstract void translate(int i, int j);
 	@Override
 	public void itemStateChanged(ItemEvent arg0) {
-		
+
 		Object obj=arg0.getSource();
-		
+
 		if(obj==chooseFace){
-			
-			
+
+
 		}
 
 	}
@@ -1527,175 +1456,158 @@ abstract class ObjectEditorPanel extends JPanel implements EditorPanel,ActionLis
 			coordinatesz.setText(dfc.format(p.z));
 		if(!checkExtraData.isSelected())
 			extraData.setText(p.getData()!=null?p.getData().toString():null);
-			
+
 
 		deselectAllLines();
 
 		p.setSelected(true);
 
-		
+
 	}
 	@Override
 	public void moveSelectedPointWithMouse(Point3D p3d, int type) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void draw() {
 		// TODO Auto-generated method stub
-		
-	}
-	
-	private class PolygonComparator implements Comparator {
 
-		@Override
-		public int compare(Object o1, Object o2) {
-			
-			LineDataWithDistance pol1=(LineDataWithDistance) o1;
-			LineDataWithDistance pol2=(LineDataWithDistance) o2;
-			
-			if(pol1.getScreen_distance()>pol2.getScreen_distance())
-				return 1;
-			else if(pol1.getScreen_distance()<pol2.getScreen_distance())
-				return -1;
-				
-			
-			return 0;
-		}
-		
-	}
-	
-
-	private class LineDataWithDistance {
-		
-
-		public LineDataWithDistance(LineData line_data, double screen_distance) {
-			super();
-			this.line_data = line_data;
-			this.screen_distance = screen_distance;
-		}
-		LineData line_data=null;
-		private double screen_distance=0;
-		
-
-		public double getScreen_distance() {
-			return screen_distance;
-		}
-		public void setScreen_distance(double screen_distance) {
-			this.screen_distance = screen_distance;
-		}
-		public LineData getLine_data() {
-			return line_data;
-		}
-		public void setLine_data(LineData line_data) {
-			this.line_data = line_data;
-		}
-
-		
-	}
-	
-	
-
-	protected void selectPolygon(int x, int y) {
-		
-		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
-		
-		ArrayList<LineDataWithDistance> polygonsInLine=new ArrayList<LineDataWithDistance>();
-	
-		
-		for(int i=0;i<mesh.polygonData.size();i++){
-
-			LineData ld=(LineData) mesh.polygonData.get(i);
-		
-			if(ld.size()>2){
-				
-				Polygon3D p3d=buildPolygon(ld,mesh.points);
-	
-				Polygon poly=buildProjection(p3d);
-
-
-				if(poly.contains(x,y)){
-	
-				
-					double current_distance=calculateScreenDistance(p3d,x,y);
-	
-					polygonsInLine.add(new LineDataWithDistance(ld,current_distance));
-					
-				
-				}
-				
-			}
-			
-			if(!checkMultipleSelection.isSelected())
-				ld.setSelected(false);
-		}
-		PolygonComparator cc=new PolygonComparator();
-		
-		if(polygonsInLine.size()>0){
-			
-			Collections.sort(polygonsInLine,cc);
-     
-			LineData ld=((LineDataWithDistance)polygonsInLine.get(polygonsInLine.size()-1)).getLine_data();
-			ld.setSelected(true);
-			chooseFace.setSelectedIndex(1+Integer.parseInt(ld.getData()));
-		}
-		
 	}
 
+
+
+
 	
+
+
+	
+
 	public double calculateScreenDistance(Polygon3D p3d, int x, int y) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	private Polygon buildProjection(Polygon3D p3d) { 
+	
 
 
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
 
-		int size=p3d.npoints;
+		center3D.addPropertyChangeListener(listener);
+		centerTop.addPropertyChangeListener(listener);
+		centerLeft.addPropertyChangeListener(listener);
+		centerFront.addPropertyChangeListener(listener);
+	}
 
-		int[] cxr=new int[size];
-		int[] cyr=new int[size];
-		int[] czr=new int[size];
-		
-		//Point3D pn= Polygon3D.findNormal(p3d);
-		//boolean clock_versus=pn.z>=0;	
-		
-		for(int i=0;i<size;i++){
-			
-			double x=p3d.xpoints[i];
-			double y=p3d.ypoints[i];
-			double z=p3d.zpoints[i];
+	private class FileTransferhandler extends TransferHandler{
 
-			//if(clock_versus){
-				cxr[i]=calcAssX(x,y,z); 
-				cyr[i]=calcAssY(x,y,z);
-				czr[i]=0;
-			/*}
-			else{
-				cxr[size-1-i]=(int)netRenderer.calculPerspX(p.x,p.z,p.y); 
-				cyr[size-1-i]=(int)netRenderer.calculPerspY(p.x,p.z,p.y);
-				czr[size-1-i]=0;
+
+		@Override
+		public boolean canImport(JComponent comp, DataFlavor[] transferFlavors) {
+
+			for(int i=0;i<transferFlavors.length;i++){
+
+				if (!transferFlavors[i].equals(DataFlavor.javaFileListFlavor))
+					return false;
+			}
+			return true;
+		}
+		@Override
+		public boolean importData(JComponent comp, Transferable t) {
+
+			/*try {
+				List list=(List) t.getTransferData(DataFlavor.javaFileListFlavor);
+				Iterator itera = list.iterator();
+				while(itera.hasNext()){
+
+					Object o=itera.next();
+					if(!(o instanceof File))
+						continue;
+					File file=(File) o;
+					currentDirectory=file.getParentFile();
+					currentFile=file;
+
+					loadPointsFromFile(file,ACTIVE_PANEL,forceReading);
+					getCenter().displayAll();
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
 			}*/
+			return false;
 		}
 
-
-
-		Polygon poly=new Polygon(cxr,cyr,size);
-
+	}
+	
+	@Override
+	public void displayAll() {
+		getCenter().displayAll();
 		
-        return poly;
-
+	}
+	
+	
+	public ObjectEditorViewPanel getCenter(){
+		
+		if(VIEW_TYPE==VIEW_TYPE_3D)
+			return center3D;
+		else if(VIEW_TYPE==VIEW_TYPE_TOP)
+		    return centerTop;
+		else if(VIEW_TYPE==VIEW_TYPE_LEFT)
+		    return centerLeft;
+		else 
+		    return centerFront;
+		
 	}
 
-	public int calcAssY(double x, double y, double z) {
-		// TODO Auto-generated method stub
-		return 0;
+	void set3DView() {
+
+		remove(getCenter()); 
+		VIEW_TYPE=VIEW_TYPE_3D;
+		add(center3D);		
+		center3D.grabFocus();
+		repaint();
 	}
 
-	public int calcAssX(double x, double y, double z) {
-		// TODO Auto-generated method stub
-		return 0;
+	void setTopView() {
+
+		remove(getCenter()); 
+		VIEW_TYPE=VIEW_TYPE_TOP;
+		add(centerTop);		
+		centerTop.grabFocus();
+		repaint();
 	}
+
+	void setLeftView() {
+
+		remove(getCenter()); 
+		VIEW_TYPE=VIEW_TYPE_LEFT;
+		add(centerLeft);		
+		centerLeft.grabFocus();
+		repaint();
+	}
+
+	void setFrontView() {
+
+		remove(getCenter()); 
+		VIEW_TYPE=VIEW_TYPE_FRONT;
+		add(centerFront);		
+		centerFront.grabFocus();
+		repaint();
+	}
+
+	@Override
+	public void zoom(int n) {
+		getCenter().zoom(n);
+		
+	}
+
+	@Override
+	public void rotate(double df) {
+		getCenter().rotate(df);
+		
+	}
+	
+	
 
 }
