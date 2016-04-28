@@ -205,6 +205,8 @@ public abstract class ObjectEditorViewPanel extends JPanel implements MouseListe
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 
+		if(!isDrawCurrentRect)
+			return;
 		updateSize(arg0);
 		selectPointsWithRectangle();
 		isDrawCurrentRect=false;
