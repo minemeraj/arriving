@@ -22,6 +22,8 @@ import com.PolygonMesh;
 
 public abstract class ObjectEditorViewPanel extends JPanel implements MouseListener,MouseMotionListener,MouseWheelListener{
 	
+	static int HEIGHT=ObjectEditor.HEIGHT;
+	static int WIDTH=ObjectEditor.WIDTH;
 	
 	Graphics2D g2;
 	
@@ -56,7 +58,6 @@ public abstract class ObjectEditorViewPanel extends JPanel implements MouseListe
 	public void initialize(){
 		
 		g2=(Graphics2D) getGraphics();
-		
 	}
 	
 	abstract void translate(int i, int j);
