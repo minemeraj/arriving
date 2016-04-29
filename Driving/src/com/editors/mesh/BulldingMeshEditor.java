@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 import com.editors.DoubleTextField;
 import com.editors.IntegerTextField;
@@ -43,9 +44,9 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 	private DoubleTextField dy2_text;
 	private DoubleTextField dx2_text;
 	private DoubleTextField dy3_text;
-	
+
 	private boolean skipItemChanged=false;
-	
+
 	public static int HOUSE0=0;
 	public static int HOUSE1=1;
 	public static int GAMBREL0=2;
@@ -57,10 +58,10 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 	public static int HOUSE3=8;
 	public static int HOUSE4=9;
 	public static int COURTYARD=10;
-	
+
 	public static void main(String[] args) {
 
-		BulldingMeshEditor fm=new BulldingMeshEditor(790,290);
+		BulldingMeshEditor fm=new BulldingMeshEditor(790,350);
 	}
 
 
@@ -76,17 +77,31 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 
 		int a0=5;
 		int a1=70;
-		
+
 		int c0=200;
 		int c1=280;
-		
+
 		int c2=410;
 		int c3=450;
-		
-		
+
+
 		int c4=580;
 		int c5=620;
-		
+
+		JLabel name=new JLabel("Description:");
+		name.setBounds(5,r,120,20);
+		center.add(name);
+
+		r+=30;
+
+		description=new JTextField();
+		description.setBounds(30,r,380,20);
+		description.setToolTipText("Description");
+		description.setText("");
+		center.add(description);
+
+		r+=30;
+
 		JLabel lx=new JLabel("dx:");
 		lx.setBounds(a0,r,80,20);
 		center.add(lx);
@@ -100,7 +115,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		dx1_text=new DoubleTextField(8);
 		dx1_text.setBounds(c1,r,120,20);
 		center.add(dx1_text);
-		
+
 		lx=new JLabel("dx2:");
 		lx.setBounds(c2,r,80,20);
 		center.add(lx);
@@ -130,7 +145,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		dy2_text=new DoubleTextField(8);
 		dy2_text.setBounds(c3,r,120,20);
 		center.add(dy2_text);
-		
+
 		ly=new JLabel("dy3:");
 		ly.setBounds(c4,r,80,20);
 		center.add(ly);
@@ -146,7 +161,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		dz_text=new DoubleTextField(8);
 		dz_text.setBounds(a1,r,120,20);
 		center.add(dz_text);
-		
+
 		ly=new JLabel("dz1:");
 		ly.setBounds(c0,r,80,20);
 		center.add(ly);
@@ -163,17 +178,17 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		roof_height=new DoubleTextField(8);
 		roof_height.setBounds(a1,r,120,20);
 		center.add(roof_height);
-		
+
 		lr=new JLabel("N merid.");
 		lr.setBounds(c0,r,80,20);
 		center.add(lr);
 		num_meridians=new IntegerTextField(8);
 		num_meridians.setBounds(c1,r,120,20);
 		center.add(num_meridians);
-		
+
 		setRightData(100,200,100,50,0,150,0,0,0,0,0);
 
-	
+
 		r+=30;
 
 		JLabel jlb=new JLabel("Buiilding type:");
@@ -195,9 +210,9 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		chooseBuilding.addItem(new ValuePair(""+GAMBREL0,Gambrel0Model.NAME));	
 		chooseBuilding.addItem(new ValuePair(""+MANSARD0,Mansard0Model.NAME));
 		chooseBuilding.addItem(new ValuePair(""+SHED0,Shed0Model.NAME));
-		
+
 		chooseBuilding.addItemListener(this);
-	
+
 
 		chooseBuilding.setSelectedIndex(0);
 		center.add(chooseBuilding);
@@ -229,18 +244,18 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		double dx1 = dx1_text.getvalue();
 		double dy1 = dy1_text.getvalue();
 		double dz1 = dz1_text.getvalue();	
-		
+
 		double dx2 = dx2_text.getvalue();
 		double dy2 = dy2_text.getvalue();
 		double dy3 = dy3_text.getvalue();
-		
+
 		int num_mer=num_meridians.getvalue();
-		
-	    ValuePair vp= (ValuePair)chooseBuilding.getSelectedItem();
-	    
-	    int val=Integer.parseInt(vp.getId());
-	    if(val<0)
-	    	val=HOUSE0;
+
+		ValuePair vp= (ValuePair)chooseBuilding.getSelectedItem();
+
+		int val=Integer.parseInt(vp.getId());
+		if(val<0)
+			val=HOUSE0;
 
 		if(HOUSE0==val)
 			meshModel=new House0Model(dx,dy,dz,rh,dy1);
@@ -264,6 +279,8 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 			meshModel=new House4Model(dx,dy,dz,rh,dx1,dy1,dx2);
 		else if(COURTYARD==val)
 			meshModel=new Courtyard0Model(dx,dy,dz,rh,dx1,dy1);
+		
+		meshModel.setDescription(description.getText());
 
 		meshModel.initMesh();
 	}
@@ -283,64 +300,64 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 
 	@Override
 	public void itemStateChanged(ItemEvent arg0) {
-		
+
 		if(skipItemChanged)
 			return;
-		
+
 		Object obj = arg0.getSource();
-		
+
 		if(obj==chooseBuilding){
-			
-			 ValuePair vp= (ValuePair)chooseBuilding.getSelectedItem();
-				
-			 int val=Integer.parseInt(vp.getId());
-			   if(val<0)
-			    	val=HOUSE0;
-			   
-				if(HOUSE0==val)
-					setRightData(100,200,100,50,0,150,0,0,0,0,0);
-				else if(HOUSE1==val)
-					setRightData(100,200,100,50,100,150,0,0,0,0,0);
-				else if(MANSARD0==val)
-					setRightData(100,200,100,50,50,150,0,0,0,0,0);
-				else if(GAMBREL0==val)
-					setRightData(100,200,100,0,0,0,0,0,0,0,0);
-				else if(BELLTOWER==val)
-					setRightData(100,200,300,100,0,0,0,0,0,0,0);
-				else if(SHED0==val)
-					setRightData(100,200,100,0,0,0,60,0,0,0,0);
-				else if(CHIMNEY0==val)
-					setRightData(100,0,300,0,80,0,0,12,0,0,0);
-				else if(HOUSE2==val)
-					setRightData(100,200,100,50,100,150,0,0,0,200,0);
-				else if(HOUSE3==val)
-					setRightData(100,200,100,50,100,150,0,0,0,150,200);
-				else if(HOUSE4==val)
-					setRightData(100,150,100,50,100,300,0,0,100,0,0);
-				else if(COURTYARD==val)
-					setRightData(200,200,100,50,100,100,0,0,0,0,0);
+
+			ValuePair vp= (ValuePair)chooseBuilding.getSelectedItem();
+
+			int val=Integer.parseInt(vp.getId());
+			if(val<0)
+				val=HOUSE0;
+
+			if(HOUSE0==val)
+				setRightData(100,200,100,50,0,150,0,0,0,0,0);
+			else if(HOUSE1==val)
+				setRightData(100,200,100,50,100,150,0,0,0,0,0);
+			else if(MANSARD0==val)
+				setRightData(100,200,100,50,50,150,0,0,0,0,0);
+			else if(GAMBREL0==val)
+				setRightData(100,200,100,0,0,0,0,0,0,0,0);
+			else if(BELLTOWER==val)
+				setRightData(100,200,300,100,0,0,0,0,0,0,0);
+			else if(SHED0==val)
+				setRightData(100,200,100,0,0,0,60,0,0,0,0);
+			else if(CHIMNEY0==val)
+				setRightData(100,0,300,0,80,0,0,12,0,0,0);
+			else if(HOUSE2==val)
+				setRightData(100,200,100,50,100,150,0,0,0,200,0);
+			else if(HOUSE3==val)
+				setRightData(100,200,100,50,100,150,0,0,0,150,200);
+			else if(HOUSE4==val)
+				setRightData(100,150,100,50,100,300,0,0,100,0,0);
+			else if(COURTYARD==val)
+				setRightData(200,200,100,50,100,100,0,0,0,0,0);
 		}		   
-		
+
 	}
 
 
@@ -357,8 +374,8 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 			int dy2,
 			int dy3
 			) {
-	
-		
+
+
 		dx_text.setText(dx);
 		dy_text.setText(dy); 
 		dz_text.setText(dz);
@@ -371,16 +388,16 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		dy2_text.setText(dy2);
 		dy3_text.setText(dy3);
 	}
-	
+
 	@Override
 	public void saveData(PrintWriter pr) {
-		
-		 ValuePair vp= (ValuePair)chooseBuilding.getSelectedItem();
-			
-		 int val=Integer.parseInt(vp.getId());
-		   if(val<0)
-		    	val=HOUSE0;
-		
+
+		ValuePair vp= (ValuePair)chooseBuilding.getSelectedItem();
+
+		int val=Integer.parseInt(vp.getId());
+		if(val<0)
+			val=HOUSE0;
+
 		pr.println("building="+val);
 		pr.println("dx="+dx_text.getvalue());
 		pr.println("dy="+dy_text.getvalue());
@@ -394,29 +411,29 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		pr.println("+dy2="+dy2_text.getvalue());
 		pr.println("dy3="+dy3_text.getvalue());
 	}
-	
+
 	@Override
 	public void loadData(BufferedReader br) throws IOException {
-		
-		
-		
+
+
+
 		String str=null;
 		while((str=br.readLine())!=null){
-			
+
 			if(str.indexOf("#")>=0 || str.length()==0)
 				continue;
-			
+
 			int indx=str.indexOf("=");
-			
+
 			String name=str.substring(0,indx);
 			String value=str.substring(1+indx);
-			
+
 			if("building".equals(name)){
-				
+
 				skipItemChanged=true;
-				
+
 				int building=Integer.parseInt(value);
-				
+
 				for (int i = 0; i < chooseBuilding.getItemCount(); i++) {
 					ValuePair vp= (ValuePair) chooseBuilding.getItemAt(i);
 					if(vp.getId().equals(""+building))
@@ -426,86 +443,86 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 					}	
 				}
 				skipItemChanged=false;
-				
+
 			}
 			else if("dx".equals(name)){
-				
+
 				double dx=Double.parseDouble(value);
 				dx_text.setText(dx);
-				
-				
+
+
 			}
 			else if("dx1".equals(name)){
-				
+
 				double dx1=Double.parseDouble(value);
 				dx1_text.setText(dx1);
-				
-				
+
+
 			}
 			else if("dx2".equals(name)){
-				
+
 				double dx2=Double.parseDouble(value);
 				dx2_text.setText(dx2);
-				
-				
+
+
 			}
 			else if("dy".equals(name)){
-				
+
 				double dy=Double.parseDouble(value);
 				dy_text.setText(dy);
-				
-				
+
+
 			}
 			else if("dy1".equals(name)){
-				
+
 				double dy1=Double.parseDouble(value);
 				dy1_text.setText(dy1);
-				
-				
+
+
 			}
 			else if("dy2".equals(name)){
-				
+
 				double dy2=Double.parseDouble(value);
 				dy2_text.setText(dy2);
-				
-				
+
+
 			}
 			else if("dy3".equals(name)){
-				
+
 				double dy3=Double.parseDouble(value);
 				dy3_text.setText(dy3);
-				
-				
+
+
 			}
 			else if("dz".equals(name)){
-				
+
 				double dz=Double.parseDouble(value);
 				dz_text.setText(dz);
-				
-				
+
+
 			}
 			else if("dz1".equals(name)){
-				
+
 				double dz1=Double.parseDouble(value);
 				dz1_text.setText(dz1);
-				
-				
+
+
 			}
 			else if("roof_height".equals(name)){
-				
+
 				double roofHeight=Double.parseDouble(value);
 				roof_height.setText(roofHeight);
-				
-				
+
+
 			}
 			else if("num_meridians".equals(name)){
-				
+
 				int nm=Integer.parseInt(value);
 				num_meridians.setText(nm);
-				
-				
+
+
 			}
-			
+
 		}
 	}
 

@@ -16,6 +16,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
@@ -23,6 +24,7 @@ import com.editors.models.MeshModel;
 
 class MeshModelEditor extends JFrame implements ActionListener, MenuListener{
 	
+	protected JTextField description=null;
 
 	JPanel center;
 
@@ -42,7 +44,7 @@ class MeshModelEditor extends JFrame implements ActionListener, MenuListener{
 	private JMenuItem jm_file_load;
 	private JMenuItem jm_file_save;
 	private File currentFile;
-
+	
 	
 	MeshModelEditor(int W,int H){		
 		

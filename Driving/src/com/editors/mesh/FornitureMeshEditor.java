@@ -7,6 +7,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 import com.editors.DoubleTextField;
 import com.editors.models.CubeModel;
@@ -23,7 +24,7 @@ public class FornitureMeshEditor extends MeshModelEditor{
 	
 	public static void main(String[] args) {
 		
-		FornitureMeshEditor fm=new FornitureMeshEditor(200,280);
+		FornitureMeshEditor fm=new FornitureMeshEditor(250,350);
 	}
 	
 	
@@ -40,6 +41,20 @@ public class FornitureMeshEditor extends MeshModelEditor{
 		 double dz=50;
 
 		 int r=10;
+		 
+		 JLabel name=new JLabel("Description:");
+		 name.setBounds(5,r,120,20);
+		 center.add(name);
+		 
+		 r+=30;
+		 
+		 description=new JTextField();
+		 description.setBounds(30,r,180,20);
+		 description.setToolTipText("Description");
+		 description.setText("");
+		 center.add(description);
+		 
+		 r+=30;
 
 		 JLabel lx=new JLabel("dx:");
 		 lx.setBounds(5,r,20,20);
@@ -105,6 +120,7 @@ public class FornitureMeshEditor extends MeshModelEditor{
 
 	public void initMesh() {
 		
+		
 	    	
 	    double dx = dx_text.getvalue();
 	    double dy = dy_text.getvalue();
@@ -114,6 +130,8 @@ public class FornitureMeshEditor extends MeshModelEditor{
 	    	meshModel=new CubeModel(dx,dy,dz);
 	    else
 	    	meshModel=new TableModel(dx,dy,dz);
+	    
+	    meshModel.setDescription(description.getText());
 	    
 	    meshModel.initMesh();
 	}

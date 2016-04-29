@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 import com.editors.DoubleTextField;
 import com.editors.ValuePair;
@@ -30,7 +31,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 
 	public static void main(String[] args) {
 
-		CarMeshEditor fm=new CarMeshEditor(250,280);
+		CarMeshEditor fm=new CarMeshEditor(250,320);
 	}
 
 
@@ -47,6 +48,20 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		double dz=100;
 
 		int r=10;
+
+		JLabel name=new JLabel("Description:");
+		name.setBounds(5,r,120,20);
+		center.add(name);
+
+		r+=30;
+
+		description=new JTextField();
+		description.setBounds(30,r,180,20);
+		description.setToolTipText("Description");
+		description.setText("");
+		center.add(description);
+
+		r+=30;
 
 		JLabel lx=new JLabel("dx:");
 		lx.setBounds(5,r,20,20);
@@ -127,6 +142,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		else
 			meshModel=new Car0Model(dx,dy,dz);
 
+		meshModel.setDescription(description.getText());
+
 		meshModel.initMesh();
 	}
 
@@ -167,7 +184,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 
 
 	private void setRightData(int dx, int dy, int dz){ 
-		
+
 		dx_text.setText(dx);
 		dy_text.setText(dy);
 		dz_text.setText(dz);

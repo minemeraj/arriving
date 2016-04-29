@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 import com.editors.DoubleTextField;
 import com.editors.ValuePair;
@@ -40,7 +41,7 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 
 	public static void main(String[] args) {
 
-		AnimalMeshEditor fm=new AnimalMeshEditor(350,280);
+		AnimalMeshEditor fm=new AnimalMeshEditor(350,320);
 	}
 
 
@@ -58,6 +59,20 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 
 		int r=10;
 
+		JLabel name=new JLabel("Description:");
+		name.setBounds(5,r,120,20);
+		center.add(name);
+
+		r+=30;
+
+		description=new JTextField();
+		description.setBounds(30,r,180,20);
+		description.setToolTipText("Description");
+		description.setText("");
+		center.add(description);
+
+		r+=30;
+
 		JLabel lx=new JLabel("dx:");
 		lx.setBounds(5,r,20,20);
 		center.add(lx);
@@ -65,7 +80,7 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 		dx_text.setBounds(30,r,100,20);
 		dx_text.setText(dx);
 		center.add(dx_text);
-		
+
 		JLabel llegs=new JLabel("Legs len:");
 		llegs.setBounds(140,r,70,20);
 		center.add(llegs);
@@ -83,7 +98,7 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 		dy_text.setBounds(30,r,100,20);
 		dy_text.setText(dy);
 		center.add(dy_text);
-		
+
 		JLabel larms=new JLabel("Arms len:");
 		llegs.setBounds(140,r,70,20);
 		center.add(llegs);
@@ -145,7 +160,7 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 		double dx = dx_text.getvalue();
 		double dy = dy_text.getvalue();
 		double dz = dz_text.getvalue();
-		
+
 		double darm=arm_length_text.getvalue();
 		double dlegs=leg_length_text.getvalue();
 
@@ -167,6 +182,8 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 			meshModel=new Head1Model(dx,dy,dz); 
 		else
 			meshModel=new ManModel(dx,dy,dz);
+
+		meshModel.setDescription(description.getText());
 
 		meshModel.initMesh();
 	}
@@ -215,7 +232,7 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 
 
 	private void setRightData(int dx, int dy, int dz,int leg_length,int arm_length){ 
-		
+
 		dx_text.setText(dx);
 		dy_text.setText(dy);
 		dz_text.setText(dz);

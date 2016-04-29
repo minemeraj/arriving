@@ -1,4 +1,4 @@
-Added object name variable in the OBjectEditor.
+Added object descxription variable in the ObjectEditor and Mesh Editors.
 
 Added clearer directions (N,W,S,E) in the Main program.
 

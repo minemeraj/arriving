@@ -19,6 +19,7 @@ public abstract class MeshModel {
 
 	Vector<Point3D> texturePoints=null;
 	Vector<Point3D> points=null;
+	String description=null;
 
 	private Color backgroundColor=Color.green;
 
@@ -42,6 +43,8 @@ public abstract class MeshModel {
 
 
 	public void printMeshData(PrintWriter pw) {
+		
+		print(pw,"DESCRIPTION="+description);
 
 		for(int i=0;i<points.size();i++){
 
@@ -530,6 +533,18 @@ public abstract class MeshModel {
 		}
 		
 		return usedPoints;
+	}
+
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 
