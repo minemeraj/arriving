@@ -84,7 +84,7 @@ class ObjectEditor3DPanel extends ObjectEditorViewPanel implements AbstractRende
 		
 		buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 		
-		ObjectEditor oe = objEditorPanel.oe;
+		ObjectEditor oe = objEditorPanel.objectEditor;
 		
 		if(oe.jmt_show_shading.isSelected() || oe.isShowTexture() ){
 			
@@ -127,7 +127,7 @@ class ObjectEditor3DPanel extends ObjectEditorViewPanel implements AbstractRende
 	
 	private void buildShading(BufferedImage buf) {
 		
-		ObjectEditor oe = objEditorPanel.oe;
+		ObjectEditor oe = objEditorPanel.objectEditor;
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];	
 		
@@ -370,7 +370,7 @@ class ObjectEditor3DPanel extends ObjectEditorViewPanel implements AbstractRende
 
 	private void displayLines(Graphics2D bufGraphics) {
 
-		ObjectEditor oe = objEditorPanel.oe;
+		ObjectEditor oe = objEditorPanel.objectEditor;
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 
@@ -456,7 +456,7 @@ class ObjectEditor3DPanel extends ObjectEditorViewPanel implements AbstractRende
 
 	private void displayPoints(Graphics2D bufGraphics) {
 		
-		ObjectEditor oe = objEditorPanel.oe;
+		ObjectEditor oe = objEditorPanel.objectEditor;
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 		
@@ -494,7 +494,7 @@ class ObjectEditor3DPanel extends ObjectEditorViewPanel implements AbstractRende
 		
 		boolean found=false;
 		
-		ObjectEditor oe = objEditorPanel.oe;
+		ObjectEditor oe = objEditorPanel.objectEditor;
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 		if(mesh.points==null)
@@ -565,7 +565,7 @@ class ObjectEditor3DPanel extends ObjectEditorViewPanel implements AbstractRende
 		int y0=Math.min(currentRect.y,currentRect.y+currentRect.height);
 		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
 		
-		ObjectEditor oe = objEditorPanel.oe;
+		ObjectEditor oe = objEditorPanel.objectEditor;
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 		if(mesh.points==null)

@@ -234,6 +234,7 @@ public abstract class DrivingFrame extends JFrame{
 			int dy=0;
 			double x0=0;
 			double y0=0;
+			String description="";
 			
 			ArrayList<Point3D> aPoints=new ArrayList<Point3D>();
 			ArrayList<Point3D> vTexturePoints=new ArrayList<Point3D>();
@@ -273,7 +274,8 @@ public abstract class DrivingFrame extends JFrame{
 					x0=Double.parseDouble(str.substring(3)); 
 				else if(str.startsWith("Y0="))					
 					y0=Double.parseDouble(str.substring(3)); 
-
+				else if(str.startsWith("DESCRIPTION="))	
+					description=str.substring(str.indexOf("=")+1);
 
 			}
 			
@@ -293,7 +295,7 @@ public abstract class DrivingFrame extends JFrame{
 			meshes[ACTIVE_PANEL].setPoints(aPoints);
 			meshes[ACTIVE_PANEL].setTexturePoints(vTexturePoints);
 			meshes[ACTIVE_PANEL].setLevel(Road.GROUND_LEVEL);
-			
+			meshes[ACTIVE_PANEL].setDescription(description);
 		
 		} catch (Exception e) {
 

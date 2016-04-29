@@ -59,7 +59,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 	private final int VIEW_TYPE_FRONT=3;
 	private int VIEW_TYPE=VIEW_TYPE_3D;
 
-	ObjectEditor oe=null;
+	ObjectEditor objectEditor=null;
 
 
 	protected int HEIGHT=ObjectEditor.HEIGHT;
@@ -95,6 +95,8 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 	private JCheckBox checkCoordinatesz;
 	private JCheckBox checkCoordinatesy;
 	private JCheckBox checkExtraData;
+	
+	private JTextField meshDescription;
 
 
 	private JList lineList;
@@ -127,13 +129,14 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 	private ObjectEditorTopBottomPanel centerTop;
 	private ObjectEditorFrontBackPanel centerFront;
 	private ObjectEditorLeftRightPanel centerLeft;
+	
 
 	private static Color BACKGROUND_COLOR=new Color(0,0,0);
 
 	ObjectEditorPanel(ObjectEditor oe){
 
 
-		this.oe=oe;
+		this.objectEditor=oe;
 		
 		buildRightPanel();
 		buildBottomPanel();
@@ -369,7 +372,19 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 		mergeSelectedPoints.setBounds(160,r,150,35);
 		right.add(mergeSelectedPoints);
 
-		r+=35;
+		r+=40;
+		
+ 		JLabel jLabel=new JLabel("Name:");
+		jLabel.setBounds(10,r,60,20);
+		right.add(jLabel);
+		
+		meshDescription=new JTextField();
+		meshDescription.setBounds(70,r,240,20);
+		meshDescription.addKeyListener(this);
+		meshDescription.setToolTipText("Optional Object name");
+		right.add(meshDescription);
+		
+		r+=30;
 
 		right.add(buildLowerRightPanel(r));
 
@@ -414,7 +429,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 			@Override
 			public void mouseClicked(MouseEvent e){
 
-				PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
+				PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
 				if(!checkMultipleSelection.isSelected()) 
 					polygon=new LineData();
@@ -450,7 +465,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 			@Override
 			public void mouseClicked(MouseEvent e){
 
-				PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
+				PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
 				int index=lineList.getSelectedIndex();
 				for(int i=0;i<mesh.polygonData.size();i++){
@@ -614,21 +629,21 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 		Object o=arg0.getSource();
 
 		if(o==addPoint){ 
-			oe.prepareUndo();
+			objectEditor.prepareUndo();
 			addPoint();
 		}	
 		else if(o==deleteSelection) {
-			oe.prepareUndo();
+			objectEditor.prepareUndo();
 			delete();
 		}	
 		else if(o==changePoint){
-			oe.prepareUndo();
+			objectEditor.prepareUndo();
 			changeSelectedPoint();
 			displayAll();
 		}
 		else if(o==mergeSelectedPoints){
 
-			oe.prepareUndo();
+			objectEditor.prepareUndo();
 			mergeSelectedPoints();
 
 		}
@@ -636,7 +651,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 			startBuildPolygon();
 		}		
 		else if(o==buildPolygon){
-			oe.prepareUndo();
+			objectEditor.prepareUndo();
 			buildPolygon();
 			displayAll();
 		}
@@ -653,37 +668,37 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 			displayAll();
 		}
 		else if(o==rescale){
-			oe.prepareUndo();
+			objectEditor.prepareUndo();
 			rescaleAllPoints();
 			displayAll();
 		}
 		else if(o==movePointUp){
-			oe.prepareUndo();
+			objectEditor.prepareUndo();
 			moveSelectedPoints(0,0,1);
 			displayAll();
 		}
 		else if(o==movePointDown){
-			oe.prepareUndo();
+			objectEditor.prepareUndo();
 			moveSelectedPoints(0,0,-1);
 			displayAll();
 		}
 		else if(o==movePointLeft){
-			oe.prepareUndo();
+			objectEditor.prepareUndo();
 			moveSelectedPoints(0,-1,0);
 			displayAll();
 		}
 		else if(o==movePointRight){
-			oe.prepareUndo();
+			objectEditor.prepareUndo();
 			moveSelectedPoints(0,+1,0);
 			displayAll();
 		}
 		else if(o==movePointTop){
-			oe.prepareUndo();
+			objectEditor.prepareUndo();
 			moveSelectedPoints(1,0,0);
 			displayAll();
 		}
 		else if(o==movePointBottom){
-			oe.prepareUndo();
+			objectEditor.prepareUndo();
 			moveSelectedPoints(-1,0,0);
 			displayAll();
 		}
@@ -698,7 +713,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 		if(sqty==null || sqty.equals(""))
 			return;
 
-		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
+		PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
 		double qty=Double.parseDouble(sqty);
 
@@ -727,7 +742,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 	@Override
 	public void rescaleAllPoints() {
 
-		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
+		PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
 		String txt=rescaleValue.getText();
 
@@ -751,7 +766,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 	@Override
 	public void selectAllPoints() {
 
-		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
+		PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
 		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
@@ -763,7 +778,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 	@Override
 	public void buildPolygon() {
 
-		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
+		PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
 		if(polygon.lineDatas.size()<3){
 			deselectAll();
@@ -841,7 +856,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 
 	private void polygonDetail() {
 
-		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
+		PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
 
 
@@ -851,7 +866,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 			if(!ld.isSelected())
 				continue;
 
-			RoadEditorPolygonDetail repd=new RoadEditorPolygonDetail(oe,ld);
+			RoadEditorPolygonDetail repd=new RoadEditorPolygonDetail(objectEditor,ld);
 
 			if(repd.getModifiedLineData()!=null){
 
@@ -870,7 +885,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 	@Override
 	public void joinSelectedPoints() {
 
-		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
+		PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
 		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
@@ -899,7 +914,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 	@Override
 	public void changeSelectedPoint() {
 
-		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
+		PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
 		if(mesh.points==null)
 			return; 
@@ -947,7 +962,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 	@Override
 	public void addPoint(double x, double y, double z) {
 
-		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
+		PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
 		if(!"".equals(coordinatesx.getText()))
 			x=Double.parseDouble(coordinatesx.getText());
@@ -991,7 +1006,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 		ArrayList<Point3D> newPoints=new ArrayList<Point3D>();
 		ArrayList<LineData> newLines=new ArrayList<LineData>();
 
-		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
+		PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
 		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
@@ -1053,7 +1068,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 		ArrayList<Point3D> newPoints=new ArrayList<Point3D>();
 		ArrayList<LineData> newLines=new ArrayList<LineData>();
 
-		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
+		PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
 
 		int firstPoint=-1;
@@ -1140,7 +1155,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 	@Override
 	public void deselectAllPoints() {
 
-		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
+		PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
 		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
@@ -1152,7 +1167,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 	@Override
 	public void deselectAllLines() {
 
-		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
+		PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
 		for(int i=0;i<mesh.polygonData.size();i++){
 
@@ -1182,6 +1197,10 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 	public void keyPressed(KeyEvent arg0) {
 
 		int code =arg0.getKeyCode();
+		
+		Object obj = arg0.getSource();
+		if(obj==meshDescription)
+			return;
 
 		if(code==KeyEvent.VK_DOWN )
 			translate(0,-1);
@@ -1199,24 +1218,24 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 		}
 		else if(code==KeyEvent.VK_C  )
 		{	
-			oe.prepareUndo();
+			objectEditor.prepareUndo();
 			changeSelectedPoint();   
 			displayAll();   
 		}
 		else if(code==KeyEvent.VK_J )
 		{	
-			oe.prepareUndo();
+			objectEditor.prepareUndo();
 			joinSelectedPoints(); 
 			displayAll(); 
 		}
 		else if(code==KeyEvent.VK_I )
 		{	
-			oe.prepareUndo();
+			objectEditor.prepareUndo();
 			addPoint();
 		}
 		else if(code==KeyEvent.VK_P )
 		{	
-			oe.prepareUndo();
+			objectEditor.prepareUndo();
 			buildPolygon(); 
 			displayAll(); 
 		}
@@ -1232,7 +1251,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 		}
 		else if(code==KeyEvent.VK_D )
 		{	
-			oe.prepareUndo();
+			objectEditor.prepareUndo();
 			delete();
 			displayAll(); 
 		}
@@ -1305,6 +1324,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 
 	private void startBuildPolygon() {
 
+		checkMultipleSelection.setSelected(true);
 		deselectAll();
 		displayAll();
 	}
@@ -1321,7 +1341,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 
 	private void moveSelectedLine(int direction) {
 
-		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
+		PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
 		for(int i=0;i<mesh.polygonData.size();i++){
 
@@ -1350,7 +1370,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 
 	private void invertSelectedLine(){
 
-		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
+		PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
 		for(int i=0;i<mesh.polygonData.size();i++){
 
@@ -1373,7 +1393,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 	@Override
 	public void resetLists() {
 
-		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
+		PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
 		if(mesh.points==null)
 			return;
@@ -1608,6 +1628,14 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 		
 	}
 	
+	public String getMeshDescription(){
+		
+		return meshDescription.getText();
+	}
 	
+	public void setMeshDescription(String description){
+		
+		meshDescription.setText(description);
+	}
 
 }

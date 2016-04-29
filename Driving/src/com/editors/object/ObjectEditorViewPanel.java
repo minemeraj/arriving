@@ -96,7 +96,7 @@ public abstract class ObjectEditorViewPanel extends JPanel implements MouseListe
 	
 	protected void selectPolygon(int x, int y) {
 		
-		ObjectEditor oe = objEditorPanel.oe;
+		ObjectEditor oe = objEditorPanel.objectEditor;
 
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 

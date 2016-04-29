@@ -87,7 +87,6 @@ class ObjectEditor extends Editor implements ActionListener{
 	private JMenuItem jmt_save_custom_mesh;
 	
 	ObjectEditorPanel mainPanel=null;
-	
 
 	public static void main(String[] args) {
 
@@ -292,6 +291,7 @@ class ObjectEditor extends Editor implements ActionListener{
 		Object o=arg0.getSource();
 
 		if(o==jmt_save_mesh){
+			getMeshDescription();
 			saveLines();
 		}
 		else if(o==jmt_save_base_texture){
@@ -305,6 +305,7 @@ class ObjectEditor extends Editor implements ActionListener{
 			jmt_show_texture.setSelected(false);
 			currentTexture=null;
 			loadPointsFromFile();
+			setMeshDescription();
 		}
 		else if(o==jmt_undo_last){
 			undo();
@@ -358,6 +359,22 @@ class ObjectEditor extends Editor implements ActionListener{
 	}
 
 
+
+	private void getMeshDescription() {
+		
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+
+		if(mesh!=null && mainPanel.getMeshDescription()!=null)
+			mesh.setDescription(mainPanel.getMeshDescription());
+		
+	}
+	
+	private void setMeshDescription(){
+		
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		if(mesh!=null)
+			mainPanel.setMeshDescription(mesh.getDescription());
+	}
 
 	@Override
 	public void preview() {
@@ -700,8 +717,7 @@ class ObjectEditor extends Editor implements ActionListener{
 				Point3D pt = (Point3D)  mesh.texturePoints.get(i);
 				pr.print("\nvt=");
 				pr.print(pt.x+" "+pt.y);
-			}
-			
+			}			
 			return;
 		}
 		
@@ -786,7 +802,7 @@ class ObjectEditor extends Editor implements ActionListener{
 			pr.print(DX+(int)(p.x-minx+2*deltaX+deltaX2)+" "+(int)(p.y-miny+deltaX));
 
 		}	
-		
+		pr.print("\n");
 		
 		
 	}

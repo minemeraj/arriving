@@ -92,7 +92,7 @@ class ObjectEditorTopBottomPanel extends ObjectEditorViewPanel {
 
 	private void displayLines(Graphics2D bufGraphics) {
 
-		ObjectEditor oe= objEditorPanel.oe;
+		ObjectEditor oe= objEditorPanel.objectEditor;
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 
 		for(int i=0;i<mesh.polygonData.size();i++){
@@ -178,7 +178,7 @@ class ObjectEditorTopBottomPanel extends ObjectEditorViewPanel {
 
 	private void displayPoints(Graphics2D bufGraphics) {
 		
-		ObjectEditor oe= objEditorPanel.oe;
+		ObjectEditor oe= objEditorPanel.objectEditor;
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 		
@@ -213,8 +213,10 @@ class ObjectEditorTopBottomPanel extends ObjectEditorViewPanel {
 
 		boolean found=false;
 		
-		ObjectEditor oe= objEditorPanel.oe;
+		ObjectEditor oe= objEditorPanel.objectEditor;
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
+		if(mesh.points==null)
+			return;
 		
 		//select point from lines
 		if(!objEditorPanel.checkMultipleSelection.isSelected()) 
@@ -270,7 +272,7 @@ class ObjectEditorTopBottomPanel extends ObjectEditorViewPanel {
 		int y0=Math.min(currentRect.y,currentRect.y+currentRect.height);
 		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
 		
-		ObjectEditor oe= objEditorPanel.oe;
+		ObjectEditor oe= objEditorPanel.objectEditor;
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 
 		for (int i = 0; i < mesh.points.length; i++) {

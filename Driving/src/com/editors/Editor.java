@@ -432,7 +432,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 				pr.println("X0="+sm.getX0());
 				pr.println("Y0="+sm.getY0());
 			}
-			
+			pr.println("DESCRIPTION="+mesh.getDescription());
 
 			for(int i=0;i<mesh.points.length;i++){
 
