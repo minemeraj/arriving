@@ -32,9 +32,13 @@ public class EditorData {
 	public static Texture[] splinesTextures=null;	
 	public static Texture[] splinesEditorTextures=null;
 	
+	public static String[] splineDescriptions;
+	public static String[] objectDescriptions;
+	
 	private static double maxR=100;
 	private static double minR=80;
 	private static int n=10;
+
 	
 
 	public static void initialize() { 
@@ -125,14 +129,14 @@ public class EditorData {
 			object3D=new CubicMesh[v3DObjects.size()];
 			objectTextures=new Texture[v3DObjects.size()];
 			objectMeshes=new CubicMesh[vObjects.size()];
-			
+			objectDescriptions=new String[vObjects.size()];
 		
 			for(int i=0;i<v3DObjects.size();i++){
 					
 				object3D[i]=CubicMesh.loadMeshFromFile(new File("lib/object3D_"+i));
 				objectMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/object3D_"+i));
 				objectTextures[i]=new Texture(ImageIO.read(new File("lib/object3D_texture_"+i+".jpg")));
-			
+				objectDescriptions[i]=objectMeshes[i].getDescription();
 			}
 			
 
@@ -152,12 +156,15 @@ public class EditorData {
 			splinesTextures=new Texture[vSPlineMeshes.size()];
             splinesEditorTextures=new Texture[vSPlineMeshes.size()];
 
-
+            splineDescriptions=new String[vSPlineMeshes.size()];
+            
 			for(int i=0;i<vSPlineMeshes.size();i++){
 
 				splinesMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/spline_mesh_"+i));
 				splinesTextures[i]=new Texture(ImageIO.read(new File("lib/spline_texture_"+i+".jpg")));
 				splinesEditorTextures[i]=new Texture(ImageIO.read(new File("lib/spline_editor_"+i+".jpg")));
+				
+				splineDescriptions[i]=splinesMeshes[i].getDescription();
 			}
 			
 			

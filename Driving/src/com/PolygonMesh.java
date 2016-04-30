@@ -269,6 +269,7 @@ public class PolygonMesh implements Cloneable{
 		ArrayList<Point3D> points=new ArrayList<Point3D>();
 		ArrayList<LineData> lines=new ArrayList<LineData>();
 		ArrayList<Point3D> vTexturePoints=new ArrayList<Point3D>();
+		String description="";
 		
 		PolygonMesh pm=null;
 
@@ -288,6 +289,8 @@ public class PolygonMesh implements Cloneable{
 					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
 				else if(str.startsWith("f="))
 					PolygonMesh.buildLine(lines,str.substring(2),vTexturePoints);
+				else if(str.startsWith("DESCRIPTION="))
+					description=str.substring(str.indexOf("=")+1);
 
 
 
@@ -300,7 +303,7 @@ public class PolygonMesh implements Cloneable{
 			e.printStackTrace();
 		}
 		pm=new PolygonMesh(points,lines);
-		
+		pm.setDescription(description);
 	
 		return pm;
 	}

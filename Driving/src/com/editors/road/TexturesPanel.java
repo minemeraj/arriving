@@ -40,7 +40,7 @@ class TexturesPanel extends JDialog implements ActionListener,MouseListener{
 	private int selectedIndex=-1;
 	
 
-	TexturesPanel(BufferedImage[] textures,int TEXTURE_SIDE_X,int TEXTURE_SIDE_Y){
+	TexturesPanel(BufferedImage[] textures,String[] descriptions,int TEXTURE_SIDE_X,int TEXTURE_SIDE_Y){
 		
 		this.TEXTURE_SIDE_X=TEXTURE_SIDE_X;
 		this.TEXTURE_SIDE_Y=TEXTURE_SIDE_Y;
@@ -72,7 +72,7 @@ class TexturesPanel extends JDialog implements ActionListener,MouseListener{
 			
 		
 			textureLabels[i]=new JLabel();
-			//System.out.println(BORDER/2+(DELTAX+TEXTURE_SIDE)*(i%columns)+","+r);
+
 			textureLabels[i].setBounds(BORDER/2+(DELTAX+TEXTURE_SIDE_X)*(i%columns),r,TEXTURE_SIDE_X,TEXTURE_SIDE_Y);
 			Border border=BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
 			textureLabels[i].setBorder(border);
@@ -84,7 +84,8 @@ class TexturesPanel extends JDialog implements ActionListener,MouseListener{
 				
 			center.add(textureLabels[i]);
 			
-			//System.out.println(textureLabels[i].getBounds());
+			if(descriptions!=null)
+				textureLabels[i].setToolTipText(descriptions[i]);
 			
 			textureLabels[i].addMouseListener(this);
 			

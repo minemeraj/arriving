@@ -114,6 +114,8 @@ public class CubicMesh extends PolygonMesh{
 			cm.points[i].y-=miny;
 			cm.points[i].z-=minz;
 		}
+		
+		cm.setDescription(pm.getDescription());
 
 		return cm;
 

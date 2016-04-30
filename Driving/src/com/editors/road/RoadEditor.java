@@ -2368,9 +2368,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			TexturesPanel tp=null;
 			if(mode==TERRAIN_POINTS_MODE || mode==TERRAIN_POLYGONS_MODE)
-				tp=new TexturesPanel(worldImages,100,100);
+				tp=new TexturesPanel(worldImages,null,100,100);
 			else if(mode==SPLINES_MODE)
-				tp=new TexturesPanel(splinesImages,100,100);
+				tp=new TexturesPanel(splinesImages,EditorData.splineDescriptions,100,100);
 			
 			int indx=tp.getSelectedIndex();
 			if(indx!=-1)
@@ -2384,7 +2384,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		else if(obj==chooseObjectPanel){
 			
-			TexturesPanel tp=new TexturesPanel(objectImages,100,100);
+			TexturesPanel tp=new TexturesPanel(objectImages,EditorData.objectDescriptions,100,100);
 			
 			int indx=tp.getSelectedIndex();
 			if(indx!=-1)
