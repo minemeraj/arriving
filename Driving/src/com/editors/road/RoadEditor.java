@@ -263,28 +263,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		setLocation(10,10);
 		setSize(WIDTH+LEFT_BORDER+RIGHT_SKYP,HEIGHT+BOTTOM_BORDER);
 		
+		EditorData.initialize();
+		
 		panelIso=getPanel3D();
 		//panelIso.setTransferHandler(new FileTransferhandler());
 		panelTop=getPanelTop();
 		//panelTop.setTransferHandler(new FileTransferhandler());
 		add(panelTop);
-		
-		
-		/*center=new JPanel(){
-			
-			public void paint(Graphics g) {
-				super.paint(g);
-			
-					displayAll();
-			}
-		};
-		center.setBackground(BACKGROUND_COLOR);
-		center.setBounds(LEFT_BORDER,0,WIDTH,HEIGHT);
-		center.addMouseListener(this);
-		center.addMouseWheelListener(this);
-		center.addMouseMotionListener(this);*/
-		
-		
+
 		
 		addKeyListener(this);
 		addPropertyChangeListener(this);
@@ -392,11 +378,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		buildNewZBuffers();
 		selectionColor=new Color(255,0,0,127);
 
-		//g2=(Graphics2D) center.getGraphics();
-		//g2Alias=(Graphics2D) center.getGraphics();
-		//g2Alias.setColor(Color.GRAY);
-		//Stroke stroke=new BasicStroke(0.1f,BasicStroke.CAP_BUTT,BasicStroke.JOIN_BEVEL);
-		//g2Alias.setStroke(stroke);
 
 		File directoryImg=new File("lib");
 		File[] files=directoryImg.listFiles();
@@ -466,7 +447,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				BufferedImage boi=new BufferedImage(indexWidth,indexHeight,BufferedImage.TYPE_INT_RGB);
 				boi.getGraphics().setColor(Color.white);
 				boi.getGraphics().drawString(Integer.toString(i),0,indexHeight);
-				objectIndexes[i]=new Texture(boi);	
+				objectIndexes[i]=new Texture(boi);
 
 			}
 			

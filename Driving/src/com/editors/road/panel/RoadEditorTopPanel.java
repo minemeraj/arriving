@@ -47,7 +47,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	public void initialize() {
 		
 		selectionColor=new Color(255,0,0,127);
-		EditorData.initialize();
+		
 		
 	}
 
