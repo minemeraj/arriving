@@ -101,8 +101,19 @@ class Autocar {
 			return;
 		}
 	
+		//new steering:
+		
+		double deviationAngle=0;
+		
+		Point3D nearestPoint=calculateNearestPoint();
+		if(nearestPoint!=null){
+			deviationAngle=calculateSteeringCorrection(nearestPoint);
+		}
+		////////
+		
+		////old steering:
 
-		Polygon polyCar=buildCarBox((int)center.x,(int)center.y,(int)center.z);
+		/*Polygon polyCar=buildCarBox((int)center.x,(int)center.y,(int)center.z);
 		
 		double position=calculateLinePosition(polyCar);
 
@@ -121,24 +132,35 @@ class Autocar {
 				steering=+1;
 
 			
-		}
+		}*/
+		
+	
+		
+		
 
-		if(steering==0){
+		if(Math.abs(deviationAngle)<0.2){
 			
 			
 		
 		}else{
 			
+			double dfi=dt*u;
 			
-			fi+=steering*dt*u;
+			if(dfi>Math.abs(deviationAngle)){
+				
+				fi+=deviationAngle;
+				
+			}else{
+				fi+=dfi*Math.signum(deviationAngle);
+				
+			}
+
 			
 		}
-		
-		
-		
+
 		double vx=u*Math.cos(fi);
 		double vy=u*Math.sin(fi);
-
+		
 		center.y= (center.y+vy*dt*Road.SPACE_SCALE_FACTOR/Road.SPEED_SCALE);
 		center.x= (center.x+vx*dt*Road.SPACE_SCALE_FACTOR/Road.SPEED_SCALE);
 
@@ -203,6 +225,80 @@ class Autocar {
 			
 		}
 	
+		
+	}
+	
+	private Point3D calculateNearestPoint(){
+		
+		Point3D nearestPoint=null;
+		double minDistance=-1;
+		
+		
+		for (int j = 0; j < car_road.length; j++) {
+
+			Point3D p1=car_road[j];
+			double distance=Point3D.distance(p1.x, p1.y, 0,center.x,center.y,0);
+			
+			//exclude inner or current point
+			if(distance<car_length)
+				continue;
+
+			//search only point in front of the car
+			Point3D direction=getDirection();
+			
+			double cos=Point3D.calculateDotProduct(p1.substract(center), direction);
+			
+			if(cos<0)
+				continue;
+			
+			if(nearestPoint==null){
+				
+				nearestPoint=p1;
+				minDistance=distance;
+				
+			}else if(minDistance>distance){
+				
+				nearestPoint=p1;
+				minDistance=distance;
+			}
+		}	
+		
+		return nearestPoint;
+	}
+	
+	private Point3D getDirection() {
+		
+		Point3D direction=new Point3D(Math.cos(fi),Math.sin(fi),0);
+		
+		return direction;
+	}
+
+	private double calculateSteeringCorrection(Point3D targetPoint){
+		
+		if(targetPoint==null)
+			return 0;
+
+		Point3D direction=getDirection();
+		
+		Point3D relativeTarget=targetPoint.substract(center);
+		
+		Point3D crossProduct=Point3D.calculateCrossProduct( direction,relativeTarget);
+		
+		
+		double angle=Point3D.calculateNorm(crossProduct)/(Point3D.calculateNorm(direction)*Point3D.calculateNorm(relativeTarget));
+		
+
+		if(crossProduct.z>0){
+			
+			return +angle;
+			
+		}else if(crossProduct.z<0){
+			
+			return -angle;
+			
+		}
+		
+		return angle;
 		
 	}
 	
