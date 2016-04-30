@@ -2386,9 +2386,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		else if(obj==choosePanelTexture[ACTIVE_PANEL]){
 			
 			TexturesPanel tp=null;
-			if(ACTIVE_PANEL==TERRAIN_INDEX)
+			if(mode==TERRAIN_POINTS_MODE || mode==TERRAIN_POLYGONS_MODE)
 				tp=new TexturesPanel(worldImages,100,100);
-			else
+			else if(mode==SPLINES_MODE)
 				tp=new TexturesPanel(splinesImages,100,100);
 			
 			int indx=tp.getSelectedIndex();
