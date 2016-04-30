@@ -252,6 +252,9 @@ public class Polygon3D  extends Polygon implements Cloneable{
 	private static Polygon3D removeRedundant(Polygon3D pol) {
 
 		boolean redundant=false;
+		
+		if(pol.npoints==0)
+			return pol;
 
 		if(pol.xpoints[0]==pol.xpoints[pol.npoints-1]
 		                               &&    pol.ypoints[0]==pol.ypoints[pol.npoints-1]                            
