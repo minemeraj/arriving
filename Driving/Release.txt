@@ -6,6 +6,8 @@ Added clearer directions (N,W,S,E) in the Main program.
 
 New landscape_smalltown.
 
+Revision of the landscape_highway
+
 New spline (Railroad):
 /lib/spline_mesh_3
 
