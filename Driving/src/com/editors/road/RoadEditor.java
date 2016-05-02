@@ -165,6 +165,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton moveObjRight;
 	private JButton moveObjTop;
 	private JButton moveObjBottom;
+	private JButton pi_2_angle;
 	
 	private static BufferedImage[] worldImages;	
 	private static BufferedImage[] splinesImages;	
@@ -243,6 +244,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton updateStartPosition;
 	
 
+	int SPLINE_PANEL=1;
 	
 	
 
@@ -1001,7 +1003,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		rotation_angle=new DoubleTextField(8);
 		rotation_angle.setBounds(100,r,80,20);
 		rotation_angle.addKeyListener(this);
+		rotation_angle.addActionListener(this);
 		object_panel.add(rotation_angle);
+		
+		pi_2_angle=new JButton(header+"&pi;/2"+footer);
+		pi_2_angle.setBounds(185,r,50,20);
+		pi_2_angle.addActionListener(this);
+		pi_2_angle.addKeyListener(this);
+		object_panel.add(pi_2_angle);
 
 		r+=30;
 
@@ -1888,9 +1897,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private void moveSelectedPoints(int dx, int dy,int dk) { 
 		
-		if(ACTIVE_PANEL==TERRAIN_INDEX)
+		if(TERRAIN_POINTS_MODE.equals(mode))
 			 moveSelectedTerrainPoints(dx,  dy, dk);
-		else if(ACTIVE_PANEL==ROAD_INDEX)
+		else if(SPLINES_MODE.equals(mode))
 			moveSelectedSplinesPoints(dx,  dy, dk);
 		
 
@@ -1947,7 +1956,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		prepareUndoSpline();
 		
-		String sqty=roadMove[ACTIVE_PANEL].getText();
+		String sqty=roadMove[SPLINE_PANEL].getText();
 
 		if(sqty==null || sqty.equals(""))
 			return;
@@ -2486,6 +2495,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		else if(obj==updateStartPosition){
 			
 			updateStartPosition();
+		}else if(obj==pi_2_angle){
+			rotation_angle.setText(Math.PI*0.5);
 		}
 		
 		
