@@ -1558,7 +1558,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		for(int k=0;k<chooseObject.getItemCount();k++){
 
 			ValuePair vp=(ValuePair) chooseObject.getItemAt(k);
-			if(vp.getId().equals(Integer.toBinaryString(dro.getIndex())) )
+			if(vp.getId().equals(Integer.toString(dro.getIndex())) )
 				chooseObject.setSelectedItem(vp);
 		}
 
