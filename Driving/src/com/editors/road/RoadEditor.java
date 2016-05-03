@@ -507,12 +507,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	private void deselectAll() {
 		
-		if(ACTIVE_PANEL==TERRAIN_INDEX){
-			deselectAllPoints();
-			deselectAllLines();
-		}	
-		else if(ACTIVE_PANEL==ROAD_INDEX)
-			deselectAllSPNodes();
+
+		deselectAllPoints();
+		deselectAllLines();
+		deselectAllSPNodes();
+		
 		draw();
 		
 		
