@@ -139,9 +139,8 @@ public class SPLine implements Cloneable{
 				nodeRibs.add(rib);	
 				//System.out.println(rib[0]+","+rib[1]+","+rib[2]+","+rib[3]+",");  
 
-				if(rib.getIndex()==Road.ROAD_INDEX0 || 
-				   rib.getIndex()==Road.ROAD_INDEX1 )
-						rib.translate(0,0,-dz);
+		
+				rib.translate(0,0,-dz);
 			}
 			
 		}
