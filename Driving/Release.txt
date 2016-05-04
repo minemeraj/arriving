@@ -8,8 +8,9 @@ New landscape_smalltown.
 
 Revision of the landscape_highway
 
-New spline (Railroad):
-/lib/spline_mesh_3
+New splines:
+/lib/spline_mesh_3 (Railroad):
+/lib/spline_mesh_4 (Small country road):
 
 New terrain textures:
 lib/world_texture_8.jpg
