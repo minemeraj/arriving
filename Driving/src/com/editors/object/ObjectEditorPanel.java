@@ -149,23 +149,26 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 		center3D.setBackground(BACKGROUND_COLOR);
 		center3D.setBounds(0,0,WIDTH+RIGHT_BORDER,HEIGHT+BOTTOM_BORDER);
 		center3D.setTransferHandler(new FileTransferhandler());
+		center3D.addKeyListener(this);
 
 		centerTop=new ObjectEditorTopBottomPanel(this);
 		centerTop.setBackground(BACKGROUND_COLOR);
 		centerTop.setBounds(0,0,WIDTH+RIGHT_BORDER,HEIGHT+BOTTOM_BORDER);
 		centerTop.setTransferHandler(new FileTransferhandler());
-
+		centerTop.addKeyListener(this);
 
 		centerLeft=new ObjectEditorLeftRightPanel(this);
 		centerLeft.setBackground(BACKGROUND_COLOR);
 		centerLeft.setBounds(0,0,WIDTH+RIGHT_BORDER,HEIGHT+BOTTOM_BORDER);
 		centerLeft.setTransferHandler(new FileTransferhandler());
+		centerLeft.addKeyListener(this);
 
 		centerFront=new ObjectEditorFrontBackPanel(this);
 		centerFront.setBackground(BACKGROUND_COLOR);
 		centerFront.setBounds(0,0,WIDTH+RIGHT_BORDER,HEIGHT+BOTTOM_BORDER);
 		centerFront.setTransferHandler(new FileTransferhandler());
-
+		centerFront.addKeyListener(this);
+		
 		initialize();
 
 		add(center3D);

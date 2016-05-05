@@ -117,7 +117,7 @@ public class House0Model extends MeshModel{
 		addTPoint(x+dx*0.5,y+roof_height,0);	
 		addTPoint(x+dx+dy+dx*0.5,y+roof_height,0);		
 
-		x=dx;
+		x=bx+dx;
 		y=by+dy+dz+roof_height;
 
 		//roof pitches
