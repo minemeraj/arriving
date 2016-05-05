@@ -26,25 +26,50 @@ public class DrawBuildingTexture1 {
 	
 	Color BACKGROUND_COLOR=new Color(0, 255, 0);	
 		
-	Color[] WINDOW_COLORS={new Color(56, 89, 124),new Color(162, 162, 190),new Color(19, 24, 17)};
+	int WINDOW_COLORS_DEEP_BLUE=0;
+	int WINDOW_COLORS_LIGHT_GRAY=1;
+	int WINDOW_COLORS_BLACK=2;	
+	Color[] WINDOW_COLORS={new Color(56, 89, 124),new Color(162, 162, 190),new Color(19, 24, 17)};	
 	Color WINDOW_COLOR=WINDOW_COLORS[0];
 	
+	int SHUTTER_COLORS_DARK_GREEN=0;
+	int SHUTTER_COLORS_BROWN=1;
+	int SHUTTER_COLORS_DARK_BROWN=2;
 	Color[] SHUTTER_COLORS={new Color(17, 119, 54),new Color(129, 70, 36),new Color(113, 58, 51)};
 	Color SHUTTER_COLOR=SHUTTER_COLORS[0];
 		
+	
+	int WALL_COLORS_LIGHT_YELLOW=0;
+	int WALL_COLORS_LIGHT_PINK=1;
+	int WALL_COLORS_LIGHT_GREEN=2;
+	int WALL_COLORS_DEEP_RED=3;	
 	Color[] WALL_COLORS={new Color(253, 227, 170),new Color(250, 206, 229),new Color(200, 228, 188),new Color(207, 75, 54)};
 	Color FRONT_WALL_COLOR=WALL_COLORS[0];
 	Color BACK_WALL_COLOR=WALL_COLORS[0];
 	Color LEFT_WALL_COLOR=WALL_COLORS[0];
 	Color RIGHT_WAll_COLOR=WALL_COLORS[0];
 	
+	int ROOF_COLORS_LIGHT_BROWN=0;
+	int ROOF_COLORS_DEEP_RED=1;
+	int ROOF_COLORS_BROWN=2; 
+	int ROOF_COLORS_DEEP_GREEN=3;
 	Color[] ROOF_COLORS={new Color(205, 153, 51),new Color(145, 11, 36),new Color(160, 81, 77),new Color(29, 78, 48)};
 	Color ROOF_COLORO=ROOF_COLORS[0];
 	Color ROOF_COLOR1=ROOF_COLORS[1];
 	Color BOTTOM_COLOR=Color.YELLOW;
 
+	
 
+	
 	public static void main(String[] args) {
+
+		String STANDARD_MIDDLE_HOUSE=
+		  		"int house_w=208; "+
+				"int house_l=286; "+
+				"int house_h=164; "+
+				"int num_floors=2; "+
+				"int roof_heigth=47;";
+		
 		
 		int house_w=208;	
 		int house_l=286;

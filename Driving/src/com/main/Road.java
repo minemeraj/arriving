@@ -87,7 +87,7 @@ public class Road extends Shader{
     private static final double pi_2=Math.PI/2.0;
     private static final double i_2pi=1.0/(Math.PI*2.0);
     
-    private int PARTIAL_MOVZ=0;
+    private int CURRENT_MOVZ=0;
     private boolean initMOVZ=true;
         
     private double rearAngle;
@@ -120,7 +120,7 @@ public class Road extends Shader{
 	
 	protected boolean skipShading=false;
 	
-	private int TRANSZ;
+	private int POSSIBLE_MOVZ;
 	private boolean start_max_calculus;
 	
 	public Road(){}
@@ -549,12 +549,12 @@ public class Road extends Shader{
 		calculateAltitude();
         
 		//changing altitutude with the movements		
-		if(TRANSZ>=PARTIAL_MOVZ-ROAD_THICKNESS)
-			PARTIAL_MOVZ=TRANSZ;
+		if(POSSIBLE_MOVZ>=CURRENT_MOVZ-ROAD_THICKNESS)
+			CURRENT_MOVZ=POSSIBLE_MOVZ;
 		else //minus to simulate gravitational fall
-			PARTIAL_MOVZ=PARTIAL_MOVZ-ROAD_THICKNESS;
+			CURRENT_MOVZ=CURRENT_MOVZ-ROAD_THICKNESS;
        
-		MOVZ=-(PARTIAL_MOVZ+YFOCUS);
+		MOVZ=-(CURRENT_MOVZ+YFOCUS);
         
 		
 
@@ -608,13 +608,13 @@ public class Road extends Shader{
 
 		MOVZ=0;
 
-		TRANSZ=PARTIAL_MOVZ;
+		POSSIBLE_MOVZ=CURRENT_MOVZ;
 		start_max_calculus=true;
 
 
 		PolygonMesh mesh=meshes[Editor.TERRAIN_INDEX];
 
-		calculateAltitude(mesh);
+		calculateAltitude(mesh,true);
 
 		for (int i = 0; i < splines.size(); i++) {
 
@@ -625,7 +625,7 @@ public class Road extends Shader{
 				for (int j = 0; j < meshes.size(); j++) {
 
 					mesh = (PolygonMesh) meshes.get(j);
-					calculateAltitude(mesh);
+					calculateAltitude(mesh,false);
 				}	
 			}
 
@@ -633,7 +633,7 @@ public class Road extends Shader{
 	}
 
 
-	private void calculateAltitude(PolygonMesh mesh) {
+	private void calculateAltitude(PolygonMesh mesh,boolean isTerrain) {
 		
 		int size=mesh.polygonData.size();
 
@@ -651,26 +651,29 @@ public class Road extends Shader{
 
 				int zz=(int)interpolate(start_car_x,start_car_y,p3D);
 
-				
+				//avoid to sink under the terrain
+				if(isTerrain){
+					POSSIBLE_MOVZ=zz;
+				}
 				//find max possible z altitude
 				if(initMOVZ){							
 
-					TRANSZ=zz;
-					PARTIAL_MOVZ=zz;
+					//POSSIBLE_MOVZ=zz;
+					CURRENT_MOVZ=zz;
 
 					initMOVZ=false;
 					start_max_calculus=false;
 					carTerrainNormal=Polygon3D.findNormal(p3D);
-				} 						
-				else if(zz<=PARTIAL_MOVZ+ROAD_THICKNESS){
+				}//CANNOT DO A JUMP > ROAD_THICKNESS						
+				else if(zz<=CURRENT_MOVZ+ROAD_THICKNESS){
 					
 					if(start_max_calculus){
-						TRANSZ=zz;
+						POSSIBLE_MOVZ=zz;
 						start_max_calculus=false;
 						carTerrainNormal=Polygon3D.findNormal(p3D);
 					}
-					else if(zz>=TRANSZ){ 
-						TRANSZ=zz;
+					else if(zz>=POSSIBLE_MOVZ){ 
+						POSSIBLE_MOVZ=zz;
 						carTerrainNormal=Polygon3D.findNormal(p3D);
 					}	
 
