@@ -248,9 +248,9 @@ public abstract class ObjectEditorViewPanel extends JPanel implements MouseListe
 
 		int pix=arg0.getUnitsToScroll();
 		if(pix>0) 
-			translate(0,1);
-		else 
 			translate(0,-1);
+		else 
+			translate(0,1);
 
 	}
 

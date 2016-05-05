@@ -11,8 +11,8 @@ import com.Polygon3D;
 
 public class DrawBuildingTexture1 {	
 	
-	int num_len_windows=2;		
-	int num_wid_windows=1;
+	int num_len_windows=3;		
+	int num_wid_windows=2;
 	
 	int window_width=28;
 	int window_height=44;		
