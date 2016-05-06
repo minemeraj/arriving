@@ -8,6 +8,11 @@ import java.util.Vector;
 
 import com.main.Renderer3D;
 
+/**
+ * THREE WINGS HOUSE
+ * @author Administrator
+ *
+ */
 public class House2Model extends MeshModel{
 
 	private double dx=100;

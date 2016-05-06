@@ -7,7 +7,12 @@ import java.io.PrintWriter;
 import java.util.Vector;
 
 import com.main.Renderer3D;
-
+/**
+ * 
+ * EL SHAPED HOUSE
+ * @author Administrator
+ *
+ */
 public class House1Model extends MeshModel{
 
 	private double dx=100;
