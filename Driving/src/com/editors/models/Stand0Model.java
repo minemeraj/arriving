@@ -181,6 +181,7 @@ public class Stand0Model extends MeshModel{
 		for (int i = 0; i < NF; i++) {
 
 			int b=i*8;
+			int c=i*4;
 
 			faces[i][0][0]=Renderer3D.CAR_LEFT;
 
@@ -190,12 +191,17 @@ public class Stand0Model extends MeshModel{
 			faces[i][1][2]=b+3+4;
 			faces[i][1][3]=b+3;
 
+			faces[i][2][0]=c;
+			faces[i][2][1]=c+1;
+			faces[i][2][2]=c+2;
+			faces[i][2][3]=c+3;
 		}
 
 		//back side
 		for (int i = 0; i < NF; i++) {
 
 			int b=i*8;
+			int c=NF*4+i*4;
 
 			//back side
 			faces[i+NF][0][0]=Renderer3D.CAR_BACK;
@@ -206,6 +212,11 @@ public class Stand0Model extends MeshModel{
 			faces[i+NF][1][2]=b+1+4;
 			faces[i+NF][1][3]=b+4;
 
+			
+			faces[i][2][0]=c;
+			faces[i][2][1]=c+1;
+			faces[i][2][2]=c+2;
+			faces[i][2][3]=c+3;
 
 		}
 
@@ -213,6 +224,7 @@ public class Stand0Model extends MeshModel{
 		for (int i = 0; i < NF; i++) {
 
 			int b=i*8;
+			int c=NF*8+i*4;
 
 			faces[i+2*NF][0][0]=Renderer3D.CAR_TOP;
 
@@ -221,6 +233,11 @@ public class Stand0Model extends MeshModel{
 			faces[i+2*NF][1][1]=b+1+4;
 			faces[i+2*NF][1][2]=b+2+4;
 			faces[i+2*NF][1][3]=b+3+4;
+			
+			faces[i][2][0]=c;
+			faces[i][2][1]=c+1;
+			faces[i][2][2]=c+2;
+			faces[i][2][3]=c+3;
 
 
 		}
@@ -229,6 +246,7 @@ public class Stand0Model extends MeshModel{
 		for (int i = 0; i < NF; i++) {
 
 			int b=i*8;
+			int c=NF*12+i*4;
 
 			faces[i+3*NF][0][0]=Renderer3D.CAR_RIGHT;
 
@@ -237,6 +255,11 @@ public class Stand0Model extends MeshModel{
 			faces[i+3*NF][1][1]=b+2;
 			faces[i+3*NF][1][2]=b+2+4;
 			faces[i+3*NF][1][3]=b+1+4;
+			
+			faces[i][2][0]=c;
+			faces[i][2][1]=c+1;
+			faces[i][2][2]=c+2;
+			faces[i][2][3]=c+3;
 
 		}
 
@@ -244,6 +267,7 @@ public class Stand0Model extends MeshModel{
 		for (int i = 0; i < NF; i++) {
 
 			int b=i*8;
+			int c=NF*16+i*4;
 
 			faces[i+4*NF][0][0]=Renderer3D.CAR_FRONT;
 
@@ -253,7 +277,10 @@ public class Stand0Model extends MeshModel{
 			faces[i+4*NF][1][2]=b+3+4;
 			faces[i+4*NF][1][3]=b+2+4;
 
-
+			faces[i][2][0]=c;
+			faces[i][2][1]=c+1;
+			faces[i][2][2]=c+2;
+			faces[i][2][3]=c+3;
 
 		}
 
