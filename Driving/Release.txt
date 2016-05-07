@@ -31,6 +31,8 @@ Fixing the AdvanceAltimetry.
 
 Added pi/2 button in the Road editor for Objects.
 
+New Stand0 building mesh model.
+
 ----- 23/04/2016 CarDriving 9.0.3
 
 Code cleaning continued using SonarQube, Unnecessary Code Detector, FindBugs Eclipse Plugins.
