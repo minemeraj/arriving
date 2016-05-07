@@ -144,16 +144,17 @@ public class Stand0Model extends MeshModel{
 		}
 
 		//right
-		/*for(int k=0;k<numSteps;k++){
+		for(int k=0;k<numSteps;k++){
 
-			double x=bx+dx+dy;
+			double x0=bx+dy+dx+k*dyStep;
+			double x1=bx+dy+dx+dy;
 			double y=by+dzStep*k;
 
 
-			addTPoint(x,y,0);
-			addTPoint(x+dx-(dxStep*k),y,0);
-			addTPoint(x+dx-(dxStep*k),y+dzStep,0);
-			addTPoint(x,y+dzStep,0);
+			addTPoint(x0,y,0);
+			addTPoint(x1,y,0);
+			addTPoint(x1,y+dzStep,0);
+			addTPoint(x0,y+dzStep,0);
 		}
 
 
@@ -161,15 +162,15 @@ public class Stand0Model extends MeshModel{
 
 		for(int k=0;k<numSteps;k++){
 
-			double x=bx+dx+dy+dx;
+			double x=bx+dy+dx+dy;
 			double y=by+k*dzStep;
 
 			//front
 			addTPoint(x,y,0);
-			addTPoint(x+dy,y,0);
-			addTPoint(x+dy,y+dzStep,0);
+			addTPoint(x+dx,y,0);
+			addTPoint(x+dx,y+dzStep,0);
 			addTPoint(x,y+dzStep,0);
-		}*/
+		}
 
 
 		int NF=numSteps;
@@ -304,23 +305,24 @@ public class Stand0Model extends MeshModel{
 			
 		}
 
-		//printTexturePolygon(bg,b+4,b+5,b+6,b+7);
+		bg.setColor(Color.MAGENTA);
 		//right side
-		/*for (int i = 0; i < NF; i++) {
+		 for (int i = 0; i < NF; i++) {
 
-			int b=3*NF+i*4;
-			printTexturePolygon(bg,b,b+1,b+1+4,b+4);
+			int b=NF*12+i*4;
+			printTexturePolygon(bg,b,b+1,b+2,b+3);
 			
 		}
 
 		//front side
+		 bg.setColor(Color.CYAN);
 		for (int i = 0; i < NF; i++) {
 
-			int b=4*NF+i*4;
-			printTexturePolygon(bg,b,b+1,b+1+4,b+4);
+			int b=NF*16+i*4;
+			printTexturePolygon(bg,b,b+1,b+2,b+3);
 			
 
-		}*/
+		}
 
 	}
 
