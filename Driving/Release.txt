@@ -33,6 +33,9 @@ Added pi/2 button in the Road editor for Objects.
 
 New Stand0 building mesh model.
 
+New RoadEditor menu:
+View->Go to...
+
 ----- 23/04/2016 CarDriving 9.0.3
 
 Code cleaning continued using SonarQube, Unnecessary Code Detector, FindBugs Eclipse Plugins.

@@ -14,7 +14,6 @@ import com.editors.DoubleTextField;
 class RoadEditorGridManager extends JDialog implements ActionListener{
 	
 	private JPanel center;
-	private JPanel bottom;
 	
 	int NX=10;
 	int NY=10;

@@ -522,9 +522,9 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		Point3D p1=new Point3D(p3d.xpoints[1],p3d.ypoints[1],p3d.zpoints[1]);
 		Point3D p2=new Point3D(p3d.xpoints[2],p3d.ypoints[2],p3d.zpoints[2]);
 
-		p0.rotate(POSX,POSY,cosf,sinf);
-		p1.rotate(POSX,POSY,cosf,sinf);
-		p2.rotate(POSX,POSY,cosf,sinf);
+		p0.rotate(MOVX,MOVY,cosf,sinf);
+		p1.rotate(MOVX,MOVY,cosf,sinf);
+		p2.rotate(MOVX,MOVY,cosf,sinf);
 
 		double x0=(int)convertX(p0.x,p0.y,p0.z);
 		double y0=(int)convertY(p0.x,p0.y,p0.z);
@@ -990,6 +990,13 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		
 	}
 	
+	
+	@Override
+	public void gotoPosition(int goPOSX, int goPOSY) {
+		MOVX=goPOSX;
+		MOVY=-goPOSY;
+		editor.draw();
+	}
 
 	private void drawTextImage(ZBuffer landscapeZbuffer,
 			Texture textImage, int x, int y, int dx,
@@ -1473,6 +1480,16 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	public void rotate(int signum) {
 		//nothing to do
 		
+	}
+
+	@Override
+	public int getPOSX() {
+		return MOVX;
+	}
+
+	@Override
+	public int getPOSY() {
+		return -MOVY;
 	}
 
 	

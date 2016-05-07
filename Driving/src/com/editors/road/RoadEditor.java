@@ -218,6 +218,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JMenu jm_view;
 	private JMenuItem jmt_3d_view;
 	private JMenuItem jmt_top_view;
+	private JMenuItem jmt_goto_view;
 	
 	private final int ISO_VIEW=1;
 	private final int TOP_VIEW=0;
@@ -245,6 +246,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 
 	int SPLINE_PANEL=1;
+	
 	
 	
 
@@ -544,7 +546,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
 
-	private void draw() {
+	public void draw() {
 
 
 		Graphics2D graph = (Graphics2D) buf.getGraphics();
@@ -629,6 +631,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		jmt_3d_view=new JMenuItem("3D view");
 		jmt_3d_view.addActionListener(this);
 		jm_view.add(jmt_3d_view);
+		
+		jm_view.addSeparator();
+		
+		jmt_goto_view=new JMenuItem("Go to...");
+		jmt_goto_view.addActionListener(this);
+		jm_view.add(jmt_goto_view);
 		
 		jm_editing=new JMenu("Editing");
 		jm_editing.addMenuListener(this);
@@ -2496,6 +2504,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			updateStartPosition();
 		}else if(obj==pi_2_angle){
 			rotation_angle.setText(Math.PI*0.5);
+		}else if(obj==jmt_goto_view){
+			goToPosition();
 		}
 		
 		
@@ -3924,6 +3934,26 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	public ArrayList<DrawObject> getDrawObjects() {
 		return drawObjects;
+	}
+	
+
+
+	private void goToPosition() {
+		GoToPanel gotoPanel = new GoToPanel(getCenter());
+		if(gotoPanel.getReturnValue()!=null){
+			
+			GoToPanel ret=(GoToPanel) gotoPanel.getReturnValue();
+			
+			gotoPosition(ret.getGoPOSX(),ret.getGoPOSY());
+			
+		}
+		
+	}
+
+	private void gotoPosition(int goPOSX, int goPOSY) {
+		
+		getCenter().gotoPosition(goPOSX,goPOSY);
+		
 	}
 
 }

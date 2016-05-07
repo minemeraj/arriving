@@ -33,8 +33,7 @@ public abstract class RoadEditorPanel extends JPanel {
 	private boolean hide_objects=false;
 	private boolean hide_splines=false;
 	
-	protected int POSX=0;
-	protected int POSY=0;
+
 	protected int MOVZ=0;
 	
 	protected double fi=0;
@@ -220,6 +219,12 @@ public abstract class RoadEditorPanel extends JPanel {
 	public abstract void displayTerrain(ZBuffer landscapeZbuffer,PolygonMesh[] meshes);
 	
 	public abstract void displayStartPosition(ZBuffer landscapeZbuffer,Point3D startPosition);
+
+	public abstract void gotoPosition(int goPOSX, int goPOSY);
+
+	public abstract int getPOSX();
+
+	public abstract int getPOSY();
 
 
 

@@ -51,6 +51,9 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	private int greenRgb= Color.GREEN.getRGB();
 	
 	private Point3D lightDirection=new Point3D(-Math.sqrt(2)/2,-Math.sqrt(2)/2,0);
+	
+	protected int POSX=0;
+	protected int POSY=0;
 
 	public RoadEditorIsoPanel(RoadEditor editor, int WIDTH,int HEIGHT) {
 		
@@ -1199,6 +1202,14 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		POSY-=j*4*deltax;
 	}
 	
+
+	public void gotoPosition(int goPOSX, int goPOSY) {
+		POSX=goPOSX;
+		POSY=goPOSY;
+		editor.draw();
+		
+	}
+	
 	public void zoom(int i) {
 		
 		double alfa=1.0;
@@ -1326,5 +1337,15 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		} 
 	
 		
+	}
+
+	@Override
+	public int getPOSX() {
+		return POSX;
+	}
+
+	@Override
+	public int getPOSY() {
+		return POSY;
 	}
 }
