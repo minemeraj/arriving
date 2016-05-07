@@ -309,7 +309,7 @@ public class Stand0Model extends MeshModel{
 		faces[5*NF][2][3]=cf+3;
 
 		IMG_WIDTH=(int) (2*bx+2*dy+2*dx);
-		IMG_HEIGHT=(int) (2*by+dz1*2);
+		IMG_HEIGHT=(int) (2*by+dy+dz1*2);
 	}
 
 
