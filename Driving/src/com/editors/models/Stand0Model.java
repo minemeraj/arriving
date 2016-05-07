@@ -7,7 +7,12 @@ import java.io.PrintWriter;
 import java.util.Vector;
 
 import com.main.Renderer3D;
-
+/**
+ * 
+ * STAND ASCENDING IN X DIRECTION
+ * @author francesco
+ *
+ */
 public class Stand0Model extends MeshModel{
 
 	private double dx=100;
@@ -78,15 +83,15 @@ public class Stand0Model extends MeshModel{
 
 			//lower step base
 			addPoint(x0,0.0,z0);
-			addPoint(x0+dx,0.0,z0);
+			addPoint(x1,0.0,z0);
 			addPoint(x1,dy,z0);
-			addPoint(x1,dy,z0);
+			addPoint(x0,dy,z0);
 
 			//upper step base
 			addPoint(x0,0.0,z1);
-			addPoint(x0+dx,0.0,z1);
+			addPoint(x1,0.0,z1);
 			addPoint(x1,dy,z1);
-			addPoint(x1,dy,z1);
+			addPoint(x0,dy,z1);
 
 		}
 
@@ -166,8 +171,7 @@ public class Stand0Model extends MeshModel{
 		//left side
 		for (int i = 0; i < NF; i++) {
 
-			int b=i*4;
-			int c=i*4;
+			int b=i*8;
 
 			faces[i][0][0]=Renderer3D.CAR_LEFT;
 
@@ -177,18 +181,12 @@ public class Stand0Model extends MeshModel{
 			faces[i][1][2]=b+3+4;
 			faces[i][1][3]=b+3;
 
-			faces[i][2][0]=c;
-			faces[i][2][1]=c+1;
-			faces[i][2][2]=c+1+4;
-			faces[i][2][3]=c+4;
-
 		}
 
-		//back and side
+		//back side
 		for (int i = 0; i < NF; i++) {
 
-			int b=i*4;
-			int c=NF+i*4;
+			int b=i*8;
 
 			//back side
 			faces[i+NF][0][0]=Renderer3D.CAR_BACK;
@@ -199,39 +197,29 @@ public class Stand0Model extends MeshModel{
 			faces[i+NF][1][2]=b+1+4;
 			faces[i+NF][1][3]=b+4;
 
-			faces[i+NF][2][0]=c;
-			faces[i+NF][2][1]=c+1;
-			faces[i+NF][2][2]=c+1+4;
-			faces[i+NF][2][3]=c+4;
 
 		}
 
 		//top side
 		for (int i = 0; i < NF; i++) {
 
-			int b=i*4;
-			int c=2*NF+i*4;
+			int b=i*8;
 
 			faces[i+2*NF][0][0]=Renderer3D.CAR_TOP;
 
 
 			faces[i+2*NF][1][0]=b+4;
 			faces[i+2*NF][1][1]=b+1+4;
-			faces[i+2*NF][1][2]=b+1+8;
-			faces[i+2*NF][1][3]=b+8;
+			faces[i+2*NF][1][2]=b+2+4;
+			faces[i+2*NF][1][3]=b+3+4;
 
-			faces[i+2*NF][2][0]=c;
-			faces[i+2*NF][2][1]=c+1;
-			faces[i+2*NF][2][2]=c+1+4;
-			faces[i+2*NF][2][3]=c+4;
 
 		}
 
 		//right side
 		for (int i = 0; i < NF; i++) {
 
-			int b=i*4;
-			int c=3*NF+i*4;
+			int b=i*8;
 
 			faces[i+3*NF][0][0]=Renderer3D.CAR_RIGHT;
 
@@ -241,18 +229,12 @@ public class Stand0Model extends MeshModel{
 			faces[i+3*NF][1][2]=b+2+4;
 			faces[i+3*NF][1][3]=b+1+4;
 
-			faces[i+3*NF][2][0]=c;
-			faces[i+3*NF][2][1]=c+1;
-			faces[i+3*NF][2][2]=c+1+4;
-			faces[i+3*NF][2][3]=c+4;
-
 		}
 
 		//front side
 		for (int i = 0; i < NF; i++) {
 
-			int b=i*4;
-			int c=4*NF+i*4;
+			int b=i*8;
 
 			faces[i+4*NF][0][0]=Renderer3D.CAR_FRONT;
 
@@ -262,10 +244,7 @@ public class Stand0Model extends MeshModel{
 			faces[i+4*NF][1][2]=b+3+4;
 			faces[i+4*NF][1][3]=b+2+4;
 
-			faces[i+4*NF][2][0]=c;
-			faces[i+4*NF][2][1]=c+1;
-			faces[i+4*NF][2][2]=c+1+4;
-			faces[i+4*NF][2][3]=c+4;
+
 
 		}
 
