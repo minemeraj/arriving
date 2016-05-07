@@ -108,7 +108,7 @@ public class Stand0Model extends MeshModel{
 
 			double x0=bx; 
 			double x1=bx+dy-dyStep*k;
-			double y=by+dzStep*k;
+			double y=(by+dy)+dzStep*k;
 
 
 			addTPoint(x0,y,0);
@@ -122,7 +122,7 @@ public class Stand0Model extends MeshModel{
 		for(int k=0;k<numSteps;k++){
 
 			double x=bx+dy;
-			double y=by+k*2*dzStep;
+			double y=(by+dy)+k*2*dzStep;
 
 			addTPoint(x,y,0);
 			addTPoint(x+dx,y,0);
@@ -135,7 +135,7 @@ public class Stand0Model extends MeshModel{
 		for(int k=0;k<numSteps;k++){
 
 			double x=bx+dy;
-			double y=by+k*2*dzStep+dzStep;
+			double y=(by+dy)+k*2*dzStep+dzStep;
 
 			addTPoint(x,y,0);
 			addTPoint(x+dx,y,0);
@@ -148,7 +148,7 @@ public class Stand0Model extends MeshModel{
 
 			double x0=bx+dy+dx+k*dyStep;
 			double x1=bx+dy+dx+dy;
-			double y=by+dzStep*k;
+			double y=(by+dy)+dzStep*k;
 
 
 			addTPoint(x0,y,0);
@@ -163,7 +163,7 @@ public class Stand0Model extends MeshModel{
 		for(int k=0;k<numSteps;k++){
 
 			double x=bx+dy+dx+dy;
-			double y=by+k*dzStep;
+			double y=(by+dy)+k*dzStep;
 
 			//front
 			addTPoint(x,y,0);
@@ -171,10 +171,19 @@ public class Stand0Model extends MeshModel{
 			addTPoint(x+dx,y+dzStep,0);
 			addTPoint(x,y+dzStep,0);
 		}
+		
+		//bottom
 
+		double xx=bx+dy;
+		double yy=by;
 
+		addTPoint(xx,yy,0);
+		addTPoint(xx+dx,yy,0);
+		addTPoint(xx+dx,yy+dy,0);
+		addTPoint(xx,yy+dy,0);
+		
 		int NF=numSteps;
-		faces=new int[5*NF][3][4];
+		faces=new int[5*NF+1][3][4];
 
 
 		//left side
@@ -213,10 +222,10 @@ public class Stand0Model extends MeshModel{
 			faces[i+NF][1][3]=b+4;
 
 			
-			faces[i][2][0]=c;
-			faces[i][2][1]=c+1;
-			faces[i][2][2]=c+2;
-			faces[i][2][3]=c+3;
+			faces[i+NF][2][0]=c;
+			faces[i+NF][2][1]=c+1;
+			faces[i+NF][2][2]=c+2;
+			faces[i+NF][2][3]=c+3;
 
 		}
 
@@ -234,10 +243,10 @@ public class Stand0Model extends MeshModel{
 			faces[i+2*NF][1][2]=b+2+4;
 			faces[i+2*NF][1][3]=b+3+4;
 			
-			faces[i][2][0]=c;
-			faces[i][2][1]=c+1;
-			faces[i][2][2]=c+2;
-			faces[i][2][3]=c+3;
+			faces[i+2*NF][2][0]=c;
+			faces[i+2*NF][2][1]=c+1;
+			faces[i+2*NF][2][2]=c+2;
+			faces[i+2*NF][2][3]=c+3;
 
 
 		}
@@ -256,10 +265,10 @@ public class Stand0Model extends MeshModel{
 			faces[i+3*NF][1][2]=b+2+4;
 			faces[i+3*NF][1][3]=b+1+4;
 			
-			faces[i][2][0]=c;
-			faces[i][2][1]=c+1;
-			faces[i][2][2]=c+2;
-			faces[i][2][3]=c+3;
+			faces[i+3*NF][2][0]=c;
+			faces[i+3*NF][2][1]=c+1;
+			faces[i+3*NF][2][2]=c+2;
+			faces[i+3*NF][2][3]=c+3;
 
 		}
 
@@ -277,13 +286,27 @@ public class Stand0Model extends MeshModel{
 			faces[i+4*NF][1][2]=b+3+4;
 			faces[i+4*NF][1][3]=b+2+4;
 
-			faces[i][2][0]=c;
-			faces[i][2][1]=c+1;
-			faces[i][2][2]=c+2;
-			faces[i][2][3]=c+3;
+			faces[i+4*NF][2][0]=c;
+			faces[i+4*NF][2][1]=c+1;
+			faces[i+4*NF][2][2]=c+2;
+			faces[i+4*NF][2][3]=c+3;
 
 		}
+		
+		//bottom
+		int cf=NF*20;
+		
+		faces[5*NF][0][0]=Renderer3D.CAR_FRONT;
 
+		faces[5*NF][1][0]=0;
+		faces[5*NF][1][1]=3;
+		faces[5*NF][1][2]=2;
+		faces[5*NF][1][3]=1;
+
+		faces[5*NF][2][0]=cf;
+		faces[5*NF][2][1]=cf+1;
+		faces[5*NF][2][2]=cf+2;
+		faces[5*NF][2][3]=cf+3;
 
 		IMG_WIDTH=(int) (2*bx+2*dy+2*dx);
 		IMG_HEIGHT=(int) (2*by+dz1*2);
@@ -350,7 +373,14 @@ public class Stand0Model extends MeshModel{
 			
 
 		}
-
+		
+		//bottom
+		int cf=NF*20;
+		bg.setColor(Color.YELLOW);
+		printTextureLine(bg,cf,cf+1);
+		printTextureLine(bg,cf+1,cf+2);
+		printTextureLine(bg,cf+2,cf+3);
+		printTextureLine(bg,cf+3,cf);
 	}
 
 	private int[][][] faces=null;
