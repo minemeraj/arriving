@@ -352,7 +352,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 			else if(SHED0==val)
 				setRightData(100,200,100,0,0,0,60,0,0,0,0);
 			else if(STAND0==val)
-				setRightData(100,20,100,0,0,0,200,0,0,0,0);
+				setRightData(50,200,100,0,0,0,200,0,0,0,0);
 			else if(CHIMNEY0==val)
 				setRightData(100,0,300,0,80,0,0,12,0,0,0);
 			else if(HOUSE2==val)
