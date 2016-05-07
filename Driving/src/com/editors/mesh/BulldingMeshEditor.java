@@ -212,7 +212,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		chooseBuilding.addItem(new ValuePair(""+GAMBREL0,Gambrel0Model.NAME));	
 		chooseBuilding.addItem(new ValuePair(""+MANSARD0,Mansard0Model.NAME));
 		chooseBuilding.addItem(new ValuePair(""+SHED0,Shed0Model.NAME));
-		chooseBuilding.addItem(new ValuePair(""+STAND0,Stand0Model.NAME)); 
+		//chooseBuilding.addItem(new ValuePair(""+STAND0,Stand0Model.NAME)); 
 
 		chooseBuilding.addItemListener(this);
 
