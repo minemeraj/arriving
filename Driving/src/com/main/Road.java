@@ -151,13 +151,15 @@ public class Road extends Shader{
 	 
 		try {
 			
-			EditorData.initialize();
+			
+			
+			EditorData.initialize(loadingProgressPanel);
 			
 			File file=new File("lib/landscape_"+map_name);
 			
 			loadPointsFromFile(file);		
 			loadSPLinesFromFile(file);	
-			loadObjectsFromFile(file);
+			loadObjectsFromFile(file);			
 			
 			Point3D startPosition = Editor.loadStartPosition(file);
 			POSX=(int) startPosition.x-WIDTH/2-CAR_WIDTH/2;

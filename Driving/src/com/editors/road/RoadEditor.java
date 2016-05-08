@@ -267,7 +267,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		setLocation(10,10);
 		setSize(WIDTH+LEFT_BORDER+RIGHT_SKYP,HEIGHT+BOTTOM_BORDER);
 		
-		EditorData.initialize();
+		EditorData.initialize(null);
 		
 		panelIso=getPanel3D();
 		//panelIso.setTransferHandler(new FileTransferhandler());

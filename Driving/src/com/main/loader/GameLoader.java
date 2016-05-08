@@ -18,8 +18,8 @@ public class GameLoader extends JDialog implements ActionListener{
 	private int WIDTH=220;
 	private int HEIGHT=100;
 
-	private int LOC_X=200;
-	private int LOC_Y=200;
+	public static int LOC_X=200;
+	public static int LOC_Y=200;
 
 	private JPanel center;
 

@@ -20,6 +20,7 @@ import com.SPLine;
 import com.SPNode;
 import com.SquareMesh;
 import com.editors.EditorData;
+import com.main.loader.LoadingProgressPanel;
 
 public abstract class DrivingFrame extends JFrame{
 	
@@ -30,6 +31,8 @@ public abstract class DrivingFrame extends JFrame{
 	
 	public static final int TERRAIN_INDEX=0;
 	public static final int ROAD_INDEX=1;
+	
+	protected LoadingProgressPanel loadingProgressPanel;
 	
 	protected ArrayList<SPLine> loadSPLinesFromFile(File file,boolean forceReading){
 		

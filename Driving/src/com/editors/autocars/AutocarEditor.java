@@ -226,7 +226,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	public AutocarEditor() {
 		
-		EditorData.initialize();
+		EditorData.initialize(null);
 
 		WIDTH = 820;
 		HEIGHT = 880;

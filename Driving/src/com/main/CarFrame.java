@@ -25,6 +25,7 @@ import com.DrawObject;
 import com.Engine;
 import com.Texture;
 import com.main.loader.GameLoader;
+import com.main.loader.LoadingProgressPanel;
 import com.sound.AdvancedGameSound;
 import com.sound.GameSound;
 
@@ -82,6 +83,8 @@ public class CarFrame extends Road implements KeyListener {
 	private boolean isProgramPaused=true;
 	
 	private String map_name=GameLoader.DEFAULT_MAP;
+
+	
 	
 
 	
@@ -96,44 +99,46 @@ public class CarFrame extends Road implements KeyListener {
 		gl.setSkipShading(skipShading);
 		 
 		CarFrame ff=new CarFrame(gl,WIDTH,HEIGHT);
-		//ff.initialize();
 	
 	}
 	 
 	 
 	 private CarFrame(GameLoader gameLoader,int WITDH,int HEIGHT){
 
-	 super( WITDH, HEIGHT);
-	
-	 
-	 this.map_name=gameLoader.getMap();
-	 this.skipShading=gameLoader.isSkipShading();	
-	 
-	 setTitle(VERSION);
-	 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	 setLayout(null);
-	 center=new JPanel();
-	 center.setBackground(BACKGROUND_COLOR);
-	 center.setBounds(LEFTBORDER,UPBORDER,WIDTH,HEIGHT);
-	 add(center);
-	
-	 
-	 bottom=new JPanel();
-	 bottom.setBounds(0,UPBORDER+HEIGHT,LEFTBORDER+WIDTH+RIGHTBORDER,BUTTOMBORDER);
-	 add(bottom);
-	 setSize(LEFTBORDER+WIDTH+RIGHTBORDER,UPBORDER+HEIGHT+BUTTOMBORDER);
-	 buildUpPannel();
-	 
-	 addKeyListener(this);
-	 
-	 initialize();
-	 
-	
-	 setVisible(true);
-	 
-	 start();
-	 
-	} 
+		 super( WITDH, HEIGHT);
+
+
+		 this.map_name=gameLoader.getMap();
+		 this.skipShading=gameLoader.isSkipShading();	
+
+		 setTitle(VERSION);
+		 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		 setLayout(null);
+		 center=new JPanel();
+		 center.setBackground(BACKGROUND_COLOR);
+		 center.setBounds(LEFTBORDER,UPBORDER,WIDTH,HEIGHT);
+		 add(center);
+
+
+		 bottom=new JPanel();
+		 bottom.setBounds(0,UPBORDER+HEIGHT,LEFTBORDER+WIDTH+RIGHTBORDER,BUTTOMBORDER);
+		 add(bottom);
+		 setSize(LEFTBORDER+WIDTH+RIGHTBORDER,UPBORDER+HEIGHT+BUTTOMBORDER);
+		 buildUpPannel();
+
+		 addKeyListener(this);
+
+		 loadingProgressPanel=new LoadingProgressPanel();
+		 
+		 initialize();
+
+		 loadingProgressPanel.dispose();
+		 
+		 setVisible(true);
+
+		 start();
+
+	 } 
 
 	private void buildUpPannel() {
 		
@@ -228,8 +233,15 @@ public class CarFrame extends Road implements KeyListener {
 
 	private void loadRoad() {
 		
+		loadingProgressPanel.setValue(0);
+		
 		super.loadRoad(getMap_name());
+		
+		loadingProgressPanel.incrementValue(10);
+		
 		loadAutocars(new File("lib/autocars_"+getMap_name()));
+		
+		loadingProgressPanel.incrementValue(10);
 	}
 
 	private void loadProperties(){

@@ -13,6 +13,7 @@ import com.LineData;
 import com.Point4D;
 import com.PolygonMesh;
 import com.Texture;
+import com.main.loader.LoadingProgressPanel;
 
 public class EditorData {
 	
@@ -41,9 +42,9 @@ public class EditorData {
 
 	
 
-	public static void initialize() { 
+	public static void initialize(LoadingProgressPanel loadingProgressPanel) { 
 		
-		loadMeshesAndTextures();
+		loadMeshesAndTextures(loadingProgressPanel);
 		
 		BufferedImage bf=new BufferedImage(100,100,BufferedImage.TYPE_INT_RGB);
 		Graphics2D graph=(Graphics2D) bf.getGraphics();
@@ -64,7 +65,7 @@ public class EditorData {
 	
 	}
 	
-	private static void loadMeshesAndTextures() {
+	private static void loadMeshesAndTextures(LoadingProgressPanel loadingProgressPanel) {
 	
 		try {
 
@@ -96,6 +97,9 @@ public class EditorData {
 						
 						
 			}
+			
+			if(loadingProgressPanel!=null)
+				loadingProgressPanel.incrementValue(20);
 		
 			ArrayList<File> vRoadTextures=new ArrayList<File>();
 			
@@ -113,6 +117,9 @@ public class EditorData {
 				
 				worldTextures[i]=new Texture(ImageIO.read(new File("lib/world_texture_"+i+".jpg")));
 			}
+			
+			if(loadingProgressPanel!=null)
+				loadingProgressPanel.incrementValue(20);
 
 			ArrayList<File> v3DObjects=new ArrayList<File>();
 			
@@ -130,6 +137,9 @@ public class EditorData {
 			objectTextures=new Texture[v3DObjects.size()];
 			objectMeshes=new CubicMesh[vObjects.size()];
 			objectDescriptions=new String[vObjects.size()];
+			
+			if(loadingProgressPanel!=null)
+				loadingProgressPanel.incrementValue(5);
 		
 			for(int i=0;i<v3DObjects.size();i++){
 					
@@ -139,6 +149,8 @@ public class EditorData {
 				objectDescriptions[i]=objectMeshes[i].getDescription();
 			}
 			
+			if(loadingProgressPanel!=null)
+				loadingProgressPanel.incrementValue(15);
 
 			
 			ArrayList<File> vSPlineMeshes=new ArrayList<File>();
@@ -155,8 +167,10 @@ public class EditorData {
 			splinesMeshes=new CubicMesh[vSPlineMeshes.size()];
 			splinesTextures=new Texture[vSPlineMeshes.size()];
             splinesEditorTextures=new Texture[vSPlineMeshes.size()];
-
             splineDescriptions=new String[vSPlineMeshes.size()];
+            
+    		if(loadingProgressPanel!=null)
+				loadingProgressPanel.incrementValue(5);
             
 			for(int i=0;i<vSPlineMeshes.size();i++){
 
@@ -166,6 +180,9 @@ public class EditorData {
 				
 				splineDescriptions[i]=splinesMeshes[i].getDescription();
 			}
+			
+			if(loadingProgressPanel!=null)
+				loadingProgressPanel.incrementValue(15);
 			
 			
 		} catch (Exception e) {
