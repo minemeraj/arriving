@@ -537,5 +537,5 @@
 	On the buildings:
 	
 	The bell tower is modeled on the Treviglio's bell Tower, tall 65m with a base of
-	8X8 meters.
+	6.5X6.5 meters.
 	
