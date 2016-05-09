@@ -533,3 +533,9 @@
 	toilet LxWxH: 69 cm X 36 cm x 36.5 cm
 	wardrobe LxWxH: 58 cm X 89.4 cm X 260 cm
 	
+	
+	On the buildings:
+	
+	The bell tower is modeled on the Treviglio's bell Tower, tall 65m with a base of
+	8X8 meters.
+	

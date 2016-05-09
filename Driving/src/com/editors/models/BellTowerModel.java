@@ -131,7 +131,7 @@ public class BellTowerModel extends MeshModel{
 
 		//draw lines for reference
 
-		bg.setColor(Color.RED);
+		bg.setColor(Color.BLACK);
 		bg.setStroke(new BasicStroke(0.1f));
 
 		//lower base
@@ -160,7 +160,7 @@ public class BellTowerModel extends MeshModel{
 		printTextureLine(bg,13,12);
 
         //gables
-		bg.setColor(Color.BLUE);
+		bg.setColor(Color.BLACK);
 		printTextureLine(bg,9,10);
 		printTextureLine(bg,10,14);
 		printTextureLine(bg,14,9);
