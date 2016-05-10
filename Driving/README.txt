@@ -536,6 +536,9 @@
 	
 	On the buildings:
 	
-	The bell tower is modeled on the Treviglio's bell Tower, tall 65m with a base of
+	The bell towers are modeled on:	
+	The Treviglio's (BG) bell Tower, tall 65m with a base of
 	6.5X6.5 meters.
+	The Rivolta d'Adda's (CR) bell Tower, tall 45m with a base of
+	6X6 meters.
 	
