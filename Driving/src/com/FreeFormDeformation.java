@@ -5,11 +5,17 @@ public class FreeFormDeformation {
 	int l;
 	int m;
 	int n;
+	
+	double deltax;
+	double deltay;
+	double deltaz;
 
 	//lattice coordinates in [0,1]
 	Point3D[][][] normalizedControlPoints=null;
 	
 	Point3D origin=null;
+	
+	boolean debug=false;
 
 
 	public FreeFormDeformation(int l, int m, int n,double deltax,double deltay,double deltaz, Point3D[][][] nonNormalizedControlPoints,Point3D origin) {
@@ -18,6 +24,10 @@ public class FreeFormDeformation {
 		this.m = m;
 		this.n = n;		
 		this.origin = origin;
+		
+		this.deltax = deltax;
+		this.deltay = deltay;
+		this.deltaz = deltaz;	
 		
 		
 		this.normalizedControlPoints =  new Point3D[l+1][m+1][n+1];
@@ -47,6 +57,10 @@ public class FreeFormDeformation {
 		this.n = n;
 		this.normalizedControlPoints = new Point3D[l+1][m+1][n+1];
 		this.origin = origin;
+		
+		this.deltax = deltax;
+		this.deltay = deltay;
+		this.deltaz = deltaz;
 
 		for (int i = 0; i <= l; i++) {
 			for (int j = 0; j <= m; j++) {
@@ -63,12 +77,12 @@ public class FreeFormDeformation {
 		}
 	}
 	
-	public Point3D getDeformedPoint(Point3D p,double deltax,double deltay,double deltaz){
+	public Point3D getDeformedPoint(Point3D p){
 		
-		return getDeformedPoint( p, deltax, deltay, deltaz,new Point3D(0,0,0));
+		return getDeformedPoint( p,new Point3D(0,0,0));
 	}
 	
-	public Point3D getDeformedPoint(Point3D p,double deltax,double deltay,double deltaz,Point3D origin){
+	public Point3D getDeformedPoint(Point3D p,Point3D origin){
 
 		Point3D pComponent=new Point3D(
 				
@@ -111,7 +125,7 @@ public class FreeFormDeformation {
 
 		for(int i=0;i<=l;i++){
 
-			for(int j=0;j<=m;m++){
+			for(int j=0;j<=m;j++){
 
 				for(int k=0;k<=n;k++){
 
@@ -128,6 +142,10 @@ public class FreeFormDeformation {
 						break;
 					}
 					pol0+=coefficient(i,l,s)*coefficient(j,m,t)*coefficient(k,n,u)*c;
+					
+					if(debug)
+						System.out.println(coo+"="+"("+i+","+j+","+k+")"+pol0);
+					
 
 				}
 
@@ -151,7 +169,7 @@ public class FreeFormDeformation {
 
 	private static double binomial(int n, int k) {		
 
-		return factorial(n)/factorial(k);
+		return factorial(n)/(factorial(n-k)*factorial(k));
 	}
 
 	private static int factorial(int num) {
@@ -165,11 +183,13 @@ public class FreeFormDeformation {
 
 		FreeFormDeformation fd=new FreeFormDeformation(2,3,3,100,200,300,new Point3D(0,0,0)); 
 		
-		Point3D p=new Point3D(100,200,300);
+		Point3D p=new Point3D(50,60,70);
 		
-		System.out.println(fd.getDeformedPointComponent(p));
+		System.out.println(fd.getDeformedPoint(p));
 		
-
+		fd.normalizedControlPoints[0][0][0].x+=0.01;
+		
+		System.out.println(fd.getDeformedPoint(p));
 	}
 
 }
