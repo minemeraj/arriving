@@ -548,4 +548,66 @@ public abstract class MeshModel {
 	}
 
 
+
+	protected int[][] buildFace(
+			
+			int faceIndex, 
+			int b0, 
+			int b1, 
+			int b2, 
+			int b3, 
+			int c0, 
+			int c1, 
+			int c2, 
+			int c3) {
+	
+		int[][] face=new int[3][4];
+		
+		face[0][0]=faceIndex;
+
+
+		face[1][0]=b0;
+		face[1][1]=b1;
+		face[1][2]=b2;
+		face[1][3]=b3;
+
+		face[2][0]=c0;
+		face[2][1]=c1;
+		face[2][2]=c2;
+		face[2][3]=c3;
+		
+		return face;
+		
+	}
+	
+	
+	protected int[][] buildFace(
+
+			int faceIndex, 
+			int b0, 
+			int b1, 
+			int b2, 
+			int c0, 
+			int c1, 
+			int c2 
+			) {
+
+		int[][] face=new int[3][3];
+
+		face[0][0]=faceIndex;
+
+
+		face[1][0]=b0;
+		face[1][1]=b1;
+		face[1][2]=b2;
+
+		face[2][0]=c0;
+		face[2][1]=c1;
+		face[2][2]=c2;
+
+		return face;
+
+	}
+
+
 }
