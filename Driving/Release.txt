@@ -2,6 +2,7 @@ New object:
 
 lib/object3D_15 (Bell Tower 1)
 lib/object3D_16 (Bell Tower 2)
+lib/object3D_17 (4 Stories yellow house)
 
 Added a loading progress bar to the main program.
 

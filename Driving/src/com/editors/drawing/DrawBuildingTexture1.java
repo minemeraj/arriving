@@ -54,7 +54,7 @@ public class DrawBuildingTexture1 {
 			new Color(38, 77, 64),
 			new Color(197, 181, 152)
 	};
-	Color SHUTTER_COLOR=SHUTTER_COLORS[SHUTTER_COLORS_SAND];
+	Color SHUTTER_COLOR=SHUTTER_COLORS[SHUTTER_COLORS_RED_BERRY];
 		
 	
 	int WALL_COLORS_LIGHT_YELLOW=0;
@@ -62,10 +62,10 @@ public class DrawBuildingTexture1 {
 	int WALL_COLORS_LIGHT_GREEN=2;
 	int WALL_COLORS_DEEP_RED=3;	
 	Color[] WALL_COLORS={new Color(253, 227, 170),new Color(250, 206, 229),new Color(192, 200, 140),new Color(207, 75, 54)};
-	Color FRONT_WALL_COLOR=WALL_COLORS[WALL_COLORS_DEEP_RED];
-	Color BACK_WALL_COLOR=WALL_COLORS[WALL_COLORS_DEEP_RED];
-	Color LEFT_WALL_COLOR=WALL_COLORS[WALL_COLORS_DEEP_RED];
-	Color RIGHT_WAll_COLOR=WALL_COLORS[WALL_COLORS_DEEP_RED];
+	Color FRONT_WALL_COLOR=WALL_COLORS[WALL_COLORS_LIGHT_YELLOW];
+	Color BACK_WALL_COLOR=WALL_COLORS[WALL_COLORS_LIGHT_YELLOW];
+	Color LEFT_WALL_COLOR=WALL_COLORS[WALL_COLORS_LIGHT_YELLOW];
+	Color RIGHT_WAll_COLOR=WALL_COLORS[WALL_COLORS_LIGHT_YELLOW];
 	
 	int ROOF_COLORS_LIGHT_BROWN=0;
 	int ROOF_COLORS_DEEP_RED=1;
@@ -104,18 +104,25 @@ public class DrawBuildingTexture1 {
 	
 	public static void main(String[] args) {
 
-		String STANDARD_MIDDLE_HOUSE=
+		String STANDARD_2STORIES_HOUSE=
 		  		"int house_w=208; "+
 				"int house_l=286; "+
 				"int house_h=164; "+
 				"int num_floors=2; "+
 				"int roof_heigth=47;";
 		
+		String STANDARD_4STORIES_HOUSE=
+		  		"int house_w=208; "+
+				"int house_l=286; "+
+				"int house_h=328; "+
+				"int num_floors=4; "+
+				"int roof_heigth=47;";
+		
 		
 		int house_w=208;	
 		int house_l=286;
-		int house_h=164;
-		int num_floors=2;
+		int house_h=328;
+		int num_floors=4;
 		int roof_heigth=47;
 
 		DrawBuildingTexture1 db=new DrawBuildingTexture1();
