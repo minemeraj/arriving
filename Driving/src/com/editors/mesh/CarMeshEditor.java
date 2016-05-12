@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import com.editors.DoubleTextField;
 import com.editors.ValuePair;
 import com.editors.models.Car0Model;
+import com.editors.models.Truck0Model;
 
 public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemListener{
 
@@ -27,7 +28,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 	private boolean skipItemChanged=false;
 
 	public static int CAR0=0;
-
+	public static int TRUCK0=1;
+	public static int TANK0=2;
 
 	public static void main(String[] args) {
 
@@ -103,6 +105,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		chooseObject.addKeyListener(this);
 		chooseObject.addItem(new ValuePair("-1",""));
 		chooseObject.addItem(new ValuePair(""+CAR0,"Car0"));	
+		chooseObject.addItem(new ValuePair(""+TRUCK0,"Truck0"));
+		chooseObject.addItem(new ValuePair(""+TANK0,"Tank0"));
 		chooseObject.addItemListener(this);		
 
 		chooseObject.setSelectedIndex(0);
@@ -139,6 +143,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 
 		if(val==CAR0)
 			meshModel=new Car0Model(dx,dy,dz);
+		else if(val==TRUCK0)
+			meshModel=new Truck0Model(dx,dy,dz);
 		else
 			meshModel=new Car0Model(dx,dy,dz);
 
@@ -176,6 +182,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 				val=CAR0;
 
 			if(CAR0==val)
+				setRightData(151,400,109);
+			else if(TRUCK0==val)
 				setRightData(151,400,109);
 
 		}
