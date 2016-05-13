@@ -276,8 +276,9 @@ class Table extends Forniture{
 			double x= calX(upperBase[j].x);
 			double y= calY(upperBase[j].y);
 
-			Point3D p=new Point3D(x,y,0);			
-			texture_points.set(count++,p);
+			Point3D p=new Point3D(x,y,0);
+			int pos=count++;
+			set(texture_points,pos,p);
 
 
 		}
@@ -288,8 +289,9 @@ class Table extends Forniture{
 			double x= calX(lowerBase[j].x);
 			double y= calY(lowerBase[j].y);
 
-			Point3D p=new Point3D(x,y,0);			
-			texture_points.set(count++,p);
+			Point3D p=new Point3D(x,y,0);	
+			int pos=count++;
+			set(texture_points,pos,p);
 
 		}
 
@@ -309,8 +311,7 @@ class Table extends Forniture{
 				Point3D p=new Point3D(x,y,0);
 
 				int texIndex=count+f(i,j,N_FACES+1,N_PARALLELS);
-				//System.out.print(texIndex+"\t");
-				texture_points.set(texIndex,p);
+				set(texture_points,texIndex,p);
 			}
 			
 		}
@@ -322,8 +323,10 @@ class Table extends Forniture{
 			double x= calX(lowerLegBase[j].x);
 			double y= calY(lowerLegBase[j].y);
 
-			Point3D p=new Point3D(x,y,0);			
-			texture_points.set(count++,p);
+			Point3D p=new Point3D(x,y,0);	
+			
+			int pos=count++;
+			set(texture_points,pos,p);
 
 		}
 
@@ -343,8 +346,7 @@ class Table extends Forniture{
 				Point3D p=new Point3D(x,y,0);
 
 				int texIndex=count+f(i,j,N_FACES+1,N_PARALLELS);
-				//System.out.print(texIndex+"\t");
-				texture_points.set(texIndex,p);
+				set(texture_points,texIndex,p);
 			}
 			
 		}	

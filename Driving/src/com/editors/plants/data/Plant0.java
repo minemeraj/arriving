@@ -89,8 +89,7 @@ class Plant0 extends CustomData{
 	private void initMesh(){
 
 
-		points=new ArrayList<Point3D>();
-
+		points=new ArrayList<Point3D>(1000);
 		polyData=new ArrayList<LineData>();
 		
 		
