@@ -226,7 +226,7 @@ public class Barrel extends CustomData{
 			double y= calY(upperBase[j].y);
 
 			Point3D p=new Point3D(x,y,0);			
-			texture_points.set(count++,p);
+			set(texture_points,count++,p);
 
 
 		}
@@ -238,7 +238,7 @@ public class Barrel extends CustomData{
 			double y= calY(lowerBase[j].y);
 
 			Point3D p=new Point3D(x,y,0);			
-			texture_points.set(count++,p);
+			set(texture_points,count++,p);
 
 		}
 
@@ -259,7 +259,7 @@ public class Barrel extends CustomData{
 
 				int texIndex=count+f(i,j,N_MERIDIANS+1,N_PARALLELS);
 				//System.out.print(texIndex+"\t");
-				texture_points.set(texIndex,p);
+				set(texture_points,texIndex,p);
 			}
 			
 		}	

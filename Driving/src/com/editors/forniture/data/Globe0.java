@@ -326,7 +326,7 @@ private ArrayList<Point3D> buildTexturePoints() {
 		double yp=calY(northPoles[i].y);
 		
 		Point3D p=new Point3D(xp,yp,0);	
-		texture_points.set(count++,p);
+		set(texture_points,count++,p);
 }
 
 	//lateral surface
@@ -345,7 +345,7 @@ private ArrayList<Point3D> buildTexturePoints() {
 
 			int texIndex=count+f(i,j,n_meridians+1,n_parallels);
 			//System.out.print(texIndex+"\t");
-			texture_points.set(texIndex,p);
+			set(texture_points,texIndex,p);
 		}
 		
 	}	
@@ -358,7 +358,7 @@ private ArrayList<Point3D> buildTexturePoints() {
 		double yp=calY(southPoles[i].y);
 		
 		Point3D p=new Point3D(xp,yp,0);	
-		texture_points.set(count++,p);
+		set(texture_points,count++,p);
 
     }
 	
