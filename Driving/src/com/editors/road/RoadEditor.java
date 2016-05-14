@@ -73,6 +73,7 @@ import com.editors.road.panel.RoadEditorPanel;
 import com.editors.road.panel.RoadEditorTopPanel;
 import com.main.HelpPanel;
 import com.main.Road;
+import com.main.loader.LoadingProgressPanel;
 
 /**
  * @author Piazza Francesco Giovanni ,Tecnes Milano http://www.tecnes.com
@@ -253,7 +254,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public static void main(String[] args) {
 
 		RoadEditor re=new RoadEditor("New road editor");
-		re.initialize();
+
 	}
 	
 	private RoadEditor(String title){
@@ -267,7 +268,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		setLocation(10,10);
 		setSize(WIDTH+LEFT_BORDER+RIGHT_SKYP,HEIGHT+BOTTOM_BORDER);
 		
+		loadingProgressPanel=new LoadingProgressPanel();
+		
 		EditorData.initialize(null);
+		
+		
 		
 		panelIso=getPanel3D();
 		//panelIso.setTransferHandler(new FileTransferhandler());
@@ -302,9 +307,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		currentDirectory=new File("lib");
 
+		
+
+		initialize();
+		
+		loadingProgressPanel.setValue(100);
+		
+		loadingProgressPanel.dispose();
+	
 		setVisible(true);
-
-
+	
 	}
 	
 	private RoadEditorPanel getPanel3D() {
@@ -455,6 +467,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 			}
 			
+			loadingProgressPanel.incrementValue(10);
+			
 			splinesImages=new BufferedImage[EditorData.splinesEditorTextures.length];
 			for(int i=0;i<EditorData.splinesEditorTextures.length;i++){
 				
@@ -462,6 +476,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				splinesImages[i]=ImageIO.read(new File("lib/spline_editor_"+i+".jpg"));
 
 			}
+			
+			loadingProgressPanel.incrementValue(10);
 
 		} catch (Exception e) {
 			e.printStackTrace();
