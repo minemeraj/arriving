@@ -28,9 +28,9 @@ import com.editors.weapons.data.Weapon;
 
 public class WeaponsEditor extends CustomEditor implements ItemListener{
 	
-	public static int HEIGHT=800;
+	public static int HEIGHT=600;
 	public static int WIDTH=800;
-	public int RIGHT_BORDER=330;
+	public int RIGHT_BORDER=430;
 	public int BOTTOM_BORDER=100;
 
 	private DoubleTextField barrel_length;
@@ -140,6 +140,8 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		int r=10;
 		
 		int column=100;
+		int column2=200;
+		int column3=300;
 		
 		JLabel jlb=new JLabel("Weapon type:");
 		jlb.setBounds(5, r, 120, 20);
@@ -171,14 +173,12 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		barrel_length.setBounds(column, r, 100, 20);
 		barrel_length.addKeyListener(this);
 		right.add(barrel_length);
-
-		r+=30;
 		
 		jlb=new JLabel("Barrel rad");
-		jlb.setBounds(5, r, 100, 20);
+		jlb.setBounds(column2, r, 100, 20);
 		right.add(jlb);
 		barrel_radius=new DoubleTextField();
-		barrel_radius.setBounds(column, r, 100, 20);
+		barrel_radius.setBounds(column3, r, 100, 20);
 		barrel_radius.addKeyListener(this);
 		right.add(barrel_radius);
 		
@@ -203,13 +203,11 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		forearm_length.addKeyListener(this);
 		right.add(forearm_length);
 		
-		r+=30;
-		
 		jlb=new JLabel("Forearm width");
-		jlb.setBounds(5, r, 100, 20);
+		jlb.setBounds(column2, r, 100, 20);
 		right.add(jlb);
 		forearm_width=new DoubleTextField();
-		forearm_width.setBounds(column, r, 100, 20);
+		forearm_width.setBounds(column3, r, 100, 20);
 		forearm_width.addKeyListener(this);
 		right.add(forearm_width);
 		
@@ -233,13 +231,11 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		breech_length.addKeyListener(this);
 		right.add(breech_length);
 		
-		r+=30;
-		
 		jlb=new JLabel("breech_width");
-		jlb.setBounds(5, r, 100, 20);
+		jlb.setBounds(column2, r, 100, 20);
 		right.add(jlb);
 		breech_width=new DoubleTextField();
-		breech_width.setBounds(column, r, 100, 20);
+		breech_width.setBounds(column3, r, 100, 20);
 		breech_width.addKeyListener(this);
 		right.add(breech_width);
 
@@ -264,13 +260,11 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		magazine_length.addKeyListener(this);
 		right.add(magazine_length);
 		
-		r+=30;
-		
 		jlb=new JLabel("Magazine width");
-		jlb.setBounds(5, r, 100, 20);
+		jlb.setBounds(column2, r, 100, 20);
 		right.add(jlb);
 		magazine_width=new DoubleTextField();
-		magazine_width.setBounds(column, r, 100, 20);
+		magazine_width.setBounds(column3, r, 100, 20);
 		magazine_width.addKeyListener(this);
 		right.add(magazine_width);
 		
@@ -294,13 +288,11 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		trigger_length.addKeyListener(this);
 		right.add(trigger_length);
 		
-		r+=30;
-		
 		jlb=new JLabel("Trigger width");
-		jlb.setBounds(5, r, 100, 20);
+		jlb.setBounds(column2, r, 100, 20);
 		right.add(jlb);
 		trigger_width=new DoubleTextField();
-		trigger_width.setBounds(column, r, 100, 20);
+		trigger_width.setBounds(column3, r, 100, 20);
 		trigger_width.addKeyListener(this);
 		right.add(trigger_width);
 		
@@ -323,14 +315,13 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		butt_length.setBounds(column, r, 100, 20);
 		butt_length.addKeyListener(this);
 		right.add(butt_length);
-		
-		r+=30;
+
 		
 		jlb=new JLabel("butt width");
-		jlb.setBounds(5, r, 100, 20);
+		jlb.setBounds(column2, r, 100, 20);
 		right.add(jlb);
 		butt_width=new DoubleTextField();
-		butt_width.setBounds(column, r, 100, 20);
+		butt_width.setBounds(column3, r, 100, 20);
 		butt_width.addKeyListener(this);
 		right.add(butt_width);
 		
@@ -354,13 +345,11 @@ public class WeaponsEditor extends CustomEditor implements ItemListener{
 		butt_end_length.addKeyListener(this);
 		right.add(butt_end_length);
 		
-		r+=30;
-		
 		jlb=new JLabel("butt end width");
-		jlb.setBounds(5, r, 100, 20);
+		jlb.setBounds(column2, r, 100, 20);
 		right.add(jlb);
 		butt_end_width=new DoubleTextField();
-		butt_end_width.setBounds(column, r, 100, 20);
+		butt_end_width.setBounds(column3, r, 100, 20);
 		butt_end_width.addKeyListener(this);
 		right.add(butt_end_width);
 		

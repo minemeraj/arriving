@@ -20,6 +20,8 @@ class WeaponsJPanel extends CustomJPanel{
 		if(buffGraph==null)
 			return;
 		
+		y0=400;
+		
 		drawBasic();
 		
 		if(weapon!=null){ 
