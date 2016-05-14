@@ -651,7 +651,7 @@ public abstract class CustomData {
 					int index=((Integer)tb.upperBase[i][j].getData()).intValue();
 		
 					Point3D p=new Point3D(x,y,0);			
-					texture_points.set(index,p);
+					set(texture_points,index,p);
 				}
 	
 			}
@@ -671,7 +671,7 @@ public abstract class CustomData {
 				Point3D p=new Point3D(x,y,0);
 
 				int index=((Integer)tb.lateralFaces[i][j].getData()).intValue();
-				texture_points.set(index,p);
+				set(texture_points,index,p);
 			}
 			
 		}	
@@ -688,7 +688,7 @@ public abstract class CustomData {
 					int index=((Integer)tb.lowerBase[i][j].getData()).intValue();
 		
 					Point3D p=new Point3D(x,y,0);			
-					texture_points.set(index,p);
+					set(texture_points,index,p);
 				}
 			}
 		

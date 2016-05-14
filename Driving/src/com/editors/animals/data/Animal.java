@@ -96,7 +96,7 @@ public class Animal extends CustomData{
 		
 		BPoint point=new BPoint(s.x(x), s.y(y), s.z(z), n++);
 		point.setData(""+body_part);
-		points.set(point.getIndex(),point);
+		set(points,point.getIndex(),point);
 		return point;
 		
 	}
@@ -105,7 +105,7 @@ public class Animal extends CustomData{
 		
 		BPoint point=new BPoint(x, y, z, n++);
 		point.setData(""+body_part);
-		points.set(point.getIndex(),point);
+		set(points,point.getIndex(),point);
 		return point;
 		
 	}
