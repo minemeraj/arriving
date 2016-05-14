@@ -11,6 +11,9 @@ lib/object3D_20 (4 Stories red house)
 New terrain texture:
 /lib/world_texture_10.jpg (sand)
 
+New spline:
+/lib/spline_mesh_5 (Small asphalt road)
+
 
 Added a loading progress bar to the main program.
 
