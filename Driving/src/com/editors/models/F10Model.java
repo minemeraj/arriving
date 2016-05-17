@@ -1,6 +1,7 @@
 package com.editors.models;
 
 import java.awt.Graphics2D;
+import java.io.PrintWriter;
 import java.util.Vector;
 
 import com.BPoint;
@@ -29,7 +30,7 @@ public class F10Model extends MeshModel{
 		texturePoints=new Vector();
 
 
-		Segments s0=new Segments(x0,y0,z0,dx,dy,dz);
+		Segments s0=new Segments(x0,dx,y0,dy,z0,dz);
 		
 		int nz=2;
 		
@@ -76,6 +77,14 @@ public class F10Model extends MeshModel{
 
 		IMG_WIDTH=(int) (2*bx+dx);
 		IMG_HEIGHT=(int) (2*by+dy);
+
+	}
+	
+	@Override
+	public void printMeshData(PrintWriter pw) {
+
+		super.printMeshData(pw);
+		super.printFaces(pw, faces);
 
 	}
 
