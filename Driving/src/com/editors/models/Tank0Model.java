@@ -3,28 +3,34 @@ package com.editors.models;
 import java.awt.Graphics2D;
 import java.util.Vector;
 
+import com.BPoint;
 import com.Point3D;
+import com.Segments;
 import com.main.Renderer3D;
 /**
- * LEGO LIKE MODEL
- * 
+ * One texture model
+ * Summing up the best creation logic so far
  * 
  * @author Administrator
  *
  */
 public class Tank0Model extends MeshModel{
-	
+
 	private int bx=10;
 	private int by=10;
-	
+
 	private double dx = 0;
 	private double dy = 0;
 	private double dz = 0;
 	
+	double x0=0;
+	double y0=0;
+	double z0=0;
+
 	private int[][][] faces;
-	
+
 	int basePoints=4;
-	
+
 	public Tank0Model(double dx, double dy, double dz) {
 		super();
 		this.dx = dx;
@@ -37,121 +43,77 @@ public class Tank0Model extends MeshModel{
 	public void initMesh() {
 		points=new Vector<Point3D>();
 		texturePoints=new Vector();
-		
-		//points
-		
-		for (int i = 0; i < bodyBlocks.length; i++) {
-			
-			double x=bodyBlocks[i][0][0];
-			double y=bodyBlocks[i][0][1];
-			double z=bodyBlocks[i][0][2];
-			
-			
-			addPoint(x, y, z);
-			addPoint(x+dx, y, z);
-			addPoint(x+dx, y+dy, z);
-			addPoint(x, y+dy, z);
-			
-			
-			addPoint(x, y, z+dz);
-			addPoint(x+dx, y, z+dz);
-			addPoint(x+dx, y+dy, z+dz);
-			addPoint(x, y+dy, z+dz);
-			
-		}
-		
-		//texture points
-		
-		for (int k = 0; k < bodyBlocks.length; k++) {
-			
-			double y=by+dy+k*(dy+2*dz);
-			double x=bx;
 
-			for (int p0 = 0; p0 <= basePoints; p0++) {
-				addTPoint(x,y,0);
 
-				if(p0==0 || p0==2)
-					x+=dz;
-				else if(p0==1 || p0==3)
-					x+=dx;
-
-			}
-			
-			//bottom base
-			double bbx=bx+dz+k*(dy+2*dz);
-			
-			addTPoint(bbx,by,0);
-			addTPoint(bbx+dx,by,0);
-			addTPoint(bbx+dx,by+dz,0);
-			addTPoint(bbx,by+dz,0);
-			
-			
-			//top base
-			
-			double bby=by+dz+dy+k*(dy+2*dz);
-			addTPoint(bbx,bby,0);
-			addTPoint(bbx+dx,bby,0);
-			addTPoint(bbx+dx,bby+dz,0);
-			addTPoint(bbx,bby+dz,0);
-		}
+		Segments s0=new Segments(x0,y0,z0,dx,dy,dz);
 		
+		int nz=2;
+		
+		BPoint[][] cab=new BPoint[2][4];
+		cab[0][0] = addBPoint(0.0,0.0,0.5,s0);
+		cab[0][1] = addBPoint(1.0,0.0,0.5,s0);
+		cab[0][2] = addBPoint(1.0,1.0,0.5,s0);
+		cab[0][3] = addBPoint(0.0,1.0,0.5,s0);
+
+		cab[1][0] = addBPoint(0.0,0.0,1.0,s0);
+		cab[1][1] = addBPoint(1.0,0.0,1.0,s0);
+		cab[1][2] = addBPoint(1.0,1.0,1.0,s0);
+		cab[1][3] = addBPoint(0.0,1.0,1.0,s0);
+
+		//Texture points
+
+		double y=by;
+		double x=bx;
+
+		addTPoint(x,y,0);
+		addTPoint(x+dx,y,0);
+		addTPoint(x+dx, y+dy,0);
+		addTPoint(x,y+dy,0);
+
 		//faces
-		int NF=bodyBlocks.length*6;
+		int NF=6;
+
 		faces=new int[NF][3][4];
+
+		int counter=0;
+
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, cab[0][0],cab[0][3],cab[0][2],cab[0][1], 0, 1, 2, 3);
 		
-		int count=0;
-		
-		for (int i = 0; i < bodyBlocks.length; i++) {
+		for (int k = 0; k < nz; k++) {
 			
-			int b=i*basePoints*2;
-			int c0=i*((basePoints+1)+2);
-			int c3=(i+1)*(basePoints+1)+2*i;
+			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, cab[k][0],cab[k+1][0],cab[k+1][3],cab[k][3], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_BACK, cab[k][0],cab[k][1],cab[k+1][1],cab[k+1][0], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, cab[k][1],cab[k][2],cab[k+1][2],cab[k+1][1], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, cab[k][2],cab[k][3],cab[k+1][3],cab[k+1][2], 0, 1, 2, 3);
 			
-			faces[count++]=buildFace(Renderer3D.CAR_BACK,b,b+3,b+2,b+1,c0,c0+1,c3+1,c3);
-			faces[count++]=buildFace(Renderer3D.CAR_LEFT,b,b+4,b+3+4,b+3,c0+1,c0+1+1,c3+1+1,c3+1);
-			faces[count++]=buildFace(Renderer3D.CAR_RIGHT,b+1,b+2,b+2+4,b+1+4,c0+2,c0+2+1,c3+2+1,c3+2);
-			faces[count++]=buildFace(Renderer3D.CAR_FRONT,b+2,b+3,b+3+4,b+2+4,c0+3,c0+3+1,c3+3+1,c3+3);
-			
-			int cc0=c0+2*(basePoints+1);			
-			faces[count++]=buildFace(Renderer3D.CAR_BOTTOM,b,b+3,b+2,b+1,cc0,cc0+1,cc0+2,cc0+3);
-			
-			cc0+=4;
-			faces[count++]=buildFace(Renderer3D.CAR_TOP,b+4,b+1+4,b+2+4,b+3+4,cc0,cc0+1,cc0+2,cc0+3);
 		}
-		
-		IMG_WIDTH=(int) (2*bx+bodyBlocks.length*2*(dx+dz));
-		IMG_HEIGHT=(int) (2*by+bodyBlocks.length*(dy+2*dz));
-		
+
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP,cab[nz-1][0],cab[nz-1][1],cab[nz-1][2],cab[nz-1][3], 0, 1, 2, 3);
+
+		IMG_WIDTH=(int) (2*bx+dx);
+		IMG_HEIGHT=(int) (2*by+dy);
+
 	}
+
+
+
+
 
 	@Override
 	public void printTexture(Graphics2D bufGraphics) {
-		
-		for (int i = 0; i < bodyBlocks.length; i++) {
+
+		for (int i = 0; i < faces.length; i++) {
 			
-			int cb=i*((basePoints+1)*2+2);
+			int[][] face = faces[i];
+			int[] tPoints = face[2];
+			if(tPoints.length==4)
+				printTexturePolygon(bufGraphics, tPoints[0],tPoints[1],tPoints[2],tPoints[3]);
+			else if(tPoints.length==3)
+				printTexturePolygon(bufGraphics, tPoints[0],tPoints[1],tPoints[2]);
 			
-			for (int p0 = 0; p0 < basePoints; p0++) {
-				
-				int c0=i*(basePoints+1)+p0+cb;
-				int c3=(i+1)*(basePoints+1)+p0+cb;
-				
-				printTexturePolygon(bufGraphics,c0,c0+1,c3+1,c3);
-	
-			}	
-			
-			//lower base
-			int cc=4*(basePoints+1)+cb;
-			printTexturePolygon(bufGraphics,cc,cc+1,cc+2,cc+3);
-			//upperbase
-			cc+=basePoints+cb;
-			printTexturePolygon(bufGraphics,cc,cc+1,cc+2,cc+3);
-		
 		}
+		
+
 	}
-	//blocks x,y,z
-	public double[][][] bodyBlocks={
-			{{0.0,0.0,0.0}},
-	};
 
 }

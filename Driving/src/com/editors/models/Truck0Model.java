@@ -1,17 +1,15 @@
 package com.editors.models;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
-import java.io.PrintWriter;
 import java.util.Vector;
 
+import com.BPoint;
 import com.Point3D;
+import com.Segments;
 import com.main.Renderer3D;
-
 /**
- * 
- * A unique block, which, Like a bent mattress, can bend and become vertical from horizontal,
- * or viceversa.
+ * One texture model
+ * Summing up the best creation logic so far
  * 
  * @author Administrator
  *
@@ -24,11 +22,13 @@ public class Truck0Model extends MeshModel{
 	private double dx = 0;
 	private double dy = 0;
 	private double dz = 0;
+	
+	double x0=0;
+	double y0=0;
+	double z0=0;
 
 	private int[][][] faces;
-	
-	public static String NAME="Truck0";
-	
+
 	int basePoints=4;
 
 	public Truck0Model(double dx, double dy, double dz) {
@@ -38,162 +38,152 @@ public class Truck0Model extends MeshModel{
 		this.dz = dz;
 	}
 
+
 	@Override
 	public void initMesh() {
 		points=new Vector<Point3D>();
 		texturePoints=new Vector();
 
-		//points
 
-		double xx0=dx*0.5;
-	
-
-
-		//anti-clockwise sections on length direction
-		//p0 on the lower left corner of the section
-		//p3 on the upper left corner of the section
-		for (int i = 0; i < bodySections.length; i++) {
-
-			double x0=bodySections[i][0][0];
-			double y0=bodySections[i][0][1];
-			double z0=bodySections[i][0][2];
-			
-			double x3=bodySections[i][1][0];
-			double y3=bodySections[i][1][1];
-			double z3=bodySections[i][1][2];
-	
-
-
-			addPoint(xx0-x0*dx,y0*dy,z0*dz);
-			addPoint(xx0+x0*dx,y0*dy,z0*dz);
-			addPoint(xx0+x3*dx,y3*dy,z3*dz);
-			addPoint(xx0-x3*dx,y3*dy,z3*dz);	
-			
-			
-		}
-
-		//texture points
-		//single block texture
+		Segments s0=new Segments(x0+dy,y0,z0,dx,dy,dz);
 		
-		double deltay=dy/(bodySections.length-1);
-
-		for(int k=0;k<bodySections.length;k++){			
-
-			double x0=bodySections[k][0][0];
-			double x3=bodySections[k][1][0];
-			
-			double xi=2.0*Math.max(x0, x3);
-
-
-			double y=by+k*deltay+dz;
-			double x=bx;
-
-			for (int p0 = 0; p0 <= basePoints; p0++) {
-				addTPoint(x,y,0);
-
-				if(p0==0 || p0==2)
-					x+=dz;
-				else if(p0==1 || p0==3)
-					x+=dx;
-
-			}
-		}
+		int nzCab=3;
 		
-		//back base
-		double bbx=bx+dz;
+		BPoint[][] cab=new BPoint[nzCab][4];
+		cab[0][0] = addBPoint(0.0,0.0,0.0,s0);
+		cab[0][1] = addBPoint(1.0,0.0,0.0,s0);
+		cab[0][2] = addBPoint(1.0,1.0,0.0,s0);
+		cab[0][3] = addBPoint(0.0,1.0,0.0,s0);
 		
-		addTPoint(bbx,by,0);
-		addTPoint(bbx+dx,by,0);
-		addTPoint(bbx+dx,by+dz,0);
-		addTPoint(bbx,by+dz,0);
+		cab[1][0] = addBPoint(0.0,0.0,0.5,s0);
+		cab[1][1] = addBPoint(1.0,0.0,0.5,s0);
+		cab[1][2] = addBPoint(1.0,1.0,0.5,s0);
+		cab[1][3] = addBPoint(0.0,1.0,0.5,s0);
+
+		cab[2][0] = addBPoint(0.0,0.0,1.0,s0);
+		cab[2][1] = addBPoint(1.0,0.0,1.0,s0);
+		cab[2][2] = addBPoint(1.0,0.8,1.0,s0);
+		cab[2][3] = addBPoint(0.0,0.8,1.0,s0);
 		
+		int nzRear=3;
 		
-		//front base
+		s0=new Segments(x0,y0,z0,dx,dy,dz*0.25);
 		
-		double bby=by+dz+dy;
-		addTPoint(bbx,bby,0);
-		addTPoint(bbx+dx,bby,0);
-		addTPoint(bbx+dx,bby+dz,0);
-		addTPoint(bbx,bby+dz,0);
+		BPoint[][] rear=new BPoint[nzRear][4];
+		rear[0][0] = addBPoint(0.0,0.0,0.0,s0);
+		rear[0][1] = addBPoint(1.0,0.0,0.0,s0);
+		rear[0][2] = addBPoint(1.0,1.0,0.0,s0);
+		rear[0][3] = addBPoint(0.0,1.0,0.0,s0);
 		
+		rear[1][0] = addBPoint(0.0,0.0,1.0,s0);
+		rear[1][1] = addBPoint(1.0,0.0,1.0,s0);
+		rear[1][2] = addBPoint(1.0,1.0,1.0,s0);
+		rear[1][3] = addBPoint(0.0,1.0,1.0,s0);
+		
+		int nzWagon=2;
+		
+		s0=new Segments(x0,y0,z0+dz*0.5,dx,dy,dz*0.75);
+		
+		BPoint[][] wagon=new BPoint[nzWagon][4];
+		wagon[0][0] = addBPoint(0.0,0.2,0.0,s0);
+		wagon[0][1] = addBPoint(1.0,0.2,0.0,s0);
+		wagon[0][2] = addBPoint(1.0,1.0,0.0,s0);
+		wagon[0][3] = addBPoint(0.0,1.0,0.0,s0);
+		
+		wagon[1][0] = addBPoint(0.0,0.2,1.0,s0);
+		wagon[1][1] = addBPoint(1.0,0.2,1.0,s0);
+		wagon[1][2] = addBPoint(1.0,1.0,1.0,s0);
+		wagon[1][3] = addBPoint(0.0,1.0,1.0,s0);
+
+		//Texture points
+
+		double y=by;
+		double x=bx;
+
+		addTPoint(x,y,0);
+		addTPoint(x+dx,y,0);
+		addTPoint(x+dx, y+dy,0);
+		addTPoint(x,y+dy,0);
 
 		//faces
-		int NF=calculateFacesNumber(bodySections.length);
+		int NF=2+(nzCab-1)*4;
+		NF+=2+(nzRear-1)*4;
+		NF+=2+(nzWagon-1)*4;
+
 		faces=new int[NF][3][4];
 
-		//length sections
-		int count=0;
-		for (int i = 0; i <bodySections.length-1; i++) {
+		int counter=0;
 
-			int b=i*4;
-			int c0=i*(basePoints+1);
-			int c3=(i+1)*(basePoints+1);
-
+		//cab
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, cab[0][0],cab[0][3],cab[0][2],cab[0][1], 0, 1, 2, 3);
+		
+		for (int k = 0; k < nzCab; k++) {
 			
-			faces[count++]=buildFace(Renderer3D.CAR_LEFT,b,b+3,b+3+4,b+4,c0,c0+1,c3+1,c3);
-			faces[count++]=buildFace(Renderer3D.CAR_TOP,b+3,b+2,b+2+4,b+3+4,c0+1,c0+1+1,c3+1+1,c3+1);					
-			faces[count++]=buildFace(Renderer3D.CAR_RIGHT,b+1,b+1+4,b+2+4,b+2,c0+2,c0+1+2,c3+1+2,c3+2);	
-			faces[count++]=buildFace(Renderer3D.CAR_BOTTOM,b,b+4,b+1+4,b+1,c0+3,c0+1+3,c3+1+3,c3+3);
+			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, cab[k][0],cab[k+1][0],cab[k+1][3],cab[k][3], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_BACK, cab[k][0],cab[k][1],cab[k+1][1],cab[k+1][0], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, cab[k][1],cab[k][2],cab[k+1][2],cab[k+1][1], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, cab[k][2],cab[k][3],cab[k+1][3],cab[k+1][2], 0, 1, 2, 3);
 			
-	
-				
 		}
-		//back and front base
+
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP,cab[nzCab-1][0],cab[nzCab-1][1],cab[nzCab-1][2],cab[nzCab-1][3], 0, 1, 2, 3);
+		///////
 		
-		int bb=0;
-		int cc=(bodySections.length)*(basePoints+1);
-
-		faces[count++]=buildFace(Renderer3D.CAR_BACK,bb,bb+1,bb+2,bb+3,cc,cc+1,cc+2,cc+3);
+		//rear
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, rear[0][0],rear[0][3],rear[0][2],rear[0][1], 0, 1, 2, 3);
 		
-		bb+=(bodySections.length-1)*basePoints;
-		cc+=basePoints;
-		faces[count++]=buildFace(Renderer3D.CAR_FRONT,bb,bb+1,bb+2,bb+3,cc,cc+1,cc+2,cc+3);
+		for (int k = 0; k < nzRear; k++) {
+			
+			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, rear[k][0],rear[k+1][0],rear[k+1][3],rear[k][3], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_BACK, rear[k][0],rear[k][1],rear[k+1][1],rear[k+1][0], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, rear[k][1],rear[k][2],rear[k+1][2],rear[k+1][1], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, rear[k][2],rear[k][3],rear[k+1][3],rear[k+1][2], 0, 1, 2, 3);
+			
+		}
 
-		IMG_WIDTH=(int) (2*bx+2*(dx+dz));
-		IMG_HEIGHT=(int) (2*by+dy+dz*2);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP,rear[nzRear-1][0],rear[nzRear-1][1],rear[nzRear][2],rear[nzRear-1][3], 0, 1, 2, 3);
+		///////
+		
+		//wagon
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0],wagon[0][3],wagon[0][2],wagon[0][1], 0, 1, 2, 3);
+		
+		for (int k = 0; k < nzWagon; k++) {
+			
+			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, wagon[k][0],wagon[k+1][0],wagon[k+1][3],wagon[k][3], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_BACK, wagon[k][0],wagon[k][1],wagon[k+1][1],wagon[k+1][0], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, wagon[k][1],wagon[k][2],wagon[k+1][2],wagon[k+1][1], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, wagon[k][2],wagon[k][3],wagon[k+1][3],wagon[k+1][2], 0, 1, 2, 3);
+			
+		}
+
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP,wagon[nzWagon-1][0],wagon[nzWagon-1][1],wagon[nzWagon][2],wagon[nzWagon-1][3], 0, 1, 2, 3);
+		///////
+		
+		
+		IMG_WIDTH=(int) (2*bx+dx);
+		IMG_HEIGHT=(int) (2*by+dy);
 
 	}
 
-	private int calculateFacesNumber(int sections) {
-		//with bases
-		return 2+(sections-1)*4;
 
-	}
-	
-	public void printMeshData(PrintWriter pw) {
 
-		super.printMeshData(pw);
-		super.printFaces(pw, faces);
 
-	}
 
 	@Override
 	public void printTexture(Graphics2D bufGraphics) {
-		
-		bufGraphics.setColor(Color.BLACK);
 
-		for (int i = 0; i <bodySections.length-1; i++) {
+		for (int i = 0; i < faces.length; i++) {
 			
-			for (int p0 = 0; p0 < basePoints; p0++) {
-				
-				int c0=i*(basePoints+1)+p0;
-				int c3=(i+1)*(basePoints+1)+p0;
-				
-				printTexturePolygon(bufGraphics,c0,c0+1,c3+1,c3);
-			}
+			int[][] face = faces[i];
+			int[] tPoints = face[2];
+			if(tPoints.length==4)
+				printTexturePolygon(bufGraphics, tPoints[0],tPoints[1],tPoints[2],tPoints[3]);
+			else if(tPoints.length==3)
+				printTexturePolygon(bufGraphics, tPoints[0],tPoints[1],tPoints[2]);
+			
 		}
-		int cc=(bodySections.length)*(basePoints+1);
-		printTexturePolygon(bufGraphics,cc,cc+1,cc+2,cc+3);
-		cc+=basePoints;
-		printTexturePolygon(bufGraphics,cc,cc+1,cc+2,cc+3);
+		
 
 	}
-
-	//p0,p3 for every section, while p2,p3 are symmetric on the xz plane, or a parallel one
-	public double[][][] bodySections={
-			{{0.5,0.0,0.0},{0.5,0.0,1.0}},
-			{{0.5,0.5,0.0},{0.5,0.5,1.0}},
-			{{0.5,1.0,0.0},{0.5,1.0,1.0}},
-	};
 
 }

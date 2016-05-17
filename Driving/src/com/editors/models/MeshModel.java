@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 
 import com.BPoint;
 import com.Point3D;
+import com.Segments;
 import com.main.Renderer3D;
 
 public abstract class MeshModel {
@@ -267,6 +268,11 @@ public abstract class MeshModel {
 		points.add(p);
 
 		return p;
+	}
+	
+
+	protected BPoint addBPoint(double d, double e, double f, Segments s0) {
+		return addBPoint(s0.x(d), s0.y(e), s0.z(f));
 	}
 
 	int[][][] buildSingleBlockFaces(
@@ -580,6 +586,11 @@ public abstract class MeshModel {
 		
 	}
 	
+
+	protected int[][] buildFace(int carTop, BPoint p0, BPoint p1, BPoint p2, BPoint p3, int c0, int c1, int c2, int c3) {
+		return buildFace(carTop, p0.getIndex(), p1.getIndex(), p2.getIndex(), p3.getIndex(),  c0,  c1,  c2,  c3);
+	}
+	
 	
 	protected int[][] buildFace(
 
@@ -606,6 +617,34 @@ public abstract class MeshModel {
 		face[2][2]=c2;
 
 		return face;
+
+	}
+	
+	protected void buildWheel(double rxc, double ryc, double rzc,double r, double wheel_width) {
+
+
+		int raysNumber=10;
+
+		//back wheel
+
+		BPoint[] lRearWheel=new BPoint[raysNumber];
+		BPoint[] rRearWheel=new BPoint[raysNumber];
+
+
+		for(int i=0;i<raysNumber;i++){
+
+			double teta=i*2*Math.PI/(raysNumber);
+
+			double x=rxc;
+			double y=ryc+r*Math.sin(teta);
+			double z=rzc+r*Math.cos(teta);
+
+			lRearWheel[i]=addBPoint(x,y,z);
+			rRearWheel[i]=addBPoint(x+wheel_width,y,z);
+		}
+
+
+
 
 	}
 
