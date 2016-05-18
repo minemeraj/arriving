@@ -23,6 +23,14 @@ public class Truck0Model extends MeshModel{
 	private double dy = 0;
 	private double dz = 0;
 	
+	private double dxf = 0;
+	private double dyf = 0;
+	private double dzf = 0;
+	
+	private double dxr = 0;
+	private double dyr = 0;
+	private double dzr = 0;
+	
 	double x0=0;
 	double y0=0;
 	double z0=0;
@@ -31,11 +39,22 @@ public class Truck0Model extends MeshModel{
 
 	int basePoints=4;
 
-	public Truck0Model(double dx, double dy, double dz) {
+	public Truck0Model(
+			double dx, double dy, double dz, 
+			double dxf, double dyf, double dzf, 
+			double dxr, double dyr, double dzr) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
 		this.dz = dz;
+		
+		this.dxf = dxf;
+		this.dyf = dyf;
+		this.dzf = dzf;
+		
+		this.dxr = dxr;
+		this.dyr = dyr;
+		this.dzr = dzr;
 	}
 
 
@@ -45,7 +64,7 @@ public class Truck0Model extends MeshModel{
 		texturePoints=new Vector();
 
 
-		Segments s0=new Segments(x0,dx,y0+dy,dy,z0,dz);
+		Segments s0=new Segments(x0,dxf,y0+dyr,dyf,z0,dzf);
 		
 		int nzCab=3;
 		
@@ -67,7 +86,7 @@ public class Truck0Model extends MeshModel{
 		
 		int nzRear=3;
 		
-		s0=new Segments(x0,dx,y0,dy,z0,dz*0.25);
+		s0=new Segments(x0,dxr,y0,dyr,z0,dzr);
 		
 		BPoint[][] rear=new BPoint[nzRear][4];
 		rear[0][0] = addBPoint(0.0,0.0,0.0,s0);
@@ -82,7 +101,7 @@ public class Truck0Model extends MeshModel{
 		
 		int nzWagon=2;
 		
-		s0=new Segments(x0,dx,y0,dy,z0+dz*0.5,dz*0.75);
+		s0=new Segments(x0,dx,y0,dy,z0+dzr,dz);
 		
 		BPoint[][] wagon=new BPoint[nzWagon][4];
 		wagon[0][0] = addBPoint(0.0,0.2,0.0,s0);

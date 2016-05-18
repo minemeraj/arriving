@@ -4,6 +4,7 @@ DX=0
 DY=0
 X0=0.0
 Y0=0.0
+DESCRIPTION=Industrial shed
 v=0.0 0.0 0.0
 v=260.0 0.0 0.0
 v=260.0 0.0 104.0

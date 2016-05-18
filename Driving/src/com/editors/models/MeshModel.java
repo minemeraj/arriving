@@ -590,7 +590,11 @@ public abstract class MeshModel {
 	protected int[][] buildFace(int carTop, BPoint p0, BPoint p1, BPoint p2, BPoint p3, int c0, int c1, int c2, int c3) {
 		return buildFace(carTop, p0.getIndex(), p1.getIndex(), p2.getIndex(), p3.getIndex(),  c0,  c1,  c2,  c3);
 	}
-	
+
+
+	protected int[][] buildFace(int carTop, BPoint p0, BPoint p1, BPoint p2, int c0, int c1, int c2) {
+		return buildFace(carTop, p0.getIndex(), p1.getIndex(), p2.getIndex(),   c0,  c1,  c2);
+	}
 	
 	protected int[][] buildFace(
 

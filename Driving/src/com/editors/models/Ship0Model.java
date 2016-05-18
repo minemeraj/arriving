@@ -25,17 +25,25 @@ public class Ship0Model extends MeshModel{
 	private double dy = 0;
 	private double dz = 0;
 	
+	private double dxr = 0;
+	private double dyr = 0;
+	private double dzr = 0;
+	
 	double x0=0;
 	double y0=0;
 	double z0=0;
 	
 	private int[][][] faces;
 	
-	public Ship0Model(double dx, double dy, double dz) {
+	public Ship0Model(double dx, double dy, double dz, double dxr, double dyr, double dzr) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
 		this.dz = dz;
+		
+		this.dxr = dxr;
+		this.dyr = dyr;
+		this.dzr = dzr;
 	}
 
 
@@ -84,7 +92,7 @@ public class Ship0Model extends MeshModel{
 		hull[2][7]=addBPoint(0.875, 1.0, 0.65,s0);
 		hull[2][8]=addBPoint(1.0, 1.0, 1.0,s0);
 		
-		Segments s1=new Segments(x0,dx,y0,dy*0.25,z0+dz,50);
+		Segments s1=new Segments(x0,dxr,y0,dyr,z0+dz,dzr);
 		
 		BPoint[][] mainBridge=new BPoint[2][4];
 		
@@ -119,8 +127,10 @@ public class Ship0Model extends MeshModel{
 
 		//faces
 		int NF=(nx-1)*(ny-1);
+		NF+=2;
 		NF+=ny-1;
 		NF+=6;
+		
 		
 		faces=new int[NF][3][4];
 
@@ -135,10 +145,25 @@ public class Ship0Model extends MeshModel{
 			
 		}
 		
+		//closing front hull
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[ny-1][0],hull[ny-1][nx-1],hull[ny-1][nx-2],hull[ny-1][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[ny-1][1],hull[ny-1][nx-2],hull[ny-1][nx-3],hull[ny-1][2], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[ny-1][2],hull[ny-1][nx-3],hull[ny-1][nx-4],hull[ny-1][3], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[ny-1][3],hull[ny-1][nx-4],hull[ny-1][4], 0, 1, 2);
+
+		
+		//closing back hull
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[0][0],hull[0][1],hull[0][nx-2],hull[0][nx-1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[0][1],hull[0][2],hull[0][nx-3],hull[0][nx-2], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[0][2],hull[0][3],hull[0][nx-4],hull[0][nx-3], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[0][3],hull[0][4],hull[0][nx-4], 0, 1, 2);
+		
 		//build the main deck		
 		for (int i = 0; i < ny-1; i++) {
 			faces[counter++]=buildFace(Renderer3D.CAR_TOP, hull[i][0],hull[i][nx-1],hull[i+1][nx-1],hull[i+1][0], 4,5,6,7);
 		}
+		
+	
 		
 		
 		//mainBridge

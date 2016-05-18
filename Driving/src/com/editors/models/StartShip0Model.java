@@ -18,11 +18,39 @@ public class StartShip0Model extends MeshModel{
 	private double dy = 0;
 	private double dz = 0;
 	
+	private double dxf = 0;
+	private double dyf = 0;
+	private double dzf = 0;
+	
+	private double dxr = 0;
+	private double dyr = 0;
+	private double dzr = 0;
+	
 	private int[][][] faces;
 	
 	double x0=0;
 	double y0=0;
 	double z0=0;
+	
+	public StartShip0Model(
+			double dx, double dy, double dz, 
+			double dxf, double dyf, double dzf, 
+			double dxr, double dyr,	double dzr) {
+		super();
+		this.dx = dx;
+		this.dy = dy;
+		this.dz = dz;
+		
+		this.dxf = dxf;
+		this.dyf = dyf;
+		this.dzf = dzf;
+		
+		this.dxr = dxr;
+		this.dyr = dyr;
+		this.dzr = dzr;
+	}
+
+
 
 	@Override
 	public void initMesh() {
