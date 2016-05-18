@@ -15,6 +15,9 @@ New terrain texture:
 New spline:
 /lib/spline_mesh_5 (Small asphalt road)
 
+new landscape:
+/lib/landscape_harbour
+
 
 Added a loading progress bar to the main program.
 
