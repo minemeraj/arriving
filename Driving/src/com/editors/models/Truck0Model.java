@@ -105,13 +105,13 @@ public class Truck0Model extends MeshModel{
 		s0=new Segments(x0,dx,y0,dy,z0+dzr,dz);
 		
 		BPoint[][] wagon=new BPoint[nzWagon][4];
-		wagon[0][0] = addBPoint(0.0,0.2,0.0,s0);
-		wagon[0][1] = addBPoint(1.0,0.2,0.0,s0);
+		wagon[0][0] = addBPoint(0.0,0.0,0.0,s0);
+		wagon[0][1] = addBPoint(1.0,0.0,0.0,s0);
 		wagon[0][2] = addBPoint(1.0,1.0,0.0,s0);
 		wagon[0][3] = addBPoint(0.0,1.0,0.0,s0);
 		
-		wagon[1][0] = addBPoint(0.0,0.2,1.0,s0);
-		wagon[1][1] = addBPoint(1.0,0.2,1.0,s0);
+		wagon[1][0] = addBPoint(0.0,0.0,1.0,s0);
+		wagon[1][1] = addBPoint(1.0,0.0,1.0,s0);
 		wagon[1][2] = addBPoint(1.0,1.0,1.0,s0);
 		wagon[1][3] = addBPoint(0.0,1.0,1.0,s0);
 
