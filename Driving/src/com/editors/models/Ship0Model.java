@@ -63,33 +63,33 @@ public class Ship0Model extends MeshModel{
 		BPoint[][] hull=new BPoint[ny][nx];
 
 		hull[0][0]=addBPoint(0, 0, 1.0,s0);
-		hull[0][1]=addBPoint(0.125, 0, 0.65,s0);
-		hull[0][2]=addBPoint(0.25, 0, 0.5,s0);
-		hull[0][3]=addBPoint(0.375, 0, 0.25,s0);
+		hull[0][1]=addBPoint(0.125, 0, 0.35,s0);
+		hull[0][2]=addBPoint(0.25, 0, 0.2,s0);
+		hull[0][3]=addBPoint(0.375, 0, 0.05,s0);
 		hull[0][4]=addBPoint(0.5, 0, 0,s0);
-		hull[0][5]=addBPoint(0.625, 0, 0.25,s0);
-		hull[0][6]=addBPoint(0.75, 0, 0.5,s0);
-		hull[0][7]=addBPoint(0.875, 0, 0.65,s0);
+		hull[0][5]=addBPoint(0.625, 0, 0.05,s0);
+		hull[0][6]=addBPoint(0.75, 0, 0.2,s0);
+		hull[0][7]=addBPoint(0.875, 0, 0.35,s0);
 		hull[0][8]=addBPoint(1.0, 0, 1.0,s0);
 		
 		hull[1][0]=addBPoint(0, 0.5, 1.0,s0);
-		hull[1][1]=addBPoint(0.125, 0.5, 0.65,s0);
-		hull[1][2]=addBPoint(0.25, 0.5, 0.5,s0);
-		hull[1][3]=addBPoint(0.375, 0.5, 0.25,s0);
+		hull[1][1]=addBPoint(0.125, 0.5, 0.35,s0);
+		hull[1][2]=addBPoint(0.25, 0.5, 0.2,s0);
+		hull[1][3]=addBPoint(0.375, 0.5, 0.05,s0);
 		hull[1][4]=addBPoint(0.5, 0.5, 0,s0);
-		hull[1][5]=addBPoint(0.625, 0.5, 0.25,s0);
-		hull[1][6]=addBPoint(0.75, 0.5, 0.5,s0);
-		hull[1][7]=addBPoint(0.875, 0.5, 0.65,s0);
+		hull[1][5]=addBPoint(0.625, 0.5, 0.05,s0);
+		hull[1][6]=addBPoint(0.75, 0.5, 0.2,s0);
+		hull[1][7]=addBPoint(0.875, 0.5, 0.35,s0);
 		hull[1][8]=addBPoint(1.0, 0.5, 1.0,s0);
 		
 		hull[2][0]=addBPoint(0, 1.0, 1.0,s0);
-		hull[2][1]=addBPoint(0.125, 1.0, 0.65,s0);
-		hull[2][2]=addBPoint(0.25, 1.0, 0.5,s0);
-		hull[2][3]=addBPoint(0.375, 1.0, 0.25,s0);
+		hull[2][1]=addBPoint(0.125, 1.0, 0.35,s0);
+		hull[2][2]=addBPoint(0.25, 1.0, 0.2,s0);
+		hull[2][3]=addBPoint(0.375, 1.0, 0.05,s0);
 		hull[2][4]=addBPoint(0.5, 1.0, 0,s0);
-		hull[2][5]=addBPoint(0.625, 1.0, 0.25,s0);
-		hull[2][6]=addBPoint(0.75, 1.0, 0.5,s0);
-		hull[2][7]=addBPoint(0.875, 1.0, 0.65,s0);
+		hull[2][5]=addBPoint(0.625, 1.0, 0.05,s0);
+		hull[2][6]=addBPoint(0.75, 1.0, 0.2,s0);
+		hull[2][7]=addBPoint(0.875, 1.0, 0.35,s0);
 		hull[2][8]=addBPoint(1.0, 1.0, 1.0,s0);
 		
 		Segments s1=new Segments(x0,dxr,y0,dyr,z0+dz,dzr);
@@ -126,9 +126,13 @@ public class Ship0Model extends MeshModel{
 		addTPoint(x+dx,y+dy,0);
 
 		//faces
+		//hull
 		int NF=(nx-1)*(ny-1);
-		NF+=2;
+		//hull closures
+		NF+=(nx-1);
+		//deck
 		NF+=ny-1;
+		//main bridge
 		NF+=6;
 		
 		

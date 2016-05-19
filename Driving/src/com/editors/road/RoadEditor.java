@@ -2176,6 +2176,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
+			setTitle(file.getName());
 			
 			currentDirectory=fc.getCurrentDirectory();
 			currentFile=fc.getSelectedFile();
@@ -2221,6 +2222,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			currentDirectory=fc.getCurrentDirectory();
 			currentFile=fc.getSelectedFile();
 			File file = fc.getSelectedFile();
+			setTitle(file.getName());
 			
 			setACTIVE_PANEL(TERRAIN_INDEX);
 			loadPointsFromFile(file,ACTIVE_PANEL,forceReading);	
