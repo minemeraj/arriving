@@ -3957,9 +3957,17 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 	private void goToPosition() {
-		GoToPanel gotoPanel = new GoToPanel(getCenter());
+		
+		
+		PolygonMesh mesh=meshes[Editor.TERRAIN_INDEX];
+		if(mesh.points==null || !(mesh instanceof SquareMesh))
+			return; 
+
+		
+		GoToPanel gotoPanel = new GoToPanel(getCenter(),getCenter().getMiddle((SquareMesh) mesh));
 		if(gotoPanel.getReturnValue()!=null){
 			
+					
 			GoToPanel ret=(GoToPanel) gotoPanel.getReturnValue();
 			
 			gotoPosition(ret.getGoPOSX(),ret.getGoPOSY());

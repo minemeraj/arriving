@@ -1348,4 +1348,15 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	public int getPOSY() {
 		return POSY;
 	}
+
+	@Override
+	double getDeltaY() {
+		return deltay;
+	}
+
+	@Override
+	double getDeltaX() {
+		return deltax;
+	}
+
 }

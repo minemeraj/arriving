@@ -23,6 +23,8 @@ Added a loading progress bar to the main program.
 
 Now the file name appears in the RoadEditor title bar.
 
+"Middle" button added to the "Go To..." panel.
+
 --- 07/05/2016 CarDriving 9.0.4
 
 New autocars moving algorithm.

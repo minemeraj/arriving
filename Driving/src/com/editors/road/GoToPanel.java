@@ -8,6 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.Point3D;
 import com.editors.IntegerTextField;
 import com.editors.road.panel.RoadEditorPanel;
 
@@ -30,8 +31,16 @@ public class GoToPanel extends JDialog implements ActionListener{
 	
 	int goPOSX=0;
 	int goPOSY=0;
+
+	private JButton setMiddle;
 	
-	GoToPanel(RoadEditorPanel roadEditorPanel){
+	Point3D middle=null;
+	
+	GoToPanel(RoadEditorPanel roadEditorPanel,Point3D middle){
+		
+	
+		
+		this.middle=middle;
 		
 		setTitle("Go to...");
 		setLayout(null);
@@ -75,11 +84,23 @@ public class GoToPanel extends JDialog implements ActionListener{
 		center.add(cancel);
 		cancel.addActionListener(this);
 		
+		if(middle!=null){
+		
+			r+=30;
+	
+			setMiddle=new JButton("Middle");
+			setMiddle.setBounds(50,r,80,20);
+			center.add(setMiddle);
+			setMiddle.addActionListener(this);
+		
+		}
+		
 		add(center);
 		
 		returnValue=null;
 		
 		setVisible(true);
+
 	}
 
 	@Override
@@ -96,9 +117,19 @@ public class GoToPanel extends JDialog implements ActionListener{
 			returnValue=null;
 			dispose();
 		}
+		else if(obj==setMiddle){
+			setMiddle();	
+		}
 		
 	}
 	
+	private void setMiddle() {
+		
+		POSX_Field.setText((int) middle.getX());	
+		POSY_Field.setText((int) middle.getY());	
+	
+	}
+
 	private void update() {
 		
 		goPOSX=POSX_Field.getvalue();

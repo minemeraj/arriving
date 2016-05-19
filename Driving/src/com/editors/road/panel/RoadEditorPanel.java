@@ -14,6 +14,7 @@ import com.Point3D;
 import com.Polygon3D;
 import com.PolygonMesh;
 import com.SPLine;
+import com.SquareMesh;
 import com.Texture;
 import com.ZBuffer;
 import com.editors.road.RoadEditor;
@@ -226,7 +227,22 @@ public abstract class RoadEditorPanel extends JPanel {
 
 	public abstract int getPOSY();
 
+	public Point3D getMiddle(SquareMesh sqMesh){
+		
+		if(sqMesh==null)
+			return null;
+		
+		
+		return new Point3D(
 
+				sqMesh.getDx()* sqMesh.getNumx()/(2*getDeltaX()),	
+				sqMesh.getDy()* sqMesh.getNumy()/(2*getDeltaY()),
+			0
+		);
+	}
 
+	abstract double getDeltaY();
+
+	abstract double getDeltaX();
 
 }

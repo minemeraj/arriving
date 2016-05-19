@@ -31,8 +31,8 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	private int MOVX=-50;
 	private int MOVY=100;
 
-	private int dx=2;
-	private int dy=2;
+	private int deltax=2;
+	private int deltay=2;
 	
 	
 
@@ -100,7 +100,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		
 		int size=mesh.points.length;
 		//draw points until they're visible
-		if(dx<16){
+		if(deltax<16){
 			for(int j=0;j<size;j++){
 	
 	
@@ -860,8 +860,8 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			int index=dro.getIndex();
 
-			int dw=(int) (dro.getDx()/dx);
-			int dh=(int) (dro.getDy()/dy);
+			int dw=(int) (dro.getDx()/deltax);
+			int dh=(int) (dro.getDy()/deltay);
 
 			
 			if(!area.intersects(new Rectangle(x,y-dh,dw,dh))){
@@ -931,20 +931,20 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 	public int convertX(double i,double j,double k) {
 
-		return (int) (i/dx-MOVX);
+		return (int) (i/deltax-MOVX);
 	}
 	public int convertY(double i,double j,double k) {
 
-		return (int) (HEIGHT-(j/dy+MOVY));
+		return (int) (HEIGHT-(j/deltay+MOVY));
 	}
 
 	public int invertX(int i) {
 
-		return (i+MOVX)*dx;
+		return (i+MOVX)*deltax;
 	}
 	public int invertY(int j) {
 
-		return dy*(HEIGHT-j-MOVY);
+		return deltay*(HEIGHT-j-MOVY);
 	}
 	
 	
@@ -956,7 +956,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		if(i>0){
 			alfa=0.5;
 			
-			if(dx==1 || dy==1)
+			if(deltax==1 || deltay==1)
 				return;
 		}
 		else {
@@ -965,8 +965,8 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		}
 			
 				
-		dx=(int) (dx*alfa);
-		dy=(int) (dy*alfa);
+		deltax=(int) (deltax*alfa);
+		deltay=(int) (deltay*alfa);
 		
 		MOVX+=(int) ((WIDTH/2+MOVX)*(1.0/alfa-1.0));
 		MOVY+=(int) ((-HEIGHT/2+MOVY)*(1.0/alfa-1.0));
@@ -1490,6 +1490,16 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	@Override
 	public int getPOSY() {
 		return -MOVY;
+	}
+	
+	@Override
+	double getDeltaY() {
+		return deltay;
+	}
+
+	@Override
+	double getDeltaX() {
+		return deltax;
 	}
 
 	
