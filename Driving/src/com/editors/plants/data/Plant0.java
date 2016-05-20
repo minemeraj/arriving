@@ -230,7 +230,7 @@ class Plant0 extends Plant{
 
 
 
-	private double ff(double x){
+	protected double ff(double x){
 
 		if(foliage_length==0)
 			return 0;

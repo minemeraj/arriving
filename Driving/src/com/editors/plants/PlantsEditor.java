@@ -138,6 +138,7 @@ public class PlantsEditor extends CustomEditor implements ItemListener {
 		plant_type.addKeyListener(this);
 		plant_type.addItem(new ValuePair("-1",""));
 		plant_type.addItem(new ValuePair(""+Plant.PLANT_TYPE_0,"Plant0"));
+		plant_type.addItem(new ValuePair(""+Plant.PLANT_TYPE_1,"Plant1"));
 		
 		plant_type.addItemListener(this);
 		

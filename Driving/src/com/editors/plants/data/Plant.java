@@ -5,6 +5,7 @@ import com.PolygonMesh;
 
 public class Plant extends CustomData{
 
+	
 	protected double trunk_lenght=0; 
 	protected double trunk_upper_radius=0;
 	protected double trunk_lower_radius=0;
@@ -22,9 +23,11 @@ public class Plant extends CustomData{
 	
 	protected double lobe_percentage_depth=1.0;
 	
-	public static int PLANT_TYPE_0=0;
+	public static final int PLANT_TYPE_0=0;
+	public static final int PLANT_TYPE_1=1;
 	
 	private int plant_type=PLANT_TYPE_0;
+	
 
 	public Plant(){}
 
@@ -120,10 +123,27 @@ public class Plant extends CustomData{
 		
 		if(plant_type==PLANT_TYPE_0)
 			return buildMeshPlant0();
-		else
+		else if(plant_type==PLANT_TYPE_1)
+			return buildMeshPlant1();
+		else	
 			return buildMeshPlant0();
 	}
 	
+	private PolygonMesh buildMeshPlant1() {
+		Plant0 plant1=new Plant1(
+				plant_type,
+				trunk_lenght,trunk_upper_radius,trunk_lower_radius,	
+				trunk_meridians,trunk_parallels,
+				foliage_length,foliage_radius,foliage_barycenter,
+				foliage_meridians,foliage_parallels,foliage_lobes,
+				lobe_percentage_depth
+				);
+		
+		specificData=plant1;
+		
+		return plant1.getMesh();
+	}
+
 	private PolygonMesh buildMeshPlant0(){
 
 		Plant0 plant0=new Plant0(
