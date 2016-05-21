@@ -44,11 +44,13 @@ public class Plant1 extends Plant0{
 
 		if(xr>xf){
 
-			double b=3.0*(foliage_radius-trunk_upper_radius)*(xf+1)/(xf*xf*xf-3*xf*xf-3*xf+5);
+			double b=3.0*(foliage_radius-trunk_upper_radius)*(xf+1)/(xf*xf*xf-3*xf*xf+3*xf-1);
 			double a=-2*b/(3*(xf+1));
 			double c=-(3*a+2*b);
 			double d=trunk_upper_radius-a-b-c;
+
 			return a*xr*xr*xr+b*xr*xr+c*xr+d;
+			
 
 		}else{
 

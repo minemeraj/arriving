@@ -313,6 +313,25 @@ public class PlantsEditor extends CustomEditor implements ItemListener {
 		lobe_percentage_depth.setText(80);
 	}
 	
+	
+	private void initRightPlant1Data() {
+		
+		trunck_length.setText(200);
+		trunk_upper_radius.setText(24);
+		trunk_lower_radius.setText(30);
+		trunk_meridians.setText(10);
+		trunk_parallels.setText(4);
+		
+		foliage_length.setText(400);
+		foliage_radius.setText(200);
+		foliage_barycenter.setText(50);
+		foliage_meridians.setText(12);
+		foliage_parallels.setText(8);
+		foliage_lobes.setText(0);
+		lobe_percentage_depth.setText(80);
+		
+	}
+	
 	private void setRightData(Plant plant) {
 		
 		for (int i = 0; i < plant_type.getItemCount(); i++) {
@@ -548,12 +567,15 @@ public class PlantsEditor extends CustomEditor implements ItemListener {
 			 
 			   if(type==Plant.PLANT_TYPE_0)
 				   initRightPlant0Data();
+			   else if(type==Plant.PLANT_TYPE_1)
+				   initRightPlant1Data();
 			   else
 				   initRightPlant0Data();
 		}	 
 		
 	}
-	
+
+
 	@Override
 	public void saveBaseCubicTexture(File file) {
 		
