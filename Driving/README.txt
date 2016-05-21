@@ -536,6 +536,11 @@
 	
 	On the buildings:
 	
+	Two stories house dimensions:
+	L x W x H= 11m x 8m x 6.3m; roof height=1m
+	Four stories house dimensions:
+	L x W x H= 11m x 8m x 12.6m; roof height=1m
+	
 	The bell towers are modeled on:	
 	The Treviglio's (BG) bell Tower, tall 65m with a base of
 	6.5X6.5 meters.
