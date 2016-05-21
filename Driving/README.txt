@@ -503,6 +503,11 @@
 	
 	Airplane proportions based on Airbus A320 (length=37.57m, wing span 34.10M).
 	
+	Tanker ship sizes:
+	length=175m  breadth=27.6m
+	from keel to upper deck=17.6m
+	Stern castle height from deck=23m.
+	
 	Weapon gun measures based on Colt 45 MK IV series 70 Government model,
 	length= 210 mm, barrel length=127 mm.
 	

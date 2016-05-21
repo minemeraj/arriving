@@ -268,7 +268,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 			else if(TRUCK0==val)
 				setRightData(151,350,109,151,150,109,151,400,50);
 			else if(SHIP0==val)
-				setRightData(150,400,109,0,0,0,150,50,50);
+				setRightData(718,4550,458,0,0,0,718,364,598);
 
 		}
 
