@@ -18,12 +18,15 @@ New spline:
 new landscape:
 /lib/landscape_harbour
 
+Review of the landscape_highway
 
 Added a loading progress bar to the main program.
 
 Now the file name appears in the RoadEditor title bar.
 
 "Middle" button added to the "Go To..." panel.
+
+Debugging the RoadEditor.
 
 --- 07/05/2016 CarDriving 9.0.4
 

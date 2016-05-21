@@ -2364,7 +2364,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			changeSelectedSPNode();
 			draw();
 		}		
-		else if(obj==changePolygon[ACTIVE_PANEL]){
+		else if(obj==changePolygon[TERRAIN_INDEX]){
 			changeSelectedTerrainPolygon();
 			draw();
 		}	
@@ -2372,15 +2372,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			startNewSPLine();
 			draw();
 		}
-		else if(obj==polygonDetail[ACTIVE_PANEL]){
+		else if(obj==polygonDetail[TERRAIN_INDEX]){
 			polygonDetail();
 			//draw();
 		}
-		else if(obj==deleteSelection[ACTIVE_PANEL]){
+		else if(obj==deleteSelection[TERRAIN_INDEX] || obj==deleteSelection[ROAD_INDEX]){
 			deleteSelection();
 			draw();
 		}
-		else if(obj==deselectAllTerrainPoints[ACTIVE_PANEL] || obj==deselectAllTerrainPolygons[ACTIVE_PANEL]){
+		else if(obj==deselectAllTerrainPoints[TERRAIN_INDEX] || obj==deselectAllTerrainPolygons[TERRAIN_INDEX] ||
+				obj==deselectAllTerrainPoints[ROAD_INDEX] || obj==deselectAllTerrainPolygons[ROAD_INDEX]){
 			deselectAll();
 		}
 		else if(obj==delObject){
@@ -2398,7 +2399,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			deselectAllSPNodes();
 		}
 		
-		else if(obj==choosePanelTexture[ACTIVE_PANEL]){
+		else if(obj==choosePanelTexture[TERRAIN_INDEX] || obj==choosePanelTexture[ROAD_INDEX]){
 			
 			TexturesPanel tp=null;
 			if(mode==TERRAIN_POINTS_MODE || mode==TERRAIN_POLYGONS_MODE)
@@ -2439,32 +2440,32 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			if(indx>0)
 				chooseObject.setSelectedIndex(indx-1);
 		}
-		else if(obj==moveRoadUp[ACTIVE_PANEL]){
+		else if(obj==moveRoadUp[TERRAIN_INDEX] || obj==moveRoadUp[ROAD_INDEX]){
 
 			moveSelectedPoints(0,1,0);
 
 		}
-		else if(obj==moveRoadDown[ACTIVE_PANEL]){
+		else if(obj==moveRoadDown[TERRAIN_INDEX] || obj==moveRoadDown[ROAD_INDEX]){
 
 			moveSelectedPoints(0,-1,0);
 
 		}
-		else if(obj==moveRoadLeft[ACTIVE_PANEL]){
+		else if(obj==moveRoadLeft[TERRAIN_INDEX] || obj==moveRoadLeft[ROAD_INDEX]){
 
 			moveSelectedPoints(-1,0,0);
 
 		}
-		else if(obj==moveRoadRight[ACTIVE_PANEL]){
+		else if(obj==moveRoadRight[TERRAIN_INDEX] || obj==moveRoadRight[ROAD_INDEX]){
 
 			moveSelectedPoints(+1,0,0);
 
 		}
-		else if(obj==moveRoadTop[ACTIVE_PANEL]){
+		else if(obj==moveRoadTop[TERRAIN_INDEX] || obj==moveRoadTop[ROAD_INDEX]){
 
 			moveSelectedPoints(0,0,1);
 
 		}
-		else if(obj==moveRoadBottom[ACTIVE_PANEL]){
+		else if(obj==moveRoadBottom[TERRAIN_INDEX] || obj==moveRoadBottom[ROAD_INDEX]){
 
 			moveSelectedPoints(0,0,-1);
 
