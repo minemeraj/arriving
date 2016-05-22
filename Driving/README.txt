@@ -480,6 +480,8 @@
    	
    	Use f1,f2 to zoom-in/out, q and w keys to rotate.
    	
+   	--Vehicles:
+   	
    	Car proportions based on BMW 5 Series Sedan (length=4907 mm, wheelbase=2968 mm).
 
 	Truck proportions based on Iveco New Eurocargo Euro VI ( length=8692mm).
@@ -508,6 +510,8 @@
 	from keel to upper deck=17.6m
 	Stern castle height from deck=23m.
 	
+	--Weapons:
+	
 	Weapon gun measures based on Colt 45 MK IV series 70 Government model,
 	length= 210 mm, barrel length=127 mm.
 	
@@ -522,7 +526,7 @@
 	
 	Weapon revolver measures based on Colt Walker 1847, length 395 mm, barrel length= 229 mm; 
     
-	Forniture real measures:
+	--Forniture real measures:
 	
 	bed height with mattress: 52cm 
 	bed height no mattress: 34 cm
@@ -539,7 +543,7 @@
 	wardrobe LxWxH: 58 cm X 89.4 cm X 260 cm
 	
 	
-	On the buildings:
+	--On the buildings:
 	
 	Two stories house dimensions:
 	L x W x H= 11m x 8m x 6.3m; roof height=1m
@@ -551,4 +555,13 @@
 	6.5X6.5 meters.
 	The Rivolta d'Adda's (CR) bell Tower, tall 45m with a base of
 	6X6 meters.
+	
+	building block_0=7.7m x 7.7m x 7.7m
+	building block_1=7.7m x 7.7m x 15.4m 
+	building block_2=15.4m x 15.4m x 23.1m 
+	building block_3=15.4m x 30.8m x 23.1m 
+	building block_4=7.7m x 23.1m x 15.4m 
+	building block_5=23.1m x2 3.1m x 15.4m 
+	building block_6(tower) radius=3.8m, h=15.4m 
+	
 	
