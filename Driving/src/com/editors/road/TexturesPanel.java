@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -40,7 +42,7 @@ class TexturesPanel extends JDialog implements ActionListener,MouseListener{
 	private int selectedIndex=-1;
 	
 
-	TexturesPanel(BufferedImage[] textures,String[] descriptions,int TEXTURE_SIDE_X,int TEXTURE_SIDE_Y){
+	TexturesPanel(BufferedImage[] textures,String[] descriptions,int TEXTURE_SIDE_X,int TEXTURE_SIDE_Y,boolean isToOrderbyName){
 		
 		this.TEXTURE_SIDE_X=TEXTURE_SIDE_X;
 		this.TEXTURE_SIDE_Y=TEXTURE_SIDE_Y;
@@ -68,7 +70,20 @@ class TexturesPanel extends JDialog implements ActionListener,MouseListener{
 		
 		textureLabels=new JLabel[textures.length];
 		
-		for(int i=0;i<textures.length;i++){
+		OrderedTexture[] orderedTectures=new OrderedTexture[textures.length];
+		
+		for (int i = 0; i < orderedTectures.length; i++) {
+			orderedTectures[i]=new OrderedTexture(textures[i], descriptions[i]);
+		}
+		
+		
+		if(isToOrderbyName){
+			
+			Arrays.sort(orderedTectures, new TextureDescriptionComparator());
+			
+		}
+		
+		for(int i=0;i<orderedTectures.length;i++){
 			
 		
 			textureLabels[i]=new JLabel();
@@ -78,14 +93,14 @@ class TexturesPanel extends JDialog implements ActionListener,MouseListener{
 			textureLabels[i].setBorder(border);
 			
 			BufferedImage icon=new BufferedImage(TEXTURE_SIDE_X,TEXTURE_SIDE_Y,BufferedImage.TYPE_3BYTE_BGR);
-			icon.getGraphics().drawImage(textures[i],0,0,textureLabels[i].getWidth(),textureLabels[i].getHeight(),null);
+			icon.getGraphics().drawImage(orderedTectures[i].getTexture(),0,0,textureLabels[i].getWidth(),textureLabels[i].getHeight(),null);
 			ImageIcon ii=new ImageIcon(icon);
 			textureLabels[i].setIcon(ii);
 				
 			center.add(textureLabels[i]);
 			
 			if(descriptions!=null)
-				textureLabels[i].setToolTipText(descriptions[i]);
+				textureLabels[i].setToolTipText(orderedTectures[i].getDescription());
 			
 			textureLabels[i].addMouseListener(this);
 			
@@ -161,6 +176,56 @@ class TexturesPanel extends JDialog implements ActionListener,MouseListener{
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	class OrderedTexture{
+		
+		BufferedImage texture;
+		String description;
+		
+		public OrderedTexture(BufferedImage texture, String description) {
+				
+			super();
+			this.texture = texture;
+			if(description!=null)
+				this.description = description;
+			else
+				this.description = "";
+		}
+
+		public BufferedImage getTexture() {
+			return texture;
+		}
+		public void setTexture(BufferedImage texture) {
+			this.texture = texture;
+		}
+		public String getDescription() {
+			return description;
+		}
+		public void setDescription(String description) {
+			
+			if(description!=null)
+				this.description = description;
+			else
+				this.description = "";
+		}
+	}
+	
+	 class TextureDescriptionComparator implements Comparator{
+
+		@Override
+		public int compare(Object o1, Object o2) {
+			OrderedTexture ot1=(OrderedTexture) o1;
+			OrderedTexture ot2=(OrderedTexture) o2;
+			
+			if(ot1.getDescription().isEmpty() && !ot2.getDescription().isEmpty() )
+				return -1;
+			else if(!ot1.getDescription().isEmpty() && ot2.getDescription().isEmpty() )
+				return +1;
+			else
+				return ot1.getDescription().compareTo(ot2.getDescription());
+		}
 		
 	}
 

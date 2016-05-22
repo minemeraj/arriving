@@ -28,6 +28,9 @@ Now the file name appears in the RoadEditor title bar.
 
 Debugging the RoadEditor.
 
+Added texture, splines and object ordering in the TexturePanel of the RoadEditor,
+to sort by name, when available.
+
 --- 07/05/2016 CarDriving 9.0.4
 
 New autocars moving algorithm.
