@@ -40,6 +40,8 @@ class TexturesPanel extends JDialog implements ActionListener,MouseListener{
 	
 	private int columns=5;
 	private int selectedIndex=-1;
+
+	private OrderedTexture[] orderedTectures;
 	
 
 	TexturesPanel(BufferedImage[] textures,String[] descriptions,int TEXTURE_SIDE_X,int TEXTURE_SIDE_Y,boolean isToOrderbyName){
@@ -70,17 +72,24 @@ class TexturesPanel extends JDialog implements ActionListener,MouseListener{
 		
 		textureLabels=new JLabel[textures.length];
 		
-		OrderedTexture[] orderedTectures=new OrderedTexture[textures.length];
+		orderedTectures=new OrderedTexture[textures.length];
 		
-		for (int i = 0; i < orderedTectures.length; i++) {
-			orderedTectures[i]=new OrderedTexture(textures[i], descriptions[i]);
-		}
+	
 		
 		
 		if(isToOrderbyName){
 			
+			for (int i = 0; i < orderedTectures.length; i++) {
+				orderedTectures[i]=new OrderedTexture(textures[i], descriptions[i],i);
+			}
+			
 			Arrays.sort(orderedTectures, new TextureDescriptionComparator());
 			
+		}else{
+			
+			for (int i = 0; i < orderedTectures.length; i++) {
+				orderedTectures[i]=new OrderedTexture(textures[i], "",i);
+			}
 		}
 		
 		for(int i=0;i<orderedTectures.length;i++){
@@ -166,7 +175,7 @@ class TexturesPanel extends JDialog implements ActionListener,MouseListener{
 		for(int i=0;i<textureLabels.length;i++){
 			
 			if(obj==textureLabels[i]){
-				selectedIndex=i;
+				selectedIndex=orderedTectures[i].getIndex();
 				dispose();
 			}
 		}	
@@ -183,11 +192,13 @@ class TexturesPanel extends JDialog implements ActionListener,MouseListener{
 		
 		BufferedImage texture;
 		String description;
+		int index;
 		
-		public OrderedTexture(BufferedImage texture, String description) {
+		public OrderedTexture(BufferedImage texture, String description,int index) {
 				
 			super();
 			this.texture = texture;
+			this.index = index;
 			if(description!=null)
 				this.description = description;
 			else
@@ -210,9 +221,18 @@ class TexturesPanel extends JDialog implements ActionListener,MouseListener{
 			else
 				this.description = "";
 		}
+
+		public int getIndex() {
+			return index;
+		}
+
+		public void setIndex(int index) {
+			this.index = index;
+		}
 	}
 	
 	 class TextureDescriptionComparator implements Comparator{
+		 
 
 		@Override
 		public int compare(Object o1, Object o2) {
