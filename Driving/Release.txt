@@ -7,7 +7,8 @@ lib/object3D_18 (4 Stories pink house)
 lib/object3D_19 (4 Stories green house)
 lib/object3D_20 (4 Stories red house)
 lib/object3D_21 (15 meters tall tree)
-
+lib/object3D_22 (Container 20ft)
+lib/object3D_22 (Container 40ft)
 
 New terrain texture:
 /lib/world_texture_10.jpg (sand)
