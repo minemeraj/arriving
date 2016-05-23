@@ -510,6 +510,11 @@
 	from keel to upper deck=17.6m
 	Stern castle height from deck=23m.
 	
+	Containers:
+	
+	20 feet=  6.058m x 2.438 x 2.591
+	40 feet= 12.192m x 2.438 x 2.591
+	
 	--Weapons:
 	
 	Weapon gun measures based on Colt 45 MK IV series 70 Government model,
