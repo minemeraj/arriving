@@ -133,50 +133,55 @@ public class Truck0Model extends MeshModel{
 		faces=new int[NF][3][4];
 
 		int counter=0;
+		
+		int c0=0;
+		int c1=1;
+		int c2=2;
+		int c3=3;
 
 		//cab
-		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, cab[0][0],cab[0][3],cab[0][2],cab[0][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, cab[0][0],cab[0][3],cab[0][2],cab[0][1], c0, c1, c2, c3);
 		
 		for (int k = 0; k < nzCab-1; k++) {
 			
-			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, cab[k][0],cab[k+1][0],cab[k+1][3],cab[k][3], 0, 1, 2, 3);
-			faces[counter++]=buildFace(Renderer3D.CAR_BACK, cab[k][0],cab[k][1],cab[k+1][1],cab[k+1][0], 0, 1, 2, 3);
-			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, cab[k][1],cab[k][2],cab[k+1][2],cab[k+1][1], 0, 1, 2, 3);
-			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, cab[k][2],cab[k][3],cab[k+1][3],cab[k+1][2], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, cab[k][0],cab[k+1][0],cab[k+1][3],cab[k][3], c0, c1, c2, c3);
+			faces[counter++]=buildFace(Renderer3D.CAR_BACK, cab[k][0],cab[k][1],cab[k+1][1],cab[k+1][0], c0, c1, c2, c3);
+			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, cab[k][1],cab[k][2],cab[k+1][2],cab[k+1][1], c0, c1, c2, c3);
+			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, cab[k][2],cab[k][3],cab[k+1][3],cab[k+1][2], c0, c1, c2, c3);
 			
 		}
 
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP,cab[nzCab-1][0],cab[nzCab-1][1],cab[nzCab-1][2],cab[nzCab-1][3], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP,cab[nzCab-1][0],cab[nzCab-1][1],cab[nzCab-1][2],cab[nzCab-1][3], c0, c1, c2, c3);
 		///////
 		
 		//rear
-		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, rear[0][0],rear[0][3],rear[0][2],rear[0][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, rear[0][0],rear[0][3],rear[0][2],rear[0][1], c0, c1, c2, c3);
 		
 		for (int k = 0; k < nzRear-1; k++) {
 			
-			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, rear[k][0],rear[k+1][0],rear[k+1][3],rear[k][3], 0, 1, 2, 3);
-			faces[counter++]=buildFace(Renderer3D.CAR_BACK, rear[k][0],rear[k][1],rear[k+1][1],rear[k+1][0], 0, 1, 2, 3);
-			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, rear[k][1],rear[k][2],rear[k+1][2],rear[k+1][1], 0, 1, 2, 3);
-			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, rear[k][2],rear[k][3],rear[k+1][3],rear[k+1][2], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, rear[k][0],rear[k+1][0],rear[k+1][3],rear[k][3], c0, c1, c2, c3);
+			faces[counter++]=buildFace(Renderer3D.CAR_BACK, rear[k][0],rear[k][1],rear[k+1][1],rear[k+1][0], c0, c1, c2, c3);
+			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, rear[k][1],rear[k][2],rear[k+1][2],rear[k+1][1], c0, c1, c2, c3);
+			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, rear[k][2],rear[k][3],rear[k+1][3],rear[k+1][2], c0, c1, c2, c3);
 			
 		}
 
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP,rear[nzRear-1][0],rear[nzRear-1][1],rear[nzRear-1][2],rear[nzRear-1][3], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP,rear[nzRear-1][0],rear[nzRear-1][1],rear[nzRear-1][2],rear[nzRear-1][3], c0, c1, c2, c3);
 		///////
 		
 		//wagon
-		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0],wagon[0][3],wagon[0][2],wagon[0][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0],wagon[0][3],wagon[0][2],wagon[0][1], c0, c1, c2, c3);
 		
 		for (int k = 0; k < nzWagon-1; k++) {
 			
-			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, wagon[k][0],wagon[k+1][0],wagon[k+1][3],wagon[k][3], 0, 1, 2, 3);
-			faces[counter++]=buildFace(Renderer3D.CAR_BACK, wagon[k][0],wagon[k][1],wagon[k+1][1],wagon[k+1][0], 0, 1, 2, 3);
-			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, wagon[k][1],wagon[k][2],wagon[k+1][2],wagon[k+1][1], 0, 1, 2, 3);
-			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, wagon[k][2],wagon[k][3],wagon[k+1][3],wagon[k+1][2], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, wagon[k][0],wagon[k+1][0],wagon[k+1][3],wagon[k][3], c0, c1, c2, c3);
+			faces[counter++]=buildFace(Renderer3D.CAR_BACK, wagon[k][0],wagon[k][1],wagon[k+1][1],wagon[k+1][0], c0, c1, c2, c3);
+			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, wagon[k][1],wagon[k][2],wagon[k+1][2],wagon[k+1][1], c0, c1, c2, c3);
+			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, wagon[k][2],wagon[k][3],wagon[k+1][3],wagon[k+1][2], c0, c1, c2, c3);
 			
 		}
 
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP,wagon[nzWagon-1][0],wagon[nzWagon-1][1],wagon[nzWagon-1][2],wagon[nzWagon-1][3], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP,wagon[nzWagon-1][0],wagon[nzWagon-1][1],wagon[nzWagon-1][2],wagon[nzWagon-1][3], c0, c1, c2, c3);
 		///////
 		
 		

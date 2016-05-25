@@ -16,6 +16,7 @@ import com.editors.DoubleTextField;
 import com.editors.ValuePair;
 import com.editors.models.Car0Model;
 import com.editors.models.Ship0Model;
+import com.editors.models.StarShip0Model;
 import com.editors.models.Truck0Model;
 
 public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemListener{
@@ -37,8 +38,9 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 	public static int CAR0=0;
 	public static int TRUCK0=1;
 	public static int SHIP0=2;
-	public static int TANK0=3;
-
+	public static int STARSHIP0=3;
+	public static int TANK0=4;
+	
 
 	public static void main(String[] args) {
 
@@ -227,6 +229,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 			meshModel=new Truck0Model(dx,dy,dz,dxf,dyf,dzf,dxr,dyr,dzr);
 		else if(val==SHIP0)
 			meshModel=new Ship0Model(dx,dy,dz,dxr,dyr,dzr);
+		else if(val==STARSHIP0)
+			meshModel=new StarShip0Model(dx,dy,dz,dxf,dyf,dzf,dxr,dyr,dzr);
 		else
 			meshModel=new Car0Model(dx,dy,dz);
 
@@ -269,7 +273,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 				setRightData(151,350,109,151,150,109,151,400,50);
 			else if(SHIP0==val)
 				setRightData(718,4550,458,0,0,0,718,364,598);
-
+			else if(STARSHIP0==val)
+				setRightData(50,200,50,150,150,50,50,250,50);
 		}
 
 	}

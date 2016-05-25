@@ -135,6 +135,15 @@ public class Ship0Model extends MeshModel{
 		//main bridge
 		NF+=6;
 		
+		int c0=0;
+		int c1=1;
+		int c2=2;
+		int c3=3;
+		
+		int c4=4;
+		int c5=5;
+		int c6=6;
+		int c7=7;
 		
 		faces=new int[NF][3][4];
 
@@ -144,45 +153,45 @@ public class Ship0Model extends MeshModel{
 		
 		for (int i = 0; i < ny-1; i++) {
 			for (int j = 0; j < nx-1; j++) {
-				faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, hull[i][j],hull[i+1][j],hull[i+1][j+1],hull[i][j+1], 0, 1, 2, 3);
+				faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, hull[i][j],hull[i+1][j],hull[i+1][j+1],hull[i][j+1], c0, c1, c2, c3);
 			}
 			
 		}
 		
 		//closing front hull
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[ny-1][0],hull[ny-1][nx-1],hull[ny-1][nx-2],hull[ny-1][1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[ny-1][1],hull[ny-1][nx-2],hull[ny-1][nx-3],hull[ny-1][2], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[ny-1][2],hull[ny-1][nx-3],hull[ny-1][nx-4],hull[ny-1][3], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[ny-1][0],hull[ny-1][nx-1],hull[ny-1][nx-2],hull[ny-1][1], c0, c1, c2, c3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[ny-1][1],hull[ny-1][nx-2],hull[ny-1][nx-3],hull[ny-1][2], c0, c1, c2, c3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[ny-1][2],hull[ny-1][nx-3],hull[ny-1][nx-4],hull[ny-1][3], c0, c1, c2, c3);
 		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[ny-1][3],hull[ny-1][nx-4],hull[ny-1][4], 0, 1, 2);
 
 		
 		//closing back hull
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[0][0],hull[0][1],hull[0][nx-2],hull[0][nx-1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[0][1],hull[0][2],hull[0][nx-3],hull[0][nx-2], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[0][2],hull[0][3],hull[0][nx-4],hull[0][nx-3], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[0][0],hull[0][1],hull[0][nx-2],hull[0][nx-1], c0, c1, c2, c3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[0][1],hull[0][2],hull[0][nx-3],hull[0][nx-2], c0, c1, c2, c3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[0][2],hull[0][3],hull[0][nx-4],hull[0][nx-3], c0, c1, c2, c3);
 		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[0][3],hull[0][4],hull[0][nx-4], 0, 1, 2);
 		
 		//build the main deck		
 		for (int i = 0; i < ny-1; i++) {
-			faces[counter++]=buildFace(Renderer3D.CAR_TOP, hull[i][0],hull[i][nx-1],hull[i+1][nx-1],hull[i+1][0], 4,5,6,7);
+			faces[counter++]=buildFace(Renderer3D.CAR_TOP, hull[i][0],hull[i][nx-1],hull[i+1][nx-1],hull[i+1][0], c4,c5,c6,c7);
 		}
 		
 	
 		
 		
 		//mainBridge
-		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, mainBridge[0][0],mainBridge[0][3],mainBridge[0][2],mainBridge[0][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, mainBridge[0][0],mainBridge[0][3],mainBridge[0][2],mainBridge[0][1], c0, c1, c2, c3);
 		
 		for (int k = 0; k < 2-1; k++) {
 			
-			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, mainBridge[k][0],mainBridge[k+1][0],mainBridge[k+1][3],mainBridge[k][3], 0, 1, 2, 3);
-			faces[counter++]=buildFace(Renderer3D.CAR_BACK, mainBridge[k][0],mainBridge[k][1],mainBridge[k+1][1],mainBridge[k+1][0], 0, 1, 2, 3);
-			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, mainBridge[k][1],mainBridge[k][2],mainBridge[k+1][2],mainBridge[k+1][1], 0, 1, 2, 3);
-			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, mainBridge[k][2],mainBridge[k][3],mainBridge[k+1][3],mainBridge[k+1][2], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, mainBridge[k][0],mainBridge[k+1][0],mainBridge[k+1][3],mainBridge[k][3], c0, c1, c2, c3);
+			faces[counter++]=buildFace(Renderer3D.CAR_BACK, mainBridge[k][0],mainBridge[k][1],mainBridge[k+1][1],mainBridge[k+1][0], c0, c1, c2, c3);
+			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, mainBridge[k][1],mainBridge[k][2],mainBridge[k+1][2],mainBridge[k+1][1], c0, c1, c2, c3);
+			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, mainBridge[k][2],mainBridge[k][3],mainBridge[k+1][3],mainBridge[k+1][2], c0, c1, c2, c3);
 			
 		}
 		
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainBridge[2-1][0],mainBridge[2-1][1],mainBridge[2-1][2],mainBridge[2-1][3], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainBridge[2-1][0],mainBridge[2-1][1],mainBridge[2-1][2],mainBridge[2-1][3], c0, c1, c2, c3);
 		
 
 		IMG_WIDTH=(int) (2*bx+dx+dx);
