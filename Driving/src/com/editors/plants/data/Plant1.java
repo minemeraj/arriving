@@ -2,6 +2,8 @@ package com.editors.plants.data;
 
 public class Plant1 extends Plant0{
 	
+	
+	
 	public Plant1(){}
 
 	Plant1(
@@ -27,13 +29,13 @@ public class Plant1 extends Plant0{
 				foliage_meridians,
 				foliage_parallels,
 				foliage_lobes,
-				lobe_percentage_depth
+				lobe_percentage_depth,
+				true
 				);
-
 	}
 	
 	@Override
-	protected double ff(double x) {
+	protected double ff(double x,int parallel,int meridian) {
 
 		if(foliage_length==0)
 			return 0;
@@ -49,7 +51,7 @@ public class Plant1 extends Plant0{
 			double c=-(3*a+2*b);
 			double d=trunk_upper_radius-a-b-c;
 
-			return a*xr*xr*xr+b*xr*xr+c*xr+d;
+			return fraction(parallel)*(a*xr*xr*xr+b*xr*xr+c*xr+d);
 			
 
 		}else{
@@ -59,11 +61,28 @@ public class Plant1 extends Plant0{
 			double b=-2*(trunk_upper_radius-foliage_radius)/xf;
 			double c=trunk_upper_radius;
 
-			return a*xr*xr+b*xr+c;
+			return fraction(parallel)*(a*xr*xr+b*xr+c);
 
 		}
 
 
 
+	}
+	
+	
+	private double fraction(int index){
+		
+		
+		
+		if(isRandomBranches!=true)
+			return 1.0;
+		
+		double value=super.getRandom1000(index)/1000.0;
+		
+		value=0.9+0.2*(value);
+		
+		return value;
+		
+		
 	}
 }

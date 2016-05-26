@@ -25,6 +25,8 @@ class Plant0 extends Plant{
 
 	private TextureCylinder trunkCylinder=null;
 	private TextureCylinder foliageCylinder=null;
+	
+	boolean isRandomBranches=true;
 
 	public Plant0(){}
 
@@ -35,8 +37,8 @@ class Plant0 extends Plant{
 			double foliage_length, double foliage_radius,double foliage_barycenter,			
 			int foliage_meridians,int foliage_parallels,
 			int foliage_lobes,
-			double lobe_percentage_depth
-
+			double lobe_percentage_depth,
+			boolean isRandomBranches
 			) {
 
 		super(plant_type,
@@ -160,7 +162,7 @@ class Plant0 extends Plant{
 
 				double teta=2*Math.PI/foliage_meridians*i;
 
-				double r=ff(zf)*rr(teta);			
+				double r=ff(zf,k,i)*rr(teta);			
 
 				double x=r*Math.cos(teta);
 				double y=r*Math.sin(teta);
@@ -230,7 +232,7 @@ class Plant0 extends Plant{
 
 
 
-	protected double ff(double x){
+	protected double ff(double x,int parallel,int meridian){
 
 		if(foliage_length==0)
 			return 0;
