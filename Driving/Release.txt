@@ -1,4 +1,4 @@
-New object:
+New objects:
 
 lib/object3D_15 (Bell Tower 1)
 lib/object3D_16 (Bell Tower 2)
@@ -6,9 +6,10 @@ lib/object3D_17 (4 Stories yellow house)
 lib/object3D_18 (4 Stories pink house)
 lib/object3D_19 (4 Stories green house)
 lib/object3D_20 (4 Stories red house)
-lib/object3D_21 (15 meters tall tree)
+lib/object3D_21 (Tree 15 meters tall )
 lib/object3D_22 (Container 20ft)
 lib/object3D_22 (Container 40ft)
+lib/object3D_21 (Tree 18 meters tall )
 
 New terrain texture:
 /lib/world_texture_10.jpg (sand)

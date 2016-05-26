@@ -1,5 +1,9 @@
 package com.editors.plants.data;
 
+import java.io.File;
+
+import com.PolygonMesh;
+
 public class Plant1 extends Plant0{
 	
 	
@@ -84,5 +88,11 @@ public class Plant1 extends Plant0{
 		return value;
 		
 		
+	}
+	
+	@Override
+	public void saveBaseCubicTexture(PolygonMesh mesh, File file) {
+		
+		super.saveBaseCubicTexture(mesh, file);
 	}
 }

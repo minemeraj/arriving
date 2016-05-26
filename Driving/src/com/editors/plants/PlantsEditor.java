@@ -298,35 +298,35 @@ public class PlantsEditor extends CustomEditor implements ItemListener {
 
 	public void initRightPlant0Data() {
 	
-		trunck_length.setText(200);
-		trunk_upper_radius.setText(24);
-		trunk_lower_radius.setText(30);
+		trunck_length.setText(60);
+		trunk_upper_radius.setText(10);
+		trunk_lower_radius.setText(10);
 		trunk_meridians.setText(10);
 		trunk_parallels.setText(4);
 		
-		foliage_length.setText(200);
-		foliage_radius.setText(200);
+		foliage_length.setText(330);
+		foliage_radius.setText(115);
 		foliage_barycenter.setText(100);
 		foliage_meridians.setText(12);
-		foliage_parallels.setText(8);
+		foliage_parallels.setText(12);
 		foliage_lobes.setText(0);
-		lobe_percentage_depth.setText(80);
+		lobe_percentage_depth.setText(90);
 	}
 	
 	
 	private void initRightPlant1Data() {
 		
-		trunck_length.setText(200);
-		trunk_upper_radius.setText(24);
-		trunk_lower_radius.setText(30);
+		trunck_length.setText(70);
+		trunk_upper_radius.setText(9);
+		trunk_lower_radius.setText(11);
 		trunk_meridians.setText(10);
 		trunk_parallels.setText(4);
 		
-		foliage_length.setText(400);
-		foliage_radius.setText(200);
-		foliage_barycenter.setText(50);
+		foliage_length.setText(428);
+		foliage_radius.setText(155);
+		foliage_barycenter.setText(118);
 		foliage_meridians.setText(12);
-		foliage_parallels.setText(8);
+		foliage_parallels.setText(12);
 		foliage_lobes.setText(0);
 		lobe_percentage_depth.setText(80);
 		
@@ -580,7 +580,7 @@ public class PlantsEditor extends CustomEditor implements ItemListener {
 	public void saveBaseCubicTexture(File file) {
 		
     	if(plant.getPlant_type()==Plant.PLANT_TYPE_0 
-			
+		||	plant.getPlant_type()==Plant.PLANT_TYPE_1 
     	){
     		
     		PolygonMesh pm = buildMesh();		

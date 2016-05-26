@@ -71,7 +71,7 @@ class Plant0 extends Plant{
 	}
 
 
-	private void initMesh(){
+	protected void initMesh(){
 
 
 		points=new ArrayList<Point3D>(1000);
