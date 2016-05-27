@@ -4001,6 +4001,21 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private void massModify() {
 		
 		RoadEditorMassModifiy remm=new RoadEditorMassModifiy();
+		Object ret = remm.getReturnValue();
+		
+		if(ret!=null){
+			
+			if(mode==OBJECT_MODE){
+				
+				prepareUndoObjects();
+				
+				RoadEditorMassModifiy.massModify((RoadEditorMassModifiy)ret,drawObjects);
+				deselectAllObjects();
+				
+			}
+			
+			draw();
+		}
 	}
 
 }
