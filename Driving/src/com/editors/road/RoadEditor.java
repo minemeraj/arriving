@@ -247,6 +247,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 
 	int SPLINE_PANEL=1;
+	private JMenu other_jm;
+	private JMenuItem mass_modify_jmt;
 	
 	
 	
@@ -687,6 +689,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 		
 		jmb.add(jm_editing);
+		
+		other_jm=new JMenu("Other");
+		other_jm.addMenuListener(this);		
+		jmb.add(other_jm);
+		
+		mass_modify_jmt=new JMenuItem("Mass modify");
+		mass_modify_jmt.addActionListener(this);		
+		other_jm.add(mass_modify_jmt);
 		
 		help_jm=new JMenu("Help");
 		help_jm.addMenuListener(this);		
@@ -2503,6 +2513,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		else if(obj==help_jmt){
 			help();
 		}
+		else if(obj==mass_modify_jmt){
+			massModify();
+		}
 		else if(obj==jmt_top_view){
 			changeView(TOP_VIEW);
 		}
@@ -2529,6 +2542,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		
 	}
+
+
 
 
 	@Override
@@ -3981,6 +3996,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		getCenter().gotoPosition(goPOSX,goPOSY);
 		
+	}
+	
+	private void massModify() {
+		
+		RoadEditorMassModifiy remm=new RoadEditorMassModifiy();
 	}
 
 }
