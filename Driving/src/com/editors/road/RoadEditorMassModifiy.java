@@ -189,7 +189,7 @@ public class RoadEditorMassModifiy extends JDialog implements ActionListener{
 
 					if(dro.getY()<minY){
 
-						minX=dro.getY();
+						minY=dro.getY();
 
 					}
 
