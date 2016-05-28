@@ -613,10 +613,10 @@ public class Road extends Shader{
 
 
 
-	private static void buildWaterPolygon(Polygon3D p3d) {
+	private void buildWaterPolygon(Polygon3D p3d) {
 		p3d.setWaterPolygon(true);
 		for (int i = 0; i < p3d.npoints; i++) {
-			p3d.zpoints[i]=(int) (WATER_LEVEL+WATER_FILLING);
+			p3d.zpoints[i]=(int) (WATER_LEVEL+MOVZ);
 		}
 		
 		
