@@ -586,7 +586,7 @@ public class Road extends Shader{
 
 				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.worldTextures[p3D.getIndex()],roadZbuffer,hashCode);
 
-				if(p3D.isWaterPolygon()){
+				if(p3D.isFilledWithWater()){
 					
 					buildWaterPolygon(p3D);
 					decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.worldTextures[p3D.getIndex()],roadZbuffer,hashCode);

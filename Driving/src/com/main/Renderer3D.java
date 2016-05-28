@@ -847,6 +847,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 		p3dr.setShadowCosin(ld.getShadowCosin());
 		p3dr.setLevel(level);
 		p3dr.setWaterPolygon(ld.isWaterPolygon());
+		p3dr.setIsFilledWithWater(ld.isFilledWithWater());
 		
         return p3dr;
 
