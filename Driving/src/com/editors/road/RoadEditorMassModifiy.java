@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import com.DrawObject;
+import com.SPLine;
+import com.SPNode;
 
 public class RoadEditorMassModifiy extends JDialog implements ActionListener{
 
@@ -65,18 +67,18 @@ public class RoadEditorMassModifiy extends JDialog implements ActionListener{
 		alignMaxX=new JRadioButton("Max x");
 		alignMaxX.setBounds(10,r,100,20);
 		center.add(alignMaxX);
-		
-		
+
+
 		r+=30;
 		alignMinX=new JRadioButton("Min x");
 		alignMinX.setBounds(10,r,100,20);
 		center.add(alignMinX);
-		
+
 		r+=30;
 		alignMaxY=new JRadioButton("Max y");
 		alignMaxY.setBounds(10,r,100,20);
 		center.add(alignMaxY);
-		
+
 		r+=30;
 		alignMinY=new JRadioButton("Min y");
 		alignMinY.setBounds(10,r,100,20);
@@ -153,7 +155,7 @@ public class RoadEditorMassModifiy extends JDialog implements ActionListener{
 		this.mode = mode;
 	}
 
-	public static void massModify(RoadEditorMassModifiy ret, ArrayList<DrawObject> drawObjects) {
+	public static void massModifyObjects(RoadEditorMassModifiy ret, ArrayList<DrawObject> drawObjects) {
 
 		if(drawObjects==null)
 			return;
@@ -219,12 +221,12 @@ public class RoadEditorMassModifiy extends JDialog implements ActionListener{
 			if(dro.isSelected()){
 
 				if(ret.getMode()==MODE_MAX_X){
-					
+
 					dro.setX(maxX);
 
 
 				}else if(ret.getMode()==MODE_MIN_X){
-					
+
 					dro.setX(minX);
 
 
@@ -238,6 +240,110 @@ public class RoadEditorMassModifiy extends JDialog implements ActionListener{
 				}
 			}
 		}
+
+	}
+
+	public static void massModifySplines(RoadEditorMassModifiy ret, ArrayList<SPLine> splines) {
+
+		double minX=0;
+		double maxX=0;
+		double minY=0;
+		double maxY=0;
+
+		int counter=0;
+
+		for (int i = 0; i < splines.size(); i++) {
+			SPLine spline = (SPLine) splines.get(i);
+
+			ArrayList<SPNode> nodes = spline.getNodes();
+			if(nodes==null)
+				continue;
+			int sz=nodes.size();
+
+			for (int k = 0; k < sz; k++) {
+
+				SPNode node = (SPNode) nodes.get(k);
+
+				if(node.isSelected()){
+
+					if(counter==0){
+
+						minX=node.getX();
+						maxX=node.getX();
+						minY=node.getY();
+						maxY=node.getY();
+					}else{
+
+						if(node.getX()<minX){
+
+							minX=node.getX();
+
+						}
+
+						if(node.getY()<minY){
+
+							minY=node.getY();
+
+						}
+
+						if(node.getX()>maxX){
+
+							maxX=node.getX();
+
+						}
+
+						if(node.getY()>maxY){
+
+							maxY=node.getY();
+
+						}
+
+					}
+
+					counter++;
+				}
+			}
+
+
+		}
+
+		//update
+
+		for (int i = 0; i < splines.size(); i++) {
+			SPLine spline = (SPLine) splines.get(i);
+
+			ArrayList<SPNode> nodes = spline.getNodes();
+			if(nodes==null)
+				continue;
+			int sz=nodes.size();
+
+			for (int k = 0; k < sz; k++) {
+
+				SPNode node = (SPNode) nodes.get(k);
+
+				if(node.isSelected()){
+
+					if(ret.getMode()==MODE_MAX_X){
+
+						node.setX(maxX);
+
+
+					}else if(ret.getMode()==MODE_MIN_X){
+
+						node.setX(minX);
+
+
+					}else if(ret.getMode()==MODE_MAX_Y){
+
+						node.setY(maxY);
+
+					}else if(ret.getMode()==MODE_MIN_Y){
+
+						node.setY(minY);
+					}
+				}		
+			}
+		}	
 
 	}
 

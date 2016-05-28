@@ -4009,8 +4009,15 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				
 				prepareUndoObjects();
 				
-				RoadEditorMassModifiy.massModify((RoadEditorMassModifiy)ret,drawObjects);
+				RoadEditorMassModifiy.massModifyObjects((RoadEditorMassModifiy)ret,drawObjects);
 				deselectAllObjects();
+				
+			}else if(mode==SPLINES_MODE){
+				
+				prepareUndoObjects();
+				
+				RoadEditorMassModifiy.massModifySplines((RoadEditorMassModifiy)ret,splines);
+				deselectAllSPNodes();
 				
 			}
 			
