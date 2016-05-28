@@ -586,6 +586,13 @@ public class Road extends Shader{
 
 				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.worldTextures[p3D.getIndex()],roadZbuffer,hashCode);
 
+				if(p3D.isWaterPolygon()){
+					
+					buildWaterPolygon(p3D);
+					decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.worldTextures[p3D.getIndex()],roadZbuffer,hashCode);
+
+				}
+				
 			}		
 
 
@@ -604,6 +611,16 @@ public class Road extends Shader{
 	
 
 
+
+
+	private static void buildWaterPolygon(Polygon3D p3d) {
+		p3d.setWaterPolygon(true);
+		for (int i = 0; i < p3d.npoints; i++) {
+			p3d.zpoints[i]=(int) (WATER_LEVEL+WATER_FILLING);
+		}
+		
+		
+	}
 
 
 	private void calculateAltitude() {

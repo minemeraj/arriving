@@ -457,6 +457,7 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 		p3dr.setHexColor(ld.getHexColor());
 		p3dr.setIndex(ld.getTexture_index());
 		p3dr.setIsFilledWithWater(ld.isFilledWithWater());
+		p3dr.setWaterPolygon(ld.isWaterPolygon());
 		return p3dr;
 
 	}

@@ -27,6 +27,7 @@ public class Polygon3D  extends Polygon implements Cloneable{
 	private String data=null;
 	
 	private boolean isFilledWithWater=false;
+	private boolean isWaterPolygon=false;
 
 	
 	public Polygon3D(int npoints, int[] xpoints, int[] ypoints, int[] zpoints,int[] xtpoints, int[] ytpoints) {
@@ -186,6 +187,7 @@ public class Polygon3D  extends Polygon implements Cloneable{
 
 			triangle.setLevel(pol.getLevel());			
 			triangle.setIsFilledWithWater(pol.isFilledWithWater());
+			triangle.setWaterPolygon(pol.isWaterPolygon());
 			
 			triangles[i-1]=triangle;
 			
@@ -216,6 +218,7 @@ public class Polygon3D  extends Polygon implements Cloneable{
 
 		Polygon3D new_pol = new Polygon3D(numAngles,xpoints,ypoints,zpoints);
 		new_pol.setIsFilledWithWater(pol.isFilledWithWater());
+		new_pol.setWaterPolygon(pol.isWaterPolygon());
 		new_pol.setLevel(pol.getLevel());
 		new_pol.setHexColor(pol.getHexColor());
 		return new_pol;
@@ -376,7 +379,7 @@ public class Polygon3D  extends Polygon implements Cloneable{
 		
 		p_new.setLevel(p_old.getLevel());
 		p_new.setIsFilledWithWater(p_old.isFilledWithWater());
-		
+		p_new.setWaterPolygon(p_old.isWaterPolygon());
 		return p_new;
 	}
 	
@@ -705,6 +708,14 @@ public class Polygon3D  extends Polygon implements Cloneable{
 
 	public void setIsFilledWithWater(boolean hasWater) {
 		this.isFilledWithWater = hasWater;
+	}
+
+	public boolean isWaterPolygon() {
+		return isWaterPolygon;
+	}
+
+	public void setWaterPolygon(boolean isWaterPolygon) {
+		this.isWaterPolygon = isWaterPolygon;
 	}
 
 

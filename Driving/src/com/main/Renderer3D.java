@@ -327,7 +327,7 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 
 				//System.out.println(x+" "+y+" "+tot);    			
 
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.isFilledWithWater()),level,tot,hashCode);
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.isWaterPolygon()),level,tot,hashCode);
 				
 			}
 
@@ -416,7 +416,7 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 
 
 			
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.isFilledWithWater()),level,tot,hashCode);
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.isWaterPolygon()),level,tot,hashCode);
 	
 			}
 
@@ -434,7 +434,7 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 	}
 
 
-	private int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs,boolean hasWater) {
+	private int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs,boolean isWater) {
 
 		//double factor=(lightIntensity*(0.25+0.5*Math.exp(-yi*0.001)+0.25*cosin));
 		double factor=(lightIntensity*(0.75+0.25*cosin));		
@@ -445,7 +445,7 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 		int gs = 0xff & (argbs >>8);
 		int bs = 0xff & argbs;
 		//water effect
-		if(hasWater && zi<Road.WATER_LEVEL+MOVZ){		
+		if(isWater){		
 		    rs=gs=0;
 		}
 
@@ -846,7 +846,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 		p3dr.setIndex(ld.getTexture_index());
 		p3dr.setShadowCosin(ld.getShadowCosin());
 		p3dr.setLevel(level);
-		p3dr.setIsFilledWithWater(ld.isFilledWithWater());
+		p3dr.setWaterPolygon(ld.isWaterPolygon());
 		
         return p3dr;
 

@@ -131,7 +131,7 @@ public class PolygonMesh implements Cloneable{
 		int size=ld.size();
 		Polygon3D pol=new Polygon3D(size);
 		pol.setIsFilledWithWater(ld.isFilledWithWater());
-		
+		pol.setWaterPolygon(ld.isWaterPolygon());
 		for(int i=0;i<size;i++){
 			int index=ld.getIndex(i);
 			
@@ -173,6 +173,7 @@ public class PolygonMesh implements Cloneable{
 			} 
 			pol.setLevel(pm.getLevel());
 			pol.setIsFilledWithWater(ld.isFilledWithWater());
+			pol.setWaterPolygon(ld.isWaterPolygon());
 			pols.add(pol);
 		}
 		return pols;

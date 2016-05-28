@@ -17,6 +17,7 @@ public class LineData implements Cloneable{
 		public static final String GREEN_HEX="00FF00";
 		
 		private boolean fillWithWater=false;
+		private boolean isWaterPolygon=false;
 
 		public int size(){
 
@@ -140,6 +141,8 @@ public class LineData implements Cloneable{
 			}
 			ldnew.texture_index=texture_index;
 			ldnew.shadowCosin=shadowCosin;
+			ldnew.isWaterPolygon=isWaterPolygon;
+			ldnew.fillWithWater=fillWithWater;
 			ldnew.data=data;
 			
 			return ldnew;
@@ -255,6 +258,14 @@ public class LineData implements Cloneable{
 
 		public void setFilledWithWater(boolean hasWater) {
 			this.fillWithWater = hasWater;
+		}
+
+		public boolean isWaterPolygon() {
+			return isWaterPolygon;
+		}
+
+		public void setWaterPolygon(boolean isWaterPolygon) {
+			this.isWaterPolygon = isWaterPolygon;
 		}
 
 

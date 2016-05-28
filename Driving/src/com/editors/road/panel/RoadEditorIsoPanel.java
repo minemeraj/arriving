@@ -1157,6 +1157,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		p3dr.setIndex(ld.getTexture_index());
 		p3dr.setLevel(level);
 		p3dr.setIsFilledWithWater(ld.isFilledWithWater());
+		p3dr.setWaterPolygon(ld.isWaterPolygon());
 		return p3dr;
 
 	}
