@@ -318,8 +318,8 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 		int block_xtextures=2;
 		int block_ytextures=3;
 		
-		int numx=nx_blocks*block_xtextures+(nx_blocks+1)*road_textures;
-		int numy=ny_blocks*block_ytextures+(ny_blocks+1)*road_textures;
+		int numx=nx_blocks*block_xtextures+(nx_blocks+1)*road_textures+1;
+		int numy=ny_blocks*block_ytextures+(ny_blocks+1)*road_textures+1;
 		
 		double dx=roadECM.DX;
 		double dy=roadECM.DY;
@@ -372,40 +372,35 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 					splines.add(sp);
 				}
 				
-				//x roads
-				if(i%(block_xtextures+road_textures)==road_textures
+				
 	
-				){
 			
-					
-					for(int j=0;j<numy;j++){
-						
-						if(j%(block_ytextures+road_textures)==1	){
-							
-							ArrayList vTexturePoints=RoadEditor.buildTemplateTexturePoints(200);
-							
-							SPLine sp=new SPLine(vTexturePoints);
-							
-							int tot=i+j*numx;
-							Point4D p=newPoints[tot];							
-							SPNode spn0=new SPNode(p.x,p.y,p.z,"FFFFFF",0);					
-							sp.addSPNode(spn0);
-							
-							tot=(i+block_xtextures)+j*numx;
-							p=newPoints[tot];
-							SPNode spn1=new SPNode(p.x,p.y,p.z,"FFFFFF",0);					
-							sp.addSPNode(spn1);							
-							splines.add(sp);
-							
+
+		}
 		
-							
-						}
-					}
-
-
-				}
+		//x roads
+		for(int j=0;j<numy;j++){
 			
+			if(j%(block_ytextures+road_textures)==1	){
+				
+				ArrayList vTexturePoints=RoadEditor.buildTemplateTexturePoints(200);
+				
+				SPLine sp=new SPLine(vTexturePoints);
+				
+				int tot=0+j*numx;
+				Point4D p=newPoints[tot];							
+				SPNode spn0=new SPNode(p.x,p.y,p.z,"FFFFFF",0);					
+				sp.addSPNode(spn0);
+				
+				tot=numx-1+j*numx;
+				p=newPoints[tot];
+				SPNode spn1=new SPNode(p.x,p.y,p.z,"FFFFFF",0);					
+				sp.addSPNode(spn1);							
+				splines.add(sp);
+				
 
+				
+			}
 		}
 		
 		///// new terrain
@@ -413,8 +408,8 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 		double gapX=-dx;
 		double gapY=-dy;
 
-        int numTerrainx=numx+3;
-        int numTerrainy=numy+3;
+        int numTerrainx=numx+2;
+        int numTerrainy=numy+2;
 		
         Point3D[] newTerrainPoints = new Point3D[numTerrainx*numTerrainy];
 
