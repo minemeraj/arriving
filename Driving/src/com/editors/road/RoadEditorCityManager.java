@@ -455,7 +455,7 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 							
 				terrainMesh.polygonData.add(ld);
 				
-				
+				terrainMesh.setLevel(Road.GROUND_LEVEL);
 				
 			}
 		
