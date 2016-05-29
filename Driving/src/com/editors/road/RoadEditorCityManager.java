@@ -19,6 +19,7 @@ import com.SPLine;
 import com.SPNode;
 import com.SquareMesh;
 import com.editors.DoubleTextField;
+import com.main.Road;
 
 class RoadEditorCityManager extends JDialog implements ActionListener{
 	
@@ -368,7 +369,7 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 					p=newPoints[tot];
 					SPNode spn1=new SPNode(p.x,p.y,p.z,"FFFFFF",0);					
 					sp.addSPNode(spn1);
-					
+					sp.setLevel(Road.ROAD_LEVEL);
 					splines.add(sp);
 				}
 				
@@ -395,7 +396,8 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 				tot=numx-1+j*numx;
 				p=newPoints[tot];
 				SPNode spn1=new SPNode(p.x,p.y,p.z,"FFFFFF",0);					
-				sp.addSPNode(spn1);							
+				sp.addSPNode(spn1);
+				sp.setLevel(Road.ROAD_LEVEL);
 				splines.add(sp);
 				
 
@@ -450,7 +452,7 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 				ld.addIndex(pl4,3,pt3.x,pt3.y);
 				
 				ld.setTexture_index(0);
-				
+							
 				terrainMesh.polygonData.add(ld);
 				
 				
