@@ -286,7 +286,26 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 	}
 
 
-
+	/**
+	 * Tile=texture unity is a ground texture
+	 * N tiles require N points in each x,y direction
+	 * X direction: Each block has a road on the left, plus a final right road.
+	 * X direction: Road centers are separated by a space of a road and a X block
+	 * X direction: first road center is a position X=1
+	 * Y direction: Each block has a road below, plus a final road above.
+	 * Y direction: Road centers are separated by a space of a road and a Y block
+	 * Y direction: first road center is a position Y=1
+	 * Y direction: in the old version, X direction roads have X centers
+	 * only between two vertical road
+	 * Objects block are separated by a space of a road and a block,
+	 * first block angle is at road span 
+	 * The ground is larger and translated to give an external border
+	 * @param terrainMesh
+	 * @param splines
+	 * @param roadECM
+	 * @param drawObjects
+	 * @param objectMeshes
+	 */
 	static void buildCustomCity1(PolygonMesh terrainMesh, ArrayList splines,
 			RoadEditorCityManager roadECM, ArrayList drawObjects, CubicMesh[] objectMeshes) {
 		
@@ -312,7 +331,6 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 		
 		splines.clear();
 		
-		/*roadMesh.polygonData=new Vector();*/
 		
 		Point4D[] newPoints = new Point4D[numy*numx];
 		 
@@ -333,8 +351,8 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 		
 		
 		for(int i=0;i<numx;i++){
-			//
-				
+			
+				//y direction roads				
 				if(i%(block_xtextures+road_textures)==1){
 					
 					ArrayList vTexturePoints=RoadEditor.buildTemplateTexturePoints(200);
@@ -354,7 +372,7 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 					splines.add(sp);
 				}
 				
-				
+				//x roads
 				if(i%(block_xtextures+road_textures)==road_textures
 	
 				){
@@ -395,8 +413,8 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 		double gapX=-dx;
 		double gapY=-dy;
 
-        int numTerrainx=numx+2;
-        int numTerrainy=numy+2;
+        int numTerrainx=numx+3;
+        int numTerrainy=numy+3;
 		
         Point3D[] newTerrainPoints = new Point3D[numTerrainx*numTerrainy];
 
@@ -419,8 +437,6 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 		for(int i=0;i<numTerrainx-1;i++)
 			for(int j=0;j<numTerrainy-1;j++){ 
 
-
-				//lower base
 				
 				int pl1=pos(i,j,numTerrainx,numTerrainy);
 				int pl2=pos(i+1,j,numTerrainx,numTerrainy);
