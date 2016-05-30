@@ -18,7 +18,7 @@ import com.editors.DoubleTextField;
 
 public class RoadEditorMassModifiy extends JDialog implements ActionListener{
 
-	private int WIDTH=250;
+	private int WIDTH=300;
 	private int HEIGHT=260;
 
 	private JPanel center;
@@ -45,7 +45,10 @@ public class RoadEditorMassModifiy extends JDialog implements ActionListener{
 	private static int MODE_MIN_Y=3;
 	private static int MODE_ANGLE=4;
 	
+	private String header="<html><body>";
+	private String footer="</body></html>";
 	private double rotation_angle=0;
+	private JButton pi_2_angle;
 
 	public RoadEditorMassModifiy(){
 
@@ -65,6 +68,7 @@ public class RoadEditorMassModifiy extends JDialog implements ActionListener{
 
 		int r=10;
 		int col1=120;
+		int col2=220;
 
 		JLabel lbl=new JLabel("Allignement");
 		lbl.setBounds(10,r,100,20);
@@ -78,7 +82,7 @@ public class RoadEditorMassModifiy extends JDialog implements ActionListener{
 		commonAngle=new JRadioButton("Angle");
 		commonAngle.setBounds(col1,r,100,20);
 		center.add(commonAngle);
-
+		
 
 		r+=30;
 		alignMinX=new JRadioButton("Min x");
@@ -88,6 +92,11 @@ public class RoadEditorMassModifiy extends JDialog implements ActionListener{
 		commonAngleValue=new DoubleTextField();
 		commonAngleValue.setBounds(col1,r,100,20);
 		center.add(commonAngleValue);
+		
+		pi_2_angle=new JButton(header+"&pi;/2"+footer);
+		pi_2_angle.setBounds(col2,r,50,20);
+		pi_2_angle.addActionListener(this);
+		center.add(pi_2_angle);
 
 		r+=30;
 		alignMaxY=new JRadioButton("Max y");
@@ -135,8 +144,9 @@ public class RoadEditorMassModifiy extends JDialog implements ActionListener{
 		else if(obj==cancel){
 			returnValue=null;
 			dispose();
+		}else if(obj==pi_2_angle){
+			commonAngleValue.setText(Math.PI*0.5);
 		}
-
 	}
 
 	private void update() {
