@@ -17,8 +17,8 @@ import com.Point4D;
 import com.PolygonMesh;
 import com.SPLine;
 import com.SPNode;
-import com.SquareMesh;
 import com.editors.DoubleTextField;
+import com.editors.IntegerTextField;
 import com.main.Road;
 
 class RoadEditorCityManager extends JDialog implements ActionListener{
@@ -28,6 +28,9 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 	private int NX=10;
 	private int NY=10;
 	
+	private int B_TX=0;
+	private int B_TY=0;
+	
 	private double DX=200;
 	private double DY=200;
 	
@@ -35,29 +38,25 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 	private double Y0=0;
 	
 	private int WIDTH=230;
-	private int HEIGHT=230;
-	private DoubleTextField NX_Field;
-	private DoubleTextField NY_Field;
+	private int HEIGHT=280;
+	private IntegerTextField NX_Field;
+	private IntegerTextField NY_Field;
 	
 	private DoubleTextField X0_Field; 
 	private DoubleTextField Y0_Field;
+	
+	private IntegerTextField B_TX_Field;
+	private IntegerTextField B_TY_Field;	
 	
 	private Object returnValue=null;
 	
 	private JButton update=null;
 	private JButton cancel=null;
-	
-	private SquareMesh squareMesh=null;
-	
-	private boolean is_expand_mode=false;
+
+
 	
 
-	RoadEditorCityManager(SquareMesh squareMesh){
-		
-		if(squareMesh!=null){
-			is_expand_mode=true;
-			this.squareMesh=squareMesh;
-		}
+	RoadEditorCityManager(){
 		
 		setTitle("Create new grid");
 		setLayout(null);
@@ -75,35 +74,22 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 		jlb.setBounds(10,r,30,20);
 		center.add(jlb);
 		
-		NX_Field=new DoubleTextField();
+		NX_Field=new IntegerTextField();
 		NX_Field.setBounds(50,r,100,20);
 		NX_Field.setToolTipText("NX Blocks");
 		center.add(NX_Field);
 		
-		if(is_expand_mode){
-			
-			jlb=new JLabel(">"+squareMesh.getNumx());
-			jlb.setBounds(160, r, 100, 20);
-			center.add(jlb);
-		}
-		
+
 		r+=30;
 		
 		jlb=new JLabel("NY:");
 		jlb.setBounds(10,r,30,20);
 		center.add(jlb);
 				
-		NY_Field=new DoubleTextField();
+		NY_Field=new IntegerTextField();
 		NY_Field.setBounds(50,r,100,20);
 		NY_Field.setToolTipText("NY Blocks");
 		center.add(NY_Field);
-		
-		if(is_expand_mode){
-			
-			jlb=new JLabel(">"+squareMesh.getNumy());
-			jlb.setBounds(160, r, 100, 20);
-			center.add(jlb);
-		}
 		
 		NX_Field.setText(NX);
 		NY_Field.setText(NY);
@@ -133,19 +119,31 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 		Y0_Field.setText(0);
 		
 		
-		if(squareMesh!=null){
-			
-			NX_Field.setText(squareMesh.getNumx());
-			NY_Field.setText(squareMesh.getNumy());
-			X0_Field.setText(squareMesh.getX0());
-			Y0_Field.setText(squareMesh.getY0());
-			setTitle("Expand terrain grid");
-			
-			
-			
-			X0_Field.setEditable(false);
-			Y0_Field.setEditable(false);
-		}
+		r+=30;
+		
+		jlb=new JLabel("B TX:");
+		jlb.setBounds(10,r,30,20);
+		center.add(jlb);
+		
+		B_TX_Field=new IntegerTextField();
+		B_TX_Field.setBounds(50,r,100,20);
+		B_TX_Field.setToolTipText("X tiles for Block");
+		center.add(B_TX_Field);
+		
+		r+=30;
+		
+		jlb=new JLabel("B TY:");
+		jlb.setBounds(10,r,30,20);
+		center.add(jlb);
+		
+		B_TY_Field=new IntegerTextField();
+		B_TY_Field.setBounds(50,r,100,20);
+		B_TY_Field.setToolTipText("Y tiles for Block");
+		center.add(B_TY_Field);
+		
+		
+		B_TX_Field.setText(2);
+		B_TY_Field.setText(3);
 		
 		r+=30;
 		
@@ -192,11 +190,14 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 	private void update() {
 		try{
 			
-			NX=(int) NX_Field.getvalue();
-			NY=(int) NY_Field.getvalue();
+			NX=NX_Field.getvalue();
+			NY=NY_Field.getvalue();
 						
-			X0= X0_Field.getvalue();
-			Y0= Y0_Field.getvalue();
+			X0=X0_Field.getvalue();
+			Y0=Y0_Field.getvalue();
+			
+			B_TX=B_TX_Field.getvalue();
+			B_TY=B_TY_Field.getvalue();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -316,8 +317,9 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 		int ny_blocks=roadECM.NY;
 		
 		int road_textures=2;
-		int block_xtextures=2;
-		int block_ytextures=3;
+		int block_xtextures=roadECM.B_TX;
+		int block_ytextures=roadECM.B_TY;
+
 		
 		int numx=nx_blocks*block_xtextures+(nx_blocks+1)*road_textures+1;
 		int numy=ny_blocks*block_ytextures+(ny_blocks+1)*road_textures+1;

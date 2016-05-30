@@ -549,6 +549,7 @@
 	
 	
 	--On the buildings:
+		
 	
 	Two stories house dimensions:
 	L x W x H= 11m x 8m x 6.3m; roof height=1m
@@ -568,5 +569,7 @@
 	building block_4=7.7m x 23.1m x 15.4m 
 	building block_5=23.1m x 23.1m x 15.4m 
 	building block_6(tower) radius=3.8m, h=15.4m 
+	
+	City0 blocks have size 100m X 60m
 	
 	

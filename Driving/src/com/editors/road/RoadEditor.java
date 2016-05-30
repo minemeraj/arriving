@@ -2911,7 +2911,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private void buildCity() {
 		
-		RoadEditorCityManager regm=new RoadEditorCityManager(null);
+		RoadEditorCityManager regm=new RoadEditorCityManager();
 		
 		if(regm.getReturnValue()!=null){
 			
