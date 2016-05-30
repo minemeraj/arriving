@@ -14,10 +14,11 @@ import javax.swing.JRadioButton;
 import com.DrawObject;
 import com.SPLine;
 import com.SPNode;
+import com.editors.DoubleTextField;
 
 public class RoadEditorMassModifiy extends JDialog implements ActionListener{
 
-	private int WIDTH=230;
+	private int WIDTH=250;
 	private int HEIGHT=260;
 
 	private JPanel center;
@@ -35,11 +36,16 @@ public class RoadEditorMassModifiy extends JDialog implements ActionListener{
 	private JRadioButton alignMinX;
 	private JRadioButton alignMaxY;
 	private JRadioButton alignMinY;
+	private JRadioButton commonAngle;
+	private DoubleTextField commonAngleValue;
 
 	private static int MODE_MAX_X=0;
 	private static int MODE_MIN_X=1;
 	private static int MODE_MAX_Y=2;
 	private static int MODE_MIN_Y=3;
+	private static int MODE_ANGLE=4;
+	
+	private double rotation_angle=0;
 
 	public RoadEditorMassModifiy(){
 
@@ -58,6 +64,7 @@ public class RoadEditorMassModifiy extends JDialog implements ActionListener{
 		add(center);
 
 		int r=10;
+		int col1=120;
 
 		JLabel lbl=new JLabel("Allignement");
 		lbl.setBounds(10,r,100,20);
@@ -67,12 +74,20 @@ public class RoadEditorMassModifiy extends JDialog implements ActionListener{
 		alignMaxX=new JRadioButton("Max x");
 		alignMaxX.setBounds(10,r,100,20);
 		center.add(alignMaxX);
+		
+		commonAngle=new JRadioButton("Angle");
+		commonAngle.setBounds(col1,r,100,20);
+		center.add(commonAngle);
 
 
 		r+=30;
 		alignMinX=new JRadioButton("Min x");
 		alignMinX.setBounds(10,r,100,20);
 		center.add(alignMinX);
+		
+		commonAngleValue=new DoubleTextField();
+		commonAngleValue.setBounds(col1,r,100,20);
+		center.add(commonAngleValue);
 
 		r+=30;
 		alignMaxY=new JRadioButton("Max y");
@@ -89,6 +104,7 @@ public class RoadEditorMassModifiy extends JDialog implements ActionListener{
 		bg.add(alignMinX);
 		bg.add(alignMaxY);
 		bg.add(alignMinY);
+		bg.add(commonAngle);
 
 		r+=30;
 
@@ -135,6 +151,10 @@ public class RoadEditorMassModifiy extends JDialog implements ActionListener{
 			mode=MODE_MAX_Y;
 		else if(alignMinY.isSelected())
 			mode=MODE_MIN_Y;
+		else if(commonAngle.isSelected()){
+			mode=MODE_ANGLE;
+			rotation_angle=commonAngleValue.getvalue();
+		}	
 		else {
 
 			returnValue=null;
@@ -237,6 +257,8 @@ public class RoadEditorMassModifiy extends JDialog implements ActionListener{
 				}else if(ret.getMode()==MODE_MIN_Y){
 
 					dro.setY(minY);
+				}else if(ret.getMode()==MODE_ANGLE){
+					dro.setRotation_angle(ret.getRotation_angle());
 				}
 			}
 		}
@@ -341,10 +363,20 @@ public class RoadEditorMassModifiy extends JDialog implements ActionListener{
 
 						node.setY(minY);
 					}
+					
+					
 				}		
 			}
 		}	
 
+	}
+
+	public double getRotation_angle() {
+		return rotation_angle;
+	}
+
+	public void setRotation_angle(double rotation_angle) {
+		this.rotation_angle = rotation_angle;
 	}
 
 }
