@@ -149,9 +149,7 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_RAILROAD_CAR_2,"Railroad car 2"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_RAILROAD_CAR_3,"Railroad car 3"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_RAILROAD_CAR_4,"Railroad car 4"));
-		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_SHIP,"Ship"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_STARSHIP,"Starship"));
-		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_TANK,"Tank"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_TRACTOR,"Tractor"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_TRUCK,"Truck"));
 		
@@ -408,32 +406,6 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 	}
 	
 
-	private void initRightTankData() {
-		x_side.setText(100);
-		y_side.setText(200);
-		z_side.setText(75);
-		
-		back_width.setText(0);
-		back_length.setText(0);
-		back_height.setText(0);
-		
-		front_width.setText(0);
-		front_length.setText(0);
-		front_height.setText(0);
-		
-		roof_width.setText(80);
-		roof_length.setText(80);
-		roof_height.setText(40);
-		
-		wheel_radius.setText(0);
-		wheel_width.setText(0);
-		
-		front_overhang.setText(0);
-		wheel_base.setText(0);
-		rear_overhang.setText(50);
-		
-	}
-	
 	private void initRightF1CarData() {
 		x_side.setText(150);
 		y_side.setText(200);
@@ -461,33 +433,6 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 	}
 
 
-
-	private void initRightShipData() {
-		
-		x_side.setText(100);
-		y_side.setText(400);
-		z_side.setText(75);
-		
-		back_width.setText(80);
-		back_length.setText(40);
-		back_height.setText(40);
-		
-		front_width.setText(0);
-		front_length.setText(0);
-		front_height.setText(0);
-		
-		roof_width.setText(0);
-		roof_length.setText(0);
-		roof_height.setText(0);
-		
-		wheel_radius.setText(0);
-		wheel_width.setText(0);
-		
-		front_overhang.setText(0);
-		wheel_base.setText(0);
-		rear_overhang.setText(40);
-		
-	}
 
 	public void initRightTruckData() { 
 		
@@ -986,10 +931,6 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 				   initRightRailroadCarData(type); 
 			   else if(type==Car.CAR_TYPE_AIRPLANE)
 				   initRightAirplaneData();
-			   else if(type==Car.CAR_TYPE_SHIP)
-				   initRightShipData();
-			   else if(type==Car.CAR_TYPE_TANK)
-				   initRightTankData();
 			   else if(type==Car.CAR_TYPE_STARSHIP)
 				   initRightStarshipData();
 			   else if(type==Car.CAR_TYPE_F1_CAR)
