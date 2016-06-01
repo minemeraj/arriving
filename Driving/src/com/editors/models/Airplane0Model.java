@@ -65,25 +65,9 @@ public class Airplane0Model extends MeshModel{
 		texturePoints=new Vector();
 
 
-		Segments s0=new Segments(x0,dx,y0,dy,z0,dz);
+			
 
-		int nz=2;
-
-		BPoint[][] cab=new BPoint[2][4];
-		cab[0][0] = addBPoint(0.0,0.0,0.5,s0);
-		cab[0][1] = addBPoint(1.0,0.0,0.5,s0);
-		cab[0][2] = addBPoint(1.0,1.0,0.5,s0);
-		cab[0][3] = addBPoint(0.0,1.0,0.5,s0);
-
-		cab[1][0] = addBPoint(0.0,0.0,1.0,s0);
-		cab[1][1] = addBPoint(1.0,0.0,1.0,s0);
-		cab[1][2] = addBPoint(1.0,1.0,1.0,s0);
-		cab[1][3] = addBPoint(0.0,1.0,1.0,s0);
-
-
-		/*
-
-		  int pnx=2;
+		 int pnx=2;
 		int bny=4;
 		int pny=2;
 		int fny=4;
@@ -93,18 +77,20 @@ public class Airplane0Model extends MeshModel{
 
 		BPoint[][][] body=new BPoint[pnx][numy][pnz];
 
-		double back_width1=back_width*(1-0.3)+x_side*0.3; 
-		double back_width2=back_width*(1-0.6)+x_side*0.6; 
-		double back_width3=back_width*(1-0.9)+x_side*0.9; 
+		double back_width=dxr;
+		double back_width1=dxr*(1-0.3)+dx*0.3; 
+		double back_width2=dxr*(1-0.6)+dx*0.6; 
+		double back_width3=dxr*(1-0.9)+dx*0.9; 
 
-		double back_height1=back_height*(1-0.3)+z_side*0.3; 
-		double back_height2=back_height*(1-0.6)+z_side*0.6; 
-		double back_height3=back_height*(1-0.9)+z_side*0.9; 		
+		double back_height=dzr;
+		double back_height1=dzr*(1-0.3)+dz*0.3; 
+		double back_height2=dzr*(1-0.6)+dz*0.6; 
+		double back_height3=dzr*(1-0.9)+dz*0.9; 		
 
-		Segments b0=new Segments(0,back_width,0,back_length,z_side-back_height,back_height);
-		Segments b1=new Segments(0,back_width1,0,back_length,z_side-back_height1,back_height1);
-		Segments b2=new Segments(0,back_width2,0,back_length,z_side-back_height2,back_height2);
-		Segments b3=new Segments(0,back_width3,0,back_length,z_side-back_height3,back_height3);
+		Segments b0=new Segments(0,back_width,0,dyr,dz-dzr,back_height);
+		Segments b1=new Segments(0,back_width1,0,dyr,dz-back_height1,back_height1);
+		Segments b2=new Segments(0,back_width2,0,dyr,dz-back_height2,back_height2);
+		Segments b3=new Segments(0,back_width3,0,dyr,dz-back_height3,back_height3);
 
 		body[0][0][0]=addBPoint(-0.5,0.0,0,b0);
 		body[1][0][0]=addBPoint(0.5,0.0,0,b0);
@@ -127,7 +113,7 @@ public class Airplane0Model extends MeshModel{
 		body[1][3][1]=addBPoint(0.5,0.75,1.0,b3);
 
 
-		Segments p0=new Segments(0,x_side,back_length,y_side,0,z_side);
+		Segments p0=new Segments(0,dx,dyr,dy,0,dz);
 
 		body[0][bny][0]=addBPoint(-0.5,0.0,0,p0);
 		body[1][bny][0]=addBPoint(0.5,0.0,0,p0);
@@ -139,18 +125,19 @@ public class Airplane0Model extends MeshModel{
 		body[0][bny+1][1]=addBPoint(-0.5,1.0,1.0,p0);
 		body[1][bny+1][1]=addBPoint(0.5,1.0,1.0,p0);
 
-		double front_width0=front_width*(1-0.75)+x_side*0.75; 
-		double front_width1=front_width*(1-0.7)+x_side*0.7; 
-		double front_width2=front_width*(1-0.65)+x_side*0.65; 
+		double front_width=dxf;
+		double front_width0=front_width*(1-0.75)+dx*0.75; 
+		double front_width1=front_width*(1-0.7)+dx*0.7; 
+		double front_width2=front_width*(1-0.65)+dx*0.65; 
 
-		double front_height0=front_height*(1-0.75)+z_side*0.75; 
-		double front_height1=front_height*(1-0.7)+z_side*0.7; 
-		double front_height2=front_height*(1-0.65)+z_side*0.65; 			
+		double front_height0=dzf*(1-0.75)+dz*0.75; 
+		double front_height1=dzf*(1-0.7)+dz*0.7; 
+		double front_height2=dzf*(1-0.65)+dz*0.65; 			
 
-		Segments f0=new Segments(0,front_width0,back_length+y_side,front_length,0,front_height0);
-		Segments f1=new Segments(0,front_width1,back_length+y_side,front_length,0,front_height1);
-		Segments f2=new Segments(0,front_width2,back_length+y_side,front_length,0,front_height2);
-		Segments f3=new Segments(0,front_width,back_length+y_side,front_length,0,front_height);
+		Segments f0=new Segments(0,front_width0,dyr+dy,dyr,0,front_height0);
+		Segments f1=new Segments(0,front_width1,dyr+dy,dyr,0,front_height1);
+		Segments f2=new Segments(0,front_width2,dyr+dy,dyr,0,front_height2);
+		Segments f3=new Segments(0,front_width,dyr+dy,dyr,0,dzf);
 
 
 		body[0][bny+pny][0]=addBPoint(-0.5,0.25,0,f0);
@@ -175,7 +162,7 @@ public class Airplane0Model extends MeshModel{
 
 
 
-		for (int i = 0; i < pnx-1; i++) {
+		/*for (int i = 0; i < pnx-1; i++) {
 
 
 			for (int j = 0; j < numy-1; j++) {
@@ -526,24 +513,24 @@ public class Airplane0Model extends MeshModel{
 		addTPoint(x,y+dy,0);
 
 		//faces
-		int NF=6;
+		int NF=(numy-1)*4+2;
 
 		faces=new int[NF][3][4];
 
 		int counter=0;
 
-		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, cab[0][0],cab[0][3],cab[0][2],cab[0][1], 0, 1, 2, 3);
+		
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, body[0][0][0],body[1][0][0],body[1][0][1],body[0][0][1], 0, 1, 2, 3);
+		for (int k = 0; k < numy-1; k++) {
 
-		for (int k = 0; k < nz; k++) {
-
-			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, cab[k][0],cab[k+1][0],cab[k+1][3],cab[k][3], 0, 1, 2, 3);
-			faces[counter++]=buildFace(Renderer3D.CAR_BACK, cab[k][0],cab[k][1],cab[k+1][1],cab[k+1][0], 0, 1, 2, 3);
-			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, cab[k][1],cab[k][2],cab[k+1][2],cab[k+1][1], 0, 1, 2, 3);
-			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, cab[k][2],cab[k][3],cab[k+1][3],cab[k+1][2], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, body[0][k][0],body[0][k][1],body[0][k+1][1],body[0][k+1][0], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, body[0][k][0],body[0][k+1][0],body[1][k+1][0],body[1][k][0], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, body[1][k][0],body[1][k+1][0],body[1][k+1][1],body[1][k][1], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_TOP,body[0][k][1],body[1][k][1],body[1][k+1][1],body[0][k+1][1], 0, 1, 2, 3);
 
 		}
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, body[0][numy-1][0],body[0][numy-1][1],body[1][numy-1][1],body[1][numy-1][0], 0, 1, 2, 3);
 
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP,cab[nz-1][0],cab[nz-1][1],cab[nz-1][2],cab[nz-1][3], 0, 1, 2, 3);
 
 
 		IMG_WIDTH=(int) (2*bx+dx);

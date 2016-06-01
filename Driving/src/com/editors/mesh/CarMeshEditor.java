@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 
 import com.editors.DoubleTextField;
 import com.editors.ValuePair;
+import com.editors.models.Airplane0Model;
 import com.editors.models.Car0Model;
 import com.editors.models.Ship0Model;
 import com.editors.models.StarShip0Model;
@@ -40,6 +41,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 	public static int SHIP0=2;
 	public static int STARSHIP0=3;
 	public static int TANK0=4;
+	public static int AIRPLANE0=4;
 	
 
 	public static void main(String[] args) {
@@ -177,6 +179,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		chooseObject.setBounds(115, r, 100, 20);
 		chooseObject.addKeyListener(this);
 		chooseObject.addItem(new ValuePair("-1",""));
+		chooseObject.addItem(new ValuePair(""+AIRPLANE0,"Airplane0"));
 		chooseObject.addItem(new ValuePair(""+CAR0,"Car0"));	
 		chooseObject.addItem(new ValuePair(""+TRUCK0,"Truck0"));
 		chooseObject.addItem(new ValuePair(""+SHIP0,"Ship0"));
@@ -231,6 +234,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 			meshModel=new Ship0Model(dx,dy,dz,dxr,dyr,dzr);
 		else if(val==STARSHIP0)
 			meshModel=new StarShip0Model(dx,dy,dz,dxf,dyf,dzf,dxr,dyr,dzr);
+		else if(val==AIRPLANE0)
+			meshModel=new Airplane0Model(dx,dy,dz,dxf,dyf,dzf,dxr,dyr,dzr);
 		else
 			meshModel=new Car0Model(dx,dy,dz);
 
@@ -275,6 +280,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 				setRightData(718,4550,458,0,0,0,718,364,598);
 			else if(STARSHIP0==val)
 				setRightData(50,200,50,150,150,50,50,250,50);
+			else if(AIRPLANE0==val)
+				setRightData(48,250,45,25,57,25,21,143,13);
 		}
 
 	}
