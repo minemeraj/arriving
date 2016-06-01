@@ -172,7 +172,6 @@ public class Airplane0Model extends MeshModel{
 
 
 
-		/*
 
 		///////tail
 
@@ -185,7 +184,7 @@ public class Airplane0Model extends MeshModel{
 
 		BPoint[][][] tailRightWing=new BPoint[twnx][twny][twnz];	
 
-		Segments trWing0=new Segments(0,twDX,0,back_length*0.125,z_side-back_height,back_height);
+		Segments trWing0=new Segments(0,twDX,0,dyRear*0.125,dz-back_height,back_height);
 
 		tailRightWing[0][0][0]=body[1][0][0];
 		tailRightWing[1][0][0]=addBPoint(1.0,0.0,0.0,trWing0);
@@ -197,55 +196,12 @@ public class Airplane0Model extends MeshModel{
 		tailRightWing[0][1][1]=body[1][1][1];
 		tailRightWing[1][1][1]=addBPoint(1.0,1.0,1.0,trWing0); 
 
-		for (int i = 0; i < twnx-1; i++) {
 
-
-			for (int j = 0; j < twny-1; j++) {
-
-				for (int k = 0; k < twnz-1; k++) {
-
-
-
-
-					if(i==0){
-
-						addLine(tailRightWing[i][j][k],tailRightWing[i][j][k+1],tailRightWing[i][j+1][k+1],tailRightWing[i][j+1][k],Renderer3D.CAR_LEFT);
-					}
-
-
-
-					if(k==0){
-
-						addLine(tailRightWing[i][j][k],tailRightWing[i][j+1][k],tailRightWing[i+1][j+1][k],tailRightWing[i+1][j][k],Renderer3D.CAR_BOTTOM);
-
-					}
-
-					if(k+1==twnz-1){
-						addLine(tailRightWing[i][j][k+1],tailRightWing[i+1][j][k+1],tailRightWing[i+1][j+1][k+1],tailRightWing[i][j+1][k+1],Renderer3D.CAR_TOP);
-					}
-
-					if(j==0){
-						addLine(tailRightWing[i][j][k],tailRightWing[i+1][j][k],tailRightWing[i+1][j][k+1],tailRightWing[i][j][k+1],Renderer3D.CAR_BACK);
-					}
-					if(j+1==twny-1){
-						addLine(tailRightWing[i][j+1][k],tailRightWing[i][j+1][k+1],tailRightWing[i+1][j+1][k+1],tailRightWing[i+1][j+1][k],Renderer3D.CAR_FRONT);	
-					}
-
-
-					if(i+1==twnx-1){
-
-						addLine(tailRightWing[i+1][j][k],tailRightWing[i+1][j+1][k],tailRightWing[i+1][j+1][k+1],tailRightWing[i+1][j][k+1],Renderer3D.CAR_RIGHT);
-
-					}
-				}
-			}
-
-		}
-
+		
 
 		BPoint[][][] tailLeftWing=new BPoint[twnx][twny][twnz];		
 
-		Segments tlWing0=new Segments(0,twDX,0,back_length*0.125,z_side-back_height,back_height);
+		Segments tlWing0=new Segments(0,twDX,0,dyRear*0.125,dz-back_height,back_height);
 
 		tailLeftWing[0][0][0]=addBPoint(-1.0,0,0,tlWing0);
 		tailLeftWing[1][0][0]=body[0][0][0];
@@ -257,51 +213,7 @@ public class Airplane0Model extends MeshModel{
 		tailLeftWing[0][1][1]=addBPoint(-1.0,1.0,1.0,tlWing0);
 		tailLeftWing[1][1][1]=body[0][1][1];
 
-		for (int i = 0; i < twnx-1; i++) {
-
-
-			for (int j = 0; j < twny-1; j++) {
-
-				for (int k = 0; k < twnz-1; k++) {
-
-
-
-
-					if(i==0){
-
-						addLine(tailLeftWing[i][j][k],tailLeftWing[i][j][k+1],tailLeftWing[i][j+1][k+1],tailLeftWing[i][j+1][k],Renderer3D.CAR_LEFT);
-					}
-
-
-
-					if(k==0){
-
-						addLine(tailLeftWing[i][j][k],tailLeftWing[i][j+1][k],tailLeftWing[i+1][j+1][k],tailLeftWing[i+1][j][k],Renderer3D.CAR_BOTTOM);
-
-					}
-
-					if(k+1==twnz-1){
-						addLine(tailLeftWing[i][j][k+1],tailLeftWing[i+1][j][k+1],tailLeftWing[i+1][j+1][k+1],tailLeftWing[i][j+1][k+1],Renderer3D.CAR_TOP);
-					}
-
-					if(j==0){
-						addLine(tailLeftWing[i][j][k],tailLeftWing[i+1][j][k],tailLeftWing[i+1][j][k+1],tailLeftWing[i][j][k+1],Renderer3D.CAR_BACK);
-					}
-					if(j+1==twny-1){
-						addLine(tailLeftWing[i][j+1][k],tailLeftWing[i][j+1][k+1],tailLeftWing[i+1][j+1][k+1],tailLeftWing[i+1][j+1][k],Renderer3D.CAR_FRONT);	
-					}
-
-
-					if(i+1==twnx-1){
-
-						addLine(tailLeftWing[i+1][j][k],tailLeftWing[i+1][j+1][k],tailLeftWing[i+1][j+1][k+1],tailLeftWing[i+1][j][k+1],Renderer3D.CAR_RIGHT);
-
-					}
-				}
-			}
-
-		}
-
+		/*
 
 		int trnx=2;
 		int trny=2;
@@ -388,6 +300,7 @@ public class Airplane0Model extends MeshModel{
 		//faces
 		int NF=(numy-1)*4+2;//bofy
 		NF+=12;//wings
+		NF+=12;//tail wings
 		faces=new int[NF][3][4];
 
 		int counter=0;
@@ -419,6 +332,21 @@ public class Airplane0Model extends MeshModel{
 		faces[counter++]=buildFace(Renderer3D.CAR_TOP,leftWing[0][0][1],leftWing[1][0][1],leftWing[1][0+1][1],leftWing[0][0+1][1], 0, 1, 2, 3);
 		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, leftWing[0][1][0],leftWing[0][1][1],leftWing[1][1][1],leftWing[1][1][0], 0, 1, 2, 3);
 
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, tailRightWing[0][0][0],tailRightWing[1][0][0],tailRightWing[1][0][1],tailRightWing[0][0][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, tailRightWing[0][0][0],tailRightWing[0][0][1],tailRightWing[0][0+1][1],tailRightWing[0][0+1][0], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, tailRightWing[0][0][0],tailRightWing[0][0+1][0],tailRightWing[1][0+1][0],tailRightWing[1][0][0], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, tailRightWing[1][0][0],tailRightWing[1][0+1][0],tailRightWing[1][0+1][1],tailRightWing[1][0][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP,tailRightWing[0][0][1],tailRightWing[1][0][1],tailRightWing[1][0+1][1],tailRightWing[0][0+1][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, tailRightWing[0][1][0],tailRightWing[0][1][1],tailRightWing[1][1][1],tailRightWing[1][1][0], 0, 1, 2, 3);
+
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, tailLeftWing[0][0][0],tailLeftWing[1][0][0],tailLeftWing[1][0][1],tailLeftWing[0][0][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, tailLeftWing[0][0][0],tailLeftWing[0][0][1],tailLeftWing[0][0+1][1],tailLeftWing[0][0+1][0], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, tailLeftWing[0][0][0],tailLeftWing[0][0+1][0],tailLeftWing[1][0+1][0],tailLeftWing[1][0][0], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, tailLeftWing[1][0][0],tailLeftWing[1][0+1][0],tailLeftWing[1][0+1][1],tailLeftWing[1][0][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP,tailLeftWing[0][0][1],tailLeftWing[1][0][1],tailLeftWing[1][0+1][1],tailLeftWing[0][0+1][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, tailLeftWing[0][1][0],tailLeftWing[0][1][1],tailLeftWing[1][1][1],tailLeftWing[1][1][0], 0, 1, 2, 3);
+
+		
 		IMG_WIDTH=(int) (2*bx+dx);
 		IMG_HEIGHT=(int) (2*by+dy);
 
