@@ -35,6 +35,9 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 	private DoubleTextField dx_rear_text;
 	private DoubleTextField dy_rear_text;
 	private DoubleTextField dz_rear_text;
+	private DoubleTextField dx_roof_text;
+	private DoubleTextField dy_roof_text;
+	private DoubleTextField dz_roof_text;
 
 	public static int CAR0=0;
 	public static int TRUCK0=1;
@@ -46,7 +49,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 
 	public static void main(String[] args) {
 
-		CarMeshEditor fm=new CarMeshEditor(500,350);
+		CarMeshEditor fm=new CarMeshEditor(650,350);
 	}
 
 
@@ -65,28 +68,28 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		int r=10;
 
 		JLabel name=new JLabel("Description:");
-		name.setBounds(5,r,120,20);
+		name.setBounds(10,r,120,20);
 		center.add(name);
 
 		r+=30;
 
 		description=new JTextField();
-		description.setBounds(30,r,450,20);
+		description.setBounds(10,r,480,20);
 		description.setToolTipText("Description");
 		description.setText("");
 		center.add(description);
 
 		r+=30;
 		
-		int col0=5;
-		int col1=50;
-		int col2=160;
-		int col3=210;
-		int col4=320;
-		int col5=370;
+		int col0=10;
+		int col1=80;
+		int col2=210;
+		int col3=280;
+		int col4=410;
+		int col5=480;
 
 		JLabel lx=new JLabel("dx:");
-		lx.setBounds(col0,r,30,20);
+		lx.setBounds(col0,r,70,20);
 		center.add(lx);
 		dx_text=new DoubleTextField(8);
 		dx_text.setBounds(col1,r,100,20);
@@ -95,7 +98,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 
 
 		JLabel ly=new JLabel("dy:");
-		ly.setBounds(col2,r,30,20);
+		ly.setBounds(col2,r,70,20);
 		center.add(ly);
 		dy_text=new DoubleTextField(8);
 		dy_text.setBounds(col3,r,100,20);
@@ -104,7 +107,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 
 
 		JLabel lz=new JLabel("dz:");
-		lz.setBounds(col4,r,30,20);
+		lz.setBounds(col4,r,70,20);
 		center.add(lz);
 		dz_text=new DoubleTextField(8);
 		dz_text.setBounds(col5,r,100,20);
@@ -114,8 +117,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		r+=30;
 		
 		
-		lx=new JLabel("dxf:");
-		lx.setBounds(col0,r,30,20);
+		lx=new JLabel("dxFront:");
+		lx.setBounds(col0,r,70,20);
 		center.add(lx);
 		dx_front_text=new DoubleTextField(8);
 		dx_front_text.setBounds(col1,r,100,20);
@@ -123,8 +126,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		center.add(dx_front_text);
 
 
-		ly=new JLabel("dyf:");
-		ly.setBounds(col2,r,30,20);
+		ly=new JLabel("dyFront:");
+		ly.setBounds(col2,r,70,20);
 		center.add(ly);
 		dy_front_text=new DoubleTextField(8);
 		dy_front_text.setBounds(col3,r,100,20);
@@ -132,8 +135,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		center.add(dy_front_text);
 
 
-		lz=new JLabel("dzf:");
-		lz.setBounds(col4,r,30,20);
+		lz=new JLabel("dzFront:");
+		lz.setBounds(col4,r,70,20);
 		center.add(lz);
 		dz_front_text=new DoubleTextField(8);
 		dz_front_text.setBounds(col5,r,100,20);
@@ -143,8 +146,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		r+=30;
 		
 		
-		lx=new JLabel("dxr:");
-		lx.setBounds(col0,r,30,20);
+		lx=new JLabel("dxRear:");
+		lx.setBounds(col0,r,70,20);
 		center.add(lx);
 		dx_rear_text=new DoubleTextField(8);
 		dx_rear_text.setBounds(col1,r,100,20);
@@ -152,8 +155,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		center.add(dx_rear_text);
 
 
-		ly=new JLabel("dyr:");
-		ly.setBounds(col2,r,30,20);
+		ly=new JLabel("dyRear:");
+		ly.setBounds(col2,r,70,20);
 		center.add(ly);
 		dy_rear_text=new DoubleTextField(8);
 		dy_rear_text.setBounds(col3,r,100,20);
@@ -161,22 +164,52 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		center.add(dy_rear_text);
 
 
-		lz=new JLabel("dzr:");
-		lz.setBounds(col4,r,30,20);
+		lz=new JLabel("dzRear:");
+		lz.setBounds(col4,r,70,20);
 		center.add(lz);
 		dz_rear_text=new DoubleTextField(8);
 		dz_rear_text.setBounds(col5,r,100,20);
 		dz_rear_text.setText(dz);
 		center.add(dz_rear_text);
+		
+		
+		r+=30;
+		
+		
+		lx=new JLabel("dxRoof:");
+		lx.setBounds(col0,r,70,20);
+		center.add(lx);
+		dx_roof_text=new DoubleTextField(8);
+		dx_roof_text.setBounds(col1,r,100,20);
+		dx_roof_text.setText(0);
+		center.add(dx_roof_text);
+
+
+		ly=new JLabel("dyRoof:");
+		ly.setBounds(col2,r,70,20);
+		center.add(ly);
+		dy_roof_text=new DoubleTextField(8);
+		dy_roof_text.setBounds(col3,r,100,20);
+		dy_roof_text.setText(0);
+		center.add(dy_roof_text);
+
+
+		lz=new JLabel("dzRoof:");
+		lz.setBounds(col4,r,70,20);
+		center.add(lz);
+		dz_roof_text=new DoubleTextField(8);
+		dz_roof_text.setBounds(col5,r,100,20);
+		dz_roof_text.setText(0);
+		center.add(dz_roof_text);
 
 		r+=30;
 
 		JLabel jlb=new JLabel("Car type:");
-		jlb.setBounds(5, r, 100, 20);
+		jlb.setBounds(col0, r, 100, 20);
 		center.add(jlb);
 
 		chooseObject=new JComboBox();
-		chooseObject.setBounds(115, r, 100, 20);
+		chooseObject.setBounds(col1, r, 100, 20);
 		chooseObject.addKeyListener(this);
 		chooseObject.addItem(new ValuePair("-1",""));
 		chooseObject.addItem(new ValuePair(""+AIRPLANE0,"Airplane0"));
@@ -189,17 +222,15 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		chooseObject.setSelectedIndex(0);
 		center.add(chooseObject);
 
-		r+=30;
+		r+=40;
 
 		meshButton=new JButton("Mesh");
 		meshButton.setBounds(10,r,80,20);
 		meshButton.addActionListener(this);
 		center.add(meshButton);
 
-		r+=30;
-
 		textureButton=new JButton("Texture");
-		textureButton.setBounds(10,r,90,20);
+		textureButton.setBounds(120,r,90,20);
 		textureButton.addActionListener(this);
 		center.add(textureButton);
 
@@ -219,6 +250,10 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		double dxr = dx_rear_text.getvalue();
 		double dyr = dy_rear_text.getvalue();
 		double dzr = dz_rear_text.getvalue();
+		
+		double dxRoof = dx_roof_text.getvalue();
+		double dyRoof  = dy_roof_text.getvalue();
+		double dzRoof  = dz_roof_text.getvalue();
 
 		ValuePair vp= (ValuePair)chooseObject.getSelectedItem();
 
@@ -234,8 +269,15 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 			meshModel=new Ship0Model(dx,dy,dz,dxr,dyr,dzr);
 		else if(val==STARSHIP0)
 			meshModel=new StarShip0Model(dx,dy,dz,dxf,dyf,dzf,dxr,dyr,dzr);
-		else if(val==AIRPLANE0)
-			meshModel=new Airplane0Model(dx,dy,dz,dxf,dyf,dzf,dxr,dyr,dzr);
+		else if(val==AIRPLANE0){
+			
+			meshModel=new Airplane0Model(
+					dx,dy,dz,
+					dxf,dyf,dzf,
+					dxr,dyr,dzr,
+					dxRoof,dyRoof,dzRoof
+					);
+		}
 		else
 			meshModel=new Car0Model(dx,dy,dz);
 
@@ -273,15 +315,15 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 				val=CAR0;
 
 			if(CAR0==val)
-				setRightData(151,400,109,0,0,0,0,0,0);
+				setRightData(151,400,109,0,0,0,0,0,0,0,0,0);
 			else if(TRUCK0==val)
-				setRightData(151,350,109,151,150,109,151,400,50);
+				setRightData(151,350,109,151,150,109,151,400,50,0,0,0);
 			else if(SHIP0==val)
-				setRightData(718,4550,458,0,0,0,718,364,598);
+				setRightData(718,4550,458,0,0,0,718,364,598,0,0,0);
 			else if(STARSHIP0==val)
-				setRightData(50,200,50,150,150,50,50,250,50);
+				setRightData(50,200,50,150,150,50,50,250,50,0,0,0);
 			else if(AIRPLANE0==val)
-				setRightData(48,250,45,25,57,25,21,143,13);
+				setRightData(48,250,45,25,57,25,21,143,13,181,119,29);
 		}
 
 	}
@@ -290,7 +332,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 	private void setRightData(
 			int dx, int dy, int dz,
 			int dxf, int dyf, int dzf,
-			int dxr, int dyr, int dzr
+			int dxr, int dyr, int dzr,
+			int dxRoof, int dyRoof, int dzRoof
 			){ 
 
 		dx_text.setText(dx);
@@ -304,6 +347,10 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		dx_rear_text.setText(dxr);
 		dy_rear_text.setText(dyr);
 		dz_rear_text.setText(dzr);
+		
+		dx_roof_text.setText(dxRoof);
+		dy_roof_text.setText(dyRoof);
+		dz_roof_text.setText(dzRoof);
 	}
 
 

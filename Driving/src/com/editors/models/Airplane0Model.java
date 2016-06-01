@@ -24,13 +24,17 @@ public class Airplane0Model extends MeshModel{
 	private double dy = 0;
 	private double dz = 0;
 
-	private double dxf = 0;
-	private double dyf = 0;
-	private double dzf = 0;
+	private double dxFront = 0;
+	private double dyFront = 0;
+	private double dzFront = 0;
 
-	private double dxr = 0;
-	private double dyr = 0;
-	private double dzr = 0;
+	private double dxRear = 0;
+	private double dyRear = 0;
+	private double dzRear = 0;
+	
+	private double dxRoof = 0;
+	private double dyRoof = 0;
+	private double dzRoof = 0;
 
 	double x0=0;
 	double y0=0;
@@ -43,19 +47,25 @@ public class Airplane0Model extends MeshModel{
 	public Airplane0Model(
 			double dx, double dy, double dz, 
 			double dxf, double dyf, double dzf, 
-			double dxr, double dyr,	double dzr) {
+			double dxr, double dyr,	double dzr,
+			double dxRoof,double dyRoof,double dzRoof
+			) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
 		this.dz = dz;
 
-		this.dxf = dxf;
-		this.dyf = dyf;
-		this.dzf = dzf;
+		this.dxFront = dxf;
+		this.dyFront = dyf;
+		this.dzFront = dzf;
 
-		this.dxr = dxr;
-		this.dyr = dyr;
-		this.dzr = dzr;
+		this.dxRear = dxr;
+		this.dyRear = dyr;
+		this.dzRear = dzr;
+		
+		this.dxRoof = dxRoof;
+		this.dyRoof = dyRoof;
+		this.dzRoof = dzRoof;
 	}
 
 
@@ -77,20 +87,20 @@ public class Airplane0Model extends MeshModel{
 
 		BPoint[][][] body=new BPoint[pnx][numy][pnz];
 
-		double back_width=dxr;
-		double back_width1=dxr*(1-0.3)+dx*0.3; 
-		double back_width2=dxr*(1-0.6)+dx*0.6; 
-		double back_width3=dxr*(1-0.9)+dx*0.9; 
+		double back_width=dxRear;
+		double back_width1=dxRear*(1-0.3)+dx*0.3; 
+		double back_width2=dxRear*(1-0.6)+dx*0.6; 
+		double back_width3=dxRear*(1-0.9)+dx*0.9; 
 
-		double back_height=dzr;
-		double back_height1=dzr*(1-0.3)+dz*0.3; 
-		double back_height2=dzr*(1-0.6)+dz*0.6; 
-		double back_height3=dzr*(1-0.9)+dz*0.9; 		
+		double back_height=dzRear;
+		double back_height1=dzRear*(1-0.3)+dz*0.3; 
+		double back_height2=dzRear*(1-0.6)+dz*0.6; 
+		double back_height3=dzRear*(1-0.9)+dz*0.9; 		
 
-		Segments b0=new Segments(0,back_width,0,dyr,dz-dzr,back_height);
-		Segments b1=new Segments(0,back_width1,0,dyr,dz-back_height1,back_height1);
-		Segments b2=new Segments(0,back_width2,0,dyr,dz-back_height2,back_height2);
-		Segments b3=new Segments(0,back_width3,0,dyr,dz-back_height3,back_height3);
+		Segments b0=new Segments(0,back_width,0,dyRear,dz-dzRear,back_height);
+		Segments b1=new Segments(0,back_width1,0,dyRear,dz-back_height1,back_height1);
+		Segments b2=new Segments(0,back_width2,0,dyRear,dz-back_height2,back_height2);
+		Segments b3=new Segments(0,back_width3,0,dyRear,dz-back_height3,back_height3);
 
 		body[0][0][0]=addBPoint(-0.5,0.0,0,b0);
 		body[1][0][0]=addBPoint(0.5,0.0,0,b0);
@@ -113,7 +123,7 @@ public class Airplane0Model extends MeshModel{
 		body[1][3][1]=addBPoint(0.5,0.75,1.0,b3);
 
 
-		Segments p0=new Segments(0,dx,dyr,dy,0,dz);
+		Segments p0=new Segments(0,dx,dyRear,dy,0,dz);
 
 		body[0][bny][0]=addBPoint(-0.5,0.0,0,p0);
 		body[1][bny][0]=addBPoint(0.5,0.0,0,p0);
@@ -125,19 +135,19 @@ public class Airplane0Model extends MeshModel{
 		body[0][bny+1][1]=addBPoint(-0.5,1.0,1.0,p0);
 		body[1][bny+1][1]=addBPoint(0.5,1.0,1.0,p0);
 
-		double front_width=dxf;
+		double front_width=dxFront;
 		double front_width0=front_width*(1-0.75)+dx*0.75; 
 		double front_width1=front_width*(1-0.7)+dx*0.7; 
 		double front_width2=front_width*(1-0.65)+dx*0.65; 
 
-		double front_height0=dzf*(1-0.75)+dz*0.75; 
-		double front_height1=dzf*(1-0.7)+dz*0.7; 
-		double front_height2=dzf*(1-0.65)+dz*0.65; 			
+		double front_height0=dzFront*(1-0.75)+dz*0.75; 
+		double front_height1=dzFront*(1-0.7)+dz*0.7; 
+		double front_height2=dzFront*(1-0.65)+dz*0.65; 			
 
-		Segments f0=new Segments(0,front_width0,dyr+dy,dyr,0,front_height0);
-		Segments f1=new Segments(0,front_width1,dyr+dy,dyr,0,front_height1);
-		Segments f2=new Segments(0,front_width2,dyr+dy,dyr,0,front_height2);
-		Segments f3=new Segments(0,front_width,dyr+dy,dyr,0,dzf);
+		Segments f0=new Segments(0,front_width0,dyRear+dy,dyRear,0,front_height0);
+		Segments f1=new Segments(0,front_width1,dyRear+dy,dyRear,0,front_height1);
+		Segments f2=new Segments(0,front_width2,dyRear+dy,dyRear,0,front_height2);
+		Segments f3=new Segments(0,front_width,dyRear+dy,dyRear,0,dzFront);
 
 
 		body[0][bny+pny][0]=addBPoint(-0.5,0.25,0,f0);
@@ -162,50 +172,7 @@ public class Airplane0Model extends MeshModel{
 
 
 
-		/*for (int i = 0; i < pnx-1; i++) {
-
-
-			for (int j = 0; j < numy-1; j++) {
-
-				for (int k = 0; k < pnz-1; k++) {
-
-
-
-
-					if(i==0){
-
-						LineData leftLD=addLine(body[i][j][k],body[i][j][k+1],body[i][j+1][k+1],body[i][j+1][k],Renderer3D.CAR_LEFT);
-					}
-
-
-
-					if(k==0){
-
-						LineData bottomLD=addLine(body[i][j][k],body[i][j+1][k],body[i+1][j+1][k],body[i+1][j][k],Renderer3D.CAR_BOTTOM);
-
-					}
-
-					if(k+1==pnz-1){
-						LineData topLD=addLine(body[i][j][k+1],body[i+1][j][k+1],body[i+1][j+1][k+1],body[i][j+1][k+1],Renderer3D.CAR_TOP);
-					}
-
-					if(j==0){
-						LineData backLD=addLine(body[i][j][k],body[i+1][j][k],body[i+1][j][k+1],body[i][j][k+1],Renderer3D.CAR_BACK);
-					}
-					if(j+1==numy-1){
-						LineData frontLD=addLine(body[i][j+1][k],body[i][j+1][k+1],body[i+1][j+1][k+1],body[i+1][j+1][k],Renderer3D.CAR_FRONT);	
-					}
-
-
-					if(i+1==pnx-1){
-
-						LineData rightLD=addLine(body[i+1][j][k],body[i+1][j+1][k],body[i+1][j+1][k+1],body[i+1][j][k+1],Renderer3D.CAR_RIGHT);
-
-					}
-				}
-			}
-
-		}
+		/*
 
 		///////tail
 
@@ -362,7 +329,7 @@ public class Airplane0Model extends MeshModel{
 		addLine(tailRudder[0][1][0],tailRudder[0][1][1],tailRudder[1][1][0],null,Renderer3D.CAR_FRONT);	
 
 		addLine(tailRudder[1][0][0],tailRudder[1][1][0],tailRudder[0][1][1],tailRudder[0][0][1],Renderer3D.CAR_RIGHT);
-
+		 */
 
 
 		//////wings
@@ -375,11 +342,11 @@ public class Airplane0Model extends MeshModel{
 		double sq=Math.sin(q);
 		double cq=Math.cos(q);
 
-		double sq1=sq*roof_width/roof_height;
-		double ry=back_length+0.2*y_side;
+		double sq1=sq*dxRoof/dzRoof;
+		double ry=dyRear+0.2*dy;
 
 		BPoint[][][] rightWing=new BPoint[wnx][wny][wnz];
-		Segments rWing0=new Segments(x_side*0.5,roof_width/cq,ry,roof_length,0,roof_height);
+		Segments rWing0=new Segments(dx*0.5,dxRoof/cq,ry,dyRoof,0,dzRoof);
 
 		rightWing[0][0][0]=addBPoint(0,0.0,0,rWing0);
 		rightWing[1][0][0]=addBPoint(cq,0.0,sq1,rWing0);
@@ -392,56 +359,9 @@ public class Airplane0Model extends MeshModel{
 		rightWing[1][1][1]=addBPoint(cq,0.5,1.0+sq1,rWing0);
 
 
-
-		for (int i = 0; i < wnx-1; i++) {
-
-
-			for (int j = 0; j < wny-1; j++) {
-
-				for (int k = 0; k < wnz-1; k++) {
-
-
-
-
-					if(i==0){
-
-						LineData leftLD=addLine(rightWing[i][j][k],rightWing[i][j][k+1],rightWing[i][j+1][k+1],rightWing[i][j+1][k],Renderer3D.CAR_LEFT);
-					}
-
-
-
-					if(k==0){
-
-						LineData bottomLD=addLine(rightWing[i][j][k],rightWing[i][j+1][k],rightWing[i+1][j+1][k],rightWing[i+1][j][k],Renderer3D.CAR_BOTTOM);
-
-					}
-
-					if(k+1==wnz-1){
-						LineData topLD=addLine(rightWing[i][j][k+1],rightWing[i+1][j][k+1],rightWing[i+1][j+1][k+1],rightWing[i][j+1][k+1],Renderer3D.CAR_TOP);
-					}
-
-					if(j==0){
-						LineData backLD=addLine(rightWing[i][j][k],rightWing[i+1][j][k],rightWing[i+1][j][k+1],rightWing[i][j][k+1],Renderer3D.CAR_BACK);
-					}
-					if(j+1==wny-1){
-						LineData roofLD=addLine(rightWing[i][j+1][k],rightWing[i][j+1][k+1],rightWing[i+1][j+1][k+1],rightWing[i+1][j+1][k],Renderer3D.CAR_FRONT);	
-					}
-
-
-					if(i+1==wnx-1){
-
-						LineData rightLD=addLine(rightWing[i+1][j][k],rightWing[i+1][j+1][k],rightWing[i+1][j+1][k+1],rightWing[i+1][j][k+1],Renderer3D.CAR_RIGHT);
-
-					}
-				}
-			}
-
-		}
-
-
 		BPoint[][][] leftWing=new BPoint[wnx][wny][wnz];
 
-		Segments lWing0=new Segments(-x_side*0.5,roof_width/cq,ry,roof_length,0,roof_height);
+		Segments lWing0=new Segments(-dx*0.5,dxRoof/cq,ry,dyRoof,0,dzRoof);
 
 		leftWing[0][0][0]=addBPoint(-cq,0.0,sq1,lWing0);
 		leftWing[1][0][0]=addBPoint(0.0,0.0,0,lWing0);
@@ -455,53 +375,6 @@ public class Airplane0Model extends MeshModel{
 
 
 
-		for (int i = 0; i < wnx-1; i++) {
-
-
-			for (int j = 0; j < wny-1; j++) {
-
-				for (int k = 0; k < wnz-1; k++) {
-
-
-
-
-					if(i==0){
-
-						LineData leftLD=addLine(leftWing[i][j][k],leftWing[i][j][k+1],leftWing[i][j+1][k+1],leftWing[i][j+1][k],Renderer3D.CAR_LEFT);
-					}
-
-
-
-					if(k==0){
-
-						LineData bottomLD=addLine(leftWing[i][j][k],leftWing[i][j+1][k],leftWing[i+1][j+1][k],leftWing[i+1][j][k],Renderer3D.CAR_BOTTOM);
-
-					}
-
-					if(k+1==wnz-1){
-						LineData topLD=addLine(leftWing[i][j][k+1],leftWing[i+1][j][k+1],leftWing[i+1][j+1][k+1],leftWing[i][j+1][k+1],Renderer3D.CAR_TOP);
-					}
-
-					if(j==0){
-						LineData backLD=addLine(leftWing[i][j][k],leftWing[i+1][j][k],leftWing[i+1][j][k+1],leftWing[i][j][k+1],Renderer3D.CAR_BACK);
-					}
-					if(j+1==wny-1){
-						LineData roofLD=addLine(leftWing[i][j+1][k],leftWing[i][j+1][k+1],leftWing[i+1][j+1][k+1],leftWing[i+1][j+1][k],Renderer3D.CAR_FRONT);	
-					}
-
-
-					if(i+1==wnx-1){
-
-						LineData rightLD=addLine(leftWing[i+1][j][k],leftWing[i+1][j+1][k],leftWing[i+1][j+1][k+1],leftWing[i+1][j][k+1],Renderer3D.CAR_RIGHT);
-
-					}
-				}
-			}
-
-		}
-
-		 */
-
 		//Texture points
 
 		double y=by;
@@ -513,8 +386,8 @@ public class Airplane0Model extends MeshModel{
 		addTPoint(x,y+dy,0);
 
 		//faces
-		int NF=(numy-1)*4+2;
-
+		int NF=(numy-1)*4+2;//bofy
+		NF+=12;//wings
 		faces=new int[NF][3][4];
 
 		int counter=0;
@@ -531,7 +404,20 @@ public class Airplane0Model extends MeshModel{
 		}
 		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, body[0][numy-1][0],body[0][numy-1][1],body[1][numy-1][1],body[1][numy-1][0], 0, 1, 2, 3);
 
-
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, rightWing[0][0][0],rightWing[1][0][0],rightWing[1][0][1],rightWing[0][0][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, rightWing[0][0][0],rightWing[0][0][1],rightWing[0][0+1][1],rightWing[0][0+1][0], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, rightWing[0][0][0],rightWing[0][0+1][0],rightWing[1][0+1][0],rightWing[1][0][0], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, rightWing[1][0][0],rightWing[1][0+1][0],rightWing[1][0+1][1],rightWing[1][0][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP,rightWing[0][0][1],rightWing[1][0][1],rightWing[1][0+1][1],rightWing[0][0+1][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, rightWing[0][1][0],rightWing[0][1][1],rightWing[1][1][1],rightWing[1][1][0], 0, 1, 2, 3);
+		
+		
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, leftWing[0][0][0],leftWing[1][0][0],leftWing[1][0][1],leftWing[0][0][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, leftWing[0][0][0],leftWing[0][0][1],leftWing[0][0+1][1],leftWing[0][0+1][0], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, leftWing[0][0][0],leftWing[0][0+1][0],leftWing[1][0+1][0],leftWing[1][0][0], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, leftWing[1][0][0],leftWing[1][0+1][0],leftWing[1][0+1][1],leftWing[1][0][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP,leftWing[0][0][1],leftWing[1][0][1],leftWing[1][0+1][1],leftWing[0][0+1][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, leftWing[0][1][0],leftWing[0][1][1],leftWing[1][1][1],leftWing[1][1][0], 0, 1, 2, 3);
 
 		IMG_WIDTH=(int) (2*bx+dx);
 		IMG_HEIGHT=(int) (2*by+dy);
