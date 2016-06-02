@@ -920,10 +920,10 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		}
 		int rgbColor = pColor.getRGB();
 		drawObjectPolygon(landscapeZbuffer,pTot,rgbColor);
-
-		drawTextImage(landscapeZbuffer,RoadEditor.objectIndexes[dro.getIndex()]
-				,cx[0]-5,cy[0]-5,editor.indexWidth,editor.indexHeight,Color.BLACK,pColor);		
-
+		if(deltax<16){
+			drawTextImage(landscapeZbuffer,RoadEditor.objectIndexes[dro.getIndex()]
+					,cx[0]-5,cy[0]-5,editor.indexWidth,editor.indexHeight,Color.BLACK,pColor);		
+		}
 
 
 	}
