@@ -2020,7 +2020,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			}
 			
 			if(found)
-				spline.calculateRibs();
+				spline.update();
 			
 		}
 		
@@ -3606,7 +3606,17 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}
 
-
+	private void selectSPnodesWithRectangle() {
+		
+		RoadEditorPanel ep = getCenter();
+		
+		boolean found=ep.selectSPnodesWithRectangle(splines);
+		
+		if(found){
+			deselectAllObjects();
+			deselectAllLines();
+		}
+	}
 
 	private void selectPointsWithRectangle() {
 		
@@ -3790,7 +3800,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		
-		if(!isDrawCurrentRect || ACTIVE_PANEL==1)
+		if(!isDrawCurrentRect)
 			return;
 		
 		int buttonNum=arg0.getButton();
@@ -3804,9 +3814,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			selectPointsWithRectangle();
 		else if(mode==TERRAIN_POLYGONS_MODE)
 			selectPolygonsWithRectangle();
+		else if(mode==SPLINES_MODE)
+			selectSPnodesWithRectangle();
         draw();
        
 	}
+
+
 
 
 	private void updateSize(MouseEvent e) {

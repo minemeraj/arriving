@@ -163,6 +163,10 @@ public abstract class RoadEditorPanel extends JPanel {
 		return false;
 	}
 	
+	public boolean selectSPnodesWithRectangle(ArrayList<SPLine> splines) {
+		return false;
+	}
+	
 
 	public abstract boolean selectPolygons(int x, int y,PolygonMesh mesh);
 	
@@ -244,5 +248,6 @@ public abstract class RoadEditorPanel extends JPanel {
 	abstract double getDeltaY();
 
 	abstract double getDeltaX();
+
 
 }

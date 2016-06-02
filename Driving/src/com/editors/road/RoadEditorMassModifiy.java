@@ -373,10 +373,12 @@ public class RoadEditorMassModifiy extends JDialog implements ActionListener{
 
 						node.setY(minY);
 					}
-					
+					node.update();
 					
 				}		
 			}
+			
+			spline.update();
 		}	
 
 	}

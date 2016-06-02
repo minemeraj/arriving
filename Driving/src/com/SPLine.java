@@ -284,6 +284,12 @@ public class SPLine implements Cloneable{
 			}
 		}
 	}
+	
+	public void update(){
+		
+		calculateRibs();
+		calculate3DMeshes();
+	}
 
 	public ArrayList<Point3D> getvTexturePoints() {
 		return vTexturePoints;
