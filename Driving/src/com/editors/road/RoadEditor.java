@@ -1817,9 +1817,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private void deleteSelection() {
 		
-		if(ACTIVE_PANEL==TERRAIN_INDEX)
+		if(mode==TERRAIN_POINTS_MODE)
 			deleteTerrainSelection();
-		else if(ACTIVE_PANEL==ROAD_INDEX)
+		else if(mode==SPLINES_MODE)
 			deleteSelectedSPnode();
 			
 		

@@ -547,17 +547,7 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 	private void drawPolygonMesh(DrawObject dro,Rectangle rect,ZBuffer zbuffer) {
 
 		//System.out.println(rect.y+" "+rect.height+" "+(dro.y-POSY));
-			
-	
-		/*Point3D p=new Point3D(dro.getX(),dro.getY(),0);
-		p=buildTransformedPoint(p);
-		
-		if(!rect.contains(p.x,p.y) 
-			&& !rect.contains(p.x+rect.width,p.y) 
-			&& !rect.contains(p.x+rect.width,p.y+rect.height) 
-			&& !rect.contains(p.x,p.y+rect.height) 
-			)
-				return;*/
+
 		Polygon3D objBorder= dro.getBorder().clone();
 		
 		boolean found=false;
