@@ -1579,9 +1579,6 @@ public class Road extends Shader{
 
 
 		    	Polygon3D objBorder= dro.getBorder().clone();
-
-		    	Point3D center=Polygon3D.findCentroid(objBorder);
-				Polygon3D.rotate(objBorder,center,dro.getRotation_angle());
 				
 				if(getIntersection(objBorder,CAR_BORDER)!=null){
     				return false;
