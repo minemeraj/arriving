@@ -213,7 +213,7 @@ public class Airplane0Model extends MeshModel{
 		tailLeftWing[0][1][1]=addBPoint(-1.0,1.0,1.0,tlWing0);
 		tailLeftWing[1][1][1]=body[0][1][1];
 
-		/*
+
 
 		int trnx=2;
 		int trny=2;
@@ -221,7 +221,7 @@ public class Airplane0Model extends MeshModel{
 
 		BPoint[][][] tailRudder=new BPoint[trnx][trny][trnz];	
 
-		Segments rudder0=new Segments(0,back_width,0,back_length*0.25,z_side-back_height,back_height+71);
+		Segments rudder0=new Segments(0,back_width,0,dyRear*0.25,dz-back_height,back_height+71);
 
 		tailRudder[0][0][0]=body[0][0][1];
 		tailRudder[1][0][0]=body[1][0][1];
@@ -231,17 +231,6 @@ public class Airplane0Model extends MeshModel{
 
 		tailRudder[0][0][1]=addBPoint(0,0.0,1.0,rudder0);
 		tailRudder[0][1][1]=addBPoint(0.0,1.0,1.0,rudder0);
-
-		addLine(tailRudder[0][0][0],tailRudder[0][0][1],tailRudder[0][1][1],tailRudder[0][1][0],Renderer3D.CAR_LEFT);
-
-		//addLine(tailRudder[0][0][0],tailRudder[0][1][0],tailRudder[1][1][0],tailRudder[1][0][0],Renderer3D.CAR_BOTTOM);	
-
-		addLine(tailRudder[0][0][0],tailRudder[1][0][0],tailRudder[0][0][1],null,Renderer3D.CAR_BACK);
-
-		addLine(tailRudder[0][1][0],tailRudder[0][1][1],tailRudder[1][1][0],null,Renderer3D.CAR_FRONT);	
-
-		addLine(tailRudder[1][0][0],tailRudder[1][1][0],tailRudder[0][1][1],tailRudder[0][0][1],Renderer3D.CAR_RIGHT);
-		 */
 
 
 		//////wings
@@ -301,6 +290,7 @@ public class Airplane0Model extends MeshModel{
 		int NF=(numy-1)*4+2;//bofy
 		NF+=12;//wings
 		NF+=12;//tail wings
+		NF+=4;//rudder
 		faces=new int[NF][3][4];
 
 		int counter=0;
@@ -345,6 +335,11 @@ public class Airplane0Model extends MeshModel{
 		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, tailLeftWing[1][0][0],tailLeftWing[1][0+1][0],tailLeftWing[1][0+1][1],tailLeftWing[1][0][1], 0, 1, 2, 3);
 		faces[counter++]=buildFace(Renderer3D.CAR_TOP,tailLeftWing[0][0][1],tailLeftWing[1][0][1],tailLeftWing[1][0+1][1],tailLeftWing[0][0+1][1], 0, 1, 2, 3);
 		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, tailLeftWing[0][1][0],tailLeftWing[0][1][1],tailLeftWing[1][1][1],tailLeftWing[1][1][0], 0, 1, 2, 3);
+
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, tailRudder[0][0][0],tailRudder[1][0][0],tailRudder[0][0][1], 0, 1, 2);
+		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, tailRudder[0][0][0],tailRudder[0][0][1],tailRudder[0][0+1][1],tailRudder[0][0+1][0], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, tailRudder[1][0][0],tailRudder[0][0][1],tailRudder[0][0+1][1],tailRudder[1][1][0], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, tailRudder[0][1][0],tailRudder[0][1][1],tailRudder[1][1][0],0, 1, 2);
 
 		
 		IMG_WIDTH=(int) (2*bx+dx);
