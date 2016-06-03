@@ -163,7 +163,7 @@ public class Road extends Shader{
 			
 			Point3D startPosition = Editor.loadStartPosition(file);
 			POSX=(int) startPosition.x-WIDTH/2-CAR_WIDTH/2;
-			POSY=(int) startPosition.y-y_edge;
+			POSY=(int) startPosition.y;
 			
 		} catch (Exception e) {
 			e.printStackTrace();

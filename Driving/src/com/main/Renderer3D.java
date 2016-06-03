@@ -548,7 +548,8 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 
 		//System.out.println(rect.y+" "+rect.height+" "+(dro.y-POSY));
 			
-		Point3D p=new Point3D(dro.getX(),dro.getY(),0);
+	
+		/*Point3D p=new Point3D(dro.getX(),dro.getY(),0);
 		p=buildTransformedPoint(p);
 		
 		if(!rect.contains(p.x,p.y) 
@@ -556,7 +557,24 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 			&& !rect.contains(p.x+rect.width,p.y+rect.height) 
 			&& !rect.contains(p.x,p.y+rect.height) 
 			)
-				return;
+				return;*/
+		Polygon3D objBorder= dro.getBorder().clone();
+		
+		boolean found=false;
+		for (int i = 0; i < objBorder.npoints; i++) {
+			Point3D p=new Point3D(objBorder.xpoints[i],objBorder.ypoints[i],0);
+			p=buildTransformedPoint(p);
+			
+			if(rect.contains(p.x,p.y)){
+				
+				found=true;
+				break;
+			} 
+		}
+		
+		if(!found)
+			return;
+		
 		
 		PolygonMesh mesh = dro.getMesh();
 	    
