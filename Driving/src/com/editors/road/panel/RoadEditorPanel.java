@@ -179,6 +179,12 @@ public abstract class RoadEditorPanel extends JPanel {
 		return null;
 		
 	}
+	
+	public boolean selectObjectsWithRectangle(ArrayList<DrawObject> drawObjects) {
+		
+		return false;
+		
+	}
 
 	public boolean selectPoints(int x, int y, PolygonMesh mesh, LineData polygon) {
 		return false;

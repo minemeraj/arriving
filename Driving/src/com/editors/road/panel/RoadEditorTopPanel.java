@@ -1382,6 +1382,47 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		return ret;
 
 	}
+	
+	@Override
+	public boolean selectObjectsWithRectangle(ArrayList<DrawObject> drawObjects) {
+		
+		if(drawObjects==null)
+			return false;
+	
+		int x0=Math.min(editor.currentRect.x,editor.currentRect.x+editor.currentRect.width);
+		int x1=Math.max(editor.currentRect.x,editor.currentRect.x+editor.currentRect.width);
+		int y0=Math.min(editor.currentRect.y,editor.currentRect.y+editor.currentRect.height);
+		int y1=Math.max(editor.currentRect.y,editor.currentRect.y+editor.currentRect.height);
+
+
+		//select point from road
+		boolean found=false;
+		int sz=drawObjects.size();
+
+		for(int j=0;j<sz;j++){
+
+
+			DrawObject dro=(DrawObject)drawObjects.get(j);
+
+			int xo=convertX(dro.getX(),dro.getY(),dro.getZ());
+			int yo=convertY(dro.getX(),dro.getY(),dro.getZ());
+
+
+			if(xo>=x0 && xo<=x1 && yo>=y0 && yo<=y1  ){
+
+				dro.setSelected(true);
+				found=true;
+
+
+			}
+			else if(!editor.checkMultipleObjectsSelection.isSelected())
+				dro.setSelected(false);
+
+
+		}
+
+		return found;
+	}
 
 
 	private Polygon3D buildPolygon(LineData ld,Point3D[] points, boolean isReal) {

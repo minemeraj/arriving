@@ -3605,6 +3605,23 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 	}
+	
+
+
+
+
+	private void selectObjectsWithRectangle() {
+		
+		RoadEditorPanel ep = getCenter();
+		
+		boolean found=ep.selectObjectsWithRectangle(drawObjects);
+		
+		if(found){
+			deselectAllSPNodes();
+			deselectAllLines();
+		}
+		
+	}
 
 	private void selectSPnodesWithRectangle() {
 		
@@ -3816,11 +3833,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			selectPolygonsWithRectangle();
 		else if(mode==SPLINES_MODE)
 			selectSPnodesWithRectangle();
+		else if(mode==OBJECT_MODE)
+			selectObjectsWithRectangle();
         draw();
        
 	}
-
-
 
 
 	private void updateSize(MouseEvent e) {
