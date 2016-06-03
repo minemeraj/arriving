@@ -111,19 +111,22 @@ public class Ship0Model extends MeshModel{
 
 		double y=by;
 		double x=bx;
+		
+		double dxt=200;
+		double dyt=200;
 
 		//hull
 		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx, y+dy,0);
-		addTPoint(x,y+dy,0);
+		addTPoint(x+dxt,y,0);
+		addTPoint(x+dxt, y+dyt,0);
+		addTPoint(x,y+dyt,0);
 		
 		
 		 //main deck		
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx+dx,y,0);
-		addTPoint(x+dx+dx, y+dy,0);
-		addTPoint(x+dx,y+dy,0);
+		addTPoint(x+dxt,y,0);
+		addTPoint(x+dxt+dxt,y,0);
+		addTPoint(x+dxt+dxt, y+dyt,0);
+		addTPoint(x+dxt,y+dyt,0);
 
 		//faces
 		//hull
@@ -180,22 +183,22 @@ public class Ship0Model extends MeshModel{
 		
 		
 		//mainBridge
-		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, mainBridge[0][0],mainBridge[0][3],mainBridge[0][2],mainBridge[0][1], c0, c1, c2, c3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, mainBridge[0][0],mainBridge[0][3],mainBridge[0][2],mainBridge[0][1], c4,c5,c6,c7);
 		
 		for (int k = 0; k < 2-1; k++) {
 			
-			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, mainBridge[k][0],mainBridge[k+1][0],mainBridge[k+1][3],mainBridge[k][3], c0, c1, c2, c3);
-			faces[counter++]=buildFace(Renderer3D.CAR_BACK, mainBridge[k][0],mainBridge[k][1],mainBridge[k+1][1],mainBridge[k+1][0], c0, c1, c2, c3);
-			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, mainBridge[k][1],mainBridge[k][2],mainBridge[k+1][2],mainBridge[k+1][1], c0, c1, c2, c3);
-			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, mainBridge[k][2],mainBridge[k][3],mainBridge[k+1][3],mainBridge[k+1][2], c0, c1, c2, c3);
+			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, mainBridge[k][0],mainBridge[k+1][0],mainBridge[k+1][3],mainBridge[k][3], c4,c5,c6,c7);
+			faces[counter++]=buildFace(Renderer3D.CAR_BACK, mainBridge[k][0],mainBridge[k][1],mainBridge[k+1][1],mainBridge[k+1][0], c4,c5,c6,c7);
+			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, mainBridge[k][1],mainBridge[k][2],mainBridge[k+1][2],mainBridge[k+1][1], c4,c5,c6,c7);
+			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, mainBridge[k][2],mainBridge[k][3],mainBridge[k+1][3],mainBridge[k+1][2], c4,c5,c6,c7);
 			
 		}
 		
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainBridge[2-1][0],mainBridge[2-1][1],mainBridge[2-1][2],mainBridge[2-1][3], c0, c1, c2, c3);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainBridge[2-1][0],mainBridge[2-1][1],mainBridge[2-1][2],mainBridge[2-1][3], c4,c5,c6,c7);
 		
 
-		IMG_WIDTH=(int) (2*bx+dx+dx);
-		IMG_HEIGHT=(int) (2*by+dy);
+		IMG_WIDTH=(int) (2*bx+dxt+dxt);
+		IMG_HEIGHT=(int) (2*by+dyt);
 
 	}
 	
@@ -211,10 +214,10 @@ public class Ship0Model extends MeshModel{
 	public void printTexture(Graphics2D bufGraphics) {
 
 			
-			bufGraphics.setColor(Color.BLACK);
+			bufGraphics.setColor(Color.RED);
 			printTexturePolygon(bufGraphics, 0,1,2,3);
 
-			bufGraphics.setColor(Color.RED);
+			bufGraphics.setColor(Color.BLACK);
 			printTexturePolygon(bufGraphics, 4,5,6,7);
 	}
 

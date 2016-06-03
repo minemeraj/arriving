@@ -1,6 +1,9 @@
 Review of landscape_city0.
 Review of landscape_harbour.
 
+Added a very big new object:
+/lib/object3D_25 (Ship container carrier)
+
 Custom city revision.
 mass modify improvement.
 
