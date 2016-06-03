@@ -280,11 +280,14 @@ public class Airplane0Model extends MeshModel{
 
 		double y=by;
 		double x=bx;
+		
+		double dxt=200;
+		double dyt=200;
 
 		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx, y+dy,0);
-		addTPoint(x,y+dy,0);
+		addTPoint(x+dxt,y,0);
+		addTPoint(x+dxt, y+dyt,0);
+		addTPoint(x,y+dyt,0);
 
 		//faces
 		int NF=(numy-1)*4+2;//bofy
@@ -342,8 +345,8 @@ public class Airplane0Model extends MeshModel{
 		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, tailRudder[0][1][0],tailRudder[0][1][1],tailRudder[1][1][0],0, 1, 2);
 
 		
-		IMG_WIDTH=(int) (2*bx+dx);
-		IMG_HEIGHT=(int) (2*by+dy);
+		IMG_WIDTH=(int) (2*bx+dxt);
+		IMG_HEIGHT=(int) (2*by+dyt);
 
 	}
 
