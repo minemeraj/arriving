@@ -140,7 +140,6 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 		car_type.setBounds(column, r, 110, 20);
 		car_type.addKeyListener(this);
 		car_type.addItem(new ValuePair("-1",""));
-		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_AIRPLANE,"Airplane"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_BYKE,"Byke"));
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_CAR,"Car"));		
 		car_type.addItem(new ValuePair(""+Car.CAR_TYPE_F1_CAR,"F1 Car"));
@@ -519,31 +518,6 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 		
 	}
 	
-	private void initRightAirplaneData() {
-		
-		x_side.setText(48);
-		y_side.setText(250);
-		z_side.setText(45);
-		
-		back_width.setText(21);
-		back_length.setText(143);
-		back_height.setText(13);
-		front_width.setText(25);
-		front_length.setText(57);
-		front_height.setText(25);
-		
-		roof_width.setText(181);
-		roof_length.setText(119);
-		roof_height.setText(29);
-		
-		wheel_radius.setText(22);
-		wheel_width.setText(0);
-		
-		front_overhang.setText(0);
-		wheel_base.setText(0);
-		rear_overhang.setText(0);
-		
-	}
 
 
 	private void initRightRailroadCarData(int type) {
@@ -929,8 +903,6 @@ public class CarsEditor extends CustomEditor implements ItemListener{
 					   type==Car.CAR_TYPE_RAILROAD_CAR_4 
 					   )
 				   initRightRailroadCarData(type); 
-			   else if(type==Car.CAR_TYPE_AIRPLANE)
-				   initRightAirplaneData();
 			   else if(type==Car.CAR_TYPE_STARSHIP)
 				   initRightStarshipData();
 			   else if(type==Car.CAR_TYPE_F1_CAR)
