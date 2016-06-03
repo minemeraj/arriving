@@ -29,13 +29,22 @@ public class Ship0Model extends MeshModel{
 	private double dyr = 0;
 	private double dzr = 0;
 	
+	private double dxRoof = 0;
+	private double dyRoof = 0;
+	private double dzRoof = 0;
+
+	
 	double x0=0;
 	double y0=0;
 	double z0=0;
 	
 	private int[][][] faces;
 	
-	public Ship0Model(double dx, double dy, double dz, double dxr, double dyr, double dzr) {
+	public Ship0Model(
+			double dx, double dy, double dz, 
+			double dxr, double dyr, double dzr,
+			double dxRoof, double dyRoof, double dzRoof
+			) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
@@ -44,6 +53,10 @@ public class Ship0Model extends MeshModel{
 		this.dxr = dxr;
 		this.dyr = dyr;
 		this.dzr = dzr;
+		
+		this.dxRoof = dxRoof;
+		this.dyRoof = dyRoof;
+		this.dzRoof = dzRoof;
 	}
 
 
@@ -92,7 +105,7 @@ public class Ship0Model extends MeshModel{
 		hull[2][7]=addBPoint(0.875, 1.0, 0.35,s0);
 		hull[2][8]=addBPoint(1.0, 1.0, 1.0,s0);
 		
-		Segments s1=new Segments(x0,dxr,y0,dyr,z0+dz,dzr);
+		Segments s1=new Segments(x0,dxRoof,y0+dyr,dyRoof,z0+dz,dzRoof);
 		
 		BPoint[][] mainBridge=new BPoint[2][4];
 		

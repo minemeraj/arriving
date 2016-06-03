@@ -266,7 +266,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		else if(val==TRUCK0)
 			meshModel=new Truck0Model(dx,dy,dz,dxf,dyf,dzf,dxr,dyr,dzr);
 		else if(val==SHIP0)
-			meshModel=new Ship0Model(dx,dy,dz,dxr,dyr,dzr);
+			meshModel=new Ship0Model(dx,dy,dz,dxr,dyr,dzr,dxRoof,dyRoof,dzRoof);
 		else if(val==STARSHIP0)
 			meshModel=new StarShip0Model(dx,dy,dz,dxf,dyf,dzf,dxr,dyr,dzr);
 		else if(val==AIRPLANE0){
@@ -319,7 +319,10 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 			else if(TRUCK0==val)
 				setRightData(151,350,109,151,150,109,151,400,50,0,0,0);
 			else if(SHIP0==val)
-				setRightData(718,4550,458,0,0,0,718,364,598,0,0,0);
+				setRightData(718,4550,458,
+						0,0,0,
+						0,161,0,
+						718,364,598);
 			else if(STARSHIP0==val)
 				setRightData(50,200,50,150,150,50,50,250,50,0,0,0);
 			else if(AIRPLANE0==val)
