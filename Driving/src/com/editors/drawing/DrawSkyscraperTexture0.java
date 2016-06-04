@@ -22,8 +22,9 @@ public class DrawSkyscraperTexture0 {
 	int window_width=26;
 	int window_height=52;
 	
-	double intervalX=10;
-	double intervalY=20;
+	double intervalXW=10;
+	double intervalXL=10;
+	double intervalY=3*26-window_height;
 	
 	public static void main(String[] args) {
 		
@@ -45,11 +46,13 @@ public class DrawSkyscraperTexture0 {
 		File file=new File("texture.jpg");
 		
 
-		int nbx=(int) (building_w/(window_width+intervalX));
+		int nbxw=(int) (building_w/(window_width+intervalXW));
+		int nbxl=(int) (building_l/(window_width+intervalXW));
 		int nby=(int) (building_h/(window_height+intervalY));
 		
 		//recalculate intervals
-		intervalX=(building_w-window_width*nbx)/(nbx+1);
+		intervalXW=(building_w-window_width*nbxw)/(nbxw+1);
+		intervalXL=(building_l-window_width*nbxl)/(nbxl+1);
 		intervalY=(building_h-window_height*nby)/(nby+1);
 		
 		
@@ -71,18 +74,18 @@ public class DrawSkyscraperTexture0 {
 	    	//faces	    	
 	    	
 	    	//BACK
+	    	
 	    	y+=building_l;
 	    	bufGraphics.setColor(WALL_COLOR);
-	    	bufGraphics.fillRect(x, h-(y+building_h), building_w, building_h);
-	    	
+	    	bufGraphics.fillRect(x, h-(y+building_h), building_w, building_h);	    	
 	    	bufGraphics.setColor(WINDOW_COLOR);
-			for(int ii=0;ii<nbx;ii++){
+			for(int ii=0;ii<nbxw;ii++){
 				
 				
 
 				for(int jj=0;jj<nby;jj++){
 					
-					double dpx=intervalX+ii*(intervalX+window_width);
+					double dpx=intervalXW+ii*(intervalXW+window_width);
 					double dpy=intervalY+jj*(intervalY+window_height);
 					
 					bufGraphics.fillRect(
@@ -94,21 +97,80 @@ public class DrawSkyscraperTexture0 {
 				}
 			}	
 	    	
-	    	x+=building_w;
+	    	
 	    	
 	    	//RIGHT
+			x+=building_w;
+			
 	    	bufGraphics.setColor(WALL_COLOR);
 	    	bufGraphics.fillRect(x, h-(y+building_h), building_l, building_h);
-	    	
-	    	x+=building_l;
-	    	//FRONT
+	    	bufGraphics.setColor(WINDOW_COLOR);
+			for(int ii=0;ii<nbxl;ii++){
+				
+				
+
+				for(int jj=0;jj<nby;jj++){
+					
+					double dpx=intervalXL+ii*(intervalXL+window_width);
+					double dpy=intervalY+jj*(intervalY+window_height);
+					
+					bufGraphics.fillRect(
+							(int)(x+dpx), 
+							(int)(h-(y+building_h-dpy)), 
+							window_width, 
+							window_height);
+					
+				}
+			}	
+			
+			//FRONT
+	    	x+=building_l;	    	
 	    	bufGraphics.setColor(WALL_COLOR);
-	    	bufGraphics.fillRect(x, h-(y+building_h), building_w, building_h);
+	    	bufGraphics.fillRect(x, h-(y+building_h), building_w, building_h);	    	
+	    	bufGraphics.setColor(WINDOW_COLOR);
+			for(int ii=0;ii<nbxw;ii++){
+				
+				
+
+				for(int jj=0;jj<nby;jj++){
+					
+					double dpx=intervalXW+ii*(intervalXW+window_width);
+					double dpy=intervalY+jj*(intervalY+window_height);
+					
+					bufGraphics.fillRect(
+							(int)(x+dpx), 
+							(int)(h-(y+building_h-dpy)), 
+							window_width, 
+							window_height);
+					
+				}
+			}	
 	    	
-	    	x+=building_w;
+	    	
 	    	//LEFT
+			
+			x+=building_w;
+			
 	    	bufGraphics.setColor(WALL_COLOR);
 	    	bufGraphics.fillRect(x, h-(y+building_h), building_l, building_h);
+	    	bufGraphics.setColor(WINDOW_COLOR);
+			for(int ii=0;ii<nbxl;ii++){
+				
+				
+
+				for(int jj=0;jj<nby;jj++){
+					
+					double dpx=intervalXL+ii*(intervalXL+window_width);
+					double dpy=intervalY+jj*(intervalY+window_height);
+					
+					bufGraphics.fillRect(
+							(int)(x+dpx), 
+							(int)(h-(y+building_h-dpy)), 
+							window_width, 
+							window_height);
+					
+				}
+			}	
 	        
 	    	x=bx;
 	    	y+=building_h;
