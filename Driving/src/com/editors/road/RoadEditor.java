@@ -3089,7 +3089,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 			//right button click
 			if(buttonNum==MouseEvent.BUTTON3)
-				//addObject(arg0);
 				addSPnode(arg0);
 			else{
 				selectSPNode(arg0.getX(),arg0.getY());	
