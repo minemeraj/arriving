@@ -1,5 +1,6 @@
 Review of landscape_city0.
 Review of landscape_harbour.
+Review of landscape_highway
 
 Added a very big new object:
 /lib/object3D_25 (Ship container carrier)
