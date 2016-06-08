@@ -55,7 +55,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	protected int POSX=0;
 	protected int POSY=0;
 	
-	private int minMovement=10;
+	private int minMovement=5;
 
 	public RoadEditorIsoPanel(RoadEditor editor, int WIDTH,int HEIGHT) {
 		
@@ -86,8 +86,8 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		
 		selectionColor=new Color(255,0,0,127);
 		
-		xMovement=minMovement;
-		yMovement=minMovement;
+		xMovement=2*minMovement;
+		yMovement=2*minMovement;
 
 	}
 
@@ -1242,13 +1242,13 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	}
 	
 	public void mouseDown() {
-		y0+=5;
+		y0+=xMovement;
 		
 	}
 
 
 	public void mouseUp() {
-		y0-=5;
+		y0-=yMovement;
 		
 	}
 	

@@ -34,7 +34,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	private int deltax=2;
 	private int deltay=2;
 
-	private int minMovement=10;
+	private int minMovement=5;
 
 
 	public RoadEditorTopPanel(RoadEditor editor, int cENTER_WIDTH,int cENTER_HEIGHT) {
@@ -47,8 +47,8 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	public void initialize() {
 
 		selectionColor=new Color(255,0,0,127);
-		xMovement=minMovement;
-		yMovement=minMovement;
+		xMovement=2*minMovement;
+		yMovement=2*minMovement;
 
 	}
 

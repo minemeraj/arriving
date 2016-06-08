@@ -11,6 +11,11 @@ mass modify improvement.
 
 Added rectangle selection for spnodes and objects.
 
+New Menu in the RoadEditor:
+View->+ motion
+View->- motion
+To move aroound with faster or slower movements
+
 --- 28/05/2016 CarDriving 9.0.5
 
 New water rendering.
