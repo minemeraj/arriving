@@ -3160,7 +3160,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		RoadEditorPanel ep = getCenter();
 		
-		if(ACTIVE_PANEL==TERRAIN_INDEX)
+		if(mode!=SPLINES_MODE)
 			return;
 		
 		prepareUndo();
