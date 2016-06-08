@@ -2030,14 +2030,18 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private void deleteObject() {
 
 		prepareUndoObjects();
-		
-		for(int i=0;i<drawObjects.size();i++){
+		ArrayList<DrawObject> filteredRoadObjects=new ArrayList<DrawObject>();
+		int sz=drawObjects.size();
+		for(int i=0;i<sz;i++){
 			
 			DrawObject dro=(DrawObject) drawObjects.get(i);
 			if(dro.isSelected())
-				drawObjects.remove(dro);
+				continue;
+			
+			filteredRoadObjects.add(dro);
 		}
-
+		drawObjects=filteredRoadObjects;
+		firePropertyChange("RoadEditorUpdate", false, true);
 	}
 
 	
