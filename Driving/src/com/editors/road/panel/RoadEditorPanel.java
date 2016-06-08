@@ -49,7 +49,8 @@ public abstract class RoadEditorPanel extends JPanel {
 	protected double gg=0;
 	protected double bb=0;
 	
-
+	protected int xMovement=0;
+	protected int yMovement=0;
 
 	RoadEditorPanel(RoadEditor editor,
 			int cENTER_WIDTH, int cENTER_HEIGHT) {
@@ -254,6 +255,8 @@ public abstract class RoadEditorPanel extends JPanel {
 	abstract double getDeltaY();
 
 	abstract double getDeltaX();
+
+	public abstract void changeMotionIncrement(int i);
 
 
 }

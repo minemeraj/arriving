@@ -34,7 +34,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	private int deltax=2;
 	private int deltay=2;
 
-
+	private int minMovement=10;
 
 
 	public RoadEditorTopPanel(RoadEditor editor, int cENTER_WIDTH,int cENTER_HEIGHT) {
@@ -47,7 +47,8 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	public void initialize() {
 
 		selectionColor=new Color(255,0,0,127);
-
+		xMovement=minMovement;
+		yMovement=minMovement;
 
 	}
 
@@ -985,8 +986,8 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 	@Override
 	public void translate(int i, int j) {
-		MOVX=MOVX+i*10;
-		MOVY=MOVY+j*10;
+		MOVX=MOVX+i*xMovement;
+		MOVY=MOVY+j*yMovement;
 
 	}
 
@@ -1610,6 +1611,25 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	@Override
 	double getDeltaX() {
 		return deltax;
+	}
+
+	@Override
+	public void changeMotionIncrement(int i) {
+		if(i>0){
+			
+			xMovement=2*xMovement;
+			yMovement=2*yMovement;
+			
+		}else{
+			
+			if(xMovement==minMovement)
+				return;
+			
+			xMovement=xMovement/2;
+			yMovement=yMovement/2;
+			
+		}
+		
 	}
 
 

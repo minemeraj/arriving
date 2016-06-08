@@ -249,6 +249,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	int SPLINE_PANEL=1;
 	private JMenu other_jm;
 	private JMenuItem mass_modify_jmt;
+	private JMenuItem jmt_faster_motion;
+	private JMenuItem jmt_slower_motion;
 	
 	
 	
@@ -649,6 +651,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		jmt_3d_view=new JMenuItem("3D view");
 		jmt_3d_view.addActionListener(this);
 		jm_view.add(jmt_3d_view);
+		
+		jm_view.addSeparator();
+		
+		jmt_faster_motion=new JMenuItem("+ motion");
+		jmt_faster_motion.addActionListener(this);
+		jm_view.add(jmt_faster_motion);
+		
+		jmt_slower_motion=new JMenuItem("- motion");
+		jmt_slower_motion.addActionListener(this);
+		jm_view.add(jmt_slower_motion);
 		
 		jm_view.addSeparator();
 		
@@ -2542,11 +2554,20 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			rotation_angle.setText(Math.PI*0.5);
 		}else if(obj==jmt_goto_view){
 			goToPosition();
+		}else if(obj==jmt_faster_motion){
+			changeMotionIncrement(+1);
+		}else if(obj==jmt_slower_motion){
+			changeMotionIncrement(-1);
 		}
 		
 		
 	}
 
+
+	private void changeMotionIncrement(int i) {
+		getCenter().changeMotionIncrement(i);
+		
+	}
 
 
 

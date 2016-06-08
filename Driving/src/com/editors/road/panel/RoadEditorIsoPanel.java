@@ -54,6 +54,8 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	
 	protected int POSX=0;
 	protected int POSY=0;
+	
+	private int minMovement=10;
 
 	public RoadEditorIsoPanel(RoadEditor editor, int WIDTH,int HEIGHT) {
 		
@@ -83,6 +85,9 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		POSY=1000;
 		
 		selectionColor=new Color(255,0,0,127);
+		
+		xMovement=minMovement;
+		yMovement=minMovement;
 
 	}
 
@@ -1199,8 +1204,8 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	@Override
 	public void translate(int i, int j) {
 		
-		POSX+=i*4*deltax;
-		POSY-=j*4*deltax;
+		POSX+=i*xMovement*deltax;
+		POSY-=j*yMovement*deltax;
 	}
 	
 
@@ -1358,6 +1363,25 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	@Override
 	double getDeltaX() {
 		return deltax;
+	}
+
+	@Override
+	public void changeMotionIncrement(int i) {
+		if(i>0){
+			
+			xMovement=2*xMovement;
+			yMovement=2*yMovement;
+			
+		}else{
+			
+			if(xMovement==minMovement)
+				return;
+			
+			xMovement=xMovement/2;
+			yMovement=yMovement/2;
+			
+		}
+		
 	}
 
 }
