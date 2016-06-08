@@ -1093,7 +1093,12 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 		Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
 
-
+		int x0=Math.min(editor.currentRect.x,editor.currentRect.x+editor.currentRect.width);
+		int x1=Math.max(editor.currentRect.x,editor.currentRect.x+editor.currentRect.width);
+		int y0=Math.min(editor.currentRect.y,editor.currentRect.y+editor.currentRect.height);
+		int y1=Math.max(editor.currentRect.y,editor.currentRect.y+editor.currentRect.height);
+		
+		Rectangle intersectionRectangle=new Rectangle(x0, y0, x1-x0, y1-y0);
 
 		//select polygon
 		int sizel=mesh.polygonData.size();
@@ -1108,7 +1113,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			boolean selected=false;	
 
-			if(isVisible && Polygon3D.isIntersect(pol, editor.currentRect.getBounds()) ){
+			if(isVisible && Polygon3D.isIntersect(pol,intersectionRectangle ) ){
 
 				ld.setSelected(true);
 				found=true;
