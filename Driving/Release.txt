@@ -6,6 +6,9 @@ Review of landscape_smalltown
 Added a very big new object:
 /lib/object3D_25 (Ship container carrier)
 
+New spline:
+/lib/spline_mesh_6 (Parking)
+
 Custom city revision.
 mass modify improvement.
 
