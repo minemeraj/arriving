@@ -28,10 +28,15 @@ public class DrawSkyscraperTexture0 {
 	
 	public static void main(String[] args) {
 		
-		int building_w=200;	
-		int building_l=300;
-		int building_h=400;
+		String skyscraper20_40_100=	
+				"int building_w=520;"
+				+ "int building_l=1040;"
+				+ "int building_h=2600;";
 		
+		int building_w=520;	
+		int building_l=1040;
+		int building_h=2600;
+
 		DrawSkyscraperTexture0 sky=new DrawSkyscraperTexture0();
 		sky.draw0(building_w,building_l,building_h);
 	}

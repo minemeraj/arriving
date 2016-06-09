@@ -570,6 +570,8 @@
 	building block_5=23.1m x 23.1m x 15.4m 
 	building block_6(tower) radius=3.8m, h=15.4m 
 	
+	skyscraper_0=20X40X100m (Torre Breda Milano)
+	
 	City0 blocks have size 100m X 60m
 	
 	

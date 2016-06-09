@@ -9,6 +9,9 @@ Added a very big new object:
 New spline:
 /lib/spline_mesh_6 (Parking)
 
+new object:
+/lib/object3D_26 (Skyscraper 20X40X100m)
+
 Custom city revision.
 mass modify improvement.
 
