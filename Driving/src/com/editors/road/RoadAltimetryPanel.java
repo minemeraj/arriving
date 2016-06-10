@@ -390,31 +390,31 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 		} 
 
 		g2.setColor(Color.WHITE);
-		
-		for(int j=0;j<mesh.points.length;j++){
-
-
-			Point4D p=(Point4D)mesh.points[j];
-
-
-
-			if(p.isSelected())
-				g2.setColor(Color.RED);
-			else
-				g2.setColor(Color.WHITE);
-
-			double x=p.x;
-			double y=p.y;
-
-			int xp=convertX(x);
-			int yp=convertY(y);
-			//System.out.println(xp+" "+yp);
-
-			if(xp>=0 && xp<WIDTH && yp>=0 && yp<HEIGHT)
-				g2.fillOval(xp-2, yp-2,5,5);
-
+		if(dx<16){
+			for(int j=0;j<mesh.points.length;j++){
+	
+	
+				Point4D p=(Point4D)mesh.points[j];
+	
+	
+	
+				if(p.isSelected())
+					g2.setColor(Color.RED);
+				else
+					g2.setColor(Color.WHITE);
+	
+				double x=p.x;
+				double y=p.y;
+	
+				int xp=convertX(x);
+				int yp=convertY(y);
+				//System.out.println(xp+" "+yp);
+	
+				if(xp>=0 && xp<WIDTH && yp>=0 && yp<HEIGHT)
+					g2.fillOval(xp-2, yp-2,5,5);
+	
+			}
 		}
-
 
 
 

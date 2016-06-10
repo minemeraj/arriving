@@ -1666,9 +1666,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 				if(p.isSelected()){
 
-					if(!"".equals(coordinatesx[ACTIVE_PANEL].getText()))
+					if(!"".equals(coordinatesx[ACTIVE_PANEL].getText()) && !checkMultiplePointsSelection[ACTIVE_PANEL].isSelected())
 						p.x=Double.parseDouble(coordinatesx[ACTIVE_PANEL].getText());
-					if(!"".equals(coordinatesy[ACTIVE_PANEL].getText()))
+					if(!"".equals(coordinatesy[ACTIVE_PANEL].getText()) && !checkMultiplePointsSelection[ACTIVE_PANEL].isSelected())
 						p.y=Double.parseDouble(coordinatesy[ACTIVE_PANEL].getText());
 					if(!"".equals(coordinatesz[ACTIVE_PANEL].getText()))
 						p.z=Double.parseDouble(coordinatesz[ACTIVE_PANEL].getText());
