@@ -56,7 +56,9 @@ class Autocar {
 	
 	private int autocar_index=-1;
 
-
+	private int NO_POSITION=-1;
+	private int current_road_point_position=NO_POSITION;
+	
 	private void init(double x,double y,double u,double nu,double fi,double steering,double linePosition){
 		
 		
@@ -105,39 +107,20 @@ class Autocar {
 		
 		double deviationAngle=0;
 		
-		Point3D nearestPoint=calculateNearestPoint();
+		Point3D nearestPoint=null;
+		
+		if(current_road_point_position==NO_POSITION){		
+			nearestPoint=calculateNearestPoint();
+			return;
+		}else{
+			nearestPoint=calculateNextPoint();
+		}
 		if(nearestPoint!=null){
 			deviationAngle=calculateSteeringCorrection(nearestPoint);
 		}
-		////////
+		//System.out.println(nearestPoint);
+		//System.out.println(current_road_point_position);
 		
-		////old steering:
-
-		/*Polygon polyCar=buildCarBox((int)center.x,(int)center.y,(int)center.z);
-		
-		double position=calculateLinePosition(polyCar);
-
-		if(position/car_width>=0.25 && position/car_width<=0.75){
-
-			linePosition=position;
-			
-			steering=0;
-			
-		}
-		else if(linePosition>=0) {
-			
-			if(linePosition>car_width/2.0)
-				steering=-1;
-			else
-				steering=+1;
-
-			
-		}*/
-		
-	
-		
-		
-
 		if(Math.abs(deviationAngle)<0.2){
 			
 			
@@ -167,6 +150,8 @@ class Autocar {
 	}
 	
 	
+
+
 	public int getAutocar_index() {
 		return autocar_index;
 	}
@@ -227,43 +212,95 @@ class Autocar {
 	
 		
 	}
-	
+	/**
+	 * 
+	 * Calculate the nearer point along the road orbit
+	 * 
+	 * @return
+	 */
 	private Point3D calculateNearestPoint(){
-		
+
 		Point3D nearestPoint=null;
 		double minDistance=-1;
-		
-		
+
+		//search only point in front of the car
+		Point3D direction=getDirection();
+
 		for (int j = 0; j < car_road.length; j++) {
 
 			Point3D p1=car_road[j];
 			double distance=Point3D.distance(p1.x, p1.y, 0,center.x,center.y,0);
-			
+
 			//exclude inner or current point
 			if(distance<car_length)
 				continue;
-
-			//search only point in front of the car
-			Point3D direction=getDirection();
-			
 			double cos=Point3D.calculateDotProduct(p1.substract(center), direction);
-			
+
 			if(cos<0)
 				continue;
-			
+
 			if(nearestPoint==null){
-				
+
 				nearestPoint=p1;
 				minDistance=distance;
-				
+				current_road_point_position=j;
+
 			}else if(minDistance>distance){
-				
+
 				nearestPoint=p1;
 				minDistance=distance;
+				current_road_point_position=j;
 			}
 		}	
-		
+
+
+
 		return nearestPoint;
+	}
+	/**
+	 * 
+	 * Calculate the nearer point along the road orbit,
+	 * from an already available point
+	 * 
+	 * @return
+	 */
+	private Point3D calculateNextPoint() {
+		
+		Point3D direction=getDirection();
+		
+		Point3D pCurrent=car_road[current_road_point_position];
+		
+		double distance=Point3D.distance(pCurrent.x, pCurrent.y, 0,center.x,center.y,0);
+
+		//exclude inner or current point
+		if(distance>car_length)
+			return pCurrent;
+		
+		int nextIndex=(current_road_point_position+1)%car_road.length;
+		int prevIndex=NO_POSITION;
+		if(current_road_point_position-1>=0)
+			prevIndex=current_road_point_position-1;
+		else
+			prevIndex=car_road.length-1;
+			
+		Point3D pNext=car_road[nextIndex];
+		Point3D pPrev=car_road[prevIndex];	
+		
+		double cos1=Point3D.calculateDotProduct(pNext.substract(pCurrent), direction);
+		double cos2=Point3D.calculateDotProduct(pPrev.substract(pCurrent), direction);
+		
+		if(cos1>=cos2){
+			
+			current_road_point_position=nextIndex;
+			return pNext;
+			
+		}else{
+			
+			
+			current_road_point_position=prevIndex;
+			return pPrev;
+		}
+
 	}
 	
 	private Point3D getDirection() {
@@ -272,6 +309,7 @@ class Autocar {
 		
 		return direction;
 	}
+
 
 	private double calculateSteeringCorrection(Point3D targetPoint){
 		
@@ -301,7 +339,7 @@ class Autocar {
 		return angle;
 		
 	}
-	
+	@Deprecated
 	private double calculateLinePosition(Polygon p) {
 		
 		double pos=-1;
