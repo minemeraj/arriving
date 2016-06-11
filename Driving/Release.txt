@@ -6,6 +6,7 @@ Review of landscape_smalltown
 Added very big new objects:
 /lib/object3D_25 (Ship container carrier)
 /lib/object3D_26 (Skyscraper 20X40X100m)
+/lib/object3D_27 (Skyscraper 25X36X50m)
 
 New spline:
 /lib/spline_mesh_6 (Parking)
