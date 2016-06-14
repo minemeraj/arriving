@@ -230,9 +230,6 @@ class Autocar {
 			Point3D p1=car_road[j];
 			double distance=Point3D.distance(p1.x, p1.y, 0,center.x,center.y,0);
 
-			//exclude inner or current point
-			//if(distance<car_length)
-			//	continue;
 			/*double cos=Point3D.calculateDotProduct(p1.substract(center), direction);
 
 			if(cos<0)
@@ -264,8 +261,6 @@ class Autocar {
 	 * @return
 	 */
 	private Point3D calculateNextTarget() {
-		
-		Point3D direction=getDirection();
 		
 		Point3D pCurrentTarget=car_road[current_road_point_target];
 		
