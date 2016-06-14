@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -19,12 +21,16 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.RepaintManager;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
@@ -32,8 +38,9 @@ import javax.swing.event.MenuListener;
 import com.Point3D;
 import com.PolygonMesh;
 import com.editors.Editor;
+import com.editors.IntegerTextField;
 
-public class ImageTracer extends Editor implements MenuListener,PropertyChangeListener, ActionListener, MouseListener{
+public class ImageTracer extends Editor implements MenuListener,PropertyChangeListener, ActionListener, MouseListener,KeyListener{
 
 
 
@@ -60,6 +67,16 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 	ArrayList<Point3D> points=null;
 
+	private JList pointList=null;
+	private IntegerTextField image_width;
+	private IntegerTextField image_height;
+	private IntegerTextField image_x;
+	private IntegerTextField image_y;
+	private int imageX=0;
+	private int imageY=0;
+	private int imageWidth=0;
+	private int imageHeight=0;
+	private JButton btnChangeImage;
 
 	public static void main(String[] args) {
 
@@ -81,6 +98,10 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		getContentPane().add(center);
 
 		buildMenuBar();
+		
+		buildImageMenu();
+		
+		buildPointsMenu();
 
 		RepaintManager.setCurrentManager( 
 				new RepaintManager(){
@@ -99,6 +120,114 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		initialize();
 
 		setVisible(true);
+	}
+
+	private void buildPointsMenu() {
+		
+		JPanel right=new JPanel();
+		right.setBounds(0, LEFT_BORDER+WIDTH,RIGHT_BORDER,HEIGHT);
+		right.setLayout(null);
+		
+		pointList=new JList();
+		
+		int r=10;
+		
+		JScrollPane jsp=new JScrollPane(pointList);
+		JPanel lowpane=new JPanel();
+		lowpane.setBounds(5,r,300,220); 
+		
+		right.add(lowpane);
+		
+		getContentPane().add(right);
+		
+		
+	}
+
+	private void buildImageMenu() {
+		
+		
+		JPanel left=new JPanel();
+		left.setBounds(0, 0, LEFT_BORDER, HEIGHT);
+		left.setLayout(null);
+		
+		int r=10;
+		int col0=5;		
+		int col1=90;
+		
+		JLabel label=new JLabel("Img width");
+		label.setBounds(col0, r, 80, 20);
+		left.add(label);
+		
+		image_width = new IntegerTextField(6);
+		image_width.setBounds(col1, r, 100, 20);
+		left.add(image_width);
+		
+		r+=30;
+		
+		label=new JLabel("Img heigth");
+		label.setBounds(col0, r, 80, 20);
+		left.add(label);
+		
+		image_height= new IntegerTextField(6);
+		image_height.setBounds(col1, r, 100, 20);
+		left.add(image_height);
+		
+		r+=30;
+		
+		label=new JLabel("Img x");
+		label.setBounds(col0, r, 80, 20);
+		left.add(label);
+		
+		image_x= new IntegerTextField(6);
+		image_x.setBounds(col1, r, 100, 20);
+		image_x.setText(imageX);
+		left.add(image_x);
+		
+		r+=30;
+		
+		label=new JLabel("Img y");
+		label.setBounds(col0, r, 80, 20);
+		left.add(label);
+		
+		image_y= new IntegerTextField(6);
+		image_y.setBounds(col1, r, 100, 20);
+		image_y.setText(imageY);
+		left.add(image_y);
+		
+		r+=30;
+		btnChangeImage=new JButton("Change image");
+		btnChangeImage.setBounds(col0, r, 120, 20);
+		btnChangeImage.addActionListener(this);
+		left.add(btnChangeImage);
+		
+		getContentPane().add(left);
+		
+	}
+
+	private void setImagedata() {
+		
+		imageWidth=backgroundImage.getWidth();		
+		image_width.setText(imageWidth);
+		image_x.setText(0);
+		
+		imageHeight=backgroundImage.getHeight();
+		image_height.setText(imageHeight);
+		image_y.setText(0);
+		
+		draw();
+	}
+	
+	
+	private void changeImage() {
+		
+		imageX=image_x.getvalue();
+		imageY=image_y.getvalue();
+		
+		imageWidth=image_width.getvalue();
+		imageHeight=image_height.getvalue();
+		
+		draw();
+		
 	}
 
 	private void initialize() {
@@ -151,9 +280,10 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	private void buildScreen(Graphics bufferGraphics) {
 
 		bufferGraphics.setColor(BACKGROUND_COLOR);
+		bufferGraphics.fillRect(0, 0, WIDTH, HEIGHT);
 
 		if(backgroundImage!=null)
-			bufferGraphics.drawImage(backgroundImage,0,0,null);
+			bufferGraphics.drawImage(backgroundImage,imageX,imageY,imageWidth,imageHeight,null);
 
 		bufferGraphics.setColor(POINTS_COLOR);
 
@@ -214,9 +344,15 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		else if(obj==jmt_load_points)
 			loadPoints();
 		else if(obj==jmt_save_points)
-			savePoints();	
+			savePoints();
+		else if(obj==btnChangeImage){
+			changeImage();
+		}
+		
 		draw();
 	}
+
+
 
 	private void savePoints() {
 		fc = new JFileChooser();
@@ -320,6 +456,8 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			File file = fc.getSelectedFile();
 			try {
 				backgroundImage=ImageIO.read(file);
+				setImagedata();
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -373,6 +511,41 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+				
+		int code =arg0.getKeyCode();
+		
+		if(code==KeyEvent.VK_F1  )
+		{ 
+			zoom(+1);
+
+		}
+		else if(code==KeyEvent.VK_F2  )
+		{  
+			zoom(-1);
+			
+		}
+		draw();
+	}
+
+	private void zoom(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
