@@ -340,7 +340,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		coordinatesz.setText(p.getZ());
 	}
 
-	private void cleanPointsData() {
+	private void clearPointsData() {
 
 		coordinatesx.setText("");
 		coordinatesy.setText("");
@@ -429,7 +429,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		if(backgroundImage!=null){
 			
 			int locX=imageX-x0;
-			int locY=imageY-y0;
+			int locY=imageY+y0;
 			int w=(int) (imageWidth*1.0/deltax);
 			int h=(int) (imageHeight*1.0/deltay);
 			bufferGraphics.drawImage(backgroundImage,locX,locY,w,h,null);
@@ -464,7 +464,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	}
 
 	private int calcY(double x, double y, double z) {
-		return (int)(y/deltay-y0);
+		return (int)(HEIGHT-y/deltay-y0);
 		
 	}
 
@@ -474,6 +474,15 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 	private int calcX(double x, double y, double z) {
 		return (int)(x/deltax-x0);
+	}
+	
+	public int invertX(int i) {
+
+		return (i+x0)*deltax;
+	}
+	public int invertY(int j) {
+
+		return deltay*(HEIGHT-j-y0);
 	}
 
 	@Override
@@ -688,7 +697,11 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		int buttonNum=arg0.getButton();
 
 		if(buttonNum==MouseEvent.BUTTON3){
-			points.add(new Point3D(x,y,0));
+			
+			int xx=invertX(x);
+			int yy=invertY(y);
+			points.add(new Point3D(xx,yy,0));
+			
 		}else{
 
 			selectPoints(x,y);
@@ -703,6 +716,8 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 		if(points==null)
 			return;
+		
+		boolean found=false;
 
 		int sz=points.size();
 		for (int i = 0; i < sz; i++) {
@@ -716,6 +731,8 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 			if(rect.contains(xPos,yPos)){
 				p.setSelected(true);
+				found=true;
+				
 				if(!checkMultiplePointsSelection.isSelected())
 					setPointsData(p);
 			}
@@ -723,6 +740,9 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 				p.setSelected(false);
 			}
 		}
+		
+		if(!found)
+			clearPointsData();
 
 	}
 
@@ -747,7 +767,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 		points=newPoints;
 
-		cleanPointsData();
+		clearPointsData();
 
 	}
 
@@ -764,7 +784,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			p.setSelected(false);
 		}	
 
-		cleanPointsData();
+		clearPointsData();
 
 	}
 
@@ -781,7 +801,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			p.setSelected(true);
 		}	
 
-		cleanPointsData();
+		clearPointsData();
 
 	}
 
@@ -867,7 +887,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		deltay=(int) (deltay*alfa);
 
 		x0+=(int) ((WIDTH/2+x0)*(1.0/alfa-1.0));
-		y0+=(int) ((HEIGHT/2+y0)*(1.0/alfa-1.0));
+		y0+=(int) ((-HEIGHT/2+y0)*(1.0/alfa-1.0));
 
 	}
 
@@ -900,9 +920,9 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		
 		int pix=arg0.getUnitsToScroll();
 		if(pix>0) 
-			mouseDown();
-		else 
 			mouseUp();
+		else 
+			mouseDown();
 		
 		draw();
 
