@@ -10,6 +10,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -43,7 +45,7 @@ import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.IntegerTextField;
 
-public class ImageTracer extends Editor implements MenuListener,PropertyChangeListener, ActionListener, MouseListener,KeyListener{
+public class ImageTracer extends Editor implements MenuListener,PropertyChangeListener, ActionListener, MouseListener,MouseWheelListener,KeyListener{
 
 
 
@@ -90,6 +92,14 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	private JButton deleteSelectedPoints;
 	private DoubleTextField ouputScale;
 
+	private int x0=0;
+	private int y0=0;
+	
+	protected int xMovement=0;
+	protected int yMovement=0;
+	
+	private int minMovement=1;
+
 	public static void main(String[] args) {
 
 		ImageTracer it=new ImageTracer();
@@ -107,12 +117,13 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		center=new JPanel();
 		center.setBounds(LEFT_BORDER, 0, WIDTH, HEIGHT);
 		center.addMouseListener(this);
+		center.addMouseWheelListener(this);
 		getContentPane().add(center);
 
 		buildMenuBar();
-		
+
 		buildImageMenu();
-		
+
 		buildPointsMenu();
 
 		RepaintManager.setCurrentManager( 
@@ -128,215 +139,222 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 				}				
 				);
-
+		
 		initialize();
 
 		setVisible(true);
 	}
 
 	private void buildPointsMenu() {
-		
+
 		JPanel right=new JPanel();
 		right.setBounds(LEFT_BORDER+WIDTH,0 ,RIGHT_BORDER,HEIGHT);
 		right.setLayout(null);
-		
+
 		pointList=new JList();
-		
+
 		int r=10;
 		int col0=5;
 		int col1=40;
-	
-		
+
+
 		r+=30;
-		
+
 		JLabel label=new JLabel("x:");
 		label.setBounds(col0,r,30,20);
 		right.add(label);
-		
+
 		coordinatesx=new DoubleTextField(8);
 		coordinatesx.setBounds(col1,r,120,20);
 		coordinatesx.addKeyListener(this);
 		right.add(coordinatesx);
-		
+
 		r+=30;
-		
+
 		label=new JLabel("y:");
 		label.setBounds(col0,r,30,20);
 		right.add(label);
-		
+
 		coordinatesy=new DoubleTextField(8);
 		coordinatesy.setBounds(col1,r,120,20);
 		coordinatesy.addKeyListener(this);
 		right.add(coordinatesy);
-		
+
 		r+=30;
-		
+
 		label=new JLabel("z:");
 		label.setBounds(col0,r,30,20);
 		right.add(label);
-		
+
 		coordinatesz=new DoubleTextField(8);
 		coordinatesz.setBounds(col1,r,120,20);
 		coordinatesz.addKeyListener(this);
 		right.add(coordinatesz);
-		
+
 		r+=30;
-		
+
 		checkMultiplePointsSelection=new JCheckBox("Multiple selection");
 		checkMultiplePointsSelection.setBounds(col0,r,150,20);
 		checkMultiplePointsSelection.addKeyListener(this);
 		right.add(checkMultiplePointsSelection);
-		
+
 		r+=30;
-		
+
 		selectAllPoints=new JButton("Select all");
 		selectAllPoints.addActionListener(this);
 		selectAllPoints.setFocusable(false);
 		selectAllPoints.setBounds(col0,r,150,20);
 		right.add(selectAllPoints);
-		
+
 		r+=30;
-		
+
 		deselectAllPoints=new JButton("Deselect all");
 		deselectAllPoints.addActionListener(this);
 		deselectAllPoints.setFocusable(false);
 		deselectAllPoints.setBounds(col0,r,150,20);
 		right.add(deselectAllPoints);
-		
+
 		r+=30;
-		
+
 		deleteSelectedPoints=new JButton("Delete points");
 		deleteSelectedPoints.addActionListener(this);
 		deleteSelectedPoints.setFocusable(false);
 		deleteSelectedPoints.setBounds(col0,r,150,20);
 		right.add(deleteSelectedPoints);
-		
+
 		r+=50;
-		
+
 		label=new JLabel("Output scale:");
 		label.setBounds(col0,r,80,20);
 		right.add(label);
-		
+
 		ouputScale=new DoubleTextField(8);
 		ouputScale.setBounds(90,r,80,20);
 		ouputScale.addKeyListener(this);
 		right.add(ouputScale);
-		
+
 		JScrollPane jsp=new JScrollPane(pointList);
 		JPanel lowpane=new JPanel();
 		lowpane.setBounds(col0,r,300,220);
 		right.add(lowpane);
-		
+
 		getContentPane().add(right);
-		
-		
+
+
 	}
 
 	private void buildImageMenu() {
-		
-		
+
+
 		JPanel left=new JPanel();
 		left.setBounds(0, 0, LEFT_BORDER, HEIGHT);
 		left.setLayout(null);
-		
+
 		int r=10;
 		int col0=5;		
 		int col1=90;
-		
+
 		JLabel label=new JLabel("Img width");
 		label.setBounds(col0, r, 80, 20);
 		left.add(label);
-		
+
 		image_width = new IntegerTextField(6);
 		image_width.setBounds(col1, r, 100, 20);
+		image_width.addKeyListener(this);
 		left.add(image_width);
-		
+
 		r+=30;
-		
+
 		label=new JLabel("Img heigth");
 		label.setBounds(col0, r, 80, 20);
 		left.add(label);
-		
+
 		image_height= new IntegerTextField(6);
 		image_height.setBounds(col1, r, 100, 20);
+		image_height.addKeyListener(this);
 		left.add(image_height);
-		
+
 		r+=30;
-		
+
 		label=new JLabel("Img x");
 		label.setBounds(col0, r, 80, 20);
 		left.add(label);
-		
+
 		image_x= new IntegerTextField(6);
 		image_x.setBounds(col1, r, 100, 20);
 		image_x.setText(imageX);
+		image_x.addKeyListener(this);
 		left.add(image_x);
-		
+
 		r+=30;
-		
+
 		label=new JLabel("Img y");
 		label.setBounds(col0, r, 80, 20);
 		left.add(label);
-		
+
 		image_y= new IntegerTextField(6);
 		image_y.setBounds(col1, r, 100, 20);
 		image_y.setText(imageY);
+		image_y.addKeyListener(this);
 		left.add(image_y);
-		
+
 		r+=30;
 		btnChangeImage=new JButton("Change image");
 		btnChangeImage.setBounds(col0, r, 120, 20);
 		btnChangeImage.addActionListener(this);
 		left.add(btnChangeImage);
-		
+
 		getContentPane().add(left);
-		
+
 	}
 
 	private void setImagedata() {
-		
+
 		imageWidth=backgroundImage.getWidth();		
 		image_width.setText(imageWidth);
 		image_x.setText(0);
-		
+
 		imageHeight=backgroundImage.getHeight();
 		image_height.setText(imageHeight);
 		image_y.setText(0);
-		
+
 		draw();
 	}
-	
-	
+
+
 	private void setPointsData(Point3D p) {
-		
+
 		coordinatesx.setText(p.getX());
 		coordinatesy.setText(p.getY());
 		coordinatesz.setText(p.getZ());
 	}
-	
+
 	private void cleanPointsData() {
-		
+
 		coordinatesx.setText("");
 		coordinatesy.setText("");
 		coordinatesz.setText("");
 	}
-	
+
 	private void changeImage() {
-		
+
 		imageX=image_x.getvalue();
 		imageY=image_y.getvalue();
-		
+
 		imageWidth=image_width.getvalue();
 		imageHeight=image_height.getvalue();
-		
+
 		draw();
-		
+
 	}
 
 	private void initialize() {
 		buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 
 		points=new ArrayList<Point3D>();
+		
+		xMovement=2*minMovement;
+		yMovement=2*minMovement;
 	}
 
 	private void buildMenuBar() {
@@ -348,7 +366,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		jmt_load_image = new JMenuItem("Load image");
 		jmt_load_image.addActionListener(this);
 		jm_file.add(jmt_load_image);
-		
+
 		jm_file.addSeparator();
 
 		jmt_load_points= new JMenuItem("Load points");
@@ -386,31 +404,48 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		bufferGraphics.fillRect(0, 0, WIDTH, HEIGHT);
 
 		if(backgroundImage!=null)
-			bufferGraphics.drawImage(backgroundImage,imageX,imageY,imageWidth,imageHeight,null);
+			bufferGraphics.drawImage(backgroundImage,imageX-x0,imageY-y0,imageWidth,imageHeight,null);
 
-		
+
 
 		if(points==null)
 			return;
-		
+
 		int sz=points.size();
 		for (int i = 0; i < sz; i++) {
-			
+
 			bufferGraphics.setColor(POINTS_COLOR);
 
 			Point3D p=points.get(i);
-			
+
 			if(p.isSelected())
 				bufferGraphics.setColor(SELECTED_POINTS_COLOR);
 
-			int x=(int) p.getX();
-			int y=(int) p.getY();
+			int x=calcX(p);
+			int y=calcY(p);
 
 			bufferGraphics.drawOval(x-2, y-2, 5, 5);
 
 		}
 
 
+	}
+
+	private int calcY(Point3D p) {
+		return calcY(p.getX(),p.getY(),p.getZ());
+	}
+
+	private int calcY(double x, double y, double z) {
+		return (int)(y-y0);
+		
+	}
+
+	private int calcX(Point3D p) {
+		return calcX(p.getX(),p.getY(),p.getZ());
+	}
+
+	private int calcX(double x, double y, double z) {
+		return (int)(x-x0);
 	}
 
 	@Override
@@ -465,7 +500,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		}else if(obj==deleteSelectedPoints){
 			deleteSelectedPoints();
 		}
-		
+
 		draw();
 	}
 
@@ -504,7 +539,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 					pr.println(str);
 
 				}
-				
+
 				pr.close();
 			}catch (Exception e) {
 				e.printStackTrace();
@@ -576,7 +611,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			try {
 				backgroundImage=ImageIO.read(file);
 				setImagedata();
-				
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -597,15 +632,15 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 		int x=arg0.getX();
 		int y=arg0.getY();
-		
+
 		int buttonNum=arg0.getButton();
 
 		if(buttonNum==MouseEvent.BUTTON3){
 			points.add(new Point3D(x,y,0));
 		}else{
-			
+
 			selectPoints(x,y);
-			
+
 		}
 
 		draw();
@@ -613,10 +648,10 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	}
 
 	private void selectPoints(int xPos, int yPos) {
-		
+
 		if(points==null)
 			return;
-		
+
 		int sz=points.size();
 		for (int i = 0; i < sz; i++) {
 
@@ -626,7 +661,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			int y=(int) p.getY();
 
 			Rectangle rect=new Rectangle(x-4,y-4,9,9);
-			
+
 			if(rect.contains(xPos,yPos)){
 				p.setSelected(true);
 				if(!checkMultiplePointsSelection.isSelected())
@@ -636,39 +671,39 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 				p.setSelected(false);
 			}
 		}
-		
+
 	}
 
 
 	private void deleteSelectedPoints() {
-		
+
 		if(points==null)
 			return;
-		
+
 		ArrayList<Point3D> newPoints=new ArrayList<Point3D>();
-		
+
 		int sz=points.size();
 		for (int i = 0; i < sz; i++) {
 
 			Point3D p=points.get(i);
-			
+
 			if(p.isSelected())
 				continue;
-			
+
 			newPoints.add(p);
 		}	
-		
+
 		points=newPoints;
-		
+
 		cleanPointsData();
-		
+
 	}
 
 	private void deselectAllPoints() {
-		
+
 		if(points==null)
 			return;
-		
+
 		int sz=points.size();
 		for (int i = 0; i < sz; i++) {
 
@@ -676,26 +711,26 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 			p.setSelected(false);
 		}	
-		
+
 		cleanPointsData();
-		
+
 	}
 
 	private void selectAllPoints() {
-		
+
 		if(points==null)
 			return;
-		
+
 		int sz=points.size();
 		for (int i = 0; i < sz; i++) {
 
 			Point3D p=points.get(i);
-			
+
 			p.setSelected(true);
 		}	
-		
+
 		cleanPointsData();
-		
+
 	}
 
 	@Override
@@ -724,9 +759,9 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-				
+
 		int code =arg0.getKeyCode();
-		
+
 		if(code==KeyEvent.VK_F1  )
 		{ 
 			zoom(+1);
@@ -735,26 +770,76 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		else if(code==KeyEvent.VK_F2  )
 		{  
 			zoom(-1);
-			
+
+		}if(code==KeyEvent.VK_DOWN ){
+			translate(0, 1);
+
+		}else if(code==KeyEvent.VK_UP  ){
+			translate(0, -1);
+
+		}	
+		else if(code==KeyEvent.VK_LEFT )
+		{	
+			translate(-1, 0);
+
+		}
+		else if(code==KeyEvent.VK_RIGHT  )
+		{	 
+			translate(1, 0);  
+
 		}
 		draw();
 	}
 
+	private void translate(int i, int j) {
+		x0+=i*xMovement;
+		y0+=+j*yMovement;
+		
+	}
+
 	private void zoom(int i) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
+
+	}
+	
+
+	public void mouseDown() {
+		translate(0,-1);
+	}
+
+
+	public void mouseUp() {
+		translate(0,1);
+	}
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent arg0) {
+
+
+		
+		int pix=arg0.getUnitsToScroll();
+		if(pix>0) 
+			mouseDown();
+		else 
+			mouseUp();
+		
+		draw();
+
+	
 		
 	}
+	
 
 }
