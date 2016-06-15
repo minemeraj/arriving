@@ -99,6 +99,9 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	protected int yMovement=0;
 	
 	private int minMovement=1;
+	
+	private int deltax=1;
+	private int deltay=1;
 
 	public static void main(String[] args) {
 
@@ -436,7 +439,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	}
 
 	private int calcY(double x, double y, double z) {
-		return (int)(y-y0);
+		return (int)(y/deltay-y0);
 		
 	}
 
@@ -445,7 +448,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	}
 
 	private int calcX(double x, double y, double z) {
-		return (int)(x-x0);
+		return (int)(x/deltax-x0);
 	}
 
 	@Override
@@ -657,8 +660,8 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 			Point3D p=points.get(i);
 
-			int x=(int) p.getX();
-			int y=(int) p.getY();
+			int x=calcX(p);
+			int y=calcY(p);
 
 			Rectangle rect=new Rectangle(x-4,y-4,9,9);
 
@@ -798,7 +801,24 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	}
 
 	private void zoom(int i) {
-		// TODO Auto-generated method stub
+		double alfa=1.0;
+		if(i>0){
+			alfa=0.5;
+
+			if(deltax==1 || deltay==1)
+				return;
+		}
+		else {
+			alfa=2.0;
+
+		}
+
+
+		deltax=(int) (deltax*alfa);
+		deltay=(int) (deltay*alfa);
+
+		x0+=(int) ((WIDTH/2+x0)*(1.0/alfa-1.0));
+		y0+=(int) ((HEIGHT/2+y0)*(1.0/alfa-1.0));
 
 	}
 
