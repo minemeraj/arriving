@@ -429,7 +429,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		if(backgroundImage!=null){
 			
 			int locX=imageX-x0;
-			int locY=imageY+y0;
+			int locY=imageY-y0;
 			int w=(int) (imageWidth*1.0/deltax);
 			int h=(int) (imageHeight*1.0/deltay);
 			bufferGraphics.drawImage(backgroundImage,locX,locY,w,h,null);
