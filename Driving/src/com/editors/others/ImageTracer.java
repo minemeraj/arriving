@@ -98,10 +98,13 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	protected int xMovement=0;
 	protected int yMovement=0;
 	
-	private int minMovement=1;
+	private int minMovement=2;
 	
 	private int deltax=1;
 	private int deltay=1;
+	private JMenu jm_view;
+	private JMenuItem jmt_faster_motion;
+	private JMenuItem jmt_slower_motion;
 
 	public static void main(String[] args) {
 
@@ -311,13 +314,18 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 	}
 
-	private void setImagedata() {
+	private void setImagedata(BufferedImage backgroundImg) {
 
-		imageWidth=backgroundImage.getWidth();		
+		if(backgroundImg!=null){
+			
+			imageWidth=backgroundImg.getWidth();	
+			imageHeight=backgroundImg.getHeight();
+		}
+			
 		image_width.setText(imageWidth);
 		image_x.setText(0);
 
-		imageHeight=backgroundImage.getHeight();
+		
 		image_height.setText(imageHeight);
 		image_y.setText(0);
 
@@ -379,6 +387,18 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		jmt_save_points= new JMenuItem("Save points");
 		jmt_save_points.addActionListener(this);
 		jm_file.add(jmt_save_points);
+		
+		jm_view=new JMenu("View");
+		jm_view.addMenuListener(this);
+		jmb.add(jm_view);
+		
+		jmt_faster_motion=new JMenuItem("+ motion");
+		jmt_faster_motion.addActionListener(this);
+		jm_view.add(jmt_faster_motion);
+		
+		jmt_slower_motion=new JMenuItem("- motion");
+		jmt_slower_motion.addActionListener(this);
+		jm_view.add(jmt_slower_motion);
 
 		setJMenuBar(jmb);
 
@@ -406,9 +426,14 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		bufferGraphics.setColor(BACKGROUND_COLOR);
 		bufferGraphics.fillRect(0, 0, WIDTH, HEIGHT);
 
-		if(backgroundImage!=null)
-			bufferGraphics.drawImage(backgroundImage,imageX-x0,imageY-y0,imageWidth,imageHeight,null);
-
+		if(backgroundImage!=null){
+			
+			int locX=imageX-x0;
+			int locY=imageY-y0;
+			int w=(int) (imageWidth*1.0/deltax);
+			int h=(int) (imageHeight*1.0/deltay);
+			bufferGraphics.drawImage(backgroundImage,locX,locY,w,h,null);
+		}
 
 
 		if(points==null)
@@ -502,6 +527,10 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			deselectAllPoints();
 		}else if(obj==deleteSelectedPoints){
 			deleteSelectedPoints();
+		}else if(obj==jmt_faster_motion){
+			changeMotionIncrement(+1);
+		}else if(obj==jmt_slower_motion){
+			changeMotionIncrement(-1);
 		}
 
 		draw();
@@ -539,7 +568,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 					String str=decomposePoint(p);
 
-					pr.println(str);
+					pr.println("v="+str);
 
 				}
 
@@ -567,7 +596,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			File file = fc.getSelectedFile();
 			try {
 
-				readPointsfromfile(file);
+				readDatafromfile(file);
 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -575,7 +604,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		}	
 	}
 
-	private void readPointsfromfile(File file) throws IOException {
+	private void readDatafromfile(File file) throws IOException {
 
 
 		points=new ArrayList<Point3D>();
@@ -587,9 +616,29 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 		while((line=br.readLine())!=null){
 
-			PolygonMesh.buildPoint(points,line);
+			int indx=line.indexOf("=");
+			
+			if(line.startsWith("v=")){
+				PolygonMesh.buildPoint(points,line.substring(indx+1));
+			} else if(line.startsWith("image_width=")){
+				
+				imageWidth=Integer.parseInt(line.substring(indx+1));
+				
+			} else if(line.startsWith("image_height=")){
+				
+				imageHeight=Integer.parseInt(line.substring(indx+1));
+				
+			}else if(line.startsWith("image_x=")){
+				
+				imageX=Integer.parseInt(line.substring(indx+1));
+				
+			}else if(line.startsWith("image_y=")){
+				
+				imageY=Integer.parseInt(line.substring(indx+1));			}
 
-		}
+				setImagedata(null);
+			
+		} 
 
 		br.close();
 	}
@@ -613,7 +662,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			File file = fc.getSelectedFile();
 			try {
 				backgroundImage=ImageIO.read(file);
-				setImagedata();
+				setImagedata(backgroundImage);
 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -858,6 +907,24 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		draw();
 
 	
+		
+	}
+	
+	public void changeMotionIncrement(int i) {
+		if(i>0){
+			
+			xMovement=2*xMovement;
+			yMovement=2*yMovement;
+			
+		}else{
+			
+			if(xMovement==minMovement)
+				return;
+			
+			xMovement=xMovement/2;
+			yMovement=yMovement/2;
+			
+		}
 		
 	}
 	
