@@ -3,6 +3,7 @@ package com.editors.others;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -37,6 +39,7 @@ import javax.swing.event.MenuListener;
 
 import com.Point3D;
 import com.PolygonMesh;
+import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.IntegerTextField;
 
@@ -53,6 +56,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	private BufferedImage buf;
 	private static final Color BACKGROUND_COLOR = Color.BLACK;
 	private static final Color POINTS_COLOR = Color.WHITE;
+	private static final Color SELECTED_POINTS_COLOR = Color.RED;
 
 	private Graphics2D graphics;
 	private JPanel center;
@@ -77,6 +81,14 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	private int imageWidth=0;
 	private int imageHeight=0;
 	private JButton btnChangeImage;
+	private DoubleTextField coordinatesx;
+	private JCheckBox checkMultiplePointsSelection;
+	private DoubleTextField coordinatesy;
+	private DoubleTextField coordinatesz;
+	private JButton deselectAllPoints;
+	private JButton selectAllPoints;
+	private JButton deleteSelectedPoints;
+	private DoubleTextField ouputScale;
 
 	public static void main(String[] args) {
 
@@ -125,17 +137,94 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	private void buildPointsMenu() {
 		
 		JPanel right=new JPanel();
-		right.setBounds(0, LEFT_BORDER+WIDTH,RIGHT_BORDER,HEIGHT);
+		right.setBounds(LEFT_BORDER+WIDTH,0 ,RIGHT_BORDER,HEIGHT);
 		right.setLayout(null);
 		
 		pointList=new JList();
 		
 		int r=10;
+		int col0=5;
+		int col1=40;
+	
+		
+		r+=30;
+		
+		JLabel label=new JLabel("x:");
+		label.setBounds(col0,r,30,20);
+		right.add(label);
+		
+		coordinatesx=new DoubleTextField(8);
+		coordinatesx.setBounds(col1,r,120,20);
+		coordinatesx.addKeyListener(this);
+		right.add(coordinatesx);
+		
+		r+=30;
+		
+		label=new JLabel("y:");
+		label.setBounds(col0,r,30,20);
+		right.add(label);
+		
+		coordinatesy=new DoubleTextField(8);
+		coordinatesy.setBounds(col1,r,120,20);
+		coordinatesy.addKeyListener(this);
+		right.add(coordinatesy);
+		
+		r+=30;
+		
+		label=new JLabel("z:");
+		label.setBounds(col0,r,30,20);
+		right.add(label);
+		
+		coordinatesz=new DoubleTextField(8);
+		coordinatesz.setBounds(col1,r,120,20);
+		coordinatesz.addKeyListener(this);
+		right.add(coordinatesz);
+		
+		r+=30;
+		
+		checkMultiplePointsSelection=new JCheckBox("Multiple selection");
+		checkMultiplePointsSelection.setBounds(col0,r,150,20);
+		checkMultiplePointsSelection.addKeyListener(this);
+		right.add(checkMultiplePointsSelection);
+		
+		r+=30;
+		
+		selectAllPoints=new JButton("Select all");
+		selectAllPoints.addActionListener(this);
+		selectAllPoints.setFocusable(false);
+		selectAllPoints.setBounds(col0,r,150,20);
+		right.add(selectAllPoints);
+		
+		r+=30;
+		
+		deselectAllPoints=new JButton("Deselect all");
+		deselectAllPoints.addActionListener(this);
+		deselectAllPoints.setFocusable(false);
+		deselectAllPoints.setBounds(col0,r,150,20);
+		right.add(deselectAllPoints);
+		
+		r+=30;
+		
+		deleteSelectedPoints=new JButton("Delete points");
+		deleteSelectedPoints.addActionListener(this);
+		deleteSelectedPoints.setFocusable(false);
+		deleteSelectedPoints.setBounds(col0,r,150,20);
+		right.add(deleteSelectedPoints);
+		
+		r+=50;
+		
+		label=new JLabel("Output scale:");
+		label.setBounds(col0,r,80,20);
+		right.add(label);
+		
+		ouputScale=new DoubleTextField(8);
+		ouputScale.setBounds(90,r,80,20);
+		ouputScale.addKeyListener(this);
+		right.add(ouputScale);
 		
 		JScrollPane jsp=new JScrollPane(pointList);
 		JPanel lowpane=new JPanel();
-		lowpane.setBounds(5,r,300,220); 
-		
+		lowpane.setBounds(col0,r,300,220);
 		right.add(lowpane);
 		
 		getContentPane().add(right);
@@ -218,6 +307,20 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	}
 	
 	
+	private void setPointsData(Point3D p) {
+		
+		coordinatesx.setText(p.getX());
+		coordinatesy.setText(p.getY());
+		coordinatesz.setText(p.getZ());
+	}
+	
+	private void cleanPointsData() {
+		
+		coordinatesx.setText("");
+		coordinatesy.setText("");
+		coordinatesz.setText("");
+	}
+	
 	private void changeImage() {
 		
 		imageX=image_x.getvalue();
@@ -285,12 +388,20 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		if(backgroundImage!=null)
 			bufferGraphics.drawImage(backgroundImage,imageX,imageY,imageWidth,imageHeight,null);
 
-		bufferGraphics.setColor(POINTS_COLOR);
+		
 
+		if(points==null)
+			return;
+		
 		int sz=points.size();
 		for (int i = 0; i < sz; i++) {
+			
+			bufferGraphics.setColor(POINTS_COLOR);
 
 			Point3D p=points.get(i);
+			
+			if(p.isSelected())
+				bufferGraphics.setColor(SELECTED_POINTS_COLOR);
 
 			int x=(int) p.getX();
 			int y=(int) p.getY();
@@ -347,10 +458,18 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			savePoints();
 		else if(obj==btnChangeImage){
 			changeImage();
+		}else if(obj==selectAllPoints){
+			selectAllPoints();
+		}else if(obj==deselectAllPoints){
+			deselectAllPoints();
+		}else if(obj==deleteSelectedPoints){
+			deleteSelectedPoints();
 		}
 		
 		draw();
 	}
+
+
 
 
 
@@ -483,10 +602,100 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 		if(buttonNum==MouseEvent.BUTTON3){
 			points.add(new Point3D(x,y,0));
+		}else{
+			
+			selectPoints(x,y);
+			
 		}
 
 		draw();
 
+	}
+
+	private void selectPoints(int xPos, int yPos) {
+		
+		if(points==null)
+			return;
+		
+		int sz=points.size();
+		for (int i = 0; i < sz; i++) {
+
+			Point3D p=points.get(i);
+
+			int x=(int) p.getX();
+			int y=(int) p.getY();
+
+			Rectangle rect=new Rectangle(x-4,y-4,9,9);
+			
+			if(rect.contains(xPos,yPos)){
+				p.setSelected(true);
+				if(!checkMultiplePointsSelection.isSelected())
+					setPointsData(p);
+			}
+			else if(!checkMultiplePointsSelection.isSelected()){
+				p.setSelected(false);
+			}
+		}
+		
+	}
+
+
+	private void deleteSelectedPoints() {
+		
+		if(points==null)
+			return;
+		
+		ArrayList<Point3D> newPoints=new ArrayList<Point3D>();
+		
+		int sz=points.size();
+		for (int i = 0; i < sz; i++) {
+
+			Point3D p=points.get(i);
+			
+			if(p.isSelected())
+				continue;
+			
+			newPoints.add(p);
+		}	
+		
+		points=newPoints;
+		
+		cleanPointsData();
+		
+	}
+
+	private void deselectAllPoints() {
+		
+		if(points==null)
+			return;
+		
+		int sz=points.size();
+		for (int i = 0; i < sz; i++) {
+
+			Point3D p=points.get(i);
+
+			p.setSelected(false);
+		}	
+		
+		cleanPointsData();
+		
+	}
+
+	private void selectAllPoints() {
+		
+		if(points==null)
+			return;
+		
+		int sz=points.size();
+		for (int i = 0; i < sz; i++) {
+
+			Point3D p=points.get(i);
+			
+			p.setSelected(true);
+		}	
+		
+		cleanPointsData();
+		
 	}
 
 	@Override
