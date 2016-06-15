@@ -90,7 +90,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	private JButton deselectAllPoints;
 	private JButton selectAllPoints;
 	private JButton deleteSelectedPoints;
-	private DoubleTextField ouputScale;
+	private DoubleTextField outputScale;
 
 	private int x0=0;
 	private int y0=0;
@@ -234,10 +234,10 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		label.setBounds(col0,r,80,20);
 		right.add(label);
 
-		ouputScale=new DoubleTextField(8);
-		ouputScale.setBounds(90,r,80,20);
-		ouputScale.addKeyListener(this);
-		right.add(ouputScale);
+		outputScale=new DoubleTextField(8);
+		outputScale.setBounds(90,r,80,20);
+		outputScale.addKeyListener(this);
+		right.add(outputScale);
 
 		JScrollPane jsp=new JScrollPane(pointList);
 		JPanel lowpane=new JPanel();
@@ -557,6 +557,11 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			fc.setCurrentDirectory(currentDirectory);
 		if(currentFile!=null)
 			fc.setSelectedFile(currentFile);
+		
+		double factor=1.0;
+		
+		if(outputScale.getvalue()>0)
+			factor=outputScale.getvalue();
 
 		int returnVal = fc.showOpenDialog(null);
 
@@ -575,7 +580,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 					Point3D p=points.get(i);
 
-					String str=decomposePoint(p);
+					String str=decomposePoint(p,factor);
 
 					pr.println("v="+str);
 
@@ -586,6 +591,18 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	
+	public String decomposePoint(Point3D p, double factor) {
+		String str="";
+
+		str=(p.x*factor)+" "+(p.y*factor)+" "+(p.z*factor);
+		
+		if(p.getData()!=null)
+			str=str+" "+p.getData().toString();
+
+		return str;
 	}
 
 	private void loadPoints() {
@@ -643,11 +660,16 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 				
 			}else if(line.startsWith("image_y=")){
 				
-				imageY=Integer.parseInt(line.substring(indx+1));			}
-
+				imageY=Integer.parseInt(line.substring(indx+1));	
+				
+			}else if(line.startsWith("factor=")){
+				
+				double factor = Double.parseDouble(line.substring(indx+1));
+				outputScale.setText(factor);
+			}
 				setImagedata(null);
-			
-		} 
+		
+		}
 
 		br.close();
 	}
