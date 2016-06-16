@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseWheelEvent;
@@ -22,8 +23,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
@@ -34,8 +41,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.RepaintManager;
+import javax.swing.border.Border;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
@@ -59,6 +68,8 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	private static final Color BACKGROUND_COLOR = Color.BLACK;
 	private static final Color POINTS_COLOR = Color.WHITE;
 	private static final Color SELECTED_POINTS_COLOR = Color.RED;
+	private static final int IMAGE_MODE_FIXED_VALUES = 0;
+	private static final int IMAGE_MODE_SCALE = 1;
 
 	private Graphics2D graphics;
 	private JPanel center;
@@ -82,29 +93,46 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	private int imageY=0;
 	private int imageWidth=0;
 	private int imageHeight=0;
+	private double outputScale=0;
 	private JButton btnChangeImage;
-	private DoubleTextField coordinatesx;
+	private DoubleTextField xcoordinates;
 	private JCheckBox checkMultiplePointsSelection;
-	private DoubleTextField coordinatesy;
-	private DoubleTextField coordinatesz;
+	private DoubleTextField ycoordinates;
+	private DoubleTextField zcoordinates;
 	private JButton deselectAllPoints;
 	private JButton selectAllPoints;
 	private JButton deleteSelectedPoints;
-	private DoubleTextField outputScale;
+	private DoubleTextField output_scale;
 
 	private int x0=0;
 	private int y0=0;
-	
+
 	protected int xMovement=0;
 	protected int yMovement=0;
-	
+
 	private int minMovement=2;
-	
+
 	private int deltax=1;
 	private int deltay=1;
 	private JMenu jm_view;
 	private JMenuItem jmt_faster_motion;
 	private JMenuItem jmt_slower_motion;
+	private JRadioButton imgModeFixedValues;
+	private JRadioButton imgModeScale;
+	private DoubleTextField image_scale;
+	private JButton changePoint;
+	private DoubleTextField pointsMove;
+	private JButton movePointsUp;
+	private JButton movePointsDown;
+	private JButton movePointsLeft;
+	private JButton movePointsRight;
+	private JButton movePointsTop;
+	private JButton movePointsBottom;
+
+	public int MAX_STACK_SIZE = 10;
+	private Stack<ArrayList<Point3D>> oldPoints=new Stack<ArrayList<Point3D>>();
+	private JMenuItem jmt_undo;
+	private JButton btnImageDefault;
 
 	public static void main(String[] args) {
 
@@ -145,7 +173,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 				}				
 				);
-		
+
 		initialize();
 
 		setVisible(true);
@@ -157,7 +185,6 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		right.setBounds(LEFT_BORDER+WIDTH,0 ,RIGHT_BORDER,HEIGHT);
 		right.setLayout(null);
 
-		pointList=new JList();
 
 		int r=10;
 		int col0=5;
@@ -170,10 +197,10 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		label.setBounds(col0,r,30,20);
 		right.add(label);
 
-		coordinatesx=new DoubleTextField(8);
-		coordinatesx.setBounds(col1,r,120,20);
-		coordinatesx.addKeyListener(this);
-		right.add(coordinatesx);
+		xcoordinates=new DoubleTextField(8);
+		xcoordinates.setBounds(col1,r,120,20);
+		xcoordinates.addKeyListener(this);
+		right.add(xcoordinates);
 
 		r+=30;
 
@@ -181,10 +208,10 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		label.setBounds(col0,r,30,20);
 		right.add(label);
 
-		coordinatesy=new DoubleTextField(8);
-		coordinatesy.setBounds(col1,r,120,20);
-		coordinatesy.addKeyListener(this);
-		right.add(coordinatesy);
+		ycoordinates=new DoubleTextField(8);
+		ycoordinates.setBounds(col1,r,120,20);
+		ycoordinates.addKeyListener(this);
+		right.add(ycoordinates);
 
 		r+=30;
 
@@ -192,10 +219,22 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		label.setBounds(col0,r,30,20);
 		right.add(label);
 
-		coordinatesz=new DoubleTextField(8);
-		coordinatesz.setBounds(col1,r,120,20);
-		coordinatesz.addKeyListener(this);
-		right.add(coordinatesz);
+		zcoordinates=new DoubleTextField(8);
+		zcoordinates.setBounds(col1,r,120,20);
+		zcoordinates.addKeyListener(this);
+		right.add(zcoordinates);
+
+		r += 30;
+
+		changePoint = new JButton("Change point");
+		changePoint.setBounds(10, r, 150, 20);
+		changePoint.addActionListener(this);
+		changePoint.addKeyListener(this);
+		right.add(changePoint);
+
+		r+=30;
+
+		right.add(buildPointsMovePanel(30, r));
 
 		r+=30;
 
@@ -234,18 +273,92 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		label.setBounds(col0,r,80,20);
 		right.add(label);
 
-		outputScale=new DoubleTextField(8);
-		outputScale.setBounds(90,r,80,20);
-		outputScale.addKeyListener(this);
-		right.add(outputScale);
+		output_scale=new DoubleTextField(8);
+		output_scale.setBounds(90,r,80,20);
+		output_scale.addKeyListener(this);
+		right.add(output_scale);
 
-		JScrollPane jsp=new JScrollPane(pointList);
+
+		pointList=new JList();
+		pointList.setFocusable(false);
+		
 		JPanel lowpane=new JPanel();
 		lowpane.setBounds(col0,r,300,220);
+				
+		lowpane.setLayout(null);
+		JLabel jlb=new JLabel("Points:");
+		jlb.setBounds(20,0,100,20);
+		lowpane.add(jlb);
+		JScrollPane jsp=new JScrollPane(pointList);
+		jsp.setBounds(0,25,140,180);
+		lowpane.add(jsp);
+		
+		pointList.addMouseListener(new MouseAdapter(){
+			
+			@Override
+			public void mouseClicked(MouseEvent e){
+				
+			}
+		});
+		
 		right.add(lowpane);
 
 		getContentPane().add(right);
 
+
+	}
+
+	private JPanel buildPointsMovePanel(int i, int r) {
+
+		JPanel move = new JPanel();
+		move.setBounds(i, r, 100, 100);
+		move.setLayout(null);
+
+		Border border = BorderFactory.createEtchedBorder();
+		move.setBorder(border);
+
+		pointsMove = new DoubleTextField();
+		pointsMove.setBounds(30, 40, 40, 20);
+		move.add(pointsMove);
+		pointsMove.addKeyListener(this);
+
+		movePointsUp = new JButton(new ImageIcon("lib/trianglen.jpg"));
+		movePointsUp.setBounds(40, 10, 20, 20);
+		movePointsUp.addActionListener(this);
+		movePointsUp.setFocusable(false);
+		move.add(movePointsUp);
+
+		movePointsDown = new JButton(new ImageIcon("lib/triangles.jpg"));
+		movePointsDown.setBounds(40, 70, 20, 20);
+		movePointsDown.addActionListener(this);
+		movePointsDown.setFocusable(false);
+		move.add(movePointsDown);
+
+		movePointsLeft = new JButton(new ImageIcon("lib/triangleo.jpg"));
+		movePointsLeft.setBounds(5, 40, 20, 20);
+		movePointsLeft.addActionListener(this);
+		movePointsLeft.setFocusable(false);
+		move.add(movePointsLeft);
+
+		movePointsRight = new JButton(new ImageIcon("lib/trianglee.jpg"));
+		movePointsRight.setBounds(75, 40, 20, 20);
+		movePointsRight.addActionListener(this);
+		movePointsRight.setFocusable(false);
+		move.add(movePointsRight);
+
+		movePointsTop = new JButton(new ImageIcon("lib/up.jpg"));
+		movePointsTop.setBounds(5, 70, 20, 20);
+		movePointsTop.addActionListener(this);
+		movePointsTop.setFocusable(false);
+		move.add(movePointsTop);
+
+		movePointsBottom = new JButton(new ImageIcon("lib/down.jpg"));
+		movePointsBottom.setBounds(75, 70, 20, 20);
+		movePointsBottom.addActionListener(this);
+		movePointsBottom.setFocusable(false);
+		move.add(movePointsBottom);
+
+		return move;
 
 	}
 
@@ -259,6 +372,15 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		int r=10;
 		int col0=5;		
 		int col1=90;
+
+		imgModeFixedValues=new JRadioButton("Fixed values");
+		imgModeFixedValues.setBounds(col0, r, 150, 20);
+		imgModeFixedValues.addActionListener(this);
+		imgModeFixedValues.setFocusable(false);
+		imgModeFixedValues.setSelected(true);
+		left.add(imgModeFixedValues);
+
+		r+=30;
 
 		JLabel label=new JLabel("Img width");
 		label.setBounds(col0, r, 80, 20);
@@ -279,6 +401,26 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		image_height.setBounds(col1, r, 100, 20);
 		image_height.addKeyListener(this);
 		left.add(image_height);
+
+		r+=30;
+
+		imgModeScale=new JRadioButton("Scale");
+		imgModeScale.setBounds(col0, r, 150, 20);
+		imgModeScale.addActionListener(this);
+		imgModeScale.setFocusable(false);
+		left.add(imgModeScale);
+
+		ButtonGroup bg=new ButtonGroup();
+		bg.add(imgModeFixedValues);
+		bg.add(imgModeScale);
+
+		r+=30;
+
+		image_scale= new DoubleTextField(6);
+		image_scale.setBounds(col1, r, 100, 20);
+		image_scale.setText(imageX);
+		image_scale.addKeyListener(this);
+		left.add(image_scale);
 
 		r+=30;
 
@@ -305,27 +447,43 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		left.add(image_y);
 
 		r+=30;
+
 		btnChangeImage=new JButton("Change image");
 		btnChangeImage.setBounds(col0, r, 120, 20);
 		btnChangeImage.addActionListener(this);
 		left.add(btnChangeImage);
 
+		r+=30;
+
+		btnImageDefault=new JButton("Image default");
+		btnImageDefault.setBounds(col0, r, 120, 20);
+		btnImageDefault.addActionListener(this);
+		left.add(btnImageDefault);
+
 		getContentPane().add(left);
+
+	}
+
+	private void setImageDefaults() {
+
+		if(backgroundImage!=null)
+			setImagedata(backgroundImage);
 
 	}
 
 	private void setImagedata(BufferedImage backgroundImg) {
 
 		if(backgroundImg!=null){
-			
+
 			imageWidth=backgroundImg.getWidth();	
 			imageHeight=backgroundImg.getHeight();
+
 		}
-			
+
 		image_width.setText(imageWidth);
 		image_x.setText(0);
 
-		
+
 		image_height.setText(imageHeight);
 		image_y.setText(0);
 
@@ -333,18 +491,87 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	}
 
 
+	private void changeSelectedPoint() {
+
+		prepareUndo();
+
+		int size = points.size();
+
+		for (int i = 0; i < size; i++) {
+
+			Point3D point = (Point3D) points.get(i);
+
+			if (point.isSelected()) {
+
+				try {
+					if (xcoordinates.getText() != null
+							&& !xcoordinates.getText().equals(""))
+						point.setX(xcoordinates.getvalue());
+
+					if (ycoordinates.getText() != null
+							&& !ycoordinates.getText().equals(""))
+						point.setY(ycoordinates.getvalue());
+
+					if (zcoordinates.getText() != null
+							&& !zcoordinates.getText().equals(""))
+						point.setZ(zcoordinates.getvalue());
+
+				} catch (Exception e) {
+
+				}
+				continue;
+			}
+
+		}
+
+		draw();
+
+	}
+
+	private void moveSelectedPoints(int dx, int dy, int dk) {
+
+		String sqty = pointsMove.getText();
+
+		if (sqty == null || sqty.equals(""))
+			return;
+
+		double qty = Double.parseDouble(sqty);
+
+		prepareUndo();
+
+		int size = points.size();
+
+		for (int i = 0; i < size; i++) {
+
+			Point3D point = (Point3D) points.get(i);
+
+			if (point.isSelected()) {
+
+				point.x += qty * dx;
+
+				point.y += qty * dy;
+
+				point.z += qty * dk;
+
+				setPointsData(point);
+
+			}
+		}
+
+	}
+
 	private void setPointsData(Point3D p) {
 
-		coordinatesx.setText(p.getX());
-		coordinatesy.setText(p.getY());
-		coordinatesz.setText(p.getZ());
+		xcoordinates.setText(p.getX());
+		ycoordinates.setText(p.getY());
+		zcoordinates.setText(p.getZ());
 	}
 
 	private void clearPointsData() {
 
-		coordinatesx.setText("");
-		coordinatesy.setText("");
-		coordinatesz.setText("");
+		xcoordinates.setText("");
+		ycoordinates.setText("");
+		zcoordinates.setText("");
 	}
 
 	private void changeImage() {
@@ -363,7 +590,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 
 		points=new ArrayList<Point3D>();
-		
+
 		xMovement=2*minMovement;
 		yMovement=2*minMovement;
 	}
@@ -387,18 +614,27 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		jmt_save_points= new JMenuItem("Save points");
 		jmt_save_points.addActionListener(this);
 		jm_file.add(jmt_save_points);
-		
+
 		jm_view=new JMenu("View");
 		jm_view.addMenuListener(this);
 		jmb.add(jm_view);
-		
+
 		jmt_faster_motion=new JMenuItem("+ motion");
 		jmt_faster_motion.addActionListener(this);
 		jm_view.add(jmt_faster_motion);
-		
+
 		jmt_slower_motion=new JMenuItem("- motion");
 		jmt_slower_motion.addActionListener(this);
 		jm_view.add(jmt_slower_motion);
+
+		JMenu jm2 = new JMenu("Do");
+		jm2.addMenuListener(this);
+		jmb.add(jm2);
+
+		jmt_undo = new JMenuItem("Undo");
+		jmt_undo.addActionListener(this);
+		jmt_undo.setEnabled(false);
+		jm2.add(jmt_undo);
 
 		setJMenuBar(jmb);
 
@@ -426,13 +662,32 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		bufferGraphics.setColor(BACKGROUND_COLOR);
 		bufferGraphics.fillRect(0, 0, WIDTH, HEIGHT);
 
+		int ds=2*minMovement;
+
 		if(backgroundImage!=null){
-			
-			int locX=imageX-x0;
-			int locY=imageY-y0;
-			int w=(int) (imageWidth*1.0/deltax);
-			int h=(int) (imageHeight*1.0/deltay);
-			bufferGraphics.drawImage(backgroundImage,locX,locY,w,h,null);
+
+			if(imgModeFixedValues.isSelected()){
+
+				int locX=calcX(imageX*ds,(HEIGHT-imageY)*ds,0);
+				int locY=calcY(imageX*ds,(HEIGHT-imageY)*ds,0);
+				int w=(int) (imageWidth*1.0/deltax);
+				int h=(int) (imageHeight*1.0/deltay);
+				bufferGraphics.drawImage(backgroundImage,locX,locY,w,h,null);
+
+			}else if(imgModeScale.isSelected()){
+
+				double factor=image_scale.getvalue();
+				if(factor==0)
+					factor=1.0;		
+
+				int locX=calcX(imageX*ds,(HEIGHT-imageY)*ds,0);
+				int locY=calcY(imageX*ds,(HEIGHT-imageY)*ds,0);
+				int w=(int) (backgroundImage.getWidth()*factor);
+				int h=(int) (backgroundImage.getHeight()*factor);
+
+				bufferGraphics.drawImage(backgroundImage,locX,locY,w,h,null);
+
+			}
 		}
 
 
@@ -465,7 +720,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 	private int calcY(double x, double y, double z) {
 		return (int)(HEIGHT-y/deltay-y0);
-		
+
 	}
 
 	private int calcX(Point3D p) {
@@ -475,7 +730,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	private int calcX(double x, double y, double z) {
 		return (int)(x/deltax-x0);
 	}
-	
+
 	public int invertX(int i) {
 
 		return (i+x0)*deltax;
@@ -540,14 +795,69 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			changeMotionIncrement(+1);
 		}else if(obj==jmt_slower_motion){
 			changeMotionIncrement(-1);
+		}else if(obj==imgModeFixedValues){
+
+			enableMode(IMAGE_MODE_FIXED_VALUES);
+
+		}else if (obj == changePoint){
+
+			changeSelectedPoint();
+
+		}else if(obj==imgModeScale){
+
+			enableMode(IMAGE_MODE_SCALE);
+		}else if (obj == btnImageDefault){
+
+			setImageDefaults();
+
+		} else if (obj == movePointsBottom) {
+
+			moveSelectedPoints(0, 0, -1);
+
+		} else if (obj == movePointsTop) {
+
+			moveSelectedPoints(0, 0, 1);
+
+		} else if (obj == movePointsLeft) {
+
+			moveSelectedPoints(-1, 0, 0);
+
+		} else if (obj == movePointsRight) {
+
+			moveSelectedPoints(1, 0, 0);
+
+		} else if (obj == movePointsUp) {
+
+			moveSelectedPoints(0, 1, 0);
+
+		} else if (obj == movePointsDown) {
+
+			moveSelectedPoints(0, -1, 0);
+
+
+		}else if (obj == jmt_undo){
+			undo();
 		}
+
 
 		draw();
 	}
 
 
 
+	private void enableMode(int mode) {
 
+		if(mode==IMAGE_MODE_FIXED_VALUES){
+
+			image_scale.setEnabled(false);
+
+		}else if(mode==IMAGE_MODE_SCALE){
+
+			image_height.setEnabled(false);
+			image_width.setEnabled(false);
+
+		}
+	}
 
 	private void savePoints() {
 		fc = new JFileChooser();
@@ -557,11 +867,10 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			fc.setCurrentDirectory(currentDirectory);
 		if(currentFile!=null)
 			fc.setSelectedFile(currentFile);
-		
-		double factor=1.0;
-		
-		if(outputScale.getvalue()>0)
-			factor=outputScale.getvalue();
+
+
+		outputScale=output_scale.getvalue();
+
 
 		int returnVal = fc.showOpenDialog(null);
 
@@ -575,12 +884,24 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			try{			
 				PrintWriter pr = new PrintWriter(new FileOutputStream(file));
 
+				pr.println("image_width="+imageWidth);
+				pr.println("image_height="+imageHeight);
+				pr.println("image_x="+imageX);
+				pr.println("image_y="+imageY);
+
+				int imgMode=imgModeFixedValues.isSelected()?IMAGE_MODE_FIXED_VALUES:IMAGE_MODE_SCALE;
+				pr.println("image_mode="+imgMode);
+
+				pr.println("output_scale="+output_scale.getvalue());
+				pr.println("image_scale="+image_scale.getvalue());
+
+
 				int sz=points.size();
 				for (int i = 0; i < sz; i++) {
 
 					Point3D p=points.get(i);
 
-					String str=decomposePoint(p,factor);
+					String str=decomposePoint(p,outputScale);
 
 					pr.println("v="+str);
 
@@ -592,13 +913,13 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			}
 		}
 	}
-	
-	
-	public String decomposePoint(Point3D p, double factor) {
+
+
+	private static final String decomposePoint(Point3D p, double factor) {
 		String str="";
 
 		str=(p.x*factor)+" "+(p.y*factor)+" "+(p.z*factor);
-		
+
 		if(p.getData()!=null)
 			str=str+" "+p.getData().toString();
 
@@ -622,7 +943,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			File file = fc.getSelectedFile();
 			try {
 
-				readDatafromfile(file);
+				loadDatafromfile(file);
 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -630,7 +951,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		}	
 	}
 
-	private void readDatafromfile(File file) throws IOException {
+	private void loadDatafromfile(File file) throws IOException {
 
 
 		points=new ArrayList<Point3D>();
@@ -643,35 +964,72 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		while((line=br.readLine())!=null){
 
 			int indx=line.indexOf("=");
-			
+
 			if(line.startsWith("v=")){
-				PolygonMesh.buildPoint(points,line.substring(indx+1));
+				buildPoint(points,line.substring(indx+1),outputScale);
 			} else if(line.startsWith("image_width=")){
-				
+
 				imageWidth=Integer.parseInt(line.substring(indx+1));
-				
+
 			} else if(line.startsWith("image_height=")){
-				
+
 				imageHeight=Integer.parseInt(line.substring(indx+1));
-				
+
 			}else if(line.startsWith("image_x=")){
-				
+
 				imageX=Integer.parseInt(line.substring(indx+1));
-				
+
 			}else if(line.startsWith("image_y=")){
-				
+
 				imageY=Integer.parseInt(line.substring(indx+1));	
-				
-			}else if(line.startsWith("factor=")){
-				
+
+			}else if(line.startsWith("output_scale=")){
+
 				double factor = Double.parseDouble(line.substring(indx+1));
-				outputScale.setText(factor);
+				output_scale.setText(factor);
+				outputScale=factor;
+			}else if(line.startsWith("image_scale=")){
+
+				double factor = Double.parseDouble(line.substring(indx+1));
+				image_scale.setText(factor);
+				
+			}else if(line.startsWith("image_mode=")){
+
+				int mode=Integer.parseInt(line.substring(indx+1));
+
+				if(IMAGE_MODE_SCALE==mode)
+					imgModeScale.setSelected(true);
+				else if(IMAGE_MODE_FIXED_VALUES==mode)
+					imgModeFixedValues.setSelected(true);
+
 			}
-				setImagedata(null);
-		
+			setImagedata(null);
+
 		}
 
 		br.close();
+	}
+
+	private static final void buildPoint(List<Point3D> vPoints,String str, double outputScaleValue) {
+
+
+		if(outputScaleValue==0)
+			outputScaleValue=1.0;
+
+		String[] vals =str.split(" ");
+
+		Point3D p=new Point3D();
+
+		p.x=Double.parseDouble(vals[0])/outputScaleValue;
+		p.y=Double.parseDouble(vals[1])/outputScaleValue;
+		p.z=Double.parseDouble(vals[2])/outputScaleValue;
+
+		if(vals.length==4)
+			p.setData(vals[3]);
+
+		vPoints.add(p);
+
+
 	}
 
 
@@ -719,11 +1077,11 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		int buttonNum=arg0.getButton();
 
 		if(buttonNum==MouseEvent.BUTTON3){
-			
+
 			int xx=invertX(x);
 			int yy=invertY(y);
 			points.add(new Point3D(xx,yy,0));
-			
+
 		}else{
 
 			selectPoints(x,y);
@@ -738,7 +1096,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 		if(points==null)
 			return;
-		
+
 		boolean found=false;
 
 		int sz=points.size();
@@ -754,7 +1112,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			if(rect.contains(xPos,yPos)){
 				p.setSelected(true);
 				found=true;
-				
+
 				if(!checkMultiplePointsSelection.isSelected())
 					setPointsData(p);
 			}
@@ -762,7 +1120,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 				p.setSelected(false);
 			}
 		}
-		
+
 		if(!found)
 			clearPointsData();
 
@@ -888,7 +1246,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	private void translate(int i, int j) {
 		x0+=i*xMovement;
 		y0+=+j*yMovement;
-		
+
 	}
 
 	private void zoom(int i) {
@@ -924,7 +1282,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		// TODO Auto-generated method stub
 
 	}
-	
+
 
 	public void mouseDown() {
 		translate(0,-1);
@@ -939,36 +1297,71 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	public void mouseWheelMoved(MouseWheelEvent arg0) {
 
 
-		
+
 		int pix=arg0.getUnitsToScroll();
 		if(pix>0) 
 			mouseUp();
 		else 
 			mouseDown();
-		
+
 		draw();
 
-	
-		
+
+
 	}
-	
+
 	public void changeMotionIncrement(int i) {
 		if(i>0){
-			
+
 			xMovement=2*xMovement;
 			yMovement=2*yMovement;
-			
+
 		}else{
-			
+
 			if(xMovement==minMovement)
 				return;
-			
+
 			xMovement=xMovement/2;
 			yMovement=yMovement/2;
-			
+
 		}
-		
+
+	}
+
+	@Override
+	public void prepareUndo() {
+
+		jmt_undo.setEnabled(true);
+
+		int size = points.size();
+
+		ArrayList<Point3D> newPoints=new ArrayList<Point3D>();
+
+		for (int i = 0; i < size; i++) {
+
+			Point3D point = (Point3D) points.get(i);
+
+			newPoints.add(point.clone());
+
+		}
+
+		oldPoints.push(newPoints);
+
+		if(oldPoints.size()==MAX_STACK_SIZE)
+			oldPoints.removeElementAt(0);
+	}
+
+	@Override
+	public void undo() {
+
+		if(oldPoints.size()>0)  
+			points=(ArrayList<Point3D>) oldPoints.pop();
 	}
 	
+	public void resetLists() {
+		
+		DefaultListModel dlm=new DefaultListModel();
+		
+	}
 
 }
