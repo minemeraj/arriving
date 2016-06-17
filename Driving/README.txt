@@ -63,6 +63,11 @@
 	* java -classpath Driving.jar    com.editors.weapons.WeaponsEditor
 	*
 	*
+	*
+	**** To launch the ImageTrace editor:
+	*
+	* java -classpath Driving.jar    com.editors.others.ImageTracer
+	*
 	**** To launch other experimental editors:
 	*
 	* to launch the cubic editor use the command:

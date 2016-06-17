@@ -1525,7 +1525,6 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 		resetLists();
 
-		deselectAllPoints();
 
 	}
 

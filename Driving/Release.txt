@@ -1,4 +1,7 @@
-New autocars algorithm.
+New landscape:
+/lib/landscape_monza
+
+New autocars algorithm. See README.txt to lanch it.
 
 New tool ImageTracer.
 
