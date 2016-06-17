@@ -1,6 +1,8 @@
 New landscape:
 /lib/landscape_monza
 
+Added a starting view direction.
+
 New autocars algorithm. See README.txt to lanch it.
 
 New tool ImageTracer.

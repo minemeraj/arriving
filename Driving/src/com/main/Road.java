@@ -165,6 +165,11 @@ public class Road extends Shader{
 			POSX=(int) startPosition.x-WIDTH/2-CAR_WIDTH/2;
 			POSY=(int) startPosition.y;
 			
+			if(startPosition.getData()!=null){
+				
+				setViewDirection((Double)startPosition.getData());
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

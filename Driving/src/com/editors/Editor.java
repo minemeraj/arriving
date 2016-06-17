@@ -260,7 +260,9 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 				startPosition.y=Double.parseDouble(vals[1]);
 				startPosition.z=Double.parseDouble(vals[2]);
 		
-				
+				if(vals.length>3)
+					startPosition.setData(new Double(vals[3]));
+					
 			}
 
 			br.close();
