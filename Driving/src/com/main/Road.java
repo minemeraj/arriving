@@ -167,8 +167,9 @@ public class Road extends Shader{
 			
 			if(startPosition.getData()!=null){
 				
-				setViewDirection((Double)startPosition.getData());
-			}
+				//setViewDirection((Double)startPosition.getData());
+			} else
+				setViewDirection(0);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

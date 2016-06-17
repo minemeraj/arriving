@@ -79,8 +79,6 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 	@Override
 	public void buildNewZBuffers() {
 
-		setViewDirection(0);
-
 		for(int i=0;i<roadZbuffer.getSize();i++){
 
 			roadZbuffer.setRgbColor(greenRgb, i);
