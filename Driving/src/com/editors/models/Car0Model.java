@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.io.PrintWriter;
 import java.util.Vector;
 
+import com.BPoint;
 import com.Point3D;
 
 public class Car0Model extends MeshModel{
@@ -76,9 +77,30 @@ public class Car0Model extends MeshModel{
 
 
 		}
-
+		//these wheel data should be read from the editor
+		int rays_number=10;
+		int wheel_width=20;
+		int wheel_radius=50;
+		
+		if(false){
+			//where to put the axles?
+			//z I know, x almost, but y? is in the car data, you need more tha dx,dy,dz?
+			//Instead, set them as body data...
+			double wz=wheel_radius;
+			double wx=dx-wheel_width;		
+			
+			double yRearAxle=axles[0]*dy;
+			double yFrontAxle=axles[1]*dy;
+			
+			BPoint[][] wheelLeftFront=buildWheel(-wx, yFrontAxle,wz , wheel_radius, wheel_width, rays_number);
+			BPoint[][] wheelRightFront=buildWheel(wx, yFrontAxle, wz, wheel_radius, wheel_width, rays_number);
+			BPoint[][] wheelLeftRear=buildWheel(-wx, yRearAxle, wz, wheel_radius, wheel_width, rays_number);
+			BPoint[][] wheelRightRear=buildWheel(wx, yRearAxle, wz, wheel_radius, wheel_width, rays_number);
+		}
 		//single block texture
 
+		int totBlockTexturesPoints=0;
+		
 		for(int k=0;k<numSections;k++){
 
 			double[][] d=body[k];
@@ -99,15 +121,47 @@ public class Car0Model extends MeshModel{
 					x+=dx*0.5;
 				else if(p0==5)
 					x+=dx;
+				
+				totBlockTexturesPoints++;
+			}
+		}
+		
+		//wheel texture, a black square for simplicity:
+
+		if(false){
+			
+			double x=bx+dz*2+dx*2;
+			double y=by;
+			
+			addTPoint(x,y,0);
+			addTPoint(x+wheel_width,y,0);
+			addTPoint(x+wheel_width,y+wheel_width,0);
+			addTPoint(x,y+wheel_width,0);
+		}
+		
+		//////
+		int NUM_FACES=nBasePoints*(numSections-1);
+		int NUM_WHEEL_FACES=4*rays_number;
+		
+		faces=new int[NUM_FACES][][];
+		int counter=0;
+		int[][][] bFaces = buildSingleBlockFaces(nBasePoints,numSections,0,0);
+		
+		for (int i = 0; i < NUM_FACES; i++) {
+			faces[counter++]=bFaces[i];
+		}
+		
+		//build wheels faces
+
+		if(false){
+			
+			int[][][] wFaces = buildWheelFaces(null,totBlockTexturesPoints);
+			for (int i = 0; i < NUM_FACES; i++) {
+				faces[counter++]=bFaces[i];
 			}
 		}
 
-
-
-		faces=buildSingleBlockFaces(nBasePoints,numSections,0,0);
-
-
-		IMG_WIDTH=(int) (2*bx+2*(dx+dz));
+		IMG_WIDTH=(int) (2*bx+2*(dx+dz));//+wheel_width
 		IMG_HEIGHT=(int) (2*by+dy);
 	}
 
@@ -167,6 +221,9 @@ public class Car0Model extends MeshModel{
 			{{1.0000},{1.0,1.0,0.75},{0.1727,0.2811,0.2811}},
 	
 	};
+	
+	private final double[] axles={0.0,1.0};
+			
 
 
 }

@@ -624,16 +624,10 @@ public abstract class MeshModel {
 
 	}
 	
-	protected void buildWheel(double rxc, double ryc, double rzc,double r, double wheel_width) {
+	protected BPoint[][] buildWheel(double rxc, double ryc, double rzc,double r, double wheel_width,int raysNumber) {
 
 
-		int raysNumber=10;
-
-		//back wheel
-
-		BPoint[] lRearWheel=new BPoint[raysNumber];
-		BPoint[] rRearWheel=new BPoint[raysNumber];
-
+		BPoint[][] wheelPoints=new BPoint[raysNumber][2];
 
 		for(int i=0;i<raysNumber;i++){
 
@@ -643,12 +637,54 @@ public abstract class MeshModel {
 			double y=ryc+r*Math.sin(teta);
 			double z=rzc+r*Math.cos(teta);
 
-			lRearWheel[i]=addBPoint(x,y,z);
-			rRearWheel[i]=addBPoint(x+wheel_width,y,z);
+			wheelPoints[i][0]=addBPoint(x,y,z);
+			wheelPoints[i][1]=addBPoint(x+wheel_width,y,z);
 		}
 
+		return wheelPoints;
 
 
+	}
+	
+	
+	protected int[][][] buildWheelFaces(BPoint[][] wheelPoints,int texture_index) {
+
+		int raysNumber=wheelPoints.length;
+		
+		int[][][] bFaces=new int[raysNumber*3][][];
+
+		//wheel track
+		int counter=0;
+		
+		for(int i=0;i<raysNumber;i++){
+			
+			BPoint p0=wheelPoints[i][0];
+			BPoint p1=wheelPoints[i][1];
+			BPoint p2=wheelPoints[(i+1)%raysNumber][1];
+			BPoint p3=wheelPoints[(i+1)%raysNumber][0];
+
+			bFaces[counter++]=buildFace(0, p0, p1, p2,p3, texture_index, texture_index+1, texture_index+2,texture_index+3);
+		}
+		//wheel sides as triangles? 
+		for(int i=1;i<raysNumber;i++){
+			
+			BPoint p0=wheelPoints[0][0];
+			BPoint p1=wheelPoints[i][0];
+			BPoint p2=wheelPoints[(i+1)%raysNumber][0];	
+
+			bFaces[counter++]=buildFace(0, p0, p1, p2,texture_index, texture_index+1, texture_index+2);
+		}
+		
+		for(int i=1;i<raysNumber;i++){
+			
+			BPoint p0=wheelPoints[0][1];
+			BPoint p1=wheelPoints[i][1];
+			BPoint p2=wheelPoints[(i+1)%raysNumber][1];	
+
+			bFaces[counter++]=buildFace(0, p0, p1, p2,texture_index, texture_index+1, texture_index+2);
+		}
+
+		return bFaces;
 
 	}
 
