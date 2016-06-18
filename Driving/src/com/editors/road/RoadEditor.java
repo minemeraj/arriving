@@ -1441,28 +1441,28 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		label = new JLabel();
 		label.setText("Start Y: ");
-		label.setBounds(180,2,60,20);
+		label.setBounds(170,2,60,20);
 		bottom.add(label);
 	
 		startY=new IntegerTextField();
-		startY.setBounds(240,2,100,20);
+		startY.setBounds(230,2,100,20);
 		startY.addKeyListener(this);
 		bottom.add(startY);
 		
 		
 		label = new JLabel();
 		label.setText("Start angle: ");
-		label.setBounds(180,2,60,20);
+		label.setBounds(340,2,80,20);
 		bottom.add(label);
 	
 		start_angle=new DoubleTextField();
-		start_angle.setBounds(240,2,100,20);
+		start_angle.setBounds(420,2,100,20);
 		start_angle.addKeyListener(this);
 		bottom.add(start_angle);
 		
 		
 		updateStartPosition=new JButton("Update");
-		updateStartPosition.setBounds(360,2,100,20);
+		updateStartPosition.setBounds(530,2,100,20);
 		updateStartPosition.setFocusable(false);
 		updateStartPosition.addActionListener(this);
 		bottom.add(updateStartPosition);
@@ -1470,11 +1470,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		JLabel lscreenpoint = new JLabel();
 		lscreenpoint.setText("Position x,y: ");
-		lscreenpoint.setBounds(500,2,100,20);
+		lscreenpoint.setBounds(730,2,100,20);
 		bottom.add(lscreenpoint);
 		screenPoint=new JLabel();
 		screenPoint.setText(",");
-		screenPoint.setBounds(600,2,300,20);
+		screenPoint.setBounds(800,2,300,20);
 		bottom.add(screenPoint);
 		add(bottom);
 	}
