@@ -679,8 +679,9 @@ public abstract class MeshModel {
 		for(int i=1;i<raysNumber-1;i++){
 			
 			BPoint p0=wheelPoints[0][1];
-			BPoint p1=wheelPoints[i][1];
-			BPoint p2=wheelPoints[(i+1)%raysNumber][1];	
+			BPoint p1=wheelPoints[(i+1)%raysNumber][1];	
+			BPoint p2=wheelPoints[i][1];
+			
 
 			bFaces[counter++]=buildFace(0, p0, p1, p2,texture_index, texture_index+1, texture_index+2);
 		}
