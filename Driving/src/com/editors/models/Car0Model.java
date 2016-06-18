@@ -126,8 +126,6 @@ public class Car0Model extends MeshModel{
 
 		//wheel texture, a black square for simplicity:
 
-
-
 		double x=bx+dz*2+dx*2;
 		double y=by;
 
@@ -172,7 +170,7 @@ public class Car0Model extends MeshModel{
 			faces[counter++]=wFaces[i];
 		}
 
-		IMG_WIDTH=(int) (2*bx+2*(dx+dz));//+wheel_width
+		IMG_WIDTH=(int) (2*bx+2*(dx+dz))+wheel_width;
 		IMG_HEIGHT=(int) (2*by+dy);
 	}
 
