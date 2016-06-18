@@ -97,6 +97,8 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	private int imageWidth=0;
 	private int imageHeight=0;
 	private double outputScale=0;
+	private double outputDX=0;
+	private double outputDY=0;
 	private JButton btnChangeImage;
 	private DoubleTextField xcoordinates;
 	private JCheckBox checkMultiplePointsSelection;
@@ -106,6 +108,8 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	private JButton selectAllPoints;
 	private JButton deleteSelectedPoints;
 	private DoubleTextField output_scale;
+	private DoubleTextField output_dx;
+	private DoubleTextField output_dy;
 
 	private int x0=0;
 	private int y0=0;
@@ -139,6 +143,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	private JButton moveListPointDown;
 	private JButton moveListPointUp;
 	private File imageFile=null;
+
 
 	public static void main(String[] args) {
 
@@ -281,6 +286,28 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		output_scale.setBounds(90,r,80,20);
 		output_scale.addKeyListener(this);
 		right.add(output_scale);
+		
+		r+=30;
+		
+		label=new JLabel("Output dx:");
+		label.setBounds(col0,r,80,20);
+		right.add(label);
+
+		output_dx=new DoubleTextField(8);
+		output_dx.setBounds(90,r,80,20);
+		output_dx.addKeyListener(this);
+		right.add(output_dx);
+		
+		r+=30;
+		
+		label=new JLabel("Output dy:");
+		label.setBounds(col0,r,80,20);
+		right.add(label);
+
+		output_dy=new DoubleTextField(8);
+		output_dy.setBounds(90,r,80,20);
+		output_dy.addKeyListener(this);
+		right.add(output_dy);
 
 		
 		int col2=180;
@@ -930,6 +957,8 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		if(outputScale==0)
 			outputScale=1.0;
 		
+		outputDX=output_dx.getvalue();
+		outputDY=output_dy.getvalue();
 
 		int returnVal = fc.showOpenDialog(null);
 
@@ -951,7 +980,9 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 				int imgMode=imgModeFixedValues.isSelected()?IMAGE_MODE_FIXED_VALUES:IMAGE_MODE_SCALE;
 				pr.println("image_mode="+imgMode);
 
-				pr.println("output_scale="+output_scale.getvalue());
+				pr.println("output_scale="+outputScale);
+				pr.println("output_dx="+outputDX);
+				pr.println("output_dy="+outputDY);
 				pr.println("image_scale="+image_scale.getvalue());
 				if(imageFile!=null)
 					pr.println("image_file="+imageFile.getAbsolutePath());
@@ -961,7 +992,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 					Point3D p=points.get(i);
 
-					String str=decomposePoint(p,outputScale);
+					String str=decomposePoint(p,outputScale,outputDX,outputDY);
 
 					pr.println("v="+str);
 
@@ -975,10 +1006,10 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	}
 
 
-	private static final String decomposePoint(Point3D p, double factor) {
+	private static final String decomposePoint(Point3D p, double factor, double outputDX2, double outputDY2) {
 		String str="";
 
-		str=(p.x*factor)+" "+(p.y*factor)+" "+(p.z*factor);
+		str=(p.x*factor+outputDX2)+" "+(p.y*factor+outputDY2)+" "+(p.z*factor);
 
 		if(p.getData()!=null)
 			str=str+" "+p.getData().toString();
@@ -1028,7 +1059,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			int indx=line.indexOf("=");
 
 			if(line.startsWith("v=")){
-				buildPoint(points,line.substring(indx+1),outputScale);
+				buildPoint(points,line.substring(indx+1),outputScale,outputDX,outputDY);
 			} else if(line.startsWith("image_width=")){
 
 				imageWidth=Integer.parseInt(line.substring(indx+1));
@@ -1058,7 +1089,20 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 				
 				output_scale.setText(outputScale);
 				
-			}else if(line.startsWith("image_scale=")){
+			}else if(line.startsWith("output_dx=")){
+
+				double translation = Double.parseDouble(line.substring(indx+1));
+				outputDX=translation;					
+				output_dx.setText(outputScale);
+				
+			}else if(line.startsWith("output_dy=")){
+
+				double translation = Double.parseDouble(line.substring(indx+1));
+				outputDY=translation;					
+				output_dy.setText(outputScale);
+				
+			}
+			else if(line.startsWith("image_scale=")){
 
 				double factor = Double.parseDouble(line.substring(indx+1));
 				image_scale.setText(factor);
@@ -1092,7 +1136,10 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		br.close();
 	}
 
-	private static final void buildPoint(List<Point3D> vPoints,String str, double outputScaleValue) {
+	private static final void buildPoint(List<Point3D> vPoints,String str, 
+			double outputScaleValue, 
+			double outputDX2, 
+			double outputDY2) {
 
 
 		if(outputScaleValue==0)
@@ -1102,8 +1149,8 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 		Point3D p=new Point3D();
 
-		p.x=Double.parseDouble(vals[0])/outputScaleValue;
-		p.y=Double.parseDouble(vals[1])/outputScaleValue;
+		p.x=(Double.parseDouble(vals[0])-outputDX2)/outputScaleValue;
+		p.y=(Double.parseDouble(vals[1])-outputDY2)/outputScaleValue;
 		p.z=Double.parseDouble(vals[2])/outputScaleValue;
 
 		if(vals.length==4)
