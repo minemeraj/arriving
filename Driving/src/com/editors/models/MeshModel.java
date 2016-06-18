@@ -650,8 +650,9 @@ public abstract class MeshModel {
 	protected int[][][] buildWheelFaces(BPoint[][] wheelPoints,int texture_index) {
 
 		int raysNumber=wheelPoints.length;
+		int totWheelPolygon=raysNumber+2*(raysNumber-2);
 		
-		int[][][] bFaces=new int[raysNumber*3][][];
+		int[][][] bFaces=new int[totWheelPolygon][][];
 
 		//wheel track
 		int counter=0;
@@ -666,7 +667,7 @@ public abstract class MeshModel {
 			bFaces[counter++]=buildFace(0, p0, p1, p2,p3, texture_index, texture_index+1, texture_index+2,texture_index+3);
 		}
 		//wheel sides as triangles? 
-		for(int i=1;i<raysNumber;i++){
+		for(int i=1;i<raysNumber-1;i++){
 			
 			BPoint p0=wheelPoints[0][0];
 			BPoint p1=wheelPoints[i][0];
@@ -675,7 +676,7 @@ public abstract class MeshModel {
 			bFaces[counter++]=buildFace(0, p0, p1, p2,texture_index, texture_index+1, texture_index+2);
 		}
 		
-		for(int i=1;i<raysNumber;i++){
+		for(int i=1;i<raysNumber-1;i++){
 			
 			BPoint p0=wheelPoints[0][1];
 			BPoint p1=wheelPoints[i][1];

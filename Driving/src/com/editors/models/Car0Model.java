@@ -138,8 +138,9 @@ public class Car0Model extends MeshModel{
 
 
 		//////
+		int totWheelPolygon=rays_number+2*(rays_number-2);
 		
-		int NUM_WHEEL_FACES=4*rays_number;
+		int NUM_WHEEL_FACES=4*totWheelPolygon;
 		int NUM_FACES=nBasePoints*(numSections-1);
 
 		faces=new int[NUM_FACES+NUM_WHEEL_FACES][][];
@@ -152,22 +153,22 @@ public class Car0Model extends MeshModel{
 
 		//build wheels faces
 		int[][][] wFaces = buildWheelFaces(wheelLeftFront,totBlockTexturesPoints);
-		for (int i = 0; i < rays_number; i++) {
+		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++]=wFaces[i];
 		}
 
 		wFaces = buildWheelFaces(wheelRightFront,totBlockTexturesPoints);
-		for (int i = 0; i < rays_number; i++) {
+		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++]=wFaces[i];
 		}
 		
 		wFaces = buildWheelFaces(wheelLeftRear,totBlockTexturesPoints);
-		for (int i = 0; i < rays_number; i++) {
+		for (int i = 0; i <totWheelPolygon; i++) {
 			faces[counter++]=wFaces[i];
 		}
 		
 		wFaces = buildWheelFaces(wheelRightRear,totBlockTexturesPoints);
-		for (int i = 0; i < rays_number; i++) {
+		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++]=wFaces[i];
 		}
 
