@@ -44,21 +44,21 @@ public class Car0Model extends MeshModel{
 			double[][] d=body[k];
 
 			double yi=d[0][0];
-			
+
 			double x0=d[1][0];
 			double x1=d[1][1];
 			double x2=d[1][2];
-			
+
 			double z0=d[2][0];
 			double z1=d[2][1];
 			double z2=d[2][2];
 
 			double y=yi*dy;
-			
+
 			double deltax0=dx*x0*0.5;
 			double deltax1=dx*x1*0.5;
 			double deltax2=dx*x2*0.5;
-			
+
 			double deltaz0=dz*z0;
 			double deltaz1=dz*z1;
 			double deltaz2=dz*z2;
@@ -80,27 +80,25 @@ public class Car0Model extends MeshModel{
 		//these wheel data should be read from the editor
 		int rays_number=10;
 		int wheel_width=20;
-		int wheel_radius=50;
-		
-		if(false){
-			//where to put the axles?
-			//z I know, x almost, but y? is in the car data, you need more tha dx,dy,dz?
-			//Instead, set them as body data...
-			double wz=wheel_radius;
-			double wx=dx-wheel_width;		
-			
-			double yRearAxle=axles[0]*dy;
-			double yFrontAxle=axles[1]*dy;
-			
-			BPoint[][] wheelLeftFront=buildWheel(-wx, yFrontAxle,wz , wheel_radius, wheel_width, rays_number);
-			BPoint[][] wheelRightFront=buildWheel(wx, yFrontAxle, wz, wheel_radius, wheel_width, rays_number);
-			BPoint[][] wheelLeftRear=buildWheel(-wx, yRearAxle, wz, wheel_radius, wheel_width, rays_number);
-			BPoint[][] wheelRightRear=buildWheel(wx, yRearAxle, wz, wheel_radius, wheel_width, rays_number);
-		}
+		double wheel_radius=0.06703*dy;
+
+
+
+		double wz=0;//wheel_radius;
+		double wx=dx*0.5-wheel_width;		
+
+		double yRearAxle=axles[0]*dy;
+		double yFrontAxle=axles[1]*dy;
+
+		BPoint[][] wheelLeftFront=buildWheel(-wx-wheel_width, yFrontAxle,wz , wheel_radius, wheel_width, rays_number);
+		BPoint[][] wheelRightFront=buildWheel(wx, yFrontAxle, wz, wheel_radius, wheel_width, rays_number);
+		BPoint[][] wheelLeftRear=buildWheel(-wx-wheel_width, yRearAxle, wz, wheel_radius, wheel_width, rays_number);
+		BPoint[][] wheelRightRear=buildWheel(wx, yRearAxle, wz, wheel_radius, wheel_width, rays_number);
+
 		//single block texture
 
 		int totBlockTexturesPoints=0;
-		
+
 		for(int k=0;k<numSections;k++){
 
 			double[][] d=body[k];
@@ -121,44 +119,56 @@ public class Car0Model extends MeshModel{
 					x+=dx*0.5;
 				else if(p0==5)
 					x+=dx;
-				
+
 				totBlockTexturesPoints++;
 			}
 		}
-		
+
 		//wheel texture, a black square for simplicity:
 
-		if(false){
-			
-			double x=bx+dz*2+dx*2;
-			double y=by;
-			
-			addTPoint(x,y,0);
-			addTPoint(x+wheel_width,y,0);
-			addTPoint(x+wheel_width,y+wheel_width,0);
-			addTPoint(x,y+wheel_width,0);
-		}
-		
+
+
+		double x=bx+dz*2+dx*2;
+		double y=by;
+
+		addTPoint(x,y,0);
+		addTPoint(x+wheel_width,y,0);
+		addTPoint(x+wheel_width,y+wheel_width,0);
+		addTPoint(x,y+wheel_width,0);
+
+
 		//////
-		int NUM_FACES=nBasePoints*(numSections-1);
-		int NUM_WHEEL_FACES=4*rays_number;
 		
-		faces=new int[NUM_FACES][][];
+		int NUM_WHEEL_FACES=4*rays_number;
+		int NUM_FACES=nBasePoints*(numSections-1);
+
+		faces=new int[NUM_FACES+NUM_WHEEL_FACES][][];
 		int counter=0;
 		int[][][] bFaces = buildSingleBlockFaces(nBasePoints,numSections,0,0);
-		
+
 		for (int i = 0; i < NUM_FACES; i++) {
 			faces[counter++]=bFaces[i];
 		}
-		
-		//build wheels faces
 
-		if(false){
-			
-			int[][][] wFaces = buildWheelFaces(null,totBlockTexturesPoints);
-			for (int i = 0; i < NUM_FACES; i++) {
-				faces[counter++]=bFaces[i];
-			}
+		//build wheels faces
+		int[][][] wFaces = buildWheelFaces(wheelLeftFront,totBlockTexturesPoints);
+		for (int i = 0; i < rays_number; i++) {
+			faces[counter++]=wFaces[i];
+		}
+
+		wFaces = buildWheelFaces(wheelRightFront,totBlockTexturesPoints);
+		for (int i = 0; i < rays_number; i++) {
+			faces[counter++]=wFaces[i];
+		}
+		
+		wFaces = buildWheelFaces(wheelLeftRear,totBlockTexturesPoints);
+		for (int i = 0; i < rays_number; i++) {
+			faces[counter++]=wFaces[i];
+		}
+		
+		wFaces = buildWheelFaces(wheelRightRear,totBlockTexturesPoints);
+		for (int i = 0; i < rays_number; i++) {
+			faces[counter++]=wFaces[i];
 		}
 
 		IMG_WIDTH=(int) (2*bx+2*(dx+dz));//+wheel_width
@@ -219,11 +229,11 @@ public class Car0Model extends MeshModel{
 			{{0.8782},{1.0,1.0,0.75},{0.0000,0.5703,0.5703}},
 			{{0.9759},{1.0,1.0,0.75},{0.0000,0.4378,0.4378}},
 			{{1.0000},{1.0,1.0,0.75},{0.1727,0.2811,0.2811}},
-	
+
 	};
-	
-	private final double[] axles={0.0,1.0};
-			
+
+	private final double[] axles={0.2217,0.7980};
+
 
 
 }
