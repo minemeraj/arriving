@@ -37,7 +37,7 @@ public class Car0Model extends MeshModel{
 		texturePoints=new Vector();
 
 		int numSections=body.length;
-		
+
 		BPoint[][] bodyPoints=new BPoint[numSections][6];
 
 		for(int k=0;k<numSections;k++){
@@ -123,30 +123,46 @@ public class Car0Model extends MeshModel{
 				totBlockTexturesPoints++;
 			}
 		}
-		
-		//closing back texture
-		for(int i=0;i<1;i++){
+
+		//closing back and front texture
+		for(int i=0;i<2;i++){
+
+			double x=bx+dz;
+			double y=by;
 			
-			addTPoint(bx,by,0);
-			addTPoint(bx+dx,by,0);
-			addTPoint(bx+dx,by+dz,0);
-			addTPoint(bx,by+dz,0);	
+			if(i==0){
+				
+				addTPoint(x,y,0);
+				addTPoint(x,y+dz,0);
+				addTPoint(x+dx*0.25,y+dz,0);
+				addTPoint(x+dx*0.75,y+dz,0);
+				addTPoint(x+dx,y+dz,0);
+				addTPoint(x+dx,y,0);
+			}else if(i==1){		
+				y=by+dy+dz;
+				
+				addTPoint(x+dx,y+dz,0);
+				addTPoint(x+dx,y,0);
+				addTPoint(x+dx*0.75,y,0);
+				addTPoint(x+dx*0.25,y,0);
+				addTPoint(x,y,0);
+				addTPoint(x,y+dz,0);
+				
+				
+				
+				
+			}
+
+
+
 		}
-		//closing front texture
-		for(int i=0;i<1;i++){
-			
-			double y=by+dy+dz;
-			addTPoint(bx,y,0);
-			addTPoint(bx+dx,y,0);
-			addTPoint(bx+dx,y+dz,0);
-			addTPoint(bx,y+dz,0);	
-		}	
+
 
 		//wheel texture, a black square for simplicity:
 
 		double x=bx+dz*2+dx*2;
 		double y=by;
-	
+
 		addTPoint(x,y,0);
 		addTPoint(x+wheel_width,y,0);
 		addTPoint(x+wheel_width,y+wheel_width,0);
@@ -156,37 +172,74 @@ public class Car0Model extends MeshModel{
 
 		//////
 		int totWheelPolygon=rays_number+2*(rays_number-2);
-		
+
 		int NUM_WHEEL_FACES=4*totWheelPolygon;
 		int NUM_FACES=nBasePoints*(numSections-1);
 
-		faces=new int[NUM_FACES+NUM_WHEEL_FACES+2][][];
+		faces=new int[NUM_FACES+NUM_WHEEL_FACES+6][][];
 		int counter=0;
 		int[][][] bFaces = buildSingleBlockFaces(nBasePoints,numSections,0,0);
 
 		for (int i = 0; i < NUM_FACES; i++) {
 			faces[counter++]=bFaces[i];
 		}
-		//closing the mesh back		
+		//closing the mesh back	with 3 panels	
 		int totPanel=totBlockTexturesPoints;
-		for(int i=0;i<1;i++){
-		faces[counter++]=buildFace(CarFrame.CAR_BACK, 
-				bodyPoints[0][0], bodyPoints[0][1], bodyPoints[0][2],bodyPoints[0][3], 
-				totPanel, totPanel+1, totPanel+2,totPanel+3);
-			totBlockTexturesPoints+=4;
+		for(int i=0;i<3;i++){
+
+			if(i==0){
+				faces[counter++]=buildFace(CarFrame.CAR_BACK, 
+						bodyPoints[0][0], 
+						bodyPoints[0][2], 
+						bodyPoints[0][1],
+						totPanel, totPanel+2, totPanel+1);
+			}
+			else if(i==1){
+				faces[counter++]=buildFace(CarFrame.CAR_BACK, 
+						bodyPoints[0][0], 
+						bodyPoints[0][5], 
+						bodyPoints[0][3],
+						bodyPoints[0][2], 
+						totPanel, totPanel+5, totPanel+3,totPanel+2);
+			}else if(i==2){
+				faces[counter++]=buildFace(CarFrame.CAR_BACK, 
+						bodyPoints[0][3], 
+						bodyPoints[0][5], 
+						bodyPoints[0][4],
+						totPanel+3, totPanel+5, totPanel+4);
+			}
 		}
-		
-		//closing the mesh front	
+		totBlockTexturesPoints+=6;
+		/////
+		//closing the mesh front with 3 panels	
 		totPanel=totBlockTexturesPoints;
-		for(int i=0;i<1;i++){
-		faces[counter++]=buildFace(CarFrame.CAR_FRONT, 
-				bodyPoints[numSections-1][3], 
-				bodyPoints[numSections-1][2], 
-				bodyPoints[numSections-1][1],
-				bodyPoints[numSections-1][0], 
-				totPanel, totPanel+1, totPanel+2,totPanel+3);
-			totBlockTexturesPoints+=4;
+		for(int i=0;i<3;i++){
+			
+			if(i==0){
+				faces[counter++]=buildFace(CarFrame.CAR_FRONT, 
+						bodyPoints[numSections-1][0], 
+						bodyPoints[numSections-1][1], 
+						bodyPoints[numSections-1][2],
+						totPanel, totPanel+1, totPanel+2);
+			}
+			else if(i==1){
+				faces[counter++]=buildFace(CarFrame.CAR_FRONT, 
+						bodyPoints[numSections-1][0], 
+						bodyPoints[numSections-1][5], 
+						bodyPoints[numSections-1][3],
+						bodyPoints[numSections-1][2], 
+						totPanel, totPanel+5, totPanel+3,totPanel+2);
+			}else if(i==2){
+				faces[counter++]=buildFace(CarFrame.CAR_FRONT, 
+						bodyPoints[numSections-1][3], 
+						bodyPoints[numSections-1][4], 
+						bodyPoints[numSections-1][5],
+						totPanel+3, totPanel+4, totPanel+5);
+			}
 		}
+		totBlockTexturesPoints+=6;
+		////
+
 
 		//build wheels faces
 		int[][][] wFaces = buildWheelFaces(wheelLeftFront,totBlockTexturesPoints);
@@ -198,18 +251,18 @@ public class Car0Model extends MeshModel{
 		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++]=wFaces[i];
 		}
-		
+
 		wFaces = buildWheelFaces(wheelLeftRear,totBlockTexturesPoints);
 		for (int i = 0; i <totWheelPolygon; i++) {
 			faces[counter++]=wFaces[i];
 		}
-		
+
 		wFaces = buildWheelFaces(wheelRightRear,totBlockTexturesPoints);
 		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++]=wFaces[i];
 		}
-		
-		
+
+
 
 		IMG_WIDTH=(int) (2*bx+2*(dx+dz))+wheel_width;
 		IMG_HEIGHT=(int) (2*by+dy+2*dz);
