@@ -225,10 +225,10 @@ public class Car0Model extends MeshModel{
 			else if(i==1){
 				faces[counter++]=buildFace(CarFrame.CAR_FRONT, 
 						bodyPoints[numSections-1][0], 
-						bodyPoints[numSections-1][5], 
-						bodyPoints[numSections-1][3],
 						bodyPoints[numSections-1][2], 
-						totPanel, totPanel+5, totPanel+3,totPanel+2);
+						bodyPoints[numSections-1][3],
+						bodyPoints[numSections-1][5], 
+						totPanel, totPanel+2, totPanel+3,totPanel+5);
 			}else if(i==2){
 				faces[counter++]=buildFace(CarFrame.CAR_FRONT, 
 						bodyPoints[numSections-1][3], 
