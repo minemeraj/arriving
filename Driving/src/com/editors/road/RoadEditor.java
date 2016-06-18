@@ -243,6 +243,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private transient Point3D startPosition=null;
 	private IntegerTextField startX;
 	private IntegerTextField startY;
+	private DoubleTextField start_angle;
 	private JButton updateStartPosition;
 	
 
@@ -251,6 +252,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JMenuItem mass_modify_jmt;
 	private JMenuItem jmt_faster_motion;
 	private JMenuItem jmt_slower_motion;
+	
 	
 	
 	
@@ -1448,6 +1450,17 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		bottom.add(startY);
 		
 		
+		label = new JLabel();
+		label.setText("Start angle: ");
+		label.setBounds(180,2,60,20);
+		bottom.add(label);
+	
+		start_angle=new DoubleTextField();
+		start_angle.setBounds(240,2,100,20);
+		start_angle.addKeyListener(this);
+		bottom.add(start_angle);
+		
+		
 		updateStartPosition=new JButton("Update");
 		updateStartPosition.setBounds(360,2,100,20);
 		updateStartPosition.setFocusable(false);
@@ -2173,10 +2186,15 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		try {
 			
 			startPosition=new Point3D(startX.getvalue(),startY.getvalue(),0);
+			
+			Double startingAngle=Double.valueOf(start_angle.getvalue());
+			startPosition.setData(startingAngle);
 
+			String str=startPosition.toString()+" "+startingAngle.doubleValue();
+			
             pr.println("<startPosition>");		
-
-			pr.println(startPosition.toString());
+            
+			pr.println(str);
 			
 			pr.println("</startPosition>");
 				
@@ -4011,12 +4029,22 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		this.startPosition = startPosition;
 		startX.setText((int) this.startPosition.x);
 		startY.setText((int) this.startPosition.y);
+		if(startPosition.getData()!=null){
+			
+			Double dAngle=(Double) startPosition.getData();
+			start_angle.setText(dAngle.doubleValue());
+		}
+		
 	}
 
 
 	private void updateStartPosition() {
 		
 		startPosition=new Point3D(startX.getvalue(),startY.getvalue(),0);
+		Double dAngle=new Double(start_angle.getvalue());
+		startPosition.setData(dAngle);
+		
+		start_angle.setText(dAngle.doubleValue());
 		draw();
 		
 	}

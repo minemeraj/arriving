@@ -167,7 +167,8 @@ public class Road extends Shader{
 			
 			if(startPosition.getData()!=null){
 				
-				//setViewDirection((Double)startPosition.getData());
+				setViewDirection((Double)startPosition.getData());
+				
 			} else
 				setViewDirection(0);
 			
@@ -239,8 +240,7 @@ public class Road extends Shader{
 		carDynamics=new CarDynamics(1000,1.2,1.4,1,1,1,0,1680,100000,100000);
 		carDynamics.setAerodynamics(1.3, 1.8, 0.35);
 		carDynamics.setForces(3000, 3000);
-		carDynamics.setInitvalues(0, 0, 0, 0);
-		
+		carDynamics.setInitvalues(0, 0, 0, 0,-getViewDirection());
 			
 	}
 

@@ -120,7 +120,7 @@ class CarDynamics {
 		  //linear motion
 		//cd.setInitvalues(0, 1, 0, 0);
 		 //steering 
-		cd.setInitvalues(0.30, 1, 0, 0);
+		cd.setInitvalues(0.30, 1, 0, 0,0);
 		cd.setFx2Versus(1);
 		
 		//System.out.println("\t"+df.format(0)+"\t "+cd);
@@ -263,14 +263,6 @@ class CarDynamics {
 		this.t2=t2;
 	}
 
-	public void setInitPosition(double x0,double y0,double psi0){
-	
-		dx=x0;
-		dy=y0;
-		dpsi=psi0;
-		psi=0;
-		
-	}
 	
 	void setAerodynamics(double ro,double S,double Cx){
 		
@@ -291,12 +283,13 @@ class CarDynamics {
 	}
 	
 	
-	void setInitvalues(double delta, double u, double r, double nu) {
+	void setInitvalues(double delta, double u, double r, double nu,double psi) {
 		
 		this.delta = delta;
 		this.u = u;
 		this.r = r;
 		this.nu = nu;
+		this.psi = psi;
 		
 		delta1=tau*delta;
 		delta2=chi*tau*delta;
