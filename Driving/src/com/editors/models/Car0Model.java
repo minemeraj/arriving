@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import com.BPoint;
 import com.Point3D;
+import com.main.CarFrame;
 
 public class Car0Model extends MeshModel{
 
@@ -36,8 +37,8 @@ public class Car0Model extends MeshModel{
 		texturePoints=new Vector();
 
 		int numSections=body.length;
-
-		int totalBodyPoints=0;
+		
+		BPoint[][] bodyPoints=new BPoint[numSections][6];
 
 		for(int k=0;k<numSections;k++){
 
@@ -66,14 +67,13 @@ public class Car0Model extends MeshModel{
 			double x=0;
 			double z=0;
 
-			addPoint(x-deltax0, y,z+deltaz0);
-			addPoint(x-deltax1, y,z+deltaz1);
-			addPoint(x-deltax2, y,z+deltaz2);
-			addPoint(x+deltax2, y,z+deltaz2);
-			addPoint(x+deltax1, y,z+deltaz1);
-			addPoint(x+deltax0, y,z+deltaz0);
+			bodyPoints[k][0]=addBPoint(x-deltax0, y,z+deltaz0);
+			bodyPoints[k][1]=addBPoint(x-deltax1, y,z+deltaz1);
+			bodyPoints[k][2]=addBPoint(x-deltax2, y,z+deltaz2);
+			bodyPoints[k][3]=addBPoint(x+deltax2, y,z+deltaz2);
+			bodyPoints[k][4]=addBPoint(x+deltax1, y,z+deltaz1);
+			bodyPoints[k][5]=addBPoint(x+deltax0, y,z+deltaz0);
 
-			totalBodyPoints+=4;
 
 
 		}
@@ -105,7 +105,7 @@ public class Car0Model extends MeshModel{
 
 			double yi=d[0][0];
 
-			double y=by+yi*dy;
+			double y=by+yi*dy+dz;
 			double x=bx;
 
 			for (int p0 = 0; p0 <= nBasePoints; p0++) {
@@ -123,16 +123,35 @@ public class Car0Model extends MeshModel{
 				totBlockTexturesPoints++;
 			}
 		}
+		
+		//closing back texture
+		for(int i=0;i<1;i++){
+			
+			addTPoint(bx,by,0);
+			addTPoint(bx+dx,by,0);
+			addTPoint(bx+dx,by+dz,0);
+			addTPoint(bx,by+dz,0);	
+		}
+		//closing front texture
+		for(int i=0;i<1;i++){
+			
+			double y=by+dy+dz;
+			addTPoint(bx,y,0);
+			addTPoint(bx+dx,y,0);
+			addTPoint(bx+dx,y+dz,0);
+			addTPoint(bx,y+dz,0);	
+		}	
 
 		//wheel texture, a black square for simplicity:
 
 		double x=bx+dz*2+dx*2;
 		double y=by;
-
+	
 		addTPoint(x,y,0);
 		addTPoint(x+wheel_width,y,0);
 		addTPoint(x+wheel_width,y+wheel_width,0);
 		addTPoint(x,y+wheel_width,0);
+
 
 
 		//////
@@ -141,12 +160,32 @@ public class Car0Model extends MeshModel{
 		int NUM_WHEEL_FACES=4*totWheelPolygon;
 		int NUM_FACES=nBasePoints*(numSections-1);
 
-		faces=new int[NUM_FACES+NUM_WHEEL_FACES][][];
+		faces=new int[NUM_FACES+NUM_WHEEL_FACES+2][][];
 		int counter=0;
 		int[][][] bFaces = buildSingleBlockFaces(nBasePoints,numSections,0,0);
 
 		for (int i = 0; i < NUM_FACES; i++) {
 			faces[counter++]=bFaces[i];
+		}
+		//closing the mesh back		
+		int totPanel=totBlockTexturesPoints;
+		for(int i=0;i<1;i++){
+		faces[counter++]=buildFace(CarFrame.CAR_BACK, 
+				bodyPoints[0][0], bodyPoints[0][1], bodyPoints[0][2],bodyPoints[0][3], 
+				totPanel, totPanel+1, totPanel+2,totPanel+3);
+			totBlockTexturesPoints+=4;
+		}
+		
+		//closing the mesh front	
+		totPanel=totBlockTexturesPoints;
+		for(int i=0;i<1;i++){
+		faces[counter++]=buildFace(CarFrame.CAR_FRONT, 
+				bodyPoints[numSections-1][3], 
+				bodyPoints[numSections-1][2], 
+				bodyPoints[numSections-1][1],
+				bodyPoints[numSections-1][0], 
+				totPanel, totPanel+1, totPanel+2,totPanel+3);
+			totBlockTexturesPoints+=4;
 		}
 
 		//build wheels faces
@@ -169,9 +208,11 @@ public class Car0Model extends MeshModel{
 		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++]=wFaces[i];
 		}
+		
+		
 
 		IMG_WIDTH=(int) (2*bx+2*(dx+dz))+wheel_width;
-		IMG_HEIGHT=(int) (2*by+dy);
+		IMG_HEIGHT=(int) (2*by+dy+2*dz);
 	}
 
 
@@ -200,7 +241,7 @@ public class Car0Model extends MeshModel{
 	 * BOTTOM-UP SECTIONS
 	 * [y],[x0,x1,x2],[z0,z1,z2]
 	 * 
-	 * i from bottom to top
+	 * i from bottom to top, counterclockwise
 	 * 
 	 * measurs from mazda-6 2008
 	 * 
