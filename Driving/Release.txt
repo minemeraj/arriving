@@ -1,6 +1,8 @@
 New landscape:
 /lib/landscape_monza
 
+landscape_indy re-made from the start.
+
 Added a starting view direction.
 
 New autocars algorithm. See README.txt to lanch it.

@@ -1093,13 +1093,13 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 				double translation = Double.parseDouble(line.substring(indx+1));
 				outputDX=translation;					
-				output_dx.setText(outputScale);
+				output_dx.setText(outputDX);
 				
 			}else if(line.startsWith("output_dy=")){
 
 				double translation = Double.parseDouble(line.substring(indx+1));
 				outputDY=translation;					
-				output_dy.setText(outputScale);
+				output_dy.setText(outputDY);
 				
 			}
 			else if(line.startsWith("image_scale=")){
