@@ -238,6 +238,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton changeTerrainPoint;
 	private JButton setSPNodeHeight;
 	private DoubleTextField setSPNodeHeightValue;
+	private JButton setSPNodeBanking;
+	private DoubleTextField setSPNodeBankingValue;
 	private boolean isInit;
 	
 	private transient Point3D startPosition=null;
@@ -252,6 +254,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JMenuItem mass_modify_jmt;
 	private JMenuItem jmt_faster_motion;
 	private JMenuItem jmt_slower_motion;
+
 	
 	
 	
@@ -979,6 +982,19 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		setSPNodeHeightValue.addKeyListener(this);
 		splines_panel.add(setSPNodeHeightValue);
 		
+		r+=30;
+
+		setSPNodeBanking=new JButton(header+"Set banking"+footer);
+		setSPNodeBanking.addActionListener(this);
+		setSPNodeBanking.setFocusable(false);
+		setSPNodeBanking.setBounds(5,r,100,20);
+		splines_panel.add(setSPNodeBanking);
+		
+		setSPNodeBankingValue=new DoubleTextField(7);
+		setSPNodeBankingValue.setBounds(110,r,120,20);
+		setSPNodeBankingValue.addKeyListener(this);
+		splines_panel.add(setSPNodeBankingValue);
+		
 		return splines_panel;
 	}
 
@@ -1651,6 +1667,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					
 					if(setSPNodeHeightValue.getText().equals(""))
 							spnode.setZ(setSPNodeHeightValue.getvalue());
+					
+					if(setSPNodeBankingValue.getText().equals(""))
+						spnode.setBanking_angle(setSPNodeBankingValue.getvalue());
 					
 				}
 				
@@ -2565,6 +2584,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		else if(obj==setSPNodeHeight){
 			setSPNodeHeight();
 		}	
+		else if(obj==setSPNodeBanking){
+			setSPNodeBanking();
+		}
 		else if(obj==updateStartPosition){
 			
 			updateStartPosition();
@@ -3215,7 +3237,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		if(!vp.getId().equals(""))
 			index=Integer.parseInt(vp.getId());
 		
-		SPNode p0=new SPNode(x,y,0,LineData.GREEN_HEX,index);
+		SPNode p0=new SPNode(x,y,0,0,LineData.GREEN_HEX,index);
 		
 		if(isInit || splines.size()==0){
 			
@@ -3325,7 +3347,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					double z=(node.z+nextNode.z)*0.5;
 					
 					
-					SPNode intermediateNode=new SPNode((int)x,(int)y,(int)z,"FFFFFF",node.getIndex());
+					SPNode intermediateNode=new SPNode((int)x,(int)y,(int)z,0,"FFFFFF",node.getIndex());
 					
 					newNodes.add(intermediateNode);
 					
@@ -3365,6 +3387,43 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				if(node.isSelected()){
 					
 					node.z=height;
+					node.update();
+				}
+			
+			}
+		
+
+			
+		}
+		
+		updateSPlines();
+		
+		deselectAllSPNodes();
+		draw();
+		
+	}
+	
+
+
+	private void setSPNodeBanking() {
+		
+		double banking=setSPNodeBankingValue.getvalue();
+		
+		for (int i = 0; i < splines.size(); i++) {
+			SPLine spline = (SPLine) splines.get(i);
+		
+			ArrayList<SPNode> nodes = spline.getNodes();
+			int sz=nodes.size();
+			
+			
+			for (int k = 0; k < sz; k++) {
+				
+				SPNode node = (SPNode) nodes.get(k);
+			
+
+				if(node.isSelected()){
+					
+					node.setBanking_angle(banking);
 					node.update();
 				}
 			
@@ -3541,6 +3600,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		
 		setSPNodeHeightValue.setText(spnode.getZ());
+		setSPNodeBankingValue.setText(spnode.getBanking_angle());
 		
 	}
 

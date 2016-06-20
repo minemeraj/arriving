@@ -61,11 +61,12 @@ public class SPLine implements Cloneable{
 			double prevX=previousNode.x;
 			double prevY=previousNode.y;
 			double prevZ=previousNode.z;
+			double prevBanking=previousNode.getBanking_angle();
 
 			double nextX=nextNode.x;
 			double nextY=nextNode.y;
 			double nextZ=nextNode.z;
-			
+			double nextBanking=nextNode.getBanking_angle();
 			
 			Point3D NextTangent=nextNode.getTangent();
 
@@ -129,12 +130,20 @@ public class SPLine implements Cloneable{
 				double x=(1.0-l)*prevX+l*nextX;
 				double y=(1.0-l)*prevY+l*nextY;
 				double z=(1.0-l)*prevZ+l*nextZ;
-
+				double banking=(1.0-l)*prevBanking+l*nextBanking;
+				
+				double dzl=dz;
+				double dzr=dz;
+				if(banking>0)
+					dzr+=wid*Math.tan(banking);
+				else if(banking<0)
+					dzl+=wid*Math.tan(-banking);
+				
 				Rib rib=new Rib(4);
 				rib.getPoints()[0]=new Point4D(x+lprevd.x*wid,y+lprevd.y*wid,z,LineData.GREEN_HEX,0);
-				rib.getPoints()[1]=new Point4D(x+rprevd.x*wid,y+rprevd.y*wid,z,LineData.GREEN_HEX,0);		
-				rib.getPoints()[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z+dz,LineData.GREEN_HEX,0);	
-				rib.getPoints()[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z+dz,LineData.GREEN_HEX,0);
+				rib.getPoints()[1]=new Point4D(x+rprevd.x*wid,y+rprevd.y*wid,z,LineData.GREEN_HEX,0);				
+				rib.getPoints()[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z+dzr,LineData.GREEN_HEX,0);	
+				rib.getPoints()[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z+dzl,LineData.GREEN_HEX,0);
 				rib.setIndex(previousNode.getIndex());
 				nodeRibs.add(rib);	
 				//System.out.println(rib[0]+","+rib[1]+","+rib[2]+","+rib[3]+",");  

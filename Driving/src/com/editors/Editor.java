@@ -361,8 +361,8 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 			
 			if(i>0)
 				str+="\n";
-			Point4D p0=(Point4D) nodes.get(i);
-			str+="v=T"+p0.getIndex()+" "+p0.getX()+" "+p0.getY()+" "+p0.getZ();
+			SPNode p0=(SPNode) nodes.get(i);
+			str+="v=T"+p0.getIndex()+" "+p0.getX()+" "+p0.getY()+" "+p0.getZ()+" "+p0.getBanking_angle();
 		}
 		str+="\n</spline>";
 		return str;

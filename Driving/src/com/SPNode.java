@@ -9,7 +9,7 @@ public class SPNode extends Point4D implements Cloneable{
 	private PolygonMesh ring=null;
 	private PolygonMesh circle=null;	
 
-	
+	private double banking_angle=0;
 
 	public SPNode(){
 		
@@ -17,9 +17,10 @@ public class SPNode extends Point4D implements Cloneable{
 		
 	}
 
-	public SPNode(double x, double y, double z, String gREEN_HEX, int index) {
+	public SPNode(double x, double y, double z, double banking_angle,String gREEN_HEX, int index) {
 	
 		super( x,  y,  z,  gREEN_HEX,  index);
+		setBanking_angle(banking_angle);
 		update();
 		
 	}
@@ -27,7 +28,7 @@ public class SPNode extends Point4D implements Cloneable{
 	@Override
 	public SPNode clone() {
 		
-		SPNode sp=new SPNode(x,  y,  z,  "FFFFFF",  index);
+		SPNode sp=new SPNode(x,  y,  z, getBanking_angle(), "FFFFFF",  index);
 
 		sp.update();
 		
@@ -64,6 +65,14 @@ public class SPNode extends Point4D implements Cloneable{
 
 	public void setCircle(PolygonMesh circle) {
 		this.circle = circle;
+	}
+
+	public double getBanking_angle() {
+		return banking_angle;
+	}
+
+	public void setBanking_angle(double banking_angle) {
+		this.banking_angle = banking_angle;
 	}
 
 

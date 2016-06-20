@@ -115,6 +115,9 @@ public abstract class DrivingFrame extends JFrame{
 			p.x=Double.parseDouble(vals[1]);
 			p.y=Double.parseDouble(vals[2]);
 			p.z=Double.parseDouble(vals[3]);
+			if(vals.length==5)
+				p.setBanking_angle(Double.parseDouble(vals[4]));
+			
 			p.update();
 			
 	        sp.addSPNode(p);

@@ -364,12 +364,12 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 
 				int tot=i+0*numx;
 				Point4D p=newPoints[tot];							
-				SPNode spn0=new SPNode(p.x,p.y,p.z,"FFFFFF",0);					
+				SPNode spn0=new SPNode(p.x,p.y,p.z,0.0,"FFFFFF",0);					
 				sp.addSPNode(spn0);
 
 				tot=i+(numy-1)*numx;
 				p=newPoints[tot];
-				SPNode spn1=new SPNode(p.x,p.y,p.z,"FFFFFF",0);					
+				SPNode spn1=new SPNode(p.x,p.y,p.z,0.0,"FFFFFF",0);					
 				sp.addSPNode(spn1);
 				sp.setLevel(Road.ROAD_LEVEL);
 				splines.add(sp);
@@ -392,12 +392,12 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 
 				int tot=0+j*numx;
 				Point4D p=newPoints[tot];							
-				SPNode spn0=new SPNode(p.x,p.y,p.z,"FFFFFF",0);					
+				SPNode spn0=new SPNode(p.x,p.y,p.z,0.0,"FFFFFF",0);					
 				sp.addSPNode(spn0);
 
 				tot=numx-1+j*numx;
 				p=newPoints[tot];
-				SPNode spn1=new SPNode(p.x,p.y,p.z,"FFFFFF",0);					
+				SPNode spn1=new SPNode(p.x,p.y,p.z,0.0,"FFFFFF",0);					
 				sp.addSPNode(spn1);
 				sp.setLevel(Road.ROAD_LEVEL);
 				splines.add(sp);

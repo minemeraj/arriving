@@ -13,9 +13,12 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.editors.DoubleTextField;
+import com.editors.IntegerTextField;
 import com.editors.ValuePair;
 import com.editors.models.Airplane0Model;
+import com.editors.models.Byke0Model;
 import com.editors.models.Car0Model;
+import com.editors.models.F10Model;
 import com.editors.models.Ship0Model;
 import com.editors.models.StarShip0Model;
 import com.editors.models.Truck0Model;
@@ -38,14 +41,18 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 	private DoubleTextField dx_roof_text;
 	private DoubleTextField dy_roof_text;
 	private DoubleTextField dz_roof_text;
+	private DoubleTextField wheel_radius_text;
+	private DoubleTextField wheel_width_text;
+	private IntegerTextField wheel_rays_text;
 
 	public static int CAR0=0;
 	public static int TRUCK0=1;
 	public static int SHIP0=2;
 	public static int STARSHIP0=3;
 	public static int TANK0=4;
-	public static int AIRPLANE0=4;
-	
+	public static int AIRPLANE0=5;
+	public static int F10=6;
+	public static int BYKE0=7;
 
 	public static void main(String[] args) {
 
@@ -201,6 +208,36 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		dz_roof_text.setBounds(col5,r,100,20);
 		dz_roof_text.setText(0);
 		center.add(dz_roof_text);
+		
+		
+		r+=30;
+		
+		
+		lx=new JLabel("Wheel r:");
+		lx.setBounds(col0,r,70,20);
+		center.add(lx);
+		wheel_radius_text=new DoubleTextField(8);
+		wheel_radius_text.setBounds(col1,r,100,20);
+		wheel_radius_text.setText(0);
+		center.add(wheel_radius_text);
+
+
+		ly=new JLabel("Wheel w:");
+		ly.setBounds(col2,r,70,20);
+		center.add(ly);
+		wheel_width_text=new DoubleTextField(8);
+		wheel_width_text.setBounds(col3,r,100,20);
+		wheel_width_text.setText(0);
+		center.add(wheel_width_text);
+
+
+		lz=new JLabel("N# rays:");
+		lz.setBounds(col4,r,70,20);
+		center.add(lz);
+		wheel_rays_text=new IntegerTextField(8);
+		wheel_rays_text.setBounds(col5,r,100,20);
+		wheel_rays_text.setText(0);
+		center.add(wheel_rays_text);
 
 		r+=30;
 
@@ -213,7 +250,9 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		chooseObject.addKeyListener(this);
 		chooseObject.addItem(new ValuePair("-1",""));
 		chooseObject.addItem(new ValuePair(""+AIRPLANE0,"Airplane0"));
+		//chooseObject.addItem(new ValuePair(""+BYKE0,"Byke0"));
 		chooseObject.addItem(new ValuePair(""+CAR0,"Car0"));	
+		//chooseObject.addItem(new ValuePair(""+F10,"F10"));
 		chooseObject.addItem(new ValuePair(""+TRUCK0,"Truck0"));
 		chooseObject.addItem(new ValuePair(""+SHIP0,"Ship0"));
 		//chooseObject.addItem(new ValuePair(""+TANK0,"Tank0"));
@@ -254,6 +293,10 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		double dxRoof = dx_roof_text.getvalue();
 		double dyRoof  = dy_roof_text.getvalue();
 		double dzRoof  = dz_roof_text.getvalue();
+		
+		double wheelRadius  = wheel_radius_text.getvalue();
+		double wheelWidth  = wheel_width_text.getvalue();
+		int wheelRays=wheel_rays_text.getvalue();
 
 		ValuePair vp= (ValuePair)chooseObject.getSelectedItem();
 
@@ -264,11 +307,21 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		if(val==CAR0)
 			meshModel=new Car0Model(dx,dy,dz);
 		else if(val==TRUCK0)
-			meshModel=new Truck0Model(dx,dy,dz,dxf,dyf,dzf,dxr,dyr,dzr);
+			meshModel=new Truck0Model(
+					dx,dy,dz,
+					dxf,dyf,dzf,
+					dxr,dyr,dzr,
+					wheelRadius,wheelWidth,wheelRays);
 		else if(val==SHIP0)
-			meshModel=new Ship0Model(dx,dy,dz,dxr,dyr,dzr,dxRoof,dyRoof,dzRoof);
+			meshModel=new Ship0Model(
+					dx,dy,dz,
+					dxr,dyr,dzr,
+					dxRoof,dyRoof,dzRoof);
 		else if(val==STARSHIP0)
-			meshModel=new StarShip0Model(dx,dy,dz,dxf,dyf,dzf,dxr,dyr,dzr);
+			meshModel=new StarShip0Model(
+					dx,dy,dz,
+					dxf,dyf,dzf,
+					dxr,dyr,dzr);
 		else if(val==AIRPLANE0){
 			
 			meshModel=new Airplane0Model(
@@ -277,7 +330,17 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 					dxr,dyr,dzr,
 					dxRoof,dyRoof,dzRoof
 					);
-		}
+		}else if(val==BYKE0)
+			meshModel=new Byke0Model(
+					dx,dy,dz,
+					dxf,dyf,dzf,
+					dxr,dyr,dzr,
+					wheelRadius,wheelWidth,wheelRays);	
+		else if(val==F10)
+			meshModel=new F10Model(dx,dy,dz,
+					dxf,dyf,dzf,
+					dxr,dyr,dzr,
+					wheelRadius,wheelWidth,wheelRays);
 		else
 			meshModel=new Car0Model(dx,dy,dz);
 
@@ -315,18 +378,40 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 				val=CAR0;
 
 			if(CAR0==val)
-				setRightData(151,400,109,0,0,0,0,0,0,0,0,0);
+				setRightData(151,400,109,
+						0,0,0,0,
+						0,0,0,0,
+						0,0,0,0);
 			else if(TRUCK0==val)
-				setRightData(151,350,109,151,150,109,151,400,50,0,0,0);
+				setRightData(151,350,109,
+						151,150,109,
+						151,400,50,
+						0,0,0,
+						0,20,10);
 			else if(SHIP0==val)
 				setRightData(718,4550,458,
 						0,0,0,
 						0,161,0,
-						718,364,598);
+						718,364,598,
+						0,0,0);
 			else if(STARSHIP0==val)
-				setRightData(50,200,50,150,150,50,50,250,50,0,0,0);
+				setRightData(50,200,50,
+						150,150,50,
+						50,250,50,
+						0,0,0,
+						0,0,0);
 			else if(AIRPLANE0==val)
-				setRightData(48,250,45,25,57,25,21,143,13,181,119,29);
+				setRightData(48,250,45,
+						25,57,25,
+						21,143,13,
+						181,119,29,
+						0,0,0);
+			else if(BYKE0==val)
+				setRightData(151,400,109,
+						50,100,100,
+						50,100,100,
+						50,100,100,
+						0,20,10);
 		}
 
 	}
@@ -336,7 +421,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 			int dx, int dy, int dz,
 			int dxf, int dyf, int dzf,
 			int dxr, int dyr, int dzr,
-			int dxRoof, int dyRoof, int dzRoof
+			int dxRoof, int dyRoof, int dzRoof, 
+			double wheel_radius, double wheel_width, int wheel_rays
 			){ 
 
 		dx_text.setText(dx);
@@ -354,6 +440,10 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		dx_roof_text.setText(dxRoof);
 		dy_roof_text.setText(dyRoof);
 		dz_roof_text.setText(dzRoof);
+		
+		wheel_radius_text.setText(wheel_radius);
+		wheel_width_text.setText(wheel_width);
+		wheel_rays_text.setText(wheel_rays);
 	}
 
 

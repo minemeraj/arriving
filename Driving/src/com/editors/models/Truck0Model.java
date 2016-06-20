@@ -24,38 +24,48 @@ public class Truck0Model extends MeshModel{
 	private double dy = 0;
 	private double dz = 0;
 	
-	private double dxf = 0;
-	private double dyf = 0;
-	private double dzf = 0;
+	private double dxFront = 0;
+	private double dyFront = 0;
+	private double dzFront = 0;
 	
-	private double dxr = 0;
-	private double dyr = 0;
-	private double dzr = 0;
+	private double dxRear = 0;
+	private double dyRear = 0;
+	private double dzRear = 0;
 	
 	double x0=0;
 	double y0=0;
 	double z0=0;
+	
+	private double wheelRadius;
+	private double wheelWidth;
+	private int wheel_rays;
 
 	private int[][][] faces;
 
 	int basePoints=4;
 
+
 	public Truck0Model(
 			double dx, double dy, double dz, 
 			double dxf, double dyf, double dzf, 
-			double dxr, double dyr, double dzr) {
+			double dxr, double dyr, double dzr, 
+			double wheelRadius, double wheelWidth, int wheel_rays) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
 		this.dz = dz;
 		
-		this.dxf = dxf;
-		this.dyf = dyf;
-		this.dzf = dzf;
+		this.dxFront = dxf;
+		this.dyFront = dyf;
+		this.dzFront = dzf;
 		
-		this.dxr = dxr;
-		this.dyr = dyr;
-		this.dzr = dzr;
+		this.dxRear = dxr;
+		this.dyRear = dyr;
+		this.dzRear = dzr;
+		
+		this.wheelRadius = wheelRadius;
+		this.wheelWidth = wheelWidth;
+		this.wheel_rays = wheel_rays;
 	}
 
 
@@ -65,7 +75,7 @@ public class Truck0Model extends MeshModel{
 		texturePoints=new Vector();
 
 
-		Segments s0=new Segments(x0,dxf,y0+dyr,dyf,z0,dzf);
+		Segments s0=new Segments(x0,dxFront,y0+dyRear,dyFront,z0,dzFront);
 		
 		int nzCab=3;
 		
@@ -87,7 +97,7 @@ public class Truck0Model extends MeshModel{
 		
 		int nzRear=2;
 		
-		s0=new Segments(x0,dxr,y0,dyr,z0,dzr);
+		s0=new Segments(x0,dxRear,y0,dyRear,z0,dzRear);
 		
 		BPoint[][] rear=new BPoint[nzRear][4];
 		rear[0][0] = addBPoint(0.0,0.0,0.0,s0);
@@ -102,7 +112,7 @@ public class Truck0Model extends MeshModel{
 		
 		int nzWagon=2;
 		
-		s0=new Segments(x0,dx,y0,dy,z0+dzr,dz);
+		s0=new Segments(x0,dx,y0,dy,z0+dzRear,dz);
 		
 		BPoint[][] wagon=new BPoint[nzWagon][4];
 		wagon[0][0] = addBPoint(0.0,0.0,0.0,s0);
@@ -124,13 +134,40 @@ public class Truck0Model extends MeshModel{
 		addTPoint(x+dx,y,0);
 		addTPoint(x+dx, y+dy,0);
 		addTPoint(x,y+dy,0);
+		
+		int totBlockTexturesPoints=4;
 
+		//wheel texture, a black square for simplicity:
+
+		x=bx+dx;
+		y=by;
+
+		addTPoint(x,y,0);
+		addTPoint(x+wheelWidth,y,0);
+		addTPoint(x+wheelWidth,y+wheelWidth,0);
+		addTPoint(x,y+wheelWidth,0);
+		
+		////
+		double wz=0;
+		double wx=dx*0.5-wheelWidth;		
+
+		double yRearAxle=0.0;
+		double yFrontAxle=1.0;
+
+		BPoint[][] wheelLeftFront=buildWheel(-wx-wheelWidth, yFrontAxle,wz , wheelRadius, wheelWidth, wheel_rays);
+		BPoint[][] wheelRightFront=buildWheel(wx, yFrontAxle, wz, wheelRadius, wheelWidth, wheel_rays);
+		BPoint[][] wheelLeftRear=buildWheel(-wx-wheelWidth, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
+		BPoint[][] wheelRightRear=buildWheel(wx, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
+
+		int totWheelPolygon=wheel_rays+2*(wheel_rays-2);
+		int NUM_WHEEL_FACES=4*totWheelPolygon;
+		
 		//faces
 		int NF=2+(nzCab-1)*4;
 		NF+=2+(nzRear-1)*4;
 		NF+=2+(nzWagon-1)*4;
 
-		faces=new int[NF][3][4];
+		faces=new int[NF+NUM_WHEEL_FACES][3][4];
 
 		int counter=0;
 		
@@ -184,8 +221,31 @@ public class Truck0Model extends MeshModel{
 		faces[counter++]=buildFace(Renderer3D.CAR_TOP,wagon[nzWagon-1][0],wagon[nzWagon-1][1],wagon[nzWagon-1][2],wagon[nzWagon-1][3], c0, c1, c2, c3);
 		///////
 		
+		///// WHEELS
+
+		int[][][] wFaces = buildWheelFaces(wheelLeftFront,totBlockTexturesPoints);
+		for (int i = 0; i < totWheelPolygon; i++) {
+			faces[counter++]=wFaces[i];
+		}
+
+		wFaces = buildWheelFaces(wheelRightFront,totBlockTexturesPoints);
+		for (int i = 0; i < totWheelPolygon; i++) {
+			faces[counter++]=wFaces[i];
+		}
+
+		wFaces = buildWheelFaces(wheelLeftRear,totBlockTexturesPoints);
+		for (int i = 0; i <totWheelPolygon; i++) {
+			faces[counter++]=wFaces[i];
+		}
+
+		wFaces = buildWheelFaces(wheelRightRear,totBlockTexturesPoints);
+		for (int i = 0; i < totWheelPolygon; i++) {
+			faces[counter++]=wFaces[i];
+		}
+		/////
 		
-		IMG_WIDTH=(int) (2*bx+dx);
+		
+		IMG_WIDTH=(int) (2*bx+dx+wheelWidth);
 		IMG_HEIGHT=(int) (2*by+dy);
 
 	}

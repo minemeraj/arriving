@@ -27,6 +27,10 @@ public class F10Model extends MeshModel{
 	private double dyr = 0;
 	private double dzr = 0;
 	
+	private double wheelRadius;
+	private double wheelWidth;
+	private int wheel_rays;
+	
 	private int[][][] faces;
 	
 	double x0=0;
@@ -36,7 +40,8 @@ public class F10Model extends MeshModel{
 	public F10Model(
 			double dx, double dy, double dz, 
 			double dxf, double dyf, double dzf, 
-			double dxr, double dyr,	double dzr) {
+			double dxr, double dyr,	double dzr,
+			double wheelRadius, double wheelWidth, int wheel_rays) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
@@ -49,6 +54,10 @@ public class F10Model extends MeshModel{
 		this.dxr = dxr;
 		this.dyr = dyr;
 		this.dzr = dzr;
+		
+		this.wheelRadius = wheelRadius;
+		this.wheelWidth = wheelWidth;
+		this.wheel_rays = wheel_rays;
 	}
 
 
