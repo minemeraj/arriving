@@ -250,7 +250,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		chooseObject.addKeyListener(this);
 		chooseObject.addItem(new ValuePair("-1",""));
 		chooseObject.addItem(new ValuePair(""+AIRPLANE0,"Airplane0"));
-		//chooseObject.addItem(new ValuePair(""+BYKE0,"Byke0"));
+		chooseObject.addItem(new ValuePair(""+BYKE0,"Byke0"));
 		chooseObject.addItem(new ValuePair(""+CAR0,"Car0"));	
 		//chooseObject.addItem(new ValuePair(""+F10,"F10"));
 		chooseObject.addItem(new ValuePair(""+TRUCK0,"Truck0"));
@@ -387,7 +387,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						151,150,109,
 						151,400,50,
 						0,0,0,
-						0,20,10);
+						50,20,10);
 			else if(SHIP0==val)
 				setRightData(718,4550,458,
 						0,0,0,
@@ -411,7 +411,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						50,100,100,
 						50,100,100,
 						50,100,100,
-						0,20,10);
+						50,20,10);
 		}
 
 	}

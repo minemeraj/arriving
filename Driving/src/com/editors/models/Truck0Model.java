@@ -149,14 +149,14 @@ public class Truck0Model extends MeshModel{
 		
 		////
 		double wz=0;
-		double wx=dx*0.5-wheelWidth;		
+		double wx=dx-wheelWidth;		
 
-		double yRearAxle=0.0;
-		double yFrontAxle=1.0;
+		double yRearAxle=0.0*dyRear;
+		double yFrontAxle=1.0*dyRear;
 
-		BPoint[][] wheelLeftFront=buildWheel(-wx-wheelWidth, yFrontAxle,wz , wheelRadius, wheelWidth, wheel_rays);
+		BPoint[][] wheelLeftFront=buildWheel(0, yFrontAxle,wz , wheelRadius, wheelWidth, wheel_rays);
 		BPoint[][] wheelRightFront=buildWheel(wx, yFrontAxle, wz, wheelRadius, wheelWidth, wheel_rays);
-		BPoint[][] wheelLeftRear=buildWheel(-wx-wheelWidth, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
+		BPoint[][] wheelLeftRear=buildWheel(0, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
 		BPoint[][] wheelRightRear=buildWheel(wx, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
 
 		int totWheelPolygon=wheel_rays+2*(wheel_rays-2);
