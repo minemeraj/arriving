@@ -978,7 +978,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		splines_panel.add(setSPNodeHeight);
 		
 		setSPNodeHeightValue=new DoubleTextField(7);
-		setSPNodeHeightValue.setBounds(110,r,120,20);
+		setSPNodeHeightValue.setBounds(120,r,110,20);
 		setSPNodeHeightValue.addKeyListener(this);
 		splines_panel.add(setSPNodeHeightValue);
 		
@@ -987,11 +987,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		setSPNodeBanking=new JButton(header+"Set banking"+footer);
 		setSPNodeBanking.addActionListener(this);
 		setSPNodeBanking.setFocusable(false);
-		setSPNodeBanking.setBounds(5,r,100,20);
+		setSPNodeBanking.setBounds(5,r,110,20);
 		splines_panel.add(setSPNodeBanking);
 		
 		setSPNodeBankingValue=new DoubleTextField(7);
-		setSPNodeBankingValue.setBounds(110,r,120,20);
+		setSPNodeBankingValue.setBounds(120,r,110,20);
 		setSPNodeBankingValue.addKeyListener(this);
 		splines_panel.add(setSPNodeBankingValue);
 		

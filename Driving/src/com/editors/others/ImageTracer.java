@@ -267,6 +267,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		addNewLine.addActionListener(this);
 		addNewLine.setFocusable(false);
 		addNewLine.setBounds(col0,r,150,20);
+		addNewLine.setEnabled(false);
 		right.add(addNewLine);
 
 		r+=30;
@@ -338,6 +339,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		moveListPointDown.setBounds(col2+5,r,130,20);
 		moveListPointDown.addActionListener(this);
 		right.add(moveListPointDown);
+		
 
 		r+=30;
 
@@ -354,7 +356,6 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		JScrollPane jsp=new JScrollPane(pointList);
 		jsp.setBounds(5,25,140,180);
 		lowpane.add(jsp);
-
 		pointList.addMouseListener(new MouseAdapter(){
 
 			@Override
@@ -549,7 +550,6 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		btnImageDefault.setBounds(col0, r, 120, 20);
 		btnImageDefault.addActionListener(this);
 		left.add(btnImageDefault);
-
 		getContentPane().add(left);
 
 	}
@@ -1020,7 +1020,6 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			moveListPointDown.setEnabled(false);
 			moveListPointUp.setEnabled(false);
 			addNewLine.setEnabled(true);
-			
 			emptyPointsList();
 			
 		}else{
@@ -1032,7 +1031,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			
 			resetLists();
 		}
-	
+		draw();
 	}
 
 

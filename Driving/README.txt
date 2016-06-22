@@ -1,5 +1,5 @@
 	**********************
-	*  READ ME CARDRIVING VERSION   9.0.5
+	*  READ ME CARDRIVING VERSION   9.0.10
 	*
 	*  by Piazza Francesco Giovanni 
 	*  Tecnes Milano ,Italy http://www.betacom.it
@@ -164,15 +164,16 @@
 	...
 	</spline>
 	
-	Each spline si determined by its (sp)nodes:
+	Each spline is determined by its (sp)nodes:
 	
 	<spline>
-	v=TN x y z
-    v=TN x y z
+	v=TN x y z b
+    v=TN x y z b
     ...
 	</spline>
 	
-	where N is a 0,1,2... spline index, and x,y,z are the node coordinates. 
+	where N is a 0,1,2... spline index, and x,y,z are the node coordinates, 
+	b is the banking angle, optional, default is 0
 	
 	 Note that in the lib folder you will find groups of files of the type:
 	 
