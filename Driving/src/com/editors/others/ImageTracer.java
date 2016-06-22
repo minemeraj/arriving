@@ -1457,6 +1457,8 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 		if(lines==null)
 			return;
+		
+		ArrayList<ArrayList<Point3D>> newLines=new ArrayList<ArrayList<Point3D>>();
 
 		ArrayList<Point3D> newPoints=new ArrayList<Point3D>();
 
@@ -1477,9 +1479,13 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 				newPoints.add(p);
 			}	
 
-			points=newPoints;
+			newLines.add(newPoints);
 		}
+		lines=newLines;
+		
 		clearPointsData();
+		
+		resetLists();
 
 	}
 
