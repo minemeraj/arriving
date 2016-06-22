@@ -191,7 +191,9 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 				);
 
 		initialize();
-
+		
+		addPropertyChangeListener(this);
+		
 		setVisible(true);
 	}
 
@@ -918,7 +920,9 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		{
 			draw();
 			redrawAfterMenu=false;
-		}
+			
+		}else if("jmt_lines_mode".equals(arg0.getPropertyName()))
+			setLineMode();
 
 
 	}
@@ -998,7 +1002,9 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		}else if (obj == jmt_undo){
 			undo();
 		}else if (obj == jmt_lines_mode){
-			setLineMode();
+
+			firePropertyChange("jmt_lines_mode", false, true);
+			
 		}else if (obj == addNewLine){
 			
 			addLineToArray();
@@ -1007,6 +1013,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		
 
 		draw();
+		
 	}
 
 
@@ -1014,12 +1021,14 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 	private void setLineMode() {
 		
-		if(jmt_lines_mode.isSelected()){
+		boolean  selected=jmt_lines_mode.isSelected();
+		
+		if(selected){
 			
 			pointList.setEnabled(false);
 			moveListPointDown.setEnabled(false);
 			moveListPointUp.setEnabled(false);
-			addNewLine.setEnabled(true);
+			addNewLine.setEnabled(false);
 			emptyPointsList();
 			
 		}else{
@@ -1031,7 +1040,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			
 			resetLists();
 		}
-		draw();
+
 	}
 
 
