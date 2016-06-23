@@ -252,10 +252,11 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		chooseObject.addItem(new ValuePair(""+AIRPLANE0,"Airplane0"));
 		chooseObject.addItem(new ValuePair(""+BYKE0,"Byke0"));
 		chooseObject.addItem(new ValuePair(""+CAR0,"Car0"));	
-		//chooseObject.addItem(new ValuePair(""+F10,"F10"));
-		chooseObject.addItem(new ValuePair(""+TRUCK0,"Truck0"));
+		chooseObject.addItem(new ValuePair(""+F10,"F10"));		
 		chooseObject.addItem(new ValuePair(""+SHIP0,"Ship0"));
-		//chooseObject.addItem(new ValuePair(""+TANK0,"Tank0"));
+		chooseObject.addItem(new ValuePair(""+STARSHIP0,"Starship0"));
+		chooseObject.addItem(new ValuePair(""+TANK0,"Tank0"));
+		chooseObject.addItem(new ValuePair(""+TRUCK0,"Truck0"));
 		chooseObject.addItemListener(this);		
 
 		chooseObject.setSelectedIndex(0);
@@ -321,7 +322,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 			meshModel=new StarShip0Model(
 					dx,dy,dz,
 					dxf,dyf,dzf,
-					dxr,dyr,dzr);
+					dxr,dyr,dzr,
+					dxRoof,dyRoof,dzRoof);
 		else if(val==AIRPLANE0){
 			
 			meshModel=new Airplane0Model(
@@ -340,6 +342,13 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 			meshModel=new F10Model(dx,dy,dz,
 					dxf,dyf,dzf,
 					dxr,dyr,dzr,
+					dxRoof,dyRoof,dzRoof,
+					wheelRadius,wheelWidth,wheelRays);
+		else if(val==TANK0)
+			meshModel=new F10Model(dx,dy,dz,
+					dxf,dyf,dzf,
+					dxr,dyr,dzr,
+					dxRoof,dyRoof,dzRoof,
 					wheelRadius,wheelWidth,wheelRays);
 		else
 			meshModel=new Car0Model(dx,dy,dz);
@@ -411,6 +420,18 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						50,100,100,
 						50,100,100,
 						50,100,100,
+						50,20,10);
+			else if(F10==val)
+				setRightData(151,350,109,
+						151,150,109,
+						151,400,50,
+						0,0,0,
+						50,20,10);
+			else if(TANK0==val)
+				setRightData(151,350,109,
+						151,150,109,
+						151,400,50,
+						0,0,0,
 						50,20,10);
 		}
 

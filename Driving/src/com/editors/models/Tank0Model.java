@@ -24,13 +24,17 @@ public class Tank0Model extends MeshModel{
 	private double dy = 0;
 	private double dz = 0;
 	
-	private double dxf = 0;
-	private double dyf = 0;
-	private double dzf = 0;
+	private double dxFront = 0;
+	private double dyFront = 0;
+	private double dzFront = 0;
 	
-	private double dxr = 0;
-	private double dyr = 0;
-	private double dzr = 0;
+	private double dxRear = 0;
+	private double dyRear = 0;
+	private double dzRear = 0;
+	
+	private double dxRoof;
+	private double dyRoof;
+	private double dzRoof;
 	
 	double x0=0;
 	double y0=0;
@@ -43,19 +47,24 @@ public class Tank0Model extends MeshModel{
 	public Tank0Model(
 			double dx, double dy, double dz, 
 			double dxf, double dyf, double dzf, 
-			double dxr, double dyr,	double dzr) {
+			double dxr, double dyr,	double dzr,
+			double dxRoof,double dyRoof,double dzRoof) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
 		this.dz = dz;
 		
-		this.dxf = dxf;
-		this.dyf = dyf;
-		this.dzf = dzf;
+		this.dxFront = dxf;
+		this.dyFront = dyf;
+		this.dzFront = dzf;
 		
-		this.dxr = dxr;
-		this.dyr = dyr;
-		this.dzr = dzr;
+		this.dxRear = dxr;
+		this.dyRear = dyr;
+		this.dzRear = dzr; 
+		
+		this.dxRoof = dxRoof;
+		this.dyRoof = dyRoof;
+		this.dzRoof = dzRoof;
 	}
 
 
@@ -63,22 +72,39 @@ public class Tank0Model extends MeshModel{
 	public void initMesh() {
 		points=new Vector<Point3D>();
 		texturePoints=new Vector();
-
-
-		Segments s0=new Segments(x0,dx,y0,dy,z0,dz);
 		
-		int nz=2;
+		Segments s0=new Segments(0,dx*0.5,0,dy,0,dz);
 		
-		BPoint[][] cab=new BPoint[2][4];
-		cab[0][0] = addBPoint(0.0,0.0,0.5,s0);
-		cab[0][1] = addBPoint(1.0,0.0,0.5,s0);
-		cab[0][2] = addBPoint(1.0,1.0,0.5,s0);
-		cab[0][3] = addBPoint(0.0,1.0,0.5,s0);
+		BPoint[][][] body=new BPoint[2][2][2];
+		
+		body[0][0][0]=addBPoint(-1.0,0.0,0,s0);
+		body[1][0][0]=addBPoint(1.0,0.0,0,s0);
+		body[0][1][0]=addBPoint(-1.0,1.0,0,s0);
+		body[1][1][0]=addBPoint(1.0,1.0,0,s0);		
+		
+		body[0][0][1]=addBPoint(-1.0,0.0,1.0,s0);
+		body[1][0][1]=addBPoint(1.0,0.0,1.0,s0);
+		body[0][1][1]=addBPoint(-1.0,1.0,1.0,s0);
+		body[1][1][1]=addBPoint(1.0,1.0,1.0,s0);
 
-		cab[1][0] = addBPoint(0.0,0.0,1.0,s0);
-		cab[1][1] = addBPoint(1.0,0.0,1.0,s0);
-		cab[1][2] = addBPoint(1.0,1.0,1.0,s0);
-		cab[1][3] = addBPoint(0.0,1.0,1.0,s0);
+		
+		
+		Segments s1=new Segments(0,dxRear*0.5,dyRear,dyRoof,dz,dzRoof);
+		
+		BPoint[][][] turret=new BPoint[2][2][2];
+		
+		turret[0][0][0]=addBPoint(-1.0,0.0,0,s1);
+		turret[1][0][0]=addBPoint(1.0,0.0,0,s1);
+		turret[0][1][0]=addBPoint(-1.0,1.0,0,s1);
+		turret[1][1][0]=addBPoint(1.0,1.0,0,s1);		
+		
+		turret[0][0][1]=addBPoint(-1.0,0.0,1.0,s1);
+		turret[1][0][1]=addBPoint(1.0,0.0,1.0,s1);
+		turret[0][1][1]=addBPoint(-1.0,1.0,1.0,s1);
+		turret[1][1][1]=addBPoint(1.0,1.0,1.0,s1);
+		
+
+		BPoint[][] cannon_barrel = addYCylinder(0,dxRoof+dxRear,dz+dzRear*0.5,10,100,10);
 
 		//Texture points
 
@@ -91,25 +117,38 @@ public class Tank0Model extends MeshModel{
 		addTPoint(x,y+dy,0);
 
 		//faces
-		int NF=6;
+		int NF=6*2;
 
-		faces=new int[NF][3][4];
+		faces=new int[NF+cannon_barrel.length][3][4];
 
 		int counter=0;
 
-		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, cab[0][0],cab[0][3],cab[0][2],cab[0][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP, body[0][0][1],body[1][0][1],body[1][1][1],body[0][1][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, body[0][0][0],body[0][0][1],body[0][1][1],body[0][1][0], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, body[1][0][0],body[1][1][0],body[1][1][1],body[1][0][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, body[0][1][0],body[0][1][1],body[1][1][1],body[1][1][0], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, body[0][0][0],body[1][0][0],body[1][0][1],body[0][0][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0], 0, 1, 2, 3);
 		
-		for (int k = 0; k < nz; k++) {
+		
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP, turret[0][0][1],turret[1][0][1],turret[1][1][1],turret[0][1][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, turret[0][0][0],turret[0][0][1],turret[0][1][1],turret[0][1][0], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, turret[1][0][0],turret[1][1][0],turret[1][1][1],turret[1][0][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, turret[0][1][0],turret[0][1][1],turret[1][1][1],turret[1][1][0], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, turret[0][0][0],turret[1][0][0],turret[1][0][1],turret[0][0][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, turret[0][0][0],turret[0][1][0],turret[1][1][0],turret[1][0][0], 0, 1, 2, 3);
+
+		
+		for (int i = 0; i < cannon_barrel.length; i++) {
 			
-			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, cab[k][0],cab[k+1][0],cab[k+1][3],cab[k][3], 0, 1, 2, 3);
-			faces[counter++]=buildFace(Renderer3D.CAR_BACK, cab[k][0],cab[k][1],cab[k+1][1],cab[k+1][0], 0, 1, 2, 3);
-			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, cab[k][1],cab[k][2],cab[k+1][2],cab[k+1][1], 0, 1, 2, 3);
-			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, cab[k][2],cab[k][3],cab[k+1][3],cab[k+1][2], 0, 1, 2, 3);
-			
+			faces[counter++]=buildFace(Renderer3D.CAR_TOP, 
+					cannon_barrel[i][0],
+					cannon_barrel[(i+1)%cannon_barrel.length][0],
+					cannon_barrel[(i+1)%cannon_barrel.length][1],
+					cannon_barrel[i][1], 
+					0, 1, 2, 3);
 		}
-
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP,cab[nz-1][0],cab[nz-1][1],cab[nz-1][2],cab[nz-1][3], 0, 1, 2, 3);
-
+		
 		IMG_WIDTH=(int) (2*bx+dx);
 		IMG_HEIGHT=(int) (2*by+dy);
 

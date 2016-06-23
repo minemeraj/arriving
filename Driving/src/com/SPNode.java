@@ -11,6 +11,8 @@ public class SPNode extends Point4D implements Cloneable{
 
 	private double banking_angle=0;
 
+	private Point3D ringCenter=null;
+
 	public SPNode(){
 		
 
@@ -37,8 +39,16 @@ public class SPNode extends Point4D implements Cloneable{
 	
 	public void update(){
 		
-		ring=EditorData.getRing(x,y,z+25);	
+		ring=EditorData.getRing(x,y,z+25);
+		if(ringCenter!=null){
+			
+			ring=EditorData.getRing(ringCenter.getX(),ringCenter.getY(),ringCenter.getZ()+25);
+		}
 		circle=EditorData.getCircle(x,y,z+25);	
+		if(ringCenter!=null){
+			
+			circle=EditorData.getCircle(ringCenter.getX(),ringCenter.getY(),ringCenter.getZ()+25);
+		}
 		
 	}
 	
@@ -73,6 +83,15 @@ public class SPNode extends Point4D implements Cloneable{
 
 	public void setBanking_angle(double banking_angle) {
 		this.banking_angle = banking_angle;
+	}
+
+	public void setRingCenter(Point3D ringP) {
+		this.ringCenter=ringP;
+		
+	}
+
+	public Point3D getRingCenter() {
+		return ringCenter;
 	}
 
 

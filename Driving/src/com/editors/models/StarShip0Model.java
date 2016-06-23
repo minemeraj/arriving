@@ -18,13 +18,17 @@ public class StarShip0Model extends MeshModel{
 	private double dy = 0;
 	private double dz = 0;
 
-	private double dxf = 0;
-	private double dyf = 0;
-	private double dzf = 0;
+	private double dxFront = 0;
+	private double dyfront = 0;
+	private double dzFront = 0;
 
-	private double dxr = 0;
-	private double dyr = 0;
-	private double dzr = 0;
+	private double dxRear = 0;
+	private double dyRear = 0;
+	private double dzRear = 0;
+	
+	private double dxRoof;
+	private double dyRoof;
+	private double dzRoof;
 
 	private int[][][] faces;
 
@@ -35,19 +39,25 @@ public class StarShip0Model extends MeshModel{
 	public StarShip0Model(
 			double dx, double dy, double dz, 
 			double dxf, double dyf, double dzf, 
-			double dxr, double dyr,	double dzr) {
+			double dxr, double dyr,	double dzr,
+			double dxRoof,double dyRoof,double dzRoof
+			) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
 		this.dz = dz;
 
-		this.dxf = dxf;
-		this.dyf = dyf;
-		this.dzf = dzf;
+		this.dxFront = dxf;
+		this.dyfront = dyf;
+		this.dzFront = dzf;
 
-		this.dxr = dxr;
-		this.dyr = dyr;
-		this.dzr = dzr;
+		this.dxRear = dxr;
+		this.dyRear = dyr;
+		this.dzRear = dzr;
+		
+		this.dxRoof = dxRoof;
+		this.dyRoof = dyRoof;
+		this.dzRoof = dzRoof;
 	}
 
 
@@ -57,7 +67,7 @@ public class StarShip0Model extends MeshModel{
 		points=new Vector<Point3D>();
 		texturePoints=new Vector();
 
-		Segments s0=new Segments(x0-dxf*0.5,dxf,y0+dy,dyf,z0+dz*2,dzf);
+		Segments s0=new Segments(x0-dxFront*0.5,dxFront,y0+dy,dyfront,z0+dz*2,dzFront);
 
 		int nz=2;
 
@@ -86,9 +96,9 @@ public class StarShip0Model extends MeshModel{
 		body[1][2] = addBPoint(1.0,1.0,1.0,s0);
 		body[1][3] = addBPoint(0.0,1.0,1.0,s0);
 		
-		double y0Wing=dy-dyr;
+		double y0Wing=dy-dyRear;
 		
-		s0=new Segments(x0-dxf*2-dx*0.5,dx,y0Wing,dy,z0+dz*2,dz);
+		s0=new Segments(x0-dxFront*2-dx*0.5,dx,y0Wing,dy,z0+dz*2,dz);
 
 
 		BPoint[][] leftWing=new BPoint[2][4];
@@ -102,7 +112,7 @@ public class StarShip0Model extends MeshModel{
 		leftWing[1][2] = addBPoint(1.0,1.0,1.0,s0);
 		leftWing[1][3] = addBPoint(0.0,1.0,1.0,s0);
 		
-		s0=new Segments(x0+dxf*2+dx*0.5,dx,y0Wing,dy,z0+dz*2,dz);
+		s0=new Segments(x0+dxFront*2+dx*0.5,dx,y0Wing,dy,z0+dz*2,dz);
 
 		BPoint[][] rightWing=new BPoint[2][4];
 		rightWing[0][0] = addBPoint(0.0,0.0,0.0,s0);

@@ -57,6 +57,17 @@ public class SPLine implements Cloneable{
 
 			SPNode previousNode = (SPNode) nodes.get(i);
 			SPNode nextNode = (SPNode) nodes.get(i+1);
+			
+			int index=previousNode.getIndex();
+			
+
+			double wid=0.5*(EditorData.splinesMeshes[index].getDeltaX2()-
+					EditorData.splinesMeshes[index].getDeltaX());
+
+			double len=EditorData.splinesMeshes[index].getDeltaY2()-
+					EditorData.splinesMeshes[index].getDeltaY();
+
+			double dz=EditorData.splinesMeshes[index].getDeltaY();
 
 			double prevX=previousNode.x;
 			double prevY=previousNode.y;
@@ -96,16 +107,10 @@ public class SPLine implements Cloneable{
 				
 			}
 			
-			int index=previousNode.getIndex();
+			calculateRingCenter(lnextd,rnextd,wid,dz,nextNode);
+			calculateRingCenter(lprevd,rprevd,wid,dz,previousNode);
 			
 
-			double wid=0.5*(EditorData.splinesMeshes[index].getDeltaX2()-
-					EditorData.splinesMeshes[index].getDeltaX());
-
-			double len=EditorData.splinesMeshes[index].getDeltaY2()-
-					EditorData.splinesMeshes[index].getDeltaY();
-
-			double dz=EditorData.splinesMeshes[index].getDeltaY();
 			int n=(int) (nodeDistance/len)+1;
 
 			if(n==1)
@@ -155,6 +160,32 @@ public class SPLine implements Cloneable{
 		}
 
 	}
+
+	private void calculateRingCenter(Point3D lDirection, Point3D rDirection, double wid, double dz, SPNode node) {
+		
+		double x=node.getX();
+		double y=node.getY();
+		double z=node.getZ();
+		
+		double banking=node.getBanking_angle();
+		
+		double dzl=dz;
+		double dzr=dz;
+		if(banking>0)
+			dzr+=wid*Math.tan(banking);
+		else if(banking<0)
+			dzl+=wid*Math.tan(-banking);		
+		
+		Point3D p0=new Point3D(x+rDirection.x*wid,y+rDirection.y*wid,z+dzr);	
+		Point3D p1=new Point3D(x+lDirection.x*wid,y+lDirection.y*wid,z+dzl);
+		
+		Point3D ringP=new Point3D((p0.getX()+p1.getX())*0.5,(p0.getY()+p1.getY())*0.5,(p0.getZ()+p1.getZ())*0.5);
+		
+		node.setRingCenter(ringP);
+		
+		node.update();
+	}
+
 
 	private void calculateTangents(ArrayList<SPNode> nodes) {
 		

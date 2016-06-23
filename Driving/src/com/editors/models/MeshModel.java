@@ -689,6 +689,37 @@ public abstract class MeshModel {
 		return bFaces;
 
 	}
+	
+	public BPoint[][] addYCylinder(double cyx0, double cyy0,double cyz0,
+			double cylinder_radius,double cylinder_lenght,int barrel_meridians){
+	
+			BPoint[][] trunkpoints=new BPoint[barrel_meridians][2];
+			
+			for (int i = 0; i < barrel_meridians; i++) {
+			
+				
+				double x=cyx0+cylinder_radius*Math.cos(2*Math.PI/barrel_meridians*i);
+				double z=cyz0+cylinder_radius*Math.sin(2*Math.PI/barrel_meridians*i);
+				
+				trunkpoints[i][1]=addBPoint(x,cyy0+cylinder_lenght,z);
+				
+				
+			}
+
+			
+			for (int i = 0; i < barrel_meridians; i++) {
+				
+				double x=cyx0+cylinder_radius*Math.cos(2*Math.PI/barrel_meridians*i);
+				double z=cyz0+cylinder_radius*Math.sin(2*Math.PI/barrel_meridians*i);
+				
+				trunkpoints[i][0]=addBPoint(x,cyy0,z);
+				
+			}
+			
+			return trunkpoints;
+
+			
+	}
 
 
 }
