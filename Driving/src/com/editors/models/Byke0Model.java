@@ -187,7 +187,7 @@ public class Byke0Model extends MeshModel{
 		
 		BPoint[][][] handlebar=new BPoint[2][2][2];	
 		
-		Segments hb=new Segments(xc,dxFront,dxRear+dy*0.75,dy*0.25,2*wheelRadius+dz,dzFront);
+		Segments hb=new Segments(xc,dxFront,dyRear+dy-dyFront*0.5,dyFront,2*wheelRadius+dz,dzFront);
 		
 		handlebar[0][0][0]=addBPoint(-0.5,0.0,0,hb);
 		handlebar[1][0][0]=addBPoint(0.5,0.0,0,hb);

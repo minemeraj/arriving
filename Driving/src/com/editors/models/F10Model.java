@@ -194,11 +194,7 @@ public class F10Model extends MeshModel{
 		frontSpoiler[1][1][1]=addBPoint(1.0,1.0,1.0,fs);
 		
 		double wz=0;
-		double wx=dx-wheelWidth;		
-
-		double yRearAxle=0.0*dyRear;
-		double yFrontAxle=1.0*dyRear;
-		
+		double wx=wheelWidth;		
 		/*buildWheel(-x_side*0.5,rear_overhang,wheel_radius,wheel_radius,wheel_width);
 			buildWheel(x_side*0.5-wheel_width,rear_overhang,wheel_radius,wheel_radius,wheel_width);
 			
@@ -207,10 +203,10 @@ public class F10Model extends MeshModel{
 		*
 		*/
 
-		BPoint[][] wheelLeftFront=buildWheel(0, yFrontAxle,wz , wheelRadius, wheelWidth, wheel_rays);
-		BPoint[][] wheelRightFront=buildWheel(wx, yFrontAxle, wz, wheelRadius, wheelWidth, wheel_rays);
-		BPoint[][] wheelLeftRear=buildWheel(0, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
-		BPoint[][] wheelRightRear=buildWheel(wx, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
+		BPoint[][] wheelLeftFront=buildWheel(-dx*0.5-wx, dyRear+dy+dyFront*0.5,wz , wheelRadius, wheelWidth, wheel_rays);
+		BPoint[][] wheelRightFront=buildWheel(dx*0.5, dyRear+dy+dyFront*0.5, wz, wheelRadius, wheelWidth, wheel_rays);
+		BPoint[][] wheelLeftRear=buildWheel(-dx*0.5-wx, dyRear*0.5, wz, wheelRadius, wheelWidth, wheel_rays);
+		BPoint[][] wheelRightRear=buildWheel(dx*0.5, dyRear*0.5, wz, wheelRadius, wheelWidth, wheel_rays);
 
 		
 		int totWheelPolygon=wheel_rays+2*(wheel_rays-2);
@@ -228,9 +224,8 @@ public class F10Model extends MeshModel{
 		faces[counter++]=buildFace(Renderer3D.CAR_LEFT,backSpoiler[0][0][0],backSpoiler[0][0][1],backSpoiler[0][1][1],backSpoiler[0][1][0], 0, 1, 2, 3);
 		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT,backSpoiler[1][0][0],backSpoiler[1][1][0],backSpoiler[1][1][1],backSpoiler[1][0][1], 0, 1, 2, 3);
 		faces[counter++]=buildFace(Renderer3D.CAR_BACK,backSpoiler[0][1][0],backSpoiler[0][1][1],backSpoiler[1][1][1],backSpoiler[1][1][0], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK,backSpoiler[0][1][0],backSpoiler[0][1][1],backSpoiler[1][1][1],backSpoiler[1][1][0], 0, 1, 2, 3);
 		faces[counter++]=buildFace(Renderer3D.CAR_BACK,backSpoiler[0][0][0],backSpoiler[1][0][0],backSpoiler[1][0][1],backSpoiler[0][0][1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM,backSpoiler[0][1][0],backSpoiler[1][1][0],backSpoiler[1][0][0],backSpoiler[0][0][1], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM,backSpoiler[0][0][0],backSpoiler[0][1][0],backSpoiler[1][1][0],backSpoiler[1][0][0], 0, 1, 2, 3);
 		
 		
 		faces[counter++]=buildFace(Renderer3D.CAR_TOP,back[0][0][1],back[1][0][1],back[1][1][1],back[0][1][1], 0, 1, 2, 3);
