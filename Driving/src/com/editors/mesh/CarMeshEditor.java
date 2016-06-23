@@ -416,10 +416,10 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						181,119,29,
 						0,0,0);
 			else if(BYKE0==val)
-				setRightData(151,400,109,
-						50,100,100,
-						50,100,100,
-						50,100,100,
+				setRightData(50,150,50,
+						100,50,25,
+						120,100,100,
+						0,0,0,
 						50,20,10);
 			else if(F10==val)
 				setRightData(151,350,109,

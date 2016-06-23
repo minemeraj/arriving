@@ -105,7 +105,7 @@ public class Byke0Model extends MeshModel{
 		double frame_side=(dx-wheelWidth)*0.5;
 		double xc=-frame_side*0.5;
 		
-		Segments lf=new Segments(xc,frame_side,dyRear,dy,wheelRadius,2*dz);
+		Segments lf=new Segments(xc,frame_side,dyRear,dy,wheelRadius,wheelRadius+dz);
 
 		leftFrame[0][0][0]=addBPoint(-0.5,0.0,0,lf);
 		leftFrame[1][0][0]=addBPoint(0.5,0.0,0,lf);
@@ -201,11 +201,11 @@ public class Byke0Model extends MeshModel{
 		
 		int wheel_width=20;
 		
-		double wz=0;
+		double wz=wheelRadius;
 		double wx=wheel_width*0.5;		
 		
-		BPoint[][] wheelFront=buildWheel(-wx, dyRear,wz , wheelRadius, wheel_width, wheel_rays);
-		BPoint[][] wheelRear=buildWheel(wx, dyRear+dy, wz, wheelRadius, wheel_width, wheel_rays);
+		BPoint[][] wheelFront=buildWheel(xc-wx, dyRear,wz , wheelRadius, wheel_width, wheel_rays);
+		BPoint[][] wheelRear=buildWheel(xc-wx, dyRear+dy, wz, wheelRadius, wheel_width, wheel_rays);
 
 		//faces
 		int NF=6*6;

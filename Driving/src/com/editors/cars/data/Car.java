@@ -1538,7 +1538,7 @@ public class Car extends CustomData {
 		double frame_side=(x_side-wheel_width)*0.5;
 		double xc=-frame_side*0.5;
 		
-		Segments lf=new Segments(xc,frame_side,back_length,y_side,wheel_radius,2*z_side);
+		Segments lf=new Segments(xc,frame_side,back_length,y_side,wheel_radius,wheel_radius+z_side);
 
 		leftFrame[0][0][0]=addBPoint(-0.5,0.0,0,lf);
 		leftFrame[1][0][0]=addBPoint(0.5,0.0,0,lf);
