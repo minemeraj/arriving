@@ -89,7 +89,7 @@ public class Tank0Model extends MeshModel{
 
 		
 		
-		Segments s1=new Segments(0,dxRear*0.5,dyRear,dyRoof,dz,dzRoof);
+		Segments s1=new Segments(0,dxRoof*0.5,dyRear,dyRoof,dz,dzRoof);
 		
 		BPoint[][][] turret=new BPoint[2][2][2];
 		
@@ -104,7 +104,7 @@ public class Tank0Model extends MeshModel{
 		turret[1][1][1]=addBPoint(1.0,1.0,1.0,s1);
 		
 
-		BPoint[][] cannon_barrel = addYCylinder(0,dxRoof+dxRear,dz+dzRear*0.5,10,100,10);
+		BPoint[][] cannon_barrel = addYCylinder(0,dyRoof+dyRear,dz+dzRear*0.5,10,100,10);
 
 		//Texture points
 

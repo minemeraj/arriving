@@ -21,6 +21,7 @@ import com.editors.models.Car0Model;
 import com.editors.models.F10Model;
 import com.editors.models.Ship0Model;
 import com.editors.models.StarShip0Model;
+import com.editors.models.Tank0Model;
 import com.editors.models.Truck0Model;
 
 public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemListener{
@@ -345,11 +346,10 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 					dxRoof,dyRoof,dzRoof,
 					wheelRadius,wheelWidth,wheelRays);
 		else if(val==TANK0)
-			meshModel=new F10Model(dx,dy,dz,
+			meshModel=new Tank0Model(dx,dy,dz,
 					dxf,dyf,dzf,
 					dxr,dyr,dzr,
-					dxRoof,dyRoof,dzRoof,
-					wheelRadius,wheelWidth,wheelRays);
+					dxRoof,dyRoof,dzRoof);
 		else
 			meshModel=new Car0Model(dx,dy,dz);
 
@@ -428,11 +428,11 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						50,100,30,
 						50,20,10);
 			else if(TANK0==val)
-				setRightData(151,350,109,
-						151,150,109,
-						151,400,50,
+				setRightData(300,400,100,
 						0,0,0,
-						50,20,10);
+						300,100,50,
+						200,150,50,
+						0,0,0);
 		}
 
 	}
