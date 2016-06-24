@@ -415,7 +415,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		pr.println("dz1="+dz1_text.getvalue());
 		pr.println("num_meridians="+num_meridians.getvalue());
 		pr.println("dx2="+dx2_text.getvalue());
-		pr.println("+dy2="+dy2_text.getvalue());
+		pr.println("dy2="+dy2_text.getvalue());
 		pr.println("dy3="+dy3_text.getvalue());
 	}
 

@@ -1,6 +1,9 @@
 New landscape:
 /lib/landscape_monza
 
+New objects:
+/lib/object3D_28 (Warehouse 25mX40mX6m)
+
 landscape_indy re-made from the start.
 
 Added road banking angle.See README.txt
