@@ -3,6 +3,7 @@ New landscape:
 
 New objects:
 /lib/object3D_28 (Warehouse 25mX40mX6m)
+/lib/object3D_29 (Warehouse 50mX80mX7m)
 
 landscape_indy re-made from the start.
 
