@@ -148,6 +148,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	private File imageFile=null;
 	private JCheckBoxMenuItem jmt_lines_mode;
 	private JButton addNewLine;
+	private JButton addPointAfter;
 
 
 	public static void main(String[] args) {
@@ -271,6 +272,14 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		addNewLine.setBounds(col0,r,150,20);
 		addNewLine.setEnabled(false);
 		right.add(addNewLine);
+		
+		r+=30;
+
+		addPointAfter=new JButton("Add point after");
+		addPointAfter.addActionListener(this);
+		addPointAfter.setFocusable(false);
+		addPointAfter.setBounds(col0,r,150,20);
+		right.add(addPointAfter);
 
 		r+=30;
 
@@ -1008,6 +1017,8 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		}else if (obj == addNewLine){
 			
 			addLineToArray();
+		}else if (obj == addPointAfter){
+			addPointAfter();
 		}
 
 		
@@ -1015,8 +1026,6 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		draw();
 		
 	}
-
-
 
 
 	private void setLineMode() {
@@ -1404,6 +1413,46 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 		points.add(new Point3D(xx,yy,0));
 		pointList.ensureIndexIsVisible(pointList.getModel().getSize()-1); 
+	}
+	
+
+
+
+
+	private void addPointAfter() {
+		int sz=lines.size();
+
+		for (int index = 0; index < sz; index++) {
+
+			ArrayList<Point3D> points=lines.get(index);
+			
+			boolean found=false;
+
+			int size = points.size();
+
+			for (int i = 0; i < size-1; i++) {
+
+				Point3D point0 = (Point3D) points.get(i);
+				Point3D point1 = (Point3D) points.get(i+1);
+
+				if (point0.isSelected()) {
+					
+					Point3D p=new Point3D(
+							(point0.getX()+point1.getX())*0.5,
+							(point0.getY()+point1.getY())*0.5,
+							(point0.getZ()+point1.getZ())*0.5
+							);
+					points.add(i+1, p);
+					found=true;
+					break;
+				}
+			}	
+			
+			if(found)
+				break;
+		}
+		
+		deselectAllPoints();
 	}
 
 	private void selectPoint(Point3D p) {
