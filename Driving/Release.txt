@@ -1,3 +1,6 @@
+New 
+/lib/object3D_30 (Church 27m X 68m X 17m)
+
 --- 25/06/2016 CarDriving 9.0.10
 
 New landscape:
