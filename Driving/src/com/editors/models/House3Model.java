@@ -149,7 +149,7 @@ public class House3Model extends MeshModel{
 		}	
 		
 		//gable tops
-		y=by+dy+dx1+dy2+dx+roof_height;
+		y=by+dy+dx1+dy2+dz+roof_height;
 		x=bx;
 		
 		addTPoint(x+dx*0.5,y,0);
