@@ -48,16 +48,16 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 
 	private boolean skipItemChanged=false;
 
-	public static int HOUSE0=0;
-	public static int HOUSE1=1;
+	public static int HOUSE0_GABLE=0;
+	public static int HOUSE1_LSHAPED=1;
 	public static int GAMBREL0=2;
 	public static int MANSARD0=3;
 	public static int BELLTOWER=4;
 	public static int SHED0=5;
 	public static int CHIMNEY0=6;
-	public static int HOUSE2=7;
-	public static int HOUSE3=8;
-	public static int HOUSE4=9;
+	public static int HOUSE2_THREEWINGS=7;
+	public static int HOUSE3_CROSSHOUSE=8;
+	public static int HOUSE4_C_SHAPED=9;
 	public static int COURTYARD=10;
 	public static int STAND0=11;
 
@@ -198,21 +198,21 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		center.add(jlb);
 
 		chooseBuilding=new JComboBox();
-		chooseBuilding.setBounds(115, r, 100, 20);
+		chooseBuilding.setBounds(115, r, 130, 20);
 		chooseBuilding.addKeyListener(this);
 		chooseBuilding.addItem(new ValuePair("-1",""));
 		chooseBuilding.addItem(new ValuePair(""+BELLTOWER,BellTowerModel.NAME));
-		chooseBuilding.addItem(new ValuePair(""+CHIMNEY0,Chimney0Model.NAME));
-		chooseBuilding.addItem(new ValuePair(""+COURTYARD,Courtyard0Model.NAME));
-		chooseBuilding.addItem(new ValuePair(""+HOUSE0,House0Model.NAME));		
-		chooseBuilding.addItem(new ValuePair(""+HOUSE1,House1Model.NAME));	
-		chooseBuilding.addItem(new ValuePair(""+HOUSE2,House2Model.NAME));
-		chooseBuilding.addItem(new ValuePair(""+HOUSE3,House3Model.NAME));
-		chooseBuilding.addItem(new ValuePair(""+HOUSE4,House4Model.NAME));
-		chooseBuilding.addItem(new ValuePair(""+GAMBREL0,Gambrel0Model.NAME));	
+		chooseBuilding.addItem(new ValuePair(""+CHIMNEY0,Chimney0Model.NAME));		
+		chooseBuilding.addItem(new ValuePair(""+COURTYARD,Courtyard0Model.NAME));	
+		chooseBuilding.addItem(new ValuePair(""+HOUSE3_CROSSHOUSE,House3Model.NAME));
+		chooseBuilding.addItem(new ValuePair(""+HOUSE4_C_SHAPED,House4Model.NAME));
+		chooseBuilding.addItem(new ValuePair(""+HOUSE0_GABLE,House0Model.NAME));
+		chooseBuilding.addItem(new ValuePair(""+GAMBREL0,Gambrel0Model.NAME));
+		chooseBuilding.addItem(new ValuePair(""+HOUSE1_LSHAPED,House1Model.NAME));			
 		chooseBuilding.addItem(new ValuePair(""+MANSARD0,Mansard0Model.NAME));
 		chooseBuilding.addItem(new ValuePair(""+SHED0,Shed0Model.NAME));
 		chooseBuilding.addItem(new ValuePair(""+STAND0,Stand0Model.NAME)); 
+		chooseBuilding.addItem(new ValuePair(""+HOUSE2_THREEWINGS,House2Model.NAME));
 
 		chooseBuilding.addItemListener(this);
 
@@ -258,11 +258,11 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 
 		int val=Integer.parseInt(vp.getId());
 		if(val<0)
-			val=HOUSE0;
+			val=HOUSE0_GABLE;
 
-		if(HOUSE0==val)
+		if(HOUSE0_GABLE==val)
 			meshModel=new House0Model(dx,dy,dz,rh,dy1);
-		else if(HOUSE1==val)
+		else if(HOUSE1_LSHAPED==val)
 			meshModel=new House1Model(dx,dy,dz,rh,dx1,dy1);
 		else if(MANSARD0==val)
 			meshModel=new Mansard0Model(dx,dy,dz,rh,dx1,dy1);
@@ -276,11 +276,11 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 			meshModel=new Stand0Model(dx,dy,dz,dz1);
 		else if(CHIMNEY0==val)
 			meshModel=new Chimney0Model(dx,dx1,dz,num_mer);
-		else if(HOUSE2==val)
+		else if(HOUSE2_THREEWINGS==val)
 			meshModel=new House2Model(dx,dy,dz,rh,dx1,dy1,dy2);
-		else if(HOUSE3==val)
+		else if(HOUSE3_CROSSHOUSE==val)
 			meshModel=new House3Model(dx,dy,dz,rh,dx1,dy1,dy2,dy3);
-		else if(HOUSE4==val)
+		else if(HOUSE4_C_SHAPED==val)
 			meshModel=new House4Model(dx,dy,dz,rh,dx1,dy1,dx2);
 		else if(COURTYARD==val)
 			meshModel=new Courtyard0Model(dx,dy,dz,rh,dx1,dy1);
@@ -337,11 +337,11 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 
 			int val=Integer.parseInt(vp.getId());
 			if(val<0)
-				val=HOUSE0;
+				val=HOUSE0_GABLE;
 
-			if(HOUSE0==val)
+			if(HOUSE0_GABLE==val)
 				setRightData(100,200,100,50,0,150,0,0,0,0,0);
-			else if(HOUSE1==val)
+			else if(HOUSE1_LSHAPED==val)
 				setRightData(100,200,100,50,100,150,0,0,0,0,0);
 			else if(MANSARD0==val)
 				setRightData(100,200,100,50,50,150,0,0,0,0,0);
@@ -355,11 +355,11 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 				setRightData(300,200,50,0,0,0,200,0,0,0,0);
 			else if(CHIMNEY0==val)
 				setRightData(100,0,300,0,80,0,0,12,0,0,0);
-			else if(HOUSE2==val)
+			else if(HOUSE2_THREEWINGS==val)
 				setRightData(100,200,100,50,100,150,0,0,0,200,0);
-			else if(HOUSE3==val)
+			else if(HOUSE3_CROSSHOUSE==val)
 				setRightData(100,200,100,50,100,150,0,0,0,150,200);
-			else if(HOUSE4==val)
+			else if(HOUSE4_C_SHAPED==val)
 				setRightData(100,150,100,50,100,300,0,0,100,0,0);
 			else if(COURTYARD==val)
 				setRightData(200,200,100,50,100,100,0,0,0,0,0);
@@ -403,7 +403,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 
 		int val=Integer.parseInt(vp.getId());
 		if(val<0)
-			val=HOUSE0;
+			val=HOUSE0_GABLE;
 
 		pr.println("building="+val);
 		pr.println("dx="+dx_text.getvalue());

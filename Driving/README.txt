@@ -585,4 +585,7 @@
 	skyscraper_1=25X26X50m
 	City0 blocks have size 100m X 60m
 	
+	Church0 based on Santa Maria del Suffragio, Milan
+	cross:length=68m, width=12m, facade height=17m
+	
 	
