@@ -140,9 +140,9 @@ public class SPLine implements Cloneable{
 				double dzl=dz;
 				double dzr=dz;
 				if(banking>0)
-					dzr+=wid*Math.tan(banking);
+					dzr+=2.0*wid*Math.tan(banking);
 				else if(banking<0)
-					dzl+=wid*Math.tan(-banking);
+					dzl+=2.0*wid*Math.tan(-banking);
 				
 				Rib rib=new Rib(4);
 				rib.getPoints()[0]=new Point4D(x+lprevd.x*wid,y+lprevd.y*wid,z,LineData.GREEN_HEX,0);

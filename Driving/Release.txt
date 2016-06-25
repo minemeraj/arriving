@@ -7,7 +7,8 @@ New objects:
 
 landscape_indy re-made from the start.
 
-Added road banking angle.See README.txt
+Added road banking angle.See README.txt, and see also
+/lib/landscape_indy.
 
 Added a starting view direction.
 
