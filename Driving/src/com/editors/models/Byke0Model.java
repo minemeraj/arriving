@@ -1,5 +1,7 @@
 package com.editors.models;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.PrintWriter;
 import java.util.Vector;
@@ -10,8 +12,7 @@ import com.Segments;
 import com.main.Renderer3D;
 /**
  * One texture model
- * Summing up the best creation logic so far
- * 
+ * * 
  * @author Administrator
  *
  */
@@ -199,13 +200,11 @@ public class Byke0Model extends MeshModel{
 		handlebar[0][1][1]=addBPoint(-0.5,1.0,1.0,hb);		
 		handlebar[1][1][1]=addBPoint(0.5,1.0,1.0,hb);	
 		
-		int wheel_width=20;
-		
 		double wz=wheelRadius;
-		double wx=wheel_width*0.5;		
+		double wx=wheelWidth*0.5;		
 		
-		BPoint[][] wheelFront=buildWheel(xc-wx, dyRear,wz , wheelRadius, wheel_width, wheel_rays);
-		BPoint[][] wheelRear=buildWheel(xc-wx, dyRear+dy, wz, wheelRadius, wheel_width, wheel_rays);
+		BPoint[][] wheelFront=buildWheel(xc-wx, dyRear,wz , wheelRadius, wheelWidth, wheel_rays);
+		BPoint[][] wheelRear=buildWheel(xc-wx, dyRear+dy, wz, wheelRadius, wheelWidth, wheel_rays);
 
 		//faces
 		int NF=6*6;
@@ -293,6 +292,9 @@ public class Byke0Model extends MeshModel{
 
 	@Override
 	public void printTexture(Graphics2D bufGraphics) {
+		
+		bufGraphics.setColor(Color.BLACK);
+		bufGraphics.setStroke(new BasicStroke(0.1f));
 
 		for (int i = 0; i < faces.length; i++) {
 			

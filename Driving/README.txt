@@ -516,7 +516,12 @@
 	from keel to upper deck=17.6m
 	Stern castle height from deck=23m.
 	
-	Containers:
+	--Other vehicles:
+	
+	byke0 based on Ducati 959 Panigale,
+	wheelbase=1431mm, seat height=830mm
+	
+	---Containers:
 	
 	20 feet=  6.058m x 2.438 x 2.591
 	40 feet= 12.192m x 2.438 x 2.591
