@@ -77,6 +77,7 @@ import com.editors.EditorData;
 import com.editors.road.RoadEditor;
 import com.main.HelpPanel;
 import com.main.Road;
+import com.main.loader.LoadingProgressPanel;
 
 public class AutocarEditor extends Editor implements MouseListener,
 		ActionListener, MenuListener, KeyListener, MouseWheelListener,
@@ -226,7 +227,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	public AutocarEditor() {
 		
-		EditorData.initialize(null);
+		loadingProgressPanel=new LoadingProgressPanel();
+		EditorData.initialize(loadingProgressPanel);
 
 		WIDTH = 820;
 		HEIGHT = 880;
@@ -292,6 +294,9 @@ public class AutocarEditor extends Editor implements MouseListener,
 			e.printStackTrace();
 		}
 
+		loadingProgressPanel.setValue(100);		
+		loadingProgressPanel.dispose();
+		
 		setVisible(true);
 	}
 	
