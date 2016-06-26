@@ -44,7 +44,7 @@ public class GameLoader extends JDialog implements ActionListener{
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		ArrayList mapNames=loadMapNames();
-		int addedHeight=50*mapNames.size();
+		int addedHeight=40*mapNames.size();
 		HEIGHT=HEIGHT+addedHeight;
 
 		setLayout(null);
@@ -174,7 +174,8 @@ public class GameLoader extends JDialog implements ActionListener{
 
 
 			"Choose you world...",
-			"Where do you wonna go?"
+			"Where do you wonna go?",
+			"Ready to start to:"
 
 	};
 
