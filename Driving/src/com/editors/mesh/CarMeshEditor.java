@@ -312,7 +312,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 			meshModel=new Truck0Model(
 					dx,dy,dz,
 					dxf,dyf,dzf,
-					dxr,dyr,dzr,
+					dxRoof,dyRoof,dzRoof,
 					wheelRadius,wheelWidth,wheelRays);
 		else if(val==SHIP0)
 			meshModel=new Ship0Model(
@@ -392,10 +392,10 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						0,0,0,0,
 						0,0,0,0);
 			else if(TRUCK0==val)
-				setRightData(94,319,22,
-						94,61,118,
-						111,319,116,
+				setRightData(74,319,22,
+						94,61,118,						
 						0,0,0,
+						111,319,116,
 						19,12,10);
 			else if(SHIP0==val)
 				setRightData(718,4550,458,

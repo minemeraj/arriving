@@ -195,13 +195,6 @@ public class F10Model extends MeshModel{
 		
 		double wz=0;
 		double wx=wheelWidth;		
-		/*buildWheel(-x_side*0.5,rear_overhang,wheel_radius,wheel_radius,wheel_width);
-			buildWheel(x_side*0.5-wheel_width,rear_overhang,wheel_radius,wheel_radius,wheel_width);
-			
-			buildWheel(-x_side*0.5,back_length+y_side+front_length-front_overhang,wheel_radius,wheel_radius,wheel_width);
-			buildWheel(x_side*0.5-wheel_width,back_length+y_side+front_length-front_overhang,wheel_radius,wheel_radius,wheel_width);
-		*
-		*/
 
 		BPoint[][] wheelLeftFront=buildWheel(-dx*0.5-wx, dyRear+dy+dyFront*0.5,wz , wheelRadius, wheelWidth, wheel_rays);
 		BPoint[][] wheelRightFront=buildWheel(dx*0.5, dyRear+dy+dyFront*0.5, wz, wheelRadius, wheelWidth, wheel_rays);
@@ -218,8 +211,65 @@ public class F10Model extends MeshModel{
 		int counter=0;
 
 		faces=new int[NF+NUM_WHEEL_FACES][3][4];
+		
+		counter=buildBodyFaces(counter,backSpoiler,back,body,front,frontSpoiler,roof);
+
+		counter=buildWheelFaces(counter,totBlockTexturesPoints,totWheelPolygon,
+				
+				wheelLeftFront,
+				wheelRightFront,
+				wheelLeftRear,
+				wheelRightRear
+				);
 
 
+		IMG_WIDTH=(int) (2*bx+dx+wheelWidth);
+		IMG_HEIGHT=(int) (2*by+dy);
+
+	}
+	
+	private int buildWheelFaces(int counter, int totBlockTexturesPoints, int totWheelPolygon,
+			BPoint[][] wheelLeftFront,
+			BPoint[][] wheelRightFront,
+			BPoint[][] wheelLeftRear,
+			BPoint[][] wheelRightRear) {
+		
+		
+		
+		///// WHEELS
+
+		int[][][] wFaces = buildWheelFaces(wheelLeftFront,totBlockTexturesPoints);
+		for (int i = 0; i < totWheelPolygon; i++) {
+			faces[counter++]=wFaces[i];
+		}
+
+		wFaces = buildWheelFaces(wheelRightFront,totBlockTexturesPoints);
+		for (int i = 0; i < totWheelPolygon; i++) {
+			faces[counter++]=wFaces[i];
+		}
+
+		wFaces = buildWheelFaces(wheelLeftRear,totBlockTexturesPoints);
+		for (int i = 0; i <totWheelPolygon; i++) {
+			faces[counter++]=wFaces[i];
+		}
+
+		wFaces = buildWheelFaces(wheelRightRear,totBlockTexturesPoints);
+		for (int i = 0; i < totWheelPolygon; i++) {
+			faces[counter++]=wFaces[i];
+		}
+		/////
+		return 0;
+	}
+
+
+	private int buildBodyFaces(int counter, 
+			BPoint[][][] backSpoiler, 
+			BPoint[][][] back, 
+			BPoint[][][] body, 
+			BPoint[][][] front, 
+			BPoint[][][] frontSpoiler, 
+			BPoint[][][] roof) {
+		
 		faces[counter++]=buildFace(Renderer3D.CAR_TOP,backSpoiler[0][0][1],backSpoiler[1][0][1],backSpoiler[1][1][1],backSpoiler[0][1][1], 0, 1, 2, 3);
 		faces[counter++]=buildFace(Renderer3D.CAR_LEFT,backSpoiler[0][0][0],backSpoiler[0][0][1],backSpoiler[0][1][1],backSpoiler[0][1][0], 0, 1, 2, 3);
 		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT,backSpoiler[1][0][0],backSpoiler[1][1][0],backSpoiler[1][1][1],backSpoiler[1][0][1], 0, 1, 2, 3);
@@ -266,34 +316,10 @@ public class F10Model extends MeshModel{
 		faces[counter++]=buildFace(Renderer3D.CAR_BACK,roof[0][0][0],roof[1][0][0],roof[1][0][1],roof[0][0][1], 0, 1, 2, 3);
 		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM,roof[0][0][0],roof[0][1][0],roof[1][1][0],roof[1][0][0], 0, 1, 2, 3);
 		
-		///// WHEELS
-
-		int[][][] wFaces = buildWheelFaces(wheelLeftFront,totBlockTexturesPoints);
-		for (int i = 0; i < totWheelPolygon; i++) {
-			faces[counter++]=wFaces[i];
-		}
-
-		wFaces = buildWheelFaces(wheelRightFront,totBlockTexturesPoints);
-		for (int i = 0; i < totWheelPolygon; i++) {
-			faces[counter++]=wFaces[i];
-		}
-
-		wFaces = buildWheelFaces(wheelLeftRear,totBlockTexturesPoints);
-		for (int i = 0; i <totWheelPolygon; i++) {
-			faces[counter++]=wFaces[i];
-		}
-
-		wFaces = buildWheelFaces(wheelRightRear,totBlockTexturesPoints);
-		for (int i = 0; i < totWheelPolygon; i++) {
-			faces[counter++]=wFaces[i];
-		}
-		/////
-
-		IMG_WIDTH=(int) (2*bx+dx+wheelWidth);
-		IMG_HEIGHT=(int) (2*by+dy);
-
+		return counter;
 	}
-	
+
+
 	@Override
 	public void printMeshData(PrintWriter pw) {
 
