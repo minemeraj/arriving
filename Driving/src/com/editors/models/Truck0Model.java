@@ -74,7 +74,9 @@ public class Truck0Model extends MeshModel{
 	@Override
 	public void initMesh() {
 		points=new Vector<Point3D>();
-		texturePoints=new Vector();		
+		texturePoints=new Vector();	
+		
+		x0=dxRoof*0.5;
 		
 		int nzCab=3;
 		int nYcab=6;		
@@ -92,15 +94,16 @@ public class Truck0Model extends MeshModel{
 
 		////
 		double wz=0;
-		double wx=dx-wheelWidth;		
+		double wxLeft=dx*0.5+wheelWidth;
+		double wxRight=dx*0.5;
 
 		double yRearAxle=2.0*wheelRadius;
 		double yFrontAxle=dy+dyFront*0.5;
 
-		BPoint[][] wheelLeftFront=buildWheel(0, yFrontAxle,wz , wheelRadius, wheelWidth, wheel_rays);
-		BPoint[][] wheelRightFront=buildWheel(wx, yFrontAxle, wz, wheelRadius, wheelWidth, wheel_rays);
-		BPoint[][] wheelLeftRear=buildWheel(0, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
-		BPoint[][] wheelRightRear=buildWheel(wx, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
+		BPoint[][] wheelLeftFront=buildWheel(x0-wxLeft, yFrontAxle,wz , wheelRadius, wheelWidth, wheel_rays);
+		BPoint[][] wheelRightFront=buildWheel(x0+wxRight, yFrontAxle, wz, wheelRadius, wheelWidth, wheel_rays);
+		BPoint[][] wheelLeftRear=buildWheel(x0-wxLeft, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
+		BPoint[][] wheelRightRear=buildWheel(x0+wxRight, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
 		
 		int totWheelPolygon=wheel_rays+2*(wheel_rays-2);
 		int NUM_WHEEL_FACES=4*totWheelPolygon;
@@ -271,8 +274,7 @@ public class Truck0Model extends MeshModel{
 
 	protected BPoint[][] buildBody(int nzBody) {
 		
-		double dxBody=(dx-dxFront)*0.5;
-		Segments s0=new Segments(x0+dxBody,dx,y0,dy,z0,dz);
+		Segments s0=new Segments(x0-dx*0.5,dx,y0,dy,z0,dz);
 		
 		BPoint[][] body=new BPoint[nzBody][4];
 		
@@ -307,7 +309,7 @@ public class Truck0Model extends MeshModel{
 		double fz2=0.5;
 		
 
-		Segments s0=new Segments(x0,dxFront,y0+dyRoof,dyFront,z0,dzFront);
+		Segments s0=new Segments(x0-dxFront*0.5,dxFront,y0+dyRoof,dyFront,z0,dzFront);
 	
 		
 		BPoint[][][] cab=new BPoint[2][nYcab][nzCab];
@@ -362,8 +364,8 @@ public class Truck0Model extends MeshModel{
 		
 
 		
-		double dxWagon=(dx-dxRoof)*0.5;
-		Segments s0=new Segments(x0+dxWagon,dxRoof,y0,dyRoof,z0+dz,dzRoof);
+
+		Segments s0=new Segments(x0-dxRoof*0.5,dxRoof,y0,dyRoof,z0+dz,dzRoof);
 
 		
 		BPoint[][] wagon=new BPoint[nzWagon][4];

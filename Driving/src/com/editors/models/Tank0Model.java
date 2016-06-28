@@ -43,6 +43,8 @@ public class Tank0Model extends MeshModel{
 	private int[][][] faces;
 
 	int basePoints=4;
+	
+
 
 	public Tank0Model(
 			double dx, double dy, double dz, 

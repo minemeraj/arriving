@@ -22,6 +22,7 @@ import com.editors.models.F10Model;
 import com.editors.models.Ship0Model;
 import com.editors.models.StarShip0Model;
 import com.editors.models.Tank0Model;
+import com.editors.models.TankTruck0Model;
 import com.editors.models.Truck0Model;
 
 public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemListener{
@@ -54,6 +55,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 	public static int AIRPLANE0=5;
 	public static int F10=6;
 	public static int BYKE0=7;
+	public static int TANKTRUCK0=8;
 
 	public static void main(String[] args) {
 
@@ -250,14 +252,15 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		chooseObject.setBounds(col1, r, 100, 20);
 		chooseObject.addKeyListener(this);
 		chooseObject.addItem(new ValuePair("-1",""));
-		chooseObject.addItem(new ValuePair(""+AIRPLANE0,"Airplane0"));
-		chooseObject.addItem(new ValuePair(""+BYKE0,"Byke0"));
-		chooseObject.addItem(new ValuePair(""+CAR0,"Car0"));	
+		chooseObject.addItem(new ValuePair(""+AIRPLANE0,"Airplane"));
+		chooseObject.addItem(new ValuePair(""+BYKE0,"Byke"));
+		chooseObject.addItem(new ValuePair(""+CAR0,"Car"));	
 		chooseObject.addItem(new ValuePair(""+F10,"F10"));		
-		chooseObject.addItem(new ValuePair(""+SHIP0,"Ship0"));
-		chooseObject.addItem(new ValuePair(""+STARSHIP0,"Starship0"));
+		chooseObject.addItem(new ValuePair(""+SHIP0,"Ship"));
+		chooseObject.addItem(new ValuePair(""+STARSHIP0,"Starship"));
 		chooseObject.addItem(new ValuePair(""+TANK0,"Tank0"));
-		chooseObject.addItem(new ValuePair(""+TRUCK0,"Truck0"));
+		chooseObject.addItem(new ValuePair(""+TANKTRUCK0,"TankTruck"));
+		chooseObject.addItem(new ValuePair(""+TRUCK0,"Truck"));
 		chooseObject.addItemListener(this);		
 
 		chooseObject.setSelectedIndex(0);
@@ -310,6 +313,12 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 			meshModel=new Car0Model(dx,dy,dz);
 		else if(val==TRUCK0)
 			meshModel=new Truck0Model(
+					dx,dy,dz,
+					dxf,dyf,dzf,
+					dxRoof,dyRoof,dzRoof,
+					wheelRadius,wheelWidth,wheelRays);
+		else if(val==TANKTRUCK0)
+			meshModel=new TankTruck0Model(
 					dx,dy,dz,
 					dxf,dyf,dzf,
 					dxRoof,dyRoof,dzRoof,
@@ -392,6 +401,12 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						0,0,0,0,
 						0,0,0,0);
 			else if(TRUCK0==val)
+				setRightData(74,319,22,
+						94,61,118,						
+						0,0,0,
+						111,319,116,
+						19,12,10);
+			else if(TANKTRUCK0==val)
 				setRightData(74,319,22,
 						94,61,118,						
 						0,0,0,
