@@ -131,17 +131,17 @@ public class Church0Model extends MeshModel{
 
 		buildTextures();
 		
-		int NF=0;//6*4;//AISLES
+		int NF=6*4;//AISLES
 		NF+=12;//CROSS
 
 		faces=new int[NF][3][4];
 		
 		int counter=0;
 		counter=buildCross(counter,mainCross,crossRoof);
-		/*counter=buildAisle(counter,swAisle);
+		counter=buildAisle(counter,swAisle);
 		counter=buildAisle(counter,seAisle);
 		counter=buildAisle(counter,nwAisle);
-		counter=buildAisle(counter,neAisle);*/
+		counter=buildAisle(counter,neAisle);
 		
 
 		IMG_WIDTH=(int) (2*bx+dx);
@@ -200,7 +200,7 @@ public class Church0Model extends MeshModel{
 		
 		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, swAisle[0][0][0],swAisle[0][1][0],swAisle[1][1][0],swAisle[0][1][0], c0, c1, c2, c3);
 		faces[counter++]=buildFace(Renderer3D.CAR_BACK, swAisle[0][0][0],swAisle[1][0][0],swAisle[1][0][1],swAisle[0][0][1], c0, c1, c2, c3);
-		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, swAisle[0][0][0],swAisle[0][1][0],swAisle[0][1][1],swAisle[0][0][1], c0, c1, c2, c3);
+		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, swAisle[0][0][0],swAisle[0][0][1],swAisle[0][1][1],swAisle[0][1][0], c0, c1, c2, c3);
 		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, swAisle[1][0][0],swAisle[1][1][0],swAisle[1][1][1],swAisle[1][0][1], c0, c1, c2, c3);
 		faces[counter++]=buildFace(Renderer3D.CAR_TOP, swAisle[0][0][1],swAisle[1][0][1],swAisle[1][1][1],swAisle[0][1][1], c0, c1, c2, c3);
 		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, swAisle[0][1][0],swAisle[0][1][1],swAisle[1][1][1],swAisle[1][1][0], c0, c1, c2, c3);
