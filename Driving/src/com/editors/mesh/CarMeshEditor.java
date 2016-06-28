@@ -19,6 +19,7 @@ import com.editors.models.Airplane0Model;
 import com.editors.models.Byke0Model;
 import com.editors.models.Car0Model;
 import com.editors.models.F10Model;
+import com.editors.models.RailWagon0Model;
 import com.editors.models.Ship0Model;
 import com.editors.models.StarShip0Model;
 import com.editors.models.Tank0Model;
@@ -56,6 +57,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 	public static int F10=6;
 	public static int BYKE0=7;
 	public static int TANKTRUCK0=8;
+	public static int RAILWAGON0=9;
 
 	public static void main(String[] args) {
 
@@ -256,6 +258,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		chooseObject.addItem(new ValuePair(""+BYKE0,"Byke"));
 		chooseObject.addItem(new ValuePair(""+CAR0,"Car"));	
 		chooseObject.addItem(new ValuePair(""+F10,"F10"));		
+		chooseObject.addItem(new ValuePair(""+RAILWAGON0,"Railwagon"));
 		chooseObject.addItem(new ValuePair(""+SHIP0,"Ship"));
 		chooseObject.addItem(new ValuePair(""+STARSHIP0,"Starship"));
 		chooseObject.addItem(new ValuePair(""+TANK0,"Tank0"));
@@ -359,6 +362,13 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 					dxf,dyf,dzf,
 					dxr,dyr,dzr,
 					dxRoof,dyRoof,dzRoof);
+		else if(val==RAILWAGON0)
+			meshModel=new RailWagon0Model(
+					dx,dy,dz,
+					dxf,dyf,dzf,
+					dxr,dyr,dzr,
+					dxRoof,dyRoof,dzRoof,
+					wheelRadius,wheelWidth,wheelRays);
 		else
 			meshModel=new Car0Model(dx,dy,dz);
 
@@ -448,6 +458,12 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						300,100,50,
 						200,150,50,
 						0,0,0);
+			else if(RAILWAGON0==val)
+				setRightData(74,319,22,
+						94,61,118,						
+						0,0,0,
+						111,319,116,
+						19,12,10);
 		}
 
 	}

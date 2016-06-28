@@ -19,6 +19,7 @@ import com.editors.IntegerTextField;
 import com.editors.ValuePair;
 import com.editors.models.BellTowerModel;
 import com.editors.models.Chimney0Model;
+import com.editors.models.Church0Model;
 import com.editors.models.Courtyard0Model;
 import com.editors.models.Gambrel0Model;
 import com.editors.models.House0Model;
@@ -60,6 +61,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 	public static int HOUSE4_C_SHAPED=9;
 	public static int COURTYARD=10;
 	public static int STAND0=11;
+	public static int CHURCH=12;
 
 	public static void main(String[] args) {
 
@@ -202,7 +204,8 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		chooseBuilding.addKeyListener(this);
 		chooseBuilding.addItem(new ValuePair("-1",""));
 		chooseBuilding.addItem(new ValuePair(""+BELLTOWER,BellTowerModel.NAME));
-		chooseBuilding.addItem(new ValuePair(""+CHIMNEY0,Chimney0Model.NAME));		
+		chooseBuilding.addItem(new ValuePair(""+CHIMNEY0,Chimney0Model.NAME));	
+		chooseBuilding.addItem(new ValuePair(""+CHURCH,Church0Model.NAME));	
 		chooseBuilding.addItem(new ValuePair(""+COURTYARD,Courtyard0Model.NAME));	
 		chooseBuilding.addItem(new ValuePair(""+HOUSE3_CROSSHOUSE,House3Model.NAME));
 		chooseBuilding.addItem(new ValuePair(""+HOUSE4_C_SHAPED,House4Model.NAME));
@@ -280,6 +283,8 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 			meshModel=new House2Model(dx,dy,dz,rh,dx1,dy1,dy2);
 		else if(HOUSE3_CROSSHOUSE==val)
 			meshModel=new House3Model(dx,dy,dz,rh,dx1,dy1,dy2,dy3);
+		else if(CHURCH==val)
+			meshModel=new Church0Model(dx,dy,dz,rh,dx1,dy1,dy2,dy3);
 		else if(HOUSE4_C_SHAPED==val)
 			meshModel=new House4Model(dx,dy,dz,rh,dx1,dy1,dx2);
 		else if(COURTYARD==val)
@@ -358,6 +363,8 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 			else if(HOUSE2_THREEWINGS==val)
 				setRightData(100,200,100,50,100,150,0,0,0,200,0);
 			else if(HOUSE3_CROSSHOUSE==val)
+				setRightData(100,200,100,50,100,150,0,0,0,150,200);
+			else if(CHURCH==val)
 				setRightData(100,200,100,50,100,150,0,0,0,150,200);
 			else if(HOUSE4_C_SHAPED==val)
 				setRightData(100,150,100,50,100,300,0,0,100,0,0);

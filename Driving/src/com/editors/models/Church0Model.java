@@ -29,7 +29,7 @@ public class Church0Model extends MeshModel{
 	private int bx=10;
 	private int by=10;
 	
-	public static String NAME="Cross house";
+	public static String NAME="Church";
 	
 	public Church0Model(double dx, double dy, double dz,double roof_height,
 			double dx1,double dy1,double dy2,double dy3
@@ -131,17 +131,17 @@ public class Church0Model extends MeshModel{
 
 		buildTextures();
 		
-		int NF=6*4;//AISLES
+		int NF=0;//6*4;//AISLES
 		NF+=12;//CROSS
 
 		faces=new int[NF][3][4];
 		
 		int counter=0;
 		counter=buildCross(counter,mainCross,crossRoof);
-		counter=buildAisle(counter,swAisle);
+		/*counter=buildAisle(counter,swAisle);
 		counter=buildAisle(counter,seAisle);
 		counter=buildAisle(counter,nwAisle);
-		counter=buildAisle(counter,neAisle);
+		counter=buildAisle(counter,neAisle);*/
 		
 
 		IMG_WIDTH=(int) (2*bx+dx);
@@ -156,7 +156,7 @@ public class Church0Model extends MeshModel{
 		int c3=3;
 		
 		//first wing
-		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, mainCross[1][0][0],mainCross[1][1][0],mainCross[1][1][1],mainCross[1][0][1], c0, c1, c2, c3);
+		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, mainCross[1][0][0],mainCross[1][0][1],mainCross[1][1][1],mainCross[1][1][0], c0, c1, c2, c3);
 		faces[counter++]=buildFace(Renderer3D.CAR_BACK, mainCross[1][0][0],mainCross[2][0][0],mainCross[2][0][1],mainCross[1][0][1], c0, c1, c2, c3);
 		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT,mainCross[2][0][0],mainCross[2][1][0],mainCross[2][1][1],mainCross[2][0][1], c0, c1, c2, c3);
 		//roof, to test later
@@ -166,23 +166,23 @@ public class Church0Model extends MeshModel{
 		//second wing
 		faces[counter++]=buildFace(Renderer3D.CAR_BACK, mainCross[2][1][0],mainCross[3][1][0],mainCross[3][1][1],mainCross[2][1][1], c0, c1, c2, c3);
 		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT,mainCross[3][1][0],mainCross[3][2][0],mainCross[3][2][1],mainCross[3][1][1], c0, c1, c2, c3);
-		faces[counter++]=buildFace(Renderer3D.CAR_FRONT,mainCross[2][2][0],mainCross[3][2][0],mainCross[3][2][1],mainCross[2][2][1], c0, c1, c2, c3);
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT,mainCross[2][2][0],mainCross[2][2][1],mainCross[3][2][1],mainCross[3][2][0], c0, c1, c2, c3);
 		//roof, to test later
 		//faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainCross[2][1][0],mainCross[3][1][0],mainCross[3][1][1],mainCross[2][1][1], c0, c1, c2, c3);
 		//faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainCross[2][1][0],mainCross[3][1][0],mainCross[3][1][1],mainCross[2][1][1], c0, c1, c2, c3);
 		
 		//third wing
-		faces[counter++]=buildFace(Renderer3D.CAR_FRONT,mainCross[0][2][0],mainCross[0][2][1],mainCross[0][3][1],mainCross[0][3][0], c0, c1, c2, c3);		
-		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT,mainCross[2][2][0],mainCross[2][2][1],mainCross[2][3][1],mainCross[2][3][0], c0, c1, c2, c3);
-		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, mainCross[1][2][0],mainCross[1][3][0],mainCross[1][3][1],mainCross[1][2][1], c0, c1, c2, c3);
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT,mainCross[1][3][0],mainCross[1][3][1],mainCross[2][3][1],mainCross[2][3][0], c0, c1, c2, c3);		
+		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT,mainCross[2][2][0],mainCross[2][3][0],mainCross[2][3][1],mainCross[2][2][1], c0, c1, c2, c3);
+		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, mainCross[1][2][0],mainCross[1][2][1],mainCross[1][3][1],mainCross[1][3][0], c0, c1, c2, c3);
 		//roof, to test later	
 		//faces[counter++]=buildFace(Renderer3D.CAR_FRONT,mainCross[0][2][0],mainCross[0][2][1],mainCross[0][3][1],mainCross[0][3][0], c0, c1, c2, c3);
 		//faces[counter++]=buildFace(Renderer3D.CAR_FRONT,mainCross[0][2][0],mainCross[0][2][1],mainCross[0][3][1],mainCross[0][3][0], c0, c1, c2, c3);
 		
 		//fourth wing
 		faces[counter++]=buildFace(Renderer3D.CAR_FRONT,mainCross[0][2][0],mainCross[0][2][1],mainCross[1][2][1],mainCross[1][2][0], c0, c1, c2, c3);		
-		faces[counter++]=buildFace(Renderer3D.CAR_LEFT,mainCross[0][1][0],mainCross[0][2][0],mainCross[0][2][1],mainCross[0][1][1], c0, c1, c2, c3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK,mainCross[1][3][0],mainCross[1][3][1],mainCross[2][3][1],mainCross[2][3][0], c0, c1, c2, c3);		
+		faces[counter++]=buildFace(Renderer3D.CAR_LEFT,mainCross[0][1][0],mainCross[0][1][1],mainCross[0][2][1],mainCross[0][2][0], c0, c1, c2, c3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK,mainCross[0][1][0],mainCross[1][1][0],mainCross[1][1][1],mainCross[0][1][1], c0, c1, c2, c3);		
 		//roof, to test later
 		//faces[counter++]=buildFace(Renderer3D.CAR_FRONT,mainCross[0][2][0],mainCross[0][2][1],mainCross[1][2][1],mainCross[1][2][0], c0, c1, c2, c3);
 		//faces[counter++]=buildFace(Renderer3D.CAR_FRONT,mainCross[0][2][0],mainCross[0][2][1],mainCross[1][2][1],mainCross[1][2][0], c0, c1, c2, c3);
