@@ -284,7 +284,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		else if(HOUSE3_CROSSHOUSE==val)
 			meshModel=new House3Model(dx,dy,dz,rh,dx1,dy1,dy2,dy3);
 		else if(CHURCH==val)
-			meshModel=new Church0Model(dx,dy,dz,rh,dx1,dy1,dy2,dy3);
+			meshModel=new Church0Model(dx,dy,dz,rh,dx1,dy1,dy2,dy3,dz1);
 		else if(HOUSE4_C_SHAPED==val)
 			meshModel=new House4Model(dx,dy,dz,rh,dx1,dy1,dx2);
 		else if(COURTYARD==val)
@@ -344,49 +344,120 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 			if(val<0)
 				val=HOUSE0_GABLE;
 
-			if(HOUSE0_GABLE==val)
-				setRightData(100,200,100,50,0,150,0,0,0,0,0);
-			else if(HOUSE1_LSHAPED==val)
-				setRightData(100,200,100,50,100,150,0,0,0,0,0);
-			else if(MANSARD0==val)
-				setRightData(100,200,100,50,50,150,0,0,0,0,0);
-			else if(GAMBREL0==val)
-				setRightData(100,200,100,0,0,0,0,0,0,0,0);
-			else if(BELLTOWER==val)
-				setRightData(100,200,300,100,0,0,0,0,0,0,0);
-			else if(SHED0==val)
-				setRightData(100,200,100,0,0,0,60,0,0,0,0);
-			else if(STAND0==val)
-				setRightData(300,200,50,0,0,0,200,0,0,0,0);
-			else if(CHIMNEY0==val)
-				setRightData(100,0,300,0,80,0,0,12,0,0,0);
-			else if(HOUSE2_THREEWINGS==val)
-				setRightData(100,200,100,50,100,150,0,0,0,200,0);
-			else if(HOUSE3_CROSSHOUSE==val)
-				setRightData(100,200,100,50,100,150,0,0,0,100,150);
-			else if(CHURCH==val)
-				setRightData(100,200,100,50,100,150,0,0,0,100,150);
-			else if(HOUSE4_C_SHAPED==val)
-				setRightData(100,150,100,50,100,300,0,0,100,0,0);
-			else if(COURTYARD==val)
-				setRightData(200,200,100,50,100,100,0,0,0,0,0);
+			if(HOUSE0_GABLE==val){
+				setRightData(
+						100,200,100,//dx,dy,dz
+						50,//roof_height
+						0,150,0,//dx1,dy1,dz1
+						0,//num_meridians
+						0,0,0);
+			}
+			else if(HOUSE1_LSHAPED==val){
+				setRightData(100,200,100,//dx,dy,dz
+						50,//roof_height
+						100,150,0,//dx1,dy1,dz1
+						0,//num_meridians
+						0,0,0);
+			}
+			else if(MANSARD0==val){
+				setRightData(100,200,100,//dx,dy,dz
+						50,//roof_height
+						50,150,0,//dx1,dy1,dz1
+						0,//num_meridians
+						0,0,0);
+			}
+			else if(GAMBREL0==val){
+				setRightData(100,200,100,//dx,dy,dz
+						0,//roof_height
+						0,0,0,//dx1,dy1,dz1
+						0,//num_meridians
+						0,0,0);
+			}
+			else if(BELLTOWER==val){
+				setRightData(100,200,300,//dx,dy,dz
+						100,//roof_height
+						0,0,0,//dx1,dy1,dz1
+						0,//num_meridians
+						0,0,0);
+			}
+			else if(SHED0==val){
+				setRightData(100,200,100,//dx,dy,dz
+						0,//roof_height
+						0,0,60,//dx1,dy1,dz1
+						0,//num_meridians
+						0,0,0);
+			}
+			else if(STAND0==val){
+				setRightData(300,200,50,//dx,dy,dz
+						0,//roof_height
+						0,0,200,//dx1,dy1,dz1
+						0,//num_meridians
+						0,0,0);
+			}
+			else if(CHIMNEY0==val){
+				setRightData(100,0,300,//dx,dy,dz
+						0,//roof_height
+						80,0,0,//dx1,dy1,dz1
+						12,//num_meridians
+						0,0,0);
+			}
+			else if(HOUSE2_THREEWINGS==val){
+				setRightData(100,200,100,//dx,dy,dz
+						50,//roof_height
+						100,150,0,//dx1,dy1,dz1
+						0,//num_meridians
+						0,200,0//dx2,dy2,dy3
+						);
+			}
+			else if(HOUSE3_CROSSHOUSE==val) {
+				setRightData(100,200,100,//dx,dy,dz
+						50,//roof_height
+						100,150,0,//dx1,dy1,dz1
+						0,//num_meridians
+						0,100,150//dx2,dy2,dy3
+						);
+			}
+			else if(CHURCH==val){
+				setRightData(100,200,100,//dx,dy,dz
+						50,//roof_height
+						100,150,80,//dx1,dy1,dz1
+						0,//num_meridians
+						0,100,150//dx2,dy2,dy3
+						);
+			}
+			else if(HOUSE4_C_SHAPED==val){
+				setRightData(100,150,100,//dx,dy,dz
+						50,//roof_height
+						100,300,0,//dx1,dy1,dz1
+						0,//num_meridians
+						100,0,0//dx2,dy2,dy3
+						);
+			}
+			else if(COURTYARD==val){
+				setRightData(200,200,100,//dx,dy,dz
+						50,//roof_height
+						100,100,0,//dx1,dy1,dz1
+						0,//num_meridians
+						0,0,0//dx2,dy2,dy3
+						);
+			}
 		}		   
 
 	}
 
 
 	private void setRightData(
-			int dx, 
-			int dy, 
-			int dz, 
-			int roofHeight,
-			int dx1, 
-			int dy1,
-			int dz1,
+			double dx, 
+			double dy, 
+			double dz, 
+			double roofHeight,
+			double dx1, 
+			double dy1,
+			double dz1,
 			int num_merid,
-			int dx2,
-			int dy2,
-			int dy3
+			double dx2,
+			double dy2,
+			double dy3
 			) {
 
 

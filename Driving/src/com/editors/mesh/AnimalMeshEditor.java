@@ -216,16 +216,27 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 			if(val<0)
 				val=MAN0;
 
-			if(MAN0==val)
-				setRightData(100,10,180,0,0);
-			else if(MAN1==val)
-				setRightData(100,10,180,0,0);
-			else if(MAN2==val)
-				setRightData(100,20,180,180,100);
-			else if(HEAD0==val)
-				setRightData(200,200,284,0,0);
-			else if(HEAD1==val)
-				setRightData(200,200,284,0,0);
+			if(MAN0==val){
+				setRightData(100,10,180,//dx, dy, dz
+						0,0);
+			}
+			else if(MAN1==val){
+				setRightData(100,10,180,//dx, dy, dz
+						0,0);
+			}
+			else if(MAN2==val){
+				setRightData(100,20,180,//dx, dy, dz
+						180,100// leg_length, arm_length)
+						);
+			}
+			else if(HEAD0==val){
+				setRightData(200,200,284,//dx, dy, dz
+						0,0);
+			}
+			else if(HEAD1==val){
+				setRightData(200,200,284,//dx, dy, dz
+						0,0);
+			}
 		}
 
 	}

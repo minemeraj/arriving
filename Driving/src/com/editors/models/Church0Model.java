@@ -24,6 +24,7 @@ public class Church0Model extends MeshModel{
 	private double dy2=200;
 	private double dy3=200;
 	private double dz=20;
+	private double dz1=20;
 	private double roof_height=50;
 
 	private int bx=10;
@@ -32,7 +33,7 @@ public class Church0Model extends MeshModel{
 	public static String NAME="Church";
 	
 	public Church0Model(double dx, double dy, double dz,double roof_height,
-			double dx1,double dy1,double dy2,double dy3
+			double dx1,double dy1,double dy2,double dy3, double dz1
 			) {
 		super();
 		this.dx = dx;
@@ -43,6 +44,8 @@ public class Church0Model extends MeshModel{
 		this.dy1 = dy1;
 		this.dy2 = dy2;
 		this.dy3 = dy3;
+		
+		this.dz1 = dz1;
 	}
 
 
@@ -63,6 +66,8 @@ public class Church0Model extends MeshModel{
 		for(int k=0;k<2;k++){
 
 			double z=dz*k;
+			double z1=dz1*k;
+			
 
 			mainCross[1][0][k]=addBPoint(dy3,0.0,z);
 			mainCross[2][0][k]=addBPoint(dy3+dx,0.0,z);
@@ -78,44 +83,44 @@ public class Church0Model extends MeshModel{
 			mainCross[1][1][k]=addBPoint(dy3,dy,z);
 			
 			//adding the 4 aisles in anti-clockwise order,as distinct blocks
-			swAisle[0][0][k]=addBPoint(dy3+dx,0.0,z);
-			swAisle[1][0][k]=addBPoint(dy3+dx+dy1,0.0,z);
-			swAisle[1][1][k]=addBPoint(dy3+dx+dy1,dy,z);
-			swAisle[0][1][k]=addBPoint(dy3+dx,dy,z);			
+			swAisle[0][0][k]=addBPoint(dy3+dx,0.0,z1);
+			swAisle[1][0][k]=addBPoint(dy3+dx+dy1,0.0,z1);
+			swAisle[1][1][k]=addBPoint(dy3+dx+dy1,dy,z1);
+			swAisle[0][1][k]=addBPoint(dy3+dx,dy,z1);			
 			if(k==2){
 				
-				swAisle[0][0][k+1]=addBPoint(dy3+dx*0.5,0.0,z+roof_height);
-				swAisle[0][1][k+1]=addBPoint(dy3+dx*0.5,0.0,z+roof_height);
+				swAisle[0][0][k+1]=addBPoint(dy3+dx*0.5,0.0,z);
+				swAisle[0][1][k+1]=addBPoint(dy3+dx*0.5,0.0,z);
 			}
 			
-			seAisle[0][0][k]=addBPoint(dy3+dx,dy+dx1,z);
-			seAisle[1][0][k]=addBPoint(dy3+dx+dy1,dy+dx1,z);
-			seAisle[1][1][k]=addBPoint(dy3+dx+dy1,dy+dx1+dy2,z);
-			seAisle[0][1][k]=addBPoint(dy3+dx,dy+dx1+dy2,z);
+			seAisle[0][0][k]=addBPoint(dy3+dx,dy+dx1,z1);
+			seAisle[1][0][k]=addBPoint(dy3+dx+dy1,dy+dx1,z1);
+			seAisle[1][1][k]=addBPoint(dy3+dx+dy1,dy+dx1+dy2,z1);
+			seAisle[0][1][k]=addBPoint(dy3+dx,dy+dx1+dy2,z1);
 			if(k==2){
 				
-				seAisle[0][0][k+1]=addBPoint(dy3+dx+dy1*0.5,dy+dx1,z+roof_height);
-				seAisle[0][1][k+1]=addBPoint(dy3+dx+dy1*0.5,dy+dx1,z+roof_height);
+				seAisle[0][0][k+1]=addBPoint(dy3+dx+dy1*0.5,dy+dx1,z);
+				seAisle[0][1][k+1]=addBPoint(dy3+dx+dy1*0.5,dy+dx1,z);
 			}
 			
-			nwAisle[0][0][k]=addBPoint(0,dy+dx1,z);
-			nwAisle[1][0][k]=addBPoint(dy3,dy+dx1,z);
-			nwAisle[1][1][k]=addBPoint(dy3,dy+dx1+dy2,z);
-			nwAisle[0][1][k]=addBPoint(0,dy+dx1+dy2,z);
+			nwAisle[0][0][k]=addBPoint(0,dy+dx1,z1);
+			nwAisle[1][0][k]=addBPoint(dy3,dy+dx1,z1);
+			nwAisle[1][1][k]=addBPoint(dy3,dy+dx1+dy2,z1);
+			nwAisle[0][1][k]=addBPoint(0,dy+dx1+dy2,z1);
 			if(k==2){
 				
-				nwAisle[0][0][k+1]=addBPoint(dy3+dx+dy1*0.5,0.0,z+roof_height);
-				nwAisle[0][1][k+1]=addBPoint(dy3+dx+dy1*0.5,0.0,z+roof_height);
+				nwAisle[0][0][k+1]=addBPoint(dy3+dx+dy1*0.5,0.0,z);
+				nwAisle[0][1][k+1]=addBPoint(dy3+dx+dy1*0.5,0.0,z);
 			}
 			
-			neAisle[0][0][k]=addBPoint(0,0.0,z);
-			neAisle[1][0][k]=addBPoint(dy3,0.0,z);
-			neAisle[1][1][k]=addBPoint(dy3,dy,z);
-			neAisle[0][1][k]=addBPoint(0,dy,z);
+			neAisle[0][0][k]=addBPoint(0,0.0,z1);
+			neAisle[1][0][k]=addBPoint(dy3,0.0,z1);
+			neAisle[1][1][k]=addBPoint(dy3,dy,z1);
+			neAisle[0][1][k]=addBPoint(0,dy,z1);
 			if(k==2){
 				
-				neAisle[0][0][k+1]=addBPoint(dy3+dx*0.5,dy+dx1,z+roof_height);
-				neAisle[0][1][k+1]=addBPoint(dy3+dx*0.5,dy+dx1,z+roof_height);
+				neAisle[0][0][k+1]=addBPoint(dy3+dx*0.5,dy+dx1,z);
+				neAisle[0][1][k+1]=addBPoint(dy3+dx*0.5,dy+dx1,z);
 			}
 		}
 				
@@ -132,7 +137,7 @@ public class Church0Model extends MeshModel{
 		buildTextures();
 		
 		int NF=6*4;//AISLES
-		NF+=12+8;//CROSS+CROSS_ROOF
+		NF+=12+8+4;//CROSS+CROSS_ROOF+GABLES
 
 		faces=new int[NF][3][4];
 		
@@ -159,33 +164,41 @@ public class Church0Model extends MeshModel{
 		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, mainCross[1][0][0],mainCross[1][0][1],mainCross[1][1][1],mainCross[1][1][0], c0, c1, c2, c3);
 		faces[counter++]=buildFace(Renderer3D.CAR_BACK, mainCross[1][0][0],mainCross[2][0][0],mainCross[2][0][1],mainCross[1][0][1], c0, c1, c2, c3);
 		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT,mainCross[2][0][0],mainCross[2][1][0],mainCross[2][1][1],mainCross[2][0][1], c0, c1, c2, c3);
-		//roof, to test later
+		//roof
 		faces[counter++]=buildFace(Renderer3D.CAR_TOP, mainCross[1][0][1],crossRoof[1][0][0],crossRoof[1][1][0],mainCross[1][1][1], c0, c1, c2, c3);
 		faces[counter++]=buildFace(Renderer3D.CAR_TOP, mainCross[2][0][1],mainCross[2][1][1],crossRoof[1][1][0],crossRoof[1][0][0], c0, c1, c2, c3);
+		//gable
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, mainCross[1][0][1],mainCross[2][0][1],crossRoof[1][0][0], c0, c1, c2);
 		
 		//second wing
 		faces[counter++]=buildFace(Renderer3D.CAR_BACK, mainCross[2][1][0],mainCross[3][1][0],mainCross[3][1][1],mainCross[2][1][1], c0, c1, c2, c3);
 		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT,mainCross[3][1][0],mainCross[3][2][0],mainCross[3][2][1],mainCross[3][1][1], c0, c1, c2, c3);
 		faces[counter++]=buildFace(Renderer3D.CAR_FRONT,mainCross[2][2][0],mainCross[2][2][1],mainCross[3][2][1],mainCross[3][2][0], c0, c1, c2, c3);
-		//roof, to test later
+		//roof
 		faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainCross[2][1][1],mainCross[3][1][1],crossRoof[2][1][0],crossRoof[1][1][0], c0, c1, c2, c3);
 		faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainCross[2][2][1],crossRoof[1][1][0],crossRoof[2][1][0],mainCross[3][2][1], c0, c1, c2, c3);
+		//gable
+		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, mainCross[3][1][1],mainCross[3][2][1],crossRoof[2][1][0], c0, c1, c2);
 		
 		//third wing
 		faces[counter++]=buildFace(Renderer3D.CAR_FRONT,mainCross[1][3][0],mainCross[1][3][1],mainCross[2][3][1],mainCross[2][3][0], c0, c1, c2, c3);		
 		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT,mainCross[2][2][0],mainCross[2][3][0],mainCross[2][3][1],mainCross[2][2][1], c0, c1, c2, c3);
 		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, mainCross[1][2][0],mainCross[1][2][1],mainCross[1][3][1],mainCross[1][3][0], c0, c1, c2, c3);
-		//roof, to test later	
+		//roof
 		faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainCross[2][2][1],mainCross[2][3][1],crossRoof[1][2][0],crossRoof[1][1][0], c0, c1, c2, c3);
 		faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainCross[1][3][1],mainCross[1][2][1],crossRoof[1][1][0],crossRoof[1][2][0], c0, c1, c2, c3);
+		//gable
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, mainCross[2][3][1],mainCross[1][3][1],crossRoof[1][2][0], c0, c1, c2);
 		
 		//fourth wing
 		faces[counter++]=buildFace(Renderer3D.CAR_FRONT,mainCross[0][2][0],mainCross[0][2][1],mainCross[1][2][1],mainCross[1][2][0], c0, c1, c2, c3);		
 		faces[counter++]=buildFace(Renderer3D.CAR_LEFT,mainCross[0][1][0],mainCross[0][1][1],mainCross[0][2][1],mainCross[0][2][0], c0, c1, c2, c3);
 		faces[counter++]=buildFace(Renderer3D.CAR_BACK,mainCross[0][1][0],mainCross[1][1][0],mainCross[1][1][1],mainCross[0][1][1], c0, c1, c2, c3);		
-		//roof, to test later
+		//roof
 		faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainCross[0][1][1],mainCross[1][1][1],crossRoof[1][1][0],crossRoof[0][1][0], c0, c1, c2, c3);
 		faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainCross[1][2][1],mainCross[0][2][1],crossRoof[0][1][0],crossRoof[1][1][0], c0, c1, c2, c3);
+		//gable
+		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, mainCross[0][2][1],mainCross[0][1][1],crossRoof[0][1][0], c0, c1, c2);
 		
 		return counter;
 	}
