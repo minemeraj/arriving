@@ -87,40 +87,40 @@ public class Church0Model extends MeshModel{
 			swAisle[1][0][k]=addBPoint(dy3+dx+dy1,0.0,z1);
 			swAisle[1][1][k]=addBPoint(dy3+dx+dy1,dy,z1);
 			swAisle[0][1][k]=addBPoint(dy3+dx,dy,z1);			
-			if(k==2){
+			if(k==1){
 				
-				swAisle[0][0][k+1]=addBPoint(dy3+dx*0.5,0.0,z);
-				swAisle[0][1][k+1]=addBPoint(dy3+dx*0.5,0.0,z);
+				swAisle[0][0][k+1]=addBPoint(dy3+dx+dy1*0.5,0.0,z);
+				swAisle[0][1][k+1]=addBPoint(dy3+dx+dy1*0.5,dy,z);
 			}
 			
 			seAisle[0][0][k]=addBPoint(dy3+dx,dy+dx1,z1);
 			seAisle[1][0][k]=addBPoint(dy3+dx+dy1,dy+dx1,z1);
 			seAisle[1][1][k]=addBPoint(dy3+dx+dy1,dy+dx1+dy2,z1);
 			seAisle[0][1][k]=addBPoint(dy3+dx,dy+dx1+dy2,z1);
-			if(k==2){
+			if(k==1){
 				
 				seAisle[0][0][k+1]=addBPoint(dy3+dx+dy1*0.5,dy+dx1,z);
-				seAisle[0][1][k+1]=addBPoint(dy3+dx+dy1*0.5,dy+dx1,z);
+				seAisle[0][1][k+1]=addBPoint(dy3+dx+dy1*0.5,dy+dx1+dy2,z);
 			}
 			
 			nwAisle[0][0][k]=addBPoint(0,dy+dx1,z1);
 			nwAisle[1][0][k]=addBPoint(dy3,dy+dx1,z1);
 			nwAisle[1][1][k]=addBPoint(dy3,dy+dx1+dy2,z1);
 			nwAisle[0][1][k]=addBPoint(0,dy+dx1+dy2,z1);
-			if(k==2){
+			if(k==1){
 				
-				nwAisle[0][0][k+1]=addBPoint(dy3+dx+dy1*0.5,0.0,z);
-				nwAisle[0][1][k+1]=addBPoint(dy3+dx+dy1*0.5,0.0,z);
+				nwAisle[0][0][k+1]=addBPoint(dy3*0.5,dy+dx1,z);
+				nwAisle[0][1][k+1]=addBPoint(dy3*0.5,dy+dx1+dy2,z);
 			}
 			
 			neAisle[0][0][k]=addBPoint(0,0.0,z1);
 			neAisle[1][0][k]=addBPoint(dy3,0.0,z1);
 			neAisle[1][1][k]=addBPoint(dy3,dy,z1);
 			neAisle[0][1][k]=addBPoint(0,dy,z1);
-			if(k==2){
+			if(k==1){
 				
-				neAisle[0][0][k+1]=addBPoint(dy3+dx*0.5,dy+dx1,z);
-				neAisle[0][1][k+1]=addBPoint(dy3+dx*0.5,dy+dx1,z);
+				neAisle[0][0][k+1]=addBPoint(dy3*0.5,0,z);
+				neAisle[0][1][k+1]=addBPoint(dy3*0.5,dy,z);
 			}
 		}
 				
@@ -136,7 +136,7 @@ public class Church0Model extends MeshModel{
 
 		buildTextures();
 		
-		int NF=6*4;//AISLES
+		int NF=6*4+8;//AISLES+AISLES_CROSS_ROO
 		NF+=12+8+4;//CROSS+CROSS_ROOF+GABLES
 
 		faces=new int[NF][3][4];
@@ -220,8 +220,12 @@ public class Church0Model extends MeshModel{
 		
 		
 		//roof, to test after
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP, swAisle[0][0][1],swAisle[0][0][2],swAisle[0][1][2],swAisle[0][1][1], c0, c1, c2, c3);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP, swAisle[1][0][1],swAisle[1][1][1],swAisle[0][1][2],swAisle[0][0][2], c0, c1, c2, c3);
+		
+		//gables
 		//faces[counter++]=buildFace(Renderer3D.CAR_TOP, swAisle[0][0][1],swAisle[0][0][2],swAisle[0][1][2],swAisle[0][1][1], c0, c1, c2, c3);
-		//faces[counter++]=buildFace(Renderer3D.CAR_TOP, swAisle[1][0][1],swAisle[1][1][1],swAisle[0][1][2],swAisle[0][0][2], c0, c1, c2, c3);
+		//faces[counter++]=buildFace(Renderer3D.CAR_TOP, swAisle[0][0][1],swAisle[0][0][2],swAisle[0][1][2],swAisle[0][1][1], c0, c1, c2, c3);
 		
 		return counter;
 	}
