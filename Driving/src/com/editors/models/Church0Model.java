@@ -17,18 +17,18 @@ import com.main.Renderer3D;
  */
 public class Church0Model extends MeshModel{
 
-	private double dx=100;
-	private double dx1=100;
-	private double dy=200;
-	private double dy1=200;
-	private double dy2=200;
-	private double dy3=200;
-	private double dz=20;
-	private double dz1=20;
-	private double roof_height=50;
+	protected double dx=100;
+	protected double dx1=100;
+	protected double dy=200;
+	protected double dy1=200;
+	protected double dy2=200;
+	protected double dy3=200;
+	protected double dz=20;
+	protected double dz1=20;
+	protected double roof_height=50;
 
-	private int bx=10;
-	private int by=10;
+	protected int bx=10;
+	protected int by=10;
 	
 	public static String NAME="Church";
 	
@@ -153,7 +153,7 @@ public class Church0Model extends MeshModel{
 		IMG_HEIGHT=(int) (2*by+dy);
 	}
 
-	private int buildCross(int counter, BPoint[][][] mainCross, BPoint[][][] crossRoof) {
+	protected int buildCross(int counter, BPoint[][][] mainCross, BPoint[][][] crossRoof) {
 		
 		int c0=0;
 		int c1=1;
@@ -273,7 +273,7 @@ public class Church0Model extends MeshModel{
 
 	}
 
-	private int[][][] faces=null;
+	protected int[][][] faces=null;
 	
 
 }

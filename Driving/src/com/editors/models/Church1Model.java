@@ -1,9 +1,5 @@
 package com.editors.models;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.io.PrintWriter;
 import java.util.Vector;
 
 import com.BPoint;
@@ -130,55 +126,6 @@ public class Church1Model extends Church0Model{
 		IMG_HEIGHT=(int) (2*by+dy);
 	}
 
-	private int buildCross(int counter, BPoint[][][] mainCross, BPoint[][][] crossRoof) {
-		
-		int c0=0;
-		int c1=1;
-		int c2=2;
-		int c3=3;
-		
-		//first wing
-		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, mainCross[1][0][0],mainCross[1][0][1],mainCross[1][1][1],mainCross[1][1][0], c0, c1, c2, c3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, mainCross[1][0][0],mainCross[2][0][0],mainCross[2][0][1],mainCross[1][0][1], c0, c1, c2, c3);
-		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT,mainCross[2][0][0],mainCross[2][1][0],mainCross[2][1][1],mainCross[2][0][1], c0, c1, c2, c3);
-		//roof
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP, mainCross[1][0][1],crossRoof[1][0][0],crossRoof[1][1][0],mainCross[1][1][1], c0, c1, c2, c3);
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP, mainCross[2][0][1],mainCross[2][1][1],crossRoof[1][1][0],crossRoof[1][0][0], c0, c1, c2, c3);
-		//gable
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, mainCross[1][0][1],mainCross[2][0][1],crossRoof[1][0][0], c0, c1, c2);
-		
-		//second wing
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, mainCross[2][1][0],mainCross[3][1][0],mainCross[3][1][1],mainCross[2][1][1], c0, c1, c2, c3);
-		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT,mainCross[3][1][0],mainCross[3][2][0],mainCross[3][2][1],mainCross[3][1][1], c0, c1, c2, c3);
-		faces[counter++]=buildFace(Renderer3D.CAR_FRONT,mainCross[2][2][0],mainCross[2][2][1],mainCross[3][2][1],mainCross[3][2][0], c0, c1, c2, c3);
-		//roof
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainCross[2][1][1],mainCross[3][1][1],crossRoof[2][1][0],crossRoof[1][1][0], c0, c1, c2, c3);
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainCross[2][2][1],crossRoof[1][1][0],crossRoof[2][1][0],mainCross[3][2][1], c0, c1, c2, c3);
-		//gable
-		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, mainCross[3][1][1],mainCross[3][2][1],crossRoof[2][1][0], c0, c1, c2);
-		
-		//third wing
-		faces[counter++]=buildFace(Renderer3D.CAR_FRONT,mainCross[1][3][0],mainCross[1][3][1],mainCross[2][3][1],mainCross[2][3][0], c0, c1, c2, c3);		
-		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT,mainCross[2][2][0],mainCross[2][3][0],mainCross[2][3][1],mainCross[2][2][1], c0, c1, c2, c3);
-		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, mainCross[1][2][0],mainCross[1][2][1],mainCross[1][3][1],mainCross[1][3][0], c0, c1, c2, c3);
-		//roof
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainCross[2][2][1],mainCross[2][3][1],crossRoof[1][2][0],crossRoof[1][1][0], c0, c1, c2, c3);
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainCross[1][3][1],mainCross[1][2][1],crossRoof[1][1][0],crossRoof[1][2][0], c0, c1, c2, c3);
-		//gable
-		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, mainCross[2][3][1],mainCross[1][3][1],crossRoof[1][2][0], c0, c1, c2);
-		
-		//fourth wing
-		faces[counter++]=buildFace(Renderer3D.CAR_FRONT,mainCross[0][2][0],mainCross[0][2][1],mainCross[1][2][1],mainCross[1][2][0], c0, c1, c2, c3);		
-		faces[counter++]=buildFace(Renderer3D.CAR_LEFT,mainCross[0][1][0],mainCross[0][1][1],mainCross[0][2][1],mainCross[0][2][0], c0, c1, c2, c3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK,mainCross[0][1][0],mainCross[1][1][0],mainCross[1][1][1],mainCross[0][1][1], c0, c1, c2, c3);		
-		//roof
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainCross[0][1][1],mainCross[1][1][1],crossRoof[1][1][0],crossRoof[0][1][0], c0, c1, c2, c3);
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainCross[1][2][1],mainCross[0][2][1],crossRoof[0][1][0],crossRoof[1][1][0], c0, c1, c2, c3);
-		//gable
-		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, mainCross[0][2][1],mainCross[0][1][1],crossRoof[0][1][0], c0, c1, c2);
-		
-		return counter;
-	}
 
 
 	private int buildAisle(int counter, BPoint[][][] swAisle) {
@@ -207,50 +154,6 @@ public class Church1Model extends Church0Model{
 		return counter;
 	}
 
-
-	protected void buildTextures() {
-		//Texture points
-
-		double y=by;
-		double x=bx;
-
-		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx, y+dy,0);
-		addTPoint(x,y+dy,0);
-
-	}
-
-
-	@Override
-	public void printMeshData(PrintWriter pw) {
-
-		super.printMeshData(pw);
-		super.printFaces(pw, faces);
-
-	}
-
-	
-	public void printTexture(Graphics2D bufGraphics) {
-		
-		bufGraphics.setColor(Color.BLACK);
-		bufGraphics.setStroke(new BasicStroke(0.1f));
-
-		for (int i = 0; i < faces.length; i++) {
-			
-			int[][] face = faces[i];
-			int[] tPoints = face[2];
-			if(tPoints.length==4)
-				printTexturePolygon(bufGraphics, tPoints[0],tPoints[1],tPoints[2],tPoints[3]);
-			else if(tPoints.length==3)
-				printTexturePolygon(bufGraphics, tPoints[0],tPoints[1],tPoints[2]);
-			
-		}
-		
-
-	}
-
-	private int[][][] faces=null;
 	
 
 }
