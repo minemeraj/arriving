@@ -136,7 +136,7 @@ public class Church0Model extends MeshModel{
 
 		buildTextures();
 		
-		int NF=6*4+8;//AISLES+AISLES_CROSS_ROO
+		int NF=6*4+8+8;//AISLES+AISLES_ROOF+GABLES
 		NF+=12+8+4;//CROSS+CROSS_ROOF+GABLES
 
 		faces=new int[NF][3][4];
@@ -224,8 +224,8 @@ public class Church0Model extends MeshModel{
 		faces[counter++]=buildFace(Renderer3D.CAR_TOP, swAisle[1][0][1],swAisle[1][1][1],swAisle[0][1][2],swAisle[0][0][2], c0, c1, c2, c3);
 		
 		//gables
-		//faces[counter++]=buildFace(Renderer3D.CAR_TOP, swAisle[0][0][1],swAisle[0][0][2],swAisle[0][1][2],swAisle[0][1][1], c0, c1, c2, c3);
-		//faces[counter++]=buildFace(Renderer3D.CAR_TOP, swAisle[0][0][1],swAisle[0][0][2],swAisle[0][1][2],swAisle[0][1][1], c0, c1, c2, c3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, swAisle[0][0][1],swAisle[1][0][1],swAisle[0][0][2], c0, c1, c2);
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, swAisle[0][1][1],swAisle[0][1][2],swAisle[1][1][1], c0, c1, c2);
 		
 		return counter;
 	}
