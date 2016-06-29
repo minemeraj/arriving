@@ -20,6 +20,7 @@ import com.editors.ValuePair;
 import com.editors.models.BellTowerModel;
 import com.editors.models.Chimney0Model;
 import com.editors.models.Church0Model;
+import com.editors.models.Church1Model;
 import com.editors.models.Courtyard0Model;
 import com.editors.models.Gambrel0Model;
 import com.editors.models.House0Model;
@@ -61,7 +62,8 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 	public static int HOUSE4_C_SHAPED=9;
 	public static int COURTYARD=10;
 	public static int STAND0=11;
-	public static int CHURCH=12;
+	public static int CHURCH0=12;
+	public static int CHURCH1=13;
 
 	public static void main(String[] args) {
 
@@ -205,7 +207,8 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		chooseBuilding.addItem(new ValuePair("-1",""));
 		chooseBuilding.addItem(new ValuePair(""+BELLTOWER,BellTowerModel.NAME));
 		chooseBuilding.addItem(new ValuePair(""+CHIMNEY0,Chimney0Model.NAME));	
-		chooseBuilding.addItem(new ValuePair(""+CHURCH,Church0Model.NAME));	
+		chooseBuilding.addItem(new ValuePair(""+CHURCH0,Church0Model.NAME));	
+		chooseBuilding.addItem(new ValuePair(""+CHURCH1,Church1Model.NAME));
 		chooseBuilding.addItem(new ValuePair(""+COURTYARD,Courtyard0Model.NAME));	
 		chooseBuilding.addItem(new ValuePair(""+HOUSE3_CROSSHOUSE,House3Model.NAME));
 		chooseBuilding.addItem(new ValuePair(""+HOUSE4_C_SHAPED,House4Model.NAME));
@@ -283,8 +286,10 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 			meshModel=new House2Model(dx,dy,dz,rh,dx1,dy1,dy2);
 		else if(HOUSE3_CROSSHOUSE==val)
 			meshModel=new House3Model(dx,dy,dz,rh,dx1,dy1,dy2,dy3);
-		else if(CHURCH==val)
+		else if(CHURCH0==val)
 			meshModel=new Church0Model(dx,dy,dz,rh,dx1,dy1,dy2,dy3,dz1);
+		else if(CHURCH1==val)
+			meshModel=new Church1Model(dx,dy,dz,rh,dx1,dy1,dy2,dy3,dz1);
 		else if(HOUSE4_C_SHAPED==val)
 			meshModel=new House4Model(dx,dy,dz,rh,dx1,dy1,dx2);
 		else if(COURTYARD==val)
@@ -417,12 +422,20 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 						0,100,150//dx2,dy2,dy3
 						);
 			}
-			else if(CHURCH==val){
+			else if(CHURCH0==val){
 				setRightData(100,200,100,//dx,dy,dz
 						50,//roof_height
-						100,150,80,//dx1,dy1,dz1
+						100,100,80,//dx1,dy1,dz1
 						0,//num_meridians
-						0,100,150//dx2,dy2,dy3
+						0,100,100//dx2,dy2,dy3
+						);
+			}
+			else if(CHURCH1==val){
+				setRightData(100,200,100,//dx,dy,dz
+						50,//roof_height
+						100,100,80,//dx1,dy1,dz1
+						0,//num_meridians
+						0,100,100//dx2,dy2,dy3
 						);
 			}
 			else if(HOUSE4_C_SHAPED==val){

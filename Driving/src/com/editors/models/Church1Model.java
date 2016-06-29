@@ -13,7 +13,7 @@ import com.main.Renderer3D;
  */
 public class Church1Model extends Church0Model{
 	
-	public static String NAME="Church";
+	public static String NAME="Church1";
 	
 	public Church1Model(double dx, double dy, double dz, double roof_height, double dx1, double dy1, double dy2,
 			double dy3, double dz1) {

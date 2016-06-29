@@ -30,7 +30,7 @@ public class Church0Model extends MeshModel{
 	protected int bx=10;
 	protected int by=10;
 	
-	public static String NAME="Church";
+	public static String NAME="Church0";
 	
 	public Church0Model(double dx, double dy, double dz,double roof_height,
 			double dx1,double dy1,double dy2,double dy3, double dz1
@@ -56,10 +56,10 @@ public class Church0Model extends MeshModel{
 		
 		BPoint[][][] crossRoof=new BPoint[3][3][1];
 
-		BPoint[][][] swAisle=new BPoint[2][2][3];
-		BPoint[][][] seAisle=new BPoint[2][2][3];
-		BPoint[][][] nwAisle=new BPoint[2][2][3];
-		BPoint[][][] neAisle=new BPoint[2][2][3];
+		BPoint[][][] swAisle=new BPoint[2][2][2];
+		BPoint[][][] seAisle=new BPoint[2][2][2];
+		BPoint[][][] nwAisle=new BPoint[2][2][2];
+		BPoint[][][] neAisle=new BPoint[2][2][2];
 		
 		points=new Vector();
 		//lower and upper base
@@ -83,45 +83,29 @@ public class Church0Model extends MeshModel{
 			mainCross[1][1][k]=addBPoint(dy3,dy,z);
 			
 			//adding the 4 aisles in anti-clockwise order,as distinct blocks
-			swAisle[0][0][k]=addBPoint(dy3+dx,0.0,z1);
+			swAisle[0][0][k]=mainCross[2][0][k];
 			swAisle[1][0][k]=addBPoint(dy3+dx+dy1,0.0,z1);
 			swAisle[1][1][k]=addBPoint(dy3+dx+dy1,dy,z1);
-			swAisle[0][1][k]=addBPoint(dy3+dx,dy,z1);			
-			if(k==1){
-				
-				swAisle[0][0][k+1]=addBPoint(dy3+dx+dy1*0.5,0.0,z);
-				swAisle[0][1][k+1]=addBPoint(dy3+dx+dy1*0.5,dy,z);
-			}
+			swAisle[0][1][k]=mainCross[2][1][k];		
+
 			
-			seAisle[0][0][k]=addBPoint(dy3+dx,dy+dx1,z1);
+			seAisle[0][0][k]=mainCross[2][2][k];
 			seAisle[1][0][k]=addBPoint(dy3+dx+dy1,dy+dx1,z1);
 			seAisle[1][1][k]=addBPoint(dy3+dx+dy1,dy+dx1+dy2,z1);
-			seAisle[0][1][k]=addBPoint(dy3+dx,dy+dx1+dy2,z1);
-			if(k==1){
-				
-				seAisle[0][0][k+1]=addBPoint(dy3+dx+dy1*0.5,dy+dx1,z);
-				seAisle[0][1][k+1]=addBPoint(dy3+dx+dy1*0.5,dy+dx1+dy2,z);
-			}
+			seAisle[0][1][k]=mainCross[2][3][k];
+
 			
 			nwAisle[0][0][k]=addBPoint(0,dy+dx1,z1);
-			nwAisle[1][0][k]=addBPoint(dy3,dy+dx1,z1);
-			nwAisle[1][1][k]=addBPoint(dy3,dy+dx1+dy2,z1);
+			nwAisle[1][0][k]=mainCross[1][2][k];
+			nwAisle[1][1][k]=mainCross[1][3][k];
 			nwAisle[0][1][k]=addBPoint(0,dy+dx1+dy2,z1);
-			if(k==1){
-				
-				nwAisle[0][0][k+1]=addBPoint(dy3*0.5,dy+dx1,z);
-				nwAisle[0][1][k+1]=addBPoint(dy3*0.5,dy+dx1+dy2,z);
-			}
+
 			
 			neAisle[0][0][k]=addBPoint(0,0.0,z1);
-			neAisle[1][0][k]=addBPoint(dy3,0.0,z1);
-			neAisle[1][1][k]=addBPoint(dy3,dy,z1);
+			neAisle[1][0][k]=mainCross[1][0][k];
+			neAisle[1][1][k]=mainCross[1][1][k];
 			neAisle[0][1][k]=addBPoint(0,dy,z1);
-			if(k==1){
-				
-				neAisle[0][0][k+1]=addBPoint(dy3*0.5,0,z);
-				neAisle[0][1][k+1]=addBPoint(dy3*0.5,dy,z);
-			}
+
 		}
 				
 		
@@ -136,7 +120,7 @@ public class Church0Model extends MeshModel{
 
 		buildTextures();
 		
-		int NF=6*4+8+8;//AISLES+AISLES_ROOF+GABLES
+		int NF=6*4;//AISLES
 		NF+=12+8+4;//CROSS+CROSS_ROOF+GABLES
 
 		faces=new int[NF][3][4];
@@ -218,14 +202,6 @@ public class Church0Model extends MeshModel{
 		faces[counter++]=buildFace(Renderer3D.CAR_TOP, swAisle[0][0][1],swAisle[1][0][1],swAisle[1][1][1],swAisle[0][1][1], c0, c1, c2, c3);
 		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, swAisle[0][1][0],swAisle[0][1][1],swAisle[1][1][1],swAisle[1][1][0], c0, c1, c2, c3);
 		
-		
-		//roof, to test after
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP, swAisle[0][0][1],swAisle[0][0][2],swAisle[0][1][2],swAisle[0][1][1], c0, c1, c2, c3);
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP, swAisle[1][0][1],swAisle[1][1][1],swAisle[0][1][2],swAisle[0][0][2], c0, c1, c2, c3);
-		
-		//gables
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, swAisle[0][0][1],swAisle[1][0][1],swAisle[0][0][2], c0, c1, c2);
-		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, swAisle[0][1][1],swAisle[0][1][2],swAisle[1][1][1], c0, c1, c2);
 		
 		return counter;
 	}
