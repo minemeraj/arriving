@@ -329,7 +329,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		else if(val==SHIP0)
 			meshModel=new Ship0Model(
 					dx,dy,dz,
-					dxr,dyr,dzr,
+					dxf,dyf,dzf,
+					dxr,dyr,dzr,					
 					dxRoof,dyRoof,dzRoof);
 		else if(val==STARSHIP0)
 			meshModel=new StarShip0Model(
@@ -428,8 +429,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						);
 			else if(SHIP0==val)
 				setRightData(718,4550,458,//dx, dy, dz
-						0,0,0,//dxFront, dyFront, dzFront
-						0,161,0,//dxRear, dyRear, dzRear
+						718,161,100,//dxFront, dyFront, dzFront
+						718,161,100,//dxRear, dyRear, dzRear
 						718,364,598,//dxRoof, dyRoof, dzRoof
 						0,0,0//wheel_radius, wheel_width, wheel_rays
 						);

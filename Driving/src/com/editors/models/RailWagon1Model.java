@@ -4,7 +4,6 @@ import java.util.Vector;
 
 import com.BPoint;
 import com.Point3D;
-import com.Segments;
 import com.main.Renderer3D;
 /**
  * One texture model
@@ -14,6 +13,8 @@ import com.main.Renderer3D;
  *
  */
 public class RailWagon1Model extends RailWagon0Model{
+
+	private int wagonRays=20;
 
 	public RailWagon1Model(
 			double dx, double dy, double dz, 
@@ -46,7 +47,7 @@ public class RailWagon1Model extends RailWagon0Model{
 		buildTextures();
 		
 		//faces
-		int NF=6*3;
+		int NF=6*2+wagonRays;
 		
 		int totWheelPolygon=wheelRays+2*(wheelRays-2);
 		int NUM_WHEEL_FACES=8*totWheelPolygon;
@@ -67,38 +68,36 @@ public class RailWagon1Model extends RailWagon0Model{
 	@Override
 	protected void buildWagon() {
 		
-		int rnx=2;
-		int rny=2;
-		int rnz=2;
-
-		wagon=new BPoint[rnx][rny][rnz];
-
 		double rdy=(dy-dyRoof)*0.5;
+		
+		double radius=dxRoof*0.5;
+		
+		BPoint[][] cylinder = addYCylinder(0,rdy,dzRear+dz+radius,radius,dyRoof,wagonRays);
+		wagon=new BPoint[1][][];
+		wagon[0]=cylinder;
 
-		Segments r0=new Segments(0,dxRoof,rdy,dyRoof,dzRear+dz,dzRoof);
-
-		wagon[0][0][0]=addBPoint(-0.5,0.0,0,r0);
-		wagon[1][0][0]=addBPoint(0.5,0.0,0,r0);
-		wagon[0][0][1]=addBPoint(-0.5,0.0,1.0,r0);
-		wagon[1][0][1]=addBPoint(0.5,0.0,1.0,r0);
-
-		wagon[0][1][0]=addBPoint(-0.5,1.0,0,r0);
-		wagon[1][1][0]=addBPoint(0.5,1.0,0,r0);
-		wagon[0][1][1]=addBPoint(-0.5,1.0,1.0,r0);
-		wagon[1][1][1]=addBPoint(0.5,1.0,1.0,r0);
-	
 		
 	}
 
 	@Override
 	protected int buildWagonFaces(int counter, BPoint[][][] wagon) {
 		
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP, wagon[0][0][1],wagon[1][0][1],wagon[1][1][1],wagon[0][1][1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, wagon[0][0][0],wagon[0][0][1],wagon[0][1][1],wagon[0][1][0], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, wagon[1][0][0],wagon[1][1][0],wagon[1][1][1],wagon[1][0][1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, wagon[0][1][0],wagon[0][1][1],wagon[1][1][1],wagon[1][1][0], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, wagon[0][0][0],wagon[1][0][0],wagon[1][0][1],wagon[0][0][1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0][0],wagon[0][1][0],wagon[1][1][0],wagon[1][0][0], 0, 1, 2, 3);
+		int w0=0;
+		int w1=1;
+		int w2=2;
+		int w3=3;
+		
+		BPoint[][] cylinder =wagon[0];
+		
+		for (int i = 0; i < cylinder.length; i++) {
+			
+			faces[counter++]=buildFace(Renderer3D.CAR_TOP, 
+					cylinder[i][0],
+					cylinder[(i+1)%wagon.length][0],
+					cylinder[(i+1)%wagon.length][1],
+					cylinder[i][1], 
+					w0, w1, w2, w3);
+		}
 		
 		return counter;
 		
