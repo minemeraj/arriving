@@ -428,10 +428,10 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						19,12,10//wheel_radius, wheel_width, wheel_rays
 						);
 			else if(SHIP0==val)
-				setRightData(718,4550,458,//dx, dy, dz
-						718,161,100,//dxFront, dyFront, dzFront
-						718,161,100,//dxRear, dyRear, dzRear
-						718,364,598,//dxRoof, dyRoof, dzRoof
+				setRightData(718,4550,378,//dx, dy, dz
+						718,806,80,//dxFront, dyFront, dzFront
+						718,527,80,//dxRear, dyRear, dzRear
+						718,366,595,//dxRoof, dyRoof, dzRoof
 						0,0,0//wheel_radius, wheel_width, wheel_rays
 						);
 			else if(STARSHIP0==val)

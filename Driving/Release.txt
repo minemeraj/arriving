@@ -7,6 +7,8 @@ New cars:
 Added autocars to city0:
 /lib/autocars_city0
 
+Review of the ship object
+
 Added progress loading bar in the AutocarEditor.
 
 --- 25/06/2016 CarDriving 9.0.10
