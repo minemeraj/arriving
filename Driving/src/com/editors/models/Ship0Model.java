@@ -189,7 +189,7 @@ public class Ship0Model extends MeshModel{
 
 		//faces
 		//hull
-		int NF=(nx-1)*(ny-1);
+		int NF=(nx-1)*(ny-1)+2;
 		//hull back closures
 		NF+=(nx-1)/2;
 		//deck
@@ -252,9 +252,16 @@ public class Ship0Model extends MeshModel{
 
 		for (int i = 0; i < ny-1; i++) {
 			for (int j = 0; j < nx-1; j++) {
-				if(i==ny-2 && (j==middle-1 || j==middle )){
+				if(i==ny-2 && j==middle-1 ){
 					
 					faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, hull[i][j],hull[i+1][j],hull[i+1][j+1], h0, h1, h2);
+					faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, hull[i][j],hull[i+1][j+1],hull[i][j+1], h0, h1, h2);
+					
+				}
+				else if(i==ny-2 &&  j==middle){
+					
+					faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, hull[i][j],hull[i+1][j],hull[i][j+1], h0, h1, h2);
+					faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, hull[i][j+1],hull[i+1][j],hull[i+1][j+1], h0, h1, h2);
 					
 				}else{
 					faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, hull[i][j],hull[i+1][j],hull[i+1][j+1],hull[i][j+1], h0, h1, h2, h3);
