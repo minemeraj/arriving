@@ -118,7 +118,7 @@ public class RailWagon0Model extends MeshModel{
 
 
 		//faces
-		int NF=6*3;
+		int NF=6*4;
 		
 		int totWheelPolygon=wheelRays+2*(wheelRays-2);
 		int NUM_WHEEL_FACES=8*totWheelPolygon;
