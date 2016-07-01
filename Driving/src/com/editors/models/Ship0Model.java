@@ -136,10 +136,10 @@ public class Ship0Model extends MeshModel{
 		hull[4][2]=addBPoint(0.5, 1.0, 0.2,s0);
 		hull[4][3]=addBPoint(0.5, 1.0, 0.05,s0);
 		hull[4][4]=addBPoint(0.5, 1.0, 0,s0);
-		hull[4][5]=hull[3][3];
-		hull[4][6]=hull[3][2];
-		hull[4][7]=hull[3][1];
-		hull[4][8]=hull[3][0];
+		hull[4][5]=hull[4][3];
+		hull[4][6]=hull[4][2];
+		hull[4][7]=hull[4][1];
+		hull[4][8]=hull[4][0];
 
 
 
