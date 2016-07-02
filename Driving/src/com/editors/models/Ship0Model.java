@@ -308,14 +308,14 @@ public class Ship0Model extends MeshModel{
 			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, afterCastle[k][0],afterCastle[k+1][0],afterCastle[k+1][3],afterCastle[k][3], h0, h1, h2, h3);
 			faces[counter++]=buildFace(Renderer3D.CAR_BACK, afterCastle[k][0],afterCastle[k][1],afterCastle[k+1][1],afterCastle[k+1][0], h0, h1, h2, h3);
 			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, afterCastle[k][1],afterCastle[k][2],afterCastle[k+1][2],afterCastle[k+1][1], h0, h1, h2, h3);
-			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, afterCastle[k][2],afterCastle[k][3],afterCastle[k+1][3],afterCastle[k+1][2],h0, h1, h2, h3);
+			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, afterCastle[k][2],afterCastle[k][3],afterCastle[k+1][3],afterCastle[k+1][2],d0,d1,d2,d3);
 
 		}
 
 		faces[counter++]=buildFace(Renderer3D.CAR_TOP,afterCastle[2-1][0],afterCastle[2-1][1],afterCastle[2-1][2],afterCastle[2-1][3], d0,d1,d2,d3);
 
 		///fore castle, converging at the bow	
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, foreCastle[0][0][0],foreCastle[0][1][0],foreCastle[0][1][1],foreCastle[0][0][1], h0, h1, h2, h3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, foreCastle[0][0][0],foreCastle[0][1][0],foreCastle[0][1][1],foreCastle[0][0][1], d0,d1,d2,d3);
 		for (int k = 0; k < nyc-1; k++) {
 			
 			if(k<nyc-2)
@@ -327,9 +327,9 @@ public class Ship0Model extends MeshModel{
 			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, foreCastle[k][1][0],foreCastle[k+1][1][0],foreCastle[k+1][1][1],foreCastle[k][1][1], h0, h1, h2, h3);
 			
 			if(k<nyc-2)
-				faces[counter++]=buildFace(Renderer3D.CAR_TOP,foreCastle[k][0][1],foreCastle[k][1][1],foreCastle[k+1][1][1],foreCastle[k+1][0][1],h0, h1, h2, h3);
+				faces[counter++]=buildFace(Renderer3D.CAR_TOP,foreCastle[k][0][1],foreCastle[k][1][1],foreCastle[k+1][1][1],foreCastle[k+1][0][1],d0,d1,d2,d3);
 			else
-				faces[counter++]=buildFace(Renderer3D.CAR_TOP,foreCastle[k][0][1],foreCastle[k][1][1],foreCastle[k+1][0][1],h0, h1, h2);
+				faces[counter++]=buildFace(Renderer3D.CAR_TOP,foreCastle[k][0][1],foreCastle[k][1][1],foreCastle[k+1][0][1],d0,d1,d2);
 		}
 		//faces[counter++]=buildFace(Renderer3D.CAR_FRONT, foreCastle[0][2],foreCastle[0][3],foreCastle[0+1][3],foreCastle[0+1][2], h0, h1, h2, h3);
 
