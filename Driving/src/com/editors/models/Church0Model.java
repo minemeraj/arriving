@@ -71,10 +71,10 @@ public class Church0Model extends MeshModel{
 		
 		BPoint[][][] crossRoof=new BPoint[3][3][1];
 
-		BPoint[][][] swAisle=new BPoint[2][2][2];
 		BPoint[][][] seAisle=new BPoint[2][2][2];
-		BPoint[][][] nwAisle=new BPoint[2][2][2];
 		BPoint[][][] neAisle=new BPoint[2][2][2];
+		BPoint[][][] nwAisle=new BPoint[2][2][2];
+		BPoint[][][] swAisle=new BPoint[2][2][2];
 		
 		points=new Vector();
 		//lower and upper base
@@ -98,16 +98,16 @@ public class Church0Model extends MeshModel{
 			mainCross[1][1][k]=addBPoint(dy3,dy,z);
 			
 			//adding the 4 aisles in anti-clockwise order,as distinct blocks
-			swAisle[0][0][k]=mainCross[2][0][k];
-			swAisle[1][0][k]=addBPoint(dy3+dx+dy1,0.0,z1);
-			swAisle[1][1][k]=addBPoint(dy3+dx+dy1,dy,z1);
-			swAisle[0][1][k]=mainCross[2][1][k];		
+			seAisle[0][0][k]=mainCross[2][0][k];
+			seAisle[1][0][k]=addBPoint(dy3+dx+dy1,0.0,z1);
+			seAisle[1][1][k]=addBPoint(dy3+dx+dy1,dy,z1);
+			seAisle[0][1][k]=mainCross[2][1][k];		
 
 			
-			seAisle[0][0][k]=mainCross[2][2][k];
-			seAisle[1][0][k]=addBPoint(dy3+dx+dy1,dy+dx1,z1);
-			seAisle[1][1][k]=addBPoint(dy3+dx+dy1,dy+dx1+dy2,z1);
-			seAisle[0][1][k]=mainCross[2][3][k];
+			neAisle[0][0][k]=mainCross[2][2][k];
+			neAisle[1][0][k]=addBPoint(dy3+dx+dy1,dy+dx1,z1);
+			neAisle[1][1][k]=addBPoint(dy3+dx+dy1,dy+dx1+dy2,z1);
+			neAisle[0][1][k]=mainCross[2][3][k];
 
 			
 			nwAisle[0][0][k]=addBPoint(0,dy+dx1,z1);
@@ -116,10 +116,10 @@ public class Church0Model extends MeshModel{
 			nwAisle[0][1][k]=addBPoint(0,dy+dx1+dy2,z1);
 
 			
-			neAisle[0][0][k]=addBPoint(0,0.0,z1);
-			neAisle[1][0][k]=mainCross[1][0][k];
-			neAisle[1][1][k]=mainCross[1][1][k];
-			neAisle[0][1][k]=addBPoint(0,dy,z1);
+			swAisle[0][0][k]=addBPoint(0,0.0,z1);
+			swAisle[1][0][k]=mainCross[1][0][k];
+			swAisle[1][1][k]=mainCross[1][1][k];
+			swAisle[0][1][k]=addBPoint(0,dy,z1);
 
 		}
 				
@@ -142,9 +142,9 @@ public class Church0Model extends MeshModel{
 		
 		int counter=0;
 		counter=buildCross(counter,mainCross,crossRoof);
-		counter=buildAisle(counter,swAisle,AISLE_SW);
 		counter=buildAisle(counter,seAisle,AISLE_SE);
 		counter=buildAisle(counter,neAisle,AISLE_NE);
+		counter=buildAisle(counter,swAisle,AISLE_SW);
 		counter=buildAisle(counter,nwAisle,AISLE_NW);
 		
 		
@@ -160,7 +160,7 @@ public class Church0Model extends MeshModel{
 		
 		//first wing
 		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, mainCross[1][0][0],mainCross[1][0][1],mainCross[1][1][1],mainCross[1][1][0], w0, w1, w2, w3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, mainCross[1][0][0],mainCross[2][0][0],mainCross[2][0][1],mainCross[1][0][1], f10, f20, f02, f12);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, mainCross[1][0][0],mainCross[2][0][0],mainCross[2][0][1],mainCross[1][0][1], f10, f20, f12, f02);
 		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT,mainCross[2][0][0],mainCross[2][1][0],mainCross[2][1][1],mainCross[2][0][1], w0, w1, w2, w3);
 		//roof
 		faces[counter++]=buildFace(Renderer3D.CAR_TOP, mainCross[1][0][1],crossRoof[1][0][0],crossRoof[1][1][0],mainCross[1][1][1], r0, r1, r2, r3);
@@ -209,7 +209,7 @@ public class Church0Model extends MeshModel{
 		if(aisleType==AISLE_SW)
 			faces[counter++]=buildFace(Renderer3D.CAR_BACK, swAisle[0][0][0],swAisle[1][0][0],swAisle[1][0][1],swAisle[0][0][1],f00, f10, f11, f01);
 		else if(aisleType==AISLE_SE)
-			faces[counter++]=buildFace(Renderer3D.CAR_BACK, swAisle[0][0][0],swAisle[1][0][0],swAisle[1][0][1],swAisle[0][0][1],f30, f30, f31, f21);
+			faces[counter++]=buildFace(Renderer3D.CAR_BACK, swAisle[0][0][0],swAisle[1][0][0],swAisle[1][0][1],swAisle[0][0][1],f20, f30, f31, f21);
 		else
 			faces[counter++]=buildFace(Renderer3D.CAR_BACK, swAisle[0][0][0],swAisle[1][0][0],swAisle[1][0][1],swAisle[0][0][1],w0, w1, w2, w3);
 		
@@ -247,13 +247,13 @@ public class Church0Model extends MeshModel{
 		addTPoint(x,y,0);
 		addTPoint(x+dy3,y,0);
 		addTPoint(x+dy3+dx,y,0);
-		addTPoint(x+dy3+dx+dy2,y,0);
-		
-		y=by+dz1;
-		addTPoint(x,y,0);
-		addTPoint(x+dy3,y,0);
-		addTPoint(x+dy3+dx,y,0);
-		addTPoint(x+dy3+dx+dy2,y,0);
+		addTPoint(x+dy3+dx+dy1,y,0);
+
+		y=by;
+		addTPoint(x,y+dz1,0);
+		addTPoint(x+dy3,y+dz,0);
+		addTPoint(x+dy3+dx,y+dz,0);
+		addTPoint(x+dy3+dx+dy1,y+dz1,0);
 		
 		y=by+dz;
 		addTPoint(x+dy3,y,0);
