@@ -553,6 +553,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		btnChangeImage=new JButton("Change image");
 		btnChangeImage.setBounds(col0, r, 120, 20);
 		btnChangeImage.addActionListener(this);
+		btnChangeImage.addKeyListener(this);
 		left.add(btnChangeImage);
 
 		r+=30;
@@ -560,6 +561,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		btnImageDefault=new JButton("Image default");
 		btnImageDefault.setBounds(col0, r, 120, 20);
 		btnImageDefault.addActionListener(this);
+		btnImageDefault.addKeyListener(this);
 		left.add(btnImageDefault);
 		getContentPane().add(left);
 

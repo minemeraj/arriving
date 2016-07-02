@@ -47,6 +47,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 	private DoubleTextField wheel_radius_text;
 	private DoubleTextField wheel_width_text;
 	private IntegerTextField wheel_rays_text;
+	private DoubleTextField rear_overhang_text;
+	private DoubleTextField front_overhang_text;
 
 	public static int CAR0=0;
 	public static int TRUCK0=1;
@@ -61,7 +63,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 
 	public static void main(String[] args) {
 
-		CarMeshEditor fm=new CarMeshEditor(650,350);
+		CarMeshEditor fm=new CarMeshEditor(650,390);
 	}
 
 
@@ -217,6 +219,26 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		
 		r+=30;
 		
+		ly=new JLabel("R Overhang");
+		ly.setBounds(col0,r,70,20);
+		center.add(ly);
+		rear_overhang_text=new DoubleTextField(8);
+		rear_overhang_text.setBounds(col1,r,100,20);
+		rear_overhang_text.setText(0);
+		center.add(rear_overhang_text);
+
+
+		lz=new JLabel("F Overhang");
+		lz.setBounds(col2,r,70,20);
+		center.add(lz);
+		front_overhang_text=new DoubleTextField(8);
+		front_overhang_text.setBounds(col3,r,100,20);
+		front_overhang_text.setText(0);
+		center.add(front_overhang_text);
+		
+		
+		r+=30;
+		
 		
 		lx=new JLabel("Wheel r:");
 		lx.setBounds(col0,r,70,20);
@@ -301,6 +323,9 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		double dxRoof = dx_roof_text.getvalue();
 		double dyRoof  = dy_roof_text.getvalue();
 		double dzRoof  = dz_roof_text.getvalue();
+		
+		double rearOverhang = rear_overhang_text.getvalue();
+		double frontOverhang = front_overhang_text.getvalue();
 		
 		double wheelRadius  = wheel_radius_text.getvalue();
 		double wheelWidth  = wheel_width_text.getvalue();
@@ -504,6 +529,9 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		dx_roof_text.setText(dxRoof);
 		dy_roof_text.setText(dyRoof);
 		dz_roof_text.setText(dzRoof);
+		
+		rear_overhang_text.setText(0);
+		front_overhang_text.setText(0);
 		
 		wheel_radius_text.setText(wheel_radius);
 		wheel_width_text.setText(wheel_width);
