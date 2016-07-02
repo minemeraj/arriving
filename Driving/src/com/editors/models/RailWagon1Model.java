@@ -21,11 +21,13 @@ public class RailWagon1Model extends RailWagon0Model{
 			double dxFront, double dyFront, double dzFront, 
 			double dxRear, double dyRear,	double dzRear, 
 			double dxRoof, double dyRoof,double dzRoof,
+			double rearOverhang, double frontOverhang, 
 			double wheelRadius, double wheelWidth,int wheelRays) {
 		super(dx, dy, dz, 
 				dxFront, dyFront, dzFront, 
 				dxRear, dyRear, dzRear, 
 				dxRoof, dyRoof, dzRoof, 
+				rearOverhang, frontOverhang, 
 				wheelRadius, wheelWidth, wheelRays);
 	}
 	

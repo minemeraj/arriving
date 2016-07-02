@@ -61,6 +61,8 @@ public class RailWagon0Model extends MeshModel{
 	private BPoint[][] fWheelLeftRear;
 	private BPoint[][] fWheelRightRear;
 	protected BPoint[][][] wagon;
+	private double rearOverhang;
+	private double frontOverhang;
 	
 	public static String NAME="RailWagon";
 
@@ -70,6 +72,7 @@ public class RailWagon0Model extends MeshModel{
 			double dxf, double dyf, double dzf, 
 			double dxr, double dyr,	double dzr,
 			double dxRoof,double dyRoof,double dzRoof,
+			double rearOverhang, double frontOverhang, 
 			double wheelRadius, double wheelWidth, int wheelRays
 			) {
 		super();
@@ -88,6 +91,10 @@ public class RailWagon0Model extends MeshModel{
 		this.dxRoof = dxRoof;
 		this.dyRoof = dyRoof;
 		this.dzRoof = dzRoof;
+		
+		this.rearOverhang = rearOverhang;
+		this.frontOverhang = frontOverhang;
+
 		
 		this.wheelRadius = wheelRadius;
 		this.wheelWidth = wheelWidth;
@@ -163,7 +170,7 @@ public class RailWagon0Model extends MeshModel{
 				
 		back=new BPoint[bnx][bny][bnz];
 		
-		Segments b0=new Segments(0,dxRear,0,dyRear,0,dzRear);
+		Segments b0=new Segments(0,dxRear,rearOverhang,dyRear,0,dzRear);
 		
 		back[0][0][0]=addBPoint(-0.5,0.0,0,b0);
 		back[1][0][0]=addBPoint(0.5,0.0,0,b0);
@@ -175,11 +182,11 @@ public class RailWagon0Model extends MeshModel{
 		back[0][1][1]=addBPoint(-0.5,1.0,1.0,b0);
 		back[1][1][1]=addBPoint(0.5,1.0,1.0,b0);		
 		
-		fWheelLeftFront=buildWheel(-dxRear*0.5-wheelWidth,0,0,wheelRadius,wheelWidth,wheelRays);
-		fWheelRightFront=buildWheel(dxRear*0.5,0,0,wheelRadius,wheelWidth,wheelRays);
+		fWheelLeftFront=buildWheel(-dxRear*0.5-wheelWidth,rearOverhang,0,wheelRadius,wheelWidth,wheelRays);
+		fWheelRightFront=buildWheel(dxRear*0.5,rearOverhang,0,wheelRadius,wheelWidth,wheelRays);
 		
-		fWheelLeftRear=buildWheel(-dxRear*0.5-wheelWidth,0+dyRear,0,wheelRadius,wheelWidth,wheelRays);
-		fWheelRightRear=buildWheel(dxRear*0.5,0+dyRear,0,wheelRadius,wheelWidth,wheelRays);
+		fWheelLeftRear=buildWheel(-dxRear*0.5-wheelWidth,rearOverhang+dyRear,0,wheelRadius,wheelWidth,wheelRays);
+		fWheelRightRear=buildWheel(dxRear*0.5,rearOverhang+dyRear,0,wheelRadius,wheelWidth,wheelRays);
 
 		
 		int fnx=2;
@@ -188,7 +195,7 @@ public class RailWagon0Model extends MeshModel{
 		
 		front=new BPoint[fnx][fny][fnz];
 		
-		double fy=dy-dyFront-0;
+		double fy=dy-dyFront-frontOverhang;
 		
 		Segments f0=new Segments(0,dxFront,fy,dyFront,0,dzFront);
 		

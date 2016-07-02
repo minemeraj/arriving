@@ -394,6 +394,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 					dxf,dyf,dzf,
 					dxr,dyr,dzr,
 					dxRoof,dyRoof,dzRoof,
+					rearOverhang,frontOverhang,
 					wheelRadius,wheelWidth,wheelRays);
 		else
 			meshModel=new Car0Model(dx,dy,dz);
@@ -436,6 +437,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						0,0,0,//dxFront, dyFront, dzFront
 						0,0,0,//dxRear, dyRear, dzRear
 						0,0,0,//dxRoof, dyRoof, dzRoof
+						0,0,//rearOverhang, frontOverhang
 						0,0,0//wheel_radius, wheel_width, wheel_rays
 						);
 			else if(TRUCK0==val)
@@ -443,6 +445,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						94,61,118,//dxFront, dyFront, dzFront						
 						0,0,0,//dxRear, dyRear, dzRear
 						111,319,116,//dxRoof, dyRoof, dzRoof
+						0,0,//rearOverhang, frontOverhang
 						19,12,10//wheel_radius, wheel_width, wheel_rays
 						);
 			else if(TANKTRUCK0==val)
@@ -450,6 +453,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						94,61,118,//dxFront, dyFront, dzFront						
 						0,0,0,//dxRear, dyRear, dzRear
 						111,319,116,//dxRoof, dyRoof, dzRoof
+						0,0,//rearOverhang, frontOverhang
 						19,12,10//wheel_radius, wheel_width, wheel_rays
 						);
 			else if(SHIP0==val)
@@ -457,6 +461,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						718,806,80,//dxFront, dyFront, dzFront
 						718,527,80,//dxRear, dyRear, dzRear
 						718,366,595,//dxRoof, dyRoof, dzRoof
+						0,0,//rearOverhang, frontOverhang
 						0,0,0//wheel_radius, wheel_width, wheel_rays
 						);
 			else if(STARSHIP0==val)
@@ -464,6 +469,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						150,150,50,//dxFront, dyFront, dzFront
 						50,250,50,//dxRear, dyRear, dzRear
 						0,0,0,//dxRoof, dyRoof, dzRoof
+						0,0,//rearOverhang, frontOverhang
 						0,0,0//wheel_radius, wheel_width, wheel_rays
 						);
 			else if(AIRPLANE0==val)
@@ -471,6 +477,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						25,57,25,//dxFront, dyFront, dzFront
 						21,143,13,//dxRear, dyRear, dzRear
 						181,119,29,//dxRoof, dyRoof, dzRoof
+						0,0,//rearOverhang, frontOverhang
 						0,0,0//wheel_radius, wheel_width, wheel_rays
 						);
 			else if(BYKE0==val)
@@ -478,6 +485,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						19,12,7,//dxFront, dyFront, dzFront
 						0,0,0,//dxRear, dyRear, dzRear
 						0,0,0,//dxRoof, dyRoof, dzRoof
+						0,0,//rearOverhang, frontOverhang
 						8,4,10//wheel_radius, wheel_width, wheel_rays
 						);
 			else if(F10==val)
@@ -485,6 +493,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						50,100,50,//dxFront, dyFront, dzFront
 						50,100,50,//dxRear, dyRear, dzRear
 						50,100,30,//dxRoof, dyRoof, dzRoof
+						0,0,//rearOverhang, frontOverhang
 						50,20,10//wheel_radius, wheel_width, wheel_rays
 						);
 			else if(TANK0==val)
@@ -492,14 +501,16 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						0,0,0,//dxFront, dyFront, dzFront
 						300,100,50,//dxRear, dyRear, dzRear
 						200,150,50,//dxRoof, dyRoof, dzRoof
+						0,0,//rearOverhang, frontOverhang
 						0,0,0//wheel_radius, wheel_width, wheel_rays
 						);
 			else if(RAILWAGON0==val)
-				setRightData(74,319,22,//dx, dy, dz
-						94,61,118,//dxFront, dyFront, dzFront						
-						0,0,0,//dxRear, dyRear, dzRear
-						111,319,116,//dxRoof, dyRoof, dzRoof
-						19,12,10//wheel_radius, wheel_width, wheel_rays
+				setRightData(69,400,7,//dx, dy, dz
+						41,51,14,//dxFront, dyFront, dzFront						
+						41,51,14,//dxRear, dyRear, dzRear
+						70,348,70,//dxRoof, dyRoof, dzRoof
+						29,29,//rearOverhang, frontOverhang
+						13,4,10//wheel_radius, wheel_width, wheel_rays
 						);
 		}
 
@@ -511,6 +522,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 			int dxFront, int dyFront, int dzFront,
 			int dxRear, int dyRear, int dzRear,
 			int dxRoof, int dyRoof, int dzRoof, 
+			int rearOverhang, int frontOverhang, 
 			double wheel_radius, double wheel_width, int wheel_rays
 			){ 
 
@@ -530,8 +542,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		dy_roof_text.setText(dyRoof);
 		dz_roof_text.setText(dzRoof);
 		
-		rear_overhang_text.setText(0);
-		front_overhang_text.setText(0);
+		rear_overhang_text.setText(rearOverhang);
+		front_overhang_text.setText(frontOverhang);
 		
 		wheel_radius_text.setText(wheel_radius);
 		wheel_width_text.setText(wheel_width);
