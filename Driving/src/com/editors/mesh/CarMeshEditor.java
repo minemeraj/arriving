@@ -376,6 +376,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 					dx,dy,dz,
 					dxf,dyf,dzf,
 					dxr,dyr,dzr,
+					dxRoof,dyRoof,dzRoof,
 					wheelRadius,wheelWidth,wheelRays);	
 		else if(val==F10)
 			meshModel=new F10Model(dx,dy,dz,
@@ -481,10 +482,10 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						0,0,0//wheel_radius, wheel_width, wheel_rays
 						);
 			else if(BYKE0==val)
-				setRightData(12,37,5,//dx, dy, dz
-						19,12,7,//dxFront, dyFront, dzFront
-						0,0,0,//dxRear, dyRear, dzRear
-						0,0,0,//dxRoof, dyRoof, dzRoof
+				setRightData(12,22,12,//dx, dy, dz
+						19,13,14,//dxFront, dyFront, dzFront
+						12,12,13,//dxRear, dyRear, dzRear
+						12,19,7,//dxRoof, dyRoof, dzRoof
 						0,0,//rearOverhang, frontOverhang
 						8,4,10//wheel_radius, wheel_width, wheel_rays
 						);

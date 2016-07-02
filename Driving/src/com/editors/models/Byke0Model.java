@@ -32,6 +32,10 @@ public class Byke0Model extends MeshModel{
 	private double dxRear = 0;
 	private double dyRear = 0;
 	private double dzRear = 0;
+	
+	private double dxRoof = 0;
+	private double dyRoof = 0;
+	private double dzRoof = 0;
 
 	private double wheelRadius;
 	private double wheelWidth;
@@ -49,6 +53,7 @@ public class Byke0Model extends MeshModel{
 			double dx, double dy, double dz, 
 			double dxf, double dyf, double dzf, 
 			double dxr, double dyr,	double dzr,
+			double dxRoof, double dyRoof, double dzRoof, 
 			double wheelRadius, double wheelWidth, int wheel_rays) {
 		super();
 		this.dx = dx;
@@ -62,6 +67,10 @@ public class Byke0Model extends MeshModel{
 		this.dxRear = dxr;
 		this.dyRear = dyr;
 		this.dzRear = dzr;
+		
+		this.dxRoof = dxRoof;
+		this.dyRoof = dyRoof;
+		this.dzRoof = dzRoof;
 
 		this.wheelRadius = wheelRadius;
 		this.wheelWidth = wheelWidth;
@@ -76,13 +85,15 @@ public class Byke0Model extends MeshModel{
 
 		buildTextures();
 
-		int firstWheelTexturePoint=4;		
-
-		BPoint[][][] leftFrame=new BPoint[2][2][2];
-
+		int firstWheelTexturePoint=4;	
+		
 
 		double frame_side=(dx-wheelWidth)*0.5;
 		double xc=-frame_side*0.5;
+
+		/*BPoint[][][] leftFrame=new BPoint[2][2][2];
+
+
 
 		Segments lf=new Segments(xc,frame_side,dyRear,dy,wheelRadius,wheelRadius+dz);
 
@@ -142,13 +153,13 @@ public class Byke0Model extends MeshModel{
 		rightFork[0][0][1]=addBPoint(-0.5,0.82,1.0,rf);	
 		rightFork[1][0][1]=addBPoint(0.5,0.82,1.0,rf);
 		rightFork[0][1][1]=addBPoint(-0.5,1.0,1.0,rf);		
-		rightFork[1][1][1]=addBPoint(0.5,1.0,1.0,rf);		
+		rightFork[1][1][1]=addBPoint(0.5,1.0,1.0,rf);*/	
 
 
 
 		xc=wheelWidth/2.0;
 
-		Segments bd=new Segments(xc,wheelWidth,dyRear,dy,2*wheelRadius,dz);
+		Segments bd=new Segments(xc,wheelWidth,2*wheelRadius,dy,2*wheelRadius-dz,dz);
 
 		BPoint[][][] body=new BPoint[2][2][2];	
 
@@ -162,11 +173,40 @@ public class Byke0Model extends MeshModel{
 		body[0][1][1]=addBPoint(-0.5,1.0,1.0,bd);		
 		body[1][1][1]=addBPoint(0.5,1.0,1.0,bd);	
 
-
-
+		
+		
+		Segments rb=new Segments(xc,dxRear,2*wheelRadius-dyRear,dyRear,2*wheelRadius,dzRear);
+		
+		BPoint[][][] rearByke=new BPoint[2][2][2];	
+		
+		rearByke[0][0][0]=addBPoint(-0.5,0.0,0.0, rb);
+		rearByke[0][1][0]=addBPoint(0.5,0.0,0.0, rb);
+		rearByke[0][1][1]=addBPoint(0.5,0.0,1.0, rb);
+		rearByke[0][0][1]=addBPoint(-0.5,0.0,1.0, rb);
+		
+		rearByke[1][0][0]=addBPoint(-0.5,1.0,0.0, rb);
+		rearByke[1][1][0]=addBPoint(0.5,1.0,0.0, rb);
+		rearByke[1][1][1]=addBPoint(0.5,1.0,1.0, rb);
+		rearByke[1][0][1]=addBPoint(-0.5,1.0,1.0, rb);
+		
+		
+		Segments rob=new Segments(xc,dxRoof,2*wheelRadius,dyRoof,2*wheelRadius,dzRoof);
+		
+		BPoint[][][] roofByke=new BPoint[2][2][2];	
+		
+		roofByke[0][0][0]=addBPoint(-0.5,0.0,0.0, rob);
+		roofByke[0][1][0]=addBPoint(0.5,0.0,0.0, rob);
+		roofByke[0][1][1]=addBPoint(0.5,0.0,1.0, rob);
+		roofByke[0][0][1]=addBPoint(-0.5,0.0,1.0, rob);
+		
+		roofByke[1][0][0]=addBPoint(-0.5,1.0,0.0, rob);
+		roofByke[1][1][0]=addBPoint(0.5,1.0,0.0, rob);
+		roofByke[1][1][1]=addBPoint(0.5,1.0,1.0, rob);
+		roofByke[1][0][1]=addBPoint(-0.5,1.0,1.0, rob);
+		
 		
 
-		Segments hb=new Segments(xc,dxFront,dyRear+dy-dyFront*0.5,dyFront,2*wheelRadius+dz,dzFront);
+		Segments hb=new Segments(xc,dxFront,2*wheelRadius+dyRoof,dyFront,2*wheelRadius,dzFront);
 		
 		int nyh=3;
 		BPoint[][][] handlebar=new BPoint[nyh][2][2];	
@@ -190,11 +230,11 @@ public class Byke0Model extends MeshModel{
 		double wz=wheelRadius;
 		double wx=wheelWidth*0.5;		
 
-		BPoint[][] wheelFront=buildWheel(xc-wx, dyRear,wz , wheelRadius, wheelWidth, wheel_rays);
-		BPoint[][] wheelRear=buildWheel(xc-wx, dyRear+dy, wz, wheelRadius, wheelWidth, wheel_rays);
+		BPoint[][] wheelFront=buildWheel(xc-wx, wheelRadius,wz , wheelRadius, wheelWidth, wheel_rays);
+		BPoint[][] wheelRear=buildWheel(xc-wx, 2*wheelRadius+dy+wheelRadius, wz, wheelRadius, wheelWidth, wheel_rays);
 
 		//faces
-		int NF=6*5;
+		int NF=6*3;
 		NF+=(nyh-1)*4+1;//handlebar
 
 		int totWheelPolygon=wheel_rays+2*(wheel_rays-2);
@@ -205,12 +245,10 @@ public class Byke0Model extends MeshModel{
 		int counter=0;
 		counter=buildBodyFaces(
 				counter, 				
-				leftFrame,
-				rightFrame,
 				body,
-				leftFork,
-				rightFork,
-				handlebar
+				handlebar,
+				rearByke,
+				roofByke
 				);
 
 
@@ -270,14 +308,13 @@ public class Byke0Model extends MeshModel{
 
 
 	private int buildBodyFaces(int counter, 
-			BPoint[][][] leftFrame, 
-			BPoint[][][] rightFrame, 
-			BPoint[][][] body, 
-			BPoint[][][] leftFork, 
-			BPoint[][][] rightFork, 
-			BPoint[][][] handlebar) {
 
-		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, leftFrame[0][0][1],leftFrame[1][0][1],leftFrame[1][1][1],leftFrame[0][1][1], 0, 1, 2, 3);
+			BPoint[][][] body, 
+			BPoint[][][] handlebar, 
+			BPoint[][][] rearByke, 
+			BPoint[][][] roofByke) {
+
+		/*faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, leftFrame[0][0][1],leftFrame[1][0][1],leftFrame[1][1][1],leftFrame[0][1][1], 0, 1, 2, 3);
 		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, leftFrame[0][0][0],leftFrame[0][1][0],leftFrame[1][1][0],leftFrame[1][0][0], 0, 1, 2, 3);
 		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, leftFrame[0][0][0],leftFrame[0][0][1],leftFrame[0][1][1],leftFrame[0][1][0], 0, 1, 2, 3);
 		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, leftFrame[1][0][0],leftFrame[1][1][0],leftFrame[1][1][1],leftFrame[1][0][1], 0, 1, 2, 3);
@@ -304,7 +341,7 @@ public class Byke0Model extends MeshModel{
 		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, rightFork[0][0][0],rightFork[0][0][1],rightFork[0][1][1],rightFork[0][1][0], 0, 1, 2, 3);
 		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, rightFork[1][0][0],rightFork[1][1][0],rightFork[1][1][1],rightFork[1][0][1], 0, 1, 2, 3);
 		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, rightFork[0][0][0],rightFork[1][0][0],rightFork[1][0][1],rightFork[0][0][1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, rightFork[0][1][0],rightFork[0][1][1],rightFork[1][1][1],rightFork[1][1][0], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, rightFork[0][1][0],rightFork[0][1][1],rightFork[1][1][1],rightFork[1][1][0], 0, 1, 2, 3);*/
 
 		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, body[0][0][1],body[1][0][1],body[1][1][1],body[0][1][1], 0, 1, 2, 3);
 		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0], 0, 1, 2, 3);
@@ -330,6 +367,33 @@ public class Byke0Model extends MeshModel{
 			else
 				faces[counter++]=buildFace(Renderer3D.CAR_TOP,handlebar[k][0][1],handlebar[k][1][1],handlebar[k+1][0][1],0, 1, 2);
 		}
+		
+		///////
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, rearByke[0][0][0],rearByke[0][1][0],rearByke[0][1][1],rearByke[0][0][1], 0, 1, 2, 3);
+		for (int k = 0; k < 2-1; k++) {
+			
+
+			faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, rearByke[k][0][0],rearByke[k+1][0][0],rearByke[k+1][1][0],rearByke[k][1][0], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, rearByke[k][0][0],rearByke[k][0][1],rearByke[k+1][0][1],rearByke[k+1][0][0], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, rearByke[k][1][0],rearByke[k+1][1][0],rearByke[k+1][1][1],rearByke[k][1][1], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_TOP,rearByke[k][0][1],rearByke[k][1][1],rearByke[k+1][1][1],rearByke[k+1][0][1],0, 1, 2, 3);
+	
+		}
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, rearByke[2-1][0][0],rearByke[2-1][0][1],rearByke[2-1][1][1],rearByke[2-1][1][0], 0, 1, 2, 3);
+		
+		///////////
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, roofByke[0][0][0],roofByke[0][1][0],roofByke[0][1][1],roofByke[0][0][1], 0, 1, 2, 3);
+		for (int k = 0; k < 2-1; k++) {
+			
+
+			faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, roofByke[k][0][0],roofByke[k+1][0][0],roofByke[k+1][1][0],roofByke[k][1][0], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, roofByke[k][0][0],roofByke[k][0][1],roofByke[k+1][0][1],roofByke[k+1][0][0], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, roofByke[k][1][0],roofByke[k+1][1][0],roofByke[k+1][1][1],roofByke[k][1][1], 0, 1, 2, 3);
+			faces[counter++]=buildFace(Renderer3D.CAR_TOP,roofByke[k][0][1],roofByke[k][1][1],roofByke[k+1][1][1],roofByke[k+1][0][1],0, 1, 2, 3);
+	
+		}
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, roofByke[2-1][0][0],roofByke[2-1][0][1],roofByke[2-1][1][1],roofByke[2-1][1][0], 0, 1, 2, 3);
+		
 		
 		
 		return counter;
