@@ -179,8 +179,10 @@ public class Byke0Model extends MeshModel{
 		
 		BPoint[][][] rearByke=new BPoint[2][2][2];	
 		
-		rearByke[0][0][0]=addBPoint(-0.5,0.0,0.0, rb);
-		rearByke[0][1][0]=addBPoint(0.5,0.0,0.0, rb);
+		double zrb=dzRoof/dzRear;
+		
+		rearByke[0][0][0]=addBPoint(-0.5,0.0,zrb, rb);
+		rearByke[0][1][0]=addBPoint(0.5,0.0,zrb, rb);
 		rearByke[0][1][1]=addBPoint(0.5,0.0,1.0, rb);
 		rearByke[0][0][1]=addBPoint(-0.5,0.0,1.0, rb);
 		
@@ -210,6 +212,8 @@ public class Byke0Model extends MeshModel{
 		
 		int nyh=3;
 		BPoint[][][] handlebar=new BPoint[nyh][2][2];	
+		
+		double zrf=dzRoof/dzFront;
 			
 		handlebar[0][0][0]=addBPoint(-0.5,0.0,0.0, hb);
 		handlebar[0][1][0]=addBPoint(0.5,0.0,0.0, hb);
@@ -223,8 +227,8 @@ public class Byke0Model extends MeshModel{
 		
 		handlebar[2][0][0]=addBPoint(0.0,1.0,0.0, hb);
 		handlebar[2][1][0]=addBPoint(0.0,1.0,0.0, hb);
-		handlebar[2][1][1]=addBPoint(0.0,1.0,1.0, hb);
-		handlebar[2][0][1]=addBPoint(0.0,1.0,1.0, hb);
+		handlebar[2][1][1]=addBPoint(0.0,1.0,zrf, hb);
+		handlebar[2][0][1]=addBPoint(0.0,1.0,zrf, hb);
 	
 
 		double wz=wheelRadius;
