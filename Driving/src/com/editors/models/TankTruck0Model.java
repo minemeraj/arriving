@@ -45,7 +45,6 @@ public class TankTruck0Model extends Truck0Model{
 		int nWagonMeridians=10;
 		BPoint[][] wagon=buildWagon(nWagonMeridians);
 
-		int firstWheelTexturePoint=4;
 		buildTextures();
 		
 		////
@@ -75,7 +74,6 @@ public class TankTruck0Model extends Truck0Model{
 		int counter=0;
 		counter=buildBodyFaces(counter,nYcab,nzCab,nzBody,nWagonMeridians,cab,body,wagon);
 		counter=buildWheelFaces(counter,
-				firstWheelTexturePoint,
 				totWheelPolygon,
 				wheelLeftFront,wheelRightFront,wheelLeftRear,wheelRightRear);
 
@@ -94,7 +92,7 @@ public class TankTruck0Model extends Truck0Model{
 	}
 	
 	@Override
-	protected int buildWagonFaces(int counter, int nWagonMeridians, BPoint[][] wagon, int c0, int c1, int c2, int c3) {
+	protected int buildWagonFaces(int counter, int nWagonMeridians, BPoint[][] wagon) {
 		
 		for (int i = 0; i < wagon.length; i++) {
 			

@@ -44,9 +44,19 @@ public class Truck0Model extends MeshModel{
 
 	protected int[][][] faces;
 
-	int basePoints=4;
-
-
+	protected int basePoints=4;
+	
+	
+	
+	//body textures
+	protected int c0=0, c1=1, c2=2, c3=3;
+	//wagon texture
+	protected int wa0=4, wa1=5, wa2=6, wa3=7;
+	//window texture
+	protected int wi0=8, wi1=9, wi2=10, wi3=11;
+	//wheel texture
+	protected int w0=12, w1=13, w2=14, w3=15;
+	
 	public Truck0Model(
 			double dx, double dy, double dz, 
 			double dxFront, double dyfront, double dzFront, 
@@ -88,8 +98,6 @@ public class Truck0Model extends MeshModel{
 		int nzWagon=2;
 		BPoint[][] wagon=buildWagon(nzWagon);
 
-
-		int firstWheelTexturePoint=4;
 		buildTextures();
 
 		////
@@ -118,13 +126,10 @@ public class Truck0Model extends MeshModel{
 		int counter=0;
 		counter=buildBodyFaces(counter,nYcab,nzCab,nzBody,nzWagon,cab,body,wagon);
 		counter=buildWheelFaces(counter,
-				firstWheelTexturePoint,
 				totWheelPolygon,
 				wheelLeftFront,wheelRightFront,wheelLeftRear,wheelRightRear);
 
 
-		IMG_WIDTH=(int) (2*bx+dx+wheelWidth);
-		IMG_HEIGHT=(int) (2*by+dy);
 
 	}
 
@@ -137,12 +142,7 @@ public class Truck0Model extends MeshModel{
 			BPoint[][][] cab, 
 			BPoint[][] body, 
 			BPoint[][] wagon) {
-		
 
-		int c0=0;
-		int c1=1;
-		int c2=2;
-		int c3=3;
 
 
 		//cab
@@ -152,12 +152,18 @@ public class Truck0Model extends MeshModel{
 		
 			for (int k = 0; k < nzCab-1; k++) {
 				
-				faces[counter++]=buildFace(Renderer3D.CAR_LEFT, cab[0][j][k],cab[0][j][k+1],cab[0][j+1][k+1],cab[0][j+1][k], c0, c1, c2, c3);
+				//set windows in the upper part
+				int ca0=c0,ca1=c1,ca2=c2,ca3=c3; 
+				if(k>0){
+					ca0=wi0;ca1=wi1;ca2=wi2;ca3=wi3;
+				}
+				
+				faces[counter++]=buildFace(Renderer3D.CAR_LEFT, cab[0][j][k],cab[0][j][k+1],cab[0][j+1][k+1],cab[0][j+1][k], ca0, ca1, ca2, ca3);
 				if(j==0)
 					faces[counter++]=buildFace(Renderer3D.CAR_BACK, cab[0][j][k],cab[1][j][k],cab[1][j][k+1],cab[0][j][k+1], c0, c1, c2, c3);
-				faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, cab[1][j][k],cab[1][j+1][k],cab[1][j+1][k+1],cab[1][j][k+1], c0, c1, c2, c3);
+				faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, cab[1][j][k],cab[1][j+1][k],cab[1][j+1][k+1],cab[1][j][k+1], ca0, ca1, ca2, ca3);
 				if(j==nYcab-2)
-					faces[counter++]=buildFace(Renderer3D.CAR_FRONT, cab[0][nYcab-1][k],cab[0][nYcab-1][k+1],cab[1][nYcab-1][k+1],cab[1][nYcab-1][k], c0, c1, c2, c3);
+					faces[counter++]=buildFace(Renderer3D.CAR_FRONT, cab[0][nYcab-1][k],cab[0][nYcab-1][k+1],cab[1][nYcab-1][k+1],cab[1][nYcab-1][k], ca0, ca1, ca2, ca3);
 				
 				
 			}
@@ -181,27 +187,27 @@ public class Truck0Model extends MeshModel{
 
 		faces[counter++]=buildFace(Renderer3D.CAR_TOP,body[nzRear-1][0],body[nzRear-1][1],body[nzRear-1][2],body[nzRear-1][3], c0, c1, c2, c3);
 		///////
-		counter=buildWagonFaces(counter,nzWagon,wagon,c0,c1,c2,c3); 
+		counter=buildWagonFaces(counter,nzWagon,wagon); 
 		
 
 		return counter;
 	}
 	
 
-	protected int buildWagonFaces(int counter, int nzWagon, BPoint[][] wagon, int c0, int c1, int c2, int c3) {
+	protected int buildWagonFaces(int counter, int nzWagon, BPoint[][] wagon) {
 	
-		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0],wagon[0][3],wagon[0][2],wagon[0][1], c0, c1, c2, c3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0],wagon[0][3],wagon[0][2],wagon[0][1], wa0, wa1, wa2, wa3);
 		
 		for (int k = 0; k < nzWagon-1; k++) {
 			
-			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, wagon[k][0],wagon[k+1][0],wagon[k+1][3],wagon[k][3], c0, c1, c2, c3);
-			faces[counter++]=buildFace(Renderer3D.CAR_BACK, wagon[k][0],wagon[k][1],wagon[k+1][1],wagon[k+1][0], c0, c1, c2, c3);
-			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, wagon[k][1],wagon[k][2],wagon[k+1][2],wagon[k+1][1], c0, c1, c2, c3);
-			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, wagon[k][2],wagon[k][3],wagon[k+1][3],wagon[k+1][2], c0, c1, c2, c3);
+			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, wagon[k][0],wagon[k+1][0],wagon[k+1][3],wagon[k][3],  wa0, wa1, wa2, wa3);
+			faces[counter++]=buildFace(Renderer3D.CAR_BACK, wagon[k][0],wagon[k][1],wagon[k+1][1],wagon[k+1][0],  wa0, wa1, wa2, wa3);
+			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, wagon[k][1],wagon[k][2],wagon[k+1][2],wagon[k+1][1],  wa0, wa1, wa2, wa3);
+			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, wagon[k][2],wagon[k][3],wagon[k+1][3],wagon[k+1][2],  wa0, wa1, wa2, wa3);
 			
 		}
 
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP,wagon[nzWagon-1][0],wagon[nzWagon-1][1],wagon[nzWagon-1][2],wagon[nzWagon-1][3], c0, c1, c2, c3);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP,wagon[nzWagon-1][0],wagon[nzWagon-1][1],wagon[nzWagon-1][2],wagon[nzWagon-1][3],wa0, wa1, wa2, wa3);
 		
 		
 		return counter;
@@ -211,7 +217,6 @@ public class Truck0Model extends MeshModel{
 	protected int buildWheelFaces(
 			
 			int counter, 
-			int firstWheelTexturePoint,
 			int totWheelPolygon,
 			BPoint[][] wheelLeftFront, 
 			BPoint[][] wheelRightFront, 
@@ -221,22 +226,22 @@ public class Truck0Model extends MeshModel{
 		
 		///// WHEELS
 
-		int[][][] wFaces = buildWheelFaces(wheelLeftFront,firstWheelTexturePoint);
+		int[][][] wFaces = buildWheelFaces(wheelLeftFront,w0);
 		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++]=wFaces[i];
 		}
 
-		wFaces = buildWheelFaces(wheelRightFront,firstWheelTexturePoint);
+		wFaces = buildWheelFaces(wheelRightFront,w0);
 		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++]=wFaces[i];
 		}
 
-		wFaces = buildWheelFaces(wheelLeftRear,firstWheelTexturePoint);
+		wFaces = buildWheelFaces(wheelLeftRear,w0);
 		for (int i = 0; i <totWheelPolygon; i++) {
 			faces[counter++]=wFaces[i];
 		}
 
-		wFaces = buildWheelFaces(wheelRightRear,firstWheelTexturePoint);
+		wFaces = buildWheelFaces(wheelRightRear,w0);
 		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++]=wFaces[i];
 		}
@@ -247,10 +252,33 @@ public class Truck0Model extends MeshModel{
 
 
 	protected void buildTextures() {
-		//Texture points
+		
+		int shift=1;
+		//body points
 
 		double y=by;
 		double x=bx;
+
+		addTPoint(x,y,0);
+		addTPoint(x+dx,y,0);
+		addTPoint(x+dx, y+dy,0);
+		addTPoint(x,y+dy,0);
+		
+		
+		//wagon points
+
+		x=bx+dx+shift;
+		y=by;
+
+		addTPoint(x,y,0);
+		addTPoint(x+dx,y,0);
+		addTPoint(x+dx, y+dy,0);
+		addTPoint(x,y+dy,0);
+		
+		//window points
+
+		x=bx+2*dx+2*shift;
+		y=by;
 
 		addTPoint(x,y,0);
 		addTPoint(x+dx,y,0);
@@ -260,7 +288,7 @@ public class Truck0Model extends MeshModel{
 
 		//wheel texture, a black square for simplicity:
 
-		x=bx+dx;
+		x=bx+3*dx+3*shift;
 		y=by;
 
 		addTPoint(x,y,0);
@@ -268,7 +296,9 @@ public class Truck0Model extends MeshModel{
 		addTPoint(x+wheelWidth,y+wheelWidth,0);
 		addTPoint(x,y+wheelWidth,0);
 				
-		
+
+		IMG_WIDTH=(int) (2*bx+3*dx+wheelWidth+3*shift);
+		IMG_HEIGHT=(int) (2*by+dy);
 	}
 
 
