@@ -173,12 +173,7 @@ public class Church0Model extends MeshModel{
 		counter=buildAisle(counter,neAisle,AISLE_NE);
 		counter=buildAisle(counter,swAisle,AISLE_SW);
 		counter=buildAisle(counter,nwAisle,AISLE_NW);
-		
-		
-		int maxX=(int) (dx+dx+(dy3+dx+dy));
-		int maxY=(int) Math.max(dz+roof_height,dy);
-		IMG_WIDTH= 2*bx+maxX;		
-		IMG_HEIGHT= 2*by+maxY;
+
 	}
 
 	protected int buildCross(int counter, BPoint[][][] mainCross, BPoint[][][] crossRoof) {
@@ -253,6 +248,8 @@ public class Church0Model extends MeshModel{
 	protected void buildTextures() {
 		//Texture points
 
+		int shift=1;
+		
 		double y=by;
 		double x=bx;
 
@@ -263,14 +260,14 @@ public class Church0Model extends MeshModel{
 		addTPoint(x,y+dy,0);
 		
 		//roof
-		x+=dx;
+		x+=dx+shift;
 		addTPoint(x,y,0);
 		addTPoint(x+dx,y,0);
 		addTPoint(x+dx, y+dy,0);
 		addTPoint(x,y+dy,0);
 
 		//facade made by the aisle and the first wing, points ranged in z levels
-		x+=dx;
+		x+=dx+shift;
 		addTPoint(x,y,0);
 		addTPoint(x+dy3,y,0);
 		addTPoint(x+dy3+dx,y,0);
@@ -289,6 +286,13 @@ public class Church0Model extends MeshModel{
 		y=by+dz+roof_height;
 		addTPoint(x+dy3+dx*0.5,y,0);
 		///////////
+		
+		
+		
+		int maxX=(int) (dx+dx+(dy3+dx+dy)+2*shift);
+		int maxY=(int) Math.max(dz+roof_height,dy);
+		IMG_WIDTH= 2*bx+maxX;		
+		IMG_HEIGHT= 2*by+maxY;
 	}
 
 
