@@ -16,8 +16,8 @@ public class Church1Model extends Church0Model{
 	public static String NAME="Church1";
 	
 	public Church1Model(double dx, double dy, double dz, double roof_height, double dx1, double dy1, double dy2,
-			double dy3, double dz1) {
-		super(dx, dy, dz, roof_height, dx1, dy1, dy2, dy3, dz1);
+			double dy3, double dz1, double dz2) {
+		super(dx, dy, dz, roof_height, dx1, dy1, dy2, dy3, dz1,dz2);
 		// TODO Auto-generated constructor stub
 	}
 

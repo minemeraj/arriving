@@ -49,6 +49,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 	private DoubleTextField dy3_text;
 
 	private boolean skipItemChanged=false;
+	private DoubleTextField dz2_text;
 
 	public static int HOUSE0_GABLE=0;
 	public static int HOUSE1_LSHAPED=1;
@@ -173,7 +174,14 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		center.add(ly);
 		dz1_text=new DoubleTextField(8);
 		dz1_text.setBounds(c1,r,120,20);
-		center.add(dz1_text);
+		center.add(dz1_text);		
+
+		ly=new JLabel("dz2:");
+		ly.setBounds(c2,r,80,20);
+		center.add(ly);
+		dz2_text=new DoubleTextField(8);
+		dz2_text.setBounds(c3,r,120,20);
+		center.add(dz2_text);
 
 		r+=30;
 
@@ -192,7 +200,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		num_meridians.setBounds(c1,r,120,20);
 		center.add(num_meridians);
 
-		setRightData(100,200,100,50,0,150,0,0,0,0,0);
+		setRightData(100,200,100,50,0,150,0,0,0,0,0,0);
 
 
 		r+=30;
@@ -253,6 +261,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		double dx1 = dx1_text.getvalue();
 		double dy1 = dy1_text.getvalue();
 		double dz1 = dz1_text.getvalue();	
+		double dz2 = dz2_text.getvalue();
 
 		double dx2 = dx2_text.getvalue();
 		double dy2 = dy2_text.getvalue();
@@ -287,9 +296,9 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		else if(HOUSE3_CROSSHOUSE==val)
 			meshModel=new House3Model(dx,dy,dz,rh,dx1,dy1,dy2,dy3);
 		else if(CHURCH0==val)
-			meshModel=new Church0Model(dx,dy,dz,rh,dx1,dy1,dy2,dy3,dz1);
+			meshModel=new Church0Model(dx,dy,dz,rh,dx1,dy1,dy2,dy3,dz1,dz2);
 		else if(CHURCH1==val)
-			meshModel=new Church1Model(dx,dy,dz,rh,dx1,dy1,dy2,dy3,dz1);
+			meshModel=new Church1Model(dx,dy,dz,rh,dx1,dy1,dy2,dy3,dz1,dz2);
 		else if(HOUSE4_C_SHAPED==val)
 			meshModel=new House4Model(dx,dy,dz,rh,dx1,dy1,dx2);
 		else if(COURTYARD==val)
@@ -355,63 +364,63 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 						50,//roof_height
 						0,150,0,//dx1,dy1,dz1
 						0,//num_meridians
-						0,0,0);
+						0,0,0,0);//dx2,dy2,dz2,dy3
 			}
 			else if(HOUSE1_LSHAPED==val){
 				setRightData(100,200,100,//dx,dy,dz
 						50,//roof_height
 						100,150,0,//dx1,dy1,dz1
 						0,//num_meridians
-						0,0,0);
+						0,0,0,0);//dx2,dy2,dz2,dy3
 			}
 			else if(MANSARD0==val){
 				setRightData(100,200,100,//dx,dy,dz
 						50,//roof_height
 						50,150,0,//dx1,dy1,dz1
 						0,//num_meridians
-						0,0,0);
+						0,0,0,0);//dx2,dy2,dz2,dy3
 			}
 			else if(GAMBREL0==val){
 				setRightData(100,200,100,//dx,dy,dz
 						0,//roof_height
 						0,0,0,//dx1,dy1,dz1
 						0,//num_meridians
-						0,0,0);
+						0,0,0,0);//dx2,dy2,dz2,dy3
 			}
 			else if(BELLTOWER==val){
 				setRightData(100,200,300,//dx,dy,dz
 						100,//roof_height
 						0,0,0,//dx1,dy1,dz1
 						0,//num_meridians
-						0,0,0);
+						0,0,0,0);//dx2,dy2,dz2,dy3
 			}
 			else if(SHED0==val){
 				setRightData(100,200,100,//dx,dy,dz
 						0,//roof_height
 						0,0,60,//dx1,dy1,dz1
 						0,//num_meridians
-						0,0,0);
+						0,0,0,0);//dx2,dy2,dz2,dy3
 			}
 			else if(STAND0==val){
 				setRightData(300,200,50,//dx,dy,dz
 						0,//roof_height
 						0,0,200,//dx1,dy1,dz1
 						0,//num_meridians
-						0,0,0);
+						0,0,0,0);//dx2,dy2,dz2,dy3
 			}
 			else if(CHIMNEY0==val){
 				setRightData(100,0,300,//dx,dy,dz
 						0,//roof_height
 						80,0,0,//dx1,dy1,dz1
 						12,//num_meridians
-						0,0,0);
+						0,0,0,0);//dx2,dy2,dz2,dy3
 			}
 			else if(HOUSE2_THREEWINGS==val){
 				setRightData(100,200,100,//dx,dy,dz
 						50,//roof_height
 						100,150,0,//dx1,dy1,dz1
 						0,//num_meridians
-						0,200,0//dx2,dy2,dy3
+						0,200,0,0//dx2,dy2,dz2,dy3
 						);
 			}
 			else if(HOUSE3_CROSSHOUSE==val) {
@@ -419,7 +428,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 						50,//roof_height
 						100,150,0,//dx1,dy1,dz1
 						0,//num_meridians
-						0,100,150//dx2,dy2,dy3
+						0,100,0,150//dx2,dy2,dz2,dy3
 						);
 			}
 			else if(CHURCH0==val){
@@ -427,7 +436,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 						42,//roof_height
 						312,195,229,//dx1,dy1,dz1
 						0,//num_meridians
-						312,520,195//dx2,dy2,dy3
+						312,520,300,195//dx2,dy2,dz2,dy3
 						);
 			}
 			else if(CHURCH1==val){
@@ -435,7 +444,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 						50,//roof_height
 						100,100,80,//dx1,dy1,dz1
 						0,//num_meridians
-						0,100,100//dx2,dy2,dy3
+						0,100,0,100//dx2,dy2,dz2,dy3
 						);
 			}
 			else if(HOUSE4_C_SHAPED==val){
@@ -443,7 +452,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 						50,//roof_height
 						100,300,0,//dx1,dy1,dz1
 						0,//num_meridians
-						100,0,0//dx2,dy2,dy3
+						100,0,0,0//dx2,dy2,dz2,dy3
 						);
 			}
 			else if(COURTYARD==val){
@@ -451,7 +460,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 						50,//roof_height
 						100,100,0,//dx1,dy1,dz1
 						0,//num_meridians
-						0,0,0//dx2,dy2,dy3
+						0,0,0,0//dx2,dy2,dz2,dy3
 						);
 			}
 		}		   
@@ -470,6 +479,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 			int num_merid,
 			double dx2,
 			double dy2,
+			double dz2,
 			double dy3
 			) {
 
@@ -484,6 +494,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		num_meridians.setText(num_merid);
 		dx2_text.setText(dx2);
 		dy2_text.setText(dy2);
+		dz2_text.setText(dz2);
 		dy3_text.setText(dy3);
 	}
 
