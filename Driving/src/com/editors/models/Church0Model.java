@@ -32,10 +32,11 @@ public class Church0Model extends MeshModel{
 	
 	public static String NAME="Church0";
 	
-	//wall texture points
-	protected int w0=0,w1=1,w2=2,w3=3;	
+	
 	//roof texture points
-	protected int r0=4,r1=5,r2=6,r3=7;
+	protected int r0=0,r1=1,r2=2,r3=3;
+	//wall texture points
+	protected int w0=4,w1=5,w2=6,w3=7;	
 	//facade points, from the below
 	protected int f00=8,f10=9,f20=10,f30=11;
 	protected int f01=12,f11=13,f21=14,f31=15;
@@ -98,27 +99,51 @@ public class Church0Model extends MeshModel{
 			mainCross[1][1][k]=addBPoint(dy3,dy,z);
 			
 			//adding the 4 aisles in anti-clockwise order,as distinct blocks
-			seAisle[0][0][k]=mainCross[2][0][k];
+			
 			seAisle[1][0][k]=addBPoint(dy3+dx+dy1,0.0,z1);
+			if(k==0){
+				seAisle[0][0][k]=mainCross[2][0][k];
+				seAisle[0][1][k]=mainCross[2][1][k];
+			}else{
+				
+				seAisle[0][0][k]=addBPoint(dy3+dx,0.0,z1);
+				seAisle[0][1][k]=addBPoint(dy3+dx,dy,z1);
+			}			
 			seAisle[1][1][k]=addBPoint(dy3+dx+dy1,dy,z1);
-			seAisle[0][1][k]=mainCross[2][1][k];		
+					
 
 			
-			neAisle[0][0][k]=mainCross[2][2][k];
 			neAisle[1][0][k]=addBPoint(dy3+dx+dy1,dy+dx1,z1);
+			if(k==0){
+				neAisle[0][0][k]=mainCross[2][2][k];
+				neAisle[0][1][k]=mainCross[2][3][k];
+			}else{
+				neAisle[0][0][k]=addBPoint(dy3+dx,dy+dx1,z1);
+				neAisle[0][1][k]=addBPoint(dy3+dx,dy+dx1+dy2,z1);
+			}			
 			neAisle[1][1][k]=addBPoint(dy3+dx+dy1,dy+dx1+dy2,z1);
-			neAisle[0][1][k]=mainCross[2][3][k];
+			
 
 			
 			nwAisle[0][0][k]=addBPoint(0,dy+dx1,z1);
-			nwAisle[1][0][k]=mainCross[1][2][k];
-			nwAisle[1][1][k]=mainCross[1][3][k];
+			if(k==0){
+				nwAisle[1][0][k]=mainCross[1][2][k];
+				nwAisle[1][1][k]=mainCross[1][3][k];
+			}else{
+				nwAisle[1][0][k]=addBPoint(dy3,dy+dx1,z1);
+				nwAisle[1][1][k]=addBPoint(dy3,dy+dx1+dy2,z1);
+			}
 			nwAisle[0][1][k]=addBPoint(0,dy+dx1+dy2,z1);
 
 			
 			swAisle[0][0][k]=addBPoint(0,0.0,z1);
-			swAisle[1][0][k]=mainCross[1][0][k];
-			swAisle[1][1][k]=mainCross[1][1][k];
+			if(k==0){
+				swAisle[1][0][k]=mainCross[1][0][k];
+				swAisle[1][1][k]=mainCross[1][1][k];
+			}else{
+				swAisle[1][0][k]=addBPoint(dy3,0.0,z1);
+				swAisle[1][1][k]=addBPoint(dy3,dy,z1);
+			}
 			swAisle[0][1][k]=addBPoint(0,dy,z1);
 
 		}
