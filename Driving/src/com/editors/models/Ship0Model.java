@@ -208,13 +208,14 @@ public class Ship0Model extends MeshModel{
 
 
 
-		IMG_WIDTH=(int) (2*bx+dxt+dxt);
-		IMG_HEIGHT=(int) (2*by+dyt);
+
 
 	}
 
 	private void buildTextures(double dxt, double dyt) {
 
+		int shift=1;
+		
 		//Texture points
 
 		double y=by;
@@ -227,12 +228,15 @@ public class Ship0Model extends MeshModel{
 		addTPoint(x+dxt, y+dyt,0);
 		addTPoint(x,y+dyt,0);
 
-
+		x+=shift;
 		//main deck		
 		addTPoint(x+dxt,y,0);
 		addTPoint(x+dxt+dxt,y,0);
 		addTPoint(x+dxt+dxt, y+dyt,0);
 		addTPoint(x+dxt,y+dyt,0);
+		
+		IMG_WIDTH=(int) (2*bx+dxt+dxt+shift);
+		IMG_HEIGHT=(int) (2*by+dyt);
 
 	}
 
