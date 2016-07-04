@@ -436,7 +436,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 						42,//roof_height
 						312,195,229,//dx1,dy1,dz1
 						0,//num_meridians
-						312,520,300,195//dx2,dy2,dz2,dy3
+						312,520,262,195//dx2,dy2,dz2,dy3
 						);
 			}
 			else if(CHURCH1==val){
