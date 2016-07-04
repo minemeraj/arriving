@@ -182,29 +182,17 @@ public class Gambrel0Model extends MeshModel{
 		bg.setStroke(new BasicStroke(0.1f));
 
 		//lower base
-		printTextureLine(bg,0,1);
-		printTextureLine(bg,1,2);
-		printTextureLine(bg,2,3);
-		printTextureLine(bg,3,0);
+		printTexturePolygon(bg,0,1,2,3);
 
 		//lateral faces
 		bg.setColor(Color.BLACK);
-		printTextureLine(bg,4,5);
-		printTextureLine(bg,5,10);
-		printTextureLine(bg,10,9);
-		printTextureLine(bg,9,4);
+		printTexturePolygon(bg,4,5,10,9);
 
-		printTextureLine(bg,5,6);
-		printTextureLine(bg,6,11);
-		printTextureLine(bg,11,10);
+		printTextureLine(bg,5,6,11,10);
 
-		printTextureLine(bg,6,7);
-		printTextureLine(bg,7,12);
-		printTextureLine(bg,12,11);
+		printTextureLine(bg,6,7,12,11);
 
-		printTextureLine(bg,7,8);
-		printTextureLine(bg,8,13);
-		printTextureLine(bg,13,12);
+		printTextureLine(bg,7,8,13,12);
 
         //gambrel gables
 		bg.setColor(Color.BLUE);
@@ -222,22 +210,14 @@ public class Gambrel0Model extends MeshModel{
 		printTextureLine(bg,17,11);
 		
 		//roof pitches
-		printTextureLine(bg,20,21);
-		printTextureLine(bg,21,23);
-		printTextureLine(bg,23,22);
-		printTextureLine(bg,22,20);
+		printTexturePolygon(bg,20,21,23,22);
 		
-		printTextureLine(bg,23,25);
-		printTextureLine(bg,25,24);
-		printTextureLine(bg,24,22);
+		printTextureLine(bg,23,25,24,22);
 
-		printTextureLine(bg,25,27);
-		printTextureLine(bg,27,26);
-		printTextureLine(bg,26,24);
+		printTextureLine(bg,25,27,26,24);
 		
-		printTextureLine(bg,27,29);
-		printTextureLine(bg,29,28);
-		printTextureLine(bg,28,26);
+		printTextureLine(bg,27,29,28,26);
+
 	}
 
 	private int[][][] faces={

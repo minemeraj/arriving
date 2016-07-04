@@ -83,11 +83,7 @@ public class RailWagon1Model extends RailWagon0Model{
 
 	@Override
 	protected int buildWagonFaces(int counter, BPoint[][][] wagon) {
-		
-		int w0=0;
-		int w1=1;
-		int w2=2;
-		int w3=3;
+
 		
 		BPoint[][] cylinder =wagon[0];
 		
@@ -98,7 +94,7 @@ public class RailWagon1Model extends RailWagon0Model{
 					cylinder[(i+1)%wagon.length][0],
 					cylinder[(i+1)%wagon.length][1],
 					cylinder[i][1], 
-					w0, w1, w2, w3);
+					b0, b1, b2, b3);
 		}
 		
 		return counter;

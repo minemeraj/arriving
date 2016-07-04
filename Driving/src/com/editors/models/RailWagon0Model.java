@@ -47,7 +47,7 @@ public class RailWagon0Model extends MeshModel{
 	protected int[][][] faces;
 
 	int basePoints=4;
-	private BPoint[][][] body;
+	protected BPoint[][][] body;
 	
 	private BPoint[][][] back;	
 	private BPoint[][] rWheelLeftFront;
@@ -65,8 +65,13 @@ public class RailWagon0Model extends MeshModel{
 	private double frontOverhang;
 	
 	public static String NAME="RailWagon";
+	
+	//body textures
+	protected int b0=0,b1=1,b2=2,b3=3;
+	//wheel textures
+	protected int w0=4,w1=5,w2=6,w3=7;
 
-
+	
 	public RailWagon0Model(
 			double dx, double dy, double dz, 
 			double dxf, double dyf, double dzf, 
@@ -119,8 +124,6 @@ public class RailWagon0Model extends MeshModel{
 		
 		buildWagon();
 
-		
-		int firstWheelTexturePoint=4;
 		buildTextures();
 
 
@@ -136,7 +139,7 @@ public class RailWagon0Model extends MeshModel{
 
 
 		
-		counter=buildBodyFaces(counter,firstWheelTexturePoint,totWheelPolygon);
+		counter=buildBodyFaces(counter,w0,totWheelPolygon);
 		
 		counter=buildWagonFaces(counter,wagon);
 		

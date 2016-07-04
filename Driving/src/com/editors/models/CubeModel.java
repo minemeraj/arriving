@@ -25,10 +25,7 @@ public class CubeModel extends MeshModel{
 	
 	public void printMeshData(PrintWriter pw) {
 		
-		super.printMeshData(pw);
-	
-
-		
+		super.printMeshData(pw);		
 		
 		print(pw,"f=[1]4/14 5/15 6/16 7/17");//TOP
 		
@@ -44,24 +41,16 @@ public class CubeModel extends MeshModel{
 	@Override
     public void initMesh() {
 
-    	
-    	points=new Vector();
-    	
-    	//lower and upper base
-    	for(int k=0;k<2;k++){
-    		
-    		double z=dz*k;
-    		
-    		addPoint(0.0,0.0,z);
-    		addPoint(dx,0.0,z);
-    		addPoint(dx,dy,z);
-    		addPoint(0.0,dy,z);
-    		
-    	}
+    	buildBody();
 
+    	buildTexture();    
     	
-    
-    	texturePoints=new Vector();
+    }
+
+
+	private void buildTexture() {
+		
+		texturePoints=new Vector();
 
     	//lower base
     	double y=by;
@@ -99,11 +88,26 @@ public class CubeModel extends MeshModel{
 
 		IMG_WIDTH=(int) (2*dy+2*dx+2*bx);
 		IMG_HEIGHT=(int) (dy*2+dz+2*by);
-    }
-    
+		
+	}
 
-
-
+	private void buildBody() {
+		
+    	points=new Vector();
+    	
+    	//lower and upper base
+    	for(int k=0;k<2;k++){
+    		
+    		double z=dz*k;
+    		
+    		addPoint(0.0,0.0,z);
+    		addPoint(dx,0.0,z);
+    		addPoint(dx,dy,z);
+    		addPoint(0.0,dy,z);
+    		
+    	}
+		
+	}
 
 	public void printTexture(Graphics2D bg) {
     
@@ -114,36 +118,22 @@ public class CubeModel extends MeshModel{
 		bg.setStroke(new BasicStroke(0.1f));
 		
 		//lower base
-		printTextureLine(bg,0,1);
-		printTextureLine(bg,1,2);
-		printTextureLine(bg,2,3);
-		printTextureLine(bg,3,0);
+		printTexturePolygon(bg,0,1,2,3);
 		
 		//lateral faces
 		bg.setColor(Color.BLACK);
-		printTextureLine(bg,4,5);
-		printTextureLine(bg,5,10);
-		printTextureLine(bg,10,9);
-		printTextureLine(bg,9,4);
+		printTexturePolygon(bg,4,5,10,9);
 		
-		printTextureLine(bg,5,6);
-		printTextureLine(bg,6,11);
-		printTextureLine(bg,11,10);
+		printTextureLine(bg,5,6,11,10);
 		
-		printTextureLine(bg,6,7);
-		printTextureLine(bg,7,12);
-		printTextureLine(bg,12,11);
+		printTextureLine(bg,6,7,12,11);
 		
-		printTextureLine(bg,7,8);
-		printTextureLine(bg,8,13);
-		printTextureLine(bg,13,12);
+		printTextureLine(bg,7,8,13,12);
+
 		
 		//upper base
 		bg.setColor(Color.BLUE);
-		printTextureLine(bg,14,15);
-		printTextureLine(bg,15,16);
-		printTextureLine(bg,16,17);
-		printTextureLine(bg,17,14);
+		printTexturePolygon(bg,14,15,16,17);
 	
 	
     }

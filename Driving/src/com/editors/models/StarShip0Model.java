@@ -35,6 +35,10 @@ public class StarShip0Model extends MeshModel{
 	double x0=0;
 	double y0=0;
 	double z0=0;
+	private BPoint[][] head;
+	private BPoint[][] body;
+	private BPoint[][] leftWing;
+	private BPoint[][] rightWing;
 
 	public StarShip0Model(
 			double dx, double dy, double dz, 
@@ -64,76 +68,12 @@ public class StarShip0Model extends MeshModel{
 
 	@Override
 	public void initMesh() {
-		points=new Vector<Point3D>();
-		texturePoints=new Vector();
-
-		Segments s0=new Segments(x0-dxFront*0.5,dxFront,y0+dy,dyfront,z0+dz*2,dzFront);
-
+	
 		int nz=2;
-
-		BPoint[][] head=new BPoint[2][4];
-		head[0][0] = addBPoint(0.0,0.0,0.0,s0);
-		head[0][1] = addBPoint(1.0,0.0,0.0,s0);
-		head[0][2] = addBPoint(1.0,1.0,0.0,s0);
-		head[0][3] = addBPoint(0.0,1.0,0.0,s0);
-
-		head[1][0] = addBPoint(0.0,0.0,1.0,s0);
-		head[1][1] = addBPoint(1.0,0.0,1.0,s0);
-		head[1][2] = addBPoint(1.0,1.0,1.0,s0);
-		head[1][3] = addBPoint(0.0,1.0,1.0,s0);
 		
-		s0=new Segments(x0-dx*0.5,dx,y0,dy,z0,dz);
+		buildBody();
 
-
-		BPoint[][] body=new BPoint[2][4];
-		body[0][0] = addBPoint(0.0,0.0,0.0,s0);
-		body[0][1] = addBPoint(1.0,0.0,0.0,s0);
-		body[0][2] = addBPoint(1.0,1.0,0.0,s0);
-		body[0][3] = addBPoint(0.0,1.0,0.0,s0);
-
-		body[1][0] = addBPoint(0.0,0.0,1.0,s0);
-		body[1][1] = addBPoint(1.0,0.0,1.0,s0);
-		body[1][2] = addBPoint(1.0,1.0,1.0,s0);
-		body[1][3] = addBPoint(0.0,1.0,1.0,s0);
-		
-		double y0Wing=dy-dyRear;
-		
-		s0=new Segments(x0-dxFront*2-dx*0.5,dx,y0Wing,dy,z0+dz*2,dz);
-
-
-		BPoint[][] leftWing=new BPoint[2][4];
-		leftWing[0][0] = addBPoint(0.0,0.0,0.0,s0);
-		leftWing[0][1] = addBPoint(1.0,0.0,0.0,s0);
-		leftWing[0][2] = addBPoint(1.0,1.0,0.0,s0);
-		leftWing[0][3] = addBPoint(0.0,1.0,0.0,s0);
-
-		leftWing[1][0] = addBPoint(0.0,0.0,1.0,s0);
-		leftWing[1][1] = addBPoint(1.0,0.0,1.0,s0);
-		leftWing[1][2] = addBPoint(1.0,1.0,1.0,s0);
-		leftWing[1][3] = addBPoint(0.0,1.0,1.0,s0);
-		
-		s0=new Segments(x0+dxFront*2+dx*0.5,dx,y0Wing,dy,z0+dz*2,dz);
-
-		BPoint[][] rightWing=new BPoint[2][4];
-		rightWing[0][0] = addBPoint(0.0,0.0,0.0,s0);
-		rightWing[0][1] = addBPoint(1.0,0.0,0.0,s0);
-		rightWing[0][2] = addBPoint(1.0,1.0,0.0,s0);
-		rightWing[0][3] = addBPoint(0.0,1.0,0.0,s0);
-
-		rightWing[1][0] = addBPoint(0.0,0.0,1.0,s0);
-		rightWing[1][1] = addBPoint(1.0,0.0,1.0,s0);
-		rightWing[1][2] = addBPoint(1.0,1.0,1.0,s0);
-		rightWing[1][3] = addBPoint(0.0,1.0,1.0,s0);
-
-		//Texture points
-
-		double y=by;
-		double x=bx;
-
-		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx, y+dy,0);
-		addTPoint(x,y+dy,0);
+		buildTextures();
 
 		//faces
 		int NF=6*4;
@@ -141,7 +81,12 @@ public class StarShip0Model extends MeshModel{
 		faces=new int[NF][3][4];
 
 		int counter=0;
+		counter=buildFaces(counter,nz);
 
+		
+	}
+
+	private int buildFaces(int counter, int nz) {
 		//head
 		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, head[0][0],head[0][3],head[0][2],head[0][1], 0, 1, 2, 3);
 
@@ -201,10 +146,96 @@ public class StarShip0Model extends MeshModel{
 
 		faces[counter++]=buildFace(Renderer3D.CAR_TOP,rightWing[nz-1][0],rightWing[nz-1][1],rightWing[nz-1][2],rightWing[nz-1][3], 0, 1, 2, 3);
 
+
+		return counter;
+	}
+
+
+
+	private void buildTextures() {
+		
+		texturePoints=new Vector();	
+		
+		//Texture points
+
+		double y=by;
+		double x=bx;
+
+		addTPoint(x,y,0);
+		addTPoint(x+dx,y,0);
+		addTPoint(x+dx, y+dy,0);
+		addTPoint(x,y+dy,0);
+		
 		IMG_WIDTH=(int) (2*bx+dx);
 		IMG_HEIGHT=(int) (2*by+dy);
-
+		
 	}
+
+
+
+	private void buildBody() {
+		
+		points=new Vector<Point3D>();
+		
+		Segments s0=new Segments(x0-dxFront*0.5,dxFront,y0+dy,dyfront,z0+dz*2,dzFront);
+
+		head=new BPoint[2][4];
+		head[0][0] = addBPoint(0.0,0.0,0.0,s0);
+		head[0][1] = addBPoint(1.0,0.0,0.0,s0);
+		head[0][2] = addBPoint(1.0,1.0,0.0,s0);
+		head[0][3] = addBPoint(0.0,1.0,0.0,s0);
+
+		head[1][0] = addBPoint(0.0,0.0,1.0,s0);
+		head[1][1] = addBPoint(1.0,0.0,1.0,s0);
+		head[1][2] = addBPoint(1.0,1.0,1.0,s0);
+		head[1][3] = addBPoint(0.0,1.0,1.0,s0);
+		
+		s0=new Segments(x0-dx*0.5,dx,y0,dy,z0,dz);
+
+
+		body=new BPoint[2][4];
+		body[0][0] = addBPoint(0.0,0.0,0.0,s0);
+		body[0][1] = addBPoint(1.0,0.0,0.0,s0);
+		body[0][2] = addBPoint(1.0,1.0,0.0,s0);
+		body[0][3] = addBPoint(0.0,1.0,0.0,s0);
+
+		body[1][0] = addBPoint(0.0,0.0,1.0,s0);
+		body[1][1] = addBPoint(1.0,0.0,1.0,s0);
+		body[1][2] = addBPoint(1.0,1.0,1.0,s0);
+		body[1][3] = addBPoint(0.0,1.0,1.0,s0);
+		
+		double y0Wing=dy-dyRear;
+		
+		s0=new Segments(x0-dxFront*2-dx*0.5,dx,y0Wing,dy,z0+dz*2,dz);
+
+
+		leftWing=new BPoint[2][4];
+		leftWing[0][0] = addBPoint(0.0,0.0,0.0,s0);
+		leftWing[0][1] = addBPoint(1.0,0.0,0.0,s0);
+		leftWing[0][2] = addBPoint(1.0,1.0,0.0,s0);
+		leftWing[0][3] = addBPoint(0.0,1.0,0.0,s0);
+
+		leftWing[1][0] = addBPoint(0.0,0.0,1.0,s0);
+		leftWing[1][1] = addBPoint(1.0,0.0,1.0,s0);
+		leftWing[1][2] = addBPoint(1.0,1.0,1.0,s0);
+		leftWing[1][3] = addBPoint(0.0,1.0,1.0,s0);
+		
+		s0=new Segments(x0+dxFront*2+dx*0.5,dx,y0Wing,dy,z0+dz*2,dz);
+
+		rightWing=new BPoint[2][4];
+		rightWing[0][0] = addBPoint(0.0,0.0,0.0,s0);
+		rightWing[0][1] = addBPoint(1.0,0.0,0.0,s0);
+		rightWing[0][2] = addBPoint(1.0,1.0,0.0,s0);
+		rightWing[0][3] = addBPoint(0.0,1.0,0.0,s0);
+
+		rightWing[1][0] = addBPoint(0.0,0.0,1.0,s0);
+		rightWing[1][1] = addBPoint(1.0,0.0,1.0,s0);
+		rightWing[1][2] = addBPoint(1.0,1.0,1.0,s0);
+		rightWing[1][3] = addBPoint(0.0,1.0,1.0,s0);
+		
+	}
+
+
 
 	@Override
 	public void printMeshData(PrintWriter pw) {

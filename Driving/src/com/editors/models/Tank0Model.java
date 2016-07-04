@@ -43,6 +43,9 @@ public class Tank0Model extends MeshModel{
 	private int[][][] faces;
 
 	int basePoints=4;
+	private BPoint[][][] body;
+	private BPoint[][][] turret;
+	private BPoint[][] cannon_barrel;
 	
 
 
@@ -75,48 +78,9 @@ public class Tank0Model extends MeshModel{
 		points=new Vector<Point3D>();
 		texturePoints=new Vector();
 		
-		Segments s0=new Segments(0,dx*0.5,0,dy,0,dz);
+		buildBody();
 		
-		BPoint[][][] body=new BPoint[2][2][2];
-		
-		body[0][0][0]=addBPoint(-1.0,0.0,0,s0);
-		body[1][0][0]=addBPoint(1.0,0.0,0,s0);
-		body[0][1][0]=addBPoint(-1.0,1.0,0,s0);
-		body[1][1][0]=addBPoint(1.0,1.0,0,s0);		
-		
-		body[0][0][1]=addBPoint(-1.0,0.0,1.0,s0);
-		body[1][0][1]=addBPoint(1.0,0.0,1.0,s0);
-		body[0][1][1]=addBPoint(-1.0,1.0,1.0,s0);
-		body[1][1][1]=addBPoint(1.0,1.0,1.0,s0);
-
-		
-		
-		Segments s1=new Segments(0,dxRoof*0.5,dyRear,dyRoof,dz,dzRoof);
-		
-		BPoint[][][] turret=new BPoint[2][2][2];
-		
-		turret[0][0][0]=addBPoint(-1.0,0.0,0,s1);
-		turret[1][0][0]=addBPoint(1.0,0.0,0,s1);
-		turret[0][1][0]=addBPoint(-1.0,1.0,0,s1);
-		turret[1][1][0]=addBPoint(1.0,1.0,0,s1);		
-		
-		turret[0][0][1]=addBPoint(-1.0,0.0,1.0,s1);
-		turret[1][0][1]=addBPoint(1.0,0.0,1.0,s1);
-		turret[0][1][1]=addBPoint(-1.0,1.0,1.0,s1);
-		turret[1][1][1]=addBPoint(1.0,1.0,1.0,s1);
-		
-
-		BPoint[][] cannon_barrel = addYCylinder(0,dyRoof+dyRear,dz+dzRear*0.5,10,100,10);
-
-		//Texture points
-
-		double y=by;
-		double x=bx;
-
-		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx, y+dy,0);
-		addTPoint(x,y+dy,0);
+		buildTextures();
 
 		//faces
 		int NF=6*2;
@@ -124,7 +88,13 @@ public class Tank0Model extends MeshModel{
 		faces=new int[NF+cannon_barrel.length][3][4];
 
 		int counter=0;
+		counter=buildFaces(counter);
 
+	}
+
+
+	private int buildFaces(int counter) {
+	
 		faces[counter++]=buildFace(Renderer3D.CAR_TOP, body[0][0][1],body[1][0][1],body[1][1][1],body[0][1][1], 0, 1, 2, 3);
 		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, body[0][0][0],body[0][0][1],body[0][1][1],body[0][1][0], 0, 1, 2, 3);
 		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, body[1][0][0],body[1][1][0],body[1][1][1],body[1][0][1], 0, 1, 2, 3);
@@ -151,9 +121,64 @@ public class Tank0Model extends MeshModel{
 					0, 1, 2, 3);
 		}
 		
+		return counter;
+	}
+
+
+	private void buildTextures() {
+		
+		
+		//Texture points
+
+		double y=by;
+		double x=bx;
+
+		addTPoint(x,y,0);
+		addTPoint(x+dx,y,0);
+		addTPoint(x+dx, y+dy,0);
+		addTPoint(x,y+dy,0);
+		
 		IMG_WIDTH=(int) (2*bx+dx);
 		IMG_HEIGHT=(int) (2*by+dy);
+		
+	}
 
+
+	private void buildBody() {
+		
+Segments s0=new Segments(0,dx*0.5,0,dy,0,dz);
+		
+		body=new BPoint[2][2][2];
+		
+		body[0][0][0]=addBPoint(-1.0,0.0,0,s0);
+		body[1][0][0]=addBPoint(1.0,0.0,0,s0);
+		body[0][1][0]=addBPoint(-1.0,1.0,0,s0);
+		body[1][1][0]=addBPoint(1.0,1.0,0,s0);		
+		
+		body[0][0][1]=addBPoint(-1.0,0.0,1.0,s0);
+		body[1][0][1]=addBPoint(1.0,0.0,1.0,s0);
+		body[0][1][1]=addBPoint(-1.0,1.0,1.0,s0);
+		body[1][1][1]=addBPoint(1.0,1.0,1.0,s0);
+
+		
+		
+		Segments s1=new Segments(0,dxRoof*0.5,dyRear,dyRoof,dz,dzRoof);
+		
+		turret=new BPoint[2][2][2];
+		
+		turret[0][0][0]=addBPoint(-1.0,0.0,0,s1);
+		turret[1][0][0]=addBPoint(1.0,0.0,0,s1);
+		turret[0][1][0]=addBPoint(-1.0,1.0,0,s1);
+		turret[1][1][0]=addBPoint(1.0,1.0,0,s1);		
+		
+		turret[0][0][1]=addBPoint(-1.0,0.0,1.0,s1);
+		turret[1][0][1]=addBPoint(1.0,0.0,1.0,s1);
+		turret[0][1][1]=addBPoint(-1.0,1.0,1.0,s1);
+		turret[1][1][1]=addBPoint(1.0,1.0,1.0,s1);
+		
+
+		cannon_barrel = addYCylinder(0,dyRoof+dyRear,dz+dzRear*0.5,10,100,10);
+		
 	}
 
 

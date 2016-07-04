@@ -52,79 +52,22 @@ public class TableModel extends MeshModel{
 
 		}
 
-		/*print("f=[1]4/14 5/15 6/16 7/17");//TOP
-
-		print("f=[0]0/4 1/5 5/10 4/9");//BACK
-		print("f=[3]1/5 2/6 6/11 5/10");//RIGHT
-		print("f=[4]2/6 3/7 7/12 6/11");//FRONT
-		print("f=[2]3/7 0/8 4/13 7/12");///LEFT
-
-		print("f=[5]0/0 3/1 2/2 1/3");//BOTTOM
-
-		//plane
-
-		print("f=[1]12/32 13/33 14/34 15/35");//TOP
-
-		print("f=[0]8/22 9/23 13/28 12/27");//BACK
-		print("f=[3]9/23 10/24 14/29 13/28");//RIGHT
-		print("f=[4]10/24 11/25 15/30 14/29");//FRONT
-		print("f=[2]11/25 8/26 12/31 15/30");///LEFT
-
-		print("f=[5]8/18 11/19 10/20 9/21");//BOTTOM*/
 
 	}
 
 
 	@Override
-	public void initMesh() {
-
-		points=new Vector();
-
-		//legs
+	public void initMesh() {		
 		
-		for(int l=0;l<4;l++){
-			for(int k=0;k<2;k++){
-	
-				double z=leg_length*k;
-				double x=0;
-				double y=0;
-				
-				if(l==1){
-					
-					x=dx-leg_side;
-					
-				}else if(l==2){
-					
-					y=dy-leg_side;
-					
-				}else if(l==3){
-					
-					y=dy-leg_side;
-					x=dx-leg_side;
-				}
-	
-				addPoint(x,y,z);
-				addPoint(x+leg_side,y,z);
-				addPoint(x+leg_side,y+leg_side,z);
-				addPoint(x,y+leg_side,z);
-	
-			}
-		}
-		//lower and upper base
-		for(int k=0;k<2;k++){
+		buildBody();		
+		
+		buildTexture();
+		
+	}
 
-			double z=leg_length+dz*k;
-
-			addPoint(0.0,0.0,z);
-			addPoint(dx,0.0,z);
-			addPoint(dx,dy,z);
-			addPoint(0.0,dy,z);
-
-		}
-
+	private void buildTexture() {
+		
 		texturePoints=new Vector();
-
-		/////ll leg
 
 		//lower base
 		double y=by;
@@ -197,10 +140,58 @@ public class TableModel extends MeshModel{
 
 		IMG_WIDTH=(int) (2*dy+2*dx+2*bx);
 		IMG_HEIGHT=(int) (dy*2+dz+2*by+leg_length+2*leg_side);
+
 	}
 
 
+	private void buildBody() {
+		
+		points=new Vector();
+		
+		//legs
+		
+		for(int l=0;l<4;l++){
+			for(int k=0;k<2;k++){
+	
+				double z=leg_length*k;
+				double x=0;
+				double y=0;
+				
+				if(l==1){
+					
+					x=dx-leg_side;
+					
+				}else if(l==2){
+					
+					y=dy-leg_side;
+					
+				}else if(l==3){
+					
+					y=dy-leg_side;
+					x=dx-leg_side;
+				}
+	
+				addPoint(x,y,z);
+				addPoint(x+leg_side,y,z);
+				addPoint(x+leg_side,y+leg_side,z);
+				addPoint(x,y+leg_side,z);
+	
+			}
+		}
+		//lower and upper base
+		for(int k=0;k<2;k++){
 
+			double z=leg_length+dz*k;
+
+			addPoint(0.0,0.0,z);
+			addPoint(dx,0.0,z);
+			addPoint(dx,dy,z);
+			addPoint(0.0,dy,z);
+
+		}
+
+		
+	}
 
 
 	public void printTexture(Graphics2D bg) {
@@ -212,73 +203,40 @@ public class TableModel extends MeshModel{
 		bg.setStroke(new BasicStroke(0.1f));
 
 		//lower base
-		printTextureLine(bg,0,1);
-		printTextureLine(bg,1,2);
-		printTextureLine(bg,2,3);
-		printTextureLine(bg,3,0);
+		printTexturePolygon(bg,0,1,2,3);
 
 		//lateral faces
 		bg.setColor(Color.BLACK);
-		printTextureLine(bg,4,5);
-		printTextureLine(bg,5,10);
-		printTextureLine(bg,10,9);
-		printTextureLine(bg,9,4);
+		printTexturePolygon(bg,4,5,10,9);
 
-		printTextureLine(bg,5,6);
-		printTextureLine(bg,6,11);
-		printTextureLine(bg,11,10);
+		printTextureLine(bg,5,6,11,10);
 
-		printTextureLine(bg,6,7);
-		printTextureLine(bg,7,12);
-		printTextureLine(bg,12,11);
+		printTextureLine(bg,6,7,12,11);
 
-		printTextureLine(bg,7,8);
-		printTextureLine(bg,8,13);
-		printTextureLine(bg,13,12);
+		printTextureLine(bg,7,8,13,12);
+
 
 		//upper base
 		bg.setColor(Color.BLUE);
-		printTextureLine(bg,14,15);
-		printTextureLine(bg,15,16);
-		printTextureLine(bg,16,17);
-		printTextureLine(bg,17,14);
-
+		printTexturePolygon(bg,14,15,16,17);
 
 		int c=18;
 
 		//lower base
 		bg.setColor(Color.RED);
-		printTextureLine(bg,c+0,c+1);
-		printTextureLine(bg,c+1,c+2);
-		printTextureLine(bg,c+2,c+3);
-		printTextureLine(bg,c+3,c+0);
+		printTexturePolygon(bg,c+0,c+1,c+2,c+3);
 
 		//lateral faces
 		bg.setColor(Color.BLACK);
-		printTextureLine(bg,c+4,c+5);
-		printTextureLine(bg,c+5,c+10);
-		printTextureLine(bg,c+10,c+9);
-		printTextureLine(bg,c+9,c+4);
+		printTexturePolygon(bg,c+4,c+5,c+10,c+9);
 
-		printTextureLine(bg,c+5,c+6);
-		printTextureLine(bg,c+6,c+11);
-		printTextureLine(bg,c+11,c+10);
-
-		printTextureLine(bg,c+6,c+7);
-		printTextureLine(bg,c+7,c+12);
-		printTextureLine(bg,c+12,c+11);
-
-		printTextureLine(bg,c+7,c+8);
-		printTextureLine(bg,c+8,c+13);
-		printTextureLine(bg,c+13,c+12);
+		printTextureLine(bg,c+5,c+6,c+11,c+10);
+		printTextureLine(bg,c+6,c+7,c+12,c+11);
+		printTextureLine(bg,c+7,c+8,c+13,c+12);
 
 		//upper base
 		bg.setColor(Color.BLUE);
-		printTextureLine(bg,c+14,c+15);
-		printTextureLine(bg,c+15,c+16);
-		printTextureLine(bg,c+16,c+17);
-		printTextureLine(bg,c+17,c+14);
-
+		printTexturePolygon(bg,c+14,c+15,c+16,c+17);
 
 	}
 

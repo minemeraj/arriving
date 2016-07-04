@@ -60,10 +60,17 @@ public class Shed0Model extends MeshModel{
 	@Override
 	public void initMesh() {
 
-		points=new Vector();
-		
-		double dzm=Math.max(dz,dz1);
 
+		buildBody();
+		buildTextures();
+
+		
+	}
+
+	private void buildBody() {
+		
+		points=new Vector();
+	
 		//lower and upper base
 		for(int k=0;k<2;k++){
 
@@ -77,10 +84,15 @@ public class Shed0Model extends MeshModel{
 
 		}
 		
+	}
 
+
+	private void buildTextures() {
+		
 		texturePoints=new Vector();
-
-	
+		
+		double dzm=Math.max(dz,dz1);
+		
 		///////main plane
 
 		//lower base
@@ -119,10 +131,8 @@ public class Shed0Model extends MeshModel{
 
 		IMG_WIDTH=(int) (2*bx+2*dy+2*dx);
 		IMG_HEIGHT=(int) (2*by+2*dy+dzm);
+		
 	}
-
-
-
 
 
 	public void printTexture(Graphics2D bg) {
