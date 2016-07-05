@@ -259,43 +259,29 @@ public class Truck0Model extends MeshModel{
 		double y=by;
 		double x=bx;
 
-		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx, y+dy,0);
-		addTPoint(x,y+dy,0);
-		
+		addTRect(x, y, dx, dy);
 		
 		//wagon points
 
 		x=bx+dx+shift;
 		y=by;
 
-		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx, y+dy,0);
-		addTPoint(x,y+dy,0);
+		addTRect(x, y, dx, dy);
 		
 		//window points
 
 		x=bx+2*dx+2*shift;
 		y=by;
 
-		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx, y+dy,0);
-		addTPoint(x,y+dy,0);
+		addTRect(x, y, dx, dy);
 
 
 		//wheel texture, a black square for simplicity:
 
 		x=bx+3*dx+3*shift;
 		y=by;
-
-		addTPoint(x,y,0);
-		addTPoint(x+wheelWidth,y,0);
-		addTPoint(x+wheelWidth,y+wheelWidth,0);
-		addTPoint(x,y+wheelWidth,0);
-				
+		
+		addTRect(x, y, wheelWidth, wheelWidth);
 
 		IMG_WIDTH=(int) (2*bx+3*dx+wheelWidth+3*shift);
 		IMG_HEIGHT=(int) (2*by+dy);

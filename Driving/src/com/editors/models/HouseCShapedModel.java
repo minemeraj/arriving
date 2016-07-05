@@ -13,7 +13,7 @@ import com.main.Renderer3D;
  * @author Administrator
  *
  */
-public class House4Model extends MeshModel{
+public class HouseCShapedModel extends MeshModel{
 
 	private double dx=100;
 	private double dx1=100;
@@ -28,7 +28,7 @@ public class House4Model extends MeshModel{
 	
 	public static String NAME="C Shaped";
 	
-	public House4Model(double dx, double dy, double dz,double roof_height,double dx1,double dy1,double dx2) {
+	public HouseCShapedModel(double dx, double dy, double dz,double roof_height,double dx1,double dy1,double dx2) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
@@ -92,13 +92,13 @@ public class House4Model extends MeshModel{
 		double x=bx;
 
 		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx,y+dy,0);
-		addTPoint(x+dx+dx1,y+dy,0);
-		addTPoint(x+dx+dx1,y,0);
-		addTPoint(x+dx+dx1+dx,y,0);
-		addTPoint(x+dx+dx1+dx,y+dy1,0);
-		addTPoint(x,y+dy1,0);
+		seqTPoint(dx,0);
+		seqTPoint(0,dy);
+		seqTPoint(dx1,0);
+		seqTPoint(0,-dy);
+		seqTPoint(dx2,0);
+		seqTPoint(0,dy1);
+		seqTPoint(-dx-dx1-dx2,0);
 		
 		//faces
 		y=by+dy1;
@@ -106,14 +106,14 @@ public class House4Model extends MeshModel{
 
 			double z=y+dz*k;
 			addTPoint(x,z,0);
-			addTPoint(x+dx,z,0);
-			addTPoint(x+dx+dy,z,0);
-			addTPoint(x+dx+dy+dx1,z,0);
-			addTPoint(x+dx+dy+dx1+dy,z,0);
-			addTPoint(x+dx+dy+dx1+dy+dx2,z,0);
-			addTPoint(x+dx+dy+dx1+dy+dx2+dy1,z,0);
-			addTPoint(x+dx+dy+dx1+dy+dx2+dy1+(dx+dx1+dx2),z,0);
-			addTPoint(x+dx+dy+dx1+dy+dx2+dy1+(dx+dx1+dx2)+dy1,z,0);
+			seqTPoint(dx,0);
+			seqTPoint(dy,0);
+			seqTPoint(dx1,0);
+			seqTPoint(dy,0);
+			seqTPoint(dx2,0);
+			seqTPoint(dy1,0);
+			seqTPoint(dx+dx1+dx2,0);
+			seqTPoint(dy1,0);
 		}	
 		
 		//gables tops

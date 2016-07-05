@@ -13,7 +13,7 @@ import com.main.Renderer3D;
  * @author Administrator
  *
  */
-public class House2Model extends MeshModel{
+public class HouseThreeWingsModel extends MeshModel{
 
 	private double dx=100;
 	private double dx1=100;
@@ -28,7 +28,7 @@ public class House2Model extends MeshModel{
 	
 	public static String NAME="Three wings";
 	
-	public House2Model(double dx, double dy, double dz,double roof_height,double dx1,double dy1,double dy2) {
+	public HouseThreeWingsModel(double dx, double dy, double dz,double roof_height,double dx1,double dy1,double dy2) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
@@ -105,13 +105,13 @@ public class House2Model extends MeshModel{
 		double x=bx;
 
 		addTPoint(x+dy2,y,0);
-		addTPoint(x+dy2+dx,y,0);
-		addTPoint(x+dy2+dx,y+dy,0);
-		addTPoint(x+dy2+dx+dy1,y+dy,0);
-		addTPoint(x+dy2+dx+dy1,y+dy+dx1,0);
-		addTPoint(x,y+dy+dx1,0);
-		addTPoint(x,y+dy,0);
-		addTPoint(x+dy2,y+dy,0);
+		seqTPoint(dx,0);
+		seqTPoint(0,dy);
+		seqTPoint(dy1,0);
+		seqTPoint(0,dx1);
+		seqTPoint(-dy1-dx-dy2,0);
+		seqTPoint(0,-dx1);
+		seqTPoint(dy2,0);
 
 		//faces
 		y=by+dy+dx1;
@@ -121,42 +121,42 @@ public class House2Model extends MeshModel{
 			double z=y+dz*k;
 			
 			addTPoint(x,z,0);
-			addTPoint(x+dx,z,0);
-			addTPoint(x+dx+dy,z,0);
-			addTPoint(x+dx+dy+dy1,z,0);
-			addTPoint(x+dx+dy+dy1+dx1,z,0);
-			addTPoint(x+dx+dy+dy1+dx1+(dx+dy1+dy2),z,0);
-			addTPoint(x+dx+dy+dy1+dx1+(dx+dy1+dy2)+dx1,z,0);
-			addTPoint(x+dx+dy+dy1+dx1+(dx+dy1+dy2)+dx1+dy2,z,0);
-			addTPoint(x+dx+dy+dy1+dx1+(dx+dy1+dy2)+dx1+dy2+dy,z,0);
+			seqTPoint(dx,0);
+			seqTPoint(dy,0);
+			seqTPoint(dy1,0);
+			seqTPoint(dx1,0);
+			seqTPoint(dx+dy1+dy2,0);
+			seqTPoint(dx1,0);
+			seqTPoint(dy2,0);
+			seqTPoint(dy,0);
+
 		}
 	
 		//gable tops
 		y=by+dy+dx1+dz;
-		addTPoint(x+dx*0.5,y+roof_height,0);	
-		addTPoint(x+dx+dy+dy1+dx*0.5,y+roof_height,0);		
-		addTPoint(x+dx+dy+dy1+dx+(dx+dy1+dy2)+dx1*0.5,y+roof_height,0);
+		addTPoint(x+dx*0.5,y+roof_height,0);
+		seqTPoint(dx*0.5+dy+dy1+dx1*0.5,0);
+		seqTPoint(dx1*0.5+(dx+dy1+dy2)+dx1*0.5,0);
 
 		x=bx;
 		y=by+dy+dx1+dz+roof_height;
 
 		//roof pitches
 		addTPoint(x+dy2,y,0);
-		addTPoint(x+dy2+dx*0.5,y,0);
-		addTPoint(x+dy2+dx,y,0);
+		seqTPoint(dx*0.5,0);
+		seqTPoint(dx*0.5,0);
 		
 		addTPoint(x,y+dy,0);
-		addTPoint(x+dy2,y+dy,0);
-		addTPoint(x+dy2+dx,y+dy,0);
-		addTPoint(x+dy2+dx+dy1,y+dy,0);
+		seqTPoint(dy2,0);
+		seqTPoint(dx,0);
+		seqTPoint(dy1,0);
 		
 		addTPoint(x,y+dy+dx1*0.5,0);
-		addTPoint(x+dy2+dx*0.5,y+dy+dx1*0.5,0);
-		addTPoint(x+dy2+dx+dy1,y+dy+dx1*0.5,0);
+		seqTPoint(dy2+dx*0.5,0);
+		seqTPoint(dx*0.5+dy1,0);
 		
 		addTPoint(x,y+dy+dx1,0);
-		addTPoint(x+dy2+dx+dy1,y+dy+dx1,0);
-	
+		seqTPoint(dy2+dx+dy1,0);	
 		
 		addTPoint(x+dy2,y+dy,0);
 		

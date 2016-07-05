@@ -14,7 +14,7 @@ import com.main.Renderer3D;
  * @author Administrator
  *
  */
-public class House3Model extends MeshModel{
+public class HouseCrossModel extends MeshModel{
 
 	private double dx=100;
 	private double dx1=100;
@@ -30,7 +30,7 @@ public class House3Model extends MeshModel{
 	
 	public static String NAME="Cross house";
 	
-	public House3Model(double dx, double dy, double dz,double roof_height,
+	public HouseCrossModel(double dx, double dy, double dz,double roof_height,
 			double dx1,double dy1,double dy2,double dy3
 			) {
 		super();
@@ -113,17 +113,17 @@ public class House3Model extends MeshModel{
 		double x=bx;
 
 		addTPoint(x+dy3,y,0);
-		addTPoint(x+dy3+dx,y,0);		
-		addTPoint(x+dy3+dx,y+dy,0);
-		addTPoint(x+dy3+dx+dy1,y+dy,0);
-		addTPoint(x+dy3+dx+dy1,y+dy+dx1,0);
-		addTPoint(x+dy3+dx,y+dy+dx1,0);		
-		addTPoint(x+dy3+dx,y+dy+dx1+dy2,0);
-		addTPoint(x+dy3,y+dy+dx1+dy2,0);
-		addTPoint(x+dy3,y+dy+dx1,0);
-		addTPoint(x,y+dy+dx1,0);		
-		addTPoint(x,y+dy,0);
-		addTPoint(x+dy3,y+dy,0);
+		seqTPoint(dx,0);		
+		seqTPoint(0,dy);
+		seqTPoint(dy1,0);
+		seqTPoint(0,dx1);
+		seqTPoint(-dy1,0);		
+		seqTPoint(0,dy2);
+		seqTPoint(-dx,0);
+		seqTPoint(0,-dy2);
+		seqTPoint(-dy3,0);		
+		seqTPoint(0,-dx1);
+		seqTPoint(dy3,0);
 		
 		//faces
 		y=by+dy+dx1+dy2;
@@ -134,18 +134,18 @@ public class House3Model extends MeshModel{
 			double z=y+dz*k;
 			
 			addTPoint(x,z,0);
-			addTPoint(x+dx,z,0);
-			addTPoint(x+dx+dy,z,0);
-			addTPoint(x+dx+dy+dy1,z,0);
-			addTPoint(x+dx+dy+dy1+dx1,z,0);
-			addTPoint(x+dx+dy+dy1+dx1+dy1,z,0);
-			addTPoint(x+dx+dy+dy1+dx1+dy1+dy2,z,0);
-			addTPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx,z,0);
-			addTPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx+dy2,z,0);
-			addTPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx+dy2+dy3,z,0);
-			addTPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx+dy2+dy3+dx1,z,0);
-			addTPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx+dy2+dy3+dx1+dy3,z,0);
-			addTPoint(x+dx+dy+dy1+dx1+dy1+dy2+dx+dy2+dy3+dx1+dy3+dy,z,0);
+			seqTPoint(dx,0);
+			seqTPoint(dy,0);
+			seqTPoint(dy1,0);
+			seqTPoint(dx1,0);
+			seqTPoint(dy1,0);
+			seqTPoint(dy2,0);
+			seqTPoint(dx,0);
+			seqTPoint(dy2,0);
+			seqTPoint(dy3,0);
+			seqTPoint(dx1,0);
+			seqTPoint(dy3,0);
+			seqTPoint(dy,0);
 		}	
 		
 		//gable tops

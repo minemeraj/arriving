@@ -89,34 +89,30 @@ public class BellTowerModel extends MeshModel{
 		//lower base
 		double y=by;
 		double x=bx;
-
-		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx, y+dy,0);
-		addTPoint(x,y+dy,0);
+		
+		addTRect(x, y, dx, dy);
 
 		//faces
 		y=by+dy;
 
 		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dy+dx,y,0);
-		addTPoint(x+dy+2*dx,y,0);
-		addTPoint(x+2*dy+2*dx,y,0);    	
-
+		seqTPoint(dx,0);
+		seqTPoint(dy,0);
+		seqTPoint(dx,0);
+		seqTPoint(dy,0);
 
 		addTPoint(x,y+dz,0);
-		addTPoint(x+dx,y+dz,0);
-		addTPoint(x+dy+dx,y+dz,0);
-		addTPoint(x+dy+2*dx,y+dz,0);
-		addTPoint(x+2*dy+2*dx,y+dz,0);
+		seqTPoint(dx,0);
+		seqTPoint(dy,0);
+		seqTPoint(dx,0);
+		seqTPoint(dy,0);
 	
 		//roof tops
 		y=by+dy+dz;
 		addTPoint(x+dx*0.5,y+roof_height,0);	
-		addTPoint(x+dx+dy*0.5,y+roof_height,0);
-		addTPoint(x+dx+dy+dx*0.5,y+roof_height,0);		
-		addTPoint(x+dx+dy+dx+dy*0.5,y+roof_height,0);	
+		seqTPoint(dx*0.5+dy*0.5,0);
+		seqTPoint(dx*0.5+dy*0.5,0);
+		seqTPoint(dx*0.5+dy*0.5,0);
 
 		IMG_WIDTH=(int) (2*bx+2*dy+2*dx);
 		IMG_HEIGHT=(int) (2*by+dy+dz+roof_height);
@@ -135,47 +131,28 @@ public class BellTowerModel extends MeshModel{
 		bg.setStroke(new BasicStroke(0.1f));
 
 		//lower base
-		printTextureLine(bg,0,1);
-		printTextureLine(bg,1,2);
-		printTextureLine(bg,2,3);
-		printTextureLine(bg,3,0);
+		printTexturePolygon(bg,0,1,2,3);
 
 		//lateral faces
 		bg.setColor(Color.BLACK);
-		printTextureLine(bg,4,5);
-		printTextureLine(bg,5,10);
-		printTextureLine(bg,10,9);
-		printTextureLine(bg,9,4);
+		printTexturePolygon(bg,4,5,10,9);
 
-		printTextureLine(bg,5,6);
-		printTextureLine(bg,6,11);
-		printTextureLine(bg,11,10);
+		printTextureLine(bg,5,6,11,10);
 
-		printTextureLine(bg,6,7);
-		printTextureLine(bg,7,12);
-		printTextureLine(bg,12,11);
+		printTextureLine(bg,6,7,12,11);
 
-		printTextureLine(bg,7,8);
-		printTextureLine(bg,8,13);
-		printTextureLine(bg,13,12);
+		printTextureLine(bg,7,8,13,12);
+
 
         //gables
 		bg.setColor(Color.BLACK);
-		printTextureLine(bg,9,10);
-		printTextureLine(bg,10,14);
-		printTextureLine(bg,14,9);
+		printTexturePolygon(bg,9,10,14);
 
-		printTextureLine(bg,10,11);
-		printTextureLine(bg,11,15);
-		printTextureLine(bg,15,10);
+		printTexturePolygon(bg,10,11,15);
 		
-		printTextureLine(bg,11,12);
-		printTextureLine(bg,12,16);
-		printTextureLine(bg,16,11);
+		printTexturePolygon(bg,11,12,16);
 		
-		printTextureLine(bg,12,13);
-		printTextureLine(bg,13,17);
-		printTextureLine(bg,17,12);
+		printTexturePolygon(bg,12,13,17);
 
 	}
 

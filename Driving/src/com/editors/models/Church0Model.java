@@ -253,18 +253,12 @@ public class Church0Model extends MeshModel{
 		double y=by;
 		double x=bx;
 
-		//walls
-		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx, y+dy,0);
-		addTPoint(x,y+dy,0);
+		//walls	
+		addTRect(x, y, dx, dy);
 		
 		//roof
 		x+=dx+shift;
-		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx, y+dy,0);
-		addTPoint(x,y+dy,0);
+		addTRect(x, y, dx, dy);
 
 		//facade made by the aisle and the first wing, points ranged in z levels
 		x+=dx+shift;

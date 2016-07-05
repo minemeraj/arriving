@@ -8,7 +8,7 @@ import java.util.Vector;
 
 import com.main.Renderer3D;
 
-public class House0Model extends MeshModel{
+public class HouseGableModel extends MeshModel{
 
 	private double dx=100;
 	private double dy=200;
@@ -21,7 +21,7 @@ public class House0Model extends MeshModel{
 	
 	public static String NAME="Gable0";
 	
-	public House0Model(double dx, double dy, double dz,double roof_height,double dy1) {
+	public HouseGableModel(double dx, double dy, double dz,double roof_height,double dy1) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
@@ -90,32 +90,30 @@ public class House0Model extends MeshModel{
 		//lower base
 		double y=by;
 		double x=bx;
-
-		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx, y+dy,0);
-		addTPoint(x,y+dy,0);
+		
+		addTRect(x, y, dx, dy);
 
 		//faces
 		y=by+dy;
 
 		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dy+dx,y,0);
-		addTPoint(x+dy+2*dx,y,0);
-		addTPoint(x+2*dy+2*dx,y,0);    	
+		seqTPoint(dx,0);
+		seqTPoint(dy,0);
+		seqTPoint(dx,0);
+		seqTPoint(dy,0);   	
 
 
 		addTPoint(x,y+dz,0);
-		addTPoint(x+dx,y+dz,0);
-		addTPoint(x+dy+dx,y+dz,0);
-		addTPoint(x+dy+2*dx,y+dz,0);
-		addTPoint(x+2*dy+2*dx,y+dz,0);
+		seqTPoint(dx,0);
+		seqTPoint(dy,0);
+		seqTPoint(dx,0);
+		seqTPoint(dy,0);
 	
 		//gable tops
 		y=by+dy+dz;
 		addTPoint(x+dx*0.5,y+roof_height,0);	
-		addTPoint(x+dx+dy+dx*0.5,y+roof_height,0);		
+		seqTPoint(dx+dy,0);
+	
 
 		x=bx+dx;
 		y=by+dy+dz+roof_height;

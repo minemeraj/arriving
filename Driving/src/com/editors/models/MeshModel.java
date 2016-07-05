@@ -114,67 +114,31 @@ public abstract class MeshModel {
 
 	}
 
-	void printTextureLine(Graphics2D graphics, int indx0,int indx1){
-
-
-		Point3D p0=(Point3D) texturePoints.elementAt(indx0);
-		Point3D p1=(Point3D) texturePoints.elementAt(indx1);
-
-
-		graphics.drawLine(cX(p0.x),cY(p0.y),cX(p1.x),cY(p1.y));	
-
+	
+	void printTextureLine(Graphics2D graphics, int... indexes){
+		
+		for (int i = 0; i < indexes.length-1; i++) {
+			
+			Point3D p0=(Point3D) texturePoints.elementAt(indexes[i]);
+			Point3D p1=(Point3D) texturePoints.elementAt(indexes[i+1]);
+			
+			graphics.drawLine(cX(p0.x),cY(p0.y),cX(p1.x),cY(p1.y));	
+		}
 	}
 
-	void printTextureLine(Graphics2D graphics, int indx0,int indx1,int indx2){
+
+	void printTexturePolygon(Graphics2D graphics, int... indexes){
 
 
-		Point3D p0=(Point3D) texturePoints.elementAt(indx0);
-		Point3D p1=(Point3D) texturePoints.elementAt(indx1);
-		Point3D p2=(Point3D) texturePoints.elementAt(indx2);
-
-		graphics.drawLine(cX(p0.x),cY(p0.y),cX(p1.x),cY(p1.y));	
-		graphics.drawLine(cX(p1.x),cY(p1.y),cX(p2.x),cY(p2.y));	
-
+		for (int i = 0; i < indexes.length; i++) {
+			
+			Point3D p0=(Point3D) texturePoints.elementAt(indexes[i]);
+			Point3D p1=(Point3D) texturePoints.elementAt(indexes[(i+1)%indexes.length]);
+			
+			graphics.drawLine(cX(p0.x),cY(p0.y),cX(p1.x),cY(p1.y));	
+		}
 	}
 
-	void printTextureLine(Graphics2D graphics, int indx0,int indx1,int indx2,int indx3){
-
-
-		Point3D p0=(Point3D) texturePoints.elementAt(indx0);
-		Point3D p1=(Point3D) texturePoints.elementAt(indx1);
-		Point3D p2=(Point3D) texturePoints.elementAt(indx2);
-		Point3D p3=(Point3D) texturePoints.elementAt(indx3);
-
-		graphics.drawLine(cX(p0.x),cY(p0.y),cX(p1.x),cY(p1.y));	
-		graphics.drawLine(cX(p1.x),cY(p1.y),cX(p2.x),cY(p2.y));	
-		graphics.drawLine(cX(p2.x),cY(p2.y),cX(p3.x),cY(p3.y));	
-	}
-
-	void printTexturePolygon(Graphics2D graphics, int indx0,int indx1,int indx2){
-
-
-		Point3D p0=(Point3D) texturePoints.elementAt(indx0);
-		Point3D p1=(Point3D) texturePoints.elementAt(indx1);
-		Point3D p2=(Point3D) texturePoints.elementAt(indx2);
-
-		graphics.drawLine(cX(p0.x),cY(p0.y),cX(p1.x),cY(p1.y));	
-		graphics.drawLine(cX(p1.x),cY(p1.y),cX(p2.x),cY(p2.y));	
-		graphics.drawLine(cX(p2.x),cY(p2.y),cX(p0.x),cY(p0.y));	
-	}
-
-	void printTexturePolygon(Graphics2D graphics, int indx0,int indx1,int indx2,int indx3){
-
-
-		Point3D p0=(Point3D) texturePoints.elementAt(indx0);
-		Point3D p1=(Point3D) texturePoints.elementAt(indx1);
-		Point3D p2=(Point3D) texturePoints.elementAt(indx2);
-		Point3D p3=(Point3D) texturePoints.elementAt(indx3);
-
-		graphics.drawLine(cX(p0.x),cY(p0.y),cX(p1.x),cY(p1.y));	
-		graphics.drawLine(cX(p1.x),cY(p1.y),cX(p2.x),cY(p2.y));	
-		graphics.drawLine(cX(p2.x),cY(p2.y),cX(p3.x),cY(p3.y));	
-		graphics.drawLine(cX(p3.x),cY(p3.y),cX(p0.x),cY(p0.y));	
-	}
 
 	private int cX(double x) {
 		return (int) x;
@@ -254,10 +218,52 @@ public abstract class MeshModel {
 
 	}
 
+	/**
+	 * Add a texture point
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
 	void addTPoint(double x, double y, double z) {
 
 		texturePoints.add(new Point3D(x,y,z));
 
+	}
+
+
+	/**
+	 * Add a Texture rectangle starting from the x,y point,
+	 * moving dx ,dy
+	 * @param x
+	 * @param y
+	 * @param dx
+	 * @param dy
+	 */
+	void addTRect(double x, double y, double dx,double dy) {
+
+		addTPoint(x,y,0);
+		addTPoint(x+dx,y,0);
+		addTPoint(x+dx, y+dy,0);
+		addTPoint(x,y+dy,0);
+
+	}
+	/**
+	 * Add a new texture points moving from the last one
+	 * It's more similar to the real action of drawing from point to point
+	 * 
+	 * @param x
+	 * @param y
+	 * @param dx
+	 * @param dy
+	 */
+	void seqTPoint( double dx,double dy) {
+		
+		if(texturePoints==null || texturePoints.isEmpty())
+			return;
+		
+		Point3D p=texturePoints.lastElement();
+		addTPoint(p.x+dx,p.y+dy,0);
 	}
 	
 

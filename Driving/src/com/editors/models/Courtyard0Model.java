@@ -103,11 +103,7 @@ public class Courtyard0Model extends MeshModel{
 		double y=by;
 		double x=bx;
 
-		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx,y+dy,0);
-		addTPoint(x,y+dy,0);
-		
+		addTRect(x,y,dx,dy);
 		
 		addTPoint(x+e,y+d,0);
 		addTPoint(x+dx-e,y+d,0);
@@ -115,7 +111,7 @@ public class Courtyard0Model extends MeshModel{
 		addTPoint(x+e,y+dy-d,0);
 		
 
-		//faces
+		//outer faces
 		y=by+dy;
 
 		for(int k=0;k<2;k++){
@@ -123,13 +119,14 @@ public class Courtyard0Model extends MeshModel{
 			double z=y+dz*k;
 		
 			addTPoint(x,z,0);
-			addTPoint(x+dx,z,0);
-			addTPoint(x+dy+dx,z,0);
-			addTPoint(x+dy+2*dx,z,0);
-			addTPoint(x+2*dy+2*dx,z,0);    	
+			seqTPoint(dx,0);
+			seqTPoint(dy,0);
+			seqTPoint(dx,0);
+			seqTPoint(dy,0);   	
 
 		}
 
+		//inner faces
 		y=by+dy+dz;
 
 		for(int k=0;k<2;k++){
@@ -137,10 +134,10 @@ public class Courtyard0Model extends MeshModel{
 			double z=y+dz*k;
 		
 			addTPoint(x,z,0);
-			addTPoint(x+dx1,z,0);
-			addTPoint(x+dy1+dx1,z,0);
-			addTPoint(x+dy1+2*dx1,z,0);
-			addTPoint(x+2*dy1+2*dx1,z,0);    	
+			seqTPoint(dx1,0);
+			seqTPoint(dy1,0);
+			seqTPoint(dx1,0);
+			seqTPoint(dy1,0);  	
 
 		}
 	
@@ -150,10 +147,7 @@ public class Courtyard0Model extends MeshModel{
 		y=by+dy+2*dz;
 
 		//roof pitches
-		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx,y+dy,0);
-		addTPoint(x,y+dy,0);
+		addTRect(x,y,dx,dy);
 		
 		addTPoint(x+e,y+d,0);
 		addTPoint(x+dx-e,y+d,0);

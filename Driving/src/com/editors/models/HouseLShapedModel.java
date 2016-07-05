@@ -13,7 +13,7 @@ import com.main.Renderer3D;
  * @author Administrator
  *
  */
-public class House1Model extends MeshModel{
+public class HouseLShapedModel extends MeshModel{
 
 	private double dx=100;
 	private double dy=200;
@@ -27,7 +27,7 @@ public class House1Model extends MeshModel{
 	
 	public static String NAME="L Shaped";
 	
-	public House1Model(double dx, double dy, double dz,double roof_height,double dx1, double dy1) {
+	public HouseLShapedModel(double dx, double dy, double dz,double roof_height,double dx1, double dy1) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
@@ -101,33 +101,33 @@ public class House1Model extends MeshModel{
 		double x=bx;
 		
 		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx,y+dy,0);
-		addTPoint(x+dx+dy1,y+dy,0);
-		addTPoint(x+dx+dy1,y+dy+dx1,0);
-		addTPoint(x,y+dy+dx1,0);
+		seqTPoint(dx,0);
+		seqTPoint(0,dy);
+		seqTPoint(dy1,0);
+		seqTPoint(0,dx1);
+		seqTPoint(-dx-dy1,0);
 
 	
 		//faces
 		y=by+dy+dx1;
 
 		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx+dy,y,0);
-		addTPoint(x+dx+dy+dy1,y,0);
-		addTPoint(x+dx+dy+dy1+dx1,y,0);    	
-		addTPoint(x+dx+dy+dy1+dx1+(dx+dy1),y,0);
-		addTPoint(x+dx+dy+dy1+dx1+(dx+dy1)+(dx1+dy),y,0);
+		seqTPoint(dx,0);
+		seqTPoint(dy,0);
+		seqTPoint(dy1,0);
+		seqTPoint(dx1,0);    	
+		seqTPoint(dx+dy1,0);
+		seqTPoint(dx1+dy,0);
 		
 		y=by+dy+dx1+dz;
 
 		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx+dy,y,0);
-		addTPoint(x+dx+dy+dy1,y,0);
-		addTPoint(x+dx+dy+dy1+dx1,y,0);    	
-		addTPoint(x+dx+dy+dy1+dx1+(dx+dy1),y,0);
-		addTPoint(x+dx+dy+dy1+dx1+(dx+dy1)+(dx1+dy),y,0);
+		seqTPoint(dx,0);
+		seqTPoint(dy,0);
+		seqTPoint(dy1,0);
+		seqTPoint(dx1,0);
+		seqTPoint(dx+dy1,0);
+		seqTPoint(dx1+dy,0);
 		
 		//gables tops
 		y=by+dy+dx1+dz+roof_height;
@@ -139,18 +139,18 @@ public class House1Model extends MeshModel{
 
 		//roof
 		addTPoint(x,y,0);
-		addTPoint(x+dx*0.5,y,0);
-		addTPoint(x+dx,y,0);
+		seqTPoint(dx*0.5,0);
+		seqTPoint(dx*0.5,0);
 		
 		addTPoint(x,y+dy,0);
-		addTPoint(x+dx,y+dy,0);
-		addTPoint(x+dx+dy1,y+dy,0);
-		
+		seqTPoint(dx,0);
+		seqTPoint(dy1,0);
+	
 		addTPoint(x+dx*0.5,y+dy+dx1*0.5,0);
-		addTPoint(x+dx+dy1,y+dy+dx1*0.5,0);
+		seqTPoint(dx*0.5+dy1,0);
 		
 		addTPoint(x,y+dy+dx1,0);
-		addTPoint(x+dx+dy1,y+dy+dx1,0);
+		seqTPoint(dx+dy1,0);
 
 		IMG_WIDTH=(int) (2*bx+2*(dx+dy+dy1+dx1));
 		IMG_HEIGHT=(int) (2*by+2*(dx1+dy)+dz+roof_height);

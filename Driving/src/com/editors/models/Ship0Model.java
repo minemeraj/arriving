@@ -181,10 +181,8 @@ public class Ship0Model extends MeshModel{
 		mainBridge[1][2]=addBPoint(1.0,1.0,1.0,s3);
 		mainBridge[1][3]=addBPoint(0.0,1.0,1.0,s3);
 
-		double dxt=200;
-		double dyt=200;
 		
-		buildTextures(dxt,dyt);
+		buildTextures();
 
 
 		//faces
@@ -212,7 +210,11 @@ public class Ship0Model extends MeshModel{
 
 	}
 
-	private void buildTextures(double dxt, double dyt) {
+	private void buildTextures() {
+		
+
+		double dxt=200;
+		double dyt=200;
 
 		int shift=1;
 		
@@ -220,20 +222,13 @@ public class Ship0Model extends MeshModel{
 
 		double y=by;
 		double x=bx;
-
-
+		
 		//hull
-		addTPoint(x,y,0);
-		addTPoint(x+dxt,y,0);
-		addTPoint(x+dxt, y+dyt,0);
-		addTPoint(x,y+dyt,0);
+		addTRect(x, y, dxt, dyt);
 
-		x+=shift;
+		x+=shift+dxt;
 		//main deck		
-		addTPoint(x+dxt,y,0);
-		addTPoint(x+dxt+dxt,y,0);
-		addTPoint(x+dxt+dxt, y+dyt,0);
-		addTPoint(x+dxt,y+dyt,0);
+		addTRect(x, y, dxt, dyt);
 		
 		IMG_WIDTH=(int) (2*bx+dxt+dxt+shift);
 		IMG_HEIGHT=(int) (2*by+dyt);

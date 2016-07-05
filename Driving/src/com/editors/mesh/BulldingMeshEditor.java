@@ -23,11 +23,11 @@ import com.editors.models.Church0Model;
 import com.editors.models.Church1Model;
 import com.editors.models.Courtyard0Model;
 import com.editors.models.Gambrel0Model;
-import com.editors.models.House0Model;
-import com.editors.models.House1Model;
-import com.editors.models.House2Model;
-import com.editors.models.House3Model;
-import com.editors.models.House4Model;
+import com.editors.models.HouseGableModel;
+import com.editors.models.HouseLShapedModel;
+import com.editors.models.HouseThreeWingsModel;
+import com.editors.models.HouseCrossModel;
+import com.editors.models.HouseCShapedModel;
 import com.editors.models.Mansard0Model;
 import com.editors.models.Shed0Model;
 import com.editors.models.Stand0Model;
@@ -218,15 +218,15 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		chooseBuilding.addItem(new ValuePair(""+CHURCH0,Church0Model.NAME));	
 		chooseBuilding.addItem(new ValuePair(""+CHURCH1,Church1Model.NAME));
 		chooseBuilding.addItem(new ValuePair(""+COURTYARD,Courtyard0Model.NAME));	
-		chooseBuilding.addItem(new ValuePair(""+HOUSE3_CROSSHOUSE,House3Model.NAME));
-		chooseBuilding.addItem(new ValuePair(""+HOUSE4_C_SHAPED,House4Model.NAME));
-		chooseBuilding.addItem(new ValuePair(""+HOUSE0_GABLE,House0Model.NAME));
+		chooseBuilding.addItem(new ValuePair(""+HOUSE3_CROSSHOUSE,HouseCrossModel.NAME));
+		chooseBuilding.addItem(new ValuePair(""+HOUSE4_C_SHAPED,HouseCShapedModel.NAME));
+		chooseBuilding.addItem(new ValuePair(""+HOUSE0_GABLE,HouseGableModel.NAME));
 		chooseBuilding.addItem(new ValuePair(""+GAMBREL0,Gambrel0Model.NAME));
-		chooseBuilding.addItem(new ValuePair(""+HOUSE1_LSHAPED,House1Model.NAME));			
+		chooseBuilding.addItem(new ValuePair(""+HOUSE1_LSHAPED,HouseLShapedModel.NAME));			
 		chooseBuilding.addItem(new ValuePair(""+MANSARD0,Mansard0Model.NAME));
 		chooseBuilding.addItem(new ValuePair(""+SHED0,Shed0Model.NAME));
 		chooseBuilding.addItem(new ValuePair(""+STAND0,Stand0Model.NAME)); 
-		chooseBuilding.addItem(new ValuePair(""+HOUSE2_THREEWINGS,House2Model.NAME));
+		chooseBuilding.addItem(new ValuePair(""+HOUSE2_THREEWINGS,HouseThreeWingsModel.NAME));
 
 		chooseBuilding.addItemListener(this);
 
@@ -276,9 +276,9 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 			val=HOUSE0_GABLE;
 
 		if(HOUSE0_GABLE==val)
-			meshModel=new House0Model(dx,dy,dz,rh,dy1);
+			meshModel=new HouseGableModel(dx,dy,dz,rh,dy1);
 		else if(HOUSE1_LSHAPED==val)
-			meshModel=new House1Model(dx,dy,dz,rh,dx1,dy1);
+			meshModel=new HouseLShapedModel(dx,dy,dz,rh,dx1,dy1);
 		else if(MANSARD0==val)
 			meshModel=new Mansard0Model(dx,dy,dz,rh,dx1,dy1);
 		else if(GAMBREL0==val)
@@ -292,15 +292,15 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 		else if(CHIMNEY0==val)
 			meshModel=new Chimney0Model(dx,dx1,dz,num_mer);
 		else if(HOUSE2_THREEWINGS==val)
-			meshModel=new House2Model(dx,dy,dz,rh,dx1,dy1,dy2);
+			meshModel=new HouseThreeWingsModel(dx,dy,dz,rh,dx1,dy1,dy2);
 		else if(HOUSE3_CROSSHOUSE==val)
-			meshModel=new House3Model(dx,dy,dz,rh,dx1,dy1,dy2,dy3);
+			meshModel=new HouseCrossModel(dx,dy,dz,rh,dx1,dy1,dy2,dy3);
 		else if(CHURCH0==val)
 			meshModel=new Church0Model(dx,dy,dz,rh,dx1,dy1,dy2,dy3,dz1,dz2);
 		else if(CHURCH1==val)
 			meshModel=new Church1Model(dx,dy,dz,rh,dx1,dy1,dy2,dy3,dz1,dz2);
 		else if(HOUSE4_C_SHAPED==val)
-			meshModel=new House4Model(dx,dy,dz,rh,dx1,dy1,dx2);
+			meshModel=new HouseCShapedModel(dx,dy,dz,rh,dx1,dy1,dx2);
 		else if(COURTYARD==val)
 			meshModel=new Courtyard0Model(dx,dy,dz,rh,dx1,dy1);
 		
