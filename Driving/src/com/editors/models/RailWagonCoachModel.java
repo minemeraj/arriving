@@ -108,9 +108,7 @@ public class RailWagonCoachModel extends RailWagonBulkModel{
 				wagon[0][2][1]=addBPoint(0,dyRoof,zc+r);
 				wagon[0][3][1]=addBPoint(+r*Math.cos(teta1),dyRoof,zc+r*Math.sin(teta1));
 				wagon[0][4][1]=body[pnx-1][pny-1][pnz-1];
-				
 
-		
 		}
 
 

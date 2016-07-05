@@ -566,35 +566,35 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						13,4,10//wheel_radius, wheel_width, wheel_rays
 						);
 			else if(RAILWAGON_TANK==val)
-				setRightData(69,400,7,//dx, dy, dz
+				setRightData(65,407,7,//dx, dy, dz
 						41,51,14,//dxFront, dyFront, dzFront						
 						41,51,14,//dxRear, dyRear, dzRear
-						70,348,70,//dxRoof, dyRoof, dzRoof
+						83,374,83,//dxRoof, dyRoof, dzRoof
 						29,29,//rearOverhang, frontOverhang
 						13,4,10//wheel_radius, wheel_width, wheel_rays
 						);
 			else if(RAILWAGON_BULK==val)
-				setRightData(69,400,7,//dx, dy, dz
-						41,51,14,//dxFront, dyFront, dzFront						
-						41,51,14,//dxRear, dyRear, dzRear
-						70,348,70,//dxRoof, dyRoof, dzRoof
-						29,29,//rearOverhang, frontOverhang
+				setRightData(78,364,6,//dx, dy, dz
+						41,57,16,//dxFront, dyFront, dzFront						
+						41,57,16,//dxRear, dyRear, dzRear
+						78,364,56,//dxRoof, dyRoof, dzRoof
+						32,32,//rearOverhang, frontOverhang
 						13,4,10//wheel_radius, wheel_width, wheel_rays
 						);
 			else if(RAILWAGON_COAL==val)
-				setRightData(69,400,7,//dx, dy, dz
-						41,51,14,//dxFront, dyFront, dzFront						
-						41,51,14,//dxRear, dyRear, dzRear
-						70,348,70,//dxRoof, dyRoof, dzRoof
-						29,29,//rearOverhang, frontOverhang
+				setRightData(63,263,13,//dx, dy, dz
+						41,51,16,//dxFront, dyFront, dzFront						
+						41,51,16,//dxRear, dyRear, dzRear
+						100,263,61,//dxRoof, dyRoof, dzRoof
+						0,0,//rearOverhang, frontOverhang
 						13,4,10//wheel_radius, wheel_width, wheel_rays
 						);
 			else if(RAILWAGON_COACH==val)
-				setRightData(69,400,7,//dx, dy, dz
-						41,51,14,//dxFront, dyFront, dzFront						
-						41,51,14,//dxRear, dyRear, dzRear
-						70,348,70,//dxRoof, dyRoof, dzRoof
-						29,29,//rearOverhang, frontOverhang
+				setRightData(80,746,70,//dx, dy, dz
+						41,71,18,//dxFront, dyFront, dzFront						
+						41,71,18,//dxRear, dyRear, dzRear
+						80,746,14,//dxRoof, dyRoof, dzRoof
+						64,64,//rearOverhang, frontOverhang
 						13,4,10//wheel_radius, wheel_width, wheel_rays
 						);
 		}
