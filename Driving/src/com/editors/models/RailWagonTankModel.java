@@ -49,7 +49,7 @@ public class RailWagonTankModel extends RailWagon0Model{
 		buildTextures();
 		
 		//faces
-		int NF=6*2+wagonRays;
+		int NF=6*3+wagonRays;
 		
 		int totWheelPolygon=wheelRays+2*(wheelRays-2);
 		int NUM_WHEEL_FACES=8*totWheelPolygon;

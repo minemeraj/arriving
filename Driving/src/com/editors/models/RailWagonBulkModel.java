@@ -14,7 +14,7 @@ import com.main.Renderer3D;
  * @author Administrator
  *
  */
-public class RailWagon2Model extends RailWagon0Model{
+public class RailWagonBulkModel extends RailWagon0Model{
 
 	protected Prism prismRight;
 	protected Prism prismLeft;
@@ -24,7 +24,7 @@ public class RailWagon2Model extends RailWagon0Model{
 	public static String NAME="RailWagon";
 
 
-	public RailWagon2Model(
+	public RailWagonBulkModel(
 			double dx, double dy, double dz, 
 			double dxFront, double dyFront, double dzFront, 
 			double dxRear, double dyRear,	double dzRear,

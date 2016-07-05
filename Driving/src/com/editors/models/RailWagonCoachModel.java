@@ -12,12 +12,16 @@ import com.main.Renderer3D;
  * @author Administrator
  *
  */
-public class RailWagon4Model extends RailWagon2Model{
+public class RailWagonCoachModel extends RailWagonBulkModel{
 	
 	public static String NAME="RailWagon";
+	
+	
+	int rnumx=5;
+	int rnumy=2;
 
 
-	public RailWagon4Model(
+	public RailWagonCoachModel(
 			double dx, double dy, double dz, 
 			double dxFront, double dyFront, double dzFront, 
 			double dxRear, double dyRear,	double dzRear,
@@ -53,7 +57,7 @@ public class RailWagon4Model extends RailWagon2Model{
 
 
 		//faces
-		int NF=6*3+10;
+		int NF=6*3+(rnumx-1)*(rnumy-1)+2;
 		
 		int totWheelPolygon=wheelRays+2*(wheelRays-2);
 		int NUM_WHEEL_FACES=8*totWheelPolygon;
@@ -91,9 +95,6 @@ public class RailWagon4Model extends RailWagon2Model{
 				double teta0=Math.atan((r-h)/l);			
 				double teta1=Math.PI*0.25+0.5*teta0;
 				
-				int rnumx=5;
-				int rnumy=2;
-				
 				wagon=new BPoint[1][rnumx][rnumy];
 				
 				wagon[0][0][0]=body[0][0][pnz-1];
@@ -118,9 +119,7 @@ public class RailWagon4Model extends RailWagon2Model{
 	
 	@Override
 	protected int buildWagonFaces(int counter) {
-		
-		int rnumx=3;
-		int rnumy=4;
+
 		
 		BPoint[][] roof = wagon[0];
 		

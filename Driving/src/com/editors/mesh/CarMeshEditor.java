@@ -20,6 +20,10 @@ import com.editors.models.Byke0Model;
 import com.editors.models.Car0Model;
 import com.editors.models.F10Model;
 import com.editors.models.RailWagon0Model;
+import com.editors.models.RailWagonBulkModel;
+import com.editors.models.RailWagonCoalModel;
+import com.editors.models.RailWagonCoachModel;
+import com.editors.models.RailWagonTankModel;
 import com.editors.models.Ship0Model;
 import com.editors.models.StarShip0Model;
 import com.editors.models.Tank0Model;
@@ -60,6 +64,10 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 	public static int BYKE0=7;
 	public static int TANKTRUCK0=8;
 	public static int RAILWAGON0=9;
+	public static int RAILWAGON_TANK=10;
+	public static int RAILWAGON_BULK=11;
+	public static int RAILWAGON_COAL=12;
+	public static int RAILWAGON_COACH=13;
 
 	public static void main(String[] args) {
 
@@ -273,7 +281,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		center.add(jlb);
 
 		chooseObject=new JComboBox();
-		chooseObject.setBounds(col1, r, 100, 20);
+		chooseObject.setBounds(col1, r, 150, 20);
 		chooseObject.addKeyListener(this);
 		chooseObject.addItem(new ValuePair("-1",""));
 		chooseObject.addItem(new ValuePair(""+AIRPLANE0,"Airplane"));
@@ -281,10 +289,14 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		chooseObject.addItem(new ValuePair(""+CAR0,"Car"));	
 		chooseObject.addItem(new ValuePair(""+F10,"F10"));		
 		chooseObject.addItem(new ValuePair(""+RAILWAGON0,"Railwagon"));
+		chooseObject.addItem(new ValuePair(""+RAILWAGON_BULK,"Railwagon Bulk"));		
+		chooseObject.addItem(new ValuePair(""+RAILWAGON_COAL,"Railwagon Coal"));
+		chooseObject.addItem(new ValuePair(""+RAILWAGON_COACH,"Railwagon Coach"));
+		chooseObject.addItem(new ValuePair(""+RAILWAGON_TANK,"Railwagon Tank "));
 		chooseObject.addItem(new ValuePair(""+SHIP0,"Ship"));
 		chooseObject.addItem(new ValuePair(""+STARSHIP0,"Starship"));
 		chooseObject.addItem(new ValuePair(""+TANK0,"Tank0"));
-		chooseObject.addItem(new ValuePair(""+TANKTRUCK0,"TankTruck"));
+		chooseObject.addItem(new ValuePair(""+TANKTRUCK0,"Tank Truck"));		
 		chooseObject.addItem(new ValuePair(""+TRUCK0,"Truck"));
 		chooseObject.addItemListener(this);		
 
@@ -391,6 +403,38 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 					dxRoof,dyRoof,dzRoof);
 		else if(val==RAILWAGON0)
 			meshModel=new RailWagon0Model(
+					dx,dy,dz,
+					dxf,dyf,dzf,
+					dxr,dyr,dzr,
+					dxRoof,dyRoof,dzRoof,
+					rearOverhang,frontOverhang,
+					wheelRadius,wheelWidth,wheelRays);
+		else if(val==RAILWAGON_TANK)
+			meshModel=new RailWagonTankModel(
+					dx,dy,dz,
+					dxf,dyf,dzf,
+					dxr,dyr,dzr,
+					dxRoof,dyRoof,dzRoof,
+					rearOverhang,frontOverhang,
+					wheelRadius,wheelWidth,wheelRays);
+		else if(val==RAILWAGON_BULK)
+			meshModel=new RailWagonBulkModel(
+					dx,dy,dz,
+					dxf,dyf,dzf,
+					dxr,dyr,dzr,
+					dxRoof,dyRoof,dzRoof,
+					rearOverhang,frontOverhang,
+					wheelRadius,wheelWidth,wheelRays);
+		else if(val==RAILWAGON_COAL)
+			meshModel=new RailWagonCoalModel(
+					dx,dy,dz,
+					dxf,dyf,dzf,
+					dxr,dyr,dzr,
+					dxRoof,dyRoof,dzRoof,
+					rearOverhang,frontOverhang,
+					wheelRadius,wheelWidth,wheelRays);
+		else if(val==RAILWAGON_COACH)
+			meshModel=new RailWagonCoachModel(
 					dx,dy,dz,
 					dxf,dyf,dzf,
 					dxr,dyr,dzr,
@@ -506,6 +550,46 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						0,0,0//wheel_radius, wheel_width, wheel_rays
 						);
 			else if(RAILWAGON0==val)
+				setRightData(69,400,7,//dx, dy, dz
+						41,51,14,//dxFront, dyFront, dzFront						
+						41,51,14,//dxRear, dyRear, dzRear
+						70,348,70,//dxRoof, dyRoof, dzRoof
+						29,29,//rearOverhang, frontOverhang
+						13,4,10//wheel_radius, wheel_width, wheel_rays
+						);
+			else if(RAILWAGON0==val)
+				setRightData(69,400,7,//dx, dy, dz
+						41,51,14,//dxFront, dyFront, dzFront						
+						41,51,14,//dxRear, dyRear, dzRear
+						70,348,70,//dxRoof, dyRoof, dzRoof
+						29,29,//rearOverhang, frontOverhang
+						13,4,10//wheel_radius, wheel_width, wheel_rays
+						);
+			else if(RAILWAGON_TANK==val)
+				setRightData(69,400,7,//dx, dy, dz
+						41,51,14,//dxFront, dyFront, dzFront						
+						41,51,14,//dxRear, dyRear, dzRear
+						70,348,70,//dxRoof, dyRoof, dzRoof
+						29,29,//rearOverhang, frontOverhang
+						13,4,10//wheel_radius, wheel_width, wheel_rays
+						);
+			else if(RAILWAGON_BULK==val)
+				setRightData(69,400,7,//dx, dy, dz
+						41,51,14,//dxFront, dyFront, dzFront						
+						41,51,14,//dxRear, dyRear, dzRear
+						70,348,70,//dxRoof, dyRoof, dzRoof
+						29,29,//rearOverhang, frontOverhang
+						13,4,10//wheel_radius, wheel_width, wheel_rays
+						);
+			else if(RAILWAGON_COAL==val)
+				setRightData(69,400,7,//dx, dy, dz
+						41,51,14,//dxFront, dyFront, dzFront						
+						41,51,14,//dxRear, dyRear, dzRear
+						70,348,70,//dxRoof, dyRoof, dzRoof
+						29,29,//rearOverhang, frontOverhang
+						13,4,10//wheel_radius, wheel_width, wheel_rays
+						);
+			else if(RAILWAGON_COACH==val)
 				setRightData(69,400,7,//dx, dy, dz
 						41,51,14,//dxFront, dyFront, dzFront						
 						41,51,14,//dxRear, dyRear, dzRear

@@ -12,13 +12,13 @@ import com.Segments;
  * @author Administrator
  *
  */
-public class RailWagon3Model extends RailWagon2Model{
+public class RailWagonCoalModel extends RailWagonBulkModel{
 
 	
 	public static String NAME="RailWagon";
 
 
-	public RailWagon3Model(
+	public RailWagonCoalModel(
 			double dx, double dy, double dz, 
 			double dxFront, double dyFront, double dzFront, 
 			double dxRear, double dyRear,	double dzRear,
@@ -57,7 +57,7 @@ public class RailWagon3Model extends RailWagon2Model{
 
 
 		//faces
-		int NF=6*4;
+		int NF=6*3+6*4;
 		
 		int totWheelPolygon=wheelRays+2*(wheelRays-2);
 		int NUM_WHEEL_FACES=8*totWheelPolygon;
