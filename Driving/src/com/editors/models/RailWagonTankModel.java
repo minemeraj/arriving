@@ -12,11 +12,11 @@ import com.main.Renderer3D;
  * @author Administrator
  *
  */
-public class RailWagon1Model extends RailWagon0Model{
+public class RailWagonTankModel extends RailWagon0Model{
 
 	private int wagonRays=20;
 
-	public RailWagon1Model(
+	public RailWagonTankModel(
 			double dx, double dy, double dz, 
 			double dxFront, double dyFront, double dzFront, 
 			double dxRear, double dyRear,	double dzRear, 
