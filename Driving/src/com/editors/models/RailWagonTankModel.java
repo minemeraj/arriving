@@ -91,10 +91,11 @@ public class RailWagonTankModel extends RailWagon0Model{
 			
 			faces[counter++]=buildFace(Renderer3D.CAR_TOP, 
 					cylinder[i][0],
-					cylinder[(i+1)%wagon.length][0],
-					cylinder[(i+1)%wagon.length][1],
+					cylinder[(i+1)%cylinder.length][0],
+					cylinder[(i+1)%cylinder.length][1],
 					cylinder[i][1], 
 					b0, b1, b2, b3);
+
 		}
 		
 		return counter;
