@@ -101,7 +101,7 @@ public class TankTruck0Model extends Truck0Model{
 					wagon[(i+1)%wagon.length][0],
 					wagon[(i+1)%wagon.length][1],
 					wagon[i][1], 
-					c0, c1, c2, c3);
+					bo[0]);
 		}
 		
 		
