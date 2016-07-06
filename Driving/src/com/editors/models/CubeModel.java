@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 import java.io.PrintWriter;
 import java.util.Vector;
 
+import com.Point3D;
+
 public class CubeModel extends MeshModel{
 	
 	private double dx=100;
@@ -50,40 +52,40 @@ public class CubeModel extends MeshModel{
 
 	private void buildTexture() {
 		
-		texturePoints=new Vector();
+		texturePoints=new Vector<Point3D>();
 
     	//lower base
     	double y=by;
     	double x=bx;
     	
      	addTPoint(x,y,0);
-    	addTPoint(x+dx,y,0);
-    	addTPoint(x+dx, y+dy,0);
-    	addTPoint(x,y+dy,0);
+    	seqTPoint(dx,0);
+    	seqTPoint(0,dy);
+    	seqTPoint(-dx,0);
     	
     	//faces
     	y=by+dy;
         
     	addTPoint(x,y,0);
-    	addTPoint(x+dx,y,0);
-    	addTPoint(x+dy+dx,y,0);
-    	addTPoint(x+dy+2*dx,y,0);
-    	addTPoint(x+2*dy+2*dx,y,0);    	
+    	seqTPoint(dx,0);
+    	seqTPoint(dy,0);
+    	seqTPoint(dx,0);
+    	seqTPoint(dy,0);  	
     	
     	
     	addTPoint(x,y+dz,0);
-    	addTPoint(x+dx,y+dz,0);
-    	addTPoint(x+dy+dx,y+dz,0);
-    	addTPoint(x+dy+2*dx,y+dz,0);
-    	addTPoint(x+2*dy+2*dx,y+dz,0);
+    	seqTPoint(dx,0);
+    	seqTPoint(dy,0);
+    	seqTPoint(dx,0);
+    	seqTPoint(dy,0);
     	
     	y=by+dy+dz;
     	
     	//upper base
       	addTPoint(x,y,0);
-    	addTPoint(x+dx,y,0);
-    	addTPoint(x+dx,y+dy,0);
-    	addTPoint(x,y+dy,0);
+    	seqTPoint(dx,0);
+    	seqTPoint(0,dy);
+    	seqTPoint(-dx,0);
 
 
 		IMG_WIDTH=(int) (2*dy+2*dx+2*bx);
@@ -93,7 +95,7 @@ public class CubeModel extends MeshModel{
 
 	private void buildBody() {
 		
-    	points=new Vector();
+    	points=new Vector<Point3D>();
     	
     	//lower and upper base
     	for(int k=0;k<2;k++){

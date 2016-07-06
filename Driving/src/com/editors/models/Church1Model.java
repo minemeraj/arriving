@@ -130,26 +130,23 @@ public class Church1Model extends Church0Model{
 
 	private int buildAisle(int counter, BPoint[][][] swAisle) {
 		
-		int c0=0;
-		int c1=1;
-		int c2=2;
-		int c3=3;
+
 		
-		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, swAisle[0][0][0],swAisle[0][1][0],swAisle[1][1][0],swAisle[0][1][0], c0, c1, c2, c3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, swAisle[0][0][0],swAisle[1][0][0],swAisle[1][0][1],swAisle[0][0][1], c0, c1, c2, c3);
-		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, swAisle[0][0][0],swAisle[0][0][1],swAisle[0][1][1],swAisle[0][1][0], c0, c1, c2, c3);
-		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, swAisle[1][0][0],swAisle[1][1][0],swAisle[1][1][1],swAisle[1][0][1], c0, c1, c2, c3);
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP, swAisle[0][0][1],swAisle[1][0][1],swAisle[1][1][1],swAisle[0][1][1], c0, c1, c2, c3);
-		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, swAisle[0][1][0],swAisle[0][1][1],swAisle[1][1][1],swAisle[1][1][0], c0, c1, c2, c3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, swAisle[0][0][0],swAisle[0][1][0],swAisle[1][1][0],swAisle[0][1][0],wa[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, swAisle[0][0][0],swAisle[1][0][0],swAisle[1][0][1],swAisle[0][0][1], wa[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, swAisle[0][0][0],swAisle[0][0][1],swAisle[0][1][1],swAisle[0][1][0], wa[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, swAisle[1][0][0],swAisle[1][1][0],swAisle[1][1][1],swAisle[1][0][1], wa[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP, swAisle[0][0][1],swAisle[1][0][1],swAisle[1][1][1],swAisle[0][1][1], wa[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, swAisle[0][1][0],swAisle[0][1][1],swAisle[1][1][1],swAisle[1][1][0], wa[0]);
 		
 		
 		//roof, to test after
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP, swAisle[0][0][1],swAisle[0][0][2],swAisle[0][1][2],swAisle[0][1][1], c0, c1, c2, c3);
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP, swAisle[1][0][1],swAisle[1][1][1],swAisle[0][1][2],swAisle[0][0][2], c0, c1, c2, c3);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP, swAisle[0][0][1],swAisle[0][0][2],swAisle[0][1][2],swAisle[0][1][1],wa[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP, swAisle[1][0][1],swAisle[1][1][1],swAisle[0][1][2],swAisle[0][0][2], wa[0]);
 		
 		//gables
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, swAisle[0][0][1],swAisle[1][0][1],swAisle[0][0][2], c0, c1, c2);
-		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, swAisle[0][1][1],swAisle[0][1][2],swAisle[1][1][1], c0, c1, c2);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, swAisle[0][0][1],swAisle[1][0][1],swAisle[0][0][2],wa[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, swAisle[0][1][1],swAisle[0][1][2],swAisle[1][1][1],wa[0]);
 		
 		return counter;
 	}

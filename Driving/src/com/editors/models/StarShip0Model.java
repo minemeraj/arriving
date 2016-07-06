@@ -154,7 +154,7 @@ public class StarShip0Model extends MeshModel{
 
 	private void buildTextures() {
 		
-		texturePoints=new Vector();	
+		texturePoints=new Vector<Point3D>();	
 		
 		//Texture points
 

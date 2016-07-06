@@ -41,13 +41,9 @@ public class Byke0Model extends MeshModel{
 	private double wheelWidth;
 	private int wheel_rays;
 
-	double x0=0;
-	double y0=0;
-	double z0=0;
+	double xc=0;
 
 	private int[][][] faces;
-
-	int basePoints=4;
 
 	public Byke0Model(
 			double dx, double dy, double dz, 
@@ -81,7 +77,7 @@ public class Byke0Model extends MeshModel{
 	@Override
 	public void initMesh() {
 		points=new Vector<Point3D>();
-		texturePoints=new Vector();
+		texturePoints=new Vector<Point3D>();
 
 		buildTextures();
 
@@ -89,7 +85,7 @@ public class Byke0Model extends MeshModel{
 		
 
 		double frame_side=(dx-wheelWidth)*0.5;
-		double xc=-frame_side*0.5;
+		xc=-frame_side*0.5;
 
 		/*BPoint[][][] leftFrame=new BPoint[2][2][2];
 

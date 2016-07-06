@@ -39,10 +39,12 @@ public class Tank0Model extends MeshModel{
 	double x0=0;
 	double y0=0;
 	double z0=0;
+	
+	//body textures
+	protected int[][] bo= {{0,1,2,3}};
 
 	private int[][][] faces;
 
-	int basePoints=4;
 	private BPoint[][][] body;
 	private BPoint[][][] turret;
 	private BPoint[][] cannon_barrel;
@@ -76,7 +78,7 @@ public class Tank0Model extends MeshModel{
 	@Override
 	public void initMesh() {
 		points=new Vector<Point3D>();
-		texturePoints=new Vector();
+		texturePoints=new Vector<Point3D>();
 		
 		buildBody();
 		
@@ -95,20 +97,20 @@ public class Tank0Model extends MeshModel{
 
 	private int buildFaces(int counter) {
 	
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP, body[0][0][1],body[1][0][1],body[1][1][1],body[0][1][1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, body[0][0][0],body[0][0][1],body[0][1][1],body[0][1][0], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, body[1][0][0],body[1][1][0],body[1][1][1],body[1][0][1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, body[0][1][0],body[0][1][1],body[1][1][1],body[1][1][0], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, body[0][0][0],body[1][0][0],body[1][0][1],body[0][0][1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP, body[0][0][1],body[1][0][1],body[1][1][1],body[0][1][1],bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, body[0][0][0],body[0][0][1],body[0][1][1],body[0][1][0], bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, body[1][0][0],body[1][1][0],body[1][1][1],body[1][0][1], bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, body[0][1][0],body[0][1][1],body[1][1][1],body[1][1][0], bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, body[0][0][0],body[1][0][0],body[1][0][1],body[0][0][1], bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0], bo[0]);
 		
 		
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP, turret[0][0][1],turret[1][0][1],turret[1][1][1],turret[0][1][1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, turret[0][0][0],turret[0][0][1],turret[0][1][1],turret[0][1][0], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, turret[1][0][0],turret[1][1][0],turret[1][1][1],turret[1][0][1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, turret[0][1][0],turret[0][1][1],turret[1][1][1],turret[1][1][0], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, turret[0][0][0],turret[1][0][0],turret[1][0][1],turret[0][0][1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, turret[0][0][0],turret[0][1][0],turret[1][1][0],turret[1][0][0], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP, turret[0][0][1],turret[1][0][1],turret[1][1][1],turret[0][1][1],bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, turret[0][0][0],turret[0][0][1],turret[0][1][1],turret[0][1][0],bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, turret[1][0][0],turret[1][1][0],turret[1][1][1],turret[1][0][1],bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, turret[0][1][0],turret[0][1][1],turret[1][1][1],turret[1][1][0],bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, turret[0][0][0],turret[1][0][0],turret[1][0][1],turret[0][0][1],bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, turret[0][0][0],turret[0][1][0],turret[1][1][0],turret[1][0][0],bo[0]);
 
 		
 		for (int i = 0; i < cannon_barrel.length; i++) {

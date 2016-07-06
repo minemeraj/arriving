@@ -36,17 +36,12 @@ public class RailWagon0Model extends MeshModel{
 	protected double dyRoof;
 	protected double dzRoof;
 	
-	protected double wheelRadius;
-	protected double wheelWidth;
+	private double wheelRadius;
+	private double wheelWidth;
 	protected int wheelRays;
-	
-	double x0=0;
-	double y0=0;
-	double z0=0;
 
 	protected int[][][] faces;
 
-	int basePoints=4;
 	protected BPoint[][][] body;
 	
 	private BPoint[][][] back;	
@@ -67,9 +62,9 @@ public class RailWagon0Model extends MeshModel{
 	public static String NAME="RailWagon";
 	
 	//body textures
-	protected int b0=0,b1=1,b2=2,b3=3;
+	protected int[][] bo={{0,1,2,3}};
 	//wheel textures
-	protected int w0=4,w1=5,w2=6,w3=7;
+	protected int[][] w={{4,5,6,7}};
 
 	
 	public RailWagon0Model(
@@ -110,17 +105,13 @@ public class RailWagon0Model extends MeshModel{
 	@Override
 	public void initMesh() {
 		points=new Vector<Point3D>();
-		texturePoints=new Vector();
+		texturePoints=new Vector<Point3D>();
 		
 		int pnx=2;
 		int pny=2;
 		int pnz=2;
 		
 		buildBody(pnx,pny,pnz);	
-		
-		int fnx=2;
-		int fny=2;
-		int fnz=2;
 		
 		buildWagon();
 
@@ -139,7 +130,7 @@ public class RailWagon0Model extends MeshModel{
 
 
 		
-		counter=buildBodyFaces(counter,w0,totWheelPolygon);
+		counter=buildBodyFaces(counter,w[0][0],totWheelPolygon);
 		
 		counter=buildWagonFaces(counter,wagon);
 		
@@ -224,26 +215,26 @@ public class RailWagon0Model extends MeshModel{
 
 	protected int buildBodyFaces(int counter, int firstWheelTexturePoint, int totWheelPolygon) {
 		
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP, body[0][0][1],body[1][0][1],body[1][1][1],body[0][1][1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, body[0][0][0],body[0][0][1],body[0][1][1],body[0][1][0], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, body[1][0][0],body[1][1][0],body[1][1][1],body[1][0][1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, body[0][1][0],body[0][1][1],body[1][1][1],body[1][1][0], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, body[0][0][0],body[1][0][0],body[1][0][1],body[0][0][1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP, body[0][0][1],body[1][0][1],body[1][1][1],body[0][1][1], bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, body[0][0][0],body[0][0][1],body[0][1][1],body[0][1][0], bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, body[1][0][0],body[1][1][0],body[1][1][1],body[1][0][1], bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, body[0][1][0],body[0][1][1],body[1][1][1],body[1][1][0], bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, body[0][0][0],body[1][0][0],body[1][0][1],body[0][0][1], bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0], bo[0]);
 		
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP, back[0][0][1],back[1][0][1],back[1][1][1],back[0][1][1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, back[0][0][0],back[0][0][1],back[0][1][1],back[0][1][0], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, back[1][0][0],back[1][1][0],back[1][1][1],back[1][0][1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, back[0][1][0],back[0][1][1],back[1][1][1],back[1][1][0], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, back[0][0][0],back[1][0][0],back[1][0][1],back[0][0][1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, back[0][0][0],back[0][1][0],back[1][1][0],back[1][0][0], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP, back[0][0][1],back[1][0][1],back[1][1][1],back[0][1][1], bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, back[0][0][0],back[0][0][1],back[0][1][1],back[0][1][0], bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, back[1][0][0],back[1][1][0],back[1][1][1],back[1][0][1], bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, back[0][1][0],back[0][1][1],back[1][1][1],back[1][1][0], bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, back[0][0][0],back[1][0][0],back[1][0][1],back[0][0][1],bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, back[0][0][0],back[0][1][0],back[1][1][0],back[1][0][0],bo[0]);
 		
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP, front[0][0][1],front[1][0][1],front[1][1][1],front[0][1][1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, front[0][0][0],front[0][0][1],front[0][1][1],front[0][1][0], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, front[1][0][0],front[1][1][0],front[1][1][1],front[1][0][1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, front[0][1][0],front[0][1][1],front[1][1][1],front[1][1][0], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, front[0][0][0],front[1][0][0],front[1][0][1],front[0][0][1], 0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, front[0][0][0],front[0][1][0],front[1][1][0],front[1][0][0], 0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP, front[0][0][1],front[1][0][1],front[1][1][1],front[0][1][1], bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_LEFT, front[0][0][0],front[0][0][1],front[0][1][1],front[0][1][0],bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, front[1][0][0],front[1][1][0],front[1][1][1],front[1][0][1], bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, front[0][1][0],front[0][1][1],front[1][1][1],front[1][1][0], bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, front[0][0][0],front[1][0][0],front[1][0][1],front[0][0][1], bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, front[0][0][0],front[0][1][0],front[1][1][0],front[1][0][0],bo[0]);
 		
 		//front bogie
 		counter=buildWheelFaces(counter,
@@ -326,7 +317,7 @@ public class RailWagon0Model extends MeshModel{
 		
 	}
 	
-	protected int buildWheelFaces(
+	private int buildWheelFaces(
 			
 			int counter, 
 			int firstWheelTexturePoint,

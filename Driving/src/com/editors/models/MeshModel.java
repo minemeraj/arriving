@@ -20,7 +20,7 @@ public abstract class MeshModel {
 
 	Vector<Point3D> texturePoints=null;
 	Vector<Point3D> points=null;
-	String description=null;
+	private String description=null;
 
 	private Color backgroundColor=Color.green;
 
@@ -397,7 +397,7 @@ public abstract class MeshModel {
 		int NUM_FACES=(nBasePoints-1)*(numSections-1);
 		int[][][] faces=new int[NUM_FACES][3][nBasePoints];
 		
-		Vector finalFaces=new Vector();
+		Vector<int[][]> finalFaces=new Vector<int[][]>();
 
 		int counter=0;
 		for (int k = 0;k < numSections-1; k++) {
@@ -409,8 +409,8 @@ public abstract class MeshModel {
 				if(isFilter(k,p0)){
 					continue;
 				}
-				else
-					finalFaces.add(faces[counter]);
+				
+				finalFaces.add(faces[counter]);
 
 				int p=p0+k*nBasePoints;
 				int t=p0+k*nBasePoints;
@@ -460,7 +460,7 @@ public abstract class MeshModel {
 	 * @param data
 	 * @return
 	 */
-	void postProcessor(Vector vFaces){
+	void postProcessor(Vector<int[][][]> vFaces){
 
 		
 		Hashtable fp=new Hashtable();
@@ -521,7 +521,7 @@ public abstract class MeshModel {
 
 
 
-	private static Hashtable buildUsedPointsHashtable(Vector vFaces) {
+	private static Hashtable buildUsedPointsHashtable(Vector<int[][][]> vFaces) {
 		
 		Hashtable usedPoints=new Hashtable();
 		
@@ -592,9 +592,16 @@ public abstract class MeshModel {
 		
 	}
 	
+	protected int[][] buildFace(int carTop, BPoint p0, BPoint p1, BPoint p2, BPoint p3, int[] c) {
+		return buildFace(carTop, p0.getIndex(), p1.getIndex(), p2.getIndex(), p3.getIndex(),  c[0],  c[1],  c[2],  c[3]);
+	}
 
 	protected int[][] buildFace(int carTop, BPoint p0, BPoint p1, BPoint p2, BPoint p3, int c0, int c1, int c2, int c3) {
 		return buildFace(carTop, p0.getIndex(), p1.getIndex(), p2.getIndex(), p3.getIndex(),  c0,  c1,  c2,  c3);
+	}
+	
+	protected int[][] buildFace(int carTop, BPoint p0, BPoint p1, BPoint p2, int[] c) {
+		return buildFace(carTop, p0.getIndex(), p1.getIndex(), p2.getIndex(), c[0], c[1], c[2]);
 	}
 
 
@@ -602,7 +609,7 @@ public abstract class MeshModel {
 		return buildFace(carTop, p0.getIndex(), p1.getIndex(), p2.getIndex(),   c0,  c1,  c2);
 	}
 	
-	protected int[][] buildFace(
+	private int[][] buildFace(
 
 			int faceIndex, 
 			int b0, 
@@ -672,7 +679,7 @@ public abstract class MeshModel {
 
 			bFaces[counter++]=buildFace(0, p0, p1, p2,p3, texture_index, texture_index+1, texture_index+2,texture_index+3);
 		}
-		//wheel sides as triangles? 
+		//wheel sides as triangles 
 		for(int i=1;i<raysNumber-1;i++){
 			
 			BPoint p0=wheelPoints[0][0];
@@ -696,7 +703,7 @@ public abstract class MeshModel {
 
 	}
 	
-	public BPoint[][] addYCylinder(double cyx0, double cyy0,double cyz0,
+	BPoint[][] addYCylinder(double cyx0, double cyy0,double cyz0,
 			double cylinder_radius,double cylinder_lenght,int barrel_meridians){
 	
 			BPoint[][] trunkpoints=new BPoint[barrel_meridians][2];

@@ -17,8 +17,8 @@ public class RailWagonCoachModel extends RailWagonBulkModel{
 	public static String NAME="RailWagon";
 	
 	
-	int rnumx=5;
-	int rnumy=2;
+	private int rnumx=5;
+	private int rnumy=2;
 
 
 	public RailWagonCoachModel(
@@ -42,7 +42,7 @@ public class RailWagonCoachModel extends RailWagonBulkModel{
 	@Override
 	public void initMesh() {
 		points=new Vector<Point3D>();
-		texturePoints=new Vector();
+		texturePoints=new Vector<Point3D>();
 		
 		
 		int pnx=2;
@@ -68,7 +68,7 @@ public class RailWagonCoachModel extends RailWagonBulkModel{
 
 
 		
-		counter=buildBodyFaces(counter,w0,totWheelPolygon);
+		counter=buildBodyFaces(counter,w[0][0],totWheelPolygon);
 		
 		counter=buildWagonFaces(counter);
 
@@ -125,7 +125,7 @@ public class RailWagonCoachModel extends RailWagonBulkModel{
 			
 			for (int j = 0; j < rnumy-1; j++) {
 				
-				faces[counter++]=buildFace(Renderer3D.CAR_TOP,roof[i][j],roof[i+1][j],roof[i+1][j+1],roof[i][j+1],0,1,2,3);
+				faces[counter++]=buildFace(Renderer3D.CAR_TOP,roof[i][j],roof[i+1][j],roof[i+1][j+1],roof[i][j+1],bo[0]);
 				
 			}
 			
@@ -133,10 +133,10 @@ public class RailWagonCoachModel extends RailWagonBulkModel{
 		}
 		
 		//back roof
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK,roof[2][1],roof[1][1],roof[0][1],0,1,2);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK,roof[2][1],roof[1][1],roof[0][1],bo[0]);
 		
 		//front roof
-		faces[counter++]=buildFace(Renderer3D.CAR_FRONT,roof[0][1],roof[1][1],roof[2][1],0,1,2);
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT,roof[0][1],roof[1][1],roof[2][1],bo[0]);
 
 
 		return counter;

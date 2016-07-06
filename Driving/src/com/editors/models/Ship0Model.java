@@ -41,6 +41,10 @@ public class Ship0Model extends MeshModel{
 	double x0=0;
 	double y0=0;
 	double z0=0;
+	
+
+	int[][] h={{0,1,2,3}};
+	int[][] d={{4,5,6,7}};
 
 	private int[][][] faces;
 
@@ -75,7 +79,7 @@ public class Ship0Model extends MeshModel{
 	@Override
 	public void initMesh() {
 		points=new Vector<Point3D>();
-		texturePoints=new Vector();
+		texturePoints=new Vector<Point3D>();
 
 		Segments s0=new Segments(x0,dx,y0,dy,z0,dz);
 
@@ -237,15 +241,6 @@ public class Ship0Model extends MeshModel{
 
 	private int buildFaces(int counter, int nx, int ny,int nyc, BPoint[][] hull, BPoint[][] mainBridge, BPoint[][] afterCastle, BPoint[][][] foreCastle) {
 
-		int h0=0;
-		int h1=1;
-		int h2=2;
-		int h3=3;
-
-		int d0=4;
-		int d1=5;
-		int d2=6; 
-		int d3=7;
 		
 		int middle=(nx-1)/2;
 
@@ -253,82 +248,82 @@ public class Ship0Model extends MeshModel{
 			for (int j = 0; j < nx-1; j++) {
 				if(i==ny-2 && j==middle-1 ){
 					
-					faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, hull[i][j],hull[i+1][j],hull[i+1][j+1], h0, h1, h2);
-					faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, hull[i][j],hull[i+1][j+1],hull[i][j+1], h0, h1, h2);
+					faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, hull[i][j],hull[i+1][j],hull[i+1][j+1], h[0]);
+					faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, hull[i][j],hull[i+1][j+1],hull[i][j+1], h[0]);
 					
 				}
 				else if(i==ny-2 &&  j==middle){
 					
-					faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, hull[i][j],hull[i+1][j],hull[i][j+1], h0, h1, h2);
-					faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, hull[i][j+1],hull[i+1][j],hull[i+1][j+1], h0, h1, h2);
+					faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, hull[i][j],hull[i+1][j],hull[i][j+1], h[0]);
+					faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, hull[i][j+1],hull[i+1][j],hull[i+1][j+1], h[0]);
 					
 				}else{
-					faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, hull[i][j],hull[i+1][j],hull[i+1][j+1],hull[i][j+1], h0, h1, h2, h3);
+					faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, hull[i][j],hull[i+1][j],hull[i+1][j+1],hull[i][j+1], h[0]);
 				}
 			}
 
 		}
 
 		//closing back hull
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[0][0],hull[0][1],hull[0][nx-2],hull[0][nx-1], h0, h1, h2, h3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[0][1],hull[0][2],hull[0][nx-3],hull[0][nx-2], h0, h1, h2, h3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[0][2],hull[0][3],hull[0][nx-4],hull[0][nx-3], h0, h1, h2, h3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[0][3],hull[0][4],hull[0][nx-4], 0, 1, 2);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[0][0],hull[0][1],hull[0][nx-2],hull[0][nx-1],h[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[0][1],hull[0][2],hull[0][nx-3],hull[0][nx-2],h[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[0][2],hull[0][3],hull[0][nx-4],hull[0][nx-3],h[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, hull[0][3],hull[0][4],hull[0][nx-4],h[0]);
 
 		//build the main deck		
 		for (int i = 0; i < ny-1; i++) {
 			if(i==ny-2){
-				faces[counter++]=buildFace(Renderer3D.CAR_TOP, hull[i][0],hull[i][nx-1],hull[i+1][0], d0,d1,d2);
+				faces[counter++]=buildFace(Renderer3D.CAR_TOP, hull[i][0],hull[i][nx-1],hull[i+1][0], d[0]);
 			}else{
-				faces[counter++]=buildFace(Renderer3D.CAR_TOP, hull[i][0],hull[i][nx-1],hull[i+1][nx-1],hull[i+1][0], d0,d1,d2,d3);
+				faces[counter++]=buildFace(Renderer3D.CAR_TOP, hull[i][0],hull[i][nx-1],hull[i+1][nx-1],hull[i+1][0], d[0]);
 			}
 			
 		}
 
 		//mainBridge
-		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, mainBridge[0][0],mainBridge[0][3],mainBridge[0][2],mainBridge[0][1], d0,d1,d2,d3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, mainBridge[0][0],mainBridge[0][3],mainBridge[0][2],mainBridge[0][1],d[0]);
 
 		for (int k = 0; k < 2-1; k++) {
 
-			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, mainBridge[k][0],mainBridge[k+1][0],mainBridge[k+1][3],mainBridge[k][3], d0,d1,d2,d3);
-			faces[counter++]=buildFace(Renderer3D.CAR_BACK, mainBridge[k][0],mainBridge[k][1],mainBridge[k+1][1],mainBridge[k+1][0], d0,d1,d2,d3);
-			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, mainBridge[k][1],mainBridge[k][2],mainBridge[k+1][2],mainBridge[k+1][1], d0,d1,d2,d3);
-			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, mainBridge[k][2],mainBridge[k][3],mainBridge[k+1][3],mainBridge[k+1][2], d0,d1,d2,d3);
+			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, mainBridge[k][0],mainBridge[k+1][0],mainBridge[k+1][3],mainBridge[k][3], d[0]);
+			faces[counter++]=buildFace(Renderer3D.CAR_BACK, mainBridge[k][0],mainBridge[k][1],mainBridge[k+1][1],mainBridge[k+1][0], d[0]);
+			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, mainBridge[k][1],mainBridge[k][2],mainBridge[k+1][2],mainBridge[k+1][1],d[0]);
+			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, mainBridge[k][2],mainBridge[k][3],mainBridge[k+1][3],mainBridge[k+1][2],d[0]);
 
 		}
 
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainBridge[2-1][0],mainBridge[2-1][1],mainBridge[2-1][2],mainBridge[2-1][3], d0,d1,d2,d3);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainBridge[2-1][0],mainBridge[2-1][1],mainBridge[2-1][2],mainBridge[2-1][3],d[0]);
 
 		////after castle
-		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, afterCastle[0][0],afterCastle[0][3],afterCastle[0][2],afterCastle[0][1], h0, h1, h2, h3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, afterCastle[0][0],afterCastle[0][3],afterCastle[0][2],afterCastle[0][1],h[0]);
 
 		for (int k = 0; k < 2-1; k++) {
 
-			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, afterCastle[k][0],afterCastle[k+1][0],afterCastle[k+1][3],afterCastle[k][3], h0, h1, h2, h3);
-			faces[counter++]=buildFace(Renderer3D.CAR_BACK, afterCastle[k][0],afterCastle[k][1],afterCastle[k+1][1],afterCastle[k+1][0], h0, h1, h2, h3);
-			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, afterCastle[k][1],afterCastle[k][2],afterCastle[k+1][2],afterCastle[k+1][1], h0, h1, h2, h3);
-			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, afterCastle[k][2],afterCastle[k][3],afterCastle[k+1][3],afterCastle[k+1][2],d0,d1,d2,d3);
+			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, afterCastle[k][0],afterCastle[k+1][0],afterCastle[k+1][3],afterCastle[k][3], h[0]);
+			faces[counter++]=buildFace(Renderer3D.CAR_BACK, afterCastle[k][0],afterCastle[k][1],afterCastle[k+1][1],afterCastle[k+1][0], h[0]);
+			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, afterCastle[k][1],afterCastle[k][2],afterCastle[k+1][2],afterCastle[k+1][1],h[0]);
+			faces[counter++]=buildFace(Renderer3D.CAR_FRONT, afterCastle[k][2],afterCastle[k][3],afterCastle[k+1][3],afterCastle[k+1][2],d[0]);
 
 		}
 
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP,afterCastle[2-1][0],afterCastle[2-1][1],afterCastle[2-1][2],afterCastle[2-1][3], d0,d1,d2,d3);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP,afterCastle[2-1][0],afterCastle[2-1][1],afterCastle[2-1][2],afterCastle[2-1][3],d[0]);
 
 		///fore castle, converging at the bow	
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK, foreCastle[0][0][0],foreCastle[0][1][0],foreCastle[0][1][1],foreCastle[0][0][1], d0,d1,d2,d3);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK, foreCastle[0][0][0],foreCastle[0][1][0],foreCastle[0][1][1],foreCastle[0][0][1],d[0]);
 		for (int k = 0; k < nyc-1; k++) {
 			
 			if(k<nyc-2)
-				faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, foreCastle[k][0][0],foreCastle[k+1][0][0],foreCastle[k+1][1][0],foreCastle[k][1][0], h0, h1, h2, h3);
+				faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, foreCastle[k][0][0],foreCastle[k+1][0][0],foreCastle[k+1][1][0],foreCastle[k][1][0], h[0]);
 			else
-				faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, foreCastle[k][0][0],foreCastle[k+1][0][0],foreCastle[k+1][1][0], h0, h1, h2);
+				faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, foreCastle[k][0][0],foreCastle[k+1][0][0],foreCastle[k+1][1][0], h[0]);
 			
-			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, foreCastle[k][0][0],foreCastle[k][0][1],foreCastle[k+1][0][1],foreCastle[k+1][0][0], h0, h1, h2, h3);			
-			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, foreCastle[k][1][0],foreCastle[k+1][1][0],foreCastle[k+1][1][1],foreCastle[k][1][1], h0, h1, h2, h3);
+			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, foreCastle[k][0][0],foreCastle[k][0][1],foreCastle[k+1][0][1],foreCastle[k+1][0][0], h[0]);		
+			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, foreCastle[k][1][0],foreCastle[k+1][1][0],foreCastle[k+1][1][1],foreCastle[k][1][1], h[0]);
 			
 			if(k<nyc-2)
-				faces[counter++]=buildFace(Renderer3D.CAR_TOP,foreCastle[k][0][1],foreCastle[k][1][1],foreCastle[k+1][1][1],foreCastle[k+1][0][1],d0,d1,d2,d3);
+				faces[counter++]=buildFace(Renderer3D.CAR_TOP,foreCastle[k][0][1],foreCastle[k][1][1],foreCastle[k+1][1][1],foreCastle[k+1][0][1],d[0]);
 			else
-				faces[counter++]=buildFace(Renderer3D.CAR_TOP,foreCastle[k][0][1],foreCastle[k][1][1],foreCastle[k+1][0][1],d0,d1,d2);
+				faces[counter++]=buildFace(Renderer3D.CAR_TOP,foreCastle[k][0][1],foreCastle[k][1][1],foreCastle[k+1][0][1],d[0]);
 		}
 		//faces[counter++]=buildFace(Renderer3D.CAR_FRONT, foreCastle[0][2],foreCastle[0][3],foreCastle[0+1][3],foreCastle[0+1][2], h0, h1, h2, h3);
 
@@ -353,10 +348,10 @@ public class Ship0Model extends MeshModel{
 
 
 		bufGraphics.setColor(Color.RED);
-		printTexturePolygon(bufGraphics, 0,1,2,3);
+		printTexturePolygon(bufGraphics, h[0]);
 
 		bufGraphics.setColor(Color.BLACK);
-		printTexturePolygon(bufGraphics, 4,5,6,7);
+		printTexturePolygon(bufGraphics, d[0]);
 	}
 
 }

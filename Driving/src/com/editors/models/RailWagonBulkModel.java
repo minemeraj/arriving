@@ -44,7 +44,7 @@ public class RailWagonBulkModel extends RailWagon0Model{
 	@Override
 	public void initMesh() {
 		points=new Vector<Point3D>();
-		texturePoints=new Vector();
+		texturePoints=new Vector<Point3D>();
 		
 	
 		int pnx=2;
@@ -168,12 +168,12 @@ public class RailWagonBulkModel extends RailWagon0Model{
 
 	private int addPrism(Prism prism, int counter) {
 
-		faces[counter++]=buildFace(Renderer3D.CAR_TOP,   (BPoint)prism.upperBase[0],(BPoint)prism.upperBase[1],(BPoint)prism.upperBase[2], (BPoint)prism.upperBase[3],0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_LEFT,  (BPoint)prism.lowerBase[3],(BPoint)prism.lowerBase[0],(BPoint)prism.upperBase[0], (BPoint)prism.upperBase[3],0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, (BPoint)prism.lowerBase[1],(BPoint)prism.lowerBase[2],(BPoint)prism.upperBase[2], (BPoint)prism.upperBase[1],0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, (BPoint)prism.lowerBase[2],(BPoint)prism.lowerBase[3],(BPoint)prism.upperBase[3], (BPoint)prism.upperBase[2],0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BACK,  (BPoint)prism.lowerBase[0],(BPoint)prism.lowerBase[1],(BPoint)prism.upperBase[1], (BPoint)prism.upperBase[0],0, 1, 2, 3);
-		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM,(BPoint)prism.lowerBase[0],(BPoint)prism.lowerBase[3],(BPoint)prism.lowerBase[2], (BPoint)prism.lowerBase[1],0, 1, 2, 3);
+		faces[counter++]=buildFace(Renderer3D.CAR_TOP,   (BPoint)prism.upperBase[0],(BPoint)prism.upperBase[1],(BPoint)prism.upperBase[2], (BPoint)prism.upperBase[3],bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_LEFT,  (BPoint)prism.lowerBase[3],(BPoint)prism.lowerBase[0],(BPoint)prism.upperBase[0], (BPoint)prism.upperBase[3],bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, (BPoint)prism.lowerBase[1],(BPoint)prism.lowerBase[2],(BPoint)prism.upperBase[2], (BPoint)prism.upperBase[1],bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_FRONT, (BPoint)prism.lowerBase[2],(BPoint)prism.lowerBase[3],(BPoint)prism.upperBase[3], (BPoint)prism.upperBase[2],bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_BACK,  (BPoint)prism.lowerBase[0],(BPoint)prism.lowerBase[1],(BPoint)prism.upperBase[1], (BPoint)prism.upperBase[0],bo[0]);
+		faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM,(BPoint)prism.lowerBase[0],(BPoint)prism.lowerBase[3],(BPoint)prism.lowerBase[2], (BPoint)prism.lowerBase[1],bo[0]);
 
 		return counter;
 	}

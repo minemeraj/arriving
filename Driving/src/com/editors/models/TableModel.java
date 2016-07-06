@@ -74,33 +74,33 @@ public class TableModel extends MeshModel{
 		double x=bx;
 
 		addTPoint(x,y,0);
-		addTPoint(x+leg_side,y,0);
-		addTPoint(x+leg_side, y+leg_side,0);
-		addTPoint(x,y+leg_side,0);
+		seqTPoint(leg_side,0);
+		seqTPoint(0,leg_side);
+		seqTPoint(-leg_side,0);
 
 		//faces
 		y=by+leg_side;
 
 		addTPoint(x,y,0);
-		addTPoint(x+leg_side,y,0);
-		addTPoint(x+leg_side+leg_side,y,0);
-		addTPoint(x+leg_side+2*leg_side,y,0);
-		addTPoint(x+2*leg_side+2*leg_side,y,0);    	
+		seqTPoint(leg_side,0);
+		seqTPoint(leg_side,0);
+		seqTPoint(leg_side,0);
+		seqTPoint(leg_side,0);   	
 
 
 		addTPoint(x,y+leg_length,0);
-		addTPoint(x+leg_side,y+leg_length,0);
-		addTPoint(x+leg_side+leg_side,y+leg_length,0);
-		addTPoint(x+leg_side+2*leg_side,y+leg_length,0);
-		addTPoint(x+2*leg_side+2*leg_side,y+leg_length,0);
+		seqTPoint(leg_side,0);
+		seqTPoint(leg_side,0);
+		seqTPoint(leg_side,0);
+		seqTPoint(leg_side,0);
 
 		y=by+leg_side+leg_length;
 
 		//upper base
 		addTPoint(x,y,0);
-		addTPoint(x+leg_side,y,0);
-		addTPoint(x+leg_side,y+leg_side,0);
-		addTPoint(x,y+leg_side,0);
+		seqTPoint(leg_side,0);
+		seqTPoint(0,leg_side);
+		seqTPoint(-leg_side,0);
 
 		///////main plane
 
@@ -109,33 +109,33 @@ public class TableModel extends MeshModel{
 		x=bx;
 
 		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx, y+dy,0);
-		addTPoint(x,y+dy,0);
+		seqTPoint(dx,0);
+		seqTPoint(0,dy);
+		seqTPoint(-dx,0);
 
 		//faces
 		y=by+dy+leg_length+2*leg_side;
 
 		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dy+dx,y,0);
-		addTPoint(x+dy+2*dx,y,0);
-		addTPoint(x+2*dy+2*dx,y,0);    	
+		seqTPoint(dx,0);
+		seqTPoint(dy,0);
+		seqTPoint(dx,0);
+		seqTPoint(dy,0);	
 
 
 		addTPoint(x,y+dz,0);
-		addTPoint(x+dx,y+dz,0);
-		addTPoint(x+dy+dx,y+dz,0);
-		addTPoint(x+dy+2*dx,y+dz,0);
-		addTPoint(x+2*dy+2*dx,y+dz,0);
+		seqTPoint(dx,0);
+		seqTPoint(dy,0);
+		seqTPoint(dx,0);
+		seqTPoint(dy,0);
 
 		y=by+dy+dz+leg_length+2*leg_side;
 
 		//upper base
 		addTPoint(x,y,0);
-		addTPoint(x+dx,y,0);
-		addTPoint(x+dx,y+dy,0);
-		addTPoint(x,y+dy,0);
+		seqTPoint(dx,0);
+		seqTPoint(0,dy);
+		seqTPoint(-dx,0);
 
 
 		IMG_WIDTH=(int) (2*dy+2*dx+2*bx);

@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.io.PrintWriter;
 import java.util.Vector;
 
+import com.Point3D;
 import com.main.Renderer3D;
 
 public class Shed0Model extends MeshModel{
@@ -69,7 +70,7 @@ public class Shed0Model extends MeshModel{
 
 	private void buildBody() {
 		
-		points=new Vector();
+		points=new Vector<Point3D>();
 	
 		//lower and upper base
 		for(int k=0;k<2;k++){
@@ -89,7 +90,7 @@ public class Shed0Model extends MeshModel{
 
 	private void buildTextures() {
 		
-		texturePoints=new Vector();
+		texturePoints=new Vector<Point3D>();
 		
 		double dzm=Math.max(dz,dz1);
 		

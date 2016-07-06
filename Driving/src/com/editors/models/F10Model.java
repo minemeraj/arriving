@@ -85,7 +85,7 @@ public class F10Model extends MeshModel{
 	public void initMesh() {
 		
 		points=new Vector<Point3D>();
-		texturePoints=new Vector();
+		texturePoints=new Vector<Point3D>();
 
 		buildTextures();
 		int totBlockTexturesPoints=4;

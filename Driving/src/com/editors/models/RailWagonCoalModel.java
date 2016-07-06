@@ -39,7 +39,7 @@ public class RailWagonCoalModel extends RailWagonBulkModel{
 	@Override
 	public void initMesh() {
 		points=new Vector<Point3D>();
-		texturePoints=new Vector();
+		texturePoints=new Vector<Point3D>();
 		
 
 		
@@ -68,7 +68,7 @@ public class RailWagonCoalModel extends RailWagonBulkModel{
 
 
 		
-		counter=buildBodyFaces(counter,w0,totWheelPolygon);
+		counter=buildBodyFaces(counter,w[0][0],totWheelPolygon);
 		
 		counter=buildWagonFaces(counter);
 

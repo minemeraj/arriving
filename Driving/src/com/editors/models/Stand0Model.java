@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.io.PrintWriter;
 import java.util.Vector;
 
+import com.Point3D;
 import com.main.Renderer3D;
 /**
  * 
@@ -65,7 +66,7 @@ public class Stand0Model extends MeshModel{
 	@Override
 	public void initMesh() {
 
-		points=new Vector();
+		points=new Vector<Point3D>();
 
 		int numSteps=(int) (dz1/dz0);
 
@@ -98,7 +99,7 @@ public class Stand0Model extends MeshModel{
 		}
 
 
-		texturePoints=new Vector();
+		texturePoints=new Vector<Point3D>();
 
 		//bottom?
 
