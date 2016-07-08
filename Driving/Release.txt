@@ -4,8 +4,9 @@ New cars:
 /lib/cardefault3D_8 (Truck)
 /lib/cardefault3D_9 (Byke)
 
-Added autocars to city0:
+Added autocars:
 /lib/autocars_city0
+/lib/autocars_monza
 
 Review of the ship object
 
