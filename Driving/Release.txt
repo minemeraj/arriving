@@ -11,6 +11,10 @@ Added autocars:
 Review of the ship object
 
 Added progress loading bar in the AutocarEditor.
+Also added in the AutocarEditor the new Menu:
+View->+ motion
+View->- motion
+
 
 --- 25/06/2016 CarDriving 9.0.10
 

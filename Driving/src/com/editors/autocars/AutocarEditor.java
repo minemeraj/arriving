@@ -84,8 +84,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 		MouseMotionListener, FocusListener, PropertyChangeListener {
 	
 	
-	int WIDTH = 820;
-	int HEIGHT = 650;
+	int WIDTH = 0;
+	int HEIGHT = 0;
 
 	int LEFT_BORDER = 180;
 	int RIGHT_BORDER = 200;
@@ -108,8 +108,10 @@ public class AutocarEditor extends Editor implements MouseListener,
 	double dx = 2.0;
 	double dy = 2.0;
 
-	int deltax = 10;
-	int deltay = 10;
+	private int minMovement=10;
+	int xMovement = minMovement;
+	int yMovement = minMovement;
+	
 	private DoubleTextField xcoordinate;
 	private DoubleTextField ycoordinate;
 	private DoubleTextField zcoordinate;
@@ -218,6 +220,9 @@ public class AutocarEditor extends Editor implements MouseListener,
 	private double sinf=Math.sin(fi);
 	private double cosf=Math.cos(fi);
 	private JButton insertPoint;
+	private JMenu jm_view;
+	private JMenuItem jmt_faster_motion;
+	private JMenuItem jmt_slower_motion;
 
 	public static void main(String[] args) {
 
@@ -231,7 +236,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		EditorData.initialize(loadingProgressPanel);
 
 		WIDTH = 820;
-		HEIGHT = 880;
+		HEIGHT = 660;
 
 		setTitle("Autocar editor");
 		setSize(LEFT_BORDER+WIDTH + RIGHT_BORDER, HEIGHT);
@@ -468,6 +473,20 @@ public class AutocarEditor extends Editor implements MouseListener,
 		jmt_refresh = new JMenuItem("Refresh");
 		jmt_refresh.addActionListener(this);
 		jm3.add(jmt_refresh);
+		
+		jm_view=new JMenu("View");
+		jm_view.addMenuListener(this);
+		jmb.add(jm_view);
+		
+		jm_view.addSeparator();
+		
+		jmt_faster_motion=new JMenuItem("+ motion");
+		jmt_faster_motion.addActionListener(this);
+		jm_view.add(jmt_faster_motion);
+		
+		jmt_slower_motion=new JMenuItem("- motion");
+		jmt_slower_motion.addActionListener(this);
+		jm_view.add(jmt_slower_motion);
 
 		jmt_help = new JMenu("Help");
 		jmt_help.addMenuListener(this);
@@ -2328,6 +2347,10 @@ public class AutocarEditor extends Editor implements MouseListener,
 			
 			updateCarData();
 			draw();
+		}else if(obj==jmt_faster_motion){
+			changeMotionIncrement(+1);
+		}else if(obj==jmt_slower_motion){
+			changeMotionIncrement(-1);
 		}
 
 	}
@@ -3105,8 +3128,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	private void translate(int i, int j) {
 
-		x0 += i * deltax;
-		y0 += j * deltay;
+		x0 += i * xMovement;
+		y0 += j * yMovement;
 
 		draw();
 	}
@@ -3285,6 +3308,24 @@ public class AutocarEditor extends Editor implements MouseListener,
 	@Override
 	public void decomposeObjVertices(PrintWriter pr, PolygonMesh mesh, boolean isCustom) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	public void changeMotionIncrement(int i) {
+		if(i>0){
+			
+			xMovement=2*xMovement;
+			yMovement=2*yMovement;
+			
+		}else{
+			
+			if(xMovement==minMovement)
+				return;
+			
+			xMovement=xMovement/2;
+			yMovement=yMovement/2;
+			
+		}
 		
 	}
 
