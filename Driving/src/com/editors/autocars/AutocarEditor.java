@@ -223,6 +223,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 	private JMenu jm_view;
 	private JMenuItem jmt_faster_motion;
 	private JMenuItem jmt_slower_motion;
+	
+	private static final int arrow_length=50;
 
 	public static void main(String[] args) {
 
@@ -1163,6 +1165,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		
 		// draw initial position and direction
 		
+	
 		for (int i = 0; i < autocarsData.size(); i++) {
 			AutocarData ad = (AutocarData) autocarsData.get(i);
 	
@@ -1177,8 +1180,8 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 			double orientation=ad.fi;
 			
-			double x1 =x0+20*Math.cos(orientation);
-			double y1 =y0+20*Math.sin(orientation);
+			double x1 =x0+arrow_length*Math.cos(orientation);
+			double y1 =y0+arrow_length*Math.sin(orientation);
 			
 			graph2.drawLine(convertX(x0,y0,0),convertY(x0,y0,0),convertX(x1,y1,0),convertY(x1,y1,0));
 			
