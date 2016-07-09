@@ -2613,17 +2613,22 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	private void deleteActiveAutoline() {
 
-		if (autolinesData.size() > 1) {
-			
-			prepareUndo();
-			
-			int sel = chooseAutoline.getSelectedIndex();
-			autolinesData.remove(sel);
-			
-			setAutolineSelectionModel();
-			
 
+			
+		prepareUndo();
+		
+		int sel = chooseAutoline.getSelectedIndex();
+		
+		for (int i = 0; i < autocarsData.size(); i++) {
+			AutocarData ac=autocarsData.get(i);
+			if(ac.autoline_index==sel)
+				ac.autoline_index=AutocarData.AUTOLINE_PARKED;
 		}
+		
+		autolinesData.remove(sel);
+		
+		setAutolineSelectionModel();
+
 	}
 	
 
