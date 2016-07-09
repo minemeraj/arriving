@@ -1,5 +1,8 @@
+--- 09/07/2016 CarDriving 9.0.11
+
 New object:
 /lib/object3D_30 (Church 27m X 68m X 17m)
+
 New cars:
 /lib/cardefault3D_8 (Truck)
 /lib/cardefault3D_9 (Byke)
