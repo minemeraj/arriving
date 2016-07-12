@@ -668,7 +668,7 @@ public class Road extends Shader{
 
 			LineData ld=(LineData) mesh.polygonData.get(j);
 
-			Polygon3D realP3D=LineData.buildPolygon(ld,mesh.points);
+			
 
 			Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel());
 
@@ -715,6 +715,8 @@ public class Road extends Shader{
 					Point3D transformedCenter=buildTransformedPoint(autocars[i].center);
 
 					if(p3D.contains(transformedCenter.x,transformedCenter.y)){
+						
+						Polygon3D realP3D=LineData.buildPolygon(ld,mesh.points);
 
 						int posz=(int)interpolate(transformedCenter.x,transformedCenter.y,p3D);
 
