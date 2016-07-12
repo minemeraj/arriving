@@ -641,13 +641,15 @@ public class Road extends Shader{
 
 		calculateAltitude(mesh,true);
 
-		for (int i = 0; i < splines.size(); i++) {
+		int spSize=splines.size();
+		for (int i = 0; i < spSize; i++) {
 
 				SPLine sp = (SPLine) splines.get(i);
 
 				ArrayList<PolygonMesh> meshes = sp.getMeshes();
+				int szMeshes=meshes.size();
 
-				for (int j = 0; j < meshes.size(); j++) {
+				for (int j = 0; j < szMeshes; j++) {
 
 					mesh = (PolygonMesh) meshes.get(j);
 					calculateAltitude(mesh,false);
@@ -664,11 +666,7 @@ public class Road extends Shader{
 
 		for(int j=0;j<size;j++){
 
-
-
 			LineData ld=(LineData) mesh.polygonData.get(j);
-
-			
 
 			Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel());
 
@@ -736,16 +734,20 @@ public class Road extends Shader{
 
 	private void drawSPLines(ArrayList<SPLine> splines, Area totalVisibleField,
 			ZBuffer roadZbuffer) {
+		
+		int szMesh=splines.size();
 
-		for (int i = 0; i < splines.size(); i++) {
+		for (int i = 0; i < szMesh; i++) {
 
 			SPLine sp = (SPLine) splines.get(i);
 			
 			int hashCode=sp.hashCode();
 
 			ArrayList<PolygonMesh> meshes = sp.getMeshes3D();
+			
+			int sizeMeshes=meshes.size();
 
-			for (int j = 0; j < meshes.size(); j++) {
+			for (int j = 0; j <sizeMeshes ; j++) {
 
 				PolygonMesh mesh = (PolygonMesh) meshes.get(j);
 				
