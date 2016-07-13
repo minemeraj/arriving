@@ -6,6 +6,7 @@ package com.main;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -14,6 +15,7 @@ import java.io.FileReader;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
@@ -79,6 +81,7 @@ public class Road extends Shader{
 
 	private Texture carTexture=null;
 	private Area totalVisibleField=null;
+	private Rectangle totalVisibleFieldBounds=null;
 	
 	private int start_car_x=WIDTH/2-XFOCUS;
 	private int start_car_y=y_edge;
@@ -123,6 +126,10 @@ public class Road extends Shader{
 	private int POSSIBLE_MOVZ;
 	private boolean start_max_calculus;
 	
+	private Hashtable<Integer,String> terrainVisibleIndexes=new Hashtable<Integer,String>();
+
+	
+	
 	public Road(){}
 
 
@@ -134,6 +141,7 @@ public class Road extends Shader{
 		XFOCUS=WITDH/2;
 
 		totalVisibleField=buildVisibileArea(SCREEN_DISTANCE,NYVISIBLE*dy+SCREEN_DISTANCE);
+		totalVisibleFieldBounds=totalVisibleField.getBounds();
 		
 		WATER_LEVEL=-HEIGHT/2-WATER_FILLING;
 	}
@@ -554,7 +562,7 @@ public class Road extends Shader{
 
 		drawSky();
 
-		calculateAltitude();
+		calculateDrawingData();
         
 		//changing altitutude with the movements		
 		if(POSSIBLE_MOVZ>=CURRENT_MOVZ-ROAD_THICKNESS)
@@ -581,14 +589,15 @@ public class Road extends Shader{
 
 		for(int j=0;j<size;j++){
 
+			if(terrainVisibleIndexes.get(j)==null)
+				continue;
 
-			LineData ld=(LineData) mesh.polygonData.get(j);
+			LineData ld=(LineData) mesh.polygonData.get(j);	
 			
 			Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel());
 
 
-			//if(!p3D.clipPolygonToArea2D(totalVisibleField).isEmpty()){
-			if(Polygon3D.isIntersect(p3D,totalVisibleField.getBounds())){
+			//if(Polygon3D.isIntersect(p3D,totalVisibleField.getBounds())){
 
 				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.worldTextures[p3D.getIndex()],roadZbuffer,hashCode);
 
@@ -599,7 +608,7 @@ public class Road extends Shader{
 
 				}
 				
-			}		
+			//}		
 
 
 
@@ -629,7 +638,7 @@ public class Road extends Shader{
 	}
 
 
-	private void calculateAltitude() {
+	private void calculateDrawingData() {
 
 		MOVZ=0;
 
@@ -639,7 +648,7 @@ public class Road extends Shader{
 
 		PolygonMesh mesh=meshes[Editor.TERRAIN_INDEX];
 
-		calculateAltitude(mesh,true);
+		calculateDrawingData(mesh,true);
 
 		int spSize=splines.size();
 		for (int i = 0; i < spSize; i++) {
@@ -652,15 +661,26 @@ public class Road extends Shader{
 				for (int j = 0; j < szMeshes; j++) {
 
 					mesh = (PolygonMesh) meshes.get(j);
-					calculateAltitude(mesh,false);
+					calculateDrawingData(mesh,false);
 				}	
 			}
 
 
 	}
 
+	/**
+	 * 
+	 * Calculate the altitude and the visible terrain polygons, marked by index
+	 * 
+	 * @param mesh
+	 * @param isTerrain
+	 */
 
-	private void calculateAltitude(PolygonMesh mesh,boolean isTerrain) {
+	private void calculateDrawingData(PolygonMesh mesh,boolean isTerrain) {
+		
+		if(isTerrain){
+			terrainVisibleIndexes.clear();
+		}
 		
 		int size=mesh.polygonData.size();
 
@@ -668,7 +688,12 @@ public class Road extends Shader{
 
 			LineData ld=(LineData) mesh.polygonData.get(j);
 
-			Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel());
+			Polygon3D p3D=buildTransformedPolygon3DWithoutTexture(ld,mesh.points,mesh.getLevel());
+			
+			if(isTerrain && Polygon3D.isIntersect(p3D,totalVisibleFieldBounds)){
+				
+				terrainVisibleIndexes.put(j,"");
+			}
 
 			if(p3D.contains(start_car_x,start_car_y)){
 

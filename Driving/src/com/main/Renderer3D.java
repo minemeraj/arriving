@@ -862,6 +862,57 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 
 	}
 	
+	/**
+	 * 
+	 * Lighter polygon creation, with no texture points arrays
+	 * 
+	 * @param ld
+	 * @param points
+	 * @param level
+	 * @return
+	 */
+	
+	Polygon3D buildTransformedPolygon3DWithoutTexture(LineData ld,Point3D[] points,int level) { 
+
+
+
+		int size=ld.size();
+
+		int[] cxr=new int[size];
+		int[] cyr=new int[size];
+		int[] czr=new int[size];
+		
+		for(int i=0;i<size;i++){
+
+
+			LineDataVertex ldv=(LineDataVertex) ld.getItem(i);
+			int num=ldv.getVertex_index();
+
+			Point4D p=(Point4D) points[num];
+
+
+			cxr[i]=(int)(p.x);
+			cyr[i]=(int)(p.y);
+			czr[i]=(int)(p.z);
+
+
+		}
+
+
+
+		Polygon3D p3dr=new Polygon3D(size,cxr,cyr,czr,null,null);
+		buildTransformedPolygon(p3dr);
+		p3dr.setHexColor(ld.getHexColor());
+		p3dr.setIndex(ld.getTexture_index());
+		p3dr.setShadowCosin(ld.getShadowCosin());
+		p3dr.setLevel(level);
+		p3dr.setWaterPolygon(ld.isWaterPolygon());
+		p3dr.setIsFilledWithWater(ld.isFilledWithWater());
+		
+        return p3dr;
+
+	}
+	
 	private Point3D buildTransformedVersor(Point3D point) {
 
 		Point3D newPoint=new Point3D();
