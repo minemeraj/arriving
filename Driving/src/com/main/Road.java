@@ -688,14 +688,16 @@ public class Road extends Shader{
 
 			LineData ld=(LineData) mesh.polygonData.get(j);
 
-			Polygon3D p3D=buildTransformedPolygon3DWithoutTexture(ld,mesh.points,mesh.getLevel());
+			Polygon3D p3DProjection=buildTransformedPolygonProjection(ld,mesh.points,mesh.getLevel());
 			
-			if(isTerrain && Polygon3D.isIntersect(p3D,totalVisibleFieldBounds)){
+			if(isTerrain && Polygon3D.isIntersect(p3DProjection,totalVisibleFieldBounds)){
 				
 				terrainVisibleIndexes.put(j,"");
 			}
 
-			if(p3D.contains(start_car_x,start_car_y)){
+			if(p3DProjection.contains(start_car_x,start_car_y)){
+				
+				Polygon3D p3D=buildTransformedPolygon3DWithoutTexture(ld,mesh.points,mesh.getLevel());
 
 				int zz=(int)interpolate(start_car_x,start_car_y,p3D);
 
@@ -737,7 +739,9 @@ public class Road extends Shader{
 
 					Point3D transformedCenter=buildTransformedPoint(autocars[i].center);
 
-					if(p3D.contains(transformedCenter.x,transformedCenter.y)){
+					if(p3DProjection.contains(transformedCenter.x,transformedCenter.y)){
+						
+						Polygon3D p3D=buildTransformedPolygon3DWithoutTexture(ld,mesh.points,mesh.getLevel());
 						
 						Polygon3D realP3D=LineData.buildPolygon(ld,mesh.points);
 
