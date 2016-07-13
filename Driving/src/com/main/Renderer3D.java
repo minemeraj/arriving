@@ -2,7 +2,6 @@ package com.main;
 
 import java.awt.Color;
 import java.awt.Rectangle;
-import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
@@ -530,14 +529,13 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 
 	}
 	
-	void drawObjects(DrawObject[] drawObjects,Area totalVisibleField,ZBuffer zbuffer){
+	void drawObjects(DrawObject[] drawObjects,Rectangle totalVisibleFieldBounds,ZBuffer zbuffer){
 
 
-        Rectangle rect = totalVisibleField.getBounds();
 		for(int i=0;i<drawObjects.length;i++){
 
 			DrawObject dro=drawObjects[i];
-     		drawPolygonMesh(dro, rect, zbuffer);
+     		drawPolygonMesh(dro, totalVisibleFieldBounds, zbuffer);
 		}		
 
 	}	

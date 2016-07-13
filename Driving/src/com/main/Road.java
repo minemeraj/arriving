@@ -574,11 +574,11 @@ public class Road extends Shader{
         
 		
 
-		drawObjects(drawObjects,totalVisibleField,roadZbuffer);
+		drawObjects(drawObjects,totalVisibleFieldBounds,roadZbuffer);
 
 		if(autocars!=null){
 
-			drawAutocars(autocars,totalVisibleField,roadZbuffer);
+			drawAutocars(autocars,totalVisibleFieldBounds,roadZbuffer);
 
 		}
 
@@ -615,7 +615,7 @@ public class Road extends Shader{
 		} 
 
 
-		drawSPLines(splines,totalVisibleField,roadZbuffer);
+		drawSPLines(splines,totalVisibleFieldBounds,roadZbuffer);
 		drawCar();
 
 		if(!isSkipShading()){
@@ -757,7 +757,7 @@ public class Road extends Shader{
 	}
 
 
-	private void drawSPLines(ArrayList<SPLine> splines, Area totalVisibleField,
+	private void drawSPLines(ArrayList<SPLine> splines, Rectangle totalVisibleFieldBounds,
 			ZBuffer roadZbuffer) {
 		
 		int szMesh=splines.size();
@@ -790,7 +790,7 @@ public class Road extends Shader{
 					
 					Polygon3D p3DBase=buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel());
 					
-					if(Polygon3D.isIntersect(p3DBase,totalVisibleField.getBounds())){
+					if(Polygon3D.isIntersect(p3DBase,totalVisibleFieldBounds)){
 						visible=true;
 						break;
 						
@@ -1398,7 +1398,7 @@ public class Road extends Shader{
 		
 	}
 
-	private void drawAutocars(Autocar[] autocars, Area totalVisibleField,
+	private void drawAutocars(Autocar[] autocars, Rectangle totalVisibleFieldBounds,
 			ZBuffer roadZbuffer) {		
 	
 		
