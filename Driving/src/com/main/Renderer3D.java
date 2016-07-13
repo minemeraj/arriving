@@ -604,7 +604,10 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 			
 	
 			
-			int due=(int)(255-i%15);			
+			int due=0;
+			if(texture==null)
+				due=(int)(255-i%15);
+			
 			Color col=new Color(due,0,0);
 			
 			LineData ld=cm.polygonData.get(i);

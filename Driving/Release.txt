@@ -1,4 +1,4 @@
-A bit faster rendering.
+A bit faster rendering, the Monza algorithm.
 
 --- 09/07/2016 CarDriving 9.0.11
 

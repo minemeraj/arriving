@@ -788,7 +788,7 @@ public class Road extends Shader{
 					LineData ld=(LineData) mesh.polygonData.get(k);
 
 					
-					Polygon3D p3DBase=buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel());
+					Polygon3D p3DBase=buildTransformedPolygon3DWithoutTexture(ld,mesh.points,mesh.getLevel());
 					
 					if(Polygon3D.isIntersect(p3DBase,totalVisibleFieldBounds)){
 						visible=true;
