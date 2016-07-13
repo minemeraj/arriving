@@ -542,16 +542,17 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 
 	private void drawPolygonMesh(DrawObject dro,Rectangle rect,ZBuffer zbuffer) {
 
-		//System.out.println(rect.y+" "+rect.height+" "+(dro.y-POSY));
-
-		Polygon3D objBorder= dro.getBorder().clone();
+		Polygon3D objBorder= dro.getBorder();
 		
 		boolean found=false;
 		for (int i = 0; i < objBorder.npoints; i++) {
+			
 			Point3D p0=new Point3D(objBorder.xpoints[i],objBorder.ypoints[i],0);
 			p0=buildTransformedPoint(p0);
 			
-			Point3D p1=new Point3D(objBorder.xpoints[(i+1)%objBorder.npoints],objBorder.ypoints[(i+1)%objBorder.npoints],0);
+			int iNext=(i==objBorder.npoints-1?0:i);
+			
+			Point3D p1=new Point3D(objBorder.xpoints[iNext],objBorder.ypoints[iNext],0);
 			p1=buildTransformedPoint(p1);
 			
 			if(rect.intersectsLine(p0.x,p0.y,p1.x,p1.y)){
@@ -614,12 +615,7 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 			int face=cm.boxFaces[i];
 			
 			buildTransformedPolygon(polRotate);
-			
 
-
-			
-			
-			
 			decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,point000,point011,point001,face,col,texture,zBuffer);
 			
           
