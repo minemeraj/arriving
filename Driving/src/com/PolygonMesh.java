@@ -125,7 +125,15 @@ public class PolygonMesh implements Cloneable{
 		
 		return pm;
 	}
-	
+	/**
+	 * 
+	 * Calculate the body polygon in the real coordinates system
+	 * 
+	 * @param points
+	 * @param ld
+	 * @param level
+	 * @return
+	 */
 	public static Polygon3D getBodyPolygon(Point3D[] points,LineData ld,int level) {
 		 
 		int size=ld.size();
@@ -146,6 +154,41 @@ public class PolygonMesh implements Cloneable{
 			
 			
 		} 
+		pol.setLevel(level);
+		
+		return pol;
+		
+	}
+	
+	/**
+	 * 
+	 * Calculate the body polygon in the real coordinates system
+	 * 
+	 * @param points
+	 * @param ld
+	 * @param level
+	 * @return
+	 */
+	public static Polygon3D getBodyPolygonWithoutTextures(Point3D[] points,LineData ld,int level) {
+		 
+		int nPoints=ld.size();
+		
+		int[] xpoints = new int[nPoints];
+		int[] ypoints = new int[nPoints];
+		int[] zpoints = new int[nPoints];
+	
+		for(int i=0;i<nPoints;i++){
+			int index=ld.getIndex(i);
+			
+			xpoints[i]=(int) points[index].x;
+			ypoints[i]=(int) points[index].y;
+			zpoints[i]=(int) points[index].z;
+			
+		} 
+		
+		Polygon3D pol=new Polygon3D(nPoints,xpoints,ypoints,zpoints,null,null);
+		pol.setIsFilledWithWater(ld.isFilledWithWater());
+		pol.setWaterPolygon(ld.isWaterPolygon());		
 		pol.setLevel(level);
 		
 		return pol;
