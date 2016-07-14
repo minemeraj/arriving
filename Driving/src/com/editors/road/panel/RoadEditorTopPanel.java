@@ -35,6 +35,8 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	private int deltay=2;
 
 	private int minMovement=5;
+	private Rectangle totAreaNounds;
+	private Area totArea;
 
 
 	public RoadEditorTopPanel(RoadEditor editor, int cENTER_WIDTH,int cENTER_HEIGHT) {
@@ -50,6 +52,8 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		xMovement=2*minMovement;
 		yMovement=2*minMovement;
 
+		totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
+		totAreaNounds=totArea.getBounds();
 	}
 
 	@Override
@@ -60,6 +64,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			ZBuffer landscapeZbuffer,
 			Graphics2D graph) {
 
+
 		displayTerrain(landscapeZbuffer,meshes);
 		if(!isHide_splines()){
 			displaySPLines(landscapeZbuffer,splines);
@@ -67,9 +72,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		//displayRoad(landscapeZbuffer,meshes,1);
 		if(!isHide_objects()){
 
-			Rectangle totalVisibleField=new Rectangle(0,0,WIDTH,HEIGHT);
-			Area area=new Area(totalVisibleField);
-			displayObjects(drawObjects,area,landscapeZbuffer);
+			displayObjects(drawObjects,totArea,landscapeZbuffer);
 		}
 		displayStartPosition(landscapeZbuffer, startPosition);
 
@@ -367,7 +370,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	private void drawPolygon(LineData ld,Point3D[] points,ZBuffer landscapeZbuffer,Texture texture,int indx,int hashCode) {
 
 
-		Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
+		
 
 		int size=ld.size();
 
@@ -383,25 +386,15 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			Point4D p=(Point4D) points[num];
 
-			//bufGraphics.setColor(ZBuffer.fromHexToColor(is[i].getHexColor()));
-
 			cx[i]=convertX(p);
 			cy[i]=convertY(p);
 			cz[i]=(int)p.z;
-
-
-			/*
-			if(indx==1){
-
-				cz[i]+=Road.ROAD_THICKNESS;
-
-			}*/
 
 		}
 
 		Polygon p_in=new Polygon(cx,cy,ld.size());
 
-		if(!Polygon3D.isIntersect(p_in,totArea.getBounds()))
+		if(!Polygon3D.isIntersect(p_in,totAreaNounds))
 			return;
 
 		Polygon3D p3d=new Polygon3D(size,cx,cy,cz);
@@ -850,9 +843,9 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 	public void displayObjects(ArrayList<DrawObject> drawObjects,Area area,ZBuffer landscapeZbuffer) {
 
+		int objSize=drawObjects.size();
 
-
-		for(int i=0;i<drawObjects.size();i++){
+		for(int i=0;i<objSize;i++){
 
 			DrawObject dro=(DrawObject) drawObjects.get(i);
 
@@ -879,32 +872,44 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 		}	
 	}
+	
+	/**
+	 * Array used to draw the object bounds
+	 */
+	int[] droX=new int[4];
+	int[] droY=new int[4];
 
+	/**
+	 * Draw the bounds of the objects
+	 * as rectangle
+	 * 
+	 * @param landscapeZbuffer
+	 * @param dro
+	 */
+
+	
 	private void drawObject(ZBuffer landscapeZbuffer, DrawObject dro) {
 
-		int[] cx=new int[4];
-		int[] cy=new int[4];
+	
 
 		int versus=1;
 		if(!DrawObject.IS_3D)
 			versus=-1;
 
-		cx[0]=convertX(dro.getX(),dro.getY(),dro.getZ());
-		cy[0]=convertY(dro.getX(),dro.getY(),dro.getZ());
-		cx[1]=convertX(dro.getX(),dro.getY(),dro.getZ());
-		cy[1]=convertY(dro.getX(),dro.getY()+versus*dro.getDy(),dro.getZ());
-		cx[2]=convertX(dro.getX()+dro.getDx(),dro.getY(),dro.getZ());
-		cy[2]=convertY(dro.getX(),dro.getY()+versus*dro.getDy(),dro.getZ());
-		cx[3]=convertX(dro.getX()+dro.getDx(),dro.getY(),dro.getZ());
-		cy[3]=convertY(dro.getX(),dro.getY(),dro.getZ());
+		droX[0]=convertX(dro.getX(),dro.getY(),dro.getZ());
+		droY[0]=convertY(dro.getX(),dro.getY(),dro.getZ());
+		droX[1]=convertX(dro.getX(),dro.getY(),dro.getZ());
+		droY[1]=convertY(dro.getX(),dro.getY()+versus*dro.getDy(),dro.getZ());
+		droX[2]=convertX(dro.getX()+dro.getDx(),dro.getY(),dro.getZ());
+		droY[2]=convertY(dro.getX(),dro.getY()+versus*dro.getDy(),dro.getZ());
+		droX[3]=convertX(dro.getX()+dro.getDx(),dro.getY(),dro.getZ());
+		droY[3]=convertY(dro.getX(),dro.getY(),dro.getZ());
 
-		Polygon p_in=new Polygon(cx,cy,4);
+		Polygon p_in=new Polygon(droX,droY,4);
 
 		Point3D center=Polygon3D.findCentroid(p_in);
 		Polygon3D.rotate(p_in,center,dro.getRotation_angle());
 
-
-		Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
 		Area partialArea = clipPolygonToArea2D( p_in,totArea);
 
 		Polygon pTot=Polygon3D.fromAreaToPolygon2D(partialArea);
@@ -923,7 +928,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		drawObjectPolygon(landscapeZbuffer,pTot,rgbColor);
 		if(deltax<16){
 			drawTextImage(landscapeZbuffer,RoadEditor.objectIndexes[dro.getIndex()]
-					,cx[0]-5,cy[0]-5,editor.indexWidth,editor.indexHeight,Color.BLACK,pColor);		
+					,droX[0]-5,droY[0]-5,editor.indexWidth,editor.indexHeight,Color.BLACK,pColor);		
 		}
 
 
