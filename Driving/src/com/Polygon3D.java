@@ -164,27 +164,32 @@ public class Polygon3D  extends Polygon implements Cloneable{
 		
 		for(int i=1;i<pol.npoints-1;i++){
 			
-			Polygon3D triangle=new Polygon3D(3);
+			int[] xpoints = new int[3];
+			int[] ypoints = new int[3];
+			int[] zpoints = new int[3];
+			int[] xtpoints = new int[3];
+			int[] ytpoints = new int[3];
+			
+			xpoints[0]=pol.xpoints[0];
+			ypoints[0]=pol.ypoints[0];
+			zpoints[0]=pol.zpoints[0];
+			xtpoints[0]=pol.xtpoints[0];
+			ytpoints[0]=pol.ytpoints[0];
+			
+			xpoints[1]=pol.xpoints[i];
+			ypoints[1]=pol.ypoints[i];
+			zpoints[1]=pol.zpoints[i];
+			xtpoints[1]=pol.xtpoints[i];
+			ytpoints[1]=pol.ytpoints[i];
+			
+			xpoints[2]=pol.xpoints[i+1];
+			ypoints[2]=pol.ypoints[i+1];
+			zpoints[2]=pol.zpoints[i+1];
+			xtpoints[2]=pol.xtpoints[i+1];
+			ytpoints[2]=pol.ytpoints[i+1];
+			
+			Polygon3D triangle=new Polygon3D(3,xpoints,ypoints,zpoints,xtpoints,ytpoints);
 			triangle.setShadowCosin(pol.getShadowCosin());
-			
-			triangle.xpoints[0]=pol.xpoints[0];
-			triangle.ypoints[0]=pol.ypoints[0];
-			triangle.zpoints[0]=pol.zpoints[0];
-			triangle.xtpoints[0]=pol.xtpoints[0];
-			triangle.ytpoints[0]=pol.ytpoints[0];
-			
-			triangle.xpoints[1]=pol.xpoints[i];
-			triangle.ypoints[1]=pol.ypoints[i];
-			triangle.zpoints[1]=pol.zpoints[i];
-			triangle.xtpoints[1]=pol.xtpoints[i];
-			triangle.ytpoints[1]=pol.ytpoints[i];
-			
-			triangle.xpoints[2]=pol.xpoints[i+1];
-			triangle.ypoints[2]=pol.ypoints[i+1];
-			triangle.zpoints[2]=pol.zpoints[i+1];
-			triangle.xtpoints[2]=pol.xtpoints[i+1];
-			triangle.ytpoints[2]=pol.ytpoints[i+1];
-
 			triangle.setLevel(pol.getLevel());			
 			triangle.setIsFilledWithWater(pol.isFilledWithWater());
 			triangle.setWaterPolygon(pol.isWaterPolygon());
