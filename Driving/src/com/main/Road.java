@@ -15,7 +15,7 @@ import java.io.FileReader;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
@@ -126,7 +126,7 @@ public class Road extends Shader{
 	private int POSSIBLE_MOVZ;
 	private boolean start_max_calculus;
 	
-	private Hashtable<Integer,String> terrainVisibleIndexes=new Hashtable<Integer,String>();
+	private HashMap<Integer,String> terrainVisibleIndexes=new HashMap<Integer,String>();
 
 	
 	
