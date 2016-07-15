@@ -557,6 +557,8 @@ public class Road extends Shader{
 	}
 	
 	int size=-1;
+
+	private int terrainSize;
 	
 	void drawRoad(BufferedImage buf){
 
@@ -585,14 +587,12 @@ public class Road extends Shader{
 		}
 
 		PolygonMesh mesh=meshes[Editor.TERRAIN_INDEX];
-		if(size<0)
-			size=mesh.polygonData.size();
 		
 		int hashCode=mesh.hashCode();
 		
 		ArrayList polyToDraw=new ArrayList<>();
 		
-		for(int j=0;j<size;j++){
+		for(int j=0;j<terrainSize;j++){
 
 			if(terrainVisibleIndexes.get(j)==null)
 				continue;
@@ -694,11 +694,14 @@ public class Road extends Shader{
 
 	private void calculateDrawingData(PolygonMesh mesh,boolean isTerrain) {
 		
+		int size=0;
+		
 		if(isTerrain){
 			terrainVisibleIndexes.clear();
+			size=terrainSize;
+		}else{
+			size=mesh.polygonData.size();
 		}
-		
-		int size=mesh.polygonData.size();
 
 		for(int j=0;j<size;j++){
 
@@ -1154,6 +1157,8 @@ public class Road extends Shader{
             
 
         	meshes[RoadEditor.TERRAIN_INDEX].setLevel(Road.GROUND_LEVEL);
+        	
+        	terrainSize=meshes[RoadEditor.TERRAIN_INDEX].polygonData.size();
             
 			oldMeshes[RoadEditor.TERRAIN_INDEX]=cloneMesh(meshes[RoadEditor.TERRAIN_INDEX]);
 
