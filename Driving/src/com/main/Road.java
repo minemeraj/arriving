@@ -591,6 +591,7 @@ public class Road extends Shader{
 		int hashCode=mesh.hashCode();
 		
 		ArrayList polyToDraw=new ArrayList<>();
+		int pSize=terrainVisibleIndexes.size();
 		
 		for(int j=0;j<terrainSize;j++){
 
@@ -605,7 +606,7 @@ public class Road extends Shader{
 			
 		}	
 		
-		int pSize=polyToDraw.size();
+		
 
 		for(int j=0;j<pSize;j++){
 
