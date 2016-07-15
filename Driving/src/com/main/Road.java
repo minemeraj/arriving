@@ -593,6 +593,8 @@ public class Road extends Shader{
 		ArrayList polyToDraw=new ArrayList<>();
 		int pSize=terrainVisibleIndexes.size();
 		
+		int level=mesh.getLevel();
+		
 		for(int j=0;j<terrainSize;j++){
 
 			if(terrainVisibleIndexes.get(j)==null)
@@ -600,7 +602,7 @@ public class Road extends Shader{
 
 			LineData ld=(LineData) mesh.polygonData.get(j);	
 			
-			polyToDraw.add(buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel()));
+			polyToDraw.add(buildTransformedPolygon3D(ld,mesh.points,level));
 			
 		}	
 		
