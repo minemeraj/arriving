@@ -590,7 +590,7 @@ public class Road extends Shader{
 		
 		int hashCode=mesh.hashCode();
 		
-		ArrayList polyToDraw=new ArrayList<>();
+		ArrayList<Polygon3D> polyToDraw=new ArrayList<Polygon3D>();
 		int pSize=terrainVisibleIndexes.size();
 		
 		int level=mesh.getLevel();
