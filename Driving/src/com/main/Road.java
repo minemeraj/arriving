@@ -600,9 +600,7 @@ public class Road extends Shader{
 
 			LineData ld=(LineData) mesh.polygonData.get(j);	
 			
-			Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel());
-			
-			polyToDraw.add(p3D);
+			polyToDraw.add(buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel()));
 			
 		}	
 		
