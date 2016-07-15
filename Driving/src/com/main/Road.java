@@ -555,8 +555,6 @@ public class Road extends Shader{
 	    
 		return res;
 	}
-	
-	int size=-1;
 
 	private int terrainSize;
 	
@@ -600,7 +598,7 @@ public class Road extends Shader{
 			if(terrainVisibleIndexes.get(j)==null)
 				continue;
 
-			LineData ld=(LineData) mesh.polygonData.get(j);	
+			LineData ld= mesh.polygonData.get(j);	
 			
 			polyToDraw.add(buildTransformedPolygon3D(ld,mesh.points,level));
 			
@@ -611,7 +609,7 @@ public class Road extends Shader{
 		for(int j=0;j<pSize;j++){
 
 			
-			Polygon3D p3D=(Polygon3D) polyToDraw.get(j);
+			Polygon3D p3D=polyToDraw.get(j);
 
 
 			//if(Polygon3D.isIntersect(p3D,totalVisibleField.getBounds())){
@@ -706,7 +704,7 @@ public class Road extends Shader{
 
 		for(int j=0;j<size;j++){
 
-			LineData ld=(LineData) mesh.polygonData.get(j);
+			LineData ld=mesh.polygonData.get(j);
 
 			Polygon3D p3DProjection=buildTransformedPolygonProjection(ld,mesh.points,mesh.getLevel());
 			
