@@ -107,13 +107,13 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 
 
 	private double calculPerspY( double x, double y, double z) {
-		double newy0= ((z)*SCREEN_DISTANCE/y)+YFOCUS;
+		double newy0= ((z)*SCREEN_DISTANCE*(1.0/y))+YFOCUS;
 		return HEIGHT-newy0;
 	}
 
 	private double calculPerspX(double x, double y, double z) {
 
-		return ((x)*SCREEN_DISTANCE/y)+XFOCUS;
+		return ((x)*SCREEN_DISTANCE*(1.0/y))+XFOCUS;
 
 	}
 
