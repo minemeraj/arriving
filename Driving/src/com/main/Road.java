@@ -127,7 +127,7 @@ public class Road extends Shader{
 	private int POSSIBLE_MOVZ;
 	private boolean start_max_calculus;
 	
-	private HashMap<Integer,String> terrainVisibleIndexes=new HashMap<Integer,String>();
+	private HashMap<Integer,Boolean> terrainVisibleIndexes=new HashMap<Integer,Boolean>();
 
 	
 	
@@ -704,6 +704,7 @@ public class Road extends Shader{
 		}
 		
 		boolean foundProjection=false;
+		HashMap<Integer,Boolean> foundAutocars=new HashMap<Integer,Boolean>();
 
 		for(int j=0;j<size;j++){
 
@@ -713,7 +714,7 @@ public class Road extends Shader{
 			
 			if(isTerrain && Polygon3D.isIntersect(p3DProjection,totalVisibleFieldBounds)){
 				
-				terrainVisibleIndexes.put(j,"");
+				terrainVisibleIndexes.put(j,true);
 				
 			}
 			
@@ -762,10 +763,15 @@ public class Road extends Shader{
 
 
 				for (int i = 0; i < autocars.length; i++) {
+					
+					if(foundAutocars.get(i)!=null)
+						continue;
 
 					Point3D transformedCenter=buildTransformedPoint(autocars[i].center);
 
 					if(p3DProjection.contains(transformedCenter.x,transformedCenter.y)){
+						
+						foundAutocars.put(i,true);
 						
 						Polygon3D p3D=buildTransformedPolygon3DWithoutTexture(ld,mesh.points,mesh.getLevel());
 						
