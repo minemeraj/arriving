@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
+import java.util.concurrent.CountDownLatch;
 
 import com.CubicMesh;
 import com.DrawObject;
@@ -1805,6 +1806,47 @@ public class Road extends Shader{
 	
 	public boolean isSkipShading() {
 		return skipShading;
+	}
+	
+	private class PolyDrawingThread extends Thread{
+
+		private CountDownLatch latch=null;
+		private ArrayList<Polygon3D> polyList=new ArrayList<Polygon3D>();
+		private int start;
+		private PolygonMesh mesh;
+
+		public PolyDrawingThread(CountDownLatch latch,PolygonMesh mesh,int start) {
+
+			this.latch = latch;
+			this.start = start;
+			this.mesh = mesh;
+		}
+
+		@Override
+		public void run() {
+
+			for(int j=start;j<terrainSize;j+=3){
+
+				if(terrainVisibleIndexes.get(j)==null)
+					continue;
+
+				LineData ld= mesh.polygonData.get(j);	
+
+				polyList.add(buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel()));
+
+			}
+
+			latch.countDown();
+		}
+
+
+
+
+
+		public ArrayList<Polygon3D> getPolyList() {
+			return polyList;
+		}
+
 	}
 		
 
