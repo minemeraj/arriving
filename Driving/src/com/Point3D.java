@@ -216,7 +216,7 @@ public class Point3D {
 		if(p2.y-p1.y<1 && p2.y-p1.y>-1)
 			return p1.x;
 
-		return p1.x+((p2.x-p1.x)*(y-p1.y))/(p2.y-p1.y);
+		return p1.x+((p2.x-p1.x)*(y-p1.y))*(1.0/(p2.y-p1.y));
 	
 
 	}
