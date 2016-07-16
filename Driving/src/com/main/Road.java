@@ -702,6 +702,8 @@ public class Road extends Shader{
 		}else{
 			size=mesh.polygonData.size();
 		}
+		
+		boolean foundProjection=false;
 
 		for(int j=0;j<size;j++){
 
@@ -712,9 +714,14 @@ public class Road extends Shader{
 			if(isTerrain && Polygon3D.isIntersect(p3DProjection,totalVisibleFieldBounds)){
 				
 				terrainVisibleIndexes.put(j,"");
+				
 			}
+			
+			boolean skipTerrain=isTerrain && foundProjection;
 
-			if(p3DProjection.contains(start_car_x,start_car_y)){
+			if(!skipTerrain && p3DProjection.contains(start_car_x,start_car_y)){
+				
+				foundProjection=true;
 				
 				Polygon3D p3D=buildTransformedPolygon3DWithoutTexture(ld,mesh.points,mesh.getLevel());
 
@@ -1815,7 +1822,7 @@ public class Road extends Shader{
 		private int start;
 		private PolygonMesh mesh;
 
-		public PolyDrawingThread(CountDownLatch latch,PolygonMesh mesh,int start) {
+		private PolyDrawingThread(CountDownLatch latch,PolygonMesh mesh,int start) {
 
 			this.latch = latch;
 			this.start = start;
@@ -1827,8 +1834,8 @@ public class Road extends Shader{
 
 			for(int j=start;j<terrainSize;j+=3){
 
-				if(terrainVisibleIndexes.get(j)==null)
-					continue;
+				/*if(terrainVisibleIndexes.get(j)==null)
+					continue;*/
 
 				LineData ld= mesh.polygonData.get(j);	
 
