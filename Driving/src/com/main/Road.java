@@ -396,7 +396,7 @@ public class Road extends Shader{
 	}
 
 	private void buildCar(double directionAngle){
-		/*
+	
 
 		//putting the car right in front of the view point
 		CubicMesh cm = carData[SELECTED_CAR].getCarMesh().clone();
@@ -463,14 +463,14 @@ public class Road extends Shader{
 			Color col=new Color(due,0,0);
 			
 			LineData ld=cm.polygonData.get(i);
-			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld,cm.getLevel());
+			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.xpoints,cm.ypoints,cm.zpoints,ld,cm.getLevel());
 			polRotate.setShadowCosin(ld.getShadowCosin());
 			
 		
 			int face=cm.boxFaces[i];
 			
 			decomposeCubiMeshPolygon(polRotate,xVersor,yVersor,zVersor,zMinusVersor,cm,cm.point000,cm.point011,cm.point001,face,col,carTexture,roadZbuffer);
-			
+		
           
 				
 		}
@@ -480,7 +480,7 @@ public class Road extends Shader{
 		 if(!isSkipShading()){
 			 buildShadowVolumeBox(carShadowVolume[SELECTED_CAR],cm);
 		 }
-*/
+		 
 	}
 
 
@@ -630,8 +630,8 @@ public class Road extends Shader{
 		} 
 
 
-		//drawSPLines(splines,totalVisibleFieldBounds,roadZbuffer);
-		//drawCar();
+		drawSPLines(splines,totalVisibleFieldBounds,roadZbuffer);
+		drawCar();
 
 		if(!isSkipShading()){
 			calculateStencilBuffer();
@@ -795,7 +795,7 @@ public class Road extends Shader{
 	private void drawSPLines(ArrayList<SPLine> splines, Rectangle totalVisibleFieldBounds,
 			ZBuffer roadZbuffer) {
 		
-		/*int szMesh=splines.size();
+		int szMesh=splines.size();
 
 		for (int i = 0; i < szMesh; i++) {
 
@@ -823,7 +823,7 @@ public class Road extends Shader{
 					LineData ld=(LineData) mesh.polygonData.get(k);
 
 					
-					Polygon3D p3DBase=buildTransformedPolygon3DWithoutTexture(ld,mesh.points,mesh.getLevel());
+					Polygon3D p3DBase=buildTransformedPolygon3DWithoutTexture(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,mesh.getLevel());
 					
 					if(Polygon3D.isIntersect(p3DBase,totalVisibleFieldBounds)){
 						visible=true;
@@ -840,7 +840,7 @@ public class Road extends Shader{
 
 					LineData ld=(LineData) mesh.polygonData.get(k);
 
-					Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel());
+					Polygon3D p3D=buildTransformedPolygon3D(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,mesh.getLevel());
 
 
 					decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),EditorData.splinesTextures[ld.getTexture_index()],roadZbuffer,hashCode);
@@ -850,7 +850,7 @@ public class Road extends Shader{
 				}
 
 			}
-		}*/
+		}
 	}
 
 	@Override
@@ -964,7 +964,7 @@ public class Road extends Shader{
 			return;
 		
 
-		buildCar(0);
+		//buildCar(0);
 		
 
 	}
