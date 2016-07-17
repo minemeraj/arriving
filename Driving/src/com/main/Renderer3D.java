@@ -464,14 +464,14 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 			
 			LineData ld=cm.polygonData.get(i);
 			
-			Polygon3D polygon = PolygonMesh.getBodyPolygon(cm.points,ld,cm.getLevel());
+			/*Polygon3D polygon = PolygonMesh.getBodyPolygon(cm.points,ld,cm.getLevel());
 			
 			Point3D centroid = Polygon3D.findCentroid(polygon);
 			
 			Point3D normal=(Polygon3D.findNormal(polygon)).calculateVersor();
 			
 			ld.setShadowCosin(Point3D.calculateCosin(lightPoint.position.substract(centroid),normal));
-			
+			*/
 		}
 		
 	}
@@ -611,7 +611,7 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 			Color col=new Color(due,0,0);
 			
 			LineData ld=cm.polygonData.get(i);
-			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld,cm.getLevel());
+			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.xpoints,cm.ypoints,cm.zpoints,ld,cm.getLevel());
 			polRotate.setShadowCosin(ld.getShadowCosin());
 			
 		
@@ -813,7 +813,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 
 	}
 	
-	Polygon3D buildTransformedPolygon3D(LineData ld,Point3D[] points,int level) { 
+	Polygon3D buildTransformedPolygon3D(LineData ld,double[] xpoints,double[] ypoints,double[] zpoints,int level) { 
 
 
 
@@ -832,7 +832,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 			LineDataVertex ldv=(LineDataVertex) ld.getItem(i);
 			int num=ldv.getVertex_index();
 
-			Point4D p=(Point4D) points[num];
+			Point4D p= new Point4D(xpoints[num],ypoints[num],zpoints[num]);
 
 
 			cxr[i]=(int)(p.x);
@@ -869,7 +869,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 	 * @return
 	 */
 	
-	Polygon3D buildTransformedPolygon3DWithoutTexture(LineData ld,Point3D[] points,int level) { 
+	Polygon3D buildTransformedPolygon3DWithoutTexture(LineData ld,double[] xpoints,double[] ypoints,double[] zpoints,int level) { 
 
 
 
@@ -885,7 +885,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 			LineDataVertex ldv=(LineDataVertex) ld.getItem(i);
 			int num=ldv.getVertex_index();
 
-			Point4D p=(Point4D) points[num];
+			Point4D p= new Point4D(xpoints[num],ypoints[num],zpoints[num]);
 
 
 			cxr[i]=(int)(p.x);
@@ -921,7 +921,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 	 * @return
 	 */
 	
-	Polygon3D buildTransformedPolygonProjection(LineData ld,Point3D[] points,int level) { 
+	Polygon3D buildTransformedPolygonProjection(LineData ld,double[] xpoints,double[] ypoints,double[] zpoints,int level) { 
 
 
 
@@ -936,7 +936,7 @@ public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer
 			LineDataVertex ldv=(LineDataVertex) ld.getItem(i);
 			int num=ldv.getVertex_index();
 
-			Point4D p=(Point4D) points[num];
+			Point4D p= new Point4D(xpoints[num],ypoints[num],zpoints[num]);
 
 
 			cxr[i]=(int)(p.x);

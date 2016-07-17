@@ -256,10 +256,10 @@ public class SPLine implements Cloneable{
 				ld.setTexture_index(prevRib.getIndex());
 				polygonData.add(ld);
 
-				PolygonMesh mesh=new PolygonMesh(points,polygonData);
+				/*PolygonMesh mesh=new PolygonMesh(points,polygonData);
 				mesh.setTexturePoints(vTexturePoints);
 				mesh.setLevel(getLevel());
-				meshes.add(mesh);
+				meshes.add(mesh);*/
 			}
 		}
 		return meshes;
@@ -317,10 +317,10 @@ public class SPLine implements Cloneable{
 					nPolygonData.add(ld);
 				}
 
-				PolygonMesh mesh=new PolygonMesh(points,nPolygonData);
+				/*PolygonMesh mesh=new PolygonMesh(points,nPolygonData);
 				mesh.setTexturePoints(vTexturePoints);
 				mesh.setLevel(getLevel());
-				meshes3D.add(mesh);
+				meshes3D.add(mesh);*/
 			}
 		}
 	}

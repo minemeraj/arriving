@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
-import java.util.concurrent.CountDownLatch;
 
 import com.CubicMesh;
 import com.DrawObject;
@@ -262,7 +261,7 @@ public class Road extends Shader{
 
 		isShadowMap=true;
 		
-		int index=0;
+		/*int index=0;
 		
 		for (int ii = 0; ii < 2; ii++) {
 			
@@ -335,7 +334,7 @@ public class Road extends Shader{
 
 
 		}
-		
+		*/
 		isShadowMap=false;
 		
 	}
@@ -397,7 +396,7 @@ public class Road extends Shader{
 	}
 
 	private void buildCar(double directionAngle){
-		
+		/*
 
 		//putting the car right in front of the view point
 		CubicMesh cm = carData[SELECTED_CAR].getCarMesh().clone();
@@ -481,7 +480,7 @@ public class Road extends Shader{
 		 if(!isSkipShading()){
 			 buildShadowVolumeBox(carShadowVolume[SELECTED_CAR],cm);
 		 }
-
+*/
 	}
 
 
@@ -577,11 +576,11 @@ public class Road extends Shader{
         
 		
 
-		drawObjects(drawObjects,totalVisibleFieldBounds,roadZbuffer);
+		//drawObjects(drawObjects,totalVisibleFieldBounds,roadZbuffer);
 
 		if(autocars!=null){
 
-			drawAutocars(autocars,totalVisibleFieldBounds,roadZbuffer);
+			//drawAutocars(autocars,totalVisibleFieldBounds,roadZbuffer);
 
 		}
 
@@ -601,7 +600,7 @@ public class Road extends Shader{
 
 			LineData ld= mesh.polygonData.get(j);	
 			
-			polyToDraw.add(buildTransformedPolygon3D(ld,mesh.points,level));
+			polyToDraw.add(buildTransformedPolygon3D(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,level));
 			
 		}	
 		
@@ -631,8 +630,8 @@ public class Road extends Shader{
 		} 
 
 
-		drawSPLines(splines,totalVisibleFieldBounds,roadZbuffer);
-		drawCar();
+		//drawSPLines(splines,totalVisibleFieldBounds,roadZbuffer);
+		//drawCar();
 
 		if(!isSkipShading()){
 			calculateStencilBuffer();
@@ -710,7 +709,7 @@ public class Road extends Shader{
 
 			LineData ld=mesh.polygonData.get(j);
 
-			Polygon3D p3DProjection=buildTransformedPolygonProjection(ld,mesh.points,mesh.getLevel());
+			Polygon3D p3DProjection=buildTransformedPolygonProjection(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,mesh.getLevel());
 			
 			if(isTerrain && Polygon3D.isIntersect(p3DProjection,totalVisibleFieldBounds)){
 				
@@ -724,7 +723,7 @@ public class Road extends Shader{
 				
 				foundProjection=true;
 				
-				Polygon3D p3D=buildTransformedPolygon3DWithoutTexture(ld,mesh.points,mesh.getLevel());
+				Polygon3D p3D=buildTransformedPolygon3DWithoutTexture(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,mesh.getLevel());
 
 				int zz=(int)interpolate(start_car_x,start_car_y,p3D);
 
@@ -762,7 +761,7 @@ public class Road extends Shader{
 			if(autocars!=null){
 
 
-				for (int i = 0; i < autocars.length; i++) {
+				/*for (int i = 0; i < autocars.length; i++) {
 					
 					if(foundAutocars.get(i)!=null)
 						continue;
@@ -784,7 +783,7 @@ public class Road extends Shader{
 
 						autocarTerrainNormal[i]=Polygon3D.findNormal(realP3D);
 					}
-				}
+				}*/
 
 			}
 
@@ -796,7 +795,7 @@ public class Road extends Shader{
 	private void drawSPLines(ArrayList<SPLine> splines, Rectangle totalVisibleFieldBounds,
 			ZBuffer roadZbuffer) {
 		
-		int szMesh=splines.size();
+		/*int szMesh=splines.size();
 
 		for (int i = 0; i < szMesh; i++) {
 
@@ -851,7 +850,7 @@ public class Road extends Shader{
 				}
 
 			}
-		}
+		}*/
 	}
 
 	@Override
@@ -937,7 +936,7 @@ public class Road extends Shader{
 
 			int num=ld.getIndex(i);
 
-			Point4D p=(Point4D) mesh.points[num];
+			Point4D p=(Point4D) new Point4D(mesh.xpoints[num],mesh.ypoints[num],mesh.zpoints[num]);
 
 			Point4D p_light=calculateLightTransformedPoint(p,true);
 				
@@ -1190,7 +1189,7 @@ public class Road extends Shader{
 	private void calculateShadowCosines() {
 	
 		
-		for(int i=0;i<drawObjects.length;i++){
+		/*for(int i=0;i<drawObjects.length;i++){
 
 			DrawObject dro=drawObjects[i];
 			calculateShadowCosines(dro);
@@ -1214,7 +1213,7 @@ public class Road extends Shader{
 			
 			ld.setShadowCosin(Point3D.calculateCosin(lightPoint.position.substract(centroid),normal));
 			
-		}
+		}*/
 
 	}
 
@@ -1545,7 +1544,7 @@ public class Road extends Shader{
 	private void rotoTranslate(double[][] aRotation, CubicMesh cm, double dx,
 			double dy, double dz) {
 		
-		cm.point000=rotoTranslate(aRotation,cm.point000,dx,dy,dz);
+		/*cm.point000=rotoTranslate(aRotation,cm.point000,dx,dy,dz);
 		cm.point011=rotoTranslate(aRotation,cm.point011,dx,dy,dz);				
 		cm.point001=rotoTranslate(aRotation,cm.point001,dx,dy,dz);
 		cm.point101=rotoTranslate(aRotation,cm.point101,dx,dy,dz);
@@ -1556,7 +1555,7 @@ public class Road extends Shader{
 		
      	for (int j = 0; j < cm.points.length; j++) {
 				cm.points[j]=rotoTranslate(aRotation,cm.points[j],dx,dy,dz);
-		}
+		}*/
 	}
 
 	void loadAutocars(File file) {
@@ -1643,7 +1642,7 @@ public class Road extends Shader{
 		}
 
 
-		for(int i=0;i<drawObjects.length;i++){
+		/*for(int i=0;i<drawObjects.length;i++){
 
 
 			if(autocar_index<0){
@@ -1693,7 +1692,7 @@ public class Road extends Shader{
 
 
 
-		}
+		}*/
 
 
 
@@ -1821,7 +1820,7 @@ public class Road extends Shader{
 		return skipShading;
 	}
 	
-	private class PolyDrawingThread extends Thread{
+	/*private class PolyDrawingThread extends Thread{
 
 		private CountDownLatch latch=null;
 		private ArrayList<Polygon3D> polyList=new ArrayList<Polygon3D>();
@@ -1840,9 +1839,6 @@ public class Road extends Shader{
 
 			for(int j=start;j<terrainSize;j+=3){
 
-				/*if(terrainVisibleIndexes.get(j)==null)
-					continue;*/
-
 				LineData ld= mesh.polygonData.get(j);	
 
 				polyList.add(buildTransformedPolygon3D(ld,mesh.points,mesh.getLevel()));
@@ -1860,7 +1856,7 @@ public class Road extends Shader{
 			return polyList;
 		}
 
-	}
+	}*/
 		
 
 }

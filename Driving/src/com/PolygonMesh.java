@@ -3,18 +3,15 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Hashtable;
 import java.util.List;
 
 import com.main.Road;
 
 public class PolygonMesh implements Cloneable{
-	
-	
 
-
-	public Point3D[] points=null;
+	public double[] xpoints=null;
+	public double[] ypoints=null;
+	public double[] zpoints=null;
 	public ArrayList <LineData>polygonData=null;
 	public ArrayList<Point3D> texturePoints=null;
 	ArrayList <Point3D>normals=null;
@@ -25,27 +22,27 @@ public class PolygonMesh implements Cloneable{
 
 
 	public PolygonMesh() {
-		points= null;
+		xpoints=null;
+		ypoints=null;
+		zpoints=null;
 		polygonData= new ArrayList <LineData>();
 		normals= new ArrayList <Point3D>();
 		texturePoints=new ArrayList<Point3D>();
 	}
 	
-	public PolygonMesh(Point3D[] points, ArrayList<LineData> polygonData) {
-		this.points=points;
+	/*public PolygonMesh(Point3D[] points, ArrayList<LineData> polygonData) {
+		this.xpoints=xpoints;
+		this.ypoints=ypoints;
+		this.zpoints=zpoints;
 		this.polygonData=polygonData;
 		calculateNormals();
-	}
+	}*/
 	
-	public PolygonMesh(ArrayList <Point3D> points, ArrayList <LineData> polygonData) {
+	public PolygonMesh(double[] xpoints,double[] ypoints,double[] zpoints, ArrayList <LineData> polygonData) {
 		
-		if(points!=null){
-			this.points=new Point3D[points.size()];
-			for(int i=0;i<points.size();i++)
-				this.points[i] = points.get(i);
-		}	
-		else
-			this.points= null;
+		this.xpoints=xpoints;
+		this.ypoints=ypoints;
+		this.zpoints=zpoints;
 		
 		if(polygonData!=null)
 			this.polygonData = polygonData;
@@ -57,6 +54,27 @@ public class PolygonMesh implements Cloneable{
 
 
 
+	public PolygonMesh(ArrayList<Point3D> aPoints, ArrayList<LineData> lines) {
+		
+		this.xpoints=new double[aPoints.size()];
+		this.ypoints=new double[aPoints.size()];
+		this.zpoints=new double[aPoints.size()];
+		
+		for (int i = 0; i < aPoints.size(); i++) {
+			Point3D p=aPoints.get(i);
+			xpoints[i]=p.x;
+			ypoints[i]=p.y;
+			zpoints[i]=p.z;
+		}
+		
+		if(polygonData!=null)
+			this.polygonData = polygonData;
+		else
+			this.polygonData= new ArrayList <LineData>();
+		
+		calculateNormals();
+	}
+
 	private void calculateNormals() {
 		
 				
@@ -66,7 +84,7 @@ public class PolygonMesh implements Cloneable{
 
 			LineData ld=(LineData) polygonData.get(l);
 
-			Point3D normal = getNormal(0,ld,points);
+			Point3D normal = getNormal(0,ld,xpoints,ypoints,zpoints);
 			normals.add(normal);
 			if(ld.getData()!=null){
 				
@@ -78,16 +96,18 @@ public class PolygonMesh implements Cloneable{
 	}
 	
 	public static Point3D getNormal(int position, LineData ld,
-			Point3D[] points) {
+			double[] xpoints,double[] ypoints,double[] zpoints) {
 
 		int n=ld.size();
 
 
-		Point3D p0=points[ld.getIndex((n+position-1)%n)];
+		/*Point3D p0=points[ld.getIndex((n+position-1)%n)];
 		Point3D p1=points[ld.getIndex(position)];
 		Point3D p2=points[ld.getIndex((1+position)%n)];
 
-		Point3D normal=Point3D.calculateCrossProduct(p1.substract(p0),p2.substract(p1));
+		Point3D normal=Point3D.calculateCrossProduct(p1.substract(p0),p2.substract(p1));*/
+		
+		Point3D normal=new Point3D(0,0,1.0);
 
 		return normal.calculateVersor();
 	}
@@ -99,13 +119,16 @@ public class PolygonMesh implements Cloneable{
 	public PolygonMesh clone() {
 		
 		PolygonMesh pm=new PolygonMesh();
-		pm.points=new Point3D[this.points.length];
+		/*pm.points=new Point3D[this.points.length];
 		
 		for(int i=0;i<this.points.length;i++){
 	
 			pm.points[i]=points[i].clone();
 			
-		}
+		}*/
+		pm.xpoints=xpoints;
+		pm.ypoints=ypoints;
+		pm.zpoints=zpoints;
 		
 		for(int i=0;i<this.polygonData.size();i++){
 
@@ -134,7 +157,7 @@ public class PolygonMesh implements Cloneable{
 	 * @param level
 	 * @return
 	 */
-	public static Polygon3D getBodyPolygon(Point3D[] points,LineData ld,int level) {
+	public static Polygon3D getBodyPolygon(double[] xpoints,double[] ypoints,double[] zpoints,LineData ld,int level) {
 		 
 		int size=ld.size();
 		Polygon3D pol=new Polygon3D(size);
@@ -143,9 +166,9 @@ public class PolygonMesh implements Cloneable{
 		for(int i=0;i<size;i++){
 			int index=ld.getIndex(i);
 			
-			pol.xpoints[i]=(int) points[index].x;
-			pol.ypoints[i]=(int) points[index].y;
-			pol.zpoints[i]=(int) points[index].z;
+			pol.xpoints[i]=(int) xpoints[index];
+			pol.ypoints[i]=(int) ypoints[index];
+			pol.zpoints[i]=(int) zpoints[index];
 			
 			Point3D pt = ld.getVertexTexturePoint(i);
 			
@@ -210,9 +233,9 @@ public class PolygonMesh implements Cloneable{
 			for(int i=0;i<size;i++){
 				int index=ld.getIndex(i);
 
-				pol.xpoints[i]=(int) pm.points[index].x;
-				pol.ypoints[i]=(int) pm.points[index].y;
-				pol.zpoints[i]=(int) pm.points[index].z;
+				pol.xpoints[i]=(int) pm.xpoints[index];
+				pol.ypoints[i]=(int) pm.ypoints[index];
+				pol.zpoints[i]=(int) pm.zpoints[index];
 			} 
 			pol.setLevel(pm.getLevel());
 			pol.setIsFilledWithWater(ld.isFilledWithWater());
@@ -302,9 +325,11 @@ public class PolygonMesh implements Cloneable{
 	
 	public void translate(double i, double j, double k) {
 		
-		for(int p=0;p<points.length;p++){
-			points[p].translate(i,j,k);
-	
+		for(int p=0;p<xpoints.length;p++){
+			//points[p].translate(i,j,k);
+			xpoints[p]+=i;
+			ypoints[p]+=j;
+			zpoints[p]+=k;
 		}
 	
 	}
@@ -369,7 +394,7 @@ public class PolygonMesh implements Cloneable{
 		
 		PolygonMesh newPolygonMesh=new PolygonMesh();
 		
-		Point3D[] arrPoints = pm.points; 
+		/*Point3D[] arrPoints = pm.points; 
 		ArrayList<LineData> polygonData = pm.polygonData;
 		
 		//which points are really used ?
@@ -434,7 +459,7 @@ public class PolygonMesh implements Cloneable{
 		}	
 		
 		newPolygonMesh.points=newArrPoints;
-		newPolygonMesh.polygonData=newPolygonData;
+		newPolygonMesh.polygonData=newPolygonData;*/
 		newPolygonMesh.texturePoints=pm.getTexturePoints();
 		return newPolygonMesh;
 	}
@@ -443,9 +468,9 @@ public class PolygonMesh implements Cloneable{
 		
 		ArrayList<Point3D> vpoints=new ArrayList<Point3D>(); 
 		
-		for (int i = 0; i < points.length; i++) {
+		/*for (int i = 0; i < points.length; i++) {
 			vpoints.add(points[i]);
-		}
+		}*/
 		
 		return vpoints;
 	}
@@ -458,22 +483,41 @@ public class PolygonMesh implements Cloneable{
 		this.polygonData = polygonData;
 	}
 
-	public void setPoints(ArrayList<Point3D> points) {
+	public void setPoints(double[] xpoints,double[] ypoints,double[] zpoints) {
 		
-		if(points!=null){
+		this.xpoints=xpoints;
+		this.ypoints=ypoints;
+		this.zpoints=zpoints;
+		
+		/*if(points!=null){
 			this.points=new Point3D[points.size()];
 			for(int i=0;i<points.size();i++)
 				this.points[i] = (Point3D) points.get(i);
 		}	
 		else
-			this.points= null;
+			this.points= null;*/
+		
+	}
+	
+	
+	public void setPoints(ArrayList<Point3D> aPoints) {
+		this.xpoints=new double[aPoints.size()];
+		this.ypoints=new double[aPoints.size()];
+		this.zpoints=new double[aPoints.size()];
+		
+		for (int i = 0; i < aPoints.size(); i++) {
+			Point3D p=aPoints.get(i);
+			xpoints[i]=p.x;
+			ypoints[i]=p.y;
+			zpoints[i]=p.z;
+		}
 		
 	}
 
 	public void addPoint(Point3D point) {
 		
 		int len=0;
-		if(points!=null)
+		/*if(points!=null)
 			len=points.length;
 
 		Point3D[] newPoints=new Point3D[len+1];
@@ -484,7 +528,7 @@ public class PolygonMesh implements Cloneable{
 
 		newPoints[len]=point;
 		
-		points=newPoints;
+		points=newPoints;*/
 
 	}
 
@@ -511,6 +555,8 @@ public class PolygonMesh implements Cloneable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+
 
 
 }

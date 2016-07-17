@@ -70,7 +70,7 @@ public class SquareMesh extends PolygonMesh {
 	public SquareMesh clone() {
 		
 		SquareMesh pm=new SquareMesh();
-		pm.points=new Point3D[this.points.length];
+		/*pm.points=new Point3D[this.points.length];
 		
 		for(int i=0;i<this.points.length;i++){
 	
@@ -94,7 +94,7 @@ public class SquareMesh extends PolygonMesh {
 		pm.setY0(getY0());
 		
 		pm.setLevel(level);
-		
+		*/
 		return pm;
 	}
 

@@ -98,7 +98,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 					for(int j=0;j<lsize;j++){
 
 
-						LineData ld=(LineData) mesh.polygonData.get(j);
+						/*LineData ld=(LineData) mesh.polygonData.get(j);
 
 						Polygon3D p3D=levelGetPolygon(ld,mesh.points);
 
@@ -114,7 +114,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 							break;
 
 
-						}
+						}*/
 
 
 					} 
@@ -416,7 +416,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 		
 		try {
 			
-			PolygonMesh mesh=meshes[ACTIVE_PANEL];
+			/*PolygonMesh mesh=meshes[ACTIVE_PANEL];
 			
 			if(mesh.points==null)
 				return; 
@@ -467,7 +467,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 			if(!forceReading)
 				pr.print("</"+TAG[ACTIVE_PANEL]+">\n");
 				
-
+			 */
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -512,7 +512,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 		
 	public void prepareUndo() {
 		
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		/*PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		if(mesh.points==null)
 			return; 
 		
@@ -521,7 +521,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 			oldMeshes[ACTIVE_PANEL].removeElementAt(0);
 		}
 		oldMeshes[ACTIVE_PANEL].push(meshes[ACTIVE_PANEL].clone());
-	
+	*/
 	}
 	
 	public void undo() {

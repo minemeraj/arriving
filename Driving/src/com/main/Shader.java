@@ -3,7 +3,6 @@ package com.main;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 import com.CubicMesh;
 import com.DrawObject;
@@ -11,7 +10,6 @@ import com.LineData;
 import com.Point3D;
 import com.Point4D;
 import com.Polygon3D;
-import com.PolygonMesh;
 import com.ZBuffer;
 
 class Shader extends Renderer3D{
@@ -413,7 +411,7 @@ class Shader extends Renderer3D{
 
 		shadowVolume.initFaces();
 
-		ArrayList<LineData> edges=new ArrayList<LineData>();
+		/*ArrayList<LineData> edges=new ArrayList<LineData>();
 
         int aSize= shadowVolume.allTriangles.size(); 
         
@@ -580,7 +578,7 @@ class Shader extends Renderer3D{
 			shadowVolume.addToFaces(pol);
 
 		}
-
+*/
 
 		shadowVolume.buildPolygonsArray();
 		

@@ -25,8 +25,8 @@ public class CubicMesh extends PolygonMesh{
 	public Point3D point101=null;
 	public Point3D point111=null;
 
-	private CubicMesh(Point3D[] points, ArrayList<LineData> polygonData) {
-		super(points,polygonData);
+	private CubicMesh(double[] xpoints,double[] ypoints,double[] zpoints,ArrayList<LineData> polygonData) {
+		super(xpoints,ypoints,zpoints,polygonData);
 	}
 
 	public CubicMesh() {
@@ -45,7 +45,7 @@ public class CubicMesh extends PolygonMesh{
 	
 	public static CubicMesh buildCubicMesh(PolygonMesh pm) {
 
-		CubicMesh cm=new CubicMesh(pm.points,pm.polygonData);
+		CubicMesh cm=new CubicMesh(pm.xpoints,pm.ypoints,pm.zpoints,pm.polygonData);
 
 			
 		double dx=0;
@@ -60,9 +60,9 @@ public class CubicMesh extends PolygonMesh{
 		double maxy=0;
 		double maxz=0;
 		
-		for(int j=0;j<cm.points.length;j++){
+		for(int j=0;j<cm.xpoints.length;j++){
 			
-			Point3D point= cm.points[j];
+			Point3D point= new Point3D(cm.xpoints[j],cm.ypoints[j],cm.zpoints[j]);
 			
 			if(j==0){
 				
@@ -109,10 +109,10 @@ public class CubicMesh extends PolygonMesh{
 		
 		//only positive data in the cubic mesh
 		
-		for (int i = 0; i < cm.points.length; i++) {
-			cm.points[i].x-=minx;
-			cm.points[i].y-=miny;
-			cm.points[i].z-=minz;
+		for (int i = 0; i < cm.xpoints.length; i++) {
+			cm.xpoints[i]-=minx;
+			cm.ypoints[i]-=miny;
+			cm.zpoints[i]-=minz;
 		}
 		
 		cm.setDescription(pm.getDescription());
@@ -125,12 +125,18 @@ public class CubicMesh extends PolygonMesh{
 	public CubicMesh clone() {
 
 		CubicMesh cm=new CubicMesh();
-		cm.points=new Point3D[this.points.length];
-        cm.boxFaces=new int[this.boxFaces.length]; 
-		
-		for(int i=0;i<this.points.length;i++){
 
-			cm.points[i]=points[i].clone();
+        cm.boxFaces=new int[this.boxFaces.length]; 
+        
+        cm.xpoints=new double[this.xpoints.length];
+        cm.ypoints=new double[this.ypoints.length];
+        cm.zpoints=new double[this.zpoints.length];
+		
+		for(int i=0;i<this.xpoints.length;i++){
+
+			cm.xpoints[i]=xpoints[i];
+			cm.ypoints[i]=ypoints[i];
+			cm.zpoints[i]=zpoints[i];
 
 		}
 
@@ -232,9 +238,9 @@ public class CubicMesh extends PolygonMesh{
 	
 	public void rotate(double x0, double y0,double cos, double sin ) {
 		
-		for (int i = 0; i < points.length; i++) {
+		for (int i = 0; i < xpoints.length; i++) {
 			
-			Point3D p=points[i];
+			Point3D p=new Point3D(xpoints[i],ypoints[i],zpoints[i]);
 			
 			p.rotate(x0,  y0, cos, sin );
 		}
