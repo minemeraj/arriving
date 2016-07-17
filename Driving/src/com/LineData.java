@@ -182,7 +182,7 @@ public class LineData implements Cloneable{
 		}
 		
 		
-		public static Polygon3D buildPolygon(LineData ld,Point3D[] points) {
+		public static Polygon3D buildPolygon(LineData ld,double[] xpoints,double[] ypoints,double[] zpoints) {
 
 
 
@@ -202,7 +202,7 @@ public class LineData implements Cloneable{
 				int num=ldv.getVertex_index();
 				int numt=ldv.getVertex_texture_index();
 	
-				Point3D p=points[num];
+				Point3D p=new Point3D(xpoints[i],ypoints[i],zpoints[i]);
 
 				//real coordinates
 				cxr[i]=(int)(p.x);

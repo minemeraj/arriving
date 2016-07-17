@@ -464,14 +464,14 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 			
 			LineData ld=cm.polygonData.get(i);
 			
-			/*Polygon3D polygon = PolygonMesh.getBodyPolygon(cm.points,ld,cm.getLevel());
+			Polygon3D polygon = PolygonMesh.getBodyPolygon(cm.xpoints,cm.ypoints,cm.zpoints,ld,cm.getLevel());
 			
 			Point3D centroid = Polygon3D.findCentroid(polygon);
 			
 			Point3D normal=(Polygon3D.findNormal(polygon)).calculateVersor();
 			
 			ld.setShadowCosin(Point3D.calculateCosin(lightPoint.position.substract(centroid),normal));
-			*/
+			
 		}
 		
 	}
@@ -728,45 +728,6 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 
 
 	
-	
-	/*public void drawObject2D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer){
-
-
-	if(!totalVisibleField.contains(dro.x-POSX,VIEW_DIRECTION*(dro.y-POSY)))
-		return;
-
-	int index=dro.getIndex();
-
-	if(index<0 || index> CarFrame.objects.length)
-		return;
-
-	decomposeObject2D(CarFrame.objects[index],dro.x-POSX,VIEW_DIRECTION*(dro.y-POSY),dro.z+MOVZ,dro.dx,dro.dy,dro.dz, zbuffer);
-
-}
-
-public void drawObject3D(DrawObject dro,Area totalVisibleField,ZBuffer[] zbuffer){
-
-	int index=dro.getIndex();
-
-	if(index<0 || index> CarFrame.objects.length)
-		return;
-
-	Rectangle rect = totalVisibleField.getBounds();
-	
-	for(int j=0;j<dro.getPolygons().size();j++){
-
-		Polygon3D polig=(Polygon3D) dro.getPolygons().elementAt(j);
-		Polygon3D translatedPolygon=calculateTranslated3D(polig);
-
-        if(!isVisible(rect,translatedPolygon))
-        	continue;
-
-		decomposeClippedPolygonIntoZBuffer(translatedPolygon,Color.RED,CarFrame.objects[index],zbuffer);		
-	
-	}	
-
-
-}*/
 
 	private void decomposePointIntoZBuffer(double xs, double ys, double zs,
 			double ds, int rgbColor,ZBuffer zbuffer) {

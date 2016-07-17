@@ -98,9 +98,9 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 					for(int j=0;j<lsize;j++){
 
 
-						/*LineData ld=(LineData) mesh.polygonData.get(j);
+						LineData ld=(LineData) mesh.polygonData.get(j);
 
-						Polygon3D p3D=levelGetPolygon(ld,mesh.points);
+						Polygon3D p3D=levelGetPolygon(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints);
 
 						if(p3D.contains(mx,my)){
 
@@ -114,7 +114,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 							break;
 
 
-						}*/
+						}
 
 
 					} 
@@ -130,7 +130,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 	}
 
 
-	private static Polygon3D levelGetPolygon(LineData ld, Point3D[] points) {
+	private static Polygon3D levelGetPolygon(LineData ld, double[] xpoints,double[] ypoints,double[] zpoints) {
 		
 	
 
@@ -146,7 +146,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 
 			int num=ld.getIndex(i);
 
-			Point4D p=(Point4D) points[num];
+			Point4D p= new Point4D(xpoints[num],ypoints[num],zpoints[num]);
 
 			cx[i]=(int)p.x;
 			cy[i]=(int)p.y;
@@ -416,9 +416,9 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 		
 		try {
 			
-			/*PolygonMesh mesh=meshes[ACTIVE_PANEL];
+			PolygonMesh mesh=meshes[ACTIVE_PANEL];
 			
-			if(mesh.points==null)
+			if(mesh.xpoints==null)
 				return; 
 			
 			if(!forceReading)
@@ -436,9 +436,9 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 			}
 			pr.println("DESCRIPTION="+mesh.getDescription());
 
-			for(int i=0;i<mesh.points.length;i++){
+			for(int i=0;i<mesh.xpoints.length;i++){
 
-				Point3D p=mesh.points[i];
+				Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 
 				pr.print("v=");
 				pr.print(decomposePoint(p));				
@@ -467,7 +467,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 			if(!forceReading)
 				pr.print("</"+TAG[ACTIVE_PANEL]+">\n");
 				
-			 */
+	
 		} catch (Exception e) {
 
 			e.printStackTrace();

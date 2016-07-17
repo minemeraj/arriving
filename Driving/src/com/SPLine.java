@@ -236,11 +236,11 @@ public class SPLine implements Cloneable{
 				Point4D p3=nextRib.getPoints()[3];
 
 
-				ArrayList<Point3D> points=new ArrayList<Point3D>();
-				points.add(p0);
-				points.add(p1);
-				points.add(p2);
-				points.add(p3);
+				ArrayList<Point3D> aPoints=new ArrayList<Point3D>();
+				aPoints.add(p0);
+				aPoints.add(p1);
+				aPoints.add(p2);
+				aPoints.add(p3);
 
 				Point3D pt0=(Point3D) vTexturePoints.get(0);
 				Point3D pt1=(Point3D) vTexturePoints.get(1);
@@ -256,10 +256,10 @@ public class SPLine implements Cloneable{
 				ld.setTexture_index(prevRib.getIndex());
 				polygonData.add(ld);
 
-				/*PolygonMesh mesh=new PolygonMesh(points,polygonData);
+				PolygonMesh mesh=new PolygonMesh(aPoints,polygonData);
 				mesh.setTexturePoints(vTexturePoints);
 				mesh.setLevel(getLevel());
-				meshes.add(mesh);*/
+				meshes.add(mesh);
 			}
 		}
 		return meshes;
@@ -292,17 +292,17 @@ public class SPLine implements Cloneable{
 				Point4D p7=nextRib.getPoints()[3];
 
 
-				ArrayList<Point3D> points=new ArrayList<Point3D>();
-				points.add(p0);
-				points.add(p1);
-				points.add(p2);
-				points.add(p3);		
+				ArrayList<Point3D> aPoints=new ArrayList<Point3D>();
+				aPoints.add(p0);
+				aPoints.add(p1);
+				aPoints.add(p2);
+				aPoints.add(p3);		
 
 
-				points.add(p4);
-				points.add(p5);
-				points.add(p6);
-				points.add(p7);
+				aPoints.add(p4);
+				aPoints.add(p5);
+				aPoints.add(p6);
+				aPoints.add(p7);
 
 
 				ArrayList<LineData> polygonData= EditorData.splinesMeshes[prevRib.getIndex()].polygonData;
@@ -317,10 +317,10 @@ public class SPLine implements Cloneable{
 					nPolygonData.add(ld);
 				}
 
-				/*PolygonMesh mesh=new PolygonMesh(points,nPolygonData);
+				PolygonMesh mesh=new PolygonMesh(aPoints,nPolygonData);
 				mesh.setTexturePoints(vTexturePoints);
 				mesh.setLevel(getLevel());
-				meshes3D.add(mesh);*/
+				meshes3D.add(mesh);
 			}
 		}
 	}

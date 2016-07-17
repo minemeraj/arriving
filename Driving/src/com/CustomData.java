@@ -453,14 +453,13 @@ public abstract class CustomData {
 		
 		if(scale==1.0)
 			return;
+
 		
-		Point3D[] points = mesh.points;
-		
-		for (int i = 0; i < points.length; i++) {
+		for (int i = 0; i <mesh.xpoints.length; i++) {
 			
-			points[i].x=Math.round(points[i].x *scale);
-			points[i].y=Math.round(points[i].y *scale);
-			points[i].z=Math.round(points[i].z *scale);
+			mesh.xpoints[i]=Math.round(mesh.xpoints[i] *scale);
+			mesh.ypoints[i]=Math.round(mesh.ypoints[i] *scale);
+			mesh.zpoints[i]=Math.round(mesh.zpoints[i] *scale);
 		}
 		
 	}

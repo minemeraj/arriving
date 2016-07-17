@@ -304,7 +304,7 @@ public class DrawObject implements Cloneable{
 	private void calculateBorder() {
 		
 		
-		/*if(mesh==null || mesh.points==null)
+		if(mesh==null || mesh.xpoints==null)
 			return;
 		
 		double maxX=0;
@@ -315,10 +315,10 @@ public class DrawObject implements Cloneable{
 		
 		boolean start=true;
 		
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;i<mesh.xpoints.length;i++){
 			
 			
-			Point3D point= mesh.points[i];
+			Point3D point= new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 			
 			if(point.z-z>1)
 				continue;
@@ -364,7 +364,7 @@ public class DrawObject implements Cloneable{
 		cz[3]=(int) z;
 
 		border=new Polygon3D(4,cx,cy,cz);
-		*/
+
 	}
 
 	public Polygon3D getBase() {

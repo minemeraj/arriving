@@ -94,8 +94,9 @@ class Shader extends Renderer3D{
 	}
 
 
-
-	/*public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs) {
+	
+	/*@Deprecated
+	 * public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs) {
 
 
 		double factor=(lightIntensity*(0.75+0.25*cosin));
@@ -139,7 +140,7 @@ class Shader extends Renderer3D{
 
 
 
-
+	@Deprecated
 	public void calculateShadowMap() {}
 
 

@@ -3,6 +3,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Hashtable;
 import java.util.List;
 
 import com.main.Road;
@@ -119,16 +121,15 @@ public class PolygonMesh implements Cloneable{
 	public PolygonMesh clone() {
 		
 		PolygonMesh pm=new PolygonMesh();
-		/*pm.points=new Point3D[this.points.length];
 		
-		for(int i=0;i<this.points.length;i++){
+		for(int i=0;i<this.xpoints.length;i++){
 	
-			pm.points[i]=points[i].clone();
+			pm.xpoints=xpoints;
+			pm.ypoints=ypoints;
+			pm.zpoints=zpoints;
 			
-		}*/
-		pm.xpoints=xpoints;
-		pm.ypoints=ypoints;
-		pm.zpoints=zpoints;
+		}
+		
 		
 		for(int i=0;i<this.polygonData.size();i++){
 
@@ -397,13 +398,13 @@ public class PolygonMesh implements Cloneable{
 		/*Point3D[] arrPoints = pm.points; 
 		ArrayList<LineData> polygonData = pm.polygonData;
 		
-		//which points are really used ?
+		//which points are really used ?*/
 		
 		Hashtable readIndexes=new Hashtable();
 		
 		ArrayList<Integer> orderedIndexes=new ArrayList<Integer>();
 		
-		for (int i = 0; i < polygonData.size(); i++) {
+		/*for (int i = 0; i < polygonData.size(); i++) {
 			LineData ld= (LineData) polygonData.get(i);
 			
 					
@@ -416,7 +417,7 @@ public class PolygonMesh implements Cloneable{
 				 orderedIndexes.add(vertex.getVertex_index());
 			}
 			
-		}
+		}*/
 		
 		//order points 
 		Collections.sort(orderedIndexes);
@@ -432,7 +433,7 @@ public class PolygonMesh implements Cloneable{
 		//create new points
 		Point3D[] newArrPoints = new Point3D[orderedIndexes.size()];
 		
-		for (int i = 0; i < newArrPoints.length; i++) {
+		/*for (int i = 0; i < newArrPoints.length; i++) {
 			newArrPoints[i]=arrPoints[ (Integer)orderedIndexes.get(i)];
 		}
 		
@@ -458,7 +459,7 @@ public class PolygonMesh implements Cloneable{
 			
 		}	
 		
-		newPolygonMesh.points=newArrPoints;
+		//newPolygonMesh.points=newArrPoints;
 		newPolygonMesh.polygonData=newPolygonData;*/
 		newPolygonMesh.texturePoints=pm.getTexturePoints();
 		return newPolygonMesh;
@@ -488,15 +489,7 @@ public class PolygonMesh implements Cloneable{
 		this.xpoints=xpoints;
 		this.ypoints=ypoints;
 		this.zpoints=zpoints;
-		
-		/*if(points!=null){
-			this.points=new Point3D[points.size()];
-			for(int i=0;i<points.size();i++)
-				this.points[i] = (Point3D) points.get(i);
-		}	
-		else
-			this.points= null;*/
-		
+	
 	}
 	
 	

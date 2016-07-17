@@ -219,9 +219,9 @@ public class CarFrame extends Road implements KeyListener {
 
 			graphics2D=(Graphics2D) center.getGraphics();
 			setCarSpeed(0);
-			/*initCars(vCarData);
+			initCars(vCarData);
 
-			hornSound = new GameSound(hornFile,true);*/
+			hornSound = new GameSound(hornFile,true);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -239,7 +239,7 @@ public class CarFrame extends Road implements KeyListener {
 		
 		loadingProgressPanel.incrementValue(10);
 		
-		/*loadAutocars(new File("lib/autocars_"+getMap_name()));*/
+		loadAutocars(new File("lib/autocars_"+getMap_name()));
 		
 		loadingProgressPanel.incrementValue(10);
 	}
