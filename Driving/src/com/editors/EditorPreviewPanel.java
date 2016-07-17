@@ -411,18 +411,17 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 	
 
 	
-	public ArrayList clonePoints(Point3D[] points) {
+	public ArrayList clonePoints(double[] xpoints,double[] ypoints,double[] zpoints) {
 		
 		ArrayList clonePoints=new ArrayList();
 		
-		for (int i = 0; i < points.length; i++) {
+		for (int i = 0; i < xpoints.length; i++) {
 			
-			Point3D p = points[i];
 			
 		
-			double xx=(cosf*(p.x)-sinf*(p.y));
-			double yy=(cosf*(p.y)+sinf*(p.x));
-			double zz=p.z;
+			double xx=(cosf*(xpoints[i])-sinf*(ypoints[i]));
+			double yy=(cosf*(ypoints[i])+sinf*(xpoints[i]));
+			double zz=zpoints[i];
 			
 			//clonePoints[i]=new BodyPoint3D(xx,yy,zz);
 			
@@ -568,7 +567,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 		cosf=Math.cos(fi);
 		sinf=Math.sin(fi);
 		
-		clonedPoints=clonePoints(mesh.points);
+		clonedPoints=clonePoints(mesh.xpoints,mesh.ypoints,mesh.zpoints);
 		PolygonMesh pm=new PolygonMesh(clonedPoints,mesh.polygonData);
 		polygons = PolygonMesh.getBodyPolygons(pm);
 	}
@@ -579,7 +578,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 		costeta=Math.cos(teta);
 		sinteta=Math.sin(teta);
 		
-		clonedPoints=clonePoints(mesh.points);
+		clonedPoints=clonePoints(mesh.xpoints,mesh.ypoints,mesh.zpoints);
 		PolygonMesh pm=new PolygonMesh(clonedPoints,mesh.polygonData);
 		polygons = PolygonMesh.getBodyPolygons(pm);
 	}
@@ -590,7 +589,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 		cosf=Math.cos(fi);
 		cosf=Math.sin(fi);
 		
-		clonedPoints=clonePoints(mesh.points);
+		clonedPoints=clonePoints(mesh.xpoints,mesh.ypoints,mesh.zpoints);
 		PolygonMesh pm=new PolygonMesh(clonedPoints,mesh.polygonData);
 		polygons = PolygonMesh.getBodyPolygons(pm);
 	}
@@ -601,7 +600,7 @@ public class EditorPreviewPanel extends JDialog implements KeyListener, Property
 		costeta=Math.cos(fi);
 		sinteta=Math.sin(fi);
 		
-		clonedPoints=clonePoints(mesh.points);
+		clonedPoints=clonePoints(mesh.xpoints,mesh.ypoints,mesh.zpoints);
 		PolygonMesh pm=new PolygonMesh(clonedPoints,mesh.polygonData);
 		polygons = PolygonMesh.getBodyPolygons(pm);
 	}

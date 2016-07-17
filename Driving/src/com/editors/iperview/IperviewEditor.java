@@ -705,9 +705,9 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 		
 		int firstPoint=-1;
 		
-		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
+		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
+			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 			if(!p.isSelected()) 
 				newPoints.add(p);
 			else if(firstPoint==-1){
@@ -734,7 +734,7 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 
 			for(int j=0;j<ld.size();j++){
 
-				Point3D p0=mesh.points[ld.getIndex(j)];
+				Point3D p0=new Point3D(mesh.xpoints[ld.getIndex(j)],mesh.ypoints[ld.getIndex(j)],mesh.zpoints[ld.getIndex(j)]);
 				if(!p0.isSelected()) 
 					for(int k=0;k<newPoints.size();k++){
 
@@ -959,9 +959,9 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 		
 		 PolygonMesh mesh = meshes[ACTIVE_PANEL];
 
-		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
+		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
+			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 			if(!p.isSelected()) 
 				newPoints.add(p);
 
@@ -979,7 +979,7 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 			for(int j=0;j<ld.size();j++){
 
 				LineDataVertex ldv= ld.getItem(j);
-				Point3D p0=mesh.points[ldv.getVertex_index()];
+				Point3D p0=new Point3D(mesh.xpoints[ldv.getVertex_index()],mesh.ypoints[ldv.getVertex_index()],mesh.zpoints[ldv.getVertex_index()]);
 				if(!p0.isSelected()) 
 					for(int k=0;k<newPoints.size();k++){
 
@@ -1016,13 +1016,13 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 		PolygonMesh mesh = meshes[ACTIVE_PANEL];
 		 
 		 
-		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
+		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-			Point3D p0=mesh.points[i];
+			Point3D p0=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 
-			for(int j=0;mesh.points!=null && j<mesh.points.length;j++){
+			for(int j=0;mesh.xpoints!=null && j<mesh.xpoints.length;j++){
 
-				Point3D p1=mesh.points[j];
+				Point3D p1=new Point3D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 
 				if(p0.isSelected() && p1.isSelected() && i<j)
 				{
@@ -1112,12 +1112,11 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 			return;
 		}	
 		double val=Double.parseDouble(txt);
-		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
+		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
-		    p.x=Math.round(p.x *val);
-		    p.y=Math.round(p.y *val);
-		    p.z=Math.round(p.z *val);
+			mesh.xpoints[i]=Math.round(mesh.xpoints[i] *val);
+			mesh.ypoints[i]=Math.round(mesh.ypoints[i] *val);
+			mesh.zpoints[i]=Math.round(mesh.zpoints[i] *val);
 		}
 		
 	}
@@ -1126,9 +1125,9 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 		
 		PolygonMesh mesh = meshes[ACTIVE_PANEL];
 
-		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
+		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
+			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 
 			if(p.isSelected()){
 
@@ -1155,9 +1154,9 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 		
 		PolygonMesh mesh = meshes[ACTIVE_PANEL];
 
-		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
+		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
+			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 
 			if(p.isSelected()){
 				prepareUndo();
@@ -1179,7 +1178,9 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 					p3d.setZ(p.getZ());
 				}
 				
-				mesh.points[i]=p3d;
+				mesh.xpoints[i]=p3d.x;
+				mesh.ypoints[i]=p3d.y;
+				mesh.zpoints[i]=p3d.z;
 				return;
 			}
 		}	
@@ -1197,9 +1198,9 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 		
 		double qty=Double.parseDouble(sqty);
 		
-		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
+		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
+			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 
 			if(p.isSelected()){
 
@@ -1241,9 +1242,9 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 		
 		PolygonMesh mesh = meshes[ACTIVE_PANEL];
 		
-		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
+		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
+			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 			p.setSelected(false);
 		}
 		
@@ -1253,9 +1254,9 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 		
 		PolygonMesh mesh = meshes[ACTIVE_PANEL];
 		
-		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
+		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
+			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 			p.setSelected(true);
 		}
 		
@@ -1325,9 +1326,9 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 					polygon=new LineData();
 				
 				int index=pointList.getSelectedIndex();
-				for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
+				for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-					Point3D p=mesh.points[i];
+					Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 					if(index==i){
 						selectPoint(p);
 						polygon.addIndex(i);
@@ -1404,9 +1405,9 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 		int sel=pointList.getSelectedIndex();
 		
 
-		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
+		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
+			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 		    dlm.addElement(new PointListItem(p,i)) ; 
 		}
 		
@@ -1556,7 +1557,7 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 			ArrayList transpoints, ArrayList translines) {
 		
 		
-		int size=mesh.points.length;
+		int size=mesh.xpoints.length;
 		
 		for (int i = 0; i < transpoints.size(); i++) {
 			
@@ -1637,9 +1638,9 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 		
 		
 	      //find maxs
-		for(int j=0;j<mesh.points.length;j++){
+		for(int j=0;j<mesh.xpoints.length;j++){
 			
-			Point3D point=mesh.points[j];
+			Point3D point=new Point3D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 			
 			if(j==0){
 				
@@ -1670,9 +1671,9 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 		deltaX=(int)(maxz-minz)+1; 
 		deltaY=(int)(maxy-miny)+1;
 
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
+			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 
 			/*public static final int CAR_BACK=0;
 			public static final int CAR_TOP=1;
@@ -1730,8 +1731,8 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 		
 		if(pm!=null){
 			ArrayList aPoints=new ArrayList();
-			for (int i = 0; i < pm.points.length; i++) {
-				aPoints.add(pm.points[i]);
+			for (int i = 0; i < pm.xpoints.length; i++) {
+				aPoints.add(new Point3D(pm.xpoints[i],pm.ypoints[i],pm.zpoints[i]));
 			}
 			mesh.setPoints(aPoints);
 			mesh.polygonData=pm.polygonData;

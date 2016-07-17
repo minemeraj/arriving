@@ -39,7 +39,6 @@ import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
 import com.LineData;
-import com.Point3D;
 import com.Point4D;
 import com.Polygon3D;
 import com.PolygonMesh;
@@ -385,16 +384,16 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 
 			LineData ld=(LineData) mesh.polygonData.get(j);
 
-			drawPolygon(ld,mesh.points,g2);
+			drawPolygon(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,g2);
 
 		} 
 
 		g2.setColor(Color.WHITE);
 		if(dx<16){
-			for(int j=0;j<mesh.points.length;j++){
+			for(int j=0;j<mesh.xpoints.length;j++){
 	
 	
-				Point4D p=(Point4D)mesh.points[j];
+				Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 	
 	
 	
@@ -422,7 +421,7 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 
 	}
 
-	private void drawPolygon(LineData ld,Point3D[] points, Graphics2D bufGraphics) {
+	private void drawPolygon(LineData ld,double[] xpoints,double[] ypoints,double[] zpoints, Graphics2D bufGraphics) {
 		
 
 
@@ -439,7 +438,7 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 
 				int num=ld.getIndex(i);
 
-				Point4D p=(Point4D) mesh.points[num];
+				Point4D p= new Point4D(xpoints[num],ypoints[num],zpoints[num]);
 
 
 
@@ -531,10 +530,10 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 	private void deformPlan(double altitude) {
 
 
-		for(int j=0;j<mesh.points.length;j++){
+		for(int j=0;j<mesh.xpoints.length;j++){
 
 
-			Point4D p=(Point4D) mesh.points[j];
+			Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 
 			if(p.isSelected()){
 
@@ -558,10 +557,10 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 		double deltaY=(bounds.getMaxY()-bounds.getMinY());	
 		
 	
-		for(int j=0;j<mesh.points.length;j++){
+		for(int j=0;j<mesh.xpoints.length;j++){
 
 
-			Point4D p=(Point4D)mesh.points[j];
+			Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 
 
 			if(p.isSelected()){
@@ -609,10 +608,10 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 		prepareUndo();
 		
 	
-		for(int j=0;j<mesh.points.length;j++){
+		for(int j=0;j<mesh.xpoints.length;j++){
 
 
-			Point4D p=(Point4D)mesh.points[j];
+			Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 
 			if(p.isSelected()){
 
@@ -650,10 +649,10 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 		double factory=Math.PI/(2*deltaY);
 
 		
-		for(int j=0;j<mesh.points.length;j++){
+		for(int j=0;j<mesh.xpoints.length;j++){
 
 
-			Point4D p=(Point4D) mesh.points[j];
+			Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 
 
 			if(p.isSelected()){
@@ -678,10 +677,10 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 		boolean first=true;
 
 		
-		for(int j=0;j<mesh.points.length;j++){
+		for(int j=0;j<mesh.xpoints.length;j++){
 
 
-			Point4D p=(Point4D) mesh.points[j];
+			Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 
 			if(p.isSelected()){
 
@@ -778,10 +777,10 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 
 
 
-		for(int j=0;j<mesh.points.length;j++){
+		for(int j=0;j<mesh.xpoints.length;j++){
 
 
-			Point4D p=(Point4D) mesh.points[j];
+			Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 
 
 			p.setSelected(false);
@@ -870,10 +869,10 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 		//select point from road
 		
 
-		for(int j=0;j<mesh.points.length;j++){
+		for(int j=0;j<mesh.xpoints.length;j++){
 
 
-			Point4D p=(Point4D)mesh.points[j];
+			Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 
 			int xo=convertX(p.x);
 			int yo=convertY(p.y);
@@ -995,10 +994,10 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
 
 	
-		for(int j=0;j<mesh.points.length;j++){
+		for(int j=0;j<mesh.xpoints.length;j++){
 
 
-			Point4D p=(Point4D)mesh.points[j];
+			Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 
 			int xo=convertX(p.x);
 			int yo=convertY(p.y);

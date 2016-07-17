@@ -484,17 +484,25 @@ public class Road extends Shader{
 	}
 
 
+	private Point3D rotoTranslate(double[][] rot, 
+
+			Point3D p, 			
+			double dx,double dy, double dz) {
 
 
-	private Point3D rotoTranslate(double[][] rot, Point3D point, double dx,
-			
-			double dy, double dz) {
-		
-		double[] p={point.x-dx,point.y-dy,point.z-dz};
-		
-	
+		return rotoTranslate(rot, p.x,  p.y,  p.z, dx, dy,  dz);
+	}
+
+	private Point3D rotoTranslate(double[][] rot, 
+
+			double x, double y,double z, 			
+			double dx,double dy, double dz) {
+
+		double[] p={x-dx,y-dy,z-dz};
+
+
 		double[] res=rotate(rot,p);
-		
+
 		return new Point3D(res[0]+dx,res[1]+dy,res[2]+dz);
 	}
 	
@@ -1553,9 +1561,13 @@ public class Road extends Shader{
 		cm.point010=rotoTranslate(aRotation,cm.point010,dx,dy,dz);
 		cm.point111=rotoTranslate(aRotation,cm.point111,dx,dy,dz);
 		
-		/*for (int j = 0; j < cm.points.length; j++) {
-				cm.points[j]=rotoTranslate(aRotation,cm.points[j],dx,dy,dz);
-		}*/
+		for (int j = 0; j < cm.xpoints.length; j++) {
+			
+			Point3D pj=rotoTranslate(aRotation,cm.xpoints[j],cm.ypoints[j],cm.zpoints[j],dx,dy,dz);
+			cm.xpoints[j]=pj.x;
+			cm.ypoints[j]=pj.y;
+			cm.zpoints[j]=pj.z;
+		}
 	}
 
 	void loadAutocars(File file) {
