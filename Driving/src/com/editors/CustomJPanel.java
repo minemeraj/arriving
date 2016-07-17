@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 
 import com.CustomData;
 import com.LineData;
-import com.Point3D;
 import com.Polygon3D;
 import com.PolygonMesh;
 
@@ -120,11 +119,11 @@ public abstract class CustomJPanel extends JPanel{
 		Graphics buffGraph = buf.getGraphics();
 		
 		ArrayList<LineData> poly = mesh.getPolygonData();
-		Point3D[] points = mesh.points;
+	
 		
 		for (int i = 0; i < poly.size(); i++) {
 			LineData ld = (LineData) poly.get(i);
-			Polygon3D pol=LineData.buildPolygon(ld,points);
+			Polygon3D pol=LineData.buildPolygon(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints);
 			
 			
 			for (int j = 0; j < pol.npoints; j++) {				

@@ -1792,9 +1792,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		int firstPoint=-1;
 		
-		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
+		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-			Point3D p= mesh.points[i];
+			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 			if(!p.isSelected()) 
 				newPoints.add(p);
 			else if(firstPoint==-1){

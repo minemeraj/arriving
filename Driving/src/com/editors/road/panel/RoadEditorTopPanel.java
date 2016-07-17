@@ -83,7 +83,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 		PolygonMesh mesh=meshes[RoadEditor.TERRAIN_INDEX];
 
-		if(mesh.points==null)
+		if(mesh.xpoints==null)
 			return;
 
 		int lsize=mesh.polygonData.size();
@@ -96,19 +96,19 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 			Texture texture = EditorData.worldTextures[ld.getTexture_index()];
-			drawPolygon(ld,mesh.points,landscapeZbuffer,texture,RoadEditor.TERRAIN_INDEX,mesh.hashCode());
+			drawPolygon(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,landscapeZbuffer,texture,RoadEditor.TERRAIN_INDEX,mesh.hashCode());
 
 		} 
 
 		//mark row angles
 
-		int size=mesh.points.length;
+		int size=mesh.xpoints.length;
 		//draw points until they're visible
 		if(deltax<16){
 			for(int j=0;j<size;j++){
 
 
-				Point4D p=(Point4D) mesh.points[j];
+				Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 
 				int xo=convertX(p);
 				int yo=convertY(p);
@@ -174,7 +174,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 
-					drawPolygon(ld,pm.points,landscapeZbuffer,texture,1,pm.hashCode());
+					drawPolygon(ld,pm.xpoints,pm.ypoints,pm.zpoints,landscapeZbuffer,texture,1,pm.hashCode());
 
 				} 
 
@@ -367,7 +367,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 
-	private void drawPolygon(LineData ld,Point3D[] points,ZBuffer landscapeZbuffer,Texture texture,int indx,int hashCode) {
+	private void drawPolygon(LineData ld,double[] xpoints,double[] ypoints,double[] zpoints,ZBuffer landscapeZbuffer,Texture texture,int indx,int hashCode) {
 
 
 		
@@ -384,7 +384,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			int num=ld.getIndex(i);
 
-			Point4D p=(Point4D) points[num];
+			Point4D p=new Point4D(xpoints[num],ypoints[num],zpoints[num]);
 
 			cx[i]=convertX(p);
 			cy[i]=convertY(p);
@@ -398,7 +398,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			return;
 
 		Polygon3D p3d=new Polygon3D(size,cx,cy,cz);
-		Polygon3D p3dr=PolygonMesh.getBodyPolygon(points,ld,Road.OBJECT_LEVEL);
+		Polygon3D p3dr=PolygonMesh.getBodyPolygon(xpoints,ypoints,zpoints,ld,Road.OBJECT_LEVEL);
 
 		//calculate texture angle
 
@@ -1038,7 +1038,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	public boolean selectPointsWithRectangle(PolygonMesh mesh) {
 
 
-		if(mesh.points==null)
+		if(mesh.xpoints==null)
 			return false;
 
 
@@ -1058,10 +1058,10 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		boolean found=false;
 
 
-		for(int j=0;j<mesh.points.length;j++){
+		for(int j=0;j<mesh.xpoints.length;j++){
 
 
-			Point4D p=(Point4D) mesh.points[j];
+			Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 
 			int xo=convertX(p);
 			int yo=convertY(p);
@@ -1090,7 +1090,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	public boolean selectPolygonsWithRectangle(PolygonMesh mesh) {
 
 
-		if(mesh.points==null)
+		if(mesh.xpoints==null)
 			return false;
 
 		//select polygons from road
@@ -1113,7 +1113,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 			LineData ld=(LineData) mesh.polygonData.get(j);
-			Polygon3D pol=buildPolygon(ld,mesh.points,false);
+			Polygon3D pol=buildPolygon(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,false);
 
 			boolean isVisible = Polygon3D.isIntersect(pol,totArea.getBounds());
 
@@ -1169,7 +1169,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				for (int k = 0; k < circle.polygonData.size(); k++) {
 
 					LineData ld=(LineData) circle.polygonData.get(k);
-					Polygon3D pol=buildPolygon(ld,circle.points,false);
+					Polygon3D pol=buildPolygon(ld,circle.xpoints,circle.ypoints,circle.zpoints,false);
 					// System.out.println(k+" "+pol);
 					if(pol.contains(x,y)){
 
@@ -1436,7 +1436,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	}
 
 
-	private Polygon3D buildPolygon(LineData ld,Point3D[] points, boolean isReal) {
+	private Polygon3D buildPolygon(LineData ld,double[] xpoints,double[] ypoints,double[] zpoints, boolean isReal) {
 
 		int size=ld.size();
 
@@ -1450,7 +1450,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			int num=ld.getIndex(i);
 
-			Point4D p=(Point4D) points[num];
+			Point4D p= new Point4D(xpoints[num],ypoints[num],zpoints[num]);
 
 
 			if(isReal){
@@ -1485,7 +1485,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		for(int j=0;mesh.xpoints!=null && j<mesh.xpoints.length;j++){
 
 
-			Point4D p=(Point4D) mesh.points[j];
+			Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 
 			int xo=convertX(p);
 			int yo=convertY(p);
@@ -1586,7 +1586,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			LineData ld=(LineData) ring.polygonData.get(j);
 
-			drawPolygon(ld,ring.points,landscapeZbuffer,EditorData.cyanTexture,RoadEditor.TERRAIN_INDEX,ring.hashCode());
+			drawPolygon(ld,ring.xpoints,ring.ypoints,ring.zpoints,landscapeZbuffer,EditorData.cyanTexture,RoadEditor.TERRAIN_INDEX,ring.hashCode());
 
 		} 
 	}

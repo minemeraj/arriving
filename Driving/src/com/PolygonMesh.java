@@ -69,8 +69,8 @@ public class PolygonMesh implements Cloneable{
 			zpoints[i]=p.z;
 		}
 		
-		if(polygonData!=null)
-			this.polygonData = polygonData;
+		if(lines!=null)
+			this.polygonData = lines;
 		else
 			this.polygonData= new ArrayList <LineData>();
 		

@@ -275,9 +275,9 @@ public abstract class CustomEditor extends Editor implements  MouseWheelListener
 		
 		
 	      //find maxs
-		for(int j=0;j<mesh.points.length;j++){
+		for(int j=0;j<mesh.xpoints.length;j++){
 			
-			Point3D point=mesh.points[j];
+			Point3D point=new Point3D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 			
 			if(j==0){
 				
@@ -308,9 +308,10 @@ public abstract class CustomEditor extends Editor implements  MouseWheelListener
 		deltaX=(int)(maxz-minz)+1; 
 		deltaY=(int)(maxy-miny)+1;
 
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
+			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
+			
 
 			/*public static final int CAR_BACK=0;
 			public static final int CAR_TOP=1;
@@ -482,9 +483,10 @@ public abstract class CustomEditor extends Editor implements  MouseWheelListener
 		
 		
 	      //find maxs
-		for(int j=0;j<mesh.points.length;j++){
+		for(int j=0;j<mesh.xpoints.length;j++){
 			
-			Point3D point=mesh.points[j];
+			Point3D point=new Point3D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
+			
 			
 			if(j==0){
 				
@@ -546,8 +548,8 @@ public abstract class CustomEditor extends Editor implements  MouseWheelListener
 					for (int k = 0; k < ld.size(); k++) {
 
 
-						Point3D point0=  mesh.points[ld.getIndex(k)];
-						Point3D point1=  mesh.points[ld.getIndex((k+1)%ld.size())];
+						Point3D point0=  new Point3D(mesh.xpoints[ld.getIndex(k)],mesh.ypoints[ld.getIndex(k)],mesh.zpoints[ld.getIndex(k)]);
+						Point3D point1=  new Point3D(mesh.xpoints[ld.getIndex((k+1)%ld.size())],mesh.ypoints[ld.getIndex((k+1)%ld.size())],mesh.zpoints[ld.getIndex((k+1)%ld.size())]);
 						//top
 						bufGraphics.setColor(top_color);
 						bufGraphics.drawLine(DX+(int)(point0.x-minx+deltaX),(int)(-point0.y+maxy+deltaX),DX+(int)(point1.x-minx+deltaX),(int)(-point1.y+maxy+deltaX));
