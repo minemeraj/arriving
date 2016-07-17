@@ -1285,7 +1285,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 	
 		PolygonMesh mesh=meshes[RoadEditor.TERRAIN_INDEX];
 		
-		if(mesh.points==null)
+		if(mesh.xpoints==null)
 			return;
 		
 		int lsize=mesh.polygonData.size();
@@ -1298,17 +1298,17 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	
 			Texture texture = EditorData.worldTextures[ld.getTexture_index()];
-			drawPolygon(ld,mesh.points,landscapeZbuffer,texture,RoadEditor.TERRAIN_INDEX);
+			drawPolygon(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,landscapeZbuffer,texture,RoadEditor.TERRAIN_INDEX);
 
 		} 
 
 		//mark row angles
 		
-		int size=mesh.points.length;
+		int size=mesh.xpoints.length;
 		for(int j=0;j<size;j++){
 
 
-		    Point4D p=(Point4D) mesh.points[j];
+		    Point4D p= new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 
 				int xo=convertX(p.x,p.y,p.z);
 				int yo=convertY(p.x,p.y,p.z);
@@ -1440,13 +1440,13 @@ public class AutocarEditor extends Editor implements MouseListener,
 			LineData ld=(LineData) mesh.polygonData.get(k);
 			Texture texture = EditorData.splinesEditorTextures[ld.getTexture_index()];
 			
-			drawPolygon(ld,mesh.points,landscapeZbuffer,texture,0);
+			drawPolygon(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,landscapeZbuffer,texture,0);
 
 		} 
 		
 	}
 	
-	private void drawPolygon(LineData ld,Point3D[] points,ZBuffer landscapeZbuffer,Texture texture,int indx) {
+	private void drawPolygon(LineData ld,double[] xpoints,double[] ypoints,double[] zpoints,ZBuffer landscapeZbuffer,Texture texture,int indx) {
 
 
 		Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
@@ -1463,7 +1463,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 			int num=ld.getIndex(i);
 
-			Point4D p=(Point4D) points[num];
+			Point4D p= new Point4D(xpoints[num],ypoints[num],zpoints[num]);
 
 			//bufGraphics.setColor(ZBuffer.fromHexToColor(is[i].getHexColor()));
 
@@ -1482,7 +1482,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 			return;
 
 		Polygon3D p3d=new Polygon3D(size,cx,cy,cz);
-		Polygon3D p3dr=PolygonMesh.getBodyPolygon(points,ld,Road.ROAD_LEVEL);
+		Polygon3D p3dr=PolygonMesh.getBodyPolygon(xpoints,ypoints,zpoints,ld,Road.ROAD_LEVEL);
 
 		//calculate texture angle
 

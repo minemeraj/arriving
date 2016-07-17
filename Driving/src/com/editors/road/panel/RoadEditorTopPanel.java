@@ -357,7 +357,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			LineData ld=(LineData) mesh.polygonData.get(k);
 			Texture texture = EditorData.splinesEditorTextures[ld.getTexture_index()];
 
-			drawPolygon(ld,mesh.points,landscapeZbuffer,texture,0,hashCode);
+			drawPolygon(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,landscapeZbuffer,texture,0,hashCode);
 
 		} 
 
@@ -1302,7 +1302,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 			LineData ld=(LineData) mesh.polygonData.get(j);
-			Polygon3D pol=buildPolygon(ld,mesh.points,false);
+			Polygon3D pol=buildPolygon(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,false);
 
 			boolean isVisible = Polygon3D.isIntersect(pol,totArea.getBounds());
 
@@ -1482,7 +1482,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 		boolean found=false;
 
-		for(int j=0;mesh.points!=null && j<mesh.points.length;j++){
+		for(int j=0;mesh.xpoints!=null && j<mesh.xpoints.length;j++){
 
 
 			Point4D p=(Point4D) mesh.points[j];
