@@ -176,12 +176,12 @@ private void displayAxes(Graphics2D bufGraphics) {
 		
 		 PolygonMesh mesh = iperviewEditor.getMeshes()[iperviewEditor.getACTIVE_PANEL()];	
 		
-		if(mesh.points==null)
+		if(mesh.xpoints==null)
 			return;
 			
-		for (int i = 0; i < mesh.points.length; i++) {
+		for (int i = 0; i < mesh.xpoints.length; i++) {
 			
-			Point3D p3d = mesh.points[i];
+			Point3D p3d =new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 			if(p3d.isSelected())
 				bufGraphics.setColor(Color.RED);
 			else
@@ -214,9 +214,9 @@ private void displayAxes(Graphics2D bufGraphics) {
 
 			for(int j=0;j<numLInes;j++){
 
-				Point3D p0=mesh.points[ld.getIndex(j)];
-				Point3D p1=mesh.points[ld.getIndex((j+1)%numLInes)];
-
+				
+				Point3D p0=new Point3D(mesh.xpoints[ld.getIndex(j)],mesh.ypoints[ld.getIndex(j)],mesh.zpoints[ld.getIndex(j)]);
+				Point3D p1=new Point3D(mesh.xpoints[ld.getIndex((j+1)%numLInes)],mesh.ypoints[ld.getIndex((j+1)%numLInes)],mesh.zpoints[ld.getIndex((j+1)%numLInes)]);
 
 				bufGraphics.drawLine(calcAssX(p0),calcAssY(p0),calcAssX(p1),calcAssY(p1));
 			}
@@ -240,8 +240,8 @@ private void displayAxes(Graphics2D bufGraphics) {
 
 			for(int j=0;j<numLInes;j++){
 
-				Point3D p0=mesh.points[ld.getIndex(j)];
-				Point3D p1=mesh.points[ld.getIndex((j+1)%ld.size())];
+				Point3D p0=new Point3D(mesh.xpoints[ld.getIndex(j)],mesh.ypoints[ld.getIndex(j)],mesh.zpoints[ld.getIndex(j)]);
+				Point3D p1=new Point3D(mesh.xpoints[ld.getIndex((j+1)%ld.size())],mesh.ypoints[ld.getIndex((j+1)%ld.size())],mesh.zpoints[ld.getIndex((j+1)%ld.size())]);
 
 
 				bufGraphics.drawLine(calcAssX(p0),calcAssY(p0),calcAssX(p1),calcAssY(p1));
@@ -500,9 +500,9 @@ private void displayAxes(Graphics2D bufGraphics) {
 			return;
 		}	
 
-		for (int i = 0; i <mesh.points.length; i++) {
+		for (int i = 0; i <mesh.xpoints.length; i++) {
 
-			Point3D p3d = mesh.points[i];
+			Point3D p3d = new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 
 
 			int x=calcAssX(p3d);
@@ -565,9 +565,9 @@ private void displayAxes(Graphics2D bufGraphics) {
 		int y0=Math.min(currentRect.y,currentRect.y+currentRect.height);
 		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
         
-        for (int i = 0; i < mesh.points.length; i++) {
+        for (int i = 0; i < mesh.xpoints.length; i++) {
         
-        	Point3D p3d = mesh.points[i];
+        	Point3D p3d = new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 
 
 			int x=calcAssX(p3d);

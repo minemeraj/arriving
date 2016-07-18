@@ -429,10 +429,15 @@ public class Mould extends JFrame implements ActionListener{
 		
 		PolygonMesh pm=new PolygonMesh();
 		
-		pm.points=new Point3D[data.size()];
+		pm.xpoints=new double[data.size()];
+		pm.ypoints=new double[data.size()];
+		pm.zpoints=new double[data.size()];
 
 		for (int i = 0; i < data.size(); i++) {
-			pm.points[i] = (Point3D) data.get(i);
+			Point3D p= (Point3D) data.get(i);
+			pm.xpoints[i] =p.x;
+			pm.xpoints[i] =p.y;
+			pm.xpoints[i] =p.z;
 		}
 		
 		//rescale mesh points
@@ -443,45 +448,45 @@ public class Mould extends JFrame implements ActionListener{
 		double maxY=0;
 		double minY=0;
 
-		for (int i = 0; i < pm.points.length; i++) { 
+		for (int i = 0; i < pm.xpoints.length; i++) { 
 			
 			if(i==0){
 				
-				minX=pm.points[i].getX();
-				maxX=pm.points[i].getX();
+				minX=pm.xpoints[i];
+				maxX=pm.xpoints[i];
 			}
-			else if(pm.points[i].getX()>maxX)
-				maxX=pm.points[i].getX();
-			else if(pm.points[i].getX()<minX)
-				minX=pm.points[i].getX();
+			else if(pm.xpoints[i]>maxX)
+				maxX=pm.xpoints[i];
+			else if(pm.xpoints[i]<minX)
+				minX=pm.xpoints[i];
 			
 			
 			if(i==0){
 				
-				maxY=pm.points[i].getY();
-				minY=pm.points[i].getY();
+				maxY=pm.ypoints[i];
+				minY=pm.ypoints[i];
 
 			}
-			else if(pm.points[i].getY()>maxY)
-				maxY=pm.points[i].getY();
-			else if(pm.points[i].getY()<minY)
-				minY=pm.points[i].getY();
+			else if(pm.ypoints[i]>maxY)
+				maxY=pm.ypoints[i];
+			else if(pm.ypoints[i]<minY)
+				minY=pm.ypoints[i];
 			
 		}
 
 		
-		for (int i = 0; i < pm.points.length; i++) { 
+		for (int i = 0; i < pm.xpoints.length; i++) { 
 			
 			
-			double x=pm.points[i].getX();
-			double y=pm.points[i].getY();
+			double x=pm.xpoints[i];
+			double y=pm.xpoints[i];
 			
-			pm.points[i].x=x-minX;
-			pm.points[i].y=y-minY;
+			pm.xpoints[i]=x-minX;
+			pm.ypoints[i]=y-minY;
 
 		}
 
-		System.out.println("Found "+ pm.points.length+" points in image");
+		System.out.println("Found "+ pm.xpoints.length+" points in image");
 		saveMesh(pm);
 		
 		
@@ -513,7 +518,9 @@ public class Mould extends JFrame implements ActionListener{
 		if(parallelsOnlyData.isSelected()){
 			
 	
-			pm.points=new Point3D[N_PARALLELS*N_MERIDIANS];
+			pm.xpoints=new double[N_PARALLELS*N_MERIDIANS];
+			pm.ypoints=new double[N_PARALLELS*N_MERIDIANS];
+			pm.zpoints=new double[N_PARALLELS*N_MERIDIANS];
 			
 			N_PARALLELS=rotationProfile.points.length;
 
@@ -528,8 +535,9 @@ public class Mould extends JFrame implements ActionListener{
 					double y= (radius*Math.sin(j*teta));
 					double z= (radius*Math.cos(j*teta));
 
-					pm.points[f(i,j,N_PARALLELS,N_MERIDIANS)]=
-							new Point3D(x,y,z);
+					pm.xpoints[f(i,j,N_PARALLELS,N_MERIDIANS)]=x;
+					pm.ypoints[f(i,j,N_PARALLELS,N_MERIDIANS)]=y;
+					pm.zpoints[f(i,j,N_PARALLELS,N_MERIDIANS)]=z;
 
 				}
 
@@ -555,7 +563,9 @@ public class Mould extends JFrame implements ActionListener{
 
 			
 
-			pm.points=new Point3D[N_PARALLELS*N_MERIDIANS];
+			pm.xpoints=new double[N_PARALLELS*N_MERIDIANS];
+			pm.ypoints=new double[N_PARALLELS*N_MERIDIANS];
+			pm.zpoints=new double[N_PARALLELS*N_MERIDIANS];
 
 			for(int i=0;i<N_PARALLELS;i++){
 
@@ -568,8 +578,9 @@ public class Mould extends JFrame implements ActionListener{
 					double y= (radius*Math.sin(j*teta));
 					double z= (radius*Math.cos(j*teta));
 
-					pm.points[f(i,j,N_PARALLELS,N_MERIDIANS)]=
-							new Point3D(x,y,z);
+					pm.xpoints[f(i,j,N_PARALLELS,N_MERIDIANS)]=x;
+					pm.ypoints[f(i,j,N_PARALLELS,N_MERIDIANS)]=y;
+					pm.zpoints[f(i,j,N_PARALLELS,N_MERIDIANS)]=z;
 
 				}
 
@@ -587,7 +598,7 @@ public class Mould extends JFrame implements ActionListener{
 
 			upperBase.addIndex(f(0,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
 
-			upperBase.setData(""+Renderer3D.getFace(upperBase,pm.points));
+			upperBase.setData(""+Renderer3D.getFace(upperBase,pm.xpoints,pm.ypoints,pm.zpoints));
 
 		}	
 
@@ -595,7 +606,7 @@ public class Mould extends JFrame implements ActionListener{
 
 			lowerBase.addIndex(f(N_PARALLELS-1,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
 			
-			lowerBase.setData(""+Renderer3D.getFace(lowerBase,pm.points));
+			lowerBase.setData(""+Renderer3D.getFace(lowerBase,pm.xpoints,pm.ypoints,pm.zpoints));
 		}
 
 		pm.addPolygonData(upperBase);
@@ -616,7 +627,7 @@ public class Mould extends JFrame implements ActionListener{
 				ld.addIndex(f(i+1,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
 				ld.addIndex(f(i,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
 				
-				ld.setData(""+Renderer3D.getFace(ld,pm.points));
+				ld.setData(""+Renderer3D.getFace(ld,pm.xpoints,pm.ypoints,pm.zpoints));
 
 				pm.addPolygonData(ld);
 
@@ -661,7 +672,9 @@ public class Mould extends JFrame implements ActionListener{
 			N_PARALLELS=rotationProfile.points.length;
 
 
-			pm.points=new Point3D[N_PARALLELS*N_MERIDIANS];
+			pm.xpoints=new double[N_PARALLELS*N_MERIDIANS];
+			pm.ypoints=new double[N_PARALLELS*N_MERIDIANS];
+			pm.zpoints=new double[N_PARALLELS*N_MERIDIANS];
 
 			for(int i=0;i<N_PARALLELS;i++){
 
@@ -669,13 +682,9 @@ public class Mould extends JFrame implements ActionListener{
 
 				for (int j = 0; j <N_MERIDIANS; j++) {
 
-
-					double x= (radius*Math.cos(j*teta));
-					double y= (radius*Math.sin(j*teta));
-					double z= rotationProfile.points[i].x;
-
-					pm.points[f(i,j,N_PARALLELS,N_MERIDIANS)]=
-							new Point3D(x,y,z);
+					pm.xpoints[f(i,j,N_PARALLELS,N_MERIDIANS)]=(radius*Math.cos(j*teta));
+					pm.ypoints[f(i,j,N_PARALLELS,N_MERIDIANS)]=(radius*Math.sin(j*teta));
+					pm.zpoints[f(i,j,N_PARALLELS,N_MERIDIANS)]= rotationProfile.points[i].x;
 
 				}
 
@@ -701,7 +710,9 @@ public class Mould extends JFrame implements ActionListener{
 			double dz=rotationProfile.lenX/(N_PARALLELS-1);
 
 
-			pm.points=new Point3D[N_PARALLELS*N_MERIDIANS];
+			pm.xpoints=new double[N_PARALLELS*N_MERIDIANS];
+			pm.ypoints=new double[N_PARALLELS*N_MERIDIANS];
+			pm.zpoints=new double[N_PARALLELS*N_MERIDIANS];
 
 			for(int i=0;i<N_PARALLELS;i++){
 
@@ -715,8 +726,9 @@ public class Mould extends JFrame implements ActionListener{
 					double y= (radius*Math.sin(j*teta));
 					double z= (dz*i);
 
-					pm.points[f(i,j,N_PARALLELS,N_MERIDIANS)]=
-							new Point3D(x,y,z);
+					pm.xpoints[f(i,j,N_PARALLELS,N_MERIDIANS)]=x;
+					pm.ypoints[f(i,j,N_PARALLELS,N_MERIDIANS)]=y;
+					pm.zpoints[f(i,j,N_PARALLELS,N_MERIDIANS)]=z;
 
 				}
 
@@ -735,7 +747,7 @@ public class Mould extends JFrame implements ActionListener{
 
 			upperBase.addIndex(f(N_PARALLELS-1,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
 
-			upperBase.setData(""+Renderer3D.getFace(upperBase,pm.points));
+			upperBase.setData(""+Renderer3D.getFace(upperBase,pm.xpoints,pm.ypoints,pm.zpoints));
 
 		}	
 
@@ -743,7 +755,7 @@ public class Mould extends JFrame implements ActionListener{
 
 			lowerBase.addIndex(f(0,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
 			
-			lowerBase.setData(""+Renderer3D.getFace(lowerBase,pm.points));
+			lowerBase.setData(""+Renderer3D.getFace(lowerBase,pm.xpoints,pm.ypoints,pm.zpoints));
 		}
 
 		pm.addPolygonData(upperBase);
@@ -764,7 +776,7 @@ public class Mould extends JFrame implements ActionListener{
 				ld.addIndex(f(i+1,(j+1)%N_MERIDIANS,N_PARALLELS,N_MERIDIANS));
 				ld.addIndex(f(i+1,j,N_PARALLELS,N_MERIDIANS));
 				
-				ld.setData(""+Renderer3D.getFace(ld,pm.points));
+				ld.setData(""+Renderer3D.getFace(ld,pm.xpoints,pm.ypoints,pm.zpoints));
 
 				pm.addPolygonData(ld);
 
@@ -882,9 +894,9 @@ public class Mould extends JFrame implements ActionListener{
 		
 		
 	      //find maxs
-		for(int j=0;j<mesh.points.length;j++){
+		for(int j=0;j<mesh.xpoints.length;j++){
 			
-			Point3D point=mesh.points[j];
+			Point3D point=new Point3D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 			
 			if(j==0){
 				
@@ -915,9 +927,9 @@ public class Mould extends JFrame implements ActionListener{
 		deltaX=(int)(maxz-minz)+1; 
 		deltaY=(int)(maxy-miny)+1;
 
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
+			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 
 			/*public static final int CAR_BACK=0;
 			public static final int CAR_TOP=1;

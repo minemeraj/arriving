@@ -180,7 +180,7 @@ class CubicEditorPanel extends JPanel implements MouseListener{
 		}
 
 		PolygonMesh mesh = cubicEditor.getMeshes()[cubicEditor.getACTIVE_PANEL()];
-		displayPoints(bufGraphics,mesh.points);
+		displayPoints(bufGraphics,mesh.xpoints,mesh.ypoints,mesh.zpoints,mesh.selected);
 	}
 
 	private void displayCubeUnit(double x, double y, double z, double dx,
@@ -222,17 +222,21 @@ class CubicEditorPanel extends JPanel implements MouseListener{
 		bufGraphics.drawLine(calcAssX(p3),calcAssY(p3),calcAssX(p0),calcAssY(p0));
 	}
 	
-	private void displayPoints(Graphics2D bufGraphics,Point3D[] points) {
+	private void displayPoints(Graphics2D bufGraphics,
+			double[] xpoints,
+			double[] ypoints,
+			double[] zpoints, 
+			boolean[] selected) {
 		
-		for (int pos = 0; pos < points.length; pos++) {
+		for (int pos = 0; pos < xpoints.length; pos++) {
 			
-			Point3D p =points[pos];
+			Point3D p =new Point3D(xpoints[pos],ypoints[pos],zpoints[pos]);
 			
 			int i=(int)p.p_x;
 			int j=(int)p.p_y;
 			int k=(int)p.p_z;	
 			
-			if(p.isSelected())
+			if(selected[pos])
 				bufGraphics.setColor(Color.RED);
 			else
 				bufGraphics.setColor(Color.WHITE);
@@ -388,9 +392,9 @@ class CubicEditorPanel extends JPanel implements MouseListener{
 		
 		PolygonMesh mesh = cubicEditor.getMeshes()[cubicEditor.getACTIVE_PANEL()];
 	
-		for(int c=0;mesh.points!=null && c<mesh.points.length;c++){
+		for(int c=0;mesh.xpoints!=null && c<mesh.xpoints.length;c++){
 
-			Point3D p=mesh.points[c];
+			Point3D p=new Point3D(mesh.xpoints[c],mesh.ypoints[c],mesh.zpoints[c]);
 
 			int xo=calcAssX(p);
 			int yo=calcAssY(p);

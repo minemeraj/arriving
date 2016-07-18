@@ -1315,7 +1315,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 				
 				int rgbColor=Color.white.getRGB();
 
-				if(p.isSelected()){
+				if(mesh.selected[j]){
 					rgbColor=Color.RED.getRGB();
 
 				}	

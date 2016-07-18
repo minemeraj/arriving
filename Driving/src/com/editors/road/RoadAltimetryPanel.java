@@ -397,7 +397,7 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 	
 	
 	
-				if(p.isSelected())
+				if(mesh.selected[j])
 					g2.setColor(Color.RED);
 				else
 					g2.setColor(Color.WHITE);
@@ -535,12 +535,12 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 
 			Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 
-			if(p.isSelected()){
+			if(mesh.selected[j]){
 
 				if(relativeZ.isSelected())
-					p.z+=altitude;
+					mesh.zpoints[j]+=altitude;
 				else if(absoluteZ.isSelected())
-					p.z=altitude;
+					mesh.zpoints[j]=altitude;
 
 			}	
 		}
@@ -563,7 +563,7 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 			Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 
 
-			if(p.isSelected()){
+			if(mesh.selected[j]){
 
 				int q=1;
 
@@ -574,22 +574,22 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 
 				if(direction.equals( DIRECTION_EAST) && bounds.getMaxX()!=bounds.getMinX()){
 
-					p.z+=(altitude-q*p.z)*(p.x-bounds.getMinX())/deltaX;
+					mesh.zpoints[j]+=(altitude-q*p.z)*(p.x-bounds.getMinX())/deltaX;
 
 				}
 				else if(direction.equals(DIRECTION_WEST) && bounds.getMaxX()!=bounds.getMinX()){
 
-					p.z+=(altitude-q*p.z)*(bounds.getMaxX()-p.x)/deltaX;
+					mesh.zpoints[j]+=(altitude-q*p.z)*(bounds.getMaxX()-p.x)/deltaX;
 
 				}
 				else if(direction.equals(DIRECTION_NORTH) && bounds.getMaxY()!=bounds.getMinY()){
 
-					p.z+=(altitude-q*p.z)*(p.y-bounds.getMinY())/deltaY;
+					mesh.zpoints[j]+=(altitude-q*p.z)*(p.y-bounds.getMinY())/deltaY;
 
 				}
 				else if(direction.equals(DIRECTION_SOUTH) && bounds.getMaxY()!=bounds.getMinY()){
 
-					p.z+=(altitude-q*p.z)*(bounds.getMaxY()-p.y)/deltaY;
+					mesh.zpoints[j]+=(altitude-q*p.z)*(bounds.getMaxY()-p.y)/deltaY;
 
 				}
 			}
@@ -613,7 +613,7 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 
 			Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 
-			if(p.isSelected()){
+			if(mesh.selected[j]){
 
 				if(!"".equals(coordinatesx.getText()))
 					p.x=Double.parseDouble(coordinatesx.getText());
@@ -622,7 +622,7 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 				if(!"".equals(coordinatesz.getText()))
 					p.z=Double.parseDouble(coordinatesz.getText());
 
-				p.setSelected(false);
+				mesh.selected[j]=false;
 
 
 
@@ -655,12 +655,12 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 			Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 
 
-			if(p.isSelected()){
+			if(mesh.selected[j]){
 
 				if(relativeZ.isSelected())
-					p.z+=altitude*Math.cos(factorx*(p.x-centerX))*Math.cos(factory*(p.y-centerY));					
+					mesh.zpoints[j]+=altitude*Math.cos(factorx*(p.x-centerX))*Math.cos(factory*(p.y-centerY));					
 				else if(absoluteZ.isSelected())	
-					p.z+=(altitude-p.z)*Math.cos(factorx*(p.x-centerX))*Math.cos(factory*(p.y-centerY));	
+					mesh.zpoints[j]+=(altitude-p.z)*Math.cos(factorx*(p.x-centerX))*Math.cos(factory*(p.y-centerY));	
 
 
 			}
@@ -682,7 +682,7 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 
 			Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 
-			if(p.isSelected()){
+			if(mesh.selected[j]){
 
 				if(first){
 
@@ -783,7 +783,7 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 			Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 
 
-			p.setSelected(false);
+			mesh.selected[j]=false;
 
 
 
@@ -882,7 +882,7 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 			if(rect.contains(x,y)){
 
 
-				p.setSelected(true);
+				mesh.selected[j]=true;
 
 				if(!checkCoordinatesx.isSelected())
 					coordinatesx.setText(p.x);
@@ -893,7 +893,7 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 
 			}
 			else if(!checkMultiplePointsSelection.isSelected())
-				p.setSelected(false);
+				mesh.selected[j]=false;
 
 
 		}
@@ -1005,12 +1005,12 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 
 			if(xo>=x0 && xo<=x1 && yo>=y0 && yo<=y1  ){
 
-				p.setSelected(true);
+				mesh.selected[j]=true;
 
 
 			}
 			else if(!checkMultiplePointsSelection.isSelected())
-				p.setSelected(false);
+				mesh.selected[j]=false;
 
 
 		}

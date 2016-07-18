@@ -240,9 +240,14 @@ public class CubicMesh extends PolygonMesh{
 		
 		for (int i = 0; i < xpoints.length; i++) {
 			
-			Point3D p=new Point3D(xpoints[i],ypoints[i],zpoints[i]);
 			
-			p.rotate(x0,  y0, cos, sin );
+			double xx=xpoints[i];
+			double yy=ypoints[i];
+			double zz=zpoints[i];
+			
+			xpoints[i]=x0+(xx-x0)*cos-(yy-y0)*sin;
+			ypoints[i]=y0+(yy-y0)*cos+(xx-x0)*sin;
+			zpoints[i]=zz;
 		}
 		
 		point000.rotate(x0,  y0, cos, sin );

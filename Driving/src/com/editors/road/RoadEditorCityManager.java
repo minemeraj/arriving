@@ -415,20 +415,24 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
 		int numTerrainx=numx+2;
 		int numTerrainy=numy+2;
 
-		Point3D[] newTerrainPoints = new Point3D[numTerrainx*numTerrainy];
-
+		double[] newXTerrainPoints = new double[numTerrainx*numTerrainy];
+		double[] newYTerrainPoints = new double[numTerrainx*numTerrainy];
+		double[] newZTerrainPoints = new double[numTerrainx*numTerrainy];
 
 		for(int i=0;i<numTerrainx;i++)
 			for(int j=0;j<numTerrainy;j++)
 			{
 
-				Point4D p=new Point4D(i*dx+x_0+gapX,j*dy+y_0+gapY,0);
 
-				newTerrainPoints[i+j*numTerrainx]=p;
+				newXTerrainPoints[i+j*numTerrainx]=i*dx+x_0+gapX;
+				newYTerrainPoints[i+j*numTerrainx]=j*dy+y_0+gapY;
+				newZTerrainPoints[i+j*numTerrainx]=0;
 
 			}
 
-		terrainMesh.points=newTerrainPoints;
+		terrainMesh.xpoints=newXTerrainPoints;
+		terrainMesh.ypoints=newYTerrainPoints;
+		terrainMesh.zpoints=newZTerrainPoints;
 		terrainMesh.polygonData=new ArrayList();
 
 		ArrayList vTexturePoints=RoadEditor.buildTemplateTexturePoints(200);

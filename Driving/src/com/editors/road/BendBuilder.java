@@ -409,13 +409,17 @@ public class BendBuilder extends JDialog implements ActionListener{
 	
 		}
 		
+		pm.xpoints=new double[v_points.size()];
+		pm.ypoints=new double[v_points.size()];
+		pm.zpoints=new double[v_points.size()];
 
-		/*for (int j = 0; j < v_points.size(); j++) {
-			Point3D p = (Point3D) v_points.elementAt(j);
-			System.out.println(p);
-		}*/
-		
-		pm.points=PolygonMesh.fromVectorToArray(v_points);
+		for (int j = 0; j < v_points.size(); j++) {
+			Point3D p = (Point3D) v_points.get(j);
+			pm.xpoints[j]=p.x;
+			pm.ypoints[j]=p.y;
+			pm.zpoints[j]=p.z;
+		}
+
 		
 		//start point is the center index=0
 		

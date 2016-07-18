@@ -108,14 +108,12 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			for(int j=0;j<size;j++){
 
 
-				Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
-
-				int xo=convertX(p);
-				int yo=convertY(p);
+				int xo=convertX(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
+				int yo=convertY(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 
 				int rgbColor=Color.white.getRGB();
 
-				if(p.isSelected()){
+				if(mesh.selected[j]){
 					rgbColor=Color.RED.getRGB();
 
 				}	
@@ -1069,13 +1067,13 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			if(xo>=x0 && xo<=x1 && yo>=y0 && yo<=y1  ){
 
-				p.setSelected(true);
+				mesh.selected[j]=true;
 				found=true;
 
 
 			}
 			else if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected())
-				p.setSelected(false);
+				mesh.selected[j]=false;
 
 
 		}
@@ -1501,7 +1499,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 					editor.coordinatesz[editor.getACTIVE_PANEL()].setText(p.z);
 
 				found=true;
-				p.setSelected(true);
+				mesh.selected[j]=true;
 
 				polygon.addIndex(j);
 
@@ -1509,7 +1507,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			}
 			else if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected())
-				p.setSelected(false);
+				mesh.selected[j]=false;
 
 
 		}

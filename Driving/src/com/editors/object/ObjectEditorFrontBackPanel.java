@@ -112,14 +112,20 @@ class ObjectEditorFrontBackPanel extends ObjectEditorViewPanel {
 
 			for(int j=0;j<numLInes;j++){
 
-				Point3D p0=mesh.points[ld.getIndex(j)];
-				Point3D p1=mesh.points[ld.getIndex((j+1)%ld.size())];
+				Point3D p0=new Point3D(mesh.xpoints[ld.getIndex(j)],
+						mesh.ypoints[ld.getIndex(j)],
+						mesh.zpoints[ld.getIndex(j)]);
+						
+						
+				Point3D p1=new Point3D(mesh.xpoints[ld.getIndex((j+1)%ld.size())],
+						mesh.ypoints[ld.getIndex((j+1)%ld.size())],
+						mesh.zpoints[ld.getIndex((j+1)%ld.size())]);
 
 
 				bufGraphics.drawLine(calcAssX(p0),calcAssY(p0),calcAssX(p1),calcAssY(p1));
 			}
 			if(oe.isShowNornals())
-				showNormals(mesh.points,ld,bufGraphics);
+				showNormals(mesh.xpoints,mesh.ypoints,mesh.zpoints,ld,bufGraphics);
 
 		}	
 
@@ -137,8 +143,13 @@ class ObjectEditorFrontBackPanel extends ObjectEditorViewPanel {
 
 			for(int j=0;j<numLInes;j++){
 
-				Point3D p0=mesh.points[ld.getIndex(j)];
-				Point3D p1=mesh.points[ld.getIndex((j+1)%ld.size())];
+				Point3D p0=new Point3D(mesh.xpoints[ld.getIndex(j)],
+						mesh.ypoints[ld.getIndex(j)],
+						mesh.zpoints[ld.getIndex(j)]);
+				Point3D p1=new Point3D(
+						mesh.xpoints[ld.getIndex((j+1)%ld.size())],
+						mesh.ypoints[ld.getIndex((j+1)%ld.size())],
+						mesh.zpoints[ld.getIndex((j+1)%ld.size())]);
 
 
 				bufGraphics.drawLine(calcAssX(p0),calcAssY(p0),calcAssX(p1),calcAssY(p1));
@@ -156,7 +167,7 @@ class ObjectEditorFrontBackPanel extends ObjectEditorViewPanel {
 
 
 
-	private void showNormals(Point3D[] points, LineData ld, Graphics2D bufGraphics) {
+	private void showNormals(double[] xpoints,double[] ypoints,double[] zpoints, LineData ld, Graphics2D bufGraphics) {
 		
 		Polygon3D p3d=new Polygon3D();
 		int numLInes=ld.size();
@@ -166,7 +177,7 @@ class ObjectEditorFrontBackPanel extends ObjectEditorViewPanel {
 		
 		for(int j=0;j<numLInes;j++){
 
-			Point3D p0=points[ld.getIndex(j)];
+			Point3D p0=new Point3D(xpoints[ld.getIndex(j)],ypoints[ld.getIndex(j)],zpoints[ld.getIndex(j)]);
 			p3d.addPoint(p0);
 		}
 		
@@ -184,20 +195,21 @@ class ObjectEditorFrontBackPanel extends ObjectEditorViewPanel {
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 		
-		if(mesh==null || mesh.points==null)
+		if(mesh==null || mesh.xpoints==null)
 			return;
 
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
-
-			if(p.isSelected())
+			if(mesh.selected[i])
 				bufGraphics.setColor(Color.RED);
 			else
 				bufGraphics.setColor(Color.white);
 
 			//TOP
-			bufGraphics.fillOval(calcAssX(p)-2,calcAssY(p)-2,5,5);
+			bufGraphics.fillOval(
+					calcAssX(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i])-2,
+					calcAssY(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i])-2,
+					5,5);
 		
 
 
@@ -217,15 +229,15 @@ class ObjectEditorFrontBackPanel extends ObjectEditorViewPanel {
 		ObjectEditor oe = objEditorPanel.objectEditor;
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
-		if(mesh.points==null)
+		if(mesh.xpoints==null)
 			return;
 
 		//select point from lines
 		if(!objEditorPanel.checkMultipleSelection.isSelected()) 
 			objEditorPanel.polygon=new LineData();
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
+			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 
 
 
@@ -236,6 +248,7 @@ class ObjectEditorFrontBackPanel extends ObjectEditorViewPanel {
 			Rectangle rect=new Rectangle(xo-5,yo-5,10,10);
 			if(rect.contains(x,y)){
 
+				mesh.selected[i]=true;
 				objEditorPanel.selectPoint(p);
 
 				objEditorPanel.polygon.addIndex(i);
@@ -245,7 +258,7 @@ class ObjectEditorFrontBackPanel extends ObjectEditorViewPanel {
 
 			}
 			else if(!objEditorPanel.checkMultipleSelection.isSelected()) 
-				p.setSelected(false);
+				mesh.selected[i]=false;
 		}
 		
 		
@@ -274,9 +287,9 @@ class ObjectEditorFrontBackPanel extends ObjectEditorViewPanel {
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
         
-        for (int i = 0; i < mesh.points.length; i++) {
+        for (int i = 0; i < mesh.xpoints.length; i++) {
         
-    	Point3D p = mesh.points[i];
+    	Point3D p = new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 
 
     	int x=calcAssX(p);
@@ -284,7 +297,7 @@ class ObjectEditorFrontBackPanel extends ObjectEditorViewPanel {
 
 			if(x>=x0 && x<=x1 && y>=y0 && y<=y1  ){
 
-				p.setSelected(true);
+				mesh.selected[i]=true;
 
 			}
 

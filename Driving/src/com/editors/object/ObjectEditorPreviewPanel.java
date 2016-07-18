@@ -48,7 +48,7 @@ public class ObjectEditorPreviewPanel extends EditorPreviewPanel implements KeyL
 		deltay=1;
 		deltax=1;
 		
-		clonedPoints=clonePoints(mesh.points);
+		clonedPoints=clonePoints(mesh.xpoints,mesh.ypoints,mesh.zpoints);
 		PolygonMesh pm=new PolygonMesh(clonedPoints,mesh.polygonData);
 		polygons = PolygonMesh.getBodyPolygons(pm);
 	

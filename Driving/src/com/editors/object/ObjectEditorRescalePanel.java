@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.Point3D;
 import com.PolygonMesh;
 
 class ObjectEditorRescalePanel extends JDialog implements ActionListener{
@@ -172,16 +171,14 @@ class ObjectEditorRescalePanel extends JDialog implements ActionListener{
 		PolygonMesh mesh=editor.getMeshes()[editor.getACTIVE_PANEL()];
 
 
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;i<mesh.xpoints.length;i++){
 			
-			Point3D p=mesh.points[i];
-			
-			if(!p.isSelected())
+			if(!mesh.selected[i])
 				continue;
 			
-			p.x=p.x*alfax;
-			p.y=p.y*alfay;
-			p.z=p.z*alfaz;
+			mesh.xpoints[i]=mesh.xpoints[i]*alfax;
+			mesh.ypoints[i]=mesh.ypoints[i]*alfay;
+			mesh.zpoints[i]=mesh.zpoints[i]*alfaz;
 		}
 
 	

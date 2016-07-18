@@ -1064,13 +1064,13 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 		return -1;
 	}
 
-	public static int getFace(LineData ld,ArrayList points){
+	public static int getFace(LineData ld,double[] xpoints,double[] ypoints,double[] zpoints){
 		
 		int n=ld.size();
 		
-		Point3D p0=(Point3D)points.get(ld.getIndex((n+0-1)%n));
-		Point3D p1=(Point3D)points.get(ld.getIndex(0));
-		Point3D p2=(Point3D)points.get(ld.getIndex((1+0)%n));
+		Point3D p0=new Point3D(xpoints[ld.getIndex((n+0-1)%n)],ypoints[ld.getIndex((n+0-1)%n)],zpoints[ld.getIndex((n+0-1)%n)]);
+		Point3D p1=new Point3D(xpoints[ld.getIndex(0)],ypoints[ld.getIndex(0)],zpoints[ld.getIndex(0)]);
+		Point3D p2=new Point3D(xpoints[ld.getIndex((1+0)%n)],ypoints[ld.getIndex((1+0)%n)],zpoints[ld.getIndex((1+0)%n)]);
 
 		Point3D normal=Point3D.calculateCrossProduct(p1.substract(p0),p2.substract(p1));
 
@@ -1097,6 +1097,23 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 		return boxFace;
 
 	}
+	
+	public static int getFace(LineData ld, ArrayList<Point3D> points) {
+
+		int n=ld.size();
+		
+		Point3D p0=points.get(ld.getIndex((n+0-1)%n));
+		Point3D p1=points.get(ld.getIndex(0));
+		Point3D p2=points.get(ld.getIndex((1+0)%n));
+
+		Point3D normal=Point3D.calculateCrossProduct(p1.substract(p0),p2.substract(p1));
+
+		normal=normal.calculateVersor();
+		
+		int boxFace=Renderer3D.findBoxFace(normal);
+		return boxFace;
+	}
+
 
 	public static int findBoxFace(Point3D normal ) {
 

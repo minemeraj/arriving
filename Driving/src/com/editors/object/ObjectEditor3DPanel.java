@@ -131,7 +131,7 @@ class ObjectEditor3DPanel extends ObjectEditorViewPanel implements AbstractRende
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];	
 		
-		PolygonMesh pm=new PolygonMesh(mesh.points,mesh.polygonData);
+		PolygonMesh pm=new PolygonMesh(mesh.xpoints,mesh.ypoints,mesh.zpoints,mesh.polygonData);
 		CubicMesh cm=CubicMesh.buildCubicMesh(pm).clone();
 		rotateMesh(cm);
 		
@@ -171,7 +171,7 @@ class ObjectEditor3DPanel extends ObjectEditorViewPanel implements AbstractRende
 			int deltaHeight=cm.getDeltaY();		
 
 			LineData ld=(LineData) cm.polygonData.get(i);
-			Polygon3D p3D=LineData.buildPolygon(ld,cm.points);
+			Polygon3D p3D=LineData.buildPolygon(ld,cm.xpoints,cm.ypoints,cm.zpoints);
 			Color col=Color.GRAY;
 			
 			if(ld.isSelected)
@@ -248,13 +248,13 @@ class ObjectEditor3DPanel extends ObjectEditorViewPanel implements AbstractRende
 		decomposeLine(0,0,0,0,length,0,Road.OBJECT_LEVEL,roadZbuffer,clr.getRGB()); 
 		decomposeLine(0,0,0,0,0,length,Road.OBJECT_LEVEL,roadZbuffer,clr.getRGB()); 
 
-		for(int i=0;i<cm.points.length;i++){
+		for(int i=0;i<cm.xpoints.length;i++){
 
-			Point3D p= cm.points[i];
+			Point3D p= new Point3D(cm.xpoints[i],cm.ypoints[i],cm.zpoints[i]);
 			
 			Color col=Color.white;
 
-			if(p.isSelected())
+			if(cm.selected[i])
 				col=Color.RED;
 
 			//TOP
@@ -277,12 +277,13 @@ class ObjectEditor3DPanel extends ObjectEditorViewPanel implements AbstractRende
 		cm.point101=rotatePoint(cm.point101);
 		cm.point111=rotatePoint(cm.point111);
 		
-		for (int i = 0; i < cm.points.length; i++) {
-			cm.points[i]=rotatePoint(cm.points[i]);
-		}
+
+		rotatePoints(cm.xpoints,cm.ypoints,cm.zpoints);
+	
 		
 		
 	}
+
 
 	private void decomposePointIntoZBfuffer(Point3D p, int radius, Color col, ZBuffer zbuffer) {
 		
@@ -329,6 +330,30 @@ class ObjectEditor3DPanel extends ObjectEditorViewPanel implements AbstractRende
 		pp.setSelected(p.isSelected());
 		
 		return pp;
+	}
+	
+
+	private void rotatePoints(double[] xpoints, double[] ypoints,
+			double[] zpoints) {
+	
+		
+		for (int i = 0; i < xpoints.length; i++) {
+			
+			
+			double xx=(cosf*(xpoints[i])-sinf*(ypoints[i]));
+			double yy=(cosf*(ypoints[i])+sinf*(xpoints[i]));
+			double zz=zpoints[i];
+			
+		
+			double xxx=(zz)*sinteta+(xx)*costeta;
+			double yyy= yy;
+			double zzz=(zz)*costeta-(xx)*sinteta;
+			
+			xpoints[i]=xxx;
+			ypoints[i]=yyy;
+			zpoints[i]=zzz;
+		}
+		
 	}
 
 	private void draw3Daxis(Graphics2D graphics2D, int i, int j) {
@@ -387,14 +412,19 @@ class ObjectEditor3DPanel extends ObjectEditorViewPanel implements AbstractRende
 
 			for(int j=0;j<numLInes;j++){
 
-				Point3D p0=mesh.points[ld.getIndex(j)];
-				Point3D p1=mesh.points[ld.getIndex((j+1)%ld.size())];
-
+				Point3D p0=new Point3D(
+						mesh.xpoints[ld.getIndex(j)],
+						mesh.ypoints[ld.getIndex(j)],
+						mesh.zpoints[ld.getIndex(j)]);
+				Point3D p1=new Point3D(
+						mesh.xpoints[ld.getIndex((j+1)%ld.size())],
+						mesh.ypoints[ld.getIndex((j+1)%ld.size())],
+						mesh.zpoints[ld.getIndex((j+1)%ld.size())]);
 
 				bufGraphics.drawLine(calcAssX(p0),calcAssY(p0),calcAssX(p1),calcAssY(p1));
 			}
 			if(oe.isShowNornals())
-				showNormals(mesh.points,ld,bufGraphics);
+				showNormals(mesh.xpoints,mesh.ypoints,mesh.zpoints,ld,bufGraphics);
 
 		}	
 
@@ -412,8 +442,14 @@ class ObjectEditor3DPanel extends ObjectEditorViewPanel implements AbstractRende
 
 			for(int j=0;j<numLInes;j++){
 
-				Point3D p0=mesh.points[ld.getIndex(j)];
-				Point3D p1=mesh.points[ld.getIndex((j+1)%ld.size())];
+				Point3D p0=new Point3D(
+						mesh.xpoints[ld.getIndex(j)],
+						mesh.ypoints[ld.getIndex(j)],
+						mesh.zpoints[ld.getIndex(j)]);
+				Point3D p1=new Point3D(
+						mesh.xpoints[ld.getIndex((j+1)%ld.size())],
+						mesh.ypoints[ld.getIndex((j+1)%ld.size())],
+						mesh.zpoints[ld.getIndex((j+1)%ld.size())]);
 
 
 				bufGraphics.drawLine(calcAssX(p0),calcAssY(p0),calcAssX(p1),calcAssY(p1));
@@ -453,6 +489,29 @@ class ObjectEditor3DPanel extends ObjectEditorViewPanel implements AbstractRende
 		bufGraphics.drawLine(calcAssX(centroid),calcAssY(centroid),calcAssX(normalTip),calcAssY(normalTip));
 		
 	}
+	
+	private void showNormals(double[] xpoints,double[] ypoints,double[] zpoints, LineData ld, Graphics2D bufGraphics) {
+		
+		Polygon3D p3d=new Polygon3D();
+		int numLInes=ld.size();
+		
+		if(numLInes<3)
+			return;
+		
+		for(int j=0;j<numLInes;j++){
+
+			Point3D p0=new Point3D(xpoints[ld.getIndex(j)],ypoints[ld.getIndex(j)],zpoints[ld.getIndex(j)]);
+			p3d.addPoint(p0);
+		}
+		
+		Point3D normal = Polygon3D.findNormal(p3d).calculateVersor();
+		normal=normal.multiply(50.0);
+		Point3D centroid=Polygon3D.findCentroid(p3d);
+		Point3D normalTip=centroid.sum(normal);
+		bufGraphics.setColor(Color.GREEN);
+		bufGraphics.drawLine(calcAssX(centroid),calcAssY(centroid),calcAssX(normalTip),calcAssY(normalTip));
+		
+	}
 
 	private void displayPoints(Graphics2D bufGraphics) {
 		
@@ -460,20 +519,23 @@ class ObjectEditor3DPanel extends ObjectEditorViewPanel implements AbstractRende
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
 		
-		if(mesh==null || mesh.points==null)
+		if(mesh==null || mesh.xpoints==null)
 			return;
 
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;i<mesh.xpoints.length;i++){
 
-			Point3D p= mesh.points[i];
+			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 
-			if(p.isSelected())
+			if(mesh.selected[i])
 				bufGraphics.setColor(Color.RED);
 			else
 				bufGraphics.setColor(Color.white);
 
 			//TOP
-			bufGraphics.fillOval(calcAssX(p)-2,calcAssY(p)-2,5,5);
+			bufGraphics.fillOval(
+					calcAssX(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i])-2,
+					calcAssY(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i])-2,
+					5,5);
 		
 
 
@@ -497,14 +559,12 @@ class ObjectEditor3DPanel extends ObjectEditorViewPanel implements AbstractRende
 		ObjectEditor oe = objEditorPanel.objectEditor;
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
-		if(mesh.points==null)
+		if(mesh.xpoints==null)
 			return; 
 		
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
-
-
+			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 
 			int xo=calcAssX(p);
 			int yo=calcAssY(p);
@@ -513,6 +573,7 @@ class ObjectEditor3DPanel extends ObjectEditorViewPanel implements AbstractRende
 			Rectangle rect=new Rectangle(xo-5,yo-5,10,10);
 			if(rect.contains(x,y)){
 
+				mesh.selected[i]=true;
 				objEditorPanel.selectPoint(p);
 
 				objEditorPanel.polygon.addIndex(i);
@@ -521,7 +582,7 @@ class ObjectEditor3DPanel extends ObjectEditorViewPanel implements AbstractRende
 
 			}
 			else if(!objEditorPanel.checkMultipleSelection.isSelected()) 
-				p.setSelected(false);
+				mesh.selected[i]=false;
 		}
 		
 		if(!found)
@@ -568,12 +629,12 @@ class ObjectEditor3DPanel extends ObjectEditorViewPanel implements AbstractRende
 		ObjectEditor oe = objEditorPanel.objectEditor;
 		
 		PolygonMesh mesh=oe.getMeshes()[oe.getACTIVE_PANEL()];
-		if(mesh.points==null)
+		if(mesh.xpoints==null)
 			return; 
 		
-		for (int i = 0; i <mesh.points.length; i++) {
+		for (int i = 0; i <mesh.xpoints.length; i++) {
 
-			Point3D p = (Point3D) mesh.points[i];
+			Point3D p = new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 
 
 			int x=calcAssX(p);
@@ -581,7 +642,7 @@ class ObjectEditor3DPanel extends ObjectEditorViewPanel implements AbstractRende
 
 			if(x>=x0 && x<=x1 && y>=y0 && y<=y1  ){
 
-				p.setSelected(true);
+				mesh.selected[i]=true;
 
 			}
 

@@ -441,8 +441,8 @@ class ObjectEditor extends Editor implements ActionListener{
 			PolygonMesh mesh=meshes[ACTIVE_PANEL];
 			
 			ArrayList<Point3D> vPoints=new ArrayList<Point3D>();
-			for (int i = 0; i < pm.points.length; i++) {
-				vPoints.add(pm.points[i]);
+			for (int i = 0; i < pm.xpoints.length; i++) {
+				vPoints.add(new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]));
 			}
 			mesh.setPoints(vPoints);
 			mesh.polygonData=pm.polygonData;
@@ -458,14 +458,14 @@ class ObjectEditor extends Editor implements ActionListener{
 		
 		PolygonMesh mesh=meshes[ACTIVE_PANEL];
 		
-		ObjectEditorCopyPanel oetp=new ObjectEditorCopyPanel(mesh.points,mesh.polygonData);
+		ObjectEditorCopyPanel oetp=new ObjectEditorCopyPanel(mesh.xpoints,mesh.ypoints,mesh.zpoints,mesh.polygonData);
 		
 		PolygonMesh pm=oetp.getCopy();
 		
 		if(pm!=null){
 			ArrayList<Point3D> aPoints=new ArrayList<Point3D>();
-			for (int i = 0; i < pm.points.length; i++) {
-				aPoints.add(pm.points[i]);
+			for (int i = 0; i < pm.xpoints.length; i++) {
+				aPoints.add(new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]));
 			}
 			mesh.setPoints(aPoints);
 			mesh.polygonData=pm.polygonData;
@@ -584,9 +584,9 @@ class ObjectEditor extends Editor implements ActionListener{
 		
 		
 	      //find maxs
-		for(int j=0;j<mesh.points.length;j++){
+		for(int j=0;j<mesh.xpoints.length;j++){
 			
-			Point3D point=mesh.points[j];
+			Point3D point=new Point3D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 			
 			if(j==0){
 				
@@ -659,8 +659,8 @@ class ObjectEditor extends Editor implements ActionListener{
 					for (int k = 0; k < ld.size(); k++) {
 
 
-						Point3D point0=  mesh.points[ld.getIndex(k)];
-						Point3D point1=  mesh.points[ld.getIndex((k+1)%ld.size())];
+						Point3D point0=  new Point3D(mesh.xpoints[ld.getIndex(k)],mesh.ypoints[ld.getIndex(k)],mesh.zpoints[ld.getIndex(k)]);
+						Point3D point1= new Point3D(mesh.xpoints[ld.getIndex((k+1)%ld.size())],mesh.ypoints[ld.getIndex((k+1)%ld.size())],mesh.zpoints[ld.getIndex((k+1)%ld.size())]);
 						//top
 						bufGraphics.setColor(top_color);
 						bufGraphics.drawLine(DX+(int)(point0.x-minx+deltaX),(int)(-point0.y+maxy+deltaX),DX+(int)(point1.x-minx+deltaX),(int)(-point1.y+maxy+deltaX));
@@ -738,9 +738,9 @@ class ObjectEditor extends Editor implements ActionListener{
 		
 		
 	      //find maxs
-		for(int j=0;j<mesh.points.length;j++){
+		for(int j=0;j<mesh.xpoints.length;j++){
 			
-			Point3D point=mesh.points[j];
+			Point3D point=new Point3D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 			
 			if(j==0){
 				
@@ -771,9 +771,9 @@ class ObjectEditor extends Editor implements ActionListener{
 		deltaX=(int)(maxz-minz)+1; 
 		deltaY=(int)(maxy-miny)+1;
 
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
+			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 
 			/*public static final int CAR_BACK=0;
 			public static final int CAR_TOP=1;
@@ -868,6 +868,8 @@ class ObjectEditor extends Editor implements ActionListener{
 
 
 	}
+	
+	
 
 
 
@@ -880,7 +882,20 @@ class ObjectEditor extends Editor implements ActionListener{
 
 	}
 
+	static void rotate(double[] xpoints,double[] ypoints,double[] zpoints,double[][] matrix, double x0,double y0, double z0) {
 
+		for(int i=0;i<xpoints.length;i++){
+
+			double xx=(xpoints[i]-x0);
+			double yy=(ypoints[i]-y0);
+			double zz=(zpoints[i]-z0);
+
+			xpoints[i]=matrix[0][0]*xx+matrix[0][1]*yy+matrix[0][2]*zz+x0;
+			ypoints[i]=matrix[1][0]*xx+matrix[1][1]*yy+matrix[1][2]*zz+y0;
+			zpoints[i]=matrix[2][0]*xx+matrix[2][1]*yy+matrix[2][2]*zz+z0;
+		}
+
+	}
 
     @Override
     public void menuSelected(MenuEvent arg0) {

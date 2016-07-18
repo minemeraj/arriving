@@ -708,7 +708,7 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
 			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
-			if(!p.isSelected()) 
+			if(!mesh.selected[i]) 
 				newPoints.add(p);
 			else if(firstPoint==-1){
 				firstPoint=newPoints.size();
@@ -962,7 +962,7 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
 			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
-			if(!p.isSelected()) 
+			if(!mesh.selected[i]) 
 				newPoints.add(p);
 
 		}
@@ -1129,7 +1129,7 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 
 			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 
-			if(p.isSelected()){
+			if(mesh.selected[i]){
 
 				if(!"".equals(coordinatesx.getText()))
 					p.x=Double.parseDouble(coordinatesx.getText());
@@ -1158,7 +1158,7 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 
 			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 
-			if(p.isSelected()){
+			if(mesh.selected[i]){
 				prepareUndo();
 				
 				if(type==IperviewPanel.TYPE_FRONT){
@@ -1202,7 +1202,7 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 
 			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 
-			if(p.isSelected()){
+			if(mesh.selected[i]){
 
 				
 					p.x=p.x+qty*dx;
@@ -1245,7 +1245,7 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
 			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
-			p.setSelected(false);
+			mesh.selected[i]=false;
 		}
 		
 	}
@@ -1256,8 +1256,7 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 		
 		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
-			p.setSelected(true);
+			mesh.selected[i]=true;
 		}
 		
 	}
@@ -1334,7 +1333,7 @@ class IperviewEditor extends Editor implements EditorPanel,KeyListener, ActionLi
 						polygon.addIndex(i);
 					}	
 					else if(!checkMultipleSelection.isSelected())
-						p.setSelected(false);
+						mesh.selected[i]=false;
 					
 				}
 				

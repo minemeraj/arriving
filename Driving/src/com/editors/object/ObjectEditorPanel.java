@@ -438,15 +438,16 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 					polygon=new LineData();
 
 				int index=pointList.getSelectedIndex();
-				for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
+				for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-					Point3D p=mesh.points[i];
+					Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 					if(index==i){
+						mesh.selected[i]=true;
 						selectPoint(p);
 						polygon.addIndex(i);
 					}
 					else if(!checkMultipleSelection.isSelected())
-						p.setSelected(false);
+						mesh.selected[i]=false;
 
 				}
 
@@ -595,7 +596,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 
 	}
 
-	static Polygon3D buildPolygon(LineData ld,Point3D[] points) {
+	static Polygon3D buildPolygon(LineData ld,double[] xpoints,double[] ypoints,double[] zpoints) {
 
 
 
@@ -611,13 +612,11 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 
 			int num=ld.getIndex(i);
 
-			Point3D p=points[num];
-
 
 			//real coordinates
-			cxr[i]=(int)(p.x);
-			cyr[i]=(int)(p.y);
-			czr[i]=(int)(p.z);
+			cxr[i]=(int)(xpoints[num]);
+			cyr[i]=(int)(ypoints[num]);
+			czr[i]=(int)(zpoints[num]);
 		}
 
 
@@ -720,20 +719,18 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 
 		double qty=Double.parseDouble(sqty);
 
-		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
+		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
-
-			if(p.isSelected()){
+			if(mesh.selected[i]){
 
 
-				p.x=p.x+qty*dx;
-				p.y=p.y+qty*dy;
-				p.z=p.z+qty*dz;
+				mesh.xpoints[i]=mesh.xpoints[i]+qty*dx;
+				mesh.ypoints[i]=mesh.ypoints[i]+qty*dy;
+				mesh.zpoints[i]=mesh.zpoints[i]+qty*dz;
 
-				coordinatesx.setText(dfc.format(p.x));
-				coordinatesy.setText(dfc.format(p.y));
-				coordinatesz.setText(dfc.format(p.z));
+				coordinatesx.setText(dfc.format(mesh.xpoints[i]));
+				coordinatesy.setText(dfc.format(mesh.ypoints[i]));
+				coordinatesz.setText(dfc.format(mesh.zpoints[i]));
 			}
 
 		}
@@ -755,12 +752,12 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 			return;
 		}	
 		double val=Double.parseDouble(txt);
-		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
+		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
-			p.x=Math.round(p.x *val);
-			p.y=Math.round(p.y *val);
-			p.z=Math.round(p.z *val);
+
+			mesh.xpoints[i]=Math.round(mesh.xpoints[i]*val);
+			mesh.ypoints[i]=Math.round(mesh.ypoints[i] *val);
+			mesh.zpoints[i]=Math.round(mesh.zpoints[i] *val);
 		}
 
 	}
@@ -771,10 +768,10 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 
 		PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
-		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
+		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
-			p.setSelected(true);
+			mesh.selected[i]=true;
+	
 		}
 
 	}
@@ -845,7 +842,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 
 
 
-		Point3D normal = PolygonMesh.getNormal(0,polygon,mesh.points);	
+		Point3D normal = PolygonMesh.getNormal(0,polygon,mesh.xpoints,mesh.ypoints,mesh.zpoints);	
 
 		int boxFace=Renderer3D.findBoxFace(normal);
 
@@ -890,13 +887,13 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 
 		PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
-		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
+		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-			Point3D p0=mesh.points[i];
+			Point3D p0=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 
-			for(int j=0;j<mesh.points.length;j++){
+			for(int j=0;j<mesh.xpoints.length;j++){
 
-				Point3D p1=mesh.points[j];
+				Point3D p1=new Point3D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 
 				if(p0.isSelected() && p1.isSelected() && i<j)
 				{
@@ -919,25 +916,24 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 
 		PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
-		if(mesh.points==null)
+		if(mesh.xpoints==null)
 			return; 
 
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
-
-			if(p.isSelected()){
+	
+			if(mesh.selected[i]){
 
 				if(!"".equals(coordinatesx.getText()))
-					p.x=Double.parseDouble(coordinatesx.getText());
+					mesh.xpoints[i]=Double.parseDouble(coordinatesx.getText());
 				if(!"".equals(coordinatesy.getText()))
-					p.y=Double.parseDouble(coordinatesy.getText());
+					mesh.xpoints[i]=Double.parseDouble(coordinatesy.getText());
 				if(!"".equals(coordinatesz.getText()))
-					p.z=Double.parseDouble(coordinatesz.getText());
+					mesh.xpoints[i]=Double.parseDouble(coordinatesz.getText());
 				if(!"".equals(extraData.getText()))
-					p.setData(extraData.getText());
+					mesh.data[i]=extraData.getText();
 				else
-					p.setData(null);
+					mesh.data[i]=null;
 			}
 
 		}
@@ -980,11 +976,11 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 			p.setData(extraData.getText());
 
 		int sz= 0;
-		if(mesh.points!=null)
-			sz=mesh.points.length;
+		if(mesh.xpoints!=null)
+			sz=mesh.xpoints.length;
 
 		for (int i = 0; i <sz; i++) {
-			Point3D old_p = mesh.points[i];
+			Point3D old_p = new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 
 			if(old_p.x==p.x && old_p.y==p.y && old_p.z==p.z){
 
@@ -1011,10 +1007,10 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 
 		PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
-		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
+		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
-			if(!p.isSelected()) 
+			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
+			if(!mesh.selected[i]) 
 				newPoints.add(p);
 
 		}
@@ -1031,9 +1027,10 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 			for(int j=0;j<ld.size();j++){
 
 				LineDataVertex ldv= ld.getItem(j);
+				
+				Point3D p0=new Point3D(mesh.xpoints[ldv.getVertex_index()],mesh.ypoints[ldv.getVertex_index()],mesh.zpoints[ldv.getVertex_index()]);
 
-				Point3D p0=mesh.points[ldv.getVertex_index()];
-				if(!p0.isSelected()) 
+				if(!mesh.selected[ldv.getVertex_index()]) 
 					for(int k=0;k<newPoints.size();k++){
 
 						Point3D np=(Point3D) newPoints.get(k);
@@ -1076,10 +1073,10 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 
 		int firstPoint=-1;
 
-		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
+		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
-			if(!p.isSelected()) 
+			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
+			if(!mesh.selected[i]) 
 				newPoints.add(p);
 			else if(firstPoint==-1){
 				firstPoint=newPoints.size();
@@ -1107,7 +1104,7 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 
 				LineDataVertex ldv= ld.getItem(j);
 
-				Point3D p0=mesh.points[ldv.getVertex_index()];
+				Point3D p0=new Point3D(mesh.xpoints[ldv.getVertex_index()],mesh.ypoints[ldv.getVertex_index()],mesh.zpoints[ldv.getVertex_index()]);
 				if(!p0.isSelected()) 
 					for(int k=0;k<newPoints.size();k++){
 
@@ -1160,10 +1157,10 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 
 		PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
-		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
+		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
-			p.setSelected(false);
+			mesh.selected[i]=false;
+
 		}
 
 	}
@@ -1398,16 +1395,16 @@ class ObjectEditorPanel extends JPanel implements EditorPanel,ActionListener,Key
 
 		PolygonMesh mesh=objectEditor.getMeshes()[objectEditor.getACTIVE_PANEL()];
 
-		if(mesh.points==null)
+		if(mesh.xpoints==null)
 			return;
 
 		DefaultListModel dlm=new DefaultListModel();
 		int sel=pointList.getSelectedIndex();
 
 
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
+			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 			dlm.addElement(new PointListItem(p,i)) ; 
 		}
 

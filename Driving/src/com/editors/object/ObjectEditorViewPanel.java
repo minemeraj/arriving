@@ -109,7 +109,7 @@ public abstract class ObjectEditorViewPanel extends JPanel implements MouseListe
 
 			if(ld.size()>2){
 
-				Polygon3D p3d=objEditorPanel.buildPolygon(ld,mesh.points);
+				Polygon3D p3d=objEditorPanel.buildPolygon(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints);
 
 				Polygon poly=buildProjection(p3d);
 

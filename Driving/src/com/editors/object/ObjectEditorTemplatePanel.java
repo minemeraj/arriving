@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import com.LineData;
-import com.Point3D;
 import com.PolygonMesh;
 import com.editors.DoubleTextField;
 
@@ -301,7 +300,9 @@ public class ObjectEditorTemplatePanel  extends JDialog implements ActionListene
 			int base=numx*numy;
 			int sideTot=num*(numz-2);
 			int tot=base*2+sideTot;
-			pm.points=new Point3D[tot];
+			pm.xpoints=new double[tot];
+			pm.ypoints=new double[tot];
+			pm.zpoints=new double[tot];
 			
 			if(numz<2){
 				
@@ -318,14 +319,14 @@ public class ObjectEditorTemplatePanel  extends JDialog implements ActionListene
 				{
 
                     //upper base
-					pm.points[i+j*numx]=new Point3D(
-							i*dx,j*dy,0	
-					);
+					pm.xpoints[i+j*numx]=i*dx;
+					pm.ypoints[i+j*numx]=j*dy;
+					pm.zpoints[i+j*numx]=0;
+
 					//lower base
-					pm.points[i+j*numx+base+sideTot]=new Point3D(
-							i*dx,j*dy,dz*(numz-1)	
-					);
-					
+					pm.xpoints[i+j*numx+base+sideTot]=i*dx;
+					pm.ypoints[i+j*numx+base+sideTot]=j*dy;
+					pm.zpoints[i+j*numx+base+sideTot]=dz*(numz-1);
 					
 					
 					
@@ -345,8 +346,9 @@ public class ObjectEditorTemplatePanel  extends JDialog implements ActionListene
 						int ii=calculateBoxBorder(i,j,numx,num);
 					    //System.out.println(i+" "+j+" "+k+" "+ii);
 						
-						pm.points[ii+base+num*(k-1)]=new Point3D(
-								i*dx,j*dy,dz*k);
+						pm.xpoints[ii+base+num*(k-1)]=i*dx;
+						pm.ypoints[ii+base+num*(k-1)]=j*dy;
+						pm.zpoints[ii+base+num*(k-1)]=k*dz;
 					}
 
 
@@ -546,7 +548,9 @@ public class ObjectEditorTemplatePanel  extends JDialog implements ActionListene
 			double dz=height/(numz-1);
 
 			int numTot=num*numz;
-			pm.points=new Point3D[numTot];
+			pm.xpoints=new double[numTot];
+			pm.ypoints=new double[numTot];
+			pm.zpoints=new double[numTot];
 			
 			if(numz<2){
 				
@@ -564,7 +568,9 @@ public class ObjectEditorTemplatePanel  extends JDialog implements ActionListene
 					double z=dz*k;
 
 
-					pm.points[k*num+i]=new Point3D(x,y,z);
+					pm.xpoints[k*num+i]=x;
+					pm.ypoints[k*num+i]=y;
+					pm.zpoints[k*num+i]=z;
 				}
 			}
 
@@ -612,7 +618,9 @@ public class ObjectEditorTemplatePanel  extends JDialog implements ActionListene
 			double teta=Math.PI/(parallels-1);
 
 			int tot=(parallels-2)*meridians+2;
-			pm.points=new Point3D[tot];	
+			pm.xpoints=new double[tot];
+			pm.ypoints=new double[tot];
+			pm.zpoints=new double[tot];
 			
 			if(parallels<=1 || meridians<=1){
 				
@@ -620,7 +628,10 @@ public class ObjectEditorTemplatePanel  extends JDialog implements ActionListene
 				return null;
 			}
 
-			pm.points[0]=new Point3D(0,0,radius);			
+			pm.xpoints[0]=0;
+			pm.ypoints[0]=0;
+			pm.zpoints[0]=radius;
+		
 			for (int i = 0; i < meridians; i++) {
 
 
@@ -631,11 +642,15 @@ public class ObjectEditorTemplatePanel  extends JDialog implements ActionListene
 					double y=radius*Math.sin(fi*i)*Math.sin(teta*k);
 					double z=radius*Math.cos(teta*k);
 
-					pm.points[1+i+(k-1)*meridians]=new Point3D(x,y,z);
+					pm.xpoints[1+i+(k-1)*meridians]=x;
+					pm.ypoints[1+i+(k-1)*meridians]=y;
+					pm.zpoints[1+i+(k-1)*meridians]=z;
+					
 				}
 			}
-			pm.points[tot-1]=new Point3D(0,0,-radius);
-
+			pm.xpoints[tot-1]=0;
+			pm.ypoints[tot-1]=0;
+			pm.zpoints[tot-1]=-radius;
 
 			for (int i = 0; i < meridians; i++) {
 
@@ -702,17 +717,19 @@ public class ObjectEditorTemplatePanel  extends JDialog implements ActionListene
 			double dy=sidey*1.0/(numy-1);
 			
 			int tot=numx*numy;
-			pm.points=new Point3D[tot];
-		
+			pm.xpoints=new double[tot];
+			pm.ypoints=new double[tot];
+			pm.zpoints=new double[tot];
 
 			for(int i=0;i<numx;i++)
 				for(int j=0;j<numy;j++)
 				{
 
                     //upper base
-					pm.points[i+j*numx]=new Point3D(
-							i*dx,j*dy,z_value	
-					);
+					
+					pm.xpoints[i+j*numx]=i*dx;
+					pm.ypoints[i+j*numx]=j*dy;
+					pm.zpoints[i+j*numx]=z_value;
 
 				}
 			

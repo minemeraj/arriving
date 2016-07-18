@@ -140,7 +140,7 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 	
 				LineData ld=(LineData) mesh.polygonData.get(j);
 	
-				Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.points,index);
+				Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,index);
 	
 				decomposeClippedPolygonIntoZBuffer(p3D,ZBuffer.fromHexToColor(p3D.getHexColor()),worldTextures[p3D.getIndex()],roadZbuffer,hashCode);
 				
@@ -220,7 +220,7 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 			Color col=new Color(due,0,0);
 
 			LineData ld=cm.polygonData.get(i);
-			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.points,ld,cm.getLevel());
+			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.xpoints,cm.ypoints,cm.zpoints,ld,cm.getLevel());
 			polRotate.setShadowCosin(ld.getShadowCosin());
 
 
@@ -417,7 +417,7 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 
 
 
-	private Polygon3D buildTranslatedPolygon3D(LineData ld,Point3D[] points,int index) {
+	private Polygon3D buildTranslatedPolygon3D(LineData ld,double[] xpoints,double[] ypoints,double[] zpoints,int index) {
 
 
 
@@ -435,7 +435,7 @@ public class RoadEditorPreviewPanel extends EditorPreviewPanel implements KeyLis
 			LineDataVertex ldv=(LineDataVertex) ld.getItem(i);
 			int num=ldv.getVertex_index();
 
-			Point4D p=(Point4D) points[num];
+			Point4D p= new Point4D(mesh.xpoints[num],mesh.ypoints[num],mesh.zpoints[num]);
 
 			//real coordinates
 

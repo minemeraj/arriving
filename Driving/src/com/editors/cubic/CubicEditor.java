@@ -895,11 +895,11 @@ class CubicEditor extends Editor implements EditorPanel,KeyListener, ActionListe
 			pr = new PrintWriter(new FileOutputStream(file));
 			pr.print("P=");
 
-			for(int i=0;i<pm.points.length;i++){
+			for(int i=0;i<pm.xpoints.length;i++){
 
-				Point3D p=pm.points[i];
+				Point3D p=new Point3D(pm.xpoints[i],pm.ypoints[i],pm.zpoints[i]);
 				pr.print(decomposePoint(p));
-				if(i<pm.points.length-1)
+				if(i<pm.xpoints.length-1)
 					pr.print(" ");
 			}	
 
@@ -962,7 +962,9 @@ class CubicEditor extends Editor implements EditorPanel,KeyListener, ActionListe
 
 		
 
-		newPolygonMesh.points=mesh.points;
+		newPolygonMesh.xpoints=mesh.xpoints;
+		newPolygonMesh.ypoints=mesh.ypoints;
+		newPolygonMesh.zpoints=mesh.zpoints;
 		newPolygonMesh.polygonData=newPolygonData;
 
 
@@ -1018,7 +1020,9 @@ class CubicEditor extends Editor implements EditorPanel,KeyListener, ActionListe
 
 		meshes[ACTIVE_PANEL]=new PolygonMesh();
 	
-		meshes[ACTIVE_PANEL].points=new Point3D[NX*NY*NZ];
+		meshes[ACTIVE_PANEL].xpoints=new double[NX*NY*NZ];
+		meshes[ACTIVE_PANEL].ypoints=new double[NX*NY*NZ];
+		meshes[ACTIVE_PANEL].zpoints=new double[NX*NY*NZ];
 
 		for(int i=0;i<NX;i++)
 			for(int j=0;j<NY;j++){
@@ -1030,7 +1034,10 @@ class CubicEditor extends Editor implements EditorPanel,KeyListener, ActionListe
 					double z=dz*k;
 
 					int pos=pos(i,j,k,NX,NY,NZ);
-					meshes[ACTIVE_PANEL].points[pos]=new Point3D(x,y,z,i,j,k);
+					/*meshes[ACTIVE_PANEL].points[pos]=new Point3D(x,y,z,i,j,k);*/
+					meshes[ACTIVE_PANEL].xpoints[pos]=x;
+					meshes[ACTIVE_PANEL].ypoints[pos]=y;
+					meshes[ACTIVE_PANEL].zpoints[pos]=z;
 				}
 			}
 		setcomboData(xCUbe,NX);

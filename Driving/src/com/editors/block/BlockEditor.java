@@ -907,7 +907,7 @@ class BlockEditor extends Editor implements EditorPanel,KeyListener, ActionListe
 		BlockEditor ce=new BlockEditor();
 		PolygonMesh pm = buildSurface();
 		
-		ce.meshes[ACTIVE_PANEL]=new PolygonMesh(pm.points,pm.polygonData);
+		ce.meshes[ACTIVE_PANEL]=new PolygonMesh(pm.xpoints,pm.ypoints,pm.zpoints,pm.polygonData);
 		
 		
 		ObjectEditorPreviewPanel oepp=new ObjectEditorPreviewPanel(ce);
@@ -999,15 +999,15 @@ class BlockEditor extends Editor implements EditorPanel,KeyListener, ActionListe
 	
 			pr.print("\nM=");
 
-			for(int i=0;i<mesh.points.length;i++){
+			for(int i=0;i<mesh.xpoints.length;i++){
 
-				Point3D p0=mesh.points[i];
+				Point3D p0=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 				int i0=(int)p0.p_x;
 				int j0=(int)p0.p_y;
 				int k0=(int)p0.p_z;	
 				
 				pr.print(blockData.selectionMask[i0][j0][k0]);
-				if(i<mesh.points.length-1)
+				if(i<mesh.xpoints.length-1)
 					pr.print(" ");
 			}
 
@@ -1144,12 +1144,12 @@ class BlockEditor extends Editor implements EditorPanel,KeyListener, ActionListe
 			pr = new PrintWriter(new FileOutputStream(file));
 			
 
-			for(int i=0;i<pm.points.length;i++){
+			for(int i=0;i<pm.xpoints.length;i++){
 
-				Point3D p=pm.points[i];
+				Point3D p=new Point3D(pm.xpoints[i],pm.ypoints[i],pm.zpoints[i]);
 				pr.print("\nv=");
 				pr.print(decomposePoint(p));
-				if(i<pm.points.length-1)
+				if(i<pm.xpoints.length-1)
 					pr.print(" ");
 			}	
 
@@ -1206,9 +1206,9 @@ public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCusto
 		
 		
 	      //find maxs
-		for(int j=0;j<mesh.points.length;j++){
+		for(int j=0;j<mesh.xpoints.length;j++){
 			
-			Point3D point=mesh.points[j];
+			Point3D point=new Point3D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
 			
 			if(j==0){
 				
@@ -1239,16 +1239,10 @@ public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCusto
 		deltaX=(int)(maxz-minz)+1; 
 		deltaY=(int)(maxy-miny)+1;
 
-		for(int i=0;i<mesh.points.length;i++){
+		for(int i=0;i<mesh.xpoints.length;i++){
 
-			Point3D p=mesh.points[i];
+			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 
-			/*public static final int CAR_BACK=0;
-			public static final int CAR_TOP=1;
-			public static final int CAR_LEFT=2;
-			public static final int CAR_RIGHT=3;
-			public static final int CAR_FRONT=4;
-			public static final int CAR_BOTTOM=5;*/
 		
 			//back
 			pr.print("\nvt=");
@@ -1313,7 +1307,9 @@ public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCusto
 
 		
 
-		newPolygonMesh.points=mesh.points;
+		newPolygonMesh.xpoints=mesh.xpoints;
+		newPolygonMesh.ypoints=mesh.ypoints;
+		newPolygonMesh.zpoints=mesh.zpoints;
 		newPolygonMesh.polygonData=newPolygonData;
 		
 		newPolygonMesh=PolygonMesh.simplifyMesh(newPolygonMesh);
@@ -1390,7 +1386,9 @@ public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCusto
 		meshes[ACTIVE_PANEL]=new PolygonMesh();
 		
 
-		meshes[ACTIVE_PANEL].points=new Point3D[NX*NY*NZ];
+		meshes[ACTIVE_PANEL].xpoints=new double[NX*NY*NZ];
+		meshes[ACTIVE_PANEL].ypoints=new double[NX*NY*NZ];
+		meshes[ACTIVE_PANEL].zpoints=new double[NX*NY*NZ];
 
 		for(int i=0;i<NX;i++)
 			for(int j=0;j<NY;j++){
@@ -1402,7 +1400,9 @@ public void decomposeObjVertices(PrintWriter pr,PolygonMesh mesh,boolean isCusto
 					double z=dz*k;
 
 					int pos=pos(i,j,k,NX,NY,NZ);
-					meshes[ACTIVE_PANEL].points[pos]=new Point3D(x,y,z,i,j,k);
+					meshes[ACTIVE_PANEL].xpoints[pos]=x;
+					meshes[ACTIVE_PANEL].ypoints[pos]=y;
+					meshes[ACTIVE_PANEL].zpoints[pos]=z;
 				}
 			}
 		

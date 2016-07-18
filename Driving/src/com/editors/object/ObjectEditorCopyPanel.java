@@ -35,7 +35,7 @@ class ObjectEditorCopyPanel extends JDialog implements ActionListener {
 	private DoubleTextField translate_dz;
 	private JCheckBox invert_polygons;
 
-	ObjectEditorCopyPanel(Point3D[] points, ArrayList<LineData> lines) {
+	ObjectEditorCopyPanel(double[] xpoints,double[] ypoints,double[] zpoints, ArrayList<LineData> lines) {
 		
 		
 		setSize(WIDTH,HEIGHT+BOTTOM_HEIGHT);
@@ -45,7 +45,7 @@ class ObjectEditorCopyPanel extends JDialog implements ActionListener {
 		
 		saved=false;
 		
-		pm=new PolygonMesh(points,lines);
+		pm=new PolygonMesh(xpoints,ypoints,zpoints,lines);
 		
 		jtb=new JTabbedPane();
 		jtb.setBounds(0, 0, WIDTH, HEIGHT);
@@ -160,17 +160,15 @@ class ObjectEditorCopyPanel extends JDialog implements ActionListener {
 		double dy=translate_dy.getvalue();
 		double dz=translate_dz.getvalue();
 		
-		int num_points=pm.points.length;
+		int num_points=pm.xpoints.length;
 		
 	
 		
 		int counter=0;
 		
-		for (int i = 0; i < pm.points.length; i++) {
+		for (int i = 0; i < num_points; i++) {
 			
-			Point3D p=pm.points[i];
-			
-			if(p.isSelected){
+			if(pm.selected[i]){
 				
 				
 				counter++;
@@ -178,26 +176,33 @@ class ObjectEditorCopyPanel extends JDialog implements ActionListener {
 			
 		}
 		
-		Point3D[] new_points=new Point3D[num_points+counter];
+		double[] new_xpoints=new double[num_points+counter];
+		double[] new_ypoints=new double[num_points+counter];
+		double[] new_zpoints=new double[num_points+counter];
+		
 		ArrayList<LineData> new_lines=new ArrayList<LineData>();
 		
 		counter=0;
 		
 		Hashtable<Integer,Integer> codes=new Hashtable<Integer,Integer>();
 
-		for (int i = 0; i < pm.points.length; i++) {
+		for (int i = 0; i < pm.xpoints.length; i++) {
 			
-			Point3D p=pm.points[i];
+			Point3D p=new Point3D(pm.xpoints[i],pm.ypoints[i],pm.zpoints[i]);
 			
-			new_points[i]=p.clone();
+			new_xpoints[i]=p.x;
+			new_ypoints[i]=p.y;
+			new_zpoints[i]=p.z;
 			
-			if(p.isSelected){
+			if(pm.selected[i]){
 				
 				int new_pos=counter+num_points;
 				
 				codes.put(i,new_pos);
 				
-				new_points[new_pos]=new Point3D(p.x+dx,p.y+dy,p.z+dz);
+				new_xpoints[new_pos]=p.x+dx;
+				new_ypoints[new_pos]=p.y+dy;
+				new_zpoints[new_pos]=p.z+dz;
 				counter++;
 				
 			}
@@ -250,7 +255,9 @@ class ObjectEditorCopyPanel extends JDialog implements ActionListener {
 			
 		}
 		
-		pm.points=new_points;
+		pm.xpoints=new_xpoints;
+		pm.ypoints=new_ypoints;
+		pm.zpoints=new_zpoints;
 		pm.polygonData=new_lines;
 	}
 	

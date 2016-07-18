@@ -336,11 +336,15 @@ public class Polygon3D  extends Polygon implements Cloneable{
 			int x1=p_old.xpoints[i];
 			int y1=p_old.ypoints[i];
 			int z1=p_old.zpoints[i];
+			
+			int ii=i+1;
+			if(ii==p_old.npoints)
+				ii=0;
 
 
-			int x2=p_old.xpoints[(i+1)%p_old.npoints];
-			int y2=p_old.ypoints[(i+1)%p_old.npoints];
-			int z2=p_old.zpoints[(i+1)%p_old.npoints];
+			int x2=p_old.xpoints[ii];
+			int y2=p_old.ypoints[ii];
+			int z2=p_old.zpoints[ii];
 			
 			
 			if((y1-y)>=0 && (y2-y)>=0){
@@ -368,20 +372,8 @@ public class Polygon3D  extends Polygon implements Cloneable{
 
 		}
 		
-		Polygon3D p_new=new Polygon3D(newPoints.size());
+		Polygon3D p_new=new Polygon3D(newPoints);
 		p_new.setShadowCosin(p_old.getShadowCosin());
-		
-		int new_size=newPoints.size();
-		
-		for(int j=0;j<new_size;j++){
-			
-			Point3D p=(Point3D) newPoints.get(j);
-			
-			p_new.xpoints[j]=(int) p.x;
-			p_new.ypoints[j]=(int) p.y;
-			p_new.zpoints[j]=(int) p.z;
-		}
-		
 		p_new.setLevel(p_old.getLevel());
 		p_new.setIsFilledWithWater(p_old.isFilledWithWater());
 		p_new.setWaterPolygon(p_old.isWaterPolygon());

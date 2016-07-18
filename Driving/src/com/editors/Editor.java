@@ -549,7 +549,13 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 
 	}
 
-	public Polygon3D buildPolygon(LineData ld, Point3D[] points, boolean b) {
+	public Polygon3D buildPolygon(LineData ld, double[] xpoints,double[] ypoints,double[] zpoints, boolean b) {
+		return null;
+	}
+	
+
+	public Polygon3D buildPolygon(LineData ld, Point3D[] points,
+			boolean isReal) {
 		return null;
 	}
 
@@ -596,6 +602,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 	public void setForceReading(boolean forceReading) {
 		this.forceReading = forceReading;
 	}
+
 
 
 }

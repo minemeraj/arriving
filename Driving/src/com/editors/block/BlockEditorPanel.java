@@ -391,12 +391,12 @@ class BlockEditorPanel extends JPanel implements MouseListener{
 		
 		PolygonMesh mesh = blockEditor.getMeshes()[blockEditor.getACTIVE_PANEL()];
 		
-		if(mesh.points==null)
+		if(mesh.xpoints==null)
 			return; 
 	
-		for(int c=0;c<mesh.points.length;c++){
+		for(int c=0;c<mesh.xpoints.length;c++){
 
-			Point3D p=mesh.points[c];
+			Point3D p=new Point3D(mesh.xpoints[c],mesh.ypoints[c],mesh.zpoints[c]);
 
 
 
