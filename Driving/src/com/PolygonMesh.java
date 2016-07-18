@@ -74,6 +74,28 @@ public class PolygonMesh implements Cloneable{
 		
 		calculateNormals();
 	}
+	
+	public PolygonMesh(Point3D[] rPoints, ArrayList<LineData> lines) {
+		
+		this.xpoints=new double[rPoints.length];
+		this.ypoints=new double[rPoints.length];
+		this.zpoints=new double[rPoints.length];
+		this.selected=new boolean[rPoints.length];
+		
+		for (int i = 0; i < rPoints.length; i++) {
+			Point3D p=rPoints[i];
+			xpoints[i]=p.x;
+			ypoints[i]=p.y;
+			zpoints[i]=p.z;
+		}
+		
+		if(lines!=null)
+			this.polygonData = lines;
+		else
+			this.polygonData= new ArrayList <LineData>();
+		
+		calculateNormals();
+	}
 
 	private void calculateNormals() {
 		
@@ -522,6 +544,8 @@ public class PolygonMesh implements Cloneable{
 			ypoints[i]=p.y;
 			zpoints[i]=p.z;
 		}
+		
+		this.selected=new boolean[aPoints.size()];
 		
 	}
 

@@ -216,7 +216,7 @@ public class EditorData {
 		}
 		
 		polygonData.add(ld);
-		/*circleShape=new PolygonMesh(points,polygonData);*/
+		circleShape=new PolygonMesh(points,polygonData);
 
 		
 	}
@@ -274,30 +274,27 @@ public class EditorData {
 			
 			polygonData.add(ld);
 		}
+	
 		
-		
-		
-		
-		
-		PolygonMesh ringShape=null;/*new PolygonMesh(points,polygonData);*/
+		PolygonMesh ringShape=new PolygonMesh(points,polygonData);
 		return ringShape;
 		
 	}
 
 	public static PolygonMesh getRing(double x,double y,double z){
 		
-		PolygonMesh ring=null;/*ringShape.clone();
+		PolygonMesh ring=ringShape.clone();
 		
-		ring.translate(x,y,z);*/
+		ring.translate(x,y,z);
 		
 		return ring;
 	}
 	
 	public static PolygonMesh getCircle(double x,double y,double z){
 		
-		PolygonMesh circle=null;/*circleShape.clone();
+		PolygonMesh circle=circleShape.clone();
 		
-		circle.translate(x,y,z);*/
+		circle.translate(x,y,z);
 		
 		return circle;
 	}
