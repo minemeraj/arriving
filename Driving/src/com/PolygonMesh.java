@@ -153,11 +153,16 @@ public class PolygonMesh implements Cloneable{
 		
 		PolygonMesh pm=new PolygonMesh();
 		
+		pm.xpoints=new double[this.xpoints.length];
+		pm.ypoints=new double[this.xpoints.length];
+		pm.zpoints=new double[this.xpoints.length];
+		pm.selected=new boolean[this.xpoints.length];
+		
 		for(int i=0;i<this.xpoints.length;i++){
 	
-			pm.xpoints=xpoints;
-			pm.ypoints=ypoints;
-			pm.zpoints=zpoints;
+			pm.xpoints[i]=xpoints[i];
+			pm.ypoints[i]=ypoints[i];
+			pm.zpoints[i]=zpoints[i];
 			
 		}
 		

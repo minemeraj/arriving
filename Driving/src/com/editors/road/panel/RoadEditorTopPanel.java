@@ -134,7 +134,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			ArrayList<PolygonMesh> meshes = sp.getMeshes();
 
-			for (int j = 0; j < meshes.size(); j++) {//if(j!=4)continue;
+			for (int j = 0; j < meshes.size(); j++) {
 
 				PolygonMesh mesh = (PolygonMesh) meshes.get(j);
 

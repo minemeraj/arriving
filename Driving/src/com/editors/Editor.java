@@ -512,8 +512,8 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 		
 	public void prepareUndo() {
 		
-		/*PolygonMesh mesh=meshes[ACTIVE_PANEL];
-		if(mesh.points==null)
+		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+		if(mesh.xpoints==null)
 			return; 
 		
 		if(oldMeshes[ACTIVE_PANEL].size()==MAX_STACK_SIZE){
@@ -521,7 +521,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 			oldMeshes[ACTIVE_PANEL].removeElementAt(0);
 		}
 		oldMeshes[ACTIVE_PANEL].push(meshes[ACTIVE_PANEL].clone());
-	*/
+
 	}
 	
 	public void undo() {
