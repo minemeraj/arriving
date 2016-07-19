@@ -18,6 +18,7 @@ import com.editors.models.Head1Model;
 import com.editors.models.HeadModel;
 import com.editors.models.Man1Model;
 import com.editors.models.Man2Model;
+import com.editors.models.Man3Model;
 import com.editors.models.ManModel;
 
 public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, ItemListener{
@@ -36,6 +37,7 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 	public static int MAN0=0;
 	public static int MAN1=1;
 	public static int MAN2=2;
+	public static int MAN3=5;
 	public static int HEAD0=3;
 	public static int HEAD1=4;
 
@@ -100,8 +102,8 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 		center.add(dy_text);
 
 		JLabel larms=new JLabel("Arms len:");
-		llegs.setBounds(140,r,70,20);
-		center.add(llegs);
+		larms.setBounds(140,r,70,20);
+		center.add(larms);
 		arm_length_text=new DoubleTextField(8);
 		arm_length_text.setBounds(210,r,100,20);
 		arm_length_text.setText(0);
@@ -131,6 +133,7 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 		chooseAnimal.addItem(new ValuePair(""+MAN0,"Man0"));
 		chooseAnimal.addItem(new ValuePair(""+MAN1,"Man1"));
 		chooseAnimal.addItem(new ValuePair(""+MAN2,"Man2"));
+		chooseAnimal.addItem(new ValuePair(""+MAN3,"Man3"));
 		chooseAnimal.addItem(new ValuePair(""+HEAD0,"Head0"));		
 		chooseAnimal.addItem(new ValuePair(""+HEAD1,"Head1"));	
 		chooseAnimal.addItemListener(this);		
@@ -176,6 +179,13 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 			meshModel=new Man1Model(dx,dy,dz);
 		else if(val==MAN2)
 			meshModel=new Man2Model(dx,dy,dz,dlegs,darm);
+		else if(val==MAN3)
+			meshModel=new Man3Model(
+					dx,dy,dz,
+					dx,dy,darm,
+					dx,dy,dlegs,
+					dx,dy,dz
+					);
 		else if(val==HEAD0)
 			meshModel=new HeadModel(dx,dy,dz);
 		else if(val==HEAD1)
@@ -227,6 +237,11 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 			else if(MAN2==val){
 				setRightData(100,20,180,//dx, dy, dz
 						180,100// leg_length, arm_length)
+						);
+			}
+			else if(MAN3==val){
+				setRightData(100,20,180,//dx, dy, dz
+						50,70// leg_length, arm_length)
 						);
 			}
 			else if(HEAD0==val){

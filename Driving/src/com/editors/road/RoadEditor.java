@@ -2706,6 +2706,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			npm.xpoints=new double[numx*numy];
 			npm.ypoints=new double[numx*numy];
 			npm.zpoints=new double[numx*numy];
+			npm.selected=new boolean[numx*numy];
 			
 			for (int i = 0; i < numx; i++) {
 				
@@ -2723,8 +2724,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					}
 					else{
 						npm.xpoints[pos]=pm.getX0()+i*dx;
-						npm.xpoints[pos]=pm.getY0()+j*dy;
-						npm.xpoints[pos]=0;
+						npm.ypoints[pos]=pm.getY0()+j*dy;
+						npm.zpoints[pos]=0;
 					}
 		
 				}
@@ -2827,6 +2828,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			mesh.xpoints=new double[numy*numx];
 			mesh.ypoints=new double[numy*numx];
 			mesh.zpoints=new double[numy*numx];
+			mesh.selected=new boolean[numx*numy];
 			
 			for(int i=0;i<numx;i++)
 				for(int j=0;j<numy;j++)

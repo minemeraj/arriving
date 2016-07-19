@@ -131,6 +131,7 @@ public class CubicMesh extends PolygonMesh{
         cm.xpoints=new double[this.xpoints.length];
         cm.ypoints=new double[this.ypoints.length];
         cm.zpoints=new double[this.zpoints.length];
+        cm.selected=new boolean[this.xpoints.length];
 		
 		for(int i=0;i<this.xpoints.length;i++){
 
