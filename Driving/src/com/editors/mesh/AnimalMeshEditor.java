@@ -182,8 +182,8 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 		else if(val==MAN3)
 			meshModel=new Man3Model(
 					dx,dy,dz,
-					dx,dy,darm,
-					dx,dy,dlegs,
+					20,20,darm,
+					20,20,dlegs,
 					dx,dy,dz
 					);
 		else if(val==HEAD0)
@@ -240,7 +240,7 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 						);
 			}
 			else if(MAN3==val){
-				setRightData(100,20,180,//dx, dy, dz
+				setRightData(100,20,100,//dx, dy, dz
 						50,70// leg_length, arm_length)
 						);
 			}

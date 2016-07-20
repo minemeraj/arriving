@@ -88,8 +88,8 @@ public class Man3Model extends MeshModel{
 		buildTextures();
 
 		//faces
-		int NF=radBody*(nzBody-1);
-		NF+=radArm*(nzArm-1);
+		int NF=radBody*(nzBody-1)+4;
+		NF+=radArm*(nzArm-1)+4;
 
 		faces=new int[NF][3][4];
 
@@ -105,19 +105,27 @@ public class Man3Model extends MeshModel{
 		
 		
 		
-
+		
 		
 		for (int k = 0; k < nzBody-1; k++) {
 			
+						
 			for(int i=0;i<radBody;i++){
 				
 				int ii=(i+1)%radBody;
-				
+			
 				faces[counter++]=buildFace(Renderer3D.CAR_LEFT, body[k][i],body[k][ii],body[k+1][ii],body[k+1][i], bo[0]);
-
+				
 			}
-		}		
-	
+		}
+		
+		//only for radBody==6
+		for(int i=0;i<2;i++){
+			faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, body[0][i],body[0][radBody-1-i],body[0][radBody-2-i], body[0][i+1],bo[0]);
+			faces[counter++]=buildFace(Renderer3D.CAR_TOP, body[nzBody-1][i],body[nzBody-1][i+1],body[nzBody-1][radBody-2-i], body[nzBody-1][radBody-1-i],bo[0]);
+
+		}
+
 		for (int k = 0; k < nzArm-1; k++) {
 			
 			for(int i=0;i<radArm;i++){
@@ -128,6 +136,13 @@ public class Man3Model extends MeshModel{
 
 			}
 		}	
+		
+		//only for radArm==6:
+		for(int i=0;i<2;i++){
+			faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, leftArm[0][i],leftArm[0][radArm-1-i],leftArm[0][radArm-2-i], leftArm[0][i+1],bo[0]);
+			faces[counter++]=buildFace(Renderer3D.CAR_TOP, leftArm[nzArm-1][i],leftArm[nzArm-1][i+1],leftArm[nzArm-1][radArm-2-i], leftArm[nzArm-1][radArm-1-i],bo[0]);
+
+		}
 		
 		
 		return counter;
@@ -160,39 +175,39 @@ public class Man3Model extends MeshModel{
 		body=new BPoint[nzBody][radBody];
 		
 		body[0][0]=addBPoint(-1.0,0.0,0,s0);
-		body[0][1]=addBPoint(0.0,0.0,0,s0);
+		body[0][1]=addBPoint(0.0,-0.1,0,s0);
 		body[0][2]=addBPoint(1.0,0.0,0,s0);
 		body[0][3]=addBPoint(1.0,1.0,0,s0);			
-		body[0][4]=addBPoint(0.0,1.0,0,s0);
+		body[0][4]=addBPoint(0.0,1.1,0,s0);
 		body[0][5]=addBPoint(-1.0,1.0,0,s0);	
 
 		body[1][0]=addBPoint(-1.0,0.0,1.0,s0);
-		body[1][1]=addBPoint(0.0,0.0,1.0,s0);
+		body[1][1]=addBPoint(0.0,-0.1,1.0,s0);
 		body[1][2]=addBPoint(1.0,0.0,1.0,s0);
 		body[1][3]=addBPoint(1.0,1.0,1.0,s0);		
-		body[1][4]=addBPoint(0.0,1.0,1.0,s0);
+		body[1][4]=addBPoint(0.0,1.1,1.0,s0);
 		body[1][5]=addBPoint(-1.0,1.0,1.0,s0);	
 	}
 	
 
 	private void buildArms() {
 		
-		Segments s0=new Segments(-dxFront*0.5,dxFront*0.5,0,dyFront,0,dzFront);
+		Segments s0=new Segments(-dx*0.5-dxFront*0.5,dxFront*0.5,0,dyFront,0,dzFront);
 		
 		leftArm=new BPoint[nzArm][radArm];
 		
 		leftArm[0][0]=addBPoint(-1.0,0.0,0,s0);
-		leftArm[0][1]=addBPoint(0.0,0.0,0,s0);
+		leftArm[0][1]=addBPoint(0.0,-0.1,0,s0);
 		leftArm[0][2]=body[0][0];
 		leftArm[0][3]=body[0][5];			
-		leftArm[0][4]=addBPoint(0.0,1.0,0,s0);
+		leftArm[0][4]=addBPoint(0.0,1.1,0,s0);
 		leftArm[0][5]=addBPoint(-1.0,1.0,0,s0);
 
 		leftArm[1][0]=addBPoint(-1.0,0.0,1.0,s0);
-		leftArm[1][1]=addBPoint(0.0,0.0,1.0,s0);
+		leftArm[1][1]=addBPoint(0.0,-0.1,1.0,s0);
 		leftArm[1][2]=body[1][0];
 		leftArm[1][3]=body[1][5];		
-		leftArm[1][4]=addBPoint(0.0,1.0,1.0,s0);
+		leftArm[1][4]=addBPoint(0.0,1.1,1.0,s0);
 		leftArm[1][5]=addBPoint(-1.0,1.0,1.0,s0);	
 		
 	}
