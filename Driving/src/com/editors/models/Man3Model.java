@@ -160,8 +160,16 @@ public class Man3Model extends MeshModel{
 			for(int i=0;i<radHead;i++){
 				
 				int ii=(i+1)%radHead;
+				
+				BPoint l0 = head[k][i];
+				BPoint l1 = head[k][ii];
+				BPoint l2 = head[k+1][ii];
+				BPoint l3 = head[k+1][i];
 			
-				faces[counter++]=buildFace(Renderer3D.CAR_LEFT, head[k][i],head[k][ii],head[k+1][ii],head[k+1][i], bo[0]);
+				if(l0.getIndex()==l1.getIndex())
+					faces[counter++]=buildFace(Renderer3D.CAR_LEFT, l0,l2,l3,bo[0]);
+				else
+					faces[counter++]=buildFace(Renderer3D.CAR_LEFT,l0 ,l1,l2,l3, bo[0]);
 				
 			}
 		}
