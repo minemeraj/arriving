@@ -373,7 +373,7 @@ public class Man3Model extends MeshModel{
 	
 	private void buildHead() {
 		
-		Segments s0=new Segments(0,dxRoof*0.5,0,dy,dzRear+dz,dzRoof);
+		Segments s0=new Segments(0,dxRoof*0.5,0,dyRoof,dzRear+dz,dzRoof);
 		
 		head=new BPoint[nzHead][radHead];
 		
