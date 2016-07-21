@@ -184,7 +184,7 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 					dx,dy,dz,
 					20,20,darm,
 					20,20,dlegs,
-					dx,dy,dz
+					20,20,50
 					);
 		else if(val==HEAD0)
 			meshModel=new HeadModel(dx,dy,dz);
