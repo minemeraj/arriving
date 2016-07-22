@@ -95,8 +95,9 @@ public class Man3Model extends MeshModel{
 		points=new Vector<Point3D>();
 		texturePoints=new Vector<Point3D>();
 		
-		buildHead();
+		
 		buildBody();
+		buildHead();
 		buildArms();
 		buildLegs();
 		
@@ -377,14 +378,14 @@ public class Man3Model extends MeshModel{
 		
 		head=new BPoint[nzHead][radHead];
 		
-		head[0][0]=addBPoint(-0.8,0.0,0,s0);
-		head[0][1]=addBPoint(-0.5,-0.1,0,s0);
-		head[0][2]=addBPoint(0.5,-0.1,0,s0);
-		head[0][3]=addBPoint(0.8,0.0,0,s0);
-		head[0][4]=addBPoint(0.8,1.0,0,s0);			
-		head[0][5]=addBPoint(0.5,1.1,0,s0);
-		head[0][6]=addBPoint(-0.5,1.1,0,s0);
-		head[0][7]=addBPoint(-0.8,1.0,0,s0);
+		head[0][0]=body[nzBody-1][0];
+		head[0][1]=body[nzBody-1][1];
+		head[0][2]=body[nzBody-1][2];
+		head[0][3]=body[nzBody-1][3];
+		head[0][4]=body[nzBody-1][4];		
+		head[0][5]=body[nzBody-1][5];
+		head[0][6]=body[nzBody-1][6];
+		head[0][7]=body[nzBody-1][7];
 		
 		head[1][0]=addBPoint(-1.0,0.0,0.25,s0);
 		head[1][1]=addBPoint(-0.5,-0.1,0.25,s0);
@@ -513,6 +514,8 @@ public class Man3Model extends MeshModel{
 		Segments s0=new Segments(-dx*0.5-dxRear*0.5,dxRear*0.5,0,dyRear,0,dzRear);
 		leftLeg=new BPoint[nzLeg][radLeg];
 		
+		double bodyLegZ=body[0][0].z/dzRear;
+		
 		leftLeg[0][0]=addBPoint(-1.0,0.0,0,s0);
 		leftLeg[0][1]=addBPoint(-0.5,-0.1,0,s0);
 		leftLeg[0][2]=addBPoint(0.5,-0.1,0,s0);
@@ -531,14 +534,14 @@ public class Man3Model extends MeshModel{
 		leftLeg[1][6]=addBPoint(-0.5,1.1,0.5,s0);
 		leftLeg[1][7]=addBPoint(-1.0,1.0,0.5,s0);
 		
-		leftLeg[2][0]=addBPoint(-1.0,0.0,0.75,s0);
-		leftLeg[2][1]=addBPoint(-0.5,-0.1,0.75,s0);
-		leftLeg[2][2]=addBPoint(0.5,-0.1,0.75,s0);
+		leftLeg[2][0]=addBPoint(-1.0,0.0,bodyLegZ,s0);
+		leftLeg[2][1]=addBPoint(-0.5,-0.1,bodyLegZ,s0);
+		leftLeg[2][2]=addBPoint(0.5,-0.1,bodyLegZ,s0);
 		leftLeg[2][3]=body[0][0];
 		leftLeg[2][4]=body[0][7];			
-		leftLeg[2][5]=addBPoint(0.5,1.1,0.75,s0);
-		leftLeg[2][6]=addBPoint(-0.5,1.1,0.75,s0);
-		leftLeg[2][7]=addBPoint(-1.0,1.0,0.75,s0);
+		leftLeg[2][5]=addBPoint(0.5,1.1,bodyLegZ,s0);
+		leftLeg[2][6]=addBPoint(-0.5,1.1,bodyLegZ,s0);
+		leftLeg[2][7]=addBPoint(-1.0,1.0,bodyLegZ,s0);
 		
 		leftLeg[3][0]=body[1][0];
 		leftLeg[3][1]=body[1][0];
@@ -553,6 +556,8 @@ public class Man3Model extends MeshModel{
 		
 		s0=new Segments(+dx*0.5+dxRear*0.5,dxRear*0.5,0,dyRear,0,dzRear);
 		rightLeg=new BPoint[nzLeg][radLeg];
+		
+		bodyLegZ=body[0][3].z/dzRear;
 		
 		rightLeg[0][0]=addBPoint(-1.0,0.0,0,s0);
 		rightLeg[0][1]=addBPoint(-0.5,-0.1,0,s0);
@@ -573,12 +578,12 @@ public class Man3Model extends MeshModel{
 		rightLeg[1][7]=addBPoint(-1.0,1.0,0.5,s0);
 		
 		rightLeg[2][0]=body[0][3];
-		rightLeg[2][1]=addBPoint(-0.5,-0.1,0.75,s0);
-		rightLeg[2][2]=addBPoint(0.5,-0.1,0.75,s0);
-		rightLeg[2][3]=addBPoint(1.0,0.0,0.75,s0);
-		rightLeg[2][4]=addBPoint(1.0,1.0,0.75,s0);	
-		rightLeg[2][5]=addBPoint(0.5,1.1,0.75,s0);
-		rightLeg[2][6]=addBPoint(-0.5,1.1,0.75,s0);
+		rightLeg[2][1]=addBPoint(-0.5,-0.1,bodyLegZ,s0);
+		rightLeg[2][2]=addBPoint(0.5,-0.1,bodyLegZ,s0);
+		rightLeg[2][3]=addBPoint(1.0,0.0,bodyLegZ,s0);
+		rightLeg[2][4]=addBPoint(1.0,1.0,bodyLegZ,s0);	
+		rightLeg[2][5]=addBPoint(0.5,1.1,bodyLegZ,s0);
+		rightLeg[2][6]=addBPoint(-0.5,1.1,bodyLegZ,s0);
 		rightLeg[2][7]=body[0][4];
 		
 		rightLeg[3][0]=body[1][3];

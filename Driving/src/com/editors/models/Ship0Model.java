@@ -272,10 +272,16 @@ public class Ship0Model extends MeshModel{
 
 		//build the main deck		
 		for (int i = 0; i < ny-1; i++) {
-			if(i==ny-2){
-				faces[counter++]=buildFace(Renderer3D.CAR_TOP, hull[i][0],hull[i][nx-1],hull[i+1][0], d[0]);
+			
+			BPoint l0 = hull[i][0];
+			BPoint l1 = hull[i][nx-1];
+			BPoint l2 = hull[i+1][nx-1];
+			BPoint l3 = hull[i+1][0];
+			
+			if(l2.getIndex()==l3.getIndex()){
+				faces[counter++]=buildFace(Renderer3D.CAR_TOP, l0,l1,l3,d[0]);
 			}else{
-				faces[counter++]=buildFace(Renderer3D.CAR_TOP, hull[i][0],hull[i][nx-1],hull[i+1][nx-1],hull[i+1][0], d[0]);
+				faces[counter++]=buildFace(Renderer3D.CAR_TOP, l0,l1,l2,l3,d[0]);
 			}
 			
 		}
