@@ -318,7 +318,7 @@ public class Ship0Model extends MeshModel{
 		faces[counter++]=buildFace(Renderer3D.CAR_BACK, foreCastle[0][0][0],foreCastle[0][1][0],foreCastle[0][1][1],foreCastle[0][0][1],d[0]);
 		for (int k = 0; k < nyc-1; k++) {
 			
-			if(k<nyc-2)
+			if(foreCastle[k+1][1][0].getIndex()!=foreCastle[k][1][0].getIndex())
 				faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, foreCastle[k][0][0],foreCastle[k+1][0][0],foreCastle[k+1][1][0],foreCastle[k][1][0], h[0]);
 			else
 				faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, foreCastle[k][0][0],foreCastle[k+1][0][0],foreCastle[k+1][1][0], h[0]);
@@ -326,7 +326,7 @@ public class Ship0Model extends MeshModel{
 			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, foreCastle[k][0][0],foreCastle[k][0][1],foreCastle[k+1][0][1],foreCastle[k+1][0][0], h[0]);		
 			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, foreCastle[k][1][0],foreCastle[k+1][1][0],foreCastle[k+1][1][1],foreCastle[k][1][1], h[0]);
 			
-			if(k<nyc-2)
+			if(foreCastle[k+1][1][1].getIndex()!=foreCastle[k+1][0][1].getIndex())
 				faces[counter++]=buildFace(Renderer3D.CAR_TOP,foreCastle[k][0][1],foreCastle[k][1][1],foreCastle[k+1][1][1],foreCastle[k+1][0][1],d[0]);
 			else
 				faces[counter++]=buildFace(Renderer3D.CAR_TOP,foreCastle[k][0][1],foreCastle[k][1][1],foreCastle[k+1][0][1],d[0]);
