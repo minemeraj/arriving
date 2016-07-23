@@ -52,7 +52,7 @@ public class Road extends Shader{
 	
 	private int NYVISIBLE=40;//20 orig
 
-	private int dy=3000/NYVISIBLE;//600 orig
+	private int dy=(int) (3000*SCALE/NYVISIBLE);//600 orig
 
 	private static final int ROAD_THICKNESS=22;
 
@@ -1122,8 +1122,8 @@ public class Road extends Shader{
 	
 
 		//cast this way to cut off very small speeds
-		int NEW_POSY=POSY+(int)( SPACE_SCALE_FACTOR*carDynamics.dy);
-		int NEW_POSX=POSX+(int)( SPACE_SCALE_FACTOR*carDynamics.dx);
+		int NEW_POSY=POSY+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dy);
+		int NEW_POSX=POSX+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dx);
 		
 	
 		setViewDirection(getViewDirection()-carDynamics.dpsi);
