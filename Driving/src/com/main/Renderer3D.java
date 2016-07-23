@@ -27,6 +27,8 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 	int XFOCUS=0;
 	int YFOCUS=0;
 	static final int SCREEN_DISTANCE=300;
+
+	public static final double SCALE=1.0;
 	
 	protected Point3D observerPoint=null;
 
@@ -106,12 +108,12 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 	}
 
 
-	private double calculPerspY( double x, double y, double z) {
+	protected double calculPerspY( double x, double y, double z) {
 		double newy0= ((z)*SCREEN_DISTANCE*(1.0/y))+YFOCUS;
 		return HEIGHT-newy0;
 	}
 
-	private double calculPerspX(double x, double y, double z) {
+	protected double calculPerspX(double x, double y, double z) {
 
 		return ((x)*SCREEN_DISTANCE*(1.0/y))+XFOCUS;
 

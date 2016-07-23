@@ -112,9 +112,9 @@ public abstract class DrivingFrame extends JFrame{
 			texture_index=texture_index.substring(1);
 			p.setIndex(Integer.parseInt(texture_index));
 			
-			p.x=Double.parseDouble(vals[1]);
-			p.y=Double.parseDouble(vals[2]);
-			p.z=Double.parseDouble(vals[3]);
+			p.x=Renderer3D.SCALE*Double.parseDouble(vals[1]);
+			p.y=Renderer3D.SCALE*Double.parseDouble(vals[2]);
+			p.z=Renderer3D.SCALE*Double.parseDouble(vals[3]);
 			if(vals.length==5)
 				p.setBanking_angle(Double.parseDouble(vals[4]));
 			
@@ -199,9 +199,9 @@ public abstract class DrivingFrame extends JFrame{
 
 		StringTokenizer tok0=new StringTokenizer(properties0," "); 
 		
-		dro.setX(Double.parseDouble(tok0.nextToken()));
-		dro.setY(Double.parseDouble(tok0.nextToken()));
-		dro.setZ(Double.parseDouble(tok0.nextToken()));
+		dro.setX(Renderer3D.SCALE*Double.parseDouble(tok0.nextToken()));
+		dro.setY(Renderer3D.SCALE*Double.parseDouble(tok0.nextToken()));
+		dro.setZ(Renderer3D.SCALE*Double.parseDouble(tok0.nextToken()));
 		dro.setIndex(Integer.parseInt(tok0.nextToken()));
 		
 		dro.setDx(objectMeshes[dro.getIndex()].getDeltaX2()-objectMeshes[dro.getIndex()].getDeltaX());
@@ -277,9 +277,9 @@ public abstract class DrivingFrame extends JFrame{
 				else if(str.startsWith("DY="))					
 					dy=Integer.parseInt(str.substring(3)); 
 				else if(str.startsWith("X0="))					
-					x0=Double.parseDouble(str.substring(3)); 
+					x0=Renderer3D.SCALE*Double.parseDouble(str.substring(3)); 
 				else if(str.startsWith("Y0="))					
-					y0=Double.parseDouble(str.substring(3)); 
+					y0=Renderer3D.SCALE*Double.parseDouble(str.substring(3)); 
 				else if(str.startsWith("DESCRIPTION="))	
 					description=str.substring(str.indexOf("=")+1);
 

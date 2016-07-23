@@ -74,7 +74,7 @@ public class Road extends Shader{
 	private DrawObject[] drawObjects=null;
 	private DrawObject[]  oldDrawObjects=null;
 
-
+	
 	static final double SPACE_SCALE_FACTOR=60.0;
 	static final double SPEED_SCALE=1.0/1.13;
 	
@@ -146,6 +146,19 @@ public class Road extends Shader{
 		
 		WATER_LEVEL=-HEIGHT/2-WATER_FILLING;
 	}
+	
+	@Override
+	protected double calculPerspY( double x, double y, double z) {
+		double newy0= ((z)*SCREEN_DISTANCE*(1.0/y))+YFOCUS;
+		return HEIGHT-newy0;
+	}
+
+	@Override
+	protected double calculPerspX(double x, double y, double z) {
+
+		return ((x)*SCREEN_DISTANCE*(1.0/y))+XFOCUS;
+
+	}
 
 
 	void loadRoad(String map_name) {
@@ -171,8 +184,8 @@ public class Road extends Shader{
 			loadObjectsFromFile(file);			
 			
 			Point3D startPosition = Editor.loadStartPosition(file);
-			POSX=(int) startPosition.x-WIDTH/2-CAR_WIDTH/2;
-			POSY=(int) startPosition.y;
+			POSX=(int)( Renderer3D.SCALE*startPosition.x)-WIDTH/2-CAR_WIDTH/2;
+			POSY=(int)( Renderer3D.SCALE*startPosition.y);
 			
 			if(startPosition.getData()!=null){
 				
@@ -1237,9 +1250,9 @@ public class Road extends Shader{
 			
 			//translate world in the point (XFOCUS,SCREEN_DISTANCE,YFOCUS)
 			
-			p.x=Double.parseDouble(vals[0])-XFOCUS;
-			p.y=Double.parseDouble(vals[1])+SCREEN_DISTANCE;
-			p.z=Double.parseDouble(vals[2])-YFOCUS;
+			p.x=SCALE*Double.parseDouble(vals[0])-XFOCUS;
+			p.y=SCALE*Double.parseDouble(vals[1])+SCREEN_DISTANCE;
+			p.z=SCALE*Double.parseDouble(vals[2])-YFOCUS;
 
 			vPoints.add(p);
 		
@@ -1318,7 +1331,7 @@ public class Road extends Shader{
 					continue;
 
 				if(str.startsWith("v="))
-					PolygonMesh.buildPoint(points,str.substring(2)); 
+					buildScaledPoint(points,str.substring(2)); 
 				else if(str.startsWith("vt="))
 					PolygonMesh.buildTexturePoint(aTexturePoints,str.substring(3));
 				else if(str.startsWith("f="))
@@ -1346,6 +1359,25 @@ public class Road extends Shader{
 		return carData;
 		
 	}
+	
+	public static void buildScaledPoint(List<Point3D> vPoints,String str) {
+		
+
+		String[] vals =str.split(" ");
+
+		Point3D p=new Point3D();
+
+		p.x=SCALE*Double.parseDouble(vals[0]);
+		p.y=SCALE*Double.parseDouble(vals[1]);
+		p.z=SCALE*Double.parseDouble(vals[2]);
+		
+		if(vals.length==4)
+			p.setData(vals[3]);
+
+		vPoints.add(p);
+	
+
+}
 
 	private void loadSPLinesFromFile(File file) {
 		
@@ -1399,9 +1431,9 @@ public class Road extends Shader{
 		StringTokenizer tok0=new StringTokenizer(properties0," "); 
 		
 		//translate world in the point (XFOCUS,SCREEN_DISTANCE,YFOCUS)
-		dro.setX(Double.parseDouble(tok0.nextToken())-XFOCUS);
-		dro.setY(Double.parseDouble(tok0.nextToken())+SCREEN_DISTANCE);
-		dro.setZ(Double.parseDouble(tok0.nextToken())-YFOCUS);
+		dro.setX(SCALE*Double.parseDouble(tok0.nextToken())-XFOCUS);
+		dro.setY(SCALE*Double.parseDouble(tok0.nextToken())+SCREEN_DISTANCE);
+		dro.setZ(SCALE*Double.parseDouble(tok0.nextToken())-YFOCUS);
 		
 		dro.setIndex(Integer.parseInt(tok0.nextToken()));
 		
@@ -1586,9 +1618,9 @@ public class Road extends Shader{
 				
 				//translate all:
 				
-				autoCar.center.x=autoCar.center.x-XFOCUS;
-				autoCar.center.y=autoCar.center.y+SCREEN_DISTANCE;
-				autoCar.center.z=autoCar.center.z+autoCar.car_height*0.5-YFOCUS;
+				autoCar.center.x=SCALE*autoCar.center.x-XFOCUS;
+				autoCar.center.y=SCALE*autoCar.center.y+SCREEN_DISTANCE;
+				autoCar.center.z=SCALE*autoCar.center.z+autoCar.car_height*0.5-YFOCUS;
 				
 				if(autoCar.car_road!=null){
 				
@@ -1598,9 +1630,9 @@ public class Road extends Shader{
 						
 						newCar_road[j]=new Point3D();
 						
-						newCar_road[j].x=autoCar.car_road[j].x-XFOCUS;
-						newCar_road[j].y=autoCar.car_road[j].y+SCREEN_DISTANCE;
-						newCar_road[j].z=autoCar.car_road[j].z-YFOCUS;
+						newCar_road[j].x=SCALE*autoCar.car_road[j].x-XFOCUS;
+						newCar_road[j].y=SCALE*autoCar.car_road[j].y+SCREEN_DISTANCE;
+						newCar_road[j].z=SCALE*autoCar.car_road[j].z-YFOCUS;
 						
 					}
 					
