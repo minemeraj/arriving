@@ -1331,7 +1331,7 @@ public class Road extends Shader{
 					continue;
 
 				if(str.startsWith("v="))
-					buildScaledPoint(points,str.substring(2)); 
+					PolygonMesh.buildPoint(points,str.substring(2),SCALE); 
 				else if(str.startsWith("vt="))
 					PolygonMesh.buildTexturePoint(aTexturePoints,str.substring(3));
 				else if(str.startsWith("f="))
@@ -1359,25 +1359,7 @@ public class Road extends Shader{
 		return carData;
 		
 	}
-	
-	public static void buildScaledPoint(List<Point3D> vPoints,String str) {
-		
 
-		String[] vals =str.split(" ");
-
-		Point3D p=new Point3D();
-
-		p.x=SCALE*Double.parseDouble(vals[0]);
-		p.y=SCALE*Double.parseDouble(vals[1]);
-		p.z=SCALE*Double.parseDouble(vals[2]);
-		
-		if(vals.length==4)
-			p.setData(vals[3]);
-
-		vPoints.add(p);
-	
-
-}
 
 	private void loadSPLinesFromFile(File file) {
 		

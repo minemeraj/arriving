@@ -82,7 +82,7 @@ public abstract class DrivingFrame extends JFrame{
 				
 			
 								
-				buildSPLine(sp,str);
+				buildSPLine(sp,str,Renderer3D.SCALE);
 				
 
 			}
@@ -98,7 +98,7 @@ public abstract class DrivingFrame extends JFrame{
 		
 	}
 
-	private void buildSPLine(SPLine sp,String str) {
+	private void buildSPLine(SPLine sp,String str,double scale) {
 		
 		if(str.startsWith("v=")){
 			
@@ -112,9 +112,9 @@ public abstract class DrivingFrame extends JFrame{
 			texture_index=texture_index.substring(1);
 			p.setIndex(Integer.parseInt(texture_index));
 			
-			p.x=Renderer3D.SCALE*Double.parseDouble(vals[1]);
-			p.y=Renderer3D.SCALE*Double.parseDouble(vals[2]);
-			p.z=Renderer3D.SCALE*Double.parseDouble(vals[3]);
+			p.x=scale*Double.parseDouble(vals[1]);
+			p.y=scale*Double.parseDouble(vals[2]);
+			p.z=scale*Double.parseDouble(vals[3]);
 			if(vals.length==5)
 				p.setBanking_angle(Double.parseDouble(vals[4]));
 			
