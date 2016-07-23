@@ -54,7 +54,7 @@ public class Road extends Shader{
 
 	private int dy=(int) (3000*SCALE/NYVISIBLE);//600 orig
 
-	private static final int ROAD_THICKNESS=22;
+	private static final int ROAD_THICKNESS=(int) (22*SCALE);
 
 	private int CAR_WIDTH=100;
 	private int CAR_LENGTH=100;
