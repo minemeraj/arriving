@@ -221,7 +221,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 	
 	public void loadSPLinesFromFile(File file){
 		
-		splines=loadSPLinesFromFile(file,forceReading);
+		splines=loadSPLinesFromFile(file,forceReading,1.0);
 		repaint();
 	}
 

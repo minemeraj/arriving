@@ -2385,7 +2385,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		loadPointsFromFile(file,TERRAIN_INDEX,forceReading);	
 		loadSPLinesFromFile(file);
 		
-		drawObjects=loadObjectsFromFile(file,objectMeshes); 
+		drawObjects=loadObjectsFromFile(file,objectMeshes,1.0); 
 
 	}
 	

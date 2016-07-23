@@ -34,7 +34,7 @@ public abstract class DrivingFrame extends JFrame{
 	
 	protected LoadingProgressPanel loadingProgressPanel;
 	
-	protected ArrayList<SPLine> loadSPLinesFromFile(File file,boolean forceReading){
+	protected ArrayList<SPLine> loadSPLinesFromFile(File file,boolean forceReading,double scale){
 		
 		ArrayList<SPLine> splines=new ArrayList<SPLine>();
 		
@@ -82,7 +82,7 @@ public abstract class DrivingFrame extends JFrame{
 				
 			
 								
-				buildSPLine(sp,str,Renderer3D.SCALE);
+				buildSPLine(sp,str,scale);
 				
 
 			}
@@ -126,7 +126,7 @@ public abstract class DrivingFrame extends JFrame{
 	}
 	
 	
-	protected ArrayList<DrawObject> loadObjectsFromFile(File file,CubicMesh[] objectMeshes ){
+	protected ArrayList<DrawObject> loadObjectsFromFile(File file,CubicMesh[] objectMeshes,double scale ){
 
 		
 		ArrayList<DrawObject> drawObjects=new ArrayList<DrawObject>();
@@ -150,7 +150,7 @@ public abstract class DrivingFrame extends JFrame{
 				if(!read)
 					continue;
 				
-				DrawObject dro=buildDrawObject(str,objectMeshes,Renderer3D.SCALE);
+				DrawObject dro=buildDrawObject(str,objectMeshes,scale);
 				drawObjects.add(dro);
 				
 				buildRectanglePolygons(dro.getPolygons(),dro.getX(),dro.getY(),dro.getZ(),dro.getDx(),dro.getDy(),dro.getDz());

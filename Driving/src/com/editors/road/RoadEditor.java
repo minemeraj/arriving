@@ -2284,7 +2284,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			loadPointsFromFile(file,ACTIVE_PANEL,forceReading);	
 			loadSPLinesFromFile(file);
 			
-			drawObjects=loadObjectsFromFile(file,EditorData.objectMeshes); 
+			drawObjects=loadObjectsFromFile(file,EditorData.objectMeshes,1.0); 
             setStartPosition(loadStartPosition(file));
             
             oldSpline=new Stack();

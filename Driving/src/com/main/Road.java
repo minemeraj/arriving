@@ -220,7 +220,7 @@ public class Road extends Shader{
 
 	private void loadObjectsFromFile(File file) {
 		
-		ArrayList<DrawObject> vdrawObjects = loadObjectsFromFile(file,null);	
+		ArrayList<DrawObject> vdrawObjects = loadObjectsFromFile(file,null,Renderer3D.SCALE);	
 		
 		drawObjects=new DrawObject[vdrawObjects.size()];
 		
@@ -1365,7 +1365,7 @@ public class Road extends Shader{
 		
 		try {
 			boolean forceReading=false;
-			splines=loadSPLinesFromFile(file,forceReading);
+			splines=loadSPLinesFromFile(file,forceReading,Renderer3D.SCALE);
 			
 			//translation to fit view screen
 			if(splines.size()>0){
@@ -1588,7 +1588,7 @@ public class Road extends Shader{
 	
 
 		if(file.exists())	{	
-			autocars=Autocar.buildAutocars(file);
+			autocars=Autocar.buildAutocars(file,SCALE);
 			
 			for (int i = 0; i < autocars.length; i++) {
 				
@@ -1600,9 +1600,9 @@ public class Road extends Shader{
 				
 				//translate all:
 				
-				autoCar.center.x=SCALE*autoCar.center.x-XFOCUS;
-				autoCar.center.y=SCALE*autoCar.center.y+SCREEN_DISTANCE;
-				autoCar.center.z=SCALE*autoCar.center.z+autoCar.car_height*0.5-YFOCUS;
+				autoCar.center.x=autoCar.center.x-XFOCUS;
+				autoCar.center.y=autoCar.center.y+SCREEN_DISTANCE;
+				autoCar.center.z=autoCar.center.z+autoCar.car_height*0.5-YFOCUS;
 				
 				if(autoCar.car_road!=null){
 				
@@ -1612,9 +1612,9 @@ public class Road extends Shader{
 						
 						newCar_road[j]=new Point3D();
 						
-						newCar_road[j].x=SCALE*autoCar.car_road[j].x-XFOCUS;
-						newCar_road[j].y=SCALE*autoCar.car_road[j].y+SCREEN_DISTANCE;
-						newCar_road[j].z=SCALE*autoCar.car_road[j].z-YFOCUS;
+						newCar_road[j].x=autoCar.car_road[j].x-XFOCUS;
+						newCar_road[j].y=autoCar.car_road[j].y+SCREEN_DISTANCE;
+						newCar_road[j].z=autoCar.car_road[j].z-YFOCUS;
 						
 					}
 					

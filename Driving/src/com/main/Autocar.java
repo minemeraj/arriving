@@ -59,7 +59,7 @@ class Autocar {
 	private int NO_TARGET=-1;
 	private int current_road_point_target=NO_TARGET;
 	
-	private void init(double x,double y,double u,double nu,double fi,double steering,double linePosition){
+	private void init(double x,double y,double u,double nu,double fi,double steering,double linePosition,double scale){
 		
 		
 		center=new Point3D(x,y,0);
@@ -71,9 +71,9 @@ class Autocar {
 		this.linePosition=linePosition;
 		this.carData=Road.loadCarFromFile(new File("lib/cardefault3D_"+car_type_index));
 		
-		this.car_width=this.carData.getDeltaX2()-this.carData.getDeltaX();
-		this.car_length=this.carData.getDeltaY2()-this.carData.getDeltaY();
-		this.car_height=this.carData.getDeltaY();
+		this.car_width=(int) (scale*(this.carData.getDeltaX2()-this.carData.getDeltaX()));
+		this.car_length=(int) (scale*(this.carData.getDeltaY2()-this.carData.getDeltaY()));
+		this.car_height=(int) (scale*this.carData.getDeltaY());
 
 	}
 
@@ -413,7 +413,7 @@ class Autocar {
 		return intersection;
 	}
 
-	static Autocar[] buildAutocars(File file) {
+	static Autocar[] buildAutocars(File file,double scale) {
 
 		
 		ArrayList<Autocar> autocars=new ArrayList<Autocar>();
@@ -464,8 +464,8 @@ class Autocar {
 					Autocar car=(Autocar) autocars.get(autocars.size()-1);
 					
 					
-					double x=Double.parseDouble(vals[0]);
-					double y=Double.parseDouble(vals[1]);
+					double x=scale*Double.parseDouble(vals[0]);
+					double y=scale*Double.parseDouble(vals[1]);
 					double u=Double.parseDouble(vals[2]);
 					double nu=Double.parseDouble(vals[3]);
 					double fi=Double.parseDouble(vals[4]);
@@ -474,7 +474,7 @@ class Autocar {
 					
 					int autoline_index=Integer.parseInt(vals[6]);
 					
-					car.init( x, y, u, nu, fi, steering, linePosition);
+					car.init( x, y, u, nu, fi, steering, linePosition,scale);
 
 					if(autoline_index>=0){
 					
@@ -502,9 +502,9 @@ class Autocar {
 
 						Point3D p=new Point3D();
 
-						p.x=Double.parseDouble(vals[0]);
-						p.y=Double.parseDouble(vals[1]);
-						p.z=Double.parseDouble(vals[2]);
+						p.x=scale*Double.parseDouble(vals[0]);
+						p.y=scale*Double.parseDouble(vals[1]);
+						p.z=scale*Double.parseDouble(vals[2]);
 						
 						
 						road_points.add(p);
