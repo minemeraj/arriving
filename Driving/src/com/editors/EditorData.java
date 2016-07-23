@@ -42,9 +42,9 @@ public class EditorData {
 
 	
 
-	public static void initialize(LoadingProgressPanel loadingProgressPanel) { 
+	public static void initialize(LoadingProgressPanel loadingProgressPanel,double scale) { 
 		
-		loadMeshesAndTextures(loadingProgressPanel);
+		loadMeshesAndTextures(loadingProgressPanel,scale);
 		
 		BufferedImage bf=new BufferedImage(100,100,BufferedImage.TYPE_INT_RGB);
 		Graphics2D graph=(Graphics2D) bf.getGraphics();
@@ -65,7 +65,7 @@ public class EditorData {
 	
 	}
 	
-	private static void loadMeshesAndTextures(LoadingProgressPanel loadingProgressPanel) {
+	private static void loadMeshesAndTextures(LoadingProgressPanel loadingProgressPanel, double scale) {
 	
 		try {
 
@@ -143,8 +143,8 @@ public class EditorData {
 		
 			for(int i=0;i<v3DObjects.size();i++){
 					
-				object3D[i]=CubicMesh.loadMeshFromFile(new File("lib/object3D_"+i));
-				objectMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/object3D_"+i));
+				object3D[i]=CubicMesh.loadMeshFromFile(new File("lib/object3D_"+i),scale);
+				objectMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/object3D_"+i),scale);
 				objectTextures[i]=new Texture(ImageIO.read(new File("lib/object3D_texture_"+i+".jpg")));
 				objectDescriptions[i]=objectMeshes[i].getDescription();
 			}
@@ -174,7 +174,7 @@ public class EditorData {
             
 			for(int i=0;i<vSPlineMeshes.size();i++){
 
-				splinesMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/spline_mesh_"+i));
+				splinesMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/spline_mesh_"+i),1.0);
 				splinesTextures[i]=new Texture(ImageIO.read(new File("lib/spline_texture_"+i+".jpg")));
 				splinesEditorTextures[i]=new Texture(ImageIO.read(new File("lib/spline_editor_"+i+".jpg")));
 				

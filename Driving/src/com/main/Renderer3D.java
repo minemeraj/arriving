@@ -28,7 +28,7 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 	int YFOCUS=0;
 	static final int SCREEN_DISTANCE=300;
 
-	public static final double SCALE=1.0;
+	public static final double SCALE=2.0;
 	
 	protected Point3D observerPoint=null;
 

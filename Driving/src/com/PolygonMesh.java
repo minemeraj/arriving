@@ -285,16 +285,16 @@ public class PolygonMesh implements Cloneable{
 
 	
 	
-	public static void buildPoint(List<Point3D> vPoints,String str) {
+	public static void buildPoint(List<Point3D> vPoints,String str, double scale) {
 		
 
 			String[] vals =str.split(" ");
 
 			Point3D p=new Point3D();
 
-			p.x=Double.parseDouble(vals[0]);
-			p.y=Double.parseDouble(vals[1]);
-			p.z=Double.parseDouble(vals[2]);
+			p.x=scale*Double.parseDouble(vals[0]);
+			p.y=scale*Double.parseDouble(vals[1]);
+			p.z=scale*Double.parseDouble(vals[2]);
 			
 			if(vals.length==4)
 				p.data=vals[3];
@@ -371,7 +371,7 @@ public class PolygonMesh implements Cloneable{
 	
 	}
 
-	static PolygonMesh loadMeshFromFile(File file) {
+	static PolygonMesh loadMeshFromFile(File file, double scale) {
 		ArrayList<Point3D> points=new ArrayList<Point3D>();
 		ArrayList<LineData> lines=new ArrayList<LineData>();
 		ArrayList<Point3D> vTexturePoints=new ArrayList<Point3D>();
@@ -390,7 +390,7 @@ public class PolygonMesh implements Cloneable{
 					continue;
 
 				if(str.startsWith("v="))
-					buildPoint(points,str.substring(2));
+					buildPoint(points,str.substring(2),scale);
 				else if(str.startsWith("vt="))
 					PolygonMesh.buildTexturePoint(vTexturePoints,str.substring(3));
 				else if(str.startsWith("f="))

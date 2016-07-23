@@ -280,7 +280,7 @@ public abstract class Editor extends DrivingFrame implements MenuListener{
 	
 	@Override
 	public void buildPoint(List<Point3D> vPoints, String str) {
-		PolygonMesh.buildPoint(vPoints,str);
+		PolygonMesh.buildPoint(vPoints,str,1.0);
 		
 	}
 

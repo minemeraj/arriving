@@ -279,7 +279,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		loadingProgressPanel=new LoadingProgressPanel();
 		
-		EditorData.initialize(loadingProgressPanel);
+		EditorData.initialize(loadingProgressPanel,1.0);
 		
 		
 		

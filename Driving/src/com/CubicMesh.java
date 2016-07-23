@@ -33,9 +33,9 @@ public class CubicMesh extends PolygonMesh{
 	
 	}
 
-	public static CubicMesh loadMeshFromFile(File file) {
+	public static CubicMesh loadMeshFromFile(File file, double scale) {
 
-		PolygonMesh pm= (PolygonMesh) PolygonMesh.loadMeshFromFile(file);
+		PolygonMesh pm= (PolygonMesh) PolygonMesh.loadMeshFromFile(file,scale);
 
 		CubicMesh cm=buildCubicMesh(pm);
 		

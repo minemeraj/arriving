@@ -175,7 +175,7 @@ public class Road extends Shader{
 			
 			
 			
-			EditorData.initialize(loadingProgressPanel);
+			EditorData.initialize(loadingProgressPanel,SCALE);
 			
 			File file=new File("lib/landscape_"+map_name);
 			

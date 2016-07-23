@@ -235,7 +235,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 	public AutocarEditor() {
 		
 		loadingProgressPanel=new LoadingProgressPanel();
-		EditorData.initialize(loadingProgressPanel);
+		EditorData.initialize(loadingProgressPanel,1.0);
 
 		WIDTH = 820;
 		HEIGHT = 660;
@@ -376,7 +376,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 			objectImages[i]=ImageIO.read(new File("lib/object_"+i+".gif"));
 						
 			
-			objectMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/object3D_"+i));
+			objectMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/object3D_"+i),1.0);
 		
 			
 		}
