@@ -150,7 +150,7 @@ public abstract class DrivingFrame extends JFrame{
 				if(!read)
 					continue;
 				
-				DrawObject dro=buildDrawObject(str,objectMeshes);
+				DrawObject dro=buildDrawObject(str,objectMeshes,Renderer3D.SCALE);
 				drawObjects.add(dro);
 				
 				buildRectanglePolygons(dro.getPolygons(),dro.getX(),dro.getY(),dro.getZ(),dro.getDx(),dro.getDy(),dro.getDz());
@@ -191,7 +191,7 @@ public abstract class DrivingFrame extends JFrame{
 		
 	}
 
-	protected DrawObject buildDrawObject(String str, CubicMesh[] objectMeshes) {
+	protected DrawObject buildDrawObject(String str, CubicMesh[] objectMeshes,double scale) {
 		DrawObject dro=new DrawObject();
 		
 		String properties0=str.substring(0,str.indexOf("["));
@@ -199,9 +199,9 @@ public abstract class DrivingFrame extends JFrame{
 
 		StringTokenizer tok0=new StringTokenizer(properties0," "); 
 		
-		dro.setX(Renderer3D.SCALE*Double.parseDouble(tok0.nextToken()));
-		dro.setY(Renderer3D.SCALE*Double.parseDouble(tok0.nextToken()));
-		dro.setZ(Renderer3D.SCALE*Double.parseDouble(tok0.nextToken()));
+		dro.setX(scale*Double.parseDouble(tok0.nextToken()));
+		dro.setY(scale*Double.parseDouble(tok0.nextToken()));
+		dro.setZ(scale*Double.parseDouble(tok0.nextToken()));
 		dro.setIndex(Integer.parseInt(tok0.nextToken()));
 		
 		dro.setDx(objectMeshes[dro.getIndex()].getDeltaX2()-objectMeshes[dro.getIndex()].getDeltaX());

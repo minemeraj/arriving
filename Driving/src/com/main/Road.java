@@ -1404,7 +1404,7 @@ public class Road extends Shader{
 	}
 
 	@Override
-	public DrawObject buildDrawObject(String str,CubicMesh[] objectMeshes) {
+	public DrawObject buildDrawObject(String str,CubicMesh[] objectMeshes,double scale) {
 		DrawObject dro=new DrawObject();
 		
 		String properties0=str.substring(0,str.indexOf("["));

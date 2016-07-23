@@ -297,7 +297,7 @@ public class PolygonMesh implements Cloneable{
 			p.z=scale*Double.parseDouble(vals[2]);
 			
 			if(vals.length==4)
-				p.data=vals[3];
+				p.setData(vals[3]);
 
 			vPoints.add(p);
 		
