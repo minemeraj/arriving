@@ -364,7 +364,7 @@ public class Road extends Shader{
 		for (int i = 0; i< vCarData.size(); i++) {
 			File file = (File) vCarData.get(i);
 			
-			carData[i]=loadCarFromFile(new File("lib/cardefault3D_"+i));
+			carData[i]=loadCarFromFile(new File("lib/cardefault3D_"+i),Renderer3D.SCALE);
 			CAR_WIDTH=carData[i].carMesh.deltaX2-carData[i].carMesh.deltaX;
 			CAR_LENGTH=carData[i].carMesh.deltaY2-carData[i].carMesh.deltaY;
 			carData[i].getCarMesh().translate(WIDTH/2-CAR_WIDTH/2-XFOCUS,y_edge,-YFOCUS);
@@ -1310,7 +1310,7 @@ public class Road extends Shader{
 	}
 
 
-	static  CarData loadCarFromFile(File file) {
+	static  CarData loadCarFromFile(File file,double scale) {
 		
 		
 		CarData carData=new CarData();
@@ -1331,7 +1331,7 @@ public class Road extends Shader{
 					continue;
 
 				if(str.startsWith("v="))
-					PolygonMesh.buildPoint(points,str.substring(2),SCALE); 
+					PolygonMesh.buildPoint(points,str.substring(2),scale); 
 				else if(str.startsWith("vt="))
 					PolygonMesh.buildTexturePoint(aTexturePoints,str.substring(3));
 				else if(str.startsWith("f="))

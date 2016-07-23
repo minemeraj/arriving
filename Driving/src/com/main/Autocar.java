@@ -62,18 +62,18 @@ class Autocar {
 	private void init(double x,double y,double u,double nu,double fi,double steering,double linePosition,double scale){
 		
 		
-		center=new Point3D(x,y,0);
+		center=new Point3D(scale*x,scale*y,0);
 		
 		this.u=u;
 		this.nu=nu;
 		this.fi=fi;
 		this.steering=steering;
 		this.linePosition=linePosition;
-		this.carData=Road.loadCarFromFile(new File("lib/cardefault3D_"+car_type_index));
+		this.carData=Road.loadCarFromFile(new File("lib/cardefault3D_"+car_type_index),scale);
 		
-		this.car_width=(int) (scale*(this.carData.getDeltaX2()-this.carData.getDeltaX()));
-		this.car_length=(int) (scale*(this.carData.getDeltaY2()-this.carData.getDeltaY()));
-		this.car_height=(int) (scale*this.carData.getDeltaY());
+		this.car_width=this.carData.getDeltaX2()-this.carData.getDeltaX();
+		this.car_length=this.carData.getDeltaY2()-this.carData.getDeltaY();
+		this.car_height=this.carData.getDeltaY();
 
 	}
 
@@ -143,8 +143,8 @@ class Autocar {
 		double vx=u*Math.cos(fi);
 		double vy=u*Math.sin(fi);
 		
-		center.y= (center.y+vy*dt*Road.SPACE_SCALE_FACTOR/Road.SPEED_SCALE);
-		center.x= (center.x+vx*dt*Road.SPACE_SCALE_FACTOR/Road.SPEED_SCALE);
+		center.y= (center.y+vy*dt*Road.SPACE_SCALE_FACTOR*Renderer3D.SCALE/Road.SPEED_SCALE);
+		center.x= (center.x+vx*dt*Road.SPACE_SCALE_FACTOR*Renderer3D.SCALE/Road.SPEED_SCALE);
 
 	}
 	
@@ -464,8 +464,8 @@ class Autocar {
 					Autocar car=(Autocar) autocars.get(autocars.size()-1);
 					
 					
-					double x=scale*Double.parseDouble(vals[0]);
-					double y=scale*Double.parseDouble(vals[1]);
+					double x=Double.parseDouble(vals[0]);
+					double y=Double.parseDouble(vals[1]);
 					double u=Double.parseDouble(vals[2]);
 					double nu=Double.parseDouble(vals[3]);
 					double fi=Double.parseDouble(vals[4]);
