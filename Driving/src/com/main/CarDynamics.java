@@ -21,22 +21,26 @@ class CarDynamics {
 	private double chi=0;
 	/** wheelbase **/
 	private double l=0;
-	/** front and rear track **/
+	/** Front track **/
 	private double t1=0;
+	/** Rear track **/
 	private double t2=0;
 
-	/** moment of inerzia  **/
+	/** moment of inertia  **/
 	private double Jz=0;
+	/** inverse moment of inertia  **/
 	private double i_Jz=0;
 	
 	/** vehicle mass  **/
 	private double m=0;
+	/** vehicle inverse mass  **/
 	private double i_m=0;
 
 	//DYNAMIC VARIABLES  
 	
-	/** front steering angles 1=front,2=rear**/
+	/** front steering angle**/
 	private double delta1=0;
+	/** rear steering angle**/
 	private double delta2=0;
 	
 	private double delta=0;
@@ -59,26 +63,31 @@ class CarDynamics {
 	/** lateral  velocity**/
 	private double nu=0;
 	
-	/** tire slip angles**/
+	/** front tire slip angle**/
 	private double alfa1=0;
+	/** rear tire slip angle**/
 	private double alfa2=0;
 	
-	/** side slip angles **/
+	/** front side slip angles **/
 	private double beta1=0;
+	/** rear side slip angle **/
 	private double beta2=0;
 	
-	/** cornering stiffness **/
+	/** front cornering stiffness **/
 	private double C1=0;
+	/** rear cornering stiffness **/
 	private double C2=0;
 	
 	/** relaxation lenght **/
 	private double d=0.25;
 	
-	/** tractive forces **/
+	/** front tractive force **/
 	private double Fx1=0;
+	/** rear tractive force **/
 	private double Fx2=0;
-	/** lateral forces**/
+	/** front lateral force**/
 	private double Fy1;
+	/** rear lateral force**/
 	private double Fy2;
 	/** torque force **/
 	private double torque_force=0;
@@ -203,7 +212,7 @@ class CarDynamics {
 			alfa2=delta2-Math.atan((nu-r*a2)/(u-r*t2*0.5));
 		//double dFy2= (C2*alfa2-Fy2)*u/d;
 		//Fy2+=dt*dFy2;
-		Fy2= C2*alfa2*(1.0-Math.exp(-Math.abs(u)*dt/d));
+		Fy2= C2*alfa2*f(u,dt);
 		
 	}
 	
@@ -223,8 +232,18 @@ class CarDynamics {
 		
 		//double dFy1= (C1*alfa1-Fy1)*u/d;
 		//Fy1+=dt*dFy1;
-		Fy1= C1*alfa1*(1.0-Math.exp(-Math.abs(u)*dt/d));
+		Fy1= C1*alfa1*f(u,dt);
 	}
+	/**
+	 * relaxation formula
+	 * @param u2
+	 * @param dt 
+	 * @return
+	 */
+	private double f(double u, double dt) {
+		return (1.0-Math.exp(-Math.abs(u)*dt/d));
+	}
+
 	@Override
 	public String toString() {
 		
