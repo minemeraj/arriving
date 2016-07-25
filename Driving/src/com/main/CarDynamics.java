@@ -15,9 +15,14 @@ class CarDynamics {
 	
 
 	/** STRUCTURAL VARIABLES **/
+	
+	/** Distance center of gravity - front axle**/
 	private double a1=0;
+	/** Distance center of gravity - rear axle**/
 	private double a2=0;	
+	/** Ratio delta1,2/delta **/
 	private double tau=1;
+	/**Ration delta1/delta2, usually <<1 **/
 	private double chi=0;
 	/** wheelbase **/
 	private double l=0;
@@ -42,7 +47,7 @@ class CarDynamics {
 	private double delta1=0;
 	/** rear steering angle**/
 	private double delta2=0;
-	
+	/** Steering wheel rotation angle **/
 	private double delta=0;
 	
 	public double getDelta() {
@@ -97,7 +102,9 @@ class CarDynamics {
     //DRAG PROPERTIES
 	/** air density **/
 	private double ro=0;
+	/** Frontal surface of the vehicle*/
 	private double S=0;
+	/** Aerodynamic drag coefficient**/
 	private double Cx=0;
 	
 	/** Centripetal Force  **/
@@ -107,6 +114,7 @@ class CarDynamics {
 	double dx=0;
 	double dy=0;
 	double dpsi=0;
+	/** Yaw = rotation angle of the vehicle*/
 	private double psi=0;
 	
     private static DecimalFormat df=null;
