@@ -403,15 +403,17 @@ class CarDynamics {
 		
 		double dDelta=delta;
 		
-		if(Math.abs(delta-deltaGoal)>deltaIncrement){
+		double uDeltaGoal = deltaGoal*Math.exp(-0.05*u);
+		
+		if(Math.abs(delta-uDeltaGoal)>deltaIncrement){
 			
-			dDelta+=Math.signum(deltaGoal-delta)*deltaIncrement;
+			dDelta+=Math.signum(uDeltaGoal-delta)*deltaIncrement;
 			
 		}else{
-			dDelta=deltaGoal;
+			dDelta=uDeltaGoal;
 		}
 		
-		setDelta(dDelta);
+		setDelta(dDelta);		
 		
 	}
 
