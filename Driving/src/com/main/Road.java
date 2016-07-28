@@ -1154,7 +1154,7 @@ public class Road extends Shader{
 	
 	public void setSteerAngle(double angle) {
 		
-		carDynamics.setDelta(angle);
+		carDynamics.setDeltaGoal(angle);
 		
 	}
 

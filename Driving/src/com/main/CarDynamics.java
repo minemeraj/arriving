@@ -49,6 +49,10 @@ class CarDynamics {
 	private double delta2=0;
 	/** Steering wheel rotation angle **/
 	private double delta=0;
+	/** Steering wheel angle to reach**/
+	private double deltaGoal=0;
+	/** Increment in the steering wheel angle*/
+	private double deltaIncrement=0.02;
 	
 	public double getDelta() {
 		return delta;
@@ -137,14 +141,15 @@ class CarDynamics {
 		  //linear motion
 		//cd.setInitvalues(0, 1, 0, 0);
 		 //steering 
-		cd.setInitvalues(0.30, 1, 0, 0,0);
+		cd.setInitvalues(0.0, 1, 0, 0,0);
 		cd.setFx2Versus(1);
+		cd.setDeltaGoal(0.30);
 		
 		//System.out.println("\t"+df.format(0)+"\t "+cd);
 		
 		long time=System.currentTimeMillis();
-		for(double t=dt;t<=200000;t+=dt){
-			
+		//for(double t=dt;t<=200000;t+=dt){
+		for(double t=dt;t<=10;t+=dt){	
 		
 			cd.move(dt);
 			//System.out.println("\t"+df.format(t)+"\t "+cd);
@@ -183,7 +188,10 @@ class CarDynamics {
 		r+=dr*dt;
 		
 		calculateCoordinatesIncrements(dt);
+		updateDelta();
 		
+		if(delta!=0 && r!=0)
+			System.out.println(u+" "+r+" "+u/r);
 		
 		//ay=dnu/dt+u*r;
 		
@@ -313,6 +321,7 @@ class CarDynamics {
 	void setInitvalues(double delta, double u, double r, double nu,double psi) {
 		
 		this.delta = delta;
+		this.deltaGoal = delta;
 		this.u = u;
 		this.r = r;
 		this.nu = nu;
@@ -386,5 +395,24 @@ class CarDynamics {
 		
 	}
 
+	public void setDeltaGoal(double deltaGoal) {
+		this.deltaGoal = deltaGoal;
+	}
+
+	private void updateDelta(){
+		
+		double dDelta=delta;
+		
+		if(Math.abs(delta-deltaGoal)>deltaIncrement){
+			
+			dDelta+=Math.signum(deltaGoal-delta)*deltaIncrement;
+			
+		}else{
+			dDelta=deltaGoal;
+		}
+		
+		setDelta(dDelta);
+		
+	}
 
 }

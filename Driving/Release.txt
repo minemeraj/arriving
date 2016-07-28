@@ -1,3 +1,7 @@
+New perspective, with bigger objects and a narrower field of vision.
+
+A slightly improved steering.
+
 --- 16/07/2016 CarDriving 9.1.0
 
 A bit faster rendering, the Monza algorithm.
