@@ -190,8 +190,8 @@ class CarDynamics {
 		calculateCoordinatesIncrements(dt);
 		updateDelta();
 		
-		if(delta!=0 && r!=0)
-			System.out.println(u+" "+r+" "+u/r);
+		//if(delta!=0 && r!=0)
+		//	System.out.println(u+" "+r+" "+u/r);
 		
 		//ay=dnu/dt+u*r;
 		
