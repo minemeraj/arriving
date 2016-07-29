@@ -129,6 +129,8 @@ public class Road extends Shader{
 	
 	private HashMap<Integer,Boolean> terrainVisibleIndexes=new HashMap<Integer,Boolean>();
 
+	private Point3D startPosition;
+
 	
 	
 	public Road(){}
@@ -183,7 +185,7 @@ public class Road extends Shader{
 			loadSPLinesFromFile(file);	
 			loadObjectsFromFile(file);			
 			
-			Point3D startPosition = Editor.loadStartPosition(file);
+			startPosition = Editor.loadStartPosition(file);
 			POSX=(int)( Renderer3D.SCALE*startPosition.x)-WIDTH/2-CAR_WIDTH/2;
 			POSY=(int)( Renderer3D.SCALE*startPosition.y);
 			
@@ -1091,8 +1093,8 @@ public class Road extends Shader{
 		g2.setColor(CarFrame.BACKGROUND_COLOR);
 		g2.fillRect(0,YFOCUS,WIDTH,HEIGHT-YFOCUS);
 
-		POSX=0;
-		POSY=0;
+		POSX=(int)( Renderer3D.SCALE*startPosition.x)-WIDTH/2-CAR_WIDTH/2;
+		POSY=(int)( Renderer3D.SCALE*startPosition.y);
 		
 		initialiazeCarDynamics();
 		
@@ -1305,7 +1307,7 @@ public class Road extends Shader{
 		
 	private void resetRoadData(int index) {
 		
-		meshes[index]=(oldMeshes[index]);
+		meshes[index]=cloneMesh(oldMeshes[index]);
 
 	}
 
