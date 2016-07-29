@@ -3,8 +3,6 @@ package com.editors.autocars;
 
 class AutocarData {
 
-	private int car_width = 0;
-	private int car_length = 0;
 	int car_type = 0;
 	double x = 0;
 	double y = 0;
@@ -21,9 +19,6 @@ class AutocarData {
 	public AutocarData clone(){
 		
 		AutocarData ac=new AutocarData();
-		
-		ac.car_width=car_width;
-		ac.car_length=car_length;
 		ac.car_type=car_type;
 		ac.x=x;
 		ac.y=y;
