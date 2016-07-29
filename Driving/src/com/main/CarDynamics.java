@@ -14,8 +14,9 @@ import java.text.DecimalFormat;
 class CarDynamics {
 	
 
+
 	/** STRUCTURAL VARIABLES **/
-	
+
 	/** Distance center of gravity - front axle**/
 	private double a1=0;
 	/** Distance center of gravity - rear axle**/
@@ -53,6 +54,8 @@ class CarDynamics {
 	private double deltaGoal=0;
 	/** Increment in the steering wheel angle*/
 	private double deltaIncrement=0.02;
+	private static final double STEERING_DUMPING = 0.05;
+	
 	
 	public double getDelta() {
 		return delta;
@@ -89,6 +92,7 @@ class CarDynamics {
 	
 	/** relaxation lenght **/
 	private double d=0.25;
+	private static final double CORNERING_DUMPING = 1.0;
 	
 	/** front tractive force **/
 	private double Fx1=0;
@@ -100,6 +104,7 @@ class CarDynamics {
 	private double Fy2;
 	/** torque force **/
 	private double torque_force=0;
+	private static final double TORQUE_DUMPING = 0.15;
 	/** braking force **/
 	private double brakingForce=0;
 		
@@ -207,7 +212,7 @@ class CarDynamics {
 		
 		
 	   if(!isBraking)	
-		    Fx2=Fx2Signum*torque_force*Math.exp(-0.15*Math.abs(u));
+		    Fx2=Fx2Signum*torque_force*Math.exp(-TORQUE_DUMPING*Math.abs(u));
 	   else 
 		    Fx2=-brakingForce*Math.signum(u);
 		
@@ -257,7 +262,7 @@ class CarDynamics {
 	 * @return
 	 */
 	private double f(double u, double dt) {
-		return (1.0-Math.exp(-Math.abs(u)*dt/d));
+		return (1.0-Math.exp(-CORNERING_DUMPING*Math.abs(u)*dt/d));
 	}
 
 	@Override
@@ -403,7 +408,7 @@ class CarDynamics {
 		
 		double dDelta=delta;
 		
-		double uDeltaGoal = deltaGoal*Math.exp(-0.05*u);
+		double uDeltaGoal = deltaGoal*Math.exp(-STEERING_DUMPING*u);
 		
 		if(Math.abs(delta-uDeltaGoal)>deltaIncrement){
 			

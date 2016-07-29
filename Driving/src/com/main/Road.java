@@ -48,6 +48,8 @@ import com.editors.road.RoadEditor;
 public class Road extends Shader{
 
 
+	
+
 	private int y_edge=5+SCREEN_DISTANCE;
 	
 	private int NYVISIBLE=40;//20 orig
@@ -59,10 +61,13 @@ public class Road extends Shader{
 	private int CAR_WIDTH=100;
 	private int CAR_LENGTH=100;
 	
-	protected int FORWARD=1;
+	protected static final int FORWARD_REAR = -1;
+	protected static final int FORWARD_FRONT = 1;
+	protected static final int FORWARD_STOP = 0;
+	protected int FORWARD=FORWARD_FRONT;
 	
-	private final int EXTERNAL_CAMERA=0;
-	private final int DRIVER_CAMERA=1;
+	protected final int EXTERNAL_CAMERA=0;
+	protected final int DRIVER_CAMERA=1;
 	
 	private int CAMERA_TYPE=EXTERNAL_CAMERA;
 	
@@ -1160,18 +1165,13 @@ public class Road extends Shader{
 		
 	}
 
-	public void setAccelerationVersus(int i) {
+	public void setAccelerationVersus(int versus) {
 		
 		
 		
 		carDynamics.setIsbraking(false);
-		
-		if(i>0){
-			carDynamics.setFx2Versus(FORWARD);
-			
-		}
-		else
-			carDynamics.setFx2Versus(0);
+
+		carDynamics.setFx2Versus(versus);
 			
 		
 	}

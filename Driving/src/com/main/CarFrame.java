@@ -31,7 +31,6 @@ import com.sound.GameSound;
 
 public class CarFrame extends Road implements KeyListener {
 
-	
 	private String VERSION="CarDriving 9.1.0";
 	
 	private JPanel center=null;
@@ -41,7 +40,10 @@ public class CarFrame extends Road implements KeyListener {
 
 	private int back_num=0;
 
-	private double CAR_SPEED=0;
+	private double CAR_SPEED_0=0;
+	private double CAR_SPEED=CAR_SPEED_0;
+	private static final double STEERING_0 = 0;
+	private static final int MOVING_ANGLE_0 = 0;
 	
 	private static final int BUTTOMBORDER=100;
 	private static final int UPBORDER=40;
@@ -214,7 +216,7 @@ public class CarFrame extends Road implements KeyListener {
 
 			hornFile=new File(SOUNDS_FOLDER+"horn.wav");
 			engineFile=new File(SOUNDS_FOLDER+"shortDiesel.wav");
-			engineSound=new AdvancedGameSound(engineFile,-1,false);
+			engineSound=new AdvancedGameSound(engineFile,FORWARD_REAR,false);
 			engineSound.filter(getEngineModulation());
 
 			graphics2D=(Graphics2D) center.getGraphics();
@@ -289,7 +291,7 @@ public class CarFrame extends Road implements KeyListener {
 			reset();
 		else if(code==KeyEvent.VK_UP || code==KeyEvent.VK_W)
 		{	
-			setAccelerationVersus(1);
+			setAccelerationVersus(FORWARD);
 
 
 		}
@@ -314,7 +316,7 @@ public class CarFrame extends Road implements KeyListener {
 		{
 			isProgramPaused=true;
 			
-			setCarSpeed(0);
+			setCarSpeed(CAR_SPEED_0);
 			
             selectNextCar();
             
@@ -356,12 +358,12 @@ public class CarFrame extends Road implements KeyListener {
 		}
 		else if(code==KeyEvent.VK_N)
 		{			
-			FORWARD=1;
+			FORWARD=FORWARD_FRONT;
 			forward.setText("(F)");
 		}
 		else if(code==KeyEvent.VK_M)
 		{			
-			FORWARD=-1;
+			FORWARD=FORWARD_REAR;
 			forward.setText("(R)");
 		}
 		else if(code==KeyEvent.VK_H)
@@ -378,12 +380,12 @@ public class CarFrame extends Road implements KeyListener {
 		}
 		else if(code==KeyEvent.VK_1)
 		{
-			 changeCamera(0);
+			 changeCamera(EXTERNAL_CAMERA);
 			 drawRoad();
 		}
 		else if(code==KeyEvent.VK_2)
 		{
-			 changeCamera(1);
+			 changeCamera(DRIVER_CAMERA);
 			 drawRoad();
 		}
 		else if(code==KeyEvent.VK_ESCAPE)
@@ -509,7 +511,7 @@ public class CarFrame extends Road implements KeyListener {
 		{			
 			
 		
-			steer(0);
+			steer(STEERING_0);
 			
 		}
 		else if(code==KeyEvent.VK_Z){
@@ -522,9 +524,9 @@ public class CarFrame extends Road implements KeyListener {
 		}
 		else if((code==KeyEvent.VK_UP ||code==KeyEvent.VK_DOWN || code==KeyEvent.VK_W ||code==KeyEvent.VK_S) && engine!=null)
 		{			
-			setAccelerationVersus(0);
+			setAccelerationVersus(FORWARD_STOP);
 			
-			steer(0);			
+			steer(STEERING_0);			
 
 		}
 
@@ -538,8 +540,8 @@ public class CarFrame extends Road implements KeyListener {
 		reset(graphics2D);
 	
 		
-		setCarSpeed(0);
-		setMovingAngle(0);
+		setCarSpeed(CAR_SPEED_0);
+		setMovingAngle(MOVING_ANGLE_0);
 
 		isProgramPaused=false;
 		
