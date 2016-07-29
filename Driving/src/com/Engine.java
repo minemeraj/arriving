@@ -3,9 +3,12 @@ package com;
 import com.main.CarFrame;
 
 /**
- * @author Piazza Francesco Giovanni ,Tecnes Milano http://www.tecnes.com
+ * 
+ * MAIN PROGRAM ENGINE, TRY TO SET A CONSTANT FRAME RATE OF 20
+ * @author Piazza Francesco Giovanni ,Betacom s.r.l. http://www.betacom.it
  *
  */
+
 
 public class Engine extends Thread{
 	
@@ -19,22 +22,32 @@ public class Engine extends Thread{
 	}
 
 	
-	 private int startTime;  
-     private int endTime;  
-     private int frameTimes = 0;  
-     private short frames = 0;  
-	    
+	 private long startTime;  
+     private long endTime;  
+     private long frameTimes = 0;  
+     private int frames = 0;  
+     
+     private long MS_PER_FRAME=50;
+     
+
      public void run() {
 
-    	 startTime = (int) System.currentTimeMillis(); 
+    	 startTime = System.currentTimeMillis(); 
 
     	 while(true){
 
-
+    		 endTime =  System.currentTimeMillis();  
 
     		 carFrame.up();
 
-    		 endTime = (int) System.currentTimeMillis();  
+    		 try {
+    			 long delay=endTime + MS_PER_FRAME - System.currentTimeMillis();
+    			 if(delay>0)
+    				 sleep(delay);
+    		 } catch (InterruptedException e) {
+    		 }
+
+    		 endTime =  System.currentTimeMillis();  
 
     		 frameTimes = frameTimes + endTime - startTime;  
     		 startTime=endTime;
@@ -48,15 +61,7 @@ public class Engine extends Thread{
     			 frameTimes = 0;  
     		 } 
 
-    		 try {
-    			 //if(CarFrame.CAR_SPEED==0)
-    			 //	break;
-    			 //pause used to slow down the drawing process
-    			 //Thread.sleep(25);
-    		 } catch (Exception e) {
-
-    			 e.printStackTrace();
-    		 }
+    	
 
 
 

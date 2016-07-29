@@ -1,3 +1,5 @@
+A more stable frame rate of 20 FPS, not very high indeed.
+
 New perspective, with bigger objects and a narrower field of vision.
 
 A slightly improved steering.
