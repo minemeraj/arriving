@@ -2,7 +2,9 @@ A more stable frame rate of 20 FPS, not very high indeed.
 
 New perspective, with bigger objects and a narrower field of vision.
 
-A slightly improved steering.
+An improved steering.
+
+Internal code re-organization on PolygonMesh.
 
 --- 16/07/2016 CarDriving 9.1.0
 

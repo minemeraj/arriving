@@ -79,7 +79,7 @@ public class SquareMesh extends PolygonMesh {
 			
 			pm.xpoints[i]=xpoints[i];
 			pm.ypoints[i]=ypoints[i];
-			pm.zpoints[i]=ypoints[i];
+			pm.zpoints[i]=zpoints[i];
 			
 		}
 		

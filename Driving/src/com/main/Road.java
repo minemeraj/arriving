@@ -1305,7 +1305,7 @@ public class Road extends Shader{
 		
 	private void resetRoadData(int index) {
 		
-		meshes[index]=cloneMesh(oldMeshes[index]);
+		meshes[index]=(oldMeshes[index]);
 
 	}
 
