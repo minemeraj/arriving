@@ -119,7 +119,7 @@ public class EditorData {
 			}
 			
 			if(loadingProgressPanel!=null)
-				loadingProgressPanel.incrementValue(20);
+				loadingProgressPanel.incrementValue(5);
 
 			ArrayList<File> v3DObjects=new ArrayList<File>();
 			
@@ -140,18 +140,23 @@ public class EditorData {
 			
 			if(loadingProgressPanel!=null)
 				loadingProgressPanel.incrementValue(5);
-		
-			for(int i=0;i<v3DObjects.size();i++){
+			
+			int loading3DSize=v3DObjects.size();
+			int loading3DBlockNumbers=30;
+			int loading3DBlockSize=loading3DSize/loading3DBlockNumbers;
+			if(loading3DBlockSize==0){
+				loading3DBlockSize=1;
+			}	
+			for(int i=0;i<loading3DSize;i++){
 					
 				object3D[i]=CubicMesh.loadMeshFromFile(new File("lib/object3D_"+i),scale);
 				objectMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/object3D_"+i),scale);
 				objectTextures[i]=new Texture(ImageIO.read(new File("lib/object3D_texture_"+i+".jpg")));
 				objectDescriptions[i]=objectMeshes[i].getDescription();
+				
+				if(loadingProgressPanel!=null && i%loading3DBlockSize==0)
+					loadingProgressPanel.incrementValue(1);
 			}
-			
-			if(loadingProgressPanel!=null)
-				loadingProgressPanel.incrementValue(15);
-
 			
 			ArrayList<File> vSPlineMeshes=new ArrayList<File>();
 			
@@ -172,18 +177,20 @@ public class EditorData {
     		if(loadingProgressPanel!=null)
 				loadingProgressPanel.incrementValue(5);
             
-			for(int i=0;i<vSPlineMeshes.size();i++){
+			int loadingSplinesSize=vSPlineMeshes.size();
+			for(int i=0;i<loadingSplinesSize;i++){
 
 				splinesMeshes[i]=CubicMesh.loadMeshFromFile(new File("lib/spline_mesh_"+i),scale);
 				splinesTextures[i]=new Texture(ImageIO.read(new File("lib/spline_texture_"+i+".jpg")));
 				splinesEditorTextures[i]=new Texture(ImageIO.read(new File("lib/spline_editor_"+i+".jpg")));
 				
 				splineDescriptions[i]=splinesMeshes[i].getDescription();
+				
+				if(loadingProgressPanel!=null)
+					loadingProgressPanel.incrementValue(1);
 			}
-			
 			if(loadingProgressPanel!=null)
-				loadingProgressPanel.incrementValue(15);
-			
+				loadingProgressPanel.incrementValue(10);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
