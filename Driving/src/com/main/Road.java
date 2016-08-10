@@ -1312,7 +1312,7 @@ public class Road extends Shader{
 	}
 
 
-	static  CarData loadCarFromFile(File file,double scale) {
+	public static  CarData loadCarFromFile(File file,double scale) {
 		
 		
 		CarData carData=new CarData();
@@ -1327,6 +1327,7 @@ public class Road extends Shader{
 
 
 			String str=null;
+			String description=null;
 
 			while((str=br.readLine())!=null){
 				if(str.indexOf("#")>=0 || str.length()==0)
@@ -1338,12 +1339,16 @@ public class Road extends Shader{
 					PolygonMesh.buildTexturePoint(aTexturePoints,str.substring(3));
 				else if(str.startsWith("f="))
 					PolygonMesh.buildLine(lines,str.substring(2),aTexturePoints);
+				else if(str.startsWith("DESCRIPTION=")){
+					int index=str.indexOf("=");
+					description=str.substring(index+1);
+				}			
 
 
 			}
 			
 			PolygonMesh pm=new PolygonMesh(points,lines);
-		    
+		    pm.setDescription(description);
 	        
 			carData.carMesh=CubicMesh.buildCubicMesh(pm);
 			

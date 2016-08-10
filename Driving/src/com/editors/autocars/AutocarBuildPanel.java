@@ -2,7 +2,6 @@ package com.editors.autocars;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -10,8 +9,10 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.CubicMesh;
 import com.editors.ComboElement;
 import com.editors.DoubleTextField;
+import com.main.CarData;
 
 class AutocarBuildPanel extends JDialog implements ActionListener{
 	
@@ -29,7 +30,7 @@ class AutocarBuildPanel extends JDialog implements ActionListener{
 	private int WIDTH=200;
 	private int HEIGHT=350;
 	
-	AutocarBuildPanel(double x, double y, double u){
+	AutocarBuildPanel(double x, double y, double u, CarData[] carData){
 		
 		autocarData=null;
 		
@@ -56,24 +57,23 @@ class AutocarBuildPanel extends JDialog implements ActionListener{
 		autocarPanel.add(jlb);
 
 		car_type_index = new JComboBox();
-		car_type_index.setBounds(50, l, 100, 20);
+		car_type_index.setBounds(50, l, 120, 20);
 		car_type_index.setToolTipText("Autocar type");
 		autocarPanel.add(car_type_index);
 		
-		
-		File directoryImg=new File("lib");
-		File[] files=directoryImg.listFiles();	
-
 		int count=0;
 		
-		for(int f=0;f<files.length;f++){
+		for(int i=0;i<carData.length;i++){
 
-			if(files[f].getName().startsWith("cardefault3D_")){
-				
-				car_type_index.addItem(new ComboElement(""+count,""+count));
-				count++;
-			}		
-		}	
+			CubicMesh cm = carData[i].getCarMesh();	
+			String desc=cm.getDescription();
+			if(desc==null || desc.equals(""))
+				desc=""+i;
+			
+			car_type_index.addItem(new ComboElement(""+count,desc));
+			count++;
+		
+		}
 
 		
 

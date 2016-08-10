@@ -75,7 +75,9 @@ import com.editors.DoubleTextField;
 import com.editors.Editor;
 import com.editors.EditorData;
 import com.editors.road.RoadEditor;
+import com.main.CarData;
 import com.main.HelpPanel;
+import com.main.Renderer3D;
 import com.main.Road;
 import com.main.loader.LoadingProgressPanel;
 
@@ -223,6 +225,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 	private JMenu jm_view;
 	private JMenuItem jmt_faster_motion;
 	private JMenuItem jmt_slower_motion;
+	private CarData[] carData;
 	
 	private static final int arrow_length=50;
 
@@ -236,9 +239,22 @@ public class AutocarEditor extends Editor implements MouseListener,
 		
 		loadingProgressPanel=new LoadingProgressPanel();
 		EditorData.initialize(loadingProgressPanel,1.0);
+		
+		loadingProgressPanel.setValue(70);	
 
 		WIDTH = 820;
 		HEIGHT = 660;
+		
+
+		try {
+			initialize();
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+		
+
 
 		setTitle("Autocar editor");
 		setSize(LEFT_BORDER+WIDTH + RIGHT_BORDER, HEIGHT);
@@ -293,13 +309,6 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 		});
 
-		try {
-			initialize();
-
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
 
 		loadingProgressPanel.setValue(100);		
 		loadingProgressPanel.dispose();
@@ -381,7 +390,38 @@ public class AutocarEditor extends Editor implements MouseListener,
 			
 		}
 		
+		ArrayList<File> vCarData=new ArrayList<File>();
+
+		for(int i=0;i<files.length;i++){
+			if(files[i].getName().startsWith("cardefault3D_")){
+
+				vCarData.add(files[i]);
+
+			}		
+		}
+		
+		loadCars(vCarData);
+		
 		selectionColor=new Color(255,0,0,127);
+
+	}
+	
+	private void loadCars(ArrayList<File> vCarData) {
+		
+		
+		carData=new CarData[vCarData.size()];
+
+		
+		for (int i = 0; i< vCarData.size(); i++) {
+			File file = (File) vCarData.get(i);
+			
+			carData[i]=Road.loadCarFromFile(file,Renderer3D.ONE_TO_ONE_SCALE);
+
+		}
+
+		
+
+		
 
 	}
 	
@@ -769,7 +809,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		autocarPanel.add(jlb);
 
 		car_type_index = new JComboBox();
-		car_type_index.setBounds(50, l, 100, 20);
+		car_type_index.setBounds(50, l, 120, 20);
 		car_type_index.setToolTipText("Autocar type");
 		car_type_index.addKeyListener(this);
 		
@@ -788,18 +828,19 @@ public class AutocarEditor extends Editor implements MouseListener,
 		);
 		autocarPanel.add(car_type_index);
 		
-		File directoryImg=new File("lib");
-		File[] files=directoryImg.listFiles();	
 
 		int count=0;
 		
-		for(int f=0;f<files.length;f++){
+		for(int i=0;i<carData.length;i++){
 
-			if(files[f].getName().startsWith("cardefault3D_")){
-				
-				car_type_index.addItem(new ComboElement(""+count,""+count));
-				count++;
-			}		
+			CubicMesh cm = carData[i].getCarMesh();	
+			String desc=cm.getDescription();
+			if(desc==null || desc.equals(""))
+				desc=""+i;
+			
+			car_type_index.addItem(new ComboElement(""+count,desc));
+			count++;
+		
 		}	
 
 		
@@ -2540,7 +2581,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 	
 	private void addAutocar() {
 		
-		AutocarBuildPanel abp=new AutocarBuildPanel(0,0,0);
+		AutocarBuildPanel abp=new AutocarBuildPanel(0,0,0,carData);
 		
 		if(abp.getAutocar()!=null){
 		
@@ -2581,7 +2622,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 				try {
 						
 					
-					AutocarBuildPanel abp=new AutocarBuildPanel(point.x,point.y,1.0);
+					AutocarBuildPanel abp=new AutocarBuildPanel(point.x,point.y,1.0,carData);
 					
 					if(abp.getAutocar()!=null){
 					

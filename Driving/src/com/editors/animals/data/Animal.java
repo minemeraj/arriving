@@ -80,7 +80,7 @@ public class Animal extends CustomData{
 		this.foot_length = foot_length;
 		
 	}
-
+	@Override
 	public Object clone(){
 
 		Animal animal=new Animal(
