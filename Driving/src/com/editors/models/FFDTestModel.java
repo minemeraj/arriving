@@ -42,7 +42,7 @@ public class FFDTestModel extends MeshModel{
 	private int[][][] faces;
 
 	private BPoint[][][][] cubes;
-	private int numCubes=4;
+	private int numCubes=27;
 	
 
 
@@ -134,26 +134,34 @@ public class FFDTestModel extends MeshModel{
 		
 		
 		
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 3; i++) {
 			
-			for (int j = 0; j < 2; j++) {
+			for (int j = 0; j < 3; j++) {
 				
-				int c=i+2*j;
+				for (int k = 0; k < 3; k++) {
+					
+					
+					int c=i+3*j+k*9;
+					
+					double xc0=dx*0.4*i+0.1;
+					double yc0=dy*0.4*j+0.1;
+					double zc0=dz*0.4*k+0.1;
+					
+					Segments s0=new Segments(xc0,dx*0.1,yc0,dy*0.1,zc0,dz*0.1);
+					
+					cubes[c][0][0][0]=addBPoint(-1.0,-1.0,-1,s0);
+					cubes[c][1][0][0]=addBPoint(1.0,-1.0,-1,s0);
+					cubes[c][0][1][0]=addBPoint(-1.0,1.0,-1,s0);
+					cubes[c][1][1][0]=addBPoint(1.0,1.0,-1,s0);		
+					
+					cubes[c][0][0][1]=addBPoint(-1.0,-1.0,1.0,s0);
+					cubes[c][1][0][1]=addBPoint(1.0,-1.0,1.0,s0);
+					cubes[c][0][1][1]=addBPoint(-1.0,1.0,1.0,s0);
+					cubes[c][1][1][1]=addBPoint(1.0,1.0,1.0,s0);
+					
+				}
 				
-				double xc0=dx*0.75*i;
-				double yc0=dy*0.75*j;
-				
-				Segments s0=new Segments(xc0,dx*0.25,yc0,dy*0.25,0,dz);
-				
-				cubes[c][0][0][0]=addBPoint(-1.0,0.0,0,s0);
-				cubes[c][1][0][0]=addBPoint(1.0,0.0,0,s0);
-				cubes[c][0][1][0]=addBPoint(-1.0,1.0,0,s0);
-				cubes[c][1][1][0]=addBPoint(1.0,1.0,0,s0);		
-				
-				cubes[c][0][0][1]=addBPoint(-1.0,0.0,1.0,s0);
-				cubes[c][1][0][1]=addBPoint(1.0,0.0,1.0,s0);
-				cubes[c][0][1][1]=addBPoint(-1.0,1.0,1.0,s0);
-				cubes[c][1][1][1]=addBPoint(1.0,1.0,1.0,s0);
+		
 				
 			}
 			
