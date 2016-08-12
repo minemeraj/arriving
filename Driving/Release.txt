@@ -1,3 +1,8 @@
+
+Introducing FFD (Free Form Deformation) splines.
+
+Fixed bug on non-road spline vertical translation.
+
 Added car names in the AutocarEditor for the Car Type selection.
 
 Improved loading progress bar.
