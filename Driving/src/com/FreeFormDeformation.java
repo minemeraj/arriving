@@ -16,9 +16,9 @@ public class FreeFormDeformation {
 	/** Lattice z size**/
 	private double deltaz;
 	
-	Point3D xVersor=null;
-	Point3D yVersor=null;
-	Point3D zVersor=null;
+	Point3D xVersor=new Point3D(1.0,0.0,0.0);
+	Point3D yVersor=new Point3D(0.0,1.0,0.0);
+	Point3D zVersor=new Point3D(0.0,0.0,1.0);
 
 	/**lattice coordinates in [0,1]**/
 	private Point3D[][][] normalizedControlPoints=null;
@@ -42,9 +42,6 @@ public class FreeFormDeformation {
 			l, int m, int n,
 			double deltax,double deltay,double deltaz, 
 			Point3D[][][] nonNormalizedControlPoints,
-			Point3D xVersor,
-			Point3D yVersor,
-			Point3D zVersor,			
 			Point3D origin) {
 		super();
 		this.l = l;
@@ -55,10 +52,6 @@ public class FreeFormDeformation {
 		this.deltax = deltax;
 		this.deltay = deltay;
 		this.deltaz = deltaz;	
-		
-		this.xVersor = xVersor;
-		this.yVersor = yVersor;
-		this.zVersor = zVersor;
 		
 		this.origin = origin;
 		
@@ -110,10 +103,7 @@ public class FreeFormDeformation {
 		this.deltax = deltax;
 		this.deltay = deltay;
 		this.deltaz = deltaz;
-		
-		xVersor=new Point3D(1.0,0.0,0.0);
-		yVersor=new Point3D(0.0,1.0,0.0);
-		zVersor=new Point3D(0.0,0.0,1.0);
+
 
 		for (int i = 0; i <= l; i++) {
 			for (int j = 0; j <= m; j++) {

@@ -116,6 +116,12 @@ public class SPLine implements Cloneable{
 
 			if(n==1)
 				n=2;
+			
+			/*int n=(int) (nodeDistance/len)+1;
+			if(n==1)
+				n=2;
+			//stretching the normal length
+			len=nodeDistance/(n-1);*/
 
 			for(int k=0;k<n;k++){
 
@@ -269,7 +275,7 @@ public class SPLine implements Cloneable{
 
 	}
 	
-	public void calculate3DMeshes() {
+	public void oldCalculate3DMeshes() {
 
 		meshes3D=new ArrayList<PolygonMesh>();
 
@@ -333,7 +339,7 @@ public class SPLine implements Cloneable{
 	 * Using FFD algorithm =Free Form Deformation
 	 * 
 	 */	
-	public void calculateStretched3DMeshes() {
+	public void calculate3DMeshes() {
 
 		meshes3D=new ArrayList<PolygonMesh>();
 
@@ -382,20 +388,17 @@ public class SPLine implements Cloneable{
 				int l=1;
 				int m=1;
 				int n=1;
-				int deltax=clonedMesh.getXLen();
-				int deltay=clonedMesh.getYLen();
-				int deltaz=clonedMesh.getZLen();
+				double deltax=clonedMesh.getXLen();
+				double deltay=clonedMesh.getYLen();
+				//double deltay=prevRib.getLength();
+				double deltaz=clonedMesh.getZLen();
 				
-				Point3D xVersor=p1.substract(p0).calculateVersor();
-				Point3D yVersor=p3.substract(p0).calculateVersor();
-				Point3D zVersor=p4.substract(p0).calculateVersor();
 				Point3D origin=p0;
 				
 				FreeFormDeformation ffd=new FreeFormDeformation(
 						l, m, n, 
 						deltax, deltay, deltaz,
 						nonNormalizedControlPoints, 
-						xVersor,yVersor,zVersor,
 						origin);
 				
 				for (int k = 0; k < clonedXpoints.length; k++) {
