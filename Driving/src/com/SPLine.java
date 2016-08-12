@@ -14,7 +14,6 @@ public class SPLine implements Cloneable{
 	private ArrayList<PolygonMesh> meshes3D=new ArrayList<PolygonMesh>();
 	
 	private int level=Road.ROAD_LEVEL;
-
 	
 	public SPLine(ArrayList<Point3D> vTexturePoints){
 		
@@ -68,6 +67,8 @@ public class SPLine implements Cloneable{
 					EditorData.splinesMeshes[index].getDeltaY();
 
 			double dz=EditorData.splinesMeshes[index].getDeltaY();
+			
+			String description=EditorData.splinesMeshes[index].getDescription();
 
 			double prevX=previousNode.x;
 			double prevY=previousNode.y;
@@ -153,8 +154,9 @@ public class SPLine implements Cloneable{
 				nodeRibs.add(rib);	
 				//System.out.println(rib[0]+","+rib[1]+","+rib[2]+","+rib[3]+",");  
 
-		
-				rib.translate(0,0,-dz);
+				//not all the splines are road spline, they' don't need to be translated!
+				if(description==null || description.length()==0 || description.toLowerCase().indexOf("road")>=0)
+					rib.translate(0,0,-dz);
 			}
 			
 		}
@@ -330,7 +332,7 @@ public class SPLine implements Cloneable{
 	 * Using FFD algorithm =Free Form Deformation
 	 * 
 	 */	
-	public void fCalculate3DMeshes() {
+	public void calculateStretched3DMeshes() {
 
 		meshes3D=new ArrayList<PolygonMesh>();
 
