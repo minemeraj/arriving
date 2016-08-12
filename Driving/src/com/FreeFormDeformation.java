@@ -9,11 +9,11 @@ public class FreeFormDeformation {
 	/** Lattice z points**/
 	private int n;
 	
-	/** Lattice x step**/
+	/** Lattice x size**/
 	private double deltax;
-	/** Lattice y step**/
+	/** Lattice y size**/
 	private double deltay;
-	/** Lattice z step**/
+	/** Lattice z size**/
 	private double deltaz;
 
 	/**lattice coordinates in [0,1]**/
@@ -34,7 +34,14 @@ public class FreeFormDeformation {
 	 * @param nonNormalizedControlPoints
 	 * @param origin
 	 */
-	public FreeFormDeformation(int l, int m, int n,double deltax,double deltay,double deltaz, Point3D[][][] nonNormalizedControlPoints,Point3D origin) {
+	public FreeFormDeformation(int 
+			l, int m, int n,
+			double deltax,double deltay,double deltaz, 
+			Point3D[][][] nonNormalizedControlPoints,
+			Point3D xVersor,
+			Point3D yVersor,
+			Point3D zVersor,			
+			Point3D origin) {
 		super();
 		this.l = l;
 		this.m = m;
@@ -52,13 +59,18 @@ public class FreeFormDeformation {
 			for (int j = 0; j <= m; j++) {
 				for (int k = 0; k <= n; k++) {
 					
-					Point3D nnp = nonNormalizedControlPoints[i][j][k];
+					Point3D onnp = nonNormalizedControlPoints[i][j][k];
+					Point3D nnp =onnp.substract(origin);
+					
+					double px=Point3D.calculateDotProduct(nnp, xVersor);
+					double py=Point3D.calculateDotProduct(nnp, yVersor);
+					double pz=Point3D.calculateDotProduct(nnp, zVersor);
 					
 					this.normalizedControlPoints[i][j][k]=
 							new Point3D(
-								(nnp.x-origin.x)/deltax,			
-								(nnp.y-origin.y)/deltay,
-								(nnp.z-origin.z)/deltaz
+								px/deltax,			
+								py/deltay,
+								pz/deltaz
 					);
 				}
 
