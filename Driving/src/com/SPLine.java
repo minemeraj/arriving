@@ -111,17 +111,11 @@ public class SPLine implements Cloneable{
 			calculateRingCenter(lnextd,rnextd,wid,dz,nextNode);
 			calculateRingCenter(lprevd,rprevd,wid,dz,previousNode);
 			
-
 			int n=(int) (nodeDistance/len)+1;
-
-			if(n==1)
-				n=2;
-			
-			/*int n=(int) (nodeDistance/len)+1;
 			if(n==1)
 				n=2;
 			//stretching the normal length
-			len=nodeDistance/(n-1);*/
+			len=nodeDistance/(n-1);
 
 			for(int k=0;k<n;k++){
 
@@ -135,7 +129,7 @@ public class SPLine implements Cloneable{
 						continue;
 					}	
 
-					l=1.0;
+					//l=1.0;
 
 				}	
 
@@ -390,7 +384,6 @@ public class SPLine implements Cloneable{
 				int n=1;
 				double deltax=clonedMesh.getXLen();
 				double deltay=clonedMesh.getYLen();
-				//double deltay=prevRib.getLength();
 				double deltaz=clonedMesh.getZLen();
 				
 				Point3D origin=p0;
