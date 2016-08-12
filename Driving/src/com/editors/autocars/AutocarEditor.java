@@ -2478,7 +2478,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 	private void saveAutocars(File file) {
 
-		PrintWriter pw;
+		PrintWriter pw=null;
 		try {
 			pw = new PrintWriter(file);
 			
@@ -2536,10 +2536,13 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 			}
 
-			pw.close();
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if(pw!=null)
+				pw.close();
 		}
 	}
 
@@ -2818,7 +2821,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 		autocarsData = new ArrayList<AutocarData>();
 		autolinesData=new ArrayList<LinkedList>();
 
-		BufferedReader br;
+		BufferedReader br=null;
 		try {
 			br = new BufferedReader(new FileReader(file));
 
@@ -2873,9 +2876,7 @@ public class AutocarEditor extends Editor implements MouseListener,
 
 				}
 
-			}
-
-			br.close();
+			}			
 
 			setSelectionModels();
 			
@@ -2885,6 +2886,15 @@ public class AutocarEditor extends Editor implements MouseListener,
 		} catch (Exception e) {
 
 			e.printStackTrace();
+		} finally{
+			
+			if(br!=null)
+				try {
+					br.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		}
 
 	}
