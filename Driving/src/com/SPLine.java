@@ -325,6 +325,97 @@ public class SPLine implements Cloneable{
 		}
 	}
 	
+	/**
+	 * 
+	 * Using FFD algorithm =Free Form Deformation
+	 * 
+	 */	
+	public void calculate3DStretchedMeshes() {
+
+		meshes3D=new ArrayList<PolygonMesh>();
+
+
+		for (int j = 0;j < ribs.size(); j++) {
+
+			ArrayList<Rib> nodeRibs=(ArrayList<Rib>)ribs.get(j);
+
+			for (int i = 0;i < nodeRibs.size()-1; i++) {
+
+				Rib prevRib= (Rib) nodeRibs.get(i);
+				Rib nextRib= (Rib) nodeRibs.get(i+1);
+
+				Point4D p0=prevRib.getPoints()[0];
+				Point4D p1=prevRib.getPoints()[1];
+				Point4D p2=nextRib.getPoints()[1];
+				Point4D p3=nextRib.getPoints()[0];
+
+
+				Point4D p4=prevRib.getPoints()[3];
+				Point4D p5=prevRib.getPoints()[2];
+				Point4D p6=nextRib.getPoints()[2];
+				Point4D p7=nextRib.getPoints()[3];
+
+				//Box points=  reference points
+					
+				Point3D[][][] nonNormalizedControlPoints=new Point3D[2][2][2];
+				nonNormalizedControlPoints[0][0][0]=p0;
+				nonNormalizedControlPoints[1][0][0]=p1;
+				nonNormalizedControlPoints[1][1][0]=p2;
+				nonNormalizedControlPoints[0][1][0]=p3;
+				nonNormalizedControlPoints[0][0][1]=p4;
+				nonNormalizedControlPoints[1][0][1]=p5;
+				nonNormalizedControlPoints[1][1][1]=p6;
+				nonNormalizedControlPoints[0][1][1]=p7;
+				
+				
+				//original points, to deform
+				CubicMesh clonedMesh = EditorData.splinesMeshes[prevRib.getIndex()].clone();
+				double[] clonedXpoints = clonedMesh.xpoints;
+				double[] clonedYpoints = clonedMesh.ypoints;
+				double[] clonedZpoints = clonedMesh.zpoints;
+				
+				int l=2;
+				int m=2;
+				int n=2;
+				int deltax=clonedMesh.getXLen();
+				int deltay=clonedMesh.getYLen();
+				int deltaz=clonedMesh.getZLen();
+				Point3D origin=null;
+				
+				FreeFormDeformation ffd=new FreeFormDeformation(l, m, n, deltax, deltay, deltaz,nonNormalizedControlPoints, origin);
+				for (int k = 0; k < clonedXpoints.length; k++) {
+					
+					Point3D pIn=new Point3D(clonedXpoints[k],clonedYpoints[k],clonedZpoints[k]);
+					Point3D pOut=ffd.getDeformedPoint(pIn);		
+					
+					clonedXpoints[k]=pOut.getX();
+					clonedYpoints[k]=pOut.getY();
+					clonedZpoints[k]=pOut.getZ();
+				}
+				
+				
+				
+				//Original polygon data
+				ArrayList<LineData> polygonData= EditorData.splinesMeshes[prevRib.getIndex()].polygonData;
+				ArrayList<LineData> nPolygonData=new ArrayList<LineData>();
+
+
+				for (int kj = 0; kj < polygonData.size(); kj++) {
+
+					LineData ld = ((LineData) polygonData.get(kj)).clone();
+
+					ld.setTexture_index(prevRib.getIndex());
+					nPolygonData.add(ld);
+				}
+
+				PolygonMesh mesh=new PolygonMesh(clonedXpoints,clonedYpoints,clonedZpoints,nPolygonData);
+				mesh.setTexturePoints(vTexturePoints);
+				mesh.setLevel(getLevel());
+				meshes3D.add(mesh);
+			}
+		}
+	}
+	
 	public void update(){
 		
 		calculateRibs();

@@ -2,22 +2,38 @@ package com;
 
 public class FreeFormDeformation {
 
-	int l;
-	int m;
-	int n;
+	/** Lattice x points**/
+	private int l;
+	/** Lattice y points**/
+	private int m;
+	/** Lattice z points**/
+	private int n;
 	
-	double deltax;
-	double deltay;
-	double deltaz;
+	/** Lattice x step**/
+	private double deltax;
+	/** Lattice y step**/
+	private double deltay;
+	/** Lattice z step**/
+	private double deltaz;
 
-	//lattice coordinates in [0,1]
-	Point3D[][][] normalizedControlPoints=null;
+	/**lattice coordinates in [0,1]**/
+	private Point3D[][][] normalizedControlPoints=null;
 	
-	Point3D origin=null;
+	private Point3D origin=null;
 	
-	boolean debug=false;
+	private boolean debug=false;
 
-
+	/**
+	 * 
+	 * @param l
+	 * @param m
+	 * @param n
+	 * @param deltax
+	 * @param deltay
+	 * @param deltaz
+	 * @param nonNormalizedControlPoints
+	 * @param origin
+	 */
 	public FreeFormDeformation(int l, int m, int n,double deltax,double deltay,double deltaz, Point3D[][][] nonNormalizedControlPoints,Point3D origin) {
 		super();
 		this.l = l;
@@ -103,7 +119,7 @@ public class FreeFormDeformation {
 	}
 
 
-	public Point3D getDeformedPointComponent(Point3D p){
+	private Point3D getDeformedPointComponent(Point3D p){
 
 		Point3D pd=new Point3D();
 

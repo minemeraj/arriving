@@ -274,4 +274,16 @@ public class CubicMesh extends PolygonMesh{
         return new Point3D(x,y,0);
 	}
 
+	public int getXLen() {
+		return getDeltaX2()-getDeltaX();
+	}
+
+	public int getYLen() {
+		return getDeltaY2()-getDeltaY();
+	}
+
+	public int getZLen() {
+		return getDeltaX();
+	}
+
 }
