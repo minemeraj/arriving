@@ -330,11 +330,13 @@ public class SPLine implements Cloneable{
 	 * Using FFD algorithm =Free Form Deformation
 	 * 
 	 */	
-	public void calculate3DStretchedMeshes() {
+	public void fCalculate3DMeshes() {
 
 		meshes3D=new ArrayList<PolygonMesh>();
 
-
+		/*Array to reuse, so out of the cycle*/
+		Point3D[][][] nonNormalizedControlPoints=new Point3D[2][2][2];
+		
 		for (int j = 0;j < ribs.size(); j++) {
 
 			ArrayList<Rib> nodeRibs=(ArrayList<Rib>)ribs.get(j);
@@ -357,7 +359,7 @@ public class SPLine implements Cloneable{
 
 				//Box points=  reference points
 					
-				Point3D[][][] nonNormalizedControlPoints=new Point3D[2][2][2];
+				
 				nonNormalizedControlPoints[0][0][0]=p0;
 				nonNormalizedControlPoints[1][0][0]=p1;
 				nonNormalizedControlPoints[1][1][0]=p2;
@@ -383,7 +385,7 @@ public class SPLine implements Cloneable{
 				
 				Point3D xVersor=p1.substract(p0).calculateVersor();
 				Point3D yVersor=p3.substract(p0).calculateVersor();
-				Point3D zVersor=p7.substract(p0).calculateVersor();
+				Point3D zVersor=p4.substract(p0).calculateVersor();
 				Point3D origin=p0;
 				
 				FreeFormDeformation ffd=new FreeFormDeformation(
@@ -394,9 +396,8 @@ public class SPLine implements Cloneable{
 						origin);
 				
 				for (int k = 0; k < clonedXpoints.length; k++) {
-					
-					Point3D pIn=new Point3D(clonedXpoints[k],clonedYpoints[k],clonedZpoints[k]);
-					Point3D pOut=ffd.getDeformedPoint(pIn);		
+
+					Point3D pOut=ffd.getDeformedPoint(clonedXpoints[k]+origin.x,clonedYpoints[k]+origin.y,clonedZpoints[k]+origin.z);		
 					
 					clonedXpoints[k]=pOut.getX();
 					clonedYpoints[k]=pOut.getY();

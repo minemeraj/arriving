@@ -1,5 +1,7 @@
 package com.editors.models;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.PrintWriter;
 import java.util.Vector;
@@ -186,6 +188,9 @@ public class FFDTestModel extends MeshModel{
 
 	@Override
 	public void printTexture(Graphics2D bufGraphics) {
+		
+		bufGraphics.setColor(Color.BLACK);
+		bufGraphics.setStroke(new BasicStroke(0.1f));
 
 		for (int i = 0; i < faces.length; i++) {
 			
