@@ -374,16 +374,16 @@ public class SPLine implements Cloneable{
 				double[] clonedYpoints = clonedMesh.ypoints;
 				double[] clonedZpoints = clonedMesh.zpoints;
 				
-				int l=2;
-				int m=2;
-				int n=2;
+				int l=1;
+				int m=1;
+				int n=1;
 				int deltax=clonedMesh.getXLen();
 				int deltay=clonedMesh.getYLen();
 				int deltaz=clonedMesh.getZLen();
 				
-				Point3D xVersor=p1.substract(p0);
-				Point3D yVersor=p3.substract(p0);
-				Point3D zVersor=p7.substract(p0);
+				Point3D xVersor=p1.substract(p0).calculateVersor();
+				Point3D yVersor=p3.substract(p0).calculateVersor();
+				Point3D zVersor=p7.substract(p0).calculateVersor();
 				Point3D origin=p0;
 				
 				FreeFormDeformation ffd=new FreeFormDeformation(
@@ -392,6 +392,7 @@ public class SPLine implements Cloneable{
 						nonNormalizedControlPoints, 
 						xVersor,yVersor,zVersor,
 						origin);
+				
 				for (int k = 0; k < clonedXpoints.length; k++) {
 					
 					Point3D pIn=new Point3D(clonedXpoints[k],clonedYpoints[k],clonedZpoints[k]);

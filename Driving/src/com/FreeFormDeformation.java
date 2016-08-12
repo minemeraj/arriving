@@ -2,11 +2,11 @@ package com;
 
 public class FreeFormDeformation {
 
-	/** Lattice x points**/
+	/** Lattice x units**/
 	private int l;
-	/** Lattice y points**/
+	/** Lattice y units**/
 	private int m;
-	/** Lattice z points**/
+	/** Lattice z units**/
 	private int n;
 	
 	/** Lattice x size**/
@@ -15,6 +15,10 @@ public class FreeFormDeformation {
 	private double deltay;
 	/** Lattice z size**/
 	private double deltaz;
+	
+	Point3D xVersor=null;
+	Point3D yVersor=null;
+	Point3D zVersor=null;
 
 	/**lattice coordinates in [0,1]**/
 	private Point3D[][][] normalizedControlPoints=null;
@@ -34,7 +38,7 @@ public class FreeFormDeformation {
 	 * @param nonNormalizedControlPoints
 	 * @param origin
 	 */
-	public FreeFormDeformation(int 
+	FreeFormDeformation(int 
 			l, int m, int n,
 			double deltax,double deltay,double deltaz, 
 			Point3D[][][] nonNormalizedControlPoints,
@@ -51,6 +55,12 @@ public class FreeFormDeformation {
 		this.deltax = deltax;
 		this.deltay = deltay;
 		this.deltaz = deltaz;	
+		
+		this.xVersor = xVersor;
+		this.yVersor = yVersor;
+		this.zVersor = zVersor;
+		
+		this.origin = origin;
 		
 		
 		this.normalizedControlPoints =  new Point3D[l+1][m+1][n+1];
@@ -78,6 +88,17 @@ public class FreeFormDeformation {
 		}
 	}
 
+	/**
+	 * Test function which builds a standard lattice
+	 * 
+	 * @param l
+	 * @param m
+	 * @param n
+	 * @param deltax
+	 * @param deltay
+	 * @param deltaz
+	 * @param origin
+	 */
 	public FreeFormDeformation(int l, int m, int n,double deltax,double deltay,double deltaz,Point3D origin) {
 
 		this.l = l;
@@ -89,6 +110,10 @@ public class FreeFormDeformation {
 		this.deltax = deltax;
 		this.deltay = deltay;
 		this.deltaz = deltaz;
+		
+		xVersor=new Point3D(1.0,0.0,0.0);
+		yVersor=new Point3D(0.0,1.0,0.0);
+		zVersor=new Point3D(0.0,0.0,1.0);
 
 		for (int i = 0; i <= l; i++) {
 			for (int j = 0; j <= m; j++) {
@@ -105,26 +130,27 @@ public class FreeFormDeformation {
 		}
 	}
 	
-	public Point3D getDeformedPoint(Point3D p){
+	Point3D getDeformedPoint(Point3D p){
 		
-		return getDeformedPoint( p,new Point3D(0,0,0));
-	}
-	
-	public Point3D getDeformedPoint(Point3D p,Point3D origin){
+		Point3D nnp =p.substract(origin);
+		
+		double px=Point3D.calculateDotProduct(nnp, xVersor);
+		double py=Point3D.calculateDotProduct(nnp, yVersor);
+		double pz=Point3D.calculateDotProduct(nnp, zVersor);
 
 		Point3D pComponent=new Point3D(
 				
-				(p.x-origin.x)/deltax,
-				(p.y-origin.y)/deltay,
-				(p.z-origin.z)/deltaz
+				px/deltax,
+				py/deltay,
+				pz/deltaz
 		);
 
 		Point3D pd=getDeformedPointComponent(pComponent);
 
 		Point3D pDeformed=new Point3D(
-				deltax*pd.x+origin.x,
-				deltay*pd.y+origin.y,
-				deltaz*pd.z+origin.z
+				deltax*pd.x*(xVersor.x)+deltay*pd.y*(yVersor.x)+deltaz*pd.z*(zVersor.x)+origin.x,
+				deltax*pd.x*(xVersor.y)+deltay*pd.y*(yVersor.y)+deltaz*pd.z*(zVersor.y)+origin.y,
+				deltax*pd.x*(xVersor.z)+deltay*pd.y*(yVersor.z)+deltaz*pd.z*(zVersor.z)+origin.z
 		);
 
 		return pDeformed;
