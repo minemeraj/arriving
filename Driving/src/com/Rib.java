@@ -5,6 +5,8 @@ public class Rib {
 	
 	private Point4D[] points=null;
 	private int index=0;
+	/**length used when stretching splines **/
+	private double length;
 	
 	Rib(int size){
 		points=new Point4D[size];
@@ -33,6 +35,15 @@ public class Rib {
 			points[k].translate(dx, dy, dz);
 		}
 		
+	}
+
+	public void setLength(double len) {
+		this.length=len;
+		
+	}
+	
+	public double getLength(){
+		return length;
 	}
 
 	

@@ -151,6 +151,7 @@ public class SPLine implements Cloneable{
 				rib.getPoints()[2]=new Point4D(x+rnextd.x*wid,y+rnextd.y*wid,z+dzr,LineData.GREEN_HEX,0);	
 				rib.getPoints()[3]=new Point4D(x+lnextd.x*wid,y+lnextd.y*wid,z+dzl,LineData.GREEN_HEX,0);
 				rib.setIndex(previousNode.getIndex());
+				rib.setLength(len);
 				nodeRibs.add(rib);	
 				//System.out.println(rib[0]+","+rib[1]+","+rib[2]+","+rib[3]+",");  
 
