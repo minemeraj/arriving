@@ -2,7 +2,7 @@
 	*  READ ME CARDRIVING VERSION   9.0.10
 	*
 	*  by Piazza Francesco Giovanni 
-	*  Tecnes Milano ,Italy http://www.betacom.it
+	*  Betacom s.rl. ,Italy http://www.betacom.it
 	*	
 	**********************
 		
