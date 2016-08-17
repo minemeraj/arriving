@@ -258,11 +258,12 @@ public class Stand0Model extends MeshModel{
 
 			faces[i+3*NF][0][0]=Renderer3D.CAR_LEFT;
 
+		
+			faces[i+3*NF][1][0]=b+3;
+			faces[i+3*NF][1][1]=b;
+			faces[i+3*NF][1][2]=b+4;
+			faces[i+3*NF][1][3]=b+3+4;
 
-			faces[i+3*NF][1][0]=b;
-			faces[i+3*NF][1][1]=b+4;
-			faces[i+3*NF][1][2]=b+3+4;
-			faces[i+3*NF][1][3]=b+3;
 			
 			faces[i+3*NF][2][0]=c;
 			faces[i+3*NF][2][1]=c+1;
@@ -279,12 +280,20 @@ public class Stand0Model extends MeshModel{
 
 			faces[i+4*NF][0][0]=Renderer3D.CAR_TOP ;
 
-
-			faces[i+4*NF][1][0]=b+4;
-			faces[i+4*NF][1][1]=b+1+4;
-			faces[i+4*NF][1][2]=b+2+4;
-			faces[i+4*NF][1][3]=b+3+4;
-
+			if(i==NF-1){
+				
+				faces[i+4*NF][1][0]=b+3+4;
+				faces[i+4*NF][1][1]=b+4;
+				faces[i+4*NF][1][2]=b+1+4;
+				faces[i+4*NF][1][3]=b+2+4;
+				
+			}else{
+				
+				faces[i+4*NF][1][0]=b+3+4;
+				faces[i+4*NF][1][1]=b+4;
+				faces[i+4*NF][1][2]=b+8;
+				faces[i+4*NF][1][3]=b+8+3;
+			}
 			faces[i+4*NF][2][0]=c;
 			faces[i+4*NF][2][1]=c+1;
 			faces[i+4*NF][2][2]=c+2;
