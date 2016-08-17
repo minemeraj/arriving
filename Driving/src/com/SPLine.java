@@ -156,7 +156,7 @@ public class SPLine implements Cloneable{
 				//System.out.println(rib[0]+","+rib[1]+","+rib[2]+","+rib[3]+",");  
 
 				//not all the splines are road spline, they' don't need to be translated!
-				if(description==null || description.length()==0 || description.toLowerCase().indexOf("road")>=0)
+				if(description!=null && description.toLowerCase().indexOf("road")>=0)
 					rib.translate(0,0,-dz);
 			}
 			
