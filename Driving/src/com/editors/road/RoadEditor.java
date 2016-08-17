@@ -4211,7 +4211,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			for (int i = 0; i < pSize; i++) {
 				
-				DrawObject dro = drawObjects.get(i);
+				DrawObject dro = piledObjects.get(i);
 				
 				if(i==0){
 					x0=dro.getX();
