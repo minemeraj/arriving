@@ -402,9 +402,9 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
 						0,0,0,0);//dx2,dy2,dz2,dy3
 			}
 			else if(STAND0==val){
-				setRightData(300,200,50,//dx,dy,dz
+				setRightData(271,1328,26,//dx,dy,dz
 						0,//roof_height
-						0,0,200,//dx1,dy1,dz1
+						0,0,26*13,//dx1,dy1,dz1
 						0,//num_meridians
 						0,0,0,0);//dx2,dy2,dz2,dy3
 			}

@@ -10,7 +10,7 @@ import com.Point3D;
 import com.main.Renderer3D;
 /**
  * 
- * STAND ASCENDING IN Y DIRECTION
+ * STAND ASCENDING IN X DIRECTION
  * @author francesco
  *
  */
@@ -71,45 +71,43 @@ public class Stand0Model extends MeshModel{
 		int numSteps=(int) (dz1/dz0);
 
 		double dzStep=dz0;
-		double dyStep=dy/numSteps;
+		double dxStep=dx/numSteps;
 
 		//lower and upper base
 		for(int k=0;k<numSteps;k++){
 
 	
-			double x0=0;
-			double y0=dyStep*k;
-			double y1=dy;
+			double x0=dxStep*k;
+			double x1=dx;
+			double y0=0;			
 			double z0=dzStep*k;
 			double z1=dzStep*(k+1);
 			
 
 			//lower step base
 			addPoint(x0,y0,z0);
-			addPoint(x0+dx,y0,z0);
-			addPoint(x0+dx,y1,z0);
-			addPoint(x0,y1,z0);
+			addPoint(x1,y0,z0);
+			addPoint(x1,y0+dy,z0);
+			addPoint(x0,y0+dy,z0);
 
 			//upper step base
 			addPoint(x0,y0,z1);
-			addPoint(x0+dx,y0,z1);
-			addPoint(x0+dx,y1,z1);
-			addPoint(x0,y1,z1);
+			addPoint(x1,y0,z1);
+			addPoint(x1,y0+dy,z1);
+			addPoint(x0,y0+dy,z1);
 
 		}
 
 
 		texturePoints=new Vector<Point3D>();
 
-		//bottom?
-
 		
-		//left
+		//back
 		for(int k=0;k<numSteps;k++){
 
-			double x0=bx; 
-			double x1=bx+dy-dyStep*k;
-			double y=(by+dy)+dzStep*k;
+			double x0=bx+dxStep*k;
+			double x1=bx+dx;
+			double y=(by+dx)+dzStep*k;
 
 
 			addTPoint(x0,y,0);
@@ -118,16 +116,44 @@ public class Stand0Model extends MeshModel{
 			addTPoint(x0,y+dzStep,0);
 		}
 
-		//body back
+		//right
+		
+		for(int k=0;k<numSteps;k++){
+
+			double x=bx+dx;
+			double y=(by+dx)+k*dzStep;
+
+			addTPoint(x,y,0);
+			addTPoint(x+dy,y,0);
+			addTPoint(x+dy,y+dzStep,0);
+			addTPoint(x,y+dzStep,0);
+		}
+		
+		//front
+		
+		for(int k=0;k<numSteps;k++){
+
+			double x0=bx+dy+dx;
+			double x1=bx+dy+dx+dx-k*dxStep;
+			double y=(by+dx)+dzStep*k;
+
+
+			addTPoint(x0,y,0);
+			addTPoint(x1,y,0);
+			addTPoint(x1,y+dzStep,0);
+			addTPoint(x0,y+dzStep,0);
+		}
+		
+		//left
 
 		for(int k=0;k<numSteps;k++){
 
-			double x=bx+dy;
-			double y=(by+dy)+k*2*dzStep;
+			double x=bx+dx;
+			double y=(by+dx+dz1)+k*2*dzStep;
 
 			addTPoint(x,y,0);
-			addTPoint(x+dx,y,0);
-			addTPoint(x+dx,y+dzStep,0);
+			addTPoint(x+dy,y,0);
+			addTPoint(x+dy,y+dzStep,0);
 			addTPoint(x,y+dzStep,0);
 
 		}
@@ -135,53 +161,25 @@ public class Stand0Model extends MeshModel{
 		//top side
 		for(int k=0;k<numSteps;k++){
 
-			double x=bx+dy;
-			double y=(by+dy)+k*2*dzStep+dzStep;
+			double x=bx+dx;
+			double y=(by+dx+dz1)+k*2*dzStep+dzStep;
 
 			addTPoint(x,y,0);
-			addTPoint(x+dx,y,0);
-			addTPoint(x+dx,y+dzStep,0);
+			addTPoint(x+dy,y,0);
+			addTPoint(x+dy,y+dzStep,0);
 			addTPoint(x,y+dzStep,0);
 		}
 
-		//right
-		for(int k=0;k<numSteps;k++){
-
-			double x0=bx+dy+dx+k*dyStep;
-			double x1=bx+dy+dx+dy;
-			double y=(by+dy)+dzStep*k;
-
-
-			addTPoint(x0,y,0);
-			addTPoint(x1,y,0);
-			addTPoint(x1,y+dzStep,0);
-			addTPoint(x0,y+dzStep,0);
-		}
-
-
-		//body front
-
-		for(int k=0;k<numSteps;k++){
-
-			double x=bx+dy+dx+dy;
-			double y=(by+dy)+k*dzStep;
-
-			//front
-			addTPoint(x,y,0);
-			addTPoint(x+dx,y,0);
-			addTPoint(x+dx,y+dzStep,0);
-			addTPoint(x,y+dzStep,0);
-		}
 		
 		//bottom
 
-		double xx=bx+dy;
+		double xx=bx+dx;
 		double yy=by;
 
 		addTPoint(xx,yy,0);
-		addTPoint(xx+dx,yy,0);
-		addTPoint(xx+dx,yy+dy,0);
-		addTPoint(xx,yy+dy,0);
+		addTPoint(xx+dy,yy,0);
+		addTPoint(xx+dy,yy+dx,0);
+		addTPoint(xx,yy+dx,0);
 		
 		int NF=numSteps;
 		faces=new int[5*NF+1][3][4];
@@ -309,8 +307,8 @@ public class Stand0Model extends MeshModel{
 		faces[5*NF][2][2]=cf+2;
 		faces[5*NF][2][3]=cf+3;
 
-		IMG_WIDTH=(int) (2*bx+2*dy+2*dx);
-		IMG_HEIGHT=(int) (2*by+dy+dz1*2);
+		IMG_WIDTH=(int) (2*bx+dy+2*dx);
+		IMG_HEIGHT=(int) (2*by+dx+dz1*3);
 	}
 
 
@@ -366,7 +364,7 @@ public class Stand0Model extends MeshModel{
 		}
 
 		//front side
-		 bg.setColor(Color.CYAN);
+		 bg.setColor(Color.ORANGE);
 		for (int i = 0; i < NF; i++) {
 
 			int b=NF*16+i*4;
