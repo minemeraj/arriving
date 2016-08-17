@@ -254,6 +254,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JMenuItem mass_modify_jmt;
 	private JMenuItem jmt_faster_motion;
 	private JMenuItem jmt_slower_motion;
+	private JMenuItem pile_objects_jmt;
 
 	
 	
@@ -714,6 +715,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		mass_modify_jmt=new JMenuItem("Mass modify");
 		mass_modify_jmt.addActionListener(this);		
 		other_jm.add(mass_modify_jmt);
+		
+		pile_objects_jmt=new JMenuItem("Pile objects");
+		pile_objects_jmt.addActionListener(this);		
+		other_jm.add(pile_objects_jmt);
 		
 		help_jm=new JMenu("Help");
 		help_jm.addMenuListener(this);		
@@ -2591,10 +2596,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			changeMotionIncrement(+1);
 		}else if(obj==jmt_slower_motion){
 			changeMotionIncrement(-1);
+		}else if(obj==pile_objects_jmt && mode==OBJECT_MODE){
+			pileSelectedObjects();
 		}
-		
-		
 	}
+
 
 
 	private void changeMotionIncrement(int i) {
@@ -4171,6 +4177,62 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			deselectAllObjects();
 			deselectAllSPNodes();
 			
+			draw();
+		}
+	}
+	
+	
+
+	private void pileSelectedObjects() {
+		int oSize=drawObjects.size();
+
+		ArrayList<DrawObject> piledObjects=new ArrayList<DrawObject>();
+		for (int i = 0; i <oSize ; i++) {
+			
+			DrawObject dro=drawObjects.get(i);
+			
+			if(dro.isSelected()){
+				
+				piledObjects.add(dro);
+			}
+		}		
+		
+		if(piledObjects.size()<2){
+			JOptionPane.showMessageDialog(this,"Select at least 2 ojects","Error",JOptionPane.WARNING_MESSAGE);
+		}else{
+			
+			prepareUndoObjects();
+			
+			int pSize=piledObjects.size();
+			double x0=0;
+			double y0=0;
+			double z0=0;
+			double dz0=0;
+			
+			for (int i = 0; i < pSize; i++) {
+				
+				DrawObject dro = drawObjects.get(i);
+				
+				if(i==0){
+					x0=dro.getX();
+					y0=dro.getY();
+					z0=dro.getZ();
+					dz0=dro.getDz();
+					
+				}else{
+					
+					dro.setX(x0);
+					dro.setY(y0);
+					dro.setZ(z0+dz0);
+					
+					z0=dro.getZ();
+					dz0=dro.getDz();
+					
+					setObjectMesh(dro);
+				}
+			}
+			
+			deselectAllObjects();
 			draw();
 		}
 	}

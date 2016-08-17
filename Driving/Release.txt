@@ -5,6 +5,8 @@ Introducing a new spline for the stands:
 See for the first attempt:
 landscape_indy
 
+New function in the road editor:
+Other>Pile objects
 
 --- 13/08/2016 CarDriving 10.0.0 - Monza
 
