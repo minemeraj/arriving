@@ -1,4 +1,5 @@
 Redoing the Stand0 objects.
+rdoing of the object /lib/object3D_6 (Building tower)
 
 Introducing a new spline for the stands:
 /lib/spline_mesh_7

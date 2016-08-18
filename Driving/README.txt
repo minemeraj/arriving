@@ -1,5 +1,5 @@
 	**********************
-	*  READ ME CARDRIVING VERSION   9.0.10
+	*  READ ME CARDRIVING VERSION   10.0.1
 	*
 	*  by Piazza Francesco Giovanni 
 	*  Betacom s.rl. ,Italy http://www.betacom.it
@@ -579,7 +579,7 @@
 	building block_3=15.4m x 30.8m x 23.1m 
 	building block_4=7.7m x 23.1m x 15.4m 
 	building block_5=23.1m x 23.1m x 15.4m 
-	building block_6(tower) radius=3.8m, h=15.4m 
+	building block_6(tower) radius=7.7m, h=30.8m
 	
 	skyscraper_0=20X40X100m (Torre Breda Milano)
 	skyscraper_1=25X26X50m
