@@ -1039,7 +1039,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			pointList.setEnabled(false);
 			moveListPointDown.setEnabled(false);
 			moveListPointUp.setEnabled(false);
-			addNewLine.setEnabled(false);
+			addNewLine.setEnabled(true);
 			emptyPointsList();
 			
 		}else{
