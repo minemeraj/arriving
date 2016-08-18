@@ -1,3 +1,6 @@
+new object:
+/lib/object3D_31 (Airplane)
+
 Redoing the Stand0 objects.
 rdoing of the object /lib/object3D_6 (Building tower)
 
