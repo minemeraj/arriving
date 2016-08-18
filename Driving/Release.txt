@@ -6,6 +6,10 @@ Introducing a new spline for the stands:
 See for the first attempt:
 landscape_indy
 
+New landscape
+/lib/landscape_airport
+based on the real Linate airport of Milano, Italy.
+
 New function in the road editor:
 Other>Pile objects
 

@@ -588,4 +588,8 @@
 	Church0 based on Santa Maria del Suffragio, Milan
 	cross:length=68m, width=12m, facade height=17m
 	
+	--On the landscapes:
+	
+	/lib/landscape_airport based on the real Linate airport of Milano, Italy.
+	
 	
