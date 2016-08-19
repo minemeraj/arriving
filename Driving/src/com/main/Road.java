@@ -1174,14 +1174,16 @@ public class Road extends Shader{
 	
 
 		//cast this way to cut off very small speeds
-		/*
-		int NEW_POSY=POSY+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dy-SCREEN_DISTANCE*(Math.cos(carDynamics.dpsi)-1.0));
-		int NEW_POSX=POSX+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dx-SCREEN_DISTANCE*Math.sin(carDynamics.dpsi));
-		*/
 		
+		int NEW_POSY=POSY+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dy-WIDTH*0.5*Math.sin(-carDynamics.dpsi));
+		int NEW_POSX=POSX+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dx-WIDTH*0.5*(Math.cos(carDynamics.dpsi)-1.0));
+	
+		
+		/* original steering:
 		int NEW_POSY=POSY+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dy);
 		int NEW_POSX=POSX+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dx);
-			
+		*/
+		
 		setViewDirection(getViewDirection()-carDynamics.dpsi);
 		CarFrame.setMovingAngle(getViewDirection());
 

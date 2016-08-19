@@ -16,6 +16,8 @@ based on the real Linate airport of Milano, Italy.
 New function in the road editor:
 Other>Pile objects
 
+Slight correction on the steering movement.
+
 --- 13/08/2016 CarDriving 10.0.0 - Monza
 
 Introducing FFD (Free Form Deformation) splines.
