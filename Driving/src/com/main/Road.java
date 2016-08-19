@@ -52,6 +52,19 @@ import com.editors.road.RoadEditor;
  * 
  * The car in SCS is always at center, just beyond the screen in y with an edge 5.
  * As a matter of fact, the car and screen are fixed together.
+ * 
+ *  To "simplify calculation", on loading everything at the start is scaled and translated by 
+ * 	x1=SCALE*x0-XFOCUS;
+ *	y1=SCALE*y0+SCREEN_DISTANCE;
+ *	z1=SCALE*z0-YFOCUS;	
+ *	excepted the meshes, which are only scaled.
+ *
+ * Another exception is the main car mesh, which on loading is translated:
+ * (WIDTH/2-CAR_WIDTH/2-XFOCUS,y_edge,-YFOCUS)
+ * these are its SCS coordinates combined with the translation on loading.
+ * 
+ * Then, on drawing, the car mesh is roto-transformed.
+ *
  *
  * To change the template for this generated file go to
  * Window - Preferences - Java - Code Generation - Code and Comments
@@ -481,7 +494,7 @@ public class Road extends Shader{
         	zVersor=rotate(carRot,zVersor);
         	zMinusVersor=rotate(carRot,zMinusVersor);
         	
-        	rotoTranslate(carRot,cm,dx,dy,dz);
+        	rotoTransform(carRot,cm,dx,dy,dz);
         } 
         
        
@@ -516,16 +529,28 @@ public class Road extends Shader{
 	}
 
 
-	private Point3D rotoTranslate(double[][] rot, 
+	private Point3D rotoTransform(double[][] rot, 
 
 			Point3D p, 			
 			double dx,double dy, double dz) {
 
 
-		return rotoTranslate(rot, p.x,  p.y,  p.z, dx, dy,  dz);
+		return rotoTransform(rot, p.x,  p.y,  p.z, dx, dy,  dz);
 	}
 
-	private Point3D rotoTranslate(double[][] rot, 
+	/**
+	 * Translate the point, rotate it, the anti-translate it back
+	 * 
+	 * @param rot
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @param dx
+	 * @param dy
+	 * @param dz
+	 * @return
+	 */
+	private Point3D rotoTransform(double[][] rot, 
 
 			double x, double y,double z, 			
 			double dx,double dy, double dz) {
@@ -1570,7 +1595,7 @@ public class Road extends Shader{
 	        	zVersor=rotate(aRotation,zVersor);
 	        	zMinusVersor=rotate(aRotation,zMinusVersor);
 	        	
-	        	rotoTranslate(aRotation,cm,dx,dy,dz);
+	        	rotoTransform(aRotation,cm,dx,dy,dz);
 	        	
 	
 			}
@@ -1586,21 +1611,21 @@ public class Road extends Shader{
 		
 	}
 
-	private void rotoTranslate(double[][] aRotation, CubicMesh cm, double dx,
+	private void rotoTransform(double[][] aRotation, CubicMesh cm, double dx,
 			double dy, double dz) {
 		
-		cm.point000=rotoTranslate(aRotation,cm.point000,dx,dy,dz);
-		cm.point011=rotoTranslate(aRotation,cm.point011,dx,dy,dz);				
-		cm.point001=rotoTranslate(aRotation,cm.point001,dx,dy,dz);
-		cm.point101=rotoTranslate(aRotation,cm.point101,dx,dy,dz);
-		cm.point110=rotoTranslate(aRotation,cm.point110,dx,dy,dz);
-		cm.point100=rotoTranslate(aRotation,cm.point100,dx,dy,dz);
-		cm.point010=rotoTranslate(aRotation,cm.point010,dx,dy,dz);
-		cm.point111=rotoTranslate(aRotation,cm.point111,dx,dy,dz);
+		cm.point000=rotoTransform(aRotation,cm.point000,dx,dy,dz);
+		cm.point011=rotoTransform(aRotation,cm.point011,dx,dy,dz);				
+		cm.point001=rotoTransform(aRotation,cm.point001,dx,dy,dz);
+		cm.point101=rotoTransform(aRotation,cm.point101,dx,dy,dz);
+		cm.point110=rotoTransform(aRotation,cm.point110,dx,dy,dz);
+		cm.point100=rotoTransform(aRotation,cm.point100,dx,dy,dz);
+		cm.point010=rotoTransform(aRotation,cm.point010,dx,dy,dz);
+		cm.point111=rotoTransform(aRotation,cm.point111,dx,dy,dz);
 		
 		for (int j = 0; j < cm.xpoints.length; j++) {
 			
-			Point3D pj=rotoTranslate(aRotation,cm.xpoints[j],cm.ypoints[j],cm.zpoints[j],dx,dy,dz);
+			Point3D pj=rotoTransform(aRotation,cm.xpoints[j],cm.ypoints[j],cm.zpoints[j],dx,dy,dz);
 			cm.xpoints[j]=pj.x;
 			cm.ypoints[j]=pj.y;
 			cm.zpoints[j]=pj.z;
