@@ -42,7 +42,7 @@ import com.editors.road.RoadEditor;
  * Created on 12/apr/08
  * 
  * The screen has lower left point coordinates (0,0,0) in the screen coordinates system (SCS).
- * This is a system centered on the real point (POX,POSY,-MOVZ) and rotated with an angle viewDirection.
+ * This is a system centered on the real point (POX,POSY,-MOVZ) (RCS) and rotated with an angle viewDirection.
  * The transformed world is the real world as seen from the screen system.
  * 
  * The transformed world, as seen from the screen, must have y>0 to be drawn.
@@ -59,12 +59,20 @@ import com.editors.road.RoadEditor;
  *	z1=SCALE*z0-YFOCUS;	
  *	excepted the meshes, which are only scaled.
  *
+ *
  * Another exception is the main car mesh, which on loading is translated:
  * (WIDTH/2-CAR_WIDTH/2-XFOCUS,y_edge,-YFOCUS)
- * these are its SCS coordinates combined with the translation on loading.
- * 
+ * these are its SCS transformed coordinates, combined with the translation on (-XFOCUS,-YFOCUS)
+ * to reduce the calculus. 
  * Then, on drawing, the car mesh is roto-transformed.
- *
+ * 
+ * The true perspective formulas are (applied in the SCS):
+ * x1=(x0-XFOCUS)*(y0+SCREEN_DISTANCE)/SCREEN_DISTANCE+XFOCUS
+ * y1=(z0-YFOCUS)*(y0+SCREEN_DISTANCE)/SCREEN_DISTANCE+YFOCUS 
+ * 
+ * which become, maybe not correctly, after the loading translations:
+ * x1=(x0)*(y0)/SCREEN_DISTANCE+XFOCUS
+ * y1=(z0)*(y0)/SCREEN_DISTANCE+YFOCUS 
  *
  * To change the template for this generated file go to
  * Window - Preferences - Java - Code Generation - Code and Comments
