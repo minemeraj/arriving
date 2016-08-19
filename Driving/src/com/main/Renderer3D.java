@@ -1128,10 +1128,6 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 		return MOVZ;
 	}
 
-	public void setPOSX(int posx) {
-		POSX = posx;
-	}
-
 	public static void showMemoryUsage() {
 
 		MemoryMXBean xbean = ManagementFactory.getMemoryMXBean();

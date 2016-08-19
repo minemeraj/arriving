@@ -40,6 +40,18 @@ import com.editors.road.RoadEditor;
 
 /*
  * Created on 12/apr/08
+ * 
+ * The screen has lower left point coordinates (0,0,0) in the screen coordinates system (SCS).
+ * This is a system centered on the real point (POX,POSY,-MOVZ) and rotated with an angle viewDirection.
+ * The transformed world is the real world as seen from the screen system.
+ * 
+ * The transformed world, as seen from the screen, must have y>0 to be drawn.
+ *  
+ * The perspective center has always coordinates in SCS:
+ * (XFOCUS,-SCREEN_DISTANCE,YFOCUS)
+ * 
+ * The car in SCS is always at center, just beyond the screen in y with an edge 5.
+ * As a matter of fact, the car and screen are fixed together.
  *
  * To change the template for this generated file go to
  * Window - Preferences - Java - Code Generation - Code and Comments
@@ -1129,10 +1141,14 @@ public class Road extends Shader{
 	
 
 		//cast this way to cut off very small speeds
+		/*
+		int NEW_POSY=POSY+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dy-SCREEN_DISTANCE*(Math.cos(carDynamics.dpsi)-1.0));
+		int NEW_POSX=POSX+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dx-SCREEN_DISTANCE*Math.sin(carDynamics.dpsi));
+		*/
+		
 		int NEW_POSY=POSY+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dy);
 		int NEW_POSX=POSX+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dx);
-		
-	
+			
 		setViewDirection(getViewDirection()-carDynamics.dpsi);
 		CarFrame.setMovingAngle(getViewDirection());
 
@@ -1250,7 +1266,7 @@ public class Road extends Shader{
 			Point4D p=new Point4D();
 			
 			
-			//translate world in the point (XFOCUS,SCREEN_DISTANCE,YFOCUS)
+			//translate world in the point (XFOCUS,-SCREEN_DISTANCE,YFOCUS)
 			
 			p.x=SCALE*Double.parseDouble(vals[0])-XFOCUS;
 			p.y=SCALE*Double.parseDouble(vals[1])+SCREEN_DISTANCE;
