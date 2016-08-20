@@ -41,19 +41,21 @@ import com.editors.road.RoadEditor;
 /*
  * Created on 12/apr/08
  * 
- * The screen has lower left point coordinates (0,0,0) in the screen coordinates system (SCS).
- * This is a system centered on the real point (POX,POSY,-MOVZ) (RCS) and rotated with an angle viewDirection.
- * The transformed world is the real world as seen from the screen system.
+ * The reference system is centered on the point of view (RCS). Its real coordinates are (POX,POSY,-MOVZ).
  * 
- * The transformed world, as seen from the screen, must have y>0 to be drawn.
+ * The transformed world is the real world as seen from the point of view
+ * 
+ * The transformed world must have y>SCREEN_DISTANCE*2.0/3.0
+ * to be drawn.
  *  
- * The perspective center has always coordinates in SCS:
- * (XFOCUS,-SCREEN_DISTANCE,YFOCUS)
  * 
- * The car in SCS is always at center, just beyond the screen in y with an edge 5.
+ * The car in RCS is always at center, just beyond the screen in y by an interval of 5 units 
+ * (distance edge=SCREEN_DISTANCE+5 from the POV).
  * As a matter of fact, the car and screen are fixed together.
  * 
- *  To "simplify calculation", on loading everything at the start is scaled and translated by 
+ * The screen has dimensions WIDTH, HEGHT, and XFOCUS=WIDTH/2, YFOCUS=HEGHT/2
+ * 
+ *  To put everything in the camera view, on loading everything at the start is scaled and translated by 
  * 	x1=SCALE*x0-XFOCUS;
  *	y1=SCALE*y0+SCREEN_DISTANCE;
  *	z1=SCALE*z0-YFOCUS;	
@@ -62,15 +64,15 @@ import com.editors.road.RoadEditor;
  *
  * Another exception is the main car mesh, which on loading is translated:
  * (WIDTH/2-CAR_WIDTH/2-XFOCUS,y_edge,-YFOCUS)
- * these are its SCS transformed coordinates, combined with the translation on (-XFOCUS,-YFOCUS)
- * to reduce the calculus. 
+ * these are its RCS transformed coordinates, combined with the translation on (-XFOCUS,-YFOCUS)
+ * to set things in focus.
  * Then, on drawing, the car mesh is roto-transformed.
  * 
- * The true perspective formulas are (applied in the SCS):
- * x1=(x0-XFOCUS)*SCREEN_DISTANCE/(y0+SCREEN_DISTANCE)+XFOCUS
- * y1=(z0-YFOCUS)*SCREEN_DISTANCE/(y0+SCREEN_DISTANCE)+YFOCUS 
+ * The true perspective formulas are (applied in the RCS):
+ * x1=(x0)*SCREEN_DISTANCE/(y0)
+ * y1=(z0)*SCREEN_DISTANCE/(y0)
  * 
- * which become, maybe not correctly, after the loading translations:
+ * but we want negative coordinates to fit in the screen, so we add:
  * x1=(x0)*SCREEN_DISTANCE/(y0)+XFOCUS
  * y1=(z0)*SCREEN_DISTANCE/(y0)+YFOCUS 
  *
@@ -1174,15 +1176,15 @@ public class Road extends Shader{
 	
 
 		//cast this way to cut off very small speeds
+		/*
+		int NEW_POSY=POSY+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dy-SCREEN_DISTANCE*(Math.cos(carDynamics.dpsi)-1.0));
+		int NEW_POSX=POSX+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dx-SCREEN_DISTANCE*Math.sin(-carDynamics.dpsi));
+		*/
 		
-		int NEW_POSY=POSY+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dy-WIDTH*0.5*Math.sin(-carDynamics.dpsi));
-		int NEW_POSX=POSX+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dx-WIDTH*0.5*(Math.cos(carDynamics.dpsi)-1.0));
-	
-		
-		/* original steering:
+		//original steering:
 		int NEW_POSY=POSY+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dy);
 		int NEW_POSX=POSX+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dx);
-		*/
+	
 		
 		setViewDirection(getViewDirection()-carDynamics.dpsi);
 		CarFrame.setMovingAngle(getViewDirection());
