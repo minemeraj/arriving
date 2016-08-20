@@ -67,12 +67,12 @@ import com.editors.road.RoadEditor;
  * Then, on drawing, the car mesh is roto-transformed.
  * 
  * The true perspective formulas are (applied in the SCS):
- * x1=(x0-XFOCUS)*(y0+SCREEN_DISTANCE)/SCREEN_DISTANCE+XFOCUS
- * y1=(z0-YFOCUS)*(y0+SCREEN_DISTANCE)/SCREEN_DISTANCE+YFOCUS 
+ * x1=(x0-XFOCUS)*SCREEN_DISTANCE/(y0+SCREEN_DISTANCE)+XFOCUS
+ * y1=(z0-YFOCUS)*SCREEN_DISTANCE/(y0+SCREEN_DISTANCE)+YFOCUS 
  * 
  * which become, maybe not correctly, after the loading translations:
- * x1=(x0)*(y0)/SCREEN_DISTANCE+XFOCUS
- * y1=(z0)*(y0)/SCREEN_DISTANCE+YFOCUS 
+ * x1=(x0)*SCREEN_DISTANCE/(y0)+XFOCUS
+ * y1=(z0)*SCREEN_DISTANCE/(y0)+YFOCUS 
  *
  * To change the template for this generated file go to
  * Window - Preferences - Java - Code Generation - Code and Comments
