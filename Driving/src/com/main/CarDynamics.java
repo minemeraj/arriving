@@ -124,7 +124,7 @@ class CarDynamics {
 	double dy=0;
 	double dpsi=0;
 	/** Yaw = rotation angle of the vehicle*/
-	private double psi=0;
+	double psi=0;
 	
     private static DecimalFormat df=null;
 	
