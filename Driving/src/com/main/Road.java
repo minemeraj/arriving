@@ -227,18 +227,8 @@ public class Road extends Shader{
 			loadObjectsFromFile(file);			
 			
 			startPosition = Editor.loadStartPosition(file);
-			carPosX=(int)( Renderer3D.SCALE*startPosition.x)-XFOCUS;
-			carPosY=(int)( Renderer3D.SCALE*startPosition.y)+SCREEN_DISTANCE;
-			
-			if(startPosition.getData()!=null){
-				
-				setViewDirection((Double)startPosition.getData());
-				
-			} else
-				setViewDirection(0);
-			
-			POSX=calculatePositionX(carPosX,carPosY,getViewDirection());
-			POSY=calculatePositionY(carPosX,carPosY,getViewDirection());
+			setStartPosition();
+
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1164,19 +1154,9 @@ public class Road extends Shader{
 		
 		g2.setColor(CarFrame.BACKGROUND_COLOR);
 		g2.fillRect(0,YFOCUS,WIDTH,HEIGHT-YFOCUS);
+		
+		setStartPosition();
 
-		carPosX=(int)( Renderer3D.SCALE*startPosition.x)-XFOCUS;
-		carPosY=(int)( Renderer3D.SCALE*startPosition.y)+SCREEN_DISTANCE;
-		
-		if(startPosition.getData()!=null){
-			
-			setViewDirection((Double)startPosition.getData());
-			
-		} else
-			setViewDirection(0);
-		
-		POSX=calculatePositionX(carPosX,carPosY,getViewDirection());
-		POSY=calculatePositionY(carPosX,carPosY,getViewDirection());
 		
 		initialiazeCarDynamics();
 		
@@ -1198,6 +1178,25 @@ public class Road extends Shader{
 	}
 
 	
+	private void setStartPosition() {
+		
+
+		carPosX=(int)( Renderer3D.SCALE*startPosition.x)-XFOCUS;
+		carPosY=(int)( Renderer3D.SCALE*startPosition.y)+SCREEN_DISTANCE;
+		
+		if(startPosition.getData()!=null){
+			
+			setViewDirection((Double)startPosition.getData());
+			
+		} else
+			setViewDirection(0);
+		
+		POSX=calculatePositionX(carPosX,carPosY,getViewDirection());
+		POSY=calculatePositionY(carPosX,carPosY,getViewDirection());
+		
+	}
+
+
 	void up(Graphics2D graphics2D) {
 		
 

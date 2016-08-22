@@ -54,7 +54,7 @@ class CarDynamics {
 	private double deltaGoal=0;
 	/** Increment in the steering wheel angle*/
 	private double deltaIncrement=0.02;
-	private static final double STEERING_DUMPING = 0.05;
+	private static final double STEERING_DUMPING = 0.025;
 	
 	
 	public double getDelta() {
