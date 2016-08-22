@@ -171,7 +171,8 @@ public class Road extends Shader{
 
 	private Point3D startPosition;
 
-	
+	private double carPosX=0;
+	private double carPosY=0;
 	
 	public Road(){}
 
@@ -226,8 +227,8 @@ public class Road extends Shader{
 			loadObjectsFromFile(file);			
 			
 			startPosition = Editor.loadStartPosition(file);
-			POSX=(int)( Renderer3D.SCALE*startPosition.x)-WIDTH/2-CAR_WIDTH/2;
-			POSY=(int)( Renderer3D.SCALE*startPosition.y);
+			carPosX=(int)( Renderer3D.SCALE*startPosition.x);
+			carPosY=(int)( Renderer3D.SCALE*startPosition.y);
 			
 			if(startPosition.getData()!=null){
 				
@@ -235,6 +236,9 @@ public class Road extends Shader{
 				
 			} else
 				setViewDirection(0);
+			
+			POSX=calculatePositionX(carPosX,carPosY,getViewDirection());
+			POSY=calculatePositionY(carPosX,carPosY,getViewDirection());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -259,6 +263,22 @@ public class Road extends Shader{
 
 
 	}
+
+	private int calculatePositionY(double carPosX2, double carPosY2, double viewDirection2) {
+		
+		int NEW_POSY=(int) (carPosY2-y_edge*(Math.cos(viewDirection2)));
+		
+		return NEW_POSY;
+	}
+
+
+	private int calculatePositionX(double carPosX2, double carPosY2, double viewDirection2) {		
+
+		int NEW_POSX=(int) (carPosX2+y_edge*(Math.sin(viewDirection2)));
+		
+		return NEW_POSX;
+	}
+
 
 	private void loadObjectsFromFile(File file) {
 		
@@ -1173,31 +1193,27 @@ public class Road extends Shader{
 
 		carDynamics.move(Engine.dtt);
 		//from m/s to km/s
-	
 
-		//cast this way to cut off very small speeds
-		/*
-		int NEW_POSY=POSY+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dy-y_edge*(Math.cos(carDynamics.psi)-Math.cos(carDynamics.psi-carDynamics.dpsi)));
-		int NEW_POSX=POSX+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dx+y_edge*(Math.sin(carDynamics.psi)-Math.sin(carDynamics.psi-carDynamics.dpsi)));
-		*/
 		
 		//original steering:
-		int NEW_POSY=POSY+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dy);
-		int NEW_POSX=POSX+(int)( SCALE*SPACE_SCALE_FACTOR*carDynamics.dx);
-	
+		int NEW_CARPOSX=(int) (carPosX+( SCALE*SPACE_SCALE_FACTOR*carDynamics.dx));
+		int NEW_CARPOSY=(int) (carPosY+( SCALE*SPACE_SCALE_FACTOR*carDynamics.dy));	
 		
 		setViewDirection(getViewDirection()-carDynamics.dpsi);
 		CarFrame.setMovingAngle(getViewDirection());
-
-		if(!checkIsWayFree(NEW_POSX,NEW_POSY,getViewDirection(),-1))
+		
+		if(!checkIsWayFree(NEW_CARPOSX,NEW_CARPOSY,getViewDirection(),-1))
 		{	
 
 			//DO NOTHING
 			
 		}else{
-	
-			POSY=NEW_POSY;
-			POSX=NEW_POSX;
+			
+			carPosX=NEW_CARPOSX;
+			carPosY=NEW_CARPOSY;
+			
+			POSX=calculatePositionX(carPosX,carPosY,getViewDirection());
+			POSY=calculatePositionY(carPosX,carPosY,getViewDirection());
 		
 		}
 		
@@ -1710,8 +1726,8 @@ public class Road extends Shader{
 		if(autocar_index<0){
 			
 			CAR_BORDER=Autocar.buildCarBox(
-					start_car_x+new_posx,
-					(int) (new_posy+start_car_y+CAR_LENGTH*0.5),
+					new_posx,
+					(int) (new_posy+CAR_LENGTH*0.5),
 					+MOVZ,
 					CAR_WIDTH,CAR_LENGTH,0); 
 			Polygon3D.rotate(CAR_BORDER,new Point3D(new_posx,new_posy,0),newViewDirection);
