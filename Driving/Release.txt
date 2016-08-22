@@ -14,6 +14,7 @@ Introducing a new spline for the stands:
 /lib/spline_mesh_7
 See for the first attempt:
 landscape_indy
+landscape_monza
 
 New landscape
 /lib/landscape_airport
