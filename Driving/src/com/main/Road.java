@@ -227,8 +227,8 @@ public class Road extends Shader{
 			loadObjectsFromFile(file);			
 			
 			startPosition = Editor.loadStartPosition(file);
-			carPosX=(int)( Renderer3D.SCALE*startPosition.x);
-			carPosY=(int)( Renderer3D.SCALE*startPosition.y);
+			carPosX=(int)( Renderer3D.SCALE*startPosition.x)-XFOCUS;
+			carPosY=(int)( Renderer3D.SCALE*startPosition.y)+SCREEN_DISTANCE;
 			
 			if(startPosition.getData()!=null){
 				
@@ -1165,8 +1165,18 @@ public class Road extends Shader{
 		g2.setColor(CarFrame.BACKGROUND_COLOR);
 		g2.fillRect(0,YFOCUS,WIDTH,HEIGHT-YFOCUS);
 
-		POSX=(int)( Renderer3D.SCALE*startPosition.x)-WIDTH/2-CAR_WIDTH/2;
-		POSY=(int)( Renderer3D.SCALE*startPosition.y);
+		carPosX=(int)( Renderer3D.SCALE*startPosition.x)-XFOCUS;
+		carPosY=(int)( Renderer3D.SCALE*startPosition.y)+SCREEN_DISTANCE;
+		
+		if(startPosition.getData()!=null){
+			
+			setViewDirection((Double)startPosition.getData());
+			
+		} else
+			setViewDirection(0);
+		
+		POSX=calculatePositionX(carPosX,carPosY,getViewDirection());
+		POSY=calculatePositionY(carPosX,carPosY,getViewDirection());
 		
 		initialiazeCarDynamics();
 		
