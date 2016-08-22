@@ -2,6 +2,8 @@ Improved steering and better movement calculus.
 
 Fixed starting position angle bug.
 
+Fixed visibility bug on large objects.
+
 new object:
 /lib/object3D_31 (Airplane)
 
