@@ -141,9 +141,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		
 		//}
 		
-		
 
-		//buildScreen(buf); 
 	}
 	
 	public void displaySPLines(ZBuffer landscapeZbuffer, ArrayList<SPLine> splines) {
@@ -173,14 +171,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 					Color selected=null;
 					
 					LineData ld=(LineData) polygonData.get(k);
-					
-					if(ld.isSelected()){
-
-						/*if(index<0 || index==editor.ACTIVE_PANEL){
-							selected=selectionColor;
-						}*/
-					}
-					
+						
 					Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,DrivingFrame.ROAD_INDEX,mesh.getLevel());
 					
 					decomposeClippedPolygonIntoZBuffer(p3D,selected,EditorData.splinesTextures[ld.getTexture_index()],landscapeZbuffer,hashCode);
@@ -1057,7 +1048,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				for (int k = 0; k < circle.polygonData.size(); k++) {
 					
 					LineData ld=(LineData) circle.polygonData.get(k);
-				    /*Polygon3D polReal= buildTranslatedPolygon3D(ld,circle.points,0,0);
+				    Polygon3D polReal= buildTranslatedPolygon3D(ld,circle.xpoints,circle.ypoints,circle.zpoints,0,0);
 				    Polygon3D polProjectd=builProjectedPolygon(polReal);
 				   // System.out.println(k+" "+pol);
 				    if(polProjectd.contains(x,y)){
@@ -1077,7 +1068,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 						   	spnode.setSelected(false);
 				    	
 				    
-				    }	*/
+				    }	
 				}
 				
 			
