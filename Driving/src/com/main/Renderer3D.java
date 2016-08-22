@@ -553,8 +553,7 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 			Point3D p0=new Point3D(objBorder.xpoints[i],objBorder.ypoints[i],0);
 			p0=buildTransformedPoint(p0);
 			
-			int iNext=(i==objBorder.npoints-1?0:i);
-			
+			int iNext=(i==objBorder.npoints-1?0:i+1);			
 			Point3D p1=new Point3D(objBorder.xpoints[iNext],objBorder.ypoints[iNext],0);
 			p1=buildTransformedPoint(p1);
 			
