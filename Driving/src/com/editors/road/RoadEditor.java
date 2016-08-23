@@ -1206,6 +1206,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			panel.add(mergeSelectedPoints[index]);
 
 		}
+		
+		r+=30;
+
+		JPanel moveRoad=buildRoadMovePanel(10,r,index);
+		panel.add(moveRoad);
 
          return panel;
 
@@ -1252,8 +1257,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		textureLabel[index].setBorder(border);
 		panel.add(textureLabel[index]);
 
-		JPanel moveRoad=buildRoadMovePanel(120,r,index);
-		panel.add(moveRoad);
 
 		r+=100;
 		
