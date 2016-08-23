@@ -45,6 +45,7 @@ import com.PolygonMesh;
 import com.ZBuffer;
 import com.editors.ComboElement;
 import com.editors.DoubleTextField;
+import com.main.DrivingFrame;
 
 
 
@@ -118,7 +119,7 @@ class RoadAltimetryPanel extends JDialog implements KeyListener, PropertyChangeL
 	RoadAltimetryPanel(RoadEditor roadEditor) {
 		super();
 		
-		this.mesh=roadEditor.getMeshes()[roadEditor.getACTIVE_PANEL()];
+		this.mesh=roadEditor.getMeshes()[DrivingFrame.TERRAIN_INDEX];
 
 		
 		setTitle("Advanced Altimetry");
