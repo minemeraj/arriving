@@ -159,6 +159,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private DoubleTextField rotation_angle;
 	public Rectangle currentRect;
 	private boolean isDrawCurrentRect=false;
+	public Rectangle fastSelectionRect;
 	private DoubleTextField objMove;
 	private JButton moveObjUp;
 	private JButton moveObjDown;
@@ -203,6 +204,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JToggleButton toogle_terrain_points;
 	private JToggleButton toogle_terrain_polygons;
 	private JToggleButton toogle_objects;
+	private JToggleButton toogle_altimetry;
 	private JPanel left_tools;
 	private JPanel left_common_options;
 	private JPanel left_tool_options;
@@ -214,6 +216,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private final String SPLINES_MODE="SPLINES_MODE"; 
 	private final String TERRAIN_POINTS_MODE="TERRAIN_POINTS_MODE";
 	private final String TERRAIN_POLYGONS_MODE="TERRAIN_POLYGONS_MODE";
+	private final String ALTIMETRY_MODE="ALTYMETRY_MODE"; 
 	
 	private String mode=TERRAIN_POINTS_MODE;
 	private JMenu jm_view;
@@ -605,6 +608,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 
 		editorPanel.drawCurrentRect(landscapeZbuffer);
+		
+		editorPanel.drawFastSelectionRect(landscapeZbuffer);
 
 	}
 
@@ -793,18 +798,27 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		toogle_objects.setToolTipText("Ojbects");
 		toogle_objects.setBounds(80,r,60,20);
 		
+		r+=30;
 		
+		toogle_altimetry = new JToggleButton("ALT");
+		toogle_altimetry.setActionCommand(ALTIMETRY_MODE);
+		toogle_altimetry.addActionListener(this);
+		toogle_altimetry.addKeyListener(this);
+		toogle_altimetry.setToolTipText("Altimetry");
+		toogle_altimetry.setBounds(10,r,60,20);
 		
 		ButtonGroup bgb=new ButtonGroup();
 		bgb.add(toogle_splines);
 		bgb.add(toogle_terrain_points);
 		bgb.add(toogle_terrain_polygons);
 		bgb.add(toogle_objects);
+		bgb.add(toogle_altimetry);
 				
 		left_tools.add(toogle_terrain_points);
 		left_tools.add(toogle_terrain_polygons);
 		left_tools.add(toogle_splines);
 		left_tools.add(toogle_objects);
+		left_tools.add(toogle_altimetry);
 		
 		r=10;
 		
@@ -2375,7 +2389,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		Object obj=arg0.getSource();
 
 		
-		if(toogle_objects==obj || toogle_splines==obj || toogle_terrain_points==obj || toogle_terrain_polygons==obj){
+		if(toogle_objects==obj || toogle_splines==obj || toogle_terrain_points==obj || toogle_terrain_polygons==obj || toogle_altimetry==obj){
 			CardLayout cl = (CardLayout)(left_tool_options.getLayout());
 			
 			mode=((JToggleButton) obj).getActionCommand();
@@ -2383,9 +2397,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			if(SPLINES_MODE.equals(mode))
 				ACTIVE_PANEL=ROAD_INDEX;
-			else if(TERRAIN_POINTS_MODE.equals(mode) || TERRAIN_POLYGONS_MODE.equals(mode))
+			else if(TERRAIN_POINTS_MODE.equals(mode) || TERRAIN_POLYGONS_MODE.equals(mode) || ALTIMETRY_MODE.equals(mode))
 				ACTIVE_PANEL=TERRAIN_INDEX;
 			
+			draw();
+		
 		}
 		else if(obj==jmt_load_landscape){
 			
@@ -3975,7 +3991,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		RoadEditorPanel ep = getCenter();
 		screenPoint.setText(ep.invertX((int)p.getX())+","+ep.invertY((int)p.getY()));
-
+		
+		if(isDrawFastSelectionRect()){
+			fastSelectionRect=new Rectangle(e.getX(), e.getY(), 100, 50);
+			draw();
+		}
 	}
     @Override
 	public void itemStateChanged(ItemEvent arg0) {
@@ -4240,6 +4260,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			deselectAllObjects();
 			draw();
 		}
+	}
+
+	public boolean isDrawFastSelectionRect() {
+		return mode.equals(ALTIMETRY_MODE);
 	}
 
 }

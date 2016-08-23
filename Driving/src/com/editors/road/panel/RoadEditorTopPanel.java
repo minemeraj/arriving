@@ -187,7 +187,6 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	}
 
 
-
 	public void drawCurrentRect(ZBuffer landscapeZbuffer) {
 
 		if(!editor.isDrawCurrentRect())
@@ -1633,6 +1632,32 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			
 		}
 		
+	}
+
+	@Override
+	public void drawFastSelectionRect(ZBuffer landscapeZbuffer) {
+
+		if(!editor.isDrawFastSelectionRect())
+			return;
+
+		Rectangle currentRect =editor.fastSelectionRect;
+		
+		if(currentRect==null)
+			return;
+		
+		int x0=Math.min(currentRect.x,currentRect.x+currentRect.width);
+		int x1=Math.max(currentRect.x,currentRect.x+currentRect.width);
+		int y0=Math.min(currentRect.y,currentRect.y+currentRect.height);
+		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
+
+		int rgbColor=Color.WHITE.getRGB();
+
+		drawLine(landscapeZbuffer,x0,y0,x1,y0,rgbColor);
+		drawLine(landscapeZbuffer,x0,y1,x1,y1,rgbColor);
+		drawLine(landscapeZbuffer,x0,y0,x0,y1,rgbColor);
+		drawLine(landscapeZbuffer,x1,y0,x1,y1,rgbColor);
+
+
 	}
 
 

@@ -146,6 +146,8 @@ public abstract class RoadEditorPanel extends JPanel {
 		
 	}
 	
+	public void drawFastSelectionRect( ZBuffer landscapeZbuffer){}
+	
 	public abstract void zoom(int i);
 	
 	public abstract void translate(int i, int j);
@@ -257,6 +259,9 @@ public abstract class RoadEditorPanel extends JPanel {
 	abstract double getDeltaX();
 
 	public abstract void changeMotionIncrement(int i);
+
+
+	
 
 
 }
