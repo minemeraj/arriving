@@ -260,9 +260,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JMenuItem pile_objects_jmt;
 
 	
-	
-	
-	
 
 	public static void main(String[] args) {
 
@@ -865,13 +862,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         JPanel object_panel = buildObjectsPanel();
         left_tool_options.add(object_panel,OBJECT_MODE);
         
-       
+        JPanel altimetry_panel = buildAltimetryPanel();
+        left_tool_options.add(altimetry_panel,ALTIMETRY_MODE);
+        
 
 		add(left);
 		
 		
 
 	}
+
 
 	private JPanel buildSPLinesPanel() {
 		JPanel splines_panel=new JPanel(null);
@@ -1122,6 +1122,20 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 		return object_panel;
+	}
+	
+	
+
+	private JPanel buildAltimetryPanel() {
+		Border objBorder=BorderFactory.createTitledBorder("Objects");
+		
+
+		JPanel altimetry_panel=new JPanel(null);
+		altimetry_panel.setBorder(objBorder);
+		
+		int r=25;
+		 
+		return altimetry_panel;
 	}
 
 	private JPanel buildTerrainPointsPanel(int index) {
@@ -1741,6 +1755,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		cleanPoints();
 		draw();
+	}
+	
+	private void changeAltimetrySelectedTerrainPoints() {
+		
+		if(fastSelectionRect!=null){
+			
+			RoadEditorPanel ep = getCenter();
+			ep.selectPointsWithFastRectangle(meshes[TERRAIN_INDEX]);
+		}
+		
 	}
 	
 	private void changeSelectedTerrainPolygon() {
@@ -3242,6 +3266,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			
 
+		}else if(ALTIMETRY_MODE.equals(mode)){
+			changeAltimetrySelectedTerrainPoints();
 		}
 		draw();
 	}

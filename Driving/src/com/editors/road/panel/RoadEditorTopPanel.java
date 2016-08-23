@@ -1083,6 +1083,62 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 	}
+	
+	
+	@Override
+	public boolean selectPointsWithFastRectangle(PolygonMesh mesh) {
+
+
+		if(mesh.xpoints==null || editor.fastSelectionRect==null)
+			return false;
+
+
+		int x0=Math.min(editor.fastSelectionRect.x,editor.fastSelectionRect.x+editor.fastSelectionRect.width);
+		int x1=Math.max(editor.fastSelectionRect.x,editor.fastSelectionRect.x+editor.fastSelectionRect.width);
+		int y0=Math.min(editor.fastSelectionRect.y,editor.fastSelectionRect.y+editor.fastSelectionRect.height);
+		int y1=Math.max(editor.fastSelectionRect.y,editor.fastSelectionRect.y+editor.fastSelectionRect.height);
+
+		if(!editor.checkCoordinatesx[editor.getACTIVE_PANEL()].isSelected())
+			editor.coordinatesx[editor.getACTIVE_PANEL()].setText("");
+		if(!editor.checkCoordinatesy[editor.getACTIVE_PANEL()].isSelected())
+			editor.coordinatesy[editor.getACTIVE_PANEL()].setText("");
+		if(!editor.checkCoordinatesz[editor.getACTIVE_PANEL()].isSelected())
+			editor.coordinatesz[editor.getACTIVE_PANEL()].setText("");
+
+		//select point from road
+		boolean found=false;
+
+
+		for(int j=0;j<mesh.xpoints.length;j++){
+
+
+			Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
+
+			int xo=convertX(p);
+			int yo=convertY(p);
+
+
+			if(xo>=x0 && xo<=x1 && yo>=y0 && yo<=y1  ){
+
+				mesh.selected[j]=true;
+				found=true;
+
+
+			}
+			else if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected())
+				mesh.selected[j]=false;
+
+
+		}
+
+		return found;
+
+
+
+
+	}
+	
+	
 	@Override
 	public boolean selectPolygonsWithRectangle(PolygonMesh mesh) {
 
@@ -1659,6 +1715,8 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 	}
+	
+
 
 
 }

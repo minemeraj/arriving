@@ -162,6 +162,11 @@ public abstract class RoadEditorPanel extends JPanel {
 		return false;
 	}
 	
+	public boolean selectPointsWithFastRectangle(PolygonMesh mesh) {
+		
+		return false;
+	}
+	
 	public boolean selectPolygonsWithRectangle(PolygonMesh mesh) {
 		return false;
 	}
