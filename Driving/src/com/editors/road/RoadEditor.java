@@ -2245,11 +2245,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			try{			
 				PrintWriter pr = new PrintWriter(new FileOutputStream(file));
 				
+				int OLD_ACTIVE_PANEL=getACTIVE_PANEL();
+				
 				setACTIVE_PANEL(TERRAIN_INDEX);
 				saveLines(pr);
 				setACTIVE_PANEL(ROAD_INDEX);
 				saveSPLines(pr);
-				setACTIVE_PANEL(TERRAIN_INDEX);
+				setACTIVE_PANEL(OLD_ACTIVE_PANEL);
 				
 				saveObjects(pr);
 				
