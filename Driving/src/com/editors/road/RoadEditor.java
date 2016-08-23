@@ -258,6 +258,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JMenuItem jmt_faster_motion;
 	private JMenuItem jmt_slower_motion;
 	private JMenuItem pile_objects_jmt;
+	private DoubleTextField setAltitudeValue;
 
 	
 
@@ -1127,13 +1128,22 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 
 	private JPanel buildAltimetryPanel() {
-		Border objBorder=BorderFactory.createTitledBorder("Objects");
+		Border objBorder=BorderFactory.createTitledBorder("Altimetry");
 		
 
 		JPanel altimetry_panel=new JPanel(null);
 		altimetry_panel.setBorder(objBorder);
 		
 		int r=25;
+		
+		JLabel lz=new JLabel("Altitude:");
+		lz.setBounds(5,r,80,20);
+		altimetry_panel.add(lz);
+		
+		setAltitudeValue=new DoubleTextField();
+		setAltitudeValue.setBounds(90,r,80,20);
+		altimetry_panel.add(setAltitudeValue);
+		setAltitudeValue.addKeyListener(this);
 		 
 		return altimetry_panel;
 	}
@@ -1760,6 +1770,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private void changeAltimetrySelectedTerrainPoints() {
 		
 		if(fastSelectionRect!=null){
+			
+			prepareUndo();
 			
 			RoadEditorPanel ep = getCenter();
 			ep.selectPointsWithFastRectangle(meshes[TERRAIN_INDEX]);
@@ -4019,7 +4031,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		screenPoint.setText(ep.invertX((int)p.getX())+","+ep.invertY((int)p.getY()));
 		
 		if(isDrawFastSelectionRect()){
-			fastSelectionRect=new Rectangle(e.getX(), e.getY(), 100, 50);
+			fastSelectionRect=new Rectangle(e.getX(), e.getY(), 100, 100);
 			draw();
 		}
 	}
