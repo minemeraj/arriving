@@ -1818,6 +1818,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private void changeAltimetrySelectedTerrainPoints() {
 		
+		if(!isDrawFastSelectionCircle())
+			return;
+		
 		if(setAltitudeValue.getText()==null || setAltitudeValue.getText().equals(""))
 			return;
 		
@@ -4030,15 +4033,20 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent arg0) {
-		
+
 		RoadEditorPanel ep = getCenter();
-		
+
 		int pix=arg0.getUnitsToScroll();
+
+
+
 		if(pix>0) 
 			ep.mouseUp();
 		else 
 			ep.mouseDown();
-		
+
+
+
 		draw();
 
 	}
@@ -4420,7 +4428,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 	public boolean isDrawFastSelectionCircle() {
-		return mode.equals(ALTIMETRY_MODE);
+		return (getCenter() instanceof RoadEditorTopPanel) && mode.equals(ALTIMETRY_MODE);
 	}
 
 }

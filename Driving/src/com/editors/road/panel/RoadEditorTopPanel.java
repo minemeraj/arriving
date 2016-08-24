@@ -1097,7 +1097,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 		int xc=editor.fastSelectionCircle.x;
-		int yc=editor.fastSelectionCircle.x;
+		int yc=editor.fastSelectionCircle.y;
 
 		int rx=editor.fastSelectionCircle.width;
 
