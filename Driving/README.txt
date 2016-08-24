@@ -344,6 +344,7 @@
         e: deselect all
         f1: zoom in
         f2  zoom out
+        +/- increment/decrement selection radius, when visible.
         
     To insert the node of a spline press the right button of the mouse in the location where you want
     to insert it. 

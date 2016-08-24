@@ -3995,7 +3995,17 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 			rotate(SELECTION_RADIUS_PLUS);
 			draw();
-		}else if(code==KeyEvent.VK_ESCAPE )
+		}else if(code==KeyEvent.VK_PLUS ){
+			
+			incrementSelectionRadius(SELECTION_RADIUS_PLUS);
+			draw();
+			
+		}else if(code==KeyEvent.VK_MINUS ){
+			
+			incrementSelectionRadius(SELECTION_RADIUS_MINUS);
+			draw();
+		}
+		else if(code==KeyEvent.VK_ESCAPE )
 		{  
 		
 			dispose();
@@ -4038,14 +4048,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		int pix=arg0.getUnitsToScroll();
 
-
-
 		if(pix>0) 
 			ep.mouseUp();
 		else 
 			ep.mouseDown();
-
-
 
 		draw();
 
