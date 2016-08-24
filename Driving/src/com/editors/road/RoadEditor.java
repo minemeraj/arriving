@@ -11,6 +11,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
@@ -83,13 +85,16 @@ import com.main.loader.LoadingProgressPanel;
 
 public class RoadEditor extends Editor implements ActionListener,MouseListener,MouseWheelListener,PropertyChangeListener,MouseMotionListener,KeyListener, ItemListener{
 
-
-
 	private int HEIGHT=600;
 	private int WIDTH=900;
 	private int LEFT_BORDER=240;
 	private int BOTTOM_BORDER=100;
 	private int RIGHT_SKYP=10;
+	
+	private static final int INITIAl_SELECTION_RADIUS = 100;
+	private static final int SELECTION_RADIUS_INCREMENT = 10;
+	private static final int SELECTION_RADIUS_MINUS = -1;
+	private static final int SELECTION_RADIUS_PLUS = +1;
 
 	private ArrayList<DrawObject> drawObjects=new ArrayList<DrawObject>();
 
@@ -260,6 +265,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JMenuItem jmt_slower_motion;
 	private JMenuItem pile_objects_jmt;
 	private DoubleTextField setAltitudeValue;
+	private IntegerTextField selectionRadius;
+	private JButton selectionRadiusPlus;
+	private JButton selectionRadiusMinus;
 
 	
 
@@ -1137,14 +1145,54 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		int r=25;
 		
-		JLabel lz=new JLabel("Altitude:");
-		lz.setBounds(5,r,80,20);
-		altimetry_panel.add(lz);
+		JLabel lbl=new JLabel("Altitude:");
+		lbl.setBounds(5,r,80,20);
+		altimetry_panel.add(lbl);
 		
 		setAltitudeValue=new DoubleTextField();
 		setAltitudeValue.setBounds(90,r,80,20);
 		altimetry_panel.add(setAltitudeValue);
 		setAltitudeValue.addKeyListener(this);
+		
+		r+=30;
+		
+		lbl=new JLabel("Sel radius:");
+		lbl.setBounds(5,r,80,20);
+		altimetry_panel.add(lbl);
+		
+		selectionRadius=new IntegerTextField();
+		selectionRadius.setBounds(90,r,80,20);
+		altimetry_panel.add(selectionRadius);
+		selectionRadius.addKeyListener(this);
+		selectionRadius.setText(INITIAl_SELECTION_RADIUS);
+		selectionRadius.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		r+=30;
+				
+		selectionRadiusPlus=new JButton(header+"+"+footer);
+		selectionRadiusPlus.addActionListener(this);
+		selectionRadiusPlus.setFocusable(false);
+		selectionRadiusPlus.setBounds(5,r,30,20);
+		altimetry_panel.add(selectionRadiusPlus);
+		
+		selectionRadiusMinus=new JButton(header+"-"+footer);
+		selectionRadiusMinus.addActionListener(this);
+		selectionRadiusMinus.setFocusable(false);
+		selectionRadiusMinus.setBounds(40,r,30,20);
+		altimetry_panel.add(selectionRadiusMinus);
 		 
 		return altimetry_panel;
 	}
@@ -1867,14 +1915,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		ArrayList<LineData> newLines=new ArrayList<LineData>();
 
 		
-		int firstPoint=-1;
+		int firstPoint=SELECTION_RADIUS_MINUS;
 		
 		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
 			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
 			if(!mesh.selected[i]) 
 				newPoints.add(p);
-			else if(firstPoint==-1){
+			else if(firstPoint==SELECTION_RADIUS_MINUS){
 				firstPoint=newPoints.size();
 				newPoints.add(p);
 			}
@@ -2545,7 +2593,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				tp=new TexturesPanel(splinesImages,EditorData.splineDescriptions,100,100,true);
 			
 			int indx=tp.getSelectedIndex();
-			if(indx!=-1)
+			if(indx!=SELECTION_RADIUS_MINUS)
 				chooseTexture[ACTIVE_PANEL].setSelectedIndex(indx+1);
 			
 		}
@@ -2559,7 +2607,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			TexturesPanel tp=new TexturesPanel(objectImages,EditorData.objectDescriptions,100,100,true);
 			
 			int indx=tp.getSelectedIndex();
-			if(indx!=-1)
+			if(indx!=SELECTION_RADIUS_MINUS)
 				chooseObject.setSelectedIndex(indx+1);
 		}
 		else if(obj==choosePrevTexture[ACTIVE_PANEL]){
@@ -2584,17 +2632,17 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		else if(obj==moveRoadDown[TERRAIN_INDEX] || obj==moveRoadDown[ROAD_INDEX]){
 
-			moveSelectedPoints(0,-1,0);
+			moveSelectedPoints(0,SELECTION_RADIUS_MINUS,0);
 
 		}
 		else if(obj==moveRoadLeft[TERRAIN_INDEX] || obj==moveRoadLeft[ROAD_INDEX]){
 
-			moveSelectedPoints(-1,0,0);
+			moveSelectedPoints(SELECTION_RADIUS_MINUS,0,0);
 
 		}
 		else if(obj==moveRoadRight[TERRAIN_INDEX] || obj==moveRoadRight[ROAD_INDEX]){
 
-			moveSelectedPoints(+1,0,0);
+			moveSelectedPoints(SELECTION_RADIUS_PLUS,0,0);
 
 		}
 		else if(obj==moveRoadTop[TERRAIN_INDEX] || obj==moveRoadTop[ROAD_INDEX]){
@@ -2604,7 +2652,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		else if(obj==moveRoadBottom[TERRAIN_INDEX] || obj==moveRoadBottom[ROAD_INDEX]){
 
-			moveSelectedPoints(0,0,-1);
+			moveSelectedPoints(0,0,SELECTION_RADIUS_MINUS);
 
 		}
 		else if(obj==moveObjUp){
@@ -2614,17 +2662,17 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		else if(obj==moveObjDown){
 
-			moveSelectedObject(0,-1,0);
+			moveSelectedObject(0,SELECTION_RADIUS_MINUS,0);
 
 		}
 		else if(obj==moveObjLeft){
 
-			moveSelectedObject(-1,0,0);
+			moveSelectedObject(SELECTION_RADIUS_MINUS,0,0);
 
 		}
 		else if(obj==moveObjRight){
 
-			moveSelectedObject(+1,0,0);
+			moveSelectedObject(SELECTION_RADIUS_PLUS,0,0);
 
 		}
 		else if(obj==moveObjTop){
@@ -2634,7 +2682,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		else if(obj==moveObjBottom){
 
-			moveSelectedObject(0,0,-1);
+			moveSelectedObject(0,0,SELECTION_RADIUS_MINUS);
 
 		}
 		else if(obj==help_jmt){
@@ -2669,14 +2717,17 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}else if(obj==jmt_goto_view){
 			goToPosition();
 		}else if(obj==jmt_faster_motion){
-			changeMotionIncrement(+1);
+			changeMotionIncrement(SELECTION_RADIUS_PLUS);
 		}else if(obj==jmt_slower_motion){
-			changeMotionIncrement(-1);
+			changeMotionIncrement(SELECTION_RADIUS_MINUS);
 		}else if(obj==pile_objects_jmt && mode==OBJECT_MODE){
 			pileSelectedObjects();
+		}else if(obj==selectionRadiusPlus){
+			incrementSelectionRadius(SELECTION_RADIUS_PLUS);
+		}else if(obj==selectionRadiusMinus){
+			incrementSelectionRadius(SELECTION_RADIUS_MINUS);
 		}
 	}
-
 
 
 	private void changeMotionIncrement(int i) {
@@ -3874,12 +3925,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			ep.translate(0, 1);
 			draw();
 		}else if(code==KeyEvent.VK_UP  ){
-			ep.translate(0, -1);
+			ep.translate(0, SELECTION_RADIUS_MINUS);
 			draw();
 		}	
 		else if(code==KeyEvent.VK_LEFT )
 		{	
-			ep.translate(-1, 0);
+			ep.translate(SELECTION_RADIUS_MINUS, 0);
 			draw();
 		}
 		else if(code==KeyEvent.VK_RIGHT  )
@@ -3918,12 +3969,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 		else if(code==KeyEvent.VK_F1  )
 		{ 
-			zoom(+1);
+			zoom(SELECTION_RADIUS_PLUS);
 			draw();
 		}
 		else if(code==KeyEvent.VK_F2  )
 		{  
-			zoom(-1);
+			zoom(SELECTION_RADIUS_MINUS);
 			draw();
 		}
 		else if(code==KeyEvent.VK_LESS )
@@ -3933,13 +3984,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			draw();
 		}else if(code==KeyEvent.VK_Q  )
 		{  
-			rotate(-1);
+			rotate(SELECTION_RADIUS_MINUS);
 			draw();
 		}
 		else if(code==KeyEvent.VK_W  )
 		{  
 		
-			rotate(+1);
+			rotate(SELECTION_RADIUS_PLUS);
 			draw();
 		}else if(code==KeyEvent.VK_ESCAPE )
 		{  
@@ -4049,12 +4100,57 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		RoadEditorPanel ep = getCenter();
 		screenPoint.setText(ep.invertX((int)p.getX())+","+ep.invertY((int)p.getY()));
 		
+		int rad=selectionRadius.getvalue();
+		if(rad==0)
+			rad=INITIAl_SELECTION_RADIUS;
+		
 		if(isDrawFastSelectionCircle()){
-			fastSelectionCircle=new Rectangle(e.getX(), e.getY(), 100, 100);
-			draw();
+			updateSelecctionCircle(e,rad);
+		
 		}
 	}
-    @Override
+    private void updateSelecctionCircle(MouseEvent e, int rad) {
+		
+    	fastSelectionCircle=new Rectangle(e.getX(), e.getY(), rad, rad);
+		draw();
+		
+	}
+    
+
+
+
+	private void incrementSelectionRadius(int i) {
+		int rad=selectionRadius.getvalue();
+		if(rad==0)
+			rad=INITIAl_SELECTION_RADIUS;
+		
+				
+		if(isDrawFastSelectionCircle()){
+			
+			selectionRadius.setText(rad+i*SELECTION_RADIUS_INCREMENT);
+			rad=selectionRadius.getvalue();
+			
+			int x0=0;
+			int y0=0;
+			
+			if(fastSelectionCircle!=null){
+				
+				x0=(int)fastSelectionCircle.getX();
+				y0=(int)fastSelectionCircle.getY();
+			}
+			
+			fastSelectionCircle=new Rectangle(
+					x0, 
+					y0, 
+					rad, 
+					rad);
+			draw();
+		
+		}
+		
+	}
+
+	@Override
 	public void itemStateChanged(ItemEvent arg0) {
 
 		Object o=arg0.getSource();
