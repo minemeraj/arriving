@@ -1169,7 +1169,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			
 			@Override
 			public void focusLost(FocusEvent e) {
-				// TODO Auto-generated method stub
+				incrementSelectionRadius(0);
 				
 			}
 			
@@ -4116,7 +4116,25 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 	}
     
-
+    private void updateSelecctionCircle(int rad) {
+		
+    	int x0=0;
+		int y0=0;
+		
+		if(fastSelectionCircle!=null){
+			
+			x0=(int)fastSelectionCircle.getX();
+			y0=(int)fastSelectionCircle.getY();
+		}
+		
+		fastSelectionCircle=new Rectangle(
+				x0, 
+				y0, 
+				rad, 
+				rad);
+		draw();
+		
+	}
 
 
 	private void incrementSelectionRadius(int i) {
@@ -4130,21 +4148,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			selectionRadius.setText(rad+i*SELECTION_RADIUS_INCREMENT);
 			rad=selectionRadius.getvalue();
 			
-			int x0=0;
-			int y0=0;
-			
-			if(fastSelectionCircle!=null){
-				
-				x0=(int)fastSelectionCircle.getX();
-				y0=(int)fastSelectionCircle.getY();
-			}
-			
-			fastSelectionCircle=new Rectangle(
-					x0, 
-					y0, 
-					rad, 
-					rad);
-			draw();
+			updateSelecctionCircle(rad);
 		
 		}
 		
