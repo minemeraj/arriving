@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.BarycentricCoordinates;
 import com.DrawObject;
@@ -1086,17 +1087,19 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	
 	
 	@Override
-	public boolean selectPointsWithFastRectangle(PolygonMesh mesh) {
+	public HashMap<Integer,Boolean> pickUpPointsWithFastCircle(PolygonMesh mesh) {
+		
+		HashMap<Integer, Boolean> map = new HashMap<Integer,Boolean>();
 
 
-		if(mesh.xpoints==null || editor.fastSelectionRect==null)
-			return false;
+		if(mesh.xpoints==null || editor.fastSelectionCircle==null)
+			return map;
 
 
-		int x0=Math.min(editor.fastSelectionRect.x,editor.fastSelectionRect.x+editor.fastSelectionRect.width);
-		int x1=Math.max(editor.fastSelectionRect.x,editor.fastSelectionRect.x+editor.fastSelectionRect.width);
-		int y0=Math.min(editor.fastSelectionRect.y,editor.fastSelectionRect.y+editor.fastSelectionRect.height);
-		int y1=Math.max(editor.fastSelectionRect.y,editor.fastSelectionRect.y+editor.fastSelectionRect.height);
+		int xc=editor.fastSelectionCircle.x;
+		int yc=editor.fastSelectionCircle.x;
+
+		int rx=editor.fastSelectionCircle.width;
 
 		if(!editor.checkCoordinatesx[editor.getACTIVE_PANEL()].isSelected())
 			editor.coordinatesx[editor.getACTIVE_PANEL()].setText("");
@@ -1104,9 +1107,6 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			editor.coordinatesy[editor.getACTIVE_PANEL()].setText("");
 		if(!editor.checkCoordinatesz[editor.getACTIVE_PANEL()].isSelected())
 			editor.coordinatesz[editor.getACTIVE_PANEL()].setText("");
-
-		//select point from road
-		boolean found=false;
 
 
 		for(int j=0;j<mesh.xpoints.length;j++){
@@ -1116,24 +1116,24 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			int xo=convertX(p);
 			int yo=convertY(p);
+			
+			double distance=Point3D.distance(xc, yc, 0, xo, yo, 0);
 
 
-			if(xo>=x0 && xo<=x1 && yo>=y0 && yo<=y1  ){
+			if(distance<rx){
 
-				mesh.selected[j]=true;
-				found=true;
+				map.put(new Integer(j), new Boolean(true));
 
 
 			}
-			else if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected())
-				mesh.selected[j]=false;
-
+			else if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected()){
+				//nothing to do
+			}
 
 		}
 
-		return found;
 
-
+		return map;
 
 
 	}
@@ -1691,28 +1691,44 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	}
 
 	@Override
-	public void drawFastSelectionRect(ZBuffer landscapeZbuffer) {
+	public void drawFastSelectionCircle(ZBuffer landscapeZbuffer) {
 
-		if(!editor.isDrawFastSelectionRect())
+		if(!editor.isDrawFastSelectionCircle())
 			return;
 
-		Rectangle currentRect =editor.fastSelectionRect;
+		Rectangle currentRect =editor.fastSelectionCircle;
 		
 		if(currentRect==null)
 			return;
 		
-		int x0=Math.min(currentRect.x,currentRect.x+currentRect.width);
-		int x1=Math.max(currentRect.x,currentRect.x+currentRect.width);
-		int y0=Math.min(currentRect.y,currentRect.y+currentRect.height);
-		int y1=Math.max(currentRect.y,currentRect.y+currentRect.height);
+
+		int xc=editor.fastSelectionCircle.x;
+		int yc=editor.fastSelectionCircle.y;
+
+		int rx=editor.fastSelectionCircle.width;
+		int ry=editor.fastSelectionCircle.height;
 
 		int rgbColor=Color.WHITE.getRGB();
 
-		drawLine(landscapeZbuffer,x0,y0,x1,y0,rgbColor);
-		drawLine(landscapeZbuffer,x0,y1,x1,y1,rgbColor);
-		drawLine(landscapeZbuffer,x0,y0,x0,y1,rgbColor);
-		drawLine(landscapeZbuffer,x1,y0,x1,y1,rgbColor);
-
+		int rays_number=10;
+		
+		double nValue=rx*0.1;
+		
+		if(nValue>rays_number){
+			rays_number=(int) Math.ceil(nValue);
+		}
+		
+		double dteta=Math.PI*2.0/rays_number;
+		
+		for (int i = 0; i < rays_number; i++) {
+			
+			int x0=xc+(int)(rx* Math.cos(i*dteta));
+			int y0=yc+(int)(ry* Math.sin(i*dteta));
+			int x1=xc+(int)(rx* Math.cos((i+1)*dteta));
+			int y1=yc+(int)(ry* Math.sin((i+1)*dteta));
+			
+			drawLine(landscapeZbuffer,x0,y0,x1,y1,rgbColor);
+		}
 
 	}
 	

@@ -1376,7 +1376,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	}
 
 	@Override
-	public void drawFastSelectionRect(ZBuffer landscapeZbuffer) {
+	public void drawFastSelectionCircle(ZBuffer landscapeZbuffer) {
 		
 	}
 

@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
 
@@ -159,7 +160,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private DoubleTextField rotation_angle;
 	public Rectangle currentRect;
 	private boolean isDrawCurrentRect=false;
-	public Rectangle fastSelectionRect;
+	public Rectangle fastSelectionCircle;
 	private DoubleTextField objMove;
 	private JButton moveObjUp;
 	private JButton moveObjDown;
@@ -607,7 +608,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		editorPanel.drawCurrentRect(landscapeZbuffer);
 		
-		editorPanel.drawFastSelectionRect(landscapeZbuffer);
+		editorPanel.drawFastSelectionCircle(landscapeZbuffer);
 
 	}
 
@@ -1769,12 +1770,30 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private void changeAltimetrySelectedTerrainPoints() {
 		
-		if(fastSelectionRect!=null){
+		if(setAltitudeValue.getText()==null || setAltitudeValue.getText().equals(""))
+			return;
+		
+		PolygonMesh mesh=meshes[TERRAIN_INDEX];
+		
+		double newAltitude=setAltitudeValue.getvalue();
+		
+		if(fastSelectionCircle!=null){
 			
 			prepareUndo();
 			
 			RoadEditorPanel ep = getCenter();
-			ep.selectPointsWithFastRectangle(meshes[TERRAIN_INDEX]);
+			HashMap<Integer, Boolean> map = ep.pickUpPointsWithFastCircle(meshes[TERRAIN_INDEX]);
+			
+			for(int j=0;mesh.xpoints!=null && j<mesh.xpoints.length;j++){
+
+
+			   if(map.get(j)==null)
+				   continue;
+			   
+			   mesh.zpoints[j]=newAltitude;
+				
+			    
+			}    
 		}
 		
 	}
@@ -4030,8 +4049,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		RoadEditorPanel ep = getCenter();
 		screenPoint.setText(ep.invertX((int)p.getX())+","+ep.invertY((int)p.getY()));
 		
-		if(isDrawFastSelectionRect()){
-			fastSelectionRect=new Rectangle(e.getX(), e.getY(), 100, 100);
+		if(isDrawFastSelectionCircle()){
+			fastSelectionCircle=new Rectangle(e.getX(), e.getY(), 100, 100);
 			draw();
 		}
 	}
@@ -4300,7 +4319,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		}
 	}
 
-	public boolean isDrawFastSelectionRect() {
+	public boolean isDrawFastSelectionCircle() {
 		return mode.equals(ALTIMETRY_MODE);
 	}
 

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Area;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JPanel;
 
@@ -146,7 +147,7 @@ public abstract class RoadEditorPanel extends JPanel {
 		
 	}
 	
-	public void drawFastSelectionRect( ZBuffer landscapeZbuffer){}
+	public void drawFastSelectionCircle( ZBuffer landscapeZbuffer){}
 	
 	public abstract void zoom(int i);
 	
@@ -162,9 +163,9 @@ public abstract class RoadEditorPanel extends JPanel {
 		return false;
 	}
 	
-	public boolean selectPointsWithFastRectangle(PolygonMesh mesh) {
+	public HashMap<Integer,Boolean> pickUpPointsWithFastCircle(PolygonMesh mesh) {
 		
-		return false;
+		return null;
 	}
 	
 	public boolean selectPolygonsWithRectangle(PolygonMesh mesh) {
