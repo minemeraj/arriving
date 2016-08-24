@@ -23,7 +23,9 @@ based on the real Linate airport of Milano, Italy.
 New function in the road editor:
 Other>Pile objects
 
-Fixed bug on the spline node selection for the 3D Raodeditor panel
+Fixed bug on the spline node selection for the 3D RoadEditor panel
+
+Added an Altimetry tab in the RoadEditor
 
 --- 13/08/2016 CarDriving 10.0.0 - Monza
 
