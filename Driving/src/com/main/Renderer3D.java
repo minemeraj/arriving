@@ -491,29 +491,31 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 	public void decomposeClippedPolygonIntoZBuffer(Polygon3D p3d,Color color,Texture texture,ZBuffer zbuffer,
 			Point3D xDirection,Point3D yDirection,Point3D origin,int deltaX,int deltaY,int hashCode){		
 
-		Point3D normal=Polygon3D.findNormal(p3d);
-
-		if(!isStencilBuffer && !isFacing(p3d,normal,observerPoint))
-			return;
-
-		if(texture!=null && xDirection==null && yDirection==null){
-
-			Point3D p0=new Point3D(p3d.xpoints[0],p3d.ypoints[0],p3d.zpoints[0]);
-			Point3D p1=new Point3D(p3d.xpoints[1],p3d.ypoints[1],p3d.zpoints[1]);
-			xDirection=(p1.substract(p0)).calculateVersor();
-
-			yDirection=Point3D.calculateCrossProduct(normal,xDirection).calculateVersor();
-
-			//yDirection=Point3D.calculateOrthogonal(xDirection);
-		}
-
 		Polygon3D[] triangles = Polygon3D.divideIntoTriangles(p3d);
 		
 		for(int i=0;i<triangles.length;i++){
 			
-			BarycentricCoordinates bc=new BarycentricCoordinates(triangles[i]);
+			Polygon3D triangle = triangles[i];
 			
-			Polygon3D clippedPolygon=Polygon3D.clipPolygon3DInY(triangles[i],(int) (SCREEN_DISTANCE*2.0/3.0));
+			Point3D normal=Polygon3D.findNormal(triangle);
+
+			if(!isStencilBuffer && !isFacing(triangle,normal,observerPoint))
+				continue;
+
+			if(texture!=null && xDirection==null && yDirection==null){
+
+				Point3D p0=new Point3D(triangle.xpoints[0],triangle.ypoints[0],triangle.zpoints[0]);
+				Point3D p1=new Point3D(triangle.xpoints[1],triangle.ypoints[1],triangle.zpoints[1]);
+				xDirection=(p1.substract(p0)).calculateVersor();
+
+				yDirection=Point3D.calculateCrossProduct(normal,xDirection).calculateVersor();
+
+				//yDirection=Point3D.calculateOrthogonal(xDirection);
+			}
+			
+			BarycentricCoordinates bc=new BarycentricCoordinates(triangle);
+			
+			Polygon3D clippedPolygon=Polygon3D.clipPolygon3DInY(triangle,(int) (SCREEN_DISTANCE*2.0/3.0));
 
 			if(clippedPolygon.npoints==0)
 				continue;
@@ -522,11 +524,12 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 			
 			for (int j = 0; j < clippedTriangles.length; j++) {
 				
+
+				
 				decomposeTriangleIntoZBufferEdgeWalking( clippedTriangles[j],color.getRGB(), texture,zbuffer, xDirection,yDirection,origin, deltaX, deltaY,bc,hashCode);
 				
 			}
-
-		
+	
 
 		}
 
