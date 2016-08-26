@@ -1278,6 +1278,10 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 			loadBackgroundImage(newImageFile);
 		}
 
+		if(lines!=null && lines.size()>0){
+			jmt_lines_mode.setSelected(true);
+			firePropertyChange("jmt_lines_mode", false, true);
+		}
 		resetLists();
 
 
@@ -1511,13 +1515,15 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		
 		ArrayList<ArrayList<Point3D>> newLines=new ArrayList<ArrayList<Point3D>>();
 
-		ArrayList<Point3D> newPoints=new ArrayList<Point3D>();
+		
 
 		int size=lines.size();
 
 		for (int index = 0; index < size; index++) {
 
 			ArrayList<Point3D> points=lines.get(index);
+			
+			ArrayList<Point3D> newPoints=new ArrayList<Point3D>();
 
 			int sz=points.size();
 			for (int i = 0; i < sz; i++) {
