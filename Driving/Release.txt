@@ -27,6 +27,8 @@ Fixed bug on the spline node selection for the 3D RoadEditor panel
 
 Added an Altimetry tab in the RoadEditor
 
+Fixed "delete points" but in the ImageTracer
+
 --- 13/08/2016 CarDriving 10.0.0 - Monza
 
 Introducing FFD (Free Form Deformation) splines.
