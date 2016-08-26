@@ -18,6 +18,10 @@ See for the first attempt:
 landscape_indy
 landscape_monza
 
+Adding splines for the airport:
+/lib/spline_mesh_8 Airport runway road
+/lib/spline_mesh_9 Airport tarmac road
+
 New landscape
 /lib/landscape_airport
 based on the real Linate airport of Milano, Italy.
