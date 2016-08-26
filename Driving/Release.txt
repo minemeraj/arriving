@@ -4,6 +4,8 @@ Fixed starting position angle bug.
 
 Fixed visibility bug on large objects.
 
+Fixed generic bug in rendering.
+
 new object:
 /lib/object3D_31 (Airplane)
 
