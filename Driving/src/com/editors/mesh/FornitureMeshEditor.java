@@ -10,7 +10,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import com.editors.DoubleTextField;
-import com.editors.models.CubeModel;
+import com.editors.models.CubeModelCompactTexture;
 import com.editors.models.TableModel;
 
 public class FornitureMeshEditor extends MeshModelEditor{
@@ -127,7 +127,7 @@ public class FornitureMeshEditor extends MeshModelEditor{
 	    double dz = dz_text.getvalue();
 	    
 	    if(jcbCube.isSelected())
-	    	meshModel=new CubeModel(dx,dy,dz);
+	    	meshModel=new CubeModelCompactTexture(dx,dy,dz);
 	    else
 	    	meshModel=new TableModel(dx,dy,dz);
 	    
