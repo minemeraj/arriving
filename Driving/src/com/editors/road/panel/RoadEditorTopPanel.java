@@ -1247,9 +1247,10 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			}
 
-			if(found)
+			if(found){
 				spline.calculateRibs();
-
+				spline.calculate3DMeshes();
+			}
 		}
 
 
@@ -1313,9 +1314,10 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			}
 
-			if(found)
+			if(found){
 				spline.calculateRibs();
-
+				spline.calculate3DMeshes();			
+			}
 		}
 
 

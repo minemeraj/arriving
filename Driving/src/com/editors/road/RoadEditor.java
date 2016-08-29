@@ -1769,9 +1769,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				}
 				
 				
-				if(found)
-					spline.calculateRibs();
+				if(found){
 				
+					spline.calculateRibs();
+					spline.calculate3DMeshes();
+				}
 			}		
 		
 		}
@@ -3141,7 +3143,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		for (int i = 0; i < splines.size(); i++) {
 			SPLine sp = (SPLine) splines.get(i);
 		    sp.calculateRibs();	
-			
+		    sp.calculate3DMeshes();
 		}
 		if(meshes[TERRAIN_INDEX]==null || meshes[TERRAIN_INDEX].polygonData==null)
 			return;
