@@ -150,7 +150,6 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 		for (int i = 0; i < splines.size(); i++) {
 			SPLine spline = (SPLine) splines.get(i);
-			spline.calculate3DMeshes();
 			
 			int hashCode=spline.hashCode();
 			

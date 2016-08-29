@@ -94,9 +94,23 @@ public abstract class DrivingFrame extends JFrame{
 			e.printStackTrace();
 		}
 		
+		calculate3DSplineMeshes(splines);
+				
 		return splines;
 		
 	}
+	
+	
+	
+	private void calculate3DSplineMeshes(ArrayList<SPLine> splines){
+	
+		for (int i = 0; i < splines.size(); i++) {
+			SPLine spline = (SPLine) splines.get(i);
+			spline.calculate3DMeshes();
+		}	
+	
+	}
+
 
 	private void buildSPLine(SPLine sp,String str,double scale) {
 		
