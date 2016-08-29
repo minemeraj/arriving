@@ -1,3 +1,5 @@
+A faster 3D panel in the RoadEditor
+
 A more compact texture format for box type objects.
 
 --- 27/08/2016 CarDriving 10.0.1 - Monza
