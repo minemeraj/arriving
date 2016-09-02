@@ -198,7 +198,7 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 		points[2]=new Point3D(x2,y2,z2,p2.x,p2.y,p2.z);
 		
 		
-		int mip_map_level=(int) Math.sqrt(bc.getRealTriangleArea()/BarycentricCoordinates.getTriangleArea(x0, y0, x1, y1, x2, y2));
+		int mip_map_level=(int) (0.5*Math.log(bc.getRealTriangleArea()/BarycentricCoordinates.getTriangleArea(x0, y0, x1, y1, x2, y2))/Math.log(2));
 		if(texture!=null){
 			
 			int w=texture.getWidth();

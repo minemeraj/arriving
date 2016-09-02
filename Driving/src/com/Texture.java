@@ -23,6 +23,8 @@ public class Texture {
 	private Color background= CarFrame.BACKGROUND_COLOR;
 	
 	Texture mipTexture1=null;
+	Texture mipTexture2=null;
+	Texture mipTexture3=null;
 	
 	public int getWIDTH() {
 		return WIDTH;
@@ -103,9 +105,17 @@ public class Texture {
 	
 	public int getRGBMip(int i,int j, int mip_map_level){
 
-		if(mip_map_level>8 && mipTexture1!=null){
+		if(mip_map_level>3 && mipTexture3!=null){
 
-			return mipTexture1.getRGB(i/8,j/8);
+			return mipTexture3.getRGB(i/8,j/8);
+		}
+		else if(mip_map_level>2 && mipTexture2!=null){
+
+			return mipTexture2.getRGB(i/4,j/4);
+		}
+		else if(mip_map_level>1 && mipTexture1!=null){
+
+			return mipTexture1.getRGB(i/2,j/2);
 		}
 		else{
 
@@ -544,11 +554,27 @@ public class Texture {
 		
 	}
 
+	public Texture getMipTexture3() {
+		return mipTexture3;
+	}
+
+	public void setMipTexture3(Texture mipTexture1) {
+		this.mipTexture3 = mipTexture1;
+	}
+
 	public Texture getMipTexture1() {
 		return mipTexture1;
 	}
 
 	public void setMipTexture1(Texture mipTexture1) {
 		this.mipTexture1 = mipTexture1;
+	}
+
+	public Texture getMipTexture2() {
+		return mipTexture2;
+	}
+
+	public void setMipTexture2(Texture mipTexture2) {
+		this.mipTexture2 = mipTexture2;
 	}
 }

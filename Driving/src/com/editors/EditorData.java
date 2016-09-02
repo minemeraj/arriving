@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -117,12 +118,9 @@ public class EditorData {
 				
 				worldTextures[i]=new Texture(ImageIO.read(new File("lib/world_texture_"+i+"_0.jpg")));
 				
-				File mipFile = new File("lib/world_texture_"+i+"_1.jpg");
-				if(mipFile.exists()){
-					
-					Texture mipTexture = new Texture(ImageIO.read(new File("lib/world_texture_"+i+"_1.jpg")));
-					worldTextures[i].setMipTexture1(mipTexture);
-				}
+				loadMipMaps(worldTextures[i],"lib/world_texture_"+i);
+				
+		
 			}
 			
 			if(loadingProgressPanel!=null)
@@ -202,6 +200,31 @@ public class EditorData {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
+	}
+
+	private static void loadMipMaps(Texture texture, String fileBase) throws IOException {
+		
+		File mipFile = new File(fileBase+"_1.jpg");
+		if(mipFile.exists()){
+			
+			Texture mipTexture = new Texture(ImageIO.read(new File(fileBase+"_1.jpg")));
+			texture.setMipTexture1(mipTexture);
+		}
+		
+		mipFile = new File(fileBase+"_2.jpg");
+		if(mipFile.exists()){
+			
+			Texture mipTexture = new Texture(ImageIO.read(new File(fileBase+"_2.jpg")));
+			texture.setMipTexture2(mipTexture);
+		}
+		
+		mipFile = new File(fileBase+"_3.jpg");
+		if(mipFile.exists()){
+			
+			Texture mipTexture = new Texture(ImageIO.read(new File(fileBase+"_3.jpg")));
+			texture.setMipTexture3(mipTexture);
+		}
+		
 	}
 
 	private static void buildCircleShape() {
