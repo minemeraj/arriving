@@ -153,6 +153,13 @@
 	POINT0_INDEX is the vertex index
 	POINT0_TEXTURE_INDEX is vertex texture coordinate index
 	
+	TERRAIN TEXTURES FILES FORMAT:
+	
+	/lib/world_texture_N_M.jpg
+	N=texture index=0,1,2,3,4...
+	M=texture mip map level (0=main,1,2,3).
+	Mandatory size:200px X 200px
+	
 
     -- SPLINE FORMAT
     
