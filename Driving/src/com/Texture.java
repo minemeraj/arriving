@@ -105,15 +105,15 @@ public class Texture {
 	
 	public int getRGBMip(int i,int j, int mip_map_level){
 
-		if(mip_map_level>3 && mipTexture3!=null){
+		if(mip_map_level>=3 && mipTexture3!=null){
 
 			return mipTexture3.getRGB(i/8,j/8);
 		}
-		else if(mip_map_level>2 && mipTexture2!=null){
+		else if(mip_map_level>=2 && mipTexture2!=null){
 
 			return mipTexture2.getRGB(i/4,j/4);
 		}
-		else if(mip_map_level>1 && mipTexture1!=null){
+		else if(mip_map_level>=1 && mipTexture1!=null){
 
 			return mipTexture1.getRGB(i/2,j/2);
 		}
