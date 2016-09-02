@@ -102,5 +102,24 @@ public class BarycentricCoordinates {
 		
 		return pr;
 	}
+	
+	public double getRealTriangleArea(){
+
+		return getTriangleArea(
+				p0.x,p0.y,
+				p1.x,p1.y,
+				p2.x,p2.y
+				);
+	}
+	
+	public static double getTriangleArea(
+			double x0,double y0,
+			double x1,double y1,
+			double x2,double y2
+			){
+
+		return Math.abs((x1*y2-x2*y1)-(x0*y2-x2*y0)+(x0*y1-y0*x1));
+
+	}
 
 }

@@ -423,7 +423,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			ArrayList<File> vRoadTextures=new ArrayList<File>();
 
 			for(int i=0;i<files.length;i++){
-				if(files[i].getName().startsWith("world_texture_")){
+				if(files[i].getName().startsWith("world_texture_") && files[i].getName().endsWith("_0.jpg")){
 
 					vRoadTextures.add(files[i]);
 
@@ -434,7 +434,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 			for(int i=0;i<vRoadTextures.size();i++){
 
-				worldImages[i]=ImageIO.read(new File("lib/world_texture_"+i+".jpg"));
+				worldImages[i]=ImageIO.read(new File("lib/world_texture_"+i+"_0.jpg"));
 
 				
 				chooseTexture[TERRAIN_INDEX].addItem(new ValuePair(Integer.toString(i),Integer.toString(i)));

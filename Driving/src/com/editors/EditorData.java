@@ -104,7 +104,7 @@ public class EditorData {
 			ArrayList<File> vRoadTextures=new ArrayList<File>();
 			
 			for(int i=0;i<files.length;i++){
-				if(files[i].getName().startsWith("world_texture_")){
+				if(files[i].getName().startsWith("world_texture_") && files[i].getName().endsWith("_0.jpg")){
 					
 					vRoadTextures.add(files[i]);
 					
@@ -115,7 +115,14 @@ public class EditorData {
 
 			for(int i=0;i<vRoadTextures.size();i++){
 				
-				worldTextures[i]=new Texture(ImageIO.read(new File("lib/world_texture_"+i+".jpg")));
+				worldTextures[i]=new Texture(ImageIO.read(new File("lib/world_texture_"+i+"_0.jpg")));
+				
+				File mipFile = new File("lib/world_texture_"+i+"_1.jpg");
+				if(mipFile.exists()){
+					
+					Texture mipTexture = new Texture(ImageIO.read(new File("lib/world_texture_"+i+"_1.jpg")));
+					worldTextures[i].setMipTexture1(mipTexture);
+				}
 			}
 			
 			if(loadingProgressPanel!=null)

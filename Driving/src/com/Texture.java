@@ -22,6 +22,8 @@ public class Texture {
 	
 	private Color background= CarFrame.BACKGROUND_COLOR;
 	
+	Texture mipTexture1=null;
+	
 	public int getWIDTH() {
 		return WIDTH;
 	}
@@ -96,10 +98,21 @@ public class Texture {
 	    	return rgb[i+WIDTH*j];
 	    else
 	    	return rgb[rgb.length-1];
-		
-		//return rgb[i+WIDTH*j];
-	}
 
+	}
+	
+	public int getRGBMip(int i,int j, int mip_map_level){
+
+		if(mip_map_level>8 && mipTexture1!=null){
+
+			return mipTexture1.getRGB(i/8,j/8);
+		}
+		else{
+
+			return getRGB(i,j);
+		}
+	}
+	
 	public int getWidth() {
 		return WIDTH;
 	}
@@ -529,5 +542,13 @@ public class Texture {
 			ImageIO.write(buf,type,file);
 			
 		
+	}
+
+	public Texture getMipTexture1() {
+		return mipTexture1;
+	}
+
+	public void setMipTexture1(Texture mipTexture1) {
+		this.mipTexture1 = mipTexture1;
 	}
 }

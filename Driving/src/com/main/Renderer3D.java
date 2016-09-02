@@ -197,6 +197,8 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
 		points[1]=new Point3D(x1,y1,z1,p1.x,p1.y,p1.z);
 		points[2]=new Point3D(x2,y2,z2,p2.x,p2.y,p2.z);
 		
+		
+		int mip_map_level=(int) Math.sqrt(bc.getRealTriangleArea()/BarycentricCoordinates.getTriangleArea(x0, y0, x1, y1, x2, y2));
 		if(texture!=null){
 			
 			int w=texture.getWidth();
@@ -319,8 +321,10 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
                 double texture_x=((1-l)*i_pstart_p_y*pstart.texture_x+l*i_end_p_y*pend.texture_x)*yi;
                 double texture_y=((1-l)*i_pstart_p_y*pstart.texture_y+l*i_end_p_y*pend.texture_y)*yi;
 
+                
+             
 				if(texture!=null)
-					rgbColor=texture.getRGB((int)texture_x,(int) texture_y);  
+					rgbColor=texture.getRGBMip((int)texture_x,(int) texture_y,mip_map_level);  
 					//rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY,bc);
 				if(rgbColor==greenRgb)
 					continue;
@@ -405,10 +409,11 @@ public abstract class Renderer3D extends DrivingFrame implements AbstractRendere
                 double texture_x=((1-l)*i_pstart_p_y*pstart.texture_x+l*i_end_p_y*pend.texture_x)*yi;
                 double texture_y=((1-l)*i_pstart_p_y*pstart.texture_y+l*i_end_p_y*pend.texture_y)*yi;
 
+                
 
 				if(texture!=null)
 					//rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY,bc);
-					rgbColor=texture.getRGB((int)texture_x,(int) texture_y);   
+					rgbColor=texture.getRGBMip((int)texture_x,(int) texture_y,mip_map_level);   
 				if(rgbColor==greenRgb)
 					continue;
 
