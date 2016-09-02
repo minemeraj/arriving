@@ -1155,7 +1155,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 	}
 
 
-	private static final String decomposePoint(Point3D p, double factor, double outputDX2, double outputDY2) {
+	protected String decomposePoint(Point3D p, double factor, double outputDX2, double outputDY2) {
 		String str="";
 
 		str=(p.x*factor+outputDX2)+" "+(p.y*factor+outputDY2)+" "+(p.z*factor);
@@ -1299,7 +1299,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 		
 	}
 
-	private static final void buildPoint(ArrayList<ArrayList<Point3D>> vLines,String str, 
+	protected void buildPoint(ArrayList<ArrayList<Point3D>> vLines,String str, 
 			double outputScaleValue, 
 			double outputDX2, 
 			double outputDY2) {
