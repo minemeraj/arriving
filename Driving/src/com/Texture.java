@@ -107,15 +107,15 @@ public class Texture {
 
 		if(mip_map_level>=3 && mipTexture3!=null){
 
-			return mipTexture3.getRGB(i/8,j/8);
+			return mipTexture3.getRGB(i>>3,j>>3);
 		}
 		else if(mip_map_level>=2 && mipTexture2!=null){
 
-			return mipTexture2.getRGB(i/4,j/4);
+			return mipTexture2.getRGB(i>>2,j>>2);
 		}
 		else if(mip_map_level>=1 && mipTexture1!=null){
 
-			return mipTexture1.getRGB(i/2,j/2);
+			return mipTexture1.getRGB(i>>1,j>>1);
 		}
 		else{
 
