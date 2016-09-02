@@ -59,11 +59,15 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 
 
+
 	private int HEIGHT=600;
 	private int WIDTH=600;
 	private int LEFT_BORDER=200;
 	private int RIGHT_BORDER=370;
 	private int BOTTOM_BORDER=100;
+	
+	protected String CLOSING_TAG = "</line>";
+	protected String OPENING_TAG = "<line>";
 
 	private BufferedImage buf;
 	private static final Color BACKGROUND_COLOR = Color.BLACK;
@@ -157,7 +161,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 	}
 
-	private ImageTracer(){
+	protected ImageTracer(){
 
 		setTitle("Image tracer");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -1127,7 +1131,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 					if(points.size()==0)
 						continue;
 					
-					pr.println("<line>");
+					pr.println(OPENING_TAG);
 
 					int sz=points.size();
 					for (int i = 0; i < sz; i++) {
@@ -1139,7 +1143,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 						pr.println("v="+str);
 
 					}					
-					pr.println("</line>");
+					pr.println(CLOSING_TAG);
 
 				}
 
@@ -1203,7 +1207,7 @@ public class ImageTracer extends Editor implements MenuListener,PropertyChangeLi
 
 			int indx=line.indexOf("=");
 
-			if(line.startsWith("<line>")){
+			if(line.startsWith(OPENING_TAG)){
 				addLineToArray();
 			}
 			else if(line.startsWith("v=")){
