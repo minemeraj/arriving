@@ -1,5 +1,5 @@
 	**********************
-	*  READ ME CARDRIVING VERSION   10.0.1
+	*  READ ME CARDRIVING VERSION   11.0.0
 	*
 	*  by Piazza Francesco Giovanni 
 	*  Betacom s.rl. ,Italy http://www.betacom.it
@@ -63,10 +63,13 @@
 	* java -classpath Driving.jar    com.editors.weapons.WeaponsEditor
 	*
 	*
-	*
 	**** To launch the ImageTrace editor:
 	*
 	* java -classpath Driving.jar    com.editors.others.ImageTracer
+	*
+	**** To launch the SplineTrace editor:
+	*
+	* java -classpath Driving.jar    com.editors.others.SplineTrace
 	*
 	**** To launch other experimental editors:
 	*

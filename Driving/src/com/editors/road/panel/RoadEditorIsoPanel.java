@@ -517,8 +517,11 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		points[1]=new Point3D(x1,y1,z1,p1.x,p1.y,p1.z);
 		points[2]=new Point3D(x2,y2,z2,p2.x,p2.y,p2.z);
 
+		int mip_map_level=0;
 		
 		if(texture!=null){
+			
+			mip_map_level=(int) (0.5*Math.log(bc.getRealTriangleArea()/BarycentricCoordinates.getTriangleArea(x0, y0, x1, y1, x2, y2))/Math.log(2));
 			
 			int w=texture.getWidth();
 			int h=texture.getHeight();
@@ -635,7 +638,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			
 
 				if(texture!=null)
-					rgbColor=texture.getRGB((int)texture_x,(int) texture_y);  
+					rgbColor=texture.getRGBMip((int)texture_x,(int) texture_y,mip_map_level);  
 					//rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY);
 				if(rgbColor==greenRgb)
 					continue;
@@ -725,7 +728,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 				if(texture!=null)
 					//rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY);
-					rgbColor=texture.getRGB((int)texture_x,(int) texture_y);   
+					rgbColor=texture.getRGBMip((int)texture_x,(int) texture_y,mip_map_level);   
 				if(rgbColor==greenRgb)
 					continue;
 				
