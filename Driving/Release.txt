@@ -1,3 +1,5 @@
+--- 03/09/2016 CarDriving 11.0.0 - Monza
+
 Introducing MipMapping as an anti-aliasing technique. See README.txt.
 
 A faster 3D panel in the RoadEditor

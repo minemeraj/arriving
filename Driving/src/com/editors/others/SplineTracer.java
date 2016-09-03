@@ -29,6 +29,8 @@ public class SplineTracer extends ImageTracer {
 
 		if(p.getData()!=null){
 			str=p.getData().toString()+" "+str;
+		}else{
+			str="T0"+" "+str;
 		}
 		return str;
 	}
