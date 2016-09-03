@@ -54,8 +54,8 @@ public class DrawSkyscraperTexture0 {
 		double intervalXL=10;
 		double intervalY=3*26-window_height;
 		
-		int w=2*building_h+2*building_w+2*bx;
-		int h=2*building_h+2*building_w+2*by;
+		int w=2*building_l+2*building_w+2*bx;
+		int h=building_h+2*building_l+2*by;
 		
 		BufferedImage buf=new BufferedImage(w,h,BufferedImage.TYPE_BYTE_INDEXED);
 		

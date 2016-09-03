@@ -6,6 +6,9 @@ A more compact texture format for box type objects.
 
 Introducing the SplineTracer, which extends the ImageTracer
 
+Reducing texture sizes:
+object3D_texture_27.jpg  516Kb->465Kb
+
 --- 27/08/2016 CarDriving 10.0.1 - Monza
 
 Improved steering and better movement calculus.
