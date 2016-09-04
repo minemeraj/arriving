@@ -14,7 +14,7 @@ public class DrawSkyscraperTexture0 {
 	int by=10;
 
 
-	private static final Color BACKGROUND_COLOR=new Color(0, 255, 0);
+
 
 
 	private static final Color BOTTOM_COLOR=Color.YELLOW;
@@ -31,14 +31,18 @@ public class DrawSkyscraperTexture0 {
 
 
 
-	private void draw20_40_100() {
+	private void draw25_36_50() {
+		
+		Color BACKGROUND_COLOR0=new Color(153, 153, 153);
 		
 		Color WALL_COLOR0 = Color.GRAY;
 		Color WINDOW_COLOR0 = Color.BLACK;
+		
 
-		int building_w=520;
-		int building_l=1040;
-		int building_h=2600;
+		int building_w=650;
+		int building_l=900;
+		int building_h=1300;
+
 
 		int window_width=26;
 		int window_height=52;
@@ -48,7 +52,7 @@ public class DrawSkyscraperTexture0 {
 		double intervalY=3*26-window_height;
 
 		int w=2*building_l+2*building_w+2*bx;
-		int h=building_h+2*building_l+2*by;
+		int h=building_h+building_l+2*by;
 
 		BufferedImage buf=new BufferedImage(w,h,BufferedImage.TYPE_BYTE_INDEXED);
 
@@ -69,12 +73,12 @@ public class DrawSkyscraperTexture0 {
 
 			Graphics2D bufGraphics=(Graphics2D)buf.getGraphics();
 
-			bufGraphics.setColor(BACKGROUND_COLOR);
+			bufGraphics.setColor(BACKGROUND_COLOR0);
 			bufGraphics.fillRect(0,0,w,h);
 
 			//lower base
-			int y=by;
-			int x=bx;
+			int y=by+building_h;
+			int x=bx+building_l+building_w;
 
 			bufGraphics.setColor(WALL_COLOR0);
 			bufGraphics.drawRect(x, h-(y+building_l), building_w, building_l);
@@ -83,8 +87,8 @@ public class DrawSkyscraperTexture0 {
 			//faces	    	
 
 			//BACK
-
-			y+=building_l;
+			y=by;
+			x=bx;
 			bufGraphics.setColor(WALL_COLOR0);
 			bufGraphics.fillRect(x, h-(y+building_h), building_w, building_h);	    	
 			bufGraphics.setColor(WINDOW_COLOR0);
@@ -200,15 +204,16 @@ public class DrawSkyscraperTexture0 {
 
 	}
 
-	private void draw25_36_50() {
+	private void draw20_40_100() {
 
-
+		Color BACKGROUND_COLOR0=new Color(156, 156, 156);
+		
 		Color WALL_COLOR1 =  new Color(210,206,197);
 		Color WINDOW_COLOR1 =  new Color(114,149,189);
 
-		int building_w=650;
-		int building_l=900;
-		int building_h=1300;;
+		int building_w=520;
+		int building_l=1040;
+		int building_h=2600;
 
 		double story_height=4*26;
 		double window_width=2*26;
@@ -219,7 +224,7 @@ public class DrawSkyscraperTexture0 {
 		double intervalY=(story_height-window_height)*0.5;
 
 		int w=2*building_l+2*building_w+2*bx;
-		int h=building_h+2*building_l+2*by;
+		int h=building_h+building_l+2*by;
 
 		BufferedImage buf=new BufferedImage(w,h,BufferedImage.TYPE_BYTE_INDEXED);
 
@@ -240,12 +245,12 @@ public class DrawSkyscraperTexture0 {
 
 			Graphics2D bufGraphics=(Graphics2D)buf.getGraphics();
 
-			bufGraphics.setColor(BACKGROUND_COLOR);
+			bufGraphics.setColor(BACKGROUND_COLOR0);
 			bufGraphics.fillRect(0,0,w,h);
 
 			//lower base
-			int y=by;
-			int x=bx;
+			int y=by+building_h;
+			int x=bx+building_l+building_w;
 
 			bufGraphics.setColor(WALL_COLOR1);
 			bufGraphics.drawRect(x, h-(y+building_l), building_w, building_l);
@@ -254,8 +259,9 @@ public class DrawSkyscraperTexture0 {
 			//faces	    	
 
 			//BACK
-
-			y+=building_l;
+			
+			y=by;
+			x=bx;
 			bufGraphics.setColor(WALL_COLOR1);
 			bufGraphics.fillRect(x, h-(y+building_h), building_w, building_h);	    	
 			bufGraphics.setColor(WINDOW_COLOR1);
