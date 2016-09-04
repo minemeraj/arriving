@@ -1,5 +1,6 @@
 
 Reducing texture sizes:
+object3D_texture_26.jpg  1.20Mb->210Kb
 object3D_texture_27.jpg 465Kb->100Kb
 
 --- 03/09/2016 CarDriving 11.0.0 - Monza
