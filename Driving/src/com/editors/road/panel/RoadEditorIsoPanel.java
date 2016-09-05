@@ -657,7 +657,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 				//System.out.println(x+" "+y+" "+tot);    	
 				
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.isFilledWithWater()),level,tot,hashCode);
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.isFilledWithWater(),level),level,tot,hashCode);
 				
 				
 			}
@@ -748,7 +748,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 
 			
-				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.isFilledWithWater()),level,tot,p3d.hashCode());
+				zb.set(xi,yi,zi,yi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.isFilledWithWater(),level),level,tot,p3d.hashCode());
 				
 			}
 
@@ -775,9 +775,9 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	
 	}
 	
-	public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs,boolean hasWater) {
+	public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs,boolean hasWater,int level) {
 
-		if(editor.isDrawFastSelectionCircle() && editor.getFastSelectionCircle()!=null){
+		if(level<Road.OBJECT_LEVEL && editor.isDrawFastSelectionCircle() && editor.getFastSelectionCircle()!=null){
 			
 			double xx=editor.getFastSelectionCircle().getX();
 			double yy=editor.getFastSelectionCircle().getY();
@@ -1209,12 +1209,18 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	
 
 	@Override
+	/**
+	 * X points on the z=0 plane
+	 */
 	public int invertX(int xp,int yp) {
 		
 		return  (int) (((xp-x0)*cosAlfa-(yp-y0)*sinAlfa)*deltax/(2*sinAlfa*cosAlfa));
 	}
 
 	@Override
+	/**
+	 * Y points on the z=0 plane
+	 */
 	public int invertY(int xp,int yp) {
 
 		return  (int) (((xp-x0)*cosAlfa+(yp-y0)*sinAlfa)*deltay/(-2*sinAlfa*cosAlfa));
