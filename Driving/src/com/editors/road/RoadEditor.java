@@ -1820,7 +1820,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private void changeAltimetrySelectedTerrainPoints() {
 		
-		if(!isDrawFastSelectionCircle())
+		if(!isDrawFastSelectionCircle() || !(getCenter() instanceof RoadEditorTopPanel))
 			return;
 		
 		if(setAltitudeValue.getText()==null || setAltitudeValue.getText().equals(""))
@@ -3336,8 +3336,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 					
 					Point p=arg0.getPoint();
 					
-					double xx=ep.invertX((int)p.getX());
-					double yy=ep.invertY((int)p.getY());
+					double xx=ep.invertX((int)p.getX(),(int)p.getY());
+					double yy=ep.invertY((int)p.getX(),(int)p.getY());
 					
 					addObject(xx, yy,0);
 
@@ -3375,8 +3375,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		Point p=arg0.getPoint();
 
-		int x=ep.invertX((int)p.getX());
-		int y=ep.invertY((int)p.getY());
+		int x=ep.invertX((int)p.getX(),(int)p.getY());
+		int y=ep.invertY((int)p.getX(),(int)p.getY());
 		
 		int index=0;
 		
@@ -4114,7 +4114,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		Point p=e.getPoint();
 		
 		RoadEditorPanel ep = getCenter();
-		screenPoint.setText(ep.invertX((int)p.getX())+","+ep.invertY((int)p.getY()));
+		screenPoint.setText(ep.invertX((int)p.getX(),(int)p.getY())+","+ep.invertY((int)p.getX(),(int)p.getY()));
 		
 		int rad=selectionRadius.getvalue();
 		if(rad==0)
@@ -4127,7 +4127,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
     private void updateSelecctionCircle(MouseEvent e, int rad) {
 		
-    	fastSelectionCircle=new Rectangle(e.getX(), e.getY(), rad, rad);
+    	RoadEditorPanel ep = getCenter();
+    	fastSelectionCircle=ep.buildSelecctionCircle(e, rad);   
 		draw();
 		
 	}
@@ -4436,7 +4437,15 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 
 	public boolean isDrawFastSelectionCircle() {
-		return (getCenter() instanceof RoadEditorTopPanel) && mode.equals(ALTIMETRY_MODE);
+		return  mode.equals(ALTIMETRY_MODE);
+	}
+
+	public Rectangle getFastSelectionCircle() {
+		return fastSelectionCircle;
+	}
+
+	public void setFastSelectionCircle(Rectangle fastSelectionCircle) {
+		this.fastSelectionCircle = fastSelectionCircle;
 	}
 
 }

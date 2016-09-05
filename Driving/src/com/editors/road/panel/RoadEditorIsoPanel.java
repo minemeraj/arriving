@@ -3,6 +3,7 @@ package com.editors.road.panel;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Area;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
@@ -776,8 +777,20 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	
 	public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs,boolean hasWater) {
 
-		
-		
+		if(editor.isDrawFastSelectionCircle() && editor.getFastSelectionCircle()!=null){
+			
+			double xx=editor.getFastSelectionCircle().getX();
+			double yy=editor.getFastSelectionCircle().getY();
+			double r=editor.getFastSelectionCircle().getWidth();
+			
+			double d=Point3D.distance(xx, yy, 0, xi, yi, 0);
+			
+			if(d<r && d>r-10){
+				return 0xffffffff;
+			}
+			
+			
+		}
 		double factor=(1*(0.75+0.25*cosin));
 		
 		int alphas=0xff & (argbs>>24);
@@ -1179,22 +1192,37 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	}
 
 	
-	
+	@Override
 	public int convertX(double sx,double sy,double sz){
 
 		
 		//return x0+(int) (deltax*(sy-sx*sinAlfa));//axonometric formula
 		return x0+(int) ((sx*sinAlfa-sy*sinAlfa)/deltay);
 	}
-
+	@Override
 	public int convertY(double sx,double sy,double sz){
 
 		
 		//return y0+(int) (deltay*(sz-sx*cosAlfa));
 		return y0-(int) ((sz+sy*cosAlfa+sx*cosAlfa)/deltay);
 	}
+	
 
 	@Override
+	public int invertX(int xp,int yp) {
+		
+		return  (int) (((xp-x0)*cosAlfa-(yp-y0)*sinAlfa)*deltax/(2*sinAlfa*cosAlfa));
+	}
+
+	@Override
+	public int invertY(int xp,int yp) {
+
+		return  (int) (((xp-x0)*cosAlfa+(yp-y0)*sinAlfa)*deltay/(-2*sinAlfa*cosAlfa));
+		
+	}
+
+	@Override
+	
 	public void translate(int i, int j) {
 		
 		POSX+=i*xMovement*deltax;
@@ -1381,5 +1409,15 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	public void drawFastSelectionCircle(ZBuffer landscapeZbuffer) {
 		
 	}
+
+	@Override
+	public Rectangle buildSelecctionCircle(MouseEvent e, int rad) {
+		
+		int x=invertX(e.getX(), e.getY());
+		int y=invertY(e.getX(), e.getY());
+		
+		return new Rectangle(x, y, rad, rad);
+	}
+
 
 }

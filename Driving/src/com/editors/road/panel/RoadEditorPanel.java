@@ -2,6 +2,8 @@ package com.editors.road.panel;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Area;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -134,15 +136,10 @@ public abstract class RoadEditorPanel extends JPanel {
 	
 	public abstract int convertY(double i,double j,double k);
 
-	public int invertX(int i){
-		return i;
-	}
+	public abstract int invertX(int i,int j);
 	
-	public int invertY(int j){
-		
-		return j;
-		
-	}
+	public abstract int invertY(int i,int j);
+	
 	public void drawCurrentRect(ZBuffer landscapeZbuffer) {		
 		
 	}
@@ -265,6 +262,8 @@ public abstract class RoadEditorPanel extends JPanel {
 	abstract double getDeltaX();
 
 	public abstract void changeMotionIncrement(int i);
+
+	public abstract Rectangle buildSelecctionCircle(MouseEvent e, int rad);
 
 
 	

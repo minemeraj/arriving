@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -932,21 +933,23 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 	}
 
-
+	@Override
 	public int convertX(double i,double j,double k) {
 
 		return (int) (i/deltax-MOVX);
 	}
+	@Override
 	public int convertY(double i,double j,double k) {
 
 		return (int) (HEIGHT-(j/deltay+MOVY));
 	}
-
-	public int invertX(int i) {
+	@Override
+	public int invertX(int i,int j) {
 
 		return (i+MOVX)*deltax;
 	}
-	public int invertY(int j) {
+	@Override
+	public int invertY(int i,int j) {
 
 		return deltay*(HEIGHT-j-MOVY);
 	}
@@ -1732,6 +1735,12 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			drawLine(landscapeZbuffer,x0,y0,x1,y1,rgbColor);
 		}
 
+	}
+
+	@Override
+	public Rectangle buildSelecctionCircle(MouseEvent e, int rad) {
+
+		return new Rectangle(e.getX(), e.getY(), rad, rad);
 	}
 	
 
