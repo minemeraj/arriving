@@ -4112,8 +4112,15 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
+    
+    long currentMouseTime=System.currentTimeMillis();
     @Override
-	public void mouseMoved(MouseEvent e) {
+	public void mouseMoved(MouseEvent e) {		
+		
+		if(System.currentTimeMillis()-currentMouseTime<200)
+			return;		
+		currentMouseTime=System.currentTimeMillis();
+		
 		Point p=e.getPoint();
 		
 		RoadEditorPanel ep = getCenter();
