@@ -774,23 +774,15 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		
 	
 	}
-	
+	@Override
 	public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs,boolean hasWater,int level) {
-
-		if(level<Road.OBJECT_LEVEL && editor.isDrawFastSelectionCircle() && editor.getFastSelectionCircle()!=null){
-			
-			double xx=editor.getFastSelectionCircle().getX();
-			double yy=editor.getFastSelectionCircle().getY();
-			double r=editor.getFastSelectionCircle().getWidth();
-			
-			double d=Point3D.distance(xx, yy, 0, xi, yi, 0);
-			
-			if(d<r && d>r-10){
-				return 0xffffffff;
-			}
-			
-			
+		
+		Integer selectionColor=getSelectionColor(xi, yi, zi, cosin,  argbs, hasWater,level);
+		if(selectionColor!=null){
+			return selectionColor.intValue();
 		}
+
+		
 		double factor=(1*(0.75+0.25*cosin));
 		
 		int alphas=0xff & (argbs>>24);
@@ -810,6 +802,28 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		
 		return alphas <<24 | rs <<16 | gs <<8 | bs;
 	
+	}
+
+	private Integer getSelectionColor(double xi, double yi, double zi, double cosin,
+			int argbs, boolean hasWater, int level) {
+		
+		if(level<Road.OBJECT_LEVEL && editor.isDrawFastSelectionCircle() && editor.getFastSelectionCircle()!=null){
+			
+			double xx=editor.getFastSelectionCircle().getX();
+			double yy=editor.getFastSelectionCircle().getY();
+			double r=editor.getFastSelectionCircle().getWidth();
+			
+			double d=Point3D.distance(xx, yy, 0, xi, yi, 0);
+			
+			if(d<r && d>r-10){
+				return 0xffffffff;
+			}
+			
+			
+		}
+		return null;
+
+		
 	}
 
 	private Point3D buildTransformedPoint(Point3D point) {

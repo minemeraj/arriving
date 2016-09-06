@@ -336,6 +336,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		loadingProgressPanel.dispose();
 	
 		setVisible(true);
+		
+		//RoadEditorEngine engine=new RoadEditorEngine(this);
+		//engine.start();
 	
 	}
 	
@@ -616,7 +619,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 		editorPanel.drawCurrentRect(landscapeZbuffer);
 		
-		editorPanel.drawFastSelectionCircle(landscapeZbuffer);
+		//editorPanel.drawFastSelectionCircle(landscapeZbuffer);
 
 	}
 
@@ -4122,14 +4125,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		if(isDrawFastSelectionCircle()){
 			updateSelecctionCircle(e,rad);
-		
+			draw();
 		}
 	}
     private void updateSelecctionCircle(MouseEvent e, int rad) {
 		
     	RoadEditorPanel ep = getCenter();
     	fastSelectionCircle=ep.buildSelecctionCircle(e, rad);   
-		draw();
 		
 	}
     
@@ -4149,7 +4151,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				y0, 
 				rad, 
 				rad);
-		draw();
 		
 	}
 

@@ -688,7 +688,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 				//System.out.println(x+" "+y+" "+tot);    	
 
-				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.isFilledWithWater()),level,tot,p3d.hashCode());
+				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.isFilledWithWater(),level),level,tot,p3d.hashCode());
 
 
 			}
@@ -780,7 +780,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 
-				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.isFilledWithWater()),level,tot,p3d.hashCode());
+				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.isFilledWithWater(),level),level,tot,p3d.hashCode());
 
 			}
 
@@ -790,6 +790,57 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 
+	}
+	@Override
+	public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs,boolean hasWater,int level) {
+		
+		Integer selectionColor=getSelectionColor(xi, yi, zi, cosin,  argbs, hasWater,level);
+		if(selectionColor!=null){
+			return selectionColor.intValue();
+		}
+		
+		//water effect
+		if(hasWater && zi<-Road.WATER_FILLING+MOVZ){	
+			
+			int alphas=0xff & (argbs>>24);
+			int rs = 0xff & (argbs>>16);
+			int gs = 0xff & (argbs >>8);
+			int bs = 0xff & argbs;
+	
+			rs=gs=0;
+
+		
+			return alphas <<24 | rs <<16 | gs <<8 | bs;
+			
+		}else{
+			
+			return argbs;
+		}
+
+	
+	
+	}
+	
+	private Integer getSelectionColor(double xi, double yi, double zi, double cosin,
+			int argbs, boolean hasWater, int level) {
+		
+		if(editor.isDrawFastSelectionCircle() && editor.getFastSelectionCircle()!=null){
+			
+			double xx=editor.getFastSelectionCircle().getX();
+			double yy=editor.getFastSelectionCircle().getY();
+			double r=editor.getFastSelectionCircle().getWidth();
+			
+			double d=Point3D.distance(xx, yy, 0, xi, yi, 0);
+			
+			if(d<r && d>r-10){
+				return 0xffffffff;
+			}
+			
+			
+		}
+		return null;
+
+		
 	}
 
 
@@ -1740,7 +1791,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	@Override
 	public Rectangle buildSelecctionCircle(MouseEvent e, int rad) {
 
-		return new Rectangle(e.getX(), e.getY(), rad, rad);
+		return new Rectangle(invertX(e.getX(), e.getY()),invertY(e.getX(), e.getY()), rad, rad);
 	}
 	
 
