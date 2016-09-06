@@ -4112,26 +4112,32 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
-    
-    long currentMouseTime=System.currentTimeMillis();
+    private boolean initMouse=true;
+    private int oldMouseX=0;
+    private int oldMouseY=0;
     @Override
 	public void mouseMoved(MouseEvent e) {		
-		
-		if(System.currentTimeMillis()-currentMouseTime<200)
-			return;		
-		currentMouseTime=System.currentTimeMillis();
-		
-		Point p=e.getPoint();
+    	
+    	Point p=e.getPoint();
 		
 		RoadEditorPanel ep = getCenter();
 		screenPoint.setText(ep.invertX((int)p.getX(),(int)p.getY())+","+ep.invertY((int)p.getX(),(int)p.getY()));
-		
+
 		int rad=selectionRadius.getvalue();
 		if(rad==0)
 			rad=INITIAl_SELECTION_RADIUS;
 		
 		if(isDrawFastSelectionCircle()){
 			updateSelecctionCircle(e,rad);
+			
+			if(initMouse || Point3D.distance(e.getX(), e.getY(), 0, oldMouseX, oldMouseY, 0)>50){
+				
+				oldMouseX=e.getX();
+				oldMouseY=e.getY();
+				
+			}else 
+				return;		
+			
 			draw();
 		}
 	}
