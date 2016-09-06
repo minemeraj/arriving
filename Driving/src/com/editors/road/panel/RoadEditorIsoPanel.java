@@ -1426,11 +1426,6 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	}
 
 	@Override
-	public void drawFastSelectionCircle(ZBuffer landscapeZbuffer) {
-		
-	}
-
-	@Override
 	public Rectangle buildSelecctionCircle(MouseEvent e, int rad) {
 		
 		int x=invertX(e.getX(), e.getY());

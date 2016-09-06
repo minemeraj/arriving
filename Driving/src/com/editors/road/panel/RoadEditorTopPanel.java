@@ -1747,48 +1747,6 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	}
 
 	@Override
-	public void drawFastSelectionCircle(ZBuffer landscapeZbuffer) {
-
-		if(!editor.isDrawFastSelectionCircle())
-			return;
-
-		Rectangle currentRect =editor.fastSelectionCircle;
-		
-		if(currentRect==null)
-			return;
-		
-
-		int xc=editor.fastSelectionCircle.x;
-		int yc=editor.fastSelectionCircle.y;
-
-		int rx=editor.fastSelectionCircle.width;
-		int ry=editor.fastSelectionCircle.height;
-
-		int rgbColor=Color.WHITE.getRGB();
-
-		int rays_number=10;
-		
-		double nValue=rx*0.1;
-		
-		if(nValue>rays_number){
-			rays_number=(int) Math.ceil(nValue);
-		}
-		
-		double dteta=Math.PI*2.0/rays_number;
-		
-		for (int i = 0; i < rays_number; i++) {
-			
-			int x0=xc+(int)(rx* Math.cos(i*dteta));
-			int y0=yc+(int)(ry* Math.sin(i*dteta));
-			int x1=xc+(int)(rx* Math.cos((i+1)*dteta));
-			int y1=yc+(int)(ry* Math.sin((i+1)*dteta));
-			
-			drawLine(landscapeZbuffer,x0,y0,x1,y1,rgbColor);
-		}
-
-	}
-
-	@Override
 	public Rectangle buildSelecctionCircle(MouseEvent e, int rad) {
 
 		return new Rectangle(invertX(e.getX(), e.getY()),invertY(e.getX(), e.getY()), rad, rad);

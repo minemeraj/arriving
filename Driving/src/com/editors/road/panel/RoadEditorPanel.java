@@ -121,8 +121,6 @@ public abstract class RoadEditorPanel extends JPanel {
 		
 	}
 	
-	public void drawFastSelectionCircle( ZBuffer landscapeZbuffer){}
-	
 	public abstract void zoom(int i);
 	
 	public abstract void translate(int i, int j);
