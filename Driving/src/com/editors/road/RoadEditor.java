@@ -4130,10 +4130,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		if(isDrawFastSelectionCircle()){
 			updateSelecctionCircle(e,rad);
 			
-			if(initMouse || Point3D.distance(e.getX(), e.getY(), 0, oldMouseX, oldMouseY, 0)>50){
+			if(initMouse || Point3D.distance(e.getX(), e.getY(), 0, oldMouseX, oldMouseY, 0)>25){
 				
 				oldMouseX=e.getX();
 				oldMouseY=e.getY();
+				
+				initMouse=false;
 				
 			}else 
 				return;		
