@@ -4112,9 +4112,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
-    private boolean initMouse=true;
-    private int oldMouseX=0;
-    private int oldMouseY=0;
+    private boolean isMouseMoved=false;
     @Override
 	public void mouseMoved(MouseEvent e) {		
     	
@@ -4130,17 +4128,15 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		if(isDrawFastSelectionCircle()){
 			updateSelecctionCircle(e,rad);
 			
-			if(initMouse || Point3D.distance(e.getX(), e.getY(), 0, oldMouseX, oldMouseY, 0)>25){
+			if(!isMouseMoved){
 				
-				oldMouseX=e.getX();
-				oldMouseY=e.getY();
-				
-				initMouse=false;
+				isMouseMoved=true;
+				RoadEditorThread engine=new RoadEditorThread(this,200);
+				engine.start();
 				
 			}else 
 				return;		
-			
-			draw();
+
 		}
 	}
     private void updateSelecctionCircle(MouseEvent e, int rad) {
@@ -4462,6 +4458,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	public void setFastSelectionCircle(Rectangle fastSelectionCircle) {
 		this.fastSelectionCircle = fastSelectionCircle;
+	}
+
+	public boolean isMouseMoved() {
+		return isMouseMoved;
+	}
+
+	public void setMouseMoved(boolean isMouseMoved) {
+		this.isMouseMoved = isMouseMoved;
 	}
 
 }
