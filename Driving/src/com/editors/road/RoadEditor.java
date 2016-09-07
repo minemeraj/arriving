@@ -4113,6 +4113,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
     private boolean isMouseMoved=false;
+    private boolean waitBeforeMovingMouse=false;
     @Override
 	public void mouseMoved(MouseEvent e) {		
     	
@@ -4125,7 +4126,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		if(rad==0)
 			rad=INITIAl_SELECTION_RADIUS;
 		
-		if(isDrawFastSelectionCircle()){
+		if(isDrawFastSelectionCircle() && !waitBeforeMovingMouse){
 			updateSelecctionCircle(e,rad);
 			
 			if(!isMouseMoved){
@@ -4135,7 +4136,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				engine.start();
 				
 			}else 
-				return;		
+				return;
 
 		}
 	}
@@ -4467,5 +4468,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	public void setMouseMoved(boolean isMouseMoved) {
 		this.isMouseMoved = isMouseMoved;
 	}
+
+	public boolean isWaitBeforeMovingMouse() {
+		return waitBeforeMovingMouse;
+	}
+
+	public void setWaitBeforeMovingMouse(boolean waitBeforeMovingMouse) {
+		this.waitBeforeMovingMouse = waitBeforeMovingMouse;
+	}
+
 
 }
