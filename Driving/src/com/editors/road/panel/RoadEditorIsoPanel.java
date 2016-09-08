@@ -57,6 +57,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	protected int POSY=0;
 	
 	private int minMovement=5;
+	private Rectangle visibleArea;
 
 	public RoadEditorIsoPanel(RoadEditor editor, int WIDTH,int HEIGHT) {
 		
@@ -67,7 +68,9 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	@Override
 	public void drawRoad(PolygonMesh[] meshes, ArrayList<DrawObject> drawObjects,ArrayList<SPLine> splines,Point3D startPosition,ZBuffer landscapeZbuffer,Graphics2D graph) {
 
+
 		displayTerrain(landscapeZbuffer,meshes);
+		
 		if(!isHide_objects())
 			displayObjects(drawObjects,null,landscapeZbuffer);
 		if(!isHide_splines())
@@ -89,6 +92,8 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		
 		xMovement=2*minMovement;
 		yMovement=2*minMovement;
+		
+		visibleArea=new Rectangle(0,0,WIDTH,HEIGHT);
 
 	}
 
@@ -108,7 +113,13 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	
 				LineData ld=(LineData) mesh.polygonData.get(j);
 	
+				Polygon3D polProjected=buildLightPolygonProjection(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,index,mesh.getLevel());
+				if(!Polygon3D.isIntersect(polProjected,visibleArea)){
+					continue;
+				}
+				
 				Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,index,mesh.getLevel());
+				
 				
 				Color selected=null;
 				
@@ -1179,6 +1190,39 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		p3dr.setIsFilledWithWater(ld.isFilledWithWater());
 		p3dr.setWaterPolygon(ld.isWaterPolygon());
 		return p3dr;
+
+	}
+	
+	private Polygon3D buildLightPolygonProjection(LineData ld,double[] xpoints,double[] ypoints,double[] zpoints,int index,int level) {
+
+		Polygon3D pol=new Polygon3D();
+		
+		int size=ld.size();
+
+		for(int i=0;i<size;i++){
+
+
+			LineDataVertex ldv=(LineDataVertex) ld.getItem(i);
+			int num=ldv.getVertex_index();
+
+			Point4D p= new Point4D(xpoints[num],ypoints[num],zpoints[num]);
+
+			//real coordinates
+
+			p.x=(p.x)-POSX;
+			p.y=(p.y)-POSY;
+			p.z=(p.z)+MOVZ;
+			
+			p.rotate(POSX,POSY,cosf,sinf);
+			
+			int xx=convertX(p.x,p.y,p.z);
+			int yy=convertY(p.x,p.y,p.z);	
+		
+			
+			pol.addPoint(xx,yy);
+
+		}
+		return pol;
 
 	}
 

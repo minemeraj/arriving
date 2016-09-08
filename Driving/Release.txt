@@ -1,4 +1,4 @@
-Review of the RoadEditor
+Review of the RoadEditor and the 3DPanel.
 
 Reducing texture sizes:
 object3D_texture_26.jpg  1.20Mb->210Kb
