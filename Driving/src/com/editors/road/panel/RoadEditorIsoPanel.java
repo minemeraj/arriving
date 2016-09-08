@@ -300,12 +300,16 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		int polSize=cm.polygonData.size();	
 		for(int i=0;i<polSize;i++){
 
-
-
 			//int due=(int)(255-i%15);			
 			//Color col=new Color(due,0,0);
 
 			LineData ld=cm.polygonData.get(i);
+			
+			Polygon3D polProjected=buildLightPolygonProjection(ld,cm.xpoints,cm.ypoints,cm.zpoints,cm.getLevel(),cm.getLevel());
+			if(!Polygon3D.isIntersect(polProjected,visibleArea)){
+				continue;
+			}
+			
 			Polygon3D polRotate=PolygonMesh.getBodyPolygon(cm.xpoints,cm.ypoints,cm.zpoints,ld,cm.getLevel());
 			polRotate.setShadowCosin(ld.getShadowCosin());
 
