@@ -240,7 +240,31 @@ public abstract class RoadEditorPanel extends JPanel {
 
 	public abstract Rectangle buildSelecctionCircle(MouseEvent e, int rad);
 
+	protected boolean isUseSelectionColor(double xi, double yi, double zi, double cosin,
+			int argbs, boolean hasWater, int level) {
 
+		if(editor.isDrawFastSelectionCircle() && editor.getFastSelectionCircle()!=null){
+			
+			double xx=editor.getFastSelectionCircle().getX();
+			double yy=editor.getFastSelectionCircle().getY();
+			double r=editor.getFastSelectionCircle().getWidth();
+			
+			//faster test than sqrt
+			if(Math.abs(xx-xi)>r || Math.abs(yy-yi)>r)
+				return false;
+			
+			double d=Point3D.distance(xx, yy, 0, xi, yi, 0);
+			
+			if(d<r && d>r-10){
+				return true;
+			}
+			
+			
+		}
+		return false;
+
+		
+	}
 	
 
 

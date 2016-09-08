@@ -794,9 +794,9 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	@Override
 	public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs,boolean hasWater,int level) {
 		
-		Integer selectionColor=getSelectionColor(xi, yi, zi, cosin,  argbs, hasWater,level);
-		if(selectionColor!=null){
-			return selectionColor.intValue();
+		boolean useSelectionColor=isUseSelectionColor(xi, yi, zi, cosin,  argbs, hasWater,level);
+		if(useSelectionColor){
+			return 0xffffffff;
 		}
 		
 		//water effect
@@ -820,28 +820,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	
 	
 	}
-	
-	private Integer getSelectionColor(double xi, double yi, double zi, double cosin,
-			int argbs, boolean hasWater, int level) {
-		
-		if(editor.isDrawFastSelectionCircle() && editor.getFastSelectionCircle()!=null){
-			
-			double xx=editor.getFastSelectionCircle().getX();
-			double yy=editor.getFastSelectionCircle().getY();
-			double r=editor.getFastSelectionCircle().getWidth();
-			
-			double d=Point3D.distance(xx, yy, 0, xi, yi, 0);
-			
-			if(d<r && d>r-10){
-				return 0xffffffff;
-			}
-			
-			
-		}
-		return null;
 
-		
-	}
 
 
 	private Area clipPolygonToArea2D(Polygon p_in,Area area_out){

@@ -101,9 +101,9 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		
 			PolygonMesh mesh=meshes[index];
 			
-			int sizel=mesh.polygonData.size();
+			int polySize=mesh.polygonData.size();
 	
-			for(int j=0;j<sizel;j++){
+			for(int j=0;j<polySize;j++){
 	
 	
 				LineData ld=(LineData) mesh.polygonData.get(j);
@@ -148,15 +148,17 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	public void displaySPLines(ZBuffer landscapeZbuffer, ArrayList<SPLine> splines) {
 	
 		
-
-		for (int i = 0; i < splines.size(); i++) {
+		int spz=splines.size();
+		for (int i = 0; i < spz; i++) {
 			SPLine spline = (SPLine) splines.get(i);
 			
 			int hashCode=spline.hashCode();
 			
 			ArrayList<PolygonMesh> meshes = spline.getMeshes3D();
 			
-			for (int j = 0; j < meshes.size(); j++) {
+			int msz=meshes.size();
+			
+			for (int j = 0; j < msz; j++) {
 				
 				PolygonMesh mesh = (PolygonMesh) meshes.get(j);
 				
@@ -186,9 +188,9 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			if(nodes==null)
 				continue;
 			
-			int sz=nodes.size();
+			int nodesSize=nodes.size();
 
-			for (int k = 0; k < sz; k++) {
+			for (int k = 0; k < nodesSize; k++) {
 				
 				SPNode node = (SPNode) nodes.get(k);
 				
@@ -199,7 +201,9 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				if(node.isSelected())
 					texture=EditorData.redTexture;
 				
-				for(int l=0;l<pm.polygonData.size();l++){
+				int pmSize=pm.polygonData.size();
+				
+				for(int l=0;l<pmSize;l++){
 					
 					
 					LineData ld=(LineData) pm.polygonData.get(l);
@@ -226,7 +230,8 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 
         Rectangle rect = null;//totalVisibleField.getBounds();
-		for(int i=0;i<drawObjects.size();i++){
+        int objSize=drawObjects.size();
+		for(int i=0;i<objSize;i++){
 
 			DrawObject dro=(DrawObject) drawObjects.get(i);
      		drawPolygonMesh(dro, rect, zbuffer);
@@ -777,9 +782,9 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	@Override
 	public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs,boolean hasWater,int level) {
 		
-		Integer selectionColor=getSelectionColor(xi, yi, zi, cosin,  argbs, hasWater,level);
-		if(selectionColor!=null){
-			return selectionColor.intValue();
+		boolean useSelectionColor=isUseSelectionColor(xi, yi, zi, cosin,  argbs, hasWater,level);
+		if(useSelectionColor){
+			return 0xffffffff;
 		}
 
 		
@@ -804,26 +809,13 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	
 	}
 
-	private Integer getSelectionColor(double xi, double yi, double zi, double cosin,
-			int argbs, boolean hasWater, int level) {
-		
-		if(level<Road.OBJECT_LEVEL && editor.isDrawFastSelectionCircle() && editor.getFastSelectionCircle()!=null){
-			
-			double xx=editor.getFastSelectionCircle().getX();
-			double yy=editor.getFastSelectionCircle().getY();
-			double r=editor.getFastSelectionCircle().getWidth();
-			
-			double d=Point3D.distance(xx, yy, 0, xi, yi, 0);
-			
-			if(d<r && d>r-10){
-				return 0xffffffff;
-			}
-			
-			
-		}
-		return null;
-
-		
+	
+	@Override
+	protected boolean isUseSelectionColor(double xi, double yi, double zi,
+			double cosin, int argbs, boolean hasWater, int level) {
+		if(level==Road.OBJECT_LEVEL)
+			return false;
+		return super.isUseSelectionColor(xi, yi, zi, cosin, argbs, hasWater, level);
 	}
 
 	private Point3D buildTransformedPoint(Point3D point) {
@@ -904,9 +896,9 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
     	ArrayList<PolygonToOrder> selectablePolygons=new ArrayList<PolygonToOrder>();
 
-    	int sizel=mesh.polygonData.size();
+    	int meshSize=mesh.polygonData.size();
 
-    	for(int i=0;i<sizel;i++){
+    	for(int i=0;i<meshSize;i++){
 
 
     		LineData ld=(LineData) mesh.polygonData.get(i);
@@ -932,8 +924,8 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
     	double maxDistance=0;
 
     	/////here calculate the nearest block.
-
-    	for (int i = 0; i < selectablePolygons.size(); i++) {
+    	int selSize=selectablePolygons.size();
+    	for (int i = 0; i <selSize ; i++) {
     		PolygonToOrder pot = (PolygonToOrder) selectablePolygons.get(i);
 
     		if(i==0){
@@ -956,7 +948,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
     	/////
 
 
-    	for(int i=0;i<sizel;i++){ 
+    	for(int i=0;i<meshSize;i++){ 
 
 
     		LineData ld=(LineData) mesh.polygonData.get(i);
@@ -1004,8 +996,8 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
     public void selectObjects(int x, int y, ArrayList<DrawObject> drawObjects) {
  
-    	
-    	for (int i = 0; i < drawObjects.size(); i++) {
+    	int droSize= drawObjects.size();
+    	for (int i = 0; i <droSize; i++) {
 
 			DrawObject dro=(DrawObject) drawObjects.get(i);
 
@@ -1058,7 +1050,8 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	
 		boolean isToselect=true;
 		
-		for (int i = 0; i < splines.size(); i++) {
+		int spSize=splines.size();
+		for (int i = 0; i < spSize; i++) {
 			
 			SPLine spline = (SPLine) splines.get(i);
 			
@@ -1067,14 +1060,16 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			if(nodes==null)
 				continue;
 			
-			int sz=nodes.size();
+			int nodesSize=nodes.size();
 			
-			for(int j=0;j<sz;j++){
+			for(int j=0;j<nodesSize;j++){
 			
 				SPNode spnode = (SPNode) nodes.get(j);
 				PolygonMesh circle = spnode.getCircle();
 				
-				for (int k = 0; k < circle.polygonData.size(); k++) {
+				int circleSize=circle.polygonData.size();
+				
+				for (int k = 0; k < circleSize; k++) {
 					
 					LineData ld=(LineData) circle.polygonData.get(k);
 				    Polygon3D polReal= buildTranslatedPolygon3D(ld,circle.xpoints,circle.ypoints,circle.zpoints,0,0);
