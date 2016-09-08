@@ -171,8 +171,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 			
 			for (int j = 0; j < msz; j++) {
 				
-				PolygonMesh mesh = (PolygonMesh) meshes.get(j);
-				
+				PolygonMesh mesh = (PolygonMesh) meshes.get(j);				
 				
 				ArrayList<LineData> polygonData=mesh.polygonData;
 				
@@ -184,6 +183,11 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 					Color selected=null;
 					
 					LineData ld=(LineData) polygonData.get(k);
+					
+					Polygon3D polProjected=buildLightPolygonProjection(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,DrivingFrame.ROAD_INDEX,mesh.getLevel());
+					if(!Polygon3D.isIntersect(polProjected,visibleArea)){
+						continue;
+					}
 						
 					Polygon3D p3D=buildTranslatedPolygon3D(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,DrivingFrame.ROAD_INDEX,mesh.getLevel());
 					
