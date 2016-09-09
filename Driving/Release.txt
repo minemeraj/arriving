@@ -1,4 +1,5 @@
 Review of the RoadEditor and the 3DPanel.
+now you can set the altitude in the 3D view as well, using the selection circle.
 
 Reducing texture sizes:
 object3D_texture_26.jpg  1.20Mb->210Kb

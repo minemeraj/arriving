@@ -839,17 +839,21 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	}
 
 	private Point3D buildTransformedPoint(Point3D point) {
+
 	
-		Point3D newPoint=new Point3D();
+		return buildTransformedPoint(point.x,point.y,point.z);
+	}
 	
+	private Point3D buildTransformedPoint(double xp,double yp, double zp) {
+		
+		Point3D newPoint=new Point3D();	
 	
-	
-		double x=point.x-POSX;
-		double y=point.y-POSY;
+		double x=xp-POSX;
+		double y=yp-POSY;
 	
 		newPoint.x=(int) (viewDirectionCos*x+viewDirectionSin*y);
 		newPoint.y=(int) (viewDirectionCos*y-viewDirectionSin*x);	
-		newPoint.z=point.z+MOVZ;
+		newPoint.z=zp+MOVZ;
 	
 		return newPoint;
 	}
@@ -1148,7 +1152,11 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 		for(int j=0;j<mesh.xpoints.length;j++){
 			
-			double distance=Point3D.distance(xc, yc, 0, mesh.xpoints[j]-POSX, mesh.ypoints[j]-POSY, 0);
+			Point3D p=new Point3D(mesh.xpoints[j]-POSX,mesh.ypoints[j]-POSY,mesh.zpoints[j]+MOVZ);
+			
+			p.rotate(POSX,POSY,cosf,sinf);
+			
+			double distance=Point3D.distance(xc, yc, 0, p.x,p.y, 0);
 
 
 			if(distance<rx){
