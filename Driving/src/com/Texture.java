@@ -97,7 +97,7 @@ public class Texture {
 		int tot=i+WIDTH*j;
 		
 	    if(tot>-1 && tot<rgb.length)
-	    	return rgb[i+WIDTH*j];
+	    	return rgb[tot];
 	    else
 	    	return rgb[rgb.length-1];
 

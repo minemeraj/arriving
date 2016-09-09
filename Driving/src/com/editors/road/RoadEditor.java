@@ -4132,7 +4132,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			if(!isMouseMoved){
 				
 				isMouseMoved=true;
-				RoadEditorThread engine=new RoadEditorThread(this,200);
+				RoadEditorThread engine=new RoadEditorThread(this);
 				engine.start();
 				
 			}else 

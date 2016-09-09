@@ -12,20 +12,15 @@ public class RoadEditorThread extends Thread{
 
 	private RoadEditor editor;
 
-	private int delay=0;
 
-	public RoadEditorThread(RoadEditor editor,int delay) {
+	public RoadEditorThread(RoadEditor editor) {
 		super();
 		this.editor = editor;
-		this.delay = delay;
+
 	}
 
 	public void run() {
 
-		try {
-			sleep(delay);
-		} catch (InterruptedException e) {
-		}
 		editor.setWaitBeforeMovingMouse(true);
 		editor.draw();
 		editor.setWaitBeforeMovingMouse(false);
