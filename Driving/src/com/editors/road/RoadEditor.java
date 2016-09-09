@@ -1823,7 +1823,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	
 	private void changeAltimetrySelectedTerrainPoints() {
 		
-		if(!isDrawFastSelectionCircle() || !(getCenter() instanceof RoadEditorTopPanel))
+		if(!isDrawFastSelectionCircle())
 			return;
 		
 		if(setAltitudeValue.getText()==null || setAltitudeValue.getText().equals(""))

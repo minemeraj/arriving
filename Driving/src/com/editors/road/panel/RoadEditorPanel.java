@@ -137,7 +137,47 @@ public abstract class RoadEditorPanel extends JPanel {
 	
 	public HashMap<Integer,Boolean> pickUpPointsWithFastCircle(PolygonMesh mesh) {
 		
-		return null;
+		HashMap<Integer, Boolean> map = new HashMap<Integer,Boolean>();
+
+
+		if(mesh.xpoints==null || editor.fastSelectionCircle==null)
+			return map;
+
+
+		int xc=editor.fastSelectionCircle.x;
+		int yc=editor.fastSelectionCircle.y;
+
+		int rx=editor.fastSelectionCircle.width;
+
+		if(!editor.checkCoordinatesx[editor.getACTIVE_PANEL()].isSelected())
+			editor.coordinatesx[editor.getACTIVE_PANEL()].setText("");
+		if(!editor.checkCoordinatesy[editor.getACTIVE_PANEL()].isSelected())
+			editor.coordinatesy[editor.getACTIVE_PANEL()].setText("");
+		if(!editor.checkCoordinatesz[editor.getACTIVE_PANEL()].isSelected())
+			editor.coordinatesz[editor.getACTIVE_PANEL()].setText("");
+
+
+		for(int j=0;j<mesh.xpoints.length;j++){
+			
+			double distance=Point3D.distance(xc, yc, 0, mesh.xpoints[j], mesh.ypoints[j], 0);
+
+
+			if(distance<rx){
+
+				map.put(new Integer(j), new Boolean(true));
+
+
+			}
+			else if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected()){
+				//nothing to do
+			}
+
+		}
+
+
+		return map;
+
+
 	}
 	
 	public boolean selectPolygonsWithRectangle(PolygonMesh mesh) {
