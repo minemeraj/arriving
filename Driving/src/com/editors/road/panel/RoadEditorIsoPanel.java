@@ -1537,7 +1537,61 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 	@Override
 	public HashMap<Integer, Boolean> pickUpPoygonsWithFastCircle(PolygonMesh mesh) {
-		return new HashMap<Integer, Boolean>();
+
+		HashMap<Integer, Boolean> map = new HashMap<Integer,Boolean>();
+
+
+		if(mesh.xpoints==null || editor.fastSelectionCircle==null)
+			return map;
+
+
+		int xc=editor.fastSelectionCircle.x;
+		int yc=editor.fastSelectionCircle.y;
+
+		int rx=editor.fastSelectionCircle.width;
+
+		int sizel=mesh.polygonData.size();
+
+
+		for(int j=0;j<sizel;j++){
+
+			LineData ld=(LineData) mesh.polygonData.get(j);
+
+			Polygon3D pol= PolygonMesh.getBodyPolygon( mesh.xpoints,mesh.ypoints,mesh.zpoints, ld,mesh.getLevel());
+			pol.translate(-POSX, -POSY);
+			Polygon3D.rotate(pol, new Point3D(POSX,POSY,0), fi);
+
+			boolean selected=false;	
+
+			for (int i = 0; i < pol.xpoints.length; i++) {
+				
+				double distance=Point3D.distance(xc, yc, 0, pol.xpoints[i],pol.ypoints[i], 0);
+
+
+				if(distance<rx){
+
+					map.put(new Integer(j), new Boolean(true));
+					selected=true;
+					break;
+				}
+			} 
+
+			if(!selected){
+
+				/*if(Polygon3D.isIntersect(new Point3D(xc,yc,0),pol.getBounds())){
+
+					map.put(new Integer(j), new Boolean(true));
+					selected=true;
+				}*/
+
+			}
+
+		}
+
+
+		return map;
+
+
 	}
 
 
