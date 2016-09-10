@@ -244,7 +244,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton updateStartPosition;
 
 
-	int SPLINE_PANEL=1;
+	private int SPLINE_PANEL=1;
 	private JMenu other_jm;
 	private JMenuItem mass_modify_jmt;
 	private JMenuItem jmt_faster_motion;
@@ -751,6 +751,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		left_tool_options=new JPanel(new CardLayout());	
 		left_tool_options.setBounds(0,middle_left_height+upper_left_height,LEFT_BORDER,lower_left_height);
 		left.add(left_tool_options);
+		
+		toogle_altimetry = new JToggleButton("ALT");
+		toogle_altimetry.setActionCommand(ALTIMETRY_MODE);
+		toogle_altimetry.addActionListener(this);
+		toogle_altimetry.addKeyListener(this);
+		toogle_altimetry.setToolTipText("Altimetry");
+		toogle_altimetry.setBounds(10,r,60,20);
 
 		toogle_terrain_polygons= new JToggleButton("PLG");		
 		toogle_terrain_polygons.setActionCommand(TERRAIN_POLYGONS_MODE);
@@ -776,14 +783,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		toogle_objects.setToolTipText("Ojbects");
 		toogle_objects.setBounds(80,r,60,20);
 
-		r+=30;
 
-		toogle_altimetry = new JToggleButton("ALT");
-		toogle_altimetry.setActionCommand(ALTIMETRY_MODE);
-		toogle_altimetry.addActionListener(this);
-		toogle_altimetry.addKeyListener(this);
-		toogle_altimetry.setToolTipText("Altimetry");
-		toogle_altimetry.setBounds(10,r,60,20);
 
 		ButtonGroup bgb=new ButtonGroup();
 		bgb.add(toogle_splines);
