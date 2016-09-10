@@ -856,7 +856,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		
 		
 		selectionRadius=new IntegerTextField();
-		selectionRadius.setBounds(90,r,80,20);
+		selectionRadius.setBounds(80,r,80,20);
 		selectionRadius.addKeyListener(this);
 		selectionRadius.setText(INITIAl_SELECTION_RADIUS);
 		selectionRadius.addFocusListener(new FocusListener() {
@@ -873,19 +873,17 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				
 			}
 		});
-		
-		r+=30;
 				
 		selectionRadiusPlus=new JButton(header+"+"+footer);
 		selectionRadiusPlus.addActionListener(this);
 		selectionRadiusPlus.setFocusable(false);
-		selectionRadiusPlus.setBounds(5,r,30,20);
+		selectionRadiusPlus.setBounds(160,r,30,20);
 		
 		
 		selectionRadiusMinus=new JButton(header+"-"+footer);
 		selectionRadiusMinus.addActionListener(this);
 		selectionRadiusMinus.setFocusable(false);
-		selectionRadiusMinus.setBounds(40,r,30,20);
+		selectionRadiusMinus.setBounds(200,r,30,20);
 		
 		left_common_options.add(checkHideObjects);
 		left_common_options.add(checkHideSplines);
@@ -1192,9 +1190,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		setAltitudeValue.setBounds(90,r,80,20);
 		altimetry_panel.add(setAltitudeValue);
 		setAltitudeValue.addKeyListener(this);
-		
-		
-		altimetry_panel.add(selectionRadiusMinus);
 		 
 		return altimetry_panel;
 	}
