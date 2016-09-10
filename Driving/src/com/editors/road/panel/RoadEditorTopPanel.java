@@ -1119,7 +1119,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	
 	@Override
 	public HashMap<Integer,Boolean> pickUpPoygonsWithFastCircle(PolygonMesh mesh) {
-		
+
 		HashMap<Integer, Boolean> map = new HashMap<Integer,Boolean>();
 
 
@@ -1131,46 +1131,61 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		int yc=editor.fastSelectionCircle.y;
 
 		int rx=editor.fastSelectionCircle.width;
-		
+
 		int sizel=mesh.polygonData.size();
 
 
 		for(int j=0;j<sizel;j++){
-			
+
 			LineData ld=(LineData) mesh.polygonData.get(j);
-			
+
 			Polygon3D drawPolygon= buildPolygon(ld, mesh.xpoints,mesh.ypoints,mesh.zpoints, false);
 
 			boolean isVisible = Polygon3D.isIntersect(drawPolygon,totArea.getBounds());
 			boolean selected=false;	
-			
-			if(isVisible ){
-				
-				Polygon3D pol=buildPolygon(ld, mesh.xpoints,mesh.ypoints,mesh.zpoints, true);
-				
-				for (int i = 0; i < pol.xpoints.length; i++) {
-					
-					double distance=Point3D.distance(xc, yc, 0, pol.xpoints[i], pol.ypoints[i], 0);
 
+			if(isVisible ){
+
+				Polygon3D pol=buildPolygon(ld, mesh.xpoints,mesh.ypoints,mesh.zpoints, true);
+
+				boolean selectByVertex=false;
+				if(selectByVertex){
+					for (int i = 0; i < pol.xpoints.length; i++) {
+
+						double distance=Point3D.distance(xc, yc, 0, pol.xpoints[i], pol.ypoints[i], 0);
+
+
+						if(distance<rx){
+
+							map.put(new Integer(j), new Boolean(true));
+							selected=true;
+							break;
+						}
+					} 
+				}
+				else{
+					Point3D centroid = Polygon3D.findCentroid(pol);
+
+					double distance=Point3D.distance(xc, yc, 0, centroid.x,centroid.y, 0);				
 
 					if(distance<rx){
 
 						map.put(new Integer(j), new Boolean(true));
 						selected=true;
-						break;
 					}
-				} 
-			
+
+				}
+
 				if(!selected){
-				
+
 					if(Polygon3D.isIntersect(new Point3D(xc,yc,0),pol.getBounds())){
-						
+
 						map.put(new Integer(j), new Boolean(true));
 						selected=true;
 					}
-					
+
 				}
-				
+
 			}
 
 		}
