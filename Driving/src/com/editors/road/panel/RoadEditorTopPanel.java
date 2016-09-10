@@ -1065,59 +1065,6 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 	}
 	@Override
-	public boolean selectPointsWithRectangle(PolygonMesh mesh) {
-
-
-		if(mesh.xpoints==null)
-			return false;
-
-
-		int x0=Math.min(editor.currentRect.x,editor.currentRect.x+editor.currentRect.width);
-		int x1=Math.max(editor.currentRect.x,editor.currentRect.x+editor.currentRect.width);
-		int y0=Math.min(editor.currentRect.y,editor.currentRect.y+editor.currentRect.height);
-		int y1=Math.max(editor.currentRect.y,editor.currentRect.y+editor.currentRect.height);
-
-		if(!editor.checkCoordinatesx[editor.getACTIVE_PANEL()].isSelected())
-			editor.coordinatesx[editor.getACTIVE_PANEL()].setText("");
-		if(!editor.checkCoordinatesy[editor.getACTIVE_PANEL()].isSelected())
-			editor.coordinatesy[editor.getACTIVE_PANEL()].setText("");
-		if(!editor.checkCoordinatesz[editor.getACTIVE_PANEL()].isSelected())
-			editor.coordinatesz[editor.getACTIVE_PANEL()].setText("");
-
-		//select point from road
-		boolean found=false;
-
-
-		for(int j=0;j<mesh.xpoints.length;j++){
-
-
-			Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
-
-			int xo=convertX(p);
-			int yo=convertY(p);
-
-
-			if(xo>=x0 && xo<=x1 && yo>=y0 && yo<=y1  ){
-
-				mesh.selected[j]=true;
-				found=true;
-
-
-			}
-			else if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected())
-				mesh.selected[j]=false;
-
-
-		}
-
-		return found;
-
-
-
-
-	}
-	
-	@Override
 	public HashMap<Integer,Boolean> pickUpPoygonsWithFastCircle(PolygonMesh mesh) {
 
 		HashMap<Integer, Boolean> map = new HashMap<Integer,Boolean>();
@@ -1240,7 +1187,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 					}else{
 
-						if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected())
+						if(!editor.checkMultipleSpnodeSelection.isSelected())
 							spnode.setSelected(false);
 					}	
 				}
@@ -1307,7 +1254,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 				}else{
 
-					if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected())
+					if(!editor.checkMultipleSpnodeSelection.isSelected())
 						spnode.setSelected(false);
 				}	
 
@@ -1467,45 +1414,6 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 		return p3dr;
 
-	}
-
-	public boolean selectPoints(int x, int y, PolygonMesh mesh, LineData polygon) {
-
-		boolean found=false;
-
-		for(int j=0;mesh.xpoints!=null && j<mesh.xpoints.length;j++){
-
-
-			Point4D p=new Point4D(mesh.xpoints[j],mesh.ypoints[j],mesh.zpoints[j]);
-
-			int xo=convertX(p);
-			int yo=convertY(p);
-
-			Rectangle rect=new Rectangle(xo-5,yo-5,10,10);
-			if(rect.contains(x,y)){
-
-				if(!editor.checkCoordinatesx[editor.getACTIVE_PANEL()].isSelected())
-					editor.coordinatesx[editor.getACTIVE_PANEL()].setText(p.x);
-				if(!editor.checkCoordinatesy[editor.getACTIVE_PANEL()].isSelected())
-					editor.coordinatesy[editor.getACTIVE_PANEL()].setText(p.y);
-				if(!editor.checkCoordinatesz[editor.getACTIVE_PANEL()].isSelected())
-					editor.coordinatesz[editor.getACTIVE_PANEL()].setText(p.z);
-
-				found=true;
-				mesh.selected[j]=true;
-
-				polygon.addIndex(j);
-
-
-
-			}
-			else if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected())
-				mesh.selected[j]=false;
-
-
-		}
-
-		return found;
 	}
 
 	/**

@@ -23,7 +23,6 @@ import com.SPNode;
 import com.Texture;
 import com.ZBuffer;
 import com.editors.EditorData;
-import com.editors.ValuePair;
 import com.editors.road.RoadEditor;
 import com.main.DrivingFrame;
 import com.main.Renderer3D;
@@ -895,129 +894,6 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 	}
 
-	public ArrayList<LineData> getClickedPolygons(int x, int y, PolygonMesh mesh) {
-
-		return selectPolygons(x,y,mesh,false);
-	}
-
-	public boolean selectPolygons(int x, int y, PolygonMesh mesh) {
-
-		ArrayList<LineData> vec=selectPolygons(x,y,mesh,true);
-
-		return vec!=null && vec.size()>0;
-
-	}
-
-	public ArrayList<LineData> selectPolygons(int x, int y, PolygonMesh mesh,
-			boolean toSelect) {
-
-		ArrayList<LineData> ret=new ArrayList<LineData>();
-
-		if(mesh==null)
-			return ret;
-
-
-
-		ArrayList<PolygonToOrder> selectablePolygons=new ArrayList<PolygonToOrder>();
-
-		int meshSize=mesh.polygonData.size();
-
-		for(int i=0;i<meshSize;i++){
-
-
-			LineData ld=(LineData) mesh.polygonData.get(i);
-
-
-			Polygon3D polReal= buildTranslatedPolygon3D(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,0,mesh.getLevel());
-
-			Polygon3D polProjectd=builProjectedPolygon(polReal);
-
-			if(polProjectd.contains(x,y)){
-
-				PolygonToOrder pot=new PolygonToOrder(ld,Polygon3D.findCentroid(polReal),i);
-				selectablePolygons.add(pot);
-
-			}
-
-
-		}	
-
-
-
-		PolygonToOrder selectedPolygonOrder=null;
-		double maxDistance=0;
-
-		/////here calculate the nearest block.
-		int selSize=selectablePolygons.size();
-		for (int i = 0; i <selSize ; i++) {
-			PolygonToOrder pot = (PolygonToOrder) selectablePolygons.get(i);
-
-			if(i==0){
-				selectedPolygonOrder=pot;
-				maxDistance=Point3D.calculateDotProduct(pot.getCentroid(),projectionNormal);
-
-			}else{
-
-				double distance=Point3D.calculateDotProduct(pot.getCentroid(),projectionNormal);
-				if(distance>maxDistance){
-
-					selectedPolygonOrder=pot;
-					maxDistance=distance;
-
-				}
-
-			}
-		}
-
-		/////
-
-
-		for(int i=0;i<meshSize;i++){ 
-
-
-			LineData ld=(LineData) mesh.polygonData.get(i);
-
-
-
-			if(selectedPolygonOrder!=null && i==selectedPolygonOrder.getIndex()){
-
-				if(toSelect){
-					//editor.setCellPanelData(ld);							
-					ld.setSelected(true);
-
-					for(int k=0;k<editor.chooseTexture[editor.getACTIVE_PANEL()].getItemCount();k++){
-
-						ValuePair vp=(ValuePair) editor.chooseTexture[editor.getACTIVE_PANEL()].getItemAt(k);
-						if(vp.getId().equals(""+ld.getTexture_index())) 
-							editor.chooseTexture[editor.getACTIVE_PANEL()].setSelectedItem(vp);
-					}
-
-					editor.fillWithWater[editor.getACTIVE_PANEL()].setSelected(ld.isFilledWithWater());
-
-				}				
-
-				ret.add(ld);
-
-
-
-
-			}else if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected()){
-
-				if(toSelect){
-					ld.setSelected(false);
-
-				}	
-			}
-
-
-		}
-
-		return ret;
-
-
-	}
-
-
 	public void selectObjects(int x, int y, ArrayList<DrawObject> drawObjects) {
 
 		int droSize= drawObjects.size();
@@ -1112,7 +988,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 					}else{
 
-						if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected())
+						if(!editor.checkMultipleSpnodeSelection.isSelected())
 							spnode.setSelected(false);
 
 
@@ -1142,12 +1018,9 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 		int rx=editor.fastSelectionCircle.width;
 
-		if(!editor.checkCoordinatesx[editor.getACTIVE_PANEL()].isSelected())
-			editor.coordinatesx[editor.getACTIVE_PANEL()].setText("");
-		if(!editor.checkCoordinatesy[editor.getACTIVE_PANEL()].isSelected())
-			editor.coordinatesy[editor.getACTIVE_PANEL()].setText("");
-		if(!editor.checkCoordinatesz[editor.getACTIVE_PANEL()].isSelected())
-			editor.coordinatesz[editor.getACTIVE_PANEL()].setText("");
+		editor.coordinatesx[editor.getACTIVE_PANEL()].setText("");
+		editor.coordinatesy[editor.getACTIVE_PANEL()].setText("");
+		editor.coordinatesz[editor.getACTIVE_PANEL()].setText("");
 
 
 		for(int j=0;j<mesh.xpoints.length;j++){
@@ -1164,9 +1037,6 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 				map.put(new Integer(j), new Boolean(true));
 
 
-			}
-			else if(!editor.checkMultiplePointsSelection[editor.getACTIVE_PANEL()].isSelected()){
-				//nothing to do
 			}
 
 		}
