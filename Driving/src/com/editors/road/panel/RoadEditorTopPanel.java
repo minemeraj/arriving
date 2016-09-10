@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.BarycentricCoordinates;
 import com.DrawObject;
@@ -21,7 +22,6 @@ import com.SPNode;
 import com.Texture;
 import com.ZBuffer;
 import com.editors.EditorData;
-import com.editors.ValuePair;
 import com.editors.road.RoadEditor;
 import com.main.Road;
 
@@ -1118,56 +1118,65 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	}
 	
 	@Override
-	public boolean selectPolygonsWithRectangle(PolygonMesh mesh) {
-
-
-		if(mesh.xpoints==null)
-			return false;
-
-		//select polygons from road
-		boolean found=false;
-
-
-		Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
-
-		int x0=Math.min(editor.currentRect.x,editor.currentRect.x+editor.currentRect.width);
-		int x1=Math.max(editor.currentRect.x,editor.currentRect.x+editor.currentRect.width);
-		int y0=Math.min(editor.currentRect.y,editor.currentRect.y+editor.currentRect.height);
-		int y1=Math.max(editor.currentRect.y,editor.currentRect.y+editor.currentRect.height);
+	public HashMap<Integer,Boolean> pickUpPoygonsWithFastCircle(PolygonMesh mesh) {
 		
-		Rectangle intersectionRectangle=new Rectangle(x0, y0, x1-x0, y1-y0);
+		HashMap<Integer, Boolean> map = new HashMap<Integer,Boolean>();
 
-		//select polygon
+
+		if(mesh.xpoints==null || editor.fastSelectionCircle==null)
+			return map;
+
+
+		int xc=editor.fastSelectionCircle.x;
+		int yc=editor.fastSelectionCircle.y;
+
+		int rx=editor.fastSelectionCircle.width;
+		
 		int sizel=mesh.polygonData.size();
 
+
 		for(int j=0;j<sizel;j++){
-
-
+			
 			LineData ld=(LineData) mesh.polygonData.get(j);
-			Polygon3D pol=buildPolygon(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,false);
+			
+			Polygon3D drawPolygon= buildPolygon(ld, mesh.xpoints,mesh.ypoints,mesh.zpoints, false);
 
-			boolean isVisible = Polygon3D.isIntersect(pol,totArea.getBounds());
-
+			boolean isVisible = Polygon3D.isIntersect(drawPolygon,totArea.getBounds());
 			boolean selected=false;	
+			
+			if(isVisible ){
+				
+				Polygon3D pol=buildPolygon(ld, mesh.xpoints,mesh.ypoints,mesh.zpoints, true);
+				
+				for (int i = 0; i < pol.xpoints.length; i++) {
+					
+					double distance=Point3D.distance(xc, yc, 0, pol.xpoints[i], pol.ypoints[i], 0);
 
-			if(isVisible && Polygon3D.isIntersect(pol,intersectionRectangle ) ){
 
-				ld.setSelected(true);
-				found=true;
-				selected=true;
+					if(distance<rx){
+
+						map.put(new Integer(j), new Boolean(true));
+						selected=true;
+						break;
+					}
+				} 
+			
+				if(!selected){
+				
+					if(Polygon3D.isIntersect(new Point3D(xc,yc,0),pol.getBounds())){
+						
+						map.put(new Integer(j), new Boolean(true));
+						selected=true;
+					}
+					
+				}
+				
 			}
 
-			if(!selected && !editor.checkMultiplePolygonsSelection[editor.getACTIVE_PANEL()].isSelected())
-				ld.setSelected(false);
+		}
 
 
-		}   
-
-
-
-		return found;
-
-
+		return map;
 
 
 	}
@@ -1303,73 +1312,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 		return false;
 	}
-
-	public boolean selectPolygons(int x, int y, PolygonMesh mesh) {
-
-		ArrayList<LineData> vec=selectPolygons(x,y,mesh,true);
-
-		return vec!=null && vec.size()>0;
-
-	}
-
-
-	public ArrayList<LineData> getClickedPolygons(int x, int y, PolygonMesh mesh) {
-
-		return selectPolygons(x,y,mesh,false);
-	}
-
-	@Override
-	public ArrayList<LineData> selectPolygons(int x, int y, PolygonMesh mesh,boolean isToselect) {
-
-		ArrayList<LineData> ret=new ArrayList<LineData>(); 
-
-		if(mesh==null)
-			return ret;
-
-		Area totArea=new Area(new Rectangle(0,0,WIDTH,HEIGHT));
-
-		//select polygon
-		int sizel=mesh.polygonData.size();
-
-		for(int j=0;j<sizel;j++){
-
-
-			LineData ld=(LineData) mesh.polygonData.get(j);
-			Polygon3D pol=buildPolygon(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,false);
-
-			boolean isVisible = Polygon3D.isIntersect(pol,totArea.getBounds());
-
-			if(isVisible && pol.contains(x,y)){
-
-				if(isToselect){
-
-					ld.setSelected(true);
-
-					for(int k=0;k<editor.chooseTexture[editor.getACTIVE_PANEL()].getItemCount();k++){
-
-						ValuePair vp=(ValuePair) editor.chooseTexture[editor.getACTIVE_PANEL()].getItemAt(k);
-						if(vp.getId().equals(""+ld.getTexture_index())) 
-							editor.chooseTexture[editor.getACTIVE_PANEL()].setSelectedItem(vp);
-					}
-
-					editor.fillWithWater[editor.getACTIVE_PANEL()].setSelected(ld.isFilledWithWater());
-
-				}
-
-
-
-				ret.add(ld);
-
-			}
-			else if(!editor.checkMultiplePolygonsSelection[editor.getACTIVE_PANEL()].isSelected())
-				ld.setSelected(false);
-
-		}
-
-		return ret;
-	}
-
-
+	
 	public void selectObjects(int x, int y, ArrayList<DrawObject> drawObjects) {
 
 		ArrayList<DrawObject> vec=selectObjects(x,y,drawObjects,true);

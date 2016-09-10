@@ -321,6 +321,18 @@ public class Polygon3D  extends Polygon implements Cloneable{
 		
 		return false;
 	}
+	
+	public static boolean isIntersect(Point3D p, Rectangle bounds) {
+
+		if(p.getY()>=bounds.getMinY() &&
+				p.getY()<=bounds.getMaxY() &&
+				p.getX()>=bounds.getMinX() &&
+				p.getX()<=bounds.getMaxX() 
+				)
+			return true;
+
+		return false;
+	}
 
 	public static Polygon3D clipPolygon3DInY(Polygon3D  p_old,int y){
 

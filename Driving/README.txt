@@ -319,7 +319,7 @@
 	
 	ROAD EDITOR
 
-    
+    The RoadEditor is freely inspired by the Scenario's Editor of the Trainz Railroad Simulator 2004, the best of all times. 
     The game uses for the maps the files in the lib directory with the name type: 
     landscape_<MAPNAME>
     

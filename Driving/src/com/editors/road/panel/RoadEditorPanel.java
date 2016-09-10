@@ -135,6 +135,8 @@ public abstract class RoadEditorPanel extends JPanel {
 		return false;
 	}
 	
+	public abstract HashMap<Integer,Boolean> pickUpPoygonsWithFastCircle(PolygonMesh mesh);
+	
 	public HashMap<Integer,Boolean> pickUpPointsWithFastCircle(PolygonMesh mesh) {
 		
 		HashMap<Integer, Boolean> map = new HashMap<Integer,Boolean>();
@@ -180,18 +182,9 @@ public abstract class RoadEditorPanel extends JPanel {
 
 	}
 	
-	public boolean selectPolygonsWithRectangle(PolygonMesh mesh) {
-		return false;
-	}
-	
 	public boolean selectSPnodesWithRectangle(ArrayList<SPLine> splines) {
 		return false;
 	}
-	
-
-	public abstract boolean selectPolygons(int x, int y,PolygonMesh mesh);
-	
-	public abstract ArrayList<LineData> selectPolygons(int x, int y,PolygonMesh mesh,boolean toSelect);
 
 	public abstract void selectObjects(int x, int y, ArrayList<DrawObject> drawObjects);
 	
@@ -238,8 +231,6 @@ public abstract class RoadEditorPanel extends JPanel {
 	public void setHide_splines(boolean hide_splines) {
 		this.hide_splines = hide_splines;
 	}
-
-	public abstract ArrayList<LineData> getClickedPolygons(int x, int y, PolygonMesh mesh);
 
 	public abstract void rotate(int signum);
 	

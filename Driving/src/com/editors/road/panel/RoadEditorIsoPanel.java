@@ -1535,5 +1535,10 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 		return new Rectangle(x, y, rad, rad);
 	}
 
+	@Override
+	public HashMap<Integer, Boolean> pickUpPoygonsWithFastCircle(PolygonMesh mesh) {
+		return new HashMap<Integer, Boolean>();
+	}
+
 
 }
