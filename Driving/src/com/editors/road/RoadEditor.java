@@ -141,7 +141,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JButton chooseObjectPanel;
 	private JButton choosePrevObject;
 	private JButton chooseNextObject;
-	public JCheckBox checkMultipleObjectsSelection;
 
 	private JMenu jm4;
 	private JMenuItem jmtUndoObjects;
@@ -254,11 +253,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private IntegerTextField selectionRadius;
 	private JButton selectionRadiusPlus;
 	private JButton selectionRadiusMinus;
-	public JCheckBox checkMultipleSpnodeSelection;
 	private JButton deleteSelectedSPNodes;
 	private JToggleButton altimetryUpdateMode;
 	private JToggleButton altimetryExploreMode;
-
+	private boolean isMultipleSelection=false;
 
 
 	public static void main(String[] args) {
@@ -895,19 +893,12 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		int r=5;
 
 
-		checkMultipleSpnodeSelection=new JCheckBox("Multiple selection");
-		checkMultipleSpnodeSelection.setBounds(30,r,150,20);
-		checkMultipleSpnodeSelection.addKeyListener(this);
-		splines_panel.add(checkMultipleSpnodeSelection);
-
 		chooseTexture[index]=new JComboBox();
 		chooseTexture[index].addItem(new ValuePair("",""));
 		//chooseTexture.setBounds(35,r,50,20);
 		chooseTexture[index].addItemListener(this);
 		chooseTexture[index].addKeyListener(this);
 		//panel.add(chooseTexture);
-
-		r+=30;
 
 		choosePanelTexture[index]=new JButton("Texture");
 		choosePanelTexture[index].setBounds(5,r,100,20);
@@ -1040,14 +1031,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		object_panel.setBorder(objBorder);
 
 		int r=25;
-
-		checkMultipleObjectsSelection=new JCheckBox("Multiple selection");
-		checkMultipleObjectsSelection.setBounds(30,r,150,20);
-		checkMultipleObjectsSelection.addKeyListener(this);
-		object_panel.add(checkMultipleObjectsSelection);
-
-
-		r+=30;
 
 		chooseObject=new JComboBox();
 		chooseObject.addItem(new ValuePair("",""));
@@ -1559,7 +1542,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			dro.setZ(dro.getZ()+dk*qty);
 			//dro.setSelected(false);
 
-			if(!checkMultipleObjectsSelection.isSelected()){
+			if(!isMultipleSelection){
 
 				setObjectData(dro);					
 
@@ -3627,6 +3610,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 			incrementSelectionRadius(SELECTION_RADIUS_MINUS);
 			draw();
+		}else if(code==KeyEvent.VK_CONTROL)
+		{  
+			isMultipleSelection=true;
 		}
 		else if(code==KeyEvent.VK_ESCAPE )
 		{  
@@ -3648,8 +3634,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	}
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+		int code =arg0.getKeyCode();
 
+		if(code==KeyEvent.VK_CONTROL){
+			isMultipleSelection=false;
+		}
 	}
 
 
@@ -4086,6 +4075,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	public void setWaitBeforeMovingMouse(boolean waitBeforeMovingMouse) {
 		this.waitBeforeMovingMouse = waitBeforeMovingMouse;
+	}
+
+	public boolean isMultipleSelection() {
+		return isMultipleSelection;
+	}
+
+	public void setMultipleSelection(boolean isMultipleSelection) {
+		this.isMultipleSelection = isMultipleSelection;
 	}
 
 

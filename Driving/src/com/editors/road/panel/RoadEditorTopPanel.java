@@ -1187,7 +1187,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 					}else{
 
-						if(!editor.checkMultipleSpnodeSelection.isSelected())
+						if(!editor.isMultipleSelection())
 							spnode.setSelected(false);
 					}	
 				}
@@ -1254,7 +1254,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 				}else{
 
-					if(!editor.checkMultipleSpnodeSelection.isSelected())
+					if(!editor.isMultipleSelection())
 						spnode.setSelected(false);
 				}	
 
@@ -1290,7 +1290,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		for(int i=0;i<drawObjects.size();i++){
 
 			DrawObject dro=(DrawObject) drawObjects.get(i);
-			if(!editor.checkMultipleObjectsSelection.isSelected())
+			if(!editor.isMultipleSelection())
 				dro.setSelected(false);
 
 
@@ -1321,7 +1321,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				ret.add(dro);
 
 
-			}else if(!editor.checkMultipleObjectsSelection.isSelected()){
+			}else if(!editor.isMultipleSelection()){
 
 				dro.setSelected(false);
 			}
@@ -1364,7 +1364,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 			}
-			else if(!editor.checkMultipleObjectsSelection.isSelected())
+			else if(!editor.isMultipleSelection())
 				dro.setSelected(false);
 
 

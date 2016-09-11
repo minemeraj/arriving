@@ -1,5 +1,5 @@
 	**********************
-	*  READ ME CARDRIVING VERSION   11.0.0
+	*  READ ME CARDRIVING VERSION   11.0.1
 	*
 	*  by Piazza Francesco Giovanni 
 	*  Betacom s.rl. ,Italy http://www.betacom.it
@@ -334,9 +334,9 @@
     
     Select tiles with left mouse button in the area, select object by clicking in the inner area.
    
-    Select object and road part using left mouse button.
+    Select object and road points using left mouse button.
     Insert objects and road points with right mouse button.
-    Change terrain using right mouse button.
+	Multiple selection keeping pressed the CTRL key.
     Rotate 3D view with keys q and w.
     
     Move objects with the arrows panel.

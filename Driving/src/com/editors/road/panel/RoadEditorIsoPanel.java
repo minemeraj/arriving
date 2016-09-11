@@ -910,7 +910,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 
 			}
-			else if(!editor.checkMultipleObjectsSelection.isSelected())
+			else if(!editor.isMultipleSelection())
 				dro.setSelected(false);
 
 		}
@@ -988,7 +988,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 					}else{
 
-						if(!editor.checkMultipleSpnodeSelection.isSelected())
+						if(!editor.isMultipleSelection())
 							spnode.setSelected(false);
 
 
