@@ -240,8 +240,8 @@ public abstract class RoadEditorPanel extends JPanel {
 
 		return new Point3D(
 
-				sqMesh.getDx()* sqMesh.getNumx()/(2*getDeltaX()),	
-				sqMesh.getDy()* sqMesh.getNumy()/(2*getDeltaY()),
+				sqMesh.getDx()* sqMesh.getNumx()/(2*xMovement*getDeltaX()),	
+				sqMesh.getDy()* sqMesh.getNumy()/(2*yMovement*getDeltaY()),
 				0
 				);
 	}

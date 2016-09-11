@@ -257,6 +257,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private JToggleButton altimetryUpdateMode;
 	private JToggleButton altimetryExploreMode;
 	private boolean isMultipleSelection=false;
+	private boolean isOnLoading;
 
 
 	public static void main(String[] args) {
@@ -2116,6 +2117,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 	private void loadLanscape() {
+		
+		isOnLoading=true;
 
 		fc=new JFileChooser();
 		fc.setDialogType(JFileChooser.OPEN_DIALOG);
@@ -2144,7 +2147,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 			oldObjects=new Stack();
 
 			isInit=true;
-
+			draw();
+			isOnLoading=false;
 		}
 
 	}
@@ -3719,6 +3723,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 	private boolean waitBeforeMovingMouse=false;
 	@Override
 	public void mouseMoved(MouseEvent e) {		
+		
+		if(isOnLoading)
+			return;
 
 		Point p=e.getPoint();
 

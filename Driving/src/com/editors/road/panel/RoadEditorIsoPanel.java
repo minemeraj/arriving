@@ -1217,7 +1217,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	public void translate(int i, int j) {
 
 		POSX+=i*xMovement*deltax;
-		POSY-=j*yMovement*deltax;
+		POSY-=j*yMovement*deltay;
 	}
 
 

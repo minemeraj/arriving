@@ -1,8 +1,8 @@
 <terrain>
-NX=0
-NY=0
-DX=0
-DY=0
+NX=199
+NY=202
+DX=200
+DY=200
 X0=0.0
 Y0=0.0
 DESCRIPTION=
