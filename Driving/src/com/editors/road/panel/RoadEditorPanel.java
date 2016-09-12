@@ -182,7 +182,7 @@ public abstract class RoadEditorPanel extends JPanel {
 
 	}
 
-	public abstract boolean selectSPNodes(int x, int y, ArrayList<SPLine> splines);
+	public abstract HashMap<String, Boolean> selectSPNodes(int x, int y, ArrayList<SPLine> splines,boolean toSelect);
 
 	public Polygon3D builProjectedPolygon(Polygon3D p3d) {
 

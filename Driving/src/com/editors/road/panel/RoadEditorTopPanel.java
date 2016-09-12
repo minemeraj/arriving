@@ -58,7 +58,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	}
 
 	@Override
-	public void drawRoad(PolygonMesh[] meshes, 
+	public void drawRoad(PolygonMesh[] meshes,
 			ArrayList<DrawObject> drawObjects,
 			ArrayList<SPLine> splines,
 			Point3D startPosition,
@@ -79,6 +79,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 	}
 
+	@Override
 	public void displayTerrain(ZBuffer landscapeZbuffer,PolygonMesh[] meshes) {
 
 
@@ -93,13 +94,13 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		for(int j=0;j<lsize;j++){
 
 
-			LineData ld=(LineData) mesh.polygonData.get(j);
+			LineData ld=mesh.polygonData.get(j);
 
 
 			Texture texture = EditorData.worldTextures[ld.getTexture_index()];
 			drawPolygon(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,landscapeZbuffer,texture,RoadEditor.TERRAIN_INDEX,mesh.hashCode());
 
-		} 
+		}
 
 		//mark row angles
 
@@ -117,7 +118,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				if(mesh.selected[j]){
 					rgbColor=Color.RED.getRGB();
 
-				}	
+				}
 
 
 				fillOval(landscapeZbuffer,xo,yo,2,2,rgbColor);
@@ -128,16 +129,17 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		drawCurrentRect(landscapeZbuffer);
 	}
 
+	@Override
 	public void displaySPLines(ZBuffer landscapeZbuffer, ArrayList<SPLine> splines) {
 
 		for (int i = 0; i < splines.size(); i++) {
-			SPLine sp = (SPLine) splines.get(i);
+			SPLine sp = splines.get(i);
 
 			ArrayList<PolygonMesh> meshes = sp.getMeshes();
 
 			for (int j = 0; j < meshes.size(); j++) {
 
-				PolygonMesh mesh = (PolygonMesh) meshes.get(j);
+				PolygonMesh mesh = meshes.get(j);
 
 				drawSPLinePolygon(mesh,landscapeZbuffer,1,mesh.hashCode());
 
@@ -148,7 +150,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 		for (int i = 0; i < splines.size(); i++) {
-			SPLine spline = (SPLine) splines.get(i);
+			SPLine spline = splines.get(i);
 
 			ArrayList<SPNode> nodes = spline.getNodes();
 			if(nodes==null)
@@ -157,7 +159,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			for (int k = 0; k < sz; k++) {
 
-				SPNode node = (SPNode) nodes.get(k);
+				SPNode node = nodes.get(k);
 
 				PolygonMesh pm=node.getRing();
 
@@ -169,13 +171,13 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				for(int l=0;l<pm.polygonData.size();l++){
 
 
-					LineData ld=(LineData) pm.polygonData.get(l);
+					LineData ld=pm.polygonData.get(l);
 
 
 
 					drawPolygon(ld,pm.xpoints,pm.ypoints,pm.zpoints,landscapeZbuffer,texture,1,pm.hashCode());
 
-				} 
+				}
 
 
 			}
@@ -188,6 +190,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	}
 
 
+	@Override
 	public void drawCurrentRect(ZBuffer landscapeZbuffer) {
 
 		if(!editor.isDrawCurrentRect())
@@ -252,7 +255,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 		}
 
-		if(j==jj){			
+		if(j==jj){
 
 			for (int k = mini; k < maxi; k++) {
 
@@ -288,10 +291,10 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 						int y=(int) (dy*(k-i)+j);
 
 						if(k>=0 && k<WIDTH && y>=0 && y<HEIGHT){
-							int tot=(k+y*WIDTH);					
+							int tot=(k+y*WIDTH);
 							landscapeZbuffer.setRgbColor(rgbColor,tot);
 						}
-					}	
+					}
 				}
 				else{
 					for (int k = ii; k < i; k++) {
@@ -299,10 +302,10 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 						int y=(int) (dy*(k-i)+j);
 
 						if(k>=0 && k<WIDTH && y>=0 && y<HEIGHT){
-							int tot=(k+y*WIDTH);					
+							int tot=(k+y*WIDTH);
 							landscapeZbuffer.setRgbColor(rgbColor,tot);
 						}
-					}			
+					}
 
 				}
 
@@ -317,10 +320,10 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 						int x=(int) (dx*(q-j)+i);
 
 						if(x>=0 && x<WIDTH && q>=0 && q<HEIGHT){
-							int tot=(x+q*WIDTH);					
+							int tot=(x+q*WIDTH);
 							landscapeZbuffer.setRgbColor(rgbColor,tot);
 						}
-					}	
+					}
 				}
 				else{
 					for (int q = jj; q < j; q++) {
@@ -328,10 +331,10 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 						int x=(int) (dx*(q-j)+i);
 
 						if(x>=0 && x<WIDTH && q>=0 && q<HEIGHT){
-							int tot=(x+q*WIDTH);					
+							int tot=(x+q*WIDTH);
 							landscapeZbuffer.setRgbColor(rgbColor,tot);
 						}
-					}			
+					}
 
 				}
 
@@ -352,12 +355,12 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		for(int k=0;k<lsize;k++){
 
 
-			LineData ld=(LineData) mesh.polygonData.get(k);
+			LineData ld=mesh.polygonData.get(k);
 			Texture texture = EditorData.splinesEditorTextures[ld.getTexture_index()];
 
 			drawPolygon(ld,mesh.xpoints,mesh.ypoints,mesh.zpoints,landscapeZbuffer,texture,0,hashCode);
 
-		} 
+		}
 
 	}
 
@@ -368,7 +371,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	private void drawPolygon(LineData ld,double[] xpoints,double[] ypoints,double[] zpoints,ZBuffer landscapeZbuffer,Texture texture,int indx,int hashCode) {
 
 
-		
+
 
 		int size=ld.size();
 
@@ -464,7 +467,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				if(selected!=null)
 					rgb=selected.getRGB();
 
-				decomposeTriangleIntoZBufferEdgeWalking(tria,rgb,texture,landscapeZbuffer, xDirection, yDirection, p0r, 0, 0,bc,hashCode); 
+				decomposeTriangleIntoZBufferEdgeWalking(tria,rgb,texture,landscapeZbuffer, xDirection, yDirection, p0r, 0, 0,bc,hashCode);
 
 
 			}
@@ -475,19 +478,20 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	}
 
 	/**
-	 * 
+	 *
 	 * DECOMPOSE PROJECTED TRIANGLE USING EDGE WALKING AND
 	 * PERSPECTIVE CORRECT MAPPING
-	 * 
+	 *
 	 * @param p3d
 	 * @param color
 	 * @param texture
 	 * @param useLowResolution
 	 * @param xDirection
 	 * @param yDirection
-	 * @param origin 
+	 * @param origin
 	 */
-	public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int selected,Texture texture,ZBuffer zb,  
+	@Override
+	public void decomposeTriangleIntoZBufferEdgeWalking(Polygon3D p3d,int selected,Texture texture,ZBuffer zb,
 			Point3D xDirection, Point3D yDirection, Point3D origin,int deltaX,int deltaY,
 			BarycentricCoordinates bc,int hashCode) {
 
@@ -518,17 +522,17 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		p1.rotate(MOVX,MOVY,cosf,sinf);
 		p2.rotate(MOVX,MOVY,cosf,sinf);
 
-		double x0=(int)convertX(p0.x,p0.y,p0.z);
-		double y0=(int)convertY(p0.x,p0.y,p0.z);
+		double x0=convertX(p0.x,p0.y,p0.z);
+		double y0=convertY(p0.x,p0.y,p0.z);
 		double z0=p0.z;
 
-		double x1=(int)convertX(p1.x,p1.y,p1.z);
-		double y1=(int)convertY(p1.x,p1.y,p1.z);
+		double x1=convertX(p1.x,p1.y,p1.z);
+		double y1=convertY(p1.x,p1.y,p1.z);
 		double z1=p1.z;
 
 
-		double x2=(int)convertX(p2.x,p2.y,p2.z);
-		double y2=(int)convertY(p2.x,p2.y,p2.z);
+		double x2=convertX(p2.x,p2.y,p2.z);
+		double y2=convertY(p2.x,p2.y,p2.z);
 		double z2=p2.z;
 		//System.out.println(x0+" "+y0+", "+x1+" "+y1+", "+x2+" "+y2);
 
@@ -569,7 +573,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			p=bc.getBarycentricCoordinates(new Point3D(po1.x,po1.y,po1.z));
 			x= (p.x*(pt0.x)+p.y*pt1.x+(1-p.x-p.y)*pt2.x);
-			y= (p.x*(pt0.y)+p.y*pt1.y+(1-p.x-p.y)*pt2.y);	
+			y= (p.x*(pt0.y)+p.y*pt1.y+(1-p.x-p.y)*pt2.y);
 			points[1].setTexurePositions(x,texture.getHeight()-y);
 
 
@@ -654,12 +658,12 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 				double yi=((1-l)*pstart.p_y+l*pend.p_y);
 				double zi=((1-l)*pstart.p_z+l*pend.p_z);
-				double xi=((1-l)*pstart.p_x+l*pend.p_x);  
+				double xi=((1-l)*pstart.p_x+l*pend.p_x);
 
 				if(!zb.isToUpdate(-zi,zi,tot,level,p3d.hashCode())){
 
 					continue;
-				}	
+				}
 
 
 
@@ -669,7 +673,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 				if(texture!=null)
-					rgbColor=texture.getRGB((int)texture_x,(int) texture_y);  
+					rgbColor=texture.getRGB((int)texture_x,(int) texture_y);
 				//rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin,deltaX, deltaY);
 				if(rgbColor==greenRgb)
 					continue;
@@ -685,7 +689,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 					rgbColor= (255 << 32) + (r << 16) + (g << 8) + b;
 				}
 
-				//System.out.println(x+" "+y+" "+tot);    	
+				//System.out.println(x+" "+y+" "+tot);
 
 				zb.set(xi,yi,zi,-zi,calculateShadowColor(xi,yi,zi,cosin,rgbColor,p3d.isFilledWithWater(),level),level,tot,p3d.hashCode());
 
@@ -737,20 +741,20 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				if(i>=WIDTH)
 					break;
 
-				int tot=WIDTH*j+i; 
+				int tot=WIDTH*j+i;
 
 				double l=(i-start)*inverse;
 
 				double yi=((1-l)*pstart.p_y+l*pend.p_y);
 
 				double zi=((1-l)*pstart.p_z+l*pend.p_z);
-				double xi=((1-l)*pstart.p_x+l*pend.p_x);  
+				double xi=((1-l)*pstart.p_x+l*pend.p_x);
 
 
 				if(!zb.isToUpdate(-zi,zi,tot,level,p3d.hashCode()) ){
 
 					continue;
-				}	
+				}
 
 
 
@@ -760,7 +764,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 				if(texture!=null)
 					//rgbColor=ZBuffer.pickRGBColorFromTexture(texture,xi,yi,zi,xDirection,yDirection,origin, deltaX,deltaY);
-					rgbColor=texture.getRGB((int)texture_x,(int) texture_y);   
+					rgbColor=texture.getRGB((int)texture_x,(int) texture_y);
 				if(rgbColor==greenRgb)
 					continue;
 
@@ -784,7 +788,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			}
 
 
-		}	
+		}
 
 
 
@@ -792,32 +796,32 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	}
 	@Override
 	public int calculateShadowColor(double xi, double yi, double zi, double cosin, int argbs,boolean hasWater,int level) {
-		
+
 		boolean useSelectionColor=isUseSelectionColor(xi, yi, zi, cosin,  argbs, hasWater,level);
 		if(useSelectionColor){
 			return 0xffffffff;
 		}
-		
+
 		//water effect
-		if(hasWater && zi<-Road.WATER_FILLING+MOVZ){	
-			
+		if(hasWater && zi<-Road.WATER_FILLING+MOVZ){
+
 			int alphas=0xff & (argbs>>24);
 			int rs = 0xff & (argbs>>16);
 			int gs = 0xff & (argbs >>8);
 			int bs = 0xff & argbs;
-	
+
 			rs=gs=0;
 
-		
+
 			return alphas <<24 | rs <<16 | gs <<8 | bs;
-			
+
 		}else{
-			
+
 			return argbs;
 		}
 
-	
-	
+
+
 	}
 
 
@@ -837,7 +841,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	private void fillOval(ZBuffer landscapeZbuffer, int cx, int cy, int dx,
 			int dy, int rgbColor) {
 
-		int x=cx-dx;		
+		int x=cx-dx;
 		int xx=cx+dx;
 
 		int y=cy-dy;
@@ -869,13 +873,14 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 
+	@Override
 	public void displayObjects(ArrayList<DrawObject> drawObjects,Area area,ZBuffer landscapeZbuffer) {
 
 		int objSize=drawObjects.size();
 
 		for(int i=0;i<objSize;i++){
 
-			DrawObject dro=(DrawObject) drawObjects.get(i);
+			DrawObject dro=drawObjects.get(i);
 
 			int y=convertY(dro.getX(),dro.getY(),dro.getZ());
 			int x=convertX(dro.getX(),dro.getY(),dro.getZ());
@@ -898,9 +903,9 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			drawObject(landscapeZbuffer,dro);
 
-		}	
+		}
 	}
-	
+
 	/**
 	 * Array used to draw the object bounds
 	 */
@@ -910,15 +915,15 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	/**
 	 * Draw the bounds of the objects
 	 * as rectangle
-	 * 
+	 *
 	 * @param landscapeZbuffer
 	 * @param dro
 	 */
 
-	
+
 	private void drawObject(ZBuffer landscapeZbuffer, DrawObject dro) {
 
-	
+
 
 		int versus=1;
 		if(!DrawObject.IS_3D)
@@ -956,7 +961,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		drawObjectPolygon(landscapeZbuffer,pTot,rgbColor);
 		if(deltax<16){
 			drawTextImage(landscapeZbuffer,RoadEditor.objectIndexes[dro.getIndex()]
-					,droX[0]-5,droY[0]-5,editor.indexWidth,editor.indexHeight,Color.BLACK,pColor);		
+					,droX[0]-5,droY[0]-5,editor.indexWidth,editor.indexHeight,Color.BLACK,pColor);
 		}
 
 
@@ -984,6 +989,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	}
 
 
+	@Override
 	public void zoom(int i) {
 
 
@@ -1058,7 +1064,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 					rgbColor=fixedColor.getRGB();
 				}
 
-				int tot=(int)(i+x+(j+y)*WIDTH);
+				int tot=i+x+(j+y)*WIDTH;
 
 				landscapeZbuffer.setRgbColor(rgbColor,tot);
 			}
@@ -1084,12 +1090,12 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 		for(int j=0;j<sizel;j++){
 
-			LineData ld=(LineData) mesh.polygonData.get(j);
+			LineData ld=mesh.polygonData.get(j);
 
 			Polygon3D drawPolygon= buildPolygon(ld, mesh.xpoints,mesh.ypoints,mesh.zpoints, false);
 
 			boolean isVisible = Polygon3D.isIntersect(drawPolygon,totArea.getBounds());
-			boolean selected=false;	
+			boolean selected=false;
 
 			if(isVisible ){
 
@@ -1108,12 +1114,12 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 							selected=true;
 							break;
 						}
-					} 
+					}
 				}
 				else{
 					Point3D centroid = Polygon3D.findCentroid(pol);
 
-					double distance=Point3D.distance(xc, yc, 0, centroid.x,centroid.y, 0);				
+					double distance=Point3D.distance(xc, yc, 0, centroid.x,centroid.y, 0);
 
 					if(distance<rx){
 
@@ -1143,18 +1149,16 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 	}
 
+	@Override
+	public HashMap<String, Boolean> selectSPNodes(int x, int y, ArrayList<SPLine> splines,boolean isToselect) {
 
-	public boolean selectSPNodes(int x, int y, ArrayList<SPLine> splines) {
+		HashMap<String, Boolean> ret=new HashMap<String, Boolean>();
 
 		//System.out.println(x+" "+y);
 
-		boolean isToselect=true;
-
-
-
 		for (int i = 0; i < splines.size(); i++) {
 
-			SPLine spline = (SPLine) splines.get(i);
+			SPLine spline = splines.get(i);
 
 			ArrayList<SPNode> nodes = spline.getNodes();
 			if(nodes==null)
@@ -1165,31 +1169,33 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			for(int j=0;j<sz;j++){
 
-				SPNode spnode = (SPNode) nodes.get(j);
+				SPNode spnode = nodes.get(j);
 				PolygonMesh circle = spnode.getCircle();
+				int circleSize=circle.polygonData.size();
 
-				for (int k = 0; k < circle.polygonData.size(); k++) {
+				for (int k = 0; k < circleSize; k++) {
 
-					LineData ld=(LineData) circle.polygonData.get(k);
+					LineData ld=circle.polygonData.get(k);
 					Polygon3D pol=buildPolygon(ld,circle.xpoints,circle.ypoints,circle.zpoints,false);
 					// System.out.println(k+" "+pol);
 					if(pol.contains(x,y)){
 
-						if(isToselect){
-
-							spnode.setSelected(true);
+							if(isToselect){
+								spnode.setSelected(true);
+							}
 							found=true;
 
+							ret.put(i+"_"+j, new Boolean(true));
 							editor.setSPLineData(spline,spnode);
 
 							break;
-						}
+
 
 					}else{
 
 						if(!editor.isMultipleSelection())
 							spnode.setSelected(false);
-					}	
+					}
 				}
 
 
@@ -1205,7 +1211,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 
 
-		return false;
+		return ret;
 	}
 
 	@Override
@@ -1222,7 +1228,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 		for (int i = 0; i < splines.size(); i++) {
 
-			SPLine spline = (SPLine) splines.get(i);
+			SPLine spline = splines.get(i);
 
 			ArrayList<SPNode> nodes = spline.getNodes();
 			if(nodes==null)
@@ -1233,7 +1239,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			for(int j=0;j<sz;j++){
 
-				SPNode spnode = (SPNode) nodes.get(j);
+				SPNode spnode = nodes.get(j);
 				PolygonMesh circle = spnode.getCircle();
 
 				int xo=convertX(spnode.getX(),spnode.getY(),spnode.getZ());
@@ -1256,7 +1262,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 					if(!editor.isMultipleSelection())
 						spnode.setSelected(false);
-				}	
+				}
 
 
 
@@ -1265,7 +1271,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			if(found){
 				spline.calculateRibs();
-				spline.calculate3DMeshes();			
+				spline.calculate3DMeshes();
 			}
 		}
 
@@ -1282,7 +1288,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 		for(int i=0;i<drawObjects.size();i++){
 
-			DrawObject dro=(DrawObject) drawObjects.get(i);
+			DrawObject dro=drawObjects.get(i);
 			if(!editor.isMultipleSelection())
 				dro.setSelected(false);
 
@@ -1303,7 +1309,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 			cx[3]=convertX(dro.getX()+dro.getDx(),dro.getY(),dro.getZ());
 			cy[3]=convertY(dro.getX(),dro.getY(),dro.getZ());
 
-			Polygon p_in=new Polygon(cx,cy,4);			
+			Polygon p_in=new Polygon(cx,cy,4);
 			Point3D center=Polygon3D.findCentroid(p_in);
 			Polygon3D.rotate(p_in,center,dro.getRotation_angle());
 
@@ -1326,13 +1332,13 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		return ret;
 
 	}
-	
+
 	@Override
 	public boolean selectObjectsWithRectangle(ArrayList<DrawObject> drawObjects) {
-		
+
 		if(drawObjects==null)
 			return false;
-	
+
 		int x0=Math.min(editor.currentRect.x,editor.currentRect.x+editor.currentRect.width);
 		int x1=Math.max(editor.currentRect.x,editor.currentRect.x+editor.currentRect.width);
 		int y0=Math.min(editor.currentRect.y,editor.currentRect.y+editor.currentRect.height);
@@ -1346,7 +1352,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		for(int j=0;j<sz;j++){
 
 
-			DrawObject dro=(DrawObject)drawObjects.get(j);
+			DrawObject dro=drawObjects.get(j);
 
 			int xo=convertX(dro.getX(),dro.getY(),dro.getZ());
 			int yo=convertY(dro.getX(),dro.getY(),dro.getZ());
@@ -1413,8 +1419,8 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 	/**
 	 * For the old Cardriving2D version
-	 * 
-	 * 
+	 *
+	 *
 	 * @param landscapeZbuffer
 	 * @param bufferedImage
 	 * @param x
@@ -1454,7 +1460,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 				if(transparentColor!=null && transparentColor.getRGB()==rgbColor)
 					continue;
 
-				int tot=(int)(ix+x+(jy+y)*WIDTH);
+				int tot=ix+x+(jy+y)*WIDTH;
 
 				landscapeZbuffer.setRgbColor(rgbColor,tot);
 			}
@@ -1478,11 +1484,11 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 		for(int j=0;j<lsize;j++){
 
 
-			LineData ld=(LineData) ring.polygonData.get(j);
+			LineData ld=ring.polygonData.get(j);
 
 			drawPolygon(ld,ring.xpoints,ring.ypoints,ring.zpoints,landscapeZbuffer,EditorData.cyanTexture,RoadEditor.TERRAIN_INDEX,ring.hashCode());
 
-		} 
+		}
 	}
 
 
@@ -1515,20 +1521,20 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 	@Override
 	public void changeMotionIncrement(int i) {
 		if(i>0){
-			
+
 			xMovement=2*xMovement;
 			yMovement=2*yMovement;
-			
+
 		}else{
-			
+
 			if(xMovement==minMovement)
 				return;
-			
+
 			xMovement=xMovement/2;
 			yMovement=yMovement/2;
-			
+
 		}
-		
+
 	}
 
 	@Override
@@ -1536,7 +1542,7 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 		return new Rectangle(invertX(e.getX(), e.getY()),invertY(e.getX(), e.getY()), rad, rad);
 	}
-	
+
 
 
 

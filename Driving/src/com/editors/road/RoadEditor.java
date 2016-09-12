@@ -252,7 +252,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
     private IntegerTextField selectionRadius;
     private JButton selectionRadiusPlus;
     private JButton selectionRadiusMinus;
-    private JButton deleteSelectedSPNodes;
     private JToggleButton altimetryUpdateMode;
     private JToggleButton altimetryExploreMode;
     private boolean isMultipleSelection=false;
@@ -260,6 +259,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
     private JToggleButton objectInsertMode;
     private JToggleButton objectSelectMode;
     private JToggleButton objectDeleteMode;
+	private JToggleButton spnodeInsertMode;
+	private JToggleButton spnodeSelectMode;
+	private JToggleButton spnodeDeleteMode;
 
     public static void main(String[] args) {
 
@@ -897,6 +899,36 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
         int r=5;
 
+        spnodeInsertMode=new JToggleButton("I");
+        spnodeInsertMode.setSelected(true);
+        spnodeInsertMode.addActionListener(this);
+        spnodeInsertMode.addKeyListener(this);
+        spnodeInsertMode.setToolTipText("Insert mode");
+        spnodeInsertMode.setBounds(10,r,60,20);
+        splines_panel.add(spnodeInsertMode);
+
+        spnodeSelectMode=new JToggleButton("S");
+        spnodeSelectMode.addActionListener(this);
+        spnodeSelectMode.addKeyListener(this);
+        spnodeSelectMode.setToolTipText("Select mode");
+        spnodeSelectMode.setBounds(80,r,60,20);
+        splines_panel.add(spnodeSelectMode);
+
+        spnodeDeleteMode=new JToggleButton("D");
+        spnodeDeleteMode.setSelected(true);
+        spnodeDeleteMode.addActionListener(this);
+        spnodeDeleteMode.addKeyListener(this);
+        spnodeDeleteMode.setToolTipText("Delete mode");
+        spnodeDeleteMode.setBounds(150,r,60,20);
+        splines_panel.add(spnodeDeleteMode);
+
+        ButtonGroup altButtonGroup=new ButtonGroup();
+        altButtonGroup.add(spnodeInsertMode);
+        altButtonGroup.add(spnodeSelectMode);
+        altButtonGroup.add(spnodeDeleteMode);
+
+        r+=30;
+
 
         chooseTexture[index]=new JComboBox();
         chooseTexture[index].addItem(new ValuePair("",""));
@@ -912,6 +944,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         splines_panel.add(choosePanelTexture[index]);
 
         r+=30;
+
 
         textureLabel[index]=new JLabel();
         textureLabel[index].setFocusable(false);
@@ -937,8 +970,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         chooseNextTexture[index].addKeyListener(this);
         splines_panel.add(chooseNextTexture[index]);
 
-        r+=30;
 
+        r+=30;
 
         changeSPNode=new JButton(header+"Change node"+footer);
         changeSPNode.addActionListener(this);
@@ -947,9 +980,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         changeSPNode.setBounds(5,r,150,20);
         splines_panel.add(changeSPNode);
 
-
         r+=30;
-
 
         insertSPNode=new JButton(header+"Insert node after"+footer);
         insertSPNode.addActionListener(this);
@@ -977,17 +1008,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         startNewSPLine.setFocusable(false);
         startNewSPLine.setBounds(5,r,150,20);
         splines_panel.add(startNewSPLine);
-
-
-        r+=30;
-
-
-        deleteSelectedSPNodes=new JButton(header+"<u>D</u>elete selection"+footer);
-        deleteSelectedSPNodes.addActionListener(this);
-        deleteSelectedSPNodes.addKeyListener(this);
-        deleteSelectedSPNodes.setFocusable(false);
-        deleteSelectedSPNodes.setBounds(5,r,150,20);
-        splines_panel.add(deleteSelectedSPNodes);
 
         r+=30;
 
@@ -1037,8 +1057,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
         int r=25;
 
-
-
         objectInsertMode=new JToggleButton("I");
         objectInsertMode.addActionListener(this);
         objectInsertMode.addKeyListener(this);
@@ -1053,7 +1071,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         objectSelectMode.setToolTipText("Select mode");
         objectSelectMode.setBounds(80,r,60,20);
         object_panel.add(objectSelectMode);
-        
+
         objectDeleteMode=new JToggleButton("D");
         objectDeleteMode.setSelected(true);
         objectDeleteMode.addActionListener(this);
@@ -1068,7 +1086,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         altButtonGroup.add(objectDeleteMode);
 
         r+=30;
-        
+
         chooseObject=new JComboBox();
         chooseObject.addItem(new ValuePair("",""));
         //chooseObject.setBounds(50,r,50,20);
@@ -1841,13 +1859,18 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
     }
 
-    private void deleteSelectedSPnode() {
+    private void deleteSPNode(int x, int y) {
 
         prepareUndoSpline();
 
+        RoadEditorPanel ep = getCenter();
+
+        HashMap<String, Boolean> nodesToDelete = ep.selectSPNodes(x,y,splines,false);
+
         ArrayList<SPLine> newSplines=new ArrayList<SPLine>();
 
-        for (int i = 0; i < splines.size(); i++) {
+        int spSize=splines.size();
+        for (int i = 0; i < spSize; i++) {
             SPLine spline = splines.get(i);
 
             SPLine newSpline=new SPLine(spline.getvTexturePoints());
@@ -1859,10 +1882,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
                 SPNode node = nodes.get(j);
 
-                if(node.isSelected) {
+                if(nodesToDelete.get(i+"_"+j)!=null) {
                     continue;
                 }
-
 
                 newSpline.addSPNode(node);
             }
@@ -1881,44 +1903,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
     }
 
-    private void moveSelectedTerrainPoints(int dx, int dy,int dk) {
-
-        PolygonMesh mesh=meshes[ACTIVE_PANEL];
-
-        String sqty=roadMove[ACTIVE_PANEL].getText();
-
-        if(sqty==null || sqty.equals("")) {
-            return;
-        }
-
-        double qty=Double.parseDouble(sqty);
-
-
-
-        prepareUndoSpline();
-
-        for(int j=0;j<mesh.xpoints.length;j++){
-
-            if(mesh.selected[j]){
-
-
-                mesh.xpoints[j]+=qty*dx;
-
-                mesh.ypoints[j]+=qty*dy;
-
-                mesh.zpoints[j]+=qty*dk;
-
-            }
-        }
-
-        updateSPlines();
-
-        firePropertyChange("RoadEditorUpdate", false, true);
-
-        cleanPoints();
-        draw();
-
-    }
 
     private void moveSelectedSplinesPoints(int dx, int dy, int dz) {
 
@@ -1968,7 +1952,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         ArrayList<DrawObject> filteredRoadObjects=new ArrayList<DrawObject>();
         RoadEditorPanel ep = getCenter();
         HashMap<Integer, Boolean> objectsToDelete = ep.selectObjects(x, y, drawObjects,false);
-        
+
         int sz=drawObjects.size();
         for(int i=0;i<sz;i++){
 
@@ -1981,7 +1965,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         }
         drawObjects=filteredRoadObjects;
         firePropertyChange("RoadEditorUpdate", false, true);
-        
+
     }
 
 
@@ -2333,10 +2317,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         else if(obj==polygonDetail[TERRAIN_INDEX]){
             polygonDetail();
             //draw();
-        }
-        else if(obj==deleteSelectedSPNodes){
-            deleteSelectedSPnode();
-            draw();
         }
         else if(obj==changeObject){
             changeSelectedObject();
@@ -3074,11 +3054,14 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         if(SPLINES_MODE.equals(mode)){
 
             //right button click
-            if(buttonNum==MouseEvent.BUTTON3) {
+            if(spnodeInsertMode.isSelected()) {
                 addSPnode(arg0);
-            } else{
+            } else if(spnodeSelectMode.isSelected()) {
                 selectSPNode(arg0.getX(),arg0.getY());
 
+            } else if(spnodeDeleteMode.isSelected()) {
+
+            	deleteSPNode(arg0.getX(),arg0.getY());
             }
 
         }else if(TERRAIN_POLYGONS_MODE.equals(mode)){
@@ -3112,13 +3095,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
     }
 
 
-
-
-
-
-
-
-    private void addSPnode(MouseEvent arg0) {
+	private void addSPnode(MouseEvent arg0) {
 
         prepareUndoSpline();
 
@@ -3409,7 +3386,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
         RoadEditorPanel ep = getCenter();
 
-        boolean found=ep.selectSPNodes(x,y,splines);
+        ep.selectSPNodes(x,y,splines,true);
 
 
     }

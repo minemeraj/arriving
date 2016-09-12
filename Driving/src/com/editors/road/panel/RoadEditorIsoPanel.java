@@ -893,35 +893,35 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 
 	}
-   
-   @Override   
-   public HashMap<Integer, Boolean> selectObjects(int x, int y, ArrayList<DrawObject> drawObjects,boolean toSelect) {
 
-       HashMap<Integer, Boolean> ret=new HashMap<Integer, Boolean>();
+	@Override   
+	public HashMap<Integer, Boolean> selectObjects(int x, int y, ArrayList<DrawObject> drawObjects,boolean toSelect) {
 
-       int droSize= drawObjects.size();
-       for (int i = 0; i <droSize; i++) {
+		HashMap<Integer, Boolean> ret=new HashMap<Integer, Boolean>();
 
-           DrawObject dro=(DrawObject) drawObjects.get(i);
+		int droSize= drawObjects.size();
+		for (int i = 0; i <droSize; i++) {
 
-           boolean selected=selectObject(x,y,dro);
+			DrawObject dro=(DrawObject) drawObjects.get(i);
 
-           if(selected){
+			boolean selected=selectObject(x,y,dro);
 
-               if(toSelect){
-                   dro.setSelected(true);
-               }
-               editor.setObjectData(dro);
-               ret.put(new Integer(i), new Boolean(true));
+			if(selected){
 
-           }
-           else if(!editor.isMultipleSelection())
-               dro.setSelected(false);
+				if(toSelect){
+					dro.setSelected(true);
+				}
+				editor.setObjectData(dro);
+				ret.put(new Integer(i), new Boolean(true));
 
-       }
+			}
+			else if(!editor.isMultipleSelection())
+				dro.setSelected(false);
 
-       return ret;
-   }
+		}
+
+		return ret;
+	}
 
 
 	private boolean selectObject(int x, int y, DrawObject dro) {
@@ -953,9 +953,9 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 	}
 
 
-	public boolean selectSPNodes(int x, int y, ArrayList<SPLine> splines) {
+	public HashMap<String, Boolean>  selectSPNodes(int x, int y, ArrayList<SPLine> splines,boolean isToselect) {
 
-		boolean isToselect=true;
+		HashMap<String, Boolean> ret=new HashMap<String, Boolean>();
 
 		int spSize=splines.size();
 		for (int i = 0; i < spSize; i++) {
@@ -987,11 +987,14 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 						if(isToselect){
 
 							spnode.setSelected(true);
-							editor.setSPLineData(spline,spnode);
 
-
-							break;
 						}
+						ret.put(i+"_"+j, new Boolean(true));
+						editor.setSPLineData(spline,spnode);
+
+
+						break;
+
 
 					}else{
 
@@ -1008,7 +1011,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 		}
 
-		return false;
+		return ret;
 	}
 	@Override
 	public HashMap<Integer,Boolean> pickUpPointsWithFastCircle(PolygonMesh mesh) {
