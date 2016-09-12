@@ -174,13 +174,7 @@ public abstract class RoadEditorPanel extends JPanel {
 		return false;
 	}
 
-	public abstract void selectObjects(int x, int y, ArrayList<DrawObject> drawObjects);
-
-	public ArrayList<DrawObject> selectObjects(int x, int y, ArrayList<DrawObject> drawObjects,boolean toSelect) {
-
-		return null;
-
-	}
+	public abstract HashMap<Integer, Boolean> selectObjects(int x, int y, ArrayList<DrawObject> drawObjects,boolean toSelect);
 
 	public boolean selectObjectsWithRectangle(ArrayList<DrawObject> drawObjects) {
 

@@ -893,28 +893,35 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
 
 	}
+   
+   @Override   
+   public HashMap<Integer, Boolean> selectObjects(int x, int y, ArrayList<DrawObject> drawObjects,boolean toSelect) {
 
-	public void selectObjects(int x, int y, ArrayList<DrawObject> drawObjects) {
+       HashMap<Integer, Boolean> ret=new HashMap<Integer, Boolean>();
 
-		int droSize= drawObjects.size();
-		for (int i = 0; i <droSize; i++) {
+       int droSize= drawObjects.size();
+       for (int i = 0; i <droSize; i++) {
 
-			DrawObject dro=(DrawObject) drawObjects.get(i);
+           DrawObject dro=(DrawObject) drawObjects.get(i);
 
-			boolean selected=selectObject(x,y,dro);
+           boolean selected=selectObject(x,y,dro);
 
-			if(selected){
+           if(selected){
 
-				dro.setSelected(true);
-				editor.setObjectData(dro);
+               if(toSelect){
+                   dro.setSelected(true);
+               }
+               editor.setObjectData(dro);
+               ret.put(new Integer(i), new Boolean(true));
 
+           }
+           else if(!editor.isMultipleSelection())
+               dro.setSelected(false);
 
-			}
-			else if(!editor.isMultipleSelection())
-				dro.setSelected(false);
+       }
 
-		}
-	}
+       return ret;
+   }
 
 
 	private boolean selectObject(int x, int y, DrawObject dro) {

@@ -84,2785 +84,2852 @@ import com.main.loader.LoadingProgressPanel;
 
 public class RoadEditor extends Editor implements ActionListener,MouseListener,MouseWheelListener,PropertyChangeListener,MouseMotionListener,KeyListener, ItemListener{
 
-	private int HEIGHT=600;
-	private int WIDTH=900;
-	private int LEFT_BORDER=240;
-	private int BOTTOM_BORDER=100;
-	private int RIGHT_SKYP=10;
+    private int HEIGHT=600;
+    private int WIDTH=900;
+    private int LEFT_BORDER=240;
+    private int BOTTOM_BORDER=100;
+    private int RIGHT_SKYP=10;
 
-	private static final int INITIAl_SELECTION_RADIUS = 100;
-	private static final int SELECTION_RADIUS_INCREMENT = 10;
-	private static final int SELECTION_RADIUS_MINUS = -1;
-	private static final int SELECTION_RADIUS_PLUS = +1;
+    private static final int INITIAl_SELECTION_RADIUS = 100;
+    private static final int SELECTION_RADIUS_INCREMENT = 10;
+    private static final int SELECTION_RADIUS_MINUS = -1;
+    private static final int SELECTION_RADIUS_PLUS = +1;
 
-	private ArrayList<DrawObject> drawObjects=new ArrayList<DrawObject>();
+    private ArrayList<DrawObject> drawObjects=new ArrayList<DrawObject>();
 
-	private Stack<ArrayList<DrawObject>> oldObjects=new Stack<ArrayList<DrawObject>>();
-	private Stack<ArrayList<SPLine>> oldSpline=new Stack<ArrayList<SPLine>>();
-	private int MAX_STACK_SIZE=10;
-
-	private JMenuBar jmb;
-	private JMenu jm_file;
-
-	public DoubleTextField[] coordinatesx;
-	public DoubleTextField[] coordinatesy;
-	public DoubleTextField[] coordinatesz;
-
-	private JButton[] polygonDetail;
-	public JComboBox[] chooseTexture;
-	private JButton[] choosePanelTexture;
-	private JButton[] chooseNextTexture;
-	private JButton[] choosePrevTexture;
-
-	private JLabel[] textureLabel;
-	public JCheckBox[] fillWithWater;
-
-	private DoubleTextField[] roadMove;
-	private JButton[] moveRoadUp;
-	private JButton[] moveRoadDown;
-	private JButton[] moveRoadRight;
-	private JButton[] moveRoadLeft;
-	private JButton[] moveRoadTop;
-	private JButton[] moveRoadBottom;
+    private Stack<ArrayList<DrawObject>> oldObjects=new Stack<ArrayList<DrawObject>>();
+    private Stack<ArrayList<SPLine>> oldSpline=new Stack<ArrayList<SPLine>>();
+    private int MAX_STACK_SIZE=10;
+
+    private JMenuBar jmb;
+    private JMenu jm_file;
+
+    public DoubleTextField[] coordinatesx;
+    public DoubleTextField[] coordinatesy;
+    public DoubleTextField[] coordinatesz;
+
+    private JButton[] polygonDetail;
+    public JComboBox[] chooseTexture;
+    private JButton[] choosePanelTexture;
+    private JButton[] chooseNextTexture;
+    private JButton[] choosePrevTexture;
+
+    private JLabel[] textureLabel;
+    public JCheckBox[] fillWithWater;
+
+    private DoubleTextField[] roadMove;
+    private JButton[] moveRoadUp;
+    private JButton[] moveRoadDown;
+    private JButton[] moveRoadRight;
+    private JButton[] moveRoadLeft;
+    private JButton[] moveRoadTop;
+    private JButton[] moveRoadBottom;
 
-	private JButton deselectAllObjects;
-	private JButton deselectAllSplines;
-
-	private JButton delObject;
-	private JMenu jm_editing;
-
-
-	private JPanel bottom;
-	private JLabel screenPoint;
-
-
-	private JLabel objectLabel;
-	private JComboBox chooseObject;
-	private JButton chooseObjectPanel;
-	private JButton choosePrevObject;
-	private JButton chooseNextObject;
-
-	private JMenu jm4;
-	private JMenuItem jmtUndoObjects;
-	private JMenuItem jmtUndoSPLines;	
-	private JPanel left;
-
-	private JButton changeObject;
-
-
-	private DoubleTextField rotation_angle;
-	public Rectangle currentRect;
-	private boolean isDrawCurrentRect=false;
-	public Rectangle fastSelectionCircle;
-	private DoubleTextField objMove;
-	private JButton moveObjUp;
-	private JButton moveObjDown;
-	private JButton moveObjLeft;
-	private JButton moveObjRight;
-	private JButton moveObjTop;
-	private JButton moveObjBottom;
-	private JButton pi_2_angle;
-
-	private static BufferedImage[] worldImages;	
-	private static BufferedImage[] splinesImages;	
-	private static BufferedImage[] objectImages;
-	public static Texture[] objectIndexes; 
-
-	public final int indexWidth=40;
-	public final int indexHeight=18;
-
-	private JMenuItem jmtShowAltimetry;
-	private JMenuItem jmtBuildNewGrid;
-	private JMenu help_jm;
-	private JMenuItem jmt_load_landscape;
-	private JMenuItem jmt_save_landscape;
-
-
-
-	private String[] panelsTitles={"Terrain","Road"};
-
-	private JMenuItem jmtAddGrid;
-
-	private static ZBuffer landscapeZbuffer;
-	private int blackRgb= Color.BLACK.getRGB();
-	private int[] rgb=null;
-	private Color selectionColor=null;
-	private JMenuItem jmtExpandGrid;
-
-	private JMenuItem jmtBuildCity;
-	private JMenuItem help_jmt;
-
-	private String header="<html><body>";
-	private String footer="</body></html>";
-	private JToggleButton toogle_splines;
-	private JToggleButton toogle_terrain_polygons;
-	private JToggleButton toogle_objects;
-	private JToggleButton toogle_altimetry;
-	private JPanel left_tools;
-	private JPanel left_common_options;
-	private JPanel left_tool_options;
+    private JButton deselectAllObjects;
+    private JButton deselectAllSplines;
+
+    private JMenu jm_editing;
+
+
+    private JPanel bottom;
+    private JLabel screenPoint;
+
+
+    private JLabel objectLabel;
+    private JComboBox chooseObject;
+    private JButton chooseObjectPanel;
+    private JButton choosePrevObject;
+    private JButton chooseNextObject;
+
+    private JMenu jm4;
+    private JMenuItem jmtUndoObjects;
+    private JMenuItem jmtUndoSPLines;
+    private JPanel left;
+
+    private JButton changeObject;
+
+
+    private DoubleTextField rotation_angle;
+    public Rectangle currentRect;
+    private boolean isDrawCurrentRect=false;
+    public Rectangle fastSelectionCircle;
+    private DoubleTextField objMove;
+    private JButton moveObjUp;
+    private JButton moveObjDown;
+    private JButton moveObjLeft;
+    private JButton moveObjRight;
+    private JButton moveObjTop;
+    private JButton moveObjBottom;
+    private JButton pi_2_angle;
+
+    private static BufferedImage[] worldImages;
+    private static BufferedImage[] splinesImages;
+    private static BufferedImage[] objectImages;
+    public static Texture[] objectIndexes;
+
+    public final int indexWidth=40;
+    public final int indexHeight=18;
+
+    private JMenuItem jmtShowAltimetry;
+    private JMenuItem jmtBuildNewGrid;
+    private JMenu help_jm;
+    private JMenuItem jmt_load_landscape;
+    private JMenuItem jmt_save_landscape;
+
+
+
+    private String[] panelsTitles={"Terrain","Road"};
+
+    private JMenuItem jmtAddGrid;
+
+    private static ZBuffer landscapeZbuffer;
+    private int blackRgb= Color.BLACK.getRGB();
+    private int[] rgb=null;
+    private Color selectionColor=null;
+    private JMenuItem jmtExpandGrid;
+
+    private JMenuItem jmtBuildCity;
+    private JMenuItem help_jmt;
+
+    private String header="<html><body>";
+    private String footer="</body></html>";
+    private JToggleButton toogle_splines;
+    private JToggleButton toogle_terrain_polygons;
+    private JToggleButton toogle_objects;
+    private JToggleButton toogle_altimetry;
+    private JPanel left_tools;
+    private JPanel left_common_options;
+    private JPanel left_tool_options;
 
-	private JCheckBox checkHideObjects;
-	private JCheckBox checkHideSplines;
+    private JCheckBox checkHideObjects;
+    private JCheckBox checkHideSplines;
 
-	private final String OBJECT_MODE="OBJECT_MODE";
-	private final String SPLINES_MODE="SPLINES_MODE"; 
-	private final String TERRAIN_POLYGONS_MODE="TERRAIN_POLYGONS_MODE";
-	private final String ALTIMETRY_MODE="ALTYMETRY_MODE"; 
+    private final String OBJECT_MODE="OBJECT_MODE";
+    private final String SPLINES_MODE="SPLINES_MODE";
+    private final String TERRAIN_POLYGONS_MODE="TERRAIN_POLYGONS_MODE";
+    private final String ALTIMETRY_MODE="ALTYMETRY_MODE";
 
-	private String mode=TERRAIN_POLYGONS_MODE;
-	private JMenu jm_view;
-	private JMenuItem jmt_3d_view;
-	private JMenuItem jmt_top_view;
-	private JMenuItem jmt_goto_view;
+    private String mode=TERRAIN_POLYGONS_MODE;
+    private JMenu jm_view;
+    private JMenuItem jmt_3d_view;
+    private JMenuItem jmt_top_view;
+    private JMenuItem jmt_goto_view;
 
-	private final int ISO_VIEW=1;
-	private final int TOP_VIEW=0;
+    private final int ISO_VIEW=1;
+    private final int TOP_VIEW=0;
 
-	private int VIEW_TYPE=TOP_VIEW;
+    private int VIEW_TYPE=TOP_VIEW;
 
-	private RoadEditorPanel panelIso;
-	private RoadEditorPanel panelTop;
+    private RoadEditorPanel panelIso;
+    private RoadEditorPanel panelTop;
 
-	private transient BufferedImage buf=null;
-	private Graphics2D graphics;
-	private JButton startNewSPLine;
-	private JButton insertSPNode;
-	private JButton mergeSPNodes;
-	private JButton changeSPNode;
-	private JButton setSPNodeHeight;
-	private DoubleTextField setSPNodeHeightValue;
-	private JButton setSPNodeBanking;
-	private DoubleTextField setSPNodeBankingValue;
-	private boolean isInit;
+    private transient BufferedImage buf=null;
+    private Graphics2D graphics;
+    private JButton startNewSPLine;
+    private JButton insertSPNode;
+    private JButton mergeSPNodes;
+    private JButton changeSPNode;
+    private JButton setSPNodeHeight;
+    private DoubleTextField setSPNodeHeightValue;
+    private JButton setSPNodeBanking;
+    private DoubleTextField setSPNodeBankingValue;
+    private boolean isInit;
 
-	private transient Point3D startPosition=null;
-	private IntegerTextField startX;
-	private IntegerTextField startY;
-	private DoubleTextField start_angle;
-	private JButton updateStartPosition;
+    private transient Point3D startPosition=null;
+    private IntegerTextField startX;
+    private IntegerTextField startY;
+    private DoubleTextField start_angle;
+    private JButton updateStartPosition;
 
 
-	private int SPLINE_PANEL=1;
-	private JMenu other_jm;
-	private JMenuItem mass_modify_jmt;
-	private JMenuItem jmt_faster_motion;
-	private JMenuItem jmt_slower_motion;
-	private JMenuItem pile_objects_jmt;
-	private DoubleTextField setAltitudeValue;
-	private IntegerTextField selectionRadius;
-	private JButton selectionRadiusPlus;
-	private JButton selectionRadiusMinus;
-	private JButton deleteSelectedSPNodes;
-	private JToggleButton altimetryUpdateMode;
-	private JToggleButton altimetryExploreMode;
-	private boolean isMultipleSelection=false;
-	private boolean isOnLoading;
+    private int SPLINE_PANEL=1;
+    private JMenu other_jm;
+    private JMenuItem mass_modify_jmt;
+    private JMenuItem jmt_faster_motion;
+    private JMenuItem jmt_slower_motion;
+    private JMenuItem pile_objects_jmt;
+    private DoubleTextField setAltitudeValue;
+    private IntegerTextField selectionRadius;
+    private JButton selectionRadiusPlus;
+    private JButton selectionRadiusMinus;
+    private JButton deleteSelectedSPNodes;
+    private JToggleButton altimetryUpdateMode;
+    private JToggleButton altimetryExploreMode;
+    private boolean isMultipleSelection=false;
+    private boolean isOnLoading;
+    private JToggleButton objectInsertMode;
+    private JToggleButton objectSelectMode;
+    private JToggleButton objectDeleteMode;
 
+    public static void main(String[] args) {
 
-	public static void main(String[] args) {
+        RoadEditor re=new RoadEditor("New road editor");
 
-		RoadEditor re=new RoadEditor("New road editor");
+    }
 
-	}
+    private RoadEditor(String title){
 
-	private RoadEditor(String title){
+        setTitle(title);
 
-		setTitle(title);
+        if(!DrawObject.IS_3D) {
+            setTitle("Road editor 2D");
+        }
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+        setLocation(10,10);
+        setSize(WIDTH+LEFT_BORDER+RIGHT_SKYP,HEIGHT+BOTTOM_BORDER);
 
-		if(!DrawObject.IS_3D)
-			setTitle("Road editor 2D");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(null);
-		setLocation(10,10);
-		setSize(WIDTH+LEFT_BORDER+RIGHT_SKYP,HEIGHT+BOTTOM_BORDER);
+        loadingProgressPanel=new LoadingProgressPanel();
 
-		loadingProgressPanel=new LoadingProgressPanel();
+        EditorData.initialize(loadingProgressPanel,1.0);
 
-		EditorData.initialize(loadingProgressPanel,1.0);
 
 
+        panelIso=getPanel3D();
+        //panelIso.setTransferHandler(new FileTransferhandler());
+        panelTop=getPanelTop();
+        //panelTop.setTransferHandler(new FileTransferhandler());
+        add(panelTop);
 
-		panelIso=getPanel3D();
-		//panelIso.setTransferHandler(new FileTransferhandler());
-		panelTop=getPanelTop();
-		//panelTop.setTransferHandler(new FileTransferhandler());
-		add(panelTop);
 
+        addKeyListener(this);
+        addPropertyChangeListener(this);
 
-		addKeyListener(this);
-		addPropertyChangeListener(this);
 
+        buildMenuBar();
+        buildLeftPanel();
 
-		buildMenuBar();
-		buildLeftPanel();
 
+        buildBottomPanel();
 
-		buildBottomPanel();
+        RepaintManager.setCurrentManager(
+                new RepaintManager(){
+                    @Override
+                    public void paintDirtyRegions() {
 
-		RepaintManager.setCurrentManager( 
-				new RepaintManager(){
-					@Override
-					public void paintDirtyRegions() {
 
+                        super.paintDirtyRegions();
+                        firePropertyChange("paintDirtyRegions",false,true);
+                        //if(redrawAfterMenu ) {displayAll();redrawAfterMenu=false;}
+                    }
 
-						super.paintDirtyRegions();
-						firePropertyChange("paintDirtyRegions",false,true);
-						//if(redrawAfterMenu ) {displayAll();redrawAfterMenu=false;}
-					}
+                }
+                );
 
-				}				
-				);
+        currentDirectory=new File("lib");
 
-		currentDirectory=new File("lib");
 
 
+        initialize();
 
-		initialize();
+        loadingProgressPanel.setValue(100);
 
-		loadingProgressPanel.setValue(100);
+        loadingProgressPanel.dispose();
 
-		loadingProgressPanel.dispose();
+        setVisible(true);
 
-		setVisible(true);
+        //RoadEditorEngine engine=new RoadEditorEngine(this);
+        //engine.start();
 
-		//RoadEditorEngine engine=new RoadEditorEngine(this);
-		//engine.start();
+    }
 
-	}
+    private RoadEditorPanel getPanel3D() {
+        RoadEditorIsoPanel panel=new RoadEditorIsoPanel(this,WIDTH,HEIGHT);
+        panel.setBounds(LEFT_BORDER,0,WIDTH,HEIGHT);
+        panel.addKeyListener(this);
+        panel.addMouseListener(this);
+        panel.addMouseMotionListener(this);
+        panel.addMouseWheelListener(this);
+        return panel;
+    }
 
-	private RoadEditorPanel getPanel3D() {
-		RoadEditorIsoPanel panel=new RoadEditorIsoPanel(this,WIDTH,HEIGHT);
-		panel.setBounds(LEFT_BORDER,0,WIDTH,HEIGHT);
-		panel.addKeyListener(this);
-		panel.addMouseListener(this);
-		panel.addMouseMotionListener(this);
-		panel.addMouseWheelListener(this);
-		return panel;
-	}
+    private RoadEditorPanel getPanelTop() {
+        RoadEditorTopPanel panel=new RoadEditorTopPanel(this,WIDTH,HEIGHT);
+        panel.setBounds(LEFT_BORDER,0,WIDTH,HEIGHT);
+        panel.addKeyListener(this);
+        panel.addMouseListener(this);
+        panel.addMouseMotionListener(this);
+        panel.addMouseWheelListener(this);
+        return panel;
+    }
 
-	private RoadEditorPanel getPanelTop() {
-		RoadEditorTopPanel panel=new RoadEditorTopPanel(this,WIDTH,HEIGHT);
-		panel.setBounds(LEFT_BORDER,0,WIDTH,HEIGHT);
-		panel.addKeyListener(this);
-		panel.addMouseListener(this);
-		panel.addMouseMotionListener(this);
-		panel.addMouseWheelListener(this);
-		return panel;
-	}
 
 
+    private void buildFieldsArrays() {
 
-	private void buildFieldsArrays() {
+        coordinatesx=new DoubleTextField[numPanels];
+        coordinatesy=new DoubleTextField[numPanels];
+        coordinatesz=new DoubleTextField[numPanels];
 
-		coordinatesx=new DoubleTextField[numPanels];
-		coordinatesy=new DoubleTextField[numPanels];
-		coordinatesz=new DoubleTextField[numPanels];
+        polygonDetail=new JButton[numPanels];
 
-		polygonDetail=new JButton[numPanels];	
+        chooseTexture=new JComboBox[numPanels];
+        choosePanelTexture=new JButton[numPanels];
+        chooseNextTexture=new JButton[numPanels];
+        choosePrevTexture=new JButton[numPanels];
 
-		chooseTexture=new JComboBox[numPanels];	
-		choosePanelTexture=new JButton[numPanels];		
-		chooseNextTexture=new JButton[numPanels];
-		choosePrevTexture=new JButton[numPanels];
+        textureLabel=new JLabel[numPanels];
+        fillWithWater=new JCheckBox[numPanels];
 
-		textureLabel=new JLabel[numPanels];
-		fillWithWater=new JCheckBox[numPanels];
+        roadMove=new DoubleTextField[numPanels];
+        moveRoadUp=new JButton[numPanels];
+        moveRoadDown=new JButton[numPanels];
+        moveRoadRight=new JButton[numPanels];
+        moveRoadLeft=new JButton[numPanels];
+        moveRoadTop=new JButton[numPanels];
+        moveRoadBottom=new JButton[numPanels];
 
-		roadMove=new DoubleTextField[numPanels];
-		moveRoadUp=new JButton[numPanels];
-		moveRoadDown=new JButton[numPanels];
-		moveRoadRight=new JButton[numPanels];
-		moveRoadLeft=new JButton[numPanels];
-		moveRoadTop=new JButton[numPanels];
-		moveRoadBottom=new JButton[numPanels];
 
+    }
 
-	}
 
+    /**
+     *
+     */
+    private void initialize() {
 
-	/**
-	 * 
-	 */
-	private void initialize() {
+        buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 
-		buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
+        landscapeZbuffer=new ZBuffer(WIDTH*HEIGHT);
+        rgb=new int[WIDTH*HEIGHT];
+        buildNewZBuffers();
+        selectionColor=new Color(255,0,0,127);
 
-		landscapeZbuffer=new ZBuffer(WIDTH*HEIGHT);
-		rgb=new int[WIDTH*HEIGHT];
-		buildNewZBuffers();
-		selectionColor=new Color(255,0,0,127);
 
+        File directoryImg=new File("lib");
+        File[] files=directoryImg.listFiles();
 
-		File directoryImg=new File("lib");
-		File[] files=directoryImg.listFiles();
+        try{
 
-		try{
+            ArrayList<File> vRoadTextures=new ArrayList<File>();
 
-			ArrayList<File> vRoadTextures=new ArrayList<File>();
+            for(int i=0;i<files.length;i++){
+                if(files[i].getName().startsWith("world_texture_") && files[i].getName().endsWith("_0.jpg")){
 
-			for(int i=0;i<files.length;i++){
-				if(files[i].getName().startsWith("world_texture_") && files[i].getName().endsWith("_0.jpg")){
+                    vRoadTextures.add(files[i]);
 
-					vRoadTextures.add(files[i]);
+                }
+            }
 
-				}		
-			}
+            worldImages=new BufferedImage[vRoadTextures.size()];
 
-			worldImages=new BufferedImage[vRoadTextures.size()];
+            for(int i=0;i<vRoadTextures.size();i++){
 
-			for(int i=0;i<vRoadTextures.size();i++){
+                worldImages[i]=ImageIO.read(new File("lib/world_texture_"+i+"_0.jpg"));
 
-				worldImages[i]=ImageIO.read(new File("lib/world_texture_"+i+"_0.jpg"));
 
+                chooseTexture[TERRAIN_INDEX].addItem(new ValuePair(Integer.toString(i),Integer.toString(i)));
 
-				chooseTexture[TERRAIN_INDEX].addItem(new ValuePair(Integer.toString(i),Integer.toString(i)));
 
 
 
 
+            }
 
-			}
 
+            ArrayList<File> vObjects=new ArrayList<File>();
 
-			ArrayList<File> vObjects=new ArrayList<File>();
+            if(DrawObject.IS_3D) {
+                for(int i=0;i<files.length;i++){
+                    if(files[i].getName().startsWith("object3D_")
+                            && 	!files[i].getName().startsWith("object3D_texture")
+                            ){
 
-			if(DrawObject.IS_3D)
-				for(int i=0;i<files.length;i++){
-					if(files[i].getName().startsWith("object3D_")
-							&& 	!files[i].getName().startsWith("object3D_texture")	
-							){
+                        vObjects.add(files[i]);
 
-						vObjects.add(files[i]);
+                    }
+                }
+            } else{
+                for(int i=0;i<files.length;i++){
+                    if(files[i].getName().startsWith("object_")
 
-					}		
-				}
-			else{
-				for(int i=0;i<files.length;i++){
-					if(files[i].getName().startsWith("object_")
+                            ){
 
-							){
+                        vObjects.add(files[i]);
 
-						vObjects.add(files[i]);
+                    }
+                }
 
-					}		
-				}
+            }
 
-			}
+            objectImages=new BufferedImage[vObjects.size()];
+            objectIndexes=new Texture[vObjects.size()];
 
-			objectImages=new BufferedImage[vObjects.size()];
-			objectIndexes=new Texture[vObjects.size()];
+            for(int i=0;i<vObjects.size();i++){
 
-			for(int i=0;i<vObjects.size();i++){
+                chooseObject.addItem(new ValuePair(Integer.toString(i),Integer.toString(i)));
+                objectImages[i]=ImageIO.read(new File("lib/object_"+i+".gif"));
 
-				chooseObject.addItem(new ValuePair(Integer.toString(i),Integer.toString(i)));
-				objectImages[i]=ImageIO.read(new File("lib/object_"+i+".gif"));
 
+                BufferedImage boi=new BufferedImage(indexWidth,indexHeight,BufferedImage.TYPE_INT_RGB);
+                boi.getGraphics().setColor(Color.white);
+                boi.getGraphics().drawString(Integer.toString(i),0,indexHeight);
+                objectIndexes[i]=new Texture(boi);
 
-				BufferedImage boi=new BufferedImage(indexWidth,indexHeight,BufferedImage.TYPE_INT_RGB);
-				boi.getGraphics().setColor(Color.white);
-				boi.getGraphics().drawString(Integer.toString(i),0,indexHeight);
-				objectIndexes[i]=new Texture(boi);
+            }
 
-			}
+            loadingProgressPanel.incrementValue(10);
 
-			loadingProgressPanel.incrementValue(10);
+            splinesImages=new BufferedImage[EditorData.splinesEditorTextures.length];
+            for(int i=0;i<EditorData.splinesEditorTextures.length;i++){
 
-			splinesImages=new BufferedImage[EditorData.splinesEditorTextures.length];
-			for(int i=0;i<EditorData.splinesEditorTextures.length;i++){
+                chooseTexture[ROAD_INDEX].addItem(new ValuePair(Integer.toString(i),Integer.toString(i)));
+                splinesImages[i]=ImageIO.read(new File("lib/spline_editor_"+i+".jpg"));
 
-				chooseTexture[ROAD_INDEX].addItem(new ValuePair(Integer.toString(i),Integer.toString(i)));
-				splinesImages[i]=ImageIO.read(new File("lib/spline_editor_"+i+".jpg"));
+            }
 
-			}
+            loadingProgressPanel.incrementValue(10);
 
-			loadingProgressPanel.incrementValue(10);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}	
+    }
 
-	}
 
+    private void buildNewZBuffers() {
 
-	private void buildNewZBuffers() {
 
+        for(int i=0;i<landscapeZbuffer.getSize();i++){
 
-		for(int i=0;i<landscapeZbuffer.getSize();i++){
+            landscapeZbuffer.setRgbColor(blackRgb, i);
 
-			landscapeZbuffer.setRgbColor(blackRgb, i);
 
+        }
 
-		}
 
+    }
 
-	}
+    private void buildScreen(BufferedImage buf) {
 
-	private void buildScreen(BufferedImage buf) {
+        int length=rgb.length;
 
-		int length=rgb.length;
+        for(int i=0;i<length;i++){
 
-		for(int i=0;i<length;i++){
 
+            //set
+            rgb[i]=landscapeZbuffer.getRgbColor(i);
 
-			//set
-			rgb[i]=landscapeZbuffer.getRgbColor(i); 
+            //clean
+            landscapeZbuffer.set(0,0,0,0,blackRgb,Road.EMPTY_LEVEL,i,ZBuffer.EMPTY_HASH_CODE);
 
-			//clean
-			landscapeZbuffer.set(0,0,0,0,blackRgb,Road.EMPTY_LEVEL,i,ZBuffer.EMPTY_HASH_CODE);
 
 
+        }
 
-		}
+        buf.getRaster().setDataElements( 0,0,WIDTH,HEIGHT,rgb);
+        //buf.setRGB(0,0,WIDTH,HEIGHT,rgb,0,WIDTH);
 
-		buf.getRaster().setDataElements( 0,0,WIDTH,HEIGHT,rgb);
-		//buf.setRGB(0,0,WIDTH,HEIGHT,rgb,0,WIDTH);
 
+    }
 
-	}
 
+    private void deselectAll() {
 
-	private void deselectAll() {
 
+        deselectAllPoints();
+        deselectAllLines();
+        deselectAllSPNodes();
 
-		deselectAllPoints();
-		deselectAllLines();
-		deselectAllSPNodes();
+        draw();
 
-		draw();
 
+        polygon=new LineData();
+    }
 
-		polygon=new LineData();
-	}
+    private void polygonDetail() {
 
-	private void polygonDetail() {
+        PolygonMesh mesh=meshes[ACTIVE_PANEL];
 
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+        int sizel=mesh.polygonData.size();
+        for(int i=0;i<sizel;i++){
 
-		int sizel=mesh.polygonData.size();
-		for(int i=0;i<sizel;i++){
+            LineData ld=mesh.polygonData.get(i);
+            if(!ld.isSelected()) {
+                continue;
+            }
 
-			LineData ld=(LineData) mesh.polygonData.get(i);
-			if(!ld.isSelected())
-				continue;
+            RoadEditorPolygonDetail repd=new RoadEditorPolygonDetail(this,ld);
 
-			RoadEditorPolygonDetail repd=new RoadEditorPolygonDetail(this,ld);
 
+            if(repd.getModifiedLineData()!=null){
 
-			if(repd.getModifiedLineData()!=null){
+                mesh.polygonData.set(i,repd.getModifiedLineData());
 
-				mesh.polygonData.set(i,repd.getModifiedLineData());
+            }
 
-			}
+            break;
+        }
+        draw();
 
-			break;
-		}
-		draw();
+    }
 
-	}
+    public void draw() {
 
-	public void draw() {
 
+        Graphics2D graph = (Graphics2D) buf.getGraphics();
+        RoadEditorPanel ep=getCenter();
 
-		Graphics2D graph = (Graphics2D) buf.getGraphics();
-		RoadEditorPanel ep=getCenter();
+        ep.setHide_objects(checkHideObjects.isSelected());
+        ep.setHide_splines(checkHideSplines.isSelected());
+        draw(ep,graph);
 
-		ep.setHide_objects(checkHideObjects.isSelected());
-		ep.setHide_splines(checkHideSplines.isSelected());
-		draw(ep,graph);
+        buildScreen(buf);
 
-		buildScreen(buf); 
+        if(graphics==null) {
+            graphics=(Graphics2D) ep.getGraphics();
+        }
 
-		if(graphics==null)
-			graphics=(Graphics2D) ep.getGraphics();
+        graphics.drawImage(buf,0,0,null);
 
-		graphics.drawImage(buf,0,0,null);
 
 
+    }
 
-	}
 
+    private void draw( RoadEditorPanel editorPanel,Graphics2D graph) {
 
-	private void draw( RoadEditorPanel editorPanel,Graphics2D graph) {
 
+        graph.setColor(Color.BLACK);
+        graph.fillRect(0,0,WIDTH,HEIGHT);
 
-		graph.setColor(Color.BLACK);
-		graph.fillRect(0,0,WIDTH,HEIGHT);
 
+        editorPanel.drawRoad(meshes,drawObjects,splines,startPosition,landscapeZbuffer,graph);
 
-		editorPanel.drawRoad(meshes,drawObjects,splines,startPosition,landscapeZbuffer,graph);
 
+        editorPanel.drawCurrentRect(landscapeZbuffer);
 
-		editorPanel.drawCurrentRect(landscapeZbuffer);
+        //editorPanel.drawFastSelectionCircle(landscapeZbuffer);
 
-		//editorPanel.drawFastSelectionCircle(landscapeZbuffer);
+    }
 
-	}
 
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        draw();
+    }
 
-	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
-		draw();
-	}
 
 
 
+    private void buildMenuBar() {
+        jmb=new JMenuBar();
+        jm_file=new JMenu("File");
+        jm_file.addMenuListener(this);
+        jmb.add(jm_file);
 
-	private void buildMenuBar() {
-		jmb=new JMenuBar();
-		jm_file=new JMenu("File");
-		jm_file.addMenuListener(this);
-		jmb.add(jm_file);
+        jmt_load_landscape = new JMenuItem("Load landscape");
+        jmt_load_landscape.addActionListener(this);
+        jm_file.add(jmt_load_landscape);
 
-		jmt_load_landscape = new JMenuItem("Load landscape");
-		jmt_load_landscape.addActionListener(this);
-		jm_file.add(jmt_load_landscape);
+        jmt_save_landscape = new JMenuItem("Save landscape");
+        jmt_save_landscape.addActionListener(this);
+        jm_file.add(jmt_save_landscape);
 
-		jmt_save_landscape = new JMenuItem("Save landscape");
-		jmt_save_landscape.addActionListener(this);
-		jm_file.add(jmt_save_landscape);
 
+        jm4=new JMenu("Change");
+        jm4.addMenuListener(this);
+        jmtUndoObjects = new JMenuItem("Undo last object");
+        jmtUndoObjects.setEnabled(false);
+        jmtUndoObjects.addActionListener(this);
+        jm4.add(jmtUndoObjects);
+        jmtUndoSPLines = new JMenuItem("Undo last spline");
+        jmtUndoSPLines.setEnabled(false);
+        jmtUndoSPLines.addActionListener(this);
+        jm4.add(jmtUndoSPLines);
 
-		jm4=new JMenu("Change");
-		jm4.addMenuListener(this);
-		jmtUndoObjects = new JMenuItem("Undo last object");
-		jmtUndoObjects.setEnabled(false);
-		jmtUndoObjects.addActionListener(this);
-		jm4.add(jmtUndoObjects);
-		jmtUndoSPLines = new JMenuItem("Undo last spline");
-		jmtUndoSPLines.setEnabled(false);
-		jmtUndoSPLines.addActionListener(this);
-		jm4.add(jmtUndoSPLines);	
+        jmb.add(jm4);
 
-		jmb.add(jm4);
+        jm_view=new JMenu("View");
+        jm_view.addMenuListener(this);
+        jmb.add(jm_view);
 
-		jm_view=new JMenu("View");
-		jm_view.addMenuListener(this);
-		jmb.add(jm_view);
+        jmt_top_view=new JMenuItem("Top view");
+        jmt_top_view.addActionListener(this);
+        jm_view.add(jmt_top_view);
 
-		jmt_top_view=new JMenuItem("Top view");
-		jmt_top_view.addActionListener(this);
-		jm_view.add(jmt_top_view);
+        jmt_3d_view=new JMenuItem("3D view");
+        jmt_3d_view.addActionListener(this);
+        jm_view.add(jmt_3d_view);
 
-		jmt_3d_view=new JMenuItem("3D view");
-		jmt_3d_view.addActionListener(this);
-		jm_view.add(jmt_3d_view);
+        jm_view.addSeparator();
 
-		jm_view.addSeparator();
+        jmt_faster_motion=new JMenuItem("+ motion");
+        jmt_faster_motion.addActionListener(this);
+        jm_view.add(jmt_faster_motion);
 
-		jmt_faster_motion=new JMenuItem("+ motion");
-		jmt_faster_motion.addActionListener(this);
-		jm_view.add(jmt_faster_motion);
+        jmt_slower_motion=new JMenuItem("- motion");
+        jmt_slower_motion.addActionListener(this);
+        jm_view.add(jmt_slower_motion);
 
-		jmt_slower_motion=new JMenuItem("- motion");
-		jmt_slower_motion.addActionListener(this);
-		jm_view.add(jmt_slower_motion);
+        jm_view.addSeparator();
 
-		jm_view.addSeparator();
+        jmt_goto_view=new JMenuItem("Go to...");
+        jmt_goto_view.addActionListener(this);
+        jm_view.add(jmt_goto_view);
 
-		jmt_goto_view=new JMenuItem("Go to...");
-		jmt_goto_view.addActionListener(this);
-		jm_view.add(jmt_goto_view);
+        jm_editing=new JMenu("Editing");
+        jm_editing.addMenuListener(this);
 
-		jm_editing=new JMenu("Editing");
-		jm_editing.addMenuListener(this);
+        jmtBuildNewGrid = new JMenuItem("New Grid");
+        jmtBuildNewGrid.addActionListener(this);
+        jm_editing.add(jmtBuildNewGrid);
 
-		jmtBuildNewGrid = new JMenuItem("New Grid");
-		jmtBuildNewGrid.addActionListener(this);
-		jm_editing.add(jmtBuildNewGrid);
+        jm_editing.addSeparator();
 
-		jm_editing.addSeparator();
+        jmtExpandGrid = new JMenuItem("Expand grid(T)");
+        jmtExpandGrid.addActionListener(this);
+        jm_editing.add(jmtExpandGrid);
 
-		jmtExpandGrid = new JMenuItem("Expand grid(T)");
-		jmtExpandGrid.addActionListener(this);
-		jm_editing.add(jmtExpandGrid);
+        jm_editing.addSeparator();
 
-		jm_editing.addSeparator();
+        jmtAddGrid = new JMenuItem("Add grid");
+        jmtAddGrid.addActionListener(this);
+        jm_editing.add(jmtAddGrid);
 
-		jmtAddGrid = new JMenuItem("Add grid");
-		jmtAddGrid.addActionListener(this);
-		jm_editing.add(jmtAddGrid);
+        jm_editing.addSeparator();
 
-		jm_editing.addSeparator();
+        jmtBuildCity = new JMenuItem("Build Custom city");
+        jmtBuildCity.addActionListener(this);
+        jm_editing.add(jmtBuildCity);
 
-		jmtBuildCity = new JMenuItem("Build Custom city");
-		jmtBuildCity.addActionListener(this);
-		jm_editing.add(jmtBuildCity);
+        jm_editing.addSeparator();
 
-		jm_editing.addSeparator();
+        jmtShowAltimetry = new JMenuItem("Advanced Altimetry");
+        jmtShowAltimetry.addActionListener(this);
+        jm_editing.add(jmtShowAltimetry);
 
-		jmtShowAltimetry = new JMenuItem("Advanced Altimetry");
-		jmtShowAltimetry.addActionListener(this);
-		jm_editing.add(jmtShowAltimetry);
 
+        jmb.add(jm_editing);
 
-		jmb.add(jm_editing);
+        other_jm=new JMenu("Other");
+        other_jm.addMenuListener(this);
+        jmb.add(other_jm);
 
-		other_jm=new JMenu("Other");
-		other_jm.addMenuListener(this);		
-		jmb.add(other_jm);
+        mass_modify_jmt=new JMenuItem("Mass modify");
+        mass_modify_jmt.addActionListener(this);
+        other_jm.add(mass_modify_jmt);
 
-		mass_modify_jmt=new JMenuItem("Mass modify");
-		mass_modify_jmt.addActionListener(this);		
-		other_jm.add(mass_modify_jmt);
+        pile_objects_jmt=new JMenuItem("Pile objects");
+        pile_objects_jmt.addActionListener(this);
+        other_jm.add(pile_objects_jmt);
 
-		pile_objects_jmt=new JMenuItem("Pile objects");
-		pile_objects_jmt.addActionListener(this);		
-		other_jm.add(pile_objects_jmt);
+        help_jm=new JMenu("Help");
+        help_jm.addMenuListener(this);
+        jmb.add(help_jm);
 
-		help_jm=new JMenu("Help");
-		help_jm.addMenuListener(this);		
-		jmb.add(help_jm);
+        help_jmt=new JMenuItem("Help");
+        help_jmt.addActionListener(this);
+        help_jm.add(help_jmt);
 
-		help_jmt=new JMenuItem("Help");
-		help_jmt.addActionListener(this);		
-		help_jm.add(help_jmt);
+        setJMenuBar(jmb);
+    }
 
-		setJMenuBar(jmb);
-	}
+    private void buildLeftPanel() {
 
-	private void buildLeftPanel() {
+        ACTIVE_PANEL=TERRAIN_INDEX;
 
-		ACTIVE_PANEL=TERRAIN_INDEX;
+        buildFieldsArrays();
 
-		buildFieldsArrays();
+        int upper_left_height=100;
+        int middle_left_height=70;
+        int lower_left_height=500;
 
-		int upper_left_height=100;
-		int middle_left_height=70;
-		int lower_left_height=500;
+        int r=10;
 
-		int r=10;	
+        left=new JPanel();
+        left.setBounds(0,0,LEFT_BORDER,HEIGHT);
+        left.setLayout(null);
 
-		left=new JPanel();
-		left.setBounds(0,0,LEFT_BORDER,HEIGHT);
-		left.setLayout(null);
+        left_tools=new JPanel(null);
+        //left_tools.setBorder(BorderFactory.createTitledBorder("Choose tool"));
+        left_tools.setBounds(5,0,200,upper_left_height);
+        left.add(left_tools);
 
-		left_tools=new JPanel(null);
-		//left_tools.setBorder(BorderFactory.createTitledBorder("Choose tool"));
-		left_tools.setBounds(5,0,200,upper_left_height);
-		left.add(left_tools);
+        left_common_options=new JPanel(null);
+        left_common_options.setBounds(0,upper_left_height,LEFT_BORDER,middle_left_height);
+        left.add(left_common_options);
 
-		left_common_options=new JPanel(null);
-		left_common_options.setBounds(0,upper_left_height,LEFT_BORDER,middle_left_height);
-		left.add(left_common_options);
+        left_tool_options=new JPanel(new CardLayout());
+        left_tool_options.setBounds(0,middle_left_height+upper_left_height,LEFT_BORDER,lower_left_height);
+        left.add(left_tool_options);
 
-		left_tool_options=new JPanel(new CardLayout());	
-		left_tool_options.setBounds(0,middle_left_height+upper_left_height,LEFT_BORDER,lower_left_height);
-		left.add(left_tool_options);
-		
-		toogle_altimetry = new JToggleButton("ALT");
-		toogle_altimetry.setActionCommand(ALTIMETRY_MODE);
-		toogle_altimetry.addActionListener(this);
-		toogle_altimetry.addKeyListener(this);
-		toogle_altimetry.setToolTipText("Altimetry");
-		toogle_altimetry.setBounds(10,r,60,20);
+        toogle_altimetry = new JToggleButton("ALT");
+        toogle_altimetry.setActionCommand(ALTIMETRY_MODE);
+        toogle_altimetry.addActionListener(this);
+        toogle_altimetry.addKeyListener(this);
+        toogle_altimetry.setToolTipText("Altimetry");
+        toogle_altimetry.setBounds(10,r,60,20);
 
-		toogle_terrain_polygons= new JToggleButton("PLG");		
-		toogle_terrain_polygons.setActionCommand(TERRAIN_POLYGONS_MODE);
-		toogle_terrain_polygons.setSelected(true);
-		toogle_terrain_polygons.addActionListener(this);
-		toogle_terrain_polygons.addKeyListener(this);
-		toogle_terrain_polygons.setToolTipText("Terrain polygons");
-		toogle_terrain_polygons.setBounds(80,r,60,20);
+        toogle_terrain_polygons= new JToggleButton("PLG");
+        toogle_terrain_polygons.setActionCommand(TERRAIN_POLYGONS_MODE);
+        toogle_terrain_polygons.setSelected(true);
+        toogle_terrain_polygons.addActionListener(this);
+        toogle_terrain_polygons.addKeyListener(this);
+        toogle_terrain_polygons.setToolTipText("Terrain polygons");
+        toogle_terrain_polygons.setBounds(80,r,60,20);
 
-		r+=30;
+        r+=30;
 
-		toogle_splines = new JToggleButton("SPL");
-		toogle_splines.setActionCommand(SPLINES_MODE);
-		toogle_splines.addActionListener(this);
-		toogle_splines.addKeyListener(this);
-		toogle_splines.setToolTipText("Splines");
-		toogle_splines.setBounds(10,r,60,20);
+        toogle_splines = new JToggleButton("SPL");
+        toogle_splines.setActionCommand(SPLINES_MODE);
+        toogle_splines.addActionListener(this);
+        toogle_splines.addKeyListener(this);
+        toogle_splines.setToolTipText("Splines");
+        toogle_splines.setBounds(10,r,60,20);
 
-		toogle_objects = new JToggleButton("OBJ");
-		toogle_objects.setActionCommand(OBJECT_MODE);
-		toogle_objects.addActionListener(this);
-		toogle_objects.addKeyListener(this);
-		toogle_objects.setToolTipText("Ojbects");
-		toogle_objects.setBounds(80,r,60,20);
+        toogle_objects = new JToggleButton("OBJ");
+        toogle_objects.setActionCommand(OBJECT_MODE);
+        toogle_objects.addActionListener(this);
+        toogle_objects.addKeyListener(this);
+        toogle_objects.setToolTipText("Ojbects");
+        toogle_objects.setBounds(80,r,60,20);
 
 
 
-		ButtonGroup bgb=new ButtonGroup();
-		bgb.add(toogle_splines);
-		bgb.add(toogle_terrain_polygons);
-		bgb.add(toogle_objects);
-		bgb.add(toogle_altimetry);
+        ButtonGroup bgb=new ButtonGroup();
+        bgb.add(toogle_splines);
+        bgb.add(toogle_terrain_polygons);
+        bgb.add(toogle_objects);
+        bgb.add(toogle_altimetry);
 
-		left_tools.add(toogle_terrain_polygons);
-		left_tools.add(toogle_splines);
-		left_tools.add(toogle_objects);
-		left_tools.add(toogle_altimetry);
+        left_tools.add(toogle_terrain_polygons);
+        left_tools.add(toogle_splines);
+        left_tools.add(toogle_objects);
+        left_tools.add(toogle_altimetry);
 
-		r=10;
+        r=10;
 
-		checkHideObjects=new JCheckBox(header+"Hide objects"+footer);
-		checkHideObjects.setBounds(10,r,100,20);
-		checkHideObjects.addKeyListener(this);
-		checkHideObjects.addActionListener(new ActionListener() {
+        checkHideObjects=new JCheckBox(header+"Hide objects"+footer);
+        checkHideObjects.setBounds(10,r,100,20);
+        checkHideObjects.addKeyListener(this);
+        checkHideObjects.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
-				draw();
-			}
-		});
+                draw();
+            }
+        });
 
-		checkHideSplines=new JCheckBox(header+"Hide splines"+footer);
-		checkHideSplines.setBounds(110,r,100,20);
-		checkHideSplines.addKeyListener(this);
-		checkHideSplines.addActionListener(new ActionListener() {
+        checkHideSplines=new JCheckBox(header+"Hide splines"+footer);
+        checkHideSplines.setBounds(110,r,100,20);
+        checkHideSplines.addKeyListener(this);
+        checkHideSplines.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
-				draw();
-			}
-		});
+                draw();
+            }
+        });
 
-		r+=30;
+        r+=30;
 
-		JLabel lbl=new JLabel("Sel radius:");
-		lbl.setBounds(5,r,80,20);
+        JLabel lbl=new JLabel("Sel radius:");
+        lbl.setBounds(5,r,80,20);
 
 
-		selectionRadius=new IntegerTextField();
-		selectionRadius.setBounds(80,r,80,20);
-		selectionRadius.addKeyListener(this);
-		selectionRadius.setText(INITIAl_SELECTION_RADIUS);
-		selectionRadius.addFocusListener(new FocusListener() {
+        selectionRadius=new IntegerTextField();
+        selectionRadius.setBounds(80,r,80,20);
+        selectionRadius.addKeyListener(this);
+        selectionRadius.setText(INITIAl_SELECTION_RADIUS);
+        selectionRadius.addFocusListener(new FocusListener() {
 
-			@Override
-			public void focusLost(FocusEvent e) {
-				incrementSelectionRadius(0);
+            @Override
+            public void focusLost(FocusEvent e) {
+                incrementSelectionRadius(0);
 
-			}
+            }
 
-			@Override
-			public void focusGained(FocusEvent e) {
-				// TODO Auto-generated method stub
+            @Override
+            public void focusGained(FocusEvent e) {
+                // TODO Auto-generated method stub
 
-			}
-		});
+            }
+        });
 
-		selectionRadiusPlus=new JButton(header+"+"+footer);
-		selectionRadiusPlus.addActionListener(this);
-		selectionRadiusPlus.setFocusable(false);
-		selectionRadiusPlus.setBounds(160,r,30,20);
+        selectionRadiusPlus=new JButton(header+"+"+footer);
+        selectionRadiusPlus.addActionListener(this);
+        selectionRadiusPlus.setFocusable(false);
+        selectionRadiusPlus.setBounds(160,r,30,20);
 
 
-		selectionRadiusMinus=new JButton(header+"-"+footer);
-		selectionRadiusMinus.addActionListener(this);
-		selectionRadiusMinus.setFocusable(false);
-		selectionRadiusMinus.setBounds(200,r,30,20);
+        selectionRadiusMinus=new JButton(header+"-"+footer);
+        selectionRadiusMinus.addActionListener(this);
+        selectionRadiusMinus.setFocusable(false);
+        selectionRadiusMinus.setBounds(200,r,30,20);
 
-		left_common_options.add(checkHideObjects);
-		left_common_options.add(checkHideSplines);
-		left_common_options.add(lbl);
-		left_common_options.add(selectionRadius);
-		left_common_options.add(selectionRadiusPlus);
-		left_common_options.add(selectionRadiusMinus);
+        left_common_options.add(checkHideObjects);
+        left_common_options.add(checkHideSplines);
+        left_common_options.add(lbl);
+        left_common_options.add(selectionRadius);
+        left_common_options.add(selectionRadiusPlus);
+        left_common_options.add(selectionRadiusMinus);
 
 
-		JPanel terrain_polygons_panel =  buildTerrainPolygonsPanel(TERRAIN_INDEX);
-		left_tool_options.add(terrain_polygons_panel,TERRAIN_POLYGONS_MODE);
+        JPanel terrain_polygons_panel =  buildTerrainPolygonsPanel(TERRAIN_INDEX);
+        left_tool_options.add(terrain_polygons_panel,TERRAIN_POLYGONS_MODE);
 
-		JPanel splines_panel = buildSPLinesPanel();
+        JPanel splines_panel = buildSPLinesPanel();
 
-		left_tool_options.add(splines_panel,SPLINES_MODE);
+        left_tool_options.add(splines_panel,SPLINES_MODE);
 
 
-		JPanel object_panel = buildObjectsPanel();
-		left_tool_options.add(object_panel,OBJECT_MODE);
+        JPanel object_panel = buildObjectsPanel();
+        left_tool_options.add(object_panel,OBJECT_MODE);
 
-		JPanel altimetry_panel = buildAltimetryPanel(TERRAIN_INDEX);
-		left_tool_options.add(altimetry_panel,ALTIMETRY_MODE);
+        JPanel altimetry_panel = buildAltimetryPanel(TERRAIN_INDEX);
+        left_tool_options.add(altimetry_panel,ALTIMETRY_MODE);
 
-		add(left);
+        add(left);
 
 
 
-	}
+    }
 
 
-	private JPanel buildSPLinesPanel() {
-		JPanel splines_panel=new JPanel(null);
+    private JPanel buildSPLinesPanel() {
+        JPanel splines_panel=new JPanel(null);
 
-		int index=ROAD_INDEX;
+        int index=ROAD_INDEX;
 
-		int r=5;
+        int r=5;
 
 
-		chooseTexture[index]=new JComboBox();
-		chooseTexture[index].addItem(new ValuePair("",""));
-		//chooseTexture.setBounds(35,r,50,20);
-		chooseTexture[index].addItemListener(this);
-		chooseTexture[index].addKeyListener(this);
-		//panel.add(chooseTexture);
+        chooseTexture[index]=new JComboBox();
+        chooseTexture[index].addItem(new ValuePair("",""));
+        //chooseTexture.setBounds(35,r,50,20);
+        chooseTexture[index].addItemListener(this);
+        chooseTexture[index].addKeyListener(this);
+        //panel.add(chooseTexture);
 
-		choosePanelTexture[index]=new JButton("Texture");
-		choosePanelTexture[index].setBounds(5,r,100,20);
-		choosePanelTexture[index].addActionListener(this);
-		choosePanelTexture[index].addKeyListener(this);
-		splines_panel.add(choosePanelTexture[index]);
+        choosePanelTexture[index]=new JButton("Texture");
+        choosePanelTexture[index].setBounds(5,r,100,20);
+        choosePanelTexture[index].addActionListener(this);
+        choosePanelTexture[index].addKeyListener(this);
+        splines_panel.add(choosePanelTexture[index]);
 
-		r+=30;
+        r+=30;
 
-		textureLabel[index]=new JLabel();
-		textureLabel[index].setFocusable(false);
-		textureLabel[index].setBounds(5,r,100,100);
-		Border border=BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
-		textureLabel[index].setBorder(border);
-		splines_panel.add(textureLabel[index]);
+        textureLabel[index]=new JLabel();
+        textureLabel[index].setFocusable(false);
+        textureLabel[index].setBounds(5,r,100,100);
+        Border border=BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
+        textureLabel[index].setBorder(border);
+        splines_panel.add(textureLabel[index]);
 
-		JPanel moveRoad=buildRoadMovePanel(120,r,index);
-		splines_panel.add(moveRoad);
+        JPanel moveRoad=buildRoadMovePanel(120,r,index);
+        splines_panel.add(moveRoad);
 
-		r+=100;		
+        r+=100;
 
-		choosePrevTexture[index]=new JButton("<");
-		choosePrevTexture[index].setBounds(5,r,50,20);
-		choosePrevTexture[index].addActionListener(this);
-		choosePrevTexture[index].addKeyListener(this);
-		splines_panel.add(choosePrevTexture[index]);
+        choosePrevTexture[index]=new JButton("<");
+        choosePrevTexture[index].setBounds(5,r,50,20);
+        choosePrevTexture[index].addActionListener(this);
+        choosePrevTexture[index].addKeyListener(this);
+        splines_panel.add(choosePrevTexture[index]);
 
-		chooseNextTexture[index]=new JButton(">");
-		chooseNextTexture[index].setBounds(55,r,50,20);
-		chooseNextTexture[index].addActionListener(this);
-		chooseNextTexture[index].addKeyListener(this);
-		splines_panel.add(chooseNextTexture[index]);
+        chooseNextTexture[index]=new JButton(">");
+        chooseNextTexture[index].setBounds(55,r,50,20);
+        chooseNextTexture[index].addActionListener(this);
+        chooseNextTexture[index].addKeyListener(this);
+        splines_panel.add(chooseNextTexture[index]);
 
-		r+=30;
+        r+=30;
 
 
-		changeSPNode=new JButton(header+"Change node"+footer);
-		changeSPNode.addActionListener(this);
-		changeSPNode.addKeyListener(this);
-		changeSPNode.setFocusable(false);
-		changeSPNode.setBounds(5,r,150,20);
-		splines_panel.add(changeSPNode);
+        changeSPNode=new JButton(header+"Change node"+footer);
+        changeSPNode.addActionListener(this);
+        changeSPNode.addKeyListener(this);
+        changeSPNode.setFocusable(false);
+        changeSPNode.setBounds(5,r,150,20);
+        splines_panel.add(changeSPNode);
 
 
-		r+=30;
+        r+=30;
 
 
-		insertSPNode=new JButton(header+"Insert node after"+footer);
-		insertSPNode.addActionListener(this);
-		insertSPNode.addKeyListener(this);
-		insertSPNode.setFocusable(false);
-		insertSPNode.setBounds(5,r,150,20);
-		splines_panel.add(insertSPNode);
+        insertSPNode=new JButton(header+"Insert node after"+footer);
+        insertSPNode.addActionListener(this);
+        insertSPNode.addKeyListener(this);
+        insertSPNode.setFocusable(false);
+        insertSPNode.setBounds(5,r,150,20);
+        splines_panel.add(insertSPNode);
 
 
-		r+=30;
+        r+=30;
 
-		mergeSPNodes=new JButton(header+"Merge spnodes"+footer);
-		mergeSPNodes.addActionListener(this);
-		mergeSPNodes.addKeyListener(this);
-		mergeSPNodes.setFocusable(false);
-		mergeSPNodes.setBounds(5,r,150,20);
-		splines_panel.add(mergeSPNodes);
+        mergeSPNodes=new JButton(header+"Merge spnodes"+footer);
+        mergeSPNodes.addActionListener(this);
+        mergeSPNodes.addKeyListener(this);
+        mergeSPNodes.setFocusable(false);
+        mergeSPNodes.setBounds(5,r,150,20);
+        splines_panel.add(mergeSPNodes);
 
 
-		r+=30;
+        r+=30;
 
-		startNewSPLine=new JButton(header+"Start new spline"+footer);
-		startNewSPLine.addActionListener(this);
-		startNewSPLine.addKeyListener(this);
-		startNewSPLine.setFocusable(false);
-		startNewSPLine.setBounds(5,r,150,20);
-		splines_panel.add(startNewSPLine);
+        startNewSPLine=new JButton(header+"Start new spline"+footer);
+        startNewSPLine.addActionListener(this);
+        startNewSPLine.addKeyListener(this);
+        startNewSPLine.setFocusable(false);
+        startNewSPLine.setBounds(5,r,150,20);
+        splines_panel.add(startNewSPLine);
 
 
-		r+=30;
+        r+=30;
 
 
-		deleteSelectedSPNodes=new JButton(header+"<u>D</u>elete selection"+footer);
-		deleteSelectedSPNodes.addActionListener(this);
-		deleteSelectedSPNodes.addKeyListener(this);
-		deleteSelectedSPNodes.setFocusable(false);
-		deleteSelectedSPNodes.setBounds(5,r,150,20);
-		splines_panel.add(deleteSelectedSPNodes);
+        deleteSelectedSPNodes=new JButton(header+"<u>D</u>elete selection"+footer);
+        deleteSelectedSPNodes.addActionListener(this);
+        deleteSelectedSPNodes.addKeyListener(this);
+        deleteSelectedSPNodes.setFocusable(false);
+        deleteSelectedSPNodes.setBounds(5,r,150,20);
+        splines_panel.add(deleteSelectedSPNodes);
 
-		r+=30;
+        r+=30;
 
-		deselectAllSplines=new JButton(header+"D<u>e</u>select all"+footer);
-		deselectAllSplines.addActionListener(this);
-		deselectAllSplines.setFocusable(false);
-		deselectAllSplines.setBounds(5,r,150,20);
-		splines_panel.add(deselectAllSplines);
+        deselectAllSplines=new JButton(header+"D<u>e</u>select all"+footer);
+        deselectAllSplines.addActionListener(this);
+        deselectAllSplines.setFocusable(false);
+        deselectAllSplines.setBounds(5,r,150,20);
+        splines_panel.add(deselectAllSplines);
 
 
-		r+=30;
+        r+=30;
 
-		setSPNodeHeight=new JButton(header+"Set height"+footer);
-		setSPNodeHeight.addActionListener(this);
-		setSPNodeHeight.setFocusable(false);
-		setSPNodeHeight.setBounds(5,r,100,20);
-		splines_panel.add(setSPNodeHeight);
+        setSPNodeHeight=new JButton(header+"Set height"+footer);
+        setSPNodeHeight.addActionListener(this);
+        setSPNodeHeight.setFocusable(false);
+        setSPNodeHeight.setBounds(5,r,100,20);
+        splines_panel.add(setSPNodeHeight);
 
-		setSPNodeHeightValue=new DoubleTextField(7);
-		setSPNodeHeightValue.setBounds(120,r,110,20);
-		setSPNodeHeightValue.addKeyListener(this);
-		splines_panel.add(setSPNodeHeightValue);
+        setSPNodeHeightValue=new DoubleTextField(7);
+        setSPNodeHeightValue.setBounds(120,r,110,20);
+        setSPNodeHeightValue.addKeyListener(this);
+        splines_panel.add(setSPNodeHeightValue);
 
-		r+=30;
+        r+=30;
 
-		setSPNodeBanking=new JButton(header+"Set banking"+footer);
-		setSPNodeBanking.addActionListener(this);
-		setSPNodeBanking.setFocusable(false);
-		setSPNodeBanking.setBounds(5,r,110,20);
-		splines_panel.add(setSPNodeBanking);
+        setSPNodeBanking=new JButton(header+"Set banking"+footer);
+        setSPNodeBanking.addActionListener(this);
+        setSPNodeBanking.setFocusable(false);
+        setSPNodeBanking.setBounds(5,r,110,20);
+        splines_panel.add(setSPNodeBanking);
 
-		setSPNodeBankingValue=new DoubleTextField(7);
-		setSPNodeBankingValue.setBounds(120,r,110,20);
-		setSPNodeBankingValue.addKeyListener(this);
-		splines_panel.add(setSPNodeBankingValue);
+        setSPNodeBankingValue=new DoubleTextField(7);
+        setSPNodeBankingValue.setBounds(120,r,110,20);
+        setSPNodeBankingValue.addKeyListener(this);
+        splines_panel.add(setSPNodeBankingValue);
 
-		return splines_panel;
-	}
+        return splines_panel;
+    }
 
-	private JPanel buildObjectsPanel() {
+    private JPanel buildObjectsPanel() {
 
-		Border objBorder=BorderFactory.createTitledBorder("Objects");
+        Border objBorder=BorderFactory.createTitledBorder("Objects");
 
 
-		JPanel object_panel=new JPanel(null);
-		object_panel.setBorder(objBorder);
+        JPanel object_panel=new JPanel(null);
+        object_panel.setBorder(objBorder);
 
-		int r=25;
+        int r=25;
 
-		chooseObject=new JComboBox();
-		chooseObject.addItem(new ValuePair("",""));
-		//chooseObject.setBounds(50,r,50,20);
-		chooseObject.addItemListener(this);
-		chooseObject.addKeyListener(this);
-		//left.add(chooseObject);
 
 
-		chooseObjectPanel=new JButton("Object");
-		chooseObjectPanel.setBounds(10,r,100,20);
-		chooseObjectPanel.addActionListener(this);
-		chooseObjectPanel.addKeyListener(this);
-		object_panel.add(chooseObjectPanel);
+        objectInsertMode=new JToggleButton("I");
+        objectInsertMode.addActionListener(this);
+        objectInsertMode.addKeyListener(this);
+        objectInsertMode.setToolTipText("Insert mode");
+        objectInsertMode.setBounds(10,r,60,20);
+        object_panel.add(objectInsertMode);
 
-		r+=30;
+        objectSelectMode=new JToggleButton("S");
+        objectSelectMode.setSelected(true);
+        objectSelectMode.addActionListener(this);
+        objectSelectMode.addKeyListener(this);
+        objectSelectMode.setToolTipText("Select mode");
+        objectSelectMode.setBounds(80,r,60,20);
+        object_panel.add(objectSelectMode);
+        
+        objectDeleteMode=new JToggleButton("D");
+        objectDeleteMode.setSelected(true);
+        objectDeleteMode.addActionListener(this);
+        objectDeleteMode.addKeyListener(this);
+        objectDeleteMode.setToolTipText("Delete mode");
+        objectDeleteMode.setBounds(150,r,60,20);
+        object_panel.add(objectDeleteMode);
 
-		objectLabel=new JLabel();
-		objectLabel.setFocusable(false);
-		objectLabel.setBounds(10,r,100,100);
+        ButtonGroup altButtonGroup=new ButtonGroup();
+        altButtonGroup.add(objectInsertMode);
+        altButtonGroup.add(objectSelectMode);
+        altButtonGroup.add(objectDeleteMode);
 
-		Border border=BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
-		objectLabel.setBorder(border);
-		object_panel.add(objectLabel);
+        r+=30;
+        
+        chooseObject=new JComboBox();
+        chooseObject.addItem(new ValuePair("",""));
+        //chooseObject.setBounds(50,r,50,20);
+        chooseObject.addItemListener(this);
+        chooseObject.addKeyListener(this);
+        //left.add(chooseObject);
 
-		JPanel moveObject=buildObjectMovePanel(120,r);
-		object_panel.add(moveObject);
 
-		r+=100;
+        chooseObjectPanel=new JButton("Object");
+        chooseObjectPanel.setBounds(10,r,100,20);
+        chooseObjectPanel.addActionListener(this);
+        chooseObjectPanel.addKeyListener(this);
+        object_panel.add(chooseObjectPanel);
 
-		choosePrevObject=new JButton("<");
-		choosePrevObject.setBounds(10,r,50,20);
-		choosePrevObject.addActionListener(this);
-		choosePrevObject.addKeyListener(this);
-		object_panel.add(choosePrevObject);
+        r+=30;
 
-		chooseNextObject=new JButton(">");
-		chooseNextObject.setBounds(60,r,50,20);
-		chooseNextObject.addActionListener(this);
-		chooseNextObject.addKeyListener(this);
-		object_panel.add(chooseNextObject);		
+        objectLabel=new JLabel();
+        objectLabel.setFocusable(false);
+        objectLabel.setBounds(10,r,100,100);
 
-		r+=30;
+        Border border=BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
+        objectLabel.setBorder(border);
+        object_panel.add(objectLabel);
 
+        JPanel moveObject=buildObjectMovePanel(120,r);
+        object_panel.add(moveObject);
 
-		JLabel lz=new JLabel("Rotation angle:");
-		lz.setBounds(5,r,90,20);
-		object_panel.add(lz);
-		rotation_angle=new DoubleTextField(8);
-		rotation_angle.setBounds(100,r,80,20);
-		rotation_angle.addKeyListener(this);
-		rotation_angle.addActionListener(this);
-		object_panel.add(rotation_angle);
+        r+=100;
 
-		pi_2_angle=new JButton(header+"&pi;/2"+footer);
-		pi_2_angle.setBounds(185,r,50,20);
-		pi_2_angle.addActionListener(this);
-		pi_2_angle.addKeyListener(this);
-		object_panel.add(pi_2_angle);
+        choosePrevObject=new JButton("<");
+        choosePrevObject.setBounds(10,r,50,20);
+        choosePrevObject.addActionListener(this);
+        choosePrevObject.addKeyListener(this);
+        object_panel.add(choosePrevObject);
 
-		r+=30;
+        chooseNextObject=new JButton(">");
+        chooseNextObject.setBounds(60,r,50,20);
+        chooseNextObject.addActionListener(this);
+        chooseNextObject.addKeyListener(this);
+        object_panel.add(chooseNextObject);
 
-		changeObject=new JButton(header+"Change O<u>b</u>ject"+footer);
-		changeObject.addActionListener(this);
-		changeObject.setFocusable(false);
-		changeObject.setBounds(5,r,150,20);
-		object_panel.add(changeObject);
+        r+=30;
 
-		r+=30;
 
-		delObject=new JButton("Del object");
-		delObject.addActionListener(this);
-		delObject.setFocusable(false);
-		delObject.setBounds(5,r,150,20);
-		object_panel.add(delObject);
+        JLabel lz=new JLabel("Rotation angle:");
+        lz.setBounds(5,r,90,20);
+        object_panel.add(lz);
+        rotation_angle=new DoubleTextField(8);
+        rotation_angle.setBounds(100,r,80,20);
+        rotation_angle.addKeyListener(this);
+        rotation_angle.addActionListener(this);
+        object_panel.add(rotation_angle);
 
-		r+=30;
+        pi_2_angle=new JButton(header+"&pi;/2"+footer);
+        pi_2_angle.setBounds(185,r,50,20);
+        pi_2_angle.addActionListener(this);
+        pi_2_angle.addKeyListener(this);
+        object_panel.add(pi_2_angle);
 
-		deselectAllObjects=new JButton("Deselect all");
-		deselectAllObjects.addActionListener(this);
-		deselectAllObjects.setFocusable(false);
-		deselectAllObjects.setBounds(5,r,150,20);
-		object_panel.add(deselectAllObjects);
+        r+=30;
 
-		r+=30;
+        changeObject=new JButton(header+"Change O<u>b</u>ject"+footer);
+        changeObject.addActionListener(this);
+        changeObject.setFocusable(false);
+        changeObject.setBounds(5,r,150,20);
+        object_panel.add(changeObject);
 
 
-		return object_panel;
-	}
+        r+=30;
 
+        deselectAllObjects=new JButton("Deselect all");
+        deselectAllObjects.addActionListener(this);
+        deselectAllObjects.setFocusable(false);
+        deselectAllObjects.setBounds(5,r,150,20);
+        object_panel.add(deselectAllObjects);
 
+        r+=30;
 
-	private JPanel buildAltimetryPanel(int index) {
-		Border objBorder=BorderFactory.createTitledBorder("Altimetry");
 
+        return object_panel;
+    }
 
-		JPanel altimetry_panel=new JPanel(null);
-		altimetry_panel.setBorder(objBorder);
 
-		int r=25;
 
-		JLabel lbl=new JLabel("Altitude:");
-		lbl.setBounds(5,r,80,20);
-		altimetry_panel.add(lbl);
+    private JPanel buildAltimetryPanel(int index) {
+        Border objBorder=BorderFactory.createTitledBorder("Altimetry");
 
-		setAltitudeValue=new DoubleTextField();
-		setAltitudeValue.setBounds(90,r,80,20);
-		altimetry_panel.add(setAltitudeValue);
-		setAltitudeValue.addKeyListener(this);
 
-		r+=30;
+        JPanel altimetry_panel=new JPanel(null);
+        altimetry_panel.setBorder(objBorder);
 
-		JLabel lx=new JLabel("x:");
-		lx.setBounds(5,r,20,20);
-		altimetry_panel.add(lx);
-		coordinatesx[index]=new DoubleTextField(8);
-		coordinatesx[index].setBounds(30,r,120,20);
-		coordinatesx[index].addKeyListener(this);
-		altimetry_panel.add(coordinatesx[index]);
+        int r=25;
 
-		r+=30;
+        JLabel lbl=new JLabel("Altitude:");
+        lbl.setBounds(5,r,80,20);
+        altimetry_panel.add(lbl);
 
-		JLabel ly=new JLabel("y:");
-		ly.setBounds(5,r,20,20);
-		altimetry_panel.add(ly);
-		coordinatesy[index]=new DoubleTextField(8);
-		coordinatesy[index].setBounds(30,r,120,20);
-		coordinatesy[index].addKeyListener(this);
-		altimetry_panel.add(coordinatesy[index]);
+        setAltitudeValue=new DoubleTextField();
+        setAltitudeValue.setBounds(90,r,80,20);
+        altimetry_panel.add(setAltitudeValue);
+        setAltitudeValue.addKeyListener(this);
 
+        r+=30;
 
-		r+=30;
+        JLabel lx=new JLabel("x:");
+        lx.setBounds(5,r,20,20);
+        altimetry_panel.add(lx);
+        coordinatesx[index]=new DoubleTextField(8);
+        coordinatesx[index].setBounds(30,r,120,20);
+        coordinatesx[index].addKeyListener(this);
+        altimetry_panel.add(coordinatesx[index]);
 
-		JLabel lz=new JLabel("z:");
-		lz.setBounds(5,r,20,20);
-		altimetry_panel.add(lz);
-		coordinatesz[index]=new DoubleTextField(8);
-		coordinatesz[index].setBounds(30,r,120,20);
-		coordinatesz[index].addKeyListener(this);
-		altimetry_panel.add(coordinatesz[index]);
-		
-		r+=30;
-		
-		altimetryUpdateMode=new JToggleButton("C");
-		altimetryUpdateMode.setSelected(true);
-		altimetryUpdateMode.addActionListener(this);
-		altimetryUpdateMode.addKeyListener(this);
-		altimetryUpdateMode.setToolTipText("Update mode");
-		altimetryUpdateMode.setBounds(10,r,60,20);
-		altimetry_panel.add(altimetryUpdateMode);
-		
-		altimetryExploreMode=new JToggleButton("E");
-		altimetryExploreMode.addActionListener(this);
-		altimetryExploreMode.addKeyListener(this);
-		altimetryExploreMode.setToolTipText("Explore mode");
-		altimetryExploreMode.setBounds(80,r,60,20);
-		altimetry_panel.add(altimetryExploreMode);
-		
-		ButtonGroup altButtonGroup=new ButtonGroup();
-		altButtonGroup.add(altimetryUpdateMode);
-		altButtonGroup.add(altimetryExploreMode);
+        r+=30;
 
-		return altimetry_panel;
-	}
+        JLabel ly=new JLabel("y:");
+        ly.setBounds(5,r,20,20);
+        altimetry_panel.add(ly);
+        coordinatesy[index]=new DoubleTextField(8);
+        coordinatesy[index].setBounds(30,r,120,20);
+        coordinatesy[index].addKeyListener(this);
+        altimetry_panel.add(coordinatesy[index]);
 
 
-	private JPanel buildTerrainPolygonsPanel(int index) {
+        r+=30;
 
+        JLabel lz=new JLabel("z:");
+        lz.setBounds(5,r,20,20);
+        altimetry_panel.add(lz);
+        coordinatesz[index]=new DoubleTextField(8);
+        coordinatesz[index].setBounds(30,r,120,20);
+        coordinatesz[index].addKeyListener(this);
+        altimetry_panel.add(coordinatesz[index]);
 
-		JPanel panel=new JPanel();
+        r+=30;
 
-		panel.setLayout(null);
+        altimetryUpdateMode=new JToggleButton("C");
+        altimetryUpdateMode.setSelected(true);
+        altimetryUpdateMode.addActionListener(this);
+        altimetryUpdateMode.addKeyListener(this);
+        altimetryUpdateMode.setToolTipText("Update mode");
+        altimetryUpdateMode.setBounds(10,r,60,20);
+        altimetry_panel.add(altimetryUpdateMode);
 
-		Border leftBorder=BorderFactory.createTitledBorder(panelsTitles[index]);
-		panel.setBorder(leftBorder);
+        altimetryExploreMode=new JToggleButton("E");
+        altimetryExploreMode.addActionListener(this);
+        altimetryExploreMode.addKeyListener(this);
+        altimetryExploreMode.setToolTipText("Explore mode");
+        altimetryExploreMode.setBounds(80,r,60,20);
+        altimetry_panel.add(altimetryExploreMode);
 
-		int r=25;
+        ButtonGroup altButtonGroup=new ButtonGroup();
+        altButtonGroup.add(altimetryUpdateMode);
+        altButtonGroup.add(altimetryExploreMode);
 
-		chooseTexture[index]=new JComboBox();
-		chooseTexture[index].addItem(new ValuePair("",""));
-		//chooseTexture.setBounds(35,r,50,20);
-		chooseTexture[index].addItemListener(this);
-		chooseTexture[index].addKeyListener(this);
-		//panel.add(chooseTexture);
+        return altimetry_panel;
+    }
 
-		choosePanelTexture[index]=new JButton("Texture");
-		choosePanelTexture[index].setBounds(5,r,100,20);
-		choosePanelTexture[index].addActionListener(this);
-		choosePanelTexture[index].addKeyListener(this);
-		panel.add(choosePanelTexture[index]);
 
-		r+=30;
+    private JPanel buildTerrainPolygonsPanel(int index) {
 
-		textureLabel[index]=new JLabel();
-		textureLabel[index].setFocusable(false);
-		textureLabel[index].setBounds(5,r,100,100);
-		Border border=BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
-		textureLabel[index].setBorder(border);
-		panel.add(textureLabel[index]);
 
+        JPanel panel=new JPanel();
 
-		r+=100;
+        panel.setLayout(null);
 
-		choosePrevTexture[index]=new JButton("<");
-		choosePrevTexture[index].setBounds(5,r,50,20);
-		choosePrevTexture[index].addActionListener(this);
-		choosePrevTexture[index].addKeyListener(this);
-		panel.add(choosePrevTexture[index]);
+        Border leftBorder=BorderFactory.createTitledBorder(panelsTitles[index]);
+        panel.setBorder(leftBorder);
 
-		chooseNextTexture[index]=new JButton(">");
-		chooseNextTexture[index].setBounds(55,r,50,20);
-		chooseNextTexture[index].addActionListener(this);
-		chooseNextTexture[index].addKeyListener(this);
-		panel.add(chooseNextTexture[index]);
+        int r=25;
 
-		r+=30;
+        chooseTexture[index]=new JComboBox();
+        chooseTexture[index].addItem(new ValuePair("",""));
+        //chooseTexture.setBounds(35,r,50,20);
+        chooseTexture[index].addItemListener(this);
+        chooseTexture[index].addKeyListener(this);
+        //panel.add(chooseTexture);
 
-		fillWithWater[index]=new JCheckBox("Water");
-		fillWithWater[index].addKeyListener(this);
-		fillWithWater[index].setFocusable(false);
-		fillWithWater[index].setBounds(5,r,150,20);
-		panel.add(fillWithWater[index]);
+        choosePanelTexture[index]=new JButton("Texture");
+        choosePanelTexture[index].setBounds(5,r,100,20);
+        choosePanelTexture[index].addActionListener(this);
+        choosePanelTexture[index].addKeyListener(this);
+        panel.add(choosePanelTexture[index]);
 
-		return panel;
+        r+=30;
 
-	}
+        textureLabel[index]=new JLabel();
+        textureLabel[index].setFocusable(false);
+        textureLabel[index].setBounds(5,r,100,100);
+        Border border=BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
+        textureLabel[index].setBorder(border);
+        panel.add(textureLabel[index]);
 
 
+        r+=100;
 
-	private JPanel buildRoadMovePanel(int i, int r, int index) {
+        choosePrevTexture[index]=new JButton("<");
+        choosePrevTexture[index].setBounds(5,r,50,20);
+        choosePrevTexture[index].addActionListener(this);
+        choosePrevTexture[index].addKeyListener(this);
+        panel.add(choosePrevTexture[index]);
 
-		JPanel move=new JPanel();
-		move.setBounds(i,r,100,100);
-		move.setLayout(null);
+        chooseNextTexture[index]=new JButton(">");
+        chooseNextTexture[index].setBounds(55,r,50,20);
+        chooseNextTexture[index].addActionListener(this);
+        chooseNextTexture[index].addKeyListener(this);
+        panel.add(chooseNextTexture[index]);
 
-		Border border = BorderFactory.createEtchedBorder();
-		move.setBorder(border);
+        r+=30;
 
-		roadMove[index]=new DoubleTextField();
-		roadMove[index].setBounds(30,40,40,20);
-		roadMove[index].setToolTipText("Position increment");
-		move.add(roadMove[index]);
-		roadMove[index].addKeyListener(this);
+        fillWithWater[index]=new JCheckBox("Water");
+        fillWithWater[index].addKeyListener(this);
+        fillWithWater[index].setFocusable(false);
+        fillWithWater[index].setBounds(5,r,150,20);
+        panel.add(fillWithWater[index]);
 
-		moveRoadUp[index]=new JButton(new ImageIcon("lib/trianglen.jpg"));
-		moveRoadUp[index].setBounds(40,10,20,20);
-		moveRoadUp[index].addActionListener(this);
-		moveRoadUp[index].setFocusable(false);
-		move.add(moveRoadUp[index]);
+        return panel;
 
-		moveRoadDown[index]=new JButton(new ImageIcon("lib/triangles.jpg"));
-		moveRoadDown[index].setBounds(40,70,20,20);
-		moveRoadDown[index].addActionListener(this);
-		moveRoadDown[index].setFocusable(false);
-		move.add(moveRoadDown[index]);
+    }
 
-		moveRoadLeft[index]=new JButton(new ImageIcon("lib/triangleo.jpg"));
-		moveRoadLeft[index].setBounds(5,40,20,20);
-		moveRoadLeft[index].addActionListener(this);
-		moveRoadLeft[index].setFocusable(false);
-		move.add(moveRoadLeft[index]);
 
-		moveRoadRight[index]=new JButton(new ImageIcon("lib/trianglee.jpg"));
-		moveRoadRight[index].setBounds(75,40,20,20);
-		moveRoadRight[index].addActionListener(this);
-		moveRoadRight[index].setFocusable(false);
-		move.add(moveRoadRight[index]);
 
-		moveRoadTop[index]=new JButton(new ImageIcon("lib/up.jpg"));
-		moveRoadTop[index].setBounds(5,70,20,20);
-		moveRoadTop[index].addActionListener(this);
-		moveRoadTop[index].setFocusable(false);
-		move.add(moveRoadTop[index]);
+    private JPanel buildRoadMovePanel(int i, int r, int index) {
 
-		moveRoadBottom[index]=new JButton(new ImageIcon("lib/down.jpg"));
-		moveRoadBottom[index].setBounds(75,70,20,20);
-		moveRoadBottom[index].addActionListener(this);
-		moveRoadBottom[index].setFocusable(false);
-		move.add(moveRoadBottom[index]);
+        JPanel move=new JPanel();
+        move.setBounds(i,r,100,100);
+        move.setLayout(null);
 
-		return move;
+        Border border = BorderFactory.createEtchedBorder();
+        move.setBorder(border);
 
-	}
+        roadMove[index]=new DoubleTextField();
+        roadMove[index].setBounds(30,40,40,20);
+        roadMove[index].setToolTipText("Position increment");
+        move.add(roadMove[index]);
+        roadMove[index].addKeyListener(this);
 
-	private JPanel buildObjectMovePanel(int i, int r) {
+        moveRoadUp[index]=new JButton(new ImageIcon("lib/trianglen.jpg"));
+        moveRoadUp[index].setBounds(40,10,20,20);
+        moveRoadUp[index].addActionListener(this);
+        moveRoadUp[index].setFocusable(false);
+        move.add(moveRoadUp[index]);
 
-		JPanel move=new JPanel();
-		move.setBounds(i,r,100,100);
-		move.setLayout(null);
+        moveRoadDown[index]=new JButton(new ImageIcon("lib/triangles.jpg"));
+        moveRoadDown[index].setBounds(40,70,20,20);
+        moveRoadDown[index].addActionListener(this);
+        moveRoadDown[index].setFocusable(false);
+        move.add(moveRoadDown[index]);
 
-		Border border = BorderFactory.createEtchedBorder();
-		move.setBorder(border);
+        moveRoadLeft[index]=new JButton(new ImageIcon("lib/triangleo.jpg"));
+        moveRoadLeft[index].setBounds(5,40,20,20);
+        moveRoadLeft[index].addActionListener(this);
+        moveRoadLeft[index].setFocusable(false);
+        move.add(moveRoadLeft[index]);
 
-		objMove=new DoubleTextField();
-		objMove.setBounds(30,40,40,20);
-		objMove.setToolTipText("Position increment");
-		move.add(objMove);
-		objMove.addKeyListener(this);
+        moveRoadRight[index]=new JButton(new ImageIcon("lib/trianglee.jpg"));
+        moveRoadRight[index].setBounds(75,40,20,20);
+        moveRoadRight[index].addActionListener(this);
+        moveRoadRight[index].setFocusable(false);
+        move.add(moveRoadRight[index]);
 
-		moveObjUp=new JButton(new ImageIcon("lib/trianglen.jpg"));
-		moveObjUp.setBounds(40,10,20,20);
-		moveObjUp.addActionListener(this);
-		moveObjUp.setFocusable(false);
-		move.add(moveObjUp);
+        moveRoadTop[index]=new JButton(new ImageIcon("lib/up.jpg"));
+        moveRoadTop[index].setBounds(5,70,20,20);
+        moveRoadTop[index].addActionListener(this);
+        moveRoadTop[index].setFocusable(false);
+        move.add(moveRoadTop[index]);
 
-		moveObjDown=new JButton(new ImageIcon("lib/triangles.jpg"));
-		moveObjDown.setBounds(40,70,20,20);
-		moveObjDown.addActionListener(this);
-		moveObjDown.setFocusable(false);
-		move.add(moveObjDown);
+        moveRoadBottom[index]=new JButton(new ImageIcon("lib/down.jpg"));
+        moveRoadBottom[index].setBounds(75,70,20,20);
+        moveRoadBottom[index].addActionListener(this);
+        moveRoadBottom[index].setFocusable(false);
+        move.add(moveRoadBottom[index]);
 
-		moveObjLeft=new JButton(new ImageIcon("lib/triangleo.jpg"));
-		moveObjLeft.setBounds(5,40,20,20);
-		moveObjLeft.addActionListener(this);
-		moveObjLeft.setFocusable(false);
-		move.add(moveObjLeft);
+        return move;
 
-		moveObjRight=new JButton(new ImageIcon("lib/trianglee.jpg"));
-		moveObjRight.setBounds(75,40,20,20);
-		moveObjRight.addActionListener(this);
-		moveObjRight.setFocusable(false);
-		move.add(moveObjRight);
+    }
 
-		moveObjTop=new JButton(new ImageIcon("lib/up.jpg"));
-		moveObjTop.setBounds(5,70,20,20);
-		moveObjTop.addActionListener(this);
-		moveObjTop.setFocusable(false);
-		move.add(moveObjTop);
+    private JPanel buildObjectMovePanel(int i, int r) {
 
-		moveObjBottom=new JButton(new ImageIcon("lib/down.jpg"));
-		moveObjBottom.setBounds(75,70,20,20);
-		moveObjBottom.addActionListener(this);
-		moveObjBottom.setFocusable(false);
-		move.add(moveObjBottom);
+        JPanel move=new JPanel();
+        move.setBounds(i,r,100,100);
+        move.setLayout(null);
 
-		return move;
+        Border border = BorderFactory.createEtchedBorder();
+        move.setBorder(border);
 
-	}
+        objMove=new DoubleTextField();
+        objMove.setBounds(30,40,40,20);
+        objMove.setToolTipText("Position increment");
+        move.add(objMove);
+        objMove.addKeyListener(this);
 
-	private void buildBottomPanel() {
-		bottom=new JPanel();
-		bottom.setBounds(0,HEIGHT,LEFT_BORDER+WIDTH,BOTTOM_BORDER);
-		bottom.setLayout(null);
+        moveObjUp=new JButton(new ImageIcon("lib/trianglen.jpg"));
+        moveObjUp.setBounds(40,10,20,20);
+        moveObjUp.addActionListener(this);
+        moveObjUp.setFocusable(false);
+        move.add(moveObjUp);
 
-		JLabel label = new JLabel();
-		label.setText("Start X: ");
-		label.setBounds(2,2,60,20);
-		bottom.add(label);
+        moveObjDown=new JButton(new ImageIcon("lib/triangles.jpg"));
+        moveObjDown.setBounds(40,70,20,20);
+        moveObjDown.addActionListener(this);
+        moveObjDown.setFocusable(false);
+        move.add(moveObjDown);
 
-		startX=new IntegerTextField();
-		startX.setBounds(60,2,100,20);
-		startX.addKeyListener(this);
-		bottom.add(startX);
+        moveObjLeft=new JButton(new ImageIcon("lib/triangleo.jpg"));
+        moveObjLeft.setBounds(5,40,20,20);
+        moveObjLeft.addActionListener(this);
+        moveObjLeft.setFocusable(false);
+        move.add(moveObjLeft);
 
+        moveObjRight=new JButton(new ImageIcon("lib/trianglee.jpg"));
+        moveObjRight.setBounds(75,40,20,20);
+        moveObjRight.addActionListener(this);
+        moveObjRight.setFocusable(false);
+        move.add(moveObjRight);
 
-		label = new JLabel();
-		label.setText("Start Y: ");
-		label.setBounds(170,2,60,20);
-		bottom.add(label);
+        moveObjTop=new JButton(new ImageIcon("lib/up.jpg"));
+        moveObjTop.setBounds(5,70,20,20);
+        moveObjTop.addActionListener(this);
+        moveObjTop.setFocusable(false);
+        move.add(moveObjTop);
 
-		startY=new IntegerTextField();
-		startY.setBounds(230,2,100,20);
-		startY.addKeyListener(this);
-		bottom.add(startY);
+        moveObjBottom=new JButton(new ImageIcon("lib/down.jpg"));
+        moveObjBottom.setBounds(75,70,20,20);
+        moveObjBottom.addActionListener(this);
+        moveObjBottom.setFocusable(false);
+        move.add(moveObjBottom);
 
+        return move;
 
-		label = new JLabel();
-		label.setText("Start angle: ");
-		label.setBounds(340,2,80,20);
-		bottom.add(label);
+    }
 
-		start_angle=new DoubleTextField();
-		start_angle.setBounds(420,2,100,20);
-		start_angle.addKeyListener(this);
-		bottom.add(start_angle);
+    private void buildBottomPanel() {
+        bottom=new JPanel();
+        bottom.setBounds(0,HEIGHT,LEFT_BORDER+WIDTH,BOTTOM_BORDER);
+        bottom.setLayout(null);
 
+        JLabel label = new JLabel();
+        label.setText("Start X: ");
+        label.setBounds(2,2,60,20);
+        bottom.add(label);
 
-		updateStartPosition=new JButton("Update");
-		updateStartPosition.setBounds(530,2,100,20);
-		updateStartPosition.setFocusable(false);
-		updateStartPosition.addActionListener(this);
-		bottom.add(updateStartPosition);
+        startX=new IntegerTextField();
+        startX.setBounds(60,2,100,20);
+        startX.addKeyListener(this);
+        bottom.add(startX);
 
 
-		JLabel lscreenpoint = new JLabel();
-		lscreenpoint.setText("Position x,y: ");
-		lscreenpoint.setBounds(730,2,100,20);
-		bottom.add(lscreenpoint);
-		screenPoint=new JLabel();
-		screenPoint.setText(",");
-		screenPoint.setBounds(800,2,300,20);
-		bottom.add(screenPoint);
-		add(bottom);
-	}
+        label = new JLabel();
+        label.setText("Start Y: ");
+        label.setBounds(170,2,60,20);
+        bottom.add(label);
 
-	private void undoObjects() {
+        startY=new IntegerTextField();
+        startY.setBounds(230,2,100,20);
+        startY.addKeyListener(this);
+        bottom.add(startY);
 
 
-		drawObjects=(ArrayList<DrawObject>) oldObjects.pop();
-		if(oldObjects.size()==0)
-			jmtUndoObjects.setEnabled(false);
-	}
+        label = new JLabel();
+        label.setText("Start angle: ");
+        label.setBounds(340,2,80,20);
+        bottom.add(label);
 
-	private void undoSplines() {
+        start_angle=new DoubleTextField();
+        start_angle.setBounds(420,2,100,20);
+        start_angle.addKeyListener(this);
+        bottom.add(start_angle);
 
-		splines=(ArrayList<SPLine>) oldSpline.pop();
-		if(oldSpline.size()==0)
-			jmtUndoSPLines.setEnabled(false);
 
-		firePropertyChange("RoadEditorUndo", false, true);
-	}
-	@Override
-	public void prepareUndo() {
-		prepareUndoObjects();
-		prepareUndoSpline();
-	}
+        updateStartPosition=new JButton("Update");
+        updateStartPosition.setBounds(530,2,100,20);
+        updateStartPosition.setFocusable(false);
+        updateStartPosition.addActionListener(this);
+        bottom.add(updateStartPosition);
 
-	private void prepareUndoSpline() {
-		jmtUndoSPLines.setEnabled(true);
 
-		if(oldSpline.size()==MAX_STACK_SIZE){
-			oldSpline.removeElementAt(0);
-		}
-		oldSpline.push(cloneSPLines(splines));
+        JLabel lscreenpoint = new JLabel();
+        lscreenpoint.setText("Position x,y: ");
+        lscreenpoint.setBounds(730,2,100,20);
+        bottom.add(lscreenpoint);
+        screenPoint=new JLabel();
+        screenPoint.setText(",");
+        screenPoint.setBounds(800,2,300,20);
+        bottom.add(screenPoint);
+        add(bottom);
+    }
 
+    private void undoObjects() {
 
-	}
 
-	private void prepareUndoObjects() {
-		jmtUndoObjects.setEnabled(true);
-		if(oldObjects.size()==MAX_STACK_SIZE){
-			oldObjects.removeElementAt(0);
-		}
-		oldObjects.push(cloneObjectsVector(drawObjects));
-	}
+        drawObjects=oldObjects.pop();
+        if(oldObjects.size()==0) {
+            jmtUndoObjects.setEnabled(false);
+        }
+    }
 
+    private void undoSplines() {
 
+        splines=oldSpline.pop();
+        if(oldSpline.size()==0) {
+            jmtUndoSPLines.setEnabled(false);
+        }
 
-	private ArrayList<DrawObject> cloneObjectsVector(ArrayList<DrawObject> drawObjects) {
-		ArrayList<DrawObject> newDrawObjects=new ArrayList<DrawObject>();
+        firePropertyChange("RoadEditorUndo", false, true);
+    }
+    @Override
+    public void prepareUndo() {
+        prepareUndoObjects();
+        prepareUndoSpline();
+    }
 
-		for(int i=0;i<drawObjects.size();i++){
+    private void prepareUndoSpline() {
+        jmtUndoSPLines.setEnabled(true);
 
-			DrawObject dro=(DrawObject) drawObjects.get(i);
-			newDrawObjects.add((DrawObject) dro.clone());
+        if(oldSpline.size()==MAX_STACK_SIZE){
+            oldSpline.removeElementAt(0);
+        }
+        oldSpline.push(cloneSPLines(splines));
 
-		}
 
-		return newDrawObjects;
-	}
+    }
 
-	private void changeSelectedObject() {
+    private void prepareUndoObjects() {
+        jmtUndoObjects.setEnabled(true);
+        if(oldObjects.size()==MAX_STACK_SIZE){
+            oldObjects.removeElementAt(0);
+        }
+        oldObjects.push(cloneObjectsVector(drawObjects));
+    }
 
-		prepareUndoObjects();
 
-		for(int i=0;i<drawObjects.size();i++){
 
-			DrawObject dro=(DrawObject) drawObjects.get(i);
+    private ArrayList<DrawObject> cloneObjectsVector(ArrayList<DrawObject> drawObjects) {
+        ArrayList<DrawObject> newDrawObjects=new ArrayList<DrawObject>();
 
-			if(!dro.isSelected())
-				continue;
+        for(int i=0;i<drawObjects.size();i++){
 
-			ValuePair vp=(ValuePair) chooseObject.getSelectedItem();
-			if(vp!=null && !vp.getValue().equals("")){
+            DrawObject dro=drawObjects.get(i);
+            newDrawObjects.add((DrawObject) dro.clone());
 
-				int index=Integer.parseInt(vp.getId());
-				dro.setIndex(index);
+        }
 
-				if(DrawObject.IS_3D){
+        return newDrawObjects;
+    }
 
-					CubicMesh cm=EditorData.objectMeshes[index]; 
-					dro.setDx(cm.getDeltaX2()-cm.getDeltaX());
-					dro.setDy(cm.getDeltaY2()-cm.getDeltaY());
-					dro.setDz(cm.getDeltaX());
-				}
-			}	 
+    private void changeSelectedObject() {
 
-			dro.setRotation_angle(rotation_angle.getvalue());
-			setObjectMesh(dro);
+        prepareUndoObjects();
 
-		}
+        for(int i=0;i<drawObjects.size();i++){
 
-		cleanObjects();
-		draw();
+            DrawObject dro=drawObjects.get(i);
 
-	}
+            if(!dro.isSelected()) {
+                continue;
+            }
 
+            ValuePair vp=(ValuePair) chooseObject.getSelectedItem();
+            if(vp!=null && !vp.getValue().equals("")){
 
-	private void moveSelectedObject(int dx, int dy, int dk) { 
+                int index=Integer.parseInt(vp.getId());
+                dro.setIndex(index);
 
-		String sqty=objMove.getText();
+                if(DrawObject.IS_3D){
 
-		if(sqty==null || sqty.equals(""))
-			return;
+                    CubicMesh cm=EditorData.objectMeshes[index];
+                    dro.setDx(cm.getDeltaX2()-cm.getDeltaX());
+                    dro.setDy(cm.getDeltaY2()-cm.getDeltaY());
+                    dro.setDz(cm.getDeltaX());
+                }
+            }
 
-		double qty=Double.parseDouble(sqty);
+            dro.setRotation_angle(rotation_angle.getvalue());
+            setObjectMesh(dro);
 
-		prepareUndoObjects();
+        }
 
-		for(int i=0;i<drawObjects.size();i++){
+        cleanObjects();
+        draw();
 
-			DrawObject dro=(DrawObject) drawObjects.get(i);
+    }
 
-			if(!dro.isSelected())
-				continue;
 
-			dro.setX(dro.getX()+dx*qty);
-			dro.setY(dro.getY()+dy*qty);
-			dro.setZ(dro.getZ()+dk*qty);
-			//dro.setSelected(false);
+    private void moveSelectedObject(int dx, int dy, int dk) {
 
-			if(!isMultipleSelection){
+        String sqty=objMove.getText();
 
-				setObjectData(dro);					
+        if(sqty==null || sqty.equals("")) {
+            return;
+        }
 
+        double qty=Double.parseDouble(sqty);
 
-			}
-			setObjectMesh(dro);
-		}
+        prepareUndoObjects();
 
-		//cleanObjects();
-		draw();
+        for(int i=0;i<drawObjects.size();i++){
 
-	}
+            DrawObject dro=drawObjects.get(i);
 
-	public void setObjectData(DrawObject dro) { 
+            if(!dro.isSelected()) {
+                continue;
+            }
 
+            dro.setX(dro.getX()+dx*qty);
+            dro.setY(dro.getY()+dy*qty);
+            dro.setZ(dro.getZ()+dk*qty);
+            //dro.setSelected(false);
 
+            if(!isMultipleSelection){
 
-		for(int k=0;k<chooseObject.getItemCount();k++){
+                setObjectData(dro);
 
-			ValuePair vp=(ValuePair) chooseObject.getItemAt(k);
-			if(vp.getId().equals(Integer.toString(dro.getIndex())) )
-				chooseObject.setSelectedItem(vp);
-		}
 
-		rotation_angle.setText(dro.getRotation_angle());
+            }
+            setObjectMesh(dro);
+        }
 
-	}
+        //cleanObjects();
+        draw();
 
+    }
 
-	private void changeSelectedSPNode() {
+    public void setObjectData(DrawObject dro) {
 
 
-		for (int i = 0; i < splines.size(); i++) {
 
-			SPLine spline = (SPLine) splines.get(i);
+        for(int k=0;k<chooseObject.getItemCount();k++){
 
-			ArrayList<SPNode> nodes = spline.getNodes();
-			int sz=nodes.size();
+            ValuePair vp=(ValuePair) chooseObject.getItemAt(k);
+            if(vp.getId().equals(Integer.toString(dro.getIndex())) ) {
+                chooseObject.setSelectedItem(vp);
+            }
+        }
 
-			boolean found=false;
+        rotation_angle.setText(dro.getRotation_angle());
 
-			for(int j=0;j<sz;j++){
+    }
 
-				SPNode spnode =(SPNode) nodes.get(j);
 
-				if(spnode.isSelected){
+    private void changeSelectedSPNode() {
 
-					found=true;
 
-					ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getSelectedItem();
-					if(!vp.getId().equals(""))
-						spnode.setIndex(Integer.parseInt(vp.getId()));
+        for (int i = 0; i < splines.size(); i++) {
 
-					if(setSPNodeHeightValue.getText().equals(""))
-						spnode.setZ(setSPNodeHeightValue.getvalue());
+            SPLine spline = splines.get(i);
 
-					if(setSPNodeBankingValue.getText().equals(""))
-						spnode.setBanking_angle(setSPNodeBankingValue.getvalue());
+            ArrayList<SPNode> nodes = spline.getNodes();
+            int sz=nodes.size();
 
-				}
+            boolean found=false;
 
+            for(int j=0;j<sz;j++){
 
-				if(found){
+                SPNode spnode =nodes.get(j);
 
-					spline.calculateRibs();
-					spline.calculate3DMeshes();
-				}
-			}		
+                if(spnode.isSelected){
 
-		}
+                    found=true;
 
-		draw();
+                    ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getSelectedItem();
+                    if(!vp.getId().equals("")) {
+                        spnode.setIndex(Integer.parseInt(vp.getId()));
+                    }
 
-	}
+                    if(setSPNodeHeightValue.getText().equals("")) {
+                        spnode.setZ(setSPNodeHeightValue.getvalue());
+                    }
 
-	private void changeAltimetrySelectedTerrainPoints() {
-		
-		cleanPoints();
+                    if(setSPNodeBankingValue.getText().equals("")) {
+                        spnode.setBanking_angle(setSPNodeBankingValue.getvalue());
+                    }
 
-		if(!isDrawFastSelectionCircle())
-			return;
+                }
 
-		if(altimetryUpdateMode.isSelected() && (setAltitudeValue.getText()==null || setAltitudeValue.getText().equals("")))
-			return;
 
-		PolygonMesh mesh=meshes[TERRAIN_INDEX];
+                if(found){
 
-		double newAltitude=setAltitudeValue.getvalue();
+                    spline.calculateRibs();
+                    spline.calculate3DMeshes();
+                }
+            }
 
-		if(fastSelectionCircle!=null){
+        }
 
-			prepareUndo();
+        draw();
 
-			RoadEditorPanel ep = getCenter();
-			HashMap<Integer, Boolean> map = ep.pickUpPointsWithFastCircle(meshes[TERRAIN_INDEX]);
+    }
 
-			for(int j=0;mesh.xpoints!=null && j<mesh.xpoints.length;j++){
+    private void changeAltimetrySelectedTerrainPoints() {
 
+        cleanPoints();
 
-				if(map.get(j)==null)
-					continue;
+        if(!isDrawFastSelectionCircle()) {
+            return;
+        }
 
-				if(altimetryUpdateMode.isSelected()){
-					mesh.zpoints[j]=newAltitude;
-				}else if(altimetryExploreMode.isSelected()){
-					coordinatesx[TERRAIN_INDEX].setText(mesh.xpoints[j]);
-					coordinatesy[TERRAIN_INDEX].setText(mesh.ypoints[j]);
-					coordinatesz[TERRAIN_INDEX].setText(mesh.zpoints[j]);
-				}
+        if(altimetryUpdateMode.isSelected() && (setAltitudeValue.getText()==null || setAltitudeValue.getText().equals(""))) {
+            return;
+        }
 
-			}    
-		}
+        PolygonMesh mesh=meshes[TERRAIN_INDEX];
 
-	}
+        double newAltitude=setAltitudeValue.getvalue();
 
-	private void changeSelectedTerrainPolygon() {
+        if(fastSelectionCircle!=null){
 
+            prepareUndo();
 
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+            RoadEditorPanel ep = getCenter();
+            HashMap<Integer, Boolean> map = ep.pickUpPointsWithFastCircle(meshes[TERRAIN_INDEX]);
 
-		int sizel=mesh.polygonData.size();
-		for(int j=0;j<sizel;j++){
+            for(int j=0;mesh.xpoints!=null && j<mesh.xpoints.length;j++){
 
 
-			LineData ld=(LineData)mesh.polygonData.get(j);
+                if(map.get(j)==null) {
+                    continue;
+                }
 
+                if(altimetryUpdateMode.isSelected()){
+                    mesh.zpoints[j]=newAltitude;
+                }else if(altimetryExploreMode.isSelected()){
+                    coordinatesx[TERRAIN_INDEX].setText(mesh.xpoints[j]);
+                    coordinatesy[TERRAIN_INDEX].setText(mesh.ypoints[j]);
+                    coordinatesz[TERRAIN_INDEX].setText(mesh.zpoints[j]);
+                }
 
-			if(ld.isSelected){
+            }
+        }
 
-				int indx=chooseTexture[ACTIVE_PANEL].getSelectedIndex();
+    }
 
-				if(indx!=0){
+    private void changeSelectedTerrainPolygon() {
 
-					ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getItemAt(indx);
 
+        PolygonMesh mesh=meshes[ACTIVE_PANEL];
 
-					ld.setTexture_index(Integer.parseInt(vp.getId()));
-					ld.setFilledWithWater(fillWithWater[ACTIVE_PANEL].isSelected());
+        int sizel=mesh.polygonData.size();
+        for(int j=0;j<sizel;j++){
 
-				}
 
-				ld.setSelected(false);
+            LineData ld=mesh.polygonData.get(j);
 
-			}
 
-		}	
+            if(ld.isSelected){
 
-	}
+                int indx=chooseTexture[ACTIVE_PANEL].getSelectedIndex();
 
-	private void invertSelectedRoadPolygon() {
+                if(indx!=0){
 
-		prepareUndoSpline();
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+                    ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getItemAt(indx);
 
-		int sizel=mesh.polygonData.size();
-		for(int i=0;i<sizel;i++){
 
+                    ld.setTexture_index(Integer.parseInt(vp.getId()));
+                    ld.setFilledWithWater(fillWithWater[ACTIVE_PANEL].isSelected());
 
-			LineData ld=(LineData) mesh.polygonData.get(i);
+                }
 
+                ld.setSelected(false);
 
-			if(ld.isSelected){
+            }
 
-				LineData invertedLd=new LineData();
+        }
 
-				for (int j = ld.size()-1; j >=0; j--) {
-					invertedLd.addIndex(ld.getIndex(j));
-				}
-				mesh.polygonData.set(i,invertedLd);
+    }
 
-			}
+    private void invertSelectedRoadPolygon() {
 
-		}	
+        prepareUndoSpline();
+        PolygonMesh mesh=meshes[ACTIVE_PANEL];
 
-	}
+        int sizel=mesh.polygonData.size();
+        for(int i=0;i<sizel;i++){
 
-	private void mergeSelectedPoints() {
 
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+            LineData ld=mesh.polygonData.get(i);
 
-		ArrayList<Point3D> newPoints=new ArrayList<Point3D>();
-		ArrayList<LineData> newLines=new ArrayList<LineData>();
 
+            if(ld.isSelected){
 
-		int firstPoint=SELECTION_RADIUS_MINUS;
+                LineData invertedLd=new LineData();
 
-		for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
+                for (int j = ld.size()-1; j >=0; j--) {
+                    invertedLd.addIndex(ld.getIndex(j));
+                }
+                mesh.polygonData.set(i,invertedLd);
 
-			Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
-			if(!mesh.selected[i]) 
-				newPoints.add(p);
-			else if(firstPoint==SELECTION_RADIUS_MINUS){
-				firstPoint=newPoints.size();
-				newPoints.add(p);
-			}
-			else{
+            }
 
+        }
 
+    }
 
-			}
+    private void mergeSelectedPoints() {
 
+        PolygonMesh mesh=meshes[ACTIVE_PANEL];
 
-		}
+        ArrayList<Point3D> newPoints=new ArrayList<Point3D>();
+        ArrayList<LineData> newLines=new ArrayList<LineData>();
 
 
-		for(int i=0;i<mesh.polygonData.size();i++){
+        int firstPoint=SELECTION_RADIUS_MINUS;
 
-			LineData ld=(LineData)mesh.polygonData.get(i);
-			if(ld.isSelected())
-				continue;
-			LineData newLd = new LineData();
-			newLd.setTexture_index(ld.getTexture_index());
-			boolean insertedFirst=false;
+        for(int i=0;mesh.xpoints!=null && i<mesh.xpoints.length;i++){
 
-			for(int j=0;j<ld.size();j++){
+            Point3D p=new Point3D(mesh.xpoints[i],mesh.ypoints[i],mesh.zpoints[i]);
+            if(!mesh.selected[i]) {
+                newPoints.add(p);
+            } else if(firstPoint==SELECTION_RADIUS_MINUS){
+                firstPoint=newPoints.size();
+                newPoints.add(p);
+            }
+            else{
 
-				Point3D p0= new Point3D(mesh.xpoints[ld.getIndex(j)],mesh.ypoints[ld.getIndex(j)],mesh.zpoints[ld.getIndex(j)]);
-				if(!p0.isSelected()) 
-					for(int k=0;k<newPoints.size();k++){
 
-						Point3D np=(Point3D) newPoints.get(k);
-						if(np.equals(p0))
-						{
 
-							newLd.addIndex(k);
-							break;
-						}
-					}
-				else{
-					//cause using convex net polygons a point can't appear more than one time
-					if(insertedFirst)
-						continue;
+            }
 
-					newLd.addIndex(firstPoint);
 
-					insertedFirst=true;
-				}
-			}
-			if(newLd.size()>1 )
-				newLines.add(newLd);
+        }
 
 
+        for(int i=0;i<mesh.polygonData.size();i++){
 
+            LineData ld=mesh.polygonData.get(i);
+            if(ld.isSelected()) {
+                continue;
+            }
+            LineData newLd = new LineData();
+            newLd.setTexture_index(ld.getTexture_index());
+            boolean insertedFirst=false;
 
-		}
+            for(int j=0;j<ld.size();j++){
 
-		mesh.setPoints(newPoints);
-		mesh.polygonData=newLines;
-		deselectAll();
+                Point3D p0= new Point3D(mesh.xpoints[ld.getIndex(j)],mesh.ypoints[ld.getIndex(j)],mesh.zpoints[ld.getIndex(j)]);
+                if(!p0.isSelected()) {
+                    for(int k=0;k<newPoints.size();k++){
 
+                        Point3D np=newPoints.get(k);
+                        if(np.equals(p0))
+                        {
 
-	}
+                            newLd.addIndex(k);
+                            break;
+                        }
+                    }
+                } else{
+                    //cause using convex net polygons a point can't appear more than one time
+                    if(insertedFirst) {
+                        continue;
+                    }
 
-	private void deleteSelectedSPnode() {
+                    newLd.addIndex(firstPoint);
 
-		prepareUndoSpline();
+                    insertedFirst=true;
+                }
+            }
+            if(newLd.size()>1 ) {
+                newLines.add(newLd);
+            }
 
-		ArrayList<SPLine> newSplines=new ArrayList<SPLine>();
 
-		for (int i = 0; i < splines.size(); i++) {
-			SPLine spline = (SPLine) splines.get(i);
 
-			SPLine newSpline=new SPLine(spline.getvTexturePoints());
 
-			ArrayList<SPNode> nodes = spline.getNodes();
-			int sz=nodes.size();
+        }
 
-			for (int j = 0; j < sz; j++) {
+        mesh.setPoints(newPoints);
+        mesh.polygonData=newLines;
+        deselectAll();
 
-				SPNode node = (SPNode)  nodes.get(j);
 
-				if(node.isSelected)
-					continue;
+    }
 
+    private void deleteSelectedSPnode() {
 
-				newSpline.addSPNode(node);
-			}
+        prepareUndoSpline();
 
+        ArrayList<SPLine> newSplines=new ArrayList<SPLine>();
 
-			if(newSpline.getNodes()!=null && newSpline.getNodes().size()>0){
+        for (int i = 0; i < splines.size(); i++) {
+            SPLine spline = splines.get(i);
 
-				newSplines.add(newSpline);
-			}
+            SPLine newSpline=new SPLine(spline.getvTexturePoints());
 
-		}
+            ArrayList<SPNode> nodes = spline.getNodes();
+            int sz=nodes.size();
 
-		splines=newSplines;
+            for (int j = 0; j < sz; j++) {
 
-		updateSPlines();
+                SPNode node = nodes.get(j);
 
-	}
+                if(node.isSelected) {
+                    continue;
+                }
 
-	private void moveSelectedTerrainPoints(int dx, int dy,int dk) { 
 
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+                newSpline.addSPNode(node);
+            }
 
-		String sqty=roadMove[ACTIVE_PANEL].getText();
 
-		if(sqty==null || sqty.equals(""))
-			return;
+            if(newSpline.getNodes()!=null && newSpline.getNodes().size()>0){
 
-		double qty=Double.parseDouble(sqty);
+                newSplines.add(newSpline);
+            }
 
+        }
 
+        splines=newSplines;
 
-		prepareUndoSpline();
+        updateSPlines();
 
-		for(int j=0;j<mesh.xpoints.length;j++){
+    }
 
-			if(mesh.selected[j]){
+    private void moveSelectedTerrainPoints(int dx, int dy,int dk) {
 
+        PolygonMesh mesh=meshes[ACTIVE_PANEL];
 
-				mesh.xpoints[j]+=qty*dx;
+        String sqty=roadMove[ACTIVE_PANEL].getText();
 
-				mesh.ypoints[j]+=qty*dy;
+        if(sqty==null || sqty.equals("")) {
+            return;
+        }
 
-				mesh.zpoints[j]+=qty*dk;
+        double qty=Double.parseDouble(sqty);
 
-			}
-		}	
 
-		updateSPlines();
 
-		firePropertyChange("RoadEditorUpdate", false, true);
+        prepareUndoSpline();
 
-		cleanPoints();
-		draw();
+        for(int j=0;j<mesh.xpoints.length;j++){
 
-	}
+            if(mesh.selected[j]){
 
-	private void moveSelectedSplinesPoints(int dx, int dy, int dz) {
 
-		prepareUndoSpline();
+                mesh.xpoints[j]+=qty*dx;
 
-		String sqty=roadMove[SPLINE_PANEL].getText();
+                mesh.ypoints[j]+=qty*dy;
 
-		if(sqty==null || sqty.equals(""))
-			return;
+                mesh.zpoints[j]+=qty*dk;
 
-		double qty=Double.parseDouble(sqty);
+            }
+        }
 
-		for (int i = 0; i < splines.size(); i++) {
+        updateSPlines();
 
-			SPLine spline = (SPLine) splines.get(i);
+        firePropertyChange("RoadEditorUpdate", false, true);
 
-			ArrayList<SPNode> nodes = spline.getNodes();
-			int sz=nodes.size();
+        cleanPoints();
+        draw();
 
-			boolean found=false;
+    }
 
-			for(int j=0;j<sz;j++){
+    private void moveSelectedSplinesPoints(int dx, int dy, int dz) {
 
-				SPNode spnode = (SPNode) nodes.get(j);
+        prepareUndoSpline();
 
-				if(spnode.isSelected){
+        String sqty=roadMove[SPLINE_PANEL].getText();
 
-					spnode.translate(qty*dx,  qty*dy, qty*dz);
-					spnode.update();
-					found=true;
+        if(sqty==null || sqty.equals("")) {
+            return;
+        }
 
+        double qty=Double.parseDouble(sqty);
 
-				}
-			}
+        for (int i = 0; i < splines.size(); i++) {
 
-			if(found)
-				spline.update();
+            SPLine spline = splines.get(i);
 
-		}
+            ArrayList<SPNode> nodes = spline.getNodes();
+            int sz=nodes.size();
 
-		draw();
-	}
+            boolean found=false;
 
-	private void deleteObject() {
+            for(int j=0;j<sz;j++){
 
-		prepareUndoObjects();
-		ArrayList<DrawObject> filteredRoadObjects=new ArrayList<DrawObject>();
-		int sz=drawObjects.size();
-		for(int i=0;i<sz;i++){
+                SPNode spnode = nodes.get(j);
 
-			DrawObject dro=(DrawObject) drawObjects.get(i);
-			if(dro.isSelected())
-				continue;
+                if(spnode.isSelected){
 
-			filteredRoadObjects.add(dro);
-		}
-		drawObjects=filteredRoadObjects;
-		firePropertyChange("RoadEditorUpdate", false, true);
-	}
+                    spnode.translate(qty*dx,  qty*dy, qty*dz);
+                    spnode.update();
+                    found=true;
 
 
+                }
+            }
 
+            if(found) {
+                spline.update();
+            }
 
+        }
 
+        draw();
+    }
+    private void deleteObject(int x, int y) {
+        prepareUndoObjects();
+        ArrayList<DrawObject> filteredRoadObjects=new ArrayList<DrawObject>();
+        RoadEditorPanel ep = getCenter();
+        HashMap<Integer, Boolean> objectsToDelete = ep.selectObjects(x, y, drawObjects,false);
+        
+        int sz=drawObjects.size();
+        for(int i=0;i<sz;i++){
 
-	private void addObject(double x, double y, double z) {
+            DrawObject dro=drawObjects.get(i);
+            if(objectsToDelete.get(i)!=null) {
+                continue;
+            }
 
-		if(chooseObject.getSelectedIndex()<=0)
-			return;
+            filteredRoadObjects.add(dro);
+        }
+        drawObjects=filteredRoadObjects;
+        firePropertyChange("RoadEditorUpdate", false, true);
+        
+    }
 
-		int index=0;
-		ValuePair vp=(ValuePair) chooseObject.getSelectedItem();
-		if(vp!=null && !vp.getValue().equals(""))
-			index=Integer.parseInt(vp.getId());
 
-		int dim_x=EditorData.objectMeshes[index].getDeltaX2()-EditorData.objectMeshes[index].getDeltaX();
-		int dim_y=EditorData.objectMeshes[index].getDeltaY2()-EditorData.objectMeshes[index].getDeltaY();
-		int dim_z=EditorData.objectMeshes[index].getDeltaX();
 
-		double rot_angle=rotation_angle.getvalue();rotation_angle.getText();
+    private void addObject(double x, double y, double z) {
 
-		cleanObjects();
+        if(chooseObject.getSelectedIndex()<=0) {
+            return;
+        }
 
-		addObject(x,y,z,dim_x,dim_y,dim_z,index,rot_angle);
+        int index=0;
+        ValuePair vp=(ValuePair) chooseObject.getSelectedItem();
+        if(vp!=null && !vp.getValue().equals("")) {
+            index=Integer.parseInt(vp.getId());
+        }
 
-	}
+        int dim_x=EditorData.objectMeshes[index].getDeltaX2()-EditorData.objectMeshes[index].getDeltaX();
+        int dim_y=EditorData.objectMeshes[index].getDeltaY2()-EditorData.objectMeshes[index].getDeltaY();
+        int dim_z=EditorData.objectMeshes[index].getDeltaX();
 
+        double rot_angle=rotation_angle.getvalue();rotation_angle.getText();
 
-	private void addObject(double x, double y, double z, int dx, int dy, int dz,int index,double rot_angle) {
+        cleanObjects();
 
-		prepareUndoObjects();
+        addObject(x,y,z,dim_x,dim_y,dim_z,index,rot_angle);
 
-		DrawObject dro=new DrawObject();
-		dro.setIndex(index);
-		dro.setX(x);
-		dro.setY(y);
-		dro.setZ(z);
-		dro.setDx(dx);
-		dro.setDy(dy);
-		dro.setDz(dz);
-		dro.setHexColor("FFFFFF");
-		dro.setRotation_angle(rot_angle);
+    }
 
-		ValuePair vp=(ValuePair) chooseObject.getSelectedItem();
-		if(vp!=null && !vp.getValue().equals("")){
 
+    private void addObject(double x, double y, double z, int dx, int dy, int dz,int index,double rot_angle) {
 
-			dro.setIndex(Integer.parseInt(vp.getId()));
+        prepareUndoObjects();
 
+        DrawObject dro=new DrawObject();
+        dro.setIndex(index);
+        dro.setX(x);
+        dro.setY(y);
+        dro.setZ(z);
+        dro.setDx(dx);
+        dro.setDy(dy);
+        dro.setDz(dz);
+        dro.setHexColor("FFFFFF");
+        dro.setRotation_angle(rot_angle);
 
-		}	
+        ValuePair vp=(ValuePair) chooseObject.getSelectedItem();
+        if(vp!=null && !vp.getValue().equals("")){
 
 
+            dro.setIndex(Integer.parseInt(vp.getId()));
 
-		setObjectMesh(dro);
 
+        }
 
-		dro.setRotation_angle(rot_angle);
-		drawObjects.add(dro);
 
 
-	}
+        setObjectMesh(dro);
 
-	private static void setObjectMesh(DrawObject dro) {
 
-		Point3D center=null;
+        dro.setRotation_angle(rot_angle);
+        drawObjects.add(dro);
 
-		CubicMesh cm=(CubicMesh) EditorData.objectMeshes[dro.getIndex()].clone();
 
-		Point3D point = cm.point000;
+    }
 
-		double dx=-point.x+dro.getX();
-		double dy=-point.y+dro.getY();
-		double dz=-point.z+dro.getZ();
+    private static void setObjectMesh(DrawObject dro) {
 
-		cm.translate(dx,dy,dz);			
+        Point3D center=null;
 
-		center=cm.findCentroid();
+        CubicMesh cm=EditorData.objectMeshes[dro.getIndex()].clone();
 
-		if(dro.getRotation_angle()!=0)
-			cm.rotate(center.x,center.y,Math.cos(dro.getRotation_angle()),Math.sin(dro.getRotation_angle()));
+        Point3D point = cm.point000;
 
+        double dx=-point.x+dro.getX();
+        double dy=-point.y+dro.getY();
+        double dz=-point.z+dro.getZ();
 
-		dro.setMesh(cm);
+        cm.translate(dx,dy,dz);
 
-	}
+        center=cm.findCentroid();
 
-	private void saveObjects(PrintWriter pr) {
+        if(dro.getRotation_angle()!=0) {
+            cm.rotate(center.x,center.y,Math.cos(dro.getRotation_angle()),Math.sin(dro.getRotation_angle()));
+        }
 
-		try {
 
-			pr.println("<objects>");			 
-			for(int i=0;i<drawObjects.size();i++){
+        dro.setMesh(cm);
 
-				DrawObject dro=(DrawObject) drawObjects.get(i);
+    }
 
-				pr.println(dro.toString());
-			}
-			pr.println("</objects>");
+    private void saveObjects(PrintWriter pr) {
 
+        try {
 
-		} catch (Exception e) {
+            pr.println("<objects>");
+            for(int i=0;i<drawObjects.size();i++){
 
-			e.printStackTrace();
-		}
-	}
+                DrawObject dro=drawObjects.get(i);
 
+                pr.println(dro.toString());
+            }
+            pr.println("</objects>");
 
 
+        } catch (Exception e) {
 
+            e.printStackTrace();
+        }
+    }
 
 
-	private void saveStartPosition(PrintWriter pr) {
 
-		try {
 
-			startPosition=new Point3D(startX.getvalue(),startY.getvalue(),0);
 
-			Double startingAngle=Double.valueOf(start_angle.getvalue());
-			startPosition.setData(startingAngle);
 
-			String str=startPosition.toString()+" "+startingAngle.doubleValue();
+    private void saveStartPosition(PrintWriter pr) {
 
-			pr.println("<startPosition>");		
+        try {
 
-			pr.println(str);
+            startPosition=new Point3D(startX.getvalue(),startY.getvalue(),0);
 
-			pr.println("</startPosition>");
+            Double startingAngle=Double.valueOf(start_angle.getvalue());
+            startPosition.setData(startingAngle);
 
+            String str=startPosition.toString()+" "+startingAngle.doubleValue();
 
-		} catch (Exception e) {
+            pr.println("<startPosition>");
 
-			e.printStackTrace();
-		}
+            pr.println(str);
 
-	}
+            pr.println("</startPosition>");
 
-	private void saveLandscape()  {
 
-		fc = new JFileChooser();
-		fc.setDialogType(JFileChooser.SAVE_DIALOG);
-		fc.setDialogTitle("Save landscape");
-		if(currentDirectory!=null)
-			fc.setCurrentDirectory(currentDirectory);
-		if(currentFile!=null)
-			fc.setSelectedFile(currentFile);
+        } catch (Exception e) {
 
-		int returnVal = fc.showOpenDialog(null);
+            e.printStackTrace();
+        }
 
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-			setTitle(file.getName());
+    }
 
-			currentDirectory=fc.getCurrentDirectory();
-			currentFile=fc.getSelectedFile();
+    private void saveLandscape()  {
 
-			try{			
-				PrintWriter pr = new PrintWriter(new FileOutputStream(file));
+        fc = new JFileChooser();
+        fc.setDialogType(JFileChooser.SAVE_DIALOG);
+        fc.setDialogTitle("Save landscape");
+        if(currentDirectory!=null) {
+            fc.setCurrentDirectory(currentDirectory);
+        }
+        if(currentFile!=null) {
+            fc.setSelectedFile(currentFile);
+        }
 
-				int OLD_ACTIVE_PANEL=getACTIVE_PANEL();
+        int returnVal = fc.showOpenDialog(null);
 
-				setACTIVE_PANEL(TERRAIN_INDEX);
-				saveLines(pr);
-				setACTIVE_PANEL(ROAD_INDEX);
-				saveSPLines(pr);
-				setACTIVE_PANEL(OLD_ACTIVE_PANEL);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            setTitle(file.getName());
 
-				saveObjects(pr);
+            currentDirectory=fc.getCurrentDirectory();
+            currentFile=fc.getSelectedFile();
 
-				saveStartPosition(pr);
+            try{
+                PrintWriter pr = new PrintWriter(new FileOutputStream(file));
 
+                int OLD_ACTIVE_PANEL=getACTIVE_PANEL();
 
-				pr.close();
+                setACTIVE_PANEL(TERRAIN_INDEX);
+                saveLines(pr);
+                setACTIVE_PANEL(ROAD_INDEX);
+                saveSPLines(pr);
+                setACTIVE_PANEL(OLD_ACTIVE_PANEL);
 
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
+                saveObjects(pr);
 
-		}
+                saveStartPosition(pr);
 
-	}
 
+                pr.close();
 
-	private void loadLanscape() {
-		
-		isOnLoading=true;
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
 
-		fc=new JFileChooser();
-		fc.setDialogType(JFileChooser.OPEN_DIALOG);
-		fc.setDialogTitle("Load landscape ");
-		if(currentDirectory!=null)
-			fc.setCurrentDirectory(currentDirectory);
-		if(currentFile!=null)
-			fc.setSelectedFile(currentFile);
+        }
 
-		int returnVal = fc.showOpenDialog(null);
+    }
 
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			currentDirectory=fc.getCurrentDirectory();
-			currentFile=fc.getSelectedFile();
-			File file = fc.getSelectedFile();
-			setTitle(file.getName());
 
-			setACTIVE_PANEL(TERRAIN_INDEX);
-			loadPointsFromFile(file,ACTIVE_PANEL,forceReading);	
-			loadSPLinesFromFile(file);
+    private void loadLanscape() {
 
-			drawObjects=loadObjectsFromFile(file,EditorData.objectMeshes,1.0); 
-			setStartPosition(loadStartPosition(file));
+        isOnLoading=true;
 
-			oldSpline=new Stack();
-			oldObjects=new Stack();
+        fc=new JFileChooser();
+        fc.setDialogType(JFileChooser.OPEN_DIALOG);
+        fc.setDialogTitle("Load landscape ");
+        if(currentDirectory!=null) {
+            fc.setCurrentDirectory(currentDirectory);
+        }
+        if(currentFile!=null) {
+            fc.setSelectedFile(currentFile);
+        }
 
-			isInit=true;
-			draw();
-			isOnLoading=false;
-		}
+        int returnVal = fc.showOpenDialog(null);
 
-	}
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            currentDirectory=fc.getCurrentDirectory();
+            currentFile=fc.getSelectedFile();
+            File file = fc.getSelectedFile();
+            setTitle(file.getName());
 
+            setACTIVE_PANEL(TERRAIN_INDEX);
+            loadPointsFromFile(file,ACTIVE_PANEL,forceReading);
+            loadSPLinesFromFile(file);
 
-	@Override
-	public String decomposeLineData(LineData ld) {
+            drawObjects=loadObjectsFromFile(file,EditorData.objectMeshes,1.0);
+            setStartPosition(loadStartPosition(file));
 
-		String str="";
+            oldSpline=new Stack();
+            oldObjects=new Stack();
 
-		str+="T"+ld.texture_index;
-		str+=" C"+ld.getHexColor();
-		str+=" W"+(ld.isFilledWithWater()?1:0);
+            isInit=true;
+            draw();
+            isOnLoading=false;
+        }
 
-		for(int j=0;j<ld.size();j++){
+    }
 
 
+    @Override
+    public String decomposeLineData(LineData ld) {
 
-			str+=" ";
+        String str="";
 
-			str+=ld.getIndex(j)+"/"+j;
+        str+="T"+ld.texture_index;
+        str+=" C"+ld.getHexColor();
+        str+=" W"+(ld.isFilledWithWater()?1:0);
 
-		}
+        for(int j=0;j<ld.size();j++){
 
-		return str;
-	}
 
-	@Override
-	public void decomposeObjVertices(PrintWriter pr, PolygonMesh mesh,boolean isCustom) {
 
-		pr.print("vt=0 0\n");//0
-		pr.print("vt=200 0\n");//1
-		pr.print("vt=200 200\n");//2
-		pr.print("vt=0 200\n");//3
-	}
+            str+=" ";
 
-	@Override
-	public void buildLine(ArrayList<LineData> polygonData, String str,ArrayList<Point3D> vTexturePoints) {
+            str+=ld.getIndex(j)+"/"+j;
 
+        }
 
+        return str;
+    }
 
-		Road.buildStaticLine(polygonData,  str, vTexturePoints);
+    @Override
+    public void decomposeObjVertices(PrintWriter pr, PolygonMesh mesh,boolean isCustom) {
 
+        pr.print("vt=0 0\n");//0
+        pr.print("vt=200 0\n");//1
+        pr.print("vt=200 200\n");//2
+        pr.print("vt=0 200\n");//3
+    }
 
-	}
-	@Override
-	public void buildPoint(List<Point3D> points, String str) {
+    @Override
+    public void buildLine(ArrayList<LineData> polygonData, String str,ArrayList<Point3D> vTexturePoints) {
 
 
 
-		String[] vals = str.split(" ");
+        Road.buildStaticLine(polygonData,  str, vTexturePoints);
 
-		Point4D p=new Point4D();
 
-		p.x=Double.parseDouble(vals[0]);
-		p.y=Double.parseDouble(vals[1]);
-		p.z=Double.parseDouble(vals[2]);
+    }
+    @Override
+    public void buildPoint(List<Point3D> points, String str) {
 
-		points.add(p);
 
 
-	}
+        String[] vals = str.split(" ");
 
+        Point4D p=new Point4D();
 
+        p.x=Double.parseDouble(vals[0]);
+        p.y=Double.parseDouble(vals[1]);
+        p.z=Double.parseDouble(vals[2]);
 
+        points.add(p);
 
 
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
+    }
 
-		Object obj=arg0.getSource();
 
 
-		if(toogle_objects==obj || toogle_splines==obj || toogle_terrain_polygons==obj || toogle_altimetry==obj){
-			CardLayout cl = (CardLayout)(left_tool_options.getLayout());
 
-			mode=((JToggleButton) obj).getActionCommand();
-			cl.show(left_tool_options,mode);
 
-			if(SPLINES_MODE.equals(mode))
-				ACTIVE_PANEL=ROAD_INDEX;
-			else if(TERRAIN_POLYGONS_MODE.equals(mode) || ALTIMETRY_MODE.equals(mode))
-				ACTIVE_PANEL=TERRAIN_INDEX;
+    @Override
+    public void actionPerformed(ActionEvent arg0) {
 
-			draw();
+        Object obj=arg0.getSource();
 
-		}
-		else if(obj==jmt_load_landscape){
 
-			loadLanscape();
-		}
-		else if(obj==jmt_save_landscape){
+        if(toogle_objects==obj || toogle_splines==obj || toogle_terrain_polygons==obj || toogle_altimetry==obj){
+            CardLayout cl = (CardLayout)(left_tool_options.getLayout());
 
-			saveLandscape();
+            mode=((JToggleButton) obj).getActionCommand();
+            cl.show(left_tool_options,mode);
 
-		}		
-		else if(obj==jmtUndoObjects){
-			undoObjects();
-		}
-		else if(obj==jmtUndoSPLines){
-			undoSplines();
-		}
-		else if(obj==jmtShowAltimetry){
-			showAltimetry();
-		}
-		else if(obj==jmtBuildNewGrid){
-			buildNewGrid();
-		}
-		else if(obj==jmtExpandGrid){
-			expandGrid();
-		}
-		else if(obj==jmtAddGrid){
-			addGrid();
-		}
-		else if(obj==jmtBuildCity){
-			buildCity();
-		}		
-		else if(obj==changeSPNode ){
-			changeSelectedSPNode();
-			draw();
-		}		
-		else if(obj==startNewSPLine){
-			startNewSPLine();
-			draw();
-		}
-		else if(obj==polygonDetail[TERRAIN_INDEX]){
-			polygonDetail();
-			//draw();
-		}
-		else if(obj==deleteSelectedSPNodes){
-			deleteSelectedSPnode();
-			draw();
-		}
-		else if(obj==delObject){
-			deleteObject();
-			draw();
-		}
-		else if(obj==changeObject){
-			changeSelectedObject();
-			draw();
-		}
-		else if(obj==deselectAllObjects){
-			cleanObjects();
-		}
-		else if(obj==deselectAllSplines){
-			deselectAllSPNodes();
-		}
+            if(SPLINES_MODE.equals(mode)) {
+                ACTIVE_PANEL=ROAD_INDEX;
+            } else if(TERRAIN_POLYGONS_MODE.equals(mode) || ALTIMETRY_MODE.equals(mode)) {
+                ACTIVE_PANEL=TERRAIN_INDEX;
+            }
 
-		else if(obj==choosePanelTexture[TERRAIN_INDEX] || obj==choosePanelTexture[ROAD_INDEX]){
+            draw();
 
-			TexturesPanel tp=null;
-			if(mode==TERRAIN_POLYGONS_MODE)
-				tp=new TexturesPanel(worldImages,null,100,100,false);
-			else if(mode==SPLINES_MODE)
-				tp=new TexturesPanel(splinesImages,EditorData.splineDescriptions,100,100,true);
+        }
+        else if(obj==jmt_load_landscape){
 
-			int indx=tp.getSelectedIndex();
-			if(indx!=SELECTION_RADIUS_MINUS)
-				chooseTexture[ACTIVE_PANEL].setSelectedIndex(indx+1);
+            loadLanscape();
+        }
+        else if(obj==jmt_save_landscape){
 
-		}
-		else if(obj==chooseNextTexture[ACTIVE_PANEL]){
-			int indx=chooseTexture[ACTIVE_PANEL].getSelectedIndex();
-			if(indx<chooseTexture[ACTIVE_PANEL].getItemCount()-1)
-				chooseTexture[ACTIVE_PANEL].setSelectedIndex(indx+1);
-		}
-		else if(obj==chooseObjectPanel){
+            saveLandscape();
 
-			TexturesPanel tp=new TexturesPanel(objectImages,EditorData.objectDescriptions,100,100,true);
+        }
+        else if(obj==jmtUndoObjects){
+            undoObjects();
+        }
+        else if(obj==jmtUndoSPLines){
+            undoSplines();
+        }
+        else if(obj==jmtShowAltimetry){
+            showAltimetry();
+        }
+        else if(obj==jmtBuildNewGrid){
+            buildNewGrid();
+        }
+        else if(obj==jmtExpandGrid){
+            expandGrid();
+        }
+        else if(obj==jmtAddGrid){
+            addGrid();
+        }
+        else if(obj==jmtBuildCity){
+            buildCity();
+        }
+        else if(obj==changeSPNode ){
+            changeSelectedSPNode();
+            draw();
+        }
+        else if(obj==startNewSPLine){
+            startNewSPLine();
+            draw();
+        }
+        else if(obj==polygonDetail[TERRAIN_INDEX]){
+            polygonDetail();
+            //draw();
+        }
+        else if(obj==deleteSelectedSPNodes){
+            deleteSelectedSPnode();
+            draw();
+        }
+        else if(obj==changeObject){
+            changeSelectedObject();
+            draw();
+        }
+        else if(obj==deselectAllObjects){
+            cleanObjects();
+        }
+        else if(obj==deselectAllSplines){
+            deselectAllSPNodes();
+        }
 
-			int indx=tp.getSelectedIndex();
-			if(indx!=SELECTION_RADIUS_MINUS)
-				chooseObject.setSelectedIndex(indx+1);
-		}
-		else if(obj==choosePrevTexture[ACTIVE_PANEL]){
-			int indx=chooseTexture[ACTIVE_PANEL].getSelectedIndex();
-			if(indx>0)
-				chooseTexture[ACTIVE_PANEL].setSelectedIndex(indx-1);
-		}
-		else if(obj==chooseNextObject){
-			int indx=chooseObject.getSelectedIndex();
-			if(indx<chooseObject.getItemCount()-1)
-				chooseObject.setSelectedIndex(indx+1);
-		}
-		else if(obj==choosePrevObject){
-			int indx=chooseObject.getSelectedIndex();
-			if(indx>0)
-				chooseObject.setSelectedIndex(indx-1);
-		}
-		else if(obj==moveRoadUp[ROAD_INDEX]){
+        else if(obj==choosePanelTexture[TERRAIN_INDEX] || obj==choosePanelTexture[ROAD_INDEX]){
 
-			moveSelectedSplinesPoints(0,1,0);
+            TexturesPanel tp=null;
+            if(mode==TERRAIN_POLYGONS_MODE) {
+                tp=new TexturesPanel(worldImages,null,100,100,false);
+            } else if(mode==SPLINES_MODE) {
+                tp=new TexturesPanel(splinesImages,EditorData.splineDescriptions,100,100,true);
+            }
 
-		}
-		else if(obj==moveRoadDown[ROAD_INDEX]){
+            int indx=tp.getSelectedIndex();
+            if(indx!=SELECTION_RADIUS_MINUS) {
+                chooseTexture[ACTIVE_PANEL].setSelectedIndex(indx+1);
+            }
 
-			moveSelectedSplinesPoints(0,SELECTION_RADIUS_MINUS,0);
+        }
+        else if(obj==chooseNextTexture[ACTIVE_PANEL]){
+            int indx=chooseTexture[ACTIVE_PANEL].getSelectedIndex();
+            if(indx<chooseTexture[ACTIVE_PANEL].getItemCount()-1) {
+                chooseTexture[ACTIVE_PANEL].setSelectedIndex(indx+1);
+            }
+        }
+        else if(obj==chooseObjectPanel){
 
-		}
-		else if(obj==moveRoadLeft[ROAD_INDEX]){
+            TexturesPanel tp=new TexturesPanel(objectImages,EditorData.objectDescriptions,100,100,true);
 
-			moveSelectedSplinesPoints(SELECTION_RADIUS_MINUS,0,0);
+            int indx=tp.getSelectedIndex();
+            if(indx!=SELECTION_RADIUS_MINUS) {
+                chooseObject.setSelectedIndex(indx+1);
+            }
+        }
+        else if(obj==choosePrevTexture[ACTIVE_PANEL]){
+            int indx=chooseTexture[ACTIVE_PANEL].getSelectedIndex();
+            if(indx>0) {
+                chooseTexture[ACTIVE_PANEL].setSelectedIndex(indx-1);
+            }
+        }
+        else if(obj==chooseNextObject){
+            int indx=chooseObject.getSelectedIndex();
+            if(indx<chooseObject.getItemCount()-1) {
+                chooseObject.setSelectedIndex(indx+1);
+            }
+        }
+        else if(obj==choosePrevObject){
+            int indx=chooseObject.getSelectedIndex();
+            if(indx>0) {
+                chooseObject.setSelectedIndex(indx-1);
+            }
+        }
+        else if(obj==moveRoadUp[ROAD_INDEX]){
 
-		}
-		else if(obj==moveRoadRight[ROAD_INDEX]){
+            moveSelectedSplinesPoints(0,1,0);
 
-			moveSelectedSplinesPoints(SELECTION_RADIUS_PLUS,0,0);
+        }
+        else if(obj==moveRoadDown[ROAD_INDEX]){
 
-		}
-		else if(obj==moveRoadTop[ROAD_INDEX]){
+            moveSelectedSplinesPoints(0,SELECTION_RADIUS_MINUS,0);
 
-			moveSelectedSplinesPoints(0,0,1);
+        }
+        else if(obj==moveRoadLeft[ROAD_INDEX]){
 
-		}
-		else if(obj==moveRoadBottom[ROAD_INDEX]){
+            moveSelectedSplinesPoints(SELECTION_RADIUS_MINUS,0,0);
 
-			moveSelectedSplinesPoints(0,0,SELECTION_RADIUS_MINUS);
+        }
+        else if(obj==moveRoadRight[ROAD_INDEX]){
 
-		}
-		else if(obj==moveObjUp){
+            moveSelectedSplinesPoints(SELECTION_RADIUS_PLUS,0,0);
 
-			moveSelectedObject(0,1,0);
+        }
+        else if(obj==moveRoadTop[ROAD_INDEX]){
 
-		}
-		else if(obj==moveObjDown){
+            moveSelectedSplinesPoints(0,0,1);
 
-			moveSelectedObject(0,SELECTION_RADIUS_MINUS,0);
+        }
+        else if(obj==moveRoadBottom[ROAD_INDEX]){
 
-		}
-		else if(obj==moveObjLeft){
+            moveSelectedSplinesPoints(0,0,SELECTION_RADIUS_MINUS);
 
-			moveSelectedObject(SELECTION_RADIUS_MINUS,0,0);
+        }
+        else if(obj==moveObjUp){
 
-		}
-		else if(obj==moveObjRight){
+            moveSelectedObject(0,1,0);
 
-			moveSelectedObject(SELECTION_RADIUS_PLUS,0,0);
+        }
+        else if(obj==moveObjDown){
 
-		}
-		else if(obj==moveObjTop){
+            moveSelectedObject(0,SELECTION_RADIUS_MINUS,0);
 
-			moveSelectedObject(0,0,1);
+        }
+        else if(obj==moveObjLeft){
 
-		}
-		else if(obj==moveObjBottom){
+            moveSelectedObject(SELECTION_RADIUS_MINUS,0,0);
 
-			moveSelectedObject(0,0,SELECTION_RADIUS_MINUS);
+        }
+        else if(obj==moveObjRight){
 
-		}
-		else if(obj==help_jmt){
-			help();
-		}
-		else if(obj==mass_modify_jmt){
-			massModify();
-		}
-		else if(obj==jmt_top_view){
-			changeView(TOP_VIEW);
-		}
-		else if(obj==jmt_3d_view){
-			changeView(ISO_VIEW);
-		}	
-		else if(obj==insertSPNode){
-			insertSPNode();
-		}
-		else if(obj==mergeSPNodes){
-			mergeSPNodes();
-		}	
-		else if(obj==setSPNodeHeight){
-			setSPNodeHeight();
-		}	
-		else if(obj==setSPNodeBanking){
-			setSPNodeBanking();
-		}
-		else if(obj==updateStartPosition){
+            moveSelectedObject(SELECTION_RADIUS_PLUS,0,0);
 
-			updateStartPosition();
-		}else if(obj==pi_2_angle){
-			rotation_angle.setText(Math.PI*0.5);
-		}else if(obj==jmt_goto_view){
-			goToPosition();
-		}else if(obj==jmt_faster_motion){
-			changeMotionIncrement(SELECTION_RADIUS_PLUS);
-		}else if(obj==jmt_slower_motion){
-			changeMotionIncrement(SELECTION_RADIUS_MINUS);
-		}else if(obj==pile_objects_jmt && mode==OBJECT_MODE){
-			pileSelectedObjects();
-		}else if(obj==selectionRadiusPlus){
-			incrementSelectionRadius(SELECTION_RADIUS_PLUS);
-		}else if(obj==selectionRadiusMinus){
-			incrementSelectionRadius(SELECTION_RADIUS_MINUS);
-		}
-	}
+        }
+        else if(obj==moveObjTop){
 
+            moveSelectedObject(0,0,1);
 
-	private void changeMotionIncrement(int i) {
-		getCenter().changeMotionIncrement(i);
+        }
+        else if(obj==moveObjBottom){
 
-	}
+            moveSelectedObject(0,0,SELECTION_RADIUS_MINUS);
 
+        }
+        else if(obj==help_jmt){
+            help();
+        }
+        else if(obj==mass_modify_jmt){
+            massModify();
+        }
+        else if(obj==jmt_top_view){
+            changeView(TOP_VIEW);
+        }
+        else if(obj==jmt_3d_view){
+            changeView(ISO_VIEW);
+        }
+        else if(obj==insertSPNode){
+            insertSPNode();
+        }
+        else if(obj==mergeSPNodes){
+            mergeSPNodes();
+        }
+        else if(obj==setSPNodeHeight){
+            setSPNodeHeight();
+        }
+        else if(obj==setSPNodeBanking){
+            setSPNodeBanking();
+        }
+        else if(obj==updateStartPosition){
 
+            updateStartPosition();
+        }else if(obj==pi_2_angle){
+            rotation_angle.setText(Math.PI*0.5);
+        }else if(obj==jmt_goto_view){
+            goToPosition();
+        }else if(obj==jmt_faster_motion){
+            changeMotionIncrement(SELECTION_RADIUS_PLUS);
+        }else if(obj==jmt_slower_motion){
+            changeMotionIncrement(SELECTION_RADIUS_MINUS);
+        }else if(obj==pile_objects_jmt && mode==OBJECT_MODE){
+            pileSelectedObjects();
+        }else if(obj==selectionRadiusPlus){
+            incrementSelectionRadius(SELECTION_RADIUS_PLUS);
+        }else if(obj==selectionRadiusMinus){
+            incrementSelectionRadius(SELECTION_RADIUS_MINUS);
+        }
+    }
 
-	@Override
-	public void menuCanceled(MenuEvent e) {
-		// TODO Auto-generated method stub
 
-	}
-	@Override
-	public void menuDeselected(MenuEvent e) {
-		redrawAfterMenu=true;
+    private void changeMotionIncrement(int i) {
+        getCenter().changeMotionIncrement(i);
 
-	}
-	@Override
-	public void menuSelected(MenuEvent arg0) {
+    }
 
-		super.menuSelected(arg0);
 
-		Object o = arg0.getSource();
 
+    @Override
+    public void menuCanceled(MenuEvent e) {
+        // TODO Auto-generated method stub
 
-	}
+    }
+    @Override
+    public void menuDeselected(MenuEvent e) {
+        redrawAfterMenu=true;
 
-	private void changeView(int type) {
+    }
+    @Override
+    public void menuSelected(MenuEvent arg0) {
 
-		remove(getCenter());
+        super.menuSelected(arg0);
 
-		if(type==ISO_VIEW){
+        Object o = arg0.getSource();
 
-			add(panelIso);
-		}
-		else
-			add(panelTop);
 
-		VIEW_TYPE=type;
+    }
 
-		draw();
-	}
+    private void changeView(int type) {
 
-	public RoadEditorPanel getCenter(){
+        remove(getCenter());
 
+        if(type==ISO_VIEW){
 
-		if(VIEW_TYPE==ISO_VIEW)
-			return panelIso;
-		else
-			return panelTop;
+            add(panelIso);
+        } else {
+            add(panelTop);
+        }
 
-	}
+        VIEW_TYPE=type;
 
-	private void help() {
+        draw();
+    }
 
+    public RoadEditorPanel getCenter(){
 
-		HelpPanel hp=new HelpPanel(300,200,this.getX()+100,this.getY(),HelpPanel.ROAD_EDITOR_HELP_TEXT,this);
 
-	}
+        if(VIEW_TYPE==ISO_VIEW) {
+            return panelIso;
+        } else {
+            return panelTop;
+        }
 
+    }
 
-	private void expandGrid() {
+    private void help() {
 
-		PolygonMesh mesh=meshes[Editor.TERRAIN_INDEX];
-		if(mesh.xpoints==null)
-			return; 
 
-		if(!(mesh instanceof SquareMesh))
-		{
+        HelpPanel hp=new HelpPanel(300,200,this.getX()+100,this.getY(),HelpPanel.ROAD_EDITOR_HELP_TEXT,this);
 
-			JOptionPane.showMessageDialog(this,"Can't expand road grid");
-			return;
-		}	
+    }
 
-		RoadEditorGridManager regm=new RoadEditorGridManager((SquareMesh)mesh);
 
-		if(regm.getReturnValue()!=null){
+    private void expandGrid() {
 
+        PolygonMesh mesh=meshes[Editor.TERRAIN_INDEX];
+        if(mesh.xpoints==null) {
+            return;
+        }
 
-			SquareMesh pm=(SquareMesh) mesh;
+        if(!(mesh instanceof SquareMesh))
+        {
 
-			RoadEditorGridManager roadEGM=(RoadEditorGridManager) regm.getReturnValue();
+            JOptionPane.showMessageDialog(this,"Can't expand road grid");
+            return;
+        }
 
+        RoadEditorGridManager regm=new RoadEditorGridManager((SquareMesh)mesh);
 
-			double z_value=0;
+        if(regm.getReturnValue()!=null){
 
-			int numx=roadEGM.NX;
-			int numy=roadEGM.NY;
 
-			double dx=roadEGM.DX;
-			double dy=roadEGM.DY;
+            SquareMesh pm=(SquareMesh) mesh;
 
-			double x_0=roadEGM.X0;
-			double y_0=roadEGM.Y0;
+            RoadEditorGridManager roadEGM=(RoadEditorGridManager) regm.getReturnValue();
 
 
-			if(numx<pm.getNumx() || numy<pm.getNumy()){
+            double z_value=0;
 
-				JOptionPane.showMessageDialog(this,"Can't shrink the original map!","Error",JOptionPane.ERROR_MESSAGE);
-				return;
-			}
+            int numx=roadEGM.NX;
+            int numy=roadEGM.NY;
 
-			//create a SquareMesh
-			SquareMesh npm=new SquareMesh(numx,numy,pm.getDx(),pm.getDy(),pm.getX0(),pm.getY0());
-			npm.setLevel(Road.GROUND_LEVEL);
+            double dx=roadEGM.DX;
+            double dy=roadEGM.DY;
 
-			npm.xpoints=new double[numx*numy];
-			npm.ypoints=new double[numx*numy];
-			npm.zpoints=new double[numx*numy];
-			npm.selected=new boolean[numx*numy];
+            double x_0=roadEGM.X0;
+            double y_0=roadEGM.Y0;
 
-			for (int i = 0; i < numx; i++) {
 
-				for (int j = 0; j < numy; j++) {
+            if(numx<pm.getNumx() || numy<pm.getNumy()){
 
-					int pos=pos(i,j,numx,numy);
+                JOptionPane.showMessageDialog(this,"Can't shrink the original map!","Error",JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-					if(i<pm.getNumx() && j<pm.getNumy()){
+            //create a SquareMesh
+            SquareMesh npm=new SquareMesh(numx,numy,pm.getDx(),pm.getDy(),pm.getX0(),pm.getY0());
+            npm.setLevel(Road.GROUND_LEVEL);
 
-						int oldPos=pos(i,j,pm.getNumx(),pm.getNumy());
-						npm.xpoints[pos]=pm.xpoints[oldPos];
-						npm.ypoints[pos]=pm.ypoints[oldPos];
-						npm.zpoints[pos]=pm.zpoints[oldPos];
+            npm.xpoints=new double[numx*numy];
+            npm.ypoints=new double[numx*numy];
+            npm.zpoints=new double[numx*numy];
+            npm.selected=new boolean[numx*numy];
 
-					}
-					else{
-						npm.xpoints[pos]=pm.getX0()+i*dx;
-						npm.ypoints[pos]=pm.getY0()+j*dy;
-						npm.zpoints[pos]=0;
-					}
+            for (int i = 0; i < numx; i++) {
 
-				}
+                for (int j = 0; j < numy; j++) {
 
-			}
+                    int pos=pos(i,j,numx,numy);
 
-			ArrayList<Point3D> vTexturePoints=buildTemplateTexturePoints(200);
+                    if(i<pm.getNumx() && j<pm.getNumy()){
 
+                        int oldPos=pos(i,j,pm.getNumx(),pm.getNumy());
+                        npm.xpoints[pos]=pm.xpoints[oldPos];
+                        npm.ypoints[pos]=pm.ypoints[oldPos];
+                        npm.zpoints[pos]=pm.zpoints[oldPos];
 
+                    }
+                    else{
+                        npm.xpoints[pos]=pm.getX0()+i*dx;
+                        npm.ypoints[pos]=pm.getY0()+j*dy;
+                        npm.zpoints[pos]=0;
+                    }
 
-			int count=0;
+                }
 
-			for (int i = 0; i < numx-1; i++) {
+            }
 
-				for (int j = 0; j < numy-1; j++) {
+            ArrayList<Point3D> vTexturePoints=buildTemplateTexturePoints(200);
 
 
-					//base z=0
 
-					int pos0=pos(i,j,numx,numy);
-					int pos1=pos(i+1,j,numx,numy);
-					int pos2=pos(i+1,j+1,numx,numy);
-					int pos3=pos(i,j+1,numx,numy);
+            int count=0;
 
+            for (int i = 0; i < numx-1; i++) {
 
-					Point3D pt0=(Point3D) vTexturePoints.get(0);
-					Point3D pt1=(Point3D) vTexturePoints.get(1);
-					Point3D pt2=(Point3D) vTexturePoints.get(2);
-					Point3D pt3=(Point3D) vTexturePoints.get(3);
+                for (int j = 0; j < numy-1; j++) {
 
-					LineData ld=new LineData();
-					ld.addIndex(pos0,0,pt0.x,pt0.y);
-					ld.addIndex(pos1,1,pt1.x,pt1.y);
-					ld.addIndex(pos2,2,pt2.x,pt2.y);
-					ld.addIndex(pos3,3,pt3.x,pt3.y);
 
+                    //base z=0
 
-					npm.polygonData.add(ld);
+                    int pos0=pos(i,j,numx,numy);
+                    int pos1=pos(i+1,j,numx,numy);
+                    int pos2=pos(i+1,j+1,numx,numy);
+                    int pos3=pos(i,j+1,numx,numy);
 
-					if(i<pm.getNumx()-1 && j<pm.getNumy()-1){
 
-						LineData oldLineData=pm.polygonData.get(count++);
-						ld.setTexture_index(oldLineData.getTexture_index());
-					}
-					else{
+                    Point3D pt0=vTexturePoints.get(0);
+                    Point3D pt1=vTexturePoints.get(1);
+                    Point3D pt2=vTexturePoints.get(2);
+                    Point3D pt3=vTexturePoints.get(3);
 
-						ld.setTexture_index(0);
+                    LineData ld=new LineData();
+                    ld.addIndex(pos0,0,pt0.x,pt0.y);
+                    ld.addIndex(pos1,1,pt1.x,pt1.y);
+                    ld.addIndex(pos2,2,pt2.x,pt2.y);
+                    ld.addIndex(pos3,3,pt3.x,pt3.y);
 
-					}
 
-				}
-			}	
-			//pm=(SquareMesh) PolygonMesh.simplifyMesh(npm);
-			meshes[TERRAIN_INDEX]=npm;
+                    npm.polygonData.add(ld);
 
+                    if(i<pm.getNumx()-1 && j<pm.getNumy()-1){
 
+                        LineData oldLineData=pm.polygonData.get(count++);
+                        ld.setTexture_index(oldLineData.getTexture_index());
+                    }
+                    else{
 
-		}
+                        ld.setTexture_index(0);
 
-		draw();
+                    }
 
+                }
+            }
+            //pm=(SquareMesh) PolygonMesh.simplifyMesh(npm);
+            meshes[TERRAIN_INDEX]=npm;
 
 
-	}
 
-	private int pos(int i, int j,  int numx, int numy) {
+        }
 
-		return (i+j*numx);
-	}	
+        draw();
 
 
-	private void buildNewGrid() { 
 
-		RoadEditorGridManager regm=new RoadEditorGridManager(null);
+    }
 
-		if(regm.getReturnValue()!=null){
+    private int pos(int i, int j,  int numx, int numy) {
 
-			RoadEditorGridManager roadEGM=(RoadEditorGridManager) regm.getReturnValue();
+        return (i+j*numx);
+    }
 
-			PolygonMesh mesh=meshes[TERRAIN_INDEX];
-			mesh.setLevel(Road.GROUND_LEVEL);
 
+    private void buildNewGrid() {
 
-			double z_value=0;
+        RoadEditorGridManager regm=new RoadEditorGridManager(null);
 
-			int numx=roadEGM.NX;
-			int numy=roadEGM.NY;
+        if(regm.getReturnValue()!=null){
 
-			double dx=roadEGM.DX;
-			double dy=roadEGM.DY;
+            RoadEditorGridManager roadEGM=(RoadEditorGridManager) regm.getReturnValue();
 
-			double x_0=roadEGM.X0;
-			double y_0=roadEGM.Y0;
+            PolygonMesh mesh=meshes[TERRAIN_INDEX];
+            mesh.setLevel(Road.GROUND_LEVEL);
 
-			int tot=numx*numy;
 
+            double z_value=0;
 
-			mesh.polygonData=new ArrayList<LineData>();
+            int numx=roadEGM.NX;
+            int numy=roadEGM.NY;
 
-			mesh.xpoints=new double[numy*numx];
-			mesh.ypoints=new double[numy*numx];
-			mesh.zpoints=new double[numy*numx];
-			mesh.selected=new boolean[numx*numy];
+            double dx=roadEGM.DX;
+            double dy=roadEGM.DY;
 
-			for(int i=0;i<numx;i++)
-				for(int j=0;j<numy;j++)
-				{
+            double x_0=roadEGM.X0;
+            double y_0=roadEGM.Y0;
 
-					Point4D p=new Point4D(i*dx+x_0,j*dy+y_0,z_value);
+            int tot=numx*numy;
 
-					mesh.xpoints[i+j*numx]=p.x;
-					mesh.ypoints[i+j*numx]=p.y;
-					mesh.zpoints[i+j*numx]=p.z;
-				}
 
-			ArrayList<Point3D> vTexturePoints=buildTemplateTexturePoints(200);
+            mesh.polygonData=new ArrayList<LineData>();
 
-			for(int i=0;i<numx-1;i++)
-				for(int j=0;j<numy-1;j++){
+            mesh.xpoints=new double[numy*numx];
+            mesh.ypoints=new double[numy*numx];
+            mesh.zpoints=new double[numy*numx];
+            mesh.selected=new boolean[numx*numy];
 
+            for(int i=0;i<numx;i++) {
+                for(int j=0;j<numy;j++)
+                {
 
-					//lower base
+                    Point4D p=new Point4D(i*dx+x_0,j*dy+y_0,z_value);
 
-					int pl1=pos(i,j,numx,numy);
-					int pl2=pos(i+1,j,numx,numy);
-					int pl3=pos(i+1,j+1,numx,numy);
-					int pl4=pos(i,j+1,numx,numy);
+                    mesh.xpoints[i+j*numx]=p.x;
+                    mesh.ypoints[i+j*numx]=p.y;
+                    mesh.zpoints[i+j*numx]=p.z;
+                }
+            }
 
-					Point3D pt0=(Point3D) vTexturePoints.get(0);
-					Point3D pt1=(Point3D) vTexturePoints.get(1);
-					Point3D pt2=(Point3D) vTexturePoints.get(2);
-					Point3D pt3=(Point3D) vTexturePoints.get(3);
+            ArrayList<Point3D> vTexturePoints=buildTemplateTexturePoints(200);
 
-					LineData ld=new LineData();
-					ld.addIndex(pl1,0,pt0.x,pt0.y);
-					ld.addIndex(pl2,1,pt1.x,pt1.y);
-					ld.addIndex(pl3,2,pt2.x,pt2.y);
-					ld.addIndex(pl4,3,pt3.x,pt3.y);
+            for(int i=0;i<numx-1;i++) {
+                for(int j=0;j<numy-1;j++){
 
 
-					ld.setTexture_index(0);
+                    //lower base
 
-					mesh.polygonData.add(ld);
+                    int pl1=pos(i,j,numx,numy);
+                    int pl2=pos(i+1,j,numx,numy);
+                    int pl3=pos(i+1,j+1,numx,numy);
+                    int pl4=pos(i,j+1,numx,numy);
 
+                    Point3D pt0=vTexturePoints.get(0);
+                    Point3D pt1=vTexturePoints.get(1);
+                    Point3D pt2=vTexturePoints.get(2);
+                    Point3D pt3=vTexturePoints.get(3);
 
+                    LineData ld=new LineData();
+                    ld.addIndex(pl1,0,pt0.x,pt0.y);
+                    ld.addIndex(pl2,1,pt1.x,pt1.y);
+                    ld.addIndex(pl3,2,pt2.x,pt2.y);
+                    ld.addIndex(pl4,3,pt3.x,pt3.y);
 
-				}
 
+                    ld.setTexture_index(0);
 
-			if(mesh instanceof SquareMesh){
+                    mesh.polygonData.add(ld);
 
-				((SquareMesh)mesh).setNumx(numx);
-				((SquareMesh)mesh).setNumy(numy);
-				((SquareMesh)mesh).setX0(x_0);
-				((SquareMesh)mesh).setY0(y_0);
-				((SquareMesh)mesh).setDx((int)dx);
-				((SquareMesh)mesh).setDy((int)dy);
-			}
 
 
-		}
+                }
+            }
 
-		draw();
 
-	}
+            if(mesh instanceof SquareMesh){
 
-	private void addGrid() { 
+                ((SquareMesh)mesh).setNumx(numx);
+                ((SquareMesh)mesh).setNumy(numy);
+                ((SquareMesh)mesh).setX0(x_0);
+                ((SquareMesh)mesh).setY0(y_0);
+                ((SquareMesh)mesh).setDx((int)dx);
+                ((SquareMesh)mesh).setDy((int)dy);
+            }
 
-		RoadEditorGridManager regm=new RoadEditorGridManager(null);
 
-		if(regm.getReturnValue()!=null){
+        }
 
-			RoadEditorGridManager roadEGM=(RoadEditorGridManager) regm.getReturnValue();
+        draw();
 
-			PolygonMesh mesh=meshes[ACTIVE_PANEL];
+    }
 
+    private void addGrid() {
 
-			double z_value=0;
+        RoadEditorGridManager regm=new RoadEditorGridManager(null);
 
-			int numx=roadEGM.NX;
-			int numy=roadEGM.NY;
+        if(regm.getReturnValue()!=null){
 
-			double dx=roadEGM.DX;
-			double dy=roadEGM.DY;
+            RoadEditorGridManager roadEGM=(RoadEditorGridManager) regm.getReturnValue();
 
-			double x_0=roadEGM.X0;
-			double y_0=roadEGM.Y0;
+            PolygonMesh mesh=meshes[ACTIVE_PANEL];
 
-			int tot=numx*numy;
 
+            double z_value=0;
 
-			int sz= mesh.xpoints.length;
-			double[] newXPoints = new double[sz+numy*numx];
-			double[] newYPoints = new double[sz+numy*numx];
-			double[] newZPoints = new double[sz+numy*numx];
+            int numx=roadEGM.NX;
+            int numy=roadEGM.NY;
 
-			for (int i = 0; i < sz; i++) {
-				newXPoints[i]=mesh.xpoints[i];
-				newYPoints[i]=mesh.ypoints[i];
-				newZPoints[i]=mesh.zpoints[i];
-			}
+            double dx=roadEGM.DX;
+            double dy=roadEGM.DY;
 
-			for(int i=0;i<numx;i++)
-				for(int j=0;j<numy;j++)
-				{
+            double x_0=roadEGM.X0;
+            double y_0=roadEGM.Y0;
 
-					newXPoints[sz+i+j*numx]=i*dx+x_0;
-					newYPoints[sz+i+j*numx]=j*dy+y_0;
-					newZPoints[sz+i+j*numx]=z_value;
-				}
+            int tot=numx*numy;
 
-			mesh.xpoints=newXPoints;
-			mesh.ypoints=newYPoints;
-			mesh.zpoints=newZPoints;
 
-			for(int i=0;i<numx-1;i++)
-				for(int j=0;j<numy-1;j++){
+            int sz= mesh.xpoints.length;
+            double[] newXPoints = new double[sz+numy*numx];
+            double[] newYPoints = new double[sz+numy*numx];
+            double[] newZPoints = new double[sz+numy*numx];
 
+            for (int i = 0; i < sz; i++) {
+                newXPoints[i]=mesh.xpoints[i];
+                newYPoints[i]=mesh.ypoints[i];
+                newZPoints[i]=mesh.zpoints[i];
+            }
 
-					//lower base
-					int pl1=sz+i+numx*j;
-					int pl2=sz+i+numx*(j+1);
-					int pl3=sz+i+1+numx*(j+1);
-					int pl4=sz+i+1+numx*j;
+            for(int i=0;i<numx;i++) {
+                for(int j=0;j<numy;j++)
+                {
 
-					LineData ld=new LineData(pl1, pl4, pl3, pl2);
+                    newXPoints[sz+i+j*numx]=i*dx+x_0;
+                    newYPoints[sz+i+j*numx]=j*dy+y_0;
+                    newZPoints[sz+i+j*numx]=z_value;
+                }
+            }
 
-					if(ACTIVE_PANEL==1)
-						ld.setTexture_index(0);
-					else
-						ld.setTexture_index(2);
+            mesh.xpoints=newXPoints;
+            mesh.ypoints=newYPoints;
+            mesh.zpoints=newZPoints;
 
-					mesh.polygonData.add(ld);
+            for(int i=0;i<numx-1;i++) {
+                for(int j=0;j<numy-1;j++){
 
 
+                    //lower base
+                    int pl1=sz+i+numx*j;
+                    int pl2=sz+i+numx*(j+1);
+                    int pl3=sz+i+1+numx*(j+1);
+                    int pl4=sz+i+1+numx*j;
 
-				}
+                    LineData ld=new LineData(pl1, pl4, pl3, pl2);
 
-			if(mesh instanceof SquareMesh){
+                    if(ACTIVE_PANEL==1) {
+                        ld.setTexture_index(0);
+                    } else {
+                        ld.setTexture_index(2);
+                    }
 
-				((SquareMesh)mesh).setNumx(numx+((SquareMesh)mesh).getNumx());
-				((SquareMesh)mesh).setNumy(numy+((SquareMesh)mesh).getNumy());
-				((SquareMesh)mesh).setX0(x_0);
-				((SquareMesh)mesh).setY0(y_0);
-				((SquareMesh)mesh).setDx((int)dx);
-				((SquareMesh)mesh).setDy((int)dy);
-			}
+                    mesh.polygonData.add(ld);
 
 
-		}
 
-		draw();
+                }
+            }
 
-	}
+            if(mesh instanceof SquareMesh){
 
-	private void buildCity() {
+                ((SquareMesh)mesh).setNumx(numx+((SquareMesh)mesh).getNumx());
+                ((SquareMesh)mesh).setNumy(numy+((SquareMesh)mesh).getNumy());
+                ((SquareMesh)mesh).setX0(x_0);
+                ((SquareMesh)mesh).setY0(y_0);
+                ((SquareMesh)mesh).setDx((int)dx);
+                ((SquareMesh)mesh).setDy((int)dy);
+            }
 
-		RoadEditorCityManager regm=new RoadEditorCityManager();
 
-		if(regm.getReturnValue()!=null){
+        }
 
-			RoadEditorCityManager roadECM=(RoadEditorCityManager) regm.getReturnValue();
-			RoadEditorCityManager.buildCustomCity1(meshes[0],splines,roadECM,drawObjects,EditorData.objectMeshes);
-			//meshes[1]=PolygonMesh.simplifyMesh(meshes[1]);
+        draw();
 
-			draw();
-		}
+    }
 
-	}
+    private void buildCity() {
 
+        RoadEditorCityManager regm=new RoadEditorCityManager();
 
+        if(regm.getReturnValue()!=null){
 
-	private void updateSPlines(){
+            RoadEditorCityManager roadECM=(RoadEditorCityManager) regm.getReturnValue();
+            RoadEditorCityManager.buildCustomCity1(meshes[0],splines,roadECM,drawObjects,EditorData.objectMeshes);
+            //meshes[1]=PolygonMesh.simplifyMesh(meshes[1]);
 
+            draw();
+        }
 
+    }
 
-		for (int i = 0; i < splines.size(); i++) {
-			SPLine sp = (SPLine) splines.get(i);
-			sp.calculateRibs();	
-			sp.calculate3DMeshes();
-		}
-		if(meshes[TERRAIN_INDEX]==null || meshes[TERRAIN_INDEX].polygonData==null)
-			return;
 
-		//Editor.levelSPLinesTerrain(meshes[TERRAIN_INDEX],splines);
 
-	}
+    private void updateSPlines(){
 
 
 
-	/*private void addBendMesh() {
+        for (int i = 0; i < splines.size(); i++) {
+            SPLine sp = splines.get(i);
+            sp.calculateRibs();
+            sp.calculate3DMeshes();
+        }
+        if(meshes[TERRAIN_INDEX]==null || meshes[TERRAIN_INDEX].polygonData==null) {
+            return;
+        }
+
+        //Editor.levelSPLinesTerrain(meshes[TERRAIN_INDEX],splines);
+
+    }
+
+
+
+    /*private void addBendMesh() {
 
 		if(ACTIVE_PANEL==0){
 
@@ -2883,8 +2950,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 		for(int i=0;mesh.points!=null && i<mesh.points.length;i++){
 
 			Point3D p=mesh.points[i];
-			if(p.isSelected()) 
-				{	
+			if(p.isSelected())
+				{
 					origin=p;
 					originPos=i;
 					break;
@@ -2932,13 +2999,13 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 				double cosinus=(point.x-origin.x)/distance;
 
 
-				if( (sinus*sinTeta>=-.1 && cosinus*cosTeta>=-.1 ) 
+				if( (sinus*sinTeta>=-.1 && cosinus*cosTeta>=-.1 )
 						&& distance<=lineWidth+2*innerRadius){
 					point.setSelected(true);
 
 					if(prevOriginPos>i)
 						originPos--;
-				}	
+				}
 			}
 
 			deleteSelection();
@@ -2981,1116 +3048,1085 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 	}*/
 
-	private void startNewSPLine() {
+    private void startNewSPLine() {
 
-		prepareUndo();
+        prepareUndo();
 
-		isInit=true;
+        isInit=true;
 
-	}
+    }
 
-	private void showAltimetry() {
+    private void showAltimetry() {
 
-		PolygonMesh mesh=meshes[TERRAIN_INDEX];
+        PolygonMesh mesh=meshes[TERRAIN_INDEX];
 
-		if(mesh==null || mesh.xpoints.length==0)
-			return;
-		RoadAltimetryPanel altimetry=new RoadAltimetryPanel(this);
-	}
+        if(mesh==null || mesh.xpoints.length==0) {
+            return;
+        }
+        RoadAltimetryPanel altimetry=new RoadAltimetryPanel(this);
+    }
 
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
+    @Override
+    public void mouseClicked(MouseEvent arg0) {
 
-		int buttonNum=arg0.getButton();
+        int buttonNum=arg0.getButton();
 
-		if(SPLINES_MODE.equals(mode)){
+        if(SPLINES_MODE.equals(mode)){
 
-			//right button click
-			if(buttonNum==MouseEvent.BUTTON3)
-				addSPnode(arg0);
-			else{
-				selectSPNode(arg0.getX(),arg0.getY());	
+            //right button click
+            if(buttonNum==MouseEvent.BUTTON3) {
+                addSPnode(arg0);
+            } else{
+                selectSPNode(arg0.getX(),arg0.getY());
 
-			}	
+            }
 
-		}else if(TERRAIN_POLYGONS_MODE.equals(mode)){
+        }else if(TERRAIN_POLYGONS_MODE.equals(mode)){
 
-			updatePolygon();
+            updatePolygon();
 
-		}
-		else if(OBJECT_MODE.equals(mode)){
+        }
+        else if(OBJECT_MODE.equals(mode)){
 
-			if(buttonNum==MouseEvent.BUTTON3){
+            if(objectInsertMode.isSelected()){
 
-				RoadEditorPanel ep = getCenter();
+                RoadEditorPanel ep = getCenter();
 
-				if(ep instanceof RoadEditorTopPanel){
+                Point p=arg0.getPoint();
 
-					Point p=arg0.getPoint();
+                double xx=ep.invertX((int)p.getX(),(int)p.getY());
+                double yy=ep.invertY((int)p.getX(),(int)p.getY());
 
-					double xx=ep.invertX((int)p.getX(),(int)p.getY());
-					double yy=ep.invertY((int)p.getX(),(int)p.getY());
+                addObject(xx, yy,0);
 
-					addObject(xx, yy,0);
+            } else if(objectSelectMode.isSelected()){
+                selectObject(arg0.getX(),arg0.getY());
+            } else if(objectDeleteMode.isSelected()){
+                deleteObject(arg0.getX(),arg0.getY());
+            }
 
-				}else if(ep instanceof RoadEditorIsoPanel){
+        }else if(ALTIMETRY_MODE.equals(mode)){
+            changeAltimetrySelectedTerrainPoints();
+        }
+        draw();
+    }
 
-					putObjectInCell(arg0.getX(),arg0.getY());
 
 
-				}
-			}	
-			else
-				selectObject(arg0.getX(),arg0.getY());
 
 
 
-		}else if(ALTIMETRY_MODE.equals(mode)){
-			changeAltimetrySelectedTerrainPoints();
-		}
-		draw();
-	}
 
 
+    private void addSPnode(MouseEvent arg0) {
 
+        prepareUndoSpline();
 
-	private void addSPnode(MouseEvent arg0) {
+        RoadEditorPanel ep = getCenter();
 
-		prepareUndoSpline();
+        if(mode!=SPLINES_MODE) {
+            return;
+        }
 
-		RoadEditorPanel ep = getCenter();
+        prepareUndo();
 
-		if(mode!=SPLINES_MODE)
-			return;
+        Point p=arg0.getPoint();
 
-		prepareUndo();
+        int x=ep.invertX((int)p.getX(),(int)p.getY());
+        int y=ep.invertY((int)p.getX(),(int)p.getY());
 
-		Point p=arg0.getPoint();
+        int index=0;
 
-		int x=ep.invertX((int)p.getX(),(int)p.getY());
-		int y=ep.invertY((int)p.getX(),(int)p.getY());
+        ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getSelectedItem();
+        if(!vp.getId().equals("")) {
+            index=Integer.parseInt(vp.getId());
+        }
 
-		int index=0;
+        SPNode p0=new SPNode(x,y,0,0,LineData.GREEN_HEX,index);
 
-		ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getSelectedItem();
-		if(!vp.getId().equals(""))
-			index=Integer.parseInt(vp.getId());
+        if(isInit || splines.size()==0){
 
-		SPNode p0=new SPNode(x,y,0,0,LineData.GREEN_HEX,index);
+            isInit=false;
 
-		if(isInit || splines.size()==0){
+            ArrayList<Point3D> vTexturePoints=buildTemplateTexturePoints(200);
 
-			isInit=false;
+            SPLine sp=new SPLine(vTexturePoints);
 
-			ArrayList<Point3D> vTexturePoints=buildTemplateTexturePoints(200);
+            sp.addSPNode(p0);
+            splines.add(sp);
 
-			SPLine sp=new SPLine(vTexturePoints);	
+        }else{
 
-			sp.addSPNode(p0);
-			splines.add(sp);
+            SPLine sp=splines.get(splines.size()-1);
 
-		}else{
+            ArrayList<Point3D> vTexturePoints=buildTemplateTexturePoints(200);
+            sp.addSPNode(p0);
 
-			SPLine sp=(SPLine) splines.get(splines.size()-1);
+        }
 
-			ArrayList<Point3D> vTexturePoints=buildTemplateTexturePoints(200);
-			sp.addSPNode(p0);
 
-		}
 
+    }
 
+    private void mergeSPNodes() {
 
-	}
+        prepareUndoSpline();
 
-	private void mergeSPNodes() {
+        SPNode baseNode=null;
 
-		prepareUndoSpline();
+        for (int i =0; i < splines.size(); i++) {
+            SPLine spline = splines.get(i);
 
-		SPNode baseNode=null;
+            ArrayList<SPNode> nodes = spline.getNodes();
+            int sz=nodes.size();
 
-		for (int i =0; i < splines.size(); i++) {
-			SPLine spline = (SPLine) splines.get(i);
 
-			ArrayList<SPNode> nodes = spline.getNodes();
-			int sz=nodes.size();
+            for (int k = 0; k < sz; k++) {
 
+                SPNode node = nodes.get(k);
 
-			for (int k = 0; k < sz; k++) {
+                if(node.isSelected()){
 
-				SPNode node = (SPNode) nodes.get(k);
+                    if(baseNode==null){
 
-				if(node.isSelected()){
+                        baseNode=node;
 
-					if(baseNode==null){
+                    }else{
 
-						baseNode=node;
+                        nodes.set(k,baseNode.clone());
+                    }
 
-					}else{
+                }
 
-						nodes.set(k,baseNode.clone());
-					}
+            }
 
-				}
 
-			}
 
+        }
 
+        updateSPlines();
 
-		}
+        deselectAllSPNodes();
+        draw();
 
-		updateSPlines();
+    }
 
-		deselectAllSPNodes();
-		draw();
+    private void insertSPNode() {
 
-	}
+        prepareUndoSpline();
 
-	private void insertSPNode() {
+        for (int i = 0; i < splines.size(); i++) {
+            SPLine spline = splines.get(i);
 
-		prepareUndoSpline();
 
-		for (int i = 0; i < splines.size(); i++) {
-			SPLine spline = (SPLine) splines.get(i);
+            ArrayList<SPNode> nodes = spline.getNodes();
+            int sz=nodes.size();
 
+            ArrayList<SPNode> newNodes=new ArrayList<SPNode>();
 
-			ArrayList<SPNode> nodes = spline.getNodes();
-			int sz=nodes.size();
+            for (int k = 0; k < sz; k++) {
 
-			ArrayList<SPNode> newNodes=new ArrayList<SPNode>();
+                SPNode node = nodes.get(k);
 
-			for (int k = 0; k < sz; k++) {
+                newNodes.add(node);
 
-				SPNode node = (SPNode) nodes.get(k);
+                if(node.isSelected()){
 
-				newNodes.add(node);
+                    SPNode nextNode=null;
 
-				if(node.isSelected()){
+                    if(k+1< sz){
 
-					SPNode nextNode=null;
+                        nextNode= nodes.get(k+1);
 
-					if(k+1< sz){
+                    }else{
 
-						nextNode= (SPNode)  nodes.get(k+1);
+                        //avoid problem when updating the last node!
+                        break;
 
-					}else{
+                    }
 
-						//avoid problem when updating the last node!
-						break;
 
-					}
 
+                    double x=(node.x+nextNode.x)*0.5;
+                    double y=(node.y+nextNode.y)*0.5;
+                    double z=(node.z+nextNode.z)*0.5;
 
 
-					double x=(node.x+nextNode.x)*0.5;
-					double y=(node.y+nextNode.y)*0.5;
-					double z=(node.z+nextNode.z)*0.5;
+                    SPNode intermediateNode=new SPNode((int)x,(int)y,(int)z,0,"FFFFFF",node.getIndex());
 
+                    newNodes.add(intermediateNode);
 
-					SPNode intermediateNode=new SPNode((int)x,(int)y,(int)z,0,"FFFFFF",node.getIndex());
+                }
 
-					newNodes.add(intermediateNode);
+            }
+            spline.setNodes(newNodes);
 
-				}
 
-			}
-			spline.setNodes(newNodes);
+        }
 
+        updateSPlines();
 
-		}
+        deselectAllSPNodes();
+        draw();
+    }
 
-		updateSPlines();
 
-		deselectAllSPNodes();
-		draw();
-	}
 
 
+    private void setSPNodeHeight() {
 
+        double height=setSPNodeHeightValue.getvalue();
 
-	private void setSPNodeHeight() {
+        for (int i = 0; i < splines.size(); i++) {
+            SPLine spline = splines.get(i);
 
-		double height=setSPNodeHeightValue.getvalue();
+            ArrayList<SPNode> nodes = spline.getNodes();
+            int sz=nodes.size();
 
-		for (int i = 0; i < splines.size(); i++) {
-			SPLine spline = (SPLine) splines.get(i);
 
-			ArrayList<SPNode> nodes = spline.getNodes();
-			int sz=nodes.size();
+            for (int k = 0; k < sz; k++) {
 
+                SPNode node = nodes.get(k);
 
-			for (int k = 0; k < sz; k++) {
 
-				SPNode node = (SPNode) nodes.get(k);
+                if(node.isSelected()){
 
+                    node.z=height;
+                    node.update();
+                }
 
-				if(node.isSelected()){
+            }
 
-					node.z=height;
-					node.update();
-				}
 
-			}
 
+        }
 
+        updateSPlines();
 
-		}
+        deselectAllSPNodes();
+        draw();
 
-		updateSPlines();
+    }
 
-		deselectAllSPNodes();
-		draw();
 
-	}
 
+    private void setSPNodeBanking() {
 
+        double banking=setSPNodeBankingValue.getvalue();
 
-	private void setSPNodeBanking() {
+        for (int i = 0; i < splines.size(); i++) {
+            SPLine spline = splines.get(i);
 
-		double banking=setSPNodeBankingValue.getvalue();
+            ArrayList<SPNode> nodes = spline.getNodes();
+            int sz=nodes.size();
 
-		for (int i = 0; i < splines.size(); i++) {
-			SPLine spline = (SPLine) splines.get(i);
 
-			ArrayList<SPNode> nodes = spline.getNodes();
-			int sz=nodes.size();
+            for (int k = 0; k < sz; k++) {
 
+                SPNode node = nodes.get(k);
 
-			for (int k = 0; k < sz; k++) {
 
-				SPNode node = (SPNode) nodes.get(k);
+                if(node.isSelected()){
 
+                    node.setBanking_angle(banking);
+                    node.update();
+                }
 
-				if(node.isSelected()){
+            }
 
-					node.setBanking_angle(banking);
-					node.update();
-				}
 
-			}
 
+        }
 
+        updateSPlines();
 
-		}
+        deselectAllSPNodes();
+        draw();
 
-		updateSPlines();
+    }
 
-		deselectAllSPNodes();
-		draw();
+    private void deselectAllPoints(){
 
-	}
 
+        cleanPoints();
 
-	private void putObjectInCell(int x, int y) {/*
+        PolygonMesh mesh=meshes[TERRAIN_INDEX];
 
-		if(meshes==null)
-			return;
+        if(mesh.xpoints==null) {
+            return;
+        }
 
-		PolygonMesh mesh=meshes[TERRAIN_INDEX];	
+        for(int j=0;j<mesh.xpoints.length;j++){
 
-		RoadEditorPanel ep=getCenter();	
+            mesh.selected[j]=false;
 
-		ArrayList<LineData> polygons=ep.getClickedPolygons(x,y,mesh);
+        }
 
-		if(polygons.size()>0){
+        if(ACTIVE_PANEL==TERRAIN_INDEX) {
+            coordinatesx[ACTIVE_PANEL].requestFocus();
+        }
 
 
-			LineData ld=(LineData)polygons.get(0);
 
-			Polygon3D polRotate=PolygonMesh.getBodyPolygon(mesh.xpoints,mesh.ypoints,mesh.zpoints,ld,mesh.getLevel());
 
-	        Point3D centroid=Polygon3D.findCentroid(polRotate);
+    }
 
-			if(chooseObject.getSelectedIndex()<=0)
-				return;
+    private void deselectAllSPNodes() {
 
-			int index=0;
-			ValuePair vp=(ValuePair) chooseObject.getSelectedItem();
-			if(vp!=null && !vp.getValue().equals(""))
-				index=Integer.parseInt(vp.getId());
+        for (int i = 0; i < splines.size(); i++) {
 
-			int dim_x=EditorData.objectMeshes[index].getDeltaX2()-EditorData.objectMeshes[index].getDeltaX();
-			int dim_y=EditorData.objectMeshes[index].getDeltaY2()-EditorData.objectMeshes[index].getDeltaY();
-			int dim_z=EditorData.objectMeshes[index].getDeltaX();
+            SPLine spline = splines.get(i);
 
-			double rot_angle=rotation_angle.getvalue();rotation_angle.getText();
+            ArrayList<SPNode> nodes = spline.getNodes();
+            int sz=nodes.size();
 
-			cleanObjects();
 
-			addObject(centroid.x-dim_x*0.5,centroid.y-dim_y*0.5,centroid.z,dim_x,dim_y,dim_z,index,rot_angle);
+            for(int j=0;j<sz;j++){
 
+                SPNode spnode = nodes.get(j);
+                spnode.setSelected(false);
 
+            }
+        }
+        draw();
+    }
 
-		}*/
+    private void deselectAllLines(){
 
-	}
+        PolygonMesh mesh=meshes[ACTIVE_PANEL];
 
-	private void deselectAllPoints(){
+        int sizel=mesh.polygonData.size();
+        for(int j=0;j<sizel;j++){
 
 
-		cleanPoints();
+            LineData ld=mesh.polygonData.get(j);
+            ld.setSelected(false);
+        }
+    }
 
-		PolygonMesh mesh=meshes[TERRAIN_INDEX];
+    private void selectSPNode(int x, int y) {
 
-		if(mesh.xpoints==null)
-			return; 
 
-		for(int j=0;j<mesh.xpoints.length;j++){
+        RoadEditorPanel ep = getCenter();
 
-			mesh.selected[j]=false;
+        boolean found=ep.selectSPNodes(x,y,splines);
 
-		}	
 
-		if(ACTIVE_PANEL==TERRAIN_INDEX)
-			coordinatesx[ACTIVE_PANEL].requestFocus();
+    }
 
+    public void setSPLineData(SPLine spline, SPNode spnode){
 
 
+        for(int l=0;l<chooseTexture[ACTIVE_PANEL].getItemCount();l++){
 
-	}
+            ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getItemAt(l);
+            if(vp.getId().equals(Integer.toString(spnode.getIndex()))) {
+                chooseTexture[ACTIVE_PANEL].setSelectedItem(vp);
+            }
+        }
 
-	private void deselectAllSPNodes() {
+        setSPNodeHeightValue.setText(spnode.getZ());
+        setSPNodeBankingValue.setText(spnode.getBanking_angle());
 
-		for (int i = 0; i < splines.size(); i++) {
+    }
 
-			SPLine spline = (SPLine) splines.get(i);
+    private void updatePolygon() {
 
-			ArrayList<SPNode> nodes = spline.getNodes();
-			int sz=nodes.size();
+        if(meshes==null) {
+            return;
+        }
 
+        PolygonMesh mesh=meshes[ACTIVE_PANEL];
 
-			for(int j=0;j<sz;j++){
+        RoadEditorPanel ep=getCenter();
 
-				SPNode spnode = (SPNode) nodes.get(j);
-				spnode.setSelected(false);
+        HashMap<Integer, Boolean> selPolygons = ep.pickUpPoygonsWithFastCircle(mesh);
 
-			}
-		}	
-		draw();
-	}
+        int sizel=mesh.polygonData.size();
 
-	private void deselectAllLines(){
+        for(int j=0;j<sizel;j++){
 
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+            LineData ld=mesh.polygonData.get(j);
 
-		int sizel=mesh.polygonData.size();
-		for(int j=0;j<sizel;j++){
+            if(selPolygons.get(new Integer(j))==null) {
+                continue;
+            }
 
+            int indx=chooseTexture[ACTIVE_PANEL].getSelectedIndex();
 
-			LineData ld=(LineData) mesh.polygonData.get(j);
-			ld.setSelected(false);	
-		}
-	}
+            if(indx!=0){
 
-	private void selectSPNode(int x, int y) {
+                ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getItemAt(indx);
 
 
-		RoadEditorPanel ep = getCenter();
+                ld.setTexture_index(Integer.parseInt(vp.getId()));
 
-		boolean found=ep.selectSPNodes(x,y,splines);
+            }
 
+            ld.setFilledWithWater(fillWithWater[ACTIVE_PANEL].isSelected());
+        }
 
-	}
+    }
 
-	public void setSPLineData(SPLine spline, SPNode spnode){
 
 
-		for(int l=0;l<chooseTexture[ACTIVE_PANEL].getItemCount();l++){
+    private void selectObject(int x, int y) {
 
-			ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getItemAt(l);
-			if(vp.getId().equals(Integer.toString(spnode.getIndex()))) 
-				chooseTexture[ACTIVE_PANEL].setSelectedItem(vp);
-		}
+        if(checkHideObjects.isSelected()) {
+            return;
+        }
 
-		setSPNodeHeightValue.setText(spnode.getZ());
-		setSPNodeBankingValue.setText(spnode.getBanking_angle());
+        deselectAllPoints();
+        deselectAllLines();
 
-	}
+        RoadEditorPanel ep = getCenter();
+        ep.selectObjects(x,y,drawObjects,true);
 
-	private void updatePolygon() {
+    }
 
-		if(meshes==null)
-			return;
 
-		PolygonMesh mesh=meshes[ACTIVE_PANEL];
+    private void deselectAllObjects(){
 
-		RoadEditorPanel ep=getCenter();
+        int size=drawObjects.size();
 
-		HashMap<Integer, Boolean> selPolygons = ep.pickUpPoygonsWithFastCircle(mesh);
+        for(int i=0;i<size;i++){
 
-		int sizel=mesh.polygonData.size();
+            DrawObject dro=drawObjects.get(i);
+            dro.setSelected(false);
+        }
+    }
 
-		for(int j=0;j<sizel;j++){
+    private void cleanObjects(){
 
-			LineData ld=(LineData) mesh.polygonData.get(j);
 
-			if(selPolygons.get(new Integer(j))==null)
-				continue;
+        rotation_angle.setText(0);
 
-			int indx=chooseTexture[ACTIVE_PANEL].getSelectedIndex();
+        deselectAllObjects();
+        draw();
+    }
 
-			if(indx!=0){
+    private void cleanPoints(){
 
-				ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getItemAt(indx);
+        coordinatesx[TERRAIN_INDEX].setText("");
+        coordinatesy[TERRAIN_INDEX].setText("");
+        coordinatesz[TERRAIN_INDEX].setText("");
 
+    }
+    @Override
+    public void mouseEntered(MouseEvent arg0) {
+        // TODO Auto-generated method stub
 
-				ld.setTexture_index(Integer.parseInt(vp.getId()));
+    }
 
-			}
+    @Override
+    public void mouseExited(MouseEvent arg0) {
+        // TODO Auto-generated method stub
 
-			ld.setFilledWithWater(fillWithWater[ACTIVE_PANEL].isSelected());
-		}	
+    }
 
-	}
+    @Override
+    public void mousePressed(MouseEvent arg0) {
 
+        int x = arg0.getX();
+        int y = arg0.getY();
+        currentRect = new Rectangle(x, y, 0, 0);
 
 
-	private void selectObject(int x, int y) {
+    }
 
-		if(checkHideObjects.isSelected())
-			return;
 
-		deselectAllPoints();
-		deselectAllLines();
 
-		RoadEditorPanel ep = getCenter();
-		ep.selectObjects(x,y,drawObjects);
 
-	}
 
+    private void selectObjectsWithRectangle() {
 
+        RoadEditorPanel ep = getCenter();
 
-	private void deselectAllObjects(){
+        boolean found=ep.selectObjectsWithRectangle(drawObjects);
 
-		int size=drawObjects.size();
+        if(found){
+            deselectAllSPNodes();
+            deselectAllLines();
+        }
 
-		for(int i=0;i<size;i++){
+    }
 
-			DrawObject dro=(DrawObject) drawObjects.get(i);
-			dro.setSelected(false);
-		}
-	}
+    private void selectSPnodesWithRectangle() {
 
-	private void cleanObjects(){
+        RoadEditorPanel ep = getCenter();
 
+        boolean found=ep.selectSPnodesWithRectangle(splines);
 
-		rotation_angle.setText(0);
+        if(found){
+            deselectAllObjects();
+            deselectAllLines();
+        }
+    }
 
-		deselectAllObjects();
-		draw();
-	}
+    @Override
+    public void keyPressed(KeyEvent arg0) {
 
-	private void cleanPoints(){
 
-		coordinatesx[TERRAIN_INDEX].setText("");
-		coordinatesy[TERRAIN_INDEX].setText("");
-		coordinatesz[TERRAIN_INDEX].setText("");
+        RoadEditorPanel ep = getCenter();
 
-	}
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+        int code =arg0.getKeyCode();
+        if(code==KeyEvent.VK_DOWN ){
+            ep.translate(0, 1);
+            draw();
+        }else if(code==KeyEvent.VK_UP  ){
+            ep.translate(0, SELECTION_RADIUS_MINUS);
+            draw();
+        }
+        else if(code==KeyEvent.VK_LEFT )
+        {
+            ep.translate(SELECTION_RADIUS_MINUS, 0);
+            draw();
+        }
+        else if(code==KeyEvent.VK_RIGHT  )
+        {
+            ep.translate(1, 0);
+            draw();
+        }
+        else if(code==KeyEvent.VK_N  )
+        {
+            startNewSPLine();
+            draw();
+        }
+        else if(code==KeyEvent.VK_B  )
+        {
+            changeSelectedObject();
+            draw();
+        }
+        else if(code==KeyEvent.VK_Y  )
+        {
+            changeSelectedTerrainPolygon();
+            draw();
+        }
+        else if(code==KeyEvent.VK_E  )
+        {
+            deselectAll();
+        }
+        else if(code==KeyEvent.VK_F1  )
+        {
+            zoom(SELECTION_RADIUS_PLUS);
+            draw();
+        }
+        else if(code==KeyEvent.VK_F2  )
+        {
+            zoom(SELECTION_RADIUS_MINUS);
+            draw();
+        }
+        else if(code==KeyEvent.VK_LESS )
+        {
 
-	}
+            invertSelectedRoadPolygon();
+            draw();
+        }else if(code==KeyEvent.VK_Q  )
+        {
+            rotate(SELECTION_RADIUS_MINUS);
+            draw();
+        }
+        else if(code==KeyEvent.VK_W  )
+        {
 
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+            rotate(SELECTION_RADIUS_PLUS);
+            draw();
+        }else if(code==KeyEvent.VK_PLUS ){
 
-	}
+            incrementSelectionRadius(SELECTION_RADIUS_PLUS);
+            draw();
 
-	@Override
-	public void mousePressed(MouseEvent arg0) {
+        }else if(code==KeyEvent.VK_MINUS ){
 
-		int x = arg0.getX();
-		int y = arg0.getY();
-		currentRect = new Rectangle(x, y, 0, 0);
+            incrementSelectionRadius(SELECTION_RADIUS_MINUS);
+            draw();
+        }else if(code==KeyEvent.VK_CONTROL)
+        {
+            isMultipleSelection=true;
+        }
+        else if(code==KeyEvent.VK_ESCAPE )
+        {
 
+            dispose();
+            System.exit(0);
 
-	}
+        }
 
+    }
 
+    private void zoom(int i) {
 
 
 
-	private void selectObjectsWithRectangle() {
+        RoadEditorPanel ep = getCenter();
+        ep.zoom(i);
+        draw();
+    }
+    @Override
+    public void keyReleased(KeyEvent arg0) {
+        int code =arg0.getKeyCode();
 
-		RoadEditorPanel ep = getCenter();
+        if(code==KeyEvent.VK_CONTROL){
+            isMultipleSelection=false;
+        }
+    }
 
-		boolean found=ep.selectObjectsWithRectangle(drawObjects);
 
-		if(found){
-			deselectAllSPNodes();
-			deselectAllLines();
-		}
 
-	}
 
-	private void selectSPnodesWithRectangle() {
+    @Override
+    public void keyTyped(KeyEvent arg0) {
+        // TODO Auto-generated method stub
 
-		RoadEditorPanel ep = getCenter();
+    }
 
-		boolean found=ep.selectSPnodesWithRectangle(splines);
 
-		if(found){
-			deselectAllObjects();
-			deselectAllLines();
-		}
-	}
 
-	@Override
-	public void keyPressed(KeyEvent arg0) {
 
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent arg0) {
 
-		RoadEditorPanel ep = getCenter();
+        RoadEditorPanel ep = getCenter();
 
-		int code =arg0.getKeyCode();
-		if(code==KeyEvent.VK_DOWN ){
-			ep.translate(0, 1);
-			draw();
-		}else if(code==KeyEvent.VK_UP  ){
-			ep.translate(0, SELECTION_RADIUS_MINUS);
-			draw();
-		}	
-		else if(code==KeyEvent.VK_LEFT )
-		{	
-			ep.translate(SELECTION_RADIUS_MINUS, 0);
-			draw();
-		}
-		else if(code==KeyEvent.VK_RIGHT  )
-		{	 
-			ep.translate(1, 0);  
-			draw();
-		}
-		else if(code==KeyEvent.VK_N  )
-		{	
-			startNewSPLine();
-			draw();
-		}
-		else if(code==KeyEvent.VK_B  )
-		{	
-			changeSelectedObject();
-			draw();
-		}
-		else if(code==KeyEvent.VK_Y  )
-		{ 
-			changeSelectedTerrainPolygon();
-			draw();
-		}
-		else if(code==KeyEvent.VK_E  )
-		{ 
-			deselectAll();
-		}
-		else if(code==KeyEvent.VK_F1  )
-		{ 
-			zoom(SELECTION_RADIUS_PLUS);
-			draw();
-		}
-		else if(code==KeyEvent.VK_F2  )
-		{  
-			zoom(SELECTION_RADIUS_MINUS);
-			draw();
-		}
-		else if(code==KeyEvent.VK_LESS )
-		{	
+        int pix=arg0.getUnitsToScroll();
 
-			invertSelectedRoadPolygon(); 
-			draw();
-		}else if(code==KeyEvent.VK_Q  )
-		{  
-			rotate(SELECTION_RADIUS_MINUS);
-			draw();
-		}
-		else if(code==KeyEvent.VK_W  )
-		{  
+        if(pix>0) {
+            ep.mouseUp();
+        } else {
+            ep.mouseDown();
+        }
 
-			rotate(SELECTION_RADIUS_PLUS);
-			draw();
-		}else if(code==KeyEvent.VK_PLUS ){
+        draw();
 
-			incrementSelectionRadius(SELECTION_RADIUS_PLUS);
-			draw();
+    }
 
-		}else if(code==KeyEvent.VK_MINUS ){
 
-			incrementSelectionRadius(SELECTION_RADIUS_MINUS);
-			draw();
-		}else if(code==KeyEvent.VK_CONTROL)
-		{  
-			isMultipleSelection=true;
-		}
-		else if(code==KeyEvent.VK_ESCAPE )
-		{  
 
-			dispose();
-			System.exit(0);
 
-		}
+    @Override
+    public void mouseDragged(MouseEvent e) {
 
-	}
 
-	private void zoom(int i) {
+        isDrawCurrentRect=true;
+        updateSize(e);
+        draw();
 
+    }
+    @Override
+    public void mouseReleased(MouseEvent arg0) {
 
+        if(!isDrawCurrentRect) {
+            return;
+        }
 
-		RoadEditorPanel ep = getCenter();
-		ep.zoom(i);
-		draw();
-	}
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		int code =arg0.getKeyCode();
+        int buttonNum=arg0.getButton();
+        if(buttonNum==MouseEvent.BUTTON3) {
+            return;
+        }
 
-		if(code==KeyEvent.VK_CONTROL){
-			isMultipleSelection=false;
-		}
-	}
+        isDrawCurrentRect=false;
+        updateSize(arg0);
 
+        if(mode==SPLINES_MODE) {
+            selectSPnodesWithRectangle();
+        } else if(mode==OBJECT_MODE) {
+            selectObjectsWithRectangle();
+        }
+        draw();
 
+    }
 
 
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+    private void updateSize(MouseEvent e) {
+        int x = e.getX();
+        int y = e.getY();
+        currentRect.setSize(x - currentRect.x,
+                y - currentRect.y);
 
-	}
 
 
+    }
 
 
-	@Override
-	public void mouseWheelMoved(MouseWheelEvent arg0) {
 
-		RoadEditorPanel ep = getCenter();
+    private boolean isMouseMoved=false;
+    private boolean waitBeforeMovingMouse=false;
+    @Override
+    public void mouseMoved(MouseEvent e) {
 
-		int pix=arg0.getUnitsToScroll();
+        if(isOnLoading) {
+            return;
+        }
 
-		if(pix>0) 
-			ep.mouseUp();
-		else 
-			ep.mouseDown();
+        Point p=e.getPoint();
 
-		draw();
+        RoadEditorPanel ep = getCenter();
+        screenPoint.setText(ep.invertX((int)p.getX(),(int)p.getY())+","+ep.invertY((int)p.getX(),(int)p.getY()));
 
-	}
+        int rad=selectionRadius.getvalue();
+        if(rad==0) {
+            rad=INITIAl_SELECTION_RADIUS;
+        }
 
+        if(isDrawFastSelectionCircle() && !waitBeforeMovingMouse){
+            updateSelecctionCircle(e,rad);
 
+            if(!isMouseMoved){
 
+                isMouseMoved=true;
+                RoadEditorThread engine=new RoadEditorThread(this);
+                engine.start();
 
-	@Override
-	public void mouseDragged(MouseEvent e) {
+            } else {
+                return;
+            }
 
+        }
+    }
+    private void updateSelecctionCircle(MouseEvent e, int rad) {
 
-		isDrawCurrentRect=true;
-		updateSize(e);
-		draw();
+        RoadEditorPanel ep = getCenter();
+        fastSelectionCircle=ep.buildSelecctionCircle(e, rad);
 
-	}
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
+    }
 
-		if(!isDrawCurrentRect)
-			return;
+    private void updateSelecctionCircle(int rad) {
 
-		int buttonNum=arg0.getButton();
-		if(buttonNum==MouseEvent.BUTTON3)
-			return;
+        int x0=0;
+        int y0=0;
 
-		isDrawCurrentRect=false;
-		updateSize(arg0);
+        if(fastSelectionCircle!=null){
 
-		if(mode==SPLINES_MODE)
-			selectSPnodesWithRectangle();
-		else if(mode==OBJECT_MODE)
-			selectObjectsWithRectangle();
-		draw();
+            x0=(int)fastSelectionCircle.getX();
+            y0=(int)fastSelectionCircle.getY();
+        }
 
-	}
+        fastSelectionCircle=new Rectangle(
+                x0,
+                y0,
+                rad,
+                rad);
 
+    }
 
-	private void updateSize(MouseEvent e) {
-		int x = e.getX();
-		int y = e.getY();
-		currentRect.setSize(x - currentRect.x,
-				y - currentRect.y);
 
+    private void incrementSelectionRadius(int i) {
+        int rad=selectionRadius.getvalue();
+        if(rad==0) {
+            rad=INITIAl_SELECTION_RADIUS;
+        }
 
 
-	}
+        selectionRadius.setText(rad+i*SELECTION_RADIUS_INCREMENT);
+        rad=selectionRadius.getvalue();
 
+        updateSelecctionCircle(rad);
 
 
-	private boolean isMouseMoved=false;
-	private boolean waitBeforeMovingMouse=false;
-	@Override
-	public void mouseMoved(MouseEvent e) {		
-		
-		if(isOnLoading)
-			return;
+    }
 
-		Point p=e.getPoint();
+    @Override
+    public void itemStateChanged(ItemEvent arg0) {
 
-		RoadEditorPanel ep = getCenter();
-		screenPoint.setText(ep.invertX((int)p.getX(),(int)p.getY())+","+ep.invertY((int)p.getX(),(int)p.getY()));
+        Object o=arg0.getSource();
+        if(o==chooseTexture[ACTIVE_PANEL]){
 
-		int rad=selectionRadius.getvalue();
-		if(rad==0)
-			rad=INITIAl_SELECTION_RADIUS;
+            ValuePair val=(ValuePair) chooseTexture[ACTIVE_PANEL].getSelectedItem();
+            if(!val.getId().equals("")){
 
-		if(isDrawFastSelectionCircle() && !waitBeforeMovingMouse){
-			updateSelecctionCircle(e,rad);
+                int num=Integer.parseInt(val.getId());
 
-			if(!isMouseMoved){
+                BufferedImage icon=new BufferedImage(100,100,BufferedImage.TYPE_3BYTE_BGR);
+                if(ACTIVE_PANEL==TERRAIN_INDEX) {
+                    icon.getGraphics().drawImage(worldImages[num],0,0,objectLabel.getWidth(),objectLabel.getHeight(),null);
+                } else {
+                    icon.getGraphics().drawImage(splinesImages[num],0,0,objectLabel.getWidth(),objectLabel.getHeight(),null);
+                }
 
-				isMouseMoved=true;
-				RoadEditorThread engine=new RoadEditorThread(this);
-				engine.start();
+                ImageIcon ii=new ImageIcon(icon);
+                textureLabel[ACTIVE_PANEL].setIcon(ii);
 
-			}else 
-				return;
 
-		}
-	}
-	private void updateSelecctionCircle(MouseEvent e, int rad) {
+            } else {
+                textureLabel[ACTIVE_PANEL].setIcon(null);
+            }
 
-		RoadEditorPanel ep = getCenter();
-		fastSelectionCircle=ep.buildSelecctionCircle(e, rad);   
+        }
+        else if(o==chooseObject){
 
-	}
+            ValuePair val=(ValuePair) chooseObject.getSelectedItem();
+            if(!val.getId().equals("")){
 
-	private void updateSelecctionCircle(int rad) {
+                int num=Integer.parseInt(val.getId());
 
-		int x0=0;
-		int y0=0;
+                BufferedImage icon=new BufferedImage(100,100,BufferedImage.TYPE_3BYTE_BGR);
+                icon.getGraphics().drawImage(objectImages[num],0,0,objectLabel.getWidth(),objectLabel.getHeight(),null);
+                ImageIcon ii=new ImageIcon(icon);
+                objectLabel.setIcon(ii);
 
-		if(fastSelectionCircle!=null){
 
-			x0=(int)fastSelectionCircle.getX();
-			y0=(int)fastSelectionCircle.getY();
-		}
+            }
+            else
+            {
+                objectLabel.setIcon(null);
 
-		fastSelectionCircle=new Rectangle(
-				x0, 
-				y0, 
-				rad, 
-				rad);
+            }
+        }
 
-	}
+    }
+    @Override
+    public void propertyChange(PropertyChangeEvent arg0) {
 
+        //System.out.println(arg0.getSource().getClass());
+        if("paintDirtyRegions".equals(arg0.getPropertyName()) && redrawAfterMenu)
+        {
+            draw();
+            redrawAfterMenu=false;
+        }
+        else if("roadUpdate".equals(arg0.getPropertyName()))
+        {
+            draw();
+        }
 
-	private void incrementSelectionRadius(int i) {
-		int rad=selectionRadius.getvalue();
-		if(rad==0)
-			rad=INITIAl_SELECTION_RADIUS;
+    }
 
+    void setRoadData(String string, PolygonMesh pMesh) {
 
-		selectionRadius.setText(rad+i*SELECTION_RADIUS_INCREMENT);
-		rad=selectionRadius.getvalue();
+        meshes[ACTIVE_PANEL]=pMesh;
 
-		updateSelecctionCircle(rad);
+        draw();
 
+    }
 
-	}
+    public boolean isDrawCurrentRect() {
+        return isDrawCurrentRect;
+    }
 
-	@Override
-	public void itemStateChanged(ItemEvent arg0) {
+    public void setDrawCurrentRect(boolean isDrawCurrentRect) {
+        this.isDrawCurrentRect = isDrawCurrentRect;
+    }
 
-		Object o=arg0.getSource();
-		if(o==chooseTexture[ACTIVE_PANEL]){
+    private void rotate(int signum){
 
-			ValuePair val=(ValuePair) chooseTexture[ACTIVE_PANEL].getSelectedItem();
-			if(!val.getId().equals("")){
+        RoadEditorPanel ep = getCenter();
+        ep.rotate(signum);
 
-				int num=Integer.parseInt(val.getId());
 
-				BufferedImage icon=new BufferedImage(100,100,BufferedImage.TYPE_3BYTE_BGR);
-				if(ACTIVE_PANEL==TERRAIN_INDEX)
-					icon.getGraphics().drawImage(worldImages[num],0,0,objectLabel.getWidth(),objectLabel.getHeight(),null);
-				else
-					icon.getGraphics().drawImage(splinesImages[num],0,0,objectLabel.getWidth(),objectLabel.getHeight(),null);
+    }
 
-				ImageIcon ii=new ImageIcon(icon);
-				textureLabel[ACTIVE_PANEL].setIcon(ii);
+    static ArrayList<Point3D> buildTemplateTexturePoints(double side) {
 
+        ArrayList<Point3D> vPoints=new ArrayList<Point3D>();
 
-			}
-			else
-				textureLabel[ACTIVE_PANEL].setIcon(null);
+        vPoints.add(new Point3D(0,0,0));
+        vPoints.add(new Point3D(side,0,0));
+        vPoints.add(new Point3D(side,side,0));
+        vPoints.add(new Point3D(0,side,0));
 
-		}
-		else if(o==chooseObject){
+        return vPoints;
+    }
 
-			ValuePair val=(ValuePair) chooseObject.getSelectedItem();
-			if(!val.getId().equals("")){
+    private ArrayList<SPLine> cloneSPLines(ArrayList<SPLine> splines){
 
-				int num=Integer.parseInt(val.getId());
+        ArrayList<SPLine> newSplines=new ArrayList<SPLine>();
 
-				BufferedImage icon=new BufferedImage(100,100,BufferedImage.TYPE_3BYTE_BGR);
-				icon.getGraphics().drawImage(objectImages[num],0,0,objectLabel.getWidth(),objectLabel.getHeight(),null);
-				ImageIcon ii=new ImageIcon(icon);
-				objectLabel.setIcon(ii);	
+        for (int i = 0; i < splines.size(); i++) {
+            SPLine line = splines.get(i);
+            try {
 
+                newSplines.add(line.clone());
 
-			}
-			else
-			{
-				objectLabel.setIcon(null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
-			}
-		}
+        return newSplines;
 
-	}
-	@Override
-	public void propertyChange(PropertyChangeEvent arg0) {
+    }
 
-		//System.out.println(arg0.getSource().getClass());
-		if("paintDirtyRegions".equals(arg0.getPropertyName()) && redrawAfterMenu)
-		{
-			draw();
-			redrawAfterMenu=false;
-		}
-		else if("roadUpdate".equals(arg0.getPropertyName()))
-		{
-			draw();
-		}
+    public Point3D getStartPosition() {
+        return startPosition;
+    }
 
-	}
+    public void setStartPosition(Point3D startPosition) {
+        this.startPosition = startPosition;
+        startX.setText((int) this.startPosition.x);
+        startY.setText((int) this.startPosition.y);
+        if(startPosition.getData()!=null){
 
-	void setRoadData(String string, PolygonMesh pMesh) {
+            Double dAngle=(Double) startPosition.getData();
+            start_angle.setText(dAngle.doubleValue());
+        }
 
-		meshes[ACTIVE_PANEL]=pMesh;
+    }
 
-		draw();
 
-	}
+    private void updateStartPosition() {
 
-	public boolean isDrawCurrentRect() {
-		return isDrawCurrentRect;
-	}
+        startPosition=new Point3D(startX.getvalue(),startY.getvalue(),0);
+        Double dAngle=new Double(start_angle.getvalue());
+        startPosition.setData(dAngle);
 
-	public void setDrawCurrentRect(boolean isDrawCurrentRect) {
-		this.isDrawCurrentRect = isDrawCurrentRect;
-	}
+        start_angle.setText(dAngle.doubleValue());
+        draw();
 
-	private void rotate(int signum){
+    }
 
-		RoadEditorPanel ep = getCenter();
-		ep.rotate(signum);
+    public ArrayList<DrawObject> getDrawObjects() {
+        return drawObjects;
+    }
 
 
-	}
 
-	static ArrayList<Point3D> buildTemplateTexturePoints(double side) {
+    private void goToPosition() {
 
-		ArrayList<Point3D> vPoints=new ArrayList<Point3D>();
 
-		vPoints.add(new Point3D(0,0,0));
-		vPoints.add(new Point3D(side,0,0));
-		vPoints.add(new Point3D(side,side,0));
-		vPoints.add(new Point3D(0,side,0));
+        PolygonMesh mesh=meshes[Editor.TERRAIN_INDEX];
+        if(mesh.xpoints==null || !(mesh instanceof SquareMesh)) {
+            return;
+        }
 
-		return vPoints;
-	}
 
-	private ArrayList<SPLine> cloneSPLines(ArrayList<SPLine> splines){
+        GoToPanel gotoPanel = new GoToPanel(getCenter(),getCenter().getMiddle((SquareMesh) mesh));
+        if(gotoPanel.getReturnValue()!=null){
 
-		ArrayList<SPLine> newSplines=new ArrayList<SPLine>();
 
-		for (int i = 0; i < splines.size(); i++) {
-			SPLine line = (SPLine) splines.get(i);
-			try {
+            GoToPanel ret=(GoToPanel) gotoPanel.getReturnValue();
 
-				newSplines.add(line.clone());
+            gotoPosition(ret.getGoPOSX(),ret.getGoPOSY());
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+        }
 
-		return newSplines;
+    }
 
-	}
+    private void gotoPosition(int goPOSX, int goPOSY) {
 
-	public Point3D getStartPosition() {
-		return startPosition;
-	}
+        getCenter().gotoPosition(goPOSX,goPOSY);
 
-	public void setStartPosition(Point3D startPosition) {
-		this.startPosition = startPosition;
-		startX.setText((int) this.startPosition.x);
-		startY.setText((int) this.startPosition.y);
-		if(startPosition.getData()!=null){
+    }
 
-			Double dAngle=(Double) startPosition.getData();
-			start_angle.setText(dAngle.doubleValue());
-		}
+    private void massModify() {
 
-	}
+        RoadEditorMassModifiy remm=new RoadEditorMassModifiy();
+        Object ret = remm.getReturnValue();
 
+        if(ret!=null){
 
-	private void updateStartPosition() {
+            if(mode==OBJECT_MODE){
 
-		startPosition=new Point3D(startX.getvalue(),startY.getvalue(),0);
-		Double dAngle=new Double(start_angle.getvalue());
-		startPosition.setData(dAngle);
+                prepareUndoObjects();
 
-		start_angle.setText(dAngle.doubleValue());
-		draw();
+                RoadEditorMassModifiy.massModifyObjects((RoadEditorMassModifiy)ret,drawObjects);
 
-	}
 
-	public ArrayList<DrawObject> getDrawObjects() {
-		return drawObjects;
-	}
+            }else if(mode==SPLINES_MODE){
 
+                prepareUndoObjects();
 
+                RoadEditorMassModifiy.massModifySplines((RoadEditorMassModifiy)ret,splines);
 
-	private void goToPosition() {
 
+            }
 
-		PolygonMesh mesh=meshes[Editor.TERRAIN_INDEX];
-		if(mesh.xpoints==null || !(mesh instanceof SquareMesh))
-			return; 
+            deselectAllObjects();
+            deselectAllSPNodes();
 
+            draw();
+        }
+    }
 
-		GoToPanel gotoPanel = new GoToPanel(getCenter(),getCenter().getMiddle((SquareMesh) mesh));
-		if(gotoPanel.getReturnValue()!=null){
 
 
-			GoToPanel ret=(GoToPanel) gotoPanel.getReturnValue();
+    private void pileSelectedObjects() {
+        int oSize=drawObjects.size();
 
-			gotoPosition(ret.getGoPOSX(),ret.getGoPOSY());
+        ArrayList<DrawObject> piledObjects=new ArrayList<DrawObject>();
+        for (int i = 0; i <oSize ; i++) {
 
-		}
+            DrawObject dro=drawObjects.get(i);
 
-	}
+            if(dro.isSelected()){
 
-	private void gotoPosition(int goPOSX, int goPOSY) {
+                piledObjects.add(dro);
+            }
+        }
 
-		getCenter().gotoPosition(goPOSX,goPOSY);
+        if(piledObjects.size()<2){
+            JOptionPane.showMessageDialog(this,"Select at least 2 ojects","Error",JOptionPane.WARNING_MESSAGE);
+        }else{
 
-	}
+            prepareUndoObjects();
 
-	private void massModify() {
+            int pSize=piledObjects.size();
+            double x0=0;
+            double y0=0;
+            double z0=0;
+            double dz0=0;
 
-		RoadEditorMassModifiy remm=new RoadEditorMassModifiy();
-		Object ret = remm.getReturnValue();
+            for (int i = 0; i < pSize; i++) {
 
-		if(ret!=null){
+                DrawObject dro = piledObjects.get(i);
 
-			if(mode==OBJECT_MODE){
+                if(i==0){
+                    x0=dro.getX();
+                    y0=dro.getY();
+                    z0=dro.getZ();
+                    dz0=dro.getDz();
 
-				prepareUndoObjects();
+                }else{
 
-				RoadEditorMassModifiy.massModifyObjects((RoadEditorMassModifiy)ret,drawObjects);
+                    dro.setX(x0);
+                    dro.setY(y0);
+                    dro.setZ(z0+dz0);
 
+                    z0=dro.getZ();
+                    dz0=dro.getDz();
 
-			}else if(mode==SPLINES_MODE){
+                    setObjectMesh(dro);
+                }
+            }
 
-				prepareUndoObjects();
+            deselectAllObjects();
+            draw();
+        }
+    }
 
-				RoadEditorMassModifiy.massModifySplines((RoadEditorMassModifiy)ret,splines);
+    public boolean isDrawFastSelectionCircle() {
+        return  mode.equals(ALTIMETRY_MODE) || mode.equals(TERRAIN_POLYGONS_MODE);
+    }
 
+    public Rectangle getFastSelectionCircle() {
+        return fastSelectionCircle;
+    }
 
-			}
+    public void setFastSelectionCircle(Rectangle fastSelectionCircle) {
+        this.fastSelectionCircle = fastSelectionCircle;
+    }
 
-			deselectAllObjects();
-			deselectAllSPNodes();
+    public boolean isMouseMoved() {
+        return isMouseMoved;
+    }
 
-			draw();
-		}
-	}
+    public void setMouseMoved(boolean isMouseMoved) {
+        this.isMouseMoved = isMouseMoved;
+    }
 
+    public boolean isWaitBeforeMovingMouse() {
+        return waitBeforeMovingMouse;
+    }
 
+    public void setWaitBeforeMovingMouse(boolean waitBeforeMovingMouse) {
+        this.waitBeforeMovingMouse = waitBeforeMovingMouse;
+    }
 
-	private void pileSelectedObjects() {
-		int oSize=drawObjects.size();
+    public boolean isMultipleSelection() {
+        return isMultipleSelection;
+    }
 
-		ArrayList<DrawObject> piledObjects=new ArrayList<DrawObject>();
-		for (int i = 0; i <oSize ; i++) {
-
-			DrawObject dro=drawObjects.get(i);
-
-			if(dro.isSelected()){
-
-				piledObjects.add(dro);
-			}
-		}		
-
-		if(piledObjects.size()<2){
-			JOptionPane.showMessageDialog(this,"Select at least 2 ojects","Error",JOptionPane.WARNING_MESSAGE);
-		}else{
-
-			prepareUndoObjects();
-
-			int pSize=piledObjects.size();
-			double x0=0;
-			double y0=0;
-			double z0=0;
-			double dz0=0;
-
-			for (int i = 0; i < pSize; i++) {
-
-				DrawObject dro = piledObjects.get(i);
-
-				if(i==0){
-					x0=dro.getX();
-					y0=dro.getY();
-					z0=dro.getZ();
-					dz0=dro.getDz();
-
-				}else{
-
-					dro.setX(x0);
-					dro.setY(y0);
-					dro.setZ(z0+dz0);
-
-					z0=dro.getZ();
-					dz0=dro.getDz();
-
-					setObjectMesh(dro);
-				}
-			}
-
-			deselectAllObjects();
-			draw();
-		}
-	}
-
-	public boolean isDrawFastSelectionCircle() {
-		return  mode.equals(ALTIMETRY_MODE) || mode.equals(TERRAIN_POLYGONS_MODE);
-	}
-
-	public Rectangle getFastSelectionCircle() {
-		return fastSelectionCircle;
-	}
-
-	public void setFastSelectionCircle(Rectangle fastSelectionCircle) {
-		this.fastSelectionCircle = fastSelectionCircle;
-	}
-
-	public boolean isMouseMoved() {
-		return isMouseMoved;
-	}
-
-	public void setMouseMoved(boolean isMouseMoved) {
-		this.isMouseMoved = isMouseMoved;
-	}
-
-	public boolean isWaitBeforeMovingMouse() {
-		return waitBeforeMovingMouse;
-	}
-
-	public void setWaitBeforeMovingMouse(boolean waitBeforeMovingMouse) {
-		this.waitBeforeMovingMouse = waitBeforeMovingMouse;
-	}
-
-	public boolean isMultipleSelection() {
-		return isMultipleSelection;
-	}
-
-	public void setMultipleSelection(boolean isMultipleSelection) {
-		this.isMultipleSelection = isMultipleSelection;
-	}
+    public void setMultipleSelection(boolean isMultipleSelection) {
+        this.isMultipleSelection = isMultipleSelection;
+    }
 
 
 }

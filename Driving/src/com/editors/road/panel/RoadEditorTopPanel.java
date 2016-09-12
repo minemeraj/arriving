@@ -1274,18 +1274,11 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 		return false;
 	}
-	
-	public void selectObjects(int x, int y, ArrayList<DrawObject> drawObjects) {
-
-		ArrayList<DrawObject> vec=selectObjects(x,y,drawObjects,true);
-
-
-	}
 
 	@Override
-	public ArrayList<DrawObject> selectObjects(int x, int y, ArrayList<DrawObject> drawObjects,boolean toSelect) {
+	public HashMap<Integer, Boolean> selectObjects(int x, int y, ArrayList<DrawObject> drawObjects,boolean toSelect) {
 
-		ArrayList<DrawObject> ret=new ArrayList<DrawObject>();
+	    HashMap<Integer, Boolean> ret=new HashMap<Integer, Boolean>();
 
 		for(int i=0;i<drawObjects.size();i++){
 
@@ -1316,9 +1309,11 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
 
 			if(p_in.contains(x,y))
 			{
-				dro.setSelected(true);
+			    if(toSelect){
+			        dro.setSelected(true);
+			    }
 				editor.setObjectData(dro);
-				ret.add(dro);
+				ret.put(new Integer(i), new Boolean(true));
 
 
 			}else if(!editor.isMultipleSelection()){
