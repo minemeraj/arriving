@@ -59,6 +59,7 @@ import com.DrawObject;
 import com.LineData;
 import com.Point3D;
 import com.Point4D;
+import com.Polygon3D;
 import com.PolygonMesh;
 import com.SPLine;
 import com.SPNode;
@@ -259,9 +260,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
     private JToggleButton objectInsertMode;
     private JToggleButton objectSelectMode;
     private JToggleButton objectDeleteMode;
-	private JToggleButton spnodeInsertMode;
-	private JToggleButton spnodeSelectMode;
-	private JToggleButton spnodeDeleteMode;
+    private JToggleButton spnodeInsertMode;
+    private JToggleButton spnodeSelectMode;
+    private JToggleButton spnodeDeleteMode;
+    private JToggleButton polygonPaintMode;
+    private JToggleButton polygonWaterMode;
 
     public static void main(String[] args) {
 
@@ -1226,7 +1229,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         altimetryUpdateMode.setSelected(true);
         altimetryUpdateMode.addActionListener(this);
         altimetryUpdateMode.addKeyListener(this);
-        altimetryUpdateMode.setToolTipText("Update mode");
+        altimetryUpdateMode.setToolTipText("Change mode");
         altimetryUpdateMode.setBounds(10,r,60,20);
         altimetry_panel.add(altimetryUpdateMode);
 
@@ -1256,6 +1259,17 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         panel.setBorder(leftBorder);
 
         int r=25;
+
+        polygonPaintMode=new JToggleButton("P");
+        polygonPaintMode.setSelected(true);
+        polygonPaintMode.addActionListener(this);
+        polygonPaintMode.addKeyListener(this);
+        polygonPaintMode.setToolTipText("Paint mode");
+        polygonPaintMode.setBounds(10,r,60,20);
+        panel.add(polygonPaintMode);
+
+
+        r+=30;
 
         chooseTexture[index]=new JComboBox();
         chooseTexture[index].addItem(new ValuePair("",""));
@@ -1296,11 +1310,23 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
         r+=30;
 
+        polygonWaterMode=new JToggleButton("W");
+        polygonWaterMode.addActionListener(this);
+        polygonWaterMode.addKeyListener(this);
+        polygonWaterMode.setToolTipText("Water mode");
+        polygonWaterMode.setBounds(10,r,60,20);
+        panel.add(polygonWaterMode);
+
+        ButtonGroup altButtonGroup=new ButtonGroup();
+        altButtonGroup.add(polygonPaintMode);
+        altButtonGroup.add(polygonWaterMode);
+
         fillWithWater[index]=new JCheckBox("Water");
         fillWithWater[index].addKeyListener(this);
         fillWithWater[index].setFocusable(false);
-        fillWithWater[index].setBounds(5,r,150,20);
+        fillWithWater[index].setBounds(70,r,150,20);
         panel.add(fillWithWater[index]);
+
 
         return panel;
 
@@ -1732,17 +1758,29 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
             if(ld.isSelected){
 
-                int indx=chooseTexture[ACTIVE_PANEL].getSelectedIndex();
-
-                if(indx!=0){
-
-                    ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getItemAt(indx);
 
 
-                    ld.setTexture_index(Integer.parseInt(vp.getId()));
+                if(polygonPaintMode.isSelected()){
+
+                    int indx=chooseTexture[ACTIVE_PANEL].getSelectedIndex();
+
+                    if(indx!=0){
+
+
+
+                        ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getItemAt(indx);
+
+
+                        ld.setTexture_index(Integer.parseInt(vp.getId()));
+
+
+                    }
+
+                }else if(polygonWaterMode.isSelected()){
+
                     ld.setFilledWithWater(fillWithWater[ACTIVE_PANEL].isSelected());
-
                 }
+
 
                 ld.setSelected(false);
 
@@ -3061,7 +3099,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
             } else if(spnodeDeleteMode.isSelected()) {
 
-            	deleteSPNode(arg0.getX(),arg0.getY());
+                deleteSPNode(arg0.getX(),arg0.getY());
             }
 
         }else if(TERRAIN_POLYGONS_MODE.equals(mode)){
@@ -3079,8 +3117,19 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
                 double xx=ep.invertX((int)p.getX(),(int)p.getY());
                 double yy=ep.invertY((int)p.getX(),(int)p.getY());
+                double zz=0;
 
-                addObject(xx, yy,0);
+                PolygonMesh mesh=meshes[TERRAIN_INDEX];
+                Polygon3D poly=ep.getInterpolatingPoygonFromPoint(mesh, xx, yy);
+
+                if(poly!=null){
+                    Point3D centroid = Polygon3D.findCentroid(poly);
+                    if(centroid!=null){
+                        zz=centroid.getZ();
+                    }
+
+                }
+                addObject(xx, yy,zz);
 
             } else if(objectSelectMode.isSelected()){
                 selectObject(arg0.getX(),arg0.getY());
@@ -3095,7 +3144,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
     }
 
 
-	private void addSPnode(MouseEvent arg0) {
+    private void addSPnode(MouseEvent arg0) {
 
         prepareUndoSpline();
 
@@ -3428,19 +3477,21 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
             if(selPolygons.get(new Integer(j))==null) {
                 continue;
             }
+            if(polygonPaintMode.isSelected()){
+	            int indx=chooseTexture[ACTIVE_PANEL].getSelectedIndex();
 
-            int indx=chooseTexture[ACTIVE_PANEL].getSelectedIndex();
+	            if(indx!=0){
 
-            if(indx!=0){
-
-                ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getItemAt(indx);
+	                ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getItemAt(indx);
 
 
-                ld.setTexture_index(Integer.parseInt(vp.getId()));
+	                ld.setTexture_index(Integer.parseInt(vp.getId()));
 
+	            }
+            }else if(polygonWaterMode.isSelected()){
+            	 ld.setFilledWithWater(fillWithWater[ACTIVE_PANEL].isSelected());
             }
 
-            ld.setFilledWithWater(fillWithWater[ACTIVE_PANEL].isSelected());
         }
 
     }
