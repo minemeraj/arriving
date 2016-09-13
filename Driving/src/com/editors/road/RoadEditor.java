@@ -1060,11 +1060,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
         int r=25;
 
-        objectInsertMode=new JToggleButton("I");
+        objectInsertMode=new JToggleButton(new ImageIcon("lib/add_toggle.png"));
         objectInsertMode.addActionListener(this);
         objectInsertMode.addKeyListener(this);
         objectInsertMode.setToolTipText("Insert mode");
-        objectInsertMode.setBounds(10,r,60,20);
+        objectInsertMode.setBounds(10,r,60,30);
         object_panel.add(objectInsertMode);
 
         objectSelectMode=new JToggleButton("S");
@@ -1072,15 +1072,15 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         objectSelectMode.addActionListener(this);
         objectSelectMode.addKeyListener(this);
         objectSelectMode.setToolTipText("Select mode");
-        objectSelectMode.setBounds(80,r,60,20);
+        objectSelectMode.setBounds(80,r,60,30);
         object_panel.add(objectSelectMode);
 
-        objectDeleteMode=new JToggleButton("D");
+        objectDeleteMode=new JToggleButton(new ImageIcon("lib/delete_toggle.png"));
         objectDeleteMode.setSelected(true);
         objectDeleteMode.addActionListener(this);
         objectDeleteMode.addKeyListener(this);
         objectDeleteMode.setToolTipText("Delete mode");
-        objectDeleteMode.setBounds(150,r,60,20);
+        objectDeleteMode.setBounds(150,r,60,30);
         object_panel.add(objectDeleteMode);
 
         ButtonGroup altButtonGroup=new ButtonGroup();
@@ -1088,7 +1088,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         altButtonGroup.add(objectSelectMode);
         altButtonGroup.add(objectDeleteMode);
 
-        r+=30;
+        r+=40;
 
         chooseObject=new JComboBox();
         chooseObject.addItem(new ValuePair("",""));
