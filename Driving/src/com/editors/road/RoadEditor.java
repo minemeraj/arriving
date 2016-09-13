@@ -1260,16 +1260,16 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
         int r=25;
 
-        polygonPaintMode=new JToggleButton("P");
+        polygonPaintMode=new JToggleButton(new ImageIcon("lib/paint_toggle.png"));
         polygonPaintMode.setSelected(true);
         polygonPaintMode.addActionListener(this);
         polygonPaintMode.addKeyListener(this);
         polygonPaintMode.setToolTipText("Paint mode");
-        polygonPaintMode.setBounds(10,r,60,20);
+        polygonPaintMode.setBounds(10,r,60,30);
         panel.add(polygonPaintMode);
 
 
-        r+=30;
+        r+=40;
 
         chooseTexture[index]=new JComboBox();
         chooseTexture[index].addItem(new ValuePair("",""));
@@ -1310,11 +1310,11 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
         r+=30;
 
-        polygonWaterMode=new JToggleButton("W");
+        polygonWaterMode=new JToggleButton(new ImageIcon("lib/water_toggle.png"));
         polygonWaterMode.addActionListener(this);
         polygonWaterMode.addKeyListener(this);
         polygonWaterMode.setToolTipText("Water mode");
-        polygonWaterMode.setBounds(10,r,60,20);
+        polygonWaterMode.setBounds(10,r,60,30);
         panel.add(polygonWaterMode);
 
         ButtonGroup altButtonGroup=new ButtonGroup();
