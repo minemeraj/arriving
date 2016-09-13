@@ -902,27 +902,27 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
         int r=5;
 
-        spnodeInsertMode=new JToggleButton("I");
+        spnodeInsertMode=new JToggleButton(new ImageIcon("lib/add_toggle.png"));
         spnodeInsertMode.setSelected(true);
         spnodeInsertMode.addActionListener(this);
         spnodeInsertMode.addKeyListener(this);
         spnodeInsertMode.setToolTipText("Insert mode");
-        spnodeInsertMode.setBounds(10,r,60,20);
+        spnodeInsertMode.setBounds(10,r,60,30);
         splines_panel.add(spnodeInsertMode);
 
-        spnodeSelectMode=new JToggleButton("S");
+        spnodeSelectMode=new JToggleButton(new ImageIcon("lib/select_toggle.png"));
         spnodeSelectMode.addActionListener(this);
         spnodeSelectMode.addKeyListener(this);
         spnodeSelectMode.setToolTipText("Select mode");
-        spnodeSelectMode.setBounds(80,r,60,20);
+        spnodeSelectMode.setBounds(80,r,60,30);
         splines_panel.add(spnodeSelectMode);
 
-        spnodeDeleteMode=new JToggleButton("D");
+        spnodeDeleteMode=new JToggleButton(new ImageIcon("lib/delete_toggle.png"));
         spnodeDeleteMode.setSelected(true);
         spnodeDeleteMode.addActionListener(this);
         spnodeDeleteMode.addKeyListener(this);
         spnodeDeleteMode.setToolTipText("Delete mode");
-        spnodeDeleteMode.setBounds(150,r,60,20);
+        spnodeDeleteMode.setBounds(150,r,60,30);
         splines_panel.add(spnodeDeleteMode);
 
         ButtonGroup altButtonGroup=new ButtonGroup();
@@ -930,7 +930,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         altButtonGroup.add(spnodeSelectMode);
         altButtonGroup.add(spnodeDeleteMode);
 
-        r+=30;
+        r+=40;
 
 
         chooseTexture[index]=new JComboBox();
@@ -1052,13 +1052,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
     private JPanel buildObjectsPanel() {
 
-        Border objBorder=BorderFactory.createTitledBorder("Objects");
+    	JPanel object_panel=new JPanel(null);
 
-
-        JPanel object_panel=new JPanel(null);
-        object_panel.setBorder(objBorder);
-
-        int r=25;
+        int r=10;
 
         objectInsertMode=new JToggleButton(new ImageIcon("lib/add_toggle.png"));
         objectInsertMode.addActionListener(this);
