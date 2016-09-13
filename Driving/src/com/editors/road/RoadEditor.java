@@ -1067,7 +1067,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         objectInsertMode.setBounds(10,r,60,30);
         object_panel.add(objectInsertMode);
 
-        objectSelectMode=new JToggleButton("S");
+        objectSelectMode=new JToggleButton(new ImageIcon("lib/select_toggle.png"));
         objectSelectMode.setSelected(true);
         objectSelectMode.addActionListener(this);
         objectSelectMode.addKeyListener(this);
