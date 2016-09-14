@@ -26,7 +26,7 @@ public class WeaponMeshEditor extends MeshModelEditor implements KeyListener, It
     private DoubleTextField dz_text;
     private DoubleTextField dy_text;
     private DoubleTextField dx_text;
-    private DoubleTextField roof_height;
+    private DoubleTextField tilt_angle;
     private DoubleTextField dx1_text;
     private DoubleTextField dy1_text;
     private JComboBox chooseWeapon;
@@ -38,6 +38,7 @@ public class WeaponMeshEditor extends MeshModelEditor implements KeyListener, It
 
     private boolean skipItemChanged=false;
     private DoubleTextField dz2_text;
+	private IntegerTextField num_parallels;
 
     public static int STEERING_WHEEL=0;
 
@@ -162,12 +163,12 @@ public class WeaponMeshEditor extends MeshModelEditor implements KeyListener, It
         r+=30;
 
 
-        JLabel lr=new JLabel("Roof h:");
+        JLabel lr=new JLabel("Tilt angle:");
         lr.setBounds(a0,r,80,20);
         center.add(lr);
-        roof_height=new DoubleTextField(8);
-        roof_height.setBounds(a1,r,120,20);
-        center.add(roof_height);
+        tilt_angle=new DoubleTextField(8);
+        tilt_angle.setBounds(a1,r,120,20);
+        center.add(tilt_angle);
 
         lr=new JLabel("N merid.");
         lr.setBounds(c0,r,80,20);
@@ -176,7 +177,15 @@ public class WeaponMeshEditor extends MeshModelEditor implements KeyListener, It
         num_meridians.setBounds(c1,r,120,20);
         center.add(num_meridians);
 
-        setRightData(100,200,100,50,0,150,0,0,0,0,0,0);
+        lr=new JLabel("N par.");
+        lr.setBounds(c2,r,80,20);
+        center.add(lr);
+        num_parallels=new IntegerTextField(8);
+        num_parallels.setBounds(c3,r,120,20);
+        num_parallels.setToolTipText("Num parallels");
+        center.add(num_parallels);
+
+        setRightData(100,200,100,50,0,150,0,0,0,0,0,0,0);
 
 
         r+=30;
@@ -221,7 +230,7 @@ public class WeaponMeshEditor extends MeshModelEditor implements KeyListener, It
         double dx = dx_text.getvalue();
         double dy = dy_text.getvalue();
         double dz = dz_text.getvalue();
-        double rh = roof_height.getvalue();
+        double tiltAngle = tilt_angle.getvalue();
 
         double dx1 = dx1_text.getvalue();
         double dy1 = dy1_text.getvalue();
@@ -233,6 +242,7 @@ public class WeaponMeshEditor extends MeshModelEditor implements KeyListener, It
         double dy3 = dy3_text.getvalue();
 
         int num_mer=num_meridians.getvalue();
+        int num_par=num_parallels.getvalue();
 
         ValuePair vp= (ValuePair)chooseWeapon.getSelectedItem();
 
@@ -243,8 +253,7 @@ public class WeaponMeshEditor extends MeshModelEditor implements KeyListener, It
 
         if(STEERING_WHEEL==val) {
             meshModel=new SteeringWheelModel(
-                    dx,dy,dz,rh,dy1,0,
-                    0,0,0,0,0,0
+                    dx,dy,dz,tiltAngle,num_mer,num_par
                     );
         }
 
@@ -308,10 +317,11 @@ public class WeaponMeshEditor extends MeshModelEditor implements KeyListener, It
 
             if(STEERING_WHEEL==val){
                 setRightData(
-                        100,200,100,//dx,dy,dz
-                        50,//roof_height
-                        0,150,0,//dx1,dy1,dz1
-                        0,//num_meridians
+                        100,0,30,//dx,dy,dz
+                        -Math.PI*21.0/180.0,//tilt angle
+                        0,0,0,//dx1,dy1,dz1
+                        8,//num_meridians
+                        10,//num parallel
                         0,0,0,0);//dx2,dy2,dz2,dy3
             }
 
@@ -324,11 +334,12 @@ public class WeaponMeshEditor extends MeshModelEditor implements KeyListener, It
             double dx,
             double dy,
             double dz,
-            double roofHeight,
+            double tiltAngle,
             double dx1,
             double dy1,
             double dz1,
             int num_merid,
+            int num_para,
             double dx2,
             double dy2,
             double dz2,
@@ -339,11 +350,12 @@ public class WeaponMeshEditor extends MeshModelEditor implements KeyListener, It
         dx_text.setText(dx);
         dy_text.setText(dy);
         dz_text.setText(dz);
-        roof_height.setText(roofHeight);
+        tilt_angle.setText(tiltAngle);
         dx1_text.setText(dx1);
         dy1_text.setText(dy1);
         dz1_text.setText(dz1);
         num_meridians.setText(num_merid);
+        num_parallels.setText(num_para);
         dx2_text.setText(dx2);
         dy2_text.setText(dy2);
         dz2_text.setText(dz2);
@@ -364,7 +376,7 @@ public class WeaponMeshEditor extends MeshModelEditor implements KeyListener, It
         pr.println("dx="+dx_text.getvalue());
         pr.println("dy="+dy_text.getvalue());
         pr.println("dz="+dz_text.getvalue());
-        pr.println("roof_height="+roof_height.getvalue());
+        pr.println("roof_height="+tilt_angle.getvalue());
         pr.println("dx1="+dx1_text.getvalue());
         pr.println("dy1="+dy1_text.getvalue());
         pr.println("dz1="+dz1_text.getvalue());
@@ -474,7 +486,7 @@ public class WeaponMeshEditor extends MeshModelEditor implements KeyListener, It
             else if("roof_height".equals(name)){
 
                 double roofHeight=Double.parseDouble(value);
-                roof_height.setText(roofHeight);
+                tilt_angle.setText(roofHeight);
 
 
             }

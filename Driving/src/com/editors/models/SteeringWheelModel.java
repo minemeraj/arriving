@@ -47,34 +47,23 @@ public class SteeringWheelModel extends MeshModel{
     private BPoint[][][] body;
 
     public final static String NAME="Steering wheel";
-    private double section_radius=30;
-    private double taurus_radius=100;
-    private int sections_number=10;
-    private int section_meridians=8;
+    private double section_radius=0;
+    private double taurus_radius=0;
 
-    double columnAngle=-Math.PI*21.0/180.0;
+    private int sections_number=0;
+    private int section_meridians=0;
+
+    double columnAngle=0;
 
     public SteeringWheelModel(
-            double dx, double dy, double dz,
-            double dxf, double dyf, double dzf,
-            double dxr, double dyr,	double dzr,
-            double dxRoof,double dyRoof,double dzRoof) {
+            double taurus_radius, double dy, double section_radius,
+            double tiltAngle,int section_meridians,int sections_number) {
         super();
-        this.dx = dx;
-        this.dy = dy;
-        this.dz = dz;
-
-        this.dxFront = dxf;
-        this.dyFront = dyf;
-        this.dzFront = dzf;
-
-        this.dxRear = dxr;
-        this.dyRear = dyr;
-        this.dzRear = dzr;
-
-        this.dxRoof = dxRoof;
-        this.dyRoof = dyRoof;
-        this.dzRoof = dzRoof;
+        this.taurus_radius = taurus_radius;
+        this.section_radius = section_radius;
+        this.section_meridians = section_meridians;
+        this.sections_number = sections_number;
+        columnAngle=tiltAngle;
     }
 
 
