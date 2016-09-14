@@ -1221,19 +1221,19 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
         r+=30;
 
-        altimetryUpdateMode=new JToggleButton("C");
+        altimetryUpdateMode=new JToggleButton(new ImageIcon("lib/change_toggle.png"));
         altimetryUpdateMode.setSelected(true);
         altimetryUpdateMode.addActionListener(this);
         altimetryUpdateMode.addKeyListener(this);
         altimetryUpdateMode.setToolTipText("Change mode");
-        altimetryUpdateMode.setBounds(10,r,60,20);
+        altimetryUpdateMode.setBounds(10,r,60,30);
         altimetry_panel.add(altimetryUpdateMode);
 
-        altimetryExploreMode=new JToggleButton("E");
+        altimetryExploreMode=new JToggleButton(new ImageIcon("lib/explore_toggle.png"));
         altimetryExploreMode.addActionListener(this);
         altimetryExploreMode.addKeyListener(this);
         altimetryExploreMode.setToolTipText("Explore mode");
-        altimetryExploreMode.setBounds(80,r,60,20);
+        altimetryExploreMode.setBounds(80,r,60,30);
         altimetry_panel.add(altimetryExploreMode);
 
         ButtonGroup altButtonGroup=new ButtonGroup();
