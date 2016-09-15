@@ -23,18 +23,6 @@ public class SteeringWheelModel extends MeshModel{
     private double dy = 0;
     private double dz = 0;
 
-    private double dxFront = 0;
-    private double dyFront = 0;
-    private double dzFront = 0;
-
-    private double dxRear = 0;
-    private double dyRear = 0;
-    private double dzRear = 0;
-
-    private double dxRoof;
-    private double dyRoof;
-    private double dzRoof;
-
     double x0=0;
     double y0=0;
     double z0=0;
@@ -46,21 +34,27 @@ public class SteeringWheelModel extends MeshModel{
 
     private BPoint[][][] body;
 
+    private BPoint[][][] core;
+
     public final static String NAME="Steering wheel";
     private double section_radius=0;
     private double taurus_radius=0;
+    private double core_radius=0;
 
     private int sections_number=0;
     private int section_meridians=0;
 
     double columnAngle=0;
 
+    private final int arm_number=3;
+
     public SteeringWheelModel(
-            double taurus_radius, double dy, double section_radius,
+            double taurus_radius, double section_radius, double core_radius,
             double tiltAngle,int section_meridians,int sections_number) {
         super();
         this.taurus_radius = taurus_radius;
         this.section_radius = section_radius;
+        this.core_radius = core_radius;
         this.section_meridians = section_meridians;
         this.sections_number = sections_number;
         columnAngle=tiltAngle;
@@ -78,8 +72,10 @@ public class SteeringWheelModel extends MeshModel{
 
         //faces
         int NF=sections_number*section_meridians;
+        int CORE_FACES=sections_number+sections_number*2;
+        int ARM_FACES=arm_number*4;
 
-        faces=new int[NF][3][4];
+        faces=new int[NF+CORE_FACES+ARM_FACES][3][4];
 
         int counter=0;
         counter=buildFaces(counter);
@@ -101,6 +97,73 @@ public class SteeringWheelModel extends MeshModel{
                         bo[0]);
             }
 
+        }
+
+        //core lateral faces:
+        for (int i = 0; i < sections_number; i++) {
+
+            faces[counter++]=buildFace(Renderer3D.CAR_LEFT,
+                    core[i][0][0],
+                    core[(i+1)%sections_number][0][0],
+                    core[(i+1)%sections_number][1][0],
+                    core[i][1][0],
+                    bo[0]);
+        }
+
+        //core upper and lower faces:
+        for (int i = 0; i < sections_number; i++) {
+
+            faces[counter++]=buildFace(Renderer3D.CAR_TOP,
+                    core[0][1][0],
+                    core[i][1][0],
+                    core[(i+1)%sections_number][1][0],
+                    bo[0]);
+        }
+
+        for (int i = 0; i < sections_number; i++) {
+
+            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM,
+                    core[0][0][0],
+                    core[(i+1)%sections_number][0][0],
+                    core[i][0][0],
+                    bo[0]);
+        }
+
+        //arms:
+        int midMer=section_meridians/2;
+        for (int i = 0; i < sections_number; i++) {
+
+            if(i!=0 && i!=2 && i!=4) {
+                continue;
+            }
+
+            faces[counter++]=buildFace(Renderer3D.CAR_TOP,
+                    core[i][1][0],
+                    core[(i+1)%sections_number][1][0],
+                    body[(i+1)%sections_number][0][0],
+                    body[i][0][0],
+                    bo[0]);
+
+            faces[counter++]=buildFace(Renderer3D.CAR_LEFT,
+                    core[(i+1)%sections_number][0][0],
+                    core[(i+1)%sections_number][1][0],
+                    body[(i+1)%sections_number][0][0],
+                    body[i][midMer][0],
+                    bo[0]);
+
+            faces[counter++]=buildFace(Renderer3D.CAR_RIGHT,
+                    core[i][0][0],
+                    core[i][1][0],
+                    body[(i+1)%sections_number][0][0],
+                    body[i][midMer][0],
+                    bo[0]);
+
+            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM,
+                    core[i][0][0],
+                    core[(i+1)%sections_number][0][0],
+                    body[(i+1)%sections_number][midMer][0],
+                    body[i][midMer][0],
+                    bo[0]);
         }
 
         return counter;
@@ -158,8 +221,27 @@ public class SteeringWheelModel extends MeshModel{
         }
 
 
+        core=new BPoint[sections_number][2][1];
 
 
+        for (int i = 0; i < sections_number; i++) {
+
+            double teta=dteta*i;
+
+            for(int k=0;k<2;k++){
+
+                double xx=core_radius*Math.cos(teta);
+                double yy=(2.0*k-1.0)*section_radius;
+                double zz=core_radius*Math.sin(teta);
+
+                double x=xx;
+                double y=Math.cos(columnAngle)*yy-Math.sin(columnAngle)*zz;
+                double z=Math.sin(columnAngle)*yy+Math.cos(columnAngle)*zz;
+
+                core[i][k][0]=addBPoint(x,y,z);
+
+            }
+        }
     }
 
 

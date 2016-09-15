@@ -38,7 +38,7 @@ public class WeaponMeshEditor extends MeshModelEditor implements KeyListener, It
 
     private boolean skipItemChanged=false;
     private DoubleTextField dz2_text;
-	private IntegerTextField num_parallels;
+    private IntegerTextField num_parallels;
 
     public static int STEERING_WHEEL=0;
 
@@ -253,7 +253,7 @@ public class WeaponMeshEditor extends MeshModelEditor implements KeyListener, It
 
         if(STEERING_WHEEL==val) {
             meshModel=new SteeringWheelModel(
-                    dx,dy,dz,tiltAngle,num_mer,num_par
+                    dx,dx1,dx2,tiltAngle,num_mer,num_par
                     );
         }
 
@@ -317,12 +317,12 @@ public class WeaponMeshEditor extends MeshModelEditor implements KeyListener, It
 
             if(STEERING_WHEEL==val){
                 setRightData(
-                        100,0,30,//dx,dy,dz
+                        100,0,0,//dx,dy,dz
                         -Math.PI*21.0/180.0,//tilt angle
-                        0,0,0,//dx1,dy1,dz1
+                        30,0,0,//dx1,dy1,dz1
                         8,//num_meridians
                         10,//num parallel
-                        0,0,0,0);//dx2,dy2,dz2,dy3
+                        30,0,0,0);//dx2,dy2,dz2,dy3
             }
 
         }
