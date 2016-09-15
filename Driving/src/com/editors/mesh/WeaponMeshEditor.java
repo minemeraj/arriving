@@ -319,7 +319,7 @@ public class WeaponMeshEditor extends MeshModelEditor implements KeyListener, It
                 setRightData(
                         100,0,0,//dx,dy,dz
                         -Math.PI*21.0/180.0,//tilt angle
-                        30,0,0,//dx1,dy1,dz1
+                        20,0,0,//dx1,dy1,dz1
                         8,//num_meridians
                         10,//num parallel
                         30,0,0,0);//dx2,dy2,dz2,dy3
