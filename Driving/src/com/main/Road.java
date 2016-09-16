@@ -103,6 +103,7 @@ public class Road extends Shader{
 
     protected final int EXTERNAL_CAMERA=0;
     protected final int DRIVER_CAMERA=1;
+    protected final int INSIDE_CAMERA=2;
 
     private int CAMERA_TYPE=EXTERNAL_CAMERA;
 
@@ -730,7 +731,7 @@ public class Road extends Shader{
         if(!isSkipShading()){
             calculateStencilBuffer();
         }
-        if(CAMERA_TYPE==DRIVER_CAMERA){
+        if(CAMERA_TYPE==INSIDE_CAMERA){
             drawCarInside(roadZbuffer);
         }
 
@@ -1080,7 +1081,7 @@ public class Road extends Shader{
 
     private void drawCar() {
 
-        if(VIEW_TYPE==REAR_VIEW || CAMERA_TYPE==DRIVER_CAMERA) {
+        if(VIEW_TYPE==REAR_VIEW || CAMERA_TYPE==DRIVER_CAMERA || CAMERA_TYPE==INSIDE_CAMERA) {
             return;
         }
 
@@ -1572,9 +1573,9 @@ public class Road extends Shader{
             POSY=POSY-SCREEN_DISTANCE;
             YFOCUS=HEIGHT/2;
         }
-        else if(camera_type==DRIVER_CAMERA && CAMERA_TYPE!=DRIVER_CAMERA){
+        else if(camera_type==DRIVER_CAMERA || camera_type==INSIDE_CAMERA ){
 
-            CAMERA_TYPE=DRIVER_CAMERA;
+            CAMERA_TYPE=camera_type;
             POSY= POSY+SCREEN_DISTANCE;
             YFOCUS=HEIGHT/5;
 

@@ -395,6 +395,11 @@ public class CarFrame extends Road implements KeyListener {
             changeCamera(DRIVER_CAMERA);
             drawRoad();
         }
+        else if(code==KeyEvent.VK_3)
+        {
+            changeCamera(INSIDE_CAMERA);
+            drawRoad();
+        }
         else if(code==KeyEvent.VK_ESCAPE)
         {
             System.exit(0);

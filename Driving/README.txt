@@ -99,6 +99,7 @@
 	Rear view: keep pressing Z key.
 	External camera: 1 key
 	Driver camera: 2 key
+	Inside camera: 3 key
 	To change engine rotation : N and M keys
 	
 	Press Esc to exit program.
