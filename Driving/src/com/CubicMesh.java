@@ -271,6 +271,40 @@ public class CubicMesh extends PolygonMesh{
 
 	}
 
+	/**
+	 * Rotate CubicMesh of cos, sin around y axis (x0,z0)
+	 *
+	 * @param x0
+	 * @param z0
+	 * @param cos
+	 * @param sin
+	 */
+	public void rotateY(double x0, double z0,double cos, double sin ) {
+
+		for (int i = 0; i < xpoints.length; i++) {
+
+
+			double xx=xpoints[i];
+			double yy=ypoints[i];
+			double zz=zpoints[i];
+
+			xpoints[i]=x0+(xx-x0)*cos-(zz-z0)*sin;
+			ypoints[i]=yy;
+			zpoints[i]=z0+(zz-z0)*cos+(xx-x0)*sin;
+		}
+
+		point000.rotateY(x0,  z0, cos, sin );
+		point100.rotateY(x0,  z0, cos, sin );
+		point010.rotateY(x0,  z0, cos, sin );
+		point001.rotateY(x0,  z0, cos, sin );
+		point110.rotateY(x0,  z0, cos, sin );
+		point011.rotateY(x0,  z0, cos, sin );
+		point101.rotateY(x0,  z0, cos, sin );
+		point111.rotateY(x0,  z0, cos, sin );
+
+
+	}
+
 	public Point3D findCentroid() {
 
 

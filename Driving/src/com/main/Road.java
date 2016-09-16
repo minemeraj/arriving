@@ -750,6 +750,9 @@ public class Road extends Shader{
             double wy=POSY+SCREEN_DISTANCE;
             double wx=POSX-mesh.getXLen()*0.5;
 
+            double delta=-carDynamics.getDelta();
+            mesh.rotateY(mesh.getXLen()*0.5, mesh.getYLen()*0.5, Math.cos(delta), Math.sin(delta));
+
             mesh.translate(wx,wy,-MOVZ-mesh.getZLen());
             mesh.rotateZ(POSX,POSY,viewDirectionCos,viewDirectionSin);
 

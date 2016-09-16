@@ -261,6 +261,25 @@ public class Point3D {
 		this.y=y0+(yy-y0)*cos+(xx-x0)*sin;
 	}
 
+	/**
+	 * Rotate of cos, sin around y axis (x0,z0)
+	 *
+	 * @param x0
+	 * @param z0
+	 * @param cos
+	 * @param sin
+	 */
+	public void rotateY(double x0, double z0, double cos, double sin) {
+
+		double xx=this.x;
+		double yy=this.y;
+		double zz=this.z;
+
+		this.x=x0+(xx-x0)*cos-(zz-z0)*sin;
+		this.z=z0+(zz-z0)*cos+(xx-x0)*sin;
+
+	}
+
     public void translate(double dx, double dy, double dz) {
 
 		setX(this.getX()+dx);
@@ -296,5 +315,8 @@ public class Point3D {
 	public void setData(Object data) {
 		this.data = data;
 	}
+
+
+
 
 }
