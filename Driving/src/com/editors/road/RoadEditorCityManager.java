@@ -543,7 +543,7 @@ class RoadEditorCityManager extends JDialog implements ActionListener{
                             Point3D center=mesh.findCentroid();
 
                             if(dro.getRotation_angle()!=0) {
-                                mesh.rotate(center.x,center.y,Math.cos(dro.getRotation_angle()),Math.sin(dro.getRotation_angle()));
+                                mesh.rotateZ(center.x,center.y,Math.cos(dro.getRotation_angle()),Math.sin(dro.getRotation_angle()));
                             }
 
                             dro.setMesh(mesh);

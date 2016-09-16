@@ -525,9 +525,9 @@ public class RoadEditorTopPanel extends RoadEditorPanel {
         Point3D p1=new Point3D(p3d.xpoints[1],p3d.ypoints[1],p3d.zpoints[1]);
         Point3D p2=new Point3D(p3d.xpoints[2],p3d.ypoints[2],p3d.zpoints[2]);
 
-        p0.rotate(MOVX,MOVY,cosf,sinf);
-        p1.rotate(MOVX,MOVY,cosf,sinf);
-        p2.rotate(MOVX,MOVY,cosf,sinf);
+        p0.rotateZ(MOVX,MOVY,cosf,sinf);
+        p1.rotateZ(MOVX,MOVY,cosf,sinf);
+        p2.rotateZ(MOVX,MOVY,cosf,sinf);
 
         double x0=convertX(p0.x,p0.y,p0.z);
         double y0=convertY(p0.x,p0.y,p0.z);

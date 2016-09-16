@@ -2081,7 +2081,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         center=cm.findCentroid();
 
         if(dro.getRotation_angle()!=0) {
-            cm.rotate(center.x,center.y,Math.cos(dro.getRotation_angle()),Math.sin(dro.getRotation_angle()));
+            cm.rotateZ(center.x,center.y,Math.cos(dro.getRotation_angle()),Math.sin(dro.getRotation_angle()));
         }
 
 

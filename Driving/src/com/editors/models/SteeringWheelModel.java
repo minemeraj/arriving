@@ -1,5 +1,6 @@
 package com.editors.models;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.PrintWriter;
 import java.util.Vector;
@@ -172,6 +173,8 @@ public class SteeringWheelModel extends MeshModel{
         return counter;
     }
 
+    int dxTexture=50;
+    int dyTexture=50;
 
     private void buildTextures() {
 
@@ -182,12 +185,12 @@ public class SteeringWheelModel extends MeshModel{
         double x=bx;
 
         addTPoint(x,y,0);
-        addTPoint(x+dx,y,0);
-        addTPoint(x+dx, y+dy,0);
-        addTPoint(x,y+dy,0);
+        addTPoint(x+dxTexture,y,0);
+        addTPoint(x+dxTexture, y+dyTexture,0);
+        addTPoint(x,y+dyTexture,0);
 
-        IMG_WIDTH=(int) (2*bx+dx);
-        IMG_HEIGHT=(int) (2*by+dy);
+        IMG_WIDTH=2*bx+dxTexture;
+        IMG_HEIGHT=2*by+dyTexture;
 
     }
 
@@ -259,6 +262,8 @@ public class SteeringWheelModel extends MeshModel{
 
     @Override
     public void printTexture(Graphics2D bufGraphics) {
+
+    	bufGraphics.setColor(Color.BLACK);
 
         for (int i = 0; i < faces.length; i++) {
 

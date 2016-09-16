@@ -515,9 +515,9 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
         Point3D p1=new Point3D(p3d.xpoints[1],p3d.ypoints[1],p3d.zpoints[1]);
         Point3D p2=new Point3D(p3d.xpoints[2],p3d.ypoints[2],p3d.zpoints[2]);
 
-        p0.rotate(POSX,POSY,cosf,sinf);
-        p1.rotate(POSX,POSY,cosf,sinf);
-        p2.rotate(POSX,POSY,cosf,sinf);
+        p0.rotateZ(POSX,POSY,cosf,sinf);
+        p1.rotateZ(POSX,POSY,cosf,sinf);
+        p2.rotateZ(POSX,POSY,cosf,sinf);
 
         double x0=convertX(p0.x,p0.y,p0.z);
         double y0=convertY(p0.x,p0.y,p0.z);
@@ -1064,7 +1064,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
             Point3D p=new Point3D(mesh.xpoints[j]-POSX,mesh.ypoints[j]-POSY,mesh.zpoints[j]+MOVZ);
 
-            p.rotate(POSX,POSY,cosf,sinf);
+            p.rotateZ(POSX,POSY,cosf,sinf);
 
             double distance=Point3D.distance(xc, yc, 0, p.x,p.y, 0);
 
@@ -1104,7 +1104,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
 
             Point3D p=new Point3D(x,y,z);
 
-            p.rotate(POSX,POSY,cosf,sinf);
+            p.rotateZ(POSX,POSY,cosf,sinf);
 
             int xx=convertX(p.x,p.y,p.z);
             int yy=convertY(p.x,p.y,p.z);
@@ -1183,7 +1183,7 @@ public class RoadEditorIsoPanel extends RoadEditorPanel{
             p.y=(p.y)-POSY;
             p.z=(p.z)+MOVZ;
 
-            p.rotate(POSX,POSY,cosf,sinf);
+            p.rotateZ(POSX,POSY,cosf,sinf);
 
             int xx=convertX(p.x,p.y,p.z);
             int yy=convertY(p.x,p.y,p.z);

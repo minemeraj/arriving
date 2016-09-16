@@ -15,12 +15,12 @@ public class Point3D {
 	public double p_x;
 	public double p_y;
 	public double p_z;
-	
+
 	public double texture_x;
 	public double texture_y;
-	
+
 	Object data=null;
-	
+
 	public Point3D(double x, double y, double z, double pX, double pY,
 			double pZ, double textureX, double textureY) {
 		super();
@@ -33,8 +33,8 @@ public class Point3D {
 		texture_x = textureX;
 		texture_y = textureY;
 	}
-	
-	
+
+
 
 
 	public boolean isSelected=false;
@@ -65,13 +65,13 @@ public class Point3D {
 	public Point3D() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public boolean equals(Point3D p){
-		
+
 		return this.x==p.x && this.y==p.y && this.z==p.z;
-		
+
 	}
-	
+
 	@Override
 	public Point3D clone()  {
 
@@ -80,9 +80,9 @@ public class Point3D {
 		p.setSelected(isSelected());
 		return p;
 	}
-	
 
-	
+
+
 	public boolean isSelected() {
 		return isSelected;
 	}
@@ -109,7 +109,7 @@ public class Point3D {
 	public static double calculateNorm(Point3D a) {
 
 		return Math.sqrt(calculateDotProduct(a,a));
-		
+
 	}
 
 	private static double calculateSquareNorm(Point3D a) {
@@ -160,22 +160,22 @@ public class Point3D {
 
 		return pRes;
 	}
-	
+
 	public Point3D sum(Point3D p0) {
 
 		Point3D pRes=new Point3D(this.x+p0.x,this.y+p0.y,this.z+p0.z);
 
 		return pRes;
 	}
-	
+
 	public Point3D multiply(Double factor) {
 
-		
+
 		Point3D pRes=new Point3D(this.x*factor,this.y*factor,this.z*factor);
 
 		return pRes;
 	}
-	
+
 	public double getX() {
 		return x;
 	}
@@ -217,63 +217,70 @@ public class Point3D {
 			return p1.x;
 
 		return p1.x+((p2.x-p1.x)*(y-p1.y))*(1.0/(p2.y-p1.y));
-	
+
 
 	}
-	
+
 	public static Point3D foundPX_PY_PZ_TEXTURE_Intersection(Point3D pstart, Point3D pend,
 			double y) {
-		
-		Point3D intersect=new Point3D(); 
+
+		Point3D intersect=new Point3D();
 
 		double i_pstart_p_y=1.0/(pstart.p_y);
 		double i_end_p_y=1.0/(pend.p_y);
-		
+
 		double l=(y-pstart.y)/(pend.y-pstart.y);
-	
+
 		double yi=1.0/((1-l)*i_pstart_p_y+l*i_end_p_y);
-		
+
 		intersect.p_x= ((1-l)*pstart.p_x*i_pstart_p_y+l*pend.p_x*i_end_p_y)*yi;
-		intersect.p_y=  1.0/((1-l)*i_pstart_p_y+l*i_end_p_y);		
+		intersect.p_y=  1.0/((1-l)*i_pstart_p_y+l*i_end_p_y);
 		intersect.p_z=  ((1-l)*pstart.p_z*i_pstart_p_y+l*pend.p_z*i_end_p_y)*yi;
-		
+
 		intersect.texture_x=  ((1-l)*pstart.texture_x*i_pstart_p_y+l*pend.texture_x*i_end_p_y)*yi;
 		intersect.texture_y=  ((1-l)*pstart.texture_y*i_pstart_p_y+l*pend.texture_y*i_end_p_y)*yi;
-		
+
 		return intersect;
 
 	}
-	
-	public void rotate(double x0, double y0,double cos, double sin ) {
-		
+
+	/**
+	 * Rotate of cos, sin around z axis (x0,y0)
+	 * @param x0
+	 * @param y0
+	 * @param cos
+	 * @param sin
+	 */
+	public void rotateZ(double x0, double y0,double cos, double sin ) {
+
 		double xx=this.x;
 		double yy=this.y;
 		double zz=this.z;
-		
+
 		this.x=x0+(xx-x0)*cos-(yy-y0)*sin;
 		this.y=y0+(yy-y0)*cos+(xx-x0)*sin;
 	}
 
     public void translate(double dx, double dy, double dz) {
-		
+
 		setX(this.getX()+dx);
     	setY(this.getY()+dy);
     	setZ(this.getZ()+dz);
-		
+
 	}
-	
+
 	public void setTexurePositions(double textureX, double textureY){
-		
+
 		texture_x = textureX;
 		texture_y = textureY;
 	}
 
 	public void setTexurePositions(Point3D p){
-		
+
 		texture_x = p.x;
 		texture_y = p.y;
 	}
-	
+
 	@Override
 	public String toString() {
 
