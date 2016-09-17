@@ -1,11 +1,11 @@
 Now drawing a steering wheel in the new INSIDE_CAMERA View (press key=3)
 
-Redoing of object:
-\lib\object3D_2
-\lib\object3D_5 (texture sizes from 2004x1600 to 1620x1020)
-
 Review of the RoadEditor and the 3DPanel. see README.txt.
 now you can set the altitude in the 3D view as well, using the selection circle.
+
+Redoing of objects:
+\lib\object3D_2
+\lib\object3D_5 (texture sizes from 2004x1600 to 1620x1020 -49%)
 
 Reducing texture sizes:
 object3D_texture_26.jpg  1.20Mb->210Kb
