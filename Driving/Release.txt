@@ -4,7 +4,7 @@ Review of the RoadEditor and the 3DPanel. see README.txt.
 now you can set the altitude in the 3D view as well, using the selection circle.
 
 Redoing of objects:
-\lib\object3D_1 (texture sizes from 1204x1000 to 820x620)
+\lib\object3D_1 (texture sizes from 1204x1000 to 820x620 -58%)
 \lib\object3D_2
 \lib\object3D_3 (texture sizes from 2004x2000 to 2420x1420 -14%)
 \lib\object3D_4
