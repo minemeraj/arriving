@@ -9,6 +9,9 @@ Redoing of objects:
 \lib\object3D_4
 \lib\object3D_5 (texture sizes from 2004x1600 to 1620x1020 -49%)
 
+Redoing of splines:
+/lib/spline_mesh_8 (texture sizes from 8020x4040 to 8020x2040 -49%)
+
 Reducing texture sizes:
 object3D_texture_26.jpg  1.20Mb->210Kb
 object3D_texture_27.jpg 465Kb->100Kb
