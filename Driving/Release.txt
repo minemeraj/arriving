@@ -11,6 +11,7 @@ Redoing of objects:
 \lib\object3D_5 (texture sizes from 2004x1600 to 1620x1020 -49%)
 
 Redoing of splines:
+/lib/spline_mesh_4 (texture sizes from 820x440 to 820x240 -45%)
 /lib/spline_mesh_6 (texture sizes from 1232x430 to 1232x235 -45%)
 /lib/spline_mesh_8 (texture sizes from 8020x4040 to 8020x2040 -48%)
 /lib/spline_mesh_9 (texture sizes from 1820x940 to 1820x490 -48%)
