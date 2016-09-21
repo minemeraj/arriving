@@ -23,7 +23,7 @@ public class RoadEditorThread extends Thread{
     public void run() {
 
         editor.setWaitBeforeMovingMouse(true);
-        editor.updateEntitiesIfMousePressed();
+        //editor.updateEntitiesIfMousePressed();
         editor.draw();
         editor.setWaitBeforeMovingMouse(false);
 

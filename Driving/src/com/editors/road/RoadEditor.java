@@ -3559,6 +3559,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         currentRect = new Rectangle(x, y, 0, 0);
 
         isMousePressed=true;
+
     }
 
 
@@ -3906,7 +3907,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
     @Override
     public void propertyChange(PropertyChangeEvent arg0) {
 
-        //System.out.println(arg0.getSource().getClass());
         if("paintDirtyRegions".equals(arg0.getPropertyName()) && redrawAfterMenu)
         {
             draw();
@@ -4159,7 +4159,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
     public void updateEntitiesIfMousePressed() {
 
-        if(isMousePressed){
+        if(this.isMousePressed()){
 
             if(TERRAIN_POLYGONS_MODE.equals(mode)){
 
@@ -4171,6 +4171,10 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         }
 
     }
+
+	public boolean isMousePressed() {
+		return isMousePressed;
+	}
 
 
 }
