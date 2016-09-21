@@ -265,6 +265,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
     private JToggleButton spnodeDeleteMode;
     private JToggleButton polygonPaintMode;
     private JToggleButton polygonWaterMode;
+    private boolean isMousePressed;
 
     public static void main(String[] args) {
 
@@ -1052,7 +1053,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
     private JPanel buildObjectsPanel() {
 
-    	JPanel object_panel=new JPanel(null);
+        JPanel object_panel=new JPanel(null);
 
         int r=10;
 
@@ -3083,6 +3084,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
     @Override
     public void mouseClicked(MouseEvent arg0) {
 
+        isMousePressed=true;
+
         int buttonNum=arg0.getButton();
 
         if(SPLINES_MODE.equals(mode)){
@@ -3474,18 +3477,18 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
                 continue;
             }
             if(polygonPaintMode.isSelected()){
-	            int indx=chooseTexture[ACTIVE_PANEL].getSelectedIndex();
+                int indx=chooseTexture[ACTIVE_PANEL].getSelectedIndex();
 
-	            if(indx!=0){
+                if(indx!=0){
 
-	                ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getItemAt(indx);
+                    ValuePair vp=(ValuePair) chooseTexture[ACTIVE_PANEL].getItemAt(indx);
 
 
-	                ld.setTexture_index(Integer.parseInt(vp.getId()));
+                    ld.setTexture_index(Integer.parseInt(vp.getId()));
 
-	            }
+                }
             }else if(polygonWaterMode.isSelected()){
-            	 ld.setFilledWithWater(fillWithWater[ACTIVE_PANEL].isSelected());
+                ld.setFilledWithWater(fillWithWater[ACTIVE_PANEL].isSelected());
             }
 
         }
@@ -3555,7 +3558,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         int y = arg0.getY();
         currentRect = new Rectangle(x, y, 0, 0);
 
-
+        isMousePressed=true;
     }
 
 
@@ -3738,6 +3741,8 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
     }
     @Override
     public void mouseReleased(MouseEvent arg0) {
+
+        isMousePressed=false;
 
         if(!isDrawCurrentRect) {
             return;
@@ -4150,6 +4155,21 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
     public void setMultipleSelection(boolean isMultipleSelection) {
         this.isMultipleSelection = isMultipleSelection;
+    }
+
+    public void updateEntitiesIfMousePressed() {
+
+        if(isMousePressed){
+
+            if(TERRAIN_POLYGONS_MODE.equals(mode)){
+
+                updatePolygon();
+
+            }else if(ALTIMETRY_MODE.equals(mode)){
+                changeAltimetrySelectedTerrainPoints();
+            }
+        }
+
     }
 
 
