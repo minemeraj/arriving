@@ -265,7 +265,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
     private JToggleButton spnodeDeleteMode;
     private JToggleButton polygonPaintMode;
     private JToggleButton polygonWaterMode;
-    private boolean isMousePressed;
+    private boolean isMousePressed=false;
 
     public static void main(String[] args) {
 
@@ -3084,8 +3084,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
     @Override
     public void mouseClicked(MouseEvent arg0) {
 
-        isMousePressed=true;
-
         int buttonNum=arg0.getButton();
 
         if(SPLINES_MODE.equals(mode)){
@@ -3559,12 +3557,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         currentRect = new Rectangle(x, y, 0, 0);
 
         isMousePressed=true;
-
     }
-
-
-
-
 
     private void selectObjectsWithRectangle() {
 
@@ -3787,7 +3780,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         if(isOnLoading) {
             return;
         }
-
         Point p=e.getPoint();
 
         RoadEditorPanel ep = getCenter();
