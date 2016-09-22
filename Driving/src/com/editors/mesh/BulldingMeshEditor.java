@@ -18,6 +18,7 @@ import com.editors.DoubleTextField;
 import com.editors.IntegerTextField;
 import com.editors.ValuePair;
 import com.editors.models.ArchBridge0Model;
+import com.editors.models.BarrierModel;
 import com.editors.models.BellTowerModel;
 import com.editors.models.Chimney0Model;
 import com.editors.models.Church0Model;
@@ -67,6 +68,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
     public static int CHURCH0=12;
     public static int CHURCH1=13;
     public static int ARCHBRIDGE=14;
+    public static int BARRIER0=15;
 
     public static void main(String[] args) {
 
@@ -217,6 +219,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
         chooseBuilding.addKeyListener(this);
         chooseBuilding.addItem(new ValuePair("-1",""));
         chooseBuilding.addItem(new ValuePair(""+ARCHBRIDGE,ArchBridge0Model.NAME));
+        chooseBuilding.addItem(new ValuePair(""+BARRIER0,BarrierModel.NAME));
         chooseBuilding.addItem(new ValuePair(""+BELLTOWER,BellTowerModel.NAME));
         chooseBuilding.addItem(new ValuePair(""+CHIMNEY0,Chimney0Model.NAME));
         chooseBuilding.addItem(new ValuePair(""+CHURCH0,Church0Model.NAME));
@@ -311,6 +314,8 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
             meshModel=new Courtyard0Model(dx,dy,dz,rh,dx1,dy1);
         } else if(ARCHBRIDGE==val) {
             meshModel=new ArchBridge0Model(dx,dy,dz,0,dy1,dz1,0,0,0,0,0,0);
+        } else if(BARRIER0==val) {
+            meshModel=new BarrierModel(dx,dy,dz,0,dy1,dz1,0,0,0,0,0,0);
         }
 
         meshModel.setDescription(description.getText());
@@ -480,6 +485,14 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
                 setRightData(200,1000,500,//dx,dy,dz
                         0,//roof_height
                         0,100,350,//dx1,dy1,dz1
+                        0,//num_meridians
+                        0,0,0,0//dx2,dy2,dz2,dy3
+                        );
+            }
+            else if(BARRIER0==val){
+                setRightData(200,1000,500,//dx,dy,dz
+                        0,//roof_height
+                        0,0,0,//dx1,dy1,dz1
                         0,//num_meridians
                         0,0,0,0//dx2,dy2,dz2,dy3
                         );
