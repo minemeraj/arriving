@@ -100,7 +100,6 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
     private Stack<ArrayList<DrawObject>> oldObjects=new Stack<ArrayList<DrawObject>>();
     private Stack<ArrayList<SPLine>> oldSpline=new Stack<ArrayList<SPLine>>();
-    private int MAX_STACK_SIZE=10;
 
     private JMenuBar jmb;
     private JMenu jm_file;
@@ -3723,14 +3722,35 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
 
 
+    private boolean isMouseMovedOrDragged=false;
+    private boolean waitBeforeMovingOrDraggingMouse=false;
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
+        if(isOnLoading) {
+            return;
+        }
+        updateMousePosition(e);
+        if(isDrawFastSelectionCircle()){
+            updateFastSelectionCircle(e);
+        }
+
+    }
 
     @Override
     public void mouseDragged(MouseEvent e) {
 
+        updateMousePosition(e);
+        if(isDrawFastSelectionCircle()){
 
-        isDrawCurrentRect=true;
-        updateSize(e);
-        draw();
+            updateFastSelectionCircle(e);
+
+        }else{
+            isDrawCurrentRect=true;
+            updateSize(e);
+            draw();
+        }
+
 
     }
     @Override
@@ -3770,32 +3790,29 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
     }
 
+    private void updateMousePosition(MouseEvent e) {
 
-
-    private boolean isMouseMoved=false;
-    private boolean waitBeforeMovingMouse=false;
-    @Override
-    public void mouseMoved(MouseEvent e) {
-
-        if(isOnLoading) {
-            return;
-        }
         Point p=e.getPoint();
 
         RoadEditorPanel ep = getCenter();
         screenPoint.setText(ep.invertX((int)p.getX(),(int)p.getY())+","+ep.invertY((int)p.getX(),(int)p.getY()));
 
-        int rad=selectionRadius.getvalue();
-        if(rad==0) {
-            rad=INITIAl_SELECTION_RADIUS;
-        }
+    }
 
-        if(isDrawFastSelectionCircle() && !waitBeforeMovingMouse){
-            updateSelecctionCircle(e,rad);
+    private void updateFastSelectionCircle(MouseEvent e) {
 
-            if(!isMouseMoved){
+        if(!waitBeforeMovingOrDraggingMouse){
 
-                isMouseMoved=true;
+            int rad=selectionRadius.getvalue();
+            if(rad==0) {
+                rad=INITIAl_SELECTION_RADIUS;
+            }
+
+            updateFastSelectionCircle(e,rad);
+
+            if(!isMouseMovedOrDragged){
+
+                isMouseMovedOrDragged=true;
                 RoadEditorThread engine=new RoadEditorThread(this);
                 engine.start();
 
@@ -3804,15 +3821,18 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
             }
 
         }
+
     }
-    private void updateSelecctionCircle(MouseEvent e, int rad) {
+
+
+    private void updateFastSelectionCircle(MouseEvent e, int rad) {
 
         RoadEditorPanel ep = getCenter();
         fastSelectionCircle=ep.buildSelecctionCircle(e, rad);
 
     }
 
-    private void updateSelecctionCircle(int rad) {
+    private void updateFastSelectionCircle(int rad) {
 
         int x0=0;
         int y0=0;
@@ -3842,7 +3862,7 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         selectionRadius.setText(rad+i*SELECTION_RADIUS_INCREMENT);
         rad=selectionRadius.getvalue();
 
-        updateSelecctionCircle(rad);
+        updateFastSelectionCircle(rad);
 
 
     }
@@ -4125,20 +4145,20 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
         this.fastSelectionCircle = fastSelectionCircle;
     }
 
-    public boolean isMouseMoved() {
-        return isMouseMoved;
+    public boolean isMouseMovedOrDragged() {
+        return isMouseMovedOrDragged;
     }
 
-    public void setMouseMoved(boolean isMouseMoved) {
-        this.isMouseMoved = isMouseMoved;
+    public void setMouseMovedOrDragged(boolean isMouseMovedOrDragged) {
+        this.isMouseMovedOrDragged = isMouseMovedOrDragged;
     }
 
-    public boolean isWaitBeforeMovingMouse() {
-        return waitBeforeMovingMouse;
+    public boolean isWaitBeforeMovingOrDraggingMouse() {
+        return waitBeforeMovingOrDraggingMouse;
     }
 
-    public void setWaitBeforeMovingMouse(boolean waitBeforeMovingMouse) {
-        this.waitBeforeMovingMouse = waitBeforeMovingMouse;
+    public void setWaitBeforeMovingOrDraggingMouse(boolean waitBeforeMovingOrDraggingMouse) {
+        this.waitBeforeMovingOrDraggingMouse = waitBeforeMovingOrDraggingMouse;
     }
 
     public boolean isMultipleSelection() {
@@ -4164,9 +4184,9 @@ public class RoadEditor extends Editor implements ActionListener,MouseListener,M
 
     }
 
-	public boolean isMousePressed() {
-		return isMousePressed;
-	}
+    public boolean isMousePressed() {
+        return isMousePressed;
+    }
 
 
 }

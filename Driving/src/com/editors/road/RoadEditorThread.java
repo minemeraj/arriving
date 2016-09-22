@@ -22,12 +22,12 @@ public class RoadEditorThread extends Thread{
     @Override
     public void run() {
 
-        editor.setWaitBeforeMovingMouse(true);
+        editor.setWaitBeforeMovingOrDraggingMouse(true);
         editor.updateEntitiesIfMousePressed();
         editor.draw();
-        editor.setWaitBeforeMovingMouse(false);
+        editor.setWaitBeforeMovingOrDraggingMouse(false);
 
-        editor.setMouseMoved(false);
+        editor.setMouseMovedOrDragged(false);
 
 
     }
