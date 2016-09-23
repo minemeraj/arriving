@@ -137,7 +137,7 @@ public class ArchBridge0Model extends MeshModel{
         //body texture
         addTRect(x, y, dxTexture, dyTexture);
 
-        x=bx+dx+shift;
+        x=bx+dxTexture+shift;
         y=by;
 
         //deck texture

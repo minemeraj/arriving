@@ -127,15 +127,20 @@ public class BarrierModel extends MeshModel{
 
     private void buildBody() {
 
-        poles=new BPoint[numPoles][2][2][2];
+        poles=new BPoint[numPoles+1][2][2][2];
 
 
-        double interPole=(dy-poles.length*poleLength)/(poles.length-1);
+        double interPole=(dy-numPoles*poleLength)/(numPoles);
         double yRef=0;
 
-        for(int i=0;i<poles.length;i++){
+        for(int i=0;i<=numPoles;i++){
 
-            Segments s0=new Segments(0,poleWidth*0.5,yRef,poleLength,0,poleHeight);
+        	double poleSpan=poleLength;
+        	if(i==0 || i==numPoles){
+        		poleSpan=poleLength*0.5;
+        	}
+
+            Segments s0=new Segments(0,poleWidth*0.5,yRef,poleSpan,0,poleHeight);
 
             poles[i][0][0][0]=addBPoint(-1.0,0.0,0,s0);
             poles[i][1][0][0]=addBPoint(1.0,0.0,0,s0);
@@ -147,7 +152,7 @@ public class BarrierModel extends MeshModel{
             poles[i][0][1][1]=addBPoint(-1.0,1.0,1.0,s0);
             poles[i][1][1][1]=addBPoint(1.0,1.0,1.0,s0);
 
-            yRef+=(interPole+poleLength);
+            yRef+=(interPole+poleSpan);
 
         }
 
