@@ -44,13 +44,15 @@ public class ArchBridge0Model extends MeshModel{
 
     //body textures
     protected int[][] bo= {{0,1,2,3}};
+    //deck textures
+    protected int[][] de= {{4,5,6,7}};
 
     private int[][][] faces;
 
     private BPoint[][][] body;
 
-    private double dxTexture=200;
-    private double dyTexture=200;
+    private double dxTexture=100;
+    private double dyTexture=100;
     private int archNY=10;
 
     public static final String NAME="Arch bridge";
@@ -103,7 +105,7 @@ public class ArchBridge0Model extends MeshModel{
 
         for (int i = 0; i < archNY+1; i++) {
 
-            faces[counter++]=buildFace(Renderer3D.CAR_TOP, body[0][i][1],body[1][i][1],body[1][i+1][1],body[0][i+1][1],bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_TOP, body[0][i][1],body[1][i][1],body[1][i+1][1],body[0][i+1][1],de[0]);
             faces[counter++]=buildFace(Renderer3D.CAR_LEFT, body[0][i][0],body[0][i][1],body[0][i+1][1],body[0][i+1][0], bo[0]);
             faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, body[1][i][0],body[1][i+1][0],body[1][i+1][1],body[1][i][1], bo[0]);
             faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, body[0][i][0],body[0][i+1][0],body[1][i+1][0],body[1][i][0], bo[0]);
@@ -127,16 +129,21 @@ public class ArchBridge0Model extends MeshModel{
 
 
         //Texture points
+        int shift=1;
 
         double y=by;
         double x=bx;
 
-        addTPoint(x,y,0);
-        addTPoint(x+dxTexture,y,0);
-        addTPoint(x+dxTexture, y+dyTexture,0);
-        addTPoint(x,y+dyTexture,0);
+        //body texture
+        addTRect(x, y, dxTexture, dyTexture);
 
-        IMG_WIDTH=(int) (2*bx+dxTexture);
+        x=bx+dx+shift;
+        y=by;
+
+        //deck texture
+        addTRect(x, y, dxTexture, dyTexture);
+
+        IMG_WIDTH=(int) (2*bx+2*dxTexture+shift);
         IMG_HEIGHT=(int) (2*by+dyTexture);
 
     }

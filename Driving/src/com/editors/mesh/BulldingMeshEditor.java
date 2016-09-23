@@ -315,7 +315,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
         } else if(ARCHBRIDGE==val) {
             meshModel=new ArchBridge0Model(dx,dy,dz,0,dy1,dz1,0,0,0,0,0,0);
         } else if(BARRIER0==val) {
-            meshModel=new BarrierModel(dx,dy,dz,0,dy1,dz1,0,0,0,0,0,0);
+            meshModel=new BarrierModel(dx,dy,dz,num_mer,dx1,dy1,dz1);
         }
 
         meshModel.setDescription(description.getText());
@@ -492,8 +492,8 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
             else if(BARRIER0==val){
                 setRightData(200,1000,500,//dx,dy,dz
                         0,//roof_height
-                        0,0,0,//dx1,dy1,dz1
-                        0,//num_meridians
+                        200,100,300,//dx1,dy1,dz1
+                        3,//num_meridians
                         0,0,0,0//dx2,dy2,dz2,dy3
                         );
             }

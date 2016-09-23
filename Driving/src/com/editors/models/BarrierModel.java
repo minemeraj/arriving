@@ -20,24 +20,16 @@ import com.main.Renderer3D;
 public class BarrierModel extends MeshModel{
 
     public static final String NAME = "Barrier";
-	private int bx=10;
+    private int bx=10;
     private int by=10;
 
     private double dx = 0;
     private double dy = 0;
     private double dz = 0;
 
-    private double dxFront = 0;
-    private double dyFront = 0;
-    private double dzFront = 0;
-
-    private double dxRear = 0;
-    private double dyRear = 0;
-    private double dzRear = 0;
-
-    private double dxRoof;
-    private double dyRoof;
-    private double dzRoof;
+    private double poleWidth = 0;
+    private double poleLength = 0;
+    private double poleHeight = 0;
 
     double x0=0;
     double y0=0;
@@ -50,6 +42,7 @@ public class BarrierModel extends MeshModel{
 
     private BPoint[][][] body;
 
+    private int numPoles=0;
     private BPoint[][][][] poles;
 
     private double dxTexture=200;
@@ -57,25 +50,19 @@ public class BarrierModel extends MeshModel{
 
     public BarrierModel(
             double dx, double dy, double dz,
-            double dxf, double dyf, double dzf,
-            double dxr, double dyr,	double dzr,
-            double dxRoof,double dyRoof,double dzRoof) {
+            int numPoles,
+            double poleWidth, double poleLength, double poleHeight
+            ) {
         super();
         this.dx = dx;
         this.dy = dy;
         this.dz = dz;
 
-        this.dxFront = dxf;
-        this.dyFront = dyf;
-        this.dzFront = dzf;
+        this.poleWidth = poleWidth;
+        this.poleLength = poleLength;
+        this.poleHeight = poleHeight;
 
-        this.dxRear = dxr;
-        this.dyRear = dyr;
-        this.dzRear = dzr;
-
-        this.dxRoof = dxRoof;
-        this.dyRoof = dyRoof;
-        this.dzRoof = dzRoof;
+        this.numPoles = numPoles;
     }
 
 
@@ -101,14 +88,14 @@ public class BarrierModel extends MeshModel{
 
     private int buildFaces(int counter) {
 
-    	for(int i=0;i<poles.length;i++){
-	        faces[counter++]=buildFace(Renderer3D.CAR_TOP, poles[i][0][0][1],poles[i][1][0][1],poles[i][1][1][1],poles[i][0][1][1],bo[0]);
-	        faces[counter++]=buildFace(Renderer3D.CAR_LEFT, poles[i][0][0][0],poles[i][0][0][1],poles[i][0][1][1],poles[i][0][1][0], bo[0]);
-	        faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, poles[i][1][0][0],poles[i][1][1][0],poles[i][1][1][1],poles[i][1][0][1], bo[0]);
-	        faces[counter++]=buildFace(Renderer3D.CAR_FRONT, poles[i][0][1][0],poles[i][0][1][1],poles[i][1][1][1],poles[i][1][1][0], bo[0]);
-	        faces[counter++]=buildFace(Renderer3D.CAR_BACK, poles[i][0][0][0],poles[i][1][0][0],poles[i][1][0][1],poles[i][0][0][1], bo[0]);
-	        faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, poles[i][0][0][0],poles[i][0][1][0],poles[i][1][1][0],poles[i][1][0][0], bo[0]);
-    	}
+        for(int i=0;i<poles.length;i++){
+            faces[counter++]=buildFace(Renderer3D.CAR_TOP, poles[i][0][0][1],poles[i][1][0][1],poles[i][1][1][1],poles[i][0][1][1],bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_LEFT, poles[i][0][0][0],poles[i][0][0][1],poles[i][0][1][1],poles[i][0][1][0], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, poles[i][1][0][0],poles[i][1][1][0],poles[i][1][1][1],poles[i][1][0][1], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_FRONT, poles[i][0][1][0],poles[i][0][1][1],poles[i][1][1][1],poles[i][1][1][0], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_BACK, poles[i][0][0][0],poles[i][1][0][0],poles[i][1][0][1],poles[i][0][0][1], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, poles[i][0][0][0],poles[i][0][1][0],poles[i][1][1][0],poles[i][1][0][0], bo[0]);
+        }
 
         faces[counter++]=buildFace(Renderer3D.CAR_TOP, body[0][0][1],body[1][0][1],body[1][1][1],body[0][1][1],bo[0]);
         faces[counter++]=buildFace(Renderer3D.CAR_LEFT, body[0][0][0],body[0][0][1],body[0][1][1],body[0][1][0], bo[0]);
@@ -130,10 +117,7 @@ public class BarrierModel extends MeshModel{
         double y=by;
         double x=bx;
 
-        addTPoint(x,y,0);
-        addTPoint(x+dxTexture,y,0);
-        addTPoint(x+dxTexture, y+dyTexture,0);
-        addTPoint(x,y+dyTexture,0);
+        addTRect(x, y, dxTexture, dyTexture);
 
         IMG_WIDTH=(int) (2*bx+dxTexture);
         IMG_HEIGHT=(int) (2*by+dyTexture);
@@ -143,31 +127,31 @@ public class BarrierModel extends MeshModel{
 
     private void buildBody() {
 
-        poles=new BPoint[3][2][2][2];
+        poles=new BPoint[numPoles][2][2][2];
 
-        double poleLength=100;
+
         double interPole=(dy-poles.length*poleLength)/(poles.length-1);
         double yRef=0;
 
         for(int i=0;i<poles.length;i++){
 
-        	Segments s0=new Segments(0,dx*0.5,yRef,poleLength,0,dz);
+            Segments s0=new Segments(0,poleWidth*0.5,yRef,poleLength,0,poleHeight);
 
-	        poles[i][0][0][0]=addBPoint(-1.0,0.0,0,s0);
-	        poles[i][1][0][0]=addBPoint(1.0,0.0,0,s0);
-	        poles[i][0][1][0]=addBPoint(-1.0,1.0,0,s0);
-	        poles[i][1][1][0]=addBPoint(1.0,1.0,0,s0);
+            poles[i][0][0][0]=addBPoint(-1.0,0.0,0,s0);
+            poles[i][1][0][0]=addBPoint(1.0,0.0,0,s0);
+            poles[i][0][1][0]=addBPoint(-1.0,1.0,0,s0);
+            poles[i][1][1][0]=addBPoint(1.0,1.0,0,s0);
 
-	        poles[i][0][0][1]=addBPoint(-1.0,0.0,1.0,s0);
-	        poles[i][1][0][1]=addBPoint(1.0,0.0,1.0,s0);
-	        poles[i][0][1][1]=addBPoint(-1.0,1.0,1.0,s0);
-	        poles[i][1][1][1]=addBPoint(1.0,1.0,1.0,s0);
+            poles[i][0][0][1]=addBPoint(-1.0,0.0,1.0,s0);
+            poles[i][1][0][1]=addBPoint(1.0,0.0,1.0,s0);
+            poles[i][0][1][1]=addBPoint(-1.0,1.0,1.0,s0);
+            poles[i][1][1][1]=addBPoint(1.0,1.0,1.0,s0);
 
-	        yRef+=(interPole+poleLength);
+            yRef+=(interPole+poleLength);
 
         }
 
-        Segments s1=new Segments(0,dx*0.5,0,dy,dz,dz);
+        Segments s1=new Segments(0,dx*0.5,0,dy,poleHeight,dz);
 
         body=new BPoint[2][2][2];
 
