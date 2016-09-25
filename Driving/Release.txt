@@ -1,3 +1,5 @@
+--- 25/09/2016 CarDriving 11.0.1 - Monza
+
 Now drawing a steering wheel in the new INSIDE_CAMERA View (press key=3)
 
 Review of the RoadEditor and the 3DPanel. see README.txt.
