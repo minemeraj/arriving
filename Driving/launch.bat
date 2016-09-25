@@ -1,1 +1,1 @@
-java -Xms128m -Xmx256m  -classpath Driving.jar   com.main.CarFrame
+java -Xms128m -Xmx1024m  -classpath Driving.jar   com.main.CarFrame

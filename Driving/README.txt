@@ -23,15 +23,15 @@
 	* to launch from command line extract the lib directory from the jar 
 	* in the same directory and write :
 	*
-	* java -Xms128m -Xmx256m  -classpath Driving.jar   com.main.CarFrame
+	* java -Xms128m Xmx1024m -classpath Driving.jar   com.main.CarFrame
 	*
 	* to launch with shading, which increases the load, use command:
 	*
-	* java -Xms128m -Xmx256m  -classpath Driving.jar   com.main.CarFrame +s
+	* java -Xms128m Xmx1024m -classpath Driving.jar   com.main.CarFrame +s
 	*
 	* to launch the road editor use the command:
 	*
-	* java -classpath Driving.jar    com.editors.road.RoadEditor
+	* java -Xms128m Xmx1024m -classpath Driving.jar    com.editors.road.RoadEditor
 	*
 	*** to launch the object editor use the command:
 	*
