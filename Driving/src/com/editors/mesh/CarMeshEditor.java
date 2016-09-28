@@ -20,6 +20,7 @@ import com.editors.models.Byke0Model;
 import com.editors.models.Camper0Model;
 import com.editors.models.Car0Model;
 import com.editors.models.F10Model;
+import com.editors.models.FighterAircraft0Model;
 import com.editors.models.OceanLiner0Model;
 import com.editors.models.RailWagon0Model;
 import com.editors.models.RailWagonBulkModel;
@@ -30,7 +31,9 @@ import com.editors.models.Ship0Model;
 import com.editors.models.StarShip0Model;
 import com.editors.models.Tank0Model;
 import com.editors.models.TankTruck0Model;
+import com.editors.models.Tractor0Model;
 import com.editors.models.Truck0Model;
+import com.editors.models.Yacht0Model;
 
 public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemListener{
 
@@ -72,6 +75,9 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
     public static int RAILWAGON_COACH=13;
     public static int CAMPER0=14;
     public static int OCEANLINER0=15;
+    public static int YACHT0=16;
+    public static int TRACTOR0=17;
+    public static int FIGHTER_AIRCRAFT0=18;
 
     public static void main(String[] args) {
 
@@ -289,22 +295,25 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
         chooseObject.setBounds(col1, r, 150, 20);
         chooseObject.addKeyListener(this);
         chooseObject.addItem(new ValuePair("-1",""));
-        chooseObject.addItem(new ValuePair(""+AIRPLANE0,"Airplane"));
-        chooseObject.addItem(new ValuePair(""+BYKE0,"Byke"));
+        chooseObject.addItem(new ValuePair(""+AIRPLANE0,Airplane0Model.NAME));
+        chooseObject.addItem(new ValuePair(""+BYKE0,Byke0Model.NAME));
         chooseObject.addItem(new ValuePair(""+CAR0,"Car"));
         chooseObject.addItem(new ValuePair(""+CAMPER0,Camper0Model.NAME));
-        chooseObject.addItem(new ValuePair(""+F10,"F10"));
+        chooseObject.addItem(new ValuePair(""+FIGHTER_AIRCRAFT0,FighterAircraft0Model.NAME));
+        chooseObject.addItem(new ValuePair(""+F10,F10Model.NAME));
         chooseObject.addItem(new ValuePair(""+OCEANLINER0,OceanLiner0Model.NAME));
         chooseObject.addItem(new ValuePair(""+RAILWAGON0,"Railwagon"));
         chooseObject.addItem(new ValuePair(""+RAILWAGON_BULK,"Railwagon Bulk"));
         chooseObject.addItem(new ValuePair(""+RAILWAGON_COAL,"Railwagon Coal"));
         chooseObject.addItem(new ValuePair(""+RAILWAGON_COACH,"Railwagon Coach"));
         chooseObject.addItem(new ValuePair(""+RAILWAGON_TANK,"Railwagon Tank "));
-        chooseObject.addItem(new ValuePair(""+SHIP0,"Ship"));
-        chooseObject.addItem(new ValuePair(""+STARSHIP0,"Starship"));
-        chooseObject.addItem(new ValuePair(""+TANK0,"Tank0"));
-        chooseObject.addItem(new ValuePair(""+TANKTRUCK0,"Tank Truck"));
-        chooseObject.addItem(new ValuePair(""+TRUCK0,"Truck"));
+        chooseObject.addItem(new ValuePair(""+SHIP0,Ship0Model.NAME));
+        chooseObject.addItem(new ValuePair(""+STARSHIP0,StarShip0Model.NAME));
+        chooseObject.addItem(new ValuePair(""+TANK0,Tank0Model.NAME));
+        chooseObject.addItem(new ValuePair(""+TANKTRUCK0,TankTruck0Model.NAME));
+        chooseObject.addItem(new ValuePair(""+TRACTOR0,Tractor0Model.NAME));
+        chooseObject.addItem(new ValuePair(""+TRUCK0,Truck0Model.NAME));
+        chooseObject.addItem(new ValuePair(""+YACHT0,Yacht0Model.NAME));
         chooseObject.addItemListener(this);
 
         chooseObject.setSelectedIndex(0);
@@ -390,7 +399,13 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                     dxf,dyf,dzf,
                     dxr,dyr,dzr,
                     dxRoof,dyRoof,dzRoof);
-        } else if(val==STARSHIP0) {
+        }  else if(val==YACHT0) {
+            meshModel=new Yacht0Model(
+                    dx,dy,dz,
+                    dxf,dyf,dzf,
+                    dxr,dyr,dzr,
+                    dxRoof,dyRoof,dzRoof);
+        }  else if(val==STARSHIP0) {
             meshModel=new StarShip0Model(
                     dx,dy,dz,
                     dxf,dyf,dzf,
@@ -399,6 +414,15 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
         } else if(val==AIRPLANE0){
 
             meshModel=new Airplane0Model(
+                    dx,dy,dz,
+                    dxf,dyf,dzf,
+                    dxr,dyr,dzr,
+                    dxRoof,dyRoof,dzRoof
+                    );
+        }
+        else if(val==FIGHTER_AIRCRAFT0){
+
+            meshModel=new FighterAircraft0Model(
                     dx,dy,dz,
                     dxf,dyf,dzf,
                     dxr,dyr,dzr,
@@ -462,7 +486,12 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                     dxRoof,dyRoof,dzRoof,
                     rearOverhang,frontOverhang,
                     wheelRadius,wheelWidth,wheelRays);
-        } else {
+        } else if(val==TRACTOR0) {
+            meshModel=new Tractor0Model(dx,dy,dz,
+                    dxf,dyf,dzf,
+                    dxr,dyr,dzr,
+                    dxRoof,dyRoof,dzRoof);
+        }  else {
             meshModel=new Car0Model(dx,dy,dz);
         }
 
@@ -551,7 +580,15 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         0,0,//rearOverhang, frontOverhang
                         0,0,0//wheel_radius, wheel_width, wheel_rays
                         );
-            } else if(STARSHIP0==val) {
+            } else if(YACHT0==val) {
+                setRightData(718,4550,378,//dx, dy, dz
+                        718,806,80,//dxFront, dyFront, dzFront
+                        718,527,80,//dxRear, dyRear, dzRear
+                        718,366,595,//dxRoof, dyRoof, dzRoof
+                        0,0,//rearOverhang, frontOverhang
+                        0,0,0//wheel_radius, wheel_width, wheel_rays
+                        );
+            }  else if(STARSHIP0==val) {
                 setRightData(50,200,50,//dx, dy, dz
                         150,150,50,//dxFront, dyFront, dzFront
                         50,250,50,//dxRear, dyRear, dzRear
@@ -567,7 +604,17 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         0,0,//rearOverhang, frontOverhang
                         0,0,0//wheel_radius, wheel_width, wheel_rays
                         );
-            } else if(BYKE0==val) {
+            }
+            else if(FIGHTER_AIRCRAFT0==val) {
+                setRightData(87,455,82,//dx, dy, dz
+                        46,104,46,//dxFront, dyFront, dzFront
+                        38,260,24,//dxRear, dyRear, dzRear
+                        330,217,53,//dxRoof, dyRoof, dzRoof
+                        0,0,//rearOverhang, frontOverhang
+                        0,0,0//wheel_radius, wheel_width, wheel_rays
+                        );
+            }
+            else if(BYKE0==val) {
                 setRightData(12,22,12,//dx, dy, dz
                         19,13,14,//dxFront, dyFront, dzFront
                         12,12,13,//dxRear, dyRear, dzRear
@@ -591,7 +638,17 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         0,0,//rearOverhang, frontOverhang
                         0,0,0//wheel_radius, wheel_width, wheel_rays
                         );
-            } else if(RAILWAGON0==val) {
+            }
+            else if(TRACTOR0==val) {
+                setRightData(300,400,100,//dx, dy, dz
+                        0,0,0,//dxFront, dyFront, dzFront
+                        300,100,50,//dxRear, dyRear, dzRear
+                        200,150,50,//dxRoof, dyRoof, dzRoof
+                        0,0,//rearOverhang, frontOverhang
+                        0,0,0//wheel_radius, wheel_width, wheel_rays
+                        );
+            }
+            else if(RAILWAGON0==val) {
                 setRightData(69,400,7,//dx, dy, dz
                         41,51,14,//dxFront, dyFront, dzFront
                         41,51,14,//dxRear, dyRear, dzRear

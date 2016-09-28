@@ -54,6 +54,8 @@ public class Tank0Model extends MeshModel{
     private double dxTexture=200;
     private double dyTexture=200;
 
+    public static String NAME="Tank";
+
     public Tank0Model(
             double dx, double dy, double dz,
             double dxf, double dyf, double dzf,

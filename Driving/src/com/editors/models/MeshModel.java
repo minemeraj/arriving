@@ -660,48 +660,91 @@ public abstract class MeshModel {
 	}
 	
 	
-	protected int[][][] buildWheelFaces(BPoint[][] wheelPoints,int texture_index) {
+    protected int[][][] buildWheelFaces(BPoint[][] wheelPoints,int texture_index) {
 
-		int raysNumber=wheelPoints.length;
-		int totWheelPolygon=raysNumber+2*(raysNumber-2);
-		
-		int[][][] bFaces=new int[totWheelPolygon][][];
+        int raysNumber=wheelPoints.length;
+        int totWheelPolygon=raysNumber+2*(raysNumber-2);
+        
+        int[][][] bFaces=new int[totWheelPolygon][][];
 
-		//wheel track
-		int counter=0;
-		
-		for(int i=0;i<raysNumber;i++){
-			
-			BPoint p0=wheelPoints[i][0];
-			BPoint p1=wheelPoints[i][1];
-			BPoint p2=wheelPoints[(i+1)%raysNumber][1];
-			BPoint p3=wheelPoints[(i+1)%raysNumber][0];
+        //wheel track
+        int counter=0;
+        
+        for(int i=0;i<raysNumber;i++){
+            
+            BPoint p0=wheelPoints[i][0];
+            BPoint p1=wheelPoints[i][1];
+            BPoint p2=wheelPoints[(i+1)%raysNumber][1];
+            BPoint p3=wheelPoints[(i+1)%raysNumber][0];
 
-			bFaces[counter++]=buildFace(0, p0, p1, p2,p3, texture_index, texture_index+1, texture_index+2,texture_index+3);
-		}
-		//wheel sides as triangles 
-		for(int i=1;i<raysNumber-1;i++){
-			
-			BPoint p0=wheelPoints[0][0];
-			BPoint p1=wheelPoints[i][0];
-			BPoint p2=wheelPoints[(i+1)%raysNumber][0];	
+            bFaces[counter++]=buildFace(0, p0, p1, p2,p3, texture_index, texture_index+1, texture_index+2,texture_index+3);
+        }
+        //wheel sides as triangles 
+        for(int i=1;i<raysNumber-1;i++){
+            
+            BPoint p0=wheelPoints[0][0];
+            BPoint p1=wheelPoints[i][0];
+            BPoint p2=wheelPoints[(i+1)%raysNumber][0]; 
 
-			bFaces[counter++]=buildFace(0, p0, p1, p2,texture_index, texture_index+1, texture_index+2);
-		}
-		
-		for(int i=1;i<raysNumber-1;i++){
-			
-			BPoint p0=wheelPoints[0][1];
-			BPoint p1=wheelPoints[(i+1)%raysNumber][1];	
-			BPoint p2=wheelPoints[i][1];
-			
+            bFaces[counter++]=buildFace(0, p0, p1, p2,texture_index, texture_index+1, texture_index+2);
+        }
+        
+        for(int i=1;i<raysNumber-1;i++){
+            
+            BPoint p0=wheelPoints[0][1];
+            BPoint p1=wheelPoints[(i+1)%raysNumber][1]; 
+            BPoint p2=wheelPoints[i][1];
+            
 
-			bFaces[counter++]=buildFace(0, p0, p1, p2,texture_index, texture_index+1, texture_index+2);
-		}
+            bFaces[counter++]=buildFace(0, p0, p1, p2,texture_index, texture_index+1, texture_index+2);
+        }
 
-		return bFaces;
+        return bFaces;
 
-	}
+    }
+    
+    protected int[][][] buildWheelFaces(BPoint[][] wheelPoints,int[] texture_indexes) {
+
+        int raysNumber=wheelPoints.length;
+        int totWheelPolygon=raysNumber+2*(raysNumber-2);
+        
+        int[][][] bFaces=new int[totWheelPolygon][][];
+
+        //wheel track
+        int counter=0;
+        
+        for(int i=0;i<raysNumber;i++){
+            
+            BPoint p0=wheelPoints[i][0];
+            BPoint p1=wheelPoints[i][1];
+            BPoint p2=wheelPoints[(i+1)%raysNumber][1];
+            BPoint p3=wheelPoints[(i+1)%raysNumber][0];
+
+            bFaces[counter++]=buildFace(0, p0, p1, p2,p3, texture_indexes);
+        }
+        //wheel sides as triangles 
+        for(int i=1;i<raysNumber-1;i++){
+            
+            BPoint p0=wheelPoints[0][0];
+            BPoint p1=wheelPoints[i][0];
+            BPoint p2=wheelPoints[(i+1)%raysNumber][0]; 
+
+            bFaces[counter++]=buildFace(0, p0, p1, p2,texture_indexes);
+        }
+        
+        for(int i=1;i<raysNumber-1;i++){
+            
+            BPoint p0=wheelPoints[0][1];
+            BPoint p1=wheelPoints[(i+1)%raysNumber][1]; 
+            BPoint p2=wheelPoints[i][1];
+            
+
+            bFaces[counter++]=buildFace(0, p0, p1, p2,texture_indexes);
+        }
+
+        return bFaces;
+
+    }
 	
 	BPoint[][] addYCylinder(double cyx0, double cyy0,double cyz0,
 			double cylinder_radius,double cylinder_lenght,int barrel_meridians){

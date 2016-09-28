@@ -50,6 +50,9 @@ public class OceanLiner0Model extends MeshModel{
 
     public static String NAME="Ocean liner";
 
+    double dxTexture=200;
+    double dyTexture=200;
+
     public OceanLiner0Model(
             double dx, double dy, double dz,
             double dxFront, double dyFront, double dzFront,
@@ -219,8 +222,7 @@ public class OceanLiner0Model extends MeshModel{
     private void buildTextures() {
 
 
-        double dxt=200;
-        double dyt=200;
+
 
         int shift=1;
 
@@ -230,14 +232,14 @@ public class OceanLiner0Model extends MeshModel{
         double x=bx;
 
         //hull
-        addTRect(x, y, dxt, dyt);
+        addTRect(x, y, dxTexture, dyTexture);
 
-        x+=shift+dxt;
+        x+=shift+dxTexture;
         //main deck
-        addTRect(x, y, dxt, dyt);
+        addTRect(x, y, dxTexture, dyTexture);
 
-        IMG_WIDTH=(int) (2*bx+dxt+dxt+shift);
-        IMG_HEIGHT=(int) (2*by+dyt);
+        IMG_WIDTH=(int) (2*bx+dxTexture+dxTexture+shift);
+        IMG_HEIGHT=(int) (2*by+dyTexture);
 
     }
 

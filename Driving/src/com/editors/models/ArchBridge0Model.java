@@ -151,12 +151,12 @@ public class ArchBridge0Model extends MeshModel{
 
     private void buildBody() {
 
-        Segments s0=new Segments(0,dx*0.5,0,dyFront,0,dz);
-        Segments s1=new Segments(0,dx*0.5,dyFront,dy,0,dz);
-        Segments s2=new Segments(0,dx*0.5,dyFront+dy,dyFront,0,dz);
+        Segments s0=new Segments(0,dx*0.5,0,dyFront,0,dzFront+dz);
+        Segments s1=new Segments(0,dx*0.5,dyFront,dy,dzFront,dz);
+        Segments s2=new Segments(0,dx*0.5,dyFront+dy,dyFront,0,dzFront+dz);
 
         body=new BPoint[2][archNY+2][2];
-        double fMax=dzFront/dz;
+        double fMax=dzRoof/dz;
         double a=-4*fMax;
 
         for (int i = 0; i < archNY+2; i++) {

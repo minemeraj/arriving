@@ -53,6 +53,8 @@ public class StreetLightModel extends MeshModel{
     private BPoint[][] trunkpoints;
     private BPoint[][][] lamp;
 
+    public static String NAME="Street light";
+
     public StreetLightModel(
             double dx, double dy, double dz,
             double dxRoof,double dyRoof,double dzRoof) {
