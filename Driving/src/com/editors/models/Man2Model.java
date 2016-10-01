@@ -22,12 +22,14 @@ public class Man2Model extends MeshModel{
 	private double leg_length = 0;
 	private double arm_length = 0;
 
-	private int[][][] faces; 
+	private int[][][] faces;
 
 	private int bx=10;
 	private int by=10;
 
 	private int bustFacesNum=0;
+
+	public static final String NAME="Man2";
 
 	public Man2Model(double dx, double dy, double dz,
 			double leg_length,
@@ -58,13 +60,13 @@ public class Man2Model extends MeshModel{
 		double deltax=100;
 		double deltay=100;
 
-		int xNumSections=19;  
+		int xNumSections=19;
 		int zNumSections=bust.length+leftLeg.length+rightLeg.length
 				+leftArm.length+rightArm.length;
 
 		int  NUMFACES=(xNumSections-1)*(zNumSections-1);
 
-		for (int k = 0; k < zNumSections; k++) { 
+		for (int k = 0; k < zNumSections; k++) {
 
 
 			double y=by+deltay*k;
@@ -158,7 +160,7 @@ public class Man2Model extends MeshModel{
 
 		for (int i = 0; i < counter; i++) {
 
-			faces[i] = (int[][]) tFaces[i];
+			faces[i] = tFaces[i];
 
 		}
 		//writeNewCode();
@@ -271,7 +273,7 @@ public class Man2Model extends MeshModel{
 		leg[1][0]= addBPoint(bust[0][0].x-leg_width,-deltay,deltaz*0.5);
 		leg[1][1]= addBPoint(bust[0][0].x,-deltay,deltaz*0.5);
 		leg[1][2]= addBPoint(bust[0][17].x,deltay,deltaz*0.5);
-		leg[1][3]= addBPoint(bust[0][17].x-leg_width,deltay,deltaz*0.5);		
+		leg[1][3]= addBPoint(bust[0][17].x-leg_width,deltay,deltaz*0.5);
 
 		leg[2][0]= bust[1][0];
 		leg[2][1]= bust[0][0];
@@ -303,14 +305,14 @@ public class Man2Model extends MeshModel{
 
 		}
 
-		
+
 		return bust;
 	}
 
-	private void buildFace(int[][][] faces, 
-			int counter, 
-			BPoint p0, BPoint p1, BPoint p2, BPoint p3, 
-			int xNumSections, 
+	private void buildFace(int[][][] faces,
+			int counter,
+			BPoint p0, BPoint p1, BPoint p2, BPoint p3,
+			int xNumSections,
 			int zNumSections
 			) {
 
@@ -358,7 +360,7 @@ public class Man2Model extends MeshModel{
 		//draw lines for reference
 
 
-		bg.setStroke(new BasicStroke(0.1f));	
+		bg.setStroke(new BasicStroke(0.1f));
 
 		bg.setColor(Color.RED);
 		printTextureFaces(bg,faces,0,bustFacesNum);
@@ -370,50 +372,51 @@ public class Man2Model extends MeshModel{
 
 
 
+	@Override
 	public void printMeshData(PrintWriter pw) {
 
 		super.printMeshData(pw);
 		super.printFaces(pw, faces);
 
 	}
-	
+
 	/**
 	 * DIAGNOSTICS UTILITY
-	 * 
+	 *
 	 */
 	public void printSections(){
-		
+
 		int w=(int) (dx)+2*bx;
 		int h=(int) (2*dy)+2*by;
-		
+
 		BufferedImage buf=new BufferedImage(w,h,BufferedImage.TYPE_BYTE_INDEXED);
-		
+
 		File file=new File("sections.jpg");
 
 		try {
 
-			
+
 
 			Graphics2D bufGraphics=(Graphics2D)buf.getGraphics();
 
 			bufGraphics.setColor(Color.BLACK);
 			bufGraphics.fillRect(0,0,w,h);
-			
+
 			bufGraphics.setColor(Color.WHITE);
-			
+
 			for (int i = 0; i < data.length; i++) {
-				
+
 				double[][] pts = data[i];
-				
-				
+
+
 				if(i==8){
-					
+
 					bufGraphics.setColor(Color.WHITE);
 				}else if(i==9){
-					
+
 					bufGraphics.setColor(Color.RED);
 				}else if(i==10){
-					
+
 					bufGraphics.setColor(Color.GREEN);
 					continue;
 				}
@@ -421,14 +424,14 @@ public class Man2Model extends MeshModel{
 					continue;
 
 				for (int j = 0; j < pts.length-1; j++) {
-					
+
 					int x=(int) (pts[j][0]*dx*0.5)+(int) (dx*0.5)+bx;
 					int y=(int) (pts[j][1]*dy)+(int) (dy)+by;
-					
+
 					bufGraphics.fillRect(x-1, y-1, 2, 2);
 				}
-				
-				
+
+
 			}
 
 			ImageIO.write(buf,"gif",file);
@@ -442,7 +445,7 @@ public class Man2Model extends MeshModel{
 
 	private double[][][] data=
 		{
-				{	
+				{
 
 					{-0.1111,-1.0,0.0},
 					{-0.08335000000000001,-1.0,0.0},
@@ -666,6 +669,6 @@ public class Man2Model extends MeshModel{
 		};
 
 
-	
-	
+
+
 }

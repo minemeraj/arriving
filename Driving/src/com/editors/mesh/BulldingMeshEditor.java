@@ -25,6 +25,7 @@ import com.editors.models.Church0Model;
 import com.editors.models.Church1Model;
 import com.editors.models.Courtyard0Model;
 import com.editors.models.Gambrel0Model;
+import com.editors.models.HangarModel;
 import com.editors.models.HouseCShapedModel;
 import com.editors.models.HouseCrossModel;
 import com.editors.models.HouseGableModel;
@@ -33,6 +34,7 @@ import com.editors.models.HouseThreeWingsModel;
 import com.editors.models.Mansard0Model;
 import com.editors.models.Shed0Model;
 import com.editors.models.Stand0Model;
+import com.editors.models.TunnelModel;
 
 public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, ItemListener{
 
@@ -69,6 +71,8 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
     public static int CHURCH1=13;
     public static int ARCHBRIDGE=14;
     public static int BARRIER0=15;
+    public static int TUNNEL=16;
+    public static int HANGAR=17;
 
     public static void main(String[] args) {
 
@@ -229,11 +233,13 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
         chooseBuilding.addItem(new ValuePair(""+HOUSE4_C_SHAPED,HouseCShapedModel.NAME));
         chooseBuilding.addItem(new ValuePair(""+HOUSE0_GABLE,HouseGableModel.NAME));
         chooseBuilding.addItem(new ValuePair(""+GAMBREL0,Gambrel0Model.NAME));
+        chooseBuilding.addItem(new ValuePair(""+HANGAR,HangarModel.NAME));
         chooseBuilding.addItem(new ValuePair(""+HOUSE1_LSHAPED,HouseLShapedModel.NAME));
         chooseBuilding.addItem(new ValuePair(""+MANSARD0,Mansard0Model.NAME));
         chooseBuilding.addItem(new ValuePair(""+SHED0,Shed0Model.NAME));
         chooseBuilding.addItem(new ValuePair(""+STAND0,Stand0Model.NAME));
         chooseBuilding.addItem(new ValuePair(""+HOUSE2_THREEWINGS,HouseThreeWingsModel.NAME));
+        chooseBuilding.addItem(new ValuePair(""+TUNNEL,TunnelModel.NAME));
 
         chooseBuilding.addItemListener(this);
 
@@ -316,6 +322,10 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
             meshModel=new ArchBridge0Model(dx,dy,dz,0,dy1,dz1,0,0,0,0,0,dz2);
         } else if(BARRIER0==val) {
             meshModel=new BarrierModel(dx,dy,dz,num_mer,dx1,dy1,dz1);
+        } else if(TUNNEL==val) {
+            meshModel=new TunnelModel(dx,dy,dz,num_mer,dx1,dy1,dz1);
+        } else if(HANGAR==val) {
+        	meshModel=new HangarModel(dx,dy,dz);
         }
 
         meshModel.setDescription(description.getText());
@@ -484,7 +494,7 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
             else if(ARCHBRIDGE==val){
                 setRightData(200,1000,500,//dx,dy,dz
                         0,//roof_height
-                        0,100,150,//dx1,dy1,dz1
+                        0,200,150,//dx1,dy1,dz1
                         0,//num_meridians
                         0,0,350,0//dx2,dy2,dz2,dy3
                         );
@@ -496,6 +506,21 @@ public class BulldingMeshEditor extends MeshModelEditor implements KeyListener, 
                         3,//num_meridians
                         0,0,0,0//dx2,dy2,dz2,dy3
                         );
+            }
+            else if(TUNNEL==val){
+                setRightData(200,1000,200,//dx,dy,dz
+                        0,//roof_height
+                        200,100,300,//dx1,dy1,dz1
+                        3,//num_meridians
+                        0,0,0,0//dx2,dy2,dz2,dy3
+                        );
+            }
+            else if(HANGAR==val){
+                setRightData(100,200,100,//dx,dy,dz
+                        0,//roof_height
+                        0,0,0,//dx1,dy1,dz1
+                        0,//num_meridians
+                        0,0,0,0);//dx2,dy2,dz2,dy3
             }
         }
 

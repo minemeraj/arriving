@@ -50,6 +50,7 @@ public class ArchBridge0Model extends MeshModel{
     private int[][][] faces;
 
     private BPoint[][][] body;
+    private BPoint[][][][] poles;
 
     private double dxTexture=100;
     private double dyTexture=100;
@@ -92,6 +93,7 @@ public class ArchBridge0Model extends MeshModel{
 
         //faces
         int NF=4*(archNY+1)+2;
+        NF+=poles.length*5;
 
         faces=new int[NF][3][4];
 
@@ -119,6 +121,14 @@ public class ArchBridge0Model extends MeshModel{
                 faces[counter++]=buildFace(Renderer3D.CAR_FRONT, body[0][i+1][0],body[0][i+1][1],body[1][i+1][1],body[1][i+1][0], bo[0]);
             }
 
+        }
+
+        for(int i=0;i<poles.length;i++){
+            faces[counter++]=buildFace(Renderer3D.CAR_LEFT, poles[i][0][0][0],poles[i][0][0][1],poles[i][0][1][1],poles[i][0][1][0], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, poles[i][1][0][0],poles[i][1][1][0],poles[i][1][1][1],poles[i][1][0][1], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_FRONT, poles[i][0][1][0],poles[i][0][1][1],poles[i][1][1][1],poles[i][1][1][0], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_BACK, poles[i][0][0][0],poles[i][1][0][0],poles[i][1][0][1],poles[i][0][0][1], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, poles[i][0][0][0],poles[i][0][1][0],poles[i][1][1][0],poles[i][1][0][0], bo[0]);
         }
 
         return counter;
@@ -151,9 +161,9 @@ public class ArchBridge0Model extends MeshModel{
 
     private void buildBody() {
 
-        Segments s0=new Segments(0,dx*0.5,0,dyFront,0,dzFront+dz);
+        Segments s0=new Segments(0,dx*0.5,0,dyFront,dzFront,dz);
         Segments s1=new Segments(0,dx*0.5,dyFront,dy,dzFront,dz);
-        Segments s2=new Segments(0,dx*0.5,dyFront+dy,dyFront,0,dzFront+dz);
+        Segments s2=new Segments(0,dx*0.5,dyFront+dy,dyFront,dzFront,dz);
 
         body=new BPoint[2][archNY+2][2];
         double fMax=dzRoof/dz;
@@ -161,20 +171,23 @@ public class ArchBridge0Model extends MeshModel{
 
         for (int i = 0; i < archNY+2; i++) {
 
-            double yy=i*1.0/(archNY+1);
-
+            double yy=-1;
+            Segments s=null;
             double fz0=0;
-            if(i>0 && i<archNY+1){
-                double yr=(i-1)*1.0/(archNY-1);
-                fz0=a*yr*(yr-1.0);
-            }
             double fz1=1.0;
 
-            Segments s=s1;
-            if(i==0) {
-                s=s0;
-            }else if(i==archNY+1) {
-                s=s2;
+            if(i==0){
+            	yy=0;
+            	s=s0;
+            }
+            else if(i==archNY+1){
+            	yy=1;
+            	s=s2;
+            }else{
+            	yy=(i-1)*1.0/(archNY-1);
+            	s=s1;
+            	  double yr=(i-1)*1.0/(archNY-1);
+                  fz0=a*yr*(yr-1.0);
             }
 
             body[0][i][0]=addBPoint(-1.0,yy,fz0,s);
@@ -183,10 +196,30 @@ public class ArchBridge0Model extends MeshModel{
             body[1][i][1]=addBPoint(1.0,yy,fz1,s);
         }
 
+        Segments p0=new Segments(0,dx*0.5,0,dyFront,0,dzFront);
+        Segments p1=new Segments(0,dx*0.5,dyFront+dy,dyFront,0,dzFront);
 
 
+        poles=new BPoint[2][2][2][2];
+        poles[0][0][0][0]=addBPoint(-1.0,0.0,0,p0);
+        poles[0][1][0][0]=addBPoint(1.0,0.0,0,p0);
+        poles[0][0][1][0]=addBPoint(-1.0,1.0,0,p0);
+        poles[0][1][1][0]=addBPoint(1.0,1.0,0,p0);
 
+        poles[0][0][0][1]=addBPoint(-1.0,0.0,1.0,p0);
+        poles[0][1][0][1]=addBPoint(1.0,0.0,1.0,p0);
+        poles[0][0][1][1]=addBPoint(-1.0,1.0,1.0,p0);
+        poles[0][1][1][1]=addBPoint(1.0,1.0,1.0,p0);
 
+        poles[1][0][0][0]=addBPoint(-1.0,0.0,0,p1);
+        poles[1][1][0][0]=addBPoint(1.0,0.0,0,p1);
+        poles[1][0][1][0]=addBPoint(-1.0,1.0,0,p1);
+        poles[1][1][1][0]=addBPoint(1.0,1.0,0,p1);
+
+        poles[1][0][0][1]=addBPoint(-1.0,0.0,1.0,p1);
+        poles[1][1][0][1]=addBPoint(1.0,0.0,1.0,p1);
+        poles[1][0][1][1]=addBPoint(-1.0,1.0,1.0,p1);
+        poles[1][1][1][1]=addBPoint(1.0,1.0,1.0,p1);
     }
 
 

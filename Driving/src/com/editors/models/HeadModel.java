@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 
 public class HeadModel extends MeshModel {
 
-	private int[][][] splacFaces; 
+	private int[][][] splacFaces;
 	private int[][][] neuroFaces;
 
 	private double dx = 0;
@@ -23,6 +23,8 @@ public class HeadModel extends MeshModel {
 	private int by=10;
 
 	private int tetaNumSections=10;
+
+	public static final String NAME="Head";
 
 	public HeadModel(double dx, double dy, double dz) {
 
@@ -51,11 +53,11 @@ public class HeadModel extends MeshModel {
 		int nSplacnoPoints=0;
 
 		//splanchnocranium
-		for (int k = 0; k < zNumSections; k++) { 
+		for (int k = 0; k < zNumSections; k++) {
 
 			double[] d=skullSections[k];
 
-			double z=dz*d[0];  
+			double z=dz*d[0];
 
 			for (int i = 0; i < xNumSections; i++) {
 
@@ -75,7 +77,7 @@ public class HeadModel extends MeshModel {
 		//neurocranium
 
 		double dTeta=Math.PI/(tetaNumSections-1);
-		for (int k = 0; k < zNumSections; k++) { 
+		for (int k = 0; k < zNumSections; k++) {
 
 
 			double rx=dx*0.5;
@@ -83,7 +85,7 @@ public class HeadModel extends MeshModel {
 
 			double[] d=skullSections[k];
 
-			double z=dz*d[0]; 
+			double z=dz*d[0];
 			ry=ry*d[1];
 
 			for (int i = 0; i < tetaNumSections; i++) {
@@ -104,11 +106,11 @@ public class HeadModel extends MeshModel {
 
 		int nSplacnoTPoints=0;
 
-		for (int k = 0; k < zNumSections; k++) { 
+		for (int k = 0; k < zNumSections; k++) {
 
 			double[] d=skullSections[k];
 
-			double z=by+dz*d[0]; 
+			double z=by+dz*d[0];
 
 			for (int i = 0; i < xNumSections; i++) {
 
@@ -125,11 +127,11 @@ public class HeadModel extends MeshModel {
 		//neurocranium
 		double deltaTeta=(dy*Math.PI)/(tetaNumSections-1);
 
-		for (int k = 0; k < zNumSections; k++) { 
+		for (int k = 0; k < zNumSections; k++) {
 
 			double[] d=skullSections[k];
 
-			double z=by+dz*d[0]; 
+			double z=by+dz*d[0];
 
 			for (int i = 0; i < tetaNumSections; i++) {
 
@@ -143,7 +145,7 @@ public class HeadModel extends MeshModel {
 
 		splacFaces=buildSinglePlaneFaces(xNumSections, zNumSections,
 				0, 0);
-		neuroFaces=buildSinglePlaneFaces(tetaNumSections, zNumSections, 
+		neuroFaces=buildSinglePlaneFaces(tetaNumSections, zNumSections,
 				nSplacnoPoints, nSplacnoTPoints);
 
 		IMG_WIDTH=(int) (2*bx+dx+dy*Math.PI);
@@ -247,7 +249,7 @@ public class HeadModel extends MeshModel {
 
 	/**
 	 * DIAGNOSTICS UTILITY
-	 * 
+	 *
 	 */
 	public void printSections(){
 
@@ -309,7 +311,7 @@ public class HeadModel extends MeshModel {
 			//////
 			int zNumSections=skullSections.length;
 			double dTeta=Math.PI/(tetaNumSections-1);
-			for (int k = 0; k < zNumSections; k++) { 
+			for (int k = 0; k < zNumSections; k++) {
 
 
 				double rx=dx*0.5;
@@ -317,7 +319,7 @@ public class HeadModel extends MeshModel {
 
 				double[] d=skullSections[k];
 
-				double z=dz*d[0]; 
+				double z=dz*d[0];
 				ry=ry*d[1];
 
 				for (int i = 0; i < tetaNumSections; i++) {
@@ -345,7 +347,7 @@ public class HeadModel extends MeshModel {
 
 	/**
 	 * DIAGNOSTICS UTILITY
-	 * 
+	 *
 	 */
 	private void printXSections(){
 
@@ -369,7 +371,7 @@ public class HeadModel extends MeshModel {
 			bufGraphics.fillRect(0,0,w,h);
 
 			bufGraphics.setColor(Color.WHITE);
-			
+
 			Color[] cols={Color.RED,Color.GREEN,Color.CYAN,Color.YELLOW,
 			    		Color.MAGENTA,Color.PINK,Color.BLUE,Color.GRAY,Color.WHITE};
 
@@ -378,19 +380,19 @@ public class HeadModel extends MeshModel {
 				double[] pts = faceData[k];
 
 				for (int i = 0; i < pts.length; i++) {
-					
+
 					if(i<8)
 						continue;
-			
+
 					bufGraphics.setColor(cols[i-8]);
-					
+
 					int x=(int)(-dy*faceData[k][i])+(int)dy+bx;
 					double[] d=skullSections[k];
-					int y=(int) (dz*d[0])+by;   
-					
+					int y=(int) (dz*d[0])+by;
+
 					int x1=(int)(-dy*faceData[k+1][i])+(int)dy+bx;
 					double[] d1=skullSections[k+1];
-					int y1=(int) (dz*d1[0])+by;  
+					int y1=(int) (dz*d1[0])+by;
 
 					bufGraphics.drawLine(x, h-(y), x1, h-y1);
 				}
@@ -400,11 +402,11 @@ public class HeadModel extends MeshModel {
 
 			//////
 			bufGraphics.setColor(Color.GREEN);
-			
-			
+
+
 			int zNumSections=skullSections.length;
 			double dTeta=Math.PI/(tetaNumSections-1);
-			for (int k = 0; k < zNumSections-1; k++) { 
+			for (int k = 0; k < zNumSections-1; k++) {
 
 
 				double rx=dx*0.5;
@@ -422,11 +424,11 @@ public class HeadModel extends MeshModel {
 					double teta=dTeta*i;
 
 
-					int x=(int)(ry*Math.sin(teta))+(int)dy+bx;					
+					int x=(int)(ry*Math.sin(teta))+(int)dy+bx;
 					int y=(int) (dz*d[0])+by;
-					
-					int x1=(int)(ry1*Math.sin(teta))+(int)dy+bx;					
-					int y1=(int) (dz*d1[0])+by; 
+
+					int x1=(int)(ry1*Math.sin(teta))+(int)dy+bx;
+					int y1=(int) (dz*d1[0])+by;
 
 
 					bufGraphics.drawLine(x, h-(y), x1, h-y1);

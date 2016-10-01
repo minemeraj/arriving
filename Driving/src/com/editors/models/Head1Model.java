@@ -19,10 +19,12 @@ public class Head1Model extends MeshModel{
 	private double dy = 0;
 	private double dz = 0;
 
-	private int[][][] faces; 
-	
+	private int[][][] faces;
+
 	private int bx=10;
 	private int by=10;
+
+	public static final String NAME="Head1";
 
 	public Head1Model(double dx, double dy, double dz) {
 		super();
@@ -43,13 +45,13 @@ public class Head1Model extends MeshModel{
 		double deltax=100;
 		double deltay=100;
 
-		int xNumSections=35;  
+		int xNumSections=35;
 		int zNumSections=head.length;
 		int  NUMFACES=(xNumSections-1)*(zNumSections-1);
 
 
 
-		for (int k = 0; k < zNumSections; k++) { 
+		for (int k = 0; k < zNumSections; k++) {
 
 
 			double y=by+deltay*k;
@@ -89,7 +91,7 @@ public class Head1Model extends MeshModel{
 
 		for (int i = 0; i < counter; i++) {
 
-			faces[i] = (int[][]) tFaces[i];
+			faces[i] = tFaces[i];
 
 		}
 
@@ -124,10 +126,10 @@ public class Head1Model extends MeshModel{
 		return head;
 	}
 
-	private void buildFace(int[][][] faces, 
-			int counter, 
-			BPoint p0, BPoint p1, BPoint p2, BPoint p3, 
-			int xNumSections, 
+	private void buildFace(int[][][] faces,
+			int counter,
+			BPoint p0, BPoint p1, BPoint p2, BPoint p3,
+			int xNumSections,
 			int zNumSections
 			) {
 
@@ -184,6 +186,7 @@ public class Head1Model extends MeshModel{
 
 
 
+	@Override
 	public void printMeshData(PrintWriter pw) {
 
 		super.printMeshData(pw);
@@ -200,7 +203,7 @@ public class Head1Model extends MeshModel{
 
 	/**
 	 * DIAGNOSTICS UTILITY
-	 * 
+	 *
 	 */
 	public void printSections(){
 
@@ -268,10 +271,10 @@ public class Head1Model extends MeshModel{
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * DIAGNOSTICS UTILITY
-	 * 
+	 *
 	 */
 	private void printXSections(){
 
@@ -296,7 +299,7 @@ public class Head1Model extends MeshModel{
 				bufGraphics.fillRect(0,0,w,h);
 
 				bufGraphics.setColor(Color.WHITE);
-				
+
 			    Color[] cols={Color.RED,Color.GREEN,Color.CYAN,Color.YELLOW,
 			    		Color.MAGENTA,Color.PINK,Color.BLUE,Color.GRAY,Color.WHITE};
 
@@ -308,8 +311,8 @@ public class Head1Model extends MeshModel{
 					double[][] pts1 = data[i+1];
 
 					for (int j = 0; j < pts.length; j++) {
-						
-						
+
+
 
 
 						if(j>=25 && j<34){
@@ -322,13 +325,13 @@ public class Head1Model extends MeshModel{
 						else
 							continue;
 
-						
+
 						int x=(int) (pts[j][1]*dy)+(int)dy+bx;
-						
+
 						int y=(int) (pts[j][2]*dz)+by;
-						
+
 						int x1=(int) (pts1[j][1]*dy)+(int)dy+bx;
-						
+
 						int y1=(int) (pts1[j][2]*dz)+by;
 
 						bufGraphics.drawLine(x, h-(y), x1, h-y1);
@@ -350,7 +353,7 @@ public class Head1Model extends MeshModel{
 
 	/**
 	 * DEBUGGING UTILITY
-	 * 
+	 *
 	 */
 	public void writeNewCode(){
 
@@ -436,7 +439,7 @@ public class Head1Model extends MeshModel{
 	}
 
 	private double[][][] data=
-		{		
+		{
 				//8 nose tip, 10 eyes line
 
 				{
@@ -708,7 +711,7 @@ public class Head1Model extends MeshModel{
 					{0.625,-0.3640939775,0.3033},
 					{0.75,-0.31532245000000003,0.3033},
 					{0.875,-0.15766122500000002,0.3033},
-					{1.0,-0.0,0.3033},					
+					{1.0,-0.0,0.3033},
 					{1.0,0.1,0.3033},
 					{0.875,0.31796026536129846,0.3033},
 					{0.75,0.45,0.3033},
@@ -717,7 +720,7 @@ public class Head1Model extends MeshModel{
 					{0.375,0.68,0.3033},
 					{0.25,0.70,0.3033},
 					{0.125,0.71,0.3033},
-					{0.0,0.7326,0.3033},					
+					{0.0,0.7326,0.3033},
 					{-0.125,0.71,0.3033},
 					{-0.25,0.70,0.3033},
 					{-0.375,0.68,0.3033},
@@ -745,7 +748,7 @@ public class Head1Model extends MeshModel{
 					{0.625,-0.37299108000000003,0.3279},
 					{0.75,-0.32302776,0.3279},
 					{0.875,-0.16151388,0.3279},
-					{1.0,-0.0,0.3279},					
+					{1.0,-0.0,0.3279},
 					{1.0,0.1,0.3279},
 					{0.875,0.31796026536129846,0.3279},
 					{0.75,0.5,0.3279},
@@ -756,7 +759,7 @@ public class Head1Model extends MeshModel{
 					{0.125,0.71,0.3279},
 					{0.0,0.7791,0.3279},
 					{-0.125,0.71,0.3279},
-					{-0.25,0.7,0.3279},					
+					{-0.25,0.7,0.3279},
 					{-0.375,0.68,0.3279},
 					{-0.5,0.63,0.3279},
 					{-0.625,0.59,0.3279},
@@ -781,7 +784,7 @@ public class Head1Model extends MeshModel{
 					{0.625,-0.40407367,0.40165},
 					{0.75,-0.34994674,0.40165},
 					{0.875,-0.17497337,0.40165},
-					{1.0,-0.0,0.40165},						
+					{1.0,-0.0,0.40165},
 					{1.0,0.1,0.40165},
 					{0.875,0.31,0.40165},
 					{0.75,0.51,0.40165},
@@ -818,7 +821,7 @@ public class Head1Model extends MeshModel{
 					{0.625,-0.43515625999999996,0.4754},
 					{0.75,-0.37686571999999996,0.4754},
 					{0.875,-0.18843285999999998,0.4754},
-					{1.0,-0.0,0.4754},					
+					{1.0,-0.0,0.4754},
 					{1.0,0.1,0.4754},
 					{0.875,0.3,0.4754},
 					{0.75,0.47,0.4754},
@@ -854,7 +857,7 @@ public class Head1Model extends MeshModel{
 					{0.625,-0.43958572,0.541},
 					{0.75,-0.38070183999999996,0.541},
 					{0.875,-0.19035091999999998,0.541},
-					{1.0,-0.0,0.541},					
+					{1.0,-0.0,0.541},
 					{1.0,0.1,0.541},
 					{0.875,0.29272222355026994,0.541},
 					{0.75,0.45,0.541},
@@ -890,14 +893,14 @@ public class Head1Model extends MeshModel{
 					{0.625,-0.44401518000000006,0.6066},
 					{0.75,-0.38453796,0.6066},
 					{0.875,-0.19226898,0.6066},
-					{1.0,-0.0,0.6066},					
+					{1.0,-0.0,0.6066},
 					{1.0,0.1,0.6066},
-					{0.875,0.28766593486413955,0.6066},					
+					{0.875,0.28766593486413955,0.6066},
 					{0.75,0.43,0.6066},
-					{0.625,0.51,0.6066},					
-					{0.5,0.57,0.6066},					
+					{0.625,0.51,0.6066},
+					{0.5,0.57,0.6066},
 					{0.375,0.62,0.6066},
-					{0.25,0.64,0.6066},					
+					{0.25,0.64,0.6066},
 					{0.125,0.66021508,0.6066},
 					{0.0,0.6628,0.6066},
 					{-0.125,0.66021508,0.6066},
@@ -1198,6 +1201,6 @@ public class Head1Model extends MeshModel{
 					{-1.0,0.0,1.0},
 				},
 
-		};	
+		};
 
 }

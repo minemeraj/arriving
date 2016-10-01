@@ -15,7 +15,7 @@ import com.main.Renderer3D;
  * @author Administrator
  *
  */
-public class Man3Model extends MeshModel{
+public class QuadrupedModel extends MeshModel{
 
 	private int bx=10;
 	private int by=10;
@@ -64,9 +64,9 @@ public class Man3Model extends MeshModel{
 	int radHead=8;
 	private BPoint[][] head;
 
-	public static final String NAME="Man3";
+	public static final String NAME="Quadruped";
 
-	public Man3Model(
+	public QuadrupedModel(
 			double dx, double dy, double dz,
 			double dxFront, double dyfront, double dzFront,
 			double dxr, double dyr,	double dzr,

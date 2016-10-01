@@ -14,12 +14,15 @@ import javax.swing.JTextField;
 
 import com.editors.DoubleTextField;
 import com.editors.ValuePair;
+import com.editors.models.Dinosaur0Model;
 import com.editors.models.Head1Model;
 import com.editors.models.HeadModel;
 import com.editors.models.Man1Model;
 import com.editors.models.Man2Model;
 import com.editors.models.Man3Model;
 import com.editors.models.ManModel;
+import com.editors.models.QuadrupedModel;
+import com.editors.models.RiderManModel;
 
 public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, ItemListener{
 
@@ -40,6 +43,9 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 	public static int MAN3=5;
 	public static int HEAD0=3;
 	public static int HEAD1=4;
+	public static int QUADRUPED=6;
+	public static int RIDERMAN=7;
+	public static int DINOSAUR0=8;
 
 	public static void main(String[] args) {
 
@@ -53,6 +59,7 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 	}
 
 
+	@Override
 	public void buildCenter() {
 
 		double dx=100;
@@ -88,7 +95,7 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 		center.add(llegs);
 		leg_length_text=new DoubleTextField(8);
 		leg_length_text.setBounds(210,r,100,20);
-		leg_length_text.setText(0); 
+		leg_length_text.setText(0);
 		center.add(leg_length_text);
 
 		r+=30;
@@ -130,13 +137,16 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 		chooseAnimal.setBounds(115, r, 100, 20);
 		chooseAnimal.addKeyListener(this);
 		chooseAnimal.addItem(new ValuePair("-1",""));
-		chooseAnimal.addItem(new ValuePair(""+MAN0,"Man0"));
-		chooseAnimal.addItem(new ValuePair(""+MAN1,"Man1"));
-		chooseAnimal.addItem(new ValuePair(""+MAN2,"Man2"));
-		chooseAnimal.addItem(new ValuePair(""+MAN3,"Man3"));
-		chooseAnimal.addItem(new ValuePair(""+HEAD0,"Head0"));		
-		chooseAnimal.addItem(new ValuePair(""+HEAD1,"Head1"));	
-		chooseAnimal.addItemListener(this);		
+		chooseAnimal.addItem(new ValuePair(""+DINOSAUR0,Dinosaur0Model.NAME));
+		chooseAnimal.addItem(new ValuePair(""+MAN0,ManModel.NAME));
+		chooseAnimal.addItem(new ValuePair(""+MAN1,Man1Model.NAME));
+		chooseAnimal.addItem(new ValuePair(""+MAN2,Man2Model.NAME));
+		chooseAnimal.addItem(new ValuePair(""+MAN3,Man3Model.NAME));
+		chooseAnimal.addItem(new ValuePair(""+HEAD0,HeadModel.NAME));
+		chooseAnimal.addItem(new ValuePair(""+HEAD1,Head1Model.NAME));
+		chooseAnimal.addItem(new ValuePair(""+QUADRUPED,QuadrupedModel.NAME));
+		chooseAnimal.addItem(new ValuePair(""+RIDERMAN,RiderManModel.NAME));
+		chooseAnimal.addItemListener(this);
 
 		chooseAnimal.setSelectedIndex(0);
 		center.add(chooseAnimal);
@@ -157,6 +167,7 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 
 	}
 
+	@Override
 	public void initMesh() {
 
 
@@ -173,38 +184,61 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 		if(val<0)
 			val=MAN0;
 
-		if(val==MAN0)
+		if(val==MAN0){
 			meshModel=new ManModel(dx,dy,dz);
-		else if(val==MAN1)
+		}else if(val==MAN1){
 			meshModel=new Man1Model(dx,dy,dz);
-		else if(val==MAN2)
+		}else if(val==MAN2){
 			meshModel=new Man2Model(dx,dy,dz,dlegs,darm);
-		else if(val==MAN3)
+		}else if(val==MAN3){
 			meshModel=new Man3Model(
 					dx,dy,dz,
 					20,20,darm,
 					20,20,dlegs,
 					20,20,50
 					);
-		else if(val==HEAD0)
+		}else if(val==RIDERMAN){
+			meshModel=new RiderManModel(
+					dx,dy,dz,
+					20,20,darm,
+					20,20,dlegs,
+					20,20,50
+					);
+		}else if(val==DINOSAUR0){
+			meshModel=new Dinosaur0Model(
+					dx,dy,dz,
+					20,20,darm,
+					20,20,dlegs,
+					20,20,50
+					);
+		}else if(val==HEAD0){
 			meshModel=new HeadModel(dx,dy,dz);
-		else if(val==HEAD1)
-			meshModel=new Head1Model(dx,dy,dz); 
-		else
+		}else if(val==HEAD1){
+			meshModel=new Head1Model(dx,dy,dz);
+		}else if(val==QUADRUPED){
+			meshModel=new QuadrupedModel(
+					dx,dy,dz,
+					20,20,darm,
+					20,20,dlegs,
+					20,20,50
+					);
+		}else{
 			meshModel=new ManModel(dx,dy,dz);
-
+		}
 		meshModel.setDescription(description.getText());
 
 		meshModel.initMesh();
 	}
 
+	@Override
 	public void printTexture(File file){
 
 		meshModel.printTexture(file);
 
 	}
 
-	public void printMeshData(PrintWriter pw) { 
+	@Override
+	public void printMeshData(PrintWriter pw) {
 
 		meshModel.printMeshData(pw);
 	}
@@ -244,6 +278,21 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 						100,50// leg_length, arm_length)
 						);
 			}
+			else if(RIDERMAN==val){
+				setRightData(60,20,100,//dx, dy, dz
+						100,50// leg_length, arm_length)
+						);
+			}
+			else if(QUADRUPED==val){
+				setRightData(60,20,100,//dx, dy, dz
+						100,50// leg_length, arm_length)
+						);
+			}
+			else if(DINOSAUR0==val){
+				setRightData(60,20,100,//dx, dy, dz
+						100,50// leg_length, arm_length)
+						);
+			}
 			else if(HEAD0==val){
 				setRightData(200,200,284,//dx, dy, dz
 						0,0);
@@ -257,7 +306,7 @@ public class AnimalMeshEditor extends MeshModelEditor implements KeyListener, It
 	}
 
 
-	private void setRightData(int dx, int dy, int dz,int leg_length,int arm_length){ 
+	private void setRightData(int dx, int dy, int dz,int leg_length,int arm_length){
 
 		dx_text.setText(dx);
 		dy_text.setText(dy);

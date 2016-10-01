@@ -10,7 +10,7 @@ import com.BPoint;
 import com.Point3D;
 import com.main.CarFrame;
 
-public class Car0Model extends MeshModel{
+public class Jeep0Model extends MeshModel{
 
 	private double dx = 0;
 	private double dy = 0;
@@ -23,9 +23,9 @@ public class Car0Model extends MeshModel{
 	private int bx=10;
 	private int by=10;
 
-	public static String NAME="Car0";
+	public static String NAME="Jeep";
 
-	public Car0Model(double dx, double dy, double dz) {
+	public Jeep0Model(double dx, double dy, double dz) {
 		super();
 		this.dx = dx;
 		this.dy = dy;

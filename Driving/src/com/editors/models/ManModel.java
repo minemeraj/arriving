@@ -14,7 +14,7 @@ public class ManModel extends MeshModel{
 	private double dy = 0;
 	private double dz = 0;
 
-	private int[][][] faces; 
+	private int[][][] faces;
 	private int[][][] rightArmFaces;
 	private int[][][] leftArmFaces;
 	private int[][][] rightLegFaces;
@@ -24,6 +24,8 @@ public class ManModel extends MeshModel{
 
 	private int bx=10;
 	private int by=10;
+
+	public static final String NAME="Man";
 
 	public ManModel(double dx, double dy, double dz) {
 		super();
@@ -43,19 +45,19 @@ public class ManModel extends MeshModel{
 		int armsNumSections=3;
 
 		double leg_length=dz;
-		
+
 
 		int totalBodyPoints=0;
 		int totalLegPoints=0;
 		int totalArmPoints=0;
-		
-		
-		
+
+
+
 		Point3D crotch0=null;
 		Point3D crotch1=null;
 		Point3D armpit0=null;
 		Point3D armpit1=null;
-		
+
 		for(int k=0;k<numSections;k++){
 
 			double[] d=body[k];
@@ -77,8 +79,8 @@ public class ManModel extends MeshModel{
 			addPoint(x-deltax, y+deltay, z);
 
 			totalBodyPoints+=4;
-			
-			
+
+
 			if(k==0)
 				crotch0=new Point3D(deltax,deltay,z);
 			else if(k==1)
@@ -93,19 +95,19 @@ public class ManModel extends MeshModel{
 		double arm_length=armpit0.z-leg_length;
 
 		//right leg
-		
+
 		for (int i = 0; i < legsNumSections; i++) {
-			
+
 			//join with the bust
 			if(i==legsNumSections-1){
-				
+
 				addPoint(-crotch1.x, -crotch1.y, crotch1.z);
 				addPoint(-crotch0.x, -crotch0.y, crotch0.z);
 				addPoint(-crotch0.x, crotch0.y, crotch0.z);
 				addPoint(-crotch1.x, crotch1.y, crotch1.z);
-				
+
 				totalLegPoints+=4;
-				
+
 				continue;
 			}
 
@@ -122,21 +124,21 @@ public class ManModel extends MeshModel{
 			addPoint(x+deltax, y-deltay, z);
 			addPoint(x+deltax, y+deltay, z);
 			addPoint(x-deltax, y+deltay, z);
-			
+
 			totalLegPoints+=4;
 		}
 
 		//left leg
 		for (int i = 0; i < legsNumSections; i++) {
-			
+
 			//join with the bust
 			if(i==legsNumSections-1){
-				
+
 				addPoint(crotch0.x, -crotch0.y, crotch0.z);
-				addPoint(crotch1.x, -crotch1.y, crotch1.z);				
+				addPoint(crotch1.x, -crotch1.y, crotch1.z);
 				addPoint(crotch1.x, crotch1.y, crotch1.z);
 				addPoint(crotch0.x, crotch0.y, crotch0.z);
-				
+
 				continue;
 			}
 
@@ -156,17 +158,17 @@ public class ManModel extends MeshModel{
 
 		//right arm
 		for (int i = 0; i < armsNumSections; i++) {
-			
+
 			//join with the bust
 			if(i==armsNumSections-1){
-				
+
 				addPoint(-armpit1.x, -armpit1.y, armpit1.z);
 				addPoint(-armpit0.x, -armpit0.y, armpit0.z);
 				addPoint(-armpit0.x, armpit0.y, armpit0.z);
 				addPoint(-armpit1.x, armpit1.y, armpit1.z);
-				
+
 				totalArmPoints+=4;
-				
+
 				continue;
 			}
 
@@ -182,24 +184,24 @@ public class ManModel extends MeshModel{
 			addPoint(x+deltax, y-deltay, z);
 			addPoint(x+deltax, y+deltay, z);
 			addPoint(x-deltax, y+deltay, z);
-			
+
 			totalArmPoints+=4;
 		}
 
 		//left arm
 		for (int i = 0; i < armsNumSections; i++) {
-			
+
 			//join with the bust
 			if(i==armsNumSections-1){
-				
+
 				addPoint(armpit0.x, -armpit0.y, armpit0.z);
-				addPoint(armpit1.x, -armpit1.y, armpit1.z);				
+				addPoint(armpit1.x, -armpit1.y, armpit1.z);
 				addPoint(armpit1.x, armpit1.y, armpit1.z);
 				addPoint(armpit0.x, armpit0.y, armpit0.z);
-				
+
 				continue;
 			}
-			
+
 			double z=i*arm_length/(armsNumSections-1.0)+leg_length;
 
 			double x=dx*0.5-10;
@@ -266,7 +268,7 @@ public class ManModel extends MeshModel{
 		//right leg
 		for (int k = 0; k < legsNumSections; k++) {
 
-			double z=k*leg_length/(legsNumSections-1.0)+arm_length; 
+			double z=k*leg_length/(legsNumSections-1.0)+arm_length;
 
 			double x=bx;
 
@@ -275,7 +277,7 @@ public class ManModel extends MeshModel{
 				addTPoint(x,z,0);
 
 				x+=10;
-				
+
 				totalLegTexturePoints++;
 			}
 
@@ -284,7 +286,7 @@ public class ManModel extends MeshModel{
 		//left leg
 		for (int k = 0; k < legsNumSections; k++) {
 
-			double z=k*leg_length/(legsNumSections-1.0)+arm_length; 
+			double z=k*leg_length/(legsNumSections-1.0)+arm_length;
 
 			double x=bx+dx+dy;
 
@@ -301,7 +303,7 @@ public class ManModel extends MeshModel{
 		//right arm
 		for (int k = 0; k < armsNumSections; k++) {
 
-			
+
 			double z=k*arm_length/(armsNumSections-1.0);
 
 			double x=bx;
@@ -311,7 +313,7 @@ public class ManModel extends MeshModel{
 				addTPoint(x,z,0);
 
 				x+=10;
-				
+
 				totalArmTexturePoints++;
 			}
 
@@ -334,17 +336,17 @@ public class ManModel extends MeshModel{
 		}
 
 		faces=buildDoubleBlockFaces(nBasePoints,numSections,0,0);
-		rightLegFaces=buildSingleBlockFaces(4, legsNumSections, 
-				totalBodyPoints, 
+		rightLegFaces=buildSingleBlockFaces(4, legsNumSections,
+				totalBodyPoints,
 				totalBodyTexturePoints);
-		leftLegFaces=buildSingleBlockFaces(4, legsNumSections, 
-				totalBodyPoints+totalLegPoints, 
+		leftLegFaces=buildSingleBlockFaces(4, legsNumSections,
+				totalBodyPoints+totalLegPoints,
 				totalBodyTexturePoints+totalLegTexturePoints);
-		rightArmFaces=buildSingleBlockFaces(4, armsNumSections, 
-				totalBodyPoints+2*totalLegPoints, 
+		rightArmFaces=buildSingleBlockFaces(4, armsNumSections,
+				totalBodyPoints+2*totalLegPoints,
 				totalBodyTexturePoints+2*totalLegTexturePoints);
-		leftArmFaces=buildSingleBlockFaces(4, armsNumSections, 
-				totalBodyPoints+2*totalLegPoints+totalArmPoints, 
+		leftArmFaces=buildSingleBlockFaces(4, armsNumSections,
+				totalBodyPoints+2*totalLegPoints+totalArmPoints,
 				totalBodyTexturePoints+2*totalLegTexturePoints+totalArmTexturePoints);
 
 		IMG_WIDTH=(int) (2*bx+2*(dx+dy)+dy);
@@ -373,6 +375,7 @@ public class ManModel extends MeshModel{
 
 
 
+	@Override
 	public void printMeshData(PrintWriter pw) {
 
 		super.printMeshData(pw);
@@ -386,7 +389,7 @@ public class ManModel extends MeshModel{
 	/**
 	 * BOTTOM-UP SECTIONS
 	 * z,x,y
-	 * 
+	 *
 	 */
 	private final double[][] body={
 

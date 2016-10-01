@@ -17,7 +17,10 @@ import javax.swing.JTextField;
 import com.editors.DoubleTextField;
 import com.editors.IntegerTextField;
 import com.editors.ValuePair;
+import com.editors.models.AxModel;
+import com.editors.models.BaseballBatModel;
 import com.editors.models.SteeringWheelModel;
+import com.editors.models.SwordModel;
 
 
 public class WeaponMeshEditor extends MeshModelEditor implements KeyListener, ItemListener{
@@ -40,7 +43,10 @@ public class WeaponMeshEditor extends MeshModelEditor implements KeyListener, It
     private DoubleTextField dz2_text;
     private IntegerTextField num_parallels;
 
-    public static int STEERING_WHEEL=0;
+    public static final int STEERING_WHEEL=0;
+    public static final int AX=1;
+    public static final int SWORD=2;
+    public static final int BASEBALL_BAT=3;
 
     public static void main(String[] args) {
 
@@ -198,7 +204,10 @@ public class WeaponMeshEditor extends MeshModelEditor implements KeyListener, It
         chooseWeapon.setBounds(115, r, 130, 20);
         chooseWeapon.addKeyListener(this);
         chooseWeapon.addItem(new ValuePair("-1",""));
+        chooseWeapon.addItem(new ValuePair(""+AX,AxModel.NAME));
+        chooseWeapon.addItem(new ValuePair(""+BASEBALL_BAT,BaseballBatModel.NAME));
         chooseWeapon.addItem(new ValuePair(""+STEERING_WHEEL,SteeringWheelModel.NAME));
+        chooseWeapon.addItem(new ValuePair(""+SWORD,SwordModel.NAME));
 
 
         chooseWeapon.addItemListener(this);
@@ -256,7 +265,21 @@ public class WeaponMeshEditor extends MeshModelEditor implements KeyListener, It
                     dx,dx1,dx2,tiltAngle,num_mer,num_par
                     );
         }
-
+        else if(AX==val) {
+            meshModel=new AxModel(
+                    dx,dx1,dx2,tiltAngle,num_mer,num_par
+                    );
+        }
+        else if(BASEBALL_BAT==val) {
+            meshModel=new BaseballBatModel(
+                    dx,dx1,dx2,tiltAngle,num_mer,num_par
+                    );
+        }
+        else if(SWORD==val) {
+            meshModel=new SwordModel(
+                    dx,dx1,dx2,tiltAngle,num_mer,num_par
+                    );
+        }
         meshModel.setDescription(description.getText());
 
         meshModel.initMesh();
@@ -324,7 +347,33 @@ public class WeaponMeshEditor extends MeshModelEditor implements KeyListener, It
                         10,//num parallel
                         30,0,0,0);//dx2,dy2,dz2,dy3
             }
-
+            else if(AX==val){
+                setRightData(
+                        100,0,0,//dx,dy,dz
+                        -Math.PI*21.0/180.0,//tilt angle
+                        20,0,0,//dx1,dy1,dz1
+                        8,//num_meridians
+                        10,//num parallel
+                        30,0,0,0);//dx2,dy2,dz2,dy3
+            }
+            else if(SWORD==val){
+                setRightData(
+                        100,0,0,//dx,dy,dz
+                        -Math.PI*21.0/180.0,//tilt angle
+                        20,0,0,//dx1,dy1,dz1
+                        8,//num_meridians
+                        10,//num parallel
+                        30,0,0,0);//dx2,dy2,dz2,dy3
+            }
+            else if(BASEBALL_BAT==val){
+                setRightData(
+                        100,0,0,//dx,dy,dz
+                        -Math.PI*21.0/180.0,//tilt angle
+                        20,0,0,//dx1,dy1,dz1
+                        8,//num_meridians
+                        10,//num parallel
+                        30,0,0,0);//dx2,dy2,dz2,dy3
+            }
         }
 
     }
