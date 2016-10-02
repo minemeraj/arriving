@@ -86,7 +86,7 @@ public class Car0Model extends MeshModel{
 
 
 
-		double wz=0;//wheel_radius;
+		double wz=0.03293*dy;//wheel_radius;
 		double wx=dx*0.5-wheel_width;
 
 		double yRearAxle=axles[0]*dy;
