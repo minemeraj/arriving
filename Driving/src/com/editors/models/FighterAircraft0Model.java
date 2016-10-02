@@ -52,7 +52,7 @@ public class FighterAircraft0Model extends MeshModel{
     private BPoint[][][] rightWing;
     private BPoint[][][] leftWing;
 
-    public static final String NAME="Airplane";
+    public static final String NAME="Fighter aircraft";
 
     public FighterAircraft0Model(
             double dx, double dy, double dz,

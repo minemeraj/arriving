@@ -314,7 +314,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
         chooseObject.addItem(new ValuePair(""+AUTOBUS,Autobus0Model.NAME));
         chooseObject.addItem(new ValuePair(""+BEETLE,BeetleModel.NAME));
         chooseObject.addItem(new ValuePair(""+BYKE0,Byke0Model.NAME));
-        chooseObject.addItem(new ValuePair(""+CAR0,Camper0Model.NAME));
+        chooseObject.addItem(new ValuePair(""+CAR0,Car0Model.NAME));
         chooseObject.addItem(new ValuePair(""+CAMPER0,Camper0Model.NAME));
         chooseObject.addItem(new ValuePair(""+FIGHTER_AIRCRAFT0,FighterAircraft0Model.NAME));
         chooseObject.addItem(new ValuePair(""+F10,F10Model.NAME));
