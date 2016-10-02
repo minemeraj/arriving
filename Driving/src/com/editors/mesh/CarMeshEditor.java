@@ -18,6 +18,7 @@ import com.editors.ValuePair;
 import com.editors.models.ATeamVanModel;
 import com.editors.models.Airplane0Model;
 import com.editors.models.Autobus0Model;
+import com.editors.models.BeetleModel;
 import com.editors.models.Byke0Model;
 import com.editors.models.Camper0Model;
 import com.editors.models.Car0Model;
@@ -90,6 +91,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
     public static int HELICOPTER=22;
     public static int SAILER=23;
     public static int JEEP=24;
+    public static int BEETLE=25;
 
     public static void main(String[] args) {
 
@@ -310,6 +312,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
         chooseObject.addItem(new ValuePair(""+AIRPLANE0,Airplane0Model.NAME));
         chooseObject.addItem(new ValuePair(""+ATEAMVAN,ATeamVanModel.NAME));
         chooseObject.addItem(new ValuePair(""+AUTOBUS,Autobus0Model.NAME));
+        chooseObject.addItem(new ValuePair(""+BEETLE,BeetleModel.NAME));
         chooseObject.addItem(new ValuePair(""+BYKE0,Byke0Model.NAME));
         chooseObject.addItem(new ValuePair(""+CAR0,Camper0Model.NAME));
         chooseObject.addItem(new ValuePair(""+CAMPER0,Camper0Model.NAME));
@@ -388,8 +391,11 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
         if(val==CAR0) {
             meshModel=new Car0Model(dx,dy,dz);
         }
-        if(val==JEEP) {
+        else if(val==JEEP) {
             meshModel=new Jeep0Model(dx,dy,dz);
+        }
+        else if(val==BEETLE) {
+            meshModel=new BeetleModel(dx,dy,dz);
         }
         else if(val==CAMPER0) {
             meshModel=new Camper0Model(
@@ -597,6 +603,15 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         );
             }
             else if(JEEP==val) {
+                setRightData(151,400,109,//dx,dy,dz
+                        0,0,0,//dxFront, dyFront, dzFront
+                        0,0,0,//dxRear, dyRear, dzRear
+                        0,0,0,//dxRoof, dyRoof, dzRoof
+                        0,0,//rearOverhang, frontOverhang
+                        0,0,0//wheel_radius, wheel_width, wheel_rays
+                        );
+            }
+            else if(BEETLE==val) {
                 setRightData(151,400,109,//dx,dy,dz
                         0,0,0,//dxFront, dyFront, dzFront
                         0,0,0,//dxRear, dyRear, dzRear
