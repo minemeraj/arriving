@@ -23,18 +23,25 @@ public class OceanLiner0Model extends Ship0Model{
     double dxTexture=200;
     double dyTexture=200;
 
+    double rearOverhang;
+    double frontOverhang;
+
     BPoint[][][] funnels=null;
     private int funnel_number=4;
-    private int funnel_meridians=10;
+    private int funnel_meridians=0;
     private int funnel_parallels=3;
-    private double funnel_height=60;
-    private double funnel_radius=15;
+    private double funnel_height=0;
+    private double funnel_radius=0;
 
     public OceanLiner0Model(
             double dx, double dy, double dz,
             double dxFront, double dyFront, double dzFront,
             double dxRear, double dyRear, double dzRear,
-            double dxRoof, double dyRoof, double dzRoof
+            double dxRoof, double dyRoof, double dzRoof,
+            double rearOverhang, double frontOverhang,
+            double funnel_radius,
+            double funnel_height,
+            int funnel_meridians
             ) {
 
         super(dx, dy, dz,
@@ -42,6 +49,12 @@ public class OceanLiner0Model extends Ship0Model{
                 dxRear, dyRear, dzRear,
                 dxRoof, dyRoof, dzRoof);
 
+        this.rearOverhang=rearOverhang;
+        this.frontOverhang=frontOverhang;
+
+        this.funnel_radius=funnel_radius;
+        this.funnel_height=funnel_height;
+        this.funnel_meridians=funnel_meridians;
     }
 
 
@@ -83,7 +96,7 @@ public class OceanLiner0Model extends Ship0Model{
 
     @Override
     protected void buildMainBridge() {
-        Segments s3=new Segments(x0,dxRoof,y0+dyRear,dyRoof,z0+dz,dzRoof);
+        Segments s3=new Segments(x0,dxRoof,y0+rearOverhang,dyRoof,z0+dz,dzRoof);
 
         mainBridge=new BPoint[2][4];
 
@@ -107,7 +120,7 @@ public class OceanLiner0Model extends Ship0Model{
         double fx=dxRoof*0.5;
         for (int i = 0; i < funnels.length; i++) {
 
-            double fy=y0+dyRear+(i+1)*dyRoof/(funnel_number+1);
+            double fy=y0+rearOverhang+(i+1)*dyRoof/(funnel_number+1);
             double fz=z0+dz+dzRoof;
             funnels[i]=buildFunnel(fx,fy,fz,funnel_height,funnel_radius,funnel_parallels,funnel_meridians);
         }

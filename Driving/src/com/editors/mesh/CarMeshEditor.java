@@ -448,7 +448,10 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                     dx,dy,dz,
                     dxf,dyf,dzf,
                     dxr,dyr,dzr,
-                    dxRoof,dyRoof,dzRoof);
+                    dxRoof,dyRoof,dzRoof,
+                    rearOverhang,frontOverhang,
+                    wheelRadius,wheelWidth,wheelRays
+            		);
         }  else if(val==SAILER) {
             meshModel=new Sailer0Model(
                     dx,dy,dz,
@@ -677,13 +680,19 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         0,0,0//wheel_radius, wheel_width, wheel_rays
                         );
             }else if(OCEANLINER0==val) {
-                setRightData(718,4550,378,//dx, dy, dz
-                        718,806,80,//dxFront, dyFront, dzFront
-                        718,527,80,//dxRear, dyRear, dzRear
-                        718,3000,595,//dxRoof, dyRoof, dzRoof
-                        0,0,//rearOverhang, frontOverhang
-                        0,0,0//wheel_radius, wheel_width, wheel_rays
+                setRightData(733,6996,502,//dx, dy, dz
+                        733,988,218,//dxFront, dyFront, dzFront
+                        733,720,203,//dxRear, dyRear, dzRear
+                        733,4446,335,//dxRoof, dyRoof, dzRoof
+                        1183,1394,//rearOverhang, frontOverhang
+                        95,494,10//wheel_radius, wheel_width, wheel_rays
                         );
+
+
+
+
+
+
             }else if(YACHT0==val) {
                 setRightData(718,4550,378,//dx, dy, dz
                         718,806,80,//dxFront, dyFront, dzFront
