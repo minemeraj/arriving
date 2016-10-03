@@ -18,37 +18,45 @@ import com.main.Renderer3D;
  */
 public class Ship0Model extends MeshModel{
 
-    private int bx=10;
-    private int by=10;
+    protected int bx=10;
+    protected int by=10;
 
-    private double dx = 0;
-    private double dy = 0;
-    private double dz = 0;
+    protected double dx = 0;
+    protected double dy = 0;
+    protected double dz = 0;
 
-    private double dxRear = 0;
-    private double dyRear = 0;
-    private double dzRear = 0;
+    protected double dxRear = 0;
+    protected double dyRear = 0;
+    protected double dzRear = 0;
 
-    private double dxFront= 0;
-    private double dyFront = 0;
-    private double dzFront = 0;
+    protected double dxFront= 0;
+    protected double dyFront = 0;
+    protected double dzFront = 0;
 
-    private double dxRoof = 0;
-    private double dyRoof = 0;
-    private double dzRoof = 0;
-
-
-    double x0=0;
-    double y0=0;
-    double z0=0;
+    protected double dxRoof = 0;
+    protected double dyRoof = 0;
+    protected double dzRoof = 0;
 
 
-    int[][] h={{0,1,2,3}};
-    int[][] d={{4,5,6,7}};
+    protected double x0=0;
+    protected double y0=0;
+    protected double z0=0;
+
+
+    protected int[][] h={{0,1,2,3}};
+    protected int[][] d={{4,5,6,7}};
 
     public static final String NAME="Ship";
 
-    private int[][][] faces;
+    protected int[][][] faces;
+    protected BPoint[][] hull;
+    protected BPoint[][] afterCastle;
+    protected BPoint[][] mainBridge;
+    protected BPoint[][][] foreCastle;
+
+    protected int nxHull=9;
+    protected int nyHull=5;
+    protected int nyCastle=3;
 
     public Ship0Model(
             double dx, double dy, double dz,
@@ -83,18 +91,92 @@ public class Ship0Model extends MeshModel{
         points=new Vector<Point3D>();
         texturePoints=new Vector<Point3D>();
 
-        Segments s0=new Segments(x0,dx,y0,dy,z0,dz);
+        buildHull();
+        buildAfterCastle();
+        buildForeCastle();
+        buildMainBridge();
 
-        int nx=9;
-        int ny=5;
+        buildTextures();
 
+
+        //faces
+        //hull
+        int NF=(nxHull-1)*(nyHull-1)+2;
+        //hull back closures
+        NF+=(nxHull-1)/2;
+        //deck
+        NF+=nyHull-1;
+        //main bridge
+        NF+=6;
+        //castles
+        NF+=6+(4*(nyCastle-1)+1);
+
+        faces=new int[NF][3][4];
+
+
+        //build the hull
+        int counter=0;
+        counter=buildFaces(counter,nxHull,nyHull,nyCastle,hull,mainBridge,afterCastle,foreCastle);
+    }
+
+    protected void buildMainBridge() {
+        Segments s3=new Segments(x0,dxRoof,y0+dyRear-dyRoof,dyRoof,z0+dz+dzRear,dzRoof);
+
+        mainBridge=new BPoint[2][4];
+
+        mainBridge[0][0]=addBPoint(0.0,0.0,0,s3);
+        mainBridge[0][1]=addBPoint(1.0,0.0,0,s3);
+        mainBridge[0][2]=addBPoint(1.0,1.0,0,s3);
+        mainBridge[0][3]=addBPoint(0.0,1.0,0,s3);
+
+        mainBridge[1][0]=addBPoint(0.0,0.0,1.0,s3);
+        mainBridge[1][1]=addBPoint(1.0,0.0,1.0,s3);
+        mainBridge[1][2]=addBPoint(1.0,1.0,1.0,s3);
+        mainBridge[1][3]=addBPoint(0.0,1.0,1.0,s3);
+
+    }
+
+    protected void buildForeCastle() {
+
+
+        foreCastle=new BPoint[nyCastle][2][2];
+
+        for (int i = 0; i < nyCastle; i++) {
+
+            int e=nyCastle-i;
+
+            foreCastle[i][0][0]=hull[nyHull-e][0];
+            foreCastle[i][1][0]=hull[nyHull-e][nxHull-1];
+            foreCastle[i][1][1]=addBPoint(hull[nyHull-e][nxHull-1].x,hull[nyHull-e][nxHull-1].y,hull[nyHull-e][nxHull-1].z+dzFront);
+            foreCastle[i][0][1]=addBPoint(hull[nyHull-e][0].x,hull[nyHull-e][0].y,hull[nyHull-e][0].z+dzFront);
+        }
+
+    }
+
+    protected void buildAfterCastle() {
+        afterCastle=new BPoint[2][4];
+        afterCastle[0][0]=hull[0][0];
+        afterCastle[0][1]=hull[0][nxHull-1];
+        afterCastle[0][2]=hull[1][nxHull-1];
+        afterCastle[0][3]=hull[1][0];
+
+        afterCastle[1][0]=addBPoint(hull[0][0].x,hull[0][0].y,hull[0][0].z+dzRear);
+        afterCastle[1][1]=addBPoint(hull[0][nxHull-1].x,hull[0][nxHull-1].y,hull[0][nxHull-1].z+dzRear);
+        afterCastle[1][2]=addBPoint(hull[1][nxHull-1].x,hull[1][nxHull-1].y,hull[1][nxHull-1].z+dzRear);
+        afterCastle[1][3]=addBPoint(hull[1][0].x,hull[1][0].y,hull[1][0].z+dzRear);
+
+    }
+
+    protected void buildHull() {
 
         double y1=dyRear/dy;
         double y2=(dy-dyFront)/dy;
         double y3=(1.0+y2)*0.5;
 
 
-        BPoint[][] hull=new BPoint[ny][nx];
+        Segments s0=new Segments(x0,dx,y0,dy,z0,dz);
+
+        hull=new BPoint[nyHull][nxHull];
 
         hull[0][0]=addBPoint(0, 0, 1.0,s0);
         hull[0][1]=addBPoint(0.125, 0, 0.35,s0);
@@ -147,76 +229,9 @@ public class Ship0Model extends MeshModel{
         hull[4][7]=hull[4][1];
         hull[4][8]=hull[4][0];
 
-
-
-        BPoint[][] afterCastle=new BPoint[2][4];
-        afterCastle[0][0]=hull[0][0];
-        afterCastle[0][1]=hull[0][nx-1];
-        afterCastle[0][2]=hull[1][nx-1];
-        afterCastle[0][3]=hull[1][0];
-
-        afterCastle[1][0]=addBPoint(hull[0][0].x,hull[0][0].y,hull[0][0].z+dzRear);
-        afterCastle[1][1]=addBPoint(hull[0][nx-1].x,hull[0][nx-1].y,hull[0][nx-1].z+dzRear);
-        afterCastle[1][2]=addBPoint(hull[1][nx-1].x,hull[1][nx-1].y,hull[1][nx-1].z+dzRear);
-        afterCastle[1][3]=addBPoint(hull[1][0].x,hull[1][0].y,hull[1][0].z+dzRear);
-
-        int nyc=3;
-        BPoint[][][] foreCastle=new BPoint[nyc][2][2];
-
-        for (int i = 0; i < nyc; i++) {
-
-            int e=nyc-i;
-
-            foreCastle[i][0][0]=hull[ny-e][0];
-            foreCastle[i][1][0]=hull[ny-e][nx-1];
-            foreCastle[i][1][1]=addBPoint(hull[ny-e][nx-1].x,hull[ny-e][nx-1].y,hull[ny-e][nx-1].z+dzFront);
-            foreCastle[i][0][1]=addBPoint(hull[ny-e][0].x,hull[ny-e][0].y,hull[ny-e][0].z+dzFront);
-        }
-
-        Segments s3=new Segments(x0,dxRoof,y0+dyRear-dyRoof,dyRoof,z0+dz+dzRear,dzRoof);
-
-        BPoint[][] mainBridge=new BPoint[2][4];
-
-        mainBridge[0][0]=addBPoint(0.0,0.0,0,s3);
-        mainBridge[0][1]=addBPoint(1.0,0.0,0,s3);
-        mainBridge[0][2]=addBPoint(1.0,1.0,0,s3);
-        mainBridge[0][3]=addBPoint(0.0,1.0,0,s3);
-
-        mainBridge[1][0]=addBPoint(0.0,0.0,1.0,s3);
-        mainBridge[1][1]=addBPoint(1.0,0.0,1.0,s3);
-        mainBridge[1][2]=addBPoint(1.0,1.0,1.0,s3);
-        mainBridge[1][3]=addBPoint(0.0,1.0,1.0,s3);
-
-
-        buildTextures();
-
-
-        //faces
-        //hull
-        int NF=(nx-1)*(ny-1)+2;
-        //hull back closures
-        NF+=(nx-1)/2;
-        //deck
-        NF+=ny-1;
-        //main bridge
-        NF+=6;
-        //castles
-        NF+=6+(4*(nyc-1)+1);
-
-        faces=new int[NF][3][4];
-
-
-        //build the hull
-        int counter=0;
-        counter=buildFaces(counter,nx,ny,nyc,hull,mainBridge,afterCastle,foreCastle);
-
-
-
-
-
     }
 
-    private void buildTextures() {
+    protected void buildTextures() {
 
 
         double dxt=200;
@@ -241,7 +256,7 @@ public class Ship0Model extends MeshModel{
 
     }
 
-    private int buildFaces(int counter, int nx, int ny,int nyc, BPoint[][] hull, BPoint[][] mainBridge, BPoint[][] afterCastle, BPoint[][][] foreCastle) {
+    protected int buildFaces(int counter, int nx, int ny,int nyc, BPoint[][] hull, BPoint[][] mainBridge, BPoint[][] afterCastle, BPoint[][][] foreCastle) {
 
 
         int middle=(nx-1)/2;

@@ -680,7 +680,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                 setRightData(718,4550,378,//dx, dy, dz
                         718,806,80,//dxFront, dyFront, dzFront
                         718,527,80,//dxRear, dyRear, dzRear
-                        718,366,595,//dxRoof, dyRoof, dzRoof
+                        718,3000,595,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
                         0,0,0//wheel_radius, wheel_width, wheel_rays
                         );
