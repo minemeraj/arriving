@@ -33,6 +33,8 @@ public class OceanLiner0Model extends Ship0Model{
     private double funnel_height=0;
     private double funnel_radius=0;
 
+    protected int[][] fun={{8,9,10,11}};
+
     public OceanLiner0Model(
             double dx, double dy, double dz,
             double dxFront, double dyFront, double dzFront,
@@ -164,7 +166,11 @@ public class OceanLiner0Model extends Ship0Model{
         //main deck
         addTRect(x, y, dxTexture, dyTexture);
 
-        IMG_WIDTH=(int) (2*bx+dxTexture+dxTexture+shift);
+        x+=shift+dxTexture;
+        //main deck
+        addTRect(x, y, dxTexture, dyTexture);
+
+        IMG_WIDTH=(int) (2*bx+3*dxTexture+2*shift);
         IMG_HEIGHT=(int) (2*by+dyTexture);
 
     }
@@ -177,13 +183,13 @@ public class OceanLiner0Model extends Ship0Model{
         for (int i = 0; i < funnels.length; i++) {
             for (int k = 0; k < funnel_parallels-1; k++) {
                 for (int j = 0; j < funnel_meridians; j++) {
-                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT,funnels[i][k][j],funnels[i][k][(j+1)%funnel_meridians],funnels[i][k+1][(j+1)%funnel_meridians],funnels[i][k+1][j],d[0]);
+                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT,funnels[i][k][j],funnels[i][k][(j+1)%funnel_meridians],funnels[i][k+1][(j+1)%funnel_meridians],funnels[i][k+1][j],fun[0]);
                 }
             }
 
             for (int j = 0; j < funnel_meridians; j++) {
                 int k=funnel_parallels-1;
-                faces[counter++]=buildFace(Renderer3D.CAR_TOP,funnels[i][k][0],funnels[i][k][j],funnels[i][k][(j+1)%funnel_meridians],d[0]);
+                faces[counter++]=buildFace(Renderer3D.CAR_TOP,funnels[i][k][0],funnels[i][k][j],funnels[i][k][(j+1)%funnel_meridians],fun[0]);
             }
         }
 
@@ -195,11 +201,14 @@ public class OceanLiner0Model extends Ship0Model{
     public void printTexture(Graphics2D bufGraphics) {
 
 
-        bufGraphics.setColor(Color.RED);
+        bufGraphics.setColor(Color.BLACK);
         printTexturePolygon(bufGraphics, h[0]);
 
-        bufGraphics.setColor(Color.BLACK);
+        bufGraphics.setColor(Color.WHITE);
         printTexturePolygon(bufGraphics, d[0]);
+
+        bufGraphics.setColor(new Color(255,168,16));
+        printTexturePolygon(bufGraphics, fun[0]);
     }
 
 }

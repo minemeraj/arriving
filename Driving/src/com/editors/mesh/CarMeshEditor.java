@@ -687,12 +687,6 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         1183,1394,//rearOverhang, frontOverhang
                         95,494,10//wheel_radius, wheel_width, wheel_rays
                         );
-
-
-
-
-
-
             }else if(YACHT0==val) {
                 setRightData(718,4550,378,//dx, dy, dz
                         718,806,80,//dxFront, dyFront, dzFront
