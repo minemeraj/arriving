@@ -530,6 +530,7 @@
 	
 	Ocean liner based on the R.M.S. Titanic:
 	LxWxH= 269m x 28.19m x 32m
+	Draught= 10.54 m
 	
 	Sailer based on the Ttalian training ship Amerigo Vespucci
 	LxW= 82.4m x 15.5m
