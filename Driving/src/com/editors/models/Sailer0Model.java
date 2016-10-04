@@ -34,6 +34,9 @@ public class Sailer0Model extends Ship0Model{
 
     protected int[][] fun={{8,9,10,11}};
 
+    double[] mastYPosition={0.18,0.41,0.79};
+    double[] mastHeight={0.8,1.0,0.93};
+
     public Sailer0Model(
             double dx, double dy, double dz,
             double dxFront, double dyFront, double dzFront,
@@ -98,12 +101,11 @@ public class Sailer0Model extends Ship0Model{
         masts=new BPoint[mast_number][mast_parallels][mast_meridians];
 
         double fx=dx*0.5;
-        double dyMasts=dy;
         for (int i = 0; i < masts.length; i++) {
 
-            double fy=y0+(i+1)*dyMasts/(mast_number+1);
+            double fy=y0+mastYPosition[i]*dy;
             double fz=z0+dz;
-            masts[i]=buildFunnel(fx,fy,fz,mast_height,mast_radius,mast_parallels,mast_meridians);
+            masts[i]=buildFunnel(fx,fy,fz,mast_height*mastHeight[i],mast_radius,mast_parallels,mast_meridians);
         }
 
     }
