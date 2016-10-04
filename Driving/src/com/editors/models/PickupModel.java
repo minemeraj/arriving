@@ -45,21 +45,8 @@ public class PickupModel extends Truck0Model{
         int nWagonMeridians=10;
         BPoint[][] wagon=buildWagon(nWagonMeridians);
 
+        buildWheels();
         buildTextures();
-
-        ////
-        double wz=0;
-
-        double yRearAxle=2.0*wheelRadius;
-        double yFrontAxle=dy+dyFront*0.5;
-
-        double wxLeft=dx*0.5+wheelWidth;
-        double wxRight=dx*0.5;
-
-        BPoint[][] wheelLeftFront=buildWheel(x0-wxLeft, yFrontAxle,wz , wheelRadius, wheelWidth, wheel_rays);
-        BPoint[][] wheelRightFront=buildWheel(x0+wxRight, yFrontAxle, wz, wheelRadius, wheelWidth, wheel_rays);
-        BPoint[][] wheelLeftRear=buildWheel(x0-wxLeft, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
-        BPoint[][] wheelRightRear=buildWheel(x0+wxRight, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
 
         int totWheelPolygon=wheel_rays+2*(wheel_rays-2);
         int NUM_WHEEL_FACES=4*totWheelPolygon;
@@ -72,10 +59,9 @@ public class PickupModel extends Truck0Model{
         faces=new int[NF+NUM_WHEEL_FACES][3][4];
 
         int counter=0;
-        counter=buildBodyFaces(counter,nYcab,nzCab,nzBody,nWagonMeridians,cab,body,wagon);
+        counter=buildBodyFaces(counter,nYcab,nzCab,nzBody,nWagonMeridians);
         counter=buildWheelFaces(counter,
-                totWheelPolygon,
-                wheelLeftFront,wheelRightFront,wheelLeftRear,wheelRightRear);
+                totWheelPolygon);
 
 
         IMG_WIDTH=(int) (2*bx+dx+wheelWidth);

@@ -528,6 +528,14 @@
 	from keel to upper deck=17.6m
 	Stern castle height from deck=23m.
 	
+	Ocean liner based on the R.M.S. Titanic:
+	LxWxH= 269m x 28.19m x 32m
+	
+	Sailer based on the Ttalian training ship Amerigo Vespucci
+	LxW= 82.4m x 15.5m
+	Draught=7m	
+	Masts:50m, 54m and 43m 
+	
 	--Other vehicles:
 	
 	byke0 based on Ducati 959 Panigale,

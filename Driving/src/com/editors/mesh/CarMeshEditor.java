@@ -451,13 +451,15 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                     dxRoof,dyRoof,dzRoof,
                     rearOverhang,frontOverhang,
                     wheelRadius,wheelWidth,wheelRays
-            		);
+                    );
         }  else if(val==SAILER) {
             meshModel=new Sailer0Model(
                     dx,dy,dz,
                     dxf,dyf,dzf,
                     dxr,dyr,dzr,
-                    dxRoof,dyRoof,dzRoof);
+                    dxRoof,dyRoof,dzRoof,
+                    rearOverhang,frontOverhang,
+                    wheelRadius,wheelWidth,wheelRays);
         }    else if(val==YACHT0) {
             meshModel=new Yacht0Model(
                     dx,dy,dz,
@@ -689,21 +691,44 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         );
             }else if(YACHT0==val) {
                 setRightData(718,4550,378,//dx, dy, dz
-                        718,806,80,//dxFront, dyFront, dzFront
-                        718,527,80,//dxRear, dyRear, dzRear
+                        0,0,0,//dxFront, dyFront, dzFront
+                        0,0,0,//dxRear, dyRear, dzRear
                         718,366,595,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
                         0,0,0//wheel_radius, wheel_width, wheel_rays
                         );
+
+
+
+
+
+
+
+
+
             }else if(SAILER==val) {
-                setRightData(718,4550,378,//dx, dy, dz
-                        718,806,80,//dxFront, dyFront, dzFront
-                        718,527,80,//dxRear, dyRear, dzRear
-                        718,366,595,//dxRoof, dyRoof, dzRoof
+                setRightData(403,2142,304,//dx, dy, dz
+                		403,957,86,//dxFront, dyFront, dzFront
+                		624,720,34,//dxRear, dyRear, dzRear
+                        0,0,0,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
-                        0,0,0//wheel_radius, wheel_width, wheel_rays
+                        17,1310,10//wheel_radius, wheel_width, wheel_rays
                         );
-            }   else if(STARSHIP0==val) {
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+            else if(STARSHIP0==val) {
                 setRightData(50,200,50,//dx, dy, dz
                         150,150,50,//dxFront, dyFront, dzFront
                         50,250,50,//dxRear, dyRear, dzRear

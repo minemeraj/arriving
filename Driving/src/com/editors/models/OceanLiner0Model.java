@@ -92,8 +92,8 @@ public class OceanLiner0Model extends Ship0Model{
 
         //build the hull
         int counter=0;
-        counter=buildFaces(counter,nxHull,nyHull,nyCastle,hull,mainBridge,afterCastle,foreCastle);
-
+        counter=buildFaces(counter,nxHull,nyHull,nyCastle);
+        counter=buildMainBridgeFaces(counter);
     }
 
     @Override
@@ -129,25 +129,6 @@ public class OceanLiner0Model extends Ship0Model{
 
     }
 
-    private BPoint[][] buildFunnel(double x0, double y0, double z0,double funnel_height, double funnel_radius, int funnel_parallels2, int funnel_meridians2) {
-
-        BPoint[][] funnel=new BPoint[funnel_parallels2][funnel_meridians2];
-        double dTeta=Math.PI*2.0/(funnel_meridians2);
-        double dz=funnel_height/(funnel_parallels2-1);
-
-        for (int k = 0; k < funnel_parallels2; k++) {
-            double zz=z0+dz*k;
-
-            for (int i = 0; i < funnel_meridians2; i++) {
-                double teta=dTeta*i;
-                double xx=x0+funnel_radius*Math.cos(teta);
-                double yy=y0+funnel_radius*Math.sin(teta);
-                funnel[k][i]=addBPoint(xx, yy, zz);
-            }
-        }
-
-        return funnel;
-    }
 
     @Override
     protected void buildTextures() {
@@ -176,9 +157,9 @@ public class OceanLiner0Model extends Ship0Model{
     }
 
     @Override
-    protected int buildFaces(int counter, int nx, int ny,int nyc, BPoint[][] hull, BPoint[][] mainBridge, BPoint[][] afterCastle, BPoint[][][] foreCastle) {
+    protected int buildFaces(int counter, int nx, int ny,int nyc) {
 
-        counter=super.buildFaces(counter, nx, ny, nyc, hull, mainBridge, afterCastle, foreCastle);
+        counter=super.buildFaces(counter, nx, ny, nyc);
 
         for (int i = 0; i < funnels.length; i++) {
             for (int k = 0; k < funnel_parallels-1; k++) {

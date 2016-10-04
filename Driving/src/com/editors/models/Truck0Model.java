@@ -56,6 +56,14 @@ public class Truck0Model extends MeshModel{
 
     private double dyTexture=200;
     private double dxTexture=200;
+    private BPoint[][] wheelLeftFront;
+    private BPoint[][] wheelRightFront;
+    private BPoint[][] wheelLeftRear;
+    private BPoint[][] wheelRightRear;
+
+    protected BPoint[][][] cab;
+    protected BPoint[][] body;
+    protected BPoint[][] wagon;
 
     public static final String NAME="Truck";
 
@@ -92,28 +100,18 @@ public class Truck0Model extends MeshModel{
 
         int nzCab=3;
         int nYcab=6;
-        BPoint[][][] cab=buildCabin(nYcab,nzCab);
+        cab=buildCabin(nYcab,nzCab);
 
         int nzBody=2;
-        BPoint[][] body=buildBody(nzBody);
+        body=buildBody(nzBody);
 
         int nzWagon=2;
-        BPoint[][] wagon=buildWagon(nzWagon);
+        wagon=buildWagon(nzWagon);
 
         buildTextures();
 
-        ////
-        double wz=0;
-        double wxLeft=dx*0.5+wheelWidth;
-        double wxRight=dx*0.5;
+        buildWheels();
 
-        double yRearAxle=2.0*wheelRadius;
-        double yFrontAxle=dy+dyFront*0.5;
-
-        BPoint[][] wheelLeftFront=buildWheel(x0-wxLeft, yFrontAxle,wz , wheelRadius, wheelWidth, wheel_rays);
-        BPoint[][] wheelRightFront=buildWheel(x0+wxRight, yFrontAxle, wz, wheelRadius, wheelWidth, wheel_rays);
-        BPoint[][] wheelLeftRear=buildWheel(x0-wxLeft, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
-        BPoint[][] wheelRightRear=buildWheel(x0+wxRight, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
 
         int totWheelPolygon=wheel_rays+2*(wheel_rays-2);
         int NUM_WHEEL_FACES=4*totWheelPolygon;
@@ -126,10 +124,9 @@ public class Truck0Model extends MeshModel{
         faces=new int[NF+NUM_WHEEL_FACES][3][4];
 
         int counter=0;
-        counter=buildBodyFaces(counter,nYcab,nzCab,nzBody,nzWagon,cab,body,wagon);
+        counter=buildBodyFaces(counter,nYcab,nzCab,nzBody,nzWagon);
         counter=buildWheelFaces(counter,
-                totWheelPolygon,
-                wheelLeftFront,wheelRightFront,wheelLeftRear,wheelRightRear);
+                totWheelPolygon);
 
 
 
@@ -137,13 +134,28 @@ public class Truck0Model extends MeshModel{
 
 
 
+    protected void buildWheels() {
+
+        ////
+        double wz=0;
+        double wxLeft=dx*0.5+wheelWidth;
+        double wxRight=dx*0.5;
+
+        double yRearAxle=2.0*wheelRadius;
+        double yFrontAxle=dy+dyFront*0.5;
+
+        wheelLeftFront=buildWheel(x0-wxLeft, yFrontAxle,wz , wheelRadius, wheelWidth, wheel_rays);
+        wheelRightFront=buildWheel(x0+wxRight, yFrontAxle, wz, wheelRadius, wheelWidth, wheel_rays);
+        wheelLeftRear=buildWheel(x0-wxLeft, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
+        wheelRightRear=buildWheel(x0+wxRight, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
+
+    }
+
+
     protected int buildBodyFaces(int counter,
             int nYcab,int nzCab,
             int nzRear,
-            int nzWagon,
-            BPoint[][][] cab,
-            BPoint[][] body,
-            BPoint[][] wagon) {
+            int nzWagon) {
 
 
 
@@ -223,11 +235,7 @@ public class Truck0Model extends MeshModel{
     protected int buildWheelFaces(
 
             int counter,
-            int totWheelPolygon,
-            BPoint[][] wheelLeftFront,
-            BPoint[][] wheelRightFront,
-            BPoint[][] wheelLeftRear,
-            BPoint[][] wheelRightRear
+            int totWheelPolygon
             ) {
 
         ///// WHEELS
