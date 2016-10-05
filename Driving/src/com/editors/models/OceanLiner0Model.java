@@ -97,19 +97,21 @@ public class OceanLiner0Model extends Ship0Model{
 
     @Override
     protected void buildMainBridge() {
-        Segments s3=new Segments(x0,dxRoof,y0+rearOverhang,dyRoof,z0+dz,dzRoof);
+        Segments sDown=new Segments(x0,dxRoof,y0+rearOverhang,dyRoof,z0+dz,dzRoof);
+        double dyUpRoof=dyRoof-rearOverhang1+rearOverhang;
+        Segments sUp=new Segments(x0,dxRoof,y0+rearOverhang1,dyUpRoof,z0+dz,dzRoof);
 
         mainBridge=new BPoint[2][4];
 
-        mainBridge[0][0]=addBPoint(0.0,0.0,0,s3);
-        mainBridge[0][1]=addBPoint(1.0,0.0,0,s3);
-        mainBridge[0][2]=addBPoint(1.0,1.0,0,s3);
-        mainBridge[0][3]=addBPoint(0.0,1.0,0,s3);
+        mainBridge[0][0]=addBPoint(0.0,0.0,0,sDown);
+        mainBridge[0][1]=addBPoint(1.0,0.0,0,sDown);
+        mainBridge[0][2]=addBPoint(1.0,1.0,0,sDown);
+        mainBridge[0][3]=addBPoint(0.0,1.0,0,sDown);
 
-        mainBridge[1][0]=addBPoint(0.0,0.0,1.0,s3);
-        mainBridge[1][1]=addBPoint(1.0,0.0,1.0,s3);
-        mainBridge[1][2]=addBPoint(1.0,1.0,1.0,s3);
-        mainBridge[1][3]=addBPoint(0.0,1.0,1.0,s3);
+        mainBridge[1][0]=addBPoint(0.0,0.0,1.0,sUp);
+        mainBridge[1][1]=addBPoint(1.0,0.0,1.0,sUp);
+        mainBridge[1][2]=addBPoint(1.0,1.0,1.0,sUp);
+        mainBridge[1][3]=addBPoint(0.0,1.0,1.0,sUp);
 
     }
 
