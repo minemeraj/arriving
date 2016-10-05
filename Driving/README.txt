@@ -537,6 +537,10 @@
 	Draught=7m	
 	Masts:50m, 54m and 43m 
 	
+	Yacht measures:
+	LxWxH= 90m x 14m x 18.8m
+	Draft=3.95m
+	
 	--Other vehicles:
 	
 	byke0 based on Ducati 959 Panigale,
