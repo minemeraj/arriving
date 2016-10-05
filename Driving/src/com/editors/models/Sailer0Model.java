@@ -22,9 +22,6 @@ public class Sailer0Model extends Ship0Model{
     double dxTexture=200;
     double dyTexture=200;
 
-    double rearOverhang;
-    double frontOverhang;
-
     BPoint[][][] masts=null;
     private int mast_number=3;
     private int mast_meridians=0;
@@ -43,6 +40,7 @@ public class Sailer0Model extends Ship0Model{
             double dxRear, double dyRear, double dzRear,
             double dxRoof, double dyRoof, double dzRoof,
             double rearOverhang, double frontOverhang,
+            double rearOverhang1,double frontOverhang1,
             double funnel_radius,
             double funnel_height,
             int funnel_meridians
@@ -51,10 +49,9 @@ public class Sailer0Model extends Ship0Model{
         super(dx, dy, dz,
                 dxFront, dyFront, dzFront,
                 dxRear, dyRear, dzRear,
-                dxRoof, dyRoof, dzRoof);
-
-        this.rearOverhang=rearOverhang;
-        this.frontOverhang=frontOverhang;
+                dxRoof, dyRoof, dzRoof,
+                rearOverhang,frontOverhang,
+                rearOverhang1,frontOverhang1);
 
         this.mast_radius=funnel_radius;
         this.mast_height=funnel_height;

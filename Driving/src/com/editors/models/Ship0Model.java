@@ -37,6 +37,11 @@ public class Ship0Model extends MeshModel{
     protected double dyRoof = 0;
     protected double dzRoof = 0;
 
+    protected double rearOverhang;
+    protected double frontOverhang;
+
+    protected double rearOverhang1;
+    protected double frontOverhang1;
 
     protected double x0=0;
     protected double y0=0;
@@ -58,11 +63,14 @@ public class Ship0Model extends MeshModel{
     protected int nyHull=5;
     protected int nyCastle=3;
 
+
     public Ship0Model(
             double dx, double dy, double dz,
             double dxFront, double dyFront, double dzFront,
             double dxRear, double dyRear, double dzRear,
-            double dxRoof, double dyRoof, double dzRoof
+            double dxRoof, double dyRoof, double dzRoof,
+            double rearOverhang, double frontOverhang,
+            double rearOverhang1, double frontOverhang1
             ) {
         super();
         this.dx = dx;
@@ -80,6 +88,12 @@ public class Ship0Model extends MeshModel{
         this.dxRoof = dxRoof;
         this.dyRoof = dyRoof;
         this.dzRoof = dzRoof;
+
+        this.rearOverhang=rearOverhang;
+        this.frontOverhang=frontOverhang;
+
+        this.rearOverhang1=rearOverhang1;
+        this.frontOverhang1=frontOverhang1;
     }
 
 

@@ -2,7 +2,9 @@ package com.editors.models;
 
 import java.util.Vector;
 
+import com.BPoint;
 import com.Point3D;
+import com.Segments;
 
 /**
  *
@@ -18,16 +20,22 @@ public class Yacht0Model extends Ship0Model{
     double dxTexture=200;
     double dyTexture=200;
 
+
+
     public Yacht0Model(
             double dx, double dy, double dz,
             double dxFront, double dyFront, double dzFront,
             double dxRear, double dyRear, double dzRear,
-            double dxRoof, double dyRoof, double dzRoof
+            double dxRoof, double dyRoof, double dzRoof,
+            double rearOverhang,double frontOverhang,
+            double rearOverhang1,double frontOverhang1
             ) {
         super(dx, dy, dz,
                 dxFront, dyFront, dzFront,
                 dxRear, dyRear, dzRear,
-                dxRoof, dyRoof, dzRoof);
+                dxRoof, dyRoof, dzRoof,
+                rearOverhang,frontOverhang,
+                rearOverhang1,frontOverhang1);
 
     }
 
@@ -59,6 +67,27 @@ public class Yacht0Model extends Ship0Model{
         int counter=0;
         counter=buildHullfaces(counter,nxHull,nyHull,nyCastle);
         counter=buildMainBridgeFaces(counter);
+    }
+
+    @Override
+    protected void buildMainBridge() {
+
+        Segments sDown=new Segments(x0,dxRoof,y0,dyRoof,z0+dz,dzRoof);
+        double dyRoofUp=dy-rearOverhang1-frontOverhang1;
+        Segments sUp=new Segments(x0,dxRoof,y0+rearOverhang1,dyRoofUp,z0+dz,dzRoof);
+
+        mainBridge=new BPoint[2][4];
+
+        mainBridge[0][0]=addBPoint(0.0,0.0,0,sDown);
+        mainBridge[0][1]=addBPoint(1.0,0.0,0,sDown);
+        mainBridge[0][2]=addBPoint(1.0,1.0,0,sDown);
+        mainBridge[0][3]=addBPoint(0.0,1.0,0,sDown);
+
+        mainBridge[1][0]=addBPoint(0.0,0.0,1.0,sUp);
+        mainBridge[1][1]=addBPoint(1.0,0.0,1.0,sUp);
+        mainBridge[1][2]=addBPoint(1.0,1.0,1.0,sUp);
+        mainBridge[1][3]=addBPoint(0.0,1.0,1.0,sUp);
+
     }
 
     @Override

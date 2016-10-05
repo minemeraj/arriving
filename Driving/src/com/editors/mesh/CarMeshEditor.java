@@ -65,6 +65,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
     private IntegerTextField wheel_rays_text;
     private DoubleTextField rear_overhang_text;
     private DoubleTextField front_overhang_text;
+    private DoubleTextField rear_overhang1_text;
+    private DoubleTextField front_overhang1_text;
 
     public static int CAR0=0;
     public static int TRUCK0=1;
@@ -95,7 +97,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 
     public static void main(String[] args) {
 
-        CarMeshEditor fm=new CarMeshEditor(650,390);
+        CarMeshEditor fm=new CarMeshEditor(660,420);
     }
 
 
@@ -129,10 +131,10 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
         r+=30;
 
         int col0=10;
-        int col1=80;
-        int col2=210;
-        int col3=280;
-        int col4=410;
+        int col1=100;
+        int col2=230;
+        int col3=310;
+        int col4=430;
         int col5=480;
 
         JLabel lx=new JLabel("dx:");
@@ -270,6 +272,26 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
         center.add(front_overhang_text);
 
 
+
+        r+=30;
+
+        ly=new JLabel("R Overhang1");
+        ly.setBounds(col0,r,90,20);
+        center.add(ly);
+        rear_overhang1_text=new DoubleTextField(8);
+        rear_overhang1_text.setBounds(col1,r,100,20);
+        rear_overhang1_text.setText(0);
+        center.add(rear_overhang1_text);
+
+
+        lz=new JLabel("F Overhang1");
+        lz.setBounds(col2,r,90,20);
+        center.add(lz);
+        front_overhang1_text=new DoubleTextField(8);
+        front_overhang1_text.setBounds(col3,r,100,20);
+        front_overhang1_text.setText(0);
+        center.add(front_overhang1_text);
+
         r+=30;
 
 
@@ -377,6 +399,9 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
         double rearOverhang = rear_overhang_text.getvalue();
         double frontOverhang = front_overhang_text.getvalue();
 
+        double rearOverhang1 = rear_overhang1_text.getvalue();
+        double frontOverhang1 = front_overhang1_text.getvalue();
+
         double wheelRadius  = wheel_radius_text.getvalue();
         double wheelWidth  = wheel_width_text.getvalue();
         int wheelRays=wheel_rays_text.getvalue();
@@ -442,7 +467,10 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                     dx,dy,dz,
                     dxf,dyf,dzf,
                     dxr,dyr,dzr,
-                    dxRoof,dyRoof,dzRoof);
+                    dxRoof,dyRoof,dzRoof,
+                    rearOverhang,frontOverhang,
+                    rearOverhang1,frontOverhang1
+                    );
         }  else if(val==OCEANLINER0) {
             meshModel=new OceanLiner0Model(
                     dx,dy,dz,
@@ -450,6 +478,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                     dxr,dyr,dzr,
                     dxRoof,dyRoof,dzRoof,
                     rearOverhang,frontOverhang,
+                    rearOverhang1,frontOverhang1,
                     wheelRadius,wheelWidth,wheelRays
                     );
         }  else if(val==SAILER) {
@@ -459,13 +488,17 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                     dxr,dyr,dzr,
                     dxRoof,dyRoof,dzRoof,
                     rearOverhang,frontOverhang,
+                    rearOverhang1,frontOverhang1,
                     wheelRadius,wheelWidth,wheelRays);
-        }    else if(val==YACHT0) {
+        }else if(val==YACHT0) {
             meshModel=new Yacht0Model(
                     dx,dy,dz,
                     dxf,dyf,dzf,
                     dxr,dyr,dzr,
-                    dxRoof,dyRoof,dzRoof);
+                    dxRoof,dyRoof,dzRoof,
+                    rearOverhang,frontOverhang,
+                    rearOverhang1,frontOverhang1
+                    );
         }  else if(val==STARSHIP0) {
             meshModel=new StarShip0Model(
                     dx,dy,dz,
@@ -604,6 +637,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         0,0,0,//dxRear, dyRear, dzRear
                         0,0,0,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         0,0,0//wheel_radius, wheel_width, wheel_rays
                         );
             }
@@ -613,6 +647,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         0,0,0,//dxRear, dyRear, dzRear
                         0,0,0,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         0,0,0//wheel_radius, wheel_width, wheel_rays
                         );
             }
@@ -622,6 +657,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         0,0,0,//dxRear, dyRear, dzRear
                         0,0,0,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         0,0,0//wheel_radius, wheel_width, wheel_rays
                         );
             }
@@ -631,6 +667,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         0,0,0,//dxRear, dyRear, dzRear
                         111,319,116,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         19,12,10//wheel_radius, wheel_width, wheel_rays
                         );
             }else if(TANKTRUCK0==val) {
@@ -639,6 +676,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         0,0,0,//dxRear, dyRear, dzRear
                         111,319,116,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         19,12,10//wheel_radius, wheel_width, wheel_rays
                         );
             }else if(CAMPER0==val) {
@@ -647,6 +685,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         0,0,0,//dxRear, dyRear, dzRear
                         111,319,116,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         19,12,10//wheel_radius, wheel_width, wheel_rays
                         );
             }else if(AUTOBUS==val) {
@@ -655,6 +694,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         0,0,0,//dxRear, dyRear, dzRear
                         111,319,116,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         19,12,10//wheel_radius, wheel_width, wheel_rays
                         );
             }else if(ATEAMVAN==val) {
@@ -663,6 +703,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         0,0,0,//dxRear, dyRear, dzRear
                         111,319,116,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         19,12,10//wheel_radius, wheel_width, wheel_rays
                         );
             }else if(PICKUP==val) {
@@ -671,6 +712,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         0,0,0,//dxRear, dyRear, dzRear
                         111,319,116,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         19,12,10//wheel_radius, wheel_width, wheel_rays
                         );
             }else if(SHIP0==val) {
@@ -679,6 +721,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         718,527,80,//dxRear, dyRear, dzRear
                         718,366,595,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         0,0,0//wheel_radius, wheel_width, wheel_rays
                         );
             }else if(OCEANLINER0==val) {
@@ -687,53 +730,35 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         733,720,203,//dxRear, dyRear, dzRear
                         733,4446,335,//dxRoof, dyRoof, dzRoof
                         1183,1394,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         95,494,10//wheel_radius, wheel_width, wheel_rays
                         );
             }else if(YACHT0==val) {
                 setRightData(718,4550,378,//dx, dy, dz
-                        0,0,0,//dxFront, dyFront, dzFront
+                        0,500,0,//dxFront, dyFront, dzFront
                         0,0,0,//dxRear, dyRear, dzRear
-                        718,366,595,//dxRoof, dyRoof, dzRoof
+                        718,3600,595,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
+                        100,1400,//rearOverhang1,frontOverhang1,
                         0,0,0//wheel_radius, wheel_width, wheel_rays
                         );
-
-
-
-
-
-
-
-
-
             }else if(SAILER==val) {
                 setRightData(403,2142,304,//dx, dy, dz
-                		403,957,86,//dxFront, dyFront, dzFront
-                		624,720,34,//dxRear, dyRear, dzRear
+                        403,957,86,//dxFront, dyFront, dzFront
+                        624,720,34,//dxRear, dyRear, dzRear
                         0,0,0,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         17,1310,10//wheel_radius, wheel_width, wheel_rays
                         );
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
             else if(STARSHIP0==val) {
                 setRightData(50,200,50,//dx, dy, dz
                         150,150,50,//dxFront, dyFront, dzFront
                         50,250,50,//dxRear, dyRear, dzRear
                         0,0,0,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         0,0,0//wheel_radius, wheel_width, wheel_rays
                         );
             } else if(AIRPLANE0==val) {
@@ -742,6 +767,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         38,260,24,//dxRear, dyRear, dzRear
                         330,217,53,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         0,0,0//wheel_radius, wheel_width, wheel_rays
                         );
             }
@@ -751,6 +777,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         38,260,24,//dxRear, dyRear, dzRear
                         330,217,53,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         0,0,0//wheel_radius, wheel_width, wheel_rays
                         );
             } else if(HELICOPTER==val) {
@@ -759,6 +786,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         300,100,50,//dxRear, dyRear, dzRear
                         200,150,50,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         0,0,0//wheel_radius, wheel_width, wheel_rays
                         );
             }
@@ -768,6 +796,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         12,12,13,//dxRear, dyRear, dzRear
                         12,19,7,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         8,4,10//wheel_radius, wheel_width, wheel_rays
                         );
             } else if(F10==val) {
@@ -776,6 +805,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         50,100,50,//dxRear, dyRear, dzRear
                         50,100,30,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         50,20,10//wheel_radius, wheel_width, wheel_rays
                         );
             } else if(TANK0==val) {
@@ -784,6 +814,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         300,100,50,//dxRear, dyRear, dzRear
                         200,150,50,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         0,0,0//wheel_radius, wheel_width, wheel_rays
                         );
             }
@@ -793,6 +824,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         300,100,50,//dxRear, dyRear, dzRear
                         200,150,50,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         0,0,0//wheel_radius, wheel_width, wheel_rays
                         );
             }
@@ -802,6 +834,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         41,51,14,//dxRear, dyRear, dzRear
                         70,348,70,//dxRoof, dyRoof, dzRoof
                         29,29,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         13,4,10//wheel_radius, wheel_width, wheel_rays
                         );
             } else if(RAILWAGON0==val) {
@@ -810,6 +843,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         41,51,14,//dxRear, dyRear, dzRear
                         70,348,70,//dxRoof, dyRoof, dzRoof
                         29,29,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         13,4,10//wheel_radius, wheel_width, wheel_rays
                         );
             } else if(RAILWAGON_TANK==val) {
@@ -818,6 +852,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         41,51,14,//dxRear, dyRear, dzRear
                         83,374,83,//dxRoof, dyRoof, dzRoof
                         29,29,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         13,4,10//wheel_radius, wheel_width, wheel_rays
                         );
             } else if(RAILWAGON_BULK==val) {
@@ -826,6 +861,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         41,57,16,//dxRear, dyRear, dzRear
                         78,364,56,//dxRoof, dyRoof, dzRoof
                         32,32,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         13,4,10//wheel_radius, wheel_width, wheel_rays
                         );
             } else if(RAILWAGON_COAL==val) {
@@ -834,6 +870,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         41,51,16,//dxRear, dyRear, dzRear
                         100,263,61,//dxRoof, dyRoof, dzRoof
                         0,0,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         13,4,10//wheel_radius, wheel_width, wheel_rays
                         );
             } else if(RAILWAGON_COACH==val) {
@@ -842,6 +879,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
                         41,71,18,//dxRear, dyRear, dzRear
                         80,746,14,//dxRoof, dyRoof, dzRoof
                         64,64,//rearOverhang, frontOverhang
+                        0,0,//rearOverhang1,frontOverhang1,
                         13,4,10//wheel_radius, wheel_width, wheel_rays
                         );
             }
@@ -856,6 +894,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
             int dxRear, int dyRear, int dzRear,
             int dxRoof, int dyRoof, int dzRoof,
             int rearOverhang, int frontOverhang,
+            int rearOverhang1, int frontOverhang1,
             double wheel_radius, double wheel_width, int wheel_rays
             ){
 
@@ -877,6 +916,9 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 
         rear_overhang_text.setText(rearOverhang);
         front_overhang_text.setText(frontOverhang);
+
+        rear_overhang1_text.setText(rearOverhang1);
+        front_overhang1_text.setText(frontOverhang1);
 
         wheel_radius_text.setText(wheel_radius);
         wheel_width_text.setText(wheel_width);

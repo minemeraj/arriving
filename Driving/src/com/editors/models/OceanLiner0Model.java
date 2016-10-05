@@ -23,9 +23,6 @@ public class OceanLiner0Model extends Ship0Model{
     double dxTexture=200;
     double dyTexture=200;
 
-    double rearOverhang;
-    double frontOverhang;
-
     BPoint[][][] funnels=null;
     private int funnel_number=4;
     private int funnel_meridians=0;
@@ -41,6 +38,7 @@ public class OceanLiner0Model extends Ship0Model{
             double dxRear, double dyRear, double dzRear,
             double dxRoof, double dyRoof, double dzRoof,
             double rearOverhang, double frontOverhang,
+            double rearOverhang1,double frontOverhang1,
             double funnel_radius,
             double funnel_height,
             int funnel_meridians
@@ -49,10 +47,11 @@ public class OceanLiner0Model extends Ship0Model{
         super(dx, dy, dz,
                 dxFront, dyFront, dzFront,
                 dxRear, dyRear, dzRear,
-                dxRoof, dyRoof, dzRoof);
+                dxRoof, dyRoof, dzRoof,
+                rearOverhang, frontOverhang,
+                rearOverhang1,frontOverhang1
+                );
 
-        this.rearOverhang=rearOverhang;
-        this.frontOverhang=frontOverhang;
 
         this.funnel_radius=funnel_radius;
         this.funnel_height=funnel_height;
