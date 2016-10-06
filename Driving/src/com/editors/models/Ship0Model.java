@@ -370,12 +370,21 @@ public class Ship0Model extends MeshModel{
         return counter;
     }
 
+    /**
+     *
+     * BUILDING THE BRIDGE BY Z SECTIONS
+     *
+     * @param counter
+     * @return
+     */
     protected int buildMainBridgeFaces(int counter) {
 
         //mainBridge
         faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, mainBridge[0][0],mainBridge[0][3],mainBridge[0][2],mainBridge[0][1],d[0]);
 
-        for (int k = 0; k < 2-1; k++) {
+        int nz=mainBridge.length;
+
+        for (int k = 0; k < nz-1; k++) {
 
             faces[counter++]=buildFace(Renderer3D.CAR_LEFT, mainBridge[k][0],mainBridge[k+1][0],mainBridge[k+1][3],mainBridge[k][3], d[0]);
             faces[counter++]=buildFace(Renderer3D.CAR_BACK, mainBridge[k][0],mainBridge[k][1],mainBridge[k+1][1],mainBridge[k+1][0], d[0]);
@@ -384,12 +393,38 @@ public class Ship0Model extends MeshModel{
 
         }
 
-        faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainBridge[2-1][0],mainBridge[2-1][1],mainBridge[2-1][2],mainBridge[2-1][3],d[0]);
+        faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainBridge[nz-1][0],mainBridge[nz-1][1],mainBridge[nz-1][2],mainBridge[nz-1][3],d[0]);
 
         return counter;
     }
 
 
+    /**
+     * BUILDING THE BRIDGE BY Y SECTIONS
+     *
+     * @param counter
+     * @return
+     */
+    protected int buildMainBridgeYFaces(int counter) {
+
+        //mainBridge
+        faces[counter++]=buildFace(Renderer3D.CAR_BACK, mainBridge[0][0],mainBridge[0][1],mainBridge[0][2],mainBridge[0][3],d[0]);
+
+        int ny=mainBridge.length;
+
+        for (int j = 0; j < ny-1; j++) {
+
+            faces[counter++]=buildFace(Renderer3D.CAR_LEFT, mainBridge[j+1][0],mainBridge[j][0],mainBridge[j][3],mainBridge[j+1][3], d[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, mainBridge[j][0],mainBridge[j+1][0],mainBridge[j+1][1],mainBridge[j][1], d[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, mainBridge[j][1],mainBridge[j+1][1],mainBridge[j+1][2],mainBridge[j][2],d[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_TOP, mainBridge[j][2],mainBridge[j+1][2],mainBridge[j+1][3],mainBridge[j][3],d[0]);
+
+        }
+
+        faces[counter++]=buildFace(Renderer3D.CAR_FRONT,mainBridge[ny-1][0],mainBridge[ny-1][3],mainBridge[ny-1][2],mainBridge[ny-1][1],d[0]);
+
+        return counter;
+    }
 
     protected BPoint[][] buildFunnel(double x0, double y0, double z0,double funnel_height, double funnel_radius, int funnel_parallels2, int funnel_meridians2) {
 

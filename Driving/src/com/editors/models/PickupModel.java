@@ -37,13 +37,13 @@ public class PickupModel extends Truck0Model{
 
         int nzCab=3;
         int nYcab=6;
-        BPoint[][][] cab=buildCabin(nYcab,nzCab);
+        cab=buildCabin(nYcab,nzCab);
 
         int nzBody=2;
-        BPoint[][] body=buildBody(nzBody);
+        body=buildBody(nzBody);
 
         int nWagonMeridians=10;
-        BPoint[][] wagon=buildWagon(nWagonMeridians);
+        wagon=buildWagon(nWagonMeridians);
 
         buildWheels();
         buildTextures();

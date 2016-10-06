@@ -20,7 +20,7 @@ public class Yacht0Model extends Ship0Model{
     double dxTexture=200;
     double dyTexture=200;
 
-
+    int mainBridgeYSectionsNum=3;
 
     public Yacht0Model(
             double dx, double dy, double dz,
@@ -58,7 +58,7 @@ public class Yacht0Model extends Ship0Model{
         //deck
         NF+=nyHull-1;
         //main bridge
-        NF+=6;
+        NF+=(2+4*(mainBridgeYSectionsNum-1));
 
         faces=new int[NF][3][4];
 
@@ -66,7 +66,7 @@ public class Yacht0Model extends Ship0Model{
         //build the hull
         int counter=0;
         counter=buildHullfaces(counter,nxHull,nyHull,nyCastle);
-        counter=buildMainBridgeFaces(counter);
+        counter=buildMainBridgeYFaces(counter);
     }
 
     @Override
@@ -76,19 +76,25 @@ public class Yacht0Model extends Ship0Model{
         double dyRoofUp=dy-rearOverhang1-frontOverhang1;
         Segments sUp=new Segments(x0,dxRoof,y0+rearOverhang1,dyRoofUp,z0+dz,dzRoof);
 
-        mainBridge=new BPoint[2][4];
+        mainBridge=new BPoint[mainBridgeYSectionsNum][4];
 
         mainBridge[0][0]=addBPoint(0.0,0.0,0,sDown);
         mainBridge[0][1]=addBPoint(1.0,0.0,0,sDown);
-        mainBridge[0][2]=addBPoint(1.0,1.0,0,sDown);
-        mainBridge[0][3]=addBPoint(0.0,1.0,0,sDown);
+        mainBridge[0][2]=addBPoint(1.0,0.0,1.0,sUp);
+        mainBridge[0][3]=addBPoint(0.0,0.0,1.0,sUp);
 
-        mainBridge[1][0]=addBPoint(0.0,0.0,1.0,sUp);
-        mainBridge[1][1]=addBPoint(1.0,0.0,1.0,sUp);
-        mainBridge[1][2]=addBPoint(1.0,1.0,1.0,sUp);
-        mainBridge[1][3]=addBPoint(0.0,1.0,1.0,sUp);
+        mainBridge[1][0]=addBPoint(0.0,0.5,0,sDown);
+        mainBridge[1][1]=addBPoint(1.0,0.5,0,sDown);
+        mainBridge[1][2]=addBPoint(1.0,0.5,1.0,sUp);
+        mainBridge[1][3]=addBPoint(0.0,0.5,1.0,sUp);
+
+        mainBridge[2][0]=addBPoint(0.0,1.0,0,sDown);
+        mainBridge[2][1]=addBPoint(1.0,1.0,0,sDown);
+        mainBridge[2][2]=addBPoint(1.0,1.0,1.0,sUp);
+        mainBridge[2][3]=addBPoint(0.0,1.0,1.0,sUp);
 
     }
+
 
     @Override
     protected void buildTextures() {

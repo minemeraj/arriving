@@ -212,6 +212,13 @@ public class Truck0Model extends MeshModel{
     }
 
 
+
+    /**
+     *
+     * BUILD WAGON BY Z SECTIONS
+     * @param nzBody
+     * @return
+     */
     protected int buildWagonFaces(int counter, int nzWagon, BPoint[][] wagon) {
 
         faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0],wagon[0][3],wagon[0][2],wagon[0][1], wa[0]);
@@ -300,7 +307,6 @@ public class Truck0Model extends MeshModel{
         IMG_WIDTH=(int) (2*bx+3*dxTexture+wheelWidth+3*shift);
         IMG_HEIGHT=(int) (2*by+dyTexture);
     }
-
 
     protected BPoint[][] buildBody(int nzBody) {
 

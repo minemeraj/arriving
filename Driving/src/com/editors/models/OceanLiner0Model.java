@@ -119,11 +119,11 @@ public class OceanLiner0Model extends Ship0Model{
 
 
         funnels=new BPoint[funnel_number][funnel_parallels][funnel_meridians];
-
+        double dyUpRoof=dyRoof-rearOverhang1+rearOverhang;
         double fx=dxRoof*0.5;
         for (int i = 0; i < funnels.length; i++) {
 
-            double fy=y0+rearOverhang+(i+1)*dyRoof/(funnel_number+1);
+            double fy=y0+rearOverhang1+(i+1)*dyUpRoof/(funnel_number+1);
             double fz=z0+dz+dzRoof;
             funnels[i]=buildFunnel(fx,fy,fz,funnel_height,funnel_radius,funnel_parallels,funnel_meridians);
         }
