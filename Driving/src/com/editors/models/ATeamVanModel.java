@@ -35,12 +35,10 @@ public class ATeamVanModel extends Truck0Model{
 
         x0=dxRoof*0.5;
 
-        int nzCab=3;
-        int nYcab=6;
-        cab=buildCabin(nYcab,nzCab);
 
-        int nzBody=2;
-        body=buildBody(nzBody);
+        cab=buildCabin();
+
+        body=buildBody();
 
         int nWagonMeridians=10;
         wagon=buildWagon(nWagonMeridians);
@@ -59,7 +57,7 @@ public class ATeamVanModel extends Truck0Model{
         faces=new int[NF+NUM_WHEEL_FACES][3][4];
 
         int counter=0;
-        counter=buildBodyFaces(counter,nYcab,nzCab,nzBody,nWagonMeridians);
+        counter=buildBodyFaces(counter,nzBody,nWagonMeridians);
         counter=buildWheelFaces(counter,
                 totWheelPolygon);
 
