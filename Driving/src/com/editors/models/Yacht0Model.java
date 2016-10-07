@@ -45,7 +45,7 @@ public class Yacht0Model extends Ship0Model{
         texturePoints=new Vector<Point3D>();
 
         buildHull();
-        buildMainBridge();
+        buildMainDecks();
 
         buildTextures();
 
@@ -58,7 +58,7 @@ public class Yacht0Model extends Ship0Model{
         //deck
         NF+=nyHull-1;
         //main bridge
-        NF+=(2+4*(mainBridgeYSectionsNum-1));
+        NF+=mainDecks.length*(2+4*(mainBridgeYSectionsNum-1));
 
         faces=new int[NF][3][4];
 
@@ -66,32 +66,47 @@ public class Yacht0Model extends Ship0Model{
         //build the hull
         int counter=0;
         counter=buildHullfaces(counter,nxHull,nyHull,nyCastle);
-        counter=buildMainBridgeYFaces(counter);
+        counter=buildMainDecksYFaces(counter);
     }
 
     @Override
-    protected void buildMainBridge() {
+    protected void buildMainDecks() {
 
-        Segments sDown=new Segments(x0,dxRoof,y0,dyRoof,z0+dz,dzRoof);
+        Segments sDown=new Segments(x0,dxRoof,y0,dyRoof,z0+dz,dzRoof*0.5);
         double dyRoofUp=dy-rearOverhang1-frontOverhang1;
-        Segments sUp=new Segments(x0,dxRoof,y0+rearOverhang1,dyRoofUp,z0+dz,dzRoof);
+        Segments sUp=new Segments(x0,dxRoof,y0+rearOverhang1,dyRoofUp,z0+dz+dzRoof*0.5,dzRoof*0.5);
 
-        mainBridge=new BPoint[mainBridgeYSectionsNum][4];
+        mainDecks=new BPoint[2][mainBridgeYSectionsNum][4];
 
-        mainBridge[0][0]=addBPoint(0.0,0.0,0,sDown);
-        mainBridge[0][1]=addBPoint(1.0,0.0,0,sDown);
-        mainBridge[0][2]=addBPoint(1.0,0.0,1.0,sUp);
-        mainBridge[0][3]=addBPoint(0.0,0.0,1.0,sUp);
+        mainDecks[0][0][0]=addBPoint(0.0,0.0,0,sDown);
+        mainDecks[0][0][1]=addBPoint(1.0,0.0,0,sDown);
+        mainDecks[0][0][2]=addBPoint(1.0,0.0,1.0,sDown);
+        mainDecks[0][0][3]=addBPoint(0.0,0.0,1.0,sDown);
 
-        mainBridge[1][0]=addBPoint(0.0,0.5,0,sDown);
-        mainBridge[1][1]=addBPoint(1.0,0.5,0,sDown);
-        mainBridge[1][2]=addBPoint(1.0,0.5,1.0,sUp);
-        mainBridge[1][3]=addBPoint(0.0,0.5,1.0,sUp);
+        mainDecks[0][1][0]=addBPoint(0.0,0.5,0,sDown);
+        mainDecks[0][1][1]=addBPoint(1.0,0.5,0,sDown);
+        mainDecks[0][1][2]=addBPoint(1.0,0.5,1.0,sDown);
+        mainDecks[0][1][3]=addBPoint(0.0,0.5,1.0,sDown);
 
-        mainBridge[2][0]=addBPoint(0.0,1.0,0,sDown);
-        mainBridge[2][1]=addBPoint(1.0,1.0,0,sDown);
-        mainBridge[2][2]=addBPoint(1.0,1.0,1.0,sUp);
-        mainBridge[2][3]=addBPoint(0.0,1.0,1.0,sUp);
+        mainDecks[0][2][0]=addBPoint(0.0,1.0,0,sDown);
+        mainDecks[0][2][1]=addBPoint(1.0,1.0,0,sDown);
+        mainDecks[0][2][2]=addBPoint(1.0,1.0,1.0,sDown);
+        mainDecks[0][2][3]=addBPoint(0.0,1.0,1.0,sDown);
+
+        mainDecks[1][0][0]=addBPoint(0.0,0.0,0,sUp);
+        mainDecks[1][0][1]=addBPoint(1.0,0.0,0,sUp);
+        mainDecks[1][0][2]=addBPoint(1.0,0.0,1.0,sUp);
+        mainDecks[1][0][3]=addBPoint(0.0,0.0,1.0,sUp);
+
+        mainDecks[1][1][0]=addBPoint(0.0,0.5,0,sUp);
+        mainDecks[1][1][1]=addBPoint(1.0,0.5,0,sUp);
+        mainDecks[1][1][2]=addBPoint(1.0,0.5,1.0,sUp);
+        mainDecks[1][1][3]=addBPoint(0.0,0.5,1.0,sUp);
+
+        mainDecks[1][2][0]=addBPoint(0.0,1.0,0,sUp);
+        mainDecks[1][2][1]=addBPoint(1.0,1.0,0,sUp);
+        mainDecks[1][2][2]=addBPoint(1.0,1.0,1.0,sUp);
+        mainDecks[1][2][3]=addBPoint(0.0,1.0,1.0,sUp);
 
     }
 

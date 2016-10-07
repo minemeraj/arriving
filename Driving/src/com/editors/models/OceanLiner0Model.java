@@ -67,7 +67,7 @@ public class OceanLiner0Model extends Ship0Model{
         buildHull();
         buildAfterCastle();
         buildForeCastle();
-        buildMainBridge();
+        buildMainDecks();
         buildFunnels();
 
         buildTextures();
@@ -80,8 +80,8 @@ public class OceanLiner0Model extends Ship0Model{
         NF+=(nxHull-1)/2;
         //deck
         NF+=nyHull-1;
-        //main bridge
-        NF+=6;
+        //main bridge and top deck
+        NF+=mainDecks.length*6;
         //castles
         NF+=6+(4*(nyCastle-1)+1);
         //funnels
@@ -92,26 +92,36 @@ public class OceanLiner0Model extends Ship0Model{
         //build the hull
         int counter=0;
         counter=buildFaces(counter,nxHull,nyHull,nyCastle);
-        counter=buildMainBridgeFaces(counter);
+        counter=buildMainDecksFaces(counter);
     }
 
     @Override
-    protected void buildMainBridge() {
-        Segments sDown=new Segments(x0,dxRoof,y0+rearOverhang,dyRoof,z0+dz,dzRoof);
+    protected void buildMainDecks() {
+        Segments sDown=new Segments(x0,dxRoof,y0+rearOverhang,dyRoof,z0+dz,dzRoof*0.5);
         double dyUpRoof=dyRoof-rearOverhang1+rearOverhang;
-        Segments sUp=new Segments(x0,dxRoof,y0+rearOverhang1,dyUpRoof,z0+dz,dzRoof);
+        Segments sUp=new Segments(x0,dxRoof,y0+rearOverhang1,dyUpRoof,z0+dz+dzRoof*0.5,dzRoof*0.5);
 
-        mainBridge=new BPoint[2][4];
+        mainDecks=new BPoint[2][2][4];
 
-        mainBridge[0][0]=addBPoint(0.0,0.0,0,sDown);
-        mainBridge[0][1]=addBPoint(1.0,0.0,0,sDown);
-        mainBridge[0][2]=addBPoint(1.0,1.0,0,sDown);
-        mainBridge[0][3]=addBPoint(0.0,1.0,0,sDown);
+        mainDecks[0][0][0]=addBPoint(0.0,0.0,0,sDown);
+        mainDecks[0][0][1]=addBPoint(1.0,0.0,0,sDown);
+        mainDecks[0][0][2]=addBPoint(1.0,1.0,0,sDown);
+        mainDecks[0][0][3]=addBPoint(0.0,1.0,0,sDown);
 
-        mainBridge[1][0]=addBPoint(0.0,0.0,1.0,sUp);
-        mainBridge[1][1]=addBPoint(1.0,0.0,1.0,sUp);
-        mainBridge[1][2]=addBPoint(1.0,1.0,1.0,sUp);
-        mainBridge[1][3]=addBPoint(0.0,1.0,1.0,sUp);
+        mainDecks[0][1][0]=addBPoint(0.0,0.0,1.0,sDown);
+        mainDecks[0][1][1]=addBPoint(1.0,0.0,1.0,sDown);
+        mainDecks[0][1][2]=addBPoint(1.0,1.0,1.0,sDown);
+        mainDecks[0][1][3]=addBPoint(0.0,1.0,1.0,sDown);
+
+        mainDecks[1][0][0]=addBPoint(0.0,0.0,0,sUp);
+        mainDecks[1][0][1]=addBPoint(1.0,0.0,0,sUp);
+        mainDecks[1][0][2]=addBPoint(1.0,1.0,0,sUp);
+        mainDecks[1][0][3]=addBPoint(0.0,1.0,0,sUp);
+
+        mainDecks[1][1][0]=addBPoint(0.0,0.0,1.0,sUp);
+        mainDecks[1][1][1]=addBPoint(1.0,0.0,1.0,sUp);
+        mainDecks[1][1][2]=addBPoint(1.0,1.0,1.0,sUp);
+        mainDecks[1][1][3]=addBPoint(0.0,1.0,1.0,sUp);
 
     }
 
@@ -179,7 +189,7 @@ public class OceanLiner0Model extends Ship0Model{
     }
 
 
-    @Override
+	@Override
     public void printTexture(Graphics2D bufGraphics) {
 
 
