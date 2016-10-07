@@ -1,5 +1,7 @@
 package com.editors.models;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.Vector;
 
 import com.BPoint;
@@ -133,6 +135,15 @@ public class Yacht0Model extends Ship0Model{
 
     }
 
+    @Override
+    public void printTexture(Graphics2D bufGraphics) {
 
+
+        bufGraphics.setColor(new Color(61,68,78));
+        printTexturePolygon(bufGraphics, h[0]);
+
+        bufGraphics.setColor(Color.WHITE);
+        printTexturePolygon(bufGraphics, d[0]);
+    }
 
 }

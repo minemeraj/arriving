@@ -161,13 +161,13 @@ public class Sailer0Model extends Ship0Model{
     public void printTexture(Graphics2D bufGraphics) {
 
 
-        bufGraphics.setColor(Color.BLACK);
+    	bufGraphics.setColor(new Color(37,35,36));
         printTexturePolygon(bufGraphics, h[0]);
 
         bufGraphics.setColor(Color.WHITE);
         printTexturePolygon(bufGraphics, d[0]);
 
-        bufGraphics.setColor(new Color(255,168,16));
+        bufGraphics.setColor(new Color(160,99,16));
         printTexturePolygon(bufGraphics, fun[0]);
     }
 
