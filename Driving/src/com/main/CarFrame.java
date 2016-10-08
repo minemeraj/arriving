@@ -32,7 +32,7 @@ import com.sound.GameSound;
 
 public class CarFrame extends Road implements KeyListener {
 
-    private String VERSION="CarDriving 11.0.1 - Monza";
+    private String VERSION="CarDriving 11.0.2 - Monza";
 
     private JPanel center=null;
     private Graphics2D graphics2D;
