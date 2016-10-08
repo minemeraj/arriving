@@ -1,3 +1,9 @@
+New objects:
+/lib/object3D_32 (Ocean Liner) the biggest object of all!
+
+See:
+/lib/landscape_harbour
+
 --- 25/09/2016 CarDriving 11.0.1 - Monza
 
 Using more memory to launch the program:
