@@ -1,5 +1,7 @@
-New objects:
+New sea objects:
 /lib/object3D_32 (Ocean Liner) the biggest object of all!
+/lib/object3D_33 (Yacht) 
+/lib/object3D_34 (Sailer) 
 
 See:
 /lib/landscape_harbour
