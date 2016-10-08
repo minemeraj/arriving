@@ -67,6 +67,7 @@ public class Truck0Model extends MeshModel {
 	protected BPoint[][][] cab;
 	protected BPoint[][] body;
 	protected BPoint[][] wagon;
+	protected BPoint[][][] roof;
 
 	public static final String NAME = "Truck";
 

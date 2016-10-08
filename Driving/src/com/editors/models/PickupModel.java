@@ -45,9 +45,11 @@ public class PickupModel extends Truck0Model {
 		int NUM_WHEEL_FACES = 4 * totWheelPolygon;
 
 		// faces
-		int NF = 2 + (1 + (nzCab - 1)) * (nYcab - 1) * 2;
+		int NF = 2 + (2 + (nzCab - 1)) * (nYcab - 1) * 2;
 		NF += 2 + (nzBody - 1) * 4;
 		NF += 2 + (nWagonMeridians);
+		// roof
+		NF += 2;
 
 		faces = new int[NF + NUM_WHEEL_FACES][3][4];
 
@@ -111,6 +113,18 @@ public class PickupModel extends Truck0Model {
 		cab[1][5][0] = addBPoint(1.0, fy5, 0.0, s0);
 		cab[1][5][1] = addBPoint(1.0, fy5, fz2, s0);
 
+		roof = new BPoint[2][3][2];
+		roof[0][0][0] = addBPoint(0.0, 0, fz2, s0);
+		roof[1][0][0] = addBPoint(0.0, 0, fz2, s0);
+		roof[0][1][0] = addBPoint(0.0, 0.25, fz2, s0);
+		roof[1][1][0] = addBPoint(0.0, 0.25, fz2, s0);
+		roof[0][2][0] = addBPoint(0.0, 0.5, fz2, s0);
+		roof[1][2][0] = addBPoint(0.0, 0.5, fz2, s0);
+
+		roof[0][0][1] = addBPoint(0.0, 0, 1.0, s0);
+		roof[1][0][1] = addBPoint(0.0, 0, 1.0, s0);
+		roof[0][1][1] = addBPoint(0.0, 0.25, 1.0, s0);
+		roof[1][1][1] = addBPoint(0.0, 0.25, 1.0, s0);
 	}
 
 	@Override
@@ -147,7 +161,14 @@ public class PickupModel extends Truck0Model {
 
 			}
 
+			faces[counter++] = buildFace(Renderer3D.CAR_TOP, cab[0][j][nzCab - 1], cab[1][j][nzCab - 1],
+					cab[1][j + 1][nzCab - 1], cab[0][j + 1][nzCab - 1], bo[0]);
+
 		}
+
+		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, roof[0][0][0], roof[0][0][1], roof[0][1][1], roof[0][1][0],
+				bo[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, roof[0][1][0], roof[0][1][1], roof[0][2][0], bo[0]);
 
 		return counter;
 	}
