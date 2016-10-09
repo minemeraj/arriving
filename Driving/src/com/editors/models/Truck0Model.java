@@ -55,10 +55,10 @@ public class Truck0Model extends MeshModel {
 
 	private double dyTexture = 200;
 	private double dxTexture = 200;
-	private BPoint[][] wheelLeftFront;
-	private BPoint[][] wheelRightFront;
-	private BPoint[][] wheelLeftRear;
-	private BPoint[][] wheelRightRear;
+	protected BPoint[][] wheelLeftFront;
+	protected BPoint[][] wheelRightFront;
+	protected BPoint[][] wheelLeftRear;
+	protected BPoint[][] wheelRightRear;
 
 	protected int nzCab = 3;
 	protected int nYcab = 6;

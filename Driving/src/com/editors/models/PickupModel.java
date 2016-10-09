@@ -141,7 +141,7 @@ public class PickupModel extends Truck0Model {
 		double fy1 = (0 * 0.25 + fy2 * 0.75);
 		double fy3 = yRearAxle + wy;
 		double fy5 = 1.0;
-		double fy4 = (fy3 * 0.75 + fy5 * 0.25);
+		double fy4 = yRearAxle + (yRearAxle - fy1);
 
 		double wz2 = wheelRadius * 1.0 / dz;
 		double wz3 = wz2;
@@ -167,8 +167,8 @@ public class PickupModel extends Truck0Model {
 		body[2][2] = addBPoint(1.0, fy2, fz1, s0);
 		body[2][3] = addBPoint(0.0, fy2, fz1, s0);
 
-		body[3][0] = addBPoint(0.0, fy3, wz2, s0);
-		body[3][1] = addBPoint(1.0, fy3, wz2, s0);
+		body[3][0] = addBPoint(0.0, fy3, wz3, s0);
+		body[3][1] = addBPoint(1.0, fy3, wz3, s0);
 		body[3][2] = addBPoint(1.0, fy3, fz1, s0);
 		body[3][3] = addBPoint(0.0, fy3, fz1, s0);
 
@@ -247,6 +247,24 @@ public class PickupModel extends Truck0Model {
 		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][1][0], roof[1][2][0], roof[1][1][1], bo[0]);
 
 		return counter;
+	}
+
+	@Override
+	protected void buildWheels() {
+
+		////
+		double wz = 0;
+		double wxLeft = dx * 0.5;
+		double wxRight = dx * 0.5 - wheelWidth;
+
+		double yRearAxle = 2.0 * wheelRadius;
+		double yFrontAxle = dy + dyFront * 0.5;
+
+		wheelLeftFront = buildWheel(x0 - wxLeft, yFrontAxle, wz, wheelRadius, wheelWidth, wheel_rays);
+		wheelRightFront = buildWheel(x0 + wxRight, yFrontAxle, wz, wheelRadius, wheelWidth, wheel_rays);
+		wheelLeftRear = buildWheel(x0 - wxLeft, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
+		wheelRightRear = buildWheel(x0 + wxRight, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
+
 	}
 
 	@Override
