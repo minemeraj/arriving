@@ -28,6 +28,8 @@ public class PickupModel extends Truck0Model {
 		texturePoints = new Vector();
 
 		nzCab = 2;
+		nzBody = 2;
+		nyBody = 6;
 
 		x0 = dxRoof * 0.5;
 
@@ -46,7 +48,7 @@ public class PickupModel extends Truck0Model {
 
 		// faces
 		int NF = 2 + (2 + (nzCab - 1)) * (nYcab - 1) * 2;
-		NF += 2 + (nzBody - 1) * 4;
+		NF += 2 + (nyBody - 1) * 4;
 		NF += 2 + (nWagonMeridians);
 		// roof
 		NF += 7;
@@ -125,6 +127,71 @@ public class PickupModel extends Truck0Model {
 		roof[1][0][1] = addBPoint(1.0, 0, 1.0, s0);
 		roof[0][1][1] = addBPoint(0.0, 0.5, 1.0, s0);
 		roof[1][1][1] = addBPoint(1.0, 0.5, 1.0, s0);
+	}
+
+	@Override
+	protected void buildBody() {
+
+		double yRearAxle = 2.0 * wheelRadius / dy;
+
+		double wy = wheelRadius * 1.0 / dy;
+
+		double fy0 = 0;
+		double fy2 = yRearAxle - wy;
+		double fy1 = (0 * 0.25 + fy2 * 0.75);
+		double fy3 = yRearAxle + wy;
+		double fy5 = 1.0;
+		double fy4 = (fy3 * 0.75 + fy5 * 0.25);
+
+		double wz2 = wheelRadius * 1.0 / dz;
+		double wz3 = wz2;
+
+		double fz1 = 1.0;
+
+		body = new BPoint[nyBody][4];
+
+		Segments s0 = new Segments(x0 - dx * 0.5, dx, y0, dy, z0, dz);
+
+		body[0][0] = addBPoint(0.0, fy0, 0.0, s0);
+		body[0][1] = addBPoint(1.0, fy0, 0.0, s0);
+		body[0][2] = addBPoint(1.0, fy0, fz1, s0);
+		body[0][3] = addBPoint(0.0, fy0, fz1, s0);
+
+		body[1][0] = addBPoint(0.0, fy1, 0.0, s0);
+		body[1][1] = addBPoint(1.0, fy1, 0.0, s0);
+		body[1][2] = addBPoint(1.0, fy1, fz1, s0);
+		body[1][3] = addBPoint(0.0, fy1, fz1, s0);
+
+		body[2][0] = addBPoint(0.0, fy2, wz2, s0);
+		body[2][1] = addBPoint(1.0, fy2, wz2, s0);
+		body[2][2] = addBPoint(1.0, fy2, fz1, s0);
+		body[2][3] = addBPoint(0.0, fy2, fz1, s0);
+
+		body[3][0] = addBPoint(0.0, fy3, wz2, s0);
+		body[3][1] = addBPoint(1.0, fy3, wz2, s0);
+		body[3][2] = addBPoint(1.0, fy3, fz1, s0);
+		body[3][3] = addBPoint(0.0, fy3, fz1, s0);
+
+		body[4][0] = addBPoint(0.0, fy4, 0.0, s0);
+		body[4][1] = addBPoint(1.0, fy4, 0.0, s0);
+		body[4][2] = addBPoint(1.0, fy4, fz1, s0);
+		body[4][3] = addBPoint(0.0, fy4, fz1, s0);
+
+		body[5][0] = addBPoint(0.0, fy5, 0.0, s0);
+		body[5][1] = addBPoint(1.0, fy5, 0.0, s0);
+		body[5][2] = addBPoint(1.0, fy5, fz1, s0);
+		body[5][3] = addBPoint(0.0, fy5, fz1, s0);
+
+	}
+
+	@Override
+	protected int buildBodyFaces(int counter, int nzRear, int nzWagon) {
+
+		counter = buildCabinFaces(counter, nYcab, nzCab);
+		counter = buildRearYFaces(counter, nzRear, nzWagon);
+		counter = buildWagonFaces(counter, nzWagon, wagon);
+
+		return counter;
 	}
 
 	@Override

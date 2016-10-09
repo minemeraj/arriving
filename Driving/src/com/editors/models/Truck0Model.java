@@ -63,6 +63,7 @@ public class Truck0Model extends MeshModel {
 	protected int nzCab = 3;
 	protected int nYcab = 6;
 	protected int nzBody = 2;
+	protected int nyBody = 2;
 
 	protected BPoint[][][] cab;
 	protected BPoint[][] body;
@@ -151,7 +152,7 @@ public class Truck0Model extends MeshModel {
 		return counter;
 	}
 
-	private int buildRearFaces(int counter, int nzRear, int nzWagon) {
+	protected int buildRearFaces(int counter, int nzRear, int nzWagon) {
 
 		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[0][0], body[0][3], body[0][2], body[0][1], bo[0]);
 
@@ -172,6 +173,30 @@ public class Truck0Model extends MeshModel {
 				body[nzRear - 1][3], bo[0]);
 
 		return counter;
+	}
+
+	protected int buildRearYFaces(int counter, int nzRear, int nzWagon) {
+
+		int numSections = body.length;
+
+		faces[counter++] = buildFace(Renderer3D.CAR_BACK, body[0][0], body[0][1], body[0][2], body[0][3], bo[0]);
+
+		for (int i = 0; i < numSections - 1; i++) {
+
+			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, body[i + 1][0], body[i][0], body[i][3], body[i + 1][3],
+					bo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[i][0], body[i + 1][0], body[i + 1][1], body[i][1],
+					bo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, body[i][1], body[i + 1][1], body[i + 1][2], body[i][2],
+					bo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_TOP, body[i][2], body[i + 1][2], body[i + 1][3], body[i][3],
+					bo[0]);
+
+		}
+		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, body[numSections - 1][0], body[numSections - 1][3],
+				body[numSections - 1][2], body[numSections - 1][1], bo[0]);
+		return counter;
+
 	}
 
 	protected int buildCabinFaces(int counter, int nYcab, int nzCab) {
@@ -312,7 +337,7 @@ public class Truck0Model extends MeshModel {
 
 		Segments s0 = new Segments(x0 - dx * 0.5, dx, y0, dy, z0, dz);
 
-		body = new BPoint[nzBody][4];
+		body = new BPoint[nyBody][4];
 
 		body[0][0] = addBPoint(0.0, 0.0, 0.0, s0);
 		body[0][1] = addBPoint(1.0, 0.0, 0.0, s0);
