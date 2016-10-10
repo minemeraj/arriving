@@ -38,8 +38,6 @@ public class StreetLightModel extends MeshModel{
     //body textures
     protected int[][] bo= {{0,1,2,3}};
 
-    private int[][][] faces;
-
     private double dxTexture=200;
     private double dyTexture=200;
 

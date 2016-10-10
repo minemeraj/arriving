@@ -16,8 +16,6 @@ public class Car0Model extends MeshModel{
     protected double dy = 0;
     protected double dz = 0;
 
-    protected int[][][] faces;
-
     protected int nBasePoints=6;
 
     protected int bx=10;

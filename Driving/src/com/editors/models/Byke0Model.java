@@ -43,8 +43,6 @@ public class Byke0Model extends MeshModel{
 
     double xc=0;
 
-    private int[][][] faces;
-
     public static final String NAME="Byke";
 
     public Byke0Model(

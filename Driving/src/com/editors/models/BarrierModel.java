@@ -38,8 +38,6 @@ public class BarrierModel extends MeshModel{
     //body textures
     protected int[][] bo= {{0,1,2,3}};
 
-    private int[][][] faces;
-
     private BPoint[][][] body;
 
     private int numPoles=0;
@@ -135,10 +133,10 @@ public class BarrierModel extends MeshModel{
 
         for(int i=0;i<=numPoles;i++){
 
-        	double poleSpan=poleLength;
-        	if(i==0 || i==numPoles){
-        		poleSpan=poleLength*0.5;
-        	}
+            double poleSpan=poleLength;
+            if(i==0 || i==numPoles){
+                poleSpan=poleLength*0.5;
+            }
 
             Segments s0=new Segments(0,poleWidth*0.5,yRef,poleSpan,0,poleHeight);
 

@@ -45,11 +45,11 @@ public class Helicopter0Model extends MeshModel{
     //body textures
     protected int[][] bo= {{0,1,2,3}};
 
-    private int[][][] faces;
-
     private BPoint[][][] body;
     private BPoint[][][] turret;
     private BPoint[][] cannon_barrel;
+    private BPoint[][][][] propellers;
+    private BPoint[][][][] shoes;
 
     private double dxTexture=200;
     private double dyTexture=200;
@@ -86,18 +86,25 @@ public class Helicopter0Model extends MeshModel{
         texturePoints=new Vector<Point3D>();
 
         buildBody();
-
+        buildPropellers();
+        buildShoes();
         buildTextures();
 
         //faces
         int NF=6*2;
+        //propellers
+        NF+=6*propellers.length;
+        //shoes
+        NF+=6*shoes.length;
 
         faces=new int[NF+cannon_barrel.length][3][4];
 
         int counter=0;
         counter=buildFaces(counter);
-
+        counter=buildPropellersFaces(counter);
+        counter=buildShoesFaces(counter);
     }
+
 
 
     private int buildFaces(int counter) {
@@ -185,6 +192,95 @@ public class Helicopter0Model extends MeshModel{
 
 
         cannon_barrel = addYCylinder(0,dyRoof+dyRear,dz+dzRear*0.5,10,100,10);
+
+    }
+
+
+
+    private int buildPropellersFaces(int counter) {
+        for (int i = 0; i < propellers.length; i++) {
+
+            BPoint[][][] prop = propellers[i];
+            faces[counter++]=buildFace(Renderer3D.CAR_TOP, prop[0][0][1],prop[1][0][1],prop[1][1][1],prop[0][1][1],bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_LEFT, prop[0][0][0],prop[0][0][1],prop[0][1][1],prop[0][1][0], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, prop[1][0][0],prop[1][1][0],prop[1][1][1],prop[1][0][1], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_FRONT, prop[0][1][0],prop[0][1][1],prop[1][1][1],prop[1][1][0], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_BACK, prop[0][0][0],prop[1][0][0],prop[1][0][1],prop[0][0][1], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, prop[0][0][0],prop[0][1][0],prop[1][1][0],prop[1][0][0], bo[0]);
+
+        }
+        return counter;
+    }
+
+
+    private void buildPropellers() {
+
+        propellers=new BPoint[2][2][2][2];
+
+        Segments s0=new Segments(0,dx*0.5,0,dy,0,dz);
+
+        propellers[0][0][0][0]=addBPoint(-1.0,0.0,0,s0);
+        propellers[0][1][0][0]=addBPoint(1.0,0.0,0,s0);
+        propellers[0][0][1][0]=addBPoint(-1.0,1.0,0,s0);
+        propellers[0][1][1][0]=addBPoint(1.0,1.0,0,s0);
+
+        propellers[0][0][0][1]=addBPoint(-1.0,0.0,1.0,s0);
+        propellers[0][1][0][1]=addBPoint(1.0,0.0,1.0,s0);
+        propellers[0][0][1][1]=addBPoint(-1.0,1.0,1.0,s0);
+        propellers[0][1][1][1]=addBPoint(1.0,1.0,1.0,s0);
+
+        propellers[1][0][0][0]=addBPoint(-1.0,0.0,0,s0);
+        propellers[1][1][0][0]=addBPoint(1.0,0.0,0,s0);
+        propellers[1][0][1][0]=addBPoint(-1.0,1.0,0,s0);
+        propellers[1][1][1][0]=addBPoint(1.0,1.0,0,s0);
+
+        propellers[1][0][0][1]=addBPoint(-1.0,0.0,1.0,s0);
+        propellers[1][1][0][1]=addBPoint(1.0,0.0,1.0,s0);
+        propellers[1][0][1][1]=addBPoint(-1.0,1.0,1.0,s0);
+        propellers[1][1][1][1]=addBPoint(1.0,1.0,1.0,s0);
+
+    }
+
+    private int buildShoesFaces(int counter) {
+        for (int i = 0; i < shoes.length; i++) {
+
+            BPoint[][][] shoe = shoes[i];
+            faces[counter++]=buildFace(Renderer3D.CAR_TOP, shoe[0][0][1],shoe[1][0][1],shoe[1][1][1],shoe[0][1][1],bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_LEFT, shoe[0][0][0],shoe[0][0][1],shoe[0][1][1],shoe[0][1][0], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, shoe[1][0][0],shoe[1][1][0],shoe[1][1][1],shoe[1][0][1], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_FRONT, shoe[0][1][0],shoe[0][1][1],shoe[1][1][1],shoe[1][1][0], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_BACK, shoe[0][0][0],shoe[1][0][0],shoe[1][0][1],shoe[0][0][1], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, shoe[0][0][0],shoe[0][1][0],shoe[1][1][0],shoe[1][0][0], bo[0]);
+
+        }
+        return counter;
+    }
+
+
+    private void buildShoes() {
+        shoes=new BPoint[2][2][2][2];
+
+        Segments s0=new Segments(0,dx*0.5,0,dy,0,dz);
+
+        shoes[0][0][0][0]=addBPoint(-1.0,0.0,0,s0);
+        shoes[0][1][0][0]=addBPoint(1.0,0.0,0,s0);
+        shoes[0][0][1][0]=addBPoint(-1.0,1.0,0,s0);
+        shoes[0][1][1][0]=addBPoint(1.0,1.0,0,s0);
+
+        shoes[0][0][0][1]=addBPoint(-1.0,0.0,1.0,s0);
+        shoes[0][1][0][1]=addBPoint(1.0,0.0,1.0,s0);
+        shoes[0][0][1][1]=addBPoint(-1.0,1.0,1.0,s0);
+        shoes[0][1][1][1]=addBPoint(1.0,1.0,1.0,s0);
+
+        shoes[1][0][0][0]=addBPoint(-1.0,0.0,0,s0);
+        shoes[1][1][0][0]=addBPoint(1.0,0.0,0,s0);
+        shoes[1][0][1][0]=addBPoint(-1.0,1.0,0,s0);
+        shoes[1][1][1][0]=addBPoint(1.0,1.0,0,s0);
+
+        shoes[1][0][0][1]=addBPoint(-1.0,0.0,1.0,s0);
+        shoes[1][1][0][1]=addBPoint(1.0,0.0,1.0,s0);
+        shoes[1][0][1][1]=addBPoint(-1.0,1.0,1.0,s0);
+        shoes[1][1][1][1]=addBPoint(1.0,1.0,1.0,s0);
 
     }
 

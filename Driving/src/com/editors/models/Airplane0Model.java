@@ -42,8 +42,6 @@ public class Airplane0Model extends MeshModel{
     double y0=0;
     double z0=0;
 
-    private int[][][] faces;
-
     int basePoints=4;
     private BPoint[][][] body;
     private BPoint[][][] tailLeftWing;

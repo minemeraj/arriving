@@ -47,8 +47,6 @@ public class ArchBridge0Model extends MeshModel{
     //deck textures
     protected int[][] de= {{4,5,6,7}};
 
-    private int[][][] faces;
-
     private BPoint[][][] body;
     private BPoint[][][][] poles;
 
@@ -177,17 +175,17 @@ public class ArchBridge0Model extends MeshModel{
             double fz1=1.0;
 
             if(i==0){
-            	yy=0;
-            	s=s0;
+                yy=0;
+                s=s0;
             }
             else if(i==archNY+1){
-            	yy=1;
-            	s=s2;
+                yy=1;
+                s=s2;
             }else{
-            	yy=(i-1)*1.0/(archNY-1);
-            	s=s1;
-            	  double yr=(i-1)*1.0/(archNY-1);
-                  fz0=a*yr*(yr-1.0);
+                yy=(i-1)*1.0/(archNY-1);
+                s=s1;
+                double yr=(i-1)*1.0/(archNY-1);
+                fz0=a*yr*(yr-1.0);
             }
 
             body[0][i][0]=addBPoint(-1.0,yy,fz0,s);

@@ -40,8 +40,6 @@ public class RailWagon0Model extends MeshModel{
     private double wheelWidth;
     protected int wheelRays;
 
-    protected int[][][] faces;
-
     protected BPoint[][][] body;
 
     private BPoint[][][] back;
@@ -382,5 +380,6 @@ public class RailWagon0Model extends MeshModel{
 
 
     }
+
 
 }

@@ -53,7 +53,6 @@ public class Ship0Model extends MeshModel{
 
     public static final String NAME="Ship";
 
-    protected int[][][] faces;
     protected BPoint[][] hull;
     protected BPoint[][] afterCastle;
     protected BPoint[][][] mainDecks;
@@ -379,9 +378,9 @@ public class Ship0Model extends MeshModel{
      */
     protected int buildMainDecksFaces(int counter) {
 
-    	int numDecks=mainDecks.length;
+        int numDecks=mainDecks.length;
 
-    	for (int i = 0; i < numDecks; i++) {
+        for (int i = 0; i < numDecks; i++) {
 
             faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, mainDecks[i][0][0],mainDecks[i][0][3],mainDecks[i][0][2],mainDecks[i][0][1],d[0]);
 
@@ -397,7 +396,7 @@ public class Ship0Model extends MeshModel{
             }
 
             faces[counter++]=buildFace(Renderer3D.CAR_TOP,mainDecks[i][nz-1][0],mainDecks[i][nz-1][1],mainDecks[i][nz-1][2],mainDecks[i][nz-1][3],d[0]);
-		}
+        }
 
 
 
@@ -413,25 +412,25 @@ public class Ship0Model extends MeshModel{
      */
     protected int buildMainDecksYFaces(int counter) {
 
-    	int numDecks=mainDecks.length;
+        int numDecks=mainDecks.length;
 
-    	for (int i = 0; i < numDecks; i++) {
+        for (int i = 0; i < numDecks; i++) {
 
-    		int ny=mainDecks[i].length;
+            int ny=mainDecks[i].length;
 
-    		faces[counter++]=buildFace(Renderer3D.CAR_BACK, mainDecks[i][0][0],mainDecks[i][0][1],mainDecks[i][0][2],mainDecks[i][0][3],d[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_BACK, mainDecks[i][0][0],mainDecks[i][0][1],mainDecks[i][0][2],mainDecks[i][0][3],d[0]);
 
-    		for (int j = 0; j < ny-1; j++) {
+            for (int j = 0; j < ny-1; j++) {
 
-    			faces[counter++]=buildFace(Renderer3D.CAR_LEFT, mainDecks[i][j+1][0],mainDecks[i][j][0],mainDecks[i][j][3],mainDecks[i][j+1][3], d[0]);
-    			faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, mainDecks[i][j][0],mainDecks[i][j+1][0],mainDecks[i][j+1][1],mainDecks[i][j][1], d[0]);
-    			faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, mainDecks[i][j][1],mainDecks[i][j+1][1],mainDecks[i][j+1][2],mainDecks[i][j][2],d[0]);
-    			faces[counter++]=buildFace(Renderer3D.CAR_TOP, mainDecks[i][j][2],mainDecks[i][j+1][2],mainDecks[i][j+1][3],mainDecks[i][j][3],d[0]);    		}
+                faces[counter++]=buildFace(Renderer3D.CAR_LEFT, mainDecks[i][j+1][0],mainDecks[i][j][0],mainDecks[i][j][3],mainDecks[i][j+1][3], d[0]);
+                faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, mainDecks[i][j][0],mainDecks[i][j+1][0],mainDecks[i][j+1][1],mainDecks[i][j][1], d[0]);
+                faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, mainDecks[i][j][1],mainDecks[i][j+1][1],mainDecks[i][j+1][2],mainDecks[i][j][2],d[0]);
+                faces[counter++]=buildFace(Renderer3D.CAR_TOP, mainDecks[i][j][2],mainDecks[i][j+1][2],mainDecks[i][j+1][3],mainDecks[i][j][3],d[0]);    		}
 
-    		faces[counter++]=buildFace(Renderer3D.CAR_FRONT,mainDecks[i][ny-1][0],mainDecks[i][ny-1][3],mainDecks[i][ny-1][2],mainDecks[i][ny-1][1],d[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_FRONT,mainDecks[i][ny-1][0],mainDecks[i][ny-1][3],mainDecks[i][ny-1][2],mainDecks[i][ny-1][1],d[0]);
 
-    	}
-    	return counter;
+        }
+        return counter;
     }
 
     protected BPoint[][] buildFunnel(double x0, double y0, double z0,double funnel_height, double funnel_radius, int funnel_parallels2, int funnel_meridians2) {

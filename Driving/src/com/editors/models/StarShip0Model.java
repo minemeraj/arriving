@@ -30,8 +30,6 @@ public class StarShip0Model extends MeshModel{
     private double dyRoof;
     private double dzRoof;
 
-    private int[][][] faces;
-
     double x0=0;
     double y0=0;
     double z0=0;

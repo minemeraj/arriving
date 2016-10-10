@@ -31,14 +31,19 @@ public class F10Model extends MeshModel{
     private double dyRoof;
     private double dzRoof;
 
-    private double dyTexture=200;
-    private double dxTexture=200;
+    protected double rearOverhang;
+    protected double frontOverhang;
+
+    protected double rearOverhang1;
+    protected double frontOverhang1;
 
     private double wheelRadius;
     private double wheelWidth;
     private int wheel_rays;
 
-    private int[][][] faces;
+
+    private double dyTexture=200;
+    private double dxTexture=200;
 
     double x0=0;
     double y0=0;
@@ -65,6 +70,8 @@ public class F10Model extends MeshModel{
             double dxf, double dyf, double dzf,
             double dxr, double dyr,	double dzr,
             double dxRoof,double dyRoof,double dzRoof,
+            double rearOverhang, double frontOverhang,
+            double rearOverhang1, double frontOverhang1,
             double wheelRadius, double wheelWidth, int wheel_rays) {
         super();
         this.dx = dx;
@@ -82,6 +89,12 @@ public class F10Model extends MeshModel{
         this.dxRoof = dxRoof;
         this.dyRoof = dyRoof;
         this.dzRoof = dzRoof;
+
+        this.rearOverhang=rearOverhang;
+        this.frontOverhang=frontOverhang;
+
+        this.rearOverhang1=rearOverhang1;
+        this.frontOverhang1=frontOverhang1;
 
         this.wheelRadius = wheelRadius;
         this.wheelWidth = wheelWidth;
@@ -112,7 +125,7 @@ public class F10Model extends MeshModel{
 
         faces=new int[NF+NUM_WHEEL_FACES][3][4];
 
-        counter=buildBodyFaces(counter,backSpoiler,back,body,front,frontSpoiler,roof);
+        counter=buildBodyFaces(counter);
 
         counter=buildWheelFaces(counter,totWheelPolygon);
 
@@ -285,13 +298,7 @@ public class F10Model extends MeshModel{
     }
 
 
-    private int buildBodyFaces(int counter,
-            BPoint[][][] backSpoiler,
-            BPoint[][][] back,
-            BPoint[][][] body,
-            BPoint[][][] front,
-            BPoint[][][] frontSpoiler,
-            BPoint[][][] roof) {
+    private int buildBodyFaces(int counter) {
 
         faces[counter++]=buildFace(Renderer3D.CAR_TOP,backSpoiler[0][0][1],backSpoiler[1][0][1],backSpoiler[1][1][1],backSpoiler[0][1][1], bo[0]);
         faces[counter++]=buildFace(Renderer3D.CAR_LEFT,backSpoiler[0][0][0],backSpoiler[0][0][1],backSpoiler[0][1][1],backSpoiler[0][1][0], bo[0]);

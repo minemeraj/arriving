@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import com.BPoint;
 import com.Point3D;
+import com.Segments;
 import com.main.Renderer3D;
 
 /**
@@ -12,69 +13,108 @@ import com.main.Renderer3D;
  * @author Administrator
  *
  */
-public class Autobus0Model extends Truck0Model {
+public class Autobus0Model extends PickupModel {
 
-	public static final String NAME = "Autobus";
+    public static final String NAME = "Autobus";
 
-	public Autobus0Model(double dx, double dy, double dz, double dxFront, double dyfront, double dzFront, double dxRoof,
-			double dyRoof, double dzRoof, double wheelRadius, double wheelWidth, int wheel_rays) {
-		super(dx, dy, dz, dxFront, dyfront, dzFront, dxRoof, dyRoof, dzRoof, wheelRadius, wheelWidth, wheel_rays);
-	}
+    public Autobus0Model(double dx, double dy, double dz, double dxFront, double dyfront, double dzFront, double dxRoof,
+            double dyRoof, double dzRoof, double wheelRadius, double wheelWidth, int wheel_rays) {
+        super(dx, dy, dz, dxFront, dyfront, dzFront, dxRoof, dyRoof, dzRoof, wheelRadius, wheelWidth, wheel_rays);
+    }
 
-	@Override
-	public void initMesh() {
-		points = new Vector<Point3D>();
-		texturePoints = new Vector();
+    @Override
+    protected void buildCabin() {
+        super.buildCabin();
+    }
 
-		x0 = dxRoof * 0.5;
+    @Override
+    protected int buildCabinFaces(int counter, int nYcab, int nzCab) {
+        return super.buildCabinFaces(counter, nYcab, nzCab);
+    }
 
-		buildCabin();
+    @Override
+    public void initMesh() {
+        points = new Vector<Point3D>();
+        texturePoints = new Vector<Point3D>();
 
-		buildBody();
+        x0 = dxRoof * 0.5;
 
-		int nWagonMeridians = 10;
-		buildWagon(nWagonMeridians);
+        buildCabin();
 
-		buildTextures();
+        buildBody();
 
-		buildWheels();
+        int nzWagon = 2;
+        buildWagon(nzWagon);
 
-		int totWheelPolygon = wheel_rays + 2 * (wheel_rays - 2);
-		int NUM_WHEEL_FACES = 4 * totWheelPolygon;
+        buildTextures();
 
-		// faces
-		int NF = 2 + (2 + (nzCab - 1)) * (nYcab - 1) * 2;
-		NF += 2 + (nzBody - 1) * 4;
-		NF += 2 + (nWagonMeridians);
+        buildWheels();
 
-		faces = new int[NF + NUM_WHEEL_FACES][3][4];
+        int totWheelPolygon = wheel_rays + 2 * (wheel_rays - 2);
+        int NUM_WHEEL_FACES = 4 * totWheelPolygon;
 
-		int counter = 0;
-		counter = buildBodyFaces(counter, nzBody, nWagonMeridians);
-		counter = buildWheelFaces(counter, totWheelPolygon);
+        // faces
+        int NF = 2 + (2 + (nzCab - 1)) * (nYcab - 1) * 2;
+        //cabin roof
+        NF += 7;
+        NF += 2 + (nzBody - 1) * 4;
+        NF += 2 + (nzWagon - 1) * 4;
 
-		IMG_WIDTH = (int) (2 * bx + dx + wheelWidth);
-		IMG_HEIGHT = (int) (2 * by + dy);
+        faces = new int[NF + NUM_WHEEL_FACES][3][4];
 
-	}
+        int counter = 0;
+        counter = buildBodyFaces(counter, nzBody, nzWagon);
+        counter = buildWheelFaces(counter, totWheelPolygon);
 
-	@Override
-	protected void buildWagon(int nWagongMeridians) {
+    }
 
-		wagon = addYCylinder(x0, 0, dz + dxRoof * 0.5, dxRoof * 0.5, dyRoof, nWagongMeridians);
+    @Override
+    protected void buildWagon(int nzWagon) {
 
-	}
+        Segments s0 = new Segments(x0 - dxRoof * 0.5, dxRoof, y0, dyRoof, z0 + dz, dzRoof);
 
-	@Override
-	protected int buildWagonFaces(int counter, int nWagonMeridians, BPoint[][] wagon) {
+        wagon = new BPoint[nzWagon][4];
+        wagon[0][0] = addBPoint(0.0, 0.0, 0.0, s0);
+        wagon[0][1] = addBPoint(1.0, 0.0, 0.0, s0);
+        wagon[0][2] = addBPoint(1.0, 1.0, 0.0, s0);
+        wagon[0][3] = addBPoint(0.0, 1.0, 0.0, s0);
 
-		for (int i = 0; i < wagon.length; i++) {
+        wagon[1][0] = addBPoint(0.0, 0.0, 1.0, s0);
+        wagon[1][1] = addBPoint(1.0, 0.0, 1.0, s0);
+        wagon[1][2] = addBPoint(1.0, 1.0, 1.0, s0);
+        wagon[1][3] = addBPoint(0.0, 1.0, 1.0, s0);
+    }
 
-			faces[counter++] = buildFace(Renderer3D.CAR_TOP, wagon[i][0], wagon[(i + 1) % wagon.length][0],
-					wagon[(i + 1) % wagon.length][1], wagon[i][1], bo[0]);
-		}
+    /**
+     *
+     * BUILD WAGON BY Z SECTIONS
+     *
+     * @param nzBody
+     * @return
+     */
+    @Override
+    protected int buildWagonFaces(int counter, int nzWagon) {
 
-		return counter;
-	}
+        faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0], wagon[0][3], wagon[0][2], wagon[0][1], wa[0]);
+
+        for (int k = 0; k < nzWagon - 1; k++) {
+
+            faces[counter++] = buildFace(Renderer3D.CAR_LEFT, wagon[k][0], wagon[k + 1][0], wagon[k + 1][3],
+                    wagon[k][3], wa[0]);
+            faces[counter++] = buildFace(Renderer3D.CAR_BACK, wagon[k][0], wagon[k][1], wagon[k + 1][1],
+                    wagon[k + 1][0], wa[0]);
+            faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagon[k][1], wagon[k][2], wagon[k + 1][2],
+                    wagon[k + 1][1], wa[0]);
+            faces[counter++] = buildFace(Renderer3D.CAR_FRONT, wagon[k][2], wagon[k][3], wagon[k + 1][3],
+                    wagon[k + 1][2], wa[0]);
+
+        }
+
+        faces[counter++] = buildFace(Renderer3D.CAR_TOP, wagon[nzWagon - 1][0], wagon[nzWagon - 1][1],
+                wagon[nzWagon - 1][2], wagon[nzWagon - 1][3], wa[0]);
+
+        return counter;
+    }
+
 
 }

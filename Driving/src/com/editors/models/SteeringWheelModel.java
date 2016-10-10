@@ -31,8 +31,6 @@ public class SteeringWheelModel extends MeshModel{
     //body textures
     protected int[][] bo= {{0,1,2,3}};
 
-    private int[][][] faces;
-
     private BPoint[][][] body;
 
     private BPoint[][][] core;
@@ -263,7 +261,7 @@ public class SteeringWheelModel extends MeshModel{
     @Override
     public void printTexture(Graphics2D bufGraphics) {
 
-    	bufGraphics.setColor(Color.BLACK);
+        bufGraphics.setColor(Color.BLACK);
 
         for (int i = 0; i < faces.length; i++) {
 

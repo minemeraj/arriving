@@ -45,11 +45,10 @@ public class Tank0Model extends MeshModel{
     //body textures
     protected int[][] bo= {{0,1,2,3}};
 
-    private int[][][] faces;
-
     private BPoint[][][] body;
     private BPoint[][][] turret;
     private BPoint[][] cannon_barrel;
+    private BPoint[][][][] girdles;
 
     private double dxTexture=200;
     private double dyTexture=200;
@@ -86,18 +85,23 @@ public class Tank0Model extends MeshModel{
         texturePoints=new Vector<Point3D>();
 
         buildBody();
-
+        buildGirdles();
         buildTextures();
 
-        //faces
+        //turret and body
         int NF=6*2;
+        //girdles
+        NF+=6*girdles.length;
 
         faces=new int[NF+cannon_barrel.length][3][4];
 
         int counter=0;
         counter=buildFaces(counter);
-
+        counter=buildGirdlesFaces(counter);
     }
+
+
+
 
 
     private int buildFaces(int counter) {
@@ -185,6 +189,55 @@ public class Tank0Model extends MeshModel{
 
 
         cannon_barrel = addYCylinder(0,dyRoof+dyRear,dz+dzRear*0.5,10,100,10);
+
+    }
+
+    private int buildGirdlesFaces(int counter) {
+
+        for (int i = 0; i < girdles.length; i++) {
+
+            faces[counter++]=buildFace(Renderer3D.CAR_TOP, girdles[i][0][0][1],girdles[i][1][0][1],girdles[i][1][1][1],girdles[i][0][1][1],bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_LEFT, girdles[i][0][0][0],girdles[i][0][0][1],girdles[i][0][1][1],girdles[i][0][1][0], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, girdles[i][1][0][0],girdles[i][1][1][0],girdles[i][1][1][1],girdles[i][1][0][1], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_FRONT, girdles[i][0][1][0],girdles[i][0][1][1],girdles[i][1][1][1],girdles[i][1][1][0], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_BACK, girdles[i][0][0][0],girdles[i][1][0][0],girdles[i][1][0][1],girdles[i][0][0][1], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, girdles[i][0][0][0],girdles[i][0][1][0],girdles[i][1][1][0],girdles[i][1][0][0], bo[0]);
+
+        }
+
+
+
+        return counter;
+    }
+
+
+    private void buildGirdles() {
+
+        Segments s0=new Segments(0,dx*0.5,0,dy,0,dz);
+
+        girdles[0]=new BPoint[2][2][2];
+
+        girdles[0][0][0][0]=addBPoint(-1.0,0.0,0,s0);
+        girdles[0][1][0][0]=addBPoint(1.0,0.0,0,s0);
+        girdles[0][0][1][0]=addBPoint(-1.0,1.0,0,s0);
+        girdles[0][1][1][0]=addBPoint(1.0,1.0,0,s0);
+
+        girdles[0][0][0][1]=addBPoint(-1.0,0.0,1.0,s0);
+        girdles[0][1][0][1]=addBPoint(1.0,0.0,1.0,s0);
+        girdles[0][0][1][1]=addBPoint(-1.0,1.0,1.0,s0);
+        girdles[0][1][1][1]=addBPoint(1.0,1.0,1.0,s0);
+
+        girdles[1]=new BPoint[2][2][2];
+
+        girdles[1][0][0][0]=addBPoint(-1.0,0.0,0,s0);
+        girdles[1][1][0][0]=addBPoint(1.0,0.0,0,s0);
+        girdles[1][0][1][0]=addBPoint(-1.0,1.0,0,s0);
+        girdles[1][1][1][0]=addBPoint(1.0,1.0,0,s0);
+
+        girdles[1][0][0][1]=addBPoint(-1.0,0.0,1.0,s0);
+        girdles[1][1][0][1]=addBPoint(1.0,0.0,1.0,s0);
+        girdles[1][0][1][1]=addBPoint(-1.0,1.0,1.0,s0);
+        girdles[1][1][1][1]=addBPoint(1.0,1.0,1.0,s0);
 
     }
 
