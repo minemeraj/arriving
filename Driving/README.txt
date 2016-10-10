@@ -501,6 +501,20 @@
    	--Vehicles:
    	
    	Car proportions based on BMW 5 Series Sedan (length=4907 mm, wheelbase=2968 mm).
+   	
+   	F1 proportions based on the Ferrari f248 (2006)
+   	Length x Width x Height=4.545 mm x 1.796 mm x 959 mm
+	Wheelbase=3.050 mm
+	
+	Pickup proportions based on Ford f100 1978
+	Wheelbase=117' (SWB)- 133' (LWB)
+	
+	VW Beetle:
+	Length x Width x Height=4,079 mm x 1,539 mm x 1500 mm
+	Wheelbase=2,400 mm 
+	
+	Jeep proportions based on the Wyllis MB:
+	Length x Width x Height= 3.36m  x 1.57m x 1.77m
 
 	Truck proportions based on Iveco New Eurocargo Euro VI ( length=8692mm).
 	
@@ -532,7 +546,7 @@
 	LxWxH= 269m x 28.19m x 32m
 	Draught= 10.54 m
 	
-	Sailer based on the Ttalian training ship Amerigo Vespucci
+	Sailer based on the Italian training ship Amerigo Vespucci
 	LxW= 82.4m x 15.5m
 	Draught=7m	
 	Masts:50m, 54m and 43m 
