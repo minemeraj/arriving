@@ -22,9 +22,15 @@ public class PickupModel extends Truck0Model {
 	private Prism prismBack;
 	private Prism prismFront;
 
+	protected int nWagonUnits = 10;
+
 	public PickupModel(double dx, double dy, double dz, double dxFront, double dyfront, double dzFront, double dxRoof,
 			double dyRoof, double dzRoof, double wheelRadius, double wheelWidth, int wheel_rays) {
 		super(dx, dy, dz, dxFront, dyfront, dzFront, dxRoof, dyRoof, dzRoof, wheelRadius, wheelWidth, wheel_rays);
+
+		nzCab = 2;
+		nzBody = 2;
+		nyBody = 6;
 	}
 
 	@Override
@@ -32,18 +38,13 @@ public class PickupModel extends Truck0Model {
 		points = new Vector<Point3D>();
 		texturePoints = new Vector();
 
-		nzCab = 2;
-		nzBody = 2;
-		nyBody = 6;
-
 		x0 = dxRoof * 0.5;
 
 		buildCabin();
 
 		buildBody();
 
-		int nWagonMeridians = 10;
-		buildWagon(nWagonMeridians);
+		buildWagon(nWagonUnits);
 
 		buildWheels();
 		buildTextures();
@@ -62,7 +63,7 @@ public class PickupModel extends Truck0Model {
 		faces = new int[NF + NUM_WHEEL_FACES][3][4];
 
 		int counter = 0;
-		counter = buildBodyFaces(counter, nzBody, nWagonMeridians);
+		counter = buildBodyFaces(counter, nzBody, nWagonUnits);
 		counter = buildWheelFaces(counter, totWheelPolygon);
 
 		IMG_WIDTH = (int) (2 * bx + dx + wheelWidth);
