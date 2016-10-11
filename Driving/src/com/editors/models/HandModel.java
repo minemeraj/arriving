@@ -10,6 +10,8 @@ import java.util.Vector;
 
 import javax.imageio.ImageIO;
 
+import com.BPoint;
+
 public class HandModel extends MeshModel {
 
     private int[][][] splacFaces;
@@ -25,6 +27,14 @@ public class HandModel extends MeshModel {
     private int tetaNumSections=10;
 
     public static final String NAME="Hand";
+
+    BPoint[][][] thumbFinger=null;
+    BPoint[][][] indexFinger=null;
+    BPoint[][][] middleFinger=null;
+    BPoint[][][] ringFinger=null;
+    BPoint[][][] littleFinger=null;
+    BPoint[][][] palm=null;
+    BPoint[][][] wrist=null;
 
     public HandModel(double dx, double dy, double dz) {
 

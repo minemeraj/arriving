@@ -65,6 +65,46 @@ public class BaseballBatModel extends MeshModel{
         points=new Vector<Point3D>();
         texturePoints=new Vector<Point3D>();
 
+        /*
+         int num=30;
+
+        Point3D[] profile=new Point3D[num];
+
+
+        profile[0]=buildScaledPoint(979,7.0,0.0,a);
+        profile[1]=buildScaledPoint(945.2414, 38.0,0.0,a);
+        profile[2]=buildScaledPoint(911.4828, 39.0,0.0,a);
+        profile[3]=buildScaledPoint(877.7241, 40.0,0.0,a);
+        profile[4]=buildScaledPoint(843.96552, 39.0,0.0,a);
+        profile[5]=buildScaledPoint(810.2069, 39.0,0.0,a);
+        profile[6]=buildScaledPoint(776.4483, 38.0,0.0,a);
+        profile[7]=buildScaledPoint(742.6897, 37.0,0.0,a);
+        profile[8]=buildScaledPoint(708.931, 35.0,0.0,a);
+        profile[9]=buildScaledPoint(675.1724, 34.0,0.0,a);
+        profile[10]=buildScaledPoint(641.4138, 32.0,0.0,a);
+        profile[11]=buildScaledPoint(607.6552, 30.0,0.0,a);
+        profile[12]=buildScaledPoint(573.8966, 28.0,0.0,a);
+        profile[13]=buildScaledPoint(540.138, 27.0,0.0,a);
+        profile[14]=buildScaledPoint(506.3793, 25.0,0.0,a);
+        profile[15]=buildScaledPoint(472.6207, 23.0,0.0,a);
+        profile[16]=buildScaledPoint(438.8621, 21.0,0.0,a);
+        profile[17]=buildScaledPoint(405.1034, 20.0,0.0,a);
+        profile[18]=buildScaledPoint(371.3448, 18.0,0.0,a);
+        profile[19]=buildScaledPoint(337.5862, 17.0,0.0,a);
+        profile[20]=buildScaledPoint(303.8276, 16.0,0.0,a);
+        profile[21]=buildScaledPoint(270.069, 15.0,0.0,a);
+        profile[22]=buildScaledPoint(236.3103, 15.0,0.0,a);
+        profile[23]=buildScaledPoint(202.5517, 14.0,0.0,a);
+        profile[24]=buildScaledPoint(168.7931, 14.0,0.0,a);
+        profile[25]=buildScaledPoint(135.0345, 15.0,0.0,a);
+        profile[26]=buildScaledPoint(101.2759, 15.0,0.0,a);
+        profile[27]=buildScaledPoint(67.5172, 18.0,0.0,a);
+        profile[28]=buildScaledPoint(33.7587, 24.0,0.0,a);
+        profile[29]=buildScaledPoint(0.0, 10.0,0.0,a);
+
+        specificData=new Barrel(barrel_meridians,profile);
+         */
+
         buildBody();
 
         buildTextures();

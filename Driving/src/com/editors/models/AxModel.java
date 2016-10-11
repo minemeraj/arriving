@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import com.BPoint;
 import com.Point3D;
+import com.Segments;
 import com.main.Renderer3D;
 /**
  * One texture model
@@ -36,25 +37,30 @@ public class AxModel extends MeshModel{
     private BPoint[][][] core;
 
     public final static String NAME="Ax";
-    private double section_radius=0;
-    private double taurus_radius=0;
-    private double core_radius=0;
+    private double barrel_length=0;
+    private double barrel_radius=0;
+    private int barrel_meridians=0;
+
+    private double forearm_length=0;
+    private double forearm_height=0;
+    private double forearm_width=0;
 
     private int sections_number=0;
-    private int section_meridians=0;
+
 
     double columnAngle=0;
 
     private final int arm_number=3;
+    private BPoint[][] barrel;
 
     public AxModel(
-            double taurus_radius, double section_radius, double core_radius,
-            double tiltAngle,int section_meridians,int sections_number) {
+            double barrel_radius, double barrel_length, double core_radius,
+            double tiltAngle,int barrel_meridians,int sections_number) {
         super();
-        this.taurus_radius = taurus_radius;
-        this.section_radius = section_radius;
-        this.core_radius = core_radius;
-        this.section_meridians = section_meridians;
+        this.barrel_radius = barrel_radius;
+        this.barrel_length = barrel_length;
+        this.forearm_length = core_radius;
+        this.barrel_meridians = barrel_meridians;
         this.sections_number = sections_number;
         columnAngle=tiltAngle;
     }
@@ -65,12 +71,40 @@ public class AxModel extends MeshModel{
         points=new Vector<Point3D>();
         texturePoints=new Vector<Point3D>();
 
+
+        barrel=addZCylinder(0,0,0,barrel_radius,barrel_length,barrel_meridians);
+
+        Segments s0=new Segments(0,barrel_radius,0,forearm_length,barrel_length-forearm_height,forearm_height);
+        Segments s1=new Segments(0,barrel_radius,0,forearm_length,barrel_length-(forearm_height+forearm_width)*0.5,forearm_width);
+
+        BPoint[][][] blade=new BPoint[2][2][2];
+
+        blade[0][0][0]=addBPoint(-1.0,0.0,0,s0);
+        blade[1][0][0]=addBPoint(1.0,0.0,0,s0);
+        blade[0][1][0]=addBPoint(0.0,1.0,0,s1);
+        blade[1][1][0]=null;
+
+        blade[0][0][1]=addBPoint(-1.0,0.0,1.0,s0);
+        blade[1][0][1]=addBPoint(1.0,0.0,1.0,s0);
+        blade[0][1][1]=addBPoint(0.0,1.0,1.0,s1);
+        blade[1][1][1]=null;
+
+        /*addLine(blade[0][0][1],blade[1][0][1],blade[0][1][1],null,Renderer3D.CAR_TOP);
+
+        addLine(blade[0][0][0],blade[0][0][1],blade[0][1][1],blade[0][1][0],Renderer3D.CAR_LEFT);
+
+        addLine(blade[1][0][0],blade[0][1][0],blade[0][1][1],blade[1][0][1],Renderer3D.CAR_RIGHT);
+
+        addLine(blade[0][0][0],blade[1][0][0],blade[1][0][1],blade[0][0][1],Renderer3D.CAR_BACK);
+
+        addLine(blade[0][0][0],blade[0][1][0],blade[1][0][0],null,Renderer3D.CAR_BOTTOM);*/
+
         buildBody();
 
         buildTextures();
 
         //faces
-        int NF=sections_number*section_meridians;
+        int NF=sections_number*barrel_meridians;
         int CORE_FACES=sections_number+sections_number*2;
         int ARM_FACES=arm_number*4;
 
@@ -86,12 +120,12 @@ public class AxModel extends MeshModel{
 
         for (int i = 0; i < sections_number; i++) {
 
-            for (int j = 0; j < section_meridians; j++) {
+            for (int j = 0; j < barrel_meridians; j++) {
 
                 faces[counter++]=buildFace(Renderer3D.CAR_TOP,
                         body[i][j][0],
-                        body[i][(j+1)%section_meridians][0],
-                        body[(i+1)%sections_number][(j+1)%section_meridians][0],
+                        body[i][(j+1)%barrel_meridians][0],
+                        body[(i+1)%sections_number][(j+1)%barrel_meridians][0],
                         body[(i+1)%sections_number][j][0],
                         bo[0]);
             }
@@ -129,8 +163,8 @@ public class AxModel extends MeshModel{
         }
 
         //arms:
-        int frontMer=section_meridians/2-1;
-        int backMer=section_meridians/2+1;
+        int frontMer=barrel_meridians/2-1;
+        int backMer=barrel_meridians/2+1;
         for (int i = 0; i < sections_number; i++) {
 
             if(i!=5 && i!=7 && i!=9) {
@@ -196,10 +230,10 @@ public class AxModel extends MeshModel{
     private void buildBody() {
 
 
-        body=new BPoint[sections_number][section_meridians][1];
+        body=new BPoint[sections_number][barrel_meridians][1];
 
         double dteta=2.0*Math.PI/(sections_number);
-        double dfi=2.0*Math.PI/(section_meridians);
+        double dfi=2.0*Math.PI/(barrel_meridians);
 
 
         for (int i = 0; i < sections_number; i++) {
@@ -207,13 +241,13 @@ public class AxModel extends MeshModel{
             double teta=dteta*i;
 
 
-            for (int j = 0; j < section_meridians; j++) {
+            for (int j = 0; j < barrel_meridians; j++) {
 
                 double fi=dfi*j;
 
-                double xx=(taurus_radius+section_radius*Math.cos(fi))*Math.cos(teta);
-                double yy=section_radius*Math.sin(fi);
-                double zz=(taurus_radius+section_radius*Math.cos(fi))*Math.sin(teta);
+                double xx=(barrel_radius+barrel_length*Math.cos(fi))*Math.cos(teta);
+                double yy=barrel_length*Math.sin(fi);
+                double zz=(barrel_radius+barrel_length*Math.cos(fi))*Math.sin(teta);
 
                 double x=xx;
                 double y=Math.cos(columnAngle)*yy-Math.sin(columnAngle)*zz;
@@ -234,9 +268,9 @@ public class AxModel extends MeshModel{
 
             for(int k=0;k<2;k++){
 
-                double xx=core_radius*Math.cos(teta);
-                double yy=(2.0*k-1.0)*section_radius;
-                double zz=core_radius*Math.sin(teta);
+                double xx=forearm_length*Math.cos(teta);
+                double yy=(2.0*k-1.0)*barrel_length;
+                double zz=forearm_length*Math.sin(teta);
 
                 double x=xx;
                 double y=Math.cos(columnAngle)*yy-Math.sin(columnAngle)*zz;
