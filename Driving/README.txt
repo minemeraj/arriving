@@ -508,7 +508,8 @@
 	Wheelbase=3.050 mm
 	
 	Pickup proportions based on Ford f100 1978
-	Wheelbase=117' (SWB)- 133' (LWB)
+	Length x Width x Height= 4594mm x 1665mm x 1577mm
+	Wheelbase=2770mm
 	
 	VW Beetle:
 	Length x Width x Height=4,079 mm x 1,539 mm x 1500 mm

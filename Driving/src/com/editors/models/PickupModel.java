@@ -16,7 +16,7 @@ import com.main.Renderer3D;
  */
 public class PickupModel extends Truck0Model {
 
-	public static final String NAME = "Jeep";
+	public static final String NAME = "Pickup";
 	private Prism prismRight;
 	private Prism prismLeft;
 	private Prism prismBack;
