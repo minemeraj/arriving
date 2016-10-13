@@ -18,9 +18,18 @@ public class TrunksTruck0Model extends Truck0Model {
 
     BPoint[][][] trunks = null;
 
-    public TrunksTruck0Model(double dx, double dy, double dz, double dxFront, double dyfront, double dzFront,
-            double dxRoof, double dyRoof, double dzRoof, double wheelRadius, double wheelWidth, int wheel_rays) {
-        super(dx, dy, dz, dxFront, dyfront, dzFront, dxRoof, dyRoof, dzRoof, wheelRadius, wheelWidth, wheel_rays);
+    public TrunksTruck0Model(double dx, double dy, double dz,
+            double dxFront, double dyfront, double dzFront,
+            double dxRoof, double dyRoof, double dzRoof,
+            double rearOverhang, double frontOverhang,
+            double rearOverhang1,double frontOverhang1,
+            double wheelRadius, double wheelWidth, int wheel_rays) {
+        super(dx, dy, dz,
+                dxFront, dyfront, dzFront,
+                dxRoof, dyRoof, dzRoof,
+                rearOverhang, frontOverhang,
+                rearOverhang1,frontOverhang1,
+                wheelRadius, wheelWidth, wheel_rays);
     }
 
     @Override
@@ -32,7 +41,7 @@ public class TrunksTruck0Model extends Truck0Model {
 
         buildCabin();
 
-        buildBody();
+        buildRear();
 
         int nWagonMeridians = 10;
         buildWagon(nWagonMeridians);
@@ -82,7 +91,7 @@ public class TrunksTruck0Model extends Truck0Model {
             for (int i = 0; i < nWagonMeridians; i++) {
                 faces[counter++] = buildFace(Renderer3D.CAR_TOP, trunks[m][i][0],
                         trunks[m][(i + 1) % trunks[m].length][0], trunks[m][(i + 1) % trunks[0].length][1],
-                        trunks[m][i][1], bo[0]);
+                        trunks[m][i][1], re[0]);
             }
 
             for (int j = 1; j < nWagonMeridians - 1; j++) {
@@ -91,7 +100,7 @@ public class TrunksTruck0Model extends Truck0Model {
                 BPoint p1 = trunks[m][(j + 1) % nWagonMeridians][1];
                 BPoint p2 = trunks[m][j][1];
 
-                faces[counter++] = buildFace(0, p0, p1, p2, bo[0]);
+                faces[counter++] = buildFace(0, p0, p1, p2, re[0]);
             }
 
             for (int j = 1; j < nWagonMeridians - 1; j++) {
@@ -100,7 +109,7 @@ public class TrunksTruck0Model extends Truck0Model {
                 BPoint p1 = trunks[m][j][0];
                 BPoint p2 = trunks[m][(j + 1) % nWagonMeridians][0];
 
-                faces[counter++] = buildFace(0, p0, p1, p2, bo[0]);
+                faces[counter++] = buildFace(0, p0, p1, p2, re[0]);
             }
         }
 

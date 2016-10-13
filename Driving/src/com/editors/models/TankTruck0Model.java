@@ -17,8 +17,16 @@ public class TankTruck0Model extends Truck0Model {
     public static final String NAME = "Tank truck";
 
     public TankTruck0Model(double dx, double dy, double dz, double dxFront, double dyfront, double dzFront,
-            double dxRoof, double dyRoof, double dzRoof, double wheelRadius, double wheelWidth, int wheel_rays) {
-        super(dx, dy, dz, dxFront, dyfront, dzFront, dxRoof, dyRoof, dzRoof, wheelRadius, wheelWidth, wheel_rays);
+            double dxRoof, double dyRoof, double dzRoof,
+            double rearOverhang, double frontOverhang,
+            double rearOverhang1,double frontOverhang1,
+            double wheelRadius, double wheelWidth, int wheel_rays) {
+        super(dx, dy, dz,
+                dxFront, dyfront, dzFront,
+                dxRoof, dyRoof, dzRoof,
+                rearOverhang, frontOverhang,
+                rearOverhang1,frontOverhang1,
+                wheelRadius, wheelWidth, wheel_rays);
     }
 
     @Override
@@ -30,7 +38,7 @@ public class TankTruck0Model extends Truck0Model {
 
         buildCabin();
 
-        buildBody();
+        buildRear();
 
         int nWagonMeridians = 10;
         buildWagon(nWagonMeridians);
@@ -71,7 +79,7 @@ public class TankTruck0Model extends Truck0Model {
         for (int i = 0; i < wagon.length; i++) {
 
             faces[counter++] = buildFace(Renderer3D.CAR_TOP, wagon[i][0], wagon[(i + 1) % wagon.length][0],
-                    wagon[(i + 1) % wagon.length][1], wagon[i][1], bo[0]);
+                    wagon[(i + 1) % wagon.length][1], wagon[i][1], re[0]);
         }
 
         for(int i=1;i<nWagonMeridians-1;i++){
@@ -81,7 +89,7 @@ public class TankTruck0Model extends Truck0Model {
             BPoint p2=wagon[i][1];
 
 
-            faces[counter++]=buildFace(0, p0, p1, p2,bo[0]);
+            faces[counter++]=buildFace(0, p0, p1, p2,re[0]);
         }
 
         for(int i=1;i<nWagonMeridians-1;i++){
@@ -90,7 +98,7 @@ public class TankTruck0Model extends Truck0Model {
             BPoint p1=wagon[i][0];
             BPoint p2=wagon[(i+1)%nWagonMeridians][0];
 
-            faces[counter++]=buildFace(0, p0, p1, p2,bo[0]);
+            faces[counter++]=buildFace(0, p0, p1, p2,re[0]);
         }
 
         return counter;
