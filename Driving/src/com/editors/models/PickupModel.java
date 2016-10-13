@@ -26,11 +26,11 @@ public class PickupModel extends Truck0Model {
 
 	protected double wheelZ = 0;
 
-	public PickupModel(double dx, double dy, double dz, double dxFront, double dyfront, double dzFront, double dxRoof,
-			double dyRoof, double dzRoof, double rearOverhang, double frontOverhang, double rearOverhang1,
-			double frontOverhang1, double wheelRadius, double wheelWidth, int wheel_rays) {
-		super(dx, dy, dz, dxFront, dyfront, dzFront, dxRoof, dyRoof, dzRoof, rearOverhang, frontOverhang, rearOverhang1,
-				frontOverhang1, wheelRadius, wheelWidth, wheel_rays);
+	public PickupModel(double dxRear, double dyRear, double dzRear, double dxFront, double dyfront, double dzFront,
+			double dxWagon, double dyWagon, double dzWagon, double rearOverhang, double frontOverhang,
+			double rearOverhang1, double frontOverhang1, double wheelRadius, double wheelWidth, int wheel_rays) {
+		super(dxRear, dyRear, dzRear, dxFront, dyfront, dzFront, dxWagon, dyWagon, dzWagon, rearOverhang, frontOverhang,
+				rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheel_rays);
 
 		nzCab = 2;
 		nzBody = 2;
@@ -43,7 +43,7 @@ public class PickupModel extends Truck0Model {
 		points = new Vector<Point3D>();
 		texturePoints = new Vector();
 
-		x0 = dxRoof * 0.5;
+		x0 = dxWagon * 0.5;
 
 		wheelZ = -0.1122 * wheelRadius;
 
@@ -287,12 +287,12 @@ public class PickupModel extends Truck0Model {
 	@Override
 	protected void buildWagon(int nWagongMeridians) {
 
-		double rdy = (dyRear - dyRoof) * 0.5;
+		double rdy = (dyRear - dyWagon) * 0.5;
 
-		Segments r0 = new Segments(0, dxRoof, rdy, dyRoof, dzRear, dzRoof);
+		Segments r0 = new Segments(0, dxWagon, rdy, dyWagon, dzRear, dzWagon);
 
-		double dy = 4.0 / dyRoof;
-		double dx = 4.0 / dxRoof;
+		double dy = 4.0 / dyWagon;
+		double dx = 4.0 / dxWagon;
 
 		prismRight = new Prism(4);
 

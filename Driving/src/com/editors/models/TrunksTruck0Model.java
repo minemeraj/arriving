@@ -37,7 +37,7 @@ public class TrunksTruck0Model extends Truck0Model {
         points = new Vector<Point3D>();
         texturePoints = new Vector();
 
-        x0 = dxRoof * 0.5;
+        x0 = dxWagon * 0.5;
 
         buildCabin();
 
@@ -76,9 +76,9 @@ public class TrunksTruck0Model extends Truck0Model {
 
         for (int i = 0; i < trunks.length; i++) {
 
-            double radius = dxRoof / trunks.length * 0.5;
+            double radius = dxWagon / trunks.length * 0.5;
             double xx = i * 2 * radius+radius;
-            trunks[i] = addYCylinder(xx, 0, dzRear + dxRoof * 0.5, radius, dyRoof, nWagongMeridians);
+            trunks[i] = addYCylinder(xx, 0, dzRear + dxWagon * 0.5, radius, dyWagon, nWagongMeridians);
         }
 
     }

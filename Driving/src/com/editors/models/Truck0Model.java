@@ -26,9 +26,9 @@ public class Truck0Model extends MeshModel {
 	protected double dyFront = 0;
 	protected double dzFront = 0;
 
-	protected double dxRoof = 0;
-	protected double dyRoof = 0;
-	protected double dzRoof = 0;
+	protected double dxWagon = 0;
+	protected double dyWagon = 0;
+	protected double dzWagon = 0;
 
 	protected double dxRear = 0;
 	protected double dyRear = 0;
@@ -77,7 +77,7 @@ public class Truck0Model extends MeshModel {
 	public static final String NAME = "Truck";
 
 	public Truck0Model(double dxRear, double dyRear, double dzRear, double dxFront, double dyfront, double dzFront,
-			double dxRoof, double dyRoof, double dzRoof, double rearOverhang, double frontOverhang,
+			double dxWagon, double dyWagon, double dzWagon, double rearOverhang, double frontOverhang,
 			double rearOverhang1, double frontOverhang1, double wheelRadius, double wheelWidth, int wheel_rays) {
 		super();
 		this.dxRear = dxRear;
@@ -88,9 +88,9 @@ public class Truck0Model extends MeshModel {
 		this.dyFront = dyfront;
 		this.dzFront = dzFront;
 
-		this.dxRoof = dxRoof;
-		this.dyRoof = dyRoof;
-		this.dzRoof = dzRoof;
+		this.dxWagon = dxWagon;
+		this.dyWagon = dyWagon;
+		this.dzWagon = dzWagon;
 
 		this.rearOverhang = rearOverhang;
 		this.frontOverhang = frontOverhang;
@@ -108,7 +108,7 @@ public class Truck0Model extends MeshModel {
 		points = new Vector<Point3D>();
 		texturePoints = new Vector<Point3D>();
 
-		x0 = dxRoof * 0.5;
+		x0 = dxWagon * 0.5;
 
 		buildCabin();
 
@@ -368,7 +368,7 @@ public class Truck0Model extends MeshModel {
 
 		double fz2 = 0.5;
 
-		Segments s0 = new Segments(x0 - dxFront * 0.5, dxFront, y0 + dyRoof, dyFront, z0, dzFront);
+		Segments s0 = new Segments(x0 - dxFront * 0.5, dxFront, y0 + dyWagon, dyFront, z0, dzFront);
 
 		cab = new BPoint[2][nYcab][nzCab];
 		cab[0][0][0] = addBPoint(0.0, fy0, 0.0, s0);
@@ -417,7 +417,7 @@ public class Truck0Model extends MeshModel {
 
 	protected void buildWagon(int nzWagon) {
 
-		Segments s0 = new Segments(x0 - dxRoof * 0.5, dxRoof, y0, dyRoof, z0 + dzRear, dzRoof);
+		Segments s0 = new Segments(x0 - dxWagon * 0.5, dxWagon, y0, dyWagon, z0 + dzRear, dzWagon);
 
 		wagon = new BPoint[nzWagon][4];
 		wagon[0][0] = addBPoint(0.0, 0.0, 0.0, s0);

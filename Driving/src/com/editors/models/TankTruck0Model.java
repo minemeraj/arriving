@@ -34,7 +34,7 @@ public class TankTruck0Model extends Truck0Model {
         points = new Vector<Point3D>();
         texturePoints = new Vector();
 
-        x0 = dxRoof * 0.5;
+        x0 = dxWagon * 0.5;
 
         buildCabin();
 
@@ -69,7 +69,7 @@ public class TankTruck0Model extends Truck0Model {
     @Override
     protected void buildWagon(int nWagongMeridians) {
 
-        wagon = addYCylinder(x0, 0, dzRear + dxRoof * 0.5, dxRoof * 0.5, dyRoof, nWagongMeridians);
+        wagon = addYCylinder(x0, 0, dzRear + dxWagon * 0.5, dxWagon * 0.5, dyWagon, nWagongMeridians);
 
     }
 
