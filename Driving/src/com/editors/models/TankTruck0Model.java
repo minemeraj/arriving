@@ -61,15 +61,15 @@ public class TankTruck0Model extends Truck0Model {
         counter = buildBodyFaces(counter, nzBody, nWagonMeridians);
         counter = buildWheelFaces(counter, totWheelPolygon);
 
-        IMG_WIDTH = (int) (2 * bx + dx + wheelWidth);
-        IMG_HEIGHT = (int) (2 * by + dy);
+        IMG_WIDTH = (int) (2 * bx + dxRear + wheelWidth);
+        IMG_HEIGHT = (int) (2 * by + dyRear);
 
     }
 
     @Override
     protected void buildWagon(int nWagongMeridians) {
 
-        wagon = addYCylinder(x0, 0, dz + dxRoof * 0.5, dxRoof * 0.5, dyRoof, nWagongMeridians);
+        wagon = addYCylinder(x0, 0, dzRear + dxRoof * 0.5, dxRoof * 0.5, dyRoof, nWagongMeridians);
 
     }
 

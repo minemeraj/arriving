@@ -73,8 +73,8 @@ public class PickupModel extends Truck0Model {
 		counter = buildBodyFaces(counter, nzBody, nWagonUnits);
 		counter = buildWheelFaces(counter, totWheelPolygon);
 
-		IMG_WIDTH = (int) (2 * bx + dx + wheelWidth);
-		IMG_HEIGHT = (int) (2 * by + dy);
+		IMG_WIDTH = (int) (2 * bx + dxRear + wheelWidth);
+		IMG_HEIGHT = (int) (2 * by + dyRear);
 
 	}
 
@@ -96,7 +96,7 @@ public class PickupModel extends Truck0Model {
 
 		double fz2 = 0.5;
 
-		Segments s0 = new Segments(x0 - dxFront * 0.5, dxFront, y0 + dy, dyFront, z0, dzFront);
+		Segments s0 = new Segments(x0 - dxFront * 0.5, dxFront, y0 + dyRear, dyFront, z0, dzFront);
 
 		cab = new BPoint[2][nYcab][nzCab];
 
@@ -130,26 +130,28 @@ public class PickupModel extends Truck0Model {
 		cab[1][5][0] = addBPoint(1.0, fy5, 0.0, s0);
 		cab[1][5][1] = addBPoint(1.0, fy5, fz2, s0);
 
+		double dyR0 = (dyFront - frontOverhang1) / dyFront;
+		double dyR1 = (dyR0 + 1.0) * 0.5;
 		roof = new BPoint[2][3][2];
 		roof[0][0][0] = addBPoint(0.0, 0, fz2, s0);
 		roof[1][0][0] = addBPoint(1.0, 0, fz2, s0);
-		roof[0][1][0] = addBPoint(0.0, 0.5, fz2, s0);
-		roof[1][1][0] = addBPoint(1.0, 0.5, fz2, s0);
-		roof[0][2][0] = addBPoint(0.0, 0.75, fz2, s0);
-		roof[1][2][0] = addBPoint(1.0, 0.75, fz2, s0);
+		roof[0][1][0] = addBPoint(0.0, dyR0, fz2, s0);
+		roof[1][1][0] = addBPoint(1.0, dyR0, fz2, s0);
+		roof[0][2][0] = addBPoint(0.0, dyR1, fz2, s0);
+		roof[1][2][0] = addBPoint(1.0, dyR1, fz2, s0);
 
 		roof[0][0][1] = addBPoint(0.0, 0, 1.0, s0);
 		roof[1][0][1] = addBPoint(1.0, 0, 1.0, s0);
-		roof[0][1][1] = addBPoint(0.0, 0.5, 1.0, s0);
-		roof[1][1][1] = addBPoint(1.0, 0.5, 1.0, s0);
+		roof[0][1][1] = addBPoint(0.0, dyR0, 1.0, s0);
+		roof[1][1][1] = addBPoint(1.0, dyR0, 1.0, s0);
 	}
 
 	@Override
 	protected void buildRear() {
 
-		double yRearAxle = 2.0 * wheelRadius / dy;
+		double yRearAxle = 2.0 * wheelRadius / dyRear;
 
-		double wy = wheelRadius * 1.0 / dy;
+		double wy = wheelRadius * 1.0 / dyRear;
 
 		double fy0 = 0;
 		double fy2 = yRearAxle - wy;
@@ -158,14 +160,14 @@ public class PickupModel extends Truck0Model {
 		double fy5 = 1.0;
 		double fy4 = yRearAxle + (yRearAxle - fy1);
 
-		double wz2 = (wheelRadius + wheelZ) / dz;
+		double wz2 = (wheelRadius + wheelZ) / dzRear;
 		double wz3 = wz2;
 
 		double fz1 = 1.0;
 
 		rear = new BPoint[nyBody][4];
 
-		Segments s0 = new Segments(x0 - dx * 0.5, dx, y0, dy, z0, dz);
+		Segments s0 = new Segments(x0 - dxRear * 0.5, dxRear, y0, dyRear, z0, dzRear);
 
 		rear[0][0] = addBPoint(0.0, fy0, 0.0, s0);
 		rear[0][1] = addBPoint(1.0, fy0, 0.0, s0);
@@ -269,11 +271,11 @@ public class PickupModel extends Truck0Model {
 
 		////
 		double wz = wheelZ;
-		double wxLeft = dx * 0.5;
-		double wxRight = dx * 0.5 - wheelWidth;
+		double wxLeft = dxRear * 0.5;
+		double wxRight = dxRear * 0.5 - wheelWidth;
 
 		double yRearAxle = 2.0 * wheelRadius;
-		double yFrontAxle = dy + dyFront - frontOverhang;
+		double yFrontAxle = dyRear + dyFront - frontOverhang;
 
 		wheelLeftFront = buildWheel(x0 - wxLeft, yFrontAxle, wz, wheelRadius, wheelWidth, wheel_rays);
 		wheelRightFront = buildWheel(x0 + wxRight, yFrontAxle, wz, wheelRadius, wheelWidth, wheel_rays);
@@ -285,9 +287,9 @@ public class PickupModel extends Truck0Model {
 	@Override
 	protected void buildWagon(int nWagongMeridians) {
 
-		double rdy = (dy - dyRoof) * 0.5;
+		double rdy = (dyRear - dyRoof) * 0.5;
 
-		Segments r0 = new Segments(0, dxRoof, rdy, dyRoof, dz, dzRoof);
+		Segments r0 = new Segments(0, dxRoof, rdy, dyRoof, dzRear, dzRoof);
 
 		double dy = 4.0 / dyRoof;
 		double dx = 4.0 / dxRoof;

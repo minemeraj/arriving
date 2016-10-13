@@ -72,15 +72,15 @@ public class Camper0Model extends PickupModel {
         counter = buildBodyFaces(counter, nzBody, nWagonUnits);
         counter = buildWheelFaces(counter, totWheelPolygon);
 
-        IMG_WIDTH = (int) (2 * bx + dx + wheelWidth);
-        IMG_HEIGHT = (int) (2 * by + dy);
+        IMG_WIDTH = (int) (2 * bx + dxRear + wheelWidth);
+        IMG_HEIGHT = (int) (2 * by + dyRear);
 
     }
 
     @Override
     protected void buildWagon(int nzWagon) {
 
-        Segments s0 = new Segments(x0 - dxRoof * 0.5, dxRoof, y0, dyRoof, z0 + dz, dzRoof);
+        Segments s0 = new Segments(x0 - dxRoof * 0.5, dxRoof, y0, dyRoof, z0 + dzRear, dzRoof);
 
         wagon = new BPoint[nzWagon][4];
         wagon[0][0] = addBPoint(0.0, 0.0, 0.0, s0);
@@ -93,10 +93,10 @@ public class Camper0Model extends PickupModel {
         wagon[1][2] = addBPoint(1.0, 1.0, 1.0, s0);
         wagon[1][3] = addBPoint(0.0, 1.0, 1.0, s0);
 
-        double dyMansardRoof = dy - frontOverhang;
-        double dzMansardRoof = dz;
+        double dyMansardRoof = dyRear - frontOverhang;
+        double dzMansardRoof = dzRear;
 
-        Segments s1 = new Segments(x0 - dxRoof * 0.5, dxRoof, y0, dyMansardRoof, z0 + dz + dzRoof, dzMansardRoof);
+        Segments s1 = new Segments(x0 - dxRoof * 0.5, dxRoof, y0, dyMansardRoof, z0 + dzRear + dzRoof, dzMansardRoof);
 
         wagon2 = new BPoint[nzWagon][4];
         wagon2[0][0] = addBPoint(0.0, 0.0, 0.0, s1);

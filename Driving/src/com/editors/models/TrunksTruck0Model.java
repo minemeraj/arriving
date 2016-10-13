@@ -64,8 +64,8 @@ public class TrunksTruck0Model extends Truck0Model {
         counter = buildBodyFaces(counter, nzBody, nWagonMeridians);
         counter = buildWheelFaces(counter, totWheelPolygon);
 
-        IMG_WIDTH = (int) (2 * bx + dx + wheelWidth);
-        IMG_HEIGHT = (int) (2 * by + dy);
+        IMG_WIDTH = (int) (2 * bx + dxRear + wheelWidth);
+        IMG_HEIGHT = (int) (2 * by + dyRear);
 
     }
 
@@ -78,7 +78,7 @@ public class TrunksTruck0Model extends Truck0Model {
 
             double radius = dxRoof / trunks.length * 0.5;
             double xx = i * 2 * radius+radius;
-            trunks[i] = addYCylinder(xx, 0, dz + dxRoof * 0.5, radius, dyRoof, nWagongMeridians);
+            trunks[i] = addYCylinder(xx, 0, dzRear + dxRoof * 0.5, radius, dyRoof, nWagongMeridians);
         }
 
     }

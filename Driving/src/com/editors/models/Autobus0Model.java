@@ -81,7 +81,7 @@ public class Autobus0Model extends PickupModel {
     @Override
     protected void buildWagon(int nzWagon) {
 
-        Segments s0 = new Segments(x0 - dxRoof * 0.5, dxRoof, y0, dyRoof, z0 + dz, dzRoof);
+        Segments s0 = new Segments(x0 - dxRoof * 0.5, dxRoof, y0, dyRoof, z0 + dzRear, dzRoof);
 
         wagon = new BPoint[nzWagon][4];
         wagon[0][0] = addBPoint(0.0, 0.0, 0.0, s0);
