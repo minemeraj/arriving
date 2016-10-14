@@ -1,5 +1,8 @@
 package com.editors.models;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.Vector;
 
 import com.BPoint;
@@ -73,9 +76,6 @@ public class PickupModel extends Truck0Model {
 		int counter = 0;
 		counter = buildBodyFaces(counter, nzBody, nWagonUnits);
 		counter = buildWheelFaces(counter, totWheelPolygon);
-
-		IMG_WIDTH = (int) (2 * bx + dxRear + wheelWidth);
-		IMG_HEIGHT = (int) (2 * by + dyRear);
 
 	}
 
@@ -356,6 +356,25 @@ public class PickupModel extends Truck0Model {
 		counter = addPrism(prismFront, counter, re[0]);
 
 		return counter;
+	}
+
+	@Override
+	public void printTexture(Graphics2D bufGraphics) {
+
+		bufGraphics.setStroke(new BasicStroke(0.1f));
+
+		bufGraphics.setColor(new Color(217, 15, 27));
+		printTexturePolygon(bufGraphics, re[0]);
+
+		bufGraphics.setColor(new Color(217, 15, 27));
+		printTexturePolygon(bufGraphics, wa[0]);
+
+		bufGraphics.setColor(Color.BLUE);
+		printTexturePolygon(bufGraphics, wi[0]);
+
+		bufGraphics.setColor(Color.BLACK);
+		printTexturePolygon(bufGraphics, w[0]);
+
 	}
 
 }

@@ -1,5 +1,8 @@
 package com.editors.models;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.Vector;
 
 import com.Point3D;
@@ -60,6 +63,16 @@ public class BeetleModel extends Car0Model {
 		wheelZ = 0.0262 * dy;
 
 		buildCar();
+
+	}
+
+	@Override
+	public void printTexture(Graphics2D bg) {
+		// draw lines for reference
+
+		bg.setColor(new Color(83, 192, 251));
+		bg.setStroke(new BasicStroke(0.1f));
+		printTextureFaces(bg, faces);
 
 	}
 

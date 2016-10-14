@@ -59,7 +59,7 @@ public class Truck0Model extends MeshModel {
 	// window texture
 	protected int[][] wi = { { 8, 9, 10, 11 } };
 	// wheel texture
-	private int[][] w = { { 12, 13, 14, 15 } };
+	protected int[][] w = { { 12, 13, 14, 15 } };
 
 	private double dyTexture = 200;
 	private double dxTexture = 200;
@@ -450,21 +450,19 @@ public class Truck0Model extends MeshModel {
 
 	@Override
 	public void printTexture(Graphics2D bufGraphics) {
-
-		bufGraphics.setColor(Color.BLACK);
 		bufGraphics.setStroke(new BasicStroke(0.1f));
 
-		for (int i = 0; i < faces.length; i++) {
+		bufGraphics.setColor(new Color(217, 15, 27));
+		printTexturePolygon(bufGraphics, re[0]);
 
-			int[][] face = faces[i];
-			int[] tPoints = face[2];
-			if (tPoints.length == 4) {
-				printTexturePolygon(bufGraphics, tPoints[0], tPoints[1], tPoints[2], tPoints[3]);
-			} else if (tPoints.length == 3) {
-				printTexturePolygon(bufGraphics, tPoints[0], tPoints[1], tPoints[2]);
-			}
+		bufGraphics.setColor(new Color(217, 15, 27));
+		printTexturePolygon(bufGraphics, wa[0]);
 
-		}
+		bufGraphics.setColor(Color.BLUE);
+		printTexturePolygon(bufGraphics, wi[0]);
+
+		bufGraphics.setColor(Color.BLACK);
+		printTexturePolygon(bufGraphics, w[0]);
 
 	}
 
