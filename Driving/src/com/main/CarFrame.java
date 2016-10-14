@@ -1,4 +1,5 @@
 package com.main;
+
 /**
  * @author Piazza Francesco Giovanni ,Tecnes Milano http://www.tecnes.com
  *
@@ -32,591 +33,523 @@ import com.sound.GameSound;
 
 public class CarFrame extends Road implements KeyListener {
 
-    private String VERSION="CarDriving 11.0.2 - Monza";
+	private String VERSION = "CarDriving 11.0.2 - Monza";
 
-    private JPanel center=null;
-    private Graphics2D graphics2D;
-    private static final int HEIGHT=500;
-    private static final int WIDTH=800;
+	private JPanel center = null;
+	private Graphics2D graphics2D;
+	private static final int HEIGHT = 500;
+	private static final int WIDTH = 800;
 
-    private int back_num=0;
+	private int back_num = 0;
 
-    private double CAR_SPEED_0=0;
-    private double CAR_SPEED=CAR_SPEED_0;
-    private static final double STEERING_0 = 0;
-    private static final int MOVING_ANGLE_0 = 0;
+	private double CAR_SPEED_0 = 0;
+	private double CAR_SPEED = CAR_SPEED_0;
+	private static final double STEERING_0 = 0;
+	private static final int MOVING_ANGLE_0 = 0;
 
-    private static final int BUTTOMBORDER=100;
-    private static final int UPBORDER=40;
-    private static final int LEFTBORDER=0;
-    private static final int RIGHTBORDER=0;
+	private static final int BUTTOMBORDER = 100;
+	private static final int UPBORDER = 40;
+	private static final int LEFTBORDER = 0;
+	private static final int RIGHTBORDER = 0;
 
-    public static final Color BACKGROUND_COLOR=Color.GREEN;
+	public static final Color BACKGROUND_COLOR = Color.GREEN;
 
+	static Texture[] carTextures = null;
 
-    static Texture[] carTextures=null;
+	private String IMAGES_PATH = "lib/";
+	private Engine engine = null;
 
-    private String IMAGES_PATH="lib/";
-    private Engine engine=null;
+	private JPanel bottom;
+	private JPanel up;
+	private JLabel speedometer;
+	private DecimalFormat df = new DecimalFormat("####");
 
-    private JPanel bottom;
-    private JPanel up;
-    private JLabel speedometer;
-    private DecimalFormat df=new DecimalFormat("####");
+	public Properties p;
 
-    public Properties p;
+	private JLabel forward;
 
-    private JLabel forward;
+	private boolean isUseTextures = true;
+	private static JLabel steerAngle;
+	private static JLabel movingDirection;
 
-    private boolean isUseTextures=true;
-    private static JLabel steerAngle;
-    private static JLabel movingDirection;
+	private String SOUNDS_FOLDER = "lib/";
+	private File hornFile = null;
+	private File engineFile = null;
+	private AdvancedGameSound engineSound = null;
+	private GameSound hornSound;
+	private Date t;
+	private transient BufferedImage buf;
 
-    private String SOUNDS_FOLDER="lib/";
-    private File hornFile=null;
-    private File engineFile=null;
-    private AdvancedGameSound engineSound=null;
-    private GameSound hornSound;
-    private Date t;
-    private transient BufferedImage buf;
+	// steering angle,positive anti-clockwise
+	private double delta = 0.30;
+	private boolean isProgramPaused = true;
 
-    //steering angle,positive anti-clockwise
-    private double delta=0.30;
-    private boolean isProgramPaused=true;
+	private String map_name = GameLoader.DEFAULT_MAP;
 
-    private String map_name=GameLoader.DEFAULT_MAP;
+	public static void main(String[] args) {
 
+		boolean skipShading = true;
 
+		if (args.length == 1) {
+			skipShading = !("+s".equals(args[0]));
+		}
 
+		GameLoader gl = new GameLoader();
+		gl.setSkipShading(skipShading);
 
+		CarFrame ff = new CarFrame(gl, WIDTH, HEIGHT);
 
-    public static void main(String[] args) {
+	}
 
-        boolean skipShading=true;
+	private CarFrame(GameLoader gameLoader, int WITDH, int HEIGHT) {
 
-        if(args.length==1) {
-            skipShading=!("+s".equals(args[0]));
-        }
+		super(WITDH, HEIGHT);
 
-        GameLoader gl=new GameLoader();
-        gl.setSkipShading(skipShading);
+		this.map_name = gameLoader.getMap();
+		this.skipShading = gameLoader.isSkipShading();
 
-        CarFrame ff=new CarFrame(gl,WIDTH,HEIGHT);
+		setTitle(VERSION);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLayout(null);
+		center = new JPanel();
+		center.setBackground(BACKGROUND_COLOR);
+		center.setBounds(LEFTBORDER, UPBORDER, WIDTH, HEIGHT);
+		add(center);
 
-    }
+		bottom = new JPanel();
+		bottom.setBounds(0, UPBORDER + HEIGHT, LEFTBORDER + WIDTH + RIGHTBORDER, BUTTOMBORDER);
+		add(bottom);
+		setSize(LEFTBORDER + WIDTH + RIGHTBORDER, UPBORDER + HEIGHT + BUTTOMBORDER);
+		buildUpPannel();
 
+		addKeyListener(this);
 
-    private CarFrame(GameLoader gameLoader,int WITDH,int HEIGHT){
+		loadingProgressPanel = new LoadingProgressPanel();
 
-        super( WITDH, HEIGHT);
+		initialize();
 
+		loadingProgressPanel.dispose();
 
-        this.map_name=gameLoader.getMap();
-        this.skipShading=gameLoader.isSkipShading();
+		setVisible(true);
 
-        setTitle(VERSION);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(null);
-        center=new JPanel();
-        center.setBackground(BACKGROUND_COLOR);
-        center.setBounds(LEFTBORDER,UPBORDER,WIDTH,HEIGHT);
-        add(center);
+		start();
 
+	}
 
-        bottom=new JPanel();
-        bottom.setBounds(0,UPBORDER+HEIGHT,LEFTBORDER+WIDTH+RIGHTBORDER,BUTTOMBORDER);
-        add(bottom);
-        setSize(LEFTBORDER+WIDTH+RIGHTBORDER,UPBORDER+HEIGHT+BUTTOMBORDER);
-        buildUpPannel();
+	private void buildUpPannel() {
 
-        addKeyListener(this);
+		up = new JPanel();
+		JLabel speed = new JLabel("Speed:");
+		speedometer = new JLabel("");
+		up.add(speed);
+		up.add(speedometer);
+		forward = new JLabel("(F)");
+		up.add(forward);
 
-        loadingProgressPanel=new LoadingProgressPanel();
+		JLabel steer = new JLabel("Steer:");
+		steerAngle = new JLabel("0");
+		up.add(steer);
+		up.add(steerAngle);
 
-        initialize();
+		movingDirection = new JLabel(getMovingDirection(0));
+		up.add(movingDirection);
 
-        loadingProgressPanel.dispose();
+		up.setBounds(0, 0, LEFTBORDER + WIDTH + RIGHTBORDER, UPBORDER);
+		add(up);
+	}
 
-        setVisible(true);
+	/**
+	 *
+	 */
+	private void initialize() {
 
-        start();
+		loadProperties();
 
-    }
+		buf = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 
-    private void buildUpPannel() {
+		try {
 
-        up=new JPanel();
-        JLabel speed=new JLabel("Speed:");
-        speedometer=new JLabel("");
-        up.add(speed);
-        up.add(speedometer);
-        forward=new JLabel("(F)");
-        up.add(forward);
+			background = DrawObject.fromImageToTexture(ImageIO.read(new File("lib/background_" + back_num + ".jpg")),
+					Color.BLUE
 
-        JLabel steer=new JLabel("Steer:");
-        steerAngle=new JLabel("0");
-        up.add(steer);
-        up.add(steerAngle);
+			);
 
-        movingDirection=new JLabel(getMovingDirection(0));
-        up.add(movingDirection);
+			File directoryImg = new File("lib");
+			File[] files = directoryImg.listFiles();
 
-        up.setBounds(0,0,LEFTBORDER+WIDTH+RIGHTBORDER,UPBORDER);
-        add(up);
-    }
+			ArrayList<File> vCarData = new ArrayList<File>();
 
+			for (int i = 0; i < files.length; i++) {
+				if (files[i].getName().startsWith("cardefault3D_")) {
 
-    /**
-     *
-     */
-    private void initialize() {
+					vCarData.add(files[i]);
 
-        loadProperties();
+				}
+			}
 
-        buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
+			ArrayList<File> vCarTextures = new ArrayList<File>();
 
+			for (int i = 0; i < files.length; i++) {
+				if (files[i].getName().startsWith("car_texture_t")) {
 
-        try {
+					vCarTextures.add(files[i]);
 
-            background=
-                    DrawObject.fromImageToTexture(
-                            ImageIO.read(new File("lib/background_"+back_num+".jpg")),Color.BLUE
+				}
+			}
 
-                            );
+			carTextures = new Texture[vCarTextures.size()];
 
-            File directoryImg=new File("lib");
-            File[] files=directoryImg.listFiles();
+			for (int i = 0; i < vCarTextures.size(); i++) {
 
-            ArrayList<File> vCarData=new ArrayList<File>();
+				File file = new File("lib/car_texture_t" + i + ".gif");
+				carTextures[i] = new Texture(ImageIO.read(file));
+			}
 
-            for(int i=0;i<files.length;i++){
-                if(files[i].getName().startsWith("cardefault3D_")){
+			hornFile = new File(SOUNDS_FOLDER + "horn.wav");
+			engineFile = new File(SOUNDS_FOLDER + "shortDiesel.wav");
+			engineSound = new AdvancedGameSound(engineFile, FORWARD_REAR, false);
+			engineSound.filter(getEngineModulation());
 
-                    vCarData.add(files[i]);
+			steeringWheel = CubicMesh.loadMeshFromFile(new File("lib/steering_wheel"), 1.0);
+			steeringWheelTexture = new Texture(ImageIO.read(new File("lib/steering_wheel_texture.jpg")));
 
-                }
-            }
+			graphics2D = (Graphics2D) center.getGraphics();
+			setCarSpeed(0);
+			initCars(vCarData);
 
-            ArrayList<File> vCarTextures=new ArrayList<File>();
+			hornSound = new GameSound(hornFile, true);
 
-            for(int i=0;i<files.length;i++){
-                if(files[i].getName().startsWith("car_texture_t")){
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-                    vCarTextures.add(files[i]);
+		loadRoad();
+	}
 
-                }
-            }
+	private void loadRoad() {
 
-            carTextures=new Texture[vCarTextures.size()];
+		loadingProgressPanel.setValue(0);
 
-            for(int i=0;i<vCarTextures.size();i++){
+		super.loadRoad(getMap_name());
 
-                File file=vCarTextures.get(i);
-                carTextures[i]=new Texture(ImageIO.read(file));
-            }
+		loadingProgressPanel.incrementValue(10);
 
-            hornFile=new File(SOUNDS_FOLDER+"horn.wav");
-            engineFile=new File(SOUNDS_FOLDER+"shortDiesel.wav");
-            engineSound=new AdvancedGameSound(engineFile,FORWARD_REAR,false);
-            engineSound.filter(getEngineModulation());
+		loadAutocars(new File("lib/autocars_" + getMap_name()));
 
-            steeringWheel=CubicMesh.loadMeshFromFile(new File("lib/steering_wheel"),1.0);
-            steeringWheelTexture=new Texture(ImageIO.read(new File("lib/steering_wheel_texture.jpg")));
+		loadingProgressPanel.incrementValue(10);
+	}
 
-            graphics2D=(Graphics2D) center.getGraphics();
-            setCarSpeed(0);
-            initCars(vCarData);
+	private void loadProperties() {
 
-            hornSound = new GameSound(hornFile,true);
+		p = new Properties();
+		try {
+			p.load(new FileInputStream("lib/driving.properties"));
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+			if ("true".equals(p.getProperty("ISUSETEXTURE"))) {
+				isUseTextures = true;
+			} else {
+				isUseTextures = false;
+			}
 
-        loadRoad();
-    }
+			if (p.getProperty("INSTRUMENT_CODE") == null) {
+				p.setProperty("INSTRUMENT_CODE", Integer.toString(0));
+			}
 
+		} catch (Exception e) {
 
-    private void loadRoad() {
+			e.printStackTrace();
+		}
 
-        loadingProgressPanel.setValue(0);
+	}
 
-        super.loadRoad(getMap_name());
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+	 */
+	@Override
+	public void keyTyped(KeyEvent arg0) {
 
-        loadingProgressPanel.incrementValue(10);
+	}
 
-        loadAutocars(new File("lib/autocars_"+getMap_name()));
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+	 */
+	@Override
+	public void keyPressed(KeyEvent arg0) {
 
-        loadingProgressPanel.incrementValue(10);
-    }
+		int code = arg0.getKeyCode();
 
-    private void loadProperties(){
+		if (code == KeyEvent.VK_R) {
+			reset();
+		} else if (code == KeyEvent.VK_UP || code == KeyEvent.VK_W) {
+			setAccelerationVersus(FORWARD);
 
-        p=new Properties();
-        try {
-            p.load(new FileInputStream("lib/driving.properties"));
+		} else if (code == KeyEvent.VK_DOWN || code == KeyEvent.VK_S) {
+			setIsBraking(true);
 
-            if("true".equals(p.getProperty("ISUSETEXTURE"))) {
-                isUseTextures=true;
-            } else {
-                isUseTextures=false;
-            }
+		} else if (code == KeyEvent.VK_LEFT || code == KeyEvent.VK_A) {
 
+			// rotate(+1);
+			steer(-delta);
+		} else if (code == KeyEvent.VK_RIGHT || code == KeyEvent.VK_D) {
 
-            if( p.getProperty("INSTRUMENT_CODE")==null) {
-                p.setProperty("INSTRUMENT_CODE",Integer.toString(0));
-            }
+			// rotate(-1);
+			steer(+delta);
+		} else if (code == KeyEvent.VK_C) {
+			isProgramPaused = true;
 
+			setCarSpeed(CAR_SPEED_0);
 
-        } catch (Exception e) {
+			selectNextCar();
 
-            e.printStackTrace();
-        }
+			isProgramPaused = false;
+		} else if (code == KeyEvent.VK_B) {
 
-    }
+			isProgramPaused = true;
 
-    /* (non-Javadoc)
-     * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
-     */
-    @Override
-    public void keyTyped(KeyEvent arg0) {
+			back_num = back_num + 1;
+			try {
 
+				boolean exists = (new File(IMAGES_PATH + "background_" + back_num + ".jpg")).exists();
+				if (exists) {
 
-    }
+					background = DrawObject.fromImageToTexture(
+							ImageIO.read(new File("lib/background_" + back_num + ".jpg")), Color.BLUE
 
+					);
+				} else {
+					back_num = 0;
+					background = DrawObject.fromImageToTexture(
+							ImageIO.read(new File("lib/background_" + back_num + ".jpg")), Color.BLUE);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
-    /* (non-Javadoc)
-     * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
-     */
-    @Override
-    public void keyPressed(KeyEvent arg0)  {
+			reset();
 
-        int code=arg0.getKeyCode();
+		} else if (code == KeyEvent.VK_N) {
+			FORWARD = FORWARD_FRONT;
+			forward.setText("(F)");
+		} else if (code == KeyEvent.VK_M) {
+			FORWARD = FORWARD_REAR;
+			forward.setText("(R)");
+		} else if (code == KeyEvent.VK_H) {
+			playHorn();
 
-        if(code==KeyEvent.VK_R) {
-            reset();
-        } else if(code==KeyEvent.VK_UP || code==KeyEvent.VK_W)
-        {
-            setAccelerationVersus(FORWARD);
+		} else if (code == KeyEvent.VK_Z) {
+			if (Road.VIEW_TYPE == Road.FRONT_VIEW) {
+				rotateSky(Math.PI);
+			}
+			Road.VIEW_TYPE = Road.REAR_VIEW;
 
+		} else if (code == KeyEvent.VK_1) {
+			changeCamera(EXTERNAL_CAMERA);
+			drawRoad();
+		} else if (code == KeyEvent.VK_2) {
+			changeCamera(DRIVER_CAMERA);
+			drawRoad();
+		} else if (code == KeyEvent.VK_3) {
+			changeCamera(INSIDE_CAMERA);
+			drawRoad();
+		} else if (code == KeyEvent.VK_ESCAPE) {
+			System.exit(0);
+		}
+	}
 
-        }
-        else if(code==KeyEvent.VK_DOWN || code==KeyEvent.VK_S)
-        {
-            setIsBraking(true);
+	private double getEngineModulation() {
 
-        }
-        else if(code==KeyEvent.VK_LEFT || code==KeyEvent.VK_A)
-        {
+		double ratio = 80.0 / CAR_SPEED;
 
-            //rotate(+1);
-            steer(-delta);
-        }
-        else if(code==KeyEvent.VK_RIGHT|| code==KeyEvent.VK_D)
-        {
+		if (ratio > 5) {
+			return 5;
+		} else if (ratio < 0) {
+			return 1;
+		} else {
+			return ratio;
+		}
+	}
 
-            //rotate(-1);
-            steer(+delta);
-        }
-        else if(code==KeyEvent.VK_C)
-        {
-            isProgramPaused=true;
+	public double getcarSpeed() {
 
-            setCarSpeed(CAR_SPEED_0);
+		return CAR_SPEED;
+	}
 
-            selectNextCar();
+	private void setCarSpeed(double d) {
 
-            isProgramPaused=false;
-        }
-        else if(code==KeyEvent.VK_B)
-        {
+		CAR_SPEED = d;
+		if (CAR_SPEED < 0) {
+			CAR_SPEED = 0;
+		}
 
-            isProgramPaused=true;
+		speedometer.setText(df.format(CAR_SPEED * Road.SPEED_SCALE / Road.SPEED_SCALE));
 
-            back_num=back_num+1;
-            try{
+		try {
 
-                boolean exists = (new File(IMAGES_PATH+"background_"+back_num+".jpg")).exists();
-                if(exists){
+			if (CAR_SPEED > 0) {
 
-                    background=
-                            DrawObject.fromImageToTexture(
-                                    ImageIO.read(new File("lib/background_"+back_num+".jpg")),Color.BLUE
+				if (!engineSound.isRun()) {
 
-                                    );
-                }
-                else
-                {
-                    back_num=0;
-                    background=
-                            DrawObject.fromImageToTexture(
-                                    ImageIO.read(new File("lib/background_"+back_num+".jpg")),Color.BLUE
-                                    );
-                }
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
+					engineSound.start();
+				}
+				engineSound.setPlay(true);
+				engineSound.filter(getEngineModulation());
+			} else {
+				engineSound.setPlay(false);
+			}
 
+		} catch (Exception e) {
 
-            reset();
+			e.printStackTrace();
+		}
 
-        }
-        else if(code==KeyEvent.VK_N)
-        {
-            FORWARD=FORWARD_FRONT;
-            forward.setText("(F)");
-        }
-        else if(code==KeyEvent.VK_M)
-        {
-            FORWARD=FORWARD_REAR;
-            forward.setText("(R)");
-        }
-        else if(code==KeyEvent.VK_H)
-        {
-            playHorn();
+	}
 
-        }
-        else if(code==KeyEvent.VK_Z)
-        {
-            if(Road.VIEW_TYPE==Road.FRONT_VIEW) {
-                rotateSky(Math.PI);
-            }
-            Road.VIEW_TYPE=Road.REAR_VIEW;
+	/*
+	 * public void setTorque(double val){
+	 *
+	 * torque=val; }
+	 */
 
-        }
-        else if(code==KeyEvent.VK_1)
-        {
-            changeCamera(EXTERNAL_CAMERA);
-            drawRoad();
-        }
-        else if(code==KeyEvent.VK_2)
-        {
-            changeCamera(DRIVER_CAMERA);
-            drawRoad();
-        }
-        else if(code==KeyEvent.VK_3)
-        {
-            changeCamera(INSIDE_CAMERA);
-            drawRoad();
-        }
-        else if(code==KeyEvent.VK_ESCAPE)
-        {
-            System.exit(0);
-        }
-    }
+	public void up() {
 
-    private double getEngineModulation(){
+		if (isProgramPaused) {
+			return;
+		}
 
-        double ratio = 80.0/CAR_SPEED;
+		// calculateSpeed();
+		up(graphics2D);
 
-        if(ratio>5) {
-            return 5;
-        } else if(ratio<0) {
-            return 1;
-        } else {
-            return ratio;
-        }
-    }
+		setCarSpeed(3.6 * Math.abs(carDynamics.u));
 
-    public double getcarSpeed(){
+		drawRoad();
 
-        return CAR_SPEED;
-    }
+	}
 
-    private void setCarSpeed(double d) {
+	private void steer(double angle) {
 
-        CAR_SPEED=d;
-        if(CAR_SPEED<0) {
-            CAR_SPEED=0;
-        }
+		setSteerAngle(angle);
 
-        speedometer.setText(df.format(CAR_SPEED*Road.SPEED_SCALE/Road.SPEED_SCALE));
+	}
 
-        try {
+	static void setMovingAngle(double d) {
 
-            if(CAR_SPEED>0 ){
+		DecimalFormat df = new DecimalFormat("##.##");
+		steerAngle.setText(df.format(d));
+		movingDirection.setText(getMovingDirection(d));
 
-                if(!engineSound.isRun()){
+	}
 
-                    engineSound.start();
-                }
-                engineSound.setPlay(true);
-                engineSound.filter(getEngineModulation());
-            } else {
-                engineSound.setPlay(false);
-            }
+	static String getMovingDirection(double d) {
 
+		if (d > 0 && d < Math.PI / 6.0) {
+			return "N";
+		} else if (d >= Math.PI / 6.0 && d <= Math.PI / 3.0) {
+			return "N-W";
+		} else if (d > Math.PI / 3.0 && d < Math.PI * 2.0 / 3.0) {
+			return "W";
+		} else if (d >= Math.PI * 2.0 / 3.0 && d <= Math.PI * 5.0 / 6.0) {
+			return "S-W";
+		} else if (d > Math.PI * 5.0 / 6.0 && d < Math.PI * 7 / 6.0) {
+			return "S";
+		} else if (d >= Math.PI * 7 / 6.0 && d <= Math.PI * 4 / 3.0) {
+			return "S-E";
+		} else if (d > Math.PI * 4.0 / 3.0 && d < Math.PI * 5.0 / 3.0) {
+			return "E";
+		} else if (d >= Math.PI * 5 / 3.0 && d <= Math.PI * 11.0 / 6.0) {
+			return "N-E";
+		} else if (d > Math.PI * 11.0 / 6.0 && d <= Math.PI * 2.0) {
+			return "N";
+		}
 
-        } catch (Exception e) {
+		return "N";
+	}
 
-            e.printStackTrace();
-        }
+	@Override
+	public void keyReleased(KeyEvent arg0) {
 
-    }
+		int code = arg0.getKeyCode();
 
-    /*public void setTorque(double val){
+		if (code == KeyEvent.VK_LEFT || code == KeyEvent.VK_RIGHT || code == KeyEvent.VK_A || code == KeyEvent.VK_D) {
 
-		torque=val;
-	}*/
+			steer(STEERING_0);
 
+		} else if (code == KeyEvent.VK_Z) {
 
-    public void up() {
+			if (Road.VIEW_TYPE == Road.REAR_VIEW) {
+				rotateSky(0);
+			}
+			Road.VIEW_TYPE = Road.FRONT_VIEW;
 
-        if(isProgramPaused) {
-            return;
-        }
+		} else if ((code == KeyEvent.VK_UP || code == KeyEvent.VK_DOWN || code == KeyEvent.VK_W
+				|| code == KeyEvent.VK_S) && engine != null) {
+			setAccelerationVersus(FORWARD_STOP);
 
-        //calculateSpeed();
-        up(graphics2D);
+			steer(STEERING_0);
 
-        setCarSpeed(3.6*Math.abs(carDynamics.u));
+		}
 
-        drawRoad();
+	}
 
-    }
+	private void reset() {
 
-    private void steer(double angle) {
+		isProgramPaused = true;
 
-        setSteerAngle(angle);
+		buf = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+		reset(graphics2D);
 
+		setCarSpeed(CAR_SPEED_0);
+		setMovingAngle(MOVING_ANGLE_0);
 
-    }
+		isProgramPaused = false;
 
-    static void setMovingAngle(double d) {
+		drawRoad();
+	}
 
-        DecimalFormat df=new DecimalFormat("##.##");
-        steerAngle.setText(df.format(d));
-        movingDirection.setText(getMovingDirection(d));
+	private void drawRoad() {
 
-    }
+		if (graphics2D == null) {
+			graphics2D = (Graphics2D) center.getGraphics();
+		}
 
-    static String getMovingDirection(double d) {
+		drawRoad(buf);
+		graphics2D.drawImage(buf, 0, 0, WIDTH, HEIGHT, null);
 
-        if(d>0 && d<Math.PI/6.0) {
-            return "N";
-        } else if(d>=Math.PI/6.0 && d<=Math.PI/3.0) {
-            return "N-W";
-        } else if(d>Math.PI/3.0 && d<Math.PI*2.0/3.0) {
-            return "W";
-        } else if(d>=Math.PI*2.0/3.0 && d<=Math.PI*5.0/6.0) {
-            return "S-W";
-        } else if(d>Math.PI*5.0/6.0 && d<Math.PI*7/6.0) {
-            return "S";
-        } else if(d>=Math.PI*7/6.0 && d<=Math.PI*4/3.0) {
-            return "S-E";
-        } else if(d>Math.PI*4.0/3.0 && d<Math.PI*5.0/3.0) {
-            return "E";
-        } else if(d>=Math.PI*5/3.0 && d<=Math.PI*11.0/6.0) {
-            return "N-E";
-        } else if(d>Math.PI*11.0/6.0 && d<=Math.PI*2.0) {
-            return "N";
-        }
+	}
 
-        return  "N";
-    }
+	@Override
+	public void paint(Graphics g) {
 
+		super.paint(g);
+		// drawRoad();
 
-    @Override
-    public void keyReleased(KeyEvent arg0) {
+	}
 
+	private void playHorn() {
 
-        int code=arg0.getKeyCode();
+		try {
 
+			hornSound.makeSound();
 
-        if(code==KeyEvent.VK_LEFT ||code==KeyEvent.VK_RIGHT || code==KeyEvent.VK_A ||code==KeyEvent.VK_D)
-        {
+		} catch (Exception e) {
 
+			e.printStackTrace();
+		}
+	}
 
-            steer(STEERING_0);
+	private void start() {
 
-        }
-        else if(code==KeyEvent.VK_Z){
+		engine = new Engine(this);
+		engine.start();
 
+		isProgramPaused = false;
+	}
 
-            if(Road.VIEW_TYPE==Road.REAR_VIEW) {
-                rotateSky(0);
-            }
-            Road.VIEW_TYPE=Road.FRONT_VIEW;
-
-        }
-        else if((code==KeyEvent.VK_UP ||code==KeyEvent.VK_DOWN || code==KeyEvent.VK_W ||code==KeyEvent.VK_S) && engine!=null)
-        {
-            setAccelerationVersus(FORWARD_STOP);
-
-            steer(STEERING_0);
-
-        }
-
-    }
-
-    private void reset(){
-
-        isProgramPaused=true;
-
-        buf=new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
-        reset(graphics2D);
-
-
-        setCarSpeed(CAR_SPEED_0);
-        setMovingAngle(MOVING_ANGLE_0);
-
-        isProgramPaused=false;
-
-        drawRoad();
-    }
-
-    private void drawRoad()  {
-
-        if(graphics2D==null) {
-            graphics2D=(Graphics2D) center.getGraphics();
-        }
-
-        drawRoad(buf);
-        graphics2D.drawImage(buf,0,0,WIDTH,HEIGHT,null);
-
-    }
-
-
-
-    @Override
-    public void paint(Graphics g) {
-
-        super.paint(g);
-        //drawRoad();
-
-    }
-
-    private void playHorn() {
-
-        try {
-
-
-            hornSound.makeSound();
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-        }
-    }
-
-    private void start() {
-
-        engine=new Engine(this);
-        engine.start();
-
-        isProgramPaused=false;
-    }
-
-
-    public String getMap_name() {
-        return map_name;
-    }
-
-
-
-
-
-
+	public String getMap_name() {
+		return map_name;
+	}
 
 }
