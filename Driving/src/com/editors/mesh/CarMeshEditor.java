@@ -401,31 +401,31 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 
 		if (val == CAR0) {
 			meshModel = new Car0Model(dx, dy, dz);
-		} else if (val == JEEP) {
-			meshModel = new Jeep0Model(dxr, dyr, dzr, dxf, dyf, dzf, dxRoof, dyRoof, dzRoof, rearOverhang,
-					frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheelRays);
 		} else if (val == BEETLE) {
 			meshModel = new BeetleModel(dx, dy, dz);
-		} else if (val == CAMPER0) {
-			meshModel = new Camper0Model(dxr, dyr, dzr, dxf, dyf, dzf, dxRoof, dyRoof, dzRoof, rearOverhang,
-					frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheelRays);
 		} else if (val == TRUCK0) {
-			meshModel = new Truck0Model(dxr, dyr, dzr, dxf, dyf, dzf, dx, dy, dz, rearOverhang, frontOverhang,
-					rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheelRays);
+			meshModel = new Truck0Model(dxRoof, dyRoof, dzRoof, dxf, dyf, dzf, dxr, dyr, dzr, dx, dy, dz, rearOverhang,
+					frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheelRays);
 		} else if (val == TANKTRUCK0) {
-			meshModel = new TankTruck0Model(dxr, dyr, dzr, dxf, dyf, dzf, dx, dy, dz, rearOverhang, frontOverhang,
-					rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheelRays);
+			meshModel = new TankTruck0Model(dxRoof, dyRoof, dzRoof, dxf, dyf, dzf, dxr, dyr, dzr, dx, dy, dz,
+					rearOverhang, frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheelRays);
 		} else if (val == TRUNKSTRUCK) {
-			meshModel = new TrunksTruck0Model(dxr, dyr, dzr, dxf, dyf, dzf, dx, dy, dz, rearOverhang, frontOverhang,
-					rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheelRays);
-		} else if (val == AUTOBUS) {
-			meshModel = new Autobus0Model(dxr, dyr, dzr, dxf, dyf, dzf, dxRoof, dyRoof, dzRoof, rearOverhang,
-					frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheelRays);
-		} else if (val == ATEAMVAN) {
-			meshModel = new ATeamVanModel(dxr, dyr, dzr, dxf, dyf, dzf, dxRoof, dyRoof, dzRoof, rearOverhang,
-					frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheelRays);
+			meshModel = new TrunksTruck0Model(dxRoof, dyRoof, dzRoof, dxf, dyf, dzf, dxr, dyr, dzr, dx, dy, dz,
+					rearOverhang, frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheelRays);
 		} else if (val == PICKUP) {
-			meshModel = new PickupModel(dxr, dyr, dzr, dxf, dyf, dzf, dxRoof, dyRoof, dzRoof, rearOverhang,
+			meshModel = new PickupModel(dxRoof, dyRoof, dzRoof, dxf, dyf, dzf, dxr, dyr, dzr, dx, dy, dz, rearOverhang,
+					frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheelRays);
+		} else if (val == CAMPER0) {
+			meshModel = new Camper0Model(dxRoof, dyRoof, dzRoof, dxf, dyf, dzf, dxr, dyr, dzr, dx, dy, dz, rearOverhang,
+					frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheelRays);
+		} else if (val == AUTOBUS) {
+			meshModel = new Autobus0Model(dxRoof, dyRoof, dzRoof, dxf, dyf, dzf, dxr, dyr, dzr, dx, dy, dz,
+					rearOverhang, frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheelRays);
+		} else if (val == ATEAMVAN) {
+			meshModel = new ATeamVanModel(dxRoof, dyRoof, dzRoof, dxf, dyf, dzf, dxr, dyr, dzr, dx, dy, dz,
+					rearOverhang, frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheelRays);
+		} else if (val == JEEP) {
+			meshModel = new Jeep0Model(dxRoof, dyRoof, dzRoof, dxf, dyf, dzf, dxr, dyr, dzr, dx, dy, dz, rearOverhang,
 					frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheelRays);
 		} else if (val == CARTRANSPORTER) {
 			meshModel = new CarTransporterModel(dx, dy, dz, dxf, dyf, dzf, dxRoof, dyRoof, dzRoof, wheelRadius,
@@ -539,15 +539,6 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						0, 0, // rearOverhang1,frontOverhang1,
 						0, 0, 0// wheel_radius, wheel_width, wheel_rays
 				);
-			} else if (JEEP == val) {
-				setRightData(0, 0, 0, // dx,dy,dz
-						0, 0, 0, // dxFront, dyFront, dzFront
-						151, 400, 109, // dxRear, dyRear, dzRear
-						151, 400, 109, // dxRoof, dyRoof, dzRoof
-						0, 0, // rearOverhang, frontOverhang
-						0, 0, // rearOverhang1,frontOverhang1,
-						19, 12, 10// wheel_radius, wheel_width, wheel_rays
-				);
 			} else if (TRUCK0 == val) {
 				setRightData(111, 319, 116, // dx,dy,dz
 						94, 61, 118, // dxFront, dyFront, dzFront
@@ -585,40 +576,49 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						19, 12, 10// wheel_radius, wheel_width, wheel_rays
 				);
 			} else if (CAMPER0 == val) {
-				setRightData(0, 0, 0, // dx, dy, dz
+				setRightData(111, 319, 116, // dx, dy, dz
 						94, 61, 118, // dxFront, dyFront, dzFront
 						74, 319, 22, // dxRear, dyRear, dzRear
-						111, 319, 116, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxRoof, dyRoof, dzRoof
 						28, 20, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						19, 12, 10// wheel_radius, wheel_width, wheel_rays
 				);
 			} else if (AUTOBUS == val) {
-				setRightData(0, 0, 0, // dx, dy, dz
+				setRightData(111, 319, 116, // dx, dy, dz
 						94, 61, 118, // dxFront, dyFront, dzFront
 						74, 319, 22, // dxRear, dyRear, dzRear
-						111, 319, 116, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxRoof, dyRoof, dzRoof
 						28, 20, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						19, 12, 10// wheel_radius, wheel_width, wheel_rays
 				);
 			} else if (ATEAMVAN == val) {
-				setRightData(0, 0, 0, // dx, dy, dz
+				setRightData(111, 319, 116, // dx, dy, dz
 						111, 61, 118, // dxFront, dyFront, dzFront
 						111, 319, 22, // dxRear, dyRear, dzRear
-						111, 319, 116, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxRoof, dyRoof, dzRoof
 						28, 20, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						19, 12, 10// wheel_radius, wheel_width, wheel_rays
 				);
 			} else if (PICKUP == val) {
-				setRightData(0, 0, 0, // dx, dy, dz
+				setRightData(43, 55, 8, // dx, dy, dz
 						43, 64, 32, // dxFront, dyFront, dzFront
 						43, 55, 9, // dxRear, dyRear, dzRear
-						43, 55, 8, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxRoof, dyRoof, dzRoof
 						28, 20, // rearOverhang, frontOverhang
 						0, 46, // rearOverhang1,frontOverhang1,
 						10, 7, 10// wheel_radius, wheel_width, wheel_rays
+				);
+			} else if (JEEP == val) {
+				setRightData(151, 400, 109, // dx,dy,dz
+						0, 0, 0, // dxFront, dyFront, dzFront
+						151, 400, 109, // dxRear, dyRear, dzRear
+						0, 0, 0, // dxRoof, dyRoof, dzRoof
+						0, 0, // rearOverhang, frontOverhang
+						0, 0, // rearOverhang1,frontOverhang1,
+						19, 12, 10// wheel_radius, wheel_width, wheel_rays
 				);
 			} else if (STEAMLOCOMOTIVE0 == val) {
 				setRightData(74, 319, 22, // dx,dy,dz

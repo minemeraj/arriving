@@ -34,6 +34,10 @@ public class Truck0Model extends MeshModel {
 	protected double dyRear = 0;
 	protected double dzRear = 0;
 
+	protected double dxRoof = 0;
+	protected double dyRoof = 0;
+	protected double dzRoof = 0;
+
 	protected double rearOverhang;
 	protected double frontOverhang;
 
@@ -76,9 +80,10 @@ public class Truck0Model extends MeshModel {
 
 	public static final String NAME = "Truck";
 
-	public Truck0Model(double dxRear, double dyRear, double dzRear, double dxFront, double dyfront, double dzFront,
-			double dxWagon, double dyWagon, double dzWagon, double rearOverhang, double frontOverhang,
-			double rearOverhang1, double frontOverhang1, double wheelRadius, double wheelWidth, int wheel_rays) {
+	public Truck0Model(double dxRoof, double dyRoof, double dzRoof, double dxFront, double dyfront, double dzFront,
+			double dxRear, double dyRear, double dzRear, double dxWagon, double dyWagon, double dzWagon,
+			double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1, double wheelRadius,
+			double wheelWidth, int wheel_rays) {
 		super();
 		this.dxRear = dxRear;
 		this.dyRear = dyRear;
@@ -91,6 +96,10 @@ public class Truck0Model extends MeshModel {
 		this.dxWagon = dxWagon;
 		this.dyWagon = dyWagon;
 		this.dzWagon = dzWagon;
+
+		this.dxRoof = dxRoof;
+		this.dyRoof = dyRoof;
+		this.dzRoof = dzRoof;
 
 		this.rearOverhang = rearOverhang;
 		this.frontOverhang = frontOverhang;

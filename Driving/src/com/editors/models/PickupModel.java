@@ -26,11 +26,12 @@ public class PickupModel extends Truck0Model {
 
 	protected double wheelZ = 0;
 
-	public PickupModel(double dxRear, double dyRear, double dzRear, double dxFront, double dyfront, double dzFront,
-			double dxWagon, double dyWagon, double dzWagon, double rearOverhang, double frontOverhang,
-			double rearOverhang1, double frontOverhang1, double wheelRadius, double wheelWidth, int wheel_rays) {
-		super(dxRear, dyRear, dzRear, dxFront, dyfront, dzFront, dxWagon, dyWagon, dzWagon, rearOverhang, frontOverhang,
-				rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheel_rays);
+	public PickupModel(double dxFront, double dyfront, double dzFront, double dxRoof, double dyRoof, double dzRoof,
+			double dxRear, double dyRear, double dzRear, double dxWagon, double dyWagon, double dzWagon,
+			double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1, double wheelRadius,
+			double wheelWidth, int wheel_rays) {
+		super(dxFront, dyfront, dzFront, dxRoof, dyRoof, dzRoof, dxRear, dyRear, dzRear, dxWagon, dyWagon, dzWagon,
+				rearOverhang, frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheel_rays);
 
 		nzCab = 2;
 		nzBody = 2;
