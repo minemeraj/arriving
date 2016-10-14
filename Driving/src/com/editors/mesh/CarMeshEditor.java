@@ -579,7 +579,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 				setRightData(111, 319, 116, // dx, dy, dz
 						94, 61, 118, // dxFront, dyFront, dzFront
 						74, 319, 22, // dxRear, dyRear, dzRear
-						0, 0, 0, // dxRoof, dyRoof, dzRoof
+						43, 30, 13, // dxRoof, dyRoof, dzRoof
 						28, 20, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						19, 12, 10// wheel_radius, wheel_width, wheel_rays
@@ -588,7 +588,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 				setRightData(111, 319, 116, // dx, dy, dz
 						94, 61, 118, // dxFront, dyFront, dzFront
 						74, 319, 22, // dxRear, dyRear, dzRear
-						0, 0, 0, // dxRoof, dyRoof, dzRoof
+						43, 30, 13, // dxRoof, dyRoof, dzRoof
 						28, 20, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						19, 12, 10// wheel_radius, wheel_width, wheel_rays
@@ -597,7 +597,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 				setRightData(111, 319, 116, // dx, dy, dz
 						111, 61, 118, // dxFront, dyFront, dzFront
 						111, 319, 22, // dxRear, dyRear, dzRear
-						0, 0, 0, // dxRoof, dyRoof, dzRoof
+						43, 30, 13, // dxRoof, dyRoof, dzRoof
 						28, 20, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						19, 12, 10// wheel_radius, wheel_width, wheel_rays
