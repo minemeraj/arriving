@@ -95,7 +95,7 @@ public class PickupModel extends Truck0Model {
 		double wz2 = (wheelRadius + wheelZ) / dzFront;
 		double wz3 = wz2;
 
-		double fz2 = 0.5;
+		double fz2 = 1.0;
 
 		Segments s0 = new Segments(x0 - dxFront * 0.5, dxFront, y0 + dyRear, dyFront, z0, dzFront);
 
@@ -131,20 +131,22 @@ public class PickupModel extends Truck0Model {
 		cab[1][5][0] = addBPoint(1.0, fy5, 0.0, s0);
 		cab[1][5][1] = addBPoint(1.0, fy5, fz2, s0);
 
-		double dyR0 = (dyFront - frontOverhang1) / dyFront;
-		double dyR1 = (dyR0 + 1.0) * 0.5;
-		roof = new BPoint[2][3][2];
-		roof[0][0][0] = addBPoint(0.0, 0, fz2, s0);
-		roof[1][0][0] = addBPoint(1.0, 0, fz2, s0);
-		roof[0][1][0] = addBPoint(0.0, dyR0, fz2, s0);
-		roof[1][1][0] = addBPoint(1.0, dyR0, fz2, s0);
-		roof[0][2][0] = addBPoint(0.0, dyR1, fz2, s0);
-		roof[1][2][0] = addBPoint(1.0, dyR1, fz2, s0);
+		Segments r0 = new Segments(x0 - dxRoof * 0.5, dxRoof, y0 + dyRear, dyRoof, z0 + dzFront, dzRoof);
 
-		roof[0][0][1] = addBPoint(0.0, 0, 1.0, s0);
-		roof[1][0][1] = addBPoint(1.0, 0, 1.0, s0);
-		roof[0][1][1] = addBPoint(0.0, dyR0, 1.0, s0);
-		roof[1][1][1] = addBPoint(1.0, dyR0, 1.0, s0);
+		double dyRup = (dyFront - frontOverhang1) / dyRoof;
+
+		roof = new BPoint[2][3][2];
+		roof[0][0][0] = addBPoint(0.0, 0, 0, r0);
+		roof[1][0][0] = addBPoint(1.0, 0, 0, r0);
+		roof[0][1][0] = addBPoint(0.0, dyRup, 0, r0);
+		roof[1][1][0] = addBPoint(1.0, dyRup, 0, r0);
+		roof[0][2][0] = addBPoint(0.0, 1.0, 0, r0);
+		roof[1][2][0] = addBPoint(1.0, 1.0, 0, r0);
+
+		roof[0][0][1] = addBPoint(0.0, 0, 1.0, r0);
+		roof[1][0][1] = addBPoint(1.0, 0, 1.0, r0);
+		roof[0][1][1] = addBPoint(0.0, dyRup, 1.0, r0);
+		roof[1][1][1] = addBPoint(1.0, dyRup, 1.0, r0);
 	}
 
 	@Override
