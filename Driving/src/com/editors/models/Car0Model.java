@@ -196,17 +196,15 @@ public class Car0Model extends MeshModel {
 
 			double[][] d = body[k];
 			double yi = d[0][0];
-			double x0 = d[1][0];
-			double x1 = d[1][1];
-			double x2 = d[1][2];
 			double z0 = d[2][0];
-			double z1 = d[2][1];
 			double z2 = d[2][2];
 
 			double[][] d_plus_1 = body[k + 1];
-			double yi_plus_1 = d_plus_1[0][0];
+			double yipl = d_plus_1[0][0];
+			double z0pl = d_plus_1[2][0];
+			double z2pl = d_plus_1[2][2];
 
-			double incrementY = (yi_plus_1 - yi) * dy;
+			double incrementY = (yipl - yi) * dy;
 
 			double y = by + yi * dy + dz;
 			double x = bx;
@@ -218,8 +216,8 @@ public class Car0Model extends MeshModel {
 
 					addTPoint(x + dz * z0, y, 0);
 					addTPoint(x + dz * z2, y, 0);
-					addTPoint(x + dz * z2, y + incrementY, 0);
-					addTPoint(x + dz * z0, y + incrementY, 0);
+					addTPoint(x + dz * z2pl, y + incrementY, 0);
+					addTPoint(x + dz * z0pl, y + incrementY, 0);
 
 					x += dz;
 
@@ -228,8 +226,8 @@ public class Car0Model extends MeshModel {
 
 					addTPoint(x + dz * (1.0 - z2), y, 0);
 					addTPoint(x + dz * (1.0 - z0), y, 0);
-					addTPoint(x + dz * (1.0 - z0), y + incrementY, 0);
-					addTPoint(x + dz * (1.0 - z2), y + incrementY, 0);
+					addTPoint(x + dz * (1.0 - z0pl), y + incrementY, 0);
+					addTPoint(x + dz * (1.0 - z2pl), y + incrementY, 0);
 
 					x += dz;
 
@@ -268,6 +266,17 @@ public class Car0Model extends MeshModel {
 		}
 
 		// closing back and front texture
+
+		double[][] dBack = body[0];
+		double yBa = dBack[0][0];
+		double z0Ba = dBack[2][0];
+		double z2Ba = dBack[2][2];
+
+		double[][] dFront = body[body.length - 1];
+		double yiFr = dFront[0][0];
+		double z0Fr = dFront[2][0];
+		double z2Fr = dFront[2][2];
+
 		for (int i = 0; i < 2; i++) {
 
 			double x = bx + dz;
@@ -275,21 +284,26 @@ public class Car0Model extends MeshModel {
 
 			if (i == 0) {
 
+				double dzz = dz * (z2Ba - z0Ba);
+				y = by + dz - dzz;
+
 				addTPoint(x, y, 0);
-				addTPoint(x, y + dz, 0);
-				addTPoint(x + dx * 0.25, y + dz, 0);
-				addTPoint(x + dx * 0.75, y + dz, 0);
-				addTPoint(x + dx, y + dz, 0);
+				addTPoint(x, y + dzz, 0);
+				addTPoint(x + dx * 0.25, y + dzz, 0);
+				addTPoint(x + dx * 0.75, y + dzz, 0);
+				addTPoint(x + dx, y + dzz, 0);
 				addTPoint(x + dx, y, 0);
 			} else if (i == 1) {
 				y = by + dy + dz;
 
-				addTPoint(x + dx, y + dz, 0);
+				double dzz = dz * (z2Fr - z0Fr);
+
+				addTPoint(x + dx, y + dzz, 0);
 				addTPoint(x + dx, y, 0);
 				addTPoint(x + dx * 0.75, y, 0);
 				addTPoint(x + dx * 0.25, y, 0);
 				addTPoint(x, y, 0);
-				addTPoint(x, y + dz, 0);
+				addTPoint(x, y + dzz, 0);
 
 			}
 		}
