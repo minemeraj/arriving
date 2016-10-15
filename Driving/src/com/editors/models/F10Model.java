@@ -26,7 +26,7 @@ public class F10Model extends MeshModel {
 
 	private double dxRear = 0;
 	private double dyRear = 0;
-	private double dRear = 0;
+	private double dzRear = 0;
 
 	private double dxRoof;
 	private double dyRoof;
@@ -77,7 +77,7 @@ public class F10Model extends MeshModel {
 
 		this.dxRear = dxr;
 		this.dyRear = dyr;
-		this.dRear = dzr;
+		this.dzRear = dzr;
 
 		this.dxRoof = dxRoof;
 		this.dyRoof = dyRoof;
@@ -138,7 +138,7 @@ public class F10Model extends MeshModel {
 
 	private void buildBody() {
 
-		Segments rs = new Segments(0, dx * 0.5, 0, 50, dRear, 30);
+		Segments rs = new Segments(0, dx * 0.5, 0, 14, dzRear, dzRoof);
 
 		backSpoiler = new BPoint[2][2][2];
 
@@ -152,7 +152,7 @@ public class F10Model extends MeshModel {
 		backSpoiler[0][1][1] = addBPoint(-1.0, 1.0, 1.0, rs);
 		backSpoiler[1][1][1] = addBPoint(1.0, 1.0, 1.0, rs);
 
-		Segments s0 = new Segments(0, dxRear * 0.5, 0, dyRear, 0, dRear);
+		Segments s0 = new Segments(0, dxRear * 0.5, 0, dyRear, 0, dzRear);
 
 		back = new BPoint[2][2][2];
 
@@ -208,7 +208,7 @@ public class F10Model extends MeshModel {
 		roof[0][1][1] = addBPoint(-1.0, 1.0, 1.0, s3);
 		roof[1][1][1] = addBPoint(1.0, 1.0, 1.0, s3);
 
-		Segments fs = new Segments(0, dx * 0.5, dyRear + dy + dyFront, 50, 0, 30);
+		Segments fs = new Segments(0, dx * 0.5, dyRear + dy + dyFront, 16, 0, dzFront);
 
 		frontSpoiler = new BPoint[2][2][2];
 

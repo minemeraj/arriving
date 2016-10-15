@@ -711,13 +711,13 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						8, 4, 10// wheel_radius, wheel_width, wheel_rays
 				);
 			} else if (F10 == val) {
-				setRightData(150, 200, 50, // dx, dy, dz
-						50, 100, 50, // dxFront, dyFront, dzFront
-						50, 100, 50, // dxRear, dyRear, dzRear
-						50, 100, 30, // dxRoof, dyRoof, dzRoof
+				setRightData(38, 38, 14, // dx, dy, dz
+						9, 40, 14, // dxFront, dyFront, dzFront
+						25, 25, 14, // dxRear, dyRear, dzRear
+						7, 24, 13, // dxRoof, dyRoof, dzRoof
 						0, 0, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
-						50, 20, 10// wheel_radius, wheel_width, wheel_rays
+						8, 10, 10// wheel_radius, wheel_width, wheel_rays
 				);
 			} else if (TANK0 == val) {
 				setRightData(300, 400, 100, // dx, dy, dz
