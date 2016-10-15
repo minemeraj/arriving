@@ -205,7 +205,7 @@ public class Car0Model extends MeshModel {
 			double y = by + yi * dy + dz;
 			double x = bx;
 
-			for (int p0 = 0; p0 <= nBasePoints; p0++) {
+			for (int p0 = 0; p0 < nBasePoints; p0++) {
 				addTPoint(x, y, 0);
 
 				if (p0 == 0 || p0 == 4) {
