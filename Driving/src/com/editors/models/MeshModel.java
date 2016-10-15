@@ -18,816 +18,813 @@ import com.main.Renderer3D;
 
 public abstract class MeshModel {
 
+	Vector<Point3D> texturePoints = null;
+	Vector<Point3D> points = null;
+	private String description = null;
 
-    Vector<Point3D> texturePoints=null;
-    Vector<Point3D> points=null;
-    private String description=null;
+	protected int[][][] faces;
 
-    protected int[][][] faces;
+	private Color backgroundColor = Color.green;
 
-    private Color backgroundColor=Color.green;
+	int IMG_WIDTH = 100;
+	int IMG_HEIGHT = 100;
 
-    int IMG_WIDTH=100;
-    int IMG_HEIGHT=100;
+	static int FACE_TYPE_ORIENTATION = 0;
+	static int FACE_TYPE_BODY_INDEXES = 1;
+	static int FACE_TYPE_TEXTURE_INDEXES = 2;
 
-    static int FACE_TYPE_ORIENTATION=0;
-    static int FACE_TYPE_BODY_INDEXES=1;
-    static int FACE_TYPE_TEXTURE_INDEXES=2;
+	// sqrt(1-x*x), 0.125,0.1 decimal fraction steps
+	double[] el_125 = { 1.0, 0.9922, 0.9682, 0.9270, 0.8660, 0.7806, 0.6614, 0.4841, 0.0 };
+	double[] el_1 = { 1.0, 0.9950, 0.9798, 0.9539, 0.9165, 0.8660, 0.8, 0.7141, 0.6, 0.4359, 0.0 };
 
-    //sqrt(1-x*x), 0.125,0.1 decimal fraction steps
-    double[] el_125={1.0,0.9922,0.9682,0.9270,0.8660,0.7806,0.6614,0.4841,0.0};
-    double[] el_1={1.0,0.9950,0.9798,0.9539,0.9165,0.8660,0.8,0.7141,0.6,0.4359,0.0};
+	public MeshModel() {
 
-    public MeshModel(){
+	}
 
+	public void printMeshData(PrintWriter pw) {
 
+		print(pw, "DESCRIPTION=" + description);
 
-    }
+		for (int i = 0; i < points.size(); i++) {
 
+			Point3D p = points.elementAt(i);
+			print(pw, "v=" + p.x + " " + p.y + " " + p.z);
 
+		}
 
-    public void printMeshData(PrintWriter pw) {
+		for (int i = 0; i < texturePoints.size(); i++) {
+			Point3D p = texturePoints.elementAt(i);
+			print(pw, "vt=" + p.x + " " + p.y);
+		}
 
-        print(pw,"DESCRIPTION="+description);
+	}
 
-        for(int i=0;i<points.size();i++){
+	/***
+	 * Format:
+	 *
+	 * faces[nf][type][values]
+	 *
+	 * nf=face number type= o =orientation, 1=body polygon indexes 2=texture
+	 * polygon indexes values=orientation number or indexes
+	 *
+	 * @param pw
+	 * @param faces
+	 */
+	void printFaces(PrintWriter pw, int[][][] faces) {
 
+		if (faces == null) {
+			return;
+		}
 
-            Point3D p=points.elementAt(i);
-            print(pw,"v="+p.x+" "+p.y+" "+p.z);
+		for (int i = 0; i < faces.length; i++) {
 
-        }
+			int[][] face = faces[i];
 
+			int[] fts = face[0];
+			int[] pts = face[1];
+			int[] tts = face[2];
 
-        for (int i = 0; i < texturePoints.size(); i++) {
-            Point3D p = texturePoints.elementAt(i);
-            print(pw,"vt="+p.x+" "+p.y);
-        }
+			String line = "f=[" + fts[0] + "]";
 
-    }
-    /***
-     * Format:
-     *
-     * faces[nf][type][values]
-     *
-     * nf=face number
-     * type= o =orientation, 1=body polygon indexes 2=texture polygon indexes
-     * values=orientation number or indexes
-     *
-     * @param pw
-     * @param faces
-     */
-    void printFaces(PrintWriter pw,int[][][] faces) {
+			int len = pts.length;
 
-        if(faces==null) {
-            return;
-        }
+			for (int j = 0; j < len; j++) {
 
-        for (int i = 0; i < faces.length; i++) {
+				if (j > 0) {
+					line += " ";
+				}
+				line += (pts[j] + "/" + tts[j]);
+			}
 
-            int[][] face=faces[i];
+			print(pw, line);
 
-            int[] fts=face[0];
-            int[] pts=face[1];
-            int[] tts=face[2];
+		}
 
-            String line="f=["+fts[0]+"]";
+	}
 
-            int len=pts.length;
+	public abstract void initMesh();
 
-            for (int j = 0; j < len; j++) {
+	public abstract void printTexture(Graphics2D bufGraphics);
 
-                if(j>0) {
-                    line+=" ";
-                }
-                line+=(pts[j]+"/"+tts[j]);
-            }
+	void print(PrintWriter pw, String string) {
 
-            print(pw,line);
+		pw.println(string);
 
-        }
+	}
 
-    }
+	void printTextureLine(Graphics2D graphics, int... indexes) {
 
-    public abstract void initMesh();
+		for (int i = 0; i < indexes.length - 1; i++) {
 
-    public abstract void printTexture(Graphics2D bufGraphics);
+			Point3D p0 = texturePoints.elementAt(indexes[i]);
+			Point3D p1 = texturePoints.elementAt(indexes[i + 1]);
 
-    void print(PrintWriter pw, String string) {
+			graphics.drawLine(cX(p0.x), cY(p0.y), cX(p1.x), cY(p1.y));
+		}
+	}
 
-        pw.println(string);
+	void printTexturePolygon(Graphics2D graphics, int... indexes) {
 
-    }
+		for (int i = 0; i < indexes.length; i++) {
 
+			Point3D p0 = texturePoints.elementAt(indexes[i]);
+			Point3D p1 = texturePoints.elementAt(indexes[(i + 1) % indexes.length]);
 
-    void printTextureLine(Graphics2D graphics, int... indexes){
+			graphics.drawLine(cX(p0.x), cY(p0.y), cX(p1.x), cY(p1.y));
+		}
+	}
 
-        for (int i = 0; i < indexes.length-1; i++) {
+	private int cX(double x) {
+		return (int) x;
+	}
 
-            Point3D p0=texturePoints.elementAt(indexes[i]);
-            Point3D p1=texturePoints.elementAt(indexes[i+1]);
+	private int cY(double y) {
 
-            graphics.drawLine(cX(p0.x),cY(p0.y),cX(p1.x),cY(p1.y));
-        }
-    }
+		return (int) (IMG_HEIGHT - y);
+	}
 
+	public void printTexture(File file) {
 
-    void printTexturePolygon(Graphics2D graphics, int... indexes){
+		BufferedImage buf = new BufferedImage(IMG_WIDTH, IMG_HEIGHT, BufferedImage.TYPE_BYTE_INDEXED);
 
+		try {
 
-        for (int i = 0; i < indexes.length; i++) {
+			Graphics2D bufGraphics = (Graphics2D) buf.getGraphics();
 
-            Point3D p0=texturePoints.elementAt(indexes[i]);
-            Point3D p1=texturePoints.elementAt(indexes[(i+1)%indexes.length]);
+			bufGraphics.setColor(backgroundColor);
+			bufGraphics.fillRect(0, 0, IMG_WIDTH, IMG_HEIGHT);
 
-            graphics.drawLine(cX(p0.x),cY(p0.y),cX(p1.x),cY(p1.y));
-        }
-    }
+			printTexture(bufGraphics);
 
+			ImageIO.write(buf, "gif", file);
 
-    private int cX(double x) {
-        return (int) x;
-    }
+		} catch (Exception e) {
 
-    private int cY(double y) {
+			e.printStackTrace();
+		}
 
-        return (int) (IMG_HEIGHT-y);
-    }
+	}
 
+	void printTextureFaces(Graphics2D bg, int[][][] faces) {
 
-    public void printTexture(File file){
+		printTextureFaces(bg, faces, 0, faces.length);
+	}
 
+	void printTextureFaces(Graphics2D bg, int[][][] faces, int minimum, int maximum) {
 
-        BufferedImage buf=new BufferedImage(IMG_WIDTH,IMG_HEIGHT,BufferedImage.TYPE_BYTE_INDEXED);
+		for (int i = minimum; i < maximum; i++) {
 
-        try {
+			int[][] face = faces[i];
 
+			int[] fts = face[0];
+			int[] pts = face[1];
+			int[] tts = face[2];
 
-            Graphics2D bufGraphics=(Graphics2D)buf.getGraphics();
+			if (tts.length == 4) {
 
-            bufGraphics.setColor(backgroundColor);
-            bufGraphics.fillRect(0,0,IMG_WIDTH,IMG_HEIGHT);
+				int idx0 = tts[0];
+				int idx1 = tts[1];
+				int idx2 = tts[2];
+				int idx3 = tts[3];
 
-            printTexture(bufGraphics);
+				printTexturePolygon(bg, idx0, idx1, idx2, idx3);
 
+			} else if (tts.length == 3) {
 
-            ImageIO.write(buf,"gif",file);
+				int idx0 = tts[0];
+				int idx1 = tts[1];
+				int idx2 = tts[2];
 
-        } catch (Exception e) {
+				printTexturePolygon(bg, idx0, idx1, idx2);
 
-            e.printStackTrace();
-        }
+			}
+		}
 
-    }
+	}
 
-    void printTextureFaces(Graphics2D bg, int[][][] faces) {
+	void addPoint(double x, double y, double z) {
 
-        printTextureFaces(bg, faces,0,faces.length);
-    }
+		points.add(new Point3D(x, y, z));
 
-    void printTextureFaces(Graphics2D bg, int[][][] faces,int minimum,int maximum) {
+	}
 
-        for (int i = minimum; i < maximum; i++) {
+	/**
+	 * Add a texture point
+	 *
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
+	void addTPoint(double x, double y, double z) {
 
-            int[][] face=faces[i];
+		texturePoints.add(new Point3D(x, y, z));
 
-            int[] fts=face[0];
-            int[] pts=face[1];
-            int[] tts=face[2];
+	}
 
-            if(tts.length==4){
+	/**
+	 * Add a Texture rectangle starting from the x,y point, moving dx ,dy
+	 *
+	 * @param x
+	 * @param y
+	 * @param dx
+	 * @param dy
+	 */
+	void addTRect(double x, double y, double dx, double dy) {
 
-                int idx0=tts[0];
-                int idx1=tts[1];
-                int idx2=tts[2];
-                int idx3=tts[3];
+		addTPoint(x, y, 0);
+		addTPoint(x + dx, y, 0);
+		addTPoint(x + dx, y + dy, 0);
+		addTPoint(x, y + dy, 0);
 
-                printTexturePolygon(bg,idx0,idx1,idx2,idx3);
+	}
 
-            }else if(tts.length==3){
+	/**
+	 * Add a new texture points moving from the last one It's more similar to
+	 * the real action of drawing from point to point
+	 *
+	 * @param x
+	 * @param y
+	 * @param dx
+	 * @param dy
+	 */
+	void seqTPoint(double dx, double dy) {
 
-                int idx0=tts[0];
-                int idx1=tts[1];
-                int idx2=tts[2];
+		if (texturePoints == null || texturePoints.isEmpty()) {
+			return;
+		}
 
-                printTexturePolygon(bg,idx0,idx1,idx2);
+		Point3D p = texturePoints.lastElement();
+		addTPoint(p.x + dx, p.y + dy, 0);
+	}
 
-            }
-        }
+	BPoint addBPoint(double x, double y, double z) {
 
-    }
+		int index = points.size();
+		BPoint p = new BPoint(x, y, z, index);
+		points.add(p);
 
-    void addPoint(double x, double y, double z) {
+		return p;
+	}
 
-        points.add(new Point3D(x,y,z));
+	protected BPoint addBPoint(double d, double e, double f, Segments s0) {
+		return addBPoint(s0.x(d), s0.y(e), s0.z(f));
+	}
 
-    }
+	/**
+	 * Connected loops for the lateral surface of a block
+	 *
+	 * @param nBasePoints
+	 * @param numSections
+	 * @param pOffset
+	 * @param tOffset
+	 * @return
+	 */
+	int[][][] buildSingleBlockFaces(int nBasePoints, int numSections, int pOffset, int tOffset) {
 
-    /**
-     * Add a texture point
-     *
-     * @param x
-     * @param y
-     * @param z
-     */
-    void addTPoint(double x, double y, double z) {
+		int NUM_FACES = nBasePoints * (numSections - 1);
+		int[][][] faces = new int[NUM_FACES][3][nBasePoints];
 
-        texturePoints.add(new Point3D(x,y,z));
+		int counter = 0;
+		for (int k = 0; k < numSections - 1; k++) {
 
-    }
+			int numLevelPoints = nBasePoints * (k + 1);
 
+			for (int p0 = 0; p0 < nBasePoints; p0++) {
 
-    /**
-     * Add a Texture rectangle starting from the x,y point,
-     * moving dx ,dy
-     * @param x
-     * @param y
-     * @param dx
-     * @param dy
-     */
-    void addTRect(double x, double y, double dx,double dy) {
+				int p = p0 + k * nBasePoints;
+				int t = p0 + k * (nBasePoints + 1);
 
-        addTPoint(x,y,0);
-        addTPoint(x+dx,y,0);
-        addTPoint(x+dx, y+dy,0);
-        addTPoint(x,y+dy,0);
+				faces[counter][0][MeshModel.FACE_TYPE_ORIENTATION] = Renderer3D.CAR_BACK;
 
-    }
-    /**
-     * Add a new texture points moving from the last one
-     * It's more similar to the real action of drawing from point to point
-     *
-     * @param x
-     * @param y
-     * @param dx
-     * @param dy
-     */
-    void seqTPoint( double dx,double dy) {
+				int[] pts = new int[4];
+				faces[counter][MeshModel.FACE_TYPE_BODY_INDEXES] = pts;
+				pts[0] = p + pOffset;
+				int pl = (p + 1) % numLevelPoints;
+				if (pl == 0) {
+					pl = k * nBasePoints;
+				}
+				pts[1] = pl + pOffset;
+				pts[2] = pl + nBasePoints + pOffset;
+				pts[3] = p + nBasePoints + pOffset;
 
-        if(texturePoints==null || texturePoints.isEmpty()) {
-            return;
-        }
+				int[] tts = new int[4];
+				faces[counter][MeshModel.FACE_TYPE_TEXTURE_INDEXES] = tts;
+				tts[0] = t + tOffset;
+				tts[1] = t + 1 + tOffset;
+				tts[2] = t + 1 + nBasePoints + 1 + tOffset;
+				tts[3] = t + nBasePoints + 1 + tOffset;
 
-        Point3D p=texturePoints.lastElement();
-        addTPoint(p.x+dx,p.y+dy,0);
-    }
+				counter++;
 
+			}
 
-    BPoint addBPoint(double x, double y, double z) {
+		}
 
-        int index=points.size();
-        BPoint p=new BPoint(x, y, z, index);
-        points.add(p);
+		return faces;
 
-        return p;
-    }
+	}
 
+	/**
+	 * Disconnected loops for the lateral surface of a block
+	 *
+	 * @param nBasePoints
+	 * @param numSections
+	 * @param pOffset
+	 * @param tOffset
+	 * @return
+	 */
+	int[][][] buildRedundantSingleBlockFaces(int nBasePoints, int numSections, int pOffset, int tOffset) {
 
-    protected BPoint addBPoint(double d, double e, double f, Segments s0) {
-        return addBPoint(s0.x(d), s0.y(e), s0.z(f));
-    }
+		int NUM_FACES = nBasePoints * (numSections - 1);
+		int[][][] faces = new int[NUM_FACES][3][nBasePoints];
 
-    int[][][] buildSingleBlockFaces(
-            int nBasePoints,
-            int numSections,
-            int pOffset,
-            int tOffset
-            ) {
+		int counter = 0;
+		for (int k = 0; k < numSections - 1; k++) {
 
-        int NUM_FACES=nBasePoints*(numSections-1);
-        int[][][] faces=new int[NUM_FACES][3][nBasePoints];
+			int numLevelPoints = nBasePoints * (k + 1);
 
+			for (int p0 = 0; p0 < nBasePoints; p0++) {
 
+				int p = p0 + k * nBasePoints;
+				int t = p0 * 4 + k * 4 * (nBasePoints);
 
-        int counter=0;
-        for (int k = 0;k < numSections-1; k++) {
+				faces[counter][0][MeshModel.FACE_TYPE_ORIENTATION] = Renderer3D.CAR_BACK;
 
-            int numLevelPoints=nBasePoints*(k+1);
+				int[] pts = new int[4];
+				faces[counter][MeshModel.FACE_TYPE_BODY_INDEXES] = pts;
+				pts[0] = p + pOffset;
+				int pl = (p + 1) % numLevelPoints;
+				if (pl == 0) {
+					pl = k * nBasePoints;
+				}
+				pts[1] = pl + pOffset;
+				pts[2] = pl + nBasePoints + pOffset;
+				pts[3] = p + nBasePoints + pOffset;
 
-            for (int p0 = 0; p0 < nBasePoints; p0++) {
+				int[] tts = new int[4];
+				faces[counter][MeshModel.FACE_TYPE_TEXTURE_INDEXES] = tts;
+				tts[0] = t + tOffset;
+				tts[1] = t + 1 + tOffset;
+				tts[2] = t + 2 + tOffset;
+				tts[3] = t + 3 + tOffset;
 
-                int p=p0+k*nBasePoints;
-                int t=p0+k*(nBasePoints+1);
+				counter++;
 
-                faces[counter][0][MeshModel.FACE_TYPE_ORIENTATION]=Renderer3D.CAR_BACK;
+			}
 
-                int[] pts = new int[4];
-                faces[counter][MeshModel.FACE_TYPE_BODY_INDEXES]=pts;
-                pts[0]=p+pOffset;
-                int pl=(p+1)%numLevelPoints;
-                if(pl==0) {
-                    pl=k*nBasePoints;
-                }
-                pts[1]=pl+pOffset;
-                pts[2]=pl+nBasePoints+pOffset;
-                pts[3]=p+nBasePoints+pOffset;
+		}
 
-                int[] tts = new int[4];
-                faces[counter][MeshModel.FACE_TYPE_TEXTURE_INDEXES]=tts;
-                tts[0]=t+tOffset;
-                tts[1]=t+1+tOffset;
-                tts[2]=t+1+nBasePoints+1+tOffset;
-                tts[3]=t+nBasePoints+1+tOffset;
+		return faces;
 
-                counter++;
+	}
 
-            }
+	int[][][] buildDoubleBlockFaces(int nBasePoints, int numSections, int pOffset, int tOffset) {
 
-        }
+		int NUM_FACES = nBasePoints * (numSections - 1);
+		int[][][] faces = new int[NUM_FACES][3][nBasePoints];
 
-        return faces;
+		int counter = 0;
+		for (int k = 0; k < numSections - 1; k++) {
 
-    }
+			int numLevelPoints = nBasePoints * (k + 1);
+			int texLevelPoints = nBasePoints / 2 + 1;
+			int sigma = texLevelPoints * numSections;
 
-    int[][][] buildDoubleBlockFaces(
-            int nBasePoints,
-            int numSections,
-            int pOffset,
-            int tOffset
-            ) {
+			for (int p0 = 0; p0 < nBasePoints; p0++) {
 
-        int NUM_FACES=nBasePoints*(numSections-1);
-        int[][][] faces=new int[NUM_FACES][3][nBasePoints];
+				int p = p0 + k * nBasePoints;
+				int t = 0;
+				if (p0 < nBasePoints / 2) {
+					t = p0 + k * texLevelPoints;
+				} else {
+					t = p0 + k * texLevelPoints - nBasePoints / 2 + sigma;
+				}
 
+				faces[counter][0][MeshModel.FACE_TYPE_ORIENTATION] = Renderer3D.CAR_BACK;
 
+				int[] pts = new int[4];
+				faces[counter][MeshModel.FACE_TYPE_BODY_INDEXES] = pts;
+				pts[0] = p + pOffset;
+				int pl = (p + 1) % numLevelPoints;
+				if (pl == 0) {
+					pl = k * nBasePoints;
+				}
+				pts[1] = pl + pOffset;
+				pts[2] = pl + nBasePoints + pOffset;
+				pts[3] = p + nBasePoints + pOffset;
 
-        int counter=0;
-        for (int k = 0;k < numSections-1; k++) {
+				int[] tts = new int[4];
+				faces[counter][MeshModel.FACE_TYPE_TEXTURE_INDEXES] = tts;
+				tts[0] = t + tOffset;
+				tts[1] = t + 1 + tOffset;
+				tts[2] = t + 1 + texLevelPoints + tOffset;
+				tts[3] = t + texLevelPoints + tOffset;
 
-            int numLevelPoints=nBasePoints*(k+1);
-            int texLevelPoints=nBasePoints/2+1;
-            int sigma=texLevelPoints*numSections;
+				counter++;
 
-            for (int p0 = 0; p0 < nBasePoints; p0++) {
+			}
 
-                int p=p0+k*nBasePoints;
-                int t=0;
-                if(p0<nBasePoints/2){
-                    t=p0+k*texLevelPoints;
-                }else{
-                    t=p0+k*texLevelPoints-nBasePoints/2+sigma;
-                }
+		}
 
+		return faces;
 
-                faces[counter][0][MeshModel.FACE_TYPE_ORIENTATION]=Renderer3D.CAR_BACK;
+	}
 
-                int[] pts = new int[4];
-                faces[counter][MeshModel.FACE_TYPE_BODY_INDEXES]=pts;
-                pts[0]=p+pOffset;
-                int pl=(p+1)%numLevelPoints;
-                if(pl==0) {
-                    pl=k*nBasePoints;
-                }
-                pts[1]=pl+pOffset;
-                pts[2]=pl+nBasePoints+pOffset;
-                pts[3]=p+nBasePoints+pOffset;
+	int[][][] buildSinglePlaneFaces(int nBasePoints, int numSections, int pOffset, int tOffset) {
 
-                int[] tts = new int[4];
-                faces[counter][MeshModel.FACE_TYPE_TEXTURE_INDEXES]=tts;
-                tts[0]=t+tOffset;
-                tts[1]=t+1+tOffset;
-                tts[2]=t+1+texLevelPoints+tOffset;
-                tts[3]=t+texLevelPoints+tOffset;
+		int NUM_FACES = (nBasePoints - 1) * (numSections - 1);
+		int[][][] faces = new int[NUM_FACES][3][nBasePoints];
 
-                counter++;
+		Vector<int[][]> finalFaces = new Vector<int[][]>();
 
-            }
+		int counter = 0;
+		for (int k = 0; k < numSections - 1; k++) {
 
-        }
+			// int numLevelPoints=nBasePoints*(k+1);
 
-        return faces;
+			for (int p0 = 0; p0 < nBasePoints - 1; p0++) {
 
-    }
+				if (isFilter(k, p0)) {
+					continue;
+				}
 
+				finalFaces.add(faces[counter]);
 
-    int[][][] buildSinglePlaneFaces(int nBasePoints, int numSections, int pOffset, int tOffset) {
+				int p = p0 + k * nBasePoints;
+				int t = p0 + k * nBasePoints;
 
-        int NUM_FACES=(nBasePoints-1)*(numSections-1);
-        int[][][] faces=new int[NUM_FACES][3][nBasePoints];
+				faces[counter][0][MeshModel.FACE_TYPE_ORIENTATION] = Renderer3D.CAR_BACK;
 
-        Vector<int[][]> finalFaces=new Vector<int[][]>();
+				int[] pts = new int[4];
+				faces[counter][MeshModel.FACE_TYPE_BODY_INDEXES] = pts;
+				pts[0] = p + pOffset;
+				int pl = (p + 1);
+				pts[1] = pl + pOffset;
+				pts[2] = pl + nBasePoints + pOffset;
+				pts[3] = p + nBasePoints + pOffset;
 
-        int counter=0;
-        for (int k = 0;k < numSections-1; k++) {
+				int[] tts = new int[4];
+				faces[counter][MeshModel.FACE_TYPE_TEXTURE_INDEXES] = tts;
+				tts[0] = t + tOffset;
+				tts[1] = t + 1 + tOffset;
+				tts[2] = t + 1 + nBasePoints + tOffset;
+				tts[3] = t + nBasePoints + tOffset;
 
-            //int numLevelPoints=nBasePoints*(k+1);
+				counter++;
 
-            for (int p0 = 0; p0 < nBasePoints-1; p0++) {
+			}
 
-                if(isFilter(k,p0)){
-                    continue;
-                }
+		}
 
-                finalFaces.add(faces[counter]);
+		int[][][] fFaces = new int[finalFaces.size()][3][nBasePoints];
 
-                int p=p0+k*nBasePoints;
-                int t=p0+k*nBasePoints;
+		for (int i = 0; i < finalFaces.size(); i++) {
 
-                faces[counter][0][MeshModel.FACE_TYPE_ORIENTATION]=Renderer3D.CAR_BACK;
+			fFaces[i] = finalFaces.elementAt(i);
+		}
 
-                int[] pts = new int[4];
-                faces[counter][MeshModel.FACE_TYPE_BODY_INDEXES]=pts;
-                pts[0]=p+pOffset;
-                int pl=(p+1);
-                pts[1]=pl+pOffset;
-                pts[2]=pl+nBasePoints+pOffset;
-                pts[3]=p+nBasePoints+pOffset;
+		return fFaces;
 
-                int[] tts = new int[4];
-                faces[counter][MeshModel.FACE_TYPE_TEXTURE_INDEXES]=tts;
-                tts[0]=t+tOffset;
-                tts[1]=t+1+tOffset;
-                tts[2]=t+1+nBasePoints+tOffset;
-                tts[3]=t+nBasePoints+tOffset;
+	}
 
-                counter++;
+	public boolean isFilter(int k, int p0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
-            }
+	/***
+	 *
+	 * Simplify the mesh discarding not used and repeated points
+	 *
+	 * @param data
+	 * @return
+	 */
+	void postProcessor(Vector<int[][][]> vFaces) {
 
-        }
+		Hashtable fp = new Hashtable();
 
-        int[][][] fFaces=new int[finalFaces.size()][3][nBasePoints];
+		Vector<Point3D> newPoints = new Vector<Point3D>();
 
-        for (int i = 0; i < finalFaces.size(); i++) {
+		int counter = 0;
 
-            fFaces[i] = finalFaces.elementAt(i);
-        }
+		Hashtable usedPoints = buildUsedPointsHashtable(vFaces);
+		Hashtable readPoints = new Hashtable();
 
-        return fFaces;
+		for (int i = 0; i < points.size(); i++) {
 
-    }
+			if (usedPoints.get(i) == null) {
+				continue;
+			}
 
-    public boolean isFilter(int k, int p0) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+			Point3D p = points.elementAt(i);
 
-    /***
-     *
-     * Simplify the mesh discarding not used and repeated points
-     * @param data
-     * @return
-     */
-    void postProcessor(Vector<int[][][]> vFaces){
+			String key = p.toString();
 
+			Integer oldIndex = (Integer) readPoints.get(key);
 
-        Hashtable fp=new Hashtable();
+			if (oldIndex != null) {
 
-        Vector<Point3D> newPoints=new Vector<Point3D>();
+				fp.put(i, oldIndex);
+				continue;
+			}
 
-        int counter=0;
+			readPoints.put(p.toString(), counter);
+			fp.put(i, counter);
+			newPoints.add(p);
 
-        Hashtable usedPoints=buildUsedPointsHashtable(vFaces);
-        Hashtable readPoints=new Hashtable();
+			counter++;
+		}
 
-        for(int i=0;i<points.size();i++){
+		points = newPoints;
 
-            if(usedPoints.get(i)==null) {
-                continue;
-            }
+		for (int i = 0; i < vFaces.size(); i++) {
 
-            Point3D p=points.elementAt(i);
+			int[][][] faces = vFaces.elementAt(i);
 
-            String key=p.toString();
+			for (int j = 0; j < faces.length; j++) {
+				int[][] face = faces[j];
 
-            Integer oldIndex=(Integer) readPoints.get(key);
+				int[] fts = face[0];
+				int[] pts = face[1];
+				int[] tts = face[2];
 
-            if(oldIndex!=null){
+				for (int k = 0; k < pts.length; k++) {
+					int idx0 = pts[k];
+					pts[k] = (Integer) fp.get(idx0);
+				}
+			}
+		}
 
-                fp.put(i,oldIndex);
-                continue;
-            }
+	}
 
-            readPoints.put(p.toString(), counter);
-            fp.put(i,counter);
-            newPoints.add(p);
+	private static Hashtable buildUsedPointsHashtable(Vector<int[][][]> vFaces) {
 
-            counter++;
-        }
+		Hashtable usedPoints = new Hashtable();
 
-        points=newPoints;
+		for (int i = 0; i < vFaces.size(); i++) {
 
-        for (int i = 0; i < vFaces.size(); i++) {
+			int[][][] faces = vFaces.elementAt(i);
 
-            int[][][] faces = vFaces.elementAt(i);
+			for (int j = 0; j < faces.length; j++) {
+				int[][] face = faces[j];
 
-            for (int j = 0; j < faces.length; j++) {
-                int[][] face=faces[j];
+				int[] fts = face[0];
+				int[] pts = face[1];
+				int[] tts = face[2];
 
-                int[] fts=face[0];
-                int[] pts=face[1];
-                int[] tts=face[2];
+				for (int k = 0; k < pts.length; k++) {
+					int idx0 = pts[k];
+					usedPoints.put(idx0, "");
+				}
 
-                for (int k = 0; k < pts.length; k++) {
-                    int idx0=pts[k];
-                    pts[k]=(Integer)fp.get(idx0);
-                }
-            }
-        }
+			}
+		}
 
+		return usedPoints;
+	}
 
-    }
+	public String getDescription() {
+		return description;
+	}
 
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
+	protected int[][] buildFace(
 
-    private static Hashtable buildUsedPointsHashtable(Vector<int[][][]> vFaces) {
+			int faceIndex, int b0, int b1, int b2, int b3, int c0, int c1, int c2, int c3) {
 
-        Hashtable usedPoints=new Hashtable();
+		int[][] face = new int[3][4];
 
-        for (int i = 0; i < vFaces.size(); i++) {
+		face[0][0] = faceIndex;
 
-            int[][][] faces = vFaces.elementAt(i);
+		face[1][0] = b0;
+		face[1][1] = b1;
+		face[1][2] = b2;
+		face[1][3] = b3;
 
-            for (int j = 0; j < faces.length; j++) {
-                int[][] face=faces[j];
+		face[2][0] = c0;
+		face[2][1] = c1;
+		face[2][2] = c2;
+		face[2][3] = c3;
 
-                int[] fts=face[0];
-                int[] pts=face[1];
-                int[] tts=face[2];
+		return face;
 
-                for (int k = 0; k < pts.length; k++) {
-                    int idx0=pts[k];
-                    usedPoints.put(idx0, "");
-                }
+	}
 
-            }
-        }
+	protected int[][] buildFace(int carTop, BPoint p0, BPoint p1, BPoint p2, BPoint p3, int[] c) {
+		return buildFace(carTop, p0.getIndex(), p1.getIndex(), p2.getIndex(), p3.getIndex(), c[0], c[1], c[2], c[3]);
+	}
 
-        return usedPoints;
-    }
+	protected int[][] buildFace(int carTop, BPoint p0, BPoint p1, BPoint p2, BPoint p3, int c0, int c1, int c2,
+			int c3) {
+		return buildFace(carTop, p0.getIndex(), p1.getIndex(), p2.getIndex(), p3.getIndex(), c0, c1, c2, c3);
+	}
 
+	protected int[][] buildFace(int carTop, BPoint p0, BPoint p1, BPoint p2, int[] c) {
+		return buildFace(carTop, p0.getIndex(), p1.getIndex(), p2.getIndex(), c[0], c[1], c[2]);
+	}
 
+	protected int[][] buildFace(int carTop, BPoint p0, BPoint p1, BPoint p2, int c0, int c1, int c2) {
+		return buildFace(carTop, p0.getIndex(), p1.getIndex(), p2.getIndex(), c0, c1, c2);
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	private int[][] buildFace(
 
+			int faceIndex, int b0, int b1, int b2, int c0, int c1, int c2) {
 
+		int[][] face = new int[3][3];
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+		face[0][0] = faceIndex;
 
+		face[1][0] = b0;
+		face[1][1] = b1;
+		face[1][2] = b2;
 
+		face[2][0] = c0;
+		face[2][1] = c1;
+		face[2][2] = c2;
 
-    protected int[][] buildFace(
+		return face;
 
-            int faceIndex,
-            int b0,
-            int b1,
-            int b2,
-            int b3,
-            int c0,
-            int c1,
-            int c2,
-            int c3) {
+	}
 
-        int[][] face=new int[3][4];
+	protected BPoint[][] buildWheel(double rxc, double ryc, double rzc, double r, double wheel_width, int raysNumber) {
 
-        face[0][0]=faceIndex;
+		BPoint[][] wheelPoints = new BPoint[raysNumber][2];
 
+		for (int i = 0; i < raysNumber; i++) {
 
-        face[1][0]=b0;
-        face[1][1]=b1;
-        face[1][2]=b2;
-        face[1][3]=b3;
+			double teta = i * 2 * Math.PI / (raysNumber);
 
-        face[2][0]=c0;
-        face[2][1]=c1;
-        face[2][2]=c2;
-        face[2][3]=c3;
+			double x = rxc;
+			double y = ryc + r * Math.sin(teta);
+			double z = rzc + r * Math.cos(teta);
 
-        return face;
+			wheelPoints[i][0] = addBPoint(x, y, z);
+			wheelPoints[i][1] = addBPoint(x + wheel_width, y, z);
+		}
 
-    }
+		return wheelPoints;
 
-    protected int[][] buildFace(int carTop, BPoint p0, BPoint p1, BPoint p2, BPoint p3, int[] c) {
-        return buildFace(carTop, p0.getIndex(), p1.getIndex(), p2.getIndex(), p3.getIndex(),  c[0],  c[1],  c[2],  c[3]);
-    }
+	}
 
-    protected int[][] buildFace(int carTop, BPoint p0, BPoint p1, BPoint p2, BPoint p3, int c0, int c1, int c2, int c3) {
-        return buildFace(carTop, p0.getIndex(), p1.getIndex(), p2.getIndex(), p3.getIndex(),  c0,  c1,  c2,  c3);
-    }
+	protected int[][][] buildWheelFaces(BPoint[][] wheelPoints, int texture_index) {
 
-    protected int[][] buildFace(int carTop, BPoint p0, BPoint p1, BPoint p2, int[] c) {
-        return buildFace(carTop, p0.getIndex(), p1.getIndex(), p2.getIndex(), c[0], c[1], c[2]);
-    }
+		int raysNumber = wheelPoints.length;
+		int totWheelPolygon = raysNumber + 2 * (raysNumber - 2);
 
+		int[][][] bFaces = new int[totWheelPolygon][][];
 
-    protected int[][] buildFace(int carTop, BPoint p0, BPoint p1, BPoint p2, int c0, int c1, int c2) {
-        return buildFace(carTop, p0.getIndex(), p1.getIndex(), p2.getIndex(),   c0,  c1,  c2);
-    }
+		// wheel track
+		int counter = 0;
 
-    private int[][] buildFace(
+		for (int i = 0; i < raysNumber; i++) {
 
-            int faceIndex,
-            int b0,
-            int b1,
-            int b2,
-            int c0,
-            int c1,
-            int c2
-            ) {
+			BPoint p0 = wheelPoints[i][0];
+			BPoint p1 = wheelPoints[i][1];
+			BPoint p2 = wheelPoints[(i + 1) % raysNumber][1];
+			BPoint p3 = wheelPoints[(i + 1) % raysNumber][0];
 
-        int[][] face=new int[3][3];
+			bFaces[counter++] = buildFace(0, p0, p1, p2, p3, texture_index, texture_index + 1, texture_index + 2,
+					texture_index + 3);
+		}
+		// wheel sides as triangles
+		for (int i = 1; i < raysNumber - 1; i++) {
 
-        face[0][0]=faceIndex;
+			BPoint p0 = wheelPoints[0][0];
+			BPoint p1 = wheelPoints[i][0];
+			BPoint p2 = wheelPoints[(i + 1) % raysNumber][0];
 
+			bFaces[counter++] = buildFace(0, p0, p1, p2, texture_index, texture_index + 1, texture_index + 2);
+		}
 
-        face[1][0]=b0;
-        face[1][1]=b1;
-        face[1][2]=b2;
+		for (int i = 1; i < raysNumber - 1; i++) {
 
-        face[2][0]=c0;
-        face[2][1]=c1;
-        face[2][2]=c2;
+			BPoint p0 = wheelPoints[0][1];
+			BPoint p1 = wheelPoints[(i + 1) % raysNumber][1];
+			BPoint p2 = wheelPoints[i][1];
 
-        return face;
+			bFaces[counter++] = buildFace(0, p0, p1, p2, texture_index, texture_index + 1, texture_index + 2);
+		}
 
-    }
+		return bFaces;
 
-    protected BPoint[][] buildWheel(double rxc, double ryc, double rzc,double r, double wheel_width,int raysNumber) {
+	}
 
+	protected int[][][] buildWheelFaces(BPoint[][] wheelPoints, int[] texture_indexes) {
 
-        BPoint[][] wheelPoints=new BPoint[raysNumber][2];
+		int raysNumber = wheelPoints.length;
+		int totWheelPolygon = raysNumber + 2 * (raysNumber - 2);
 
-        for(int i=0;i<raysNumber;i++){
+		int[][][] bFaces = new int[totWheelPolygon][][];
 
-            double teta=i*2*Math.PI/(raysNumber);
+		// wheel track
+		int counter = 0;
 
-            double x=rxc;
-            double y=ryc+r*Math.sin(teta);
-            double z=rzc+r*Math.cos(teta);
+		for (int i = 0; i < raysNumber; i++) {
 
-            wheelPoints[i][0]=addBPoint(x,y,z);
-            wheelPoints[i][1]=addBPoint(x+wheel_width,y,z);
-        }
+			BPoint p0 = wheelPoints[i][0];
+			BPoint p1 = wheelPoints[i][1];
+			BPoint p2 = wheelPoints[(i + 1) % raysNumber][1];
+			BPoint p3 = wheelPoints[(i + 1) % raysNumber][0];
 
-        return wheelPoints;
+			bFaces[counter++] = buildFace(0, p0, p1, p2, p3, texture_indexes);
+		}
+		// wheel sides as triangles
+		for (int i = 1; i < raysNumber - 1; i++) {
 
+			BPoint p0 = wheelPoints[0][0];
+			BPoint p1 = wheelPoints[i][0];
+			BPoint p2 = wheelPoints[(i + 1) % raysNumber][0];
 
-    }
+			bFaces[counter++] = buildFace(0, p0, p1, p2, texture_indexes);
+		}
 
+		for (int i = 1; i < raysNumber - 1; i++) {
 
-    protected int[][][] buildWheelFaces(BPoint[][] wheelPoints,int texture_index) {
+			BPoint p0 = wheelPoints[0][1];
+			BPoint p1 = wheelPoints[(i + 1) % raysNumber][1];
+			BPoint p2 = wheelPoints[i][1];
 
-        int raysNumber=wheelPoints.length;
-        int totWheelPolygon=raysNumber+2*(raysNumber-2);
+			bFaces[counter++] = buildFace(0, p0, p1, p2, texture_indexes);
+		}
 
-        int[][][] bFaces=new int[totWheelPolygon][][];
+		return bFaces;
 
-        //wheel track
-        int counter=0;
+	}
 
-        for(int i=0;i<raysNumber;i++){
+	BPoint[][] addYCylinder(double cyx0, double cyy0, double cyz0, double cylinder_radius, double cylinder_lenght,
+			int barrel_meridians) {
 
-            BPoint p0=wheelPoints[i][0];
-            BPoint p1=wheelPoints[i][1];
-            BPoint p2=wheelPoints[(i+1)%raysNumber][1];
-            BPoint p3=wheelPoints[(i+1)%raysNumber][0];
+		BPoint[][] trunkpoints = new BPoint[barrel_meridians][2];
 
-            bFaces[counter++]=buildFace(0, p0, p1, p2,p3, texture_index, texture_index+1, texture_index+2,texture_index+3);
-        }
-        //wheel sides as triangles
-        for(int i=1;i<raysNumber-1;i++){
+		for (int i = 0; i < barrel_meridians; i++) {
 
-            BPoint p0=wheelPoints[0][0];
-            BPoint p1=wheelPoints[i][0];
-            BPoint p2=wheelPoints[(i+1)%raysNumber][0];
+			double x = cyx0 + cylinder_radius * Math.cos(2 * Math.PI / barrel_meridians * i);
+			double z = cyz0 + cylinder_radius * Math.sin(2 * Math.PI / barrel_meridians * i);
 
-            bFaces[counter++]=buildFace(0, p0, p1, p2,texture_index, texture_index+1, texture_index+2);
-        }
+			trunkpoints[i][1] = addBPoint(x, cyy0 + cylinder_lenght, z);
 
-        for(int i=1;i<raysNumber-1;i++){
+		}
 
-            BPoint p0=wheelPoints[0][1];
-            BPoint p1=wheelPoints[(i+1)%raysNumber][1];
-            BPoint p2=wheelPoints[i][1];
+		for (int i = 0; i < barrel_meridians; i++) {
 
+			double x = cyx0 + cylinder_radius * Math.cos(2 * Math.PI / barrel_meridians * i);
+			double z = cyz0 + cylinder_radius * Math.sin(2 * Math.PI / barrel_meridians * i);
 
-            bFaces[counter++]=buildFace(0, p0, p1, p2,texture_index, texture_index+1, texture_index+2);
-        }
+			trunkpoints[i][0] = addBPoint(x, cyy0, z);
 
-        return bFaces;
+		}
 
-    }
+		return trunkpoints;
 
-    protected int[][][] buildWheelFaces(BPoint[][] wheelPoints,int[] texture_indexes) {
+	}
 
-        int raysNumber=wheelPoints.length;
-        int totWheelPolygon=raysNumber+2*(raysNumber-2);
+	BPoint[][] addZCylinder(double cyx0, double cyy0, double cyz0, double cylinder_radius, double cylinder_lenght,
+			int barrel_meridians) {
 
-        int[][][] bFaces=new int[totWheelPolygon][][];
+		BPoint[][] trunkpoints = new BPoint[barrel_meridians][2];
 
-        //wheel track
-        int counter=0;
+		for (int i = 0; i < barrel_meridians; i++) {
 
-        for(int i=0;i<raysNumber;i++){
+			double x = cyx0 + cylinder_radius * Math.cos(2 * Math.PI / barrel_meridians * i);
+			double yy = cyy0 + cylinder_radius * Math.sin(2 * Math.PI / barrel_meridians * i);
 
-            BPoint p0=wheelPoints[i][0];
-            BPoint p1=wheelPoints[i][1];
-            BPoint p2=wheelPoints[(i+1)%raysNumber][1];
-            BPoint p3=wheelPoints[(i+1)%raysNumber][0];
+			trunkpoints[i][1] = addBPoint(x, yy, cyz0 + cylinder_lenght);
 
-            bFaces[counter++]=buildFace(0, p0, p1, p2,p3, texture_indexes);
-        }
-        //wheel sides as triangles
-        for(int i=1;i<raysNumber-1;i++){
+		}
 
-            BPoint p0=wheelPoints[0][0];
-            BPoint p1=wheelPoints[i][0];
-            BPoint p2=wheelPoints[(i+1)%raysNumber][0];
+		for (int i = 0; i < barrel_meridians; i++) {
 
-            bFaces[counter++]=buildFace(0, p0, p1, p2,texture_indexes);
-        }
+			double x = cyx0 + cylinder_radius * Math.cos(2 * Math.PI / barrel_meridians * i);
+			double yy = cyy0 + cylinder_radius * Math.sin(2 * Math.PI / barrel_meridians * i);
 
-        for(int i=1;i<raysNumber-1;i++){
+			trunkpoints[i][0] = addBPoint(x, yy, cyz0);
 
-            BPoint p0=wheelPoints[0][1];
-            BPoint p1=wheelPoints[(i+1)%raysNumber][1];
-            BPoint p2=wheelPoints[i][1];
+		}
 
+		return trunkpoints;
 
-            bFaces[counter++]=buildFace(0, p0, p1, p2,texture_indexes);
-        }
+	}
 
-        return bFaces;
+	protected int addPrism(Prism prism, int counter, int[] bo) {
 
-    }
+		faces[counter++] = buildFace(Renderer3D.CAR_TOP, (BPoint) prism.upperBase[0], (BPoint) prism.upperBase[1],
+				(BPoint) prism.upperBase[2], (BPoint) prism.upperBase[3], bo);
+		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, (BPoint) prism.lowerBase[3], (BPoint) prism.lowerBase[0],
+				(BPoint) prism.upperBase[0], (BPoint) prism.upperBase[3], bo);
+		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, (BPoint) prism.lowerBase[1], (BPoint) prism.lowerBase[2],
+				(BPoint) prism.upperBase[2], (BPoint) prism.upperBase[1], bo);
+		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, (BPoint) prism.lowerBase[2], (BPoint) prism.lowerBase[3],
+				(BPoint) prism.upperBase[3], (BPoint) prism.upperBase[2], bo);
+		faces[counter++] = buildFace(Renderer3D.CAR_BACK, (BPoint) prism.lowerBase[0], (BPoint) prism.lowerBase[1],
+				(BPoint) prism.upperBase[1], (BPoint) prism.upperBase[0], bo);
+		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, (BPoint) prism.lowerBase[0], (BPoint) prism.lowerBase[3],
+				(BPoint) prism.lowerBase[2], (BPoint) prism.lowerBase[1], bo);
 
-    BPoint[][] addYCylinder(double cyx0, double cyy0,double cyz0,
-            double cylinder_radius,double cylinder_lenght,int barrel_meridians){
-
-        BPoint[][] trunkpoints=new BPoint[barrel_meridians][2];
-
-        for (int i = 0; i < barrel_meridians; i++) {
-
-
-            double x=cyx0+cylinder_radius*Math.cos(2*Math.PI/barrel_meridians*i);
-            double z=cyz0+cylinder_radius*Math.sin(2*Math.PI/barrel_meridians*i);
-
-            trunkpoints[i][1]=addBPoint(x,cyy0+cylinder_lenght,z);
-
-
-        }
-
-
-        for (int i = 0; i < barrel_meridians; i++) {
-
-            double x=cyx0+cylinder_radius*Math.cos(2*Math.PI/barrel_meridians*i);
-            double z=cyz0+cylinder_radius*Math.sin(2*Math.PI/barrel_meridians*i);
-
-            trunkpoints[i][0]=addBPoint(x,cyy0,z);
-
-        }
-
-        return trunkpoints;
-
-
-    }
-
-    BPoint[][] addZCylinder(double cyx0, double cyy0,double cyz0,
-            double cylinder_radius,double cylinder_lenght,int barrel_meridians){
-
-        BPoint[][] trunkpoints=new BPoint[barrel_meridians][2];
-
-        for (int i = 0; i < barrel_meridians; i++) {
-
-
-            double x=cyx0+cylinder_radius*Math.cos(2*Math.PI/barrel_meridians*i);
-            double yy=cyy0+cylinder_radius*Math.sin(2*Math.PI/barrel_meridians*i);
-
-            trunkpoints[i][1]=addBPoint(x,yy,cyz0+cylinder_lenght);
-
-
-        }
-
-
-        for (int i = 0; i < barrel_meridians; i++) {
-
-            double x=cyx0+cylinder_radius*Math.cos(2*Math.PI/barrel_meridians*i);
-            double yy=cyy0+cylinder_radius*Math.sin(2*Math.PI/barrel_meridians*i);
-
-            trunkpoints[i][0]=addBPoint(x,yy,cyz0);
-
-        }
-
-        return trunkpoints;
-
-
-    }
-
-
-    protected int addPrism(Prism prism, int counter, int[] bo) {
-
-        faces[counter++]=buildFace(Renderer3D.CAR_TOP,   (BPoint)prism.upperBase[0],(BPoint)prism.upperBase[1],(BPoint)prism.upperBase[2], (BPoint)prism.upperBase[3],bo);
-        faces[counter++]=buildFace(Renderer3D.CAR_LEFT,  (BPoint)prism.lowerBase[3],(BPoint)prism.lowerBase[0],(BPoint)prism.upperBase[0], (BPoint)prism.upperBase[3],bo);
-        faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, (BPoint)prism.lowerBase[1],(BPoint)prism.lowerBase[2],(BPoint)prism.upperBase[2], (BPoint)prism.upperBase[1],bo);
-        faces[counter++]=buildFace(Renderer3D.CAR_FRONT, (BPoint)prism.lowerBase[2],(BPoint)prism.lowerBase[3],(BPoint)prism.upperBase[3], (BPoint)prism.upperBase[2],bo);
-        faces[counter++]=buildFace(Renderer3D.CAR_BACK,  (BPoint)prism.lowerBase[0],(BPoint)prism.lowerBase[1],(BPoint)prism.upperBase[1], (BPoint)prism.upperBase[0],bo);
-        faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM,(BPoint)prism.lowerBase[0],(BPoint)prism.lowerBase[3],(BPoint)prism.lowerBase[2], (BPoint)prism.lowerBase[1],bo);
-
-        return counter;
-    }
+		return counter;
+	}
 
 }

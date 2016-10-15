@@ -192,11 +192,15 @@ public class Car0Model extends MeshModel {
 
 		int totBlockTexturesPoints = 0;
 
-		for (int k = 0; k < numSections; k++) {
+		for (int k = 0; k < numSections - 1; k++) {
 
 			double[][] d = body[k];
+			double[][] d_plus_1 = body[k + 1];
 
 			double yi = d[0][0];
+			double yi_plus_1 = d_plus_1[0][0];
+
+			double incrementY = (yi_plus_1 - yi) * dy;
 
 			double y = by + yi * dy + dz;
 			double x = bx;
@@ -205,12 +209,32 @@ public class Car0Model extends MeshModel {
 				addTPoint(x, y, 0);
 
 				if (p0 == 0 || p0 == 4) {
+
+					addTPoint(x + dz, y, 0);
+					addTPoint(x + dz, y + incrementY, 0);
+					addTPoint(x, y + incrementY, 0);
 					x += dz;
+
 				} else if (p0 == 1 || p0 == 3) {
+
+					addTPoint(x + dx * 0.25, y, 0);
+					addTPoint(x + dx * 0.25, y + incrementY, 0);
+					addTPoint(x, y + incrementY, 0);
+
 					x += dx * 0.25;
+
 				} else if (p0 == 2) {
+
+					addTPoint(x + dx * 0.5, y, 0);
+					addTPoint(x + dx * 0.5, y + incrementY, 0);
+					addTPoint(x, y + incrementY, 0);
+
 					x += dx * 0.5;
 				} else if (p0 == 5) {
+
+					addTPoint(x + dx, y, 0);
+					addTPoint(x + dx, y + incrementY, 0);
+					addTPoint(x, y + incrementY, 0);
 					x += dx;
 				}
 
@@ -265,7 +289,7 @@ public class Car0Model extends MeshModel {
 
 		int numSections = body.length;
 
-		int[][][] bFaces = buildSingleBlockFaces(nBasePoints, numSections, 0, 0);
+		int[][][] bFaces = buildRedundantSingleBlockFaces(nBasePoints, numSections, 0, 0);
 
 		for (int i = 0; i < NUM_FACES; i++) {
 			faces[counter++] = bFaces[i];
