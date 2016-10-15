@@ -531,7 +531,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						0, 0, 0// wheel_radius, wheel_width, wheel_rays
 				);
 			} else if (BEETLE == val) {
-				setRightData(151, 400, 109, // dx,dy,dz
+				setRightData(40, 106, 33, // dx,dy,dz
 						0, 0, 0, // dxFront, dyFront, dzFront
 						0, 0, 0, // dxRear, dyRear, dzRear
 						0, 0, 0, // dxRoof, dyRoof, dzRoof
