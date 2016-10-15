@@ -238,7 +238,7 @@ public class Car0Model extends MeshModel {
 					x += dx;
 				}
 
-				totBlockTexturesPoints++;
+				totBlockTexturesPoints += 4;
 			}
 		}
 
@@ -312,7 +312,7 @@ public class Car0Model extends MeshModel {
 
 		/////
 		// closing the mesh front with 3 panels
-		totPanel = totBlockTexturesPoints;
+		totPanel = totBlockTexturesPoints + 6;
 		for (int i = 0; i < 3; i++) {
 
 			if (i == 0) {
