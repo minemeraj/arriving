@@ -1,6 +1,7 @@
 New car:
 /lib/cardefault3D_10 (Pickup)
 /lib/cardefault3D_11 (Beetle)
+/lib/cardefault3D_12 (F1 Car)
 
 --- 08/10/2016 CarDriving 11.0.2 - Monza
 
