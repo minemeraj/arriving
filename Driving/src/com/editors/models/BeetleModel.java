@@ -61,6 +61,7 @@ public class BeetleModel extends Car0Model {
 
 		wheel_radius = 0.0830 * dy;
 		wheelZ = 0.0262 * dy;
+		wheel_width = 0.1202 * dx;
 
 		buildCar();
 

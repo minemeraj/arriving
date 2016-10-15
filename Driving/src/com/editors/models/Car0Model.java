@@ -23,7 +23,7 @@ public class Car0Model extends MeshModel {
 
 	// these wheel data should be read from the editor
 	protected int rays_number = 10;
-	protected int wheel_width = 20;
+	protected double wheel_width = 0;
 	protected double wheel_radius;
 	protected double wheelZ;
 
@@ -92,6 +92,7 @@ public class Car0Model extends MeshModel {
 
 		wheel_radius = 0.06703 * dy;
 		wheelZ = 0.03293 * dy;
+		wheel_width = 0.1202 * dx;
 
 		buildCar();
 
@@ -318,7 +319,7 @@ public class Car0Model extends MeshModel {
 		addTPoint(x + wheel_width, y + wheel_width, 0);
 		addTPoint(x, y + wheel_width, 0);
 
-		IMG_WIDTH = (int) (2 * bx + 2 * (dx + dz)) + wheel_width;
+		IMG_WIDTH = (int) (2 * bx + 2 * (dx + dz) + wheel_width);
 		IMG_HEIGHT = (int) (2 * by + dy + 2 * dz);
 
 		return totBlockTexturesPoints;
