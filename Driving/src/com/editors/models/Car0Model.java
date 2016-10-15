@@ -195,9 +195,15 @@ public class Car0Model extends MeshModel {
 		for (int k = 0; k < numSections - 1; k++) {
 
 			double[][] d = body[k];
-			double[][] d_plus_1 = body[k + 1];
-
 			double yi = d[0][0];
+			double x0 = d[1][0];
+			double x1 = d[1][1];
+			double x2 = d[1][2];
+			double z0 = d[2][0];
+			double z1 = d[2][1];
+			double z2 = d[2][2];
+
+			double[][] d_plus_1 = body[k + 1];
 			double yi_plus_1 = d_plus_1[0][0];
 
 			double incrementY = (yi_plus_1 - yi) * dy;
@@ -206,17 +212,32 @@ public class Car0Model extends MeshModel {
 			double x = bx;
 
 			for (int p0 = 0; p0 < nBasePoints; p0++) {
-				addTPoint(x, y, 0);
 
-				if (p0 == 0 || p0 == 4) {
+				// left
+				if (p0 == 0) {
 
-					addTPoint(x + dz, y, 0);
-					addTPoint(x + dz, y + incrementY, 0);
-					addTPoint(x, y + incrementY, 0);
+					addTPoint(x + dz * z0, y, 0);
+					addTPoint(x + dz * z2, y, 0);
+					addTPoint(x + dz * z2, y + incrementY, 0);
+					addTPoint(x + dz * z0, y + incrementY, 0);
+
 					x += dz;
 
-				} else if (p0 == 1 || p0 == 3) {
+				} // right
+				else if (p0 == 4) {
 
+					addTPoint(x + dz * (1.0 - z2), y, 0);
+					addTPoint(x + dz * (1.0 - z0), y, 0);
+					addTPoint(x + dz * (1.0 - z0), y + incrementY, 0);
+					addTPoint(x + dz * (1.0 - z2), y + incrementY, 0);
+
+					x += dz;
+
+				}
+
+				else if (p0 == 1 || p0 == 3) {
+
+					addTPoint(x, y, 0);
 					addTPoint(x + dx * 0.25, y, 0);
 					addTPoint(x + dx * 0.25, y + incrementY, 0);
 					addTPoint(x, y + incrementY, 0);
@@ -225,16 +246,20 @@ public class Car0Model extends MeshModel {
 
 				} else if (p0 == 2) {
 
+					addTPoint(x, y, 0);
 					addTPoint(x + dx * 0.5, y, 0);
 					addTPoint(x + dx * 0.5, y + incrementY, 0);
 					addTPoint(x, y + incrementY, 0);
 
 					x += dx * 0.5;
+
 				} else if (p0 == 5) {
 
+					addTPoint(x, y, 0);
 					addTPoint(x + dx, y, 0);
 					addTPoint(x + dx, y + incrementY, 0);
 					addTPoint(x, y + incrementY, 0);
+
 					x += dx;
 				}
 
