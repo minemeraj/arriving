@@ -70,7 +70,7 @@ public class BeetleModel extends Car0Model {
 	public void printTexture(Graphics2D bg) {
 		// draw lines for reference
 
-		bg.setColor(new Color(83, 192, 251));
+		bg.setColor(new Color(0, 0, 0));
 		bg.setStroke(new BasicStroke(0.1f));
 		printTextureFaces(bg, faces);
 
