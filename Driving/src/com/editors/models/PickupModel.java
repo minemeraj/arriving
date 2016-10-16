@@ -254,17 +254,17 @@ public class PickupModel extends Truck0Model {
 		}
 
 		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, roof[0][0][0], roof[0][0][1], roof[0][1][1], roof[0][1][0],
-				re[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, roof[0][1][0], roof[0][1][1], roof[0][2][0], re[0]);
+				wi[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, roof[0][1][0], roof[0][1][1], roof[0][2][0], wi[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, roof[0][0][1], roof[1][0][1], roof[1][1][1], roof[0][1][1],
 				re[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, roof[0][1][1], roof[1][1][1], roof[1][2][0], roof[0][2][0],
-				re[0]);
+				wi[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, roof[0][0][0], roof[1][0][0], roof[1][0][1], roof[0][0][1],
-				re[0]);
+				wi[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][0][0], roof[1][1][0], roof[1][1][1], roof[1][0][1],
-				re[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][1][0], roof[1][2][0], roof[1][1][1], re[0]);
+				wi[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][1][0], roof[1][2][0], roof[1][1][1], wi[0]);
 
 		return counter;
 	}
@@ -350,10 +350,10 @@ public class PickupModel extends Truck0Model {
 	@Override
 	protected int buildWagonFaces(int counter, int nWagonMeridians) {
 
-		counter = addPrism(prismRight, counter, re[0]);
-		counter = addPrism(prismLeft, counter, re[0]);
-		counter = addPrism(prismBack, counter, re[0]);
-		counter = addPrism(prismFront, counter, re[0]);
+		counter = addPrism(prismRight, counter, wa[0]);
+		counter = addPrism(prismLeft, counter, wa[0]);
+		counter = addPrism(prismBack, counter, wa[0]);
+		counter = addPrism(prismFront, counter, wa[0]);
 
 		return counter;
 	}
