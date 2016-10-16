@@ -62,6 +62,8 @@ public class F10Model extends MeshModel {
 	public static String NAME = "F1 Car";
 
 	int[][] bo = { { 0, 1, 2, 3 } };
+	// wheel texture
+	protected int[][] wh = { { 4, 5, 6, 7 } };
 
 	public F10Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr, double dyr,
 			double dzr, double dxRoof, double dyRoof, double dzRoof, double rearOverhang, double frontOverhang,
@@ -251,22 +253,22 @@ public class F10Model extends MeshModel {
 
 		///// WHEELS
 
-		int[][][] wFaces = buildWheelFaces(wheelLeftFront, bo[0]);
+		int[][][] wFaces = buildWheelFaces(wheelLeftFront, wh[0]);
 		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++] = wFaces[i];
 		}
 
-		wFaces = buildWheelFaces(wheelRightFront, bo[0]);
+		wFaces = buildWheelFaces(wheelRightFront, wh[0]);
 		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++] = wFaces[i];
 		}
 
-		wFaces = buildWheelFaces(wheelLeftRear, bo[0]);
+		wFaces = buildWheelFaces(wheelLeftRear, wh[0]);
 		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++] = wFaces[i];
 		}
 
-		wFaces = buildWheelFaces(wheelRightRear, bo[0]);
+		wFaces = buildWheelFaces(wheelRightRear, wh[0]);
 		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++] = wFaces[i];
 		}
@@ -368,20 +370,13 @@ public class F10Model extends MeshModel {
 	@Override
 	public void printTexture(Graphics2D bufGraphics) {
 
-		bufGraphics.setColor(Color.BLACK);
 		bufGraphics.setStroke(new BasicStroke(0.1f));
 
-		for (int i = 0; i < faces.length; i++) {
+		bufGraphics.setColor(new Color(255, 40, 1));
+		printTexturePolygon(bufGraphics, bo[0]);
 
-			int[][] face = faces[i];
-			int[] tPoints = face[2];
-			if (tPoints.length == 4) {
-				printTexturePolygon(bufGraphics, tPoints[0], tPoints[1], tPoints[2], tPoints[3]);
-			} else if (tPoints.length == 3) {
-				printTexturePolygon(bufGraphics, tPoints[0], tPoints[1], tPoints[2]);
-			}
-
-		}
+		bufGraphics.setColor(new Color(0, 0, 0));
+		printTexturePolygon(bufGraphics, wh[0]);
 
 	}
 
