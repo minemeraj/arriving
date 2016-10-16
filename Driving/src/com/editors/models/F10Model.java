@@ -45,6 +45,8 @@ public class F10Model extends MeshModel {
 	private double dyTexture = 200;
 	private double dxTexture = 200;
 
+	protected double wheelZ;
+
 	double x0 = 0;
 	double y0 = 0;
 	double z0 = 0;
@@ -127,15 +129,17 @@ public class F10Model extends MeshModel {
 
 	private void buildWheels() {
 
-		double wz = 0;
+		wheelZ = 0.795 * wheelRadius;
+
+		double wz = wheelZ;
 		double wx = wheelWidth;
 
-		wheelLeftFront = buildWheel(-dx * 0.5 - wx * 0.5, dyRear + dy + dyFront * 0.5, wz, wheelRadius, wheelWidth,
-				wheel_rays);
-		wheelRightFront = buildWheel(dx * 0.5 - wx * 0.5, dyRear + dy + dyFront * 0.5, wz, wheelRadius, wheelWidth,
-				wheel_rays);
-		wheelLeftRear = buildWheel(-dx * 0.5 - wx * 0.5, dyRear * 0.5, wz, wheelRadius, wheelWidth, wheel_rays);
-		wheelRightRear = buildWheel(dx * 0.5 - wx * 0.5, dyRear * 0.5, wz, wheelRadius, wheelWidth, wheel_rays);
+		wheelLeftFront = buildWheel(-dx * 0.5 - wx * 0.5, dyRear + dy + (dyFront - frontOverhang), wz, wheelRadius,
+				wheelWidth, wheel_rays);
+		wheelRightFront = buildWheel(dx * 0.5 - wx * 0.5, dyRear + dy + (dyFront - frontOverhang), wz, wheelRadius,
+				wheelWidth, wheel_rays);
+		wheelLeftRear = buildWheel(-dx * 0.5 - wx * 0.5, rearOverhang, wz, wheelRadius, wheelWidth, wheel_rays);
+		wheelRightRear = buildWheel(dx * 0.5 - wx * 0.5, rearOverhang, wz, wheelRadius, wheelWidth, wheel_rays);
 
 	}
 
