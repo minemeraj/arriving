@@ -66,6 +66,7 @@ public class F10Model extends MeshModel {
 	int[][] bo = { { 0, 1, 2, 3 } };
 	// wheel texture
 	protected int[][] wh = { { 4, 5, 6, 7 } };
+	private int frontNY = 3;
 
 	public F10Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr, double dyr,
 			double dzr, double dxRoof, double dyRoof, double dzRoof, double rearOverhang, double frontOverhang,
@@ -115,7 +116,9 @@ public class F10Model extends MeshModel {
 		int NUM_WHEEL_FACES = 4 * totWheelPolygon;
 
 		// faces
-		int NF = 6 * 6;
+		int NF = 6 * 5;
+		// front
+		NF += 2 + (frontNY - 1) * 4;
 
 		int counter = 0;
 
@@ -189,17 +192,24 @@ public class F10Model extends MeshModel {
 
 		Segments s2 = new Segments(0, dxFront * 0.5, dyRear + dy, dyFront, 0, dzFront);
 
-		front = new BPoint[2][2][2];
+		front = new BPoint[2][frontNY][2];
 
-		front[0][0][0] = addBPoint(-1.0, 0.0, 0, s2);
-		front[1][0][0] = addBPoint(1.0, 0.0, 0, s2);
-		front[0][1][0] = addBPoint(-1.0, 1.0, 0, s2);
-		front[1][1][0] = addBPoint(1.0, 1.0, 0, s2);
+		front[0][0][0] = body[0][1][0];
+		front[1][0][0] = body[1][1][0];
+		front[0][0][1] = body[0][1][1];
+		front[1][0][1] = body[1][1][1];
 
-		front[0][0][1] = addBPoint(-1.0, 0.0, 1.0, s2);
-		front[1][0][1] = addBPoint(1.0, 0.0, 1.0, s2);
-		front[0][1][1] = addBPoint(-1.0, 1.0, 1.0, s2);
-		front[1][1][1] = addBPoint(1.0, 1.0, 1.0, s2);
+		double middleFrontDx = 0.5 * (dxFront + dx) * 0.5 / dxFront;
+
+		front[0][1][0] = addBPoint(-middleFrontDx, 0.5, 0, s2);
+		front[1][1][0] = addBPoint(middleFrontDx, 0.5, 0, s2);
+		front[0][1][1] = addBPoint(-middleFrontDx, 0.5, 1.0, s2);
+		front[1][1][1] = addBPoint(middleFrontDx, 0.5, 1.0, s2);
+
+		front[0][2][0] = addBPoint(-1.0, 1.0, 0, s2);
+		front[1][2][0] = addBPoint(1.0, 1.0, 0, s2);
+		front[0][2][1] = addBPoint(-1.0, 1.0, 1.0, s2);
+		front[1][2][1] = addBPoint(1.0, 1.0, 1.0, s2);
 
 		Segments s3 = new Segments(0, dxRoof * 0.5, dyRear, dyRoof, dz, dzRoof);
 
@@ -321,18 +331,20 @@ public class F10Model extends MeshModel {
 		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[0][0][0], body[0][1][0], body[1][1][0], body[1][0][0],
 				bo[0]);
 
-		faces[counter++] = buildFace(Renderer3D.CAR_TOP, front[0][0][1], front[1][0][1], front[1][1][1], front[0][1][1],
-				bo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, front[0][0][0], front[0][0][1], front[0][1][1],
-				front[0][1][0], bo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, front[1][0][0], front[1][1][0], front[1][1][1],
-				front[1][0][1], bo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, front[0][1][0], front[0][1][1], front[1][1][1],
-				front[1][1][0], bo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, front[0][0][0], front[1][0][0], front[1][0][1],
 				front[0][0][1], bo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, front[0][0][0], front[0][1][0], front[1][1][0],
-				front[1][0][0], bo[0]);
+		for (int j = 0; j < frontNY - 1; j++) {
+			faces[counter++] = buildFace(Renderer3D.CAR_TOP, front[0][j][1], front[1][j][1], front[1][j + 1][1],
+					front[0][j + 1][1], bo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, front[0][j][0], front[0][j][1], front[0][j + 1][1],
+					front[0][j + 1][0], bo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, front[1][j][0], front[1][j + 1][0], front[1][j + 1][1],
+					front[1][j][1], bo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, front[0][j][0], front[0][j + 1][0], front[1][j + 1][0],
+					front[1][j][0], bo[0]);
+		}
+		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, front[0][frontNY - 1][0], front[0][frontNY - 1][1],
+				front[1][frontNY - 1][1], front[1][frontNY - 1][0], bo[0]);
 
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, frontSpoiler[0][0][1], frontSpoiler[1][0][1],
 				frontSpoiler[1][1][1], frontSpoiler[0][1][1], bo[0]);
