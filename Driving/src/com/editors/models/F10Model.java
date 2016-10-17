@@ -148,7 +148,7 @@ public class F10Model extends MeshModel {
 
 	private void buildBody() {
 
-		Segments rs = new Segments(0, dxRear * 0.5, 0, 14, dzRear, dzRoof);
+		Segments rs = new Segments(0, dxRear * 0.5, 0, dyRear * 0.737, dzRear, dzRoof);
 
 		backSpoiler = new BPoint[2][2][2];
 
@@ -162,7 +162,7 @@ public class F10Model extends MeshModel {
 		backSpoiler[0][1][1] = addBPoint(-1.0, 1.0, 1.0, rs);
 		backSpoiler[1][1][1] = addBPoint(1.0, 1.0, 1.0, rs);
 
-		Segments s0 = new Segments(0, dxRear * 0.5, 0, dyRear, 0, dzRear);
+		Segments s0 = new Segments(0, dxRear * 0.5, rearOverhang1, dyRear, 0, dzRear);
 
 		back = new BPoint[2][2][2];
 
@@ -176,7 +176,7 @@ public class F10Model extends MeshModel {
 		back[0][1][1] = addBPoint(-1.0, 1.0, 1.0, s0);
 		back[1][1][1] = addBPoint(1.0, 1.0, 1.0, s0);
 
-		Segments s1 = new Segments(0, dx * 0.5, dyRear, dy, 0, dz);
+		Segments s1 = new Segments(0, dx * 0.5, rearOverhang1 + dyRear, dy, 0, dz);
 
 		body = new BPoint[2][2][2];
 
@@ -190,7 +190,7 @@ public class F10Model extends MeshModel {
 		body[0][1][1] = addBPoint(-1.0, 1.0, 1.0, s1);
 		body[1][1][1] = addBPoint(1.0, 1.0, 1.0, s1);
 
-		Segments s2 = new Segments(0, dxFront * 0.5, dyRear + dy, dyFront, 0, dzFront);
+		Segments s2 = new Segments(0, dxFront * 0.5, rearOverhang1 + dyRear + dy, dyFront, 0, dzFront);
 
 		front = new BPoint[2][frontNY][2];
 
@@ -211,7 +211,7 @@ public class F10Model extends MeshModel {
 		front[0][2][1] = addBPoint(-1.0, 1.0, 1.0, s2);
 		front[1][2][1] = addBPoint(1.0, 1.0, 1.0, s2);
 
-		Segments s3 = new Segments(0, dxRoof * 0.5, dyRear, dyRoof, dz, dzRoof);
+		Segments s3 = new Segments(0, dxRoof * 0.5, rearOverhang1 + dyRear, dyRoof, dz, dzRoof);
 
 		roof = new BPoint[2][2][2];
 
@@ -225,7 +225,7 @@ public class F10Model extends MeshModel {
 		roof[0][1][1] = addBPoint(-1.0, 1.0, 1.0, s3);
 		roof[1][1][1] = addBPoint(1.0, 1.0, 1.0, s3);
 
-		Segments fs = new Segments(0, dx * 0.5, dyRear + dy + dyFront, 16, 0, dzFront);
+		Segments fs = new Segments(0, dx * 0.5, rearOverhang1 + dyRear + dy + dyFront, dyFront * 0.4, 0, dzFront);
 
 		frontSpoiler = new BPoint[2][2][2];
 
@@ -236,8 +236,8 @@ public class F10Model extends MeshModel {
 
 		frontSpoiler[0][0][1] = addBPoint(-1.0, 0.0, 1.0, fs);
 		frontSpoiler[1][0][1] = addBPoint(1.0, 0.0, 1.0, fs);
-		frontSpoiler[0][1][1] = addBPoint(-1.0, 1.0, 1.0, fs);
-		frontSpoiler[1][1][1] = addBPoint(1.0, 1.0, 1.0, fs);
+		frontSpoiler[0][1][1] = addBPoint(-1.0, 1.0, 0.25, fs);
+		frontSpoiler[1][1][1] = addBPoint(1.0, 1.0, 0.25, fs);
 	}
 
 	private void buildTextures() {
