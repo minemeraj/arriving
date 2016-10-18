@@ -225,7 +225,9 @@ public class F10Model extends MeshModel {
 		roof[0][1][1] = addBPoint(-1.0, 1.0, 1.0, s3);
 		roof[1][1][1] = addBPoint(1.0, 1.0, 1.0, s3);
 
-		Segments fs = new Segments(0, dx * 0.5, rearOverhang1 + dyRear + dy + dyFront, dyFront * 0.4, 0, dzFront);
+		double dyFrontSpoiler = dyFront * 0.282;
+		Segments fs = new Segments(0, dx * 0.5, rearOverhang1 + dyRear + dy + dyFront - dyFrontSpoiler, dyFrontSpoiler,
+				0, dzFront);
 
 		frontSpoiler = new BPoint[2][2][2];
 
@@ -234,8 +236,8 @@ public class F10Model extends MeshModel {
 		frontSpoiler[0][1][0] = addBPoint(-1.0, 1.0, 0, fs);
 		frontSpoiler[1][1][0] = addBPoint(1.0, 1.0, 0, fs);
 
-		frontSpoiler[0][0][1] = addBPoint(-1.0, 0.0, 1.0, fs);
-		frontSpoiler[1][0][1] = addBPoint(1.0, 0.0, 1.0, fs);
+		frontSpoiler[0][0][1] = addBPoint(-1.0, 0.0, 0.5, fs);
+		frontSpoiler[1][0][1] = addBPoint(1.0, 0.0, 0.5, fs);
 		frontSpoiler[0][1][1] = addBPoint(-1.0, 1.0, 0.25, fs);
 		frontSpoiler[1][1][1] = addBPoint(1.0, 1.0, 0.25, fs);
 	}
