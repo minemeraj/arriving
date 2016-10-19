@@ -197,6 +197,9 @@ public class Car0Model extends MeshModel {
 
 			double[][] d = body[k];
 			double yi = d[0][0];
+			double x0 = d[1][0];
+			double x1 = d[1][1];
+			double x2 = d[1][2];
 			double z0 = d[2][0];
 			double z1 = d[2][1];
 			double z2 = d[2][2];
@@ -236,7 +239,7 @@ public class Car0Model extends MeshModel {
 
 				}
 
-				else if (p0 == 1 || p0 == 3) {
+				else if (p0 == 1) {
 
 					addTPoint(x, y, 0);
 					addTPoint(x + dx * 0.25, y, 0);
@@ -253,6 +256,15 @@ public class Car0Model extends MeshModel {
 					addTPoint(x, y + incrementY, 0);
 
 					x += dx * 0.5;
+
+				} else if (p0 == 3) {
+
+					addTPoint(x, y, 0);
+					addTPoint(x + dx * 0.25, y, 0);
+					addTPoint(x + dx * 0.25, y + incrementY, 0);
+					addTPoint(x, y + incrementY, 0);
+
+					x += dx * 0.25;
 
 				} else if (p0 == 5) {
 
