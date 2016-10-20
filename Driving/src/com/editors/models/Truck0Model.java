@@ -339,7 +339,7 @@ public class Truck0Model extends MeshModel {
 		// wagon points
 		x += dxTexture + shift;
 		y = by;
-		addTRect(x, y, dxWagon, dzWagon);
+		addTRect(x + dzWagon, y, dxWagon, dzWagon);
 		addTRect(x, y + dzWagon, dzWagon, dyWagon);
 		addTRect(x + dzWagon, y + dzWagon, dxWagon, dyWagon);
 		addTRect(x + dzWagon + dxWagon, y + dzWagon, dzWagon, dyWagon);
@@ -470,7 +470,7 @@ public class Truck0Model extends MeshModel {
 		bufGraphics.setColor(new Color(217, 15, 27));
 		printTexturePolygon(bufGraphics, re[0]);
 
-		bufGraphics.setColor(new Color(217, 15, 27));
+		bufGraphics.setColor(new Color(255, 255, 255));
 		printTexturePolygon(bufGraphics, backWa);
 		printTexturePolygon(bufGraphics, leftWa);
 		printTexturePolygon(bufGraphics, wa[0]);
