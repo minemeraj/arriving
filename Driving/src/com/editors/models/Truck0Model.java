@@ -121,13 +121,13 @@ public class Truck0Model extends MeshModel {
 		texturePoints = new Vector<Point3D>();
 
 		int c = 0;
-		initDoubleArrayValues(re = new int[1][4], c);
-		initSingleArrayValues(backWa = new int[4], c);
-		initSingleArrayValues(leftWa = new int[4], c);
-		initDoubleArrayValues(wa = new int[1][4], c);
-		initSingleArrayValues(rightWa = new int[4], c);
-		initDoubleArrayValues(wi = new int[1][4], c);
-		initDoubleArrayValues(wh = new int[1][4], c);
+		c = initDoubleArrayValues(re = new int[1][4], c);
+		c = initSingleArrayValues(backWa = new int[4], c);
+		c = initSingleArrayValues(leftWa = new int[4], c);
+		c = initDoubleArrayValues(wa = new int[1][4], c);
+		c = initSingleArrayValues(rightWa = new int[4], c);
+		c = initDoubleArrayValues(wi = new int[1][4], c);
+		c = initDoubleArrayValues(wh = new int[1][4], c);
 
 		x0 = dxWagon * 0.5;
 

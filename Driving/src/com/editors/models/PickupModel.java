@@ -52,16 +52,16 @@ public class PickupModel extends Truck0Model {
 	public void initMesh() {
 
 		int c = 0;
-		initSingleArrayValues(backRear = new int[4], c);
-		initSingleArrayValues(backWagon = new int[4], c);
-		initSingleArrayValues(topRear = new int[4], c);
-		initSingleArrayValues(topFront = new int[4], c);
-		initSingleArrayValues(topRoof = new int[4], c);
+		c = initSingleArrayValues(backRear = new int[4], c);
+		c = initSingleArrayValues(backWagon = new int[4], c);
+		c = initSingleArrayValues(topRear = new int[4], c);
+		c = initSingleArrayValues(topFront = new int[4], c);
+		c = initSingleArrayValues(topRoof = new int[4], c);
 
-		initDoubleArrayValues(re = new int[1][4], c);
-		initDoubleArrayValues(wa = new int[1][4], c);
-		initDoubleArrayValues(wi = new int[1][4], c);
-		initDoubleArrayValues(wh = new int[1][4], c);
+		c = initDoubleArrayValues(re = new int[1][4], c);
+		c = initDoubleArrayValues(wa = new int[1][4], c);
+		c = initDoubleArrayValues(wi = new int[1][4], c);
+		c = initDoubleArrayValues(wh = new int[1][4], c);
 
 		points = new Vector<Point3D>();
 		texturePoints = new Vector();
@@ -111,8 +111,6 @@ public class PickupModel extends Truck0Model {
 		y += dzRear;
 		addTRect(x, y, dxWagon, dzWagon);
 		addTRect(x, y, dxWagon, dzWagon);
-		addTRect(x, y, dxWagon, dzWagon);
-		addTRect(x, y, dxWagon, dzWagon);
 		y += dzWagon;
 		addTRect(x, y, dxRear, dyRear);
 		y += dyRear;
@@ -132,7 +130,6 @@ public class PickupModel extends Truck0Model {
 
 		// window points
 		x += dxTexture + shift;
-		;
 		y = by;
 		addTRect(x, y, dxTexture, dyTexture);
 
