@@ -842,5 +842,36 @@ public abstract class MeshModel {
 
     }
 
+    protected static int initDoubleArrayValues(int[][] douArray,int inc) {
+
+
+        for (int i = 0; i < douArray.length; i++) {
+
+            int[] sinArray=douArray[i];
+
+            for (int j = 0; j < sinArray.length; j++) {
+
+                sinArray[j]=inc++;
+
+            }
+
+        }
+
+        return inc;
+
+    }
+
+    protected static int initSingleArrayValues(int[] sinArray,int inc) {
+
+        for (int j = 0; j < sinArray.length; j++) {
+
+            sinArray[j]=inc++;
+
+        }
+
+        return inc;
+
+    }
+
 
 }

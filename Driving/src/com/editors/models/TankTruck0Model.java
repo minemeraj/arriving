@@ -26,6 +26,13 @@ public class TankTruck0Model extends Truck0Model {
 
 	@Override
 	public void initMesh() {
+
+		int c = 0;
+		initDoubleArrayValues(re = new int[1][4], c);
+		initDoubleArrayValues(wa = new int[1][4], c);
+		initDoubleArrayValues(wi = new int[1][4], c);
+		initDoubleArrayValues(wh = new int[1][4], c);
+
 		points = new Vector<Point3D>();
 		texturePoints = new Vector();
 
