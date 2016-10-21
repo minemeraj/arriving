@@ -16,6 +16,7 @@ public class Jeep0Model extends PickupModel {
 		super(dxFront, dyfront, dzFront, dxRoof, dyRoof, dzRoof, dxRear, dyRear, dzRear, dxWagon, dyWagon, dzWagon,
 				rearOverhang, frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheel_rays);
 
+		nWagonUnits = 2;
 	}
 
 	@Override
