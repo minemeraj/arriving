@@ -19,457 +19,457 @@ import com.main.Renderer3D;
  */
 public class PickupModel extends Truck0Model {
 
-	public static final String NAME = "Pickup";
-	private Prism prismRight;
-	private Prism prismLeft;
-	private Prism prismBack;
-	private Prism prismFront;
+    public static final String NAME = "Pickup";
+    private Prism prismRight;
+    private Prism prismLeft;
+    private Prism prismBack;
+    private Prism prismFront;
 
-	protected int nWagonUnits = 10;
+    protected int nWagonUnits = 10;
 
-	protected double wheelZ = 0;
+    protected double wheelZ = 0;
 
-	int[] backRear = null;
-	int[] backWagon = null;
-	int[] topRear = null;
-	int[] topFront = null;
-	int[] topRoof = null;
 
-	public PickupModel(double dxFront, double dyfront, double dzFront, double dxRoof, double dyRoof, double dzRoof,
-			double dxRear, double dyRear, double dzRear, double dxWagon, double dyWagon, double dzWagon,
-			double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1, double wheelRadius,
-			double wheelWidth, int wheel_rays) {
-		super(dxFront, dyfront, dzFront, dxRoof, dyRoof, dzRoof, dxRear, dyRear, dzRear, dxWagon, dyWagon, dzWagon,
-				rearOverhang, frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheel_rays);
-
-		nzCab = 2;
-		nzBody = 2;
-		nyBody = 6;
+    int[] backWagon = null;
+    int[] topRear = null;
+    int[] topFront = null;
+    int[] topRoof = null;
 
-	}
+    public PickupModel(double dxFront, double dyfront, double dzFront, double dxRoof, double dyRoof, double dzRoof,
+            double dxRear, double dyRear, double dzRear, double dxWagon, double dyWagon, double dzWagon,
+            double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1, double wheelRadius,
+            double wheelWidth, int wheel_rays) {
+        super(dxFront, dyfront, dzFront, dxRoof, dyRoof, dzRoof, dxRear, dyRear, dzRear, dxWagon, dyWagon, dzWagon,
+                rearOverhang, frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheel_rays);
 
-	@Override
-	public void initMesh() {
+        nzCab = 2;
+        nzBody = 2;
+        nyBody = 6;
 
-		int c = 0;
-		c = initSingleArrayValues(backRear = new int[4], c);
-		c = initSingleArrayValues(backWagon = new int[4], c);
-		c = initSingleArrayValues(topRear = new int[4], c);
-		c = initSingleArrayValues(topFront = new int[4], c);
-		c = initSingleArrayValues(topRoof = new int[4], c);
-
-		c = initDoubleArrayValues(re = new int[1][4], c);
-		c = initDoubleArrayValues(wa = new int[1][4], c);
-		c = initDoubleArrayValues(wi = new int[1][4], c);
-		c = initDoubleArrayValues(wh = new int[1][4], c);
+    }
 
-		points = new Vector<Point3D>();
-		texturePoints = new Vector();
+    @Override
+    public void initMesh() {
 
-		x0 = dxWagon * 0.5;
+        int c = 0;
+        c = initSingleArrayValues(backRear = new int[4], c);
+        c = initSingleArrayValues(backWagon = new int[4], c);
+        c = initSingleArrayValues(topRear = new int[4], c);
+        c = initSingleArrayValues(topFront = new int[4], c);
+        c = initSingleArrayValues(topRoof = new int[4], c);
 
-		wheelZ = -0.1122 * wheelRadius;
+        c = initDoubleArrayValues(re = new int[1][4], c);
+        c = initDoubleArrayValues(wa = new int[1][4], c);
+        c = initDoubleArrayValues(wi = new int[1][4], c);
+        c = initDoubleArrayValues(wh = new int[1][4], c);
 
-		buildCabin();
+        points = new Vector<Point3D>();
+        texturePoints = new Vector();
 
-		buildRear();
+        x0 = dxWagon * 0.5;
 
-		buildWagon(nWagonUnits);
+        wheelZ = -0.1122 * wheelRadius;
 
-		buildWheels();
-		buildTextures();
+        buildCabin();
 
-		int totWheelPolygon = wheel_rays + 2 * (wheel_rays - 2);
-		int NUM_WHEEL_FACES = 4 * totWheelPolygon;
+        buildRear();
 
-		// faces
-		int NF = 2 + (2 + (nzCab - 1)) * (nYcab - 1) * 2;
-		NF += 2 + (nyBody - 1) * 4;
-		// cabin roof
-		NF += 7;
-		// wagon prisms
-		NF += 6 * 4;
+        buildWagon(nWagonUnits);
 
-		faces = new int[NF + NUM_WHEEL_FACES][3][4];
+        buildWheels();
+        buildTextures();
 
-		int counter = 0;
-		counter = buildBodyFaces(counter, nzBody, nWagonUnits);
-		counter = buildWheelFaces(counter, totWheelPolygon);
+        int totWheelPolygon = wheel_rays + 2 * (wheel_rays - 2);
+        int NUM_WHEEL_FACES = 4 * totWheelPolygon;
 
-	}
+        // faces
+        int NF = 2 + (2 + (nzCab - 1)) * (nYcab - 1) * 2;
+        NF += 2 + (nyBody - 1) * 4;
+        // cabin roof
+        NF += 7;
+        // wagon prisms
+        NF += 6 * 4;
 
-	@Override
-	protected void buildTextures() {
+        faces = new int[NF + NUM_WHEEL_FACES][3][4];
 
-		int shift = 1;
+        int counter = 0;
+        counter = buildBodyFaces(counter, nzBody, nWagonUnits);
+        counter = buildWheelFaces(counter, totWheelPolygon);
 
-		double y = by;
-		double x = bx;
-
-		// top and rear
-		addTRect(x, y, dxRear, dzRear);
-		y += dzRear;
-		addTRect(x, y, dxWagon, dzWagon);
-		addTRect(x, y, dxWagon, dzWagon);
-		y += dzWagon;
-		addTRect(x, y, dxRear, dyRear);
-		y += dyRear;
-		// the front top texture is partially covered by the roof one
-		addTRect(x, y, dxFront, dyFront);
-		addTRect(x, y, dxRoof, dyRoof);
+    }
 
-		// body points
-		x += dxRear + shift;
-		y = by;
-		addTRect(x, y, dxTexture, dyTexture);
-
-		// wagon points
-		x += dxTexture + shift;
-		y = by;
-		addTRect(x, y, dxTexture, dyTexture);
-
-		// window points
-		x += dxTexture + shift;
-		y = by;
-		addTRect(x, y, dxTexture, dyTexture);
-
-		// wheel texture, a black square for simplicity:
-		x += dxTexture + shift;
-		y = by;
-		addTRect(x, y, wheelWidth, wheelWidth);
+    @Override
+    protected void buildTextures() {
 
-		IMG_WIDTH = (int) (2 * bx + 3 * dxTexture + wheelWidth + 4 * shift + dxRear);
-		IMG_HEIGHT = (int) (2 * by + dzRear + dzWagon + dyRear + dyFront);
-	}
+        int shift = 1;
 
-	@Override
-	protected void buildCabin() {
-
-		double yAxle = (dyFront - frontOverhang) / dyFront;
-		double wy = wheelRadius * 1.0 / dyFront;
+        double y = by;
+        double x = bx;
 
-		double fy0 = 0;
-		double fy2 = yAxle - wy;
-		double fy1 = (0 * 0.25 + fy2 * 0.75);
-		double fy3 = yAxle + wy;
-		double fy5 = 1.0;
-		double fy4 = (fy3 * 0.75 + fy5 * 0.25);
-
-		double wz2 = (wheelRadius + wheelZ) / dzFront;
-		double wz3 = wz2;
-
-		double fz2 = 1.0;
-
-		Segments s0 = new Segments(x0 - dxFront * 0.5, dxFront, y0 + dyRear, dyFront, z0, dzFront);
-
-		cab = new BPoint[2][nYcab][nzCab];
-
-		cab[0][0][0] = addBPoint(0.0, fy0, 0.0, s0);
-		cab[0][0][1] = addBPoint(0.0, fy0, fz2, s0);
-		cab[1][0][0] = addBPoint(1.0, fy0, 0.0, s0);
-		cab[1][0][1] = addBPoint(1.0, fy0, fz2, s0);
-
-		cab[0][1][0] = addBPoint(0.0, fy1, 0.0, s0);
-		cab[0][1][1] = addBPoint(0.0, fy1, fz2, s0);
-		cab[1][1][0] = addBPoint(1.0, fy1, 0.0, s0);
-		cab[1][1][1] = addBPoint(1.0, fy1, fz2, s0);
+        // top and rear
+        addTRect(x, y, dxRear, dzRear);
+        y += dzRear;
+        addTRect(x, y, dxWagon, dzWagon);
+        addTRect(x, y, dxWagon, dzWagon);
+        y += dzWagon;
+        addTRect(x, y, dxRear, dyRear);
+        y += dyRear;
+        // the front top texture is partially covered by the roof one
+        addTRect(x, y, dxFront, dyFront);
+        addTRect(x, y, dxRoof, dyRoof);
 
-		cab[0][2][0] = addBPoint(0.0, fy2, wz2, s0);
-		cab[0][2][1] = addBPoint(0.0, fy2, fz2, s0);
-		cab[1][2][0] = addBPoint(1.0, fy2, wz2, s0);
-		cab[1][2][1] = addBPoint(1.0, fy2, fz2, s0);
+        // body points
+        x += dxRear + shift;
+        y = by;
+        addTRect(x, y, dxTexture, dyTexture);
+
+        // wagon points
+        x += dxTexture + shift;
+        y = by;
+        addTRect(x, y, dxTexture, dyTexture);
+
+        // window points
+        x += dxTexture + shift;
+        y = by;
+        addTRect(x, y, dxTexture, dyTexture);
+
+        // wheel texture, a black square for simplicity:
+        x += dxTexture + shift;
+        y = by;
+        addTRect(x, y, wheelWidth, wheelWidth);
 
-		cab[0][3][0] = addBPoint(0.0, fy3, wz3, s0);
-		cab[0][3][1] = addBPoint(0.0, fy3, fz2, s0);
-		cab[1][3][0] = addBPoint(1.0, fy3, wz3, s0);
-		cab[1][3][1] = addBPoint(1.0, fy3, fz2, s0);
+        IMG_WIDTH = (int) (2 * bx + 3 * dxTexture + wheelWidth + 4 * shift + dxRear);
+        IMG_HEIGHT = (int) (2 * by + dzRear + dzWagon + dyRear + dyFront);
+    }
 
-		cab[0][4][0] = addBPoint(0.0, fy4, 0.0, s0);
-		cab[0][4][1] = addBPoint(0.0, fy4, fz2, s0);
-		cab[1][4][0] = addBPoint(1.0, fy4, 0.0, s0);
-		cab[1][4][1] = addBPoint(1.0, fy4, fz2, s0);
-
-		cab[0][5][0] = addBPoint(0.0, fy5, 0.0, s0);
-		cab[0][5][1] = addBPoint(0.0, fy5, fz2, s0);
-		cab[1][5][0] = addBPoint(1.0, fy5, 0.0, s0);
-		cab[1][5][1] = addBPoint(1.0, fy5, fz2, s0);
+    @Override
+    protected void buildCabin() {
+
+        double yAxle = (dyFront - frontOverhang) / dyFront;
+        double wy = wheelRadius * 1.0 / dyFront;
 
-		Segments r0 = new Segments(x0 - dxRoof * 0.5, dxRoof, y0 + dyRear, dyRoof, z0 + dzFront, dzRoof);
+        double fy0 = 0;
+        double fy2 = yAxle - wy;
+        double fy1 = (0 * 0.25 + fy2 * 0.75);
+        double fy3 = yAxle + wy;
+        double fy5 = 1.0;
+        double fy4 = (fy3 * 0.75 + fy5 * 0.25);
+
+        double wz2 = (wheelRadius + wheelZ) / dzFront;
+        double wz3 = wz2;
+
+        double fz2 = 1.0;
+
+        Segments s0 = new Segments(x0 - dxFront * 0.5, dxFront, y0 + dyRear, dyFront, z0, dzFront);
+
+        cab = new BPoint[2][nYcab][nzCab];
+
+        cab[0][0][0] = addBPoint(0.0, fy0, 0.0, s0);
+        cab[0][0][1] = addBPoint(0.0, fy0, fz2, s0);
+        cab[1][0][0] = addBPoint(1.0, fy0, 0.0, s0);
+        cab[1][0][1] = addBPoint(1.0, fy0, fz2, s0);
+
+        cab[0][1][0] = addBPoint(0.0, fy1, 0.0, s0);
+        cab[0][1][1] = addBPoint(0.0, fy1, fz2, s0);
+        cab[1][1][0] = addBPoint(1.0, fy1, 0.0, s0);
+        cab[1][1][1] = addBPoint(1.0, fy1, fz2, s0);
 
-		double dyRup = (dyFront - frontOverhang1) / dyRoof;
+        cab[0][2][0] = addBPoint(0.0, fy2, wz2, s0);
+        cab[0][2][1] = addBPoint(0.0, fy2, fz2, s0);
+        cab[1][2][0] = addBPoint(1.0, fy2, wz2, s0);
+        cab[1][2][1] = addBPoint(1.0, fy2, fz2, s0);
 
-		roof = new BPoint[2][3][2];
-		roof[0][0][0] = addBPoint(0.0, 0, 0, r0);
-		roof[1][0][0] = addBPoint(1.0, 0, 0, r0);
-		roof[0][1][0] = addBPoint(0.0, dyRup, 0, r0);
-		roof[1][1][0] = addBPoint(1.0, dyRup, 0, r0);
-		roof[0][2][0] = addBPoint(0.0, 1.0, 0, r0);
-		roof[1][2][0] = addBPoint(1.0, 1.0, 0, r0);
+        cab[0][3][0] = addBPoint(0.0, fy3, wz3, s0);
+        cab[0][3][1] = addBPoint(0.0, fy3, fz2, s0);
+        cab[1][3][0] = addBPoint(1.0, fy3, wz3, s0);
+        cab[1][3][1] = addBPoint(1.0, fy3, fz2, s0);
 
-		roof[0][0][1] = addBPoint(0.0, 0, 1.0, r0);
-		roof[1][0][1] = addBPoint(1.0, 0, 1.0, r0);
-		roof[0][1][1] = addBPoint(0.0, dyRup, 1.0, r0);
-		roof[1][1][1] = addBPoint(1.0, dyRup, 1.0, r0);
-	}
+        cab[0][4][0] = addBPoint(0.0, fy4, 0.0, s0);
+        cab[0][4][1] = addBPoint(0.0, fy4, fz2, s0);
+        cab[1][4][0] = addBPoint(1.0, fy4, 0.0, s0);
+        cab[1][4][1] = addBPoint(1.0, fy4, fz2, s0);
+
+        cab[0][5][0] = addBPoint(0.0, fy5, 0.0, s0);
+        cab[0][5][1] = addBPoint(0.0, fy5, fz2, s0);
+        cab[1][5][0] = addBPoint(1.0, fy5, 0.0, s0);
+        cab[1][5][1] = addBPoint(1.0, fy5, fz2, s0);
 
-	@Override
-	protected void buildRear() {
+        Segments r0 = new Segments(x0 - dxRoof * 0.5, dxRoof, y0 + dyRear, dyRoof, z0 + dzFront, dzRoof);
 
-		double yRearAxle = 2.0 * wheelRadius / dyRear;
+        double dyRup = (dyFront - frontOverhang1) / dyRoof;
 
-		double wy = wheelRadius * 1.0 / dyRear;
+        roof = new BPoint[2][3][2];
+        roof[0][0][0] = addBPoint(0.0, 0, 0, r0);
+        roof[1][0][0] = addBPoint(1.0, 0, 0, r0);
+        roof[0][1][0] = addBPoint(0.0, dyRup, 0, r0);
+        roof[1][1][0] = addBPoint(1.0, dyRup, 0, r0);
+        roof[0][2][0] = addBPoint(0.0, 1.0, 0, r0);
+        roof[1][2][0] = addBPoint(1.0, 1.0, 0, r0);
 
-		double fy0 = 0;
-		double fy2 = yRearAxle - wy;
-		double fy1 = (0 * 0.25 + fy2 * 0.75);
-		double fy3 = yRearAxle + wy;
-		double fy5 = 1.0;
-		double fy4 = yRearAxle + (yRearAxle - fy1);
+        roof[0][0][1] = addBPoint(0.0, 0, 1.0, r0);
+        roof[1][0][1] = addBPoint(1.0, 0, 1.0, r0);
+        roof[0][1][1] = addBPoint(0.0, dyRup, 1.0, r0);
+        roof[1][1][1] = addBPoint(1.0, dyRup, 1.0, r0);
+    }
 
-		double wz2 = (wheelRadius + wheelZ) / dzRear;
-		double wz3 = wz2;
-
-		double fz1 = 1.0;
-
-		rear = new BPoint[nyBody][4];
-
-		Segments s0 = new Segments(x0 - dxRear * 0.5, dxRear, y0, dyRear, z0, dzRear);
-
-		rear[0][0] = addBPoint(0.0, fy0, 0.0, s0);
-		rear[0][1] = addBPoint(1.0, fy0, 0.0, s0);
-		rear[0][2] = addBPoint(1.0, fy0, fz1, s0);
-		rear[0][3] = addBPoint(0.0, fy0, fz1, s0);
+    @Override
+    protected void buildRear() {
 
-		rear[1][0] = addBPoint(0.0, fy1, 0.0, s0);
-		rear[1][1] = addBPoint(1.0, fy1, 0.0, s0);
-		rear[1][2] = addBPoint(1.0, fy1, fz1, s0);
-		rear[1][3] = addBPoint(0.0, fy1, fz1, s0);
-
-		rear[2][0] = addBPoint(0.0, fy2, wz2, s0);
-		rear[2][1] = addBPoint(1.0, fy2, wz2, s0);
-		rear[2][2] = addBPoint(1.0, fy2, fz1, s0);
-		rear[2][3] = addBPoint(0.0, fy2, fz1, s0);
-
-		rear[3][0] = addBPoint(0.0, fy3, wz3, s0);
-		rear[3][1] = addBPoint(1.0, fy3, wz3, s0);
-		rear[3][2] = addBPoint(1.0, fy3, fz1, s0);
-		rear[3][3] = addBPoint(0.0, fy3, fz1, s0);
-
-		rear[4][0] = addBPoint(0.0, fy4, 0.0, s0);
-		rear[4][1] = addBPoint(1.0, fy4, 0.0, s0);
-		rear[4][2] = addBPoint(1.0, fy4, fz1, s0);
-		rear[4][3] = addBPoint(0.0, fy4, fz1, s0);
-
-		rear[5][0] = addBPoint(0.0, fy5, 0.0, s0);
-		rear[5][1] = addBPoint(1.0, fy5, 0.0, s0);
-		rear[5][2] = addBPoint(1.0, fy5, fz1, s0);
-		rear[5][3] = addBPoint(0.0, fy5, fz1, s0);
-
-	}
-
-	@Override
-	protected int buildRearYFaces(int counter, int nzRear, int nzWagon) {
-
-		int numSections = rear.length;
-
-		faces[counter++] = buildFace(Renderer3D.CAR_BACK, rear[0][0], rear[0][1], rear[0][2], rear[0][3], backRear);
-
-		for (int i = 0; i < numSections - 1; i++) {
-
-			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, rear[i + 1][0], rear[i][0], rear[i][3], rear[i + 1][3],
-					re[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, rear[i][0], rear[i + 1][0], rear[i + 1][1], rear[i][1],
-					re[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, rear[i][1], rear[i + 1][1], rear[i + 1][2], rear[i][2],
-					re[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_TOP, rear[i][2], rear[i + 1][2], rear[i + 1][3], rear[i][3],
-					topRear);
-
-		}
-		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, rear[numSections - 1][0], rear[numSections - 1][3],
-				rear[numSections - 1][2], rear[numSections - 1][1], re[0]);
-		return counter;
+        double yRearAxle = 2.0 * wheelRadius / dyRear;
 
-	}
+        double wy = wheelRadius * 1.0 / dyRear;
 
-	@Override
-	protected int buildBodyFaces(int counter, int nzRear, int nzWagon) {
+        double fy0 = 0;
+        double fy2 = yRearAxle - wy;
+        double fy1 = (0 * 0.25 + fy2 * 0.75);
+        double fy3 = yRearAxle + wy;
+        double fy5 = 1.0;
+        double fy4 = yRearAxle + (yRearAxle - fy1);
 
-		counter = buildCabinFaces(counter, nYcab, nzCab);
-		counter = buildRearYFaces(counter, nzRear, nzWagon);
-		counter = buildWagonFaces(counter, nzWagon);
+        double wz2 = (wheelRadius + wheelZ) / dzRear;
+        double wz3 = wz2;
+
+        double fz1 = 1.0;
+
+        rear = new BPoint[nyBody][4];
+
+        Segments s0 = new Segments(x0 - dxRear * 0.5, dxRear, y0, dyRear, z0, dzRear);
+
+        rear[0][0] = addBPoint(0.0, fy0, 0.0, s0);
+        rear[0][1] = addBPoint(1.0, fy0, 0.0, s0);
+        rear[0][2] = addBPoint(1.0, fy0, fz1, s0);
+        rear[0][3] = addBPoint(0.0, fy0, fz1, s0);
 
-		return counter;
-	}
+        rear[1][0] = addBPoint(0.0, fy1, 0.0, s0);
+        rear[1][1] = addBPoint(1.0, fy1, 0.0, s0);
+        rear[1][2] = addBPoint(1.0, fy1, fz1, s0);
+        rear[1][3] = addBPoint(0.0, fy1, fz1, s0);
+
+        rear[2][0] = addBPoint(0.0, fy2, wz2, s0);
+        rear[2][1] = addBPoint(1.0, fy2, wz2, s0);
+        rear[2][2] = addBPoint(1.0, fy2, fz1, s0);
+        rear[2][3] = addBPoint(0.0, fy2, fz1, s0);
+
+        rear[3][0] = addBPoint(0.0, fy3, wz3, s0);
+        rear[3][1] = addBPoint(1.0, fy3, wz3, s0);
+        rear[3][2] = addBPoint(1.0, fy3, fz1, s0);
+        rear[3][3] = addBPoint(0.0, fy3, fz1, s0);
+
+        rear[4][0] = addBPoint(0.0, fy4, 0.0, s0);
+        rear[4][1] = addBPoint(1.0, fy4, 0.0, s0);
+        rear[4][2] = addBPoint(1.0, fy4, fz1, s0);
+        rear[4][3] = addBPoint(0.0, fy4, fz1, s0);
+
+        rear[5][0] = addBPoint(0.0, fy5, 0.0, s0);
+        rear[5][1] = addBPoint(1.0, fy5, 0.0, s0);
+        rear[5][2] = addBPoint(1.0, fy5, fz1, s0);
+        rear[5][3] = addBPoint(0.0, fy5, fz1, s0);
+
+    }
+
+    @Override
+    protected int buildRearYFaces(int counter, int nzRear, int nzWagon) {
+
+        int numSections = rear.length;
+
+        faces[counter++] = buildFace(Renderer3D.CAR_BACK, rear[0][0], rear[0][1], rear[0][2], rear[0][3], backRear);
+
+        for (int i = 0; i < numSections - 1; i++) {
+
+            faces[counter++] = buildFace(Renderer3D.CAR_LEFT, rear[i + 1][0], rear[i][0], rear[i][3], rear[i + 1][3],
+                    re[0]);
+            faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, rear[i][0], rear[i + 1][0], rear[i + 1][1], rear[i][1],
+                    re[0]);
+            faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, rear[i][1], rear[i + 1][1], rear[i + 1][2], rear[i][2],
+                    re[0]);
+            faces[counter++] = buildFace(Renderer3D.CAR_TOP, rear[i][2], rear[i + 1][2], rear[i + 1][3], rear[i][3],
+                    topRear);
+
+        }
+        faces[counter++] = buildFace(Renderer3D.CAR_FRONT, rear[numSections - 1][0], rear[numSections - 1][3],
+                rear[numSections - 1][2], rear[numSections - 1][1], re[0]);
+        return counter;
 
-	@Override
-	protected int buildCabinFaces(int counter, int nYcab, int nzCab) {
+    }
 
-		// cab
-		for (int j = 0; j < nYcab - 1; j++) {
+    @Override
+    protected int buildBodyFaces(int counter, int nzRear, int nzWagon) {
 
-			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, cab[0][j][0], cab[0][j + 1][0], cab[1][j + 1][0],
-					cab[1][j][0], re[0]);
+        counter = buildCabinFaces(counter, nYcab, nzCab);
+        counter = buildRearYFaces(counter, nzRear, nzWagon);
+        counter = buildWagonFaces(counter, nzWagon);
 
-			for (int k = 0; k < nzCab - 1; k++) {
+        return counter;
+    }
 
-				// set windows in the upper part
-				int[] ca = null;
-				if (k > 0) {
-					ca = wi[0];
-				} else {
-					ca = re[0];
-				}
-
-				faces[counter++] = buildFace(Renderer3D.CAR_LEFT, cab[0][j][k], cab[0][j][k + 1], cab[0][j + 1][k + 1],
-						cab[0][j + 1][k], ca);
-				if (j == 0) {
-					faces[counter++] = buildFace(Renderer3D.CAR_BACK, cab[0][j][k], cab[1][j][k], cab[1][j][k + 1],
-							cab[0][j][k + 1], re[0]);
-				}
-				faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, cab[1][j][k], cab[1][j + 1][k], cab[1][j + 1][k + 1],
-						cab[1][j][k + 1], ca);
-				if (j == nYcab - 2) {
-					faces[counter++] = buildFace(Renderer3D.CAR_FRONT, cab[0][nYcab - 1][k], cab[0][nYcab - 1][k + 1],
-							cab[1][nYcab - 1][k + 1], cab[1][nYcab - 1][k], ca);
-				}
+    @Override
+    protected int buildCabinFaces(int counter, int nYcab, int nzCab) {
 
-			}
+        // cab
+        for (int j = 0; j < nYcab - 1; j++) {
 
-			faces[counter++] = buildFace(Renderer3D.CAR_TOP, cab[0][j][nzCab - 1], cab[1][j][nzCab - 1],
-					cab[1][j + 1][nzCab - 1], cab[0][j + 1][nzCab - 1], re[0]);
+            faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, cab[0][j][0], cab[0][j + 1][0], cab[1][j + 1][0],
+                    cab[1][j][0], re[0]);
 
-		}
+            for (int k = 0; k < nzCab - 1; k++) {
 
-		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, roof[0][0][0], roof[0][0][1], roof[0][1][1], roof[0][1][0],
-				wi[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, roof[0][1][0], roof[0][1][1], roof[0][2][0], wi[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_TOP, roof[0][0][1], roof[1][0][1], roof[1][1][1], roof[0][1][1],
-				topRoof);
-		faces[counter++] = buildFace(Renderer3D.CAR_TOP, roof[0][1][1], roof[1][1][1], roof[1][2][0], roof[0][2][0],
-				wi[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_BACK, roof[0][0][0], roof[1][0][0], roof[1][0][1], roof[0][0][1],
-				wi[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][0][0], roof[1][1][0], roof[1][1][1], roof[1][0][1],
-				wi[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][1][0], roof[1][2][0], roof[1][1][1], wi[0]);
+                // set windows in the upper part
+                int[] ca = null;
+                if (k > 0) {
+                    ca = wi[0];
+                } else {
+                    ca = re[0];
+                }
+
+                faces[counter++] = buildFace(Renderer3D.CAR_LEFT, cab[0][j][k], cab[0][j][k + 1], cab[0][j + 1][k + 1],
+                        cab[0][j + 1][k], ca);
+                if (j == 0) {
+                    faces[counter++] = buildFace(Renderer3D.CAR_BACK, cab[0][j][k], cab[1][j][k], cab[1][j][k + 1],
+                            cab[0][j][k + 1], re[0]);
+                }
+                faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, cab[1][j][k], cab[1][j + 1][k], cab[1][j + 1][k + 1],
+                        cab[1][j][k + 1], ca);
+                if (j == nYcab - 2) {
+                    faces[counter++] = buildFace(Renderer3D.CAR_FRONT, cab[0][nYcab - 1][k], cab[0][nYcab - 1][k + 1],
+                            cab[1][nYcab - 1][k + 1], cab[1][nYcab - 1][k], ca);
+                }
 
-		return counter;
-	}
+            }
 
-	@Override
-	protected void buildWheels() {
+            faces[counter++] = buildFace(Renderer3D.CAR_TOP, cab[0][j][nzCab - 1], cab[1][j][nzCab - 1],
+                    cab[1][j + 1][nzCab - 1], cab[0][j + 1][nzCab - 1], re[0]);
 
-		////
-		double wz = wheelZ;
-		double wxLeft = dxRear * 0.5;
-		double wxRight = dxRear * 0.5 - wheelWidth;
+        }
 
-		double yRearAxle = 2.0 * wheelRadius;
-		double yFrontAxle = dyRear + dyFront - frontOverhang;
+        faces[counter++] = buildFace(Renderer3D.CAR_LEFT, roof[0][0][0], roof[0][0][1], roof[0][1][1], roof[0][1][0],
+                wi[0]);
+        faces[counter++] = buildFace(Renderer3D.CAR_LEFT, roof[0][1][0], roof[0][1][1], roof[0][2][0], wi[0]);
+        faces[counter++] = buildFace(Renderer3D.CAR_TOP, roof[0][0][1], roof[1][0][1], roof[1][1][1], roof[0][1][1],
+                topRoof);
+        faces[counter++] = buildFace(Renderer3D.CAR_TOP, roof[0][1][1], roof[1][1][1], roof[1][2][0], roof[0][2][0],
+                wi[0]);
+        faces[counter++] = buildFace(Renderer3D.CAR_BACK, roof[0][0][0], roof[1][0][0], roof[1][0][1], roof[0][0][1],
+                wi[0]);
+        faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][0][0], roof[1][1][0], roof[1][1][1], roof[1][0][1],
+                wi[0]);
+        faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][1][0], roof[1][2][0], roof[1][1][1], wi[0]);
 
-		wheelLeftFront = buildWheel(x0 - wxLeft, yFrontAxle, wz, wheelRadius, wheelWidth, wheel_rays);
-		wheelRightFront = buildWheel(x0 + wxRight, yFrontAxle, wz, wheelRadius, wheelWidth, wheel_rays);
-		wheelLeftRear = buildWheel(x0 - wxLeft, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
-		wheelRightRear = buildWheel(x0 + wxRight, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
+        return counter;
+    }
 
-	}
+    @Override
+    protected void buildWheels() {
 
-	@Override
-	protected void buildWagon(int nWagongMeridians) {
+        ////
+        double wz = wheelZ;
+        double wxLeft = dxRear * 0.5;
+        double wxRight = dxRear * 0.5 - wheelWidth;
 
-		double rdy = (dyRear - dyWagon) * 0.5;
+        double yRearAxle = 2.0 * wheelRadius;
+        double yFrontAxle = dyRear + dyFront - frontOverhang;
 
-		Segments r0 = new Segments(0, dxWagon, rdy, dyWagon, dzRear, dzWagon);
+        wheelLeftFront = buildWheel(x0 - wxLeft, yFrontAxle, wz, wheelRadius, wheelWidth, wheel_rays);
+        wheelRightFront = buildWheel(x0 + wxRight, yFrontAxle, wz, wheelRadius, wheelWidth, wheel_rays);
+        wheelLeftRear = buildWheel(x0 - wxLeft, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
+        wheelRightRear = buildWheel(x0 + wxRight, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
 
-		double dy = 4.0 / dyWagon;
-		double dx = 4.0 / dxWagon;
+    }
 
-		prismRight = new Prism(4);
+    @Override
+    protected void buildWagon(int nWagongMeridians) {
 
-		prismRight.lowerBase[0] = addBPoint(1.0 - dx, 0, 0, r0);
-		prismRight.lowerBase[1] = addBPoint(1.0, 0, 0, r0);
-		prismRight.lowerBase[2] = addBPoint(1.0, 1.0, 0, r0);
-		prismRight.lowerBase[3] = addBPoint(1.0 - dx, 1.0, 0, r0);
+        double rdy = (dyRear - dyWagon) * 0.5;
 
-		prismRight.upperBase[0] = addBPoint(1.0 - dx, 0, 1.0, r0);
-		prismRight.upperBase[1] = addBPoint(1.0, 0, 1.0, r0);
-		prismRight.upperBase[2] = addBPoint(1.0, 1.0, 1.0, r0);
-		prismRight.upperBase[3] = addBPoint(1.0 - dx, 1.0, 1.0, r0);
+        Segments r0 = new Segments(0, dxWagon, rdy, dyWagon, dzRear, dzWagon);
 
-		prismLeft = new Prism(4);
+        double dy = 4.0 / dyWagon;
+        double dx = 4.0 / dxWagon;
 
-		prismLeft.lowerBase[0] = addBPoint(0, 0, 0, r0);
-		prismLeft.lowerBase[1] = addBPoint(dx, 0, 0, r0);
-		prismLeft.lowerBase[2] = addBPoint(dx, 1.0, 0, r0);
-		prismLeft.lowerBase[3] = addBPoint(0, 1.0, 0, r0);
+        prismRight = new Prism(4);
 
-		prismLeft.upperBase[0] = addBPoint(0, 0, 1.0, r0);
-		prismLeft.upperBase[1] = addBPoint(dx, 0, 1.0, r0);
-		prismLeft.upperBase[2] = addBPoint(dx, 1.0, 1.0, r0);
-		prismLeft.upperBase[3] = addBPoint(0, 1.0, 1.0, r0);
+        prismRight.lowerBase[0] = addBPoint(1.0 - dx, 0, 0, r0);
+        prismRight.lowerBase[1] = addBPoint(1.0, 0, 0, r0);
+        prismRight.lowerBase[2] = addBPoint(1.0, 1.0, 0, r0);
+        prismRight.lowerBase[3] = addBPoint(1.0 - dx, 1.0, 0, r0);
 
-		prismBack = new Prism(4);
+        prismRight.upperBase[0] = addBPoint(1.0 - dx, 0, 1.0, r0);
+        prismRight.upperBase[1] = addBPoint(1.0, 0, 1.0, r0);
+        prismRight.upperBase[2] = addBPoint(1.0, 1.0, 1.0, r0);
+        prismRight.upperBase[3] = addBPoint(1.0 - dx, 1.0, 1.0, r0);
 
-		prismBack.lowerBase[0] = addBPoint(dx, 0, 0, r0);
-		prismBack.lowerBase[1] = addBPoint(1.0 - dx, 0, 0, r0);
-		prismBack.lowerBase[2] = addBPoint(1.0 - dx, dy, 0, r0);
-		prismBack.lowerBase[3] = addBPoint(dx, dy, 0, r0);
+        prismLeft = new Prism(4);
 
-		prismBack.upperBase[0] = addBPoint(dx, 0, 1.0, r0);
-		prismBack.upperBase[1] = addBPoint(1.0 - dx, 0, 1.0, r0);
-		prismBack.upperBase[2] = addBPoint(1.0 - dx, dy, 1.0, r0);
-		prismBack.upperBase[3] = addBPoint(dx, dy, 1.0, r0);
+        prismLeft.lowerBase[0] = addBPoint(0, 0, 0, r0);
+        prismLeft.lowerBase[1] = addBPoint(dx, 0, 0, r0);
+        prismLeft.lowerBase[2] = addBPoint(dx, 1.0, 0, r0);
+        prismLeft.lowerBase[3] = addBPoint(0, 1.0, 0, r0);
 
-		prismFront = new Prism(4);
+        prismLeft.upperBase[0] = addBPoint(0, 0, 1.0, r0);
+        prismLeft.upperBase[1] = addBPoint(dx, 0, 1.0, r0);
+        prismLeft.upperBase[2] = addBPoint(dx, 1.0, 1.0, r0);
+        prismLeft.upperBase[3] = addBPoint(0, 1.0, 1.0, r0);
 
-		prismFront.lowerBase[0] = addBPoint(dx, 1 - dy, 0, r0);
-		prismFront.lowerBase[1] = addBPoint(1.0 - dx, 1 - dy, 0, r0);
-		prismFront.lowerBase[2] = addBPoint(1.0 - dx, 1.0, 0, r0);
-		prismFront.lowerBase[3] = addBPoint(dx, 1.0, 0, r0);
+        prismBack = new Prism(4);
 
-		prismFront.upperBase[0] = addBPoint(dx, 1 - dy, 1.0, r0);
-		prismFront.upperBase[1] = addBPoint(1.0 - dx, 1 - dy, 1.0, r0);
-		prismFront.upperBase[2] = addBPoint(1.0 - dx, 1.0, 1.0, r0);
-		prismFront.upperBase[3] = addBPoint(dx, 1.0, 1.0, r0);
+        prismBack.lowerBase[0] = addBPoint(dx, 0, 0, r0);
+        prismBack.lowerBase[1] = addBPoint(1.0 - dx, 0, 0, r0);
+        prismBack.lowerBase[2] = addBPoint(1.0 - dx, dy, 0, r0);
+        prismBack.lowerBase[3] = addBPoint(dx, dy, 0, r0);
 
-	}
+        prismBack.upperBase[0] = addBPoint(dx, 0, 1.0, r0);
+        prismBack.upperBase[1] = addBPoint(1.0 - dx, 0, 1.0, r0);
+        prismBack.upperBase[2] = addBPoint(1.0 - dx, dy, 1.0, r0);
+        prismBack.upperBase[3] = addBPoint(dx, dy, 1.0, r0);
 
-	@Override
-	protected int buildWagonFaces(int counter, int nWagonMeridians) {
+        prismFront = new Prism(4);
 
-		counter = addPrism(prismRight, counter, wa[0]);
-		counter = addPrism(prismLeft, counter, wa[0]);
-		counter = addPrism(prismBack, counter, backWagon);
-		counter = addPrism(prismFront, counter, wa[0]);
+        prismFront.lowerBase[0] = addBPoint(dx, 1 - dy, 0, r0);
+        prismFront.lowerBase[1] = addBPoint(1.0 - dx, 1 - dy, 0, r0);
+        prismFront.lowerBase[2] = addBPoint(1.0 - dx, 1.0, 0, r0);
+        prismFront.lowerBase[3] = addBPoint(dx, 1.0, 0, r0);
 
-		return counter;
-	}
+        prismFront.upperBase[0] = addBPoint(dx, 1 - dy, 1.0, r0);
+        prismFront.upperBase[1] = addBPoint(1.0 - dx, 1 - dy, 1.0, r0);
+        prismFront.upperBase[2] = addBPoint(1.0 - dx, 1.0, 1.0, r0);
+        prismFront.upperBase[3] = addBPoint(dx, 1.0, 1.0, r0);
 
-	@Override
-	public void printTexture(Graphics2D bufGraphics) {
+    }
 
-		bufGraphics.setStroke(new BasicStroke(0.1f));
+    @Override
+    protected int buildWagonFaces(int counter, int nWagonMeridians) {
 
-		bufGraphics.setColor(new Color(217, 15, 27));
-		printTexturePolygon(bufGraphics, topFront);
-		printTexturePolygon(bufGraphics, topRoof);
-		printTexturePolygon(bufGraphics, topRear);
-		printTexturePolygon(bufGraphics, backWagon);
-		printTexturePolygon(bufGraphics, backRear);
+        counter = addPrism(prismRight, counter, wa[0]);
+        counter = addPrism(prismLeft, counter, wa[0]);
+        counter = addPrism(prismBack, counter, backWagon);
+        counter = addPrism(prismFront, counter, wa[0]);
 
-		bufGraphics.setColor(new Color(217, 15, 27));
-		printTexturePolygon(bufGraphics, re[0]);
+        return counter;
+    }
 
-		bufGraphics.setColor(new Color(217, 15, 27));
-		printTexturePolygon(bufGraphics, wa[0]);
+    @Override
+    public void printTexture(Graphics2D bufGraphics) {
 
-		bufGraphics.setColor(Color.BLUE);
-		printTexturePolygon(bufGraphics, wi[0]);
+        bufGraphics.setStroke(new BasicStroke(0.1f));
 
-		bufGraphics.setColor(Color.BLACK);
-		printTexturePolygon(bufGraphics, wh[0]);
+        bufGraphics.setColor(new Color(217, 15, 27));
+        printTexturePolygon(bufGraphics, topFront);
+        printTexturePolygon(bufGraphics, topRoof);
+        printTexturePolygon(bufGraphics, topRear);
+        printTexturePolygon(bufGraphics, backWagon);
+        printTexturePolygon(bufGraphics, backRear);
 
-	}
+        bufGraphics.setColor(new Color(217, 15, 27));
+        printTexturePolygon(bufGraphics, re[0]);
+
+        bufGraphics.setColor(new Color(217, 15, 27));
+        printTexturePolygon(bufGraphics, wa[0]);
+
+        bufGraphics.setColor(Color.BLUE);
+        printTexturePolygon(bufGraphics, wi[0]);
+
+        bufGraphics.setColor(Color.BLACK);
+        printTexturePolygon(bufGraphics, wh[0]);
+
+    }
 
 }

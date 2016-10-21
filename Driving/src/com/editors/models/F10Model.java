@@ -69,7 +69,7 @@ public class F10Model extends MeshModel {
 	int[] leftBody = { c++, c++, c++, c++ };
 	int[] topBody = { c++, c++, c++, c++ };
 	int[] rightBody = { c++, c++, c++, c++ };
-	int[] topFront = { c++, c++, c++, c++ };
+	int[][] topFront = { { c++, c++, c++, c++ }, { c++, c++, c++, c++ } };
 
 	int[][] bo = { { c++, c++, c++, c++ } };
 	// wheel texture
@@ -272,7 +272,8 @@ public class F10Model extends MeshModel {
 		addTRect(x + dz, y, dx, dy);
 		addTRect(x + dz + dx, y, dz, dy);
 		y += dy;
-		addTRect(x + deltaXF, y, dxFront, dyFront);
+		addTTrapezium(x + dz, y, dx, dxFront, dyFront * 0.5);
+		addTRect(x + deltaXF, y + dyFront * 0.5, dxFront, dyFront * 0.5);
 
 		// body texture
 		x += dz + dx + dz + shift;
@@ -360,7 +361,7 @@ public class F10Model extends MeshModel {
 				front[0][0][1], bo[0]);
 		for (int j = 0; j < frontNY - 1; j++) {
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, front[0][j][1], front[1][j][1], front[1][j + 1][1],
-					front[0][j + 1][1], topFront);
+					front[0][j + 1][1], topFront[j]);
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, front[0][j][0], front[0][j][1], front[0][j + 1][1],
 					front[0][j + 1][0], bo[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, front[1][j][0], front[1][j + 1][0], front[1][j + 1][1],
@@ -419,7 +420,8 @@ public class F10Model extends MeshModel {
 		printTexturePolygon(bufGraphics, leftBody);
 		printTexturePolygon(bufGraphics, topBody);
 		printTexturePolygon(bufGraphics, rightBody);
-		printTexturePolygon(bufGraphics, topFront);
+		printTexturePolygon(bufGraphics, topFront[0]);
+		printTexturePolygon(bufGraphics, topFront[1]);
 
 		bufGraphics.setColor(new Color(255, 40, 1));
 		printTexturePolygon(bufGraphics, bo[0]);

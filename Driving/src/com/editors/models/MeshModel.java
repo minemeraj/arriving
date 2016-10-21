@@ -239,6 +239,39 @@ public abstract class MeshModel {
     }
 
     /**
+     * Add a Texture isosceles trapezium starting from the x,y point, moving dx, dz1 ,dy
+     *
+     * @param x
+     * @param y
+     * @param dx
+     * @param dy
+     */
+    void addTTrapezium(double x, double y, double dxBottom,double dxTop, double dy) {
+
+        if(dxBottom>dxTop){
+
+            double dxDiff=(dxBottom-dxTop)*0.5;
+
+            addTPoint(x, y, 0);
+            addTPoint(x + dxBottom, y, 0);
+            addTPoint(x + dxBottom-dxDiff, y + dy, 0);
+            addTPoint(x + dxDiff, y + dy, 0);
+
+        }else{
+
+            double dxDiff=(dxTop-dxBottom)*0.5;
+
+            addTPoint(x+ dxDiff, y, 0);
+            addTPoint(x + dxTop-dxDiff, y, 0);
+            addTPoint(x + dxTop, y+ dy, 0);
+            addTPoint(x, y + dy, 0);
+
+
+        }
+
+    }
+
+    /**
      * Add a new texture points moving from the last one It's more similar to
      * the real action of drawing from point to point
      *

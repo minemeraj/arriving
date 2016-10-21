@@ -53,6 +53,7 @@ public class Truck0Model extends MeshModel {
 	protected int wheel_rays;
 
 	// rear and cabin textures
+	protected int[] backRear = null;
 	protected int[][] re = null;
 	// wagon textures
 	protected int[] backWa = null;
@@ -122,6 +123,7 @@ public class Truck0Model extends MeshModel {
 
 		int c = 0;
 		c = initDoubleArrayValues(re = new int[1][4], c);
+		c = initSingleArrayValues(backRear = new int[4], c);
 		c = initSingleArrayValues(backWa = new int[4], c);
 		c = initSingleArrayValues(leftWa = new int[4], c);
 		c = initDoubleArrayValues(wa = new int[1][4], c);
@@ -330,6 +332,7 @@ public class Truck0Model extends MeshModel {
 	protected void buildTextures() {
 
 		int shift = 1;
+		double deltaXR = (dxWagon - dxRear) * 0.5;
 
 		// body points
 		double y = by;
@@ -339,13 +342,17 @@ public class Truck0Model extends MeshModel {
 		// wagon points
 		x += dxTexture + shift;
 		y = by;
+		addTRect(x + dzWagon + deltaXR, y, dxRear, dzRear);
+		y += dzRear + shift;
 		addTRect(x + dzWagon, y, dxWagon, dzWagon);
-		addTRect(x, y + dzWagon, dzWagon, dyWagon);
-		addTRect(x + dzWagon, y + dzWagon, dxWagon, dyWagon);
-		addTRect(x + dzWagon + dxWagon, y + dzWagon, dzWagon, dyWagon);
+		y += dzWagon;
+		addTRect(x, y, dzWagon, dyWagon);
+		addTRect(x + dzWagon, y, dxWagon, dyWagon);
+		addTRect(x + dzWagon + dxWagon, y, dzWagon, dyWagon);
 
 		// window points
-		x += dxWagon + 2 * dzWagon + shift;
+		double maxDX = Math.max(dxRear, dxWagon);
+		x += maxDX + 2 * dzWagon + shift;
 		y = by;
 		addTRect(x, y, dxTexture, dyTexture);
 
@@ -354,8 +361,8 @@ public class Truck0Model extends MeshModel {
 		y = by;
 		addTRect(x, y, wheelWidth, wheelWidth);
 
-		IMG_WIDTH = (int) (2 * bx + dxWagon + 2 * dzWagon + 2 * dxTexture + wheelWidth + 3 * shift);
-		IMG_HEIGHT = (int) (2 * by + Math.max(dyTexture, dyWagon + dzWagon));
+		IMG_WIDTH = (int) (2 * bx + maxDX + 2 * dzWagon + 2 * dxTexture + wheelWidth + 3 * shift);
+		IMG_HEIGHT = (int) (2 * by + Math.max(dyTexture, dyWagon + dzWagon + dzRear + 2 * shift));
 	}
 
 	protected void buildRear() {
@@ -469,7 +476,7 @@ public class Truck0Model extends MeshModel {
 
 		bufGraphics.setColor(new Color(217, 15, 27));
 		printTexturePolygon(bufGraphics, re[0]);
-
+		printTexturePolygon(bufGraphics, backRear);
 		bufGraphics.setColor(new Color(255, 255, 255));
 		printTexturePolygon(bufGraphics, backWa);
 		printTexturePolygon(bufGraphics, leftWa);
