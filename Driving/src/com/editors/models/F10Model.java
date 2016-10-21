@@ -333,14 +333,14 @@ public class F10Model extends MeshModel {
 
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, back[0][0][1], back[1][0][1], back[1][1][1], back[0][1][1],
 				topRear);
-		faces[counter++] = buildFace(Renderer3D.CAR_BACK, back[0][0][0], back[0][0][1], back[0][1][1], back[0][1][0],
+		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, back[0][0][0], back[0][0][1], back[0][1][1], back[0][1][0],
+				bo[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, back[1][0][0], back[1][1][0], back[1][1][1], back[1][0][1],
+				bo[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, back[0][1][0], back[0][1][1], back[1][1][1], back[1][1][0],
+				bo[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_BACK, back[0][0][0], back[1][0][0], back[1][0][1], back[0][0][1],
 				backRear);
-		faces[counter++] = buildFace(Renderer3D.CAR_TOP, back[1][0][0], back[1][1][0], back[1][1][1], back[1][0][1],
-				bo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_TOP, back[0][1][0], back[0][1][1], back[1][1][1], back[1][1][0],
-				bo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_TOP, back[0][0][0], back[1][0][0], back[1][0][1], back[0][0][1],
-				bo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, back[0][0][0], back[0][1][0], back[1][1][0], back[1][0][0],
 				bo[0]);
 
