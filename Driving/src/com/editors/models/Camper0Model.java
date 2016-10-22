@@ -28,22 +28,36 @@ public class Camper0Model extends PickupModel {
 				rearOverhang, frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheel_rays);
 		this.rearOverhang = rearOverhang;
 		this.frontOverhang = frontOverhang;
+
+		nWagonUnits = 2;
 	}
 
 	@Override
 	public void initMesh() {
+
+		int c = 0;
+		c = initSingleArrayValues(tBackRear = new int[4], c);
+		c = initSingleArrayValues(tBackWagon = new int[4], c);
+		c = initSingleArrayValues(tTopRear = new int[4], c);
+		c = initSingleArrayValues(tTopRoof = new int[4], c);
+		c = initSingleArrayValues(tTopFront = new int[4], c);
+
+		c = initDoubleArrayValues(tRe = new int[1][4], c);
+		c = initDoubleArrayValues(tWa = new int[1][4], c);
+		c = initDoubleArrayValues(tWi = new int[1][4], c);
+		c = initDoubleArrayValues(tWh = new int[1][4], c);
+
 		points = new Vector<Point3D>();
 		texturePoints = new Vector();
 
-		nWagonUnits = 2;
-
 		x0 = dxWagon * 0.5;
+
+		wheelZ = -0.1122 * wheelRadius;
 
 		buildCabin();
 
 		buildRear();
 
-		nWagonUnits = 2;
 		buildWagon(nWagonUnits);
 
 		buildWheels();
@@ -58,16 +72,13 @@ public class Camper0Model extends PickupModel {
 		// cabin roof
 		NF += 7;
 		// wagon prisms
-		NF += 2 * 6 * 4;
+		NF += 6 * 4;
 
 		faces = new int[NF + NUM_WHEEL_FACES][3][4];
 
 		int counter = 0;
 		counter = buildBodyFaces(counter, nzBody, nWagonUnits);
 		counter = buildWheelFaces(counter, totWheelPolygon);
-
-		IMG_WIDTH = (int) (2 * bx + dxRear + wheelWidth);
-		IMG_HEIGHT = (int) (2 * by + dyRear);
 
 	}
 
@@ -87,7 +98,7 @@ public class Camper0Model extends PickupModel {
 		wagon[1][2] = addBPoint(1.0, 1.0, 1.0, s0);
 		wagon[1][3] = addBPoint(0.0, 1.0, 1.0, s0);
 
-		double dyMansardRoof = dyRear - frontOverhang;
+		double dyMansardRoof = dyRear + dyFront - frontOverhang;
 		double dzMansardRoof = dzRear;
 
 		Segments s1 = new Segments(x0 - dxWagon * 0.5, dxWagon, y0, dyMansardRoof, z0 + dzRear + dzWagon,
