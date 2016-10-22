@@ -20,10 +20,10 @@ import com.main.Renderer3D;
 public class PickupModel extends Truck0Model {
 
 	public static final String NAME = "Pickup";
-	private Prism prismRight;
-	private Prism prismLeft;
-	private Prism prismBack;
-	private Prism prismFront;
+	protected Prism prismRight;
+	protected Prism prismLeft;
+	protected Prism prismBack;
+	protected Prism prismFront;
 
 	protected int nWagonUnits = 10;
 

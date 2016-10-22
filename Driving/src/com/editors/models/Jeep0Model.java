@@ -1,8 +1,10 @@
 package com.editors.models;
 
-import com.BPoint;
+import java.util.Vector;
+
+import com.Point3D;
+import com.Prism;
 import com.Segments;
-import com.main.Renderer3D;
 
 public class Jeep0Model extends PickupModel {
 
@@ -20,49 +22,109 @@ public class Jeep0Model extends PickupModel {
 	}
 
 	@Override
-	protected void buildWagon(int nzWagon) {
+	public void initMesh() {
 
-		Segments s0 = new Segments(x0 - dxWagon * 0.5, dxWagon, y0, dyWagon, z0 + dzRear, dzWagon);
+		int c = 0;
+		c = initSingleArrayValues(tBackRear = new int[4], c);
+		c = initSingleArrayValues(tBackWagon = new int[4], c);
+		c = initSingleArrayValues(tTopRear = new int[4], c);
+		c = initSingleArrayValues(tTopRoof = new int[4], c);
+		c = initSingleArrayValues(tTopFront = new int[4], c);
 
-		wagon = new BPoint[nzWagon][4];
-		wagon[0][0] = addBPoint(0.0, 0.0, 0.0, s0);
-		wagon[0][1] = addBPoint(1.0, 0.0, 0.0, s0);
-		wagon[0][2] = addBPoint(1.0, 1.0, 0.0, s0);
-		wagon[0][3] = addBPoint(0.0, 1.0, 0.0, s0);
+		c = initDoubleArrayValues(tRe = new int[1][4], c);
+		c = initDoubleArrayValues(tWa = new int[1][4], c);
+		c = initDoubleArrayValues(tWi = new int[1][4], c);
+		c = initDoubleArrayValues(tWh = new int[1][4], c);
 
-		wagon[1][0] = addBPoint(0.0, 0.0, 1.0, s0);
-		wagon[1][1] = addBPoint(1.0, 0.0, 1.0, s0);
-		wagon[1][2] = addBPoint(1.0, 1.0, 1.0, s0);
-		wagon[1][3] = addBPoint(0.0, 1.0, 1.0, s0);
+		points = new Vector<Point3D>();
+		texturePoints = new Vector();
+
+		x0 = dxWagon * 0.5;
+
+		wheelZ = -0.1122 * wheelRadius;
+
+		buildCabin();
+
+		buildRear();
+
+		buildWagon(nWagonUnits);
+
+		buildWheels();
+		buildTextures();
+
+		int totWheelPolygon = wheel_rays + 2 * (wheel_rays - 2);
+		int NUM_WHEEL_FACES = 4 * totWheelPolygon;
+
+		// faces
+		int NF = 2 + (2 + (nzCab - 1)) * (nYcab - 1) * 2;
+		NF += 2 + (nyBody - 1) * 4;
+		// cabin roof
+		NF += 7;
+		// wagon prisms
+		NF += 6 * 3;
+
+		faces = new int[NF + NUM_WHEEL_FACES][3][4];
+
+		int counter = 0;
+		counter = buildBodyFaces(counter, nzBody, nWagonUnits);
+		counter = buildWheelFaces(counter, totWheelPolygon);
+
 	}
 
-	/**
-	 *
-	 * BUILD WAGON BY Z SECTIONS
-	 *
-	 * @param nzBody
-	 * @return
-	 */
 	@Override
-	protected int buildWagonFaces(int counter, int nzWagon) {
+	protected void buildWagon(int nWagongMeridians) {
 
-		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0], wagon[0][3], wagon[0][2], wagon[0][1], tWa[0]);
+		double rdy = 0;
 
-		for (int k = 0; k < nzWagon - 1; k++) {
+		Segments r0 = new Segments(0, dxWagon, rdy, dyWagon, dzRear, dzWagon);
 
-			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, wagon[k][0], wagon[k + 1][0], wagon[k + 1][3],
-					wagon[k][3], tWa[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_BACK, wagon[k][0], wagon[k][1], wagon[k + 1][1],
-					wagon[k + 1][0], tWa[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagon[k][1], wagon[k][2], wagon[k + 1][2],
-					wagon[k + 1][1], tWa[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, wagon[k][2], wagon[k][3], wagon[k + 1][3],
-					wagon[k + 1][2], tWa[0]);
+		double dy = 4.0 / dyWagon;
+		double dx = 4.0 / dxWagon;
 
-		}
+		prismRight = new Prism(4);
 
-		faces[counter++] = buildFace(Renderer3D.CAR_TOP, wagon[nzWagon - 1][0], wagon[nzWagon - 1][1],
-				wagon[nzWagon - 1][2], wagon[nzWagon - 1][3], tWa[0]);
+		prismRight.lowerBase[0] = addBPoint(1.0 - dx, 0, 0, r0);
+		prismRight.lowerBase[1] = addBPoint(1.0, 0, 0, r0);
+		prismRight.lowerBase[2] = addBPoint(1.0, 1.0, 0, r0);
+		prismRight.lowerBase[3] = addBPoint(1.0 - dx, 1.0, 0, r0);
+
+		prismRight.upperBase[0] = addBPoint(1.0 - dx, 0, 1.0, r0);
+		prismRight.upperBase[1] = addBPoint(1.0, 0, 1.0, r0);
+		prismRight.upperBase[2] = addBPoint(1.0, 1.0, 1.0, r0);
+		prismRight.upperBase[3] = addBPoint(1.0 - dx, 1.0, 1.0, r0);
+
+		prismLeft = new Prism(4);
+
+		prismLeft.lowerBase[0] = addBPoint(0, 0, 0, r0);
+		prismLeft.lowerBase[1] = addBPoint(dx, 0, 0, r0);
+		prismLeft.lowerBase[2] = addBPoint(dx, 1.0, 0, r0);
+		prismLeft.lowerBase[3] = addBPoint(0, 1.0, 0, r0);
+
+		prismLeft.upperBase[0] = addBPoint(0, 0, 1.0, r0);
+		prismLeft.upperBase[1] = addBPoint(dx, 0, 1.0, r0);
+		prismLeft.upperBase[2] = addBPoint(dx, 1.0, 1.0, r0);
+		prismLeft.upperBase[3] = addBPoint(0, 1.0, 1.0, r0);
+
+		prismBack = new Prism(4);
+
+		prismBack.lowerBase[0] = addBPoint(dx, 0, 0, r0);
+		prismBack.lowerBase[1] = addBPoint(1.0 - dx, 0, 0, r0);
+		prismBack.lowerBase[2] = addBPoint(1.0 - dx, dy, 0, r0);
+		prismBack.lowerBase[3] = addBPoint(dx, dy, 0, r0);
+
+		prismBack.upperBase[0] = addBPoint(dx, 0, 1.0, r0);
+		prismBack.upperBase[1] = addBPoint(1.0 - dx, 0, 1.0, r0);
+		prismBack.upperBase[2] = addBPoint(1.0 - dx, dy, 1.0, r0);
+		prismBack.upperBase[3] = addBPoint(dx, dy, 1.0, r0);
+
+	}
+
+	@Override
+	protected int buildWagonFaces(int counter, int nWagonMeridians) {
+
+		counter = addPrism(prismRight, counter, tWa[0]);
+		counter = addPrism(prismLeft, counter, tWa[0]);
+		counter = addPrism(prismBack, counter, tBackWagon);
 
 		return counter;
 	}
