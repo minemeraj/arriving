@@ -64,17 +64,21 @@ public class F10Model extends MeshModel {
 	public static String NAME = "F1 Car";
 
 	int c = 0;
+	int[] tBackSpoiler = { c++, c++, c++, c++ };
 	int[] tBackRear = { c++, c++, c++, c++ };
 	int[] tTopRear = { c++, c++, c++, c++ };
 	int[] tLeftBody = { c++, c++, c++, c++ };
 	int[] tTopBody = { c++, c++, c++, c++ };
 	int[] tRightBody = { c++, c++, c++, c++ };
 	int[][] tTopFront = { { c++, c++, c++, c++ }, { c++, c++, c++, c++ } };
+	int[] tFrontSpoiler = { c++, c++, c++, c++ };
 
 	int[][] tBo = { { c++, c++, c++, c++ } };
 	// wheel texture
 	protected int[] tWh = { c++, c++, c++, c++ };
 	private int frontNY = 3;
+	private double dyBackSpoiler;
+	private double dyFrontSpoiler;
 
 	public F10Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr, double dyr,
 			double dzr, double dxRoof, double dyRoof, double dzRoof, double rearOverhang, double frontOverhang,
@@ -105,6 +109,9 @@ public class F10Model extends MeshModel {
 		this.wheelRadius = wheelRadius;
 		this.wheelWidth = wheelWidth;
 		this.wheel_rays = wheel_rays;
+
+		dyBackSpoiler = dyRear * 0.737;
+		dyFrontSpoiler = dyFront * 0.282;
 	}
 
 	@Override
@@ -156,7 +163,7 @@ public class F10Model extends MeshModel {
 
 	private void buildBody() {
 
-		Segments rs = new Segments(0, dxRear * 0.5, 0, dyRear * 0.737, dzRear, dzRoof);
+		Segments rs = new Segments(0, dxRear * 0.5, 0, dyBackSpoiler, dzRear, dzRoof);
 
 		backSpoiler = new BPoint[2][2][2];
 
@@ -233,7 +240,6 @@ public class F10Model extends MeshModel {
 		roof[0][1][1] = addBPoint(-1.0, 1.0, 1.0, s3);
 		roof[1][1][1] = addBPoint(1.0, 1.0, 1.0, s3);
 
-		double dyFrontSpoiler = dyFront * 0.282;
 		Segments fs = new Segments(0, dx * 0.5, rearOverhang1 + dyRear + dy + dyFront - dyFrontSpoiler, dyFrontSpoiler,
 				0, dzFront);
 
@@ -263,7 +269,9 @@ public class F10Model extends MeshModel {
 		double deltaXR = (midX - dxRear * 0.5 - bx);
 		double deltaXF = (midX - dxFront * 0.5 - bx);
 
-		// top and rear
+		// rear and top
+		addTRect(x + deltaXR, y, dxRear, dyBackSpoiler);
+		y += dyBackSpoiler;
 		addTRect(x + deltaXR, y, dxRear, dzRear);
 		y += dzRear;
 		addTRect(x + deltaXR, y, dxRear, dyRear);
@@ -274,6 +282,8 @@ public class F10Model extends MeshModel {
 		y += dy;
 		addTTrapezium(x + dz, y, dx, dxFront, dyFront * 0.5);
 		addTRect(x + deltaXF, y + dyFront * 0.5, dxFront, dyFront * 0.5);
+		y += dyFront;
+		addTRect(x + dz, y, dx, dyFrontSpoiler);
 
 		// body texture
 		x += dz + dx + dz + shift;
@@ -285,7 +295,7 @@ public class F10Model extends MeshModel {
 		addTRect(x, y, wheelWidth, wheelWidth);
 
 		IMG_WIDTH = (int) (2 * bx + dx + 2 * dz + dxTexture + wheelWidth + 2 * shift);
-		IMG_HEIGHT = (int) (2 * by + dzRear + dyRear + dy + dyFront);
+		IMG_HEIGHT = (int) (2 * by + dyBackSpoiler + dzRear + dyRear + dy + dyFront + dyFrontSpoiler);
 
 	}
 
@@ -319,7 +329,7 @@ public class F10Model extends MeshModel {
 	private int buildBodyFaces(int counter) {
 
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, backSpoiler[0][0][1], backSpoiler[1][0][1],
-				backSpoiler[1][1][1], backSpoiler[0][1][1], tBo[0]);
+				backSpoiler[1][1][1], backSpoiler[0][1][1], tBackSpoiler);
 		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, backSpoiler[0][0][0], backSpoiler[0][0][1],
 				backSpoiler[0][1][1], backSpoiler[0][1][0], tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, backSpoiler[1][0][0], backSpoiler[1][1][0],
@@ -373,7 +383,7 @@ public class F10Model extends MeshModel {
 				front[1][frontNY - 1][1], front[1][frontNY - 1][0], tBo[0]);
 
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, frontSpoiler[0][0][1], frontSpoiler[1][0][1],
-				frontSpoiler[1][1][1], frontSpoiler[0][1][1], tBo[0]);
+				frontSpoiler[1][1][1], frontSpoiler[0][1][1], tFrontSpoiler);
 		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, frontSpoiler[0][0][0], frontSpoiler[0][0][1],
 				frontSpoiler[0][1][1], frontSpoiler[0][1][0], tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, frontSpoiler[1][0][0], frontSpoiler[1][1][0],
@@ -415,6 +425,7 @@ public class F10Model extends MeshModel {
 		bufGraphics.setStroke(new BasicStroke(0.1f));
 
 		bufGraphics.setColor(new Color(0, 0, 0));
+		printTexturePolygon(bufGraphics, tBackSpoiler);
 		printTexturePolygon(bufGraphics, tBackRear);
 		printTexturePolygon(bufGraphics, tTopRear);
 		printTexturePolygon(bufGraphics, tLeftBody);
@@ -422,6 +433,7 @@ public class F10Model extends MeshModel {
 		printTexturePolygon(bufGraphics, tRightBody);
 		printTexturePolygon(bufGraphics, tTopFront[0]);
 		printTexturePolygon(bufGraphics, tTopFront[1]);
+		printTexturePolygon(bufGraphics, tFrontSpoiler);
 
 		bufGraphics.setColor(new Color(255, 40, 1));
 		printTexturePolygon(bufGraphics, tBo[0]);
