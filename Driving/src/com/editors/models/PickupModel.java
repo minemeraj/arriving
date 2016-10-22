@@ -449,8 +449,9 @@ public class PickupModel extends Truck0Model {
 
 		bufGraphics.setStroke(new BasicStroke(0.1f));
 
-		bufGraphics.setColor(new Color(217, 15, 27));
+		bufGraphics.setColor(new Color(72, 178, 230));
 		printTexturePolygon(bufGraphics, tTopFront);
+		bufGraphics.setColor(new Color(217, 15, 27));
 		printTexturePolygon(bufGraphics, tTopRoof);
 		printTexturePolygon(bufGraphics, tTopRear);
 		printTexturePolygon(bufGraphics, tBackWagon);
