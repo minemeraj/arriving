@@ -96,7 +96,7 @@ public class RailWagonTankModel extends RailWagon0Model{
 					cylinder[(i+1)%cylinder.length][0],
 					cylinder[(i+1)%cylinder.length][1],
 					cylinder[i][1], 
-					bo[0]);
+					tBo[0]);
 
 		}
 		
@@ -107,7 +107,7 @@ public class RailWagonTankModel extends RailWagon0Model{
 			BPoint p1=cylinder[i][0];
 			BPoint p2=cylinder[(i+1)%raysNumber][0];	
 
-			faces[counter++]=buildFace(0, p0, p1, p2,bo[0]);
+			faces[counter++]=buildFace(0, p0, p1, p2,tBo[0]);
 		}
 		
 		for(int i=1;i<raysNumber-1;i++){
@@ -117,7 +117,7 @@ public class RailWagonTankModel extends RailWagon0Model{
 			BPoint p2=cylinder[i][1];
 			
 
-			faces[counter++]=buildFace(0, p0, p1, p2,bo[0]);
+			faces[counter++]=buildFace(0, p0, p1, p2,tBo[0]);
 		}
 		
 		return counter;

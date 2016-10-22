@@ -48,8 +48,8 @@ public class Ship0Model extends MeshModel {
 	protected double y0 = 0;
 	protected double z0 = 0;
 
-	protected int[][] h = { { 0, 1, 2, 3 } };
-	protected int[][] d = { { 4, 5, 6, 7 } };
+	protected int[][] tH = { { 0, 1, 2, 3 } };
+	protected int[][] tD = { { 4, 5, 6, 7 } };
 
 	public static final String NAME = "Ship";
 
@@ -268,23 +268,23 @@ public class Ship0Model extends MeshModel {
 	protected int buildAfterCastlefaces(int counter, int nx, int ny, int nyc) {
 		//// after castle
 		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, afterCastle[0][0], afterCastle[0][3], afterCastle[0][2],
-				afterCastle[0][1], h[0]);
+				afterCastle[0][1], tH[0]);
 
 		for (int k = 0; k < 2 - 1; k++) {
 
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, afterCastle[k][0], afterCastle[k + 1][0],
-					afterCastle[k + 1][3], afterCastle[k][3], h[0]);
+					afterCastle[k + 1][3], afterCastle[k][3], tH[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_BACK, afterCastle[k][0], afterCastle[k][1],
-					afterCastle[k + 1][1], afterCastle[k + 1][0], h[0]);
+					afterCastle[k + 1][1], afterCastle[k + 1][0], tH[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, afterCastle[k][1], afterCastle[k][2],
-					afterCastle[k + 1][2], afterCastle[k + 1][1], h[0]);
+					afterCastle[k + 1][2], afterCastle[k + 1][1], tH[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, afterCastle[k][2], afterCastle[k][3],
-					afterCastle[k + 1][3], afterCastle[k + 1][2], d[0]);
+					afterCastle[k + 1][3], afterCastle[k + 1][2], tD[0]);
 
 		}
 
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, afterCastle[2 - 1][0], afterCastle[2 - 1][1],
-				afterCastle[2 - 1][2], afterCastle[2 - 1][3], d[0]);
+				afterCastle[2 - 1][2], afterCastle[2 - 1][3], tD[0]);
 		return counter;
 	}
 
@@ -292,28 +292,28 @@ public class Ship0Model extends MeshModel {
 
 		/// fore castle, converging at the bow
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, foreCastle[0][0][0], foreCastle[0][1][0], foreCastle[0][1][1],
-				foreCastle[0][0][1], d[0]);
+				foreCastle[0][0][1], tD[0]);
 		for (int k = 0; k < nyc - 1; k++) {
 
 			if (foreCastle[k + 1][1][0].getIndex() != foreCastle[k][1][0].getIndex()) {
 				faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, foreCastle[k][0][0], foreCastle[k + 1][0][0],
-						foreCastle[k + 1][1][0], foreCastle[k][1][0], h[0]);
+						foreCastle[k + 1][1][0], foreCastle[k][1][0], tH[0]);
 			} else {
 				faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, foreCastle[k][0][0], foreCastle[k + 1][0][0],
-						foreCastle[k + 1][1][0], h[0]);
+						foreCastle[k + 1][1][0], tH[0]);
 			}
 
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, foreCastle[k][0][0], foreCastle[k][0][1],
-					foreCastle[k + 1][0][1], foreCastle[k + 1][0][0], h[0]);
+					foreCastle[k + 1][0][1], foreCastle[k + 1][0][0], tH[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, foreCastle[k][1][0], foreCastle[k + 1][1][0],
-					foreCastle[k + 1][1][1], foreCastle[k][1][1], h[0]);
+					foreCastle[k + 1][1][1], foreCastle[k][1][1], tH[0]);
 
 			if (foreCastle[k + 1][1][1].getIndex() != foreCastle[k + 1][0][1].getIndex()) {
 				faces[counter++] = buildFace(Renderer3D.CAR_TOP, foreCastle[k][0][1], foreCastle[k][1][1],
-						foreCastle[k + 1][1][1], foreCastle[k + 1][0][1], d[0]);
+						foreCastle[k + 1][1][1], foreCastle[k + 1][0][1], tD[0]);
 			} else {
 				faces[counter++] = buildFace(Renderer3D.CAR_TOP, foreCastle[k][0][1], foreCastle[k][1][1],
-						foreCastle[k + 1][0][1], d[0]);
+						foreCastle[k + 1][0][1], tD[0]);
 			}
 		}
 		// faces[counter++]=buildFace(Renderer3D.CAR_FRONT,
@@ -330,20 +330,20 @@ public class Ship0Model extends MeshModel {
 				if (i == ny - 2 && j == middle - 1) {
 
 					faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, hull[i][j], hull[i + 1][j], hull[i + 1][j + 1],
-							h[0]);
+							tH[0]);
 					faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, hull[i][j], hull[i + 1][j + 1], hull[i][j + 1],
-							h[0]);
+							tH[0]);
 
 				} else if (i == ny - 2 && j == middle) {
 
 					faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, hull[i][j], hull[i + 1][j], hull[i][j + 1],
-							h[0]);
+							tH[0]);
 					faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, hull[i][j + 1], hull[i + 1][j],
-							hull[i + 1][j + 1], h[0]);
+							hull[i + 1][j + 1], tH[0]);
 
 				} else {
 					faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, hull[i][j], hull[i + 1][j], hull[i + 1][j + 1],
-							hull[i][j + 1], h[0]);
+							hull[i][j + 1], tH[0]);
 				}
 			}
 
@@ -351,12 +351,12 @@ public class Ship0Model extends MeshModel {
 
 		// closing back hull
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, hull[0][0], hull[0][1], hull[0][nx - 2], hull[0][nx - 1],
-				h[0]);
+				tH[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, hull[0][1], hull[0][2], hull[0][nx - 3], hull[0][nx - 2],
-				h[0]);
+				tH[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, hull[0][2], hull[0][3], hull[0][nx - 4], hull[0][nx - 3],
-				h[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_BACK, hull[0][3], hull[0][4], hull[0][nx - 4], h[0]);
+				tH[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_BACK, hull[0][3], hull[0][4], hull[0][nx - 4], tH[0]);
 
 		// build the main deck
 		for (int i = 0; i < ny - 1; i++) {
@@ -367,9 +367,9 @@ public class Ship0Model extends MeshModel {
 			BPoint l3 = hull[i + 1][0];
 
 			if (l2.getIndex() == l3.getIndex()) {
-				faces[counter++] = buildFace(Renderer3D.CAR_TOP, l0, l1, l3, d[0]);
+				faces[counter++] = buildFace(Renderer3D.CAR_TOP, l0, l1, l3, tD[0]);
 			} else {
-				faces[counter++] = buildFace(Renderer3D.CAR_TOP, l0, l1, l2, l3, d[0]);
+				faces[counter++] = buildFace(Renderer3D.CAR_TOP, l0, l1, l2, l3, tD[0]);
 			}
 
 		}
@@ -390,25 +390,25 @@ public class Ship0Model extends MeshModel {
 		for (int i = 0; i < numDecks; i++) {
 
 			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, mainDecks[i][0][0], mainDecks[i][0][3],
-					mainDecks[i][0][2], mainDecks[i][0][1], d[0]);
+					mainDecks[i][0][2], mainDecks[i][0][1], tD[0]);
 
 			int nz = mainDecks[i].length;
 
 			for (int k = 0; k < nz - 1; k++) {
 
 				faces[counter++] = buildFace(Renderer3D.CAR_LEFT, mainDecks[i][k][0], mainDecks[i][k + 1][0],
-						mainDecks[i][k + 1][3], mainDecks[i][k][3], d[0]);
+						mainDecks[i][k + 1][3], mainDecks[i][k][3], tD[0]);
 				faces[counter++] = buildFace(Renderer3D.CAR_BACK, mainDecks[i][k][0], mainDecks[i][k][1],
-						mainDecks[i][k + 1][1], mainDecks[i][k + 1][0], d[0]);
+						mainDecks[i][k + 1][1], mainDecks[i][k + 1][0], tD[0]);
 				faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, mainDecks[i][k][1], mainDecks[i][k][2],
-						mainDecks[i][k + 1][2], mainDecks[i][k + 1][1], d[0]);
+						mainDecks[i][k + 1][2], mainDecks[i][k + 1][1], tD[0]);
 				faces[counter++] = buildFace(Renderer3D.CAR_FRONT, mainDecks[i][k][2], mainDecks[i][k][3],
-						mainDecks[i][k + 1][3], mainDecks[i][k + 1][2], d[0]);
+						mainDecks[i][k + 1][3], mainDecks[i][k + 1][2], tD[0]);
 
 			}
 
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, mainDecks[i][nz - 1][0], mainDecks[i][nz - 1][1],
-					mainDecks[i][nz - 1][2], mainDecks[i][nz - 1][3], d[0]);
+					mainDecks[i][nz - 1][2], mainDecks[i][nz - 1][3], tD[0]);
 		}
 
 		return counter;
@@ -429,22 +429,22 @@ public class Ship0Model extends MeshModel {
 			int ny = mainDecks[i].length;
 
 			faces[counter++] = buildFace(Renderer3D.CAR_BACK, mainDecks[i][0][0], mainDecks[i][0][1],
-					mainDecks[i][0][2], mainDecks[i][0][3], d[0]);
+					mainDecks[i][0][2], mainDecks[i][0][3], tD[0]);
 
 			for (int j = 0; j < ny - 1; j++) {
 
 				faces[counter++] = buildFace(Renderer3D.CAR_LEFT, mainDecks[i][j + 1][0], mainDecks[i][j][0],
-						mainDecks[i][j][3], mainDecks[i][j + 1][3], d[0]);
+						mainDecks[i][j][3], mainDecks[i][j + 1][3], tD[0]);
 				faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, mainDecks[i][j][0], mainDecks[i][j + 1][0],
-						mainDecks[i][j + 1][1], mainDecks[i][j][1], d[0]);
+						mainDecks[i][j + 1][1], mainDecks[i][j][1], tD[0]);
 				faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, mainDecks[i][j][1], mainDecks[i][j + 1][1],
-						mainDecks[i][j + 1][2], mainDecks[i][j][2], d[0]);
+						mainDecks[i][j + 1][2], mainDecks[i][j][2], tD[0]);
 				faces[counter++] = buildFace(Renderer3D.CAR_TOP, mainDecks[i][j][2], mainDecks[i][j + 1][2],
-						mainDecks[i][j + 1][3], mainDecks[i][j][3], d[0]);
+						mainDecks[i][j + 1][3], mainDecks[i][j][3], tD[0]);
 			}
 
 			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, mainDecks[i][ny - 1][0], mainDecks[i][ny - 1][3],
-					mainDecks[i][ny - 1][2], mainDecks[i][ny - 1][1], d[0]);
+					mainDecks[i][ny - 1][2], mainDecks[i][ny - 1][1], tD[0]);
 
 		}
 		return counter;
@@ -483,10 +483,10 @@ public class Ship0Model extends MeshModel {
 	public void printTexture(Graphics2D bufGraphics) {
 
 		bufGraphics.setColor(Color.RED);
-		printTexturePolygon(bufGraphics, h[0]);
+		printTexturePolygon(bufGraphics, tH[0]);
 
 		bufGraphics.setColor(Color.BLACK);
-		printTexturePolygon(bufGraphics, d[0]);
+		printTexturePolygon(bufGraphics, tD[0]);
 	}
 
 }

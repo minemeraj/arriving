@@ -140,10 +140,10 @@ public class Yacht0Model extends Ship0Model{
 
 
         bufGraphics.setColor(new Color(61,68,78));
-        printTexturePolygon(bufGraphics, h[0]);
+        printTexturePolygon(bufGraphics, tH[0]);
 
         bufGraphics.setColor(Color.WHITE);
-        printTexturePolygon(bufGraphics, d[0]);
+        printTexturePolygon(bufGraphics, tD[0]);
     }
 
 }

@@ -28,10 +28,10 @@ public class TankTruck0Model extends Truck0Model {
 	public void initMesh() {
 
 		int c = 0;
-		initDoubleArrayValues(re = new int[1][4], c);
-		initDoubleArrayValues(wa = new int[1][4], c);
-		initDoubleArrayValues(wi = new int[1][4], c);
-		initDoubleArrayValues(wh = new int[1][4], c);
+		initDoubleArrayValues(tRe = new int[1][4], c);
+		initDoubleArrayValues(tWa = new int[1][4], c);
+		initDoubleArrayValues(tWi = new int[1][4], c);
+		initDoubleArrayValues(tWh = new int[1][4], c);
 
 		points = new Vector<Point3D>();
 		texturePoints = new Vector();
@@ -81,7 +81,7 @@ public class TankTruck0Model extends Truck0Model {
 		for (int i = 0; i < wagon.length; i++) {
 
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, wagon[i][0], wagon[(i + 1) % wagon.length][0],
-					wagon[(i + 1) % wagon.length][1], wagon[i][1], re[0]);
+					wagon[(i + 1) % wagon.length][1], wagon[i][1], tRe[0]);
 		}
 
 		for (int i = 1; i < nWagonMeridians - 1; i++) {
@@ -90,7 +90,7 @@ public class TankTruck0Model extends Truck0Model {
 			BPoint p1 = wagon[(i + 1) % nWagonMeridians][1];
 			BPoint p2 = wagon[i][1];
 
-			faces[counter++] = buildFace(0, p0, p1, p2, re[0]);
+			faces[counter++] = buildFace(0, p0, p1, p2, tRe[0]);
 		}
 
 		for (int i = 1; i < nWagonMeridians - 1; i++) {
@@ -99,7 +99,7 @@ public class TankTruck0Model extends Truck0Model {
 			BPoint p1 = wagon[i][0];
 			BPoint p2 = wagon[(i + 1) % nWagonMeridians][0];
 
-			faces[counter++] = buildFace(0, p0, p1, p2, re[0]);
+			faces[counter++] = buildFace(0, p0, p1, p2, tRe[0]);
 		}
 
 		return counter;

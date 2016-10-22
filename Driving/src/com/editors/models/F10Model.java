@@ -64,16 +64,16 @@ public class F10Model extends MeshModel {
 	public static String NAME = "F1 Car";
 
 	int c = 0;
-	int[] backRear = { c++, c++, c++, c++ };
-	int[] topRear = { c++, c++, c++, c++ };
-	int[] leftBody = { c++, c++, c++, c++ };
-	int[] topBody = { c++, c++, c++, c++ };
-	int[] rightBody = { c++, c++, c++, c++ };
-	int[][] topFront = { { c++, c++, c++, c++ }, { c++, c++, c++, c++ } };
+	int[] tBackRear = { c++, c++, c++, c++ };
+	int[] tTopRear = { c++, c++, c++, c++ };
+	int[] tLeftBody = { c++, c++, c++, c++ };
+	int[] tTopBody = { c++, c++, c++, c++ };
+	int[] tRightBody = { c++, c++, c++, c++ };
+	int[][] tTopFront = { { c++, c++, c++, c++ }, { c++, c++, c++, c++ } };
 
-	int[][] bo = { { c++, c++, c++, c++ } };
+	int[][] tBo = { { c++, c++, c++, c++ } };
 	// wheel texture
-	protected int[] wh = { c++, c++, c++, c++ };
+	protected int[] tWh = { c++, c++, c++, c++ };
 	private int frontNY = 3;
 
 	public F10Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr, double dyr,
@@ -293,22 +293,22 @@ public class F10Model extends MeshModel {
 
 		///// WHEELS
 
-		int[][][] wFaces = buildWheelFaces(wheelLeftFront, wh);
+		int[][][] wFaces = buildWheelFaces(wheelLeftFront, tWh);
 		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++] = wFaces[i];
 		}
 
-		wFaces = buildWheelFaces(wheelRightFront, wh);
+		wFaces = buildWheelFaces(wheelRightFront, tWh);
 		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++] = wFaces[i];
 		}
 
-		wFaces = buildWheelFaces(wheelLeftRear, wh);
+		wFaces = buildWheelFaces(wheelLeftRear, tWh);
 		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++] = wFaces[i];
 		}
 
-		wFaces = buildWheelFaces(wheelRightRear, wh);
+		wFaces = buildWheelFaces(wheelRightRear, tWh);
 		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++] = wFaces[i];
 		}
@@ -319,84 +319,84 @@ public class F10Model extends MeshModel {
 	private int buildBodyFaces(int counter) {
 
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, backSpoiler[0][0][1], backSpoiler[1][0][1],
-				backSpoiler[1][1][1], backSpoiler[0][1][1], bo[0]);
+				backSpoiler[1][1][1], backSpoiler[0][1][1], tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, backSpoiler[0][0][0], backSpoiler[0][0][1],
-				backSpoiler[0][1][1], backSpoiler[0][1][0], bo[0]);
+				backSpoiler[0][1][1], backSpoiler[0][1][0], tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, backSpoiler[1][0][0], backSpoiler[1][1][0],
-				backSpoiler[1][1][1], backSpoiler[1][0][1], bo[0]);
+				backSpoiler[1][1][1], backSpoiler[1][0][1], tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, backSpoiler[0][1][0], backSpoiler[0][1][1],
-				backSpoiler[1][1][1], backSpoiler[1][1][0], bo[0]);
+				backSpoiler[1][1][1], backSpoiler[1][1][0], tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, backSpoiler[0][0][0], backSpoiler[1][0][0],
-				backSpoiler[1][0][1], backSpoiler[0][0][1], bo[0]);
+				backSpoiler[1][0][1], backSpoiler[0][0][1], tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, backSpoiler[0][0][0], backSpoiler[0][1][0],
-				backSpoiler[1][1][0], backSpoiler[1][0][0], bo[0]);
+				backSpoiler[1][1][0], backSpoiler[1][0][0], tBo[0]);
 
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, back[0][0][1], back[1][0][1], back[1][1][1], back[0][1][1],
-				topRear);
+				tTopRear);
 		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, back[0][0][0], back[0][0][1], back[0][1][1], back[0][1][0],
-				bo[0]);
+				tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, back[1][0][0], back[1][1][0], back[1][1][1], back[1][0][1],
-				bo[0]);
+				tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, back[0][1][0], back[0][1][1], back[1][1][1], back[1][1][0],
-				bo[0]);
+				tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, back[0][0][0], back[1][0][0], back[1][0][1], back[0][0][1],
-				backRear);
+				tBackRear);
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, back[0][0][0], back[0][1][0], back[1][1][0], back[1][0][0],
-				bo[0]);
+				tBo[0]);
 
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, body[0][0][1], body[1][0][1], body[1][1][1], body[0][1][1],
-				topBody);
+				tTopBody);
 		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, body[0][0][0], body[0][0][1], body[0][1][1], body[0][1][0],
-				leftBody);
+				tLeftBody);
 		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, body[1][0][0], body[1][1][0], body[1][1][1], body[1][0][1],
-				rightBody);
+				tRightBody);
 		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, body[0][1][0], body[0][1][1], body[1][1][1], body[1][1][0],
-				bo[0]);
+				tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, body[0][0][0], body[1][0][0], body[1][0][1], body[0][0][1],
-				bo[0]);
+				tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[0][0][0], body[0][1][0], body[1][1][0], body[1][0][0],
-				bo[0]);
+				tBo[0]);
 
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, front[0][0][0], front[1][0][0], front[1][0][1],
-				front[0][0][1], bo[0]);
+				front[0][0][1], tBo[0]);
 		for (int j = 0; j < frontNY - 1; j++) {
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, front[0][j][1], front[1][j][1], front[1][j + 1][1],
-					front[0][j + 1][1], topFront[j]);
+					front[0][j + 1][1], tTopFront[j]);
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, front[0][j][0], front[0][j][1], front[0][j + 1][1],
-					front[0][j + 1][0], bo[0]);
+					front[0][j + 1][0], tBo[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, front[1][j][0], front[1][j + 1][0], front[1][j + 1][1],
-					front[1][j][1], bo[0]);
+					front[1][j][1], tBo[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, front[0][j][0], front[0][j + 1][0], front[1][j + 1][0],
-					front[1][j][0], bo[0]);
+					front[1][j][0], tBo[0]);
 		}
 		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, front[0][frontNY - 1][0], front[0][frontNY - 1][1],
-				front[1][frontNY - 1][1], front[1][frontNY - 1][0], bo[0]);
+				front[1][frontNY - 1][1], front[1][frontNY - 1][0], tBo[0]);
 
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, frontSpoiler[0][0][1], frontSpoiler[1][0][1],
-				frontSpoiler[1][1][1], frontSpoiler[0][1][1], bo[0]);
+				frontSpoiler[1][1][1], frontSpoiler[0][1][1], tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, frontSpoiler[0][0][0], frontSpoiler[0][0][1],
-				frontSpoiler[0][1][1], frontSpoiler[0][1][0], bo[0]);
+				frontSpoiler[0][1][1], frontSpoiler[0][1][0], tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, frontSpoiler[1][0][0], frontSpoiler[1][1][0],
-				frontSpoiler[1][1][1], frontSpoiler[1][0][1], bo[0]);
+				frontSpoiler[1][1][1], frontSpoiler[1][0][1], tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, frontSpoiler[0][1][0], frontSpoiler[0][1][1],
-				frontSpoiler[1][1][1], frontSpoiler[1][1][0], bo[0]);
+				frontSpoiler[1][1][1], frontSpoiler[1][1][0], tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, frontSpoiler[0][0][0], frontSpoiler[1][0][0],
-				frontSpoiler[1][0][1], frontSpoiler[0][0][1], bo[0]);
+				frontSpoiler[1][0][1], frontSpoiler[0][0][1], tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, frontSpoiler[0][0][0], frontSpoiler[0][1][0],
-				frontSpoiler[1][1][0], frontSpoiler[1][0][0], bo[0]);
+				frontSpoiler[1][1][0], frontSpoiler[1][0][0], tBo[0]);
 
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, roof[0][0][1], roof[1][0][1], roof[1][1][1], roof[0][1][1],
-				bo[0]);
+				tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, roof[0][0][0], roof[0][0][1], roof[0][1][1], roof[0][1][0],
-				bo[0]);
+				tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][0][0], roof[1][1][0], roof[1][1][1], roof[1][0][1],
-				bo[0]);
+				tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, roof[0][1][0], roof[0][1][1], roof[1][1][1], roof[1][1][0],
-				bo[0]);
+				tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, roof[0][0][0], roof[1][0][0], roof[1][0][1], roof[0][0][1],
-				bo[0]);
+				tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, roof[0][0][0], roof[0][1][0], roof[1][1][0], roof[1][0][0],
-				bo[0]);
+				tBo[0]);
 
 		return counter;
 	}
@@ -415,19 +415,19 @@ public class F10Model extends MeshModel {
 		bufGraphics.setStroke(new BasicStroke(0.1f));
 
 		bufGraphics.setColor(new Color(0, 0, 0));
-		printTexturePolygon(bufGraphics, backRear);
-		printTexturePolygon(bufGraphics, topRear);
-		printTexturePolygon(bufGraphics, leftBody);
-		printTexturePolygon(bufGraphics, topBody);
-		printTexturePolygon(bufGraphics, rightBody);
-		printTexturePolygon(bufGraphics, topFront[0]);
-		printTexturePolygon(bufGraphics, topFront[1]);
+		printTexturePolygon(bufGraphics, tBackRear);
+		printTexturePolygon(bufGraphics, tTopRear);
+		printTexturePolygon(bufGraphics, tLeftBody);
+		printTexturePolygon(bufGraphics, tTopBody);
+		printTexturePolygon(bufGraphics, tRightBody);
+		printTexturePolygon(bufGraphics, tTopFront[0]);
+		printTexturePolygon(bufGraphics, tTopFront[1]);
 
 		bufGraphics.setColor(new Color(255, 40, 1));
-		printTexturePolygon(bufGraphics, bo[0]);
+		printTexturePolygon(bufGraphics, tBo[0]);
 
 		bufGraphics.setColor(new Color(0, 0, 0));
-		printTexturePolygon(bufGraphics, wh);
+		printTexturePolygon(bufGraphics, tWh);
 
 	}
 

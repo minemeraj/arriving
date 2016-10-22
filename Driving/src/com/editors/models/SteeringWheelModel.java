@@ -29,7 +29,7 @@ public class SteeringWheelModel extends MeshModel{
     double z0=0;
 
     //body textures
-    protected int[][] bo= {{0,1,2,3}};
+    protected int[][] tBo= {{0,1,2,3}};
 
     private BPoint[][][] body;
 
@@ -93,7 +93,7 @@ public class SteeringWheelModel extends MeshModel{
                         body[i][(j+1)%section_meridians][0],
                         body[(i+1)%sections_number][(j+1)%section_meridians][0],
                         body[(i+1)%sections_number][j][0],
-                        bo[0]);
+                        tBo[0]);
             }
 
         }
@@ -106,7 +106,7 @@ public class SteeringWheelModel extends MeshModel{
                     core[(i+1)%sections_number][0][0],
                     core[(i+1)%sections_number][1][0],
                     core[i][1][0],
-                    bo[0]);
+                    tBo[0]);
         }
 
         //core back and front faces:
@@ -116,7 +116,7 @@ public class SteeringWheelModel extends MeshModel{
                     core[0][0][0],
                     core[i][0][0],
                     core[(i+1)%sections_number][0][0],
-                    bo[0]);
+                    tBo[0]);
         }
 
         for (int i = 0; i < sections_number; i++) {
@@ -125,7 +125,7 @@ public class SteeringWheelModel extends MeshModel{
                     core[0][1][0],
                     core[(i+1)%sections_number][1][0],
                     core[i][1][0],
-                    bo[0]);
+                    tBo[0]);
         }
 
         //arms:
@@ -143,28 +143,28 @@ public class SteeringWheelModel extends MeshModel{
                     core[(i+1)%sections_number][0][0],
                     body[(i+1)%sections_number][backMer][0],
                     body[i][backMer][0],
-                    bo[0]);
+                    tBo[0]);
 
             faces[counter++]=buildFace(Renderer3D.CAR_FRONT,
                     core[i][1][0],
                     core[(i+1)%sections_number][1][0],
                     body[(i+1)%sections_number][frontMer][0],
                     body[i][frontMer][0],
-                    bo[0]);
+                    tBo[0]);
 
             faces[counter++]=buildFace(Renderer3D.CAR_LEFT,
                     core[(i+1)%sections_number][0][0],
                     core[(i+1)%sections_number][1][0],
                     body[(i+1)%sections_number][frontMer][0],
                     body[(i+1)%sections_number][backMer][0],
-                    bo[0]);
+                    tBo[0]);
 
             faces[counter++]=buildFace(Renderer3D.CAR_RIGHT,
                     core[i][0][0],
                     core[i][1][0],
                     body[i][frontMer][0],
                     body[i][backMer][0],
-                    bo[0]);
+                    tBo[0]);
 
         }
 

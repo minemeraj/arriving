@@ -85,7 +85,7 @@ public class TrunksTruck0Model extends Truck0Model {
 			for (int i = 0; i < nWagonMeridians; i++) {
 				faces[counter++] = buildFace(Renderer3D.CAR_TOP, trunks[m][i][0],
 						trunks[m][(i + 1) % trunks[m].length][0], trunks[m][(i + 1) % trunks[0].length][1],
-						trunks[m][i][1], re[0]);
+						trunks[m][i][1], tRe[0]);
 			}
 
 			for (int j = 1; j < nWagonMeridians - 1; j++) {
@@ -94,7 +94,7 @@ public class TrunksTruck0Model extends Truck0Model {
 				BPoint p1 = trunks[m][(j + 1) % nWagonMeridians][1];
 				BPoint p2 = trunks[m][j][1];
 
-				faces[counter++] = buildFace(0, p0, p1, p2, re[0]);
+				faces[counter++] = buildFace(0, p0, p1, p2, tRe[0]);
 			}
 
 			for (int j = 1; j < nWagonMeridians - 1; j++) {
@@ -103,7 +103,7 @@ public class TrunksTruck0Model extends Truck0Model {
 				BPoint p1 = trunks[m][j][0];
 				BPoint p2 = trunks[m][(j + 1) % nWagonMeridians][0];
 
-				faces[counter++] = buildFace(0, p0, p1, p2, re[0]);
+				faces[counter++] = buildFace(0, p0, p1, p2, tRe[0]);
 			}
 		}
 

@@ -68,7 +68,7 @@ public class RailWagonCoalModel extends RailWagonBulkModel{
 
 
 		
-		counter=buildBodyFaces(counter,w[0][0],totWheelPolygon);
+		counter=buildBodyFaces(counter,tWh[0][0],totWheelPolygon);
 		
 		counter=buildWagonFaces(counter);
 

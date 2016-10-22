@@ -43,7 +43,7 @@ public class Tank0Model extends MeshModel {
     double z0 = 0;
 
     // body textures
-    protected int[][] bo = { { 0, 1, 2, 3 } };
+    protected int[][] tBo = { { 0, 1, 2, 3 } };
 
     private BPoint[][][] body;
     private BPoint[][][] turret;
@@ -101,30 +101,30 @@ public class Tank0Model extends MeshModel {
     private int buildFaces(int counter) {
 
         faces[counter++] = buildFace(Renderer3D.CAR_TOP, body[0][0][1], body[1][0][1], body[1][1][1], body[0][1][1],
-                bo[0]);
+                tBo[0]);
         faces[counter++] = buildFace(Renderer3D.CAR_LEFT, body[0][0][0], body[0][0][1], body[0][1][1], body[0][1][0],
-                bo[0]);
+                tBo[0]);
         faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, body[1][0][0], body[1][1][0], body[1][1][1], body[1][0][1],
-                bo[0]);
+                tBo[0]);
         faces[counter++] = buildFace(Renderer3D.CAR_FRONT, body[0][1][0], body[0][1][1], body[1][1][1], body[1][1][0],
-                bo[0]);
+                tBo[0]);
         faces[counter++] = buildFace(Renderer3D.CAR_BACK, body[0][0][0], body[1][0][0], body[1][0][1], body[0][0][1],
-                bo[0]);
+                tBo[0]);
         faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[0][0][0], body[0][1][0], body[1][1][0], body[1][0][0],
-                bo[0]);
+                tBo[0]);
 
         faces[counter++] = buildFace(Renderer3D.CAR_TOP, turret[0][0][1], turret[1][0][1], turret[1][1][1],
-                turret[0][1][1], bo[0]);
+                turret[0][1][1], tBo[0]);
         faces[counter++] = buildFace(Renderer3D.CAR_LEFT, turret[0][0][0], turret[0][0][1], turret[0][1][1],
-                turret[0][1][0], bo[0]);
+                turret[0][1][0], tBo[0]);
         faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, turret[1][0][0], turret[1][1][0], turret[1][1][1],
-                turret[1][0][1], bo[0]);
+                turret[1][0][1], tBo[0]);
         faces[counter++] = buildFace(Renderer3D.CAR_FRONT, turret[0][1][0], turret[0][1][1], turret[1][1][1],
-                turret[1][1][0], bo[0]);
+                turret[1][1][0], tBo[0]);
         faces[counter++] = buildFace(Renderer3D.CAR_BACK, turret[0][0][0], turret[1][0][0], turret[1][0][1],
-                turret[0][0][1], bo[0]);
+                turret[0][0][1], tBo[0]);
         faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, turret[0][0][0], turret[0][1][0], turret[1][1][0],
-                turret[1][0][0], bo[0]);
+                turret[1][0][0], tBo[0]);
 
         for (int i = 0; i < cannon_barrel.length; i++) {
 
@@ -194,17 +194,17 @@ public class Tank0Model extends MeshModel {
         for (int i = 0; i < tracks.length; i++) {
 
             faces[counter++] = buildFace(Renderer3D.CAR_TOP, tracks[i][0][0][1], tracks[i][1][0][1],
-                    tracks[i][1][1][1], tracks[i][0][1][1], bo[0]);
+                    tracks[i][1][1][1], tracks[i][0][1][1], tBo[0]);
             faces[counter++] = buildFace(Renderer3D.CAR_LEFT, tracks[i][0][0][0], tracks[i][0][0][1],
-                    tracks[i][0][1][1], tracks[i][0][1][0], bo[0]);
+                    tracks[i][0][1][1], tracks[i][0][1][0], tBo[0]);
             faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, tracks[i][1][0][0], tracks[i][1][1][0],
-                    tracks[i][1][1][1], tracks[i][1][0][1], bo[0]);
+                    tracks[i][1][1][1], tracks[i][1][0][1], tBo[0]);
             faces[counter++] = buildFace(Renderer3D.CAR_FRONT, tracks[i][0][1][0], tracks[i][0][1][1],
-                    tracks[i][1][1][1], tracks[i][1][1][0], bo[0]);
+                    tracks[i][1][1][1], tracks[i][1][1][0], tBo[0]);
             faces[counter++] = buildFace(Renderer3D.CAR_BACK, tracks[i][0][0][0], tracks[i][1][0][0],
-                    tracks[i][1][0][1], tracks[i][0][0][1], bo[0]);
+                    tracks[i][1][0][1], tracks[i][0][0][1], tBo[0]);
             faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, tracks[i][0][0][0], tracks[i][0][1][0],
-                    tracks[i][1][1][0], tracks[i][1][0][0], bo[0]);
+                    tracks[i][1][1][0], tracks[i][1][0][0], tBo[0]);
 
         }
 

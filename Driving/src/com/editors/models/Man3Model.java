@@ -41,7 +41,7 @@ public class Man3Model extends MeshModel{
     double z0=0;
 
     //body textures
-    protected int[][] bo= {{0,1,2,3}};
+    protected int[][] tBo= {{0,1,2,3}};
 
     int nzBody=5;
     int radBody=8;
@@ -136,15 +136,15 @@ public class Man3Model extends MeshModel{
 
                 int ii=(i+1)%radBody;
 
-                faces[counter++]=buildFace(Renderer3D.CAR_LEFT, body[k][i],body[k][ii],body[k+1][ii],body[k+1][i], bo[0]);
+                faces[counter++]=buildFace(Renderer3D.CAR_LEFT, body[k][i],body[k][ii],body[k+1][ii],body[k+1][i], tBo[0]);
 
             }
         }
 
         //only for radBody==6
         for(int i=0;i<3;i++){
-            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, body[0][i],body[0][radBody-1-i],body[0][radBody-2-i], body[0][i+1],bo[0]);
-            faces[counter++]=buildFace(Renderer3D.CAR_TOP, body[nzBody-1][i],body[nzBody-1][i+1],body[nzBody-1][radBody-2-i], body[nzBody-1][radBody-1-i],bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, body[0][i],body[0][radBody-1-i],body[0][radBody-2-i], body[0][i+1],tBo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_TOP, body[nzBody-1][i],body[nzBody-1][i+1],body[nzBody-1][radBody-2-i], body[nzBody-1][radBody-1-i],tBo[0]);
 
         }
 
@@ -166,9 +166,9 @@ public class Man3Model extends MeshModel{
                 BPoint l3 = head[k+1][i];
 
                 if(l0.getIndex()==l1.getIndex()) {
-                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT, l0,l2,l3,bo[0]);
+                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT, l0,l2,l3,tBo[0]);
                 } else {
-                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT,l0 ,l1,l2,l3, bo[0]);
+                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT,l0 ,l1,l2,l3, tBo[0]);
                 }
 
             }
@@ -177,7 +177,7 @@ public class Man3Model extends MeshModel{
         //only for radHead==8
         for(int i=0;i<3;i++){
 
-            faces[counter++]=buildFace(Renderer3D.CAR_TOP, head[nzHead-1][i],head[nzHead-1][i+1],head[nzHead-1][radHead-2-i], head[nzHead-1][radHead-1-i],bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_TOP, head[nzHead-1][i],head[nzHead-1][i+1],head[nzHead-1][radHead-2-i], head[nzHead-1][radHead-1-i],tBo[0]);
 
         }
 
@@ -198,9 +198,9 @@ public class Man3Model extends MeshModel{
                 BPoint l3 = leftArm[k+1][i];
 
                 if(l2.getIndex()==l3.getIndex()) {
-                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT, l0,l1,l2,bo[0]);
+                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT, l0,l1,l2,tBo[0]);
                 } else {
-                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT, l0,l1,l2,l3, bo[0]);
+                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT, l0,l1,l2,l3, tBo[0]);
                 }
 
             }
@@ -208,7 +208,7 @@ public class Man3Model extends MeshModel{
 
         //only for radArm==8:
         for(int i=0;i<3;i++){
-            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, leftArm[0][i],leftArm[0][radArm-1-i],leftArm[0][radArm-2-i], leftArm[0][i+1],bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, leftArm[0][i],leftArm[0][radArm-1-i],leftArm[0][radArm-2-i], leftArm[0][i+1],tBo[0]);
         }
 
         /////////////
@@ -225,9 +225,9 @@ public class Man3Model extends MeshModel{
                 BPoint l3 = rightArm[k+1][i];
 
                 if(l2.getIndex()==l3.getIndex()) {
-                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT, l0,l1,l2,bo[0]);
+                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT, l0,l1,l2,tBo[0]);
                 } else {
-                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT, l0,l1,l2,l3, bo[0]);
+                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT, l0,l1,l2,l3, tBo[0]);
                 }
 
             }
@@ -235,7 +235,7 @@ public class Man3Model extends MeshModel{
 
         //only for radArm==8:
         for(int i=0;i<3;i++){
-            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, rightArm[0][i],rightArm[0][radArm-1-i],rightArm[0][radArm-2-i], rightArm[0][i+1],bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, rightArm[0][i],rightArm[0][radArm-1-i],rightArm[0][radArm-2-i], rightArm[0][i+1],tBo[0]);
         }
 
 
@@ -258,16 +258,16 @@ public class Man3Model extends MeshModel{
                 BPoint l3 = leftLeg[k+1][i];
 
                 if(l2.getIndex()==l3.getIndex()) {
-                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT, l0,l1,l2,bo[0]);
+                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT, l0,l1,l2,tBo[0]);
                 } else {
-                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT, l0,l1,l2,l3, bo[0]);
+                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT, l0,l1,l2,l3, tBo[0]);
                 }
             }
         }
 
         //bottom faces, only for radLeg==6:
         for(int i=0;i<3;i++){
-            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, leftLeg[0][i],leftLeg[0][radLeg-1-i],leftLeg[0][radLeg-2-i], leftLeg[0][i+1],bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, leftLeg[0][i],leftLeg[0][radLeg-1-i],leftLeg[0][radLeg-2-i], leftLeg[0][i+1],tBo[0]);
 
         }
 
@@ -286,16 +286,16 @@ public class Man3Model extends MeshModel{
                 BPoint l3 = rightLeg[k+1][i];
 
                 if(l2.getIndex()==l3.getIndex()) {
-                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT, l0,l1,l2,bo[0]);
+                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT, l0,l1,l2,tBo[0]);
                 } else {
-                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT, l0,l1,l2,l3, bo[0]);
+                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT, l0,l1,l2,l3, tBo[0]);
                 }
             }
         }
 
         //bottom faces, only for radLeg==8:
         for(int i=0;i<3;i++){
-            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, rightLeg[0][i],rightLeg[0][radLeg-1-i],rightLeg[0][radLeg-2-i], rightLeg[0][i+1],bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, rightLeg[0][i],rightLeg[0][radLeg-1-i],rightLeg[0][radLeg-2-i], rightLeg[0][i+1],tBo[0]);
 
         }
 

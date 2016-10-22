@@ -99,23 +99,23 @@ public class Autobus0Model extends PickupModel {
 	@Override
 	protected int buildWagonFaces(int counter, int nzWagon) {
 
-		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0], wagon[0][3], wagon[0][2], wagon[0][1], wa[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0], wagon[0][3], wagon[0][2], wagon[0][1], tWa[0]);
 
 		for (int k = 0; k < nzWagon - 1; k++) {
 
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, wagon[k][0], wagon[k + 1][0], wagon[k + 1][3],
-					wagon[k][3], wa[0]);
+					wagon[k][3], tWa[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_BACK, wagon[k][0], wagon[k][1], wagon[k + 1][1],
-					wagon[k + 1][0], wa[0]);
+					wagon[k + 1][0], tWa[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagon[k][1], wagon[k][2], wagon[k + 1][2],
-					wagon[k + 1][1], wa[0]);
+					wagon[k + 1][1], tWa[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, wagon[k][2], wagon[k][3], wagon[k + 1][3],
-					wagon[k + 1][2], wa[0]);
+					wagon[k + 1][2], tWa[0]);
 
 		}
 
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, wagon[nzWagon - 1][0], wagon[nzWagon - 1][1],
-				wagon[nzWagon - 1][2], wagon[nzWagon - 1][3], wa[0]);
+				wagon[nzWagon - 1][2], wagon[nzWagon - 1][3], tWa[0]);
 
 		return counter;
 	}

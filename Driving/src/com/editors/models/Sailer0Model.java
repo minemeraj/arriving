@@ -33,8 +33,8 @@ public class Sailer0Model extends Ship0Model{
     private double sail_width=0;
     private double sail_length=0;
 
-    protected int[][] fun={{8,9,10,11}};
-    protected int[][] sai={{12,13,14,15}};
+    protected int[][] tFun={{8,9,10,11}};
+    protected int[][] tSai={{12,13,14,15}};
 
     double[] mastYPosition={0.18,0.41,0.79};
     double[] mastHeight={0.8,1.0,0.93};
@@ -189,8 +189,8 @@ public class Sailer0Model extends Ship0Model{
     	for (int l = 0; l < sails.length; l++) {
 
     		   BPoint[][] sail = sails[l];
-    		   faces[counter++]=buildFace(Renderer3D.CAR_BACK,sail[0][0],sail[1][0],sail[1][1],sail[0][1],sai[0]);
-    		   faces[counter++]=buildFace(Renderer3D.CAR_FRONT,sail[0][0],sail[0][1],sail[1][1],sail[1][0],sai[0]);
+    		   faces[counter++]=buildFace(Renderer3D.CAR_BACK,sail[0][0],sail[1][0],sail[1][1],sail[0][1],tSai[0]);
+    		   faces[counter++]=buildFace(Renderer3D.CAR_FRONT,sail[0][0],sail[0][1],sail[1][1],sail[1][0],tSai[0]);
 		}
 
 
@@ -203,13 +203,13 @@ public class Sailer0Model extends Ship0Model{
         for (int i = 0; i < masts.length; i++) {
             for (int k = 0; k < mast_parallels-1; k++) {
                 for (int j = 0; j < mast_meridians; j++) {
-                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT,masts[i][k][j],masts[i][k][(j+1)%mast_meridians],masts[i][k+1][(j+1)%mast_meridians],masts[i][k+1][j],fun[0]);
+                    faces[counter++]=buildFace(Renderer3D.CAR_LEFT,masts[i][k][j],masts[i][k][(j+1)%mast_meridians],masts[i][k+1][(j+1)%mast_meridians],masts[i][k+1][j],tFun[0]);
                 }
             }
 
             for (int j = 0; j < mast_meridians; j++) {
                 int k=mast_parallels-1;
-                faces[counter++]=buildFace(Renderer3D.CAR_TOP,masts[i][k][0],masts[i][k][j],masts[i][k][(j+1)%mast_meridians],fun[0]);
+                faces[counter++]=buildFace(Renderer3D.CAR_TOP,masts[i][k][0],masts[i][k][j],masts[i][k][(j+1)%mast_meridians],tFun[0]);
             }
         }
 
@@ -222,17 +222,17 @@ public class Sailer0Model extends Ship0Model{
 
 
     	bufGraphics.setColor(new Color(37,35,36));
-        printTexturePolygon(bufGraphics, h[0]);
+        printTexturePolygon(bufGraphics, tH[0]);
 
         bufGraphics.setColor(Color.WHITE);
-        printTexturePolygon(bufGraphics, d[0]);
+        printTexturePolygon(bufGraphics, tD[0]);
 
         bufGraphics.setColor(new Color(160,99,16));
-        printTexturePolygon(bufGraphics, fun[0]);
+        printTexturePolygon(bufGraphics, tFun[0]);
 
         //ivory
         bufGraphics.setColor(new Color(255,255,240));
-        printTexturePolygon(bufGraphics, sai[0]);
+        printTexturePolygon(bufGraphics, tSai[0]);
     }
 
 }

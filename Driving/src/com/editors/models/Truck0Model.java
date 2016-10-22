@@ -53,17 +53,17 @@ public class Truck0Model extends MeshModel {
 	protected int wheel_rays;
 
 	// rear and cabin textures
-	protected int[] backRear = null;
-	protected int[][] re = null;
+	protected int[] tBackRear = null;
+	protected int[][] tRe = null;
 	// wagon textures
-	protected int[] backWa = null;
-	protected int[] leftWa = null;
-	protected int[][] wa = null;
-	protected int[] rightWa = null;
+	protected int[] tBackWa = null;
+	protected int[] tLeftWa = null;
+	protected int[][] tWa = null;
+	protected int[] tRightWa = null;
 	// window texture
-	protected int[][] wi = null;
+	protected int[][] tWi = null;
 	// wheel texture
-	protected int[][] wh = null;
+	protected int[][] tWh = null;
 
 	protected double dyTexture = 100;
 	protected double dxTexture = 100;
@@ -122,14 +122,14 @@ public class Truck0Model extends MeshModel {
 		texturePoints = new Vector<Point3D>();
 
 		int c = 0;
-		c = initDoubleArrayValues(re = new int[1][4], c);
-		c = initSingleArrayValues(backRear = new int[4], c);
-		c = initSingleArrayValues(backWa = new int[4], c);
-		c = initSingleArrayValues(leftWa = new int[4], c);
-		c = initDoubleArrayValues(wa = new int[1][4], c);
-		c = initSingleArrayValues(rightWa = new int[4], c);
-		c = initDoubleArrayValues(wi = new int[1][4], c);
-		c = initDoubleArrayValues(wh = new int[1][4], c);
+		c = initDoubleArrayValues(tRe = new int[1][4], c);
+		c = initSingleArrayValues(tBackRear = new int[4], c);
+		c = initSingleArrayValues(tBackWa = new int[4], c);
+		c = initSingleArrayValues(tLeftWa = new int[4], c);
+		c = initDoubleArrayValues(tWa = new int[1][4], c);
+		c = initSingleArrayValues(tRightWa = new int[4], c);
+		c = initDoubleArrayValues(tWi = new int[1][4], c);
+		c = initDoubleArrayValues(tWh = new int[1][4], c);
 
 		x0 = dxWagon * 0.5;
 
@@ -187,23 +187,23 @@ public class Truck0Model extends MeshModel {
 
 	protected int buildRearFaces(int counter, int nzRear, int nzWagon) {
 
-		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, rear[0][0], rear[0][3], rear[0][2], rear[0][1], re[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, rear[0][0], rear[0][3], rear[0][2], rear[0][1], tRe[0]);
 
 		for (int k = 0; k < nzRear - 1; k++) {
 
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, rear[k][0], rear[k + 1][0], rear[k + 1][3], rear[k][3],
-					re[0]);
+					tRe[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_BACK, rear[k][0], rear[k][1], rear[k + 1][1], rear[k + 1][0],
-					backRear);
+					tBackRear);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, rear[k][1], rear[k][2], rear[k + 1][2], rear[k + 1][1],
-					re[0]);
+					tRe[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, rear[k][2], rear[k][3], rear[k + 1][3], rear[k + 1][2],
-					re[0]);
+					tRe[0]);
 
 		}
 
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, rear[nzRear - 1][0], rear[nzRear - 1][1], rear[nzRear - 1][2],
-				rear[nzRear - 1][3], re[0]);
+				rear[nzRear - 1][3], tRe[0]);
 
 		return counter;
 	}
@@ -212,22 +212,22 @@ public class Truck0Model extends MeshModel {
 
 		int numSections = rear.length;
 
-		faces[counter++] = buildFace(Renderer3D.CAR_BACK, rear[0][0], rear[0][1], rear[0][2], rear[0][3], re[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_BACK, rear[0][0], rear[0][1], rear[0][2], rear[0][3], tRe[0]);
 
 		for (int i = 0; i < numSections - 1; i++) {
 
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, rear[i + 1][0], rear[i][0], rear[i][3], rear[i + 1][3],
-					re[0]);
+					tRe[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, rear[i][0], rear[i + 1][0], rear[i + 1][1], rear[i][1],
-					re[0]);
+					tRe[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, rear[i][1], rear[i + 1][1], rear[i + 1][2], rear[i][2],
-					re[0]);
+					tRe[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, rear[i][2], rear[i + 1][2], rear[i + 1][3], rear[i][3],
-					re[0]);
+					tRe[0]);
 
 		}
 		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, rear[numSections - 1][0], rear[numSections - 1][3],
-				rear[numSections - 1][2], rear[numSections - 1][1], re[0]);
+				rear[numSections - 1][2], rear[numSections - 1][1], tRe[0]);
 		return counter;
 
 	}
@@ -237,23 +237,23 @@ public class Truck0Model extends MeshModel {
 		for (int j = 0; j < nYcab - 1; j++) {
 
 			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, cab[0][j][0], cab[0][j + 1][0], cab[1][j + 1][0],
-					cab[1][j][0], re[0]);
+					cab[1][j][0], tRe[0]);
 
 			for (int k = 0; k < nzCab - 1; k++) {
 
 				// set windows in the upper part
 				int[] ca = null;
 				if (k > 0) {
-					ca = wi[0];
+					ca = tWi[0];
 				} else {
-					ca = re[0];
+					ca = tRe[0];
 				}
 
 				faces[counter++] = buildFace(Renderer3D.CAR_LEFT, cab[0][j][k], cab[0][j][k + 1], cab[0][j + 1][k + 1],
 						cab[0][j + 1][k], ca);
 				if (j == 0) {
 					faces[counter++] = buildFace(Renderer3D.CAR_BACK, cab[0][j][k], cab[1][j][k], cab[1][j][k + 1],
-							cab[0][j][k + 1], re[0]);
+							cab[0][j][k + 1], tRe[0]);
 				}
 				faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, cab[1][j][k], cab[1][j + 1][k], cab[1][j + 1][k + 1],
 						cab[1][j][k + 1], ca);
@@ -264,7 +264,7 @@ public class Truck0Model extends MeshModel {
 
 			}
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, cab[0][j][nzCab - 1], cab[1][j][nzCab - 1],
-					cab[1][j + 1][nzCab - 1], cab[0][j + 1][nzCab - 1], re[0]);
+					cab[1][j + 1][nzCab - 1], cab[0][j + 1][nzCab - 1], tRe[0]);
 		}
 
 		return counter;
@@ -280,23 +280,23 @@ public class Truck0Model extends MeshModel {
 	 */
 	protected int buildWagonFaces(int counter, int nzWagon) {
 
-		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0], wagon[0][3], wagon[0][2], wagon[0][1], wa[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0], wagon[0][3], wagon[0][2], wagon[0][1], tWa[0]);
 
 		for (int k = 0; k < nzWagon - 1; k++) {
 
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, wagon[k][0], wagon[k + 1][0], wagon[k + 1][3],
-					wagon[k][3], leftWa);
+					wagon[k][3], tLeftWa);
 			faces[counter++] = buildFace(Renderer3D.CAR_BACK, wagon[k][0], wagon[k][1], wagon[k + 1][1],
-					wagon[k + 1][0], backWa);
+					wagon[k + 1][0], tBackWa);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagon[k + 1][1], wagon[k][1], wagon[k][2],
-					wagon[k + 1][2], rightWa);
+					wagon[k + 1][2], tRightWa);
 			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, wagon[k][2], wagon[k][3], wagon[k + 1][3],
-					wagon[k + 1][2], wa[0]);
+					wagon[k + 1][2], tWa[0]);
 
 		}
 
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, wagon[nzWagon - 1][0], wagon[nzWagon - 1][1],
-				wagon[nzWagon - 1][2], wagon[nzWagon - 1][3], wa[0]);
+				wagon[nzWagon - 1][2], wagon[nzWagon - 1][3], tWa[0]);
 
 		return counter;
 	}
@@ -305,22 +305,22 @@ public class Truck0Model extends MeshModel {
 
 		///// WHEELS
 
-		int[][][] wFaces = buildWheelFaces(wheelLeftFront, wh[0][0]);
+		int[][][] wFaces = buildWheelFaces(wheelLeftFront, tWh[0][0]);
 		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++] = wFaces[i];
 		}
 
-		wFaces = buildWheelFaces(wheelRightFront, wh[0][0]);
+		wFaces = buildWheelFaces(wheelRightFront, tWh[0][0]);
 		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++] = wFaces[i];
 		}
 
-		wFaces = buildWheelFaces(wheelLeftRear, wh[0][0]);
+		wFaces = buildWheelFaces(wheelLeftRear, tWh[0][0]);
 		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++] = wFaces[i];
 		}
 
-		wFaces = buildWheelFaces(wheelRightRear, wh[0][0]);
+		wFaces = buildWheelFaces(wheelRightRear, tWh[0][0]);
 		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++] = wFaces[i];
 		}
@@ -475,19 +475,19 @@ public class Truck0Model extends MeshModel {
 		bufGraphics.setStroke(new BasicStroke(0.1f));
 
 		bufGraphics.setColor(new Color(217, 15, 27));
-		printTexturePolygon(bufGraphics, re[0]);
-		printTexturePolygon(bufGraphics, backRear);
+		printTexturePolygon(bufGraphics, tRe[0]);
+		printTexturePolygon(bufGraphics, tBackRear);
 		bufGraphics.setColor(new Color(255, 255, 255));
-		printTexturePolygon(bufGraphics, backWa);
-		printTexturePolygon(bufGraphics, leftWa);
-		printTexturePolygon(bufGraphics, wa[0]);
-		printTexturePolygon(bufGraphics, rightWa);
+		printTexturePolygon(bufGraphics, tBackWa);
+		printTexturePolygon(bufGraphics, tLeftWa);
+		printTexturePolygon(bufGraphics, tWa[0]);
+		printTexturePolygon(bufGraphics, tRightWa);
 
 		bufGraphics.setColor(Color.BLUE);
-		printTexturePolygon(bufGraphics, wi[0]);
+		printTexturePolygon(bufGraphics, tWi[0]);
 
 		bufGraphics.setColor(Color.BLACK);
-		printTexturePolygon(bufGraphics, wh[0]);
+		printTexturePolygon(bufGraphics, tWh[0]);
 
 	}
 

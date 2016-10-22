@@ -148,10 +148,10 @@ public class RailWagonBulkModel extends RailWagon0Model{
 
     protected int buildWagonFaces(int counter) {
 
-        counter=addPrism(prismRight,counter,bo[0]);
-        counter=addPrism(prismLeft,counter,bo[0]);
-        counter=addPrism(prismBack,counter,bo[0]);
-        counter=addPrism(prismFront,counter,bo[0]);
+        counter=addPrism(prismRight,counter,tBo[0]);
+        counter=addPrism(prismLeft,counter,tBo[0]);
+        counter=addPrism(prismBack,counter,tBo[0]);
+        counter=addPrism(prismFront,counter,tBo[0]);
 
 
 
