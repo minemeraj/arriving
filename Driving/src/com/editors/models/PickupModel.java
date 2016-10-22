@@ -27,8 +27,6 @@ public class PickupModel extends Truck0Model {
 
 	protected int nWagonUnits = 10;
 
-	protected double wheelZ = 0;
-
 	int[] tBackWagon = null;
 	int[] tTopRear = null;
 	int[] tTopFront = null;

@@ -1,10 +1,13 @@
-New car:
+--- 22/10/2016 CarDriving 11.0.3 - Monza
+
+New cars:
 /lib/cardefault3D_10 (Pickup)
 /lib/cardefault3D_11 (Beetle)
 /lib/cardefault3D_12 (F1 Car)
 
 Review of the truck mesh and texture:
 /lib/cardefault3D_8
+/lib/car_texture_t8.gif
 
 Adding autocars:
 /lib/autocars_harbour

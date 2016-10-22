@@ -11,32 +11,7 @@ import com.Point3D;
 import com.Segments;
 import com.main.Renderer3D;
 
-public class F10Model extends MeshModel {
-
-	private int bx = 10;
-	private int by = 10;
-
-	private double dx = 0;
-	private double dy = 0;
-	private double dz = 0;
-
-	private double dxFront = 0;
-	private double dyFront = 0;
-	private double dzFront = 0;
-
-	private double dxRear = 0;
-	private double dyRear = 0;
-	private double dzRear = 0;
-
-	private double dxRoof;
-	private double dyRoof;
-	private double dzRoof;
-
-	protected double rearOverhang;
-	protected double frontOverhang;
-
-	protected double rearOverhang1;
-	protected double frontOverhang1;
+public class F10Model extends VehicleModel {
 
 	private double wheelRadius;
 	private double wheelWidth;
@@ -45,11 +20,6 @@ public class F10Model extends MeshModel {
 	private double dyTexture = 100;
 	private double dxTexture = 100;
 
-	protected double wheelZ;
-
-	double x0 = 0;
-	double y0 = 0;
-	double z0 = 0;
 	private BPoint[][][] body;
 	private BPoint[][][] front;
 	private BPoint[][][] roof;

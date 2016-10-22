@@ -17,36 +17,11 @@ import com.main.Renderer3D;
  * @author Administrator
  *
  */
-public class Truck0Model extends MeshModel {
-
-	protected int bx = 10;
-	protected int by = 10;
-
-	protected double dxFront = 0;
-	protected double dyFront = 0;
-	protected double dzFront = 0;
+public class Truck0Model extends VehicleModel {
 
 	protected double dxWagon = 0;
 	protected double dyWagon = 0;
 	protected double dzWagon = 0;
-
-	protected double dxRear = 0;
-	protected double dyRear = 0;
-	protected double dzRear = 0;
-
-	protected double dxRoof = 0;
-	protected double dyRoof = 0;
-	protected double dzRoof = 0;
-
-	protected double rearOverhang;
-	protected double frontOverhang;
-
-	protected double rearOverhang1;
-	protected double frontOverhang1;
-
-	protected double x0 = 0;
-	protected double y0 = 0;
-	protected double z0 = 0;
 
 	protected double wheelRadius;
 	protected double wheelWidth;

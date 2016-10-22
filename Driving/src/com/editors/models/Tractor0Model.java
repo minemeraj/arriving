@@ -17,34 +17,11 @@ import com.main.Renderer3D;
  * @author Administrator
  *
  */
-public class Tractor0Model extends MeshModel {
-
-	private int bx = 10;
-	private int by = 10;
-
-	private double dx = 0;
-	private double dy = 0;
-	private double dz = 0;
-
-	private double dxFront = 0;
-	private double dyFront = 0;
-	private double dzFront = 0;
-
-	private double dxRear = 0;
-	private double dyRear = 0;
-	private double dzRear = 0;
-
-	private double dxRoof;
-	private double dyRoof;
-	private double dzRoof;
+public class Tractor0Model extends VehicleModel {
 
 	protected double wheelRadius;
 	protected double wheelWidth;
 	protected int wheel_rays;
-
-	double x0 = 0;
-	double y0 = 0;
-	double z0 = 0;
 
 	// body textures
 	protected int[][] bo = { { 0, 1, 2, 3 } };

@@ -10,22 +10,14 @@ import com.BPoint;
 import com.Point3D;
 import com.main.CarFrame;
 
-public class Car0Model extends MeshModel {
-
-	protected double dx = 0;
-	protected double dy = 0;
-	protected double dz = 0;
+public class Car0Model extends VehicleModel {
 
 	protected int nBasePoints = 6;
-
-	protected int bx = 10;
-	protected int by = 10;
 
 	// these wheel data should be read from the editor
 	protected int rays_number = 10;
 	protected double wheel_width = 0;
 	protected double wheel_radius;
-	protected double wheelZ;
 
 	public static String NAME = "Car0";
 
