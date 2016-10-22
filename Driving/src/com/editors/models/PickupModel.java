@@ -280,7 +280,7 @@ public class PickupModel extends Truck0Model {
 					tRe[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, rear[i][1], rear[i + 1][1], rear[i + 1][2], rear[i][2],
 					tRe[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_TOP, rear[i][2], rear[i + 1][2], rear[i + 1][3], rear[i][3],
+			faces[counter++] = buildFace(Renderer3D.CAR_TOP, rear[i][3], rear[i][2], rear[i + 1][2], rear[i + 1][3],
 					tTopRear);
 
 		}
