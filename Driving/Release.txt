@@ -3,6 +3,9 @@ New car:
 /lib/cardefault3D_11 (Beetle)
 /lib/cardefault3D_12 (F1 Car)
 
+Review of the truck mesh and texture:
+/lib/cardefault3D_8
+
 Adding autocars:
 /lib/autocars_harbour
 
