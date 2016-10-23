@@ -1,5 +1,8 @@
 package com.editors.models;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.Vector;
 
 import com.BPoint;
@@ -38,8 +41,7 @@ public class Camper0Model extends PickupModel {
 		int c = 0;
 		c = initSingleArrayValues(tBackRear = new int[4], c);
 		c = initSingleArrayValues(tBackWagon = new int[4], c);
-		c = initSingleArrayValues(tTopRear = new int[4], c);
-		c = initSingleArrayValues(tTopRoof = new int[4], c);
+		c = initSingleArrayValues(tTopWagon = new int[4], c);
 		c = initSingleArrayValues(tTopFront = new int[4], c);
 
 		c = initDoubleArrayValues(tRe = new int[1][4], c);
@@ -80,6 +82,47 @@ public class Camper0Model extends PickupModel {
 		counter = buildBodyFaces(counter, nzBody, nWagonUnits);
 		counter = buildWheelFaces(counter, totWheelPolygon);
 
+	}
+
+	@Override
+	protected void buildTextures() {
+
+		int shift = 1;
+
+		double y = by;
+		double x = bx;
+
+		// top and rear
+		addTRect(x, y, dxRear, dzRear);
+		y += dzRear;
+		addTRect(x, y, dxWagon, dzWagon);
+		y += dzWagon;
+		addTRect(x, y, dxWagon, dyWagon);
+		y += dyWagon;
+		addTRect(x, y, dxFront, dyFront);
+
+		// body points
+		x += dxRear + shift;
+		y = by;
+		addTRect(x, y, dxTexture, dyTexture);
+
+		// wagon points
+		x += dxTexture + shift;
+		y = by;
+		addTRect(x, y, dxTexture, dyTexture);
+
+		// window points
+		x += dxTexture + shift;
+		y = by;
+		addTRect(x, y, dxTexture, dyTexture);
+
+		// wheel texture, a black square for simplicity:
+		x += dxTexture + shift;
+		y = by;
+		addTRect(x, y, wheelWidth, wheelWidth);
+
+		IMG_WIDTH = (int) (2 * bx + 3 * dxTexture + wheelWidth + 4 * shift + dxRear);
+		IMG_HEIGHT = (int) (2 * by + dzRear + dzWagon + dyRear + dyFront + dyRoof);
 	}
 
 	@Override
@@ -129,7 +172,7 @@ public class Camper0Model extends PickupModel {
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, wagon[k][0], wagon[k + 1][0], wagon[k + 1][3],
 					wagon[k][3], tWa[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_BACK, wagon[k][0], wagon[k][1], wagon[k + 1][1],
-					wagon[k + 1][0], tWa[0]);
+					wagon[k + 1][0], tBackWagon);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagon[k][1], wagon[k][2], wagon[k + 1][2],
 					wagon[k + 1][1], tWa[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, wagon[k][2], wagon[k][3], wagon[k + 1][3],
@@ -148,7 +191,7 @@ public class Camper0Model extends PickupModel {
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, wagon2[k][0], wagon2[k + 1][0], wagon2[k + 1][3],
 					wagon2[k][3], tWa[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_BACK, wagon2[k][0], wagon2[k][1], wagon2[k + 1][1],
-					wagon2[k + 1][0], tWa[0]);
+					wagon2[k + 1][0], tBackWagon);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagon2[k][1], wagon2[k][2], wagon2[k + 1][2],
 					wagon2[k + 1][1], tWa[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, wagon2[k][2], wagon2[k][3], wagon2[k + 1][3],
@@ -157,9 +200,60 @@ public class Camper0Model extends PickupModel {
 		}
 
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, wagon2[nzWagon - 1][0], wagon2[nzWagon - 1][1],
-				wagon2[nzWagon - 1][2], wagon2[nzWagon - 1][3], tWa[0]);
+				wagon2[nzWagon - 1][2], wagon2[nzWagon - 1][3], tTopWagon);
 
 		return counter;
+	}
+
+	@Override
+	protected int buildRearYFaces(int counter, int nzRear, int nzWagon) {
+
+		int numSections = rear.length;
+
+		faces[counter++] = buildFace(Renderer3D.CAR_BACK, rear[0][0], rear[0][1], rear[0][2], rear[0][3], tBackRear);
+
+		for (int i = 0; i < numSections - 1; i++) {
+
+			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, rear[i + 1][0], rear[i][0], rear[i][3], rear[i + 1][3],
+					tRe[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, rear[i][0], rear[i + 1][0], rear[i + 1][1], rear[i][1],
+					tRe[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, rear[i][1], rear[i + 1][1], rear[i + 1][2], rear[i][2],
+					tRe[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_TOP, rear[i][3], rear[i][2], rear[i + 1][2], rear[i + 1][3],
+					tRe[0]);
+
+		}
+		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, rear[numSections - 1][0], rear[numSections - 1][3],
+				rear[numSections - 1][2], rear[numSections - 1][1], tRe[0]);
+		return counter;
+
+	}
+
+	@Override
+	public void printTexture(Graphics2D bufGraphics) {
+
+		bufGraphics.setStroke(new BasicStroke(0.1f));
+
+		bufGraphics.setColor(new Color(217, 15, 27));
+		printTexturePolygon(bufGraphics, tBackRear);
+		printTexturePolygon(bufGraphics, tBackWagon);
+		printTexturePolygon(bufGraphics, tTopWagon);
+		bufGraphics.setColor(new Color(72, 178, 230));
+		printTexturePolygon(bufGraphics, tTopFront);
+
+		bufGraphics.setColor(new Color(217, 15, 27));
+		printTexturePolygon(bufGraphics, tRe[0]);
+
+		bufGraphics.setColor(new Color(217, 15, 27));
+		printTexturePolygon(bufGraphics, tWa[0]);
+
+		bufGraphics.setColor(Color.BLUE);
+		printTexturePolygon(bufGraphics, tWi[0]);
+
+		bufGraphics.setColor(Color.BLACK);
+		printTexturePolygon(bufGraphics, tWh[0]);
+
 	}
 
 }
