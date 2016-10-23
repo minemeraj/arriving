@@ -20,8 +20,8 @@ public class Camper0Model extends PickupModel {
 
 	public static String NAME = "Camper";
 	private BPoint[][] wagon2;
-	private double rearOverhang;
-	private double frontOverhang;
+
+	private double dzWagon0;
 
 	public Camper0Model(double dxFront, double dyfront, double dzFront, double dxRoof, double dyRoof, double dzRoof,
 			double dxRear, double dyRear, double dzRear, double dxWagon, double dyWagon, double dzWagon,
@@ -29,10 +29,9 @@ public class Camper0Model extends PickupModel {
 			double wheelWidth, int wheel_rays) {
 		super(dxFront, dyfront, dzFront, dxRoof, dyRoof, dzRoof, dxRear, dyRear, dzRear, dxWagon, dyWagon, dzWagon,
 				rearOverhang, frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheel_rays);
-		this.rearOverhang = rearOverhang;
-		this.frontOverhang = frontOverhang;
 
 		nWagonUnits = 2;
+		dzWagon0 = dzFront + dzRoof - dzRear;
 	}
 
 	@Override
@@ -40,7 +39,7 @@ public class Camper0Model extends PickupModel {
 
 		int c = 0;
 		c = initSingleArrayValues(tBackRear = new int[4], c);
-		c = initSingleArrayValues(tBackWagon = new int[4], c);
+		c = initDoubleArrayValues(tBackWagon = new int[2][4], c);
 		c = initSingleArrayValues(tTopWagon = new int[4], c);
 		c = initSingleArrayValues(tTopFront = new int[4], c);
 
@@ -95,6 +94,8 @@ public class Camper0Model extends PickupModel {
 		// top and rear
 		addTRect(x, y, dxRear, dzRear);
 		y += dzRear;
+		addTRect(x, y, dxWagon, dzWagon0);
+		y += dzWagon0;
 		addTRect(x, y, dxWagon, dzWagon);
 		y += dzWagon;
 		addTRect(x, y, dxWagon, dyWagon);
@@ -122,13 +123,13 @@ public class Camper0Model extends PickupModel {
 		addTRect(x, y, wheelWidth, wheelWidth);
 
 		IMG_WIDTH = (int) (2 * bx + 3 * dxTexture + wheelWidth + 4 * shift + dxRear);
-		IMG_HEIGHT = (int) (2 * by + dzRear + dzWagon + dyRear + dyFront + dyRoof);
+		IMG_HEIGHT = (int) (2 * by + dzRear + dzWagon0 + dyWagon + dzRear + dyFront + dyRoof);
 	}
 
 	@Override
 	protected void buildWagon(int nzWagon) {
 
-		Segments s0 = new Segments(x0 - dxWagon * 0.5, dxWagon, y0, dyRear, z0 + dzRear, dzFront + dzRoof - dzRear);
+		Segments s0 = new Segments(x0 - dxWagon * 0.5, dxWagon, y0, dyRear, z0 + dzRear, dzWagon0);
 
 		wagon = new BPoint[nzWagon][4];
 		wagon[0][0] = addBPoint(0.0, 0.0, 0.0, s0);
@@ -172,7 +173,7 @@ public class Camper0Model extends PickupModel {
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, wagon[k][0], wagon[k + 1][0], wagon[k + 1][3],
 					wagon[k][3], tWa[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_BACK, wagon[k][0], wagon[k][1], wagon[k + 1][1],
-					wagon[k + 1][0], tBackWagon);
+					wagon[k + 1][0], tBackWagon[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagon[k][1], wagon[k][2], wagon[k + 1][2],
 					wagon[k + 1][1], tWa[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, wagon[k][2], wagon[k][3], wagon[k + 1][3],
@@ -191,7 +192,7 @@ public class Camper0Model extends PickupModel {
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, wagon2[k][0], wagon2[k + 1][0], wagon2[k + 1][3],
 					wagon2[k][3], tWa[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_BACK, wagon2[k][0], wagon2[k][1], wagon2[k + 1][1],
-					wagon2[k + 1][0], tBackWagon);
+					wagon2[k + 1][0], tBackWagon[1]);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagon2[k][1], wagon2[k][2], wagon2[k + 1][2],
 					wagon2[k + 1][1], tWa[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, wagon2[k][2], wagon2[k][3], wagon2[k + 1][3],
@@ -237,7 +238,8 @@ public class Camper0Model extends PickupModel {
 
 		bufGraphics.setColor(new Color(217, 15, 27));
 		printTexturePolygon(bufGraphics, tBackRear);
-		printTexturePolygon(bufGraphics, tBackWagon);
+		printTexturePolygon(bufGraphics, tBackWagon[0]);
+		printTexturePolygon(bufGraphics, tBackWagon[1]);
 		printTexturePolygon(bufGraphics, tTopWagon);
 		bufGraphics.setColor(new Color(72, 178, 230));
 		printTexturePolygon(bufGraphics, tTopFront);

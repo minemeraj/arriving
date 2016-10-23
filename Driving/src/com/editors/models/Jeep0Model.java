@@ -33,7 +33,7 @@ public class Jeep0Model extends PickupModel {
 	public void initMesh() {
 
 		int c = 0;
-		c = initSingleArrayValues(tBackWagon = new int[4], c);
+		c = initDoubleArrayValues(tBackWagon = new int[1][4], c);
 		c = initSingleArrayValues(tTopWagon = new int[4], c);
 		c = initSingleArrayValues(tTopRear = new int[4], c);
 		c = initSingleArrayValues(tTopFront = new int[4], c);
@@ -301,7 +301,7 @@ public class Jeep0Model extends PickupModel {
 		int numSections = wagonBlock.length;
 
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, wagonBlock[0][0], wagonBlock[0][1], wagonBlock[0][2],
-				wagonBlock[0][3], tBackWagon);
+				wagonBlock[0][3], tBackWagon[0]);
 
 		for (int i = 0; i < numSections - 1; i++) {
 
@@ -385,7 +385,7 @@ public class Jeep0Model extends PickupModel {
 		bufGraphics.setStroke(new BasicStroke(0.1f));
 
 		bufGraphics.setColor(new Color(217, 15, 27));
-		printTexturePolygon(bufGraphics, tBackWagon);
+		printTexturePolygon(bufGraphics, tBackWagon[0]);
 		printTexturePolygon(bufGraphics, tTopWagon);
 		printTexturePolygon(bufGraphics, tTopRear);
 		bufGraphics.setColor(new Color(72, 178, 230));

@@ -27,7 +27,7 @@ public class PickupModel extends Truck0Model {
 
 	protected int nWagonUnits = 10;
 
-	int[] tBackWagon = null;
+	int[][] tBackWagon = null;
 	int[] tTopWagon = null;
 	int[] tTopRear = null;
 	int[] tTopFront = null;
@@ -51,7 +51,7 @@ public class PickupModel extends Truck0Model {
 
 		int c = 0;
 		c = initSingleArrayValues(tBackRear = new int[4], c);
-		c = initSingleArrayValues(tBackWagon = new int[4], c);
+		c = initDoubleArrayValues(tBackWagon = new int[1][4], c);
 		c = initSingleArrayValues(tTopRear = new int[4], c);
 		c = initSingleArrayValues(tTopRoof = new int[4], c);
 		c = initSingleArrayValues(tTopFront = new int[4], c);
@@ -437,7 +437,7 @@ public class PickupModel extends Truck0Model {
 
 		counter = addPrism(prismRight, counter, tWa[0]);
 		counter = addPrism(prismLeft, counter, tWa[0]);
-		counter = addPrism(prismBack, counter, tBackWagon);
+		counter = addPrism(prismBack, counter, tBackWagon[0]);
 		counter = addPrism(prismFront, counter, tWa[0]);
 
 		return counter;
@@ -453,7 +453,7 @@ public class PickupModel extends Truck0Model {
 		bufGraphics.setColor(new Color(217, 15, 27));
 		printTexturePolygon(bufGraphics, tTopRoof);
 		printTexturePolygon(bufGraphics, tTopRear);
-		printTexturePolygon(bufGraphics, tBackWagon);
+		printTexturePolygon(bufGraphics, tBackWagon[0]);
 		printTexturePolygon(bufGraphics, tBackRear);
 
 		bufGraphics.setColor(new Color(217, 15, 27));
