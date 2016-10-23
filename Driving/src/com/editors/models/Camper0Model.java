@@ -19,7 +19,6 @@ import com.main.Renderer3D;
 public class Camper0Model extends PickupModel {
 
 	public static String NAME = "Camper";
-	private BPoint[][] wagon2;
 
 	private double dzWagon0;
 

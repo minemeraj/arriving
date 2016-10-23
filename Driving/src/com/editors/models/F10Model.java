@@ -20,12 +20,8 @@ public class F10Model extends VehicleModel {
 	private double dyTexture = 100;
 	private double dxTexture = 100;
 
-	private BPoint[][][] body;
-	private BPoint[][][] front;
-	private BPoint[][][] roof;
 	private BPoint[][][] frontSpoiler;
 	private BPoint[][][] backSpoiler;
-	private BPoint[][][] back;
 	private BPoint[][] wheelLeftFront;
 	private BPoint[][] wheelRightFront;
 	private BPoint[][] wheelLeftRear;

@@ -1,5 +1,7 @@
 package com.editors.models;
 
+import com.BPoint;
+
 public abstract class VehicleModel extends MeshModel {
 
 	protected double dxRear = 0;
@@ -32,4 +34,13 @@ public abstract class VehicleModel extends MeshModel {
 
 	protected int bx = 10;
 	protected int by = 10;
+
+	protected BPoint[][] rear;
+	protected BPoint[][][] back;
+	protected BPoint[][][] body;
+	protected BPoint[][][] front;
+	protected BPoint[][][] roof;
+	protected BPoint[][][] cab;
+	protected BPoint[][] wagon;
+	protected BPoint[][] wagon2;
 }

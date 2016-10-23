@@ -20,7 +20,6 @@ import com.main.Renderer3D;
 public class Airplane0Model extends VehicleModel {
 
 	int basePoints = 4;
-	private BPoint[][][] body;
 	private BPoint[][][] tailLeftWing;
 	private BPoint[][][] tailRightWing;
 	private BPoint[][][] tailRudder;

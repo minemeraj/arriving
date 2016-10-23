@@ -52,11 +52,6 @@ public class Truck0Model extends VehicleModel {
 	protected int nzBody = 2;
 	protected int nyBody = 2;
 
-	protected BPoint[][][] cab;
-	protected BPoint[][] rear;
-	protected BPoint[][] wagon;
-	protected BPoint[][][] roof;
-
 	public static final String NAME = "Truck";
 
 	public Truck0Model(double dxRoof, double dyRoof, double dzRoof, double dxFront, double dyfront, double dzFront,

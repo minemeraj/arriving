@@ -49,11 +49,9 @@ public class Tractor0Model extends VehicleModel {
 	int roofNumy = 4;
 	int roofNumz = 2;
 
-	private BPoint[][][] body;
 	private BPoint[][][] pFront;
 	private BPoint[][][] pBack;
 	private BPoint[][][] pFrontCarriage;
-	private BPoint[][][] roof;
 
 	protected BPoint[][] wheelLeftFront;
 	protected BPoint[][] wheelRightFront;

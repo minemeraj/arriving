@@ -26,7 +26,6 @@ public class Tank0Model extends VehicleModel {
 	// body textures
 	protected int[][] tBo = { { 0, 1, 2, 3 } };
 
-	private BPoint[][][] body;
 	private BPoint[][][] turret;
 	private BPoint[][] cannon_barrel;
 	private BPoint[][][][] tracks;
