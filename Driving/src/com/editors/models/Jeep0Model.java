@@ -11,6 +11,10 @@ public class Jeep0Model extends PickupModel {
 
 	public static final String NAME = "Jeep";
 
+	BPoint[][][] wagonSides = null;
+	BPoint[][] wagonBack = null;
+	BPoint[][] wagonBottom = null;
+
 	public Jeep0Model(double dxFront, double dyfront, double dzFront, double dxRoof, double dyRoof, double dzRoof,
 			double dxRear, double dyRear, double dzRear, double dxWagon, double dyWagon, double dzWagon,
 			double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1, double wheelRadius,
@@ -57,11 +61,12 @@ public class Jeep0Model extends PickupModel {
 
 		// faces
 		int NF = 2 + (2 + (nzCab - 1)) * (nYcab - 1) * 2;
-		NF += 2 + (nyBody - 1) * 4;
 		// cabin roof
 		NF += 7;
-		// wagon prisms
-		NF += 6 * 3;
+		// rear
+		NF += 6;
+		// wagon
+		NF += 2 * (2 + (nyBody - 1) * 4) + 6 + 6;
 
 		faces = new int[NF + NUM_WHEEL_FACES][3][4];
 
@@ -168,64 +173,109 @@ public class Jeep0Model extends PickupModel {
 		double wz3 = wz2;
 
 		double fz1 = 1.0;
+		wagonSides = new BPoint[2][nyBody][4];
 
-		wagon = new BPoint[nyBody][4];
+		for (int i = 0; i < 2; i++) {
+			Segments s0 = null;
+			if (i == 0) {
+				s0 = new Segments(x0 - dxWagon * 0.5, wheelWidth, y0, dyWagon, z0, dzWagon);
+			} else if (i == 1) {
+				s0 = new Segments(x0 + dxWagon * 0.5 - wheelWidth, wheelWidth, y0, dyWagon, z0, dzWagon);
+			}
 
-		Segments s0 = new Segments(x0 - dxWagon * 0.5, wheelWidth, y0, dyWagon, z0, dzWagon);
+			wagonSides[i][0][0] = addBPoint(0.0, fy0, 0.0, s0);
+			wagonSides[i][0][1] = addBPoint(1.0, fy0, 0.0, s0);
+			wagonSides[i][0][2] = addBPoint(1.0, fy0, fz1, s0);
+			wagonSides[i][0][3] = addBPoint(0.0, fy0, fz1, s0);
 
-		wagon[0][0] = addBPoint(0.0, fy0, 0.0, s0);
-		wagon[0][1] = addBPoint(1.0, fy0, 0.0, s0);
-		wagon[0][2] = addBPoint(1.0, fy0, fz1, s0);
-		wagon[0][3] = addBPoint(0.0, fy0, fz1, s0);
+			wagonSides[i][1][0] = addBPoint(0.0, fy1, 0.0, s0);
+			wagonSides[i][1][1] = addBPoint(1.0, fy1, 0.0, s0);
+			wagonSides[i][1][2] = addBPoint(1.0, fy1, fz1, s0);
+			wagonSides[i][1][3] = addBPoint(0.0, fy1, fz1, s0);
 
-		wagon[1][0] = addBPoint(0.0, fy1, 0.0, s0);
-		wagon[1][1] = addBPoint(1.0, fy1, 0.0, s0);
-		wagon[1][2] = addBPoint(1.0, fy1, fz1, s0);
-		wagon[1][3] = addBPoint(0.0, fy1, fz1, s0);
+			wagonSides[i][2][0] = addBPoint(0.0, fy2, wz2, s0);
+			wagonSides[i][2][1] = addBPoint(1.0, fy2, wz2, s0);
+			wagonSides[i][2][2] = addBPoint(1.0, fy2, fz1, s0);
+			wagonSides[i][2][3] = addBPoint(0.0, fy2, fz1, s0);
 
-		wagon[2][0] = addBPoint(0.0, fy2, wz2, s0);
-		wagon[2][1] = addBPoint(1.0, fy2, wz2, s0);
-		wagon[2][2] = addBPoint(1.0, fy2, fz1, s0);
-		wagon[2][3] = addBPoint(0.0, fy2, fz1, s0);
+			wagonSides[i][3][0] = addBPoint(0.0, fy3, wz3, s0);
+			wagonSides[i][3][1] = addBPoint(1.0, fy3, wz3, s0);
+			wagonSides[i][3][2] = addBPoint(1.0, fy3, fz1, s0);
+			wagonSides[i][3][3] = addBPoint(0.0, fy3, fz1, s0);
 
-		wagon[3][0] = addBPoint(0.0, fy3, wz3, s0);
-		wagon[3][1] = addBPoint(1.0, fy3, wz3, s0);
-		wagon[3][2] = addBPoint(1.0, fy3, fz1, s0);
-		wagon[3][3] = addBPoint(0.0, fy3, fz1, s0);
+			wagonSides[i][4][0] = addBPoint(0.0, fy4, 0.0, s0);
+			wagonSides[i][4][1] = addBPoint(1.0, fy4, 0.0, s0);
+			wagonSides[i][4][2] = addBPoint(1.0, fy4, fz1, s0);
+			wagonSides[i][4][3] = addBPoint(0.0, fy4, fz1, s0);
 
-		wagon[4][0] = addBPoint(0.0, fy4, 0.0, s0);
-		wagon[4][1] = addBPoint(1.0, fy4, 0.0, s0);
-		wagon[4][2] = addBPoint(1.0, fy4, fz1, s0);
-		wagon[4][3] = addBPoint(0.0, fy4, fz1, s0);
+			wagonSides[i][5][0] = addBPoint(0.0, fy5, 0.0, s0);
+			wagonSides[i][5][1] = addBPoint(1.0, fy5, 0.0, s0);
+			wagonSides[i][5][2] = addBPoint(1.0, fy5, fz1, s0);
+			wagonSides[i][5][3] = addBPoint(0.0, fy5, fz1, s0);
+		}
 
-		wagon[5][0] = addBPoint(0.0, fy5, 0.0, s0);
-		wagon[5][1] = addBPoint(1.0, fy5, 0.0, s0);
-		wagon[5][2] = addBPoint(1.0, fy5, fz1, s0);
-		wagon[5][3] = addBPoint(0.0, fy5, fz1, s0);
+		wagonBack = new BPoint[2][4];
+		Segments wb = new Segments(x0 - dxWagon * 0.5 + wheelWidth, dxWagon - 2 * wheelWidth, y0, wheelWidth, z0,
+				dzWagon);
+
+		wagonBack = new BPoint[2][4];
+		wagonBack[0][0] = addBPoint(0.0, 0.0, 0.0, wb);
+		wagonBack[0][1] = addBPoint(1.0, 0.0, 0.0, wb);
+		wagonBack[0][2] = addBPoint(1.0, 1.0, 0.0, wb);
+		wagonBack[0][3] = addBPoint(0.0, 1.0, 0.0, wb);
+
+		wagonBack[1][0] = addBPoint(0.0, 0.0, 1.0, wb);
+		wagonBack[1][1] = addBPoint(1.0, 0.0, 1.0, wb);
+		wagonBack[1][2] = addBPoint(1.0, 1.0, 1.0, wb);
+		wagonBack[1][3] = addBPoint(0.0, 1.0, 1.0, wb);
+
+		wagonBottom = new BPoint[2][4];
+		wb = new Segments(x0 - dxWagon * 0.5 + wheelWidth, dxWagon - 2 * wheelWidth, y0 + wheelWidth,
+				dyWagon - wheelWidth, z0, dzRear);
+
+		wagonBottom = new BPoint[2][4];
+		wagonBottom[0][0] = addBPoint(0.0, 0.0, 0.0, wb);
+		wagonBottom[0][1] = addBPoint(1.0, 0.0, 0.0, wb);
+		wagonBottom[0][2] = addBPoint(1.0, 1.0, 0.0, wb);
+		wagonBottom[0][3] = addBPoint(0.0, 1.0, 0.0, wb);
+
+		wagonBottom[1][0] = addBPoint(0.0, 0.0, 1.0, wb);
+		wagonBottom[1][1] = addBPoint(1.0, 0.0, 1.0, wb);
+		wagonBottom[1][2] = addBPoint(1.0, 1.0, 1.0, wb);
+		wagonBottom[1][3] = addBPoint(0.0, 1.0, 1.0, wb);
 
 	}
 
 	protected int buildWagonYFaces(int counter, int nzWagon) {
 
-		int numSections = wagon.length;
+		counter = buildWagonYFace(counter, wagonSides[0], nzWagon);
+		counter = buildWagonYFace(counter, wagonSides[1], nzWagon);
+		counter = buildWagonYFace(counter, wagonBack, nzWagon);
+		counter = buildWagonYFace(counter, wagonBottom, nzWagon);
+		return counter;
+	}
 
-		faces[counter++] = buildFace(Renderer3D.CAR_BACK, wagon[0][0], wagon[0][1], wagon[0][2], wagon[0][3],
-				tBackRear);
+	protected int buildWagonYFace(int counter, BPoint[][] wagonBlock, int nzWagon) {
+
+		int numSections = wagonBlock.length;
+
+		faces[counter++] = buildFace(Renderer3D.CAR_BACK, wagonBlock[0][0], wagonBlock[0][1], wagonBlock[0][2],
+				wagonBlock[0][3], tBackRear);
 
 		for (int i = 0; i < numSections - 1; i++) {
 
-			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, wagon[i + 1][0], wagon[i][0], wagon[i][3],
-					wagon[i + 1][3], tRe[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagon[i][0], wagon[i + 1][0], wagon[i + 1][1],
-					wagon[i][1], tRe[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagon[i][1], wagon[i + 1][1], wagon[i + 1][2],
-					wagon[i][2], tRe[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_TOP, wagon[i][3], wagon[i][2], wagon[i + 1][2], wagon[i + 1][3],
-					tTopRear);
+			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, wagonBlock[i + 1][0], wagonBlock[i][0], wagonBlock[i][3],
+					wagonBlock[i + 1][3], tRe[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagonBlock[i][0], wagonBlock[i + 1][0],
+					wagonBlock[i + 1][1], wagonBlock[i][1], tRe[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagonBlock[i][1], wagonBlock[i + 1][1],
+					wagonBlock[i + 1][2], wagonBlock[i][2], tRe[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_TOP, wagonBlock[i][3], wagonBlock[i][2], wagonBlock[i + 1][2],
+					wagonBlock[i + 1][3], tTopRear);
 
 		}
-		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, wagon[numSections - 1][0], wagon[numSections - 1][3],
-				wagon[numSections - 1][2], wagon[numSections - 1][1], tRe[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, wagonBlock[numSections - 1][0],
+				wagonBlock[numSections - 1][3], wagonBlock[numSections - 1][2], wagonBlock[numSections - 1][1], tRe[0]);
 		return counter;
 
 	}
