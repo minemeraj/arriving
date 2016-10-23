@@ -85,7 +85,7 @@ public class Camper0Model extends PickupModel {
 	@Override
 	protected void buildWagon(int nzWagon) {
 
-		Segments s0 = new Segments(x0 - dxWagon * 0.5, dxWagon, y0, dyWagon, z0 + dzRear, dzWagon);
+		Segments s0 = new Segments(x0 - dxWagon * 0.5, dxWagon, y0, dyRear, z0 + dzRear, dzFront + dzRoof - dzRear);
 
 		wagon = new BPoint[nzWagon][4];
 		wagon[0][0] = addBPoint(0.0, 0.0, 0.0, s0);
@@ -98,11 +98,7 @@ public class Camper0Model extends PickupModel {
 		wagon[1][2] = addBPoint(1.0, 1.0, 1.0, s0);
 		wagon[1][3] = addBPoint(0.0, 1.0, 1.0, s0);
 
-		double dyMansardRoof = dyRear + dyFront - frontOverhang;
-		double dzMansardRoof = dzRear;
-
-		Segments s1 = new Segments(x0 - dxWagon * 0.5, dxWagon, y0, dyMansardRoof, z0 + dzRear + dzWagon,
-				dzMansardRoof);
+		Segments s1 = new Segments(x0 - dxWagon * 0.5, dxWagon, y0, dyWagon, z0 + dzFront + dzRoof, dzWagon);
 
 		wagon2 = new BPoint[nzWagon][4];
 		wagon2[0][0] = addBPoint(0.0, 0.0, 0.0, s1);
