@@ -1,5 +1,8 @@
 package com.editors.models;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.Vector;
 
 import com.BPoint;
@@ -30,12 +33,10 @@ public class Jeep0Model extends PickupModel {
 	public void initMesh() {
 
 		int c = 0;
-		c = initSingleArrayValues(tBackRear = new int[4], c);
 		c = initSingleArrayValues(tBackWagon = new int[4], c);
+		c = initSingleArrayValues(tTopWagon = new int[4], c);
 		c = initSingleArrayValues(tTopRear = new int[4], c);
-		c = initSingleArrayValues(tTopRoof = new int[4], c);
 		c = initSingleArrayValues(tTopFront = new int[4], c);
-
 		c = initDoubleArrayValues(tRe = new int[1][4], c);
 		c = initDoubleArrayValues(tWa = new int[1][4], c);
 		c = initDoubleArrayValues(tWi = new int[1][4], c);
@@ -74,6 +75,46 @@ public class Jeep0Model extends PickupModel {
 		counter = buildBodyFaces(counter, nzBody, nWagonUnits);
 		counter = buildWheelFaces(counter, totWheelPolygon);
 
+	}
+
+	@Override
+	protected void buildTextures() {
+
+		int shift = 1;
+
+		double y = by;
+		double x = bx;
+
+		addTRect(x, y, dxWagon, dzWagon);
+		y += dzWagon;
+		addTRect(x, y, dxWagon, dyWagon);
+		y += dyWagon;
+		addTRect(x, y, dxRear, dyRear);
+		y += dyRear;
+		addTRect(x, y, dxFront, dyFront);
+
+		// rear points
+		x += dxRear + shift;
+		y = by;
+		addTRect(x, y, dxTexture, dyTexture);
+
+		// wagon points
+		x += dxTexture + shift;
+		y = by;
+		addTRect(x, y, dxTexture, dyTexture);
+
+		// window points
+		x += dxTexture + shift;
+		y = by;
+		addTRect(x, y, dxTexture, dyTexture);
+
+		// wheel texture, a black square for simplicity:
+		x += dxTexture + shift;
+		y = by;
+		addTRect(x, y, wheelWidth, wheelWidth);
+
+		IMG_WIDTH = (int) (2 * bx + 3 * dxTexture + wheelWidth + 4 * shift + dxRear);
+		IMG_HEIGHT = (int) (2 * by + +dzWagon + dyWagon + dyRear + dyFront);
 	}
 
 	@Override
@@ -221,11 +262,11 @@ public class Jeep0Model extends PickupModel {
 		wagonBack = new BPoint[2][4];
 		wagonBack[0][0] = addBPoint(0.0, 0.0, 0.0, wb);
 		wagonBack[0][1] = addBPoint(1.0, 0.0, 0.0, wb);
-		wagonBack[0][2] = addBPoint(1.0, 1.0, 0.0, wb);
-		wagonBack[0][3] = addBPoint(0.0, 1.0, 0.0, wb);
+		wagonBack[0][2] = addBPoint(1.0, 0.0, 1.0, wb);
+		wagonBack[0][3] = addBPoint(0.0, 0.0, 1.0, wb);
 
-		wagonBack[1][0] = addBPoint(0.0, 0.0, 1.0, wb);
-		wagonBack[1][1] = addBPoint(1.0, 0.0, 1.0, wb);
+		wagonBack[1][0] = addBPoint(0.0, 1.0, 0.0, wb);
+		wagonBack[1][1] = addBPoint(1.0, 1.0, 0.0, wb);
 		wagonBack[1][2] = addBPoint(1.0, 1.0, 1.0, wb);
 		wagonBack[1][3] = addBPoint(0.0, 1.0, 1.0, wb);
 
@@ -236,11 +277,11 @@ public class Jeep0Model extends PickupModel {
 		wagonBottom = new BPoint[2][4];
 		wagonBottom[0][0] = addBPoint(0.0, 0.0, 0.0, wb);
 		wagonBottom[0][1] = addBPoint(1.0, 0.0, 0.0, wb);
-		wagonBottom[0][2] = addBPoint(1.0, 1.0, 0.0, wb);
-		wagonBottom[0][3] = addBPoint(0.0, 1.0, 0.0, wb);
+		wagonBottom[0][2] = addBPoint(1.0, 0.0, 1.0, wb);
+		wagonBottom[0][3] = addBPoint(0.0, 0.0, 1.0, wb);
 
-		wagonBottom[1][0] = addBPoint(0.0, 0.0, 1.0, wb);
-		wagonBottom[1][1] = addBPoint(1.0, 0.0, 1.0, wb);
+		wagonBottom[1][0] = addBPoint(0.0, 1.0, 0.0, wb);
+		wagonBottom[1][1] = addBPoint(1.0, 1.0, 0.0, wb);
 		wagonBottom[1][2] = addBPoint(1.0, 1.0, 1.0, wb);
 		wagonBottom[1][3] = addBPoint(0.0, 1.0, 1.0, wb);
 
@@ -260,22 +301,22 @@ public class Jeep0Model extends PickupModel {
 		int numSections = wagonBlock.length;
 
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, wagonBlock[0][0], wagonBlock[0][1], wagonBlock[0][2],
-				wagonBlock[0][3], tBackRear);
+				wagonBlock[0][3], tBackWagon);
 
 		for (int i = 0; i < numSections - 1; i++) {
 
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, wagonBlock[i + 1][0], wagonBlock[i][0], wagonBlock[i][3],
-					wagonBlock[i + 1][3], tRe[0]);
+					wagonBlock[i + 1][3], tWa[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagonBlock[i][0], wagonBlock[i + 1][0],
-					wagonBlock[i + 1][1], wagonBlock[i][1], tRe[0]);
+					wagonBlock[i + 1][1], wagonBlock[i][1], tWa[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagonBlock[i][1], wagonBlock[i + 1][1],
-					wagonBlock[i + 1][2], wagonBlock[i][2], tRe[0]);
+					wagonBlock[i + 1][2], wagonBlock[i][2], tWa[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, wagonBlock[i][3], wagonBlock[i][2], wagonBlock[i + 1][2],
-					wagonBlock[i + 1][3], tTopRear);
+					wagonBlock[i + 1][3], tTopWagon);
 
 		}
 		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, wagonBlock[numSections - 1][0],
-				wagonBlock[numSections - 1][3], wagonBlock[numSections - 1][2], wagonBlock[numSections - 1][1], tRe[0]);
+				wagonBlock[numSections - 1][3], wagonBlock[numSections - 1][2], wagonBlock[numSections - 1][1], tWa[0]);
 		return counter;
 
 	}
@@ -315,7 +356,7 @@ public class Jeep0Model extends PickupModel {
 		}
 
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, rear[nzRear - 1][0], rear[nzRear - 1][1], rear[nzRear - 1][2],
-				rear[nzRear - 1][3], tWa[0]);
+				rear[nzRear - 1][3], tTopRear);
 
 		return counter;
 	}
@@ -335,6 +376,29 @@ public class Jeep0Model extends PickupModel {
 		wheelRightFront = buildWheel(x0 + wxRight, yFrontAxle, wz, wheelRadius, wheelWidth, wheel_rays);
 		wheelLeftRear = buildWheel(x0 - wxLeft, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
 		wheelRightRear = buildWheel(x0 + wxRight, yRearAxle, wz, wheelRadius, wheelWidth, wheel_rays);
+
+	}
+
+	@Override
+	public void printTexture(Graphics2D bufGraphics) {
+
+		bufGraphics.setStroke(new BasicStroke(0.1f));
+
+		bufGraphics.setColor(new Color(217, 15, 27));
+		printTexturePolygon(bufGraphics, tBackWagon);
+		printTexturePolygon(bufGraphics, tTopWagon);
+		printTexturePolygon(bufGraphics, tTopRear);
+		bufGraphics.setColor(new Color(72, 178, 230));
+		printTexturePolygon(bufGraphics, tTopFront);
+
+		bufGraphics.setColor(new Color(217, 15, 27));
+		printTexturePolygon(bufGraphics, tRe[0]);
+		bufGraphics.setColor(new Color(217, 15, 27));
+		printTexturePolygon(bufGraphics, tWa[0]);
+		bufGraphics.setColor(Color.BLUE);
+		printTexturePolygon(bufGraphics, tWi[0]);
+		bufGraphics.setColor(Color.BLACK);
+		printTexturePolygon(bufGraphics, tWh[0]);
 
 	}
 

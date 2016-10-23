@@ -28,6 +28,7 @@ public class PickupModel extends Truck0Model {
 	protected int nWagonUnits = 10;
 
 	int[] tBackWagon = null;
+	int[] tTopWagon = null;
 	int[] tTopRear = null;
 	int[] tTopFront = null;
 	int[] tTopRoof = null;
@@ -341,7 +342,7 @@ public class PickupModel extends Truck0Model {
 				tWi[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, roof[0][1][0], roof[0][1][1], roof[0][2][0], tWi[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, roof[0][0][1], roof[1][0][1], roof[1][1][1], roof[0][1][1],
-				tTopRoof);
+				tTopFront);
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, roof[0][1][1], roof[1][1][1], roof[1][2][0], roof[0][2][0],
 				tWi[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, roof[0][0][0], roof[1][0][0], roof[1][0][1], roof[0][0][1],
