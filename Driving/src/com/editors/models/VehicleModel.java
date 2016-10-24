@@ -26,6 +26,10 @@ public abstract class VehicleModel extends MeshModel {
 	protected double rearOverhang1;
 	protected double frontOverhang1;
 
+	/*
+	 * distance between the center of the wheel and the base of the vehicle
+	 * frame
+	 */
 	protected double wheelZ;
 
 	protected double x0 = 0;

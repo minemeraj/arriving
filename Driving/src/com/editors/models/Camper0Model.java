@@ -18,243 +18,243 @@ import com.main.Renderer3D;
  */
 public class Camper0Model extends PickupModel {
 
-    public static String NAME = "Camper";
+	public static String NAME = "Camper";
 
-    private double dzWagon0;
+	private double dzWagon0;
 
-    public Camper0Model(double dxFront, double dyfront, double dzFront, double dxRoof, double dyRoof, double dzRoof,
-            double dxRear, double dyRear, double dzRear, double dxWagon, double dyWagon, double dzWagon,
-            double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1, double wheelRadius,
-            double wheelWidth, int wheel_rays) {
-        super(dxFront, dyfront, dzFront, dxRoof, dyRoof, dzRoof, dxRear, dyRear, dzRear, dxWagon, dyWagon, dzWagon,
-                rearOverhang, frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheel_rays);
+	public Camper0Model(double dxFront, double dyfront, double dzFront, double dxRoof, double dyRoof, double dzRoof,
+			double dxRear, double dyRear, double dzRear, double dxWagon, double dyWagon, double dzWagon,
+			double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1, double wheelRadius,
+			double wheelWidth, int wheel_rays) {
+		super(dxFront, dyfront, dzFront, dxRoof, dyRoof, dzRoof, dxRear, dyRear, dzRear, dxWagon, dyWagon, dzWagon,
+				rearOverhang, frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheel_rays);
 
-        nWagonUnits = 2;
-        dzWagon0 = dzFront + dzRoof - dzRear;
-    }
+		nWagonUnits = 2;
+		dzWagon0 = dzFront + dzRoof - dzRear;
+	}
 
-    @Override
-    public void initMesh() {
+	@Override
+	public void initMesh() {
 
-        int c = 0;
-        c = initSingleArrayValues(tBackRear = new int[4], c);
-        c = initDoubleArrayValues(tBackWagon = new int[2][4], c);
-        c = initSingleArrayValues(tTopWagon = new int[4], c);
-        c = initSingleArrayValues(tTopFront = new int[4], c);
+		int c = 0;
+		c = initSingleArrayValues(tBackRear = new int[4], c);
+		c = initDoubleArrayValues(tBackWagon = new int[2][4], c);
+		c = initSingleArrayValues(tTopWagon = new int[4], c);
+		c = initSingleArrayValues(tTopFront = new int[4], c);
 
-        c = initDoubleArrayValues(tRe = new int[1][4], c);
-        c = initDoubleArrayValues(tWa = new int[1][4], c);
-        c = initDoubleArrayValues(tWi = new int[1][4], c);
-        c = initDoubleArrayValues(tWh = new int[1][4], c);
+		c = initDoubleArrayValues(tRe = new int[1][4], c);
+		c = initDoubleArrayValues(tWa = new int[1][4], c);
+		c = initDoubleArrayValues(tWi = new int[1][4], c);
+		c = initDoubleArrayValues(tWh = new int[1][4], c);
 
-        points = new Vector<Point3D>();
-        texturePoints = new Vector();
+		points = new Vector<Point3D>();
+		texturePoints = new Vector();
 
-        x0 = dxWagon * 0.5;
+		x0 = dxWagon * 0.5;
 
-        wheelZ = -0.1122 * wheelRadius;
+		wheelZ = 0.0769 * wheelRadius;
 
-        buildCabin();
+		buildCabin();
 
-        buildRear();
+		buildRear();
 
-        buildWagon(nWagonUnits);
+		buildWagon(nWagonUnits);
 
-        buildWheels();
-        buildTextures();
+		buildWheels();
+		buildTextures();
 
-        int totWheelPolygon = wheel_rays + 2 * (wheel_rays - 2);
-        int NUM_WHEEL_FACES = 4 * totWheelPolygon;
+		int totWheelPolygon = wheel_rays + 2 * (wheel_rays - 2);
+		int NUM_WHEEL_FACES = 4 * totWheelPolygon;
 
-        // faces
-        int NF = 2 + (2 + (nzCab - 1)) * (nYcab - 1) * 2;
-        NF += 2 + (nyBody - 1) * 4;
-        // cabin roof
-        NF += 7;
-        // wagon prisms
-        NF += 6 * 4;
+		// faces
+		int NF = 2 + (2 + (nzCab - 1)) * (nYcab - 1) * 2;
+		NF += 2 + (nyBody - 1) * 4;
+		// cabin roof
+		NF += 7;
+		// wagon prisms
+		NF += 6 * 4;
 
-        faces = new int[NF + NUM_WHEEL_FACES][3][4];
+		faces = new int[NF + NUM_WHEEL_FACES][3][4];
 
-        int counter = 0;
-        counter = buildBodyFaces(counter, nzBody, nWagonUnits);
-        counter = buildWheelFaces(counter, totWheelPolygon);
+		int counter = 0;
+		counter = buildBodyFaces(counter, nzBody, nWagonUnits);
+		counter = buildWheelFaces(counter, totWheelPolygon);
 
-    }
+	}
 
-    @Override
-    protected void buildTextures() {
+	@Override
+	protected void buildTextures() {
 
-        int shift = 1;
+		int shift = 1;
 
-        double y = by;
-        double x = bx;
+		double y = by;
+		double x = bx;
 
-        // top and rear
-        addTRect(x, y, dxRear, dzRear);
-        y += dzRear;
-        addTRect(x, y, dxWagon, dzWagon0);
-        y += dzWagon0;
-        addTRect(x, y, dxWagon, dzWagon);
-        y += dzWagon;
-        addTRect(x, y, dxWagon, dyWagon);
-        y += dyWagon+shift;
-        addTRect(x, y, dxFront, dyFront);
+		// top and rear
+		addTRect(x, y, dxRear, dzRear);
+		y += dzRear;
+		addTRect(x, y, dxWagon, dzWagon0);
+		y += dzWagon0;
+		addTRect(x, y, dxWagon, dzWagon);
+		y += dzWagon;
+		addTRect(x, y, dxWagon, dyWagon);
+		y += dyWagon + shift;
+		addTRect(x, y, dxFront, dyFront);
 
-        // body points
-        x += dxRear + shift;
-        y = by;
-        addTRect(x, y, dxTexture, dyTexture);
+		// body points
+		x += dxRear + shift;
+		y = by;
+		addTRect(x, y, dxTexture, dyTexture);
 
-        // wagon points
-        x += dxTexture + shift;
-        y = by;
-        addTRect(x, y, dxTexture, dyTexture);
+		// wagon points
+		x += dxTexture + shift;
+		y = by;
+		addTRect(x, y, dxTexture, dyTexture);
 
-        // window points
-        x += dxTexture + shift;
-        y = by;
-        addTRect(x, y, dxTexture, dyTexture);
+		// window points
+		x += dxTexture + shift;
+		y = by;
+		addTRect(x, y, dxTexture, dyTexture);
 
-        // wheel texture, a black square for simplicity:
-        x += dxTexture + shift;
-        y = by;
-        addTRect(x, y, wheelWidth, wheelWidth);
+		// wheel texture, a black square for simplicity:
+		x += dxTexture + shift;
+		y = by;
+		addTRect(x, y, wheelWidth, wheelWidth);
 
-        IMG_WIDTH = (int) (2 * bx + 3 * dxTexture + wheelWidth + 4 * shift + dxRear);
-        IMG_HEIGHT = (int) (2 * by + dzRear + dzWagon0 + dyWagon + dzRear + dyFront + dyRoof+shift);
-    }
+		IMG_WIDTH = (int) (2 * bx + 3 * dxTexture + wheelWidth + 4 * shift + dxRear);
+		IMG_HEIGHT = (int) (2 * by + dzRear + dzWagon0 + dyWagon + dzRear + dyFront + dyRoof + shift);
+	}
 
-    @Override
-    protected void buildWagon(int nzWagon) {
+	@Override
+	protected void buildWagon(int nzWagon) {
 
-        Segments s0 = new Segments(x0 - dxWagon * 0.5, dxWagon, y0, dyRear, z0 + dzRear, dzWagon0);
+		Segments s0 = new Segments(x0 - dxWagon * 0.5, dxWagon, y0, dyRear, z0 + dzRear, dzWagon0);
 
-        wagon = new BPoint[nzWagon][4];
-        wagon[0][0] = addBPoint(0.0, 0.0, 0.0, s0);
-        wagon[0][1] = addBPoint(1.0, 0.0, 0.0, s0);
-        wagon[0][2] = addBPoint(1.0, 1.0, 0.0, s0);
-        wagon[0][3] = addBPoint(0.0, 1.0, 0.0, s0);
+		wagon = new BPoint[nzWagon][4];
+		wagon[0][0] = addBPoint(0.0, 0.0, 0.0, s0);
+		wagon[0][1] = addBPoint(1.0, 0.0, 0.0, s0);
+		wagon[0][2] = addBPoint(1.0, 1.0, 0.0, s0);
+		wagon[0][3] = addBPoint(0.0, 1.0, 0.0, s0);
 
-        wagon[1][0] = addBPoint(0.0, 0.0, 1.0, s0);
-        wagon[1][1] = addBPoint(1.0, 0.0, 1.0, s0);
-        wagon[1][2] = addBPoint(1.0, 1.0, 1.0, s0);
-        wagon[1][3] = addBPoint(0.0, 1.0, 1.0, s0);
+		wagon[1][0] = addBPoint(0.0, 0.0, 1.0, s0);
+		wagon[1][1] = addBPoint(1.0, 0.0, 1.0, s0);
+		wagon[1][2] = addBPoint(1.0, 1.0, 1.0, s0);
+		wagon[1][3] = addBPoint(0.0, 1.0, 1.0, s0);
 
-        Segments s1 = new Segments(x0 - dxWagon * 0.5, dxWagon, y0, dyWagon, z0 + dzFront + dzRoof, dzWagon);
+		Segments s1 = new Segments(x0 - dxWagon * 0.5, dxWagon, y0, dyWagon, z0 + dzFront + dzRoof, dzWagon);
 
-        wagon2 = new BPoint[nzWagon][4];
-        wagon2[0][0] = addBPoint(0.0, 0.0, 0.0, s1);
-        wagon2[0][1] = addBPoint(1.0, 0.0, 0.0, s1);
-        wagon2[0][2] = addBPoint(1.0, 1.0, 0.0, s1);
-        wagon2[0][3] = addBPoint(0.0, 1.0, 0.0, s1);
+		wagon2 = new BPoint[nzWagon][4];
+		wagon2[0][0] = addBPoint(0.0, 0.0, 0.0, s1);
+		wagon2[0][1] = addBPoint(1.0, 0.0, 0.0, s1);
+		wagon2[0][2] = addBPoint(1.0, 1.0, 0.0, s1);
+		wagon2[0][3] = addBPoint(0.0, 1.0, 0.0, s1);
 
-        wagon2[1][0] = addBPoint(0.0, 0.0, 1.0, s1);
-        wagon2[1][1] = addBPoint(1.0, 0.0, 1.0, s1);
-        wagon2[1][2] = addBPoint(1.0, 1.0, 1.0, s1);
-        wagon2[1][3] = addBPoint(0.0, 1.0, 1.0, s1);
-    }
+		wagon2[1][0] = addBPoint(0.0, 0.0, 1.0, s1);
+		wagon2[1][1] = addBPoint(1.0, 0.0, 1.0, s1);
+		wagon2[1][2] = addBPoint(1.0, 1.0, 1.0, s1);
+		wagon2[1][3] = addBPoint(0.0, 1.0, 1.0, s1);
+	}
 
-    /**
-     *
-     * BUILD WAGON BY Z SECTIONS
-     *
-     * @param nzBody
-     * @return
-     */
-    @Override
-    protected int buildWagonFaces(int counter, int nzWagon) {
+	/**
+	 *
+	 * BUILD WAGON BY Z SECTIONS
+	 *
+	 * @param nzBody
+	 * @return
+	 */
+	@Override
+	protected int buildWagonFaces(int counter, int nzWagon) {
 
-        faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0], wagon[0][3], wagon[0][2], wagon[0][1], tWa[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0], wagon[0][3], wagon[0][2], wagon[0][1], tWa[0]);
 
-        for (int k = 0; k < nzWagon - 1; k++) {
+		for (int k = 0; k < nzWagon - 1; k++) {
 
-            faces[counter++] = buildFace(Renderer3D.CAR_LEFT, wagon[k][0], wagon[k + 1][0], wagon[k + 1][3],
-                    wagon[k][3], tWa[0]);
-            faces[counter++] = buildFace(Renderer3D.CAR_BACK, wagon[k][0], wagon[k][1], wagon[k + 1][1],
-                    wagon[k + 1][0], tBackWagon[0]);
-            faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagon[k][1], wagon[k][2], wagon[k + 1][2],
-                    wagon[k + 1][1], tWa[0]);
-            faces[counter++] = buildFace(Renderer3D.CAR_FRONT, wagon[k][2], wagon[k][3], wagon[k + 1][3],
-                    wagon[k + 1][2], tWa[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, wagon[k][0], wagon[k + 1][0], wagon[k + 1][3],
+					wagon[k][3], tWa[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_BACK, wagon[k][0], wagon[k][1], wagon[k + 1][1],
+					wagon[k + 1][0], tBackWagon[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagon[k][1], wagon[k][2], wagon[k + 1][2],
+					wagon[k + 1][1], tWa[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, wagon[k][2], wagon[k][3], wagon[k + 1][3],
+					wagon[k + 1][2], tWa[0]);
 
-        }
+		}
 
-        faces[counter++] = buildFace(Renderer3D.CAR_TOP, wagon[nzWagon - 1][0], wagon[nzWagon - 1][1],
-                wagon[nzWagon - 1][2], wagon[nzWagon - 1][3], tWa[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_TOP, wagon[nzWagon - 1][0], wagon[nzWagon - 1][1],
+				wagon[nzWagon - 1][2], wagon[nzWagon - 1][3], tWa[0]);
 
-        faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagon2[0][0], wagon2[0][3], wagon2[0][2], wagon2[0][1],
-                tWa[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagon2[0][0], wagon2[0][3], wagon2[0][2], wagon2[0][1],
+				tWa[0]);
 
-        for (int k = 0; k < nzWagon - 1; k++) {
+		for (int k = 0; k < nzWagon - 1; k++) {
 
-            faces[counter++] = buildFace(Renderer3D.CAR_LEFT, wagon2[k][0], wagon2[k + 1][0], wagon2[k + 1][3],
-                    wagon2[k][3], tWa[0]);
-            faces[counter++] = buildFace(Renderer3D.CAR_BACK, wagon2[k][0], wagon2[k][1], wagon2[k + 1][1],
-                    wagon2[k + 1][0], tBackWagon[1]);
-            faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagon2[k][1], wagon2[k][2], wagon2[k + 1][2],
-                    wagon2[k + 1][1], tWa[0]);
-            faces[counter++] = buildFace(Renderer3D.CAR_FRONT, wagon2[k][2], wagon2[k][3], wagon2[k + 1][3],
-                    wagon2[k + 1][2], tWa[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, wagon2[k][0], wagon2[k + 1][0], wagon2[k + 1][3],
+					wagon2[k][3], tWa[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_BACK, wagon2[k][0], wagon2[k][1], wagon2[k + 1][1],
+					wagon2[k + 1][0], tBackWagon[1]);
+			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagon2[k][1], wagon2[k][2], wagon2[k + 1][2],
+					wagon2[k + 1][1], tWa[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, wagon2[k][2], wagon2[k][3], wagon2[k + 1][3],
+					wagon2[k + 1][2], tWa[0]);
 
-        }
+		}
 
-        faces[counter++] = buildFace(Renderer3D.CAR_TOP, wagon2[nzWagon - 1][0], wagon2[nzWagon - 1][1],
-                wagon2[nzWagon - 1][2], wagon2[nzWagon - 1][3], tTopWagon);
+		faces[counter++] = buildFace(Renderer3D.CAR_TOP, wagon2[nzWagon - 1][0], wagon2[nzWagon - 1][1],
+				wagon2[nzWagon - 1][2], wagon2[nzWagon - 1][3], tTopWagon);
 
-        return counter;
-    }
+		return counter;
+	}
 
-    @Override
-    protected int buildRearYFaces(int counter, int nzRear, int nzWagon) {
+	@Override
+	protected int buildRearYFaces(int counter, int nzRear, int nzWagon) {
 
-        int numSections = rear.length;
+		int numSections = rear.length;
 
-        faces[counter++] = buildFace(Renderer3D.CAR_BACK, rear[0][0], rear[0][1], rear[0][2], rear[0][3], tBackRear);
+		faces[counter++] = buildFace(Renderer3D.CAR_BACK, rear[0][0], rear[0][1], rear[0][2], rear[0][3], tBackRear);
 
-        for (int i = 0; i < numSections - 1; i++) {
+		for (int i = 0; i < numSections - 1; i++) {
 
-            faces[counter++] = buildFace(Renderer3D.CAR_LEFT, rear[i + 1][0], rear[i][0], rear[i][3], rear[i + 1][3],
-                    tRe[0]);
-            faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, rear[i][0], rear[i + 1][0], rear[i + 1][1], rear[i][1],
-                    tRe[0]);
-            faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, rear[i][1], rear[i + 1][1], rear[i + 1][2], rear[i][2],
-                    tRe[0]);
-            faces[counter++] = buildFace(Renderer3D.CAR_TOP, rear[i][3], rear[i][2], rear[i + 1][2], rear[i + 1][3],
-                    tRe[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, rear[i + 1][0], rear[i][0], rear[i][3], rear[i + 1][3],
+					tRe[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, rear[i][0], rear[i + 1][0], rear[i + 1][1], rear[i][1],
+					tRe[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, rear[i][1], rear[i + 1][1], rear[i + 1][2], rear[i][2],
+					tRe[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_TOP, rear[i][3], rear[i][2], rear[i + 1][2], rear[i + 1][3],
+					tRe[0]);
 
-        }
-        faces[counter++] = buildFace(Renderer3D.CAR_FRONT, rear[numSections - 1][0], rear[numSections - 1][3],
-                rear[numSections - 1][2], rear[numSections - 1][1], tRe[0]);
-        return counter;
+		}
+		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, rear[numSections - 1][0], rear[numSections - 1][3],
+				rear[numSections - 1][2], rear[numSections - 1][1], tRe[0]);
+		return counter;
 
-    }
+	}
 
-    @Override
-    public void printTexture(Graphics2D bufGraphics) {
+	@Override
+	public void printTexture(Graphics2D bufGraphics) {
 
-        bufGraphics.setStroke(new BasicStroke(0.1f));
+		bufGraphics.setStroke(new BasicStroke(0.1f));
 
-        bufGraphics.setColor(new Color(217, 15, 27));
-        printTexturePolygon(bufGraphics, tBackRear);
-        printTexturePolygon(bufGraphics, tBackWagon[0]);
-        printTexturePolygon(bufGraphics, tBackWagon[1]);
-        printTexturePolygon(bufGraphics, tTopWagon);
-        bufGraphics.setColor(new Color(72, 178, 230));
-        printTexturePolygon(bufGraphics, tTopFront);
+		bufGraphics.setColor(new Color(217, 15, 27));
+		printTexturePolygon(bufGraphics, tBackRear);
+		printTexturePolygon(bufGraphics, tBackWagon[0]);
+		printTexturePolygon(bufGraphics, tBackWagon[1]);
+		printTexturePolygon(bufGraphics, tTopWagon);
+		bufGraphics.setColor(new Color(72, 178, 230));
+		printTexturePolygon(bufGraphics, tTopFront);
 
-        bufGraphics.setColor(new Color(217, 15, 27));
-        printTexturePolygon(bufGraphics, tRe[0]);
+		bufGraphics.setColor(new Color(217, 15, 27));
+		printTexturePolygon(bufGraphics, tRe[0]);
 
-        bufGraphics.setColor(new Color(217, 15, 27));
-        printTexturePolygon(bufGraphics, tWa[0]);
+		bufGraphics.setColor(new Color(217, 15, 27));
+		printTexturePolygon(bufGraphics, tWa[0]);
 
-        bufGraphics.setColor(Color.BLUE);
-        printTexturePolygon(bufGraphics, tWi[0]);
+		bufGraphics.setColor(Color.BLUE);
+		printTexturePolygon(bufGraphics, tWi[0]);
 
-        bufGraphics.setColor(Color.BLACK);
-        printTexturePolygon(bufGraphics, tWh[0]);
+		bufGraphics.setColor(Color.BLACK);
+		printTexturePolygon(bufGraphics, tWh[0]);
 
-    }
+	}
 
 }

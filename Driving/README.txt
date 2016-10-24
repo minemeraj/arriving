@@ -522,6 +522,10 @@
 
 	Truck proportions based on Iveco New Eurocargo Euro VI ( length=8692mm).
 	
+	Camper measures based on the Missouri 635 SL:
+	Length x Width x Height=6380mm x 2260mm x 2970mm
+	Wheelbase=3550mm
+	
 	Tractor proportions based on John Deer 6105R ( wheelbase=2580mm)
 	
 	Railroad car 0 proportions based on Sgmns-w by Kockums Industrier, 1435 mm gauge,
