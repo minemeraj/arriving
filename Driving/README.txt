@@ -519,6 +519,7 @@
 	
 	Jeep proportions based on the Wyllis MB:
 	Length x Width x Height= 3.36m  x 1.57m x 1.77m
+	Wheelbase=2032 mm
 
 	Truck proportions based on Iveco New Eurocargo Euro VI ( length=8692mm).
 	
