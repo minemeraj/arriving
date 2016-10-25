@@ -235,7 +235,7 @@ public class Jeep0Model extends PickupModel {
 
 	protected void buildWagon() {
 
-		double yRearAxle = 2.0 * wheelRadius / dyWagon;
+		double yRearAxle = rearOverhang / dyWagon;
 
 		double wy = wheelRadius * 1.0 / dyWagon;
 
@@ -405,7 +405,7 @@ public class Jeep0Model extends PickupModel {
 		double wxLeft = dxRear * 0.5;
 		double wxRight = dxRear * 0.5 - wheelWidth;
 
-		double yRearAxle = 2.0 * wheelRadius;
+		double yRearAxle = rearOverhang;
 		double yFrontAxle = dyWagon + dyRear + dyFront - frontOverhang;
 
 		wheelLeftFront = buildWheel(x0 - wxLeft, yFrontAxle, wz, wheelRadius, wheelWidth, wheel_rays);
