@@ -27,6 +27,7 @@ public class Jeep0Model extends PickupModel {
 				rearOverhang, frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheel_rays);
 
 		nWagonUnits = 2;
+		nYcab = 4;
 	}
 
 	@Override
@@ -136,9 +137,7 @@ public class Jeep0Model extends PickupModel {
 		double fy0 = 0;
 		double fy2 = yAxle - wy;
 		double fy1 = (0 * 0.25 + fy2 * 0.75);
-		double fy3 = yAxle + wy;
-		double fy5 = 1.0;
-		double fy4 = (fy3 * 0.75 + fy5 * 0.25);
+		double fy3 = 1.0;
 
 		double wz2 = (wheelRadius + wheelZ) / dzFront;
 		double wz3 = wz2;
@@ -168,16 +167,6 @@ public class Jeep0Model extends PickupModel {
 		cab[0][3][1] = addBPoint(0.0, fy3, fz2, s0);
 		cab[1][3][0] = addBPoint(1.0, fy3, wz3, s0);
 		cab[1][3][1] = addBPoint(1.0, fy3, fz2, s0);
-
-		cab[0][4][0] = addBPoint(0.0, fy4, 0.0, s0);
-		cab[0][4][1] = addBPoint(0.0, fy4, fz2, s0);
-		cab[1][4][0] = addBPoint(1.0, fy4, 0.0, s0);
-		cab[1][4][1] = addBPoint(1.0, fy4, fz2, s0);
-
-		cab[0][5][0] = addBPoint(0.0, fy5, 0.0, s0);
-		cab[0][5][1] = addBPoint(0.0, fy5, fz2, s0);
-		cab[1][5][0] = addBPoint(1.0, fy5, 0.0, s0);
-		cab[1][5][1] = addBPoint(1.0, fy5, fz2, s0);
 
 		Segments r0 = new Segments(x0 - dxRoof * 0.5, dxRoof, y0 + dyRear + dyWagon - dyRoof, dyRoof, z0 + dzFront,
 				dzRoof);
