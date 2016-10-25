@@ -96,8 +96,11 @@ public class Jeep0Model extends PickupModel {
 		y += dyRear;
 		addTRect(x, y, dxFront, dyFront);
 
+		double dxMaxR = Math.max(dxRear, dxWagon);
+		dxMaxR = Math.max(dxMaxR, dxFront);
+
 		// rear points
-		x += dxRear + shift;
+		x += dxMaxR + shift;
 		y = by;
 		addTRect(x, y, dxTexture, dyTexture);
 
@@ -116,7 +119,7 @@ public class Jeep0Model extends PickupModel {
 		y = by;
 		addTRect(x, y, wheelWidth, wheelWidth);
 
-		IMG_WIDTH = (int) (2 * bx + 3 * dxTexture + wheelWidth + 4 * shift + dxRear);
+		IMG_WIDTH = (int) (2 * bx + 3 * dxTexture + wheelWidth + 4 * shift + dxMaxR);
 		IMG_HEIGHT = (int) (2 * by + +dzWagon + dyWagon + dyRear + dyFront);
 	}
 
