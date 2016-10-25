@@ -30,7 +30,7 @@ public class OceanLiner0Model extends Ship0Model{
     private double funnel_height=0;
     private double funnel_radius=0;
 
-    protected int[][] tFun={{8,9,10,11}};
+    protected int[][] tFun=null;
 
     public OceanLiner0Model(
             double dx, double dy, double dz,
@@ -61,6 +61,12 @@ public class OceanLiner0Model extends Ship0Model{
 
     @Override
     public void initMesh() {
+
+        int c = 0;
+        c = initDoubleArrayValues(tH = new int[1][4], c);
+        c = initDoubleArrayValues(tD = new int[1][4], c);
+        c = initDoubleArrayValues(tFun = new int[1][4], c);
+
         points=new Vector<Point3D>();
         texturePoints=new Vector<Point3D>();
 
@@ -189,7 +195,7 @@ public class OceanLiner0Model extends Ship0Model{
     }
 
 
-	@Override
+    @Override
     public void printTexture(Graphics2D bufGraphics) {
 
 

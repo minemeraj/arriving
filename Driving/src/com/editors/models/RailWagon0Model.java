@@ -15,26 +15,8 @@ import com.main.Renderer3D;
  * @author Administrator
  *
  */
-public class RailWagon0Model extends MeshModel{
+public class RailWagon0Model extends VehicleModel{
 
-    protected int bx=10;
-    protected int by=10;
-
-    protected double dx = 0;
-    protected double dy = 0;
-    protected double dz = 0;
-
-    protected double dxFront = 0;
-    protected double dyFront = 0;
-    protected double dzFront = 0;
-
-    protected double dxRear = 0;
-    protected double dyRear = 0;
-    protected double dzRear = 0;
-
-    protected double dxRoof;
-    protected double dyRoof;
-    protected double dzRoof;
 
     private double wheelRadius;
     private double wheelWidth;
@@ -42,27 +24,23 @@ public class RailWagon0Model extends MeshModel{
 
     protected BPoint[][][] body;
 
-    private BPoint[][][] back;
     private BPoint[][] rWheelLeftFront;
     private BPoint[][] rWheelRightFront;
     private BPoint[][] rWheelLeftRear;
     private BPoint[][] rWheelRightRear;
 
-    private BPoint[][][] front;
     private BPoint[][] fWheelLeftFront;
     private BPoint[][] fWheelRightFront;
     private BPoint[][] fWheelLeftRear;
     private BPoint[][] fWheelRightRear;
     protected BPoint[][][] wagon;
-    private double rearOverhang;
-    private double frontOverhang;
 
     public static String NAME="RailWagon";
 
     //body textures
-    protected int[][] tBo={{0,1,2,3}};
+    protected int[][] tBo=null;
     //wheel textures
-    protected int[][] tWh={{4,5,6,7}};
+    protected int[][] tWh=null;
 
     private double dyTexture=200;
     private double dxTexture=200;
@@ -105,6 +83,11 @@ public class RailWagon0Model extends MeshModel{
 
     @Override
     public void initMesh() {
+
+        int c = 0;
+        c = initDoubleArrayValues(tBo = new int[1][4], c);
+        c = initDoubleArrayValues(tWh = new int[1][4], c);
+
         points=new Vector<Point3D>();
         texturePoints=new Vector<Point3D>();
 
@@ -129,15 +112,9 @@ public class RailWagon0Model extends MeshModel{
 
         int counter=0;
 
-
-
         counter=buildBodyFaces(counter,tWh[0][0],totWheelPolygon);
 
         counter=buildWagonFaces(counter,wagon);
-
-
-
-
 
     }
 
@@ -293,26 +270,18 @@ public class RailWagon0Model extends MeshModel{
 
 
     protected void buildTextures() {
-        //Texture points
 
-        double y=by;
         double x=bx;
+        double y=by;
 
-        addTPoint(x,y,0);
-        addTPoint(x+dxTexture,y,0);
-        addTPoint(x+dxTexture, y+dyTexture,0);
-        addTPoint(x,y+dyTexture,0);
-
+        addTRect(x,y,dxTexture,dyTexture);
 
         //wheel texture, a black square for simplicity:
 
-        x=bx+dxTexture;
+        x+=dxTexture;
         y=by;
 
-        addTPoint(x,y,0);
-        addTPoint(x+wheelWidth,y,0);
-        addTPoint(x+wheelWidth,y+wheelWidth,0);
-        addTPoint(x,y+wheelWidth,0);
+        addTRect(x,y,wheelWidth,wheelWidth);
 
         IMG_WIDTH=(int) (2*bx+dxTexture);
         IMG_HEIGHT=(int) (2*by+dyTexture);

@@ -19,234 +19,257 @@ import com.main.Renderer3D;
  */
 public class Tank0Model extends VehicleModel {
 
-	private double dxTrack = 0;
-	private double dyTrack = 0;
-	private double dzTrack = 0;
+    private double dxTrack = 0;
+    private double dyTopTrack = 0;
+    private double dyBottomTrack;
+    private double dzTrack = 0;
 
-	// body textures
-	protected int[][] tBo = { { 0, 1, 2, 3 } };
 
-	private BPoint[][][] turret;
-	private BPoint[][] cannon_barrel;
-	private BPoint[][][][] tracks;
+    // body textures
+    protected int[][] tBo =null;
+    protected int[] tTr =null;
 
-	private double dxTexture = 200;
-	private double dyTexture = 200;
+    private BPoint[][][] turret;
+    private BPoint[][] cannon_barrel;
+    private BPoint[][][][] tracks;
 
-	public static String NAME = "Tank";
+    private double dxTexture = 200;
+    private double dyTexture = 200;
+    private double wheelRadius=0;
+    private double wheelWidth=0;
+    private int wheel_rays=0;
 
-	public Tank0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr, double dyr,
-			double dzr, double dxRoof, double dyRoof, double dzRoof) {
-		super();
-		this.dx = dx;
-		this.dy = dy;
-		this.dz = dz;
 
-		this.dxTrack = dxf;
-		this.dyTrack = dyf;
-		this.dzTrack = dzf;
+    public static String NAME = "Tank";
 
-		this.dxRear = dxr;
-		this.dyRear = dyr;
-		this.dzRear = dzr;
+    public Tank0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr, double dyr,
+            double dzr, double dxRoof, double dyRoof, double dzRoof, double rearOverhang, double frontOverhang,
+            double rearOverhang1, double frontOverhang1, double wheelRadius, double wheelWidth, int wheel_rays) {
+        super();
+        this.dx = dx;
+        this.dy = dy;
+        this.dz = dz;
 
-		this.dxRoof = dxRoof;
-		this.dyRoof = dyRoof;
-		this.dzRoof = dzRoof;
-	}
+        this.dxTrack = dxf;
+        this.dyTopTrack = dyf;
+        this.dyBottomTrack=dyTopTrack-rearOverhang-frontOverhang;
+        this.dzTrack = dzf;
 
-	@Override
-	public void initMesh() {
-		points = new Vector<Point3D>();
-		texturePoints = new Vector<Point3D>();
+        this.dxRear = dxr;
+        this.dyRear = dyr;
+        this.dzRear = dzr;
 
-		buildBody();
-		buildTracks();
-		buildTextures();
+        this.dxRoof = dxRoof;
+        this.dyRoof = dyRoof;
+        this.dzRoof = dzRoof;
 
-		// turret and body
-		int NF = 6 * 2;
-		// tracks
-		NF += 6 * tracks.length;
+        this.rearOverhang = rearOverhang;
+        this.frontOverhang = frontOverhang;
 
-		faces = new int[NF + cannon_barrel.length][3][4];
+        this.rearOverhang1 = rearOverhang1;
+        this.frontOverhang1 = frontOverhang1;
 
-		int counter = 0;
-		counter = buildFaces(counter);
-		counter = buildTracksFaces(counter);
-	}
+        this.wheelRadius = wheelRadius;
+        this.wheelWidth = wheelWidth;
+        this.wheel_rays = wheel_rays;
 
-	private int buildFaces(int counter) {
 
-		faces[counter++] = buildFace(Renderer3D.CAR_TOP, body[0][0][1], body[1][0][1], body[1][1][1], body[0][1][1],
-				tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, body[0][0][0], body[0][0][1], body[0][1][1], body[0][1][0],
-				tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, body[1][0][0], body[1][1][0], body[1][1][1], body[1][0][1],
-				tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, body[0][1][0], body[0][1][1], body[1][1][1], body[1][1][0],
-				tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_BACK, body[0][0][0], body[1][0][0], body[1][0][1], body[0][0][1],
-				tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[0][0][0], body[0][1][0], body[1][1][0], body[1][0][0],
-				tBo[0]);
+    }
 
-		faces[counter++] = buildFace(Renderer3D.CAR_TOP, turret[0][0][1], turret[1][0][1], turret[1][1][1],
-				turret[0][1][1], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, turret[0][0][0], turret[0][0][1], turret[0][1][1],
-				turret[0][1][0], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, turret[1][0][0], turret[1][1][0], turret[1][1][1],
-				turret[1][0][1], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, turret[0][1][0], turret[0][1][1], turret[1][1][1],
-				turret[1][1][0], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_BACK, turret[0][0][0], turret[1][0][0], turret[1][0][1],
-				turret[0][0][1], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, turret[0][0][0], turret[0][1][0], turret[1][1][0],
-				turret[1][0][0], tBo[0]);
+    @Override
+    public void initMesh() {
 
-		for (int i = 0; i < cannon_barrel.length; i++) {
 
-			faces[counter++] = buildFace(Renderer3D.CAR_TOP, cannon_barrel[i][0],
-					cannon_barrel[(i + 1) % cannon_barrel.length][0], cannon_barrel[(i + 1) % cannon_barrel.length][1],
-					cannon_barrel[i][1], 0, 1, 2, 3);
-		}
+        int c=0;
+        c = initDoubleArrayValues(tBo = new int[1][4], c);
+        c = initSingleArrayValues(tTr = new int[4], c);
 
-		return counter;
-	}
+        points = new Vector<Point3D>();
+        texturePoints = new Vector<Point3D>();
 
-	private void buildTextures() {
+        buildBody();
+        buildTracks();
+        buildTextures();
 
-		// Texture points
+        // turret and body
+        int NF = 6 * 2;
+        // tracks
+        NF += 6 * tracks.length;
 
-		double y = by;
-		double x = bx;
+        faces = new int[NF + cannon_barrel.length][3][4];
 
-		addTPoint(x, y, 0);
-		addTPoint(x + dxTexture, y, 0);
-		addTPoint(x + dxTexture, y + dyTexture, 0);
-		addTPoint(x, y + dyTexture, 0);
+        int counter = 0;
+        counter = buildFaces(counter);
+        counter = buildTracksFaces(counter);
+    }
 
-		IMG_WIDTH = (int) (2 * bx + dxTexture);
-		IMG_HEIGHT = (int) (2 * by + dyTexture);
+    private int buildFaces(int counter) {
 
-	}
+        faces[counter++] = buildFace(Renderer3D.CAR_TOP, body[0][0][1], body[1][0][1], body[1][1][1], body[0][1][1],
+                tBo[0]);
+        faces[counter++] = buildFace(Renderer3D.CAR_LEFT, body[0][0][0], body[0][0][1], body[0][1][1], body[0][1][0],
+                tBo[0]);
+        faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, body[1][0][0], body[1][1][0], body[1][1][1], body[1][0][1],
+                tBo[0]);
+        faces[counter++] = buildFace(Renderer3D.CAR_FRONT, body[0][1][0], body[0][1][1], body[1][1][1], body[1][1][0],
+                tBo[0]);
+        faces[counter++] = buildFace(Renderer3D.CAR_BACK, body[0][0][0], body[1][0][0], body[1][0][1], body[0][0][1],
+                tBo[0]);
+        faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[0][0][0], body[0][1][0], body[1][1][0], body[1][0][0],
+                tBo[0]);
 
-	private void buildBody() {
+        faces[counter++] = buildFace(Renderer3D.CAR_TOP, turret[0][0][1], turret[1][0][1], turret[1][1][1],
+                turret[0][1][1], tBo[0]);
+        faces[counter++] = buildFace(Renderer3D.CAR_LEFT, turret[0][0][0], turret[0][0][1], turret[0][1][1],
+                turret[0][1][0], tBo[0]);
+        faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, turret[1][0][0], turret[1][1][0], turret[1][1][1],
+                turret[1][0][1], tBo[0]);
+        faces[counter++] = buildFace(Renderer3D.CAR_FRONT, turret[0][1][0], turret[0][1][1], turret[1][1][1],
+                turret[1][1][0], tBo[0]);
+        faces[counter++] = buildFace(Renderer3D.CAR_BACK, turret[0][0][0], turret[1][0][0], turret[1][0][1],
+                turret[0][0][1], tBo[0]);
+        faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, turret[0][0][0], turret[0][1][0], turret[1][1][0],
+                turret[1][0][0], tBo[0]);
 
-		double zz = dzTrack - dz;
+        for (int i = 0; i < cannon_barrel.length; i++) {
 
-		Segments s0 = new Segments(0, dx * 0.5, 0, dy, zz, dz);
+            faces[counter++] = buildFace(Renderer3D.CAR_TOP, cannon_barrel[i][0],
+                    cannon_barrel[(i + 1) % cannon_barrel.length][0], cannon_barrel[(i + 1) % cannon_barrel.length][1],
+                    cannon_barrel[i][1], 0, 1, 2, 3);
+        }
 
-		body = new BPoint[2][2][2];
+        return counter;
+    }
 
-		body[0][0][0] = addBPoint(-1.0, 0.0, 0, s0);
-		body[1][0][0] = addBPoint(1.0, 0.0, 0, s0);
-		body[0][1][0] = addBPoint(-1.0, 1.0, 0, s0);
-		body[1][1][0] = addBPoint(1.0, 1.0, 0, s0);
+    private void buildTextures() {
 
-		body[0][0][1] = addBPoint(-1.0, 0.0, 1.0, s0);
-		body[1][0][1] = addBPoint(1.0, 0.0, 1.0, s0);
-		body[0][1][1] = addBPoint(-1.0, 1.0, 1.0, s0);
-		body[1][1][1] = addBPoint(1.0, 1.0, 1.0, s0);
+        double y = by;
+        double x = bx;
 
-		Segments s1 = new Segments(0, dxRoof * 0.5, dyRear, dyRoof, dzTrack, dzRoof);
+        int shift=1;
 
-		turret = new BPoint[2][2][2];
+        addTRect(x, y, dxTexture,dyTexture);
+        x+=dxTexture+shift;
+        addTRect(x, y, dzTrack,dyTopTrack);
 
-		turret[0][0][0] = addBPoint(-1.0, 0.0, 0, s1);
-		turret[1][0][0] = addBPoint(1.0, 0.0, 0, s1);
-		turret[0][1][0] = addBPoint(-1.0, 1.0, 0, s1);
-		turret[1][1][0] = addBPoint(1.0, 1.0, 0, s1);
+        IMG_WIDTH = (int) (2 * bx + dxTexture+dzTrack+shift);
+        IMG_HEIGHT = (int) (2 * by + Math.max(dyTopTrack,dyTexture));
 
-		turret[0][0][1] = addBPoint(-1.0, 0.0, 1.0, s1);
-		turret[1][0][1] = addBPoint(1.0, 0.0, 1.0, s1);
-		turret[0][1][1] = addBPoint(-1.0, 1.0, 1.0, s1);
-		turret[1][1][1] = addBPoint(1.0, 1.0, 1.0, s1);
+    }
 
-		cannon_barrel = addYCylinder(0, dyRoof + dyRear, dzTrack + dzRear * 0.5, 10, 100, 10);
 
-	}
+    private void buildTracks() {
 
-	private int buildTracksFaces(int counter) {
 
-		for (int i = 0; i < tracks.length; i++) {
 
-			faces[counter++] = buildFace(Renderer3D.CAR_TOP, tracks[i][0][0][1], tracks[i][1][0][1], tracks[i][1][1][1],
-					tracks[i][0][1][1], tBo[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, tracks[i][0][0][0], tracks[i][0][0][1],
-					tracks[i][0][1][1], tracks[i][0][1][0], tBo[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, tracks[i][1][0][0], tracks[i][1][1][0],
-					tracks[i][1][1][1], tracks[i][1][0][1], tBo[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, tracks[i][0][1][0], tracks[i][0][1][1],
-					tracks[i][1][1][1], tracks[i][1][1][0], tBo[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_BACK, tracks[i][0][0][0], tracks[i][1][0][0],
-					tracks[i][1][0][1], tracks[i][0][0][1], tBo[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, tracks[i][0][0][0], tracks[i][0][1][0],
-					tracks[i][1][1][0], tracks[i][1][0][0], tBo[0]);
+        Segments s0Top = new Segments(dx * 0.5, dxTrack, 0, dyTopTrack, 0, dzTrack);
+        Segments s0Bottom = new Segments(dx * 0.5, dxTrack, rearOverhang, dyBottomTrack, 0, dzTrack);
 
-		}
+        tracks = new BPoint[2][2][2][2];
 
-		return counter;
-	}
+        tracks[0][0][0][0] = addBPoint(-1.0, 0.0, 0, s0Bottom);
+        tracks[0][1][0][0] = addBPoint(1.0, 0.0, 0, s0Bottom);
+        tracks[0][0][1][0] = addBPoint(-1.0, 1.0, 0, s0Bottom);
+        tracks[0][1][1][0] = addBPoint(1.0, 1.0, 0, s0Bottom);
 
-	private void buildTracks() {
+        tracks[0][0][0][1] = addBPoint(-1.0, 0.0, 1.0, s0Top);
+        tracks[0][1][0][1] = addBPoint(1.0, 0.0, 1.0, s0Top);
+        tracks[0][0][1][1] = addBPoint(-1.0, 1.0, 1.0, s0Top);
+        tracks[0][1][1][1] = addBPoint(1.0, 1.0, 1.0, s0Top);
 
-		Segments s0 = new Segments(dx * 0.5, dxTrack, 0, dyTrack, 0, dzTrack);
+        Segments s1Top = new Segments(-dx * 0.5 - dxTrack, dxTrack, 0, dyTopTrack, 0, dzTrack);
+        Segments s1Bottom = new Segments(-dx * 0.5 - dxTrack, dxTrack,rearOverhang, dyBottomTrack, 0, dzTrack);
 
-		tracks = new BPoint[2][2][2][2];
+        tracks[1] = new BPoint[2][2][2];
 
-		tracks[0][0][0][0] = addBPoint(-1.0, 0.0, 0, s0);
-		tracks[0][1][0][0] = addBPoint(1.0, 0.0, 0, s0);
-		tracks[0][0][1][0] = addBPoint(-1.0, 1.0, 0, s0);
-		tracks[0][1][1][0] = addBPoint(1.0, 1.0, 0, s0);
+        tracks[1][0][0][0] = addBPoint(-1.0, 0.0, 0, s1Bottom);
+        tracks[1][1][0][0] = addBPoint(1.0, 0.0, 0, s1Bottom);
+        tracks[1][0][1][0] = addBPoint(-1.0, 1.0, 0, s1Bottom);
+        tracks[1][1][1][0] = addBPoint(1.0, 1.0, 0, s1Bottom);
 
-		tracks[0][0][0][1] = addBPoint(-1.0, 0.0, 1.0, s0);
-		tracks[0][1][0][1] = addBPoint(1.0, 0.0, 1.0, s0);
-		tracks[0][0][1][1] = addBPoint(-1.0, 1.0, 1.0, s0);
-		tracks[0][1][1][1] = addBPoint(1.0, 1.0, 1.0, s0);
+        tracks[1][0][0][1] = addBPoint(-1.0, 0.0, 1.0, s1Top);
+        tracks[1][1][0][1] = addBPoint(1.0, 0.0, 1.0, s1Top);
+        tracks[1][0][1][1] = addBPoint(-1.0, 1.0, 1.0, s1Top);
+        tracks[1][1][1][1] = addBPoint(1.0, 1.0, 1.0, s1Top);
 
-		Segments s1 = new Segments(-dx * 0.5 - dxTrack, dxTrack, 0, dyTrack, 0, dzTrack);
+    }
 
-		tracks[1] = new BPoint[2][2][2];
+    private void buildBody() {
 
-		tracks[1][0][0][0] = addBPoint(-1.0, 0.0, 0, s1);
-		tracks[1][1][0][0] = addBPoint(1.0, 0.0, 0, s1);
-		tracks[1][0][1][0] = addBPoint(-1.0, 1.0, 0, s1);
-		tracks[1][1][1][0] = addBPoint(1.0, 1.0, 0, s1);
+        double zz = dzTrack - dz;
 
-		tracks[1][0][0][1] = addBPoint(-1.0, 0.0, 1.0, s1);
-		tracks[1][1][0][1] = addBPoint(1.0, 0.0, 1.0, s1);
-		tracks[1][0][1][1] = addBPoint(-1.0, 1.0, 1.0, s1);
-		tracks[1][1][1][1] = addBPoint(1.0, 1.0, 1.0, s1);
+        Segments s0 = new Segments(0, dx * 0.5, 0, dy, zz, dz);
 
-	}
+        body = new BPoint[2][2][2];
 
-	@Override
-	public void printMeshData(PrintWriter pw) {
+        body[0][0][0] = addBPoint(-1.0, 0.0, 0, s0);
+        body[1][0][0] = addBPoint(1.0, 0.0, 0, s0);
+        body[0][1][0] = addBPoint(-1.0, 1.0, 0, s0);
+        body[1][1][0] = addBPoint(1.0, 1.0, 0, s0);
 
-		super.printMeshData(pw);
-		super.printFaces(pw, faces);
+        body[0][0][1] = addBPoint(-1.0, 0.0, 1.0, s0);
+        body[1][0][1] = addBPoint(1.0, 0.0, 1.0, s0);
+        body[0][1][1] = addBPoint(-1.0, 1.0, 1.0, s0);
+        body[1][1][1] = addBPoint(1.0, 1.0, 1.0, s0);
 
-	}
+        Segments s1 = new Segments(0, dxRoof * 0.5, dyRear, dyRoof, dzTrack, dzRoof);
 
-	@Override
-	public void printTexture(Graphics2D bufGraphics) {
+        turret = new BPoint[2][2][2];
 
-		bufGraphics.setColor(Color.BLACK);
-		bufGraphics.setStroke(new BasicStroke(0.1f));
+        turret[0][0][0] = addBPoint(-1.0, 0.0, 0, s1);
+        turret[1][0][0] = addBPoint(1.0, 0.0, 0, s1);
+        turret[0][1][0] = addBPoint(-1.0, 1.0, 0, s1);
+        turret[1][1][0] = addBPoint(1.0, 1.0, 0, s1);
 
-		for (int i = 0; i < faces.length; i++) {
+        turret[0][0][1] = addBPoint(-1.0, 0.0, 1.0, s1);
+        turret[1][0][1] = addBPoint(1.0, 0.0, 1.0, s1);
+        turret[0][1][1] = addBPoint(-1.0, 1.0, 1.0, s1);
+        turret[1][1][1] = addBPoint(1.0, 1.0, 1.0, s1);
 
-			int[][] face = faces[i];
-			int[] tPoints = face[2];
-			if (tPoints.length == 4) {
-				printTexturePolygon(bufGraphics, tPoints[0], tPoints[1], tPoints[2], tPoints[3]);
-			} else if (tPoints.length == 3) {
-				printTexturePolygon(bufGraphics, tPoints[0], tPoints[1], tPoints[2]);
-			}
+        cannon_barrel = addYCylinder(0, dyRoof + dyRear, dzTrack + dzRoof * 0.5, wheelRadius, wheelWidth, wheel_rays);
 
-		}
+    }
 
-	}
+    private int buildTracksFaces(int counter) {
+
+        for (int i = 0; i < tracks.length; i++) {
+
+            faces[counter++] = buildFace(Renderer3D.CAR_TOP, tracks[i][0][0][1], tracks[i][1][0][1], tracks[i][1][1][1],
+                    tracks[i][0][1][1], tBo[0]);
+            faces[counter++] = buildFace(Renderer3D.CAR_LEFT, tracks[i][0][0][0], tracks[i][0][0][1],
+                    tracks[i][0][1][1], tracks[i][0][1][0], tTr);
+            faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, tracks[i][1][0][0], tracks[i][1][1][0],
+                    tracks[i][1][1][1], tracks[i][1][0][1], tTr);
+            faces[counter++] = buildFace(Renderer3D.CAR_FRONT, tracks[i][0][1][0], tracks[i][0][1][1],
+                    tracks[i][1][1][1], tracks[i][1][1][0], tBo[0]);
+            faces[counter++] = buildFace(Renderer3D.CAR_BACK, tracks[i][0][0][0], tracks[i][1][0][0],
+                    tracks[i][1][0][1], tracks[i][0][0][1], tBo[0]);
+            faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, tracks[i][0][0][0], tracks[i][0][1][0],
+                    tracks[i][1][1][0], tracks[i][1][0][0], tBo[0]);
+
+        }
+
+        return counter;
+    }
+
+
+    @Override
+    public void printMeshData(PrintWriter pw) {
+
+        super.printMeshData(pw);
+        super.printFaces(pw, faces);
+
+    }
+
+    @Override
+    public void printTexture(Graphics2D bufGraphics) {
+
+        bufGraphics.setColor(Color.BLACK);
+        bufGraphics.setStroke(new BasicStroke(0.1f));
+
+        printTexturePolygon(bufGraphics, tBo[0]);
+        printTexturePolygon(bufGraphics, tTr);
+
+    }
 
 }
