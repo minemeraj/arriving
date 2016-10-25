@@ -18,6 +18,8 @@ public class Jeep0Model extends PickupModel {
 	BPoint[][] wagonBack = null;
 	BPoint[][] wagonBottom = null;
 
+	private BPoint[][][][] cabSides;
+
 	public Jeep0Model(double dxFront, double dyfront, double dzFront, double dxRoof, double dyRoof, double dzRoof,
 			double dxRear, double dyRear, double dzRear, double dxWagon, double dyWagon, double dzWagon,
 			double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1, double wheelRadius,
@@ -61,8 +63,8 @@ public class Jeep0Model extends PickupModel {
 		int totWheelPolygon = wheel_rays + 2 * (wheel_rays - 2);
 		int NUM_WHEEL_FACES = 4 * totWheelPolygon;
 
-		// faces
-		int NF = 2 + (2 + (nzCab - 1)) * (nYcab - 1) * 2;
+		// cabin faces
+		int NF = 3 * (2 + (2 + (nzCab - 1)) * (nYcab - 1) * 2);
 		// cabin roof
 		NF += 7;
 		// rear
@@ -144,29 +146,62 @@ public class Jeep0Model extends PickupModel {
 
 		double fz2 = 1.0;
 
-		Segments s0 = new Segments(x0 - dxFront * 0.5, dxFront, y0 + dyRear + dyWagon, dyFront, z0, dzFront);
+		cabSides = new BPoint[2][2][nYcab][nzCab];
+
+		for (int i = 0; i < cabSides.length; i++) {
+
+			Segments s0 = null;
+			if (i == 0)
+				s0 = new Segments(x0 - dxFront * 0.5, wheelWidth, y0 + dyRear + dyWagon, dyFront, z0, dzFront);
+			else
+				s0 = new Segments(x0 + dxFront * 0.5 - wheelWidth, wheelWidth, y0 + dyRear + dyWagon, dyFront, z0,
+						dzFront);
+
+			cabSides[i][0][0][0] = addBPoint(0.0, fy0, 0.0, s0);
+			cabSides[i][0][0][1] = addBPoint(0.0, fy0, fz2, s0);
+			cabSides[i][1][0][0] = addBPoint(1.0, fy0, 0.0, s0);
+			cabSides[i][1][0][1] = addBPoint(1.0, fy0, fz2, s0);
+
+			cabSides[i][0][1][0] = addBPoint(0.0, fy1, 0.0, s0);
+			cabSides[i][0][1][1] = addBPoint(0.0, fy1, fz2, s0);
+			cabSides[i][1][1][0] = addBPoint(1.0, fy1, 0.0, s0);
+			cabSides[i][1][1][1] = addBPoint(1.0, fy1, fz2, s0);
+
+			cabSides[i][0][2][0] = addBPoint(0.0, fy2, wz2, s0);
+			cabSides[i][0][2][1] = addBPoint(0.0, fy2, fz2, s0);
+			cabSides[i][1][2][0] = addBPoint(1.0, fy2, wz2, s0);
+			cabSides[i][1][2][1] = addBPoint(1.0, fy2, fz2, s0);
+
+			cabSides[i][0][3][0] = addBPoint(0.0, fy3, wz3, s0);
+			cabSides[i][0][3][1] = addBPoint(0.0, fy3, fz2, s0);
+			cabSides[i][1][3][0] = addBPoint(1.0, fy3, wz3, s0);
+			cabSides[i][1][3][1] = addBPoint(1.0, fy3, fz2, s0);
+		}
+
+		Segments c0 = new Segments(x0 - dxFront * 0.5 + wheelWidth, dxFront - 2 * wheelWidth, y0 + dyRear + dyWagon,
+				dyFront, z0, dzFront);
 
 		cab = new BPoint[2][nYcab][nzCab];
 
-		cab[0][0][0] = addBPoint(0.0, fy0, 0.0, s0);
-		cab[0][0][1] = addBPoint(0.0, fy0, fz2, s0);
-		cab[1][0][0] = addBPoint(1.0, fy0, 0.0, s0);
-		cab[1][0][1] = addBPoint(1.0, fy0, fz2, s0);
+		cab[0][0][0] = addBPoint(0.0, fy0, 0.0, c0);
+		cab[0][0][1] = addBPoint(0.0, fy0, fz2, c0);
+		cab[1][0][0] = addBPoint(1.0, fy0, 0.0, c0);
+		cab[1][0][1] = addBPoint(1.0, fy0, fz2, c0);
 
-		cab[0][1][0] = addBPoint(0.0, fy1, 0.0, s0);
-		cab[0][1][1] = addBPoint(0.0, fy1, fz2, s0);
-		cab[1][1][0] = addBPoint(1.0, fy1, 0.0, s0);
-		cab[1][1][1] = addBPoint(1.0, fy1, fz2, s0);
+		cab[0][1][0] = addBPoint(0.0, fy1, 0.0, c0);
+		cab[0][1][1] = addBPoint(0.0, fy1, fz2, c0);
+		cab[1][1][0] = addBPoint(1.0, fy1, 0.0, c0);
+		cab[1][1][1] = addBPoint(1.0, fy1, fz2, c0);
 
-		cab[0][2][0] = addBPoint(0.0, fy2, wz2, s0);
-		cab[0][2][1] = addBPoint(0.0, fy2, fz2, s0);
-		cab[1][2][0] = addBPoint(1.0, fy2, wz2, s0);
-		cab[1][2][1] = addBPoint(1.0, fy2, fz2, s0);
+		cab[0][2][0] = addBPoint(0.0, fy2, 0.0, c0);
+		cab[0][2][1] = addBPoint(0.0, fy2, fz2, c0);
+		cab[1][2][0] = addBPoint(1.0, fy2, 0.0, c0);
+		cab[1][2][1] = addBPoint(1.0, fy2, fz2, c0);
 
-		cab[0][3][0] = addBPoint(0.0, fy3, wz3, s0);
-		cab[0][3][1] = addBPoint(0.0, fy3, fz2, s0);
-		cab[1][3][0] = addBPoint(1.0, fy3, wz3, s0);
-		cab[1][3][1] = addBPoint(1.0, fy3, fz2, s0);
+		cab[0][3][0] = addBPoint(0.0, fy3, 0.0, c0);
+		cab[0][3][1] = addBPoint(0.0, fy3, fz2, c0);
+		cab[1][3][0] = addBPoint(1.0, fy3, 0.0, c0);
+		cab[1][3][1] = addBPoint(1.0, fy3, fz2, c0);
 
 		Segments r0 = new Segments(x0 - dxRoof * 0.5, dxRoof, y0 + dyRear + dyWagon - dyRoof, dyRoof, z0 + dzFront,
 				dzRoof);
@@ -185,6 +220,39 @@ public class Jeep0Model extends PickupModel {
 	protected int buildCabinFaces(int counter, int nYcab, int nzCab) {
 
 		// cab
+		for (int i = 0; i < cabSides.length; i++) {
+
+			for (int j = 0; j < nYcab - 1; j++) {
+
+				faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, cabSides[i][0][j][0], cabSides[i][0][j + 1][0],
+						cabSides[i][1][j + 1][0], cabSides[i][1][j][0], tRe[0]);
+
+				for (int k = 0; k < nzCab - 1; k++) {
+
+					faces[counter++] = buildFace(Renderer3D.CAR_LEFT, cabSides[i][0][j][k], cabSides[i][0][j][k + 1],
+							cabSides[i][0][j + 1][k + 1], cabSides[i][0][j + 1][k], tRe[0]);
+					if (j == 0) {
+						faces[counter++] = buildFace(Renderer3D.CAR_BACK, cabSides[i][0][j][k], cabSides[i][1][j][k],
+								cabSides[i][1][j][k + 1], cabSides[i][0][j][k + 1], tRe[0]);
+					}
+					faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, cabSides[i][1][j][k], cabSides[i][1][j + 1][k],
+							cabSides[i][1][j + 1][k + 1], cabSides[i][1][j][k + 1], tRe[0]);
+					if (j == nYcab - 2) {
+						faces[counter++] = buildFace(Renderer3D.CAR_FRONT, cabSides[i][0][nYcab - 1][k],
+								cabSides[i][0][nYcab - 1][k + 1], cabSides[i][1][nYcab - 1][k + 1],
+								cabSides[i][1][nYcab - 1][k], tRe[0]);
+					}
+
+				}
+
+				faces[counter++] = buildFace(Renderer3D.CAR_TOP, cabSides[i][0][j][nzCab - 1],
+						cabSides[i][1][j][nzCab - 1], cabSides[i][1][j + 1][nzCab - 1],
+						cabSides[i][0][j + 1][nzCab - 1], tTopFront);
+
+			}
+
+		}
+
 		for (int j = 0; j < nYcab - 1; j++) {
 
 			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, cab[0][j][0], cab[0][j + 1][0], cab[1][j + 1][0],

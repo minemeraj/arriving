@@ -612,7 +612,6 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						0, 42, // rearOverhang1,frontOverhang1,
 						10, 7, 10// wheel_radius, wheel_width, wheel_rays
 				);
-
 			} else if (JEEP == val) {
 				setRightData(39, 29, 17, // dx,dy,dz
 						38, 44, 19, // dxFront, dyFront, dzFront
@@ -622,7 +621,6 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						0, 33, // rearOverhang1,frontOverhang1,
 						10, 6, 10// wheel_radius, wheel_width, wheel_rays
 				);
-
 			} else if (STEAMLOCOMOTIVE0 == val) {
 				setRightData(74, 319, 22, // dx,dy,dz
 						94, 61, 118, // dxFront, dyFront, dzFront
