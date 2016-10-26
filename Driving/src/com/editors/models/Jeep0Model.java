@@ -88,16 +88,19 @@ public class Jeep0Model extends PickupModel {
 		double y = by;
 		double x = bx;
 
-		addTRect(x, y, dxWagon, dzWagon);
-		y += dzWagon;
-		addTRect(x, y, dxWagon, dyWagon);
-		y += dyWagon;
-		addTRect(x, y, dxRear, dyRear);
-		y += dyRear;
-		addTRect(x, y, dxFront, dyFront);
-
 		double dxMaxR = Math.max(dxRear, dxWagon);
 		dxMaxR = Math.max(dxMaxR, dxFront);
+		double midX = bx + (dxMaxR) * 0.5;
+		double deltaXRe = (midX - dxRear * 0.5 - bx);
+		double deltaXFr = (midX - dxFront * 0.5 - bx);
+
+		addTRect(x, y, dxWagon, dzWagon);
+		y += dzWagon + shift;
+		addTRect(x, y, dxWagon, dyWagon);
+		y += dyWagon + shift;
+		addTRect(x + deltaXRe, y, dxRear, dyRear);
+		y += dyRear + shift;
+		addTRect(x + deltaXFr, y, dxFront, dyFront);
 
 		// rear points
 		x += dxMaxR + shift;
@@ -120,7 +123,7 @@ public class Jeep0Model extends PickupModel {
 		addTRect(x, y, wheelWidth, wheelWidth);
 
 		IMG_WIDTH = (int) (2 * bx + 3 * dxTexture + wheelWidth + 4 * shift + dxMaxR);
-		IMG_HEIGHT = (int) (2 * by + +dzWagon + dyWagon + dyRear + dyFront);
+		IMG_HEIGHT = (int) (2 * by + +dzWagon + dyWagon + dyRear + dyFront + 3 * shift);
 	}
 
 	@Override
@@ -480,16 +483,17 @@ public class Jeep0Model extends PickupModel {
 
 		bufGraphics.setStroke(new BasicStroke(0.1f));
 
-		bufGraphics.setColor(new Color(217, 15, 27));
+		bufGraphics.setColor(new Color(132, 126, 90));
 		printTexturePolygon(bufGraphics, tBackWagon[0]);
 		printTexturePolygon(bufGraphics, tTopWagon);
+		bufGraphics.setColor(new Color(173, 162, 134));
 		printTexturePolygon(bufGraphics, tTopRear);
-		bufGraphics.setColor(new Color(72, 178, 230));
+		bufGraphics.setColor(new Color(111, 140, 112));
 		printTexturePolygon(bufGraphics, tTopFront);
 
-		bufGraphics.setColor(new Color(217, 15, 27));
+		bufGraphics.setColor(new Color(111, 140, 112));
 		printTexturePolygon(bufGraphics, tRe[0]);
-		bufGraphics.setColor(new Color(217, 15, 27));
+		bufGraphics.setColor(new Color(123, 110, 79));
 		printTexturePolygon(bufGraphics, tWa[0]);
 		bufGraphics.setColor(Color.BLUE);
 		printTexturePolygon(bufGraphics, tWi[0]);
