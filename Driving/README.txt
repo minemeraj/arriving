@@ -501,10 +501,9 @@
    	--Vehicles:
    	
    	Car proportions based on Mazda-6 2008 
-   	and BMW 5 Series Sedan 
-   	length=4907 mm, wheelbase=2968 mm
-    width=1839mm, height=1321mm 
-   	
+   	length=4.670 mm, wheelbase=2.675 mm
+    width=1.781mm, height= 1.435mm 
+  
    	F1 proportions based on the Ferrari f248 (2006)
    	Length x Width x Height=4.545 mm x 1.796 mm x 959 mm
 	Wheelbase=3.050 mm

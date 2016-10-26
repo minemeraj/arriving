@@ -83,8 +83,8 @@ public class Car0Model extends VehicleModel {
 		axles = mainAxles;
 
 		wheel_radius = 0.06703 * dy;
-		wheelZ = 0.03293 * dy;
-		wheel_width = 0.1202 * dx;
+		wheelZ = 0.541 * wheel_radius;
+		wheel_width = 0.129 * dx;
 
 		buildCar();
 
