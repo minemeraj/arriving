@@ -92,11 +92,11 @@ public class Camper0Model extends PickupModel {
 
 		// top and rear
 		addTRect(x, y, dxRear, dzRear);
-		y += dzRear;
+		y += dzRear + shift;
 		addTRect(x, y, dxWagon, dzWagon0);
-		y += dzWagon0;
+		y += dzWagon0 + shift;
 		addTRect(x, y, dxWagon, dzWagon);
-		y += dzWagon;
+		y += dzWagon + shift;
 		addTRect(x, y, dxWagon, dyWagon);
 		y += dyWagon + shift;
 		addTRect(x, y, dxFront, dyFront);
@@ -122,7 +122,7 @@ public class Camper0Model extends PickupModel {
 		addTRect(x, y, wheelWidth, wheelWidth);
 
 		IMG_WIDTH = (int) (2 * bx + 3 * dxTexture + wheelWidth + 4 * shift + dxRear);
-		IMG_HEIGHT = (int) (2 * by + dzRear + dzWagon0 + dyWagon + dzRear + dyFront + dyRoof + shift);
+		IMG_HEIGHT = (int) (2 * by + dzRear + dzWagon0 + dyWagon + dzRear + dyFront + dyRoof + 4 * shift);
 	}
 
 	@Override
@@ -235,15 +235,17 @@ public class Camper0Model extends PickupModel {
 
 		bufGraphics.setStroke(new BasicStroke(0.1f));
 
-		bufGraphics.setColor(new Color(217, 15, 27));
+		bufGraphics.setColor(new Color(51, 51, 51));
 		printTexturePolygon(bufGraphics, tBackRear);
+		bufGraphics.setColor(new Color(217, 15, 27));
 		printTexturePolygon(bufGraphics, tBackWagon[0]);
 		printTexturePolygon(bufGraphics, tBackWagon[1]);
+		bufGraphics.setColor(new Color(255, 255, 255));
 		printTexturePolygon(bufGraphics, tTopWagon);
 		bufGraphics.setColor(new Color(72, 178, 230));
 		printTexturePolygon(bufGraphics, tTopFront);
 
-		bufGraphics.setColor(new Color(217, 15, 27));
+		bufGraphics.setColor(new Color(249, 238, 216));
 		printTexturePolygon(bufGraphics, tRe[0]);
 
 		bufGraphics.setColor(new Color(217, 15, 27));
