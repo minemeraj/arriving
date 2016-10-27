@@ -1,3 +1,6 @@
+New cars:
+/lib/cardefault3D_13 (Camper)
+
 --- 22/10/2016 CarDriving 11.0.3 - Monza
 
 New cars:
