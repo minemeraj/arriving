@@ -399,8 +399,13 @@ public class Jeep0Model extends PickupModel {
 
 		int numSections = wagonBlock.length;
 
+		int[] backTexture = tWa[0];
+		if (wagonBlock == wagonBack) {
+			backTexture = tBackWagon[0];
+		}
+
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, wagonBlock[0][0], wagonBlock[0][1], wagonBlock[0][2],
-				wagonBlock[0][3], tBackWagon[0]);
+				wagonBlock[0][3], backTexture);
 
 		for (int i = 0; i < numSections - 1; i++) {
 
