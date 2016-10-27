@@ -15,52 +15,23 @@ import com.main.Renderer3D;
  * @author Administrator
  *
  */
-public class Man3Model extends MeshModel{
-
-    private int bx=10;
-    private int by=10;
-
-    private double dx = 0;
-    private double dy = 0;
-    private double dz = 0;
-
-    private double dxFront = 0;
-    private double dyFront = 0;
-    private double dzFront = 0;
-
-    private double dxRear = 0;
-    private double dyRear = 0;
-    private double dzRear = 0;
-
-    private double dxRoof;
-    private double dyRoof;
-    private double dzRoof;
-
-    double x0=0;
-    double y0=0;
-    double z0=0;
+public class Man3Model extends AnimalModel{
 
     //body textures
     protected int[][] tBo= {{0,1,2,3}};
 
     int nzBody=5;
     int radBody=8;
-    private BPoint[][] body;
 
     int nzArm=4;
     int radArm=8;
-    private BPoint[][] leftArm;
-    private BPoint[][] leftLeg;
-
 
     int nzLeg=4;
     int radLeg=8;
-    private BPoint[][] rightArm;
-    private BPoint[][] rightLeg;
 
     int nzHead=5;
     int radHead=8;
-    private BPoint[][] head;
+
 
     public static final String NAME="Man3";
 
@@ -323,7 +294,8 @@ public class Man3Model extends MeshModel{
     }
 
 
-    private void buildBody() {
+    @Override
+    protected void buildBody() {
 
         Segments s0=new Segments(0,dx*0.5,0,dy,dzRear,dz);
 
@@ -375,7 +347,8 @@ public class Man3Model extends MeshModel{
         body[4][7]=addBPoint(-1.0,1.0,1.0,s0);
     }
 
-    private void buildHead() {
+    @Override
+    protected void buildHead() {
 
         Segments s0=new Segments(0,dxRoof*0.5,0,dyRoof,dzRear+dz,dzRoof);
 
@@ -429,7 +402,8 @@ public class Man3Model extends MeshModel{
 
     }
 
-    private void buildArms() {
+    @Override
+    protected void buildArms() {
 
         Segments s0=new Segments(-dx*0.5-dxFront*0.5,dxFront*0.5,0,dyFront,dzRear,dzFront);
 
@@ -513,7 +487,8 @@ public class Man3Model extends MeshModel{
     }
 
 
-    private void buildLegs() {
+    @Override
+    protected void buildLegs() {
         Segments s0=new Segments(-dx*0.5-dxRear*0.5,dxRear*0.5,0,dyRear,0,dzRear);
         leftLeg=new BPoint[nzLeg][radLeg];
 

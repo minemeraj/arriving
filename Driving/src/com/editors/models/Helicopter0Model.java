@@ -17,33 +17,10 @@ import com.main.Renderer3D;
  * @author Administrator
  *
  */
-public class Helicopter0Model extends MeshModel{
-
-    private int bx=10;
-    private int by=10;
-
-    private double dx = 0;
-    private double dy = 0;
-    private double dz = 0;
-
-    private double dxFront = 0;
-    private double dyFront = 0;
-    private double dzFront = 0;
-
-    private double dxRear = 0;
-    private double dyRear = 0;
-    private double dzRear = 0;
-
-    private double dxRoof;
-    private double dyRoof;
-    private double dzRoof;
-
-    double x0=0;
-    double y0=0;
-    double z0=0;
+public class Helicopter0Model extends VehicleModel{
 
     //body textures
-    protected int[][] bo= {{0,1,2,3}};
+    protected int[][] tBo= null;
 
     private BPoint[][][] body;
     private BPoint[][][] turret;
@@ -60,7 +37,10 @@ public class Helicopter0Model extends MeshModel{
             double dx, double dy, double dz,
             double dxf, double dyf, double dzf,
             double dxr, double dyr,	double dzr,
-            double dxRoof,double dyRoof,double dzRoof) {
+            double dxRoof,double dyRoof,double dzRoof,
+            double rearOverhang, double frontOverhang,
+            double rearOverhang1, double frontOverhang1
+            ) {
         super();
         this.dx = dx;
         this.dy = dy;
@@ -77,11 +57,21 @@ public class Helicopter0Model extends MeshModel{
         this.dxRoof = dxRoof;
         this.dyRoof = dyRoof;
         this.dzRoof = dzRoof;
+
+        this.rearOverhang = rearOverhang;
+        this.frontOverhang = frontOverhang;
+
+        this.rearOverhang1 = rearOverhang1;
+        this.frontOverhang1 = frontOverhang1;
     }
 
 
     @Override
     public void initMesh() {
+
+        int c=0;
+        c = initDoubleArrayValues(tBo = new int[1][4], c);
+
         points=new Vector<Point3D>();
         texturePoints=new Vector<Point3D>();
 
@@ -109,20 +99,20 @@ public class Helicopter0Model extends MeshModel{
 
     private int buildFaces(int counter) {
 
-        faces[counter++]=buildFace(Renderer3D.CAR_TOP, body[0][0][1],body[1][0][1],body[1][1][1],body[0][1][1],bo[0]);
-        faces[counter++]=buildFace(Renderer3D.CAR_LEFT, body[0][0][0],body[0][0][1],body[0][1][1],body[0][1][0], bo[0]);
-        faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, body[1][0][0],body[1][1][0],body[1][1][1],body[1][0][1], bo[0]);
-        faces[counter++]=buildFace(Renderer3D.CAR_FRONT, body[0][1][0],body[0][1][1],body[1][1][1],body[1][1][0], bo[0]);
-        faces[counter++]=buildFace(Renderer3D.CAR_BACK, body[0][0][0],body[1][0][0],body[1][0][1],body[0][0][1], bo[0]);
-        faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0], bo[0]);
+        faces[counter++]=buildFace(Renderer3D.CAR_TOP, body[0][0][1],body[1][0][1],body[1][1][1],body[0][1][1],tBo[0]);
+        faces[counter++]=buildFace(Renderer3D.CAR_LEFT, body[0][0][0],body[0][0][1],body[0][1][1],body[0][1][0], tBo[0]);
+        faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, body[1][0][0],body[1][1][0],body[1][1][1],body[1][0][1], tBo[0]);
+        faces[counter++]=buildFace(Renderer3D.CAR_FRONT, body[0][1][0],body[0][1][1],body[1][1][1],body[1][1][0], tBo[0]);
+        faces[counter++]=buildFace(Renderer3D.CAR_BACK, body[0][0][0],body[1][0][0],body[1][0][1],body[0][0][1], tBo[0]);
+        faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, body[0][0][0],body[0][1][0],body[1][1][0],body[1][0][0], tBo[0]);
 
 
-        faces[counter++]=buildFace(Renderer3D.CAR_TOP, turret[0][0][1],turret[1][0][1],turret[1][1][1],turret[0][1][1],bo[0]);
-        faces[counter++]=buildFace(Renderer3D.CAR_LEFT, turret[0][0][0],turret[0][0][1],turret[0][1][1],turret[0][1][0],bo[0]);
-        faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, turret[1][0][0],turret[1][1][0],turret[1][1][1],turret[1][0][1],bo[0]);
-        faces[counter++]=buildFace(Renderer3D.CAR_FRONT, turret[0][1][0],turret[0][1][1],turret[1][1][1],turret[1][1][0],bo[0]);
-        faces[counter++]=buildFace(Renderer3D.CAR_BACK, turret[0][0][0],turret[1][0][0],turret[1][0][1],turret[0][0][1],bo[0]);
-        faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, turret[0][0][0],turret[0][1][0],turret[1][1][0],turret[1][0][0],bo[0]);
+        faces[counter++]=buildFace(Renderer3D.CAR_TOP, turret[0][0][1],turret[1][0][1],turret[1][1][1],turret[0][1][1],tBo[0]);
+        faces[counter++]=buildFace(Renderer3D.CAR_LEFT, turret[0][0][0],turret[0][0][1],turret[0][1][1],turret[0][1][0],tBo[0]);
+        faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, turret[1][0][0],turret[1][1][0],turret[1][1][1],turret[1][0][1],tBo[0]);
+        faces[counter++]=buildFace(Renderer3D.CAR_FRONT, turret[0][1][0],turret[0][1][1],turret[1][1][1],turret[1][1][0],tBo[0]);
+        faces[counter++]=buildFace(Renderer3D.CAR_BACK, turret[0][0][0],turret[1][0][0],turret[1][0][1],turret[0][0][1],tBo[0]);
+        faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, turret[0][0][0],turret[0][1][0],turret[1][1][0],turret[1][0][0],tBo[0]);
 
 
         for (int i = 0; i < cannon_barrel.length; i++) {
@@ -201,12 +191,12 @@ public class Helicopter0Model extends MeshModel{
         for (int i = 0; i < propellers.length; i++) {
 
             BPoint[][][] prop = propellers[i];
-            faces[counter++]=buildFace(Renderer3D.CAR_TOP, prop[0][0][1],prop[1][0][1],prop[1][1][1],prop[0][1][1],bo[0]);
-            faces[counter++]=buildFace(Renderer3D.CAR_LEFT, prop[0][0][0],prop[0][0][1],prop[0][1][1],prop[0][1][0], bo[0]);
-            faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, prop[1][0][0],prop[1][1][0],prop[1][1][1],prop[1][0][1], bo[0]);
-            faces[counter++]=buildFace(Renderer3D.CAR_FRONT, prop[0][1][0],prop[0][1][1],prop[1][1][1],prop[1][1][0], bo[0]);
-            faces[counter++]=buildFace(Renderer3D.CAR_BACK, prop[0][0][0],prop[1][0][0],prop[1][0][1],prop[0][0][1], bo[0]);
-            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, prop[0][0][0],prop[0][1][0],prop[1][1][0],prop[1][0][0], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_TOP, prop[0][0][1],prop[1][0][1],prop[1][1][1],prop[0][1][1],tBo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_LEFT, prop[0][0][0],prop[0][0][1],prop[0][1][1],prop[0][1][0], tBo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, prop[1][0][0],prop[1][1][0],prop[1][1][1],prop[1][0][1], tBo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_FRONT, prop[0][1][0],prop[0][1][1],prop[1][1][1],prop[1][1][0], tBo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_BACK, prop[0][0][0],prop[1][0][0],prop[1][0][1],prop[0][0][1], tBo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, prop[0][0][0],prop[0][1][0],prop[1][1][0],prop[1][0][0], tBo[0]);
 
         }
         return counter;
@@ -245,12 +235,12 @@ public class Helicopter0Model extends MeshModel{
         for (int i = 0; i < shoes.length; i++) {
 
             BPoint[][][] shoe = shoes[i];
-            faces[counter++]=buildFace(Renderer3D.CAR_TOP, shoe[0][0][1],shoe[1][0][1],shoe[1][1][1],shoe[0][1][1],bo[0]);
-            faces[counter++]=buildFace(Renderer3D.CAR_LEFT, shoe[0][0][0],shoe[0][0][1],shoe[0][1][1],shoe[0][1][0], bo[0]);
-            faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, shoe[1][0][0],shoe[1][1][0],shoe[1][1][1],shoe[1][0][1], bo[0]);
-            faces[counter++]=buildFace(Renderer3D.CAR_FRONT, shoe[0][1][0],shoe[0][1][1],shoe[1][1][1],shoe[1][1][0], bo[0]);
-            faces[counter++]=buildFace(Renderer3D.CAR_BACK, shoe[0][0][0],shoe[1][0][0],shoe[1][0][1],shoe[0][0][1], bo[0]);
-            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, shoe[0][0][0],shoe[0][1][0],shoe[1][1][0],shoe[1][0][0], bo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_TOP, shoe[0][0][1],shoe[1][0][1],shoe[1][1][1],shoe[0][1][1],tBo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_LEFT, shoe[0][0][0],shoe[0][0][1],shoe[0][1][1],shoe[0][1][0], tBo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, shoe[1][0][0],shoe[1][1][0],shoe[1][1][1],shoe[1][0][1], tBo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_FRONT, shoe[0][1][0],shoe[0][1][1],shoe[1][1][1],shoe[1][1][0], tBo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_BACK, shoe[0][0][0],shoe[1][0][0],shoe[1][0][1],shoe[0][0][1], tBo[0]);
+            faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, shoe[0][0][0],shoe[0][1][0],shoe[1][1][0],shoe[1][0][0], tBo[0]);
 
         }
         return counter;
