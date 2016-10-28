@@ -19,21 +19,38 @@ import com.main.Renderer3D;
  */
 public class Airplane0Model extends VehicleModel {
 
-    int basePoints = 4;
-    private BPoint[][][] tailLeftWing;
-    private BPoint[][][] tailRightWing;
-    private BPoint[][][] tailRudder;
-    private BPoint[][][] rightWing;
-    private BPoint[][][] leftWing;
+    protected BPoint[][][] tailLeftWing;
+    protected BPoint[][][] tailRightWing;
+    protected BPoint[][][] tailRudder;
+    protected BPoint[][][] rightWing;
+    protected BPoint[][][] leftWing;
 
     public static final String NAME = "Airplane";
 
-
-    double dxTexture = 100;
-    double dyTexture = 100;
+    protected double dxTexture = 100;
+    protected double dyTexture = 100;
 
     //body textures
     protected int[][] tBo= null;
+
+    protected int backNY = 4;
+    protected int fuselageNY = 2;
+    protected int frontNY = 4;
+    protected int bodyNX = 2;
+    protected int bodyNY = backNY + fuselageNY + frontNY;
+    protected int bodyNZ = 2;
+
+    int tailWingNX = 2;
+    int tailWingNY = 2;
+    int tailWingNZ = 2;
+
+    int tailRudderNX = 2;
+    int tailRudderNY = 2;
+    int tailRudderNZ = 2;
+
+    int wingNX = 2;
+    int wingNY = 2;
+    int wingNZ = 2;
 
     public Airplane0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr, double dyr,
             double dzr, double dxRoof, double dyRoof, double dzRoof, double rearOverhang, double frontOverhang,
@@ -60,6 +77,7 @@ public class Airplane0Model extends VehicleModel {
 
         this.rearOverhang1 = rearOverhang1;
         this.frontOverhang1 = frontOverhang1;
+
     }
 
     @Override
@@ -71,33 +89,24 @@ public class Airplane0Model extends VehicleModel {
         points = new Vector<Point3D>();
         texturePoints = new Vector();
 
-        int pnx = 2;
-        int bny = 4;
-        int pny = 2;
-        int fny = 4;
-        int pnz = 2;
-
-        int numy = bny + pny + fny;
-
-        buildBody(pnx, bny, pny, fny, pnz, numy);
+        buildBody();
         buildTextures();
 
         // faces
-        int NF = (numy - 1) * 4 + 2;// body
+        int NF = (bodyNY - 1) * 4 + 2;// body
         NF += 12;// wings
         NF += 12;// tail wings
         NF += 4;// rudder
         faces = new int[NF][3][4];
 
         int counter = 0;
-        counter = buildFaces(counter, numy);
+        counter = buildFaces(counter, bodyNY);
 
     }
 
     protected int buildFaces(int counter, int numy) {
 
-        faces[counter++] = buildFace(Renderer3D.CAR_BACK, body[0][0][0], body[1][0][0], body[1][0][1], body[0][0][1], 0,
-                1, 2, 3);
+        faces[counter++] = buildFace(Renderer3D.CAR_BACK, body[0][0][0], body[1][0][0], body[1][0][1], body[0][0][1],tBo[0]);
         for (int k = 0; k < numy - 1; k++) {
 
             faces[counter++] = buildFace(Renderer3D.CAR_LEFT, body[0][k][0], body[0][k][1], body[0][k + 1][1],
@@ -177,9 +186,17 @@ public class Airplane0Model extends VehicleModel {
         return counter;
     }
 
-    protected void buildBody(int pnx, int bny, int pny, int fny, int pnz, int numy) {
+    protected void buildBody() {
 
-        body = new BPoint[pnx][numy][pnz];
+        buildCabin();
+        buildTail();
+        buildWings();
+
+    }
+
+    protected void buildCabin() {
+
+        body = new BPoint[bodyNX][bodyNY][bodyNZ];
 
         double back_width = dxRear;
         double back_width1 = dxRear * (1 - 0.3) + dx * 0.3;
@@ -218,15 +235,15 @@ public class Airplane0Model extends VehicleModel {
 
         Segments p0 = new Segments(0, dx, dyRear, dy, 0, dz);
 
-        body[0][bny][0] = addBPoint(-0.5, 0.0, 0, p0);
-        body[1][bny][0] = addBPoint(0.5, 0.0, 0, p0);
-        body[0][bny][1] = addBPoint(-0.5, 0.0, 1.0, p0);
-        body[1][bny][1] = addBPoint(0.5, 0.0, 1.0, p0);
+        body[0][backNY][0] = addBPoint(-0.5, 0.0, 0, p0);
+        body[1][backNY][0] = addBPoint(0.5, 0.0, 0, p0);
+        body[0][backNY][1] = addBPoint(-0.5, 0.0, 1.0, p0);
+        body[1][backNY][1] = addBPoint(0.5, 0.0, 1.0, p0);
 
-        body[0][bny + 1][0] = addBPoint(-0.5, 1.0, 0, p0);
-        body[1][bny + 1][0] = addBPoint(0.5, 1.0, 0, p0);
-        body[0][bny + 1][1] = addBPoint(-0.5, 1.0, 1.0, p0);
-        body[1][bny + 1][1] = addBPoint(0.5, 1.0, 1.0, p0);
+        body[0][backNY + 1][0] = addBPoint(-0.5, 1.0, 0, p0);
+        body[1][backNY + 1][0] = addBPoint(0.5, 1.0, 0, p0);
+        body[0][backNY + 1][1] = addBPoint(-0.5, 1.0, 1.0, p0);
+        body[1][backNY + 1][1] = addBPoint(0.5, 1.0, 1.0, p0);
 
         double front_width = dxFront;
         double front_width0 = front_width * (1 - 0.75) + dx * 0.75;
@@ -242,35 +259,77 @@ public class Airplane0Model extends VehicleModel {
         Segments f2 = new Segments(0, front_width2, dyRear + dy, dyRear, 0, front_height2);
         Segments f3 = new Segments(0, front_width, dyRear + dy, dyRear, 0, dzFront);
 
-        body[0][bny + pny][0] = addBPoint(-0.5, 0.25, 0, f0);
-        body[1][bny + pny][0] = addBPoint(0.5, 0.25, 0, f0);
-        body[0][bny + pny][1] = addBPoint(-0.5, 0.25, 1.0, f0);
-        body[1][bny + pny][1] = addBPoint(0.5, 0.25, 1.0, f0);
+        body[0][backNY + fuselageNY][0] = addBPoint(-0.5, 0.25, 0, f0);
+        body[1][backNY + fuselageNY][0] = addBPoint(0.5, 0.25, 0, f0);
+        body[0][backNY + fuselageNY][1] = addBPoint(-0.5, 0.25, 1.0, f0);
+        body[1][backNY + fuselageNY][1] = addBPoint(0.5, 0.25, 1.0, f0);
 
-        body[0][bny + pny + 1][0] = addBPoint(-0.5, 0.5, 0, f1);
-        body[1][bny + pny + 1][0] = addBPoint(0.5, 0.5, 0, f1);
-        body[0][bny + pny + 1][1] = addBPoint(-0.5, 0.5, 1.0, f1);
-        body[1][bny + pny + 1][1] = addBPoint(0.5, 0.5, 1.0, f1);
+        body[0][backNY + fuselageNY + 1][0] = addBPoint(-0.5, 0.5, 0, f1);
+        body[1][backNY + fuselageNY + 1][0] = addBPoint(0.5, 0.5, 0, f1);
+        body[0][backNY + fuselageNY + 1][1] = addBPoint(-0.5, 0.5, 1.0, f1);
+        body[1][backNY + fuselageNY + 1][1] = addBPoint(0.5, 0.5, 1.0, f1);
 
-        body[0][bny + pny + 2][0] = addBPoint(-0.5, 0.75, 0, f2);
-        body[1][bny + pny + 2][0] = addBPoint(0.5, 0.75, 0, f2);
-        body[0][bny + pny + 2][1] = addBPoint(-0.5, 0.75, 1.0, f2);
-        body[1][bny + pny + 2][1] = addBPoint(0.5, 0.75, 1.0, f2);
+        body[0][backNY + fuselageNY + 2][0] = addBPoint(-0.5, 0.75, 0, f2);
+        body[1][backNY + fuselageNY + 2][0] = addBPoint(0.5, 0.75, 0, f2);
+        body[0][backNY + fuselageNY + 2][1] = addBPoint(-0.5, 0.75, 1.0, f2);
+        body[1][backNY + fuselageNY + 2][1] = addBPoint(0.5, 0.75, 1.0, f2);
 
-        body[0][bny + pny + 3][0] = addBPoint(-0.5, 1.0, 0, f3);
-        body[1][bny + pny + 3][0] = addBPoint(0.5, 1.0, 0, f3);
-        body[0][bny + pny + 3][1] = addBPoint(-0.5, 1.0, 1.0, f3);
-        body[1][bny + pny + 3][1] = addBPoint(0.5, 1.0, 1.0, f3);
+        body[0][backNY + fuselageNY + 3][0] = addBPoint(-0.5, 1.0, 0, f3);
+        body[1][backNY + fuselageNY + 3][0] = addBPoint(0.5, 1.0, 0, f3);
+        body[0][backNY + fuselageNY + 3][1] = addBPoint(-0.5, 1.0, 1.0, f3);
+        body[1][backNY + fuselageNY + 3][1] = addBPoint(0.5, 1.0, 1.0, f3);
+
+    }
+
+    protected void buildWings() {
+
+        double q = Math.PI * 10.0 / 180.0;
+        double sq = Math.sin(q);
+        double cq = Math.cos(q);
+
+        double sq1 = sq * dxRoof / dzRoof;
+        double rearWY = rearOverhang;
+
+        rightWing = new BPoint[wingNX][wingNY][wingNZ];
+        Segments rWing0 = new Segments(dx * 0.5, dxRoof / cq, rearWY, dyRoof, 0, dzRoof);
+
+        rightWing[0][0][0] = addBPoint(0, 0.0, 0, rWing0);
+        rightWing[1][0][0] = addBPoint(cq, 0.0, sq1, rWing0);
+        rightWing[0][0][1] = addBPoint(0.0, 0.0, 1.0, rWing0);
+        rightWing[1][0][1] = addBPoint(cq, 0.0, 1.0 + sq1, rWing0);
+
+        rightWing[0][1][0] = addBPoint(0.0, 1.0, 0, rWing0);
+        rightWing[1][1][0] = addBPoint(cq, 0.5, sq1, rWing0);
+        rightWing[0][1][1] = addBPoint(0.0, 1.0, 1.0, rWing0);
+        rightWing[1][1][1] = addBPoint(cq, 0.5, 1.0 + sq1, rWing0);
+
+        leftWing = new BPoint[wingNX][wingNY][wingNZ];
+
+        Segments lWing0 = new Segments(-dx * 0.5, dxRoof / cq, rearWY, dyRoof, 0, dzRoof);
+
+        leftWing[0][0][0] = addBPoint(-cq, 0.0, sq1, lWing0);
+        leftWing[1][0][0] = addBPoint(0.0, 0.0, 0, lWing0);
+        leftWing[0][0][1] = addBPoint(-cq, 0.0, 1.0 + sq1, lWing0);
+        leftWing[1][0][1] = addBPoint(0.0, 0.0, 1.0, lWing0);
+
+        leftWing[0][1][0] = addBPoint(-cq, 0.5, sq1, lWing0);
+        leftWing[1][1][0] = addBPoint(0.0, 1.0, 0, lWing0);
+        leftWing[0][1][1] = addBPoint(-cq, 0.5, 1.0 + sq1, lWing0);
+        leftWing[1][1][1] = addBPoint(0.0, 1.0, 1.0, lWing0);
+
+    }
+
+    protected void buildTail() {
 
         /////// tail
 
-        int twnx = 2;
-        int twny = 2;
-        int twnz = 2;
+
+        double back_width = dxRear;
+        double back_height = dzRear;
 
         double twDX = 65;
 
-        tailRightWing = new BPoint[twnx][twny][twnz];
+        tailRightWing = new BPoint[tailWingNX][tailWingNY][tailWingNZ];
 
         Segments trWing0 = new Segments(0, twDX, 0, dyRear * 0.125, dz - back_height, back_height);
 
@@ -284,7 +343,7 @@ public class Airplane0Model extends VehicleModel {
         tailRightWing[0][1][1] = body[1][1][1];
         tailRightWing[1][1][1] = addBPoint(1.0, 1.0, 1.0, trWing0);
 
-        tailLeftWing = new BPoint[twnx][twny][twnz];
+        tailLeftWing = new BPoint[tailWingNX][tailWingNY][tailWingNZ];
 
         Segments tlWing0 = new Segments(0, twDX, 0, dyRear * 0.125, dz - back_height, back_height);
 
@@ -298,11 +357,7 @@ public class Airplane0Model extends VehicleModel {
         tailLeftWing[0][1][1] = addBPoint(-1.0, 1.0, 1.0, tlWing0);
         tailLeftWing[1][1][1] = body[0][1][1];
 
-        int trnx = 2;
-        int trny = 2;
-        int trnz = 2;
-
-        tailRudder = new BPoint[trnx][trny][trnz];
+        tailRudder = new BPoint[tailRudderNX][tailRudderNY][tailRudderNZ];
 
         Segments rudder0 = new Segments(0, back_width, 0, dyRear * 0.25, dz - back_height, back_height + 71);
 
@@ -313,46 +368,6 @@ public class Airplane0Model extends VehicleModel {
 
         tailRudder[0][0][1] = addBPoint(0, 0.0, 1.0, rudder0);
         tailRudder[0][1][1] = addBPoint(0.0, 1.0, 1.0, rudder0);
-
-        ////// wings
-
-        int wnx = 2;
-        int wny = 2;
-        int wnz = 2;
-
-        double q = Math.PI * 10.0 / 180.0;
-        double sq = Math.sin(q);
-        double cq = Math.cos(q);
-
-        double sq1 = sq * dxRoof / dzRoof;
-        double ry = dyRear + 0.2 * dy;
-
-        rightWing = new BPoint[wnx][wny][wnz];
-        Segments rWing0 = new Segments(dx * 0.5, dxRoof / cq, ry, dyRoof, 0, dzRoof);
-
-        rightWing[0][0][0] = addBPoint(0, 0.0, 0, rWing0);
-        rightWing[1][0][0] = addBPoint(cq, 0.0, sq1, rWing0);
-        rightWing[0][0][1] = addBPoint(0.0, 0.0, 1.0, rWing0);
-        rightWing[1][0][1] = addBPoint(cq, 0.0, 1.0 + sq1, rWing0);
-
-        rightWing[0][1][0] = addBPoint(0.0, 1.0, 0, rWing0);
-        rightWing[1][1][0] = addBPoint(cq, 0.5, sq1, rWing0);
-        rightWing[0][1][1] = addBPoint(0.0, 1.0, 1.0, rWing0);
-        rightWing[1][1][1] = addBPoint(cq, 0.5, 1.0 + sq1, rWing0);
-
-        leftWing = new BPoint[wnx][wny][wnz];
-
-        Segments lWing0 = new Segments(-dx * 0.5, dxRoof / cq, ry, dyRoof, 0, dzRoof);
-
-        leftWing[0][0][0] = addBPoint(-cq, 0.0, sq1, lWing0);
-        leftWing[1][0][0] = addBPoint(0.0, 0.0, 0, lWing0);
-        leftWing[0][0][1] = addBPoint(-cq, 0.0, 1.0 + sq1, lWing0);
-        leftWing[1][0][1] = addBPoint(0.0, 0.0, 1.0, lWing0);
-
-        leftWing[0][1][0] = addBPoint(-cq, 0.5, sq1, lWing0);
-        leftWing[1][1][0] = addBPoint(0.0, 1.0, 0, lWing0);
-        leftWing[0][1][1] = addBPoint(-cq, 0.5, 1.0 + sq1, lWing0);
-        leftWing[1][1][1] = addBPoint(0.0, 1.0, 1.0, lWing0);
 
     }
 

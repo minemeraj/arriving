@@ -42,19 +42,11 @@ public class FighterAircraft0Model extends Airplane0Model{
         points=new Vector<Point3D>();
         texturePoints=new Vector();
 
-        int pnx=2;
-        int bny=4;
-        int pny=2;
-        int fny=4;
-        int pnz=2;
-
-        int numy=bny+pny+fny;
-
-        buildBody(pnx,bny,pny,fny,pnz,numy);
+        buildBody();
         buildTextures();
 
         //faces
-        int NF=(numy-1)*4+2;//body
+        int NF=(bodyNY-1)*4+2;//body
         NF+=12;//wings
         NF+=12;//tail wings
         NF+=4;//rudder
@@ -62,7 +54,7 @@ public class FighterAircraft0Model extends Airplane0Model{
 
 
         int counter=0;
-        counter=buildFaces(counter,numy);
+        counter=buildFaces(counter,bodyNY);
 
     }
 
