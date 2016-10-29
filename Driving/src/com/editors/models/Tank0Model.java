@@ -279,9 +279,9 @@ public class Tank0Model extends VehicleModel {
 		printTexturePolygon(bufGraphics, tTopBody);
 		bufGraphics.setColor(new Color(78, 57, 52));
 		printTexturePolygon(bufGraphics, tTopTurret);
-		bufGraphics.setColor(new Color(61, 63, 46));
-		printTexturePolygon(bufGraphics, tBo[0]);
 		bufGraphics.setColor(new Color(150, 120, 56));
+		printTexturePolygon(bufGraphics, tBo[0]);
+		bufGraphics.setColor(new Color(61, 63, 46));
 		printTexturePolygon(bufGraphics, tTu);
 		bufGraphics.setColor(new Color(175, 151, 58));
 		printTexturePolygon(bufGraphics, tTr);
