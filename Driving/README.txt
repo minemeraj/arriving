@@ -526,6 +526,10 @@
 	Length x Width x Height=6380mm x 2260mm x 2970mm
 	Wheelbase=3550mm
 	
+	Tank proportions based on the German Tiger I (Panzerkampfwagen VI Tiger Ausf. E)
+	Length=6.316 m,8.45 m with gun forward
+	Width=3.56 m  Height=3.0 m 
+	
 	Tractor proportions based on John Deer 6105R ( wheelbase=2580mm)
 	
 	Railroad car 0 proportions based on Sgmns-w by Kockums Industrier, 1435 mm gauge,
