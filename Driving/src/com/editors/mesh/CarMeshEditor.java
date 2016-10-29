@@ -466,8 +466,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 			meshModel = new Tank0Model(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof, rearOverhang,
 					frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheelRays);
 		} else if (val == STEAMLOCOMOTIVE0) {
-			meshModel = new SteamLocomotive0Model(dx, dy, dz, dxf, dyf, dzf, dxRoof, dyRoof, dzRoof, wheelRadius,
-					wheelWidth, wheelRays);
+			meshModel = new SteamLocomotive0Model(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof,
+					rearOverhang, frontOverhang, wheelRadius, wheelWidth, wheelRays);
 		} else if (val == RAILWAGON0) {
 			meshModel = new RailWagon0Model(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof,
 					rearOverhang, frontOverhang, wheelRadius, wheelWidth, wheelRays);
@@ -625,15 +625,6 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						0, 33, // rearOverhang1,frontOverhang1,
 						10, 6, 10// wheel_radius, wheel_width, wheel_rays
 				);
-			} else if (STEAMLOCOMOTIVE0 == val) {
-				setRightData(74, 319, 22, // dx,dy,dz
-						94, 61, 118, // dxFront, dyFront, dzFront
-						0, 0, 0, // dxRear, dyRear, dzRear
-						111, 319, 116, // dxRoof, dyRoof, dzRoof
-						0, 0, // rearOverhang, frontOverhang
-						0, 0, // rearOverhang1,frontOverhang1,
-						19, 12, 10// wheel_radius, wheel_width, wheel_rays
-				);
 			} else if (SHIP0 == val) {
 				setRightData(718, 4550, 378, // dx, dy, dz
 						718, 806, 80, // dxFront, dyFront, dzFront
@@ -741,6 +732,15 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						0, 0, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						19, 12, 10// wheel_radius, wheel_width, wheel_rays
+				);
+			} else if (STEAMLOCOMOTIVE0 == val) {
+				setRightData(69, 400, 7, // dx, dy, dz
+						41, 51, 14, // dxFront, dyFront, dzFront
+						41, 51, 14, // dxRear, dyRear, dzRear
+						70, 348, 70, // dxRoof, dyRoof, dzRoof
+						29, 29, // rearOverhang, frontOverhang
+						0, 0, // rearOverhang1,frontOverhang1,
+						13, 4, 10// wheel_radius, wheel_width, wheel_rays
 				);
 			} else if (RAILWAGON0 == val) {
 				setRightData(69, 400, 7, // dx, dy, dz
