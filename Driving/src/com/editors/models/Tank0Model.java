@@ -35,8 +35,8 @@ public class Tank0Model extends VehicleModel {
 	private BPoint[][] cannon_barrel;
 	private BPoint[][][][] tracks;
 
-	private double dxTexture = 200;
-	private double dyTexture = 200;
+	private double dxTexture = 100;
+	private double dyTexture = 100;
 	private double wheelRadius = 0;
 	private double wheelWidth = 0;
 	private int wheel_rays = 0;
@@ -148,14 +148,16 @@ public class Tank0Model extends VehicleModel {
 		double y = by;
 		double x = bx;
 
-		double midX = dx * 0.5;
+		double maxWidth = Math.max(dx, dxRoof);
+		double midX = maxWidth * 0.5;
+		double deltaXBo = midX - dx * 0.5;
 		double deltaXTu = midX - dxRoof * 0.5;
 
 		int shift = 1;
 
-		addTRect(x, y, dx, dy);
+		addTRect(x + deltaXBo, y, dx, dy);
 		addTRect(x + deltaXTu, y + dyRear, dxRoof, dyRoof);
-		x += dx + shift;
+		x += maxWidth + shift;
 		addTRect(x, y, dxTexture, dyTexture);
 		x += dxTexture + shift;
 		addTRect(x, y, dxRoof, dyRoof);
@@ -164,7 +166,7 @@ public class Tank0Model extends VehicleModel {
 
 		double maxHeight = Math.max(dy, Math.max(dyTopTrack, dyTexture));
 
-		IMG_WIDTH = (int) (2 * bx + 2 * dxTexture + dzTrack + dx + 3 * shift);
+		IMG_WIDTH = (int) (2 * bx + dxTexture + dzTrack + maxWidth + dxRoof + 3 * shift);
 		IMG_HEIGHT = (int) (2 * by + maxHeight);
 
 	}
@@ -272,16 +274,16 @@ public class Tank0Model extends VehicleModel {
 	@Override
 	public void printTexture(Graphics2D bufGraphics) {
 
-		bufGraphics.setColor(Color.BLACK);
+		bufGraphics.setColor(new Color(162, 142, 93));
 		bufGraphics.setStroke(new BasicStroke(0.1f));
 		printTexturePolygon(bufGraphics, tTopBody);
-		bufGraphics.setColor(Color.GRAY);
+		bufGraphics.setColor(new Color(78, 57, 52));
 		printTexturePolygon(bufGraphics, tTopTurret);
-		bufGraphics.setColor(Color.DARK_GRAY);
+		bufGraphics.setColor(new Color(61, 63, 46));
 		printTexturePolygon(bufGraphics, tBo[0]);
-		bufGraphics.setColor(Color.GRAY);
+		bufGraphics.setColor(new Color(150, 120, 56));
 		printTexturePolygon(bufGraphics, tTu);
-		bufGraphics.setColor(Color.ORANGE);
+		bufGraphics.setColor(new Color(175, 151, 58));
 		printTexturePolygon(bufGraphics, tTr);
 
 	}
