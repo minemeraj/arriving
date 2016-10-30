@@ -25,8 +25,11 @@ public class Tank0Model extends VehicleModel {
 	private double dzTrack = 0;
 
 	// body textures
+	protected int[] tTopLeftTrack = null;
 	protected int[] tTopBody = null;
+	protected int[] tTopRightTrack = null;
 	protected int[] tTopTurret = null;
+	protected int[] tCannon = null;
 	protected int[][] tBo = null;
 	protected int[] tTu = null;
 	protected int[] tTr = null;
@@ -80,8 +83,11 @@ public class Tank0Model extends VehicleModel {
 	public void initMesh() {
 
 		int c = 0;
+		c = initSingleArrayValues(tTopLeftTrack = new int[4], c);
 		c = initSingleArrayValues(tTopBody = new int[4], c);
+		c = initSingleArrayValues(tTopRightTrack = new int[4], c);
 		c = initSingleArrayValues(tTopTurret = new int[4], c);
+		c = initSingleArrayValues(tCannon = new int[4], c);
 		c = initDoubleArrayValues(tBo = new int[1][4], c);
 		c = initSingleArrayValues(tTu = new int[4], c);
 		c = initSingleArrayValues(tTr = new int[4], c);
@@ -137,7 +143,7 @@ public class Tank0Model extends VehicleModel {
 
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, cannon_barrel[i][0],
 					cannon_barrel[(i + 1) % cannon_barrel.length][0], cannon_barrel[(i + 1) % cannon_barrel.length][1],
-					cannon_barrel[i][1], 0, 1, 2, 3);
+					cannon_barrel[i][1], tCannon);
 		}
 
 		return counter;
@@ -145,19 +151,23 @@ public class Tank0Model extends VehicleModel {
 
 	private void buildTextures() {
 
+		int shift = 1;
+
 		double y = by;
 		double x = bx;
 
-		double maxWidth = Math.max(dx, dxRoof);
+		double maxWidth = Math.max(dx + 2 * dxTrack, dxRoof);
 		double midX = maxWidth * 0.5;
 		double deltaXBo = midX - dx * 0.5;
 		double deltaXTu = midX - dxRoof * 0.5;
 
-		int shift = 1;
-
+		addTRect(x, y, dxTrack, dyTopTrack);
 		addTRect(x + deltaXBo, y, dx, dy);
+		addTRect(x + dxTrack + dx, y, dxTrack, dyTopTrack);
 		addTRect(x + deltaXTu, y + dyRear, dxRoof, dyRoof);
 		x += maxWidth + shift;
+		addTRect(x, y, wheelRadius, wheelWidth);
+		x += wheelRadius + shift;
 		addTRect(x, y, dxTexture, dyTexture);
 		x += dxTexture + shift;
 		addTRect(x, y, dxRoof, dyRoof);
@@ -166,7 +176,7 @@ public class Tank0Model extends VehicleModel {
 
 		double maxHeight = Math.max(dy, Math.max(dyTopTrack, dyTexture));
 
-		IMG_WIDTH = (int) (2 * bx + dxTexture + dzTrack + maxWidth + dxRoof + 3 * shift);
+		IMG_WIDTH = (int) (2 * bx + dxTexture + dzTrack + maxWidth + wheelRadius + dxRoof + 4 * shift);
 		IMG_HEIGHT = (int) (2 * by + maxHeight);
 
 	}
@@ -245,8 +255,10 @@ public class Tank0Model extends VehicleModel {
 
 		for (int i = 0; i < tracks.length; i++) {
 
+			int[] tTopTrack = (i == 0 ? tTopLeftTrack : tTopRightTrack);
+
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, tracks[i][0][0][1], tracks[i][1][0][1], tracks[i][1][1][1],
-					tracks[i][0][1][1], tBo[0]);
+					tracks[i][0][1][1], tTopTrack);
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, tracks[i][0][0][0], tracks[i][0][0][1],
 					tracks[i][0][1][1], tracks[i][0][1][0], tTr);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, tracks[i][1][0][0], tracks[i][1][1][0],
@@ -274,11 +286,17 @@ public class Tank0Model extends VehicleModel {
 	@Override
 	public void printTexture(Graphics2D bufGraphics) {
 
-		bufGraphics.setColor(new Color(162, 142, 93));
 		bufGraphics.setStroke(new BasicStroke(0.1f));
+		bufGraphics.setColor(new Color(175, 151, 58));
+		printTexturePolygon(bufGraphics, tTopLeftTrack);
+		bufGraphics.setColor(new Color(162, 142, 93));
 		printTexturePolygon(bufGraphics, tTopBody);
+		bufGraphics.setColor(new Color(175, 151, 58));
+		printTexturePolygon(bufGraphics, tTopRightTrack);
 		bufGraphics.setColor(new Color(78, 57, 52));
 		printTexturePolygon(bufGraphics, tTopTurret);
+		bufGraphics.setColor(new Color(162, 142, 93));
+		printTexturePolygon(bufGraphics, tCannon);
 		bufGraphics.setColor(new Color(150, 120, 56));
 		printTexturePolygon(bufGraphics, tBo[0]);
 		bufGraphics.setColor(new Color(61, 63, 46));
