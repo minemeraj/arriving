@@ -33,6 +33,7 @@ public class Tank0Model extends VehicleModel {
 	protected int[][] tBo = null;
 	protected int[] tTu = null;
 	protected int[] tTr = null;
+	protected int[] tTrackPath = null;
 
 	private BPoint[][][] turret;
 	private BPoint[][] cannon_barrel;
@@ -91,6 +92,7 @@ public class Tank0Model extends VehicleModel {
 		c = initDoubleArrayValues(tBo = new int[1][4], c);
 		c = initSingleArrayValues(tTu = new int[4], c);
 		c = initSingleArrayValues(tTr = new int[4], c);
+		c = initSingleArrayValues(tTrackPath = new int[4], c);
 
 		points = new Vector<Point3D>();
 		texturePoints = new Vector<Point3D>();
@@ -173,10 +175,12 @@ public class Tank0Model extends VehicleModel {
 		addTRect(x, y, dxRoof, dyRoof);
 		x += dxRoof + shift;
 		addTRect(x, y, dzTrack, dyTopTrack);
+		x += dzTrack + shift;
+		addTRect(x, y, dxTrack, dyTopTrack);
 
 		double maxHeight = Math.max(dy, Math.max(dyTopTrack, dyTexture));
 
-		IMG_WIDTH = (int) (2 * bx + dxTexture + dzTrack + maxWidth + wheelRadius + dxRoof + 4 * shift);
+		IMG_WIDTH = (int) (2 * bx + dxTexture + dzTrack + maxWidth + wheelRadius + dxRoof + dxTrack + 5 * shift);
 		IMG_HEIGHT = (int) (2 * by + maxHeight);
 
 	}
@@ -262,11 +266,11 @@ public class Tank0Model extends VehicleModel {
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, tracks[i][1][0][1], tracks[i][1][0][0],
 					tracks[i][1][1][0], tracks[i][1][1][1], tTr);
 			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, tracks[i][0][1][0], tracks[i][0][1][1],
-					tracks[i][1][1][1], tracks[i][1][1][0], tTr);
+					tracks[i][1][1][1], tracks[i][1][1][0], tTrackPath);
 			faces[counter++] = buildFace(Renderer3D.CAR_BACK, tracks[i][0][0][0], tracks[i][1][0][0],
-					tracks[i][1][0][1], tracks[i][0][0][1], tTr);
+					tracks[i][1][0][1], tracks[i][0][0][1], tTrackPath);
 			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, tracks[i][0][0][0], tracks[i][0][1][0],
-					tracks[i][1][1][0], tracks[i][1][0][0], tTr);
+					tracks[i][1][1][0], tracks[i][1][0][0], tTrackPath);
 
 		}
 
@@ -301,6 +305,8 @@ public class Tank0Model extends VehicleModel {
 		printTexturePolygon(bufGraphics, tTu);
 		bufGraphics.setColor(new Color(175, 151, 58));
 		printTexturePolygon(bufGraphics, tTr);
+		bufGraphics.setColor(new Color(123, 121, 136));
+		printTexturePolygon(bufGraphics, tTrackPath);
 
 	}
 
