@@ -259,8 +259,8 @@ public class Tank0Model extends VehicleModel {
 					tracks[i][0][1][1], tTopTrack);
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, tracks[i][0][0][0], tracks[i][0][0][1],
 					tracks[i][0][1][1], tracks[i][0][1][0], tTr);
-			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, tracks[i][1][0][0], tracks[i][1][1][0],
-					tracks[i][1][1][1], tracks[i][1][0][1], tTr);
+			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, tracks[i][1][0][1], tracks[i][1][0][0],
+					tracks[i][1][1][0], tracks[i][1][1][1], tTr);
 			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, tracks[i][0][1][0], tracks[i][0][1][1],
 					tracks[i][1][1][1], tracks[i][1][1][0], tTr);
 			faces[counter++] = buildFace(Renderer3D.CAR_BACK, tracks[i][0][0][0], tracks[i][1][0][0],
