@@ -183,35 +183,33 @@ public class Tank0Model extends VehicleModel {
 
 	private void buildTracks() {
 
-		Segments sRTop = new Segments(dx * 0.5, dxTrack, 0, dyTopTrack, 0, dzTrack);
-		Segments sRBottom = new Segments(dx * 0.5, dxTrack, rearOverhang, dyBottomTrack, 0, dzTrack);
-
-		tracks = new BPoint[2][2][2][2];
-
-		tracks[0][0][0][0] = addBPoint(0.0, 0.0, 0, sRBottom);
-		tracks[0][1][0][0] = addBPoint(1.0, 0.0, 0, sRBottom);
-		tracks[0][0][1][0] = addBPoint(0.0, 1.0, 0, sRBottom);
-		tracks[0][1][1][0] = addBPoint(1.0, 1.0, 0, sRBottom);
-
-		tracks[0][0][0][1] = addBPoint(0.0, 0.0, 1.0, sRTop);
-		tracks[0][1][0][1] = addBPoint(1.0, 0.0, 1.0, sRTop);
-		tracks[0][0][1][1] = addBPoint(0.0, 1.0, 1.0, sRTop);
-		tracks[0][1][1][1] = addBPoint(1.0, 1.0, 1.0, sRTop);
-
 		Segments sLTop = new Segments(-dx * 0.5 - dxTrack, dxTrack, 0, dyTopTrack, 0, dzTrack);
 		Segments sLBottom = new Segments(-dx * 0.5 - dxTrack, dxTrack, rearOverhang, dyBottomTrack, 0, dzTrack);
 
-		tracks[1] = new BPoint[2][2][2];
+		tracks = new BPoint[2][2][2][2];
 
-		tracks[1][0][0][0] = addBPoint(0, 0.0, 0, sLBottom);
-		tracks[1][1][0][0] = addBPoint(1.0, 0.0, 0, sLBottom);
-		tracks[1][0][1][0] = addBPoint(0.0, 1.0, 0, sLBottom);
-		tracks[1][1][1][0] = addBPoint(1.0, 1.0, 0, sLBottom);
+		tracks[0][0][0][0] = addBPoint(0, 0.0, 0, sLBottom);
+		tracks[0][1][0][0] = addBPoint(1.0, 0.0, 0, sLBottom);
+		tracks[0][0][1][0] = addBPoint(0.0, 1.0, 0, sLBottom);
+		tracks[0][1][1][0] = addBPoint(1.0, 1.0, 0, sLBottom);
 
-		tracks[1][0][0][1] = addBPoint(0.0, 0.0, 1.0, sLTop);
-		tracks[1][1][0][1] = addBPoint(1.0, 0.0, 1.0, sLTop);
-		tracks[1][0][1][1] = addBPoint(0.0, 1.0, 1.0, sLTop);
-		tracks[1][1][1][1] = addBPoint(1.0, 1.0, 1.0, sLTop);
+		tracks[0][0][0][1] = addBPoint(0.0, 0.0, 1.0, sLTop);
+		tracks[0][1][0][1] = addBPoint(1.0, 0.0, 1.0, sLTop);
+		tracks[0][0][1][1] = addBPoint(0.0, 1.0, 1.0, sLTop);
+		tracks[0][1][1][1] = addBPoint(1.0, 1.0, 1.0, sLTop);
+
+		Segments sRTop = new Segments(dx * 0.5, dxTrack, 0, dyTopTrack, 0, dzTrack);
+		Segments sRBottom = new Segments(dx * 0.5, dxTrack, rearOverhang, dyBottomTrack, 0, dzTrack);
+
+		tracks[1][0][0][0] = addBPoint(0.0, 0.0, 0, sRBottom);
+		tracks[1][1][0][0] = addBPoint(1.0, 0.0, 0, sRBottom);
+		tracks[1][0][1][0] = addBPoint(0.0, 1.0, 0, sRBottom);
+		tracks[1][1][1][0] = addBPoint(1.0, 1.0, 0, sRBottom);
+
+		tracks[1][0][0][1] = addBPoint(0.0, 0.0, 1.0, sRTop);
+		tracks[1][1][0][1] = addBPoint(1.0, 0.0, 1.0, sRTop);
+		tracks[1][0][1][1] = addBPoint(0.0, 1.0, 1.0, sRTop);
+		tracks[1][1][1][1] = addBPoint(1.0, 1.0, 1.0, sRTop);
 
 	}
 
