@@ -262,11 +262,11 @@ public class Tank0Model extends VehicleModel {
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, tracks[i][1][0][0], tracks[i][1][1][0],
 					tracks[i][1][1][1], tracks[i][1][0][1], tTr);
 			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, tracks[i][0][1][0], tracks[i][0][1][1],
-					tracks[i][1][1][1], tracks[i][1][1][0], tBo[0]);
+					tracks[i][1][1][1], tracks[i][1][1][0], tTr);
 			faces[counter++] = buildFace(Renderer3D.CAR_BACK, tracks[i][0][0][0], tracks[i][1][0][0],
-					tracks[i][1][0][1], tracks[i][0][0][1], tBo[0]);
+					tracks[i][1][0][1], tracks[i][0][0][1], tTr);
 			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, tracks[i][0][0][0], tracks[i][0][1][0],
-					tracks[i][1][1][0], tracks[i][1][0][0], tBo[0]);
+					tracks[i][1][1][0], tracks[i][1][0][0], tTr);
 
 		}
 
@@ -293,7 +293,7 @@ public class Tank0Model extends VehicleModel {
 		printTexturePolygon(bufGraphics, tTopRightTrack);
 		bufGraphics.setColor(new Color(78, 57, 52));
 		printTexturePolygon(bufGraphics, tTopTurret);
-		bufGraphics.setColor(new Color(162, 142, 93));
+		bufGraphics.setColor(new Color(61, 63, 46));
 		printTexturePolygon(bufGraphics, tCannon);
 		bufGraphics.setColor(new Color(150, 120, 56));
 		printTexturePolygon(bufGraphics, tBo[0]);
