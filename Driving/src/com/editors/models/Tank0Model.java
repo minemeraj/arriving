@@ -303,7 +303,7 @@ public class Tank0Model extends VehicleModel {
 		printTexturePolygon(bufGraphics, tBo[0]);
 		bufGraphics.setColor(new Color(61, 63, 46));
 		printTexturePolygon(bufGraphics, tTu);
-		bufGraphics.setColor(new Color(175, 151, 58));
+		bufGraphics.setColor(new Color(169, 150, 110));
 		printTexturePolygon(bufGraphics, tTr);
 		bufGraphics.setColor(new Color(123, 121, 136));
 		printTexturePolygon(bufGraphics, tTrackPath);
