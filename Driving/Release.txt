@@ -6,6 +6,9 @@ New cars:
 See:
 /lib/autocars_harbour
 
+Revision of the excessive size of:
+/lib/cardefault3D_8 (Truck)
+
 --- 22/10/2016 CarDriving 11.0.3 - Monza
 
 New cars:
