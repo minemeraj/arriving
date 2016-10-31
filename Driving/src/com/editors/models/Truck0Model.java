@@ -136,7 +136,7 @@ public class Truck0Model extends VehicleModel {
 		double wxLeft = dxRear * 0.5 + wheelWidth;
 		double wxRight = dxRear * 0.5;
 
-		double yRearAxle = 2.0 * wheelRadius;
+		double yRearAxle = rearOverhang;
 		double yFrontAxle = dyRear + dyFront * 0.5;
 
 		wheelLeftFront = buildWheel(x0 - wxLeft, yFrontAxle, wz, wheelRadius, wheelWidth, wheel_rays);
