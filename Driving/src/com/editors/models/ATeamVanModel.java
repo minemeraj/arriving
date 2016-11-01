@@ -27,6 +27,23 @@ public class ATeamVanModel extends PickupModel {
 
 	@Override
 	public void initMesh() {
+		
+		int c = 0;
+
+		c = initDoubleArrayValues(tLeftFront = new int[nYcab - 1][4], c);
+		c = initDoubleArrayValues(tLeftRoof = new int[2][4], c);
+		c = initSingleArrayValues(tBackRear = new int[4], c);
+		c = initDoubleArrayValues(tBackWagon = new int[1][4], c);
+		c = initSingleArrayValues(tTopRear = new int[4], c);
+		c = initSingleArrayValues(tTopRoof = new int[4], c);
+		c = initSingleArrayValues(tTopFront = new int[4], c);
+
+		c = initDoubleArrayValues(tRe = new int[1][4], c);
+		c = initDoubleArrayValues(tWa = new int[1][4], c);
+		c = initDoubleArrayValues(tWi = new int[1][4], c);
+		c = initDoubleArrayValues(tWh = new int[1][4], c);
+		
+		
 		points = new Vector<Point3D>();
 		texturePoints = new Vector<Point3D>();
 
