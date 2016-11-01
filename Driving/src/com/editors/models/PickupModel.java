@@ -107,7 +107,8 @@ public class PickupModel extends Truck0Model {
 		double y = by;
 		double x = bx;
 
-		buildFrontCabinTexture(x, y, shift);
+		double dyFr = dzRear + dzWagon + dyRoof + shift;
+		buildFrontCabinTexture(x, y + dyFr, shift);
 		x += dzFront;
 		/////
 		// top and rear
@@ -149,31 +150,31 @@ public class PickupModel extends Truck0Model {
 	private void buildFrontCabinTexture(double x, double y, int shift) {
 
 		//// left front texture
-		double dyLF = dzRear + dzWagon + dyRoof + shift;
-		addTPoint(x + cab[0][0][0].z, y + dyLF + cab[0][0][0].y, 0);
-		addTPoint(x + cab[0][0][1].z, y + dyLF + cab[0][0][1].y, 0);
-		addTPoint(x + cab[0][1][1].z, y + dyLF + cab[0][1][1].y, 0);
-		addTPoint(x + cab[0][1][0].z, y + dyLF + cab[0][1][0].y, 0);
 
-		addTPoint(x + cab[0][1][0].z, y + dyLF + cab[0][1][0].y, 0);
-		addTPoint(x + cab[0][1][1].z, y + dyLF + cab[0][1][1].y, 0);
-		addTPoint(x + cab[0][2][1].z, y + dyLF + cab[0][2][1].y, 0);
-		addTPoint(x + cab[0][2][0].z, y + dyLF + cab[0][2][0].y, 0);
+		addTPoint(x + cab[0][0][0].z, y + cab[0][0][0].y, 0);
+		addTPoint(x + cab[0][0][1].z, y + cab[0][0][1].y, 0);
+		addTPoint(x + cab[0][1][1].z, y + cab[0][1][1].y, 0);
+		addTPoint(x + cab[0][1][0].z, y + cab[0][1][0].y, 0);
 
-		addTPoint(x + cab[0][2][0].z, y + dyLF + cab[0][2][0].y, 0);
-		addTPoint(x + cab[0][2][1].z, y + dyLF + cab[0][2][1].y, 0);
-		addTPoint(x + cab[0][3][1].z, y + dyLF + cab[0][3][1].y, 0);
-		addTPoint(x + cab[0][3][0].z, y + dyLF + cab[0][3][0].y, 0);
+		addTPoint(x + cab[0][1][0].z, y + cab[0][1][0].y, 0);
+		addTPoint(x + cab[0][1][1].z, y + cab[0][1][1].y, 0);
+		addTPoint(x + cab[0][2][1].z, y + cab[0][2][1].y, 0);
+		addTPoint(x + cab[0][2][0].z, y + cab[0][2][0].y, 0);
 
-		addTPoint(x + cab[0][3][0].z, y + dyLF + cab[0][3][0].y, 0);
-		addTPoint(x + cab[0][3][1].z, y + dyLF + cab[0][3][1].y, 0);
-		addTPoint(x + cab[0][4][1].z, y + dyLF + cab[0][4][1].y, 0);
-		addTPoint(x + cab[0][4][0].z, y + dyLF + cab[0][4][0].y, 0);
+		addTPoint(x + cab[0][2][0].z, y + cab[0][2][0].y, 0);
+		addTPoint(x + cab[0][2][1].z, y + cab[0][2][1].y, 0);
+		addTPoint(x + cab[0][3][1].z, y + cab[0][3][1].y, 0);
+		addTPoint(x + cab[0][3][0].z, y + cab[0][3][0].y, 0);
 
-		addTPoint(x + cab[0][4][0].z, y + dyLF + cab[0][4][0].y, 0);
-		addTPoint(x + cab[0][4][1].z, y + dyLF + cab[0][4][1].y, 0);
-		addTPoint(x + cab[0][5][1].z, y + dyLF + cab[0][5][1].y, 0);
-		addTPoint(x + cab[0][5][0].z, y + dyLF + cab[0][5][0].y, 0);
+		addTPoint(x + cab[0][3][0].z, y + cab[0][3][0].y, 0);
+		addTPoint(x + cab[0][3][1].z, y + cab[0][3][1].y, 0);
+		addTPoint(x + cab[0][4][1].z, y + cab[0][4][1].y, 0);
+		addTPoint(x + cab[0][4][0].z, y + cab[0][4][0].y, 0);
+
+		addTPoint(x + cab[0][4][0].z, y + cab[0][4][0].y, 0);
+		addTPoint(x + cab[0][4][1].z, y + cab[0][4][1].y, 0);
+		addTPoint(x + cab[0][5][1].z, y + cab[0][5][1].y, 0);
+		addTPoint(x + cab[0][5][0].z, y + cab[0][5][0].y, 0);
 
 	}
 
