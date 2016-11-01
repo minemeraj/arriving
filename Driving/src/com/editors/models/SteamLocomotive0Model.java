@@ -21,6 +21,7 @@ public class SteamLocomotive0Model extends VehicleModel {
 	private double wheelWidth;
 	protected int wheelRays;
 
+	protected BPoint[][][] cabin;
 	protected BPoint[][][] body;
 
 	private BPoint[][] rWheelLeftFront;
@@ -44,7 +45,13 @@ public class SteamLocomotive0Model extends VehicleModel {
 	private double dyTexture = 200;
 	private double dxTexture = 200;
 
-	private int wagonRays = 20;
+	private int boilerRays = 20;
+
+	private BPoint[][] funnel;
+	private int funnel_parallels = 2;
+	private int funnel_meridians = 10;
+	private double funnel_radius = 10;
+	private double funnel_height = 40;
 
 	public SteamLocomotive0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr,
 			double dyr, double dzr, double dxRoof, double dyRoof, double dzRoof, double rearOverhang,
@@ -89,30 +96,85 @@ public class SteamLocomotive0Model extends VehicleModel {
 		int pnz = 2;
 
 		buildBody(pnx, pny, pnz);
-
-		buildWagon();
+		buildCabin();
+		buildBoiler();
+		buildFunnel();
 
 		int firstWheelTexturePoint = 4;
 		buildTextures();
 
 		// faces
 		int NF = 6 * 3;
-		int totWagonPolygons = wagonRays + 2 * (wagonRays - 2);
+		// cabin
+		NF += 6;
+		// funnel
+		NF += (funnel_meridians * (funnel_parallels - 1) + funnel_meridians);
+		// boiler
+		int totBoilerPolygons = boilerRays + 2 * (boilerRays - 2);
 
 		int totWheelPolygon = wheelRays + 2 * (wheelRays - 2);
 		int NUM_WHEEL_FACES = 8 * totWheelPolygon;
 
-		faces = new int[NF + NUM_WHEEL_FACES + totWagonPolygons][3][4];
+		faces = new int[NF + NUM_WHEEL_FACES + totBoilerPolygons][3][4];
 
 		int counter = 0;
 
 		counter = buildBodyFaces(counter, firstWheelTexturePoint, totWheelPolygon);
-
-		counter = buildWagonFaces(counter, wagon);
+		counter = buildBoilerFaces(counter, wagon);
+		counter = buildCabinYFaces(counter);
+		counter = buildFunnelFaces(counter);
 
 		IMG_WIDTH = (int) (2 * bx + dx);
 		IMG_HEIGHT = (int) (2 * by + dy);
 
+	}
+
+	private void buildCabin() {
+
+		cabin = new BPoint[2][2][2];
+
+		Segments cb = new Segments(x0, dx, y0, dy - dyRoof, z0 + dzRear + dz, dzRoof);
+		cabin[0][0][0] = addBPoint(-0.5, 0, 0, cb);
+		cabin[1][0][0] = addBPoint(0.5, 0, 0, cb);
+		cabin[1][1][0] = addBPoint(0.5, 1, 0, cb);
+		cabin[0][1][0] = addBPoint(-0.5, 1, 0, cb);
+
+		cabin[0][0][1] = addBPoint(-0.5, 0, 1, cb);
+		cabin[1][0][1] = addBPoint(0.5, 0, 1, cb);
+		cabin[1][1][1] = addBPoint(0.5, 1, 1, cb);
+		cabin[0][1][1] = addBPoint(-0.5, 1, 1, cb);
+
+	}
+
+	private int buildCabinYFaces(int counter) {
+
+		for (int i = 0; i < 2 - 1; i++) {
+
+			faces[counter++] = buildFace(Renderer3D.CAR_TOP, cabin[0][i][1], cabin[1][i][1], cabin[1][i + 1][1],
+					cabin[0][i + 1][1], tBo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, cabin[0][i][0], cabin[0][i][1], cabin[0][i + 1][1],
+					cabin[0][i + 1][0], tBo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, cabin[1][i][0], cabin[1][i + 1][0], cabin[1][i + 1][1],
+					cabin[1][i][1], tBo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, cabin[0][i][0], cabin[0][i + 1][0], cabin[1][i + 1][0],
+					cabin[1][i][0], tBo[0]);
+
+			if (i == 0) {
+
+				faces[counter++] = buildFace(Renderer3D.CAR_BACK, cabin[0][i][0], cabin[1][i][0], cabin[1][i][1],
+						cabin[0][i][1], tBo[0]);
+
+			}
+
+			if (i == 2 - 2) {
+
+				faces[counter++] = buildFace(Renderer3D.CAR_FRONT, cabin[0][i + 1][0], cabin[0][i + 1][1],
+						cabin[1][i + 1][1], cabin[1][i + 1][0], tBo[0]);
+			}
+
+		}
+
+		return counter;
 	}
 
 	protected void buildBody(int pnx, int pny, int pnz) {
@@ -236,19 +298,19 @@ public class SteamLocomotive0Model extends VehicleModel {
 		return counter;
 	}
 
-	protected void buildWagon() {
+	protected void buildBoiler() {
 
-		double rdy = (dy - dyRoof) * 0.5;
+		double rdy = (dy - dyRoof);
 
 		double radius = dxRoof * 0.5;
 
-		BPoint[][] cylinder = addYCylinder(0, rdy, dzRear + dz + radius, radius, dyRoof, wagonRays);
+		BPoint[][] cylinder = addYCylinder(0, rdy, dzRear + dz + radius, radius, dyRoof, boilerRays);
 		wagon = new BPoint[1][][];
 		wagon[0] = cylinder;
 
 	}
 
-	protected int buildWagonFaces(int counter, BPoint[][][] wagon) {
+	protected int buildBoilerFaces(int counter, BPoint[][][] wagon) {
 
 		BPoint[][] cylinder = wagon[0];
 		int raysNumber = cylinder.length;
@@ -281,6 +343,35 @@ public class SteamLocomotive0Model extends VehicleModel {
 
 		return counter;
 
+	}
+
+	private void buildFunnel() {
+
+		double fx = 0;
+		double fy = dy - funnel_radius;
+		double fz = dzFront + dzRoof;
+
+		funnel = new BPoint[funnel_parallels][funnel_meridians];
+		funnel = buildFunnel(fx, fy, fz, funnel_height, funnel_radius, 2, 10);
+
+	}
+
+	private int buildFunnelFaces(int counter) {
+
+		for (int k = 0; k < funnel_parallels - 1; k++) {
+			for (int j = 0; j < funnel_meridians; j++) {
+				faces[counter++] = buildFace(Renderer3D.CAR_LEFT, funnel[k][j], funnel[k][(j + 1) % funnel_meridians],
+						funnel[k + 1][(j + 1) % funnel_meridians], funnel[k + 1][j], tBo[0]);
+			}
+		}
+
+		for (int j = 0; j < funnel_meridians; j++) {
+			int k = funnel_parallels - 1;
+			faces[counter++] = buildFace(Renderer3D.CAR_TOP, funnel[k][0], funnel[k][j],
+					funnel[k][(j + 1) % funnel_meridians], tBo[0]);
+		}
+
+		return counter;
 	}
 
 	protected void buildTextures() {

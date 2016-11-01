@@ -700,6 +700,27 @@ public abstract class MeshModel {
 
 	}
 
+	protected BPoint[][] buildFunnel(double x0, double y0, double z0, double funnel_height, double funnel_radius,
+			int funnel_parallels2, int funnel_meridians2) {
+
+		BPoint[][] funnel = new BPoint[funnel_parallels2][funnel_meridians2];
+		double dTeta = Math.PI * 2.0 / (funnel_meridians2);
+		double dz = funnel_height / (funnel_parallels2 - 1);
+
+		for (int k = 0; k < funnel_parallels2; k++) {
+			double zz = z0 + dz * k;
+
+			for (int i = 0; i < funnel_meridians2; i++) {
+				double teta = dTeta * i;
+				double xx = x0 + funnel_radius * Math.cos(teta);
+				double yy = y0 + funnel_radius * Math.sin(teta);
+				funnel[k][i] = addBPoint(xx, yy, zz);
+			}
+		}
+
+		return funnel;
+	}
+
 	protected BPoint[][] buildWheel(double rxc, double ryc, double rzc, double r, double wheel_width, int raysNumber) {
 
 		BPoint[][] wheelPoints = new BPoint[raysNumber][2];
