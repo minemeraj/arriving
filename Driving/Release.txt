@@ -9,6 +9,8 @@ See:
 Revision of the excessive size of:
 /lib/cardefault3D_8 (Truck)
 
+Steering rendering review
+
 --- 22/10/2016 CarDriving 11.0.3 - Monza
 
 New cars:
