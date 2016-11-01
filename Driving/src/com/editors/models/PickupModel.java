@@ -30,6 +30,7 @@ public class PickupModel extends Truck0Model {
 	int[][] tBackWagon = null;
 	int[] tTopWagon = null;
 	int[] tTopRear = null;
+	int[][] tLeftFront = null;
 	int[] tTopFront = null;
 	int[] tTopRoof = null;
 
@@ -50,6 +51,8 @@ public class PickupModel extends Truck0Model {
 	public void initMesh() {
 
 		int c = 0;
+
+		c = initDoubleArrayValues(tLeftFront = new int[nYcab - 1][4], c);
 		c = initSingleArrayValues(tBackRear = new int[4], c);
 		c = initDoubleArrayValues(tBackWagon = new int[1][4], c);
 		c = initSingleArrayValues(tTopRear = new int[4], c);
@@ -104,6 +107,9 @@ public class PickupModel extends Truck0Model {
 		double y = by;
 		double x = bx;
 
+		buildFrontCabinTexture(x, y, shift);
+		x += dzFront;
+		/////
 		// top and rear
 		addTRect(x, y, dxRear, dzRear);
 		y += dzRear;
@@ -113,6 +119,7 @@ public class PickupModel extends Truck0Model {
 		y += dyRear;
 		addTRect(x, y, dxRoof, dyRoof);
 		y += dyRoof + shift;
+		// top front
 		addTRect(x, y, dxFront, dyFront);
 
 		// body points
@@ -135,8 +142,39 @@ public class PickupModel extends Truck0Model {
 		y = by;
 		addTRect(x, y, wheelWidth, wheelWidth);
 
-		IMG_WIDTH = (int) (2 * bx + 3 * dxTexture + wheelWidth + 4 * shift + dxRear);
+		IMG_WIDTH = (int) (2 * bx + dzFront + 3 * dxTexture + wheelWidth + 4 * shift + dxRear);
 		IMG_HEIGHT = (int) (2 * by + dzRear + dzWagon + dyRear + dyFront + dyRoof + shift);
+	}
+
+	private void buildFrontCabinTexture(double x, double y, int shift) {
+
+		//// left front texture
+		double dyLF = dzRear + dzWagon + dyRoof + shift;
+		addTPoint(x + cab[0][0][0].z, y + dyLF + cab[0][0][0].y, 0);
+		addTPoint(x + cab[0][0][1].z, y + dyLF + cab[0][0][1].y, 0);
+		addTPoint(x + cab[0][1][1].z, y + dyLF + cab[0][1][1].y, 0);
+		addTPoint(x + cab[0][1][0].z, y + dyLF + cab[0][1][0].y, 0);
+
+		addTPoint(x + cab[0][1][0].z, y + dyLF + cab[0][1][0].y, 0);
+		addTPoint(x + cab[0][1][1].z, y + dyLF + cab[0][1][1].y, 0);
+		addTPoint(x + cab[0][2][1].z, y + dyLF + cab[0][2][1].y, 0);
+		addTPoint(x + cab[0][2][0].z, y + dyLF + cab[0][2][0].y, 0);
+
+		addTPoint(x + cab[0][2][0].z, y + dyLF + cab[0][2][0].y, 0);
+		addTPoint(x + cab[0][2][1].z, y + dyLF + cab[0][2][1].y, 0);
+		addTPoint(x + cab[0][3][1].z, y + dyLF + cab[0][3][1].y, 0);
+		addTPoint(x + cab[0][3][0].z, y + dyLF + cab[0][3][0].y, 0);
+
+		addTPoint(x + cab[0][3][0].z, y + dyLF + cab[0][3][0].y, 0);
+		addTPoint(x + cab[0][3][1].z, y + dyLF + cab[0][3][1].y, 0);
+		addTPoint(x + cab[0][4][1].z, y + dyLF + cab[0][4][1].y, 0);
+		addTPoint(x + cab[0][4][0].z, y + dyLF + cab[0][4][0].y, 0);
+
+		addTPoint(x + cab[0][4][0].z, y + dyLF + cab[0][4][0].y, 0);
+		addTPoint(x + cab[0][4][1].z, y + dyLF + cab[0][4][1].y, 0);
+		addTPoint(x + cab[0][5][1].z, y + dyLF + cab[0][5][1].y, 0);
+		addTPoint(x + cab[0][5][0].z, y + dyLF + cab[0][5][0].y, 0);
+
 	}
 
 	@Override
@@ -447,6 +485,11 @@ public class PickupModel extends Truck0Model {
 	public void printTexture(Graphics2D bufGraphics) {
 
 		bufGraphics.setStroke(new BasicStroke(0.1f));
+
+		bufGraphics.setColor(new Color(72, 178, 230));
+		for (int i = 0; i < tLeftFront.length; i++) {
+			printTexturePolygon(bufGraphics, tLeftFront[i]);
+		}
 
 		bufGraphics.setColor(new Color(72, 178, 230));
 		printTexturePolygon(bufGraphics, tTopFront);
