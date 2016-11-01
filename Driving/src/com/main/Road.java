@@ -457,7 +457,7 @@ public class Road extends Shader {
 		 * double dz = -YFOCUS;
 		 */
 
-		double dx = carPosX - CAR_WIDTH / (2);
+		double dx = carPosX;
 		double dy = carPosY;
 		double dz = -YFOCUS - MOVZ;
 
@@ -781,6 +781,8 @@ public class Road extends Shader {
 				Polygon3D p3D = buildTransformedPolygon3DWithoutTexture(ld, mesh.xpoints, mesh.ypoints, mesh.zpoints,
 						mesh.getLevel());
 
+				Polygon3D realP3D = LineData.buildPolygon(ld, mesh.xpoints, mesh.ypoints, mesh.zpoints);
+
 				int zz = (int) interpolate(start_car_x, start_car_y, p3D);
 
 				// avoid to sink under the terrain
@@ -795,7 +797,7 @@ public class Road extends Shader {
 
 					initMOVZ = false;
 					start_max_calculus = false;
-					carTerrainNormal = Polygon3D.findNormal(p3D);
+					carTerrainNormal = Polygon3D.findNormal(realP3D);
 				} // CANNOT DO A JUMP > ROAD_THICKNESS
 				else if (zz <= CURRENT_MOVZ + ROAD_THICKNESS) {
 
@@ -805,7 +807,7 @@ public class Road extends Shader {
 						carTerrainNormal = Polygon3D.findNormal(p3D);
 					} else if (zz >= POSSIBLE_MOVZ) {
 						POSSIBLE_MOVZ = zz;
-						carTerrainNormal = Polygon3D.findNormal(p3D);
+						carTerrainNormal = Polygon3D.findNormal(realP3D);
 					}
 
 				}
