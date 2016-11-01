@@ -429,7 +429,10 @@ public class Road extends Shader {
 
 		// putting the car right in front of the view point
 		CubicMesh cm = carData[SELECTED_CAR].getCarMesh().clone();
-		cm.translate(carPosX - CAR_WIDTH / (2 * SCALE), carPosY, -YFOCUS - MOVZ);
+		CAR_WIDTH = carData[SELECTED_CAR].carMesh.deltaX2 - carData[SELECTED_CAR].carMesh.deltaX;
+		CAR_LENGTH = carData[SELECTED_CAR].carMesh.deltaY2 - carData[SELECTED_CAR].carMesh.deltaY;
+
+		cm.translate(carPosX - CAR_WIDTH / 2, carPosY, -YFOCUS - MOVZ);
 		cm.rotateZ(carPosX, carPosY, viewDirectionCos, viewDirectionSin);
 
 		// fake steering: eliminate?
@@ -454,7 +457,7 @@ public class Road extends Shader {
 		 * double dz = -YFOCUS;
 		 */
 
-		double dx = carPosX - CAR_WIDTH / (2 * SCALE);
+		double dx = carPosX - CAR_WIDTH / (2);
 		double dy = carPosY;
 		double dz = -YFOCUS - MOVZ;
 
@@ -1625,14 +1628,14 @@ public class Road extends Shader {
 
 		if (autocar_index < 0) {
 
-			CAR_BORDER = Autocar.buildCarBox(new_posx, (int) (new_posy + CAR_LENGTH * 0.5 / SCALE), +MOVZ,
-					(int) (CAR_WIDTH / SCALE), CAR_LENGTH, 0);
+			CAR_BORDER = Autocar.buildCarBox(new_posx, (int) (new_posy + CAR_LENGTH * 0.5), +MOVZ, (CAR_WIDTH),
+					CAR_LENGTH, 0);
 			Polygon3D.rotate(CAR_BORDER, new Point3D(new_posx, new_posy, 0), newViewDirection);
 
 		} else {
 
-			CAR_BORDER = Autocar.buildCarBox(start_car_x + POSX, (int) (POSY + start_car_y + CAR_LENGTH * 0.5 / SCALE),
-					+MOVZ, (int) (CAR_WIDTH / SCALE), (int) (CAR_LENGTH / SCALE), 0);
+			CAR_BORDER = Autocar.buildCarBox(start_car_x + POSX, (int) (POSY + start_car_y + CAR_LENGTH * 0.5), +MOVZ,
+					(CAR_WIDTH), (CAR_LENGTH), 0);
 			Polygon3D.rotate(CAR_BORDER, new Point3D(POSX, POSY, 0), viewDirection);
 
 		}
