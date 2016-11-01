@@ -388,8 +388,10 @@ public class Road extends Shader {
 			File file = vCarData.get(i);
 
 			carData[i] = loadCarFromFile(new File("lib/cardefault3D_" + i), Renderer3D.SCALE);
-			CAR_WIDTH = carData[i].carMesh.deltaX2 - carData[i].carMesh.deltaX;
-			CAR_LENGTH = carData[i].carMesh.deltaY2 - carData[i].carMesh.deltaY;
+			if (i == 0) {
+				CAR_WIDTH = carData[i].carMesh.deltaX2 - carData[i].carMesh.deltaX;
+				CAR_LENGTH = carData[i].carMesh.deltaY2 - carData[i].carMesh.deltaY;
+			}
 			// carData[i].getCarMesh().translate(WIDTH / 2 - CAR_WIDTH / 2 -
 			// XFOCUS, y_edge, -YFOCUS);
 
@@ -410,6 +412,8 @@ public class Road extends Shader {
 		}
 
 		carTexture = CarFrame.carTextures[SELECTED_CAR];
+		CAR_WIDTH = carData[SELECTED_CAR].carMesh.deltaX2 - carData[SELECTED_CAR].carMesh.deltaX;
+		CAR_LENGTH = carData[SELECTED_CAR].carMesh.deltaY2 - carData[SELECTED_CAR].carMesh.deltaY;
 
 	}
 
@@ -429,8 +433,6 @@ public class Road extends Shader {
 
 		// putting the car right in front of the view point
 		CubicMesh cm = carData[SELECTED_CAR].getCarMesh().clone();
-		CAR_WIDTH = carData[SELECTED_CAR].carMesh.deltaX2 - carData[SELECTED_CAR].carMesh.deltaX;
-		CAR_LENGTH = carData[SELECTED_CAR].carMesh.deltaY2 - carData[SELECTED_CAR].carMesh.deltaY;
 
 		cm.translate(carPosX - CAR_WIDTH / 2, carPosY, -YFOCUS - MOVZ);
 		cm.rotateZ(carPosX, carPosY, viewDirectionCos, viewDirectionSin);
