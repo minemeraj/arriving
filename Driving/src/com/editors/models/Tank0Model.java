@@ -174,7 +174,10 @@ public class Tank0Model extends VehicleModel {
 		x += dxTexture + shift;
 		addTRect(x, y, dxRoof, dyRoof);
 		x += dxRoof + shift;
-		addTRect(x, y, dzTrack, dyTopTrack);
+		addTPoint(x, y + tracks[0][0][0][1].y, 0);
+		addTPoint(x + dzTrack, y + tracks[0][0][0][0].y, 0);
+		addTPoint(x + dzTrack, y + tracks[0][0][1][0].y, 0);
+		addTPoint(x, y + tracks[0][0][1][1].y, 0);
 		x += dzTrack + shift;
 		addTRect(x, y, dxTrack, dyTopTrack);
 
