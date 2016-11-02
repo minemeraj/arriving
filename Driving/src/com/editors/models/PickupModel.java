@@ -27,6 +27,7 @@ public class PickupModel extends Truck0Model {
 
 	protected int nWagonUnits = 10;
 
+	int[][] tLeftWagon = null;
 	int[][] tBackWagon = null;
 	int[] tTopWagon = null;
 	int[] tTopRear = null;
@@ -56,6 +57,7 @@ public class PickupModel extends Truck0Model {
 		c = initDoubleArrayValues(tLeftFront = new int[nYcab - 1][4], c);
 		c = initDoubleArrayValues(tLeftRoof = new int[2][4], c);
 		c = initSingleArrayValues(tBackRear = new int[4], c);
+		c = initDoubleArrayValues(tLeftWagon = new int[1][4], c);
 		c = initDoubleArrayValues(tBackWagon = new int[1][4], c);
 		c = initSingleArrayValues(tTopRear = new int[4], c);
 		c = initSingleArrayValues(tTopRoof = new int[4], c);

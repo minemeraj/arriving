@@ -184,12 +184,12 @@ public class Tank0Model extends VehicleModel {
 		addTRect(x + dxTrack + dx, y, dxTrack, dyTopTrack);
 		addTRect(x + deltaXTu, y + dyRear, dxRoof, dyRoof);
 		x += maxWidth + shift;
-		addTPoint(x, y + tracks[0][0][0][1].y, 0);
-		addTPoint(x + dzTrack, y + tracks[0][0][0][0].y, 0);
-		addTPoint(x + dzTrack, y + tracks[0][0][1][0].y, 0);
-		addTPoint(x, y + tracks[0][0][1][1].y, 0);
+		addTPoint(x, y, 0);
+		addTPoint(x + dzTrack, y + rearOverhang, 0);
+		addTPoint(x + dzTrack, y + rearOverhang + dyBottomTrack, 0);
+		addTPoint(x, y + dyTopTrack, 0);
 		x += dzTrack + shift;
-		addTRect(x, y + tracks[0][0][0][0].y, dxTrack, tracks[0][0][1][0].y - tracks[0][0][0][0].y);
+		addTRect(x, y + rearOverhang, dxTrack, dyBottomTrack);
 		x += dxTrack;
 		for (int i = 0; i < wheel_rays; i++) {
 			addTRect(x, y, wheelRadius, wheelWidth);
