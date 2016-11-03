@@ -36,6 +36,10 @@ public class PickupModel extends Truck0Model {
 	int[][] tLeftRoof = null;
 	int[] tTopFront = null;
 	int[] tTopRoof = null;
+	int[][] tRightRear;
+	private int[][] tRightFront;
+	private int[][] tRightRoof;
+	private int[][] tRightWagon;
 
 	public PickupModel(double dxFront, double dyfront, double dzFront, double dxRoof, double dyRoof, double dzRoof,
 			double dxRear, double dyRear, double dzRear, double dxWagon, double dyWagon, double dzWagon,
@@ -64,6 +68,10 @@ public class PickupModel extends Truck0Model {
 		c = initSingleArrayValues(tTopRear = new int[4], c);
 		c = initSingleArrayValues(tTopRoof = new int[4], c);
 		c = initSingleArrayValues(tTopFront = new int[4], c);
+		c = initDoubleArrayValues(tRightRear = new int[nyBody - 1][4], c);
+		c = initDoubleArrayValues(tRightFront = new int[nYcab - 1][4], c);
+		c = initDoubleArrayValues(tRightRoof = new int[2][4], c);
+		c = initDoubleArrayValues(tRightWagon = new int[1][4], c);
 		c = initDoubleArrayValues(tRe = new int[1][4], c);
 		c = initDoubleArrayValues(tWa = new int[1][4], c);
 		c = initDoubleArrayValues(tWi = new int[1][4], c);
@@ -113,16 +121,20 @@ public class PickupModel extends Truck0Model {
 		double x = bx;
 
 		double dyFr = dzRear + dzWagon + shift;
-		buildLefTextures(x, y + dyFr, shift);
+		buildLefTextures(x, by + dyFr, shift);
 		x += dzFront + dzRoof + shift;
 		/////
 		buildBackTextures(x, y, shift);
 		// top
 		y += dzRear + dzWagon;
 		buildTopTextures(x, y, shift);
+		x += dxRear + shift;
+
+		buildRightTextures(x, by + dyFr, shift);
+		x += dzFront + dzRoof + shift;
 
 		// body points
-		x += dxRear + shift;
+
 		y = by;
 		addTRect(x, y, dxTexture, dyTexture);
 
@@ -141,8 +153,37 @@ public class PickupModel extends Truck0Model {
 		y = by;
 		addTRect(x, y, wheelWidth, wheelWidth);
 
-		IMG_WIDTH = (int) (2 * bx + dzFront + dzRoof + 3 * dxTexture + wheelWidth + 5 * shift + dxRear);
+		IMG_WIDTH = (int) (2 * bx + 2 * (dzFront + dzRoof) + 3 * dxTexture + wheelWidth + 5 * shift + dxRear);
 		IMG_HEIGHT = (int) (2 * by + dzRear + dzWagon + dyRear + dyFront + dyRoof + shift);
+	}
+
+	private void buildRightTextures(double x, double y, int shift) {
+
+		for (int i = 0; i < rear.length - 1; i++) {
+			addTPoint(x + rear[i][0].z, y + rear[i][0].y, 0);
+			addTPoint(x + rear[i][3].z, y + rear[i][3].y, 0);
+			addTPoint(x + rear[i + 1][3].z, y + rear[i + 1][3].y, 0);
+			addTPoint(x + rear[i + 1][0].z, y + rear[i + 1][0].y, 0);
+		}
+
+		for (int i = 0; i < nYcab - 1; i++) {
+			addTPoint(x + cab[0][i][0].z, y + cab[0][i][0].y, 0);
+			addTPoint(x + cab[0][i][1].z, y + cab[0][i][1].y, 0);
+			addTPoint(x + cab[0][i + 1][1].z, y + cab[0][i + 1][1].y, 0);
+			addTPoint(x + cab[0][i + 1][0].z, y + cab[0][i + 1][0].y, 0);
+		}
+
+		addTPoint(x + roof[0][0][0].z, y + roof[0][0][0].y, 0);
+		addTPoint(x + roof[0][0][1].z, y + roof[0][0][1].y, 0);
+		addTPoint(x + roof[0][1][1].z, y + roof[0][1][1].y, 0);
+		addTPoint(x + roof[0][1][0].z, y + roof[0][1][0].y, 0);
+
+		addTPoint(x + roof[0][1][0].z, y + roof[0][1][0].y, 0);
+		addTPoint(x + roof[0][1][1].z, y + roof[0][1][1].y, 0);
+		addTPoint(x + roof[0][2][0].z, y + roof[0][2][0].y, 0);
+		addTPoint(x + roof[0][2][0].z, y + roof[0][2][0].y, 0);
+
+		addTRect(x + dzRear, y, dzWagon, dyWagon);
 	}
 
 	private void buildTopTextures(double x, double y, int shift) {
@@ -528,6 +569,21 @@ public class PickupModel extends Truck0Model {
 		}
 		printTexturePolygon(bufGraphics, tTopRoof);
 		printTexturePolygon(bufGraphics, tTopRear);
+		bufGraphics.setColor(rearColor);
+		for (int i = 0; i < tRightRear.length; i++) {
+			printTexturePolygon(bufGraphics, tRightRear[i]);
+		}
+		bufGraphics.setColor(frontColor);
+		for (int i = 0; i < tRightFront.length; i++) {
+			printTexturePolygon(bufGraphics, tRightFront[i]);
+		}
+		bufGraphics.setColor(rearColor);
+		for (int i = 0; i < tRightRoof.length; i++) {
+			printTexturePolygon(bufGraphics, tRightRoof[i]);
+		}
+		bufGraphics.setColor(rearColor);
+		printTexturePolygon(bufGraphics, tRightWagon[0]);
+
 		printTexturePolygon(bufGraphics, tBackWagon[0]);
 		printTexturePolygon(bufGraphics, tBackRear);
 		bufGraphics.setColor(rearColor);
