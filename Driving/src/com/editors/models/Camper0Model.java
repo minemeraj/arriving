@@ -22,8 +22,6 @@ public class Camper0Model extends PickupModel {
 
 	private double dzWagon0;
 
-	private int[] tLeftRe;
-
 	public Camper0Model(double dxFront, double dyfront, double dzFront, double dxRoof, double dyRoof, double dzRoof,
 			double dxRear, double dyRear, double dzRear, double dxWagon, double dyWagon, double dzWagon,
 			double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1, double wheelRadius,
@@ -39,7 +37,9 @@ public class Camper0Model extends PickupModel {
 	public void initMesh() {
 
 		int c = 0;
-		c = initSingleArrayValues(tLeftRe = new int[4], c);
+		c = initDoubleArrayValues(tLeftRear = new int[nyBody - 1][4], c);
+		c = initDoubleArrayValues(tLeftFront = new int[nYcab - 1][4], c);
+		c = initDoubleArrayValues(tLeftRoof = new int[2][4], c);
 		c = initDoubleArrayValues(tLeftWagon = new int[2][4], c);
 		c = initSingleArrayValues(tBackRear = new int[4], c);
 		c = initDoubleArrayValues(tBackWagon = new int[2][4], c);
@@ -95,18 +95,12 @@ public class Camper0Model extends PickupModel {
 		double x = bx;
 
 		buildLeftTextures(x, y + dzRear + dzWagon0 + dzWagon + 2 * shift);
-		x += dzRear + dzWagon0 + dzWagon;
 
-		// top and rear
-		addTRect(x, y, dxRear, dzRear);
-		y += dzRear + shift;
-		addTRect(x, y, dxWagon, dzWagon0);
-		y += dzWagon0;
-		addTRect(x, y, dxWagon, dzWagon);
-		y += dzWagon + shift;
-		addTRect(x, y, dxWagon, dyWagon);
-		y += dyWagon + shift;
-		addTRect(x, y, dxFront, dyFront);
+		x += dzRear + dzWagon0 + dzWagon;
+		buildBackTextures(x, y, shift);
+
+		y += dzRear + dzWagon0 + dzWagon + 2 * shift;
+		buildTopTextures(x, y, shift);
 
 		// body points
 		x += dxRear + shift;
@@ -125,13 +119,54 @@ public class Camper0Model extends PickupModel {
 		x += dxTexture + shift;
 		addTRect(x, y, wheelWidth, wheelWidth);
 
-		IMG_WIDTH = (int) (2 * bx + dz + dzWagon0 + dzWagon + 3 * dxTexture + wheelWidth + 3 * shift + dxRear);
+		IMG_WIDTH = (int) (2 * bx + dzRear + dz + dzWagon0 + dzWagon + 3 * dxTexture + wheelWidth + 3 * shift + dxRear);
 		IMG_HEIGHT = (int) (2 * by + dzRear + dzWagon0 + dyWagon + dzRear + dyFront + dyRoof + 4 * shift);
+	}
+
+	private void buildTopTextures(double x, double y, int shift) {
+
+		addTRect(x, y, dxWagon, dyWagon);
+		y += dyWagon + shift;
+		addTRect(x, y, dxFront, dyFront);
+
+	}
+
+	private void buildBackTextures(double x, double y, int shift) {
+		// top and rear
+		addTRect(x, y, dxRear, dzRear);
+		y += dzRear + shift;
+		addTRect(x, y, dxWagon, dzWagon0);
+		y += dzWagon0;
+		addTRect(x, y, dxWagon, dzWagon);
+		y += dzWagon + shift;
+
 	}
 
 	private void buildLeftTextures(double x, double y) {
 
-		addTRect(x, y, dzRear, dyRear);
+		for (int i = 0; i < rear.length - 1; i++) {
+			addTPoint(x + rear[i][0].z, y + rear[i][0].y, 0);
+			addTPoint(x + rear[i][3].z, y + rear[i][3].y, 0);
+			addTPoint(x + rear[i + 1][3].z, y + rear[i + 1][3].y, 0);
+			addTPoint(x + rear[i + 1][0].z, y + rear[i + 1][0].y, 0);
+		}
+		for (int i = 0; i < nYcab - 1; i++) {
+
+			addTPoint(x + cab[0][i][0].z, y + cab[0][i][0].y, 0);
+			addTPoint(x + cab[0][i][1].z, y + cab[0][i][1].y, 0);
+			addTPoint(x + cab[0][i + 1][1].z, y + cab[0][i + 1][1].y, 0);
+			addTPoint(x + cab[0][i + 1][0].z, y + cab[0][i + 1][0].y, 0);
+		}
+		addTPoint(x + roof[0][0][0].z, y + roof[0][0][0].y, 0);
+		addTPoint(x + roof[0][0][1].z, y + roof[0][0][1].y, 0);
+		addTPoint(x + roof[0][1][1].z, y + roof[0][1][1].y, 0);
+		addTPoint(x + roof[0][1][0].z, y + roof[0][1][0].y, 0);
+
+		addTPoint(x + roof[0][1][0].z, y + roof[0][1][0].y, 0);
+		addTPoint(x + roof[0][1][1].z, y + roof[0][1][1].y, 0);
+		addTPoint(x + roof[0][2][0].z, y + roof[0][2][0].y, 0);
+		addTPoint(x + roof[0][2][0].z, y + roof[0][2][0].y, 0);
+
 		x += dzRear;
 		addTRect(x, y, dzWagon0, dyRear);
 		x += dzWagon0;
@@ -249,12 +284,23 @@ public class Camper0Model extends PickupModel {
 
 		bufGraphics.setStroke(new BasicStroke(0.1f));
 
+		Color frontColor = new Color(72, 178, 230);
 		Color wagonColor0 = new Color(255, 255, 255);
 		Color wagonColor1 = new Color(217, 15, 27);
 
+		bufGraphics.setColor(frontColor);
+		for (int i = 0; i < tLeftFront.length; i++) {
+			printTexturePolygon(bufGraphics, tLeftFront[i]);
+		}
+		bufGraphics.setColor(frontColor);
+		for (int i = 0; i < tLeftRoof.length; i++) {
+			printTexturePolygon(bufGraphics, tLeftRoof[i]);
+		}
 		bufGraphics.setColor(new Color(51, 51, 51));
 		printTexturePolygon(bufGraphics, tBackRear);
-		printTexturePolygon(bufGraphics, tLeftRe);
+		for (int i = 0; i < tLeftRear.length; i++) {
+			printTexturePolygon(bufGraphics, tLeftRear[i]);
+		}
 		bufGraphics.setColor(wagonColor0);
 		printTexturePolygon(bufGraphics, tLeftWagon[0]);
 		printTexturePolygon(bufGraphics, tLeftWagon[1]);
@@ -263,7 +309,7 @@ public class Camper0Model extends PickupModel {
 		printTexturePolygon(bufGraphics, tBackWagon[1]);
 		bufGraphics.setColor(new Color(255, 255, 255));
 		printTexturePolygon(bufGraphics, tTopWagon);
-		bufGraphics.setColor(new Color(72, 178, 230));
+		bufGraphics.setColor(frontColor);
 		printTexturePolygon(bufGraphics, tTopFront);
 
 		bufGraphics.setColor(new Color(249, 238, 216));

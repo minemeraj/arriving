@@ -116,17 +116,10 @@ public class PickupModel extends Truck0Model {
 		buildLefTextures(x, y + dyFr, shift);
 		x += dzFront + dzRoof + shift;
 		/////
-		// top and rear
-		addTRect(x, y, dxRear, dzRear);
-		y += dzRear;
-		addTRect(x, y, dxWagon, dzWagon);
-		y += dzWagon;
-		addTRect(x, y, dxRear, dyRear);
-		y += dyRear;
-		addTRect(x, y, dxRoof, dyRoof);
-		y += dyRoof + shift;
-		// top front
-		addTRect(x, y, dxFront, dyFront);
+		buildBackTextures(x, y, shift);
+		// top
+		y += dzRear + dzWagon;
+		buildTopTextures(x, y, shift);
 
 		// body points
 		x += dxRear + shift;
@@ -152,6 +145,25 @@ public class PickupModel extends Truck0Model {
 		IMG_HEIGHT = (int) (2 * by + dzRear + dzWagon + dyRear + dyFront + dyRoof + shift);
 	}
 
+	private void buildTopTextures(double x, double y, int shift) {
+		addTRect(x, y, dxRear, dyRear);
+		y += dyRear;
+		addTRect(x, y, dxRoof, dyRoof);
+		y += dyRoof + shift;
+		// top front
+		addTRect(x, y, dxFront, dyFront);
+
+	}
+
+	private void buildBackTextures(double x, double y, int shift) {
+
+		addTRect(x, y, dxRear, dzRear);
+		y += dzRear;
+		addTRect(x, y, dxWagon, dzWagon);
+		y += dzWagon;
+
+	}
+
 	private void buildLefTextures(double x, double y, int shift) {
 
 		for (int i = 0; i < rear.length - 1; i++) {
@@ -163,30 +175,13 @@ public class PickupModel extends Truck0Model {
 
 		//// left front texture
 
-		addTPoint(x + cab[0][0][0].z, y + cab[0][0][0].y, 0);
-		addTPoint(x + cab[0][0][1].z, y + cab[0][0][1].y, 0);
-		addTPoint(x + cab[0][1][1].z, y + cab[0][1][1].y, 0);
-		addTPoint(x + cab[0][1][0].z, y + cab[0][1][0].y, 0);
+		for (int i = 0; i < nYcab - 1; i++) {
 
-		addTPoint(x + cab[0][1][0].z, y + cab[0][1][0].y, 0);
-		addTPoint(x + cab[0][1][1].z, y + cab[0][1][1].y, 0);
-		addTPoint(x + cab[0][2][1].z, y + cab[0][2][1].y, 0);
-		addTPoint(x + cab[0][2][0].z, y + cab[0][2][0].y, 0);
-
-		addTPoint(x + cab[0][2][0].z, y + cab[0][2][0].y, 0);
-		addTPoint(x + cab[0][2][1].z, y + cab[0][2][1].y, 0);
-		addTPoint(x + cab[0][3][1].z, y + cab[0][3][1].y, 0);
-		addTPoint(x + cab[0][3][0].z, y + cab[0][3][0].y, 0);
-
-		addTPoint(x + cab[0][3][0].z, y + cab[0][3][0].y, 0);
-		addTPoint(x + cab[0][3][1].z, y + cab[0][3][1].y, 0);
-		addTPoint(x + cab[0][4][1].z, y + cab[0][4][1].y, 0);
-		addTPoint(x + cab[0][4][0].z, y + cab[0][4][0].y, 0);
-
-		addTPoint(x + cab[0][4][0].z, y + cab[0][4][0].y, 0);
-		addTPoint(x + cab[0][4][1].z, y + cab[0][4][1].y, 0);
-		addTPoint(x + cab[0][5][1].z, y + cab[0][5][1].y, 0);
-		addTPoint(x + cab[0][5][0].z, y + cab[0][5][0].y, 0);
+			addTPoint(x + cab[0][i][0].z, y + cab[0][i][0].y, 0);
+			addTPoint(x + cab[0][i][1].z, y + cab[0][i][1].y, 0);
+			addTPoint(x + cab[0][i + 1][1].z, y + cab[0][i + 1][1].y, 0);
+			addTPoint(x + cab[0][i + 1][0].z, y + cab[0][i + 1][0].y, 0);
+		}
 
 		addTPoint(x + roof[0][0][0].z, y + roof[0][0][0].y, 0);
 		addTPoint(x + roof[0][0][1].z, y + roof[0][0][1].y, 0);

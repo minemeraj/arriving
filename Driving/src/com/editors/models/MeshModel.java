@@ -143,8 +143,8 @@ public abstract class MeshModel {
 
 			Point3D p0 = texturePoints.elementAt(indexes[i]);
 
-			p.xpoints[i] = (int) p0.getX();
-			p.ypoints[i] = (int) p0.getY();
+			p.xpoints[i] = cX(p0.getX());
+			p.ypoints[i] = cY(p0.getY());
 
 		}
 
