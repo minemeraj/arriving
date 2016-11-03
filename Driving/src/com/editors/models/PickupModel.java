@@ -27,6 +27,7 @@ public class PickupModel extends Truck0Model {
 
 	protected int nWagonUnits = 10;
 
+	int[][] tLeftRear = null;
 	int[][] tLeftWagon = null;
 	int[][] tBackWagon = null;
 	int[] tTopWagon = null;
@@ -54,15 +55,15 @@ public class PickupModel extends Truck0Model {
 
 		int c = 0;
 
+		c = initDoubleArrayValues(tLeftRear = new int[nyBody - 1][4], c);
 		c = initDoubleArrayValues(tLeftFront = new int[nYcab - 1][4], c);
 		c = initDoubleArrayValues(tLeftRoof = new int[2][4], c);
-		c = initSingleArrayValues(tBackRear = new int[4], c);
 		c = initDoubleArrayValues(tLeftWagon = new int[1][4], c);
+		c = initSingleArrayValues(tBackRear = new int[4], c);
 		c = initDoubleArrayValues(tBackWagon = new int[1][4], c);
 		c = initSingleArrayValues(tTopRear = new int[4], c);
 		c = initSingleArrayValues(tTopRoof = new int[4], c);
 		c = initSingleArrayValues(tTopFront = new int[4], c);
-
 		c = initDoubleArrayValues(tRe = new int[1][4], c);
 		c = initDoubleArrayValues(tWa = new int[1][4], c);
 		c = initDoubleArrayValues(tWi = new int[1][4], c);
@@ -111,7 +112,7 @@ public class PickupModel extends Truck0Model {
 		double y = by;
 		double x = bx;
 
-		double dyFr = dzRear + dzWagon + dyRoof + shift;
+		double dyFr = dzRear + dzWagon + shift;
 		buildLefTextures(x, y + dyFr, shift);
 		x += dzFront + dzRoof + shift;
 		/////
@@ -153,6 +154,13 @@ public class PickupModel extends Truck0Model {
 
 	private void buildLefTextures(double x, double y, int shift) {
 
+		for (int i = 0; i < rear.length - 1; i++) {
+			addTPoint(x + rear[i][0].z, y + rear[i][0].y, 0);
+			addTPoint(x + rear[i][3].z, y + rear[i][3].y, 0);
+			addTPoint(x + rear[i + 1][3].z, y + rear[i + 1][3].y, 0);
+			addTPoint(x + rear[i + 1][0].z, y + rear[i + 1][0].y, 0);
+		}
+
 		//// left front texture
 
 		addTPoint(x + cab[0][0][0].z, y + cab[0][0][0].y, 0);
@@ -189,6 +197,8 @@ public class PickupModel extends Truck0Model {
 		addTPoint(x + roof[0][1][1].z, y + roof[0][1][1].y, 0);
 		addTPoint(x + roof[0][2][0].z, y + roof[0][2][0].y, 0);
 		addTPoint(x + roof[0][2][0].z, y + roof[0][2][0].y, 0);
+
+		addTRect(x + dzRear, y, dzWagon, dyWagon);
 
 	}
 
@@ -501,14 +511,23 @@ public class PickupModel extends Truck0Model {
 
 		bufGraphics.setStroke(new BasicStroke(0.1f));
 
-		bufGraphics.setColor(new Color(72, 178, 230));
+		Color rearColor = new Color(217, 15, 27);
+		Color frontColor = new Color(72, 178, 230);
+
+		bufGraphics.setColor(rearColor);
+		for (int i = 0; i < tLeftRear.length; i++) {
+			printTexturePolygon(bufGraphics, tLeftRear[i]);
+		}
+		bufGraphics.setColor(frontColor);
 		for (int i = 0; i < tLeftFront.length; i++) {
 			printTexturePolygon(bufGraphics, tLeftFront[i]);
 		}
+		bufGraphics.setColor(rearColor);
+		printTexturePolygon(bufGraphics, tLeftWagon[0]);
 
-		bufGraphics.setColor(new Color(72, 178, 230));
+		bufGraphics.setColor(frontColor);
 		printTexturePolygon(bufGraphics, tTopFront);
-		bufGraphics.setColor(new Color(217, 15, 27));
+		bufGraphics.setColor(rearColor);
 		for (int i = 0; i < tLeftRoof.length; i++) {
 			printTexturePolygon(bufGraphics, tLeftRoof[i]);
 		}
@@ -516,11 +535,10 @@ public class PickupModel extends Truck0Model {
 		printTexturePolygon(bufGraphics, tTopRear);
 		printTexturePolygon(bufGraphics, tBackWagon[0]);
 		printTexturePolygon(bufGraphics, tBackRear);
-
-		bufGraphics.setColor(new Color(217, 15, 27));
+		bufGraphics.setColor(rearColor);
 		printTexturePolygon(bufGraphics, tRe[0]);
 
-		bufGraphics.setColor(new Color(217, 15, 27));
+		bufGraphics.setColor(rearColor);
 		printTexturePolygon(bufGraphics, tWa[0]);
 
 		bufGraphics.setColor(Color.BLUE);
