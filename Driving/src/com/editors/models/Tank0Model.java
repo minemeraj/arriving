@@ -96,11 +96,11 @@ public class Tank0Model extends VehicleModel {
 		c = initSingleArrayValues(tBackBody = new int[4], c);
 		c = initSingleArrayValues(tBackRightTrack = new int[4], c);
 		c = initSingleArrayValues(tTopLeftTrack = new int[4], c);
-		c = initSingleArrayValues(tRightSideTrack = new int[4], c);
-		c = initSingleArrayValues(tTrackPath = new int[4], c);
 		c = initSingleArrayValues(tTopBody = new int[4], c);
 		c = initSingleArrayValues(tTopRightTrack = new int[4], c);
 		c = initSingleArrayValues(tTopTurret = new int[4], c);
+		c = initSingleArrayValues(tRightSideTrack = new int[4], c);
+		c = initSingleArrayValues(tTrackPath = new int[4], c);
 		c = initDoubleArrayValues(tCannon = new int[wheel_rays][4], c);
 		c = initDoubleArrayValues(tBo = new int[1][4], c);
 		c = initSingleArrayValues(tTu = new int[4], c);
@@ -136,9 +136,9 @@ public class Tank0Model extends VehicleModel {
 		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, body[1][0][0], body[1][1][0], body[1][1][1], body[1][0][1],
 				tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, body[0][1][0], body[0][1][1], body[1][1][1], body[1][1][0],
-				tBo[0]);
+				tFrontBody);
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, body[0][0][0], body[1][0][0], body[1][0][1], body[0][0][1],
-				tBo[0]);
+				tBackBody);
 		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[0][0][0], body[0][1][0], body[1][1][0], body[1][0][0],
 				tBo[0]);
 
@@ -178,34 +178,20 @@ public class Tank0Model extends VehicleModel {
 		double deltaXTu = midX - dxRoof * 0.5;
 		double maxHeight = Math.max(dy, Math.max(dyTopTrack, dyTexture));
 
-		// left side track
 		y += dzTrack;
-		addTPoint(x, y + rearOverhang, 0);
-		addTPoint(x + dzTrack, y, 0);
-		addTPoint(x + dzTrack, y + dyTopTrack, 0);
-		addTPoint(x, y + rearOverhang + dyBottomTrack, 0);
+		buildLeftSideTrackTexture(x, y);
 		x += dzTrack + shift;
-
 		y = by;
 		buildBackTextures(x, y);
 		y += dzTrack;
-		addTRect(x, y, dxTrack, dyTopTrack);
-		addTRect(x + deltaXBo, y, dx, dy);
-		addTRect(x + dxTrack + dx, y, dxTrack, dyTopTrack);
-		addTRect(x + deltaXTu, y + dyRear, dxRoof, dyRoof);
+		buildTopTextures(x, y, deltaXBo, deltaXTu);
 		x += maxWidth + shift;
-		// right side track
-		addTPoint(x, y, 0);
-		addTPoint(x + dzTrack, y + rearOverhang, 0);
-		addTPoint(x + dzTrack, y + rearOverhang + dyBottomTrack, 0);
-		addTPoint(x, y + dyTopTrack, 0);
+		buildRightSideTrackTexture(x, y);
 		x += dzTrack + shift;
 		addTRect(x, y + rearOverhang, dxTrack, dyBottomTrack);
 		x += dxTrack;
-		for (int i = 0; i < wheel_rays; i++) {
-			addTRect(x, y, wheelRadius, wheelWidth);
-			x += wheelRadius;
-		}
+		buildCannonTextures(x, y);
+		x += wheelRadius * wheel_rays;
 		x += +shift;
 		addTRect(x, y, dx, dy);
 		x += dx + shift;
@@ -219,6 +205,38 @@ public class Tank0Model extends VehicleModel {
 		IMG_WIDTH = (int) (2 * bx + dzTrack + dx + dzTrack + maxWidth + wheelRadius * wheel_rays + dxRoof + dxTrack
 				+ 6 * shift);
 		IMG_HEIGHT = (int) (2 * by + maxHeight + dzTrack + dzTrack);
+
+	}
+
+	private void buildCannonTextures(double x, double y) {
+		for (int i = 0; i < wheel_rays; i++) {
+			addTRect(x, y, wheelRadius, wheelWidth);
+			x += wheelRadius;
+		}
+
+	}
+
+	private void buildRightSideTrackTexture(double x, double y) {
+		addTPoint(x, y, 0);
+		addTPoint(x + dzTrack, y + rearOverhang, 0);
+		addTPoint(x + dzTrack, y + rearOverhang + dyBottomTrack, 0);
+		addTPoint(x, y + dyTopTrack, 0);
+
+	}
+
+	private void buildLeftSideTrackTexture(double x, double y) {
+		addTPoint(x, y + rearOverhang, 0);
+		addTPoint(x + dzTrack, y, 0);
+		addTPoint(x + dzTrack, y + dyTopTrack, 0);
+		addTPoint(x, y + rearOverhang + dyBottomTrack, 0);
+
+	}
+
+	private void buildTopTextures(double x, double y, double deltaXBo, double deltaXTu) {
+		addTRect(x, y, dxTrack, dyTopTrack);
+		addTRect(x + deltaXBo, y, dx, dy);
+		addTRect(x + dxTrack + dx, y, dxTrack, dyTopTrack);
+		addTRect(x + deltaXTu, y + dyRear, dxRoof, dyRoof);
 
 	}
 
@@ -310,6 +328,8 @@ public class Tank0Model extends VehicleModel {
 		for (int i = 0; i < tracks.length; i++) {
 
 			int[] tTopTrack = (i == 0 ? tTopLeftTrack : tTopRightTrack);
+			int[] tFrontrack = (i == 0 ? tFrontLeftTrack : tFrontRightTrack);
+			int[] tbackTrack = (i == 0 ? tBackLeftTrack : tBackRightTrack);
 
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, tracks[i][0][0][1], tracks[i][1][0][1], tracks[i][1][1][1],
 					tracks[i][0][1][1], tTopTrack);
@@ -318,9 +338,9 @@ public class Tank0Model extends VehicleModel {
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, tracks[i][1][0][1], tracks[i][1][0][0],
 					tracks[i][1][1][0], tracks[i][1][1][1], tRightSideTrack);
 			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, tracks[i][0][1][0], tracks[i][0][1][1],
-					tracks[i][1][1][1], tracks[i][1][1][0], tFrontBody);
+					tracks[i][1][1][1], tracks[i][1][1][0], tFrontrack);
 			faces[counter++] = buildFace(Renderer3D.CAR_BACK, tracks[i][0][0][0], tracks[i][1][0][0],
-					tracks[i][1][0][1], tracks[i][0][0][1], tBackLeftTrack);
+					tracks[i][1][0][1], tracks[i][0][0][1], tbackTrack);
 			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, tracks[i][0][0][0], tracks[i][0][1][0],
 					tracks[i][1][1][0], tracks[i][1][0][0], tTrackPath);
 
