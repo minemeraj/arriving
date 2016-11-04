@@ -37,9 +37,9 @@ public class PickupModel extends Truck0Model {
 	int[] tTopFront = null;
 	int[] tTopRoof = null;
 	int[][] tRightRear;
-	private int[][] tRightFront;
-	private int[][] tRightRoof;
-	private int[][] tRightWagon;
+	int[][] tRightFront;
+	int[][] tRightRoof;
+	int[][] tRightWagon;
 
 	public PickupModel(double dxFront, double dyfront, double dzFront, double dxRoof, double dyRoof, double dzRoof,
 			double dxRear, double dyRear, double dzRear, double dxWagon, double dyWagon, double dzWagon,
@@ -159,31 +159,35 @@ public class PickupModel extends Truck0Model {
 
 	private void buildRightTextures(double x, double y, int shift) {
 
+		double dzRight = dzRoof + dzFront;
+
 		for (int i = 0; i < rear.length - 1; i++) {
-			addTPoint(x + rear[i][0].z, y + rear[i][0].y, 0);
-			addTPoint(x + rear[i][3].z, y + rear[i][3].y, 0);
-			addTPoint(x + rear[i + 1][3].z, y + rear[i + 1][3].y, 0);
-			addTPoint(x + rear[i + 1][0].z, y + rear[i + 1][0].y, 0);
+			addTPoint(x + dzRight - rear[i][3].z, y + rear[i][3].y, 0);
+			addTPoint(x + dzRight - rear[i][0].z, y + rear[i][0].y, 0);
+			addTPoint(x + dzRight - rear[i + 1][0].z, y + rear[i + 1][0].y, 0);
+			addTPoint(x + dzRight - rear[i + 1][3].z, y + rear[i + 1][3].y, 0);
+
 		}
 
 		for (int i = 0; i < nYcab - 1; i++) {
-			addTPoint(x + cab[0][i][0].z, y + cab[0][i][0].y, 0);
-			addTPoint(x + cab[0][i][1].z, y + cab[0][i][1].y, 0);
-			addTPoint(x + cab[0][i + 1][1].z, y + cab[0][i + 1][1].y, 0);
-			addTPoint(x + cab[0][i + 1][0].z, y + cab[0][i + 1][0].y, 0);
+
+			addTPoint(x + dzRight - cab[0][i][1].z, y + cab[0][i][1].y, 0);
+			addTPoint(x + dzRight - cab[0][i][0].z, y + cab[0][i][0].y, 0);
+			addTPoint(x + dzRight - cab[0][i + 1][0].z, y + cab[0][i + 1][0].y, 0);
+			addTPoint(x + dzRight - cab[0][i + 1][1].z, y + cab[0][i + 1][1].y, 0);
+
 		}
+		addTPoint(x + dzRight - roof[0][0][1].z, y + roof[0][0][1].y, 0);
+		addTPoint(x + dzRight - roof[0][0][0].z, y + roof[0][0][0].y, 0);
+		addTPoint(x + dzRight - roof[0][1][0].z, y + roof[0][1][0].y, 0);
+		addTPoint(x + dzRight - roof[0][1][1].z, y + roof[0][1][1].y, 0);
 
-		addTPoint(x + roof[0][0][0].z, y + roof[0][0][0].y, 0);
-		addTPoint(x + roof[0][0][1].z, y + roof[0][0][1].y, 0);
-		addTPoint(x + roof[0][1][1].z, y + roof[0][1][1].y, 0);
-		addTPoint(x + roof[0][1][0].z, y + roof[0][1][0].y, 0);
+		addTPoint(x + dzRight - roof[0][1][1].z, y + roof[0][1][1].y, 0);
+		addTPoint(x + dzRight - roof[0][1][0].z, y + roof[0][1][0].y, 0);
+		addTPoint(x + dzRight - roof[0][2][0].z, y + roof[0][2][0].y, 0);
+		addTPoint(x + dzRight - roof[0][2][0].z, y + roof[0][2][0].y, 0);
 
-		addTPoint(x + roof[0][1][0].z, y + roof[0][1][0].y, 0);
-		addTPoint(x + roof[0][1][1].z, y + roof[0][1][1].y, 0);
-		addTPoint(x + roof[0][2][0].z, y + roof[0][2][0].y, 0);
-		addTPoint(x + roof[0][2][0].z, y + roof[0][2][0].y, 0);
-
-		addTRect(x + dzRear, y, dzWagon, dyWagon);
+		addTRect(x + dzRight - dzRear - dzWagon, y, dzWagon, dyWagon);
 	}
 
 	private void buildTopTextures(double x, double y, int shift) {
