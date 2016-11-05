@@ -31,10 +31,10 @@ public class Truck0Model extends VehicleModel {
 	protected int[] tBackRear = null;
 	protected int[][] tRe = null;
 	// wagon textures
-	protected int[] tBackWa = null;
-	protected int[] tLeftWa = null;
-	protected int[][] tWa = null;
-	protected int[] tRightWa = null;
+	protected int[][] tBackWagon = null;
+	protected int[][] tLeftWagon = null;
+	protected int[][] tWagon = null;
+	protected int[][] tRightWagon = null;
 	// window texture
 	protected int[][] tWi = null;
 	// wheel texture
@@ -94,10 +94,10 @@ public class Truck0Model extends VehicleModel {
 		int c = 0;
 		c = initDoubleArrayValues(tRe = new int[1][4], c);
 		c = initSingleArrayValues(tBackRear = new int[4], c);
-		c = initSingleArrayValues(tBackWa = new int[4], c);
-		c = initSingleArrayValues(tLeftWa = new int[4], c);
-		c = initDoubleArrayValues(tWa = new int[1][4], c);
-		c = initSingleArrayValues(tRightWa = new int[4], c);
+		c = initDoubleArrayValues(tBackWagon = new int[1][4], c);
+		c = initDoubleArrayValues(tLeftWagon = new int[1][4], c);
+		c = initDoubleArrayValues(tWagon = new int[1][4], c);
+		c = initDoubleArrayValues(tRightWagon = new int[1][4], c);
 		c = initDoubleArrayValues(tWi = new int[1][4], c);
 		c = initDoubleArrayValues(tWh = new int[1][4], c);
 
@@ -250,23 +250,23 @@ public class Truck0Model extends VehicleModel {
 	 */
 	protected int buildWagonFaces(int counter, int nzWagon) {
 
-		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0], wagon[0][3], wagon[0][2], wagon[0][1], tWa[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0], wagon[0][3], wagon[0][2], wagon[0][1], tWagon[0]);
 
 		for (int k = 0; k < nzWagon - 1; k++) {
 
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, wagon[k][0], wagon[k + 1][0], wagon[k + 1][3],
-					wagon[k][3], tLeftWa);
+					wagon[k][3], tLeftWagon[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_BACK, wagon[k][0], wagon[k][1], wagon[k + 1][1],
-					wagon[k + 1][0], tBackWa);
+					wagon[k + 1][0], tBackWagon[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagon[k + 1][1], wagon[k][1], wagon[k][2],
-					wagon[k + 1][2], tRightWa);
+					wagon[k + 1][2], tRightWagon[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, wagon[k][2], wagon[k][3], wagon[k + 1][3],
-					wagon[k + 1][2], tWa[0]);
+					wagon[k + 1][2], tWagon[0]);
 
 		}
 
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, wagon[nzWagon - 1][0], wagon[nzWagon - 1][1],
-				wagon[nzWagon - 1][2], wagon[nzWagon - 1][3], tWa[0]);
+				wagon[nzWagon - 1][2], wagon[nzWagon - 1][3], tWagon[0]);
 
 		return counter;
 	}
@@ -448,10 +448,10 @@ public class Truck0Model extends VehicleModel {
 		printTexturePolygon(bufGraphics, tRe[0]);
 		printTexturePolygon(bufGraphics, tBackRear);
 		bufGraphics.setColor(new Color(255, 255, 255));
-		printTexturePolygon(bufGraphics, tBackWa);
-		printTexturePolygon(bufGraphics, tLeftWa);
-		printTexturePolygon(bufGraphics, tWa[0]);
-		printTexturePolygon(bufGraphics, tRightWa);
+		printTexturePolygon(bufGraphics, tBackWagon[0]);
+		printTexturePolygon(bufGraphics, tLeftWagon[0]);
+		printTexturePolygon(bufGraphics, tWagon[0]);
+		printTexturePolygon(bufGraphics, tRightWagon[0]);
 
 		bufGraphics.setColor(Color.BLUE);
 		printTexturePolygon(bufGraphics, tWi[0]);

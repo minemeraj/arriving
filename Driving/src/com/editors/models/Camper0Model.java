@@ -50,7 +50,7 @@ public class Camper0Model extends PickupModel {
 		c = initDoubleArrayValues(tRightRoof = new int[2][4], c);
 		c = initDoubleArrayValues(tRightWagon = new int[2][4], c);
 		c = initDoubleArrayValues(tRe = new int[1][4], c);
-		c = initDoubleArrayValues(tWa = new int[1][4], c);
+		c = initDoubleArrayValues(tWagon = new int[1][4], c);
 		c = initDoubleArrayValues(tWi = new int[1][4], c);
 		c = initDoubleArrayValues(tWh = new int[1][4], c);
 
@@ -255,7 +255,7 @@ public class Camper0Model extends PickupModel {
 	@Override
 	protected int buildWagonFaces(int counter, int nzWagon) {
 
-		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0], wagon[0][3], wagon[0][2], wagon[0][1], tWa[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0], wagon[0][3], wagon[0][2], wagon[0][1], tWagon[0]);
 
 		for (int k = 0; k < nzWagon - 1; k++) {
 
@@ -266,15 +266,15 @@ public class Camper0Model extends PickupModel {
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagon[k][1], wagon[k][2], wagon[k + 1][2],
 					wagon[k + 1][1], tRightWagon[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, wagon[k][2], wagon[k][3], wagon[k + 1][3],
-					wagon[k + 1][2], tWa[0]);
+					wagon[k + 1][2], tWagon[0]);
 
 		}
 
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, wagon[nzWagon - 1][0], wagon[nzWagon - 1][1],
-				wagon[nzWagon - 1][2], wagon[nzWagon - 1][3], tWa[0]);
+				wagon[nzWagon - 1][2], wagon[nzWagon - 1][3], tWagon[0]);
 
 		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagon2[0][0], wagon2[0][3], wagon2[0][2], wagon2[0][1],
-				tWa[0]);
+				tWagon[0]);
 
 		for (int k = 0; k < nzWagon - 1; k++) {
 
@@ -285,7 +285,7 @@ public class Camper0Model extends PickupModel {
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagon2[k][1], wagon2[k][2], wagon2[k + 1][2],
 					wagon2[k + 1][1], tRightWagon[1]);
 			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, wagon2[k][2], wagon2[k][3], wagon2[k + 1][3],
-					wagon2[k + 1][2], tWa[0]);
+					wagon2[k + 1][2], tWagon[0]);
 
 		}
 
@@ -421,7 +421,7 @@ public class Camper0Model extends PickupModel {
 		printTexturePolygon(bufGraphics, tRe[0]);
 
 		bufGraphics.setColor(wagonColor1);
-		printTexturePolygon(bufGraphics, tWa[0]);
+		printTexturePolygon(bufGraphics, tWagon[0]);
 
 		bufGraphics.setColor(Color.BLUE);
 		printTexturePolygon(bufGraphics, tWi[0]);

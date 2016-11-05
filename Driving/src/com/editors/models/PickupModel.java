@@ -28,8 +28,6 @@ public class PickupModel extends Truck0Model {
 	protected int nWagonUnits = 10;
 
 	int[][] tLeftRear = null;
-	int[][] tLeftWagon = null;
-	int[][] tBackWagon = null;
 	int[] tTopWagon = null;
 	int[] tTopRear = null;
 	int[][] tLeftFront = null;
@@ -39,7 +37,6 @@ public class PickupModel extends Truck0Model {
 	int[][] tRightRear;
 	int[][] tRightFront;
 	int[][] tRightRoof;
-	int[][] tRightWagon;
 
 	public PickupModel(double dxFront, double dyfront, double dzFront, double dxRoof, double dyRoof, double dzRoof,
 			double dxRear, double dyRear, double dzRear, double dxWagon, double dyWagon, double dzWagon,
@@ -73,7 +70,7 @@ public class PickupModel extends Truck0Model {
 		c = initDoubleArrayValues(tRightRoof = new int[2][4], c);
 		c = initDoubleArrayValues(tRightWagon = new int[1][4], c);
 		c = initDoubleArrayValues(tRe = new int[1][4], c);
-		c = initDoubleArrayValues(tWa = new int[1][4], c);
+		c = initDoubleArrayValues(tWagon = new int[1][4], c);
 		c = initDoubleArrayValues(tWi = new int[1][4], c);
 		c = initDoubleArrayValues(tWh = new int[1][4], c);
 
@@ -377,11 +374,11 @@ public class PickupModel extends Truck0Model {
 		for (int i = 0; i < numSections - 1; i++) {
 
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, rear[i + 1][0], rear[i][0], rear[i][3], rear[i + 1][3],
-					tRe[0]);
+					tLeftRear[i]);
 			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, rear[i][0], rear[i + 1][0], rear[i + 1][1], rear[i][1],
 					tRe[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, rear[i][1], rear[i + 1][1], rear[i + 1][2], rear[i][2],
-					tRe[0]);
+					tRightRear[i]);
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, rear[i][3], rear[i][2], rear[i + 1][2], rear[i + 1][3],
 					tTopRear);
 
@@ -413,25 +410,17 @@ public class PickupModel extends Truck0Model {
 
 			for (int k = 0; k < nzCab - 1; k++) {
 
-				// set windows in the upper part
-				int[] ca = null;
-				if (k > 0) {
-					ca = tWi[0];
-				} else {
-					ca = tRe[0];
-				}
-
 				faces[counter++] = buildFace(Renderer3D.CAR_LEFT, cab[0][j][k], cab[0][j][k + 1], cab[0][j + 1][k + 1],
-						cab[0][j + 1][k], ca);
+						cab[0][j + 1][k], tLeftFront[j]);
 				if (j == 0) {
 					faces[counter++] = buildFace(Renderer3D.CAR_BACK, cab[0][j][k], cab[1][j][k], cab[1][j][k + 1],
 							cab[0][j][k + 1], tRe[0]);
 				}
 				faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, cab[1][j][k], cab[1][j + 1][k], cab[1][j + 1][k + 1],
-						cab[1][j][k + 1], ca);
+						cab[1][j][k + 1], tRightFront[j]);
 				if (j == nYcab - 2) {
 					faces[counter++] = buildFace(Renderer3D.CAR_FRONT, cab[0][nYcab - 1][k], cab[0][nYcab - 1][k + 1],
-							cab[1][nYcab - 1][k + 1], cab[1][nYcab - 1][k], ca);
+							cab[1][nYcab - 1][k + 1], cab[1][nYcab - 1][k], tRe[0]);
 				}
 
 			}
@@ -442,17 +431,17 @@ public class PickupModel extends Truck0Model {
 		}
 
 		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, roof[0][0][0], roof[0][0][1], roof[0][1][1], roof[0][1][0],
-				tWi[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, roof[0][1][0], roof[0][1][1], roof[0][2][0], tWi[0]);
+				tLeftRoof[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, roof[0][1][0], roof[0][1][1], roof[0][2][0], tLeftRoof[1]);
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, roof[0][0][1], roof[1][0][1], roof[1][1][1], roof[0][1][1],
-				tTopFront);
+				tTopRoof);
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, roof[0][1][1], roof[1][1][1], roof[1][2][0], roof[0][2][0],
 				tWi[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, roof[0][0][0], roof[1][0][0], roof[1][0][1], roof[0][0][1],
 				tWi[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][0][0], roof[1][1][0], roof[1][1][1], roof[1][0][1],
-				tWi[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][1][0], roof[1][2][0], roof[1][1][1], tWi[0]);
+				tRightRoof[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][1][0], roof[1][2][0], roof[1][1][1], tRightRoof[1]);
 
 		return counter;
 	}
@@ -538,10 +527,10 @@ public class PickupModel extends Truck0Model {
 	@Override
 	protected int buildWagonFaces(int counter, int nWagonMeridians) {
 
-		counter = addPrism(prismRight, counter, tWa[0]);
-		counter = addPrism(prismLeft, counter, tWa[0]);
+		counter = addPrism(prismRight, counter, tRightWagon[0]);
+		counter = addPrism(prismLeft, counter, tLeftWagon[0]);
 		counter = addPrism(prismBack, counter, tBackWagon[0]);
-		counter = addPrism(prismFront, counter, tWa[0]);
+		counter = addPrism(prismFront, counter, tWagon[0]);
 
 		return counter;
 	}
@@ -594,7 +583,7 @@ public class PickupModel extends Truck0Model {
 		printTexturePolygon(bufGraphics, tRe[0]);
 
 		bufGraphics.setColor(rearColor);
-		printTexturePolygon(bufGraphics, tWa[0]);
+		printTexturePolygon(bufGraphics, tWagon[0]);
 
 		bufGraphics.setColor(Color.BLUE);
 		printTexturePolygon(bufGraphics, tWi[0]);

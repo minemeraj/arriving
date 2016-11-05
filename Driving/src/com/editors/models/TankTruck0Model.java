@@ -29,7 +29,7 @@ public class TankTruck0Model extends Truck0Model {
 
 		int c = 0;
 		initDoubleArrayValues(tRe = new int[1][4], c);
-		initDoubleArrayValues(tWa = new int[1][4], c);
+		initDoubleArrayValues(tWagon = new int[1][4], c);
 		initDoubleArrayValues(tWi = new int[1][4], c);
 		initDoubleArrayValues(tWh = new int[1][4], c);
 

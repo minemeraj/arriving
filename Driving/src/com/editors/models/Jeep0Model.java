@@ -41,7 +41,7 @@ public class Jeep0Model extends PickupModel {
 		c = initSingleArrayValues(tTopRear = new int[4], c);
 		c = initSingleArrayValues(tTopFront = new int[4], c);
 		c = initDoubleArrayValues(tRe = new int[1][4], c);
-		c = initDoubleArrayValues(tWa = new int[1][4], c);
+		c = initDoubleArrayValues(tWagon = new int[1][4], c);
 		c = initDoubleArrayValues(tWi = new int[1][4], c);
 		c = initDoubleArrayValues(tWh = new int[1][4], c);
 
@@ -399,7 +399,7 @@ public class Jeep0Model extends PickupModel {
 
 		int numSections = wagonBlock.length;
 
-		int[] backTexture = tWa[0];
+		int[] backTexture = tWagon[0];
 		if (wagonBlock == wagonBack) {
 			backTexture = tBackWagon[0];
 		}
@@ -410,17 +410,17 @@ public class Jeep0Model extends PickupModel {
 		for (int i = 0; i < numSections - 1; i++) {
 
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, wagonBlock[i + 1][0], wagonBlock[i][0], wagonBlock[i][3],
-					wagonBlock[i + 1][3], tWa[0]);
+					wagonBlock[i + 1][3], tWagon[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagonBlock[i][0], wagonBlock[i + 1][0],
-					wagonBlock[i + 1][1], wagonBlock[i][1], tWa[0]);
+					wagonBlock[i + 1][1], wagonBlock[i][1], tWagon[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagonBlock[i][1], wagonBlock[i + 1][1],
-					wagonBlock[i + 1][2], wagonBlock[i][2], tWa[0]);
+					wagonBlock[i + 1][2], wagonBlock[i][2], tWagon[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, wagonBlock[i][3], wagonBlock[i][2], wagonBlock[i + 1][2],
 					wagonBlock[i + 1][3], tTopWagon);
 
 		}
 		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, wagonBlock[numSections - 1][0],
-				wagonBlock[numSections - 1][3], wagonBlock[numSections - 1][2], wagonBlock[numSections - 1][1], tWa[0]);
+				wagonBlock[numSections - 1][3], wagonBlock[numSections - 1][2], wagonBlock[numSections - 1][1], tWagon[0]);
 		return counter;
 
 	}
@@ -444,18 +444,18 @@ public class Jeep0Model extends PickupModel {
 
 	protected int buildRearFaces(int counter, int nzRear) {
 
-		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, rear[0][0], rear[0][3], rear[0][2], rear[0][1], tWa[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, rear[0][0], rear[0][3], rear[0][2], rear[0][1], tWagon[0]);
 
 		for (int k = 0; k < nzRear - 1; k++) {
 
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, rear[k][0], rear[k + 1][0], rear[k + 1][3], rear[k][3],
-					tWa[0]);
+					tWagon[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_BACK, rear[k][0], rear[k][1], rear[k + 1][1], rear[k + 1][0],
-					tWa[0]);
+					tWagon[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, rear[k][1], rear[k][2], rear[k + 1][2], rear[k + 1][1],
-					tWa[0]);
+					tWagon[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, rear[k][2], rear[k][3], rear[k + 1][3], rear[k + 1][2],
-					tWa[0]);
+					tWagon[0]);
 
 		}
 
@@ -499,7 +499,7 @@ public class Jeep0Model extends PickupModel {
 		bufGraphics.setColor(new Color(111, 140, 112));
 		printTexturePolygon(bufGraphics, tRe[0]);
 		bufGraphics.setColor(new Color(123, 110, 79));
-		printTexturePolygon(bufGraphics, tWa[0]);
+		printTexturePolygon(bufGraphics, tWagon[0]);
 		bufGraphics.setColor(Color.BLUE);
 		printTexturePolygon(bufGraphics, tWi[0]);
 		bufGraphics.setColor(Color.BLACK);
