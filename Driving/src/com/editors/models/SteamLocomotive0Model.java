@@ -104,7 +104,7 @@ public class SteamLocomotive0Model extends VehicleModel {
 		buildTextures();
 
 		// faces
-		int NF = 6 * 3;
+		int NF = 6 * 2;
 		// cabin
 		NF += 6;
 		// funnel
@@ -133,7 +133,7 @@ public class SteamLocomotive0Model extends VehicleModel {
 
 		cabin = new BPoint[2][2][2];
 
-		Segments cb = new Segments(x0, dx, y0, dy - dyRoof, z0 + dzRear + dz, dzRoof);
+		Segments cb = new Segments(x0, dxRoof, y0, dyRoof, z0 + dzRear, dzRoof);
 		cabin[0][0][0] = addBPoint(-0.5, 0, 0, cb);
 		cabin[1][0][0] = addBPoint(0.5, 0, 0, cb);
 		cabin[1][1][0] = addBPoint(0.5, 1, 0, cb);
@@ -179,20 +179,6 @@ public class SteamLocomotive0Model extends VehicleModel {
 
 	protected void buildBody(int pnx, int pny, int pnz) {
 
-		body = new BPoint[pnx][pny][pnz];
-
-		Segments p0 = new Segments(0, dx, 0, dy, dzRear, dz);
-
-		body[0][0][0] = addBPoint(-0.5, 0.0, 0, p0);
-		body[1][0][0] = addBPoint(0.5, 0.0, 0, p0);
-		body[0][0][1] = addBPoint(-0.5, 0.0, 1.0, p0);
-		body[1][0][1] = addBPoint(0.5, 0.0, 1.0, p0);
-
-		body[0][1][0] = addBPoint(-0.5, 1.0, 0, p0);
-		body[1][1][0] = addBPoint(0.5, 1.0, 0, p0);
-		body[0][1][1] = addBPoint(-0.5, 1.0, 1.0, p0);
-		body[1][1][1] = addBPoint(0.5, 1.0, 1.0, p0);
-
 		int bnx = 2;
 		int bny = 2;
 		int bnz = 2;
@@ -224,7 +210,7 @@ public class SteamLocomotive0Model extends VehicleModel {
 
 		front = new BPoint[fnx][fny][fnz];
 
-		double fy = dy - dyFront - frontOverhang;
+		double fy = dyRoof + dy - dyFront - frontOverhang;
 
 		Segments f0 = new Segments(0, dxFront, fy, dyFront, 0, dzFront);
 
@@ -247,19 +233,6 @@ public class SteamLocomotive0Model extends VehicleModel {
 	}
 
 	protected int buildBodyFaces(int counter, int firstWheelTexturePoint, int totWheelPolygon) {
-
-		faces[counter++] = buildFace(Renderer3D.CAR_TOP, body[0][0][1], body[1][0][1], body[1][1][1], body[0][1][1],
-				tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, body[0][0][0], body[0][0][1], body[0][1][1], body[0][1][0],
-				tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, body[1][0][0], body[1][1][0], body[1][1][1], body[1][0][1],
-				tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, body[0][1][0], body[0][1][1], body[1][1][1], body[1][1][0],
-				tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_BACK, body[0][0][0], body[1][0][0], body[1][0][1], body[0][0][1],
-				tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[0][0][0], body[0][1][0], body[1][1][0], body[1][0][0],
-				tBo[0]);
 
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, back[0][0][1], back[1][0][1], back[1][1][1], back[0][1][1],
 				tBo[0]);
@@ -300,11 +273,9 @@ public class SteamLocomotive0Model extends VehicleModel {
 
 	protected void buildBoiler() {
 
-		double rdy = (dy - dyRoof);
+		double radius = dx * 0.5;
 
-		double radius = dxRoof * 0.5;
-
-		BPoint[][] cylinder = addYCylinder(0, rdy, dzRear + dz + radius, radius, dyRoof, boilerRays);
+		BPoint[][] cylinder = addYCylinder(0, dyRoof, dzRear + radius, radius, dy, boilerRays);
 		wagon = new BPoint[1][][];
 		wagon[0] = cylinder;
 
@@ -348,8 +319,8 @@ public class SteamLocomotive0Model extends VehicleModel {
 	private void buildFunnel() {
 
 		double fx = 0;
-		double fy = dy - funnel_radius;
-		double fz = dzFront + dzRoof;
+		double fy = dy + dyRoof - funnel_radius;
+		double fz = dzFront + dx;
 
 		funnel = new BPoint[funnel_parallels][funnel_meridians];
 		funnel = buildFunnel(fx, fy, fz, funnel_height, funnel_radius, 2, 10);
