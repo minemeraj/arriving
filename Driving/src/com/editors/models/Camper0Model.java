@@ -112,7 +112,7 @@ public class Camper0Model extends PickupModel {
 		x += dzRear + dzWagon0 + dzWagon + shift;
 
 		// body points
-		addTRect(x - shift, y, dxTexture, dyTexture);
+		addTRect(x, y, dxTexture, dyTexture);
 
 		// wagon points
 		x += dxTexture + shift;
@@ -186,10 +186,11 @@ public class Camper0Model extends PickupModel {
 		double dzRight = dzRear + dzWagon + dzWagon0;
 
 		for (int i = 0; i < rear.length - 1; i++) {
+			addTPoint(x + dzRight - rear[i + 1][3].z, y + rear[i + 1][3].y, 0);
 			addTPoint(x + dzRight - rear[i][3].z, y + rear[i][3].y, 0);
 			addTPoint(x + dzRight - rear[i][0].z, y + rear[i][0].y, 0);
 			addTPoint(x + dzRight - rear[i + 1][0].z, y + rear[i + 1][0].y, 0);
-			addTPoint(x + dzRight - rear[i + 1][3].z, y + rear[i + 1][3].y, 0);
+
 		}
 		for (int i = 0; i < nYcab - 1; i++) {
 
@@ -255,7 +256,8 @@ public class Camper0Model extends PickupModel {
 	@Override
 	protected int buildWagonFaces(int counter, int nzWagon) {
 
-		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0], wagon[0][3], wagon[0][2], wagon[0][1], tWagon[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0], wagon[0][3], wagon[0][2], wagon[0][1],
+				tWagon[0]);
 
 		for (int k = 0; k < nzWagon - 1; k++) {
 
@@ -263,8 +265,8 @@ public class Camper0Model extends PickupModel {
 					wagon[k][3], tLeftWagon[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_BACK, wagon[k][0], wagon[k][1], wagon[k + 1][1],
 					wagon[k + 1][0], tBackWagon[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagon[k][1], wagon[k][2], wagon[k + 1][2],
-					wagon[k + 1][1], tRightWagon[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagon[k + 1][1], wagon[k][1], wagon[k][2],
+					wagon[k + 1][2], tRightWagon[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, wagon[k][2], wagon[k][3], wagon[k + 1][3],
 					wagon[k + 1][2], tWagon[0]);
 
@@ -282,8 +284,8 @@ public class Camper0Model extends PickupModel {
 					wagon2[k][3], tLeftWagon[1]);
 			faces[counter++] = buildFace(Renderer3D.CAR_BACK, wagon2[k][0], wagon2[k][1], wagon2[k + 1][1],
 					wagon2[k + 1][0], tBackWagon[1]);
-			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagon2[k][1], wagon2[k][2], wagon2[k + 1][2],
-					wagon2[k + 1][1], tRightWagon[1]);
+			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, wagon2[k + 1][1], wagon2[k][1], wagon2[k][2],
+					wagon2[k + 1][2], tRightWagon[1]);
 			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, wagon2[k][2], wagon2[k][3], wagon2[k + 1][3],
 					wagon2[k + 1][2], tWagon[0]);
 
@@ -308,7 +310,7 @@ public class Camper0Model extends PickupModel {
 					tLeftRear[i]);
 			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, rear[i][0], rear[i + 1][0], rear[i + 1][1], rear[i][1],
 					tRe[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, rear[i][1], rear[i + 1][1], rear[i + 1][2], rear[i][2],
+			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, rear[i + 1][2], rear[i][2], rear[i][1], rear[i + 1][1],
 					tRightRear[i]);
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, rear[i][3], rear[i][2], rear[i + 1][2], rear[i + 1][3],
 					tRe[0]);
@@ -337,8 +339,8 @@ public class Camper0Model extends PickupModel {
 					faces[counter++] = buildFace(Renderer3D.CAR_BACK, cab[0][j][k], cab[1][j][k], cab[1][j][k + 1],
 							cab[0][j][k + 1], tRe[0]);
 				}
-				faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, cab[1][j][k], cab[1][j + 1][k], cab[1][j + 1][k + 1],
-						cab[1][j][k + 1], tRightFront[j]);
+				faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, cab[1][j][k + 1], cab[1][j][k], cab[1][j + 1][k],
+						cab[1][j + 1][k + 1], tRightFront[j]);
 				if (j == nYcab - 2) {
 					faces[counter++] = buildFace(Renderer3D.CAR_FRONT, cab[0][nYcab - 1][k], cab[0][nYcab - 1][k + 1],
 							cab[1][nYcab - 1][k + 1], cab[1][nYcab - 1][k], tRe[0]);
@@ -360,7 +362,7 @@ public class Camper0Model extends PickupModel {
 				tWi[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, roof[0][0][0], roof[1][0][0], roof[1][0][1], roof[0][0][1],
 				tWi[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][0][0], roof[1][1][0], roof[1][1][1], roof[1][0][1],
+		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][0][1], roof[1][0][0], roof[1][1][0], roof[1][1][1],
 				tRightRoof[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][1][0], roof[1][2][0], roof[1][1][1], tRightRoof[1]);
 
