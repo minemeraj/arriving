@@ -135,7 +135,7 @@ public class Tank0Model extends VehicleModel {
 				tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, body[1][0][0], body[1][1][0], body[1][1][1], body[1][0][1],
 				tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, body[0][1][0], body[0][1][1], body[1][1][1], body[1][1][0],
+		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, body[0][1][1], body[1][1][1], body[1][1][0], body[0][1][0],
 				tFrontBody);
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, body[0][0][0], body[1][0][0], body[1][0][1], body[0][0][1],
 				tBackBody);
@@ -337,12 +337,12 @@ public class Tank0Model extends VehicleModel {
 					tracks[i][0][1][1], tracks[i][0][1][0], tLeftSideTrack);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, tracks[i][1][0][1], tracks[i][1][0][0],
 					tracks[i][1][1][0], tracks[i][1][1][1], tRightSideTrack);
-			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, tracks[i][0][1][0], tracks[i][0][1][1],
-					tracks[i][1][1][1], tracks[i][1][1][0], tFrontrack);
+			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, tracks[i][0][1][1], tracks[i][1][1][1],
+					tracks[i][1][1][0], tracks[i][0][1][0], tFrontrack);
 			faces[counter++] = buildFace(Renderer3D.CAR_BACK, tracks[i][0][0][0], tracks[i][1][0][0],
 					tracks[i][1][0][1], tracks[i][0][0][1], tbackTrack);
-			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, tracks[i][0][0][0], tracks[i][0][1][0],
-					tracks[i][1][1][0], tracks[i][1][0][0], tTrackPath);
+			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, tracks[i][0][0][0], tracks[i][1][0][0],
+					tracks[i][0][1][0], tracks[i][1][1][0], tTrackPath);
 
 		}
 
