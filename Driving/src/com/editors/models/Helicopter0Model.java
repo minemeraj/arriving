@@ -22,14 +22,23 @@ public class Helicopter0Model extends VehicleModel {
 	// body textures
 	protected int[][] tBo = null;
 
+	private double dxTexture = 100;
+	private double dyTexture = 100;
+
 	private BPoint[][][] body;
-	private BPoint[][][] turret;
-	private BPoint[][] cannon_barrel;
 	private BPoint[][][][] propellers;
 	private BPoint[][][][] shoes;
 
-	private double dxTexture = 200;
-	private double dyTexture = 200;
+	protected int backNY = 4;
+	protected int fuselageNY = 2;
+	protected int frontNY = 4;
+	protected int bodyNX = 2;
+	protected int bodyNY = backNY + fuselageNY + frontNY;
+	protected int bodyNZ = 2;
+
+	private double dxShoes;
+	private double dyShoes;
+	private double dzShoes = 50;
 
 	public static String NAME = "Helicopter";
 
@@ -58,6 +67,10 @@ public class Helicopter0Model extends VehicleModel {
 
 		this.rearOverhang1 = rearOverhang1;
 		this.frontOverhang1 = frontOverhang1;
+
+		dxShoes = 10;
+		dyShoes = dy;
+
 	}
 
 	@Override
@@ -75,53 +88,35 @@ public class Helicopter0Model extends VehicleModel {
 		buildTextures();
 
 		// faces
-		int NF = 6 * 2;
+		int NF = (bodyNY - 1) * 4 + 2;// body
 		// propellers
 		NF += 6 * propellers.length;
 		// shoes
 		NF += 6 * shoes.length;
 
-		faces = new int[NF + cannon_barrel.length][3][4];
+		faces = new int[NF][3][4];
 
 		int counter = 0;
-		counter = buildFaces(counter);
+		counter = buildCabinFaces(counter, bodyNY);
 		counter = buildPropellersFaces(counter);
 		counter = buildShoesFaces(counter);
 	}
 
-	private int buildFaces(int counter) {
+	private int buildCabinFaces(int counter, int numy) {
 
-		faces[counter++] = buildFace(Renderer3D.CAR_TOP, body[0][0][1], body[1][0][1], body[1][1][1], body[0][1][1],
-				tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, body[0][0][0], body[0][0][1], body[0][1][1], body[0][1][0],
-				tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, body[1][0][0], body[1][1][0], body[1][1][1], body[1][0][1],
-				tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, body[0][1][0], body[0][1][1], body[1][1][1], body[1][1][0],
-				tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, body[0][0][0], body[1][0][0], body[1][0][1], body[0][0][1],
 				tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[0][0][0], body[0][1][0], body[1][1][0], body[1][0][0],
-				tBo[0]);
+		for (int k = 0; k < numy - 1; k++) {
 
-		faces[counter++] = buildFace(Renderer3D.CAR_TOP, turret[0][0][1], turret[1][0][1], turret[1][1][1],
-				turret[0][1][1], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, turret[0][0][0], turret[0][0][1], turret[0][1][1],
-				turret[0][1][0], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, turret[1][0][0], turret[1][1][0], turret[1][1][1],
-				turret[1][0][1], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, turret[0][1][0], turret[0][1][1], turret[1][1][1],
-				turret[1][1][0], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_BACK, turret[0][0][0], turret[1][0][0], turret[1][0][1],
-				turret[0][0][1], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, turret[0][0][0], turret[0][1][0], turret[1][1][0],
-				turret[1][0][0], tBo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, body[0][k][0], body[0][k][1], body[0][k + 1][1],
+					body[0][k + 1][0], tBo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[0][k][0], body[0][k + 1][0], body[1][k + 1][0],
+					body[1][k][0], tBo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, body[1][k][0], body[1][k + 1][0], body[1][k + 1][1],
+					body[1][k][1], tBo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_TOP, body[0][k][1], body[1][k][1], body[1][k + 1][1],
+					body[0][k + 1][1], tBo[0]);
 
-		for (int i = 0; i < cannon_barrel.length; i++) {
-
-			faces[counter++] = buildFace(Renderer3D.CAR_TOP, cannon_barrel[i][0],
-					cannon_barrel[(i + 1) % cannon_barrel.length][0], cannon_barrel[(i + 1) % cannon_barrel.length][1],
-					cannon_barrel[i][1], 0, 1, 2, 3);
 		}
 
 		return counter;
@@ -146,35 +141,88 @@ public class Helicopter0Model extends VehicleModel {
 
 	private void buildBody() {
 
-		Segments s0 = new Segments(0, dx * 0.5, 0, dy, dz, dz);
+		body = new BPoint[bodyNX][bodyNY][bodyNZ];
 
-		body = new BPoint[2][2][2];
+		double back_width = dxRear;
+		double back_width1 = dxRear * (1 - 0.3) + dx * 0.3;
+		double back_width2 = dxRear * (1 - 0.6) + dx * 0.6;
+		double back_width3 = dxRear * (1 - 0.9) + dx * 0.9;
 
-		body[0][0][0] = addBPoint(-1.0, 0.0, 0, s0);
-		body[1][0][0] = addBPoint(1.0, 0.0, 0, s0);
-		body[0][1][0] = addBPoint(-1.0, 1.0, 0, s0);
-		body[1][1][0] = addBPoint(1.0, 1.0, 0, s0);
+		double back_height = dzRear;
+		double back_height1 = dzRear * (1 - 0.3) + dz * 0.3;
+		double back_height2 = dzRear * (1 - 0.6) + dz * 0.6;
+		double back_height3 = dzRear * (1 - 0.9) + dz * 0.9;
 
-		body[0][0][1] = addBPoint(-1.0, 0.0, 1.0, s0);
-		body[1][0][1] = addBPoint(1.0, 0.0, 1.0, s0);
-		body[0][1][1] = addBPoint(-1.0, 1.0, 1.0, s0);
-		body[1][1][1] = addBPoint(1.0, 1.0, 1.0, s0);
+		Segments b0 = new Segments(0, back_width, 0, dyRear, dz - dzRear + dzShoes, back_height);
+		Segments b1 = new Segments(0, back_width1, 0, dyRear, dz - back_height1 + dzShoes, back_height1);
+		Segments b2 = new Segments(0, back_width2, 0, dyRear, dz - back_height2 + dzShoes, back_height2);
+		Segments b3 = new Segments(0, back_width3, 0, dyRear, dz - back_height3 + dzShoes, back_height3);
 
-		Segments s1 = new Segments(0, dxRoof * 0.5, dyRear, dyRoof, dz + dz, dzRoof);
+		body[0][0][0] = addBPoint(-0.5, 0.0, 0, b0);
+		body[1][0][0] = addBPoint(0.5, 0.0, 0, b0);
+		body[0][0][1] = addBPoint(-0.5, 0.0, 1.0, b0);
+		body[1][0][1] = addBPoint(0.5, 0.0, 1.0, b0);
 
-		turret = new BPoint[2][2][2];
+		body[0][1][0] = addBPoint(-0.5, 0.25, 0, b1);
+		body[1][1][0] = addBPoint(0.5, 0.25, 0, b1);
+		body[0][1][1] = addBPoint(-0.5, 0.25, 1.0, b1);
+		body[1][1][1] = addBPoint(0.5, 0.25, 1.0, b1);
 
-		turret[0][0][0] = addBPoint(-1.0, 0.0, 0, s1);
-		turret[1][0][0] = addBPoint(1.0, 0.0, 0, s1);
-		turret[0][1][0] = addBPoint(-1.0, 1.0, 0, s1);
-		turret[1][1][0] = addBPoint(1.0, 1.0, 0, s1);
+		body[0][2][0] = addBPoint(-0.5, 0.5, 0, b2);
+		body[1][2][0] = addBPoint(0.5, 0.5, 0, b2);
+		body[0][2][1] = addBPoint(-0.5, 0.5, 1.0, b2);
+		body[1][2][1] = addBPoint(0.5, 0.5, 1.0, b2);
 
-		turret[0][0][1] = addBPoint(-1.0, 0.0, 1.0, s1);
-		turret[1][0][1] = addBPoint(1.0, 0.0, 1.0, s1);
-		turret[0][1][1] = addBPoint(-1.0, 1.0, 1.0, s1);
-		turret[1][1][1] = addBPoint(1.0, 1.0, 1.0, s1);
+		body[0][3][0] = addBPoint(-0.5, 0.75, 0, b3);
+		body[1][3][0] = addBPoint(0.5, 0.75, 0, b3);
+		body[0][3][1] = addBPoint(-0.5, 0.75, 1.0, b3);
+		body[1][3][1] = addBPoint(0.5, 0.75, 1.0, b3);
 
-		cannon_barrel = addYCylinder(0, dyRoof + dyRear, dz + dz + dzRear * 0.5, 10, 100, 10);
+		Segments p0 = new Segments(0, dx, dyRear, dy, dzShoes, dz);
+
+		body[0][backNY][0] = addBPoint(-0.5, 0.0, 0, p0);
+		body[1][backNY][0] = addBPoint(0.5, 0.0, 0, p0);
+		body[0][backNY][1] = addBPoint(-0.5, 0.0, 1.0, p0);
+		body[1][backNY][1] = addBPoint(0.5, 0.0, 1.0, p0);
+
+		body[0][backNY + 1][0] = addBPoint(-0.5, 1.0, 0, p0);
+		body[1][backNY + 1][0] = addBPoint(0.5, 1.0, 0, p0);
+		body[0][backNY + 1][1] = addBPoint(-0.5, 1.0, 1.0, p0);
+		body[1][backNY + 1][1] = addBPoint(0.5, 1.0, 1.0, p0);
+
+		double front_width = dxFront;
+		double front_width0 = front_width * (1 - 0.75) + dx * 0.75;
+		double front_width1 = front_width * (1 - 0.7) + dx * 0.7;
+		double front_width2 = front_width * (1 - 0.65) + dx * 0.65;
+
+		double front_height0 = dzFront * (1 - 0.75) + dz * 0.75;
+		double front_height1 = dzFront * (1 - 0.7) + dz * 0.7;
+		double front_height2 = dzFront * (1 - 0.65) + dz * 0.65;
+
+		Segments f0 = new Segments(0, front_width0, dyRear + dy, dyRear, dzShoes, front_height0);
+		Segments f1 = new Segments(0, front_width1, dyRear + dy, dyRear, dzShoes, front_height1);
+		Segments f2 = new Segments(0, front_width2, dyRear + dy, dyRear, dzShoes, front_height2);
+		Segments f3 = new Segments(0, front_width, dyRear + dy, dyRear, dzShoes, dzFront);
+
+		body[0][backNY + fuselageNY][0] = addBPoint(-0.5, 0.25, 0, f0);
+		body[1][backNY + fuselageNY][0] = addBPoint(0.5, 0.25, 0, f0);
+		body[0][backNY + fuselageNY][1] = addBPoint(-0.5, 0.25, 1.0, f0);
+		body[1][backNY + fuselageNY][1] = addBPoint(0.5, 0.25, 1.0, f0);
+
+		body[0][backNY + fuselageNY + 1][0] = addBPoint(-0.5, 0.5, 0, f1);
+		body[1][backNY + fuselageNY + 1][0] = addBPoint(0.5, 0.5, 0, f1);
+		body[0][backNY + fuselageNY + 1][1] = addBPoint(-0.5, 0.5, 1.0, f1);
+		body[1][backNY + fuselageNY + 1][1] = addBPoint(0.5, 0.5, 1.0, f1);
+
+		body[0][backNY + fuselageNY + 2][0] = addBPoint(-0.5, 0.75, 0, f2);
+		body[1][backNY + fuselageNY + 2][0] = addBPoint(0.5, 0.75, 0, f2);
+		body[0][backNY + fuselageNY + 2][1] = addBPoint(-0.5, 0.75, 1.0, f2);
+		body[1][backNY + fuselageNY + 2][1] = addBPoint(0.5, 0.75, 1.0, f2);
+
+		body[0][backNY + fuselageNY + 3][0] = addBPoint(-0.5, 1.0, 0, f3);
+		body[1][backNY + fuselageNY + 3][0] = addBPoint(0.5, 1.0, 0, f3);
+		body[0][backNY + fuselageNY + 3][1] = addBPoint(-0.5, 1.0, 1.0, f3);
+		body[1][backNY + fuselageNY + 3][1] = addBPoint(0.5, 1.0, 1.0, f3);
 
 	}
 
@@ -203,7 +251,7 @@ public class Helicopter0Model extends VehicleModel {
 
 		propellers = new BPoint[2][2][2][2];
 
-		Segments s0 = new Segments(0, 20, dy * 0.5, 200, dz + dz + dzRoof, 30);
+		Segments s0 = new Segments(0, dxRoof, dyRear + dy * 0.5, dyRoof, dz + dzShoes, dzRoof);
 
 		propellers[0][0][0][0] = addBPoint(-1.0, -1.0, 0, s0);
 		propellers[0][1][0][0] = addBPoint(1.0, -1.0, 0, s0);
@@ -215,7 +263,7 @@ public class Helicopter0Model extends VehicleModel {
 		propellers[0][0][1][1] = addBPoint(-1.0, 1.0, 1.0, s0);
 		propellers[0][1][1][1] = addBPoint(1.0, 1.0, 1.0, s0);
 
-		Segments s1 = new Segments(0, 200, dy * 0.5, 20, dz + dz + dzRoof, 30);
+		Segments s1 = new Segments(0, dyRoof, dyRear + dy * 0.5, dxRoof, dz + dzShoes, dzRoof);
 
 		propellers[1][0][0][0] = addBPoint(-1.0, -1.0, 0, s1);
 		propellers[1][1][0][0] = addBPoint(1.0, -1.0, 0, s1);
@@ -253,7 +301,7 @@ public class Helicopter0Model extends VehicleModel {
 	private void buildShoes() {
 		shoes = new BPoint[2][2][2][2];
 
-		Segments s0 = new Segments(-dx * 0.5 + 25, 25, 0, dy, 0, dz);
+		Segments s0 = new Segments(-dx * 0.5 - dxShoes, dxShoes, dyRear, dyShoes, 0, dzShoes);
 
 		shoes[0][0][0][0] = addBPoint(-1.0, 0.0, 0, s0);
 		shoes[0][1][0][0] = addBPoint(1.0, 0.0, 0, s0);
@@ -265,7 +313,7 @@ public class Helicopter0Model extends VehicleModel {
 		shoes[0][0][1][1] = addBPoint(-1.0, 1.0, 1.0, s0);
 		shoes[0][1][1][1] = addBPoint(1.0, 1.0, 1.0, s0);
 
-		Segments s1 = new Segments(dx * 0.5 - 25, 25, 0, dy, 0, dz);
+		Segments s1 = new Segments(dx * 0.5, dxShoes, dyRear, dyShoes, 0, dzShoes);
 
 		shoes[1][0][0][0] = addBPoint(-1.0, 0.0, 0, s1);
 		shoes[1][1][0][0] = addBPoint(1.0, 0.0, 0, s1);
