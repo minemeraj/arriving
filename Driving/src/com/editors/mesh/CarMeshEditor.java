@@ -70,6 +70,9 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 	private DoubleTextField front_overhang_text;
 	private DoubleTextField rear_overhang1_text;
 	private DoubleTextField front_overhang1_text;
+	private DoubleTextField dx_bottom_text;
+	private DoubleTextField dy_bottom_text;
+	private DoubleTextField dz_bottom_text;
 
 	public static int CAR0 = 0;
 	public static int TRUCK0 = 1;
@@ -103,7 +106,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 
 	public static void main(String[] args) {
 
-		CarMeshEditor fm = new CarMeshEditor(660, 420);
+		CarMeshEditor fm = new CarMeshEditor(660, 450);
 	}
 
 	public CarMeshEditor(int W, int H) {
@@ -139,7 +142,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		int col2 = 230;
 		int col3 = 310;
 		int col4 = 430;
-		int col5 = 480;
+		int col5 = 490;
 
 		JLabel lx = new JLabel("dx:");
 		lx.setBounds(col0, r, 70, 20);
@@ -242,6 +245,32 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		dz_roof_text.setBounds(col5, r, 100, 20);
 		dz_roof_text.setText(0);
 		center.add(dz_roof_text);
+
+		r += 30;
+
+		lx = new JLabel("dx Bottm:");
+		lx.setBounds(col0, r, 70, 20);
+		center.add(lx);
+		dx_bottom_text = new DoubleTextField(8);
+		dx_bottom_text.setBounds(col1, r, 100, 20);
+		dx_bottom_text.setText(0);
+		center.add(dx_bottom_text);
+
+		ly = new JLabel("dy Bottm:");
+		ly.setBounds(col2, r, 70, 20);
+		center.add(ly);
+		dy_bottom_text = new DoubleTextField(8);
+		dy_bottom_text.setBounds(col3, r, 100, 20);
+		dy_bottom_text.setText(0);
+		center.add(dy_bottom_text);
+
+		lz = new JLabel("dz Bottm:");
+		lz.setBounds(col4, r, 70, 20);
+		center.add(lz);
+		dz_bottom_text = new DoubleTextField(8);
+		dz_bottom_text.setBounds(col5, r, 100, 20);
+		dz_bottom_text.setText(0);
+		center.add(dz_bottom_text);
 
 		r += 30;
 
@@ -382,6 +411,10 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		double dyRoof = dy_roof_text.getvalue();
 		double dzRoof = dz_roof_text.getvalue();
 
+		double dxBottom = dx_bottom_text.getvalue();
+		double dyBottom = dy_bottom_text.getvalue();
+		double dzBottom = dz_bottom_text.getvalue();
+
 		double rearOverhang = rear_overhang_text.getvalue();
 		double frontOverhang = front_overhang_text.getvalue();
 
@@ -467,7 +500,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 					frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheelRays);
 		} else if (val == STEAMLOCOMOTIVE0) {
 			meshModel = new SteamLocomotive0Model(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof,
-					rearOverhang, frontOverhang, wheelRadius, wheelWidth, wheelRays);
+					dxBottom, dyBottom, dzBottom, rearOverhang, frontOverhang, wheelRadius, wheelWidth, wheelRays);
 		} else if (val == RAILWAGON0) {
 			meshModel = new RailWagon0Model(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof,
 					rearOverhang, frontOverhang, wheelRadius, wheelWidth, wheelRays);
@@ -531,6 +564,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						0, 0, 0, // dxFront, dyFront, dzFront
 						0, 0, 0, // dxRear, dyRear, dzRear
 						0, 0, 0, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						0, 0, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						0, 0, 0// wheel_radius, wheel_width, wheel_rays
@@ -540,6 +574,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						0, 0, 0, // dxFront, dyFront, dzFront
 						0, 0, 0, // dxRear, dyRear, dzRear
 						0, 0, 0, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						0, 0, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						0, 0, 0// wheel_radius, wheel_width, wheel_rays
@@ -549,6 +584,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						60, 38, 58, // dxFront, dyFront, dzFront
 						60, 264, 15, // dxRear, dyRear, dzRear
 						0, 0, 0, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						94, 29, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						11, 6, 10// wheel_radius, wheel_width, wheel_rays
@@ -558,6 +594,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						94, 61, 118, // dxFront, dyFront, dzFront
 						74, 319, 22, // dxRear, dyRear, dzRear
 						0, 0, 0, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						0, 0, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						19, 12, 10// wheel_radius, wheel_width, wheel_rays
@@ -567,6 +604,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						94, 61, 118, // dxFront, dyFront, dzFront
 						74, 319, 22, // dxRear, dyRear, dzRear
 						0, 0, 0, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						0, 0, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						19, 12, 10// wheel_radius, wheel_width, wheel_rays
@@ -576,6 +614,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						94, 61, 118, // dxFront, dyFront, dzFront
 						74, 319, 22, // dxRear, dyRear, dzRear
 						0, 0, 0, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						0, 0, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						19, 12, 10// wheel_radius, wheel_width, wheel_rays
@@ -585,6 +624,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						59, 55, 29, // dxFront, dyFront, dzFront
 						59, 111, 15, // dxRear, dyRear, dzRear
 						59, 38, 17, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						51, 23, // rearOverhang, frontOverhang
 						0, 34, // rearOverhang1,frontOverhang1,
 						9, 6, 10// wheel_radius, wheel_width, wheel_rays
@@ -594,6 +634,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						94, 61, 118, // dxFront, dyFront, dzFront
 						74, 319, 22, // dxRear, dyRear, dzRear
 						43, 30, 13, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						28, 20, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						19, 12, 10// wheel_radius, wheel_width, wheel_rays
@@ -603,6 +644,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						111, 61, 118, // dxFront, dyFront, dzFront
 						111, 319, 22, // dxRear, dyRear, dzRear
 						43, 30, 13, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						28, 20, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						19, 12, 10// wheel_radius, wheel_width, wheel_rays
@@ -612,6 +654,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						43, 64, 19, // dxFront, dyFront, dzFront
 						43, 55, 10, // dxRear, dyRear, dzRear
 						43, 30, 13, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						28, 20, // rearOverhang, frontOverhang
 						0, 42, // rearOverhang1,frontOverhang1,
 						10, 7, 10// wheel_radius, wheel_width, wheel_rays
@@ -621,6 +664,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						38, 44, 19, // dxFront, dyFront, dzFront
 						38, 19, 9, // dxRear, dyRear, dzRear
 						38, 4, 14, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						14, 8, // rearOverhang, frontOverhang
 						0, 33, // rearOverhang1,frontOverhang1,
 						10, 6, 10// wheel_radius, wheel_width, wheel_rays
@@ -630,6 +674,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						718, 806, 80, // dxFront, dyFront, dzFront
 						718, 527, 80, // dxRear, dyRear, dzRear
 						718, 366, 595, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						0, 0, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						0, 0, 0// wheel_radius, wheel_width, wheel_rays
@@ -639,6 +684,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						733, 988, 218, // dxFront, dyFront, dzFront
 						733, 720, 203, // dxRear, dyRear, dzRear
 						733, 4446, 335, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						1183, 1394, // rearOverhang, frontOverhang
 						1881, 0, // rearOverhang1,frontOverhang1,
 						95, 494, 10// wheel_radius, wheel_width, wheel_rays
@@ -648,6 +694,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						0, 481, 0, // dxFront, dyFront, dzFront
 						0, 0, 0, // dxRear, dyRear, dzRear
 						364, 1882, 234, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						0, 0, // rearOverhang, frontOverhang
 						117, 710, // rearOverhang1,frontOverhang1,
 						0, 0, 0// wheel_radius, wheel_width, wheel_rays
@@ -657,6 +704,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						403, 957, 86, // dxFront, dyFront, dzFront
 						624, 720, 34, // dxRear, dyRear, dzRear
 						0, 0, 0, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						0, 0, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						17, 1310, 10// wheel_radius, wheel_width, wheel_rays
@@ -666,6 +714,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						150, 150, 50, // dxFront, dyFront, dzFront
 						50, 250, 50, // dxRear, dyRear, dzRear
 						0, 0, 0, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						0, 0, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						0, 0, 0// wheel_radius, wheel_width, wheel_rays
@@ -675,6 +724,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						46, 104, 46, // dxFront, dyFront, dzFront
 						38, 260, 24, // dxRear, dyRear, dzRear
 						330, 217, 53, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						351, 0, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						0, 0, 0// wheel_radius, wheel_width, wheel_rays
@@ -684,6 +734,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						46, 104, 46, // dxFront, dyFront, dzFront
 						38, 260, 24, // dxRear, dyRear, dzRear
 						330, 417, 53, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						100, 30, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						0, 0, 0// wheel_radius, wheel_width, wheel_rays
@@ -693,6 +744,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						46, 80, 46, // dxFront, dyFront, dzFront
 						38, 200, 24, // dxRear, dyRear, dzRear
 						20, 200, 10, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						0, 0, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						0, 0, 0// wheel_radius, wheel_width, wheel_rays
@@ -702,6 +754,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						19, 13, 14, // dxFront, dyFront, dzFront
 						12, 12, 13, // dxRear, dyRear, dzRear
 						12, 19, 7, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						0, 0, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						8, 4, 10// wheel_radius, wheel_width, wheel_rays
@@ -711,6 +764,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						7, 55, 14, // dxFront, dyFront, dzFront
 						25, 19, 14, // dxRear, dyRear, dzRear
 						7, 24, 13, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						15, 25, // rearOverhang, frontOverhang
 						6, 0, // rearOverhang1,frontOverhang1,
 						8, 10, 10// wheel_radius, wheel_width, wheel_rays
@@ -720,6 +774,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						23, 164, 47, // dxFront, dyFront, dzFront ->tracks
 						51, 41, 36, // dxRear, dyRear, dzRear
 						61, 82, 21, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						28, 35, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						4, 102, 10// wheel_radius, wheel_width, wheel_rays
@@ -729,6 +784,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						0, 0, 0, // dxFront, dyFront, dzFront
 						300, 100, 50, // dxRear, dyRear, dzRear
 						200, 150, 50, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						0, 0, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						19, 12, 10// wheel_radius, wheel_width, wheel_rays
@@ -738,6 +794,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						41, 51, 34, // dxFront, dyFront, dzFront
 						41, 51, 34, // dxRear, dyRear, dzRear
 						70, 100, 80, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						49, 29, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						13, 4, 10// wheel_radius, wheel_width, wheel_rays
@@ -747,6 +804,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						41, 51, 14, // dxFront, dyFront, dzFront
 						41, 51, 14, // dxRear, dyRear, dzRear
 						70, 348, 70, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						29, 29, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						13, 4, 10// wheel_radius, wheel_width, wheel_rays
@@ -756,6 +814,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						41, 51, 14, // dxFront, dyFront, dzFront
 						41, 51, 14, // dxRear, dyRear, dzRear
 						70, 348, 70, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						29, 29, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						13, 4, 10// wheel_radius, wheel_width, wheel_rays
@@ -765,6 +824,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						41, 51, 14, // dxFront, dyFront, dzFront
 						41, 51, 14, // dxRear, dyRear, dzRear
 						83, 374, 83, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						29, 29, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						13, 4, 10// wheel_radius, wheel_width, wheel_rays
@@ -774,6 +834,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						41, 57, 16, // dxFront, dyFront, dzFront
 						41, 57, 16, // dxRear, dyRear, dzRear
 						78, 364, 56, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						32, 32, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						13, 4, 10// wheel_radius, wheel_width, wheel_rays
@@ -783,6 +844,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						41, 51, 16, // dxFront, dyFront, dzFront
 						41, 51, 16, // dxRear, dyRear, dzRear
 						100, 263, 61, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						0, 0, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						13, 4, 10// wheel_radius, wheel_width, wheel_rays
@@ -792,6 +854,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						41, 71, 18, // dxFront, dyFront, dzFront
 						41, 71, 18, // dxRear, dyRear, dzRear
 						80, 746, 14, // dxRoof, dyRoof, dzRoof
+						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						64, 64, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						13, 4, 10// wheel_radius, wheel_width, wheel_rays
@@ -802,8 +865,9 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 	}
 
 	private void setRightData(int dx, int dy, int dz, int dxFront, int dyFront, int dzFront, int dxRear, int dyRear,
-			int dzRear, int dxRoof, int dyRoof, int dzRoof, int rearOverhang, int frontOverhang, int rearOverhang1,
-			int frontOverhang1, double wheel_radius, double wheel_width, int wheel_rays) {
+			int dzRear, int dxRoof, int dyRoof, int dzRoof, int dxBottom, int dyBottom, int dzBottom, int rearOverhang,
+			int frontOverhang, int rearOverhang1, int frontOverhang1, double wheel_radius, double wheel_width,
+			int wheel_rays) {
 
 		dx_text.setText(dx);
 		dy_text.setText(dy);

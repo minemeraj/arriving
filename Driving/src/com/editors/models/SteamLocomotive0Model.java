@@ -54,8 +54,9 @@ public class SteamLocomotive0Model extends VehicleModel {
 	private double funnel_height = 40;
 
 	public SteamLocomotive0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr,
-			double dyr, double dzr, double dxRoof, double dyRoof, double dzRoof, double rearOverhang,
-			double frontOverhang, double wheelRadius, double wheelWidth, int wheelRays) {
+			double dyr, double dzr, double dxRoof, double dyRoof, double dzRoof, double dxBottom, double dyBottom,
+			double dzBottom, double rearOverhang, double frontOverhang, double wheelRadius, double wheelWidth,
+			int wheelRays) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
@@ -72,6 +73,10 @@ public class SteamLocomotive0Model extends VehicleModel {
 		this.dxRoof = dxRoof;
 		this.dyRoof = dyRoof;
 		this.dzRoof = dzRoof;
+
+		this.dxBottom = dxBottom;
+		this.dyBottom = dyBottom;
+		this.dzBottom = dzBottom;
 
 		this.rearOverhang = rearOverhang;
 		this.frontOverhang = frontOverhang;
