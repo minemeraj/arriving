@@ -559,12 +559,12 @@
 	Width: 2.62 m (Fuselage)
 	Height: 4.39 m
 		
-	Steam locomotive based on the DRG Class  233–242 01 4-6-2.
-	Driving wheel diameter 	2,000 mm
-	Leading wheel diameter 850 mm
+	Steam locomotive based on the DRG Class 01 4-6-2.
+	Driving wheel diameter 	2,000mm
+	Leading wheel diameter (850mm -) 1000mm
 	Trailing wheel diameter 1,25m
 	Gauge 	1,435 mm
-	Length over buffers 23.940 m
+	Length over buffers (with tender) 23.940 m
 	
 	Tanker ship sizes:
 	length=175m  breadth=27.6m
