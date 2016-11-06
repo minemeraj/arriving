@@ -197,12 +197,15 @@ public class SteamLocomotive0Model extends VehicleModel {
 		back[0][1][1] = addBPoint(-0.5, 1.0, 1.0, b0);
 		back[1][1][1] = addBPoint(0.5, 1.0, 1.0, b0);
 
-		fWheelLeftFront = buildWheel(-dxRear * 0.5 - wheelWidth, rearOverhang, 0, wheelRadius, wheelWidth, wheelRays);
-		fWheelRightFront = buildWheel(dxRear * 0.5, rearOverhang, 0, wheelRadius, wheelWidth, wheelRays);
+		double rearWheelRadius = wheelRadius * 2;
 
-		fWheelLeftRear = buildWheel(-dxRear * 0.5 - wheelWidth, rearOverhang + dyRear, 0, wheelRadius, wheelWidth,
+		fWheelLeftFront = buildWheel(-dxRear * 0.5 - wheelWidth, rearOverhang, 0, rearWheelRadius, wheelWidth,
 				wheelRays);
-		fWheelRightRear = buildWheel(dxRear * 0.5, rearOverhang + dyRear, 0, wheelRadius, wheelWidth, wheelRays);
+		fWheelRightFront = buildWheel(dxRear * 0.5, rearOverhang, 0, rearWheelRadius, wheelWidth, wheelRays);
+
+		fWheelLeftRear = buildWheel(-dxRear * 0.5 - wheelWidth, rearOverhang + dyRear, 0, rearWheelRadius, wheelWidth,
+				wheelRays);
+		fWheelRightRear = buildWheel(dxRear * 0.5, rearOverhang + dyRear, 0, rearWheelRadius, wheelWidth, wheelRays);
 
 		int fnx = 2;
 		int fny = 2;
