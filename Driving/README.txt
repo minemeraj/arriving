@@ -547,7 +547,24 @@
  	Railroad car 4 proportions based on TC trailer car of Viaggio Light by Siemens AG, 1435 mm gauge,
  	length=26100 mm, distance of boogie centers=19000 mm.
 	
-	Airplane proportions based on Airbus A320 (length=37.57m, wing span 34.10M).
+	Airplane proportions based on Airbus A320 (length=37.57m, wing span 34.10m).
+	
+	Aircraft fighter based on the McDonnell Douglas F-15 Eagle.
+	Length: 19.43 m
+	Wingspan: 13.05 m
+	Height: 5.63 m
+	
+	Helicopter based on the Bell UH-1 Iroquois Huey.
+	Length: 17.40 m with rotors
+	Width: 2.62 m (Fuselage)
+	Height: 4.39 m
+		
+	Steam locomotive based on the DRG Class  233–242 01 4-6-2.
+	Driving wheel diameter 	2,000 mm
+	Leading wheel diameter 850 mm
+	Trailing wheel diameter 1,25m
+	Gauge 	1,435 mm
+	Length over buffers 23.940 m
 	
 	Tanker ship sizes:
 	length=175m  breadth=27.6m
