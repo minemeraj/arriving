@@ -385,7 +385,7 @@ public class SteamLocomotive0Model extends VehicleModel {
 
 		double fx = 0;
 		double fy = dy + dyRoof - funnel_radius;
-		double fz = dzFront + dx;
+		double fz = leadingWheelRadius + dzFront + dx;
 
 		funnel = new BPoint[funnel_parallels][funnel_meridians];
 		funnel = buildFunnel(fx, fy, fz, funnel_height, funnel_radius, 2, 10);
