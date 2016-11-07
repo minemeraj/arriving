@@ -58,6 +58,8 @@ public class SteamLocomotive0Model extends VehicleModel {
 	private double funnel_radius = 10;
 	private double funnel_height = 40;
 	private BPoint[][][] bottom;
+	private double trailingWheelRadius;
+	private double leadingWheelRadius;
 
 	public SteamLocomotive0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr,
 			double dyr, double dzr, double dxRoof, double dyRoof, double dzRoof, double dxBottom, double dyBottom,
@@ -90,6 +92,9 @@ public class SteamLocomotive0Model extends VehicleModel {
 		this.drivingWheelRadius = wheelRadius;
 		this.wheelWidth = wheelWidth;
 		this.wheelRays = wheelRays;
+
+		trailingWheelRadius = drivingWheelRadius * 0.625;
+		leadingWheelRadius = drivingWheelRadius * 0.5;
 	}
 
 	@Override
@@ -144,7 +149,7 @@ public class SteamLocomotive0Model extends VehicleModel {
 
 		cabin = new BPoint[2][2][2];
 
-		Segments cb = new Segments(x0, dxRoof, y0, dyRoof, z0 + dzBottom, dzRoof);
+		Segments cb = new Segments(x0, dxRoof, y0, dyRoof, z0 + trailingWheelRadius + dzBottom, dzRoof);
 		cabin[0][0][0] = addBPoint(-0.5, 0, 0, cb);
 		cabin[1][0][0] = addBPoint(0.5, 0, 0, cb);
 		cabin[1][1][0] = addBPoint(0.5, 1, 0, cb);
@@ -196,7 +201,7 @@ public class SteamLocomotive0Model extends VehicleModel {
 
 		bottom = new BPoint[bnx][bny][bnz];
 
-		Segments bott0 = new Segments(0, dxBottom, 0, dyBottom, 0, dzBottom);
+		Segments bott0 = new Segments(0, dxBottom, 0, dyBottom, trailingWheelRadius, dzBottom);
 
 		bottom[0][0][0] = addBPoint(-0.5, 0.0, 0, bott0);
 		bottom[1][0][0] = addBPoint(0.5, 0.0, 0, bott0);
@@ -208,17 +213,14 @@ public class SteamLocomotive0Model extends VehicleModel {
 		bottom[0][1][1] = addBPoint(-0.5, 1.0, 1.0, bott0);
 		bottom[1][1][1] = addBPoint(0.5, 1.0, 1.0, bott0);
 
-		double trailingWheelRadius = drivingWheelRadius * 0.625;
-		double bWheelDZ = dzRear - dzBottom;
-
-		tWheelLeftFront = buildWheel(-dxBottom * 0.5 - wheelWidth, dyBottom * 0.5, -bWheelDZ, trailingWheelRadius,
+		tWheelLeftFront = buildWheel(-dxBottom * 0.5 - wheelWidth, dyBottom * 0.5, trailingWheelRadius,
+				trailingWheelRadius, wheelWidth, wheelRays);
+		tWheelRightFront = buildWheel(dxBottom * 0.5, dyBottom * 0.5, trailingWheelRadius, trailingWheelRadius,
 				wheelWidth, wheelRays);
-		tWheelRightFront = buildWheel(dxBottom * 0.5, dyBottom * 0.5, -bWheelDZ, trailingWheelRadius, wheelWidth,
-				wheelRays);
 
 		back = new BPoint[bnx][bny][bnz];
 
-		Segments b0 = new Segments(0, dxRear, rearOverhang, dyRear, 0, dzRear);
+		Segments b0 = new Segments(0, dxRear, rearOverhang, dyRear, drivingWheelRadius, dzRear);
 
 		back[0][0][0] = addBPoint(-0.5, 0.0, 0, b0);
 		back[1][0][0] = addBPoint(0.5, 0.0, 0, b0);
@@ -230,18 +232,20 @@ public class SteamLocomotive0Model extends VehicleModel {
 		back[0][1][1] = addBPoint(-0.5, 1.0, 1.0, b0);
 		back[1][1][1] = addBPoint(0.5, 1.0, 1.0, b0);
 
-		dWheelLeftFront = buildWheel(-dxRear * 0.5 - wheelWidth, rearOverhang, 0, drivingWheelRadius, wheelWidth,
-				wheelRays);
-		dWheelRightFront = buildWheel(dxRear * 0.5, rearOverhang, 0, drivingWheelRadius, wheelWidth, wheelRays);
-
-		dWheelLeftCenter = buildWheel(-dxRear * 0.5 - wheelWidth, rearOverhang + dyRear * 0.5, 0, drivingWheelRadius,
+		dWheelLeftFront = buildWheel(-dxRear * 0.5 - wheelWidth, rearOverhang, drivingWheelRadius, drivingWheelRadius,
 				wheelWidth, wheelRays);
-		dWheelRightCenter = buildWheel(dxRear * 0.5, rearOverhang + dyRear * 0.5, 0, drivingWheelRadius, wheelWidth,
+		dWheelRightFront = buildWheel(dxRear * 0.5, rearOverhang, drivingWheelRadius, drivingWheelRadius, wheelWidth,
 				wheelRays);
 
-		dWheelLeftRear = buildWheel(-dxRear * 0.5 - wheelWidth, rearOverhang + dyRear, 0, drivingWheelRadius,
+		dWheelLeftCenter = buildWheel(-dxRear * 0.5 - wheelWidth, rearOverhang + dyRear * 0.5, drivingWheelRadius,
+				drivingWheelRadius, wheelWidth, wheelRays);
+		dWheelRightCenter = buildWheel(dxRear * 0.5, rearOverhang + dyRear * 0.5, drivingWheelRadius,
+				drivingWheelRadius, wheelWidth, wheelRays);
+
+		dWheelLeftRear = buildWheel(-dxRear * 0.5 - wheelWidth, rearOverhang + dyRear, drivingWheelRadius,
+				drivingWheelRadius, wheelWidth, wheelRays);
+		dWheelRightRear = buildWheel(dxRear * 0.5, rearOverhang + dyRear, drivingWheelRadius, drivingWheelRadius,
 				wheelWidth, wheelRays);
-		dWheelRightRear = buildWheel(dxRear * 0.5, rearOverhang + dyRear, 0, drivingWheelRadius, wheelWidth, wheelRays);
 
 		int fnx = 2;
 		int fny = 2;
@@ -249,10 +253,9 @@ public class SteamLocomotive0Model extends VehicleModel {
 
 		front = new BPoint[fnx][fny][fnz];
 
-		double fWheelDZ = +dzFront - dzRear;
 		double fy = dyRoof + dy - dyFront - frontOverhang;
 
-		Segments f0 = new Segments(0, dxFront, fy, dyFront, -fWheelDZ, dzFront);
+		Segments f0 = new Segments(0, dxFront, fy, dyFront, leadingWheelRadius, dzFront);
 
 		front[0][0][0] = addBPoint(-0.5, 0.0, 0, f0);
 		front[1][0][0] = addBPoint(0.5, 0.0, 0, f0);
@@ -264,15 +267,14 @@ public class SteamLocomotive0Model extends VehicleModel {
 		front[0][1][1] = addBPoint(-0.5, 1.0, 1.0, f0);
 		front[1][1][1] = addBPoint(0.5, 1.0, 1.0, f0);
 
-		double leadingWheelRadius = drivingWheelRadius * 0.5;
-
-		lWheelLeftFront = buildWheel(-dxFront * 0.5 - wheelWidth, fy, -fWheelDZ, leadingWheelRadius, wheelWidth,
-				wheelRays);
-		lWheelRightFront = buildWheel(dxFront * 0.5, fy, -fWheelDZ, leadingWheelRadius, wheelWidth, wheelRays);
-
-		lWheelLeftRear = buildWheel(-dxFront * 0.5 - wheelWidth, fy + dyFront, -fWheelDZ, leadingWheelRadius,
+		lWheelLeftFront = buildWheel(-dxFront * 0.5 - wheelWidth, fy, leadingWheelRadius, leadingWheelRadius,
 				wheelWidth, wheelRays);
-		lWheelRightRear = buildWheel(dxFront * 0.5, fy + dyFront, -fWheelDZ, leadingWheelRadius, wheelWidth, wheelRays);
+		lWheelRightFront = buildWheel(dxFront * 0.5, fy, leadingWheelRadius, leadingWheelRadius, wheelWidth, wheelRays);
+
+		lWheelLeftRear = buildWheel(-dxFront * 0.5 - wheelWidth, fy + dyFront, leadingWheelRadius, leadingWheelRadius,
+				wheelWidth, wheelRays);
+		lWheelRightRear = buildWheel(dxFront * 0.5, fy + dyFront, leadingWheelRadius, leadingWheelRadius, wheelWidth,
+				wheelRays);
 
 	}
 
@@ -338,7 +340,7 @@ public class SteamLocomotive0Model extends VehicleModel {
 
 		double radius = dx * 0.5;
 
-		BPoint[][] cylinder = addYCylinder(0, dyRoof, dzRear + radius, radius, dy, boilerRays);
+		BPoint[][] cylinder = addYCylinder(0, dyRoof, dzRear + drivingWheelRadius + radius, radius, dy, boilerRays);
 		wagon = new BPoint[1][][];
 		wagon[0] = cylinder;
 
