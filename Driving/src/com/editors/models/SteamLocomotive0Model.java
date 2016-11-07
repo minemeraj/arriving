@@ -24,6 +24,9 @@ public class SteamLocomotive0Model extends VehicleModel {
 	protected BPoint[][][] cabin;
 	protected BPoint[][][] body;
 
+	private BPoint[][] tWheelLeftFront;
+	private BPoint[][] tWheelRightFront;
+
 	private BPoint[][] lWheelLeftFront;
 	private BPoint[][] lWheelRightFront;
 	private BPoint[][] lWheelLeftRear;
@@ -31,6 +34,8 @@ public class SteamLocomotive0Model extends VehicleModel {
 
 	private BPoint[][] dWheelLeftFront;
 	private BPoint[][] dWheelRightFront;
+	private BPoint[][] dWheelLeftCenter;
+	private BPoint[][] dWheelRightCenter;
 	private BPoint[][] dWheelLeftRear;
 	private BPoint[][] dWheelRightRear;
 	protected BPoint[][][] wagon;
@@ -119,7 +124,7 @@ public class SteamLocomotive0Model extends VehicleModel {
 		int totBoilerPolygons = boilerRays + 2 * (boilerRays - 2);
 
 		int totWheelPolygon = wheelRays + 2 * (wheelRays - 2);
-		int NUM_WHEEL_FACES = 8 * totWheelPolygon;
+		int NUM_WHEEL_FACES = 12 * totWheelPolygon;
 
 		faces = new int[NF + NUM_WHEEL_FACES + totBoilerPolygons][3][4];
 
@@ -203,6 +208,14 @@ public class SteamLocomotive0Model extends VehicleModel {
 		bottom[0][1][1] = addBPoint(-0.5, 1.0, 1.0, bott0);
 		bottom[1][1][1] = addBPoint(0.5, 1.0, 1.0, bott0);
 
+		double trailingWheelRadius = drivingWheelRadius * 0.625;
+		double bWheelDZ = dzRear - dzBottom;
+
+		tWheelLeftFront = buildWheel(-dxBottom * 0.5 - wheelWidth, dyBottom * 0.5, -bWheelDZ, trailingWheelRadius,
+				wheelWidth, wheelRays);
+		tWheelRightFront = buildWheel(dxBottom * 0.5, dyBottom * 0.5, -bWheelDZ, trailingWheelRadius, wheelWidth,
+				wheelRays);
+
 		back = new BPoint[bnx][bny][bnz];
 
 		Segments b0 = new Segments(0, dxRear, rearOverhang, dyRear, 0, dzRear);
@@ -220,6 +233,11 @@ public class SteamLocomotive0Model extends VehicleModel {
 		dWheelLeftFront = buildWheel(-dxRear * 0.5 - wheelWidth, rearOverhang, 0, drivingWheelRadius, wheelWidth,
 				wheelRays);
 		dWheelRightFront = buildWheel(dxRear * 0.5, rearOverhang, 0, drivingWheelRadius, wheelWidth, wheelRays);
+
+		dWheelLeftCenter = buildWheel(-dxRear * 0.5 - wheelWidth, rearOverhang + dyRear * 0.5, 0, drivingWheelRadius,
+				wheelWidth, wheelRays);
+		dWheelRightCenter = buildWheel(dxRear * 0.5, rearOverhang + dyRear * 0.5, 0, drivingWheelRadius, wheelWidth,
+				wheelRays);
 
 		dWheelLeftRear = buildWheel(-dxRear * 0.5 - wheelWidth, rearOverhang + dyRear, 0, drivingWheelRadius,
 				wheelWidth, wheelRays);
@@ -299,9 +317,15 @@ public class SteamLocomotive0Model extends VehicleModel {
 		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, front[0][0][0], front[0][1][0], front[1][1][0],
 				front[1][0][0], tBo[0]);
 
+		counter = buildWheelFaces(counter, firstWheelTexturePoint, totWheelPolygon, tWheelLeftFront, tWheelRightFront,
+				null, null);
+
 		// front bogie
 		counter = buildWheelFaces(counter, firstWheelTexturePoint, totWheelPolygon, dWheelLeftFront, dWheelRightFront,
 				dWheelLeftRear, dWheelRightRear);
+
+		counter = buildWheelFaces(counter, firstWheelTexturePoint, totWheelPolygon, dWheelLeftCenter, dWheelRightCenter,
+				null, null);
 
 		// rear bogie
 		counter = buildWheelFaces(counter, firstWheelTexturePoint, totWheelPolygon, lWheelLeftFront, lWheelRightFront,
@@ -417,14 +441,18 @@ public class SteamLocomotive0Model extends VehicleModel {
 			faces[counter++] = wFaces[i];
 		}
 
-		wFaces = buildWheelFaces(wheelLeftRear, firstWheelTexturePoint);
-		for (int i = 0; i < totWheelPolygon; i++) {
-			faces[counter++] = wFaces[i];
+		if (wheelLeftRear != null) {
+			wFaces = buildWheelFaces(wheelLeftRear, firstWheelTexturePoint);
+			for (int i = 0; i < totWheelPolygon; i++) {
+				faces[counter++] = wFaces[i];
+			}
 		}
 
-		wFaces = buildWheelFaces(wheelRightRear, firstWheelTexturePoint);
-		for (int i = 0; i < totWheelPolygon; i++) {
-			faces[counter++] = wFaces[i];
+		if (wheelRightRear != null) {
+			wFaces = buildWheelFaces(wheelRightRear, firstWheelTexturePoint);
+			for (int i = 0; i < totWheelPolygon; i++) {
+				faces[counter++] = wFaces[i];
+			}
 		}
 
 		return counter;
