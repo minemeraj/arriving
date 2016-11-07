@@ -790,14 +790,14 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						19, 12, 10// wheel_radius, wheel_width, wheel_rays
 				);
 			} else if (STEAMLOCOMOTIVE0 == val) {
-				setRightData(69, 300, 0, // dx, dy, dz
-						41, 51, 34, // dxFront, dyFront, dzFront
-						41, 51, 34, // dxRear, dyRear, dzRear
-						70, 100, 80, // dxRoof, dyRoof, dzRoof
-						0, 0, 0, // dxBottom, dyBottom, dzBottom
-						49, 29, // rearOverhang, frontOverhang
+				setRightData(51, 266, 51, // dxBoiler, dyBoiler, dzBoiler
+						37, 62, 52, // dxFront, dyFront, dzFront
+						37, 109, 38, // dxRear, dyRear, dzRear
+						80, 75, 69, // dxRoof, dyRoof, dzRoof
+						37, 75, 33, // dxBottom, dyBottom, dzBottom
+						140, -15, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
-						13, 4, 10// wheel_radius, wheel_width, wheel_rays
+						26, 4, 10// wheel_radius, wheel_width, wheel_rays
 				);
 			} else if (RAILWAGON0 == val) {
 				setRightData(69, 400, 7, // dx, dy, dz
@@ -884,6 +884,10 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		dx_roof_text.setText(dxRoof);
 		dy_roof_text.setText(dyRoof);
 		dz_roof_text.setText(dzRoof);
+
+		dx_bottom_text.setText(dxBottom);
+		dy_bottom_text.setText(dyBottom);
+		dz_bottom_text.setText(dzBottom);
 
 		rear_overhang_text.setText(rearOverhang);
 		front_overhang_text.setText(frontOverhang);
