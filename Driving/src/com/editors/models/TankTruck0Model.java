@@ -69,6 +69,50 @@ public class TankTruck0Model extends Truck0Model {
 	}
 
 	@Override
+	protected void buildTextures() {
+
+		int shift = 1;
+		double deltaXF = (dxWagon - dxFront) * 0.5;
+		double deltaXR = (dxWagon - dxRear) * 0.5;
+		double maxDX = Math.max(dxRear, dxWagon);
+
+		// generic rear
+		double y = by;
+		double x = bx;
+		addTRect(x, y, dxTexture, dyTexture);
+
+		x += dxTexture + shift;
+		y = by;
+		buildBackTextures(x, y, shift, deltaXR);
+		y += dzRear + shift + dzWagon;
+
+		buildLefTextures(x, y, shift);
+		buildTopTextures(x + dzWagon, y, shift, deltaXF);
+		buildRightTextures(x + dzWagon + dxWagon, y, shift);
+
+		// window points
+		x += maxDX + 2 * dzWagon + shift;
+		y = by;
+		addTRect(x, y, dxTexture, dyTexture);
+
+		// wheel texture, a black square for simplicity:
+		x += dxTexture + shift;
+		y = by;
+		addTRect(x, y, wheelWidth, wheelWidth);
+
+		IMG_WIDTH = (int) (2 * bx + maxDX + 2 * dzWagon + 2 * dxTexture + wheelWidth + 3 * shift);
+		IMG_HEIGHT = (int) (2 * by + Math.max(dyTexture, dyWagon + dzWagon + dzRear + 2 * shift));
+	}
+
+	protected void buildTankWagonTexture(double x, double y, int nWagongMeridians, double dxWidth) {
+
+		for (int i = 0; i < nWagongMeridians; i++) {
+			addTRect(x, y, dxWidth, dyWagon);
+			x += dxWidth;
+		}
+	}
+
+	@Override
 	protected void buildWagon(int nWagongMeridians) {
 
 		wagon = addYCylinder(x0, 0, dzRear + dxWagon * 0.5, dxWagon * 0.5, dyWagon, nWagongMeridians);

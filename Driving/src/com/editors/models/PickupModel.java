@@ -27,16 +27,9 @@ public class PickupModel extends Truck0Model {
 
 	protected int nWagonUnits = 10;
 
-	int[][] tLeftRear = null;
 	int[] tTopWagon = null;
 	int[] tTopRear = null;
-	int[][] tLeftFront = null;
-	int[][] tLeftRoof = null;
-	int[] tTopFront = null;
-	int[] tTopRoof = null;
-	int[][] tRightRear;
-	int[][] tRightFront;
-	int[][] tRightRoof;
+	protected int[] tTopRoof;
 
 	public PickupModel(double dxFront, double dyfront, double dzFront, double dxRoof, double dyRoof, double dzRoof,
 			double dxRear, double dyRear, double dzRear, double dxWagon, double dyWagon, double dzWagon,
@@ -154,7 +147,8 @@ public class PickupModel extends Truck0Model {
 		IMG_HEIGHT = (int) (2 * by + dzRear + dzWagon + dyRear + dyFront + dyRoof + shift);
 	}
 
-	private void buildRightTextures(double x, double y, int shift) {
+	@Override
+	protected void buildRightTextures(double x, double y, int shift) {
 
 		double dzRight = dzRoof + dzFront;
 
@@ -187,7 +181,7 @@ public class PickupModel extends Truck0Model {
 		addTRect(x + dzRight - dzRear - dzWagon, y, dzWagon, dyWagon);
 	}
 
-	private void buildTopTextures(double x, double y, int shift) {
+	protected void buildTopTextures(double x, double y, int shift) {
 		addTRect(x, y, dxRear, dyRear);
 		y += dyRear;
 		addTRect(x, y, dxRoof, dyRoof);
@@ -206,7 +200,8 @@ public class PickupModel extends Truck0Model {
 
 	}
 
-	private void buildLefTextures(double x, double y, int shift) {
+	@Override
+	protected void buildLefTextures(double x, double y, int shift) {
 
 		for (int i = 0; i < rear.length - 1; i++) {
 			addTPoint(x + rear[i][0].z, y + rear[i][0].y, 0);

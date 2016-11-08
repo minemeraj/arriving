@@ -1,5 +1,6 @@
 package com.editors.models;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.PrintWriter;
 import java.util.Vector;
@@ -47,8 +48,8 @@ public class SteamLocomotive0Model extends VehicleModel {
 	// wheel textures
 	protected int[][] tWh = null;
 
-	private double dyTexture = 200;
-	private double dxTexture = 200;
+	private double dyTexture = 100;
+	private double dxTexture = 100;
 
 	private int boilerRays = 20;
 
@@ -116,7 +117,6 @@ public class SteamLocomotive0Model extends VehicleModel {
 		buildBoiler();
 		buildFunnel();
 
-		int firstWheelTexturePoint = 4;
 		buildTextures();
 
 		// faces
@@ -135,13 +135,10 @@ public class SteamLocomotive0Model extends VehicleModel {
 
 		int counter = 0;
 
-		counter = buildBodyFaces(counter, firstWheelTexturePoint, totWheelPolygon);
+		counter = buildBodyFaces(counter, totWheelPolygon);
 		counter = buildBoilerFaces(counter, wagon);
 		counter = buildCabinYFaces(counter);
 		counter = buildFunnelFaces(counter);
-
-		IMG_WIDTH = (int) (2 * bx + dx);
-		IMG_HEIGHT = (int) (2 * by + dy);
 
 	}
 
@@ -278,7 +275,7 @@ public class SteamLocomotive0Model extends VehicleModel {
 
 	}
 
-	protected int buildBodyFaces(int counter, int firstWheelTexturePoint, int totWheelPolygon) {
+	protected int buildBodyFaces(int counter, int totWheelPolygon) {
 
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, bottom[0][0][1], bottom[1][0][1], bottom[1][1][1],
 				bottom[0][1][1], tBo[0]);
@@ -319,19 +316,17 @@ public class SteamLocomotive0Model extends VehicleModel {
 		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, front[0][0][0], front[0][1][0], front[1][1][0],
 				front[1][0][0], tBo[0]);
 
-		counter = buildWheelFaces(counter, firstWheelTexturePoint, totWheelPolygon, tWheelLeftFront, tWheelRightFront,
-				null, null);
+		counter = buildWheelFaces(counter, totWheelPolygon, tWheelLeftFront, tWheelRightFront, null, null);
 
 		// front bogie
-		counter = buildWheelFaces(counter, firstWheelTexturePoint, totWheelPolygon, dWheelLeftFront, dWheelRightFront,
-				dWheelLeftRear, dWheelRightRear);
+		counter = buildWheelFaces(counter, totWheelPolygon, dWheelLeftFront, dWheelRightFront, dWheelLeftRear,
+				dWheelRightRear);
 
-		counter = buildWheelFaces(counter, firstWheelTexturePoint, totWheelPolygon, dWheelLeftCenter, dWheelRightCenter,
-				null, null);
+		counter = buildWheelFaces(counter, totWheelPolygon, dWheelLeftCenter, dWheelRightCenter, null, null);
 
 		// rear bogie
-		counter = buildWheelFaces(counter, firstWheelTexturePoint, totWheelPolygon, lWheelLeftFront, lWheelRightFront,
-				lWheelLeftRear, lWheelRightRear);
+		counter = buildWheelFaces(counter, totWheelPolygon, lWheelLeftFront, lWheelRightFront, lWheelLeftRear,
+				lWheelRightRear);
 
 		return counter;
 	}
@@ -412,6 +407,8 @@ public class SteamLocomotive0Model extends VehicleModel {
 
 	protected void buildTextures() {
 
+		int shift = 1;
+
 		double x = bx;
 		double y = by;
 
@@ -419,39 +416,39 @@ public class SteamLocomotive0Model extends VehicleModel {
 
 		// wheel texture, a black square for simplicity:
 
-		x += dxTexture;
+		x += dxTexture + shift;
 		y = by;
 
 		addTRect(x, y, wheelWidth, wheelWidth);
 
-		IMG_WIDTH = (int) (2 * bx + dxTexture);
+		IMG_WIDTH = (int) (2 * bx + dxTexture + wheelWidth + shift);
 		IMG_HEIGHT = (int) (2 * by + dyTexture);
 	}
 
 	private int buildWheelFaces(
 
-			int counter, int firstWheelTexturePoint, int totWheelPolygon, BPoint[][] wheelLeftFront,
-			BPoint[][] wheelRightFront, BPoint[][] wheelLeftRear, BPoint[][] wheelRightRear) {
+			int counter, int totWheelPolygon, BPoint[][] wheelLeftFront, BPoint[][] wheelRightFront,
+			BPoint[][] wheelLeftRear, BPoint[][] wheelRightRear) {
 
-		int[][][] wFaces = buildWheelFaces(wheelLeftFront, firstWheelTexturePoint);
+		int[][][] wFaces = buildWheelFaces(wheelLeftFront, tWh[0]);
 		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++] = wFaces[i];
 		}
 
-		wFaces = buildWheelFaces(wheelRightFront, firstWheelTexturePoint);
+		wFaces = buildWheelFaces(wheelRightFront, tWh[0]);
 		for (int i = 0; i < totWheelPolygon; i++) {
 			faces[counter++] = wFaces[i];
 		}
 
 		if (wheelLeftRear != null) {
-			wFaces = buildWheelFaces(wheelLeftRear, firstWheelTexturePoint);
+			wFaces = buildWheelFaces(wheelLeftRear, tWh[0]);
 			for (int i = 0; i < totWheelPolygon; i++) {
 				faces[counter++] = wFaces[i];
 			}
 		}
 
 		if (wheelRightRear != null) {
-			wFaces = buildWheelFaces(wheelRightRear, firstWheelTexturePoint);
+			wFaces = buildWheelFaces(wheelRightRear, tWh[0]);
 			for (int i = 0; i < totWheelPolygon; i++) {
 				faces[counter++] = wFaces[i];
 			}
@@ -472,17 +469,10 @@ public class SteamLocomotive0Model extends VehicleModel {
 	@Override
 	public void printTexture(Graphics2D bufGraphics) {
 
-		for (int i = 0; i < faces.length; i++) {
-
-			int[][] face = faces[i];
-			int[] tPoints = face[2];
-			if (tPoints.length == 4) {
-				printTexturePolygon(bufGraphics, tPoints[0], tPoints[1], tPoints[2], tPoints[3]);
-			} else if (tPoints.length == 3) {
-				printTexturePolygon(bufGraphics, tPoints[0], tPoints[1], tPoints[2]);
-			}
-
-		}
+		bufGraphics.setColor(new Color(0, 0, 0));
+		printTexturePolygon(bufGraphics, tBo[0]);
+		bufGraphics.setColor(new Color(255, 0, 0));
+		printTexturePolygon(bufGraphics, tWh[0]);
 
 	}
 
