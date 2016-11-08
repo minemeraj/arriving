@@ -35,11 +35,9 @@ public class Truck0Model extends VehicleModel {
 
 	int[][] tLeftRear = null;
 	int[][] tLeftFront = null;
-	int[][] tLeftRoof = null;
 
 	int[][] tRightRear = null;
 	int[][] tRightFront = null;
-	int[][] tRightRoof = null;
 
 	// wagon textures
 	protected int[][] tBackWagon = null;
