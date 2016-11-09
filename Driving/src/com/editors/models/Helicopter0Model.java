@@ -22,8 +22,8 @@ public class Helicopter0Model extends VehicleModel {
 	// body textures
 	protected int[][] tBo = null;
 
-	private double dxTexture = 100;
-	private double dyTexture = 100;
+	private double dxTexture = 50;
+	private double dyTexture = 50;
 
 	private BPoint[][][] body;
 	private BPoint[][][][] propellers;
@@ -36,15 +36,11 @@ public class Helicopter0Model extends VehicleModel {
 	protected int bodyNY = backNY + fuselageNY + frontNY;
 	protected int bodyNZ = 2;
 
-	private double dxShoes;
-	private double dyShoes;
-	private double dzShoes = 50;
-
 	public static String NAME = "Helicopter";
 
 	public Helicopter0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr, double dyr,
-			double dzr, double dxRoof, double dyRoof, double dzRoof, double rearOverhang, double frontOverhang,
-			double rearOverhang1, double frontOverhang1) {
+			double dzr, double dxRoof, double dyRoof, double dzRoof, double dxBottom, double dyBottom, double dzBottom,
+			double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
@@ -62,14 +58,15 @@ public class Helicopter0Model extends VehicleModel {
 		this.dyRoof = dyRoof;
 		this.dzRoof = dzRoof;
 
+		this.dxBottom = dxBottom;
+		this.dyBottom = dyBottom;
+		this.dzBottom = dzBottom;
+
 		this.rearOverhang = rearOverhang;
 		this.frontOverhang = frontOverhang;
 
 		this.rearOverhang1 = rearOverhang1;
 		this.frontOverhang1 = frontOverhang1;
-
-		dxShoes = 10;
-		dyShoes = dy;
 
 	}
 
@@ -129,10 +126,7 @@ public class Helicopter0Model extends VehicleModel {
 		double y = by;
 		double x = bx;
 
-		addTPoint(x, y, 0);
-		addTPoint(x + dxTexture, y, 0);
-		addTPoint(x + dxTexture, y + dyTexture, 0);
-		addTPoint(x, y + dyTexture, 0);
+		addTRect(x, y, dxTexture, dyTexture);
 
 		IMG_WIDTH = (int) (2 * bx + dxTexture);
 		IMG_HEIGHT = (int) (2 * by + dyTexture);
@@ -153,10 +147,10 @@ public class Helicopter0Model extends VehicleModel {
 		double back_height2 = dzRear * (1 - 0.6) + dz * 0.6;
 		double back_height3 = dzRear * (1 - 0.9) + dz * 0.9;
 
-		Segments b0 = new Segments(0, back_width, 0, dyRear, dz - dzRear + dzShoes, back_height);
-		Segments b1 = new Segments(0, back_width1, 0, dyRear, dz - back_height1 + dzShoes, back_height1);
-		Segments b2 = new Segments(0, back_width2, 0, dyRear, dz - back_height2 + dzShoes, back_height2);
-		Segments b3 = new Segments(0, back_width3, 0, dyRear, dz - back_height3 + dzShoes, back_height3);
+		Segments b0 = new Segments(0, back_width, 0, dyRear, dz - dzRear + dzBottom, back_height);
+		Segments b1 = new Segments(0, back_width1, 0, dyRear, dz - back_height1 + dzBottom, back_height1);
+		Segments b2 = new Segments(0, back_width2, 0, dyRear, dz - back_height2 + dzBottom, back_height2);
+		Segments b3 = new Segments(0, back_width3, 0, dyRear, dz - back_height3 + dzBottom, back_height3);
 
 		body[0][0][0] = addBPoint(-0.5, 0.0, 0, b0);
 		body[1][0][0] = addBPoint(0.5, 0.0, 0, b0);
@@ -178,7 +172,7 @@ public class Helicopter0Model extends VehicleModel {
 		body[0][3][1] = addBPoint(-0.5, 0.75, 1.0, b3);
 		body[1][3][1] = addBPoint(0.5, 0.75, 1.0, b3);
 
-		Segments p0 = new Segments(0, dx, dyRear, dy, dzShoes, dz);
+		Segments p0 = new Segments(0, dx, dyRear, dy, dzBottom, dz);
 
 		body[0][backNY][0] = addBPoint(-0.5, 0.0, 0, p0);
 		body[1][backNY][0] = addBPoint(0.5, 0.0, 0, p0);
@@ -199,10 +193,10 @@ public class Helicopter0Model extends VehicleModel {
 		double front_height1 = dzFront * (1 - 0.7) + dz * 0.7;
 		double front_height2 = dzFront * (1 - 0.65) + dz * 0.65;
 
-		Segments f0 = new Segments(0, front_width0, dyRear + dy, dyRear, dzShoes, front_height0);
-		Segments f1 = new Segments(0, front_width1, dyRear + dy, dyRear, dzShoes, front_height1);
-		Segments f2 = new Segments(0, front_width2, dyRear + dy, dyRear, dzShoes, front_height2);
-		Segments f3 = new Segments(0, front_width, dyRear + dy, dyRear, dzShoes, dzFront);
+		Segments f0 = new Segments(0, front_width0, dyRear + dy, dyRear, dzBottom, front_height0);
+		Segments f1 = new Segments(0, front_width1, dyRear + dy, dyRear, dzBottom, front_height1);
+		Segments f2 = new Segments(0, front_width2, dyRear + dy, dyRear, dzBottom, front_height2);
+		Segments f3 = new Segments(0, front_width, dyRear + dy, dyRear, dzBottom, dzFront);
 
 		body[0][backNY + fuselageNY][0] = addBPoint(-0.5, 0.25, 0, f0);
 		body[1][backNY + fuselageNY][0] = addBPoint(0.5, 0.25, 0, f0);
@@ -251,7 +245,7 @@ public class Helicopter0Model extends VehicleModel {
 
 		propellers = new BPoint[2][2][2][2];
 
-		Segments s0 = new Segments(0, dxRoof, dyRear + dy * 0.5, dyRoof, dz + dzShoes, dzRoof);
+		Segments s0 = new Segments(0, dxRoof, dyRear + dy * 0.5, dyRoof, dz + dzBottom, dzRoof);
 
 		propellers[0][0][0][0] = addBPoint(-1.0, -1.0, 0, s0);
 		propellers[0][1][0][0] = addBPoint(1.0, -1.0, 0, s0);
@@ -263,7 +257,7 @@ public class Helicopter0Model extends VehicleModel {
 		propellers[0][0][1][1] = addBPoint(-1.0, 1.0, 1.0, s0);
 		propellers[0][1][1][1] = addBPoint(1.0, 1.0, 1.0, s0);
 
-		Segments s1 = new Segments(0, dyRoof, dyRear + dy * 0.5, dxRoof, dz + dzShoes, dzRoof);
+		Segments s1 = new Segments(0, dyRoof, dyRear + dy * 0.5, dxRoof, dz + dzBottom, dzRoof);
 
 		propellers[1][0][0][0] = addBPoint(-1.0, -1.0, 0, s1);
 		propellers[1][1][0][0] = addBPoint(1.0, -1.0, 0, s1);
@@ -301,7 +295,7 @@ public class Helicopter0Model extends VehicleModel {
 	private void buildShoes() {
 		shoes = new BPoint[2][2][2][2];
 
-		Segments s0 = new Segments(-dx * 0.5 - dxShoes, dxShoes, dyRear, dyShoes, 0, dzShoes);
+		Segments s0 = new Segments(-dx * 0.5 - dxBottom, dxBottom, dyRear, dyBottom, 0, dzBottom);
 
 		shoes[0][0][0][0] = addBPoint(-1.0, 0.0, 0, s0);
 		shoes[0][1][0][0] = addBPoint(1.0, 0.0, 0, s0);
@@ -313,7 +307,7 @@ public class Helicopter0Model extends VehicleModel {
 		shoes[0][0][1][1] = addBPoint(-1.0, 1.0, 1.0, s0);
 		shoes[0][1][1][1] = addBPoint(1.0, 1.0, 1.0, s0);
 
-		Segments s1 = new Segments(dx * 0.5, dxShoes, dyRear, dyShoes, 0, dzShoes);
+		Segments s1 = new Segments(dx * 0.5, dxBottom, dyRear, dyBottom, 0, dzBottom);
 
 		shoes[1][0][0][0] = addBPoint(-1.0, 0.0, 0, s1);
 		shoes[1][1][0][0] = addBPoint(1.0, 0.0, 0, s1);

@@ -58,8 +58,8 @@ public class Airplane0Model extends VehicleModel {
 	int wingNZ = 2;
 
 	public Airplane0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr, double dyr,
-			double dzr, double dxRoof, double dyRoof, double dzRoof, double rearOverhang, double frontOverhang,
-			double rearOverhang1, double frontOverhang1) {
+			double dzr, double dxRoof, double dyRoof, double dzRoof, double dxBottom, double dyBottom, double dzBottom,
+			double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
@@ -76,6 +76,10 @@ public class Airplane0Model extends VehicleModel {
 		this.dxRoof = dxRoof;
 		this.dyRoof = dyRoof;
 		this.dzRoof = dzRoof;
+
+		this.dxBottom = dxBottom;
+		this.dyBottom = dyBottom;
+		this.dzBottom = dzBottom;
 
 		this.rearOverhang = rearOverhang;
 		this.frontOverhang = frontOverhang;

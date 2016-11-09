@@ -480,15 +480,15 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 					rearOverhang, frontOverhang, rearOverhang1, frontOverhang1);
 		} else if (val == AIRPLANE0) {
 
-			meshModel = new Airplane0Model(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof,
-					rearOverhang, frontOverhang, rearOverhang1, frontOverhang1);
+			meshModel = new Airplane0Model(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof, dxBottom,
+					dyBottom, dzBottom, rearOverhang, frontOverhang, rearOverhang1, frontOverhang1);
 		} else if (val == FIGHTER_AIRCRAFT0) {
 
 			meshModel = new FighterAircraft0Model(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof,
-					rearOverhang, frontOverhang, rearOverhang1, frontOverhang1);
+					dxBottom, dyBottom, dzBottom, rearOverhang, frontOverhang, rearOverhang1, frontOverhang1);
 		} else if (val == HELICOPTER) {
-			meshModel = new Helicopter0Model(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof,
-					rearOverhang, frontOverhang, rearOverhang1, frontOverhang1);
+			meshModel = new Helicopter0Model(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof, dxBottom,
+					dyBottom, dzBottom, rearOverhang, frontOverhang, rearOverhang1, frontOverhang1);
 		} else if (val == BYKE0) {
 			meshModel = new Byke0Model(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof, wheelRadius,
 					wheelWidth, wheelRays);
@@ -744,7 +744,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						46, 80, 46, // dxFront, dyFront, dzFront
 						38, 200, 24, // dxRear, dyRear, dzRear
 						20, 200, 10, // dxRoof, dyRoof, dzRoof
-						0, 0, 0, // dxBottom, dyBottom, dzBottom
+						5, 200, 20, // dxBottom, dyBottom, dzBottom
 						0, 0, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						0, 0, 0// wheel_radius, wheel_width, wheel_rays
