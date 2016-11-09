@@ -107,8 +107,8 @@ public class Truck0Model extends VehicleModel {
 		c = initDoubleArrayValues(tBackWagon = new int[1][4], c);
 		c = initDoubleArrayValues(tLeftRear = new int[nyBody - 1][4], c);
 		c = initDoubleArrayValues(tLeftFront = new int[nYcab - 1][4], c);
-		c = initDoubleArrayValues(tLeftWagon = new int[1][4], c);
 		c = initDoubleArrayValues(tLeftRoof = new int[2][4], c);
+		c = initDoubleArrayValues(tLeftWagon = new int[1][4], c);
 		c = initDoubleArrayValues(tWagon = new int[1][4], c);
 		c = initSingleArrayValues(tTopRoof = new int[4], c);
 		c = initDoubleArrayValues(tRightRear = new int[nyBody - 1][4], c);
@@ -138,7 +138,7 @@ public class Truck0Model extends VehicleModel {
 		NF += 2 + (nzBody - 1) * 4;
 		NF += 2 + (nzWagon - 1) * 4;
 		// cabin roof
-		NF += 7;
+		NF += 8;
 
 		faces = new int[NF + NUM_WHEEL_FACES][3][4];
 
@@ -255,18 +255,24 @@ public class Truck0Model extends VehicleModel {
 					cab[1][j + 1][nzCab - 1], cab[0][j + 1][nzCab - 1], tRe[0]);
 		}
 
+		faces[counter++] = buildFace(Renderer3D.CAR_BACK, roof[0][0][0], roof[1][0][0], roof[1][0][1], roof[0][0][1],
+				tWi[0]);
+
 		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, roof[0][0][0], roof[0][0][1], roof[0][1][1], roof[0][1][0],
 				tLeftRoof[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, roof[0][1][0], roof[0][1][1], roof[0][2][0], tLeftRoof[1]);
+		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, roof[0][1][0], roof[0][1][1], roof[0][2][1], roof[0][2][0],
+				tLeftRoof[1]);
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, roof[0][0][1], roof[1][0][1], roof[1][1][1], roof[0][1][1],
 				tTopRoof);
-		faces[counter++] = buildFace(Renderer3D.CAR_TOP, roof[0][1][1], roof[1][1][1], roof[1][2][0], roof[0][2][0],
-				tWi[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_BACK, roof[0][0][0], roof[1][0][0], roof[1][0][1], roof[0][0][1],
+		faces[counter++] = buildFace(Renderer3D.CAR_TOP, roof[0][1][1], roof[1][1][1], roof[1][2][1], roof[0][2][1],
 				tWi[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][0][0], roof[1][1][0], roof[1][1][1], roof[1][0][1],
 				tRightRoof[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][1][0], roof[1][2][0], roof[1][1][1], tRightRoof[1]);
+		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][1][0], roof[1][2][0], roof[1][2][1], roof[1][1][1],
+				tRightRoof[1]);
+
+		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, roof[0][2][1], roof[1][2][1], roof[1][2][0], roof[0][2][0],
+				tWi[0]);
 
 		return counter;
 
@@ -530,6 +536,8 @@ public class Truck0Model extends VehicleModel {
 		roof[1][0][1] = addBPoint(1.0, 0, 1.0, r0);
 		roof[0][1][1] = addBPoint(0.0, dyRup, 1.0, r0);
 		roof[1][1][1] = addBPoint(1.0, dyRup, 1.0, r0);
+		roof[0][2][1] = addBPoint(0.0, 1.0, 1.0, r0);
+		roof[1][2][1] = addBPoint(1.0, 1.0, 1.0, r0);
 
 	}
 
@@ -599,7 +607,7 @@ public class Truck0Model extends VehicleModel {
 		for (int i = 0; i < tRightFront.length; i++) {
 			printTexturePolygon(bufGraphics, tRightFront[i]);
 		}
-		bufGraphics.setColor(rearColor);
+		bufGraphics.setColor(frontColor);
 		for (int i = 0; i < tRightRoof.length; i++) {
 			printTexturePolygon(bufGraphics, tRightRoof[i]);
 		}
