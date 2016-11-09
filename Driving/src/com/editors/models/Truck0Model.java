@@ -229,25 +229,17 @@ public class Truck0Model extends VehicleModel {
 
 			for (int k = 0; k < nzCab - 1; k++) {
 
-				// set windows in the upper part
-				int[] ca = null;
-				if (k > 0) {
-					ca = tWi[0];
-				} else {
-					ca = tRe[0];
-				}
-
 				faces[counter++] = buildFace(Renderer3D.CAR_LEFT, cab[0][j][k], cab[0][j][k + 1], cab[0][j + 1][k + 1],
-						cab[0][j + 1][k], ca);
+						cab[0][j + 1][k], tLeftFront[j]);
 				if (j == 0) {
 					faces[counter++] = buildFace(Renderer3D.CAR_BACK, cab[0][j][k], cab[1][j][k], cab[1][j][k + 1],
 							cab[0][j][k + 1], tRe[0]);
 				}
 				faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, cab[1][j][k], cab[1][j + 1][k], cab[1][j + 1][k + 1],
-						cab[1][j][k + 1], ca);
+						cab[1][j][k + 1], tRightFront[j]);
 				if (j == nYcab - 2) {
 					faces[counter++] = buildFace(Renderer3D.CAR_FRONT, cab[0][nYcab - 1][k], cab[0][nYcab - 1][k + 1],
-							cab[1][nYcab - 1][k + 1], cab[1][nYcab - 1][k], ca);
+							cab[1][nYcab - 1][k + 1], cab[1][nYcab - 1][k], tRe[0]);
 				}
 
 			}
@@ -265,7 +257,7 @@ public class Truck0Model extends VehicleModel {
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, roof[0][0][1], roof[1][0][1], roof[1][1][1], roof[0][1][1],
 				tTopRoof);
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, roof[0][1][1], roof[1][1][1], roof[1][2][1], roof[0][2][1],
-				tWi[0]);
+				tTopRoof);
 		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][0][0], roof[1][1][0], roof[1][1][1], roof[1][0][1],
 				tRightRoof[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][1][0], roof[1][2][0], roof[1][2][1], roof[1][1][1],
@@ -412,7 +404,7 @@ public class Truck0Model extends VehicleModel {
 
 		addTPoint(x + roof[0][1][0].z, y + roof[0][1][0].y, 0);
 		addTPoint(x + roof[0][1][1].z, y + roof[0][1][1].y, 0);
-		addTPoint(x + roof[0][2][0].z, y + roof[0][2][0].y, 0);
+		addTPoint(x + roof[0][2][1].z, y + roof[0][2][1].y, 0);
 		addTPoint(x + roof[0][2][0].z, y + roof[0][2][0].y, 0);
 
 		addTRect(x + dzRear, y, dzWagon, dyWagon);
@@ -448,7 +440,7 @@ public class Truck0Model extends VehicleModel {
 		addTPoint(x + dzRight - roof[0][1][1].z, y + roof[0][1][1].y, 0);
 		addTPoint(x + dzRight - roof[0][1][0].z, y + roof[0][1][0].y, 0);
 		addTPoint(x + dzRight - roof[0][2][0].z, y + roof[0][2][0].y, 0);
-		addTPoint(x + dzRight - roof[0][2][0].z, y + roof[0][2][0].y, 0);
+		addTPoint(x + dzRight - roof[0][2][1].z, y + roof[0][2][1].y, 0);
 
 		addTRect(x, y, dzWagon, dyWagon);
 	}
