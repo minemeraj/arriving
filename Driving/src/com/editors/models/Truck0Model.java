@@ -31,11 +31,11 @@ public class Truck0Model extends VehicleModel {
 	protected int[] tBackRear = null;
 	protected int[][] tRe = null;
 
-	int[] tTopFront = null;
-
 	int[][] tLeftRear = null;
 	int[][] tLeftFront = null;
-
+	protected int[][] tLeftRoof = null;
+	protected int[] tTopRoof = null;
+	protected int[][] tRightRoof = null;
 	int[][] tRightRear = null;
 	int[][] tRightFront = null;
 
@@ -44,6 +44,7 @@ public class Truck0Model extends VehicleModel {
 	protected int[][] tLeftWagon = null;
 	protected int[][] tWagon = null;
 	protected int[][] tRightWagon = null;
+
 	// window texture
 	protected int[][] tWi = null;
 	// wheel texture
@@ -56,7 +57,7 @@ public class Truck0Model extends VehicleModel {
 	protected BPoint[][] wheelLeftRear;
 	protected BPoint[][] wheelRightRear;
 
-	protected int nzCab = 3;
+	protected int nzCab = 2;
 	protected int nYcab = 6;
 	protected int nzBody = 2;
 	protected int nyBody = 2;
@@ -107,10 +108,12 @@ public class Truck0Model extends VehicleModel {
 		c = initDoubleArrayValues(tLeftRear = new int[nyBody - 1][4], c);
 		c = initDoubleArrayValues(tLeftFront = new int[nYcab - 1][4], c);
 		c = initDoubleArrayValues(tLeftWagon = new int[1][4], c);
+		c = initDoubleArrayValues(tLeftRoof = new int[2][4], c);
 		c = initDoubleArrayValues(tWagon = new int[1][4], c);
-		c = initSingleArrayValues(tTopFront = new int[4], c);
+		c = initSingleArrayValues(tTopRoof = new int[4], c);
 		c = initDoubleArrayValues(tRightRear = new int[nyBody - 1][4], c);
 		c = initDoubleArrayValues(tRightFront = new int[nYcab - 1][4], c);
+		c = initDoubleArrayValues(tRightRoof = new int[2][4], c);
 		c = initDoubleArrayValues(tRightWagon = new int[1][4], c);
 		c = initDoubleArrayValues(tWi = new int[1][4], c);
 		c = initDoubleArrayValues(tWh = new int[1][4], c);
@@ -134,6 +137,8 @@ public class Truck0Model extends VehicleModel {
 		int NF = 2 + (2 + (nzCab - 1)) * (nYcab - 1) * 2;
 		NF += 2 + (nzBody - 1) * 4;
 		NF += 2 + (nzWagon - 1) * 4;
+		// cabin roof
+		NF += 7;
 
 		faces = new int[NF + NUM_WHEEL_FACES][3][4];
 
@@ -250,6 +255,19 @@ public class Truck0Model extends VehicleModel {
 					cab[1][j + 1][nzCab - 1], cab[0][j + 1][nzCab - 1], tRe[0]);
 		}
 
+		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, roof[0][0][0], roof[0][0][1], roof[0][1][1], roof[0][1][0],
+				tLeftRoof[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, roof[0][1][0], roof[0][1][1], roof[0][2][0], tLeftRoof[1]);
+		faces[counter++] = buildFace(Renderer3D.CAR_TOP, roof[0][0][1], roof[1][0][1], roof[1][1][1], roof[0][1][1],
+				tTopRoof);
+		faces[counter++] = buildFace(Renderer3D.CAR_TOP, roof[0][1][1], roof[1][1][1], roof[1][2][0], roof[0][2][0],
+				tWi[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_BACK, roof[0][0][0], roof[1][0][0], roof[1][0][1], roof[0][0][1],
+				tWi[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][0][0], roof[1][1][0], roof[1][1][1], roof[1][0][1],
+				tRightRoof[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roof[1][1][0], roof[1][2][0], roof[1][1][1], tRightRoof[1]);
+
 		return counter;
 
 	}
@@ -359,7 +377,7 @@ public class Truck0Model extends VehicleModel {
 
 	protected void buildTopTextures(double x, double y, int shift, double deltaXF) {
 		addTRect(x, y, dxWagon, dyWagon);
-		addTRect(x + deltaXF, y + dyWagon, dxFront, dyFront);
+		addTRect(x + deltaXF, y + dyWagon, dxRoof, dyRoof);
 	}
 
 	protected void buildLefTextures(double x, double y, int shift) {
@@ -380,6 +398,16 @@ public class Truck0Model extends VehicleModel {
 			addTPoint(x + cab[0][i + 1][1].z, y + cab[0][i + 1][1].y, 0);
 			addTPoint(x + cab[0][i + 1][0].z, y + cab[0][i + 1][0].y, 0);
 		}
+
+		addTPoint(x + roof[0][0][0].z, y + roof[0][0][0].y, 0);
+		addTPoint(x + roof[0][0][1].z, y + roof[0][0][1].y, 0);
+		addTPoint(x + roof[0][1][1].z, y + roof[0][1][1].y, 0);
+		addTPoint(x + roof[0][1][0].z, y + roof[0][1][0].y, 0);
+
+		addTPoint(x + roof[0][1][0].z, y + roof[0][1][0].y, 0);
+		addTPoint(x + roof[0][1][1].z, y + roof[0][1][1].y, 0);
+		addTPoint(x + roof[0][2][0].z, y + roof[0][2][0].y, 0);
+		addTPoint(x + roof[0][2][0].z, y + roof[0][2][0].y, 0);
 
 		addTRect(x + dzRear, y, dzWagon, dyWagon);
 
@@ -405,6 +433,16 @@ public class Truck0Model extends VehicleModel {
 			addTPoint(x + dzRight - cab[0][i + 1][1].z, y + cab[0][i + 1][1].y, 0);
 
 		}
+
+		addTPoint(x + dzRight - roof[0][0][1].z, y + roof[0][0][1].y, 0);
+		addTPoint(x + dzRight - roof[0][0][0].z, y + roof[0][0][0].y, 0);
+		addTPoint(x + dzRight - roof[0][1][0].z, y + roof[0][1][0].y, 0);
+		addTPoint(x + dzRight - roof[0][1][1].z, y + roof[0][1][1].y, 0);
+
+		addTPoint(x + dzRight - roof[0][1][1].z, y + roof[0][1][1].y, 0);
+		addTPoint(x + dzRight - roof[0][1][0].z, y + roof[0][1][0].y, 0);
+		addTPoint(x + dzRight - roof[0][2][0].z, y + roof[0][2][0].y, 0);
+		addTPoint(x + dzRight - roof[0][2][0].z, y + roof[0][2][0].y, 0);
 
 		addTRect(x, y, dzWagon, dyWagon);
 	}
@@ -441,52 +479,57 @@ public class Truck0Model extends VehicleModel {
 		double wz2 = wheelRadius * 1.0 / dzFront;
 		double wz3 = wz2;
 
-		double fz2 = 0.5;
+		double fz2 = 1.0;
 
 		Segments s0 = new Segments(x0 - dxFront * 0.5, dxFront, y0 + dyWagon, dyFront, z0, dzFront);
 
 		cab = new BPoint[2][nYcab][nzCab];
 		cab[0][0][0] = addBPoint(0.0, fy0, 0.0, s0);
 		cab[0][0][1] = addBPoint(0.0, fy0, fz2, s0);
-		cab[0][0][2] = addBPoint(0.0, fy0, 1.0, s0);
 		cab[1][0][0] = addBPoint(1.0, fy0, 0.0, s0);
 		cab[1][0][1] = addBPoint(1.0, fy0, fz2, s0);
-		cab[1][0][2] = addBPoint(1.0, fy0, 1.0, s0);
 
 		cab[0][1][0] = addBPoint(0.0, fy1, 0.0, s0);
 		cab[0][1][1] = addBPoint(0.0, fy1, fz2, s0);
-		cab[0][1][2] = addBPoint(0.0, fy1, 1.0, s0);
 		cab[1][1][0] = addBPoint(1.0, fy1, 0.0, s0);
 		cab[1][1][1] = addBPoint(1.0, fy1, fz2, s0);
-		cab[1][1][2] = addBPoint(1.0, fy1, 1.0, s0);
 
 		cab[0][2][0] = addBPoint(0.0, fy2, wz2, s0);
 		cab[0][2][1] = addBPoint(0.0, fy2, fz2, s0);
-		cab[0][2][2] = addBPoint(0.0, fy2, 1.0, s0);
 		cab[1][2][0] = addBPoint(1.0, fy2, wz2, s0);
 		cab[1][2][1] = addBPoint(1.0, fy2, fz2, s0);
-		cab[1][2][2] = addBPoint(1.0, fy2, 1.0, s0);
 
 		cab[0][3][0] = addBPoint(0.0, fy3, wz3, s0);
 		cab[0][3][1] = addBPoint(0.0, fy3, fz2, s0);
-		cab[0][3][2] = addBPoint(0.0, fy3, 1.0, s0);
 		cab[1][3][0] = addBPoint(1.0, fy3, wz3, s0);
 		cab[1][3][1] = addBPoint(1.0, fy3, fz2, s0);
-		cab[1][3][2] = addBPoint(1.0, fy3, 1.0, s0);
 
 		cab[0][4][0] = addBPoint(0.0, fy4, 0.0, s0);
 		cab[0][4][1] = addBPoint(0.0, fy4, fz2, s0);
-		cab[0][4][2] = addBPoint(0.0, fy4, 1.0, s0);
 		cab[1][4][0] = addBPoint(1.0, fy4, 0.0, s0);
 		cab[1][4][1] = addBPoint(1.0, fy4, fz2, s0);
-		cab[1][4][2] = addBPoint(1.0, fy4, 1.0, s0);
 
 		cab[0][5][0] = addBPoint(0.0, fy5, 0.0, s0);
 		cab[0][5][1] = addBPoint(0.0, fy5, fz2, s0);
-		cab[0][5][2] = addBPoint(0.0, fy5, 1.0, s0);
 		cab[1][5][0] = addBPoint(1.0, fy5, 0.0, s0);
 		cab[1][5][1] = addBPoint(1.0, fy5, fz2, s0);
-		cab[1][5][2] = addBPoint(1.0, fy5, 1.0, s0);
+
+		Segments r0 = new Segments(x0 - dxRoof * 0.5, dxRoof, y0 + dyRear, dyRoof, z0 + dzFront, dzRoof);
+
+		double dyRup = (dyFront - frontOverhang1) / dyRoof;
+
+		roof = new BPoint[2][3][2];
+		roof[0][0][0] = addBPoint(0.0, 0, 0, r0);
+		roof[1][0][0] = addBPoint(1.0, 0, 0, r0);
+		roof[0][1][0] = addBPoint(0.0, dyRup, 0, r0);
+		roof[1][1][0] = addBPoint(1.0, dyRup, 0, r0);
+		roof[0][2][0] = addBPoint(0.0, 1.0, 0, r0);
+		roof[1][2][0] = addBPoint(1.0, 1.0, 0, r0);
+
+		roof[0][0][1] = addBPoint(0.0, 0, 1.0, r0);
+		roof[1][0][1] = addBPoint(1.0, 0, 1.0, r0);
+		roof[0][1][1] = addBPoint(0.0, dyRup, 1.0, r0);
+		roof[1][1][1] = addBPoint(1.0, dyRup, 1.0, r0);
 
 	}
 
@@ -539,11 +582,14 @@ public class Truck0Model extends VehicleModel {
 		for (int i = 0; i < tLeftFront.length; i++) {
 			printTexturePolygon(bufGraphics, tLeftFront[i]);
 		}
+		for (int i = 0; i < tLeftRoof.length; i++) {
+			printTexturePolygon(bufGraphics, tLeftRoof[i]);
+		}
 
 		bufGraphics.setColor(wagonColor);
 		printTexturePolygon(bufGraphics, tWagon[0]);
-		printTexturePolygon(bufGraphics, tTopFront);
 		bufGraphics.setColor(frontColor);
+		printTexturePolygon(bufGraphics, tTopRoof);
 
 		bufGraphics.setColor(rearColor);
 		for (int i = 0; i < tRightRear.length; i++) {
@@ -552,6 +598,10 @@ public class Truck0Model extends VehicleModel {
 		bufGraphics.setColor(frontColor);
 		for (int i = 0; i < tRightFront.length; i++) {
 			printTexturePolygon(bufGraphics, tRightFront[i]);
+		}
+		bufGraphics.setColor(rearColor);
+		for (int i = 0; i < tRightRoof.length; i++) {
+			printTexturePolygon(bufGraphics, tRightRoof[i]);
 		}
 		bufGraphics.setColor(wagonColor);
 		printTexturePolygon(bufGraphics, tRightWagon[0]);
