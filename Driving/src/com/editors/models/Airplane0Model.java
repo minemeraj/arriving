@@ -37,6 +37,8 @@ public class Airplane0Model extends VehicleModel {
 	protected int[][] tTopBody = null;
 	protected int[][] tRightBody = null;
 	protected int[] tRightWing = null;
+	protected int[] tLeftTail;
+	protected int[] tRightTail;
 
 	protected int backNY = 4;
 	protected int fuselageNY = 2;
@@ -94,11 +96,14 @@ public class Airplane0Model extends VehicleModel {
 
 		int c = 0;
 		c = initDoubleArrayValues(tBo = new int[1][4], c);
-		c = initSingleArrayValues(tLeftWing = new int[4], c);
+
 		c = initDoubleArrayValues(tLeftBody = new int[bodyNY - 1][4], c);
+		c = initSingleArrayValues(tLeftTail = new int[4], c);
+		c = initSingleArrayValues(tLeftWing = new int[4], c);
 		c = initDoubleArrayValues(tTopBody = new int[bodyNY - 1][4], c);
-		c = initDoubleArrayValues(tRightBody = new int[bodyNY - 1][4], c);
 		c = initSingleArrayValues(tRightWing = new int[4], c);
+		c = initSingleArrayValues(tRightTail = new int[4], c);
+		c = initDoubleArrayValues(tRightBody = new int[bodyNY - 1][4], c);
 
 		points = new Vector<Point3D>();
 		texturePoints = new Vector();
@@ -420,6 +425,11 @@ public class Airplane0Model extends VehicleModel {
 
 	protected void buildTopTextures(double x, double y, int shift) {
 
+		addTPoint(x + tailLeftWing[0][0][0].x, y + tailLeftWing[0][0][0].y, 0);
+		addTPoint(x + tailLeftWing[1][0][0].x, y + tailLeftWing[1][0][0].y, 0);
+		addTPoint(x + tailLeftWing[1][1][0].x, y + tailLeftWing[1][1][0].y, 0);
+		addTPoint(x + tailLeftWing[0][1][0].x, y + tailLeftWing[0][1][0].y, 0);
+
 		addTPoint(x + leftWing[0][0][0].x, y + leftWing[0][0][0].y, 0);
 		addTPoint(x + leftWing[1][0][0].x, y + leftWing[1][0][0].y, 0);
 		addTPoint(x + leftWing[1][0 + 1][0].x, y + leftWing[1][0 + 1][0].y, 0);
@@ -436,6 +446,11 @@ public class Airplane0Model extends VehicleModel {
 		addTPoint(x + rightWing[1][0][0].x, y + rightWing[1][0][0].y, 0);
 		addTPoint(x + rightWing[1][0 + 1][0].x, y + rightWing[1][0 + 1][0].y, 0);
 		addTPoint(x + rightWing[0][0 + 1][0].x, y + rightWing[0][0 + 1][0].y, 0);
+
+		addTPoint(x + tailRightWing[0][0][0].x, y + tailRightWing[0][0][0].y, 0);
+		addTPoint(x + tailRightWing[1][0][0].x, y + tailRightWing[1][0][0].y, 0);
+		addTPoint(x + tailRightWing[1][1][0].x, y + tailRightWing[1][1][0].y, 0);
+		addTPoint(x + tailRightWing[0][1][0].x, y + tailRightWing[0][1][0].y, 0);
 	}
 
 	protected void buildRightTextures(double x, double y, int shift) {
@@ -462,6 +477,7 @@ public class Airplane0Model extends VehicleModel {
 	public void printTexture(Graphics2D bufGraphics) {
 
 		Color bodyColor = new Color(255, 255, 255);
+		Color topBodyColor = new Color(255, 0, 0);
 
 		bufGraphics.setStroke(new BasicStroke(0.1f));
 
@@ -473,11 +489,17 @@ public class Airplane0Model extends VehicleModel {
 		for (int i = 0; i < tLeftBody.length; i++) {
 			printTexturePolygon(bufGraphics, tLeftBody[i]);
 		}
+
+		bufGraphics.setColor(topBodyColor);
+		printTexturePolygon(bufGraphics, tLeftTail);
 		printTexturePolygon(bufGraphics, tLeftWing);
 		for (int i = 0; i < tTopBody.length; i++) {
 			printTexturePolygon(bufGraphics, tTopBody[i]);
 		}
 		printTexturePolygon(bufGraphics, tRightWing);
+		printTexturePolygon(bufGraphics, tRightTail);
+
+		bufGraphics.setColor(bodyColor);
 		for (int i = 0; i < tRightBody.length; i++) {
 			printTexturePolygon(bufGraphics, tRightBody[i]);
 		}
