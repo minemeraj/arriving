@@ -741,8 +741,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 				);
 			} else if (HELICOPTER == val) {
 				setRightData(68, 121, 59, // dx, dy, dz
-						68, 49, 30, // dxFront, dyFront, dzFront
-						68, 172, 28, // dxRear, dyRear, dzRear
+						56, 49, 30, // dxFront, dyFront, dzFront
+						21, 172, 28, // dxRear, dyRear, dzRear
 						15, 371, 10, // dxRoof, dyRoof, dzRoof
 						6, 107, 18, // dxBottom, dyBottom, dzBottom
 						0, 0, // rearOverhang, frontOverhang
