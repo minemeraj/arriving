@@ -740,11 +740,11 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						0, 0, 0// wheel_radius, wheel_width, wheel_rays
 				);
 			} else if (HELICOPTER == val) {
-				setRightData(87, 150, 82, // dx, dy, dz
-						46, 80, 46, // dxFront, dyFront, dzFront
-						38, 200, 24, // dxRear, dyRear, dzRear
-						20, 200, 10, // dxRoof, dyRoof, dzRoof
-						5, 200, 20, // dxBottom, dyBottom, dzBottom
+				setRightData(68, 121, 59, // dx, dy, dz
+						68, 49, 30, // dxFront, dyFront, dzFront
+						68, 172, 28, // dxRear, dyRear, dzRear
+						15, 371, 10, // dxRoof, dyRoof, dzRoof
+						6, 107, 18, // dxBottom, dyBottom, dzBottom
 						0, 0, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						0, 0, 0// wheel_radius, wheel_width, wheel_rays

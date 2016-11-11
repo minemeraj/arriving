@@ -193,10 +193,10 @@ public class Helicopter0Model extends VehicleModel {
 		double front_height1 = dzFront * (1 - 0.7) + dz * 0.7;
 		double front_height2 = dzFront * (1 - 0.65) + dz * 0.65;
 
-		Segments f0 = new Segments(0, front_width0, dyRear + dy, dyRear, dzBottom, front_height0);
-		Segments f1 = new Segments(0, front_width1, dyRear + dy, dyRear, dzBottom, front_height1);
-		Segments f2 = new Segments(0, front_width2, dyRear + dy, dyRear, dzBottom, front_height2);
-		Segments f3 = new Segments(0, front_width, dyRear + dy, dyRear, dzBottom, dzFront);
+		Segments f0 = new Segments(0, front_width0, dyRear + dy, dyFront, dzBottom, front_height0);
+		Segments f1 = new Segments(0, front_width1, dyRear + dy, dyFront, dzBottom, front_height1);
+		Segments f2 = new Segments(0, front_width2, dyRear + dy, dyFront, dzBottom, front_height2);
+		Segments f3 = new Segments(0, front_width, dyRear + dy, dyFront, dzBottom, dzFront);
 
 		body[0][backNY + fuselageNY][0] = addBPoint(-0.5, 0.25, 0, f0);
 		body[1][backNY + fuselageNY][0] = addBPoint(0.5, 0.25, 0, f0);
@@ -245,7 +245,7 @@ public class Helicopter0Model extends VehicleModel {
 
 		propellers = new BPoint[2][2][2][2];
 
-		Segments s0 = new Segments(0, dxRoof, dyRear + dy * 0.5, dyRoof, dz + dzBottom, dzRoof);
+		Segments s0 = new Segments(0, dxRoof, dyRear + dy * 0.5, dyRoof * 0.5, dz + dzBottom, dzRoof);
 
 		propellers[0][0][0][0] = addBPoint(-1.0, -1.0, 0, s0);
 		propellers[0][1][0][0] = addBPoint(1.0, -1.0, 0, s0);
@@ -257,7 +257,7 @@ public class Helicopter0Model extends VehicleModel {
 		propellers[0][0][1][1] = addBPoint(-1.0, 1.0, 1.0, s0);
 		propellers[0][1][1][1] = addBPoint(1.0, 1.0, 1.0, s0);
 
-		Segments s1 = new Segments(0, dyRoof, dyRear + dy * 0.5, dxRoof, dz + dzBottom, dzRoof);
+		Segments s1 = new Segments(0, dyRoof * 0.5, dyRear + dy * 0.5, dxRoof, dz + dzBottom, dzRoof);
 
 		propellers[1][0][0][0] = addBPoint(-1.0, -1.0, 0, s1);
 		propellers[1][1][0][0] = addBPoint(1.0, -1.0, 0, s1);
