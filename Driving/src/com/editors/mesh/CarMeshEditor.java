@@ -730,12 +730,12 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						0, 0, 0// wheel_radius, wheel_width, wheel_rays
 				);
 			} else if (FIGHTER_AIRCRAFT0 == val) {
-				setRightData(87, 455, 82, // dx, dy, dz
-						46, 104, 46, // dxFront, dyFront, dzFront
-						38, 260, 24, // dxRear, dyRear, dzRear
-						330, 417, 53, // dxRoof, dyRoof, dzRoof
+				setRightData(78, 252, 58, // dx, dy, dz
+						35, 136, 33, // dxFront, dyFront, dzFront
+						107, 117, 34, // dxRear, dyRear, dzRear
+						131, 162, 22, // dxRoof, dyRoof, dzRoof
 						0, 0, 0, // dxBottom, dyBottom, dzBottom
-						100, 30, // rearOverhang, frontOverhang
+						117, 0, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						0, 0, 0// wheel_radius, wheel_width, wheel_rays
 				);
