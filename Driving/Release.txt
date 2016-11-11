@@ -1,3 +1,8 @@
+New objects:
+/lib/object3D_35 (Steam locomotive)
+/lib/object3D_36 (Fighter aircraft)
+/lib/object3D_37 (Helicopter)
+
 --- 05/11/2016 CarDriving 11.0.4 - Monza
 
 New cars:
