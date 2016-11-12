@@ -435,6 +435,7 @@ public class Road extends Shader {
 		CubicMesh cm = carData[SELECTED_CAR].getCarMesh().clone();
 
 		cm.translate(carPosX - CAR_WIDTH / 2, carPosY, -YFOCUS - MOVZ);
+		// TODO rotate around psi!
 		cm.rotateZ(carPosX, carPosY, viewDirectionCos, viewDirectionSin);
 
 		// fake steering: eliminate?
@@ -511,6 +512,7 @@ public class Road extends Shader {
 		}
 
 		cm.translate(POSX, POSY, -MOVZ);
+		// TODO ROTATE AROUND psi!
 		cm.rotateZ(POSX, POSY, viewDirectionCos, viewDirectionSin);
 
 		if (!isSkipShading()) {
@@ -1153,6 +1155,7 @@ public class Road extends Shader {
 		int NEW_CARPOSX = (int) (carPosX + (SCALE * SPACE_SCALE_FACTOR * carDynamics.dx));
 		int NEW_CARPOSY = (int) (carPosY + (SCALE * SPACE_SCALE_FACTOR * carDynamics.dy));
 
+		// TODO use speed direction, if present
 		setViewDirection(getViewDirection() - carDynamics.dpsi);
 		CarFrame.setMovingAngle(getViewDirection());
 

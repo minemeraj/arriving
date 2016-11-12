@@ -85,7 +85,7 @@ public class Helicopter0Model extends VehicleModel {
 		buildTextures();
 
 		// faces
-		int NF = (bodyNY - 1) * 4 + 1;// body
+		int NF = (bodyNY - 1) * 4;// body
 		// propellers
 		NF += 6 * propellers.length;
 		// shoes
@@ -101,8 +101,6 @@ public class Helicopter0Model extends VehicleModel {
 
 	private int buildCabinFaces(int counter, int numy) {
 
-		faces[counter++] = buildFace(Renderer3D.CAR_BACK, body[0][0][0], body[1][0][0], body[1][0][1], body[0][0][1],
-				tBo[0]);
 		for (int k = 0; k < numy - 1; k++) {
 
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, body[0][k][0], body[0][k][1], body[0][k + 1][1],
@@ -213,10 +211,10 @@ public class Helicopter0Model extends VehicleModel {
 		body[0][backNY + fuselageNY + 2][1] = addBPoint(-0.5, 0.75, 1.0, f2);
 		body[1][backNY + fuselageNY + 2][1] = addBPoint(0.5, 0.75, 1.0, f2);
 
-		body[0][backNY + fuselageNY + 3][0] = addBPoint(-0.5, 1.0, 0, f3);
-		body[1][backNY + fuselageNY + 3][0] = addBPoint(0.5, 1.0, 0, f3);
-		body[0][backNY + fuselageNY + 3][1] = addBPoint(-0.5, 1.0, 1.0, f3);
-		body[1][backNY + fuselageNY + 3][1] = addBPoint(0.5, 1.0, 1.0, f3);
+		body[0][backNY + fuselageNY + 3][0] = addBPoint(0.0, 1.0, 0, f3);
+		body[1][backNY + fuselageNY + 3][0] = body[0][backNY + fuselageNY + 3][0];
+		body[0][backNY + fuselageNY + 3][1] = addBPoint(0.0, 1.0, 1.0, f3);
+		body[1][backNY + fuselageNY + 3][1] = body[0][backNY + fuselageNY + 3][1];
 
 	}
 
@@ -295,7 +293,7 @@ public class Helicopter0Model extends VehicleModel {
 	private void buildShoes() {
 		shoes = new BPoint[2][2][2][2];
 
-		Segments s0 = new Segments(-dx * 0.5 - dxBottom, dxBottom, dyRear, dyBottom, 0, dzBottom);
+		Segments s0 = new Segments(-dx * 0.5 - dxBottom, dxBottom, dyRear, dyBottom, 0, dxBottom);
 
 		shoes[0][0][0][0] = addBPoint(-1.0, 0.0, 0, s0);
 		shoes[0][1][0][0] = addBPoint(1.0, 0.0, 0, s0);
@@ -307,7 +305,7 @@ public class Helicopter0Model extends VehicleModel {
 		shoes[0][0][1][1] = addBPoint(-1.0, 1.0, 1.0, s0);
 		shoes[0][1][1][1] = addBPoint(1.0, 1.0, 1.0, s0);
 
-		Segments s1 = new Segments(dx * 0.5, dxBottom, dyRear, dyBottom, 0, dzBottom);
+		Segments s1 = new Segments(dx * 0.5, dxBottom, dyRear, dyBottom, 0, dxBottom);
 
 		shoes[1][0][0][0] = addBPoint(-1.0, 0.0, 0, s1);
 		shoes[1][1][0][0] = addBPoint(1.0, 0.0, 0, s1);

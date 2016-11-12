@@ -310,10 +310,10 @@ public class Airplane0Model extends VehicleModel {
 		body[0][backNY + fuselageNY + 1][1] = addBPoint(-0.5, 0.5, 1.0, f1);
 		body[1][backNY + fuselageNY + 1][1] = addBPoint(0.5, 0.5, 1.0, f1);
 
-		body[0][backNY + fuselageNY + 2][0] = addBPoint(-0.5, 0.75, 0, f2);
-		body[1][backNY + fuselageNY + 2][0] = addBPoint(0.5, 0.75, 0, f2);
-		body[0][backNY + fuselageNY + 2][1] = addBPoint(-0.5, 0.75, 1.0, f2);
-		body[1][backNY + fuselageNY + 2][1] = addBPoint(0.5, 0.75, 1.0, f2);
+		body[0][backNY + fuselageNY + 2][0] = addBPoint(-0.5, 0.85, 0, f2);
+		body[1][backNY + fuselageNY + 2][0] = addBPoint(0.5, 0.85, 0, f2);
+		body[0][backNY + fuselageNY + 2][1] = addBPoint(-0.5, 0.85, 1.0, f2);
+		body[1][backNY + fuselageNY + 2][1] = addBPoint(0.5, 0.85, 1.0, f2);
 
 		body[0][backNY + fuselageNY + 3][0] = addBPoint(0.0, 1.0, 0, f3);
 		body[1][backNY + fuselageNY + 3][0] = body[0][backNY + fuselageNY + 3][0];
