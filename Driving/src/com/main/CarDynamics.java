@@ -200,10 +200,11 @@ class CarDynamics {
 
 	private void calculateAutomaticTorque() {
 
-		if (!isBraking)
+		if (!isBraking) {
 			Fx2 = Fx2Signum * torque_force * Math.exp(-TORQUE_DUMPING * Math.abs(u));
-		else
+		} else {
 			Fx2 = -brakingForce * Math.signum(u);
+		}
 
 	}
 
@@ -215,10 +216,11 @@ class CarDynamics {
 
 	private void calculateFy2(double dt) {
 
-		if (Math.abs(u - r * t1 * 0.5) == 0)
+		if (Math.abs(u - r * t1 * 0.5) == 0) {
 			alfa2 = delta2 - PI_2 * Math.signum(nu - r * a2);
-		else
+		} else {
 			alfa2 = delta2 - Math.atan((nu - r * a2) / (u - r * t2 * 0.5));
+		}
 		// double dFy2= (C2*alfa2-Fy2)*u/d;
 		// Fy2+=dt*dFy2;
 		Fy2 = C2 * alfa2 * f(u, dt);
@@ -232,10 +234,11 @@ class CarDynamics {
 	 */
 	private void calculateFy1(double dt) {
 
-		if (Math.abs(u - r * t1 * 0.5) == 0)
+		if (Math.abs(u - r * t1 * 0.5) == 0) {
 			alfa1 = delta1 - PI_2 * Math.signum(nu + r * a1);
-		else
+		} else {
 			alfa1 = delta1 - Math.atan((nu + r * a1) / (u - r * t1 * 0.5));
+		}
 
 		// double dFy1= (C1*alfa1-Fy1)*u/d;
 		// Fy1+=dt*dFy1;
@@ -410,12 +413,13 @@ class CarDynamics {
 
 	public Point3D getSpeedVersor() {
 
-		Point3D speed = new Point3D(u * Math.cos(psi) + nu * Math.sin(psi), u * Math.sin(psi) - nu * Math.cos(psi), 0);
+		Point3D speed = new Point3D(u * Math.cos(psi) - nu * Math.sin(psi), u * Math.sin(psi) + nu * Math.cos(psi), 0);
 
-		if (Point3D.calculateNorm(speed) < 0.01)
+		if (Point3D.calculateNorm(speed) < 0.01) {
 			return null;
-		else
+		} else {
 			return speed.calculateVersor();
+		}
 
 	}
 
