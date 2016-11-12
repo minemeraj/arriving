@@ -51,7 +51,7 @@ public class Airplane0Model extends VehicleModel {
 	int tailWingNY = 2;
 	int tailWingNZ = 2;
 
-	int tailRudderNX = 2;
+	int tailRudderNX = 1;
 	int tailRudderNY = 2;
 	int tailRudderNZ = 2;
 
@@ -112,10 +112,10 @@ public class Airplane0Model extends VehicleModel {
 		buildTextures();
 
 		// faces
-		int NF = (bodyNY - 1) * 4 + 2;// body
+		int NF = (bodyNY - 1) * 4;// body
 		NF += 12;// wings
 		NF += 12;// tail wings
-		NF += 4;// rudder
+		NF += 2;// rudder
 		faces = new int[NF][3][4];
 
 		int counter = 0;
@@ -125,8 +125,6 @@ public class Airplane0Model extends VehicleModel {
 
 	protected int buildFaces(int counter, int numy) {
 
-		faces[counter++] = buildFace(Renderer3D.CAR_BACK, body[0][0][0], body[1][0][0], body[1][0][1], body[0][0][1],
-				tBo[0]);
 		for (int k = 0; k < numy - 1; k++) {
 
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, body[0][k][0], body[0][k][1], body[0][k + 1][1],
@@ -139,8 +137,6 @@ public class Airplane0Model extends VehicleModel {
 					body[0][k + 1][1], tBo[0]);
 
 		}
-		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, body[0][numy - 1][0], body[0][numy - 1][1],
-				body[1][numy - 1][1], body[1][numy - 1][0], tBo[0]);
 
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, rightWing[0][0][0], rightWing[1][0][0], rightWing[1][0][1],
 				rightWing[0][0][1], tBo[0]);
@@ -194,14 +190,10 @@ public class Airplane0Model extends VehicleModel {
 		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, tailLeftWing[0][1][0], tailLeftWing[0][1][1],
 				tailLeftWing[1][1][1], tailLeftWing[1][1][0], tBo[0]);
 
-		faces[counter++] = buildFace(Renderer3D.CAR_BACK, tailRudder[0][0][0], tailRudder[1][0][0], tailRudder[0][0][1],
-				tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, tailRudder[0][0][0], tailRudder[0][0][1],
 				tailRudder[0][0 + 1][1], tailRudder[0][0 + 1][0], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, tailRudder[1][0][0], tailRudder[0][0][1],
-				tailRudder[0][0 + 1][1], tailRudder[1][1][0], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, tailRudder[0][1][0], tailRudder[0][1][1],
-				tailRudder[1][1][0], tBo[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, tailRudder[0][0][0], tailRudder[0][0 + 1][0],
+				tailRudder[0][0 + 1][1], tailRudder[0][0][1], tBo[0]);
 
 		return counter;
 	}
@@ -233,10 +225,10 @@ public class Airplane0Model extends VehicleModel {
 		Segments b2 = new Segments(0, back_width2, 0, dyRear, dz - back_height2, back_height2);
 		Segments b3 = new Segments(0, back_width3, 0, dyRear, dz - back_height3, back_height3);
 
-		body[0][0][0] = addBPoint(-0.5, 0.0, 0, b0);
-		body[1][0][0] = addBPoint(0.5, 0.0, 0, b0);
-		body[0][0][1] = addBPoint(-0.5, 0.0, 1.0, b0);
-		body[1][0][1] = addBPoint(0.5, 0.0, 1.0, b0);
+		body[0][0][0] = addBPoint(0.0, 0.0, 0, b0);
+		body[1][0][0] = body[0][0][0];
+		body[0][0][1] = addBPoint(0.0, 0.0, 1.0, b0);
+		body[1][0][1] = body[0][0][1];
 
 		body[0][1][0] = addBPoint(-0.5, 0.25, 0, b1);
 		body[1][1][0] = addBPoint(0.5, 0.25, 0, b1);
@@ -294,10 +286,10 @@ public class Airplane0Model extends VehicleModel {
 		body[0][backNY + fuselageNY + 2][1] = addBPoint(-0.5, 0.75, 1.0, f2);
 		body[1][backNY + fuselageNY + 2][1] = addBPoint(0.5, 0.75, 1.0, f2);
 
-		body[0][backNY + fuselageNY + 3][0] = addBPoint(-0.5, 1.0, 0, f3);
-		body[1][backNY + fuselageNY + 3][0] = addBPoint(0.5, 1.0, 0, f3);
-		body[0][backNY + fuselageNY + 3][1] = addBPoint(-0.5, 1.0, 1.0, f3);
-		body[1][backNY + fuselageNY + 3][1] = addBPoint(0.5, 1.0, 1.0, f3);
+		body[0][backNY + fuselageNY + 3][0] = addBPoint(0.0, 1.0, 0, f3);
+		body[1][backNY + fuselageNY + 3][0] = body[0][backNY + fuselageNY + 3][0];
+		body[0][backNY + fuselageNY + 3][1] = addBPoint(0.0, 1.0, 1.0, f3);
+		body[1][backNY + fuselageNY + 3][1] = body[0][backNY + fuselageNY + 3][1];
 
 	}
 
@@ -380,10 +372,8 @@ public class Airplane0Model extends VehicleModel {
 
 		Segments rudder0 = new Segments(0, back_width, 0, dyRear * 0.25, dz - back_height, back_height + 71);
 
-		tailRudder[0][0][0] = body[0][0][1];
-		tailRudder[1][0][0] = body[1][0][1];
-		tailRudder[0][1][0] = body[0][1][1];
-		tailRudder[1][1][0] = body[1][1][1];
+		tailRudder[0][0][0] = addBPoint((body[0][0][1].x + body[1][0][1].x) * 0.5, body[0][0][1].y, body[0][0][1].z);
+		tailRudder[0][1][0] = addBPoint((body[0][1][1].x + body[1][1][1].x) * 0.5, body[0][1][1].y, body[0][1][1].z);
 
 		tailRudder[0][0][1] = addBPoint(0, 0.0, 1.0, rudder0);
 		tailRudder[0][1][1] = addBPoint(0.0, 1.0, 1.0, rudder0);

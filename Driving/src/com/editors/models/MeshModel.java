@@ -664,7 +664,16 @@ public abstract class MeshModel {
 	}
 
 	protected int[][] buildFace(int carTop, BPoint p0, BPoint p1, BPoint p2, BPoint p3, int[] c) {
-		return buildFace(carTop, p0.getIndex(), p1.getIndex(), p2.getIndex(), p3.getIndex(), c[0], c[1], c[2], c[3]);
+		if (p0.getIndex() == p1.getIndex()) {
+			return buildFace(carTop, p0.getIndex(), p2.getIndex(), p3.getIndex(), c[0], c[2], c[3]);
+		} else if (p1.getIndex() == p2.getIndex()) {
+			return buildFace(carTop, p0.getIndex(), p1.getIndex(), p3.getIndex(), c[0], c[1], c[3]);
+		} else if (p2.getIndex() == p3.getIndex()) {
+			return buildFace(carTop, p0.getIndex(), p1.getIndex(), p2.getIndex(), c[0], c[1], c[2]);
+		} else {
+			return buildFace(carTop, p0.getIndex(), p1.getIndex(), p2.getIndex(), p3.getIndex(), c[0], c[1], c[2],
+					c[3]);
+		}
 	}
 
 	protected int[][] buildFace(int carTop, BPoint p0, BPoint p1, BPoint p2, BPoint p3, int c0, int c1, int c2,
