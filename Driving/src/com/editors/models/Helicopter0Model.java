@@ -85,7 +85,7 @@ public class Helicopter0Model extends VehicleModel {
 		buildTextures();
 
 		// faces
-		int NF = (bodyNY - 1) * 4 + 2;// body
+		int NF = (bodyNY - 1) * 4 + 1;// body
 		// propellers
 		NF += 6 * propellers.length;
 		// shoes
@@ -152,10 +152,10 @@ public class Helicopter0Model extends VehicleModel {
 		Segments b2 = new Segments(0, back_width2, 0, dyRear, dz - back_height2 + dzBottom, back_height2);
 		Segments b3 = new Segments(0, back_width3, 0, dyRear, dz - back_height3 + dzBottom, back_height3);
 
-		body[0][0][0] = addBPoint(-0.5, 0.0, 0, b0);
-		body[1][0][0] = addBPoint(0.5, 0.0, 0, b0);
-		body[0][0][1] = addBPoint(-0.5, 0.0, 1.0, b0);
-		body[1][0][1] = addBPoint(0.5, 0.0, 1.0, b0);
+		body[0][0][0] = addBPoint(0.0, 0.0, 0, b0);
+		body[1][0][0] = body[0][0][0];
+		body[0][0][1] = addBPoint(0.0, 0.0, 1.0, b0);
+		body[1][0][1] = body[0][0][1];
 
 		body[0][1][0] = addBPoint(-0.5, 0.25, 0, b1);
 		body[1][1][0] = addBPoint(0.5, 0.25, 0, b1);

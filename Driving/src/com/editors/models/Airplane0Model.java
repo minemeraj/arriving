@@ -21,7 +21,7 @@ public class Airplane0Model extends VehicleModel {
 
 	protected BPoint[][][] tailLeftWing;
 	protected BPoint[][][] tailRightWing;
-	protected BPoint[][][] tailRudder;
+	protected BPoint[][][][] tailRudder;
 	protected BPoint[][][] rightWing;
 	protected BPoint[][][] leftWing;
 
@@ -115,7 +115,7 @@ public class Airplane0Model extends VehicleModel {
 		int NF = (bodyNY - 1) * 4;// body
 		NF += 12;// wings
 		NF += 12;// tail wings
-		NF += 2;// rudder
+		NF += tailRudder.length * 2;// rudder
 		faces = new int[NF][3][4];
 
 		int counter = 0;
@@ -125,19 +125,13 @@ public class Airplane0Model extends VehicleModel {
 
 	protected int buildFaces(int counter, int numy) {
 
-		for (int k = 0; k < numy - 1; k++) {
+		counter = buildCabinfaces(counter, numy);
+		counter = buildWingFaces(counter);
+		counter = buildTailFaces(counter);
+		return counter;
+	}
 
-			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, body[0][k][0], body[0][k][1], body[0][k + 1][1],
-					body[0][k + 1][0], tBo[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[0][k][0], body[0][k + 1][0], body[1][k + 1][0],
-					body[1][k][0], tBo[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, body[1][k][0], body[1][k + 1][0], body[1][k + 1][1],
-					body[1][k][1], tBo[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_TOP, body[0][k][1], body[1][k][1], body[1][k + 1][1],
-					body[0][k + 1][1], tBo[0]);
-
-		}
-
+	protected int buildWingFaces(int counter) {
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, rightWing[0][0][0], rightWing[1][0][0], rightWing[1][0][1],
 				rightWing[0][0][1], tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, rightWing[0][0][0], rightWing[0][0][1],
@@ -163,7 +157,10 @@ public class Airplane0Model extends VehicleModel {
 				leftWing[0][0 + 1][1], tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, leftWing[0][1][0], leftWing[0][1][1], leftWing[1][1][1],
 				leftWing[1][1][0], tBo[0]);
+		return counter;
+	}
 
+	protected int buildTailFaces(int counter) {
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, tailRightWing[0][0][0], tailRightWing[1][0][0],
 				tailRightWing[1][0][1], tailRightWing[0][0][1], tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, tailRightWing[0][0][0], tailRightWing[0][0][1],
@@ -190,10 +187,31 @@ public class Airplane0Model extends VehicleModel {
 		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, tailLeftWing[0][1][0], tailLeftWing[0][1][1],
 				tailLeftWing[1][1][1], tailLeftWing[1][1][0], tBo[0]);
 
-		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, tailRudder[0][0][0], tailRudder[0][0][1],
-				tailRudder[0][0 + 1][1], tailRudder[0][0 + 1][0], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, tailRudder[0][0][0], tailRudder[0][0 + 1][0],
-				tailRudder[0][0 + 1][1], tailRudder[0][0][1], tBo[0]);
+		for (int r = 0; r < tailRudder.length; r++) {
+
+			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, tailRudder[r][0][0][0], tailRudder[r][0][0][1],
+					tailRudder[r][0][0 + 1][1], tailRudder[r][0][0 + 1][0], tBo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, tailRudder[r][0][0][0], tailRudder[r][0][0 + 1][0],
+					tailRudder[r][0][0 + 1][1], tailRudder[r][0][0][1], tBo[0]);
+
+		}
+		return counter;
+	}
+
+	protected int buildCabinfaces(int counter, int numy) {
+
+		for (int k = 0; k < numy - 1; k++) {
+
+			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, body[0][k][0], body[0][k][1], body[0][k + 1][1],
+					body[0][k + 1][0], tBo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[0][k][0], body[0][k + 1][0], body[1][k + 1][0],
+					body[1][k][0], tBo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, body[1][k][0], body[1][k + 1][0], body[1][k + 1][1],
+					body[1][k][1], tBo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_TOP, body[0][k][1], body[1][k][1], body[1][k + 1][1],
+					body[0][k + 1][1], tBo[0]);
+
+		}
 
 		return counter;
 	}
@@ -368,15 +386,14 @@ public class Airplane0Model extends VehicleModel {
 		tailLeftWing[0][1][1] = addBPoint(-1.0, 1.0, 1.0, tlWing0);
 		tailLeftWing[1][1][1] = body[0][1][1];
 
-		tailRudder = new BPoint[tailRudderNX][tailRudderNY][tailRudderNZ];
+		tailRudder = new BPoint[1][tailRudderNX][tailRudderNY][tailRudderNZ];
 
 		Segments rudder0 = new Segments(0, back_width, 0, dyRear * 0.25, dz - back_height, back_height + 71);
 
-		tailRudder[0][0][0] = addBPoint((body[0][0][1].x + body[1][0][1].x) * 0.5, body[0][0][1].y, body[0][0][1].z);
-		tailRudder[0][1][0] = addBPoint((body[0][1][1].x + body[1][1][1].x) * 0.5, body[0][1][1].y, body[0][1][1].z);
-
-		tailRudder[0][0][1] = addBPoint(0, 0.0, 1.0, rudder0);
-		tailRudder[0][1][1] = addBPoint(0.0, 1.0, 1.0, rudder0);
+		tailRudder[0][0][0][0] = addBPoint((body[0][0][1].x + body[1][0][1].x) * 0.5, body[0][0][1].y, body[0][0][1].z);
+		tailRudder[0][0][1][0] = addBPoint((body[0][1][1].x + body[1][1][1].x) * 0.5, body[0][1][1].y, body[0][1][1].z);
+		tailRudder[0][0][0][1] = addBPoint(0, 0.0, 1.0, rudder0);
+		tailRudder[0][0][1][1] = addBPoint(0, 1.0, 1.0, rudder0);
 
 	}
 
