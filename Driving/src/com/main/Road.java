@@ -437,6 +437,8 @@ public class Road extends Shader {
 		cm.translate(carPosX - CAR_WIDTH / 2, carPosY, -YFOCUS - MOVZ);
 		// TODO rotate around psi!
 		cm.rotateZ(carPosX, carPosY, viewDirectionCos, viewDirectionSin);
+		// cm.rotateZ(carPosX, carPosY, Math.cos(carDynamics.psi),
+		// Math.sin(carDynamics.psi));
 
 		// fake steering: eliminate?
 		// cm.rotate(steeringCenter.x,steeringCenter.y,Math.cos(directionAngle),Math.sin(directionAngle));
@@ -514,6 +516,8 @@ public class Road extends Shader {
 		cm.translate(POSX, POSY, -MOVZ);
 		// TODO ROTATE AROUND psi!
 		cm.rotateZ(POSX, POSY, viewDirectionCos, viewDirectionSin);
+		// cm.rotateZ(POSX, POSY, Math.cos(carDynamics.psi),
+		// Math.sin(carDynamics.psi));
 
 		if (!isSkipShading()) {
 			buildShadowVolumeBox(carShadowVolume[SELECTED_CAR], cm);
@@ -1156,8 +1160,11 @@ public class Road extends Shader {
 		int NEW_CARPOSY = (int) (carPosY + (SCALE * SPACE_SCALE_FACTOR * carDynamics.dy));
 
 		// TODO use speed direction, if present
+		// double viewDirectionAngle = calculateViewDirectionAngle(carDynamics);
 		setViewDirection(getViewDirection() - carDynamics.dpsi);
+		// setViewDirection(viewDirectionAngle);
 		CarFrame.setMovingAngle(getViewDirection());
+		// System.out.println(viewDirectionAngle + " " + carDynamics.psi);
 
 		if (!checkIsWayFree(NEW_CARPOSX, NEW_CARPOSY, getViewDirection(), -1)) {
 
@@ -1184,16 +1191,37 @@ public class Road extends Shader {
 
 	}
 
+	private double calculateViewDirectionAngle(CarDynamics carDynamics2) {
+
+		double dAngle = 0;
+		Point3D vSpeed = carDynamics2.getSpeedVersor();
+		if (vSpeed != null) {
+
+			if (vSpeed.y > 0 && vSpeed.x == 0) {
+				dAngle = Math.PI * 0.5;
+			} else if (vSpeed.y < 0 && vSpeed.x == 0) {
+				dAngle = -Math.PI * 0.5;
+			} else {
+				dAngle = Math.atan(vSpeed.y / vSpeed.x);
+			}
+
+			if (vSpeed.x < 0) {
+				dAngle += Math.PI;
+			}
+
+		} else {
+			dAngle = carDynamics2.psi;
+		}
+		return dAngle;
+	}
+
 	public void setSteerAngle(double angle) {
-
 		carDynamics.setDeltaGoal(angle);
-
 	}
 
 	public void setAccelerationVersus(int versus) {
 
 		carDynamics.setIsbraking(false);
-
 		carDynamics.setFx2Versus(versus);
 
 	}
@@ -1361,7 +1389,6 @@ public class Road extends Shader {
 			br.close();
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
