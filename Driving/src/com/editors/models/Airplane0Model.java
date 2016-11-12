@@ -140,18 +140,6 @@ public class Airplane0Model extends VehicleModel {
 	}
 
 	protected int buildWingFaces(int counter) {
-		faces[counter++] = buildFace(Renderer3D.CAR_BACK, rightWing[0][0][0], rightWing[1][0][0], rightWing[1][0][1],
-				rightWing[0][0][1], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, rightWing[0][0][0], rightWing[0][0][1],
-				rightWing[0][0 + 1][1], rightWing[0][0 + 1][0], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, rightWing[0][0][0], rightWing[0][0 + 1][0],
-				rightWing[1][0 + 1][0], rightWing[1][0][0], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, rightWing[1][0][0], rightWing[1][0 + 1][0],
-				rightWing[1][0 + 1][1], rightWing[1][0][1], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_TOP, rightWing[0][0][1], rightWing[1][0][1], rightWing[1][0 + 1][1],
-				rightWing[0][0 + 1][1], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, rightWing[0][1][0], rightWing[0][1][1], rightWing[1][1][1],
-				rightWing[1][1][0], tBo[0]);
 
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, leftWing[0][0][0], leftWing[1][0][0], leftWing[1][0][1],
 				leftWing[0][0][1], tBo[0]);
@@ -162,25 +150,27 @@ public class Airplane0Model extends VehicleModel {
 		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, leftWing[1][0][0], leftWing[1][0 + 1][0],
 				leftWing[1][0 + 1][1], leftWing[1][0][1], tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, leftWing[0][0][1], leftWing[1][0][1], leftWing[1][0 + 1][1],
-				leftWing[0][0 + 1][1], tBo[0]);
+				leftWing[0][0 + 1][1], tLeftWing);
 		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, leftWing[0][1][0], leftWing[0][1][1], leftWing[1][1][1],
 				leftWing[1][1][0], tBo[0]);
+
+		faces[counter++] = buildFace(Renderer3D.CAR_BACK, rightWing[0][0][0], rightWing[1][0][0], rightWing[1][0][1],
+				rightWing[0][0][1], tBo[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, rightWing[0][0][0], rightWing[0][0][1],
+				rightWing[0][0 + 1][1], rightWing[0][0 + 1][0], tBo[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, rightWing[0][0][0], rightWing[0][0 + 1][0],
+				rightWing[1][0 + 1][0], rightWing[1][0][0], tBo[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, rightWing[1][0][0], rightWing[1][0 + 1][0],
+				rightWing[1][0 + 1][1], rightWing[1][0][1], tBo[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_TOP, rightWing[0][0][1], rightWing[1][0][1], rightWing[1][0 + 1][1],
+				rightWing[0][0 + 1][1], tRightWing);
+		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, rightWing[0][1][0], rightWing[0][1][1], rightWing[1][1][1],
+				rightWing[1][1][0], tBo[0]);
+
 		return counter;
 	}
 
 	protected int buildTailFaces(int counter) {
-		faces[counter++] = buildFace(Renderer3D.CAR_BACK, tailRightWing[0][0][0], tailRightWing[1][0][0],
-				tailRightWing[1][0][1], tailRightWing[0][0][1], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, tailRightWing[0][0][0], tailRightWing[0][0][1],
-				tailRightWing[0][0 + 1][1], tailRightWing[0][0 + 1][0], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, tailRightWing[0][0][0], tailRightWing[0][0 + 1][0],
-				tailRightWing[1][0 + 1][0], tailRightWing[1][0][0], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, tailRightWing[1][0][0], tailRightWing[1][0 + 1][0],
-				tailRightWing[1][0 + 1][1], tailRightWing[1][0][1], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_TOP, tailRightWing[0][0][1], tailRightWing[1][0][1],
-				tailRightWing[1][0 + 1][1], tailRightWing[0][0 + 1][1], tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, tailRightWing[0][1][0], tailRightWing[0][1][1],
-				tailRightWing[1][1][1], tailRightWing[1][1][0], tBo[0]);
 
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, tailLeftWing[0][0][0], tailLeftWing[1][0][0],
 				tailLeftWing[1][0][1], tailLeftWing[0][0][1], tBo[0]);
@@ -191,16 +181,29 @@ public class Airplane0Model extends VehicleModel {
 		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, tailLeftWing[1][0][0], tailLeftWing[1][0 + 1][0],
 				tailLeftWing[1][0 + 1][1], tailLeftWing[1][0][1], tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_TOP, tailLeftWing[0][0][1], tailLeftWing[1][0][1],
-				tailLeftWing[1][0 + 1][1], tailLeftWing[0][0 + 1][1], tBo[0]);
+				tailLeftWing[1][0 + 1][1], tailLeftWing[0][0 + 1][1], tLeftTail);
 		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, tailLeftWing[0][1][0], tailLeftWing[0][1][1],
 				tailLeftWing[1][1][1], tailLeftWing[1][1][0], tBo[0]);
+
+		faces[counter++] = buildFace(Renderer3D.CAR_BACK, tailRightWing[0][0][0], tailRightWing[1][0][0],
+				tailRightWing[1][0][1], tailRightWing[0][0][1], tBo[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, tailRightWing[0][0][0], tailRightWing[0][0][1],
+				tailRightWing[0][0 + 1][1], tailRightWing[0][0 + 1][0], tBo[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, tailRightWing[0][0][0], tailRightWing[0][0 + 1][0],
+				tailRightWing[1][0 + 1][0], tailRightWing[1][0][0], tBo[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, tailRightWing[1][0][0], tailRightWing[1][0 + 1][0],
+				tailRightWing[1][0 + 1][1], tailRightWing[1][0][1], tBo[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_TOP, tailRightWing[0][0][1], tailRightWing[1][0][1],
+				tailRightWing[1][0 + 1][1], tailRightWing[0][0 + 1][1], tRightTail);
+		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, tailRightWing[0][1][0], tailRightWing[0][1][1],
+				tailRightWing[1][1][1], tailRightWing[1][1][0], tBo[0]);
 
 		for (int r = 0; r < tailRudder.length; r++) {
 
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, tailRudder[r][0][0][0], tailRudder[r][0][0][1],
-					tailRudder[r][0][0 + 1][1], tailRudder[r][0][0 + 1][0], tBo[0]);
+					tailRudder[r][0][0 + 1][1], tailRudder[r][0][0 + 1][0], tRudder[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, tailRudder[r][0][0][0], tailRudder[r][0][0 + 1][0],
-					tailRudder[r][0][0 + 1][1], tailRudder[r][0][0][1], tBo[0]);
+					tailRudder[r][0][0 + 1][1], tailRudder[r][0][0][1], tRudder[1]);
 
 		}
 		return counter;
@@ -211,13 +214,13 @@ public class Airplane0Model extends VehicleModel {
 		for (int k = 0; k < numy - 1; k++) {
 
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, body[0][k][0], body[0][k][1], body[0][k + 1][1],
-					body[0][k + 1][0], tBo[0]);
+					body[0][k + 1][0], tLeftBody[k]);
 			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[0][k][0], body[0][k + 1][0], body[1][k + 1][0],
 					body[1][k][0], tBo[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, body[1][k][0], body[1][k + 1][0], body[1][k + 1][1],
-					body[1][k][1], tBo[0]);
+					body[1][k][1], tRightBody[k]);
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, body[0][k][1], body[1][k][1], body[1][k + 1][1],
-					body[0][k + 1][1], tBo[0]);
+					body[0][k + 1][1], tTopBody[k]);
 
 		}
 

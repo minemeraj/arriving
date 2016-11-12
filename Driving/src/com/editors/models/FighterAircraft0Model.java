@@ -148,16 +148,7 @@ public class FighterAircraft0Model extends Airplane0Model {
 	@Override
 	protected int buildCabinfaces(int counter, int numy) {
 
-		for (int k = 0; k < numy - 1; k++) {
-			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, body[0][k][0], body[0][k][1], body[0][k + 1][1],
-					body[0][k + 1][0], tBo[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[0][k][0], body[0][k + 1][0], body[1][k + 1][0],
-					body[1][k][0], tBo[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, body[1][k][0], body[1][k + 1][0], body[1][k + 1][1],
-					body[1][k][1], tBo[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_TOP, body[0][k][1], body[1][k][1], body[1][k + 1][1],
-					body[0][k + 1][1], tBo[0]);
-		}
+		counter = super.buildCabinfaces(counter, numy);
 
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, body[0][0][0], body[1][0][0], body[1][0][1], body[0][0][1],
 				tBo[0]);
