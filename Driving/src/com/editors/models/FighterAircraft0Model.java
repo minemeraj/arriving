@@ -30,11 +30,13 @@ public class FighterAircraft0Model extends Airplane0Model {
 
 		int c = 0;
 		c = initDoubleArrayValues(tBo = new int[1][4], c);
-		c = initSingleArrayValues(tLeftWing = new int[4], c);
 		c = initDoubleArrayValues(tLeftBody = new int[bodyNY - 1][4], c);
+		c = initSingleArrayValues(tLeftTail = new int[4], c);
+		c = initSingleArrayValues(tLeftWing = new int[4], c);
 		c = initDoubleArrayValues(tTopBody = new int[bodyNY - 1][4], c);
-		c = initDoubleArrayValues(tRightBody = new int[bodyNY - 1][4], c);
 		c = initSingleArrayValues(tRightWing = new int[4], c);
+		c = initSingleArrayValues(tRightTail = new int[4], c);
+		c = initDoubleArrayValues(tRightBody = new int[bodyNY - 1][4], c);
 		c = initDoubleArrayValues(tRudder = new int[2][4], c);
 
 		points = new Vector<Point3D>();
