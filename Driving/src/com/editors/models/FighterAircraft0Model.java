@@ -35,6 +35,7 @@ public class FighterAircraft0Model extends Airplane0Model {
 		c = initDoubleArrayValues(tTopBody = new int[bodyNY - 1][4], c);
 		c = initDoubleArrayValues(tRightBody = new int[bodyNY - 1][4], c);
 		c = initSingleArrayValues(tRightWing = new int[4], c);
+		c = initDoubleArrayValues(tRudder = new int[2][4], c);
 
 		points = new Vector<Point3D>();
 		texturePoints = new Vector();
@@ -202,7 +203,7 @@ public class FighterAircraft0Model extends Airplane0Model {
 
 		tailRudder = new BPoint[2][tailRudderNX][tailRudderNY][tailRudderNZ];
 
-		Segments rudder0 = new Segments(0, back_width, 0, dyRear * 0.25, dz - back_height, back_height + 71);
+		Segments rudder0 = new Segments(0, back_width, 0, dyRudder, dz - back_height, dzRudder);
 
 		tailRudder[0][0][0][0] = addBPoint(body[0][0][1].x, body[0][0][1].y, body[0][0][1].z);
 		tailRudder[0][0][1][0] = addBPoint(body[0][0][1].x, body[0][1][1].y, body[0][1][1].z);

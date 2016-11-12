@@ -30,6 +30,9 @@ public class Airplane0Model extends VehicleModel {
 	protected double dxTexture = 100;
 	protected double dyTexture = 100;
 
+	protected double dyRudder;
+	protected double dzRudder;
+
 	// body textures
 	protected int[][] tBo = null;
 	protected int[] tLeftWing = null;
@@ -39,6 +42,7 @@ public class Airplane0Model extends VehicleModel {
 	protected int[] tRightWing = null;
 	protected int[] tLeftTail;
 	protected int[] tRightTail;
+	protected int[][] tRudder;
 
 	protected int backNY = 4;
 	protected int fuselageNY = 2;
@@ -89,6 +93,9 @@ public class Airplane0Model extends VehicleModel {
 		this.rearOverhang1 = rearOverhang1;
 		this.frontOverhang1 = frontOverhang1;
 
+		this.dyRudder = dyRear * 0.25;
+		this.dzRudder = dzRear + 71;
+
 	}
 
 	@Override
@@ -104,6 +111,7 @@ public class Airplane0Model extends VehicleModel {
 		c = initSingleArrayValues(tRightWing = new int[4], c);
 		c = initSingleArrayValues(tRightTail = new int[4], c);
 		c = initDoubleArrayValues(tRightBody = new int[bodyNY - 1][4], c);
+		c = initDoubleArrayValues(tRudder = new int[2][4], c);
 
 		points = new Vector<Point3D>();
 		texturePoints = new Vector();
@@ -388,7 +396,7 @@ public class Airplane0Model extends VehicleModel {
 
 		tailRudder = new BPoint[1][tailRudderNX][tailRudderNY][tailRudderNZ];
 
-		Segments rudder0 = new Segments(0, back_width, 0, dyRear * 0.25, dz - back_height, back_height + 71);
+		Segments rudder0 = new Segments(0, back_width, 0, dyRudder, dz - back_height, dzRudder);
 
 		tailRudder[0][0][0][0] = addBPoint((body[0][0][1].x + body[1][0][1].x) * 0.5, body[0][0][1].y, body[0][0][1].z);
 		tailRudder[0][0][1][0] = addBPoint((body[0][1][1].x + body[1][1][1].x) * 0.5, body[0][1][1].y, body[0][1][1].z);
@@ -414,8 +422,11 @@ public class Airplane0Model extends VehicleModel {
 		buildTopTextures(x + dx * 0.5, y, shift);
 		x += dx + dxRoof;
 		buildRightTextures(x, y, shift);
+		x += dz;
+		buildRudderTextures(x, y);
+		x += 2 * dyRudder;
 
-		IMG_WIDTH = (int) (2 * bx + dxTexture + dz + dx + dz + 2 * dxRoof);
+		IMG_WIDTH = (int) (bx + x);
 		IMG_HEIGHT = (int) (2 * by + maxDY);
 
 	}
@@ -472,6 +483,12 @@ public class Airplane0Model extends VehicleModel {
 		}
 	}
 
+	private void buildRudderTextures(double x, double y) {
+
+		addTRect(x, y, dyRudder, dzRudder);
+		addTRect(x + dyRudder, y, dyRudder, dzRudder);
+	}
+
 	@Override
 	public void printMeshData(PrintWriter pw) {
 
@@ -484,12 +501,11 @@ public class Airplane0Model extends VehicleModel {
 	public void printTexture(Graphics2D bufGraphics) {
 
 		Color bodyColor = new Color(255, 255, 255);
-		Color topBodyColor = new Color(255, 0, 0);
+		Color topBodyColor = new Color(255, 255, 255);
 
 		bufGraphics.setStroke(new BasicStroke(0.1f));
 
 		bufGraphics.setColor(bodyColor);
-
 		printTexturePolygon(bufGraphics, tBo[0]);
 
 		bufGraphics.setColor(bodyColor);
@@ -509,6 +525,9 @@ public class Airplane0Model extends VehicleModel {
 		bufGraphics.setColor(bodyColor);
 		for (int i = 0; i < tRightBody.length; i++) {
 			printTexturePolygon(bufGraphics, tRightBody[i]);
+		}
+		for (int i = 0; i < tRudder.length; i++) {
+			printTexturePolygon(bufGraphics, tRudder[i]);
 		}
 
 	}
