@@ -63,6 +63,11 @@ public class Airplane0Model extends VehicleModel {
 	int wingNY = 2;
 	int wingNZ = 2;
 
+	/**
+	 * BOTTOM-UP SECTIONS [y],[x0],[z0,z1]
+	 **/
+	protected double[][][] pRear = null;
+
 	public Airplane0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr, double dyr,
 			double dzr, double dxRoof, double dyRoof, double dzRoof, double dxBottom, double dyBottom, double dzBottom,
 			double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1) {
@@ -100,6 +105,13 @@ public class Airplane0Model extends VehicleModel {
 
 	@Override
 	public void initMesh() {
+
+		double[][][] mainRear = {
+				{ { 0.00 }, { 0.00 }, { 0.90, 1.0 } },
+				{ { 0.25 }, { 0.40 }, { 0.60, 1.0 } },
+				{ { 0.50 }, { 0.55 }, { 0.45, 1.0 } },
+				{ { 0.70 }, { 0.70 }, { 0.30, 1.0 } } };
+		pRear = mainRear;
 
 		int c = 0;
 		c = initDoubleArrayValues(tBo = new int[1][4], c);
@@ -239,40 +251,26 @@ public class Airplane0Model extends VehicleModel {
 
 		body = new BPoint[bodyNX][bodyNY][bodyNZ];
 
-		double back_width = dxRear;
-		double back_width1 = dxRear * (1 - 0.3) + dx * 0.3;
-		double back_width2 = dxRear * (1 - 0.6) + dx * 0.6;
-		double back_width3 = dxRear * (1 - 0.9) + dx * 0.9;
+		Segments b0 = new Segments(0, dx, 0, dyRear, 0, dz);
+		for (int j = 0; j < backNY; j++) {
 
-		double back_height = dzRear;
-		double back_height1 = dzRear * (1 - 0.3) + dz * 0.3;
-		double back_height2 = dzRear * (1 - 0.6) + dz * 0.6;
-		double back_height3 = dzRear * (1 - 0.9) + dz * 0.9;
+			double yy = pRear[j][0][0];
+			double xx = pRear[j][1][0];
+			double zz0 = pRear[j][2][0];
+			double zz1 = pRear[j][2][1];
 
-		Segments b0 = new Segments(0, back_width, 0, dyRear, dz - dzRear, back_height);
-		Segments b1 = new Segments(0, back_width1, 0, dyRear, dz - back_height1, back_height1);
-		Segments b2 = new Segments(0, back_width2, 0, dyRear, dz - back_height2, back_height2);
-		Segments b3 = new Segments(0, back_width3, 0, dyRear, dz - back_height3, back_height3);
-
-		body[0][0][0] = addBPoint(0.0, 0.0, 0, b0);
-		body[1][0][0] = body[0][0][0];
-		body[0][0][1] = addBPoint(0.0, 0.0, 1.0, b0);
-		body[1][0][1] = body[0][0][1];
-
-		body[0][1][0] = addBPoint(-0.5, 0.25, 0, b1);
-		body[1][1][0] = addBPoint(0.5, 0.25, 0, b1);
-		body[0][1][1] = addBPoint(-0.5, 0.25, 1.0, b1);
-		body[1][1][1] = addBPoint(0.5, 0.25, 1.0, b1);
-
-		body[0][2][0] = addBPoint(-0.5, 0.5, 0, b2);
-		body[1][2][0] = addBPoint(0.5, 0.5, 0, b2);
-		body[0][2][1] = addBPoint(-0.5, 0.5, 1.0, b2);
-		body[1][2][1] = addBPoint(0.5, 0.5, 1.0, b2);
-
-		body[0][3][0] = addBPoint(-0.5, 0.75, 0, b3);
-		body[1][3][0] = addBPoint(0.5, 0.75, 0, b3);
-		body[0][3][1] = addBPoint(-0.5, 0.75, 1.0, b3);
-		body[1][3][1] = addBPoint(0.5, 0.75, 1.0, b3);
+			if (j == 0) {
+				body[0][j][0] = addBPoint(-0.5 * xx, yy, zz0, b0);
+				body[1][j][0] = body[0][0][0];
+				body[0][j][1] = addBPoint(0.5 * xx, yy, zz1, b0);
+				body[1][j][1] = body[0][0][1];
+			} else {
+				body[0][j][0] = addBPoint(-0.5 * xx, yy, zz0, b0);
+				body[1][j][0] = addBPoint(0.5 * xx, yy, zz0, b0);
+				body[0][j][1] = addBPoint(-0.5 * xx, yy, zz1, b0);
+				body[1][j][1] = addBPoint(0.5 * xx, yy, zz1, b0);
+			}
+		}
 
 		Segments p0 = new Segments(0, dx, dyRear, dy, 0, dz);
 

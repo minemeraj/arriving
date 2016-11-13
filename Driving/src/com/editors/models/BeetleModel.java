@@ -56,7 +56,7 @@ public class BeetleModel extends Car0Model {
 
 		double[] mainAxles = { 0.2217, 0.7980 };
 
-		body = mainBody;
+		pBody = mainBody;
 		axles = mainAxles;
 
 		wheel_radius = 0.0830 * dy;

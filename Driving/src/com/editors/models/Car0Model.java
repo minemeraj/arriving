@@ -29,7 +29,7 @@ public class Car0Model extends VehicleModel {
 	 * measurs from mazda-6 2008
 	 *
 	 */
-	protected double[][][] body = null;
+	protected double[][][] pBody = null;
 
 	protected double[] axles = null;
 	private BPoint[][] wheelLeftFront;
@@ -79,7 +79,7 @@ public class Car0Model extends VehicleModel {
 
 		double[] mainAxles = { 0.2217, 0.7980 };
 
-		body = mainBody;
+		pBody = mainBody;
 		axles = mainAxles;
 
 		wheel_radius = 0.06703 * dy;
@@ -101,13 +101,13 @@ public class Car0Model extends VehicleModel {
 
 	private void buildBodyPoints() {
 
-		int numSections = body.length;
+		int numSections = pBody.length;
 
 		bodyPoints = new BPoint[numSections][6];
 
 		for (int k = 0; k < numSections; k++) {
 
-			double[][] d = body[k];
+			double[][] d = pBody[k];
 
 			double yi = d[0][0];
 
@@ -158,7 +158,7 @@ public class Car0Model extends VehicleModel {
 
 	private void buildFaces() {
 
-		int numSections = body.length;
+		int numSections = pBody.length;
 
 		int totBlockTexturesPoints = buildTexture();
 
@@ -179,7 +179,7 @@ public class Car0Model extends VehicleModel {
 
 	private int buildTexture() {
 
-		int numSections = body.length;
+		int numSections = pBody.length;
 
 		// single block texture
 
@@ -187,7 +187,7 @@ public class Car0Model extends VehicleModel {
 
 		for (int k = 0; k < numSections - 1; k++) {
 
-			double[][] d = body[k];
+			double[][] d = pBody[k];
 			double yi = d[0][0];
 			double x0 = d[1][0];
 			double x1 = d[1][1];
@@ -196,7 +196,7 @@ public class Car0Model extends VehicleModel {
 			double z1 = d[2][1];
 			double z2 = d[2][2];
 
-			double[][] d_plus_1 = body[k + 1];
+			double[][] d_plus_1 = pBody[k + 1];
 			double yipl = d_plus_1[0][0];
 			double x0pl = d_plus_1[1][0];
 			double x1pl = d_plus_1[1][1];
@@ -274,13 +274,13 @@ public class Car0Model extends VehicleModel {
 
 		// closing back and front texture
 
-		double[][] dBack = body[0];
+		double[][] dBack = pBody[0];
 		double x1Ba = dBack[1][1];
 		double x2Ba = dBack[1][2];
 		double z0Ba = dBack[2][0];
 		double z2Ba = dBack[2][2];
 
-		double[][] dFront = body[body.length - 1];
+		double[][] dFront = pBody[pBody.length - 1];
 		double x1Fr = dFront[1][1];
 		double x2Fr = dFront[1][2];
 		double z0Fr = dFront[2][0];
@@ -332,7 +332,7 @@ public class Car0Model extends VehicleModel {
 
 	private int buildBodyFaces(int counter, int NUM_FACES, int totBlockTexturesPoints) {
 
-		int numSections = body.length;
+		int numSections = pBody.length;
 
 		int[][][] bFaces = buildRedundantSingleBlockFaces(nBasePoints, numSections, 0, 0);
 
