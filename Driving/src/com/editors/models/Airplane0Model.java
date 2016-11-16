@@ -75,10 +75,10 @@ public class Airplane0Model extends VehicleModel {
 			{ { 0.50 }, { 0.55 }, { 0.45, 1.0 } },
 			{ { 0.70 }, { 0.70 }, { 0.30, 1.0 } } };
 	double[][][] mainFront = {
-			{ { 0.25 }, { 0.75 }, { 0.0, 0.75 } },
-			{ { 0.50 }, { 0.70 }, { 0.0, 0.7 } },
-			{ { 0.85 }, { 0.65 }, { 0.0, 0.65 } },
-			{ { 1.00 }, { 0.00 }, { 0.0, 0.50 } } };
+			{ { 0.40 }, { 0.80 }, { 0.0, 0.85 } },
+			{ { 0.60 }, { 0.70 }, { 0.0, 0.8 } },
+			{ { 0.85 }, { 0.65 }, { 0.1, 0.65 } },
+			{ { 1.00 }, { 0.00 }, { 0.2, 0.50 } } };
 
 
 	public Airplane0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr, double dyr,
