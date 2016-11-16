@@ -67,6 +67,19 @@ public class Airplane0Model extends VehicleModel {
 	 * BOTTOM-UP SECTIONS [y],[x0],[z0,z1]
 	 **/
 	protected double[][][] pRear = null;
+	protected double[][][] pFront = null;
+
+	double[][][] mainRear = {
+			{ { 0.00 }, { 0.00 }, { 0.90, 1.0 } },
+			{ { 0.25 }, { 0.40 }, { 0.60, 1.0 } },
+			{ { 0.50 }, { 0.55 }, { 0.45, 1.0 } },
+			{ { 0.70 }, { 0.70 }, { 0.30, 1.0 } } };
+	double[][][] mainFront = {
+			{ { 0.25 }, { 0.75 }, { 0.0, 0.75 } },
+			{ { 0.50 }, { 0.70 }, { 0.0, 0.7 } },
+			{ { 0.85 }, { 0.65 }, { 0.0, 0.65 } },
+			{ { 1.00 }, { 0.00 }, { 0.0, 0.50 } } };
+
 
 	public Airplane0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr, double dyr,
 			double dzr, double dxRoof, double dyRoof, double dzRoof, double dxBottom, double dyBottom, double dzBottom,
@@ -106,12 +119,8 @@ public class Airplane0Model extends VehicleModel {
 	@Override
 	public void initMesh() {
 
-		double[][][] mainRear = {
-				{ { 0.00 }, { 0.00 }, { 0.90, 1.0 } },
-				{ { 0.25 }, { 0.40 }, { 0.60, 1.0 } },
-				{ { 0.50 }, { 0.55 }, { 0.45, 1.0 } },
-				{ { 0.70 }, { 0.70 }, { 0.30, 1.0 } } };
 		pRear = mainRear;
+		pFront=mainFront;
 
 		int c = 0;
 		c = initDoubleArrayValues(tBo = new int[1][4], c);
@@ -252,7 +261,7 @@ public class Airplane0Model extends VehicleModel {
 		body = new BPoint[bodyNX][bodyNY][bodyNZ];
 
 		Segments b0 = new Segments(0, dx, 0, dyRear, 0, dz);
-		for (int j = 0; j < backNY; j++) {
+		for (int j = 0; j < pRear.length; j++) {
 
 			double yy = pRear[j][0][0];
 			double xx = pRear[j][1][0];
@@ -284,40 +293,27 @@ public class Airplane0Model extends VehicleModel {
 		body[0][backNY + 1][1] = addBPoint(-0.5, 1.0, 1.0, p0);
 		body[1][backNY + 1][1] = addBPoint(0.5, 1.0, 1.0, p0);
 
-		double front_width = dxFront;
-		double front_width0 = front_width * (1 - 0.75) + dx * 0.75;
-		double front_width1 = front_width * (1 - 0.7) + dx * 0.7;
-		double front_width2 = front_width * (1 - 0.65) + dx * 0.65;
+		Segments f0 = new Segments(0, dx, dyRear+dy, dyFront, 0, dz);
+		for (int j = 0; j < pFront.length; j++) {
 
-		double front_height0 = dzFront * (1 - 0.75) + dz * 0.75;
-		double front_height1 = dzFront * (1 - 0.7) + dz * 0.7;
-		double front_height2 = dzFront * (1 - 0.65) + dz * 0.65;
+			double yy = pFront[j][0][0];
+			double xx = pFront[j][1][0];
+			double zz0 = pFront[j][2][0];
+			double zz1 = pFront[j][2][1];
 
-		Segments f0 = new Segments(0, front_width0, dyRear + dy, dyFront, 0, front_height0);
-		Segments f1 = new Segments(0, front_width1, dyRear + dy, dyFront, 0, front_height1);
-		Segments f2 = new Segments(0, front_width2, dyRear + dy, dyFront, 0, front_height2);
-		Segments f3 = new Segments(0, front_width, dyRear + dy, dyFront, 0, dzFront);
+			if(j==pFront.length-1){
+				body[0][backNY + fuselageNY + j][0] = addBPoint(0.0, yy, zz0, f0);
+				body[1][backNY + fuselageNY + j][0] = body[0][backNY + fuselageNY + j][0];
+				body[0][backNY + fuselageNY + j][1] = addBPoint(0.0, yy, zz1, f0);
+				body[1][backNY + fuselageNY + j][1] = body[0][backNY + fuselageNY + j][1];
+			}else{
+				body[0][backNY + fuselageNY+j][0] = addBPoint(-0.5*xx, yy, zz0, f0);
+				body[1][backNY + fuselageNY+j][0] = addBPoint(0.5*xx, yy, zz0, f0);
+				body[0][backNY + fuselageNY+j][1] = addBPoint(-0.5*xx, yy, zz1, f0);
+				body[1][backNY + fuselageNY+j][1] = addBPoint(0.5*xx, yy, zz1, f0);
+			}
 
-		body[0][backNY + fuselageNY][0] = addBPoint(-0.5, 0.25, 0, f0);
-		body[1][backNY + fuselageNY][0] = addBPoint(0.5, 0.25, 0, f0);
-		body[0][backNY + fuselageNY][1] = addBPoint(-0.5, 0.25, 1.0, f0);
-		body[1][backNY + fuselageNY][1] = addBPoint(0.5, 0.25, 1.0, f0);
-
-		body[0][backNY + fuselageNY + 1][0] = addBPoint(-0.5, 0.5, 0, f1);
-		body[1][backNY + fuselageNY + 1][0] = addBPoint(0.5, 0.5, 0, f1);
-		body[0][backNY + fuselageNY + 1][1] = addBPoint(-0.5, 0.5, 1.0, f1);
-		body[1][backNY + fuselageNY + 1][1] = addBPoint(0.5, 0.5, 1.0, f1);
-
-		body[0][backNY + fuselageNY + 2][0] = addBPoint(-0.5, 0.85, 0, f2);
-		body[1][backNY + fuselageNY + 2][0] = addBPoint(0.5, 0.85, 0, f2);
-		body[0][backNY + fuselageNY + 2][1] = addBPoint(-0.5, 0.85, 1.0, f2);
-		body[1][backNY + fuselageNY + 2][1] = addBPoint(0.5, 0.85, 1.0, f2);
-
-		body[0][backNY + fuselageNY + 3][0] = addBPoint(0.0, 1.0, 0, f3);
-		body[1][backNY + fuselageNY + 3][0] = body[0][backNY + fuselageNY + 3][0];
-		body[0][backNY + fuselageNY + 3][1] = addBPoint(0.0, 1.0, 1.0, f3);
-		body[1][backNY + fuselageNY + 3][1] = body[0][backNY + fuselageNY + 3][1];
-
+		}
 	}
 
 	protected void buildWings() {
