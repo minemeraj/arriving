@@ -44,12 +44,7 @@ public class Airplane0Model extends VehicleModel {
 	protected int[] tRightTail;
 	protected int[][] tRudder;
 
-	protected int backNY = 4;
-	protected int fuselageNY = 2;
-	protected int frontNY = 4;
-	protected int bodyNX = 2;
-	protected int bodyNY = backNY + fuselageNY + frontNY;
-	protected int bodyNZ = 2;
+
 
 	int tailWingNX = 2;
 	int tailWingNY = 2;
@@ -70,16 +65,25 @@ public class Airplane0Model extends VehicleModel {
 	protected double[][][] pFront = null;
 
 	double[][][] mainRear = {
-			{ { 0.00 }, { 0.00 }, { 0.90, 1.0 } },
-			{ { 0.25 }, { 0.40 }, { 0.60, 1.0 } },
-			{ { 0.50 }, { 0.55 }, { 0.45, 1.0 } },
-			{ { 0.70 }, { 0.70 }, { 0.30, 1.0 } } };
-	double[][][] mainFront = {
-			{ { 0.40 }, { 0.80 }, { 0.0, 0.85 } },
-			{ { 0.60 }, { 0.70 }, { 0.0, 0.8 } },
-			{ { 0.85 }, { 0.65 }, { 0.1, 0.65 } },
-			{ { 1.00 }, { 0.00 }, { 0.2, 0.50 } } };
+			{ { 0.00 }, { 0.00 }, { 0.70, 0.8333} },
+			{ { 0.18 }, { 0.40 }, { 0.5333, 0.9000 } },
+			{ { 0.42 }, { 0.55 }, { 0.3333, 0.9000} },
+			{ { 0.61 }, { 0.70 }, { 0.2000, 0.9333 } },
+			{ { 0.75 }, { 0.80 }, { 0.1000, 0.9333 } } };
 
+	double[][][] mainFront = {
+			{ { 0.39 }, { 0.80 }, { 0.0667, 0.9333 } },
+			{ { 0.63 }, { 0.70 }, { 0.1000, 0.7667 } },
+			{ { 0.76 }, { 0.65 }, { 0.1333, 0.6000 } },
+			{ { 0.90 }, { 0.55 }, { 0.2000, 0.5000 } },
+			{ { 1.00 }, { 0.55 }, { 0.3333, 0.3333 } } };
+
+	protected int backNY = mainRear.length;
+	protected int fuselageNY = 2;
+	protected int frontNY = mainFront.length;
+	protected int bodyNX = 2;
+	protected int bodyNY = backNY + fuselageNY + frontNY;
+	protected int bodyNZ = 2;
 
 	public Airplane0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr, double dyr,
 			double dzr, double dxRoof, double dyRoof, double dzRoof, double dxBottom, double dyBottom, double dzBottom,
@@ -111,8 +115,7 @@ public class Airplane0Model extends VehicleModel {
 		this.rearOverhang1 = rearOverhang1;
 		this.frontOverhang1 = frontOverhang1;
 
-		this.dyRudder = dyRear * 0.25;
-		this.dzRudder = dzRear + 71;
+
 
 	}
 
@@ -120,7 +123,10 @@ public class Airplane0Model extends VehicleModel {
 	public void initMesh() {
 
 		pRear = mainRear;
-		pFront=mainFront;
+		pFront = mainFront;
+
+		this.dyRudder = dyRear *pRear[1][0][0];
+		this.dzRudder = dzRear + 71;
 
 		int c = 0;
 		c = initDoubleArrayValues(tBo = new int[1][4], c);
