@@ -58,32 +58,32 @@ public class Airplane0Model extends VehicleModel {
 	int wingNY = 2;
 	int wingNZ = 2;
 
+	protected int fuselageNY = 2;
+	protected int bodyNX = 2;
+	protected int bodyNZ = 2;
+	protected int backNY=0;
+	protected int frontNY=0;
+	protected int bodyNY=0;
+
 	/**
 	 * BOTTOM-UP SECTIONS [y],[x0],[z0,z1]
 	 **/
 	protected double[][][] pRear = null;
 	protected double[][][] pFront = null;
 
-	double[][][] mainRear = {
+	private double[][][] mainRear = {
 			{ { 0.00 }, { 0.1 }, { 0.70, 0.8333} },
 			{ { 0.18 }, { 0.4333 }, { 0.5333, 0.9000 } },
 			{ { 0.42 }, { 0.6000 }, { 0.3333, 0.9000} },
 			{ { 0.61 }, { 0.833 }, { 0.2000, 0.9333 } },
 			{ { 0.75 }, { 0.9333 }, { 0.1000, 0.9333 } } };
 
-	double[][][] mainFront = {
+	private double[][][] mainFront = {
 			{ { 0.39 }, { 0.9000 }, { 0.0667, 0.9333 } },
 			{ { 0.63 }, { 0.7667 }, { 0.1000, 0.7667 } },
 			{ { 0.76 }, { 0.6000 }, { 0.1333, 0.6000 } },
 			{ { 0.90 }, { 0.3333 }, { 0.2000, 0.5000 } },
 			{ { 1.00 }, { 0.0000 }, { 0.3333, 0.3333 } } };
-
-	protected int backNY = mainRear.length;
-	protected int fuselageNY = 2;
-	protected int frontNY = mainFront.length;
-	protected int bodyNX = 2;
-	protected int bodyNY = backNY + fuselageNY + frontNY;
-	protected int bodyNZ = 2;
 
 	public Airplane0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr, double dyr,
 			double dzr, double dxRoof, double dyRoof, double dzRoof, double dxBottom, double dyBottom, double dzBottom,
@@ -124,13 +124,15 @@ public class Airplane0Model extends VehicleModel {
 
 		pRear = mainRear;
 		pFront = mainFront;
+		backNY = pRear.length;
+		frontNY = pFront.length;
+		bodyNY = backNY + fuselageNY + frontNY;
 
 		this.dyRudder = dyRear *pRear[1][0][0];
 		this.dzRudder = dzRear + 71;
 
 		int c = 0;
 		c = initDoubleArrayValues(tBo = new int[1][4], c);
-
 		c = initDoubleArrayValues(tLeftBody = new int[bodyNY - 1][4], c);
 		c = initSingleArrayValues(tLeftTail = new int[4], c);
 		c = initSingleArrayValues(tLeftWing = new int[4], c);
@@ -269,7 +271,7 @@ public class Airplane0Model extends VehicleModel {
 
 		body = new BPoint[bodyNX][bodyNY][bodyNZ];
 
-		Segments b0 = new Segments(0, dx, 0, dyRear, 0, dz);
+		Segments b0 = new Segments(x0, dx, y0, dyRear, z0, dz);
 		for (int j = 0; j < pRear.length; j++) {
 
 			double yy = pRear[j][0][0];
@@ -284,7 +286,7 @@ public class Airplane0Model extends VehicleModel {
 
 		}
 
-		Segments p0 = new Segments(0, dx, dyRear, dy, 0, dz);
+		Segments p0 = new Segments(x0, dx, y0+dyRear, dy, z0, dz);
 
 		body[0][backNY][0] = addBPoint(-0.5, 0.0, 0, p0);
 		body[1][backNY][0] = addBPoint(0.5, 0.0, 0, p0);
@@ -296,7 +298,7 @@ public class Airplane0Model extends VehicleModel {
 		body[0][backNY + 1][1] = addBPoint(-0.5, 1.0, 1.0, p0);
 		body[1][backNY + 1][1] = addBPoint(0.5, 1.0, 1.0, p0);
 
-		Segments f0 = new Segments(0, dx, dyRear+dy, dyFront, 0, dz);
+		Segments f0 = new Segments(x0, dx, y0+dyRear+dy, dyFront, z0, dz);
 		for (int j = 0; j < pFront.length; j++) {
 
 			double yy = pFront[j][0][0];
