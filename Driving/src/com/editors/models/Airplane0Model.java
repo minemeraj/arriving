@@ -65,18 +65,18 @@ public class Airplane0Model extends VehicleModel {
 	protected double[][][] pFront = null;
 
 	double[][][] mainRear = {
-			{ { 0.00 }, { 0.00 }, { 0.70, 0.8333} },
-			{ { 0.18 }, { 0.40 }, { 0.5333, 0.9000 } },
-			{ { 0.42 }, { 0.55 }, { 0.3333, 0.9000} },
-			{ { 0.61 }, { 0.70 }, { 0.2000, 0.9333 } },
-			{ { 0.75 }, { 0.80 }, { 0.1000, 0.9333 } } };
+			{ { 0.00 }, { 0.1 }, { 0.70, 0.8333} },
+			{ { 0.18 }, { 0.4333 }, { 0.5333, 0.9000 } },
+			{ { 0.42 }, { 0.6000 }, { 0.3333, 0.9000} },
+			{ { 0.61 }, { 0.833 }, { 0.2000, 0.9333 } },
+			{ { 0.75 }, { 0.9333 }, { 0.1000, 0.9333 } } };
 
 	double[][][] mainFront = {
-			{ { 0.39 }, { 0.80 }, { 0.0667, 0.9333 } },
-			{ { 0.63 }, { 0.70 }, { 0.1000, 0.7667 } },
-			{ { 0.76 }, { 0.65 }, { 0.1333, 0.6000 } },
-			{ { 0.90 }, { 0.55 }, { 0.2000, 0.5000 } },
-			{ { 1.00 }, { 0.55 }, { 0.3333, 0.3333 } } };
+			{ { 0.39 }, { 0.9000 }, { 0.0667, 0.9333 } },
+			{ { 0.63 }, { 0.7667 }, { 0.1000, 0.7667 } },
+			{ { 0.76 }, { 0.6000 }, { 0.1333, 0.6000 } },
+			{ { 0.90 }, { 0.3333 }, { 0.2000, 0.5000 } },
+			{ { 1.00 }, { 0.0000 }, { 0.3333, 0.3333 } } };
 
 	protected int backNY = mainRear.length;
 	protected int fuselageNY = 2;
@@ -147,7 +147,7 @@ public class Airplane0Model extends VehicleModel {
 		buildTextures();
 
 		// faces
-		int NF = (bodyNY - 1) * 4;// body
+		int NF = (bodyNY - 1) * 4+1;// body
 		NF += 12;// wings
 		NF += 12;// tail wings
 		NF += tailRudder.length * 2;// rudder
@@ -238,6 +238,9 @@ public class Airplane0Model extends VehicleModel {
 
 	protected int buildCabinfaces(int counter, int numy) {
 
+		faces[counter++] = buildFace(Renderer3D.CAR_BACK, body[0][0][0], body[1][0][0], body[1][0][1],
+				body[0][0][1], tBo[0]);
+
 		for (int k = 0; k < numy - 1; k++) {
 
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, body[0][k][0], body[0][k][1], body[0][k + 1][1],
@@ -274,17 +277,11 @@ public class Airplane0Model extends VehicleModel {
 			double zz0 = pRear[j][2][0];
 			double zz1 = pRear[j][2][1];
 
-			if (j == 0) {
-				body[0][j][0] = addBPoint(-0.5 * xx, yy, zz0, b0);
-				body[1][j][0] = body[0][0][0];
-				body[0][j][1] = addBPoint(0.5 * xx, yy, zz1, b0);
-				body[1][j][1] = body[0][0][1];
-			} else {
-				body[0][j][0] = addBPoint(-0.5 * xx, yy, zz0, b0);
-				body[1][j][0] = addBPoint(0.5 * xx, yy, zz0, b0);
-				body[0][j][1] = addBPoint(-0.5 * xx, yy, zz1, b0);
-				body[1][j][1] = addBPoint(0.5 * xx, yy, zz1, b0);
-			}
+			body[0][j][0] = addBPoint(-0.5 * xx, yy, zz0, b0);
+			body[1][j][0] = addBPoint(0.5 * xx, yy, zz0, b0);
+			body[0][j][1] = addBPoint(-0.5 * xx, yy, zz1, b0);
+			body[1][j][1] = addBPoint(0.5 * xx, yy, zz1, b0);
+
 		}
 
 		Segments p0 = new Segments(0, dx, dyRear, dy, 0, dz);
@@ -310,8 +307,8 @@ public class Airplane0Model extends VehicleModel {
 			if(j==pFront.length-1){
 				body[0][backNY + fuselageNY + j][0] = addBPoint(0.0, yy, zz0, f0);
 				body[1][backNY + fuselageNY + j][0] = body[0][backNY + fuselageNY + j][0];
-				body[0][backNY + fuselageNY + j][1] = addBPoint(0.0, yy, zz1, f0);
-				body[1][backNY + fuselageNY + j][1] = body[0][backNY + fuselageNY + j][1];
+				body[0][backNY + fuselageNY + j][1] = body[0][backNY + fuselageNY + j][0];
+				body[1][backNY + fuselageNY + j][1] = body[0][backNY + fuselageNY + j][0];
 			}else{
 				body[0][backNY + fuselageNY+j][0] = addBPoint(-0.5*xx, yy, zz0, f0);
 				body[1][backNY + fuselageNY+j][0] = addBPoint(0.5*xx, yy, zz0, f0);
