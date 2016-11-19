@@ -25,8 +25,6 @@ public class FighterAircraft0Model extends Airplane0Model {
 			{ { 0.90 }, { 0.3333 }, { 0.2000, 0.5000 } },
 			{ { 1.00 }, { 0.0000 }, { 0.3333, 0.3333 } } };
 
-	private BPoint[][][] frontCabin;
-
 	public FighterAircraft0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr,
 			double dyr, double dzr, double dxRoof, double dyRoof, double dzRoof, double dxBottom, double dyBottom,
 			double dzBottom, double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1) {
@@ -48,10 +46,13 @@ public class FighterAircraft0Model extends Airplane0Model {
 		c = initDoubleArrayValues(tLeftBody = new int[bodyNY - 1][4], c);
 		c = initSingleArrayValues(tLeftTail = new int[4], c);
 		c = initSingleArrayValues(tLeftWing = new int[4], c);
+		c = initDoubleArrayValues(tLeftFront = new int[frontNY - 1][4], c);
 		c = initDoubleArrayValues(tTopBody = new int[bodyNY - 1][4], c);
 		c = initSingleArrayValues(tRightWing = new int[4], c);
 		c = initSingleArrayValues(tRightTail = new int[4], c);
+		c = initDoubleArrayValues(tTopFront = new int[frontNY - 1][4], c);
 		c = initDoubleArrayValues(tRightBody = new int[bodyNY - 1][4], c);
+		c = initDoubleArrayValues(tRightFront = new int[frontNY - 1][4], c);
 		c = initDoubleArrayValues(tRudder = new int[2][4], c);
 
 		points = new Vector<Point3D>();
@@ -74,6 +75,34 @@ public class FighterAircraft0Model extends Airplane0Model {
 
 		int counter = 0;
 		counter = buildFaces(counter, bodyNY);
+
+	}
+
+	@Override
+	protected void buildTextures() {
+		// Texture points
+
+		double maxDY = Math.max(dyTexture, dyRear + dyFront);
+		double maxDZ = Math.max(dz,dzFront);
+
+		int shift = 1;
+
+		double y = by;
+		double x = bx;
+
+		addTRect(x, y, dxTexture, dyTexture);
+		x += dxTexture;
+		buildLefTextures(x, y, shift);
+		x += maxDZ + dxRoof;
+		buildTopTextures(x + dx * 0.5, y, shift);
+		x += dx + dxRoof;
+		buildRightTextures(x, y, shift);
+		x += maxDZ;
+		buildRudderTextures(x, y);
+		x += 2 * dyRudder;
+
+		IMG_WIDTH = (int) (bx + x);
+		IMG_HEIGHT = (int) (2 * by + maxDY);
 
 	}
 
@@ -158,26 +187,24 @@ public class FighterAircraft0Model extends Airplane0Model {
 	protected int buildCabinfaces(int counter, int numy) {
 
 		counter = super.buildCabinfaces(counter, numy);
-		counter=buildFronCabinFaces(counter);
+		counter=buildFrontCabinFaces(counter);
 		return counter;
 	}
 
-	private int buildFronCabinFaces(int counter) {
+	private int buildFrontCabinFaces(int counter) {
 
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, frontCabin[0][0][0], frontCabin[1][0][0], frontCabin[1][0][1],
 				frontCabin[0][0][1], tBo[0]);
 
 		for (int k = 0; k < frontNY - 1; k++) {
-
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, frontCabin[0][k][0], frontCabin[0][k][1], frontCabin[0][k + 1][1],
-					frontCabin[0][k + 1][0], tBo[0]);
+					frontCabin[0][k + 1][0], tLeftFront[k]);
 			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, frontCabin[0][k][0], frontCabin[0][k + 1][0], frontCabin[1][k + 1][0],
 					frontCabin[1][k][0], tBo[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, frontCabin[1][k][0], frontCabin[1][k + 1][0], frontCabin[1][k + 1][1],
-					frontCabin[1][k][1], tBo[0]);
+					frontCabin[1][k][1], tRightFront[k]);
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, frontCabin[0][k][1], frontCabin[1][k][1], frontCabin[1][k + 1][1],
-					frontCabin[0][k + 1][1], tTopBody[k]);
-
+					frontCabin[0][k + 1][1], tTopFront[k]);
 		}
 
 		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, frontCabin[0][frontNY - 1][0],frontCabin[0][frontNY - 1][1], frontCabin[1][frontNY - 1][1],

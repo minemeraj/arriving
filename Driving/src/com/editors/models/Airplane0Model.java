@@ -19,11 +19,13 @@ import com.main.Renderer3D;
  */
 public class Airplane0Model extends VehicleModel {
 
-	protected BPoint[][][] tailLeftWing;
-	protected BPoint[][][] tailRightWing;
-	protected BPoint[][][][] tailRudder;
-	protected BPoint[][][] rightWing;
-	protected BPoint[][][] leftWing;
+	protected BPoint[][][] tailLeftWing=null;
+	protected BPoint[][][] tailRightWing=null;
+	protected BPoint[][][][] tailRudder=null;
+	protected BPoint[][][] rightWing=null;
+	protected BPoint[][][] leftWing=null;
+
+	protected BPoint[][][] frontCabin=null;
 
 	public static final String NAME = "Airplane";
 
@@ -44,7 +46,9 @@ public class Airplane0Model extends VehicleModel {
 	protected int[] tRightTail;
 	protected int[][] tRudder;
 
-
+	protected int[][] tLeftFront= null;
+	protected int[][] tTopFront = null;
+	protected int[][] tRightFront = null;
 
 	int tailWingNX = 2;
 	int tailWingNY = 2;
@@ -441,6 +445,15 @@ public class Airplane0Model extends VehicleModel {
 			addTPoint(x + body[0][i + 1][1].z, y + body[0][i + 1][1].y, 0);
 			addTPoint(x + body[0][i + 1][0].z, y + body[0][i + 1][0].y, 0);
 		}
+
+		if(frontCabin!=null){
+			for (int i = 0; i < frontNY - 1; i++) {
+				addTPoint(x + frontCabin[0][i][0].z, y + frontCabin[0][i][0].y, 0);
+				addTPoint(x + frontCabin[0][i][1].z, y + frontCabin[0][i][1].y, 0);
+				addTPoint(x + frontCabin[0][i + 1][1].z, y + frontCabin[0][i + 1][1].y, 0);
+				addTPoint(x + frontCabin[0][i + 1][0].z, y + frontCabin[0][i + 1][0].y, 0);
+			}
+		}
 	}
 
 	protected void buildTopTextures(double x, double y, int shift) {
@@ -471,6 +484,15 @@ public class Airplane0Model extends VehicleModel {
 		addTPoint(x + tailRightWing[1][0][0].x, y + tailRightWing[1][0][0].y, 0);
 		addTPoint(x + tailRightWing[1][1][0].x, y + tailRightWing[1][1][0].y, 0);
 		addTPoint(x + tailRightWing[0][1][0].x, y + tailRightWing[0][1][0].y, 0);
+
+		if(frontCabin!=null){
+			for (int i = 0; i < frontNY - 1; i++) {
+				addTPoint(x + frontCabin[0][i][0].x, y + frontCabin[0][i][0].y, 0);
+				addTPoint(x + frontCabin[1][i][0].x, y + frontCabin[1][i][0].y, 0);
+				addTPoint(x + frontCabin[1][i + 1][0].x, y + frontCabin[1][i + 1][0].y, 0);
+				addTPoint(x + frontCabin[0][i + 1][0].x, y + frontCabin[0][i + 1][0].y, 0);
+			}
+		}
 	}
 
 	protected void buildRightTextures(double x, double y, int shift) {
@@ -483,9 +505,18 @@ public class Airplane0Model extends VehicleModel {
 			addTPoint(x + maxDZ - body[1][i + 1][1].z, y + body[1][i + 1][1].y, 0);
 			addTPoint(x + maxDZ - body[1][i + 1][0].z, y + body[1][i + 1][0].y, 0);
 		}
+
+		if(frontCabin!=null){
+			for (int i = 0; i < frontNY - 1; i++) {
+				addTPoint(x + maxDZ - frontCabin[1][i][0].z, y + frontCabin[1][i][0].y, 0);
+				addTPoint(x + maxDZ - frontCabin[1][i][1].z, y + frontCabin[1][i][1].y, 0);
+				addTPoint(x + maxDZ - frontCabin[1][i + 1][1].z, y + frontCabin[1][i + 1][1].y, 0);
+				addTPoint(x + maxDZ - frontCabin[1][i + 1][0].z, y + frontCabin[1][i + 1][0].y, 0);
+			}
+		}
 	}
 
-	private void buildRudderTextures(double x, double y) {
+	protected void buildRudderTextures(double x, double y) {
 
 		addTRect(x, y, dyRudder, dzRudder);
 		addTRect(x + dyRudder, y, dyRudder, dzRudder);
@@ -530,6 +561,14 @@ public class Airplane0Model extends VehicleModel {
 		}
 		for (int i = 0; i < tRudder.length; i++) {
 			printTexturePolygon(bufGraphics, tRudder[i]);
+		}
+
+		if(frontCabin!=null){
+			for (int i = 0; i < frontNY - 1; i++) {
+				printTexturePolygon(bufGraphics, tLeftFront[i]);
+				printTexturePolygon(bufGraphics, tTopFront[i]);
+				printTexturePolygon(bufGraphics, tRightFront[i]);
+			}
 		}
 
 	}
