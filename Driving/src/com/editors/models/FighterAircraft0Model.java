@@ -17,6 +17,18 @@ public class FighterAircraft0Model extends Airplane0Model {
 
 	public static final String NAME = "Fighter aircraft";
 
+	private double[][][] mainRear = {
+			{ { 0.00 }, { 1.372 }, { 0.0, 1.0} },
+			{ { 0.25 }, { 1.2 }, { 0.0, 1.0 } },
+			{ { 0.50 }, { 1.1 }, { 0.0, 1.0} },
+			{ { 0.75 }, { 1.0 }, { 0.0, 1.0 } },
+	};
+
+	private double[][][] mainFuselage = {
+			{ { 0.00 }, { 1.0 }, { 0.0, 1.000} },
+			{ { 1.00 }, { 1.0 }, { 0.0, 1.000} },
+	};
+
 	double[][][] fighterFront = {
 			{ { 0.00 }, { 1.0 }, { 0.0000, 0.42 }},
 			{ { 0.18 }, { 1.0 }, { 0.0000, 0.55 }},
@@ -34,10 +46,7 @@ public class FighterAircraft0Model extends Airplane0Model {
 	};
 
 
-	private double[][][] mainFuselage = {
-			{ { 0.00 }, { 1.0 }, { 0.0, 1.000} },
-			{ { 1.00 }, { 1.0 }, { 0.0, 1.000} },
-	};
+
 
 	public FighterAircraft0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr,
 			double dyr, double dzr, double dxRoof, double dyRoof, double dzRoof, double dxBottom, double dyBottom,
@@ -50,12 +59,16 @@ public class FighterAircraft0Model extends Airplane0Model {
 	@Override
 	public void initMesh() {
 
+		pRear = mainRear;
 		pFront = fighterFront;
 		pFuselage=mainFuselage;
 		fuselageNY=pFuselage.length;
-		backNY = 4;
+		backNY = pRear.length;
 		frontNY = pFront.length;
 		bodyNY = backNY + fuselageNY;
+
+		this.dyRudder = dyRear *pRear[1][0][0];
+		this.dzRudder = dzRear-dz*pRear[0][2][1];
 
 		int c = 0;
 		c = initDoubleArrayValues(tBo = new int[1][4], c);
@@ -127,40 +140,20 @@ public class FighterAircraft0Model extends Airplane0Model {
 
 		body = new BPoint[bodyNX][bodyNY][bodyNZ];
 
-		double back_width = dxRear;
-		double back_width1 = dxRear * (1 - 0.3) + dx * 0.3;
-		double back_width2 = dxRear * (1 - 0.6) + dx * 0.6;
-		double back_width3 = dxRear * (1 - 0.9) + dx * 0.9;
+		Segments b0 = new Segments(x0, dx, y0, dyRear, z0, dz);
+		for (int j = 0; j < pRear.length; j++) {
 
-		double back_height = dzRear;
-		double back_height1 = dzRear * (1 - 0.3) + dz * 0.3;
-		double back_height2 = dzRear * (1 - 0.6) + dz * 0.6;
-		double back_height3 = dzRear * (1 - 0.9) + dz * 0.9;
+			double yy = pRear[j][0][0];
+			double xx = pRear[j][1][0];
+			double zz0 = pRear[j][2][0];
+			double zz1 = pRear[j][2][1];
 
-		Segments b0 = new Segments(0, back_width, 0, dyRear, dz - dzRear, back_height);
-		Segments b1 = new Segments(0, back_width1, 0, dyRear, dz - back_height1, back_height1);
-		Segments b2 = new Segments(0, back_width2, 0, dyRear, dz - back_height2, back_height2);
-		Segments b3 = new Segments(0, back_width3, 0, dyRear, dz - back_height3, back_height3);
+			body[0][j][0] = addBPoint(-0.5 * xx, yy, zz0, b0);
+			body[1][j][0] = addBPoint(0.5 * xx, yy, zz0, b0);
+			body[0][j][1] = addBPoint(-0.5 * xx, yy, zz1, b0);
+			body[1][j][1] = addBPoint(0.5 * xx, yy, zz1, b0);
 
-		body[0][0][0] = addBPoint(-0.5, 0.0, 0, b0);
-		body[1][0][0] = addBPoint(0.5, 0.0, 0, b0);
-		body[0][0][1] = addBPoint(-0.5, 0.0, 1.0, b0);
-		body[1][0][1] = addBPoint(0.5, 0.0, 1.0, b0);
-
-		body[0][1][0] = addBPoint(-0.5, 0.25, 0, b1);
-		body[1][1][0] = addBPoint(0.5, 0.25, 0, b1);
-		body[0][1][1] = addBPoint(-0.5, 0.25, 1.0, b1);
-		body[1][1][1] = addBPoint(0.5, 0.25, 1.0, b1);
-
-		body[0][2][0] = addBPoint(-0.5, 0.5, 0, b2);
-		body[1][2][0] = addBPoint(0.5, 0.5, 0, b2);
-		body[0][2][1] = addBPoint(-0.5, 0.5, 1.0, b2);
-		body[1][2][1] = addBPoint(0.5, 0.5, 1.0, b2);
-
-		body[0][3][0] = addBPoint(-0.5, 0.75, 0, b3);
-		body[1][3][0] = addBPoint(0.5, 0.75, 0, b3);
-		body[0][3][1] = addBPoint(-0.5, 0.75, 1.0, b3);
-		body[1][3][1] = addBPoint(0.5, 0.75, 1.0, b3);
+		}
 
 		for (int j = 0; j < fuselageNY; j++) {
 			Segments p0 = new Segments(x0, dx, y0+dyRear, dy, z0, dz);
@@ -233,7 +226,7 @@ public class FighterAircraft0Model extends Airplane0Model {
 		/////// tail
 
 		double back_width = dxRear;
-		double back_height = dzRear;
+		double back_height = dz*pRear[0][2][1];;
 
 		double twDX = 65;
 
@@ -267,7 +260,7 @@ public class FighterAircraft0Model extends Airplane0Model {
 
 		tailRudder = new BPoint[2][tailRudderNX][tailRudderNY][tailRudderNZ];
 
-		Segments rudder0 = new Segments(0, back_width, 0, dyRudder, dz - back_height, dzRudder);
+		Segments rudder0 = new Segments(0, back_width, 0, dyRudder, back_height, dzRudder);
 
 		tailRudder[0][0][0][0] = addBPoint(body[0][0][1].x, body[0][0][1].y, body[0][0][1].z);
 		tailRudder[0][0][1][0] = addBPoint(body[0][0][1].x, body[0][1][1].y, body[0][1][1].z);
