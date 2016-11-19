@@ -18,11 +18,10 @@ import com.main.Renderer3D;
  */
 public class Helicopter0Model extends Airplane0Model {
 
-	// body textures
-
 	private BPoint[][][][] propellers;
 	private BPoint[][][][] shoes;
-
+	private static final double PROPELLER_CENTER_Z_BODY = 1.43;
+	private static final double PROPELLER_CENTER_Y_BODY = 0.56;
 
 	public static String NAME = "Helicopter";
 
@@ -160,7 +159,7 @@ public class Helicopter0Model extends Airplane0Model {
 
 		propellers = new BPoint[2][2][2][2];
 
-		Segments s0 = new Segments(0, dxRoof, dyRear + dy * 0.5, dyRoof * 0.5, dz + dzBottom, dzRoof);
+		Segments s0 = new Segments(0, dxRoof, dyRear + dy * PROPELLER_CENTER_Y_BODY, dyRoof * 0.5, dz*PROPELLER_CENTER_Z_BODY + dzBottom, dzRoof);
 
 		propellers[0][0][0][0] = addBPoint(-1.0, -1.0, 0, s0);
 		propellers[0][1][0][0] = addBPoint(1.0, -1.0, 0, s0);
@@ -172,7 +171,7 @@ public class Helicopter0Model extends Airplane0Model {
 		propellers[0][0][1][1] = addBPoint(-1.0, 1.0, 1.0, s0);
 		propellers[0][1][1][1] = addBPoint(1.0, 1.0, 1.0, s0);
 
-		Segments s1 = new Segments(0, dyRoof * 0.5, dyRear + dy * 0.5, dxRoof, dz + dzBottom, dzRoof);
+		Segments s1 = new Segments(0, dyRoof * 0.5, dyRear + dy * PROPELLER_CENTER_Y_BODY, dxRoof, dz*PROPELLER_CENTER_Z_BODY  + dzBottom, dzRoof);
 
 		propellers[1][0][0][0] = addBPoint(-1.0, -1.0, 0, s1);
 		propellers[1][1][0][0] = addBPoint(1.0, -1.0, 0, s1);

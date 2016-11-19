@@ -18,9 +18,9 @@ public class FighterAircraft0Model extends Airplane0Model {
 	public static final String NAME = "Fighter aircraft";
 
 	private double[][][] mainRear = {
-			{ { 0.00 }, { 1.372 }, { 0.0, 1.0} },
-			{ { 0.25 }, { 1.2 }, { 0.0, 1.0 } },
-			{ { 0.50 }, { 1.1 }, { 0.0, 1.0} },
+			{ { 0.00 }, { 1.372 }, { 0.0, 0.718} },
+			{ { 0.25 }, { 1.2 }, { 0.0, 0.8 } },
+			{ { 0.50 }, { 1.1 }, { 0.0, 0.9} },
 			{ { 0.75 }, { 1.0 }, { 0.0, 1.0 } },
 	};
 
@@ -226,13 +226,14 @@ public class FighterAircraft0Model extends Airplane0Model {
 		/////// tail
 
 		double back_width = dxRear;
-		double back_height = dz*pRear[0][2][1];;
+		double back_height = dz*pRear[0][2][1];
+		double zzBack0=dz*pRear[0][2][0];
 
 		double twDX = 65;
 
 		tailRightWing = new BPoint[tailWingNX][tailWingNY][tailWingNZ];
 
-		Segments trWing0 = new Segments(back_width * 0.5, twDX, 0, dyRear * 0.125, dz - back_height, back_height);
+		Segments trWing0 = new Segments(back_width * 0.5, twDX, 0, dyRear * 0.125, zzBack0, back_height);
 
 		tailRightWing[0][0][0] = body[1][0][0];
 		tailRightWing[1][0][0] = addBPoint(1.0, 0.0, 0.0, trWing0);
@@ -246,7 +247,7 @@ public class FighterAircraft0Model extends Airplane0Model {
 
 		tailLeftWing = new BPoint[tailWingNX][tailWingNY][tailWingNZ];
 
-		Segments tlWing0 = new Segments(-back_width * 0.5, twDX, 0, dyRear * 0.125, dz - back_height, back_height);
+		Segments tlWing0 = new Segments(-back_width * 0.5, twDX, 0, dyRear * 0.125, zzBack0, back_height);
 
 		tailLeftWing[0][0][0] = addBPoint(-1.0, 0, 0, tlWing0);
 		tailLeftWing[1][0][0] = body[0][0][0];
