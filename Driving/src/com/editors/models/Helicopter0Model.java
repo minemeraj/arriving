@@ -101,6 +101,7 @@ public class Helicopter0Model extends Airplane0Model {
 		// Texture points
 
 		double maxDY = Math.max(dyTexture, dy + dyRear + dyFront);
+		double maxDZ = Math.max(dz,dzFront);
 
 		int shift = 1;
 
@@ -110,11 +111,11 @@ public class Helicopter0Model extends Airplane0Model {
 		addTRect(x, y, dxTexture, dyTexture);
 		x += dxTexture;
 		buildLefTextures(x, y, shift);
-		x += dz + dxRoof;
+		x += maxDZ + dxRoof+dzBottom;
 		buildTopTextures(x + dx * 0.5, y, shift);
 		x += dx + dxRoof;
 		buildRightTextures(x, y, shift);
-		x += dz;
+		x += maxDZ+dzBottom;
 
 		IMG_WIDTH = (int) (bx + x);
 		IMG_HEIGHT = (int) (2 * by + maxDY);

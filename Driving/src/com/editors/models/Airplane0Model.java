@@ -497,7 +497,7 @@ public class Airplane0Model extends VehicleModel {
 
 	protected void buildRightTextures(double x, double y, int shift) {
 
-		double maxDZ = Math.max(dz, Math.max(dzRear, dzFront));
+		double maxDZ = Math.max(dz, Math.max(dzRear, dzFront))+dzBottom;
 
 		for (int i = 0; i < bodyNY - 1; i++) {
 			addTPoint(x + maxDZ - body[1][i][0].z, y + body[1][i][0].y, 0);
