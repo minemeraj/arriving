@@ -5,7 +5,6 @@ import java.util.Vector;
 import com.BPoint;
 import com.Point3D;
 import com.Segments;
-import com.main.Renderer3D;
 
 /**
  * One texture model Summing up the best creation logic so far
@@ -17,6 +16,13 @@ public class FighterAircraft0Model extends Airplane0Model {
 
 	public static final String NAME = "Fighter aircraft";
 
+	double[][][] fighterFront = {
+			{ { 0.39 }, { 0.9000 }, { 0.0667, 0.9333 } },
+			{ { 0.63 }, { 0.7667 }, { 0.1000, 0.7667 } },
+			{ { 0.76 }, { 0.6000 }, { 0.1333, 0.6000 } },
+			{ { 0.90 }, { 0.3333 }, { 0.2000, 0.5000 } },
+			{ { 1.00 }, { 0.0000 }, { 0.3333, 0.3333 } } };
+
 	public FighterAircraft0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr,
 			double dyr, double dzr, double dxRoof, double dyRoof, double dzRoof, double dxBottom, double dyBottom,
 			double dzBottom, double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1) {
@@ -27,6 +33,11 @@ public class FighterAircraft0Model extends Airplane0Model {
 
 	@Override
 	public void initMesh() {
+
+		pFront = fighterFront;
+		backNY = 4;
+		frontNY = pFront.length;
+		bodyNY = backNY + fuselageNY + frontNY;
 
 		int c = 0;
 		c = initDoubleArrayValues(tBo = new int[1][4], c);
@@ -109,39 +120,27 @@ public class FighterAircraft0Model extends Airplane0Model {
 		body[0][backNY + 1][1] = addBPoint(-0.5, 1.0, 1.0, p0);
 		body[1][backNY + 1][1] = addBPoint(0.5, 1.0, 1.0, p0);
 
-		double front_width = dxFront;
-		double front_width0 = front_width * (1 - 0.75) + dx * 0.75;
-		double front_width1 = front_width * (1 - 0.7) + dx * 0.7;
-		double front_width2 = front_width * (1 - 0.65) + dx * 0.65;
+		Segments f0 = new Segments(x0, dx, y0+dyRear+dy, dyFront, z0, dz);
+		for (int j = 0; j < pFront.length; j++) {
 
-		double front_height0 = dzFront * (1 - 0.75) + dz * 0.75;
-		double front_height1 = dzFront * (1 - 0.7) + dz * 0.7;
-		double front_height2 = dzFront * (1 - 0.65) + dz * 0.65;
+			double yy = pFront[j][0][0];
+			double xx = pFront[j][1][0];
+			double zz0 = pFront[j][2][0];
+			double zz1 = pFront[j][2][1];
 
-		Segments f0 = new Segments(0, front_width0, dyRear + dy, dyFront, 0, front_height0);
-		Segments f1 = new Segments(0, front_width1, dyRear + dy, dyFront, 0, front_height1);
-		Segments f2 = new Segments(0, front_width2, dyRear + dy, dyFront, 0, front_height2);
-		Segments f3 = new Segments(0, front_width, dyRear + dy, dyFront, 0, dzFront);
+			if(j==pFront.length-1){
+				body[0][backNY + fuselageNY + j][0] = addBPoint(0.0, yy, zz0, f0);
+				body[1][backNY + fuselageNY + j][0] = body[0][backNY + fuselageNY + j][0];
+				body[0][backNY + fuselageNY + j][1] = body[0][backNY + fuselageNY + j][0];
+				body[1][backNY + fuselageNY + j][1] = body[0][backNY + fuselageNY + j][0];
+			}else{
+				body[0][backNY + fuselageNY+j][0] = addBPoint(-0.5*xx, yy, zz0, f0);
+				body[1][backNY + fuselageNY+j][0] = addBPoint(0.5*xx, yy, zz0, f0);
+				body[0][backNY + fuselageNY+j][1] = addBPoint(-0.5*xx, yy, zz1, f0);
+				body[1][backNY + fuselageNY+j][1] = addBPoint(0.5*xx, yy, zz1, f0);
+			}
 
-		body[0][backNY + fuselageNY][0] = addBPoint(-0.5, 0.25, 0, f0);
-		body[1][backNY + fuselageNY][0] = addBPoint(0.5, 0.25, 0, f0);
-		body[0][backNY + fuselageNY][1] = addBPoint(-0.5, 0.25, 1.0, f0);
-		body[1][backNY + fuselageNY][1] = addBPoint(0.5, 0.25, 1.0, f0);
-
-		body[0][backNY + fuselageNY + 1][0] = addBPoint(-0.5, 0.5, 0, f1);
-		body[1][backNY + fuselageNY + 1][0] = addBPoint(0.5, 0.5, 0, f1);
-		body[0][backNY + fuselageNY + 1][1] = addBPoint(-0.5, 0.5, 1.0, f1);
-		body[1][backNY + fuselageNY + 1][1] = addBPoint(0.5, 0.5, 1.0, f1);
-
-		body[0][backNY + fuselageNY + 2][0] = addBPoint(-0.5, 0.75, 0, f2);
-		body[1][backNY + fuselageNY + 2][0] = addBPoint(0.5, 0.75, 0, f2);
-		body[0][backNY + fuselageNY + 2][1] = addBPoint(-0.5, 0.75, 1.0, f2);
-		body[1][backNY + fuselageNY + 2][1] = addBPoint(0.5, 0.75, 1.0, f2);
-
-		body[0][backNY + fuselageNY + 3][0] = addBPoint(0.0, 1.0, 0, f3);
-		body[1][backNY + fuselageNY + 3][0] = body[0][backNY + fuselageNY + 3][0];
-		body[0][backNY + fuselageNY + 3][1] = addBPoint(0.0, 1.0, 1.0, f3);
-		body[1][backNY + fuselageNY + 3][1] = body[0][backNY + fuselageNY + 3][1];
+		}
 
 	}
 
@@ -149,9 +148,6 @@ public class FighterAircraft0Model extends Airplane0Model {
 	protected int buildCabinfaces(int counter, int numy) {
 
 		counter = super.buildCabinfaces(counter, numy);
-
-		faces[counter++] = buildFace(Renderer3D.CAR_BACK, body[0][0][0], body[1][0][0], body[1][0][1], body[0][0][1],
-				tBo[0]);
 
 		return counter;
 	}
