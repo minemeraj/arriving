@@ -27,7 +27,8 @@ public class Helicopter0Model extends Airplane0Model {
 	public static String NAME = "Helicopter";
 
 	private double[][][] heliRear = {
-			{ { 0.00 }, { 0.07 }, { 0.75, 0.95} },
+			{ { 0.00 }, { 0.07 }, { 1.18, 1.35} },
+			{ { 0.17 }, { 0.11 }, { 0.65, 1.13} },
 			{ { 0.28 }, { 0.13 }, { 0.55, 0.80} },
 			{ { 0.5 }, { 0.18 }, { 0.43, 0.75} },
 			{ { 0.73 }, { 0.24 }, { 0.33, 0.73} }
