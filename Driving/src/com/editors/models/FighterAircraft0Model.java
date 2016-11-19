@@ -18,12 +18,21 @@ public class FighterAircraft0Model extends Airplane0Model {
 	public static final String NAME = "Fighter aircraft";
 
 	double[][][] fighterFront = {
-			{ { 0.00 }, { 0.9000 }, { 0.0000, 1.0 } },
-			{ { 0.39 }, { 0.9000 }, { 0.0667, 0.9333 } },
-			{ { 0.63 }, { 0.7667 }, { 0.1000, 0.7667 } },
-			{ { 0.76 }, { 0.6000 }, { 0.1333, 0.6000 } },
-			{ { 0.90 }, { 0.3333 }, { 0.2000, 0.5000 } },
-			{ { 1.00 }, { 0.0000 }, { 0.3333, 0.3333 } } };
+			{ { 0.00 }, { 1.0 }, { 0.0000, 0.42 }},
+			{ { 0.18 }, { 1.0 }, { 0.0000, 0.55 }},
+			{ { 0.50 }, { 1.0 }, { 0.0000, 0.81 }},
+			{ { 0.62 }, { 1.0 }, { 0.0000, 0.97}},
+			{ { 0.65 }, { 1.0 }, { 0.0000, 0.98 }},
+			{ { 0.68 }, { 1.0 }, { 0.0000, 1.0 }},
+			{ { 0.73 }, { 1.0 }, { 0.0000, 0.91 }},
+			{ { 0.79 }, { 0.93 }, { 0.0000, 0.69 }},
+			{ { 0.85 }, { 0.80 }, { 0.0000, 0.56 }},
+			{ { 0.91 }, { 0.58 }, { 0.03, 0.44 }},
+			{ { 0.95 }, { 0.38 }, { 0.08, 0.33 }},
+			{ { 0.98 }, { 0.18 }, { 0.13, 0.27 }},
+			{ { 1.00 }, { 0.0 }, { 0.17, 0.17 }},
+	};
+
 
 	private double[][][] mainFuselage = {
 			{ { 0.00 }, { 1.0 }, { 0.0, 1.000} },
@@ -76,7 +85,7 @@ public class FighterAircraft0Model extends Airplane0Model {
 		// tail wings
 		NF += 12;
 		//front
-		NF+=4*(frontNY-1)+2;
+		NF+=4*(frontNY-1)+1;
 		NF += tailRudder.length * 2;// rudder
 		faces = new int[NF][3][4];
 
@@ -215,10 +224,6 @@ public class FighterAircraft0Model extends Airplane0Model {
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, frontCabin[0][k][1], frontCabin[1][k][1], frontCabin[1][k + 1][1],
 					frontCabin[0][k + 1][1], tTopFront[k]);
 		}
-
-		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, frontCabin[0][frontNY - 1][0],frontCabin[0][frontNY - 1][1], frontCabin[1][frontNY - 1][1],
-				frontCabin[1][frontNY - 1][0],
-				tBo[0]);
 		return counter;
 	}
 
