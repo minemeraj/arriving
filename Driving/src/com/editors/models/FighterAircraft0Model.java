@@ -25,6 +25,11 @@ public class FighterAircraft0Model extends Airplane0Model {
 			{ { 0.90 }, { 0.3333 }, { 0.2000, 0.5000 } },
 			{ { 1.00 }, { 0.0000 }, { 0.3333, 0.3333 } } };
 
+	private double[][][] mainFuselage = {
+			{ { 0.00 }, { 1.0 }, { 0.0, 1.000} },
+			{ { 1.00 }, { 1.0 }, { 0.0, 1.000} },
+	};
+
 	public FighterAircraft0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr,
 			double dyr, double dzr, double dxRoof, double dyRoof, double dzRoof, double dxBottom, double dyBottom,
 			double dzBottom, double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1) {
@@ -37,6 +42,8 @@ public class FighterAircraft0Model extends Airplane0Model {
 	public void initMesh() {
 
 		pFront = fighterFront;
+		pFuselage=mainFuselage;
+		fuselageNY=pFuselage.length;
 		backNY = 4;
 		frontNY = pFront.length;
 		bodyNY = backNY + fuselageNY;
@@ -146,17 +153,19 @@ public class FighterAircraft0Model extends Airplane0Model {
 		body[0][3][1] = addBPoint(-0.5, 0.75, 1.0, b3);
 		body[1][3][1] = addBPoint(0.5, 0.75, 1.0, b3);
 
-		Segments p0 = new Segments(0, dx, dyRear, dy, 0, dz);
+		for (int j = 0; j < fuselageNY; j++) {
+			Segments p0 = new Segments(x0, dx, y0+dyRear, dy, z0, dz);
 
-		body[0][backNY][0] = addBPoint(-0.5, 0.0, 0, p0);
-		body[1][backNY][0] = addBPoint(0.5, 0.0, 0, p0);
-		body[0][backNY][1] = addBPoint(-0.5, 0.0, 1.0, p0);
-		body[1][backNY][1] = addBPoint(0.5, 0.0, 1.0, p0);
+			double yy = pFuselage[j][0][0];
+			double xx = pFuselage[j][1][0];
+			double zz0 = pFuselage[j][2][0];
+			double zz1 = pFuselage[j][2][1];
 
-		body[0][backNY + 1][0] = addBPoint(-0.5, 1.0, 0, p0);
-		body[1][backNY + 1][0] = addBPoint(0.5, 1.0, 0, p0);
-		body[0][backNY + 1][1] = addBPoint(-0.5, 1.0, 1.0, p0);
-		body[1][backNY + 1][1] = addBPoint(0.5, 1.0, 1.0, p0);
+			body[0][backNY+j][0] = addBPoint(-0.5 * xx, yy, zz0, p0);
+			body[1][backNY+j][0] = addBPoint(0.5 * xx, yy, zz0, p0);
+			body[0][backNY+j][1] = addBPoint(-0.5 * xx, yy, zz1, p0);
+			body[1][backNY+j][1] = addBPoint(0.5 * xx, yy, zz1, p0);
+		}
 
 		frontCabin=new BPoint[2][frontNY][2];
 		Segments f0 = new Segments(x0, dxFront, y0+dyRear, dyFront, z0, dzFront);

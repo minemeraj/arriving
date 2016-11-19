@@ -26,19 +26,24 @@ public class Helicopter0Model extends Airplane0Model {
 
 	public static String NAME = "Helicopter";
 
-	double[][][] heliRear = {
+	private double[][][] heliRear = {
 			{ { 0.00 }, { 0.1 }, { 0.70, 0.8333} },
 			{ { 0.18 }, { 0.4333 }, { 0.5333, 0.9000 } },
 			{ { 0.42 }, { 0.6000 }, { 0.3333, 0.9000} },
 			{ { 0.61 }, { 0.833 }, { 0.2000, 0.9333 } },
 			{ { 0.75 }, { 0.9333 }, { 0.1000, 0.9333 } } };
 
-	double[][][] heliFront = {
+	private double[][][] heliFront = {
 			{ { 0.39 }, { 0.9000 }, { 0.0667, 0.9333 } },
 			{ { 0.63 }, { 0.7667 }, { 0.1000, 0.7667 } },
 			{ { 0.76 }, { 0.6000 }, { 0.1333, 0.6000 } },
 			{ { 0.90 }, { 0.3333 }, { 0.2000, 0.5000 } },
 			{ { 1.00 }, { 0.0000 }, { 0.3333, 0.3333 } } };
+
+	private double[][][] heliFuselage = {
+			{ { 0.00 }, { 1.0 }, { 0.0, 1.000} },
+			{ { 1.00 }, { 1.0 }, { 0.0, 1.000} },
+	};
 
 	public Helicopter0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr, double dyr,
 			double dzr, double dxRoof, double dyRoof, double dzRoof, double dxBottom, double dyBottom, double dzBottom,
@@ -54,8 +59,10 @@ public class Helicopter0Model extends Airplane0Model {
 	public void initMesh() {
 
 		pRear = heliRear;
+		pFuselage=heliFuselage;
 		pFront = heliFront;
 		backNY = pRear.length;
+		fuselageNY=pFuselage.length;
 		frontNY = pFront.length;
 		bodyNY = backNY + fuselageNY + frontNY;
 

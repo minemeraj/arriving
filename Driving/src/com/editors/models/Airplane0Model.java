@@ -62,7 +62,7 @@ public class Airplane0Model extends VehicleModel {
 	int wingNY = 2;
 	int wingNZ = 2;
 
-	protected int fuselageNY = 2;
+	protected int fuselageNY=0;
 	protected int bodyNX = 2;
 	protected int bodyNZ = 2;
 	protected int backNY=0;
@@ -73,6 +73,7 @@ public class Airplane0Model extends VehicleModel {
 	 * BOTTOM-UP SECTIONS [y],[x0],[z0,z1]
 	 **/
 	protected double[][][] pRear = null;
+	protected double[][][] pFuselage = null;
 	protected double[][][] pFront = null;
 
 	private double[][][] mainRear = {
@@ -81,6 +82,11 @@ public class Airplane0Model extends VehicleModel {
 			{ { 0.42 }, { 0.6000 }, { 0.3333, 0.9000} },
 			{ { 0.61 }, { 0.833 }, { 0.2000, 0.9333 } },
 			{ { 0.75 }, { 0.9333 }, { 0.1000, 0.9333 } } };
+
+	private double[][][] mainFuselage = {
+			{ { 0.00 }, { 1.0 }, { 0.0, 1.000} },
+			{ { 1.00 }, { 1.0 }, { 0.0, 1.000} },
+	};
 
 	private double[][][] mainFront = {
 			{ { 0.39 }, { 0.9000 }, { 0.0667, 0.9333 } },
@@ -127,8 +133,10 @@ public class Airplane0Model extends VehicleModel {
 	public void initMesh() {
 
 		pRear = mainRear;
+		pFuselage=mainFuselage;
 		pFront = mainFront;
 		backNY = pRear.length;
+		fuselageNY=pFuselage.length;
 		frontNY = pFront.length;
 		bodyNY = backNY + fuselageNY + frontNY;
 
@@ -290,17 +298,19 @@ public class Airplane0Model extends VehicleModel {
 
 		}
 
-		Segments p0 = new Segments(x0, dx, y0+dyRear, dy, z0, dz);
+		for (int j = 0; j < fuselageNY; j++) {
+			Segments p0 = new Segments(x0, dx, y0+dyRear, dy, z0, dz);
 
-		body[0][backNY][0] = addBPoint(-0.5, 0.0, 0, p0);
-		body[1][backNY][0] = addBPoint(0.5, 0.0, 0, p0);
-		body[0][backNY][1] = addBPoint(-0.5, 0.0, 1.0, p0);
-		body[1][backNY][1] = addBPoint(0.5, 0.0, 1.0, p0);
+			double yy = pFuselage[j][0][0];
+			double xx = pFuselage[j][1][0];
+			double zz0 = pFuselage[j][2][0];
+			double zz1 = pFuselage[j][2][1];
 
-		body[0][backNY + 1][0] = addBPoint(-0.5, 1.0, 0, p0);
-		body[1][backNY + 1][0] = addBPoint(0.5, 1.0, 0, p0);
-		body[0][backNY + 1][1] = addBPoint(-0.5, 1.0, 1.0, p0);
-		body[1][backNY + 1][1] = addBPoint(0.5, 1.0, 1.0, p0);
+			body[0][backNY+j][0] = addBPoint(-0.5 * xx, yy, zz0, p0);
+			body[1][backNY+j][0] = addBPoint(0.5 * xx, yy, zz0, p0);
+			body[0][backNY+j][1] = addBPoint(-0.5 * xx, yy, zz1, p0);
+			body[1][backNY+j][1] = addBPoint(0.5 * xx, yy, zz1, p0);
+		}
 
 		Segments f0 = new Segments(x0, dx, y0+dyRear+dy, dyFront, z0, dz);
 		for (int j = 0; j < pFront.length; j++) {
