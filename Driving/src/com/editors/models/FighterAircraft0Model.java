@@ -5,6 +5,7 @@ import java.util.Vector;
 import com.BPoint;
 import com.Point3D;
 import com.Segments;
+import com.main.Renderer3D;
 
 /**
  * One texture model Summing up the best creation logic so far
@@ -17,11 +18,14 @@ public class FighterAircraft0Model extends Airplane0Model {
 	public static final String NAME = "Fighter aircraft";
 
 	double[][][] fighterFront = {
+			{ { 0.00 }, { 0.9000 }, { 0.0000, 1.0 } },
 			{ { 0.39 }, { 0.9000 }, { 0.0667, 0.9333 } },
 			{ { 0.63 }, { 0.7667 }, { 0.1000, 0.7667 } },
 			{ { 0.76 }, { 0.6000 }, { 0.1333, 0.6000 } },
 			{ { 0.90 }, { 0.3333 }, { 0.2000, 0.5000 } },
 			{ { 1.00 }, { 0.0000 }, { 0.3333, 0.3333 } } };
+
+	private BPoint[][][] frontCabin;
 
 	public FighterAircraft0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr,
 			double dyr, double dzr, double dxRoof, double dyRoof, double dzRoof, double dxBottom, double dyBottom,
@@ -37,7 +41,7 @@ public class FighterAircraft0Model extends Airplane0Model {
 		pFront = fighterFront;
 		backNY = 4;
 		frontNY = pFront.length;
-		bodyNY = backNY + fuselageNY + frontNY;
+		bodyNY = backNY + fuselageNY;
 
 		int c = 0;
 		c = initDoubleArrayValues(tBo = new int[1][4], c);
@@ -57,9 +61,14 @@ public class FighterAircraft0Model extends Airplane0Model {
 		buildTextures();
 
 		// faces
-		int NF = (bodyNY - 1) * 4 + 1;// body
-		NF += 12;// wings
-		NF += 12;// tail wings
+		// body
+		int NF = (bodyNY - 1) * 4 + 1;
+		// wings
+		NF += 12;
+		// tail wings
+		NF += 12;
+		//front
+		NF+=4*(frontNY-1)+2;
 		NF += tailRudder.length * 2;// rudder
 		faces = new int[NF][3][4];
 
@@ -120,7 +129,8 @@ public class FighterAircraft0Model extends Airplane0Model {
 		body[0][backNY + 1][1] = addBPoint(-0.5, 1.0, 1.0, p0);
 		body[1][backNY + 1][1] = addBPoint(0.5, 1.0, 1.0, p0);
 
-		Segments f0 = new Segments(x0, dx, y0+dyRear+dy, dyFront, z0, dz);
+		frontCabin=new BPoint[2][frontNY][2];
+		Segments f0 = new Segments(x0, dxFront, y0+dyRear, dyFront, z0, dzFront);
 		for (int j = 0; j < pFront.length; j++) {
 
 			double yy = pFront[j][0][0];
@@ -129,15 +139,15 @@ public class FighterAircraft0Model extends Airplane0Model {
 			double zz1 = pFront[j][2][1];
 
 			if(j==pFront.length-1){
-				body[0][backNY + fuselageNY + j][0] = addBPoint(0.0, yy, zz0, f0);
-				body[1][backNY + fuselageNY + j][0] = body[0][backNY + fuselageNY + j][0];
-				body[0][backNY + fuselageNY + j][1] = body[0][backNY + fuselageNY + j][0];
-				body[1][backNY + fuselageNY + j][1] = body[0][backNY + fuselageNY + j][0];
+				frontCabin[0][j][0] = addBPoint(0.0, yy, zz0, f0);
+				frontCabin[1][j][0] = frontCabin[0][j][0];
+				frontCabin[0][j][1] = frontCabin[0][j][0];
+				frontCabin[1][j][1] = frontCabin[0][j][0];
 			}else{
-				body[0][backNY + fuselageNY+j][0] = addBPoint(-0.5*xx, yy, zz0, f0);
-				body[1][backNY + fuselageNY+j][0] = addBPoint(0.5*xx, yy, zz0, f0);
-				body[0][backNY + fuselageNY+j][1] = addBPoint(-0.5*xx, yy, zz1, f0);
-				body[1][backNY + fuselageNY+j][1] = addBPoint(0.5*xx, yy, zz1, f0);
+				frontCabin[0][j][0] = addBPoint(-0.5*xx, yy, zz0, f0);
+				frontCabin[1][j][0] = addBPoint(0.5*xx, yy, zz0, f0);
+				frontCabin[0][j][1] = addBPoint(-0.5*xx, yy, zz1, f0);
+				frontCabin[1][j][1] = addBPoint(0.5*xx, yy, zz1, f0);
 			}
 
 		}
@@ -148,7 +158,31 @@ public class FighterAircraft0Model extends Airplane0Model {
 	protected int buildCabinfaces(int counter, int numy) {
 
 		counter = super.buildCabinfaces(counter, numy);
+		counter=buildFronCabinFaces(counter);
+		return counter;
+	}
 
+	private int buildFronCabinFaces(int counter) {
+
+		faces[counter++] = buildFace(Renderer3D.CAR_BACK, frontCabin[0][0][0], frontCabin[1][0][0], frontCabin[1][0][1],
+				frontCabin[0][0][1], tBo[0]);
+
+		for (int k = 0; k < frontNY - 1; k++) {
+
+			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, frontCabin[0][k][0], frontCabin[0][k][1], frontCabin[0][k + 1][1],
+					frontCabin[0][k + 1][0], tBo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, frontCabin[0][k][0], frontCabin[0][k + 1][0], frontCabin[1][k + 1][0],
+					frontCabin[1][k][0], tBo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, frontCabin[1][k][0], frontCabin[1][k + 1][0], frontCabin[1][k + 1][1],
+					frontCabin[1][k][1], tBo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_TOP, frontCabin[0][k][1], frontCabin[1][k][1], frontCabin[1][k + 1][1],
+					frontCabin[0][k + 1][1], tTopBody[k]);
+
+		}
+
+		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, frontCabin[0][frontNY - 1][0],frontCabin[0][frontNY - 1][1], frontCabin[1][frontNY - 1][1],
+				frontCabin[1][frontNY - 1][0],
+				tBo[0]);
 		return counter;
 	}
 

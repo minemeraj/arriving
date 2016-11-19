@@ -731,7 +731,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						);
 			} else if (FIGHTER_AIRCRAFT0 == val) {
 				setRightData(78, 252, 58, // dx, dy, dz
-						35, 136, 33, // dxFront, dyFront, dzFront
+						35, 452, 83, // dxFront, dyFront, dzFront
 						107, 117, 34, // dxRear, dyRear, dzRear
 						131, 162, 22, // dxRoof, dyRoof, dzRoof
 						0, 0, 0, // dxBottom, dyBottom, dzBottom
