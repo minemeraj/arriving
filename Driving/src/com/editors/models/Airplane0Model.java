@@ -141,7 +141,7 @@ public class Airplane0Model extends VehicleModel {
 		bodyNY = backNY + fuselageNY + frontNY;
 
 		this.dyRudder = dyRear *pRear[1][0][0];
-		this.dzRudder = dzRear + 71;
+		this.dzRudder = dzRear-dz*pRear[0][2][1];
 
 		int c = 0;
 		c = initDoubleArrayValues(tBo = new int[1][4], c);
