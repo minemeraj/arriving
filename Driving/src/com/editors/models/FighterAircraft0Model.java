@@ -72,6 +72,8 @@ public class FighterAircraft0Model extends Airplane0Model {
 		this.dyRudder = dyRear *pRear[1][0][0];
 		this.dzRudder = dzRear-dz*pRear[0][2][1];
 
+		z0=dzBottom;
+
 		int c = 0;
 		c = initDoubleArrayValues(tBo = new int[1][4], c);
 		c = initDoubleArrayValues(tLeftBody = new int[bodyNY - 1][4], c);
@@ -85,6 +87,7 @@ public class FighterAircraft0Model extends Airplane0Model {
 		c = initDoubleArrayValues(tRightBody = new int[bodyNY - 1][4], c);
 		c = initDoubleArrayValues(tRightFront = new int[frontNY - 1][4], c);
 		c = initDoubleArrayValues(tRudder = new int[2][4], c);
+		c = initDoubleArrayValues(tWheel = new int[1][4], c);
 
 		points = new Vector<Point3D>();
 		texturePoints = new Vector();
@@ -102,7 +105,10 @@ public class FighterAircraft0Model extends Airplane0Model {
 		//front
 		NF+=4*(frontNY-1)+1;
 		NF += tailRudder.length * 2;// rudder
-		faces = new int[NF][3][4];
+		int totWheelPolygon = wheelRays + 2 * (wheelRays - 2);
+		int NUM_WHEEL_FACES = 3 * totWheelPolygon;
+
+		faces = new int[NF+NUM_WHEEL_FACES][3][4];
 
 		int counter = 0;
 		counter = buildFaces(counter, bodyNY);
@@ -114,7 +120,7 @@ public class FighterAircraft0Model extends Airplane0Model {
 		// Texture points
 
 		double maxDY = Math.max(dyTexture, dyRear + dyFront);
-		double maxDZ = Math.max(dz,dzFront);
+		double maxDZ = Math.max(dz,dzFront)+dzBottom;
 
 		int shift = 1;
 
@@ -128,9 +134,12 @@ public class FighterAircraft0Model extends Airplane0Model {
 		buildTopTextures(x + dx * 0.5, y, shift);
 		x += dx + dxRoof;
 		buildRightTextures(x, y, shift);
-		x += maxDZ+dzBottom;
+		x += maxDZ;
 		buildRudderTextures(x, y);
 		x += 2 * dyRudder;
+
+		addTRect(x, y,wheelWidth , wheelWidth);
+		x+=wheelWidth;
 
 		IMG_WIDTH = (int) (bx + x);
 		IMG_HEIGHT = (int) (2 * by + maxDY);
@@ -229,7 +238,7 @@ public class FighterAircraft0Model extends Airplane0Model {
 
 		double back_width = dxRear;
 		double back_height = dz*pRear[0][2][1];
-		double zzBack0=dz*pRear[0][2][0];
+		double zzBack0=z0+dz*pRear[0][2][0];
 
 		double twDX = 65;
 
@@ -263,7 +272,7 @@ public class FighterAircraft0Model extends Airplane0Model {
 
 		tailRudder = new BPoint[2][tailRudderNX][tailRudderNY][tailRudderNZ];
 
-		Segments rudder0 = new Segments(0, back_width, 0, dyRudder, back_height, dzRudder);
+		Segments rudder0 = new Segments(0, back_width, 0, dyRudder, z0+back_height, dzRudder);
 
 		tailRudder[0][0][0][0] = addBPoint(body[0][0][1].x, body[0][0][1].y, body[0][0][1].z);
 		tailRudder[0][0][1][0] = addBPoint(body[0][0][1].x, body[0][1][1].y, body[0][1][1].z);

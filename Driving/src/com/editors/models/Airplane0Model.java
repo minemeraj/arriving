@@ -417,11 +417,11 @@ public class Airplane0Model extends VehicleModel {
 
 	protected void buildWheels() {
 		if(tWheel!=null){
-			double yFront=dyBottom * 0.5;
-			double yRear=dyBottom * 0.5;
+			double yFront=dyRear+dy;
+			double yRear=rearOverhang+dyRoof*0.5;
 
-			double xLeftRear=0.0;
-			double xRightRear=0.0;
+			double xLeftRear=-dx*0.5-dxRoof*0.5;
+			double xRightRear=+dx*0.5+dxRoof*0.5;
 
 			wheelFront = buildWheel(-dxBottom * 0.5 - wheelWidth,yFront , wheelRadius,
 					wheelRadius, wheelWidth, wheelRays);
