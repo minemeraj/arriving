@@ -386,7 +386,7 @@ public class Airplane0Model extends VehicleModel {
 		double rearWY = rearOverhang;
 
 		rightWing = new BPoint[wingNX][wingNY][wingNZ];
-		Segments rWing0 = new Segments(dx * 0.5, dxRoof / cq, rearWY, dyRoof, 0, dzRoof);
+		Segments rWing0 = new Segments(dx * 0.5, dxRoof / cq, rearWY, dyRoof, z0, dzRoof);
 
 		rightWing[0][0][0] = addBPoint(0, 0.0, 0, rWing0);
 		rightWing[1][0][0] = addBPoint(cq, 0.0, sq1, rWing0);
@@ -400,7 +400,7 @@ public class Airplane0Model extends VehicleModel {
 
 		leftWing = new BPoint[wingNX][wingNY][wingNZ];
 
-		Segments lWing0 = new Segments(-dx * 0.5, dxRoof / cq, rearWY, dyRoof, 0, dzRoof);
+		Segments lWing0 = new Segments(-dx * 0.5, dxRoof / cq, rearWY, dyRoof, z0, dzRoof);
 
 		leftWing[0][0][0] = addBPoint(-cq, 0.0, sq1, lWing0);
 		leftWing[1][0][0] = addBPoint(0.0, 0.0, 0, lWing0);
@@ -417,11 +417,17 @@ public class Airplane0Model extends VehicleModel {
 
 	protected void buildWheels() {
 		if(tWheel!=null){
-			wheelFront = buildWheel(-dxBottom * 0.5 - wheelWidth, dyBottom * 0.5, wheelRadius,
+			double yFront=dyBottom * 0.5;
+			double yRear=dyBottom * 0.5;
+
+			double xLeftRear=0.0;
+			double xRightRear=0.0;
+
+			wheelFront = buildWheel(-dxBottom * 0.5 - wheelWidth,yFront , wheelRadius,
 					wheelRadius, wheelWidth, wheelRays);
-			wheelLeftRear = buildWheel(-dxBottom * 0.5 - wheelWidth, dyBottom * 0.5, wheelRadius,
+			wheelLeftRear = buildWheel(xLeftRear, yRear, wheelRadius,
 					wheelRadius, wheelWidth, wheelRays);
-			wheelRightRear = buildWheel(-dxBottom * 0.5 - wheelWidth, dyBottom * 0.5, wheelRadius,
+			wheelRightRear = buildWheel(xRightRear, yRear, wheelRadius,
 					wheelRadius, wheelWidth, wheelRays);
 		}
 	}
@@ -429,8 +435,8 @@ public class Airplane0Model extends VehicleModel {
 	protected void buildTail() {
 
 		double back_width = dxRear;
-		double zzBack0=dz*pRear[0][2][0];
-		double zzBack1=dz*pRear[0][2][1];
+		double zzBack0=z0+dz*pRear[0][2][0];
+		double zzBack1=z0+dz*pRear[0][2][1];
 		double back_height = (zzBack1-zzBack0);
 
 		double twDX = 65;
@@ -465,7 +471,7 @@ public class Airplane0Model extends VehicleModel {
 
 		tailRudder = new BPoint[1][tailRudderNX][tailRudderNY][tailRudderNZ];
 
-		Segments rudder0 = new Segments(0, back_width, 0, dyRudder, dz - back_height, dzRudder);
+		Segments rudder0 = new Segments(0, back_width, 0, dyRudder, z0+dz - back_height, dzRudder);
 
 		tailRudder[0][0][0][0] = addBPoint((body[0][0][1].x + body[1][0][1].x) * 0.5, body[0][0][1].y, body[0][0][1].z);
 		tailRudder[0][0][1][0] = addBPoint((body[0][1][1].x + body[1][1][1].x) * 0.5, body[0][1][1].y, body[0][1][1].z);
