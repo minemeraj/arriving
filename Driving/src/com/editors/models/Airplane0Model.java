@@ -499,7 +499,7 @@ public class Airplane0Model extends VehicleModel {
 		buildRightTextures(x, y, shift);
 		x += dz+dzBottom;
 		buildRudderTextures(x, y);
-		x += 2 * dyRudder;
+		x += 2 * dyRudder+shift;
 
 		if(tWheel!=null){
 			addTRect(x, y,wheelWidth , wheelWidth);
@@ -609,6 +609,7 @@ public class Airplane0Model extends VehicleModel {
 
 		Color bodyColor = new Color(255, 255, 255);
 		Color topBodyColor = new Color(255, 255, 255);
+		Color wheelColor = new Color(0,0,0);
 
 		bufGraphics.setStroke(new BasicStroke(0.1f));
 
@@ -646,6 +647,7 @@ public class Airplane0Model extends VehicleModel {
 		}
 
 		if(tWheel!=null){
+			bufGraphics.setColor(wheelColor);
 			printTexturePolygon(bufGraphics, tWheel[0]);
 		}
 

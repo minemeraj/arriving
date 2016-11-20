@@ -136,7 +136,7 @@ public class FighterAircraft0Model extends Airplane0Model {
 		buildRightTextures(x, y, shift);
 		x += maxDZ;
 		buildRudderTextures(x, y);
-		x += 2 * dyRudder;
+		x += 2 * dyRudder+shift;
 
 		addTRect(x, y,wheelWidth , wheelWidth);
 		x+=wheelWidth;
