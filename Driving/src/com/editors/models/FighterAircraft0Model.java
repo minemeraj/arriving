@@ -50,9 +50,11 @@ public class FighterAircraft0Model extends Airplane0Model {
 
 	public FighterAircraft0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr,
 			double dyr, double dzr, double dxRoof, double dyRoof, double dzRoof, double dxBottom, double dyBottom,
-			double dzBottom, double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1) {
+			double dzBottom, double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1,
+			double wheelRadius, double wheelWidth,int wheelRays) {
 		super(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof, dxBottom, dyBottom, dzBottom,
-				rearOverhang, frontOverhang, rearOverhang1, frontOverhang1);
+				rearOverhang, frontOverhang, rearOverhang1, frontOverhang1,
+				wheelRadius, wheelWidth,wheelRays);
 
 	}
 
@@ -126,7 +128,7 @@ public class FighterAircraft0Model extends Airplane0Model {
 		buildTopTextures(x + dx * 0.5, y, shift);
 		x += dx + dxRoof;
 		buildRightTextures(x, y, shift);
-		x += maxDZ;
+		x += maxDZ+dzBottom;
 		buildRudderTextures(x, y);
 		x += 2 * dyRudder;
 

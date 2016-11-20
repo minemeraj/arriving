@@ -481,14 +481,14 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		} else if (val == AIRPLANE0) {
 
 			meshModel = new Airplane0Model(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof, dxBottom,
-					dyBottom, dzBottom, rearOverhang, frontOverhang, rearOverhang1, frontOverhang1);
+					dyBottom, dzBottom, rearOverhang, frontOverhang, rearOverhang1, frontOverhang1,wheelRadius, wheelWidth,wheelRays);
 		} else if (val == FIGHTER_AIRCRAFT0) {
 
 			meshModel = new FighterAircraft0Model(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof,
-					dxBottom, dyBottom, dzBottom, rearOverhang, frontOverhang, rearOverhang1, frontOverhang1);
+					dxBottom, dyBottom, dzBottom, rearOverhang, frontOverhang, rearOverhang1, frontOverhang1,wheelRadius, wheelWidth,wheelRays);
 		} else if (val == HELICOPTER) {
 			meshModel = new Helicopter0Model(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof, dxBottom,
-					dyBottom, dzBottom, rearOverhang, frontOverhang, rearOverhang1, frontOverhang1);
+					dyBottom, dzBottom, rearOverhang, frontOverhang, rearOverhang1, frontOverhang1,wheelRadius, wheelWidth,wheelRays);
 		} else if (val == BYKE0) {
 			meshModel = new Byke0Model(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof, wheelRadius,
 					wheelWidth, wheelRays);

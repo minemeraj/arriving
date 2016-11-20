@@ -45,10 +45,17 @@ public class Airplane0Model extends VehicleModel {
 	protected int[] tLeftTail;
 	protected int[] tRightTail;
 	protected int[][] tRudder;
-
 	protected int[][] tLeftFront= null;
 	protected int[][] tTopFront = null;
 	protected int[][] tRightFront = null;
+
+	protected int[][] tWheel = null;
+	protected double wheelRadius;
+	protected double wheelWidth;
+	protected int wheelRays;
+	protected BPoint[][] wheelLeftRear=null;
+	protected BPoint[][] wheelRightRear=null;
+	protected BPoint[][] wheelFront=null;
 
 	int tailWingNX = 2;
 	int tailWingNY = 2;
@@ -97,7 +104,8 @@ public class Airplane0Model extends VehicleModel {
 
 	public Airplane0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr, double dyr,
 			double dzr, double dxRoof, double dyRoof, double dzRoof, double dxBottom, double dyBottom, double dzBottom,
-			double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1) {
+			double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1,
+			double wheelRadius, double wheelWidth,int wheelRays) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
@@ -125,7 +133,9 @@ public class Airplane0Model extends VehicleModel {
 		this.rearOverhang1 = rearOverhang1;
 		this.frontOverhang1 = frontOverhang1;
 
-
+		this.wheelRadius = wheelRadius;
+		this.wheelWidth = wheelWidth;
+		this.wheelRays = wheelRays;
 
 	}
 
@@ -140,6 +150,8 @@ public class Airplane0Model extends VehicleModel {
 		frontNY = pFront.length;
 		bodyNY = backNY + fuselageNY + frontNY;
 
+		z0=dzBottom;
+
 		this.dyRudder = dyRear *pRear[1][0][0];
 		this.dzRudder = dzRear-dz*pRear[0][2][1];
 
@@ -153,6 +165,7 @@ public class Airplane0Model extends VehicleModel {
 		c = initSingleArrayValues(tRightTail = new int[4], c);
 		c = initDoubleArrayValues(tRightBody = new int[bodyNY - 1][4], c);
 		c = initDoubleArrayValues(tRudder = new int[2][4], c);
+		c = initDoubleArrayValues(tWheel = new int[1][4], c);
 
 		points = new Vector<Point3D>();
 		texturePoints = new Vector();
@@ -165,7 +178,10 @@ public class Airplane0Model extends VehicleModel {
 		NF += 12;// wings
 		NF += 12;// tail wings
 		NF += tailRudder.length * 2;// rudder
-		faces = new int[NF][3][4];
+		int totWheelPolygon = wheelRays + 2 * (wheelRays - 2);
+		int NUM_WHEEL_FACES = 3 * totWheelPolygon;
+
+		faces = new int[NF+NUM_WHEEL_FACES][3][4];
 
 		int counter = 0;
 		counter = buildFaces(counter, bodyNY);
@@ -177,8 +193,10 @@ public class Airplane0Model extends VehicleModel {
 		counter = buildCabinfaces(counter, numy);
 		counter = buildWingFaces(counter);
 		counter = buildTailFaces(counter);
+		counter = buildWheelsFaces(counter);
 		return counter;
 	}
+
 
 	protected int buildWingFaces(int counter) {
 
@@ -250,6 +268,27 @@ public class Airplane0Model extends VehicleModel {
 		return counter;
 	}
 
+	private int buildWheelsFaces(int counter) {
+
+		int totWheelPolygon = wheelRays + 2 * (wheelRays - 2);
+
+		if(tWheel!=null){
+			int[][][] wFaces = buildWheelFaces(wheelFront, tWheel[0]);
+			for (int i = 0; i < totWheelPolygon; i++) {
+				faces[counter++] = wFaces[i];
+			}
+			wFaces = buildWheelFaces(wheelLeftRear, tWheel[0]);
+			for (int i = 0; i < totWheelPolygon; i++) {
+				faces[counter++] = wFaces[i];
+			}
+			wFaces = buildWheelFaces(wheelRightRear, tWheel[0]);
+			for (int i = 0; i < totWheelPolygon; i++) {
+				faces[counter++] = wFaces[i];
+			}
+		}
+		return counter;
+	}
+
 	protected int buildCabinfaces(int counter, int numy) {
 
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, body[0][0][0], body[1][0][0], body[1][0][1],
@@ -276,8 +315,10 @@ public class Airplane0Model extends VehicleModel {
 		buildCabin();
 		buildTail();
 		buildWings();
+		buildWheels();
 
 	}
+
 
 	protected void buildCabin() {
 
@@ -373,9 +414,19 @@ public class Airplane0Model extends VehicleModel {
 
 	}
 
-	protected void buildTail() {
 
-		/////// tail
+	protected void buildWheels() {
+		if(tWheel!=null){
+			wheelFront = buildWheel(-dxBottom * 0.5 - wheelWidth, dyBottom * 0.5, wheelRadius,
+					wheelRadius, wheelWidth, wheelRays);
+			wheelLeftRear = buildWheel(-dxBottom * 0.5 - wheelWidth, dyBottom * 0.5, wheelRadius,
+					wheelRadius, wheelWidth, wheelRays);
+			wheelRightRear = buildWheel(-dxBottom * 0.5 - wheelWidth, dyBottom * 0.5, wheelRadius,
+					wheelRadius, wheelWidth, wheelRays);
+		}
+	}
+
+	protected void buildTail() {
 
 		double back_width = dxRear;
 		double zzBack0=dz*pRear[0][2][0];
@@ -436,13 +487,18 @@ public class Airplane0Model extends VehicleModel {
 		addTRect(x, y, dxTexture, dyTexture);
 		x += dxTexture;
 		buildLefTextures(x, y, shift);
-		x += dz + dxRoof;
+		x += dz+dzBottom + dxRoof;
 		buildTopTextures(x + dx * 0.5, y, shift);
 		x += dx + dxRoof;
 		buildRightTextures(x, y, shift);
-		x += dz;
+		x += dz+dzBottom;
 		buildRudderTextures(x, y);
 		x += 2 * dyRudder;
+
+		if(tWheel!=null){
+			addTRect(x, y,wheelWidth , wheelWidth);
+			x+=wheelWidth;
+		}
 
 		IMG_WIDTH = (int) (bx + x);
 		IMG_HEIGHT = (int) (2 * by + maxDY);
@@ -581,6 +637,10 @@ public class Airplane0Model extends VehicleModel {
 				printTexturePolygon(bufGraphics, tTopFront[i]);
 				printTexturePolygon(bufGraphics, tRightFront[i]);
 			}
+		}
+
+		if(tWheel!=null){
+			printTexturePolygon(bufGraphics, tWheel[0]);
 		}
 
 	}
