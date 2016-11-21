@@ -259,8 +259,8 @@ public class Airplane0Model extends VehicleModel {
 
 		for (int r = 0; r < tailRudder.length; r++) {
 
-			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, tailRudder[r][0][0][0], tailRudder[r][0][0][1],
-					tailRudder[r][0][0 + 1][1], tailRudder[r][0][0 + 1][0], tRudder[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, tailRudder[r][0][0 + 1][0],tailRudder[r][0][0][0],
+					tailRudder[r][0][0][1],tailRudder[r][0][0 + 1][1],  tRudder[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, tailRudder[r][0][0][0], tailRudder[r][0][0 + 1][0],
 					tailRudder[r][0][0 + 1][1], tailRudder[r][0][0][1], tRudder[1]);
 
@@ -300,8 +300,8 @@ public class Airplane0Model extends VehicleModel {
 					body[0][k + 1][0], tLeftBody[k]);
 			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[0][k][0], body[0][k + 1][0], body[1][k + 1][0],
 					body[1][k][0], tBo[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, body[1][k][0], body[1][k + 1][0], body[1][k + 1][1],
-					body[1][k][1], tRightBody[k]);
+			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, body[1][k][1],body[1][k][0], body[1][k + 1][0],
+					body[1][k + 1][1],tRightBody[k]);
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, body[0][k][1], body[1][k][1], body[1][k + 1][1],
 					body[0][k + 1][1], tTopBody[k]);
 
@@ -574,10 +574,12 @@ public class Airplane0Model extends VehicleModel {
 		double maxDZ = Math.max(dz, Math.max(dz, dzFront))+dzBottom;
 
 		for (int i = 0; i < bodyNY - 1; i++) {
-			addTPoint(x + maxDZ - body[1][i][0].z, y + body[1][i][0].y, 0);
+
 			addTPoint(x + maxDZ - body[1][i][1].z, y + body[1][i][1].y, 0);
-			addTPoint(x + maxDZ - body[1][i + 1][1].z, y + body[1][i + 1][1].y, 0);
+			addTPoint(x + maxDZ - body[1][i][0].z, y + body[1][i][0].y, 0);
 			addTPoint(x + maxDZ - body[1][i + 1][0].z, y + body[1][i + 1][0].y, 0);
+			addTPoint(x + maxDZ - body[1][i + 1][1].z, y + body[1][i + 1][1].y, 0);
+
 		}
 
 		if(frontCabin!=null){
