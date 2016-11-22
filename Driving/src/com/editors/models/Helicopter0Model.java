@@ -252,7 +252,7 @@ public class Helicopter0Model extends Airplane0Model {
 	public void printTexture(Graphics2D bufGraphics) {
 
 		Color bodyColor = new Color(96, 132, 42);
-		Color topBodyColor = new Color(122, 160, 161);
+		Color topBodyColor = new Color(96, 132, 42);
 
 		bufGraphics.setStroke(new BasicStroke(0.1f));
 
