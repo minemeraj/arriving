@@ -1,5 +1,7 @@
 package com.editors.models;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.Vector;
 
 import com.BPoint;
@@ -77,9 +79,9 @@ public class FighterAircraft0Model extends Airplane0Model {
 		int c = 0;
 		c = initDoubleArrayValues(tBo = new int[1][4], c);
 		c = initDoubleArrayValues(tLeftBody = new int[bodyNY - 1][4], c);
+		c = initDoubleArrayValues(tLeftFront = new int[frontNY - 1][4], c);
 		c = initSingleArrayValues(tLeftTail = new int[4], c);
 		c = initSingleArrayValues(tLeftWing = new int[4], c);
-		c = initDoubleArrayValues(tLeftFront = new int[frontNY - 1][4], c);
 		c = initDoubleArrayValues(tTopBody = new int[bodyNY - 1][4], c);
 		c = initSingleArrayValues(tRightWing = new int[4], c);
 		c = initSingleArrayValues(tRightTail = new int[4], c);
@@ -223,8 +225,8 @@ public class FighterAircraft0Model extends Airplane0Model {
 					frontCabin[0][k + 1][0], tLeftFront[k]);
 			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, frontCabin[0][k][0], frontCabin[0][k + 1][0], frontCabin[1][k + 1][0],
 					frontCabin[1][k][0], tBo[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, frontCabin[1][k][0], frontCabin[1][k + 1][0], frontCabin[1][k + 1][1],
-					frontCabin[1][k][1], tRightFront[k]);
+			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, frontCabin[1][k][1],frontCabin[1][k][0], frontCabin[1][k + 1][0],
+					frontCabin[1][k + 1][1],tRightFront[k]);
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, frontCabin[0][k][1], frontCabin[1][k][1], frontCabin[1][k + 1][1],
 					frontCabin[0][k + 1][1], tTopFront[k]);
 		}
@@ -284,6 +286,13 @@ public class FighterAircraft0Model extends Airplane0Model {
 		tailRudder[1][0][0][1] = addBPoint(+0.5, 0.0, 1.0, rudder0);
 		tailRudder[1][0][1][1] = addBPoint(+0.5, 1.0, 1.0, rudder0);
 
+	}
+
+	@Override
+	public void printTexture(Graphics2D bufGraphics) {
+		bodyColor = new Color(155, 152, 145);
+		topBodyColor = new Color(155, 152, 145);
+		super.printTexture(bufGraphics);
 	}
 
 }
