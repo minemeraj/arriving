@@ -2,8 +2,6 @@ package com.main;
 
 import java.text.DecimalFormat;
 
-import com.Point3D;
-
 /**
  *
  * Reference book:Dinamica del veicolo (Vehicle Dynamics),by Massimo Guiggiani
@@ -413,19 +411,8 @@ class CarDynamics {
 
 	}
 
-	public Point3D getSpeedVersor() {
-
-		Point3D speed = new Point3D(
-				-u * Math.sin(psi) - nu * Math.cos(psi),
-				u * Math.cos(psi) - nu * Math.cos(psi),
-				0);
-
-		if (Point3D.calculateNorm(speed) < 0.01) {
-			return null;
-		} else {
-			return speed.calculateVersor();
-		}
-
+	public double getAlfa2() {
+		return alfa2;
 	}
 
 }
