@@ -172,7 +172,7 @@ public class CarFrame extends Road implements KeyListener {
 			background = DrawObject.fromImageToTexture(ImageIO.read(new File("lib/background_" + back_num + ".jpg")),
 					Color.BLUE
 
-			);
+					);
 
 			File directoryImg = new File("lib");
 			File[] files = directoryImg.listFiles();
@@ -293,11 +293,11 @@ public class CarFrame extends Road implements KeyListener {
 		} else if (code == KeyEvent.VK_LEFT || code == KeyEvent.VK_A) {
 
 			// rotate(+1);
-			steer(-delta);
+			setSteerAngle(delta);
 		} else if (code == KeyEvent.VK_RIGHT || code == KeyEvent.VK_D) {
 
 			// rotate(-1);
-			steer(+delta);
+			setSteerAngle(-delta);
 		} else if (code == KeyEvent.VK_C) {
 			isProgramPaused = true;
 
@@ -319,7 +319,7 @@ public class CarFrame extends Road implements KeyListener {
 					background = DrawObject.fromImageToTexture(
 							ImageIO.read(new File("lib/background_" + back_num + ".jpg")), Color.BLUE
 
-					);
+							);
 				} else {
 					back_num = 0;
 					background = DrawObject.fromImageToTexture(
@@ -429,12 +429,6 @@ public class CarFrame extends Road implements KeyListener {
 
 	}
 
-	private void steer(double angle) {
-
-		setSteerAngle(angle);
-
-	}
-
 	static void setMovingAngle(double d) {
 
 		DecimalFormat df = new DecimalFormat("##.##");
@@ -475,7 +469,7 @@ public class CarFrame extends Road implements KeyListener {
 
 		if (code == KeyEvent.VK_LEFT || code == KeyEvent.VK_RIGHT || code == KeyEvent.VK_A || code == KeyEvent.VK_D) {
 
-			steer(STEERING_0);
+			setSteerAngle(STEERING_0);
 
 		} else if (code == KeyEvent.VK_Z) {
 
@@ -488,7 +482,7 @@ public class CarFrame extends Road implements KeyListener {
 				|| code == KeyEvent.VK_S) && engine != null) {
 			setAccelerationVersus(FORWARD_STOP);
 
-			steer(STEERING_0);
+			setSteerAngle(STEERING_0);
 
 		}
 

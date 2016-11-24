@@ -1074,7 +1074,7 @@ public class Road extends Shader {
 		double alfa = tetam * dw / (Math.PI * WIDTH);
 
 		int deltah = (int) (dh - YMAX * alfa);// (int)
-												// (dh*(1-alfa)+YFOCUS*alfa);
+		// (dh*(1-alfa)+YFOCUS*alfa);
 
 		double eta = tetam * 2.0 / WIDTH;
 
@@ -1161,10 +1161,10 @@ public class Road extends Shader {
 
 		// TODO use speed direction, if present
 		// double viewDirectionAngle = calculateViewDirectionAngle(carDynamics);
-		setViewDirection(getViewDirection() - carDynamics.dpsi);
+		setViewDirection(getViewDirection() +carDynamics.dpsi);
 		// setViewDirection(viewDirectionAngle);
 		CarFrame.setMovingAngle(getViewDirection());
-		// System.out.println(viewDirectionAngle + " " + carDynamics.psi);
+		//System.out.println(getViewDirection() + " " + carDynamics.psi);
 
 		if (!checkIsWayFree(NEW_CARPOSX, NEW_CARPOSY, getViewDirection(), -1)) {
 
@@ -1791,7 +1791,7 @@ public class Road extends Shader {
 				double y = y0 + j * dy;
 				// hills
 				double z = 200 * (1.0 + Math.cos(((y - y0) * 2 * Math.PI / 4400.0) - Math.PI)
-						* Math.cos(((x - x0) * 2 * Math.PI / 4400.0) - Math.PI));
+				* Math.cos(((x - x0) * 2 * Math.PI / 4400.0) - Math.PI));
 
 				String sx = dfc.format(x);
 				String sy = dfc.format(y);
