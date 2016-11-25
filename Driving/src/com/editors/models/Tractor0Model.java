@@ -309,12 +309,12 @@ public class Tractor0Model extends VehicleModel {
 		 */
 
 		////
-		double wz = 0;
+		double wz = wheelRadius;
 		double wxLeft = dx * 0.5 + wheelWidth;
 		double wxRight = dx * 0.5;
 
-		double yRearAxle = 2.0 * wheelRadius;
-		double yFrontAxle = dy + dyFront * 0.5;
+		double yRearAxle = 0;
+		double yFrontAxle = dy;
 
 		wheelLeftFront = buildWheel(x0 - wxLeft, yFrontAxle, wz, wheelRadius, wheelWidth, wheel_rays);
 		wheelRightFront = buildWheel(x0 + wxRight, yFrontAxle, wz, wheelRadius, wheelWidth, wheel_rays);
@@ -361,7 +361,7 @@ public class Tractor0Model extends VehicleModel {
 		double ftyre_width = wheelWidth;
 		double rtyre_width = wheelWidth;
 
-		double xc = dx * 0.5;
+		double xc = 0;
 
 		body = new BPoint[pnumx][pnumy][pnumz];
 
