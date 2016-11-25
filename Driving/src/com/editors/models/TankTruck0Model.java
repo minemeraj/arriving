@@ -27,22 +27,7 @@ public class TankTruck0Model extends Truck0Model {
 	@Override
 	public void initMesh() {
 
-		int c = 0;
-		c = initDoubleArrayValues(tRe = new int[1][4], c);
-		c = initSingleArrayValues(tBackRear = new int[4], c);
-		c = initDoubleArrayValues(tBackWagon = new int[1][4], c);
-		c = initDoubleArrayValues(tLeftRear = new int[nyBody - 1][4], c);
-		c = initDoubleArrayValues(tLeftFront = new int[nYcab - 1][4], c);
-		c = initDoubleArrayValues(tLeftRoof = new int[2][4], c);
-		c = initDoubleArrayValues(tLeftWagon = new int[1][4], c);
-		c = initDoubleArrayValues(tWagon = new int[1][4], c);
-		c = initSingleArrayValues(tTopRoof = new int[4], c);
-		c = initDoubleArrayValues(tRightRear = new int[nyBody - 1][4], c);
-		c = initDoubleArrayValues(tRightFront = new int[nYcab - 1][4], c);
-		c = initDoubleArrayValues(tRightRoof = new int[2][4], c);
-		c = initDoubleArrayValues(tRightWagon = new int[1][4], c);
-		c = initDoubleArrayValues(tWi = new int[1][4], c);
-		c = initDoubleArrayValues(tWh = new int[1][4], c);
+		initTexturesArrays();
 
 		points = new Vector<Point3D>();
 		texturePoints = new Vector();
@@ -50,12 +35,9 @@ public class TankTruck0Model extends Truck0Model {
 		x0 = dxWagon * 0.5;
 
 		buildCabin();
-
 		buildRear();
-
 		int nWagonMeridians = 10;
 		buildWagon(nWagonMeridians);
-
 		buildWheels();
 
 		buildTextures();
@@ -75,9 +57,6 @@ public class TankTruck0Model extends Truck0Model {
 		int counter = 0;
 		counter = buildBodyFaces(counter, nzBody, nWagonMeridians);
 		counter = buildWheelFaces(counter, totWheelPolygon);
-
-		IMG_WIDTH = (int) (2 * bx + dxRear + wheelWidth);
-		IMG_HEIGHT = (int) (2 * by + dyRear);
 
 	}
 
