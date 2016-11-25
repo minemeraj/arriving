@@ -160,6 +160,8 @@ public class Road extends Shader {
 	public static final int ROAD_LEVEL = 1;
 	public static final int OBJECT_LEVEL = 2;
 
+	private static final double VIEW_ANGLE_ALFA2_MULTIPLIER = 3;
+
 	protected boolean skipShading = false;
 
 	private int POSSIBLE_MOVZ;
@@ -1191,7 +1193,7 @@ public class Road extends Shader {
 
 	private double calculateViewDirectionAngle(CarDynamics carDynamics2) {
 
-		return carDynamics2.psi-carDynamics2.getAlfa2();
+		return carDynamics2.psi-VIEW_ANGLE_ALFA2_MULTIPLIER*carDynamics2.getAlfa2();
 	}
 
 	public void setSteerAngle(double angle) {

@@ -1,4 +1,4 @@
-Review of the car dynamics and slightly improved steering animation.
+Review of the car dynamics and improved steering animation.
 
 New objects:
 /lib/object3D_35 (Steam locomotive)
