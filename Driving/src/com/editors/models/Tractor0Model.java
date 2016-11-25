@@ -95,15 +95,15 @@ public class Tractor0Model extends VehicleModel {
 		buildTextures();
 
 		// faces body
-		int NF = 6 * 2;
+		int NF = 2*(pnumx*pnumy-1);
 		// back
-		NF += 6;
+		NF += 2*(backNumx*backNumy-1);
 		// front
-		NF += 6;
+		NF += 2*(frontNumx*frontNumy-1);
 		// front carriage
 		NF += 6;
 		// roof
-		NF += 6;
+		NF += 2*(roofNumx*roofNumy-1);
 
 		int totWheelPolygon = wheel_rays + 2 * (wheel_rays - 2);
 
@@ -118,138 +118,94 @@ public class Tractor0Model extends VehicleModel {
 	private int buildFaces(int counter) {
 
 		for (int i = 0; i < pnumx - 1; i++) {
-
 			for (int j = 0; j < pnumy - 1; j++) {
 
 				if (i == 0) {
-
 					faces[counter++] = buildFace(Renderer3D.CAR_LEFT, body[i][j][0], body[i][j][1], body[i][j + 1][1],
 							body[i][j + 1][0], bo[0]);
-
 				}
-
 				if (j == 0) {
-
 					faces[counter++] = buildFace(Renderer3D.CAR_BACK, body[i][j][0], body[i + 1][j][0],
-							body[i + 1][j][1], body[i][j][1], bo[0]);
-				}
+							body[i + 1][j][1], body[i][j][1], bo[0]);				}
 
 				faces[counter++] = buildFace(Renderer3D.CAR_TOP, body[i][j][1], body[i + 1][j][1],
 						body[i + 1][j + 1][1], body[i][j + 1][1], bo[0]);
 
 				faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[i][j][0], body[i][j + 1][0],
 						body[i + 1][j + 1][0], body[i + 1][j][0], bo[0]);
-
 				if (j + 1 == pnumy - 1) {
-
 					faces[counter++] = buildFace(Renderer3D.CAR_FRONT, body[i][j + 1][0], body[i][j + 1][1],
 							body[i + 1][j + 1][1], body[i + 1][j + 1][0], bo[0]);
 				}
-
 				if (i + 1 == pnumx - 1) {
-
 					faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, body[i + 1][j][0], body[i + 1][j + 1][0],
 							body[i + 1][j + 1][1], body[i + 1][j][1], bo[0]);
 				}
-
 			}
-
 		}
 
 		for (int i = 0; i < frontNumx - 1; i++) {
-
 			for (int j = 0; j < frontNumy - 1; j++) {
-
 				if (i == 0) {
-
 					faces[counter++] = buildFace(Renderer3D.CAR_LEFT, pFront[i][j][0], pFront[i][j][1],
 							pFront[i][j + 1][1], pFront[i][j + 1][0], bo[0]);
-
 				}
-
 				if (j == 0) {
-
 					faces[counter++] = buildFace(Renderer3D.CAR_BACK, pFront[i][j][0], pFront[i + 1][j][0],
 							pFront[i + 1][j][1], pFront[i][j][1], bo[0]);
 				}
-
 				faces[counter++] = buildFace(Renderer3D.CAR_TOP, pFront[i][j][1], pFront[i + 1][j][1],
 						pFront[i + 1][j + 1][1], pFront[i][j + 1][1], bo[0]);
-
 				faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, pFront[i][j][0], pFront[i][j + 1][0],
 						pFront[i + 1][j + 1][0], pFront[i + 1][j][0], bo[0]);
-
 				if (j + 1 == frontNumy - 1) {
-
 					faces[counter++] = buildFace(Renderer3D.CAR_FRONT, pFront[i][j + 1][0], pFront[i][j + 1][1],
 							pFront[i + 1][j + 1][1], pFront[i + 1][j + 1][0], bo[0]);
 				}
-
 				if (i + 1 == frontNumx - 1) {
-
 					faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, pFront[i + 1][j][0], pFront[i + 1][j + 1][0],
 							pFront[i + 1][j + 1][1], pFront[i + 1][j][1], bo[0]);
 				}
-
 			}
-
 		}
 
 		for (int i = 0; i < frontCarriageNumx - 1; i++) {
-
 			for (int j = 0; j < frontCarriageNumy - 1; j++) {
 
 				if (i == 0) {
-
 					faces[counter++] = buildFace(Renderer3D.CAR_LEFT, pFrontCarriage[i][j][0], pFrontCarriage[i][j][1],
 							pFrontCarriage[i][j + 1][1], pFrontCarriage[i][j + 1][0], bo[0]);
-
 				}
-
 				if (j == 0) {
-
 					faces[counter++] = buildFace(Renderer3D.CAR_BACK, pFrontCarriage[i][j][0],
 							pFrontCarriage[i + 1][j][0], pFrontCarriage[i + 1][j][1], pFrontCarriage[i][j][1], bo[0]);
 				}
-
 				faces[counter++] = buildFace(Renderer3D.CAR_TOP, pFrontCarriage[i][j][1], pFrontCarriage[i + 1][j][1],
 						pFrontCarriage[i + 1][j + 1][1], pFrontCarriage[i][j + 1][1], bo[0]);
-
 				faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, pFrontCarriage[i][j][0],
 						pFrontCarriage[i][j + 1][0], pFrontCarriage[i + 1][j + 1][0], pFrontCarriage[i + 1][j][0],
 						bo[0]);
-
 				if (j + 1 == frontCarriageNumy - 1) {
-
 					faces[counter++] = buildFace(Renderer3D.CAR_FRONT, pFrontCarriage[i][j + 1][0],
 							pFrontCarriage[i][j + 1][1], pFrontCarriage[i + 1][j + 1][1],
 							pFrontCarriage[i + 1][j + 1][0], bo[0]);
 				}
-
 				if (i + 1 == frontCarriageNumx - 1) {
-
 					faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, pFrontCarriage[i + 1][j][0],
 							pFrontCarriage[i + 1][j + 1][0], pFrontCarriage[i + 1][j + 1][1],
 							pFrontCarriage[i + 1][j][1], bo[0]);
 				}
-
 			}
-
 		}
 
 		for (int i = 0; i < backNumx - 1; i++) {
-
 			for (int j = 0; j < backNumy - 1; j++) {
-
 				if (i == 0) {
-
 					faces[counter++] = buildFace(Renderer3D.CAR_LEFT, pBack[i][j][0], pBack[i][j][1],
 							pBack[i][j + 1][1], pBack[i][j + 1][0], bo[0]);
-
 				}
 
 				if (j == 0) {
-
 					faces[counter++] = buildFace(Renderer3D.CAR_BACK, pBack[i][j][0], pBack[i + 1][j][0],
 							pBack[i + 1][j][1], pBack[i][j][1], bo[0]);
 				}

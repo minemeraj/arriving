@@ -1076,8 +1076,7 @@ public class Road extends Shader {
 		for (int i = 0; i < WIDTH; i++) {
 
 			double teta = i * eta - viewDirection - rearAngle;
-			// double
-			// teta=(tetam-Math.atan((WIDTH/2.0-i)*i_d))-viewDirection-rearAngle;
+			// double teta=(tetam-Math.atan((WIDTH/2.0-i)*i_d))-viewDirection-rearAngle;
 
 			if (teta < 0) {
 				teta = teta + 2 * Math.PI;
@@ -1091,15 +1090,11 @@ public class Road extends Shader {
 			for (int j = 0; j < YMAX; j++) {
 
 				int tot = i + j * WIDTH;
-
 				int j_set = (int) (alfa * j) + deltah;
-
 				int rgb = background.getRGB(i_set, j_set);
 				roadZbuffer.setRgbColor(rgb, tot);
-
 			}
 		}
-
 	}
 
 	void reset(Graphics2D g2) {
@@ -1108,7 +1103,6 @@ public class Road extends Shader {
 		g2.fillRect(0, YFOCUS, WIDTH, HEIGHT - YFOCUS);
 
 		setStartPosition();
-
 		initialiazeCarDynamics();
 
 		try {
@@ -1119,9 +1113,7 @@ public class Road extends Shader {
 
 		resetRoadData(0);
 		drawObjects = DrawObject.cloneObjectsArray(oldDrawObjects);
-
 		lightPoint = new LightSource(new Point3D(0, 0, 0), new Point3D(0, 1, 0));
-
 		setViewDirection(0);
 	}
 
@@ -1131,9 +1123,7 @@ public class Road extends Shader {
 		carPosY = (int) (Renderer3D.SCALE * startPosition.y) + y_edge;
 
 		if (startPosition.getData() != null) {
-
 			setViewDirection((Double) startPosition.getData());
-
 		} else {
 			setViewDirection(0);
 		}
@@ -1157,32 +1147,23 @@ public class Road extends Shader {
 		CarFrame.setMovingAngle(getViewDirection());
 
 		if (!checkIsWayFree(NEW_CARPOSX, NEW_CARPOSY, getViewDirection(), -1)) {
-
 			// DO NOTHING
-
 		} else {
-
 			carPosX = NEW_CARPOSX;
 			carPosY = NEW_CARPOSY;
 
 			POSX = calculatePositionX(carPosX, carPosY, getViewDirection());
 			POSY = calculatePositionY(carPosX, carPosY, getViewDirection());
-
 		}
 
 		if (autocars != null) {
-
 			for (int i = 0; i < autocars.length; i++) {
-
 				autocars[i].move(Engine.dtt);
-
 			}
 		}
-
 	}
 
 	private double calculateViewDirectionAngle(CarDynamics carDynamics2) {
-
 		return carDynamics2.psi-VIEW_ANGLE_ALFA2_MULTIPLIER*carDynamics2.getAlfa2();
 	}
 
@@ -1191,19 +1172,15 @@ public class Road extends Shader {
 	}
 
 	public void setAccelerationVersus(int versus) {
-
 		carDynamics.setIsbraking(false);
 		carDynamics.setFx2Versus(versus);
-
 	}
 
 	public void setIsBraking(boolean b) {
-
 		if (b) {
 			carDynamics.setFx2Versus(0);
 		}
 		carDynamics.setIsbraking(b);
-
 	}
 
 	private void loadPointsFromFile(File file) {
@@ -1211,15 +1188,11 @@ public class Road extends Shader {
 		try {
 
 			loadPointsFromFile(file, Road.TERRAIN_INDEX, false);
-
 			meshes[RoadEditor.TERRAIN_INDEX].setLevel(Road.GROUND_LEVEL);
-
 			terrainSize = meshes[RoadEditor.TERRAIN_INDEX].polygonData.size();
-
 			oldMeshes[RoadEditor.TERRAIN_INDEX] = cloneMesh(meshes[RoadEditor.TERRAIN_INDEX]);
 
 		} catch (Exception e) {
-
 			e.printStackTrace();
 		}
 	}
@@ -1232,10 +1205,8 @@ public class Road extends Shader {
 	private void calculateShadowCosines() {
 
 		for (int i = 0; i < drawObjects.length; i++) {
-
 			DrawObject dro = drawObjects[i];
 			calculateShadowCosines(dro);
-
 		}
 
 		PolygonMesh mesh = meshes[Editor.TERRAIN_INDEX];
@@ -1244,16 +1215,11 @@ public class Road extends Shader {
 		for (int j = 0; j < size; j++) {
 
 			LineData ld = mesh.polygonData.get(j);
-
 			Polygon3D polygon = PolygonMesh.getBodyPolygon(mesh.xpoints, mesh.ypoints, mesh.zpoints, ld,
 					mesh.getLevel());
-
 			Point3D centroid = Polygon3D.findCentroid(polygon);
-
 			Point3D normal = (Polygon3D.findNormal(polygon)).calculateVersor();
-
 			ld.setShadowCosin(Point3D.calculateCosin(lightPoint.position.substract(centroid), normal));
-
 		}
 
 	}
@@ -1262,23 +1228,18 @@ public class Road extends Shader {
 	public void buildPoint(List<Point3D> vPoints, String str) {
 
 		String[] vals = str.split(" ");
-
 		Point4D p = new Point4D();
 
 		// translate world in the point (XFOCUS,-SCREEN_DISTANCE,YFOCUS)
-
 		p.x = SCALE * Double.parseDouble(vals[0]) - XFOCUS;
 		p.y = SCALE * Double.parseDouble(vals[1]) + SCREEN_DISTANCE;
 		p.z = SCALE * Double.parseDouble(vals[2]) - YFOCUS;
-
 		vPoints.add(p);
-
 	}
 
 	@Override
 
 	public void buildLine(ArrayList<LineData> polygonData, String str, ArrayList<Point3D> vTexturePoints) {
-
 		buildStaticLine(polygonData, str, vTexturePoints);
 	}
 
@@ -1287,37 +1248,29 @@ public class Road extends Shader {
 		String[] vals = str.split(" ");
 
 		LineData ld = new LineData();
-
 		ld.texture_index = Integer.parseInt(vals[0].substring(1));
-
 		ld.hexColor = vals[1].substring(1);
 		ld.setFilledWithWater("W1".equals(vals[2]));
 
 		for (int i = 3; i < vals.length; i++) {
-
 			String val = vals[i];
 			if (val.indexOf("/") > 0) {
-
 				String val0 = val.substring(0, val.indexOf("/"));
 				String val1 = val.substring(1 + val.indexOf("/"));
 
 				int indx0 = Integer.parseInt(val0);
 				int indx1 = Integer.parseInt(val1);
 				Point3D pt = vTexturePoints.get(indx1);
-
 				ld.addIndex(indx0, indx1, pt.x, pt.y);
 			} else {
 				ld.addIndex(Integer.parseInt(val));
 			}
-
 		}
 		polygonData.add(ld);
 	}
 
 	private void resetRoadData(int index) {
-
 		meshes[index] = cloneMesh(oldMeshes[index]);
-
 	}
 
 	public static CarData loadCarFromFile(File file, double scale) {
@@ -1354,17 +1307,13 @@ public class Road extends Shader {
 
 			PolygonMesh pm = new PolygonMesh(points, lines);
 			pm.setDescription(description);
-
 			carData.carMesh = CubicMesh.buildCubicMesh(pm);
-
 			br.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return carData;
-
 	}
 
 	private void loadSPLinesFromFile(File file) {
@@ -1380,27 +1329,18 @@ public class Road extends Shader {
 					SPLine sp = splines.get(i);
 
 					for (int j = 0; sp.ribs != null && j < sp.ribs.size(); j++) {
-
 						ArrayList nodeRibs = sp.ribs.get(j);
-
 						for (int r = 0; r < nodeRibs.size(); r++) {
-
 							Rib rib = (Rib) nodeRibs.get(r);
 							for (int k = 0; k < rib.getPoints().length; k++) {
 								rib.getPoints()[k].translate(-XFOCUS, +SCREEN_DISTANCE, -YFOCUS);
 							}
-
 						}
-
 					}
 					sp.calculate3DMeshes();
-
 				}
-
 			}
-
 		} catch (Exception e) {
-
 			e.printStackTrace();
 		}
 	}
