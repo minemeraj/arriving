@@ -28,10 +28,21 @@ public class TankTruck0Model extends Truck0Model {
 	public void initMesh() {
 
 		int c = 0;
-		initDoubleArrayValues(tRe = new int[1][4], c);
-		initDoubleArrayValues(tWagon = new int[1][4], c);
-		initDoubleArrayValues(tWi = new int[1][4], c);
-		initDoubleArrayValues(tWh = new int[1][4], c);
+		c = initDoubleArrayValues(tRe = new int[1][4], c);
+		c = initSingleArrayValues(tBackRear = new int[4], c);
+		c = initDoubleArrayValues(tBackWagon = new int[1][4], c);
+		c = initDoubleArrayValues(tLeftRear = new int[nyBody - 1][4], c);
+		c = initDoubleArrayValues(tLeftFront = new int[nYcab - 1][4], c);
+		c = initDoubleArrayValues(tLeftRoof = new int[2][4], c);
+		c = initDoubleArrayValues(tLeftWagon = new int[1][4], c);
+		c = initDoubleArrayValues(tWagon = new int[1][4], c);
+		c = initSingleArrayValues(tTopRoof = new int[4], c);
+		c = initDoubleArrayValues(tRightRear = new int[nyBody - 1][4], c);
+		c = initDoubleArrayValues(tRightFront = new int[nYcab - 1][4], c);
+		c = initDoubleArrayValues(tRightRoof = new int[2][4], c);
+		c = initDoubleArrayValues(tRightWagon = new int[1][4], c);
+		c = initDoubleArrayValues(tWi = new int[1][4], c);
+		c = initDoubleArrayValues(tWh = new int[1][4], c);
 
 		points = new Vector<Point3D>();
 		texturePoints = new Vector();
@@ -53,9 +64,11 @@ public class TankTruck0Model extends Truck0Model {
 		int NUM_WHEEL_FACES = 4 * totWheelPolygon;
 
 		// faces
-		int NF = 2 + (2 + (nzCab - 1)) * (nYcab - 1) * 2;
+		int NF =2 *(nzCab* nYcab - 1) ;
 		NF += 2 + (nzBody - 1) * 4;
-		NF += 2 + (nWagonMeridians) + nWagonMeridians * 2;
+		NF += (nWagonMeridians) + 2*(nWagonMeridians - 2);
+		// cabin roof
+		NF += 8;
 
 		faces = new int[NF + NUM_WHEEL_FACES][3][4];
 

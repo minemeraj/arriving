@@ -134,7 +134,8 @@ public class Truck0Model extends VehicleModel {
 		int NUM_WHEEL_FACES = 4 * totWheelPolygon;
 
 		// faces
-		int NF = 2 + (2 + (nzCab - 1)) * (nYcab - 1) * 2;
+		//int NF = 2 + (2 + (nzCab - 1)) * (nYcab - 1) * 2;
+		int NF =2 *(nzCab* nYcab - 1) ;
 		NF += 2 + (nzBody - 1) * 4;
 		NF += 2 + (nzWagon - 1) * 4;
 		// cabin roof
