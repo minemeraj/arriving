@@ -13,7 +13,7 @@ import com.main.Renderer3D;
  * @author Administrator
  *
  */
-public class Autobus0Model extends Truck0Model{
+public class Autobus0Model extends PickupModel {
 
 	public static final String NAME = "Autobus";
 
@@ -38,18 +38,7 @@ public class Autobus0Model extends Truck0Model{
 	@Override
 	public void initMesh() {
 
-		int c = 0;
-
-		c = initDoubleArrayValues(tLeftFront = new int[nYcab - 1][4], c);
-		c = initDoubleArrayValues(tLeftRoof = new int[2][4], c);
-		c = initSingleArrayValues(tBackRear = new int[4], c);
-		c = initDoubleArrayValues(tBackWagon = new int[1][4], c);
-		c = initSingleArrayValues(tTopRoof = new int[4], c);
-
-		c = initDoubleArrayValues(tRe = new int[1][4], c);
-		c = initDoubleArrayValues(tWagon = new int[1][4], c);
-		c = initDoubleArrayValues(tWi = new int[1][4], c);
-		c = initDoubleArrayValues(tWh = new int[1][4], c);
+		initTexturesArrays();
 
 		points = new Vector<Point3D>();
 		texturePoints = new Vector<Point3D>();

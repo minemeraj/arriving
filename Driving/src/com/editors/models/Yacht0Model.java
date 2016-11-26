@@ -19,9 +19,6 @@ public class Yacht0Model extends Ship0Model{
 
 	public static String NAME="Yacht";
 
-	double dxTexture=200;
-	double dyTexture=200;
-
 	int mainBridgeYSectionsNum=3;
 
 	public Yacht0Model(

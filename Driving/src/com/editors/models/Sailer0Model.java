@@ -19,9 +19,6 @@ public class Sailer0Model extends Ship0Model{
 
 	public static String NAME="Sailer";
 
-	double dxTexture=200;
-	double dyTexture=200;
-
 	BPoint[][][] masts=null;
 	private int mast_number=3;
 	private int mast_meridians=0;

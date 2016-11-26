@@ -47,25 +47,9 @@ public class PickupModel extends Truck0Model {
 	@Override
 	public void initMesh() {
 
-		int c = 0;
+		initTexturesArrays();
 
-		c = initDoubleArrayValues(tLeftRear = new int[nyBody - 1][4], c);
-		c = initDoubleArrayValues(tLeftFront = new int[nYcab - 1][4], c);
-		c = initDoubleArrayValues(tLeftRoof = new int[2][4], c);
-		c = initDoubleArrayValues(tLeftWagon = new int[1][4], c);
-		c = initSingleArrayValues(tBackRear = new int[4], c);
-		c = initDoubleArrayValues(tBackWagon = new int[1][4], c);
-		c = initSingleArrayValues(tTopRear = new int[4], c);
-		c = initSingleArrayValues(tTopRoof = new int[4], c);
-		c = initSingleArrayValues(tTopFront = new int[4], c);
-		c = initDoubleArrayValues(tRightRear = new int[nyBody - 1][4], c);
-		c = initDoubleArrayValues(tRightFront = new int[nYcab - 1][4], c);
-		c = initDoubleArrayValues(tRightRoof = new int[2][4], c);
-		c = initDoubleArrayValues(tRightWagon = new int[1][4], c);
-		c = initDoubleArrayValues(tRe = new int[1][4], c);
-		c = initDoubleArrayValues(tWagon = new int[1][4], c);
-		c = initDoubleArrayValues(tWi = new int[1][4], c);
-		c = initDoubleArrayValues(tWh = new int[1][4], c);
+
 
 		points = new Vector<Point3D>();
 		texturePoints = new Vector();
@@ -99,6 +83,30 @@ public class PickupModel extends Truck0Model {
 		int counter = 0;
 		counter = buildBodyFaces(counter, nzBody, nWagonUnits);
 		counter = buildWheelFaces(counter, totWheelPolygon);
+
+	}
+
+	@Override
+	protected void initTexturesArrays() {
+		int c = 0;
+
+		c = initDoubleArrayValues(tLeftRear = new int[nyBody - 1][4], c);
+		c = initDoubleArrayValues(tLeftFront = new int[nYcab - 1][4], c);
+		c = initDoubleArrayValues(tLeftRoof = new int[2][4], c);
+		c = initDoubleArrayValues(tLeftWagon = new int[1][4], c);
+		c = initSingleArrayValues(tBackRear = new int[4], c);
+		c = initDoubleArrayValues(tBackWagon = new int[1][4], c);
+		c = initSingleArrayValues(tTopRear = new int[4], c);
+		c = initSingleArrayValues(tTopRoof = new int[4], c);
+		c = initSingleArrayValues(tTopFront = new int[4], c);
+		c = initDoubleArrayValues(tRightRear = new int[nyBody - 1][4], c);
+		c = initDoubleArrayValues(tRightFront = new int[nYcab - 1][4], c);
+		c = initDoubleArrayValues(tRightRoof = new int[2][4], c);
+		c = initDoubleArrayValues(tRightWagon = new int[1][4], c);
+		c = initDoubleArrayValues(tRe = new int[1][4], c);
+		c = initDoubleArrayValues(tWagon = new int[1][4], c);
+		c = initDoubleArrayValues(tWi = new int[1][4], c);
+		c = initDoubleArrayValues(tWh = new int[1][4], c);
 
 	}
 

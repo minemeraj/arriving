@@ -20,9 +20,6 @@ public class OceanLiner0Model extends Ship0Model{
 
 	public static String NAME="Ocean liner";
 
-	double dxTexture=200;
-	double dyTexture=200;
-
 	BPoint[][][] funnels=null;
 	private int funnel_number=4;
 	private int funnel_meridians=0;
@@ -203,8 +200,6 @@ public class OceanLiner0Model extends Ship0Model{
 
 	@Override
 	public void printTexture(Graphics2D bufGraphics) {
-
-
 		super.printTexture(bufGraphics);
 		bufGraphics.setColor(new Color(255,168,16));
 		printTexturePolygon(bufGraphics, tFun[0]);
