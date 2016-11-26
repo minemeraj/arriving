@@ -15,7 +15,7 @@ import com.main.Renderer3D;
  * @author Administrator
  *
  */
-public class RaillTenderModel extends VehicleModel{
+public class RaillWagonTenderModel extends VehicleModel{
 
 
     private double wheelRadius;
@@ -46,7 +46,7 @@ public class RaillTenderModel extends VehicleModel{
     private double dxTexture=200;
 
 
-    public RaillTenderModel(
+    public RaillWagonTenderModel(
             double dx, double dy, double dz,
             double dxf, double dyf, double dzf,
             double dxr, double dyr,	double dzr,

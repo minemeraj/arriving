@@ -34,6 +34,7 @@ import com.editors.models.RailWagonBulkModel;
 import com.editors.models.RailWagonCoachModel;
 import com.editors.models.RailWagonCoalModel;
 import com.editors.models.RailWagonTankModel;
+import com.editors.models.RaillWagonTenderModel;
 import com.editors.models.Sailer0Model;
 import com.editors.models.Ship0Model;
 import com.editors.models.StarShip0Model;
@@ -103,6 +104,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 	public static int TRUNKSTRUCK = 26;
 	public static int STEAMLOCOMOTIVE0 = 27;
 	public static int CARTRANSPORTER = 28;
+	public static int RAILWAGON_TENDER = 29;
 
 	public static void main(String[] args) {
 
@@ -362,7 +364,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		chooseObject.addItem(new ValuePair("" + RAILWAGON_BULK, "Railwagon Bulk"));
 		chooseObject.addItem(new ValuePair("" + RAILWAGON_COAL, "Railwagon Coal"));
 		chooseObject.addItem(new ValuePair("" + RAILWAGON_COACH, "Railwagon Coach"));
-		chooseObject.addItem(new ValuePair("" + RAILWAGON_TANK, "Railwagon Tank "));
+		chooseObject.addItem(new ValuePair("" + RAILWAGON_TANK, "Railwagon Tank"));
+		chooseObject.addItem(new ValuePair("" + RAILWAGON_TENDER, "Railwagon Tender"));
 		chooseObject.addItem(new ValuePair("" + SAILER, Sailer0Model.NAME));
 		chooseObject.addItem(new ValuePair("" + SHIP0, Ship0Model.NAME));
 		chooseObject.addItem(new ValuePair("" + STARSHIP0, StarShip0Model.NAME));
@@ -516,7 +519,10 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		} else if (val == RAILWAGON_COACH) {
 			meshModel = new RailWagonCoachModel(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof,
 					rearOverhang, frontOverhang, wheelRadius, wheelWidth, wheelRays);
-		} else if (val == TRACTOR0) {
+		} else if (val == RAILWAGON_TENDER) {
+			meshModel = new RaillWagonTenderModel(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof,
+					rearOverhang, frontOverhang, wheelRadius, wheelWidth, wheelRays);
+		}else if (val == TRACTOR0) {
 			meshModel = new Tractor0Model(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof, wheelRadius,
 					wheelWidth, wheelRays);
 		} else {
