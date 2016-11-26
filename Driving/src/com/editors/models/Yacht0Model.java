@@ -44,9 +44,7 @@ public class Yacht0Model extends Ship0Model{
 	@Override
 	public void initMesh() {
 
-		int c = 0;
-		c = initDoubleArrayValues(tHull = new int[1][4], c);
-		c = initDoubleArrayValues(tDeck = new int[1][4], c);
+		initTexturesArrays();
 
 		points=new Vector<Point3D>();
 		texturePoints=new Vector<Point3D>();
@@ -56,8 +54,6 @@ public class Yacht0Model extends Ship0Model{
 
 		buildTextures();
 
-
-		//faces
 		//hull
 		int NF=(nxHull-1)*(nyHull-1)+2;
 		//hull back closures
@@ -117,38 +113,10 @@ public class Yacht0Model extends Ship0Model{
 
 	}
 
-
-	@Override
-	protected void buildTextures() {
-
-		int shift=1;
-
-		//Texture points
-
-		double y=by;
-		double x=bx;
-
-		//hull
-		addTRect(x, y, dxTexture, dyTexture);
-
-		x+=shift+dxTexture;
-		//main deck
-		addTRect(x, y, dxTexture, dyTexture);
-
-		IMG_WIDTH=(int) (2*bx+dxTexture+dxTexture+shift);
-		IMG_HEIGHT=(int) (2*by+dyTexture);
-
-	}
-
 	@Override
 	public void printTexture(Graphics2D bufGraphics) {
-
-
-		bufGraphics.setColor(new Color(61,68,78));
-		printTexturePolygon(bufGraphics, tHull[0]);
-
-		bufGraphics.setColor(Color.WHITE);
-		printTexturePolygon(bufGraphics, tDeck[0]);
+		hullColor=new Color(61,68,78);
+		super.printTexture(bufGraphics);
 	}
 
 }

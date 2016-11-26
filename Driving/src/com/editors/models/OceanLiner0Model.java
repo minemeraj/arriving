@@ -62,10 +62,7 @@ public class OceanLiner0Model extends Ship0Model{
 	@Override
 	public void initMesh() {
 
-		int c = 0;
-		c = initDoubleArrayValues(tHull = new int[1][4], c);
-		c = initDoubleArrayValues(tDeck = new int[1][4], c);
-		c = initDoubleArrayValues(tFun = new int[1][4], c);
+		initTexturesArrays();
 
 		points=new Vector<Point3D>();
 		texturePoints=new Vector<Point3D>();
@@ -99,6 +96,13 @@ public class OceanLiner0Model extends Ship0Model{
 		int counter=0;
 		counter=buildFaces(counter,nxHull,nyHull,nyCastle);
 		counter=buildMainDecksFaces(counter);
+	}
+
+	@Override
+	protected int initTexturesArrays() {
+		int c=super.initTexturesArrays();
+		c = initDoubleArrayValues(tFun = new int[1][4], c);
+		return c;
 	}
 
 	@Override
@@ -150,23 +154,25 @@ public class OceanLiner0Model extends Ship0Model{
 	@Override
 	protected void buildTextures() {
 
-		int shift=1;
+		int shift = 1;
+		double y = by;
+		double x = bx;
 
-		double y=by;
-		double x=bx;
-
-		//hull
+		// hull
 		addTRect(x, y, dxTexture, dyTexture);
-
-		x+=shift+dxTexture;
-		//main deck
-		addTRect(x, y, dxTexture, dyTexture);
-
-		x+=shift+dxTexture;
+		x += shift + dxTexture;
+		x+=dxTexture+shift;
+		buildHullTextures(x,y);
+		x+=dx;
+		buildMainDeckTexture(x,y);
+		x+=dx;
+		buildBridgeTexture(x,y);
+		x+=dxRoof+2*dzRoof;
 		buildFunnelTexture(x, y);
+		x+=shift+dxTexture;
 
-		IMG_WIDTH=(int) (2*bx+3*dxTexture+2*shift);
-		IMG_HEIGHT=(int) (2*by+dyTexture);
+		IMG_WIDTH = (int) (bx +x);
+		IMG_HEIGHT = (int) (2 * by + dy);
 	}
 
 
@@ -199,12 +205,7 @@ public class OceanLiner0Model extends Ship0Model{
 	public void printTexture(Graphics2D bufGraphics) {
 
 
-		bufGraphics.setColor(Color.BLACK);
-		printTexturePolygon(bufGraphics, tHull[0]);
-
-		bufGraphics.setColor(Color.WHITE);
-		printTexturePolygon(bufGraphics, tDeck[0]);
-
+		super.printTexture(bufGraphics);
 		bufGraphics.setColor(new Color(255,168,16));
 		printTexturePolygon(bufGraphics, tFun[0]);
 	}

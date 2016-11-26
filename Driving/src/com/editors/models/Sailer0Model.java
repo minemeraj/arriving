@@ -33,8 +33,8 @@ public class Sailer0Model extends Ship0Model{
 	private double sail_width=0;
 	private double sail_length=0;
 
-	protected int[][] tFun={{8,9,10,11}};
-	protected int[][] tSai={{12,13,14,15}};
+	protected int[][] tFun=null;
+	protected int[][] tSail=null;
 
 	double[] mastYPosition={0.18,0.41,0.79};
 	double[] mastHeight={0.8,1.0,0.93};
@@ -66,12 +66,11 @@ public class Sailer0Model extends Ship0Model{
 
 	@Override
 	public void initMesh() {
+
+		initTexturesArrays();
+
 		points=new Vector<Point3D>();
 		texturePoints=new Vector<Point3D>();
-
-		int c = 0;
-		c = initDoubleArrayValues(tHull = new int[1][4], c);
-		c = initDoubleArrayValues(tDeck = new int[1][4], c);
 
 		buildHull();
 		buildAfterCastle();
@@ -102,6 +101,17 @@ public class Sailer0Model extends Ship0Model{
 		int counter=0;
 		counter=buildFaces(counter,nxHull,nyHull,nyCastle);
 
+	}
+
+	@Override
+	protected int initTexturesArrays() {
+		int c = 0;
+		c = initDoubleArrayValues(tHull = new int[1][4], c);
+		c = initNetArrayValues(tHullNet = new int[nyHull-1][nxHull-1][4], c);
+		c = initDoubleArrayValues(tDeck = new int[nyHull-1][4], c);
+		c = initDoubleArrayValues(tFun = new int[1][4], c);
+		c = initDoubleArrayValues(tSail = new int[1][4], c);
+		return c;
 	}
 
 
@@ -149,30 +159,26 @@ public class Sailer0Model extends Ship0Model{
 	@Override
 	protected void buildTextures() {
 
-		int shift=1;
+		int shift = 1;
+		double y = by;
+		double x = bx;
 
-		//Texture points
-
-		double y=by;
-		double x=bx;
-
-		//hull
+		// hull
 		addTRect(x, y, dxTexture, dyTexture);
-
-		x+=shift+dxTexture;
-		//main deck
-		addTRect(x, y, dxTexture, dyTexture);
-
-		x+=shift+dxTexture;
+		x += shift + dxTexture;
+		buildHullTextures(x,y);
+		x+=dx;
+		buildMainDeckTexture(x,y);
+		x+=dx+shift;
 		//funnel
 		buildMastTexture(x,y);
-
 		x+=shift+dxTexture;
 		//sails
 		buildSailTexture(x,y);
+		x+=dxTexture;
 
-		IMG_WIDTH=(int) (2*bx+4*dxTexture+3*shift);
-		IMG_HEIGHT=(int) (2*by+dyTexture);
+		IMG_WIDTH=(int) (bx+x);
+		IMG_HEIGHT=(int) (2*by+dy);
 
 	}
 
@@ -201,8 +207,8 @@ public class Sailer0Model extends Ship0Model{
 		for (int l = 0; l < sails.length; l++) {
 
 			BPoint[][] sail = sails[l];
-			faces[counter++]=buildFace(Renderer3D.CAR_BACK,sail[0][0],sail[1][0],sail[1][1],sail[0][1],tSai[0]);
-			faces[counter++]=buildFace(Renderer3D.CAR_FRONT,sail[0][0],sail[0][1],sail[1][1],sail[1][0],tSai[0]);
+			faces[counter++]=buildFace(Renderer3D.CAR_BACK,sail[0][0],sail[1][0],sail[1][1],sail[0][1],tSail[0]);
+			faces[counter++]=buildFace(Renderer3D.CAR_FRONT,sail[0][0],sail[0][1],sail[1][1],sail[1][0],tSail[0]);
 		}
 
 
@@ -233,18 +239,15 @@ public class Sailer0Model extends Ship0Model{
 	public void printTexture(Graphics2D bufGraphics) {
 
 
-		bufGraphics.setColor(new Color(37,35,36));
-		printTexturePolygon(bufGraphics, tHull[0]);
-
-		bufGraphics.setColor(Color.WHITE);
-		printTexturePolygon(bufGraphics, tDeck[0]);
+		hullColor=new Color(37,35,36);
+		super.printTexture(bufGraphics);
 
 		bufGraphics.setColor(new Color(160,99,16));
 		printTexturePolygon(bufGraphics, tFun[0]);
 
 		//ivory
 		bufGraphics.setColor(new Color(255,255,240));
-		printTexturePolygon(bufGraphics, tSai[0]);
+		printTexturePolygon(bufGraphics, tSail[0]);
 	}
 
 }

@@ -19,7 +19,6 @@ import com.main.Renderer3D;
  */
 public class Ship0Model extends VehicleModel {
 
-	protected int c = 0;
 	protected int[][] tHull = null;
 	protected int[][] tDeck = null;
 	protected int[][] tBackBridge = null;
@@ -107,13 +106,20 @@ public class Ship0Model extends VehicleModel {
 		counter = buildMainDecksFaces(counter);
 	}
 
-	private void initTexturesArrays() {
+	protected int initTexturesArrays() {
 
 		int c = 0;
 		c = initDoubleArrayValues(tHull = new int[1][4], c);
 		c = initNetArrayValues(tHullNet = new int[nyHull-1][nxHull-1][4], c);
 		c = initDoubleArrayValues(tDeck = new int[nyHull-1][4], c);
 
+		c = initDoubleArrayValues(tBackBridge = new int[1][4], c);
+		c = initDoubleArrayValues(tLeftBridge = new int[1][4], c);
+		c = initDoubleArrayValues(tTopBridge = new int[1][4], c);
+		c = initDoubleArrayValues(tRightBridge = new int[1][4], c);
+		c = initDoubleArrayValues(tFrontBridge = new int[1][4], c);
+
+		return c;
 	}
 
 
@@ -231,35 +237,37 @@ public class Ship0Model extends VehicleModel {
 
 	protected void buildTextures() {
 
-
 		int shift = 1;
-
-		// Texture points
-
 		double y = by;
 		double x = bx;
 
 		// hull
 		addTRect(x, y, dxTexture, dyTexture);
 		x += shift + dxTexture;
-		// main deck
-		addTRect(x, y, dxTexture, dyTexture);
 		x+=dxTexture+shift;
 		buildHullTextures(x,y);
 		x+=dx;
 		buildMainDeckTexture(x,y);
 		x+=dx;
-		//buildBridgeTexture(x,y);
-
+		buildBridgeTexture(x,y);
+		x+=dxRoof+2*dzRoof;
 
 		IMG_WIDTH = (int) (bx +x);
 		IMG_HEIGHT = (int) (2 * by + dy);
-
 	}
 
 	protected void buildBridgeTexture(double x, double y) {
-		// TODO Auto-generated method stub
-
+		double yy=0;
+		//back
+		addTRect(x+dzRoof, yy, dxRoof, dzRoof);
+		//left
+		addTRect(x, yy+dzRoof, dzRoof, dyRoof);
+		//top
+		addTRect(x+dzRoof, yy+dzRoof, dxRoof, dyRoof);
+		//right
+		addTRect(x+dxRoof+dzRoof, yy+dzRoof, dzRoof, dyRoof);
+		//front
+		addTRect(x+dzRoof, yy+dzRoof+dyRoof, dxRoof, dzRoof);
 	}
 
 	protected void buildMainDeckTexture(double x, double y) {
@@ -488,19 +496,31 @@ public class Ship0Model extends VehicleModel {
 
 	}
 
+	protected Color hullColor=Color.RED;
 	@Override
 	public void printTexture(Graphics2D bufGraphics) {
 
-		bufGraphics.setColor(Color.RED);
+		bufGraphics.setColor(hullColor);
 		printTexturePolygon(bufGraphics, tHull[0]);
 
 		if(tHullNet!=null){
-			bufGraphics.setColor(Color.BLUE);
+			bufGraphics.setColor(hullColor);
 			printTextureNet(bufGraphics, tHullNet);
 		}
 
 		bufGraphics.setColor(Color.BLACK);
 		printTexturePolygon(bufGraphics, tDeck);
+
+		if(tTopBridge!=null){
+			bufGraphics.setColor(Color.RED);
+			printTexturePolygon(bufGraphics, tBackBridge);
+			printTexturePolygon(bufGraphics, tLeftBridge);
+			printTexturePolygon(bufGraphics, tTopBridge);
+			printTexturePolygon(bufGraphics, tRightBridge);
+			printTexturePolygon(bufGraphics, tFrontBridge);
+		}
+
+
 	}
 
 
