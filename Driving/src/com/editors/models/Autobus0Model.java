@@ -13,7 +13,7 @@ import com.main.Renderer3D;
  * @author Administrator
  *
  */
-public class Autobus0Model extends PickupModel {
+public class Autobus0Model extends Truck0Model{
 
 	public static final String NAME = "Autobus";
 
@@ -44,9 +44,7 @@ public class Autobus0Model extends PickupModel {
 		c = initDoubleArrayValues(tLeftRoof = new int[2][4], c);
 		c = initSingleArrayValues(tBackRear = new int[4], c);
 		c = initDoubleArrayValues(tBackWagon = new int[1][4], c);
-		c = initSingleArrayValues(tTopRear = new int[4], c);
 		c = initSingleArrayValues(tTopRoof = new int[4], c);
-		c = initSingleArrayValues(tTopFront = new int[4], c);
 
 		c = initDoubleArrayValues(tRe = new int[1][4], c);
 		c = initDoubleArrayValues(tWagon = new int[1][4], c);
