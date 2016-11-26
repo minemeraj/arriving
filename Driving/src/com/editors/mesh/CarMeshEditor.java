@@ -815,7 +815,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						0, 0, // rearOverhang1,frontOverhang1,
 						13, 4, 10// wheel_radius, wheel_width, wheel_rays
 						);
-			} else if (RAILWAGON0 == val) {
+			} else if (RAILWAGON_TENDER == val) {
 				setRightData(69, 400, 7, // dx, dy, dz
 						41, 51, 14, // dxFront, dyFront, dzFront
 						41, 51, 14, // dxRear, dyRear, dzRear
