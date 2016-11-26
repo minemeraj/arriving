@@ -16,8 +16,6 @@ public class TankTruck0Model extends Truck0Model {
 
 	public static final String NAME = "Tank truck";
 
-	private int nWagonMeridians = 10;
-
 	public TankTruck0Model(double dxFront, double dyfront, double dzFront, double dxRoof, double dyRoof, double dzRoof,
 			double dxRear, double dyRear, double dzRear, double dxWagon, double dyWagon, double dzWagon,
 			double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1, double wheelRadius,
@@ -39,7 +37,7 @@ public class TankTruck0Model extends Truck0Model {
 		buildCabin();
 		buildRear();
 
-		buildWagon(nWagonMeridians);
+		buildWagon(nWagonSides);
 		buildWheels();
 
 		buildTextures();
@@ -50,23 +48,29 @@ public class TankTruck0Model extends Truck0Model {
 		// faces
 		int NF =2 *(nzCab* nYcab - 1) ;
 		NF += 2 + (nzBody - 1) * 4;
-		NF += (nWagonMeridians) + 2*(nWagonMeridians - 2);
+		NF += (nWagonSides) + 2*(nWagonSides - 2);
 		// cabin roof
 		NF += 8;
 
 		faces = new int[NF + NUM_WHEEL_FACES][3][4];
 
 		int counter = 0;
-		counter = buildBodyFaces(counter, nzBody, nWagonMeridians);
+		counter = buildBodyFaces(counter, nzBody, nWagonSides);
 		counter = buildWheelFaces(counter, totWheelPolygon);
 
+	}
+
+	@Override
+	protected void initTexturesArrays() {
+		nWagonSides = 10;
+		super.initTexturesArrays();
 	}
 
 
 	@Override
 	protected void buildTopTextures(double x, double y, int shift, double deltaXF) {
-		addTRect(x, y, dxWagon, dyWagon);
-		buildTankWagonTexture(x,y,nWagonMeridians,dx);
+		buildTankWagonTexture(x,y,nWagonSides,dxWagon/nWagonSides);
+		addTRect(x + deltaXF, y + dyWagon, dxRoof, dyRoof);
 	}
 
 	protected void buildTankWagonTexture(double x, double y, int nWagongMeridians, double dxWidth) {
@@ -85,7 +89,7 @@ public class TankTruck0Model extends Truck0Model {
 	}
 
 	@Override
-	protected int buildWagonFaces(int counter, int nWagonMeridians) {
+	protected int buildWagonFaces(int counter, int nWagonSides) {
 
 		for (int i = 0; i < wagon.length; i++) {
 
@@ -93,20 +97,20 @@ public class TankTruck0Model extends Truck0Model {
 					wagon[(i + 1) % wagon.length][1], wagon[i][1], tRe[0]);
 		}
 
-		for (int i = 1; i < nWagonMeridians - 1; i++) {
+		for (int i = 1; i < nWagonSides - 1; i++) {
 
 			BPoint p0 = wagon[0][1];
-			BPoint p1 = wagon[(i + 1) % nWagonMeridians][1];
+			BPoint p1 = wagon[(i + 1) % nWagonSides][1];
 			BPoint p2 = wagon[i][1];
 
 			faces[counter++] = buildFace(0, p0, p1, p2, tRe[0]);
 		}
 
-		for (int i = 1; i < nWagonMeridians - 1; i++) {
+		for (int i = 1; i < nWagonSides - 1; i++) {
 
 			BPoint p0 = wagon[0][0];
 			BPoint p1 = wagon[i][0];
-			BPoint p2 = wagon[(i + 1) % nWagonMeridians][0];
+			BPoint p2 = wagon[(i + 1) % nWagonSides][0];
 
 			faces[counter++] = buildFace(0, p0, p1, p2, tRe[0]);
 		}

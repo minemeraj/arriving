@@ -69,6 +69,10 @@ public class Sailer0Model extends Ship0Model{
 		points=new Vector<Point3D>();
 		texturePoints=new Vector<Point3D>();
 
+		int c = 0;
+		c = initDoubleArrayValues(tHull = new int[1][4], c);
+		c = initDoubleArrayValues(tDeck = new int[1][4], c);
+
 		buildHull();
 		buildAfterCastle();
 		buildForeCastle();
@@ -230,10 +234,10 @@ public class Sailer0Model extends Ship0Model{
 
 
 		bufGraphics.setColor(new Color(37,35,36));
-		printTexturePolygon(bufGraphics, tH[0]);
+		printTexturePolygon(bufGraphics, tHull[0]);
 
 		bufGraphics.setColor(Color.WHITE);
-		printTexturePolygon(bufGraphics, tD[0]);
+		printTexturePolygon(bufGraphics, tDeck[0]);
 
 		bufGraphics.setColor(new Color(160,99,16));
 		printTexturePolygon(bufGraphics, tFun[0]);

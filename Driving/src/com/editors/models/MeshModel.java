@@ -124,7 +124,7 @@ public abstract class MeshModel {
 		}
 	}
 
-	void printTexturePolygon(Graphics2D graphics, int... indexes) {
+	protected void printTexturePolygon(Graphics2D graphics, int... indexes) {
 
 		for (int i = 0; i < indexes.length; i++) {
 
@@ -133,6 +133,28 @@ public abstract class MeshModel {
 
 			graphics.drawLine(cX(p0.x), cY(p0.y), cX(p1.x), cY(p1.y));
 		}
+	}
+
+
+	protected void printTexturePolygon(Graphics2D graphics, int[][] tCells) {
+		for (int i = 0; i < tCells.length; i++) {
+			int[] tCell = tCells[i];
+			printTexturePolygon(graphics, tCell);
+		}
+
+	}
+
+
+	protected void printTextureNet(Graphics2D graphics, int[][][] tNet) {
+		for (int i = 0; i < tNet.length; i++) {
+			int[][] tRow = tNet[i];
+			for (int j = 0; j < tRow.length; j++) {
+				int[] tCell = tRow[j];
+				printTexturePolygon(graphics, tCell);
+			}
+
+		}
+
 	}
 
 	void fillTexturePolygon(Graphics2D graphics, int... indexes) {
@@ -921,34 +943,30 @@ public abstract class MeshModel {
 
 	}
 
+
+	protected int initNetArrayValues(int[][][] netArray, int inc) {
+		for (int i = 0; i < netArray.length; i++) {
+			int[][] douArray = netArray[i];
+			inc=initDoubleArrayValues(douArray,inc);
+		}
+		return inc;
+	}
+
 	protected static int initDoubleArrayValues(int[][] douArray, int inc) {
 
 		for (int i = 0; i < douArray.length; i++) {
-
 			int[] sinArray = douArray[i];
-
-			for (int j = 0; j < sinArray.length; j++) {
-
-				sinArray[j] = inc++;
-
-			}
-
+			inc=initSingleArrayValues(sinArray,inc);
 		}
-
 		return inc;
-
 	}
 
 	protected static int initSingleArrayValues(int[] sinArray, int inc) {
 
 		for (int j = 0; j < sinArray.length; j++) {
-
 			sinArray[j] = inc++;
-
 		}
-
 		return inc;
-
 	}
 
 }

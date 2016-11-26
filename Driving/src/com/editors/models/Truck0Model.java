@@ -61,7 +61,7 @@ public class Truck0Model extends VehicleModel {
 	protected int nYcab = 6;
 	protected int nzBody = 2;
 	protected int nyBody = 2;
-
+	protected int nWagonSides=1;
 	public static final String NAME = "Truck";
 
 	public Truck0Model(double dxRoof, double dyRoof, double dzRoof, double dxFront, double dyfront, double dzFront,
@@ -145,7 +145,7 @@ public class Truck0Model extends VehicleModel {
 		c = initDoubleArrayValues(tLeftFront = new int[nYcab - 1][4], c);
 		c = initDoubleArrayValues(tLeftRoof = new int[2][4], c);
 		c = initDoubleArrayValues(tLeftWagon = new int[1][4], c);
-		c = initDoubleArrayValues(tWagon = new int[1][4], c);
+		c = initDoubleArrayValues(tWagon = new int[nWagonSides][4], c);
 		c = initSingleArrayValues(tTopRoof = new int[4], c);
 		c = initDoubleArrayValues(tRightRear = new int[nyBody - 1][4], c);
 		c = initDoubleArrayValues(tRightFront = new int[nYcab - 1][4], c);
@@ -595,7 +595,7 @@ public class Truck0Model extends VehicleModel {
 		}
 
 		bufGraphics.setColor(wagonColor);
-		printTexturePolygon(bufGraphics, tWagon[0]);
+		printTexturePolygon(bufGraphics, tWagon);
 		bufGraphics.setColor(frontColor);
 		printTexturePolygon(bufGraphics, tTopRoof);
 

@@ -63,8 +63,8 @@ public class OceanLiner0Model extends Ship0Model{
 	public void initMesh() {
 
 		int c = 0;
-		c = initDoubleArrayValues(tH = new int[1][4], c);
-		c = initDoubleArrayValues(tD = new int[1][4], c);
+		c = initDoubleArrayValues(tHull = new int[1][4], c);
+		c = initDoubleArrayValues(tDeck = new int[1][4], c);
 		c = initDoubleArrayValues(tFun = new int[1][4], c);
 
 		points=new Vector<Point3D>();
@@ -200,10 +200,10 @@ public class OceanLiner0Model extends Ship0Model{
 
 
 		bufGraphics.setColor(Color.BLACK);
-		printTexturePolygon(bufGraphics, tH[0]);
+		printTexturePolygon(bufGraphics, tHull[0]);
 
 		bufGraphics.setColor(Color.WHITE);
-		printTexturePolygon(bufGraphics, tD[0]);
+		printTexturePolygon(bufGraphics, tDeck[0]);
 
 		bufGraphics.setColor(new Color(255,168,16));
 		printTexturePolygon(bufGraphics, tFun[0]);
