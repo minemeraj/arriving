@@ -43,6 +43,14 @@ public class Byke0Model extends VehicleModel {
 	private int[][] tRightBody;
 	private int[][] tRightFront;
 	private int[][] tRightRoof;
+	private BPoint[][][] rearByke;
+	private BPoint[][][] roofByke;
+	private BPoint[][][] handlebar;
+
+	private int nyHandleBar = 3;
+	private int nyRoof=2;
+	private int nyRear=2;
+	private int nyBody=2;
 
 
 	public Byke0Model(double dx, double dy, double dz, double dxf, double dyf, double dzf, double dxr, double dyr,
@@ -79,17 +87,36 @@ public class Byke0Model extends VehicleModel {
 		points = new Vector<Point3D>();
 		texturePoints = new Vector<Point3D>();
 
-		buildTextures();
-
 		int firstWheelTexturePoint = 4;
 
+		buildBody();
+
+		buildTextures();
+
+		//faces
+		int NF = 6 * 3;
+		//handlebar
+		NF += (nyHandleBar - 1) * 4 + 1;
+
+		int totWheelPolygon = wheel_rays + 2 * (wheel_rays - 2);
+		int NUM_WHEEL_FACES = 2 * totWheelPolygon;
+
+		faces = new int[NF + NUM_WHEEL_FACES][3][4];
+
+		int counter = 0;
+		counter = buildBodyFaces(counter, body, handlebar, rearByke, roofByke);
+		counter = buildWheelFaces(counter, firstWheelTexturePoint, totWheelPolygon);
+
+	}
+
+	private void buildBody() {
 		double frame_side = (dx - wheelWidth) * 0.5;
 		xc = -frame_side * 0.5;
 		xc = wheelWidth / 2.0;
 
 		Segments bd = new Segments(xc, wheelWidth, 2 * wheelRadius, dy, 2 * wheelRadius - dz, dz);
 
-		BPoint[][][] body = new BPoint[2][2][2];
+		body = new BPoint[2][nyBody][2];
 
 		body[0][0][0] = addBPoint(-0.5, 0.0, 0, bd);
 		body[1][0][0] = addBPoint(0.5, 0.0, 0, bd);
@@ -103,7 +130,7 @@ public class Byke0Model extends VehicleModel {
 
 		Segments rb = new Segments(xc, dxRear, 2 * wheelRadius - dyRear, dyRear, 2 * wheelRadius, dzRear);
 
-		BPoint[][][] rearByke = new BPoint[2][2][2];
+		rearByke = new BPoint[nyRear][2][2];
 
 		double zrb = dzRoof / dzRear;
 
@@ -119,7 +146,7 @@ public class Byke0Model extends VehicleModel {
 
 		Segments rob = new Segments(xc, dxRoof, 2 * wheelRadius, dyRoof, 2 * wheelRadius, dzRoof);
 
-		BPoint[][][] roofByke = new BPoint[2][2][2];
+		roofByke = new BPoint[nyRoof][2][2];
 
 		roofByke[0][0][0] = addBPoint(-0.5, 0.0, 0.0, rob);
 		roofByke[0][1][0] = addBPoint(0.5, 0.0, 0.0, rob);
@@ -133,8 +160,8 @@ public class Byke0Model extends VehicleModel {
 
 		Segments hb = new Segments(xc, dxFront, 2 * wheelRadius + dyRoof, dyFront, 2 * wheelRadius, dzFront);
 
-		int nyh = 3;
-		BPoint[][][] handlebar = new BPoint[nyh][2][2];
+
+		handlebar = new BPoint[nyHandleBar][2][2];
 
 		double zrf = dzRoof / dzFront;
 
@@ -160,36 +187,22 @@ public class Byke0Model extends VehicleModel {
 		wheelRear = buildWheel(xc - wx, 2 * wheelRadius + dy + wheelRadius, wz, wheelRadius, wheelWidth,
 				wheel_rays);
 
-		// faces
-		int NF = 6 * 3;
-		NF += (nyh - 1) * 4 + 1;// handlebar
-
-		int totWheelPolygon = wheel_rays + 2 * (wheel_rays - 2);
-		int NUM_WHEEL_FACES = 2 * totWheelPolygon;
-
-		faces = new int[NF + NUM_WHEEL_FACES][3][4];
-
-		int counter = 0;
-		counter = buildBodyFaces(counter, body, handlebar, rearByke, roofByke);
-
-		counter = buildWheelFaces(counter, firstWheelTexturePoint, totWheelPolygon);
-
 	}
 
 	private void initTexturesArrays() {
 		int c = 0;
 		c = initDoubleArrayValues(tBo = new int[1][4], c);
-		c = initDoubleArrayValues(tLeftRear = new int[1][4], c);
-		c = initDoubleArrayValues(tLeftBody = new int[1][4], c);
-		c = initDoubleArrayValues(tLeftFront = new int[1][4], c);
-		c = initDoubleArrayValues(tLeftRoof = new int[1][4], c);
-		c = initDoubleArrayValues(tTopRear = new int[1][4], c);
-		c = initDoubleArrayValues(tTopFront = new int[1][4], c);
-		c = initDoubleArrayValues(tTopRoof = new int[1][4], c);
-		c = initDoubleArrayValues(tRightRear = new int[1][4], c);
-		c = initDoubleArrayValues(tRightBody = new int[1][4], c);
-		c = initDoubleArrayValues(tRightFront = new int[1][4], c);
-		c = initDoubleArrayValues(tRightRoof = new int[1][4], c);
+		c = initDoubleArrayValues(tLeftRear = new int[nyRear-1][4], c);
+		c = initDoubleArrayValues(tLeftBody = new int[nyBody-1][4], c);
+		c = initDoubleArrayValues(tLeftFront = new int[nyHandleBar-1][4], c);
+		c = initDoubleArrayValues(tLeftRoof = new int[nyRoof-1][4], c);
+		c = initDoubleArrayValues(tTopRear = new int[nyRear-1][4], c);
+		c = initDoubleArrayValues(tTopFront = new int[nyHandleBar-1][4], c);
+		c = initDoubleArrayValues(tTopRoof = new int[nyRoof-1][4], c);
+		c = initDoubleArrayValues(tRightRear = new int[nyRear-1][4], c);
+		c = initDoubleArrayValues(tRightBody = new int[nyBody-1][4], c);
+		c = initDoubleArrayValues(tRightFront = new int[nyHandleBar-1][4], c);
+		c = initDoubleArrayValues(tRightRoof = new int[nyRoof-1][4], c);
 		c = initSingleArrayValues(tWh = new int[4], c);
 	}
 
@@ -200,7 +213,7 @@ public class Byke0Model extends VehicleModel {
 		double x = bx;
 
 		double maxDX=Math.max(dx, Math.max(dxFront,dxRear));
-		double totDZ=Math.max(dxRear, dzFront)+dz;
+		double totDZ=Math.max(dxRear, dzFront)+Math.max(dz, 2*wheelRadius);
 
 		addTRect(x, y, dx, dy);
 		x+=dx+shift;
@@ -209,7 +222,7 @@ public class Byke0Model extends VehicleModel {
 		buildTopTextures(x,y,maxDX);
 		x+=maxDX+shift;
 		buildRightTextures(x,y,totDZ);
-		x+=dz+dzFront+ shift;
+		x+=totDZ+ shift;
 		y = by;
 		buildWheelTexture(x,y);
 		x+=wheelWidth;
@@ -225,11 +238,27 @@ public class Byke0Model extends VehicleModel {
 
 	private void buildRightTextures(double x, double y, double totDZ) {
 
-		double xx=x+totDZ-dz;
-		addTRect(xx-dzRear, y, dzRear, dyRear);
-		addTRect(xx, y+dyRear, dz, dy);
-		addTRect(xx-dzRoof, y+dyRear, dzRoof, dyRoof);
-		addTRect(xx-dzFront, y+dyRear+dyRoof, dzFront, dyFront);
+		addTPoint(x+rearByke[0][0][0].z,y+rearByke[0][0][0].y,0);
+		addTPoint(x+rearByke[0][0][1].z,y+rearByke[0][0][1].y,0);
+		addTPoint(x+rearByke[1][0][1].z,y+rearByke[1][0][1].y,0);
+		addTPoint(x+rearByke[1][0][0].z,y+rearByke[1][0][0].y,0);
+
+		for (int i = 0; i < nyHandleBar-1; i++) {
+			addTPoint(x+handlebar[i][0][0].z,y+handlebar[i][0][0].y,0);
+			addTPoint(x+handlebar[i][0][1].z,y+handlebar[i][0][1].y,0);
+			addTPoint(x+handlebar[i+1][0][1].z,y+handlebar[i+1][0][1].y,0);
+			addTPoint(x+handlebar[i+1][0][0].z,y+handlebar[i+1][0][0].y,0);
+		}
+
+		addTPoint(x+body[0][0][0].z,y+body[0][0][0].y,0);
+		addTPoint(x+body[0][1][0].z,y+body[0][1][0].y,0);
+		addTPoint(x+body[1][1][1].z,y+body[0][1][1].y,0);
+		addTPoint(x+body[0][0][1].z,y+body[0][0][1].y,0);
+
+		addTPoint(x+roofByke[0][0][0].z,y+roofByke[0][0][0].y,0);
+		addTPoint(x+roofByke[0][0][1].z,y+roofByke[0][0][1].y,0);
+		addTPoint(x+roofByke[1][0][1].z,y+roofByke[1][0][1].y,0);
+		addTPoint(x+roofByke[1][0][0].z,y+roofByke[1][0][0].y,0);
 	}
 
 	private void buildTopTextures(double x, double y, double maxDX) {
@@ -240,14 +269,35 @@ public class Byke0Model extends VehicleModel {
 
 		addTRect(x+deltaRE, y, dxRear, dyRear);
 		addTRect(x+deltaRo, y+dyRear, dxRoof, dyRoof);
-		addTRect(x+deltaFR, y+dyRear+dyRoof, dxFront, dyFront);
+		for (int i = 0; i < nyHandleBar-1; i++) {
+			addTRect(x+deltaFR, y+dyRear+dyRoof, dxFront, dyFront);
+		}
+
 	}
 
 	private void buildLeftTextures(double x, double y, double totDZ) {
-		addTRect(x+totDZ-dz-dzRear, y, dzRear, dyRear);
-		addTRect(x+totDZ-dz, y+dyRear, dz, dy);
-		addTRect(x+totDZ-dz-dzRoof, y+dyRear, dzRoof, dyRoof);
-		addTRect(x+totDZ-dz-dzFront, y+dyRear+dyRoof, dzFront, dyFront);
+
+		addTPoint(x+rearByke[0][0][0].z,y+rearByke[0][0][0].y,0);
+		addTPoint(x+rearByke[0][0][1].z,y+rearByke[0][0][1].y,0);
+		addTPoint(x+rearByke[1][0][1].z,y+rearByke[1][0][1].y,0);
+		addTPoint(x+rearByke[1][0][0].z,y+rearByke[1][0][0].y,0);
+
+		for (int i = 0; i < nyHandleBar-1; i++) {
+			addTPoint(x+handlebar[i][0][0].z,y+handlebar[i][0][0].y,0);
+			addTPoint(x+handlebar[i][0][1].z,y+handlebar[i][0][1].y,0);
+			addTPoint(x+handlebar[i+1][0][1].z,y+handlebar[i+1][0][1].y,0);
+			addTPoint(x+handlebar[i+1][0][0].z,y+handlebar[i+1][0][0].y,0);
+		}
+
+		addTPoint(x+body[0][0][0].z,y+body[0][0][0].y,0);
+		addTPoint(x+body[0][1][0].z,y+body[0][1][0].y,0);
+		addTPoint(x+body[1][1][1].z,y+body[0][1][1].y,0);
+		addTPoint(x+body[0][0][1].z,y+body[0][0][1].y,0);
+
+		addTPoint(x+roofByke[0][0][0].z,y+roofByke[0][0][0].y,0);
+		addTPoint(x+roofByke[0][0][1].z,y+roofByke[0][0][1].y,0);
+		addTPoint(x+roofByke[1][0][1].z,y+roofByke[1][0][1].y,0);
+		addTPoint(x+roofByke[1][0][0].z,y+roofByke[1][0][0].y,0);
 	}
 
 	private int buildWheelFaces(int counter, int totBlockTexturesPoints, int totWheelPolygon) {
