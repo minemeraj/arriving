@@ -110,8 +110,7 @@ public class Byke0Model extends VehicleModel {
 	}
 
 	private void buildBody() {
-		double frame_side = (dx - wheelWidth) * 0.5;
-		xc = -frame_side * 0.5;
+
 		xc = wheelWidth / 2.0;
 
 		Segments bd = new Segments(xc, wheelWidth, 2 * wheelRadius, dy, 2 * wheelRadius - dz, dz);
@@ -238,39 +237,48 @@ public class Byke0Model extends VehicleModel {
 
 	private void buildRightTextures(double x, double y, double totDZ) {
 
-		addTPoint(x+rearByke[0][0][0].z,y+rearByke[0][0][0].y,0);
-		addTPoint(x+rearByke[0][0][1].z,y+rearByke[0][0][1].y,0);
-		addTPoint(x+rearByke[1][0][1].z,y+rearByke[1][0][1].y,0);
-		addTPoint(x+rearByke[1][0][0].z,y+rearByke[1][0][0].y,0);
+		addTPoint(x+totDZ-rearByke[0][0][0].z,y+rearByke[0][0][0].y,0);
+		addTPoint(x+totDZ-rearByke[0][0][1].z,y+rearByke[0][0][1].y,0);
+		addTPoint(x+totDZ-rearByke[1][0][1].z,y+rearByke[1][0][1].y,0);
+		addTPoint(x+totDZ-rearByke[1][0][0].z,y+rearByke[1][0][0].y,0);
 
 		for (int i = 0; i < nyHandleBar-1; i++) {
-			addTPoint(x+handlebar[i][0][0].z,y+handlebar[i][0][0].y,0);
-			addTPoint(x+handlebar[i][0][1].z,y+handlebar[i][0][1].y,0);
-			addTPoint(x+handlebar[i+1][0][1].z,y+handlebar[i+1][0][1].y,0);
-			addTPoint(x+handlebar[i+1][0][0].z,y+handlebar[i+1][0][0].y,0);
+			addTPoint(x+totDZ-handlebar[i][0][0].z,y+handlebar[i][0][0].y,0);
+			addTPoint(x+totDZ-handlebar[i][0][1].z,y+handlebar[i][0][1].y,0);
+			addTPoint(x+totDZ-handlebar[i+1][0][1].z,y+handlebar[i+1][0][1].y,0);
+			addTPoint(x+totDZ-handlebar[i+1][0][0].z,y+handlebar[i+1][0][0].y,0);
 		}
 
-		addTPoint(x+body[0][0][0].z,y+body[0][0][0].y,0);
-		addTPoint(x+body[0][1][0].z,y+body[0][1][0].y,0);
-		addTPoint(x+body[1][1][1].z,y+body[0][1][1].y,0);
-		addTPoint(x+body[0][0][1].z,y+body[0][0][1].y,0);
+		addTPoint(x+totDZ-body[0][0][0].z,y+body[0][0][0].y,0);
+		addTPoint(x+totDZ-body[0][1][0].z,y+body[0][1][0].y,0);
+		addTPoint(x+totDZ-body[1][1][1].z,y+body[0][1][1].y,0);
+		addTPoint(x+totDZ-body[0][0][1].z,y+body[0][0][1].y,0);
 
-		addTPoint(x+roofByke[0][0][0].z,y+roofByke[0][0][0].y,0);
-		addTPoint(x+roofByke[0][0][1].z,y+roofByke[0][0][1].y,0);
-		addTPoint(x+roofByke[1][0][1].z,y+roofByke[1][0][1].y,0);
-		addTPoint(x+roofByke[1][0][0].z,y+roofByke[1][0][0].y,0);
+		addTPoint(x+totDZ-roofByke[0][0][0].z,y+roofByke[0][0][0].y,0);
+		addTPoint(x+totDZ-roofByke[0][0][1].z,y+roofByke[0][0][1].y,0);
+		addTPoint(x+totDZ-roofByke[1][0][1].z,y+roofByke[1][0][1].y,0);
+		addTPoint(x+totDZ-roofByke[1][0][0].z,y+roofByke[1][0][0].y,0);
 	}
 
 	private void buildTopTextures(double x, double y, double maxDX) {
 
-		double deltaRE= (maxDX-dxRear)*0.5;
-		double deltaRo= (maxDX-dxRoof)*0.5;
-		double deltaFR= (maxDX-dxFront)*0.5;
+		double middleX=x+maxDX*0.5-xc;
 
-		addTRect(x+deltaRE, y, dxRear, dyRear);
-		addTRect(x+deltaRo, y+dyRear, dxRoof, dyRoof);
+		addTPoint(middleX+rearByke[0][0][0].x,y+rearByke[0][0][0].y,0);
+		addTPoint(middleX+rearByke[0][1][0].x,y+rearByke[0][1][0].y,0);
+		addTPoint(middleX+rearByke[0+1][1][0].x,y+rearByke[0+1][1][0].y,0);
+		addTPoint(middleX+rearByke[0+1][0][0].x,y+rearByke[0+1][0][0].y,0);
+
+		addTPoint(middleX+roofByke[0][0][0].x,y+roofByke[0][0][0].y,0);
+		addTPoint(middleX+roofByke[0][1][0].x,y+roofByke[0][1][0].y,0);
+		addTPoint(middleX+roofByke[0+1][1][0].x,y+roofByke[0+1][1][0].y,0);
+		addTPoint(middleX+roofByke[0+1][0][0].x,y+roofByke[0+1][0][0].y,0);
+
 		for (int i = 0; i < nyHandleBar-1; i++) {
-			addTRect(x+deltaFR, y+dyRear+dyRoof, dxFront, dyFront);
+			addTPoint(middleX+handlebar[i][0][0].x,y+handlebar[i][0][0].y,0);
+			addTPoint(middleX+handlebar[i][1][0].x,y+handlebar[i][1][0].y,0);
+			addTPoint(middleX+handlebar[i+1][1][0].x,y+handlebar[i+1][1][0].y,0);
+			addTPoint(middleX+handlebar[i+1][0][0].x,y+handlebar[i+1][0][0].y,0);
 		}
 
 	}
