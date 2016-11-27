@@ -243,7 +243,6 @@ public class Ship0Model extends VehicleModel {
 
 		// hull
 		addTRect(x, y, dxTexture, dyTexture);
-		x += shift + dxTexture;
 		x+=dxTexture+shift;
 		buildHullTextures(x,y);
 		x+=dx;

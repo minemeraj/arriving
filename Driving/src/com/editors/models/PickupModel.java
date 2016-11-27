@@ -121,38 +121,36 @@ public class PickupModel extends Truck0Model {
 		double dyFr = dzRear + dzWagon + shift;
 		buildLefTextures(x, by + dyFr, shift);
 		x += dzFront + dzRoof + shift;
-		/////
 		buildBackTextures(x, y, shift);
-		// top
 		y += dzRear + dzWagon;
 		buildTopTextures(x, y, shift);
 		x += dxRear + shift;
-
 		buildRightTextures(x, by + dyFr, shift);
 		x += dzFront + dzRoof + shift;
 
 		// body points
-
 		y = by;
 		addTRect(x, y, dxTexture, dyTexture);
-
 		// wagon points
 		x += dxTexture + shift;
 		y = by;
 		addTRect(x, y, dxTexture, dyTexture);
-
 		// window points
 		x += dxTexture + shift;
 		y = by;
 		addTRect(x, y, dxTexture, dyTexture);
-
-		// wheel texture, a black square for simplicity:
 		x += dxTexture + shift;
 		y = by;
+		buildWheelTexture(x,y);
+		x+=wheelWidth;
+
+		IMG_WIDTH = (int) (bx + x);
+		IMG_HEIGHT = (int) (2 * by + dzRear + dzWagon + dyRear + dyFront + dyRoof + shift);
+	}
+
+	private void buildWheelTexture(double x, double y) {
 		addTRect(x, y, wheelWidth, wheelWidth);
 
-		IMG_WIDTH = (int) (2 * bx + 2 * (dzFront + dzRoof) + 3 * dxTexture + wheelWidth + 5 * shift + dxRear);
-		IMG_HEIGHT = (int) (2 * by + dzRear + dzWagon + dyRear + dyFront + dyRoof + shift);
 	}
 
 	@Override

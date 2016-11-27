@@ -137,6 +137,9 @@ public abstract class MeshModel {
 
 
 	protected void printTexturePolygon(Graphics2D graphics, int[][] tCells) {
+		if(tCells==null) {
+			return;
+		}
 		for (int i = 0; i < tCells.length; i++) {
 			int[] tCell = tCells[i];
 			printTexturePolygon(graphics, tCell);
@@ -146,6 +149,9 @@ public abstract class MeshModel {
 
 
 	protected void printTextureNet(Graphics2D graphics, int[][][] tNet) {
+		if(tNet==null) {
+			return;
+		}
 		for (int i = 0; i < tNet.length; i++) {
 			int[][] tRow = tNet[i];
 			for (int j = 0; j < tRow.length; j++) {

@@ -47,7 +47,6 @@ public class Sailer0Model extends Ship0Model{
 			double funnel_height,
 			int funnel_meridians
 			) {
-
 		super(dx, dy, dz,
 				dxFront, dyFront, dzFront,
 				dxRear, dyRear, dzRear,
@@ -58,8 +57,9 @@ public class Sailer0Model extends Ship0Model{
 		this.mast_radius=funnel_radius;
 		this.mast_height=funnel_height;
 		this.mast_meridians=funnel_meridians;
+		this.sail_width=dx;
+		this.sail_length=sail_width*0.5;
 	}
-
 
 	@Override
 	public void initMesh() {
@@ -114,8 +114,7 @@ public class Sailer0Model extends Ship0Model{
 
 	private void buildSails() {
 
-		sail_width=dx;
-		sail_length=sail_width*0.5;
+
 
 		sails=new BPoint[masts.length][2][2];
 
@@ -169,10 +168,10 @@ public class Sailer0Model extends Ship0Model{
 		x+=dx+shift;
 		//funnel
 		buildMastTexture(x,y);
-		x+=shift+dxTexture;
+		x+=shift+mast_radius;
 		//sails
 		buildSailTexture(x,y);
-		x+=dxTexture;
+		x+=sail_width;
 
 		IMG_WIDTH=(int) (bx+x);
 		IMG_HEIGHT=(int) (2*by+dy);
@@ -180,11 +179,11 @@ public class Sailer0Model extends Ship0Model{
 	}
 
 	protected void buildMastTexture(double x, double y) {
-		addTRect(x, y, dxTexture, dyTexture);
+		addTRect(x, y, mast_radius, mast_height);
 	}
 
 	protected void buildSailTexture(double x, double y) {
-		addTRect(x, y, dxTexture, dyTexture);
+		addTRect(x, y, sail_width, sail_length);
 	}
 
 	@Override
