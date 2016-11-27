@@ -20,7 +20,7 @@ public class TankTruck0Model extends Truck0Model {
 			double dxRear, double dyRear, double dzRear, double dxWagon, double dyWagon, double dzWagon,
 			double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1, double wheelRadius,
 			double wheelWidth, int wheel_rays) {
-		super(dxFront, dyfront, dzFront, dxRoof, dyRoof, dzRoof, dxRear, dyRear, dzRear, dxWagon, dyWagon, dzWagon,
+		super(dxRoof, dyRoof, dzRoof, dxFront, dyfront, dzFront, dxRear, dyRear, dzRear, dxWagon, dyWagon, dzWagon,
 				rearOverhang, frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheel_rays);
 	}
 
@@ -36,8 +36,7 @@ public class TankTruck0Model extends Truck0Model {
 
 		buildCabin();
 		buildRear();
-
-		buildWagon(nWagonSides);
+		buildWagon();
 		buildWheels();
 
 		buildTextures();
@@ -55,7 +54,7 @@ public class TankTruck0Model extends Truck0Model {
 		faces = new int[NF + NUM_WHEEL_FACES][3][4];
 
 		int counter = 0;
-		counter = buildBodyFaces(counter, nzBody, nWagonSides);
+		counter = buildBodyFaces(counter, nzBody);
 		counter = buildWheelFaces(counter, totWheelPolygon);
 
 	}
@@ -110,12 +109,12 @@ public class TankTruck0Model extends Truck0Model {
 	}
 
 	@Override
-	protected void buildWagon(int nWagongMeridians) {
-		wagon = addYCylinder(x0, 0, dzRear + dxWagon * 0.5, dxWagon * 0.5, dyWagon, nWagongMeridians);
+	protected void buildWagon() {
+		wagon = addYCylinder(x0, 0, dzRear + dxWagon * 0.5, dxWagon * 0.5, dyWagon, nWagonSides);
 	}
 
 	@Override
-	protected int buildWagonFaces(int counter, int nWagonSides) {
+	protected int buildWagonFaces(int counter) {
 
 		for (int i = 0; i < wagon.length; i++) {
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, wagon[i][0], wagon[(i + 1) % wagon.length][0],

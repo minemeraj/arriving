@@ -28,7 +28,6 @@ public class Jeep0Model extends PickupModel {
 		super(dxFront, dyfront, dzFront, dxRoof, dyRoof, dzRoof, dxRear, dyRear, dzRear, dxWagon, dyWagon, dzWagon,
 				rearOverhang, frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheel_rays);
 
-		nWagonUnits = 2;
 		nYcab = 4;
 	}
 
@@ -75,7 +74,7 @@ public class Jeep0Model extends PickupModel {
 		faces = new int[NF + NUM_WHEEL_FACES][3][4];
 
 		int counter = 0;
-		counter = buildBodyFaces(counter, nzBody, nWagonUnits);
+		counter = buildBodyFaces(counter, nzBody);
 		counter = buildWheelFaces(counter, totWheelPolygon);
 
 	}
@@ -127,11 +126,11 @@ public class Jeep0Model extends PickupModel {
 	}
 
 	@Override
-	protected int buildBodyFaces(int counter, int nzRear, int nzWagon) {
+	protected int buildBodyFaces(int counter, int nzRear) {
 
 		counter = buildCabinFaces(counter, nYcab, nzCab);
 		counter = buildRearFaces(counter, nzRear);
-		counter = buildWagonYFaces(counter, nzWagon);
+		counter = buildWagonYFaces(counter);
 
 		return counter;
 	}
@@ -157,11 +156,12 @@ public class Jeep0Model extends PickupModel {
 		for (int i = 0; i < cabSides.length; i++) {
 
 			Segments s0 = null;
-			if (i == 0)
+			if (i == 0) {
 				s0 = new Segments(x0 - dxFront * 0.5, wheelWidth, y0 + dyRear + dyWagon, dyFront, z0, dzFront);
-			else
+			} else {
 				s0 = new Segments(x0 + dxFront * 0.5 - wheelWidth, wheelWidth, y0 + dyRear + dyWagon, dyFront, z0,
 						dzFront);
+			}
 
 			cabSides[i][0][0][0] = addBPoint(0.0, fy0, 0.0, s0);
 			cabSides[i][0][0][1] = addBPoint(0.0, fy0, fz2, s0);
@@ -296,6 +296,7 @@ public class Jeep0Model extends PickupModel {
 		return counter;
 	}
 
+	@Override
 	protected void buildWagon() {
 
 		double yRearAxle = rearOverhang / dyWagon;
@@ -386,7 +387,9 @@ public class Jeep0Model extends PickupModel {
 
 	}
 
-	protected int buildWagonYFaces(int counter, int nzWagon) {
+	protected int buildWagonYFaces(int counter) {
+
+		int nzWagon=nWagonSides+1;
 
 		counter = buildWagonYFace(counter, wagonSides[0], nzWagon);
 		counter = buildWagonYFace(counter, wagonSides[1], nzWagon);
@@ -442,6 +445,7 @@ public class Jeep0Model extends PickupModel {
 		rear[1][3] = addBPoint(0.0, 1.0, 1.0, s0);
 	}
 
+	@Override
 	protected int buildRearFaces(int counter, int nzRear) {
 
 		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, rear[0][0], rear[0][3], rear[0][2], rear[0][1], tWagon[0]);

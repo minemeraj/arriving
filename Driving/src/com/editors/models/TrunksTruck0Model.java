@@ -22,24 +22,24 @@ public class TrunksTruck0Model extends Truck0Model {
 			double dzRoof, double dxRear, double dyRear, double dzRear, double dxWagon, double dyWagon, double dzWagon,
 			double rearOverhang, double frontOverhang, double rearOverhang1, double frontOverhang1, double wheelRadius,
 			double wheelWidth, int wheel_rays) {
-		super(dxFront, dyfront, dzFront, dxRoof, dyRoof, dzRoof, dxRear, dyRear, dzRear, dxWagon, dyWagon, dzWagon,
+		super(dxRoof, dyRoof, dzRoof,dxFront, dyfront, dzFront,  dxRear, dyRear, dzRear, dxWagon, dyWagon, dzWagon,
 				rearOverhang, frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheel_rays);
 	}
 
 	@Override
 	public void initMesh() {
+
+		initTexturesArrays();
+
 		points = new Vector<Point3D>();
 		texturePoints = new Vector();
 
 		x0 = dxWagon * 0.5;
+		nWagonSides=10;
 
 		buildCabin();
-
 		buildRear();
-
-		int nWagonMeridians = 10;
-		buildWagon(nWagonMeridians);
-
+		buildWagon();
 		buildWheels();
 
 		buildTextures();
@@ -48,14 +48,16 @@ public class TrunksTruck0Model extends Truck0Model {
 		int NUM_WHEEL_FACES = 4 * totWheelPolygon;
 
 		// faces
-		int NF = 2 + (2 + (nzCab - 1)) * (nYcab - 1) * 2;
+		int NF =2 *(nzCab* nYcab - 1) ;
+		// cabin roof
+		NF += 8;
 		NF += 2 + (nzBody - 1) * 4;
-		NF += 2 + trunks.length * (nWagonMeridians + 2 * nWagonMeridians);
+		NF += trunks.length * (nWagonSides + 2 * (nWagonSides-2));
 
 		faces = new int[NF + NUM_WHEEL_FACES][3][4];
 
 		int counter = 0;
-		counter = buildBodyFaces(counter, nzBody, nWagonMeridians);
+		counter = buildBodyFaces(counter, nzBody);
 		counter = buildWheelFaces(counter, totWheelPolygon);
 
 		IMG_WIDTH = (int) (2 * bx + dxRear + wheelWidth);
@@ -64,7 +66,9 @@ public class TrunksTruck0Model extends Truck0Model {
 	}
 
 	@Override
-	protected void buildWagon(int nWagongMeridians) {
+	protected void buildWagon() {
+
+		int nWagongMeridians=nWagonSides;
 
 		trunks = new BPoint[3][nWagongMeridians][2];
 
@@ -78,7 +82,9 @@ public class TrunksTruck0Model extends Truck0Model {
 	}
 
 	@Override
-	protected int buildWagonFaces(int counter, int nWagonMeridians) {
+	protected int buildWagonFaces(int counter) {
+
+		int nWagonMeridians=nWagonSides;
 
 		for (int m = 0; m < trunks.length; m++) {
 

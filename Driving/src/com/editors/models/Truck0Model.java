@@ -108,11 +108,8 @@ public class Truck0Model extends VehicleModel {
 		x0 = dxWagon * 0.5;
 
 		buildCabin();
-
 		buildRear();
-
-		int nzWagon = 2;
-		buildWagon(nzWagon);
+		buildWagon();
 		buildWheels();
 
 		buildTextures();
@@ -124,14 +121,14 @@ public class Truck0Model extends VehicleModel {
 		//int NF = 2 + (2 + (nzCab - 1)) * (nYcab - 1) * 2;
 		int NF =2 *(nzCab* nYcab - 1) ;
 		NF += 2 + (nzBody - 1) * 4;
-		NF += 2 + (nzWagon - 1) * 4;
+		NF += 2 + nWagonSides * 4;
 		// cabin roof
 		NF += 8;
 
 		faces = new int[NF + NUM_WHEEL_FACES][3][4];
 
 		int counter = 0;
-		counter = buildBodyFaces(counter, nzBody, nzWagon);
+		counter = buildBodyFaces(counter, nzBody);
 		counter = buildWheelFaces(counter, totWheelPolygon);
 
 	}
@@ -172,16 +169,16 @@ public class Truck0Model extends VehicleModel {
 
 	}
 
-	protected int buildBodyFaces(int counter, int nzRear, int nzWagon) {
+	protected int buildBodyFaces(int counter, int nzRear) {
 
 		counter = buildCabinFaces(counter, nYcab, nzCab);
-		counter = buildRearFaces(counter, nzRear, nzWagon);
-		counter = buildWagonFaces(counter, nzWagon);
+		counter = buildRearFaces(counter, nzRear);
+		counter = buildWagonFaces(counter);
 
 		return counter;
 	}
 
-	protected int buildRearFaces(int counter, int nzRear, int nzWagon) {
+	protected int buildRearFaces(int counter, int nzRear) {
 
 		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, rear[0][0], rear[0][3], rear[0][2], rear[0][1], tRe[0]);
 
@@ -204,7 +201,7 @@ public class Truck0Model extends VehicleModel {
 		return counter;
 	}
 
-	protected int buildRearYFaces(int counter, int nzRear, int nzWagon) {
+	protected int buildRearYFaces(int counter, int nzRear) {
 
 		int numSections = rear.length;
 
@@ -285,7 +282,9 @@ public class Truck0Model extends VehicleModel {
 	 * @param nzBody
 	 * @return
 	 */
-	protected int buildWagonFaces(int counter, int nzWagon) {
+	protected int buildWagonFaces(int counter ) {
+
+		int nzWagon=nWagonSides+1;
 
 		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0], wagon[0][3], wagon[0][2], wagon[0][1],
 				tWagon[0]);
@@ -555,7 +554,9 @@ public class Truck0Model extends VehicleModel {
 
 	}
 
-	protected void buildWagon(int nzWagon) {
+	protected void buildWagon() {
+
+		int nzWagon=nWagonSides+1;
 
 		Segments s0 = new Segments(x0 - dxWagon * 0.5, dxWagon, y0, dyWagon, z0 + dzRear, dzWagon);
 

@@ -29,7 +29,6 @@ public class Camper0Model extends PickupModel {
 		super(dxFront, dyfront, dzFront, dxRoof, dyRoof, dzRoof, dxRear, dyRear, dzRear, dxWagon, dyWagon, dzWagon,
 				rearOverhang, frontOverhang, rearOverhang1, frontOverhang1, wheelRadius, wheelWidth, wheel_rays);
 
-		nWagonUnits = 2;
 		dzWagon0 = dzFront + dzRoof - dzRear;
 	}
 
@@ -63,7 +62,7 @@ public class Camper0Model extends PickupModel {
 
 		buildCabin();
 		buildRear();
-		buildWagon(nWagonUnits);
+		buildWagon();
 
 		buildWheels();
 		buildTextures();
@@ -82,7 +81,7 @@ public class Camper0Model extends PickupModel {
 		faces = new int[NF + NUM_WHEEL_FACES][3][4];
 
 		int counter = 0;
-		counter = buildBodyFaces(counter, nzBody, nWagonUnits);
+		counter = buildBodyFaces(counter, nzBody);
 		counter = buildWheelFaces(counter, totWheelPolygon);
 
 	}
@@ -203,7 +202,9 @@ public class Camper0Model extends PickupModel {
 	}
 
 	@Override
-	protected void buildWagon(int nzWagon) {
+	protected void buildWagon() {
+
+		int nzWagon=nWagonSides+1;
 
 		Segments s0 = new Segments(x0 - dxWagon * 0.5, dxWagon, y0, dyRear, z0 + dzRear, dzWagon0);
 
@@ -240,7 +241,9 @@ public class Camper0Model extends PickupModel {
 	 * @return
 	 */
 	@Override
-	protected int buildWagonFaces(int counter, int nzWagon) {
+	protected int buildWagonFaces(int counter) {
+
+		int nzWagon=2;
 
 		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0], wagon[0][3], wagon[0][2], wagon[0][1],
 				tWagon[0]);
@@ -279,7 +282,7 @@ public class Camper0Model extends PickupModel {
 	}
 
 	@Override
-	protected int buildRearYFaces(int counter, int nzRear, int nzWagon) {
+	protected int buildRearYFaces(int counter, int nzRear) {
 
 		int numSections = rear.length;
 

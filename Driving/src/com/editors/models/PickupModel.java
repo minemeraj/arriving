@@ -25,8 +25,6 @@ public class PickupModel extends Truck0Model {
 	protected Prism prismBack;
 	protected Prism prismFront;
 
-	protected int nWagonUnits = 10;
-
 	protected int[] tTopWagon = null;
 	protected int[] tTopRear = null;
 	protected int[] tTopFront = null;
@@ -62,7 +60,7 @@ public class PickupModel extends Truck0Model {
 
 		buildRear();
 
-		buildWagon(nWagonUnits);
+		buildWagon();
 
 		buildWheels();
 		buildTextures();
@@ -81,7 +79,7 @@ public class PickupModel extends Truck0Model {
 		faces = new int[NF + NUM_WHEEL_FACES][3][4];
 
 		int counter = 0;
-		counter = buildBodyFaces(counter, nzBody, nWagonUnits);
+		counter = buildBodyFaces(counter, nzBody);
 		counter = buildWheelFaces(counter, totWheelPolygon);
 
 	}
@@ -366,7 +364,7 @@ public class PickupModel extends Truck0Model {
 	}
 
 	@Override
-	protected int buildRearYFaces(int counter, int nzRear, int nzWagon) {
+	protected int buildRearYFaces(int counter, int nzRear) {
 
 		int numSections = rear.length;
 
@@ -391,11 +389,11 @@ public class PickupModel extends Truck0Model {
 	}
 
 	@Override
-	protected int buildBodyFaces(int counter, int nzRear, int nzWagon) {
+	protected int buildBodyFaces(int counter, int nzRear) {
 
 		counter = buildCabinFaces(counter, nYcab, nzCab);
-		counter = buildRearYFaces(counter, nzRear, nzWagon);
-		counter = buildWagonFaces(counter, nzWagon);
+		counter = buildRearYFaces(counter, nzRear);
+		counter = buildWagonFaces(counter);
 
 		return counter;
 	}
@@ -466,7 +464,7 @@ public class PickupModel extends Truck0Model {
 	}
 
 	@Override
-	protected void buildWagon(int nWagongMeridians) {
+	protected void buildWagon() {
 
 		double rdy = (dyRear - dyWagon) * 0.5;
 
@@ -526,7 +524,7 @@ public class PickupModel extends Truck0Model {
 	}
 
 	@Override
-	protected int buildWagonFaces(int counter, int nWagonMeridians) {
+	protected int buildWagonFaces(int counter) {
 
 		counter = addPrism(prismRight, counter, tRightWagon[0]);
 		counter = addPrism(prismLeft, counter, tLeftWagon[0]);
