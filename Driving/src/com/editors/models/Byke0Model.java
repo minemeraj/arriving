@@ -160,24 +160,24 @@ public class Byke0Model extends VehicleModel {
 		Segments hb = new Segments(xc, dxFront, 2 * wheelRadius + dyRoof, dyFront, 2 * wheelRadius, dzFront);
 
 
-		handlebar = new BPoint[nyHandleBar][2][2];
+		handlebar = new BPoint[2][nyHandleBar][2];
 
 		double zrf = dzRoof / dzFront;
 
 		handlebar[0][0][0] = addBPoint(-0.5, 0.0, 0.0, hb);
-		handlebar[0][1][0] = addBPoint(0.5, 0.0, 0.0, hb);
-		handlebar[0][1][1] = addBPoint(0.5, 0.0, 1.0, hb);
+		handlebar[1][0][0] = addBPoint(0.5, 0.0, 0.0, hb);
+		handlebar[1][0][1] = addBPoint(0.5, 0.0, 1.0, hb);
 		handlebar[0][0][1] = addBPoint(-0.5, 0.0, 1.0, hb);
 
-		handlebar[1][0][0] = addBPoint(-0.5, 0.5, 0.0, hb);
+		handlebar[0][1][0] = addBPoint(-0.5, 0.5, 0.0, hb);
 		handlebar[1][1][0] = addBPoint(0.5, 0.5, 0.0, hb);
 		handlebar[1][1][1] = addBPoint(0.5, 0.5, 1.0, hb);
-		handlebar[1][0][1] = addBPoint(-0.5, 0.5, 1.0, hb);
+		handlebar[0][1][1] = addBPoint(-0.5, 0.5, 1.0, hb);
 
-		handlebar[2][0][0] = addBPoint(0.0, 1.0, 0.0, hb);
-		handlebar[2][1][0] = addBPoint(0.0, 1.0, 0.0, hb);
-		handlebar[2][1][1] = addBPoint(0.0, 1.0, zrf, hb);
-		handlebar[2][0][1] = addBPoint(0.0, 1.0, zrf, hb);
+		handlebar[0][2][0] = addBPoint(0.0, 1.0, 0.0, hb);
+		handlebar[1][2][0] = addBPoint(0.0, 1.0, 0.0, hb);
+		handlebar[1][2][1] = addBPoint(0.0, 1.0, zrf, hb);
+		handlebar[0][2][1] = addBPoint(0.0, 1.0, zrf, hb);
 
 		double wz = wheelRadius;
 		double wx = wheelWidth * 0.5;
@@ -243,10 +243,10 @@ public class Byke0Model extends VehicleModel {
 		addTPoint(x+totDZ-rearByke[1][0][0].z,y+rearByke[1][0][0].y,0);
 
 		for (int i = 0; i < nyHandleBar-1; i++) {
-			addTPoint(x+totDZ-handlebar[i][0][0].z,y+handlebar[i][0][0].y,0);
-			addTPoint(x+totDZ-handlebar[i][0][1].z,y+handlebar[i][0][1].y,0);
-			addTPoint(x+totDZ-handlebar[i+1][0][1].z,y+handlebar[i+1][0][1].y,0);
-			addTPoint(x+totDZ-handlebar[i+1][0][0].z,y+handlebar[i+1][0][0].y,0);
+			addTPoint(x+totDZ-handlebar[0][i][0].z,y+handlebar[0][i][0].y,0);
+			addTPoint(x+totDZ-handlebar[0][i][1].z,y+handlebar[0][i][1].y,0);
+			addTPoint(x+totDZ-handlebar[0][i+1][1].z,y+handlebar[0][i+1][1].y,0);
+			addTPoint(x+totDZ-handlebar[0][i+1][0].z,y+handlebar[0][i+1][0].y,0);
 		}
 
 		addTPoint(x+totDZ-body[0][0][0].z,y+body[0][0][0].y,0);
@@ -275,10 +275,10 @@ public class Byke0Model extends VehicleModel {
 		addTPoint(middleX+roofByke[0+1][0][0].x,y+roofByke[0+1][0][0].y,0);
 
 		for (int i = 0; i < nyHandleBar-1; i++) {
-			addTPoint(middleX+handlebar[i][0][0].x,y+handlebar[i][0][0].y,0);
-			addTPoint(middleX+handlebar[i][1][0].x,y+handlebar[i][1][0].y,0);
-			addTPoint(middleX+handlebar[i+1][1][0].x,y+handlebar[i+1][1][0].y,0);
-			addTPoint(middleX+handlebar[i+1][0][0].x,y+handlebar[i+1][0][0].y,0);
+			addTPoint(middleX+handlebar[0][i][0].x,y+handlebar[0][i][0].y,0);
+			addTPoint(middleX+handlebar[1][i][0].x,y+handlebar[1][i][0].y,0);
+			addTPoint(middleX+handlebar[1][i+1][0].x,y+handlebar[1][i+1][0].y,0);
+			addTPoint(middleX+handlebar[0][i+1][0].x,y+handlebar[0][i+1][0].y,0);
 		}
 
 	}
@@ -291,10 +291,10 @@ public class Byke0Model extends VehicleModel {
 		addTPoint(x+rearByke[1][0][0].z,y+rearByke[1][0][0].y,0);
 
 		for (int i = 0; i < nyHandleBar-1; i++) {
-			addTPoint(x+handlebar[i][0][0].z,y+handlebar[i][0][0].y,0);
-			addTPoint(x+handlebar[i][0][1].z,y+handlebar[i][0][1].y,0);
-			addTPoint(x+handlebar[i+1][0][1].z,y+handlebar[i+1][0][1].y,0);
-			addTPoint(x+handlebar[i+1][0][0].z,y+handlebar[i+1][0][0].y,0);
+			addTPoint(x+handlebar[0][i][0].z,y+handlebar[0][i][0].y,0);
+			addTPoint(x+handlebar[0][i][1].z,y+handlebar[0][i][1].y,0);
+			addTPoint(x+handlebar[0][i+1][1].z,y+handlebar[0][i+1][1].y,0);
+			addTPoint(x+handlebar[0][i+1][0].z,y+handlebar[0][i+1][0].y,0);
 		}
 
 		addTPoint(x+body[0][0][0].z,y+body[0][0][0].y,0);
@@ -414,30 +414,29 @@ public class Byke0Model extends VehicleModel {
 		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[0][1][0], body[0][1][1], body[1][1][1], body[1][1][0],
 				tBo[0]);
 
-		int nyh = handlebar.length;
-		faces[counter++] = buildFace(Renderer3D.CAR_BACK, handlebar[0][0][0], handlebar[0][1][0], handlebar[0][1][1],
+		faces[counter++] = buildFace(Renderer3D.CAR_BACK, handlebar[0][0][0], handlebar[1][0][0], handlebar[1][0][1],
 				handlebar[0][0][1], tBo[0]);
-		for (int k = 0; k < nyh - 1; k++) {
+		for (int k = 0; k < nyHandleBar - 1; k++) {
 
-			if (k < nyh - 2) {
-				faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, handlebar[k][0][0], handlebar[k + 1][0][0],
-						handlebar[k + 1][1][0], handlebar[k][1][0], tBo[0]);
+			if (k < nyHandleBar - 2) {
+				faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, handlebar[0][k][0], handlebar[0][k + 1][0],
+						handlebar[1][k + 1][0], handlebar[1][k][0], tBo[0]);
 			} else {
-				faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, handlebar[k][0][0], handlebar[k + 1][0][0],
-						handlebar[k + 1][1][0], tBo[0]);
+				faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, handlebar[0][k][0], handlebar[0][k + 1][0],
+						handlebar[1][k + 1][0], tBo[0]);
 			}
 
-			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, handlebar[k][0][0], handlebar[k][0][1],
-					handlebar[k + 1][0][1], handlebar[k + 1][0][0], tBo[0]);
-			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, handlebar[k][1][0], handlebar[k + 1][1][0],
-					handlebar[k + 1][1][1], handlebar[k][1][1], tBo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, handlebar[0][k][0], handlebar[0][k][1],
+					handlebar[0][k + 1][1], handlebar[0][k + 1][0], tBo[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, handlebar[1][k][0], handlebar[1][k + 1][0],
+					handlebar[1][k + 1][1], handlebar[1][k][1], tBo[0]);
 
-			if (k < nyh - 2) {
-				faces[counter++] = buildFace(Renderer3D.CAR_TOP, handlebar[k][0][1], handlebar[k][1][1],
-						handlebar[k + 1][1][1], handlebar[k + 1][0][1], tBo[0]);
+			if (k < nyHandleBar - 2) {
+				faces[counter++] = buildFace(Renderer3D.CAR_TOP, handlebar[0][k][1], handlebar[1][k][1],
+						handlebar[1][k + 1][1], handlebar[0][k + 1][1], tBo[0]);
 			} else {
-				faces[counter++] = buildFace(Renderer3D.CAR_TOP, handlebar[k][0][1], handlebar[k][1][1],
-						handlebar[k + 1][0][1], tBo[0]);
+				faces[counter++] = buildFace(Renderer3D.CAR_TOP, handlebar[0][k][1], handlebar[1][k][1],
+						handlebar[0][k + 1][1], tBo[0]);
 			}
 		}
 
@@ -482,10 +481,8 @@ public class Byke0Model extends VehicleModel {
 
 	@Override
 	public void printMeshData(PrintWriter pw) {
-
 		super.printMeshData(pw);
 		super.printFaces(pw, faces);
-
 	}
 
 	@Override
