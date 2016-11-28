@@ -565,6 +565,11 @@
 	Trailing wheel diameter 1,25m
 	Gauge 	1,435 mm
 	Length over buffers (with tender) 23.940 m
+	Length over buffers (with no Tender) 14.7m (Approximately)
+	
+	Tender sizes:
+	Length over buffers 9.2m
+	Width 3.2m
 	
 	Tanker ship sizes:
 	length=175m  breadth=27.6m
