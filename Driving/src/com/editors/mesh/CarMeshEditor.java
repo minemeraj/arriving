@@ -34,7 +34,7 @@ import com.editors.models.RailWagonBulkModel;
 import com.editors.models.RailWagonCoachModel;
 import com.editors.models.RailWagonCoalModel;
 import com.editors.models.RailWagonTankModel;
-import com.editors.models.RaillWagonTenderModel;
+import com.editors.models.RailWagonTenderModel;
 import com.editors.models.Sailer0Model;
 import com.editors.models.Ship0Model;
 import com.editors.models.StarShip0Model;
@@ -520,7 +520,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 			meshModel = new RailWagonCoachModel(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof,
 					rearOverhang, frontOverhang, wheelRadius, wheelWidth, wheelRays);
 		} else if (val == RAILWAGON_TENDER) {
-			meshModel = new RaillWagonTenderModel(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof,
+			meshModel = new RailWagonTenderModel(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof,
 					rearOverhang, frontOverhang, wheelRadius, wheelWidth, wheelRays);
 		}else if (val == TRACTOR0) {
 			meshModel = new Tractor0Model(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof, wheelRadius,

@@ -27,9 +27,7 @@ public class RailWagonCoalModel extends RailWagonBulkModel {
 	@Override
 	public void initMesh() {
 
-		int c = 0;
-		c = initDoubleArrayValues(tBo = new int[1][4], c);
-		c = initDoubleArrayValues(tWh = new int[1][4], c);
+		initTextureArrays();
 
 		points = new Vector<Point3D>();
 		texturePoints = new Vector<Point3D>();
@@ -39,9 +37,7 @@ public class RailWagonCoalModel extends RailWagonBulkModel {
 		int pnz = 2;
 
 		buildBody(pnx, pny, pnz);
-
 		buildWagon();
-
 		buildTextures();
 
 		// faces
@@ -53,11 +49,8 @@ public class RailWagonCoalModel extends RailWagonBulkModel {
 		faces = new int[NF + NUM_WHEEL_FACES][3][4];
 
 		int counter = 0;
-
-		counter = buildBodyFaces(counter, tWh[0][0], totWheelPolygon);
-
+		counter = buildBodyFaces(counter,  totWheelPolygon);
 		counter = buildWagonFaces(counter);
-
 	}
 
 	@Override

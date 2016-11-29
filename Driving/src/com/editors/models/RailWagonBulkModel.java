@@ -31,9 +31,7 @@ public class RailWagonBulkModel extends RailWagon0Model {
 	@Override
 	public void initMesh() {
 
-		int c = 0;
-		c = initDoubleArrayValues(tBo = new int[1][4], c);
-		c = initDoubleArrayValues(tWh = new int[1][4], c);
+		initTextureArrays();
 
 		points = new Vector<Point3D>();
 		texturePoints = new Vector<Point3D>();
@@ -59,7 +57,7 @@ public class RailWagonBulkModel extends RailWagon0Model {
 
 		int counter = 0;
 
-		counter = buildBodyFaces(counter, firstWheelTexturePoint, totWheelPolygon);
+		counter = buildBodyFaces(counter,  totWheelPolygon);
 
 		counter = buildWagonFaces(counter);
 

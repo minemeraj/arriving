@@ -26,9 +26,7 @@ public class RailWagonTankModel extends RailWagon0Model {
 	@Override
 	public void initMesh() {
 
-		int c = 0;
-		c = initDoubleArrayValues(tBo = new int[1][4], c);
-		c = initDoubleArrayValues(tWh = new int[1][4], c);
+		initTextureArrays();
 
 		points = new Vector<Point3D>();
 		texturePoints = new Vector<Point3D>();
@@ -38,10 +36,7 @@ public class RailWagonTankModel extends RailWagon0Model {
 		int pnz = 2;
 
 		buildBody(pnx, pny, pnz);
-
 		buildWagon();
-
-		int firstWheelTexturePoint = 4;
 		buildTextures();
 
 		// faces
@@ -54,14 +49,11 @@ public class RailWagonTankModel extends RailWagon0Model {
 		faces = new int[NF + NUM_WHEEL_FACES + totWagonPolygons][3][4];
 
 		int counter = 0;
-
-		counter = buildBodyFaces(counter, firstWheelTexturePoint, totWheelPolygon);
-
-		counter = buildWagonFaces(counter, wagon);
+		counter = buildBodyFaces(counter,totWheelPolygon);
+		counter = buildWagonFaces(counter);
 
 		IMG_WIDTH = (int) (2 * bx + dx);
 		IMG_HEIGHT = (int) (2 * by + dy);
-
 	}
 
 	@Override
@@ -78,7 +70,7 @@ public class RailWagonTankModel extends RailWagon0Model {
 	}
 
 	@Override
-	protected int buildWagonFaces(int counter, BPoint[][][] wagon) {
+	protected int buildWagonFaces(int counter) {
 
 		BPoint[][] cylinder = wagon[0];
 		int raysNumber = cylinder.length;
