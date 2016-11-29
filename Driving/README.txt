@@ -570,6 +570,8 @@
 	Tender sizes:
 	Length over buffers 8.9m
 	Width 3.1m
+	Gauge 	1,435 mm
+	Distance of boogie centers=4.4 mm.
 	
 	Tanker ship sizes:
 	length=175m  breadth=27.6m
