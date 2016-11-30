@@ -47,8 +47,6 @@ public class PickupModel extends Truck0Model {
 
 		initTexturesArrays();
 
-
-
 		points = new Vector<Point3D>();
 		texturePoints = new Vector();
 
@@ -195,7 +193,7 @@ public class PickupModel extends Truck0Model {
 
 	}
 
-	private void buildBackTextures(double x, double y, int shift) {
+	protected void buildBackTextures(double x, double y, int shift) {
 
 		addTRect(x, y, dxRear, dzRear);
 		y += dzRear;
@@ -534,47 +532,39 @@ public class PickupModel extends Truck0Model {
 		return counter;
 	}
 
+	protected Color rearColor = new Color(217, 15, 27);
+	protected Color frontColor = new Color(72, 178, 230);
+
 	@Override
 	public void printTexture(Graphics2D bufGraphics) {
 
 		bufGraphics.setStroke(new BasicStroke(0.1f));
 
-		Color rearColor = new Color(217, 15, 27);
-		Color frontColor = new Color(72, 178, 230);
+		bufGraphics.setColor(rearColor);
+		printTexturePolygon(bufGraphics, tLeftRear);
+
+		bufGraphics.setColor(frontColor);
+		printTexturePolygon(bufGraphics, tLeftFront);
 
 		bufGraphics.setColor(rearColor);
-		for (int i = 0; i < tLeftRear.length; i++) {
-			printTexturePolygon(bufGraphics, tLeftRear[i]);
-		}
-		bufGraphics.setColor(frontColor);
-		for (int i = 0; i < tLeftFront.length; i++) {
-			printTexturePolygon(bufGraphics, tLeftFront[i]);
-		}
-		bufGraphics.setColor(rearColor);
-		printTexturePolygon(bufGraphics, tLeftWagon[0]);
+		printTexturePolygon(bufGraphics, tLeftWagon);
 
 		bufGraphics.setColor(frontColor);
 		printTexturePolygon(bufGraphics, tTopFront);
 		bufGraphics.setColor(rearColor);
-		for (int i = 0; i < tLeftRoof.length; i++) {
-			printTexturePolygon(bufGraphics, tLeftRoof[i]);
-		}
+		printTexturePolygon(bufGraphics, tLeftRoof);
+
 		printTexturePolygon(bufGraphics, tTopRoof);
 		printTexturePolygon(bufGraphics, tTopRear);
+
 		bufGraphics.setColor(rearColor);
-		for (int i = 0; i < tRightRear.length; i++) {
-			printTexturePolygon(bufGraphics, tRightRear[i]);
-		}
+		printTexturePolygon(bufGraphics, tRightRear);
 		bufGraphics.setColor(frontColor);
-		for (int i = 0; i < tRightFront.length; i++) {
-			printTexturePolygon(bufGraphics, tRightFront[i]);
-		}
+		printTexturePolygon(bufGraphics, tRightFront);
 		bufGraphics.setColor(rearColor);
-		for (int i = 0; i < tRightRoof.length; i++) {
-			printTexturePolygon(bufGraphics, tRightRoof[i]);
-		}
+		printTexturePolygon(bufGraphics, tRightRoof);
 		bufGraphics.setColor(rearColor);
-		printTexturePolygon(bufGraphics, tRightWagon[0]);
+		printTexturePolygon(bufGraphics, tRightWagon);
 
 		printTexturePolygon(bufGraphics, tBackWagon[0]);
 		printTexturePolygon(bufGraphics, tBackRear);

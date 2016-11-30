@@ -34,15 +34,8 @@ public class Jeep0Model extends PickupModel {
 	@Override
 	public void initMesh() {
 
-		int c = 0;
-		c = initDoubleArrayValues(tBackWagon = new int[1][4], c);
-		c = initSingleArrayValues(tTopWagon = new int[4], c);
-		c = initSingleArrayValues(tTopRear = new int[4], c);
-		c = initSingleArrayValues(tTopFront = new int[4], c);
-		c = initDoubleArrayValues(tRe = new int[1][4], c);
-		c = initDoubleArrayValues(tWagon = new int[1][4], c);
-		c = initDoubleArrayValues(tWi = new int[1][4], c);
-		c = initDoubleArrayValues(tWh = new int[1][4], c);
+		initTexturesArrays();
+
 
 		points = new Vector<Point3D>();
 		texturePoints = new Vector();
@@ -55,7 +48,6 @@ public class Jeep0Model extends PickupModel {
 
 		buildRear();
 		buildWagon();
-
 		buildWheels();
 		buildTextures();
 
@@ -80,12 +72,114 @@ public class Jeep0Model extends PickupModel {
 	}
 
 	@Override
+	protected void initTexturesArrays() {
+
+		int c = 0;
+		c = initDoubleArrayValues(tLeftRear = new int[1][4], c);
+		c = initDoubleArrayValues(tLeftFront = new int[nYcab - 1][4], c);
+		c = initDoubleArrayValues(tLeftWagon = new int[1][4], c);
+		c = initDoubleArrayValues(tBackWagon = new int[1][4], c);
+		c = initSingleArrayValues(tTopWagon = new int[4], c);
+		c = initSingleArrayValues(tTopRear = new int[4], c);
+		c = initSingleArrayValues(tTopFront = new int[4], c);
+		c = initDoubleArrayValues(tRightRear = new int[1][4], c);
+		c = initDoubleArrayValues(tRightFront = new int[nYcab - 1][4], c);
+		c = initDoubleArrayValues(tRightWagon = new int[1][4], c);
+		c = initDoubleArrayValues(tRe = new int[1][4], c);
+		c = initDoubleArrayValues(tWagon = new int[1][4], c);
+		c = initDoubleArrayValues(tWi = new int[1][4], c);
+		c = initDoubleArrayValues(tWh = new int[1][4], c);
+	}
+
+	@Override
 	protected void buildTextures() {
 
 		int shift = 1;
-
 		double y = by;
 		double x = bx;
+
+		double dxMaxR = Math.max(dxRear, dxWagon);
+		dxMaxR = Math.max(dxMaxR, dxFront);
+
+		buildLefTextures(x, y, shift);
+		x+=dxMaxR;
+		buildBackTextures(x, y, shift);
+		y += dzWagon + shift;
+		y += dyWagon + shift;
+		buildTopTextures(x, y, shift);
+		x += dxMaxR + shift;
+		y=by;
+		buildRightTextures(x, y, shift);
+		x+=dxMaxR+shift;
+		// rear points
+		y = by;
+		addTRect(x, y, dxTexture, dyTexture);
+		// wagon points
+		x += dxTexture + shift;
+		y = by;
+		addTRect(x, y, dxTexture, dyTexture);
+		// window points
+		x += dxTexture + shift;
+		y = by;
+		addTRect(x, y, dxTexture, dyTexture);
+		// wheel texture, a black square for simplicity:
+		x += dxTexture + shift;
+		y = by;
+		buildWheelTextures(x,y);
+		x+=wheelWidth;
+
+		IMG_WIDTH = (int) (bx + x);
+		IMG_HEIGHT = (int) (2 * by + +dzWagon + dyWagon + dyRear + dyFront + 3 * shift);
+	}
+
+	@Override
+	protected void buildLefTextures(double x, double y, int shift) {
+		for (int i = 0; i < rear.length - 1; i++) {
+			addTPoint(x + rear[i][0].z, y + rear[i][0].y, 0);
+			addTPoint(x + rear[i][3].z, y + rear[i][3].y, 0);
+			addTPoint(x + rear[i + 1][3].z, y + rear[i + 1][3].y, 0);
+			addTPoint(x + rear[i + 1][0].z, y + rear[i + 1][0].y, 0);
+		}
+		//// left front texture
+		for (int i = 0; i < nYcab - 1; i++) {
+			addTPoint(x + cab[0][i][0].z, y + cab[0][i][0].y, 0);
+			addTPoint(x + cab[0][i][1].z, y + cab[0][i][1].y, 0);
+			addTPoint(x + cab[0][i + 1][1].z, y + cab[0][i + 1][1].y, 0);
+			addTPoint(x + cab[0][i + 1][0].z, y + cab[0][i + 1][0].y, 0);
+		}
+		addTRect(x + dzRear, y, dzWagon, dyWagon);
+	}
+
+	@Override
+	protected void buildRightTextures(double x, double y, int shift) {
+		double dzRight = dzRoof + dzFront;
+
+		for (int i = 0; i < rear.length - 1; i++) {
+			addTPoint(x + dzRight - rear[i][3].z, y + rear[i][3].y, 0);
+			addTPoint(x + dzRight - rear[i][0].z, y + rear[i][0].y, 0);
+			addTPoint(x + dzRight - rear[i + 1][0].z, y + rear[i + 1][0].y, 0);
+			addTPoint(x + dzRight - rear[i + 1][3].z, y + rear[i + 1][3].y, 0);
+
+		}
+
+		for (int i = 0; i < nYcab - 1; i++) {
+
+			addTPoint(x + dzRight - cab[0][i][1].z, y + cab[0][i][1].y, 0);
+			addTPoint(x + dzRight - cab[0][i][0].z, y + cab[0][i][0].y, 0);
+			addTPoint(x + dzRight - cab[0][i + 1][0].z, y + cab[0][i + 1][0].y, 0);
+			addTPoint(x + dzRight - cab[0][i + 1][1].z, y + cab[0][i + 1][1].y, 0);
+
+		}
+		addTRect(x + dzRight - dzRear - dzWagon, y, dzWagon, dyWagon);
+	}
+
+	private void buildWheelTextures(double x, double y) {
+		addTRect(x, y, wheelWidth, wheelWidth);
+
+	}
+
+	@Override
+	protected void buildTopTextures(double x, double y, int shift) {
 
 		double dxMaxR = Math.max(dxRear, dxWagon);
 		dxMaxR = Math.max(dxMaxR, dxFront);
@@ -93,36 +187,16 @@ public class Jeep0Model extends PickupModel {
 		double deltaXRe = (midX - dxRear * 0.5 - bx);
 		double deltaXFr = (midX - dxFront * 0.5 - bx);
 
-		addTRect(x, y, dxWagon, dzWagon);
-		y += dzWagon + shift;
-		addTRect(x, y, dxWagon, dyWagon);
-		y += dyWagon + shift;
 		addTRect(x + deltaXRe, y, dxRear, dyRear);
 		y += dyRear + shift;
 		addTRect(x + deltaXFr, y, dxFront, dyFront);
+	}
 
-		// rear points
-		x += dxMaxR + shift;
-		y = by;
-		addTRect(x, y, dxTexture, dyTexture);
-
-		// wagon points
-		x += dxTexture + shift;
-		y = by;
-		addTRect(x, y, dxTexture, dyTexture);
-
-		// window points
-		x += dxTexture + shift;
-		y = by;
-		addTRect(x, y, dxTexture, dyTexture);
-
-		// wheel texture, a black square for simplicity:
-		x += dxTexture + shift;
-		y = by;
-		addTRect(x, y, wheelWidth, wheelWidth);
-
-		IMG_WIDTH = (int) (2 * bx + 3 * dxTexture + wheelWidth + 4 * shift + dxMaxR);
-		IMG_HEIGHT = (int) (2 * by + +dzWagon + dyWagon + dyRear + dyFront + 3 * shift);
+	@Override
+	protected void buildBackTextures(double x, double y, int shift) {
+		addTRect(x, y, dxWagon, dzWagon);
+		y += dzWagon + shift;
+		addTRect(x, y, dxWagon, dyWagon);
 	}
 
 	@Override
@@ -492,6 +566,13 @@ public class Jeep0Model extends PickupModel {
 
 		bufGraphics.setStroke(new BasicStroke(0.1f));
 
+		bufGraphics.setColor(rearColor);
+		printTexturePolygon(bufGraphics, tLeftRear);
+		bufGraphics.setColor(frontColor);
+		printTexturePolygon(bufGraphics, tLeftFront);
+		bufGraphics.setColor(rearColor);
+		printTexturePolygon(bufGraphics, tLeftWagon);
+
 		bufGraphics.setColor(new Color(132, 126, 90));
 		printTexturePolygon(bufGraphics, tBackWagon[0]);
 		printTexturePolygon(bufGraphics, tTopWagon);
@@ -499,6 +580,13 @@ public class Jeep0Model extends PickupModel {
 		printTexturePolygon(bufGraphics, tTopRear);
 		bufGraphics.setColor(new Color(111, 140, 112));
 		printTexturePolygon(bufGraphics, tTopFront);
+
+		bufGraphics.setColor(rearColor);
+		printTexturePolygon(bufGraphics, tRightRear);
+		bufGraphics.setColor(frontColor);
+		printTexturePolygon(bufGraphics, tRightFront);
+		bufGraphics.setColor(rearColor);
+		printTexturePolygon(bufGraphics, tRightWagon);
 
 		bufGraphics.setColor(new Color(111, 140, 112));
 		printTexturePolygon(bufGraphics, tRe[0]);
