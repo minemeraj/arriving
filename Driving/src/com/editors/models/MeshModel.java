@@ -870,8 +870,8 @@ public abstract class MeshModel {
 
 		for (int i = 0; i < barrel_meridians; i++) {
 
-			double x = cyx0 + cylinder_radius * Math.cos(2 * Math.PI / barrel_meridians * i);
-			double z = cyz0 + cylinder_radius * Math.sin(2 * Math.PI / barrel_meridians * i);
+			double x = cyx0 + cylinder_radius * Math.cos(-2 * Math.PI / barrel_meridians * i-Math.PI*0.5);
+			double z = cyz0 + cylinder_radius * Math.sin(-2 * Math.PI / barrel_meridians * i-Math.PI*0.5);
 
 			trunkpoints[i][1] = addBPoint(x, cyy0 + cylinder_lenght, z);
 
@@ -879,8 +879,8 @@ public abstract class MeshModel {
 
 		for (int i = 0; i < barrel_meridians; i++) {
 
-			double x = cyx0 + cylinder_radius * Math.cos(2 * Math.PI / barrel_meridians * i);
-			double z = cyz0 + cylinder_radius * Math.sin(2 * Math.PI / barrel_meridians * i);
+			double x = cyx0 + cylinder_radius * Math.cos(-2 * Math.PI / barrel_meridians * i-Math.PI*0.5);
+			double z = cyz0 + cylinder_radius * Math.sin(-2 * Math.PI / barrel_meridians * i-Math.PI*0.5);
 
 			trunkpoints[i][0] = addBPoint(x, cyy0, z);
 

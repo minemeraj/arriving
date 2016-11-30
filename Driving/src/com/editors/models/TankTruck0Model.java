@@ -117,8 +117,8 @@ public class TankTruck0Model extends Truck0Model {
 	protected int buildWagonFaces(int counter) {
 
 		for (int i = 0; i < wagon.length; i++) {
-			faces[counter++] = buildFace(Renderer3D.CAR_TOP, wagon[i][0], wagon[(i + 1) % wagon.length][0],
-					wagon[(i + 1) % wagon.length][1], wagon[i][1], tRe[0]);
+			faces[counter++] = buildFace(Renderer3D.CAR_TOP,wagon[i][0],wagon[(i + 1) % wagon.length][0],wagon[(i + 1) % wagon.length][1], wagon[i][1],
+					tWagon[i]);
 		}
 
 		for (int i = 1; i < nWagonSides - 1; i++) {
