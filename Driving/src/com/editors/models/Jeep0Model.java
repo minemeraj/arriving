@@ -101,7 +101,7 @@ public class Jeep0Model extends PickupModel {
 		double dxMaxR = Math.max(dxRear, dxWagon);
 		dxMaxR = Math.max(dxMaxR, dxFront);
 
-		buildLefTextures(x, y, shift);
+		buildLefTextures(x, y+dzWagon + shift, shift);
 		x+=dxMaxR;
 		buildBackTextures(x, y, shift);
 		y += dzWagon + shift;
@@ -110,7 +110,7 @@ public class Jeep0Model extends PickupModel {
 		buildFrontTextures(x, y, shift);
 		x += dxMaxR + shift;
 		y=by;
-		buildRightTextures(x, y, shift);
+		buildRightTextures(x, y+dzWagon + shift, shift);
 		x+=dxMaxR+shift;
 		// rear points
 		y = by;

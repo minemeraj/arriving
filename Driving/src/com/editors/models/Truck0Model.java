@@ -246,8 +246,8 @@ public class Truck0Model extends VehicleModel {
 				faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, cab[1][j][k], cab[1][j + 1][k], cab[1][j + 1][k + 1],
 						cab[1][j][k + 1], tRightFront[j]);
 				if (j == nYcab - 2) {
-					faces[counter++] = buildFace(Renderer3D.CAR_FRONT, cab[0][nYcab - 1][k], cab[0][nYcab - 1][k + 1],
-							cab[1][nYcab - 1][k + 1], cab[1][nYcab - 1][k], tRe[0]);
+					faces[counter++] = buildFace(Renderer3D.CAR_FRONT,  cab[0][nYcab - 1][k + 1],
+							cab[1][nYcab - 1][k + 1], cab[1][nYcab - 1][k],cab[0][nYcab - 1][k], tFrontCabin[k]);
 				}
 
 			}
@@ -397,10 +397,10 @@ public class Truck0Model extends VehicleModel {
 	protected void buildFrontTextures(double x, double y, int shift) {
 		int ind=nYcab-1;
 		for (int k = 0; k<nzCab-1; k++) {
-			addTPoint(x + cab[1][ind][k+1].x, y + cab[1][ind][k+1].z, 0);
-			addTPoint(x + cab[0][ind][k+1].x, y + cab[0][ind][k+1].z, 0);
 			addTPoint(x + cab[0][ind][k].x, y + cab[0][ind][k].z, 0);
 			addTPoint(x + cab[1][ind][k].x, y + cab[1][ind][k].z, 0);
+			addTPoint(x + cab[1][ind][k+1].x, y + cab[1][ind][k+1].z, 0);
+			addTPoint(x + cab[0][ind][k+1].x, y + cab[0][ind][k+1].z, 0);
 		}
 	}
 
