@@ -17,7 +17,6 @@ public class Jeep0Model extends PickupModel {
 	BPoint[][][] wagonSides = null;
 	BPoint[][] wagonBack = null;
 	BPoint[][] wagonBottom = null;
-
 	private BPoint[][][][] cabSides;
 
 	public Jeep0Model(double dxFront, double dyfront, double dzFront, double dxRoof, double dyRoof, double dzRoof,
@@ -77,14 +76,15 @@ public class Jeep0Model extends PickupModel {
 		int c = 0;
 		c = initDoubleArrayValues(tLeftRear = new int[1][4], c);
 		c = initDoubleArrayValues(tLeftFront = new int[nYcab - 1][4], c);
-		c = initDoubleArrayValues(tLeftWagon = new int[1][4], c);
+		c = initDoubleArrayValues(tLeftWagon = new int[nyBody-1][4], c);
 		c = initDoubleArrayValues(tBackWagon = new int[1][4], c);
 		c = initSingleArrayValues(tTopWagon = new int[4], c);
 		c = initSingleArrayValues(tTopRear = new int[4], c);
-		c = initSingleArrayValues(tTopFront = new int[4], c);
+		c = initDoubleArrayValues(tTopFront = new int[nYcab-1][4], c);
+		c = initDoubleArrayValues(tFrontCabin = new int[nzCab-1][4], c);
 		c = initDoubleArrayValues(tRightRear = new int[1][4], c);
 		c = initDoubleArrayValues(tRightFront = new int[nYcab - 1][4], c);
-		c = initDoubleArrayValues(tRightWagon = new int[1][4], c);
+		c = initDoubleArrayValues(tRightWagon = new int[nyBody-1][4], c);
 		c = initDoubleArrayValues(tRe = new int[1][4], c);
 		c = initDoubleArrayValues(tWagon = new int[1][4], c);
 		c = initDoubleArrayValues(tWi = new int[1][4], c);
@@ -105,8 +105,9 @@ public class Jeep0Model extends PickupModel {
 		x+=dxMaxR;
 		buildBackTextures(x, y, shift);
 		y += dzWagon + shift;
-		y += dyWagon + shift;
 		buildTopTextures(x, y, shift);
+		y += dyWagon+dyRear+shift;
+		buildFrontTextures(x, y, shift);
 		x += dxMaxR + shift;
 		y=by;
 		buildRightTextures(x, y, shift);
@@ -134,6 +135,7 @@ public class Jeep0Model extends PickupModel {
 
 	@Override
 	protected void buildLefTextures(double x, double y, int shift) {
+
 		for (int i = 0; i < rear.length - 1; i++) {
 			addTPoint(x + rear[i][0].z, y + rear[i][0].y, 0);
 			addTPoint(x + rear[i][3].z, y + rear[i][3].y, 0);
@@ -141,13 +143,20 @@ public class Jeep0Model extends PickupModel {
 			addTPoint(x + rear[i + 1][0].z, y + rear[i + 1][0].y, 0);
 		}
 		//// left front texture
+		BPoint[][][] cabSide = cabSides[0];
 		for (int i = 0; i < nYcab - 1; i++) {
-			addTPoint(x + cab[0][i][0].z, y + cab[0][i][0].y, 0);
-			addTPoint(x + cab[0][i][1].z, y + cab[0][i][1].y, 0);
-			addTPoint(x + cab[0][i + 1][1].z, y + cab[0][i + 1][1].y, 0);
-			addTPoint(x + cab[0][i + 1][0].z, y + cab[0][i + 1][0].y, 0);
+			addTPoint(x + cabSide[0][i][0].z, y + cabSide[0][i][0].y, 0);
+			addTPoint(x + cabSide[0][i][1].z, y + cabSide[0][i][1].y, 0);
+			addTPoint(x + cabSide[0][i + 1][1].z, y + cabSide[0][i + 1][1].y, 0);
+			addTPoint(x + cabSide[0][i + 1][0].z, y + cabSide[0][i + 1][0].y, 0);
 		}
-		addTRect(x + dzRear, y, dzWagon, dyWagon);
+		BPoint[][] wagonSide = wagonSides[0];
+		for (int i = 0; i < nyBody - 1; i++) {
+			addTPoint(x + wagonSide[i][0].z, y + wagonSide[i][0].y, 0);
+			addTPoint(x + wagonSide[i][3].z, y + wagonSide[i][3].y, 0);
+			addTPoint(x + wagonSide[i + 1][3].z, y + wagonSide[i + 1][3].y, 0);
+			addTPoint(x + wagonSide[i + 1][0].z, y + wagonSide[i + 1][0].y, 0);
+		}
 	}
 
 	@Override
@@ -161,16 +170,23 @@ public class Jeep0Model extends PickupModel {
 			addTPoint(x + dzRight - rear[i + 1][3].z, y + rear[i + 1][3].y, 0);
 
 		}
-
+		BPoint[][][] cabSide = cabSides[0];
 		for (int i = 0; i < nYcab - 1; i++) {
 
-			addTPoint(x + dzRight - cab[0][i][1].z, y + cab[0][i][1].y, 0);
-			addTPoint(x + dzRight - cab[0][i][0].z, y + cab[0][i][0].y, 0);
-			addTPoint(x + dzRight - cab[0][i + 1][0].z, y + cab[0][i + 1][0].y, 0);
-			addTPoint(x + dzRight - cab[0][i + 1][1].z, y + cab[0][i + 1][1].y, 0);
+			addTPoint(x + dzRight - cabSide[0][i][1].z, y + cabSide[0][i][1].y, 0);
+			addTPoint(x + dzRight - cabSide[0][i][0].z, y + cabSide[0][i][0].y, 0);
+			addTPoint(x + dzRight - cabSide[0][i + 1][0].z, y + cabSide[0][i + 1][0].y, 0);
+			addTPoint(x + dzRight - cabSide[0][i + 1][1].z, y + cabSide[0][i + 1][1].y, 0);
 
 		}
-		addTRect(x + dzRight - dzRear - dzWagon, y, dzWagon, dyWagon);
+		BPoint[][] wagonSide = wagonSides[0];
+		for (int i = 0; i < nyBody - 1; i++) {
+			addTPoint(x + dzRight - wagonSide[i][3].z, y + wagonSide[i][3].y, 0);
+			addTPoint(x + dzRight - wagonSide[i][0].z, y + wagonSide[i][0].y, 0);
+			addTPoint(x + dzRight - wagonSide[i + 1][0].z, y + wagonSide[i + 1][0].y, 0);
+			addTPoint(x + dzRight - wagonSide[i + 1][3].z, y + wagonSide[i + 1][3].y, 0);
+
+		}
 	}
 
 	private void buildWheelTextures(double x, double y) {
@@ -187,16 +203,34 @@ public class Jeep0Model extends PickupModel {
 		double deltaXRe = (midX - dxRear * 0.5 - bx);
 		double deltaXFr = (midX - dxFront * 0.5 - bx);
 
-		addTRect(x + deltaXRe, y, dxRear, dyRear);
-		y += dyRear + shift;
-		addTRect(x + deltaXFr, y, dxFront, dyFront);
+		addTRect(x, y, dxWagon, dyWagon);
+		addTRect(x + deltaXRe, y+dyWagon, dxRear, dyRear);
+		for (int i = 0; i < nYcab-1; i++) {
+			addTPoint(x + deltaXFr+cab[0][i][0].x, y+cab[0][i][0].y,0);
+			addTPoint(x + deltaXFr+cab[1][i][0].x, y+cab[1][i][0].y,0);
+			addTPoint(x + deltaXFr+cab[1][i+1][0].x, y+cab[1][i+1][0].y,0);
+			addTPoint(x + deltaXFr+cab[0][i+1][0].x, y+cab[0][i+1][0].y,0);
+		}
+
 	}
+
+	@Override
+	protected void buildFrontTextures(double x, double y, int shift) {
+		int ind=nYcab-1;
+		for (int k = 0; k<nzCab-1; k++) {
+			addTPoint(x + cab[1][ind][k+1].z, y + cab[1][ind][k+1].y, 0);
+			addTPoint(x + cab[0][ind][k+1].z, y + cab[0][ind][k+1].y, 0);
+			addTPoint(x + cab[0][ind][k].z, y + cab[0][ind][k].y, 0);
+			addTPoint(x + cab[1][ind][k].z, y + cab[1][ind][k].y, 0);
+		}
+	}
+
 
 	@Override
 	protected void buildBackTextures(double x, double y, int shift) {
 		addTRect(x, y, dxWagon, dzWagon);
 		y += dzWagon + shift;
-		addTRect(x, y, dxWagon, dyWagon);
+
 	}
 
 	@Override
@@ -327,7 +361,7 @@ public class Jeep0Model extends PickupModel {
 
 				faces[counter++] = buildFace(Renderer3D.CAR_TOP, cabSides[i][0][j][nzCab - 1],
 						cabSides[i][1][j][nzCab - 1], cabSides[i][1][j + 1][nzCab - 1],
-						cabSides[i][0][j + 1][nzCab - 1], tTopFront);
+						cabSides[i][0][j + 1][nzCab - 1], tTopFront[j]);
 
 			}
 
@@ -356,7 +390,7 @@ public class Jeep0Model extends PickupModel {
 			}
 
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, cab[0][j][nzCab - 1], cab[1][j][nzCab - 1],
-					cab[1][j + 1][nzCab - 1], cab[0][j + 1][nzCab - 1], tTopFront);
+					cab[1][j + 1][nzCab - 1], cab[0][j + 1][nzCab - 1], tTopFront[j]);
 
 		}
 
@@ -580,6 +614,7 @@ public class Jeep0Model extends PickupModel {
 		printTexturePolygon(bufGraphics, tTopRear);
 		bufGraphics.setColor(new Color(111, 140, 112));
 		printTexturePolygon(bufGraphics, tTopFront);
+		printTexturePolygon(bufGraphics, tFrontCabin);
 
 		bufGraphics.setColor(rearColor);
 		printTexturePolygon(bufGraphics, tRightRear);

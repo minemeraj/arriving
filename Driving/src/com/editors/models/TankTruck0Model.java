@@ -72,6 +72,7 @@ public class TankTruck0Model extends Truck0Model {
 		c = initDoubleArrayValues(tLeftRoof = new int[2][4], c);
 		c = initDoubleArrayValues(tWagon = new int[nWagonSides][4], c);
 		c = initSingleArrayValues(tTopRoof = new int[4], c);
+		c = initDoubleArrayValues(tFrontCabin = new int[nzCab-1][4], c);
 		c = initDoubleArrayValues(tRightRear = new int[nyBody - 1][4], c);
 		c = initDoubleArrayValues(tRightFront = new int[nYcab - 1][4], c);
 		c = initDoubleArrayValues(tRightRoof = new int[2][4], c);
