@@ -332,12 +332,14 @@ public class Ship0Model extends VehicleModel {
 				foreCastle[0][0][1], tDeck[0]);
 		for (int k = 0; k < nyc - 1; k++) {
 
+			int e = nyCastle - k;
+
 			if (foreCastle[k + 1][1][0].getIndex() != foreCastle[k][1][0].getIndex()) {
 				faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, foreCastle[k][0][0], foreCastle[k + 1][0][0],
-						foreCastle[k + 1][1][0], foreCastle[k][1][0], tHull[0]);
+						foreCastle[k + 1][1][0], foreCastle[k][1][0], tDeck[nyHull - e]);
 			} else {
 				faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, foreCastle[k][0][0], foreCastle[k + 1][0][0],
-						foreCastle[k + 1][1][0], tHull[0]);
+						foreCastle[k + 1][1][0], tDeck[nyHull - e]);
 			}
 
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, foreCastle[k][0][0], foreCastle[k][0][1],
@@ -347,10 +349,10 @@ public class Ship0Model extends VehicleModel {
 
 			if (foreCastle[k + 1][1][1].getIndex() != foreCastle[k + 1][0][1].getIndex()) {
 				faces[counter++] = buildFace(Renderer3D.CAR_TOP, foreCastle[k][0][1], foreCastle[k][1][1],
-						foreCastle[k + 1][1][1], foreCastle[k + 1][0][1], tDeck[0]);
+						foreCastle[k + 1][1][1], foreCastle[k + 1][0][1], tDeck[nyHull - e]);
 			} else {
 				faces[counter++] = buildFace(Renderer3D.CAR_TOP, foreCastle[k][0][1], foreCastle[k][1][1],
-						foreCastle[k + 1][0][1], tDeck[0]);
+						foreCastle[k + 1][0][1], tDeck[nyHull - e]);
 			}
 		}
 		// faces[counter++]=buildFace(Renderer3D.CAR_FRONT,
@@ -367,20 +369,20 @@ public class Ship0Model extends VehicleModel {
 				if (i == ny - 2 && j == middle - 1) {
 
 					faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, hull[i][j], hull[i + 1][j], hull[i + 1][j + 1],
-							tHull[0]);
+							tHullNet[i][j]);
 					faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, hull[i][j], hull[i + 1][j + 1], hull[i][j + 1],
-							tHull[0]);
+							tHullNet[i][j]);
 
 				} else if (i == ny - 2 && j == middle) {
 
 					faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, hull[i][j], hull[i + 1][j], hull[i][j + 1],
-							tHull[0]);
+							tHullNet[i][j]);
 					faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, hull[i][j + 1], hull[i + 1][j],
-							hull[i + 1][j + 1], tHull[0]);
+							hull[i + 1][j + 1],tHullNet[i][j]);
 
 				} else {
 					faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, hull[i][j], hull[i + 1][j], hull[i + 1][j + 1],
-							hull[i][j + 1], tHull[0]);
+							hull[i][j + 1], tHullNet[i][j]);
 				}
 			}
 
@@ -404,9 +406,9 @@ public class Ship0Model extends VehicleModel {
 			BPoint l3 = hull[i + 1][0];
 
 			if (l2.getIndex() == l3.getIndex()) {
-				faces[counter++] = buildFace(Renderer3D.CAR_TOP, l0, l1, l3, tDeck[0]);
+				faces[counter++] = buildFace(Renderer3D.CAR_TOP, l0, l1, l3, tDeck[i]);
 			} else {
-				faces[counter++] = buildFace(Renderer3D.CAR_TOP, l0, l1, l2, l3, tDeck[0]);
+				faces[counter++] = buildFace(Renderer3D.CAR_TOP, l0, l1, l2, l3, tDeck[i]);
 			}
 
 		}
@@ -434,18 +436,18 @@ public class Ship0Model extends VehicleModel {
 			for (int k = 0; k < nz - 1; k++) {
 
 				faces[counter++] = buildFace(Renderer3D.CAR_LEFT, mainDecks[i][k][0], mainDecks[i][k + 1][0],
-						mainDecks[i][k + 1][3], mainDecks[i][k][3], tDeck[0]);
+						mainDecks[i][k + 1][3], mainDecks[i][k][3], tLeftBridge[0]);
 				faces[counter++] = buildFace(Renderer3D.CAR_BACK, mainDecks[i][k][0], mainDecks[i][k][1],
-						mainDecks[i][k + 1][1], mainDecks[i][k + 1][0], tDeck[0]);
+						mainDecks[i][k + 1][1], mainDecks[i][k + 1][0], tBackBridge[0]);
 				faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, mainDecks[i][k][1], mainDecks[i][k][2],
-						mainDecks[i][k + 1][2], mainDecks[i][k + 1][1], tDeck[0]);
+						mainDecks[i][k + 1][2], mainDecks[i][k + 1][1], tRightBridge[0]);
 				faces[counter++] = buildFace(Renderer3D.CAR_FRONT, mainDecks[i][k][2], mainDecks[i][k][3],
-						mainDecks[i][k + 1][3], mainDecks[i][k + 1][2], tDeck[0]);
+						mainDecks[i][k + 1][3], mainDecks[i][k + 1][2], tFrontBridge[0]);
 
 			}
 
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, mainDecks[i][nz - 1][0], mainDecks[i][nz - 1][1],
-					mainDecks[i][nz - 1][2], mainDecks[i][nz - 1][3], tDeck[0]);
+					mainDecks[i][nz - 1][2], mainDecks[i][nz - 1][3], tTopBridge[0]);
 		}
 
 		return counter;
