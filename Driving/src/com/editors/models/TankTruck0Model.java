@@ -145,14 +145,14 @@ public class TankTruck0Model extends Truck0Model {
 			BPoint p0 = wagon[0][1];
 			BPoint p1 = wagon[(i + 1) % nWagonSides][1];
 			BPoint p2 = wagon[i][1];
-			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, p0, p1, p2, tWheel[0], tWheel[(i + 1) % wagon.length], tWheel[i]);
+			faces[counter++] = buildFace(Renderer3D.CAR_FRONT, p0, p2, p1, tWheel[0], tWheel[i], tWheel[(i + 1) % wagon.length]);
 		}
 
 		for (int i = 1; i < nWagonSides - 1; i++) {
 			BPoint p0 = wagon[0][0];
 			BPoint p1 = wagon[i][0];
 			BPoint p2 = wagon[(i + 1) % nWagonSides][0];
-			faces[counter++] = buildFace(Renderer3D.CAR_BACK, p0, p1, p2,  tWheel[0], tWheel[i], tWheel[(i + 1) % wagon.length]);
+			faces[counter++] = buildFace(Renderer3D.CAR_BACK, p0, p2, p1,  tWheel[0], tWheel[(i + 1) % wagon.length], tWheel[i]);
 		}
 
 		return counter;
