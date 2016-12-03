@@ -200,15 +200,15 @@ public class Byke0Model extends VehicleModel {
 		c = initDoubleArrayValues(tBo = new int[1][4], c);
 		c = initDoubleArrayValues(tLeftRear = new int[pRear.length-1][4], c);
 		c = initDoubleArrayValues(tLeftBody = new int[pBody.length-1][4], c);
-		c = initDoubleArrayValues(tLeftFront = new int[pHandler.length-1][4], c);
 		c = initDoubleArrayValues(tLeftRoof = new int[pBody.length-1][4], c);
+		c = initDoubleArrayValues(tLeftFront = new int[pHandler.length-1][4], c);
 		c = initDoubleArrayValues(tTopRear = new int[pRear.length-1][4], c);
-		c = initDoubleArrayValues(tTopFront = new int[pHandler.length-1][4], c);
 		c = initDoubleArrayValues(tTopRoof = new int[pBody.length-1][4], c);
+		c = initDoubleArrayValues(tTopFront = new int[pHandler.length-1][4], c);
 		c = initDoubleArrayValues(tRightRear = new int[pRear.length-1][4], c);
 		c = initDoubleArrayValues(tRightBody = new int[pBody.length-1][4], c);
-		c = initDoubleArrayValues(tRightFront = new int[pHandler.length-1][4], c);
 		c = initDoubleArrayValues(tRightRoof = new int[pBody.length-1][4], c);
+		c = initDoubleArrayValues(tRightFront = new int[pHandler.length-1][4], c);
 		c = initSingleArrayValues(tWh = new int[4], c);
 		c = initDoubleArrayValues(tWheelSide = new int[1][wheel_rays], c);
 
@@ -255,12 +255,6 @@ public class Byke0Model extends VehicleModel {
 		addTPoint(x+totDZ-rearByke[1][1][1].z,y+rearByke[1][1][1].y,0);
 		addTPoint(x+totDZ-rearByke[1][1][0].z,y+rearByke[1][1][0].y,0);
 
-		for (int i = 0; i < pHandler.length-1; i++) {
-			addTPoint(x+totDZ-handlebar[0][i][0].z,y+handlebar[0][i][0].y,0);
-			addTPoint(x+totDZ-handlebar[0][i][1].z,y+handlebar[0][i][1].y,0);
-			addTPoint(x+totDZ-handlebar[0][i+1][1].z,y+handlebar[0][i+1][1].y,0);
-			addTPoint(x+totDZ-handlebar[0][i+1][0].z,y+handlebar[0][i+1][0].y,0);
-		}
 
 		addTPoint(x+totDZ-body[0][0][0].z,y+body[0][0][0].y,0);
 		addTPoint(x+totDZ-body[0][1][0].z,y+body[0][1][0].y,0);
@@ -271,6 +265,13 @@ public class Byke0Model extends VehicleModel {
 		addTPoint(x+totDZ-roofByke[0][0][1].z,y+roofByke[0][0][1].y,0);
 		addTPoint(x+totDZ-roofByke[1][0][1].z,y+roofByke[1][0][1].y,0);
 		addTPoint(x+totDZ-roofByke[1][0][0].z,y+roofByke[1][0][0].y,0);
+
+		for (int i = 0; i < pHandler.length-1; i++) {
+			addTPoint(x+totDZ-handlebar[0][i][0].z,y+handlebar[0][i][0].y,0);
+			addTPoint(x+totDZ-handlebar[0][i][1].z,y+handlebar[0][i][1].y,0);
+			addTPoint(x+totDZ-handlebar[0][i+1][1].z,y+handlebar[0][i+1][1].y,0);
+			addTPoint(x+totDZ-handlebar[0][i+1][0].z,y+handlebar[0][i+1][0].y,0);
+		}
 	}
 
 	private void buildTopTextures(double x, double y, double maxDX) {
@@ -303,13 +304,6 @@ public class Byke0Model extends VehicleModel {
 		addTPoint(x+rearByke[0][1][1].z,y+rearByke[0][1][1].y,0);
 		addTPoint(x+rearByke[0][1][0].z,y+rearByke[0][1][0].y,0);
 
-		for (int i = 0; i < pHandler.length-1; i++) {
-			addTPoint(x+handlebar[0][i][0].z,y+handlebar[0][i][0].y,0);
-			addTPoint(x+handlebar[0][i][1].z,y+handlebar[0][i][1].y,0);
-			addTPoint(x+handlebar[0][i+1][1].z,y+handlebar[0][i+1][1].y,0);
-			addTPoint(x+handlebar[0][i+1][0].z,y+handlebar[0][i+1][0].y,0);
-		}
-
 		addTPoint(x+body[0][0][0].z,y+body[0][0][0].y,0);
 		addTPoint(x+body[0][1][0].z,y+body[0][1][0].y,0);
 		addTPoint(x+body[1][1][1].z,y+body[0][1][1].y,0);
@@ -319,6 +313,13 @@ public class Byke0Model extends VehicleModel {
 		addTPoint(x+roofByke[0][0][1].z,y+roofByke[0][0][1].y,0);
 		addTPoint(x+roofByke[1][0][1].z,y+roofByke[1][0][1].y,0);
 		addTPoint(x+roofByke[1][0][0].z,y+roofByke[1][0][0].y,0);
+
+		for (int i = 0; i < pHandler.length-1; i++) {
+			addTPoint(x+handlebar[0][i][0].z,y+handlebar[0][i][0].y,0);
+			addTPoint(x+handlebar[0][i][1].z,y+handlebar[0][i][1].y,0);
+			addTPoint(x+handlebar[0][i+1][1].z,y+handlebar[0][i+1][1].y,0);
+			addTPoint(x+handlebar[0][i+1][0].z,y+handlebar[0][i+1][0].y,0);
+		}
 	}
 
 	private int buildWheelFaces(int counter,int totWheelPolygon) {
@@ -417,10 +418,10 @@ public class Byke0Model extends VehicleModel {
 				tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[0][0][0], body[0][1][0], body[1][1][0], body[1][0][0],
 				tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[0][0][0], body[0][0][1], body[0][1][1], body[0][1][0],
-				tBo[0]);
-		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[1][0][0], body[1][1][0], body[1][1][1], body[1][0][1],
-				tBo[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_LEFT, body[0][0][0], body[0][0][1], body[0][1][1], body[0][1][0],
+				tLeftBody[0]);
+		faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, body[1][0][0], body[1][1][0], body[1][1][1], body[1][0][1],
+				tRightBody[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[0][0][0], body[1][0][0], body[1][0][1], body[0][0][1],
 				tBo[0]);
 		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, body[0][1][0], body[0][1][1], body[1][1][1], body[1][1][0],
@@ -436,12 +437,12 @@ public class Byke0Model extends VehicleModel {
 
 
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, handlebar[0][k][0], handlebar[0][k][1],
-					handlebar[0][k + 1][1], handlebar[0][k + 1][0], tBo[0]);
+					handlebar[0][k + 1][1], handlebar[0][k + 1][0], tLeftFront[k]);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, handlebar[1][k][0], handlebar[1][k + 1][0],
-					handlebar[1][k + 1][1], handlebar[1][k][1], tBo[0]);
+					handlebar[1][k + 1][1], handlebar[1][k][1], tRightFront[k]);
 
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, handlebar[0][k][1], handlebar[1][k][1],
-					handlebar[1][k + 1][1], handlebar[0][k + 1][1], tBo[0]);
+					handlebar[1][k + 1][1], handlebar[0][k + 1][1], tTopFront[k]);
 
 		}
 		faces[counter++] = buildFace(Renderer3D.CAR_BACK, handlebar[1][pHandler.length - 1][0], handlebar[0][pHandler.length - 1][0],
@@ -455,11 +456,11 @@ public class Byke0Model extends VehicleModel {
 			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, rearByke[0][k][0], rearByke[0][k + 1][0],
 					rearByke[1][k + 1][0], rearByke[1][k][0], tBo[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, rearByke[0][k][0], rearByke[0][k][1],
-					rearByke[0][k + 1][1], rearByke[0][k + 1][0], tBo[0]);
+					rearByke[0][k + 1][1], rearByke[0][k + 1][0], tLeftRear[k]);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, rearByke[1][k][0], rearByke[1][k + 1][0],
-					rearByke[1][k + 1][1], rearByke[1][k][1], tBo[0]);
+					rearByke[1][k + 1][1], rearByke[1][k][1], tRightRear[k]);
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, rearByke[0][k][1], rearByke[1][k][1],
-					rearByke[1][k + 1][1], rearByke[0][k + 1][1], tBo[0]);
+					rearByke[1][k + 1][1], rearByke[0][k + 1][1], tTopRear[k]);
 
 		}
 		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, rearByke[0][2 - 1][0], rearByke[0][2 - 1][1],
@@ -473,11 +474,11 @@ public class Byke0Model extends VehicleModel {
 			faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, roofByke[k][0][0], roofByke[k + 1][0][0],
 					roofByke[k + 1][1][0], roofByke[k][1][0], tBo[0]);
 			faces[counter++] = buildFace(Renderer3D.CAR_LEFT, roofByke[k][0][0], roofByke[k][0][1],
-					roofByke[k + 1][0][1], roofByke[k + 1][0][0], tBo[0]);
+					roofByke[k + 1][0][1], roofByke[k + 1][0][0], tLeftRoof[k]);
 			faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, roofByke[k][1][0], roofByke[k + 1][1][0],
-					roofByke[k + 1][1][1], roofByke[k][1][1], tBo[0]);
+					roofByke[k + 1][1][1], roofByke[k][1][1], tRightRoof[k]);
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, roofByke[k][0][1], roofByke[k][1][1],
-					roofByke[k + 1][1][1], roofByke[k + 1][0][1], tBo[0]);
+					roofByke[k + 1][1][1], roofByke[k + 1][0][1], tTopRoof[k]);
 
 		}
 		faces[counter++] = buildFace(Renderer3D.CAR_FRONT, roofByke[2 - 1][0][0], roofByke[2 - 1][0][1],
