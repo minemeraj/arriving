@@ -23,7 +23,7 @@ public class OceanLiner0Model extends Ship0Model{
 	BPoint[][][] funnels=null;
 	private int funnel_number=4;
 	private int funnel_meridians=0;
-	private int funnel_parallels=3;
+	private int funnel_parallels=2;
 	private double funnel_height=0;
 	private double funnel_radius=0;
 

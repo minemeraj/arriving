@@ -439,10 +439,10 @@ public class Ship0Model extends VehicleModel {
 						mainDecks[i][k + 1][3], mainDecks[i][k][3], tLeftBridge[0]);
 				faces[counter++] = buildFace(Renderer3D.CAR_BACK, mainDecks[i][k][0], mainDecks[i][k][1],
 						mainDecks[i][k + 1][1], mainDecks[i][k + 1][0], tBackBridge[0]);
-				faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, mainDecks[i][k][1], mainDecks[i][k][2],
-						mainDecks[i][k + 1][2], mainDecks[i][k + 1][1], tRightBridge[0]);
-				faces[counter++] = buildFace(Renderer3D.CAR_FRONT, mainDecks[i][k][2], mainDecks[i][k][3],
-						mainDecks[i][k + 1][3], mainDecks[i][k + 1][2], tFrontBridge[0]);
+				faces[counter++] = buildFace(Renderer3D.CAR_RIGHT, mainDecks[i][k + 1][1],mainDecks[i][k][1],
+						mainDecks[i][k][2],		mainDecks[i][k + 1][2],  tRightBridge[0]);
+				faces[counter++] = buildFace(Renderer3D.CAR_FRONT, mainDecks[i][k + 1][3], mainDecks[i][k + 1][2],
+						mainDecks[i][k][2], mainDecks[i][k][3],tFrontBridge[0]);
 
 			}
 
