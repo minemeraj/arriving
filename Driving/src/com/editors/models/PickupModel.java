@@ -440,7 +440,7 @@ public class PickupModel extends Truck0Model {
 			}
 
 			faces[counter++] = buildFace(Renderer3D.CAR_TOP, cab[0][j][nzCab - 1], cab[1][j][nzCab - 1],
-					cab[1][j + 1][nzCab - 1], cab[0][j + 1][nzCab - 1], tTopFront[0]);
+					cab[1][j + 1][nzCab - 1], cab[0][j + 1][nzCab - 1], tTopFront[j]);
 
 		}
 
