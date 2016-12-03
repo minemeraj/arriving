@@ -245,7 +245,7 @@ public class Byke0Model extends VehicleModel {
 	private void buildWheelTexture(double x, double y, int shift) {
 		addTRect(x, y, wheelWidth, wheelRadius*2);
 		x+=wheelWidth+shift;
-		buildWheelTextures(x, y, wheelRadius, wheelRadius, wheelRadius, wheel_rays, 0);
+		buildWheelTextures(x, y, wheelRadius, wheelRadius, wheelRadius, wheel_rays, +1,0);
 	}
 
 	private void buildRightTextures(double x, double y, double totDZ) {
