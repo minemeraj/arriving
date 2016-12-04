@@ -124,7 +124,7 @@ public abstract class MeshModel {
 		}
 	}
 
-	void printTexturePolygon(Graphics2D graphics, int... indexes) {
+	protected void printTexturePolygon(Graphics2D graphics, int... indexes) {
 
 		for (int i = 0; i < indexes.length; i++) {
 
@@ -133,6 +133,34 @@ public abstract class MeshModel {
 
 			graphics.drawLine(cX(p0.x), cY(p0.y), cX(p1.x), cY(p1.y));
 		}
+	}
+
+
+	protected void printTexturePolygon(Graphics2D graphics, int[][] tCells) {
+		if(tCells==null) {
+			return;
+		}
+		for (int i = 0; i < tCells.length; i++) {
+			int[] tCell = tCells[i];
+			printTexturePolygon(graphics, tCell);
+		}
+
+	}
+
+
+	protected void printTextureNet(Graphics2D graphics, int[][][] tNet) {
+		if(tNet==null) {
+			return;
+		}
+		for (int i = 0; i < tNet.length; i++) {
+			int[][] tRow = tNet[i];
+			for (int j = 0; j < tRow.length; j++) {
+				int[] tCell = tRow[j];
+				printTexturePolygon(graphics, tCell);
+			}
+
+		}
+
 	}
 
 	void fillTexturePolygon(Graphics2D graphics, int... indexes) {
@@ -737,7 +765,6 @@ public abstract class MeshModel {
 		for (int i = 0; i < raysNumber; i++) {
 
 			double teta = i * 2 * Math.PI / (raysNumber);
-
 			double x = rxc;
 			double y = ryc + r * Math.sin(teta);
 			double z = rzc + r * Math.cos(teta);
@@ -747,7 +774,22 @@ public abstract class MeshModel {
 		}
 
 		return wheelPoints;
+	}
 
+	protected void buildWheelTexturesWithCenter(double x,double y,double xCenter, double yCenter, double radius,int rays_number,int versus,double shift_angle) {
+		addTPoint(x + xCenter, y + yCenter, 0);
+		buildWheelTextures(x,y,xCenter, yCenter, radius,rays_number,versus,shift_angle);
+	}
+
+	protected void buildWheelTextures(double x,double y,double xCenter, double yCenter, double radius,int rays_number,int versus,double shift_angle) {
+
+		double dTeta=versus*2*Math.PI/rays_number;
+		for (int i = 0; i < rays_number; i++) {
+			double teta=dTeta*i+shift_angle;
+			double xx=xCenter+radius*Math.cos(teta);
+			double yy=yCenter+radius*Math.sin(teta);
+			addTPoint(x + xx, y + yy, 0);
+		}
 	}
 
 	protected int[][][] buildWheelFaces(BPoint[][] wheelPoints, int texture_index) {
@@ -799,12 +841,10 @@ public abstract class MeshModel {
 		int totWheelPolygon = raysNumber + 2 * (raysNumber - 2);
 
 		int[][][] bFaces = new int[totWheelPolygon][][];
-
 		// wheel track
 		int counter = 0;
 
 		for (int i = 0; i < raysNumber; i++) {
-
 			BPoint p0 = wheelPoints[i][0];
 			BPoint p1 = wheelPoints[i][1];
 			BPoint p2 = wheelPoints[(i + 1) % raysNumber][1];
@@ -814,7 +854,6 @@ public abstract class MeshModel {
 		}
 		// wheel sides as triangles
 		for (int i = 1; i < raysNumber - 1; i++) {
-
 			BPoint p0 = wheelPoints[0][0];
 			BPoint p1 = wheelPoints[i][0];
 			BPoint p2 = wheelPoints[(i + 1) % raysNumber][0];
@@ -823,12 +862,49 @@ public abstract class MeshModel {
 		}
 
 		for (int i = 1; i < raysNumber - 1; i++) {
-
 			BPoint p0 = wheelPoints[0][1];
 			BPoint p1 = wheelPoints[(i + 1) % raysNumber][1];
 			BPoint p2 = wheelPoints[i][1];
 
 			bFaces[counter++] = buildFace(0, p0, p1, p2, texture_indexes);
+		}
+
+		return bFaces;
+
+	}
+
+	protected int[][][] buildWheelFaces(BPoint[][] wheelPoints,int[] wheelTrack, int[] tWheel) {
+
+		int raysNumber = wheelPoints.length;
+		int totWheelPolygon = raysNumber + 2 * (raysNumber - 2);
+
+		int[][][] bFaces = new int[totWheelPolygon][][];
+		// wheel track
+		int counter = 0;
+
+		for (int i = 0; i < raysNumber; i++) {
+			BPoint p0 = wheelPoints[i][0];
+			BPoint p1 = wheelPoints[i][1];
+			BPoint p2 = wheelPoints[(i + 1) % raysNumber][1];
+			BPoint p3 = wheelPoints[(i + 1) % raysNumber][0];
+
+			bFaces[counter++] = buildFace(0, p0, p1, p2, p3, wheelTrack);
+		}
+		// wheel sides as triangles
+		for (int i = 1; i < raysNumber - 1; i++) {
+			BPoint p0 = wheelPoints[0][0];
+			BPoint p1 = wheelPoints[i][0];
+			BPoint p2 = wheelPoints[(i + 1) % raysNumber][0];
+
+			bFaces[counter++] = buildFace(0, p0, p1, p2, tWheel[0], tWheel[i], tWheel[(i + 1) % raysNumber]);
+		}
+
+		for (int i = 1; i < raysNumber - 1; i++) {
+			BPoint p0 = wheelPoints[0][1];
+			BPoint p1 = wheelPoints[(i + 1) % raysNumber][1];
+			BPoint p2 = wheelPoints[i][1];
+
+			bFaces[counter++] = buildFace(0, p0, p1, p2, tWheel[0], tWheel[(i + 1) % raysNumber], tWheel[i]);
 		}
 
 		return bFaces;
@@ -842,8 +918,8 @@ public abstract class MeshModel {
 
 		for (int i = 0; i < barrel_meridians; i++) {
 
-			double x = cyx0 + cylinder_radius * Math.cos(2 * Math.PI / barrel_meridians * i);
-			double z = cyz0 + cylinder_radius * Math.sin(2 * Math.PI / barrel_meridians * i);
+			double x = cyx0 + cylinder_radius * Math.cos(-2 * Math.PI / barrel_meridians * i-Math.PI*0.5);
+			double z = cyz0 + cylinder_radius * Math.sin(-2 * Math.PI / barrel_meridians * i-Math.PI*0.5);
 
 			trunkpoints[i][1] = addBPoint(x, cyy0 + cylinder_lenght, z);
 
@@ -851,8 +927,8 @@ public abstract class MeshModel {
 
 		for (int i = 0; i < barrel_meridians; i++) {
 
-			double x = cyx0 + cylinder_radius * Math.cos(2 * Math.PI / barrel_meridians * i);
-			double z = cyz0 + cylinder_radius * Math.sin(2 * Math.PI / barrel_meridians * i);
+			double x = cyx0 + cylinder_radius * Math.cos(-2 * Math.PI / barrel_meridians * i-Math.PI*0.5);
+			double z = cyz0 + cylinder_radius * Math.sin(-2 * Math.PI / barrel_meridians * i-Math.PI*0.5);
 
 			trunkpoints[i][0] = addBPoint(x, cyy0, z);
 
@@ -921,34 +997,30 @@ public abstract class MeshModel {
 
 	}
 
+
+	protected int initNetArrayValues(int[][][] netArray, int inc) {
+		for (int i = 0; i < netArray.length; i++) {
+			int[][] douArray = netArray[i];
+			inc=initDoubleArrayValues(douArray,inc);
+		}
+		return inc;
+	}
+
 	protected static int initDoubleArrayValues(int[][] douArray, int inc) {
 
 		for (int i = 0; i < douArray.length; i++) {
-
 			int[] sinArray = douArray[i];
-
-			for (int j = 0; j < sinArray.length; j++) {
-
-				sinArray[j] = inc++;
-
-			}
-
+			inc=initSingleArrayValues(sinArray,inc);
 		}
-
 		return inc;
-
 	}
 
 	protected static int initSingleArrayValues(int[] sinArray, int inc) {
 
 		for (int j = 0; j < sinArray.length; j++) {
-
 			sinArray[j] = inc++;
-
 		}
-
 		return inc;
-
 	}
 
 }

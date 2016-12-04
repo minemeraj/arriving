@@ -38,20 +38,7 @@ public class Autobus0Model extends PickupModel {
 	@Override
 	public void initMesh() {
 
-		int c = 0;
-
-		c = initDoubleArrayValues(tLeftFront = new int[nYcab - 1][4], c);
-		c = initDoubleArrayValues(tLeftRoof = new int[2][4], c);
-		c = initSingleArrayValues(tBackRear = new int[4], c);
-		c = initDoubleArrayValues(tBackWagon = new int[1][4], c);
-		c = initSingleArrayValues(tTopRear = new int[4], c);
-		c = initSingleArrayValues(tTopRoof = new int[4], c);
-		c = initSingleArrayValues(tTopFront = new int[4], c);
-
-		c = initDoubleArrayValues(tRe = new int[1][4], c);
-		c = initDoubleArrayValues(tWagon = new int[1][4], c);
-		c = initDoubleArrayValues(tWi = new int[1][4], c);
-		c = initDoubleArrayValues(tWh = new int[1][4], c);
+		initTexturesArrays();
 
 		points = new Vector<Point3D>();
 		texturePoints = new Vector<Point3D>();
@@ -63,7 +50,7 @@ public class Autobus0Model extends PickupModel {
 		buildRear();
 
 		int nzWagon = 2;
-		buildWagon(nzWagon);
+		buildWagon();
 
 		buildTextures();
 
@@ -83,13 +70,15 @@ public class Autobus0Model extends PickupModel {
 		faces = new int[NF + NUM_WHEEL_FACES][3][4];
 
 		int counter = 0;
-		counter = buildBodyFaces(counter, nzBody, nzWagon);
+		counter = buildBodyFaces(counter, nzBody);
 		counter = buildWheelFaces(counter, totWheelPolygon);
 
 	}
 
 	@Override
-	protected void buildWagon(int nzWagon) {
+	protected void buildWagon() {
+
+		int nzWagon=nWagonSides+1;
 
 		Segments s0 = new Segments(x0 - dxWagon * 0.5, dxWagon, y0, dyWagon, z0 + dzRear, dzWagon);
 
@@ -113,7 +102,9 @@ public class Autobus0Model extends PickupModel {
 	 * @return
 	 */
 	@Override
-	protected int buildWagonFaces(int counter, int nzWagon) {
+	protected int buildWagonFaces(int counter) {
+
+		int nzWagon=nWagonSides+1;
 
 		faces[counter++] = buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0], wagon[0][3], wagon[0][2], wagon[0][1], tWagon[0]);
 

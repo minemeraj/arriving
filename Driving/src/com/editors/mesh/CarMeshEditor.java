@@ -34,6 +34,7 @@ import com.editors.models.RailWagonBulkModel;
 import com.editors.models.RailWagonCoachModel;
 import com.editors.models.RailWagonCoalModel;
 import com.editors.models.RailWagonTankModel;
+import com.editors.models.RailWagonTenderModel;
 import com.editors.models.Sailer0Model;
 import com.editors.models.Ship0Model;
 import com.editors.models.StarShip0Model;
@@ -103,6 +104,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 	public static int TRUNKSTRUCK = 26;
 	public static int STEAMLOCOMOTIVE0 = 27;
 	public static int CARTRANSPORTER = 28;
+	public static int RAILWAGON_TENDER = 29;
 
 	public static void main(String[] args) {
 
@@ -362,7 +364,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		chooseObject.addItem(new ValuePair("" + RAILWAGON_BULK, "Railwagon Bulk"));
 		chooseObject.addItem(new ValuePair("" + RAILWAGON_COAL, "Railwagon Coal"));
 		chooseObject.addItem(new ValuePair("" + RAILWAGON_COACH, "Railwagon Coach"));
-		chooseObject.addItem(new ValuePair("" + RAILWAGON_TANK, "Railwagon Tank "));
+		chooseObject.addItem(new ValuePair("" + RAILWAGON_TANK, "Railwagon Tank"));
+		chooseObject.addItem(new ValuePair("" + RAILWAGON_TENDER, "Railwagon Tender"));
 		chooseObject.addItem(new ValuePair("" + SAILER, Sailer0Model.NAME));
 		chooseObject.addItem(new ValuePair("" + SHIP0, Ship0Model.NAME));
 		chooseObject.addItem(new ValuePair("" + STARSHIP0, StarShip0Model.NAME));
@@ -516,7 +519,10 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 		} else if (val == RAILWAGON_COACH) {
 			meshModel = new RailWagonCoachModel(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof,
 					rearOverhang, frontOverhang, wheelRadius, wheelWidth, wheelRays);
-		} else if (val == TRACTOR0) {
+		} else if (val == RAILWAGON_TENDER) {
+			meshModel = new RailWagonTenderModel(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof,
+					rearOverhang, frontOverhang, wheelRadius, wheelWidth, wheelRays);
+		}else if (val == TRACTOR0) {
 			meshModel = new Tractor0Model(dx, dy, dz, dxf, dyf, dzf, dxr, dyr, dzr, dxRoof, dyRoof, dzRoof, wheelRadius,
 					wheelWidth, wheelRays);
 		} else {
@@ -590,24 +596,24 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						11, 6, 10// wheel_radius, wheel_width, wheel_rays
 						);
 			} else if (TANKTRUCK0 == val) {
-				setRightData(111, 319, 116, // dx, dy, dz
-						94, 61, 118, // dxFront, dyFront, dzFront
-						74, 319, 22, // dxRear, dyRear, dzRear
-						0, 0, 0, // dxRoof, dyRoof, dzRoof
+				setRightData(66, 264, 69, // dx, dy, dz
+						60, 38, 29, // dxFront, dyFront, dzFront
+						60, 264, 15, // dxRear, dyRear, dzRear
+						60, 38, 29, // dxRoof, dyRoof, dzRoof
 						0, 0, 0, // dxBottom, dyBottom, dzBottom
-						0, 0, // rearOverhang, frontOverhang
-						0, 0, // rearOverhang1,frontOverhang1,
-						19, 12, 10// wheel_radius, wheel_width, wheel_rays
+						94, 29, // rearOverhang, frontOverhang
+						0, 10, // rearOverhang1,frontOverhang1,
+						11, 6, 10// wheel_radius, wheel_width, wheel_rays
 						);
 			} else if (TRUNKSTRUCK == val) {
-				setRightData(111, 319, 116, // dx, dy, dz
-						94, 61, 118, // dxFront, dyFront, dzFront
-						74, 319, 22, // dxRear, dyRear, dzRear
-						0, 0, 0, // dxRoof, dyRoof, dzRoof
+				setRightData(66, 264, 69, // dx,dy,dz
+						60, 38, 29, // dxFront, dyFront, dzFront
+						60, 264, 15, // dxRear, dyRear, dzRear
+						60, 38, 29, // dxRoof, dyRoof, dzRoof
 						0, 0, 0, // dxBottom, dyBottom, dzBottom
-						0, 0, // rearOverhang, frontOverhang
-						0, 0, // rearOverhang1,frontOverhang1,
-						19, 12, 10// wheel_radius, wheel_width, wheel_rays
+						94, 29, // rearOverhang, frontOverhang
+						0, 10, // rearOverhang1,frontOverhang1,
+						11, 6, 10// wheel_radius, wheel_width, wheel_rays
 						);
 			} else if (CARTRANSPORTER == val) {
 				setRightData(111, 319, 116, // dx,dy,dz
@@ -630,24 +636,24 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						9, 6, 10// wheel_radius, wheel_width, wheel_rays
 						);
 			} else if (AUTOBUS == val) {
-				setRightData(111, 319, 116, // dx, dy, dz
-						94, 61, 118, // dxFront, dyFront, dzFront
-						74, 319, 22, // dxRear, dyRear, dzRear
+				setRightData(43, 55, 7, // dx, dy, dz
+						43, 64, 19, // dxFront, dyFront, dzFront
+						43, 55, 10, // dxRear, dyRear, dzRear
 						43, 30, 13, // dxRoof, dyRoof, dzRoof
 						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						28, 20, // rearOverhang, frontOverhang
-						0, 0, // rearOverhang1,frontOverhang1,
-						19, 12, 10// wheel_radius, wheel_width, wheel_rays
+						0, 42, // rearOverhang1,frontOverhang1,
+						10, 7, 10// wheel_radius, wheel_width, wheel_rays
 						);
 			} else if (ATEAMVAN == val) {
-				setRightData(111, 319, 116, // dx, dy, dz
-						111, 61, 118, // dxFront, dyFront, dzFront
-						111, 319, 22, // dxRear, dyRear, dzRear
+				setRightData(43, 55, 7, // dx, dy, dz
+						43, 64, 19, // dxFront, dyFront, dzFront
+						43, 55, 10, // dxRear, dyRear, dzRear
 						43, 30, 13, // dxRoof, dyRoof, dzRoof
 						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						28, 20, // rearOverhang, frontOverhang
-						0, 0, // rearOverhang1,frontOverhang1,
-						19, 12, 10// wheel_radius, wheel_width, wheel_rays
+						0, 42, // rearOverhang1,frontOverhang1,
+						10, 7, 10// wheel_radius, wheel_width, wheel_rays
 						);
 			} else if (PICKUP == val) {
 				setRightData(43, 55, 7, // dx, dy, dz
@@ -757,7 +763,7 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						0, 0, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
-						8, 4, 10// wheel_radius, wheel_width, wheel_rays
+						8, 4, 8// wheel_radius, wheel_width, wheel_rays
 						);
 			} else if (F10 == val) {
 				setRightData(38, 38, 14, // dx, dy, dz
@@ -780,14 +786,14 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						4, 102, 10// wheel_radius, wheel_width, wheel_rays
 						);
 			} else if (TRACTOR0 == val) {
-				setRightData(300, 400, 100, // dx, dy, dz
-						0, 0, 0, // dxFront, dyFront, dzFront
-						300, 100, 50, // dxRear, dyRear, dzRear
-						200, 150, 50, // dxRoof, dyRoof, dzRoof
+				setRightData(66, 250, 29, // dx, dy, dz
+						55, 162, 79, // dxFront, dyFront, dzFront
+						195, 215, 79, // dxRear, dyRear, dzRear
+						66, 135, 155, // dxRoof, dyRoof, dzRoof
 						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						0, 0, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
-						19, 12, 10// wheel_radius, wheel_width, wheel_rays
+						86, 58, 10// wheel_radius, wheel_width, wheel_rays
 						);
 			} else if (STEAMLOCOMOTIVE0 == val) {
 				setRightData(51, 266, 51, // dxBoiler, dyBoiler, dzBoiler
@@ -801,28 +807,28 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						);
 			} else if (RAILWAGON0 == val) {
 				setRightData(69, 400, 7, // dx, dy, dz
-						41, 51, 14, // dxFront, dyFront, dzFront
-						41, 51, 14, // dxRear, dyRear, dzRear
+						37, 51, 14, // dxFront, dyFront, dzFront
+						37, 51, 14, // dxRear, dyRear, dzRear
 						70, 348, 70, // dxRoof, dyRoof, dzRoof
 						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						29, 29, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						13, 4, 10// wheel_radius, wheel_width, wheel_rays
 						);
-			} else if (RAILWAGON0 == val) {
-				setRightData(69, 400, 7, // dx, dy, dz
-						41, 51, 14, // dxFront, dyFront, dzFront
-						41, 51, 14, // dxRear, dyRear, dzRear
-						70, 348, 70, // dxRoof, dyRoof, dzRoof
+			} else if (RAILWAGON_TENDER == val) {
+				setRightData(81, 231, 10, // dx, dy, dz
+						37, 47, 13, // dxFront, dyFront, dzFront
+						37, 47, 13, // dxRear, dyRear, dzRear
+						81, 231, 70, // dxRoof, dyRoof, dzRoof
 						0, 0, 0, // dxBottom, dyBottom, dzBottom
-						29, 29, // rearOverhang, frontOverhang
+						43, 29, // rearOverhang, frontOverhang
 						0, 0, // rearOverhang1,frontOverhang1,
 						13, 4, 10// wheel_radius, wheel_width, wheel_rays
 						);
 			} else if (RAILWAGON_TANK == val) {
 				setRightData(65, 407, 7, // dx, dy, dz
-						41, 51, 14, // dxFront, dyFront, dzFront
-						41, 51, 14, // dxRear, dyRear, dzRear
+						37, 51, 14, // dxFront, dyFront, dzFront
+						37, 51, 14, // dxRear, dyRear, dzRear
 						83, 374, 83, // dxRoof, dyRoof, dzRoof
 						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						29, 29, // rearOverhang, frontOverhang
@@ -831,8 +837,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						);
 			} else if (RAILWAGON_BULK == val) {
 				setRightData(78, 364, 6, // dx, dy, dz
-						41, 57, 16, // dxFront, dyFront, dzFront
-						41, 57, 16, // dxRear, dyRear, dzRear
+						37, 57, 16, // dxFront, dyFront, dzFront
+						37, 57, 16, // dxRear, dyRear, dzRear
 						78, 364, 56, // dxRoof, dyRoof, dzRoof
 						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						32, 32, // rearOverhang, frontOverhang
@@ -841,8 +847,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						);
 			} else if (RAILWAGON_COAL == val) {
 				setRightData(63, 263, 13, // dx, dy, dz
-						41, 51, 16, // dxFront, dyFront, dzFront
-						41, 51, 16, // dxRear, dyRear, dzRear
+						37, 51, 16, // dxFront, dyFront, dzFront
+						37, 51, 16, // dxRear, dyRear, dzRear
 						100, 263, 61, // dxRoof, dyRoof, dzRoof
 						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						0, 0, // rearOverhang, frontOverhang
@@ -851,8 +857,8 @@ public class CarMeshEditor extends MeshModelEditor implements KeyListener, ItemL
 						);
 			} else if (RAILWAGON_COACH == val) {
 				setRightData(80, 746, 70, // dx, dy, dz
-						41, 71, 18, // dxFront, dyFront, dzFront
-						41, 71, 18, // dxRear, dyRear, dzRear
+						37, 71, 18, // dxFront, dyFront, dzFront
+						37, 71, 18, // dxRear, dyRear, dzRear
 						80, 746, 14, // dxRoof, dyRoof, dzRoof
 						0, 0, 0, // dxBottom, dyBottom, dzBottom
 						64, 64, // rearOverhang, frontOverhang

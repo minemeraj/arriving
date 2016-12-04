@@ -1,3 +1,16 @@
+New cars:
+/lib/cardefault3D_17 (Tank truck)
+
+New objects:
+/lib/object3D_38 (Railwagon Tender)
+
+Fixing object:
+/lib/object3D_35 (Steam locomotive)
+
+--- 26/11/2016 CarDriving 11.0.5 - Monza
+
+Review of the car dynamics and improved steering animation.
+
 New objects:
 /lib/object3D_35 (Steam locomotive)
 /lib/object3D_36 (Fighter aircraft)

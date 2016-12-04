@@ -2,12 +2,12 @@ package com.main;
 
 import java.text.DecimalFormat;
 
-import com.Point3D;
-
 /**
  *
  * Reference book:Dinamica del veicolo (Vehicle Dynamics),by Massimo Guiggiani
- *
+ * Reference axes are:
+ * i (directed as the vehicle noze)
+ * j (perpendicular to j, anti-clockwise so the dot product is in z>0 direction)
  * @author Francesco Piazza
  *
  */
@@ -73,9 +73,9 @@ class CarDynamics {
 	/** lateral velocity **/
 	private double nu = 0;
 
-	/** front tire slip angle **/
+	/** front tire slip angle, positive clockwise**/
 	private double alfa1 = 0;
-	/** rear tire slip angle **/
+	/** rear tire slip angle, positive clockwise **/
 	private double alfa2 = 0;
 
 	/** front side slip angles **/
@@ -309,8 +309,8 @@ class CarDynamics {
 		double cosPsi = Math.cos(psi);
 		double sinPsi = Math.sin(psi);
 
-		dy = dt * (u * cosPsi - nu * sinPsi);
-		dx = dt * (u * sinPsi + nu * cosPsi);
+		dx = dt * (-u * sinPsi - nu * cosPsi);
+		dy = dt * (+u * cosPsi - nu * sinPsi);
 	}
 
 	void setInitvalues(double delta, double u, double r, double nu, double psi) {
@@ -411,16 +411,8 @@ class CarDynamics {
 
 	}
 
-	public Point3D getSpeedVersor() {
-
-		Point3D speed = new Point3D(u * Math.cos(psi) - nu * Math.sin(psi), u * Math.sin(psi) + nu * Math.cos(psi), 0);
-
-		if (Point3D.calculateNorm(speed) < 0.01) {
-			return null;
-		} else {
-			return speed.calculateVersor();
-		}
-
+	public double getAlfa2() {
+		return alfa2;
 	}
 
 }

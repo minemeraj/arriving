@@ -83,6 +83,10 @@ public class Airplane0Model extends VehicleModel {
 	protected double[][][] pFuselage = null;
 	protected double[][][] pFront = null;
 
+	protected Color bodyColor = new Color(255, 255, 255);
+	protected Color topBodyColor = new Color(255, 255, 255);
+	protected Color wheelColor = new Color(0,0,0);
+
 	private double[][][] mainRear = {
 			{ { 0.00 }, { 0.1 }, { 0.70, 0.8333} },
 			{ { 0.18 }, { 0.4333 }, { 0.5333, 0.9000 } },
@@ -584,10 +588,10 @@ public class Airplane0Model extends VehicleModel {
 
 		if(frontCabin!=null){
 			for (int i = 0; i < frontNY - 1; i++) {
-				addTPoint(x + maxDZ - frontCabin[1][i][0].z, y + frontCabin[1][i][0].y, 0);
 				addTPoint(x + maxDZ - frontCabin[1][i][1].z, y + frontCabin[1][i][1].y, 0);
-				addTPoint(x + maxDZ - frontCabin[1][i + 1][1].z, y + frontCabin[1][i + 1][1].y, 0);
+				addTPoint(x + maxDZ - frontCabin[1][i][0].z, y + frontCabin[1][i][0].y, 0);
 				addTPoint(x + maxDZ - frontCabin[1][i + 1][0].z, y + frontCabin[1][i + 1][0].y, 0);
+				addTPoint(x + maxDZ - frontCabin[1][i + 1][1].z, y + frontCabin[1][i + 1][1].y, 0);
 			}
 		}
 	}
@@ -608,10 +612,6 @@ public class Airplane0Model extends VehicleModel {
 
 	@Override
 	public void printTexture(Graphics2D bufGraphics) {
-
-		Color bodyColor = new Color(255, 255, 255);
-		Color topBodyColor = new Color(255, 255, 255);
-		Color wheelColor = new Color(0,0,0);
 
 		bufGraphics.setStroke(new BasicStroke(0.1f));
 

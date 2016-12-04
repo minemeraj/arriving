@@ -1,5 +1,6 @@
 package com.editors.models;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.PrintWriter;
 import java.util.Vector;
@@ -18,21 +19,21 @@ import com.main.Renderer3D;
 public class RailWagon0Model extends VehicleModel{
 
 
-    private double wheelRadius;
-    private double wheelWidth;
+    protected double wheelRadius;
+    protected double wheelWidth;
     protected int wheelRays;
 
     protected BPoint[][][] body;
 
-    private BPoint[][] rWheelLeftFront;
-    private BPoint[][] rWheelRightFront;
-    private BPoint[][] rWheelLeftRear;
-    private BPoint[][] rWheelRightRear;
+    protected BPoint[][] rWheelLeftFront;
+    protected BPoint[][] rWheelRightFront;
+    protected BPoint[][] rWheelLeftRear;
+    protected BPoint[][] rWheelRightRear;
 
-    private BPoint[][] fWheelLeftFront;
-    private BPoint[][] fWheelRightFront;
-    private BPoint[][] fWheelLeftRear;
-    private BPoint[][] fWheelRightRear;
+    protected BPoint[][] fWheelLeftFront;
+    protected BPoint[][] fWheelRightFront;
+    protected BPoint[][] fWheelLeftRear;
+    protected BPoint[][] fWheelRightRear;
     protected BPoint[][][] wagon;
 
     public static String NAME="RailWagon";
@@ -42,8 +43,12 @@ public class RailWagon0Model extends VehicleModel{
     //wheel textures
     protected int[][] tWh=null;
 
-    private double dyTexture=200;
-    private double dxTexture=200;
+    protected int[][] tLeftWagon=null;
+    protected int[][] tTopWagon=null;
+    protected int[][] tRightWagon=null;
+
+    private double dyTexture=50;
+    private double dxTexture=50;
 
 
     public RailWagon0Model(
@@ -84,9 +89,7 @@ public class RailWagon0Model extends VehicleModel{
     @Override
     public void initMesh() {
 
-        int c = 0;
-        c = initDoubleArrayValues(tBo = new int[1][4], c);
-        c = initDoubleArrayValues(tWh = new int[1][4], c);
+        initTextureArrays();
 
         points=new Vector<Point3D>();
         texturePoints=new Vector<Point3D>();
@@ -112,10 +115,15 @@ public class RailWagon0Model extends VehicleModel{
 
         int counter=0;
 
-        counter=buildBodyFaces(counter,tWh[0][0],totWheelPolygon);
+        counter=buildBodyFaces(counter,totWheelPolygon);
+        counter=buildWagonFaces(counter);
 
-        counter=buildWagonFaces(counter,wagon);
+    }
 
+    protected void initTextureArrays() {
+        int c = 0;
+        c = initDoubleArrayValues(tBo = new int[1][4], c);
+        c = initDoubleArrayValues(tWh = new int[1][4], c);
     }
 
 
@@ -190,7 +198,7 @@ public class RailWagon0Model extends VehicleModel{
     }
 
 
-    protected int buildBodyFaces(int counter, int firstWheelTexturePoint, int totWheelPolygon) {
+    protected int buildBodyFaces(int counter, int totWheelPolygon) {
 
         faces[counter++]=buildFace(Renderer3D.CAR_TOP, body[0][0][1],body[1][0][1],body[1][1][1],body[0][1][1], tBo[0]);
         faces[counter++]=buildFace(Renderer3D.CAR_LEFT, body[0][0][0],body[0][0][1],body[0][1][1],body[0][1][0], tBo[0]);
@@ -215,13 +223,11 @@ public class RailWagon0Model extends VehicleModel{
 
         //front bogie
         counter=buildWheelFaces(counter,
-                firstWheelTexturePoint,
                 totWheelPolygon,
                 fWheelLeftFront,fWheelRightFront,fWheelLeftRear,fWheelRightRear);
 
         //rear bogie
         counter=buildWheelFaces(counter,
-                firstWheelTexturePoint,
                 totWheelPolygon,
                 rWheelLeftFront,rWheelRightFront,rWheelLeftRear,rWheelRightRear);
 
@@ -255,14 +261,14 @@ public class RailWagon0Model extends VehicleModel{
     }
 
 
-    protected int buildWagonFaces(int counter, BPoint[][][] wagon) {
+    protected int buildWagonFaces(int counter) {
 
-        faces[counter++]=buildFace(Renderer3D.CAR_TOP, wagon[0][0][1],wagon[1][0][1],wagon[1][1][1],wagon[0][1][1], 0, 1, 2, 3);
-        faces[counter++]=buildFace(Renderer3D.CAR_LEFT, wagon[0][0][0],wagon[0][0][1],wagon[0][1][1],wagon[0][1][0], 0, 1, 2, 3);
-        faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, wagon[1][0][0],wagon[1][1][0],wagon[1][1][1],wagon[1][0][1], 0, 1, 2, 3);
-        faces[counter++]=buildFace(Renderer3D.CAR_FRONT, wagon[0][1][0],wagon[0][1][1],wagon[1][1][1],wagon[1][1][0], 0, 1, 2, 3);
-        faces[counter++]=buildFace(Renderer3D.CAR_BACK, wagon[0][0][0],wagon[1][0][0],wagon[1][0][1],wagon[0][0][1], 0, 1, 2, 3);
-        faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0][0],wagon[0][1][0],wagon[1][1][0],wagon[1][0][0], 0, 1, 2, 3);
+        faces[counter++]=buildFace(Renderer3D.CAR_TOP, wagon[0][0][1],wagon[1][0][1],wagon[1][1][1],wagon[0][1][1], tBo[0]);
+        faces[counter++]=buildFace(Renderer3D.CAR_LEFT, wagon[0][0][0],wagon[0][0][1],wagon[0][1][1],wagon[0][1][0], tBo[0]);
+        faces[counter++]=buildFace(Renderer3D.CAR_RIGHT, wagon[1][0][0],wagon[1][1][0],wagon[1][1][1],wagon[1][0][1],tBo[0]);
+        faces[counter++]=buildFace(Renderer3D.CAR_FRONT, wagon[0][1][0],wagon[0][1][1],wagon[1][1][1],wagon[1][1][0],tBo[0]);
+        faces[counter++]=buildFace(Renderer3D.CAR_BACK, wagon[0][0][0],wagon[1][0][0],wagon[1][0][1],wagon[0][0][1],tBo[0]);
+        faces[counter++]=buildFace(Renderer3D.CAR_BOTTOM, wagon[0][0][0],wagon[0][1][0],wagon[1][1][0],wagon[1][0][0], tBo[0]);
 
         return counter;
 
@@ -271,26 +277,85 @@ public class RailWagon0Model extends VehicleModel{
 
     protected void buildTextures() {
 
+        int shift=1;
+
         double x=bx;
         double y=by;
-
         addTRect(x,y,dxTexture,dyTexture);
-
         //wheel texture, a black square for simplicity:
+        x+=dxTexture+shift;
+        addTRect(x,y,wheelRadius,wheelRadius);
+        x+=wheelRadius;
 
-        x+=dxTexture;
-        y=by;
-
-        addTRect(x,y,wheelWidth,wheelWidth);
-
-        IMG_WIDTH=(int) (2*bx+dxTexture);
+        IMG_WIDTH=(int) (bx+x);
         IMG_HEIGHT=(int) (2*by+dyTexture);
+    }
+
+    protected void buildLefTextures(double x, double y, int shift) {
+        addTPoint(x + body[0][0][0].z, y +body[0][0][0].y, 0);
+        addTPoint(x + body[0][0][1].z, y + body[0][0][1].y, 0);
+        addTPoint(x + body[0][0 + 1][1].z, y + body[0][0 + 1][1].y, 0);
+        addTPoint(x + body[0][0 + 1][0].z, y + body[0][0 + 1][0].y, 0);
+
+        addTPoint(x + wagon[0][0][0].z, y + wagon[0][0][0].y, 0);
+        addTPoint(x + wagon[0][0][1].z, y + wagon[0][0][1].y, 0);
+        addTPoint(x + wagon[0][0 + 1][1].z, y + wagon[0][0 + 1][1].y, 0);
+        addTPoint(x + wagon[0][0 + 1][0].z, y + wagon[0][0 + 1][0].y, 0);
+    }
+
+    protected void buildTopTextures(double x, double y, int shift) {
+
+        addTPoint(x + body[0][0][0].x, y + body[0][0][0].y, 0);
+        addTPoint(x + body[0][0][1].x, y + body[0][0][1].y, 0);
+        addTPoint(x + body[0][0 + 1][1].x, y + body[0][0 + 1][1].y, 0);
+        addTPoint(x + body[0][0 + 1][0].x, y + body[0][0 + 1][0].y, 0);
+
+        addTPoint(x + wagon[0][0][0].x, y + wagon[0][0][0].y, 0);
+        addTPoint(x + wagon[0][0][1].x, y + wagon[0][0][1].y, 0);
+        addTPoint(x + wagon[0][0 + 1][1].x, y + wagon[0][0 + 1][1].y, 0);
+        addTPoint(x + wagon[0][0 + 1][0].x, y + wagon[0][0 + 1][0].y, 0);
+    }
+
+    protected void buildRightTextures(double x, double y, int shift) {
+
+        addTPoint(x + body[0][0][0].z, y + body[0][0][0].y, 0);
+        addTPoint(x + body[0][0][1].z, y + body[0][0][1].y, 0);
+        addTPoint(x + body[0][0 + 1][1].z, y + body[0][0 + 1][1].y, 0);
+        addTPoint(x + body[0][0 + 1][0].z, y + body[0][0 + 1][0].y, 0);
+
+        addTPoint(x + wagon[0][0][0].z, y + wagon[0][0][0].y, 0);
+        addTPoint(x + wagon[0][0][1].z, y + wagon[0][0][1].y, 0);
+        addTPoint(x + wagon[0][0 + 1][1].z, y + wagon[0][0 + 1][1].y, 0);
+        addTPoint(x + wagon[0][0 + 1][0].z, y + wagon[0][0 + 1][0].y, 0);
+    }
+
+    protected void buildBackTextures(double x, double y, int shift) {
+        addTPoint(x + body[0][0][0].x, y + body[0][0][0].z, 0);
+        addTPoint(x + body[1][0][0].x, y + body[1][0][0].z, 0);
+        addTPoint(x + body[1][0][1].x, y + body[1][0][1].z, 0);
+        addTPoint(x + body[0][0][1].x, y + body[0][0][1].z, 0);
+
+        addTPoint(x + wagon[0][0][0].x, y + wagon[0][0][0].z, 0);
+        addTPoint(x + wagon[1][0][0].x, y + wagon[1][0][0].z, 0);
+        addTPoint(x + wagon[1][0][1].x, y + wagon[1][0][1].z, 0);
+        addTPoint(x + wagon[0][0][1].x, y + wagon[0][0][1].z, 0);
+    }
+
+    protected void buildFrontTextures(double x, double y, int shift) {
+        addTPoint(x + body[0][1][0].x, y + body[0][1][0].z, 0);
+        addTPoint(x + body[1][1][0].x, y + body[1][1][0].z, 0);
+        addTPoint(x + body[1][1][1].x, y + body[1][1][1].z, 0);
+        addTPoint(x + body[0][1][1].x, y + body[0][1][1].z, 0);
+
+        addTPoint(x + wagon[0][1][0].x, y + wagon[0][1][0].z, 0);
+        addTPoint(x + wagon[1][1][0].x, y + wagon[1][1][0].z, 0);
+        addTPoint(x + wagon[1][1][1].x, y + wagon[1][1][1].z, 0);
+        addTPoint(x + wagon[0][1][1].x, y + wagon[0][1][1].z, 0);
     }
 
     private int buildWheelFaces(
 
             int counter,
-            int firstWheelTexturePoint,
             int totWheelPolygon,
             BPoint[][] wheelLeftFront,
             BPoint[][] wheelRightFront,
@@ -298,22 +363,22 @@ public class RailWagon0Model extends VehicleModel{
             BPoint[][] wheelRightRear
             ) {
 
-        int[][][] wFaces = buildWheelFaces(wheelLeftFront,firstWheelTexturePoint);
+        int[][][] wFaces = buildWheelFaces(wheelLeftFront,tWh[0]);
         for (int i = 0; i < totWheelPolygon; i++) {
             faces[counter++]=wFaces[i];
         }
 
-        wFaces = buildWheelFaces(wheelRightFront,firstWheelTexturePoint);
+        wFaces = buildWheelFaces(wheelRightFront,tWh[0]);
         for (int i = 0; i < totWheelPolygon; i++) {
             faces[counter++]=wFaces[i];
         }
 
-        wFaces = buildWheelFaces(wheelLeftRear,firstWheelTexturePoint);
+        wFaces = buildWheelFaces(wheelLeftRear,tWh[0]);
         for (int i = 0; i <totWheelPolygon; i++) {
             faces[counter++]=wFaces[i];
         }
 
-        wFaces = buildWheelFaces(wheelRightRear,firstWheelTexturePoint);
+        wFaces = buildWheelFaces(wheelRightRear,tWh[0]);
         for (int i = 0; i < totWheelPolygon; i++) {
             faces[counter++]=wFaces[i];
         }
@@ -331,22 +396,16 @@ public class RailWagon0Model extends VehicleModel{
 
     }
 
+    protected Color bodyColor=new Color(0, 0, 0);
+    protected Color wheelColor=new Color(255, 0, 0);
 
     @Override
     public void printTexture(Graphics2D bufGraphics) {
 
-        for (int i = 0; i < faces.length; i++) {
-
-            int[][] face = faces[i];
-            int[] tPoints = face[2];
-            if(tPoints.length==4) {
-                printTexturePolygon(bufGraphics, tPoints[0],tPoints[1],tPoints[2],tPoints[3]);
-            } else if(tPoints.length==3) {
-                printTexturePolygon(bufGraphics, tPoints[0],tPoints[1],tPoints[2]);
-            }
-
-        }
-
+        bufGraphics.setColor(bodyColor);
+        printTexturePolygon(bufGraphics, tBo[0]);
+        bufGraphics.setColor(wheelColor);
+        printTexturePolygon(bufGraphics, tWh[0]);
 
     }
 

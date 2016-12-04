@@ -23,7 +23,6 @@ public class SteamLocomotive0Model extends VehicleModel {
 	protected int wheelRays;
 
 	protected BPoint[][][] cabin;
-	protected BPoint[][][] body;
 
 	private BPoint[][] tWheelLeftFront;
 	private BPoint[][] tWheelRightFront;
@@ -360,7 +359,7 @@ public class SteamLocomotive0Model extends VehicleModel {
 			BPoint p1 = cylinder[i][0];
 			BPoint p2 = cylinder[(i + 1) % raysNumber][0];
 
-			faces[counter++] = buildFace(0, p0, p1, p2, tBo[0]);
+			faces[counter++] = buildFace(0, p0,  p2,p1, tBo[0]);
 		}
 
 		for (int i = 1; i < raysNumber - 1; i++) {
@@ -369,7 +368,7 @@ public class SteamLocomotive0Model extends VehicleModel {
 			BPoint p1 = cylinder[(i + 1) % raysNumber][1];
 			BPoint p2 = cylinder[i][1];
 
-			faces[counter++] = buildFace(0, p0, p1, p2, tBo[0]);
+			faces[counter++] = buildFace(0, p0,  p2, p1,tBo[0]);
 		}
 
 		return counter;
@@ -413,16 +412,85 @@ public class SteamLocomotive0Model extends VehicleModel {
 		double y = by;
 
 		addTRect(x, y, dxTexture, dyTexture);
-
 		// wheel texture, a black square for simplicity:
-
 		x += dxTexture + shift;
 		y = by;
-
 		addTRect(x, y, wheelWidth, wheelWidth);
+		x+=wheelWidth;
 
-		IMG_WIDTH = (int) (2 * bx + dxTexture + wheelWidth + shift);
+		IMG_WIDTH = (int) (bx + x);
 		IMG_HEIGHT = (int) (2 * by + dyTexture);
+	}
+
+	protected void buildBoilerTexture(double x, double y) {
+
+		double dxWidth=Math.PI*dx/boilerRays;
+		for (int i = 0; i < boilerRays; i++) {
+			addTRect(x, y, dxWidth, dy);
+			x += dxWidth;
+		}
+	}
+
+	protected void buildLefTextures(double x, double y, int shift) {
+		addTPoint(x + cabin[0][0][0].z, y +cabin[0][0][0].y, 0);
+		addTPoint(x + cabin[0][0][1].z, y + cabin[0][0][1].y, 0);
+		addTPoint(x + cabin[0][0 + 1][1].z, y + cabin[0][0 + 1][1].y, 0);
+		addTPoint(x + cabin[0][0 + 1][0].z, y + cabin[0][0 + 1][0].y, 0);
+
+		addTPoint(x + wagon[0][0][0].z, y + wagon[0][0][0].y, 0);
+		addTPoint(x + wagon[0][0][1].z, y + wagon[0][0][1].y, 0);
+		addTPoint(x + wagon[0][0 + 1][1].z, y + wagon[0][0 + 1][1].y, 0);
+		addTPoint(x + wagon[0][0 + 1][0].z, y + wagon[0][0 + 1][0].y, 0);
+	}
+
+	protected void buildTopTextures(double x, double y, int shift) {
+
+		addTPoint(x + cabin[0][0][0].x, y + cabin[0][0][0].y, 0);
+		addTPoint(x + cabin[0][0][1].x, y + cabin[0][0][1].y, 0);
+		addTPoint(x + cabin[0][0 + 1][1].x, y + cabin[0][0 + 1][1].y, 0);
+		addTPoint(x + cabin[0][0 + 1][0].x, y + cabin[0][0 + 1][0].y, 0);
+
+		addTPoint(x + wagon[0][0][0].x, y + wagon[0][0][0].y, 0);
+		addTPoint(x + wagon[0][0][1].x, y + wagon[0][0][1].y, 0);
+		addTPoint(x + wagon[0][0 + 1][1].x, y + wagon[0][0 + 1][1].y, 0);
+		addTPoint(x + wagon[0][0 + 1][0].x, y + wagon[0][0 + 1][0].y, 0);
+	}
+
+	protected void buildRightTextures(double x, double y, int shift) {
+
+		addTPoint(x + cabin[0][0][0].z, y + cabin[0][0][0].y, 0);
+		addTPoint(x + cabin[0][0][1].z, y + cabin[0][0][1].y, 0);
+		addTPoint(x + cabin[0][0 + 1][1].z, y + cabin[0][0 + 1][1].y, 0);
+		addTPoint(x + cabin[0][0 + 1][0].z, y + cabin[0][0 + 1][0].y, 0);
+
+		addTPoint(x + wagon[0][0][0].z, y + wagon[0][0][0].y, 0);
+		addTPoint(x + wagon[0][0][1].z, y + wagon[0][0][1].y, 0);
+		addTPoint(x + wagon[0][0 + 1][1].z, y + wagon[0][0 + 1][1].y, 0);
+		addTPoint(x + wagon[0][0 + 1][0].z, y + wagon[0][0 + 1][0].y, 0);
+	}
+
+	protected void buildBackTextures(double x, double y, int shift) {
+		addTPoint(x + cabin[0][0][0].x, y + cabin[0][0][0].z, 0);
+		addTPoint(x + cabin[1][0][0].x, y + cabin[1][0][0].z, 0);
+		addTPoint(x + cabin[1][0][1].x, y + cabin[1][0][1].z, 0);
+		addTPoint(x + cabin[0][0][1].x, y + cabin[0][0][1].z, 0);
+
+		addTPoint(x + wagon[0][0][0].x, y + wagon[0][0][0].z, 0);
+		addTPoint(x + wagon[1][0][0].x, y + wagon[1][0][0].z, 0);
+		addTPoint(x + wagon[1][0][1].x, y + wagon[1][0][1].z, 0);
+		addTPoint(x + wagon[0][0][1].x, y + wagon[0][0][1].z, 0);
+	}
+
+	protected void buildFrontTextures(double x, double y, int shift) {
+		addTPoint(x + cabin[0][1][0].x, y + cabin[0][1][0].z, 0);
+		addTPoint(x + cabin[1][1][0].x, y + cabin[1][1][0].z, 0);
+		addTPoint(x + cabin[1][1][1].x, y + cabin[1][1][1].z, 0);
+		addTPoint(x + cabin[0][1][1].x, y + cabin[0][1][1].z, 0);
+
+		addTPoint(x + wagon[0][1][0].x, y + wagon[0][1][0].z, 0);
+		addTPoint(x + wagon[1][1][0].x, y + wagon[1][1][0].z, 0);
+		addTPoint(x + wagon[1][1][1].x, y + wagon[1][1][1].z, 0);
+		addTPoint(x + wagon[0][1][1].x, y + wagon[0][1][1].z, 0);
 	}
 
 	private int buildWheelFaces(
